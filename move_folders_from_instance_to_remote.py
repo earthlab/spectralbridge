@@ -11,11 +11,12 @@ Creates NIWO_b85 folder at remote destination and puts all the files from instan
 """
 SOURCE_FOLDERS = [
 
-    "/home/jovyan/data-store/cross-sensor-cal/NIWO_b85",
+    "/home/jovyan/data-store/spectralbridge/WREF_b09",
+    "/home/jovyan/data-store/spectralbridge/YELL_b01"
     
 ]
 
-DESTINATION = "i:/iplant/home/shared/earthlab/macrosystems/november_25_processed_flight_lines"
+DESTINATION = "i:/iplant/home/shared/earthlab/macrosystems/january_26_processed_flight_lines"
 
 
 # -------------------------------
@@ -60,7 +61,7 @@ def upload_file(local_file: Path, remote_file: str):
 
     cmd = [
         "./gocmd", "put",
-        "--progress", "-f", "-K", "--icat",
+        "--progress", "-f", "--icat",
         str(local_file),
         remote_parent + "/"
     ]
