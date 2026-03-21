@@ -401,7 +401,7 @@ def _merge_drone_polygon_outputs(
     con = duckdb.connect()
     try:
         files = ", ".join(
-            [f"'{str(Path(path)).replace("'", "''")}'" for path in outputs]
+            [f"'{str(Path(path)).replace(chr(39), \"''\")}'" for path in outputs]
         )
         con.execute(
             "COPY (SELECT * FROM read_parquet(["

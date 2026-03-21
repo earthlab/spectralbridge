@@ -1571,8 +1571,6 @@ def _render_wavelength_reflectance_plot(
         if len(y_valid) > 0:
             # Count how many points are above the maximum threshold
             points_above_max = np.sum(y_valid > Y_AXIS_MAX)
-            excluded_pct = (points_above_max / len(y_valid)) * 100 if len(y_valid) > 0 else 0
-            
             # Always use the full Y_AXIS_MAX range to make the curve appear smoother
             # This wider range reduces relative variation, making the curve less wavy
             y_min = 0
@@ -1594,7 +1592,7 @@ def _render_wavelength_reflectance_plot(
             # Fallback: use full range
             y_max_data = np.nanmax(y_data) if len(y_data) > 0 else 1.0
             ax.set_ylim(0, min(Y_AXIS_MAX, max(1.0, y_max_data * 1.1)))
-            print(f"[QA]   ⚠️  Using fallback y-axis range (no valid data)")
+            print("[QA]   ⚠️  Using fallback y-axis range (no valid data)")
     
     # Summary statistics
     total_found_bands = sum(len(v) for v in sensor_cols_by_sensor.values())
