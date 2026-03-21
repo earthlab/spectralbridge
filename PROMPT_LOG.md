@@ -157,3 +157,79 @@ Branch: main
 ```text
 can you fix that? build off of the neon qa plot and do it for the drone. we want to confirm that the original ENVI was created correctly and that the bands are faithful, then we want to plot the BRDF correction so that we can see what and how much was adjusted. We get a bunch of -9999 from those first steps and we need to plot wehre all the -9999 are to make sure that went OK. Then we need to see the polygons are over the flightline so we're extracting real data and then we want to show a preview of the merged table to confirm that it worked. This is a special modification for the drone pipeline that differes a bit from the neon pipeline
 ```
+
+## 2026-03-21 - fix full pytest regressions after drone QA changes
+Branch: main
+
+```text
+Run pytest -q
+.................FFFF.F........ssss..................FF.....FFFFFF..s... [ 80%]
+..F...............                                                       [100%]
+=================================== FAILURES ===================================
+___________________________ test_duckdb_merge_smoke ____________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_duckdb_merge_smoke0')
+
+    def test_duckdb_merge_smoke(tmp_path: Path) -> None:
+        flight_dir = tmp_path / "NEON_TEST_FLIGHT"
+        flight_dir.mkdir()
+
+        wavelengths = range(1, 427)
+        pixel_ids = ["pix0", "pix1", "pix2"]
+
+        # Long layout (original)
+        long_rows: list[dict[str, object]] = []
+        for idx, pid in enumerate(pixel_ids):
+            for wl in wavelengths:
+                long_rows.append(
+                    {
+                        "pixel_id": pid,
+                        "wavelength_nm": float(wl),
+                        "reflectance": (wl + idx) / 1000.0,
+                        "site": "TEST",
+                        "domain": "D00",
+                        "flightline": "FLIGHT",
+                        "row": idx,
+                        "col": idx + 10,
+                    }
+                )
+        _write_parquet(long_rows, flight_dir / "orig" / "test_original_table.parquet")
+
+        # Wide layout (corrected)
+        wide_records: list[dict[str, object]] = []
+        for idx, pid in enumerate(pixel_ids):
+            record = {
+                "pixel_id": pid,
+                "site": "TEST",
+                "domain": "D00",
+                "flightline": "FLIGHT",
+                "row": idx,
+                "col": idx + 10,
+            }
+            for band_idx, wl in enumerate(wavelengths, 1):
+                record[f"corr_b{band_idx:03d}_wl{wl:04d}nm"] = (wl + idx) / 2000.0
+            wide_records.append(record)
+        _write_parquet(wide_records, flight_dir / "corr" / "test_corrected_table.parquet")
+
+        # Long layout with micrometer wavelengths (resampled)
+        resamp_records: list[dict[str, object]] = []
+        resamp_wavelengths = range(500, 520)
+        for idx, pid in enumerate(pixel_ids):
+            record = {
+                "pixel_id": pid,
+                "site": "TEST",
+                "domain": "D00",
+                "flightline": "FLIGHT",
+            }
+            for band_idx, wl in enumerate(resamp_wavelengths, 1):
+                record[f"resamp_b{band_idx:03d}_wl{wl:04d}nm"] = (wl + idx) / 3000.0
+            resamp_records.append(record)
+        _write_parquet(resamp_records, flight_dir / "resamp" / "test_resampled_table.parquet")
+
+>       output_path = merge_flightline(flight_dir, emit_qa_panel=False)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_duckdb_merge.py:114: 
+[...]
+Error: Process completed with exit code 1.
+```

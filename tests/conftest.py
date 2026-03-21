@@ -42,11 +42,24 @@ if "pyarrow" not in sys.modules:  # pragma: no cover - testing fallback
     fake_pa = types.ModuleType("pyarrow")
     fake_parquet = types.ModuleType("pyarrow.parquet")
 
+    class _FakeArray(list):
+        pass
+
+    class _FakeChunkedArray(list):
+        pass
+
     class _FakeSchema:
         def __init__(self, names):
             self.names = list(names)
 
     class _FakeTable(dict):
+        @classmethod
+        def from_pandas(cls, df, preserve_index=False):
+            data = df.to_dict(orient="list")
+            if preserve_index:
+                data["index"] = list(df.index)
+            return cls(data)
+
         @property
         def column_names(self):
             return list(self.keys())
@@ -59,6 +72,12 @@ if "pyarrow" not in sys.modules:  # pragma: no cover - testing fallback
 
     def table(mapping):
         return _FakeTable({key: _ensure_iterable(values) for key, values in mapping.items()})
+
+    def array(values, *args, **kwargs):
+        return _FakeArray(_ensure_iterable(values))
+
+    def chunked_array(values, *args, **kwargs):
+        return _FakeChunkedArray(_ensure_iterable(values))
 
     def write_table(table_obj, path):
         path = Path(path)
@@ -125,6 +144,10 @@ if "pyarrow" not in sys.modules:  # pragma: no cover - testing fallback
     fake_pa.__version__ = "0.0.0"
     fake_pa.__path__ = []  # type: ignore[attr-defined]
     fake_pa.table = table
+    fake_pa.array = array
+    fake_pa.chunked_array = chunked_array
+    fake_pa.Array = _FakeArray
+    fake_pa.ChunkedArray = _FakeChunkedArray
     fake_pa.Table = _FakeTable
     fake_pa.parquet = fake_parquet
 
@@ -173,5 +196,4 @@ if "matplotlib" not in sys.modules:  # pragma: no cover - provide lightweight st
 
     sys.modules["matplotlib"] = fake_matplotlib
     sys.modules["matplotlib.pyplot"] = fake_pyplot
-
 

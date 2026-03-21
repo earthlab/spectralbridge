@@ -150,20 +150,27 @@ from spectralbridge.utils_checks import is_valid_json
 
 from ..envi_download import download_neon_file
 from ..file_sort import generate_file_move_list
-from ..mask_raster import mask_raster_with_polygons
 from ..merge_duckdb import merge_flightline
 from ..neon_to_envi import neon_to_envi_no_hytools
-from ..polygon_extraction import control_function_for_extraction
 from ..progress_utils import TileProgressReporter
-from ..standard_resample import translate_to_other_sensors
 from ..utils.naming import get_flightline_products
 from ..file_types import (
     NEONReflectanceBRDFCorrectedENVIFile,
     NEONReflectanceENVIFile,
     NEONReflectanceResampledENVIFile,
 )
-# Lazy import of ray_map to prevent Ray initialization when using thread/process engines
-# ray_map will be imported only when engine="ray"
+
+
+def ray_map(func, iterable, *, num_cpus=None):
+    """Lazy proxy to the shared Ray helper.
+
+    Keeping this symbol at module scope preserves the public/test-facing API
+    without importing Ray until the helper is actually used.
+    """
+
+    from .._ray_utils import ray_map as _ray_map
+
+    return _ray_map(func, iterable, num_cpus=num_cpus)
 
 # ---------------------------------------------------------------------
 # Logging setup (safe even if module imported multiple times)
@@ -2626,10 +2633,6 @@ def _run_flightlines_with_ray(
     if not tasks:
         return []
 
-    # Lazy import: only import ray_map when actually using Ray engine
-    # This prevents Ray from initializing when using thread/process engines
-    from .._ray_utils import ray_map
-
     cpu_budget = num_cpus if num_cpus and num_cpus > 0 else None
 
     if RAY_DEBUG:
@@ -2767,7 +2770,7 @@ def go_forth_and_multiply(
     brightness_offset: float | None = None,
     max_workers: int = 8,
     parquet_chunk_size: int = 50_000,
-    engine: Literal["thread", "process", "ray"] = "thread",  # Changed default to "thread" to avoid Ray initialization issues
+    engine: Literal["thread", "process", "ray"] = "ray",
     merge_memory_limit_gb: float | str | None = 64.0,  # Increased default to 64GB for large merges (multiple JOINs need larger hash tables)
     merge_threads: int | None = 4,
     merge_row_group_size: int | None = None,
@@ -2802,7 +2805,7 @@ def go_forth_and_multiply(
     base_path.mkdir(parents=True, exist_ok=True)
 
     method_norm = (resample_method or "convolution").lower()
-    engine_norm = (engine or "thread").lower()
+    engine_norm = (engine or "ray").lower()
     if engine_norm not in {"thread", "process", "ray"}:
         raise ValueError(
             "engine must be one of 'thread', 'process', or 'ray'"
@@ -3012,6 +3015,8 @@ def go_forth_and_multiply(
     logger.info("✅ All requested flightlines processed.")
 
 def resample_translation_to_other_sensors(base_folder: Path):
+    from ..standard_resample import translate_to_other_sensors
+
     # List all subdirectories in the base folder
     brdf_corrected_header_files = NEONReflectanceBRDFCorrectedENVIFile.find_in_directory(base_folder, 'envi')
     print("Starting translation to other sensors")
@@ -3025,6 +3030,8 @@ def process_base_folder(base_folder: Path, polygon_layer: str, **kwargs):
     """
     Processes subdirectories in a base folder, finding raster files and applying analysis.
     """
+    from ..mask_raster import mask_raster_with_polygons
+
     # Get list of subdirectories
     raster_files = (NEONReflectanceENVIFile.find_in_directory(Path(base_folder)) +
                     NEONReflectanceBRDFCorrectedENVIFile.find_in_directory(Path(base_folder), 'envi') +
@@ -3063,6 +3070,8 @@ def process_all_subdirectories(parent_directory: Path, polygon_path):
     """Searches and processes all subdirectories."""
     if polygon_path is None:
         return
+
+    from ..polygon_extraction import control_function_for_extraction
 
     try:
         control_function_for_extraction(parent_directory, polygon_path)
