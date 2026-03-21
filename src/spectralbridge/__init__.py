@@ -1,9 +1,11 @@
 """SpectralBridge public package surface."""
+
 from __future__ import annotations
 
 from importlib import import_module
 
 from .brightness_config import load_brightness_coefficients
+
 try:  # pragma: no cover - exercised when optional plotting deps missing
     from .sensor_panel_plots import (
         make_micasense_vs_landsat_panels,
@@ -30,6 +32,7 @@ __all__ = sorted(
         + (
             [
                 "apply_brightness_correction",
+                "run_drone_pipeline",
                 load_brightness_coefficients.__name__,
             ]
             + list(_PLOT_EXPORTS)
@@ -37,12 +40,20 @@ __all__ = sorted(
     )
 )
 
+
 def __getattr__(name: str):  # pragma: no cover - thin lazy import helper
     if name == "apply_brightness_correction":
-        from .brightness import apply_brightness_correction as _apply_brightness_correction
+        from .brightness import (
+            apply_brightness_correction as _apply_brightness_correction,
+        )
 
         globals()[name] = _apply_brightness_correction
         return _apply_brightness_correction
+    if name == "run_drone_pipeline":
+        from .pipelines.drone import run_drone_pipeline as _run_drone_pipeline
+
+        globals()[name] = _run_drone_pipeline
+        return _run_drone_pipeline
     if name == "pipeline":
         module = import_module("spectralbridge.pipelines.pipeline")
         globals()[name] = module
