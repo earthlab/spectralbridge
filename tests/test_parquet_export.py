@@ -89,7 +89,9 @@ if "matplotlib" not in sys.modules:  # pragma: no cover - dependency shim for un
 
     fake_figure.Figure = _FakeFigureClass
 
-if "shapely" not in sys.modules:  # pragma: no cover - dependency shim for unit tests
+try:  # pragma: no cover - prefer the real dependency when available
+    from shapely.geometry import box as _real_shapely_box  # noqa: F401
+except ModuleNotFoundError:  # pragma: no cover - dependency shim for unit tests
     fake_shapely = types.ModuleType("shapely")
     fake_geometry = types.ModuleType("shapely.geometry")
 
@@ -185,7 +187,6 @@ _stub_module("spectralbridge.file_sort", generate_file_move_list=lambda *a, **k:
 _stub_module("spectralbridge.mask_raster", mask_raster_with_polygons=lambda *a, **k: None)
 _stub_module("spectralbridge.merge_duckdb", merge_flightline=lambda *a, **k: Path("merged.parquet"))
 _stub_module("spectralbridge.neon_to_envi", neon_to_envi_no_hytools=lambda *a, **k: None)
-_stub_module("spectralbridge.polygon_extraction", control_function_for_extraction=lambda *a, **k: None)
 
 
 class _FakeTileProgressReporter:
@@ -207,9 +208,11 @@ class _FakeFileType:
 
 _stub_module(
     "spectralbridge.file_types",
+    DataFile=_FakeFileType,
     NEONReflectanceBRDFCorrectedENVIFile=_FakeFileType,
     NEONReflectanceENVIFile=_FakeFileType,
     NEONReflectanceResampledENVIFile=_FakeFileType,
+    SpectralDataParquetFile=_FakeFileType,
 )
 
 pipeline_path = (

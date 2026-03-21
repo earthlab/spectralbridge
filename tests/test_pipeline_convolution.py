@@ -61,7 +61,9 @@ if "matplotlib" not in sys.modules:  # pragma: no cover - dependency shim for un
     sys.modules["matplotlib"] = fake_matplotlib
     sys.modules["matplotlib.pyplot"] = fake_pyplot
 
-if "shapely" not in sys.modules:  # pragma: no cover - dependency shim for unit tests
+try:  # pragma: no cover - prefer the real dependency when available
+    from shapely.geometry import box as _real_shapely_box  # noqa: F401
+except ModuleNotFoundError:  # pragma: no cover - dependency shim for unit tests
     fake_shapely = types.ModuleType("shapely")
     fake_geometry = types.ModuleType("shapely.geometry")
 
