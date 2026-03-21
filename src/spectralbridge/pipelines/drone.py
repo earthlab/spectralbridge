@@ -401,7 +401,7 @@ def _merge_drone_polygon_outputs(
     con = duckdb.connect()
     try:
         files = ", ".join(
-            [f"'{str(Path(path)).replace(chr(39), \"''\")}'" for path in outputs]
+            ["'" + str(Path(path)).replace("'", "''") + "'" for path in outputs]
         )
         con.execute(
             "COPY (SELECT * FROM read_parquet(["
@@ -490,6 +490,7 @@ def run_drone_pipeline(
                 "samples": meta["samples"],
                 "bands": meta["bands"],
                 "wavelength_units": meta["wavelength_units"],
+                "nodata": meta["nodata"],
             }
 
             envi_img, envi_hdr = export_h5_to_envi(
@@ -572,6 +573,39 @@ def run_drone_pipeline(
             file_audit["merged_filename"] = merged_path.name
     else:
         results["merged"] = None
+
+    try:
+        from spectralbridge.qa_plots import render_drone_panel
+
+        for file_audit in results["qa_summary"]["files"]:
+            if file_audit.get("status") != "processed":
+                continue
+            base_name = str(file_audit["base_name"])
+            raw_img = output_dir / f"{base_name}__envi.img"
+            corrected_img = output_dir / f"{base_name}__corrected.img"
+            qa_png = output_dir / f"{base_name}__qa.png"
+            _, qa_payload = render_drone_panel(
+                raw_path=raw_img,
+                corrected_path=corrected_img,
+                output_png=qa_png,
+                band_map=file_audit.get("resolved_band_map"),
+                polygon_path=polygon_path,
+                merged_path=Path(results["merged"]) if results["merged"] else None,
+                qa_summary=file_audit,
+                save_json=True,
+            )
+            file_audit["qa_plot_filename"] = qa_png.name
+            file_audit["qa_json_filename"] = qa_png.with_suffix(".json").name
+            file_audit["qa_plot_path"] = str(qa_png)
+            file_audit["qa_json_path"] = str(qa_png.with_suffix(".json"))
+            file_audit["qa_preview"] = {
+                "nodata": qa_payload.get("nodata", {}),
+                "polygon": qa_payload.get("polygon", {}),
+                "merged_preview": qa_payload.get("merged_preview", {}),
+            }
+    except Exception as exc:
+        LOGGER.exception("[drone] QA rendering failed")
+        results["qa_summary"]["qa_render_error"] = str(exc)
 
     qa_path = _write_json(output_dir / "drone_qa_summary.json", results["qa_summary"])
     results["qa_summary_path"] = str(qa_path)

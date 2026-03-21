@@ -66,6 +66,17 @@ class _FakeReporter:
         return None
 
 
+def _fake_render_drone_panel(**kwargs):
+    output_png = Path(kwargs["output_png"])
+    output_png.write_text("png", encoding="utf-8")
+    output_png.with_suffix(".json").write_text("{}", encoding="utf-8")
+    return output_png, {
+        "nodata": {"raw_nodata_pct": 1.0, "corrected_nodata_pct": 2.0},
+        "polygon": {"path": str(kwargs.get("polygon_path")) if kwargs.get("polygon_path") else None},
+        "merged_preview": {"path": str(kwargs.get("merged_path")) if kwargs.get("merged_path") else None},
+    }
+
+
 def test_resolve_band_map_is_wavelength_driven() -> None:
     band_map = resolve_band_map([441.0, 558.0, 652.0, 860.0], DRONE_TARGET_BANDS)
     assert band_map["blue"]["index"] == 0
@@ -93,6 +104,10 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
         "spectralbridge.pipelines.drone.is_valid_envi_pair",
         lambda img, hdr: img.exists() and hdr.exists(),
     )
+    monkeypatch.setattr(
+        "spectralbridge.qa_plots.render_drone_panel",
+        _fake_render_drone_panel,
+    )
 
     results = run_drone_pipeline(
         tmp_path / "input", output_dir=tmp_path / "out", apply_topo=False
@@ -110,6 +125,8 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
     assert file_summary["working_raster"] == "Drone_Flight_01__envi.img"
     assert file_summary["corrected_raster"] == "Drone_Flight_01__corrected.img"
     assert file_summary["polygon_filename"] is None
+    assert file_summary["qa_plot_filename"] == "Drone_Flight_01__qa.png"
+    assert file_summary["qa_json_filename"] == "Drone_Flight_01__qa.json"
     assert Path(results["qa_summary_path"]).exists()
 
 
@@ -161,6 +178,10 @@ def test_run_drone_pipeline_with_polygons_and_merge(
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone._merge_drone_polygon_outputs", _fake_merge
     )
+    monkeypatch.setattr(
+        "spectralbridge.qa_plots.render_drone_panel",
+        _fake_render_drone_panel,
+    )
 
     results = run_drone_pipeline(
         input_dir,
@@ -179,3 +200,7 @@ def test_run_drone_pipeline_with_polygons_and_merge(
         "drone-b__polygons.parquet",
     }
     assert {entry["merged_filename"] for entry in qa_files} == {"drone_merged.parquet"}
+    assert {entry["qa_plot_filename"] for entry in qa_files} == {
+        "drone-a__qa.png",
+        "drone-b__qa.png",
+    }

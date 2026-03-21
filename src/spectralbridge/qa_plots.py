@@ -9,7 +9,7 @@ import subprocess
 import json
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Any, Iterable, Sequence
 
 import numpy as np
 
@@ -1644,6 +1644,378 @@ def _render_issues(ax: Axes, issues: list[str]) -> None:
     )
 
 
+def _nodata_mask(cube: np.ndarray, nodata_value: float | None) -> np.ndarray:
+    mask = ~np.isfinite(cube)
+    if nodata_value is not None and np.isfinite(nodata_value):
+        mask |= np.isclose(cube, float(nodata_value), atol=1e-6)
+    return mask
+
+
+def _cube_valid_mask(cube: np.ndarray, nodata_value: float | None) -> np.ndarray:
+    return np.isfinite(cube) & ~_nodata_mask(cube, nodata_value)
+
+
+def _median_spectrum(cube: np.ndarray, valid_mask: np.ndarray) -> np.ndarray:
+    masked = np.where(valid_mask, cube, np.nan)
+    return np.nanmedian(masked, axis=(1, 2))
+
+
+def _render_drone_band_fidelity(
+    ax: Axes,
+    wavelengths: np.ndarray,
+    raw_spectrum: np.ndarray,
+    corr_spectrum: np.ndarray,
+    band_map: dict[str, dict[str, float | int]] | None,
+) -> None:
+    xs = wavelengths if wavelengths.size == raw_spectrum.size else np.arange(raw_spectrum.size)
+    ax.plot(xs, raw_spectrum, color="#1f77b4", linewidth=1.5, label="raw median")
+    ax.plot(xs, corr_spectrum, color="#ff7f0e", linewidth=1.2, label="corrected median")
+    ax.set_title("Band Fidelity And Median Spectra")
+    ax.set_xlabel("Wavelength (nm)")
+    ax.set_ylabel("Reflectance")
+
+    if band_map:
+        for name, info in band_map.items():
+            idx = int(info.get("index", 0))
+            wl = float(info.get("wavelength", np.nan))
+            if 0 <= idx < raw_spectrum.size:
+                ax.scatter(
+                    [wl],
+                    [raw_spectrum[idx]],
+                    s=40,
+                    zorder=4,
+                    label=f"{name} -> {wl:.1f} nm",
+                )
+            ax.axvline(wl, color="gray", linewidth=0.8, linestyle="--", alpha=0.4)
+        summary = "\n".join(
+            f"{name}: b{int(info.get('index', 0))} @ {float(info.get('wavelength', np.nan)):.1f} nm"
+            for name, info in band_map.items()
+        )
+        ax.text(
+            0.02,
+            0.98,
+            summary,
+            transform=ax.transAxes,
+            ha="left",
+            va="top",
+            fontsize=8,
+            bbox=dict(boxstyle="round", facecolor="white", alpha=0.8, edgecolor="none"),
+        )
+    ax.legend(loc="best", fontsize=8)
+    ax.grid(True, alpha=0.2)
+
+
+def _render_drone_nodata_map(
+    ax: Axes,
+    nodata_fraction: np.ndarray,
+    title: str,
+) -> None:
+    image = ax.imshow(nodata_fraction, cmap="magma", vmin=0.0, vmax=100.0)
+    ax.set_title(title)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    plt.colorbar(image, ax=ax, fraction=0.046, pad=0.04, label="% bands flagged")
+
+
+def _render_drone_correction_magnitude(
+    ax: Axes,
+    raw_cube: np.ndarray,
+    corr_cube: np.ndarray,
+    valid_mask: np.ndarray,
+) -> tuple[float, float]:
+    diff = np.where(valid_mask, corr_cube - raw_cube, np.nan)
+    abs_delta = np.nanmedian(np.abs(diff), axis=0)
+    finite = abs_delta[np.isfinite(abs_delta)]
+    vmax = float(np.nanpercentile(finite, 95)) if finite.size else 1.0
+    image = ax.imshow(abs_delta, cmap="viridis", vmin=0.0, vmax=max(vmax, 1e-6))
+    ax.set_title("Median |Correction| Across Bands")
+    ax.set_xticks([])
+    ax.set_yticks([])
+    plt.colorbar(image, ax=ax, fraction=0.046, pad=0.04, label="|delta|")
+    return (
+        float(np.nanmedian(abs_delta)) if finite.size else 0.0,
+        float(np.nanmax(abs_delta)) if finite.size else 0.0,
+    )
+
+
+def _render_drone_polygon_overlay(
+    ax: Axes,
+    rgb_image: np.ndarray,
+    raster_img: Path,
+    polygon_path: Path | None,
+) -> str | None:
+    ax.imshow(np.clip(rgb_image, 0, 1))
+    ax.set_title("Polygon Overlay On Flightline")
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    if polygon_path is None:
+        ax.text(0.5, 0.5, "No polygon path provided", ha="center", va="center", transform=ax.transAxes)
+        return None
+
+    try:
+        geopandas = __import__("geopandas")
+        rasterio = __import__("rasterio")
+        from rasterio.plot import plotting_extent
+
+        polygons = geopandas.read_file(polygon_path)
+        if polygons.empty:
+            ax.text(0.5, 0.5, "Polygon file is empty", ha="center", va="center", transform=ax.transAxes)
+            return "empty"
+
+        with rasterio.open(raster_img) as src:
+            dataset_crs = src.crs
+            extent = plotting_extent(src)
+
+        if polygons.crs is None and dataset_crs is not None:
+            polygons = polygons.set_crs(dataset_crs)
+        elif dataset_crs is not None and polygons.crs != dataset_crs:
+            polygons = polygons.to_crs(dataset_crs)
+
+        ax.clear()
+        ax.imshow(np.clip(rgb_image, 0, 1), extent=extent, origin="upper")
+        polygons.boundary.plot(ax=ax, color="#ffcc00", linewidth=1.2)
+        ax.set_title("Polygon Overlay On Flightline")
+        ax.set_xlabel("X")
+        ax.set_ylabel("Y")
+        return None
+    except Exception as exc:
+        ax.text(
+            0.5,
+            0.5,
+            f"Polygon overlay unavailable\n{type(exc).__name__}: {exc}",
+            ha="center",
+            va="center",
+            transform=ax.transAxes,
+        )
+        return str(exc)
+
+
+def _render_drone_merged_preview(
+    ax: Axes,
+    merged_path: Path | None,
+    base_name: str,
+) -> dict[str, Any]:
+    ax.axis("off")
+    ax.set_title("Merged Table Preview")
+
+    summary: dict[str, Any] = {
+        "path": str(merged_path) if merged_path is not None else None,
+        "rows_total": 0,
+        "rows_previewed": 0,
+        "columns_previewed": [],
+        "filter_applied": None,
+    }
+    if merged_path is None or not merged_path.exists():
+        ax.text(0.5, 0.5, "No merged parquet available", ha="center", va="center", transform=ax.transAxes)
+        return summary
+    if pd is None:
+        ax.text(0.5, 0.5, "Pandas required for merged preview", ha="center", va="center", transform=ax.transAxes)
+        return summary
+
+    try:
+        df = pd.read_parquet(merged_path)
+        summary["rows_total"] = int(len(df))
+        filtered = df
+        if "flight_id" in df.columns:
+            filtered = df[df["flight_id"].astype(str) == str(base_name)]
+            summary["filter_applied"] = f"flight_id == {base_name}"
+        elif "base_name" in df.columns:
+            filtered = df[df["base_name"].astype(str) == str(base_name)]
+            summary["filter_applied"] = f"base_name == {base_name}"
+
+        preview = filtered.head(5)
+        display_cols = list(preview.columns[:8])
+        summary["rows_previewed"] = int(len(preview))
+        summary["columns_previewed"] = display_cols
+        if preview.empty:
+            ax.text(0.5, 0.5, "Merged parquet exists but no rows matched this flight", ha="center", va="center", transform=ax.transAxes)
+            return summary
+
+        preview = preview.loc[:, display_cols].copy()
+        for col in preview.columns:
+            preview[col] = preview[col].map(
+                lambda value: f"{value:.4g}" if isinstance(value, (int, float, np.floating, np.integer)) else str(value)
+            )
+
+        table = ax.table(
+            cellText=preview.values,
+            colLabels=preview.columns,
+            loc="center",
+            cellLoc="left",
+        )
+        table.auto_set_font_size(False)
+        table.set_fontsize(7)
+        table.scale(1, 1.2)
+        ax.text(
+            0.01,
+            0.99,
+            f"Rows total: {len(df)}\nRows shown: {len(preview)}",
+            transform=ax.transAxes,
+            ha="left",
+            va="top",
+            fontsize=8,
+        )
+        return summary
+    except Exception as exc:
+        ax.text(
+            0.5,
+            0.5,
+            f"Merged preview unavailable\n{type(exc).__name__}: {exc}",
+            ha="center",
+            va="center",
+            transform=ax.transAxes,
+        )
+        summary["error"] = str(exc)
+        return summary
+
+
+def render_drone_panel(
+    *,
+    raw_path: Path,
+    corrected_path: Path,
+    output_png: Path,
+    band_map: dict[str, dict[str, float | int]] | None = None,
+    polygon_path: Path | None = None,
+    merged_path: Path | None = None,
+    qa_summary: dict[str, Any] | None = None,
+    save_json: bool = True,
+    rgb_bands: str | None = None,
+) -> tuple[Path, dict[str, Any]]:
+    raw_path = Path(raw_path)
+    corrected_path = Path(corrected_path)
+    output_png = Path(output_png)
+
+    raw_hdr = hdr_to_dict(raw_path.with_suffix(".hdr"))
+    corr_hdr = hdr_to_dict(corrected_path.with_suffix(".hdr"))
+    raw_cube = read_envi_cube(raw_path, raw_hdr)
+    corr_cube = read_envi_cube(corrected_path, corr_hdr)
+    if raw_cube.shape != corr_cube.shape:
+        raise ValueError("Drone raw and corrected cubes must share shape for QA")
+
+    rgb_targets = _rgb_targets_from_arg(rgb_bands)
+    wavelengths, wavelength_source = wavelengths_from_hdr(corr_hdr)
+    nodata_value = corr_hdr.get("data ignore value")
+    if nodata_value is None:
+        nodata_value = raw_hdr.get("data ignore value")
+    if nodata_value is None and qa_summary is not None:
+        nodata_value = qa_summary.get("metadata", {}).get("nodata")
+    try:
+        nodata_value = float(nodata_value) if nodata_value is not None else -9999.0
+    except (TypeError, ValueError):
+        nodata_value = -9999.0
+
+    raw_nodata = _nodata_mask(raw_cube, nodata_value)
+    corr_nodata = _nodata_mask(corr_cube, nodata_value)
+    raw_valid = _cube_valid_mask(raw_cube, nodata_value)
+    corr_valid = _cube_valid_mask(corr_cube, nodata_value)
+    both_valid = raw_valid & corr_valid
+
+    raw_nodata_fraction = raw_nodata.mean(axis=0) * 100.0
+    corr_nodata_fraction = corr_nodata.mean(axis=0) * 100.0
+    raw_spectrum = _median_spectrum(raw_cube, raw_valid)
+    corr_spectrum = _median_spectrum(corr_cube, corr_valid)
+    max_samples = min(25_000, raw_cube.shape[1] * raw_cube.shape[2])
+    corr_sample, sample_mask = _deterministic_sample(corr_cube, both_valid, max_samples)
+    raw_sample, _ = _deterministic_sample(raw_cube, both_valid, max_samples)
+    correction_report = _correction_report(raw_sample, corr_sample, sample_mask)
+    rgb_image, rgb_indices = _rgb_preview(raw_cube, wavelengths, rgb_targets)
+    header_report = _header_report(corr_hdr, wavelengths, wavelength_source)
+    provenance_inputs = [raw_path, corrected_path]
+    if merged_path is not None and Path(merged_path).exists():
+        provenance_inputs.append(Path(merged_path))
+    provenance = _provenance(raw_path.stem.replace("__envi", ""), provenance_inputs)
+
+    fig, axes = plt.subplots(4, 2, figsize=(14, 18))
+    fig.suptitle(f"Drone QA – {raw_path.stem.replace('__envi', '')}")
+
+    axes[0, 0].imshow(np.clip(rgb_image, 0, 1))
+    axes[0, 0].set_title(
+        f"Original ENVI RGB (bands {rgb_indices[0]+1}/{rgb_indices[1]+1}/{rgb_indices[2]+1})"
+    )
+    axes[0, 0].axis("off")
+    axes[0, 0].text(
+        0.02,
+        0.02,
+        f"Bands: {header_report.n_bands}\nWavelength range: {header_report.first_nm} - {header_report.last_nm} nm\nSource: {header_report.wavelength_source}",
+        transform=axes[0, 0].transAxes,
+        ha="left",
+        va="bottom",
+        fontsize=8,
+        bbox=dict(boxstyle="round", facecolor="white", alpha=0.8, edgecolor="none"),
+    )
+
+    _render_drone_band_fidelity(axes[0, 1], wavelengths, raw_spectrum, corr_spectrum, band_map)
+    _render_drone_nodata_map(axes[1, 0], raw_nodata_fraction, "Raw ENVI -9999 / invalid map")
+    _render_drone_nodata_map(axes[1, 1], corr_nodata_fraction, "Corrected ENVI -9999 / invalid map")
+    _render_delta(axes[2, 0], wavelengths, correction_report)
+    correction_median, correction_max = _render_drone_correction_magnitude(
+        axes[2, 1], raw_cube, corr_cube, both_valid
+    )
+    polygon_warning = _render_drone_polygon_overlay(axes[3, 0], rgb_image, corrected_path, polygon_path)
+    merged_preview = _render_drone_merged_preview(
+        axes[3, 1], Path(merged_path) if merged_path is not None else None, raw_path.stem.replace("__envi", "")
+    )
+
+    for ax in axes.flat:
+        if ax not in {axes[0, 0], axes[3, 1], axes[3, 0], axes[1, 0], axes[1, 1], axes[2, 1]}:
+            ax.grid(True, alpha=0.2)
+
+    nodata_summary = {
+        "nodata_value": nodata_value,
+        "raw_nodata_pct": float(np.mean(raw_nodata) * 100.0),
+        "corrected_nodata_pct": float(np.mean(corr_nodata) * 100.0),
+    }
+    qa_payload: dict[str, Any] = {
+        "platform": "drone",
+        "provenance": {
+            "flightline_id": provenance.flightline_id,
+            "created_utc": provenance.created_utc,
+            "package_version": provenance.package_version,
+            "git_sha": provenance.git_sha,
+            "input_hashes": provenance.input_hashes,
+        },
+        "header": {
+            "n_bands": header_report.n_bands,
+            "wavelength_source": header_report.wavelength_source,
+            "first_nm": header_report.first_nm,
+            "last_nm": header_report.last_nm,
+            "wavelengths_monotonic": header_report.wavelengths_monotonic,
+        },
+        "band_map": band_map or {},
+        "nodata": nodata_summary,
+        "correction": {
+            "delta_median": correction_report.delta_median,
+            "delta_iqr": correction_report.delta_iqr,
+            "largest_delta_indices": correction_report.largest_delta_indices,
+            "spatial_abs_delta_median": correction_median,
+            "spatial_abs_delta_max": correction_max,
+        },
+        "polygon": {
+            "path": str(polygon_path) if polygon_path is not None else None,
+            "warning": polygon_warning,
+        },
+        "merged_preview": merged_preview,
+        "audit": qa_summary or {},
+    }
+
+    footer = (
+        f"Drone QA | UTC: {provenance.created_utc} | Package: {provenance.package_version} | "
+        f"Git: {provenance.git_sha}"
+    )
+    fig.text(0.01, 0.01, footer, ha="left", va="bottom", fontsize=8)
+    output_png.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_png, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+    if save_json:
+        output_png.with_suffix(".json").write_text(
+            json.dumps(qa_payload, indent=2), encoding="utf-8"
+        )
+
+    return output_png, qa_payload
+
+
 def render_flightline_panel(
     flightline_dir: Path,
     quick: bool = False,
@@ -1894,4 +2266,4 @@ def render_flightline_panel(
     return png_path, metrics_dict
 
 
-__all__ = ["render_flightline_panel"]
+__all__ = ["render_flightline_panel", "render_drone_panel"]
