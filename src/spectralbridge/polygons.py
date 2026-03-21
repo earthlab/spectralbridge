@@ -686,7 +686,7 @@ def filter_polygons_by_overlap(
         bounds = src.bounds
     
     # Build transform from ENVI header if needed
-    if transform is None or not hasattr(transform, '__call__'):
+    if transform is None or not isinstance(transform, rasterio.Affine):
         LOGGER.warning("[polygons-filter] Building transform from ENVI header...")
         try:
             from cross_sensor_cal.envi import _parse_envi_header_tolerant
@@ -1577,7 +1577,7 @@ def build_polygon_pixel_index(
         crs_epsg = dataset_crs.to_epsg() if dataset_crs else None
     
     # If transform is None, try to build it from ENVI header map info
-    if transform is None or not hasattr(transform, '__call__'):
+    if transform is None or not isinstance(transform, rasterio.Affine):
         LOGGER.warning(
             "[polygons-index] Raster has no transform. Attempting to build from ENVI header..."
         )
@@ -2339,4 +2339,3 @@ __all__ = [
     "visualize_polygons_on_envi",
     "validate_coordinate_match",
 ]
-
