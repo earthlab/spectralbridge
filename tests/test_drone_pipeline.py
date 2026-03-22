@@ -4,12 +4,17 @@ from pathlib import Path
 
 import json
 
+import pytest
+
 from spectralbridge.pipelines import run_drone_pipeline
 from spectralbridge.pipelines.drone import (
     DRONE_TARGET_BANDS,
+    _prepare_drone_h5_working_copy,
     clean_name,
     resolve_band_map,
 )
+
+h5py = pytest.importorskip("h5py")
 
 
 class _FakeCube:
@@ -95,6 +100,10 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
     h5_path.parent.mkdir(parents=True, exist_ok=True)
     h5_path.write_bytes(b"fake-h5")
 
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._prepare_drone_h5_working_copy",
+        lambda path, *, working_path, overwrite=False: (Path(path), False),
+    )
     monkeypatch.setattr("spectralbridge.pipelines.drone.NeonCube", _FakeCube)
     monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", _FakeWriter)
     monkeypatch.setattr(
@@ -142,6 +151,10 @@ def test_run_drone_pipeline_with_polygons_and_merge(
     polygon_path = tmp_path / "plots.geojson"
     polygon_path.write_text("{}", encoding="utf-8")
 
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._prepare_drone_h5_working_copy",
+        lambda path, *, working_path, overwrite=False: (Path(path), False),
+    )
     monkeypatch.setattr("spectralbridge.pipelines.drone.NeonCube", _FakeCube)
     monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", _FakeWriter)
     monkeypatch.setattr(
@@ -204,3 +217,90 @@ def test_run_drone_pipeline_with_polygons_and_merge(
         "drone-a__qa.png",
         "drone-b__qa.png",
     }
+
+
+def test_prepare_drone_h5_working_copy_patches_only_working_copy(tmp_path: Path) -> None:
+    source_h5 = tmp_path / "source.h5"
+    working_h5 = tmp_path / "prepared" / "source__working.h5"
+
+    with h5py.File(source_h5, "w") as h5_file:
+        dataset = h5_file.create_group("NIWO").create_group("Reflectance").create_dataset(
+            "Reflectance_Data",
+            data=[[[0.1, 0.2]]],
+        )
+        assert "Data_Ignore_Value" not in dataset.attrs
+
+    prepared_path, patched = _prepare_drone_h5_working_copy(
+        source_h5,
+        working_path=working_h5,
+    )
+
+    assert prepared_path == working_h5
+    assert patched is True
+    assert prepared_path.exists()
+
+    with h5py.File(source_h5, "r") as h5_file:
+        source_attrs = h5_file["NIWO/Reflectance/Reflectance_Data"].attrs
+        assert "Data_Ignore_Value" not in source_attrs
+        assert "_FillValue" not in source_attrs
+
+    with h5py.File(prepared_path, "r") as h5_file:
+        attrs = h5_file["NIWO/Reflectance/Reflectance_Data"].attrs
+        assert float(attrs["Data_Ignore_Value"]) == pytest.approx(-9999.0)
+        assert float(attrs["_FillValue"]) == pytest.approx(-9999.0)
+        assert float(attrs["NoData"]) == pytest.approx(-9999.0)
+        assert float(attrs["no_data"]) == pytest.approx(-9999.0)
+        assert float(attrs["nodata"]) == pytest.approx(-9999.0)
+
+
+def test_run_drone_pipeline_prepares_working_copy_before_neoncube(
+    tmp_path: Path, monkeypatch
+) -> None:
+    h5_path = tmp_path / "input" / "Drone Flight #01.h5"
+    h5_path.parent.mkdir(parents=True, exist_ok=True)
+    h5_path.write_bytes(b"fake-h5")
+
+    prepared_path = tmp_path / "out" / "Drone_Flight_01__working.h5"
+    helper_calls: list[tuple[Path, Path, bool]] = []
+    cube_calls: list[Path] = []
+
+    def _fake_prepare(path, *, working_path, overwrite=False):
+        helper_calls.append((Path(path), Path(working_path), overwrite))
+        prepared_path.parent.mkdir(parents=True, exist_ok=True)
+        prepared_path.write_bytes(b"prepared-h5")
+        return prepared_path, True
+
+    class _RecordingCube(_FakeCube):
+        def __init__(self, h5_path: str | Path):
+            cube_calls.append(Path(h5_path))
+            super().__init__(h5_path)
+
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._prepare_drone_h5_working_copy",
+        _fake_prepare,
+    )
+    monkeypatch.setattr("spectralbridge.pipelines.drone.NeonCube", _RecordingCube)
+    monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", _FakeWriter)
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.TileProgressReporter", _FakeReporter
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.is_valid_envi_pair",
+        lambda img, hdr: img.exists() and hdr.exists(),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.qa_plots.render_drone_panel",
+        _fake_render_drone_panel,
+    )
+
+    results = run_drone_pipeline(
+        h5_path.parent,
+        output_dir=tmp_path / "out",
+        apply_topo=False,
+    )
+
+    assert results["processed"] == [str(h5_path)]
+    assert helper_calls == [(h5_path, prepared_path, False)]
+    assert cube_calls
+    assert all(call == prepared_path for call in cube_calls)
+    assert all(call != h5_path for call in cube_calls)

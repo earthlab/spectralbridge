@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 import duckdb
+import h5py
 import numpy as np
 import pandas as pd
 
@@ -36,6 +37,24 @@ DRONE_TARGET_BANDS: dict[str, int] = {
     "nir": 862,
 }
 
+_RECOGNISED_NODATA_ATTRS = (
+    "Data_Ignore_Value",
+    "_FillValue",
+    "NoData",
+    "no_data",
+)
+_DRONE_NODATA_PATCH_ATTRS = (
+    "Data_Ignore_Value",
+    "_FillValue",
+    "NoData",
+    "NoDataValue",
+    "nodata",
+    "no_data",
+    "missing_value",
+    "fill_value",
+)
+_DRONE_FALLBACK_NODATA = np.float32(-9999.0)
+
 
 def clean_name(name: str) -> str:
     """Normalise a source name minimally for filesystem-safe output filenames."""
@@ -46,6 +65,91 @@ def clean_name(name: str) -> str:
     while "__" in safe:
         safe = safe.replace("__", "_")
     return safe.strip("._") or "drone"
+
+
+def _find_drone_reflectance_dataset(h5_file: h5py.File) -> h5py.Dataset:
+    """Locate the reflectance cube for drone staging without relaxing NEON readers.
+
+    The drone pipeline prepares a run-owned working copy before instantiating
+    ``NeonCube`` so that the standard NEON reader can remain strict elsewhere.
+    """
+
+    explicit_candidates = (
+        "NIWO/Reflectance/Reflectance_Data",
+        "Reflectance/Reflectance_Data",
+    )
+    for candidate in explicit_candidates:
+        dataset = h5_file.get(candidate)
+        if isinstance(dataset, h5py.Dataset):
+            return dataset
+
+    best_path: str | None = None
+    best_score: tuple[int, int, int] | None = None
+
+    def _visitor(name: str, obj: h5py.Dataset) -> None:
+        nonlocal best_path, best_score
+        if not isinstance(obj, h5py.Dataset):
+            return
+
+        name_lower = name.lower()
+        keyword_score = 0
+        for idx, needle in enumerate(("reflectance_data", "reflectance", "reflect")):
+            if needle in name_lower:
+                keyword_score = 3 - idx
+                break
+        if keyword_score == 0:
+            return
+
+        shape_score = min(int(obj.ndim), 3)
+        size_score = int(obj.size > 0)
+        score = (keyword_score, shape_score, size_score)
+        if best_score is None or score > best_score:
+            best_path = name
+            best_score = score
+
+    h5_file.visititems(_visitor)
+    if best_path is None:
+        raise KeyError("Could not locate a reflectance-like dataset in the drone HDF5.")
+
+    dataset = h5_file.get(best_path)
+    if not isinstance(dataset, h5py.Dataset):  # pragma: no cover - defensive
+        raise KeyError(f"Resolved reflectance path is not a dataset: {best_path}")
+    return dataset
+
+
+def _dataset_has_recognised_nodata(dataset: h5py.Dataset) -> bool:
+    return any(attr_name in dataset.attrs for attr_name in _RECOGNISED_NODATA_ATTRS)
+
+
+def _prepare_drone_h5_working_copy(
+    h5_path: str | Path,
+    *,
+    working_path: str | Path,
+    overwrite: bool = False,
+) -> tuple[Path, bool]:
+    """Prepare a drone-owned HDF5 copy with fallback no-data metadata if needed.
+
+    This compatibility shim is intentionally local to the drone pipeline. It
+    never mutates the original source HDF5 and exists only to bridge drone
+    orthomosaics into the existing strict NEON reader stack.
+    """
+
+    source_path = Path(h5_path)
+    prepared_path = Path(working_path)
+    prepared_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if overwrite or not prepared_path.exists():
+        shutil.copy2(source_path, prepared_path)
+
+    with h5py.File(prepared_path, "r+") as h5_file:
+        reflectance_ds = _find_drone_reflectance_dataset(h5_file)
+        if _dataset_has_recognised_nodata(reflectance_ds):
+            return prepared_path, False
+
+        for attr_name in _DRONE_NODATA_PATCH_ATTRS:
+            reflectance_ds.attrs[attr_name] = _DRONE_FALLBACK_NODATA
+
+    return prepared_path, True
 
 
 def resolve_band_map(
@@ -457,6 +561,7 @@ def run_drone_pipeline(
 
     for h5_path in h5_files:
         base_name = clean_name(h5_path.stem)
+        prepared_h5_path = output_dir / f"{base_name}__working.h5"
         envi_stem = output_dir / f"{base_name}__envi"
         corrected_stem = output_dir / f"{base_name}__corrected"
         polygon_output_path = output_dir / f"{base_name}__polygons.parquet"
@@ -481,8 +586,16 @@ def run_drone_pipeline(
             "merged_filename": None,
         }
         try:
-            cube = NeonCube(h5_path=h5_path)
-            meta = validate_drone_h5_metadata(h5_path)
+            prepared_h5_path, nodata_patched = _prepare_drone_h5_working_copy(
+                h5_path,
+                working_path=prepared_h5_path,
+                overwrite=overwrite,
+            )
+            file_audit["prepared_h5_filename"] = prepared_h5_path.name
+            file_audit["nodata_patch_applied"] = bool(nodata_patched)
+
+            cube = NeonCube(h5_path=prepared_h5_path)
+            meta = validate_drone_h5_metadata(prepared_h5_path)
             band_map = resolve_band_map(meta["wavelengths"], DRONE_TARGET_BANDS)
             file_audit["resolved_band_map"] = band_map
             file_audit["metadata"] = {
@@ -494,14 +607,14 @@ def run_drone_pipeline(
             }
 
             envi_img, envi_hdr = export_h5_to_envi(
-                h5_path,
+                prepared_h5_path,
                 output_stem=envi_stem,
                 brightness_offset=0.0,
                 overwrite=overwrite,
                 cube=cube,
             )
             config = build_drone_config(
-                h5_path=h5_path,
+                h5_path=prepared_h5_path,
                 envi_img=envi_img,
                 envi_hdr=envi_hdr,
                 corrected_img=corrected_stem.with_suffix(".img"),
