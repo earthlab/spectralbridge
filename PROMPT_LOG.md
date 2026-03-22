@@ -233,3 +233,10 @@ tests/test_duckdb_merge.py:114:
 [...]
 Error: Process completed with exit code 1.
 ```
+
+## 2026-03-22 - small test update for PR creation check
+Branch: work
+
+```text
+can you make a small test update to check that you can create PRs?
+```
