@@ -137,6 +137,7 @@ def build_drone_output_paths(
         "corrected_stem": flight_dir / f"{flight_stem}__corrected",
         "polygon_parquet": flight_dir / f"{flight_stem}__polygons.parquet",
         "polygon_index": flight_dir / f"{flight_stem}__polygon_index.parquet",
+        "overlay_debug_png": flight_dir / f"{flight_stem}__overlay_debug.png",
         "qa_png": flight_dir / f"{flight_stem}__qa.png",
         "qa_json": flight_dir / f"{flight_stem}__qa.json",
     }
@@ -470,6 +471,157 @@ def _write_json(path: Path, payload: dict[str, Any]) -> Path:
     return path
 
 
+def _normalise_bounds(bounds: Any) -> list[float] | None:
+    if bounds is None:
+        return None
+    values = [float(value) for value in bounds]
+    return values if len(values) == 4 else None
+
+
+def _normalise_transform(transform: Any) -> list[float] | None:
+    if transform is None:
+        return None
+    try:
+        return [float(value) for value in tuple(transform)[:6]]
+    except Exception:
+        return None
+
+
+def _crs_to_string(crs: Any) -> str | None:
+    if crs is None:
+        return None
+    if hasattr(crs, "to_string"):
+        try:
+            return crs.to_string()
+        except Exception:
+            pass
+    return str(crs)
+
+
+def collect_drone_spatial_diagnostics(
+    *,
+    raster_img: Path,
+    polygons_path: Path,
+) -> dict[str, Any]:
+    """Collect drone-only raster/polygon overlay diagnostics before extraction."""
+
+    geopandas = __import__("geopandas")
+    rasterio = __import__("rasterio")
+    from shapely.geometry import box
+
+    polygons = geopandas.read_file(polygons_path)
+    if polygons.empty:
+        raise ValueError(f"No polygons were found in {polygons_path}")
+
+    with rasterio.open(raster_img) as src:
+        raster_crs = src.crs
+        raster_bounds = src.bounds
+        raster_transform = src.transform
+        raster_width = src.width
+        raster_height = src.height
+        raster_nodata = src.nodata
+
+    polygon_crs = polygons.crs
+    polygon_total_bounds = _normalise_bounds(polygons.total_bounds)
+    reprojected_polygons = polygons
+    reprojected = False
+    if polygon_crs is None and raster_crs is not None:
+        reprojected_polygons = polygons.set_crs(raster_crs)
+        reprojected = True
+    elif raster_crs is not None and polygon_crs != raster_crs:
+        reprojected_polygons = polygons.to_crs(raster_crs)
+        reprojected = True
+
+    raster_bounds_poly = box(*raster_bounds)
+    reprojected_polygon_total_bounds = _normalise_bounds(reprojected_polygons.total_bounds)
+    overlap_after_reproject = False
+    if reprojected_polygon_total_bounds is not None:
+        overlap_after_reproject = bool(
+            box(*reprojected_polygon_total_bounds).intersects(raster_bounds_poly)
+        )
+    intersecting_polygon_count = int(
+        reprojected_polygons.geometry.intersects(raster_bounds_poly).sum()
+    )
+
+    return {
+        "raster_path": str(raster_img),
+        "raster_crs": _crs_to_string(raster_crs),
+        "raster_bounds": _normalise_bounds(raster_bounds),
+        "raster_transform": _normalise_transform(raster_transform),
+        "raster_width": int(raster_width),
+        "raster_height": int(raster_height),
+        "raster_nodata": None if raster_nodata is None else float(raster_nodata),
+        "polygon_path": str(polygons_path),
+        "polygon_crs": _crs_to_string(polygon_crs),
+        "polygon_total_bounds": polygon_total_bounds,
+        "polygon_count": int(len(polygons)),
+        "reprojected_polygon_crs": _crs_to_string(reprojected_polygons.crs),
+        "reprojected_polygon_total_bounds": reprojected_polygon_total_bounds,
+        "polygon_reprojected": reprojected,
+        "bounds_overlap_after_reproject": overlap_after_reproject,
+        "intersecting_polygon_count": intersecting_polygon_count,
+    }
+
+
+def save_drone_overlay_debug_plot(
+    *,
+    polygons_path: Path,
+    raster_bounds: list[float] | tuple[float, float, float, float],
+    raster_crs: str | None,
+    output_path: Path,
+) -> Path:
+    """Write a lightweight overlay PNG for drone polygon/raster diagnostics."""
+
+    geopandas = __import__("geopandas")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.patches import Rectangle
+
+    polygons = geopandas.read_file(polygons_path)
+    if polygons.empty:
+        raise ValueError(f"No polygons were found in {polygons_path}")
+
+    if raster_crs is not None:
+        if polygons.crs is None:
+            polygons = polygons.set_crs(raster_crs)
+        elif _crs_to_string(polygons.crs) != raster_crs:
+            polygons = polygons.to_crs(raster_crs)
+
+    minx, miny, maxx, maxy = [float(value) for value in raster_bounds]
+    width = max(maxx - minx, 1.0)
+    height = max(maxy - miny, 1.0)
+
+    fig, ax = plt.subplots(figsize=(4, 4))
+    ax.add_patch(
+        Rectangle(
+            (minx, miny),
+            width,
+            height,
+            fill=False,
+            linewidth=2.0,
+            edgecolor="tab:blue",
+            label="raster bounds",
+        )
+    )
+    polygons.boundary.plot(ax=ax, color="tab:orange", linewidth=1.0, label="polygons")
+    pad_x = width * 0.05
+    pad_y = height * 0.05
+    ax.set_xlim(minx - pad_x, maxx + pad_x)
+    ax.set_ylim(miny - pad_y, maxy + pad_y)
+    ax.set_aspect("equal", adjustable="box")
+    ax.set_title("Drone overlay debug")
+    ax.set_xlabel("x")
+    ax.set_ylabel("y")
+    ax.legend(loc="best")
+    fig.tight_layout()
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, dpi=150)
+    plt.close(fig)
+    return output_path
+
+
 def _build_polygon_pixel_index_for_raster(
     *,
     raster_img: Path,
@@ -747,6 +899,7 @@ def run_drone_pipeline(
         corrected_stem = path_map["corrected_stem"]
         polygon_output_path = path_map["polygon_parquet"]
         polygon_index_path = path_map["polygon_index"]
+        overlay_debug_path = path_map["overlay_debug_png"]
         package_dir = _drone_package_dir(h5_path)
         flight_started = time.monotonic()
         if batch_bar is not None:
@@ -783,6 +936,10 @@ def run_drone_pipeline(
             "polygon_path": str(polygon_output_path) if polygon_path is not None else None,
             "polygon_index_filename": polygon_index_path.name if polygon_path is not None else None,
             "polygon_index_path": str(polygon_index_path) if polygon_path is not None else None,
+            "overlay_debug_filename": (
+                overlay_debug_path.name if polygon_path is not None else None
+            ),
+            "overlay_debug_path": str(overlay_debug_path) if polygon_path is not None else None,
             "qa_plot_filename": path_map["qa_png"].name,
             "qa_json_filename": path_map["qa_json"].name,
             "qa_plot_path": str(path_map["qa_png"]),
@@ -865,6 +1022,33 @@ def run_drone_pipeline(
                     batch_bar.set_postfix_str(
                         f"{index}/{total_flights} {flight_stem} | polygon extraction"
                     )
+                spatial_diagnostics = collect_drone_spatial_diagnostics(
+                    raster_img=corrected_img,
+                    polygons_path=polygon_path,
+                )
+                file_audit["spatial_diagnostics"] = spatial_diagnostics
+                _drone_emit(
+                    f"[drone] [{index}/{total_flights}] {flight_stem} "
+                    f"raster_crs={spatial_diagnostics.get('raster_crs')} "
+                    f"polygon_crs={spatial_diagnostics.get('polygon_crs')} "
+                    f"reprojected={spatial_diagnostics.get('polygon_reprojected')} "
+                    f"overlap_after_reproject={spatial_diagnostics.get('bounds_overlap_after_reproject')} "
+                    f"intersecting_polygons={spatial_diagnostics.get('intersecting_polygon_count')}"
+                )
+                try:
+                    save_drone_overlay_debug_plot(
+                        polygons_path=polygon_path,
+                        raster_bounds=spatial_diagnostics["raster_bounds"],
+                        raster_crs=spatial_diagnostics["raster_crs"],
+                        output_path=overlay_debug_path,
+                    )
+                except Exception as plot_exc:
+                    LOGGER.warning(
+                        "[drone] Overlay debug plot failed for %s: %s",
+                        h5_path,
+                        plot_exc,
+                    )
+                    file_audit["overlay_debug_error"] = str(plot_exc)
                 index_path = _build_polygon_pixel_index_for_raster(
                     raster_img=corrected_img,
                     raster_hdr=corrected_hdr,
@@ -911,7 +1095,21 @@ def run_drone_pipeline(
             status_counts[status] += 1
             if status == _DRONE_STATUS_NO_OVERLAP:
                 results["processed"].append(str(h5_path))
-                LOGGER.warning("[drone] No polygon overlap for %s: %s", h5_path, reason)
+                diagnostics = file_audit.get("spatial_diagnostics")
+                if diagnostics is not None:
+                    LOGGER.warning(
+                        "[drone] No polygon overlap for %s: raster_crs=%s polygon_crs=%s overlap_after_reproject=%s intersecting_polygons=%s reason=%s",
+                        h5_path,
+                        diagnostics.get("raster_crs"),
+                        diagnostics.get("polygon_crs"),
+                        diagnostics.get("bounds_overlap_after_reproject"),
+                        diagnostics.get("intersecting_polygon_count"),
+                        reason,
+                    )
+                else:
+                    LOGGER.warning(
+                        "[drone] No polygon overlap for %s: %s", h5_path, reason
+                    )
             else:
                 LOGGER.exception("[drone] FAILED for %s", h5_path)
                 results["failed"].append({"input": str(h5_path), "error": reason})
@@ -1015,9 +1213,11 @@ __all__ = [
     "build_drone_output_paths",
     "build_drone_config",
     "clean_name",
+    "collect_drone_spatial_diagnostics",
     "derive_drone_flight_stem",
     "export_h5_to_envi",
     "resolve_band_map",
     "run_drone_pipeline",
+    "save_drone_overlay_debug_plot",
     "validate_drone_h5_metadata",
 ]

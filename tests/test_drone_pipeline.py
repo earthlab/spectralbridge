@@ -5,18 +5,26 @@ from pathlib import Path
 import json
 
 import pytest
+import numpy as np
 
 from spectralbridge.pipelines import run_drone_pipeline
 from spectralbridge.pipelines.drone import (
     DRONE_TARGET_BANDS,
     build_drone_output_paths,
+    collect_drone_spatial_diagnostics,
     _prepare_drone_h5_working_copy,
     clean_name,
     derive_drone_flight_stem,
     resolve_band_map,
+    save_drone_overlay_debug_plot,
 )
 
 h5py = pytest.importorskip("h5py")
+geopandas = pytest.importorskip("geopandas")
+rasterio = pytest.importorskip("rasterio")
+shapely_geometry = pytest.importorskip("shapely.geometry")
+from_origin = rasterio.transform.from_origin
+Polygon = shapely_geometry.Polygon
 
 
 class _FakeCube:
@@ -102,6 +110,42 @@ def _fake_render_drone_panel(**kwargs):
         "polygon": {"path": str(kwargs.get("polygon_path")) if kwargs.get("polygon_path") else None},
         "merged_preview": {"path": str(kwargs.get("merged_path")) if kwargs.get("merged_path") else None},
     }
+
+
+def _write_test_raster(
+    path: Path,
+    *,
+    crs: str = "EPSG:32613",
+    transform=None,
+    nodata: float = -9999.0,
+) -> Path:
+    transform = transform or from_origin(500000.0, 4100000.0, 10.0, 10.0)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with rasterio.open(
+        path,
+        "w",
+        driver="GTiff",
+        height=4,
+        width=4,
+        count=1,
+        dtype="float32",
+        crs=crs,
+        transform=transform,
+        nodata=nodata,
+    ) as dst:
+        dst.write(np.ones((4, 4), dtype="float32"), 1)
+    return path
+
+
+def _write_test_polygons(path: Path, *, crs: str, polygons: list[Polygon]) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    gdf = geopandas.GeoDataFrame(
+        {"name": [f"poly_{idx}" for idx in range(len(polygons))]},
+        geometry=polygons,
+        crs=crs,
+    )
+    gdf.to_file(path, driver="GeoJSON")
+    return path
 
 
 def test_resolve_band_map_is_wavelength_driven() -> None:
@@ -234,6 +278,28 @@ def test_run_drone_pipeline_with_polygons_and_merge(
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone._merge_drone_polygon_outputs", _fake_merge
     )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.collect_drone_spatial_diagnostics",
+        lambda *, raster_img, polygons_path: {
+            "raster_crs": "EPSG:32613",
+            "polygon_crs": "EPSG:4326",
+            "polygon_reprojected": True,
+            "bounds_overlap_after_reproject": True,
+            "intersecting_polygon_count": 1,
+            "raster_bounds": [0.0, 0.0, 10.0, 10.0],
+        },
+    )
+
+    def _fake_overlay_plot(**kwargs):
+        output_path = Path(kwargs["output_path"])
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_bytes(b"png")
+        return output_path
+
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.save_drone_overlay_debug_plot",
+        _fake_overlay_plot,
+    )
     results = run_drone_pipeline(
         input_dir,
         polygon_path=polygon_path,
@@ -260,6 +326,120 @@ def test_run_drone_pipeline_with_polygons_and_merge(
         "SPR2_20230628",
     }
     assert {entry["status"] for entry in qa_files} == {"success"}
+
+
+def test_collect_drone_spatial_diagnostics_records_raster_and_polygon_metadata(
+    tmp_path: Path,
+) -> None:
+    raster_path = _write_test_raster(tmp_path / "flight.tif")
+    polygon_path = _write_test_polygons(
+        tmp_path / "plots.geojson",
+        crs="EPSG:32613",
+        polygons=[
+            Polygon(
+                [
+                    (500005.0, 4099995.0),
+                    (500020.0, 4099995.0),
+                    (500020.0, 4099980.0),
+                    (500005.0, 4099980.0),
+                ]
+            )
+        ],
+    )
+
+    diagnostics = collect_drone_spatial_diagnostics(
+        raster_img=raster_path,
+        polygons_path=polygon_path,
+    )
+
+    assert diagnostics["raster_path"] == str(raster_path)
+    assert diagnostics["raster_crs"] == "EPSG:32613"
+    assert diagnostics["raster_bounds"] == [
+        500000.0,
+        4099960.0,
+        500040.0,
+        4100000.0,
+    ]
+    assert diagnostics["raster_transform"] == [
+        10.0,
+        0.0,
+        500000.0,
+        0.0,
+        -10.0,
+        4100000.0,
+    ]
+    assert diagnostics["raster_nodata"] == pytest.approx(-9999.0)
+    assert diagnostics["polygon_crs"] == "EPSG:32613"
+    assert diagnostics["polygon_count"] == 1
+    assert diagnostics["polygon_total_bounds"] == [
+        500005.0,
+        4099980.0,
+        500020.0,
+        4099995.0,
+    ]
+    assert diagnostics["bounds_overlap_after_reproject"] is True
+    assert diagnostics["intersecting_polygon_count"] == 1
+
+
+def test_collect_drone_spatial_diagnostics_reprojects_before_overlap_check(
+    tmp_path: Path,
+) -> None:
+    raster_path = _write_test_raster(tmp_path / "flight.tif")
+    polygon_path = _write_test_polygons(
+        tmp_path / "plots.geojson",
+        crs="EPSG:4326",
+        polygons=[
+            Polygon(
+                [
+                    (-105.00001, 37.04618),
+                    (-104.99990, 37.04618),
+                    (-104.99990, 37.04605),
+                    (-105.00001, 37.04605),
+                ]
+            )
+        ],
+    )
+
+    diagnostics = collect_drone_spatial_diagnostics(
+        raster_img=raster_path,
+        polygons_path=polygon_path,
+    )
+
+    assert diagnostics["polygon_crs"] == "EPSG:4326"
+    assert diagnostics["polygon_reprojected"] is True
+    assert diagnostics["reprojected_polygon_crs"] == "EPSG:32613"
+    assert diagnostics["polygon_total_bounds"] != diagnostics["reprojected_polygon_total_bounds"]
+    assert diagnostics["bounds_overlap_after_reproject"] is True
+    assert diagnostics["intersecting_polygon_count"] == 1
+
+
+def test_save_drone_overlay_debug_plot_writes_png(tmp_path: Path) -> None:
+    polygon_path = _write_test_polygons(
+        tmp_path / "plots.geojson",
+        crs="EPSG:32613",
+        polygons=[
+            Polygon(
+                [
+                    (500005.0, 4099995.0),
+                    (500020.0, 4099995.0),
+                    (500020.0, 4099980.0),
+                    (500005.0, 4099980.0),
+                ]
+            )
+        ],
+    )
+    output_path = tmp_path / "overlay.png"
+
+    written = save_drone_overlay_debug_plot(
+        polygons_path=polygon_path,
+        raster_bounds=[500000.0, 4099960.0, 500040.0, 4100000.0],
+        raster_crs="EPSG:32613",
+        output_path=output_path,
+    )
+
+    assert written == output_path
+    assert output_path.exists()
+    assert output_path.stat().st_size > 0
 
 
 def test_prepare_drone_h5_working_copy_patches_only_working_copy(tmp_path: Path) -> None:
@@ -400,6 +580,48 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
     polygon_path.write_text("{}", encoding="utf-8")
 
     _patch_basic_drone_runtime(monkeypatch)
+    diagnostics_by_flight = {
+        "SPR1_20230628__corrected": {
+            "raster_crs": "EPSG:32613",
+            "polygon_crs": "EPSG:4326",
+            "polygon_reprojected": True,
+            "bounds_overlap_after_reproject": True,
+            "intersecting_polygon_count": 1,
+            "raster_bounds": [0.0, 0.0, 10.0, 10.0],
+        },
+        "SPR2_20230628__corrected": {
+            "raster_crs": "EPSG:32613",
+            "polygon_crs": "EPSG:4326",
+            "polygon_reprojected": True,
+            "bounds_overlap_after_reproject": False,
+            "intersecting_polygon_count": 0,
+            "raster_bounds": [0.0, 0.0, 10.0, 10.0],
+        },
+        "SPR3_20230628__corrected": {
+            "raster_crs": "EPSG:32613",
+            "polygon_crs": "EPSG:4326",
+            "polygon_reprojected": True,
+            "bounds_overlap_after_reproject": True,
+            "intersecting_polygon_count": 1,
+            "raster_bounds": [0.0, 0.0, 10.0, 10.0],
+        },
+    }
+
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.collect_drone_spatial_diagnostics",
+        lambda *, raster_img, polygons_path: diagnostics_by_flight[Path(raster_img).stem],
+    )
+
+    def _fake_overlay_plot(**kwargs):
+        output_path = Path(kwargs["output_path"])
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_bytes(b"png")
+        return output_path
+
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.save_drone_overlay_debug_plot",
+        _fake_overlay_plot,
+    )
 
     def _fake_build_index(**kwargs):
         output_path = kwargs["output_path"]
@@ -466,3 +688,15 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
         "skipped_no_polygon_overlap": 1,
         "failed_other": 1,
     }
+    file_entries = {
+        entry["flight_stem"]: entry for entry in results["qa_summary"]["files"]
+    }
+    assert file_entries["SPR2_20230628"]["spatial_diagnostics"] == diagnostics_by_flight[
+        "SPR2_20230628__corrected"
+    ]
+    assert file_entries["SPR2_20230628"]["spatial_diagnostics"][
+        "bounds_overlap_after_reproject"
+    ] is False
+    assert file_entries["SPR2_20230628"]["overlay_debug_filename"] == (
+        "SPR2_20230628__overlay_debug.png"
+    )

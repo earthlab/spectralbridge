@@ -1147,3 +1147,180 @@ After implementing, report:
 - what tests were added
 - confirmation that the NEON pipeline behavior was not changed
 ```
+## 2026-03-22 - drone projection overlay diagnostics
+Branch: work
+
+```text
+You are working in the `spectralbridge` repository.
+
+Task:
+Add projection / overlay diagnostics to the **drone pipeline only** so we can detect whether polygons are being matched to flight lines correctly.
+
+Do **not** modify the standard NEON pipeline.
+
+## Goal
+
+We suspect some drone flights may be failing or producing only nodata because the supplied polygons are not overlaying the flight rasters correctly after reprojection.
+
+Add lightweight, high-value diagnostics to the drone pipeline so that for each flight we can tell:
+
+- raster CRS
+- raster bounds
+- raster transform
+- raster nodata
+- polygon CRS
+- polygon bounds in original CRS
+- polygon bounds after reprojection to raster CRS
+- whether the reprojected polygon bounds overlap the raster bounds
+- optionally, how many polygons intersect the raster bounds before pixel extraction
+
+This is for debugging and reporting. Keep it local to the drone workflow.
+
+## Guardrails
+
+- Do not change the behavior of the NEON pipeline.
+- Do not broadly refactor shared geospatial code unless absolutely necessary.
+- Prefer minimal, surgical changes in `src/spectralbridge/pipelines/drone.py` and any small local helpers.
+- If shared helpers are needed, they must not change NEON behavior.
+
+## Required behavior
+
+### 1. Add drone-only spatial diagnostics per flight
+
+Before polygon-pixel extraction in the drone pipeline, compute and report:
+
+For the raster being used for polygon extraction:
+- raster path
+- raster CRS
+- raster bounds
+- raster transform
+- raster width / height
+- raster nodata value
+
+For the supplied polygon dataset:
+- polygon path
+- polygon CRS
+- polygon total bounds in original CRS
+- polygon count
+
+After reprojection to raster CRS:
+- reprojected polygon CRS
+- reprojected polygon total bounds
+- whether reprojected polygon bounds intersect raster bounds
+- optional count of polygons whose bounds intersect raster bounds
+
+These diagnostics should be available in:
+- per-flight logging
+- the per-flight summary entry / run-level QA summary JSON if practical
+
+### 2. Improve no-overlap reporting
+
+When the drone pipeline reaches the condition:
+`No pixels intersected the supplied polygons`
+
+do not treat it as an opaque generic failure.
+
+Instead, in the drone pipeline only:
+- classify it distinctly, e.g. `skipped_no_polygon_overlap`
+- include the spatial diagnostics above in the recorded result if practical
+- continue the batch
+
+The point is to make it obvious whether the issue is:
+- true non-overlap
+- CRS mismatch
+- suspicious georeferencing mismatch
+
+### 3. Optional quick overlay artifact
+
+If it is easy and safe, add a simple per-flight debug artifact for drone runs only when polygons are supplied:
+
+- a small PNG showing raster bounds box and reprojected polygon boundaries in the same CRS
+
+This should be lightweight, not a fancy map.
+It can simply plot:
+- raster bounds as a rectangle
+- reprojected polygons as outlines
+
+Save it in the per-flight folder with a clear name like:
+- `<flight_stem>__overlay_debug.png`
+
+This is optional but strongly preferred if easy.
+
+Important:
+- do not make this block the pipeline if plotting fails
+- only do this in the drone pipeline
+- keep it lightweight
+
+### 4. Check both likely raster targets if relevant
+
+Inspect the current drone code and determine which raster is actually used for polygon extraction.
+
+If useful, report diagnostics for:
+- the ENVI raster
+- the corrected raster
+
+But do not add unnecessary noise. The key thing is to diagnose the raster actually used for polygon intersection/extraction.
+
+### 5. Logging quality
+
+Improve the runtime logs so that for each flight the user can tell:
+- what CRS the raster is in
+- what CRS the polygons started in
+- whether reprojection happened
+- whether bounds overlap before pixel extraction
+- whether the flight was skipped due to no overlap
+
+Example style:
+- `[drone] [3/17] AOP_MRS1_20230814 raster_crs=EPSG:32613 polygon_crs=EPSG:4326 overlap_after_reproject=False`
+- `[drone] [3/17] AOP_MRS1_20230814 -> skipped_no_polygon_overlap`
+
+Keep the logs concise and readable.
+
+## Implementation guidance
+
+Please inspect the current polygon extraction path in the drone pipeline and identify where reprojection currently happens.
+
+Likely area:
+- `src/spectralbridge/pipelines/drone.py`
+- especially near `_build_polygon_pixel_index_for_raster(...)` and the call site in `run_drone_pipeline()`
+
+Add a small, local helper if useful, such as:
+- `collect_drone_spatial_diagnostics(...)`
+- `save_drone_overlay_debug_plot(...)`
+
+Good output structure:
+- per-flight diagnostics attached to the flight result record
+- optional overlay PNG in the per-flight directory
+- concise log lines during runtime
+
+## Important behavioral constraints
+
+- Do not alter the core NEON polygon extraction path unless absolutely necessary.
+- Do not weaken NEON validation.
+- Do not change NEON logging/reporting unless a shared helper is introduced in a way that preserves existing behavior exactly.
+
+This is a drone-only diagnostics enhancement.
+
+## Tests
+
+Add the minimum number of high-value tests.
+
+Required tests:
+1. A test that the drone pipeline collects raster/polygon CRS and bounds diagnostics before polygon extraction.
+2. A test that a no-overlap case is classified as `skipped_no_polygon_overlap` and includes diagnostic fields.
+3. A test that polygons are reprojected to raster CRS before overlap diagnostics are computed.
+4. If you implement the overlay PNG: a lightweight test that the debug plot function can run on a tiny synthetic example and writes an output file.
+5. A test that the batch continues after one no-overlap flight.
+
+Keep tests lightweight. Use tiny synthetic data, mocking, or temporary files. Do not add heavy integration tests.
+
+## Final summary
+
+After implementing, report:
+- what diagnostics were added
+- where they are recorded
+- whether an overlay debug PNG was added
+- how no-overlap is classified now
+- confirmation that the NEON pipeline behavior was not changed
+- what tests were added
+```
