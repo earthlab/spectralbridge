@@ -4,6 +4,8 @@ import json
 import logging
 import re
 import shutil
+import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -31,6 +33,11 @@ from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
 
 LOGGER = logging.getLogger(__name__)
 
+try:  # pragma: no cover - tqdm is optional in minimal environments
+    from tqdm.auto import tqdm
+except Exception:  # pragma: no cover - fallback handled locally
+    tqdm = None
+
 DRONE_TARGET_BANDS: dict[str, int] = {
     "blue": 444,
     "green": 560,
@@ -56,6 +63,17 @@ _DRONE_NODATA_PATCH_ATTRS = (
 )
 _DRONE_FALLBACK_NODATA = np.float32(-9999.0)
 _DRONE_PACKAGE_DATE_RE = re.compile(r"(?P<month>\d{2})-(?P<day>\d{2})-(?P<year>\d{2})")
+_DRONE_STATUS_SUCCESS = "success"
+_DRONE_STATUS_NO_OVERLAP = "skipped_no_polygon_overlap"
+_DRONE_STATUS_FAILED_OTHER = "failed_other"
+_DRONE_NO_OVERLAP_REASONS = (
+    "No pixels intersected the supplied polygons",
+    "zero intersected pixels",
+)
+_ANSI_RESET = "\033[0m"
+_ANSI_GREEN = "\033[32m"
+_ANSI_YELLOW = "\033[33m"
+_ANSI_RED = "\033[31m"
 
 
 def clean_name(name: str) -> str:
@@ -575,6 +593,64 @@ def _merge_drone_polygon_outputs(
     return output_path
 
 
+def _drone_status_color(status: str) -> str | None:
+    if status == _DRONE_STATUS_SUCCESS:
+        return _ANSI_GREEN
+    if status == _DRONE_STATUS_NO_OVERLAP:
+        return _ANSI_YELLOW
+    if status == _DRONE_STATUS_FAILED_OTHER:
+        return _ANSI_RED
+    return None
+
+
+def _supports_ansi(stream: Any) -> bool:
+    return bool(getattr(stream, "isatty", lambda: False)())
+
+
+def _colorize_drone_message(message: str, *, status: str | None = None) -> str:
+    if status is None:
+        return message
+    color = _drone_status_color(status)
+    if color is None or not _supports_ansi(sys.stderr):
+        return message
+    return f"{color}{message}{_ANSI_RESET}"
+
+
+def _drone_emit(message: str, *, status: str | None = None) -> None:
+    rendered = _colorize_drone_message(message, status=status)
+    if tqdm is not None:
+        try:  # pragma: no cover - tqdm.write is a thin wrapper
+            tqdm.write(rendered, file=sys.stderr)
+            return
+        except Exception:
+            pass
+    print(rendered, file=sys.stderr)
+
+
+def _format_elapsed(seconds: float) -> str:
+    if seconds < 60.0:
+        return f"{seconds:.1f}s"
+    minutes, secs = divmod(seconds, 60.0)
+    if minutes < 60.0:
+        return f"{int(minutes)}m {secs:.1f}s"
+    hours, minutes = divmod(int(minutes), 60)
+    return f"{hours}h {minutes}m {secs:.1f}s"
+
+
+def _format_eta(elapsed_samples: list[float], remaining: int) -> str | None:
+    if len(elapsed_samples) < 2 or remaining <= 0:
+        return None
+    avg_seconds = sum(elapsed_samples) / len(elapsed_samples)
+    return _format_elapsed(avg_seconds * remaining)
+
+
+def _classify_drone_exception(exc: Exception) -> tuple[str, str]:
+    reason = str(exc).strip() or exc.__class__.__name__
+    if any(marker in reason for marker in _DRONE_NO_OVERLAP_REASONS):
+        return _DRONE_STATUS_NO_OVERLAP, reason
+    return _DRONE_STATUS_FAILED_OTHER, reason
+
+
 def run_drone_pipeline(
     input_h5_dir: str | Path,
     polygon_path: str | Path | None = None,
@@ -586,6 +662,7 @@ def run_drone_pipeline(
 ) -> dict[str, Any]:
     """Run the local-H5 drone pipeline with wavelength-driven band resolution and QA audit output."""
 
+    run_started = time.monotonic()
     input_h5_dir = Path(input_h5_dir)
     output_dir = Path(output_dir)
     polygon_path = Path(polygon_path) if polygon_path is not None else None
@@ -609,6 +686,12 @@ def run_drone_pipeline(
     }
 
     h5_files = sorted(input_h5_dir.rglob("*.h5"))
+    results["qa_summary"]["discovered_total"] = len(h5_files)
+    results["qa_summary"]["attempted_total"] = len(h5_files)
+    results["qa_summary"]["run_root"] = str(output_dir)
+    results["qa_summary"]["polygon_path"] = (
+        str(polygon_path) if polygon_path is not None else None
+    )
     if not h5_files:
         qa_path = _write_json(
             output_dir / "drone_qa_summary.json", results["qa_summary"]
@@ -630,7 +713,33 @@ def run_drone_pipeline(
         flight_stems[h5_path] = flight_stem
         stem_sources[flight_stem] = h5_path
 
-    for h5_path in h5_files:
+    total_flights = len(h5_files)
+    _drone_emit(
+        "[drone] Starting batch: "
+        f"{total_flights} discovered | {total_flights} to process | "
+        f"polygon={polygon_path if polygon_path is not None else 'None'} | "
+        f"run_root={output_dir}"
+    )
+    batch_bar = (
+        tqdm(
+            total=total_flights,
+            desc="[drone] flights",
+            unit="flight",
+            dynamic_ncols=True,
+            leave=True,
+            file=sys.stderr,
+        )
+        if tqdm is not None
+        else None
+    )
+    completed_flight_times: list[float] = []
+    status_counts = {
+        _DRONE_STATUS_SUCCESS: 0,
+        _DRONE_STATUS_NO_OVERLAP: 0,
+        _DRONE_STATUS_FAILED_OTHER: 0,
+    }
+
+    for index, h5_path in enumerate(h5_files, start=1):
         flight_stem = flight_stems[h5_path]
         path_map = build_drone_output_paths(output_dir, flight_stem=flight_stem)
         prepared_h5_path = path_map["working_h5"]
@@ -639,11 +748,18 @@ def run_drone_pipeline(
         polygon_output_path = path_map["polygon_parquet"]
         polygon_index_path = path_map["polygon_index"]
         package_dir = _drone_package_dir(h5_path)
+        flight_started = time.monotonic()
+        if batch_bar is not None:
+            batch_bar.set_postfix_str(f"{index}/{total_flights} {flight_stem} | preparing H5")
+        _drone_emit(
+            f"[drone] [{index}/{total_flights}] {flight_stem} | source={package_dir} | stage=preparing H5"
+        )
         file_audit: dict[str, Any] = {
             "platform": "drone",
             "flight_stem": flight_stem,
             "flight_dir": str(path_map["flight_dir"]),
             "source_package": package_dir.name,
+            "source_package_path": str(package_dir),
             "input_h5_filename": h5_path.name,
             "input_h5_path": str(h5_path),
             "base_name": flight_stem,
@@ -672,6 +788,7 @@ def run_drone_pipeline(
             "qa_plot_path": str(path_map["qa_png"]),
             "qa_json_path": str(path_map["qa_json"]),
             "merged_filename": None,
+            "status": None,
         }
         try:
             prepared_h5_path, nodata_patched = _prepare_drone_h5_working_copy(
@@ -695,6 +812,10 @@ def run_drone_pipeline(
                 "nodata": meta["nodata"],
             }
 
+            if batch_bar is not None:
+                batch_bar.set_postfix_str(
+                    f"{index}/{total_flights} {flight_stem} | converting to ENVI"
+                )
             envi_img, envi_hdr = export_h5_to_envi(
                 prepared_h5_path,
                 output_stem=envi_stem,
@@ -714,6 +835,10 @@ def run_drone_pipeline(
                 apply_topo=apply_topo,
                 apply_brdf=apply_brdf,
             )
+            if batch_bar is not None:
+                batch_bar.set_postfix_str(
+                    f"{index}/{total_flights} {flight_stem} | correcting"
+                )
             corrected_img, corrected_hdr, correction_audit = apply_drone_corrections(
                 cube=cube,
                 envi_img=envi_img,
@@ -736,6 +861,10 @@ def run_drone_pipeline(
             file_audit["corrected_raster_path"] = str(corrected_img)
 
             if polygon_path is not None:
+                if batch_bar is not None:
+                    batch_bar.set_postfix_str(
+                        f"{index}/{total_flights} {flight_stem} | polygon extraction"
+                    )
                 index_path = _build_polygon_pixel_index_for_raster(
                     raster_img=corrected_img,
                     raster_hdr=corrected_hdr,
@@ -761,13 +890,49 @@ def run_drone_pipeline(
                 file_audit["polygon_path"] = None
 
             results["processed"].append(str(h5_path))
-            file_audit["status"] = "processed"
+            file_audit["status"] = _DRONE_STATUS_SUCCESS
+            elapsed = time.monotonic() - flight_started
+            file_audit["elapsed_seconds"] = round(elapsed, 3)
+            completed_flight_times.append(elapsed)
+            status_counts[_DRONE_STATUS_SUCCESS] += 1
+            eta = _format_eta(completed_flight_times, total_flights - index)
+            eta_suffix = f" | eta={eta}" if eta else ""
+            _drone_emit(
+                f"[drone] [{index}/{total_flights}] {flight_stem} -> "
+                f"{_DRONE_STATUS_SUCCESS} ({_format_elapsed(elapsed)}){eta_suffix}",
+                status=_DRONE_STATUS_SUCCESS,
+            )
         except Exception as exc:
-            LOGGER.exception("[drone] FAILED for %s", h5_path)
-            file_audit["status"] = "failed"
-            file_audit["error"] = str(exc)
-            results["failed"].append({"input": str(h5_path), "error": str(exc)})
+            status, reason = _classify_drone_exception(exc)
+            elapsed = time.monotonic() - flight_started
+            file_audit["status"] = status
+            file_audit["error"] = reason
+            file_audit["elapsed_seconds"] = round(elapsed, 3)
+            status_counts[status] += 1
+            if status == _DRONE_STATUS_NO_OVERLAP:
+                results["processed"].append(str(h5_path))
+                LOGGER.warning("[drone] No polygon overlap for %s: %s", h5_path, reason)
+            else:
+                LOGGER.exception("[drone] FAILED for %s", h5_path)
+                results["failed"].append({"input": str(h5_path), "error": reason})
+            eta = _format_eta(completed_flight_times, total_flights - index)
+            eta_suffix = f" | eta={eta}" if eta else ""
+            suffix = f": {reason}" if reason else ""
+            _drone_emit(
+                f"[drone] [{index}/{total_flights}] {flight_stem} -> "
+                f"{status}{suffix} ({_format_elapsed(elapsed)}){eta_suffix}",
+                status=status,
+            )
+        finally:
+            if batch_bar is not None:
+                batch_bar.update(1)
+                batch_bar.set_postfix_str(
+                    f"{index}/{total_flights} {flight_stem} | finished"
+                )
         results["qa_summary"]["files"].append(file_audit)
+
+    if batch_bar is not None:
+        batch_bar.close()
 
     if results["outputs"]:
         merged_path = _merge_drone_polygon_outputs(
@@ -785,7 +950,7 @@ def run_drone_pipeline(
         from spectralbridge.qa_plots import render_drone_panel
 
         for file_audit in results["qa_summary"]["files"]:
-            if file_audit.get("status") != "processed":
+            if file_audit.get("status") != _DRONE_STATUS_SUCCESS:
                 continue
             raw_img = Path(str(file_audit["working_raster_path"]))
             corrected_img = Path(str(file_audit["corrected_raster_path"]))
@@ -813,8 +978,35 @@ def run_drone_pipeline(
         LOGGER.exception("[drone] QA rendering failed")
         results["qa_summary"]["qa_render_error"] = str(exc)
 
+    total_wall_time = time.monotonic() - run_started
+    avg_success_time = (
+        round(sum(completed_flight_times) / len(completed_flight_times), 3)
+        if completed_flight_times
+        else None
+    )
+    results["qa_summary"]["status_counts"] = status_counts
+    results["qa_summary"]["success_count"] = status_counts[_DRONE_STATUS_SUCCESS]
+    results["qa_summary"]["skipped_no_polygon_overlap_count"] = status_counts[
+        _DRONE_STATUS_NO_OVERLAP
+    ]
+    results["qa_summary"]["failed_other_count"] = status_counts[
+        _DRONE_STATUS_FAILED_OTHER
+    ]
+    results["qa_summary"]["total_wall_time_seconds"] = round(total_wall_time, 3)
+    results["qa_summary"]["average_successful_flight_seconds"] = avg_success_time
+    results["qa_summary"]["merged_path"] = results["merged"]
     qa_path = _write_json(output_dir / "drone_qa_summary.json", results["qa_summary"])
     results["qa_summary_path"] = str(qa_path)
+    _drone_emit(
+        "[drone] Complete: "
+        f"{total_flights} total | "
+        f"{status_counts[_DRONE_STATUS_SUCCESS]} success | "
+        f"{status_counts[_DRONE_STATUS_NO_OVERLAP]} skipped_no_polygon_overlap | "
+        f"{status_counts[_DRONE_STATUS_FAILED_OTHER]} failed_other | "
+        f"{_format_elapsed(total_wall_time)} total | "
+        f"run_root={output_dir} | qa_summary={qa_path} | "
+        f"merged={results['merged'] if results['merged'] else 'None'}"
+    )
     return results
 
 
