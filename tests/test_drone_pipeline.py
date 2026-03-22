@@ -9,8 +9,10 @@ import pytest
 from spectralbridge.pipelines import run_drone_pipeline
 from spectralbridge.pipelines.drone import (
     DRONE_TARGET_BANDS,
+    build_drone_output_paths,
     _prepare_drone_h5_working_copy,
     clean_name,
+    derive_drone_flight_stem,
     resolve_band_map,
 )
 
@@ -95,8 +97,43 @@ def test_clean_name_preserves_provenance_minimally() -> None:
     assert clean_name("drone.flight-01") == "drone.flight-01"
 
 
+def test_derive_drone_flight_stem_uses_parent_package_folder() -> None:
+    inner_name = "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
+    h5_a = (
+        Path("/tmp")
+        / "SPR1-06-28-23-ExportPackage"
+        / inner_name
+    )
+    h5_b = (
+        Path("/tmp")
+        / "SPR2-06-28-23-ExportPackage"
+        / inner_name
+    )
+
+    assert derive_drone_flight_stem(h5_a) == "SPR1_20230628"
+    assert derive_drone_flight_stem(h5_b) == "SPR2_20230628"
+    assert derive_drone_flight_stem(h5_a) != derive_drone_flight_stem(h5_b)
+
+
+def test_build_drone_output_paths_isolates_per_flight_outputs(tmp_path: Path) -> None:
+    paths_a = build_drone_output_paths(tmp_path / "out", flight_stem="SPR1_20230628")
+    paths_b = build_drone_output_paths(tmp_path / "out", flight_stem="SPR2_20230628")
+
+    assert paths_a["flight_dir"] != paths_b["flight_dir"]
+    assert paths_a["working_h5"] != paths_b["working_h5"]
+    assert paths_a["polygon_parquet"] != paths_b["polygon_parquet"]
+    assert paths_a["qa_png"] != paths_b["qa_png"]
+    assert paths_a["flight_dir"] == tmp_path / "out" / "SPR1_20230628"
+    assert paths_b["flight_dir"] == tmp_path / "out" / "SPR2_20230628"
+
+
 def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) -> None:
-    h5_path = tmp_path / "input" / "Drone Flight #01.h5"
+    h5_path = (
+        tmp_path
+        / "input"
+        / "SPR1-06-28-23-ExportPackage"
+        / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
+    )
     h5_path.parent.mkdir(parents=True, exist_ok=True)
     h5_path.write_bytes(b"fake-h5")
 
@@ -130,12 +167,15 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
     assert qa_summary["platform"] == "drone"
     assert qa_summary["convolution"] == "skipped"
     file_summary = qa_summary["files"][0]
+    assert file_summary["flight_stem"] == "SPR1_20230628"
     assert file_summary["resolved_band_map"]["nir"]["index"] == 3
-    assert file_summary["working_raster"] == "Drone_Flight_01__envi.img"
-    assert file_summary["corrected_raster"] == "Drone_Flight_01__corrected.img"
+    assert file_summary["working_h5_filename"] == "SPR1_20230628__working.h5"
+    assert file_summary["working_raster"] == "SPR1_20230628__envi.img"
+    assert file_summary["corrected_raster"] == "SPR1_20230628__corrected.img"
     assert file_summary["polygon_filename"] is None
-    assert file_summary["qa_plot_filename"] == "Drone_Flight_01__qa.png"
-    assert file_summary["qa_json_filename"] == "Drone_Flight_01__qa.json"
+    assert file_summary["qa_plot_filename"] == "SPR1_20230628__qa.png"
+    assert file_summary["qa_json_filename"] == "SPR1_20230628__qa.json"
+    assert Path(file_summary["flight_dir"]) == tmp_path / "out" / "SPR1_20230628"
     assert Path(results["qa_summary_path"]).exists()
 
 
@@ -144,8 +184,18 @@ def test_run_drone_pipeline_with_polygons_and_merge(
 ) -> None:
     input_dir = tmp_path / "input"
     input_dir.mkdir(parents=True, exist_ok=True)
-    h5_a = input_dir / "drone-a.h5"
-    h5_b = input_dir / "drone-b.h5"
+    h5_a = (
+        input_dir
+        / "SPR1-06-28-23-ExportPackage"
+        / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
+    )
+    h5_b = (
+        input_dir
+        / "SPR2-06-28-23-ExportPackage"
+        / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
+    )
+    h5_a.parent.mkdir(parents=True, exist_ok=True)
+    h5_b.parent.mkdir(parents=True, exist_ok=True)
     h5_a.write_bytes(b"a")
     h5_b.write_bytes(b"b")
     polygon_path = tmp_path / "plots.geojson"
@@ -209,13 +259,17 @@ def test_run_drone_pipeline_with_polygons_and_merge(
     assert Path(results["merged"]).exists()
     qa_files = results["qa_summary"]["files"]
     assert {entry["polygon_filename"] for entry in qa_files} == {
-        "drone-a__polygons.parquet",
-        "drone-b__polygons.parquet",
+        "SPR1_20230628__polygons.parquet",
+        "SPR2_20230628__polygons.parquet",
     }
     assert {entry["merged_filename"] for entry in qa_files} == {"drone_merged.parquet"}
     assert {entry["qa_plot_filename"] for entry in qa_files} == {
-        "drone-a__qa.png",
-        "drone-b__qa.png",
+        "SPR1_20230628__qa.png",
+        "SPR2_20230628__qa.png",
+    }
+    assert {Path(entry["flight_dir"]).name for entry in qa_files} == {
+        "SPR1_20230628",
+        "SPR2_20230628",
     }
 
 
@@ -256,11 +310,16 @@ def test_prepare_drone_h5_working_copy_patches_only_working_copy(tmp_path: Path)
 def test_run_drone_pipeline_prepares_working_copy_before_neoncube(
     tmp_path: Path, monkeypatch
 ) -> None:
-    h5_path = tmp_path / "input" / "Drone Flight #01.h5"
+    h5_path = (
+        tmp_path
+        / "input"
+        / "SPR1-06-28-23-ExportPackage"
+        / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
+    )
     h5_path.parent.mkdir(parents=True, exist_ok=True)
     h5_path.write_bytes(b"fake-h5")
 
-    prepared_path = tmp_path / "out" / "Drone_Flight_01__working.h5"
+    prepared_path = tmp_path / "out" / "SPR1_20230628" / "SPR1_20230628__working.h5"
     helper_calls: list[tuple[Path, Path, bool]] = []
     cube_calls: list[Path] = []
 
@@ -304,3 +363,9 @@ def test_run_drone_pipeline_prepares_working_copy_before_neoncube(
     assert cube_calls
     assert all(call == prepared_path for call in cube_calls)
     assert all(call != h5_path for call in cube_calls)
+    file_summary = results["qa_summary"]["files"][0]
+    assert file_summary["flight_stem"] == "SPR1_20230628"
+    assert Path(file_summary["flight_dir"]) == tmp_path / "out" / "SPR1_20230628"
+    assert Path(file_summary["qa_plot_path"]) == (
+        tmp_path / "out" / "SPR1_20230628" / "SPR1_20230628__qa.png"
+    )

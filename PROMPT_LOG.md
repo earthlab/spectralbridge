@@ -547,3 +547,420 @@ A good solution here is one where a reviewer can easily say:
 
 That is the standard.
 ```
+## 2026-03-22 - drone pipeline quarantine fixes
+Branch: work
+
+```text
+You are working in the `spectralbridge` repository.
+
+Your task is to fix the **drone pipeline** so it correctly handles drone HDF5 orthomosaics, organizes outputs cleanly, and uses a drone-native naming convention.
+
+This work must be **strictly quarantined to the drone pipeline**.
+
+Do **not** break, weaken, or broaden the existing **NEON pipeline**.
+
+## Mission
+
+Implement a production-quality fix for the new drone workflow that resolves **all three of these problems together**:
+
+1. **Drone HDF5 files fail because their reflectance dataset is missing a recognized no-data attribute**
+2. **Drone outputs are being named from the inner HDF5 filename instead of the actual drone package / flight identity**
+3. **Drone outputs are being written into a flat folder structure that causes collisions, overwrites, QA confusion, and mis-grouped results**
+
+The final result should be a drone pipeline where:
+
+- drone HDF5s can be read reliably
+- each drone package gets a unique, deterministic flight stem
+- each flight writes to its own folder
+- per-flight QA is isolated per flight
+- merged outputs remain at the run level
+- the existing NEON pipeline remains unchanged in behavior
+
+## Absolute guardrails
+
+Do **not** do any of the following:
+
+- do not globally relax the NEON reader for all callers
+- do not change standard NEON naming conventions
+- do not silently alter `read_neon_cube()` semantics for NEON workflows
+- do not mutate original source HDF5 files in place
+- do not make drone naming depend only on the inner HDF5 filename
+- do not flatten all drone outputs into a shared folder
+- do not refactor large unrelated parts of the repo
+
+The repo is **adding a drone pipeline**, not changing the **NEON pipeline**.
+
+A reviewer should be able to say:
+
+> “Yes, this adds a local compatibility shim and a drone-native naming/output scheme for drone inputs, and no, it does not change the behavior of our existing NEON workflows.”
+
+That is the standard.
+
+## What is happening now
+
+### Problem 1: missing no-data metadata
+
+The drone HDF5 files currently fail in the NEON-oriented reader stack because the reflectance dataset does not contain one of the exact no-data attributes expected by the strict NEON code path.
+
+The current failure path is roughly:
+
+- `src/spectralbridge/pipelines/drone.py::run_drone_pipeline()`
+- constructs `NeonCube(h5_path=h5_path)`
+- which goes through `src/spectralbridge/neon_cube.py`
+- which calls `src/spectralbridge/io/neon.py::read_neon_cube()`
+- which calls `_read_new_neon_layout()`
+- which calls `_extract_no_data(reflectance_ds)`
+- which raises `Reflectance dataset missing a recognised no-data attribute.`
+
+This happens across many drone files, so it is a compatibility issue, not a one-off bad file.
+
+### Problem 2: naming identity collapse
+
+Many drone packages contain an inner HDF5 file with the same name, for example something like:
+
+- `NEON_D13_NIWO_test_aligned_orthomosaic.h5`
+
+If the pipeline uses that inner filename as the base identity, then many distinct flights collapse onto the same stem.
+
+But the actual distinguishing identity lives in the **parent export-package folder**, such as:
+
+- `AOP-GOLDHILL-08-14-23-ExportPackage`
+- `AOP-GORDON-08-14-23-ExportPackage`
+- `SPR2-06-28-23-ExportPackage`
+- `CW3-08-16-23-ExportPackage`
+
+That package folder name is what should drive the drone flight identity.
+
+### Problem 3: output collisions and QA contamination
+
+The current output structure is effectively flat, with files such as:
+
+- `NEON_D13_NIWO_test_aligned_orthomosaic__working.h5`
+- `NEON_D13_NIWO_test_aligned_orthomosaic__envi.img`
+- `NEON_D13_NIWO_test_aligned_orthomosaic__corrected.img`
+- `NEON_D13_NIWO_test_aligned_orthomosaic__polygons.parquet`
+- `NEON_D13_NIWO_test_aligned_orthomosaic__qa.json`
+- `NEON_D13_NIWO_test_aligned_orthomosaic__qa.png`
+
+all in one run directory.
+
+This causes collisions or silent overwrites when multiple drone packages share the same inner HDF5 filename.
+
+That likely explains the repeated QA warnings, strange `-9999` contamination messages, and possible cross-flight QA mixing.
+
+## Preferred solution architecture
+
+Implement the fix in two quarantined drone-only layers:
+
+### Layer A: drone-only HDF5 preparation
+
+Inside the drone pipeline, prepare a **working copy** of each drone HDF5 before it is read by the existing downstream stack.
+
+That preparation step should:
+
+1. copy the source HDF5 into the drone flight’s working directory
+2. locate the reflectance dataset in the copied HDF5
+3. inspect its attrs for recognized no-data metadata
+4. if missing, patch a small set of no-data aliases on the copied file only
+5. then continue normal downstream processing using the prepared copy
+
+This keeps the workaround local to drone processing and avoids changing default NEON semantics.
+
+### Layer B: drone-native naming and per-flight output organization
+
+Inside the drone pipeline, derive a **unique drone flight stem** from the **parent export-package folder name**, not the inner HDF5 filename.
+
+Then create a **per-flight output directory** and place all flight-specific files there.
+
+Only run-level aggregate products should remain in the run root.
+
+## Required implementation details
+
+## Part 1: drone-only HDF5 preparation
+
+### 1.1 Locate reflectance dataset robustly
+
+Implement or reuse a helper that can find the reflectance dataset in a drone HDF5.
+
+Preferred behavior:
+
+- first try likely explicit paths such as:
+  - `NIWO/Reflectance/Reflectance_Data`
+  - `Reflectance/Reflectance_Data`
+- if not found, scan datasets and pick the best reflectance-like candidate using a small, explainable heuristic
+
+A simple heuristic is fine. Prefer names containing:
+
+- `reflectance_data`
+- `reflectance`
+- `reflect`
+
+and slightly favor plausible cube-like datasets (higher dimensionality, large size)
+
+Keep this robust but simple.
+
+### 1.2 Patch no-data attrs only on the working copy
+
+Before patching, inspect the reflectance dataset attrs.
+
+If the dataset already contains a recognized no-data attribute used by the existing NEON reader, do nothing.
+
+If it does not, patch a conservative set of aliases such as:
+
+- `_FillValue`
+- `NoDataValue`
+- `nodata`
+- `no_data`
+- `missing_value`
+- `fill_value`
+
+Also check whether the repo already recognizes any additional exact keys and include those if appropriate.
+
+### 1.3 Fallback no-data value
+
+Use a clear documented fallback such as `-9999.0` unless inspection of the current code strongly indicates that a different value is already standard for this path.
+
+Do not invent a complex policy here.
+
+### 1.4 Scope of mutation
+
+Never patch the source HDF5 in place.
+
+Patch only the copied working file owned by the drone run.
+
+### 1.5 Keep NEON strictness intact
+
+Do not globally change the default strict behavior of the standard NEON reader unless an explicit opt-in is absolutely required.
+
+If you find that a tiny explicit opt-in flag is necessary for internal plumbing, it must be passed only from the drone path, and default behavior for standard NEON callers must remain unchanged.
+
+But the strong preference is to solve this by preparing the drone working copy before the strict reader sees it.
+
+## Part 2: drone-native naming
+
+### 2.1 Add a dedicated drone naming helper
+
+Implement a helper such as:
+
+- `derive_drone_flight_stem(h5_path: Path) -> str`
+
+This helper must derive the unique flight stem from the **parent export-package folder name**, not just the inner HDF5 filename.
+
+Examples of parent folder names:
+
+- `AOP-GOLDHILL-08-14-23-ExportPackage`
+- `AOP-GORDON-08-14-23-ExportPackage`
+- `SPR2-06-28-23-ExportPackage`
+- `SH67_1-07-07-23-ExportPackage`
+
+### 2.2 Stem requirements
+
+The derived stem must be:
+
+1. unique across flights in the same batch
+2. deterministic
+3. human-readable
+4. filesystem-safe
+5. used consistently throughout the drone pipeline
+
+Acceptable example outputs:
+
+- `AOP_GOLDHILL_20230814`
+- `AOP_GORDON_20230814`
+- `SPR2_20230628`
+- `SH67_1_20230707`
+
+The exact formatting can vary slightly, but it must preserve flight uniqueness and date.
+
+### 2.3 Date handling
+
+Infer the date from the parent folder name when possible, converting patterns like `MM-DD-YY` into `YYYYMMDD`.
+
+If the package name does not contain a parseable date, fall back in a deterministic and documented way, but prefer preserving the date from the package folder whenever available.
+
+### 2.4 Do not use the inner HDF5 name as the drone identity
+
+The inner filename may still be useful for diagnostics, but it must not be the primary unique flight stem for the drone pipeline.
+
+## Part 3: output organization
+
+### 3.1 Per-flight directories
+
+Under the drone run root, create a subdirectory per flight stem.
+
+Preferred structure:
+
+- `drone_outputs/run_drone_pipeline/<flight_stem>/...per-flight files...`
+
+### 3.2 Per-flight files
+
+All flight-specific artifacts should live inside that flight directory, including for example:
+
+- working H5 copy
+- ENVI files
+- corrected rasters
+- polygon parquet
+- polygon index parquet
+- per-flight QA JSON
+- per-flight QA PNG
+- any other per-flight intermediates
+
+Use the unique flight stem consistently in filenames, e.g.:
+
+- `<flight_stem>__working.h5`
+- `<flight_stem>__envi.img`
+- `<flight_stem>__corrected.img`
+- `<flight_stem>__polygons.parquet`
+- `<flight_stem>__qa.json`
+- `<flight_stem>__qa.png`
+
+### 3.3 Run-level files
+
+Keep only true run-level aggregate products in the run root, such as:
+
+- `drone_qa_summary.json`
+- `drone_merged.parquet`
+
+### 3.4 Collision prevention
+
+Add a lightweight guard against duplicate derived flight stems within one run.
+
+If two different inputs would produce the same stem, fail clearly or disambiguate in a deterministic way.
+
+But the preferred helper should already make collisions unlikely.
+
+## Part 4: QA isolation and bookkeeping
+
+You do not need to redesign QA plotting. But you do need to ensure the drone QA is not accidentally mixing flights.
+
+Please confirm that:
+
+- each flight’s QA paths are derived from that flight’s unique stem
+- each flight’s QA reads that flight’s own inputs/outputs
+- the run-level QA summary distinguishes flights by the new flight stem
+- repeated warnings are not just a side effect of output collisions
+
+If small path or bookkeeping fixes are needed for QA isolation, make them.
+
+## What to inspect
+
+Please inspect the current code and identify exactly where these values are currently derived and propagated:
+
+- drone base name / stem
+- working H5 path
+- ENVI output path
+- corrected raster path
+- polygon parquet path
+- polygon index path
+- QA JSON path
+- QA PNG path
+- merged parquet path
+- entries in the run-level QA summary
+
+Find where the current drone path is collapsing many distinct packages onto the same base identity and fix that propagation consistently.
+
+Likely files to inspect include:
+
+- `src/spectralbridge/pipelines/drone.py`
+- `src/spectralbridge/io/neon.py`
+- `src/spectralbridge/neon_cube.py`
+- any existing naming/path utilities already used by the drone pipeline
+
+Make the smallest clean changes needed.
+
+## Preferred code shape
+
+A good final structure would likely include:
+
+- a small helper to derive a drone flight stem from the parent export-package folder
+- a small helper to prepare a drone working H5 copy and patch no-data attrs if needed
+- `run_drone_pipeline()` using those helpers before downstream processing begins
+- per-flight output paths built from `run_root / flight_stem / ...`
+
+This is preferred over broad reader refactors.
+
+## Tests
+
+Add the **minimum number of high-value tests**.
+
+Keep them lightweight.
+
+### Required test 1: standard NEON strictness preserved
+
+Add a focused test proving that the normal strict NEON path still behaves the same when missing no-data metadata and the caller has not opted into any drone-only preparation.
+
+If you keep the NEON reader unchanged, this can be a small test or existing-reader assertion that strict behavior remains intact.
+
+### Required test 2: drone preparation patches only the working copy
+
+Add a focused unit test that:
+
+- creates a tiny synthetic HDF5 file without no-data attrs
+- runs the new drone preparation helper
+- confirms the prepared working copy now contains the patched attrs
+- confirms the original file was not modified
+
+This is one of the most important tests.
+
+### Required test 3: unique stem derivation from parent package folder
+
+Add a focused test showing that two drone inputs with the same inner HDF5 filename but different parent package folders produce different flight stems.
+
+Example concept:
+
+- `.../SPR1-06-28-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5`
+- `.../SPR2-06-28-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5`
+
+These must produce different stems.
+
+### Required test 4: per-flight output paths do not collide
+
+Add a focused test showing that two different drone package inputs with the same inner HDF5 filename get different output directories and output file paths.
+
+This can be a pure path-building unit test.
+
+### Required test 5: drone pipeline uses the preparation + naming path
+
+Add a focused test, likely with mocking, showing that `run_drone_pipeline()`:
+
+- derives the drone flight stem from the parent package folder
+- prepares the working copy before downstream reading
+- writes paths under the per-flight directory
+
+This does not need to be a heavy end-to-end processing test.
+
+## Coding style
+
+- make minimal, surgical changes
+- add concise comments/docstrings explaining the drone-only workaround
+- avoid broad refactors
+- keep the patch easy to review
+- prefer readability and explicitness over cleverness
+
+## Final deliverables
+
+1. Implement the drone-only HDF5 preparation fix
+2. Implement the drone-native flight-stem naming fix
+3. Implement per-flight output organization
+4. Add the targeted tests
+5. Run the relevant tests
+6. Provide a final summary that explicitly states:
+   - what changed
+   - where the drone-only compatibility logic lives
+   - how the flight stem is now derived
+   - how collisions are prevented
+   - that original HDF5 files are not modified
+   - why the existing NEON pipeline behavior is still preserved
+   - what tests were added
+   - what the next most likely downstream issue is, if any
+
+## Final reminder
+
+This task is **not** “make the NEON reader more permissive.”
+
+This task **is**:
+
+Add a drone-only compatibility shim and a drone-native naming/output scheme so the new drone pipeline works correctly while the existing NEON pipeline remains untouched.
+
+Build exactly that.
+```

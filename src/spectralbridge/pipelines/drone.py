@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 import shutil
 from pathlib import Path
 from typing import Any
@@ -54,6 +55,7 @@ _DRONE_NODATA_PATCH_ATTRS = (
     "fill_value",
 )
 _DRONE_FALLBACK_NODATA = np.float32(-9999.0)
+_DRONE_PACKAGE_DATE_RE = re.compile(r"(?P<month>\d{2})-(?P<day>\d{2})-(?P<year>\d{2})")
 
 
 def clean_name(name: str) -> str:
@@ -65,6 +67,61 @@ def clean_name(name: str) -> str:
     while "__" in safe:
         safe = safe.replace("__", "_")
     return safe.strip("._") or "drone"
+
+
+def _drone_package_dir(h5_path: str | Path) -> Path:
+    """Return the nearest drone export package folder, or the direct parent."""
+
+    path = Path(h5_path)
+    for parent in path.parents:
+        if "exportpackage" in parent.name.lower():
+            return parent
+    return path.parent
+
+
+def derive_drone_flight_stem(h5_path: str | Path) -> str:
+    """Derive a drone flight stem from the package folder rather than the inner HDF5."""
+
+    package_name = _drone_package_dir(h5_path).name
+    package_core = re.sub(r"(?i)(?:[-_\s]*exportpackage)$", "", package_name).strip(
+        "-_ "
+    )
+
+    date_match = _DRONE_PACKAGE_DATE_RE.search(package_core)
+    if date_match:
+        prefix = clean_name(
+            package_core[: date_match.start()].strip("-_ ").replace("-", "_")
+        )
+        date_token = (
+            f"20{date_match.group('year')}"
+            f"{date_match.group('month')}"
+            f"{date_match.group('day')}"
+        )
+        stem = "_".join(part for part in (prefix, date_token) if part)
+        return stem or date_token
+
+    stem = clean_name(package_core.replace("-", "_"))
+    return stem or clean_name(package_name.replace("-", "_"))
+
+
+def build_drone_output_paths(
+    output_root: str | Path,
+    *,
+    flight_stem: str,
+) -> dict[str, Path]:
+    """Return per-flight drone paths under a dedicated flight directory."""
+
+    flight_dir = Path(output_root) / flight_stem
+    return {
+        "flight_dir": flight_dir,
+        "working_h5": flight_dir / f"{flight_stem}__working.h5",
+        "envi_stem": flight_dir / f"{flight_stem}__envi",
+        "corrected_stem": flight_dir / f"{flight_stem}__corrected",
+        "polygon_parquet": flight_dir / f"{flight_stem}__polygons.parquet",
+        "polygon_index": flight_dir / f"{flight_stem}__polygon_index.parquet",
+        "qa_png": flight_dir / f"{flight_stem}__qa.png",
+        "qa_json": flight_dir / f"{flight_stem}__qa.json",
+    }
 
 
 def _find_drone_reflectance_dataset(h5_file: h5py.File) -> h5py.Dataset:
@@ -559,17 +616,37 @@ def run_drone_pipeline(
         results["qa_summary_path"] = str(qa_path)
         return results
 
+    flight_stems: dict[Path, str] = {}
+    stem_sources: dict[str, Path] = {}
     for h5_path in h5_files:
-        base_name = clean_name(h5_path.stem)
-        prepared_h5_path = output_dir / f"{base_name}__working.h5"
-        envi_stem = output_dir / f"{base_name}__envi"
-        corrected_stem = output_dir / f"{base_name}__corrected"
-        polygon_output_path = output_dir / f"{base_name}__polygons.parquet"
-        polygon_index_path = output_dir / f"{base_name}__polygon_index.parquet"
+        flight_stem = derive_drone_flight_stem(h5_path)
+        existing_source = stem_sources.get(flight_stem)
+        if existing_source is not None and existing_source != h5_path:
+            raise ValueError(
+                "Duplicate drone flight stem derived within one run: "
+                f"{flight_stem} from {existing_source} and {h5_path}. "
+                "Package-folder naming must remain unique per flight."
+            )
+        flight_stems[h5_path] = flight_stem
+        stem_sources[flight_stem] = h5_path
+
+    for h5_path in h5_files:
+        flight_stem = flight_stems[h5_path]
+        path_map = build_drone_output_paths(output_dir, flight_stem=flight_stem)
+        prepared_h5_path = path_map["working_h5"]
+        envi_stem = path_map["envi_stem"]
+        corrected_stem = path_map["corrected_stem"]
+        polygon_output_path = path_map["polygon_parquet"]
+        polygon_index_path = path_map["polygon_index"]
+        package_dir = _drone_package_dir(h5_path)
         file_audit: dict[str, Any] = {
             "platform": "drone",
+            "flight_stem": flight_stem,
+            "flight_dir": str(path_map["flight_dir"]),
+            "source_package": package_dir.name,
             "input_h5_filename": h5_path.name,
-            "base_name": base_name,
+            "input_h5_path": str(h5_path),
+            "base_name": flight_stem,
             "flags": {
                 "topo_requested": bool(apply_topo),
                 "brdf_requested": bool(apply_brdf),
@@ -578,11 +655,22 @@ def run_drone_pipeline(
                 "cloud_applied": False,
                 "convolution_skipped": True,
             },
+            "working_h5_filename": prepared_h5_path.name,
+            "working_h5_path": str(prepared_h5_path),
             "working_raster": str(envi_stem.with_suffix(".img").name),
+            "working_raster_path": str(envi_stem.with_suffix(".img")),
             "corrected_raster": str(corrected_stem.with_suffix(".img").name),
+            "corrected_raster_path": str(corrected_stem.with_suffix(".img")),
             "polygon_filename": (
                 polygon_output_path.name if polygon_path is not None else None
             ),
+            "polygon_path": str(polygon_output_path) if polygon_path is not None else None,
+            "polygon_index_filename": polygon_index_path.name if polygon_path is not None else None,
+            "polygon_index_path": str(polygon_index_path) if polygon_path is not None else None,
+            "qa_plot_filename": path_map["qa_png"].name,
+            "qa_json_filename": path_map["qa_json"].name,
+            "qa_plot_path": str(path_map["qa_png"]),
+            "qa_json_path": str(path_map["qa_json"]),
             "merged_filename": None,
         }
         try:
@@ -592,6 +680,7 @@ def run_drone_pipeline(
                 overwrite=overwrite,
             )
             file_audit["prepared_h5_filename"] = prepared_h5_path.name
+            file_audit["prepared_h5_path"] = str(prepared_h5_path)
             file_audit["nodata_patch_applied"] = bool(nodata_patched)
 
             cube = NeonCube(h5_path=prepared_h5_path)
@@ -644,6 +733,7 @@ def run_drone_pipeline(
                 }
             )
             file_audit["corrected_raster"] = corrected_img.name
+            file_audit["corrected_raster_path"] = str(corrected_img)
 
             if polygon_path is not None:
                 index_path = _build_polygon_pixel_index_for_raster(
@@ -651,7 +741,7 @@ def run_drone_pipeline(
                     raster_hdr=corrected_hdr,
                     polygons_path=polygon_path,
                     output_path=polygon_index_path,
-                    flight_id=base_name,
+                    flight_id=flight_stem,
                     overwrite=overwrite,
                 )
                 polygon_parquet = extract_polygon_parquet_from_envi(
@@ -663,8 +753,12 @@ def run_drone_pipeline(
                 )
                 results["outputs"].append(str(polygon_parquet))
                 file_audit["polygon_filename"] = polygon_parquet.name
+                file_audit["polygon_path"] = str(polygon_parquet)
+                file_audit["polygon_index_filename"] = index_path.name
+                file_audit["polygon_index_path"] = str(index_path)
             else:
                 file_audit["polygon_filename"] = None
+                file_audit["polygon_path"] = None
 
             results["processed"].append(str(h5_path))
             file_audit["status"] = "processed"
@@ -693,10 +787,9 @@ def run_drone_pipeline(
         for file_audit in results["qa_summary"]["files"]:
             if file_audit.get("status") != "processed":
                 continue
-            base_name = str(file_audit["base_name"])
-            raw_img = output_dir / f"{base_name}__envi.img"
-            corrected_img = output_dir / f"{base_name}__corrected.img"
-            qa_png = output_dir / f"{base_name}__qa.png"
+            raw_img = Path(str(file_audit["working_raster_path"]))
+            corrected_img = Path(str(file_audit["corrected_raster_path"]))
+            qa_png = Path(str(file_audit["qa_plot_path"]))
             _, qa_payload = render_drone_panel(
                 raw_path=raw_img,
                 corrected_path=corrected_img,
@@ -727,8 +820,10 @@ def run_drone_pipeline(
 
 __all__ = [
     "DRONE_TARGET_BANDS",
+    "build_drone_output_paths",
     "build_drone_config",
     "clean_name",
+    "derive_drone_flight_stem",
     "export_h5_to_envi",
     "resolve_band_map",
     "run_drone_pipeline",
