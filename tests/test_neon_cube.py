@@ -141,6 +141,14 @@ def _create_fake_site_group_legacy_file(path: Path) -> None:
         )
 
 
+def _create_fake_neon_file_missing_nodata(path: Path) -> None:
+    _create_fake_neon_file(path)
+    with h5py.File(path, "r+") as h5_file:
+        reflectance_dataset = h5_file["TEST_KEY/Reflectance/Reflectance_Data"]
+        for attr_name in ("Data_Ignore_Value", "_FillValue", "NoData", "no_data"):
+            reflectance_dataset.attrs.pop(attr_name, None)
+
+
 def test_neon_cube_iter_chunks(tmp_path):
     fake_h5_path = tmp_path / "fake_neon.h5"
     _create_fake_neon_file(fake_h5_path)
@@ -255,3 +263,13 @@ def test_read_neon_cube_site_group_legacy_layout(tmp_path):
     assert meta["metadata_group_paths"]
     assert meta["wavelength_units"].lower() == "nanometers"
 
+
+def test_read_neon_cube_remains_strict_when_nodata_metadata_missing(tmp_path):
+    fake_h5_path = tmp_path / "fake_neon_missing_nodata.h5"
+    _create_fake_neon_file_missing_nodata(fake_h5_path)
+
+    with pytest.raises(
+        RuntimeError,
+        match="Reflectance dataset missing a recognised no-data attribute",
+    ):
+        read_neon_cube(fake_h5_path)
