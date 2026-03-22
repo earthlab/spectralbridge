@@ -73,6 +73,26 @@ class _FakeReporter:
         return None
 
 
+def _patch_basic_drone_runtime(monkeypatch) -> None:
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._prepare_drone_h5_working_copy",
+        lambda path, *, working_path, overwrite=False: (Path(path), False),
+    )
+    monkeypatch.setattr("spectralbridge.pipelines.drone.NeonCube", _FakeCube)
+    monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", _FakeWriter)
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.TileProgressReporter", _FakeReporter
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.is_valid_envi_pair",
+        lambda img, hdr: img.exists() and hdr.exists(),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.qa_plots.render_drone_panel",
+        _fake_render_drone_panel,
+    )
+
+
 def _fake_render_drone_panel(**kwargs):
     output_png = Path(kwargs["output_png"])
     output_png.write_text("png", encoding="utf-8")
@@ -137,23 +157,7 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
     h5_path.parent.mkdir(parents=True, exist_ok=True)
     h5_path.write_bytes(b"fake-h5")
 
-    monkeypatch.setattr(
-        "spectralbridge.pipelines.drone._prepare_drone_h5_working_copy",
-        lambda path, *, working_path, overwrite=False: (Path(path), False),
-    )
-    monkeypatch.setattr("spectralbridge.pipelines.drone.NeonCube", _FakeCube)
-    monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", _FakeWriter)
-    monkeypatch.setattr(
-        "spectralbridge.pipelines.drone.TileProgressReporter", _FakeReporter
-    )
-    monkeypatch.setattr(
-        "spectralbridge.pipelines.drone.is_valid_envi_pair",
-        lambda img, hdr: img.exists() and hdr.exists(),
-    )
-    monkeypatch.setattr(
-        "spectralbridge.qa_plots.render_drone_panel",
-        _fake_render_drone_panel,
-    )
+    _patch_basic_drone_runtime(monkeypatch)
 
     results = run_drone_pipeline(
         tmp_path / "input", output_dir=tmp_path / "out", apply_topo=False
@@ -168,6 +172,7 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
     assert qa_summary["convolution"] == "skipped"
     file_summary = qa_summary["files"][0]
     assert file_summary["flight_stem"] == "SPR1_20230628"
+    assert file_summary["status"] == "success"
     assert file_summary["resolved_band_map"]["nir"]["index"] == 3
     assert file_summary["working_h5_filename"] == "SPR1_20230628__working.h5"
     assert file_summary["working_raster"] == "SPR1_20230628__envi.img"
@@ -201,19 +206,7 @@ def test_run_drone_pipeline_with_polygons_and_merge(
     polygon_path = tmp_path / "plots.geojson"
     polygon_path.write_text("{}", encoding="utf-8")
 
-    monkeypatch.setattr(
-        "spectralbridge.pipelines.drone._prepare_drone_h5_working_copy",
-        lambda path, *, working_path, overwrite=False: (Path(path), False),
-    )
-    monkeypatch.setattr("spectralbridge.pipelines.drone.NeonCube", _FakeCube)
-    monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", _FakeWriter)
-    monkeypatch.setattr(
-        "spectralbridge.pipelines.drone.TileProgressReporter", _FakeReporter
-    )
-    monkeypatch.setattr(
-        "spectralbridge.pipelines.drone.is_valid_envi_pair",
-        lambda img, hdr: img.exists() and hdr.exists(),
-    )
+    _patch_basic_drone_runtime(monkeypatch)
 
     def _fake_build_index(**kwargs):
         path = kwargs["output_path"]
@@ -241,11 +234,6 @@ def test_run_drone_pipeline_with_polygons_and_merge(
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone._merge_drone_polygon_outputs", _fake_merge
     )
-    monkeypatch.setattr(
-        "spectralbridge.qa_plots.render_drone_panel",
-        _fake_render_drone_panel,
-    )
-
     results = run_drone_pipeline(
         input_dir,
         polygon_path=polygon_path,
@@ -271,6 +259,7 @@ def test_run_drone_pipeline_with_polygons_and_merge(
         "SPR1_20230628",
         "SPR2_20230628",
     }
+    assert {entry["status"] for entry in qa_files} == {"success"}
 
 
 def test_prepare_drone_h5_working_copy_patches_only_working_copy(tmp_path: Path) -> None:
@@ -369,3 +358,111 @@ def test_run_drone_pipeline_prepares_working_copy_before_neoncube(
     assert Path(file_summary["qa_plot_path"]) == (
         tmp_path / "out" / "SPR1_20230628" / "SPR1_20230628__qa.png"
     )
+
+
+def test_run_drone_pipeline_reports_progress_and_statuses(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    input_dir = tmp_path / "input"
+    input_dir.mkdir(parents=True, exist_ok=True)
+    for stem in ("SPR1-06-28-23-ExportPackage", "SPR2-06-28-23-ExportPackage"):
+        h5_path = input_dir / stem / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
+        h5_path.parent.mkdir(parents=True, exist_ok=True)
+        h5_path.write_bytes(stem.encode("utf-8"))
+
+    _patch_basic_drone_runtime(monkeypatch)
+
+    run_drone_pipeline(input_dir, output_dir=tmp_path / "out", apply_topo=False)
+
+    captured = capsys.readouterr()
+    assert "[drone] Starting batch: 2 discovered | 2 to process" in captured.err
+    assert "[drone] [1/2] SPR1_20230628 | source=" in captured.err
+    assert "stage=preparing H5" in captured.err
+    assert "[drone] [2/2] SPR2_20230628 -> success (" in captured.err
+    assert "[drone] Complete: 2 total | 2 success | 0 skipped_no_polygon_overlap | 0 failed_other" in captured.err
+
+
+def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    input_dir = tmp_path / "input"
+    input_dir.mkdir(parents=True, exist_ok=True)
+    package_names = (
+        "SPR1-06-28-23-ExportPackage",
+        "SPR2-06-28-23-ExportPackage",
+        "SPR3-06-28-23-ExportPackage",
+    )
+    for package in package_names:
+        h5_path = input_dir / package / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
+        h5_path.parent.mkdir(parents=True, exist_ok=True)
+        h5_path.write_bytes(package.encode("utf-8"))
+    polygon_path = tmp_path / "plots.geojson"
+    polygon_path.write_text("{}", encoding="utf-8")
+
+    _patch_basic_drone_runtime(monkeypatch)
+
+    def _fake_build_index(**kwargs):
+        output_path = kwargs["output_path"]
+        flight_id = kwargs["flight_id"]
+        if flight_id == "SPR2_20230628":
+            raise ValueError("No pixels intersected the supplied polygons")
+        if flight_id == "SPR3_20230628":
+            raise RuntimeError("unexpected correction issue")
+        output_path.write_text("index", encoding="utf-8")
+        return output_path
+
+    def _fake_extract(
+        envi_img, envi_hdr, polygon_index_path, output_parquet_path, overwrite=False
+    ):
+        output_parquet_path.write_text("ok", encoding="utf-8")
+        return output_parquet_path
+
+    def _fake_merge(outputs, output_path, overwrite=False):
+        output_path.write_text("\n".join(outputs), encoding="utf-8")
+        return output_path
+
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._build_polygon_pixel_index_for_raster",
+        _fake_build_index,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.extract_polygon_parquet_from_envi",
+        _fake_extract,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._merge_drone_polygon_outputs", _fake_merge
+    )
+
+    results = run_drone_pipeline(
+        input_dir,
+        polygon_path=polygon_path,
+        output_dir=tmp_path / "out",
+        apply_topo=False,
+    )
+
+    captured = capsys.readouterr()
+    assert "SPR2_20230628 -> skipped_no_polygon_overlap" in captured.err
+    assert "SPR3_20230628 -> failed_other: unexpected correction issue" in captured.err
+    assert "Complete: 3 total | 1 success | 1 skipped_no_polygon_overlap | 1 failed_other" in captured.err
+
+    statuses = {
+        entry["flight_stem"]: entry["status"]
+        for entry in results["qa_summary"]["files"]
+    }
+    assert statuses == {
+        "SPR1_20230628": "success",
+        "SPR2_20230628": "skipped_no_polygon_overlap",
+        "SPR3_20230628": "failed_other",
+    }
+    assert len(results["processed"]) == 2
+    assert len(results["failed"]) == 1
+    assert len(results["outputs"]) == 1
+    assert results["merged"] == str(tmp_path / "out" / "drone_merged.parquet")
+    assert results["qa_summary"]["success_count"] == 1
+    assert results["qa_summary"]["skipped_no_polygon_overlap_count"] == 1
+    assert results["qa_summary"]["failed_other_count"] == 1
+    assert results["qa_summary"]["status_counts"] == {
+        "success": 1,
+        "skipped_no_polygon_overlap": 1,
+        "failed_other": 1,
+    }

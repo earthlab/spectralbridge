@@ -964,3 +964,186 @@ Add a drone-only compatibility shim and a drone-native naming/output scheme so t
 
 Build exactly that.
 ```
+## 2026-03-22 - drone runtime reporting cleanup
+Branch: work
+
+```text
+You are working in the `spectralbridge` repository.
+
+Task:
+Clean up the runtime reporting for the **drone pipeline only**. Do not change reporting behavior for the standard NEON pipeline.
+
+Goal:
+Make `run_drone_pipeline()` much easier to monitor during long runs by adding a clear progress display, per-flight status reporting, and distinct visual treatment for:
+1. normal in-progress / success
+2. no polygon overlap
+3. other errors
+
+Important guardrail:
+This is for the **drone pipeline only**. Do not break or materially alter the NEON pipeline.
+
+## Desired behavior
+
+### 1. Overall batch progress
+At the start of the run, report:
+- total number of flight packages discovered
+- number that will be processed
+- polygon path, if provided
+- run root output directory
+
+During the run, show progress through the flight list:
+- current index / total
+- flight stem
+- current stage if practical
+
+Examples of stages:
+- preparing H5
+- converting to ENVI
+- correcting
+- polygon extraction
+- QA
+- finished
+
+### 2. Progress bar
+Add a real progress bar for the drone batch if possible.
+
+Preferred implementation:
+- use `tqdm` if it is already available or acceptable to use here
+
+If a true progress bar is difficult in the current environment, use a robust textual fallback. But strong preference is a real progress bar.
+
+### 3. Color-coded status
+Use distinct colors in the drone progress/reporting output:
+
+- **normal processing / success**: green or default success color
+- **no polygon overlap**: yellow
+- **other error**: red
+
+If using `tqdm`, it is acceptable to combine:
+- a batch progress bar
+- explicit colored log/status lines for per-flight outcomes
+
+If changing the actual bar color itself is awkward with the chosen implementation, that is okay, but the user-visible output must still clearly distinguish these three states with color-coded messages.
+
+### 4. Per-flight reporting
+For each flight, show:
+- `[current/total]`
+- flight stem
+- source package name or path
+- final outcome:
+  - success
+  - skipped_no_polygon_overlap
+  - failed_other
+
+Also show:
+- elapsed time for that flight
+- optional ETA after a few flights complete
+
+Examples:
+- `[drone] [3/17] AOP_MRS1_20230814 ...`
+- `[drone] [3/17] AOP_MRS1_20230814 -> skipped_no_polygon_overlap (12.4 s)`
+- `[drone] [4/17] AOP_GORDON_20230814 -> success (41.8 s)`
+- `[drone] [5/17] AOP_XYZ_20230814 -> failed_other: <short reason> (8.1 s)`
+
+### 5. No-overlap handling
+When polygon extraction finds zero intersected pixels:
+- do not kill the batch
+- classify it distinctly, e.g. `skipped_no_polygon_overlap`
+- show that outcome in yellow
+- continue processing the remaining flights
+
+This is expected behavior for some flights and should not look like a catastrophic pipeline failure.
+
+### 6. Other errors
+Unexpected exceptions should:
+- be classified separately as `failed_other`
+- be shown in red
+- continue the batch unless current architecture absolutely requires aborting
+- still be recorded in the run summary
+
+### 7. End-of-run summary
+At the end, print a concise summary with:
+- total discovered
+- total attempted
+- success count
+- skipped_no_polygon_overlap count
+- failed_other count
+- total wall time
+- average successful flight time if easy
+- run root
+- QA summary JSON path
+- merged parquet path, if produced
+
+Example:
+- `[drone] Complete: 17 total | 13 success | 2 skipped_no_polygon_overlap | 2 failed_other | 14m 22s total`
+
+## Implementation guidance
+
+Keep this local to the drone pipeline.
+
+Good implementation pattern:
+- one batch progress bar for flights
+- one helper for colorized status messages
+- one clean status enum/string set:
+  - `success`
+  - `skipped_no_polygon_overlap`
+  - `failed_other`
+
+Likely place to implement:
+- `src/spectralbridge/pipelines/drone.py`
+
+Please inspect the current call flow and make the smallest clean change.
+
+## Environment / display constraints
+This may run in terminal, notebook, or cloud logs. Make the reporting robust.
+
+Prefer:
+- `tqdm.auto` if using tqdm
+- color via a lightweight approach already present in the repo, or ANSI color codes if acceptable
+- avoid brittle UI assumptions
+
+If progress-bar color changes per-flight are not practical with a single persistent bar, then:
+- keep the main bar stable
+- emit color-coded per-flight status lines
+- ensure yellow is used for no-overlap and red for other errors
+
+That is an acceptable outcome.
+
+## Data / summary behavior
+Make sure:
+- successful flights are still included in merged outputs
+- no-overlap flights are not merged
+- failed_other flights are not merged
+- summary JSON records the distinct statuses
+
+## Tests
+Add the minimum number of high-value tests.
+
+Required tests:
+1. A test that drone runtime reporting includes total flight count and per-flight progress information.
+2. A test that no-overlap flights are classified as `skipped_no_polygon_overlap` and reported distinctly.
+3. A test that other exceptions are classified as `failed_other` and reported distinctly.
+4. A test that the batch continues after both a no-overlap case and another error.
+5. A test that the final summary includes the three counts:
+   - success
+   - skipped_no_polygon_overlap
+   - failed_other
+
+Keep tests lightweight. Mock where appropriate. Avoid brittle assertions on exact timing text.
+
+## Coding style
+- minimal, surgical changes
+- keep the code readable
+- avoid broad refactors
+- add concise comments/docstrings only where useful
+- do not modify standard NEON pipeline behavior
+
+## Final summary
+After implementing, report:
+- what progress/reporting changes were made
+- whether tqdm or a textual fallback was used
+- how colors are assigned
+- how no-overlap vs other errors are classified
+- what tests were added
+- confirmation that the NEON pipeline behavior was not changed
+```
