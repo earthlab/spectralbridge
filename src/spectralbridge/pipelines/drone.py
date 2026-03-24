@@ -23,6 +23,7 @@ from spectralbridge.envi_writer import EnviWriter
 from spectralbridge.neon_cube import NeonCube
 from spectralbridge.polygons import (
     _write_dataframe_parquet,
+    extract_polygon_parquet_from_envi,
     validate_coordinate_match,
 )
 from spectralbridge.progress_utils import TileProgressReporter
@@ -134,7 +135,6 @@ def build_drone_output_paths(
         "working_h5": flight_dir / f"{flight_stem}__working.h5",
         "envi_stem": flight_dir / f"{flight_stem}__envi",
         "corrected_stem": flight_dir / f"{flight_stem}__corrected",
-        "extracted_parquet": flight_dir / f"{flight_stem}__extracted.parquet",
         "polygon_parquet": flight_dir / f"{flight_stem}__polygons.parquet",
         "polygon_index": flight_dir / f"{flight_stem}__polygon_index.parquet",
         "overlay_debug_png": flight_dir / f"{flight_stem}__overlay_debug.png",
@@ -430,8 +430,11 @@ def apply_drone_corrections(
         "Drone reflectance corrected with optional topo/BRDF adjustments"
     )
     writer = EnviWriter(corrected_stem, header)
-    chunk_y = 100
-    chunk_x = 100
+    # Drone scenes are already fully loaded into memory via ``NeonCube``.
+    # Use a single full-scene chunk here so the correction is fit/applied
+    # consistently across the footprint instead of tile-by-tile.
+    chunk_y = cube.lines
+    chunk_x = cube.columns
     reporter = TileProgressReporter(
         stage_name="Drone correction",
         total_tiles=cube.chunk_count(chunk_y=chunk_y, chunk_x=chunk_x),
@@ -745,103 +748,6 @@ def _merge_drone_polygon_outputs(
     return output_path
 
 
-def _extract_drone_parquet_from_envi(
-    envi_img: Path,
-    envi_hdr: Path,
-    output_parquet_path: Path,
-    *,
-    pixel_index_path: Path | None = None,
-    chunk_size: int = 50_000,
-    overwrite: bool = False,
-) -> Path:
-    """Extract a drone parquet from corrected ENVI, optionally filtered by index."""
-
-    from spectralbridge.exports.schema_utils import infer_stage_from_name
-    from spectralbridge.parquet_export import (
-        _write_parquet_chunks,
-        read_envi_in_chunks,
-    )
-
-    output_parquet_path = Path(output_parquet_path)
-    if output_parquet_path.exists() and not overwrite:
-        LOGGER.info("[drone-extract] Reusing extracted parquet → %s", output_parquet_path)
-        return output_parquet_path
-
-    chunk_iter = read_envi_in_chunks(
-        Path(envi_img),
-        Path(envi_hdr),
-        output_parquet_path.name,
-        chunk_size=chunk_size,
-    )
-    context = getattr(chunk_iter, "context", {}) or {}
-    stage_key = infer_stage_from_name(output_parquet_path.name)
-
-    if pixel_index_path is not None:
-        con = duckdb.connect()
-        try:
-            pixel_ids_df = con.execute(
-                "SELECT DISTINCT pixel_id FROM read_parquet(?)",
-                [str(pixel_index_path)],
-            ).df()
-        finally:
-            con.close()
-        pixel_ids = set(pixel_ids_df["pixel_id"].tolist())
-        if not pixel_ids:
-            raise ValueError("Polygon index contains no pixels")
-
-        def _filtered_iterator():
-            for df_chunk in chunk_iter:
-                if df_chunk.empty:
-                    continue
-                filtered = df_chunk[df_chunk["pixel_id"].isin(pixel_ids)]
-                if not filtered.empty:
-                    yield filtered
-
-        iterator = _filtered_iterator()
-    else:
-        iterator = iter(chunk_iter)
-
-    class _IteratorWrapper:
-        def __init__(self, gen, ctx):
-            self._gen = gen
-            self.context = ctx if isinstance(ctx, dict) else {}
-
-        def __iter__(self):
-            return self
-
-        def __next__(self):
-            return next(self._gen)
-
-    wrapped_iter = _IteratorWrapper(iterator, context)
-    _write_parquet_chunks(
-        output_parquet_path,
-        wrapped_iter,
-        stage_key,
-        context=context,
-        row_group_size=chunk_size,
-    )
-    LOGGER.info("[drone-extract] Wrote extracted parquet → %s", output_parquet_path)
-    return output_parquet_path
-
-
-def _merge_drone_parquet_outputs(
-    outputs: list[str], output_path: Path, overwrite: bool = False
-) -> Path:
-    """Merge already-written per-flight drone parquets into one run-level parquet."""
-
-    return _merge_drone_polygon_outputs(outputs, output_path, overwrite=overwrite)
-
-
-def _default_merged_preview(merged_path: str | None) -> dict[str, Any]:
-    return {
-        "path": merged_path,
-        "rows_total": 0,
-        "rows_previewed": 0,
-        "columns_previewed": [],
-        "filter_applied": None,
-    }
-
-
 def _drone_status_color(status: str) -> str | None:
     if status == _DRONE_STATUS_SUCCESS:
         return _ANSI_GREEN
@@ -933,7 +839,6 @@ def run_drone_pipeline(
             "files": [],
         },
     }
-    results["qa_summary"]["merged_preview"] = _default_merged_preview(None)
 
     h5_files = sorted(input_h5_dir.rglob("*.h5"))
     results["qa_summary"]["discovered_total"] = len(h5_files)
@@ -996,11 +901,6 @@ def run_drone_pipeline(
         envi_stem = path_map["envi_stem"]
         corrected_stem = path_map["corrected_stem"]
         polygon_output_path = path_map["polygon_parquet"]
-        extracted_output_path = (
-            polygon_output_path
-            if polygon_path is not None
-            else path_map["extracted_parquet"]
-        )
         polygon_index_path = path_map["polygon_index"]
         overlay_debug_path = path_map["overlay_debug_png"]
         package_dir = _drone_package_dir(h5_path)
@@ -1033,8 +933,6 @@ def run_drone_pipeline(
             "working_raster_path": str(envi_stem.with_suffix(".img")),
             "corrected_raster": str(corrected_stem.with_suffix(".img").name),
             "corrected_raster_path": str(corrected_stem.with_suffix(".img")),
-            "extracted_parquet_filename": extracted_output_path.name,
-            "extracted_parquet_path": str(extracted_output_path),
             "polygon_filename": (
                 polygon_output_path.name if polygon_path is not None else None
             ),
@@ -1122,7 +1020,6 @@ def run_drone_pipeline(
             file_audit["corrected_raster"] = corrected_img.name
             file_audit["corrected_raster_path"] = str(corrected_img)
 
-            extraction_index_path: Path | None = None
             if polygon_path is not None:
                 if batch_bar is not None:
                     batch_bar.set_postfix_str(
@@ -1163,26 +1060,21 @@ def run_drone_pipeline(
                     flight_id=flight_stem,
                     overwrite=overwrite,
                 )
-                extraction_index_path = index_path
+                polygon_parquet = extract_polygon_parquet_from_envi(
+                    corrected_img,
+                    corrected_hdr,
+                    index_path,
+                    polygon_output_path,
+                    overwrite=overwrite,
+                )
+                results["outputs"].append(str(polygon_parquet))
+                file_audit["polygon_filename"] = polygon_parquet.name
+                file_audit["polygon_path"] = str(polygon_parquet)
                 file_audit["polygon_index_filename"] = index_path.name
                 file_audit["polygon_index_path"] = str(index_path)
             else:
                 file_audit["polygon_filename"] = None
                 file_audit["polygon_path"] = None
-
-            extracted_parquet = _extract_drone_parquet_from_envi(
-                corrected_img,
-                corrected_hdr,
-                extracted_output_path,
-                pixel_index_path=extraction_index_path,
-                overwrite=overwrite,
-            )
-            results["outputs"].append(str(extracted_parquet))
-            file_audit["extracted_parquet_filename"] = extracted_parquet.name
-            file_audit["extracted_parquet_path"] = str(extracted_parquet)
-            if polygon_path is not None:
-                file_audit["polygon_filename"] = extracted_parquet.name
-                file_audit["polygon_path"] = str(extracted_parquet)
 
             results["processed"].append(str(h5_path))
             file_audit["status"] = _DRONE_STATUS_SUCCESS
@@ -1244,19 +1136,16 @@ def run_drone_pipeline(
         batch_bar.close()
 
     if results["outputs"]:
-        merged_path = _merge_drone_parquet_outputs(
+        merged_path = _merge_drone_polygon_outputs(
             results["outputs"],
             output_dir / "drone_merged.parquet",
             overwrite=overwrite,
         )
         results["merged"] = str(merged_path)
-        results["qa_summary"]["merged_preview"] = _default_merged_preview(str(merged_path))
         for file_audit in results["qa_summary"]["files"]:
             file_audit["merged_filename"] = merged_path.name
-            file_audit["merged_path"] = str(merged_path)
     else:
         results["merged"] = None
-        results["qa_summary"]["merged_preview"] = _default_merged_preview(None)
 
     try:
         from spectralbridge.qa_plots import render_drone_panel
@@ -1286,10 +1175,6 @@ def run_drone_pipeline(
                 "polygon": qa_payload.get("polygon", {}),
                 "merged_preview": qa_payload.get("merged_preview", {}),
             }
-            if results["merged"]:
-                results["qa_summary"]["merged_preview"] = qa_payload.get(
-                    "merged_preview", _default_merged_preview(results["merged"])
-                )
     except Exception as exc:
         LOGGER.exception("[drone] QA rendering failed")
         results["qa_summary"]["qa_render_error"] = str(exc)

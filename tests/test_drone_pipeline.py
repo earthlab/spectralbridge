@@ -10,6 +10,7 @@ import numpy as np
 from spectralbridge.pipelines import run_drone_pipeline
 from spectralbridge.pipelines.drone import (
     DRONE_TARGET_BANDS,
+    apply_drone_corrections,
     build_drone_output_paths,
     collect_drone_spatial_diagnostics,
     _prepare_drone_h5_working_copy,
@@ -57,6 +58,20 @@ class _FakeCube:
         return [[1.0, 1.0], [1.0, 1.0]]
 
 
+class _RecordingCube(_FakeCube):
+    def __init__(self, h5_path: str | Path):
+        super().__init__(h5_path)
+        self.chunk_args: list[tuple[int, int]] = []
+
+    def chunk_count(self, *, chunk_y: int, chunk_x: int) -> int:
+        self.chunk_args.append((chunk_y, chunk_x))
+        return 1
+
+    def iter_chunks(self, *, chunk_y: int, chunk_x: int):
+        self.chunk_args.append((chunk_y, chunk_x))
+        yield from super().iter_chunks(chunk_y=chunk_y, chunk_x=chunk_x)
+
+
 class _FakeWriter:
     def __init__(self, stem, header):
         self.stem = Path(stem)
@@ -99,14 +114,6 @@ def _patch_basic_drone_runtime(monkeypatch) -> None:
         "spectralbridge.qa_plots.render_drone_panel",
         _fake_render_drone_panel,
     )
-    monkeypatch.setattr(
-        "spectralbridge.pipelines.drone._extract_drone_parquet_from_envi",
-        _fake_extract_drone_parquet,
-    )
-    monkeypatch.setattr(
-        "spectralbridge.pipelines.drone._merge_drone_parquet_outputs",
-        _fake_merge_drone_parquets,
-    )
 
 
 def _fake_render_drone_panel(**kwargs):
@@ -118,32 +125,6 @@ def _fake_render_drone_panel(**kwargs):
         "polygon": {"path": str(kwargs.get("polygon_path")) if kwargs.get("polygon_path") else None},
         "merged_preview": {"path": str(kwargs.get("merged_path")) if kwargs.get("merged_path") else None},
     }
-
-
-def _fake_extract_drone_parquet(
-    envi_img,
-    envi_hdr,
-    output_parquet_path,
-    *,
-    pixel_index_path=None,
-    overwrite=False,
-    chunk_size=50_000,
-):
-    output_parquet_path = Path(output_parquet_path)
-    output_parquet_path.parent.mkdir(parents=True, exist_ok=True)
-    payload = {
-        "source": Path(envi_img).name,
-        "index": str(pixel_index_path) if pixel_index_path is not None else None,
-    }
-    output_parquet_path.write_text(json.dumps(payload), encoding="utf-8")
-    return output_parquet_path
-
-
-def _fake_merge_drone_parquets(outputs, output_path, overwrite=False):
-    output_path = Path(output_path)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text("\n".join(outputs), encoding="utf-8")
-    return output_path
 
 
 def _write_test_raster(
@@ -243,15 +224,11 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
 
     assert results["platform"] == "drone"
     assert results["processed"] == [str(h5_path)]
-    assert results["outputs"] == [
-        str(tmp_path / "out" / "SPR1_20230628" / "SPR1_20230628__extracted.parquet")
-    ]
-    assert results["merged"] == str(tmp_path / "out" / "drone_merged.parquet")
+    assert results["outputs"] == []
+    assert results["merged"] is None
     qa_summary = results["qa_summary"]
     assert qa_summary["platform"] == "drone"
     assert qa_summary["convolution"] == "skipped"
-    assert qa_summary["merged_path"] == str(tmp_path / "out" / "drone_merged.parquet")
-    assert qa_summary["merged_preview"]["path"] == str(tmp_path / "out" / "drone_merged.parquet")
     file_summary = qa_summary["files"][0]
     assert file_summary["flight_stem"] == "SPR1_20230628"
     assert file_summary["status"] == "success"
@@ -259,90 +236,61 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
     assert file_summary["working_h5_filename"] == "SPR1_20230628__working.h5"
     assert file_summary["working_raster"] == "SPR1_20230628__envi.img"
     assert file_summary["corrected_raster"] == "SPR1_20230628__corrected.img"
-    assert file_summary["extracted_parquet_filename"] == "SPR1_20230628__extracted.parquet"
-    assert file_summary["extracted_parquet_path"] == str(
-        tmp_path / "out" / "SPR1_20230628" / "SPR1_20230628__extracted.parquet"
-    )
     assert file_summary["polygon_filename"] is None
-    assert file_summary["merged_path"] == str(tmp_path / "out" / "drone_merged.parquet")
     assert file_summary["qa_plot_filename"] == "SPR1_20230628__qa.png"
     assert file_summary["qa_json_filename"] == "SPR1_20230628__qa.json"
     assert Path(file_summary["flight_dir"]) == tmp_path / "out" / "SPR1_20230628"
     assert Path(results["qa_summary_path"]).exists()
 
 
-def test_run_drone_pipeline_without_polygons_writes_per_flight_parquets(
+def test_apply_drone_corrections_uses_full_scene_chunk(
     tmp_path: Path, monkeypatch
 ) -> None:
-    input_dir = tmp_path / "input"
-    input_dir.mkdir(parents=True, exist_ok=True)
-    h5_paths = []
-    for stem in ("SPR1-06-28-23-ExportPackage", "SPR2-06-28-23-ExportPackage"):
-        h5_path = input_dir / stem / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
-        h5_path.parent.mkdir(parents=True, exist_ok=True)
-        h5_path.write_bytes(stem.encode("utf-8"))
-        h5_paths.append(h5_path)
+    cube = _RecordingCube(tmp_path / "fake.h5")
+    raw_img = tmp_path / "raw.img"
+    raw_hdr = tmp_path / "raw.hdr"
+    raw_img.write_bytes(b"raw")
+    raw_hdr.write_text("hdr", encoding="utf-8")
 
-    _patch_basic_drone_runtime(monkeypatch)
-
-    results = run_drone_pipeline(
-        input_dir,
-        output_dir=tmp_path / "out",
-        apply_topo=False,
-    )
-
-    expected_outputs = {
-        str(tmp_path / "out" / "SPR1_20230628" / "SPR1_20230628__extracted.parquet"),
-        str(tmp_path / "out" / "SPR2_20230628" / "SPR2_20230628__extracted.parquet"),
-    }
-    assert set(results["processed"]) == {str(path) for path in h5_paths}
-    assert set(results["outputs"]) == expected_outputs
-    for output in expected_outputs:
-        assert Path(output).exists()
-    qa_entries = {entry["flight_stem"]: entry for entry in results["qa_summary"]["files"]}
-    assert qa_entries["SPR1_20230628"]["extracted_parquet_filename"] == (
-        "SPR1_20230628__extracted.parquet"
-    )
-    assert qa_entries["SPR2_20230628"]["extracted_parquet_filename"] == (
-        "SPR2_20230628__extracted.parquet"
-    )
-    assert all(entry["polygon_filename"] is None for entry in qa_entries.values())
-
-
-def test_run_drone_pipeline_merges_from_written_per_flight_parquets(
-    tmp_path: Path, monkeypatch
-) -> None:
-    input_dir = tmp_path / "input"
-    input_dir.mkdir(parents=True, exist_ok=True)
-    for stem in ("SPR1-06-28-23-ExportPackage", "SPR2-06-28-23-ExportPackage"):
-        h5_path = input_dir / stem / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
-        h5_path.parent.mkdir(parents=True, exist_ok=True)
-        h5_path.write_bytes(stem.encode("utf-8"))
-
-    _patch_basic_drone_runtime(monkeypatch)
-
-    merge_calls: list[list[str]] = []
-
-    def _recording_merge(outputs, output_path, overwrite=False):
-        merge_calls.append(list(outputs))
-        return _fake_merge_drone_parquets(outputs, output_path, overwrite=overwrite)
-
+    monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", _FakeWriter)
     monkeypatch.setattr(
-        "spectralbridge.pipelines.drone._merge_drone_parquet_outputs",
-        _recording_merge,
+        "spectralbridge.pipelines.drone.TileProgressReporter", _FakeReporter
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.is_valid_envi_pair",
+        lambda img, hdr: img.exists() and hdr.exists(),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._has_required_ancillary",
+        lambda cube, names: True,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.apply_topo_correct",
+        lambda cube, chunk, ys, ye, xs, xe: np.asarray(chunk, dtype=np.float32),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.apply_brdf_correct",
+        lambda cube, chunk, ys, ye, xs, xe, coeff_path=None: np.asarray(chunk, dtype=np.float32),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.fit_and_save_brdf_model",
+        lambda cube, out_dir: Path(out_dir) / "coeffs.json",
     )
 
-    results = run_drone_pipeline(
-        input_dir,
-        output_dir=tmp_path / "out",
-        apply_topo=False,
+    corrected_img, corrected_hdr, audit = apply_drone_corrections(
+        cube=cube,
+        envi_img=raw_img,
+        envi_hdr=raw_hdr,
+        corrected_stem=tmp_path / "corrected",
+        apply_topo=True,
+        apply_brdf=True,
     )
 
-    assert results["merged"] == str(tmp_path / "out" / "drone_merged.parquet")
-    assert merge_calls == [results["outputs"]]
-    merged_text = Path(results["merged"]).read_text(encoding="utf-8").splitlines()
-    assert merged_text == results["outputs"]
-    assert all(Path(path).exists() for path in merged_text)
+    assert corrected_img.exists()
+    assert corrected_hdr.exists()
+    assert audit["topo_applied"] is True
+    assert audit["brdf_applied"] is True
+    assert cube.chunk_args == [(cube.lines, cube.columns), (cube.lines, cube.columns)]
 
 
 def test_run_drone_pipeline_with_polygons_and_merge(
@@ -375,16 +323,9 @@ def test_run_drone_pipeline_with_polygons_and_merge(
         return path
 
     def _fake_extract(
-        envi_img,
-        envi_hdr,
-        output_parquet_path,
-        *,
-        pixel_index_path=None,
-        overwrite=False,
-        chunk_size=50_000,
+        envi_img, envi_hdr, polygon_index_path, output_parquet_path, overwrite=False
     ):
         output_parquet_path.write_text(output_parquet_path.stem, encoding="utf-8")
-        assert pixel_index_path is not None
         return output_parquet_path
 
     def _fake_merge(outputs, output_path, overwrite=False):
@@ -396,11 +337,11 @@ def test_run_drone_pipeline_with_polygons_and_merge(
         _fake_build_index,
     )
     monkeypatch.setattr(
-        "spectralbridge.pipelines.drone._extract_drone_parquet_from_envi",
+        "spectralbridge.pipelines.drone.extract_polygon_parquet_from_envi",
         _fake_extract,
     )
     monkeypatch.setattr(
-        "spectralbridge.pipelines.drone._merge_drone_parquet_outputs", _fake_merge
+        "spectralbridge.pipelines.drone._merge_drone_polygon_outputs", _fake_merge
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.collect_drone_spatial_diagnostics",
@@ -437,10 +378,6 @@ def test_run_drone_pipeline_with_polygons_and_merge(
     assert Path(results["merged"]).exists()
     qa_files = results["qa_summary"]["files"]
     assert {entry["polygon_filename"] for entry in qa_files} == {
-        "SPR1_20230628__polygons.parquet",
-        "SPR2_20230628__polygons.parquet",
-    }
-    assert {entry["extracted_parquet_filename"] for entry in qa_files} == {
         "SPR1_20230628__polygons.parquet",
         "SPR2_20230628__polygons.parquet",
     }
@@ -648,14 +585,6 @@ def test_run_drone_pipeline_prepares_working_copy_before_neoncube(
         "spectralbridge.qa_plots.render_drone_panel",
         _fake_render_drone_panel,
     )
-    monkeypatch.setattr(
-        "spectralbridge.pipelines.drone._extract_drone_parquet_from_envi",
-        _fake_extract_drone_parquet,
-    )
-    monkeypatch.setattr(
-        "spectralbridge.pipelines.drone._merge_drone_parquet_outputs",
-        _fake_merge_drone_parquets,
-    )
 
     results = run_drone_pipeline(
         h5_path.parent,
@@ -770,16 +699,9 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
         return output_path
 
     def _fake_extract(
-        envi_img,
-        envi_hdr,
-        output_parquet_path,
-        *,
-        pixel_index_path=None,
-        overwrite=False,
-        chunk_size=50_000,
+        envi_img, envi_hdr, polygon_index_path, output_parquet_path, overwrite=False
     ):
         output_parquet_path.write_text("ok", encoding="utf-8")
-        assert pixel_index_path is not None
         return output_parquet_path
 
     def _fake_merge(outputs, output_path, overwrite=False):
@@ -791,11 +713,11 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
         _fake_build_index,
     )
     monkeypatch.setattr(
-        "spectralbridge.pipelines.drone._extract_drone_parquet_from_envi",
+        "spectralbridge.pipelines.drone.extract_polygon_parquet_from_envi",
         _fake_extract,
     )
     monkeypatch.setattr(
-        "spectralbridge.pipelines.drone._merge_drone_parquet_outputs", _fake_merge
+        "spectralbridge.pipelines.drone._merge_drone_polygon_outputs", _fake_merge
     )
 
     results = run_drone_pipeline(

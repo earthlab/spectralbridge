@@ -1324,58 +1324,9 @@ After implementing, report:
 - confirmation that the NEON pipeline behavior was not changed
 - what tests were added
 ```
-
-## 2026-03-22 - drone per-flight parquet extraction
-Branch: work
+## 2026-03-24 - explain median correction map
+Branch: $(git branch --show-current 2>/dev/null || echo unknown)
 
 ```text
-Fix the drone pipeline so that it always writes one per-flight parquet before building the final merged parquet, regardless of whether polygon extraction is used.
-
-Current expected behavior:
-- Every flight should produce its own extracted parquet in that flight's output folder.
-- After all per-flight parquets are written, the pipeline should merge them into one run-level merged parquet.
-- This should happen in both modes:
-  1. polygon extraction mode: only extract pixels intersecting polygons
-  2. full-raster extraction mode: extract all valid pixels from the raster
-
-Current bug:
-- In full-raster mode (polygon_path=None), the pipeline appears to process rasters and write QA/corrected outputs, but does not write per-flight parquet files.
-- Because no per-flight parquet files are created, the final merged parquet is also null.
-- This is incorrect. We should never extract directly to the merged parquet. We should always write per-flight parquet first, then merge.
-
-Required behavior:
-1. Preserve current polygon extraction behavior, but ensure it writes a per-flight parquet in each flight folder.
-2. In full-raster mode, write a per-flight parquet in each flight folder with the same general schema as the polygon mode / NEON-like outputs, minus polygon-specific fields.
-3. After processing all flights, collect all per-flight parquet files and concatenate them into the run-level merged parquet.
-4. Populate all summary fields accordingly:
-   - per-flight parquet filename/path in each flight result
-   - merged_path at run level
-   - merged preview metadata in QA summary
-5. Do not extract directly to the merged parquet. The merge stage must consume already-written per-flight parquet files.
-6. Reuse existing extraction helpers if available. The only difference between modes should be the pixel selection mask:
-   - polygon mode: intersecting pixels only
-   - full mode: all valid pixels
-7. Keep schemas as aligned as possible with existing NEON-style extraction outputs:
-   - row, col, x, y, pixel_id, source_image, epsg
-   - spectral band columns
-   - polygon columns only when polygon extraction is used
-
-Implementation guidance:
-- Refactor the extraction stage so it is always called after correction.
-- Pass an extraction mask or extraction mode into the same core extraction function rather than having separate downstream logic.
-- Keep output naming consistent with the current flight-folder structure.
-
-Definition of done:
-- With polygons:
-  - each flight with overlap gets a per-flight parquet
-  - run-level merged parquet is created from those files
-- Without polygons:
-  - every successful flight gets a per-flight parquet
-  - run-level merged parquet is created from those files
-- The pipeline never relies on extracting directly into the merged parquet.
-
-Add minimal tests:
-- one test that polygon_path=None creates per-flight parquet files
-- one test that merged parquet is created from those per-flight files
-- one test that polygon mode still works unchanged
+i don't understand the median correction map in the qa plot. does it perform the correction using a moving window? why do the datat look like that?
 ```
