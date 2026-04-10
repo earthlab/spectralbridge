@@ -511,12 +511,12 @@ def apply_drone_corrections(
 
     coeff_path: Path | None = None
     if brdf_ready:
-        coeff_path = fit_and_save_brdf_model(
-            cube,
-            corrected_stem.parent,
-            ndvi_config=NDVIBinningConfig(enabled=use_ndvi_brdf_bins),
-            brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
-        )
+        fit_kwargs: dict[str, Any] = {
+            "brdf_kernel_config": HYTOOLS_BRDF_KERNEL_CONFIG,
+        }
+        if use_ndvi_brdf_bins:
+            fit_kwargs["ndvi_config"] = NDVIBinningConfig(enabled=True)
+        coeff_path = fit_and_save_brdf_model(cube, corrected_stem.parent, **fit_kwargs)
 
     header = cube.build_envi_header()
     header["description"] = (
@@ -567,6 +567,12 @@ def apply_drone_corrections(
                     audit["topo_applied"] = True
             if brdf_ready:
                 brdf_input = chunk
+                brdf_kwargs: dict[str, Any] = {
+                    "coeff_path": coeff_path,
+                    "brdf_kernel_config": HYTOOLS_BRDF_KERNEL_CONFIG,
+                }
+                if use_ndvi_brdf_bins:
+                    brdf_kwargs["ndvi_config"] = NDVIBinningConfig(enabled=True)
                 brdf_candidate = apply_brdf_correct(
                     cube,
                     chunk,
@@ -574,9 +580,7 @@ def apply_drone_corrections(
                     ye,
                     xs,
                     xe,
-                    coeff_path=coeff_path,
-                    ndvi_config=NDVIBinningConfig(enabled=use_ndvi_brdf_bins),
-                    brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
+                    **brdf_kwargs,
                 )
                 if _chunk_has_any_valid_reflectance(
                     brdf_input,

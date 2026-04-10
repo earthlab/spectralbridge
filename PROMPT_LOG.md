@@ -1587,3 +1587,13 @@ Branch: unknown
 ```text
 and the brdf was used in hytools to facilitate a mask so we don't really need it for the brdf? can we make it a user choice that is default off?
 ```
+## 2026-04-10 - fix drone ndvi option regressions
+Branch: unknown
+
+```text
+Run pytest -q
+.....................FF......FF....FF.F..............ssss............... [ 63%]
+....................s.....................                               [100%]
+=================================== FAILURES ===================================
+... drone pipeline failures after NDVI BRDF option patch ...
+```
