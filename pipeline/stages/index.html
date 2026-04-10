@@ -1713,7 +1713,11 @@ the scene and then applied chunk by chunk. See the
 current chunking details.</p>
 <p>Implementation note for the drone path: <code>run_drone_pipeline</code> now requests both
 topographic and BRDF correction by default, but each step still only runs when
-the required ancillary geometry is present for that flight.</p>
+the required ancillary geometry is present for that flight. If a requested
+drone correction cannot run, or if it is attempted and fully reverted because
+it collapses valid reflectance to no-data, the pipeline now leaves the
+corrected ENVI absent and records the failure in the drone QA JSON audit
+instead of silently promoting raw reflectance into the corrected product.</p>
 <hr />
 <p><a id="sensor-harmonization"></a></p>
 <h2 id="4-sensor-harmonization-spectral-convolution">4. Sensor harmonization (spectral convolution)<a class="headerlink" href="#4-sensor-harmonization-spectral-convolution" title="Permanent link">&para;</a></h2>

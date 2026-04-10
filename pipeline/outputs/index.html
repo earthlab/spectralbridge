@@ -1704,6 +1704,11 @@
 </ul>
 <h2 id="idempotence-and-restart-safety">Idempotence and restart-safety<a class="headerlink" href="#idempotence-and-restart-safety" title="Permanent link">&para;</a></h2>
 <p><code>process_one_flightline</code> and <code>go_forth_and_multiply</code> skip stages whose outputs already exist and validate, so re-running the pipeline will not recompute completed products. This skip-if-valid behavior makes restarts safe and is relied upon in notebook workflows and batch processing alike.</p>
+<p>Drone note: the local-H5 drone polygon workflow also attempts to write <code>.csv</code>
+sidecars next to its polygon parquet and merged parquet outputs for
+portability. The Parquet files remain the authoritative outputs; the CSV
+copies are best-effort convenience exports for machines that do not handle
+Parquet easily.</p>
 <h2 id="ci-and-documentation-guarantees">CI and documentation guarantees<a class="headerlink" href="#ci-and-documentation-guarantees" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Documentation drift checks (<code>tools/doc_drift_audit.py</code>) assert that <code>_merged_pixel_extraction.parquet</code> and <code>_qa.png</code> remain part of the documented contract.</li>

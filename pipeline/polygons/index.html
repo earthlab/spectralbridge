@@ -1531,7 +1531,10 @@ changing the default <code>spectralbridge-pipeline</code> behaviour.</p>
    so that only pixels found in the index are retained.  Outputs follow the
    pattern <code>*_envi_polygons.parquet</code>,
    <code>*_brdfandtopo_corrected_envi_polygons.parquet</code> and
-   <code>*_landsat_tm_envi_polygons.parquet</code> (etc.).</li>
+   <code>*_landsat_tm_envi_polygons.parquet</code> (etc.). Each output row still
+   represents one pixel, but it also carries the polygon identifier and the
+   polygon attribute columns so species labels and field measurements travel
+   with every extracted pixel.</li>
 <li><strong>Merged polygon spectral library</strong> – joins the polygon-only Parquets with
    the polygon index to produce a compact spectral library for all polygons in a
    flightline: <code>*_polygons_merged_pixel_extraction.parquet</code>.</li>
