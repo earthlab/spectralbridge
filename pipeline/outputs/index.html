@@ -1664,6 +1664,12 @@
 <td>Used when present to seed later stages; parquet sidecar is written when exported.</td>
 </tr>
 <tr>
+<td>BRDF model JSON</td>
+<td><code>&lt;flight_id&gt;_brdf_model.json</code></td>
+<td>Scene-level BRDF coefficient tables written before BRDF application.</td>
+<td>Includes <code>iso</code>/<code>vol</code>/<code>geo</code> plus <code>ndvi_edges</code>, which records the realized NDVI bin boundaries for the coefficient rows rather than a standalone NDVI raster.</td>
+</tr>
+<tr>
 <td>BRDF + topographic corrected ENVI</td>
 <td><code>&lt;flight_id&gt;_brdfandtopo_corrected_envi.(img|hdr|json|parquet)</code></td>
 <td>Physics-informed normalization and correction JSON produced before sensor resampling.</td>

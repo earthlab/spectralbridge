@@ -1561,6 +1561,10 @@ fitting the first place to investigate.</p>
   unitless reflectance.</li>
 <li>Pixels are assigned to configurable bins (defaults ~0.05–1.0 over 25 bins
   with percentile clipping) used for BRDF fitting and application.</li>
+<li>The fitted <code>*_brdf_model.json</code> stores the realized bin boundaries as
+  <code>ndvi_edges</code>. Those values document which NDVI stratum each row of
+  <code>iso</code>/<code>vol</code>/<code>geo</code> coefficients belongs to; they are BRDF model metadata, not
+  a standalone NDVI output raster.</li>
 <li>When coefficients are missing or bin counts mismatch, neutral coefficients
   are broadcast across all bins to avoid dropping pixels. Pixels with NDVI
   outside the bin range are remapped into the first bin to preserve coverage
@@ -1569,6 +1573,12 @@ fitting the first place to investigate.</p>
 <h2 id="brdf-fitting-and-application">BRDF fitting and application<a class="headerlink" href="#brdf-fitting-and-application" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Per-band, per-bin regressions solve <code>rho = f_iso + f_vol*K_vol + f_geo*K_geo</code>.</li>
+<li>The streamlined BRDF model now persists the kernel settings used during fit
+  and apply, including the volume kernel, geometric kernel, geometric
+  parameters (<code>b/r</code>, <code>h/b</code>), and <code>solar_zn_type</code>.</li>
+<li>Current defaults follow the repo's historical HyTools-backed settings:
+  <code>RossThick</code> volume, <code>LiDenseR</code> geometric, <code>b/r = 10</code>, <code>h/b = 2</code>, and
+  <code>solar_zn_type = scene</code>.</li>
 <li>BRDF normalization uses the FlexBRDF ratio <code>R_ref/R_pix</code>, evaluating kernels
   at both pixel geometry and a configurable reference geometry.</li>
 </ul>

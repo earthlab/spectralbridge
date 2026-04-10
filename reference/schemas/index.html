@@ -1685,6 +1685,19 @@
 <li>flags for unstable fits  </li>
 <li>view/sun geometry summaries  </li>
 </ul>
+<p>The streamlined BRDF coefficient payload is also written as:</p>
+<p>*_brdf_model.json</p>
+<p>This model JSON contains:</p>
+<ul>
+<li><code>iso</code>, <code>vol</code>, and <code>geo</code> coefficient tables  </li>
+<li>kernel names used during fitting/application  </li>
+<li>geometric kernel parameters such as <code>b_r</code>, <code>h_b</code>, and <code>solar_zn_type</code>  </li>
+<li><code>ndvi_edges</code>, which stores the realized NDVI bin boundaries (<code>n_bins + 1</code>
+  values) used to stratify the coefficient rows  </li>
+</ul>
+<p><code>ndvi_edges</code> is metadata for interpreting the BRDF model. It explains which
+NDVI stratum each coefficient row belongs to; it is not a per-pixel NDVI
+product.</p>
 <hr />
 <h2 id="4-convolution-metadata-sensor-harmonization">4. Convolution metadata (sensor harmonization)<a class="headerlink" href="#4-convolution-metadata-sensor-harmonization" title="Permanent link">&para;</a></h2>
 <p>*_convolution_metadata.json</p>
