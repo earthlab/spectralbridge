@@ -1705,6 +1705,15 @@
 <p><strong>Outputs:</strong>
 - <code>&lt;flight_id&gt;_brdfandtopo_corrected_envi.(img|hdr|json)</code></p>
 <p><code>stage_build_and_write_correction_json</code> writes the parameter JSON, and <code>stage_apply_brdf_and_topo</code> applies the combined correction before downstream resampling.</p>
+<p>Implementation note: the current streamlined NEON path writes the corrected
+cube in fixed non-overlapping spatial chunks. The topographic SCS+C fit is
+currently solved within each chunk, while BRDF coefficients are fit once for
+the scene and then applied chunk by chunk. See the
+<a href="../../brdf_topo_algorithm/">BRDF/topographic algorithm notes</a> for the math and
+current chunking details.</p>
+<p>Implementation note for the drone path: <code>run_drone_pipeline</code> now requests both
+topographic and BRDF correction by default, but each step still only runs when
+the required ancillary geometry is present for that flight.</p>
 <hr />
 <p><a id="sensor-harmonization"></a></p>
 <h2 id="4-sensor-harmonization-spectral-convolution">4. Sensor harmonization (spectral convolution)<a class="headerlink" href="#4-sensor-harmonization-spectral-convolution" title="Permanent link">&para;</a></h2>

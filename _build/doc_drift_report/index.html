@@ -1553,6 +1553,11 @@
   "neon_to_envi.py": [
     "--brightness-offset"
   ],
+  "qa_dashboard.py": [
+    "--base-folder",
+    "--out-parquet",
+    "--out-png"
+  ],
   "merge_duckdb.py": [
     "--corrected-glob",
     "--data-root",
@@ -1574,19 +1579,20 @@
     "--resampling_file_path",
     "--sensor_type"
   ],
-  "qa_dashboard.py": [
-    "--base-folder",
-    "--out-parquet",
-    "--out-png"
+  "download.py": [
+    "--flight",
+    "--output",
+    "--product",
+    "--year-month"
   ],
-  "qa_cli.py": [
-    "--base-folder",
-    "--full",
-    "--n-sample",
-    "--out-dir",
-    "--quick",
-    "--rgb-bands",
-    "--save-json"
+  "pipeline.py": [
+    "--brightness-offset",
+    "--no-sync",
+    "--polygon_layer_path",
+    "--reflectance-offset",
+    "--remote-prefix",
+    "--resample-method",
+    "--verbose"
   ],
   "recover_cli.py": [
     "--base-folder",
@@ -1608,20 +1614,14 @@
     "--site-code",
     "--year-month"
   ],
-  "pipeline.py": [
-    "--brightness-offset",
-    "--no-sync",
-    "--polygon_layer_path",
-    "--reflectance-offset",
-    "--remote-prefix",
-    "--resample-method",
-    "--verbose"
-  ],
-  "download.py": [
-    "--flight",
-    "--output",
-    "--product",
-    "--year-month"
+  "qa_cli.py": [
+    "--base-folder",
+    "--full",
+    "--n-sample",
+    "--out-dir",
+    "--quick",
+    "--rgb-bands",
+    "--save-json"
   ]
 }</p>
 <h2 id="stage-markers-found-in-logs">Stage markers found in logs<a class="headerlink" href="#stage-markers-found-in-logs" title="Permanent link">&para;</a></h2>
