@@ -72,7 +72,11 @@ current chunking details.
 
 Implementation note for the drone path: `run_drone_pipeline` now requests both
 topographic and BRDF correction by default, but each step still only runs when
-the required ancillary geometry is present for that flight.
+the required ancillary geometry is present for that flight. If a requested
+drone correction cannot run, or if it is attempted and fully reverted because
+it collapses valid reflectance to no-data, the pipeline now leaves the
+corrected ENVI absent and records the failure in the drone QA JSON audit
+instead of silently promoting raw reflectance into the corrected product.
 
 ---
 

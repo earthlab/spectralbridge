@@ -17,7 +17,10 @@ The polygon pipeline performs three steps for each flightline:
    so that only pixels found in the index are retained.  Outputs follow the
    pattern ``*_envi_polygons.parquet``,
    ``*_brdfandtopo_corrected_envi_polygons.parquet`` and
-   ``*_landsat_tm_envi_polygons.parquet`` (etc.).
+   ``*_landsat_tm_envi_polygons.parquet`` (etc.). Each output row still
+   represents one pixel, but it also carries the polygon identifier and the
+   polygon attribute columns so species labels and field measurements travel
+   with every extracted pixel.
 3. **Merged polygon spectral library** – joins the polygon-only Parquets with
    the polygon index to produce a compact spectral library for all polygons in a
    flightline: ``*_polygons_merged_pixel_extraction.parquet``.

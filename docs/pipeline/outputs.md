@@ -25,6 +25,12 @@ Naming stems come from `spectralbridge.paths.FlightlinePaths` and `spectralbridg
 ## Idempotence and restart-safety
 `process_one_flightline` and `go_forth_and_multiply` skip stages whose outputs already exist and validate, so re-running the pipeline will not recompute completed products. This skip-if-valid behavior makes restarts safe and is relied upon in notebook workflows and batch processing alike.
 
+Drone note: the local-H5 drone polygon workflow also attempts to write `.csv`
+sidecars next to its polygon parquet and merged parquet outputs for
+portability. The Parquet files remain the authoritative outputs; the CSV
+copies are best-effort convenience exports for machines that do not handle
+Parquet easily.
+
 ## CI and documentation guarantees
 - Documentation drift checks (`tools/doc_drift_audit.py`) assert that `_merged_pixel_extraction.parquet` and `_qa.png` remain part of the documented contract.
 - QA expectations and output stems are shared between user-facing docs and automated validation to protect reproducibility.

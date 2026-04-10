@@ -22,6 +22,9 @@ from spectralbridge.corrections import (
 from spectralbridge.envi_writer import EnviWriter
 from spectralbridge.neon_cube import NeonCube
 from spectralbridge.polygons import (
+    _describe_parquet_columns,
+    _quote_identifier,
+    _quote_path,
     _write_dataframe_parquet,
     extract_polygon_parquet_from_envi,
     validate_coordinate_match,
@@ -74,6 +77,14 @@ _ANSI_RESET = "\033[0m"
 _ANSI_GREEN = "\033[32m"
 _ANSI_YELLOW = "\033[33m"
 _ANSI_RED = "\033[31m"
+
+
+class DroneCorrectionUnavailableError(RuntimeError):
+    """Raised when a requested drone correction cannot produce a valid output."""
+
+    def __init__(self, message: str, audit: dict[str, Any]):
+        super().__init__(message)
+        self.audit = dict(audit)
 
 
 def clean_name(name: str) -> str:
@@ -423,6 +434,7 @@ def apply_drone_corrections(
         "cloud_mask_applied": False,
         "convolution_skipped": True,
     }
+    correction_requested = bool(apply_topo or apply_brdf)
 
     if not overwrite and is_valid_envi_pair(corrected_img, corrected_hdr):
         return corrected_img, corrected_hdr, audit
@@ -438,6 +450,12 @@ def apply_drone_corrections(
     audit["brdf_ready"] = brdf_ready
 
     if not topo_ready and not brdf_ready:
+        if correction_requested:
+            _cleanup_envi_pair(corrected_img, corrected_hdr)
+            raise DroneCorrectionUnavailableError(
+                "Requested drone correction could not run because the required ancillary geometry was unavailable.",
+                audit,
+            )
         shutil.copy2(envi_img, corrected_img)
         shutil.copy2(envi_hdr, corrected_hdr)
         return corrected_img, corrected_hdr, audit
@@ -522,8 +540,21 @@ def apply_drone_corrections(
         reporter.close()
 
     if not is_valid_envi_pair(corrected_img, corrected_hdr):
+        _cleanup_envi_pair(corrected_img, corrected_hdr)
         raise RuntimeError(
             f"Drone correction stage failed to produce a valid ENVI pair: {corrected_img} / {corrected_hdr}"
+        )
+
+    if correction_requested and not audit["topo_applied"] and not audit["brdf_applied"]:
+        _cleanup_envi_pair(corrected_img, corrected_hdr)
+        if audit["topo_fallback_due_to_nodata"] or audit["brdf_fallback_due_to_nodata"]:
+            raise DroneCorrectionUnavailableError(
+                "Requested drone correction was attempted but reverted because it collapsed valid reflectance to no-data.",
+                audit,
+            )
+        raise DroneCorrectionUnavailableError(
+            "Requested drone correction did not produce a corrected output.",
+            audit,
         )
 
     return corrected_img, corrected_hdr, audit
@@ -533,6 +564,31 @@ def _write_json(path: Path, payload: dict[str, Any]) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     return path
+
+
+def _remove_file_if_exists(path: Path) -> None:
+    try:
+        if path.exists():
+            path.unlink()
+    except FileNotFoundError:
+        return
+
+
+def _cleanup_envi_pair(img_path: Path, hdr_path: Path) -> None:
+    _remove_file_if_exists(img_path)
+    _remove_file_if_exists(hdr_path)
+
+
+def _write_drone_audit_json(file_audit: dict[str, Any]) -> Path:
+    qa_json_path = Path(str(file_audit["qa_json_path"]))
+    payload = {
+        "platform": "drone",
+        "status": file_audit.get("status"),
+        "error": file_audit.get("error"),
+        "qa_rendered": False,
+        "audit": file_audit,
+    }
+    return _write_json(qa_json_path, payload)
 
 
 def _normalise_bounds(bounds: Any) -> list[float] | None:
@@ -809,6 +865,135 @@ def _merge_drone_polygon_outputs(
     return output_path
 
 
+def _enrich_drone_polygon_parquet_with_index(
+    polygon_parquet_path: Path,
+    polygon_index_path: Path,
+    *,
+    overwrite: bool = True,
+) -> Path:
+    """Attach polygon index metadata to each extracted drone pixel row.
+
+    The raw ENVI extraction step writes only the pixel-level spectral fields.
+    For downstream CSV review and modeling we want each pixel row to also carry
+    the polygon identifier and all non-geometry polygon attributes from the
+    index parquet. This helper rewrites the polygon parquet in-place so the
+    enriched schema propagates to both the per-flight CSV and the merged output.
+    """
+
+    polygon_parquet_path = Path(polygon_parquet_path)
+    polygon_index_path = Path(polygon_index_path)
+    if not polygon_parquet_path.exists():
+        raise FileNotFoundError(polygon_parquet_path)
+    if not polygon_index_path.exists():
+        raise FileNotFoundError(polygon_index_path)
+
+    temp_path = polygon_parquet_path.with_name(
+        f"{polygon_parquet_path.stem}__enriched_tmp.parquet"
+    )
+    if temp_path.exists():
+        temp_path.unlink()
+
+    con = duckdb.connect()
+    try:
+        index_columns = _describe_parquet_columns(con, polygon_index_path)
+        pixel_columns = _describe_parquet_columns(con, polygon_parquet_path)
+        select_terms = [
+            f"idx.{_quote_identifier(col)} AS {_quote_identifier(col)}"
+            for col in index_columns
+        ]
+        seen_columns = set(index_columns)
+        for col in pixel_columns:
+            if col == "pixel_id" or col in seen_columns:
+                continue
+            select_terms.append(
+                f"px.{_quote_identifier(col)} AS {_quote_identifier(col)}"
+            )
+            seen_columns.add(col)
+
+        copy_sql = (
+            "COPY (SELECT "
+            + ", ".join(select_terms)
+            + " FROM read_parquet('"
+            + _quote_path(polygon_index_path)
+            + "') idx INNER JOIN read_parquet('"
+            + _quote_path(polygon_parquet_path)
+            + "') px USING (pixel_id)) TO '"
+            + _quote_path(temp_path)
+            + "' (FORMAT PARQUET, COMPRESSION ZSTD)"
+        )
+        con.execute(copy_sql)
+    finally:
+        con.close()
+
+    if polygon_parquet_path.exists():
+        polygon_parquet_path.unlink()
+    temp_path.replace(polygon_parquet_path)
+    return polygon_parquet_path
+
+
+def _export_csv_copy_from_parquet(
+    parquet_path: Path,
+    csv_path: Path | None = None,
+    *,
+    overwrite: bool = False,
+) -> Path:
+    """Write a CSV sidecar from an existing Parquet table for portability."""
+
+    parquet_path = Path(parquet_path)
+    csv_path = Path(csv_path) if csv_path is not None else parquet_path.with_suffix(".csv")
+    csv_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if csv_path.exists() and not overwrite:
+        return csv_path
+    if not parquet_path.exists():
+        raise FileNotFoundError(f"Cannot export CSV sidecar; missing parquet: {parquet_path}")
+    if csv_path.exists():
+        csv_path.unlink()
+
+    parquet_literal = str(parquet_path).replace("'", "''")
+    csv_literal = str(csv_path).replace("'", "''")
+    con = duckdb.connect()
+    try:
+        con.execute(
+            "COPY (SELECT * FROM read_parquet('"
+            + parquet_literal
+            + "')) TO '"
+            + csv_literal
+            + "' (FORMAT CSV, HEADER)"
+        )
+    finally:
+        con.close()
+    return csv_path
+
+
+def _try_export_csv_copy_from_parquet(
+    parquet_path: Path,
+    csv_path: Path | None = None,
+    *,
+    overwrite: bool = False,
+    context_label: str,
+) -> tuple[Path | None, str | None]:
+    """Attempt CSV sidecar export without blocking the main drone outputs."""
+
+    try:
+        return (
+            _export_csv_copy_from_parquet(
+                parquet_path,
+                csv_path=csv_path,
+                overwrite=overwrite,
+            ),
+            None,
+        )
+    except Exception as exc:
+        LOGGER.warning(
+            "[drone] CSV sidecar export failed for %s (%s): %s",
+            parquet_path,
+            context_label,
+            exc,
+        )
+        return None, str(exc)
+
+
 def _drone_status_color(status: str) -> str | None:
     if status == _DRONE_STATUS_SUCCESS:
         return _ANSI_GREEN
@@ -890,6 +1075,7 @@ def run_drone_pipeline(
         "failed": [],
         "outputs": [],
         "merged": None,
+        "merged_csv": None,
         "qa_summary": {
             "platform": "drone",
             "convolution": "skipped",
@@ -985,6 +1171,7 @@ def run_drone_pipeline(
                 "brdf_requested": bool(apply_brdf),
                 "topo_ready": False,
                 "brdf_ready": False,
+                "correction_failed": False,
                 "brightness_requested": bool(apply_brightness_adjustment),
                 "brightness_applied": False,
                 "cloud_applied": False,
@@ -1000,6 +1187,9 @@ def run_drone_pipeline(
                 polygon_output_path.name if polygon_path is not None else None
             ),
             "polygon_path": str(polygon_output_path) if polygon_path is not None else None,
+            "polygon_csv_filename": None,
+            "polygon_csv_path": None,
+            "polygon_csv_error": None,
             "polygon_index_filename": polygon_index_path.name if polygon_path is not None else None,
             "polygon_index_path": str(polygon_index_path) if polygon_path is not None else None,
             "overlay_debug_filename": (
@@ -1011,6 +1201,10 @@ def run_drone_pipeline(
             "qa_plot_path": str(path_map["qa_png"]),
             "qa_json_path": str(path_map["qa_json"]),
             "merged_filename": None,
+            "merged_csv_filename": None,
+            "merged_csv_path": None,
+            "merged_csv_error": None,
+            "correction_failure_reason": None,
             "status": None,
         }
         try:
@@ -1147,14 +1341,34 @@ def run_drone_pipeline(
                     polygon_output_path,
                     overwrite=overwrite,
                 )
+                polygon_parquet = _enrich_drone_polygon_parquet_with_index(
+                    polygon_parquet,
+                    index_path,
+                    overwrite=True,
+                )
+                polygon_csv, polygon_csv_error = _try_export_csv_copy_from_parquet(
+                    polygon_parquet,
+                    overwrite=overwrite,
+                    context_label=f"{flight_stem} polygon parquet",
+                )
                 results["outputs"].append(str(polygon_parquet))
                 file_audit["polygon_filename"] = polygon_parquet.name
                 file_audit["polygon_path"] = str(polygon_parquet)
+                file_audit["polygon_csv_filename"] = (
+                    polygon_csv.name if polygon_csv is not None else None
+                )
+                file_audit["polygon_csv_path"] = (
+                    str(polygon_csv) if polygon_csv is not None else None
+                )
+                file_audit["polygon_csv_error"] = polygon_csv_error
                 file_audit["polygon_index_filename"] = index_path.name
                 file_audit["polygon_index_path"] = str(index_path)
             else:
                 file_audit["polygon_filename"] = None
                 file_audit["polygon_path"] = None
+                file_audit["polygon_csv_filename"] = None
+                file_audit["polygon_csv_path"] = None
+                file_audit["polygon_csv_error"] = None
 
             results["processed"].append(str(h5_path))
             file_audit["status"] = _DRONE_STATUS_SUCCESS
@@ -1172,6 +1386,24 @@ def run_drone_pipeline(
         except Exception as exc:
             status, reason = _classify_drone_exception(exc)
             elapsed = time.monotonic() - flight_started
+            if isinstance(exc, DroneCorrectionUnavailableError):
+                correction_audit = exc.audit
+                file_audit["flags"].update(
+                    {
+                        "topo_ready": bool(correction_audit.get("topo_ready", False)),
+                        "brdf_ready": bool(correction_audit.get("brdf_ready", False)),
+                        "topo_applied": bool(correction_audit.get("topo_applied", False)),
+                        "brdf_applied": bool(correction_audit.get("brdf_applied", False)),
+                        "topo_fallback_due_to_nodata": bool(
+                            correction_audit.get("topo_fallback_due_to_nodata", False)
+                        ),
+                        "brdf_fallback_due_to_nodata": bool(
+                            correction_audit.get("brdf_fallback_due_to_nodata", False)
+                        ),
+                        "correction_failed": True,
+                    }
+                )
+                file_audit["correction_failure_reason"] = reason
             file_audit["status"] = status
             file_audit["error"] = reason
             file_audit["elapsed_seconds"] = round(elapsed, 3)
@@ -1210,6 +1442,7 @@ def run_drone_pipeline(
                 batch_bar.set_postfix_str(
                     f"{index}/{total_flights} {flight_stem} | finished"
                 )
+        _write_drone_audit_json(file_audit)
         results["qa_summary"]["files"].append(file_audit)
 
     if batch_bar is not None:
@@ -1221,11 +1454,27 @@ def run_drone_pipeline(
             output_dir / "drone_merged.parquet",
             overwrite=overwrite,
         )
+        merged_csv_path, merged_csv_error = _try_export_csv_copy_from_parquet(
+            merged_path,
+            overwrite=overwrite,
+            context_label="drone merged parquet",
+        )
         results["merged"] = str(merged_path)
+        results["merged_csv"] = str(merged_csv_path) if merged_csv_path is not None else None
+        if merged_csv_error is not None:
+            results["qa_summary"]["merged_csv_error"] = merged_csv_error
         for file_audit in results["qa_summary"]["files"]:
             file_audit["merged_filename"] = merged_path.name
+            file_audit["merged_csv_filename"] = (
+                merged_csv_path.name if merged_csv_path is not None else None
+            )
+            file_audit["merged_csv_path"] = (
+                str(merged_csv_path) if merged_csv_path is not None else None
+            )
+            file_audit["merged_csv_error"] = merged_csv_error
     else:
         results["merged"] = None
+        results["merged_csv"] = None
 
     try:
         from spectralbridge.qa_plots import render_drone_panel

@@ -1386,3 +1386,31 @@ Branch: main
 ```text
 let's turn it on by default
 ```
+
+## 2026-04-10 - add CSV sidecars for drone parquet outputs
+Branch: main
+
+```text
+after we make the parquet, we should make a csv from that parquet table. the csv is too slow for primary write but it's easier to open on more computers so we want a copy. 
+```
+
+## 2026-04-10 - keep drone QA rendering when CSV sidecars fail
+Branch: main
+
+```text
+i'm not seeing the qa plots of qa .json anymore on the first run after all those updates 
+```
+
+## 2026-04-10 - keep polygon metadata on every drone pixel row
+Branch: main
+
+```text
+the csv, and therefore the parquet file seem to not be keeping the polygon id information. we want all the polygon infroamtion to come alone. that means duplicating the polygon infromation across rows so that each row is for a pixel and each pixel knows what polygon it came from and then the data for the polygon will then say what speciees the polygon is representing and what other things we measured about that thing. 
+```
+
+## 2026-04-10 - fail drone correction when requested correction cannot run
+Branch: main
+
+```text
+I think it's probably one of the first two. we want to know what happened. If we can't correct, we should not pass on the raw to the corrected file, we should fail to make a corrected file so that we know what happened. it shoudl also go in the qa json so we can see that hit happened. 
+```

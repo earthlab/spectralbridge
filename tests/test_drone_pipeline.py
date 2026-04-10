@@ -4,6 +4,7 @@ from pathlib import Path
 
 import json
 
+import duckdb
 import pytest
 import numpy as np
 import pandas as pd
@@ -11,6 +12,9 @@ import pandas as pd
 from spectralbridge.pipelines import run_drone_pipeline
 from spectralbridge.pipelines.drone import (
     DRONE_TARGET_BANDS,
+    DroneCorrectionUnavailableError,
+    _enrich_drone_polygon_parquet_with_index,
+    _export_csv_copy_from_parquet,
     apply_drone_corrections,
     build_drone_output_paths,
     collect_drone_spatial_diagnostics,
@@ -177,6 +181,17 @@ def _fake_render_drone_panel(**kwargs):
         "polygon": {"path": str(kwargs.get("polygon_path")) if kwargs.get("polygon_path") else None},
         "merged_preview": {"path": str(kwargs.get("merged_path")) if kwargs.get("merged_path") else None},
     }
+
+
+def _fake_csv_export(parquet_path, csv_path=None, *, overwrite=False):
+    target = Path(csv_path) if csv_path is not None else Path(parquet_path).with_suffix(".csv")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text("csv", encoding="utf-8")
+    return target
+
+
+def _fake_polygon_enrichment(parquet_path, polygon_index_path, *, overwrite=True):
+    return Path(parquet_path)
 
 
 def _write_test_raster(
@@ -395,29 +410,24 @@ def test_apply_drone_corrections_reverts_topo_chunk_when_it_becomes_all_nodata(
         ),
     )
 
-    corrected_img, corrected_hdr, audit = apply_drone_corrections(
-        cube=cube,
-        envi_img=raw_img,
-        envi_hdr=raw_hdr,
-        corrected_stem=tmp_path / "corrected",
-        apply_topo=True,
-        apply_brdf=False,
-    )
+    with pytest.raises(
+        DroneCorrectionUnavailableError,
+        match="reverted because it collapsed valid reflectance to no-data",
+    ) as exc_info:
+        apply_drone_corrections(
+            cube=cube,
+            envi_img=raw_img,
+            envi_hdr=raw_hdr,
+            corrected_stem=tmp_path / "corrected",
+            apply_topo=True,
+            apply_brdf=False,
+        )
 
-    assert corrected_img.exists()
-    assert corrected_hdr.exists()
+    audit = exc_info.value.audit
     assert audit["topo_applied"] is False
     assert audit["topo_fallback_due_to_nodata"] is True
-    assert _FakeWriter.last_chunks is not None
-    written_chunk = np.asarray(_FakeWriter.last_chunks[0][2], dtype=np.float32)
-    expected_chunk = np.asarray(
-        [
-            [[0.1, 0.2, 0.3, 0.4], [0.2, 0.3, 0.4, 0.5]],
-            [[0.3, 0.4, 0.5, 0.6], [0.4, 0.5, 0.6, 0.7]],
-        ],
-        dtype=np.float32,
-    )
-    np.testing.assert_allclose(written_chunk, expected_chunk)
+    assert not (tmp_path / "corrected.img").exists()
+    assert not (tmp_path / "corrected.hdr").exists()
 
 
 def test_render_drone_merged_preview_prefers_non_nodata_rows(
@@ -443,6 +453,74 @@ def test_render_drone_merged_preview_prefers_non_nodata_rows(
     assert summary["rows_total"] == 2
     assert summary["rows_previewed"] == 1
     assert "non-nodata spectral rows" in str(summary["filter_applied"])
+
+
+def test_export_csv_copy_from_parquet_writes_csv_sidecar(tmp_path: Path) -> None:
+    parquet_path = tmp_path / "demo.parquet"
+    csv_path = tmp_path / "demo.csv"
+    con = duckdb.connect()
+    try:
+        con.execute(
+            "COPY (SELECT * FROM (VALUES "
+            "(1, 0.1, 'a'), "
+            "(2, 0.2, 'b')) AS t(pixel_id, band_1, label)) "
+            "TO ? (FORMAT PARQUET)",
+            [str(parquet_path)],
+        )
+    finally:
+        con.close()
+
+    written_csv = _export_csv_copy_from_parquet(parquet_path, overwrite=True)
+
+    assert written_csv == csv_path
+    assert csv_path.exists()
+    round_trip = pd.read_csv(csv_path)
+    assert round_trip["pixel_id"].tolist() == [1, 2]
+    assert round_trip["label"].tolist() == ["a", "b"]
+
+
+def test_enrich_drone_polygon_parquet_with_index_duplicates_polygon_metadata(
+    tmp_path: Path,
+) -> None:
+    polygon_parquet = tmp_path / "pixels.parquet"
+    polygon_index = tmp_path / "index.parquet"
+
+    con = duckdb.connect()
+    try:
+        con.execute(
+            "COPY (SELECT * FROM (VALUES "
+            "(1001, 10.0, 20.0), "
+            "(1002, 11.0, 21.0)) AS t(pixel_id, raw_b001_wl0444nm, raw_b002_wl0560nm)) "
+            "TO ? (FORMAT PARQUET)",
+            [str(polygon_parquet)],
+        )
+        con.execute(
+            "COPY (SELECT * FROM (VALUES "
+            "(1001, 7, 'PIPO', 'tree_a'), "
+            "(1002, 7, 'PIPO', 'tree_a')) AS t(pixel_id, polygon_id, species, stem_tag)) "
+            "TO ? (FORMAT PARQUET)",
+            [str(polygon_index)],
+        )
+    finally:
+        con.close()
+
+    enriched = _enrich_drone_polygon_parquet_with_index(
+        polygon_parquet,
+        polygon_index,
+    )
+
+    con = duckdb.connect()
+    try:
+        df = con.execute("SELECT * FROM read_parquet(?)", [str(enriched)]).df()
+    finally:
+        con.close()
+    assert "polygon_id" in df.columns
+    assert "species" in df.columns
+    assert "stem_tag" in df.columns
+    assert df["polygon_id"].tolist() == [7, 7]
+    assert df["species"].tolist() == ["PIPO", "PIPO"]
+    assert df["stem_tag"].tolist() == ["tree_a", "tree_a"]
+    assert df["raw_b001_wl0444nm"].tolist() == [10.0, 11.0]
 
 
 def test_run_drone_pipeline_with_polygons_and_merge(
@@ -496,6 +574,14 @@ def test_run_drone_pipeline_with_polygons_and_merge(
         "spectralbridge.pipelines.drone._merge_drone_polygon_outputs", _fake_merge
     )
     monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._enrich_drone_polygon_parquet_with_index",
+        _fake_polygon_enrichment,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._export_csv_copy_from_parquet",
+        _fake_csv_export,
+    )
+    monkeypatch.setattr(
         "spectralbridge.pipelines.drone.collect_drone_spatial_diagnostics",
         lambda *, raster_img, polygons_path: {
             "raster_crs": "EPSG:32613",
@@ -527,13 +613,20 @@ def test_run_drone_pipeline_with_polygons_and_merge(
     assert len(results["processed"]) == 2
     assert len(results["outputs"]) == 2
     assert results["merged"] == str(tmp_path / "out" / "drone_merged.parquet")
+    assert results["merged_csv"] == str(tmp_path / "out" / "drone_merged.csv")
     assert Path(results["merged"]).exists()
+    assert Path(results["merged_csv"]).exists()
     qa_files = results["qa_summary"]["files"]
     assert {entry["polygon_filename"] for entry in qa_files} == {
         "SPR1_20230628__polygons.parquet",
         "SPR2_20230628__polygons.parquet",
     }
+    assert {entry["polygon_csv_filename"] for entry in qa_files} == {
+        "SPR1_20230628__polygons.csv",
+        "SPR2_20230628__polygons.csv",
+    }
     assert {entry["merged_filename"] for entry in qa_files} == {"drone_merged.parquet"}
+    assert {entry["merged_csv_filename"] for entry in qa_files} == {"drone_merged.csv"}
     assert {entry["qa_plot_filename"] for entry in qa_files} == {
         "SPR1_20230628__qa.png",
         "SPR2_20230628__qa.png",
@@ -543,6 +636,95 @@ def test_run_drone_pipeline_with_polygons_and_merge(
         "SPR2_20230628",
     }
     assert {entry["status"] for entry in qa_files} == {"success"}
+
+
+def test_run_drone_pipeline_still_renders_qa_when_csv_export_fails(
+    tmp_path: Path, monkeypatch
+) -> None:
+    input_dir = tmp_path / "input"
+    input_dir.mkdir(parents=True, exist_ok=True)
+    h5_path = (
+        input_dir
+        / "SPR1-06-28-23-ExportPackage"
+        / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
+    )
+    h5_path.parent.mkdir(parents=True, exist_ok=True)
+    h5_path.write_bytes(b"a")
+    polygon_path = tmp_path / "plots.geojson"
+    polygon_path.write_text("{}", encoding="utf-8")
+
+    _patch_basic_drone_runtime(monkeypatch)
+
+    def _fake_build_index(**kwargs):
+        path = kwargs["output_path"]
+        path.write_text("index", encoding="utf-8")
+        return path
+
+    def _fake_extract(
+        envi_img, envi_hdr, polygon_index_path, output_parquet_path, overwrite=False
+    ):
+        output_parquet_path.write_text(output_parquet_path.stem, encoding="utf-8")
+        return output_parquet_path
+
+    def _fake_merge(outputs, output_path, overwrite=False):
+        output_path.write_text("\n".join(outputs), encoding="utf-8")
+        return output_path
+
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._build_polygon_pixel_index_for_raster",
+        _fake_build_index,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.extract_polygon_parquet_from_envi",
+        _fake_extract,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._merge_drone_polygon_outputs", _fake_merge
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._enrich_drone_polygon_parquet_with_index",
+        _fake_polygon_enrichment,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._export_csv_copy_from_parquet",
+        lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("csv export boom")),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.collect_drone_spatial_diagnostics",
+        lambda *, raster_img, polygons_path: {
+            "raster_crs": "EPSG:32613",
+            "polygon_crs": "EPSG:4326",
+            "polygon_reprojected": True,
+            "bounds_overlap_after_reproject": True,
+            "intersecting_polygon_count": 1,
+            "raster_bounds": [0.0, 0.0, 10.0, 10.0],
+        },
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.save_drone_overlay_debug_plot",
+        lambda **kwargs: Path(kwargs["output_path"]).write_bytes(b"png")
+        or Path(kwargs["output_path"]),
+    )
+
+    results = run_drone_pipeline(
+        input_dir,
+        polygon_path=polygon_path,
+        output_dir=tmp_path / "out",
+        apply_topo=False,
+    )
+
+    assert results["processed"] == [str(h5_path)]
+    assert results["failed"] == []
+    assert results["merged"] == str(tmp_path / "out" / "drone_merged.parquet")
+    assert results["merged_csv"] is None
+    file_summary = results["qa_summary"]["files"][0]
+    assert file_summary["status"] == "success"
+    assert file_summary["polygon_csv_filename"] is None
+    assert file_summary["polygon_csv_error"] == "csv export boom"
+    assert file_summary["merged_csv_filename"] is None
+    assert file_summary["merged_csv_error"] == "csv export boom"
+    assert Path(file_summary["qa_plot_path"]).exists()
+    assert Path(file_summary["qa_json_path"]).exists()
 
 
 def test_collect_drone_spatial_diagnostics_records_raster_and_polygon_metadata(
@@ -797,6 +979,51 @@ def test_run_drone_pipeline_reports_progress_and_statuses(
     assert "[drone] Complete: 2 total | 2 success | 0 skipped_no_polygon_overlap | 0 failed_other" in captured.err
 
 
+def test_run_drone_pipeline_writes_audit_json_when_correction_unavailable(
+    tmp_path: Path, monkeypatch
+) -> None:
+    h5_path = (
+        tmp_path
+        / "input"
+        / "SPR1-06-28-23-ExportPackage"
+        / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
+    )
+    h5_path.parent.mkdir(parents=True, exist_ok=True)
+    h5_path.write_bytes(b"fake-h5")
+
+    _patch_basic_drone_runtime(monkeypatch)
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._has_required_ancillary",
+        lambda cube, names: False,
+    )
+
+    results = run_drone_pipeline(
+        h5_path.parent,
+        output_dir=tmp_path / "out",
+        apply_topo=True,
+        apply_brdf=True,
+    )
+
+    assert results["processed"] == []
+    assert len(results["failed"]) == 1
+    file_summary = results["qa_summary"]["files"][0]
+    assert file_summary["status"] == "failed_other"
+    assert file_summary["flags"]["correction_failed"] is True
+    assert file_summary["flags"]["topo_ready"] is False
+    assert file_summary["flags"]["brdf_ready"] is False
+    assert "required ancillary geometry was unavailable" in str(
+        file_summary["correction_failure_reason"]
+    )
+    assert not Path(file_summary["corrected_raster_path"]).exists()
+    qa_json_path = Path(file_summary["qa_json_path"])
+    assert qa_json_path.exists()
+    qa_payload = json.loads(qa_json_path.read_text(encoding="utf-8"))
+    assert qa_payload["qa_rendered"] is False
+    assert qa_payload["status"] == "failed_other"
+    assert "required ancillary geometry was unavailable" in str(qa_payload["error"])
+    assert qa_payload["audit"]["flags"]["correction_failed"] is True
+
+
 def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues(
     tmp_path: Path, monkeypatch, capsys
 ) -> None:
@@ -889,6 +1116,14 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone._merge_drone_polygon_outputs", _fake_merge
     )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._enrich_drone_polygon_parquet_with_index",
+        _fake_polygon_enrichment,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._export_csv_copy_from_parquet",
+        _fake_csv_export,
+    )
 
     results = run_drone_pipeline(
         input_dir,
@@ -915,6 +1150,7 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
     assert len(results["failed"]) == 1
     assert len(results["outputs"]) == 1
     assert results["merged"] == str(tmp_path / "out" / "drone_merged.parquet")
+    assert results["merged_csv"] == str(tmp_path / "out" / "drone_merged.csv")
     assert results["qa_summary"]["success_count"] == 1
     assert results["qa_summary"]["skipped_no_polygon_overlap_count"] == 1
     assert results["qa_summary"]["failed_other_count"] == 1
@@ -935,3 +1171,7 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
     assert file_entries["SPR2_20230628"]["overlay_debug_filename"] == (
         "SPR2_20230628__overlay_debug.png"
     )
+    assert file_entries["SPR1_20230628"]["polygon_csv_filename"] == (
+        "SPR1_20230628__polygons.csv"
+    )
+    assert file_entries["SPR1_20230628"]["merged_csv_filename"] == "drone_merged.csv"
