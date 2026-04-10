@@ -1667,7 +1667,7 @@
 <td>BRDF model JSON</td>
 <td><code>&lt;flight_id&gt;_brdf_model.json</code></td>
 <td>Scene-level BRDF coefficient tables written before BRDF application.</td>
-<td>Includes <code>iso</code>/<code>vol</code>/<code>geo</code> plus <code>ndvi_edges</code>, which records the realized NDVI bin boundaries for the coefficient rows rather than a standalone NDVI raster.</td>
+<td>Includes <code>iso</code>/<code>vol</code>/<code>geo</code>, kernel settings, <code>ndvi_binning_enabled</code>, and <code>ndvi_edges</code>. With the default single-bin BRDF fit, <code>ndvi_edges</code> is <code>[-1, 1]</code>; if NDVI binning is enabled, it records the realized NDVI bin boundaries for the coefficient rows rather than a standalone NDVI raster.</td>
 </tr>
 <tr>
 <td>BRDF + topographic corrected ENVI</td>

@@ -1559,12 +1559,17 @@ fitting the first place to investigate.</p>
 <ul>
 <li>NDVI is derived from bands nearest 665 nm and 865 nm after converting to
   unitless reflectance.</li>
-<li>Pixels are assigned to configurable bins (defaults ~0.05–1.0 over 25 bins
-  with percentile clipping) used for BRDF fitting and application.</li>
+<li>NDVI binning is optional and defaults to off. With the default setting, BRDF
+  fitting uses a single scene-wide coefficient row instead of NDVI-stratified
+  bins.</li>
+<li>If enabled, pixels are assigned to configurable bins (default bounds
+  ~0.05–1.0 over 25 bins with percentile clipping) used for BRDF fitting and
+  application.</li>
 <li>The fitted <code>*_brdf_model.json</code> stores the realized bin boundaries as
-  <code>ndvi_edges</code>. Those values document which NDVI stratum each row of
-  <code>iso</code>/<code>vol</code>/<code>geo</code> coefficients belongs to; they are BRDF model metadata, not
-  a standalone NDVI output raster.</li>
+  <code>ndvi_edges</code>. When NDVI binning is off, this is <code>[-1, 1]</code> for the single
+  neutral bin. When binning is on, those values document which NDVI stratum
+  each row of <code>iso</code>/<code>vol</code>/<code>geo</code> coefficients belongs to; they are BRDF model
+  metadata, not a standalone NDVI output raster.</li>
 <li>When coefficients are missing or bin counts mismatch, neutral coefficients
   are broadcast across all bins to avoid dropping pixels. Pixels with NDVI
   outside the bin range are remapped into the first bin to preserve coverage
@@ -1576,9 +1581,10 @@ fitting the first place to investigate.</p>
 <li>The streamlined BRDF model now persists the kernel settings used during fit
   and apply, including the volume kernel, geometric kernel, geometric
   parameters (<code>b/r</code>, <code>h/b</code>), and <code>solar_zn_type</code>.</li>
-<li>Current defaults follow the repo's historical HyTools-backed settings:
-  <code>RossThick</code> volume, <code>LiDenseR</code> geometric, <code>b/r = 10</code>, <code>h/b = 2</code>, and
-  <code>solar_zn_type = scene</code>.</li>
+<li>The shared correction helpers keep streamlined-compatible defaults, while the
+  NEON and drone correction pipelines explicitly request the historical
+  HyTools-style settings: <code>RossThick</code> volume, <code>LiDenseR</code> geometric,
+  <code>b/r = 10</code>, <code>h/b = 2</code>, and <code>solar_zn_type = scene</code>.</li>
 <li>BRDF normalization uses the FlexBRDF ratio <code>R_ref/R_pix</code>, evaluating kernels
   at both pixel geometry and a configurable reference geometry.</li>
 </ul>

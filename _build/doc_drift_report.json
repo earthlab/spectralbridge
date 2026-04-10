@@ -210,6 +210,7 @@
       "--reflectance-offset",
       "--remote-prefix",
       "--resample-method",
+      "--use-ndvi-brdf-bins",
       "--verbose"
     ],
     "recover_cli.py": [
@@ -230,6 +231,7 @@
       "--product-code",
       "--resample-method",
       "--site-code",
+      "--use-ndvi-brdf-bins",
       "--year-month"
     ],
     "qa_cli.py": [

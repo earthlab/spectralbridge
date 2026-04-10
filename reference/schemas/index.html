@@ -1692,12 +1692,15 @@
 <li><code>iso</code>, <code>vol</code>, and <code>geo</code> coefficient tables  </li>
 <li>kernel names used during fitting/application  </li>
 <li>geometric kernel parameters such as <code>b_r</code>, <code>h_b</code>, and <code>solar_zn_type</code>  </li>
+<li><code>ndvi_binning_enabled</code>, indicating whether NDVI-stratified BRDF bins were
+  used during fitting  </li>
 <li><code>ndvi_edges</code>, which stores the realized NDVI bin boundaries (<code>n_bins + 1</code>
   values) used to stratify the coefficient rows  </li>
 </ul>
 <p><code>ndvi_edges</code> is metadata for interpreting the BRDF model. It explains which
 NDVI stratum each coefficient row belongs to; it is not a per-pixel NDVI
-product.</p>
+product. When NDVI binning is disabled, the model stores a single neutral bin
+with <code>ndvi_edges = [-1, 1]</code>.</p>
 <hr />
 <h2 id="4-convolution-metadata-sensor-harmonization">4. Convolution metadata (sensor harmonization)<a class="headerlink" href="#4-convolution-metadata-sensor-harmonization" title="Permanent link">&para;</a></h2>
 <p>*_convolution_metadata.json</p>
