@@ -24,6 +24,24 @@ HyTools/FlexBRDF behaviour.
   behaviour should explicitly pass `use_scs_c=False` (or the equivalent CLI
   flag) to disable SCS+C.
 
+## Implementation notes
+
+The current streamlined NEON correction path applies BRDF/topographic correction
+in fixed non-overlapping spatial chunks.
+
+* The correction driver currently walks the scene in `100 x 100` tiles.
+* Tile bounds are simple raster slices with no halo, overlap, feathering, or
+  rolling-window context.
+* Topographic correction is fit per chunk. In practice that means the SCS+C
+  regression `rho = a*cos(i) + b` and its derived `C = b/a` term are solved
+  independently inside each tile for each band.
+* BRDF coefficients are fit once at the scene level, then applied chunk by
+  chunk using the local pixel geometry for that tile.
+
+This distinction matters when interpreting artifacts. If a visible seam aligns
+with the chunk grid, the present implementation makes chunk-local topographic
+fitting the first place to investigate.
+
 ## NDVI binning
 
 * NDVI is derived from bands nearest 665 nm and 865 nm after converting to

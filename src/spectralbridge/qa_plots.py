@@ -1824,6 +1824,38 @@ def _render_drone_merged_preview(
             filtered = df[df["base_name"].astype(str) == str(base_name)]
             summary["filter_applied"] = f"base_name == {base_name}"
 
+        # Prefer preview rows that contain actual spectral data rather than rows
+        # whose numeric payload is entirely no-data. Without this, the QA table can
+        # misleadingly look like the whole polygon extraction failed even when the
+        # parquet also contains valid rows further down.
+        numeric_exclude = {
+            "pixel_id",
+            "row",
+            "col",
+            "x",
+            "y",
+            "lon",
+            "lat",
+            "epsg",
+            "polygon_id",
+        }
+        numeric_cols = [
+            col
+            for col in filtered.columns
+            if col not in numeric_exclude and pd.api.types.is_numeric_dtype(filtered[col])
+        ]
+        if len(numeric_cols) >= 3:
+            numeric_block = filtered.loc[:, numeric_cols]
+            nodata_like = (numeric_block <= -9990.0) | numeric_block.isna()
+            usable_rows = ~nodata_like.all(axis=1)
+            if usable_rows.any():
+                filtered = filtered.loc[usable_rows]
+                suffix = "non-nodata spectral rows"
+                if summary["filter_applied"]:
+                    summary["filter_applied"] = f"{summary['filter_applied']}; {suffix}"
+                else:
+                    summary["filter_applied"] = suffix
+
         preview = filtered.head(5)
         display_cols = list(preview.columns[:8])
         summary["rows_previewed"] = int(len(preview))

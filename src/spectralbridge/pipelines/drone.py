@@ -304,6 +304,9 @@ def export_h5_to_envi(
     cube = cube or NeonCube(h5_path=h5_path)
     header = cube.build_envi_header()
     header["description"] = "Drone hyperspectral reflectance exported to ENVI"
+    header.setdefault("reflectance scale factor", float(getattr(cube, "scale_factor", 1.0)))
+    if hasattr(cube, "no_data"):
+        header.setdefault("data ignore value", float(getattr(cube, "no_data")))
     writer = EnviWriter(output_stem, header)
 
     offset_value = np.float32(brightness_offset)
@@ -379,6 +382,17 @@ def _has_required_ancillary(cube: NeonCube, names: tuple[str, ...]) -> bool:
     return True
 
 
+def _chunk_has_any_valid_reflectance(
+    chunk: np.ndarray,
+    *,
+    no_data_value: float | None,
+) -> bool:
+    valid = np.isfinite(chunk)
+    if no_data_value is not None and np.isfinite(no_data_value):
+        valid &= ~np.isclose(chunk, float(no_data_value), atol=1e-6)
+    return bool(np.any(valid))
+
+
 def apply_drone_corrections(
     *,
     cube: NeonCube,
@@ -389,7 +403,12 @@ def apply_drone_corrections(
     apply_brdf: bool,
     overwrite: bool = False,
 ) -> tuple[Path, Path, dict[str, Any]]:
-    """Apply optional topo/BRDF corrections with conservative drone defaults."""
+    """Apply optional topo/BRDF corrections to a drone ENVI export.
+
+    ``run_drone_pipeline`` now requests both topo and BRDF correction by
+    default. Each correction still remains conditional on the required
+    ancillary geometry being available for the current cube.
+    """
 
     corrected_img = corrected_stem.with_suffix(".img")
     corrected_hdr = corrected_stem.with_suffix(".hdr")
@@ -398,6 +417,8 @@ def apply_drone_corrections(
         "requested_brdf": bool(apply_brdf),
         "topo_applied": False,
         "brdf_applied": False,
+        "topo_fallback_due_to_nodata": False,
+        "brdf_fallback_due_to_nodata": False,
         "brightness_applied": False,
         "cloud_mask_applied": False,
         "convolution_skipped": True,
@@ -429,6 +450,9 @@ def apply_drone_corrections(
     header["description"] = (
         "Drone reflectance corrected with optional topo/BRDF adjustments"
     )
+    header.setdefault("reflectance scale factor", float(getattr(cube, "scale_factor", 1.0)))
+    if hasattr(cube, "no_data"):
+        header.setdefault("data ignore value", float(getattr(cube, "no_data")))
     writer = EnviWriter(corrected_stem, header)
     # Drone scenes are already fully loaded into memory via ``NeonCube``.
     # Use a single full-scene chunk here so the correction is fit/applied
@@ -441,19 +465,56 @@ def apply_drone_corrections(
         interactive_mode=False,
         log_every=25,
     )
+    no_data_value = (
+        float(getattr(cube, "no_data")) if hasattr(cube, "no_data") else None
+    )
     try:
         for ys, ye, xs, xe, raw_chunk in cube.iter_chunks(
             chunk_y=chunk_y, chunk_x=chunk_x
         ):
             chunk = np.asarray(raw_chunk, dtype=np.float32)
             if topo_ready:
-                chunk = apply_topo_correct(cube, chunk, ys, ye, xs, xe)
-                audit["topo_applied"] = True
+                topo_input = chunk
+                topo_candidate = apply_topo_correct(cube, chunk, ys, ye, xs, xe)
+                if _chunk_has_any_valid_reflectance(
+                    topo_input,
+                    no_data_value=no_data_value,
+                ) and not _chunk_has_any_valid_reflectance(
+                    topo_candidate,
+                    no_data_value=no_data_value,
+                ):
+                    LOGGER.warning(
+                        "[drone] Topographic correction collapsed valid reflectance to no-data for %s; "
+                        "reverting to the pre-topo chunk.",
+                        corrected_stem.name,
+                    )
+                    audit["topo_fallback_due_to_nodata"] = True
+                    chunk = topo_input
+                else:
+                    chunk = topo_candidate
+                    audit["topo_applied"] = True
             if brdf_ready:
-                chunk = apply_brdf_correct(
+                brdf_input = chunk
+                brdf_candidate = apply_brdf_correct(
                     cube, chunk, ys, ye, xs, xe, coeff_path=coeff_path
                 )
-                audit["brdf_applied"] = True
+                if _chunk_has_any_valid_reflectance(
+                    brdf_input,
+                    no_data_value=no_data_value,
+                ) and not _chunk_has_any_valid_reflectance(
+                    brdf_candidate,
+                    no_data_value=no_data_value,
+                ):
+                    LOGGER.warning(
+                        "[drone] BRDF correction collapsed valid reflectance to no-data for %s; "
+                        "reverting to the pre-BRDF chunk.",
+                        corrected_stem.name,
+                    )
+                    audit["brdf_fallback_due_to_nodata"] = True
+                    chunk = brdf_input
+                else:
+                    chunk = brdf_candidate
+                    audit["brdf_applied"] = True
             writer.write_chunk(chunk, ys, xs)
             reporter.update(1)
     finally:
@@ -811,7 +872,7 @@ def run_drone_pipeline(
     polygon_path: str | Path | None = None,
     output_dir: str | Path = ".",
     apply_topo: bool = True,
-    apply_brdf: bool = False,
+    apply_brdf: bool = True,
     apply_brightness_adjustment: bool = False,
     overwrite: bool = False,
 ) -> dict[str, Any]:
@@ -922,6 +983,8 @@ def run_drone_pipeline(
             "flags": {
                 "topo_requested": bool(apply_topo),
                 "brdf_requested": bool(apply_brdf),
+                "topo_ready": False,
+                "brdf_ready": False,
                 "brightness_requested": bool(apply_brightness_adjustment),
                 "brightness_applied": False,
                 "cloud_applied": False,
@@ -1010,13 +1073,30 @@ def run_drone_pipeline(
             )
             file_audit["flags"].update(
                 {
+                    "topo_ready": bool(correction_audit.get("topo_ready", False)),
+                    "brdf_ready": bool(correction_audit.get("brdf_ready", False)),
                     "topo_applied": bool(correction_audit.get("topo_applied", False)),
                     "brdf_applied": bool(correction_audit.get("brdf_applied", False)),
+                    "topo_fallback_due_to_nodata": bool(
+                        correction_audit.get("topo_fallback_due_to_nodata", False)
+                    ),
+                    "brdf_fallback_due_to_nodata": bool(
+                        correction_audit.get("brdf_fallback_due_to_nodata", False)
+                    ),
                     "brightness_applied": False,
                     "cloud_applied": False,
                     "convolution_skipped": True,
                 }
             )
+            if not correction_audit.get("topo_applied", False) and not correction_audit.get(
+                "brdf_applied", False
+            ):
+                _drone_emit(
+                    f"[drone] [{index}/{total_flights}] {flight_stem} "
+                    "no correction was applied; reusing raw reflectance because the "
+                    "required ancillary geometry was unavailable.",
+                    status=None,
+                )
             file_audit["corrected_raster"] = corrected_img.name
             file_audit["corrected_raster_path"] = str(corrected_img)
 

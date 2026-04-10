@@ -282,6 +282,23 @@ class NeonCube:
 
         return array
 
+    # Shared chunk iterator used throughout export, correction, and resampling.
+    #
+    # Big picture:
+    # - ``chunk_y`` and ``chunk_x`` are requested tile sizes in pixels.
+    # - The iterator walks the image in raster order: top to bottom, then left to right.
+    # - Edge tiles shrink as needed so we never step beyond ``self.lines`` or
+    #   ``self.columns``.
+    #
+    # Spatial indexing convention:
+    # - ``ys`` / ``ye`` are the row bounds for the tile.
+    # - ``xs`` / ``xe`` are the column bounds for the tile.
+    # - Bounds are half-open, so the tile is exactly ``self.data[ys:ye, xs:xe, :]``.
+    #
+    # Important limitation:
+    # - This iterator does not add overlap, halos, or rolling-window context.
+    #   Callers that need extra context around each tile must compute expanded
+    #   bounds themselves and crop after processing.
     def iter_chunks(
         self,
         chunk_y: int = 100,
@@ -289,13 +306,18 @@ class NeonCube:
     ) -> Iterator[Tuple[int, int, int, int, np.ndarray]]:
         """Yield sequential spatial chunks of the reflectance cube."""
 
+        # March through the scene in fixed strides along rows, then columns.
         for ys in range(0, self.lines, chunk_y):
             ye = min(self.lines, ys + chunk_y)
             for xs in range(0, self.columns, chunk_x):
                 xe = min(self.columns, xs + chunk_x)
+                # NumPy slicing gives us either a view or lightweight slice of the
+                # in-memory cube for the current spatial footprint.
                 chunk = self.data[ys:ye, xs:xe, :]
                 yield ys, ye, xs, xe, chunk
 
+    # Companion helper for progress reporting. This uses the same tiling rules as
+    # ``iter_chunks`` but returns only the count, not the tile contents.
     def chunk_count(self, chunk_y: int = 100, chunk_x: int = 100) -> int:
         """Return the number of spatial chunks produced by :meth:`iter_chunks`."""
 
@@ -444,4 +466,3 @@ def debug_load_neon_cube(h5_path: Path) -> "NeonCube":
         "shape:", cube.data.shape, "dtype:", cube.data.dtype, "wavelengths:", cube.wavelengths.shape
     )
     return cube
-

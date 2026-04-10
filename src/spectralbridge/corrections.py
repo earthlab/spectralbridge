@@ -337,6 +337,30 @@ def calc_geom_kernel(
     return kernel.astype(np.float32)
 
 
+# Per-tile topographic correction used by the streamlined NEON and drone workflows.
+#
+# Big picture:
+# - ``chunk_array`` is a hyperspectral tile with shape ``(rows, cols, bands)``.
+# - ``ys:ye`` and ``xs:xe`` tell us where that tile sits inside the full scene.
+# - The function slices slope/aspect/solar geometry from the full-scene ancillary
+#   rasters using those same bounds so every reflectance pixel lines up with its
+#   corresponding terrain and illumination geometry.
+#
+# Math summary:
+# - ``cos_i`` is the cosine of the solar incidence angle on the sloped surface.
+# - In SCS+C mode, the code fits a linear model for each band on valid pixels:
+#     rho = a * cos(i) + b
+# - The fitted ``C`` parameter is defined as ``C = b / a``.
+# - The correction factor is then:
+#     (cos(theta_s) * cos(beta) + C) / (cos(i) + C)
+#   where ``theta_s`` is solar zenith and ``beta`` is slope.
+# - This is the standard SCS+C adjustment: it reduces terrain-driven brightness
+#   differences while damping the instability that a pure cosine ratio can create.
+#
+# Chunking consequence:
+# - Because the regression is fit inside this function on the current tile's valid
+#   pixels, the fitted ``C`` value can vary from tile to tile when the caller uses
+#   non-overlapping chunks.
 def apply_topo_correct(
     cube,
     chunk_array: np.ndarray,
@@ -351,6 +375,8 @@ def apply_topo_correct(
     if chunk_array.dtype != np.float32:
         raise ValueError("Chunks passed to apply_topo_correct must be float32 arrays.")
 
+    # Pull the ancillary rasters for exactly the same spatial footprint as the
+    # reflectance tile we are correcting.
     slope = cube.get_ancillary("slope", radians=True)[ys:ye, xs:xe]
     aspect = cube.get_ancillary("aspect", radians=True)[ys:ye, xs:xe]
     solar_zn = cube.get_ancillary("solar_zn", radians=True)[ys:ye, xs:xe]
@@ -360,9 +386,13 @@ def apply_topo_correct(
     cos_solar = np.cos(solar_zn)
     cos_beta = np.cos(slope)
 
+    # Internally we work in unitless reflectance. ``scale_factor`` converts from
+    # the cube's stored values to physical reflectance before the correction math.
     scale_factor = float(getattr(cube, "scale_factor", 1.0)) or 1.0
     data_unitless = chunk_array.astype(np.float32, copy=False) * np.float32(scale_factor)
 
+    # ``valid_mask`` is spatial, not spectral: a pixel is valid only if the
+    # reflectance tile and illumination geometry are finite at that location.
     if hasattr(cube, "mask_no_data"):
         valid_mask = cube.mask_no_data[ys:ye, xs:xe].astype(bool)
     else:
@@ -378,6 +408,8 @@ def apply_topo_correct(
         cos_solar_valid = cos_solar[valid_mask]
         cos_beta_valid = cos_beta[valid_mask]
         for band in range(data_unitless.shape[-1]):
+            # Solve the SCS+C regression independently for each spectral band using
+            # only the valid pixels from this chunk.
             rho_band = data_unitless[..., band]
             y = rho_band[valid_mask].astype(np.float64, copy=False)
             x = cos_i_valid.astype(np.float64, copy=False)
@@ -385,6 +417,10 @@ def apply_topo_correct(
             if np.count_nonzero(finite) < 2:
                 logging.debug("Band %d: insufficient samples for SCS+C; using neutral", band)
                 continue
+
+            # ``X = [cos(i), 1]`` means least squares is fitting:
+            #   rho = a * cos(i) + b
+            # where ``a`` is the slope and ``b`` is the intercept.
             X = np.stack([x[finite], np.ones_like(x[finite])], axis=1)
             try:
                 coeffs, *_ = np.linalg.lstsq(X, y[finite], rcond=None)
@@ -396,11 +432,18 @@ def apply_topo_correct(
                 C_val = 0.0
                 logging.debug("Band %d: regression slope near zero; C set to 0", band)
             else:
+                # ``C = b / a`` is the classic SCS+C parameter. It shifts both the
+                # numerator and denominator so the correction is less extreme than a
+                # raw cosine ratio when terrain geometry is unfavorable.
                 C_val = float(b / a)
             num = cos_solar_valid * cos_beta_valid + C_val
             den = cos_i_valid + C_val
             min_denom = MIN_SCS_C_DENOM
             tiny = den > 0
+
+            # Apply the multiplicative SCS+C factor. ``_scs_c_ratio`` forces a
+            # neutral ratio of 1.0 when the denominator becomes too small, which
+            # prevents huge corrections near singular geometry.
             ratio_valid = _scs_c_ratio(num, den, min_denom=min_denom)
             if np.any(tiny & (den <= min_denom)):
                 logging.debug(
@@ -418,11 +461,14 @@ def apply_topo_correct(
             )
             corrected_unitless[..., band] = rho_band * ratios_band
     else:
+        # Legacy cosine-ratio fallback. This uses only cos(theta_s) / cos(i) and
+        # therefore lacks the stabilizing ``C`` term from SCS+C.
         normalization = np.ones_like(cos_i, dtype=np.float32)
         valid_cos = cos_i > 0
         normalization[valid_cos] = cos_solar[valid_cos] / cos_i[valid_cos]
         corrected_unitless = data_unitless * normalization[..., np.newaxis]
 
+    # Convert back to the cube's stored scale and restore the configured no-data value.
     no_data_value = np.float32(getattr(cube, "no_data", np.nan))
     corrected_scaled = corrected_unitless / np.float32(scale_factor)
     corrected_scaled = np.where(valid_mask[..., np.newaxis], corrected_scaled, no_data_value)

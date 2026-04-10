@@ -1330,3 +1330,59 @@ Branch: $(git branch --show-current 2>/dev/null || echo unknown)
 ```text
 i don't understand the median correction map in the qa plot. does it perform the correction using a moving window? why do the datat look like that?
 ```
+
+## 2026-04-10 - analyze BRDF chunking artifact
+Branch: main
+
+```text
+The way we are chunking through brdf correction is creating a relic in the data. can you tell me about the current brdf function and how is it currently chunking and how easy is it to switch that to a rolling window to get rid of the artifact?
+```
+
+## 2026-04-10 - move legacy hytools correction module
+Branch: main
+
+```text
+can we rename the legacy one as hytools and move to the depricated folder?
+```
+
+## 2026-04-10 - annotate topo chunking code
+Branch: main
+
+```text
+can you show me the code that is chunking the topo?
+```
+
+## 2026-04-10 - annotate chunking functions for team readability
+Branch: main
+
+```text
+can you annotate all those functions so the team can look at everything an know what's happeing? I think we can do a big annotation before each function to get all the big stuff and variable definitions done. Then do minimal annotations throughout the function just to give the general workflow. Where there is math happening, try to explain the math. no emoji. 
+```
+
+## 2026-04-10 - update docs for topo chunking
+Branch: main
+
+```text
+Do we need to update the website to assist that documentation?
+```
+
+## 2026-04-10 - make docs updates
+Branch: main
+
+```text
+yes make those updates to the documentation
+```
+
+## 2026-04-10 - debug drone QA flat outputs and nodata polygons
+Branch: main
+
+```text
+i'm running the drone pipeline in a vm and the qa plots are all totally flat like we're not doing a correction. we have polygons overlaying but they seem to all be getting -9999 values
+```
+
+## 2026-04-10 - enable BRDF by default for drone pipeline
+Branch: main
+
+```text
+let's turn it on by default
+```

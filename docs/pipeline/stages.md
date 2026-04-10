@@ -63,6 +63,17 @@ Downloads are handled by `stage_download_h5` and are triggered automatically by 
 
 `stage_build_and_write_correction_json` writes the parameter JSON, and `stage_apply_brdf_and_topo` applies the combined correction before downstream resampling.
 
+Implementation note: the current streamlined NEON path writes the corrected
+cube in fixed non-overlapping spatial chunks. The topographic SCS+C fit is
+currently solved within each chunk, while BRDF coefficients are fit once for
+the scene and then applied chunk by chunk. See the
+[BRDF/topographic algorithm notes](../brdf_topo_algorithm.md) for the math and
+current chunking details.
+
+Implementation note for the drone path: `run_drone_pipeline` now requests both
+topographic and BRDF correction by default, but each step still only runs when
+the required ancillary geometry is present for that flight.
+
 ---
 
 <a id="sensor-harmonization"></a>

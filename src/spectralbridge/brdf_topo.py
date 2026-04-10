@@ -168,6 +168,30 @@ def build_and_write_correction_json(
     return json_path
 
 
+# Correction driver for the streamlined NEON workflow.
+#
+# Big picture:
+# - ``raw_img_path`` / ``raw_hdr_path`` identify the uncorrected ENVI cube on disk.
+# - ``params`` is the precomputed JSON payload that points back to the source H5 and
+#   to the scene-level BRDF coefficient file.
+# - The function reopens the source H5 via ``NeonCube`` so it has the reflectance
+#   cube plus all ancillary rasters needed for correction.
+# - Output is written incrementally with ``EnviWriter`` in BSQ layout, so we never
+#   have to assemble a second full corrected cube in RAM before writing.
+#
+# Spatial indexing convention:
+# - ``ys`` / ``ye`` are the inclusive start and exclusive end row indices.
+# - ``xs`` / ``xe`` are the inclusive start and exclusive end column indices.
+# - Slices are therefore half-open, following normal NumPy ``array[ys:ye, xs:xe]`` rules.
+#
+# Chunking behavior:
+# - The current implementation uses fixed 100x100 spatial tiles with no overlap.
+# - ``apply_topo_correct`` is called once per tile, so the SCS+C regression is fit
+#   on the current tile only.
+# - ``apply_brdf_correct`` then applies scene-level BRDF coefficients over the same
+#   tile footprint.
+# - Because there is no halo or feathering here, any chunk-boundary artifact will
+#   align with this tiling scheme.
 def apply_brdf_topo_core(
     *,
     raw_img_path: Path,
@@ -180,6 +204,7 @@ def apply_brdf_topo_core(
 ) -> None:
     """Run the BRDF+topographic correction using ``params`` into ``out_*`` paths."""
 
+    # Normalize paths and make sure the destination directory exists before we do any work.
     raw_img_path = Path(raw_img_path)
     raw_hdr_path = Path(raw_hdr_path)
     out_img_path = Path(out_img_path)
@@ -205,6 +230,9 @@ def apply_brdf_topo_core(
         )
         coeff_path = None
 
+    # ``NeonCube`` loads the reflectance cube and ancillary rasters into a common
+    # coordinate system, which lets the per-tile correction functions slice both
+    # data and geometry using the same ``ys:ye, xs:xe`` bounds.
     cube = NeonCube(h5_path=source_h5)
 
     header = cube.build_envi_header()
@@ -219,6 +247,8 @@ def apply_brdf_topo_core(
 
     writer = EnviWriter(out_img_path.with_suffix(""), header)
 
+    # Fixed tiling for the current NEON correction path. These are the tile edges
+    # that show up if a correction step changes discontinuously across chunks.
     chunk_y = 100
     chunk_x = 100
     total_chunks = cube.chunk_count(chunk_y=chunk_y, chunk_x=chunk_x)
@@ -247,8 +277,16 @@ def apply_brdf_topo_core(
         for ys, ye, xs, xe, raw_chunk in cube.iter_chunks(
             chunk_y=chunk_y, chunk_x=chunk_x
         ):
+            # ``raw_chunk`` is the reflectance data for this tile only, shaped
+            # ``(tile_rows, tile_cols, bands)``.
             chunk = np.asarray(raw_chunk, dtype=np.float32)
+
+            # Topographic correction is fit and applied using only this tile's
+            # reflectance plus matching ancillary geometry slices.
             corrected_chunk = apply_topo_correct(cube, chunk, ys, ye, xs, xe)
+
+            # BRDF uses scene-level coefficients, but the kernels are evaluated
+            # over this same tile footprint.
             corrected_chunk = apply_brdf_correct(
                 cube,
                 corrected_chunk,
@@ -266,7 +304,11 @@ def apply_brdf_topo_core(
                         brightness_offset,
                     )
                     brightness_offset_logged = True
+                # Additive brightness adjustment is applied after the multiplicative
+                # topo/BRDF steps so it shifts the final corrected output directly.
                 corrected_chunk = corrected_chunk + brightness_offset_np
+
+            # Write the corrected tile back to its original full-scene position.
             writer.write_chunk(corrected_chunk, ys, xs)
             reporter.update(1)
     finally:

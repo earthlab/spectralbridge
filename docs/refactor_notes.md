@@ -57,6 +57,9 @@ Every step performs the same validation checks on reruns so the pipeline is safe
 - `spectralbridge/pipelines/pipeline.py`
   - `go_forth_and_multiply()`
   - Orchestrates downloads, H5→ENVI export (no HyTools), BRDF fitting, topographic+BRDF correction, and spectral convolution.
+- `spectralbridge/deprecated/hytools.py`
+  - Retains the older HyTools/Ray-backed correction workflow for legacy compatibility.
+  - Not used by the main NEON pipeline; the historical `spectralbridge/topo_and_brdf_correction.py` path now exists as a deprecated shim.
 - `spectralbridge/data/`
   - SRF JSON files for Landsat, Sentinel, etc.
   - Accessed via package-relative paths at runtime.

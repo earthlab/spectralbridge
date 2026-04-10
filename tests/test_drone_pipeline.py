@@ -6,6 +6,7 @@ import json
 
 import pytest
 import numpy as np
+import pandas as pd
 
 from spectralbridge.pipelines import run_drone_pipeline
 from spectralbridge.pipelines.drone import (
@@ -19,6 +20,7 @@ from spectralbridge.pipelines.drone import (
     resolve_band_map,
     save_drone_overlay_debug_plot,
 )
+from spectralbridge.qa_plots import _render_drone_merged_preview
 
 h5py = pytest.importorskip("h5py")
 geopandas = pytest.importorskip("geopandas")
@@ -73,10 +75,15 @@ class _RecordingCube(_FakeCube):
 
 
 class _FakeWriter:
+    last_header = None
+    last_chunks = None
+
     def __init__(self, stem, header):
         self.stem = Path(stem)
         self.stem.with_suffix(".hdr").write_text(json.dumps(header), encoding="utf-8")
         self._chunks = []
+        type(self).last_header = header
+        type(self).last_chunks = self._chunks
 
     def write_chunk(self, chunk, ys: int, xs: int):
         self._chunks.append((ys, xs, chunk))
@@ -96,6 +103,33 @@ class _FakeReporter:
         return None
 
 
+class _FakeTable:
+    def auto_set_font_size(self, *_args, **_kwargs):
+        return None
+
+    def set_fontsize(self, *_args, **_kwargs):
+        return None
+
+    def scale(self, *_args, **_kwargs):
+        return None
+
+
+class _FakeAxes:
+    transAxes = object()
+
+    def axis(self, *_args, **_kwargs):
+        return None
+
+    def set_title(self, *_args, **_kwargs):
+        return None
+
+    def text(self, *_args, **_kwargs):
+        return None
+
+    def table(self, *args, **kwargs):
+        return _FakeTable()
+
+
 def _patch_basic_drone_runtime(monkeypatch) -> None:
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone._prepare_drone_h5_working_copy",
@@ -105,6 +139,24 @@ def _patch_basic_drone_runtime(monkeypatch) -> None:
     monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", _FakeWriter)
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.TileProgressReporter", _FakeReporter
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._has_required_ancillary",
+        lambda cube, names: True,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.apply_topo_correct",
+        lambda cube, chunk, ys, ye, xs, xe: np.asarray(chunk, dtype=np.float32),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.apply_brdf_correct",
+        lambda cube, chunk, ys, ye, xs, xe, coeff_path=None: np.asarray(
+            chunk, dtype=np.float32
+        ),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.fit_and_save_brdf_model",
+        lambda cube, out_dir: Path(out_dir) / "coeffs.json",
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.is_valid_envi_pair",
@@ -239,6 +291,9 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
     assert file_summary["polygon_filename"] is None
     assert file_summary["qa_plot_filename"] == "SPR1_20230628__qa.png"
     assert file_summary["qa_json_filename"] == "SPR1_20230628__qa.json"
+    assert file_summary["flags"]["topo_requested"] is False
+    assert file_summary["flags"]["brdf_requested"] is True
+    assert file_summary["flags"]["brdf_applied"] is True
     assert Path(file_summary["flight_dir"]) == tmp_path / "out" / "SPR1_20230628"
     assert Path(results["qa_summary_path"]).exists()
 
@@ -257,10 +312,6 @@ def test_apply_drone_corrections_uses_full_scene_chunk(
         "spectralbridge.pipelines.drone.TileProgressReporter", _FakeReporter
     )
     monkeypatch.setattr(
-        "spectralbridge.pipelines.drone.is_valid_envi_pair",
-        lambda img, hdr: img.exists() and hdr.exists(),
-    )
-    monkeypatch.setattr(
         "spectralbridge.pipelines.drone._has_required_ancillary",
         lambda cube, names: True,
     )
@@ -270,11 +321,17 @@ def test_apply_drone_corrections_uses_full_scene_chunk(
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.apply_brdf_correct",
-        lambda cube, chunk, ys, ye, xs, xe, coeff_path=None: np.asarray(chunk, dtype=np.float32),
+        lambda cube, chunk, ys, ye, xs, xe, coeff_path=None: np.asarray(
+            chunk, dtype=np.float32
+        ),
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.fit_and_save_brdf_model",
         lambda cube, out_dir: Path(out_dir) / "coeffs.json",
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.is_valid_envi_pair",
+        lambda img, hdr: img.exists() and hdr.exists(),
     )
 
     corrected_img, corrected_hdr, audit = apply_drone_corrections(
@@ -291,6 +348,101 @@ def test_apply_drone_corrections_uses_full_scene_chunk(
     assert audit["topo_applied"] is True
     assert audit["brdf_applied"] is True
     assert cube.chunk_args == [(cube.lines, cube.columns), (cube.lines, cube.columns)]
+    corrected_header = json.loads(corrected_hdr.read_text(encoding="utf-8"))
+    assert corrected_header["data ignore value"] == pytest.approx(-9999.0)
+    assert corrected_header["reflectance scale factor"] == pytest.approx(1.0)
+
+
+def test_apply_drone_corrections_reverts_topo_chunk_when_it_becomes_all_nodata(
+    tmp_path: Path, monkeypatch
+) -> None:
+    cube = _RecordingCube(tmp_path / "fake.h5")
+    raw_img = tmp_path / "raw.img"
+    raw_hdr = tmp_path / "raw.hdr"
+    raw_img.write_bytes(b"raw")
+    raw_hdr.write_text("hdr", encoding="utf-8")
+
+    monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", _FakeWriter)
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.TileProgressReporter", _FakeReporter
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._has_required_ancillary",
+        lambda cube, names: True,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.apply_topo_correct",
+        lambda cube, chunk, ys, ye, xs, xe: np.asarray(chunk, dtype=np.float32),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.apply_brdf_correct",
+        lambda cube, chunk, ys, ye, xs, xe, coeff_path=None: np.asarray(
+            chunk, dtype=np.float32
+        ),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.fit_and_save_brdf_model",
+        lambda cube, out_dir: Path(out_dir) / "coeffs.json",
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.is_valid_envi_pair",
+        lambda img, hdr: img.exists() and hdr.exists(),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.apply_topo_correct",
+        lambda cube, chunk, ys, ye, xs, xe: np.full_like(
+            np.asarray(chunk, dtype=np.float32), cube.no_data, dtype=np.float32
+        ),
+    )
+
+    corrected_img, corrected_hdr, audit = apply_drone_corrections(
+        cube=cube,
+        envi_img=raw_img,
+        envi_hdr=raw_hdr,
+        corrected_stem=tmp_path / "corrected",
+        apply_topo=True,
+        apply_brdf=False,
+    )
+
+    assert corrected_img.exists()
+    assert corrected_hdr.exists()
+    assert audit["topo_applied"] is False
+    assert audit["topo_fallback_due_to_nodata"] is True
+    assert _FakeWriter.last_chunks is not None
+    written_chunk = np.asarray(_FakeWriter.last_chunks[0][2], dtype=np.float32)
+    expected_chunk = np.asarray(
+        [
+            [[0.1, 0.2, 0.3, 0.4], [0.2, 0.3, 0.4, 0.5]],
+            [[0.3, 0.4, 0.5, 0.6], [0.4, 0.5, 0.6, 0.7]],
+        ],
+        dtype=np.float32,
+    )
+    np.testing.assert_allclose(written_chunk, expected_chunk)
+
+
+def test_render_drone_merged_preview_prefers_non_nodata_rows(
+    tmp_path: Path, monkeypatch
+) -> None:
+    merged_path = tmp_path / "merged.parquet"
+    merged_path.write_text("placeholder", encoding="utf-8")
+    df = pd.DataFrame(
+        {
+            "flight_id": ["SPR1_20230628", "SPR1_20230628"],
+            "pixel_id": [1, 2],
+            "row": [0, 1],
+            "col": [0, 1],
+            "corr_b001_wl0440nm": [-9999.0, 0.12],
+            "corr_b002_wl0560nm": [-9999.0, 0.23],
+            "corr_b003_wl0650nm": [-9999.0, 0.34],
+        }
+    )
+    monkeypatch.setattr(pd, "read_parquet", lambda path: df.copy())
+
+    summary = _render_drone_merged_preview(_FakeAxes(), merged_path, "SPR1_20230628")
+
+    assert summary["rows_total"] == 2
+    assert summary["rows_previewed"] == 1
+    assert "non-nodata spectral rows" in str(summary["filter_applied"])
 
 
 def test_run_drone_pipeline_with_polygons_and_merge(
@@ -576,6 +728,24 @@ def test_run_drone_pipeline_prepares_working_copy_before_neoncube(
     monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", _FakeWriter)
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.TileProgressReporter", _FakeReporter
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._has_required_ancillary",
+        lambda cube, names: True,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.apply_topo_correct",
+        lambda cube, chunk, ys, ye, xs, xe: np.asarray(chunk, dtype=np.float32),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.apply_brdf_correct",
+        lambda cube, chunk, ys, ye, xs, xe, coeff_path=None: np.asarray(
+            chunk, dtype=np.float32
+        ),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.fit_and_save_brdf_model",
+        lambda cube, out_dir: Path(out_dir) / "coeffs.json",
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.is_valid_envi_pair",
