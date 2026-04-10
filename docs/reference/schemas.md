@@ -46,6 +46,21 @@ Includes:
 - flags for unstable fits  
 - view/sun geometry summaries  
 
+The streamlined BRDF coefficient payload is also written as:
+
+*_brdf_model.json
+
+This model JSON contains:
+
+- `iso`, `vol`, and `geo` coefficient tables  
+- kernel names used during fitting/application  
+- `ndvi_edges`, which stores the realized NDVI bin boundaries (`n_bins + 1`
+  values) used to stratify the coefficient rows  
+
+`ndvi_edges` is metadata for interpreting the BRDF model. It explains which
+NDVI stratum each coefficient row belongs to; it is not a per-pixel NDVI
+product.
+
 ---
 
 ## 4. Convolution metadata (sensor harmonization)

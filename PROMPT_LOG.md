@@ -1414,3 +1414,10 @@ Branch: main
 ```text
 I think it's probably one of the first two. we want to know what happened. If we can't correct, we should not pass on the raw to the corrected file, we should fail to make a corrected file so that we know what happened. it shoudl also go in the qa json so we can see that hit happened. 
 ```
+
+## 2026-04-10 - explain ndvi edges
+Branch: main
+
+```text
+It's ok to have it I just didn't understand what it was doing. can you add some explanation to the code annotation and to the documentation on the website?
+```

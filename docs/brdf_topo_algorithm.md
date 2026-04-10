@@ -48,6 +48,10 @@ fitting the first place to investigate.
   unitless reflectance.
 * Pixels are assigned to configurable bins (defaults ~0.05–1.0 over 25 bins
   with percentile clipping) used for BRDF fitting and application.
+* The fitted `*_brdf_model.json` stores the realized bin boundaries as
+  `ndvi_edges`. Those values document which NDVI stratum each row of
+  `iso`/`vol`/`geo` coefficients belongs to; they are BRDF model metadata, not
+  a standalone NDVI output raster.
 * When coefficients are missing or bin counts mismatch, neutral coefficients
   are broadcast across all bins to avoid dropping pixels. Pixels with NDVI
   outside the bin range are remapped into the first bin to preserve coverage

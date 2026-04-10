@@ -156,7 +156,14 @@ def compute_ndvi(
 
 
 def compute_ndvi_bins(ndvi: np.ndarray, config: NDVIBinningConfig) -> tuple[np.ndarray, np.ndarray]:
-    """Return NDVI bin edges and bin indices."""
+    """Return NDVI bin edges and bin indices.
+
+    The returned ``edges`` are the realized NDVI bin boundaries after applying
+    the configured clipping rules. They are written to the BRDF model JSON as
+    ``ndvi_edges`` so each coefficient row can be traced back to the NDVI
+    stratum it was fit from. This is BRDF model metadata, not a standalone NDVI
+    science product.
+    """
 
     ndvi_clean = ndvi[np.isfinite(ndvi)]
     ndvi_min = config.ndvi_min
@@ -574,6 +581,9 @@ def apply_brdf_correct(
 
     chunk_unitless = chunk_array * np.float32(scale_factor)
     ndvi = compute_ndvi(cube, chunk_unitless)
+    # ``ndvi_edges`` records the NDVI boundaries associated with the coefficient
+    # rows in a saved BRDF model. When present, reuse those boundaries so
+    # application follows the same stratification that was used during fitting.
     ndvi_edges_raw = coeffs_dict.get("ndvi_edges")
     edges = (
         np.asarray(ndvi_edges_raw, dtype=np.float32)
@@ -828,6 +838,8 @@ def fit_and_save_brdf_model(
         "geo": geo.astype(float).tolist(),
         "volume_kernel": "RossThick",
         "geom_kernel": "LiSparseReciprocal",
+        # Persist the realized NDVI bin boundaries so downstream inspection can
+        # tell which NDVI stratum each coefficient row belongs to.
         "ndvi_edges": edges.astype(float).tolist(),
     }
 
