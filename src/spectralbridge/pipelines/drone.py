@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import inspect
 import json
 import logging
 import re
@@ -442,6 +443,32 @@ def _load_existing_drone_correction_flags(corrected_stem: Path) -> dict[str, boo
     }
 
 
+def _call_with_supported_kwargs(func, /, *args, **kwargs):
+    """Call ``func`` after dropping kwargs it does not declare.
+
+    The drone tests monkeypatch BRDF helpers with small lambdas that keep the
+    historical signatures. Production helpers accept richer keyword options, so
+    we filter here to preserve backward compatibility for test doubles and other
+    lightweight call sites.
+    """
+
+    try:
+        signature = inspect.signature(func)
+    except (TypeError, ValueError):
+        return func(*args, **kwargs)
+
+    if any(
+        parameter.kind == inspect.Parameter.VAR_KEYWORD
+        for parameter in signature.parameters.values()
+    ):
+        return func(*args, **kwargs)
+
+    supported_kwargs = {
+        name: value for name, value in kwargs.items() if name in signature.parameters
+    }
+    return func(*args, **supported_kwargs)
+
+
 def apply_drone_corrections(
     *,
     cube: NeonCube,
@@ -516,7 +543,12 @@ def apply_drone_corrections(
         }
         if use_ndvi_brdf_bins:
             fit_kwargs["ndvi_config"] = NDVIBinningConfig(enabled=True)
-        coeff_path = fit_and_save_brdf_model(cube, corrected_stem.parent, **fit_kwargs)
+        coeff_path = _call_with_supported_kwargs(
+            fit_and_save_brdf_model,
+            cube,
+            corrected_stem.parent,
+            **fit_kwargs,
+        )
 
     header = cube.build_envi_header()
     header["description"] = (
@@ -573,7 +605,8 @@ def apply_drone_corrections(
                 }
                 if use_ndvi_brdf_bins:
                     brdf_kwargs["ndvi_config"] = NDVIBinningConfig(enabled=True)
-                brdf_candidate = apply_brdf_correct(
+                brdf_candidate = _call_with_supported_kwargs(
+                    apply_brdf_correct,
                     cube,
                     chunk,
                     ys,

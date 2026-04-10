@@ -1597,3 +1597,13 @@ Run pytest -q
 =================================== FAILURES ===================================
 ... drone pipeline failures after NDVI BRDF option patch ...
 ```
+## 2026-04-10 - fix drone helper kwarg compatibility
+Branch: unknown
+
+```text
+Run pytest -q
+.....................FF......FF....FF.F..............ssss............... [ 63%]
+....................s.....................                               [100%]
+=================================== FAILURES ===================================
+... drone pipeline failures due to unexpected brdf_kernel_config kwargs ...
+```
