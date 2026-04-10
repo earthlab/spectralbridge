@@ -404,6 +404,40 @@ def _chunk_has_any_valid_reflectance(
     return bool(np.any(valid))
 
 
+def _load_existing_drone_correction_flags(corrected_stem: Path) -> dict[str, bool]:
+    """Best-effort recovery of prior correction flags for reused drone outputs."""
+
+    corrected_stem = Path(corrected_stem)
+    flight_dir = corrected_stem.parent
+    qa_json_path = flight_dir / f"{flight_dir.name}__qa.json"
+    if not qa_json_path.exists():
+        return {}
+
+    try:
+        payload = json.loads(qa_json_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, TypeError, ValueError):
+        return {}
+
+    audit = payload.get("audit")
+    if not isinstance(audit, dict):
+        return {}
+    flags = audit.get("flags")
+    if not isinstance(flags, dict):
+        return {}
+
+    flag_names = (
+        "topo_applied",
+        "brdf_applied",
+        "topo_fallback_due_to_nodata",
+        "brdf_fallback_due_to_nodata",
+    )
+    return {
+        name: bool(flags.get(name, False))
+        for name in flag_names
+        if name in flags
+    }
+
+
 def apply_drone_corrections(
     *,
     cube: NeonCube,
@@ -433,11 +467,10 @@ def apply_drone_corrections(
         "brightness_applied": False,
         "cloud_mask_applied": False,
         "convolution_skipped": True,
+        "reused_existing_corrected": False,
+        "correction_status_source": "live_run",
     }
     correction_requested = bool(apply_topo or apply_brdf)
-
-    if not overwrite and is_valid_envi_pair(corrected_img, corrected_hdr):
-        return corrected_img, corrected_hdr, audit
 
     topo_ready = apply_topo and _has_required_ancillary(
         cube, ("slope", "aspect", "solar_zn", "solar_az")
@@ -448,6 +481,16 @@ def apply_drone_corrections(
 
     audit["topo_ready"] = topo_ready
     audit["brdf_ready"] = brdf_ready
+
+    if not overwrite and is_valid_envi_pair(corrected_img, corrected_hdr):
+        audit["reused_existing_corrected"] = True
+        existing_flags = _load_existing_drone_correction_flags(corrected_stem)
+        if existing_flags:
+            audit.update(existing_flags)
+            audit["correction_status_source"] = "existing_qa_json"
+        else:
+            audit["correction_status_source"] = "reuse_without_prior_audit"
+        return corrected_img, corrected_hdr, audit
 
     if not topo_ready and not brdf_ready:
         if correction_requested:
@@ -1205,6 +1248,7 @@ def run_drone_pipeline(
             "merged_csv_path": None,
             "merged_csv_error": None,
             "correction_failure_reason": None,
+            "correction_status_source": "live_run",
             "status": None,
         }
         try:
@@ -1271,6 +1315,9 @@ def run_drone_pipeline(
                     "brdf_ready": bool(correction_audit.get("brdf_ready", False)),
                     "topo_applied": bool(correction_audit.get("topo_applied", False)),
                     "brdf_applied": bool(correction_audit.get("brdf_applied", False)),
+                    "reused_existing_corrected": bool(
+                        correction_audit.get("reused_existing_corrected", False)
+                    ),
                     "topo_fallback_due_to_nodata": bool(
                         correction_audit.get("topo_fallback_due_to_nodata", False)
                     ),
@@ -1282,7 +1329,16 @@ def run_drone_pipeline(
                     "convolution_skipped": True,
                 }
             )
-            if not correction_audit.get("topo_applied", False) and not correction_audit.get(
+            file_audit["correction_status_source"] = str(
+                correction_audit.get("correction_status_source", "live_run")
+            )
+            if correction_audit.get("reused_existing_corrected", False):
+                _drone_emit(
+                    f"[drone] [{index}/{total_flights}] {flight_stem} "
+                    "reusing previously corrected output.",
+                    status=None,
+                )
+            elif not correction_audit.get("topo_applied", False) and not correction_audit.get(
                 "brdf_applied", False
             ):
                 _drone_emit(
@@ -1394,6 +1450,9 @@ def run_drone_pipeline(
                         "brdf_ready": bool(correction_audit.get("brdf_ready", False)),
                         "topo_applied": bool(correction_audit.get("topo_applied", False)),
                         "brdf_applied": bool(correction_audit.get("brdf_applied", False)),
+                        "reused_existing_corrected": bool(
+                            correction_audit.get("reused_existing_corrected", False)
+                        ),
                         "topo_fallback_due_to_nodata": bool(
                             correction_audit.get("topo_fallback_due_to_nodata", False)
                         ),
@@ -1402,6 +1461,9 @@ def run_drone_pipeline(
                         ),
                         "correction_failed": True,
                     }
+                )
+                file_audit["correction_status_source"] = str(
+                    correction_audit.get("correction_status_source", "live_run")
                 )
                 file_audit["correction_failure_reason"] = reason
             file_audit["status"] = status

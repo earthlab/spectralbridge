@@ -60,6 +60,12 @@ fitting the first place to investigate.
 ## BRDF fitting and application
 
 * Per-band, per-bin regressions solve `rho = f_iso + f_vol*K_vol + f_geo*K_geo`.
+* The streamlined BRDF model now persists the kernel settings used during fit
+  and apply, including the volume kernel, geometric kernel, geometric
+  parameters (`b/r`, `h/b`), and `solar_zn_type`.
+* Current defaults follow the repo's historical HyTools-backed settings:
+  `RossThick` volume, `LiDenseR` geometric, `b/r = 10`, `h/b = 2`, and
+  `solar_zn_type = scene`.
 * BRDF normalization uses the FlexBRDF ratio `R_ref/R_pix`, evaluating kernels
   at both pixel geometry and a configurable reference geometry.
 

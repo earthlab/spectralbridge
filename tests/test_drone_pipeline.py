@@ -24,7 +24,7 @@ from spectralbridge.pipelines.drone import (
     resolve_band_map,
     save_drone_overlay_debug_plot,
 )
-from spectralbridge.qa_plots import _render_drone_merged_preview
+from spectralbridge.qa_plots import _render_drone_merged_preview, render_drone_panel
 
 h5py = pytest.importorskip("h5py")
 geopandas = pytest.importorskip("geopandas")
@@ -132,6 +132,26 @@ class _FakeAxes:
 
     def table(self, *args, **kwargs):
         return _FakeTable()
+
+
+def _write_envi_pair(base_path: Path, data: np.ndarray, wavelengths: list[float]) -> None:
+    data = np.asarray(data, dtype=np.float32)
+    img_path = base_path.with_suffix(".img")
+    hdr_path = base_path.with_suffix(".hdr")
+    data.tofile(img_path)
+    header_lines = [
+        "ENVI",
+        f"samples = {data.shape[2]}",
+        f"lines = {data.shape[1]}",
+        f"bands = {data.shape[0]}",
+        "data type = 4",
+        "interleave = bsq",
+        "byte order = 0",
+        "wavelength units = Nanometers",
+        "fwhm = {" + ", ".join("10" for _ in wavelengths) + "}",
+        "wavelength = {" + ", ".join(f"{w}" for w in wavelengths) + "}",
+    ]
+    hdr_path.write_text("\n".join(header_lines), encoding="utf-8")
 
 
 def _patch_basic_drone_runtime(monkeypatch) -> None:
@@ -428,6 +448,102 @@ def test_apply_drone_corrections_reverts_topo_chunk_when_it_becomes_all_nodata(
     assert audit["topo_fallback_due_to_nodata"] is True
     assert not (tmp_path / "corrected.img").exists()
     assert not (tmp_path / "corrected.hdr").exists()
+
+
+def test_apply_drone_corrections_reuses_existing_qa_flags(
+    tmp_path: Path, monkeypatch
+) -> None:
+    flight_dir = tmp_path / "SPR1_20230628"
+    flight_dir.mkdir()
+    cube = _RecordingCube(flight_dir / "fake.h5")
+    raw_img = flight_dir / "SPR1_20230628__envi.img"
+    raw_hdr = flight_dir / "SPR1_20230628__envi.hdr"
+    raw_img.write_bytes(b"raw")
+    raw_hdr.write_text("hdr", encoding="utf-8")
+    corrected_stem = flight_dir / "SPR1_20230628__corrected"
+    corrected_stem.with_suffix(".img").write_bytes(b"corr")
+    corrected_stem.with_suffix(".hdr").write_text("hdr", encoding="utf-8")
+    qa_json = flight_dir / "SPR1_20230628__qa.json"
+    qa_json.write_text(
+        json.dumps(
+            {
+                "audit": {
+                    "flags": {
+                        "topo_applied": True,
+                        "brdf_applied": True,
+                        "topo_fallback_due_to_nodata": False,
+                        "brdf_fallback_due_to_nodata": False,
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._has_required_ancillary",
+        lambda cube, names: True,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.is_valid_envi_pair",
+        lambda img, hdr: img.exists() and hdr.exists(),
+    )
+
+    corrected_img, corrected_hdr, audit = apply_drone_corrections(
+        cube=cube,
+        envi_img=raw_img,
+        envi_hdr=raw_hdr,
+        corrected_stem=corrected_stem,
+        apply_topo=True,
+        apply_brdf=True,
+        overwrite=False,
+    )
+
+    assert corrected_img == corrected_stem.with_suffix(".img")
+    assert corrected_hdr == corrected_stem.with_suffix(".hdr")
+    assert audit["reused_existing_corrected"] is True
+    assert audit["correction_status_source"] == "existing_qa_json"
+    assert audit["topo_applied"] is True
+    assert audit["brdf_applied"] is True
+
+
+def test_render_drone_panel_includes_correction_status(tmp_path: Path) -> None:
+    raw_base = tmp_path / "SPR1_20230628__envi"
+    corrected_base = tmp_path / "SPR1_20230628__corrected"
+    wavelengths = [490.0, 560.0, 660.0, 820.0]
+    raw = np.full((4, 4, 4), 0.2, dtype=np.float32)
+    corrected = raw * np.float32(0.92) + np.float32(0.01)
+    _write_envi_pair(raw_base, raw, wavelengths)
+    _write_envi_pair(corrected_base, corrected, wavelengths)
+
+    output_png, qa_payload = render_drone_panel(
+        raw_path=raw_base.with_suffix(".img"),
+        corrected_path=corrected_base.with_suffix(".img"),
+        output_png=tmp_path / "SPR1_20230628__qa.png",
+        qa_summary={
+            "flags": {
+                "topo_requested": True,
+                "brdf_requested": True,
+                "topo_applied": True,
+                "brdf_applied": True,
+                "reused_existing_corrected": False,
+            },
+            "correction_status_source": "live_run",
+        },
+        save_json=True,
+    )
+
+    assert output_png.exists()
+    assert qa_payload["correction"]["topo_requested"] is True
+    assert qa_payload["correction"]["brdf_requested"] is True
+    assert qa_payload["correction"]["topo_applied"] is True
+    assert qa_payload["correction"]["brdf_applied"] is True
+    assert qa_payload["correction"]["status_source"] == "live_run"
+    assert qa_payload["correction"]["observed_change"] is True
+
+    saved_payload = json.loads(output_png.with_suffix(".json").read_text(encoding="utf-8"))
+    assert saved_payload["correction"]["topo_applied"] is True
+    assert saved_payload["correction"]["observed_change"] is True
 
 
 def test_render_drone_merged_preview_prefers_non_nodata_rows(

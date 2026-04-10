@@ -53,6 +53,7 @@ _EXPECTED_HEADER_KEYS = ["wavelength", "fwhm", "band names"]
 _NEGATIVE_WARN_THRESHOLD = 1.0
 _OVERBRIGHT_WARN_THRESHOLD = 1.0
 _DELTA_WARN_THRESHOLD = 0.05
+_DRONE_OBSERVED_CHANGE_EPS = 1e-6
 
 
 def _hash_file(path: Path) -> str:
@@ -1655,6 +1656,62 @@ def _cube_valid_mask(cube: np.ndarray, nodata_value: float | None) -> np.ndarray
     return np.isfinite(cube) & ~_nodata_mask(cube, nodata_value)
 
 
+def _drone_correction_status(
+    qa_summary: dict[str, Any] | None,
+    *,
+    correction_median: float,
+    correction_max: float,
+) -> dict[str, Any]:
+    audit = qa_summary if isinstance(qa_summary, dict) else {}
+    flags = audit.get("flags", {}) if isinstance(audit.get("flags", {}), dict) else {}
+    observed_change = bool(
+        np.isfinite(correction_max) and abs(float(correction_max)) > _DRONE_OBSERVED_CHANGE_EPS
+    )
+    return {
+        "topo_requested": bool(flags.get("topo_requested", False)),
+        "brdf_requested": bool(flags.get("brdf_requested", False)),
+        "topo_applied": bool(flags.get("topo_applied", False)),
+        "brdf_applied": bool(flags.get("brdf_applied", False)),
+        "reused_existing_corrected": bool(flags.get("reused_existing_corrected", False)),
+        "correction_failed": bool(flags.get("correction_failed", False)),
+        "status_source": str(audit.get("correction_status_source", "unknown")),
+        "observed_change": observed_change,
+        "observed_change_threshold": _DRONE_OBSERVED_CHANGE_EPS,
+        "spatial_abs_delta_median": float(correction_median),
+        "spatial_abs_delta_max": float(correction_max),
+    }
+
+
+def _render_drone_correction_status_box(ax: Axes, status: dict[str, Any]) -> None:
+    source_lookup = {
+        "live_run": "current run",
+        "existing_qa_json": "existing QA JSON",
+        "reuse_without_prior_audit": "reused output; prior audit unavailable",
+        "unknown": "unknown",
+    }
+    source_label = source_lookup.get(str(status.get("status_source")), str(status.get("status_source")))
+    lines = [
+        "Correction status",
+        f"Topo requested/applied: {'yes' if status.get('topo_requested') else 'no'} / {'yes' if status.get('topo_applied') else 'no'}",
+        f"BRDF requested/applied: {'yes' if status.get('brdf_requested') else 'no'} / {'yes' if status.get('brdf_applied') else 'no'}",
+        f"Reused corrected output: {'yes' if status.get('reused_existing_corrected') else 'no'}",
+        f"Observed change in panel: {'yes' if status.get('observed_change') else 'no'}",
+        f"Status source: {source_label}",
+    ]
+    if status.get("correction_failed"):
+        lines.insert(1, "Correction failure recorded in audit")
+    ax.text(
+        0.02,
+        0.02,
+        "\n".join(lines),
+        transform=ax.transAxes,
+        ha="left",
+        va="bottom",
+        fontsize=8,
+        bbox=dict(boxstyle="round", facecolor="white", alpha=0.85, edgecolor="none"),
+    )
+
+
 def _median_spectrum(cube: np.ndarray, valid_mask: np.ndarray) -> np.ndarray:
     masked = np.where(valid_mask, cube, np.nan)
     return np.nanmedian(masked, axis=(1, 2))
@@ -1984,6 +2041,12 @@ def render_drone_panel(
     correction_median, correction_max = _render_drone_correction_magnitude(
         axes[2, 1], raw_cube, corr_cube, both_valid
     )
+    correction_status = _drone_correction_status(
+        qa_summary,
+        correction_median=correction_median,
+        correction_max=correction_max,
+    )
+    _render_drone_correction_status_box(axes[0, 1], correction_status)
     polygon_warning = _render_drone_polygon_overlay(axes[3, 0], rgb_image, corrected_path, polygon_path)
     merged_preview = _render_drone_merged_preview(
         axes[3, 1], Path(merged_path) if merged_path is not None else None, raw_path.stem.replace("__envi", "")
@@ -2022,6 +2085,15 @@ def render_drone_panel(
             "largest_delta_indices": correction_report.largest_delta_indices,
             "spatial_abs_delta_median": correction_median,
             "spatial_abs_delta_max": correction_max,
+            "topo_requested": correction_status["topo_requested"],
+            "brdf_requested": correction_status["brdf_requested"],
+            "topo_applied": correction_status["topo_applied"],
+            "brdf_applied": correction_status["brdf_applied"],
+            "reused_existing_corrected": correction_status["reused_existing_corrected"],
+            "correction_failed": correction_status["correction_failed"],
+            "status_source": correction_status["status_source"],
+            "observed_change": correction_status["observed_change"],
+            "observed_change_threshold": correction_status["observed_change_threshold"],
         },
         "polygon": {
             "path": str(polygon_path) if polygon_path is not None else None,

@@ -57,6 +57,21 @@ class ReferenceGeometry:
     relative_azimuth_deg: float = 0.0
 
 
+@dataclass
+class BRDFKernelConfig:
+    """Kernel and geometry settings for BRDF fitting/application.
+
+    Defaults follow the historical HyTools-backed config used in this repo,
+    excluding the expensive masking/sampling options.
+    """
+
+    volume_kernel: str = "RossThick"
+    geom_kernel: str = "LiDenseR"
+    b_r: float = 10.0
+    h_b: float = 2.0
+    solar_zn_type: str = "scene"
+
+
 def log_stats(name: str, arr: np.ndarray, mask: np.ndarray | None = None) -> None:
     """Log min/max and validity fractions for quick debugging."""
 
@@ -136,6 +151,54 @@ def _select_band_for_wavelength(cube: "NeonCube", target_nm: float) -> int:
 
     diffs = np.abs(np.asarray(cube.wavelengths, dtype=np.float32) - np.float32(target_nm))
     return int(np.argmin(diffs))
+
+
+def _normalize_volume_kernel_name(kernel_type: str) -> str:
+    kernel_lower = str(kernel_type).lower().replace("-", "_")
+    if kernel_lower in {"rossthick", "ross_thick"}:
+        return "RossThick"
+    raise NotImplementedError(
+        f"Volume kernel '{kernel_type}' is not implemented in cross-sensor-cal."
+    )
+
+
+def _normalize_geom_kernel_name(kernel_type: str) -> str:
+    kernel_lower = str(kernel_type).lower().replace("-", "_")
+    if kernel_lower in {
+        "lisparsereciprocal",
+        "li_sparse_reciprocal",
+        "li_sparse",
+    }:
+        return "LiSparseReciprocal"
+    if kernel_lower in {
+        "lidenser",
+        "li_dense_r",
+        "li_dense",
+    }:
+        return "LiDenseR"
+    raise NotImplementedError(
+        f"Geometric kernel '{kernel_type}' is not implemented in cross-sensor-cal."
+    )
+
+
+def _default_geom_params(kernel_type: str) -> tuple[float, float]:
+    normalized = _normalize_geom_kernel_name(kernel_type)
+    if normalized == "LiDenseR":
+        return 10.0, 2.0
+    return 1.0, 2.0
+
+
+def _resolve_scene_solar_zenith(
+    solar_zn: np.ndarray,
+    valid_mask: np.ndarray | None = None,
+) -> np.ndarray:
+    finite = np.isfinite(solar_zn)
+    if valid_mask is not None:
+        finite &= valid_mask
+    if not np.any(finite):
+        return solar_zn.astype(np.float32, copy=False)
+    scene_mean = np.float32(np.nanmean(solar_zn[finite], dtype=np.float64))
+    return np.full_like(solar_zn, scene_mean, dtype=np.float32)
 
 
 def compute_ndvi(
@@ -243,10 +306,7 @@ def calc_volume_kernel(
     Compute the BRDF volume scattering kernel for each pixel.
     """
 
-    if kernel_type.lower() not in {"rossthick", "ross-thick", "ross_thick"}:
-        raise NotImplementedError(
-            f"Volume kernel '{kernel_type}' is not implemented in cross-sensor-cal."
-        )
+    _normalize_volume_kernel_name(kernel_type)
 
     solar_az, solar_zn, sensor_az, sensor_zn = _validate_angles(
         solar_az, solar_zn, sensor_az, sensor_zn
@@ -289,14 +349,7 @@ def calc_geom_kernel(
     Compute the BRDF geometric scattering kernel for each pixel.
     """
 
-    if kernel_type.lower() not in {
-        "lisparsereciprocal",
-        "li-sparse-reciprocal",
-        "li_sparse_reciprocal",
-    }:
-        raise NotImplementedError(
-            f"Geometric kernel '{kernel_type}' is not implemented in cross-sensor-cal."
-        )
+    normalized_kernel = _normalize_geom_kernel_name(kernel_type)
 
     solar_az, solar_zn, sensor_az, sensor_zn = _validate_angles(
         solar_az, solar_zn, sensor_az, sensor_zn
@@ -340,6 +393,8 @@ def calc_geom_kernel(
     )
 
     kernel *= b_r
+    if normalized_kernel == "LiDenseR":
+        kernel = kernel * np.cos(solar_zn) * np.cos(sensor_zn)
     kernel = np.where(np.isfinite(kernel), kernel, 0.0)
     return kernel.astype(np.float32)
 
@@ -493,6 +548,7 @@ def apply_brdf_correct(
     coeff_path: Path | None = None,
     ndvi_config: NDVIBinningConfig | None = None,
     reference_geometry: ReferenceGeometry | None = None,
+    brdf_kernel_config: BRDFKernelConfig | None = None,
 ) -> np.ndarray:
     """Perform BRDF normalization on a hyperspectral chunk using FlexBRDF ratio."""
 
@@ -501,6 +557,7 @@ def apply_brdf_correct(
 
     ndvi_config = ndvi_config or NDVIBinningConfig()
     reference_geometry = reference_geometry or ReferenceGeometry()
+    brdf_kernel_config = brdf_kernel_config or BRDFKernelConfig()
 
     scale_factor = float(getattr(cube, "scale_factor", 1.0)) or 1.0
 
@@ -529,8 +586,18 @@ def apply_brdf_correct(
                         "iso": iso_arr,
                         "vol": vol_arr,
                         "geo": geo_arr,
-                        "volume_kernel": loaded.get("volume_kernel", "RossThick"),
-                        "geom_kernel": loaded.get("geom_kernel", "LiSparseReciprocal"),
+                        "volume_kernel": loaded.get(
+                            "volume_kernel", brdf_kernel_config.volume_kernel
+                        ),
+                        "geom_kernel": loaded.get(
+                            "geom_kernel", brdf_kernel_config.geom_kernel
+                        ),
+                        "b_r": loaded.get("b_r"),
+                        "h_b": loaded.get("h_b"),
+                        "solar_zn_type": loaded.get(
+                            "solar_zn_type", brdf_kernel_config.solar_zn_type
+                        ),
+                        "ndvi_edges": loaded.get("ndvi_edges"),
                     }
                     _BRDF_COEFF_CACHE[coeff_path_resolved] = coeffs_dict
             except (FileNotFoundError, json.JSONDecodeError, ValueError, TypeError) as exc:
@@ -561,8 +628,18 @@ def apply_brdf_correct(
                 "iso": iso_arr,
                 "vol": vol_arr,
                 "geo": geo_arr,
-                "volume_kernel": coeffs_attr.get("volume_kernel", "RossThick"),
-                "geom_kernel": coeffs_attr.get("geom_kernel", "LiSparseReciprocal"),
+                "volume_kernel": coeffs_attr.get(
+                    "volume_kernel", brdf_kernel_config.volume_kernel
+                ),
+                "geom_kernel": coeffs_attr.get(
+                    "geom_kernel", brdf_kernel_config.geom_kernel
+                ),
+                "b_r": coeffs_attr.get("b_r"),
+                "h_b": coeffs_attr.get("h_b"),
+                "solar_zn_type": coeffs_attr.get(
+                    "solar_zn_type", brdf_kernel_config.solar_zn_type
+                ),
+                "ndvi_edges": coeffs_attr.get("ndvi_edges"),
             }
 
     expected_bands = chunk_array.shape[-1]
@@ -575,8 +652,11 @@ def apply_brdf_correct(
             "iso": np.ones(expected_bands, dtype=np.float32),
             "vol": np.zeros(expected_bands, dtype=np.float32),
             "geo": np.zeros(expected_bands, dtype=np.float32),
-            "volume_kernel": "RossThick",
-            "geom_kernel": "LiSparseReciprocal",
+            "volume_kernel": brdf_kernel_config.volume_kernel,
+            "geom_kernel": brdf_kernel_config.geom_kernel,
+            "b_r": brdf_kernel_config.b_r,
+            "h_b": brdf_kernel_config.h_b,
+            "solar_zn_type": brdf_kernel_config.solar_zn_type,
         }
 
     chunk_unitless = chunk_array * np.float32(scale_factor)
@@ -636,13 +716,25 @@ def apply_brdf_correct(
         vol = np.zeros_like(iso)
         geo = np.zeros_like(iso)
 
-    kernel_type_vol = str(coeffs_dict.get("volume_kernel", "RossThick"))
-    kernel_type_geo = str(coeffs_dict.get("geom_kernel", "LiSparseReciprocal"))
+    kernel_type_vol = _normalize_volume_kernel_name(
+        str(coeffs_dict.get("volume_kernel", brdf_kernel_config.volume_kernel))
+    )
+    kernel_type_geo = _normalize_geom_kernel_name(
+        str(coeffs_dict.get("geom_kernel", brdf_kernel_config.geom_kernel))
+    )
+    default_b_r, default_h_b = _default_geom_params(kernel_type_geo)
+    b_r = float(coeffs_dict.get("b_r", default_b_r))
+    h_b = float(coeffs_dict.get("h_b", default_h_b))
+    solar_zn_type = str(
+        coeffs_dict.get("solar_zn_type", brdf_kernel_config.solar_zn_type)
+    ).lower()
 
     solar_zn = cube.get_ancillary("solar_zn", radians=True)[ys:ye, xs:xe]
     solar_az = cube.get_ancillary("solar_az", radians=True)[ys:ye, xs:xe]
     sensor_zn = cube.get_ancillary("sensor_zn", radians=True)[ys:ye, xs:xe]
     sensor_az = cube.get_ancillary("sensor_az", radians=True)[ys:ye, xs:xe]
+    if solar_zn_type == "scene":
+        solar_zn = _resolve_scene_solar_zenith(solar_zn)
 
     volume_kernel = calc_volume_kernel(
         solar_az,
@@ -657,6 +749,8 @@ def apply_brdf_correct(
         sensor_az,
         sensor_zn,
         kernel_type=kernel_type_geo,
+        b_r=b_r,
+        h_b=h_b,
     )
 
     ref_solar = np.deg2rad(reference_geometry.solar_zenith_deg)
@@ -677,6 +771,8 @@ def apply_brdf_correct(
         ref_sensor_az,
         np.full_like(sensor_zn, ref_view),
         kernel_type=kernel_type_geo,
+        b_r=b_r,
+        h_b=h_b,
     )
 
     valid_mask = np.isfinite(chunk_unitless)
@@ -733,6 +829,7 @@ def fit_and_save_brdf_model(
     cube: "NeonCube",
     out_dir: Path,
     ndvi_config: NDVIBinningConfig | None = None,
+    brdf_kernel_config: BRDFKernelConfig | None = None,
     rho_min: float = 0.0,
     rho_max: float | None = 2.0,
 ) -> Path:
@@ -762,26 +859,39 @@ def fit_and_save_brdf_model(
         return coeff_path
 
     ndvi_config = ndvi_config or NDVIBinningConfig()
+    brdf_kernel_config = brdf_kernel_config or BRDFKernelConfig()
 
     solar_zn = cube.get_ancillary("solar_zn", radians=True)
     solar_az = cube.get_ancillary("solar_az", radians=True)
     sensor_zn = cube.get_ancillary("sensor_zn", radians=True)
     sensor_az = cube.get_ancillary("sensor_az", radians=True)
-
+    volume_kernel_name = _normalize_volume_kernel_name(brdf_kernel_config.volume_kernel)
+    geom_kernel_name = _normalize_geom_kernel_name(brdf_kernel_config.geom_kernel)
+    b_r = float(brdf_kernel_config.b_r)
+    h_b = float(brdf_kernel_config.h_b)
     volume_kernel = calc_volume_kernel(
-        solar_az, solar_zn, sensor_az, sensor_zn, kernel_type="RossThick"
-    )
-    geom_kernel = calc_geom_kernel(
-        solar_az,
-        solar_zn,
-        sensor_az,
-        sensor_zn,
-        kernel_type="LiSparseReciprocal",
+        solar_az, solar_zn, sensor_az, sensor_zn, kernel_type=volume_kernel_name
     )
 
     mask = getattr(cube, "mask_no_data", None)
     if mask is None:
         mask = np.ones_like(volume_kernel, dtype=bool)
+    valid = mask.astype(bool)
+    valid &= np.isfinite(volume_kernel) & np.isfinite(solar_zn) & np.isfinite(sensor_zn)
+    if str(brdf_kernel_config.solar_zn_type).lower() == "scene":
+        solar_zn = _resolve_scene_solar_zenith(solar_zn, valid_mask=valid)
+        volume_kernel = calc_volume_kernel(
+            solar_az, solar_zn, sensor_az, sensor_zn, kernel_type=volume_kernel_name
+        )
+    geom_kernel = calc_geom_kernel(
+        solar_az,
+        solar_zn,
+        sensor_az,
+        sensor_zn,
+        kernel_type=geom_kernel_name,
+        b_r=b_r,
+        h_b=h_b,
+    )
     valid = mask.astype(bool)
     valid &= np.isfinite(volume_kernel) & np.isfinite(geom_kernel)
 
@@ -836,8 +946,11 @@ def fit_and_save_brdf_model(
         "iso": iso.astype(float).tolist(),
         "vol": vol.astype(float).tolist(),
         "geo": geo.astype(float).tolist(),
-        "volume_kernel": "RossThick",
-        "geom_kernel": "LiSparseReciprocal",
+        "volume_kernel": volume_kernel_name,
+        "geom_kernel": geom_kernel_name,
+        "b_r": b_r,
+        "h_b": h_b,
+        "solar_zn_type": str(brdf_kernel_config.solar_zn_type),
         # Persist the realized NDVI bin boundaries so downstream inspection can
         # tell which NDVI stratum each coefficient row belongs to.
         "ndvi_edges": edges.astype(float).tolist(),

@@ -54,6 +54,7 @@ This model JSON contains:
 
 - `iso`, `vol`, and `geo` coefficient tables  
 - kernel names used during fitting/application  
+- geometric kernel parameters such as `b_r`, `h_b`, and `solar_zn_type`  
 - `ndvi_edges`, which stores the realized NDVI bin boundaries (`n_bins + 1`
   values) used to stratify the coefficient rows  
 

@@ -1421,3 +1421,31 @@ Branch: main
 ```text
 It's ok to have it I just didn't understand what it was doing. can you add some explanation to the code annotation and to the documentation on the website?
 ```
+
+## 2026-04-10 - patch ndvi modeling error
+Branch: main
+
+```text
+now let's patch that ndvi error so we're doing the modeling properly
+```
+
+## 2026-04-10 - fix ndvi handoff and drone QA correction status
+Branch: main
+
+```text
+now can you try to fix the ndvi error? Also, in the qa plot the ouput on the top right says we corrected but the map on the bottom right says that we didn't. can you make sure the correction info is properly flowing to the output and to the qa plot?
+```
+
+## 2026-04-10 - restore brdf kernel parameter choice
+Branch: main
+
+```text
+since we don't mask, we don't care that much about NDVI? we cut the mask because it was too computationally expensive with big files. we should add back in the kernel/parameter choice. i don't understand the group and sample thing
+```
+
+## 2026-04-10 - fix it up
+Branch: main
+
+```text
+fix it up
+```
