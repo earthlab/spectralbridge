@@ -61,6 +61,12 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Optional brightness offset applied during ENVI export.",
     )
     parser.add_argument(
+        "--use-ndvi-brdf-bins",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Enable NDVI-stratified BRDF coefficient bins. Defaults to off.",
+    )
+    parser.add_argument(
         "--parquet-chunk-size",
         type=int,
         default=50_000,
@@ -116,6 +122,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         flight_lines=list(args.flight_lines),
         resample_method=args.resample_method,
         brightness_offset=args.brightness_offset,
+        use_ndvi_brdf_bins=args.use_ndvi_brdf_bins,
         max_workers=args.max_workers,
         parquet_chunk_size=args.parquet_chunk_size,
         engine=args.engine,

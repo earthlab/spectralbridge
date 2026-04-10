@@ -15,6 +15,8 @@ import numpy as np
 import pandas as pd
 
 from spectralbridge.corrections import (
+    HYTOOLS_BRDF_KERNEL_CONFIG,
+    NDVIBinningConfig,
     apply_brdf_correct,
     apply_topo_correct,
     fit_and_save_brdf_model,
@@ -362,6 +364,7 @@ def build_drone_config(
     band_map: dict[str, dict[str, float | int]],
     apply_topo: bool,
     apply_brdf: bool,
+    use_ndvi_brdf_bins: bool,
 ) -> dict[str, Any]:
     return {
         "platform": "drone",
@@ -375,6 +378,7 @@ def build_drone_config(
         "band_map": band_map,
         "apply_topo": bool(apply_topo),
         "apply_brdf": bool(apply_brdf),
+        "use_ndvi_brdf_bins": bool(use_ndvi_brdf_bins),
         "brightness_offset": 0.0,
         "apply_brightness_adjustment": False,
         "apply_cloud_mask": False,
@@ -446,6 +450,7 @@ def apply_drone_corrections(
     corrected_stem: Path,
     apply_topo: bool,
     apply_brdf: bool,
+    use_ndvi_brdf_bins: bool = False,
     overwrite: bool = False,
 ) -> tuple[Path, Path, dict[str, Any]]:
     """Apply optional topo/BRDF corrections to a drone ENVI export.
@@ -469,6 +474,7 @@ def apply_drone_corrections(
         "convolution_skipped": True,
         "reused_existing_corrected": False,
         "correction_status_source": "live_run",
+        "ndvi_brdf_bins_enabled": bool(use_ndvi_brdf_bins),
     }
     correction_requested = bool(apply_topo or apply_brdf)
 
@@ -505,7 +511,12 @@ def apply_drone_corrections(
 
     coeff_path: Path | None = None
     if brdf_ready:
-        coeff_path = fit_and_save_brdf_model(cube, corrected_stem.parent)
+        coeff_path = fit_and_save_brdf_model(
+            cube,
+            corrected_stem.parent,
+            ndvi_config=NDVIBinningConfig(enabled=use_ndvi_brdf_bins),
+            brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
+        )
 
     header = cube.build_envi_header()
     header["description"] = (
@@ -557,7 +568,15 @@ def apply_drone_corrections(
             if brdf_ready:
                 brdf_input = chunk
                 brdf_candidate = apply_brdf_correct(
-                    cube, chunk, ys, ye, xs, xe, coeff_path=coeff_path
+                    cube,
+                    chunk,
+                    ys,
+                    ye,
+                    xs,
+                    xe,
+                    coeff_path=coeff_path,
+                    ndvi_config=NDVIBinningConfig(enabled=use_ndvi_brdf_bins),
+                    brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
                 )
                 if _chunk_has_any_valid_reflectance(
                     brdf_input,
@@ -1101,6 +1120,7 @@ def run_drone_pipeline(
     output_dir: str | Path = ".",
     apply_topo: bool = True,
     apply_brdf: bool = True,
+    use_ndvi_brdf_bins: bool = False,
     apply_brightness_adjustment: bool = False,
     overwrite: bool = False,
 ) -> dict[str, Any]:
@@ -1126,6 +1146,7 @@ def run_drone_pipeline(
             "brightness_adjustment_requested": bool(apply_brightness_adjustment),
             "brightness_adjustment_applied": False,
             "cloud_mask_applied": False,
+            "ndvi_brdf_bins_enabled": bool(use_ndvi_brdf_bins),
             "files": [],
         },
     }
@@ -1212,6 +1233,7 @@ def run_drone_pipeline(
             "flags": {
                 "topo_requested": bool(apply_topo),
                 "brdf_requested": bool(apply_brdf),
+                "ndvi_brdf_bins_enabled": bool(use_ndvi_brdf_bins),
                 "topo_ready": False,
                 "brdf_ready": False,
                 "correction_failed": False,
@@ -1295,6 +1317,7 @@ def run_drone_pipeline(
                 band_map=band_map,
                 apply_topo=apply_topo,
                 apply_brdf=apply_brdf,
+                use_ndvi_brdf_bins=use_ndvi_brdf_bins,
             )
             if batch_bar is not None:
                 batch_bar.set_postfix_str(
@@ -1307,6 +1330,7 @@ def run_drone_pipeline(
                 corrected_stem=corrected_stem,
                 apply_topo=bool(config["apply_topo"]),
                 apply_brdf=bool(config["apply_brdf"]),
+                use_ndvi_brdf_bins=bool(config["use_ndvi_brdf_bins"]),
                 overwrite=overwrite,
             )
             file_audit["flags"].update(

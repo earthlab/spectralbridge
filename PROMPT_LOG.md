@@ -1449,3 +1449,141 @@ Branch: main
 ```text
 fix it up
 ```
+
+## 2026-04-10 - fix brdf pytest regressions
+Branch: unknown
+
+```text
+Run pytest -q
+...FF..F...........................................ssss................. [ 64
+## 2026-04-10 - fix brdf pytest regressions
+Branch: unknown
+
+```text
+Run pytest -q
+...FF..F...........................................ssss................. [ 64%]
+..................s.....................                                 [100%]
+=================================== FAILURES ===================================
+________________________ test_outliers_masked_from_fit _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_outliers_masked_from_fit0')
+
+    def test_outliers_masked_from_fit(tmp_path: Path) -> None:
+        unitless = np.full((3, 3, 2), 0.2, dtype=np.float32)
+        unitless[..., 1] = 0.35  # ensure NDVI falls inside bins
+        unitless[0, 0, 0] = 1.5  # beyond valid range and should be excluded
+        scaled = unitless / 1e-4
+        cube = _FakeCube(scaled, scale_factor=1e-4)
+
+        coeff_path = fit_and_save_brdf_model(
+            cube,
+            tmp_path / "outlier",
+            ndvi_config=NDVIBinningConfig(n_bins=1, ndvi_min=-1.0, perc_min=None, perc_max=None),
+        )
+        model = json.loads(coeff_path.read_text())
+
+        valid_mean = float(np.mean(unitless[..., 0][unitless[..., 0] < 1.0]))
+>       assert model["iso"][0][0] == pytest.approx(valid_mean, rel=0.6)
+E       assert 0.0034788267221301794 == 0.20000000298023224 ± 0.12
+E
+E         comparison failed
+E         Obtained: 0.0034788267221301794
+E         Expected: 0.20000000298023224 ± 0.12
+
+tests/test_brdf_scale.py:122: AssertionError
+____________ test_correction_uses_saved_ndvi_edges_from_coeff_file _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_correction_uses_saved_ndv0')
+
+    def test_correction_uses_saved_ndvi_edges_from_coeff_file(tmp_path: Path) -> None:
+        red = np.float32(0.05)
+        nir = np.float32(0.28333333)  # NDVI ~= 0.7
+        unitless = np.stack(
+            [
+                np.full((2, 2), red, dtype=np.float32),
+                np.full((2, 2), nir, dtype=np.float32),
+            ],
+            axis=-1,
+        )
+        cube = _FakeCube(unitless, scale_factor=1.0)
+
+        coeff_dir = tmp_path / "scene"
+        coeff_dir.mkdir()
+        coeff_path = coeff_dir / "scene_brdf_model.json"
+        payload = {
+            "iso": [[1.0, 1.0], [1.0, 1.0]],
+            "vol": [[0.0, 0.0], [2.0, 2.0]],
+            "geo": [[0.0, 0.0], [0.0, 0.0]],
+            "volume_kernel": "RossThick",
+            "geom_kernel": "LiSparseReciprocal",
+            "ndvi_edges": [0.0, 0.8, 1.0],
+        }
+        coeff_path.write_text(json.dumps(payload), encoding="utf-8")
+
+>       corrected = apply_brdf_correct(
+            cube,
+            cube.data,
+            0,
+            cube.lines,
+            0,
+            cube.columns,
+            coeff_path=coeff_path,
+            ndvi_config=NDVIBinningConfig(
+                n_bins=2,
+                ndvi_min=0.0,
+                ndvi_max=1.0,
+                perc_min=None,
+                perc_max=None,
+            ),
+        )
+
+tests/test_brdf_scale.py:153:
+...
+E       TypeError: float() argument must be a string or a real number, not 'NoneType'
+
+src/spectralbridge/corrections.py:726: TypeError
+________ test_brdf_ratio_increases_reflectance_when_reference_brighter _________
+
+    def test_brdf_ratio_increases_reflectance_when_reference_brighter():
+        cube = _DummyCube()
+        chunk = np.full((2, 2, 2), 0.1, dtype=np.float32)
+        ndvi_config = NDVIBinningConfig(n_bins=1, ndvi_min=-1.0, ndvi_max=1.0)
+        coeffs = {
+            "iso": np.array([[0.8, 0.8]], dtype=np.float32),
+            "vol": np.array([[0.1, 0.1]], dtype=np.float32),
+            "geo": np.array([[0.1, 0.1]], dtype=np.float32),
+            "volume_kernel": "RossThick",
+            "geom_kernel": "LiSparseReciprocal",
+            "ndvi_edges": [-1.0, 1.0],
+        }
+        cube.brdf_coefficients = coeffs
+>       corrected = apply_brdf_correct(
+            cube,
+            chunk,
+            0,
+            2,
+            0,
+            2,
+            ndvi_config=ndvi_config,
+            reference_geometry=ReferenceGeometry(solar_zenith_deg=10.0),
+        )
+
+tests/test_brdf_topo_streamlined.py:57:
+...
+=========================== short test summary info ============================
+FAILED tests/test_brdf_scale.py::test_outliers_masked_from_fit - assert 0.0034788267221301794 == 0.20000000298023224 ± 0.12
+
+  comparison failed
+  Obtained: 0.0034788267221301794
+  Expected: 0.20000000298023224 ± 0.12
+FAILED tests/test_brdf_scale.py::test_correction_uses_saved_ndvi_edges_from_coeff_file - TypeError: float() argument must be a string or a real number, not 'NoneType'
+FAILED tests/test_brdf_topo_streamlined.py::test_brdf_ratio_increases_reflectance_when_reference_brighter - TypeError: float() argument must be a string or a real number, not 'NoneType'
+(raylet) [2026-04-10 21:59:58,986 I 2922 2922] logging.cc:303: Set ray log level from environment variable RAY_BACKEND_LOG_LEVEL to 2 [repeated 4x across cluster] (Ray deduplicates logs by default. Set RAY_DEDUP_LOGS=0 to disable log deduplication, or see https://docs.ray.io/en/master/ray-observability/user-guides/configure-logging.html#log-deduplication for more options.)
+Error: Process completed with exit code 1.
+```
+## 2026-04-10 - make ndvi brdf binning optional
+Branch: unknown
+
+```text
+and the brdf was used in hytools to facilitate a mask so we don't really need it for the brdf? can we make it a user choice that is default off?
+```

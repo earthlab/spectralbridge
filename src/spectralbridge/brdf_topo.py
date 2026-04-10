@@ -10,6 +10,8 @@ from typing import Tuple
 import numpy as np
 
 from .corrections import (
+    HYTOOLS_BRDF_KERNEL_CONFIG,
+    NDVIBinningConfig,
     apply_brdf_correct,
     apply_topo_correct,
     fit_and_save_brdf_model,
@@ -43,6 +45,7 @@ def build_correction_parameters_dict(
     raw_img_path: Path,
     raw_hdr_path: Path,
     base_folder: Path,
+    use_ndvi_brdf_bins: bool = False,
     flight_stem: str | None = None,
     product_code: str | None = None,
 ) -> dict:
@@ -59,7 +62,12 @@ def build_correction_parameters_dict(
     corrected_stem = _derive_corrected_stem(raw_img_path)
 
     cube = NeonCube(h5_path=h5_path)
-    coeff_path = fit_and_save_brdf_model(cube, base_folder)
+    coeff_path = fit_and_save_brdf_model(
+        cube,
+        base_folder,
+        ndvi_config=NDVIBinningConfig(enabled=use_ndvi_brdf_bins),
+        brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
+    )
 
     geometry_stats: dict[str, dict[str, float]] = {}
     ancillary_keys = (
@@ -121,6 +129,7 @@ def build_correction_parameters_dict(
         "raw_img_path": str(raw_img_path.resolve()),
         "raw_hdr_path": str(raw_hdr_path.resolve()),
         "coefficients_path": str(coeff_path.resolve()),
+        "use_ndvi_brdf_bins": bool(use_ndvi_brdf_bins),
         "geometry": geometry_stats,
         "notes": "generated before BRDF/topo correction",
         "wavelength_nm": wavelength_nm.tolist(),
@@ -135,6 +144,7 @@ def build_and_write_correction_json(
     raw_img_path: Path,
     raw_hdr_path: Path,
     out_dir: Path,
+    use_ndvi_brdf_bins: bool = False,
 ) -> Path:
     """Persist BRDF/topographic correction parameters for a flightline."""
 
@@ -146,6 +156,7 @@ def build_and_write_correction_json(
         raw_img_path=raw_img_path,
         raw_hdr_path=raw_hdr_path,
         base_folder=out_dir,
+        use_ndvi_brdf_bins=use_ndvi_brdf_bins,
     )
 
     corrected_stem = params.get("stem")
@@ -199,6 +210,7 @@ def apply_brdf_topo_core(
     params: dict,
     out_img_path: Path,
     out_hdr_path: Path,
+    use_ndvi_brdf_bins: bool = False,
     interactive_mode: bool = True,
     log_every: int = 25,
 ) -> None:
@@ -295,6 +307,8 @@ def apply_brdf_topo_core(
                 xs,
                 xe,
                 coeff_path=coeff_path,
+                ndvi_config=NDVIBinningConfig(enabled=use_ndvi_brdf_bins),
+                brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
             )
             corrected_chunk = corrected_chunk.astype(np.float32, copy=False)
             if brightness_offset_np is not None:
@@ -325,6 +339,7 @@ def apply_brdf_topo_correction(
     raw_hdr_path: Path,
     correction_json_path: Path,
     out_dir: Path,
+    use_ndvi_brdf_bins: bool = False,
     interactive_mode: bool = True,
     log_every: int = 25,
 ) -> Tuple[Path, Path]:
@@ -369,6 +384,9 @@ def apply_brdf_topo_correction(
         params=params,
         out_img_path=corrected_img_path,
         out_hdr_path=corrected_hdr_path,
+        use_ndvi_brdf_bins=bool(
+            params.get("use_ndvi_brdf_bins", use_ndvi_brdf_bins)
+        ),
         interactive_mode=interactive_mode,
         log_every=log_every,
     )

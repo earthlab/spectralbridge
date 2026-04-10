@@ -1727,6 +1727,7 @@ def stage_build_and_write_correction_json(
     flight_stem: str,
     raw_img_path: Path,
     raw_hdr_path: Path,
+    use_ndvi_brdf_bins: bool = False,
     parallel_mode: bool = False,
 ) -> Path:
     """
@@ -1759,6 +1760,7 @@ def stage_build_and_write_correction_json(
         raw_img_path=raw_img_path,
         raw_hdr_path=raw_hdr_path,
         base_folder=work_dir,
+        use_ndvi_brdf_bins=use_ndvi_brdf_bins,
         flight_stem=flight_stem,
         product_code=product_code,
     )
@@ -1787,6 +1789,7 @@ def stage_apply_brdf_topo_correction(
     raw_img_path: Path,
     raw_hdr_path: Path,
     correction_json_path: Path,
+    use_ndvi_brdf_bins: bool = False,
     parallel_mode: bool = False,
 ) -> tuple[Path, Path]:
     """
@@ -1830,6 +1833,7 @@ def stage_apply_brdf_topo_correction(
         params=params,
         out_img_path=corrected_img_path,
         out_hdr_path=corrected_hdr_path,
+        use_ndvi_brdf_bins=use_ndvi_brdf_bins,
         interactive_mode=not parallel_mode,
     )
 
@@ -2386,6 +2390,7 @@ def process_one_flightline(
     flight_stem: str,
     resample_method: str | None = "convolution",
     brightness_offset: float | None = None,
+    use_ndvi_brdf_bins: bool = False,
     parallel_mode: bool = False,
     parquet_chunk_size: int = 50_000,
     ray_cpus: int | None = None,
@@ -2446,6 +2451,7 @@ def process_one_flightline(
         flight_stem=flight_stem,
         raw_img_path=raw_img_path,
         raw_hdr_path=raw_hdr_path,
+        use_ndvi_brdf_bins=use_ndvi_brdf_bins,
         parallel_mode=parallel_mode,
     )
     if not is_valid_json(correction_json_path):
@@ -2460,6 +2466,7 @@ def process_one_flightline(
         raw_img_path=raw_img_path,
         raw_hdr_path=raw_hdr_path,
         correction_json_path=correction_json_path,
+        use_ndvi_brdf_bins=use_ndvi_brdf_bins,
         parallel_mode=parallel_mode,
     )
 
@@ -2568,6 +2575,7 @@ class _FlightlineTask(NamedTuple):
     flight_stem: str
     resample_method: str
     brightness_offset: float | None
+    use_ndvi_brdf_bins: bool
     parallel_mode: bool
     parquet_chunk_size: int
     ray_cpus: int | None
@@ -2593,6 +2601,7 @@ def _execute_flightline(task: "_FlightlineTask") -> str:
             flight_stem=task.flight_stem,
             resample_method=task.resample_method,
             brightness_offset=task.brightness_offset,
+            use_ndvi_brdf_bins=task.use_ndvi_brdf_bins,
             parallel_mode=task.parallel_mode,
             parquet_chunk_size=task.parquet_chunk_size,
             ray_cpus=task.ray_cpus,
@@ -2768,6 +2777,7 @@ def go_forth_and_multiply(
     product_code: str = "DP1.30006.001",
     resample_method: str | None = "convolution",
     brightness_offset: float | None = None,
+    use_ndvi_brdf_bins: bool = False,
     max_workers: int = 8,
     parquet_chunk_size: int = 50_000,
     engine: Literal["thread", "process", "ray"] = "ray",
@@ -2950,6 +2960,7 @@ def go_forth_and_multiply(
             flight_stem=flight_stem,
             resample_method=method_norm,
             brightness_offset=brightness_offset,
+            use_ndvi_brdf_bins=use_ndvi_brdf_bins,
             parallel_mode=parallel_mode,
             parquet_chunk_size=parquet_chunk_size,
             ray_cpus=ray_cpu_target,
@@ -3092,6 +3103,7 @@ def jefe(
     skip_download_if_present: bool = True,
     force_config: bool = False,
     brightness_offset: float = 0.0,
+    use_ndvi_brdf_bins: bool = False,
     verbose: bool = False,
     engine: Literal["thread", "process", "ray"] = "thread",
 ):
@@ -3121,6 +3133,7 @@ def jefe(
         flight_lines=flight_lines,
         resample_method=resample_method,
         brightness_offset=brightness_offset,
+        use_ndvi_brdf_bins=use_ndvi_brdf_bins,
         max_workers=max_workers,
         engine=engine,
     )
@@ -3187,6 +3200,12 @@ def parse_args(argv: Sequence[str] | None = None):
         action="store_true",
         help="Emit detailed per-step logs instead of compact progress bars.",
     )
+    parser.add_argument(
+        "--use-ndvi-brdf-bins",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Enable NDVI-stratified BRDF coefficient bins. Defaults to off.",
+    )
 
     args = parser.parse_args(argv)
     if args.reflectance_offset and float(args.reflectance_offset) != 0.0:
@@ -3213,6 +3232,7 @@ def run_pipeline(argv: Sequence[str] | None = None) -> None:
         remote_prefix=args.remote_prefix,
         sync_files=not args.no_sync,
         brightness_offset=args.brightness_offset,
+        use_ndvi_brdf_bins=args.use_ndvi_brdf_bins,
         verbose=args.verbose,
         resample_method=args.resample_method,
     )

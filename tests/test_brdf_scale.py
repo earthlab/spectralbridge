@@ -5,6 +5,7 @@ import numpy as np
 import pytest
 
 from spectralbridge.corrections import (
+    HYTOOLS_BRDF_KERNEL_CONFIG,
     apply_brdf_correct,
     fit_and_save_brdf_model,
     NDVIBinningConfig,
@@ -50,8 +51,16 @@ def test_brdf_fit_scale_invariant(tmp_path: Path) -> None:
     cube_unitless = _FakeCube(unitless, scale_factor=1.0)
     cube_scaled = _FakeCube(scaled, scale_factor=1e-4)
 
-    coeff_unitless = fit_and_save_brdf_model(cube_unitless, tmp_path / "unitless")
-    coeff_scaled = fit_and_save_brdf_model(cube_scaled, tmp_path / "scaled")
+    coeff_unitless = fit_and_save_brdf_model(
+        cube_unitless,
+        tmp_path / "unitless",
+        brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
+    )
+    coeff_scaled = fit_and_save_brdf_model(
+        cube_scaled,
+        tmp_path / "scaled",
+        brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
+    )
 
     model_unitless = json.loads(coeff_unitless.read_text())
     model_scaled = json.loads(coeff_scaled.read_text())
@@ -64,6 +73,42 @@ def test_brdf_fit_scale_invariant(tmp_path: Path) -> None:
     assert model_unitless["b_r"] == pytest.approx(10.0)
     assert model_unitless["h_b"] == pytest.approx(2.0)
     assert model_unitless["solar_zn_type"] == "scene"
+
+
+def test_brdf_fit_defaults_to_single_bin_when_ndvi_binning_disabled(tmp_path: Path) -> None:
+    unitless = np.full((4, 4, 3), 0.3, dtype=np.float32)
+    cube = _FakeCube(unitless, scale_factor=1.0)
+
+    coeff_path = fit_and_save_brdf_model(cube, tmp_path / "default_single_bin")
+    model = json.loads(coeff_path.read_text())
+
+    assert model["ndvi_binning_enabled"] is False
+    assert model["ndvi_edges"] == pytest.approx([-1.0, 1.0])
+    assert len(model["iso"]) == 1
+
+
+def test_brdf_fit_can_enable_ndvi_binning(tmp_path: Path) -> None:
+    unitless = np.full((4, 4, 2), 0.2, dtype=np.float32)
+    unitless[:2, :, 1] = 0.6
+    cube = _FakeCube(unitless, scale_factor=1.0)
+
+    coeff_path = fit_and_save_brdf_model(
+        cube,
+        tmp_path / "ndvi_bins_enabled",
+        ndvi_config=NDVIBinningConfig(
+            enabled=True,
+            n_bins=2,
+            ndvi_min=0.0,
+            ndvi_max=1.0,
+            perc_min=None,
+            perc_max=None,
+        ),
+    )
+    model = json.loads(coeff_path.read_text())
+
+    assert model["ndvi_binning_enabled"] is True
+    assert len(model["ndvi_edges"]) == 3
+    assert len(model["iso"]) == 2
 
 
 def test_correction_respects_raw_scale(tmp_path: Path) -> None:
@@ -198,6 +243,7 @@ def test_correction_accepts_saved_hytools_style_kernel_settings(tmp_path: Path) 
         0,
         cube.columns,
         coeff_path=coeff_path,
+        brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
         ndvi_config=NDVIBinningConfig(
             n_bins=1,
             ndvi_min=-1.0,

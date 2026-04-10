@@ -41,6 +41,7 @@ MIN_SCS_C_DENOM = 1e-3
 class NDVIBinningConfig:
     """Configuration for NDVI binning used during BRDF fitting and application."""
 
+    enabled: bool = False
     ndvi_min: float = 0.05
     ndvi_max: float = 1.0
     n_bins: int = 25
@@ -61,15 +62,25 @@ class ReferenceGeometry:
 class BRDFKernelConfig:
     """Kernel and geometry settings for BRDF fitting/application.
 
-    Defaults follow the historical HyTools-backed config used in this repo,
-    excluding the expensive masking/sampling options.
+    Defaults preserve the streamlined implementation's historical behaviour.
+    Pipelines that want closer HyTools-style kernel parity should pass an
+    explicit config.
     """
 
     volume_kernel: str = "RossThick"
-    geom_kernel: str = "LiDenseR"
-    b_r: float = 10.0
+    geom_kernel: str = "LiSparseReciprocal"
+    b_r: float = 1.0
     h_b: float = 2.0
-    solar_zn_type: str = "scene"
+    solar_zn_type: str = "pixel"
+
+
+HYTOOLS_BRDF_KERNEL_CONFIG = BRDFKernelConfig(
+    volume_kernel="RossThick",
+    geom_kernel="LiDenseR",
+    b_r=10.0,
+    h_b=2.0,
+    solar_zn_type="scene",
+)
 
 
 def log_stats(name: str, arr: np.ndarray, mask: np.ndarray | None = None) -> None:
@@ -241,6 +252,14 @@ def compute_ndvi_bins(ndvi: np.ndarray, config: NDVIBinningConfig) -> tuple[np.n
     bins = np.clip(bins, 0, config.n_bins - 1)
     bins[(ndvi < ndvi_min) | (ndvi > ndvi_max)] = -1
     return edges, bins.astype(np.int32)
+
+
+def _single_brdf_bin(shape: tuple[int, int]) -> tuple[np.ndarray, np.ndarray]:
+    """Return a single BRDF bin spanning the full NDVI domain."""
+
+    edges = np.array([-1.0, 1.0], dtype=np.float32)
+    bins = np.zeros(shape, dtype=np.int32)
+    return edges, bins
 
 
 def calc_cosine_i(
@@ -660,7 +679,6 @@ def apply_brdf_correct(
         }
 
     chunk_unitless = chunk_array * np.float32(scale_factor)
-    ndvi = compute_ndvi(cube, chunk_unitless)
     # ``ndvi_edges`` records the NDVI boundaries associated with the coefficient
     # rows in a saved BRDF model. When present, reuse those boundaries so
     # application follows the same stratification that was used during fitting.
@@ -671,12 +689,17 @@ def apply_brdf_correct(
         else np.array([], dtype=np.float32)
     )
     if edges.size < 2:
-        edges, bin_idx = compute_ndvi_bins(ndvi, ndvi_config)
+        if ndvi_config.enabled and ndvi_config.n_bins > 1:
+            ndvi = compute_ndvi(cube, chunk_unitless)
+            edges, bin_idx = compute_ndvi_bins(ndvi, ndvi_config)
+        else:
+            edges, bin_idx = _single_brdf_bin(chunk_unitless.shape[:2])
     else:
+        ndvi = compute_ndvi(cube, chunk_unitless)
         bin_idx = np.digitize(ndvi, edges, right=False) - 1
         bin_idx[(ndvi < edges[0]) | (ndvi > edges[-1])] = -1
 
-    n_bins = edges.size - 1 if edges.size >= 2 else ndvi_config.n_bins
+    n_bins = edges.size - 1 if edges.size >= 2 else 1
     bin_idx_safe = bin_idx.copy()
     if np.any(bin_idx_safe < 0):
         logging.debug(
@@ -723,10 +746,13 @@ def apply_brdf_correct(
         str(coeffs_dict.get("geom_kernel", brdf_kernel_config.geom_kernel))
     )
     default_b_r, default_h_b = _default_geom_params(kernel_type_geo)
-    b_r = float(coeffs_dict.get("b_r", default_b_r))
-    h_b = float(coeffs_dict.get("h_b", default_h_b))
+    raw_b_r = coeffs_dict.get("b_r")
+    raw_h_b = coeffs_dict.get("h_b")
+    raw_solar_zn_type = coeffs_dict.get("solar_zn_type")
+    b_r = float(default_b_r if raw_b_r is None else raw_b_r)
+    h_b = float(default_h_b if raw_h_b is None else raw_h_b)
     solar_zn_type = str(
-        coeffs_dict.get("solar_zn_type", brdf_kernel_config.solar_zn_type)
+        brdf_kernel_config.solar_zn_type if raw_solar_zn_type is None else raw_solar_zn_type
     ).lower()
 
     solar_zn = cube.get_ancillary("solar_zn", radians=True)[ys:ye, xs:xe]
@@ -899,8 +925,11 @@ def fit_and_save_brdf_model(
         np.asarray(cube.data, dtype=np.float32) * np.float32(getattr(cube, "scale_factor", 1.0) or 1.0)
     )
 
-    ndvi = compute_ndvi(cube, reflectance_unitless)
-    edges, ndvi_bins = compute_ndvi_bins(ndvi, ndvi_config)
+    if ndvi_config.enabled and ndvi_config.n_bins > 1:
+        ndvi = compute_ndvi(cube, reflectance_unitless)
+        edges, ndvi_bins = compute_ndvi_bins(ndvi, ndvi_config)
+    else:
+        edges, ndvi_bins = _single_brdf_bin(reflectance_unitless.shape[:2])
 
     flat_valid = valid.reshape(-1)
     design_stack = np.stack(
@@ -915,7 +944,7 @@ def fit_and_save_brdf_model(
     reflectance_flat = reflectance_unitless.reshape(-1, cube.bands)
     ndvi_flat = ndvi_bins.reshape(-1)
 
-    n_bins = ndvi_config.n_bins
+    n_bins = int(edges.size - 1)
     iso = np.ones((n_bins, cube.bands), dtype=np.float32)
     vol = np.zeros_like(iso)
     geo = np.zeros_like(iso)
@@ -951,6 +980,7 @@ def fit_and_save_brdf_model(
         "b_r": b_r,
         "h_b": h_b,
         "solar_zn_type": str(brdf_kernel_config.solar_zn_type),
+        "ndvi_binning_enabled": bool(ndvi_config.enabled and n_bins > 1),
         # Persist the realized NDVI bin boundaries so downstream inspection can
         # tell which NDVI stratum each coefficient row belongs to.
         "ndvi_edges": edges.astype(float).tolist(),

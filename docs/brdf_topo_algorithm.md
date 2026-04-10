@@ -46,12 +46,17 @@ fitting the first place to investigate.
 
 * NDVI is derived from bands nearest 665 nm and 865 nm after converting to
   unitless reflectance.
-* Pixels are assigned to configurable bins (defaults ~0.05–1.0 over 25 bins
-  with percentile clipping) used for BRDF fitting and application.
+* NDVI binning is optional and defaults to off. With the default setting, BRDF
+  fitting uses a single scene-wide coefficient row instead of NDVI-stratified
+  bins.
+* If enabled, pixels are assigned to configurable bins (default bounds
+  ~0.05–1.0 over 25 bins with percentile clipping) used for BRDF fitting and
+  application.
 * The fitted `*_brdf_model.json` stores the realized bin boundaries as
-  `ndvi_edges`. Those values document which NDVI stratum each row of
-  `iso`/`vol`/`geo` coefficients belongs to; they are BRDF model metadata, not
-  a standalone NDVI output raster.
+  `ndvi_edges`. When NDVI binning is off, this is `[-1, 1]` for the single
+  neutral bin. When binning is on, those values document which NDVI stratum
+  each row of `iso`/`vol`/`geo` coefficients belongs to; they are BRDF model
+  metadata, not a standalone NDVI output raster.
 * When coefficients are missing or bin counts mismatch, neutral coefficients
   are broadcast across all bins to avoid dropping pixels. Pixels with NDVI
   outside the bin range are remapped into the first bin to preserve coverage
@@ -63,9 +68,10 @@ fitting the first place to investigate.
 * The streamlined BRDF model now persists the kernel settings used during fit
   and apply, including the volume kernel, geometric kernel, geometric
   parameters (`b/r`, `h/b`), and `solar_zn_type`.
-* Current defaults follow the repo's historical HyTools-backed settings:
-  `RossThick` volume, `LiDenseR` geometric, `b/r = 10`, `h/b = 2`, and
-  `solar_zn_type = scene`.
+* The shared correction helpers keep streamlined-compatible defaults, while the
+  NEON and drone correction pipelines explicitly request the historical
+  HyTools-style settings: `RossThick` volume, `LiDenseR` geometric,
+  `b/r = 10`, `h/b = 2`, and `solar_zn_type = scene`.
 * BRDF normalization uses the FlexBRDF ratio `R_ref/R_pix`, evaluating kernels
   at both pixel geometry and a configurable reference geometry.
 

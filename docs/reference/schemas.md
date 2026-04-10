@@ -55,12 +55,15 @@ This model JSON contains:
 - `iso`, `vol`, and `geo` coefficient tables  
 - kernel names used during fitting/application  
 - geometric kernel parameters such as `b_r`, `h_b`, and `solar_zn_type`  
+- `ndvi_binning_enabled`, indicating whether NDVI-stratified BRDF bins were
+  used during fitting  
 - `ndvi_edges`, which stores the realized NDVI bin boundaries (`n_bins + 1`
   values) used to stratify the coefficient rows  
 
 `ndvi_edges` is metadata for interpreting the BRDF model. It explains which
 NDVI stratum each coefficient row belongs to; it is not a per-pixel NDVI
-product.
+product. When NDVI binning is disabled, the model stores a single neutral bin
+with `ndvi_edges = [-1, 1]`.
 
 ---
 
