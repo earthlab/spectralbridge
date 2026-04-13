@@ -1,6 +1,7 @@
 """Helpers for building lightweight aggregate drone QA summaries."""
 from __future__ import annotations
 
+import textwrap
 from pathlib import Path
 
 import matplotlib
@@ -9,6 +10,15 @@ matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
+
+
+def _safe_read_qa_png(qa_png: Path):
+    """Return ``(image, error_message)`` while tolerating malformed placeholder PNGs."""
+
+    try:
+        return plt.imread(qa_png), None
+    except Exception as exc:
+        return None, f"{type(exc).__name__}: {exc}"
 
 
 def _scene_name_from_png(path: Path) -> str:
@@ -77,7 +87,7 @@ def build_drone_qa_summary(
             for qa_png in qa_pngs:
                 scene_name = _scene_name_from_png(qa_png)
                 parquet_path = _find_related_parquet(qa_png, scene_name)
-                image = plt.imread(qa_png)
+                image, image_error = _safe_read_qa_png(qa_png)
 
                 fig = plt.figure(figsize=(11, 14))
                 fig.text(0.05, 0.975, "Drone QA Summary", fontsize=16, weight="bold", va="top")
@@ -93,7 +103,27 @@ def build_drone_qa_summary(
                     )
 
                 ax = fig.add_axes([0.05, 0.05, 0.90, 0.84])
-                ax.imshow(image)
+                if image is not None:
+                    ax.imshow(image)
+                else:
+                    ax.text(
+                        0.5,
+                        0.55,
+                        "QA image could not be opened",
+                        ha="center",
+                        va="center",
+                        fontsize=14,
+                        transform=ax.transAxes,
+                    )
+                    ax.text(
+                        0.5,
+                        0.46,
+                        "\n".join(textwrap.wrap(image_error or "Unknown image read error", width=70)),
+                        ha="center",
+                        va="center",
+                        fontsize=10,
+                        transform=ax.transAxes,
+                    )
                 ax.axis("off")
 
                 pdf.savefig(fig, bbox_inches="tight")

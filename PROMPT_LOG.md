@@ -2699,3 +2699,117 @@ Deliverables
 
 Keep the implementation readable and practical.
 ```
+
+## 2026-04-13 - fix qa summary pdf malformed png handling
+Branch: main
+
+```text
+  pytest -q
+  shell: /usr/bin/bash -e {0}
+  env:
+    pythonLocation: /opt/hostedtoolcache/Python/3.11.15/x64
+    PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.15/x64/lib/pkgconfig
+    Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.15/x64
+    Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.15/x64
+    Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.15/x64
+    LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.15/x64/lib
+    CSCAL_TEST_MODE: unit
+.....................................................................sss [ 54%]
+s...................................sF.....................              [100%]
+=================================== FAILURES ===================================
+____________________ test_build_drone_qa_summary_writes_pdf ____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_build_drone_qa_summary_wr0')
+
+    def test_build_drone_qa_summary_writes_pdf(tmp_path: Path) -> None:
+        scene_a = tmp_path / "AAA_20230814"
+        scene_b = tmp_path / "BBB_20230815" / "nested"
+        scene_a.mkdir(parents=True)
+        scene_b.mkdir(parents=True)
+    
+        qa_a = scene_a / "AAA_20230814__qa.png"
+        qa_b = scene_b / "BBB_20230815__qa.png"
+        qa_a.write_bytes(b"png-a")
+        qa_b.write_bytes(b"png-b")
+        (scene_a / "AAA_20230814__polygons.parquet").write_text("parquet", encoding="utf-8")
+    
+>       pdf_path = build_drone_qa_summary(tmp_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_qa_summary.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/spectralbridge/utils/qa_summary.py:80: in build_drone_qa_summary
+    image = plt.imread(qa_png)
+            ^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/matplotlib/pyplot.py:2614: in imread
+    return matplotlib.image.imread(fname, format)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/matplotlib/image.py:1520: in imread
+    with img_open(fname) as image:
+         ^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/PIL/ImageFile.py:150: in __init__
+    self._open()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <PIL.PngImagePlugin.PngImageFile image mode= size=0x0 at 0x7FBE10261150>
+
+    def _open(self) -> None:
+        assert self.fp is not None
+        if not _accept(self.fp.read(8)):
+            msg = "not a PNG file"
+>           raise SyntaxError(msg)
+E           SyntaxError: not a PNG file
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/PIL/PngImagePlugin.py:766: SyntaxError
+=============================== warnings summary ===============================
+src/spectralbridge/polygons.py:21
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:21: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:2233: RuntimeWarning: All-NaN slice encountered
+    return np.nanmedian(masked, axis=(1, 2))
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:388: RuntimeWarning: All-NaN slice encountered
+    delta_median = np.nanmedian(diff, axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/numpy/lib/_nanfunctions_impl.py:1593: RuntimeWarning: All-NaN slice encountered
+    return fnb._ureduce(a,
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:393: RuntimeWarning: All-NaN slice encountered
+    delta_abs_median = np.nanmedian(np.abs(diff), axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:2385: RuntimeWarning: All-NaN slice encountered
+    abs_delta = np.nanmedian(full_abs_diff, axis=0)
+
+tests/test_pipeline_convolution.py::test_pipeline_idempotence_skip_behavior
+  /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/ray/_private/worker.py:2052: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+    warnings.warn(
+
+tests/test_polygon_pipeline.py::test_build_polygon_pixel_index
+tests/test_polygon_pipeline.py::test_extract_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_merge_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_run_polygon_pipeline_for_flightline
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:1714: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+    polygon_ids = polygons["polygon_id"].astype("int64", copy=False)
+
+tests/test_qa/test_qa_metrics_smoke.py::test_render_panel_writes_png_and_json
+tests/test_qa/test_qa_metrics_smoke.py::test_metrics_arrays_are_serialisable
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:1236: UserWarning: Glyph 10060 (\N{CROSS MARK}) missing from font(s) DejaVu Sans Mono.
+    pdf.savefig(fig, bbox_inches="tight")
+
+tests/test_qa/test_qa_metrics_smoke.py::test_render_panel_writes_png_and_json
+tests/test_qa/test_qa_metrics_smoke.py::test_metrics_arrays_are_serialisable
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:1236: UserWarning: Glyph 65039 (\N{VARIATION SELECTOR-16}) missing from font(s) DejaVu Sans Mono.
+    pdf.savefig(fig, bbox_inches="tight")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_qa_summary.py::test_build_drone_qa_summary_writes_pdf - SyntaxError: not a PNG file
+Error: Process completed with exit code 1.
+```
