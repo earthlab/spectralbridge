@@ -63,6 +63,7 @@ _DRONE_QA_MAX_SAMPLES = 250_000
 _DRONE_CORRECTION_CHANGE_THRESHOLD = _DRONE_CHANGE_THRESHOLD
 _DRONE_QA_TRACE_RNG_SEED = 13
 _DRONE_QA_DISPLAY_UPPER_BOUND = 5_000.0
+_DRONE_QA_MIN_VALID_BAND_FRACTION = 0.25
 _DRONE_NOOP_MEAN_ABS_DIFF_THRESHOLD = 1e-3
 _DRONE_NOOP_MEDIAN_ABS_DIFF_THRESHOLD = 1e-4
 _DRONE_NOOP_CHANGED_PIXEL_PCT_THRESHOLD = 1.0
@@ -219,6 +220,76 @@ def _deterministic_sample(
         flat = flat[:, idx]
         flat_mask = flat_mask[:, idx]
     return flat, flat_mask
+
+
+def _deterministic_drone_valid_sample(
+    cube: np.ndarray,
+    mask: np.ndarray,
+    n_sample: int,
+    *,
+    min_valid_band_fraction: float = _DRONE_QA_MIN_VALID_BAND_FRACTION,
+    rng_seed: int = _DRONE_QA_TRACE_RNG_SEED,
+) -> tuple[np.ndarray, np.ndarray, dict[str, float | int]]:
+    """Sample drone QA spectra from eligible valid pixels rather than the full grid.
+
+    Drone orthomosaics can contain large nodata skirts. Filtering to pixels with
+    at least a modest fraction of valid bands preserves the same downstream
+    sampled-spectrum shape while preventing nodata-heavy edges from consuming
+    most of the sampling budget.
+    """
+
+    bands, rows, cols = cube.shape
+    total_pixels = int(rows * cols)
+    if total_pixels == 0:
+        empty = cube.reshape(bands, -1)
+        return empty, mask.reshape(bands, -1), {
+            "total_pixels": 0,
+            "eligible_pixels_for_sampling": 0,
+            "eligible_pixel_pct": 0.0,
+            "sampled_pixels": 0,
+            "sampled_vs_eligible_pct": 0.0,
+            "min_valid_band_fraction_for_sampling": float(min_valid_band_fraction),
+        }
+
+    pixel_valid_fraction = np.mean(mask, axis=0)
+    pixel_valid = pixel_valid_fraction >= float(min_valid_band_fraction)
+    eligible_coords = np.argwhere(pixel_valid)
+    if eligible_coords.size == 0:
+        eligible_coords = np.argwhere(np.any(mask, axis=0))
+
+    eligible_pixels = int(eligible_coords.shape[0])
+    if eligible_pixels == 0:
+        return np.empty((bands, 0), dtype=cube.dtype), np.empty((bands, 0), dtype=bool), {
+            "total_pixels": total_pixels,
+            "eligible_pixels_for_sampling": 0,
+            "eligible_pixel_pct": 0.0,
+            "sampled_pixels": 0,
+            "sampled_vs_eligible_pct": 0.0,
+            "min_valid_band_fraction_for_sampling": float(min_valid_band_fraction),
+        }
+
+    sample_count = min(max(1, int(n_sample)), eligible_pixels)
+    if eligible_pixels <= sample_count:
+        selected = eligible_coords
+    else:
+        rng = np.random.default_rng(int(rng_seed))
+        take = np.sort(rng.choice(eligible_pixels, size=sample_count, replace=False))
+        selected = eligible_coords[take]
+
+    row_idx = selected[:, 0]
+    col_idx = selected[:, 1]
+    sampled = cube[:, row_idx, col_idx]
+    sampled_mask = mask[:, row_idx, col_idx]
+    sampled_pixels = int(sampled.shape[1])
+    diagnostics = {
+        "total_pixels": total_pixels,
+        "eligible_pixels_for_sampling": eligible_pixels,
+        "eligible_pixel_pct": float((eligible_pixels / total_pixels) * 100.0),
+        "sampled_pixels": sampled_pixels,
+        "sampled_vs_eligible_pct": float((sampled_pixels / eligible_pixels) * 100.0),
+        "min_valid_band_fraction_for_sampling": float(min_valid_band_fraction),
+    }
+    return sampled, sampled_mask, diagnostics
 
 
 def _percentile_stretch(arr: np.ndarray, lo: float = 2.0, hi: float = 98.0) -> np.ndarray:
@@ -1453,6 +1524,7 @@ def _drone_sampling_debug(
     raw_sample: np.ndarray,
     corr_sample: np.ndarray,
     sample_mask: np.ndarray,
+    sampling_diagnostics: dict[str, float | int] | None = None,
 ) -> dict[str, Any]:
     """Summarize the full-raster QA sampling path for debugging polygon-mode drift.
 
@@ -1480,6 +1552,8 @@ def _drone_sampling_debug(
         **support_summary,
         **diff_summary,
     }
+    if sampling_diagnostics:
+        debug.update(sampling_diagnostics)
     # Backward-compatible aliases for existing debug consumers.
     debug["sample_valid_counts_per_band_summary"] = debug["sample_valid_counts_summary"]
     debug["bands_with_any_sample_support"] = debug["bands_with_any_support"]
@@ -1506,6 +1580,16 @@ def _log_drone_sampling_debug(debug: dict[str, Any], sample_valid_counts: np.nda
         tuple(debug["sample_shape"]),
         tuple(debug["sample_shape"]),
         tuple(debug["sample_mask_shape"]),
+    )
+    logger.info(
+        "[drone-qa] %s sampling eligible=%d/%d pixels (%.2f%%) sampled=%d (%.2f%% of eligible) min_valid_band_fraction=%.2f",
+        scene_id,
+        int(debug.get("eligible_pixels_for_sampling", 0)),
+        int(debug.get("total_pixels", 0)),
+        float(debug.get("eligible_pixel_pct", 0.0)),
+        int(debug.get("sampled_pixels", 0)),
+        float(debug.get("sampled_vs_eligible_pct", 0.0)),
+        float(debug.get("min_valid_band_fraction_for_sampling", 0.0)),
     )
     logger.info(
         "[drone-qa] %s sample support counts_per_band=%s min/median/max=%d/%.1f/%d "
@@ -2447,6 +2531,7 @@ def _render_drone_merged_preview(
     ax: Axes,
     merged_path: Path | None,
     base_name: str,
+    qa_summary: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     ax.axis("off")
     ax.set_title("Merged Table Preview")
@@ -2459,7 +2544,14 @@ def _render_drone_merged_preview(
         "filter_applied": None,
     }
     if merged_path is None or not merged_path.exists():
-        ax.text(0.5, 0.5, "No merged parquet available", ha="center", va="center", transform=ax.transAxes)
+        status = str((qa_summary or {}).get("status") or "")
+        if status == "success_qa_only_no_polygon_overlap":
+            message = "QA generated; no merged parquet available because polygon extraction did not run"
+        elif status == "success_qa_only_no_polygons":
+            message = "QA generated; no merged parquet available because no polygons were provided"
+        else:
+            message = "No merged parquet available"
+        ax.text(0.5, 0.5, message, ha="center", va="center", transform=ax.transAxes)
         return summary
     if pd is None:
         ax.text(0.5, 0.5, "Pandas required for merged preview", ha="center", va="center", transform=ax.transAxes)
@@ -2615,8 +2707,16 @@ def render_drone_panel(
     corr_spectrum = _median_spectrum(corr_cube, both_valid)
     full_diff = np.where(both_valid, corr_cube - raw_cube, np.nan)
     max_samples = min(max(1, int(qa_max_samples)), raw_cube.shape[1] * raw_cube.shape[2])
-    corr_sample, sample_mask = _deterministic_sample(corr_cube, both_valid, max_samples)
-    raw_sample, _ = _deterministic_sample(raw_cube, both_valid, max_samples)
+    corr_sample, sample_mask, sampling_diagnostics = _deterministic_drone_valid_sample(
+        corr_cube,
+        both_valid,
+        max_samples,
+    )
+    raw_sample, _, _ = _deterministic_drone_valid_sample(
+        raw_cube,
+        both_valid,
+        max_samples,
+    )
     scene_id = raw_path.stem.replace("__envi", "")
     sample_valid_counts = np.sum(sample_mask, axis=1).astype(int)
     debug_sampling = _drone_sampling_debug(
@@ -2630,6 +2730,7 @@ def render_drone_panel(
         raw_sample=raw_sample,
         corr_sample=corr_sample,
         sample_mask=sample_mask,
+        sampling_diagnostics=sampling_diagnostics,
     )
     _log_drone_sampling_debug(debug_sampling, sample_valid_counts)
     correction_report = _correction_report(raw_sample, corr_sample, sample_mask)
@@ -2688,7 +2789,10 @@ def render_drone_panel(
     _render_drone_correction_status_box(axes[0, 1], correction_status)
     polygon_warning = _render_drone_polygon_overlay(axes[2, 0], corrected_path, polygon_path)
     merged_preview = _render_drone_merged_preview(
-        axes[2, 1], Path(merged_path) if merged_path is not None else None, raw_path.stem.replace("__envi", "")
+        axes[2, 1],
+        Path(merged_path) if merged_path is not None else None,
+        raw_path.stem.replace("__envi", ""),
+        qa_summary=qa_summary,
     )
     _render_drone_nodata_map(axes[3, 0], raw_nodata_fraction, "Raw ENVI -9999 / invalid map")
     _render_drone_nodata_map(axes[3, 1], corr_nodata_fraction, "Corrected ENVI -9999 / invalid map")

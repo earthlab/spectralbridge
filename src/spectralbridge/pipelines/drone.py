@@ -69,8 +69,9 @@ _DRONE_NODATA_PATCH_ATTRS = (
 )
 _DRONE_FALLBACK_NODATA = np.float32(-9999.0)
 _DRONE_PACKAGE_DATE_RE = re.compile(r"(?P<month>\d{2})-(?P<day>\d{2})-(?P<year>\d{2})")
-_DRONE_STATUS_SUCCESS = "success"
-_DRONE_STATUS_NO_OVERLAP = "skipped_no_polygon_overlap"
+_DRONE_STATUS_SUCCESS_EXTRACTED = "success_extracted"
+_DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP = "success_qa_only_no_polygon_overlap"
+_DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS = "success_qa_only_no_polygons"
 _DRONE_STATUS_FAILED_OTHER = "failed_other"
 _DRONE_NO_OVERLAP_REASONS = (
     "No pixels intersected the supplied polygons",
@@ -1094,10 +1095,12 @@ def _try_export_csv_copy_from_parquet(
 
 
 def _drone_status_color(status: str) -> str | None:
-    if status == _DRONE_STATUS_SUCCESS:
+    if status in {
+        _DRONE_STATUS_SUCCESS_EXTRACTED,
+        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP,
+        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS,
+    }:
         return _ANSI_GREEN
-    if status == _DRONE_STATUS_NO_OVERLAP:
-        return _ANSI_YELLOW
     if status == _DRONE_STATUS_FAILED_OTHER:
         return _ANSI_RED
     return None
@@ -1146,8 +1149,6 @@ def _format_eta(elapsed_samples: list[float], remaining: int) -> str | None:
 
 def _classify_drone_exception(exc: Exception) -> tuple[str, str]:
     reason = str(exc).strip() or exc.__class__.__name__
-    if any(marker in reason for marker in _DRONE_NO_OVERLAP_REASONS):
-        return _DRONE_STATUS_NO_OVERLAP, reason
     return _DRONE_STATUS_FAILED_OTHER, reason
 
 
@@ -1243,8 +1244,9 @@ def run_drone_pipeline(
     )
     completed_flight_times: list[float] = []
     status_counts = {
-        _DRONE_STATUS_SUCCESS: 0,
-        _DRONE_STATUS_NO_OVERLAP: 0,
+        _DRONE_STATUS_SUCCESS_EXTRACTED: 0,
+        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP: 0,
+        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS: 0,
         _DRONE_STATUS_FAILED_OTHER: 0,
     }
 
@@ -1314,6 +1316,9 @@ def run_drone_pipeline(
             "merged_csv_error": None,
             "correction_failure_reason": None,
             "correction_status_source": "live_run",
+            "polygon_extraction_attempted": False,
+            "polygon_extraction_ran": False,
+            "polygon_extraction_skipped_reason": None,
             "status": None,
         }
         try:
@@ -1449,62 +1454,90 @@ def run_drone_pipeline(
                         plot_exc,
                     )
                     file_audit["overlay_debug_error"] = str(plot_exc)
-                index_path = _build_polygon_pixel_index_for_raster(
-                    raster_img=corrected_img,
-                    raster_hdr=corrected_hdr,
-                    polygons_path=polygon_path,
-                    output_path=polygon_index_path,
-                    flight_id=flight_stem,
-                    overwrite=overwrite,
-                )
-                polygon_parquet = extract_polygon_parquet_from_envi(
-                    corrected_img,
-                    corrected_hdr,
-                    index_path,
-                    polygon_output_path,
-                    overwrite=overwrite,
-                )
-                polygon_parquet = _enrich_drone_polygon_parquet_with_index(
-                    polygon_parquet,
-                    index_path,
-                    overwrite=True,
-                )
-                polygon_csv, polygon_csv_error = _try_export_csv_copy_from_parquet(
-                    polygon_parquet,
-                    overwrite=overwrite,
-                    context_label=f"{flight_stem} polygon parquet",
-                )
-                results["outputs"].append(str(polygon_parquet))
-                file_audit["polygon_filename"] = polygon_parquet.name
-                file_audit["polygon_path"] = str(polygon_parquet)
-                file_audit["polygon_csv_filename"] = (
-                    polygon_csv.name if polygon_csv is not None else None
-                )
-                file_audit["polygon_csv_path"] = (
-                    str(polygon_csv) if polygon_csv is not None else None
-                )
-                file_audit["polygon_csv_error"] = polygon_csv_error
-                file_audit["polygon_index_filename"] = index_path.name
-                file_audit["polygon_index_path"] = str(index_path)
+                file_audit["polygon_extraction_attempted"] = True
+                try:
+                    index_path = _build_polygon_pixel_index_for_raster(
+                        raster_img=corrected_img,
+                        raster_hdr=corrected_hdr,
+                        polygons_path=polygon_path,
+                        output_path=polygon_index_path,
+                        flight_id=flight_stem,
+                        overwrite=overwrite,
+                    )
+                    polygon_parquet = extract_polygon_parquet_from_envi(
+                        corrected_img,
+                        corrected_hdr,
+                        index_path,
+                        polygon_output_path,
+                        overwrite=overwrite,
+                    )
+                    polygon_parquet = _enrich_drone_polygon_parquet_with_index(
+                        polygon_parquet,
+                        index_path,
+                        overwrite=True,
+                    )
+                    polygon_csv, polygon_csv_error = _try_export_csv_copy_from_parquet(
+                        polygon_parquet,
+                        overwrite=overwrite,
+                        context_label=f"{flight_stem} polygon parquet",
+                    )
+                    results["outputs"].append(str(polygon_parquet))
+                    file_audit["polygon_extraction_ran"] = True
+                    file_audit["polygon_filename"] = polygon_parquet.name
+                    file_audit["polygon_path"] = str(polygon_parquet)
+                    file_audit["polygon_csv_filename"] = (
+                        polygon_csv.name if polygon_csv is not None else None
+                    )
+                    file_audit["polygon_csv_path"] = (
+                        str(polygon_csv) if polygon_csv is not None else None
+                    )
+                    file_audit["polygon_csv_error"] = polygon_csv_error
+                    file_audit["polygon_index_filename"] = index_path.name
+                    file_audit["polygon_index_path"] = str(index_path)
+                    file_audit["status"] = _DRONE_STATUS_SUCCESS_EXTRACTED
+                except Exception as polygon_exc:
+                    _, polygon_reason = _classify_drone_exception(polygon_exc)
+                    if any(marker in polygon_reason for marker in _DRONE_NO_OVERLAP_REASONS):
+                        file_audit["status"] = _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP
+                        file_audit["polygon_extraction_skipped_reason"] = polygon_reason
+                        file_audit["polygon_filename"] = None
+                        file_audit["polygon_path"] = None
+                        file_audit["polygon_csv_filename"] = None
+                        file_audit["polygon_csv_path"] = None
+                        file_audit["polygon_csv_error"] = None
+                        LOGGER.warning(
+                            "[drone] No polygon overlap for %s: raster_crs=%s polygon_crs=%s overlap_after_reproject=%s intersecting_polygons=%s reason=%s",
+                            h5_path,
+                            spatial_diagnostics.get("raster_crs"),
+                            spatial_diagnostics.get("polygon_crs"),
+                            spatial_diagnostics.get("bounds_overlap_after_reproject"),
+                            spatial_diagnostics.get("intersecting_polygon_count"),
+                            polygon_reason,
+                        )
+                    else:
+                        raise polygon_exc
             else:
                 file_audit["polygon_filename"] = None
                 file_audit["polygon_path"] = None
                 file_audit["polygon_csv_filename"] = None
                 file_audit["polygon_csv_path"] = None
                 file_audit["polygon_csv_error"] = None
+                file_audit["polygon_extraction_skipped_reason"] = "no polygons provided"
+                file_audit["status"] = _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS
 
             results["processed"].append(str(h5_path))
-            file_audit["status"] = _DRONE_STATUS_SUCCESS
+            if file_audit["status"] is None:
+                file_audit["status"] = _DRONE_STATUS_SUCCESS_EXTRACTED
             elapsed = time.monotonic() - flight_started
             file_audit["elapsed_seconds"] = round(elapsed, 3)
             completed_flight_times.append(elapsed)
-            status_counts[_DRONE_STATUS_SUCCESS] += 1
+            status_counts[str(file_audit["status"])] += 1
             eta = _format_eta(completed_flight_times, total_flights - index)
             eta_suffix = f" | eta={eta}" if eta else ""
             _drone_emit(
                 f"[drone] [{index}/{total_flights}] {flight_stem} -> "
-                f"{_DRONE_STATUS_SUCCESS} ({_format_elapsed(elapsed)}){eta_suffix}",
-                status=_DRONE_STATUS_SUCCESS,
+                f"{file_audit['status']} ({_format_elapsed(elapsed)}){eta_suffix}",
+                status=str(file_audit["status"]),
             )
         except Exception as exc:
             status, reason = _classify_drone_exception(exc)
@@ -1537,26 +1570,8 @@ def run_drone_pipeline(
             file_audit["error"] = reason
             file_audit["elapsed_seconds"] = round(elapsed, 3)
             status_counts[status] += 1
-            if status == _DRONE_STATUS_NO_OVERLAP:
-                results["processed"].append(str(h5_path))
-                diagnostics = file_audit.get("spatial_diagnostics")
-                if diagnostics is not None:
-                    LOGGER.warning(
-                        "[drone] No polygon overlap for %s: raster_crs=%s polygon_crs=%s overlap_after_reproject=%s intersecting_polygons=%s reason=%s",
-                        h5_path,
-                        diagnostics.get("raster_crs"),
-                        diagnostics.get("polygon_crs"),
-                        diagnostics.get("bounds_overlap_after_reproject"),
-                        diagnostics.get("intersecting_polygon_count"),
-                        reason,
-                    )
-                else:
-                    LOGGER.warning(
-                        "[drone] No polygon overlap for %s: %s", h5_path, reason
-                    )
-            else:
-                LOGGER.exception("[drone] FAILED for %s", h5_path)
-                results["failed"].append({"input": str(h5_path), "error": reason})
+            LOGGER.exception("[drone] FAILED for %s", h5_path)
+            results["failed"].append({"input": str(h5_path), "error": reason})
             eta = _format_eta(completed_flight_times, total_flights - index)
             eta_suffix = f" | eta={eta}" if eta else ""
             suffix = f": {reason}" if reason else ""
@@ -1655,9 +1670,22 @@ def run_drone_pipeline(
         else None
     )
     results["qa_summary"]["status_counts"] = status_counts
-    results["qa_summary"]["success_count"] = status_counts[_DRONE_STATUS_SUCCESS]
+    results["qa_summary"]["success_count"] = (
+        status_counts[_DRONE_STATUS_SUCCESS_EXTRACTED]
+        + status_counts[_DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP]
+        + status_counts[_DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS]
+    )
+    results["qa_summary"]["success_extracted_count"] = status_counts[
+        _DRONE_STATUS_SUCCESS_EXTRACTED
+    ]
+    results["qa_summary"]["success_qa_only_no_polygon_overlap_count"] = status_counts[
+        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP
+    ]
+    results["qa_summary"]["success_qa_only_no_polygons_count"] = status_counts[
+        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS
+    ]
     results["qa_summary"]["skipped_no_polygon_overlap_count"] = status_counts[
-        _DRONE_STATUS_NO_OVERLAP
+        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP
     ]
     results["qa_summary"]["failed_other_count"] = status_counts[
         _DRONE_STATUS_FAILED_OTHER
@@ -1670,8 +1698,10 @@ def run_drone_pipeline(
     _drone_emit(
         "[drone] Complete: "
         f"{total_flights} total | "
-        f"{status_counts[_DRONE_STATUS_SUCCESS]} success | "
-        f"{status_counts[_DRONE_STATUS_NO_OVERLAP]} skipped_no_polygon_overlap | "
+        f"{results['qa_summary']['success_count']} success_total | "
+        f"{status_counts[_DRONE_STATUS_SUCCESS_EXTRACTED]} success_extracted | "
+        f"{status_counts[_DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP]} success_qa_only_no_polygon_overlap | "
+        f"{status_counts[_DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS]} success_qa_only_no_polygons | "
         f"{status_counts[_DRONE_STATUS_FAILED_OTHER]} failed_other | "
         f"{_format_elapsed(total_wall_time)} total | "
         f"run_root={output_dir} | qa_summary={qa_path} | "

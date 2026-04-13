@@ -2465,3 +2465,237 @@ Acceptance criteria
 	•	the QA JSON contains enough information to compare scenes side by side
 	•	the drone QA figure becomes a diagnostic tool that distinguishes these cases clearly rather than leaving them ambiguous
 ```
+
+## 2026-04-13 - harden drone pipeline qa semantics and nodata-aware sampling
+Branch: main
+
+```text
+Implement a focused but comprehensive hardening pass for the drone pipeline so that correction and QA always run, polygon extraction is optional, and QA sampling is not dominated by -9999 / nodata edge zones.
+
+This prompt is about pipeline semantics, nodata-aware sampling, and clearer QA behavior.
+Do not hardcode any specific polygon layer or site-specific logic.
+Polygon subsets are run-specific and may differ from run to run.
+
+Core intended behavior
+	•	All drone rasters should be corrected.
+	•	All drone rasters should get QA products.
+	•	If polygons are provided and they intersect, polygon extraction should run.
+	•	If polygons are provided but do not intersect, correction and QA should still run, but polygon extraction should be skipped.
+	•	If no polygons are provided, correction and QA should still run.
+	•	Full extraction remains a separate option and should not be implicitly triggered just because polygons do not overlap.
+	•	Merge only the extraction outputs that actually exist.
+
+Problem summary
+	1.	The current pipeline still treats no polygon overlap too much like a scene-level skip, even though correction and QA should still be produced.
+	2.	Drone scenes contain large -9999 / nodata edge zones.
+	3.	The current QA spectral sampling appears to spend too much sample budget in these nodata-heavy regions, then masks them later.
+	4.	This can underrepresent valid interior data and make QA spectral plots look sparse, band-limited, or misleading.
+	5.	We need nodata-aware sampling and clearer separation of correction/QA from extraction.
+
+Goals
+	1.	Decouple correction and QA from polygon extraction outcome.
+	2.	Make QA spectral sampling operate on valid pixels after nodata masking.
+	3.	Preserve deterministic sampling and broad spatial coverage.
+	4.	Make no-overlap scenes report clearly as qa-only / no extraction rather than full failure.
+	5.	Reduce misleading -9999 chaos in QA outputs without changing the science.
+
+Required changes
+	1.	Fix pipeline semantics so correction and QA always run
+
+In the drone pipeline:
+	•	correction should run for every discovered drone flightline that has the required raster inputs
+	•	QA should run for every corrected flightline that has the required QA inputs
+	•	polygon overlap should only determine whether polygon extraction runs
+	•	no-overlap should not suppress correction or QA
+
+Required behavior by case
+A. polygons provided and overlap exists
+	•	correction runs
+	•	QA runs
+	•	polygon extraction runs
+	•	extraction outputs can be merged
+
+B. polygons provided but no overlap exists
+	•	correction runs
+	•	QA runs
+	•	polygon extraction does not run
+	•	scene should not be treated as fully skipped if correction and QA succeeded
+	•	result should be reported with a status that clearly means something like:
+	•	qa_only_no_polygon_overlap
+	•	or corrected_and_qa_but_not_extracted
+
+C. no polygons provided
+	•	correction runs
+	•	QA runs
+	•	no polygon extraction
+	•	optional full extraction remains a separate mode only when explicitly requested
+
+Implementation guidance
+	•	Find where skipped_no_polygon_overlap is currently applied in a way that prevents downstream QA semantics from being represented correctly.
+	•	Preserve useful warnings about polygon non-overlap, but do not treat them as scene-level stop conditions for correction/QA.
+	•	Make sure results summaries distinguish:
+	•	corrected + qa + extracted
+	•	corrected + qa only
+	•	true failure
+
+	2.	Make drone QA sampling nodata-aware
+
+Current problem
+	•	large -9999 edge zones consume too many sample slots
+	•	invalid areas are sampled first and masked later
+	•	valid interior data may be underrepresented
+
+Required change
+Update the QA sampling helper used for drone spectral diagnostics so it samples from eligible valid pixels after nodata masking, rather than striding uniformly over the full raster grid.
+
+Implementation pattern
+Given the existing 3D band mask, compute a per-pixel eligibility mask such as:
+
+pixel_valid_fraction = np.mean(mask, axis=0)
+pixel_valid = pixel_valid_fraction >= _DRONE_QA_MIN_VALID_BAND_FRACTION
+
+Add a named constant:
+
+_DRONE_QA_MIN_VALID_BAND_FRACTION = 0.25
+
+Then:
+	•	collect eligible (row, col) coordinates from pixel_valid
+	•	deterministically subsample those eligible coordinates up to the requested sample cap
+	•	extract the full spectra at those coordinates
+	•	return sampled spectra and sampled masks in the same shape expected by downstream QA plotting
+
+Important
+	•	Keep the sampling deterministic.
+	•	Do not sample from -9999-dominated pixels just because they lie on a regular stride grid.
+	•	Do not require every band to be valid; use a reasonable fraction threshold.
+	•	Preserve broad spatial coverage across valid regions rather than sampling only a dense cluster.
+
+	3.	Preserve deterministic and spatially representative sampling
+
+Do not just randomly sample all eligible pixels without structure.
+Use a deterministic approach that still spreads samples spatially across valid regions.
+
+Acceptable strategies
+	•	deterministic thinning over eligible coordinates
+	•	deterministic subsampling with a fixed RNG seed
+	•	or a simple grid-based approach restricted to eligible pixels
+
+Strong preference
+	•	eligible-pixel filtering first
+	•	deterministic coordinate selection second
+
+	4.	Add compact nodata-aware sampling diagnostics
+
+Add QA debug fields and logs showing at minimum:
+	•	total raster pixels
+	•	eligible pixels after nodata / validity filtering
+	•	eligible pixel fraction
+	•	sampled pixel count
+	•	sample fraction of eligible pixels
+	•	minimum valid-band fraction threshold used
+
+These should go into the drone QA JSON payload and concise logs.
+
+Suggested JSON fields
+	•	total_pixels
+	•	eligible_pixels_for_sampling
+	•	eligible_pixel_pct
+	•	sampled_pixels
+	•	sampled_vs_eligible_pct
+	•	min_valid_band_fraction_for_sampling
+
+	5.	Make nodata presence more explicit in QA without corrupting analysis
+
+Important constraint
+	•	do not use -9999 as real data in calculations
+	•	do not silently replace invalid values with zero in scientific summaries
+
+But do improve visual communication:
+	•	keep analysis on valid data only
+	•	clearly mark nodata / invalid regions and bands in QA displays
+	•	continue using conspicuous nodata colors or markers where appropriate
+
+If you already have masked-array map display logic, keep it consistent.
+If not, use masked arrays for maps and explicit nodata marking in spectral displays.
+	6.	Make merged-preview behavior less misleading when extraction is absent
+
+If polygon extraction did not run because there was no overlap:
+	•	QA should still render
+	•	merged preview should clearly say something like:
+	•	No merged parquet available because polygon extraction did not run
+	•	or QA generated; no polygon extraction output for this scene
+
+Do not let this panel imply the scene itself failed.
+	7.	Keep full extraction as an explicit separate mode
+
+Do not automatically trigger full extraction when polygons do not overlap.
+That should remain a separate option and separate workflow path.
+
+If there is already a full-extraction mode flag, leave it intact.
+If not, do not invent one here unless it is already part of the repo design.
+	8.	Result summary / status updates
+
+Update scene-level and batch-level reporting so statuses reflect the intended semantics.
+Examples of useful statuses:
+	•	success_extracted
+	•	success_qa_only_no_polygon_overlap
+	•	success_qa_only_no_polygons
+	•	failed_other
+
+Keep naming aligned with repo conventions, but make sure the summary distinguishes:
+	•	actual extraction success
+	•	successful correction + QA without extraction
+	•	true failures
+
+	9.	Tests
+
+Add focused tests for both semantics and nodata-aware sampling.
+
+At minimum verify:
+A. pipeline semantics
+	•	when polygons do not overlap, correction and QA still run
+	•	extraction does not run
+	•	status reflects qa-only rather than full skip/failure
+
+B. no-polygon case
+	•	correction and QA still run
+	•	no extraction is attempted unless explicitly requested elsewhere
+
+C. nodata-aware sampling
+	•	a raster with large -9999 edge zones no longer spends most sample slots on invalid edges
+	•	sampled spectra come from eligible valid pixels
+	•	deterministic behavior is preserved
+
+D. downstream compatibility
+	•	QA rendering still works with the new sampled output format
+	•	JSON payload includes the new sampling diagnostics
+
+If helpful, factor a small pure helper function for nodata-aware coordinate selection so it can be tested directly.
+	10.	Keep changes narrowly scoped
+
+Do not:
+	•	hardcode any particular polygon layer
+	•	hardcode any site-specific exceptions
+	•	redesign unrelated QA panels
+	•	change correction science beyond safe handling of nodata-aware sampling inputs
+	•	auto-run full extraction when polygons do not overlap
+
+Acceptance criteria
+	•	correction runs for all drone scenes with valid raster inputs
+	•	QA runs for all corrected drone scenes regardless of polygon overlap
+	•	polygon extraction only runs when polygons are provided and intersect
+	•	no-overlap scenes are reported as qa-only rather than treated like full scene skips
+	•	QA spectral sampling is based on valid pixels after nodata removal
+	•	large -9999 edge zones no longer dominate the sample budget
+	•	QA JSON and logs clearly report sampling eligibility and scene status
+	•	merged-preview messaging is no longer misleading when extraction did not occur
+
+Deliverables
+	•	updated drone pipeline semantics
+	•	nodata-aware deterministic QA sampling
+	•	clearer scene status reporting
+	•	compact QA debug fields for sampling eligibility
+	•	focused tests covering these behaviors
+
+Keep the implementation readable and practical.
+```

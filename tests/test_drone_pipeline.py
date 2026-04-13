@@ -28,6 +28,7 @@ from spectralbridge.pipelines.drone import (
 from spectralbridge.qa_plots import (
     _classify_drone_scene,
     _correction_report,
+    _deterministic_drone_valid_sample,
     _summarize_full_diff,
     _summarize_sample_support,
     _render_drone_band_fidelity,
@@ -329,7 +330,7 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
     assert qa_summary["convolution"] == "skipped"
     file_summary = qa_summary["files"][0]
     assert file_summary["flight_stem"] == "SPR1_20230628"
-    assert file_summary["status"] == "success"
+    assert file_summary["status"] == "success_qa_only_no_polygons"
     assert file_summary["resolved_band_map"]["nir"]["index"] == 3
     assert file_summary["working_h5_filename"] == "SPR1_20230628__working.h5"
     assert file_summary["working_raster"] == "SPR1_20230628__envi.img"
@@ -340,8 +341,13 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
     assert file_summary["flags"]["topo_requested"] is False
     assert file_summary["flags"]["brdf_requested"] is True
     assert file_summary["flags"]["brdf_applied"] is True
+    assert file_summary["polygon_extraction_attempted"] is False
+    assert file_summary["polygon_extraction_ran"] is False
+    assert file_summary["polygon_extraction_skipped_reason"] == "no polygons provided"
     assert Path(file_summary["flight_dir"]) == tmp_path / "out" / "SPR1_20230628"
     assert Path(results["qa_summary_path"]).exists()
+    assert qa_summary["success_count"] == 1
+    assert qa_summary["success_qa_only_no_polygons_count"] == 1
 
 
 def test_apply_drone_corrections_uses_full_scene_chunk(
@@ -587,6 +593,10 @@ def test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload(
     assert debug_sampling["raw_cube_shape"] == [4, 4, 4]
     assert debug_sampling["corr_cube_shape"] == [4, 4, 4]
     assert debug_sampling["sample_shape"] == [4, 16]
+    assert debug_sampling["total_pixels"] == 16
+    assert debug_sampling["eligible_pixels_for_sampling"] == 16
+    assert debug_sampling["sampled_pixels"] == 16
+    assert debug_sampling["min_valid_band_fraction_for_sampling"] == pytest.approx(0.25)
     assert debug_sampling["bands_with_any_sample_support"] == 3
     assert debug_sampling["bands_with_gt10_support"] >= 1
     assert debug_sampling["band_support_pct"]["any"] == pytest.approx(75.0)
@@ -595,6 +605,7 @@ def test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload(
     assert "scene_classification" in qa_payload["correction"]
     assert "sample_valid_counts_summary" in qa_payload["correction"]
     assert "polygon parquet rows are not the direct source" in caplog.text
+    assert "sampling eligible=" in caplog.text
     assert "sample support counts_per_band=" in caplog.text
 
 
@@ -629,9 +640,17 @@ def test_render_drone_panel_uses_larger_default_sampling_cap(
         return (
             np.full((bands, 8), 0.2, dtype=np.float32),
             np.ones((bands, 8), dtype=bool),
+            {
+                "total_pixels": int(cube.shape[1] * cube.shape[2]),
+                "eligible_pixels_for_sampling": 8,
+                "eligible_pixel_pct": 1.0,
+                "sampled_pixels": 8,
+                "sampled_vs_eligible_pct": 100.0,
+                "min_valid_band_fraction_for_sampling": 0.25,
+            },
         )
 
-    monkeypatch.setattr(qa_plots, "_deterministic_sample", _recording_sample)
+    monkeypatch.setattr(qa_plots, "_deterministic_drone_valid_sample", _recording_sample)
 
     output_png, _ = render_drone_panel(
         raw_path=raw_path,
@@ -676,9 +695,17 @@ def test_render_drone_panel_honors_safe_sampling_override(
         return (
             np.full((bands, 8), 0.2, dtype=np.float32),
             np.ones((bands, 8), dtype=bool),
+            {
+                "total_pixels": int(cube.shape[1] * cube.shape[2]),
+                "eligible_pixels_for_sampling": 8,
+                "eligible_pixel_pct": 1.0,
+                "sampled_pixels": 8,
+                "sampled_vs_eligible_pct": 100.0,
+                "min_valid_band_fraction_for_sampling": 0.25,
+            },
         )
 
-    monkeypatch.setattr(qa_plots, "_deterministic_sample", _recording_sample)
+    monkeypatch.setattr(qa_plots, "_deterministic_drone_valid_sample", _recording_sample)
 
     output_png, _ = render_drone_panel(
         raw_path=raw_path,
@@ -740,6 +767,47 @@ def test_drone_support_summary_detects_support_collapse() -> None:
     assert support_summary["bands_with_any_support"] == 2
     assert support_summary["bands_with_gt10_support"] == 0
     assert "band_support_collapsed" in flags
+
+
+def test_deterministic_drone_valid_sample_avoids_nodata_edges() -> None:
+    cube = np.zeros((4, 8, 8), dtype=np.float32)
+    mask = np.zeros((4, 8, 8), dtype=bool)
+    mask[:, 2:6, 2:6] = True
+
+    sample_a, sample_mask_a, diagnostics_a = _deterministic_drone_valid_sample(
+        cube,
+        mask,
+        12,
+    )
+    sample_b, sample_mask_b, diagnostics_b = _deterministic_drone_valid_sample(
+        cube,
+        mask,
+        12,
+    )
+
+    assert sample_a.shape == (4, 12)
+    assert np.array_equal(sample_a, sample_b)
+    assert np.array_equal(sample_mask_a, sample_mask_b)
+    assert np.all(sample_mask_a)
+    assert diagnostics_a == diagnostics_b
+    assert diagnostics_a["total_pixels"] == 64
+    assert diagnostics_a["eligible_pixels_for_sampling"] == 16
+    assert diagnostics_a["sampled_pixels"] == 12
+    assert diagnostics_a["min_valid_band_fraction_for_sampling"] == pytest.approx(0.25)
+
+
+def test_deterministic_drone_valid_sample_falls_back_to_any_valid_pixel() -> None:
+    cube = np.zeros((4, 4, 4), dtype=np.float32)
+    mask = np.zeros((4, 4, 4), dtype=bool)
+    mask[0, 1, 1] = True
+    mask[1, 1, 1] = True
+
+    sample, sample_mask, diagnostics = _deterministic_drone_valid_sample(cube, mask, 4)
+
+    assert sample.shape[1] == 1
+    assert sample_mask.shape[1] == 1
+    assert diagnostics["eligible_pixels_for_sampling"] == 1
+    assert diagnostics["sampled_pixels"] == 1
 
 
 def test_render_drone_panel_places_invalid_maps_on_bottom_row(
@@ -809,6 +877,18 @@ def test_render_drone_merged_preview_prefers_non_nodata_rows(
     assert summary["rows_total"] == 2
     assert summary["rows_previewed"] == 1
     assert "non-nodata spectral rows" in str(summary["filter_applied"])
+
+
+def test_render_drone_merged_preview_explains_missing_extraction() -> None:
+    fake_ax = _FakeAxes()
+    summary = _render_drone_merged_preview(
+        fake_ax,
+        None,
+        "SPR1_20230628",
+        qa_summary={"status": "success_qa_only_no_polygon_overlap"},
+    )
+
+    assert summary["path"] is None
 
 
 def test_render_drone_merged_preview_prioritizes_rightmost_columns(
@@ -1179,7 +1259,7 @@ def test_run_drone_pipeline_with_polygons_and_merge(
         "SPR1_20230628",
         "SPR2_20230628",
     }
-    assert {entry["status"] for entry in qa_files} == {"success"}
+    assert {entry["status"] for entry in qa_files} == {"success_extracted"}
 
 
 def test_run_drone_pipeline_still_renders_qa_when_csv_export_fails(
@@ -1262,7 +1342,7 @@ def test_run_drone_pipeline_still_renders_qa_when_csv_export_fails(
     assert results["merged"] == str(tmp_path / "out" / "drone_merged.parquet")
     assert results["merged_csv"] is None
     file_summary = results["qa_summary"]["files"][0]
-    assert file_summary["status"] == "success"
+    assert file_summary["status"] == "success_extracted"
     assert file_summary["polygon_csv_filename"] is None
     assert file_summary["polygon_csv_error"] == "csv export boom"
     assert file_summary["merged_csv_filename"] is None
@@ -1519,8 +1599,8 @@ def test_run_drone_pipeline_reports_progress_and_statuses(
     assert "[drone] Starting batch: 2 discovered | 2 to process" in captured.err
     assert "[drone] [1/2] SPR1_20230628 | source=" in captured.err
     assert "stage=preparing H5" in captured.err
-    assert "[drone] [2/2] SPR2_20230628 -> success (" in captured.err
-    assert "[drone] Complete: 2 total | 2 success | 0 skipped_no_polygon_overlap | 0 failed_other" in captured.err
+    assert "[drone] [2/2] SPR2_20230628 -> success_qa_only_no_polygons (" in captured.err
+    assert "[drone] Complete: 2 total | 2 success_total | 0 success_extracted | 0 success_qa_only_no_polygon_overlap | 2 success_qa_only_no_polygons | 0 failed_other" in captured.err
 
 
 def test_run_drone_pipeline_builds_qa_summary_pdf(
@@ -1719,17 +1799,17 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
     )
 
     captured = capsys.readouterr()
-    assert "SPR2_20230628 -> skipped_no_polygon_overlap" in captured.err
+    assert "SPR2_20230628 -> success_qa_only_no_polygon_overlap" in captured.err
     assert "SPR3_20230628 -> failed_other: unexpected correction issue" in captured.err
-    assert "Complete: 3 total | 1 success | 1 skipped_no_polygon_overlap | 1 failed_other" in captured.err
+    assert "Complete: 3 total | 2 success_total | 1 success_extracted | 1 success_qa_only_no_polygon_overlap | 0 success_qa_only_no_polygons | 1 failed_other" in captured.err
 
     statuses = {
         entry["flight_stem"]: entry["status"]
         for entry in results["qa_summary"]["files"]
     }
     assert statuses == {
-        "SPR1_20230628": "success",
-        "SPR2_20230628": "skipped_no_polygon_overlap",
+        "SPR1_20230628": "success_extracted",
+        "SPR2_20230628": "success_qa_only_no_polygon_overlap",
         "SPR3_20230628": "failed_other",
     }
     assert len(results["processed"]) == 2
@@ -1737,12 +1817,16 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
     assert len(results["outputs"]) == 1
     assert results["merged"] == str(tmp_path / "out" / "drone_merged.parquet")
     assert results["merged_csv"] == str(tmp_path / "out" / "drone_merged.csv")
-    assert results["qa_summary"]["success_count"] == 1
+    assert results["qa_summary"]["success_count"] == 2
+    assert results["qa_summary"]["success_extracted_count"] == 1
+    assert results["qa_summary"]["success_qa_only_no_polygon_overlap_count"] == 1
+    assert results["qa_summary"]["success_qa_only_no_polygons_count"] == 0
     assert results["qa_summary"]["skipped_no_polygon_overlap_count"] == 1
     assert results["qa_summary"]["failed_other_count"] == 1
     assert results["qa_summary"]["status_counts"] == {
-        "success": 1,
-        "skipped_no_polygon_overlap": 1,
+        "success_extracted": 1,
+        "success_qa_only_no_polygon_overlap": 1,
+        "success_qa_only_no_polygons": 0,
         "failed_other": 1,
     }
     file_entries = {
@@ -1751,6 +1835,11 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
     assert file_entries["SPR2_20230628"]["spatial_diagnostics"] == diagnostics_by_flight[
         "SPR2_20230628__corrected"
     ]
+    assert file_entries["SPR2_20230628"]["polygon_extraction_attempted"] is True
+    assert file_entries["SPR2_20230628"]["polygon_extraction_ran"] is False
+    assert "No pixels intersected" in str(
+        file_entries["SPR2_20230628"]["polygon_extraction_skipped_reason"]
+    )
     assert file_entries["SPR2_20230628"]["spatial_diagnostics"][
         "bounds_overlap_after_reproject"
     ] is False
