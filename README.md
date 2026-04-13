@@ -381,6 +381,16 @@ bin/validate_parquets --soft base_dir/NEON_D13_NIWO_DP1_L019-1_20230815_directio
 
 Generate these summaries at any time with `spectralbridge-qa --base-folder <output_dir>`.
 
+For drone runs, you can also create a single scrollable HTML page that stacks all
+`__qa.png` outputs for quick visual review:
+
+```bash
+spectralbridge-qa-summary drone_outputs/
+```
+
+That writes `drone_outputs/qa_summary.html` by default and uses relative links so
+the HTML remains portable with the output directory.
+
 The `_brdfandtopo_corrected_envi` suffix remains the canonical "final"
 reflectance for analysis and downstream comparisons; all scientific semantics
 are unchanged from previous releases.
@@ -493,4 +503,3 @@ If you use this software, please cite:
 
 Distributed under the GPLv3 License. Full citation details are available in
 [CITATION.cff](CITATION.cff).
-

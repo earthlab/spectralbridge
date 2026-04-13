@@ -55,6 +55,7 @@ docs = [
 spectralbridge-download = "spectralbridge.cli:download_main"
 spectralbridge-pipeline = "spectralbridge.cli.pipeline_cli:main"
 spectralbridge-qa = "spectralbridge.cli.qa_cli:main"
+spectralbridge-qa-summary = "spectralbridge.cli.qa_summary_cli:main"
 spectralbridge-recover-raw = "spectralbridge.cli.recover_cli:main"
 spectralbridge-qa-dashboard = "spectralbridge.qa_dashboard:main"
 spectralbridge-merge-duckdb = "spectralbridge.merge_duckdb:main"
