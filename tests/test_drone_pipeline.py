@@ -26,7 +26,10 @@ from spectralbridge.pipelines.drone import (
     save_drone_overlay_debug_plot,
 )
 from spectralbridge.qa_plots import (
+    _classify_drone_scene,
     _correction_report,
+    _summarize_full_diff,
+    _summarize_sample_support,
     _render_drone_band_fidelity,
     _render_drone_correction_magnitude,
     _render_delta,
@@ -589,8 +592,154 @@ def test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload(
     assert debug_sampling["band_support_pct"]["any"] == pytest.approx(75.0)
     assert debug_sampling["support_wavelength_ranges_nm"]["any"].startswith("560.0-820.0")
     assert debug_sampling["fraction_above_change_threshold"] >= 0.0
+    assert "scene_classification" in qa_payload["correction"]
+    assert "sample_valid_counts_summary" in qa_payload["correction"]
     assert "polygon parquet rows are not the direct source" in caplog.text
     assert "sample support counts_per_band=" in caplog.text
+
+
+def test_render_drone_panel_uses_larger_default_sampling_cap(
+    tmp_path: Path, monkeypatch
+) -> None:
+    raw_path = tmp_path / "SPR1_20230628__envi.img"
+    corrected_path = tmp_path / "SPR1_20230628__corrected.img"
+    raw_path.write_bytes(b"raw")
+    corrected_path.write_bytes(b"corr")
+
+    large_raw = np.full((4, 600, 600), 0.2, dtype=np.float32)
+    large_corr = large_raw * np.float32(0.95) + np.float32(0.01)
+    wavelengths = np.array([490.0, 560.0, 660.0, 820.0], dtype=np.float32)
+    sample_calls: list[int] = []
+
+    monkeypatch.setattr(qa_plots, "hdr_to_dict", lambda path: {"data ignore value": -9999.0})
+    monkeypatch.setattr(
+        qa_plots,
+        "read_envi_cube",
+        lambda path, hdr: large_raw if Path(path) == raw_path else large_corr,
+    )
+    monkeypatch.setattr(
+        qa_plots,
+        "wavelengths_from_hdr",
+        lambda hdr: (wavelengths, "header"),
+    )
+
+    def _recording_sample(cube, mask, n_sample):
+        sample_calls.append(int(n_sample))
+        bands = cube.shape[0]
+        return (
+            np.full((bands, 8), 0.2, dtype=np.float32),
+            np.ones((bands, 8), dtype=bool),
+        )
+
+    monkeypatch.setattr(qa_plots, "_deterministic_sample", _recording_sample)
+
+    output_png, _ = render_drone_panel(
+        raw_path=raw_path,
+        corrected_path=corrected_path,
+        output_png=tmp_path / "SPR1_20230628__qa.png",
+        qa_summary={"flags": {}, "correction_status_source": "live_run"},
+        save_json=False,
+    )
+
+    assert output_png.exists()
+    assert sample_calls == [250_000, 250_000]
+
+
+def test_render_drone_panel_honors_safe_sampling_override(
+    tmp_path: Path, monkeypatch
+) -> None:
+    raw_path = tmp_path / "SPR1_20230628__envi.img"
+    corrected_path = tmp_path / "SPR1_20230628__corrected.img"
+    raw_path.write_bytes(b"raw")
+    corrected_path.write_bytes(b"corr")
+
+    large_raw = np.full((4, 600, 600), 0.2, dtype=np.float32)
+    large_corr = large_raw.copy()
+    wavelengths = np.array([490.0, 560.0, 660.0, 820.0], dtype=np.float32)
+    sample_calls: list[int] = []
+
+    monkeypatch.setattr(qa_plots, "hdr_to_dict", lambda path: {"data ignore value": -9999.0})
+    monkeypatch.setattr(
+        qa_plots,
+        "read_envi_cube",
+        lambda path, hdr: large_raw if Path(path) == raw_path else large_corr,
+    )
+    monkeypatch.setattr(
+        qa_plots,
+        "wavelengths_from_hdr",
+        lambda hdr: (wavelengths, "header"),
+    )
+
+    def _recording_sample(cube, mask, n_sample):
+        sample_calls.append(int(n_sample))
+        bands = cube.shape[0]
+        return (
+            np.full((bands, 8), 0.2, dtype=np.float32),
+            np.ones((bands, 8), dtype=bool),
+        )
+
+    monkeypatch.setattr(qa_plots, "_deterministic_sample", _recording_sample)
+
+    output_png, _ = render_drone_panel(
+        raw_path=raw_path,
+        corrected_path=corrected_path,
+        output_png=tmp_path / "SPR1_20230628__qa.png",
+        qa_summary={"flags": {}, "correction_status_source": "live_run"},
+        save_json=False,
+        qa_max_samples=12_345,
+    )
+
+    assert output_png.exists()
+    assert sample_calls == [12_345, 12_345]
+
+
+def test_drone_scene_classification_detects_effective_noop() -> None:
+    wavelengths = np.array([490.0, 560.0, 660.0, 820.0], dtype=np.float32)
+    full_diff = np.full((4, 3, 3), 1e-6, dtype=np.float32)
+    sample_mask = np.ones((4, 12), dtype=bool)
+
+    diff_summary = _summarize_full_diff(full_diff, wavelengths)
+    support_summary = _summarize_sample_support(wavelengths, sample_mask)
+    flags = _classify_drone_scene(diff_summary, support_summary)
+
+    assert "effective_noop_correction" in flags
+    assert "outlier_dominated_correction" not in flags
+
+
+def test_drone_scene_classification_detects_outlier_dominated() -> None:
+    wavelengths = np.array([490.0, 560.0, 660.0, 820.0], dtype=np.float32)
+    full_diff = np.full((4, 8, 8), 0.001, dtype=np.float32)
+    full_diff[2, 0, 0] = 20.0
+    full_diff[3, 1, 1] = 5.0
+    sample_mask = np.ones((4, 200), dtype=bool)
+
+    diff_summary = _summarize_full_diff(full_diff, wavelengths)
+    support_summary = _summarize_sample_support(wavelengths, sample_mask)
+    flags = _classify_drone_scene(diff_summary, support_summary)
+
+    assert "outlier_dominated_correction" in flags
+    assert diff_summary["n_abs_diff_gt_10"] >= 1
+
+
+def test_drone_support_summary_detects_support_collapse() -> None:
+    wavelengths = np.array([490.0, 560.0, 660.0, 820.0], dtype=np.float32)
+    sample_mask = np.array(
+        [
+            [True, False, False, False],
+            [False, False, False, False],
+            [True, False, False, False],
+            [False, False, False, False],
+        ],
+        dtype=bool,
+    )
+
+    support_summary = _summarize_sample_support(wavelengths, sample_mask)
+    diff_summary = _summarize_full_diff(np.zeros((4, 2, 2), dtype=np.float32), wavelengths)
+    flags = _classify_drone_scene(diff_summary, support_summary)
+
+    assert support_summary["bands_with_any_support"] == 2
+    assert support_summary["bands_with_gt10_support"] == 0
+    assert "band_support_collapsed" in flags
 
 
 def test_render_drone_panel_places_invalid_maps_on_bottom_row(
@@ -828,10 +977,15 @@ def test_render_drone_correction_magnitude_returns_richer_spatial_summary() -> N
         dtype=np.float32,
     )
     valid_mask = (raw_cube > -9990.0) & (corr_cube > -9990.0)
+    full_diff = np.where(valid_mask, corr_cube - raw_cube, np.nan)
 
     fig, ax = plt.subplots()
     try:
-        summary = _render_drone_correction_magnitude(ax, raw_cube, corr_cube, valid_mask)
+        summary = _render_drone_correction_magnitude(
+            ax,
+            full_diff,
+            {"scene_classification": ["outlier_dominated_correction"]},
+        )
     finally:
         plt.close(fig)
 
@@ -840,6 +994,7 @@ def test_render_drone_correction_magnitude_returns_richer_spatial_summary() -> N
     assert np.isfinite(summary["spatial_abs_delta_p90"])
     assert np.isfinite(summary["spatial_abs_delta_max"])
     assert np.isfinite(summary["pixels_above_change_threshold_pct"])
+    assert np.isfinite(summary["spatial_changed_frac_median"])
     assert np.isfinite(summary["median_valid_bands_per_pixel"])
     assert summary["change_threshold"] > 0.0
 

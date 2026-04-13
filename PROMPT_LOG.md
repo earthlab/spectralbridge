@@ -2196,3 +2196,272 @@ Branch: main
 ```text
 can we make it a pdf instead of an html?
 ```
+## 2026-04-13 - lock in larger drone qa spectral sample size
+Branch: main
+
+```text
+Update the drone QA sampling strategy in src/spectralbridge/qa_plots.py to significantly increase sample size for spectral diagnostics while keeping performance and memory safe.
+```
+## 2026-04-13 - harden drone qa failure-mode diagnostics
+Branch: main
+
+```text
+Implement a focused debugging and hardening pass for the drone QA path in spectralbridge to address three distinct failure modes that the current QA plots are revealing:
+	1.	flat / no-op correction scenes
+	2.	spatial maps dominated by extreme outliers
+	3.	wavelength plots with missing chunks due to band-support collapse
+
+This prompt is not for cosmetic plot cleanup alone. The goal is to make the QA both diagnose and explain these three cases clearly, while also hardening the correction diagnostics against misleading visual output.
+
+Keep changes narrowly scoped to the drone QA / correction-diagnostic path.
+Do not redesign unrelated pipeline behavior.
+Do not remove existing QA information unless replacing it with a strictly better equivalent.
+
+High-level goals
+	•	distinguish true no-op correction scenes from healthy scenes
+	•	distinguish outlier-dominated scenes from truly flat scenes
+	•	expose per-band support so missing wavelength chunks are interpretable instead of mysterious
+	•	make the spatial correction map more robust and informative
+	•	add compact scene-level classification / warnings to the QA output and JSON
+
+Failure mode 1: flat / no-op correction scenes
+
+Problem
+Some scenes appear completely flat in both the wavelength-wise correction panel and the spatial correction map. This indicates that corr_cube is effectively identical to raw_cube, or nearly so.
+
+Required changes
+	1.	Add scene-level correction-strength diagnostics from the full raster in the drone QA path.
+
+After both cubes are loaded and valid masks are computed, calculate at minimum:
+
+full_diff = np.where(both_valid, corr_cube - raw_cube, np.nan)
+full_abs_diff = np.abs(full_diff)
+
+global_mean_abs_diff = float(np.nanmean(full_abs_diff))
+global_median_abs_diff = float(np.nanmedian(full_abs_diff))
+global_p95_abs_diff = float(np.nanpercentile(full_abs_diff, 95))
+fraction_above_change_threshold = float(
+    np.nanmean(full_abs_diff > _DRONE_CHANGE_THRESHOLD) * 100.0
+)
+pixels_with_any_nontrivial_change_pct = float(
+    np.nanmean(np.nanmax(full_abs_diff, axis=0) > _DRONE_CHANGE_THRESHOLD) * 100.0
+)
+
+Add a named constant near the top of the file:
+
+_DRONE_CHANGE_THRESHOLD = 0.01
+
+	2.	Add a no-op detection heuristic.
+
+Define a compact rule that identifies scenes where correction is effectively a no-op. For example:
+	•	global mean absolute diff is below a small threshold
+	•	global median absolute diff is near zero
+	•	fraction above change threshold is near zero
+
+Use a clear named boolean such as:
+
+is_effective_noop_correction = ...
+
+	3.	Surface this in the QA output.
+
+	•	Add a warning / classification line in the QA payload JSON
+	•	Add a visible text warning in the spatial correction map panel or correction-status box such as:
+	•	Effective no-op correction detected
+
+Acceptance criteria for no-op detection
+	•	scenes like Ruby / GAH2 are automatically labeled as near-identity / no-op if the data support that conclusion
+	•	healthy scenes like Gordon are not mislabeled
+
+Failure mode 2: spatial maps dominated by extreme outliers
+
+Problem
+Some scenes appear visually flat not because the correction is truly zero, but because a small number of catastrophic outliers stretch the map scale so much that the rest of the raster collapses into one color.
+
+Required changes
+4. Add outlier diagnostics to the drone QA path.
+
+Compute and summarize counts like:
+
+n_abs_diff_gt_1 = int(np.sum(full_abs_diff > 1))
+n_abs_diff_gt_10 = int(np.sum(full_abs_diff > 10))
+n_abs_diff_gt_100 = int(np.sum(full_abs_diff > 100))
+
+Also identify the top offending wavelength bands from the full raster or sampled correction arrays, whichever is more practical and robust.
+	5.	Improve the spatial correction panel computation and annotation.
+
+Keep the existing per-pixel median absolute correction map, but add:
+	•	spatial_abs_delta_p90 = np.nanpercentile(np.abs(full_diff), 90, axis=0)
+	•	display_vmax_main and any clipping value used for display
+
+	6.	Add a second, more robust spatial diagnostic.
+
+Strong preference: compute and expose a thresholded change-fraction map:
+
+changed_frac = np.nanmean(np.abs(full_diff) > _DRONE_CHANGE_THRESHOLD, axis=0) * 100.0
+
+If layout allows cleanly, add this as an additional panel or inset. If layout should remain stable, then at minimum:
+	•	compute it
+	•	summarize it in the text box
+	•	store it in the JSON payload
+
+	7.	Use robust display scaling for the existing spatial map.
+
+Continue to use percentile-based vmax, but harden it so a few catastrophic pixels do not destroy the display.
+
+Preferred behavior:
+	•	use a robust percentile for display, such as 95th or 99th percentile of finite abs_delta
+	•	annotate the chosen vmax in the panel text box
+	•	preserve unclipped statistics in JSON so the user can still see that outliers exist
+
+	8.	Add an outlier-dominated scene heuristic.
+
+For example, scenes can be flagged as outlier-dominated if:
+	•	global median absolute diff is low
+	•	but max or p95 is huge
+	•	and counts above large thresholds are nontrivial
+
+Add a compact scene classification such as:
+	•	outlier_dominated_correction
+
+Acceptance criteria for outlier handling
+	•	scenes like Goldhill can be identified as outlier-dominated rather than just looking flat
+	•	the spatial map becomes visually interpretable even when a few pixels explode
+	•	the JSON preserves both robust and extreme-value summaries
+
+Failure mode 3: wavelength plots with missing chunks due to support collapse
+
+Problem
+Some wavelength-wise correction plots only show activity in a narrow band range or appear to have missing chunks. This likely reflects band-support collapse, where few or no valid comparisons survive for many bands.
+
+Required changes
+9. Add explicit per-band support diagnostics.
+
+From the sampled QA arrays, compute:
+
+sample_valid_counts = np.sum(sample_mask, axis=1)
+bands_with_any_support = int(np.sum(sample_valid_counts > 0))
+bands_with_gt10_support = int(np.sum(sample_valid_counts > 10))
+bands_with_gt100_support = int(np.sum(sample_valid_counts > 100))
+
+Also keep or compute a compact summary:
+	•	min / median / max sampled support per band
+	•	wavelength positions of poorly supported bands if practical
+
+	10.	Surface support in the wavelength-wise correction panel.
+
+Add one of these cleanly:
+	•	a secondary support line or shaded strip at the bottom showing normalized per-band support
+	•	or a compact annotation box summarizing support coverage
+	•	or both if the panel remains readable
+
+Strong preference:
+	•	visually mark unsupported / weakly supported bands so missing chunks are explained rather than just blank
+
+	11.	Add a support-collapse heuristic.
+
+Example:
+	•	if many bands have very low or zero support, classify the scene as support-collapsed or band-support-limited
+
+Add a compact label such as:
+	•	band_support_collapsed
+
+	12.	Update the row-3-left panel title / annotation if needed.
+
+The panel should make it clear that it is based on valid sampled comparisons, and that missing sections may reflect insufficient support rather than zero correction.
+
+Acceptance criteria for support diagnostics
+	•	missing chunks in the wavelength plot become interpretable
+	•	scenes with broad support look clearly different from scenes with narrow surviving support
+	•	the QA JSON stores enough support information for scene-to-scene comparison
+
+Scene classification summary
+	13.	Add a compact scene classification block.
+
+Based on the diagnostics above, classify each scene into one or more categories, for example:
+	•	healthy_correction
+	•	effective_noop_correction
+	•	outlier_dominated_correction
+	•	band_support_collapsed
+
+Implementation guidance
+	•	allow multiple flags if appropriate
+	•	keep logic simple and interpretable
+	•	store classification flags in the QA JSON
+	•	render the most important warning(s) in the QA figure text annotations
+
+Suggested logic examples
+	•	healthy: nontrivial correction strength, broad support, not outlier-dominated
+	•	no-op: near-zero mean/median diff and near-zero fraction above threshold
+	•	outlier-dominated: low median diff but large max/p95 and many extreme outliers
+	•	support-collapsed: low number of supported bands or strong concentration of support in a narrow subset
+
+JSON / payload updates
+	14.	Extend the drone QA JSON payload with compact new fields.
+
+Include at minimum:
+	•	global_mean_abs_diff
+	•	global_median_abs_diff
+	•	global_p95_abs_diff
+	•	fraction_above_change_threshold
+	•	pixels_with_any_nontrivial_change_pct
+	•	n_abs_diff_gt_1
+	•	n_abs_diff_gt_10
+	•	n_abs_diff_gt_100
+	•	bands_with_any_support
+	•	bands_with_gt10_support
+	•	bands_with_gt100_support
+	•	sample_valid_counts_summary
+	•	scene_classification
+	•	change_threshold
+	•	robust spatial-map display stats like chosen vmax
+
+Keep the payload compact and human-readable.
+
+Plotting constraints
+	15.	Keep the current general drone QA layout unless a very small local addition is needed.
+
+Do not perform a major layout redesign in this prompt.
+If you add new visual content, prefer:
+	•	annotation boxes
+	•	support strips
+	•	insets
+	•	JSON payload enrichment
+
+over large panel rearrangements.
+
+Testing
+	16.	Add focused tests for the new diagnostics and classification logic.
+
+At minimum verify:
+	•	no-op scenes can be detected from synthetic near-identity data
+	•	outlier-dominated scenes can be detected from synthetic mostly-flat data with a few extreme values
+	•	support-collapse metrics are computed correctly from synthetic sample masks
+	•	the new JSON payload fields are present
+	•	existing drone QA rendering still works without crashing
+
+If helpful, factor small pure functions for:
+	•	scene classification
+	•	support summaries
+	•	outlier summaries
+
+so they can be tested directly.
+
+Important constraints
+	•	do not change extraction behavior
+	•	do not change correction behavior unless you find a truly obvious bug and can justify it
+	•	do not add heavy dependencies
+	•	do not make unrelated refactors
+
+Deliverables
+	•	implement the new diagnostics
+	•	make the QA output explicitly explain the three failure modes
+	•	keep the implementation readable and compact
+	•	leave short comments where the logic is especially non-obvious
+
+Acceptance criteria
+	•	flat / no-op scenes are explicitly identified instead of just looking blank
+	•	outlier-dominated scenes are explicitly identified and the spatial map is visually interpretable
+	•	missing wavelength chunks are explained by support diagnostics
+	•	the QA JSON contains enough information to compare scenes side by side
+	•	the drone QA figure becomes a diagnostic tool that distinguishes these cases clearly rather than leaving them ambiguous
+```

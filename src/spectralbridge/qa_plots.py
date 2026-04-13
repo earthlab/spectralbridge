@@ -56,10 +56,21 @@ _OVERBRIGHT_WARN_THRESHOLD = 1.0
 _DELTA_WARN_THRESHOLD = 0.05
 _DRONE_OBSERVED_CHANGE_EPS = 1e-6
 _DRONE_CHANGE_THRESHOLD = 0.01
+# Drone QA needs a denser spectral sample than the generic flightline panel so
+# site-to-site variance remains visible, but we still keep it bounded to avoid
+# turning the sampled spectral diagnostics into an unbounded memory sink.
 _DRONE_QA_MAX_SAMPLES = 250_000
 _DRONE_CORRECTION_CHANGE_THRESHOLD = _DRONE_CHANGE_THRESHOLD
 _DRONE_QA_TRACE_RNG_SEED = 13
 _DRONE_QA_DISPLAY_UPPER_BOUND = 5_000.0
+_DRONE_NOOP_MEAN_ABS_DIFF_THRESHOLD = 1e-3
+_DRONE_NOOP_MEDIAN_ABS_DIFF_THRESHOLD = 1e-4
+_DRONE_NOOP_CHANGED_PIXEL_PCT_THRESHOLD = 1.0
+_DRONE_NOOP_FRACTION_ABOVE_THRESHOLD_PCT = 0.1
+_DRONE_OUTLIER_DOMINATED_MEDIAN_THRESHOLD = 0.005
+_DRONE_OUTLIER_DOMINATED_P95_THRESHOLD = 0.05
+_DRONE_SUPPORT_COLLAPSE_BAND_PCT = 60.0
+_DRONE_SUPPORT_COLLAPSE_GT10_BAND_PCT = 40.0
 
 
 def _hash_file(path: Path) -> str:
@@ -1257,6 +1268,22 @@ def _support_range_label(
     return f"b{int(idx[0])}-b{int(idx[-1])} ({idx.size} bands)"
 
 
+def _support_wavelength_preview(
+    wavelengths: np.ndarray,
+    support_mask: np.ndarray,
+    *,
+    limit: int = 8,
+) -> list[float | int]:
+    idx = np.flatnonzero(np.asarray(support_mask, dtype=bool))
+    if idx.size == 0:
+        return []
+    idx = idx[:limit]
+    if wavelengths.size == support_mask.size:
+        selected = np.asarray(wavelengths, dtype=float)[idx]
+        return [round(float(value), 1) for value in selected if np.isfinite(value)]
+    return [int(value) for value in idx]
+
+
 def _top_outlier_band_labels(
     abs_diff: np.ndarray,
     wavelengths: np.ndarray,
@@ -1281,6 +1308,139 @@ def _top_outlier_band_labels(
     return labels
 
 
+def _summarize_sample_support(
+    wavelengths: np.ndarray,
+    sample_mask: np.ndarray,
+) -> dict[str, Any]:
+    sample_valid_counts = np.sum(sample_mask, axis=1).astype(int)
+    support_any = sample_valid_counts > 0
+    support_gt10 = sample_valid_counts > 10
+    support_gt100 = sample_valid_counts > 100
+    weak_support = sample_valid_counts <= 10
+    return {
+        "bands_with_any_support": int(np.count_nonzero(support_any)),
+        "bands_with_gt10_support": int(np.count_nonzero(support_gt10)),
+        "bands_with_gt100_support": int(np.count_nonzero(support_gt100)),
+        "band_support_pct": {
+            "any": float(100.0 * np.mean(support_any)) if support_any.size else 0.0,
+            "gt10": float(100.0 * np.mean(support_gt10)) if support_gt10.size else 0.0,
+            "gt100": float(100.0 * np.mean(support_gt100)) if support_gt100.size else 0.0,
+        },
+        "sample_valid_counts_summary": {
+            "min": int(np.min(sample_valid_counts)) if sample_valid_counts.size else 0,
+            "median": float(np.median(sample_valid_counts)) if sample_valid_counts.size else 0.0,
+            "max": int(np.max(sample_valid_counts)) if sample_valid_counts.size else 0,
+        },
+        "support_wavelength_ranges_nm": {
+            "any": _support_range_label(wavelengths, support_any),
+            "gt10": _support_range_label(wavelengths, support_gt10),
+            "gt100": _support_range_label(wavelengths, support_gt100),
+        },
+        "weak_support_wavelengths_preview": _support_wavelength_preview(
+            wavelengths, weak_support
+        ),
+        "zero_support_wavelengths_preview": _support_wavelength_preview(
+            wavelengths, sample_valid_counts == 0
+        ),
+    }
+
+
+def _summarize_full_diff(
+    full_diff: np.ndarray,
+    wavelengths: np.ndarray,
+) -> dict[str, Any]:
+    full_abs_diff = np.abs(full_diff)
+    finite_abs_diff = full_abs_diff[np.isfinite(full_abs_diff)]
+    finite_count = int(finite_abs_diff.size)
+
+    pixel_max_abs_diff = np.full(full_abs_diff.shape[1:], np.nan, dtype=float)
+    finite_pixel_support = np.any(np.isfinite(full_abs_diff), axis=0)
+    if np.any(finite_pixel_support):
+        pixel_max_abs_diff[finite_pixel_support] = np.nanmax(
+            full_abs_diff[:, finite_pixel_support], axis=0
+        )
+
+    comparisons_above_threshold = int(
+        np.count_nonzero(finite_abs_diff > _DRONE_CHANGE_THRESHOLD)
+    )
+    pixels_with_any_nontrivial_change_pct = float(
+        np.nanmean(pixel_max_abs_diff > _DRONE_CHANGE_THRESHOLD) * 100.0
+    ) if np.any(np.isfinite(pixel_max_abs_diff)) else 0.0
+
+    summary = {
+        "global_mean_abs_diff": float(np.nanmean(finite_abs_diff)) if finite_count else 0.0,
+        "global_median_abs_diff": float(np.nanmedian(finite_abs_diff)) if finite_count else 0.0,
+        "global_p95_abs_diff": float(np.nanpercentile(finite_abs_diff, 95)) if finite_count else 0.0,
+        "global_max_abs_diff": float(np.nanmax(finite_abs_diff)) if finite_count else 0.0,
+        "finite_comparison_count": finite_count,
+        "fraction_above_change_threshold": (
+            float(100.0 * comparisons_above_threshold / finite_count) if finite_count else 0.0
+        ),
+        "pixels_with_any_nontrivial_change_pct": pixels_with_any_nontrivial_change_pct,
+        "comparisons_above_change_threshold": comparisons_above_threshold,
+        "n_abs_diff_gt_1": int(np.count_nonzero(finite_abs_diff > 1.0)),
+        "n_abs_diff_gt_10": int(np.count_nonzero(finite_abs_diff > 10.0)),
+        "n_abs_diff_gt_100": int(np.count_nonzero(finite_abs_diff > 100.0)),
+        "top_outlier_bands": _top_outlier_band_labels(full_abs_diff, wavelengths),
+        "change_threshold": float(_DRONE_CHANGE_THRESHOLD),
+    }
+    return summary
+
+
+def _classify_drone_scene(
+    diff_summary: dict[str, Any],
+    support_summary: dict[str, Any],
+) -> list[str]:
+    flags: list[str] = []
+
+    # Keep the QA scene labels deliberately simple and threshold-based so they
+    # explain the observed failure mode rather than acting like a black box.
+    is_effective_noop_correction = (
+        diff_summary["global_mean_abs_diff"] <= _DRONE_NOOP_MEAN_ABS_DIFF_THRESHOLD
+        and diff_summary["global_median_abs_diff"] <= _DRONE_NOOP_MEDIAN_ABS_DIFF_THRESHOLD
+        and diff_summary["fraction_above_change_threshold"] <= _DRONE_NOOP_FRACTION_ABOVE_THRESHOLD_PCT
+        and diff_summary["pixels_with_any_nontrivial_change_pct"] <= _DRONE_NOOP_CHANGED_PIXEL_PCT_THRESHOLD
+    )
+    if is_effective_noop_correction:
+        flags.append("effective_noop_correction")
+
+    is_outlier_dominated = (
+        diff_summary["global_median_abs_diff"] <= _DRONE_OUTLIER_DOMINATED_MEDIAN_THRESHOLD
+        and (
+            diff_summary["global_p95_abs_diff"] >= _DRONE_OUTLIER_DOMINATED_P95_THRESHOLD
+            or diff_summary["global_max_abs_diff"] >= 1.0
+        )
+        and (
+            diff_summary["n_abs_diff_gt_1"] > 0
+            or diff_summary["n_abs_diff_gt_10"] > 0
+            or diff_summary["n_abs_diff_gt_100"] > 0
+        )
+    )
+    if is_outlier_dominated:
+        flags.append("outlier_dominated_correction")
+
+    is_band_support_collapsed = (
+        support_summary["band_support_pct"]["any"] < _DRONE_SUPPORT_COLLAPSE_BAND_PCT
+        or support_summary["band_support_pct"]["gt10"] < _DRONE_SUPPORT_COLLAPSE_GT10_BAND_PCT
+    )
+    if is_band_support_collapsed:
+        flags.append("band_support_collapsed")
+
+    if not flags:
+        flags.append("healthy_correction")
+    return flags
+
+
+def _scene_classification_messages(scene_classification: Sequence[str]) -> list[str]:
+    lookup = {
+        "healthy_correction": "Healthy correction signature",
+        "effective_noop_correction": "Effective no-op correction detected",
+        "outlier_dominated_correction": "Outlier-dominated correction detected",
+        "band_support_collapsed": "Band-support collapse detected",
+    }
+    return [lookup.get(flag, flag.replace("_", " ")) for flag in scene_classification]
+
+
 def _drone_sampling_debug(
     *,
     scene_id: str,
@@ -1301,22 +1461,10 @@ def _drone_sampling_debug(
     than polygon parquet rows. This helper makes that provenance explicit and
     captures whether valid support collapses upstream.
     """
-
-    sample_valid_counts = np.sum(sample_mask, axis=1).astype(int)
-    support_any = sample_valid_counts > 0
-    support_gt10 = sample_valid_counts > 10
-    support_gt100 = sample_valid_counts > 100
-
+    support_summary = _summarize_sample_support(wavelengths, sample_mask)
     diff = np.where(both_valid, corr_cube - raw_cube, np.nan)
-    abs_diff = np.abs(diff)
-    finite_abs_diff = abs_diff[np.isfinite(abs_diff)]
-    finite_pixel_support = np.any(np.isfinite(diff), axis=0)
-    changed_pixels = finite_pixel_support & np.any(abs_diff > _DRONE_CHANGE_THRESHOLD, axis=0)
-
-    finite_count = int(finite_abs_diff.size)
-    comparisons_above_threshold = int(np.count_nonzero(finite_abs_diff > _DRONE_CHANGE_THRESHOLD))
-    pixels_with_support = int(np.count_nonzero(finite_pixel_support))
-    pixels_with_change = int(np.count_nonzero(changed_pixels))
+    diff_summary = _summarize_full_diff(diff, wavelengths)
+    scene_classification = _classify_drone_scene(diff_summary, support_summary)
 
     debug = {
         "scene_id": scene_id,
@@ -1328,44 +1476,13 @@ def _drone_sampling_debug(
         "both_valid_pct": float(np.mean(both_valid) * 100.0) if both_valid.size else 0.0,
         "sample_shape": list(raw_sample.shape),
         "sample_mask_shape": list(sample_mask.shape),
-        "sample_valid_counts_per_band_summary": {
-            "min": int(np.min(sample_valid_counts)) if sample_valid_counts.size else 0,
-            "median": float(np.median(sample_valid_counts)) if sample_valid_counts.size else 0.0,
-            "max": int(np.max(sample_valid_counts)) if sample_valid_counts.size else 0,
-        },
-        "bands_with_any_sample_support": int(np.count_nonzero(support_any)),
-        "bands_with_gt10_support": int(np.count_nonzero(support_gt10)),
-        "bands_with_gt100_support": int(np.count_nonzero(support_gt100)),
-        "band_support_pct": {
-            "any": float(100.0 * np.mean(support_any)) if support_any.size else 0.0,
-            "gt10": float(100.0 * np.mean(support_gt10)) if support_gt10.size else 0.0,
-            "gt100": float(100.0 * np.mean(support_gt100)) if support_gt100.size else 0.0,
-        },
-        "support_wavelength_ranges_nm": {
-            "any": _support_range_label(wavelengths, support_any),
-            "gt10": _support_range_label(wavelengths, support_gt10),
-            "gt100": _support_range_label(wavelengths, support_gt100),
-        },
-        "global_mean_abs_diff": float(np.nanmean(finite_abs_diff)) if finite_count else 0.0,
-        "global_median_abs_diff": float(np.nanmedian(finite_abs_diff)) if finite_count else 0.0,
-        "global_max_abs_diff": float(np.nanmax(finite_abs_diff)) if finite_count else 0.0,
-        "finite_comparison_count": finite_count,
-        "comparisons_above_change_threshold": comparisons_above_threshold,
-        "fraction_above_change_threshold": (
-            float(100.0 * comparisons_above_threshold / finite_count) if finite_count else 0.0
-        ),
-        "pixels_with_any_change_count": pixels_with_change,
-        "pixels_with_any_change_pct": (
-            float(100.0 * pixels_with_change / pixels_with_support) if pixels_with_support else 0.0
-        ),
-        "outlier_counts": {
-            "gt1": int(np.count_nonzero(finite_abs_diff > 1.0)),
-            "gt10": int(np.count_nonzero(finite_abs_diff > 10.0)),
-            "gt100": int(np.count_nonzero(finite_abs_diff > 100.0)),
-        },
-        "top_outlier_bands": _top_outlier_band_labels(abs_diff, wavelengths),
-        "change_threshold": float(_DRONE_CHANGE_THRESHOLD),
+        "scene_classification": scene_classification,
+        **support_summary,
+        **diff_summary,
     }
+    # Backward-compatible aliases for existing debug consumers.
+    debug["sample_valid_counts_per_band_summary"] = debug["sample_valid_counts_summary"]
+    debug["bands_with_any_sample_support"] = debug["bands_with_any_support"]
     return debug
 
 
@@ -1395,10 +1512,10 @@ def _log_drone_sampling_debug(debug: dict[str, Any], sample_valid_counts: np.nda
         "bands(any/>10/>100)=%d/%d/%d (%.1f/%.1f/%.1f%%) support_nm(any/>10/>100)=%s/%s/%s",
         scene_id,
         _preview_counts(sample_valid_counts),
-        int(debug["sample_valid_counts_per_band_summary"]["min"]),
-        float(debug["sample_valid_counts_per_band_summary"]["median"]),
-        int(debug["sample_valid_counts_per_band_summary"]["max"]),
-        int(debug["bands_with_any_sample_support"]),
+        int(debug["sample_valid_counts_summary"]["min"]),
+        float(debug["sample_valid_counts_summary"]["median"]),
+        int(debug["sample_valid_counts_summary"]["max"]),
+        int(debug["bands_with_any_support"]),
         int(debug["bands_with_gt10_support"]),
         int(debug["bands_with_gt100_support"]),
         float(debug["band_support_pct"]["any"]),
@@ -1410,7 +1527,7 @@ def _log_drone_sampling_debug(debug: dict[str, Any], sample_valid_counts: np.nda
     )
     logger.info(
         "[drone-qa] %s |Δ| mean/median/max=%.6f/%.6f/%.6f finite>%0.3f=%d (%.3f%%) "
-        "pixels_any>%0.3f=%d (%.3f%%) outliers(>1/>10/>100)=%d/%d/%d top_bands=%s",
+        "pixels_any>%0.3f=%.3f%% outliers(>1/>10/>100)=%d/%d/%d top_bands=%s",
         scene_id,
         float(debug["global_mean_abs_diff"]),
         float(debug["global_median_abs_diff"]),
@@ -1419,16 +1536,22 @@ def _log_drone_sampling_debug(debug: dict[str, Any], sample_valid_counts: np.nda
         int(debug["comparisons_above_change_threshold"]),
         float(debug["fraction_above_change_threshold"]),
         float(debug["change_threshold"]),
-        int(debug["pixels_with_any_change_count"]),
-        float(debug["pixels_with_any_change_pct"]),
-        int(debug["outlier_counts"]["gt1"]),
-        int(debug["outlier_counts"]["gt10"]),
-        int(debug["outlier_counts"]["gt100"]),
+        float(debug["pixels_with_any_nontrivial_change_pct"]),
+        int(debug["n_abs_diff_gt_1"]),
+        int(debug["n_abs_diff_gt_10"]),
+        int(debug["n_abs_diff_gt_100"]),
         ", ".join(debug["top_outlier_bands"]) if debug["top_outlier_bands"] else "none",
     )
 
 
-def _render_delta(ax: Axes, wavelengths: np.ndarray, report: CorrectionReport) -> None:
+def _render_delta(
+    ax: Axes,
+    wavelengths: np.ndarray,
+    report: CorrectionReport,
+    *,
+    sample_valid_counts: np.ndarray | None = None,
+    scene_classification: Sequence[str] | None = None,
+) -> None:
     xs = wavelengths if wavelengths.size == len(report.delta_median) else np.arange(len(report.delta_median))
     delta_median = np.asarray(report.delta_median, dtype=float)
     delta_q10 = np.asarray(report.delta_q10, dtype=float)
@@ -1457,6 +1580,44 @@ def _render_delta(ax: Axes, wavelengths: np.ndarray, report: CorrectionReport) -
         lower_pct=1.0,
         upper_pct=99.0,
     )
+    if sample_valid_counts is not None and sample_valid_counts.size == delta_median.size:
+        counts = np.asarray(sample_valid_counts, dtype=float)
+        if np.nanmax(counts) > 0:
+            ax2 = ax.twinx()
+            normalized = counts / np.nanmax(counts)
+            ax2.fill_between(xs, 0.0, normalized, color="0.75", alpha=0.18)
+            ax2.plot(xs, normalized, color="0.45", linewidth=1.0, alpha=0.8, label="normalized support")
+            ax2.set_ylim(0.0, 1.05)
+            ax2.set_ylabel("Normalized support", fontsize=8, color="0.35")
+            ax2.tick_params(axis="y", labelsize=7, colors="0.35")
+            weak_mask = counts <= 10
+            if np.any(weak_mask):
+                ax.scatter(
+                    xs[weak_mask],
+                    np.full(np.count_nonzero(weak_mask), ax.get_ylim()[0]),
+                    s=6,
+                    color="#6b7280",
+                    alpha=0.5,
+                    clip_on=False,
+                    zorder=5,
+                )
+            support_lines = [
+                f"support min/med/max: {int(np.min(counts))}/{float(np.median(counts)):.0f}/{int(np.max(counts))}",
+                f"bands >10 samples: {int(np.count_nonzero(counts > 10))}/{counts.size}",
+                "missing chunks can reflect insufficient valid support",
+            ]
+            if scene_classification:
+                support_lines.append(", ".join(_scene_classification_messages(scene_classification[:2])))
+            ax.text(
+                0.02,
+                0.98,
+                "\n".join(support_lines),
+                transform=ax.transAxes,
+                ha="left",
+                va="top",
+                fontsize=8,
+                bbox=dict(boxstyle="round", facecolor="white", alpha=0.75, edgecolor="none"),
+            )
     ax.legend(loc="upper right")
 
 
@@ -1924,12 +2085,15 @@ def _drone_correction_status(
     *,
     correction_median: float,
     correction_max: float,
+    scene_debug: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     audit = qa_summary if isinstance(qa_summary, dict) else {}
     flags = audit.get("flags", {}) if isinstance(audit.get("flags", {}), dict) else {}
     observed_change = bool(
         np.isfinite(correction_max) and abs(float(correction_max)) > _DRONE_OBSERVED_CHANGE_EPS
     )
+    scene_debug = scene_debug if isinstance(scene_debug, dict) else {}
+    scene_classification = list(scene_debug.get("scene_classification", []))
     return {
         "topo_requested": bool(flags.get("topo_requested", False)),
         "brdf_requested": bool(flags.get("brdf_requested", False)),
@@ -1942,6 +2106,8 @@ def _drone_correction_status(
         "observed_change_threshold": _DRONE_OBSERVED_CHANGE_EPS,
         "spatial_abs_delta_median": float(correction_median),
         "spatial_abs_delta_max": float(correction_max),
+        "scene_classification": scene_classification,
+        "scene_classification_messages": _scene_classification_messages(scene_classification),
     }
 
 
@@ -1961,6 +2127,9 @@ def _render_drone_correction_status_box(ax: Axes, status: dict[str, Any]) -> Non
         f"Observed change in panel: {'yes' if status.get('observed_change') else 'no'}",
         f"Status source: {source_label}",
     ]
+    scene_messages = list(status.get("scene_classification_messages", []))
+    if scene_messages:
+        lines.append(f"Scene QA: {', '.join(scene_messages)}")
     if status.get("correction_failed"):
         lines.insert(1, "Correction failure recorded in audit")
     ax.text(
@@ -2124,13 +2293,15 @@ def _render_drone_nodata_map(
 
 def _render_drone_correction_magnitude(
     ax: Axes,
-    raw_cube: np.ndarray,
-    corr_cube: np.ndarray,
-    valid_mask: np.ndarray,
+    full_diff: np.ndarray,
+    scene_debug: dict[str, Any] | None = None,
 ) -> dict[str, float]:
-    diff = np.where(valid_mask, corr_cube - raw_cube, np.nan)
-    abs_delta = np.nanmedian(np.abs(diff), axis=0)
-    changed_frac = np.nanmean(np.abs(diff) > _DRONE_CORRECTION_CHANGE_THRESHOLD, axis=0) * 100.0
+    scene_debug = scene_debug if isinstance(scene_debug, dict) else {}
+    full_abs_diff = np.abs(full_diff)
+    abs_delta = np.nanmedian(full_abs_diff, axis=0)
+    abs_delta_p90_map = np.nanpercentile(full_abs_diff, 90, axis=0)
+    changed_frac = np.nanmean(full_abs_diff > _DRONE_CORRECTION_CHANGE_THRESHOLD, axis=0) * 100.0
+    valid_mask = np.isfinite(full_diff)
     valid_band_count = np.sum(valid_mask, axis=0)
     valid_band_fraction = np.mean(valid_mask, axis=0) * 100.0
     finite = abs_delta[np.isfinite(abs_delta)]
@@ -2149,9 +2320,13 @@ def _render_drone_correction_magnitude(
     summary = {
         "spatial_abs_delta_median": float(np.nanmedian(abs_delta)) if finite.size else 0.0,
         "spatial_abs_delta_p95": float(np.nanpercentile(abs_delta, 95)) if finite.size else 0.0,
-        "spatial_abs_delta_p90": float(np.nanpercentile(abs_delta, 90)) if finite.size else 0.0,
+        "spatial_abs_delta_p90": float(np.nanmedian(abs_delta_p90_map[np.isfinite(abs_delta_p90_map)]))
+        if np.any(np.isfinite(abs_delta_p90_map))
+        else 0.0,
         "spatial_abs_delta_max": float(np.nanmax(abs_delta)) if finite.size else 0.0,
         "pixels_above_change_threshold_pct": pixels_above_threshold_pct,
+        "spatial_changed_frac_median": float(np.nanmedian(finite_changed)) if finite_changed.size else 0.0,
+        "spatial_changed_frac_p95": float(np.nanpercentile(finite_changed, 95)) if finite_changed.size else 0.0,
         "median_valid_bands_per_pixel": (
             float(np.nanmedian(finite_valid_band_count)) if finite_valid_band_count.size else 0.0
         ),
@@ -2159,17 +2334,22 @@ def _render_drone_correction_magnitude(
             float(np.nanmedian(finite_valid_band_fraction)) if finite_valid_band_fraction.size else 0.0
         ),
         "display_vmax": float(max(vmax, 1e-6)),
+        "display_percentile": 95.0,
         "change_threshold": float(_DRONE_CORRECTION_CHANGE_THRESHOLD),
     }
+    scene_messages = _scene_classification_messages(scene_debug.get("scene_classification", []))
     stats_text = "\n".join(
         [
             f"median |Δ|: {summary['spatial_abs_delta_median']:.4f}",
             f"95th pct |Δ|: {summary['spatial_abs_delta_p95']:.4f}",
             f"pixels > {summary['change_threshold']:.3f}: {summary['pixels_above_change_threshold_pct']:.1f}%",
+            f"changed frac median/p95: {summary['spatial_changed_frac_median']:.1f}/{summary['spatial_changed_frac_p95']:.1f}%",
             f"median valid bands: {summary['median_valid_bands_per_pixel']:.0f}",
             f"display vmax: {summary['display_vmax']:.4f}",
         ]
     )
+    if scene_messages:
+        stats_text += "\n" + "; ".join(scene_messages[:2])
     ax.text(
         0.02,
         0.02,
@@ -2180,6 +2360,12 @@ def _render_drone_correction_magnitude(
         fontsize=8,
         bbox=dict(boxstyle="round", facecolor="white", alpha=0.85, edgecolor="none"),
     )
+    if np.any(np.isfinite(changed_frac)):
+        inset = ax.inset_axes([0.66, 0.66, 0.28, 0.28])
+        inset.imshow(changed_frac, cmap="magma", vmin=0.0, vmax=100.0)
+        inset.set_title("% changed", fontsize=7)
+        inset.set_xticks([])
+        inset.set_yticks([])
     return summary
 
 
@@ -2427,6 +2613,7 @@ def render_drone_panel(
     corr_nodata_fraction = corr_nodata.mean(axis=0) * 100.0
     raw_spectrum = _median_spectrum(raw_cube, both_valid)
     corr_spectrum = _median_spectrum(corr_cube, both_valid)
+    full_diff = np.where(both_valid, corr_cube - raw_cube, np.nan)
     max_samples = min(max(1, int(qa_max_samples)), raw_cube.shape[1] * raw_cube.shape[2])
     corr_sample, sample_mask = _deterministic_sample(corr_cube, both_valid, max_samples)
     raw_sample, _ = _deterministic_sample(raw_cube, both_valid, max_samples)
@@ -2482,14 +2669,21 @@ def render_drone_panel(
         corr_sample=corr_sample,
         sample_mask=sample_mask,
     )
-    _render_delta(axes[1, 0], wavelengths, correction_report)
+    _render_delta(
+        axes[1, 0],
+        wavelengths,
+        correction_report,
+        sample_valid_counts=sample_valid_counts,
+        scene_classification=debug_sampling.get("scene_classification", []),
+    )
     spatial_correction_summary = _render_drone_correction_magnitude(
-        axes[1, 1], raw_cube, corr_cube, both_valid
+        axes[1, 1], full_diff, debug_sampling
     )
     correction_status = _drone_correction_status(
         qa_summary,
         correction_median=spatial_correction_summary["spatial_abs_delta_median"],
         correction_max=spatial_correction_summary["spatial_abs_delta_max"],
+        scene_debug=debug_sampling,
     )
     _render_drone_correction_status_box(axes[0, 1], correction_status)
     polygon_warning = _render_drone_polygon_overlay(axes[2, 0], corrected_path, polygon_path)
@@ -2537,6 +2731,20 @@ def render_drone_panel(
             "delta_abs_median": correction_report.delta_abs_median,
             "largest_delta_indices": correction_report.largest_delta_indices,
             **spatial_correction_summary,
+            "global_mean_abs_diff": debug_sampling["global_mean_abs_diff"],
+            "global_median_abs_diff": debug_sampling["global_median_abs_diff"],
+            "global_p95_abs_diff": debug_sampling["global_p95_abs_diff"],
+            "global_max_abs_diff": debug_sampling["global_max_abs_diff"],
+            "fraction_above_change_threshold": debug_sampling["fraction_above_change_threshold"],
+            "pixels_with_any_nontrivial_change_pct": debug_sampling["pixels_with_any_nontrivial_change_pct"],
+            "n_abs_diff_gt_1": debug_sampling["n_abs_diff_gt_1"],
+            "n_abs_diff_gt_10": debug_sampling["n_abs_diff_gt_10"],
+            "n_abs_diff_gt_100": debug_sampling["n_abs_diff_gt_100"],
+            "bands_with_any_support": debug_sampling["bands_with_any_support"],
+            "bands_with_gt10_support": debug_sampling["bands_with_gt10_support"],
+            "bands_with_gt100_support": debug_sampling["bands_with_gt100_support"],
+            "sample_valid_counts_summary": debug_sampling["sample_valid_counts_summary"],
+            "scene_classification": debug_sampling["scene_classification"],
             "topo_requested": correction_status["topo_requested"],
             "brdf_requested": correction_status["brdf_requested"],
             "topo_applied": correction_status["topo_applied"],
@@ -2546,6 +2754,7 @@ def render_drone_panel(
             "status_source": correction_status["status_source"],
             "observed_change": correction_status["observed_change"],
             "observed_change_threshold": correction_status["observed_change_threshold"],
+            "change_threshold": debug_sampling["change_threshold"],
         },
         "polygon": {
             "path": str(polygon_path) if polygon_path is not None else None,
