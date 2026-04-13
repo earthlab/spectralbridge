@@ -24,7 +24,11 @@ from spectralbridge.pipelines.drone import (
     resolve_band_map,
     save_drone_overlay_debug_plot,
 )
-from spectralbridge.qa_plots import _render_drone_merged_preview, render_drone_panel
+from spectralbridge.qa_plots import (
+    _render_drone_band_fidelity,
+    _render_drone_merged_preview,
+    render_drone_panel,
+)
 
 h5py = pytest.importorskip("h5py")
 geopandas = pytest.importorskip("geopandas")
@@ -602,6 +606,23 @@ def test_render_drone_merged_preview_prioritizes_rightmost_columns(
     assert "col" in summary["columns_previewed"]
     assert "corr_b004_wl0862nm" in summary["columns_previewed"]
     assert "corr_b003_wl0650nm" in summary["columns_previewed"]
+
+
+def test_render_drone_band_fidelity_suppresses_display_spikes() -> None:
+    plt = pytest.importorskip("matplotlib.pyplot")
+
+    fig, ax = plt.subplots()
+    try:
+        wavelengths = np.array([440.0, 560.0, 650.0, 862.0], dtype=np.float32)
+        raw = np.array([110.0, 260.0, 180.0, 950.0], dtype=np.float32)
+        corrected = np.array([112.0, 255.0, 15000.0, 960.0], dtype=np.float32)
+
+        _render_drone_band_fidelity(ax, wavelengths, raw, corrected, band_map=None)
+
+        _, ymax = ax.get_ylim()
+        assert ymax < 2_000.0
+    finally:
+        plt.close(fig)
 
 
 def test_export_csv_copy_from_parquet_writes_csv_sidecar(tmp_path: Path) -> None:

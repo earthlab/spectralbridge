@@ -1718,6 +1718,49 @@ def _median_spectrum(cube: np.ndarray, valid_mask: np.ndarray) -> np.ndarray:
     return np.nanmedian(masked, axis=(1, 2))
 
 
+def _despike_spectrum_for_display(
+    xs: np.ndarray,
+    spectrum: np.ndarray,
+) -> tuple[np.ndarray, list[int]]:
+    """Suppress isolated spectral spikes for display without changing source data."""
+
+    display = np.asarray(spectrum, dtype=np.float64).copy()
+    xs = np.asarray(xs, dtype=np.float64)
+    finite_idx = np.flatnonzero(np.isfinite(display) & np.isfinite(xs))
+    if finite_idx.size < 3:
+        return display, []
+
+    band_steps = np.abs(np.diff(display[finite_idx]))
+    typical_step = float(np.nanmedian(band_steps)) if band_steps.size else 0.0
+    if not np.isfinite(typical_step) or typical_step <= 0.0:
+        typical_step = max(float(np.nanmedian(np.abs(display[finite_idx]))), 1.0)
+
+    spikes: list[int] = []
+    for pos in range(1, finite_idx.size - 1):
+        left_i = int(finite_idx[pos - 1])
+        band_i = int(finite_idx[pos])
+        right_i = int(finite_idx[pos + 1])
+        left_x = xs[left_i]
+        band_x = xs[band_i]
+        right_x = xs[right_i]
+        if np.isfinite(left_x) and np.isfinite(right_x) and right_x != left_x:
+            expected = float(
+                np.interp(band_x, [left_x, right_x], [display[left_i], display[right_i]])
+            )
+        else:
+            expected = float(0.5 * (display[left_i] + display[right_i]))
+        deviation = abs(float(display[band_i]) - expected)
+        local_scale = max(
+            abs(float(display[right_i]) - float(display[left_i])),
+            typical_step,
+            1.0,
+        )
+        if deviation > (6.0 * local_scale) and deviation > (4.0 * typical_step):
+            display[band_i] = expected
+            spikes.append(band_i)
+    return display, spikes
+
+
 def _render_drone_band_fidelity(
     ax: Axes,
     wavelengths: np.ndarray,
@@ -1726,8 +1769,10 @@ def _render_drone_band_fidelity(
     band_map: dict[str, dict[str, float | int]] | None,
 ) -> None:
     xs = wavelengths if wavelengths.size == raw_spectrum.size else np.arange(raw_spectrum.size)
-    ax.plot(xs, raw_spectrum, color="#1f77b4", linewidth=1.5, label="raw median")
-    ax.plot(xs, corr_spectrum, color="#ff7f0e", linewidth=1.2, label="corrected median")
+    raw_display, _ = _despike_spectrum_for_display(xs, raw_spectrum)
+    corr_display, _ = _despike_spectrum_for_display(xs, corr_spectrum)
+    ax.plot(xs, raw_display, color="#1f77b4", linewidth=1.5, label="raw median")
+    ax.plot(xs, corr_display, color="#ff7f0e", linewidth=1.2, label="corrected median")
     ax.set_title("Band Fidelity And Median Spectra")
     ax.set_xlabel("Wavelength (nm)")
     ax.set_ylabel("Reflectance")
@@ -1739,7 +1784,7 @@ def _render_drone_band_fidelity(
             if 0 <= idx < raw_spectrum.size:
                 ax.scatter(
                     [wl],
-                    [raw_spectrum[idx]],
+                    [raw_display[idx]],
                     s=40,
                     zorder=4,
                     label=f"{name} -> {wl:.1f} nm",
@@ -1759,6 +1804,20 @@ def _render_drone_band_fidelity(
             fontsize=8,
             bbox=dict(boxstyle="round", facecolor="white", alpha=0.8, edgecolor="none"),
         )
+    finite_display = np.concatenate(
+        [
+            raw_display[np.isfinite(raw_display)],
+            corr_display[np.isfinite(corr_display)],
+        ]
+    )
+    if finite_display.size:
+        ymin = float(np.nanmin(finite_display))
+        ymax = float(np.nanmax(finite_display))
+        pad = max((ymax - ymin) * 0.08, max(abs(ymax), 1.0) * 0.02, 1e-6)
+        if ymin >= 0.0:
+            ax.set_ylim(max(0.0, ymin - pad), ymax + pad)
+        else:
+            ax.set_ylim(ymin - pad, ymax + pad)
     ax.legend(loc="best", fontsize=8)
     ax.grid(True, alpha=0.2)
 
@@ -2037,8 +2096,8 @@ def render_drone_panel(
 
     raw_nodata_fraction = raw_nodata.mean(axis=0) * 100.0
     corr_nodata_fraction = corr_nodata.mean(axis=0) * 100.0
-    raw_spectrum = _median_spectrum(raw_cube, raw_valid)
-    corr_spectrum = _median_spectrum(corr_cube, corr_valid)
+    raw_spectrum = _median_spectrum(raw_cube, both_valid)
+    corr_spectrum = _median_spectrum(corr_cube, both_valid)
     max_samples = min(25_000, raw_cube.shape[1] * raw_cube.shape[2])
     corr_sample, sample_mask = _deterministic_sample(corr_cube, both_valid, max_samples)
     raw_sample, _ = _deterministic_sample(raw_cube, both_valid, max_samples)

@@ -1613,3 +1613,9 @@ Branch: unknown
 ```text
 I want the bottom left figure of the qa panel to look like the overlay debug plot rather than the long skinny one thats there now. Also, the table on the bottom right we should show more columns or focus on the right most columns rather than left columns.
 ```
+## 2026-04-13 - improve drone QA top-right and correction map
+Branch: unknown
+
+```text
+The older version of this has a good version of the top right and a bad verson of the median correction map and the later version has a good median map but a bad band fidelaty plot. I would like all of these plots to be really good.
+```
