@@ -1619,3 +1619,417 @@ Branch: unknown
 ```text
 The older version of this has a good version of the top right and a bad verson of the median correction map and the later version has a good median map but a bad band fidelaty plot. I would like all of these plots to be really good.
 ```
+## 2026-04-13 - improve drone QA spectral and correction diagnostics
+Branch: main
+
+```text
+Update the drone QA panel implementation in src/spectralbridge/qa_plots.py so the three weakest diagnostics become genuinely useful for debugging drone correction behavior.
+
+Scope
+This prompt covers the following three panels in the drone QA figure created by render_drone_panel(...):
+	•	top-right: spectral panel
+	•	row 3 left: wavelength-wise correction panel
+	•	row 3 right: spatial correction map
+
+The current QA figure is hiding important information by over-collapsing distributions into medians. I want to preserve readability, but make these panels diagnostic enough to understand whether corrections are real, how variable they are, and where they occur.
+
+High-level goals
+	1.	Top-right panel should show spectral variance, not just the raw and corrected medians.
+	2.	Row-3-left panel should show the full distribution of correction effects across wavelengths, not just a single signed median line.
+	3.	Row-3-right panel should better explain and diagnose the spatial correction pattern, especially for cases where one site shows a clear map and others look flat or uninformative.
+	4.	Keep the rest of the drone QA layout unchanged unless required by these fixes.
+	5.	Keep changes narrowly scoped to drone QA behavior. Do not regress non-drone QA.
+
+Important context
+	•	render_drone_panel(...) currently computes sampled spectral arrays:
+	•	raw_sample
+	•	corr_sample
+	•	sample_mask
+	•	The top-right and row-3-left diagnostics currently collapse too much information.
+	•	The row-3-right panel currently uses the full raster spatially, but only one summary statistic across bands.
+	•	The current sample cap is too small for debugging subtle site-to-site differences.
+
+Required changes
+	1.	Increase the sample size substantially for drone QA spectral diagnostics
+
+In render_drone_panel(...), increase the current sampling cap from:
+
+max_samples = min(25_000, raw_cube.shape[1] * raw_cube.shape[2])
+
+to a much larger value, for example:
+
+max_samples = min(250_000, raw_cube.shape[1] * raw_cube.shape[2])
+
+Better option:
+	•	add a keyword argument such as qa_max_samples: int = 250_000 to render_drone_panel(...)
+	•	use that value when building raw_sample and corr_sample
+
+Requirements:
+	•	deterministic behavior should be preserved through the existing deterministic sampler
+	•	do not change non-drone QA sampling behavior
+	•	keep memory use reasonable
+
+Reason:
+	•	the current spectral diagnostics may be too lossy to reveal real variance or subtle correction behavior
+
+	2.	Fix the top-right panel so it shows spectral variance, not just medians
+
+Context
+	•	The current top-right panel is rendered by _render_drone_band_fidelity(...).
+	•	Right now it only plots two 1D summaries: raw median and corrected median.
+	•	I want to keep those medians, but also show a cloud of sampled per-pixel spectra behind them so spread and variance are visible.
+
+Update _render_drone_band_fidelity(...) to accept these additional arguments:
+	•	raw_sample: np.ndarray | None = None
+	•	corr_sample: np.ndarray | None = None
+	•	sample_mask: np.ndarray | None = None
+	•	keyword-only max_traces: int = 150
+
+Implementation requirements
+	•	keep the existing median line logic
+	•	before plotting the medians, plot a deterministic subsample of individual raw and corrected spectra using the sampled arrays
+	•	use sample_mask[:, j] to mask invalid per-band values for each sampled pixel
+	•	exclude nodata-like values <= -9990 before plotting
+	•	draw sampled traces first with low alpha and thin lines so they form a transparent cloud behind the medians
+	•	then draw the median lines on top thicker and visually dominant
+	•	preserve the existing band marker and band_map behavior
+	•	update the title to something like Band Fidelity And Sampled Spectra
+
+Implementation guidance
+	•	do not plot all pixels; subsample to at most about 100 to 150 traces
+	•	use deterministic sampling with a fixed RNG seed
+	•	use very low alpha for sampled traces, around 0.02 to 0.06
+	•	keep the median lines clearly readable on top
+	•	do not smooth the individual traces
+	•	it is fine to keep the existing display-only despiking for the median lines
+	•	make the function robust when any sampled arrays are omitted, empty, or shape-mismatched
+
+Also add a robust y-axis limit in _render_drone_band_fidelity(...) using only valid sampled values so a few bad values do not flatten the plot.
+	•	use percentile-based limits from valid sampled values
+	•	ignore invalid, nodata-like, and obviously contaminated values
+	•	keep most of the real signal visible
+
+Update the call in render_drone_panel(...) so _render_drone_band_fidelity(...) receives:
+	•	raw_sample=raw_sample
+	•	corr_sample=corr_sample
+	•	sample_mask=sample_mask
+
+Acceptance criteria for the top-right panel
+	•	the panel visibly shows spread and variance through transparent sampled traces
+	•	the raw and corrected median lines are still present and easy to see
+	•	the panel no longer looks like it only contains two summaries
+	•	the panel remains readable and is not flattened by a few extreme values
+
+	3.	Fix the row-3-left panel so it shows correction distribution, not just signed median
+
+Context
+	•	The current implementation computes:
+diff = corr_sample - raw_sample
+delta_median = np.nanmedian(diff, axis=1)
+	•	This produces only one signed median per wavelength.
+	•	That is too insensitive and can remain near zero even when corrections are large but cancel in sign or are spatially heterogeneous.
+	•	We want to show the distribution of correction effects across pixels for each wavelength.
+
+Goal
+Replace the existing Δ Median vs λ panel with a distribution-aware visualization that shows:
+	•	signed central tendency
+	•	spread / variance / dispersion
+	•	magnitude of change through an absolute-delta summary
+
+Update _correction_report(...)
+Compute and return these arrays from diff:
+	•	delta_median = np.nanmedian(diff, axis=1)
+	•	delta_q25 = np.nanpercentile(diff, 25, axis=1)
+	•	delta_q75 = np.nanpercentile(diff, 75, axis=1)
+	•	delta_q10 = np.nanpercentile(diff, 10, axis=1)
+	•	delta_q90 = np.nanpercentile(diff, 90, axis=1)
+	•	delta_abs_median = np.nanmedian(np.abs(diff), axis=1)
+
+Requirements for _correction_report(...)
+	•	all computations must ignore invalid / nodata values
+	•	continue excluding NaN and nodata-like values <= -9990
+	•	continue protecting against spurious huge deltas due to contamination
+	•	keep existing useful summary fields such as largest_delta_indices
+	•	extend the return payload / dataclass cleanly rather than breaking downstream code
+
+Update _render_delta(...) or equivalent rendering function for this panel
+Replace the current single-line plot with:
+	•	a shaded region between q10 and q90 with low alpha
+	•	a shaded region between q25 and q75 with slightly higher alpha
+	•	a solid line for delta_median
+	•	a dashed line for delta_abs_median
+	•	a horizontal reference line at 0
+
+Example structure:
+
+ax.fill_between(xs, delta_q10, delta_q90, alpha=0.15, label="10–90%")
+ax.fill_between(xs, delta_q25, delta_q75, alpha=0.25, label="IQR")
+ax.plot(xs, delta_median, linewidth=2.0, label="signed median Δ")
+ax.plot(xs, delta_abs_median, linewidth=2.0, linestyle="--", label="median |Δ|")
+ax.axhline(0, color="black", linewidth=0.8)
+
+Strongly encouraged addition
+	•	add a small number of faint sampled traces of diff[:, j]
+	•	deterministic sampling with a fixed RNG seed
+	•	very low alpha 0.02 to 0.05
+	•	thin linewidth
+	•	plotted behind everything else
+
+Update the title from:
+	•	Δ Median vs λ
+
+to something more accurate, for example:
+	•	Correction Distribution vs Wavelength
+or
+	•	Signed and Absolute Correction Across Bands
+
+Axis labels should remain:
+	•	x-axis: wavelength (nm)
+	•	y-axis: reflectance Δ
+
+Robustness requirements
+	•	works if sample arrays are empty or partially invalid
+	•	does not crash with NaNs or nodata
+	•	avoids extreme outliers dominating the y-axis; percentile-based y-limits are acceptable
+
+Why this matters
+	•	median alone can hide real corrections due to sign cancellation
+	•	percentile ribbons expose spread and heterogeneity across pixels
+	•	median absolute delta gives a direct measure of correction strength
+	•	together this makes the panel responsive to correction-level changes and diagnostically useful
+
+Acceptance criteria for the row-3-left panel
+	•	the panel visibly shows spread and distribution
+	•	the absolute correction line responds when correction strength changes
+	•	the plot no longer appears flat when corrections are present
+	•	existing QA generation still runs and the panel remains readable
+
+	4.	Fix the row-3-right panel so it better explains the spatial correction pattern
+
+Context
+	•	The current row-3-right panel is rendered by _render_drone_correction_magnitude(...).
+	•	It computes something like:
+diff = corr_cube - raw_cube on valid cells
+abs_delta = np.nanmedian(np.abs(diff), axis=0)
+	•	This is a spatial map of per-pixel median absolute correction across bands.
+	•	It is useful, but too easy to misread and too limited when one site shows a good map and others look flat.
+
+Goal
+Keep the existing statistic, but make the spatial correction panel much more diagnostic by:
+	•	clarifying what is being shown
+	•	adding informative summary stats
+	•	adding at least one additional spatial diagnostic that reveals tail behavior or thresholded change
+	•	exposing support / validity so flat maps can be distinguished from low-information maps
+
+Required updates to _render_drone_correction_magnitude(...)
+A. Preserve the existing per-pixel median absolute correction map, but rename it more clearly
+	•	update the title from Median |Correction| Across Bands to something like:
+	•	Per-Pixel Median Absolute Correction Across Bands
+
+B. Add summary statistics directly onto the panel as a text box
+Include at minimum:
+	•	global median of abs_delta
+	•	95th percentile of abs_delta
+	•	percent of pixels above a change threshold
+	•	percent of valid pixels or median valid bands per pixel used in the map
+
+C. Compute and expose at least one additional per-pixel spatial diagnostic from diff
+Choose one of these preferred options, or both if layout allows:
+	•	abs_delta_p90 = np.nanpercentile(np.abs(diff), 90, axis=0)
+	•	changed_frac = np.nanmean(np.abs(diff) > change_threshold, axis=0) * 100.0
+
+Strong preference:
+	•	include changed_frac because it is very interpretable
+	•	a reasonable default threshold would be around 0.01 reflectance units, but make it a named constant near the top of the file so it is easy to tune
+
+D. Add support / validity information
+Compute something like:
+	•	valid_band_count = np.sum(valid_mask, axis=0)
+	•	valid_band_fraction = np.mean(valid_mask, axis=0) * 100.0
+
+Use this in one of these ways:
+	•	annotate the panel text box with summary values from it
+	•	or add a lightweight overlay / contour / side summary if that can be done without disrupting layout
+	•	or return it in the JSON payload even if not directly plotted
+
+E. Use robust display scaling and report the scale used
+	•	continue using percentile-based vmax for the main map
+	•	annotate the chosen vmax in the panel text box or title so users can interpret differences across sites
+
+F. Return richer summary values to the QA payload JSON
+Add or expose values such as:
+	•	spatial_abs_delta_median
+	•	spatial_abs_delta_p95
+	•	spatial_abs_delta_p90
+	•	spatial_abs_delta_max
+	•	pixels_above_change_threshold_pct
+	•	median_valid_bands_per_pixel
+	•	change_threshold
+
+The current payload already includes some correction stats. Extend it rather than replacing it.
+
+Preferred implementation pattern for row-3-right
+	•	keep the current map in the existing row-3-right slot
+	•	improve the title and annotation
+	•	compute the additional diagnostics and include them in the returned summary / JSON payload
+	•	if you can add a second spatial map without disrupting the layout too much, do so only if it is very clean; otherwise prioritize the text box and payload metrics
+
+Important
+	•	do not accidentally convert this panel to sampled behavior; it should stay based on the full raster spatially
+	•	this panel should continue using full-resolution spatial information
+
+Acceptance criteria for the row-3-right panel
+	•	the map title clearly states what statistic is being shown
+	•	the panel now explains itself through summary stats
+	•	the JSON payload contains enough values to compare Gordon, Ruby, and Goldhill numerically
+	•	users can distinguish between truly tiny corrections and a misleadingly flat-looking display
+	•	the panel remains readable and the layout is not cluttered
+
+	5.	Testing
+
+Add focused tests in the most appropriate existing test module, likely tests/test_drone_pipeline.py.
+
+Top-right panel tests
+At minimum verify:
+	•	_render_drone_band_fidelity(...) works when sample arrays are omitted
+	•	_render_drone_band_fidelity(...) accepts sampled arrays and plots additional traces
+	•	the median lines are still present
+	•	nodata-like values do not crash the function
+
+A practical test pattern:
+	•	create a small fake wavelength array
+	•	create small raw and corrected median spectra
+	•	create small 2D raw_sample, corr_sample, and sample_mask
+	•	call _render_drone_band_fidelity(...) on a real matplotlib axis
+	•	assert that the number of lines is greater when sampled arrays are passed than when omitted
+
+Row-3-left panel tests
+At minimum verify:
+	•	_correction_report(...) now produces the extra quantile arrays and delta_abs_median
+	•	_render_delta(...) can render those richer summaries without crashing
+	•	nodata-like values and contaminated deltas are safely ignored
+
+Row-3-right panel tests
+At minimum verify:
+	•	_render_drone_correction_magnitude(...) still returns the original spatial summary values or a compatible superset
+	•	new summary values such as p95 or thresholded change are computed and finite when valid data exist
+	•	the function remains robust when valid-mask support is sparse
+
+If needed, refactor carefully so the computational part and plotting part can be tested separately.
+	6.	Keep the changes narrowly scoped
+
+Please do not:
+	•	redesign unrelated drone QA panels
+	•	change non-drone QA figures unless needed for shared helper compatibility
+	•	introduce broad formatting churn
+	•	change behavior outside the QA plotting path unless required for these diagnostics
+
+Final acceptance criteria
+	•	top-right panel now shows spectral variance through sampled trace clouds plus medians
+	•	row-3-left panel now shows signed and absolute correction distribution across wavelengths
+	•	row-3-right panel now better explains spatial correction magnitude and adds richer diagnostics
+	•	drone QA figures become useful for comparing sites like Gordon, Ruby, and Goldhill
+	•	a much larger spectral sample is used for the drone QA diagnostics
+	•	tests cover the new behavior
+	•	the implementation remains readable, robust, and narrowly scoped to the drone QA path
+
+Please implement this directly in the repo.
+```
+## 2026-04-13 - decouple drone QA from polygon overlap and reorder invalid maps
+Branch: main
+
+```text
+Create a narrowly scoped follow-up change for the drone QA path in spectralbridge.
+
+This prompt is only for two fixes:
+	1.	always run / render drone QA regardless of polygon overlap status
+	2.	move the -9999 / invalid row to the bottom of the drone QA figure
+
+Do not rework the other QA panels in this prompt.
+Do not revisit the spectral variance or correction-distribution changes here.
+Keep this focused.
+
+Goal 1: always generate drone QA even when polygons do not overlap
+
+Problem
+	•	Right now the drone QA plot appears to be gated by polygon overlap or polygon extraction success.
+	•	That is not what I want.
+	•	Polygon presence should only affect extraction behavior.
+	•	The correction products and drone QA figure should still be produced whether polygons overlap or not.
+
+Required behavior
+	•	Always generate the drone QA PNG and QA JSON whenever the raw and corrected ENVI products needed for QA exist.
+	•	Do not gate QA generation on polygon overlap.
+	•	Do not skip QA generation just because:
+	•	polygon extraction returned zero rows
+	•	polygons do not overlap the raster
+	•	polygon file is empty
+	•	polygon extraction failed
+	•	merged parquet is missing because extraction did not produce output
+	•	If polygons are provided, keep using them for extraction behavior only.
+	•	If polygons are missing or invalid, QA should still render from the raster products.
+
+Implementation guidance
+	•	Find the part of the drone pipeline where QA generation is currently conditioned on polygon overlap, extraction success, or merged parquet existence.
+	•	Decouple QA generation from those conditions.
+	•	Treat polygon-derived outputs as optional inputs to the QA figure, not prerequisites.
+	•	It is acceptable for the merged-preview panel to show a message such as:
+	•	No merged parquet available
+	•	Polygon extraction produced no overlapping rows
+	•	Keep the polygon overlay debug panel if a polygon path exists, even if there is no overlap.
+	•	If no polygon path exists at all, QA should still render and the polygon panel can display its existing no-polygon message.
+
+Acceptance criteria for Goal 1
+	•	Drone QA PNG is produced even when polygons do not overlap.
+	•	Drone QA JSON is produced even when polygons do not overlap.
+	•	Correction diagnostics still render regardless of polygon status.
+	•	Polygon status affects extraction outputs only, not whether QA exists.
+
+Goal 2: move the -9999 / invalid maps to the last row of the drone QA figure
+
+Desired row order
+Update render_drone_panel(...) so the figure rows are ordered like this:
+
+Row 1
+	•	left: original ENVI RGB preview
+	•	right: spectral panel
+
+Row 2
+	•	left: wavelength-wise correction panel
+	•	right: spatial correction magnitude panel
+
+Row 3
+	•	left: polygon overlay debug
+	•	right: merged table preview
+
+Row 4
+	•	left: raw ENVI -9999 / invalid map
+	•	right: corrected ENVI -9999 / invalid map
+
+In other words:
+	•	move the current invalid-map row to the bottom
+	•	keep correction diagnostics above it
+	•	keep polygon overlay and merged preview together above the invalid maps
+
+Implementation requirements
+	•	Update subplot assignment logic in render_drone_panel(...) only as needed for this reorder.
+	•	Preserve titles, annotations, colorbars, and text boxes.
+	•	Make sure the correction status box still appears on the intended spectral panel.
+	•	Make sure any axis/grid exclusions still target the right panels after the reorder.
+	•	Keep the overall figure readable.
+
+Acceptance criteria for Goal 2
+	•	The raw and corrected -9999 / invalid maps are the last row in the drone QA figure.
+	•	The correction-related panels now appear before the invalid maps.
+	•	The polygon overlay and merged preview stay together above the invalid maps.
+
+Testing
+Add or update focused tests for the two behaviors above.
+
+At minimum verify:
+	1.	QA can still be generated when polygon-related outputs are absent or when merged parquet is missing.
+	2.	The reordered panel layout still renders without losing key annotations or crashing.
+
+Keep the code changes narrowly scoped to the drone QA generation path.
+Do not make unrelated refactors in this prompt.
+```

@@ -55,6 +55,10 @@ _NEGATIVE_WARN_THRESHOLD = 1.0
 _OVERBRIGHT_WARN_THRESHOLD = 1.0
 _DELTA_WARN_THRESHOLD = 0.05
 _DRONE_OBSERVED_CHANGE_EPS = 1e-6
+_DRONE_QA_MAX_SAMPLES = 250_000
+_DRONE_CORRECTION_CHANGE_THRESHOLD = 0.01
+_DRONE_QA_TRACE_RNG_SEED = 13
+_DRONE_QA_DISPLAY_UPPER_BOUND = 5_000.0
 
 
 def _hash_file(path: Path) -> str:
@@ -299,8 +303,11 @@ def _correction_report(
     diff = np.where(suspicious_deltas, np.nan, diff)
     
     delta_median = np.nanmedian(diff, axis=1)
-    q75 = np.nanpercentile(diff, 75, axis=1)
+    q10 = np.nanpercentile(diff, 10, axis=1)
     q25 = np.nanpercentile(diff, 25, axis=1)
+    q75 = np.nanpercentile(diff, 75, axis=1)
+    q90 = np.nanpercentile(diff, 90, axis=1)
+    delta_abs_median = np.nanmedian(np.abs(diff), axis=1)
     delta_iqr = q75 - q25
     
     # Count how many bands had -9999 contamination
@@ -314,6 +321,11 @@ def _correction_report(
     return CorrectionReport(
         delta_median=delta_median.astype(float).tolist(),
         delta_iqr=delta_iqr.astype(float).tolist(),
+        delta_q10=q10.astype(float).tolist(),
+        delta_q25=q25.astype(float).tolist(),
+        delta_q75=q75.astype(float).tolist(),
+        delta_q90=q90.astype(float).tolist(),
+        delta_abs_median=delta_abs_median.astype(float).tolist(),
         largest_delta_indices=[int(idx) for idx in top],
     )
 
@@ -1181,20 +1193,78 @@ def _render_hist(ax: Axes, raw: np.ndarray, corr: np.ndarray, mask: np.ndarray) 
     ax.legend(loc="upper right")
 
 
+def _deterministic_trace_indices(count: int, max_traces: int) -> np.ndarray:
+    if count <= 0 or max_traces <= 0:
+        return np.array([], dtype=int)
+    if count <= max_traces:
+        return np.arange(count, dtype=int)
+    rng = np.random.default_rng(_DRONE_QA_TRACE_RNG_SEED)
+    return np.sort(rng.choice(count, size=max_traces, replace=False))
+
+
+def _clean_plot_values(values: np.ndarray) -> np.ndarray:
+    arr = np.asarray(values, dtype=float)
+    finite = arr[np.isfinite(arr)]
+    if not finite.size:
+        return finite
+    return finite[(finite > -9990.0) & (np.abs(finite) <= _DRONE_QA_DISPLAY_UPPER_BOUND)]
+
+
+def _set_percentile_ylim(
+    ax: Axes,
+    values: np.ndarray,
+    *,
+    lower_pct: float = 2.0,
+    upper_pct: float = 98.0,
+) -> None:
+    clean = _clean_plot_values(values)
+    if not clean.size:
+        return
+    ymin = float(np.nanpercentile(clean, lower_pct))
+    ymax = float(np.nanpercentile(clean, upper_pct))
+    if not np.isfinite(ymin) or not np.isfinite(ymax):
+        return
+    if ymax <= ymin:
+        span = max(abs(ymax), 1.0) * 0.05
+        ymin -= span
+        ymax += span
+    pad = max((ymax - ymin) * 0.08, 1e-6)
+    lower = ymin - pad
+    upper = ymax + pad
+    if lower >= 0.0:
+        lower = max(0.0, lower)
+    ax.set_ylim(lower, upper)
+
+
 def _render_delta(ax: Axes, wavelengths: np.ndarray, report: CorrectionReport) -> None:
     xs = wavelengths if wavelengths.size == len(report.delta_median) else np.arange(len(report.delta_median))
-    ax.set_title("Δ Median vs λ")
-    ax.plot(xs, report.delta_median, label="Δ median")
-    ax.fill_between(
+    delta_median = np.asarray(report.delta_median, dtype=float)
+    delta_q10 = np.asarray(report.delta_q10, dtype=float)
+    delta_q25 = np.asarray(report.delta_q25, dtype=float)
+    delta_q75 = np.asarray(report.delta_q75, dtype=float)
+    delta_q90 = np.asarray(report.delta_q90, dtype=float)
+    delta_abs_median = np.asarray(report.delta_abs_median, dtype=float)
+    ax.set_title("Correction Distribution vs Wavelength")
+    ax.fill_between(xs, delta_q10, delta_q90, alpha=0.15, color="#4c78a8", label="10-90%")
+    ax.fill_between(xs, delta_q25, delta_q75, alpha=0.25, color="#4c78a8", label="IQR")
+    ax.plot(xs, delta_median, color="#1f77b4", linewidth=2.0, label="signed median Δ")
+    ax.plot(
         xs,
-        np.array(report.delta_median) - np.array(report.delta_iqr) / 2,
-        np.array(report.delta_median) + np.array(report.delta_iqr) / 2,
-        alpha=0.2,
-        label="IQR",
+        delta_abs_median,
+        color="#e15759",
+        linewidth=2.0,
+        linestyle="--",
+        label="median |Δ|",
     )
     ax.axhline(0, color="black", linewidth=0.8)
     ax.set_xlabel("Wavelength (nm)" if wavelengths.size == len(report.delta_median) else "Band index")
     ax.set_ylabel("Reflectance Δ")
+    _set_percentile_ylim(
+        ax,
+        np.concatenate([delta_q10, delta_q25, delta_q75, delta_q90, delta_median, delta_abs_median]),
+        lower_pct=1.0,
+        upper_pct=99.0,
+    )
     ax.legend(loc="upper right")
 
 
@@ -1767,13 +1837,42 @@ def _render_drone_band_fidelity(
     raw_spectrum: np.ndarray,
     corr_spectrum: np.ndarray,
     band_map: dict[str, dict[str, float | int]] | None,
+    raw_sample: np.ndarray | None = None,
+    corr_sample: np.ndarray | None = None,
+    sample_mask: np.ndarray | None = None,
+    *,
+    max_traces: int = 150,
 ) -> None:
     xs = wavelengths if wavelengths.size == raw_spectrum.size else np.arange(raw_spectrum.size)
     raw_display, _ = _despike_spectrum_for_display(xs, raw_spectrum)
     corr_display, _ = _despike_spectrum_for_display(xs, corr_spectrum)
-    ax.plot(xs, raw_display, color="#1f77b4", linewidth=1.5, label="raw median")
-    ax.plot(xs, corr_display, color="#ff7f0e", linewidth=1.2, label="corrected median")
-    ax.set_title("Band Fidelity And Median Spectra")
+    valid_samples = (
+        raw_sample is not None
+        and corr_sample is not None
+        and sample_mask is not None
+        and raw_sample.shape == corr_sample.shape == sample_mask.shape
+        and raw_sample.ndim == 2
+        and raw_sample.shape[0] == xs.size
+        and raw_sample.shape[1] > 0
+    )
+    sampled_values: list[np.ndarray] = []
+    if valid_samples:
+        trace_idx = _deterministic_trace_indices(raw_sample.shape[1], max_traces)
+        for idx in trace_idx:
+            band_valid = sample_mask[:, idx]
+            raw_trace = np.asarray(raw_sample[:, idx], dtype=float)
+            corr_trace = np.asarray(corr_sample[:, idx], dtype=float)
+            raw_trace = np.where(band_valid & (raw_trace > -9990.0), raw_trace, np.nan)
+            corr_trace = np.where(band_valid & (corr_trace > -9990.0), corr_trace, np.nan)
+            if np.any(np.isfinite(raw_trace)):
+                ax.plot(xs, raw_trace, color="#1f77b4", linewidth=0.5, alpha=0.035, zorder=1)
+                sampled_values.append(raw_trace)
+            if np.any(np.isfinite(corr_trace)):
+                ax.plot(xs, corr_trace, color="#ff7f0e", linewidth=0.5, alpha=0.035, zorder=1)
+                sampled_values.append(corr_trace)
+    ax.plot(xs, raw_display, color="#1f77b4", linewidth=2.0, label="raw median", zorder=3)
+    ax.plot(xs, corr_display, color="#ff7f0e", linewidth=1.8, label="corrected median", zorder=3)
+    ax.set_title("Band Fidelity And Sampled Spectra")
     ax.set_xlabel("Wavelength (nm)")
     ax.set_ylabel("Reflectance")
 
@@ -1810,14 +1909,11 @@ def _render_drone_band_fidelity(
             corr_display[np.isfinite(corr_display)],
         ]
     )
-    if finite_display.size:
-        ymin = float(np.nanmin(finite_display))
-        ymax = float(np.nanmax(finite_display))
-        pad = max((ymax - ymin) * 0.08, max(abs(ymax), 1.0) * 0.02, 1e-6)
-        if ymin >= 0.0:
-            ax.set_ylim(max(0.0, ymin - pad), ymax + pad)
-        else:
-            ax.set_ylim(ymin - pad, ymax + pad)
+    if sampled_values:
+        sampled_flat = np.concatenate([trace[np.isfinite(trace)] for trace in sampled_values if np.any(np.isfinite(trace))])
+        if sampled_flat.size:
+            finite_display = np.concatenate([finite_display, sampled_flat])
+    _set_percentile_ylim(ax, finite_display, lower_pct=1.0, upper_pct=99.0)
     ax.legend(loc="best", fontsize=8)
     ax.grid(True, alpha=0.2)
 
@@ -1839,20 +1935,60 @@ def _render_drone_correction_magnitude(
     raw_cube: np.ndarray,
     corr_cube: np.ndarray,
     valid_mask: np.ndarray,
-) -> tuple[float, float]:
+) -> dict[str, float]:
     diff = np.where(valid_mask, corr_cube - raw_cube, np.nan)
     abs_delta = np.nanmedian(np.abs(diff), axis=0)
+    changed_frac = np.nanmean(np.abs(diff) > _DRONE_CORRECTION_CHANGE_THRESHOLD, axis=0) * 100.0
+    valid_band_count = np.sum(valid_mask, axis=0)
+    valid_band_fraction = np.mean(valid_mask, axis=0) * 100.0
     finite = abs_delta[np.isfinite(abs_delta)]
     vmax = float(np.nanpercentile(finite, 95)) if finite.size else 1.0
     image = ax.imshow(abs_delta, cmap="viridis", vmin=0.0, vmax=max(vmax, 1e-6))
-    ax.set_title("Median |Correction| Across Bands")
+    ax.set_title("Per-Pixel Median Absolute Correction Across Bands")
     ax.set_xticks([])
     ax.set_yticks([])
     plt.colorbar(image, ax=ax, fraction=0.046, pad=0.04, label="|delta|")
-    return (
-        float(np.nanmedian(abs_delta)) if finite.size else 0.0,
-        float(np.nanmax(abs_delta)) if finite.size else 0.0,
+    finite_changed = changed_frac[np.isfinite(changed_frac)]
+    finite_valid_band_count = valid_band_count[np.isfinite(valid_band_count)]
+    finite_valid_band_fraction = valid_band_fraction[np.isfinite(valid_band_fraction)]
+    pixels_above_threshold_pct = (
+        float(np.mean(finite_changed > 0.0) * 100.0) if finite_changed.size else 0.0
     )
+    summary = {
+        "spatial_abs_delta_median": float(np.nanmedian(abs_delta)) if finite.size else 0.0,
+        "spatial_abs_delta_p95": float(np.nanpercentile(abs_delta, 95)) if finite.size else 0.0,
+        "spatial_abs_delta_p90": float(np.nanpercentile(abs_delta, 90)) if finite.size else 0.0,
+        "spatial_abs_delta_max": float(np.nanmax(abs_delta)) if finite.size else 0.0,
+        "pixels_above_change_threshold_pct": pixels_above_threshold_pct,
+        "median_valid_bands_per_pixel": (
+            float(np.nanmedian(finite_valid_band_count)) if finite_valid_band_count.size else 0.0
+        ),
+        "median_valid_band_fraction_per_pixel": (
+            float(np.nanmedian(finite_valid_band_fraction)) if finite_valid_band_fraction.size else 0.0
+        ),
+        "display_vmax": float(max(vmax, 1e-6)),
+        "change_threshold": float(_DRONE_CORRECTION_CHANGE_THRESHOLD),
+    }
+    stats_text = "\n".join(
+        [
+            f"median |Δ|: {summary['spatial_abs_delta_median']:.4f}",
+            f"95th pct |Δ|: {summary['spatial_abs_delta_p95']:.4f}",
+            f"pixels > {summary['change_threshold']:.3f}: {summary['pixels_above_change_threshold_pct']:.1f}%",
+            f"median valid bands: {summary['median_valid_bands_per_pixel']:.0f}",
+            f"display vmax: {summary['display_vmax']:.4f}",
+        ]
+    )
+    ax.text(
+        0.02,
+        0.02,
+        stats_text,
+        transform=ax.transAxes,
+        ha="left",
+        va="bottom",
+        fontsize=8,
+        bbox=dict(boxstyle="round", facecolor="white", alpha=0.85, edgecolor="none"),
+    )
+    return summary
 
 
 def _render_drone_polygon_overlay(
@@ -2064,6 +2200,7 @@ def render_drone_panel(
     qa_summary: dict[str, Any] | None = None,
     save_json: bool = True,
     rgb_bands: str | None = None,
+    qa_max_samples: int = _DRONE_QA_MAX_SAMPLES,
 ) -> tuple[Path, dict[str, Any]]:
     raw_path = Path(raw_path)
     corrected_path = Path(corrected_path)
@@ -2098,7 +2235,7 @@ def render_drone_panel(
     corr_nodata_fraction = corr_nodata.mean(axis=0) * 100.0
     raw_spectrum = _median_spectrum(raw_cube, both_valid)
     corr_spectrum = _median_spectrum(corr_cube, both_valid)
-    max_samples = min(25_000, raw_cube.shape[1] * raw_cube.shape[2])
+    max_samples = min(max(1, int(qa_max_samples)), raw_cube.shape[1] * raw_cube.shape[2])
     corr_sample, sample_mask = _deterministic_sample(corr_cube, both_valid, max_samples)
     raw_sample, _ = _deterministic_sample(raw_cube, both_valid, max_samples)
     correction_report = _correction_report(raw_sample, corr_sample, sample_mask)
@@ -2128,26 +2265,35 @@ def render_drone_panel(
         bbox=dict(boxstyle="round", facecolor="white", alpha=0.8, edgecolor="none"),
     )
 
-    _render_drone_band_fidelity(axes[0, 1], wavelengths, raw_spectrum, corr_spectrum, band_map)
-    _render_drone_nodata_map(axes[1, 0], raw_nodata_fraction, "Raw ENVI -9999 / invalid map")
-    _render_drone_nodata_map(axes[1, 1], corr_nodata_fraction, "Corrected ENVI -9999 / invalid map")
-    _render_delta(axes[2, 0], wavelengths, correction_report)
-    correction_median, correction_max = _render_drone_correction_magnitude(
-        axes[2, 1], raw_cube, corr_cube, both_valid
+    _render_drone_band_fidelity(
+        axes[0, 1],
+        wavelengths,
+        raw_spectrum,
+        corr_spectrum,
+        band_map,
+        raw_sample=raw_sample,
+        corr_sample=corr_sample,
+        sample_mask=sample_mask,
+    )
+    _render_delta(axes[1, 0], wavelengths, correction_report)
+    spatial_correction_summary = _render_drone_correction_magnitude(
+        axes[1, 1], raw_cube, corr_cube, both_valid
     )
     correction_status = _drone_correction_status(
         qa_summary,
-        correction_median=correction_median,
-        correction_max=correction_max,
+        correction_median=spatial_correction_summary["spatial_abs_delta_median"],
+        correction_max=spatial_correction_summary["spatial_abs_delta_max"],
     )
     _render_drone_correction_status_box(axes[0, 1], correction_status)
-    polygon_warning = _render_drone_polygon_overlay(axes[3, 0], corrected_path, polygon_path)
+    polygon_warning = _render_drone_polygon_overlay(axes[2, 0], corrected_path, polygon_path)
     merged_preview = _render_drone_merged_preview(
-        axes[3, 1], Path(merged_path) if merged_path is not None else None, raw_path.stem.replace("__envi", "")
+        axes[2, 1], Path(merged_path) if merged_path is not None else None, raw_path.stem.replace("__envi", "")
     )
+    _render_drone_nodata_map(axes[3, 0], raw_nodata_fraction, "Raw ENVI -9999 / invalid map")
+    _render_drone_nodata_map(axes[3, 1], corr_nodata_fraction, "Corrected ENVI -9999 / invalid map")
 
     for ax in axes.flat:
-        if ax not in {axes[0, 0], axes[3, 1], axes[3, 0], axes[1, 0], axes[1, 1], axes[2, 1]}:
+        if ax not in {axes[0, 0], axes[2, 0], axes[2, 1], axes[3, 0], axes[3, 1], axes[1, 1]}:
             ax.grid(True, alpha=0.2)
 
     nodata_summary = {
@@ -2176,9 +2322,13 @@ def render_drone_panel(
         "correction": {
             "delta_median": correction_report.delta_median,
             "delta_iqr": correction_report.delta_iqr,
+            "delta_q10": correction_report.delta_q10,
+            "delta_q25": correction_report.delta_q25,
+            "delta_q75": correction_report.delta_q75,
+            "delta_q90": correction_report.delta_q90,
+            "delta_abs_median": correction_report.delta_abs_median,
             "largest_delta_indices": correction_report.largest_delta_indices,
-            "spatial_abs_delta_median": correction_median,
-            "spatial_abs_delta_max": correction_max,
+            **spatial_correction_summary,
             "topo_requested": correction_status["topo_requested"],
             "brdf_requested": correction_status["brdf_requested"],
             "topo_applied": correction_status["topo_applied"],

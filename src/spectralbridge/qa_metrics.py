@@ -30,6 +30,11 @@ class MaskReport:
 class CorrectionReport:
     delta_median: List[float]
     delta_iqr: List[float]
+    delta_q10: List[float]
+    delta_q25: List[float]
+    delta_q75: List[float]
+    delta_q90: List[float]
+    delta_abs_median: List[float]
     largest_delta_indices: List[int]
 
 

@@ -8,6 +8,7 @@ import duckdb
 import pytest
 import numpy as np
 import pandas as pd
+import spectralbridge.qa_plots as qa_plots
 
 from spectralbridge.pipelines import run_drone_pipeline
 from spectralbridge.pipelines.drone import (
@@ -25,7 +26,10 @@ from spectralbridge.pipelines.drone import (
     save_drone_overlay_debug_plot,
 )
 from spectralbridge.qa_plots import (
+    _correction_report,
     _render_drone_band_fidelity,
+    _render_drone_correction_magnitude,
+    _render_delta,
     _render_drone_merged_preview,
     render_drone_panel,
 )
@@ -544,10 +548,56 @@ def test_render_drone_panel_includes_correction_status(tmp_path: Path) -> None:
     assert qa_payload["correction"]["brdf_applied"] is True
     assert qa_payload["correction"]["status_source"] == "live_run"
     assert qa_payload["correction"]["observed_change"] is True
+    assert qa_payload["merged_preview"]["path"] is None
+    assert qa_payload["polygon"]["path"] is None
 
     saved_payload = json.loads(output_png.with_suffix(".json").read_text(encoding="utf-8"))
     assert saved_payload["correction"]["topo_applied"] is True
     assert saved_payload["correction"]["observed_change"] is True
+
+
+def test_render_drone_panel_places_invalid_maps_on_bottom_row(
+    tmp_path: Path, monkeypatch
+) -> None:
+    plt = pytest.importorskip("matplotlib.pyplot")
+
+    raw_base = tmp_path / "SPR1_20230628__envi"
+    corrected_base = tmp_path / "SPR1_20230628__corrected"
+    wavelengths = [490.0, 560.0, 660.0, 820.0]
+    raw = np.full((4, 4, 4), 0.2, dtype=np.float32)
+    corrected = raw * np.float32(0.92) + np.float32(0.01)
+    _write_envi_pair(raw_base, raw, wavelengths)
+    _write_envi_pair(corrected_base, corrected, wavelengths)
+
+    captured: dict[str, object] = {}
+    original_subplots = qa_plots.plt.subplots
+
+    def _capture_subplots(*args, **kwargs):
+        fig, axes = original_subplots(*args, **kwargs)
+        captured["fig"] = fig
+        captured["axes"] = axes
+        return fig, axes
+
+    monkeypatch.setattr(qa_plots.plt, "subplots", _capture_subplots)
+    monkeypatch.setattr(qa_plots.plt, "close", lambda fig=None: None)
+
+    output_png, _ = render_drone_panel(
+        raw_path=raw_base.with_suffix(".img"),
+        corrected_path=corrected_base.with_suffix(".img"),
+        output_png=tmp_path / "SPR1_20230628__qa.png",
+        qa_summary={"flags": {}, "correction_status_source": "live_run"},
+        save_json=False,
+    )
+
+    assert output_png.exists()
+    axes = captured["axes"]
+    assert axes[1, 0].get_title() == "Correction Distribution vs Wavelength"
+    assert axes[1, 1].get_title() == "Per-Pixel Median Absolute Correction Across Bands"
+    assert axes[2, 0].get_title() == "Drone Overlay Debug"
+    assert axes[3, 0].get_title() == "Raw ENVI -9999 / invalid map"
+    assert axes[3, 1].get_title() == "Corrected ENVI -9999 / invalid map"
+
+    plt.close(captured["fig"])
 
 
 def test_render_drone_merged_preview_prefers_non_nodata_rows(
@@ -623,6 +673,138 @@ def test_render_drone_band_fidelity_suppresses_display_spikes() -> None:
         assert ymax < 2_000.0
     finally:
         plt.close(fig)
+
+
+def test_render_drone_band_fidelity_adds_sampled_traces() -> None:
+    plt = pytest.importorskip("matplotlib.pyplot")
+
+    wavelengths = np.array([440.0, 560.0, 650.0, 862.0], dtype=np.float32)
+    raw = np.array([0.10, 0.20, 0.30, 0.40], dtype=np.float32)
+    corrected = np.array([0.11, 0.19, 0.31, 0.39], dtype=np.float32)
+    raw_sample = np.array(
+        [
+            [0.08, 0.12, -9999.0],
+            [0.18, 0.22, 0.21],
+            [0.28, 0.33, 0.29],
+            [0.38, 0.42, 0.41],
+        ],
+        dtype=np.float32,
+    )
+    corr_sample = raw_sample + np.array([[0.01], [-0.01], [0.02], [-0.02]], dtype=np.float32)
+    sample_mask = np.array(
+        [
+            [True, True, False],
+            [True, True, True],
+            [True, True, True],
+            [True, True, True],
+        ],
+        dtype=bool,
+    )
+
+    fig_plain, ax_plain = plt.subplots()
+    fig_cloud, ax_cloud = plt.subplots()
+    try:
+        _render_drone_band_fidelity(ax_plain, wavelengths, raw, corrected, band_map=None)
+        _render_drone_band_fidelity(
+            ax_cloud,
+            wavelengths,
+            raw,
+            corrected,
+            band_map=None,
+            raw_sample=raw_sample,
+            corr_sample=corr_sample,
+            sample_mask=sample_mask,
+            max_traces=3,
+        )
+
+        assert len(ax_cloud.lines) > len(ax_plain.lines)
+        assert len(ax_plain.lines) == 2
+        assert len(ax_cloud.lines) >= 4
+    finally:
+        plt.close(fig_plain)
+        plt.close(fig_cloud)
+
+
+def test_correction_report_and_delta_render_handle_distribution_stats() -> None:
+    plt = pytest.importorskip("matplotlib.pyplot")
+
+    raw_sample = np.array(
+        [
+            [0.10, 0.20, -9999.0, 0.40],
+            [0.20, 0.30, 0.40, 0.50],
+            [0.30, 0.40, 0.50, 2000.0],
+        ],
+        dtype=np.float32,
+    )
+    corr_sample = np.array(
+        [
+            [0.12, 0.18, 0.50, 0.41],
+            [0.19, 0.28, 0.45, 0.48],
+            [0.36, 0.35, 0.55, -9999.0],
+        ],
+        dtype=np.float32,
+    )
+    sample_mask = np.array(
+        [
+            [True, True, True, True],
+            [True, True, True, True],
+            [True, True, True, True],
+        ],
+        dtype=bool,
+    )
+
+    report = _correction_report(raw_sample, corr_sample, sample_mask)
+
+    assert len(report.delta_q10) == 3
+    assert len(report.delta_q25) == 3
+    assert len(report.delta_q75) == 3
+    assert len(report.delta_q90) == 3
+    assert len(report.delta_abs_median) == 3
+    assert all(np.isfinite(np.array(report.delta_abs_median, dtype=float)))
+
+    fig, ax = plt.subplots()
+    try:
+        _render_delta(ax, np.array([440.0, 560.0, 650.0], dtype=np.float32), report)
+        assert len(ax.lines) >= 3
+        assert len(ax.collections) >= 2
+    finally:
+        plt.close(fig)
+
+
+def test_render_drone_correction_magnitude_returns_richer_spatial_summary() -> None:
+    plt = pytest.importorskip("matplotlib.pyplot")
+
+    raw_cube = np.array(
+        [
+            [[0.10, 0.10], [0.10, -9999.0]],
+            [[0.20, 0.20], [0.20, -9999.0]],
+            [[0.30, 0.30], [0.30, -9999.0]],
+        ],
+        dtype=np.float32,
+    )
+    corr_cube = np.array(
+        [
+            [[0.12, 0.11], [0.09, -9999.0]],
+            [[0.24, 0.19], [0.23, -9999.0]],
+            [[0.34, 0.27], [0.31, -9999.0]],
+        ],
+        dtype=np.float32,
+    )
+    valid_mask = (raw_cube > -9990.0) & (corr_cube > -9990.0)
+
+    fig, ax = plt.subplots()
+    try:
+        summary = _render_drone_correction_magnitude(ax, raw_cube, corr_cube, valid_mask)
+    finally:
+        plt.close(fig)
+
+    assert summary["spatial_abs_delta_median"] >= 0.0
+    assert np.isfinite(summary["spatial_abs_delta_p95"])
+    assert np.isfinite(summary["spatial_abs_delta_p90"])
+    assert np.isfinite(summary["spatial_abs_delta_max"])
+    assert np.isfinite(summary["pixels_above_change_threshold_pct"])
+    assert np.isfinite(summary["median_valid_bands_per_pixel"])
+    assert summary["change_threshold"] > 0.0
 
 
 def test_export_csv_copy_from_parquet_writes_csv_sidecar(tmp_path: Path) -> None:
@@ -1340,6 +1522,14 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
     ] is False
     assert file_entries["SPR2_20230628"]["overlay_debug_filename"] == (
         "SPR2_20230628__overlay_debug.png"
+    )
+    assert Path(file_entries["SPR2_20230628"]["qa_plot_path"]).exists()
+    assert Path(file_entries["SPR3_20230628"]["qa_plot_path"]).exists()
+    assert file_entries["SPR2_20230628"]["qa_preview"]["polygon"]["path"] == str(
+        polygon_path
+    )
+    assert file_entries["SPR3_20230628"]["qa_preview"]["polygon"]["path"] == str(
+        polygon_path
     )
     assert file_entries["SPR1_20230628"]["polygon_csv_filename"] == (
         "SPR1_20230628__polygons.csv"

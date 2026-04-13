@@ -1151,6 +1151,12 @@ def _classify_drone_exception(exc: Exception) -> tuple[str, str]:
     return _DRONE_STATUS_FAILED_OTHER, reason
 
 
+def _has_drone_qa_inputs(file_audit: dict[str, Any]) -> bool:
+    raw_img = Path(str(file_audit.get("working_raster_path", "")))
+    corrected_img = Path(str(file_audit.get("corrected_raster_path", "")))
+    return raw_img.exists() and corrected_img.exists()
+
+
 def run_drone_pipeline(
     input_h5_dir: str | Path,
     polygon_path: str | Path | None = None,
@@ -1603,7 +1609,7 @@ def run_drone_pipeline(
         from spectralbridge.qa_plots import render_drone_panel
 
         for file_audit in results["qa_summary"]["files"]:
-            if file_audit.get("status") != _DRONE_STATUS_SUCCESS:
+            if not _has_drone_qa_inputs(file_audit):
                 continue
             raw_img = Path(str(file_audit["working_raster_path"]))
             corrected_img = Path(str(file_audit["corrected_raster_path"]))
