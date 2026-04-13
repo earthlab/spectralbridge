@@ -556,6 +556,43 @@ def test_render_drone_panel_includes_correction_status(tmp_path: Path) -> None:
     assert saved_payload["correction"]["observed_change"] is True
 
 
+def test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload(
+    tmp_path: Path, caplog
+) -> None:
+    raw_base = tmp_path / "SPR1_20230628__envi"
+    corrected_base = tmp_path / "SPR1_20230628__corrected"
+    wavelengths = [490.0, 560.0, 660.0, 820.0]
+    raw = np.full((4, 4, 4), 0.2, dtype=np.float32)
+    corrected = raw.copy()
+    corrected[0, :, :] = np.float32(-9999.0)
+    corrected[1, 0, 0] = np.float32(0.25)
+    corrected[2, 1, 1] = np.float32(1.6)
+    _write_envi_pair(raw_base, raw, wavelengths)
+    _write_envi_pair(corrected_base, corrected, wavelengths)
+
+    with caplog.at_level("INFO", logger="spectralbridge.qa_plots"):
+        _, qa_payload = render_drone_panel(
+            raw_path=raw_base.with_suffix(".img"),
+            corrected_path=corrected_base.with_suffix(".img"),
+            output_png=tmp_path / "SPR1_20230628__qa.png",
+            qa_summary={"flags": {}, "correction_status_source": "live_run"},
+            save_json=False,
+        )
+
+    debug_sampling = qa_payload["debug_sampling"]
+    assert debug_sampling["scene_id"] == "SPR1_20230628"
+    assert debug_sampling["raw_cube_shape"] == [4, 4, 4]
+    assert debug_sampling["corr_cube_shape"] == [4, 4, 4]
+    assert debug_sampling["sample_shape"] == [4, 16]
+    assert debug_sampling["bands_with_any_sample_support"] == 3
+    assert debug_sampling["bands_with_gt10_support"] >= 1
+    assert debug_sampling["band_support_pct"]["any"] == pytest.approx(75.0)
+    assert debug_sampling["support_wavelength_ranges_nm"]["any"].startswith("560.0-820.0")
+    assert debug_sampling["fraction_above_change_threshold"] >= 0.0
+    assert "polygon parquet rows are not the direct source" in caplog.text
+    assert "sample support counts_per_band=" in caplog.text
+
+
 def test_render_drone_panel_places_invalid_maps_on_bottom_row(
     tmp_path: Path, monkeypatch
 ) -> None:

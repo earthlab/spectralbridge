@@ -55,8 +55,9 @@ _NEGATIVE_WARN_THRESHOLD = 1.0
 _OVERBRIGHT_WARN_THRESHOLD = 1.0
 _DELTA_WARN_THRESHOLD = 0.05
 _DRONE_OBSERVED_CHANGE_EPS = 1e-6
+_DRONE_CHANGE_THRESHOLD = 0.01
 _DRONE_QA_MAX_SAMPLES = 250_000
-_DRONE_CORRECTION_CHANGE_THRESHOLD = 0.01
+_DRONE_CORRECTION_CHANGE_THRESHOLD = _DRONE_CHANGE_THRESHOLD
 _DRONE_QA_TRACE_RNG_SEED = 13
 _DRONE_QA_DISPLAY_UPPER_BOUND = 5_000.0
 
@@ -1236,6 +1237,197 @@ def _set_percentile_ylim(
     ax.set_ylim(lower, upper)
 
 
+def _preview_counts(values: np.ndarray) -> str:
+    counts = np.asarray(values, dtype=int)
+    return np.array2string(counts, threshold=12, edgeitems=4, max_line_width=160)
+
+
+def _support_range_label(
+    wavelengths: np.ndarray,
+    support_mask: np.ndarray,
+) -> str:
+    idx = np.flatnonzero(np.asarray(support_mask, dtype=bool))
+    if idx.size == 0:
+        return "none"
+    if wavelengths.size == support_mask.size:
+        selected = np.asarray(wavelengths, dtype=float)[idx]
+        finite = selected[np.isfinite(selected)]
+        if finite.size:
+            return f"{finite[0]:.1f}-{finite[-1]:.1f} nm ({idx.size} bands)"
+    return f"b{int(idx[0])}-b{int(idx[-1])} ({idx.size} bands)"
+
+
+def _top_outlier_band_labels(
+    abs_diff: np.ndarray,
+    wavelengths: np.ndarray,
+    *,
+    top_n: int = 3,
+) -> list[str]:
+    flat = abs_diff.reshape(abs_diff.shape[0], -1)
+    band_abs_max = np.full(flat.shape[0], np.nan, dtype=float)
+    finite_rows = np.any(np.isfinite(flat), axis=1)
+    if np.any(finite_rows):
+        band_abs_max[finite_rows] = np.nanmax(flat[finite_rows], axis=1)
+    finite_idx = np.flatnonzero(np.isfinite(band_abs_max))
+    if finite_idx.size == 0:
+        return []
+    ordered = finite_idx[np.argsort(band_abs_max[finite_idx])[::-1][:top_n]]
+    labels: list[str] = []
+    for idx in ordered:
+        if wavelengths.size == band_abs_max.size and np.isfinite(wavelengths[idx]):
+            labels.append(f"b{idx}@{float(wavelengths[idx]):.1f}nm={band_abs_max[idx]:.4f}")
+        else:
+            labels.append(f"b{idx}={band_abs_max[idx]:.4f}")
+    return labels
+
+
+def _drone_sampling_debug(
+    *,
+    scene_id: str,
+    wavelengths: np.ndarray,
+    raw_cube: np.ndarray,
+    corr_cube: np.ndarray,
+    raw_valid: np.ndarray,
+    corr_valid: np.ndarray,
+    both_valid: np.ndarray,
+    raw_sample: np.ndarray,
+    corr_sample: np.ndarray,
+    sample_mask: np.ndarray,
+) -> dict[str, Any]:
+    """Summarize the full-raster QA sampling path for debugging polygon-mode drift.
+
+    The spectral and wavelength-wise correction panels intentionally use sampled
+    raster cubes (`raw_cube`, `corr_cube`, `raw_sample`, `corr_sample`) rather
+    than polygon parquet rows. This helper makes that provenance explicit and
+    captures whether valid support collapses upstream.
+    """
+
+    sample_valid_counts = np.sum(sample_mask, axis=1).astype(int)
+    support_any = sample_valid_counts > 0
+    support_gt10 = sample_valid_counts > 10
+    support_gt100 = sample_valid_counts > 100
+
+    diff = np.where(both_valid, corr_cube - raw_cube, np.nan)
+    abs_diff = np.abs(diff)
+    finite_abs_diff = abs_diff[np.isfinite(abs_diff)]
+    finite_pixel_support = np.any(np.isfinite(diff), axis=0)
+    changed_pixels = finite_pixel_support & np.any(abs_diff > _DRONE_CHANGE_THRESHOLD, axis=0)
+
+    finite_count = int(finite_abs_diff.size)
+    comparisons_above_threshold = int(np.count_nonzero(finite_abs_diff > _DRONE_CHANGE_THRESHOLD))
+    pixels_with_support = int(np.count_nonzero(finite_pixel_support))
+    pixels_with_change = int(np.count_nonzero(changed_pixels))
+
+    debug = {
+        "scene_id": scene_id,
+        "raw_cube_shape": list(raw_cube.shape),
+        "corr_cube_shape": list(corr_cube.shape),
+        "wavelength_count": int(wavelengths.size),
+        "raw_valid_pct": float(np.mean(raw_valid) * 100.0) if raw_valid.size else 0.0,
+        "corr_valid_pct": float(np.mean(corr_valid) * 100.0) if corr_valid.size else 0.0,
+        "both_valid_pct": float(np.mean(both_valid) * 100.0) if both_valid.size else 0.0,
+        "sample_shape": list(raw_sample.shape),
+        "sample_mask_shape": list(sample_mask.shape),
+        "sample_valid_counts_per_band_summary": {
+            "min": int(np.min(sample_valid_counts)) if sample_valid_counts.size else 0,
+            "median": float(np.median(sample_valid_counts)) if sample_valid_counts.size else 0.0,
+            "max": int(np.max(sample_valid_counts)) if sample_valid_counts.size else 0,
+        },
+        "bands_with_any_sample_support": int(np.count_nonzero(support_any)),
+        "bands_with_gt10_support": int(np.count_nonzero(support_gt10)),
+        "bands_with_gt100_support": int(np.count_nonzero(support_gt100)),
+        "band_support_pct": {
+            "any": float(100.0 * np.mean(support_any)) if support_any.size else 0.0,
+            "gt10": float(100.0 * np.mean(support_gt10)) if support_gt10.size else 0.0,
+            "gt100": float(100.0 * np.mean(support_gt100)) if support_gt100.size else 0.0,
+        },
+        "support_wavelength_ranges_nm": {
+            "any": _support_range_label(wavelengths, support_any),
+            "gt10": _support_range_label(wavelengths, support_gt10),
+            "gt100": _support_range_label(wavelengths, support_gt100),
+        },
+        "global_mean_abs_diff": float(np.nanmean(finite_abs_diff)) if finite_count else 0.0,
+        "global_median_abs_diff": float(np.nanmedian(finite_abs_diff)) if finite_count else 0.0,
+        "global_max_abs_diff": float(np.nanmax(finite_abs_diff)) if finite_count else 0.0,
+        "finite_comparison_count": finite_count,
+        "comparisons_above_change_threshold": comparisons_above_threshold,
+        "fraction_above_change_threshold": (
+            float(100.0 * comparisons_above_threshold / finite_count) if finite_count else 0.0
+        ),
+        "pixels_with_any_change_count": pixels_with_change,
+        "pixels_with_any_change_pct": (
+            float(100.0 * pixels_with_change / pixels_with_support) if pixels_with_support else 0.0
+        ),
+        "outlier_counts": {
+            "gt1": int(np.count_nonzero(finite_abs_diff > 1.0)),
+            "gt10": int(np.count_nonzero(finite_abs_diff > 10.0)),
+            "gt100": int(np.count_nonzero(finite_abs_diff > 100.0)),
+        },
+        "top_outlier_bands": _top_outlier_band_labels(abs_diff, wavelengths),
+        "change_threshold": float(_DRONE_CHANGE_THRESHOLD),
+    }
+    return debug
+
+
+def _log_drone_sampling_debug(debug: dict[str, Any], sample_valid_counts: np.ndarray) -> None:
+    scene_id = str(debug["scene_id"])
+    logger.info(
+        "[drone-qa] %s spectral panels use sampled full-raster cubes: top-right uses raw_cube/corr_cube samples; "
+        "row-2-left uses diff=corr_sample-raw_sample; polygon parquet rows are not the direct source.",
+        scene_id,
+    )
+    logger.info(
+        "[drone-qa] %s cubes raw=%s corr=%s wavelengths=%d valid(raw/corr/both)=%.2f/%.2f/%.2f%% "
+        "sample(raw/corr/mask)=%s/%s/%s",
+        scene_id,
+        tuple(debug["raw_cube_shape"]),
+        tuple(debug["corr_cube_shape"]),
+        int(debug["wavelength_count"]),
+        float(debug["raw_valid_pct"]),
+        float(debug["corr_valid_pct"]),
+        float(debug["both_valid_pct"]),
+        tuple(debug["sample_shape"]),
+        tuple(debug["sample_shape"]),
+        tuple(debug["sample_mask_shape"]),
+    )
+    logger.info(
+        "[drone-qa] %s sample support counts_per_band=%s min/median/max=%d/%.1f/%d "
+        "bands(any/>10/>100)=%d/%d/%d (%.1f/%.1f/%.1f%%) support_nm(any/>10/>100)=%s/%s/%s",
+        scene_id,
+        _preview_counts(sample_valid_counts),
+        int(debug["sample_valid_counts_per_band_summary"]["min"]),
+        float(debug["sample_valid_counts_per_band_summary"]["median"]),
+        int(debug["sample_valid_counts_per_band_summary"]["max"]),
+        int(debug["bands_with_any_sample_support"]),
+        int(debug["bands_with_gt10_support"]),
+        int(debug["bands_with_gt100_support"]),
+        float(debug["band_support_pct"]["any"]),
+        float(debug["band_support_pct"]["gt10"]),
+        float(debug["band_support_pct"]["gt100"]),
+        debug["support_wavelength_ranges_nm"]["any"],
+        debug["support_wavelength_ranges_nm"]["gt10"],
+        debug["support_wavelength_ranges_nm"]["gt100"],
+    )
+    logger.info(
+        "[drone-qa] %s |Δ| mean/median/max=%.6f/%.6f/%.6f finite>%0.3f=%d (%.3f%%) "
+        "pixels_any>%0.3f=%d (%.3f%%) outliers(>1/>10/>100)=%d/%d/%d top_bands=%s",
+        scene_id,
+        float(debug["global_mean_abs_diff"]),
+        float(debug["global_median_abs_diff"]),
+        float(debug["global_max_abs_diff"]),
+        float(debug["change_threshold"]),
+        int(debug["comparisons_above_change_threshold"]),
+        float(debug["fraction_above_change_threshold"]),
+        float(debug["change_threshold"]),
+        int(debug["pixels_with_any_change_count"]),
+        float(debug["pixels_with_any_change_pct"]),
+        int(debug["outlier_counts"]["gt1"]),
+        int(debug["outlier_counts"]["gt10"]),
+        int(debug["outlier_counts"]["gt100"]),
+        ", ".join(debug["top_outlier_bands"]) if debug["top_outlier_bands"] else "none",
+    )
+
+
 def _render_delta(ax: Axes, wavelengths: np.ndarray, report: CorrectionReport) -> None:
     xs = wavelengths if wavelengths.size == len(report.delta_median) else np.arange(len(report.delta_median))
     delta_median = np.asarray(report.delta_median, dtype=float)
@@ -2238,13 +2430,28 @@ def render_drone_panel(
     max_samples = min(max(1, int(qa_max_samples)), raw_cube.shape[1] * raw_cube.shape[2])
     corr_sample, sample_mask = _deterministic_sample(corr_cube, both_valid, max_samples)
     raw_sample, _ = _deterministic_sample(raw_cube, both_valid, max_samples)
+    scene_id = raw_path.stem.replace("__envi", "")
+    sample_valid_counts = np.sum(sample_mask, axis=1).astype(int)
+    debug_sampling = _drone_sampling_debug(
+        scene_id=scene_id,
+        wavelengths=wavelengths,
+        raw_cube=raw_cube,
+        corr_cube=corr_cube,
+        raw_valid=raw_valid,
+        corr_valid=corr_valid,
+        both_valid=both_valid,
+        raw_sample=raw_sample,
+        corr_sample=corr_sample,
+        sample_mask=sample_mask,
+    )
+    _log_drone_sampling_debug(debug_sampling, sample_valid_counts)
     correction_report = _correction_report(raw_sample, corr_sample, sample_mask)
     rgb_image, rgb_indices = _rgb_preview(raw_cube, wavelengths, rgb_targets)
     header_report = _header_report(corr_hdr, wavelengths, wavelength_source)
     provenance_inputs = [raw_path, corrected_path]
     if merged_path is not None and Path(merged_path).exists():
         provenance_inputs.append(Path(merged_path))
-    provenance = _provenance(raw_path.stem.replace("__envi", ""), provenance_inputs)
+    provenance = _provenance(scene_id, provenance_inputs)
 
     fig, axes = plt.subplots(4, 2, figsize=(14, 18))
     fig.suptitle(f"Drone QA – {raw_path.stem.replace('__envi', '')}")
@@ -2319,6 +2526,7 @@ def render_drone_panel(
         },
         "band_map": band_map or {},
         "nodata": nodata_summary,
+        "debug_sampling": debug_sampling,
         "correction": {
             "delta_median": correction_report.delta_median,
             "delta_iqr": correction_report.delta_iqr,

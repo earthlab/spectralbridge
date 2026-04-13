@@ -2033,3 +2033,154 @@ At minimum verify:
 Keep the code changes narrowly scoped to the drone QA generation path.
 Do not make unrelated refactors in this prompt.
 ```
+## 2026-04-13 - instrument drone QA spectral sampling diagnostics
+Branch: main
+
+```text
+Investigate whether the drone QA spectral diagnostics are unintentionally behaving like polygon-only summaries in polygon-mode runs, even though they are supposed to sample the full raster cubes.
+
+This is a debugging / instrumentation task, not a broad refactor.
+Do not redesign the QA figure in this prompt.
+Do not change correction math yet unless you find a clearly necessary bug.
+The goal is to flush out where the behavior is coming from.
+
+Observed behavior to explain
+	•	Drone QA runs without polygons tend to show signal across the full wavelength axis.
+	•	Drone QA runs with polygons sometimes look like the spectral diagnostics are only reflecting the polygon-related subset, or only a narrow wavelength region.
+	•	In the current QA plotting code, the spectral summaries are supposed to come from raw_cube, corr_cube, and both_valid, not from polygon-extracted parquet rows.
+	•	We need to determine whether the QA plotting is actually sampling the full raster, and if so, why polygon-mode runs still behave differently.
+
+Main question to answer
+Are the drone QA spectral diagnostics actually built from the full raster cubes in polygon-mode runs, and if they are, what upstream difference is causing them to look polygon-limited?
+
+Tasks
+	1.	Instrument the QA sampling path in render_drone_panel(...)
+
+Add targeted debug logging around the construction of:
+	•	raw_cube
+	•	corr_cube
+	•	raw_valid
+	•	corr_valid
+	•	both_valid
+	•	raw_sample
+	•	corr_sample
+	•	sample_mask
+
+For each flightline, log at minimum:
+	•	flightline ID / scene name
+	•	raw cube shape
+	•	corrected cube shape
+	•	wavelengths count
+	•	percent valid in raw_valid
+	•	percent valid in corr_valid
+	•	percent valid in both_valid
+	•	sample array shapes
+	•	number of bands with at least one valid sampled pixel
+	•	valid sampled pixel counts per band
+	•	min / median / max of valid sampled counts per band
+
+Make this logging concise but informative.
+It should be easy to compare across scenes like Gordon, Ruby, Goldhill, and no-polygon cases.
+	2.	Explicitly verify whether spectral QA uses raster cubes or polygon-derived tables
+
+Add a one-time debug statement in the spectral QA path making it explicit that:
+	•	the top-right spectral panel is using sampled values from raw_cube and corr_cube
+	•	the row-3-left correction-distribution panel is using diff = corr_sample - raw_sample
+	•	polygon parquet rows are not the direct source for these two panels
+
+This is partly for human confirmation while reading logs.
+	3.	Check whether polygon-mode changes the raster products before QA
+
+Add targeted comparisons for polygon vs non-polygon runs to determine whether the corrected raster content itself differs.
+
+For each scene, log:
+	•	np.nanmean(np.abs(corr_cube - raw_cube))
+	•	np.nanmedian(np.abs(corr_cube - raw_cube))
+	•	np.nanmax(np.abs(corr_cube - raw_cube))
+	•	number / percent of pixels with any nontrivial correction above a small threshold
+
+Use a named threshold constant near the top of the file, for example:
+	•	_DRONE_CHANGE_THRESHOLD = 0.01
+
+This will help distinguish:
+	•	true no-op correction
+	•	sparse correction
+	•	catastrophic outliers
+
+	4.	Check whether valid support collapses outside a subset of bands in polygon-mode runs
+
+For the sampled QA arrays, compute and log per-band support such as:
+	•	sample_valid_counts = np.sum(sample_mask, axis=1)
+	•	percent of bands with support above small thresholds, e.g. >10, >100 sampled pixels
+
+Also log the wavelength positions of bands with meaningful support.
+
+Goal:
+	•	determine whether polygon-mode runs retain valid support across the full wavelength range or only in a narrow subset
+
+	5.	Check whether the corrected cube is effectively identical to the raw cube in some scenes
+
+For scenes like GAH2 / Ruby where QA looks flat, verify whether:
+	•	corr_cube is numerically almost identical to raw_cube
+	•	correction is a true near-identity operation
+
+Add concise logs such as:
+	•	global mean absolute difference
+	•	global median absolute difference
+	•	fraction of finite comparisons above _DRONE_CHANGE_THRESHOLD
+
+	6.	Check for catastrophic outliers in scenes like Goldhill
+
+Add logs to identify whether a small number of pixels or bands are dominating the correction diagnostics.
+For example:
+	•	count of comparisons with abs(diff) > 1
+	•	count with abs(diff) > 10
+	•	count with abs(diff) > 100
+	•	location or summary of the worst offending bands / pixels if practical
+
+Do not add huge verbose dumps.
+Keep it summarized.
+	7.	Add a temporary QA payload / JSON debug block if helpful
+
+If it helps comparison, extend the drone QA JSON payload with a small debug_sampling section containing:
+	•	raw_cube_shape
+	•	corr_cube_shape
+	•	both_valid_pct
+	•	sample_shape
+	•	sample_valid_counts_per_band_summary
+	•	bands_with_any_sample_support
+	•	bands_with_gt10_support
+	•	bands_with_gt100_support
+	•	global_mean_abs_diff
+	•	global_median_abs_diff
+	•	fraction_above_change_threshold
+
+Do this only if it can be kept compact and useful.
+	8.	Keep changes narrowly scoped and safe
+
+Do not:
+	•	redesign the QA panels in this prompt
+	•	change extraction behavior
+	•	change correction behavior unless you find an obvious bug and can explain it clearly
+	•	introduce a lot of unrelated cleanup
+
+This task is for diagnosis first.
+
+Deliverables
+	1.	Add the targeted instrumentation and any compact JSON debug fields.
+	2.	Summarize findings directly in code comments where appropriate if you confirm anything important.
+	3.	If you identify a likely root cause, leave a short comment in the code or a concise note in the PR description explaining whether the issue is:
+	•	plotting-path confusion
+	•	valid-mask collapse
+	•	true no-op correction
+	•	outlier domination
+	•	polygon-mode changing raster content upstream
+	•	something else
+
+Acceptance criteria
+	•	We can clearly tell from logs whether top-right and row-3-left are sampling full raster cubes or not.
+	•	We can compare polygon and non-polygon runs quantitatively.
+	•	We can see whether polygon-mode causes valid support to collapse by band.
+	•	We can distinguish no-op scenes from unstable-outlier scenes.
+	•	The debugging additions are concise enough to be practical during development.
+```
