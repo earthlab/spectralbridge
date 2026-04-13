@@ -1607,3 +1607,9 @@ Run pytest -q
 =================================== FAILURES ===================================
 ... drone pipeline failures due to unexpected brdf_kernel_config kwargs ...
 ```
+## 2026-04-13 - improve drone QA bottom panels
+Branch: unknown
+
+```text
+I want the bottom left figure of the qa panel to look like the overlay debug plot rather than the long skinny one thats there now. Also, the table on the bottom right we should show more columns or focus on the right most columns rather than left columns.
+```

@@ -571,6 +571,39 @@ def test_render_drone_merged_preview_prefers_non_nodata_rows(
     assert "non-nodata spectral rows" in str(summary["filter_applied"])
 
 
+def test_render_drone_merged_preview_prioritizes_rightmost_columns(
+    tmp_path: Path, monkeypatch
+) -> None:
+    merged_path = tmp_path / "merged.parquet"
+    merged_path.write_text("placeholder", encoding="utf-8")
+    df = pd.DataFrame(
+        {
+            "flight_id": ["SPR1_20230628"],
+            "pixel_id": [1],
+            "row": [0],
+            "col": [1],
+            "x": [100.0],
+            "y": [200.0],
+            "left_a": [10.0],
+            "left_b": [20.0],
+            "corr_b001_wl0440nm": [0.12],
+            "corr_b002_wl0560nm": [0.23],
+            "corr_b003_wl0650nm": [0.34],
+            "corr_b004_wl0862nm": [0.45],
+        }
+    )
+    monkeypatch.setattr(pd, "read_parquet", lambda path: df.copy())
+
+    summary = _render_drone_merged_preview(_FakeAxes(), merged_path, "SPR1_20230628")
+
+    assert summary["rows_previewed"] == 1
+    assert "pixel_id" in summary["columns_previewed"]
+    assert "row" in summary["columns_previewed"]
+    assert "col" in summary["columns_previewed"]
+    assert "corr_b004_wl0862nm" in summary["columns_previewed"]
+    assert "corr_b003_wl0650nm" in summary["columns_previewed"]
+
+
 def test_export_csv_copy_from_parquet_writes_csv_sidecar(tmp_path: Path) -> None:
     parquet_path = tmp_path / "demo.parquet"
     csv_path = tmp_path / "demo.csv"

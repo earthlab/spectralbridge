@@ -31,6 +31,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
+from matplotlib.patches import Rectangle
 
 from .brightness_config import load_brightness_coefficients
 from .envi import hdr_to_dict, read_envi_cube
@@ -1797,14 +1798,10 @@ def _render_drone_correction_magnitude(
 
 def _render_drone_polygon_overlay(
     ax: Axes,
-    rgb_image: np.ndarray,
     raster_img: Path,
     polygon_path: Path | None,
 ) -> str | None:
-    ax.imshow(np.clip(rgb_image, 0, 1))
-    ax.set_title("Polygon Overlay On Flightline")
-    ax.set_xticks([])
-    ax.set_yticks([])
+    ax.set_title("Drone Overlay Debug")
 
     if polygon_path is None:
         ax.text(0.5, 0.5, "No polygon path provided", ha="center", va="center", transform=ax.transAxes)
@@ -1813,7 +1810,6 @@ def _render_drone_polygon_overlay(
     try:
         geopandas = __import__("geopandas")
         rasterio = __import__("rasterio")
-        from rasterio.plot import plotting_extent
 
         polygons = geopandas.read_file(polygon_path)
         if polygons.empty:
@@ -1822,7 +1818,7 @@ def _render_drone_polygon_overlay(
 
         with rasterio.open(raster_img) as src:
             dataset_crs = src.crs
-            extent = plotting_extent(src)
+            bounds = src.bounds
 
         if polygons.crs is None and dataset_crs is not None:
             polygons = polygons.set_crs(dataset_crs)
@@ -1830,9 +1826,35 @@ def _render_drone_polygon_overlay(
             polygons = polygons.to_crs(dataset_crs)
 
         ax.clear()
-        ax.imshow(np.clip(rgb_image, 0, 1), extent=extent, origin="upper")
-        polygons.boundary.plot(ax=ax, color="#ffcc00", linewidth=1.2)
-        ax.set_title("Polygon Overlay On Flightline")
+        minx, miny, maxx, maxy = (
+            float(bounds.left),
+            float(bounds.bottom),
+            float(bounds.right),
+            float(bounds.top),
+        )
+        width = max(maxx - minx, 1.0)
+        height = max(maxy - miny, 1.0)
+        pad_x = width * 0.05
+        pad_y = height * 0.05
+        ax.add_patch(
+            Rectangle(
+                (minx, miny),
+                width,
+                height,
+                fill=False,
+                linewidth=2.0,
+                edgecolor="tab:blue",
+                label="raster bounds",
+            )
+        )
+        polygons.boundary.plot(ax=ax, color="tab:orange", linewidth=1.0, label="polygons")
+        ax.set_xlim(minx - pad_x, maxx + pad_x)
+        ax.set_ylim(miny - pad_y, maxy + pad_y)
+        ax.set_aspect("equal", adjustable="box")
+        if hasattr(ax, "set_box_aspect"):
+            ax.set_box_aspect(1)
+        ax.legend(loc="best")
+        ax.set_title("Drone Overlay Debug")
         ax.set_xlabel("X")
         ax.set_ylabel("Y")
         return None
@@ -1914,7 +1936,20 @@ def _render_drone_merged_preview(
                     summary["filter_applied"] = suffix
 
         preview = filtered.head(5)
-        display_cols = list(preview.columns[:8])
+        anchor_cols = [
+            col
+            for col in ("pixel_id", "row", "col", "x", "y")
+            if col in preview.columns
+        ]
+        rightmost_cols = [
+            col for col in reversed(list(preview.columns)) if col not in anchor_cols
+        ]
+        display_cols = anchor_cols[:4]
+        for col in rightmost_cols:
+            if len(display_cols) >= 10:
+                break
+            display_cols.append(col)
+        display_cols = [col for col in preview.columns if col in display_cols]
         summary["rows_previewed"] = int(len(preview))
         summary["columns_previewed"] = display_cols
         if preview.empty:
@@ -1934,12 +1969,12 @@ def _render_drone_merged_preview(
             cellLoc="left",
         )
         table.auto_set_font_size(False)
-        table.set_fontsize(7)
-        table.scale(1, 1.2)
+        table.set_fontsize(6)
+        table.scale(1.15, 1.15)
         ax.text(
             0.01,
             0.99,
-            f"Rows total: {len(df)}\nRows shown: {len(preview)}",
+            f"Rows total: {len(df)}\nRows shown: {len(preview)}\nCols shown: {len(display_cols)}",
             transform=ax.transAxes,
             ha="left",
             va="top",
@@ -2047,7 +2082,7 @@ def render_drone_panel(
         correction_max=correction_max,
     )
     _render_drone_correction_status_box(axes[0, 1], correction_status)
-    polygon_warning = _render_drone_polygon_overlay(axes[3, 0], rgb_image, corrected_path, polygon_path)
+    polygon_warning = _render_drone_polygon_overlay(axes[3, 0], corrected_path, polygon_path)
     merged_preview = _render_drone_merged_preview(
         axes[3, 1], Path(merged_path) if merged_path is not None else None, raw_path.stem.replace("__envi", "")
     )
