@@ -1368,6 +1368,48 @@ def test_run_drone_pipeline_reports_progress_and_statuses(
     assert "[drone] Complete: 2 total | 2 success | 0 skipped_no_polygon_overlap | 0 failed_other" in captured.err
 
 
+def test_run_drone_pipeline_builds_qa_summary_pdf(
+    tmp_path: Path, monkeypatch
+) -> None:
+    input_dir = tmp_path / "input"
+    input_dir.mkdir(parents=True, exist_ok=True)
+    h5_path = (
+        input_dir
+        / "SPR1-06-28-23-ExportPackage"
+        / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
+    )
+    h5_path.parent.mkdir(parents=True, exist_ok=True)
+    h5_path.write_bytes(b"a")
+
+    _patch_basic_drone_runtime(monkeypatch)
+
+    summary_calls: list[Path] = []
+
+    def _fake_build_summary(base_dir: Path, output_html=None, pattern="*__qa.png"):
+        summary_calls.append(Path(base_dir))
+        html_path = Path(base_dir) / "qa_summary.pdf"
+        html_path.write_text("summary", encoding="utf-8")
+        return html_path
+
+    monkeypatch.setattr(
+        "spectralbridge.utils.qa_summary.build_drone_qa_summary",
+        _fake_build_summary,
+    )
+
+    results = run_drone_pipeline(
+        input_dir,
+        output_dir=tmp_path / "out",
+        apply_topo=False,
+    )
+
+    assert summary_calls == [tmp_path / "out"]
+    assert results["qa_summary_pdf"] == str(tmp_path / "out" / "qa_summary.pdf")
+    assert results["qa_summary"]["qa_summary_pdf"] == str(
+        tmp_path / "out" / "qa_summary.pdf"
+    )
+    assert results["qa_summary"]["qa_summary_pdf_filename"] == "qa_summary.pdf"
+
+
 def test_run_drone_pipeline_writes_audit_json_when_correction_unavailable(
     tmp_path: Path, monkeypatch
 ) -> None:

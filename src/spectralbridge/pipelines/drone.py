@@ -1607,6 +1607,7 @@ def run_drone_pipeline(
 
     try:
         from spectralbridge.qa_plots import render_drone_panel
+        from spectralbridge.utils.qa_summary import build_drone_qa_summary
 
         for file_audit in results["qa_summary"]["files"]:
             if not _has_drone_qa_inputs(file_audit):
@@ -1633,6 +1634,16 @@ def run_drone_pipeline(
                 "polygon": qa_payload.get("polygon", {}),
                 "merged_preview": qa_payload.get("merged_preview", {}),
             }
+        qa_pngs = [
+            Path(str(file_audit["qa_plot_path"]))
+            for file_audit in results["qa_summary"]["files"]
+            if Path(str(file_audit.get("qa_plot_path", ""))).exists()
+        ]
+        if qa_pngs:
+            qa_summary_html = build_drone_qa_summary(output_dir)
+            results["qa_summary"]["qa_summary_pdf"] = str(qa_summary_html)
+            results["qa_summary"]["qa_summary_pdf_filename"] = qa_summary_html.name
+            results["qa_summary_pdf"] = str(qa_summary_html)
     except Exception as exc:
         LOGGER.exception("[drone] QA rendering failed")
         results["qa_summary"]["qa_render_error"] = str(exc)

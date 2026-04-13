@@ -1,8 +1,14 @@
-"""Helpers for building simple scrollable QA HTML summaries."""
+"""Helpers for building lightweight aggregate drone QA summaries."""
 from __future__ import annotations
 
-from html import escape
 from pathlib import Path
+
+import matplotlib
+
+matplotlib.use("Agg")
+
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 
 
 def _scene_name_from_png(path: Path) -> str:
@@ -39,72 +45,61 @@ def build_drone_qa_summary(
     output_html: Path | None = None,
     pattern: str = "*__qa.png",
 ) -> Path:
-    """Build a local scrollable HTML page showing all drone QA PNGs under ``base_dir``.
+    """Build a multi-page PDF showing all drone QA PNGs under ``base_dir``.
 
     Example:
         ``build_drone_qa_summary(Path("drone_outputs"))``
 
-    By default the summary is written to ``base_dir / "qa_summary.html"``.
+    By default the summary is written to ``base_dir / "qa_summary.pdf"``.
     """
 
     base_dir = Path(base_dir).expanduser().resolve()
     if output_html is None:
-        output_html = base_dir / "qa_summary.html"
+        output_pdf = base_dir / "qa_summary.pdf"
     else:
-        output_html = Path(output_html).expanduser().resolve()
+        output_pdf = Path(output_html).expanduser().resolve()
 
     qa_pngs = sorted(
         (path for path in base_dir.rglob(pattern) if path.is_file()),
         key=lambda path: (path.name.lower(), str(path.parent).lower()),
     )
 
-    output_html.parent.mkdir(parents=True, exist_ok=True)
-    lines = [
-        "<!DOCTYPE html>",
-        "<html>",
-        "<head>",
-        '  <meta charset="utf-8" />',
-        "  <title>Drone QA Summary</title>",
-        "  <style>",
-        "    body { font-family: Arial, sans-serif; margin: 20px; background: #fafafa; color: #222; }",
-        "    h1 { margin-bottom: 8px; }",
-        "    p.meta { margin-top: 0; color: #555; }",
-        "    .scene { margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #ddd; }",
-        "    .scene h2 { margin-bottom: 10px; }",
-        "    .links { margin: 0 0 12px 0; font-size: 0.95rem; }",
-        "    .links a { color: #0b57d0; text-decoration: none; margin-right: 16px; }",
-        "    .links a:hover { text-decoration: underline; }",
-        "    img { width: 100%; max-width: 1200px; height: auto; border: 1px solid #ccc; background: white; }",
-        "  </style>",
-        "</head>",
-        "<body>",
-        "  <h1>Drone QA Summary</h1>",
-        f"  <p class=\"meta\">Base directory: {escape(str(base_dir))} | Scenes: {len(qa_pngs)}</p>",
-    ]
+    output_pdf.parent.mkdir(parents=True, exist_ok=True)
+    with PdfPages(output_pdf) as pdf:
+        if not qa_pngs:
+            fig = plt.figure(figsize=(11, 8.5))
+            fig.text(0.08, 0.90, "Drone QA Summary", fontsize=18, weight="bold")
+            fig.text(0.08, 0.84, f"Base directory: {base_dir}", fontsize=11)
+            fig.text(0.08, 0.74, "No drone QA PNGs were found.", fontsize=13)
+            pdf.savefig(fig, bbox_inches="tight")
+            plt.close(fig)
+        else:
+            for qa_png in qa_pngs:
+                scene_name = _scene_name_from_png(qa_png)
+                parquet_path = _find_related_parquet(qa_png, scene_name)
+                image = plt.imread(qa_png)
 
-    if not qa_pngs:
-        lines.append("  <p>No drone QA PNGs were found.</p>")
-    else:
-        for qa_png in qa_pngs:
-            scene_name = _scene_name_from_png(qa_png)
-            img_rel = escape(str(qa_png.relative_to(output_html.parent)))
-            parquet_path = _find_related_parquet(qa_png, scene_name)
-            lines.append('  <div class="scene">')
-            lines.append(f"    <h2>{escape(scene_name)}</h2>")
-            lines.append('    <div class="links">')
-            lines.append(f'      <a href="{img_rel}">Open PNG</a>')
-            if parquet_path is not None:
-                parquet_rel = escape(str(parquet_path.relative_to(output_html.parent)))
-                lines.append(f'      <a href="{parquet_rel}">Parquet</a>')
-            lines.append("    </div>")
-            lines.append(
-                f'    <img src="{img_rel}" alt="{escape(scene_name)} QA plot" loading="lazy" />'
-            )
-            lines.append("  </div>")
+                fig = plt.figure(figsize=(11, 14))
+                fig.text(0.05, 0.975, "Drone QA Summary", fontsize=16, weight="bold", va="top")
+                fig.text(0.05, 0.948, scene_name, fontsize=13, weight="bold", va="top")
+                fig.text(0.05, 0.928, f"QA PNG: {qa_png.relative_to(base_dir)}", fontsize=9, va="top")
+                if parquet_path is not None:
+                    fig.text(
+                        0.05,
+                        0.910,
+                        f"Parquet: {parquet_path.relative_to(base_dir)}",
+                        fontsize=9,
+                        va="top",
+                    )
 
-    lines.extend(["</body>", "</html>"])
-    output_html.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return output_html
+                ax = fig.add_axes([0.05, 0.05, 0.90, 0.84])
+                ax.imshow(image)
+                ax.axis("off")
+
+                pdf.savefig(fig, bbox_inches="tight")
+                plt.close(fig)
+
+    return output_pdf
 
 
 __all__ = ["build_drone_qa_summary"]

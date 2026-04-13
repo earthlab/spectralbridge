@@ -2184,3 +2184,15 @@ Acceptance criteria
 	•	We can distinguish no-op scenes from unstable-outlier scenes.
 	•	The debugging additions are concise enough to be practical during development.
 ```
+## 2026-04-13 - auto-build drone qa html summary after pipeline runs
+Branch: main
+
+```text
+can you look at the code and try to find how to fix this?
+```
+## 2026-04-13 - switch drone qa summary from html to pdf
+Branch: main
+
+```text
+can we make it a pdf instead of an html?
+```

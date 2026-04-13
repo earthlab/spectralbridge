@@ -1,4 +1,4 @@
-"""CLI entry point for the scrollable drone QA HTML summary."""
+"""CLI entry point for the aggregate drone QA PDF summary."""
 from __future__ import annotations
 
 import argparse
@@ -12,7 +12,7 @@ from ..utils.qa_summary import build_drone_qa_summary
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Build a scrollable HTML summary page for drone QA PNGs.",
+        description="Build a multi-page PDF summary for drone QA PNGs.",
     )
     parser.add_argument(
         "base_dir",
@@ -20,9 +20,9 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Base drone output directory to search recursively for *__qa.png files.",
     )
     parser.add_argument(
-        "--output-html",
+        "--output-pdf",
         type=Path,
-        help="Optional HTML output path. Defaults to <base_dir>/qa_summary.html.",
+        help="Optional PDF output path. Defaults to <base_dir>/qa_summary.pdf.",
     )
     parser.add_argument(
         "--pattern",
@@ -38,12 +38,12 @@ def main(argv: Sequence[str] | None = None) -> None:
 
     parser = _build_parser()
     args = parser.parse_args(argv)
-    html_path = build_drone_qa_summary(
+    pdf_path = build_drone_qa_summary(
         args.base_dir,
-        output_html=args.output_html,
+        output_html=args.output_pdf,
         pattern=args.pattern,
     )
-    print(html_path)
+    print(pdf_path)
 
 
 __all__ = ["main"]
