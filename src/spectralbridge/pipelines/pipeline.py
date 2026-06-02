@@ -2653,7 +2653,21 @@ def _run_flightlines_with_ray(
 
     try:
         results = ray_map(_execute_flightline, list(tasks), num_cpus=cpu_budget)
-    except RuntimeError:
+    except RuntimeError as exc:
+        if "Ray initialization failed before any tasks were submitted." in str(exc):
+            fallback_workers = max(1, cpu_budget or min(len(tasks), 8))
+            logger.warning(
+                "Ray could not initialize in this environment (%s). Falling back to thread executor with max_workers=%d.",
+                exc.__cause__ or exc,
+                fallback_workers,
+            )
+            return list(
+                _iter_executor_results(
+                    tasks,
+                    engine="thread",
+                    max_workers=fallback_workers,
+                )
+            )
         raise
     except Exception as exc:  # pragma: no cover - depends on local Ray availability
         raise RuntimeError(

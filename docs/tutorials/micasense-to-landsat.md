@@ -23,6 +23,14 @@ drone_h5_exports/
 If you want polygon-level tables, also prepare a polygon layer supported by
 GeoPandas, such as GeoPackage or GeoJSON.
 
+## HDF5 contract
+
+SpectralBridge treats the local HDF5 export as the authoritative drone input.
+Reflectance and ancillary rasters are expected to already share the same
+spatial orientation and `(lines, columns)` footprint. SpectralBridge validates
+that contract during loading and correction, but it does not add TIFF
+conversion logic or attempt to repair malformed upstream TIFF-to-HDF5 exports.
+
 ## Run the drone pipeline
 
 ```python

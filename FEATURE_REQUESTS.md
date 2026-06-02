@@ -3,70 +3,208 @@
 Review date: 2026-06-02  
 Branch: main
 
-This document tracks publication-readiness issues found during repository
-cleanup review. The active cleanup requests from that review have been resolved.
-Release-process gates that remain, such as building distribution artifacts or
-running `twine check`, are tracked in `publication_checklist.md`.
+This file is the authoritative work queue for non-trivial SpectralBridge work.
+Agents must update it before coding, after verification, and whenever work is
+left incomplete so the next agent can resume immediately.
+
+## Workflow Rules
+
+1. Read this file before making substantive changes.
+2. Select the highest-priority unfinished item unless the user directs
+   otherwise.
+3. Update the chosen item with `Status`, `Owner`, `Started`, and `Plan` before
+   coding.
+4. Add or update tests with every behavior change.
+5. Update docs when public behavior, contracts, outputs, or workflows change.
+6. After verification, record outcome, blockers, and the next recommended task.
 
 ## Active Requests
 
-None from the 2026-06-02 publication cleanup review.
+### P0. Governance And Resumability
 
-## Completed During Publication Cleanup
+- Priority: P0
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-02
+- Goal: Update repo governance so future work is resumable, reviewable,
+  test-driven, and feature-request-driven.
+- Plan:
+  - Update `AGENTS.md` with explicit `FEATURE_REQUESTS.md` workflow rules.
+  - Replace the cleanup-oriented placeholder queue with a durable prioritized
+    backlog.
+- Completion notes:
+  - `AGENTS.md` updated to require work-queue-first execution, resumable status
+    recording, regression-test preference, and drone HDF5/chunking guardrails.
+  - `FEATURE_REQUESTS.md` converted into the authoritative queue for ongoing
+    hardening work.
+- Next recommended task: Complete P1 before moving to lower-priority items.
 
-- Confirmed `AGENTS.md` exists with repo-specific guidance for future coding
-  agents.
-- Appended user prompts to `PROMPT_LOG.md` per repo policy.
-- Removed accidental unrelated external-repo PRISM artifacts after user
-  approval.
-- Added ignore rules for OS files, bytecode, notebook checkpoints, caches, and
-  generated docs reports.
-- Archived tracked `.DS_Store` and Python bytecode files under
-  `deprecated/generated_artifacts/2026-06-02/`.
-- Archived stale generated docs reports under
-  `deprecated/generated_docs/2026-06-02/`.
-- Added `MANIFEST.in` so distributions intentionally include package data,
-  docs, and tests while excluding root staging data, deprecated archives,
-  generated docs reports, and container-only helper scripts.
-- Documented root container/remote helper scripts in
-  `docs/dev/container-workflows.md` and kept them active because container mount
-  roots are part of the workflow.
-- Documented root `data/` as examples/local staging and
-  `src/spectralbridge/data/` as the authoritative packaged data location.
-- Documented large deprecated Megan unmixing data as provenance-only and
-  excluded it from package distributions.
-- Updated README, Quickstart, and tutorials so `SpectralBridge`/`spectralbridge`
-  is the canonical project/package name while cross-sensor calibration remains
-  the technical workflow concept.
-- Clarified Ray as a required dependency and the default parallel backend.
-- Preserved Parquet as the authoritative tabular output in docs.
-- Added a public-function import/signature smoke matrix.
-- Added Ray/default-engine tests and removed the old optional-Ray test naming.
-- Added Playwright browser smoke tests for the MkDocs site and wired them into
-  the docs workflow.
-- Rewrote the MicaSense tutorial around the supported `run_drone_pipeline`
-  local-H5 workflow.
-- Rewrote `docs/reference/extending.md` around current extension points instead
-  of a nonexistent registry API.
-- Archived stale root draft docs with `FILLME` markers under
-  `deprecated/docs/publication_cleanup_2026-06-02/`.
-- Refreshed root `CONTRIBUTING.md` so it uses SpectralBridge naming, current
-  install/test guidance, Ray-required language, and marker-free text.
-- Updated `scripts/check_docs_links.py` to scan nested docs and make
-  `FILLME` marker failures opt-in with `--fail-on-fillme`.
-- Removed active-doc `FILLME` markers from `docs/naming-conventions.md`.
-- Added lazy top-level exports for `go_forth_and_multiply` and
-  `process_one_flightline`.
-- Replaced the README QA “coming soon” placeholder with an existing checked-in
-  workflow artifact that shows QA reports in the output contract.
-- Refreshed `publication_checklist.md` and added
-  `docs/dev/publication-cleanup-log.md` as the detailed cleanup record.
+### P1. HDF5 Orientation Contract Tests
 
-## Notes
+- Priority: P1
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-02
+- Goal: Add regression tests that protect drone HDF5 orientation assumptions
+  using tiny asymmetric non-square synthetic fixtures.
+- Requirements:
+  - Include reflectance plus ancillary layers for `slope`, `aspect`,
+    `solar_zn`, `solar_az`, `sensor_zn`, and `sensor_az`.
+  - Verify correct alignment and detect transpose, diagonal mirror, row
+    reversal, and column reversal regressions.
+  - Document that these tests protect against upstream TIFF-to-HDF5
+    orientation regressions without adding TIFF logic to SpectralBridge.
+- Plan:
+  - Inspect current drone HDF5 loading/orientation helpers and nearby tests.
+  - Add focused regression tests with synthetic HDF5 fixtures.
+  - Update nearest docs only if the contract is not already documented.
+- Completion notes:
+  - Added tiny asymmetric non-square synthetic HDF5 orientation tests in
+    `tests/test_neon_cube.py` covering reflectance plus `slope`, `aspect`,
+    `solar_zn`, `solar_az`, `sensor_zn`, and `sensor_az`.
+  - Protected against transpose, row-reversal, and column-reversal regressions
+    by asserting the loaded cube and ancillary rasters do not mirror those
+    spatial transforms.
+  - Documented the drone HDF5 input contract in
+    `docs/tutorials/micasense-to-landsat.md`.
+- Blockers: Diagonal-mirror regression coverage currently comes from transpose
+  assertions because NumPy's 2-D mirror across the diagonal is a transpose for
+  these synthetic rasters.
+- Next recommended task: Continue with P4 and P5 to validate chunked extraction
+  and per-flight parquet outputs end to end.
 
-- A renderer-produced QA PNG was not generated during this cleanup because the
-  local Python environments available here do not have `matplotlib`. Existing
-  QA tests still cover fixture rendering in environments with the test
-  dependencies installed.
-- No scientific correction assumptions, Parquet behavior, chunking strategy, or
-  restart-safe pipeline contracts were intentionally changed.
+### P2. Spectral Axis Orientation Tests
+
+- Priority: P2
+- Status: Completed
+- Goal: Protect `_orient_cube()` for `(lines, columns, bands)`,
+  `(bands, lines, columns)`, and `(lines, bands, columns)` without permitting
+  spatial mirroring or row/column flipping.
+- Completion notes:
+  - Added `_orient_cube()` tests for all three supported spectral-axis
+    placements and verified that only the spectral axis moves.
+
+### P3. Ancillary Raster Contract Tests
+
+- Priority: P3
+- Status: Completed
+- Goal: Verify `cube.get_ancillary(...)` fails clearly and actionably when
+  ancillary dimensions do not match `(lines, columns)`.
+- Completion notes:
+  - Added a targeted shape-mismatch regression test asserting the explicit
+    `(4, 3)` vs `(3, 4)` error message for ancillary rasters.
+
+### P4. Preserve Chunked Processing
+
+- Priority: P4
+- Status: Todo
+- Goal: Review drone extraction paths and confirm chunked reading, correction,
+  extraction, and restart-safe behavior are preserved.
+
+### P5. Per-Flight Parquet Validation
+
+- Priority: P5
+- Status: Todo
+- Goal: Validate per-flight parquet outputs for polygon mode and full
+  extraction, restore missing functionality if needed using chunked processing,
+  and surface QA metadata for parquet/merge/CSV status.
+
+### P6. Drone QA And Failure-State Tests
+
+- Priority: P6
+- Status: Todo
+- Goal: Expand drone tests for orientation, extraction modes, chunking, CRS,
+  overlap, metadata preservation, overlays, correction failures, and CSV
+  failures.
+
+### P7. Restart, Checkpoint, And Recovery Integrity
+
+- Priority: P7
+- Status: Todo
+- Goal: Add selective recovery and validation tests for restart-safe reuse,
+  corrupt-output rebuilds, missing downstream products, and explicit statuses.
+
+### P8. Output Schema Stability
+
+- Priority: P8
+- Status: Todo
+- Goal: Protect required parquet schema fields, dtypes, and polygon metadata
+  across per-flight and merged outputs.
+
+### P9. Namespace And Container Compatibility
+
+- Priority: P9
+- Status: Todo
+- Goal: Keep `import spectralbridge` canonical while preserving
+  `import cross_sensor_cal` compatibility, add import/CLI tests, and avoid
+  cwd-dependent behavior.
+
+### P10. CI Hardening
+
+- Priority: P10
+- Status: Todo
+- Goal: Expand CI coverage for `src/spectralbridge/**`, `tests/**`,
+  `pyproject.toml`, and workflow changes with targeted install/lint/test steps.
+
+### P11. Logging Review
+
+- Priority: P11
+- Status: Todo
+- Goal: Review duplicate handlers plus notebook, multiprocessing, and Ray
+  logging behavior; document findings without major refactors.
+
+### P12. Public API Contract Review
+
+- Priority: P12
+- Status: Todo
+- Goal: Review whether current smoke tests capture intentional public APIs
+  without freezing internal helpers.
+
+### P13. Release Hygiene
+
+- Priority: P13
+- Status: Todo
+- Goal: Audit license/readme/citation/resources/manifest and confirm prompt
+  logs, temporary outputs, large data, and development artifacts are not
+  shipped unintentionally.
+
+### P14. Versioning Review
+
+- Priority: P14
+- Status: Todo
+- Goal: Review version definitions and release process to prevent drift.
+
+### P15. Dependency Review
+
+- Priority: P15
+- Status: Todo
+- Goal: Review `ray`, `geopandas`, and `rasterio` dependency posture and
+  whether extras should change without breaking installs.
+
+### P16. Documentation Modernization
+
+- Priority: P16
+- Status: Todo
+- Goal: Prefer `import spectralbridge` in examples while documenting HDF5
+  contracts, chunking, restart behavior, parquet authority, CSV sidecars, and
+  drone/NEON workflows.
+
+### P17. Architecture Audit
+
+- Priority: P17
+- Status: Todo
+- Goal: Document lightweight findings on duplicate metadata/path/output logic,
+  chunking consistency, restart-safe consistency, QA consistency, and shared
+  drone/NEON infrastructure opportunities.
+
+## Completed Requests
+
+- 2026-06-02: Publication cleanup backlog completed and moved to
+  `docs/dev/publication-cleanup-log.md` plus `publication_checklist.md` for
+  release gating details.
+
+## Blockers And Resume Notes
+
+- Local verification depends on which Python/test dependencies are available in
+  the active environment. Record any missing tooling under the active item
+  before stopping.

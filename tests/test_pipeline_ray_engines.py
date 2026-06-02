@@ -62,15 +62,14 @@ def test_default_ray_engine_requires_importable_ray(
     _block_ray_import: None,
     _stub_pipeline: None,
 ) -> None:
-    """The default Ray engine should surface a clear environment error."""
+    """The default Ray engine should fall back cleanly when Ray is unavailable."""
 
-    with pytest.raises(RuntimeError, match="Dependency 'ray'"):
-        go_forth_and_multiply(
-            base_folder=tmp_path,
-            site_code="TEST",
-            year_month="2024-01",
-            flight_lines=["FLIGHT"],
-        )
+    go_forth_and_multiply(
+        base_folder=tmp_path,
+        site_code="TEST",
+        year_month="2024-01",
+        flight_lines=["FLIGHT"],
+    )
 
 
 def test_ray_engine_uses_ray_map(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
@@ -108,3 +107,24 @@ def test_ray_engine_uses_ray_map(monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 
     assert calls["num_cpus"] == 3
     assert calls["count"] == 2
+
+
+def test_ray_engine_falls_back_to_threads_when_ray_cannot_initialize(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    _stub_pipeline: None,
+) -> None:
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.pipeline.ray_map",
+        lambda *args, **kwargs: (_ for _ in ()).throw(
+            RuntimeError("Ray initialization failed before any tasks were submitted.")
+        ),
+    )
+
+    go_forth_and_multiply(
+        base_folder=tmp_path,
+        site_code="TEST",
+        year_month="2024-01",
+        flight_lines=["A"],
+        engine="ray",
+    )

@@ -3242,3 +3242,770 @@ Call log:
        - waiting 500ms
 Error: Process completed with exit code 1.
 ```
+## 2026-06-02 - hardening governance and drone pipeline validation
+Branch: main
+
+```text
+# SpectralBridge Package Hardening, Drone Pipeline Validation, Release Readiness, and Agent Governance
+
+## Mission
+
+SpectralBridge is evolving from a research codebase into reusable scientific infrastructure.
+
+The priorities of the project are:
+
+1. Correctness
+2. Reproducibility
+3. Restart safety
+4. Transparency
+5. Validation
+6. Maintainability
+7. Performance
+
+Performance optimizations should never compromise correctness, restartability, reproducibility, or QA transparency.
+
+The goal of this effort is not to redesign SpectralBridge.
+
+The goal is to strengthen and validate what already exists while preserving behavior.
+
+---
+
+# Priority 0 — Update AGENTS.md
+
+Before making technical changes, review and update AGENTS.md.
+
+The repository has reached a level of maturity where development process matters almost as much as implementation.
+
+Future work should be:
+
+- resumable
+- test-driven
+- reviewable
+- reproducible
+- restart-safe
+- maintainable
+
+---
+
+## Feature-Request-Driven Development
+
+Agents should treat:
+
+text FEATURE_REQUESTS.md 
+
+as the authoritative project work queue.
+
+Required workflow:
+
+1. Read FEATURE_REQUESTS.md.
+2. Select highest-priority unfinished item.
+3. Update FEATURE_REQUESTS.md before coding.
+4. Implement changes.
+5. Add tests.
+6. Update documentation if required.
+7. Update FEATURE_REQUESTS.md after completion.
+8. Record blockers and next steps.
+
+If interrupted:
+
+- document status
+- record remaining work
+- identify blockers
+- identify recommended next task
+
+Future agents should be able to resume immediately.
+
+---
+
+## Testing Expectations
+
+Work is not complete until:
+
+- tests exist
+- tests pass
+- regressions are protected
+
+Preference order:
+
+1. Regression tests
+2. Behavior tests
+3. Contract tests
+4. Integration tests
+5. Refactors
+
+New functionality without tests should be considered incomplete.
+
+---
+
+## Stability Requirements
+
+Agents should protect:
+
+- restart-safe execution
+- chunked processing
+- deterministic outputs
+- QA transparency
+- reproducibility
+
+Do not trade stability for implementation convenience.
+
+---
+
+## Package Philosophy
+
+SpectralBridge is scientific infrastructure.
+
+Agents should favor:
+
+- stable APIs
+- explicit validation
+- explicit status reporting
+- backward compatibility
+- additive improvements
+
+Avoid unnecessary breaking changes.
+
+---
+
+## Data Processing Philosophy
+
+Assume:
+
+- large datasets
+- cloud environments
+- HPC environments
+- CyVerse deployments
+- ACCESS allocations
+- laptops
+
+Preserve:
+
+- chunking
+- checkpointing
+- restart-safe behavior
+
+Avoid:
+
+- whole-scene loading
+- memory-intensive shortcuts
+
+unless clearly justified.
+
+---
+
+## HDF5 Contract Philosophy
+
+SpectralBridge starts from HDF5.
+
+Agents should not:
+
+- add TIFF conversion logic
+- repair malformed TIFF conversions
+
+Instead:
+
+- validate inputs
+- document assumptions
+- add regression tests
+
+Input contracts should be explicit.
+
+---
+
+## Documentation Expectations
+
+When public behavior changes:
+
+Update:
+
+- README
+- docs
+- examples
+- feature requests
+
+Documentation debt should not accumulate.
+
+---
+
+## Architecture Review Guidance
+
+Avoid speculative refactors.
+
+Before refactoring:
+
+- identify duplication
+- identify measurable benefit
+- create feature request
+- document rationale
+
+Large architecture changes should be deliberate.
+
+---
+
+## Public API Guidance
+
+Protect intentionally public APIs.
+
+Examples:
+
+python spectralbridge.go_forth_and_multiply spectralbridge.process_one_flightline spectralbridge.run_drone_pipeline 
+
+Distinguish:
+
+- public API
+- implementation details
+
+before making changes.
+
+---
+
+## CI Expectations
+
+If a regression could have been caught by CI:
+
+add a test.
+
+Any change affecting:
+
+text src/spectralbridge tests pyproject.toml workflows 
+
+should consider CI coverage.
+
+---
+
+## Leave-The-Camp-Cleaner Rule
+
+If an agent notices:
+
+- broken docs
+- stale comments
+- missing tests
+- dead code
+- obvious bugs
+
+they should either:
+
+- fix it
+- or create a feature request
+
+No known issue should disappear from project memory.
+
+---
+
+## End-of-Work Reporting
+
+At the end of work:
+
+update FEATURE_REQUESTS.md with:
+
+- completed items
+- deferred items
+- blockers
+- next recommended task
+
+---
+
+## SpectralBridge Development Motto
+
+Protect correctness.
+Preserve restartability.
+Prefer validation over assumptions.
+Leave a trail for the next agent.
+
+---
+
+# Project Context
+
+SpectralBridge processes:
+
+- NEON airborne hyperspectral data
+- drone hyperspectral data
+
+Drone workflows start from HDF5 inputs.
+
+A previously observed artifact was traced to an upstream TIFF→HDF5 conversion issue.
+
+The translator failed to correctly preserve orientation.
+
+This produced mirrored ancillary layers.
+
+The upstream translator has now been fixed.
+
+SpectralBridge should:
+
+- NOT add TIFF conversion
+- NOT repair malformed TIFF conversions
+- validate and document HDF5 contracts
+
+Chunking remains a required design principle.
+
+---
+
+# Priority 1 — HDF5 Orientation Contract Tests
+
+Add regression tests protecting HDF5 orientation assumptions.
+
+Requirements:
+
+Use:
+
+- tiny synthetic HDF5
+- non-square arrays
+- asymmetric values
+
+Example:
+
+text 11 12 13 14 21 22 23 24 31 32 33 34 
+
+Include:
+
+- reflectance
+- slope
+- aspect
+- solar_zn
+- solar_az
+- sensor_zn
+- sensor_az
+
+Verify:
+
+- reflectance alignment
+- ancillary alignment
+- transpose detection
+- diagonal mirror detection
+- row reversal detection
+- column reversal detection
+
+Document:
+
+This protects against upstream TIFF→HDF5 orientation regressions.
+
+---
+
+# Priority 2 — Spectral Axis Orientation Tests
+
+Protect _orient_cube() behavior.
+
+Test:
+
+text (lines, columns, bands) (bands, lines, columns) (lines, bands, columns) 
+
+Verify:
+
+- correct spectral-axis placement
+- no spatial correction
+- no mirroring
+- no row/column flipping
+
+---
+
+# Priority 3 — Ancillary Raster Contract Tests
+
+Protect ancillary shape assumptions.
+
+Verify:
+
+python cube.get_ancillary(...) 
+
+fails clearly when ancillary dimensions do not match:
+
+text (lines, columns) 
+
+Requirements:
+
+- explicit errors
+- actionable messages
+
+---
+
+# Priority 4 — Preserve Chunked Processing
+
+Chunking is required.
+
+Do not replace chunked processing with whole-scene loading.
+
+Preserve:
+
+- chunked reading
+- chunked correction
+- chunked extraction
+- restart-safe processing
+
+If full-raster extraction is added:
+
+- write chunk-by-chunk
+- avoid full-scene memory loads
+- preserve restart behavior
+
+---
+
+# Priority 5 — Per-Flight Parquet Validation
+
+Every successful flight should produce a per-flight parquet.
+
+Expected outputs:
+
+Polygon mode:
+
+text <flight_stem>__polygons.parquet 
+
+Full extraction:
+
+text <flight_stem>__extracted.parquet 
+
+Merged output:
+
+text drone_merged.parquet 
+
+Requirements:
+
+Review implementation.
+
+Verify behavior.
+
+Restore missing functionality using chunked processing if needed.
+
+Add QA metadata:
+
+- parquet path
+- merge path
+- CSV sidecar path
+- extraction status
+- skip reason
+- failure reason
+
+---
+
+# Priority 6 — Drone QA and Failure-State Tests
+
+Add:
+
+- orientation tests
+- polygon extraction tests
+- no-polygon extraction tests
+- chunking tests
+- CRS tests
+- overlap tests
+- metadata preservation tests
+- overlay image tests
+- correction failure tests
+- CSV failure tests
+
+Protect behavior through tests.
+
+---
+
+# Priority 7 — Restart, Checkpoint, and Recovery Integrity
+
+This is one of the most valuable guarantees in SpectralBridge.
+
+Add tests covering:
+
+### Partial restart
+
+Reuse completed work.
+
+### Corrupt intermediate recovery
+
+Rebuild corrupt outputs.
+
+### Missing downstream products
+
+Resume correctly.
+
+### Mixed-flight recovery
+
+Recover selectively.
+
+### Output validation
+
+Validate before skipping.
+
+### Explicit status reporting
+
+Support statuses such as:
+
+text skipped_existing_valid_output recomputed_missing_output recomputed_corrupt_output failed_validation 
+
+---
+
+# Priority 8 — Output Schema Stability
+
+Protect schema contracts.
+
+Required fields:
+
+text flightline_id row col x y band wavelength_nm fwhm_nm reflectance 
+
+Verify:
+
+- names
+- dtypes
+- presence
+
+Protect:
+
+- ENVI parquet
+- corrected parquet
+- merged parquet
+
+Verify polygon metadata survives extraction and merge.
+
+---
+
+# Priority 9 — Namespace and Container Compatibility
+
+Context:
+
+SpectralBridge runs in:
+
+- Docker
+- CyVerse
+- ACCESS
+- HPC
+- JupyterHub
+- cloud workspaces
+
+Compatibility-first.
+
+Keep:
+
+python import spectralbridge 
+
+canonical.
+
+Preserve:
+
+python import cross_sensor_cal 
+
+compatibility.
+
+Do not perform a breaking namespace migration.
+
+Add tests for:
+
+python import spectralbridge import cross_sensor_cal 
+
+and key public imports.
+
+Verify:
+
+- imports
+- warnings
+- compatibility
+
+Avoid:
+
+- hardcoded paths
+- cwd assumptions
+- repo-root assumptions
+
+Test CLI entry points.
+
+Document preferred namespace.
+
+---
+
+# Priority 10 — CI Hardening
+
+Expand CI coverage.
+
+Trigger on:
+
+text src/spectralbridge/** tests/** pyproject.toml .github/workflows/** 
+
+Run:
+
+bash pip install -e ".[tests]" ruff check src tests pytest -q tests/test_drone_pipeline.py pytest -q tests/test_qa python -c "import spectralbridge; print(spectralbridge.__version__)" 
+
+Optional:
+
+bash python -m build 
+
+Keep CI practical.
+
+---
+
+# Priority 11 — Logging Review
+
+Review:
+
+- duplicate handlers
+- notebook behavior
+- multiprocessing behavior
+- Ray behavior
+
+Document findings.
+
+Avoid major refactors.
+
+---
+
+# Priority 12 — Public API Contract Review
+
+Protect intentionally public APIs.
+
+Review whether current smoke tests are protecting the right contract.
+
+Avoid accidentally freezing internal helpers into public APIs.
+
+---
+
+# Priority 13 — Release Hygiene
+
+Audit:
+
+- LICENSE
+- README
+- CITATION
+- package resources
+- MANIFEST
+
+Verify:
+
+- no large datasets
+- no temporary outputs
+- no prompt logs
+- no development artifacts
+
+ship unintentionally.
+
+---
+
+# Priority 14 — Versioning Review
+
+Review:
+
+- pyproject version
+- package version
+- release process
+
+Prevent version drift.
+
+---
+
+# Priority 15 — Dependency Review
+
+Review:
+
+- ray
+- geopandas
+- rasterio
+
+Document whether extras make sense.
+
+Avoid breaking installs.
+
+---
+
+# Priority 16 — Documentation Modernization
+
+Prefer:
+
+python import spectralbridge 
+
+in examples.
+
+Retain compatibility documentation.
+
+Document:
+
+- HDF5 contract
+- chunking strategy
+- restart behavior
+- parquet authority
+- CSV sidecars
+- drone workflows
+- NEON workflows
+
+---
+
+# Priority 17 — Architecture Audit
+
+Perform a lightweight architecture review.
+
+Document findings only.
+
+Review:
+
+1. Duplicate metadata parsers
+2. Duplicate path builders
+3. Duplicate output discovery
+4. Multiple chunking implementations
+5. Restart-safe consistency
+6. QA consistency
+7. Shared drone/NEON infrastructure opportunities
+
+Create feature requests instead of large refactors.
+
+---
+
+# Constraints
+
+Do NOT:
+
+- add TIFF conversion logic
+- break NEON behavior
+- perform namespace migrations
+- perform speculative refactors
+- add large fixtures
+
+Prefer:
+
+- synthetic test data
+- tiny HDF5 fixtures
+- tiny rasters
+- tiny polygons
+
+Keep changes reviewable.
+
+---
+
+# Recommended Execution Order
+
+1. Update AGENTS.md
+2. Update FEATURE_REQUESTS.md
+3. Add HDF5 orientation tests
+4. Add ancillary contract tests
+5. Verify per-flight parquet behavior
+6. Restore chunked no-polygon extraction if required
+7. Add restart/checkpoint tests
+8. Add schema tests
+9. Expand CI
+10. Add namespace compatibility tests
+11. Perform hygiene review
+12. Perform architecture review
+13. Update docs
+
+---
+
+# Final Report Requirements
+
+Report:
+
+- AGENTS.md changes
+- FEATURE_REQUESTS.md changes
+- completed items
+- remaining items
+- blockers
+- tests added
+- CI updates
+- chunking status
+- parquet status
+- namespace status
+- restart-safe status
+- documentation updates
+- architecture findings
+- commands executed
+- test results
+- build results
+
+Explicitly confirm:
+
+- TIFF conversion was not added
+- NEON behavior was not changed
+- chunking was preserved
+- compatibility imports still work
+- package remains installable
+- tests pass
+```

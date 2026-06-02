@@ -63,6 +63,26 @@ Important invariants from the current code/docs:
 
 ## Workflow Expectations For Agents
 
+`FEATURE_REQUESTS.md` is the authoritative project work queue.
+
+Required execution order for non-trivial work:
+
+1. Read `FEATURE_REQUESTS.md`.
+2. Select the highest-priority unfinished item.
+3. Update `FEATURE_REQUESTS.md` with the item you are starting, scope, and status before coding.
+4. Read the specific code, tests, and docs relevant to that item.
+5. Implement the smallest restart-safe change that satisfies the request.
+6. Add regression or contract tests before considering the work complete.
+7. Update docs when public behavior, contracts, or outputs change.
+8. Update `FEATURE_REQUESTS.md` after verification with completion status, blockers, and the next recommended task.
+
+If interrupted, leave `FEATURE_REQUESTS.md` in a resumable state with:
+
+- current status
+- remaining work
+- blockers
+- recommended next task
+
 Before changing code:
 
 - Read the specific module(s) you plan to edit.
@@ -74,14 +94,18 @@ When changing code:
 - Make the smallest change that satisfies the request.
 - Reuse existing helpers and file/path conventions.
 - Keep new defaults explicit in code.
+- Prefer regression tests, then behavior tests, then contract tests, then integration tests.
 - Add or update tests for behavior changes.
 - Update docs when user-facing behavior, entry points, outputs, or CLI/API usage changes.
+- Preserve chunked processing, deterministic outputs, and restart-safe behavior.
+- Favor additive validation and explicit status reporting over implicit behavior changes.
 
 After changing code:
 
 - Run the smallest relevant verification first.
 - Prefer targeted test modules over the entire suite when the change is localized.
 - If tooling is missing in the environment, say so clearly and list what was not run.
+- Record completion, deferred work, blockers, and the next recommended task in `FEATURE_REQUESTS.md`.
 
 ## Testing And Verification
 
@@ -149,6 +173,8 @@ When editing notebooks:
 - Drone logic should be wavelength-driven for conceptual band mapping.
 - Avoid index-based band assumptions in drone-only code.
 - Skip convolution unless a task explicitly introduces it.
+- Treat HDF5 as the input contract. Do not add TIFF conversion logic or repairs for malformed upstream TIFF-to-HDF5 conversions.
+- Protect orientation, ancillary alignment, chunking, checkpointing, per-flight parquet outputs, and QA transparency with focused regression tests.
 
 ## Naming And Path Conventions
 
@@ -191,6 +217,8 @@ Exceptions:
 - Prefer repo-relative paths in examples.
 - Keep changes scientifically conservative.
 - Call out uncertainties instead of guessing.
+- Protect intentionally public APIs such as `spectralbridge.go_forth_and_multiply`, `spectralbridge.process_one_flightline`, and `spectralbridge.run_drone_pipeline`.
+- Leave known issues visible: fix them or add/update a feature request instead of letting them disappear.
 
 ## Good First Files To Read For Most Tasks
 

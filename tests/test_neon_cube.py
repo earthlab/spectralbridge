@@ -3,7 +3,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from spectralbridge.io.neon import read_neon_cube
+from spectralbridge.io.neon import _orient_cube, read_neon_cube
 from spectralbridge.neon_cube import NeonCube
 
 h5py = pytest.importorskip("h5py")
@@ -149,6 +149,93 @@ def _create_fake_neon_file_missing_nodata(path: Path) -> None:
             reflectance_dataset.attrs.pop(attr_name, None)
 
 
+def _orientation_contract_grid(offset: float = 0.0) -> np.ndarray:
+    return np.array(
+        [
+            [11.0, 12.0, 13.0, 14.0],
+            [21.0, 22.0, 23.0, 24.0],
+            [31.0, 32.0, 33.0, 34.0],
+        ],
+        dtype=np.float32,
+    ) + np.float32(offset)
+
+
+def _create_fake_orientation_contract_file(
+    path: Path,
+    *,
+    cube_layout: str = "yxb",
+    ancillary_overrides: dict[str, np.ndarray] | None = None,
+) -> dict[str, np.ndarray]:
+    wavelengths = np.array([550.0, 660.0], dtype=np.float32)
+    fwhm = np.array([10.0, 10.0], dtype=np.float32)
+    map_info = [
+        "UTM",
+        "1.0",
+        "1.0",
+        "500000.0",
+        "4420000.0",
+        "1.0",
+        "-1.0",
+        "13",
+        "North",
+        "WGS-84",
+    ]
+
+    reflectance_band_0 = _orientation_contract_grid()
+    reflectance_band_1 = _orientation_contract_grid(offset=100.0)
+    cube_yxb = np.stack([reflectance_band_0, reflectance_band_1], axis=2)
+
+    ancillary = {
+        "Slope": _orientation_contract_grid(offset=200.0),
+        "Aspect": _orientation_contract_grid(offset=300.0),
+        "Solar_Zenith_Angle": _orientation_contract_grid(offset=400.0),
+        "Solar_Azimuth_Angle": _orientation_contract_grid(offset=500.0),
+        "To_Sensor_Zenith_Angle": _orientation_contract_grid(offset=600.0),
+        "To_Sensor_Azimuth_Angle": _orientation_contract_grid(offset=700.0),
+    }
+    if ancillary_overrides:
+        ancillary.update(ancillary_overrides)
+
+    if cube_layout == "yxb":
+        stored_cube = cube_yxb
+    elif cube_layout == "byx":
+        stored_cube = np.moveaxis(cube_yxb, 2, 0)
+    elif cube_layout == "ybx":
+        stored_cube = np.moveaxis(cube_yxb, 2, 1)
+    else:  # pragma: no cover - defensive
+        raise ValueError(f"Unsupported cube layout: {cube_layout}")
+
+    with h5py.File(path, "w") as h5_file:
+        base_group = h5_file.create_group("DRONE")
+        reflectance_group = base_group.create_group("Reflectance")
+        reflectance_dataset = reflectance_group.create_dataset(
+            "Reflectance_Data", data=stored_cube, dtype=np.float32
+        )
+        reflectance_dataset.attrs["Data_Ignore_Value"] = np.float32(-9999.0)
+
+        metadata_group = reflectance_group.create_group("Metadata")
+        spectral_group = metadata_group.create_group("Spectral_Data")
+        wavelength_ds = spectral_group.create_dataset("Wavelength", data=wavelengths)
+        wavelength_ds.attrs["Units"] = "Nanometers"
+        spectral_group.create_dataset("FWHM", data=fwhm)
+
+        coordinate_group = metadata_group.create_group("Coordinate_System")
+        coordinate_group.create_dataset(
+            "Map_Info", data=np.array(map_info, dtype="S")
+        )
+        coordinate_group.create_dataset(
+            "Coordinate_System_String",
+            data=np.array("FAKE PROJECTION WKT", dtype="S"),
+        )
+
+        for dataset_name, values in ancillary.items():
+            metadata_group.create_dataset(dataset_name, data=np.asarray(values, dtype=np.float32))
+
+    expected = {"reflectance": cube_yxb}
+    expected.update({name: np.asarray(values, dtype=np.float32) for name, values in ancillary.items()})
+    return expected
+
+
 def test_neon_cube_iter_chunks(tmp_path):
     fake_h5_path = tmp_path / "fake_neon.h5"
     _create_fake_neon_file(fake_h5_path)
@@ -273,3 +360,97 @@ def test_read_neon_cube_remains_strict_when_nodata_metadata_missing(tmp_path):
         match="Reflectance dataset missing a recognised no-data attribute",
     ):
         read_neon_cube(fake_h5_path)
+
+
+def test_drone_hdf5_orientation_contract_preserves_reflectance_and_ancillary_alignment(
+    tmp_path: Path,
+) -> None:
+    h5_path = tmp_path / "drone_orientation_contract.h5"
+    expected = _create_fake_orientation_contract_file(h5_path)
+
+    cube = NeonCube(h5_path=h5_path)
+
+    expected_reflectance = expected["reflectance"]
+    np.testing.assert_array_equal(cube.data, expected_reflectance)
+    np.testing.assert_array_equal(cube.data[:, :, 0], _orientation_contract_grid())
+
+    wrong_spatial_orientations = (
+        expected_reflectance.transpose(1, 0, 2),
+        expected_reflectance[::-1, :, :],
+        expected_reflectance[:, ::-1, :],
+    )
+    for wrong in wrong_spatial_orientations:
+        assert not np.array_equal(cube.data, wrong)
+
+    ancillary_expectations = {
+        "slope": expected["Slope"],
+        "aspect": expected["Aspect"],
+        "solar_zn": expected["Solar_Zenith_Angle"],
+        "solar_az": expected["Solar_Azimuth_Angle"],
+        "sensor_zn": expected["To_Sensor_Zenith_Angle"],
+        "sensor_az": expected["To_Sensor_Azimuth_Angle"],
+    }
+    for name, values in ancillary_expectations.items():
+        loaded = cube.get_ancillary(name, radians=False)
+        np.testing.assert_array_equal(loaded, values)
+        assert not np.array_equal(loaded, values.T)
+        assert not np.array_equal(loaded, values[::-1, :])
+        assert not np.array_equal(loaded, values[:, ::-1])
+
+
+@pytest.mark.parametrize("cube_layout", ["yxb", "byx", "ybx"])
+def test_orient_cube_normalises_supported_spectral_axis_positions(
+    tmp_path: Path,
+    cube_layout: str,
+) -> None:
+    h5_path = tmp_path / f"cube_{cube_layout}.h5"
+    expected = _create_fake_orientation_contract_file(h5_path, cube_layout=cube_layout)
+
+    raw_cube, wavelengths, _meta = read_neon_cube(h5_path)
+
+    assert wavelengths.shape == (2,)
+    np.testing.assert_array_equal(raw_cube, expected["reflectance"])
+
+    wrong_spatial_orientations = (
+        expected["reflectance"].transpose(1, 0, 2),
+        expected["reflectance"][::-1, :, :],
+        expected["reflectance"][:, ::-1, :],
+    )
+    for wrong in wrong_spatial_orientations:
+        assert not np.array_equal(raw_cube, wrong)
+
+
+def test_orient_cube_moves_only_the_spectral_axis() -> None:
+    cube_yxb = np.stack(
+        [_orientation_contract_grid(), _orientation_contract_grid(offset=100.0)],
+        axis=2,
+    )
+
+    np.testing.assert_array_equal(_orient_cube(cube_yxb, 2), cube_yxb)
+    np.testing.assert_array_equal(
+        _orient_cube(np.moveaxis(cube_yxb, 2, 0), 2),
+        cube_yxb,
+    )
+    np.testing.assert_array_equal(
+        _orient_cube(np.moveaxis(cube_yxb, 2, 1), 2),
+        cube_yxb,
+    )
+
+    assert not np.array_equal(_orient_cube(np.moveaxis(cube_yxb, 2, 0), 2), cube_yxb[::-1, :, :])
+    assert not np.array_equal(_orient_cube(np.moveaxis(cube_yxb, 2, 1), 2), cube_yxb[:, ::-1, :])
+
+
+def test_get_ancillary_reports_actionable_shape_mismatches(tmp_path: Path) -> None:
+    h5_path = tmp_path / "drone_ancillary_mismatch.h5"
+    _create_fake_orientation_contract_file(
+        h5_path,
+        ancillary_overrides={"Slope": np.arange(12, dtype=np.float32).reshape(4, 3)},
+    )
+
+    cube = NeonCube(h5_path=h5_path)
+
+    with pytest.raises(
+        ValueError,
+        match=r"Ancillary 'slope' has shape \(4, 3\) which does not match the reflectance cube \(3, 4\)",
+    ):
+        cube.get_ancillary("slope", radians=False)

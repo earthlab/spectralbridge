@@ -36,6 +36,7 @@ def init_ray(*, num_cpus: int | None = None, **ray_kwargs: Any):
     os.environ.setdefault("RAY_memory_monitor_refresh_ms", "0")
     os.environ.setdefault("RAY_memory_usage_threshold", "1.0")
     os.environ.setdefault("RAY_enable_object_store_memory_monitor", "0")
+    os.environ.setdefault("RAY_ENABLE_UV_RUN_RUNTIME_ENV", "0")
 
     RAY_DEBUG = os.environ.get("CSC_RAY_DEBUG", "").lower() in {"1", "true", "yes"}
 
@@ -72,6 +73,7 @@ def init_ray(*, num_cpus: int | None = None, **ray_kwargs: Any):
         merged_env = default_runtime_env
 
     init_kwargs = {
+        "address": "local",
         "num_cpus": resolved,
         "ignore_reinit_error": True,
         "include_dashboard": False,
@@ -92,7 +94,12 @@ def ray_map(
 ) -> list[_U]:
     """Execute ``func`` across ``iterable`` using Ray remote tasks."""
 
-    ray = init_ray(num_cpus=num_cpus)
+    try:
+        ray = init_ray(num_cpus=num_cpus)
+    except Exception as exc:  # pragma: no cover - depends on local Ray availability
+        raise RuntimeError(
+            "Ray initialization failed before any tasks were submitted."
+        ) from exc
 
     # Import Ray exception types lazily so importing this module does not
     # initialize Ray. ``require_ray`` in :func:`init_ray` ensures ``ray`` is
