@@ -2,8 +2,8 @@
 
 The CLI provides restart-safe entry points for downloading NEON flightlines, running the full pipeline, generating QA outputs, and merging Parquet artefacts.
 
-> Legacy `cscal-*`/`csc-*` entry points still work and forward to the same
-> implementation, but the primary names are ``spectralbridge-*``.
+> Legacy CLI entry points still work and forward to the same implementation,
+> but the primary names are ``spectralbridge-*``.
 
 ---
 

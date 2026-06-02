@@ -1,6 +1,6 @@
 # SpectralBridge — Translating surface reflectance across sensors and scales
 
-**SpectralBridge (formerly cross-sensor-cal)** is a modular Python-based tool that adjusts fine-resolution (few centimeters to ~ 5 meters) “pure” spectra from airborne imaging spectroscopy (IS) and uncrewed aerial system (UAS) multispectral imagery to match the spectral configurations of moderate-resolution satellite sensors (over 30 meters).
+**SpectralBridge** is a modular Python-based tool that adjusts fine-resolution (few centimeters to ~ 5 meters) “pure” spectra from airborne imaging spectroscopy (IS) and uncrewed aerial system (UAS) multispectral imagery to match the spectral configurations of moderate-resolution satellite sensors (over 30 meters).
 
 ![SpectralBridge pipeline overview](docs/EL_workflow_diagram_updatedQA.png)
 
@@ -40,7 +40,7 @@ spectralbridge-pipeline \
   --max-workers 2
 ```
 
-Legacy `cscal-*` commands remain available for now and forward to the same implementation.
+Legacy CLI aliases remain available for now and forward to the same implementation.
 
 This will:
 
@@ -100,8 +100,8 @@ pip install spectralbridge
 > available as an alias for existing automation and currently resolves to the
 > same dependency set.
 
-> Upgrading from older versions? Imports under ``cross_sensor_cal`` continue to
-> work for now, but new examples use the ``spectralbridge`` namespace.
+> Upgrading from older versions? Legacy imports continue to work for now, but
+> new examples use the ``spectralbridge`` namespace.
 
 ### Quickstart Example
 

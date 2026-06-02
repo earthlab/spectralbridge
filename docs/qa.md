@@ -36,6 +36,6 @@ after fixing headers or rerunning corrections always reflects the current state.
 
 ## QA Dashboard
 
-The legacy `cscal-qa-dashboard` command still expects `_qa_metrics.parquet`
-files. Until the dashboard is updated to read the new JSON schema, keep legacy
-parquet artifacts if you rely on that summary view.
+The legacy QA dashboard command still expects `_qa_metrics.parquet` files.
+Until the dashboard is updated to read the new JSON schema, keep legacy parquet
+artifacts if you rely on that summary view.

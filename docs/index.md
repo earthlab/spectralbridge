@@ -2,11 +2,11 @@
 
 # SpectralBridge
 
-**SpectralBridge (formerly cross-sensor-cal)** translates reflectance among NEON AOP, uncrewed aerial system (e.g., MicaSense), and Landsat observations to place disparate datasets into a common Landsat-referenced frame. It is designed for notebook-first scientists who need reliable, reproducible harmonization to bridge fine-scale ecological measurements with the long-term continental Landsat record. The workflow is pipeline-based rather than a single correction, and it produces artifacts that can be inspected, reused, and resumed.
+**SpectralBridge** translates reflectance among NEON AOP, uncrewed aerial system (e.g., MicaSense), and Landsat observations to place disparate datasets into a common Landsat-referenced frame. It is designed for notebook-first scientists who need reliable, reproducible harmonization to bridge fine-scale ecological measurements with the long-term continental Landsat record. The workflow is pipeline-based rather than a single correction, and it produces artifacts that can be inspected, reused, and resumed.
 
-> Upgrading from older versions? Imports under ``cross_sensor_cal`` and legacy
-> ``cscal-*`` CLI aliases still function, but new examples use the
-> ``spectralbridge`` namespace and ``spectralbridge-*`` commands.
+> Upgrading from older versions? Legacy import and CLI aliases still function,
+> but the docs use the ``spectralbridge`` namespace and
+> ``spectralbridge-*`` commands.
 
 ## What SpectralBridge does
 - Normalizes directional reflectance through topographic and BRDF adjustments, then resamples spectra into Landsat and other target bandpasses for direct comparison.

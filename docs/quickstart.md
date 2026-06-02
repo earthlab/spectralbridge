@@ -19,8 +19,8 @@ Ray is included in the standard dependency set. The
 `spectralbridge[full]` extra remains available as an alias for existing
 automation and currently resolves to the same dependency set.
 
-> Upgrading from older versions? ``cross_sensor_cal`` imports and ``cscal-*``
-> commands still work, but new examples use ``spectralbridge`` imports and
+> Upgrading from older versions? Legacy imports and CLI aliases still work,
+> but the Quickstart uses ``spectralbridge`` imports and
 > ``spectralbridge-*`` entry points.
 
 ---

@@ -4512,3 +4512,10 @@ Branch: main
 ```text
 Here is a replacement for the hero image
 ```
+
+## 2026-06-02 - remove public cross-sensor-cal references
+Branch: main
+
+```text
+the website still opens with SpectralBridge (formerly cross-sensor-cal)  even though we were supposed to get rid of all the cross sensor cal references.
+```
