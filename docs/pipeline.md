@@ -1,6 +1,6 @@
 # Pipeline reference
 
-Cross-Sensor Calibration orchestrates the same five ordered stages for every
+SpectralBridge orchestrates a cross-sensor calibration workflow for every
 flight line. Each stage consults `get_flight_paths()` to locate its inputs,
 per-flightline working directory, and outputs, validates artifacts before
 working, and emits emoji-rich logs that make the restart-safe behavior explicit.

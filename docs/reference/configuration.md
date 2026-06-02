@@ -33,8 +33,12 @@ are written.
 
 Execution backend:
 
-- `thread` (default)  
-- `ray` (distributed/hyperparallel workflows)
+- `ray` (default; distributed/hyperparallel workflows)
+- `thread` (local debugging or constrained-memory workflows)
+- `process` (local multi-process fallback)
+
+Ray is part of the standard install. The thread and process engines are still
+useful when you want to avoid Ray initialization for a particular run.
 
 ---
 

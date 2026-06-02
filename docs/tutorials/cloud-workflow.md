@@ -1,6 +1,8 @@
 # Tutorial: Cloud & HPC Workflows
 
-This tutorial describes how to run the SpectralBridge pipeline efficiently in cloud or HPC environments where data access, storage, and memory constraints differ from a local workstation.
+This tutorial describes how to run SpectralBridge efficiently in cloud or HPC
+environments where data access, storage, and memory constraints differ from a
+local workstation.
 
 ---
 
@@ -8,66 +10,98 @@ This tutorial describes how to run the SpectralBridge pipeline efficiently in cl
 
 You will learn:
 
-- best practices for running the pipeline in object-storage environments  
-- when to use thread mode vs. Ray mode  
-- how to work with large NEON datasets without local persistence  
-- strategies for scaling multi-flightline workflows  
+- best practices for running the pipeline in object-storage environments
+- when to use Ray, thread, or process execution
+- how to work with large NEON datasets without long-term local persistence
+- strategies for scaling multi-flightline workflows
 
 ---
 
-## 1. Working with object storage (e.g., CyVerse)
+## 1. Working with object storage
 
-NEON HDF5 tiles can be accessed using `gocmd` or iRODS commands.
+NEON HDF5 files can be staged from object storage or shared research storage
+before running the pipeline.
 
 Recommended workflow:
 
-1. Stage a small number of HDF5 tiles into a temporary working directory  
-2. Run the pipeline on those tiles  
-3. Upload corrected ENVI + Parquet outputs to persistent storage  
-4. Clean intermediate files to save space  
+1. Stage a small number of HDF5 files into a temporary working directory.
+2. Run the pipeline on those flight lines.
+3. Upload corrected ENVI, Parquet, and QA outputs to persistent storage.
+4. Archive or clean intermediate working files according to your storage policy.
 
 Example staging command:
 
 ```bash
 gocmd get i:/iplant/home/.../NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance.h5 .
-2. Engine selection: threads vs Ray
-Thread engine
-Best for:
-small to medium flight lines
-machines with limited memory
-single-tile debugging
-Ray engine
-Best for:
-many flight lines
-distributed cloud environments
-parallel extraction and merging
-Enable Ray:
-pip install spectralbridge[ray]
-Run:
-spectralbridge-pipeline ... --engine ray
-3. Memory considerations
-Large NEON flight lines may be tens of gigabytes. To avoid memory pressure:
-reduce chunk sizes
-use --max-workers conservatively
-prefer per-tile processing rather than large batch merging
-avoid keeping many ENVI cubes in memory simultaneously
-In Ray mode, ensure worker memory matches expected tile size (e.g., 16–32 GB per worker).
-4. Recommended HPC workflow
-Submit one job per flight line
-Request enough memory for a single NEON tile (~20–40 GB)
-Use local scratch storage for temporary files
-Upload final ENVI + Parquet products to shared storage
-Merge results downstream using DuckDB or Python
-This scales cleanly across sites and years.
-5. Example SLURM script
+```
+
+---
+
+## 2. Engine selection
+
+Ray is included in the standard SpectralBridge install and is the default
+engine for `spectralbridge-pipeline`.
+
+Use Ray when you are processing many flight lines, running on cloud/HPC
+resources, or want the default parallel dispatch behavior:
+
+```bash
+spectralbridge-pipeline ... --engine ray --max-workers 8
+```
+
+Use the thread engine for single-flightline debugging or constrained-memory
+runs where you want to avoid Ray initialization:
+
+```bash
+spectralbridge-pipeline ... --engine thread --max-workers 1
+```
+
+Use the process engine only when you specifically want local multi-process
+execution without Ray:
+
+```bash
+spectralbridge-pipeline ... --engine process --max-workers 2
+```
+
+---
+
+## 3. Memory considerations
+
+Large NEON flight lines may require tens of gigabytes of memory. To reduce
+memory pressure:
+
+- reduce `--max-workers`
+- lower `--parquet-chunk-size`
+- use local scratch storage for temporary files
+- avoid keeping many ENVI cubes loaded in memory simultaneously
+- match Ray worker memory to expected flightline size
+
+---
+
+## 4. Recommended HPC workflow
+
+For cluster schedulers, a conservative pattern is one job per flight line:
+
+- request enough memory for a single NEON flight line
+- use local scratch storage for working files
+- write final ENVI, Parquet, and QA products to shared storage
+- merge or summarize completed outputs downstream with DuckDB or Python
+
+This keeps failed jobs isolated and preserves restart safety.
+
+---
+
+## 5. Example SLURM script
+
+```bash
 #!/bin/bash
-#SBATCH --job-name=cscal
+#SBATCH --job-name=spectralbridge
 #SBATCH --mem=64G
 #SBATCH --cpus-per-task=8
 
 module load python
 
-BASE=$SCRATCH/cscal_${SLURM_JOB_ID}
+BASE=$SCRATCH/spectralbridge_${SLURM_JOB_ID}
 mkdir -p "$BASE"
 
 spectralbridge-pipeline \
@@ -76,11 +110,14 @@ spectralbridge-pipeline \
   --year-month 2023-08 \
   --product-code DP1.30006.001 \
   --flight-lines NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance \
-  --engine thread \
+  --engine ray \
   --max-workers 8
-6. Next steps
-Pipeline stages
-Using Parquet outputs
-Troubleshooting
+```
 
 ---
+
+## Next steps
+
+- [Pipeline stages](../pipeline/stages.md)
+- [Using Parquet outputs](../usage/parquet.md)
+- [Troubleshooting](../troubleshooting.md)

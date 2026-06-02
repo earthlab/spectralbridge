@@ -1,4 +1,14 @@
 .Rproj.user
+
+# OS/editor and Python-generated files
+.DS_Store
+**/.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
 # QA artifacts
 *_qa_metrics.json
 *_qa_metrics.parquet

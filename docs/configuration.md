@@ -95,7 +95,8 @@ corresponding entries in `config.yaml`:
 - `--remote-prefix` → `sort.remote_prefix`
 - `--no-sync` sets `sort.sync_files` to `false`
 - `--max-workers` sets the parallel worker count for `go_forth_and_multiply()`
-- `--engine` selects the backend (`thread`, `process`, or `ray`). Ray requires
-  the optional dependency and is only loaded when requested.
+- `--engine` selects the backend (`ray`, `thread`, or `process`). Ray is part
+  of the standard install and is the default backend; thread/process engines
+  are available when you want to avoid Ray initialization for a specific run.
 
 <!-- FILLME:END -->

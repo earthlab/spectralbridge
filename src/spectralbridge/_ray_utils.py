@@ -94,9 +94,9 @@ def ray_map(
 
     ray = init_ray(num_cpus=num_cpus)
 
-    # Import Ray exception types lazily so this module can be imported without Ray
-    # installed. ``require_ray`` in :func:`init_ray` ensures ``ray`` is available
-    # before these imports execute.
+    # Import Ray exception types lazily so importing this module does not
+    # initialize Ray. ``require_ray`` in :func:`init_ray` ensures ``ray`` is
+    # importable before these imports execute.
     from ray.exceptions import LocalRayletDiedError, OutOfDiskError, RayError
 
     @ray.remote(max_retries=0)

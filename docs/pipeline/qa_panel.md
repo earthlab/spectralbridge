@@ -39,7 +39,7 @@ writes a multi-page PDF report (`<prefix>_qa.pdf`) with three pages:
 
 # QA Panel and Validation Tests
 
-The QA panel is the final diagnostic step of the **Cross-Sensor Calibration pipeline**.  
+The QA panel is the final diagnostic step of the **SpectralBridge cross-sensor calibration pipeline**.
 It provides both a visual and quantitative summary of how well each product behaved through all correction stages (topographic, BRDF, brightness, convolution).  
 
 ---
@@ -172,4 +172,3 @@ for f in glob.glob("*/**/*_qa.json", recursive=True):
 print("Tiles needing review:", bad)
 
 ```
-

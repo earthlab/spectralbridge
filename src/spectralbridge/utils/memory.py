@@ -18,7 +18,7 @@ def clean_memory(label: str = "") -> None:
     """
     try:
         import ray  # type: ignore[import-not-found]
-    except Exception:  # pragma: no cover - ray optional in tests
+    except Exception:  # pragma: no cover - defensive cleanup path
         ray = None
 
     gc.collect()

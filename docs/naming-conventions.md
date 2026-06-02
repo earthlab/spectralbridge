@@ -2,56 +2,84 @@
 
 > DO NOT EDIT OUTSIDE MARKERS
 <!-- FILLME:START -->
-## Canonical Filename Pattern
+## Authoritative helpers
 
-All files produced by the pipeline use a common token order:
+Naming is part of the public workflow contract. Do not construct output paths
+ad hoc; use:
 
-```
-NEON_{site}_{YYYYMMDD}_{HHMMSS}_FL{line}_{product}{suffix}.ext
-```
+- `spectralbridge.paths.FlightlinePaths`
+- `spectralbridge.paths.SensorProductPaths`
+- `spectralbridge.utils.naming.get_flight_paths`
+- `spectralbridge.utils.naming.get_flightline_products`
 
-- `site` – NEON site code (e.g., `SJER`)
-- `YYYYMMDD` and `HHMMSS` – acquisition date and time in UTC
-- `FL{line}` – zero‑padded flight line identifier
-- `product` – base product name (e.g., `NIS`)
-- `suffix` – processing state (see table below)
-- `ext` – file extension such as `.img` or `.hdr`
+## NEON flightline identifiers
 
-**Regex**
+Current NEON examples use the full flightline stem supplied to the pipeline:
 
-```
-^NEON_[A-Z0-9]{4}_\d{8}_\d{6}_FL\d{3}_[A-Za-z0-9]+(?:_radiance|_ancillary|_corrected_envi|_reflectance)\.(?:img|hdr)$
+```text
+NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance
 ```
 
-## Standard Suffixes
+SpectralBridge preserves that stem in every per-flightline output. The raw HDF5
+is stored at the base folder root:
 
-| Suffix | Meaning |
-|--------|---------|
-| `_radiance` | Raw radiance from HDF5 conversion |
-| `_ancillary` | Ancillary data produced with radiance |
-| `_corrected_envi` | BRDF/TOPO corrected ENVI image |
-| `_reflectance` | Final reflectance product |
-
-## Directory Layout
-
-```
-site/
-└── YYYYMMDD/
-    └── FL###/
-        ├── raw/
-        │   ├── NEON_SITE_YYYYMMDD_HHMMSS_FL###_NIS_radiance.img
-        │   └── NEON_SITE_YYYYMMDD_HHMMSS_FL###_NIS_ancillary.img
-        └── derived/
-            ├── NEON_SITE_YYYYMMDD_HHMMSS_FL###_NIS_corrected_envi.img
-            └── NEON_SITE_YYYYMMDD_HHMMSS_FL###_NIS_corrected_envi.hdr
+```text
+<base_folder>/<flight_id>.h5
 ```
 
-## Common Violations & Fixes
+All derived products for that flight line live under:
+
+```text
+<base_folder>/<flight_id>/
+```
+
+## NEON output suffixes
+
+| Pattern | Meaning |
+| --- | --- |
+| `<flight_id>_envi.img/.hdr/.parquet` | Raw NEON ENVI export and Parquet sidecar |
+| `<flight_id>_brdf_model.json` | Scene-level BRDF coefficient model |
+| `<flight_id>_brdfandtopo_corrected_envi.img/.hdr/.json/.parquet` | Canonical BRDF + topographic corrected product |
+| `<flight_id>_<sensor>_envi.img/.hdr/.parquet` | Sensor-resampled output |
+| `<flight_id>_merged_pixel_extraction.parquet` | Merged per-flightline Parquet table |
+| `<flight_id>_qa.png/.json/.pdf` | QA artifacts |
+| `<flight_id>_qa_metrics.parquet` | QA metrics table |
+
+Supported sensor suffixes currently include:
+
+```text
+landsat_tm
+landsat_etm+
+landsat_oli
+landsat_oli2
+micasense
+micasense_to_match_tm_etm+
+micasense_to_match_oli_oli2
+```
+
+## Drone output suffixes
+
+The drone workflow preserves drone-native provenance and intentionally uses a
+double-underscore separator for drone products:
+
+| Pattern | Meaning |
+| --- | --- |
+| `<flight_stem>__working.h5` | Run-owned local HDF5 copy |
+| `<flight_stem>__envi.img/.hdr` | Drone ENVI export |
+| `<flight_stem>__corrected.img/.hdr` | Drone corrected ENVI output |
+| `<flight_stem>__polygon_index.parquet` | Polygon-to-pixel lookup |
+| `<flight_stem>__polygons.parquet` | Polygon-filtered spectral table |
+| `<flight_stem>__qa.png/.json` | Drone QA artifacts |
+| `drone_merged.parquet` | Merged drone polygon table |
+| `drone_qa_summary.json` | Batch QA summary |
+
+## Common violations and fixes
 
 | Violation | Why it matters | Fix |
-|-----------|----------------|-----|
-| Missing flight line token | Downstream scripts cannot group files | Include `_FL###` before the suffix |
-| Wrong suffix for directory (e.g., `_radiance` in `derived/`) | Causes processing confusion | Move file to `raw/` or rename with proper suffix |
-| Lower‑case site code | Breaks regex patterns | Use upper‑case site codes |
-| Spaces instead of underscores | Parsing fails | Replace spaces with `_` |
+| --- | --- | --- |
+| Inventing a filename outside the helper APIs | Downstream stages and docs may not find the artifact | Add or update the relevant path helper |
+| Renaming NEON outputs to shorter stems | Breaks restart safety and provenance | Preserve the full `<flight_id>` stem |
+| Using NEON-style names for drone outputs | Loses drone-native provenance and conflicts with the drone workflow contract | Use the double-underscore drone patterns |
+| Replacing Parquet with CSV as the authoritative table | Breaks the high-performance analysis path | Keep Parquet authoritative; CSV sidecars, when present, are convenience copies |
+| Changing sensor suffix spelling | Breaks `FlightlinePaths.sensor_products` consumers | Update path helpers, tests, and docs together if a suffix must change |
 <!-- FILLME:END -->

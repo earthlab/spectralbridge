@@ -20,7 +20,7 @@ CI workflows enforce the invariants above:
 - **Lint + smoke (`ci.yml`, lite job):** `ruff check src tests` and `pytest -q -m "lite"` with `CSCAL_TEST_MODE=lite` on Python 3.11.
 - **Full tests (`ci.yml`, unit job):** `pytest -q` with `CSCAL_TEST_MODE=unit` after lite completes.
 - **QA quick check (`qa-ci.yml`):** runs `pytest tests/test_qa -q` and renders a QA fixture image/JSON to ensure `_qa.*` outputs remain consistent.
-- **Docs build (`docs.yml`):** `python tools/site_prepare.py` then `mkdocs build --strict` plus a best-effort link check.
+- **Docs build + browser smoke (`docs.yml`):** `python tools/site_prepare.py`, `mkdocs build --strict`, Playwright browser checks for key pages/search/assets, plus a best-effort link check.
 - **Docs drift (`docs-drift.yml`):** `python tools/doc_drift_audit.py` flags missing mentions of critical artifacts; `_merged_pixel_extraction.parquet` and `_qa.png` are treated as required outputs in examples.
 
 Run the key checks locally before opening a PR:
@@ -30,6 +30,7 @@ ruff check src tests
 python -m pytest -m lite
 python -m pytest
 python tools/site_prepare.py && mkdocs build --strict
+SPECTRALBRIDGE_DOCS_SITE=http://127.0.0.1:8000 python -m pytest tests/test_docs_playwright.py
 ```
 
 ---

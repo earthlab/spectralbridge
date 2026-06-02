@@ -1,4 +1,4 @@
-# Cross-Sensor Cal Publication Checklist
+# SpectralBridge Publication Checklist
 
 > Living document for preparing the project for packaging and public release. Update
 > the status boxes and notes as tasks are completed.
@@ -11,7 +11,7 @@
 - [ ] Audit repository for large data or notebooks that should be excluded from source distributions. Use `.gitignore`/`MANIFEST.in` to prevent shipping bulky artifacts.
 
 ## 2. Dependencies & Environment
-- [ ] Inventory runtime vs. optional dependencies by reviewing modules (e.g., GDAL, HyTools, Ray) and refactor imports so optional features are guarded or extra-requirements are defined.
+- [ ] Inventory required runtime dependencies, including Ray, separately from truly optional integrations (e.g., GDAL/HyTools extras if introduced).
 - [ ] Translate `environment.yaml` into concise dependency groups (`install_requires`, `extras_require`, dev/test/doc extras). Remove pinned Windows-specific or conda-only packages that do not belong on PyPI.
 - [ ] Provide a lightweight sample dataset or clearly document external data requirements so users can run example pipelines after installing from PyPI.
 - [ ] Add a `requirements-dev.txt` or equivalent to unify tooling for contributors (formatters, linters, docs builders).
@@ -48,4 +48,4 @@
 - [ ] Schedule periodic dependency and security audits (Dependabot, `pip-audit`) and plan for long-term maintenance.
 
 ---
-_Last updated: 2025-08-15_
+_Last updated: 2026-06-02_

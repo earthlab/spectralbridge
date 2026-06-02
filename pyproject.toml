@@ -49,6 +49,7 @@ docs = [
     "mkdocstrings[python]",
     "mkdocs-macros-plugin",
     "mkdocs-glightbox",
+    "pytest-playwright>=0.5",
 ]
 
 [project.scripts]

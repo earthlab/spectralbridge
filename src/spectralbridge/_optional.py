@@ -1,12 +1,13 @@
-"""Helpers for optional heavy dependencies."""
+"""Helpers for dependency import checks."""
 from __future__ import annotations
 
 
 def _missing(extra: str, package: str) -> RuntimeError:
+    _ = extra  # retained for compatibility with existing callers
     return RuntimeError(
-        "Optional dependency '{package}' is required for this feature. "
-        "Install cross-sensor-cal with the '{extra}' extra, e.g. "
-        "`pip install cross-sensor-cal[{extra}]`.".format(package=package, extra=extra)
+        "Dependency '{package}' is required for this feature but could not be "
+        "imported. Install or repair the standard SpectralBridge environment, "
+        "e.g. `pip install spectralbridge`.".format(package=package)
     )
 
 

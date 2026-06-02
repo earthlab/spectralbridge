@@ -1,4 +1,5 @@
-"""Tests ensuring the pipeline does not require Ray unless explicitly requested."""
+"""Tests for required Ray/default engine behavior."""
+
 from __future__ import annotations
 
 import builtins
@@ -40,12 +41,12 @@ def _stub_pipeline(monkeypatch: pytest.MonkeyPatch, tmp_path: Path):
     monkeypatch.setattr("spectralbridge.pipelines.pipeline.process_one_flightline", lambda **_: None)
 
 
-def test_thread_engine_operates_without_ray(
+def test_thread_engine_does_not_initialize_ray(
     tmp_path: Path,
     _block_ray_import: None,
     _stub_pipeline: None,
 ) -> None:
-    """Thread engine fallback should not require Ray."""
+    """Thread engine fallback should not import or initialize Ray."""
 
     go_forth_and_multiply(
         base_folder=tmp_path,
@@ -56,14 +57,14 @@ def test_thread_engine_operates_without_ray(
     )
 
 
-def test_ray_engine_requires_dependency(
+def test_default_ray_engine_requires_importable_ray(
     tmp_path: Path,
     _block_ray_import: None,
     _stub_pipeline: None,
 ) -> None:
-    """Ray default should surface a helpful error when Ray is missing."""
+    """The default Ray engine should surface a clear environment error."""
 
-    with pytest.raises(RuntimeError, match="Optional dependency 'ray'"):
+    with pytest.raises(RuntimeError, match="Dependency 'ray'"):
         go_forth_and_multiply(
             base_folder=tmp_path,
             site_code="TEST",

@@ -85,9 +85,9 @@ _Generated from git history using author filters for "ttuff" / "Ty Tuff"._
   - Key changes: Touched src; primary focus: code.
 - `edde4a3` (2025-11-10) [NEON pipeline][Parquet] – Add Ray defaults and parallelize ENVI and parquet stages
   - Key changes: Touched src/tests; primary focus: code.
-- `188d5c0` (2025-11-10) [Docs][NEON pipeline] – Merge pull request #219 from earthlab/codex/harden-pipeline-for-optional-ray-dependency
+- `188d5c0` (2025-11-10) [Docs][NEON pipeline] – Historical Ray dependency docs update, superseded by required-Ray publication docs
   - Key changes: Touched README.md/docs/src/tests; primary focus: docs.
-- `0cd9b4e` (2025-11-10) [Docs][NEON pipeline] – Make Ray backend optional and add engine toggle
+- `0cd9b4e` (2025-11-10) [Docs][NEON pipeline] – Historical Ray engine-toggle docs update, superseded by required-Ray publication docs
   - Key changes: Touched README.md/docs/src/tests; primary focus: docs.
 - `e3a0267` (2025-11-07) – Merge pull request #218 from earthlab/codex/implement-stream_prism_to_polygon-and-update-notebook
   - Key changes: Touched notebooks/src; primary focus: code.

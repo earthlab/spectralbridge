@@ -1,6 +1,6 @@
-# Cross-Sensor Calibration Documentation Style Guide
+# SpectralBridge Documentation Style Guide
 
-This guide establishes conventions for writing documentation in the Cross-Sensor Calibration project. Its goal is to create a linear, pedagogical narrative that makes the package easy to understand and adopt.
+This guide establishes conventions for writing documentation in the SpectralBridge project. Its goal is to create a linear, pedagogical narrative that makes the package easy to understand and adopt. Use "SpectralBridge" for the package or project name, and use "cross-sensor calibration" when referring to the technical workflow or scientific concept.
 
 ## Philosophy
 - **Clarity first.** Explain concepts in plain language before introducing technical jargon.

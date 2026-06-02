@@ -16,6 +16,9 @@ from spectralbridge.pipelines.pipeline import (
 
 Use `process_one_flightline` when you are exploring or validating a single flightline. Use `go_forth_and_multiply` when you have a list of flightlines and want the same pipeline applied in batch.
 
+`go_forth_and_multiply` also runs the download stage. `process_one_flightline`
+expects the matching HDF5 file to already exist in `base_folder`.
+
 ---
 
 ## 2) Canonical single-flightline example
@@ -31,11 +34,15 @@ site_code = "NIWO"
 year_month = "2023-08"
 flightline_id = "NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance"
 
-# Run the structured, skip-aware pipeline for one flightline
-process_one_flightline(
+# Run the structured, skip-aware pipeline for one flightline, including download
+go_forth_and_multiply(
     base_folder=base_folder,
+    site_code=site_code,
+    year_month=year_month,
     product_code="DP1.30006.001",  # NEON hyperspectral product
-    flight_stem=flightline_id,
+    flight_lines=[flightline_id],
+    max_workers=1,
+    engine="thread",
 )
 ```
 

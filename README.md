@@ -2,7 +2,7 @@
 
 **SpectralBridge (formerly cross-sensor-cal)** is a modular Python-based tool that adjusts fine-resolution (few centimeters to ~ 5 meters) “pure” spectra from airborne imaging spectroscopy (IS) and uncrewed aerial system (UAS) multispectral imagery to match the spectral configurations of moderate-resolution satellite sensors (over 30 meters).
 
-![[docs/img/pipeline.png](https://github.com/earthlab/spectralbridge/blob/main/docs/EL_workflow_diagram.png)](https://github.com/earthlab/spectralbridge/blob/main/docs/EL_workflow_diagram_updatedQA.png)
+![SpectralBridge pipeline overview](docs/EL_workflow_diagram_updatedQA.png)
 
 ## Environment setup
 
@@ -47,14 +47,14 @@ This will:
 - Download each NEON `.h5` flight line (with a live download progress bar).
 - Convert the cube to ENVI using canonical `<flight_stem>_envi.img/.hdr` names.
 - Compute and apply BRDF + topographic correction.
-- Convolve to multiple sensor bandpasses (Landsat TM/ETM+/OLI, OLI2, Micasense, etc.).
+- Convolve to multiple sensor bandpasses (Landsat TM/ETM+/OLI, OLI2, MicaSense, etc.).
 - Export reflectance products and per-sensor tables to ENVI + Parquet.
 
 Output structure:
 
 ```text
 output_demo/
-    <flight_stem>.h5                       # raw NEON flightline (safe to delete later)
+    <flight_stem>.h5                       # raw NEON flightline retained at the root
     <flight_stem>/                         # all derived products for that line
         <flight_stem>_envi.img/.hdr/.parquet
         <flight_stem>_brdfandtopo_corrected_envi.img/.hdr/.json/.parquet
@@ -76,9 +76,10 @@ That command re-renders `<flight_stem>_qa.png` inside each per-flightline folder
 
 ### Parallel execution from the CLI
 
-- `--max-workers N` (defaults to `2`) bounds parallelism.
-- `--engine {thread,process,ray}` selects the parallel backend. Ray is only
-  loaded when explicitly requested and requires the optional dependency.
+- `--max-workers N` (defaults to `8`) bounds parallelism.
+- `--engine {ray,thread,process}` selects the parallel backend. Ray is the
+  default engine and is included in the standard install; thread/process engines
+  remain available for local debugging or constrained-memory runs.
 - Each worker processes one flight line in isolation inside its own subdirectory.
 - Logs from each worker are prefixed with the flight line ID for readability.
 - Memory warning: each hyperspectral cube can consume tens of GB in memory, so avoid
@@ -89,15 +90,15 @@ That command re-renders `<flight_stem>_qa.png` inside each per-flightline folder
 > As of v2.2 the pipeline automatically downloads NEON HDF5 cubes, streams live progress
 > bars, and writes every derived product into a dedicated per-flightline folder.
 
-Install the base package (threads/process execution; Ray remains optional):
+Install the package:
 
 ```bash
 pip install spectralbridge
 ```
 
-> Need Ray-backed execution? Install the optional extra instead:
-> `pip install "spectralbridge[full]"`. The default engine uses threads so
-> Ray is not required for typical workflows.
+> Ray is part of the standard dependency set. `spectralbridge[full]` remains
+> available as an alias for existing automation and currently resolves to the
+> same dependency set.
 
 > Upgrading from older versions? Imports under ``cross_sensor_cal`` continue to
 > work for now, but new examples use the ``spectralbridge`` namespace.
@@ -157,8 +158,8 @@ output_fresh/
   interruption; it will resume from what's missing.
 - **Per-flightline isolation:** Each flight line has its own subdirectory. This allows
   parallel execution and makes it clear which outputs belong together.
-- **Ephemeral HDF5:** The original NEON `.h5` stays at the top level and can be deleted
-  later if you only want corrected/derived products.
+- **Ephemeral HDF5:** The original NEON `.h5` stays at the top level and can be
+  archived separately if you only want corrected/derived products in the working folder.
 - **QA panels:** After processing, `spectralbridge-qa` generates a multi-panel summary figure per
   flight line, to visually confirm that each step (export, correction, convolution,
   parquet) completed successfully. QA figures are re-generated on every run to reflect
@@ -167,33 +168,34 @@ output_fresh/
 
 ### Parallel Execution
 
-By default the pipeline processes multiple flight lines in sequence. To speed up
-workflows, set `max_workers` in `go_forth_and_multiply()` to run several in
-parallel. Each worker operates on its own subfolder and logs are prefixed with
-the flightline ID:
+By default the pipeline uses the Ray engine and the configured `max_workers`
+budget to process multiple flight lines in parallel. For local debugging or
+constrained-memory workflows, set `engine="thread"` or lower `max_workers`.
+Each worker operates on its own subfolder and logs are prefixed with the
+flightline ID:
 
 ```
 [NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] 🚀 Processing ...
 [NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance] 🚀 Processing ...
 ```
 
-Feature availability by install type:
+Install contents:
 
-| Feature | Base | `[full]` |
+| Feature | Standard install | `[full]` alias |
 |---|---|---|
 | Core array ops (NumPy/Scipy) | ✅ | ✅ |
 | Raster I/O (Rasterio) | ✅ | ✅ |
 | Vector I/O/ops (GeoPandas) | ✅ | ✅ |
 | ENVI/HDR (Spectral) | ✅ | ✅ |
 | HDF5 (h5py) | ✅ | ✅ |
-| Ray engine option | ➖ | ✅ |
+| Ray engine | ✅ | ✅ |
 
 Replace `SITE` with a NEON site code and `FLIGHT_LINE` with an actual line identifier.
 
 ## Pipeline overview
 
-Cross-Sensor Calibration processes every flight line through a restart-safe
-seven-stage flow. Each stage streams a tqdm-style progress bar, logs with a
+SpectralBridge runs a cross-sensor calibration workflow for every flight line
+through a restart-safe seven-stage flow. Each stage streams a tqdm-style progress bar, logs with a
 scoped `[flight_stem]` prefix, and writes artifacts using canonical names from
 `get_flight_paths()`:
 
@@ -357,7 +359,12 @@ valid file remains for the prefix.
 rm base_dir/NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance_envi.parquet
 
 # 2. Re-run the pipeline for that flightline; auto-heal will regenerate any missing/invalid parquet
-bin/go_forth_and_multiply base_dir/NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance
+spectralbridge-pipeline \
+  --base-folder base_dir \
+  --site-code NIWO \
+  --year-month 2023-08 \
+  --product-code DP1.30006.001 \
+  --flight-lines NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance
 
 # 3. Optionally, re-validate in soft mode
 bin/validate_parquets --soft base_dir/NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance
@@ -470,7 +477,7 @@ pip install spectralbridge
 ## Documentation
 
 Browse the full documentation site at
-[earthlab.github.io/SpectralBridge](https://earthlab.github.io/SpectralBridge).
+[earthlab.github.io/spectralbridge](https://earthlab.github.io/spectralbridge).
 The site is built with MkDocs Material and automatically deployed to GitHub
 Pages.
 

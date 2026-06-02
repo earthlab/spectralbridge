@@ -6,21 +6,27 @@ These short recipes start from files on disk after the pipeline has run. Copy th
 
 ## Recipe 1: Run a single flightline (recap)
 
-Use this when you want the canonical, restart-safe run for one flightline. See the [Start Here notebook workflow](notebook-example.md) for the full walkthrough.
+Use this when you want the canonical, restart-safe run for one flightline,
+including download. See the [Start Here notebook workflow](notebook-example.md)
+for the full walkthrough.
 
 ```python
 from pathlib import Path
-from spectralbridge.pipelines.pipeline import process_one_flightline
+from spectralbridge.pipelines.pipeline import go_forth_and_multiply
 
 base_folder = Path("csc_output")
 site_code = "NIWO"
 year_month = "2023-08"
 flightline_id = "NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance"
 
-process_one_flightline(
+go_forth_and_multiply(
     base_folder=base_folder,
+    site_code=site_code,
+    year_month=year_month,
     product_code="DP1.30006.001",
-    flight_stem=flightline_id,
+    flight_lines=[flightline_id],
+    max_workers=1,
+    engine="thread",
 )
 ```
 
@@ -44,8 +50,12 @@ flightline_ids = [
 
 go_forth_and_multiply(
     base_folder=base_folder,
+    site_code="NIWO",
+    year_month="2023-08",
     product_code="DP1.30006.001",
-    flight_stems=flightline_ids,
+    flight_lines=flightline_ids,
+    max_workers=2,
+    engine="ray",
 )
 ```
 
