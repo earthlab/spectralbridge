@@ -84,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tutorial-micasense-landsat-harmonization" class="md-skip">
+        <a href="#tutorial-micasense-local-h5-workflow" class="md-skip">
           Skip to content
         </a>
       
@@ -818,10 +818,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#inputs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Overview
+        Inputs
       
     </span>
   </a>
@@ -829,10 +829,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-inputs" class="md-nav__link">
+  <a href="#run-the-drone-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Inputs
+        Run the drone pipeline
       
     </span>
   </a>
@@ -840,10 +840,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-harmonization-workflow" class="md-nav__link">
+  <a href="#outputs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Harmonization workflow
+        Outputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inspect-the-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect the run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relation-to-landsat-harmonization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relation to Landsat harmonization
       
     </span>
   </a>
@@ -1525,6 +1547,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../dev/container-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container and remote helper scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/publication-cleanup-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publication cleanup log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../dev/contributing/" class="md-nav__link">
         
   
@@ -1606,64 +1684,79 @@
   
 
 
-<h1 id="tutorial-micasense-landsat-harmonization">Tutorial: MicaSense → Landsat Harmonization<a class="headerlink" href="#tutorial-micasense-landsat-harmonization" title="Permanent link">&para;</a></h1>
-<p>This tutorial demonstrates how to harmonize drone-scale multispectral reflectance (e.g., MicaSense RedEdge) into Landsat-equivalent band values using the SpectralBridge regression workflow.</p>
-<hr />
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>You will learn how to:</p>
-<ol>
-<li>prepare MicaSense reflectance inputs  </li>
-<li>apply band mapping and wavelength matching  </li>
-<li>use regression tables to harmonize reflectance  </li>
-<li>inspect harmonized Landsat-style products  </li>
-</ol>
-<p>This allows direct comparison between drone and satellite observations.</p>
-<hr />
-<h2 id="1-inputs">1. Inputs<a class="headerlink" href="#1-inputs" title="Permanent link">&para;</a></h2>
-<p>You need reflectance values from a calibrated drone multispectral system. These can be:</p>
-<ul>
-<li>stacked reflectance TIFFs  </li>
-<li>ENVI-formatted band images  </li>
-<li>Parquet tables exported from your workflow  </li>
-</ul>
-<p>Each band should have known center wavelengths.</p>
-<hr />
-<h2 id="2-harmonization-workflow">2. Harmonization workflow<a class="headerlink" href="#2-harmonization-workflow" title="Permanent link">&para;</a></h2>
-<p>SpectralBridge uses regression relationships linking MicaSense band values to Landsat OLI bands. These regressions are derived from calibrated field and NEON comparisons.</p>
-<p>Run the following command:</p>
-<p>```bash
-spectralbridge-micasense-to-landsat \
-  --input your_micasense_input \
-  --output ms_to_ls_output \
-  --regression-table data/regression/micasense_to_landsat.csv
-Outputs include:
-Landsat-equivalent reflectance table
-diagnostic statistics
-optional ENVI export
-3. Inspecting harmonized reflectance
-Example:
-import pandas as pd</p>
-<p>df = pd.read_parquet("ms_to_ls_output/micasense_landsat_harmonized.parquet")
-df.head()
-Columns will match Landsat bands:
-Blue
-Green
-Red
-NIR
-SWIR1
-SWIR2
-4. NDVI sanity check
-df["ndvi"] = (df["NIR"] - df["Red"]) / (df["NIR"] + df["Red"])
-df["ndvi"].describe()
-If harmonization worked correctly, NDVI should fall within typical vegetation ranges (0.1–0.9 for most cases).
-5. Next steps
-Integrate drone → NEON → Landsat comparisons
-Combine harmonized products with NEON-derived spectra
-Use the merged output in ecological modeling workflows
-See also:
-NEON → Landsat tutorial
-Pipeline outputs</p>
-<hr />
+<h1 id="tutorial-micasense-local-h5-workflow">Tutorial: MicaSense Local-H5 Workflow<a class="headerlink" href="#tutorial-micasense-local-h5-workflow" title="Permanent link">&para;</a></h1>
+<p>This tutorial shows the supported path for local drone or MicaSense-style HDF5
+exports. The workflow preserves drone-native provenance, discovers HDF5 files
+recursively, writes ENVI products, extracts polygon Parquet tables when a
+polygon layer is provided, and renders QA artifacts.</p>
+<p>There is no dedicated <code>spectralbridge-micasense-to-landsat</code> CLI today. Use the
+Python API shown here.</p>
+<h2 id="inputs">Inputs<a class="headerlink" href="#inputs" title="Permanent link">&para;</a></h2>
+<p>Prepare a folder containing local HDF5 exports:</p>
+<div class="highlight"><pre><span></span><code>drone_h5_exports/
+  SPR1-06-28-23 ExportPackage/
+    *.h5
+  SPR2-06-28-23 ExportPackage/
+    *.h5
+</code></pre></div>
+<p>If you want polygon-level tables, also prepare a polygon layer supported by
+GeoPandas, such as GeoPackage or GeoJSON.</p>
+<h2 id="run-the-drone-pipeline">Run the drone pipeline<a class="headerlink" href="#run-the-drone-pipeline" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_drone_pipeline</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">run_drone_pipeline</span><span class="p">(</span>
+    <span class="n">input_h5_dir</span><span class="o">=</span><span class="s2">&quot;drone_h5_exports&quot;</span><span class="p">,</span>
+    <span class="n">polygon_path</span><span class="o">=</span><span class="s2">&quot;Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg&quot;</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;drone_outputs&quot;</span><span class="p">,</span>
+    <span class="n">apply_topo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">apply_brdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">use_ndvi_brdf_bins</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">apply_brightness_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Set <code>polygon_path=None</code> when you only need ENVI and QA products.</p>
+<h2 id="outputs">Outputs<a class="headerlink" href="#outputs" title="Permanent link">&para;</a></h2>
+<p>Each discovered flight gets its own output folder:</p>
+<div class="highlight"><pre><span></span><code>drone_outputs/
+  &lt;flight_stem&gt;/
+    &lt;flight_stem&gt;__working.h5
+    &lt;flight_stem&gt;__envi.img
+    &lt;flight_stem&gt;__envi.hdr
+    &lt;flight_stem&gt;__corrected.img
+    &lt;flight_stem&gt;__corrected.hdr
+    &lt;flight_stem&gt;__polygon_index.parquet
+    &lt;flight_stem&gt;__polygons.parquet
+    &lt;flight_stem&gt;__qa.png
+    &lt;flight_stem&gt;__qa.json
+  drone_merged.parquet
+  drone_qa_summary.json
+</code></pre></div>
+<p>Parquet remains the authoritative tabular output. CSV sidecars, when present in
+drone workflows, are convenience copies for external tools.</p>
+<h2 id="inspect-the-run">Inspect the run<a class="headerlink" href="#inspect-the-run" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;drone_outputs&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;qa_summary_path&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;merged&quot;</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">qa_png</span> <span class="ow">in</span> <span class="n">output_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*/*__qa.png&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">qa_png</span><span class="p">)</span>
+</code></pre></div>
+<p>The QA JSON records whether requested topographic or BRDF corrections were
+applied, skipped because ancillary data were unavailable, or reverted because
+the corrected product failed quality checks.</p>
+<h2 id="relation-to-landsat-harmonization">Relation to Landsat harmonization<a class="headerlink" href="#relation-to-landsat-harmonization" title="Permanent link">&para;</a></h2>
+<p>The local drone path does not invent NEON-style filenames and does not run the
+NEON download workflow. Landsat-style products for NEON flightlines are still
+generated by the standard sensor harmonization stage and use names such as:</p>
+<div class="highlight"><pre><span></span><code>*_landsat_tm_envi.img
+*_landsat_oli_envi.img
+*_micasense_envi.img
+*_micasense_to_match_oli_oli2_envi.img
+</code></pre></div>
+<p>Those NEON outputs are documented in
+<a href="../../pipeline/outputs/">Outputs &amp; file structure</a>.</p>
 
 
 

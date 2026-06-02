@@ -9,15 +9,17 @@
   },
   "stale_in_docs": {
     "outputs": [
-      "_landsat_convolved_envi.hdr",
-      "_landsat_convolved_envi.img",
       "_landsat_etm+_envi.img",
+      "_landsat_oli_envi.hdr",
+      "_landsat_oli_envi.img",
       "_landsat_oli_envi.parquet",
       "_landsat_tm_envi.hdr",
       "_landsat_tm_envi.img",
+      "_landsat_tm_envi.parquet",
       "_micasense*_envi.img",
       "_micasense_envi.hdr",
-      "_micasense_envi.img"
+      "_micasense_envi.img",
+      "_micasense_to_match_oli_oli2_envi.img"
     ],
     "sensors": [
       "MicaSense",
@@ -31,7 +33,7 @@
       "MicaSense,,,,,,",
       "MicaSense,,,,,,,",
       "MicaSense-matched",
-      "Micasense,",
+      "MicaSense-style",
       "Micasense,,",
       "Micasense,,,",
       "Micasense,,,,",
@@ -47,7 +49,8 @@
       "micasense'],,,,,,",
       "micasense*_envi.img,",
       "micasense*_envi.img`,",
-      "micasense-to-landsat",
+      "micasense-to-landsat.md)",
+      "micasense-to-landsat`",
       "micasense.json`",
       "micasense_envi\",",
       "micasense_envi.hdr",
@@ -71,9 +74,6 @@
       "micasense_envi.img/.hdr/.parquet,,,,",
       "micasense_envi.img/.hdr/.parquet,,,,,",
       "micasense_envi.img/.hdr/.parquet,,,,,,",
-      "micasense_input",
-      "micasense_landsat_harmonized.parquet\")",
-      "micasense_to_landsat.csv",
       "micasense_to_match_oli_and_oli,",
       "micasense_to_match_oli_and_oli,,",
       "micasense_to_match_oli_and_oli,,,",
@@ -86,6 +86,8 @@
       "micasense_to_match_oli_oli,,,,",
       "micasense_to_match_oli_oli,,,,,",
       "micasense_to_match_oli_oli,,,,,,",
+      "micasense_to_match_oli_oli2",
+      "micasense_to_match_oli_oli2_envi.img",
       "micasense_to_match_oli_oli2`",
       "micasense_to_match_tm_etm+,,,,,,",
       "micasense_to_match_tm_etm+`",
@@ -169,13 +171,15 @@
     "topo_and_brdf_correction.py": [
       "--config_file"
     ],
+    "standard_resample.py": [
+      "--hdr_path",
+      "--json_file",
+      "--output_path",
+      "--resampling_file_path",
+      "--sensor_type"
+    ],
     "neon_to_envi.py": [
       "--brightness-offset"
-    ],
-    "qa_dashboard.py": [
-      "--base-folder",
-      "--out-parquet",
-      "--out-png"
     ],
     "merge_duckdb.py": [
       "--corrected-glob",
@@ -191,36 +195,10 @@
       "--resampled-glob",
       "--write-feather"
     ],
-    "standard_resample.py": [
-      "--hdr_path",
-      "--json_file",
-      "--output_path",
-      "--resampling_file_path",
-      "--sensor_type"
-    ],
-    "download.py": [
-      "--flight",
-      "--output",
-      "--product",
-      "--year-month"
-    ],
-    "pipeline.py": [
-      "--brightness-offset",
-      "--no-sync",
-      "--polygon_layer_path",
-      "--reflectance-offset",
-      "--remote-prefix",
-      "--resample-method",
-      "--use-ndvi-brdf-bins",
-      "--verbose"
-    ],
-    "recover_cli.py": [
+    "qa_dashboard.py": [
       "--base-folder",
-      "--brightness-offset"
-    ],
-    "qa_summary_cli.py": [
-      "--output-pdf",
-      "--pattern"
+      "--out-parquet",
+      "--out-png"
     ],
     "pipeline_cli.py": [
       "--base-folder",
@@ -239,6 +217,14 @@
       "--use-ndvi-brdf-bins",
       "--year-month"
     ],
+    "qa_summary_cli.py": [
+      "--output-pdf",
+      "--pattern"
+    ],
+    "recover_cli.py": [
+      "--base-folder",
+      "--brightness-offset"
+    ],
     "qa_cli.py": [
       "--base-folder",
       "--full",
@@ -247,6 +233,22 @@
       "--quick",
       "--rgb-bands",
       "--save-json"
+    ],
+    "download.py": [
+      "--flight",
+      "--output",
+      "--product",
+      "--year-month"
+    ],
+    "pipeline.py": [
+      "--brightness-offset",
+      "--no-sync",
+      "--polygon_layer_path",
+      "--reflectance-offset",
+      "--remote-prefix",
+      "--resample-method",
+      "--use-ndvi-brdf-bins",
+      "--verbose"
     ]
   }
 }

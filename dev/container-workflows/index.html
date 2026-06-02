@@ -10,27 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/stage-04-spectral-library/">
+        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/dev/container-workflows/">
       
       
+        <link rel="prev" href="../architecture/">
+      
+      
+        <link rel="next" href="../publication-cleanup-log/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Stage 04 Spectral Library - SpectralBridge</title>
+        <title>Container and remote helper scripts - SpectralBridge</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,13 +53,13 @@
       
     
     
-      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../stylesheets/spectralbridge.css">
+      <link rel="stylesheet" href="../../stylesheets/spectralbridge.css">
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#stage-04-spectral-library" class="md-skip">
+        <a href="#container-and-remote-helper-scripts" class="md-skip">
           Skip to content
         </a>
       
@@ -94,9 +98,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="SpectralBridge" class="md-header__button md-logo" aria-label="SpectralBridge" data-md-component="logo">
+    <a href="../.." title="SpectralBridge" class="md-header__button md-logo" aria-label="SpectralBridge" data-md-component="logo">
       
-  <img src="../asset/img/spectralbridge_logo.png" alt="logo">
+  <img src="../../asset/img/spectralbridge_logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -113,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Stage 04 Spectral Library
+              Container and remote helper scripts
             
           </span>
         </div>
@@ -212,7 +216,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -233,7 +237,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../quickstart/" class="md-tabs__link">
+        <a href="../../quickstart/" class="md-tabs__link">
           
   
   
@@ -253,7 +257,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../concepts/why-calibration/" class="md-tabs__link">
+        <a href="../../concepts/why-calibration/" class="md-tabs__link">
           
   
   
@@ -273,7 +277,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../tutorials/neon-to-envi/" class="md-tabs__link">
+        <a href="../../tutorials/neon-to-envi/" class="md-tabs__link">
           
   
   
@@ -293,7 +297,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../pipeline/stages/" class="md-tabs__link">
+        <a href="../../pipeline/stages/" class="md-tabs__link">
           
   
   
@@ -313,7 +317,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../usage/cli/" class="md-tabs__link">
+        <a href="../../usage/cli/" class="md-tabs__link">
           
   
   
@@ -333,7 +337,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../reference/configuration/" class="md-tabs__link">
+        <a href="../../reference/configuration/" class="md-tabs__link">
           
   
   
@@ -353,7 +357,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../troubleshooting/" class="md-tabs__link">
+        <a href="../../troubleshooting/" class="md-tabs__link">
           
   
   
@@ -369,11 +373,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../dev/architecture/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../architecture/" class="md-tabs__link">
           
   
   
@@ -409,9 +415,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="SpectralBridge" class="md-nav__button md-logo" aria-label="SpectralBridge" data-md-component="logo">
+    <a href="../.." title="SpectralBridge" class="md-nav__button md-logo" aria-label="SpectralBridge" data-md-component="logo">
       
-  <img src="../asset/img/spectralbridge_logo.png" alt="logo">
+  <img src="../../asset/img/spectralbridge_logo.png" alt="logo">
 
     </a>
     SpectralBridge
@@ -438,7 +444,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -517,7 +523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../quickstart/" class="md-nav__link">
+      <a href="../../quickstart/" class="md-nav__link">
         
   
   
@@ -604,7 +610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/why-calibration/" class="md-nav__link">
+      <a href="../../concepts/why-calibration/" class="md-nav__link">
         
   
   
@@ -691,7 +697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/neon-to-envi/" class="md-nav__link">
+      <a href="../../tutorials/neon-to-envi/" class="md-nav__link">
         
   
   
@@ -719,7 +725,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/neon-to-landsat/" class="md-nav__link">
+      <a href="../../tutorials/neon-to-landsat/" class="md-nav__link">
         
   
   
@@ -747,7 +753,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/micasense-to-landsat/" class="md-nav__link">
+      <a href="../../tutorials/micasense-to-landsat/" class="md-nav__link">
         
   
   
@@ -775,7 +781,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/cloud-workflow/" class="md-nav__link">
+      <a href="../../tutorials/cloud-workflow/" class="md-nav__link">
         
   
   
@@ -862,7 +868,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipeline/stages/" class="md-nav__link">
+      <a href="../../pipeline/stages/" class="md-nav__link">
         
   
   
@@ -890,7 +896,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipeline/outputs/" class="md-nav__link">
+      <a href="../../pipeline/outputs/" class="md-nav__link">
         
   
   
@@ -918,7 +924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipeline/qa/" class="md-nav__link">
+      <a href="../../pipeline/qa/" class="md-nav__link">
         
   
   
@@ -1005,7 +1011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/cli/" class="md-nav__link">
+      <a href="../../usage/cli/" class="md-nav__link">
         
   
   
@@ -1033,7 +1039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/parquet/" class="md-nav__link">
+      <a href="../../usage/parquet/" class="md-nav__link">
         
   
   
@@ -1061,7 +1067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/notebook-example/" class="md-nav__link">
+      <a href="../../usage/notebook-example/" class="md-nav__link">
         
   
   
@@ -1148,7 +1154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/configuration/" class="md-nav__link">
+      <a href="../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -1176,7 +1182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/schemas/" class="md-nav__link">
+      <a href="../../reference/schemas/" class="md-nav__link">
         
   
   
@@ -1204,7 +1210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/validation/" class="md-nav__link">
+      <a href="../../reference/validation/" class="md-nav__link">
         
   
   
@@ -1291,7 +1297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../../troubleshooting/" class="md-nav__link">
         
   
   
@@ -1319,7 +1325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../faq/" class="md-nav__link">
+      <a href="../../faq/" class="md-nav__link">
         
   
   
@@ -1351,26 +1357,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
@@ -1388,7 +1399,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1406,7 +1417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -1431,10 +1442,124 @@
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container and remote helper scripts
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container and remote helper scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#root-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Helpers
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../dev/contributing/" class="md-nav__link">
+      <a href="../publication-cleanup-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publication cleanup log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
         
   
   
@@ -1462,7 +1587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/codex-guidelines/" class="md-nav__link">
+      <a href="../codex-guidelines/" class="md-nav__link">
         
   
   
@@ -1507,7 +1632,7 @@
 
 
   
-    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/stage-04-spectral-library.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/dev/container-workflows.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1515,34 +1640,27 @@
   
 
 
-<h1 id="stage-04-spectral-library">Stage 04 Spectral Library<a class="headerlink" href="#stage-04-spectral-library" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>DO NOT EDIT OUTSIDE MARKERS</p>
-</blockquote>
-<!-- FILLME:START -->
-<p>The spectral library stores every spectrum with its full provenance. Each entry includes:</p>
+<h1 id="container-and-remote-helper-scripts">Container and Remote Helper Scripts<a class="headerlink" href="#container-and-remote-helper-scripts" title="Permanent link">&para;</a></h1>
+<p>SpectralBridge is often run inside containers or cloud instances where mounted
+storage paths do not match local development paths. A few root-level helper
+scripts intentionally remain at the repository root because those workflows
+invoke them from container entry points or mounted working directories.</p>
+<h2 id="root-helpers">Root Helpers<a class="headerlink" href="#root-helpers" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>site</code>: location identifier where you collected the field sample.</li>
-<li><code>sensor</code>: instrument or platform that measured the spectrum.</li>
-<li><code>wavelengths</code>: array of nanometer values shared across spectra.</li>
+<li><code>gocmd</code> is the root-level GoCommands binary used by CyVerse/iRODS transfer
+  workflows.</li>
+<li><code>move_folders_from_instance_to_remote.py</code> helps move completed output folders
+  from a compute instance to remote storage.</li>
+<li><code>remote_to_instance.py</code> helps copy remote data down to the compute instance
+  before processing.</li>
+<li><code>patch_script_toworkfromcorrectedfiles.py</code> is a workflow-specific patch helper
+  retained for reproducibility of the corrected-file workflow.</li>
 </ul>
-<p>These fields live alongside the reflectance values in a row-oriented table or NetCDF group. Use them to
-filter spectra by site, compare sensors, or align data to the wavelength grid.</p>
-<h3 id="quality-controls">Quality controls<a class="headerlink" href="#quality-controls" title="Permanent link">&para;</a></h3>
-<p>You can clean spectra before analysis:</p>
-<ol>
-<li><strong>Outlier filtering</strong> – drop samples that exceed three standard deviations from the mean reflectance
-   at any wavelength.</li>
-<li><strong>Smoothing</strong> – apply a Savitzky–Golay or moving-average filter to reduce instrument noise while
-   preserving absorption features.</li>
-<li><strong>Signal-to-noise ratio (SNR)</strong> – flag spectra with low SNR and exclude them from downstream
-   modeling.</li>
-</ol>
-<h3 id="versioning-and-provenance">Versioning and provenance<a class="headerlink" href="#versioning-and-provenance" title="Permanent link">&para;</a></h3>
-<p>Each library release increments a semantic version. A <code>manifest.json</code> file lists source datasets,
-processing code commits, and software versions so you can reproduce the library or audit its origin.</p>
-<p>Last updated: 2025-08-18</p>
-<!-- FILLME:END -->
+<p>These files are active operational helpers, not importable SpectralBridge
+package modules. They are excluded from source distributions by <code>MANIFEST.in</code>
+so package users do not receive container-specific tooling by accident.</p>
+<p>If these workflows are replaced, move the retired scripts to <code>deprecated/</code>
+instead of deleting them.</p>
 
 
 
@@ -1610,14 +1728,14 @@ processing code commits, and software versions so you can reproduce the library 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "toc.integrate", "content.action.edit", "content.code.copy", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "toc.integrate", "content.action.edit", "content.code.copy", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
       
-        <script src="../js/glightbox-init.js"></script>
+        <script src="../../js/glightbox-init.js"></script>
       
     
   </body>

@@ -1547,6 +1547,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../dev/container-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container and remote helper scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/publication-cleanup-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publication cleanup log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../dev/contributing/" class="md-nav__link">
         
   
@@ -1633,12 +1689,11 @@
 <hr />
 <h2 id="1-minimal-setup">1) Minimal setup<a class="headerlink" href="#1-minimal-setup" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">spectralbridge</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge.pipelines.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">process_one_flightline</span><span class="p">,</span>
-    <span class="n">go_forth_and_multiply</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">go_forth_and_multiply</span><span class="p">,</span> <span class="n">process_one_flightline</span>
 </code></pre></div>
 <p>Use <code>process_one_flightline</code> when you are exploring or validating a single flightline. Use <code>go_forth_and_multiply</code> when you have a list of flightlines and want the same pipeline applied in batch.</p>
+<p><code>go_forth_and_multiply</code> also runs the download stage. <code>process_one_flightline</code>
+expects the matching HDF5 file to already exist in <code>base_folder</code>.</p>
 <hr />
 <h2 id="2-canonical-single-flightline-example">2) Canonical single-flightline example<a class="headerlink" href="#2-canonical-single-flightline-example" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -1651,11 +1706,15 @@
 <span class="n">year_month</span> <span class="o">=</span> <span class="s2">&quot;2023-08&quot;</span>
 <span class="n">flightline_id</span> <span class="o">=</span> <span class="s2">&quot;NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance&quot;</span>
 
-<span class="c1"># Run the structured, skip-aware pipeline for one flightline</span>
-<span class="n">process_one_flightline</span><span class="p">(</span>
+<span class="c1"># Run the structured, skip-aware pipeline for one flightline, including download</span>
+<span class="n">go_forth_and_multiply</span><span class="p">(</span>
     <span class="n">base_folder</span><span class="o">=</span><span class="n">base_folder</span><span class="p">,</span>
+    <span class="n">site_code</span><span class="o">=</span><span class="n">site_code</span><span class="p">,</span>
+    <span class="n">year_month</span><span class="o">=</span><span class="n">year_month</span><span class="p">,</span>
     <span class="n">product_code</span><span class="o">=</span><span class="s2">&quot;DP1.30006.001&quot;</span><span class="p">,</span>  <span class="c1"># NEON hyperspectral product</span>
-    <span class="n">flight_stem</span><span class="o">=</span><span class="n">flightline_id</span><span class="p">,</span>
+    <span class="n">flight_lines</span><span class="o">=</span><span class="p">[</span><span class="n">flightline_id</span><span class="p">],</span>
+    <span class="n">max_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;thread&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>The defaults handle topographic + BRDF correction, spectral convolution into the Landsat frame, brightness adjustment, Parquet export, and QA generation. Re-running the cell will skip stages that are already valid so interrupted sessions can resume safely.</p>

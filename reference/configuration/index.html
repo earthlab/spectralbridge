@@ -1586,6 +1586,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../dev/container-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container and remote helper scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/publication-cleanup-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publication cleanup log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../dev/contributing/" class="md-nav__link">
         
   
@@ -1692,9 +1748,12 @@
 <h3 id="engine"><code>engine</code><a class="headerlink" href="#engine" title="Permanent link">&para;</a></h3>
 <p>Execution backend:</p>
 <ul>
-<li><code>thread</code> (default)  </li>
-<li><code>ray</code> (distributed/hyperparallel workflows)</li>
+<li><code>ray</code> (default; distributed/hyperparallel workflows)</li>
+<li><code>thread</code> (local debugging or constrained-memory workflows)</li>
+<li><code>process</code> (local multi-process fallback)</li>
 </ul>
+<p>Ray is part of the standard install. The thread and process engines are still
+useful when you want to avoid Ray initialization for a particular run.</p>
 <hr />
 <h3 id="max-workers"><code>max-workers</code><a class="headerlink" href="#max-workers" title="Permanent link">&para;</a></h3>
 <p>Controls concurrency in:</p>

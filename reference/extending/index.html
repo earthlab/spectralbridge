@@ -1434,6 +1434,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../dev/container-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container and remote helper scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/publication-cleanup-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publication cleanup log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../dev/contributing/" class="md-nav__link">
         
   
@@ -1516,31 +1572,58 @@
 
 
 <h1 id="extending">Extending<a class="headerlink" href="#extending" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p><strong>When do I need this?</strong> When adding a new target sensor or swapping readers/writers; follow the extension points listed here.</p>
-</blockquote>
-<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Guide contributions that add sensors to Stage 5 or new exporters feeding <a href="../../pipeline/outputs/">Outputs</a>.</p>
-<h2 id="inputs">Inputs<a class="headerlink" href="#inputs" title="Permanent link">&para;</a></h2>
+<p>Use this page when adding a target sensor, a QA output, or a new writer that
+feeds the canonical pipeline outputs. SpectralBridge does not currently have a
+runtime sensor registry; supported sensors are defined through package data,
+path helpers, and pipeline functions.</p>
+<h2 id="adding-a-target-sensor">Adding a target sensor<a class="headerlink" href="#adding-a-target-sensor" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Add the sensor band centers and FWHM values to
+   <code>src/spectralbridge/data/landsat_band_parameters.json</code>.</li>
+<li>Add a canonical output suffix to <code>FlightlinePaths.sensor_products</code> in
+   <code>src/spectralbridge/paths.py</code>.</li>
+<li>Mirror the same suffix in <code>spectralbridge.utils.naming.get_flight_paths</code> if
+   the legacy dictionary path helper needs to resolve the product.</li>
+<li>Check sensor-name aliases in
+   <code>spectralbridge.pipelines.pipeline._safe_resolve_sensor_entry</code>.</li>
+<li>Add or update tests near <code>tests/test_pipeline_convolution.py</code>,
+   <code>tests/test_paths.py</code>, and <code>tests/test_file_sort.py</code>.</li>
+<li>Update <a href="../../naming-conventions/">Naming conventions</a> and
+   <a href="../../pipeline/outputs/">Outputs</a> so docs match the new filenames.</li>
+</ol>
+<h2 id="adding-brightness-coefficients">Adding brightness coefficients<a class="headerlink" href="#adding-brightness-coefficients" title="Permanent link">&para;</a></h2>
+<p>Brightness coefficients live under <code>src/spectralbridge/data/brightness/</code> and
+are loaded with <code>spectralbridge.brightness_config.load_brightness_coefficients</code>.
+Add tests near <code>tests/test_brightness_coefficients.py</code> when introducing or
+renaming a coefficient table.</p>
+<h2 id="adding-qa-or-export-outputs">Adding QA or export outputs<a class="headerlink" href="#adding-qa-or-export-outputs" title="Permanent link">&para;</a></h2>
+<p>QA artifacts are part of the public output contract. Preserve these names unless
+the change is explicitly coordinated across code, tests, and docs:</p>
 <ul>
-<li>Bandpass definitions (CSV/JSON) for the new sensor</li>
-<li>Implementation classes under <code>spectralbridge</code> to register</li>
-<li>Tests covering the new workflow</li>
+<li><code>&lt;flight_id&gt;_qa.png</code></li>
+<li><code>&lt;flight_id&gt;_qa.json</code></li>
+<li>optional <code>&lt;flight_id&gt;_qa.pdf</code></li>
+<li><code>&lt;flight_id&gt;_merged_pixel_extraction.parquet</code></li>
 </ul>
-<h2 id="outputs">Outputs<a class="headerlink" href="#outputs" title="Permanent link">&para;</a></h2>
-<p>Updated convolution products and schemas consumed by <a href="../../pipeline/stages/#parquet-extraction-merging">Parquet export &amp; merge</a>.</p>
-<h2 id="run-it">Run it<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/convolution/test_new_sensor.py
+<p>Update <a href="../../pipeline/qa/">QA panels &amp; metrics</a>, <a href="../../pipeline/outputs/">Outputs</a>,
+and tests under <code>tests/test_qa/</code> when adding metrics or changing payload
+structure.</p>
+<h2 id="quick-verification">Quick verification<a class="headerlink" href="#quick-verification" title="Permanent link">&para;</a></h2>
+<p>Run focused tests first:</p>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>-q<span class="w"> </span>tests/test_pipeline_convolution.py<span class="w"> </span>tests/test_paths.py<span class="w"> </span>tests/test_file_sort.py
+pytest<span class="w"> </span>-q<span class="w"> </span>tests/test_qa
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge.convolution</span><span class="w"> </span><span class="kn">import</span> <span class="n">registry</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">available_sensors</span><span class="p">())</span>
+<p>Then run the public API smoke matrix:</p>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>-q<span class="w"> </span>tests/test_public_api_smoke.py
 </code></pre></div>
 <h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Forgetting to update schemas will break Stage 6 merges.</li>
-<li>Ship lightbox-friendly QA thumbnails when adding new visualization layers.</li>
-<li>Document new sensors in <a href="../../pipeline/stages/#sensor-harmonization">Pipeline Stages</a> and <a href="../../troubleshooting/">Troubleshooting</a>.</li>
+<li>Do not construct output filenames ad hoc; use the path helpers.</li>
+<li>Keep Parquet as the authoritative tabular output.</li>
+<li>Do not change BRDF, topographic correction, spectral response definitions, or
+  brightness coefficients without a scientific review.</li>
+<li>Update docs and tests in the same change whenever output names or public
+  payloads change.</li>
 </ul>
 
 

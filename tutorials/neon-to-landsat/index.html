@@ -812,10 +812,65 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-run-the-convolution-stage" class="md-nav__link">
+  <a href="#2-run-the-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Run the convolution stage
+        2. Run the pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-understanding-landsat-bandpass-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Understanding Landsat bandpass integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-inspecting-landsat-style-envi-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Inspecting Landsat-style ENVI outputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-checking-qa-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Checking QA outputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-using-the-parquet-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Using the Parquet tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
       
     </span>
   </a>
@@ -1525,6 +1580,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../dev/container-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container and remote helper scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/publication-cleanup-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publication cleanup log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../dev/contributing/" class="md-nav__link">
         
   
@@ -1606,82 +1717,108 @@
   
 
 
-<h1 id="tutorial-neon-landsat-style-reflectance">Tutorial: NEON → Landsat-Style Reflectance<a class="headerlink" href="#tutorial-neon-landsat-style-reflectance" title="Permanent link">&para;</a></h1>
-<p>This tutorial shows how to convert physically corrected NEON ENVI reflectance into <strong>Landsat-equivalent reflectance</strong> using sensor spectral response functions (SRFs).</p>
-<p>The output is a set of ENVI cubes and Parquet tables representing NEON reflectance expressed in the Landsat bandspace.</p>
+<h1 id="tutorial-neon-landsat-style-reflectance">Tutorial: NEON -&gt; Landsat-Style Reflectance<a class="headerlink" href="#tutorial-neon-landsat-style-reflectance" title="Permanent link">&para;</a></h1>
+<p>This tutorial shows how SpectralBridge turns physically corrected NEON ENVI
+reflectance into Landsat-style sensor products using sensor spectral response
+functions (SRFs).</p>
+<p>The output is a set of ENVI cubes and Parquet tables representing NEON
+reflectance in target sensor bandspaces such as Landsat TM, ETM+, OLI, and
+OLI-2.</p>
 <hr />
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before running this tutorial, complete:</p>
 <ul>
-<li><a href="../neon-to-envi/">NEON → corrected ENVI</a></li>
+<li><a href="../neon-to-envi/">NEON -&gt; corrected ENVI</a></li>
 </ul>
-<p>You will need the <code>*_brdfandtopo_corrected_envi.img</code> output for convolution.</p>
+<p>You will need the <code>*_brdfandtopo_corrected_envi.img</code> product. If it already
+exists and validates, the pipeline will reuse it and continue to sensor
+resampling.</p>
 <hr />
 <h2 id="1-select-a-corrected-envi-cube">1. Select a corrected ENVI cube<a class="headerlink" href="#1-select-a-corrected-envi-cube" title="Permanent link">&para;</a></h2>
-<p>Your corrected data should look like:</p>
-<p>.../NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance/
-NEON_D13_NIWO_..._brdfandtopo_corrected_envi.img</p>
-<p>This file is the input to Landsat bandpass convolution.</p>
+<p>Your corrected data should live inside a per-flightline folder:</p>
+<div class="highlight"><pre><span></span><code>output_neon_to_envi/
+└── NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance/
+    └── NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance_brdfandtopo_corrected_envi.img
+</code></pre></div>
+<p>This corrected ENVI product is the input to sensor bandpass convolution.</p>
 <hr />
-<h2 id="2-run-the-convolution-stage">2. Run the convolution stage<a class="headerlink" href="#2-run-the-convolution-stage" title="Permanent link">&para;</a></h2>
-<p>If you used the main pipeline, convolution runs automatically after BRDF+topo correction.<br />
-To run only the convolution stage manually:</p>
-<p>```bash
-spectralbridge-pipeline \
-  --base-folder "$BASE" \
-  --site-code NIWO \
-  --year-month 2023-08 \
-  --product-code DP1.30006.001 \
-  --flight-lines NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance \
-  --max-workers 2 \
-  --engine thread \
-  --start-at convolution
-Outputs include:
-<em>_landsat_convolved_envi.img
-</em>_landsat_convolved_envi.hdr
-*_landsat_convolved.parquet
-3. Understanding Landsat bandpass integration
-The convolution stage integrates each corrected spectrum against Landsat OLI SRFs:
-Coastal / Blue / Green / Red
-NIR
-SWIR1
-SWIR2
-This process produces reflectance values aligned to Landsat definitions, enabling:
-direct comparison to satellite imagery
-validation exercises
-cross-scale modeling
-harmonized NDVI and other vegetation indices
-4. Inspecting Landsat-like ENVI outputs
-Example in Python:
-import rioxarray as rxr</p>
-<p>landsat = rxr.open_rasterio("path/to/..._landsat_convolved_envi.img")
-landsat
-Band order, wavelengths, and metadata will match the Landsat OLI sensor.
-5. Checking the QA metrics
-The QA JSON and QA PNG will now include:
-brightness adjustments used in Landsat harmonization
-bandwise statistics after convolution
-wavelength alignment checks
-mask and no-data diagnostics
-Use this to verify successful harmonization.
-6. Using the Parquet tables
-The *_landsat_convolved.parquet file contains:
-one row per pixel
-columns for each Landsat-equivalent band
-pixel geometry and mask indicators
-Example:
-import duckdb</p>
-<p>duckdb.query("""
-    SELECT Red, NIR, (NIR - Red) / (NIR + Red) AS ndvi
-    FROM '..._landsat_convolved.parquet'
-    LIMIT 5
-""").df()
-7. Next steps
-Continue to:
-MicaSense → Landsat harmonization
-Working with Parquet
-Pipeline QA</p>
+<h2 id="2-run-the-pipeline">2. Run the pipeline<a class="headerlink" href="#2-run-the-pipeline" title="Permanent link">&para;</a></h2>
+<p>Sensor resampling runs automatically after BRDF + topographic correction. To
+generate or refresh Landsat-style products, re-run the standard pipeline for
+the same flight line. Completed earlier stages are skipped.</p>
+<div class="highlight"><pre><span></span><code>spectralbridge-pipeline<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--base-folder<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASE</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--site-code<span class="w"> </span>NIWO<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--year-month<span class="w"> </span><span class="m">2023</span>-08<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--product-code<span class="w"> </span>DP1.30006.001<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--flight-lines<span class="w"> </span>NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--max-workers<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--engine<span class="w"> </span>thread
+</code></pre></div>
+<p>Outputs include sensor-specific files such as:</p>
+<div class="highlight"><pre><span></span><code>*_landsat_tm_envi.img
+*_landsat_tm_envi.hdr
+*_landsat_tm_envi.parquet
+*_landsat_oli_envi.img
+*_landsat_oli_envi.hdr
+*_landsat_oli_envi.parquet
+</code></pre></div>
 <hr />
+<h2 id="3-understanding-landsat-bandpass-integration">3. Understanding Landsat bandpass integration<a class="headerlink" href="#3-understanding-landsat-bandpass-integration" title="Permanent link">&para;</a></h2>
+<p>The convolution stage integrates each corrected NEON spectrum against the
+target sensor SRFs. For Landsat OLI-style products, the output bands include
+coastal/aerosol, blue, green, red, NIR, SWIR1, and SWIR2 where supported by the
+sensor definition.</p>
+<p>This process produces reflectance values aligned to Landsat definitions,
+enabling:</p>
+<ul>
+<li>direct comparison to satellite imagery</li>
+<li>validation exercises</li>
+<li>cross-scale modeling</li>
+<li>harmonized vegetation index calculations</li>
+</ul>
+<hr />
+<h2 id="4-inspecting-landsat-style-envi-outputs">4. Inspecting Landsat-style ENVI outputs<a class="headerlink" href="#4-inspecting-landsat-style-envi-outputs" title="Permanent link">&para;</a></h2>
+<p>Example in Python:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">rioxarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rxr</span>
+
+<span class="n">landsat</span> <span class="o">=</span> <span class="n">rxr</span><span class="o">.</span><span class="n">open_rasterio</span><span class="p">(</span><span class="s2">&quot;path/to/..._landsat_oli_envi.img&quot;</span><span class="p">)</span>
+<span class="n">landsat</span>
+</code></pre></div>
+<p>Band order, wavelengths, and metadata are stored in the matching ENVI header.</p>
+<hr />
+<h2 id="5-checking-qa-outputs">5. Checking QA outputs<a class="headerlink" href="#5-checking-qa-outputs" title="Permanent link">&para;</a></h2>
+<p>The QA JSON and QA PNG summarize:</p>
+<ul>
+<li>brightness adjustments used in harmonization</li>
+<li>bandwise statistics after convolution</li>
+<li>wavelength alignment checks</li>
+<li>mask and no-data diagnostics</li>
+</ul>
+<p>Use these artifacts to verify successful harmonization before downstream
+analysis.</p>
+<hr />
+<h2 id="6-using-the-parquet-tables">6. Using the Parquet tables<a class="headerlink" href="#6-using-the-parquet-tables" title="Permanent link">&para;</a></h2>
+<p>Sensor Parquet files use one row per pixel-band observation. A quick DuckDB
+summary looks like:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
+
+<span class="n">duckdb</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT wavelength_nm, AVG(reflectance) AS mean_reflectance</span>
+<span class="s2">    FROM &#39;..._landsat_oli_envi.parquet&#39;</span>
+<span class="s2">    GROUP BY wavelength_nm</span>
+<span class="s2">    ORDER BY wavelength_nm</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+</code></pre></div>
+<p>For analysis across all products, start with the merged table:
+<code>*_merged_pixel_extraction.parquet</code>.</p>
+<hr />
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../micasense-to-landsat/">MicaSense -&gt; Landsat harmonization</a></li>
+<li><a href="../../usage/parquet/">Working with Parquet</a></li>
+<li><a href="../../pipeline/qa/">Pipeline QA</a></li>
+</ul>
 
 
 

@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://earthlab.github.io/spectralbridge/dev/contributing/">
       
       
-        <link rel="prev" href="../architecture/">
+        <link rel="prev" href="../publication-cleanup-log/">
       
       
         <link rel="next" href="../codex-guidelines/">
@@ -1442,6 +1442,62 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../container-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container and remote helper scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../publication-cleanup-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publication cleanup log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1695,7 +1751,7 @@
 <li><strong>Lint + smoke (<code>ci.yml</code>, lite job):</strong> <code>ruff check src tests</code> and <code>pytest -q -m "lite"</code> with <code>CSCAL_TEST_MODE=lite</code> on Python 3.11.</li>
 <li><strong>Full tests (<code>ci.yml</code>, unit job):</strong> <code>pytest -q</code> with <code>CSCAL_TEST_MODE=unit</code> after lite completes.</li>
 <li><strong>QA quick check (<code>qa-ci.yml</code>):</strong> runs <code>pytest tests/test_qa -q</code> and renders a QA fixture image/JSON to ensure <code>_qa.*</code> outputs remain consistent.</li>
-<li><strong>Docs build (<code>docs.yml</code>):</strong> <code>python tools/site_prepare.py</code> then <code>mkdocs build --strict</code> plus a best-effort link check.</li>
+<li><strong>Docs build + browser smoke (<code>docs.yml</code>):</strong> <code>python tools/site_prepare.py</code>, <code>mkdocs build --strict</code>, Playwright browser checks for key pages/search/assets, plus a best-effort link check.</li>
 <li><strong>Docs drift (<code>docs-drift.yml</code>):</strong> <code>python tools/doc_drift_audit.py</code> flags missing mentions of critical artifacts; <code>_merged_pixel_extraction.parquet</code> and <code>_qa.png</code> are treated as required outputs in examples.</li>
 </ul>
 <p>Run the key checks locally before opening a PR:</p>
@@ -1703,7 +1759,12 @@
 python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>lite
 python<span class="w"> </span>-m<span class="w"> </span>pytest
 python<span class="w"> </span>tools/site_prepare.py<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdocs<span class="w"> </span>build<span class="w"> </span>--strict
+python<span class="w"> </span>scripts/check_docs_links.py
+<span class="nv">SPECTRALBRIDGE_DOCS_SITE</span><span class="o">=</span>http://127.0.0.1:8000<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/test_docs_playwright.py
 </code></pre></div>
+<p>Use <code>python scripts/check_docs_links.py --fail-on-fillme</code> for a marker-free
+publication gate. Start a local server for the Playwright check with
+<code>python -m http.server 8000 --directory site</code> after building the site.</p>
 <hr />
 <h2 id="how-to-extend-the-system-safely">How to extend the system safely<a class="headerlink" href="#how-to-extend-the-system-safely" title="Permanent link">&para;</a></h2>
 <h3 id="adding-or-modifying-a-target-sensor">Adding or modifying a target sensor<a class="headerlink" href="#adding-or-modifying-a-target-sensor" title="Permanent link">&para;</a></h3>

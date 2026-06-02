@@ -1136,6 +1136,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#loading-with-pandas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading with pandas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-with-xarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading with xarray
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1525,6 +1558,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../dev/container-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container and remote helper scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/publication-cleanup-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publication cleanup log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../dev/contributing/" class="md-nav__link">
         
   
@@ -1607,62 +1696,81 @@
 
 
 <h1 id="working-with-parquet-outputs">Working with Parquet Outputs<a class="headerlink" href="#working-with-parquet-outputs" title="Permanent link">&para;</a></h1>
-<p>The SpectralBridge pipeline writes Parquet files for each ENVI product it generates. These tables contain one row per pixel and are optimized for high-performance analytics with DuckDB, pandas, or xarray.</p>
+<p>SpectralBridge writes Parquet sidecars for ENVI products and a merged Parquet
+table for each completed flight line. These files are the main analysis entry
+point for DuckDB, pandas, or other columnar tools.</p>
 <hr />
 <h2 id="why-parquet">Why Parquet?<a class="headerlink" href="#why-parquet" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Supports efficient columnar reads  </li>
-<li>Compresses well for large datasets  </li>
-<li>Easily queryable using SQL (DuckDB)  </li>
-<li>Allows out-of-core or streaming access  </li>
+<li>Supports efficient columnar reads.</li>
+<li>Compresses well for large flight lines.</li>
+<li>Works cleanly with DuckDB SQL.</li>
+<li>Avoids loading full scenes into memory for simple summaries.</li>
 </ul>
 <hr />
 <h2 id="file-structure">File structure<a class="headerlink" href="#file-structure" title="Permanent link">&para;</a></h2>
-<p>Typical Parquet file naming:</p>
-<p><em>_brdfandtopo_corrected.parquet
-</em>_landsat_convolved.parquet
-*_merged_pixel_extraction.parquet</p>
-<p>Each file contains columns for:</p>
+<p>Typical Parquet files include:</p>
+<div class="highlight"><pre><span></span><code>*_envi.parquet
+*_brdfandtopo_corrected_envi.parquet
+*_landsat_oli_envi.parquet
+*_merged_pixel_extraction.parquet
+</code></pre></div>
+<p>Per-product files use one row per pixel-band observation and include columns
+such as:</p>
 <ul>
-<li>reflectance values  </li>
-<li>band metadata  </li>
-<li>masks  </li>
-<li>pixel coordinates  </li>
-<li>optional ancillary variables  </li>
+<li><code>flightline_id</code></li>
+<li><code>row</code>, <code>col</code>, <code>x</code>, <code>y</code></li>
+<li><code>band</code></li>
+<li><code>wavelength_nm</code></li>
+<li><code>fwhm_nm</code></li>
+<li><code>reflectance</code></li>
 </ul>
+<p>The merged Parquet combines raw, corrected, and sensor-resampled sidecars into
+the per-flightline table named <code>&lt;flight_id&gt;_merged_pixel_extraction.parquet</code>.</p>
 <hr />
 <h2 id="quick-preview-using-duckdb">Quick preview using DuckDB<a class="headerlink" href="#quick-preview-using-duckdb" title="Permanent link">&para;</a></h2>
-<p>```python
-import duckdb</p>
-<p>duckdb.query("""
-    SELECT *
-    FROM '..._brdfandtopo_corrected.parquet'
-    LIMIT 5
-""").df()
-DuckDB provides efficient SQL queries without needing to load the entire dataset into memory.
-Checking dimensions
-duckdb.query("""
-    SELECT COUNT(*) AS nrows
-    FROM '..._landsat_convolved.parquet'
-""").df()
-Loading with pandas
-import pandas as pd
-df = pd.read_parquet("..._merged_pixel_extraction.parquet")
-df.head()
-Use with caution for large flight lines.
-Loading with xarray
-Parquet → xarray workflows work best after pivoting or aggregating data. For full spatial cubes, ENVI files remain easier to load.
-Streaming large files
-DuckDB can scan files lazily:
-duckdb.query("""
-    SELECT AVG(NIR), AVG(Red)
-    FROM '..._landsat_convolved.parquet'
-""").df()
-This avoids loading the full table.
-Next steps
-CLI usage
-Pipeline outputs</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
+
+<span class="n">duckdb</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT *</span>
+<span class="s2">    FROM &#39;..._brdfandtopo_corrected_envi.parquet&#39;</span>
+<span class="s2">    LIMIT 5</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+</code></pre></div>
+<p>Check dimensions without loading the full table:</p>
+<div class="highlight"><pre><span></span><code><span class="n">duckdb</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT COUNT(*) AS nrows</span>
+<span class="s2">    FROM &#39;..._landsat_oli_envi.parquet&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+</code></pre></div>
+<p>Summarize a sensor product lazily:</p>
+<div class="highlight"><pre><span></span><code><span class="n">duckdb</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT wavelength_nm, AVG(reflectance) AS mean_reflectance</span>
+<span class="s2">    FROM &#39;..._landsat_oli_envi.parquet&#39;</span>
+<span class="s2">    GROUP BY wavelength_nm</span>
+<span class="s2">    ORDER BY wavelength_nm</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+</code></pre></div>
 <hr />
+<h2 id="loading-with-pandas">Loading with pandas<a class="headerlink" href="#loading-with-pandas" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;..._merged_pixel_extraction.parquet&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+<p>Use pandas cautiously for large flight lines. DuckDB is usually better for
+filtering or aggregation before collecting results into memory.</p>
+<hr />
+<h2 id="loading-with-xarray">Loading with xarray<a class="headerlink" href="#loading-with-xarray" title="Permanent link">&para;</a></h2>
+<p>Parquet-to-xarray workflows work best after pivoting or aggregating data. For
+full spatial cubes, the ENVI <code>.img/.hdr</code> products remain the easier raster
+interface.</p>
+<hr />
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../cli/">CLI usage</a></li>
+<li><a href="../../pipeline/outputs/">Pipeline outputs</a></li>
+</ul>
 
 
 

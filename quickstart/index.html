@@ -1592,6 +1592,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../dev/container-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container and remote helper scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dev/publication-cleanup-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publication cleanup log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../dev/contributing/" class="md-nav__link">
         
   
@@ -1686,10 +1742,9 @@
 <div class="codehilite"><pre><span></span><code>pip install spectralbridge
 </code></pre></div>
 
-<p>For Ray support:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="ss">&quot;spectralbridge[full]&quot;</span>
-</code></pre></div>
-
+<p>Ray is included in the standard dependency set. The
+<code>spectralbridge[full]</code> extra remains available as an alias for existing
+automation and currently resolves to the same dependency set.</p>
 <blockquote>
 <p>Upgrading from older versions? <code>cross_sensor_cal</code> imports and <code>cscal-*</code>
 commands still work, but new examples use <code>spectralbridge</code> imports and

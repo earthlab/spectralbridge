@@ -1434,6 +1434,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../dev/container-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container and remote helper scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dev/publication-cleanup-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publication cleanup log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../dev/contributing/" class="md-nav__link">
         
   
@@ -1516,64 +1572,120 @@
 
 
 <h1 id="naming-conventions">Naming Conventions<a class="headerlink" href="#naming-conventions" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>DO NOT EDIT OUTSIDE MARKERS</p>
-</blockquote>
-<!-- FILLME:START -->
-<h2 id="canonical-filename-pattern">Canonical Filename Pattern<a class="headerlink" href="#canonical-filename-pattern" title="Permanent link">&para;</a></h2>
-<p>All files produced by the pipeline use a common token order:</p>
-<div class="highlight"><pre><span></span><code>NEON_{site}_{YYYYMMDD}_{HHMMSS}_FL{line}_{product}{suffix}.ext
-</code></pre></div>
+<h2 id="authoritative-helpers">Authoritative helpers<a class="headerlink" href="#authoritative-helpers" title="Permanent link">&para;</a></h2>
+<p>Naming is part of the public workflow contract. Do not construct output paths
+ad hoc; use:</p>
 <ul>
-<li><code>site</code> – NEON site code (e.g., <code>SJER</code>)</li>
-<li><code>YYYYMMDD</code> and <code>HHMMSS</code> – acquisition date and time in UTC</li>
-<li><code>FL{line}</code> – zero‑padded flight line identifier</li>
-<li><code>product</code> – base product name (e.g., <code>NIS</code>)</li>
-<li><code>suffix</code> – processing state (see table below)</li>
-<li><code>ext</code> – file extension such as <code>.img</code> or <code>.hdr</code></li>
+<li><code>spectralbridge.paths.FlightlinePaths</code></li>
+<li><code>spectralbridge.paths.SensorProductPaths</code></li>
+<li><code>spectralbridge.utils.naming.get_flight_paths</code></li>
+<li><code>spectralbridge.utils.naming.get_flightline_products</code></li>
 </ul>
-<p><strong>Regex</strong></p>
-<div class="highlight"><pre><span></span><code>^NEON_[A-Z0-9]{4}_\d{8}_\d{6}_FL\d{3}_[A-Za-z0-9]+(?:_radiance|_ancillary|_corrected_envi|_reflectance)\.(?:img|hdr)$
+<h2 id="neon-flightline-identifiers">NEON flightline identifiers<a class="headerlink" href="#neon-flightline-identifiers" title="Permanent link">&para;</a></h2>
+<p>Current NEON examples use the full flightline stem supplied to the pipeline:</p>
+<div class="highlight"><pre><span></span><code>NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance
 </code></pre></div>
-<h2 id="standard-suffixes">Standard Suffixes<a class="headerlink" href="#standard-suffixes" title="Permanent link">&para;</a></h2>
+<p>SpectralBridge preserves that stem in every per-flightline output. The raw HDF5
+is stored at the base folder root:</p>
+<div class="highlight"><pre><span></span><code>&lt;base_folder&gt;/&lt;flight_id&gt;.h5
+</code></pre></div>
+<p>All derived products for that flight line live under:</p>
+<div class="highlight"><pre><span></span><code>&lt;base_folder&gt;/&lt;flight_id&gt;/
+</code></pre></div>
+<h2 id="neon-output-suffixes">NEON output suffixes<a class="headerlink" href="#neon-output-suffixes" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Suffix</th>
+<th>Pattern</th>
 <th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>_radiance</code></td>
-<td>Raw radiance from HDF5 conversion</td>
+<td><code>&lt;flight_id&gt;_envi.img/.hdr/.parquet</code></td>
+<td>Raw NEON ENVI export and Parquet sidecar</td>
 </tr>
 <tr>
-<td><code>_ancillary</code></td>
-<td>Ancillary data produced with radiance</td>
+<td><code>&lt;flight_id&gt;_brdf_model.json</code></td>
+<td>Scene-level BRDF coefficient model</td>
 </tr>
 <tr>
-<td><code>_corrected_envi</code></td>
-<td>BRDF/TOPO corrected ENVI image</td>
+<td><code>&lt;flight_id&gt;_brdfandtopo_corrected_envi.img/.hdr/.json/.parquet</code></td>
+<td>Canonical BRDF + topographic corrected product</td>
 </tr>
 <tr>
-<td><code>_reflectance</code></td>
-<td>Final reflectance product</td>
+<td><code>&lt;flight_id&gt;_&lt;sensor&gt;_envi.img/.hdr/.parquet</code></td>
+<td>Sensor-resampled output</td>
+</tr>
+<tr>
+<td><code>&lt;flight_id&gt;_merged_pixel_extraction.parquet</code></td>
+<td>Merged per-flightline Parquet table</td>
+</tr>
+<tr>
+<td><code>&lt;flight_id&gt;_qa.png/.json/.pdf</code></td>
+<td>QA artifacts</td>
+</tr>
+<tr>
+<td><code>&lt;flight_id&gt;_qa_metrics.parquet</code></td>
+<td>QA metrics table</td>
 </tr>
 </tbody>
 </table>
-<h2 id="directory-layout">Directory Layout<a class="headerlink" href="#directory-layout" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>site/
-└── YYYYMMDD/
-    └── FL###/
-        ├── raw/
-        │   ├── NEON_SITE_YYYYMMDD_HHMMSS_FL###_NIS_radiance.img
-        │   └── NEON_SITE_YYYYMMDD_HHMMSS_FL###_NIS_ancillary.img
-        └── derived/
-            ├── NEON_SITE_YYYYMMDD_HHMMSS_FL###_NIS_corrected_envi.img
-            └── NEON_SITE_YYYYMMDD_HHMMSS_FL###_NIS_corrected_envi.hdr
+<p>Supported sensor suffixes currently include:</p>
+<div class="highlight"><pre><span></span><code>landsat_tm
+landsat_etm+
+landsat_oli
+landsat_oli2
+micasense
+micasense_to_match_tm_etm+
+micasense_to_match_oli_oli2
 </code></pre></div>
-<h2 id="common-violations-fixes">Common Violations &amp; Fixes<a class="headerlink" href="#common-violations-fixes" title="Permanent link">&para;</a></h2>
+<h2 id="drone-output-suffixes">Drone output suffixes<a class="headerlink" href="#drone-output-suffixes" title="Permanent link">&para;</a></h2>
+<p>The drone workflow preserves drone-native provenance and intentionally uses a
+double-underscore separator for drone products:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;flight_stem&gt;__working.h5</code></td>
+<td>Run-owned local HDF5 copy</td>
+</tr>
+<tr>
+<td><code>&lt;flight_stem&gt;__envi.img/.hdr</code></td>
+<td>Drone ENVI export</td>
+</tr>
+<tr>
+<td><code>&lt;flight_stem&gt;__corrected.img/.hdr</code></td>
+<td>Drone corrected ENVI output</td>
+</tr>
+<tr>
+<td><code>&lt;flight_stem&gt;__polygon_index.parquet</code></td>
+<td>Polygon-to-pixel lookup</td>
+</tr>
+<tr>
+<td><code>&lt;flight_stem&gt;__polygons.parquet</code></td>
+<td>Polygon-filtered spectral table</td>
+</tr>
+<tr>
+<td><code>&lt;flight_stem&gt;__qa.png/.json</code></td>
+<td>Drone QA artifacts</td>
+</tr>
+<tr>
+<td><code>drone_merged.parquet</code></td>
+<td>Merged drone polygon table</td>
+</tr>
+<tr>
+<td><code>drone_qa_summary.json</code></td>
+<td>Batch QA summary</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-violations-and-fixes">Common violations and fixes<a class="headerlink" href="#common-violations-and-fixes" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -1584,28 +1696,32 @@
 </thead>
 <tbody>
 <tr>
-<td>Missing flight line token</td>
-<td>Downstream scripts cannot group files</td>
-<td>Include <code>_FL###</code> before the suffix</td>
+<td>Inventing a filename outside the helper APIs</td>
+<td>Downstream stages and docs may not find the artifact</td>
+<td>Add or update the relevant path helper</td>
 </tr>
 <tr>
-<td>Wrong suffix for directory (e.g., <code>_radiance</code> in <code>derived/</code>)</td>
-<td>Causes processing confusion</td>
-<td>Move file to <code>raw/</code> or rename with proper suffix</td>
+<td>Renaming NEON outputs to shorter stems</td>
+<td>Breaks restart safety and provenance</td>
+<td>Preserve the full <code>&lt;flight_id&gt;</code> stem</td>
 </tr>
 <tr>
-<td>Lower‑case site code</td>
-<td>Breaks regex patterns</td>
-<td>Use upper‑case site codes</td>
+<td>Using NEON-style names for drone outputs</td>
+<td>Loses drone-native provenance and conflicts with the drone workflow contract</td>
+<td>Use the double-underscore drone patterns</td>
 </tr>
 <tr>
-<td>Spaces instead of underscores</td>
-<td>Parsing fails</td>
-<td>Replace spaces with <code>_</code></td>
+<td>Replacing Parquet with CSV as the authoritative table</td>
+<td>Breaks the high-performance analysis path</td>
+<td>Keep Parquet authoritative; CSV sidecars, when present, are convenience copies</td>
+</tr>
+<tr>
+<td>Changing sensor suffix spelling</td>
+<td>Breaks <code>FlightlinePaths.sensor_products</code> consumers</td>
+<td>Update path helpers, tests, and docs together if a suffix must change</td>
 </tr>
 </tbody>
 </table>
-<!-- FILLME:END -->
 
 
 
