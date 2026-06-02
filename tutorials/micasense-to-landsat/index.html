@@ -829,6 +829,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hdf5-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDF5 contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#run-the-drone-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1701,6 +1712,12 @@ Python API shown here.</p>
 </code></pre></div>
 <p>If you want polygon-level tables, also prepare a polygon layer supported by
 GeoPandas, such as GeoPackage or GeoJSON.</p>
+<h2 id="hdf5-contract">HDF5 contract<a class="headerlink" href="#hdf5-contract" title="Permanent link">&para;</a></h2>
+<p>SpectralBridge treats the local HDF5 export as the authoritative drone input.
+Reflectance and ancillary rasters are expected to already share the same
+spatial orientation and <code>(lines, columns)</code> footprint. SpectralBridge validates
+that contract during loading and correction, but it does not add TIFF
+conversion logic or attempt to repair malformed upstream TIFF-to-HDF5 exports.</p>
 <h2 id="run-the-drone-pipeline">Run the drone pipeline<a class="headerlink" href="#run-the-drone-pipeline" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_drone_pipeline</span>
 
