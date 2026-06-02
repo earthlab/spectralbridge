@@ -4519,3 +4519,275 @@ Branch: main
 ```text
 the website still opens with SpectralBridge (formerly cross-sensor-cal)  even though we were supposed to get rid of all the cross sensor cal references.
 ```
+
+## 2026-06-02 - homepage refresh
+Branch: main
+
+```text
+# SpectralBridge Homepage Refresh
+
+## Goal
+
+Redesign the SpectralBridge homepage so it feels like a mature scientific infrastructure platform rather than a research software repository.
+
+The homepage should communicate:
+
+- scientific credibility
+- ease of use
+- interoperability
+- reproducibility
+- scalability
+- open science
+
+The visual style should align more closely with modern scientific infrastructure projects such as:
+
+- Jupyter
+- xarray
+- Apache Arrow
+- QGIS
+- Planetary Computer
+
+and fit within the broader Earth Lab / ESIIL ecosystem.
+
+Use the new SpectralBridge hero banner and simplified logo.
+
+Do not focus the homepage on technical implementation details such as BRDF correction, topographic correction, file formats, or internal processing steps.
+
+Focus on outcomes and value.
+
+---
+
+# Hero Section
+
+Use the new wide SpectralBridge banner graphic.
+
+Hero text:
+
+## SpectralBridge
+
+### Connect drone, airborne, and satellite observations through a single reproducible workflow.
+
+Process hyperspectral imagery across sensors, ecosystems, and scales using transparent, scalable, and scientifically defensible methods.
+
+Buttons:
+
+- Get Started
+- Documentation
+- Example Workflow
+
+---
+
+# What Is SpectralBridge?
+
+Section title:
+
+## What is SpectralBridge?
+
+Body text:
+
+SpectralBridge is an open-source platform for transforming raw hyperspectral imagery into analysis-ready data products.
+
+Whether you're working with drone surveys, airborne campaigns, ecological observatories, or future sensor systems, SpectralBridge provides a common framework for correction, harmonization, extraction, quality assurance, and analysis.
+
+By creating consistent workflows across sensors and scales, SpectralBridge helps researchers focus on science rather than data wrangling.
+
+---
+
+# Why SpectralBridge?
+
+Create a three-card section.
+
+## Cross-Sensor Interoperability
+
+Compare and integrate measurements collected by drones, aircraft, ecological observatories, and future sensor systems using a common analytical framework.
+
+## Reproducible Science
+
+Every processing step is transparent, documented, and designed to support repeatable scientific workflows.
+
+## Scalable Infrastructure
+
+Run locally, in containers, on cloud platforms, or on high-performance computing systems without changing your workflow.
+
+---
+
+# Workflow Section
+
+Title:
+
+## From Raw Data to Analysis-Ready Products
+
+Subtitle:
+
+A transparent workflow for transforming hyperspectral imagery into scientifically defensible data products.
+
+Workflow diagram:
+
+text Raw Data ↓ Quality Assessment ↓ Correction & Harmonization ↓ Extraction & Summarization ↓ Analysis-Ready Products 
+
+Supporting text:
+
+SpectralBridge helps standardize hyperspectral processing while preserving transparency, reproducibility, and scientific traceability at every step.
+
+---
+
+# Supported Platforms
+
+Title:
+
+## Built for Environmental Observations Across Scales
+
+Create four cards.
+
+### Drone Systems
+
+Process hyperspectral imagery collected from low-altitude drone platforms.
+
+### Airborne Campaigns
+
+Support regional airborne surveys and research aircraft missions.
+
+### NEON Airborne Observation Platform
+
+Work directly with NEON hyperspectral products using dedicated workflows.
+
+### Future Sensors
+
+Designed to support emerging environmental sensing technologies and evolving data standards.
+
+---
+
+# Scientific Applications
+
+Title:
+
+## Scientific Applications
+
+Intro text:
+
+SpectralBridge supports a wide range of environmental monitoring and research applications.
+
+Applications grid:
+
+- Biodiversity Monitoring
+- Ecosystem Change Detection
+- Vegetation Functional Traits
+- Wildfire Science
+- Restoration Ecology
+- Carbon Dynamics
+- Remote Sensing Validation
+- Long-Term Ecological Monitoring
+
+---
+
+# Open Science Section
+
+Title:
+
+## Open Science by Design
+
+Body text:
+
+SpectralBridge is built as open scientific infrastructure.
+
+The project emphasizes:
+
+- Transparency
+- Reproducibility
+- Interoperability
+- Scalability
+- Community Contribution
+
+All workflows are designed to support reproducible environmental data science and long-term scientific reuse.
+
+Buttons:
+
+- View Source Code
+- Citation Information
+
+---
+
+# Call to Action
+
+Title:
+
+## Build Once. Compare Everywhere.
+
+Body text:
+
+SpectralBridge helps connect environmental observations across sensors, ecosystems, and scales through transparent and reproducible workflows.
+
+Buttons:
+
+- Get Started
+- Explore Examples
+
+---
+
+# Footer
+
+Retain the overall footer structure already used across the broader Earth Lab / ESIIL ecosystem.
+
+Do not invent new partner organizations.
+
+Reuse existing footer content, logos, acknowledgements, and funding language where appropriate.
+
+Ensure visual consistency with:
+
+- Earth Lab
+- ESIIL
+- OASIS
+
+The footer should make SpectralBridge feel like part of a larger scientific infrastructure ecosystem rather than a standalone software project.
+
+---
+
+# Design Guidance
+
+The homepage should feel:
+
+- open
+- modern
+- scientific
+- welcoming
+- trustworthy
+
+Avoid:
+
+- dense walls of text
+- excessive jargon
+- implementation details
+- overly technical introductions
+
+Prioritize:
+
+- clear value proposition
+- visual hierarchy
+- whitespace
+- accessibility
+- mobile responsiveness
+
+The first impression should be:
+
+"SpectralBridge helps me connect and compare hyperspectral observations across sensors and scales."
+
+not:
+
+"SpectralBridge performs BRDF correction."
+
+The science outcomes are the story. The processing details belong in the documentation.
+```
+
+## 2026-06-02 - replace header logo
+Branch: main
+
+```text
+here is a logo for the header to replace the current header logo which seems to be using the hero
+```
+
+## 2026-06-02 - replace favicon
+Branch: main
+
+```text
+favicon
+```
