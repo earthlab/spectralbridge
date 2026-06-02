@@ -20,6 +20,53 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P0b. License Migration Audit And Citation Infrastructure
+
+- Priority: P0
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-02
+- Goal: Audit repository licensing, citation, and release-governance state;
+  update open-science documentation; and record blockers for any Apache 2.0
+  migration.
+- Plan:
+  - Review current license, metadata, citation, docs, templates, and release
+    files.
+  - Record discovered gaps and legal blockers before implementing low-risk
+    governance/documentation updates.
+  - Add durable feature requests for DOI/Zenodo/release infrastructure where
+    missing.
+- Findings so far:
+  - The repository is currently GPLv3 in `LICENSE`, `pyproject.toml`,
+    `CITATION.cff`, and `README.md`.
+  - Several runtime source files and docs explicitly state that portions are
+    adapted from HyTools under GPLv3, which is a legal blocker for silently
+    relicensing the current codebase to Apache 2.0.
+  - `CITATION.cff` still contains `FILLME` markers, a future-looking release
+    date, team-placeholder authors, and GPL metadata.
+  - No `NOTICE` file exists.
+  - No obvious Zenodo configuration or DOI workflow files are present in the
+    repository snapshot reviewed so far.
+- Completion notes:
+  - Updated `README.md` with stronger citation guidance, current license
+    status, open-science framing, and a brief commercialization section that
+    does not misstate the current GPL status.
+  - Updated `CITATION.cff` to remove `FILLME` markers and incorrect release
+    dating while keeping TODO comments for maintainer-approved author details.
+  - Updated `CONTRIBUTING.md`, `AGENTS.md`, `pyproject.toml`, and
+    `publication_checklist.md` to reflect citation/release expectations and the
+    need for legal/provenance review before any Apache 2.0 migration.
+  - Confirmed that no issue/PR templates were present under `.github/`, no
+    Zenodo configuration was found, and local tags are inconsistent (`0.1`,
+    `v1.0.0`).
+- Blockers:
+  - Apache 2.0 migration appears to require maintainer/legal review and likely
+    a provenance audit for GPL-derived HyTools adaptations before any direct
+    license replacement.
+- Next recommended task: Prioritize DOI/Zenodo/release-governance work and
+  decide whether an Apache 2.0 migration is legally feasible for the existing
+  codebase.
+
 ### P0. Governance And Resumability
 
 - Priority: P0
@@ -197,11 +244,61 @@ left incomplete so the next agent can resume immediately.
   chunking consistency, restart-safe consistency, QA consistency, and shared
   drone/NEON infrastructure opportunities.
 
+### P18. DOI And Zenodo Integration
+
+- Priority: P18
+- Status: Todo
+- Goal: Add and document DOI generation infrastructure, including Zenodo
+  enablement steps, release-to-DOI workflow guidance, and maintainer-facing
+  verification steps.
+
+### P19. Release Automation And Notes
+
+- Priority: P19
+- Status: Todo
+- Goal: Add durable release automation guidance covering tagged releases,
+  release notes, changelog/release note generation, and citation metadata
+  refresh steps.
+
+### P20. Software Citation And Publication Tracking
+
+- Priority: P20
+- Status: Todo
+- Goal: Track associated publications, software-paper plans, preferred citation
+  language, and versioned release citation policy in a maintainer-friendly way.
+
+### P21. Long-Term Governance And Open Science Policy
+
+- Priority: P21
+- Status: Todo
+- Goal: Document maintainer-facing governance, open-science expectations,
+  citation/release ownership, and commercialization-compatible stewardship
+  guidance.
+
+### P22. Contributor Templates And Acknowledgements
+
+- Priority: P22
+- Status: Todo
+- Goal: Add or refresh GitHub issue/PR templates, acknowledgement guidance, and
+  maintainer-facing contribution prompts for release/citation-sensitive changes.
+
+### P23. Release Tag Hygiene
+
+- Priority: P23
+- Status: Todo
+- Goal: Normalize release tag conventions, document the canonical tag scheme,
+  and reconcile any legacy inconsistent tags in maintainers' release records.
+
 ## Completed Requests
 
 - 2026-06-02: Publication cleanup backlog completed and moved to
   `docs/dev/publication-cleanup-log.md` plus `publication_checklist.md` for
   release gating details.
+- 2026-06-02: Hardened Ray startup compatibility by falling back to the thread
+  executor when Ray cannot initialize before task submission in the local
+  environment.
+- 2026-06-02: Stabilized the public API smoke matrix so it imports the current
+  repo source without polluting later tests.
 
 ## Blockers And Resume Notes
 

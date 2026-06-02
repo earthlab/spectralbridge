@@ -6,8 +6,7 @@ from pathlib import Path
 from typing import Sequence
 
 from spectralbridge._cli_compat import warn_if_legacy_command
-
-from ..pipelines.pipeline import go_forth_and_multiply
+from spectralbridge.pipelines.pipeline import go_forth_and_multiply
 
 
 def _build_parser() -> argparse.ArgumentParser:

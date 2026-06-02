@@ -29,7 +29,20 @@ safe to deploy in scientific, notebook, cloud, and container workflows.
 - Tag releases in Git with `vMAJOR.MINOR.PATCH` (e.g., `v0.2.0`).
 - Update the version in `pyproject.toml` and `CITATION.cff` as part of release
   preparation. `setup.py` is a compatibility shim only.
+- Review citation metadata, release notes, and any DOI/Zenodo instructions as
+  part of each release cut so software citation stays in sync with the tagged
+  artifact.
 - Document notable changes in `CHANGELOG.md` once it is introduced.
+
+## Licensing and provenance
+- The repository currently distributes under GPLv3. Keep `LICENSE`,
+  `pyproject.toml`, `README.md`, and `CITATION.cff` consistent with the actual
+  legal status of the codebase.
+- Do not claim an Apache 2.0 migration is complete unless maintainers have
+  finished provenance review for GPL-derived content and explicitly approved the
+  license change.
+- When adapting or vendoring external scientific code, preserve attribution and
+  record any license implications in documentation and release notes.
 
 ## Testing guidelines
 - Tests must run via `pytest` using fixture data or synthetic data generated

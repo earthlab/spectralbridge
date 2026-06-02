@@ -8,8 +8,7 @@ from pathlib import Path
 from typing import Iterable, Sequence
 
 from spectralbridge._cli_compat import warn_if_legacy_command
-
-from ..qa_plots import render_flightline_panel
+from spectralbridge.qa_plots import render_flightline_panel
 
 
 def _iter_flightlines(base_folder: Path) -> Iterable[Path]:

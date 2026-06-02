@@ -1,22 +1,31 @@
-# DO NOT EDIT OUTSIDE MARKERS
-# FILLME:START
 cff-version: 1.2.0
-message: "If you use SpectralBridge in your research, please cite it as below."
+message: "If you use SpectralBridge in research, please cite the software release you used."
 title: "SpectralBridge: Translating reflectance across sensors and scales"
-version: "2.2.0"
-date-released: "2025-10-29"
 type: software
-authors:
-  - family-names: "Earth Lab"
-    given-names: "Data Innovation Team"
-    affiliation: "University of Colorado Boulder"
-    # TODO: Replace with individual author names and ORCIDs when available.
+version: "2.2.0"
+abstract: "SpectralBridge is a scientific Python package for translating reflectance across sensors and scales with restart-safe, file-based workflows."
 repository-code: "https://github.com/earthlab/spectralbridge"
+url: "https://earthlab.github.io/spectralbridge/"
+license: GPL-3.0-or-later
 keywords:
   - "NEON"
   - "hyperspectral"
-  - "BRDF correction"
-  - "cross-sensor calibration"
   - "remote sensing"
-license: GPL-3.0-or-later
-# FILLME:END
+  - "scientific infrastructure"
+  - "cross-sensor calibration"
+authors:
+  - family-names: "Earth Lab"
+    given-names: "SpectralBridge Team"
+    affiliation: "University of Colorado Boulder"
+    # TODO: Replace with the preferred maintainer-approved author list, ORCIDs, and affiliations.
+preferred-citation:
+  type: software
+  title: "SpectralBridge: Translating reflectance across sensors and scales"
+  version: "2.2.0"
+  repository-code: "https://github.com/earthlab/spectralbridge"
+  url: "https://earthlab.github.io/spectralbridge/"
+  authors:
+    - family-names: "Earth Lab"
+      given-names: "SpectralBridge Team"
+      affiliation: "University of Colorado Boulder"
+      # TODO: Keep this block aligned with the canonical author list above.

@@ -10,6 +10,13 @@ readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "Earth Lab" }]
 license = { file = "LICENSE" }
+keywords = [
+    "scientific infrastructure",
+    "remote sensing",
+    "hyperspectral",
+    "neon",
+    "cross-sensor calibration",
+]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
@@ -83,8 +90,10 @@ csc-merge-duckdb = "spectralbridge.merge_duckdb:main"
 
 [project.urls]
 Homepage = "https://github.com/earthlab/spectralbridge"
+Repository = "https://github.com/earthlab/spectralbridge"
 Documentation = "https://earthlab.github.io/spectralbridge/"
 Issues = "https://github.com/earthlab/spectralbridge/issues"
+Citation = "https://github.com/earthlab/spectralbridge/blob/main/CITATION.cff"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

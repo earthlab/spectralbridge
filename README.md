@@ -503,12 +503,47 @@ Key entry points:
 
 ## Citation
 
-If you use this software, please cite:
+If you use SpectralBridge in research, please cite:
 
-> SpectralBridge (v2.2.0): NEON hyperspectral cross-sensor harmonization pipeline.  
-> See `CITATION.cff` in this repository for full author list and metadata.
+- the software release you used
+- associated publications
+- relevant methods papers for the scientific workflow you rely on
+
+`CITATION.cff` is the authoritative citation source for the repository and
+should be updated alongside each release.
+No repository DOI or Zenodo integration is currently documented in this repo,
+so versioned release citation infrastructure remains a follow-up governance
+task.
+
+## Open Science
+
+SpectralBridge is intended to be reusable scientific infrastructure. The
+project emphasizes reproducibility, transparent workflows, software citation,
+and interoperable data products so that results can be inspected, rerun, and
+extended across research groups and computing environments.
+
+## License Status
+
+SpectralBridge is currently distributed under **GPLv3**. The repository also
+contains code and documentation notes that explicitly credit GPLv3-derived
+HyTools adaptations, so any migration to Apache License 2.0 requires a
+maintainer-led provenance and legal review before the project can accurately
+claim that license change.
+
+Apache License 2.0 is being evaluated as a future target because it would
+support broad scientific adoption, commercial use, and long-term
+cyberinfrastructure sustainability. Until that review is complete, the current
+GPLv3 status remains authoritative.
+
+## Commercial Engagement
+
+Open-source distribution does not prevent value-added services around the
+project. Potential examples include hosted processing, cloud deployment,
+workflow support, training, consulting, interoperability validation, and sensor
+integration work. Any future Apache 2.0 migration would preserve those options
+while keeping the software itself open.
 
 ## License
 
-Distributed under the GPLv3 License. Full citation details are available in
+Distributed under the GPLv3 License. Citation metadata lives in
 [CITATION.cff](CITATION.cff).

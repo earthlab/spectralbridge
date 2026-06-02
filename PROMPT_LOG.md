@@ -4009,3 +4009,499 @@ Explicitly confirm:
 - package remains installable
 - tests pass
 ```
+## 2026-06-02 - license migration and citation infrastructure audit
+Branch: main
+
+```text
+# SpectralBridge License Migration, Citation Infrastructure, and Open Science Documentation
+
+## Goal
+
+Prepare SpectralBridge for long-term scientific infrastructure use by transitioning to Apache License 2.0 and ensuring all related documentation, metadata, citation infrastructure, and release materials are consistent.
+
+This task is documentation-, governance-, and release-focused.
+
+Do not perform unrelated refactors.
+
+Do not modify scientific workflows, processing logic, chunking behavior, or pipeline architecture.
+
+---
+
+# First Step: Review Existing State
+
+Before making changes:
+
+Review:
+
+- LICENSE
+- README.md
+- CONTRIBUTING.md
+- AGENTS.md
+- FEATURE_REQUESTS.md
+- pyproject.toml
+- package metadata
+- GitHub templates
+- release documentation
+- existing citation files
+- existing DOI references
+
+Document current findings.
+
+Identify inconsistencies.
+
+Update FEATURE_REQUESTS.md with any discovered gaps before implementing changes.
+
+---
+
+# Target License
+
+Recommended target:
+
+text Apache License 2.0 
+
+Rationale:
+
+- NSF-compatible
+- Open science compatible
+- OSI-approved
+- Commercial use allowed
+- Modification allowed
+- Redistribution allowed
+- Explicit patent grant
+- Appropriate for scientific cyberinfrastructure
+- Preserves future commercialization opportunities
+
+---
+
+# License Audit
+
+Determine:
+
+1. Current repository license
+2. License references throughout repository
+3. Package metadata references
+4. Documentation references
+5. Release references
+
+Create a checklist of locations that require updates.
+
+---
+
+# Apache 2.0 Migration
+
+If repository maintainers approve migration:
+
+Update:
+
+- LICENSE
+- package metadata
+- pyproject.toml
+- README references
+- documentation references
+
+Ensure consistency everywhere.
+
+If legal review may be required:
+
+Document migration steps rather than making assumptions.
+
+Do not silently change legal ownership information.
+
+---
+
+# Add NOTICE File
+
+Review whether Apache 2.0 requires a NOTICE file for current repository content.
+
+If appropriate:
+
+Create:
+
+text NOTICE 
+
+Include:
+
+- project name
+- copyright holders
+- attribution information
+
+Keep content concise.
+
+---
+
+# Add CITATION.cff
+
+Create or update:
+
+text CITATION.cff 
+
+Include:
+
+- project title
+- project description
+- repository URL
+- preferred citation
+- authors
+- affiliations when available
+- version support
+- release support
+
+Use current repository metadata.
+
+If information is missing:
+
+Add TODO notes for maintainers.
+
+---
+
+# Software Citation Documentation
+
+Add a dedicated section to README.
+
+Example structure:
+
+## Citation
+
+If you use SpectralBridge in research, please cite:
+
+- the software release
+- associated publications
+- relevant methods papers
+
+Also reference:
+
+text CITATION.cff 
+
+as the authoritative citation source.
+
+---
+
+# DOI and Release Infrastructure Review
+
+Review current release process.
+
+Document:
+
+1. GitHub releases present?
+2. Release tags present?
+3. Semantic versioning used?
+4. DOI generation configured?
+5. Zenodo integration configured?
+6. Citation workflow documented?
+
+Create feature requests for any missing infrastructure.
+
+Do not create external accounts.
+
+Do not assume Zenodo is already configured.
+
+---
+
+# Open Science Documentation
+
+Add documentation describing:
+
+## Open Science Philosophy
+
+SpectralBridge is intended to be:
+
+- reusable scientific infrastructure
+- reproducible
+- transparent
+- community driven
+
+The project supports:
+
+- open science
+- reproducible workflows
+- software citation
+- interoperable data products
+
+## Licensing Philosophy
+
+The project uses Apache License 2.0 because it:
+
+- supports broad adoption
+- supports scientific collaboration
+- supports commercial use
+- supports future sustainability
+
+## Citation Philosophy
+
+Users should cite:
+
+- software releases
+- associated publications
+- relevant methods papers
+
+when using SpectralBridge in research.
+
+---
+
+# Commercialization Documentation
+
+Add a short documentation section explaining:
+
+Apache 2.0 does not prevent commercial use.
+
+Potential value-added services may include:
+
+- hosted processing
+- cloud deployment
+- workflow support
+- training
+- consulting
+- interoperability validation
+- sensor integration
+
+The software remains open source.
+
+This is compatible with both open science and commercial engagement.
+
+Keep this section brief and professional.
+
+---
+
+# AGENTS.md Updates
+
+Add guidance for future agents.
+
+Include:
+
+## Open Science Expectations
+
+Agents should consider:
+
+- reproducibility
+- software citation
+- documentation
+- release readiness
+- long-term maintainability
+
+when making changes.
+
+## Documentation Expectations
+
+Public behavior changes should update:
+
+- README
+- docs
+- citation files
+- release notes
+
+when appropriate.
+
+---
+
+# FEATURE_REQUESTS.md Updates
+
+Add durable feature requests for:
+
+- DOI integration
+- Zenodo configuration
+- release automation
+- citation improvements
+- publication tracking
+- software paper creation
+- long-term governance
+
+if these do not already exist.
+
+---
+
+# Release Hygiene Review
+
+Review repository for:
+
+- outdated license references
+- outdated project names
+- inconsistent branding
+- missing citation references
+- missing acknowledgements
+
+Document findings.
+
+Fix low-risk inconsistencies.
+
+Create feature requests for larger issues.
+
+---
+
+# Deliverables
+
+Update:
+
+- LICENSE
+- NOTICE (if appropriate)
+- README.md
+- CONTRIBUTING.md (if needed)
+- AGENTS.md
+- FEATURE_REQUESTS.md
+- CITATION.cff
+- package metadata
+
+Provide a final report including:
+
+- current license
+- migration actions taken
+- files updated
+- citation infrastructure status
+- DOI readiness
+- Zenodo readiness
+- open science readiness
+- commercialization readiness
+- remaining recommendations
+
+Do not modify scientific processing code as part of this task.
+
+Focus on governance, licensing, citation, documentation, and release infrastructure.
+```
+## 2026-06-02 - fix cli public api smoke regressions
+Branch: main
+
+```text
+Run pytest -q
+.................s....................................................ss [ 23%]
+ss........................................................FFF........... [ 47%]
+........................................................................ [ 70%]
+...................................................................s.... [ 94%]
+..................                                                       [100%]
+=================================== FAILURES ===================================
+_ test_public_function_import_and_signature_smoke[spectralbridge.cli.__init__.download_main] _
+
+module_name = 'spectralbridge.cli.__init__', function_name = 'download_main'
+
+    @pytest.mark.parametrize(
+        ("module_name", "function_name"),
+        PUBLIC_FUNCTIONS,
+        ids=[f"{module}.{name}" for module, name in PUBLIC_FUNCTIONS],
+    )
+    def test_public_function_import_and_signature_smoke(
+        module_name: str,
+        function_name: str,
+    ) -> None:
+>       module = _load_repo_module(module_name)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_public_api_smoke.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_public_api_smoke.py:79: in _load_repo_module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:940: in exec_module
+    ???
+<frozen importlib._bootstrap>:241: in _call_with_frames_removed
+    ???
+src/spectralbridge/cli/__init__.py:9: in <module>
+    from .pipeline_cli import main as pipeline_cli_main
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Command line entry point for the cross-sensor pipeline."""
+    from __future__ import annotations
+    
+    import argparse
+    from pathlib import Path
+    from typing import Sequence
+    
+    from spectralbridge._cli_compat import warn_if_legacy_command
+    
+>   from ..pipelines.pipeline import go_forth_and_multiply
+E   ModuleNotFoundError: No module named 'spectralbridge.cli.pipelines'
+
+src/spectralbridge/cli/pipeline_cli.py:10: ModuleNotFoundError
+_ test_public_function_import_and_signature_smoke[spectralbridge.cli.__init__.pipeline_main] _
+
+module_name = 'spectralbridge.cli.__init__', function_name = 'pipeline_main'
+
+    @pytest.mark.parametrize(
+        ("module_name", "function_name"),
+        PUBLIC_FUNCTIONS,
+        ids=[f"{module}.{name}" for module, name in PUBLIC_FUNCTIONS],
+    )
+    def test_public_function_import_and_signature_smoke(
+        module_name: str,
+        function_name: str,
+    ) -> None:
+        module = _load_repo_module(module_name)
+>       function = getattr(module, function_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'spectralbridge.cli.__init__' has no attribute 'pipeline_main'
+
+tests/test_public_api_smoke.py:114: AttributeError
+_ test_public_function_import_and_signature_smoke[spectralbridge.cli.__init__.qa_main] _
+
+module_name = 'spectralbridge.cli.__init__', function_name = 'qa_main'
+
+    @pytest.mark.parametrize(
+        ("module_name", "function_name"),
+        PUBLIC_FUNCTIONS,
+        ids=[f"{module}.{name}" for module, name in PUBLIC_FUNCTIONS],
+    )
+    def test_public_function_import_and_signature_smoke(
+        module_name: str,
+        function_name: str,
+    ) -> None:
+        module = _load_repo_module(module_name)
+>       function = getattr(module, function_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'spectralbridge.cli.__init__' has no attribute 'qa_main'
+
+tests/test_public_api_smoke.py:114: AttributeError
+=============================== warnings summary ===============================
+src/spectralbridge/polygons.py:21
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:21: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:2233: RuntimeWarning: All-NaN slice encountered
+    return np.nanmedian(masked, axis=(1, 2))
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:388: RuntimeWarning: All-NaN slice encountered
+    delta_median = np.nanmedian(diff, axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/numpy/lib/_nanfunctions_impl.py:1593: RuntimeWarning: All-NaN slice encountered
+    return fnb._ureduce(a,
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:393: RuntimeWarning: All-NaN slice encountered
+    delta_abs_median = np.nanmedian(np.abs(diff), axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:2385: RuntimeWarning: All-NaN slice encountered
+    abs_delta = np.nanmedian(full_abs_diff, axis=0)
+
+tests/test_pipeline_convolution.py::test_pipeline_idempotence_skip_behavior
+  /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/opentelemetry/util/_importlib_metadata.py:32: DeprecationWarning: SelectableGroups dict interface is deprecated. Use select.
+    return EntryPoints(ep for group_eps in eps.values() for ep in group_eps)
+
+tests/test_pipeline_convolution.py::test_pipeline_idempotence_skip_behavior
+  /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/ray/_private/worker.py:2051: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+    warnings.warn(
+
+tests/test_polygon_pipeline.py::test_build_polygon_pixel_index
+tests/test_polygon_pipeline.py::test_extract_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_merge_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_run_polygon_pipeline_for_flightline
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:1714: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+    polygon_ids = polygons["polygon_id"].astype("int64", copy=False)
+
+tests/test_qa/test_qa_metrics_smoke.py::test_render_panel_writes_png_and_json
+tests/test_qa/test_qa_metrics_smoke.py::test_metrics_arrays_are_serialisable
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:1236: UserWarning: Glyph 10060 (\\N{CROSS MARK}) missing from font(s) DejaVu Sans Mono.
+    pdf.savefig(fig, bbox_inches="tight")
+
+tests/test_qa/test_qa_metrics_smoke.py::test_render_panel_writes_png_and_json
+tests/test_qa/test_qa_metrics_smoke.py::test_metrics_arrays_are_serialisable
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:1236: UserWarning: Glyph 65039 (\\N{VARIATION SELECTOR-16}) missing from font(s) DejaVu Sans Mono.
+    pdf.savefig(fig, bbox_inches="tight")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_public_api_smoke.py::test_public_function_import_and_signature_smoke[spectralbridge.cli.__init__.download_main] - ModuleNotFoundError: No module named 'spectralbridge.cli.pipelines'
+FAILED tests/test_public_api_smoke.py::test_public_function_import_and_signature_smoke[spectralbridge.cli.__init__.pipeline_main] - AttributeError: module 'spectralbridge.cli.__init__' has no attribute 'pipeline_main'
+FAILED tests/test_public_api_smoke.py::test_public_function_import_and_signature_smoke[spectralbridge.cli.__init__.qa_main] - AttributeError: module 'spectralbridge.cli.__init__' has no attribute 'qa_main'
+(raylet) [2026-06-02 21:45:10,922 I 2902 2902] logging.cc:303: Set ray log level from environment variable RAY_BACKEND_LOG_LEVEL to 2 [repeated 4x across cluster] (Ray deduplicates logs by default. Set RAY_DEDUP_LOGS=0 to disable log deduplication, or see https://docs.ray.io/en/master/ray-observability/user-guides/configure-logging.html#log-deduplication for more options.)
+Error: Process completed with exit code 1.
+```

@@ -38,9 +38,10 @@
 - [ ] Establish release checklist (tagging, GitHub release notes, PyPI upload) and capture in this document or `RELEASING.md`.
 
 ## 6. Licensing & Governance
-- [x] Confirm license (GPLv3) is acceptable for target distribution venues; include `LICENSE` file in repository and package manifest.
+- [ ] Complete a provenance/legal review before changing the repository from GPLv3 to any future Apache 2.0 target. Current repo text still references GPL-derived HyTools adaptations.
 - [ ] Ensure all third-party code, data, and documentation comply with the chosen license and attribution requirements.
 - [ ] Identify maintainers and add contact information/support policy in README and docs.
+- [ ] Decide whether an Apache 2.0 migration is legally feasible for the current codebase or whether a future reimplementation is required for non-GPL distribution.
 
 ## 7. Post-Release Follow-up
 - [ ] Monitor initial PyPI release install stats/issues and iterate on documentation gaps.

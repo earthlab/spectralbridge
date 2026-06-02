@@ -106,6 +106,9 @@ After changing code:
 - Prefer targeted test modules over the entire suite when the change is localized.
 - If tooling is missing in the environment, say so clearly and list what was not run.
 - Record completion, deferred work, blockers, and the next recommended task in `FEATURE_REQUESTS.md`.
+- Documentation and governance work should also consider whether `README.md`,
+  docs, `CITATION.cff`, release notes, and maintainer-facing checklists need
+  updates.
 
 ## Testing And Verification
 
@@ -144,6 +147,15 @@ This repo has a MkDocs site. In most cases, edit source docs under `docs/`, not 
 - Keep fenced code blocks intact.
 - Respect marker comments like `<!-- FILLME:START -->` / `<!-- FILLME:END -->`.
 - When behavior changes, update the nearest relevant doc page instead of scattering the same explanation across many files.
+
+## Open Science Expectations
+
+- Consider reproducibility, software citation, release readiness, and
+  long-term maintainability when making changes.
+- Keep citation metadata, license references, and release-facing documentation
+  aligned with the actual repository state.
+- Do not claim a license migration is complete unless repository content and
+  provenance support that statement.
 
 ## Notebook Rules
 
