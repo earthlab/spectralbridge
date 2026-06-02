@@ -4791,3 +4791,10 @@ Branch: main
 ```text
 favicon
 ```
+
+## 2026-06-02 - oasis-style footer
+Branch: main
+
+```text
+can you get all the assests from this repo and make a footer like this [CU-ESIIL/Project_group_OASIS](https://github.com/CU-ESIIL/Project_group_OASIS)
+```
