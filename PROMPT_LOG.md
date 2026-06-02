@@ -4505,3 +4505,10 @@ FAILED tests/test_public_api_smoke.py::test_public_function_import_and_signature
 (raylet) [2026-06-02 21:45:10,922 I 2902 2902] logging.cc:303: Set ray log level from environment variable RAY_BACKEND_LOG_LEVEL to 2 [repeated 4x across cluster] (Ray deduplicates logs by default. Set RAY_DEDUP_LOGS=0 to disable log deduplication, or see https://docs.ray.io/en/master/ray-observability/user-guides/configure-logging.html#log-deduplication for more options.)
 Error: Process completed with exit code 1.
 ```
+
+## 2026-06-02 - replace docs hero image
+Branch: main
+
+```text
+Here is a replacement for the hero image
+```
