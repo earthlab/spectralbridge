@@ -1,7 +1,7 @@
 """Polygon extraction helpers for building spectral libraries.
 
 This module provides utilities for extracting polygon-based subsets from the
-per-pixel Parquet products that the Cross-Sensor Calibration pipeline already
+per-pixel Parquet products that the SpectralBridge pipeline already
 produces.  The helpers are intentionally orthogonal to the default flightline
 pipeline so that they can be orchestrated separately while the workflow is
 stabilised.

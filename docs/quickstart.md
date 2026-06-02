@@ -73,7 +73,7 @@ Use this if you want an interactive, reproducible workflow.
 
 In a notebook cell:
 
-    from spectralbridge.pipelines.pipeline import go_forth_and_multiply
+    from spectralbridge import go_forth_and_multiply
 
     base = "output_quickstart_py"
 

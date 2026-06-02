@@ -12,7 +12,7 @@ for the full walkthrough.
 
 ```python
 from pathlib import Path
-from spectralbridge.pipelines.pipeline import go_forth_and_multiply
+from spectralbridge import go_forth_and_multiply
 
 base_folder = Path("csc_output")
 site_code = "NIWO"
@@ -40,7 +40,7 @@ Expect to see `{flightline_id}_merged_pixel_extraction.parquet` plus `{flightlin
 
 ```python
 from pathlib import Path
-from spectralbridge.pipelines.pipeline import go_forth_and_multiply
+from spectralbridge import go_forth_and_multiply
 
 base_folder = Path("csc_output")
 flightline_ids = [

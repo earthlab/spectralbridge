@@ -32,6 +32,8 @@ __all__ = sorted(
         + (
             [
                 "apply_brightness_correction",
+                "go_forth_and_multiply",
+                "process_one_flightline",
                 "run_drone_pipeline",
                 load_brightness_coefficients.__name__,
             ]
@@ -54,6 +56,11 @@ def __getattr__(name: str):  # pragma: no cover - thin lazy import helper
 
         globals()[name] = _run_drone_pipeline
         return _run_drone_pipeline
+    if name in {"go_forth_and_multiply", "process_one_flightline"}:
+        module = import_module("spectralbridge.pipelines.pipeline")
+        value = getattr(module, name)
+        globals()[name] = value
+        return value
     if name == "pipeline":
         module = import_module("spectralbridge.pipelines.pipeline")
         globals()[name] = module

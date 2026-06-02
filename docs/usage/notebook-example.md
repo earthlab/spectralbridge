@@ -8,10 +8,7 @@ This page is the canonical notebook-first path for running SpectralBridge. It wa
 
 ```python
 import spectralbridge
-from spectralbridge.pipelines.pipeline import (
-    process_one_flightline,
-    go_forth_and_multiply,
-)
+from spectralbridge import go_forth_and_multiply, process_one_flightline
 ```
 
 Use `process_one_flightline` when you are exploring or validating a single flightline. Use `go_forth_and_multiply` when you have a list of flightlines and want the same pipeline applied in batch.

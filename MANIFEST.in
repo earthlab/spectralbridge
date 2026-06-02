@@ -1,0 +1,26 @@
+include README.md
+include LICENSE
+include CITATION.cff
+include pyproject.toml
+include pytest.ini
+include mkdocs.yml
+include requirements-dev.txt
+include environment.yaml
+include AGENTS.md
+include FEATURE_REQUESTS.md
+include publication_checklist.md
+
+recursive-include src/spectralbridge/data *.json
+recursive-include docs *.md *.png *.jpg *.jpeg *.svg *.css *.js *.yml *.yaml
+recursive-include tests *.py
+
+recursive-exclude docs/_build *
+prune data
+prune deprecated
+prune site
+prune .github
+
+exclude gocmd
+exclude move_folders_from_instance_to_remote.py
+exclude remote_to_instance.py
+exclude patch_script_toworkfromcorrectedfiles.py

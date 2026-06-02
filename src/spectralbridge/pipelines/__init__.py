@@ -1,4 +1,4 @@
-"""Pipeline entry points for Cross-Sensor Calibration."""
+"""Pipeline entry points for SpectralBridge."""
 
 from __future__ import annotations
 

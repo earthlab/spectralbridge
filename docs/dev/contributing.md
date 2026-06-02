@@ -30,8 +30,13 @@ ruff check src tests
 python -m pytest -m lite
 python -m pytest
 python tools/site_prepare.py && mkdocs build --strict
+python scripts/check_docs_links.py
 SPECTRALBRIDGE_DOCS_SITE=http://127.0.0.1:8000 python -m pytest tests/test_docs_playwright.py
 ```
+
+Use `python scripts/check_docs_links.py --fail-on-fillme` for a marker-free
+publication gate. Start a local server for the Playwright check with
+`python -m http.server 8000 --directory site` after building the site.
 
 ---
 

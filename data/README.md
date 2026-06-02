@@ -1,20 +1,39 @@
-# Data
+# Repository Data
 
 ## Overview
-The `data` directory holds working datasets produced or consumed by the
-pipeline. You can organize NEON downloads, intermediate ENVI files, and final
-CSV exports here using the directory structure shown in the project README.
 
-## Prerequisites
-- Adequate disk space for hyperspectral imagery
-- Optional: access credentials for NEON or remote storage endpoints
+This root `data/` directory is for repository examples, local staging, and
+development fixtures. It is not the package data directory used after
+installation. Runtime metadata that installed users receive lives under
+`src/spectralbridge/data/` and is included through `pyproject.toml`.
 
-## Step-by-step tutorial
-1. Create a new project directory inside `data/` named `SITE_YYYY_MM`.
+Root `data/` is excluded from source distributions by `MANIFEST.in` so local
+working data and large staging files do not ship with the Python package by
+accident.
+
+## Current Contents
+
+- `aop_macrosystems_data_1_7_25.geojson` - example polygon layer
+- `Table_mountain_data/ROI_TM_NEON_LST.geojson` - example Table Mountain ROI
+- `hyperspectral_bands.json` - repository copy of sensor band definitions
+- `landsat_band_parameters.json` - repository copy of Landsat resampling
+  parameters
+
+The JSON files also exist under `src/spectralbridge/data/`, which is the
+authoritative packaged location. Keep root copies only when they are useful for
+examples or external notebooks; update both locations deliberately if values
+change.
+
+## Local Staging Pattern
+
+When using this folder for local runs, create a site/date folder and keep all
+large products inside that run-owned directory:
+
+1. Create a new project directory inside `data/`, such as `data/NIWO_2023_08`.
 2. Download NEON flightlines into `raw_h5/`:
 
 ```python
-from src.envi_download import download_neon_flight_lines
+from spectralbridge.envi_download import download_neon_flight_lines
 
 download_neon_flight_lines(
     out_dir="data/NIWO_2023_08/raw_h5",
@@ -26,15 +45,13 @@ download_neon_flight_lines(
 ```
 
 3. Run the processing steps to populate `envi/`, `corrected/`, `resampled/`,
-   and `csv/` subfolders.
-
-## Reference
-- `aop_macrosystems_data_1_7_25.geojson` – example polygon layer
-- `hyperspectral_bands.json` – sensor band definitions
-- `landsat_band_parameters.json` – Landsat resampling parameters
+   Parquet, merged Parquet, and QA subfolders according to the active pipeline
+   documentation.
 
 ## Next steps
-Clean up intermediate files when they are no longer needed to conserve disk
-space.
 
-Last updated: 2025-08-14
+Clean up local staging data when it is no longer needed. Move anything with
+scientific or reproducibility value to a documented archive before removing it
+from active development paths.
+
+Last updated: 2026-06-02

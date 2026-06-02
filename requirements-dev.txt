@@ -1,5 +1,8 @@
 pytest>=7,<9
 duckdb>=1.0.0
+ruff>=0.5
+build>=1.2
+twine>=5
 mkdocs
 mkdocs-material
 mkdocstrings[python]

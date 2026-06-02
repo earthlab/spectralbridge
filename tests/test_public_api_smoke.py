@@ -64,3 +64,14 @@ def test_only_expected_top_level_packages_are_present() -> None:
     }
 
     assert packages == {"cross_sensor_cal", "spectralbridge"}
+
+
+def test_common_orchestration_helpers_are_available_at_top_level() -> None:
+    import spectralbridge
+    from spectralbridge.pipelines.pipeline import (
+        go_forth_and_multiply,
+        process_one_flightline,
+    )
+
+    assert spectralbridge.go_forth_and_multiply is go_forth_and_multiply
+    assert spectralbridge.process_one_flightline is process_one_flightline

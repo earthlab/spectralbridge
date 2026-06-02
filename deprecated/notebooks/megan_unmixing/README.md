@@ -20,8 +20,16 @@ Megan. It demonstrates how endmember selection affects root mean square error
 - `unmixing.Rmd` – main R Markdown file
 - `unmixing.html` – rendered output
 
+## Publication status
+
+This notebook and its sample data remain in `deprecated/` for provenance. The
+`data/` subfolder contains large Landsat and ecoregion files, so it is excluded
+from SpectralBridge source distributions by `MANIFEST.in`. Do not move these
+files back into active docs, tests, or package data unless the workflow is
+revived and given a smaller fixture strategy.
+
 ## Next steps
 Translate promising approaches from this analysis into Python modules within the
 `unmixing/` directory.
 
-Last updated: 2025-08-14
+Last updated: 2026-06-02

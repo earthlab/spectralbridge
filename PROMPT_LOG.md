@@ -2733,13 +2733,13 @@ tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_build_drone_qa_summary
         scene_b = tmp_path / "BBB_20230815" / "nested"
         scene_a.mkdir(parents=True)
         scene_b.mkdir(parents=True)
-    
+
         qa_a = scene_a / "AAA_20230814__qa.png"
         qa_b = scene_b / "BBB_20230815__qa.png"
         qa_a.write_bytes(b"png-a")
         qa_b.write_bytes(b"png-b")
         (scene_a / "AAA_20230814__polygons.parquet").write_text("parquet", encoding="utf-8")
-    
+
 >       pdf_path = build_drone_qa_summary(tmp_path)
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -2833,4 +2833,99 @@ Branch: main
 
 ```text
 we can delete all the popclimtoy anything, that was a different repo that was accidentally pushed to this repo and is totally unrelated. can you remove those and then remove that from the feature request list. add the smoke tests and the playwright tests and clarify Ray. remove those form feature request list when done
+```
+
+## 2026-06-02 - resolve publication feature requests
+Branch: main
+
+```text
+work through that list and do each one. document what you do so we know
+```
+
+## 2026-06-02 - root script container context
+Branch: main
+
+```text
+the root script issue is because we run it in a container and that makes for some strange roots.
+```
+
+## 2026-06-02 - fix docs playwright heading selector
+Branch: main
+
+```text
+Run python -m http.server 8000 --directory site > /tmp/spectralbridge-docs-http.log 2>&1 &
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________ test_docs_site_core_pages_render_in_browser __________________
+
+    def test_docs_site_core_pages_render_in_browser() -> None:
+        base_url = _docs_site_url()
+
+        try:
+            from playwright.sync_api import sync_playwright
+        except Exception as exc:  # pragma: no cover - depends on local environment
+            raise AssertionError(
+                "Playwright is required for docs browser smoke tests. "
+                "Install pytest-playwright/playwright and Chromium."
+            ) from exc
+
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch()
+            page = browser.new_page(viewport={"width": 1280, "height": 900})
+            page_errors, console_errors, failed_assets = _collect_page_health(page, base_url)
+
+            try:
+                page.goto(base_url, wait_until="networkidle")
+                assert "SpectralBridge" in page.title()
+>               assert page.get_by_role("heading", name="SpectralBridge").is_visible()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_docs_playwright.py:67:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:19208: in is_visible
+    self._sync(self._impl_obj.is_visible(timeout=to_milliseconds(timeout)))
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:548: in is_visible
+    return await self._frame.is_visible(
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:411: in is_visible
+    return await self._channel.send(
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <playwright._impl._connection.Connection object at 0x7f41e959b050>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f41db8814e0>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Locator.is_visible: Error: strict mode violation: get_by_role("heading", name="SpectralBridge") resolved to 2 elements:
+E               1) <h1 id="spectralbridge">…</h1> aka get_by_role("heading", name="SpectralBridge ¶")
+E               2) <h2 id="what-spectralbridge-does">…</h2> aka get_by_role("heading", name="What SpectralBridge does ¶")
+E
+E           Call log:
+E               - checking visibility of get_by_role("heading", name="SpectralBridge")
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+=========================== short test summary info ============================
+FAILED tests/test_docs_playwright.py::test_docs_site_core_pages_render_in_browser - playwright._impl._errors.Error: Locator.is_visible: Error: strict mode violation: get_by_role("heading", name="SpectralBridge") resolved to 2 elements:
+    1) <h1 id="spectralbridge">…</h1> aka get_by_role("heading", name="SpectralBridge ¶")
+    2) <h2 id="what-spectralbridge-does">…</h2> aka get_by_role("heading", name="What SpectralBridge does ¶")
+
+Call log:
+    - checking visibility of get_by_role("heading", name="SpectralBridge")
+Error: Process completed with exit code 1.
 ```

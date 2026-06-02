@@ -106,8 +106,8 @@ pip install spectralbridge
 ### Quickstart Example
 
 ```python
-from spectralbridge.pipelines.pipeline import go_forth_and_multiply
 from pathlib import Path
+from spectralbridge import go_forth_and_multiply
 
 go_forth_and_multiply(
     base_folder=Path("output_fresh"),
@@ -259,7 +259,7 @@ filenames, and make the parallel logs readable.
 
 ```python
 from pathlib import Path
-from spectralbridge.pipelines.pipeline import go_forth_and_multiply
+from spectralbridge import go_forth_and_multiply
 
 go_forth_and_multiply(
     base_folder=Path("output_tester"),
@@ -372,8 +372,11 @@ bin/validate_parquets --soft base_dir/NEON_D13_NIWO_DP1_L019-1_20230815_directio
 
 ## Quality Assurance (QA) panels
 
-<!-- TODO: Replace this note with an actual QA panel screenshot when available. -->
-<p align="center"><em>QA panel example coming soon.</em></p>
+<p align="center">
+  <img src="docs/EL_workflow_diagram_updatedQA.png" alt="SpectralBridge workflow diagram showing QA reports in the output stage" width="720">
+</p>
+
+<p align="center"><em>SpectralBridge workflow diagram showing QA reports as part of the output contract. Per-flightline QA PNG/JSON/PDF panels are generated during each run and are documented in the QA pages.</em></p>
 
 - **Panel A – Raw ENVI RGB:** Confirms the uncorrected export renders with sensible
   color balance and spatial alignment.
@@ -483,13 +486,13 @@ Pages.
 
 Key entry points:
 
-- [Overview](docs/overview.md)
+- [Home](docs/index.md)
 - [Quickstart](docs/quickstart.md)
-- [Stage 01 Raster Processing](docs/stage-01-raster-processing.md)
-- [Stage 02 Sorting](docs/stage-02-sorting.md)
-- [Stage 03 Pixel Extraction](docs/stage-03-pixel-extraction.md)
-- [Stage 04 Spectral Library](docs/stage-04-spectral-library.md)
-- [Stage 05 MESMA](docs/stage-05-mesma.md)
+- [Pipeline overview & stages](docs/pipeline/stages.md)
+- [Outputs & file structure](docs/pipeline/outputs.md)
+- [QA panels & metrics](docs/pipeline/qa.md)
+- [Configuration reference](docs/reference/configuration.md)
+- [Validation metrics](docs/reference/validation.md)
 
 ## Support Matrix
 

@@ -8,6 +8,12 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .ipynb_checkpoints/
+docs/_build/
+
+# Publication cleanup archive intentionally preserves previously tracked
+# generated files outside active source/docs/test paths.
+!deprecated/generated_artifacts/
+!deprecated/generated_artifacts/**
 
 # QA artifacts
 *_qa_metrics.json

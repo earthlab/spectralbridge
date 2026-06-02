@@ -1,7 +1,5 @@
 # Naming Conventions
 
-> DO NOT EDIT OUTSIDE MARKERS
-<!-- FILLME:START -->
 ## Authoritative helpers
 
 Naming is part of the public workflow contract. Do not construct output paths
@@ -82,4 +80,3 @@ double-underscore separator for drone products:
 | Using NEON-style names for drone outputs | Loses drone-native provenance and conflicts with the drone workflow contract | Use the double-underscore drone patterns |
 | Replacing Parquet with CSV as the authoritative table | Breaks the high-performance analysis path | Keep Parquet authoritative; CSV sidecars, when present, are convenience copies |
 | Changing sensor suffix spelling | Breaks `FlightlinePaths.sensor_products` consumers | Update path helpers, tests, and docs together if a suffix must change |
-<!-- FILLME:END -->
