@@ -2929,3 +2929,316 @@ Call log:
     - checking visibility of get_by_role("heading", name="SpectralBridge")
 Error: Process completed with exit code 1.
 ```
+## 2026-06-02 - fix failing pytest smoke tests
+Branch: main
+
+```text
+Run pytest -q
+.................s....................................................ss [ 24%]
+ss...................................................................... [ 48%]
+.....................................F................F................. [ 72%]
+............................................FFF.............s........... [ 96%]
+...........                                                              [100%]
+=================================== FAILURES ===================================
+_ test_public_function_import_and_signature_smoke[spectralbridge.mask_raster.find_raster_files] _
+
+module_name = 'spectralbridge.mask_raster', function_name = 'find_raster_files'
+
+    @pytest.mark.parametrize(
+        ("module_name", "function_name"),
+        PUBLIC_FUNCTIONS,
+        ids=[f"{module}.{name}" for module, name in PUBLIC_FUNCTIONS],
+    )
+    def test_public_function_import_and_signature_smoke(
+        module_name: str,
+        function_name: str,
+    ) -> None:
+        module = importlib.import_module(module_name)
+>       function = getattr(module, function_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'spectralbridge.mask_raster' has no attribute 'find_raster_files'
+
+tests/test_public_api_smoke.py:53: AttributeError
+_ test_public_function_import_and_signature_smoke[spectralbridge.pipelines.download.run_download] _
+
+module_name = 'spectralbridge.pipelines.download'
+function_name = 'run_download'
+
+    @pytest.mark.parametrize(
+        ("module_name", "function_name"),
+        PUBLIC_FUNCTIONS,
+        ids=[f"{module}.{name}" for module, name in PUBLIC_FUNCTIONS],
+    )
+    def test_public_function_import_and_signature_smoke(
+        module_name: str,
+        function_name: str,
+    ) -> None:
+>       module = importlib.import_module(module_name)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_public_api_smoke.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1204: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1176: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'spectralbridge.pipelines.download'
+import_ = <function _gcd_import at 0x7fef9674fd80>
+
+>   ???
+E   ModuleNotFoundError: No module named 'spectralbridge.pipelines.download'
+
+<frozen importlib._bootstrap>:1140: ModuleNotFoundError
+_ test_public_function_import_and_signature_smoke[spectralbridge.standard_resample.apply_resampler] _
+
+module_name = 'spectralbridge.standard_resample'
+function_name = 'apply_resampler'
+
+    @pytest.mark.parametrize(
+        ("module_name", "function_name"),
+        PUBLIC_FUNCTIONS,
+        ids=[f"{module}.{name}" for module, name in PUBLIC_FUNCTIONS],
+    )
+    def test_public_function_import_and_signature_smoke(
+        module_name: str,
+        function_name: str,
+    ) -> None:
+        module = importlib.import_module(module_name)
+>       function = getattr(module, function_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'spectralbridge.standard_resample' has no attribute 'apply_resampler'
+
+tests/test_public_api_smoke.py:53: AttributeError
+_ test_public_function_import_and_signature_smoke[spectralbridge.standard_resample.load_envi_data] _
+
+module_name = 'spectralbridge.standard_resample'
+function_name = 'load_envi_data'
+
+    @pytest.mark.parametrize(
+        ("module_name", "function_name"),
+        PUBLIC_FUNCTIONS,
+        ids=[f"{module}.{name}" for module, name in PUBLIC_FUNCTIONS],
+    )
+    def test_public_function_import_and_signature_smoke(
+        module_name: str,
+        function_name: str,
+    ) -> None:
+        module = importlib.import_module(module_name)
+>       function = getattr(module, function_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'spectralbridge.standard_resample' has no attribute 'load_envi_data'
+
+tests/test_public_api_smoke.py:53: AttributeError
+_ test_public_function_import_and_signature_smoke[spectralbridge.standard_resample.translate_to_sensor] _
+
+module_name = 'spectralbridge.standard_resample'
+function_name = 'translate_to_sensor'
+
+    @pytest.mark.parametrize(
+        ("module_name", "function_name"),
+        PUBLIC_FUNCTIONS,
+        ids=[f"{module}.{name}" for module, name in PUBLIC_FUNCTIONS],
+    )
+    def test_public_function_import_and_signature_smoke(
+        module_name: str,
+        function_name: str,
+    ) -> None:
+        module = importlib.import_module(module_name)
+>       function = getattr(module, function_name)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'spectralbridge.standard_resample' has no attribute 'translate_to_sensor'
+
+tests/test_public_api_smoke.py:53: AttributeError
+=============================== warnings summary ===============================
+src/spectralbridge/polygons.py:21
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:21: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:2233: RuntimeWarning: All-NaN slice encountered
+    return np.nanmedian(masked, axis=(1, 2))
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:388: RuntimeWarning: All-NaN slice encountered
+    delta_median = np.nanmedian(diff, axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/numpy/lib/_nanfunctions_impl.py:1593: RuntimeWarning: All-NaN slice encountered
+    return fnb._ureduce(a,
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:393: RuntimeWarning: All-NaN slice encountered
+    delta_abs_median = np.nanmedian(np.abs(diff), axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:2385: RuntimeWarning: All-NaN slice encountered
+    abs_delta = np.nanmedian(full_abs_diff, axis=0)
+
+tests/test_pipeline_convolution.py::test_pipeline_idempotence_skip_behavior
+  /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/opentelemetry/util/_importlib_metadata.py:32: DeprecationWarning: SelectableGroups dict interface is deprecated. Use select.
+    return EntryPoints(ep for group_eps in eps.values() for ep in group_eps)
+
+tests/test_pipeline_convolution.py::test_pipeline_idempotence_skip_behavior
+  /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/ray/_private/worker.py:2051: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+    warnings.warn(
+
+tests/test_polygon_pipeline.py::test_build_polygon_pixel_index
+tests/test_polygon_pipeline.py::test_extract_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_merge_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_run_polygon_pipeline_for_flightline
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:1714: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+    polygon_ids = polygons["polygon_id"].astype("int64", copy=False)
+
+tests/test_qa/test_qa_metrics_smoke.py::test_render_panel_writes_png_and_json
+tests/test_qa/test_qa_metrics_smoke.py::test_metrics_arrays_are_serialisable
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:1236: UserWarning: Glyph 10060 (\\N{CROSS MARK}) missing from font(s) DejaVu Sans Mono.
+    pdf.savefig(fig, bbox_inches="tight")
+
+tests/test_qa/test_qa_metrics_smoke.py::test_render_panel_writes_png_and_json
+tests/test_qa/test_qa_metrics_smoke.py::test_metrics_arrays_are_serialisable
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:1236: UserWarning: Glyph 65039 (\\N{VARIATION SELECTOR-16}) missing from font(s) DejaVu Sans Mono.
+    pdf.savefig(fig, bbox_inches="tight")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_public_api_smoke.py::test_public_function_import_and_signature_smoke[spectralbridge.mask_raster.find_raster_files] - AttributeError: module 'spectralbridge.mask_raster' has no attribute 'find_raster_files'
+FAILED tests/test_public_api_smoke.py::test_public_function_import_and_signature_smoke[spectralbridge.pipelines.download.run_download] - ModuleNotFoundError: No module named 'spectralbridge.pipelines.download'
+FAILED tests/test_public_api_smoke.py::test_public_function_import_and_signature_smoke[spectralbridge.standard_resample.apply_resampler] - AttributeError: module 'spectralbridge.standard_resample' has no attribute 'apply_resampler'
+FAILED tests/test_public_api_smoke.py::test_public_function_import_and_signature_smoke[spectralbridge.standard_resample.load_envi_data] - AttributeError: module 'spectralbridge.standard_resample' has no attribute 'load_envi_data'
+FAILED tests/test_public_api_smoke.py::test_public_function_import_and_signature_smoke[spectralbridge.standard_resample.translate_to_sensor] - AttributeError: module 'spectralbridge.standard_resample' has no attribute 'translate_to_sensor'
+(raylet) [2026-06-02 17:59:49,806 I 2920 2920] logging.cc:303: Set ray log level from environment variable RAY_BACKEND_LOG_LEVEL to 2 [repeated 4x across cluster] (Ray deduplicates logs by default. Set RAY_DEDUP_LOGS=0 to disable log deduplication, or see https://docs.ray.io/en/master/ray-observability/user-guides/configure-logging.html#log-deduplication for more options.)
+Error: Process completed with exit code 1.Run python -m http.server 8000 --directory site > /tmp/spectralbridge-docs-http.log 2>&1 &
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________ test_docs_site_core_pages_render_in_browser __________________
+
+    def test_docs_site_core_pages_render_in_browser() -> None:
+        base_url = _docs_site_url()
+
+        try:
+            from playwright.sync_api import sync_playwright
+        except Exception as exc:  # pragma: no cover - depends on local environment
+            raise AssertionError(
+                "Playwright is required for docs browser smoke tests. "
+                "Install pytest-playwright/playwright and Chromium."
+            ) from exc
+
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch()
+            page = browser.new_page(viewport={"width": 1280, "height": 900})
+            page_errors, console_errors, failed_assets = _collect_page_health(page, base_url)
+
+            try:
+                page.goto(base_url, wait_until="networkidle")
+                assert "SpectralBridge" in page.title()
+                assert page.locator("h1#spectralbridge").is_visible()
+
+                logo = page.locator("img[alt='SpectralBridge logo']").first
+                assert logo.evaluate("(img) => img.naturalWidth") > 0
+
+                page.goto(urljoin(base_url, "quickstart/"), wait_until="networkidle")
+                assert page.get_by_role("heading", name="Quickstart").is_visible()
+
+                page.goto(urljoin(base_url, "pipeline/outputs/"), wait_until="networkidle")
+                assert page.get_by_role("heading", name="Outputs & File Structure").is_visible()
+                assert page.get_by_text("_merged_pixel_extraction.parquet").first.is_visible()
+
+                page.goto(base_url, wait_until="networkidle")
+>               page.locator("label.md-search__icon[for='__search']").first.click()
+
+tests/test_docs_playwright.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:17422: in click
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:163: in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:569: in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <playwright._impl._connection.Connection object at 0x7f40c70d2090>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f40c6bed620>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for locator("label.md-search__icon[for='__search']").first
+E               - locator resolved to <label for="__search" class="md-search__icon md-icon">…</label>
+E             - attempting click action
+E               2 × waiting for element to be visible, enabled and stable
+E                 - element is visible, enabled and stable
+E                 - scrolling into view if needed
+E                 - done scrolling
+E                 - <input type="text" required="" name="query" autocorrect="off" autocomplete="off" spellcheck="false" aria-label="Search" placeholder="Search" autocapitalize="off" class="md-search__input" data-md-component="search-query"/> intercepts pointer events
+E               - retrying click action
+E               - waiting 20ms
+E               2 × waiting for element to be visible, enabled and stable
+E                 - element is visible, enabled and stable
+E                 - scrolling into view if needed
+E                 - done scrolling
+E                 - <input type="text" required="" name="query" autocorrect="off" autocomplete="off" spellcheck="false" aria-label="Search" placeholder="Search" autocapitalize="off" class="md-search__input" data-md-component="search-query"/> intercepts pointer events
+E               - retrying click action
+E                 - waiting 100ms
+E               57 × waiting for element to be visible, enabled and stable
+E                  - element is visible, enabled and stable
+E                  - scrolling into view if needed
+E                  - done scrolling
+E                  - <input type="text" required="" name="query" autocorrect="off" autocomplete="off" spellcheck="false" aria-label="Search" placeholder="Search" autocapitalize="off" class="md-search__input" data-md-component="search-query"/> intercepts pointer events
+E                - retrying click action
+E                  - waiting 500ms
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
+=========================== short test summary info ============================
+FAILED tests/test_docs_playwright.py::test_docs_site_core_pages_render_in_browser - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("label.md-search__icon[for='__search']").first
+    - locator resolved to <label for="__search" class="md-search__icon md-icon">…</label>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <input type="text" required="" name="query" autocorrect="off" autocomplete="off" spellcheck="false" aria-label="Search" placeholder="Search" autocapitalize="off" class="md-search__input" data-md-component="search-query"/> intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <input type="text" required="" name="query" autocorrect="off" autocomplete="off" spellcheck="false" aria-label="Search" placeholder="Search" autocapitalize="off" class="md-search__input" data-md-component="search-query"/> intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    57 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <input type="text" required="" name="query" autocorrect="off" autocomplete="off" spellcheck="false" aria-label="Search" placeholder="Search" autocapitalize="off" class="md-search__input" data-md-component="search-query"/> intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+Error: Process completed with exit code 1.
+```

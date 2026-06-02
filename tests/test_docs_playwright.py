@@ -77,8 +77,9 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             assert page.get_by_text("_merged_pixel_extraction.parquet").first.is_visible()
 
             page.goto(base_url, wait_until="networkidle")
-            page.locator("label.md-search__icon[for='__search']").first.click()
-            page.locator("[data-md-component='search-query']").first.fill("Parquet")
+            search_query = page.locator("[data-md-component='search-query']").first
+            search_query.click()
+            search_query.fill("Parquet")
             page.wait_for_selector(".md-search-result__link", timeout=5000)
             assert page.locator(".md-search-result__link").first.is_visible()
         finally:
