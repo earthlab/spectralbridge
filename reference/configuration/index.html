@@ -1168,24 +1168,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Configuration
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1202,119 +1184,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-sources" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration sources
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common settings
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Common settings">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#base-folder" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        base-folder
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#engine" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        engine
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#max-workers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        max-workers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pipeline-scope" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pipeline scope
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Environment variables
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sensor-support-configuration-sources" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sensor support &amp; configuration sources
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1724,104 +1593,129 @@
 
 
 <h1 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h1>
-<p>Most users can rely on default configuration, but the pipeline allows fine-grained control over processing stages, performance, and file handling.</p>
-<p>This page documents the available configuration parameters and how they affect pipeline behavior.</p>
-<hr />
-<h2 id="configuration-sources">Configuration sources<a class="headerlink" href="#configuration-sources" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Command-line options (highest priority)  </li>
-<li>Environment variables  </li>
-<li>Default internal settings  </li>
-</ol>
-<hr />
-<h2 id="common-settings">Common settings<a class="headerlink" href="#common-settings" title="Permanent link">&para;</a></h2>
-<h3 id="base-folder"><code>base-folder</code><a class="headerlink" href="#base-folder" title="Permanent link">&para;</a></h3>
-<p>Directory where:</p>
-<ul>
-<li>downloaded HDF5 tiles  </li>
-<li>ENVI exports  </li>
-<li>Parquet tables  </li>
-<li>QA artifacts  </li>
-</ul>
-<p>are written.</p>
-<hr />
-<h3 id="engine"><code>engine</code><a class="headerlink" href="#engine" title="Permanent link">&para;</a></h3>
-<p>Execution backend:</p>
-<ul>
-<li><code>ray</code> (default; distributed/hyperparallel workflows)</li>
-<li><code>thread</code> (local debugging or constrained-memory workflows)</li>
-<li><code>process</code> (local multi-process fallback)</li>
-</ul>
-<p>Ray is part of the standard install. The thread and process engines are still
-useful when you want to avoid Ray initialization for a particular run.</p>
-<hr />
-<h3 id="max-workers"><code>max-workers</code><a class="headerlink" href="#max-workers" title="Permanent link">&para;</a></h3>
-<p>Controls concurrency in:</p>
-<ul>
-<li>ENVI export  </li>
-<li>BRDF and topo correction  </li>
-<li>Parquet extraction  </li>
-</ul>
-<p>Use cautiously when memory is limited.</p>
-<hr />
-<h3 id="pipeline-scope">Pipeline scope<a class="headerlink" href="#pipeline-scope" title="Permanent link">&para;</a></h3>
-<p>The CLI currently runs the full stage sequence; idempotent checks in <code>process_one_flightline</code> skip work when outputs already exist.</p>
-<h3 id="environment-variables">Environment variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>CSCAL_TMPDIR</code></td>
-<td>Override temporary directory</td>
-</tr>
-<tr>
-<td><code>CSCAL_LOGLEVEL</code></td>
-<td>Set logging verbosity</td>
-</tr>
-<tr>
-<td><code>CSCAL_RAY_ADDRESS</code></td>
-<td>Use an existing Ray cluster</td>
-</tr>
-</tbody>
-</table>
-<p>Advanced configuration
-These settings primarily matter for large-scale workflows:</p>
-<ul>
-<li>chunk sizes for Parquet extraction</li>
-<li>memory thresholds for Ray worker processes</li>
-<li>default CRS assignments</li>
-<li>sensor SRF paths</li>
-</ul>
-<p>Details of internal architecture appear in the Developer section.</p>
-<hr />
-<h2 id="sensor-support-configuration-sources">Sensor support &amp; configuration sources<a class="headerlink" href="#sensor-support-configuration-sources" title="Permanent link">&para;</a></h2>
-<p>Supported sensor outputs (from <code>FlightlinePaths.sensor_products</code>):</p>
-<ul>
-<li><code>landsat_tm</code></li>
-<li><code>landsat_etm+</code></li>
-<li><code>landsat_oli</code></li>
-<li><code>landsat_oli2</code></li>
-<li><code>micasense</code></li>
-<li><code>micasense_to_match_tm_etm+</code></li>
-<li><code>micasense_to_match_oli_oli2</code></li>
-</ul>
-<p>Spectral configuration comes from:</p>
-<ul>
-<li><code>spectralbridge/data/landsat_band_parameters.json</code></li>
-<li><code>spectralbridge/data/hyperspectral_bands.json</code></li>
-<li>brightness coefficients loaded via <code>load_brightness_coefficients(system_pair)</code> in <code>spectralbridge/brightness_config.py</code> with tables stored under <code>spectralbridge/data/brightness/*.json</code></li>
-</ul>
-<p>If you update brightness coefficients, refresh the JSON tables accordingly. Provenance/citation for brightness regression tables: (needs project decision).
-Next steps
-JSON schemas
-Validation metrics
-Pipeline stages</p>
-<hr />
+<div class="sb-doc-page">
+<section class="sb-doc-hero">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Reference<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h1&gt;</span>Configuration<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-lead&quot;</span><span class="nt">&gt;</span>Most<span class="w"> </span>users<span class="w"> </span>can<span class="w"> </span>rely<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>default<span class="w"> </span>pipeline<span class="w"> </span>behavior,<span class="w"> </span>but<span class="w"> </span>SpectralBridge<span class="w"> </span>does<span class="w"> </span>expose<span class="w"> </span>a<span class="w"> </span>small<span class="w"> </span>set<span class="w"> </span>of<span class="w"> </span>runtime<span class="w"> </span>controls<span class="w"> </span>for<span class="w"> </span>execution<span class="w"> </span>engine,<span class="w"> </span>restart-safe<span class="w"> </span>extraction,<span class="w"> </span>merge<span class="w"> </span>tuning,<span class="w"> </span>and<span class="w"> </span>Ray<span class="w"> </span>diagnostics.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;div</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-grid sb-doc-grid--three&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>CLI<span class="w"> </span>first<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Most<span class="w"> </span>configuration<span class="w"> </span>is<span class="w"> </span>surfaced<span class="w"> </span>through<span class="w"> </span><span class="nt">&lt;code&gt;</span>spectralbridge-pipeline<span class="nt">&lt;/code&gt;</span><span class="w"> </span>flags<span class="w"> </span>rather<span class="w"> </span>than<span class="w"> </span>through<span class="w"> </span>large<span class="w"> </span>external<span class="w"> </span>config<span class="w"> </span>files.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Restart-safe<span class="w"> </span>defaults<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>The<span class="w"> </span>pipeline<span class="w"> </span>validates<span class="w"> </span>outputs<span class="w"> </span>and<span class="w"> </span>skips<span class="w"> </span>good<span class="w"> </span>artifacts<span class="w"> </span>by<span class="w"> </span>default,<span class="w"> </span>so<span class="w"> </span>reruns<span class="w"> </span>are<span class="w"> </span>part<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>intended<span class="w"> </span>workflow.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Ray<span class="w"> </span>is<span class="w"> </span>optional<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>The<span class="w"> </span>default<span class="w"> </span>engine<span class="w"> </span>is<span class="w"> </span>Ray,<span class="w"> </span>but<span class="w"> </span>thread<span class="w"> </span>and<span class="w"> </span>process<span class="w"> </span>execution<span class="w"> </span>remain<span class="w"> </span>available<span class="w"> </span>for<span class="w"> </span>constrained<span class="w"> </span>or<span class="w"> </span>debugging<span class="w"> </span>environments.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+</code></pre></div>
+
+</section>
+</div>
+</section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Control surface&lt;/p&gt;
+    &lt;h2&gt;Where configuration comes from&lt;/h2&gt;
+    &lt;ol class="sb-doc-list"&gt;
+      &lt;li&gt;CLI arguments and Python function parameters&lt;/li&gt;
+      &lt;li&gt;A small set of environment variables used mainly for Ray behavior&lt;/li&gt;
+      &lt;li&gt;Package defaults in the pipeline and merge helpers&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;p&gt;There is not currently a project-wide YAML or TOML runtime configuration file for the main processing workflow.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Core runtime options&lt;/p&gt;
+    &lt;h2&gt;Common pipeline controls&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;--base-folder&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Root location for downloaded HDF5 inputs, ENVI products, parquet outputs, merged tables, and QA artefacts.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;--engine&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Execution backend: &lt;code&gt;ray&lt;/code&gt;, &lt;code&gt;thread&lt;/code&gt;, or &lt;code&gt;process&lt;/code&gt;. Ray remains the default in the NEON CLI path.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;--max-workers&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Upper bound for concurrent work. Higher values can improve throughput but also increase memory pressure.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;--parquet-chunk-size&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Controls chunk size for ENVI-to-parquet extraction and is one of the safest tuning knobs when memory is limited.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;--merge-memory-limit&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Tunes the DuckDB merge stage when parquet joins become memory-heavy.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;--merge-temp-directory&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Lets the merge stage spill to a specific scratch location instead of relying on the default temp directory.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Environment variables&lt;/p&gt;
+    &lt;h2&gt;Supported environment knobs&lt;/h2&gt;
+    &lt;p&gt;The current codebase uses a relatively small set of environment variables directly:&lt;/p&gt;
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Purpose&lt;/th&gt;&lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;&lt;td&gt;&lt;code&gt;CSC_RAY_NUM_CPUS&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Override Ray helper CPU selection when you want a different cap than &lt;code&gt;--max-workers&lt;/code&gt;.&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;&lt;code&gt;CSC_RAY_DEBUG&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Enable extra Ray diagnostics for troubleshooting initialization and dispatch behavior.&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;&lt;code&gt;RAY_DISABLE_DASHBOARD&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Can override the default suppression of the Ray dashboard if you intentionally want Ray’s dashboard behavior changed.&lt;/td&gt;&lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;p class="sb-doc-note"&gt;Older documentation sometimes referenced &lt;code&gt;CSCAL_TMPDIR&lt;/code&gt;, &lt;code&gt;CSCAL_LOGLEVEL&lt;/code&gt;, or &lt;code&gt;CSCAL_RAY_ADDRESS&lt;/code&gt;. Those are not current first-class runtime controls in the present package code.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Sensor and workflow configuration&lt;/p&gt;
+    &lt;h2&gt;What is built into the package?&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Sensor outputs&lt;/h3&gt;
+        &lt;p&gt;Canonical sensor products are defined through path helpers and data tables, including Landsat TM, ETM+, OLI, OLI-2, and the current MicaSense-related products.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Spectral data tables&lt;/h3&gt;
+        &lt;p&gt;Band centers, FWHM values, and brightness coefficient tables live under &lt;code&gt;src/spectralbridge/data/&lt;/code&gt; and are part of the package contract.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+    &lt;p&gt;If you change sensor support or brightness tables, update the code, tests, and naming/output documentation together.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Operational guidance&lt;/p&gt;
+    &lt;h2&gt;How to tune safely&lt;/h2&gt;
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;Prefer lowering &lt;code&gt;--max-workers&lt;/code&gt; before assuming a scientific stage is broken.&lt;/li&gt;
+      &lt;li&gt;Lower &lt;code&gt;--parquet-chunk-size&lt;/code&gt; if parquet extraction or polygon workflows are memory-bound.&lt;/li&gt;
+      &lt;li&gt;Point &lt;code&gt;--merge-temp-directory&lt;/code&gt; at a fast local scratch disk for large merges.&lt;/li&gt;
+      &lt;li&gt;Use &lt;code&gt;thread&lt;/code&gt; for reproducible first-pass debugging and &lt;code&gt;ray&lt;/code&gt; for larger production runs.&lt;/li&gt;
+    &lt;/ul&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Where to go next&lt;/p&gt;
+    &lt;h2&gt;Related references&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--three"&gt;
+      &lt;a class="sb-doc-link-card" href="../usage/cli/"&gt;
+        &lt;strong&gt;CLI reference&lt;/strong&gt;
+        &lt;span&gt;See the concrete command patterns for the main entry points.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="../pipeline/stages/"&gt;
+        &lt;strong&gt;Pipeline stages&lt;/strong&gt;
+        &lt;span&gt;Understand which stages consume each setting.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="validation/"&gt;
+        &lt;strong&gt;Validation metrics&lt;/strong&gt;
+        &lt;span&gt;Review the QA and output checks that make reruns safe.&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  </section>
+</div>
 
 
 

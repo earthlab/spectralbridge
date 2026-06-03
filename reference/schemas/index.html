@@ -1196,24 +1196,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    JSON schemas
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1230,102 +1212,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-envi-export-metadata" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. ENVI export metadata
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-topographic-correction-metadata" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Topographic correction metadata
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-brdf-metadata" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. BRDF metadata
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-convolution-metadata-sensor-harmonization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Convolution metadata (sensor harmonization)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-qa-metrics-schema" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. QA metrics schema
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#using-schemas-in-downstream-workflows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using schemas in downstream workflows
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1707,92 +1593,112 @@
 
 
 <h1 id="json-schemas">JSON Schemas<a class="headerlink" href="#json-schemas" title="Permanent link">&para;</a></h1>
-<p>The pipeline emits several JSON files containing structured metadata and QA metrics. These files allow downstream tools to audit processing decisions and validate outputs.</p>
-<p>This page summarizes the purpose and structure of each schema.</p>
-<hr />
-<h2 id="1-envi-export-metadata">1. ENVI export metadata<a class="headerlink" href="#1-envi-export-metadata" title="Permanent link">&para;</a></h2>
-<p>Recorded in:</p>
-<p>*_export_metadata.json</p>
-<p>Contains:</p>
-<ul>
-<li>wavelength array  </li>
-<li>band names  </li>
-<li>reflectance scaling (NEON conventions)  </li>
-<li>mask types and bit fields  </li>
-<li>CRS and affine transform  </li>
-</ul>
-<hr />
-<h2 id="2-topographic-correction-metadata">2. Topographic correction metadata<a class="headerlink" href="#2-topographic-correction-metadata" title="Permanent link">&para;</a></h2>
-<p>*_topo_metadata.json</p>
-<p>Includes:</p>
-<ul>
-<li>slope and aspect statistics  </li>
-<li>solar geometry used  </li>
-<li>mask adjustments  </li>
-<li>correction parameters  </li>
-</ul>
-<hr />
-<h2 id="3-brdf-metadata">3. BRDF metadata<a class="headerlink" href="#3-brdf-metadata" title="Permanent link">&para;</a></h2>
-<p>*_brdf_metadata.json</p>
-<p>Includes:</p>
-<ul>
-<li>BRDF coefficients per wavelength  </li>
-<li>RMSE of BRDF fits  </li>
-<li>flags for unstable fits  </li>
-<li>view/sun geometry summaries  </li>
-</ul>
-<p>The streamlined BRDF coefficient payload is also written as:</p>
-<p>*_brdf_model.json</p>
-<p>This model JSON contains:</p>
-<ul>
-<li><code>iso</code>, <code>vol</code>, and <code>geo</code> coefficient tables  </li>
-<li>kernel names used during fitting/application  </li>
-<li>geometric kernel parameters such as <code>b_r</code>, <code>h_b</code>, and <code>solar_zn_type</code>  </li>
-<li><code>ndvi_binning_enabled</code>, indicating whether NDVI-stratified BRDF bins were
-  used during fitting  </li>
-<li><code>ndvi_edges</code>, which stores the realized NDVI bin boundaries (<code>n_bins + 1</code>
-  values) used to stratify the coefficient rows  </li>
-</ul>
-<p><code>ndvi_edges</code> is metadata for interpreting the BRDF model. It explains which
-NDVI stratum each coefficient row belongs to; it is not a per-pixel NDVI
-product. When NDVI binning is disabled, the model stores a single neutral bin
-with <code>ndvi_edges = [-1, 1]</code>.</p>
-<hr />
-<h2 id="4-convolution-metadata-sensor-harmonization">4. Convolution metadata (sensor harmonization)<a class="headerlink" href="#4-convolution-metadata-sensor-harmonization" title="Permanent link">&para;</a></h2>
-<p>*_convolution_metadata.json</p>
-<p>Contains:</p>
-<ul>
-<li>SRF files used  </li>
-<li>wavelength alignment checks  </li>
-<li>brightness correction coefficients  </li>
-<li>bandpass integration statistics  </li>
-</ul>
-<hr />
-<h2 id="5-qa-metrics-schema">5. QA metrics schema<a class="headerlink" href="#5-qa-metrics-schema" title="Permanent link">&para;</a></h2>
-<p>The QA JSON file contains:</p>
-<ul>
-<li>reflectance summary statistics  </li>
-<li>mask percentages  </li>
-<li>wavelength metadata  </li>
-<li>BRDF/brightness coefficients  </li>
-<li>geometry metadata  </li>
-</ul>
-<p>Exact fields are defined in the validation section.</p>
-<hr />
-<h2 id="using-schemas-in-downstream-workflows">Using schemas in downstream workflows<a class="headerlink" href="#using-schemas-in-downstream-workflows" title="Permanent link">&para;</a></h2>
-<p>These JSON files support:</p>
-<ul>
-<li>reproducibility  </li>
-<li>debugging  </li>
-<li>statistical evaluation of harmonization quality  </li>
-<li>provenance tracking for scientific analyses  </li>
-</ul>
-<hr />
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../validation/">Validation metrics</a>  </li>
-<li><a href="../../pipeline/outputs/">Pipeline outputs</a></li>
-</ul>
+<div class="sb-doc-page">
+<section class="sb-doc-hero">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Reference<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h1&gt;</span>JSON<span class="w"> </span>schemas<span class="w"> </span>and<span class="w"> </span>metadata<span class="w"> </span>sidecars<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-lead&quot;</span><span class="nt">&gt;</span>SpectralBridge<span class="w"> </span>writes<span class="w"> </span>structured<span class="w"> </span>JSON<span class="w"> </span>files<span class="w"> </span>next<span class="w"> </span>to<span class="w"> </span>major<span class="w"> </span>processing<span class="w"> </span>artefacts<span class="w"> </span>so<span class="w"> </span>correction<span class="w"> </span>choices,<span class="w"> </span>wavelengths,<span class="w"> </span>QA<span class="w"> </span>summaries,<span class="w"> </span>and<span class="w"> </span>provenance<span class="w"> </span>remain<span class="w"> </span>inspectable<span class="w"> </span>after<span class="w"> </span>the<span class="w"> </span>raster<span class="w"> </span>work<span class="w"> </span>is<span class="w"> </span>done.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;div</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-grid sb-doc-grid--three&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Reproducibility<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Metadata<span class="w"> </span>sidecars<span class="w"> </span>record<span class="w"> </span>how<span class="w"> </span>a<span class="w"> </span>product<span class="w"> </span>was<span class="w"> </span>generated<span class="w"> </span>instead<span class="w"> </span>of<span class="w"> </span>forcing<span class="w"> </span>users<span class="w"> </span>to<span class="w"> </span>infer<span class="w"> </span>processing<span class="w"> </span>history<span class="w"> </span>from<span class="w"> </span>filenames<span class="w"> </span>alone.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Validation<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>QA<span class="w"> </span>JSON<span class="w"> </span>files<span class="w"> </span>carry<span class="w"> </span>machine-readable<span class="w"> </span>checks<span class="w"> </span>that<span class="w"> </span>complement<span class="w"> </span>the<span class="w"> </span>PNG<span class="w"> </span>and<span class="w"> </span>PDF<span class="w"> </span>artefacts.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Stage<span class="w"> </span>transparency<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Each<span class="w"> </span>major<span class="w"> </span>stage<span class="w"> </span>can<span class="w"> </span>leave<span class="w"> </span>a<span class="w"> </span>structured<span class="w"> </span>record<span class="w"> </span>of<span class="w"> </span>what<span class="w"> </span>was<span class="w"> </span>assumed,<span class="w"> </span>fitted,<span class="w"> </span>or<span class="w"> </span>applied.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+</code></pre></div>
+
+</section>
+</div>
+</section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Export metadata&lt;/p&gt;
+    &lt;h2&gt;ENVI export sidecars&lt;/h2&gt;
+    &lt;p&gt;The export stage records metadata needed to interpret the ENVI cube and the downstream parquet products derived from it.&lt;/p&gt;
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;wavelength arrays and band names&lt;/li&gt;
+      &lt;li&gt;reflectance scaling details&lt;/li&gt;
+      &lt;li&gt;mask and CRS context&lt;/li&gt;
+      &lt;li&gt;basic provenance for the exported raster&lt;/li&gt;
+    &lt;/ul&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Correction metadata&lt;/p&gt;
+    &lt;h2&gt;Topographic and BRDF sidecars&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Topographic metadata&lt;/h3&gt;
+        &lt;p&gt;Topographic sidecars summarize the slope, aspect, solar geometry, and correction parameters used for the terrain-sensitive part of the workflow.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;BRDF metadata&lt;/h3&gt;
+        &lt;p&gt;BRDF sidecars preserve coefficient summaries, fit diagnostics, kernel settings, and any NDVI-binning context used while building the correction model.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+    &lt;p&gt;The streamlined BRDF model JSON remains the most direct structured record of the fitted coefficient surfaces and kernel configuration for a flight line.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Harmonization metadata&lt;/p&gt;
+    &lt;h2&gt;Sensor translation sidecars&lt;/h2&gt;
+    &lt;p&gt;Convolution and harmonization sidecars document how corrected hyperspectral reflectance was translated into target sensor products.&lt;/p&gt;
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;sensor response assumptions&lt;/li&gt;
+      &lt;li&gt;wavelength alignment checks&lt;/li&gt;
+      &lt;li&gt;brightness adjustment coefficients when used&lt;/li&gt;
+      &lt;li&gt;bandpass integration context and summary metrics&lt;/li&gt;
+    &lt;/ul&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;QA metadata&lt;/p&gt;
+    &lt;h2&gt;QA JSON sidecars&lt;/h2&gt;
+    &lt;p&gt;Every QA JSON file acts as the machine-readable counterpart to the PNG and optional PDF reports.&lt;/p&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Scene-level summaries&lt;/h3&gt;
+        &lt;p&gt;Reflectance, masking, correction, geometry, and harmonization summaries live here for dashboards and automated review.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Provenance and workflow context&lt;/h3&gt;
+        &lt;p&gt;QA payloads also carry package version, created time, and other details that make a run auditable later.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;How to use them&lt;/p&gt;
+    &lt;h2&gt;Why these files matter downstream&lt;/h2&gt;
+    &lt;p&gt;These JSON files are useful when you need to:&lt;/p&gt;
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;reproduce a published processing run&lt;/li&gt;
+      &lt;li&gt;compare runs across software versions&lt;/li&gt;
+      &lt;li&gt;debug a suspicious corrected or harmonized output&lt;/li&gt;
+      &lt;li&gt;drive dashboards or automated quality gates from structured metadata&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p class="sb-doc-note"&gt;The raster and parquet outputs are still the main analysis products, but the JSON sidecars are the best explanation of how those products were created.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Where to go next&lt;/p&gt;
+    &lt;h2&gt;Related pages&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--three"&gt;
+      &lt;a class="sb-doc-link-card" href="validation/"&gt;
+        &lt;strong&gt;Validation metrics&lt;/strong&gt;
+        &lt;span&gt;See the metric families that appear in the QA JSON payloads.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="../pipeline/outputs/"&gt;
+        &lt;strong&gt;Outputs &amp; file structure&lt;/strong&gt;
+        &lt;span&gt;Match sidecars to the files they describe.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="../pipeline/qa/"&gt;
+        &lt;strong&gt;QA panels &amp; metrics&lt;/strong&gt;
+        &lt;span&gt;See how the structured summaries surface in the visual reports.&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  </section>
+</div>
 
 
 

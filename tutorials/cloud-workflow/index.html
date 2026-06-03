@@ -795,24 +795,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Cloud & HPC workflows
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -829,102 +811,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1-working-with-object-storage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Working with object storage
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-engine-selection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Engine selection
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-memory-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Memory considerations
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-recommended-hpc-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Recommended HPC workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-example-slurm-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Example SLURM script
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1707,71 +1593,92 @@
 
 
 <h1 id="tutorial-cloud-hpc-workflows">Tutorial: Cloud &amp; HPC Workflows<a class="headerlink" href="#tutorial-cloud-hpc-workflows" title="Permanent link">&para;</a></h1>
-<p>This tutorial describes how to run SpectralBridge efficiently in cloud or HPC
-environments where data access, storage, and memory constraints differ from a
-local workstation.</p>
-<hr />
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>You will learn:</p>
-<ul>
-<li>best practices for running the pipeline in object-storage environments</li>
-<li>when to use Ray, thread, or process execution</li>
-<li>how to work with large NEON datasets without long-term local persistence</li>
-<li>strategies for scaling multi-flightline workflows</li>
-</ul>
-<hr />
-<h2 id="1-working-with-object-storage">1. Working with object storage<a class="headerlink" href="#1-working-with-object-storage" title="Permanent link">&para;</a></h2>
-<p>NEON HDF5 files can be staged from object storage or shared research storage
-before running the pipeline.</p>
-<p>Recommended workflow:</p>
-<ol>
-<li>Stage a small number of HDF5 files into a temporary working directory.</li>
-<li>Run the pipeline on those flight lines.</li>
-<li>Upload corrected ENVI, Parquet, and QA outputs to persistent storage.</li>
-<li>Archive or clean intermediate working files according to your storage policy.</li>
-</ol>
-<p>Example staging command:</p>
-<div class="highlight"><pre><span></span><code>gocmd<span class="w"> </span>get<span class="w"> </span>i:/iplant/home/.../NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance.h5<span class="w"> </span>.
+<div class="sb-doc-page">
+<section class="sb-doc-hero">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Tutorial<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h1&gt;</span>Cloud<span class="w"> </span>and<span class="w"> </span>HPC<span class="w"> </span>workflows<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-lead&quot;</span><span class="nt">&gt;</span>SpectralBridge<span class="w"> </span>is<span class="w"> </span>designed<span class="w"> </span>for<span class="w"> </span>large<span class="w"> </span>flight<span class="w"> </span>lines<span class="w"> </span>and<span class="w"> </span>restart-safe<span class="w"> </span>reruns,<span class="w"> </span>which<span class="w"> </span>makes<span class="w"> </span>it<span class="w"> </span>a<span class="w"> </span>good<span class="w"> </span>fit<span class="w"> </span>for<span class="w"> </span>scratch-based<span class="w"> </span>cloud,<span class="w"> </span>JupyterHub,<span class="w"> </span>and<span class="w"> </span>cluster<span class="w"> </span>environments<span class="w"> </span>where<span class="w"> </span>compute<span class="w"> </span>and<span class="w"> </span>storage<span class="w"> </span>policies<span class="w"> </span>matter<span class="w"> </span>as<span class="w"> </span>much<span class="w"> </span>as<span class="w"> </span>the<span class="w"> </span>code<span class="w"> </span>itself.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;div</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-grid sb-doc-grid--three&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Stage<span class="w"> </span>data<span class="w"> </span>in<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Bring<span class="w"> </span>only<span class="w"> </span>the<span class="w"> </span>HDF5<span class="w"> </span>inputs<span class="w"> </span>you<span class="w"> </span>need<span class="w"> </span>into<span class="w"> </span>fast<span class="w"> </span>local<span class="w"> </span>or<span class="w"> </span>scratch<span class="w"> </span>storage<span class="w"> </span>for<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>job.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Process<span class="w"> </span>locally<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Write<span class="w"> </span>ENVI,<span class="w"> </span>parquet,<span class="w"> </span>merge,<span class="w"> </span>and<span class="w"> </span>QA<span class="w"> </span>artefacts<span class="w"> </span>into<span class="w"> </span>the<span class="w"> </span>working<span class="w"> </span>directory<span class="w"> </span>where<span class="w"> </span>chunked<span class="w"> </span>stages<span class="w"> </span>can<span class="w"> </span>spill<span class="w"> </span>safely.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Archive<span class="w"> </span>outputs<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Move<span class="w"> </span>final<span class="w"> </span>products<span class="w"> </span>back<span class="w"> </span>to<span class="w"> </span>persistent<span class="w"> </span>storage<span class="w"> </span>once<span class="w"> </span>the<span class="w"> </span>restart-safe<span class="w"> </span>run<span class="w"> </span>is<span class="w"> </span>complete.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
 </code></pre></div>
-<hr />
-<h2 id="2-engine-selection">2. Engine selection<a class="headerlink" href="#2-engine-selection" title="Permanent link">&para;</a></h2>
-<p>Ray is included in the standard SpectralBridge install and is the default
-engine for <code>spectralbridge-pipeline</code>.</p>
-<p>Use Ray when you are processing many flight lines, running on cloud/HPC
-resources, or want the default parallel dispatch behavior:</p>
+
+</section>
+</div>
+</section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Storage pattern&lt;/p&gt;
+    &lt;h2&gt;Recommended working model&lt;/h2&gt;
+    &lt;ol class="sb-doc-list"&gt;
+      &lt;li&gt;Stage a small batch of NEON HDF5 inputs into scratch or fast local storage.&lt;/li&gt;
+      &lt;li&gt;Run the pipeline there so correction, parquet extraction, merge, and QA all share the same fast workspace.&lt;/li&gt;
+      &lt;li&gt;Copy the completed outputs you care about back to object storage or shared research storage.&lt;/li&gt;
+      &lt;li&gt;Clean intermediate scratch only after the outputs are validated.&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;p&gt;This pattern keeps failures isolated and works well with the package’s skip-aware rerun behavior.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Engine choice&lt;/p&gt;
+    &lt;h2&gt;When to use Ray, thread, or process execution&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--three"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;ray&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Best for larger multi-flightline or managed compute environments. This remains the default execution backend for the NEON CLI.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;thread&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Best for first-pass debugging, lightweight runs, or situations where you want to avoid Ray initialization entirely.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;process&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Useful when you want local multi-process execution without the Ray runtime.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+
 <div class="highlight"><pre><span></span><code>spectralbridge-pipeline<span class="w"> </span>...<span class="w"> </span>--engine<span class="w"> </span>ray<span class="w"> </span>--max-workers<span class="w"> </span><span class="m">8</span>
+spectralbridge-pipeline<span class="w"> </span>...<span class="w"> </span>--engine<span class="w"> </span>thread<span class="w"> </span>--max-workers<span class="w"> </span><span class="m">1</span>
+spectralbridge-pipeline<span class="w"> </span>...<span class="w"> </span>--engine<span class="w"> </span>process<span class="w"> </span>--max-workers<span class="w"> </span><span class="m">2</span>
 </code></pre></div>
-<p>Use the thread engine for single-flightline debugging or constrained-memory
-runs where you want to avoid Ray initialization:</p>
-<div class="highlight"><pre><span></span><code>spectralbridge-pipeline<span class="w"> </span>...<span class="w"> </span>--engine<span class="w"> </span>thread<span class="w"> </span>--max-workers<span class="w"> </span><span class="m">1</span>
-</code></pre></div>
-<p>Use the process engine only when you specifically want local multi-process
-execution without Ray:</p>
-<div class="highlight"><pre><span></span><code>spectralbridge-pipeline<span class="w"> </span>...<span class="w"> </span>--engine<span class="w"> </span>process<span class="w"> </span>--max-workers<span class="w"> </span><span class="m">2</span>
-</code></pre></div>
-<hr />
-<h2 id="3-memory-considerations">3. Memory considerations<a class="headerlink" href="#3-memory-considerations" title="Permanent link">&para;</a></h2>
-<p>Large NEON flight lines may require tens of gigabytes of memory. To reduce
-memory pressure:</p>
-<ul>
-<li>reduce <code>--max-workers</code></li>
-<li>lower <code>--parquet-chunk-size</code></li>
-<li>use local scratch storage for temporary files</li>
-<li>avoid keeping many ENVI cubes loaded in memory simultaneously</li>
-<li>match Ray worker memory to expected flightline size</li>
-</ul>
-<hr />
-<h2 id="4-recommended-hpc-workflow">4. Recommended HPC workflow<a class="headerlink" href="#4-recommended-hpc-workflow" title="Permanent link">&para;</a></h2>
-<p>For cluster schedulers, a conservative pattern is one job per flight line:</p>
-<ul>
-<li>request enough memory for a single NEON flight line</li>
-<li>use local scratch storage for working files</li>
-<li>write final ENVI, Parquet, and QA products to shared storage</li>
-<li>merge or summarize completed outputs downstream with DuckDB or Python</li>
-</ul>
-<p>This keeps failed jobs isolated and preserves restart safety.</p>
-<hr />
-<h2 id="5-example-slurm-script">5. Example SLURM script<a class="headerlink" href="#5-example-slurm-script" title="Permanent link">&para;</a></h2>
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Memory and temp space&lt;/p&gt;
+    &lt;h2&gt;How to reduce pressure safely&lt;/h2&gt;
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;lower &lt;code&gt;--max-workers&lt;/code&gt; before changing scientific settings&lt;/li&gt;
+      &lt;li&gt;lower &lt;code&gt;--parquet-chunk-size&lt;/code&gt; when extraction or polygon filtering is memory-bound&lt;/li&gt;
+      &lt;li&gt;set &lt;code&gt;--merge-temp-directory&lt;/code&gt; to local scratch for large parquet merges&lt;/li&gt;
+      &lt;li&gt;avoid keeping many scenes or notebooks open against the same working directory&lt;/li&gt;
+      &lt;li&gt;treat reruns as normal; the pipeline is built to skip validated outputs&lt;/li&gt;
+    &lt;/ul&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Batch pattern&lt;/p&gt;
+    &lt;h2&gt;Recommended scheduler workflow&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;One job per flight line&lt;/h3&gt;
+        &lt;p&gt;This is the safest default because failed jobs stay isolated and completed jobs can be rerun without recomputing validated outputs.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Shared post-processing&lt;/h3&gt;
+        &lt;p&gt;Use downstream DuckDB, pandas, or QA summary tools once the per-flightline artefacts are already on disk.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Example&lt;/p&gt;
+    &lt;h2&gt;Minimal SLURM job script&lt;/h2&gt;
+
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1">#SBATCH --job-name=spectralbridge</span>
 <span class="c1">#SBATCH --mem=64G</span>
@@ -1791,13 +1698,28 @@ spectralbridge-pipeline<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--engine<span class="w"> </span>ray<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--max-workers<span class="w"> </span><span class="m">8</span>
 </code></pre></div>
-<hr />
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../../pipeline/stages/">Pipeline stages</a></li>
-<li><a href="../../usage/parquet/">Using Parquet outputs</a></li>
-<li><a href="../../troubleshooting/">Troubleshooting</a></li>
-</ul>
+
+    &lt;p&gt;Adapt the worker count and memory request to the size of the scene and the storage available on the cluster.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Where to go next&lt;/p&gt;
+    &lt;h2&gt;Related pages&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--three"&gt;
+      &lt;a class="sb-doc-link-card" href="../pipeline/stages/"&gt;
+        &lt;strong&gt;Pipeline stages&lt;/strong&gt;
+        &lt;span&gt;See which stages dominate runtime and disk usage.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="../usage/parquet/"&gt;
+        &lt;strong&gt;Working with parquet outputs&lt;/strong&gt;
+        &lt;span&gt;Use the authoritative tabular products downstream.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="../troubleshooting/"&gt;
+        &lt;strong&gt;Troubleshooting&lt;/strong&gt;
+        &lt;span&gt;Recover safely from partial jobs or cluster interruptions.&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  </section>
+</div>
 
 
 

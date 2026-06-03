@@ -84,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#frequently-asked-questions-faq" class="md-skip">
+        <a href="#faq" class="md-skip">
           Skip to content
         </a>
       
@@ -1339,24 +1339,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    FAQ
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1373,124 +1355,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-the-purpose-of-cross-sensor-calibration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What is the purpose of cross-sensor calibration?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-does-neon-use-scaled-reflectance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why does NEON use scaled reflectance?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#do-i-need-both-topographic-and-brdf-correction" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Do I need both topographic and BRDF correction?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-do-some-bands-look-noisy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why do some bands look noisy?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-sensors-can-i-harmonize-to" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What sensors can I harmonize to?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-does-the-pipeline-take-so-long" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why does the pipeline take so long?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-do-some-pixels-have-reflectance-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why do some pixels have reflectance &gt; 1?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#can-i-run-analyses-without-touching-envi-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Can I run analyses without touching ENVI files?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1728,46 +1592,125 @@
   
 
 
-<h1 id="frequently-asked-questions-faq">Frequently Asked Questions (FAQ)<a class="headerlink" href="#frequently-asked-questions-faq" title="Permanent link">&para;</a></h1>
-<hr />
-<h2 id="what-is-the-purpose-of-cross-sensor-calibration">What is the purpose of cross-sensor calibration?<a class="headerlink" href="#what-is-the-purpose-of-cross-sensor-calibration" title="Permanent link">&para;</a></h2>
-<p>To make reflectance from NEON, drones, and satellites comparable by removing geometric artifacts and aligning spectral responses.</p>
-<hr />
-<h2 id="why-does-neon-use-scaled-reflectance">Why does NEON use scaled reflectance?<a class="headerlink" href="#why-does-neon-use-scaled-reflectance" title="Permanent link">&para;</a></h2>
-<p>NEON stores reflectance as scaled integers for performance. The export stage automatically converts these into floating-point reflectance values using NEON’s scale factors.</p>
-<hr />
-<h2 id="do-i-need-both-topographic-and-brdf-correction">Do I need both topographic and BRDF correction?<a class="headerlink" href="#do-i-need-both-topographic-and-brdf-correction" title="Permanent link">&para;</a></h2>
-<p>Yes, for most ecological analyses.<br />
-Topographic correction removes slope/aspect artifacts; BRDF correction normalizes view/sun geometry.</p>
-<hr />
-<h2 id="why-do-some-bands-look-noisy">Why do some bands look noisy?<a class="headerlink" href="#why-do-some-bands-look-noisy" title="Permanent link">&para;</a></h2>
-<p>Low-SNR wavelength regions (especially in the SWIR) are more sensitive to BRDF fitting errors.</p>
-<hr />
-<h2 id="what-sensors-can-i-harmonize-to">What sensors can I harmonize to?<a class="headerlink" href="#what-sensors-can-i-harmonize-to" title="Permanent link">&para;</a></h2>
-<p>Currently:</p>
-<ul>
-<li>Landsat OLI / OLI-2  </li>
-<li>MicaSense RedEdge (via regression)  </li>
-</ul>
-<p>More sensors can be added as SRF tables become available.</p>
-<hr />
-<h2 id="why-does-the-pipeline-take-so-long">Why does the pipeline take so long?<a class="headerlink" href="#why-does-the-pipeline-take-so-long" title="Permanent link">&para;</a></h2>
-<p>NEON tiles are very large (tens of GB).<br />
-BRDF and ENVI export steps are computationally expensive.</p>
-<p>Parallelization helps, but memory constraints matter.</p>
-<hr />
-<h2 id="why-do-some-pixels-have-reflectance-1">Why do some pixels have reflectance &gt; 1?<a class="headerlink" href="#why-do-some-pixels-have-reflectance-1" title="Permanent link">&para;</a></h2>
-<p>BRDF or DEM correction may amplify noise at certain angles or terrain slopes.<br />
-Such pixels are reported in QA metrics and usually masked.</p>
-<hr />
-<h2 id="can-i-run-analyses-without-touching-envi-files">Can I run analyses without touching ENVI files?<a class="headerlink" href="#can-i-run-analyses-without-touching-envi-files" title="Permanent link">&para;</a></h2>
-<p>Yes—use the Parquet outputs (<code>*_merged_pixel_extraction.parquet</code>) for large-scale analysis.</p>
-<hr />
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../troubleshooting/">Troubleshooting</a>  </li>
-<li><a href="../pipeline/outputs/">Pipeline outputs</a></li>
-</ul>
+<h1 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h1>
+<div class="sb-doc-page">
+<section class="sb-doc-hero">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Help<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h1&gt;</span>Frequently<span class="w"> </span>asked<span class="w"> </span>questions<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-lead&quot;</span><span class="nt">&gt;</span>Short<span class="w"> </span>answers<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>questions<span class="w"> </span>that<span class="w"> </span>come<span class="w"> </span>up<span class="w"> </span>most<span class="w"> </span>often<span class="w"> </span>when<span class="w"> </span>running<span class="w"> </span>SpectralBridge,<span class="w"> </span>reading<span class="w"> </span>its<span class="w"> </span>outputs,<span class="w"> </span>or<span class="w"> </span>deciding<span class="w"> </span>which<span class="w"> </span>products<span class="w"> </span>to<span class="w"> </span>trust.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;div</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-grid sb-doc-grid--three&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Outputs<span class="w"> </span>are<span class="w"> </span>the<span class="w"> </span>API<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>The<span class="w"> </span>merged<span class="w"> </span>parquet<span class="w"> </span>and<span class="w"> </span>QA<span class="w"> </span>artefacts<span class="w"> </span>are<span class="w"> </span>the<span class="w"> </span>main<span class="w"> </span>interface<span class="w"> </span>for<span class="w"> </span>downstream<span class="w"> </span>analysis.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Reruns<span class="w"> </span>are<span class="w"> </span>expected<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>The<span class="w"> </span>NEON<span class="w"> </span>pipeline<span class="w"> </span>is<span class="w"> </span>designed<span class="w"> </span>to<span class="w"> </span>validate<span class="w"> </span>and<span class="w"> </span>reuse<span class="w"> </span>good<span class="w"> </span>outputs<span class="w"> </span>instead<span class="w"> </span>of<span class="w"> </span>recomputing<span class="w"> </span>everything.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>QA<span class="w"> </span>is<span class="w"> </span>part<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>contract<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>PNG,<span class="w"> </span>JSON,<span class="w"> </span>and<span class="w"> </span>optional<span class="w"> </span>PDF<span class="w"> </span>summaries<span class="w"> </span>exist<span class="w"> </span>so<span class="w"> </span>reflectance<span class="w"> </span>changes<span class="w"> </span>remain<span class="w"> </span>inspectable<span class="w"> </span>after<span class="w"> </span>processing.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+</code></pre></div>
+
+</section>
+</div>
+</section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Concepts&lt;/p&gt;
+    &lt;h2&gt;What problem is SpectralBridge solving?&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Cross-sensor comparability&lt;/h3&gt;
+        &lt;p&gt;SpectralBridge helps make reflectance from NEON, drones, and target sensor frames more comparable by correcting geometry-driven artifacts and standardizing downstream outputs.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Analysis-ready structure&lt;/h3&gt;
+        &lt;p&gt;The workflow is built to produce stable ENVI, parquet, merged parquet, and QA products that can be reused across notebooks, scripts, and batch runs.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Inputs&lt;/p&gt;
+    &lt;h2&gt;What inputs do I need?&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;NEON pipeline&lt;/h3&gt;
+        &lt;p&gt;The canonical NEON path starts from NEON &lt;code&gt;.h5&lt;/code&gt; directional reflectance files and can download them for you.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Drone pipeline&lt;/h3&gt;
+        &lt;p&gt;The drone workflow accepts either existing HDF5 inputs or supported TIFF-backed packages that are bridged into the working HDF5 contract before QA and polygon extraction continue.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Common questions&lt;/p&gt;
+    &lt;h2&gt;Why do some values look surprising?&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Why does NEON use scaled reflectance?&lt;/h3&gt;
+        &lt;p&gt;NEON HDF5 products store scaled values for compactness. SpectralBridge converts them back to floating-point reflectance during export.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Why do some pixels exceed 1.0 reflectance?&lt;/h3&gt;
+        &lt;p&gt;Topographic or BRDF correction can amplify noisy regions or difficult geometry. QA outputs flag these conditions so they can be reviewed rather than silently hidden.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Why do some bands look noisy?&lt;/h3&gt;
+        &lt;p&gt;Low-SNR wavelength regions, edge effects, clouds, shadow, or unstable correction support can all increase visible noise in specific bands.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Do I need both topo and BRDF correction?&lt;/h3&gt;
+        &lt;p&gt;Usually yes for the NEON workflow. They address different sources of reflectance variability and are treated as a coupled correction stage in the main pipeline.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Performance&lt;/p&gt;
+    &lt;h2&gt;Why can the pipeline take a long time?&lt;/h2&gt;
+    &lt;p&gt;NEON and drone products are large, and several stages are intentionally chunked and restart-safe instead of optimized around whole-scene shortcuts.&lt;/p&gt;
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;ENVI export and correction touch large raster volumes&lt;/li&gt;
+      &lt;li&gt;sensor translation and parquet extraction are designed to preserve provenance and chunking&lt;/li&gt;
+      &lt;li&gt;merge and QA stages validate outputs rather than assuming they are always good&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p class="sb-doc-note"&gt;If you need a lighter first run, reduce worker counts and prefer the &lt;code&gt;thread&lt;/code&gt; engine while validating a workflow.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Outputs&lt;/p&gt;
+    &lt;h2&gt;Can I analyze results without reopening ENVI cubes?&lt;/h2&gt;
+    &lt;p&gt;Yes. In most cases, the merged parquet is the intended downstream analysis surface.&lt;/p&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Use merged parquet&lt;/h3&gt;
+        &lt;p&gt;For NEON runs, start with &lt;code&gt;&lt;flight_id&gt;_merged_pixel_extraction.parquet&lt;/code&gt;. It is the authoritative tabular product for analysis.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Use polygon parquet&lt;/h3&gt;
+        &lt;p&gt;For polygon workflows, use the polygon-specific extracted and merged parquets instead of re-reading the rasters.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Support&lt;/p&gt;
+    &lt;h2&gt;Where should I look next?&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--three"&gt;
+      &lt;a class="sb-doc-link-card" href="troubleshooting/"&gt;
+        &lt;strong&gt;Troubleshooting&lt;/strong&gt;
+        &lt;span&gt;Recovery steps for failed or partial runs.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="pipeline/outputs/"&gt;
+        &lt;strong&gt;Outputs &amp; file structure&lt;/strong&gt;
+        &lt;span&gt;Understand what each stage writes and reuses.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="pipeline/qa/"&gt;
+        &lt;strong&gt;QA panels and metrics&lt;/strong&gt;
+        &lt;span&gt;Interpret the visual and machine-readable audit outputs.&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  </section>
+</div>
 
 
 

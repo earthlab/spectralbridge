@@ -1572,192 +1572,93 @@
 
 
 <h1 id="python-api">Python API<a class="headerlink" href="#python-api" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>Use these functions when you need fine-grained control beyond the CLI.</p>
-</blockquote>
-<h2 id="quick-example">Quick example<a class="headerlink" href="#quick-example" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">merge_duckdb</span>
-<span class="n">merge_duckdb</span><span class="p">([</span><span class="s2">&quot;parquet/a.parquet&quot;</span><span class="p">,</span><span class="s2">&quot;parquet/b.parquet&quot;</span><span class="p">],</span> <span class="s2">&quot;merged/all.parquet&quot;</span><span class="p">)</span>
+<div class="sb-doc-page">
+<section class="sb-doc-hero">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Reference<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h1&gt;</span>Python<span class="w"> </span>API<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-lead&quot;</span><span class="nt">&gt;</span>Use<span class="w"> </span>the<span class="w"> </span>Python<span class="w"> </span>surface<span class="w"> </span>when<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>file-based<span class="w"> </span>workflow<span class="w"> </span>as<span class="w"> </span>the<span class="w"> </span>CLI<span class="w"> </span>but<span class="w"> </span>need<span class="w"> </span>to<span class="w"> </span>stay<span class="w"> </span>inside<span class="w"> </span>a<span class="w"> </span>notebook,<span class="w"> </span>script,<span class="w"> </span>or<span class="w"> </span>larger<span class="w"> </span>scientific<span class="w"> </span>application.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;div</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-grid sb-doc-grid--three&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Batch<span class="w"> </span>NEON<span class="w"> </span>runs<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;&lt;code&gt;</span>go_forth_and_multiply<span class="nt">&lt;/code&gt;</span><span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>top-level<span class="w"> </span>batch<span class="w"> </span>entry<span class="w"> </span>point.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Single-flightline<span class="w"> </span>control<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;&lt;code&gt;</span>process_one_flightline<span class="nt">&lt;/code&gt;</span><span class="w"> </span>exposes<span class="w"> </span>the<span class="w"> </span>ordered<span class="w"> </span>restart-safe<span class="w"> </span>stages<span class="w"> </span>for<span class="w"> </span>one<span class="w"> </span>flight<span class="w"> </span>line.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Drone<span class="w"> </span>workflows<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;&lt;code&gt;</span>run_drone_pipeline<span class="nt">&lt;/code&gt;</span><span class="w"> </span>handles<span class="w"> </span>the<span class="w"> </span>drone-specific<span class="w"> </span>local<span class="w"> </span>processing<span class="w"> </span>path.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
 </code></pre></div>
-<h2 id="brightness-correction-entry-point">Brightness correction entry point<a class="headerlink" href="#brightness-correction-entry-point" title="Permanent link">&para;</a></h2>
-<h3 id="apply_brightness_correctioncube-masknone-methodpercentile_match"><code>apply_brightness_correction(cube, mask=None, method='percentile_match', ...)</code><a class="headerlink" href="#apply_brightness_correctioncube-masknone-methodpercentile_match" title="Permanent link">&para;</a></h3>
-<p>Normalizes per-band brightness for hyperspectral cubes before BRDF/topo stages.
-The docstring walks through the affine model, parameter choices, and examples.
-Use it when you need to harmonise tiles prior to the full pipeline; the QA JSON
-will surface the per-band gain/offsets when this stage runs.</p>
 
-
-<div class="doc doc-object doc-module">
-
-
-
-<a id="spectralbridge"></a>
-    <div class="doc doc-contents first">
-
-        <p>SpectralBridge public package surface.</p>
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-children">
-
-
-
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h2 id="spectralbridge._PLOT_EXPORTS" class="doc doc-heading">
-            <code class=" language-python"><span class="n">_PLOT_EXPORTS</span> <span class="o">=</span> <span class="p">(</span><span class="n">make_micasense_vs_landsat_panels</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">make_sensor_vs_neon_panels</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
-  </span>
-
-<a href="#spectralbridge._PLOT_EXPORTS" class="headerlink" title="Permanent link">&para;</a></h2>
-
-
-    <div class="doc doc-contents ">
-
-    </div>
-
+</section>
 </div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h2 id="spectralbridge.__all__" class="doc doc-heading">
-            <code class=" language-python"><span class="n">__all__</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">__all__</span> <span class="o">+</span> <span class="p">([</span><span class="s1">&#39;apply_brightness_correction&#39;</span><span class="p">,</span> <span class="s1">&#39;go_forth_and_multiply&#39;</span><span class="p">,</span> <span class="s1">&#39;process_one_flightline&#39;</span><span class="p">,</span> <span class="s1">&#39;run_drone_pipeline&#39;</span><span class="p">,</span> <span class="n">load_brightness_coefficients</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">_PLOT_EXPORTS</span><span class="p">))))</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
-  </span>
-
-<a href="#spectralbridge.__all__" class="headerlink" title="Permanent link">&para;</a></h2>
-
-
-    <div class="doc doc-contents ">
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h2 id="spectralbridge.__version__" class="doc doc-heading">
-            <code class=" language-python"><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.2.0&#39;</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
-  </span>
-
-<a href="#spectralbridge.__version__" class="headerlink" title="Permanent link">&para;</a></h2>
-
-
-    <div class="doc doc-contents ">
-
-    </div>
-
-</div>
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-<h2 id="spectralbridge.__getattr__" class="doc doc-heading">
-            <code class=" language-python"><span class="fm">__getattr__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></code>
-
-<a href="#spectralbridge.__getattr__" class="headerlink" title="Permanent link">&para;</a></h2>
-
-
-    <div class="doc doc-contents ">
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h2 id="spectralbridge.load_brightness_coefficients" class="doc doc-heading">
-            <code class=" language-python"><span class="n">load_brightness_coefficients</span><span class="p">(</span><span class="n">system_pair</span><span class="o">=</span><span class="s1">&#39;landsat_to_micasense&#39;</span><span class="p">)</span></code>
-
-<a href="#spectralbridge.load_brightness_coefficients" class="headerlink" title="Permanent link">&para;</a></h2>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Load brightness coefficients for a given system pair.</p>
-<h4 id="spectralbridge.load_brightness_coefficients--parameters">Parameters<a class="headerlink" href="#spectralbridge.load_brightness_coefficients--parameters" title="Permanent link">&para;</a></h4>
-<p>system_pair : str
-    Key identifying the pair of systems, e.g. "landsat_to_micasense".</p>
-<h4 id="spectralbridge.load_brightness_coefficients--returns">Returns<a class="headerlink" href="#spectralbridge.load_brightness_coefficients--returns" title="Permanent link">&para;</a></h4>
-<p>dict[int, float]
-    Mapping from 1-based band index to brightness coefficient (percent).</p>
-<h4 id="spectralbridge.load_brightness_coefficients--notes">Notes<a class="headerlink" href="#spectralbridge.load_brightness_coefficients--notes" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Values are stored in percent (e.g., -7.3959 means "reduce by 7.3959%").</li>
-</ul>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h2 id="spectralbridge.make_micasense_vs_landsat_panels" class="doc doc-heading">
-            <code class=" language-python"><span class="n">make_micasense_vs_landsat_panels</span><span class="p">(</span><span class="n">merged_dir</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_points</span><span class="o">=</span><span class="mi">50000</span><span class="p">,</span> <span class="n">sentinel_at_or_below</span><span class="o">=-</span><span class="mf">9999.0</span><span class="p">)</span></code>
-
-<a href="#spectralbridge.make_micasense_vs_landsat_panels" class="headerlink" title="Permanent link">&para;</a></h2>
-
-
-    <div class="doc doc-contents ">
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h2 id="spectralbridge.make_sensor_vs_neon_panels" class="doc doc-heading">
-            <code class=" language-python"><span class="n">make_sensor_vs_neon_panels</span><span class="p">(</span><span class="n">merged_dir</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_points</span><span class="o">=</span><span class="mi">50000</span><span class="p">,</span> <span class="n">sentinel_at_or_below</span><span class="o">=-</span><span class="mf">9999.0</span><span class="p">)</span></code>
-
-<a href="#spectralbridge.make_sensor_vs_neon_panels" class="headerlink" title="Permanent link">&para;</a></h2>
-
-
-    <div class="doc doc-contents ">
-
-
-    </div>
-
-</div>
-
-
-
-  </div>
-
-    </div>
-
+</section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Canonical usage&lt;/p&gt;
+    &lt;h2&gt;Most users should start here&lt;/h2&gt;
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">go_forth_and_multiply</span>
+
+<span class="n">go_forth_and_multiply</span><span class="p">(</span>
+    <span class="n">base_folder</span><span class="o">=</span><span class="s2">&quot;output_demo&quot;</span><span class="p">,</span>
+    <span class="n">site_code</span><span class="o">=</span><span class="s2">&quot;NIWO&quot;</span><span class="p">,</span>
+    <span class="n">year_month</span><span class="o">=</span><span class="s2">&quot;2023-08&quot;</span><span class="p">,</span>
+    <span class="n">product_code</span><span class="o">=</span><span class="s2">&quot;DP1.30006.001&quot;</span><span class="p">,</span>
+    <span class="n">flight_lines</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">max_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;thread&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+    &lt;p&gt;This follows the same ordered, restart-safe contract as the CLI and writes the same on-disk outputs.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Public entry points&lt;/p&gt;
+    &lt;h2&gt;What is intentionally public?&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;go_forth_and_multiply&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Batch-oriented NEON orchestration including download, export, correction, harmonization, parquet writing, merge, and QA.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;process_one_flightline&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Single-flightline execution with explicit knobs for chunk size, merge behavior, polygon options, and engine choice.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;run_drone_pipeline&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Local drone processing path with QA, polygon support, and mixed HDF5/TIFF source handling.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;&lt;code&gt;apply_brightness_correction&lt;/code&gt;&lt;/h3&gt;
+        &lt;p&gt;Lower-level reflectance adjustment helper used when you need targeted brightness normalization logic outside the main pipeline.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;API philosophy&lt;/p&gt;
+    &lt;h2&gt;How to think about the Python surface&lt;/h2&gt;
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;Prefer the top-level orchestrators over stitching internal helpers together yourself.&lt;/li&gt;
+      &lt;li&gt;Treat output files and naming conventions as part of the public contract.&lt;/li&gt;
+      &lt;li&gt;Use tests and nearby docs to distinguish stable entry points from implementation details.&lt;/li&gt;
+      &lt;li&gt;Expect idempotent, restart-safe behavior rather than pure in-memory return-value workflows.&lt;/li&gt;
+    &lt;/ul&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Autogenerated reference&lt;/p&gt;
+    &lt;h2&gt;Module reference&lt;/h2&gt;
+    &lt;p&gt;Use the API docs below when you need the full function and class signatures in addition to the workflow-oriented guides.&lt;/p&gt;
+
+::: spectralbridge
+    options:
+      members: true
+    filters:
+      - "!^_"
+  </section>
 </div>
 
 
