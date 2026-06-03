@@ -910,24 +910,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Outputs & file structure
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -944,91 +926,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#purpose-of-this-page" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Purpose of this page
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#canonical-per-flightline-outputs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Canonical per-flightline outputs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-success-means" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What “success” means
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#idempotence-and-restart-safety" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Idempotence and restart-safety
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ci-and-documentation-guarantees" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        CI and documentation guarantees
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-rely-on-these-outputs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to rely on these outputs
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1696,13 +1593,20 @@
 
 
 <h1 id="outputs-file-structure">Outputs &amp; File Structure<a class="headerlink" href="#outputs-file-structure" title="Permanent link">&para;</a></h1>
-<h2 id="purpose-of-this-page">Purpose of this page<a class="headerlink" href="#purpose-of-this-page" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Outputs on disk are the primary interface of SpectralBridge.</li>
-<li>Downstream analyses should rely on these artefacts, not return values from the Python API.</li>
-</ul>
-<h2 id="canonical-per-flightline-outputs">Canonical per-flightline outputs<a class="headerlink" href="#canonical-per-flightline-outputs" title="Permanent link">&para;</a></h2>
-<p>Naming stems come from <code>spectralbridge.paths.FlightlinePaths</code> and <code>spectralbridge.utils.naming.get_flightline_products</code>; sensor-specific stems come from <code>SensorProductPaths</code>.</p>
+<div class="sb-doc-page">
+<section class="sb-doc-hero">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Pipeline<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h1&gt;</span>Outputs<span class="w"> </span><span class="ni">&amp;amp;</span><span class="w"> </span>File<span class="w"> </span>Structure<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-lead&quot;</span><span class="nt">&gt;</span>Outputs<span class="w"> </span>on<span class="w"> </span>disk<span class="w"> </span>are<span class="w"> </span>the<span class="w"> </span>primary<span class="w"> </span>interface<span class="w"> </span>of<span class="w"> </span>SpectralBridge.<span class="w"> </span>Downstream<span class="w"> </span>analysis<span class="w"> </span>should<span class="w"> </span>rely<span class="w"> </span>on<span class="w"> </span>these<span class="w"> </span>files<span class="w"> </span>rather<span class="w"> </span>than<span class="w"> </span>return<span class="w"> </span>values<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>Python<span class="w"> </span>API.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div>
+
+</section>
+<section class="sb-doc-section">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Canonical<span class="w"> </span>outputs<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h2&gt;</span>Per-flightline<span class="w"> </span>contract<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p&gt;</span>Naming<span class="w"> </span>stems<span class="w"> </span>come<span class="w"> </span>from<span class="w"> </span><span class="nt">&lt;code&gt;</span>spectralbridge.paths.FlightlinePaths<span class="nt">&lt;/code&gt;</span><span class="w"> </span>and<span class="w"> </span><span class="nt">&lt;code&gt;</span>spectralbridge.utils.naming.get_flightline_products<span class="nt">&lt;/code&gt;</span>.<span class="w"> </span>Sensor-specific<span class="w"> </span>stems<span class="w"> </span>come<span class="w"> </span>from<span class="w"> </span><span class="nt">&lt;code&gt;</span>SensorProductPaths<span class="nt">&lt;/code&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div>
+
 <table>
 <thead>
 <tr>
@@ -1723,7 +1627,7 @@
 <td>BRDF model JSON</td>
 <td><code>&lt;flight_id&gt;_brdf_model.json</code></td>
 <td>Scene-level BRDF coefficient tables written before BRDF application.</td>
-<td>Includes <code>iso</code>/<code>vol</code>/<code>geo</code>, kernel settings, <code>ndvi_binning_enabled</code>, and <code>ndvi_edges</code>. With the default single-bin BRDF fit, <code>ndvi_edges</code> is <code>[-1, 1]</code>; if NDVI binning is enabled, it records the realized NDVI bin boundaries for the coefficient rows rather than a standalone NDVI raster.</td>
+<td>Includes <code>iso</code>/<code>vol</code>/<code>geo</code>, kernel settings, <code>ndvi_binning_enabled</code>, and <code>ndvi_edges</code>.</td>
 </tr>
 <tr>
 <td>BRDF + topographic corrected ENVI</td>
@@ -1733,55 +1637,79 @@
 </tr>
 <tr>
 <td>Sensor-resampled ENVI + Parquet</td>
-<td><code>&lt;flight_id&gt;_&lt;sensor&gt;_envi.(img|hdr|parquet)</code> where <code>&lt;sensor&gt;</code> is one of <code>landsat_tm</code>, <code>landsat_etm+</code>, <code>landsat_oli</code>, <code>landsat_oli2</code>, <code>micasense</code>, <code>micasense_to_match_tm_etm+</code>, <code>micasense_to_match_oli_oli2</code></td>
-<td>Reflectance cubes resampled into the Landsat-referenced frame and MicaSense variants.</td>
-<td>Each sensor has its own ENVI/Parquet trio; stems are consistent with <code>FlightlinePaths.sensor_products</code>.</td>
+<td><code>&lt;flight_id&gt;_&lt;sensor&gt;_envi.(img|hdr|parquet)</code></td>
+<td>Reflectance cubes resampled into the configured target sensor frame.</td>
+<td>Sensor stems match <code>FlightlinePaths.sensor_products</code>.</td>
 </tr>
 <tr>
 <td>Merged Parquet</td>
 <td><code>&lt;flight_id&gt;_merged_pixel_extraction.parquet</code></td>
 <td>Master table that merges Parquet sidecars across stages into one analysis-ready spectral library.</td>
-<td>Exactly one per flightline; treated as the primary success signal.</td>
+<td>Exactly one per flightline and treated as the primary success signal.</td>
 </tr>
 <tr>
 <td>QA artefacts</td>
 <td><code>&lt;flight_id&gt;_qa.png</code>, <code>&lt;flight_id&gt;_qa.json</code>, optional <code>&lt;flight_id&gt;_qa.pdf</code></td>
 <td>Visual and numeric QA summaries aligned to the merged outputs.</td>
-<td>PNG and JSON are expected for every completed run; PDF is produced when rendering is enabled.</td>
+<td>PNG and JSON are expected for completed runs; PDF is optional.</td>
 </tr>
 <tr>
 <td>QA metrics parquet</td>
 <td><code>&lt;flight_id&gt;_qa_metrics.parquet</code></td>
 <td>Structured QA metrics by band and sensor.</td>
-<td>Emitted alongside QA JSON/PNG when QA calculation runs.</td>
+<td>Emitted alongside QA outputs when QA calculation runs.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<h2 id="what-success-means">What “success” means<a class="headerlink" href="#what-success-means" title="Permanent link">&para;</a></h2>
-<ul>
-<li>The merged parquet exists and is readable: <code>&lt;flight_id&gt;_merged_pixel_extraction.parquet</code>.</li>
-<li>The QA PNG renders: <code>&lt;flight_id&gt;_qa.png</code> (with matching <code>&lt;flight_id&gt;_qa.json</code>).</li>
-<li>Sensor-specific ENVI/Parquet products exist as configured; absence may reflect configuration rather than failure.</li>
-<li>If the merged parquet and QA PNG are present, the pipeline completed successfully for that flightline.</li>
-</ul>
-<h2 id="idempotence-and-restart-safety">Idempotence and restart-safety<a class="headerlink" href="#idempotence-and-restart-safety" title="Permanent link">&para;</a></h2>
-<p><code>process_one_flightline</code> and <code>go_forth_and_multiply</code> skip stages whose outputs already exist and validate, so re-running the pipeline will not recompute completed products. This skip-if-valid behavior makes restarts safe and is relied upon in notebook workflows and batch processing alike.</p>
-<p>Drone note: the local-H5 drone polygon workflow also attempts to write <code>.csv</code>
-sidecars next to its polygon parquet and merged parquet outputs for
-portability. The Parquet files remain the authoritative outputs; the CSV
-copies are best-effort convenience exports for machines that do not handle
-Parquet easily.</p>
-<h2 id="ci-and-documentation-guarantees">CI and documentation guarantees<a class="headerlink" href="#ci-and-documentation-guarantees" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Documentation drift checks (<code>tools/doc_drift_audit.py</code>) assert that <code>_merged_pixel_extraction.parquet</code> and <code>_qa.png</code> remain part of the documented contract.</li>
-<li>QA expectations and output stems are shared between user-facing docs and automated validation to protect reproducibility.</li>
-</ul>
-<h2 id="how-to-rely-on-these-outputs">How to rely on these outputs<a class="headerlink" href="#how-to-rely-on-these-outputs" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Load Parquet products directly (especially the merged parquet) for analysis; they are the authoritative API.</li>
-<li>Inspect QA PNG/JSON before downstream modeling to confirm spectral health and calibration quality.</li>
-<li>Treat intermediate ENVI products as optional diagnostics; most workflows can ignore them once Parquet and QA artefacts are present.</li>
-</ul>
+</section>
+<section class="sb-doc-section">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Success<span class="w"> </span>criteria<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h2&gt;</span>What<span class="w"> </span>a<span class="w"> </span>successful<span class="w"> </span>run<span class="w"> </span>looks<span class="w"> </span>like<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;ul</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-list&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;li&gt;</span>The<span class="w"> </span>merged<span class="w"> </span>parquet<span class="w"> </span>exists<span class="w"> </span>and<span class="w"> </span>is<span class="w"> </span>readable:<span class="w"> </span><span class="nt">&lt;code&gt;</span><span class="ni">&amp;lt;</span>flight_id<span class="ni">&amp;gt;</span>_merged_pixel_extraction.parquet<span class="nt">&lt;/code&gt;</span>.<span class="nt">&lt;/li&gt;</span>
+<span class="w">  </span><span class="nt">&lt;li&gt;</span>The<span class="w"> </span>QA<span class="w"> </span>PNG<span class="w"> </span>renders<span class="w"> </span>with<span class="w"> </span>its<span class="w"> </span>matching<span class="w"> </span>JSON:<span class="w"> </span><span class="nt">&lt;code&gt;</span><span class="ni">&amp;lt;</span>flight_id<span class="ni">&amp;gt;</span>_qa.png<span class="nt">&lt;/code&gt;</span><span class="w"> </span>and<span class="w"> </span><span class="nt">&lt;code&gt;</span><span class="ni">&amp;lt;</span>flight_id<span class="ni">&amp;gt;</span>_qa.json<span class="nt">&lt;/code&gt;</span>.<span class="nt">&lt;/li&gt;</span>
+<span class="w">  </span><span class="nt">&lt;li&gt;</span>Sensor-specific<span class="w"> </span>ENVI<span class="w"> </span>and<span class="w"> </span>parquet<span class="w"> </span>products<span class="w"> </span>exist<span class="w"> </span>as<span class="w"> </span>configured;<span class="w"> </span>absence<span class="w"> </span>can<span class="w"> </span>reflect<span class="w"> </span>configuration<span class="w"> </span>rather<span class="w"> </span>than<span class="w"> </span>failure.<span class="nt">&lt;/li&gt;</span>
+<span class="w">  </span><span class="nt">&lt;li&gt;</span>If<span class="w"> </span>the<span class="w"> </span>merged<span class="w"> </span>parquet<span class="w"> </span>and<span class="w"> </span>QA<span class="w"> </span>outputs<span class="w"> </span>are<span class="w"> </span>present,<span class="w"> </span>the<span class="w"> </span>flightline<span class="w"> </span>completed<span class="w"> </span>successfully.<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div>
+
+</section>
+<section class="sb-doc-section">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Restart<span class="w"> </span>safety<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h2&gt;</span>Idempotence<span class="w"> </span>and<span class="w"> </span>validation<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p&gt;&lt;code&gt;</span>process_one_flightline<span class="nt">&lt;/code&gt;</span><span class="w"> </span>and<span class="w"> </span><span class="nt">&lt;code&gt;</span>go_forth_and_multiply<span class="nt">&lt;/code&gt;</span><span class="w"> </span>skip<span class="w"> </span>stages<span class="w"> </span>whose<span class="w"> </span>outputs<span class="w"> </span>already<span class="w"> </span>exist<span class="w"> </span>and<span class="w"> </span>validate,<span class="w"> </span>so<span class="w"> </span>re-running<span class="w"> </span>the<span class="w"> </span>pipeline<span class="w"> </span>does<span class="w"> </span>not<span class="w"> </span>recompute<span class="w"> </span>completed<span class="w"> </span>products<span class="w"> </span>unless<span class="w"> </span>outputs<span class="w"> </span>are<span class="w"> </span>missing<span class="w"> </span>or<span class="w"> </span>invalid.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-note&quot;</span><span class="nt">&gt;</span>Drone<span class="w"> </span>polygon<span class="w"> </span>workflows<span class="w"> </span>also<span class="w"> </span>attempt<span class="w"> </span>to<span class="w"> </span>write<span class="w"> </span>CSV<span class="w"> </span>sidecars<span class="w"> </span>next<span class="w"> </span>to<span class="w"> </span>parquet<span class="w"> </span>outputs<span class="w"> </span>for<span class="w"> </span>portability.<span class="w"> </span>The<span class="w"> </span>parquet<span class="w"> </span>files<span class="w"> </span>remain<span class="w"> </span>the<span class="w"> </span>authoritative<span class="w"> </span>outputs.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div>
+
+</section>
+<section class="sb-doc-section">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>How<span class="w"> </span>to<span class="w"> </span>use<span class="w"> </span>these<span class="w"> </span>files<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h2&gt;</span>Recommended<span class="w"> </span>downstream<span class="w"> </span>usage<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;div</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-grid sb-doc-grid--three&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Load<span class="w"> </span>parquet<span class="w"> </span>first<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Use<span class="w"> </span>merged<span class="w"> </span>parquet<span class="w"> </span>outputs<span class="w"> </span>directly<span class="w"> </span>for<span class="w"> </span>most<span class="w"> </span>analysis<span class="w"> </span>tasks.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Inspect<span class="w"> </span>QA<span class="w"> </span>before<span class="w"> </span>modeling<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Review<span class="w"> </span>QA<span class="w"> </span>PNG<span class="w"> </span>and<span class="w"> </span>JSON<span class="w"> </span>outputs<span class="w"> </span>to<span class="w"> </span>confirm<span class="w"> </span>spectral<span class="w"> </span>health<span class="w"> </span>and<span class="w"> </span>calibration<span class="w"> </span>quality.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Treat<span class="w"> </span>ENVI<span class="w"> </span>as<span class="w"> </span>diagnostic<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Intermediate<span class="w"> </span>ENVI<span class="w"> </span>products<span class="w"> </span>remain<span class="w"> </span>useful<span class="w"> </span>for<span class="w"> </span>inspection,<span class="w"> </span>but<span class="w"> </span>many<span class="w"> </span>workflows<span class="w"> </span>only<span class="w"> </span>need<span class="w"> </span>parquet<span class="w"> </span>and<span class="w"> </span>QA<span class="w"> </span>outputs.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+</code></pre></div>
+
+</section>
+</div>
+<p></section>
+</div></p>
 
 
 

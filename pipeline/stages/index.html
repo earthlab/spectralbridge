@@ -882,24 +882,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Pipeline overview & stages
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -916,113 +898,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#pipeline-stages-and-idempotence" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pipeline stages and idempotence
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1-data-acquisition" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Data acquisition
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-hdf5-envi-export" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. HDF5 → ENVI export
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-topographic-brdf-correction" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Topographic + BRDF correction
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-sensor-harmonization-spectral-convolution" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Sensor harmonization (spectral convolution)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-parquet-extraction-merging" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Parquet extraction &amp; merging
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-quality-assurance-qa" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Quality assurance (QA)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1718,97 +1593,137 @@
 
 
 <h1 id="pipeline-overview-stages">Pipeline Overview &amp; Stages<a class="headerlink" href="#pipeline-overview-stages" title="Permanent link">&para;</a></h1>
-<p>The SpectralBridge pipeline transforms NEON HDF5 directional reflectance into physically corrected and sensor-harmonized reflectance products. Each stage is restart-safe and produces structured, auditable outputs.</p>
-<p>This page describes every stage of the pipeline, what it consumes, what it produces, and what can go wrong.</p>
-<hr />
-<h2 id="pipeline-stages-and-idempotence">Pipeline stages and idempotence<a class="headerlink" href="#pipeline-stages-and-idempotence" title="Permanent link">&para;</a></h2>
-<p>The orchestrators <code>process_one_flightline</code> and <code>go_forth_and_multiply</code> enforce the following order:</p>
-<ol>
-<li>Download HDF5 (via <code>stage_download_h5</code>).</li>
-<li>Export ENVI.</li>
-<li>Build correction JSON.</li>
-<li>Apply BRDF + topo correction.</li>
-<li>Resample/convolve all sensors.</li>
-<li>Export Parquet sidecars.</li>
-<li>DuckDB merge to merged parquet.</li>
-<li>Render QA panel + metrics.</li>
-</ol>
-<p>Each stage checks whether its expected outputs already exist and are valid, logs a skip message when they do, and recomputes missing or corrupted artefacts. Recovery mode exists for raw ENVI exports when corrected outputs are present (<code>stage_export_envi_from_h5</code> supports <code>recover_missing_raw</code>, used by <code>spectralbridge-recover-raw</code>).</p>
-<hr />
-<p><a id="data-acquisition"></a></p>
-<h2 id="1-data-acquisition">1. Data acquisition<a class="headerlink" href="#1-data-acquisition" title="Permanent link">&para;</a></h2>
-<p><strong>Inputs:</strong>
-- NEON API paths or local HDF5 files</p>
-<p><strong>Outputs:</strong>
-- cached HDF5 tiles stored under the selected <code>--base-folder</code></p>
-<p>Downloads are handled by <code>stage_download_h5</code> and are triggered automatically by <code>go_forth_and_multiply</code>.</p>
-<hr />
-<p><a id="hdf5-to-envi"></a></p>
-<h2 id="2-hdf5-envi-export">2. HDF5 → ENVI export<a class="headerlink" href="#2-hdf5-envi-export" title="Permanent link">&para;</a></h2>
-<p><strong>Inputs:</strong>
-- <code>*_directional_reflectance.h5</code>
-- per-pixel geometry and metadata</p>
-<p><strong>Outputs:</strong>
-- <code>*_envi.img/.hdr</code> (see <a href="../outputs/">Outputs</a>)</p>
-<p><code>stage_export_envi_from_h5</code> creates the ENVI pair using the canonical naming in <code>FlightlinePaths</code>, with optional brightness offsets.</p>
-<hr />
-<p><a id="topographic-correction"></a></p>
-<h2 id="3-topographic-brdf-correction">3. Topographic + BRDF correction<a class="headerlink" href="#3-topographic-brdf-correction" title="Permanent link">&para;</a></h2>
-<p><strong>Inputs:</strong>
-- directional or raw ENVI exports
-- DEM-derived slope and aspect
-- solar/view geometry</p>
-<p><strong>Outputs:</strong>
-- <code>&lt;flight_id&gt;_brdfandtopo_corrected_envi.(img|hdr|json)</code></p>
-<p><code>stage_build_and_write_correction_json</code> writes the parameter JSON, and <code>stage_apply_brdf_and_topo</code> applies the combined correction before downstream resampling.</p>
-<p>Implementation note: the current streamlined NEON path writes the corrected
-cube in fixed non-overlapping spatial chunks. The topographic SCS+C fit is
-currently solved within each chunk, while BRDF coefficients are fit once for
-the scene and then applied chunk by chunk. See the
-<a href="../../brdf_topo_algorithm/">BRDF/topographic algorithm notes</a> for the math and
-current chunking details.</p>
-<p>Implementation note for the drone path: <code>run_drone_pipeline</code> now requests both
-topographic and BRDF correction by default, but each step still only runs when
-the required ancillary geometry is present for that flight. If a requested
-drone correction cannot run, or if it is attempted and fully reverted because
-it collapses valid reflectance to no-data, the pipeline now leaves the
-corrected ENVI absent and records the failure in the drone QA JSON audit
-instead of silently promoting raw reflectance into the corrected product.</p>
-<hr />
-<p><a id="sensor-harmonization"></a></p>
-<h2 id="4-sensor-harmonization-spectral-convolution">4. Sensor harmonization (spectral convolution)<a class="headerlink" href="#4-sensor-harmonization-spectral-convolution" title="Permanent link">&para;</a></h2>
-<p><strong>Inputs:</strong>
-- BRDF+topo corrected ENVI
-- sensor spectral response functions (SRFs)</p>
-<p><strong>Outputs:</strong>
-- <code>&lt;flight_id&gt;_&lt;sensor&gt;_envi.(img|hdr|parquet)</code></p>
-<p><code>stage_convolve_all_sensors</code> delegates to the configured resample method (convolution, legacy, or resample) and iterates through <code>FlightlinePaths.sensor_products</code>.</p>
-<hr />
-<p><a id="parquet-extraction-merging"></a></p>
-<h2 id="5-parquet-extraction-merging">5. Parquet extraction &amp; merging<a class="headerlink" href="#5-parquet-extraction-merging" title="Permanent link">&para;</a></h2>
-<p><strong>Inputs:</strong>
-- any ENVI cube produced by earlier stages</p>
-<p><strong>Outputs:</strong>
-- Parquet files for raw, corrected, and resampled cubes
-- <code>&lt;flight_id&gt;_merged_pixel_extraction.parquet</code></p>
-<p><code>_export_parquet_stage</code> builds the per-product Parquet sidecars, and <code>merge_flightline</code> (DuckDB) consolidates them with schema validation before optional QA rendering.</p>
-<hr />
-<p><a id="quality-assurance"></a></p>
-<h2 id="6-quality-assurance-qa">6. Quality assurance (QA)<a class="headerlink" href="#6-quality-assurance-qa" title="Permanent link">&para;</a></h2>
-<p><strong>Inputs:</strong>
-- merged parquet and supporting ENVI files</p>
-<p><strong>Outputs:</strong>
-- <code>&lt;flight_id&gt;_qa.png</code>
-- <code>&lt;flight_id&gt;_qa.json</code>
-- <code>&lt;flight_id&gt;_qa.pdf</code> (when rendered)</p>
-<p>QA artefacts come from <code>render_flightline_panel</code> and mirror the canonical stems listed in <a href="../outputs/">Outputs</a>.</p>
-<hr />
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../outputs/">Outputs &amp; file structure</a></li>
-<li><a href="../qa/">QA panels &amp; metrics</a></li>
-</ul>
-<hr />
+<div class="sb-doc-page">
+<section class="sb-doc-hero">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Pipeline<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h1&gt;</span>Pipeline<span class="w"> </span>Overview<span class="w"> </span><span class="ni">&amp;amp;</span><span class="w"> </span>Stages<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-lead&quot;</span><span class="nt">&gt;</span>SpectralBridge<span class="w"> </span>transforms<span class="w"> </span>NEON<span class="w"> </span>HDF5<span class="w"> </span>directional<span class="w"> </span>reflectance<span class="w"> </span>into<span class="w"> </span>corrected,<span class="w"> </span>sensor-harmonized,<span class="w"> </span>and<span class="w"> </span>analysis-ready<span class="w"> </span>outputs<span class="w"> </span>through<span class="w"> </span>restart-safe,<span class="w"> </span>file-based<span class="w"> </span>stages.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p&gt;</span>The<span class="w"> </span>orchestrators<span class="w"> </span><span class="nt">&lt;code&gt;</span>process_one_flightline<span class="nt">&lt;/code&gt;</span><span class="w"> </span>and<span class="w"> </span><span class="nt">&lt;code&gt;</span>go_forth_and_multiply<span class="nt">&lt;/code&gt;</span><span class="w"> </span>validate<span class="w"> </span>outputs<span class="w"> </span>before<span class="w"> </span>skipping<span class="w"> </span>them,<span class="w"> </span>which<span class="w"> </span>makes<span class="w"> </span>reruns<span class="w"> </span>restart-safe<span class="w"> </span>and<span class="w"> </span>auditable.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div>
+
+</section>
+<section class="sb-doc-section">
+<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="n">p</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-kicker&quot;</span><span class="o">&gt;</span><span class="n">Execution</span><span class="w"> </span><span class="n">order</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="n">Stage</span><span class="w"> </span><span class="n">order</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">idempotence</span><span class="o">&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">ol</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-steps&quot;</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="n">Download</span><span class="w"> </span><span class="n">HDF5</span><span class="w"> </span><span class="n">via</span><span class="w"> </span><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">stage_download_h5</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;.&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="n">Export</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">raw</span><span class="w"> </span><span class="n">ENVI</span><span class="w"> </span><span class="n">cube</span><span class="o">.&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="n">Build</span><span class="w"> </span><span class="n">correction</span><span class="w"> </span><span class="n">JSON</span><span class="o">.&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="n">Apply</span><span class="w"> </span><span class="n">BRDF</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">topographic</span><span class="w"> </span><span class="n">correction</span><span class="o">.&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="n">Resample</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">configured</span><span class="w"> </span><span class="n">sensors</span><span class="o">.&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="n">Export</span><span class="w"> </span><span class="n">Parquet</span><span class="w"> </span><span class="n">sidecars</span><span class="o">.&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="n">Merge</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">_merged_pixel_extraction</span><span class="o">.</span><span class="n">parquet</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;.&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="n">Render</span><span class="w"> </span><span class="n">QA</span><span class="w"> </span><span class="n">PNG</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">JSON</span><span class="w"> </span><span class="n">outputs</span><span class="o">.&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">ol</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">Each</span><span class="w"> </span><span class="n">stage</span><span class="w"> </span><span class="n">checks</span><span class="w"> </span><span class="n">whether</span><span class="w"> </span><span class="n">expected</span><span class="w"> </span><span class="n">outputs</span><span class="w"> </span><span class="n">exist</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">validate</span><span class="w"> </span><span class="n">before</span><span class="w"> </span><span class="n">deciding</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">skip</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">recompute</span><span class="w"> </span><span class="n">them</span><span class="o">.</span><span class="w"> </span><span class="n">Recovery</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">exists</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">raw</span><span class="w"> </span><span class="n">ENVI</span><span class="w"> </span><span class="n">exports</span><span class="w"> </span><span class="n">when</span><span class="w"> </span><span class="n">corrected</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="n">present</span><span class="o">.&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</code></pre></div>
+
+</section>
+<section class="sb-doc-section">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;h2&gt;</span>1.<span class="w"> </span>Data<span class="w"> </span>acquisition<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;div</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-grid sb-doc-grid--two&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Inputs<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>NEON<span class="w"> </span>API<span class="w"> </span>paths<span class="w"> </span>or<span class="w"> </span>local<span class="w"> </span>HDF5<span class="w"> </span>files.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>Outputs<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Cached<span class="w"> </span>HDF5<span class="w"> </span>tiles<span class="w"> </span>stored<span class="w"> </span>under<span class="w"> </span>the<span class="w"> </span>selected<span class="w"> </span><span class="nt">&lt;code&gt;</span>--base-folder<span class="nt">&lt;/code&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+</code></pre></div>
+
+</section>
+</div>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p&gt;</span>Downloads<span class="w"> </span>are<span class="w"> </span>handled<span class="w"> </span>by<span class="w"> </span><span class="nt">&lt;code&gt;</span>stage_download_h5<span class="nt">&lt;/code&gt;</span><span class="w"> </span>and<span class="w"> </span>triggered<span class="w"> </span>automatically<span class="w"> </span>by<span class="w"> </span><span class="nt">&lt;code&gt;</span>go_forth_and_multiply<span class="nt">&lt;/code&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div>
+
+</section>
+<section class="sb-doc-section" markdown="block">
+    &lt;h2&gt;2. HDF5 to ENVI export&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Inputs&lt;/h3&gt;
+        &lt;p&gt;&lt;code&gt;*_directional_reflectance.h5&lt;/code&gt; plus per-pixel geometry and metadata.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Outputs&lt;/h3&gt;
+        &lt;p&gt;&lt;code&gt;*_envi.img/.hdr&lt;/code&gt; and the matching parquet sidecar when exported.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+    &lt;p&gt;&lt;code&gt;stage_export_envi_from_h5&lt;/code&gt; writes the raw ENVI pair using canonical naming in &lt;code&gt;FlightlinePaths&lt;/code&gt;, with optional brightness offsets.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;h2&gt;3. Topographic and BRDF correction&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Inputs&lt;/h3&gt;
+        &lt;p&gt;Directional or raw ENVI exports, DEM-derived slope and aspect, and solar/view geometry.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Outputs&lt;/h3&gt;
+        &lt;p&gt;&lt;code&gt;&lt;flight_id&gt;_brdfandtopo_corrected_envi.(img|hdr|json)&lt;/code&gt;.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+    &lt;p&gt;&lt;code&gt;stage_build_and_write_correction_json&lt;/code&gt; writes the parameter JSON, and &lt;code&gt;stage_apply_brdf_and_topo&lt;/code&gt; applies the combined correction before downstream resampling.&lt;/p&gt;
+    &lt;p class="sb-doc-note"&gt;The current NEON path writes the corrected cube in fixed non-overlapping spatial chunks. For drone workflows, correction only runs when required ancillary geometry is available for that flight.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;h2&gt;4. Sensor harmonization&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Inputs&lt;/h3&gt;
+        &lt;p&gt;BRDF-and-topo-corrected ENVI plus sensor spectral response functions.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Outputs&lt;/h3&gt;
+        &lt;p&gt;&lt;code&gt;&lt;flight_id&gt;_&lt;sensor&gt;_envi.(img|hdr|parquet)&lt;/code&gt;.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+    &lt;p&gt;&lt;code&gt;stage_convolve_all_sensors&lt;/code&gt; delegates to the configured resample method and iterates through the sensor products registered in &lt;code&gt;FlightlinePaths&lt;/code&gt;.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;h2&gt;5. Parquet extraction and merging&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Inputs&lt;/h3&gt;
+        &lt;p&gt;Any ENVI cube produced by earlier stages.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Outputs&lt;/h3&gt;
+        &lt;p&gt;Per-product parquet files plus &lt;code&gt;&lt;flight_id&gt;_merged_pixel_extraction.parquet&lt;/code&gt;.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+    &lt;p&gt;&lt;code&gt;_export_parquet_stage&lt;/code&gt; builds the per-product sidecars, and &lt;code&gt;merge_flightline&lt;/code&gt; uses DuckDB to consolidate them with schema validation before optional QA rendering.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;h2&gt;6. Quality assurance&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Inputs&lt;/h3&gt;
+        &lt;p&gt;Merged parquet plus supporting ENVI files.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Outputs&lt;/h3&gt;
+        &lt;p&gt;&lt;code&gt;&lt;flight_id&gt;_qa.png&lt;/code&gt;, &lt;code&gt;&lt;flight_id&gt;_qa.json&lt;/code&gt;, and optional PDF output.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+    &lt;p&gt;QA artefacts come from &lt;code&gt;render_flightline_panel&lt;/code&gt; and follow the same canonical stems described in &lt;a href="outputs/"&gt;Outputs &amp; File Structure&lt;/a&gt;.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Next steps&lt;/p&gt;
+    &lt;h2&gt;Related pages&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;a class="sb-doc-link-card" href="outputs/"&gt;
+        &lt;strong&gt;Outputs &amp; file structure&lt;/strong&gt;
+        &lt;span&gt;See the on-disk contract that downstream analyses should rely on.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="qa/"&gt;
+        &lt;strong&gt;QA panels &amp; metrics&lt;/strong&gt;
+        &lt;span&gt;Understand the visual and numeric checks generated after processing.&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  </section>
+</div>
 
 
 

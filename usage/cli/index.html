@@ -1025,24 +1025,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Command-line interface (CLI)
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1059,91 +1041,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#spectralbridge-download" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        spectralbridge-download
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#spectralbridge-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        spectralbridge-pipeline
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#spectralbridge-qa" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        spectralbridge-qa
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#spectralbridge-recover-raw" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        spectralbridge-recover-raw
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#spectralbridge-qa-dashboard" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        spectralbridge-qa-dashboard
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#spectralbridge-merge-duckdb" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        spectralbridge-merge-duckdb
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1696,84 +1593,147 @@
 
 
 <h1 id="command-line-interface-cli">Command-Line Interface (CLI)<a class="headerlink" href="#command-line-interface-cli" title="Permanent link">&para;</a></h1>
-<p>The CLI provides restart-safe entry points for downloading NEON flightlines, running the full pipeline, generating QA outputs, and merging Parquet artefacts.</p>
-<blockquote>
-<p>Legacy CLI entry points still work and forward to the same implementation,
-but the primary names are <code>spectralbridge-*</code>.</p>
-</blockquote>
-<hr />
-<h2 id="spectralbridge-download"><code>spectralbridge-download</code><a class="headerlink" href="#spectralbridge-download" title="Permanent link">&para;</a></h2>
-<p>Purpose: Download NEON HDF5 flightlines into a workspace (<code>spectralbridge.cli:download_main</code>).</p>
-<p><strong>Usage:</strong></p>
-<div class="highlight"><pre><span></span><code>spectralbridge-download
+<div class="sb-doc-page">
+<section class="sb-doc-hero">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Usage<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h1&gt;</span>Command-Line<span class="w"> </span>Interface<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-lead&quot;</span><span class="nt">&gt;</span>The<span class="w"> </span>CLI<span class="w"> </span>provides<span class="w"> </span>restart-safe<span class="w"> </span>entry<span class="w"> </span>points<span class="w"> </span>for<span class="w"> </span>downloading<span class="w"> </span>NEON<span class="w"> </span>flightlines,<span class="w"> </span>running<span class="w"> </span>the<span class="w"> </span>full<span class="w"> </span>pipeline,<span class="w"> </span>generating<span class="w"> </span>QA<span class="w"> </span>outputs,<span class="w"> </span>and<span class="w"> </span>repairing<span class="w"> </span>missing<span class="w"> </span>intermediate<span class="w"> </span>products.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-note&quot;</span><span class="nt">&gt;</span>Legacy<span class="w"> </span>CLI<span class="w"> </span>aliases<span class="w"> </span>still<span class="w"> </span>forward<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>implementation,<span class="w"> </span>but<span class="w"> </span>the<span class="w"> </span>primary<span class="w"> </span>command<span class="w"> </span>names<span class="w"> </span>are<span class="w"> </span><span class="nt">&lt;code&gt;</span>spectralbridge-*<span class="nt">&lt;/code&gt;</span>.<span class="nt">&lt;/p&gt;</span>
 </code></pre></div>
-<p><strong>Key options:</strong>
-- <code>site</code> (positional) and <code>--year-month</code> (required) identify the NEON flightlines.
-- <code>--flight</code> (repeatable) lists flightline IDs.
-- <code>--product</code> sets the NEON product code (default <code>DP1.30006.001</code>).
-- <code>--output</code> controls the destination directory (default <code>data</code>).</p>
-<p><strong>Outputs:</strong> HDF5 files saved under <code>&lt;output&gt;/&lt;site&gt;/</code> for later <code>spectralbridge-pipeline</code> runs.</p>
-<hr />
-<h2 id="spectralbridge-pipeline"><code>spectralbridge-pipeline</code><a class="headerlink" href="#spectralbridge-pipeline" title="Permanent link">&para;</a></h2>
-<p>Purpose: Run the full cross-sensor pipeline (<code>spectralbridge.cli.pipeline_cli:main</code>).</p>
-<p><strong>Usage:</strong></p>
-<div class="highlight"><pre><span></span><code>spectralbridge-pipeline
+
+</section>
+<section class="sb-doc-section">
+<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="n">p</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-kicker&quot;</span><span class="o">&gt;</span><span class="n">Entry</span><span class="w"> </span><span class="n">points</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="n">Available</span><span class="w"> </span><span class="n">commands</span><span class="o">&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">div</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-grid sb-doc-grid--two&quot;</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">article</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-card&quot;</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">spectralbridge</span><span class="o">-</span><span class="n">download</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">Download</span><span class="w"> </span><span class="n">NEON</span><span class="w"> </span><span class="n">HDF5</span><span class="w"> </span><span class="n">flightlines</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">workspace</span><span class="o">.&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;/</span><span class="n">article</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">article</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-card&quot;</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">spectralbridge</span><span class="o">-</span><span class="n">pipeline</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">Run</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">full</span><span class="w"> </span><span class="n">NEON</span><span class="w"> </span><span class="n">processing</span><span class="w"> </span><span class="n">pipeline</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">end</span><span class="o">.&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;/</span><span class="n">article</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">article</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-card&quot;</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">spectralbridge</span><span class="o">-</span><span class="n">qa</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">Re</span><span class="o">-</span><span class="n">render</span><span class="w"> </span><span class="n">QA</span><span class="w"> </span><span class="n">PNG</span><span class="o">/</span><span class="n">JSON</span><span class="w"> </span><span class="n">outputs</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">processed</span><span class="w"> </span><span class="n">flightlines</span><span class="o">.&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;/</span><span class="n">article</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">article</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-card&quot;</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">spectralbridge</span><span class="o">-</span><span class="n">recover</span><span class="o">-</span><span class="n">raw</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">Backfill</span><span class="w"> </span><span class="n">raw</span><span class="w"> </span><span class="n">ENVI</span><span class="w"> </span><span class="n">exports</span><span class="w"> </span><span class="n">when</span><span class="w"> </span><span class="n">corrected</span><span class="w"> </span><span class="n">outputs</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="n">exist</span><span class="o">.&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;/</span><span class="n">article</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">article</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-card&quot;</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">spectralbridge</span><span class="o">-</span><span class="n">qa</span><span class="o">-</span><span class="n">summary</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">Build</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">multi</span><span class="o">-</span><span class="n">page</span><span class="w"> </span><span class="n">PDF</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">recursive</span><span class="w"> </span><span class="n">drone</span><span class="w"> </span><span class="n">QA</span><span class="w"> </span><span class="n">PNG</span><span class="w"> </span><span class="n">outputs</span><span class="o">.&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;/</span><span class="n">article</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">article</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-card&quot;</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">spectralbridge</span><span class="o">-</span><span class="n">merge</span><span class="o">-</span><span class="n">duckdb</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">Merge</span><span class="w"> </span><span class="n">per</span><span class="o">-</span><span class="n">product</span><span class="w"> </span><span class="n">parquet</span><span class="w"> </span><span class="n">outputs</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">flightline</span><span class="o">-</span><span class="n">level</span><span class="w"> </span><span class="k">master</span><span class="w"> </span><span class="n">table</span><span class="o">.&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;/</span><span class="n">article</span><span class="o">&gt;</span>
 </code></pre></div>
-<p><strong>Key options:</strong>
-- Required: <code>--base-folder</code>, <code>--site-code</code>, <code>--year-month</code>, <code>--product-code</code>, <code>--flight-lines</code>.
-- Resampling: <code>--resample-method</code> (<code>convolution</code>, <code>legacy</code>, or <code>resample</code>).
-- Performance: <code>--engine</code> (<code>thread</code>, <code>process</code>, <code>ray</code>), <code>--max-workers</code> (defaults to 8), <code>--parquet-chunk-size</code>.
-- Merge tuning: <code>--merge-memory-limit</code>, <code>--merge-threads</code>, <code>--merge-row-group-size</code>, <code>--merge-temp-directory</code>.
-- Radiometry: <code>--brightness-offset</code> for ENVI export.</p>
-<p><strong>Outputs:</strong> Everything listed in <a href="../../pipeline/outputs/">Outputs</a>, including <code>_merged_pixel_extraction.parquet</code> and <code>_qa.png</code>.</p>
-<hr />
-<h2 id="spectralbridge-qa"><code>spectralbridge-qa</code><a class="headerlink" href="#spectralbridge-qa" title="Permanent link">&para;</a></h2>
-<p>Purpose: Re-render QA panels/metrics for existing flightline folders (<code>spectralbridge.cli.qa_cli:main</code>).</p>
-<p><strong>Usage:</strong></p>
-<div class="highlight"><pre><span></span><code>spectralbridge-qa
+
+</section>
+</div>
+</section>
+<section class="sb-doc-section" markdown="block">
+    &lt;h2&gt;&lt;code&gt;spectralbridge-download&lt;/code&gt;&lt;/h2&gt;
+    &lt;p&gt;Downloads NEON HDF5 flightlines into a workspace directory using the package download helpers.&lt;/p&gt;
+
+<div class="highlight"><pre><span></span><code>spectralbridge-download<span class="w"> </span>SOAP<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--year-month<span class="w"> </span><span class="m">2021</span>-06<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--flight<span class="w"> </span>NEON_D17_SOAP_DP1_L057-1_20210615_directional_reflectance<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>data
 </code></pre></div>
-<p><strong>Key options:</strong>
-- <code>--base-folder</code> (required) points to the workspace containing flightline directories.
-- Sampling: <code>--quick</code> (25k deterministic sample) vs <code>--full</code> (use configured size), <code>--n-sample</code> to override pixel count.
-- <code>--rgb-bands</code> to override RGB band selection.
-- <code>--save-json</code> to toggle writing <code>&lt;flight_id&gt;_qa.json</code>.
-- <code>--out-dir</code> to copy PNG/JSON outputs elsewhere after generation.</p>
-<p><strong>Outputs:</strong> QA PNG/JSON (and PDF if rendered) following the naming in <a href="../../pipeline/outputs/">Outputs</a>.</p>
-<hr />
-<h2 id="spectralbridge-recover-raw"><code>spectralbridge-recover-raw</code><a class="headerlink" href="#spectralbridge-recover-raw" title="Permanent link">&para;</a></h2>
-<p>Purpose: Backfill raw ENVI exports when corrected products already exist (<code>spectralbridge.cli.recover_cli:main</code>).</p>
-<p><strong>Usage:</strong></p>
-<div class="highlight"><pre><span></span><code>spectralbridge-recover-raw
+
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;Required: positional &lt;code&gt;site&lt;/code&gt;, &lt;code&gt;--year-month&lt;/code&gt;, and one or more &lt;code&gt;--flight&lt;/code&gt; values&lt;/li&gt;
+      &lt;li&gt;Optional: &lt;code&gt;--product&lt;/code&gt; defaults to &lt;code&gt;DP1.30006.001&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Optional: &lt;code&gt;--output&lt;/code&gt; defaults to &lt;code&gt;data&lt;/code&gt;, with downloads written under &lt;code&gt;&lt;output&gt;/&lt;site&gt;/&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;h2&gt;&lt;code&gt;spectralbridge-pipeline&lt;/code&gt;&lt;/h2&gt;
+    &lt;p&gt;Runs the main NEON pipeline and writes all canonical outputs for each flightline.&lt;/p&gt;
+
+<div class="highlight"><pre><span></span><code>spectralbridge-pipeline<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--base-folder<span class="w"> </span>output_demo<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--site-code<span class="w"> </span>NIWO<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--year-month<span class="w"> </span><span class="m">2023</span>-08<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--product-code<span class="w"> </span>DP1.30006.001<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--flight-lines<span class="w"> </span>NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--engine<span class="w"> </span>thread<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--max-workers<span class="w"> </span><span class="m">2</span>
 </code></pre></div>
-<p><strong>Key options:</strong>
-- <code>--base-folder</code> (required) where HDF5 and flightline folders live.
-- <code>--brightness-offset</code> to pass through to <code>stage_export_envi_from_h5</code>.</p>
-<p><strong>Outputs:</strong> Restores <code>&lt;flight_id&gt;_envi.(img|hdr)</code> so later stages can proceed or be revalidated.</p>
-<hr />
-<h2 id="spectralbridge-qa-dashboard"><code>spectralbridge-qa-dashboard</code><a class="headerlink" href="#spectralbridge-qa-dashboard" title="Permanent link">&para;</a></h2>
-<p>Purpose: Aggregate QA metrics across flightlines and build an overview plot (<code>spectralbridge.qa_dashboard:main</code>).</p>
-<p><strong>Usage:</strong></p>
-<div class="highlight"><pre><span></span><code>spectralbridge-qa-dashboard
+
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Required options&lt;/h3&gt;
+        &lt;p&gt;&lt;code&gt;--base-folder&lt;/code&gt;, &lt;code&gt;--site-code&lt;/code&gt;, &lt;code&gt;--year-month&lt;/code&gt;, &lt;code&gt;--product-code&lt;/code&gt;, and &lt;code&gt;--flight-lines&lt;/code&gt;.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Parallel defaults&lt;/h3&gt;
+        &lt;p&gt;The pipeline defaults to &lt;code&gt;--engine ray&lt;/code&gt; and &lt;code&gt;--max-workers 8&lt;/code&gt;.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Resampling controls&lt;/h3&gt;
+        &lt;p&gt;&lt;code&gt;--resample-method&lt;/code&gt; accepts &lt;code&gt;convolution&lt;/code&gt;, &lt;code&gt;legacy&lt;/code&gt;, or &lt;code&gt;resample&lt;/code&gt;.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Merge controls&lt;/h3&gt;
+        &lt;p&gt;Use &lt;code&gt;--merge-memory-limit&lt;/code&gt;, &lt;code&gt;--merge-threads&lt;/code&gt;, &lt;code&gt;--merge-row-group-size&lt;/code&gt;, and &lt;code&gt;--merge-temp-directory&lt;/code&gt; to tune DuckDB merging.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;Outputs include raw ENVI exports when available, corrected ENVI, sensor-resampled products, per-product parquet sidecars, &lt;code&gt;_merged_pixel_extraction.parquet&lt;/code&gt;, and QA files. See &lt;a href="../pipeline/outputs/"&gt;Outputs &amp; File Structure&lt;/a&gt; for the full contract.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;h2&gt;&lt;code&gt;spectralbridge-qa&lt;/code&gt;&lt;/h2&gt;
+    &lt;p&gt;Recomputes QA PNG and JSON outputs for existing flightline folders.&lt;/p&gt;
+
+<div class="highlight"><pre><span></span><code>spectralbridge-qa<span class="w"> </span>--base-folder<span class="w"> </span>output_demo<span class="w"> </span>--quick
 </code></pre></div>
-<p><strong>Key options:</strong>
-- <code>--base-folder</code> (required) root containing flightline outputs.
-- <code>--out-parquet</code> to choose the aggregated summary parquet path.
-- <code>--out-png</code> to choose the dashboard PNG path.</p>
-<p><strong>Outputs:</strong> <code>qa_dashboard_summary.parquet</code> and <code>qa_dashboard_summary.png</code> (default locations inside the base folder) summarizing <code>&lt;flight_id&gt;_qa_metrics.parquet</code> tables.</p>
-<hr />
-<h2 id="spectralbridge-merge-duckdb"><code>spectralbridge-merge-duckdb</code><a class="headerlink" href="#spectralbridge-merge-duckdb" title="Permanent link">&para;</a></h2>
-<p>Purpose: Merge per-product Parquet tables into a master parquet and optional QA panel (<code>spectralbridge.merge_duckdb:main</code>).</p>
-<p><strong>Usage:</strong></p>
-<div class="highlight"><pre><span></span><code>spectralbridge-merge-duckdb
+
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;&lt;code&gt;--base-folder&lt;/code&gt; is required&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;--quick&lt;/code&gt; uses the deterministic 25k-pixel path; &lt;code&gt;--full&lt;/code&gt; disables that subsampling shortcut&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;--n-sample&lt;/code&gt; defaults to &lt;code&gt;100000&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;--rgb-bands&lt;/code&gt; accepts values such as &lt;code&gt;660,560,490&lt;/code&gt; or symbolic &lt;code&gt;R,G,B&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;--save-json / --no-save-json&lt;/code&gt; controls whether &lt;code&gt;_qa.json&lt;/code&gt; is written alongside the PNG&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;--out-dir&lt;/code&gt; copies the generated QA files elsewhere after rendering&lt;/li&gt;
+    &lt;/ul&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;h2&gt;&lt;code&gt;spectralbridge-recover-raw&lt;/code&gt;&lt;/h2&gt;
+    &lt;p&gt;Scans a base folder for HDF5 plus corrected ENVI outputs and backfills missing raw ENVI exports so restart-safe downstream stages can continue cleanly.&lt;/p&gt;
+
+<div class="highlight"><pre><span></span><code>spectralbridge-recover-raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--base-folder<span class="w"> </span>output_demo<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--brightness-offset<span class="w"> </span><span class="m">0</span>.0
 </code></pre></div>
-<p><strong>Key options:</strong>
-- <code>--data-root</code> (required) and <code>--flightline-glob</code> to locate flightline folders.
-- <code>--out-name</code> to override the default <code>&lt;prefix&gt;_merged_pixel_extraction.parquet</code>.
-- Input globs: <code>--original-glob</code>, <code>--corrected-glob</code>, <code>--resampled-glob</code>.
-- QA and format controls: <code>--no-qa</code> to skip PNG, <code>--write-feather</code> to emit Feather alongside Parquet.
-- Merge tuning: <code>--merge-memory-limit</code>, <code>--merge-threads</code>, <code>--merge-row-group-size</code>, <code>--merge-temp-directory</code>.</p>
-<p><strong>Outputs:</strong> Merged parquet (and optional QA PNG/JSON) matching the naming patterns in <a href="../../pipeline/outputs/">Outputs</a>.</p>
-<hr />
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;h2&gt;&lt;code&gt;spectralbridge-qa-summary&lt;/code&gt;&lt;/h2&gt;
+    &lt;p&gt;Builds a multi-page PDF summary by recursively finding drone QA PNG files.&lt;/p&gt;
+
+<div class="highlight"><pre><span></span><code>spectralbridge-qa-summary<span class="w"> </span>drone_outputs<span class="w"> </span>--output-pdf<span class="w"> </span>drone_outputs/qa_summary.pdf
+</code></pre></div>
+
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;Required: positional &lt;code&gt;base_dir&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Optional: &lt;code&gt;--output-pdf&lt;/code&gt; to override the default output path&lt;/li&gt;
+      &lt;li&gt;Optional: &lt;code&gt;--pattern&lt;/code&gt; defaults to &lt;code&gt;*__qa.png&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;h2&gt;&lt;code&gt;spectralbridge-merge-duckdb&lt;/code&gt;&lt;/h2&gt;
+    &lt;p&gt;Merges per-product parquet tables into a master parquet and can optionally render QA alongside the merge output.&lt;/p&gt;
+
+<div class="highlight"><pre><span></span><code>spectralbridge-merge-duckdb<span class="w"> </span>--help
+</code></pre></div>
+
+    &lt;p&gt;Use this command when you need direct control over parquet merging outside the main pipeline orchestration.&lt;/p&gt;
+  </section>
+</div>
 
 
 
