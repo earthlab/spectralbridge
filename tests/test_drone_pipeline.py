@@ -949,11 +949,15 @@ def test_render_drone_panel_places_invalid_maps_on_bottom_row(
 
     assert output_png.exists()
     axes = captured["axes"]
-    assert axes[1, 0].get_title() == "Correction Distribution vs Wavelength"
-    assert axes[1, 1].get_title() == "Per-Pixel Median Absolute Correction Across Bands"
-    assert axes[2, 0].get_title() == "Drone Overlay Debug"
-    assert axes[3, 0].get_title() == "Raw ENVI -9999 / invalid map"
-    assert axes[3, 1].get_title() == "Corrected ENVI -9999 / invalid map"
+    assert axes[0, 0].get_title().startswith("Raw Reflectance RGB Preview")
+    assert axes[0, 1].get_title() == "Median Spectra And Sampled Pixel Traces"
+    assert axes[1, 0].get_title() == "Correction Distribution By Wavelength"
+    assert axes[1, 1].get_title() == "Spatial Median Absolute Correction Across Bands"
+    assert axes[2, 0].get_title() == "Polygon Overlay On Corrected Raster"
+    assert axes[2, 1].get_title() == "Merged Polygon Parquet Preview"
+    assert axes[3, 0].get_title() == "Raw Invalid / NoData Band Fraction"
+    assert axes[3, 1].get_title() == "Corrected Invalid / NoData Band Fraction"
+    assert all(ax.get_title() != "% changed" for ax in captured["fig"].axes)
 
     plt.close(captured["fig"])
 
@@ -1763,7 +1767,7 @@ def test_run_drone_pipeline_reports_progress_and_statuses(
     captured = capsys.readouterr()
     assert "[drone] Starting batch: 2 discovered | 2 to process" in captured.err
     assert "[drone] [1/2] SPR1_20230628 | source=" in captured.err
-    assert "stage=preparing H5" in captured.err
+    assert "| type=h5 | stage=preparing working H5" in captured.err
     assert "[drone] [2/2] SPR2_20230628 -> success_qa_only_no_polygons (" in captured.err
     assert "[drone] Complete: 2 total | 2 success_total | 0 success_extracted | 0 success_qa_only_no_polygon_overlap | 2 success_qa_only_no_polygons | 0 failed_other" in captured.err
 

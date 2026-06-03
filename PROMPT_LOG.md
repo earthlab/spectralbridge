@@ -4955,3 +4955,50 @@ Branch: main
 ```text
 I want to change the drone pipeline so that it can take the tiff and do the conversion of it can take the h5. The function should recognize which is coming in and treat accordingly
 ```
+
+## 2026-06-03 - mixed drone input cleanup retry
+Branch: main
+
+```text
+try again
+```
+
+## 2026-06-03 - drone polygon parquet schema stabilization
+Branch: main
+
+```text
+Fix drone polygon extraction Parquet schema instability.
+
+Problem:
+The drone pipeline now reaches polygon extraction correctly, but chunked Parquet writing fails when polygon metadata columns have all-null values in one chunk and strings in another. PyArrow then infers conflicting schemas, e.g. species: null vs species: string, cover_subcategory: null vs string, dead_subcategory: null vs string.
+
+Task:
+Make polygon extraction write a stable schema across chunks.
+
+Requirements:
+- Locate the chunked polygon Parquet writing path used by extract_polygon_parquet_from_envi.
+- Before writing each chunk, normalize polygon attribute columns to stable dtypes.
+- Text/object/categorical polygon metadata columns should be string dtype even when all values are missing in a chunk.
+- Preserve numeric columns as numeric.
+- Preserve datetime columns as timestamp.
+- Preserve geometry WKB as binary.
+- Preserve polygon_id as integer.
+- Do not convert all columns blindly to string.
+- Ensure the first chunk cannot lock a text field to Arrow null type.
+- Add a regression test using a polygon file where one chunk has all-null species/cover_subcategory/dead_subcategory and a later chunk has strings.
+- Test should fail before the fix and pass after.
+- Keep NEON behavior unchanged unless the same shared polygon extraction writer is intentionally made safer for both.
+- Add a clear comment explaining that this protects chunked Parquet writes from null-only chunk schema inference.
+
+Run:
+pytest -q tests/test_drone_pipeline.py
+pytest -q tests/test_polygons.py
+ruff check src tests
+```
+
+## 2026-06-03 - drone qa panel labeling cleanup
+Branch: main
+
+```text
+i think we can remove it and make sure all the plots in the qa plot are properly labelled.
+```

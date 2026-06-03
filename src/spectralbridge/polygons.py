@@ -17,6 +17,15 @@ from typing import Dict, Mapping
 import duckdb
 import numpy as np
 import pandas as pd
+from pandas.api.types import (
+    is_bool_dtype,
+    is_datetime64_any_dtype,
+    is_float_dtype,
+    is_integer_dtype,
+    is_numeric_dtype,
+    is_object_dtype,
+    is_string_dtype,
+)
 
 from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
 
@@ -24,6 +33,143 @@ from ._optional import require_geopandas, require_rasterio
 from .paths import FlightlinePaths
 
 LOGGER = logging.getLogger(__name__)
+
+
+def _series_has_binary_values(series: pd.Series) -> bool:
+    non_null = series.dropna()
+    if non_null.empty:
+        return False
+    sample = non_null.iloc[0]
+    return isinstance(sample, (bytes, bytearray, memoryview))
+
+
+def _infer_polygon_metadata_dtypes(
+    polygon_index_df: pd.DataFrame,
+) -> dict[str, object]:
+    """Infer stable pandas dtypes for polygon metadata columns.
+
+    Chunked polygon extraction writes Parquet incrementally. If the first chunk
+    happens to contain only missing values for a text field, PyArrow can infer
+    Arrow ``null`` and lock the file schema before later chunks contribute real
+    strings. We infer stable metadata dtypes from the full polygon index so
+    every emitted chunk keeps the same text/binary/datetime/int contract.
+    """
+
+    dtype_map: dict[str, object] = {}
+    binary_dtype = None
+    try:
+        import pyarrow as pa
+    except ImportError:  # pragma: no cover - parquet writes require pyarrow
+        pa = None
+    else:
+        if not hasattr(pa, "binary"):
+            pa = None
+        else:
+            binary_dtype = pd.ArrowDtype(pa.binary())
+
+    for column_name in polygon_index_df.columns:
+        if column_name == "pixel_id":
+            continue
+
+        series = polygon_index_df[column_name]
+
+        if column_name == "polygon_id":
+            dtype_map[column_name] = "Int64"
+            continue
+
+        if column_name.endswith("_wkb") or _series_has_binary_values(series):
+            dtype_map[column_name] = binary_dtype or object
+            continue
+
+        if is_datetime64_any_dtype(series):
+            dtype_map[column_name] = series.dtype
+            continue
+
+        if is_bool_dtype(series):
+            dtype_map[column_name] = "boolean"
+            continue
+
+        if is_integer_dtype(series):
+            dtype_map[column_name] = "Int64"
+            continue
+
+        if is_float_dtype(series):
+            dtype_map[column_name] = series.dtype
+            continue
+
+        if isinstance(series.dtype, pd.CategoricalDtype) or is_string_dtype(series):
+            dtype_map[column_name] = "string"
+            continue
+
+        if is_object_dtype(series):
+            dtype_map[column_name] = "string"
+            continue
+
+        if is_numeric_dtype(series):
+            dtype_map[column_name] = series.dtype
+
+    return dtype_map
+
+
+def _normalize_polygon_metadata_chunk(
+    df: pd.DataFrame,
+    metadata_dtypes: Mapping[str, object],
+) -> pd.DataFrame:
+    """Normalize polygon metadata columns to stable chunk-safe dtypes."""
+
+    if not metadata_dtypes:
+        return df
+
+    normalized = df.copy()
+    for column_name, target_dtype in metadata_dtypes.items():
+        if column_name not in normalized.columns:
+            continue
+
+        series = normalized[column_name]
+        binary_values = [
+            None
+            if pd.isna(value)
+            else bytes(value)
+            if isinstance(value, (bytearray, memoryview))
+            else value
+            for value in series
+        ]
+
+        if target_dtype == "string":
+            normalized[column_name] = series.astype("string")
+            continue
+
+        if target_dtype == "Int64":
+            normalized[column_name] = pd.to_numeric(series, errors="coerce").astype("Int64")
+            continue
+
+        if target_dtype == "boolean":
+            normalized[column_name] = series.astype("boolean")
+            continue
+
+        if isinstance(target_dtype, pd.ArrowDtype):
+            normalized[column_name] = pd.Series(
+                binary_values,
+                index=series.index,
+                dtype=target_dtype,
+            )
+            continue
+
+        if target_dtype is object:
+            normalized[column_name] = pd.Series(
+                binary_values,
+                index=series.index,
+                dtype="object",
+            )
+            continue
+
+        if is_datetime64_any_dtype(target_dtype):
+            normalized[column_name] = pd.to_datetime(series, errors="coerce").astype(target_dtype)
+            continue
+
+        normalized[column_name] = pd.to_numeric(series, errors="coerce").astype(target_dtype)
+
+    return normalized
 
 
 def create_dummy_polygon(
@@ -1915,6 +2061,12 @@ def extract_polygon_parquet_from_envi(
     if not polygon_pixel_ids:
         raise ValueError("Polygon index contains no pixels")
 
+    polygon_metadata_dtypes = _infer_polygon_metadata_dtypes(polygon_index_df)
+    polygon_index_df = _normalize_polygon_metadata_chunk(
+        polygon_index_df,
+        polygon_metadata_dtypes,
+    )
+
     polygon_metadata_columns = [
         "pixel_id",
         *[
@@ -1976,11 +2128,16 @@ def extract_polygon_parquet_from_envi(
                     for col in polygon_metadata_columns
                     if col == "pixel_id" or col not in filtered.columns
                 ]
-                yield filtered.merge(
+                merged = filtered.merge(
                     polygon_index_df[metadata_columns],
                     on="pixel_id",
                     how="left",
-                    copy=False,
+                )
+                # Protect chunked Parquet writes from null-only early chunks
+                # locking polygon metadata columns to Arrow `null`.
+                yield _normalize_polygon_metadata_chunk(
+                    merged,
+                    polygon_metadata_dtypes,
                 )
     
     filtered_iter = _filtered_iterator()

@@ -20,6 +20,79 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P32. Drone QA Panel Labeling Cleanup
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
+- Goal: Simplify the drone QA page by removing the inset `% changed` mini-map
+  from the correction-magnitude panel and improve panel labels so the layout is
+  easier to interpret in exported QA PDFs.
+- Plan:
+  - Remove the inset map from the per-pixel correction magnitude panel while
+    keeping the underlying summary statistics intact in the QA payload/text.
+  - Tighten and clarify the visible subplot titles/labels in the drone QA
+    figure without changing the scientific metrics being rendered.
+  - Update the nearest render regression tests to lock the clarified titles and
+    keep the layout stable.
+- Completion notes:
+  - Removed the `% changed` inset from the spatial correction-magnitude panel
+    in `src/spectralbridge/qa_plots.py` while preserving the underlying
+    changed-pixel summary metrics in the QA payload and text box.
+  - Renamed the visible drone QA subplot titles to clearer publication-facing
+    labels for the RGB preview, spectral comparison, correction spectrum,
+    spatial correction map, polygon overlay, merged preview, and raw/corrected
+    invalid-band maps.
+  - Updated the subplot-layout regression in `tests/test_drone_pipeline.py` to
+    assert the new titles and explicitly guard against reintroducing the
+    `% changed` inset axis.
+- Verification:
+  - `python3 -m py_compile src/spectralbridge/qa_plots.py tests/test_drone_pipeline.py`
+  - `CSCAL_TEST_MODE=full .venv/bin/pytest -q tests/test_drone_pipeline.py -k 'render_drone_panel_places_invalid_maps_on_bottom_row or render_drone_panel_includes_correction_status or render_drone_panel_logs_sampling_debug_and_writes_debug_payload'`
+
+### P31. Drone Polygon Parquet Schema Stabilization
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
+- Goal: Stabilize chunked polygon Parquet writing so polygon metadata columns
+  keep consistent Arrow-compatible schemas across chunks even when an early
+  chunk is entirely null for a text field and a later chunk contains strings.
+- Plan:
+  - Inspect the shared polygon extraction write path used by
+    `extract_polygon_parquet_from_envi()` and identify the narrowest safe place
+    to normalize polygon metadata dtypes before Parquet chunk emission.
+  - Preserve numeric, datetime, binary WKB, and integer `polygon_id` types
+    while ensuring text/object/categorical polygon metadata columns cannot be
+    inferred as Arrow `null` from an all-missing first chunk.
+  - Add a regression test that reproduces the null-only-first-chunk failure
+    mode and verify the chunked writer remains stable without changing NEON
+    behavior broadly.
+- Completion notes:
+  - Added polygon-metadata dtype inference and per-chunk normalization in
+    `src/spectralbridge/polygons.py` so chunked polygon extraction stabilizes
+    text/object/categorical metadata as pandas string dtype, preserves
+    nullable integer `polygon_id`, keeps numeric and datetime metadata typed,
+    and preserves WKB bytes instead of letting null-only early chunks lock the
+    writer to Arrow `null`.
+  - Kept the change local to the shared polygon extraction path used by
+    `extract_polygon_parquet_from_envi()` instead of changing the global
+    Parquet writer behavior for unrelated NEON exports.
+  - Added `tests/test_polygons.py` to reproduce the null-only-first-chunk
+    metadata scenario (`species`, `cover_subcategory`,
+    `dead_subcategory`) and assert that both extracted chunks reach the writer
+    with stable dtypes and preserved later-string values.
+- Verification:
+  - `python3 -m py_compile src/spectralbridge/polygons.py tests/test_polygons.py`
+  - `CSCAL_TEST_MODE=full .venv/bin/pytest -q tests/test_polygons.py`
+  - `CSCAL_TEST_MODE=full .venv/bin/pytest -q tests/test_drone_pipeline.py`
+- Remaining work:
+  - `ruff check src tests` could not be run in this local environment because
+    `ruff` is declared in project metadata/CI but is not currently installed in
+    either `.venv` or the system Python available to Codex.
+
 ### P30. Mixed Drone TIFF Or HDF5 Input Support
 
 - Priority: User-directed
@@ -57,6 +130,16 @@ left incomplete so the next agent can resume immediately.
   - TIFF support currently relies on strict ancillary filename discovery and
     either default 10-band Erick notebook wavelengths/FWHM or explicit
     `tiff_wavelengths_nm` / `tiff_fwhm_nm` arguments for other band layouts.
+- Progress notes:
+  - Follow-up cleanup is still needed in `tests/test_drone_pipeline.py` so the
+    progress/status assertions reflect the new mixed-source logging message
+    instead of the old HDF5-only wording.
+- Completion notes:
+  - Updated the drone progress/status regression test to assert the new
+    mixed-source log wording (`type=h5 | stage=preparing working H5`) instead
+    of the old HDF5-only phrase.
+  - Re-ran a focused mixed-source drone slice covering HDF5 progress logs,
+    TIFF source discovery, TIFF-backed runs, and the no-polygon HDF5 path.
 - Next recommended task: If TIFF-backed workflows expand further, add a richer
   package metadata contract for ancillary discovery and explicit spectral
   metadata instead of relying on filename heuristics alone.

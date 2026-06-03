@@ -1643,7 +1643,7 @@ def _render_delta(
     delta_q75 = np.asarray(report.delta_q75, dtype=float)
     delta_q90 = np.asarray(report.delta_q90, dtype=float)
     delta_abs_median = np.asarray(report.delta_abs_median, dtype=float)
-    ax.set_title("Correction Distribution vs Wavelength")
+    ax.set_title("Correction Distribution By Wavelength")
     ax.fill_between(xs, delta_q10, delta_q90, alpha=0.15, color="#4c78a8", label="10-90%")
     ax.fill_between(xs, delta_q25, delta_q75, alpha=0.25, color="#4c78a8", label="IQR")
     ax.plot(xs, delta_median, color="#1f77b4", linewidth=2.0, label="signed median Δ")
@@ -2317,7 +2317,7 @@ def _render_drone_band_fidelity(
                 sampled_values.append(corr_trace)
     ax.plot(xs, raw_display, color="#1f77b4", linewidth=2.0, label="raw median", zorder=3)
     ax.plot(xs, corr_display, color="#ff7f0e", linewidth=1.8, label="corrected median", zorder=3)
-    ax.set_title("Band Fidelity And Sampled Spectra")
+    ax.set_title("Median Spectra And Sampled Pixel Traces")
     ax.set_xlabel("Wavelength (nm)")
     ax.set_ylabel("Reflectance")
 
@@ -2391,7 +2391,7 @@ def _render_drone_correction_magnitude(
     finite = abs_delta[np.isfinite(abs_delta)]
     vmax = float(np.nanpercentile(finite, 95)) if finite.size else 1.0
     image = ax.imshow(abs_delta, cmap="viridis", vmin=0.0, vmax=max(vmax, 1e-6))
-    ax.set_title("Per-Pixel Median Absolute Correction Across Bands")
+    ax.set_title("Spatial Median Absolute Correction Across Bands")
     ax.set_xticks([])
     ax.set_yticks([])
     plt.colorbar(image, ax=ax, fraction=0.046, pad=0.04, label="|delta|")
@@ -2444,12 +2444,6 @@ def _render_drone_correction_magnitude(
         fontsize=8,
         bbox=dict(boxstyle="round", facecolor="white", alpha=0.85, edgecolor="none"),
     )
-    if np.any(np.isfinite(changed_frac)):
-        inset = ax.inset_axes([0.66, 0.66, 0.28, 0.28])
-        inset.imshow(changed_frac, cmap="magma", vmin=0.0, vmax=100.0)
-        inset.set_title("% changed", fontsize=7)
-        inset.set_xticks([])
-        inset.set_yticks([])
     return summary
 
 
@@ -2458,7 +2452,7 @@ def _render_drone_polygon_overlay(
     raster_img: Path,
     polygon_path: Path | None,
 ) -> str | None:
-    ax.set_title("Drone Overlay Debug")
+    ax.set_title("Polygon Overlay On Corrected Raster")
 
     if polygon_path is None:
         ax.text(0.5, 0.5, "No polygon path provided", ha="center", va="center", transform=ax.transAxes)
@@ -2534,7 +2528,7 @@ def _render_drone_merged_preview(
     qa_summary: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     ax.axis("off")
-    ax.set_title("Merged Table Preview")
+    ax.set_title("Merged Polygon Parquet Preview")
 
     summary: dict[str, Any] = {
         "path": str(merged_path) if merged_path is not None else None,
@@ -2746,7 +2740,7 @@ def render_drone_panel(
 
     axes[0, 0].imshow(np.clip(rgb_image, 0, 1))
     axes[0, 0].set_title(
-        f"Original ENVI RGB (bands {rgb_indices[0]+1}/{rgb_indices[1]+1}/{rgb_indices[2]+1})"
+        f"Raw Reflectance RGB Preview (bands {rgb_indices[0]+1}/{rgb_indices[1]+1}/{rgb_indices[2]+1})"
     )
     axes[0, 0].axis("off")
     axes[0, 0].text(
@@ -2794,8 +2788,16 @@ def render_drone_panel(
         raw_path.stem.replace("__envi", ""),
         qa_summary=qa_summary,
     )
-    _render_drone_nodata_map(axes[3, 0], raw_nodata_fraction, "Raw ENVI -9999 / invalid map")
-    _render_drone_nodata_map(axes[3, 1], corr_nodata_fraction, "Corrected ENVI -9999 / invalid map")
+    _render_drone_nodata_map(
+        axes[3, 0],
+        raw_nodata_fraction,
+        "Raw Invalid / NoData Band Fraction",
+    )
+    _render_drone_nodata_map(
+        axes[3, 1],
+        corr_nodata_fraction,
+        "Corrected Invalid / NoData Band Fraction",
+    )
 
     for ax in axes.flat:
         if ax not in {axes[0, 0], axes[2, 0], axes[2, 1], axes[3, 0], axes[3, 1], axes[1, 1]}:
