@@ -8,6 +8,7 @@
 - [x] Replace the minimal `setup.py` with a `pyproject.toml` using PEP 621 metadata (name, version, description, authors, URLs, keywords, classifiers). Keep `setup.py` as a compatibility shim only.
 - [x] Add `__init__.py` exports and package-level documentation so users can discover public APIs easily. Common orchestration helpers are now lazy top-level exports.
 - [x] Decide on versioning scheme (CalVer or SemVer) and document it in CONTRIBUTING along with release tagging conventions.
+- [ ] Keep `pyproject.toml`, `src/spectralbridge/__init__.py`, `CITATION.cff`, `CHANGELOG.md`, and the release tag synchronized for every release. *(Current audit found metadata at `2.2.0`, changelog headed by `2.3.0`, and local tags still at `0.1` / `v1.0.0`.)*
 - [x] Audit repository for large data or notebooks that should be excluded from source distributions. `MANIFEST.in` excludes root staging data, deprecated archives, generated docs reports, and container-only helpers.
 
 ## 2. Dependencies & Environment
@@ -29,13 +30,15 @@
 - [x] Add usage examples demonstrating both library API calls and CLI entry points, ideally with runnable Jupyter notebooks linked from docs.
 - [ ] Update `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md` (create if missing), and issue/PR templates to guide external contributors once the package is public. *(Contributing guide and Code of Conduct refreshed; templates still needed.)*
 - [x] Provide citation and acknowledgement guidance consistent across README, docs, and metadata.
+- [x] Add a maintainer-facing publication and software-citation tracker. `docs/dev/software-citation.md` now records preferred citation language, versioned release citation policy, and publication placeholders.
 
 ## 5. Distribution Artifacts & QA
 - [ ] Run `python -m build` to generate sdist/wheel and inspect contents (ensure no unnecessary files, confirm console scripts are installed).
 - [ ] Execute `twine check dist/*` to validate metadata and `pip install dist/*.whl` in a clean virtual environment for smoke tests.
 - [x] Document hardware/software prerequisites (GDAL, PROJ) and include troubleshooting tips for installation on Linux/macOS/Windows.
 - [ ] Automate changelog generation (`CHANGELOG.md`) per release with notable features and breaking changes.
-- [ ] Establish release checklist (tagging, GitHub release notes, PyPI upload) and capture in this document or `RELEASING.md`.
+- [x] Establish release checklist (tagging, GitHub release notes, PyPI upload) and capture in this document or `RELEASING.md`. `docs/dev/releasing.md` now documents the maintainer sequence, and `.github/workflows/release.yml` packages tagged releases and publishes GitHub release artifacts.
+- [ ] Verify the Zenodo release record after each GitHub release (title, version, DOI target, and badge target). See `docs/dev/doi-zenodo.md`.
 
 ## 6. Licensing & Governance
 - [ ] Complete a provenance/legal review before changing the repository from GPLv3 to any future Apache 2.0 target. Current repo text still references GPL-derived HyTools adaptations.

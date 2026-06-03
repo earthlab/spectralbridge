@@ -1,16 +1,20 @@
-# Tutorial: MicaSense Local-H5 Workflow
+# Tutorial: MicaSense Local Drone Workflow
 
-This tutorial shows the supported path for local drone or MicaSense-style HDF5
-exports. The workflow preserves drone-native provenance, discovers HDF5 files
-recursively, writes ENVI products, extracts polygon Parquet tables when a
-polygon layer is provided, and renders QA artifacts.
+This tutorial shows the supported path for local drone or MicaSense-style
+inputs. The workflow preserves drone-native provenance, discovers HDF5 files
+or reflectance TIFF packages recursively, converts TIFF sources into the
+working HDF5 contract when needed, writes ENVI products, extracts polygon
+Parquet tables when a polygon layer is provided, and renders QA artifacts.
 
 There is no dedicated `spectralbridge-micasense-to-landsat` CLI today. Use the
 Python API shown here.
 
 ## Inputs
 
-Prepare a folder containing local HDF5 exports:
+Prepare a folder containing local drone exports. The pipeline can start from
+either existing HDF5 files or reflectance TIFF packages.
+
+Example HDF5 layout:
 
 ```text
 drone_h5_exports/
@@ -20,16 +24,51 @@ drone_h5_exports/
     *.h5
 ```
 
+Example TIFF layout:
+
+```text
+drone_tiff_exports/
+  SPR1-06-28-23 ExportPackage/
+    aligned_orthomosaic.tif
+    slope.tif
+    aspect.tif
+    sensor_zenith.tif
+    sensor_azimuth.tif
+```
+
 If you want polygon-level tables, also prepare a polygon layer supported by
 GeoPandas, such as GeoPackage or GeoJSON.
 
-## HDF5 contract
+## Input contract
 
-SpectralBridge treats the local HDF5 export as the authoritative drone input.
-Reflectance and ancillary rasters are expected to already share the same
-spatial orientation and `(lines, columns)` footprint. SpectralBridge validates
-that contract during loading and correction, but it does not add TIFF
-conversion logic or attempt to repair malformed upstream TIFF-to-HDF5 exports.
+For existing HDF5 inputs, SpectralBridge treats the local HDF5 export as the
+authoritative drone input. Reflectance and ancillary rasters are expected to
+already share the same spatial orientation and `(lines, columns)` footprint.
+
+For TIFF-backed inputs, SpectralBridge now creates the per-flight
+`__working.h5` file itself before continuing through the existing drone
+workflow. The TIFF bridge is intentionally strict:
+
+- reflectance TIFFs must be multiband rasters
+- ancillary TIFFs must already match the reflectance raster shape, transform,
+  and CRS
+- TIFF packages are expected to provide aligned sidecars for:
+  - `slope`
+  - `aspect`
+  - `sensor_zenith` or `view_zenith`
+  - `sensor_azimuth` or `view_azimuth`
+- solar geometry can come from:
+  - aligned `solar_zenith` / `solar_azimuth` TIFFs, or
+  - scalar `tiff_solar_zenith_deg` / `tiff_solar_azimuth_deg` arguments passed
+    to `run_drone_pipeline`
+
+If both an HDF5 file and a reflectance TIFF resolve to the same derived flight
+stem within one package, the existing HDF5 input takes precedence.
+
+By default, TIFF-backed conversion uses the 10-band wavelength/FWHM vectors
+from the Erick notebook workflow when the reflectance raster has 10 bands. For
+other band counts, pass explicit `tiff_wavelengths_nm` and `tiff_fwhm_nm`
+values.
 
 ## Run the drone pipeline
 
@@ -37,17 +76,27 @@ conversion logic or attempt to repair malformed upstream TIFF-to-HDF5 exports.
 from spectralbridge import run_drone_pipeline
 
 results = run_drone_pipeline(
-    input_h5_dir="drone_h5_exports",
+    input_h5_dir="drone_inputs",
     polygon_path="Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
     output_dir="drone_outputs",
     apply_topo=True,
     apply_brdf=True,
     use_ndvi_brdf_bins=False,
     apply_brightness_adjustment=False,
+    tiff_solar_zenith_deg=88.90,
+    tiff_solar_azimuth_deg=287.69,
 )
 ```
 
 Set `polygon_path=None` when you only need ENVI and QA products.
+
+If your TIFF source does not use the default 10-band Erick notebook spectral
+definition, also pass:
+
+```python
+tiff_wavelengths_nm=[...]
+tiff_fwhm_nm=[...]
+```
 
 ## Outputs
 

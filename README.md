@@ -1,5 +1,7 @@
 # SpectralBridge — Translating surface reflectance across sensors and scales
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11167877.svg)](https://doi.org/10.5281/zenodo.11167877)
+
 **SpectralBridge** is a modular Python-based tool that adjusts fine-resolution (few centimeters to ~ 5 meters) “pure” spectra from airborne imaging spectroscopy (IS) and uncrewed aerial system (UAS) multispectral imagery to match the spectral configurations of moderate-resolution satellite sensors (over 30 meters).
 
 ![SpectralBridge pipeline overview](docs/EL_workflow_diagram_updatedQA.png)
@@ -511,9 +513,17 @@ If you use SpectralBridge in research, please cite:
 
 `CITATION.cff` is the authoritative citation source for the repository and
 should be updated alongside each release.
-No repository DOI or Zenodo integration is currently documented in this repo,
-so versioned release citation infrastructure remains a follow-up governance
-task.
+
+An archived Zenodo software release already exists for the repository's
+pre-rename `cross-sensor-cal` v1.0.0 release:
+[`10.5281/zenodo.11167877`](https://doi.org/10.5281/zenodo.11167877).
+That DOI is now surfaced by the README badge above, but it should not be
+mistaken for a minted DOI for the current `SpectralBridge` `2.2.0` package
+metadata. See [docs/dev/doi-zenodo.md](docs/dev/doi-zenodo.md) for the
+maintainer-facing status and release-update guidance.
+See [docs/dev/software-citation.md](docs/dev/software-citation.md) for the
+maintainer-facing citation policy, publication tracker, and release-citation
+rules.
 
 ## Open Science
 

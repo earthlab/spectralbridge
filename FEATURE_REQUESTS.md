@@ -20,6 +20,47 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P30. Mixed Drone TIFF Or HDF5 Input Support
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
+- Goal: Extend the drone pipeline so it can accept either existing HDF5 inputs
+  or source GeoTIFF reflectance inputs, automatically recognize the source
+  type, and convert TIFF sources into the working HDF5 contract before the
+  existing drone workflow continues.
+- Plan:
+  - Preserve the existing HDF5 path unchanged and add a narrow TIFF bridge
+    rather than rewriting the correction or QA workflow.
+  - Convert TIFF inputs into the same working-HDF5 layout the current
+    `NeonCube` reader already understands, with explicit validation of raster
+    alignment and ancillary requirements.
+  - Add regression tests for source-type detection, TIFF-to-working-HDF5
+    conversion, and mixed-source pipeline execution.
+- Completion notes:
+  - `run_drone_pipeline()` now discovers either `.h5` inputs or reflectance
+    `.tif` / `.tiff` inputs and automatically branches to the existing HDF5
+    path or a new TIFF-to-working-HDF5 conversion bridge.
+  - The TIFF bridge emits the same site-group legacy HDF5 layout already
+    accepted by `NeonCube`, preserving the downstream correction, QA, and
+    polygon workflows instead of creating a parallel TIFF-only execution path.
+  - HDF5 inputs still take precedence when both HDF5 and TIFF sources resolve
+    to the same derived flight stem.
+  - Added focused regression coverage in `tests/test_drone_pipeline.py` for
+    source discovery, TIFF-backed pipeline runs, working-HDF5 preparation, and
+    `NeonCube` readability of converted TIFF inputs.
+  - Updated `docs/tutorials/micasense-to-landsat.md` to document the mixed
+    source contract, ancillary TIFF expectations, and TIFF scalar solar-angle
+    fallbacks.
+- Remaining work:
+  - TIFF support currently relies on strict ancillary filename discovery and
+    either default 10-band Erick notebook wavelengths/FWHM or explicit
+    `tiff_wavelengths_nm` / `tiff_fwhm_nm` arguments for other band layouts.
+- Next recommended task: If TIFF-backed workflows expand further, add a richer
+  package metadata contract for ancillary discovery and explicit spectral
+  metadata instead of relying on filename heuristics alone.
+
 ### P0b. License Migration Audit And Citation Infrastructure
 
 - Priority: P0
@@ -226,9 +267,35 @@ left incomplete so the next agent can resume immediately.
 ### P7. Restart, Checkpoint, And Recovery Integrity
 
 - Priority: P7
-- Status: Todo
+- Status: In progress
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Add selective recovery and validation tests for restart-safe reuse,
   corrupt-output rebuilds, missing downstream products, and explicit statuses.
+- Plan:
+  - Turn the current skip/rebuild code paths into explicit recovery contracts
+    with focused tests around valid-output reuse, corrupt sidecar regeneration,
+    and selective downstream recomputation.
+  - Reuse existing stage-level helpers where possible instead of adding a new
+    recovery framework.
+  - Only change runtime behavior if a test exposes a real gap that can be fixed
+    safely without broadening the pipeline contract.
+- Progress notes:
+  - Added restart-contract tests proving a recovered raw ENVI export is reused
+    on the next run instead of being rebuilt again.
+  - Added a recovery test proving corrupt parquet sidecars are regenerated once
+    and then treated as valid skip candidates on subsequent runs.
+  - Added a selective recomputation test proving the convolution stage rebuilds
+    only a missing downstream sensor product while leaving already-valid sensor
+    outputs untouched.
+- Remaining work:
+  - Explicit machine-readable statuses such as
+    `skipped_existing_valid_output`, `recomputed_missing_output`,
+    `recomputed_corrupt_output`, and `failed_validation` are still not emitted
+    by the core NEON pipeline stages, so this item remains open.
+- Blockers:
+  - Closing the status-vocabulary gap would require a deliberate API/logging
+    decision rather than a test-only hardening pass.
 
 ### P8. Output Schema Stability
 
@@ -252,7 +319,7 @@ left incomplete so the next agent can resume immediately.
 ### P9. Namespace And Container Compatibility
 
 - Priority: P9
-- Status: In progress
+- Status: Completed
 - Owner: Codex
 - Started: 2026-06-02
 - Goal: Keep `import spectralbridge` canonical while preserving
@@ -271,23 +338,60 @@ left incomplete so the next agent can resume immediately.
     `spectralbridge`.
   - Added a packaging-level test that every published console-script entry
     point in `pyproject.toml` resolves to a callable implementation.
-- Remaining work:
-  - CWD/container-path assumptions have not been exhaustively audited yet, so
-    this item stays in progress.
+- Completion notes:
+  - Added non-repo-working-directory tests proving both namespaces and the
+    published CLI entry points still resolve from an arbitrary `cwd`, reducing
+    the risk of repo-root/container-path assumptions leaking into the package
+    surface.
 
 ### P10. CI Hardening
 
 - Priority: P10
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Expand CI coverage for `src/spectralbridge/**`, `tests/**`,
   `pyproject.toml`, and workflow changes with targeted install/lint/test steps.
+- Completion notes:
+  - Hardened `.github/workflows/ci.yml` so push/PR triggers are scoped to the
+    actual code/test/workflow surfaces requested, added a package-version import
+    smoke step, and inserted targeted drone/QA regression slices ahead of the
+    full pytest run.
+  - Updated `.github/workflows/qa-ci.yml` to watch `src/spectralbridge/**` in
+    addition to the legacy compatibility tree and to generate its fixture using
+    `spectralbridge.qa_plots` instead of the deprecated namespace.
+- Verification notes:
+  - Local workflow YAML parsing could not be run with Python because `pyyaml`
+    is not installed in this environment, so workflow verification here was
+    limited to source inspection plus targeted test execution.
 
 ### P11. Logging Review
 
 - Priority: P11
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Review duplicate handlers plus notebook, multiprocessing, and Ray
   logging behavior; document findings without major refactors.
+- Completion notes:
+  - Added `docs/dev/logging-review.md` documenting the current logging posture
+    across the NEON pipeline, drone pipeline, QA modules, CLIs, multiprocessing,
+    and Ray integration.
+  - Confirmed the biggest consistency risks are import-time logger setup in
+    `pipelines/pipeline.py`, import-time level forcing in `qa_plots.py`,
+    root-logger usage in `corrections.py`, and mixed CLI/root-logger handling
+    via `logging.basicConfig(...)`.
+  - Confirmed the current review did not find an immediate scientific or
+    restart-safety bug, so no runtime logging refactor was made in this pass.
+
+### P24. Logging Configuration Cleanup And Harmonization
+
+- Priority: P11
+- Status: Todo
+- Goal: Incrementally unify library vs CLI logging behavior, reduce import-time
+  logger side effects, and standardize progress/log capture behavior across
+  NEON, drone, multiprocessing, and Ray paths without destabilizing the
+  scientific pipeline.
 
 ### P12. Public API Contract Review
 
@@ -306,23 +410,66 @@ left incomplete so the next agent can resume immediately.
 ### P13. Release Hygiene
 
 - Priority: P13
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Audit license/readme/citation/resources/manifest and confirm prompt
   logs, temporary outputs, large data, and development artifacts are not
   shipped unintentionally.
+- Completion notes:
+  - Tightened `MANIFEST.in` to stop explicitly shipping maintainer-only files
+    and to exclude obvious accidental artifacts such as `PROMPT_LOG.md`,
+    root-level notebooks, `:memory:`, and local contribution notes.
+  - Added `docs/dev/release-hygiene.md` documenting the release-hygiene audit,
+    the manifest changes, and the remaining repo-level concerns that are now
+    visible to maintainers.
+  - Confirmed local docs links still pass after the new review note was added.
+- Verification notes:
+  - A real source-distribution build could not be executed in this environment
+    because the active Python lacks `setuptools` and `build`, so this item was
+    verified by manifest review plus targeted docs checks rather than by
+    inspecting a built artifact directly.
 
 ### P14. Versioning Review
 
 - Priority: P14
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Review version definitions and release process to prevent drift.
+- Completion notes:
+  - Added `docs/dev/versioning-review.md` documenting the current version
+    sources, the local tag drift, and the mismatch between packaged metadata
+    (`2.2.0`) and the leading `CHANGELOG.md` release heading (`2.3.0`).
+  - Updated `CONTRIBUTING.md` so release guidance explicitly includes
+    `src/spectralbridge/__init__.py` and warns against leaving future release
+    headings above the current packaged version unless they are clearly
+    unreleased.
+  - Updated `publication_checklist.md` with an explicit version-sync checklist
+    item so future releases verify `pyproject.toml`, `__init__.py`,
+    `CITATION.cff`, `CHANGELOG.md`, and the Git tag together.
+- Verification notes:
+  - This pass was a repository-state audit only. No version numbers or tag
+    history were rewritten automatically.
 
 ### P15. Dependency Review
 
 - Priority: P15
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Review `ray`, `geopandas`, and `rasterio` dependency posture and
   whether extras should change without breaking installs.
+- Completion notes:
+  - Added `docs/dev/dependency-review.md` documenting the current dependency
+    layout and why `ray`, `rasterio`, and `geopandas` should remain required
+    under the current workflow contract.
+  - Updated `docs/env.md` to reflect the real runtime dependency stack and to
+    clarify that `rioxarray` / `xarray` are optional notebook companions, not
+    direct package requirements.
+  - Confirmed that changing extras automatically would amount to a packaging
+    redesign rather than a safe hardening tweak, so dependency declarations
+    were left unchanged in this pass.
 
 ### P16. Documentation Modernization
 
@@ -349,40 +496,184 @@ left incomplete so the next agent can resume immediately.
     current package entry points.
   - Added broader docs styling so non-homepage pages better match the primary
     landing-page direction without requiring a full docs rewrite in one pass.
+  - Started a second docs pass for the remaining high-traffic pages:
+    `docs/concepts/why-calibration.md`, `docs/pipeline/qa.md`,
+    `docs/usage/parquet.md`, and `docs/troubleshooting.md`.
+  - Completed that second pass and aligned those pages with the newer
+    card-and-section layout while keeping the content tied to the current
+    package behavior, restart guidance, and CLI entry points.
+  - Verified that the public docs and `README.md` no longer contain stale
+    `cross_sensor_cal` or `cross-sensor-cal` references.
 - Remaining work:
-  - Additional pages still use the older content structure and could use the
-    same modernization treatment in a follow-up pass.
+  - Additional tutorial, reference, and FAQ pages still use the older content
+  structure and could use the same modernization treatment in a follow-up
+  pass after the highest-traffic pages are aligned.
 
 ### P17. Architecture Audit
 
 - Priority: P17
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Document lightweight findings on duplicate metadata/path/output logic,
   chunking consistency, restart-safe consistency, QA consistency, and shared
   drone/NEON infrastructure opportunities.
+- Plan:
+  - Review the live orchestration, path, merge, polygon, QA, and metadata
+    modules rather than proposing a speculative redesign.
+  - Capture concrete duplication and consistency findings in a maintainer-facing
+    architecture audit.
+  - Create follow-up feature requests only where the current implementation is
+    working but visibly split across multiple helpers.
+- Completion notes:
+  - Added `docs/dev/architecture-audit.md` with a documentation-only review of
+    the live orchestration, path, merge, polygon, metadata, chunking, and QA
+    layers.
+  - Confirmed that the strongest architectural invariants are still the
+    file-based stage ordering, restart-safe reruns, chunk-preserving NEON
+    processing, and treating parquet and QA outputs as contracts.
+  - Identified split naming authority between `FlightlinePaths` and
+    `get_flightline_products()` plus duplicated output-discovery logic across
+    merge, polygon, QA, and summary helpers as the main maintainability
+    hotspots.
+  - Confirmed that the best shared drone/NEON opportunities are around
+    artifact lookup and validation helpers, not around collapsing both
+    orchestration layers into one pipeline entry point.
+- Next recommended task: Continue with P18, and treat P25/P26 below as
+  additive cleanup work rather than urgent refactors.
+
+### P25. Output Discovery Consolidation
+
+- Priority: P17
+- Status: Todo
+- Goal: Reduce duplicated parquet and merged-output discovery logic across
+  `merge_duckdb.py`, `polygons.py`, `qa_plots.py`, and QA summary helpers by
+  introducing shared artifact-location utilities without changing filename
+  contracts.
+
+### P26. Naming Authority Review
+
+- Priority: P17
+- Status: Todo
+- Goal: Decide whether `FlightlinePaths` should subsume more of
+  `get_flightline_products()` or whether the current dual path/naming layer is
+  intentionally permanent, then document that decision for future maintainers.
 
 ### P18. DOI And Zenodo Integration
 
 - Priority: P18
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Add and document DOI generation infrastructure, including Zenodo
   enablement steps, release-to-DOI workflow guidance, and maintainer-facing
   verification steps.
+- Plan:
+  - Verify the repository's current external DOI/Zenodo state before changing
+    local docs or badges.
+  - Surface any existing DOI clearly in the README while distinguishing between
+    archived historical releases and the current package version.
+  - Add maintainer-facing documentation for Zenodo verification and release
+    updates so DOI state remains reproducible.
+- Completion notes:
+  - Verified that the repository already has a Zenodo software archive for the
+    pre-rename `earthlab/cross-sensor-cal: Version 1` release published on
+    2024-05-09 with DOI `10.5281/zenodo.11167877`.
+  - Added the existing Zenodo DOI badge to `README.md` and updated the
+    citation section so it no longer claims DOI infrastructure is undocumented.
+  - Added `docs/dev/doi-zenodo.md` documenting the current Zenodo state, the
+    distinction between the historic archived release and the current
+    `SpectralBridge` package version, and the maintainer verification workflow
+    for future releases.
+  - Added a Zenodo verification reminder to `publication_checklist.md`.
+- Next recommended task: Continue with P19, and treat P27 below as a follow-up
+  if maintainers want a post-rename SpectralBridge-specific Zenodo release
+  record to be explicitly refreshed.
+
+### P27. Zenodo Metadata Refresh For Post-Rename Releases
+
+- Priority: P18
+- Status: Todo
+- Goal: Ensure the next archived Zenodo release uses current SpectralBridge
+  naming, synchronized version metadata, and the maintainers' preferred DOI
+  target strategy (historic version DOI vs concept/latest DOI).
 
 ### P19. Release Automation And Notes
 
 - Priority: P19
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Add durable release automation guidance covering tagged releases,
   release notes, changelog/release note generation, and citation metadata
   refresh steps.
+- Plan:
+  - Review the existing GitHub Actions and maintainer docs to see what release
+    automation is missing today.
+  - Add a conservative tag-driven release workflow that builds and validates
+    package artifacts without assuming PyPI credentials.
+  - Document the maintainer release sequence, including changelog, citation,
+    Zenodo, and release-note verification steps.
+- Completion notes:
+  - Added `.github/workflows/release.yml` so version tags matching
+    `vMAJOR.MINOR.PATCH` now build `sdist` and wheel artifacts, run
+    `twine check`, install the built wheel for an import smoke test, upload the
+    artifacts, and create or update a GitHub release with generated release
+    notes.
+  - Added `docs/dev/releasing.md` documenting the maintainer release sequence,
+    including version synchronization, changelog review, citation refresh,
+    Zenodo verification, and the current limits of the automation.
+  - Updated `CONTRIBUTING.md` and `publication_checklist.md` so the release
+    workflow and maintainer checklist are part of the documented project
+    process.
+- Next recommended task: Continue with P20, and treat P28 below as a follow-up
+  if maintainers want CI to block tag cuts when package metadata and tags are
+  out of sync.
+
+### P28. Release Metadata Sync Validation
+
+- Priority: P19
+- Status: Todo
+- Goal: Add a release-focused validation check that confirms the Git tag,
+  package version, `CITATION.cff`, and changelog header are synchronized before
+  a release is treated as valid.
 
 ### P20. Software Citation And Publication Tracking
 
 - Priority: P20
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Track associated publications, software-paper plans, preferred citation
   language, and versioned release citation policy in a maintainer-friendly way.
+- Plan:
+  - Review the existing citation guidance, DOI notes, and maintainer-facing
+    publication references already present in the repository.
+  - Add a dedicated maintainer document that records preferred citation
+    language, publication-tracking placeholders, and the current policy for
+    citing software releases vs associated papers.
+  - Link that guidance from the README and/or release-facing docs so it stays
+    discoverable.
+- Completion notes:
+  - Added `docs/dev/software-citation.md` as the maintainer-facing source of
+    truth for preferred citation wording, versioned release citation policy,
+    associated publication tracking, and software-paper placeholders.
+  - Updated `README.md` so the public citation section now points maintainers
+    to both the DOI/Zenodo note and the new citation-policy tracker.
+  - Updated `publication_checklist.md` so software citation and publication
+    tracking is part of the documented release-readiness checklist.
+- Next recommended task: Continue with P21, and treat P29 below as a follow-up
+  for filling in the actual publication list once maintainers confirm the
+  canonical references.
+
+### P29. Populate Confirmed Publication References
+
+- Priority: P20
+- Status: Todo
+- Goal: Replace the placeholder publication-tracking entries in
+  `docs/dev/software-citation.md` with the maintainer-approved software paper,
+  associated publications, and canonical citation strings once those references
+  are confirmed.
 
 ### P21. Long-Term Governance And Open Science Policy
 

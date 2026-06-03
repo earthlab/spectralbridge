@@ -411,6 +411,51 @@ def test_ensure_parquet_from_envi_handles_corrupt(tmp_path: Path, monkeypatch) -
     import pyarrow.parquet as pq
 
     pq.read_schema(parquet_path)
+
+
+def test_ensure_parquet_for_envi_skips_after_rebuilding_corrupt_output(
+    tmp_path: Path, monkeypatch
+) -> None:
+    img = tmp_path / "recoverable_envi.img"
+    hdr = tmp_path / "recoverable_envi.hdr"
+    parquet_path = tmp_path / "recoverable_envi.parquet"
+
+    img.write_bytes(b"xx")
+    hdr.write_bytes(b"hdr")
+    parquet_path.write_text("not a parquet", encoding="utf-8")
+
+    import spectralbridge.parquet_export as px
+
+    build_calls = {"count": 0}
+
+    def fake_build(
+        envi_img: Path, envi_hdr: Path, out_path: Path, chunk_size: int = 2048, **_kwargs
+    ) -> None:
+        build_calls["count"] += 1
+        _write_minimal_parquet(out_path)
+
+    monkeypatch.setattr(px, "build_parquet_from_envi", fake_build)
+
+    first_logger = DummyLogger()
+    rebuilt = ensure_parquet_for_envi(img, first_logger)
+    assert rebuilt == parquet_path
+    assert build_calls["count"] == 1
+    before_stats = (parquet_path.stat().st_size, parquet_path.stat().st_mtime_ns)
+
+    def fail_build(*_args, **_kwargs) -> None:
+        raise AssertionError("rebuilt parquet should be reused on the next run")
+
+    monkeypatch.setattr(px, "build_parquet_from_envi", fail_build)
+
+    second_logger = DummyLogger()
+    reused = ensure_parquet_for_envi(img, second_logger)
+    assert reused == parquet_path
+    assert build_calls["count"] == 1
+    after_stats = (parquet_path.stat().st_size, parquet_path.stat().st_mtime_ns)
+    assert after_stats == before_stats
+    assert any("Parquet already present" in msg for msg in second_logger.infos)
+
+
 def _write_minimal_parquet(path: Path) -> None:
     table = pa.table(
         {

@@ -27,12 +27,19 @@ safe to deploy in scientific, notebook, cloud, and container workflows.
 ## Versioning and releases
 - We follow **Semantic Versioning (SemVer)**: `MAJOR.MINOR.PATCH`.
 - Tag releases in Git with `vMAJOR.MINOR.PATCH` (e.g., `v0.2.0`).
-- Update the version in `pyproject.toml` and `CITATION.cff` as part of release
-  preparation. `setup.py` is a compatibility shim only.
+- Update the version in `pyproject.toml`, `src/spectralbridge/__init__.py`,
+  and `CITATION.cff` as part of release preparation. `setup.py` is a
+  compatibility shim only.
 - Review citation metadata, release notes, and any DOI/Zenodo instructions as
   part of each release cut so software citation stays in sync with the tagged
   artifact.
-- Document notable changes in `CHANGELOG.md` once it is introduced.
+- Keep `CHANGELOG.md` aligned with the package version and the release tag. Do
+  not leave future release headings above the current packaged version unless
+  they are clearly marked as unreleased work.
+- Follow the maintainer release sequence in `docs/dev/releasing.md`. Tagged
+  releases now trigger `.github/workflows/release.yml`, which builds artifacts,
+  runs `twine check`, installs the built wheel, and attaches release assets to
+  the GitHub release.
 
 ## Licensing and provenance
 - The repository currently distributes under GPLv3. Keep `LICENSE`,

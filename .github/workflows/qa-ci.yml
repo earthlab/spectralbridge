@@ -4,12 +4,14 @@ on:
   pull_request:
     branches: [ main ]
     paths:
+      - 'src/spectralbridge/**'
       - 'src/cross_sensor_cal/**'
       - 'tests/test_qa/**'
       - '.github/workflows/qa-ci.yml'
   push:
     branches: [ main ]
     paths:
+      - 'src/spectralbridge/**'
       - 'src/cross_sensor_cal/**'
       - 'tests/test_qa/**'
       - '.github/workflows/qa-ci.yml'
@@ -41,7 +43,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import numpy as np
-          from cross_sensor_cal.qa_plots import render_flightline_panel
+          from spectralbridge.qa_plots import render_flightline_panel
 
           def write_pair(base: Path, data: np.ndarray, wavelengths: list[float]) -> None:
               data = np.asarray(data, dtype=np.float32)

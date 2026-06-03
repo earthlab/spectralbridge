@@ -165,6 +165,41 @@ Branch: main
 do those now
 ```
 
+## 2026-06-03 - next feature request set
+Branch: main
+
+```text
+do the next set
+```
+
+## 2026-06-03 - continue next queue items
+Branch: main
+
+```text
+do those next things
+```
+
+## 2026-06-03 - continue backlog after P10
+Branch: main
+
+```text
+now do the next
+```
+
+## 2026-06-03 - release hygiene audit
+Branch: main
+
+```text
+do the next one
+```
+
+## 2026-06-03 - dependency review
+Branch: main
+
+```text
+do the next thing
+```
+
 ## 2026-03-21 - add drone-specific QA plot workflow
 Branch: main
 
@@ -4877,4 +4912,46 @@ Branch: main
 
 ```text
 start working through all the feature requests and do any that you're able to. remove a task from the list if it's done. our goal is to finish all the feature requests but don't do anything that will break the functionality so skip the feature request if you think it will break something. We want this to be publication quality, so do the best you can at making it perfect on the first try.
+```
+
+## 2026-06-03 - continue next feature request
+Branch: main
+
+```text
+do the next one
+```
+
+## 2026-06-03 - continue next feature request
+Branch: main
+
+```text
+do the next
+```
+
+## 2026-06-03 - zenodo doi badge update
+Branch: main
+
+```text
+now p18 but I think we already have a zenodo doi for this and we just need to update the badge
+```
+
+## 2026-06-03 - release automation and notes
+Branch: main
+
+```text
+do the next thing
+```
+
+## 2026-06-03 - software citation and publication tracking
+Branch: main
+
+```text
+do the next thing
+```
+
+## 2026-06-03 - mixed drone tiff or h5 input support
+Branch: main
+
+```text
+I want to change the drone pipeline so that it can take the tiff and do the conversion of it can take the h5. The function should recognize which is coming in and treat accordingly
 ```

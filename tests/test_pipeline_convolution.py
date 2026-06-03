@@ -180,6 +180,114 @@ def test_pipeline_idempotence_skip_behavior(
     assert before_stats == after_stats
 
 
+def test_stage_convolve_all_sensors_recomputes_only_missing_products(
+    tmp_path: Path,
+    caplog: pytest.LogCaptureFixture,
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    base = tmp_path / "workspace"
+    base.mkdir()
+
+    flight_stem = "NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance"
+    work_dir = base / flight_stem
+    work_dir.mkdir(parents=True, exist_ok=True)
+
+    corrected_img = _write_nonempty(
+        work_dir / f"{flight_stem}_brdfandtopo_corrected_envi.img"
+    )
+    corrected_hdr = _write_nonempty(
+        work_dir / f"{flight_stem}_brdfandtopo_corrected_envi.hdr"
+    )
+    existing_img = _write_nonempty(work_dir / f"{flight_stem}_landsat_tm_envi.img")
+    existing_hdr = _write_nonempty(work_dir / f"{flight_stem}_landsat_tm_envi.hdr")
+    missing_img = work_dir / f"{flight_stem}_landsat_oli_envi.img"
+    missing_hdr = work_dir / f"{flight_stem}_landsat_oli_envi.hdr"
+
+    before_stats = _snapshot_stats([existing_img, existing_hdr])
+
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.pipeline.get_flightline_products",
+        lambda *_args, **_kwargs: {
+            "corrected_img": corrected_img,
+            "corrected_hdr": corrected_hdr,
+            "work_dir": work_dir,
+            "sensor_products": {
+                "landsat_tm": {"img": existing_img, "hdr": existing_hdr},
+                "landsat_oli": {"img": missing_img, "hdr": missing_hdr},
+            },
+        },
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.pipeline.is_valid_envi_pair",
+        lambda img, hdr: (
+            Path(img).exists()
+            and Path(img).stat().st_size > 0
+            and Path(hdr).exists()
+            and Path(hdr).stat().st_size > 0
+        ),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.pipeline._load_sensor_library",
+        lambda: {"landsat_tm": {}, "landsat_oli": {}},
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.pipeline._safe_resolve_sensor_entry",
+        lambda sensor_name, sensor_library: (sensor_name, sensor_library[sensor_name]),
+    )
+
+    resample_calls: list[str] = []
+
+    def _fake_resample(*, sensor_name: str, **_kwargs):
+        resample_calls.append(sensor_name)
+        return np.ones((1, 1, 1), dtype=np.float32)
+
+    def _fake_write(_array, out_img, out_hdr, **_kwargs) -> None:
+        _write_nonempty(Path(out_img))
+        _write_nonempty(Path(out_hdr))
+
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.pipeline.resample_to_sensor_bands",
+        _fake_resample,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.pipeline.write_resampled_envi_cube",
+        _fake_write,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.pipeline._export_parquet_stage",
+        lambda **_kwargs: [],
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.pipeline.clean_memory",
+        lambda *_args, **_kwargs: None,
+    )
+
+    caplog.set_level(logging.INFO, logger="spectralbridge.pipelines.pipeline")
+    log_capture = io.StringIO()
+    logger = logging.getLogger("spectralbridge.pipelines.pipeline")
+    handler = logging.StreamHandler(log_capture)
+    logger.addHandler(handler)
+    try:
+        pipeline.stage_convolve_all_sensors(
+            base_folder=base,
+            product_code="DP1.30006.001",
+            flight_stem=flight_stem,
+        )
+    finally:
+        logger.removeHandler(handler)
+
+    captured = capsys.readouterr()
+    text = caplog.text + captured.out + captured.err + log_capture.getvalue()
+
+    assert resample_calls == ["landsat_oli"]
+    assert missing_img.exists()
+    assert missing_hdr.exists()
+    assert _snapshot_stats([existing_img, existing_hdr]) == before_stats
+    assert "landsat_tm product already complete" in text
+    assert "Wrote landsat_oli product" in text
+
+
 def test_convolution_writes_undarkened_envi(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     samples = lines = 2
     bands = 2

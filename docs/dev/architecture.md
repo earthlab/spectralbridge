@@ -68,3 +68,4 @@ This page describes how SpectralBridge is organized internally. Understanding th
 
 - [Contributing & development workflow](contributing.md)
 - [Guidelines for AI/Codex edits](codex-guidelines.md)
+- [Architecture audit](architecture-audit.md)

@@ -7,8 +7,9 @@ import re
 import shutil
 import sys
 import time
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 
 import duckdb
 import h5py
@@ -69,6 +70,38 @@ _DRONE_NODATA_PATCH_ATTRS = (
 )
 _DRONE_FALLBACK_NODATA = np.float32(-9999.0)
 _DRONE_PACKAGE_DATE_RE = re.compile(r"(?P<month>\d{2})-(?P<day>\d{2})-(?P<year>\d{2})")
+_DRONE_TIFF_DEFAULT_WAVELENGTHS_NM = (
+    444.0,
+    475.0,
+    531.0,
+    560.0,
+    650.0,
+    668.0,
+    705.0,
+    717.0,
+    740.0,
+    862.0,
+)
+_DRONE_TIFF_DEFAULT_FWHM_NM = (
+    28.0,
+    32.0,
+    14.0,
+    27.0,
+    16.0,
+    14.0,
+    10.0,
+    12.0,
+    18.0,
+    57.0,
+)
+_DRONE_TIFF_ANCILLARY_KEYWORDS = {
+    "slope": (("slope",),),
+    "aspect": (("aspect",),),
+    "sensor_zenith": (("sensor", "zenith"), ("view", "zenith")),
+    "sensor_azimuth": (("sensor", "azimuth"), ("view", "azimuth")),
+    "solar_zenith": (("solar", "zenith"), ("sun", "zenith")),
+    "solar_azimuth": (("solar", "azimuth"), ("sun", "azimuth")),
+}
 _DRONE_STATUS_SUCCESS_EXTRACTED = "success_extracted"
 _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP = "success_qa_only_no_polygon_overlap"
 _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS = "success_qa_only_no_polygons"
@@ -89,6 +122,13 @@ class DroneCorrectionUnavailableError(RuntimeError):
     def __init__(self, message: str, audit: dict[str, Any]):
         super().__init__(message)
         self.audit = dict(audit)
+
+
+@dataclass(frozen=True)
+class DroneInputSource:
+    source_path: Path
+    source_type: str
+    flight_stem: str
 
 
 def clean_name(name: str) -> str:
@@ -156,6 +196,361 @@ def build_drone_output_paths(
         "qa_png": flight_dir / f"{flight_stem}__qa.png",
         "qa_json": flight_dir / f"{flight_stem}__qa.json",
     }
+
+
+def _drone_path_matches_keywords(path: Path, keyword_groups: Sequence[Sequence[str]]) -> bool:
+    stem_lower = path.stem.lower()
+    return any(all(token in stem_lower for token in group) for group in keyword_groups)
+
+
+def _is_drone_ancillary_tiff(path: str | Path) -> bool:
+    candidate = Path(path)
+    return any(
+        _drone_path_matches_keywords(candidate, keyword_groups)
+        for keyword_groups in _DRONE_TIFF_ANCILLARY_KEYWORDS.values()
+    )
+
+
+def _discover_drone_input_sources(input_path: str | Path) -> list[DroneInputSource]:
+    root = Path(input_path)
+    if root.is_file():
+        candidates = [root]
+    elif root.exists():
+        tif_candidates = sorted(root.rglob("*.tif")) + sorted(root.rglob("*.tiff"))
+        candidates = sorted(root.rglob("*.h5")) + tif_candidates
+    else:
+        return []
+
+    sources_by_stem: dict[str, DroneInputSource] = {}
+    for candidate in candidates:
+        suffix = candidate.suffix.lower()
+        if suffix == ".h5":
+            source_type = "h5"
+        elif suffix in {".tif", ".tiff"}:
+            if _is_drone_ancillary_tiff(candidate):
+                continue
+            source_type = "tiff"
+        else:
+            continue
+
+        flight_stem = derive_drone_flight_stem(candidate)
+        existing = sources_by_stem.get(flight_stem)
+        if existing is not None:
+            if existing.source_type == "h5":
+                continue
+            if source_type == "h5":
+                sources_by_stem[flight_stem] = DroneInputSource(
+                    source_path=candidate,
+                    source_type=source_type,
+                    flight_stem=flight_stem,
+                )
+                continue
+            raise ValueError(
+                "Duplicate drone flight stem derived within one run: "
+                f"{flight_stem} from {existing.source_path} and {candidate}. "
+                "Package-folder naming must remain unique per flight."
+            )
+
+        sources_by_stem[flight_stem] = DroneInputSource(
+            source_path=candidate,
+            source_type=source_type,
+            flight_stem=flight_stem,
+        )
+
+    return sorted(
+        sources_by_stem.values(),
+        key=lambda item: (str(_drone_package_dir(item.source_path)), item.source_path.name),
+    )
+
+
+def _find_drone_tiff_ancillary(package_dir: Path, key: str) -> Path | None:
+    keyword_groups = _DRONE_TIFF_ANCILLARY_KEYWORDS[key]
+    for candidate in sorted(package_dir.glob("*.tif")) + sorted(package_dir.glob("*.tiff")):
+        if _drone_path_matches_keywords(candidate, keyword_groups):
+            return candidate
+    return None
+
+
+def _normalise_tiff_spectral_vector(
+    values: Sequence[float] | np.ndarray | None,
+    *,
+    field_name: str,
+    band_count: int,
+    default_values: Sequence[float],
+) -> np.ndarray:
+    if values is None:
+        if band_count != len(default_values):
+            raise ValueError(
+                f"TIFF source has {band_count} bands but no explicit {field_name} were provided. "
+                f"Default {field_name} are only available for {len(default_values)}-band sources."
+            )
+        values = default_values
+
+    array = np.asarray(values, dtype=np.float32).reshape(-1)
+    if array.size != band_count:
+        raise ValueError(
+            f"TIFF {field_name} length {array.size} does not match reflectance band count {band_count}."
+        )
+    return array
+
+
+def _read_drone_tiff_raster(path: str | Path) -> tuple[np.ndarray, str, Any, float | None]:
+    try:
+        import rasterio
+    except Exception as exc:  # pragma: no cover - optional dependency guard
+        raise RuntimeError(
+            "rasterio is required for TIFF-backed drone inputs."
+        ) from exc
+
+    with rasterio.open(path) as src:
+        data = src.read()
+        crs_wkt = src.crs.to_wkt() if src.crs is not None else ""
+        transform = src.transform
+        nodata = src.nodata
+    return np.asarray(data, dtype=np.float32), crs_wkt, transform, nodata
+
+
+def _validate_drone_tiff_ancillary_alignment(
+    reflectance_path: Path,
+    reflectance_shape: tuple[int, int],
+    reflectance_transform: Any,
+    reflectance_crs_wkt: str,
+    ancillary_path: Path,
+) -> np.ndarray:
+    try:
+        import rasterio
+    except Exception as exc:  # pragma: no cover - optional dependency guard
+        raise RuntimeError(
+            "rasterio is required for TIFF-backed drone inputs."
+        ) from exc
+
+    with rasterio.open(ancillary_path) as src:
+        array = src.read(1)
+        if array.shape != reflectance_shape:
+            raise ValueError(
+                f"Ancillary TIFF {ancillary_path} has shape {array.shape} which does not match "
+                f"reflectance TIFF {reflectance_path} shape {reflectance_shape}."
+            )
+        if src.transform != reflectance_transform:
+            raise ValueError(
+                f"Ancillary TIFF {ancillary_path} transform does not match reflectance TIFF {reflectance_path}."
+            )
+        ancillary_crs_wkt = src.crs.to_wkt() if src.crs is not None else ""
+        if ancillary_crs_wkt != reflectance_crs_wkt:
+            raise ValueError(
+                f"Ancillary TIFF {ancillary_path} CRS does not match reflectance TIFF {reflectance_path}."
+            )
+        return np.asarray(array, dtype=np.float32)
+
+
+def _build_drone_tiff_map_info(transform: Any, crs_wkt: str) -> str:
+    xres = abs(float(transform.a))
+    yres = abs(float(transform.e))
+    ulx = float(transform.c)
+    uly = float(transform.f)
+    zone = 0
+    hemisphere = "North"
+
+    epsg_match = re.search(r"EPSG\",\"(\d+)\"", crs_wkt) or re.search(r"ID\[\"EPSG\",(\d+)\]", crs_wkt)
+    if epsg_match:
+        epsg = int(epsg_match.group(1))
+        if 32601 <= epsg <= 32660:
+            zone = epsg - 32600
+            hemisphere = "North"
+        elif 32701 <= epsg <= 32760:
+            zone = epsg - 32700
+            hemisphere = "South"
+
+    if zone > 0:
+        return (
+            f"UTM, 1.000, 1.000, {ulx:.3f}, {uly:.3f}, {xres:.3f}, {yres:.3f}, "
+            f"{zone}, {hemisphere}, WGS-84, units=Meters"
+        )
+
+    return f"Arbitrary, 1.000, 1.000, {ulx:.3f}, {uly:.3f}, {xres:.3f}, {yres:.3f}"
+
+
+def convert_drone_tiff_to_h5(
+    reflectance_tiff_path: str | Path,
+    *,
+    output_h5_path: str | Path,
+    wavelengths_nm: Sequence[float] | np.ndarray | None = None,
+    fwhm_nm: Sequence[float] | np.ndarray | None = None,
+    sensor_zenith_tiff: str | Path | None = None,
+    sensor_azimuth_tiff: str | Path | None = None,
+    slope_tiff: str | Path | None = None,
+    aspect_tiff: str | Path | None = None,
+    solar_zenith_tiff: str | Path | None = None,
+    solar_azimuth_tiff: str | Path | None = None,
+    solar_zenith_deg: float | None = None,
+    solar_azimuth_deg: float | None = None,
+    sensor_zenith_deg: float | None = None,
+    sensor_azimuth_deg: float | None = None,
+    overwrite: bool = False,
+) -> Path:
+    reflectance_tiff_path = Path(reflectance_tiff_path)
+    output_h5_path = Path(output_h5_path)
+    if output_h5_path.exists() and not overwrite:
+        return output_h5_path
+
+    reflectance_raw, crs_wkt, transform, nodata = _read_drone_tiff_raster(reflectance_tiff_path)
+    if reflectance_raw.ndim != 3:
+        raise ValueError(
+            f"Reflectance TIFF must be a multiband raster; received shape {reflectance_raw.shape}."
+        )
+
+    reflectance_cube = np.moveaxis(reflectance_raw, 0, 2).astype(np.float32, copy=False)
+    lines, columns, band_count = reflectance_cube.shape
+    nodata_value = np.float32(_DRONE_FALLBACK_NODATA if nodata is None else nodata)
+    wavelengths_arr = _normalise_tiff_spectral_vector(
+        wavelengths_nm,
+        field_name="wavelengths_nm",
+        band_count=band_count,
+        default_values=_DRONE_TIFF_DEFAULT_WAVELENGTHS_NM,
+    )
+    fwhm_arr = _normalise_tiff_spectral_vector(
+        fwhm_nm,
+        field_name="fwhm_nm",
+        band_count=band_count,
+        default_values=_DRONE_TIFF_DEFAULT_FWHM_NM,
+    )
+
+    reflectance_shape = (lines, columns)
+    ancillary_arrays: dict[str, np.ndarray | float] = {}
+    optional_tiffs = {
+        "slope": slope_tiff,
+        "aspect": aspect_tiff,
+        "sensor_zenith": sensor_zenith_tiff,
+        "sensor_azimuth": sensor_azimuth_tiff,
+        "solar_zenith": solar_zenith_tiff,
+        "solar_azimuth": solar_azimuth_tiff,
+    }
+    scalar_fallbacks = {
+        "sensor_zenith": sensor_zenith_deg,
+        "sensor_azimuth": sensor_azimuth_deg,
+        "solar_zenith": solar_zenith_deg,
+        "solar_azimuth": solar_azimuth_deg,
+    }
+
+    for key, ancillary in optional_tiffs.items():
+        if ancillary is not None:
+            ancillary_arrays[key] = _validate_drone_tiff_ancillary_alignment(
+                reflectance_tiff_path,
+                reflectance_shape,
+                transform,
+                crs_wkt,
+                Path(ancillary),
+            )
+        elif scalar_fallbacks.get(key) is not None:
+            ancillary_arrays[key] = float(scalar_fallbacks[key])
+
+    output_h5_path.parent.mkdir(parents=True, exist_ok=True)
+    site_group_name = clean_name(_drone_package_dir(reflectance_tiff_path).name) or "DRONE"
+    map_info = _build_drone_tiff_map_info(transform, crs_wkt)
+
+    with h5py.File(output_h5_path, "w") as h5_file:
+        site_group = h5_file.create_group(site_group_name)
+        reflectance_group = site_group.create_group("Reflectance")
+        metadata_group = reflectance_group.create_group("Metadata")
+        coordinate_group = metadata_group.create_group("Coordinate_System")
+        spectral_group = metadata_group.create_group("Spectral_Data")
+        ancillary_group = metadata_group.create_group("Ancillary_Imagery")
+
+        reflectance_ds = reflectance_group.create_dataset(
+            "Reflectance_Data",
+            data=reflectance_cube,
+            dtype=np.float32,
+        )
+        reflectance_ds.attrs["Data_Ignore_Value"] = nodata_value
+        reflectance_ds.attrs["_FillValue"] = nodata_value
+        reflectance_ds.attrs["NoData"] = nodata_value
+        reflectance_ds.attrs["no_data"] = nodata_value
+        reflectance_ds.attrs["Scale_Factor"] = np.float32(1.0)
+
+        wavelength_ds = spectral_group.create_dataset(
+            "Wavelength",
+            data=wavelengths_arr,
+            dtype=np.float32,
+        )
+        wavelength_ds.attrs["Units"] = "nanometers"
+        fwhm_ds = spectral_group.create_dataset(
+            "FWHM",
+            data=fwhm_arr,
+            dtype=np.float32,
+        )
+        fwhm_ds.attrs["Units"] = "nanometers"
+
+        str_dtype = h5py.string_dtype(encoding="utf-8")
+        coordinate_group.create_dataset(
+            "Coordinate_System_String",
+            data=crs_wkt,
+            dtype=str_dtype,
+        )
+        coordinate_group.create_dataset("Map_Info", data=map_info, dtype=str_dtype)
+
+        ancillary_group.create_dataset(
+            "Path_Length",
+            data=np.ones(reflectance_shape, dtype=np.float32),
+            dtype=np.float32,
+        )
+        if "slope" in ancillary_arrays:
+            ancillary_group.create_dataset("Slope", data=ancillary_arrays["slope"], dtype=np.float32)
+        if "aspect" in ancillary_arrays:
+            ancillary_group.create_dataset("Aspect", data=ancillary_arrays["aspect"], dtype=np.float32)
+        if "sensor_zenith" in ancillary_arrays:
+            metadata_group.create_dataset("to-sensor_Zenith_Angle", data=ancillary_arrays["sensor_zenith"])
+        if "sensor_azimuth" in ancillary_arrays:
+            metadata_group.create_dataset("to-sensor_Azimuth_Angle", data=ancillary_arrays["sensor_azimuth"])
+        if "solar_zenith" in ancillary_arrays:
+            metadata_group.create_dataset("Solar_Zenith_Angle", data=ancillary_arrays["solar_zenith"])
+        if "solar_azimuth" in ancillary_arrays:
+            metadata_group.create_dataset("Solar_Azimuth_Angle", data=ancillary_arrays["solar_azimuth"])
+
+    return output_h5_path
+
+
+def _prepare_drone_source_working_h5(
+    source_path: str | Path,
+    *,
+    source_type: str,
+    working_path: str | Path,
+    overwrite: bool = False,
+    tiff_wavelengths_nm: Sequence[float] | np.ndarray | None = None,
+    tiff_fwhm_nm: Sequence[float] | np.ndarray | None = None,
+    tiff_solar_zenith_deg: float | None = None,
+    tiff_solar_azimuth_deg: float | None = None,
+    tiff_sensor_zenith_deg: float | None = None,
+    tiff_sensor_azimuth_deg: float | None = None,
+) -> tuple[Path, bool]:
+    source_path = Path(source_path)
+    if source_type == "h5":
+        return _prepare_drone_h5_working_copy(
+            source_path,
+            working_path=working_path,
+            overwrite=overwrite,
+        )
+    if source_type != "tiff":
+        raise ValueError(f"Unsupported drone source_type: {source_type}")
+
+    package_dir = _drone_package_dir(source_path)
+    prepared_path = convert_drone_tiff_to_h5(
+        source_path,
+        output_h5_path=working_path,
+        wavelengths_nm=tiff_wavelengths_nm,
+        fwhm_nm=tiff_fwhm_nm,
+        slope_tiff=_find_drone_tiff_ancillary(package_dir, "slope"),
+        aspect_tiff=_find_drone_tiff_ancillary(package_dir, "aspect"),
+        sensor_zenith_tiff=_find_drone_tiff_ancillary(package_dir, "sensor_zenith"),
+        sensor_azimuth_tiff=_find_drone_tiff_ancillary(package_dir, "sensor_azimuth"),
+        solar_zenith_tiff=_find_drone_tiff_ancillary(package_dir, "solar_zenith"),
+        solar_azimuth_tiff=_find_drone_tiff_ancillary(package_dir, "solar_azimuth"),
+        solar_zenith_deg=tiff_solar_zenith_deg,
+        solar_azimuth_deg=tiff_solar_azimuth_deg,
+        sensor_zenith_deg=tiff_sensor_zenith_deg,
+        sensor_azimuth_deg=tiff_sensor_azimuth_deg,
+        overwrite=overwrite,
+    )
+    return prepared_path, False
 
 
 def _find_drone_reflectance_dataset(h5_file: h5py.File) -> h5py.Dataset:
@@ -1167,8 +1562,14 @@ def run_drone_pipeline(
     use_ndvi_brdf_bins: bool = False,
     apply_brightness_adjustment: bool = False,
     overwrite: bool = False,
+    tiff_wavelengths_nm: Sequence[float] | np.ndarray | None = None,
+    tiff_fwhm_nm: Sequence[float] | np.ndarray | None = None,
+    tiff_solar_zenith_deg: float | None = None,
+    tiff_solar_azimuth_deg: float | None = None,
+    tiff_sensor_zenith_deg: float | None = None,
+    tiff_sensor_azimuth_deg: float | None = None,
 ) -> dict[str, Any]:
-    """Run the local-H5 drone pipeline with wavelength-driven band resolution and QA audit output."""
+    """Run the drone pipeline from local HDF5 or reflectance TIFF sources."""
 
     run_started = time.monotonic()
     input_h5_dir = Path(input_h5_dir)
@@ -1195,35 +1596,21 @@ def run_drone_pipeline(
         },
     }
 
-    h5_files = sorted(input_h5_dir.rglob("*.h5"))
-    results["qa_summary"]["discovered_total"] = len(h5_files)
-    results["qa_summary"]["attempted_total"] = len(h5_files)
+    input_sources = _discover_drone_input_sources(input_h5_dir)
+    results["qa_summary"]["discovered_total"] = len(input_sources)
+    results["qa_summary"]["attempted_total"] = len(input_sources)
     results["qa_summary"]["run_root"] = str(output_dir)
     results["qa_summary"]["polygon_path"] = (
         str(polygon_path) if polygon_path is not None else None
     )
-    if not h5_files:
+    if not input_sources:
         qa_path = _write_json(
             output_dir / "drone_qa_summary.json", results["qa_summary"]
         )
         results["qa_summary_path"] = str(qa_path)
         return results
 
-    flight_stems: dict[Path, str] = {}
-    stem_sources: dict[str, Path] = {}
-    for h5_path in h5_files:
-        flight_stem = derive_drone_flight_stem(h5_path)
-        existing_source = stem_sources.get(flight_stem)
-        if existing_source is not None and existing_source != h5_path:
-            raise ValueError(
-                "Duplicate drone flight stem derived within one run: "
-                f"{flight_stem} from {existing_source} and {h5_path}. "
-                "Package-folder naming must remain unique per flight."
-            )
-        flight_stems[h5_path] = flight_stem
-        stem_sources[flight_stem] = h5_path
-
-    total_flights = len(h5_files)
+    total_flights = len(input_sources)
     _drone_emit(
         "[drone] Starting batch: "
         f"{total_flights} discovered | {total_flights} to process | "
@@ -1250,8 +1637,9 @@ def run_drone_pipeline(
         _DRONE_STATUS_FAILED_OTHER: 0,
     }
 
-    for index, h5_path in enumerate(h5_files, start=1):
-        flight_stem = flight_stems[h5_path]
+    for index, source in enumerate(input_sources, start=1):
+        source_path = source.source_path
+        flight_stem = source.flight_stem
         path_map = build_drone_output_paths(output_dir, flight_stem=flight_stem)
         prepared_h5_path = path_map["working_h5"]
         envi_stem = path_map["envi_stem"]
@@ -1259,12 +1647,15 @@ def run_drone_pipeline(
         polygon_output_path = path_map["polygon_parquet"]
         polygon_index_path = path_map["polygon_index"]
         overlay_debug_path = path_map["overlay_debug_png"]
-        package_dir = _drone_package_dir(h5_path)
+        package_dir = _drone_package_dir(source_path)
         flight_started = time.monotonic()
         if batch_bar is not None:
-            batch_bar.set_postfix_str(f"{index}/{total_flights} {flight_stem} | preparing H5")
+            batch_bar.set_postfix_str(
+                f"{index}/{total_flights} {flight_stem} | preparing {source.source_type}"
+            )
         _drone_emit(
-            f"[drone] [{index}/{total_flights}] {flight_stem} | source={package_dir} | stage=preparing H5"
+            f"[drone] [{index}/{total_flights}] {flight_stem} | source={package_dir} "
+            f"| type={source.source_type} | stage=preparing working H5"
         )
         file_audit: dict[str, Any] = {
             "platform": "drone",
@@ -1272,8 +1663,11 @@ def run_drone_pipeline(
             "flight_dir": str(path_map["flight_dir"]),
             "source_package": package_dir.name,
             "source_package_path": str(package_dir),
-            "input_h5_filename": h5_path.name,
-            "input_h5_path": str(h5_path),
+            "input_source_type": source.source_type,
+            "input_source_filename": source_path.name,
+            "input_source_path": str(source_path),
+            "input_h5_filename": source_path.name if source.source_type == "h5" else None,
+            "input_h5_path": str(source_path) if source.source_type == "h5" else None,
             "base_name": flight_stem,
             "flags": {
                 "topo_requested": bool(apply_topo),
@@ -1322,10 +1716,17 @@ def run_drone_pipeline(
             "status": None,
         }
         try:
-            prepared_h5_path, nodata_patched = _prepare_drone_h5_working_copy(
-                h5_path,
+            prepared_h5_path, nodata_patched = _prepare_drone_source_working_h5(
+                source_path,
+                source_type=source.source_type,
                 working_path=prepared_h5_path,
                 overwrite=overwrite,
+                tiff_wavelengths_nm=tiff_wavelengths_nm,
+                tiff_fwhm_nm=tiff_fwhm_nm,
+                tiff_solar_zenith_deg=tiff_solar_zenith_deg,
+                tiff_solar_azimuth_deg=tiff_solar_azimuth_deg,
+                tiff_sensor_zenith_deg=tiff_sensor_zenith_deg,
+                tiff_sensor_azimuth_deg=tiff_sensor_azimuth_deg,
             )
             file_audit["prepared_h5_filename"] = prepared_h5_path.name
             file_audit["prepared_h5_path"] = str(prepared_h5_path)
@@ -1450,7 +1851,7 @@ def run_drone_pipeline(
                 except Exception as plot_exc:
                     LOGGER.warning(
                         "[drone] Overlay debug plot failed for %s: %s",
-                        h5_path,
+                        source_path,
                         plot_exc,
                     )
                     file_audit["overlay_debug_error"] = str(plot_exc)
@@ -1507,7 +1908,7 @@ def run_drone_pipeline(
                         file_audit["polygon_csv_error"] = None
                         LOGGER.warning(
                             "[drone] No polygon overlap for %s: raster_crs=%s polygon_crs=%s overlap_after_reproject=%s intersecting_polygons=%s reason=%s",
-                            h5_path,
+                            source_path,
                             spatial_diagnostics.get("raster_crs"),
                             spatial_diagnostics.get("polygon_crs"),
                             spatial_diagnostics.get("bounds_overlap_after_reproject"),
@@ -1525,7 +1926,7 @@ def run_drone_pipeline(
                 file_audit["polygon_extraction_skipped_reason"] = "no polygons provided"
                 file_audit["status"] = _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS
 
-            results["processed"].append(str(h5_path))
+            results["processed"].append(str(source_path))
             if file_audit["status"] is None:
                 file_audit["status"] = _DRONE_STATUS_SUCCESS_EXTRACTED
             elapsed = time.monotonic() - flight_started
@@ -1570,8 +1971,8 @@ def run_drone_pipeline(
             file_audit["error"] = reason
             file_audit["elapsed_seconds"] = round(elapsed, 3)
             status_counts[status] += 1
-            LOGGER.exception("[drone] FAILED for %s", h5_path)
-            results["failed"].append({"input": str(h5_path), "error": reason})
+            LOGGER.exception("[drone] FAILED for %s", source_path)
+            results["failed"].append({"input": str(source_path), "error": reason})
             eta = _format_eta(completed_flight_times, total_flights - index)
             eta_suffix = f" | eta={eta}" if eta else ""
             suffix = f": {reason}" if reason else ""
@@ -1716,6 +2117,7 @@ __all__ = [
     "build_drone_config",
     "clean_name",
     "collect_drone_spatial_diagnostics",
+    "convert_drone_tiff_to_h5",
     "derive_drone_flight_stem",
     "export_h5_to_envi",
     "resolve_band_map",

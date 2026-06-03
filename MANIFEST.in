@@ -6,9 +6,6 @@ include pytest.ini
 include mkdocs.yml
 include requirements-dev.txt
 include environment.yaml
-include AGENTS.md
-include FEATURE_REQUESTS.md
-include publication_checklist.md
 
 recursive-include src/spectralbridge/data *.json
 recursive-include docs *.md *.png *.jpg *.jpeg *.svg *.css *.js *.yml *.yaml
@@ -19,8 +16,17 @@ prune data
 prune deprecated
 prune site
 prune .github
+prune Datasets
+prune vendor
+
+global-exclude __pycache__ *.py[cod]
 
 exclude gocmd
 exclude move_folders_from_instance_to_remote.py
 exclude remote_to_instance.py
 exclude patch_script_toworkfromcorrectedfiles.py
+exclude PROMPT_LOG.md
+exclude Drone_processing.ipynb
+exclude Raster_processing.ipynb
+exclude :memory:
+exclude ty_tuff_contributions_last_year.md

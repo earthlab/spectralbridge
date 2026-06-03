@@ -185,3 +185,64 @@ def test_stage_export_recovers_missing_raw(tmp_path: Path, monkeypatch: pytest.M
     assert created["output_dir"] == work_dir
     assert created["brightness_offset"] == 0.42
     assert corrected_img.exists()
+
+
+def test_stage_export_reuses_rebuilt_raw_on_next_run(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    base = tmp_path / "workspace"
+    base.mkdir()
+
+    flight_stem = "NEON_D13_TEST_DP1_L001-1_20230101_directional_reflectance"
+    h5_path = _write_nonempty(base / f"{flight_stem}.h5")
+
+    work_dir = base / flight_stem
+    work_dir.mkdir()
+    _write_nonempty(work_dir / f"{flight_stem}_brdfandtopo_corrected_envi.img")
+
+    build_calls = {"count": 0}
+
+    def _fake_export(images, output_dir, **_):
+        assert images == [str(h5_path)]
+        build_calls["count"] += 1
+        out_dir = Path(output_dir)
+        _write_nonempty(out_dir / f"{flight_stem}_envi.img")
+        _write_nonempty(out_dir / f"{flight_stem}_envi.hdr")
+
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.pipeline.neon_to_envi_no_hytools",
+        _fake_export,
+    )
+
+    raw_img, raw_hdr = stage_export_envi_from_h5(
+        base_folder=base,
+        product_code="DP1.30006.001",
+        flight_stem=flight_stem,
+        recover_missing_raw=True,
+    )
+    assert build_calls["count"] == 1
+
+    before_stats = (
+        raw_img.stat().st_size,
+        raw_img.stat().st_mtime_ns,
+        raw_hdr.stat().st_size,
+        raw_hdr.stat().st_mtime_ns,
+    )
+
+    raw_img_2, raw_hdr_2 = stage_export_envi_from_h5(
+        base_folder=base,
+        product_code="DP1.30006.001",
+        flight_stem=flight_stem,
+        recover_missing_raw=True,
+    )
+
+    assert raw_img_2 == raw_img
+    assert raw_hdr_2 == raw_hdr
+    assert build_calls["count"] == 1
+    after_stats = (
+        raw_img.stat().st_size,
+        raw_img.stat().st_mtime_ns,
+        raw_hdr.stat().st_size,
+        raw_hdr.stat().st_mtime_ns,
+    )
+    assert after_stats == before_stats
