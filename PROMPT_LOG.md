@@ -4798,3 +4798,48 @@ Branch: main
 ```text
 can you get all the assests from this repo and make a footer like this [CU-ESIIL/Project_group_OASIS](https://github.com/CU-ESIIL/Project_group_OASIS)
 ```
+
+## 2026-06-02 - fix docs homepage h1 smoke test
+Branch: main
+
+```text
+Run python -m http.server 8000 --directory site > /tmp/spectralbridge-docs-http.log 2>&1 &
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________ test_docs_site_core_pages_render_in_browser __________________
+
+    def test_docs_site_core_pages_render_in_browser() -> None:
+        base_url = _docs_site_url()
+
+        try:
+            from playwright.sync_api import sync_playwright
+        except Exception as exc:  # pragma: no cover - depends on local environment
+            raise AssertionError(
+                "Playwright is required for docs browser smoke tests. "
+                "Install pytest-playwright/playwright and Chromium."
+            ) from exc
+
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch()
+            page = browser.new_page(viewport={"width": 1280, "height": 900})
+            page_errors, console_errors, failed_assets = _collect_page_health(page, base_url)
+
+            try:
+                page.goto(base_url, wait_until="networkidle")
+                assert "SpectralBridge" in page.title()
+>               assert page.locator("h1#spectralbridge").is_visible()
+E               AssertionError: assert False
+E                +  where False = is_visible()
+E                +    where is_visible = <Locator frame=<Frame name= url='http://127.0.0.1:8000/'> selector='h1#spectralbridge'>.is_visible
+E                +      where <Locator frame=<Frame name= url='http://127.0.0.1:8000/'> selector='h1#spectralbridge'> = locator('h1#spectralbridge')
+E                +        where locator = <Page url='http://127.0.0.1:8000/'>.locator
+
+tests/test_docs_playwright.py:67: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_docs_playwright.py::test_docs_site_core_pages_render_in_browser - AssertionError: assert False
+ +  where False = is_visible()
+ +    where is_visible = <Locator frame=<Frame name= url='http://127.0.0.1:8000/'> selector='h1#spectralbridge'>.is_visible
+ +      where <Locator frame=<Frame name= url='http://127.0.0.1:8000/'> selector='h1#spectralbridge'> = locator('h1#spectralbridge')
+ +        where locator = <Page url='http://127.0.0.1:8000/'>.locator
+Error: Process completed with exit code 1.
+```

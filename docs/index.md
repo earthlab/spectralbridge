@@ -7,7 +7,7 @@
     </div>
     <div class="sb-hero__content">
       <p class="sb-eyebrow">Open scientific infrastructure for hyperspectral data</p>
-      <h1>SpectralBridge</h1>
+      <h1 id="spectralbridge">SpectralBridge</h1>
       <p class="sb-hero__lead">Connect drone, airborne, and satellite observations through a single reproducible workflow.</p>
       <p class="sb-hero__body">Process hyperspectral imagery across sensors, ecosystems, and scales using transparent, scalable, and scientifically defensible methods.</p>
       <div class="sb-button-row">
