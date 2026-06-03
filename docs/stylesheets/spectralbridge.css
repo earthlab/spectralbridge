@@ -34,8 +34,34 @@
 
 .md-header__button.md-logo img,
 .md-header__button.md-logo svg {
-  height: 2rem;
+  height: 2.45rem;
   width: auto;
+}
+
+body:has(.sb-home) .md-sidebar--secondary,
+body:has(.sb-home) .md-sidebar--primary,
+body:has(.sb-home) .md-content__button,
+body:has(.sb-home) .md-content__action {
+  display: none;
+}
+
+body:has(.sb-home) .md-main__inner {
+  display: block;
+  margin-top: 0;
+}
+
+body:has(.sb-home) .md-content {
+  max-width: none;
+}
+
+body:has(.sb-home) .md-content__inner {
+  margin: 0;
+  max-width: none;
+  padding-top: 1.5rem;
+}
+
+body:has(.sb-home) .md-content__inner::before {
+  display: none;
 }
 
 .md-typeset .sb-preload-logo {
@@ -44,6 +70,8 @@
 
 .md-typeset .sb-home {
   color: var(--sb-ink);
+  margin: 0 auto;
+  max-width: 86rem;
 }
 
 .md-typeset .sb-home h1,

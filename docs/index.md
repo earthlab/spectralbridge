@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 <div class="sb-home">
   <img class="sb-preload-logo" src="asset/img/spectralbridge_logo.png" alt="SpectralBridge logo" loading="eager">
   <section class="sb-hero">

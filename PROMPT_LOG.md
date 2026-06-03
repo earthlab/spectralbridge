@@ -4850,3 +4850,10 @@ Branch: main
 ```text
 this is not a great homepage
 ```
+
+## 2026-06-02 - homepage layout and header cleanup
+Branch: main
+
+```text
+the homepage content is leaving room for a sidebar but there is not side bar. also, the header logo is way too small so you can read it and the logo had the name and then the text repeats the name in the header
+```
