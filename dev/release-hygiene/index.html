@@ -10,13 +10,9 @@
       
       
       
-        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/tutorials/micasense-to-landsat/">
+        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/dev/release-hygiene/">
       
       
-        <link rel="prev" href="../neon-to-landsat/">
-      
-      
-        <link rel="next" href="../cloud-workflow/">
       
       
         
@@ -27,7 +23,7 @@
     
     
       
-        <title>MicaSense → Landsat harmonization - SpectralBridge</title>
+        <title>Release Hygiene Review - SpectralBridge</title>
       
     
     
@@ -84,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tutorial-micasense-local-drone-workflow" class="md-skip">
+        <a href="#release-hygiene-review" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              MicaSense → Landsat harmonization
+              Release Hygiene Review
             
           </span>
         </div>
@@ -273,13 +269,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../neon-to-envi/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../tutorials/neon-to-envi/" class="md-tabs__link">
           
   
   
@@ -379,7 +373,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../dev/architecture/" class="md-tabs__link">
+        <a href="../architecture/" class="md-tabs__link">
           
   
   
@@ -642,31 +636,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -684,7 +673,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -702,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../neon-to-envi/" class="md-nav__link">
+      <a href="../../tutorials/neon-to-envi/" class="md-nav__link">
         
   
   
@@ -730,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../neon-to-landsat/" class="md-nav__link">
+      <a href="../../tutorials/neon-to-landsat/" class="md-nav__link">
         
   
   
@@ -755,37 +744,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    MicaSense → Landsat harmonization
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tutorials/micasense-to-landsat/" class="md-nav__link">
         
   
   
@@ -801,92 +763,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#inputs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Inputs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#input-contract" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Input contract
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run-the-drone-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Run the drone pipeline
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#outputs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Outputs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inspect-the-run" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Inspect the run
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#relation-to-landsat-harmonization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Relation to Landsat harmonization
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -899,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cloud-workflow/" class="md-nav__link">
+      <a href="../../tutorials/cloud-workflow/" class="md-nav__link">
         
   
   
@@ -1530,7 +1406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -1558,7 +1434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/container-workflows/" class="md-nav__link">
+      <a href="../container-workflows/" class="md-nav__link">
         
   
   
@@ -1586,7 +1462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/publication-cleanup-log/" class="md-nav__link">
+      <a href="../publication-cleanup-log/" class="md-nav__link">
         
   
   
@@ -1614,7 +1490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/contributing/" class="md-nav__link">
+      <a href="../contributing/" class="md-nav__link">
         
   
   
@@ -1642,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/codex-guidelines/" class="md-nav__link">
+      <a href="../codex-guidelines/" class="md-nav__link">
         
   
   
@@ -1687,7 +1563,7 @@
 
 
   
-    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/tutorials/micasense-to-landsat.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/dev/release-hygiene.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1695,125 +1571,79 @@
   
 
 
-<h1 id="tutorial-micasense-local-drone-workflow">Tutorial: MicaSense Local Drone Workflow<a class="headerlink" href="#tutorial-micasense-local-drone-workflow" title="Permanent link">&para;</a></h1>
-<p>This tutorial shows the supported path for local drone or MicaSense-style
-inputs. The workflow preserves drone-native provenance, discovers HDF5 files
-or reflectance TIFF packages recursively, converts TIFF sources into the
-working HDF5 contract when needed, writes ENVI products, extracts polygon
-Parquet tables when a polygon layer is provided, and renders QA artifacts.</p>
-<p>There is no dedicated <code>spectralbridge-micasense-to-landsat</code> CLI today. Use the
-Python API shown here.</p>
-<h2 id="inputs">Inputs<a class="headerlink" href="#inputs" title="Permanent link">&para;</a></h2>
-<p>Prepare a folder containing local drone exports. The pipeline can start from
-either existing HDF5 files or reflectance TIFF packages.</p>
-<p>Example HDF5 layout:</p>
-<div class="highlight"><pre><span></span><code>drone_h5_exports/
-  SPR1-06-28-23 ExportPackage/
-    *.h5
-  SPR2-06-28-23 ExportPackage/
-    *.h5
-</code></pre></div>
-<p>Example TIFF layout:</p>
-<div class="highlight"><pre><span></span><code>drone_tiff_exports/
-  SPR1-06-28-23 ExportPackage/
-    aligned_orthomosaic.tif
-    slope.tif
-    aspect.tif
-    sensor_zenith.tif
-    sensor_azimuth.tif
-</code></pre></div>
-<p>If you want polygon-level tables, also prepare a polygon layer supported by
-GeoPandas, such as GeoPackage or GeoJSON.</p>
-<h2 id="input-contract">Input contract<a class="headerlink" href="#input-contract" title="Permanent link">&para;</a></h2>
-<p>For existing HDF5 inputs, SpectralBridge treats the local HDF5 export as the
-authoritative drone input. Reflectance and ancillary rasters are expected to
-already share the same spatial orientation and <code>(lines, columns)</code> footprint.</p>
-<p>For TIFF-backed inputs, SpectralBridge now creates the per-flight
-<code>__working.h5</code> file itself before continuing through the existing drone
-workflow. The TIFF bridge is intentionally strict:</p>
+<h1 id="release-hygiene-review">Release Hygiene Review<a class="headerlink" href="#release-hygiene-review" title="Permanent link">&para;</a></h1>
+<p>Review date: 2026-06-03</p>
+<p>This note records the release-hygiene audit performed during package hardening.
+It focuses on what is likely to ship in source distributions and on obvious
+repository artifacts that should not be treated as release payload.</p>
+<h2 id="reviewed-files">Reviewed files<a class="headerlink" href="#reviewed-files" title="Permanent link">&para;</a></h2>
 <ul>
-<li>reflectance TIFFs must be multiband rasters</li>
-<li>ancillary TIFFs must already match the reflectance raster shape, transform,
-  and CRS</li>
-<li>TIFF packages are expected to provide aligned sidecars for:</li>
-<li><code>slope</code></li>
-<li><code>aspect</code></li>
-<li><code>sensor_zenith</code> or <code>view_zenith</code></li>
-<li><code>sensor_azimuth</code> or <code>view_azimuth</code></li>
-<li>solar geometry can come from:</li>
-<li>aligned <code>solar_zenith</code> / <code>solar_azimuth</code> TIFFs, or</li>
-<li>scalar <code>tiff_solar_zenith_deg</code> / <code>tiff_solar_azimuth_deg</code> arguments passed
-    to <code>run_drone_pipeline</code></li>
+<li><code>pyproject.toml</code></li>
+<li><code>MANIFEST.in</code></li>
+<li><code>README.md</code></li>
+<li><code>LICENSE</code></li>
+<li><code>CITATION.cff</code></li>
+<li>top-level repository artifacts and generated files visible in the working tree</li>
 </ul>
-<p>If both an HDF5 file and a reflectance TIFF resolve to the same derived flight
-stem within one package, the existing HDF5 input takes precedence.</p>
-<p>By default, TIFF-backed conversion uses the 10-band wavelength/FWHM vectors
-from the Erick notebook workflow when the reflectance raster has 10 bands. For
-other band counts, pass explicit <code>tiff_wavelengths_nm</code> and <code>tiff_fwhm_nm</code>
-values.</p>
-<h2 id="run-the-drone-pipeline">Run the drone pipeline<a class="headerlink" href="#run-the-drone-pipeline" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_drone_pipeline</span>
-
-<span class="n">results</span> <span class="o">=</span> <span class="n">run_drone_pipeline</span><span class="p">(</span>
-    <span class="n">input_h5_dir</span><span class="o">=</span><span class="s2">&quot;drone_inputs&quot;</span><span class="p">,</span>
-    <span class="n">polygon_path</span><span class="o">=</span><span class="s2">&quot;Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg&quot;</span><span class="p">,</span>
-    <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;drone_outputs&quot;</span><span class="p">,</span>
-    <span class="n">apply_topo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">apply_brdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">use_ndvi_brdf_bins</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">apply_brightness_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">tiff_solar_zenith_deg</span><span class="o">=</span><span class="mf">88.90</span><span class="p">,</span>
-    <span class="n">tiff_solar_azimuth_deg</span><span class="o">=</span><span class="mf">287.69</span><span class="p">,</span>
-<span class="p">)</span>
-</code></pre></div>
-<p>Set <code>polygon_path=None</code> when you only need ENVI and QA products.</p>
-<p>If your TIFF source does not use the default 10-band Erick notebook spectral
-definition, also pass:</p>
-<div class="highlight"><pre><span></span><code><span class="n">tiff_wavelengths_nm</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
-<span class="n">tiff_fwhm_nm</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
-</code></pre></div>
-<h2 id="outputs">Outputs<a class="headerlink" href="#outputs" title="Permanent link">&para;</a></h2>
-<p>Each discovered flight gets its own output folder:</p>
-<div class="highlight"><pre><span></span><code>drone_outputs/
-  &lt;flight_stem&gt;/
-    &lt;flight_stem&gt;__working.h5
-    &lt;flight_stem&gt;__envi.img
-    &lt;flight_stem&gt;__envi.hdr
-    &lt;flight_stem&gt;__corrected.img
-    &lt;flight_stem&gt;__corrected.hdr
-    &lt;flight_stem&gt;__polygon_index.parquet
-    &lt;flight_stem&gt;__polygons.parquet
-    &lt;flight_stem&gt;__qa.png
-    &lt;flight_stem&gt;__qa.json
-  drone_merged.parquet
-  drone_qa_summary.json
-</code></pre></div>
-<p>Parquet remains the authoritative tabular output. CSV sidecars, when present in
-drone workflows, are convenience copies for external tools.</p>
-<h2 id="inspect-the-run">Inspect the run<a class="headerlink" href="#inspect-the-run" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
-<span class="n">output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;drone_outputs&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;qa_summary_path&quot;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;merged&quot;</span><span class="p">])</span>
-
-<span class="k">for</span> <span class="n">qa_png</span> <span class="ow">in</span> <span class="n">output_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*/*__qa.png&quot;</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">qa_png</span><span class="p">)</span>
-</code></pre></div>
-<p>The QA JSON records whether requested topographic or BRDF corrections were
-applied, skipped because ancillary data were unavailable, or reverted because
-the corrected product failed quality checks.</p>
-<h2 id="relation-to-landsat-harmonization">Relation to Landsat harmonization<a class="headerlink" href="#relation-to-landsat-harmonization" title="Permanent link">&para;</a></h2>
-<p>The local drone path does not invent NEON-style filenames and does not run the
-NEON download workflow. Landsat-style products for NEON flightlines are still
-generated by the standard sensor harmonization stage and use names such as:</p>
-<div class="highlight"><pre><span></span><code>*_landsat_tm_envi.img
-*_landsat_oli_envi.img
-*_micasense_envi.img
-*_micasense_to_match_oli_oli2_envi.img
-</code></pre></div>
-<p>Those NEON outputs are documented in
-<a href="../../pipeline/outputs/">Outputs &amp; file structure</a>.</p>
+<h2 id="low-risk-fixes-applied">Low-risk fixes applied<a class="headerlink" href="#low-risk-fixes-applied" title="Permanent link">&para;</a></h2>
+<p><code>MANIFEST.in</code> was tightened to avoid shipping maintainer-only and accidental
+artifacts in source releases.</p>
+<p>Changes made:</p>
+<ul>
+<li>removed explicit inclusion of:</li>
+<li><code>AGENTS.md</code></li>
+<li><code>FEATURE_REQUESTS.md</code></li>
+<li><code>publication_checklist.md</code></li>
+<li>added explicit excludes for:</li>
+<li><code>PROMPT_LOG.md</code></li>
+<li><code>Drone_processing.ipynb</code></li>
+<li><code>Raster_processing.ipynb</code></li>
+<li><code>:memory:</code></li>
+<li><code>ty_tuff_contributions_last_year.md</code></li>
+<li>added pruning for:</li>
+<li><code>Datasets/</code></li>
+<li><code>vendor/</code></li>
+<li>added a global exclude for:</li>
+<li><code>__pycache__/</code></li>
+<li><code>*.pyc</code>, <code>*.pyo</code>, <code>*.pyd</code></li>
+</ul>
+<h2 id="findings">Findings<a class="headerlink" href="#findings" title="Permanent link">&para;</a></h2>
+<h3 id="1-prompt-log-was-a-real-packaging-risk">1. Prompt log was a real packaging risk<a class="headerlink" href="#1-prompt-log-was-a-real-packaging-risk" title="Permanent link">&para;</a></h3>
+<p><code>PROMPT_LOG.md</code> exists at repo root and contains verbatim development prompts.
+Without an explicit manifest exclusion, it is the kind of maintainer artifact
+that can accidentally end up in an sdist.</p>
+<h3 id="2-repo-root-notebooks-are-publicationsupport-assets-not-package-payload">2. Repo-root notebooks are publication/support assets, not package payload<a class="headerlink" href="#2-repo-root-notebooks-are-publicationsupport-assets-not-package-payload" title="Permanent link">&para;</a></h3>
+<p>The root notebooks are useful working materials, but they are not required for
+package installation or runtime and should not ship unintentionally in a source
+release.</p>
+<h3 id="3-large-localsupport-assets-exist-in-the-repo-tree">3. Large local/support assets exist in the repo tree<a class="headerlink" href="#3-large-localsupport-assets-exist-in-the-repo-tree" title="Permanent link">&para;</a></h3>
+<p>Examples observed during the audit:</p>
+<ul>
+<li><code>Datasets/</code> with geopackages and spreadsheets</li>
+<li><code>gocmd</code></li>
+<li><code>:memory:</code></li>
+<li><code>ty_tuff_contributions_last_year.md</code></li>
+</ul>
+<p>The manifest now excludes or prunes the obvious packaging risks, but these
+files remain repo-hygiene concerns worth keeping visible.</p>
+<h3 id="4-core-metadata-files-are-present-and-aligned-at-a-high-level">4. Core metadata files are present and aligned at a high level<a class="headerlink" href="#4-core-metadata-files-are-present-and-aligned-at-a-high-level" title="Permanent link">&para;</a></h3>
+<p>The repository currently includes:</p>
+<ul>
+<li><code>LICENSE</code></li>
+<li><code>README.md</code></li>
+<li><code>CITATION.cff</code></li>
+<li><code>pyproject.toml</code></li>
+</ul>
+<p>No contradictory packaging metadata issue was identified in this pass beyond
+the previously documented license/provenance concerns.</p>
+<h2 id="verification-limits">Verification limits<a class="headerlink" href="#verification-limits" title="Permanent link">&para;</a></h2>
+<p>This environment does not currently have <code>setuptools</code> or <code>build</code> available in
+the active Python interpreter, so a local source-distribution build/listing
+could not be executed during this audit.</p>
+<h2 id="recommendation">Recommendation<a class="headerlink" href="#recommendation" title="Permanent link">&para;</a></h2>
+<p>Before a release cut, run an actual build in a packaging-capable environment
+and inspect the resulting sdist contents directly. This audit reduces risk, but
+the final packaging check should use the real build artifact.</p>
 
 
 

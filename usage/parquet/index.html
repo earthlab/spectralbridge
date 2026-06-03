@@ -1053,24 +1053,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Working with Parquet outputs
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1087,91 +1069,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#why-parquet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why Parquet?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#file-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        File structure
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-preview-using-duckdb" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick preview using DuckDB
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#loading-with-pandas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Loading with pandas
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#loading-with-xarray" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Loading with xarray
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1696,39 +1593,72 @@
 
 
 <h1 id="working-with-parquet-outputs">Working with Parquet Outputs<a class="headerlink" href="#working-with-parquet-outputs" title="Permanent link">&para;</a></h1>
-<p>SpectralBridge writes Parquet sidecars for ENVI products and a merged Parquet
-table for each completed flight line. These files are the main analysis entry
-point for DuckDB, pandas, or other columnar tools.</p>
-<hr />
-<h2 id="why-parquet">Why Parquet?<a class="headerlink" href="#why-parquet" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Supports efficient columnar reads.</li>
-<li>Compresses well for large flight lines.</li>
-<li>Works cleanly with DuckDB SQL.</li>
-<li>Avoids loading full scenes into memory for simple summaries.</li>
-</ul>
-<hr />
-<h2 id="file-structure">File structure<a class="headerlink" href="#file-structure" title="Permanent link">&para;</a></h2>
-<p>Typical Parquet files include:</p>
+<div class="sb-doc-page">
+<section class="sb-doc-hero">
+<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="n">p</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-kicker&quot;</span><span class="o">&gt;</span><span class="n">Usage</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">Working</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">parquet</span><span class="w"> </span><span class="n">outputs</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">p</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-lead&quot;</span><span class="o">&gt;</span><span class="n">Parquet</span><span class="w"> </span><span class="n">sidecars</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">merged</span><span class="w"> </span><span class="n">parquet</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">main</span><span class="w"> </span><span class="n">analysis</span><span class="o">-</span><span class="n">ready</span><span class="w"> </span><span class="n">outputs</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">tabular</span><span class="w"> </span><span class="n">workflows</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">SpectralBridge</span><span class="o">.&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">div</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-grid sb-doc-grid--three&quot;</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">article</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-card&quot;</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="n">Authoritative</span><span class="w"> </span><span class="n">tables</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">They</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">intended</span><span class="w"> </span><span class="n">interface</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">DuckDB</span><span class="p">,</span><span class="w"> </span><span class="n">pandas</span><span class="p">,</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">columnar</span><span class="w"> </span><span class="n">tools</span><span class="o">.&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;/</span><span class="n">article</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">article</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-card&quot;</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="n">Restart</span><span class="o">-</span><span class="n">safe</span><span class="w"> </span><span class="n">exports</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">The</span><span class="w"> </span><span class="n">pipeline</span><span class="w"> </span><span class="n">validates</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">reuses</span><span class="w"> </span><span class="n">good</span><span class="w"> </span><span class="n">parquet</span><span class="w"> </span><span class="n">outputs</span><span class="w"> </span><span class="n">instead</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">recomputing</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="n">blindly</span><span class="o">.&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;/</span><span class="n">article</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;</span><span class="n">article</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s2">&quot;sb-doc-card&quot;</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="n">Large</span><span class="o">-</span><span class="n">scene</span><span class="w"> </span><span class="n">friendly</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">They</span><span class="w"> </span><span class="n">support</span><span class="w"> </span><span class="n">filtering</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">aggregation</span><span class="w"> </span><span class="n">without</span><span class="w"> </span><span class="n">loading</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">whole</span><span class="w"> </span><span class="n">raster</span><span class="w"> </span><span class="n">cube</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">memory</span><span class="o">.&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">&lt;/</span><span class="n">article</span><span class="o">&gt;</span>
+</code></pre></div>
+
+</section>
+</div>
+</section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Why parquet&lt;/p&gt;
+    &lt;h2&gt;Why the pipeline writes columnar outputs&lt;/h2&gt;
+    &lt;p&gt;ENVI remains the raster authority for image-style access, but parquet is the practical entry point for most analysis, validation, and merge workflows. It compresses well, reads efficiently by column, and works cleanly with DuckDB and pandas.&lt;/p&gt;
+    &lt;p&gt;That makes parquet especially useful when you want to summarize reflectance, inspect metadata, or join outputs across stages without materializing the full scene in Python memory.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;File contract&lt;/p&gt;
+    &lt;h2&gt;What files you should expect&lt;/h2&gt;
+    &lt;p&gt;Typical per-product sidecars and merged outputs include names such as:&lt;/p&gt;
+
 <div class="highlight"><pre><span></span><code>*_envi.parquet
 *_brdfandtopo_corrected_envi.parquet
 *_landsat_oli_envi.parquet
 *_merged_pixel_extraction.parquet
 </code></pre></div>
-<p>Per-product files use one row per pixel-band observation and include columns
-such as:</p>
-<ul>
-<li><code>flightline_id</code></li>
-<li><code>row</code>, <code>col</code>, <code>x</code>, <code>y</code></li>
-<li><code>band</code></li>
-<li><code>wavelength_nm</code></li>
-<li><code>fwhm_nm</code></li>
-<li><code>reflectance</code></li>
-</ul>
-<p>The merged Parquet combines raw, corrected, and sensor-resampled sidecars into
-the per-flightline table named <code>&lt;flight_id&gt;_merged_pixel_extraction.parquet</code>.</p>
-<hr />
-<h2 id="quick-preview-using-duckdb">Quick preview using DuckDB<a class="headerlink" href="#quick-preview-using-duckdb" title="Permanent link">&para;</a></h2>
+
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Per-product parquet sidecars&lt;/h3&gt;
+        &lt;p&gt;These sit beside the corresponding ENVI products and store one row per pixel-band observation for that product.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Merged parquet&lt;/h3&gt;
+        &lt;p&gt;This combines raw, corrected, and sensor-resampled products into the per-flightline table named &lt;code&gt;&lt;flight_id&gt;_merged_pixel_extraction.parquet&lt;/code&gt;.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;Common columns include:&lt;/p&gt;
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;&lt;code&gt;flightline_id&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;row&lt;/code&gt;, &lt;code&gt;col&lt;/code&gt;, &lt;code&gt;x&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;band&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;wavelength_nm&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;fwhm_nm&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;reflectance&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;DuckDB&lt;/p&gt;
+    &lt;h2&gt;Inspect outputs without loading everything&lt;/h2&gt;
+    &lt;p&gt;DuckDB is usually the best first tool for large flight lines because it can query parquet lazily.&lt;/p&gt;
+
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
 
 <span class="n">duckdb</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
@@ -1737,13 +1667,17 @@ the per-flightline table named <code>&lt;flight_id&gt;_merged_pixel_extraction.p
 <span class="s2">    LIMIT 5</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
 </code></pre></div>
-<p>Check dimensions without loading the full table:</p>
+
+    &lt;p&gt;Check the size of a product:&lt;/p&gt;
+
 <div class="highlight"><pre><span></span><code><span class="n">duckdb</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    SELECT COUNT(*) AS nrows</span>
 <span class="s2">    FROM &#39;..._landsat_oli_envi.parquet&#39;</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
 </code></pre></div>
-<p>Summarize a sensor product lazily:</p>
+
+    &lt;p&gt;Summarize reflectance by wavelength:&lt;/p&gt;
+
 <div class="highlight"><pre><span></span><code><span class="n">duckdb</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    SELECT wavelength_nm, AVG(reflectance) AS mean_reflectance</span>
 <span class="s2">    FROM &#39;..._landsat_oli_envi.parquet&#39;</span>
@@ -1751,26 +1685,47 @@ the per-flightline table named <code>&lt;flight_id&gt;_merged_pixel_extraction.p
 <span class="s2">    ORDER BY wavelength_nm</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
 </code></pre></div>
-<hr />
-<h2 id="loading-with-pandas">Loading with pandas<a class="headerlink" href="#loading-with-pandas" title="Permanent link">&para;</a></h2>
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Python access&lt;/p&gt;
+    &lt;h2&gt;Use pandas carefully and keep ENVI for raster-style work&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card" markdown="1"&gt;
+        &lt;h3&gt;Pandas&lt;/h3&gt;
+        &lt;p&gt;Pandas works well once you have narrowed the data down to a manageable size.&lt;/p&gt;
+
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;..._merged_pixel_extraction.parquet&quot;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div>
-<p>Use pandas cautiously for large flight lines. DuckDB is usually better for
-filtering or aggregation before collecting results into memory.</p>
-<hr />
-<h2 id="loading-with-xarray">Loading with xarray<a class="headerlink" href="#loading-with-xarray" title="Permanent link">&para;</a></h2>
-<p>Parquet-to-xarray workflows work best after pivoting or aggregating data. For
-full spatial cubes, the ENVI <code>.img/.hdr</code> products remain the easier raster
-interface.</p>
-<hr />
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../cli/">CLI usage</a></li>
-<li><a href="../../pipeline/outputs/">Pipeline outputs</a></li>
-</ul>
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Raster and cube views&lt;/h3&gt;
+        &lt;p&gt;If you need full spatial cube behavior, the ENVI &lt;code&gt;.img/.hdr&lt;/code&gt; outputs are still the better interface. Parquet-to-xarray workflows usually work best after pivoting or aggregation.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+    &lt;p class="sb-doc-note"&gt;For big flight lines, prefer DuckDB for filtering and aggregation first, then collect smaller results into pandas.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Where to go next&lt;/p&gt;
+    &lt;h2&gt;Related pages&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--three"&gt;
+      &lt;a class="sb-doc-link-card" href="cli/"&gt;
+        &lt;strong&gt;CLI usage&lt;/strong&gt;
+        &lt;span&gt;See how the parquet outputs are produced from the command line.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="../pipeline/outputs/"&gt;
+        &lt;strong&gt;Pipeline outputs&lt;/strong&gt;
+        &lt;span&gt;Review the file layout and naming conventions around parquet sidecars.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="../pipeline/qa/"&gt;
+        &lt;strong&gt;QA panels and metrics&lt;/strong&gt;
+        &lt;span&gt;Connect parquet summaries back to the QA artifacts written for each flight line.&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  </section>
+</div>
 
 
 

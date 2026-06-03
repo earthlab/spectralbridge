@@ -10,13 +10,9 @@
       
       
       
-        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/tutorials/micasense-to-landsat/">
+        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/dev/architecture-audit/">
       
       
-        <link rel="prev" href="../neon-to-landsat/">
-      
-      
-        <link rel="next" href="../cloud-workflow/">
       
       
         
@@ -27,7 +23,7 @@
     
     
       
-        <title>MicaSense → Landsat harmonization - SpectralBridge</title>
+        <title>Architecture Audit - SpectralBridge</title>
       
     
     
@@ -84,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tutorial-micasense-local-drone-workflow" class="md-skip">
+        <a href="#architecture-audit" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              MicaSense → Landsat harmonization
+              Architecture Audit
             
           </span>
         </div>
@@ -273,13 +269,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../neon-to-envi/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../tutorials/neon-to-envi/" class="md-tabs__link">
           
   
   
@@ -379,7 +373,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../dev/architecture/" class="md-tabs__link">
+        <a href="../architecture/" class="md-tabs__link">
           
   
   
@@ -642,31 +636,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -684,7 +673,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -702,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../neon-to-envi/" class="md-nav__link">
+      <a href="../../tutorials/neon-to-envi/" class="md-nav__link">
         
   
   
@@ -730,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../neon-to-landsat/" class="md-nav__link">
+      <a href="../../tutorials/neon-to-landsat/" class="md-nav__link">
         
   
   
@@ -755,37 +744,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    MicaSense → Landsat harmonization
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tutorials/micasense-to-landsat/" class="md-nav__link">
         
   
   
@@ -801,92 +763,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#inputs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Inputs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#input-contract" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Input contract
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run-the-drone-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Run the drone pipeline
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#outputs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Outputs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inspect-the-run" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Inspect the run
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#relation-to-landsat-harmonization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Relation to Landsat harmonization
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -899,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cloud-workflow/" class="md-nav__link">
+      <a href="../../tutorials/cloud-workflow/" class="md-nav__link">
         
   
   
@@ -1530,7 +1406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -1558,7 +1434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/container-workflows/" class="md-nav__link">
+      <a href="../container-workflows/" class="md-nav__link">
         
   
   
@@ -1586,7 +1462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/publication-cleanup-log/" class="md-nav__link">
+      <a href="../publication-cleanup-log/" class="md-nav__link">
         
   
   
@@ -1614,7 +1490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/contributing/" class="md-nav__link">
+      <a href="../contributing/" class="md-nav__link">
         
   
   
@@ -1642,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/codex-guidelines/" class="md-nav__link">
+      <a href="../codex-guidelines/" class="md-nav__link">
         
   
   
@@ -1687,7 +1563,7 @@
 
 
   
-    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/tutorials/micasense-to-landsat.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/dev/architecture-audit.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1695,125 +1571,234 @@
   
 
 
-<h1 id="tutorial-micasense-local-drone-workflow">Tutorial: MicaSense Local Drone Workflow<a class="headerlink" href="#tutorial-micasense-local-drone-workflow" title="Permanent link">&para;</a></h1>
-<p>This tutorial shows the supported path for local drone or MicaSense-style
-inputs. The workflow preserves drone-native provenance, discovers HDF5 files
-or reflectance TIFF packages recursively, converts TIFF sources into the
-working HDF5 contract when needed, writes ENVI products, extracts polygon
-Parquet tables when a polygon layer is provided, and renders QA artifacts.</p>
-<p>There is no dedicated <code>spectralbridge-micasense-to-landsat</code> CLI today. Use the
-Python API shown here.</p>
-<h2 id="inputs">Inputs<a class="headerlink" href="#inputs" title="Permanent link">&para;</a></h2>
-<p>Prepare a folder containing local drone exports. The pipeline can start from
-either existing HDF5 files or reflectance TIFF packages.</p>
-<p>Example HDF5 layout:</p>
-<div class="highlight"><pre><span></span><code>drone_h5_exports/
-  SPR1-06-28-23 ExportPackage/
-    *.h5
-  SPR2-06-28-23 ExportPackage/
-    *.h5
-</code></pre></div>
-<p>Example TIFF layout:</p>
-<div class="highlight"><pre><span></span><code>drone_tiff_exports/
-  SPR1-06-28-23 ExportPackage/
-    aligned_orthomosaic.tif
-    slope.tif
-    aspect.tif
-    sensor_zenith.tif
-    sensor_azimuth.tif
-</code></pre></div>
-<p>If you want polygon-level tables, also prepare a polygon layer supported by
-GeoPandas, such as GeoPackage or GeoJSON.</p>
-<h2 id="input-contract">Input contract<a class="headerlink" href="#input-contract" title="Permanent link">&para;</a></h2>
-<p>For existing HDF5 inputs, SpectralBridge treats the local HDF5 export as the
-authoritative drone input. Reflectance and ancillary rasters are expected to
-already share the same spatial orientation and <code>(lines, columns)</code> footprint.</p>
-<p>For TIFF-backed inputs, SpectralBridge now creates the per-flight
-<code>__working.h5</code> file itself before continuing through the existing drone
-workflow. The TIFF bridge is intentionally strict:</p>
+<h1 id="architecture-audit">Architecture Audit<a class="headerlink" href="#architecture-audit" title="Permanent link">&para;</a></h1>
+<p>This page records a lightweight architecture review of the current
+SpectralBridge codebase. It is intentionally descriptive rather than
+prescriptive: the goal is to identify duplication, consistency strengths, and
+safe follow-up opportunities without proposing a broad refactor.</p>
+<p>Review date: 2026-06-03</p>
+<h2 id="scope-reviewed">Scope reviewed<a class="headerlink" href="#scope-reviewed" title="Permanent link">&para;</a></h2>
+<p>The audit focused on the live implementation in:</p>
 <ul>
-<li>reflectance TIFFs must be multiband rasters</li>
-<li>ancillary TIFFs must already match the reflectance raster shape, transform,
-  and CRS</li>
-<li>TIFF packages are expected to provide aligned sidecars for:</li>
-<li><code>slope</code></li>
-<li><code>aspect</code></li>
-<li><code>sensor_zenith</code> or <code>view_zenith</code></li>
-<li><code>sensor_azimuth</code> or <code>view_azimuth</code></li>
-<li>solar geometry can come from:</li>
-<li>aligned <code>solar_zenith</code> / <code>solar_azimuth</code> TIFFs, or</li>
-<li>scalar <code>tiff_solar_zenith_deg</code> / <code>tiff_solar_azimuth_deg</code> arguments passed
-    to <code>run_drone_pipeline</code></li>
+<li><code>src/spectralbridge/pipelines/pipeline.py</code></li>
+<li><code>src/spectralbridge/pipelines/drone.py</code></li>
+<li><code>src/spectralbridge/paths.py</code></li>
+<li><code>src/spectralbridge/utils/naming.py</code></li>
+<li><code>src/spectralbridge/merge_duckdb.py</code></li>
+<li><code>src/spectralbridge/polygons.py</code></li>
+<li><code>src/spectralbridge/neon_cube.py</code></li>
+<li><code>src/spectralbridge/parquet_export.py</code></li>
+<li><code>src/spectralbridge/qa_plots.py</code></li>
+<li><code>src/spectralbridge/sensor_panel_plots.py</code></li>
+<li><code>src/spectralbridge/io/neon_schema.py</code></li>
+<li><code>src/spectralbridge/io/neon_legacy.py</code></li>
+<li><code>src/spectralbridge/envi.py</code></li>
+<li><code>src/spectralbridge/file_types.py</code></li>
 </ul>
-<p>If both an HDF5 file and a reflectance TIFF resolve to the same derived flight
-stem within one package, the existing HDF5 input takes precedence.</p>
-<p>By default, TIFF-backed conversion uses the 10-band wavelength/FWHM vectors
-from the Erick notebook workflow when the reflectance raster has 10 bands. For
-other band counts, pass explicit <code>tiff_wavelengths_nm</code> and <code>tiff_fwhm_nm</code>
-values.</p>
-<h2 id="run-the-drone-pipeline">Run the drone pipeline<a class="headerlink" href="#run-the-drone-pipeline" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_drone_pipeline</span>
-
-<span class="n">results</span> <span class="o">=</span> <span class="n">run_drone_pipeline</span><span class="p">(</span>
-    <span class="n">input_h5_dir</span><span class="o">=</span><span class="s2">&quot;drone_inputs&quot;</span><span class="p">,</span>
-    <span class="n">polygon_path</span><span class="o">=</span><span class="s2">&quot;Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg&quot;</span><span class="p">,</span>
-    <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;drone_outputs&quot;</span><span class="p">,</span>
-    <span class="n">apply_topo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">apply_brdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">use_ndvi_brdf_bins</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">apply_brightness_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">tiff_solar_zenith_deg</span><span class="o">=</span><span class="mf">88.90</span><span class="p">,</span>
-    <span class="n">tiff_solar_azimuth_deg</span><span class="o">=</span><span class="mf">287.69</span><span class="p">,</span>
-<span class="p">)</span>
-</code></pre></div>
-<p>Set <code>polygon_path=None</code> when you only need ENVI and QA products.</p>
-<p>If your TIFF source does not use the default 10-band Erick notebook spectral
-definition, also pass:</p>
-<div class="highlight"><pre><span></span><code><span class="n">tiff_wavelengths_nm</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
-<span class="n">tiff_fwhm_nm</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
-</code></pre></div>
-<h2 id="outputs">Outputs<a class="headerlink" href="#outputs" title="Permanent link">&para;</a></h2>
-<p>Each discovered flight gets its own output folder:</p>
-<div class="highlight"><pre><span></span><code>drone_outputs/
-  &lt;flight_stem&gt;/
-    &lt;flight_stem&gt;__working.h5
-    &lt;flight_stem&gt;__envi.img
-    &lt;flight_stem&gt;__envi.hdr
-    &lt;flight_stem&gt;__corrected.img
-    &lt;flight_stem&gt;__corrected.hdr
-    &lt;flight_stem&gt;__polygon_index.parquet
-    &lt;flight_stem&gt;__polygons.parquet
-    &lt;flight_stem&gt;__qa.png
-    &lt;flight_stem&gt;__qa.json
-  drone_merged.parquet
-  drone_qa_summary.json
-</code></pre></div>
-<p>Parquet remains the authoritative tabular output. CSV sidecars, when present in
-drone workflows, are convenience copies for external tools.</p>
-<h2 id="inspect-the-run">Inspect the run<a class="headerlink" href="#inspect-the-run" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
-<span class="n">output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;drone_outputs&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;qa_summary_path&quot;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;merged&quot;</span><span class="p">])</span>
-
-<span class="k">for</span> <span class="n">qa_png</span> <span class="ow">in</span> <span class="n">output_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*/*__qa.png&quot;</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">qa_png</span><span class="p">)</span>
-</code></pre></div>
-<p>The QA JSON records whether requested topographic or BRDF corrections were
-applied, skipped because ancillary data were unavailable, or reverted because
-the corrected product failed quality checks.</p>
-<h2 id="relation-to-landsat-harmonization">Relation to Landsat harmonization<a class="headerlink" href="#relation-to-landsat-harmonization" title="Permanent link">&para;</a></h2>
-<p>The local drone path does not invent NEON-style filenames and does not run the
-NEON download workflow. Landsat-style products for NEON flightlines are still
-generated by the standard sensor harmonization stage and use names such as:</p>
-<div class="highlight"><pre><span></span><code>*_landsat_tm_envi.img
-*_landsat_oli_envi.img
-*_micasense_envi.img
-*_micasense_to_match_oli_oli2_envi.img
-</code></pre></div>
-<p>Those NEON outputs are documented in
-<a href="../../pipeline/outputs/">Outputs &amp; file structure</a>.</p>
+<h2 id="high-level-conclusion">High-level conclusion<a class="headerlink" href="#high-level-conclusion" title="Permanent link">&para;</a></h2>
+<p>The codebase already has a strong central pipeline shape:</p>
+<ul>
+<li>file-based orchestration is consistent</li>
+<li>restart-safe reruns are a real design principle, not an afterthought</li>
+<li>chunked NEON processing is still the dominant path</li>
+<li>output filenames are treated as contracts across code, tests, and docs</li>
+</ul>
+<p>The main architectural risk is not instability in the core workflow. It is
+duplication around naming, output discovery, metadata parsing, and QA-related
+artifact lookup. Those areas are still working, but they are now spread across
+multiple helpers and would benefit from deliberate consolidation later.</p>
+<h2 id="findings">Findings<a class="headerlink" href="#findings" title="Permanent link">&para;</a></h2>
+<h3 id="1-path-authority-is-split-between-two-naming-systems">1. Path authority is split between two naming systems<a class="headerlink" href="#1-path-authority-is-split-between-two-naming-systems" title="Permanent link">&para;</a></h3>
+<p>The repository has one strong path object in <code>spectralbridge.paths</code>:</p>
+<ul>
+<li><code>FlightlinePaths</code></li>
+<li><code>SensorProductPaths</code></li>
+</ul>
+<p>That is the clearest single source of truth for canonical NEON output
+locations.</p>
+<p>At the same time, the NEON pipeline still relies heavily on
+<code>spectralbridge.utils.naming.get_flightline_products()</code>, and
+<code>pipeline.py</code> explicitly treats it as authoritative during stage execution and
+skip validation.</p>
+<p>Practical effect:</p>
+<ul>
+<li>code and docs increasingly refer to <code>FlightlinePaths</code></li>
+<li>orchestration still depends on the older dict-style naming helper</li>
+<li>future naming changes would have to update both systems carefully</li>
+</ul>
+<p>Assessment:</p>
+<ul>
+<li>this is manageable today because the two helpers are kept aligned</li>
+<li>it is the clearest example of “working duplication” in the repo</li>
+<li>it should be treated as a future consolidation candidate, not refactored
+  casually</li>
+</ul>
+<h3 id="2-output-discovery-logic-exists-in-multiple-subsystems">2. Output discovery logic exists in multiple subsystems<a class="headerlink" href="#2-output-discovery-logic-exists-in-multiple-subsystems" title="Permanent link">&para;</a></h3>
+<p>Several modules independently rediscover outputs from a flightline directory:</p>
+<ul>
+<li><code>merge_duckdb._discover_inputs()</code> scans for original, corrected, resampled,
+  and polygon parquet files</li>
+<li><code>polygons._available_product_parquets()</code> performs a parallel parquet
+  discovery pass for polygon workflows</li>
+<li><code>qa_plots.py</code> has repeated logic for locating regular vs polygon merged
+  parquets</li>
+<li><code>utils/qa_summary.py</code> searches for parquet files related to QA PNGs</li>
+<li><code>pipelines/drone.py</code> builds its own path map for drone outputs</li>
+</ul>
+<p>Practical effect:</p>
+<ul>
+<li>behavior is mostly correct today</li>
+<li>new output suffixes or variants require updates in several places</li>
+<li>some discovery rules are keyword-based rather than path-object-based</li>
+</ul>
+<p>Assessment:</p>
+<ul>
+<li>this is the biggest maintainability hotspot found in the audit</li>
+<li>the duplication is understandable because NEON and drone workflows differ,
+  but artifact resolution now spans too many local heuristics</li>
+</ul>
+<h3 id="3-metadata-parsing-is-reasonably-modular-but-still-layered">3. Metadata parsing is reasonably modular, but still layered<a class="headerlink" href="#3-metadata-parsing-is-reasonably-modular-but-still-layered" title="Permanent link">&para;</a></h3>
+<p>Metadata and schema handling is distributed across:</p>
+<ul>
+<li><code>io/neon_schema.py</code> for active NEON HDF5 schema resolution</li>
+<li><code>io/neon_legacy.py</code> for legacy layout detection</li>
+<li><code>file_types.py</code> for filename-based metadata parsing and reconstruction</li>
+<li><code>envi.py</code> for ENVI header parsing and wavelength normalization</li>
+<li><code>polygon_extraction.py</code> for some additional wavelength/header fallback logic</li>
+</ul>
+<p>Practical effect:</p>
+<ul>
+<li>this split is more defensible than the output-discovery duplication because
+  the modules serve different formats</li>
+<li>however, there are now multiple places where wavelength and file identity are
+  inferred</li>
+</ul>
+<p>Assessment:</p>
+<ul>
+<li>the architecture is acceptable, but maintainers should be careful not to add
+  yet another metadata-normalization layer</li>
+<li>future cleanup should focus on shared helpers, not broad parser rewrites</li>
+</ul>
+<h3 id="4-chunking-is-consistent-in-principle-but-implemented-at-two-levels">4. Chunking is consistent in principle, but implemented at two levels<a class="headerlink" href="#4-chunking-is-consistent-in-principle-but-implemented-at-two-levels" title="Permanent link">&para;</a></h3>
+<p>For NEON raster work, chunking is anchored well:</p>
+<ul>
+<li><code>NeonCube.iter_chunks()</code> and <code>chunk_count()</code> define the core spatial chunk
+  contract</li>
+<li><code>brdf_topo.py</code> correction uses fixed 100x100 chunking over that iterator</li>
+<li>export and resampling also rely on chunked processing over the cube</li>
+</ul>
+<p>Parquet extraction uses a separate chunk-planning system in
+<code>parquet_export.py</code>, which is appropriate because the workload is row-group and
+tabular rather than pure raster tiling.</p>
+<p>Drone work is more mixed:</p>
+<ul>
+<li>the test suite protects chunk-preserving extraction behavior</li>
+<li>some correction paths intentionally operate on a full-scene chunk when that
+  is the current workflow contract</li>
+</ul>
+<p>Assessment:</p>
+<ul>
+<li>chunking is still a real invariant, especially in the NEON path</li>
+<li>the code does not appear to have drifted into accidental whole-scene NEON
+  processing</li>
+<li>maintainers should continue distinguishing “raster tile chunking” from
+  “parquet row-group chunking” instead of forcing them into one abstraction</li>
+</ul>
+<h3 id="5-restart-safe-behavior-is-strong-but-status-reporting-is-fragmented">5. Restart-safe behavior is strong, but status reporting is fragmented<a class="headerlink" href="#5-restart-safe-behavior-is-strong-but-status-reporting-is-fragmented" title="Permanent link">&para;</a></h3>
+<p>The architecture consistently prefers:</p>
+<ul>
+<li>validate existing outputs</li>
+<li>skip when outputs are intact</li>
+<li>rebuild when outputs are missing or corrupt</li>
+</ul>
+<p>That pattern shows up repeatedly in <code>pipeline.py</code>, parquet export, merge, and
+the drone pipeline.</p>
+<p>The gap is not behavior; it is reporting. Statuses are still expressed as a
+mix of:</p>
+<ul>
+<li>log lines</li>
+<li>boolean checks</li>
+<li>ad hoc audit JSON fields in drone workflows</li>
+<li>implicit stage outcomes</li>
+</ul>
+<p>Assessment:</p>
+<ul>
+<li>restart safety is one of the strongest architectural properties in the repo</li>
+<li>explicit machine-readable stage statuses are still a missing cross-cutting
+  layer</li>
+<li>this matches the still-open <code>P7</code> work rather than indicating a new design
+  problem</li>
+</ul>
+<h3 id="6-qa-generation-is-consistent-in-purpose-but-not-yet-centralized">6. QA generation is consistent in purpose, but not yet centralized<a class="headerlink" href="#6-qa-generation-is-consistent-in-purpose-but-not-yet-centralized" title="Permanent link">&para;</a></h3>
+<p>The system treats QA artifacts as required outputs, which is good. But the QA
+stack is spread across:</p>
+<ul>
+<li><code>qa_plots.py</code> for panel and metric generation</li>
+<li><code>sensor_panel_plots.py</code> for sensor-focused visualization</li>
+<li><code>utils/qa_summary.py</code> for batch QA summary behavior</li>
+<li>pipeline and drone modules for deciding when and how QA is invoked</li>
+</ul>
+<p>Practical effect:</p>
+<ul>
+<li>QA is a first-class concept across the codebase</li>
+<li>locating “the right parquet for this QA artifact” is still partly heuristic</li>
+<li>polygon-mode and drone-mode QA have special-case lookup behavior</li>
+</ul>
+<p>Assessment:</p>
+<ul>
+<li>QA consistency is good at the contract level</li>
+<li>QA artifact resolution is another good candidate for future consolidation</li>
+</ul>
+<h3 id="7-shared-drone-and-neon-infrastructure-is-possible-but-should-stay-additive">7. Shared drone and NEON infrastructure is possible, but should stay additive<a class="headerlink" href="#7-shared-drone-and-neon-infrastructure-is-possible-but-should-stay-additive" title="Permanent link">&para;</a></h3>
+<p>There are real shared patterns between the NEON and drone workflows:</p>
+<ul>
+<li>path maps and output auditing</li>
+<li>parquet export and merge expectations</li>
+<li>QA artifact expectations</li>
+<li>polygon parquet enrichment and downstream merge semantics</li>
+</ul>
+<p>But the input contracts still differ materially:</p>
+<ul>
+<li>NEON starts from downloaded HDF5 plus canonical flightline naming</li>
+<li>drone starts from local HDF5 discovery and preserves drone-native provenance</li>
+</ul>
+<p>Assessment:</p>
+<ul>
+<li>there is room for more shared helpers around output validation and QA wiring</li>
+<li>there is not a strong case for merging the orchestration layers wholesale</li>
+<li>future work should share utilities, not collapse the workflows into one</li>
+</ul>
+<h2 id="strengths-worth-preserving">Strengths worth preserving<a class="headerlink" href="#strengths-worth-preserving" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>FlightlinePaths</code> is a solid contract object and already improves
+  maintainability.</li>
+<li><code>NeonCube.iter_chunks()</code> provides a clear chunking mental model that the test
+  suite reinforces.</li>
+<li>the NEON pipeline still has a clear ordered-stage design.</li>
+<li>parquet and QA outputs are consistently treated as important public artifacts.</li>
+<li>tests now cover many of the restart and corruption-recovery behaviors that
+  matter operationally.</li>
+</ul>
+<h2 id="recommended-follow-up-themes">Recommended follow-up themes<a class="headerlink" href="#recommended-follow-up-themes" title="Permanent link">&para;</a></h2>
+<p>These are architecture follow-ups, not urgent bugs:</p>
+<ol>
+<li>consolidate output discovery helpers so merge, polygons, QA, and summaries
+   stop maintaining parallel file-scanning rules</li>
+<li>define a shared artifact locator for merged parquet, polygon merged parquet,
+   QA PNG, and QA JSON lookups</li>
+<li>decide whether <code>FlightlinePaths</code> should eventually subsume more of
+   <code>get_flightline_products()</code> or whether the two-layer system is intentionally
+   permanent</li>
+<li>continue the explicit-status work already captured under <code>P7</code></li>
+</ol>
+<h2 id="not-recommended-from-this-audit">Not recommended from this audit<a class="headerlink" href="#not-recommended-from-this-audit" title="Permanent link">&para;</a></h2>
+<ul>
+<li>no broad rename or namespace migration</li>
+<li>no merge of drone and NEON orchestration into one pipeline entry point</li>
+<li>no speculative chunking abstraction that hides the difference between raster
+  tiling and parquet chunking</li>
+<li>no parser rewrite unless driven by a concrete bug or compatibility failure</li>
+</ul>
 
 
 

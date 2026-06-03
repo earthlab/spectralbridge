@@ -938,24 +938,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    QA panels & metrics
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -972,141 +954,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#qa-png" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        QA PNG
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#qa-pdf" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        QA PDF
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#qa-json" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        QA JSON
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="QA JSON">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reflectance-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reflectance metrics
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mask-summary-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mask summary metrics
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#brdf-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        BRDF metrics
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sensor-harmonization-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sensor harmonization metrics
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#geometry-metadata" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Geometry metadata
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#interpreting-qa-results" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Interpreting QA results
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1746,89 +1593,120 @@
 
 
 <h1 id="qa-panels-metrics">QA Panels &amp; Metrics<a class="headerlink" href="#qa-panels-metrics" title="Permanent link">&para;</a></h1>
-<p>Each processed NEON flight line generates a set of quality assurance (QA) artifacts designed to summarize reflectance distributions, masks, geometry, and harmonization decisions.</p>
-<p>This page describes the QA PNG, QA PDF, and QA JSON outputs.</p>
-<hr />
-<h2 id="qa-png">QA PNG<a class="headerlink" href="#qa-png" title="Permanent link">&para;</a></h2>
-<p>The QA PNG provides a quick visual summary of:</p>
-<ul>
-<li>reflectance distributions for key wavelengths  </li>
-<li>spatial distribution of masks  </li>
-<li>before/after brightness comparison  </li>
-<li>BRDF correction diagnostics  </li>
-<li>wavelength alignment checks  </li>
-</ul>
-<p>A typical PNG includes panels for:</p>
-<ol>
-<li>reflectance histograms  </li>
-<li>strip-based brightness summaries  </li>
-<li>cloud/water/snow/invalid pixel frequencies  </li>
-<li>wavelength metadata  </li>
-<li>sensor-specific diagnostics  </li>
-</ol>
-<p>Use this for fast visual inspection.</p>
-<hr />
-<h2 id="qa-pdf">QA PDF<a class="headerlink" href="#qa-pdf" title="Permanent link">&para;</a></h2>
-<p>The PDF includes:</p>
-<ul>
-<li>all PNG content  </li>
-<li>multi-page extended diagnostics  </li>
-<li>tabulated statistics  </li>
-<li>optional per-band summaries  </li>
-<li>BRDF coefficient tables  </li>
-<li>brightness adjustment coefficients  </li>
-</ul>
-<p>This document serves as a flight-line-level audit record.</p>
-<hr />
-<h2 id="qa-json">QA JSON<a class="headerlink" href="#qa-json" title="Permanent link">&para;</a></h2>
-<p>The JSON file contains machine-readable metrics including:</p>
-<h3 id="reflectance-metrics">Reflectance metrics<a class="headerlink" href="#reflectance-metrics" title="Permanent link">&para;</a></h3>
-<ul>
-<li>min/max/median for each band  </li>
-<li>proportion of saturated or masked pixels  </li>
-<li>brightness differences across correction stages  </li>
-</ul>
-<h3 id="mask-summary-metrics">Mask summary metrics<a class="headerlink" href="#mask-summary-metrics" title="Permanent link">&para;</a></h3>
-<ul>
-<li>percent cloud  </li>
-<li>percent cloud shadow  </li>
-<li>percent snow  </li>
-<li>percent water  </li>
-<li>percent invalid  </li>
-</ul>
-<h3 id="brdf-metrics">BRDF metrics<a class="headerlink" href="#brdf-metrics" title="Permanent link">&para;</a></h3>
-<ul>
-<li>per-band BRDF coefficients  </li>
-<li>reconstruction error statistics  </li>
-</ul>
-<h3 id="sensor-harmonization-metrics">Sensor harmonization metrics<a class="headerlink" href="#sensor-harmonization-metrics" title="Permanent link">&para;</a></h3>
-<ul>
-<li>brightness coefficients (per band)  </li>
-<li>spectral alignment checks  </li>
-<li>per-band RMSE for regression-based harmonization (if applicable)  </li>
-</ul>
-<h3 id="geometry-metadata">Geometry metadata<a class="headerlink" href="#geometry-metadata" title="Permanent link">&para;</a></h3>
-<ul>
-<li>solar zenith/azimuth  </li>
-<li>view zenith/azimuth  </li>
-<li>DEM statistics  </li>
-</ul>
-<hr />
-<h2 id="interpreting-qa-results">Interpreting QA results<a class="headerlink" href="#interpreting-qa-results" title="Permanent link">&para;</a></h2>
-<p>Flags to watch for:</p>
-<ul>
-<li><strong>Reflectance values &gt; 1.5</strong> → possible BRDF or DEM issues  </li>
-<li><strong>Large brightness shifts</strong> → check convolution stage  </li>
-<li><strong>High invalid or shadow fraction</strong> → consider masking strategy  </li>
-<li><strong>Noisy BRDF coefficients</strong> → unstable correction in low-SNR regions  </li>
-</ul>
-<hr />
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../stages/">Pipeline stages</a>  </li>
-<li><a href="../outputs/">Outputs &amp; file structure</a>  </li>
-<li><a href="../../troubleshooting/">Troubleshooting</a></li>
-</ul>
+<div class="sb-doc-page">
+<section class="sb-doc-hero">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Pipeline<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h1&gt;</span>QA<span class="w"> </span>panels<span class="w"> </span>and<span class="w"> </span>metrics<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-lead&quot;</span><span class="nt">&gt;</span>Each<span class="w"> </span>completed<span class="w"> </span>flight<span class="w"> </span>line<span class="w"> </span>writes<span class="w"> </span>visual<span class="w"> </span>and<span class="w"> </span>machine-readable<span class="w"> </span>QA<span class="w"> </span>artifacts<span class="w"> </span>so<span class="w"> </span>correction,<span class="w"> </span>harmonization,<span class="w"> </span>and<span class="w"> </span>export<span class="w"> </span>decisions<span class="w"> </span>remain<span class="w"> </span>inspectable<span class="w"> </span>after<span class="w"> </span>the<span class="w"> </span>run.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;div</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-grid sb-doc-grid--three&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>QA<span class="w"> </span>PNG<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Fast<span class="w"> </span>visual<span class="w"> </span>triage<span class="w"> </span>for<span class="w"> </span>reflectance,<span class="w"> </span>masks,<span class="w"> </span>brightness<span class="w"> </span>shifts,<span class="w"> </span>and<span class="w"> </span>sensor<span class="w"> </span>diagnostics.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>QA<span class="w"> </span>PDF<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>A<span class="w"> </span>longer-form<span class="w"> </span>audit<span class="w"> </span>record<span class="w"> </span>when<span class="w"> </span>multi-page<span class="w"> </span>reporting<span class="w"> </span>is<span class="w"> </span>enabled<span class="w"> </span>for<span class="w"> </span>the<span class="w"> </span>workflow.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>QA<span class="w"> </span>JSON<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Machine-readable<span class="w"> </span>metrics<span class="w"> </span>and<span class="w"> </span>metadata<span class="w"> </span>for<span class="w"> </span>automation,<span class="w"> </span>validation,<span class="w"> </span>and<span class="w"> </span>reproducible<span class="w"> </span>review.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+</code></pre></div>
+
+</section>
+</div>
+</section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Visual QA&lt;/p&gt;
+    &lt;h2&gt;What the QA PNG is for&lt;/h2&gt;
+    &lt;p&gt;The PNG is the fastest way to spot unusual behavior in a flight line without loading the raster products manually. Typical panels summarize:&lt;/p&gt;
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;reflectance distributions for representative wavelengths&lt;/li&gt;
+      &lt;li&gt;spatial mask coverage and invalid-pixel structure&lt;/li&gt;
+      &lt;li&gt;before and after brightness behavior&lt;/li&gt;
+      &lt;li&gt;BRDF correction diagnostics&lt;/li&gt;
+      &lt;li&gt;wavelength and target-sensor alignment checks&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;Use the PNG for quick triage before deciding whether deeper inspection is necessary.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Audit outputs&lt;/p&gt;
+    &lt;h2&gt;What the PDF and JSON capture&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;QA PDF&lt;/h3&gt;
+        &lt;p&gt;The PDF expands the visual report into a flight-line-level audit artifact with extended diagnostics, tables, optional per-band summaries, and correction details.&lt;/p&gt;
+        &lt;p&gt;Think of it as the human-readable record you keep with a processing run.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;QA JSON&lt;/h3&gt;
+        &lt;p&gt;The JSON carries the same run into a machine-readable form for dashboards, automation, and regression checks.&lt;/p&gt;
+        &lt;p&gt;It is the better interface when you need to compare runs systematically.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;Common QA JSON categories include:&lt;/p&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Reflectance and masks&lt;/h3&gt;
+        &lt;p&gt;Bandwise min, max, median, saturated or masked fractions, and cloud, snow, shadow, water, or invalid summaries.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Correction diagnostics&lt;/h3&gt;
+        &lt;p&gt;BRDF coefficients, reconstruction error summaries, and brightness differences across correction stages.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Sensor harmonization&lt;/h3&gt;
+        &lt;p&gt;Brightness coefficients, spectral alignment checks, and regression-based metrics when that path is active.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Geometry context&lt;/h3&gt;
+        &lt;p&gt;Solar and view angles plus terrain summaries that help explain unusual correction behavior.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Interpretation&lt;/p&gt;
+    &lt;h2&gt;What to watch for&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Reflectance above expected bounds&lt;/h3&gt;
+        &lt;p&gt;Values well above 1 can point to correction instability, geometry problems, or DEM issues that deserve review.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Large brightness shifts&lt;/h3&gt;
+        &lt;p&gt;Substantial step changes between raw, corrected, and harmonized products usually warrant a closer look at the relevant stage outputs.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;High invalid or shadow fractions&lt;/h3&gt;
+        &lt;p&gt;These can dominate downstream summaries, especially for difficult illumination conditions or partial-scene coverage.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Noisy coefficients&lt;/h3&gt;
+        &lt;p&gt;Unstable BRDF or harmonization coefficients often indicate low-SNR regions or other conditions that reduce correction reliability.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+    &lt;p class="sb-doc-note"&gt;QA outputs are part of the workflow contract, not optional polish. They are meant to preserve transparency when a downstream analysis needs to explain how a product was generated.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Where to go next&lt;/p&gt;
+    &lt;h2&gt;Related pages&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--three"&gt;
+      &lt;a class="sb-doc-link-card" href="stages/"&gt;
+        &lt;strong&gt;Pipeline stages&lt;/strong&gt;
+        &lt;span&gt;See how QA fits into the full ordered workflow.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="outputs/"&gt;
+        &lt;strong&gt;Outputs and file structure&lt;/strong&gt;
+        &lt;span&gt;Find the flight-line files that sit next to the QA artifacts.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="../troubleshooting/"&gt;
+        &lt;strong&gt;Troubleshooting&lt;/strong&gt;
+        &lt;span&gt;Use the QA outputs to diagnose common pipeline problems.&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  </section>
+</div>
 
 
 

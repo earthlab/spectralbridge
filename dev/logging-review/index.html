@@ -10,13 +10,9 @@
       
       
       
-        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/tutorials/micasense-to-landsat/">
+        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/dev/logging-review/">
       
       
-        <link rel="prev" href="../neon-to-landsat/">
-      
-      
-        <link rel="next" href="../cloud-workflow/">
       
       
         
@@ -27,7 +23,7 @@
     
     
       
-        <title>MicaSense → Landsat harmonization - SpectralBridge</title>
+        <title>Logging Review - SpectralBridge</title>
       
     
     
@@ -84,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tutorial-micasense-local-drone-workflow" class="md-skip">
+        <a href="#logging-review" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              MicaSense → Landsat harmonization
+              Logging Review
             
           </span>
         </div>
@@ -273,13 +269,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../neon-to-envi/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../tutorials/neon-to-envi/" class="md-tabs__link">
           
   
   
@@ -379,7 +373,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../dev/architecture/" class="md-tabs__link">
+        <a href="../architecture/" class="md-tabs__link">
           
   
   
@@ -642,31 +636,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -684,7 +673,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -702,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../neon-to-envi/" class="md-nav__link">
+      <a href="../../tutorials/neon-to-envi/" class="md-nav__link">
         
   
   
@@ -730,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../neon-to-landsat/" class="md-nav__link">
+      <a href="../../tutorials/neon-to-landsat/" class="md-nav__link">
         
   
   
@@ -755,37 +744,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    MicaSense → Landsat harmonization
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tutorials/micasense-to-landsat/" class="md-nav__link">
         
   
   
@@ -801,92 +763,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#inputs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Inputs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#input-contract" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Input contract
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run-the-drone-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Run the drone pipeline
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#outputs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Outputs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inspect-the-run" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Inspect the run
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#relation-to-landsat-harmonization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Relation to Landsat harmonization
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -899,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cloud-workflow/" class="md-nav__link">
+      <a href="../../tutorials/cloud-workflow/" class="md-nav__link">
         
   
   
@@ -1530,7 +1406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -1558,7 +1434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/container-workflows/" class="md-nav__link">
+      <a href="../container-workflows/" class="md-nav__link">
         
   
   
@@ -1586,7 +1462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/publication-cleanup-log/" class="md-nav__link">
+      <a href="../publication-cleanup-log/" class="md-nav__link">
         
   
   
@@ -1614,7 +1490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/contributing/" class="md-nav__link">
+      <a href="../contributing/" class="md-nav__link">
         
   
   
@@ -1642,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/codex-guidelines/" class="md-nav__link">
+      <a href="../codex-guidelines/" class="md-nav__link">
         
   
   
@@ -1687,7 +1563,7 @@
 
 
   
-    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/tutorials/micasense-to-landsat.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/dev/logging-review.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1695,125 +1571,153 @@
   
 
 
-<h1 id="tutorial-micasense-local-drone-workflow">Tutorial: MicaSense Local Drone Workflow<a class="headerlink" href="#tutorial-micasense-local-drone-workflow" title="Permanent link">&para;</a></h1>
-<p>This tutorial shows the supported path for local drone or MicaSense-style
-inputs. The workflow preserves drone-native provenance, discovers HDF5 files
-or reflectance TIFF packages recursively, converts TIFF sources into the
-working HDF5 contract when needed, writes ENVI products, extracts polygon
-Parquet tables when a polygon layer is provided, and renders QA artifacts.</p>
-<p>There is no dedicated <code>spectralbridge-micasense-to-landsat</code> CLI today. Use the
-Python API shown here.</p>
-<h2 id="inputs">Inputs<a class="headerlink" href="#inputs" title="Permanent link">&para;</a></h2>
-<p>Prepare a folder containing local drone exports. The pipeline can start from
-either existing HDF5 files or reflectance TIFF packages.</p>
-<p>Example HDF5 layout:</p>
-<div class="highlight"><pre><span></span><code>drone_h5_exports/
-  SPR1-06-28-23 ExportPackage/
-    *.h5
-  SPR2-06-28-23 ExportPackage/
-    *.h5
-</code></pre></div>
-<p>Example TIFF layout:</p>
-<div class="highlight"><pre><span></span><code>drone_tiff_exports/
-  SPR1-06-28-23 ExportPackage/
-    aligned_orthomosaic.tif
-    slope.tif
-    aspect.tif
-    sensor_zenith.tif
-    sensor_azimuth.tif
-</code></pre></div>
-<p>If you want polygon-level tables, also prepare a polygon layer supported by
-GeoPandas, such as GeoPackage or GeoJSON.</p>
-<h2 id="input-contract">Input contract<a class="headerlink" href="#input-contract" title="Permanent link">&para;</a></h2>
-<p>For existing HDF5 inputs, SpectralBridge treats the local HDF5 export as the
-authoritative drone input. Reflectance and ancillary rasters are expected to
-already share the same spatial orientation and <code>(lines, columns)</code> footprint.</p>
-<p>For TIFF-backed inputs, SpectralBridge now creates the per-flight
-<code>__working.h5</code> file itself before continuing through the existing drone
-workflow. The TIFF bridge is intentionally strict:</p>
+<h1 id="logging-review">Logging Review<a class="headerlink" href="#logging-review" title="Permanent link">&para;</a></h1>
+<p>Review date: 2026-06-03</p>
+<p>This note records the current logging posture of SpectralBridge after a
+lightweight audit. It is intentionally descriptive rather than prescriptive:
+the goal is to make behavior and risks visible without changing runtime
+semantics in a release-hardening pass.</p>
+<h2 id="scope-reviewed">Scope reviewed<a class="headerlink" href="#scope-reviewed" title="Permanent link">&para;</a></h2>
 <ul>
-<li>reflectance TIFFs must be multiband rasters</li>
-<li>ancillary TIFFs must already match the reflectance raster shape, transform,
-  and CRS</li>
-<li>TIFF packages are expected to provide aligned sidecars for:</li>
-<li><code>slope</code></li>
-<li><code>aspect</code></li>
-<li><code>sensor_zenith</code> or <code>view_zenith</code></li>
-<li><code>sensor_azimuth</code> or <code>view_azimuth</code></li>
-<li>solar geometry can come from:</li>
-<li>aligned <code>solar_zenith</code> / <code>solar_azimuth</code> TIFFs, or</li>
-<li>scalar <code>tiff_solar_zenith_deg</code> / <code>tiff_solar_azimuth_deg</code> arguments passed
-    to <code>run_drone_pipeline</code></li>
+<li><code>src/spectralbridge/pipelines/pipeline.py</code></li>
+<li><code>src/spectralbridge/pipelines/drone.py</code></li>
+<li><code>src/spectralbridge/_ray_utils.py</code></li>
+<li><code>src/spectralbridge/progress_utils.py</code></li>
+<li><code>src/spectralbridge/qa_plots.py</code></li>
+<li><code>src/spectralbridge/qa_dashboard.py</code></li>
+<li><code>src/spectralbridge/cli/recover_cli.py</code></li>
+<li><code>src/spectralbridge/polygon_extraction.py</code></li>
+<li><code>src/spectralbridge/corrections.py</code></li>
 </ul>
-<p>If both an HDF5 file and a reflectance TIFF resolve to the same derived flight
-stem within one package, the existing HDF5 input takes precedence.</p>
-<p>By default, TIFF-backed conversion uses the 10-band wavelength/FWHM vectors
-from the Erick notebook workflow when the reflectance raster has 10 bands. For
-other band counts, pass explicit <code>tiff_wavelengths_nm</code> and <code>tiff_fwhm_nm</code>
-values.</p>
-<h2 id="run-the-drone-pipeline">Run the drone pipeline<a class="headerlink" href="#run-the-drone-pipeline" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_drone_pipeline</span>
-
-<span class="n">results</span> <span class="o">=</span> <span class="n">run_drone_pipeline</span><span class="p">(</span>
-    <span class="n">input_h5_dir</span><span class="o">=</span><span class="s2">&quot;drone_inputs&quot;</span><span class="p">,</span>
-    <span class="n">polygon_path</span><span class="o">=</span><span class="s2">&quot;Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg&quot;</span><span class="p">,</span>
-    <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;drone_outputs&quot;</span><span class="p">,</span>
-    <span class="n">apply_topo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">apply_brdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">use_ndvi_brdf_bins</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">apply_brightness_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">tiff_solar_zenith_deg</span><span class="o">=</span><span class="mf">88.90</span><span class="p">,</span>
-    <span class="n">tiff_solar_azimuth_deg</span><span class="o">=</span><span class="mf">287.69</span><span class="p">,</span>
-<span class="p">)</span>
+<h2 id="current-behavior">Current behavior<a class="headerlink" href="#current-behavior" title="Permanent link">&para;</a></h2>
+<h3 id="1-the-neon-pipeline-uses-a-module-owned-stream-handler">1. The NEON pipeline uses a module-owned stream handler<a class="headerlink" href="#1-the-neon-pipeline-uses-a-module-owned-stream-handler" title="Permanent link">&para;</a></h3>
+<p><code>src/spectralbridge/pipelines/pipeline.py</code> attaches a <code>StreamHandler</code> to the
+module logger at import time and sets <code>logger.propagate = False</code>.</p>
+<p>Implications:</p>
+<ul>
+<li>direct pipeline runs get predictable timestamped output even when the caller
+  has not configured logging</li>
+<li>parent/root logger configuration does not automatically affect the pipeline</li>
+<li>tests that want to capture pipeline logs often need to attach handlers
+  directly to <code>spectralbridge.pipelines.pipeline</code></li>
+</ul>
+<p>This is the main place where SpectralBridge behaves more like an application
+than a library.</p>
+<h3 id="2-some-cli-entry-points-still-call-loggingbasicconfig">2. Some CLI entry points still call <code>logging.basicConfig(...)</code><a class="headerlink" href="#2-some-cli-entry-points-still-call-loggingbasicconfig" title="Permanent link">&para;</a></h3>
+<p>Observed in:</p>
+<ul>
+<li><code>src/spectralbridge/qa_dashboard.py</code></li>
+<li><code>src/spectralbridge/cli/recover_cli.py</code></li>
+</ul>
+<p>Implications:</p>
+<ul>
+<li>running these CLIs as top-level commands is straightforward</li>
+<li>embedding them in notebooks or larger applications can unexpectedly alter the
+  root logger if nothing has configured logging yet</li>
+<li>behavior differs from <code>pipeline.py</code>, which manages its own module logger
+  instead of relying on the root logger</li>
+</ul>
+<h3 id="3-qa_plots-forces-its-logger-to-info-at-import-time">3. <code>qa_plots</code> forces its logger to <code>INFO</code> at import time<a class="headerlink" href="#3-qa_plots-forces-its-logger-to-info-at-import-time" title="Permanent link">&para;</a></h3>
+<p><code>src/spectralbridge/qa_plots.py</code> does:</p>
+<div class="highlight"><pre><span></span><code><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 </code></pre></div>
-<p>Set <code>polygon_path=None</code> when you only need ENVI and QA products.</p>
-<p>If your TIFF source does not use the default 10-band Erick notebook spectral
-definition, also pass:</p>
-<div class="highlight"><pre><span></span><code><span class="n">tiff_wavelengths_nm</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
-<span class="n">tiff_fwhm_nm</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
-</code></pre></div>
-<h2 id="outputs">Outputs<a class="headerlink" href="#outputs" title="Permanent link">&para;</a></h2>
-<p>Each discovered flight gets its own output folder:</p>
-<div class="highlight"><pre><span></span><code>drone_outputs/
-  &lt;flight_stem&gt;/
-    &lt;flight_stem&gt;__working.h5
-    &lt;flight_stem&gt;__envi.img
-    &lt;flight_stem&gt;__envi.hdr
-    &lt;flight_stem&gt;__corrected.img
-    &lt;flight_stem&gt;__corrected.hdr
-    &lt;flight_stem&gt;__polygon_index.parquet
-    &lt;flight_stem&gt;__polygons.parquet
-    &lt;flight_stem&gt;__qa.png
-    &lt;flight_stem&gt;__qa.json
-  drone_merged.parquet
-  drone_qa_summary.json
-</code></pre></div>
-<p>Parquet remains the authoritative tabular output. CSV sidecars, when present in
-drone workflows, are convenience copies for external tools.</p>
-<h2 id="inspect-the-run">Inspect the run<a class="headerlink" href="#inspect-the-run" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
-<span class="n">output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;drone_outputs&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;qa_summary_path&quot;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;merged&quot;</span><span class="p">])</span>
-
-<span class="k">for</span> <span class="n">qa_png</span> <span class="ow">in</span> <span class="n">output_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*/*__qa.png&quot;</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">qa_png</span><span class="p">)</span>
-</code></pre></div>
-<p>The QA JSON records whether requested topographic or BRDF corrections were
-applied, skipped because ancillary data were unavailable, or reverted because
-the corrected product failed quality checks.</p>
-<h2 id="relation-to-landsat-harmonization">Relation to Landsat harmonization<a class="headerlink" href="#relation-to-landsat-harmonization" title="Permanent link">&para;</a></h2>
-<p>The local drone path does not invent NEON-style filenames and does not run the
-NEON download workflow. Landsat-style products for NEON flightlines are still
-generated by the standard sensor harmonization stage and use names such as:</p>
-<div class="highlight"><pre><span></span><code>*_landsat_tm_envi.img
-*_landsat_oli_envi.img
-*_micasense_envi.img
-*_micasense_to_match_oli_oli2_envi.img
-</code></pre></div>
-<p>Those NEON outputs are documented in
-<a href="../../pipeline/outputs/">Outputs &amp; file structure</a>.</p>
+<p>Implications:</p>
+<ul>
+<li>downstream callers cannot fully control verbosity through parent logger
+  configuration alone</li>
+<li>debug-level diagnostics from that module will stay suppressed even if a
+  caller raises the root logger to <code>DEBUG</code></li>
+</ul>
+<h3 id="4-some-lower-level-code-writes-to-the-root-logger-directly">4. Some lower-level code writes to the root logger directly<a class="headerlink" href="#4-some-lower-level-code-writes-to-the-root-logger-directly" title="Permanent link">&para;</a></h3>
+<p><code>src/spectralbridge/corrections.py</code> uses <code>logging.debug(...)</code> and
+<code>logging.warning(...)</code> instead of a module-scoped logger.</p>
+<p>Implications:</p>
+<ul>
+<li>messages bypass any package-specific logger naming hierarchy</li>
+<li>formatting and routing depend entirely on the root logger</li>
+<li>this differs from most of the package, which uses <code>logging.getLogger(__name__)</code></li>
+</ul>
+<h3 id="5-progress-reporting-is-mixed-between-logging-and-tqdm">5. Progress reporting is mixed between logging and <code>tqdm</code><a class="headerlink" href="#5-progress-reporting-is-mixed-between-logging-and-tqdm" title="Permanent link">&para;</a></h3>
+<p>Observed in:</p>
+<ul>
+<li><code>src/spectralbridge/progress_utils.py</code></li>
+<li><code>src/spectralbridge/pipelines/pipeline.py</code></li>
+<li><code>src/spectralbridge/pipelines/drone.py</code></li>
+<li><code>src/spectralbridge/envi_download.py</code></li>
+<li><code>src/spectralbridge/merge_duckdb.py</code></li>
+<li><code>src/spectralbridge/polygon_extraction.py</code></li>
+</ul>
+<p>Current pattern:</p>
+<ul>
+<li>interactive paths prefer <code>tqdm</code></li>
+<li>non-interactive paths emit periodic <code>logger.info(...)</code> or <code>tqdm.write(...)</code></li>
+<li>the drone pipeline writes human-facing progress lines to <code>stderr</code></li>
+</ul>
+<p>Implications:</p>
+<ul>
+<li>notebook and terminal UX is generally acceptable today</li>
+<li>output style is not uniform across NEON, drone, and utility scripts</li>
+<li>automated log consumers should not assume a single progress format</li>
+</ul>
+<h3 id="6-ray-behavior-is-mostly-controlled-through-environment-variables-not-logging-apis">6. Ray behavior is mostly controlled through environment variables, not logging APIs<a class="headerlink" href="#6-ray-behavior-is-mostly-controlled-through-environment-variables-not-logging-apis" title="Permanent link">&para;</a></h3>
+<p>Observed in:</p>
+<ul>
+<li><code>src/spectralbridge/_ray_utils.py</code></li>
+<li><code>src/spectralbridge/pipelines/pipeline.py</code></li>
+</ul>
+<p>Current controls:</p>
+<ul>
+<li><code>RAY_LOG_TO_STDERR=0</code></li>
+<li><code>RAY_BACKEND_LOG_LEVEL=ERROR</code></li>
+<li><code>RAY_DEDUP_LOGS=1</code></li>
+<li><code>RAY_DISABLE_DASHBOARD=1</code></li>
+<li>optional <code>CSC_RAY_DEBUG</code></li>
+</ul>
+<p>Implications:</p>
+<ul>
+<li>SpectralBridge already suppresses a large amount of Ray noise by default</li>
+<li>when <code>CSC_RAY_DEBUG</code> is enabled, some diagnostics are printed directly rather
+  than logged through the package logger</li>
+<li>worker-side log formatting is not unified with the main pipeline logger</li>
+</ul>
+<h3 id="7-multiprocessing-code-paths-do-not-appear-to-add-duplicate-handlers-themselves">7. Multiprocessing code paths do not appear to add duplicate handlers themselves<a class="headerlink" href="#7-multiprocessing-code-paths-do-not-appear-to-add-duplicate-handlers-themselves" title="Permanent link">&para;</a></h3>
+<p>Observed in:</p>
+<ul>
+<li><code>src/spectralbridge/pipelines/pipeline.py</code></li>
+<li><code>src/spectralbridge/polygon_extraction.py</code></li>
+<li><code>src/spectralbridge/merge_duckdb.py</code></li>
+</ul>
+<p>Findings:</p>
+<ul>
+<li>no obvious repeated handler-install loop was found in the multiprocessing or
+  process-pool paths</li>
+<li>the main duplication risk still comes from import-time logger setup patterns,
+  especially when modules are imported in different execution contexts</li>
+</ul>
+<h2 id="risk-summary">Risk summary<a class="headerlink" href="#risk-summary" title="Permanent link">&para;</a></h2>
+<p>Low-to-moderate maintainability risks exist, but no immediate correctness issue
+was found in the current logging setup.</p>
+<p>Main risks:</p>
+<ul>
+<li>inconsistent logger ownership between library modules and CLI entry points</li>
+<li>reduced caller control because some modules set handlers or levels at import time</li>
+<li>mixed progress/reporting channels across pipeline variants</li>
+<li>direct root-logger usage in <code>corrections.py</code></li>
+</ul>
+<h2 id="recommendation">Recommendation<a class="headerlink" href="#recommendation" title="Permanent link">&para;</a></h2>
+<p>Do not refactor logging as part of unrelated scientific or pipeline work.</p>
+<p>If cleanup is prioritized later, keep it incremental:</p>
+<ol>
+<li>decide on a package-wide policy for library modules vs CLI entry points</li>
+<li>remove import-time logger level forcing where safe</li>
+<li>replace root-logger calls with module loggers</li>
+<li>centralize progress/logging conventions for pipeline, drone, and utilities</li>
+<li>add focused tests around log capture only if behavior becomes contractual</li>
+</ol>
+<h2 id="related-follow-up">Related follow-up<a class="headerlink" href="#related-follow-up" title="Permanent link">&para;</a></h2>
+<p>See the logging cleanup follow-up item added to <code>FEATURE_REQUESTS.md</code> after this
+review.</p>
 
 
 

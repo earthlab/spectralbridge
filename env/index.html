@@ -1590,7 +1590,7 @@
 </tr>
 <tr>
 <td>Core libs</td>
-<td>numpy, rasterio, gdal, ray, xarray, pandas</td>
+<td>numpy, pandas, pyarrow, h5py, rasterio, geopandas, ray, duckdb, spectral</td>
 </tr>
 </tbody>
 </table>
@@ -1599,6 +1599,9 @@
 pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pip
 pip<span class="w"> </span>install<span class="w"> </span>spectralbridge
 </code></pre></div>
+<p><code>rioxarray</code> / <code>xarray</code> remain useful optional analysis companions for reading
+ENVI outputs in notebooks, but they are not declared as direct runtime package
+dependencies.</p>
 <h2 id="setup-conda">Setup (conda)<a class="headerlink" href="#setup-conda" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>spectralbridge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
 conda<span class="w"> </span>activate<span class="w"> </span>spectralbridge

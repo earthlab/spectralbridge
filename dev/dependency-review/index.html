@@ -10,13 +10,9 @@
       
       
       
-        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/tutorials/micasense-to-landsat/">
+        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/dev/dependency-review/">
       
       
-        <link rel="prev" href="../neon-to-landsat/">
-      
-      
-        <link rel="next" href="../cloud-workflow/">
       
       
         
@@ -27,7 +23,7 @@
     
     
       
-        <title>MicaSense → Landsat harmonization - SpectralBridge</title>
+        <title>Dependency Review - SpectralBridge</title>
       
     
     
@@ -84,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tutorial-micasense-local-drone-workflow" class="md-skip">
+        <a href="#dependency-review" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              MicaSense → Landsat harmonization
+              Dependency Review
             
           </span>
         </div>
@@ -273,13 +269,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../neon-to-envi/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../tutorials/neon-to-envi/" class="md-tabs__link">
           
   
   
@@ -379,7 +373,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../dev/architecture/" class="md-tabs__link">
+        <a href="../architecture/" class="md-tabs__link">
           
   
   
@@ -642,31 +636,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -684,7 +673,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -702,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../neon-to-envi/" class="md-nav__link">
+      <a href="../../tutorials/neon-to-envi/" class="md-nav__link">
         
   
   
@@ -730,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../neon-to-landsat/" class="md-nav__link">
+      <a href="../../tutorials/neon-to-landsat/" class="md-nav__link">
         
   
   
@@ -755,37 +744,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    MicaSense → Landsat harmonization
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tutorials/micasense-to-landsat/" class="md-nav__link">
         
   
   
@@ -801,92 +763,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#inputs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Inputs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#input-contract" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Input contract
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run-the-drone-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Run the drone pipeline
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#outputs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Outputs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inspect-the-run" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Inspect the run
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#relation-to-landsat-harmonization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Relation to Landsat harmonization
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -899,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cloud-workflow/" class="md-nav__link">
+      <a href="../../tutorials/cloud-workflow/" class="md-nav__link">
         
   
   
@@ -1530,7 +1406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -1558,7 +1434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/container-workflows/" class="md-nav__link">
+      <a href="../container-workflows/" class="md-nav__link">
         
   
   
@@ -1586,7 +1462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/publication-cleanup-log/" class="md-nav__link">
+      <a href="../publication-cleanup-log/" class="md-nav__link">
         
   
   
@@ -1614,7 +1490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/contributing/" class="md-nav__link">
+      <a href="../contributing/" class="md-nav__link">
         
   
   
@@ -1642,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/codex-guidelines/" class="md-nav__link">
+      <a href="../codex-guidelines/" class="md-nav__link">
         
   
   
@@ -1687,7 +1563,7 @@
 
 
   
-    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/tutorials/micasense-to-landsat.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/dev/dependency-review.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1695,125 +1571,153 @@
   
 
 
-<h1 id="tutorial-micasense-local-drone-workflow">Tutorial: MicaSense Local Drone Workflow<a class="headerlink" href="#tutorial-micasense-local-drone-workflow" title="Permanent link">&para;</a></h1>
-<p>This tutorial shows the supported path for local drone or MicaSense-style
-inputs. The workflow preserves drone-native provenance, discovers HDF5 files
-or reflectance TIFF packages recursively, converts TIFF sources into the
-working HDF5 contract when needed, writes ENVI products, extracts polygon
-Parquet tables when a polygon layer is provided, and renders QA artifacts.</p>
-<p>There is no dedicated <code>spectralbridge-micasense-to-landsat</code> CLI today. Use the
-Python API shown here.</p>
-<h2 id="inputs">Inputs<a class="headerlink" href="#inputs" title="Permanent link">&para;</a></h2>
-<p>Prepare a folder containing local drone exports. The pipeline can start from
-either existing HDF5 files or reflectance TIFF packages.</p>
-<p>Example HDF5 layout:</p>
-<div class="highlight"><pre><span></span><code>drone_h5_exports/
-  SPR1-06-28-23 ExportPackage/
-    *.h5
-  SPR2-06-28-23 ExportPackage/
-    *.h5
-</code></pre></div>
-<p>Example TIFF layout:</p>
-<div class="highlight"><pre><span></span><code>drone_tiff_exports/
-  SPR1-06-28-23 ExportPackage/
-    aligned_orthomosaic.tif
-    slope.tif
-    aspect.tif
-    sensor_zenith.tif
-    sensor_azimuth.tif
-</code></pre></div>
-<p>If you want polygon-level tables, also prepare a polygon layer supported by
-GeoPandas, such as GeoPackage or GeoJSON.</p>
-<h2 id="input-contract">Input contract<a class="headerlink" href="#input-contract" title="Permanent link">&para;</a></h2>
-<p>For existing HDF5 inputs, SpectralBridge treats the local HDF5 export as the
-authoritative drone input. Reflectance and ancillary rasters are expected to
-already share the same spatial orientation and <code>(lines, columns)</code> footprint.</p>
-<p>For TIFF-backed inputs, SpectralBridge now creates the per-flight
-<code>__working.h5</code> file itself before continuing through the existing drone
-workflow. The TIFF bridge is intentionally strict:</p>
+<h1 id="dependency-review">Dependency Review<a class="headerlink" href="#dependency-review" title="Permanent link">&para;</a></h1>
+<p>Review date: 2026-06-03</p>
+<p>This note records the current dependency posture of SpectralBridge with a focus
+on <code>ray</code>, <code>geopandas</code>, and <code>rasterio</code>, plus whether moving them into different
+extras would be safe.</p>
+<h2 id="reviewed-sources">Reviewed sources<a class="headerlink" href="#reviewed-sources" title="Permanent link">&para;</a></h2>
 <ul>
-<li>reflectance TIFFs must be multiband rasters</li>
-<li>ancillary TIFFs must already match the reflectance raster shape, transform,
-  and CRS</li>
-<li>TIFF packages are expected to provide aligned sidecars for:</li>
-<li><code>slope</code></li>
-<li><code>aspect</code></li>
-<li><code>sensor_zenith</code> or <code>view_zenith</code></li>
-<li><code>sensor_azimuth</code> or <code>view_azimuth</code></li>
-<li>solar geometry can come from:</li>
-<li>aligned <code>solar_zenith</code> / <code>solar_azimuth</code> TIFFs, or</li>
-<li>scalar <code>tiff_solar_zenith_deg</code> / <code>tiff_solar_azimuth_deg</code> arguments passed
-    to <code>run_drone_pipeline</code></li>
+<li><code>pyproject.toml</code></li>
+<li><code>src/spectralbridge/_optional.py</code></li>
+<li><code>src/spectralbridge/_ray_utils.py</code></li>
+<li><code>src/spectralbridge/pipelines/pipeline.py</code></li>
+<li><code>src/spectralbridge/pipelines/drone.py</code></li>
+<li><code>src/spectralbridge/polygons.py</code></li>
+<li><code>src/spectralbridge/parquet_export.py</code></li>
+<li><code>src/spectralbridge/polygon_extraction.py</code></li>
+<li><code>docs/env.md</code></li>
 </ul>
-<p>If both an HDF5 file and a reflectance TIFF resolve to the same derived flight
-stem within one package, the existing HDF5 input takes precedence.</p>
-<p>By default, TIFF-backed conversion uses the 10-band wavelength/FWHM vectors
-from the Erick notebook workflow when the reflectance raster has 10 bands. For
-other band counts, pass explicit <code>tiff_wavelengths_nm</code> and <code>tiff_fwhm_nm</code>
-values.</p>
-<h2 id="run-the-drone-pipeline">Run the drone pipeline<a class="headerlink" href="#run-the-drone-pipeline" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_drone_pipeline</span>
-
-<span class="n">results</span> <span class="o">=</span> <span class="n">run_drone_pipeline</span><span class="p">(</span>
-    <span class="n">input_h5_dir</span><span class="o">=</span><span class="s2">&quot;drone_inputs&quot;</span><span class="p">,</span>
-    <span class="n">polygon_path</span><span class="o">=</span><span class="s2">&quot;Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg&quot;</span><span class="p">,</span>
-    <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;drone_outputs&quot;</span><span class="p">,</span>
-    <span class="n">apply_topo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">apply_brdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">use_ndvi_brdf_bins</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">apply_brightness_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">tiff_solar_zenith_deg</span><span class="o">=</span><span class="mf">88.90</span><span class="p">,</span>
-    <span class="n">tiff_solar_azimuth_deg</span><span class="o">=</span><span class="mf">287.69</span><span class="p">,</span>
-<span class="p">)</span>
-</code></pre></div>
-<p>Set <code>polygon_path=None</code> when you only need ENVI and QA products.</p>
-<p>If your TIFF source does not use the default 10-band Erick notebook spectral
-definition, also pass:</p>
-<div class="highlight"><pre><span></span><code><span class="n">tiff_wavelengths_nm</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
-<span class="n">tiff_fwhm_nm</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
-</code></pre></div>
-<h2 id="outputs">Outputs<a class="headerlink" href="#outputs" title="Permanent link">&para;</a></h2>
-<p>Each discovered flight gets its own output folder:</p>
-<div class="highlight"><pre><span></span><code>drone_outputs/
-  &lt;flight_stem&gt;/
-    &lt;flight_stem&gt;__working.h5
-    &lt;flight_stem&gt;__envi.img
-    &lt;flight_stem&gt;__envi.hdr
-    &lt;flight_stem&gt;__corrected.img
-    &lt;flight_stem&gt;__corrected.hdr
-    &lt;flight_stem&gt;__polygon_index.parquet
-    &lt;flight_stem&gt;__polygons.parquet
-    &lt;flight_stem&gt;__qa.png
-    &lt;flight_stem&gt;__qa.json
-  drone_merged.parquet
-  drone_qa_summary.json
-</code></pre></div>
-<p>Parquet remains the authoritative tabular output. CSV sidecars, when present in
-drone workflows, are convenience copies for external tools.</p>
-<h2 id="inspect-the-run">Inspect the run<a class="headerlink" href="#inspect-the-run" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
-<span class="n">output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;drone_outputs&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;qa_summary_path&quot;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;merged&quot;</span><span class="p">])</span>
-
-<span class="k">for</span> <span class="n">qa_png</span> <span class="ow">in</span> <span class="n">output_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*/*__qa.png&quot;</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">qa_png</span><span class="p">)</span>
-</code></pre></div>
-<p>The QA JSON records whether requested topographic or BRDF corrections were
-applied, skipped because ancillary data were unavailable, or reverted because
-the corrected product failed quality checks.</p>
-<h2 id="relation-to-landsat-harmonization">Relation to Landsat harmonization<a class="headerlink" href="#relation-to-landsat-harmonization" title="Permanent link">&para;</a></h2>
-<p>The local drone path does not invent NEON-style filenames and does not run the
-NEON download workflow. Landsat-style products for NEON flightlines are still
-generated by the standard sensor harmonization stage and use names such as:</p>
-<div class="highlight"><pre><span></span><code>*_landsat_tm_envi.img
-*_landsat_oli_envi.img
-*_micasense_envi.img
-*_micasense_to_match_oli_oli2_envi.img
-</code></pre></div>
-<p>Those NEON outputs are documented in
-<a href="../../pipeline/outputs/">Outputs &amp; file structure</a>.</p>
+<h2 id="current-dependency-layout">Current dependency layout<a class="headerlink" href="#current-dependency-layout" title="Permanent link">&para;</a></h2>
+<h3 id="required-runtime-dependencies">Required runtime dependencies<a class="headerlink" href="#required-runtime-dependencies" title="Permanent link">&para;</a></h3>
+<p>The main package currently declares all of the following as core dependencies:</p>
+<ul>
+<li><code>numpy</code></li>
+<li><code>scipy</code></li>
+<li><code>pandas</code></li>
+<li><code>pyarrow</code></li>
+<li><code>pyproj</code></li>
+<li><code>h5py</code></li>
+<li><code>requests</code></li>
+<li><code>tqdm</code></li>
+<li><code>matplotlib</code></li>
+<li><code>rasterio</code></li>
+<li><code>shapely</code></li>
+<li><code>geopandas</code></li>
+<li><code>spectral</code></li>
+<li><code>ray[default]</code></li>
+<li><code>duckdb</code></li>
+</ul>
+<h3 id="optional-dependency-groups">Optional dependency groups<a class="headerlink" href="#optional-dependency-groups" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>tests</code></li>
+<li><code>full</code></li>
+<li><code>docs</code></li>
+<li><code>dev</code></li>
+</ul>
+<p>The current <code>full</code> extra only repeats <code>spectral</code> and <code>ray[default]</code>, both of
+which are already required in the base install.</p>
+<h2 id="findings">Findings<a class="headerlink" href="#findings" title="Permanent link">&para;</a></h2>
+<h3 id="1-ray-is-still-part-of-the-intended-standard-runtime">1. <code>ray</code> is still part of the intended standard runtime<a class="headerlink" href="#1-ray-is-still-part-of-the-intended-standard-runtime" title="Permanent link">&para;</a></h3>
+<p><code>ray</code> is imported lazily through <code>src/spectralbridge/_optional.py</code> and
+<code>src/spectralbridge/_ray_utils.py</code>, but the package treats Ray as the default
+parallel engine and the contributor docs already describe it as required.</p>
+<p>Implication:</p>
+<ul>
+<li>moving Ray out of core dependencies today would change the install contract
+  and likely break documented/default behavior</li>
+</ul>
+<p>Recommendation:</p>
+<ul>
+<li>keep <code>ray[default]</code> in required dependencies for now</li>
+<li>if a future “lite install” is desired, treat that as a deliberate packaging
+  redesign rather than a small metadata tweak</li>
+</ul>
+<h3 id="2-rasterio-is-deeply-embedded-in-core-workflows">2. <code>rasterio</code> is deeply embedded in core workflows<a class="headerlink" href="#2-rasterio-is-deeply-embedded-in-core-workflows" title="Permanent link">&para;</a></h3>
+<p><code>rasterio</code> is not just for optional plotting or edge-case utilities. It is used
+in:</p>
+<ul>
+<li>ENVI/parquet export</li>
+<li>polygon extraction</li>
+<li>polygon overlap diagnostics</li>
+<li>drone spatial diagnostics</li>
+<li>masking helpers</li>
+</ul>
+<p>Implication:</p>
+<ul>
+<li>making <code>rasterio</code> optional in packaging would break major advertised
+  workflows, not just add-on features</li>
+</ul>
+<p>Recommendation:</p>
+<ul>
+<li>keep <code>rasterio</code> in required dependencies</li>
+</ul>
+<h3 id="3-geopandas-is-required-for-a-meaningful-portion-of-polygondrone-tooling">3. <code>geopandas</code> is required for a meaningful portion of polygon/drone tooling<a class="headerlink" href="#3-geopandas-is-required-for-a-meaningful-portion-of-polygondrone-tooling" title="Permanent link">&para;</a></h3>
+<p><code>geopandas</code> is used in:</p>
+<ul>
+<li>polygon index creation</li>
+<li>polygon overlap filtering</li>
+<li>overlay visualization</li>
+<li>drone polygon workflows</li>
+<li>QA overlay support</li>
+</ul>
+<p>Implication:</p>
+<ul>
+<li>it is optional only in the narrow sense that some workflows can run without
+  polygons, but the project currently ships these capabilities as first-class
+  features</li>
+</ul>
+<p>Recommendation:</p>
+<ul>
+<li>keep <code>geopandas</code> in required dependencies unless the project intentionally
+  introduces separate install profiles and docs for polygon-free usage</li>
+</ul>
+<h3 id="4-optional-import-helpers-currently-describe-a-full-extra-that-is-not-the-real-install-story">4. Optional import helpers currently describe a “full” extra that is not the real install story<a class="headerlink" href="#4-optional-import-helpers-currently-describe-a-full-extra-that-is-not-the-real-install-story" title="Permanent link">&para;</a></h3>
+<p><code>src/spectralbridge/_optional.py</code> still raises messages referring to the
+standard environment and a conceptual <code>"full"</code> extra, but the actual package
+metadata already installs <code>ray</code>, <code>rasterio</code>, and <code>geopandas</code> by default.</p>
+<p>Implication:</p>
+<ul>
+<li>the import helpers are survivable, but they reflect an older packaging idea
+  more than the current dependency contract</li>
+</ul>
+<p>Recommendation:</p>
+<ul>
+<li>do not change this in the same pass unless the package’s extras strategy is
+  being redesigned; document the mismatch first</li>
+</ul>
+<h3 id="5-docsenvmd-had-drifted-behind-the-real-dependency-set">5. <code>docs/env.md</code> had drifted behind the real dependency set<a class="headerlink" href="#5-docsenvmd-had-drifted-behind-the-real-dependency-set" title="Permanent link">&para;</a></h3>
+<p>Before this review, <code>docs/env.md</code> described <code>gdal</code> and <code>xarray</code> as core libs
+but did not reflect the actual package dependencies in <code>pyproject.toml</code>.</p>
+<p>This was updated in the current pass to reflect the real runtime stack and to
+clarify that <code>rioxarray</code> / <code>xarray</code> are useful optional notebook companions,
+not direct package requirements.</p>
+<h3 id="6-the-current-full-extra-is-redundant">6. The current <code>full</code> extra is redundant<a class="headerlink" href="#6-the-current-full-extra-is-redundant" title="Permanent link">&para;</a></h3>
+<p>Because <code>spectral</code> and <code>ray[default]</code> already live in base dependencies, the
+<code>full</code> extra does not currently provide additional installation value.</p>
+<p>Recommendation:</p>
+<ul>
+<li>avoid changing extras automatically in this pass</li>
+<li>revisit extras design only as part of a broader packaging/install strategy</li>
+</ul>
+<h2 id="recommendation-summary">Recommendation summary<a class="headerlink" href="#recommendation-summary" title="Permanent link">&para;</a></h2>
+<p>Current safest posture:</p>
+<ol>
+<li>keep <code>ray[default]</code> required</li>
+<li>keep <code>rasterio</code> required</li>
+<li>keep <code>geopandas</code> required</li>
+<li>treat extras redesign as a separate packaging project, not a release-hygiene tweak</li>
+</ol>
+<h2 id="follow-up">Follow-up<a class="headerlink" href="#follow-up" title="Permanent link">&para;</a></h2>
+<p>If maintainers want a lighter install profile later, it should be introduced as
+a deliberate compatibility project with:</p>
+<ul>
+<li>clear “core vs full” workflow boundaries</li>
+<li>updated optional-import error messages</li>
+<li>revised docs for installation modes</li>
+<li>CI coverage for both install profiles</li>
+</ul>
+<p>No dependency declarations were changed automatically in this review.</p>
 
 
 
