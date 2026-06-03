@@ -4864,3 +4864,10 @@ Branch: main
 ```text
 i think these arrows are not going the correct direction. also, the quick start page looks like the old design. can you make all the sub pages match the primary page and also make sure that the the sub pages are up to date with the real details in the package.
 ```
+
+## 2026-06-02 - work through feature requests
+Branch: main
+
+```text
+start working through all the feature requests and do any that you're able to. remove a task from the list if it's done. our goal is to finish all the feature requests but don't do anything that will break the functionality so skip the feature request if you think it will break something. We want this to be publication quality, so do the best you can at making it perfect on the first try.
+```

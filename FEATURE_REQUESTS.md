@@ -144,9 +144,29 @@ left incomplete so the next agent can resume immediately.
 ### P4. Preserve Chunked Processing
 
 - Priority: P4
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-02
 - Goal: Review drone extraction paths and confirm chunked reading, correction,
   extraction, and restart-safe behavior are preserved.
+- Plan:
+  - Audit existing drone and polygon-extraction tests against the chunked
+    processing guarantees.
+  - Add any missing regression coverage needed to prove chunked reading and
+    extraction are still the live path.
+  - Only mark complete if the current implementation preserves chunked behavior
+    without needing risky functional changes.
+- Completion notes:
+  - Confirmed existing drone correction coverage already locks the correction
+    path to chunked full-scene iteration through `apply_drone_corrections`.
+  - Added a focused regression test in `tests/test_polygon_extraction.py`
+    proving `process_raster_in_chunks` still reads and writes multiple chunk
+    windows instead of collapsing to a whole-raster extraction path.
+  - Updated stale polygon-extraction tests to patch the current
+    `require_rasterio()` import path, keeping the test suite aligned with the
+    live implementation.
+- Next recommended task: Continue with P5 to decide whether the current drone
+  pipeline fully satisfies per-flight parquet expectations beyond polygon mode.
 
 ### P5. Per-Flight Parquet Validation
 
@@ -181,10 +201,28 @@ left incomplete so the next agent can resume immediately.
 ### P9. Namespace And Container Compatibility
 
 - Priority: P9
-- Status: Todo
+- Status: In progress
+- Owner: Codex
+- Started: 2026-06-02
 - Goal: Keep `import spectralbridge` canonical while preserving
   `import cross_sensor_cal` compatibility, add import/CLI tests, and avoid
   cwd-dependent behavior.
+- Plan:
+  - Extend compatibility tests to assert the deprecation warning and key public
+    imports under both namespaces.
+  - Add a packaging-level test for the published console-script entry points so
+    docs and release metadata stay aligned with the implementation.
+  - Avoid changing import behavior unless a test proves a real compatibility
+    gap.
+- Progress notes:
+  - Added tests asserting that `import cross_sensor_cal` emits the expected
+    deprecation warning while still re-exporting key top-level helpers from
+    `spectralbridge`.
+  - Added a packaging-level test that every published console-script entry
+    point in `pyproject.toml` resolves to a callable implementation.
+- Remaining work:
+  - CWD/container-path assumptions have not been exhaustively audited yet, so
+    this item stays in progress.
 
 ### P10. CI Hardening
 
@@ -203,9 +241,16 @@ left incomplete so the next agent can resume immediately.
 ### P12. Public API Contract Review
 
 - Priority: P12
-- Status: Todo
+- Status: In progress
+- Owner: Codex
+- Started: 2026-06-02
 - Goal: Review whether current smoke tests capture intentional public APIs
   without freezing internal helpers.
+- Plan:
+  - Review the current smoke-test strategy against the package’s declared
+    exports and documented entry points.
+  - Narrow the smoke matrix to intentionally public callables so internal
+    helpers can continue to evolve safely.
 
 ### P13. Release Hygiene
 
