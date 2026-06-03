@@ -1,128 +1,151 @@
 # Command-Line Interface (CLI)
 
-The CLI provides restart-safe entry points for downloading NEON flightlines, running the full pipeline, generating QA outputs, and merging Parquet artefacts.
+<div class="sb-doc-page" markdown="1">
+  <section class="sb-doc-hero" markdown="1">
+    <p class="sb-kicker">Usage</p>
+    <h1>Command-Line Interface</h1>
+    <p class="sb-doc-lead">The CLI provides restart-safe entry points for downloading NEON flightlines, running the full pipeline, generating QA outputs, and repairing missing intermediate products.</p>
+    <p class="sb-doc-note">Legacy CLI aliases still forward to the same implementation, but the primary command names are <code>spectralbridge-*</code>.</p>
+  </section>
 
-> Legacy CLI entry points still work and forward to the same implementation,
-> but the primary names are ``spectralbridge-*``.
+  <section class="sb-doc-section" markdown="1">
+    <p class="sb-kicker">Entry points</p>
+    <h2>Available commands</h2>
+    <div class="sb-doc-grid sb-doc-grid--two">
+      <article class="sb-doc-card">
+        <h3><code>spectralbridge-download</code></h3>
+        <p>Download NEON HDF5 flightlines into a workspace.</p>
+      </article>
+      <article class="sb-doc-card">
+        <h3><code>spectralbridge-pipeline</code></h3>
+        <p>Run the full NEON processing pipeline end to end.</p>
+      </article>
+      <article class="sb-doc-card">
+        <h3><code>spectralbridge-qa</code></h3>
+        <p>Re-render QA PNG/JSON outputs for processed flightlines.</p>
+      </article>
+      <article class="sb-doc-card">
+        <h3><code>spectralbridge-recover-raw</code></h3>
+        <p>Backfill raw ENVI exports when corrected outputs already exist.</p>
+      </article>
+      <article class="sb-doc-card">
+        <h3><code>spectralbridge-qa-summary</code></h3>
+        <p>Build a multi-page PDF summary of recursive drone QA PNG outputs.</p>
+      </article>
+      <article class="sb-doc-card">
+        <h3><code>spectralbridge-merge-duckdb</code></h3>
+        <p>Merge per-product parquet outputs into a flightline-level master table.</p>
+      </article>
+    </div>
+  </section>
 
----
-
-## `spectralbridge-download`
-
-Purpose: Download NEON HDF5 flightlines into a workspace (`spectralbridge.cli:download_main`).
-
-**Usage:**
-
-```bash
-spectralbridge-download
-```
-
-**Key options:**
-- `site` (positional) and `--year-month` (required) identify the NEON flightlines.
-- `--flight` (repeatable) lists flightline IDs.
-- `--product` sets the NEON product code (default `DP1.30006.001`).
-- `--output` controls the destination directory (default `data`).
-
-**Outputs:** HDF5 files saved under `<output>/<site>/` for later `spectralbridge-pipeline` runs.
-
----
-
-## `spectralbridge-pipeline`
-
-Purpose: Run the full cross-sensor pipeline (`spectralbridge.cli.pipeline_cli:main`).
-
-**Usage:**
-
-```bash
-spectralbridge-pipeline
-```
-
-**Key options:**
-- Required: `--base-folder`, `--site-code`, `--year-month`, `--product-code`, `--flight-lines`.
-- Resampling: `--resample-method` (`convolution`, `legacy`, or `resample`).
-- Performance: `--engine` (`thread`, `process`, `ray`), `--max-workers` (defaults to 8), `--parquet-chunk-size`.
-- Merge tuning: `--merge-memory-limit`, `--merge-threads`, `--merge-row-group-size`, `--merge-temp-directory`.
-- Radiometry: `--brightness-offset` for ENVI export.
-
-**Outputs:** Everything listed in [Outputs](../pipeline/outputs.md), including `_merged_pixel_extraction.parquet` and `_qa.png`.
-
----
-
-## `spectralbridge-qa`
-
-Purpose: Re-render QA panels/metrics for existing flightline folders (`spectralbridge.cli.qa_cli:main`).
-
-**Usage:**
+  <section class="sb-doc-section" markdown="1">
+    <h2><code>spectralbridge-download</code></h2>
+    <p>Downloads NEON HDF5 flightlines into a workspace directory using the package download helpers.</p>
 
 ```bash
-spectralbridge-qa
+spectralbridge-download SOAP \
+  --year-month 2021-06 \
+  --flight NEON_D17_SOAP_DP1_L057-1_20210615_directional_reflectance \
+  --output data
 ```
 
-**Key options:**
-- `--base-folder` (required) points to the workspace containing flightline directories.
-- Sampling: `--quick` (25k deterministic sample) vs `--full` (use configured size), `--n-sample` to override pixel count.
-- `--rgb-bands` to override RGB band selection.
-- `--save-json` to toggle writing `<flight_id>_qa.json`.
-- `--out-dir` to copy PNG/JSON outputs elsewhere after generation.
+    <ul class="sb-doc-list">
+      <li>Required: positional <code>site</code>, <code>--year-month</code>, and one or more <code>--flight</code> values</li>
+      <li>Optional: <code>--product</code> defaults to <code>DP1.30006.001</code></li>
+      <li>Optional: <code>--output</code> defaults to <code>data</code>, with downloads written under <code>&lt;output&gt;/&lt;site&gt;/</code></li>
+    </ul>
+  </section>
 
-**Outputs:** QA PNG/JSON (and PDF if rendered) following the naming in [Outputs](../pipeline/outputs.md).
-
----
-
-## `spectralbridge-recover-raw`
-
-Purpose: Backfill raw ENVI exports when corrected products already exist (`spectralbridge.cli.recover_cli:main`).
-
-**Usage:**
+  <section class="sb-doc-section" markdown="1">
+    <h2><code>spectralbridge-pipeline</code></h2>
+    <p>Runs the main NEON pipeline and writes all canonical outputs for each flightline.</p>
 
 ```bash
-spectralbridge-recover-raw
+spectralbridge-pipeline \
+  --base-folder output_demo \
+  --site-code NIWO \
+  --year-month 2023-08 \
+  --product-code DP1.30006.001 \
+  --flight-lines NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance \
+  --engine thread \
+  --max-workers 2
 ```
 
-**Key options:**
-- `--base-folder` (required) where HDF5 and flightline folders live.
-- `--brightness-offset` to pass through to `stage_export_envi_from_h5`.
+    <div class="sb-doc-grid sb-doc-grid--two">
+      <article class="sb-doc-card">
+        <h3>Required options</h3>
+        <p><code>--base-folder</code>, <code>--site-code</code>, <code>--year-month</code>, <code>--product-code</code>, and <code>--flight-lines</code>.</p>
+      </article>
+      <article class="sb-doc-card">
+        <h3>Parallel defaults</h3>
+        <p>The pipeline defaults to <code>--engine ray</code> and <code>--max-workers 8</code>.</p>
+      </article>
+      <article class="sb-doc-card">
+        <h3>Resampling controls</h3>
+        <p><code>--resample-method</code> accepts <code>convolution</code>, <code>legacy</code>, or <code>resample</code>.</p>
+      </article>
+      <article class="sb-doc-card">
+        <h3>Merge controls</h3>
+        <p>Use <code>--merge-memory-limit</code>, <code>--merge-threads</code>, <code>--merge-row-group-size</code>, and <code>--merge-temp-directory</code> to tune DuckDB merging.</p>
+      </article>
+    </div>
 
-**Outputs:** Restores `<flight_id>_envi.(img|hdr)` so later stages can proceed or be revalidated.
+    <p>Outputs include raw ENVI exports when available, corrected ENVI, sensor-resampled products, per-product parquet sidecars, <code>_merged_pixel_extraction.parquet</code>, and QA files. See <a href="../pipeline/outputs/">Outputs &amp; File Structure</a> for the full contract.</p>
+  </section>
 
----
-
-## `spectralbridge-qa-dashboard`
-
-Purpose: Aggregate QA metrics across flightlines and build an overview plot (`spectralbridge.qa_dashboard:main`).
-
-**Usage:**
+  <section class="sb-doc-section" markdown="1">
+    <h2><code>spectralbridge-qa</code></h2>
+    <p>Recomputes QA PNG and JSON outputs for existing flightline folders.</p>
 
 ```bash
-spectralbridge-qa-dashboard
+spectralbridge-qa --base-folder output_demo --quick
 ```
 
-**Key options:**
-- `--base-folder` (required) root containing flightline outputs.
-- `--out-parquet` to choose the aggregated summary parquet path.
-- `--out-png` to choose the dashboard PNG path.
+    <ul class="sb-doc-list">
+      <li><code>--base-folder</code> is required</li>
+      <li><code>--quick</code> uses the deterministic 25k-pixel path; <code>--full</code> disables that subsampling shortcut</li>
+      <li><code>--n-sample</code> defaults to <code>100000</code></li>
+      <li><code>--rgb-bands</code> accepts values such as <code>660,560,490</code> or symbolic <code>R,G,B</code></li>
+      <li><code>--save-json / --no-save-json</code> controls whether <code>_qa.json</code> is written alongside the PNG</li>
+      <li><code>--out-dir</code> copies the generated QA files elsewhere after rendering</li>
+    </ul>
+  </section>
 
-**Outputs:** `qa_dashboard_summary.parquet` and `qa_dashboard_summary.png` (default locations inside the base folder) summarizing `<flight_id>_qa_metrics.parquet` tables.
-
----
-
-## `spectralbridge-merge-duckdb`
-
-Purpose: Merge per-product Parquet tables into a master parquet and optional QA panel (`spectralbridge.merge_duckdb:main`).
-
-**Usage:**
+  <section class="sb-doc-section" markdown="1">
+    <h2><code>spectralbridge-recover-raw</code></h2>
+    <p>Scans a base folder for HDF5 plus corrected ENVI outputs and backfills missing raw ENVI exports so restart-safe downstream stages can continue cleanly.</p>
 
 ```bash
-spectralbridge-merge-duckdb
+spectralbridge-recover-raw \
+  --base-folder output_demo \
+  --brightness-offset 0.0
+```
+  </section>
+
+  <section class="sb-doc-section" markdown="1">
+    <h2><code>spectralbridge-qa-summary</code></h2>
+    <p>Builds a multi-page PDF summary by recursively finding drone QA PNG files.</p>
+
+```bash
+spectralbridge-qa-summary drone_outputs --output-pdf drone_outputs/qa_summary.pdf
 ```
 
-**Key options:**
-- `--data-root` (required) and `--flightline-glob` to locate flightline folders.
-- `--out-name` to override the default `<prefix>_merged_pixel_extraction.parquet`.
-- Input globs: `--original-glob`, `--corrected-glob`, `--resampled-glob`.
-- QA and format controls: `--no-qa` to skip PNG, `--write-feather` to emit Feather alongside Parquet.
-- Merge tuning: `--merge-memory-limit`, `--merge-threads`, `--merge-row-group-size`, `--merge-temp-directory`.
+    <ul class="sb-doc-list">
+      <li>Required: positional <code>base_dir</code></li>
+      <li>Optional: <code>--output-pdf</code> to override the default output path</li>
+      <li>Optional: <code>--pattern</code> defaults to <code>*__qa.png</code></li>
+    </ul>
+  </section>
 
-**Outputs:** Merged parquet (and optional QA PNG/JSON) matching the naming patterns in [Outputs](../pipeline/outputs.md).
+  <section class="sb-doc-section" markdown="1">
+    <h2><code>spectralbridge-merge-duckdb</code></h2>
+    <p>Merges per-product parquet tables into a master parquet and can optionally render QA alongside the merge output.</p>
 
----
+```bash
+spectralbridge-merge-duckdb --help
+```
+
+    <p>Use this command when you need direct control over parquet merging outside the main pipeline orchestration.</p>
+  </section>
+</div>

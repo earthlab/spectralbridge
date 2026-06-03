@@ -231,10 +231,31 @@ left incomplete so the next agent can resume immediately.
 ### P16. Documentation Modernization
 
 - Priority: P16
-- Status: Todo
+- Status: In progress
+- Owner: Codex
+- Started: 2026-06-02
 - Goal: Prefer `import spectralbridge` in examples while documenting HDF5
   contracts, chunking, restart behavior, parquet authority, CSV sidecars, and
   drone/NEON workflows.
+- Plan:
+  - Bring the homepage workflow visuals and high-traffic subpages into the new
+    docs visual system so the site feels consistent end to end.
+  - Audit `quickstart.md`, `usage/cli.md`, and the pipeline overview/output
+    pages against the current package entry points and documented outputs.
+  - Update page structure and copy to match the actual CLI defaults, outputs,
+    and restart-safe behavior without inventing features.
+- Progress notes:
+  - Updated the homepage workflow arrows to match the left-to-right visual
+    flow.
+  - Reworked `docs/quickstart.md`, `docs/usage/cli.md`,
+    `docs/pipeline/stages.md`, and `docs/pipeline/outputs.md` into the newer
+    docs visual system while aligning examples and command details with the
+    current package entry points.
+  - Added broader docs styling so non-homepage pages better match the primary
+    landing-page direction without requiring a full docs rewrite in one pass.
+- Remaining work:
+  - Additional pages still use the older content structure and could use the
+    same modernization treatment in a follow-up pass.
 
 ### P17. Architecture Audit
 

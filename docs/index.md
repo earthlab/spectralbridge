@@ -61,13 +61,13 @@ hide:
     </div>
     <div class="sb-workflow">
       <div class="sb-workflow__step">Raw Data</div>
-      <div class="sb-workflow__arrow" aria-hidden="true">↓</div>
+      <div class="sb-workflow__arrow" aria-hidden="true">→</div>
       <div class="sb-workflow__step">Quality Assessment</div>
-      <div class="sb-workflow__arrow" aria-hidden="true">↓</div>
+      <div class="sb-workflow__arrow" aria-hidden="true">→</div>
       <div class="sb-workflow__step">Correction &amp; Harmonization</div>
-      <div class="sb-workflow__arrow" aria-hidden="true">↓</div>
+      <div class="sb-workflow__arrow" aria-hidden="true">→</div>
       <div class="sb-workflow__step">Extraction &amp; Summarization</div>
-      <div class="sb-workflow__arrow" aria-hidden="true">↓</div>
+      <div class="sb-workflow__arrow" aria-hidden="true">→</div>
       <div class="sb-workflow__step">Analysis-Ready Products</div>
     </div>
     <p class="sb-section__support">SpectralBridge helps standardize hyperspectral processing while preserving transparency, reproducibility, and scientific traceability at every step.</p>

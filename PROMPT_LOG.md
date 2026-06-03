@@ -4857,3 +4857,10 @@ Branch: main
 ```text
 the homepage content is leaving room for a sidebar but there is not side bar. also, the header logo is way too small so you can read it and the logo had the name and then the text repeats the name in the header
 ```
+
+## 2026-06-02 - docs consistency and workflow accuracy
+Branch: main
+
+```text
+i think these arrows are not going the correct direction. also, the quick start page looks like the old design. can you make all the sub pages match the primary page and also make sure that the the sub pages are up to date with the real details in the package.
+```
