@@ -5002,3 +5002,10 @@ Branch: main
 ```text
 i think we can remove it and make sure all the plots in the qa plot are properly labelled.
 ```
+
+## 2026-06-03 - finish p16 and p24
+Branch: main
+
+```text
+do those two
+```

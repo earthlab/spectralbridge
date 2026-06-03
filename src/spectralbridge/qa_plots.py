@@ -47,7 +47,6 @@ from .qa_metrics import (
 )
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 _DEFAULT_RGB_TARGETS = (660.0, 560.0, 490.0)
 _EXPECTED_HEADER_KEYS = ["wavelength", "fwhm", "band names"]

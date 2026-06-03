@@ -35,6 +35,7 @@ if TYPE_CHECKING:  # pragma: no cover - only for type hints
 _BRDF_COEFF_CACHE: dict[Path, dict[str, np.ndarray | str]] = {}
 MAX_UNITLESS_REFLECTANCE = 1.2
 MIN_SCS_C_DENOM = 1e-3
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -90,14 +91,14 @@ def log_stats(name: str, arr: np.ndarray, mask: np.ndarray | None = None) -> Non
         mask = np.ones_like(arr, dtype=bool)
     finite = np.isfinite(arr) & mask
     if finite.size == 0:
-        logging.debug("%s: empty array", name)
+        logger.debug("%s: empty array", name)
         return
     fraction_valid = np.count_nonzero(finite) / finite.size
     if np.count_nonzero(finite) == 0:
-        logging.debug("%s: all non-finite (mask fraction=%.5f)", name, fraction_valid)
+        logger.debug("%s: all non-finite (mask fraction=%.5f)", name, fraction_valid)
         return
     subset = arr[finite]
-    logging.debug(
+    logger.debug(
         "%s: min=%.6f max=%.6f valid_fraction=%.5f",
         name,
         float(np.nanmin(subset)),
@@ -496,7 +497,7 @@ def apply_topo_correct(
             x = cos_i_valid.astype(np.float64, copy=False)
             finite = np.isfinite(y) & np.isfinite(x)
             if np.count_nonzero(finite) < 2:
-                logging.debug("Band %d: insufficient samples for SCS+C; using neutral", band)
+                logger.debug("Band %d: insufficient samples for SCS+C; using neutral", band)
                 continue
 
             # ``X = [cos(i), 1]`` means least squares is fitting:
@@ -507,11 +508,11 @@ def apply_topo_correct(
                 coeffs, *_ = np.linalg.lstsq(X, y[finite], rcond=None)
                 a, b = coeffs
             except np.linalg.LinAlgError:
-                logging.debug("Band %d: regression failed; using neutral", band)
+                logger.debug("Band %d: regression failed; using neutral", band)
                 continue
             if np.isclose(a, 0.0):
                 C_val = 0.0
-                logging.debug("Band %d: regression slope near zero; C set to 0", band)
+                logger.debug("Band %d: regression slope near zero; C set to 0", band)
             else:
                 # ``C = b / a`` is the classic SCS+C parameter. It shifts both the
                 # numerator and denominator so the correction is less extreme than a
@@ -527,7 +528,7 @@ def apply_topo_correct(
             # prevents huge corrections near singular geometry.
             ratio_valid = _scs_c_ratio(num, den, min_denom=min_denom)
             if np.any(tiny & (den <= min_denom)):
-                logging.debug(
+                logger.debug(
                     "Band %d: %.5f fraction of pixels hit denom<=%.1e guard",
                     band,
                     np.count_nonzero(tiny & (den <= min_denom)) / tiny.size,
@@ -620,14 +621,14 @@ def apply_brdf_correct(
                     }
                     _BRDF_COEFF_CACHE[coeff_path_resolved] = coeffs_dict
             except (FileNotFoundError, json.JSONDecodeError, ValueError, TypeError) as exc:
-                logging.warning(
+                logger.warning(
                     "⚠️  Failed to load BRDF coefficients from %s (%s); falling back to cube/neutrals.",
                     coeff_path_resolved,
                     exc,
                 )
                 coeffs_dict = None
         else:
-            logging.warning(
+            logger.warning(
                 "⚠️  BRDF coefficient file %s not found; falling back to cube/neutrals.",
                 coeff_path_resolved,
             )
@@ -663,7 +664,7 @@ def apply_brdf_correct(
 
     expected_bands = chunk_array.shape[-1]
     if coeffs_dict is None:
-        logging.warning(
+        logger.warning(
             "⚠️  No BRDF coefficients available for %s; using neutral coefficients.",
             getattr(cube, "base_key", "unknown"),
         )
@@ -702,7 +703,7 @@ def apply_brdf_correct(
     n_bins = edges.size - 1 if edges.size >= 2 else 1
     bin_idx_safe = bin_idx.copy()
     if np.any(bin_idx_safe < 0):
-        logging.debug(
+        logger.debug(
             "NDVI binning: %d pixels outside [%0.3f,%0.3f]; assigning to bin 0",
             np.count_nonzero(bin_idx_safe < 0),
             edges[0] if edges.size else ndvi_config.ndvi_min,
@@ -720,7 +721,7 @@ def apply_brdf_correct(
         geo = geo[np.newaxis, :]
 
     if iso.shape[1] != expected_bands:
-        logging.warning(
+        logger.warning(
             "⚠️  BRDF coefficient size mismatch (%d vs %d); falling back to neutral coefficients.",
             iso.shape[1],
             expected_bands,
@@ -730,7 +731,7 @@ def apply_brdf_correct(
         geo = np.zeros_like(iso)
 
     if iso.shape[0] != n_bins:
-        logging.warning(
+        logger.warning(
             "⚠️  BRDF coefficient NDVI bin mismatch (%d vs %d); broadcasting neutral coefficients across bins.",
             iso.shape[0],
             n_bins,

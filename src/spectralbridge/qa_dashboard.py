@@ -13,6 +13,7 @@ import pandas as pd
 
 from spectralbridge._cli_compat import warn_if_legacy_command
 from spectralbridge.exports.geo_utils import write_parquet_with_lonlat
+from spectralbridge.logging_utils import configure_cli_logging
 
 
 logger = logging.getLogger(__name__)
@@ -131,10 +132,10 @@ def _default_outputs(base_folder: Path) -> tuple[Path, Path]:
 
 
 def main(argv: Iterable[str] | None = None) -> None:
-    """Entry-point for the ``cscal-qa-dashboard`` CLI."""
+    """Entry-point for the ``spectralbridge-qa-dashboard`` CLI."""
 
     warn_if_legacy_command()
-    logging.basicConfig(level=logging.INFO)
+    configure_cli_logging()
 
     parser = argparse.ArgumentParser(
         description="Aggregate and summarize QA metrics across flightlines."
@@ -180,4 +181,3 @@ def main(argv: Iterable[str] | None = None) -> None:
 
 if __name__ == "__main__":  # pragma: no cover
     main()
-

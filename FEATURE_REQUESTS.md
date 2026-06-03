@@ -470,11 +470,49 @@ left incomplete so the next agent can resume immediately.
 ### P24. Logging Configuration Cleanup And Harmonization
 
 - Priority: P11
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Incrementally unify library vs CLI logging behavior, reduce import-time
   logger side effects, and standardize progress/log capture behavior across
   NEON, drone, multiprocessing, and Ray paths without destabilizing the
   scientific pipeline.
+- Plan:
+  - Remove the safest import-time logger side effects first, especially where
+    modules force levels or call root logging helpers during import.
+  - Keep CLI-visible logging behavior intact by moving configuration into
+    explicit runtime helpers where possible.
+  - Add focused regression coverage for the changed logging contracts instead
+    of attempting a broad logging-system rewrite.
+- Completion notes:
+  - Added `src/spectralbridge/logging_utils.py` with a shared
+    `configure_cli_logging()` helper so CLI entry points configure root logging
+    only when the root logger is otherwise unconfigured.
+  - Updated `src/spectralbridge/qa_dashboard.py` and
+    `src/spectralbridge/cli/recover_cli.py` to use the shared helper instead
+    of calling `logging.basicConfig(...)` inline, and made
+    `recover_cli.main()` accept optional argv for cleaner testability.
+  - Removed `qa_plots` import-time level forcing so the module no longer
+    silently pins its logger to `INFO`.
+  - Switched `src/spectralbridge/corrections.py` from direct root-logger calls
+    to a module-scoped logger so logging behavior now follows the package
+    namespace hierarchy instead of bypassing it.
+  - Added `tests/test_logging_config.py` to cover the shared CLI logging
+    helper, the `qa_plots` import contract, the `corrections.log_stats()`
+    logger path, and the updated CLI entry point setup.
+- Verification:
+  - `python3 -m py_compile src/spectralbridge/logging_utils.py src/spectralbridge/qa_dashboard.py src/spectralbridge/cli/recover_cli.py src/spectralbridge/qa_plots.py src/spectralbridge/corrections.py tests/test_logging_config.py`
+  - `CSCAL_TEST_MODE=full .venv/bin/pytest -q tests/test_logging_config.py`
+  - `CSCAL_TEST_MODE=full .venv/bin/pytest -q tests/test_drone_pipeline.py -k 'render_drone_panel_logs_sampling_debug_and_writes_debug_payload or render_drone_panel_includes_correction_status or render_drone_panel_places_invalid_maps_on_bottom_row'`
+
+### P33. Pipeline Logger Ownership Review
+
+- Priority: P11
+- Status: Todo
+- Goal: Decide whether the module-owned handler in
+  `spectralbridge.pipelines.pipeline` should remain an intentional application
+  behavior or eventually move to the same explicit runtime-configuration model
+  now used by the lighter CLI utilities.
 
 ### P12. Public API Contract Review
 
@@ -556,8 +594,10 @@ left incomplete so the next agent can resume immediately.
 
 ### P16. Documentation Modernization
 
+### P16. Documentation Modernization
+
 - Priority: P16
-- Status: In progress
+- Status: Completed
 - Owner: Codex
 - Started: 2026-06-02
 - Goal: Prefer `import spectralbridge` in examples while documenting HDF5
@@ -587,10 +627,20 @@ left incomplete so the next agent can resume immediately.
     package behavior, restart guidance, and CLI entry points.
   - Verified that the public docs and `README.md` no longer contain stale
     `cross_sensor_cal` or `cross-sensor-cal` references.
-- Remaining work:
-  - Additional tutorial, reference, and FAQ pages still use the older content
-  structure and could use the same modernization treatment in a follow-up
-  pass after the highest-traffic pages are aligned.
+- Completion notes:
+  - Modernized the remaining older public docs pages that were still visually
+    and structurally out of sync with the refreshed site, including
+    `docs/faq.md`, `docs/reference/configuration.md`,
+    `docs/reference/validation.md`, `docs/reference/schemas.md`,
+    `docs/api/index.md`, and `docs/tutorials/cloud-workflow.md`.
+  - Updated those pages to use the newer card-and-section layout while keeping
+    examples aligned with the current package behavior, canonical namespace,
+    restart-safe workflow, and published CLI entry points.
+  - Corrected stale configuration guidance by removing unsupported runtime
+    environment-variable claims and documenting the environment knobs that are
+    actually read by the current code.
+- Verification:
+  - `python3 scripts/check_docs_links.py`
 
 ### P17. Architecture Audit
 

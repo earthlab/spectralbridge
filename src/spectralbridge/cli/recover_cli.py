@@ -1,18 +1,20 @@
 import argparse
 import logging
 from pathlib import Path
+from typing import Sequence
 
 from spectralbridge._cli_compat import warn_if_legacy_command
+from spectralbridge.logging_utils import configure_cli_logging
 from spectralbridge.pipelines.pipeline import stage_export_envi_from_h5
 
 logger = logging.getLogger(__name__)
 
 
-def main() -> None:
+def main(argv: Sequence[str] | None = None) -> None:
     """Recover raw ENVI exports when corrected products already exist."""
 
     warn_if_legacy_command()
-    logging.basicConfig(level=logging.INFO)
+    configure_cli_logging()
 
     parser = argparse.ArgumentParser(
         description=(
@@ -21,7 +23,7 @@ def main() -> None:
     )
     parser.add_argument("--base-folder", required=True, type=Path)
     parser.add_argument("--brightness-offset", type=float, default=0.0)
-    args = parser.parse_args()
+    args = parser.parse_args(list(argv) if argv is not None else None)
 
     base_folder: Path = args.base_folder
 
