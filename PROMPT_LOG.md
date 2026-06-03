@@ -4843,3 +4843,10 @@ FAILED tests/test_docs_playwright.py::test_docs_site_core_pages_render_in_browse
  +        where locator = <Page url='http://127.0.0.1:8000/'>.locator
 Error: Process completed with exit code 1.
 ```
+
+## 2026-06-02 - homepage quality redesign pass
+Branch: main
+
+```text
+this is not a great homepage
+```

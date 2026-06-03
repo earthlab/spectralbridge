@@ -38,7 +38,7 @@
   width: auto;
 }
 
-.md-typeset img[alt="SpectralBridge logo"]:first-child {
+.md-typeset .sb-preload-logo {
   display: none;
 }
 
@@ -65,33 +65,42 @@
 }
 
 .md-typeset .sb-hero {
-  background:
-    radial-gradient(circle at top left, rgba(255, 213, 79, 0.34), transparent 26rem),
-    linear-gradient(140deg, #f6fbff 0%, #eef7fc 48%, #f8fbfd 100%);
-  border: 1px solid var(--sb-border);
+  margin: 0 0 3rem;
+  position: relative;
+}
+
+.md-typeset .sb-hero__visual {
   border-radius: 2rem;
   box-shadow: var(--sb-shadow);
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 1fr);
-  margin: 0 0 3rem;
   overflow: hidden;
 }
 
-.md-typeset .sb-hero__media {
-  min-height: 100%;
-}
-
-.md-typeset .sb-hero__media img {
+.md-typeset .sb-hero__visual img {
   display: block;
-  height: 100%;
-  object-fit: cover;
   width: 100%;
 }
 
-.md-typeset .sb-hero__content {
-  align-self: center;
-  padding: 2.5rem 2.5rem 2.75rem 0.5rem;
+.md-typeset .sb-hero__panel {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 251, 255, 0.96));
+  border: 1px solid var(--sb-border);
+  border-radius: 1.6rem;
+  box-shadow: 0 18px 50px rgba(10, 49, 95, 0.14);
+  margin: -4rem auto 0;
+  max-width: 48rem;
+  padding: 2rem 2rem 2.1rem;
+  position: relative;
+  text-align: center;
+}
+
+.md-typeset .sb-hero__panel::before {
+  background: linear-gradient(90deg, rgba(11, 79, 138, 0.12), rgba(72, 162, 63, 0.12), rgba(213, 177, 0, 0.12));
+  border-radius: 999px;
+  content: "";
+  display: block;
+  height: 0.35rem;
+  margin: 0 auto 1.3rem;
+  width: 7rem;
 }
 
 .md-typeset .sb-eyebrow,
@@ -105,30 +114,32 @@
 }
 
 .md-typeset .sb-hero h1 {
-  font-size: clamp(2.7rem, 5vw, 4.6rem);
-  line-height: 0.95;
-  margin-bottom: 1.15rem;
+  font-size: clamp(3rem, 5vw, 4.9rem);
+  line-height: 0.98;
+  margin-bottom: 1rem;
 }
 
 .md-typeset .sb-hero__lead {
   color: var(--sb-blue-900);
-  font-size: 1.35rem;
+  font-size: 1.42rem;
   font-weight: 600;
   line-height: 1.35;
-  margin: 0 0 0.9rem;
-  max-width: 28rem;
+  margin: 0 auto 0.9rem;
+  max-width: 34rem;
 }
 
 .md-typeset .sb-hero__body {
-  font-size: 1rem;
-  margin: 0 0 1.6rem;
-  max-width: 30rem;
+  font-size: 1.04rem;
+  margin: 0 auto 1.7rem;
+  max-width: 38rem;
 }
 
 .md-typeset .sb-button-row {
   display: flex;
   flex-wrap: wrap;
+  margin: 0;
   gap: 0.85rem;
+  justify-content: center;
 }
 
 .md-typeset .sb-button {
@@ -318,12 +329,8 @@
 }
 
 @media screen and (max-width: 76.1875em) {
-  .md-typeset .sb-hero {
-    grid-template-columns: 1fr;
-  }
-
-  .md-typeset .sb-hero__content {
-    padding: 0 2rem 2rem;
+  .md-typeset .sb-hero__panel {
+    margin-top: -3rem;
   }
 
   .md-typeset .sb-card-grid--four,
@@ -347,12 +354,17 @@
 
 @media screen and (max-width: 44.9375em) {
   .md-typeset .sb-hero {
-    border-radius: 1.4rem;
     margin-bottom: 2rem;
   }
 
-  .md-typeset .sb-hero__content {
-    padding: 0 1.25rem 1.5rem;
+  .md-typeset .sb-hero__visual {
+    border-radius: 1.2rem;
+  }
+
+  .md-typeset .sb-hero__panel {
+    border-radius: 1.2rem;
+    margin-top: -1.5rem;
+    padding: 1.35rem 1.1rem 1.5rem;
   }
 
   .md-typeset .sb-section--workflow,

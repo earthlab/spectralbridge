@@ -1,11 +1,10 @@
-![SpectralBridge logo](asset/img/spectralbridge_logo.png)
-
 <div class="sb-home">
+  <img class="sb-preload-logo" src="asset/img/spectralbridge_logo.png" alt="SpectralBridge logo" loading="eager">
   <section class="sb-hero">
-    <div class="sb-hero__media">
-      <img src="asset/img/spectralbridge_logo.png" alt="SpectralBridge logo" loading="eager">
+    <div class="sb-hero__visual">
+      <img src="asset/img/spectralbridge_logo.png" alt="SpectralBridge hero banner" loading="eager">
     </div>
-    <div class="sb-hero__content">
+    <div class="sb-hero__panel">
       <p class="sb-eyebrow">Open scientific infrastructure for hyperspectral data</p>
       <h1 id="spectralbridge">SpectralBridge</h1>
       <p class="sb-hero__lead">Connect drone, airborne, and satellite observations through a single reproducible workflow.</p>
