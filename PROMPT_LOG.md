@@ -158,6 +158,13 @@ Branch: main
 i want to clean up the repo but not delete anything. there is a depricated folder. If we feel like anything is deletable, we should move it to the depricated folder rather than actually delete it. I don't expect there to be much vestigial code or documentation but I want to streamline where I can. I like verbose documentation so it's a feature not a bug to have tones of documentation but let's make sure it's correct documentation like it says the correct thing in the correct place. We are about to start a full code review and I want you to do a review first. I want you to comb through everything and try to give feedback on what needs done. I want you to make sure we have an agents.md file and a prompt log in the repo and that the human read me is up to date and accurate. If you find any issues that you want me to fix or address, add them to a features request document as you go and we'll review that at the end. You are welcome to fix small things along the way but I don't want you to make major changes without permission because they may break the code. for example, we use a lot of parquet to speed things up but you love to go back to cvs as an instinct. Don't change our parquet or our chunking or things, just try to clean things up for publication. If there is a chance that it could break something, add it to the feature request list rather than doing it youself. We want this to be ready for publication now that it works the way we want.
 ```
 
+## 2026-06-03 - continue feature request backlog
+Branch: main
+
+```text
+do those now
+```
+
 ## 2026-03-21 - add drone-specific QA plot workflow
 Branch: main
 

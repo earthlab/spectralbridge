@@ -171,18 +171,57 @@ left incomplete so the next agent can resume immediately.
 ### P5. Per-Flight Parquet Validation
 
 - Priority: P5
-- Status: Todo
+- Status: In progress
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Validate per-flight parquet outputs for polygon mode and full
   extraction, restore missing functionality if needed using chunked processing,
   and surface QA metadata for parquet/merge/CSV status.
+- Plan:
+  - Confirm the current polygon-mode per-flight parquet outputs retain polygon
+    metadata all the way through extraction and merge.
+  - Audit the no-polygon drone path against the requested
+    `<flight_stem>__extracted.parquet` expectation and treat any larger gap as
+    a follow-up only if it can be fixed safely without destabilizing restart
+    behavior.
+  - Keep chunked extraction intact while closing any metadata-loss regressions.
+- Progress notes:
+  - Audit found that polygon pixel-index parquets already store polygon
+    metadata, but direct ENVI-to-polygon extracted parquets currently drop that
+    metadata before merge.
+  - Fixed polygon-mode extraction so both the per-product parquet filter and
+    the direct ENVI chunked extractor preserve `polygon_id` and user polygon
+    attributes in the extracted per-flight parquet outputs.
+- Remaining work:
+  - The current drone no-polygon path intentionally ends in
+    `success_qa_only_no_polygons` rather than producing a
+    `<flight_stem>__extracted.parquet` full-scene output. Restoring that
+    expectation would be a larger behavioral change and is intentionally left
+    open pending a design decision so restart-safe behavior is not changed
+    casually.
+- Blockers:
+  - The requested no-polygon per-flight extracted parquet contract does not
+    match the current shipped drone workflow, so this item cannot be marked
+    complete without deciding whether to add a new chunked full-scene parquet
+    stage.
 
 ### P6. Drone QA And Failure-State Tests
 
 - Priority: P6
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Expand drone tests for orientation, extraction modes, chunking, CRS,
   overlap, metadata preservation, overlays, correction failures, and CSV
   failures.
+- Completion notes:
+  - Confirmed the existing suite already covers the requested categories across
+    `tests/test_neon_cube.py` and `tests/test_drone_pipeline.py`, including
+    orientation alignment, polygon and no-polygon execution paths, chunked
+    correction, CRS/overlap diagnostics, polygon metadata preservation, overlay
+    image generation, correction-unavailable handling, and CSV export failures.
+  - Re-ran a representative focused slice of those tests to verify the coverage
+    remains live after the polygon parquet metadata changes.
 
 ### P7. Restart, Checkpoint, And Recovery Integrity
 
@@ -194,9 +233,21 @@ left incomplete so the next agent can resume immediately.
 ### P8. Output Schema Stability
 
 - Priority: P8
-- Status: Todo
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-03
 - Goal: Protect required parquet schema fields, dtypes, and polygon metadata
   across per-flight and merged outputs.
+- Completion notes:
+  - Added a canonical-schema regression in `tests/test_schema_parity.py`
+    covering required field order through `CANONICAL_COLUMNS` while remaining
+    compatible with the lightweight fake-`pyarrow` test environment.
+  - Strengthened `tests/test_polygon_pipeline.py` to assert that extracted and
+    merged polygon parquets retain `polygon_id` plus user attributes such as
+    `species`.
+  - Updated `src/spectralbridge/polygons.py` so both polygon extraction paths
+    preserve polygon index metadata without abandoning chunked ENVI reads or
+    altering output naming.
 
 ### P9. Namespace And Container Compatibility
 
@@ -241,16 +292,16 @@ left incomplete so the next agent can resume immediately.
 ### P12. Public API Contract Review
 
 - Priority: P12
-- Status: In progress
+- Status: Completed
 - Owner: Codex
 - Started: 2026-06-02
 - Goal: Review whether current smoke tests capture intentional public APIs
   without freezing internal helpers.
-- Plan:
-  - Review the current smoke-test strategy against the package’s declared
-    exports and documented entry points.
-  - Narrow the smoke matrix to intentionally public callables so internal
-    helpers can continue to evolve safely.
+- Completion notes:
+  - Reworked the public API smoke tests to derive the matrix from intentional
+    module exports instead of every non-underscore helper found under `src/`.
+  - Kept coverage on top-level package, CLI, and pipeline entry points while
+    allowing internal helpers to evolve without being frozen into the contract.
 
 ### P13. Release Hygiene
 

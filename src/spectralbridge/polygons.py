@@ -1897,13 +1897,14 @@ def extract_polygon_parquet_from_envi(
         )
         return output_parquet_path
     
-    # Read polygon pixel IDs from index
+    # Read polygon pixel IDs and metadata from index so polygon attributes can
+    # stay attached to each filtered chunk without materializing the full scene.
     con = duckdb.connect()
     try:
-        pixel_ids_df = con.execute(
-            f"SELECT DISTINCT pixel_id FROM read_parquet('{_quote_path(polygon_index_path)}')"
+        polygon_index_df = con.execute(
+            f"SELECT * FROM read_parquet('{_quote_path(polygon_index_path)}')"
         ).df()
-        polygon_pixel_ids = set(pixel_ids_df["pixel_id"].tolist())
+        polygon_pixel_ids = set(polygon_index_df["pixel_id"].tolist())
         LOGGER.info(
             "[polygons-extract-envi] Polygon contains %d unique pixels",
             len(polygon_pixel_ids),
@@ -1913,6 +1914,15 @@ def extract_polygon_parquet_from_envi(
     
     if not polygon_pixel_ids:
         raise ValueError("Polygon index contains no pixels")
+
+    polygon_metadata_columns = [
+        "pixel_id",
+        *[
+            col
+            for col in polygon_index_df.columns
+            if col != "pixel_id"
+        ],
+    ]
     
     # Read ENVI in chunks and filter by polygon pixel_ids
     parquet_name = output_parquet_path.name
@@ -1961,7 +1971,17 @@ def extract_polygon_parquet_from_envi(
             # Filter to only polygon pixels
             filtered = df_chunk[df_chunk["pixel_id"].isin(polygon_pixel_ids)]
             if not filtered.empty:
-                yield filtered
+                metadata_columns = [
+                    col
+                    for col in polygon_metadata_columns
+                    if col == "pixel_id" or col not in filtered.columns
+                ]
+                yield filtered.merge(
+                    polygon_index_df[metadata_columns],
+                    on="pixel_id",
+                    how="left",
+                    copy=False,
+                )
     
     filtered_iter = _filtered_iterator()
     
@@ -2165,15 +2185,29 @@ def extract_polygon_parquets_for_flightline(
             LOGGER.info(
                 "[polygons-extract] Filtering %s → %s", parquet_path.name, out_path.name
             )
+            index_columns = _describe_parquet_columns(con, polygon_index_path)
+            product_columns = _describe_parquet_columns(con, parquet_path)
+            select_terms = [
+                f"idx.{_quote_identifier(col)} AS {_quote_identifier(col)}"
+                for col in index_columns
+            ]
+            seen_columns = set(index_columns)
+            for col in product_columns:
+                if col == "pixel_id" or col in seen_columns:
+                    continue
+                select_terms.append(
+                    f"p.{_quote_identifier(col)} AS {_quote_identifier(col)}"
+                )
+                seen_columns.add(col)
+
             sql = (
-                "COPY ("
-                "SELECT p.* FROM read_parquet('"
-                + _quote_path(parquet_path)
-                + "') p "
-                "INNER JOIN read_parquet('"
+                "COPY (SELECT "
+                + ", ".join(select_terms)
+                + " FROM read_parquet('"
                 + _quote_path(polygon_index_path)
-                + "') idx USING (pixel_id)"
-                ") TO '"
+                + "') idx INNER JOIN read_parquet('"
+                + _quote_path(parquet_path)
+                + "') p USING (pixel_id)) TO '"
                 + _quote_path(out_path)
                 + "' (FORMAT PARQUET)"
             )

@@ -139,6 +139,9 @@ def test_extract_polygon_parquets_for_flightline(tmp_path: Path) -> None:
     for path in outputs.values():
         df = _read_parquet(path)
         assert set(df["pixel_id"]) <= {0, 1, 4, 5}
+        assert "polygon_id" in df.columns
+        assert "species" in df.columns
+        assert set(df["species"].dropna()) == {"fir"}
 
 
 def test_merge_polygon_parquets_for_flightline(tmp_path: Path) -> None:
@@ -161,6 +164,8 @@ def test_merge_polygon_parquets_for_flightline(tmp_path: Path) -> None:
     assert "corr_b001_wl0450nm" in merged.columns
     assert "landsat_tm_b001_wl0485nm" in merged.columns
     assert "polygon_id" in merged.columns
+    assert "species" in merged.columns
+    assert set(merged["species"].dropna()) == {"fir"}
 
 
 def test_run_polygon_pipeline_for_flightline(tmp_path: Path) -> None:

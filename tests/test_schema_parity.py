@@ -3,6 +3,7 @@ import numpy as np
 import pyarrow as pa
 
 from spectralbridge.io.neon_schema import detect_legacy, resolve, canonical_vectors
+from spectralbridge.pipelines.pipeline import CANONICAL_COLUMNS
 from spectralbridge.pipelines.pipeline import _to_canonical_table
 
 
@@ -88,3 +89,35 @@ def test_parquet_canonicalization():
     else:  # pragma: no cover - pyarrow stub returns dict-like structure
         assert "wavelength_nm" in out
         assert "fwhm_nm" in out
+
+
+def test_parquet_canonicalization_preserves_required_field_order_and_types():
+    tbl = pa.table(
+        {
+            "flightline_id": ["X"],
+            "row": [0],
+            "col": [1],
+            "x": [10.0],
+            "y": [20.0],
+            "band": [2],
+            "wavelength": [550.0],
+            "reflectance": [0.1],
+        }
+    )
+
+    out = _to_canonical_table(tbl)
+
+    if hasattr(out, "column_names"):
+        assert out.column_names[: len(CANONICAL_COLUMNS)] == CANONICAL_COLUMNS
+        if hasattr(out, "schema"):
+            assert out.schema.field("flightline_id").type == pa.string()
+            assert out.schema.field("row").type == pa.int64() or out.schema.field("row").type == pa.int32()
+            assert out.schema.field("col").type == pa.int64() or out.schema.field("col").type == pa.int32()
+            assert out.schema.field("x").type == pa.float64()
+            assert out.schema.field("y").type == pa.float64()
+            assert out.schema.field("band").type == pa.int64() or out.schema.field("band").type == pa.int32()
+            assert out.schema.field("wavelength_nm").type == pa.float32()
+            assert out.schema.field("fwhm_nm").type == pa.float32()
+            assert out.schema.field("reflectance").type == pa.float32()
+    else:  # pragma: no cover - pyarrow stub returns dict-like structure
+        assert list(out.keys())[: len(CANONICAL_COLUMNS)] == CANONICAL_COLUMNS
