@@ -4,7 +4,9 @@ import json
 from pathlib import Path
 
 import numpy as np
+import pytest
 
+import spectralbridge.qa_plots as qa_plots
 from spectralbridge.qa_plots import render_flightline_panel
 
 
@@ -41,3 +43,36 @@ def test_metrics_arrays_are_serialisable(qa_fixture_dir: Path) -> None:
         "overbright_pct",
         "issues",
     }
+
+
+def test_aop_qa_png_shows_raw_corrected_and_diagnostics(
+    qa_fixture_dir: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    plt = pytest.importorskip("matplotlib.pyplot")
+
+    captured: dict[str, object] = {}
+    original_subplots = qa_plots.plt.subplots
+
+    def _capture_subplots(*args, **kwargs):
+        fig, axes = original_subplots(*args, **kwargs)
+        if args[:2] == (2, 3) and "axes" not in captured:
+            captured["fig"] = fig
+            captured["axes"] = axes
+        return fig, axes
+
+    monkeypatch.setattr(qa_plots.plt, "subplots", _capture_subplots)
+    monkeypatch.setattr(qa_plots.plt, "close", lambda fig=None: None)
+
+    png_path, _ = render_flightline_panel(qa_fixture_dir, quick=True)
+
+    assert png_path.exists()
+    axes = captured["axes"]
+    assert axes[0, 0].get_title().startswith("Original ENVI RGB")
+    assert axes[0, 1].get_title().startswith("Corrected ENVI RGB")
+    assert axes[0, 2].get_title() == "Pre vs Post Histograms"
+    assert axes[1, 0].get_title() == "Correction Distribution By Wavelength"
+    assert axes[1, 1].get_title() == "Convolved vs Corrected"
+    assert axes[1, 2].get_title() == "QA Summary And Flags"
+
+    plt.close(captured["fig"])

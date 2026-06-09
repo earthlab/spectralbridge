@@ -2152,6 +2152,41 @@ def _render_issues(ax: Axes, issues: list[str]) -> None:
     )
 
 
+def _render_aop_qa_summary(ax: Axes, metrics: QAMetrics) -> None:
+    """Render a compact text summary for the normal AOP QA PNG."""
+
+    header = metrics.header
+    mask = metrics.mask
+    issue_lines = metrics.issues[:5] if metrics.issues else ["No general QA issues flagged."]
+    lines = [
+        f"Flightline: {metrics.provenance.flightline_id}",
+        f"Bands: {header.n_bands}",
+        f"Wavelengths: {header.first_nm} - {header.last_nm} nm",
+        f"Wavelength source: {header.wavelength_source}",
+        f"Valid pixels: {mask.valid_pct:.2f}%",
+        f"Negative reflectance: {metrics.negatives_pct:.2f}%",
+        f">1.2 reflectance: {metrics.overbright_pct:.2f}%",
+        "",
+        "Flags:",
+        *[f"- {issue}" for issue in issue_lines],
+    ]
+    if metrics.brightness_summary:
+        lines.extend(["", f"Brightness tables: {len(metrics.brightness_summary)}"])
+
+    ax.text(
+        0.02,
+        0.98,
+        "\n".join(lines),
+        transform=ax.transAxes,
+        ha="left",
+        va="top",
+        fontsize=8.5,
+        family="monospace",
+    )
+    ax.axis("off")
+    ax.set_title("QA Summary And Flags")
+
+
 def _nodata_mask(cube: np.ndarray, nodata_value: float | None) -> np.ndarray:
     mask = ~np.isfinite(cube)
     if nodata_value is not None and np.isfinite(nodata_value):
@@ -3020,25 +3055,33 @@ def render_flightline_panel(
         brightness_summary=brightness_summary,
     )
 
-    rgb_image, rgb_indices = _rgb_preview(corr_cube, wavelengths, rgb_targets)
+    raw_rgb_image, raw_rgb_indices = _rgb_preview(raw_cube, wavelengths, rgb_targets)
+    corr_rgb_image, corr_rgb_indices = _rgb_preview(corr_cube, wavelengths, rgb_targets)
 
-    fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+    fig, axes = plt.subplots(2, 3, figsize=(15, 9))
     fig.suptitle(f"QA panel – {prefix}")
 
-    ax_rgb = axes[0, 0]
-    ax_rgb.imshow(np.clip(rgb_image, 0, 1))
-    ax_rgb.set_title(
-        f"RGB preview (bands {rgb_indices[0]+1}/{rgb_indices[1]+1}/{rgb_indices[2]+1})"
+    ax_raw_rgb = axes[0, 0]
+    ax_raw_rgb.imshow(np.clip(raw_rgb_image, 0, 1))
+    ax_raw_rgb.set_title(
+        f"Original ENVI RGB (bands {raw_rgb_indices[0]+1}/{raw_rgb_indices[1]+1}/{raw_rgb_indices[2]+1})"
     )
-    ax_rgb.axis("off")
-    _render_issues(ax_rgb, issues)
+    ax_raw_rgb.axis("off")
 
-    _render_hist(axes[0, 1], raw_sample, corr_sample, sample_mask)
+    ax_corr_rgb = axes[0, 1]
+    ax_corr_rgb.imshow(np.clip(corr_rgb_image, 0, 1))
+    ax_corr_rgb.set_title(
+        f"Corrected ENVI RGB (bands {corr_rgb_indices[0]+1}/{corr_rgb_indices[1]+1}/{corr_rgb_indices[2]+1})"
+    )
+    ax_corr_rgb.axis("off")
+
+    _render_hist(axes[0, 2], raw_sample, corr_sample, sample_mask)
     _render_delta(axes[1, 0], wavelengths, correction_report)
     _render_scatter(axes[1, 1], scatter_data)
+    _render_aop_qa_summary(axes[1, 2], metrics)
 
     for ax in axes.flat:
-        if ax is not ax_rgb:
+        if ax not in {ax_raw_rgb, ax_corr_rgb, axes[1, 2]}:
             ax.grid(True, alpha=0.2)
 
     _render_footer(fig, metrics)
