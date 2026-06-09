@@ -23,7 +23,7 @@
     
     
       
-        <title>QA panel - SpectralBridge</title>
+        <title>QA Panel - SpectralBridge</title>
       
     
     
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              QA panel
+              QA Panel
             
           </span>
         </div>
@@ -1571,268 +1571,101 @@
   
 
 
-<h1 id="qa-panel">QA panel<a class="headerlink" href="#qa-panel" title="Permanent link">&para;</a></h1>
-<p>The QA panel couples a metrics JSON file with an annotated PNG so that
-engineering and science teams can track both spectral statistics and the visual
-context for every flightline. See <a href="#how-to-interpret-the-panel">How to Interpret the Panel</a>
-and the <a href="../../reference/validation/">validation reference</a> for deeper guidance
-on each metric.</p>
-<p>Additional QA products created from the merged Parquet:</p>
-<ul>
-<li>
-<p><code>&lt;prefix&gt;_merged__BY_SENSOR_vs_NEON_directional_BRDFTopo.png</code><br />
-  Sensor-by-sensor scatter panels versus NEON directional BRDFTopo.</p>
-</li>
-<li>
-<p><code>&lt;prefix&gt;_merged__MS_vs_Landsat_FIXED.png</code><br />
-  MicaSense-matched (X) versus Landsat (Y) scatter panels by band.</p>
-</li>
-</ul>
-<h2 id="multi-page-qa-report">Multi-page QA report<a class="headerlink" href="#multi-page-qa-report" title="Permanent link">&para;</a></h2>
-<p>In addition to the single PNG QA panel (<code>&lt;prefix&gt;_qa.png</code>), the pipeline now
-writes a multi-page PDF report (<code>&lt;prefix&gt;_qa.pdf</code>) with three pages:</p>
-<ol>
-<li>
-<p><strong>Page 1 – ENVI overview</strong><br />
-   One row with one panel per ENVI product. This is a quick visual check that
-   all ENVI files exist and render correctly.</p>
-</li>
-<li>
-<p><strong>Page 2 – Topographic &amp; BRDF diagnostics</strong>  </p>
-</li>
-<li>Row 1: pre vs post histograms and Δ median vs wavelength for the combined
-     topographic + BRDF correction stage.  </li>
-<li>
-<p>Row 2: summaries of topographic (slope/aspect) and BRDF geometry
-     (solar/sensor angles) derived from the correction JSON.</p>
-</li>
-<li>
-<p><strong>Page 3 – Remaining QA diagnostics</strong>  </p>
-</li>
-<li>Convolution scatter plots (expected vs computed bands).  </li>
-<li>Header and wavelength integrity summary (flags when sensor defaults are used).</li>
-<li>Mask coverage, negatives %, and &gt;1.2 reflectance % summary.</li>
-<li>Issues/warnings, including brightness coefficients that were applied.</li>
-</ol>
-<hr />
-<h1 id="qa-panel-and-validation-tests">QA Panel and Validation Tests<a class="headerlink" href="#qa-panel-and-validation-tests" title="Permanent link">&para;</a></h1>
-<p>The QA panel is the final diagnostic step of the <strong>SpectralBridge cross-sensor calibration pipeline</strong>.
-It provides both a visual and quantitative summary of how well each product behaved through all correction stages (topographic, BRDF, brightness, convolution).  </p>
-<hr />
-<h2 id="what-the-qa-tests-measure">What the QA Tests Measure<a class="headerlink" href="#what-the-qa-tests-measure" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Test</th>
-<th>What It Checks</th>
-<th>Why It Matters</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Reflectance Range (negatives &amp; &gt;1.2 %)</strong></td>
-<td>Fraction of pixels below 0 or above 1.2</td>
-<td>Reflectance should remain physically bounded. Large negative or &gt;1.2 values indicate poor radiometric scaling or unmasked clouds/shadows.</td>
-</tr>
-<tr>
-<td><strong>Header &amp; Wavelength Integrity</strong></td>
-<td>Presence, count, monotonicity, and provenance of <code>wavelength</code> values in ENVI headers</td>
-<td>Ensures each band is correctly aligned; missing, non-monotonic, or defaulted wavelengths break convolution and spectral analyses.</td>
-</tr>
-<tr>
-<td><strong>ΔReflectance (Pre→Post Correction)</strong></td>
-<td>Median and IQR difference in reflectance before and after BRDF/topo correction</td>
-<td>Quantifies how much the correction changed the data. Large deltas in flat terrain suggest over-correction; near-zero deltas in complex terrain may suggest under-correction.</td>
-</tr>
-<tr>
-<td><strong>Brightness Normalization (if applied)</strong></td>
-<td>Per-band gain and offset used in brightness correction</td>
-<td>Tracks whether correction parameters remain within expected limits (e.g., gain ∈ [0.9, 1.1]). Large deviations imply inconsistent illumination normalization.</td>
-</tr>
-<tr>
-<td><strong>Convolution Accuracy (per target sensor)</strong></td>
-<td>RMSE and Spectral Angle Mapper (SAM) between expected vs computed bands</td>
-<td>Confirms spectral resampling is physically consistent. High RMSE or large SAM (&gt;0.05 radians) indicates wavelength misalignment or incorrect response functions.</td>
-</tr>
-<tr>
-<td><strong>Mask Coverage</strong></td>
-<td>% of valid pixels used for metrics</td>
-<td>Low valid coverage (&lt;60%) signals missing masks or unfiltered NaNs.</td>
-</tr>
-<tr>
-<td><strong>Histogram Shape Consistency</strong></td>
-<td>Visual histogram overlay of pre/post corrections</td>
-<td>Skewed or bimodal shapes suggest scene heterogeneity or masking issues.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="brightness-coefficients">Brightness coefficients<a class="headerlink" href="#brightness-coefficients" title="Permanent link">&para;</a></h3>
-<p>When NEON data are convolved to Landsat bands, we optionally apply small
-per-band brightness adjustments so that Landsat-like products match a
-MicaSense reference.</p>
-<ul>
-<li>Coefficients are stored in <code>landsat_to_micasense.json</code> (units: percent).</li>
-<li>The adjustment is multiplicative:</li>
-</ul>
-<p><code>L_adj = L_raw * (1 + coeff / 100)</code>, where negative coefficients darken
-  Landsat bands slightly.</p>
-<ul>
-<li>Applied coefficients are recorded in the QA JSON under
-  <code>brightness_coefficients.landsat_to_micasense</code> and displayed on Page 3 of
-  the QA PDF.</li>
-</ul>
-<p>This makes it easy to verify when a brightness adjustment was applied and to
-audit the exact per-band values.</p>
-<hr />
-<h2 id="why-these-tests-are-appropriate">Why These Tests Are Appropriate<a class="headerlink" href="#why-these-tests-are-appropriate" title="Permanent link">&para;</a></h2>
-<p>These diagnostics are <strong>physically interpretable</strong> and <strong>sensor-agnostic</strong>:</p>
-<ul>
-<li><strong>Radiometric realism:</strong> Reflectance outside [0,1.2] is physically implausible and signals calibration drift or shadow contamination.  </li>
-<li><strong>Spectral continuity:</strong> Monotonic wavelengths ensure that per-band corrections and convolutions follow real sensor band order.  </li>
-<li><strong>Conservation principle:</strong> ΔReflectance checks whether corrections preserve brightness globally (no systematic over-darkening).  </li>
-<li><strong>Geometric realism:</strong> Mask coverage and illumination correlation prevent interpreting shadowed or topographically inverted pixels as valid reflectance.  </li>
-<li><strong>Spectral fidelity:</strong> RMSE and SAM compare corrected spectra to expected bandpasses, verifying physical sensor compatibility.</li>
-</ul>
-<hr />
-<h2 id="how-to-interpret-the-panel">How to Interpret the Panel<a class="headerlink" href="#how-to-interpret-the-panel" title="Permanent link">&para;</a></h2>
-<p>Each panel includes:</p>
-<ol>
-<li><strong>Left:</strong> RGB quicklook using auto-selected bands (660, 560, 490 nm).  </li>
-<li><em>Uniform color tone</em>: good illumination normalization.  </li>
-<li><em>Patchy shadows or gradients</em>: check DTM alignment or BRDF model.</li>
-<li><strong>Top-right:</strong> Pre (gray) vs Post (green) histograms.  </li>
-<li><em>Slight narrowing</em>: normal (flattening illumination gradients).  </li>
-<li><em>Severe shift left/right</em>: over- or under-correction.</li>
-<li><strong>Middle-right:</strong> ΔReflectance vs Wavelength curve (median ± IQR).  </li>
-<li><em>Smooth near-zero line</em>: ideal.  </li>
-<li><em>Large band-specific spikes</em>: band-specific sensor noise or cloud edges.</li>
-<li><strong>Bottom-right:</strong> Convolution scatter (expected vs computed).  </li>
-<li><em>Points close to 1:1 line</em>: good.  </li>
-<li><em>Systematic bias or slope ≠ 1</em>: check wavelength alignment or FWHM mismatch.</li>
-<li><strong>Footer:</strong> Metadata (flightline ID, date, package version, git SHA).</li>
-</ol>
-<hr />
-<h2 id="quantitative-thresholds-for-not-good">Quantitative Thresholds for “Not Good”<a class="headerlink" href="#quantitative-thresholds-for-not-good" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Acceptable Range</th>
-<th>“Needs Review”</th>
-<th>“Problematic”</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Negatives %</td>
-<td>&lt; 0.5 %</td>
-<td>0.5–2 %</td>
-<td>&gt; 2 %</td>
-</tr>
-<tr>
-<td>&gt;1.2 reflectance %</td>
-<td>&lt; 0.5 %</td>
-<td>0.5–2 %</td>
-<td>&gt; 2 %</td>
-</tr>
-<tr>
-<td>ΔReflectance median</td>
-<td></td>
-<td>&lt; 0.02 (normally good)</td>
-<td>&gt; 0.05 (over/under-correction)</td>
-</tr>
-<tr>
-<td>Brightness gain</td>
-<td>0.9–1.1</td>
-<td>0.85–0.9 / 1.1–1.15</td>
-<td>&lt; 0.85 or &gt; 1.15</td>
-</tr>
-<tr>
-<td>Convolution RMSE</td>
-<td>&lt; 0.02</td>
-<td>0.02–0.05</td>
-<td>&gt; 0.05</td>
-</tr>
-<tr>
-<td>SAM (radians)</td>
-<td>&lt; 0.03</td>
-<td>0.03–0.05</td>
-<td>&gt; 0.05</td>
-</tr>
-<tr>
-<td>Mask coverage</td>
-<td>&gt; 80 %</td>
-<td>60–80 %</td>
-<td>&lt; 60 %</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="deciding-when-a-product-fails-qa">Deciding When a Product Fails QA<a class="headerlink" href="#deciding-when-a-product-fails-qa" title="Permanent link">&para;</a></h2>
-<p>Mark a product as <strong>Needs Review</strong> when:
-- ≥ 2 metrics fall in the “Needs Review” column, <strong>or</strong>
-- Any single metric hits the “Problematic” range.</p>
-<p>Mark a product as <strong>Fail</strong> when:
-- &gt; 10 % of bands exceed thresholds (e.g., ΔReflectance &gt; 0.05),
-- Wavelengths are missing or non-monotonic,
-- Convolution RMSE &gt; 0.05 <strong>and</strong> SAM &gt; 0.05,
-- Mask coverage &lt; 60 %.</p>
-<p>All QA results are summarized in the sidecar JSON (<code>*_qa.json</code>), enabling programmatic filtering.</p>
-<hr />
-<h2 id="next-steps-after-qa-flags">Next Steps After QA Flags<a class="headerlink" href="#next-steps-after-qa-flags" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Issue</th>
-<th>Likely Cause</th>
-<th>Recommended Fix</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Many negatives or high reflectance</td>
-<td>Mis-scaled input, wrong gain offset</td>
-<td>Re-run brightness correction or check calibration constants.</td>
-</tr>
-<tr>
-<td>Non-monotonic wavelengths</td>
-<td>Corrupted or edited header</td>
-<td>Re-export ENVI or fix <code>wavelength</code> list manually.</td>
-</tr>
-<tr>
-<td>Large ΔReflectance</td>
-<td>Over-aggressive BRDF correction</td>
-<td>Adjust BRDF parameters or review illumination mask.</td>
-</tr>
-<tr>
-<td>High RMSE/SAM</td>
-<td>Wrong sensor response curves</td>
-<td>Verify target sensor config file.</td>
-</tr>
-<tr>
-<td>Low mask coverage</td>
-<td>Cloud or DTM mask mismatch</td>
-<td>Improve masking or fill small gaps before QA.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="automating-qa-review">Automating QA Review<a class="headerlink" href="#automating-qa-review" title="Permanent link">&para;</a></h2>
-<p>Each QA JSON includes numeric thresholds.
-You can quickly summarize or flag tiles programmatically:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">json</span><span class="o">,</span><span class="w"> </span><span class="nn">glob</span>
-<span class="n">bad</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*/**/*_qa.json&quot;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="n">q</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="n">q</span><span class="p">[</span><span class="s2">&quot;negatives_pct&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">2.0</span>
-        <span class="ow">or</span> <span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;overbright_pct&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">2.0</span>
-        <span class="ow">or</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;mask&quot;</span><span class="p">][</span><span class="s2">&quot;valid_pct&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">60</span>
-    <span class="p">):</span>
-        <span class="n">bad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tiles needing review:&quot;</span><span class="p">,</span> <span class="n">bad</span><span class="p">)</span>
+<h1 id="qa-panel">QA Panel<a class="headerlink" href="#qa-panel" title="Permanent link">&para;</a></h1>
+<div class="sb-doc-page">
+<section class="sb-doc-hero">
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-kicker&quot;</span><span class="nt">&gt;</span>Pipeline<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;h1&gt;</span>AOP<span class="w"> </span>QA<span class="w"> </span>panel<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-lead&quot;</span><span class="nt">&gt;</span>The<span class="w"> </span>normal<span class="w"> </span>NEON/AOP<span class="w"> </span>pipeline<span class="w"> </span>writes<span class="w"> </span>a<span class="w"> </span>compact<span class="w"> </span>PNG<span class="w"> </span>quick-look,<span class="w"> </span>a<span class="w"> </span>machine-readable<span class="w"> </span>JSON<span class="w"> </span>sidecar,<span class="w"> </span>and<span class="w"> </span>a<span class="w"> </span>multi-page<span class="w"> </span>PDF<span class="w"> </span>audit<span class="w"> </span>report<span class="w"> </span>for<span class="w"> </span>each<span class="w"> </span>completed<span class="w"> </span>flight<span class="w"> </span>line.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;div</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-grid sb-doc-grid--three&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>PNG<span class="w"> </span>preview<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Fast<span class="w"> </span>visual<span class="w"> </span>triage<span class="w"> </span>with<span class="w"> </span>raw<span class="w"> </span>ENVI,<span class="w"> </span>corrected<span class="w"> </span>ENVI,<span class="w"> </span>and<span class="w"> </span>core<span class="w"> </span>correction<span class="w"> </span>diagnostics.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>JSON<span class="w"> </span>metrics<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>Structured<span class="w"> </span>validation<span class="w"> </span>values<span class="w"> </span>for<span class="w"> </span>automation,<span class="w"> </span>dashboards,<span class="w"> </span>and<span class="w"> </span>regression<span class="w"> </span>checks.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
+<span class="w">  </span><span class="nt">&lt;article</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;sb-doc-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;h3&gt;</span>PDF<span class="w"> </span>audit<span class="nt">&lt;/h3&gt;</span>
+<span class="w">    </span><span class="nt">&lt;p&gt;</span>A<span class="w"> </span>fuller<span class="w"> </span>report<span class="w"> </span>with<span class="w"> </span>ENVI<span class="w"> </span>overview,<span class="w"> </span>correction<span class="w"> </span>diagnostics,<span class="w"> </span>QA<span class="w"> </span>summaries,<span class="w"> </span>and<span class="w"> </span>parquet/merge<span class="w"> </span>checks.<span class="nt">&lt;/p&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/article&gt;</span>
 </code></pre></div>
+
+</section>
+</div>
+</section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;PNG layout&lt;/p&gt;
+    &lt;h2&gt;What the quick-look panel shows&lt;/h2&gt;
+    &lt;p&gt;The single PNG, &lt;code&gt;&lt;prefix&gt;_qa.png&lt;/code&gt;, is intentionally compact. It now uses six panels:&lt;/p&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--two"&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Original ENVI RGB&lt;/h3&gt;
+        &lt;p&gt;RGB preview from the raw exported ENVI cube using the selected wavelength targets.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Corrected ENVI RGB&lt;/h3&gt;
+        &lt;p&gt;The same RGB targets after topographic and BRDF correction.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Pre vs post histograms&lt;/h3&gt;
+        &lt;p&gt;Raw and corrected sampled reflectance distributions plotted together.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Correction distribution&lt;/h3&gt;
+        &lt;p&gt;Signed and absolute correction deltas by wavelength.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;Convolved vs corrected&lt;/h3&gt;
+        &lt;p&gt;Sensor harmonization scatter diagnostics when convolved products are available.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="sb-doc-card"&gt;
+        &lt;h3&gt;QA summary and flags&lt;/h3&gt;
+        &lt;p&gt;Header, validity, reflectance-bound, and issue summaries for quick interpretation.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;PDF layout&lt;/p&gt;
+    &lt;h2&gt;What the full report adds&lt;/h2&gt;
+    &lt;p&gt;The PDF, &lt;code&gt;&lt;prefix&gt;_qa.pdf&lt;/code&gt;, remains the deeper audit artifact and currently renders four pages:&lt;/p&gt;
+    &lt;ol class="sb-doc-list"&gt;
+      &lt;li&gt;&lt;strong&gt;ENVI product overview:&lt;/strong&gt; raw, corrected, and resampled ENVI products that exist on disk.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Topographic and BRDF diagnostics:&lt;/strong&gt; histograms, delta-by-wavelength plots, and geometry summaries from the correction JSON.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Additional QA diagnostics:&lt;/strong&gt; wavelength/header integrity, mask and reflectance-bound summaries, brightness coefficients, and issue text.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Parquet and merge quality:&lt;/strong&gt; per-stage parquet inventory, merge status, column summaries, and quality checks.&lt;/li&gt;
+    &lt;/ol&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Interpretation&lt;/p&gt;
+    &lt;h2&gt;How to use the QA outputs&lt;/h2&gt;
+    &lt;ul class="sb-doc-list"&gt;
+      &lt;li&gt;Use the PNG first to see whether raw and corrected imagery agree spatially and whether the correction diagnostics look plausible.&lt;/li&gt;
+      &lt;li&gt;Use the JSON when you need programmatic thresholds, dashboards, or repeatable comparisons across flight lines.&lt;/li&gt;
+      &lt;li&gt;Use the PDF when a result needs a human-readable audit trail for review, reporting, or publication support.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p class="sb-doc-note"&gt;QA outputs are part of the scientific workflow contract. They are meant to preserve transparency, not just make the output folder look tidy.&lt;/p&gt;
+  </section>
+<section class="sb-doc-section" markdown="block">
+    &lt;p class="sb-kicker"&gt;Related pages&lt;/p&gt;
+    &lt;h2&gt;Where to go next&lt;/h2&gt;
+    &lt;div class="sb-doc-grid sb-doc-grid--three"&gt;
+      &lt;a class="sb-doc-link-card" href="qa/"&gt;
+        &lt;strong&gt;QA panels and metrics&lt;/strong&gt;
+        &lt;span&gt;Higher-level overview of QA artefacts and metric families.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="../reference/validation/"&gt;
+        &lt;strong&gt;Validation metrics&lt;/strong&gt;
+        &lt;span&gt;Metric definitions and interpretation guidance.&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a class="sb-doc-link-card" href="outputs/"&gt;
+        &lt;strong&gt;Outputs and file structure&lt;/strong&gt;
+        &lt;span&gt;Locate the QA files next to ENVI and parquet products.&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  </section>
+</div>
 
 
 
