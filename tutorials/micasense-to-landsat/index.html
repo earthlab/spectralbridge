@@ -1741,9 +1741,10 @@ workflow. The TIFF bridge is intentionally strict:</p>
 <li><code>sensor_zenith</code> or <code>view_zenith</code></li>
 <li><code>sensor_azimuth</code> or <code>view_azimuth</code></li>
 <li>solar geometry can come from:</li>
-<li>aligned <code>solar_zenith</code> / <code>solar_azimuth</code> TIFFs, or</li>
+<li>aligned <code>solar_zenith</code> / <code>solar_azimuth</code> TIFFs,</li>
 <li>scalar <code>tiff_solar_zenith_deg</code> / <code>tiff_solar_azimuth_deg</code> arguments passed
-    to <code>run_drone_pipeline</code></li>
+    to <code>run_drone_pipeline</code>, or</li>
+<li>a flight manifest CSV passed as <code>drone_manifest_path</code></li>
 </ul>
 <p>If both an HDF5 file and a reflectance TIFF resolve to the same derived flight
 stem within one package, the existing HDF5 input takes precedence.</p>
@@ -1762,11 +1763,32 @@ values.</p>
     <span class="n">apply_brdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">use_ndvi_brdf_bins</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">apply_brightness_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">tiff_solar_zenith_deg</span><span class="o">=</span><span class="mf">88.90</span><span class="p">,</span>
-    <span class="n">tiff_solar_azimuth_deg</span><span class="o">=</span><span class="mf">287.69</span><span class="p">,</span>
+    <span class="n">drone_manifest_path</span><span class="o">=</span><span class="s2">&quot;Drone Field Data Macrosystems - UAS Data Processing For Extraction.csv&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>Set <code>polygon_path=None</code> when you only need ENVI and QA products.</p>
+<p>The manifest CSV is used only when explicit solar rasters or scalar solar
+angles are not supplied. It must include:</p>
+<ul>
+<li><code>Plot</code></li>
+<li><code>Day of data collection</code></li>
+<li><code>Mean Time of data collection (24 hr clock)</code></li>
+</ul>
+<p>Derived flight stems such as <code>AOP_GOLDHILL_20230814</code> match manifest rows such
+as <code>AOP_GOLDHILL</code>. SpectralBridge uses the matched acquisition datetime plus
+the reflectance TIFF CRS/transform to compute per-pixel <code>Solar_Zenith_Angle</code>
+and <code>Solar_Azimuth_Angle</code> datasets in the generated working HDF5.
+Manifest datetimes without timezone information are treated as UTC.</p>
+<p>When <code>apply_topo=True</code> or <code>apply_brdf=True</code>, solar geometry is required by
+default. Set <code>require_solar_geometry=False</code> only when you intentionally want to
+allow an uncorrected fallback for incomplete inputs.</p>
+<p>Each per-flight QA audit records:</p>
+<ul>
+<li><code>solar_geometry_source</code>: <code>raster</code>, <code>scalar</code>, <code>manifest_computed</code>, or <code>missing</code></li>
+<li><code>acquisition_datetime_used</code></li>
+<li>solar zenith mean/min/max</li>
+<li>solar azimuth mean/min/max</li>
+</ul>
 <p>If your TIFF source does not use the default 10-band Erick notebook spectral
 definition, also pass:</p>
 <div class="highlight"><pre><span></span><code><span class="n">tiff_wavelengths_nm</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>

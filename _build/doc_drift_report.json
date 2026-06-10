@@ -163,6 +163,16 @@
     "topo_and_brdf_correction.py": [
       "--config_file"
     ],
+    "standard_resample.py": [
+      "--hdr_path",
+      "--json_file",
+      "--output_path",
+      "--resampling_file_path",
+      "--sensor_type"
+    ],
+    "neon_to_envi.py": [
+      "--brightness-offset"
+    ],
     "merge_duckdb.py": [
       "--corrected-glob",
       "--data-root",
@@ -177,44 +187,10 @@
       "--resampled-glob",
       "--write-feather"
     ],
-    "neon_to_envi.py": [
-      "--brightness-offset"
-    ],
     "qa_dashboard.py": [
       "--base-folder",
       "--out-parquet",
       "--out-png"
-    ],
-    "standard_resample.py": [
-      "--hdr_path",
-      "--json_file",
-      "--output_path",
-      "--resampling_file_path",
-      "--sensor_type"
-    ],
-    "download.py": [
-      "--flight",
-      "--output",
-      "--product",
-      "--year-month"
-    ],
-    "pipeline.py": [
-      "--brightness-offset",
-      "--no-sync",
-      "--polygon_layer_path",
-      "--reflectance-offset",
-      "--remote-prefix",
-      "--resample-method",
-      "--use-ndvi-brdf-bins",
-      "--verbose"
-    ],
-    "qa_summary_cli.py": [
-      "--output-pdf",
-      "--pattern"
-    ],
-    "recover_cli.py": [
-      "--base-folder",
-      "--brightness-offset"
     ],
     "pipeline_cli.py": [
       "--base-folder",
@@ -233,6 +209,14 @@
       "--use-ndvi-brdf-bins",
       "--year-month"
     ],
+    "qa_summary_cli.py": [
+      "--output-pdf",
+      "--pattern"
+    ],
+    "recover_cli.py": [
+      "--base-folder",
+      "--brightness-offset"
+    ],
     "qa_cli.py": [
       "--base-folder",
       "--full",
@@ -241,6 +225,22 @@
       "--quick",
       "--rgb-bands",
       "--save-json"
+    ],
+    "download.py": [
+      "--flight",
+      "--output",
+      "--product",
+      "--year-month"
+    ],
+    "pipeline.py": [
+      "--brightness-offset",
+      "--no-sync",
+      "--polygon_layer_path",
+      "--reflectance-offset",
+      "--remote-prefix",
+      "--resample-method",
+      "--use-ndvi-brdf-bins",
+      "--verbose"
     ]
   }
 }
