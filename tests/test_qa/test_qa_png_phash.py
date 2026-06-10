@@ -17,5 +17,5 @@ from spectralbridge.qa_plots import render_flightline_panel
 def test_panel_phash_matches_baseline(qa_fixture_dir: Path) -> None:
     png_path, _ = render_flightline_panel(qa_fixture_dir, quick=True)
     phash = imagehash.phash(Image.open(png_path))
-    expected = imagehash.hex_to_hash("3838c6c7c7e384c6")
+    expected = imagehash.hex_to_hash("be3e91c3c1e5c3db")
     assert phash - expected <= 8

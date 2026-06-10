@@ -32,6 +32,7 @@ from spectralbridge.pipelines.drone import (
     save_drone_overlay_debug_plot,
     summarize_drone_h5_solar_geometry,
 )
+from spectralbridge.utils.paths import get_package_data_path
 from spectralbridge.qa_plots import (
     _classify_drone_scene,
     _correction_report,
@@ -1711,6 +1712,43 @@ def test_run_drone_pipeline_resolves_manifest_relative_to_input_dir(tmp_path: Pa
 
     assert results["processed"] == []
     assert results["qa_summary"]["drone_manifest_path"] == str(manifest_path)
+
+
+def test_run_drone_pipeline_uses_bundled_manifest_by_default(tmp_path: Path) -> None:
+    input_dir = tmp_path / "input"
+    input_dir.mkdir()
+
+    results = run_drone_pipeline(
+        input_dir,
+        output_dir=tmp_path / "out",
+        apply_topo=False,
+        apply_brdf=False,
+    )
+
+    assert results["processed"] == []
+    assert results["qa_summary"]["drone_manifest_path"] == str(
+        get_package_data_path("drone_field_manifest.csv")
+    )
+
+
+def test_run_drone_pipeline_resolves_original_manifest_filename_to_bundle(
+    tmp_path: Path,
+) -> None:
+    input_dir = tmp_path / "input"
+    input_dir.mkdir()
+
+    results = run_drone_pipeline(
+        input_dir,
+        output_dir=tmp_path / "out",
+        apply_topo=False,
+        apply_brdf=False,
+        drone_manifest_path="Drone Field Data Macrosystems - UAS Data Processing For Extraction.csv",
+    )
+
+    assert results["processed"] == []
+    assert results["qa_summary"]["drone_manifest_path"] == str(
+        get_package_data_path("drone_field_manifest.csv")
+    )
 
 
 def test_run_drone_pipeline_resolves_manifest_relative_to_relative_input_folder(

@@ -35,6 +35,7 @@ from spectralbridge.polygons import (
     validate_coordinate_match,
 )
 from spectralbridge.progress_utils import TileProgressReporter
+from spectralbridge.utils.paths import get_package_data_path
 from spectralbridge.utils_checks import is_valid_envi_pair
 
 from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
@@ -118,6 +119,11 @@ _ANSI_RED = "\033[31m"
 _DRONE_MANIFEST_ID_COLUMN = "Plot"
 _DRONE_MANIFEST_DATE_COLUMN = "Day of data collection"
 _DRONE_MANIFEST_TIME_COLUMN = "Mean Time of data collection (24 hr clock)"
+_DRONE_DEFAULT_MANIFEST_FILENAME = "drone_field_manifest.csv"
+_DRONE_DEFAULT_MANIFEST_ALIASES = {
+    _DRONE_DEFAULT_MANIFEST_FILENAME,
+    "Drone Field Data Macrosystems - UAS Data Processing For Extraction.csv",
+}
 _DRONE_SOLAR_GEOMETRY_ATTRS = (
     "solar_geometry_source",
     "acquisition_datetime_used",
@@ -251,11 +257,15 @@ def load_drone_manifest(manifest_path: str | Path) -> dict[str, datetime]:
 
 
 def _resolve_drone_manifest_path(
-    manifest_path: str | Path,
+    manifest_path: str | Path | None,
     *,
     input_path: str | Path,
 ) -> Path:
     """Resolve a drone manifest path with notebook-friendly relative fallbacks."""
+
+    bundled_manifest = get_package_data_path(_DRONE_DEFAULT_MANIFEST_FILENAME)
+    if manifest_path is None:
+        return bundled_manifest
 
     requested = Path(manifest_path)
     input_path = Path(input_path)
@@ -275,6 +285,8 @@ def _resolve_drone_manifest_path(
         candidates = [cwd / requested, requested]
         for base in input_bases:
             candidates.append(base / requested)
+        if requested.name in _DRONE_DEFAULT_MANIFEST_ALIASES:
+            candidates.append(bundled_manifest)
 
     checked: list[Path] = []
     for candidate in candidates:
@@ -2053,20 +2065,12 @@ def run_drone_pipeline(
     input_h5_dir = Path(input_h5_dir)
     output_dir = Path(output_dir)
     polygon_path = Path(polygon_path) if polygon_path is not None else None
-    drone_manifest_path = (
-        Path(drone_manifest_path) if drone_manifest_path is not None else None
-    )
     output_dir.mkdir(parents=True, exist_ok=True)
-    if drone_manifest_path is not None:
-        drone_manifest_path = _resolve_drone_manifest_path(
-            drone_manifest_path,
-            input_path=input_h5_dir,
-        )
-    drone_manifest = (
-        load_drone_manifest(drone_manifest_path)
-        if drone_manifest_path is not None
-        else None
+    drone_manifest_path = _resolve_drone_manifest_path(
+        drone_manifest_path,
+        input_path=input_h5_dir,
     )
+    drone_manifest = load_drone_manifest(drone_manifest_path)
 
     results: dict[str, Any] = {
         "platform": "drone",

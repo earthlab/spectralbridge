@@ -5297,3 +5297,19 @@ Branch: main
 ```text
 Traceback shows the improved drone_manifest_path error only checked the notebook working directory and the raw relative filename, but did not check the relative input_h5_dir folder (`drone_inputs`) for the manifest CSV.
 ```
+
+## 2026-06-10 - update aop qa png phash baseline
+Branch: main
+
+```text
+Run pytest tests/test_qa -q
+...F                                                                     [100%]
+test_panel_phash_matches_baseline failed because the AOP QA PNG perceptual hash no longer matches the old baseline after the redesigned QA panel.
+```
+
+## 2026-06-10 - bundle drone manifest
+Branch: main
+
+```text
+re: drone_manifest_path yes, put it in the repo and refernce the code to it
+```

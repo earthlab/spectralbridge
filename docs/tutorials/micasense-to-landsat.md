@@ -63,6 +63,11 @@ workflow. The TIFF bridge is intentionally strict:
     to `run_drone_pipeline`, or
   - a flight manifest CSV passed as `drone_manifest_path`
 
+SpectralBridge includes the Macrosystems drone field manifest as bundled package
+data. When `drone_manifest_path` is omitted, `run_drone_pipeline()` uses that
+bundled manifest by default. Pass `drone_manifest_path` only when you want to
+override the bundled file with a different campaign manifest.
+
 If both an HDF5 file and a reflectance TIFF resolve to the same derived flight
 stem within one package, the existing HDF5 input takes precedence.
 
@@ -84,14 +89,13 @@ results = run_drone_pipeline(
     apply_brdf=True,
     use_ndvi_brdf_bins=False,
     apply_brightness_adjustment=False,
-    drone_manifest_path="Drone Field Data Macrosystems - UAS Data Processing For Extraction.csv",
 )
 ```
 
 Set `polygon_path=None` when you only need ENVI and QA products.
 
-The manifest CSV is used only when explicit solar rasters or scalar solar
-angles are not supplied. It must include:
+The bundled manifest is used only when explicit solar rasters or scalar solar
+angles are not supplied. Custom manifest CSVs must include:
 
 - `Plot`
 - `Day of data collection`

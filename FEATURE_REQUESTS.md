@@ -20,6 +20,69 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P40. Bundle Drone Field Manifest
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-10
+- Goal: Track the drone field manifest in the repository and reference the
+  bundled copy from the drone pipeline.
+- Plan:
+  - Add the provided manifest CSV as package data under
+    `src/spectralbridge/data`.
+  - Include CSV package data in `pyproject.toml`.
+  - Update the drone manifest resolver so omitted `drone_manifest_path` and
+    bare manifest filenames can resolve to the bundled package-data copy.
+  - Add tests proving the bundled default is used without requiring a notebook
+    local CSV.
+- Completion notes:
+  - Added the provided field manifest as
+    `src/spectralbridge/data/drone_field_manifest.csv`.
+  - Updated package metadata so CSV files under `spectralbridge.data` are
+    included as package data.
+  - Updated `run_drone_pipeline()` so `drone_manifest_path=None` resolves to the
+    bundled manifest by default.
+  - Updated manifest resolution so the original long CSV filename also resolves
+    to the bundled package-data copy when no local file is present.
+  - Updated the MicaSense/drone tutorial to document the bundled default and
+    custom-manifest override behavior.
+- Verification:
+  - `python3 -m py_compile src/spectralbridge/pipelines/drone.py tests/test_drone_pipeline.py`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_drone_pipeline.py::test_run_drone_pipeline_uses_bundled_manifest_by_default tests/test_drone_pipeline.py::test_run_drone_pipeline_resolves_original_manifest_filename_to_bundle tests/test_drone_pipeline.py::test_run_drone_pipeline_resolves_manifest_relative_to_input_dir tests/test_drone_pipeline.py::test_run_drone_pipeline_resolves_manifest_relative_to_relative_input_folder`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_drone_pipeline.py`
+  - `python3 scripts/check_docs_links.py`
+- Next recommended task:
+  - Run packaging/build checks in CI to confirm `drone_field_manifest.csv` is
+    present in built wheels and source distributions.
+
+### P39. AOP QA PNG pHash Baseline Refresh
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-10
+- Goal: Refresh the optional imagehash regression baseline for the intentionally
+  redesigned AOP QA PNG quicklook.
+- Plan:
+  - Generate the QA PNG from the existing test fixture.
+  - Compute the new perceptual hash for the 2x3 AOP QA panel layout.
+  - Update `tests/test_qa/test_qa_png_phash.py` and rerun `pytest -q
+    tests/test_qa`.
+- Completion notes:
+  - Recomputed the pHash baseline from the deterministic QA fixture and the
+    redesigned 2x3 AOP QA PNG layout.
+  - Updated `tests/test_qa/test_qa_png_phash.py` from the old 2x2-panel hash to
+    `be3e91c3c1e5c3db`.
+- Verification:
+  - `python3 -m py_compile tests/test_qa/test_qa_png_phash.py`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_qa`
+    passed locally with the pHash test skipped because `imagehash` is not
+    installed in the local `.venv`.
+- Next recommended task:
+  - Let CI run the optional `imagehash` pHash check against the refreshed
+    baseline.
+
 ### P38. Drone Manifest Relative Input Folder Fallback
 
 - Priority: User-directed

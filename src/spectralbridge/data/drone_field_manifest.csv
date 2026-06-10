@@ -1,0 +1,72 @@
+Plot,Field Team,Region,Field Season,Metashape done,Exported pointcloud,Moved to CyVerse (ExportPackage),Discrepancies,Nayani_notesOn how to proceed with discrepancies ,Day of data collection,Mean Time of data collection (24 hr clock),Processed and ready for spectra extraction,Spectra extraction done
+SH67-1,Tyler,S. Rockies,2023,x,yy,yy,,,2023-07-07,17:56:05,,
+SPR-1,Tyler,S. Rockies,2023,x,yy,yy,,,2023-06-28,17:30:21,,
+SPR-2,Tyler,S. Rockies,2023,x,yy,yy,"multiple psx files, no filename with M300 in it","use SPR2-6-28.psx, I generated .las file",2023-06-28,20:00:12,,
+SH67W2,Tyler,S. Rockies,2023,x,yy,yy,multiple psx files,"use SH67W2-M300-WORKING2.psx, I generated .las",2023-07-11,18:01:17,,
+SH67W1,Tyler,S. Rockies,2023,x,yy,yy,,,2023-07-11,19:07:39,,
+JC1,Tyler,S. Rockies,2023,x,yy,yy,,,2023-07-11,21:24:34,,
+GAH1,Tyler,S. Rockies,2023,x,yy,yy,,,2023-07-25,18:21:38,,
+GAH2,Tyler,S. Rockies,2023,x,y,yy,,,2023-07-25,17:44:17,,
+CW1,Tyler,S. Rockies,2023,x,y,yy,"has 2 psx files - 08-08 and 08-14, which one is preferred ?
+if 08-14 then dir name an images have diff dates
+08-08 has been used for point cloud
+No polygons found while running final correction",the other one is 8/16 correct? no 8/14 file. Use CW1-8-8-23-M300-WORKING.psx. Generated pointcloud .las file. Use all files with 8-8-23 in its name. ,2023-08-08,18:12:39,,
+CW2,Tyler,S. Rockies,2023,x,y,yy,,,2023-08-16,18:18:03,,
+CW3,Tyler,S. Rockies,2023,x,y,yy,,,2023-08-16,17:20:17,,
+OR3,Tyler,S. Rockies,2023,x,yy,yy,,,2023-08-16,20:28:40,,
+AOP-MRS1,Tyler,S. Rockies,2023,x,y,yy,"run correction for this i forgot to export
+No polygons found within the raster extent",,2023-08-15,16:36,,
+AOP-MRS2,Tyler,S. Rockies,2023,x,y,y,No polygons found while running final correction,"Yes, this is ok. There was no polygons within this plot area",2023-08-15,17:51,,
+AOP-RUBY,Tyler,S. Rockies,2023,x,y,y,,,2023-08-16,18:53:18,,
+AOP-GOLDHILL,Tyler,S. Rockies,2023,x,y,y,,,2023-08-15,19:53:07,,
+AOP-GORDON,Tyler,S. Rockies,2023,x,y,y,,,2023-08-15,20:58:39,,
+kremmling_10,Tyler,S. Rockies,2024,x,yy,yy,"multiple psx files
+06-05-24, 07-11-24",Use the file with 07-11-24_M300 psx file. I generated the .las file.,2024-07-11,16:47:01,,
+kremmling_2,Tyler,S. Rockies,2024,x,y,yy,"dem, report files missing",I generated them Please proceed with new files.,2024-06-05,21:06:44,,
+kremmling_22,Tyler,S. Rockies,2024,x,y,yy,"multiple psx files with diff dates 
+2-07-11-24, 06-05-24, 1-07-11-24
+multiple dem,ortho,report files","Use the file with kremmling_22-2-7-11-24_M300_METASHAPE.psx.Use the files with 22_2_7-11-24 in file name. for the rpeort file use the one without ""DTM"" in its file name.",2024-07-11,18:17:35,,
+beartoothManual_1,Tyler,N. Rockies,2024,x,y,yy,"multiple psx files
+8_01_2024, 8_01_2024_run2, 07_31_2024_2, 07_31_2024 
+
+multiple dates in ortho,dem, report files","use ""beartoothManual-1_08_01_2024_M300_METASHAPE.psx"" . use the data with 8-1-2024 in its file name ",2024-08-01,19:28:54,,
+beartoothManual_2,Tyler,N. Rockies,2024,x,y,yy - except report file,"multiple psx files
+date in dir: 07-29
+date in img: 07-31/08-01
+
+multiple dates in ortho,dem and report files
+-- no report file","Use the file with ""beartoothManual2_08_01_2024_M33_METASHAPE.psx"" . Use the data with 08_01_24 in the filename. ",2024-08-01,19:09:18,,
+beartoothManual_3,Tyler,N. Rockies,2024,x,y,yy,"multiple psx files
+08-01-2024, 08-01-2024_run2, 07-30-2024
+
+multiple dates in ortho,dem, report files","Use ""beartoothManual_3-08-01-2024_M300_METASHAPE_run2.psx"". I generated the pointcloud. use this date and ""run2"" in the ortho and the dem file name for next processing steps",2024-08-01,18:36:55,,
+beartoothManual_5,Tyler,N. Rockies,2024,x,yy,yy,"multiple dates in ortho,dem, report files",Use the file beartoothManual_5-08-01-24_M300_METASHAPE.psx and use all the files with this date for further processing. I generated the las file,2024-08-01,17:39:14,,
+beartoothManual_6,Tyler,N. Rockies,2024,x,yy,y,,,2024-08-01,16:42:56,,
+beartoothManual_7,Tyler,N. Rockies,2024,x,yy,yy,"multiple psx files
+07-29-24, 08_01_24, 08_01_24_run2
+
+multiple dates in ortho,dem, report files","use ""beartoothManual-7_08_01_2024_M300_METASHAPE_run2.psx"" and with the same name for .las,ortho, and DEM",2024-08-01,17:03:53,,
+mtst_5,Tyler,N. Rockies,2024,x,yy,yy,"dem, report files missing","I generated them. Use all filed with ""mtst_5-07-17-24_M300"" in its name.",2024-07-17,18:42:43,,
+mtst_13,Tyler,N. Rockies,2024,x,yy,yy,"no dem, report files","use the files with ""mtst_13-07-16-24_M300"" in the file name. I generated the missing files.",2024-07-16,20:38:02,,
+mtst_15,Tyler,N. Rockies,2024,x,yy,yy,"dem, report files missing",Use the files with 15-07-16-24-M300 in its name. I generated missing files.,2024-07-16,21:05:58,,
+mtst_11,Tyler,N. Rockies,2024,x,,,"no psx files in m300
+dem, report files missing","Not processed, no data collection - leave it out",,,,
+mtst_26 ,Tyler,N. Rockies,2024,x,yy,yy,"dem, report files missing",Generated missiing files. Please continue,2024-07-16,18:29:12,,
+mtst_30,Tyler,N. Rockies,2024,x,yy,yy,"dem, report files missing","Generated missing files. please use files with ""mtst_30-07-17-24_M300"" in its name",2024-07-17,18:01:41,,
+mtst_31,Tyler,N. Rockies,2024,x,yy,yy,"dem, report files missing",I generated them. Please continue,2024-07-17,19:22:30,,
+mtst_35,Tyler,N. Rockies,2024,x,yy,yy,"
+dem, report files missing",I generated files. Please continue,2024-07-18,18:46:18,,
+sistersRanger_36,Sky,Cascades,2024,x,yy,yy,,,2024-06-25,17:54:38,,
+sistersRanger_6,Sky,Cascades,2024,x,y,yy,Done,Same issue for me as well. Lets leave it out now until I find out,2024-06-25,20:52:43,,
+sistersRanger_14,Sky,Cascades,2024,x,yy,yy,,,2024-06-25,22:41:11,,
+sistersRanger_8,Sky,Cascades,2024,x,y,yy,,,2024-06-28,17:26:23,,
+sistersRanger_9,Sky,Cascades,2024,x,yy,yy,"2 diff subdirs - sistersRanger_9-06-28-24 and sistersRanger_906-26-24
+used 06-28-24
+done",One is just a duplicate to me as they have used the same data. Please use one of them ,2024-06-28,19:51:10,,
+sistersRanger_2,Sky,Cascades,2024,x,yy,yy,,,2024-06-28,21:39:13,,
+sistersRanger_37,Sky,Cascades,2024,x,yy,yy,,,2024-07-03,17:36:36,,
+sistersRanger_19,Sky,Cascades,2024,x,yy,yy,,,2024-07-03,21:26:52,,
+hoodRiver_4,Sky,Cascades,2024,x,yy,yy,,,2024-07-05,18:34:43,,
+hoodRiver_19,Sky,Cascades,2024,x,yy,yy,,,2024-07-05,21:25:23,,
+,,,,,,,,,,,,
+Table_mountain,,,,,,yy,"no shp files, using ortho's extent to clip",,2021-09-15,19:39:45,,

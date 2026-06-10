@@ -100,7 +100,7 @@ package-dir = {"" = "src"}
 include-package-data = true
 
 [tool.setuptools.package-data]
-spectralbridge = ["data/*.json", "data/brightness/*.json"]
+spectralbridge = ["data/*.csv", "data/*.json", "data/brightness/*.json"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
