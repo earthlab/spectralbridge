@@ -20,6 +20,42 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P41. Remove Remote Docs CDN Assets From Browser Smoke Path
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-10
+- Goal: Fix the docs Playwright smoke test failure caused by browser console
+  errors from remote GLightbox CDN assets returning HTTP 403 during local site
+  testing.
+- Plan:
+  - Remove remote GLightbox CSS/JS references from `mkdocs.yml` so the built
+    docs site uses local assets only during browser smoke tests.
+  - Preserve the local no-op GLightbox initializer, which safely exits when the
+    optional library is absent.
+  - Rebuild or otherwise verify docs configuration and rerun the focused docs
+    smoke test when local tooling is available.
+- Completion notes:
+  - Removed the external jsDelivr GLightbox CSS and JS entries from
+    `mkdocs.yml`.
+  - Kept the local `docs/js/glightbox-init.js` no-op guard so docs pages remain
+    safe if GLightbox is reintroduced locally later.
+  - Confirmed no remaining docs or MkDocs configuration references to the
+    remote GLightbox CDN assets.
+- Verification:
+  - `python3 scripts/check_docs_links.py`
+  - `rg -n "cdn\\.jsdelivr|glightbox/dist" docs mkdocs.yml`
+  - `.venv/bin/pytest -q tests/test_docs_playwright.py` skipped locally because
+    `SPECTRALBRIDGE_DOCS_SITE` was not set.
+- Blockers:
+  - The local environment does not have `mkdocs` installed, so `mkdocs build
+    --strict` and the served-site Playwright check could not be run here.
+- Next recommended task:
+  - Let CI rebuild the docs site from `mkdocs.yml` and rerun the browser smoke
+    test; the two prior 403 console errors should be gone because the remote
+    assets are no longer requested.
+
 ### P40. Bundle Drone Field Manifest
 
 - Priority: User-directed

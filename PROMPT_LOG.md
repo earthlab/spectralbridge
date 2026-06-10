@@ -5313,3 +5313,11 @@ Branch: main
 ```text
 re: drone_manifest_path yes, put it in the repo and refernce the code to it
 ```
+
+## 2026-06-10 - docs playwright 403 console errors
+Branch: main
+
+```text
+Run python -m http.server 8000 --directory site > /tmp/spectralbridge-docs-http.log 2>&1 &
+test_docs_site_core_pages_render_in_browser failed because console_errors contained two "Failed to load resource: the server responded with a status of 403 ()" entries.
+```
