@@ -148,9 +148,17 @@ class DroneInputSource:
 def _normalise_drone_manifest_id(value: Any) -> str:
     """Normalize manifest/package identifiers for tolerant flight matching."""
 
+    if value is None or pd.isna(value):
+        return ""
     normalized = re.sub(r"[^A-Za-z0-9]+", "_", str(value or "").strip().upper())
     normalized = re.sub(r"_+", "_", normalized).strip("_")
     return normalized
+
+
+def _compact_drone_manifest_id(value: str) -> str:
+    """Return an alphanumeric-only key for separator-tolerant matching."""
+
+    return re.sub(r"[^A-Z0-9]+", "", value.upper())
 
 
 def _strip_trailing_manifest_date(value: str) -> str:
@@ -255,6 +263,8 @@ def lookup_flight_datetime(
     - an exact match wins first;
     - a trailing ``YYYYMMDD`` token is ignored, so ``AOP_GOLDHILL_20230814``
       matches manifest row ``AOP_GOLDHILL``;
+    - if needed, separators are ignored for compact matching, so ``SPR1``
+      matches manifest row ``SPR-1``;
     - if neither rule matches, the longest manifest key that prefixes the
       derived flight stem wins.
     """
@@ -269,6 +279,15 @@ def lookup_flight_datetime(
     without_date = _strip_trailing_manifest_date(normalized)
     if without_date in manifest:
         return manifest[without_date]
+
+    compact_without_date = _compact_drone_manifest_id(without_date)
+    for candidate, acquisition_datetime in sorted(
+        manifest.items(),
+        key=lambda item: len(item[0]),
+        reverse=True,
+    ):
+        if compact_without_date == _compact_drone_manifest_id(candidate):
+            return acquisition_datetime
 
     for candidate in sorted(manifest, key=len, reverse=True):
         if normalized.startswith(f"{candidate}_"):

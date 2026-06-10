@@ -20,6 +20,46 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P36. Drone Manifest Real CSV Matching Cleanup
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-10
+- Goal: Validate the real drone field manifest CSV against the manifest loader
+  and tighten flight-ID matching for mixed separator forms such as `SPR-1`
+  matching derived package stems like `SPR1_20230628`.
+- Plan:
+  - Test `load_drone_manifest()` and `lookup_flight_datetime()` against the
+    provided field CSV without committing the CSV to the repository.
+  - Make missing/blank manifest IDs skip cleanly instead of normalizing pandas
+    missing values to `NAN`.
+  - Add compact alphanumeric fallback matching while preserving exact and
+    date-stripped matching priority.
+  - Add focused regression tests for `SPR-1` -> `SPR1_YYYYMMDD` matching.
+- Completion notes:
+  - Validated the provided field CSV in `/Users/tuff/Downloads` without copying
+    it into the repository.
+  - Updated manifest ID normalization so pandas missing IDs skip cleanly as
+    missing values instead of becoming `NAN`.
+  - Added compact alphanumeric fallback matching so manifest IDs such as
+    `SPR-1` and `SPR-2` resolve derived stems such as `SPR1_20230628` and
+    `SPR2_20230628`.
+  - Confirmed the real manifest resolves representative package stems:
+    `SPR1_20230628`, `SPR2_20230628`, `SH67_1_20230707`, `SH67W2_20230711`,
+    `AOP_GOLDHILL_20230814`, and `AOP_GORDON_20230814`.
+  - The real CSV loaded 44 valid acquisition datetimes; row 31 (`MTST_11`) is
+    missing date/time and row 46 has a missing `Plot` value, both now reported
+    with clear warnings.
+- Verification:
+  - `python3 -m py_compile src/spectralbridge/pipelines/drone.py tests/test_drone_pipeline.py`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_drone_pipeline.py::test_load_drone_manifest_parses_flight_datetime tests/test_drone_pipeline.py::test_lookup_flight_datetime_matches_manifest_id_without_date_suffix tests/test_drone_pipeline.py::test_lookup_flight_datetime_matches_compact_mixed_separator_id`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_drone_pipeline.py`
+- Next recommended task:
+  - Use the manifest path in a real `run_drone_pipeline()` TIFF run and confirm
+    the generated per-flight QA audit reports `solar_geometry_source` as
+    `manifest_computed` for flights without explicit solar rasters/scalars.
+
 ### P35. Drone Manifest Solar Geometry
 
 - Priority: User-directed

@@ -5276,3 +5276,10 @@ Correction requested
 - Make the generated drone H5 as semantically equivalent to a NEON AOP H5 as possible.
 - Add clear logging and QA reporting so users can determine exactly where solar geometry originated.
 ```
+
+## 2026-06-10 - validate drone field manifest
+Branch: main
+
+```text
+here is the manifest.
+```

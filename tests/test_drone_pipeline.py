@@ -1699,6 +1699,14 @@ def test_lookup_flight_datetime_matches_manifest_id_without_date_suffix() -> Non
     assert acquisition_datetime == datetime(2023, 8, 15, 19, 53, 7)
 
 
+def test_lookup_flight_datetime_matches_compact_mixed_separator_id() -> None:
+    manifest = {"SPR_1": datetime(2023, 6, 28, 17, 30, 21)}
+
+    acquisition_datetime = lookup_flight_datetime("SPR1_20230628", manifest)
+
+    assert acquisition_datetime == datetime(2023, 6, 28, 17, 30, 21)
+
+
 def test_convert_drone_tiff_to_h5_computes_manifest_solar_geometry(
     tmp_path: Path,
 ) -> None:
