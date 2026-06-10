@@ -20,6 +20,40 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P37. Drone Manifest Path Resolution Error Clarity
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-10
+- Goal: Improve `run_drone_pipeline()` behavior when `drone_manifest_path` is
+  a relative path that is not found from the notebook working directory.
+- Plan:
+  - Resolve relative manifest paths against the current working directory and
+    nearby drone input locations before loading the CSV.
+  - Raise an actionable `FileNotFoundError` that lists checked locations and
+    tells users to pass an absolute path or place/upload the CSV into the
+    working environment.
+  - Add focused regression coverage for relative path resolution and missing
+    manifest error clarity.
+- Completion notes:
+  - Added `_resolve_drone_manifest_path()` so relative `drone_manifest_path`
+    values are checked from the notebook/current working directory, the drone
+    input folder, and the input folder parent before loading the CSV.
+  - Improved missing-manifest failures with an actionable `FileNotFoundError`
+    that lists every checked path and tells users to pass an absolute path or
+    upload/place the CSV into the working environment.
+  - Added regression tests for resolving a manifest placed inside the drone
+    input directory and for the clearer missing-file error.
+- Verification:
+  - `python3 -m py_compile src/spectralbridge/pipelines/drone.py tests/test_drone_pipeline.py`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_drone_pipeline.py::test_run_drone_pipeline_resolves_manifest_relative_to_input_dir tests/test_drone_pipeline.py::test_run_drone_pipeline_missing_manifest_error_lists_checked_paths tests/test_drone_pipeline.py::test_lookup_flight_datetime_matches_compact_mixed_separator_id`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_drone_pipeline.py`
+- Next recommended task:
+  - In the notebook/Jupyter environment, either upload the manifest CSV next to
+    the notebook or `drone_inputs/`, or pass the absolute path to the uploaded
+    CSV.
+
 ### P36. Drone Manifest Real CSV Matching Cleanup
 
 - Priority: User-directed

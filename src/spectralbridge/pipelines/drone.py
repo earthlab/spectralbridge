@@ -250,6 +250,43 @@ def load_drone_manifest(manifest_path: str | Path) -> dict[str, datetime]:
     return manifest
 
 
+def _resolve_drone_manifest_path(
+    manifest_path: str | Path,
+    *,
+    input_path: str | Path,
+) -> Path:
+    """Resolve a drone manifest path with notebook-friendly relative fallbacks."""
+
+    requested = Path(manifest_path)
+    input_path = Path(input_path)
+    input_base = input_path if input_path.is_dir() else input_path.parent
+    candidates = (
+        [requested]
+        if requested.is_absolute()
+        else [
+            Path.cwd() / requested,
+            input_base / requested,
+            input_base.parent / requested,
+        ]
+    )
+
+    checked: list[Path] = []
+    for candidate in candidates:
+        candidate = candidate.expanduser()
+        if candidate in checked:
+            continue
+        checked.append(candidate)
+        if candidate.exists():
+            return candidate
+
+    checked_text = "\n".join(f"  - {path}" for path in checked)
+    raise FileNotFoundError(
+        "Drone manifest CSV not found. Pass an absolute path or place/upload "
+        "the manifest into the notebook working directory or drone input "
+        f"folder.\nRequested: {manifest_path}\nChecked:\n{checked_text}"
+    )
+
+
 def lookup_flight_datetime(
     flight_id: str,
     manifest: dict[str, datetime] | None,
@@ -2014,6 +2051,11 @@ def run_drone_pipeline(
         Path(drone_manifest_path) if drone_manifest_path is not None else None
     )
     output_dir.mkdir(parents=True, exist_ok=True)
+    if drone_manifest_path is not None:
+        drone_manifest_path = _resolve_drone_manifest_path(
+            drone_manifest_path,
+            input_path=input_h5_dir,
+        )
     drone_manifest = (
         load_drone_manifest(drone_manifest_path)
         if drone_manifest_path is not None

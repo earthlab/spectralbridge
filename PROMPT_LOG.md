@@ -5283,3 +5283,10 @@ Branch: main
 ```text
 here is the manifest.
 ```
+
+## 2026-06-10 - drone manifest relative path error
+Branch: main
+
+```text
+Attached traceback shows run_drone_pipeline(..., drone_manifest_path="Drone Field Data Macrosystems - UAS Data Processing For Extraction.csv") failing with FileNotFoundError because the relative manifest CSV path was not found from the notebook working directory.
+```

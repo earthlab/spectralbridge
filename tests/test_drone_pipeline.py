@@ -1691,6 +1691,48 @@ def test_load_drone_manifest_parses_flight_datetime(tmp_path: Path) -> None:
     assert manifest["AOP_GOLDHILL"] == datetime(2023, 8, 15, 19, 53, 7)
 
 
+def test_run_drone_pipeline_resolves_manifest_relative_to_input_dir(tmp_path: Path) -> None:
+    input_dir = tmp_path / "input"
+    input_dir.mkdir()
+    manifest_path = input_dir / "manifest.csv"
+    manifest_path.write_text(
+        "Plot,Day of data collection,Mean Time of data collection (24 hr clock)\n"
+        "SPR-1,2023-06-28,17:30:21\n",
+        encoding="utf-8",
+    )
+
+    results = run_drone_pipeline(
+        input_dir,
+        output_dir=tmp_path / "out",
+        apply_topo=False,
+        apply_brdf=False,
+        drone_manifest_path="manifest.csv",
+    )
+
+    assert results["processed"] == []
+    assert results["qa_summary"]["drone_manifest_path"] == str(manifest_path)
+
+
+def test_run_drone_pipeline_missing_manifest_error_lists_checked_paths(
+    tmp_path: Path,
+) -> None:
+    input_dir = tmp_path / "input"
+    input_dir.mkdir()
+
+    with pytest.raises(FileNotFoundError, match="Drone manifest CSV not found") as excinfo:
+        run_drone_pipeline(
+            input_dir,
+            output_dir=tmp_path / "out",
+            apply_topo=False,
+            apply_brdf=False,
+            drone_manifest_path="missing_manifest.csv",
+        )
+
+    message = str(excinfo.value)
+    assert "Pass an absolute path" in message
+    assert str(input_dir / "missing_manifest.csv") in message
+
+
 def test_lookup_flight_datetime_matches_manifest_id_without_date_suffix() -> None:
     manifest = {"AOP_GOLDHILL": datetime(2023, 8, 15, 19, 53, 7)}
 
