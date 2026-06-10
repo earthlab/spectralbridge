@@ -5290,3 +5290,10 @@ Branch: main
 ```text
 Attached traceback shows run_drone_pipeline(..., drone_manifest_path="Drone Field Data Macrosystems - UAS Data Processing For Extraction.csv") failing with FileNotFoundError because the relative manifest CSV path was not found from the notebook working directory.
 ```
+
+## 2026-06-10 - drone manifest input-dir fallback
+Branch: main
+
+```text
+Traceback shows the improved drone_manifest_path error only checked the notebook working directory and the raw relative filename, but did not check the relative input_h5_dir folder (`drone_inputs`) for the manifest CSV.
+```

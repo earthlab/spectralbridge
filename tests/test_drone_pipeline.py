@@ -1713,6 +1713,33 @@ def test_run_drone_pipeline_resolves_manifest_relative_to_input_dir(tmp_path: Pa
     assert results["qa_summary"]["drone_manifest_path"] == str(manifest_path)
 
 
+def test_run_drone_pipeline_resolves_manifest_relative_to_relative_input_folder(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    work_dir = tmp_path / "work"
+    input_dir = work_dir / "drone_inputs"
+    input_dir.mkdir(parents=True)
+    manifest_path = input_dir / "manifest.csv"
+    manifest_path.write_text(
+        "Plot,Day of data collection,Mean Time of data collection (24 hr clock)\n"
+        "SPR-1,2023-06-28,17:30:21\n",
+        encoding="utf-8",
+    )
+    monkeypatch.chdir(work_dir)
+
+    results = run_drone_pipeline(
+        "drone_inputs",
+        output_dir=tmp_path / "out",
+        apply_topo=False,
+        apply_brdf=False,
+        drone_manifest_path="manifest.csv",
+    )
+
+    assert results["processed"] == []
+    assert results["qa_summary"]["drone_manifest_path"] == str(manifest_path)
+
+
 def test_run_drone_pipeline_missing_manifest_error_lists_checked_paths(
     tmp_path: Path,
 ) -> None:

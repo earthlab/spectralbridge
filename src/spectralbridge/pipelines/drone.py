@@ -259,16 +259,22 @@ def _resolve_drone_manifest_path(
 
     requested = Path(manifest_path)
     input_path = Path(input_path)
-    input_base = input_path if input_path.is_dir() else input_path.parent
-    candidates = (
-        [requested]
-        if requested.is_absolute()
-        else [
-            Path.cwd() / requested,
-            input_base / requested,
-            input_base.parent / requested,
-        ]
-    )
+    if requested.is_absolute():
+        candidates = [requested]
+    else:
+        cwd = Path.cwd()
+        input_candidates = (
+            [input_path, cwd / input_path]
+            if not input_path.is_absolute()
+            else [input_path]
+        )
+        input_bases: list[Path] = []
+        for candidate in input_candidates:
+            input_bases.append(candidate)
+            input_bases.append(candidate.parent)
+        candidates = [cwd / requested, requested]
+        for base in input_bases:
+            candidates.append(base / requested)
 
     checked: list[Path] = []
     for candidate in candidates:
@@ -277,7 +283,7 @@ def _resolve_drone_manifest_path(
             continue
         checked.append(candidate)
         if candidate.exists():
-            return candidate
+            return candidate.resolve()
 
     checked_text = "\n".join(f"  - {path}" for path in checked)
     raise FileNotFoundError(

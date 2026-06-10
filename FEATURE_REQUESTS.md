@@ -20,6 +20,37 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P38. Drone Manifest Relative Input Folder Fallback
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-10
+- Goal: Fix the drone manifest resolver so a relative `input_h5_dir` such as
+  `drone_inputs` is checked for a relative manifest CSV even if the input
+  directory has not resolved as an existing directory yet.
+- Plan:
+  - Add current-working-directory-relative input folder candidates to
+    `_resolve_drone_manifest_path()`.
+  - Preserve the clearer missing-file error with checked paths.
+  - Add focused regression coverage for resolving
+    `input_h5_dir="drone_inputs"` plus `drone_manifest_path="manifest.csv"`.
+- Completion notes:
+  - Updated `_resolve_drone_manifest_path()` to check both the raw relative
+    `input_h5_dir` and the current-working-directory-resolved input folder for
+    relative manifest CSVs.
+  - Resolved manifest paths are now stored as absolute paths in QA metadata so
+    notebook runs are easier to audit.
+  - Added a CyVerse-shaped regression test for
+    `input_h5_dir="drone_inputs"` and `drone_manifest_path="manifest.csv"`.
+- Verification:
+  - `python3 -m py_compile src/spectralbridge/pipelines/drone.py tests/test_drone_pipeline.py`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_drone_pipeline.py::test_run_drone_pipeline_resolves_manifest_relative_to_input_dir tests/test_drone_pipeline.py::test_run_drone_pipeline_resolves_manifest_relative_to_relative_input_folder tests/test_drone_pipeline.py::test_run_drone_pipeline_missing_manifest_error_lists_checked_paths`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_drone_pipeline.py`
+- Next recommended task:
+  - In CyVerse, upload/copy the manifest CSV either to the notebook working
+    directory or to `drone_inputs/`; the patched resolver will now find either.
+
 ### P37. Drone Manifest Path Resolution Error Clarity
 
 - Priority: User-directed
