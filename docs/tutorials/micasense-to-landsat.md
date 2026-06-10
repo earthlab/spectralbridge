@@ -58,9 +58,10 @@ workflow. The TIFF bridge is intentionally strict:
   - `sensor_zenith` or `view_zenith`
   - `sensor_azimuth` or `view_azimuth`
 - solar geometry can come from:
-  - aligned `solar_zenith` / `solar_azimuth` TIFFs, or
+  - aligned `solar_zenith` / `solar_azimuth` TIFFs,
   - scalar `tiff_solar_zenith_deg` / `tiff_solar_azimuth_deg` arguments passed
-    to `run_drone_pipeline`
+    to `run_drone_pipeline`, or
+  - a flight manifest CSV passed as `drone_manifest_path`
 
 If both an HDF5 file and a reflectance TIFF resolve to the same derived flight
 stem within one package, the existing HDF5 input takes precedence.
@@ -83,12 +84,35 @@ results = run_drone_pipeline(
     apply_brdf=True,
     use_ndvi_brdf_bins=False,
     apply_brightness_adjustment=False,
-    tiff_solar_zenith_deg=88.90,
-    tiff_solar_azimuth_deg=287.69,
+    drone_manifest_path="Drone Field Data Macrosystems - UAS Data Processing For Extraction.csv",
 )
 ```
 
 Set `polygon_path=None` when you only need ENVI and QA products.
+
+The manifest CSV is used only when explicit solar rasters or scalar solar
+angles are not supplied. It must include:
+
+- `Plot`
+- `Day of data collection`
+- `Mean Time of data collection (24 hr clock)`
+
+Derived flight stems such as `AOP_GOLDHILL_20230814` match manifest rows such
+as `AOP_GOLDHILL`. SpectralBridge uses the matched acquisition datetime plus
+the reflectance TIFF CRS/transform to compute per-pixel `Solar_Zenith_Angle`
+and `Solar_Azimuth_Angle` datasets in the generated working HDF5.
+Manifest datetimes without timezone information are treated as UTC.
+
+When `apply_topo=True` or `apply_brdf=True`, solar geometry is required by
+default. Set `require_solar_geometry=False` only when you intentionally want to
+allow an uncorrected fallback for incomplete inputs.
+
+Each per-flight QA audit records:
+
+- `solar_geometry_source`: `raster`, `scalar`, `manifest_computed`, or `missing`
+- `acquisition_datetime_used`
+- solar zenith mean/min/max
+- solar azimuth mean/min/max
 
 If your TIFF source does not use the default 10-band Erick notebook spectral
 definition, also pass:

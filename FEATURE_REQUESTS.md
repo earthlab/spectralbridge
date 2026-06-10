@@ -20,6 +20,55 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P35. Drone Manifest Solar Geometry
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-09
+- Goal: Restore drone solar-geometry derivation from a flight manifest CSV so
+  TIFF-backed drone inputs can produce NEON-equivalent H5 solar angle datasets
+  when explicit solar rasters/scalars are not supplied.
+- Plan:
+  - Keep the standard NEON/AOP pipeline unchanged and contain all behavior in
+    `src/spectralbridge/pipelines/drone.py`.
+  - Add optional `drone_manifest_path` and `require_solar_geometry` inputs to
+    the drone adapter path without requiring them for existing H5 workflows.
+  - Implement manifest loading, flight-ID lookup, raster-coordinate lat/lon
+    generation, and per-pixel solar zenith/azimuth calculation for TIFF-to-H5
+    conversion.
+  - Record solar-geometry provenance and summary statistics in drone QA output.
+  - Add focused regression tests for manifest parsing, flight lookup,
+    manifest-derived H5 geometry, and required-geometry failure behavior.
+- Completion notes:
+  - Added `load_drone_manifest()` and `lookup_flight_datetime()` to the drone
+    adapter with tolerant CSV column matching, flight-id normalization, and
+    date-suffix matching such as `AOP_GOLDHILL_20230814` ->
+    `AOP_GOLDHILL`.
+  - Extended `convert_drone_tiff_to_h5()` to preserve the existing priority
+    order for explicit solar rasters/scalars and compute per-pixel
+    `Solar_Zenith_Angle` / `Solar_Azimuth_Angle` from manifest acquisition
+    datetime plus raster CRS/transform when explicit geometry is absent.
+  - Added `drone_manifest_path` and `require_solar_geometry` to
+    `run_drone_pipeline()` and threaded manifest-derived datetimes through the
+    TIFF-to-H5 preparation stage without modifying the standard NEON/AOP
+    pipeline.
+  - Added per-flight QA/audit fields for solar geometry source, acquisition
+    datetime used, and solar zenith/azimuth summary statistics.
+  - Updated the MicaSense/drone tutorial to document manifest-derived solar
+    geometry and the required-geometry behavior.
+- Verification:
+  - `python3 -m py_compile src/spectralbridge/pipelines/drone.py tests/test_drone_pipeline.py`
+  - `CSCAL_TEST_MODE=full .venv/bin/pytest -q tests/test_drone_pipeline.py`
+  - `python3 scripts/check_docs_links.py`
+- Remaining work:
+  - `ruff check src tests` was not run because `ruff` is not installed in the
+    local `.venv` or available on `PATH` in this environment.
+- Next recommended task:
+  - Run CI or a local environment with Ruff installed to verify linting, then
+    test the manifest path against the real field CSV to confirm timestamp
+    timezone assumptions match the acquisition metadata.
+
 ### P34. AOP QA PNG Redesign
 
 - Priority: User-directed

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime
 from pathlib import Path
 
 import json
@@ -25,8 +26,11 @@ from spectralbridge.pipelines.drone import (
     _prepare_drone_h5_working_copy,
     clean_name,
     derive_drone_flight_stem,
+    load_drone_manifest,
+    lookup_flight_datetime,
     resolve_band_map,
     save_drone_overlay_debug_plot,
+    summarize_drone_h5_solar_geometry,
 )
 from spectralbridge.qa_plots import (
     _classify_drone_scene,
@@ -204,6 +208,19 @@ def _patch_basic_drone_runtime(monkeypatch) -> None:
     monkeypatch.setattr(
         "spectralbridge.qa_plots.render_drone_panel",
         _fake_render_drone_panel,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.summarize_drone_h5_solar_geometry",
+        lambda h5_path: {
+            "solar_geometry_source": "raster",
+            "acquisition_datetime_used": None,
+            "solar_zenith_mean": 45.0,
+            "solar_zenith_min": 45.0,
+            "solar_zenith_max": 45.0,
+            "solar_azimuth_mean": 180.0,
+            "solar_azimuth_min": 180.0,
+            "solar_azimuth_max": 180.0,
+        },
     )
 
 
@@ -415,10 +432,17 @@ def test_run_drone_pipeline_accepts_tiff_sources(tmp_path: Path, monkeypatch) ->
     )
     tif_path.parent.mkdir(parents=True, exist_ok=True)
     tif_path.write_bytes(b"fake-tif")
+    manifest_path = tmp_path / "manifest.csv"
+    manifest_path.write_text(
+        "Plot,Day of data collection,Mean Time of data collection (24 hr clock)\n"
+        "SPR1,2023-06-28,19:53:07\n",
+        encoding="utf-8",
+    )
 
     _patch_basic_drone_runtime(monkeypatch)
 
     created_paths: list[Path] = []
+    prepare_kwargs: list[dict[str, object]] = []
 
     def _fake_prepare(
         source_path,
@@ -432,6 +456,7 @@ def test_run_drone_pipeline_accepts_tiff_sources(tmp_path: Path, monkeypatch) ->
         prepared.parent.mkdir(parents=True, exist_ok=True)
         prepared.write_bytes(b"fake-h5")
         created_paths.append(prepared)
+        prepare_kwargs.append(dict(_kwargs))
         return prepared, False
 
     monkeypatch.setattr(
@@ -443,13 +468,20 @@ def test_run_drone_pipeline_accepts_tiff_sources(tmp_path: Path, monkeypatch) ->
         tmp_path / "input",
         output_dir=tmp_path / "out",
         apply_topo=False,
+        apply_brdf=False,
+        drone_manifest_path=manifest_path,
     )
 
     assert created_paths == [tmp_path / "out" / "SPR1_20230628" / "SPR1_20230628__working.h5"]
+    assert prepare_kwargs[0]["acquisition_datetime"] == datetime(2023, 6, 28, 19, 53, 7)
+    assert prepare_kwargs[0]["require_solar_geometry"] is False
     assert results["processed"] == [str(tif_path)]
     file_summary = results["qa_summary"]["files"][0]
     assert file_summary["input_source_type"] == "tiff"
     assert file_summary["input_source_filename"] == "aligned_orthomosaic.tif"
+    assert file_summary["manifest_flight_datetime"] == "2023-06-28T19:53:07"
+    assert file_summary["solar_geometry_source"] == "raster"
+    assert results["qa_summary"]["drone_manifest_path"] == str(manifest_path)
     assert file_summary["prepared_h5_filename"] == "SPR1_20230628__working.h5"
     assert file_summary["status"] == "success_qa_only_no_polygons"
 
@@ -1646,6 +1678,73 @@ def test_convert_drone_tiff_to_h5_creates_neoncube_readable_working_file(
     np.testing.assert_allclose(cube.get_ancillary("solar_zn", radians=False), np.full((4, 4), 88.9, dtype=np.float32))
 
 
+def test_load_drone_manifest_parses_flight_datetime(tmp_path: Path) -> None:
+    manifest_path = tmp_path / "manifest.csv"
+    manifest_path.write_text(
+        " Plot , Day of data collection , Mean Time of data collection (24 hr clock) \n"
+        " AOP_GOLDHILL , 2023-08-15 , 19:53:07 \n",
+        encoding="utf-8",
+    )
+
+    manifest = load_drone_manifest(manifest_path)
+
+    assert manifest["AOP_GOLDHILL"] == datetime(2023, 8, 15, 19, 53, 7)
+
+
+def test_lookup_flight_datetime_matches_manifest_id_without_date_suffix() -> None:
+    manifest = {"AOP_GOLDHILL": datetime(2023, 8, 15, 19, 53, 7)}
+
+    acquisition_datetime = lookup_flight_datetime("AOP_GOLDHILL_20230814", manifest)
+
+    assert acquisition_datetime == datetime(2023, 8, 15, 19, 53, 7)
+
+
+def test_convert_drone_tiff_to_h5_computes_manifest_solar_geometry(
+    tmp_path: Path,
+) -> None:
+    package = tmp_path / "AOP_GOLDHILL_20230814"
+    reflectance_tif = _write_test_multiband_raster(package / "aligned_orthomosaic.tif")
+    output_h5 = tmp_path / "out" / "AOP_GOLDHILL_20230814__working.h5"
+
+    written = convert_drone_tiff_to_h5(
+        reflectance_tif,
+        output_h5_path=output_h5,
+        acquisition_datetime=datetime(2023, 8, 15, 19, 53, 7),
+        require_solar_geometry=True,
+    )
+
+    assert written == output_h5
+    with h5py.File(output_h5, "r") as h5_file:
+        metadata = h5_file["AOP_GOLDHILL_20230814/Reflectance/Metadata"]
+        solar_zenith = metadata["Solar_Zenith_Angle"][()]
+        solar_azimuth = metadata["Solar_Azimuth_Angle"][()]
+        assert solar_zenith.shape == (4, 4)
+        assert solar_azimuth.shape == (4, 4)
+        assert np.isfinite(solar_zenith).all()
+        assert np.isfinite(solar_azimuth).all()
+        assert metadata.attrs["solar_geometry_source"] == "manifest_computed"
+        assert metadata.attrs["acquisition_datetime_used"] == "2023-08-15T19:53:07"
+
+    summary = summarize_drone_h5_solar_geometry(output_h5)
+    assert summary["solar_geometry_source"] == "manifest_computed"
+    assert summary["acquisition_datetime_used"] == "2023-08-15T19:53:07"
+    assert summary["solar_zenith_mean"] is not None
+
+
+def test_convert_drone_tiff_to_h5_requires_solar_geometry_when_requested(
+    tmp_path: Path,
+) -> None:
+    package = tmp_path / "AOP_GOLDHILL_20230814"
+    reflectance_tif = _write_test_multiband_raster(package / "aligned_orthomosaic.tif")
+
+    with pytest.raises(RuntimeError, match="requires solar geometry"):
+        convert_drone_tiff_to_h5(
+            reflectance_tif,
+            output_h5_path=tmp_path / "out" / "missing_geometry.h5",
+            require_solar_geometry=True,
+        )
+
+
 def test_prepare_drone_source_working_h5_converts_tiff_sources(tmp_path: Path) -> None:
     package = tmp_path / "SPR1-06-28-23-ExportPackage"
     reflectance_tif = _write_test_multiband_raster(package / "aligned_orthomosaic.tif")
@@ -1729,6 +1828,19 @@ def test_run_drone_pipeline_prepares_working_copy_before_neoncube(
     monkeypatch.setattr(
         "spectralbridge.qa_plots.render_drone_panel",
         _fake_render_drone_panel,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.summarize_drone_h5_solar_geometry",
+        lambda h5_path: {
+            "solar_geometry_source": "raster",
+            "acquisition_datetime_used": None,
+            "solar_zenith_mean": 45.0,
+            "solar_zenith_min": 45.0,
+            "solar_zenith_max": 45.0,
+            "solar_azimuth_mean": 180.0,
+            "solar_azimuth_min": 180.0,
+            "solar_azimuth_max": 180.0,
+        },
     )
 
     results = run_drone_pipeline(

@@ -5016,3 +5016,263 @@ Branch: main
 ```text
 let's do that.
 ```
+
+## 2026-06-09 - drone manifest solar geometry
+Branch: main
+
+```text
+# Codex Prompt: Restore Drone Solar Geometry Using Flight Manifest CSV
+
+## Background
+
+The SpectralBridge drone workflow is intentionally designed as a thin adapter around the existing NEON AOP pipeline.
+
+The architecture is:
+
+text Drone TIFF + ancillary data     ↓ convert_drone_tiff_to_h5()     ↓ NEON-like H5     ↓ Standard SpectralBridge pipeline     ↓ ENVI     ↓ Topo / BRDF correction     ↓ QA     ↓ Extraction 
+
+The standard pipeline should remain unchanged.
+
+The goal of this PR is to improve the drone adapter so that it produces a more complete NEON-equivalent H5 by computing solar geometry when it is not explicitly supplied.
+
+---
+
+## Problem
+
+Historically the drone workflow used a flight timestamp (date_time_str) to compute:
+
+text Solar_Zenith_Angle Solar_Azimuth_Angle 
+
+before writing the H5.
+
+The current package implementation supports:
+
+python solar_zenith_tiff solar_azimuth_tiff sensor_zenith_tiff sensor_azimuth_tiff 
+
+or scalar angle inputs, but does not automatically compute solar geometry from acquisition time.
+
+As a result:
+
+- drone H5 files may have missing solar geometry
+- topo/BRDF correction may run with incomplete metadata
+- the resulting H5 is structurally similar to NEON but not fully equivalent
+
+---
+
+## New Input
+
+Assume the user provides:
+
+python drone_manifest_path="Drone Field Data Macrosystems - UAS Data Processing For Extraction.csv" 
+
+The CSV contains flight metadata including:
+
+text Plot Day of data collection Mean Time of data collection (24 hr clock) 
+
+Example:
+
+text AOP_GOLDHILL 2023-08-15 19:53:07  AOP_GORDON 2023-08-15 20:58:39  AOP_RUBY 2023-08-16 18:53:18 
+
+The CSV should become the authoritative source of acquisition datetime information for drone flights.
+
+---
+
+## Required Changes
+
+### 1. Add manifest support to run_drone_pipeline()
+
+Add optional argument:
+
+python drone_manifest_path: str | Path | None = None 
+
+Pass this through to the TIFF → H5 conversion stage.
+
+Do not require it for existing workflows.
+
+---
+
+### 2. Create a manifest loader
+
+New helper:
+
+python load_drone_manifest() 
+
+Responsibilities:
+
+- read CSV
+- normalize flight identifiers
+- parse acquisition datetime
+- build lookup dictionary
+
+Return:
+
+python {     "AOP_GOLDHILL": datetime(...),     "AOP_GORDON": datetime(...),     ... } 
+
+Handle:
+
+- whitespace
+- mixed separators
+- missing rows
+- malformed dates
+
+Provide informative warnings.
+
+---
+
+### 3. Add flight lookup helper
+
+Create:
+
+python lookup_flight_datetime(     flight_id,     manifest ) 
+
+This should match:
+
+text AOP_GOLDHILL_20230814 
+
+to
+
+text AOP_GOLDHILL 
+
+and return the acquisition datetime.
+
+Document matching rules.
+
+---
+
+### 4. Restore solar geometry computation
+
+Inside:
+
+python convert_drone_tiff_to_h5() 
+
+Add logic:
+
+### Priority 1
+
+Use supplied:
+
+python solar_zenith_tiff solar_azimuth_tiff 
+
+if present.
+
+### Priority 2
+
+Use supplied scalar angles if present.
+
+### Priority 3
+
+If no solar geometry exists:
+
+python acquisition_datetime + pixel lat/lon 
+
+compute:
+
+python Solar_Zenith_Angle Solar_Azimuth_Angle 
+
+for every pixel.
+
+Write these datasets into the generated H5 using the same names expected by the standard AOP pipeline.
+
+### Priority 4
+
+If geometry still cannot be produced:
+
+raise a clear error when correction is requested.
+
+---
+
+## Coordinate Requirements
+
+Use the raster CRS and transform to generate:
+
+python longitude latitude 
+
+for each pixel.
+
+Avoid assumptions about projection.
+
+Use rasterio / pyproj utilities already present in the project where possible.
+
+---
+
+## QA Improvements
+
+Add fields to QA JSON:
+
+json {   "solar_geometry_source": "...",   "acquisition_datetime_used": "...",   "solar_zenith_mean": ...,   "solar_zenith_min": ...,   "solar_zenith_max": ...,   "solar_azimuth_mean": ...,   "solar_azimuth_min": ...,   "solar_azimuth_max": ... } 
+
+Allowed values:
+
+text solar_geometry_source:  raster scalar manifest_computed missing 
+
+---
+
+## Failure Behavior
+
+Add:
+
+python require_solar_geometry: bool = True 
+
+If:
+
+python apply_topo=True 
+
+or
+
+python apply_brdf=True 
+
+and no geometry exists:
+
+text raise RuntimeError 
+
+unless:
+
+python require_solar_geometry=False 
+
+---
+
+## Testing
+
+Add minimal tests.
+
+### Test 1
+
+Manifest loading:
+
+python AOP_GOLDHILL → datetime parsed correctly 
+
+### Test 2
+
+Flight lookup:
+
+python AOP_GOLDHILL_20230814 → AOP_GOLDHILL 
+
+### Test 3
+
+Manifest-derived geometry:
+
+Synthetic raster
+
+→ geometry computed
+
+→ datasets written to H5
+
+### Test 4
+
+Missing geometry
+
+Correction requested
+
+→ clear exception raised
+
+---
+
+## Design Constraints
+
+- Do not modify the standard NEON pipeline.
+- Keep all changes inside the drone adapter layer.
+- Maintain backwards compatibility.
+- Preserve existing workflows that already provide solar angle rasters.
+- Make the generated drone H5 as semantically equivalent to a NEON AOP H5 as possible.
+- Add clear logging and QA reporting so users can determine exactly where solar geometry originated.
+```
