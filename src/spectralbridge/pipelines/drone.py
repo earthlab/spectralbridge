@@ -124,6 +124,7 @@ _DRONE_DEFAULT_MANIFEST_ALIASES = {
     _DRONE_DEFAULT_MANIFEST_FILENAME,
     "Drone Field Data Macrosystems - UAS Data Processing For Extraction.csv",
 }
+_DRONE_SUPPORTED_INPUT_EXTENSIONS = (".h5", ".tif", ".tiff")
 _DRONE_SOLAR_GEOMETRY_ATTRS = (
     "solar_geometry_source",
     "acquisition_datetime_used",
@@ -2096,13 +2097,44 @@ def run_drone_pipeline(
     }
 
     input_sources = _discover_drone_input_sources(input_h5_dir)
+    input_path_exists = input_h5_dir.exists()
+    input_path_type = (
+        "file"
+        if input_h5_dir.is_file()
+        else "directory"
+        if input_h5_dir.is_dir()
+        else "missing"
+    )
     results["qa_summary"]["discovered_total"] = len(input_sources)
     results["qa_summary"]["attempted_total"] = len(input_sources)
     results["qa_summary"]["run_root"] = str(output_dir)
     results["qa_summary"]["polygon_path"] = (
         str(polygon_path) if polygon_path is not None else None
     )
+    results["qa_summary"]["input_source_path"] = str(input_h5_dir)
+    results["qa_summary"]["input_source_path_resolved"] = str(
+        input_h5_dir.expanduser().resolve(strict=False)
+    )
+    results["qa_summary"]["input_source_path_exists"] = bool(input_path_exists)
+    results["qa_summary"]["input_source_path_type"] = input_path_type
+    results["qa_summary"]["supported_input_extensions"] = list(
+        _DRONE_SUPPORTED_INPUT_EXTENSIONS
+    )
     if not input_sources:
+        results["qa_summary"]["input_discovery_status"] = (
+            "no_supported_drone_inputs_found"
+        )
+        results["qa_summary"]["skip_reason"] = (
+            "No supported drone inputs were found under input_h5_dir. "
+            "Expected local .h5, .tif, or .tiff files; ancillary-only TIFFs such "
+            "as slope/aspect/sensor geometry are not treated as flight inputs."
+        )
+        _drone_emit(
+            "[drone] No supported drone inputs discovered under "
+            f"{input_h5_dir!s} (exists={input_path_exists}, "
+            f"type={input_path_type}). Expected extensions: "
+            f"{', '.join(_DRONE_SUPPORTED_INPUT_EXTENSIONS)}."
+        )
         qa_path = _write_json(
             output_dir / "drone_qa_summary.json", results["qa_summary"]
         )

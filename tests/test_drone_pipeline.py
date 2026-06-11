@@ -379,6 +379,37 @@ def test_discover_drone_input_sources_prefers_h5_and_skips_ancillary_tiffs(
     assert sources[0].flight_stem == "SPR1_20230628"
 
 
+def test_run_drone_pipeline_reports_empty_input_discovery(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    input_dir = tmp_path / "empty_inputs"
+    input_dir.mkdir()
+    output_dir = tmp_path / "out"
+
+    results = run_drone_pipeline(
+        input_h5_dir=input_dir,
+        output_dir=output_dir,
+        apply_topo=False,
+        apply_brdf=False,
+    )
+
+    captured = capsys.readouterr()
+    summary = results["qa_summary"]
+    assert "No supported drone inputs discovered" in captured.err
+    assert summary["discovered_total"] == 0
+    assert summary["attempted_total"] == 0
+    assert summary["input_discovery_status"] == "no_supported_drone_inputs_found"
+    assert summary["input_source_path"] == str(input_dir)
+    assert summary["input_source_path_exists"] is True
+    assert summary["input_source_path_type"] == "directory"
+    assert summary["supported_input_extensions"] == [".h5", ".tif", ".tiff"]
+    assert "input_h5_dir" in summary["skip_reason"]
+
+    qa_summary = json.loads(Path(results["qa_summary_path"]).read_text())
+    assert qa_summary["input_discovery_status"] == "no_supported_drone_inputs_found"
+    assert qa_summary["input_source_path_resolved"] == str(input_dir.resolve())
+
+
 def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) -> None:
     h5_path = (
         tmp_path

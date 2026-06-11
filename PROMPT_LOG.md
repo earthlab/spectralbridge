@@ -5321,3 +5321,29 @@ Branch: main
 Run python -m http.server 8000 --directory site > /tmp/spectralbridge-docs-http.log 2>&1 &
 test_docs_site_core_pages_render_in_browser failed because console_errors contained two "Failed to load resource: the server responded with a status of 403 ()" entries.
 ```
+
+## 2026-06-10 - drone empty input discovery clarity
+Branch: main
+
+```text
+[drone] Skipping manifest row 31 for MTST_11 with malformed acquisition datetime: 'nan' 'nan'
+[drone] Skipping manifest row 46 with missing Plot value in [/home/jovyan/data-store/spectralbridge/src/spectralbridge/data/drone_field_manifest.csv](https://afa48b26d.cyverse.run/lab/tree/spectralbridge/spectralbridge/src/spectralbridge/data/drone_field_manifest.csv)
+Processed: 0
+Failed: 0
+Merged parquet: None
+QA summary: drone_outputs/drone_qa_summary.json
+{'attempted_total': 0,
+ 'brightness_adjustment_applied': False,
+ 'brightness_adjustment_requested': False,
+ 'brightness_offset': 0.0,
+ 'cloud_mask_applied': False,
+ 'convolution': 'skipped',
+ 'discovered_total': 0,
+ 'drone_manifest_path': '/home/jovyan/data-store/spectralbridge/src/spectralbridge/data/drone_field_manifest.csv',
+ 'files': [],
+ 'ndvi_brdf_bins_enabled': False,
+ 'platform': 'drone',
+ 'polygon_path': 'Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg',
+ 'require_solar_geometry': True,
+ 'run_root': 'drone_outputs'}
+```

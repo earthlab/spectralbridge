@@ -20,6 +20,43 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P42. Drone Empty Input Discovery Status
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-10
+- Goal: Make drone pipeline runs with zero discovered H5/TIFF inputs explicit
+  and actionable in logs and QA metadata.
+- Plan:
+  - Preserve the existing non-raising empty-run behavior for compatibility.
+  - Add explicit QA metadata describing the searched path, whether it exists,
+    whether it is a file or directory, and the supported input extensions.
+  - Emit an actionable warning when no drone inputs are discovered.
+  - Add a regression test for empty input discovery status.
+- Completion notes:
+  - Added explicit empty-discovery QA metadata to `run_drone_pipeline()`,
+    including input path, resolved path, existence, path type, supported input
+    extensions, `input_discovery_status`, and `skip_reason`.
+  - Added a visible `[drone] No supported drone inputs discovered...` message
+    when a run finds no `.h5`, `.tif`, or `.tiff` flight inputs.
+  - Preserved the existing non-raising empty-run behavior for restart-safe
+    compatibility.
+  - Added regression coverage for empty input discovery status and written QA
+    JSON metadata.
+- Verification:
+  - `python3 -m py_compile src/spectralbridge/pipelines/drone.py tests/test_drone_pipeline.py`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_drone_pipeline.py::test_run_drone_pipeline_reports_empty_input_discovery`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_drone_pipeline.py`
+- Blockers:
+  - Ruff is not installed in the local `.venv`, so `ruff check` could not be
+    run here.
+- Next recommended task:
+  - In the notebook, inspect the current working directory and the requested
+    input folder with `Path.cwd()` and `list(Path("drone_inputs").rglob("*"))`
+    to confirm the TIFF/H5 files are actually under the path passed to
+    `run_drone_pipeline()`.
+
 ### P41. Remove Remote Docs CDN Assets From Browser Smoke Path
 
 - Priority: User-directed
