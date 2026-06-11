@@ -5347,3 +5347,10 @@ QA summary: drone_outputs/drone_qa_summary.json
  'require_solar_geometry': True,
  'run_root': 'drone_outputs'}
 ```
+
+## 2026-06-11 - CI full test failure log
+Branch: main
+
+```text
+Attached pasted-text.txt shows full pytest failure log with drone pipeline, parquet export, Ray engine, polygon ArrowDtype, and stage export failures after recent changes.
+```

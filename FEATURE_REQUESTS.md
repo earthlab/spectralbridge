@@ -20,6 +20,48 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P43. CI Regression Stabilization After Drone/Docs Updates
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-06-11
+- Goal: Fix the full-test CI regressions reported in the attached pytest log
+  without changing scientific workflow behavior.
+- Plan:
+  - Identify shared causes behind the reported failures before making broad
+    edits.
+  - Restore testable module boundaries where monkeypatches should intercept
+    pipeline calls.
+  - Add or adjust focused regression coverage only where needed.
+  - Run targeted tests for each fixed failure cluster, then broader test
+    modules when feasible.
+- Completion notes:
+  - Fixed `tests/test_cross_sensor_cal_shim.py` so fresh namespace import tests
+    restore prior `spectralbridge` and `cross_sensor_cal` modules after each
+    check. This prevents later tests from holding stale direct function imports
+    while monkeypatch modifies a different live module instance.
+  - Fixed `tests/conftest.py` so the fake PyArrow shim is only installed when
+    real `pyarrow` cannot be imported, instead of shadowing an installed
+    PyArrow package before pandas ArrowDtype tests run.
+  - No scientific workflow code was changed for this stabilization pass.
+- Verification:
+  - `python3 -m py_compile tests/test_cross_sensor_cal_shim.py tests/conftest.py`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_cross_sensor_cal_shim.py tests/test_drone_pipeline.py::test_run_drone_pipeline_skips_polygons_cleanly tests/test_drone_pipeline.py::test_run_drone_pipeline_accepts_tiff_sources tests/test_drone_pipeline.py::test_apply_drone_corrections_uses_full_scene_chunk tests/test_stage_export.py::test_stage_export_envi_targets_raw_names tests/test_polygons.py::test_extract_polygon_parquet_from_envi_stabilizes_null_only_metadata_chunks`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q tests/test_cross_sensor_cal_shim.py tests/test_drone_pipeline.py tests/test_logging_config.py tests/test_parquet_export.py tests/test_pipeline_convolution.py tests/test_pipeline_ray_engines.py tests/test_polygons.py tests/test_stage_export.py --disable-warnings`
+    reached 100% with no assertion failures in local output.
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/pytest -q --disable-warnings`
+    reached 100% with no assertion failures in local output.
+- Blockers:
+  - The local full-suite process reports a signal-style pytest exit value after
+    printing 100% completion (`PYTEST_EXIT:143` when explicitly echoed), so CI
+    should be treated as the authoritative final full-suite process-exit check.
+    The attached assertion failures are no longer reproduced after the test
+    isolation fixes.
+- Next recommended task:
+  - Push the test-isolation fixes and rerun CI; if CI still reports a nonzero
+    exit after all assertions pass, investigate Ray/process shutdown separately.
+
 ### P42. Drone Empty Input Discovery Status
 
 - Priority: User-directed

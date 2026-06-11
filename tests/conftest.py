@@ -38,7 +38,16 @@ def require_mode(expected: str):
     return pytest.mark.skipif(MODE != expected, reason=f"CSCAL_TEST_MODE!='{expected}'")
 
 
-if "pyarrow" not in sys.modules:  # pragma: no cover - testing fallback
+try:  # pragma: no cover - prefer real pyarrow when it is installed
+    import pyarrow  # noqa: F401
+    import pyarrow.json  # noqa: F401
+    import pyarrow.parquet  # noqa: F401
+
+    _HAS_REAL_PYARROW = True
+except ModuleNotFoundError:  # pragma: no cover - testing fallback
+    _HAS_REAL_PYARROW = False
+
+if not _HAS_REAL_PYARROW:
     fake_pa = types.ModuleType("pyarrow")
     fake_parquet = types.ModuleType("pyarrow.parquet")
 
@@ -196,4 +205,3 @@ if "matplotlib" not in sys.modules:  # pragma: no cover - provide lightweight st
 
     sys.modules["matplotlib"] = fake_matplotlib
     sys.modules["matplotlib.pyplot"] = fake_pyplot
-
