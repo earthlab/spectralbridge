@@ -163,6 +163,13 @@
     "topo_and_brdf_correction.py": [
       "--config_file"
     ],
+    "standard_resample.py": [
+      "--hdr_path",
+      "--json_file",
+      "--output_path",
+      "--resampling_file_path",
+      "--sensor_type"
+    ],
     "merge_duckdb.py": [
       "--corrected-glob",
       "--data-root",
@@ -185,19 +192,6 @@
       "--out-parquet",
       "--out-png"
     ],
-    "standard_resample.py": [
-      "--hdr_path",
-      "--json_file",
-      "--output_path",
-      "--resampling_file_path",
-      "--sensor_type"
-    ],
-    "download.py": [
-      "--flight",
-      "--output",
-      "--product",
-      "--year-month"
-    ],
     "pipeline.py": [
       "--brightness-offset",
       "--no-sync",
@@ -208,13 +202,11 @@
       "--use-ndvi-brdf-bins",
       "--verbose"
     ],
-    "qa_summary_cli.py": [
-      "--output-pdf",
-      "--pattern"
-    ],
-    "recover_cli.py": [
-      "--base-folder",
-      "--brightness-offset"
+    "download.py": [
+      "--flight",
+      "--output",
+      "--product",
+      "--year-month"
     ],
     "pipeline_cli.py": [
       "--base-folder",
@@ -230,8 +222,17 @@
       "--product-code",
       "--resample-method",
       "--site-code",
+      "--topo-fit-mode",
       "--use-ndvi-brdf-bins",
       "--year-month"
+    ],
+    "qa_summary_cli.py": [
+      "--output-pdf",
+      "--pattern"
+    ],
+    "recover_cli.py": [
+      "--base-folder",
+      "--brightness-offset"
     ],
     "qa_cli.py": [
       "--base-folder",
