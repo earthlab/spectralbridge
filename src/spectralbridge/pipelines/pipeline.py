@@ -1790,6 +1790,7 @@ def stage_apply_brdf_topo_correction(
     raw_hdr_path: Path,
     correction_json_path: Path,
     use_ndvi_brdf_bins: bool = False,
+    topo_fit_mode: str = "scene",
     parallel_mode: bool = False,
 ) -> tuple[Path, Path]:
     """
@@ -1834,6 +1835,7 @@ def stage_apply_brdf_topo_correction(
         out_img_path=corrected_img_path,
         out_hdr_path=corrected_hdr_path,
         use_ndvi_brdf_bins=use_ndvi_brdf_bins,
+        topo_fit_mode=topo_fit_mode,
         interactive_mode=not parallel_mode,
     )
 
@@ -2404,6 +2406,7 @@ def process_one_flightline(
     polygon_min_overlap: float = 0.0,  # Minimum overlap percentage (0.0-1.0) for polygons to be included. 0.0 = any overlap, 1.0 = completely inside
     polygon_search_buffer_m: float = 0.0,  # Buffer distance in meters to expand flightline search area. Polygons within this distance will be included even if they don't directly overlap.
     extraction_mode: str | None = None,  # "polygon", "full", or None (auto-detect from polygon_path)
+    topo_fit_mode: str = "scene",  # "scene" = scene-wide topo fit; "tile" = 100x100 tile-local topo fit
 ):
     """Run the structured, skip-aware workflow for a single flightline.
 
@@ -2467,6 +2470,7 @@ def process_one_flightline(
         raw_hdr_path=raw_hdr_path,
         correction_json_path=correction_json_path,
         use_ndvi_brdf_bins=use_ndvi_brdf_bins,
+        topo_fit_mode=topo_fit_mode,
         parallel_mode=parallel_mode,
     )
 
@@ -2589,6 +2593,7 @@ class _FlightlineTask(NamedTuple):
     polygon_min_overlap: float
     polygon_search_buffer_m: float
     extraction_mode: str | None
+    topo_fit_mode: str
 
 
 def _execute_flightline(task: "_FlightlineTask") -> str:
@@ -2615,6 +2620,7 @@ def _execute_flightline(task: "_FlightlineTask") -> str:
             polygon_min_overlap=task.polygon_min_overlap,
             polygon_search_buffer_m=task.polygon_search_buffer_m,
             extraction_mode=task.extraction_mode,
+            topo_fit_mode=task.topo_fit_mode,
         )
     return task.flight_stem
 
@@ -2805,6 +2811,7 @@ def go_forth_and_multiply(
     polygon_min_overlap: float = 0.0,  # Minimum overlap percentage (0.0-1.0) for polygons to be included. 0.0 = any overlap, 1.0 = completely inside
     polygon_search_buffer_m: float = 0.0,  # Buffer distance in meters to expand flightline search area. Polygons within this distance will be included even if they don't directly overlap.
     extraction_mode: str | None = None,  # "polygon", "full", or None (auto-detect from polygon_path)
+    topo_fit_mode: str = "scene",  # "scene" = scene-wide topo fit; "tile" = 100x100 tile-local topo fit
 ) -> None:
     """High-level orchestrator for processing multiple flight lines.
 
@@ -2988,6 +2995,7 @@ def go_forth_and_multiply(
             polygon_min_overlap=polygon_min_overlap,
             polygon_search_buffer_m=polygon_search_buffer_m,
             extraction_mode=extraction_mode,
+            topo_fit_mode=topo_fit_mode,
         )
         for flight_stem in flight_lines
     ]

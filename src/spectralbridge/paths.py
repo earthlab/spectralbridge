@@ -258,10 +258,18 @@ class FlightlinePaths:
 
 def scene_prefix_from_dir(flightline_dir: Path) -> str:
     flightline_dir = Path(flightline_dir)
-    # Prefer *_envi.img; else *.h5; else folder name
+    # Prefer raw ``*_envi.img`` over corrected products. Sorted globbing alone
+    # picks ``*_brdfandtopo_corrected_envi.img`` first alphabetically, which
+    # then yields the wrong ``*_brdf_model.json`` prefix and silent neutral BRDF.
     imgs = sorted(flightline_dir.glob("*_envi.img"))
     if imgs:
-        stem = imgs[0].stem
+        raw_imgs = [
+            path
+            for path in imgs
+            if "brdfandtopo_corrected" not in path.name.lower()
+        ]
+        chosen = raw_imgs[0] if raw_imgs else imgs[0]
+        stem = chosen.stem
         return stem[:-5] if stem.endswith("_envi") else stem
     h5s = sorted(flightline_dir.glob("*.h5"))
     if h5s:

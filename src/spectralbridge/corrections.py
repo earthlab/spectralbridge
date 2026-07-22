@@ -23,6 +23,7 @@ __all__ = [
     "calc_geom_kernel",
     "load_brdf_model",
     "fit_and_save_brdf_model",
+    "fit_scs_c_coefficients",
     "apply_topo_correct",
     "apply_brdf_correct",
     "apply_glint_correct",
@@ -115,12 +116,17 @@ def _scs_c_ratio(
     """Internal helper applying the SCS+C denominator guard.
 
     Denominators below ``min_denom`` are forced to a neutral ratio of 1.0 to
-    avoid exploding corrections. Caller is responsible for any logging.
+    avoid exploding corrections. Non-finite or non-positive ratios are also
+    forced to 1.0 so topographic correction cannot invent negative reflectance
+    that BRDF later collapses to no-data. Caller is responsible for any logging.
     """
 
     ratio = np.ones_like(numerator, dtype=np.float32)
     valid = denominator > min_denom
-    ratio[valid] = (numerator[valid] / denominator[valid]).astype(np.float32)
+    candidate = np.full_like(numerator, np.nan, dtype=np.float32)
+    candidate[valid] = (numerator[valid] / denominator[valid]).astype(np.float32)
+    keep = valid & np.isfinite(candidate) & (candidate > 0.0)
+    ratio[keep] = candidate[keep]
     return ratio
 
 
@@ -443,6 +449,91 @@ def calc_geom_kernel(
 # - Because the regression is fit inside this function on the current tile's valid
 #   pixels, the fitted ``C`` value can vary from tile to tile when the caller uses
 #   non-overlapping chunks.
+def fit_scs_c_coefficients(
+    cube,
+    *,
+    chunk_y: int = 500,
+    chunk_x: int | None = None,
+) -> np.ndarray:
+    """Fit per-band SCS+C ``C`` parameters over a full NeonCube footprint.
+
+    Streams reflectance tiles and accumulates ordinary-least-squares sufficient
+    statistics so scene-wide topographic fits do not require holding a second
+    full corrected cube in memory.
+    """
+
+    lines = int(getattr(cube, "lines"))
+    columns = int(getattr(cube, "columns"))
+    bands = int(getattr(cube, "bands"))
+    chunk_x = int(chunk_x) if chunk_x is not None else columns
+    if chunk_y <= 0 or chunk_x <= 0:
+        raise ValueError("chunk dimensions must be positive")
+
+    scale_factor = float(getattr(cube, "scale_factor", 1.0)) or 1.0
+    slope = cube.get_ancillary("slope", radians=True)
+    aspect = cube.get_ancillary("aspect", radians=True)
+    solar_zn = cube.get_ancillary("solar_zn", radians=True)
+    solar_az = cube.get_ancillary("solar_az", radians=True)
+    cos_i = calc_cosine_i(solar_zn, solar_az, aspect, slope)
+
+    if hasattr(cube, "mask_no_data"):
+        base_mask = cube.mask_no_data.astype(bool)
+    else:
+        base_mask = np.ones((lines, columns), dtype=bool)
+    base_mask &= np.isfinite(cos_i)
+
+    n = np.zeros(bands, dtype=np.float64)
+    sum_x = np.zeros(bands, dtype=np.float64)
+    sum_y = np.zeros(bands, dtype=np.float64)
+    sum_xx = np.zeros(bands, dtype=np.float64)
+    sum_xy = np.zeros(bands, dtype=np.float64)
+
+    for ys, ye, xs, xe, raw_chunk in cube.iter_chunks(chunk_y=chunk_y, chunk_x=chunk_x):
+        chunk = np.asarray(raw_chunk, dtype=np.float32)
+        data_unitless = chunk * np.float32(scale_factor)
+        tile_mask = base_mask[ys:ye, xs:xe] & np.isfinite(data_unitless).all(axis=-1)
+        if not np.any(tile_mask):
+            continue
+        x = cos_i[ys:ye, xs:xe][tile_mask].astype(np.float64, copy=False)
+        for band in range(bands):
+            y = data_unitless[..., band][tile_mask].astype(np.float64, copy=False)
+            finite = np.isfinite(y) & np.isfinite(x)
+            if not np.any(finite):
+                continue
+            x_f = x[finite]
+            y_f = y[finite]
+            n[band] += x_f.size
+            sum_x[band] += x_f.sum()
+            sum_y[band] += y_f.sum()
+            sum_xx[band] += np.dot(x_f, x_f)
+            sum_xy[band] += np.dot(x_f, y_f)
+
+    c_values = np.zeros(bands, dtype=np.float32)
+    for band in range(bands):
+        if n[band] < 2:
+            logger.debug("Band %d: insufficient samples for scene SCS+C; C=0", band)
+            continue
+        denom = n[band] * sum_xx[band] - sum_x[band] * sum_x[band]
+        if abs(denom) < 1e-12:
+            logger.debug("Band %d: singular scene SCS+C matrix; C=0", band)
+            continue
+        a = (n[band] * sum_xy[band] - sum_x[band] * sum_y[band]) / denom
+        b = (sum_y[band] - a * sum_x[band]) / n[band]
+        if np.isclose(a, 0.0):
+            c_values[band] = 0.0
+        else:
+            c_values[band] = np.float32(b / a)
+
+    logger.info(
+        "Scene SCS+C fit complete: C finite bands=%d/%d (min=%.4g max=%.4g)",
+        int(np.isfinite(c_values).sum()),
+        bands,
+        float(np.nanmin(c_values)) if bands else float("nan"),
+        float(np.nanmax(c_values)) if bands else float("nan"),
+    )
+    return c_values
+
+
 def apply_topo_correct(
     cube,
     chunk_array: np.ndarray,
@@ -451,8 +542,18 @@ def apply_topo_correct(
     xs: int,
     xe: int,
     use_scs_c: bool = True,
+    scs_c: np.ndarray | None = None,
 ) -> np.ndarray:
-    """Topographic (illumination) correction on a hyperspectral chunk."""
+    """Topographic (illumination) correction on a hyperspectral chunk.
+
+    Parameters
+    ----------
+    scs_c :
+        Optional per-band SCS+C ``C`` values (length ``bands``). When provided,
+        the tile uses these coefficients instead of fitting locally. Pass scene
+        fits from :func:`fit_scs_c_coefficients` for HyTools-style behaviour
+        without loading the full flightline as one correction chunk.
+    """
 
     if chunk_array.dtype != np.float32:
         raise ValueError("Chunks passed to apply_topo_correct must be float32 arrays.")
@@ -489,43 +590,55 @@ def apply_topo_correct(
         cos_i_valid = cos_i[valid_mask]
         cos_solar_valid = cos_solar[valid_mask]
         cos_beta_valid = cos_beta[valid_mask]
+        precomputed = None
+        if scs_c is not None:
+            precomputed = np.asarray(scs_c, dtype=np.float64).reshape(-1)
+            if precomputed.size != data_unitless.shape[-1]:
+                raise ValueError(
+                    f"scs_c length {precomputed.size} does not match "
+                    f"chunk bands {data_unitless.shape[-1]}"
+                )
         for band in range(data_unitless.shape[-1]):
-            # Solve the SCS+C regression independently for each spectral band using
-            # only the valid pixels from this chunk.
             rho_band = data_unitless[..., band]
-            y = rho_band[valid_mask].astype(np.float64, copy=False)
-            x = cos_i_valid.astype(np.float64, copy=False)
-            finite = np.isfinite(y) & np.isfinite(x)
-            if np.count_nonzero(finite) < 2:
-                logger.debug("Band %d: insufficient samples for SCS+C; using neutral", band)
-                continue
-
-            # ``X = [cos(i), 1]`` means least squares is fitting:
-            #   rho = a * cos(i) + b
-            # where ``a`` is the slope and ``b`` is the intercept.
-            X = np.stack([x[finite], np.ones_like(x[finite])], axis=1)
-            try:
-                coeffs, *_ = np.linalg.lstsq(X, y[finite], rcond=None)
-                a, b = coeffs
-            except np.linalg.LinAlgError:
-                logger.debug("Band %d: regression failed; using neutral", band)
-                continue
-            if np.isclose(a, 0.0):
-                C_val = 0.0
-                logger.debug("Band %d: regression slope near zero; C set to 0", band)
+            if precomputed is not None:
+                C_val = float(precomputed[band])
             else:
-                # ``C = b / a`` is the classic SCS+C parameter. It shifts both the
-                # numerator and denominator so the correction is less extreme than a
-                # raw cosine ratio when terrain geometry is unfavorable.
-                C_val = float(b / a)
+                # Solve the SCS+C regression independently for each spectral band
+                # using only the valid pixels from this chunk.
+                y = rho_band[valid_mask].astype(np.float64, copy=False)
+                x = cos_i_valid.astype(np.float64, copy=False)
+                finite = np.isfinite(y) & np.isfinite(x)
+                if np.count_nonzero(finite) < 2:
+                    logger.debug("Band %d: insufficient samples for SCS+C; using neutral", band)
+                    continue
+
+                # ``X = [cos(i), 1]`` means least squares is fitting:
+                #   rho = a * cos(i) + b
+                # where ``a`` is the slope and ``b`` is the intercept.
+                X = np.stack([x[finite], np.ones_like(x[finite])], axis=1)
+                try:
+                    coeffs, *_ = np.linalg.lstsq(X, y[finite], rcond=None)
+                    a, b = coeffs
+                except np.linalg.LinAlgError:
+                    logger.debug("Band %d: regression failed; using neutral", band)
+                    continue
+                if np.isclose(a, 0.0):
+                    C_val = 0.0
+                    logger.debug("Band %d: regression slope near zero; C set to 0", band)
+                else:
+                    # ``C = b / a`` is the classic SCS+C parameter. It shifts both
+                    # the numerator and denominator so the correction is less
+                    # extreme than a raw cosine ratio when terrain geometry is
+                    # unfavorable.
+                    C_val = float(b / a)
             num = cos_solar_valid * cos_beta_valid + C_val
             den = cos_i_valid + C_val
             min_denom = MIN_SCS_C_DENOM
             tiny = den > 0
 
             # Apply the multiplicative SCS+C factor. ``_scs_c_ratio`` forces a
-            # neutral ratio of 1.0 when the denominator becomes too small, which
-            # prevents huge corrections near singular geometry.
+            # neutral ratio of 1.0 when the denominator becomes too small or the
+            # ratio is non-positive, which prevents NaN/-9999 cascades in BRDF.
             ratio_valid = _scs_c_ratio(num, den, min_denom=min_denom)
             if np.any(tiny & (den <= min_denom)):
                 logger.debug(
@@ -806,7 +919,10 @@ def apply_brdf_correct(
     if hasattr(cube, "mask_no_data"):
         valid_mask &= cube.mask_no_data[ys:ye, xs:xe][..., np.newaxis]
 
-    corrected_unitless = np.full_like(chunk_unitless, np.nan, dtype=np.float32)
+    # Start from the input reflectance and overwrite with BRDF-adjusted values.
+    # Initializing with NaN previously turned any unvisited/invalid-factor path
+    # into hard no-data (-9999) across the tile.
+    corrected_unitless = chunk_unitless.copy()
     for b in range(expected_bands):
         iso_band = iso[:, b]
         vol_band = vol[:, b]
@@ -825,7 +941,11 @@ def apply_brdf_correct(
                 + vol_band[bin_id] * ref_volume
                 + geo_band[bin_id] * ref_geom
             )
-            cf = np.where((R_pix > 0) & (R_ref > 0), R_ref / R_pix, np.nan)
+            # Use a neutral factor (1.0) when kernels are non-positive instead of
+            # NaN. NaN previously propagated to -9999 and wiped otherwise-valid
+            # reflectance after topographic correction.
+            cf = np.where((R_pix > 0) & (R_ref > 0), R_ref / R_pix, 1.0)
+            cf = np.where(np.isfinite(cf) & (cf > 0), cf, 1.0)
             if bin_id == 0 and b == 0:
                 log_stats("cf_bin0_band0", cf, mask_bin)
             target_mask = mask_bin & valid_mask[..., b]
@@ -837,7 +957,8 @@ def apply_brdf_correct(
 
     no_data_value = np.float32(getattr(cube, "no_data", np.nan))
     corrected_scaled = corrected_unitless / np.float32(scale_factor)
-    corrected_scaled = np.where(np.isfinite(corrected_scaled), corrected_scaled, no_data_value)
+    # Restore configured no-data only where the input was invalid / masked.
+    corrected_scaled = np.where(valid_mask, corrected_scaled, no_data_value)
 
     return corrected_scaled.astype(np.float32, copy=False)
 

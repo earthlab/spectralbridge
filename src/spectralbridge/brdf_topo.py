@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import logging
 from pathlib import Path
-from typing import Tuple
+from typing import Literal, Tuple
 
 import numpy as np
 
@@ -15,6 +15,7 @@ from .corrections import (
     apply_brdf_correct,
     apply_topo_correct,
     fit_and_save_brdf_model,
+    fit_scs_c_coefficients,
 )
 from .envi_writer import EnviWriter
 from .neon_cube import NeonCube
@@ -24,8 +25,44 @@ from .utils_checks import is_valid_envi_pair, is_valid_json
 
 logger = logging.getLogger(__name__)
 
+TopoFitMode = Literal["scene", "tile"]
+_TOPO_FIT_MODES = frozenset({"scene", "tile"})
+_DEFAULT_TOPO_FIT_MODE: TopoFitMode = "scene"
+_TILE_CHUNK_SIZE = 100
+# Scene mode fits C once, then applies in row strips (full width) to avoid OOM.
+# Set large enough that min(_SCENE_APPLY_CHUNK_Y, cube.lines) == cube.lines
+# (unchunked apply). Cap is still cube.lines, so this does not allocate extra rows.
+_SCENE_APPLY_CHUNK_Y = 100000
+
 _REQUIRED_SUFFIX = "_reflectance_envi"
 _CORRECTED_SUFFIX = "_reflectance_brdfandtopo_corrected_envi"
+
+
+def _normalize_topo_fit_mode(topo_fit_mode: str | TopoFitMode) -> TopoFitMode:
+    mode = (topo_fit_mode or _DEFAULT_TOPO_FIT_MODE).strip().lower()
+    if mode not in _TOPO_FIT_MODES:
+        raise ValueError(
+            "topo_fit_mode must be one of "
+            f"{sorted(_TOPO_FIT_MODES)!r}; received {topo_fit_mode!r}"
+        )
+    return mode  # type: ignore[return-value]
+
+
+def _resolve_topo_chunk_dims(
+    cube: NeonCube,
+    topo_fit_mode: str | TopoFitMode,
+) -> tuple[int, int]:
+    """Return spatial chunk sizes used while applying topographic correction.
+
+    For ``scene`` mode the SCS+C coefficients are fit once over the full footprint
+    (streamed), then applied in full-width row strips. For ``tile`` mode both fit
+    and apply remain local to each ``100 x 100`` tile.
+    """
+
+    mode = _normalize_topo_fit_mode(topo_fit_mode)
+    if mode == "scene":
+        return min(_SCENE_APPLY_CHUNK_Y, cube.lines), cube.columns
+    return _TILE_CHUNK_SIZE, _TILE_CHUNK_SIZE
 
 
 def _derive_corrected_stem(raw_img_path: Path) -> str:
@@ -195,14 +232,16 @@ def build_and_write_correction_json(
 # - ``xs`` / ``xe`` are the inclusive start and exclusive end column indices.
 # - Slices are therefore half-open, following normal NumPy ``array[ys:ye, xs:xe]`` rules.
 #
-# Chunking behavior:
-# - The current implementation uses fixed 100x100 spatial tiles with no overlap.
-# - ``apply_topo_correct`` is called once per tile, so the SCS+C regression is fit
-#   on the current tile only.
-# - ``apply_brdf_correct`` then applies scene-level BRDF coefficients over the same
-#   tile footprint.
-# - Because there is no halo or feathering here, any chunk-boundary artifact will
-#   align with this tiling scheme.
+# Chunking / topo behaviour:
+# - ``topo_fit_mode="scene"`` (default): fit SCS+C once over the flightline via
+#   streamed sufficient statistics, then apply in full-width row strips
+#   (``_SCENE_APPLY_CHUNK_Y`` rows). This matches HyTools scene-wide C without
+#   loading the whole cube as one correction tile (which OOMs on long NEON lines).
+# - ``topo_fit_mode="tile"``: fit and apply independently inside each 100x100 tile.
+# - ``apply_brdf_correct`` always uses scene-level BRDF coefficients over the same
+#   application tile footprint.
+# - Because apply tiles have no halo/feathering, seams aligned with the apply grid
+#   can still appear when ``topo_fit_mode="tile"``.
 def apply_brdf_topo_core(
     *,
     raw_img_path: Path,
@@ -211,10 +250,21 @@ def apply_brdf_topo_core(
     out_img_path: Path,
     out_hdr_path: Path,
     use_ndvi_brdf_bins: bool = False,
+    topo_fit_mode: str | TopoFitMode = _DEFAULT_TOPO_FIT_MODE,
     interactive_mode: bool = True,
     log_every: int = 25,
 ) -> None:
-    """Run the BRDF+topographic correction using ``params`` into ``out_*`` paths."""
+    """Run the BRDF+topographic correction using ``params`` into ``out_*`` paths.
+
+    Parameters
+    ----------
+    topo_fit_mode : {"scene", "tile"}, default "scene"
+        Controls how topographic correction is fit before application.
+
+        * ``"scene"`` fits the SCS+C regression once over the full flightline
+          footprint (HyTools-style), then applies in memory-safe row strips.
+        * ``"tile"`` fits independently inside each 100x100 spatial tile.
+    """
 
     # Normalize paths and make sure the destination directory exists before we do any work.
     raw_img_path = Path(raw_img_path)
@@ -259,10 +309,23 @@ def apply_brdf_topo_core(
 
     writer = EnviWriter(out_img_path.with_suffix(""), header)
 
-    # Fixed tiling for the current NEON correction path. These are the tile edges
-    # that show up if a correction step changes discontinuously across chunks.
-    chunk_y = 100
-    chunk_x = 100
+    topo_mode = _normalize_topo_fit_mode(topo_fit_mode)
+    chunk_y, chunk_x = _resolve_topo_chunk_dims(cube, topo_mode)
+    scs_c: np.ndarray | None = None
+    if topo_mode == "scene":
+        logger.info(
+            "[brdf-topo] Fitting scene-wide SCS+C coefficients, then applying in "
+            "%d x %d strips",
+            chunk_y,
+            chunk_x,
+        )
+        scs_c = fit_scs_c_coefficients(cube, chunk_y=chunk_y, chunk_x=chunk_x)
+    else:
+        logger.info(
+            "[brdf-topo] Using tile-local topographic fit (%d x %d pixels)",
+            chunk_y,
+            chunk_x,
+        )
     total_chunks = cube.chunk_count(chunk_y=chunk_y, chunk_x=chunk_x)
     reporter = TileProgressReporter(
         stage_name="BRDF+topo correction",
@@ -293,9 +356,11 @@ def apply_brdf_topo_core(
             # ``(tile_rows, tile_cols, bands)``.
             chunk = np.asarray(raw_chunk, dtype=np.float32)
 
-            # Topographic correction is fit and applied using only this tile's
-            # reflectance plus matching ancillary geometry slices.
-            corrected_chunk = apply_topo_correct(cube, chunk, ys, ye, xs, xe)
+            # Topographic correction: scene mode reuses precomputed C; tile mode
+            # fits inside apply_topo_correct on this footprint only.
+            corrected_chunk = apply_topo_correct(
+                cube, chunk, ys, ye, xs, xe, scs_c=scs_c
+            )
 
             # BRDF uses scene-level coefficients, but the kernels are evaluated
             # over this same tile footprint.
@@ -340,6 +405,7 @@ def apply_brdf_topo_correction(
     correction_json_path: Path,
     out_dir: Path,
     use_ndvi_brdf_bins: bool = False,
+    topo_fit_mode: str | TopoFitMode = _DEFAULT_TOPO_FIT_MODE,
     interactive_mode: bool = True,
     log_every: int = 25,
 ) -> Tuple[Path, Path]:
@@ -387,6 +453,7 @@ def apply_brdf_topo_correction(
         use_ndvi_brdf_bins=bool(
             params.get("use_ndvi_brdf_bins", use_ndvi_brdf_bins)
         ),
+        topo_fit_mode=topo_fit_mode,
         interactive_mode=interactive_mode,
         log_every=log_every,
     )
@@ -396,6 +463,7 @@ def apply_brdf_topo_correction(
 
 
 __all__ = [
+    "TopoFitMode",
     "build_correction_parameters_dict",
     "build_and_write_correction_json",
     "apply_brdf_topo_core",

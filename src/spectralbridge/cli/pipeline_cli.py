@@ -104,6 +104,16 @@ def _build_parser() -> argparse.ArgumentParser:
         default="ray",
         help="Parallel engine for flightline dispatch. Ray is the default and initialises automatically.",
     )
+    parser.add_argument(
+        "--topo-fit-mode",
+        choices=["scene", "tile"],
+        default="scene",
+        help=(
+            "Topographic correction fit strategy. "
+            "'scene' fits once over the full flightline (default); "
+            "'tile' fits independently inside 100x100 tiles."
+        ),
+    )
     return parser
 
 
@@ -129,6 +139,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         merge_threads=args.merge_threads,
         merge_row_group_size=args.merge_row_group_size,
         merge_temp_directory=args.merge_temp_directory,
+        topo_fit_mode=args.topo_fit_mode,
     )
 
     target = args.base_folder.resolve()
