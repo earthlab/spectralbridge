@@ -424,203 +424,159 @@ def _filter_no_data_rows_from_parquet(
 ) -> None:
     """
     Filter out rows where most (>90%) spectral columns are invalid/no-data.
-    
-    This function reads the parquet file, identifies spectral columns (columns
-    with wavelengths or band indicators), and removes rows where MORE THAN 90%
-    of spectral columns are invalid (NaN, -9999, negative, or >1.5).
-    Metadata columns (pixel_id, row, col, x, y, polygon_id, etc.) are preserved
-    and not checked.
-    
-    Parameters
-    ----------
-    con : duckdb.DuckDBPyConnection
-        DuckDB connection to use for filtering
-    parquet_path : Path
-        Path to the parquet file to filter (will be overwritten)
-    row_group_size : int | None, optional
-        Row group size for output parquet file. If None, uses DuckDB default.
+
+    Streams through DuckDB ``COPY ... TO`` so full-flightline merges (millions of
+    rows) do not need to materialize the table in pandas.
+
+    A spectral value counts as invalid when it is non-NULL and either approximately
+    ``-9999`` or negative. NULL/NaN values are ignored in the fraction (missing
+    products), except that rows with *all* spectral values NULL are dropped.
+    Metadata and ``raw_*`` columns are never used for the invalid fraction.
     """
-    print("[merge] 🔍 Filtering rows with >90% invalid spectral values (excluding raw_* columns)...")
-    
-    # Get all column names
+
+    print(
+        "[merge] 🔍 Filtering rows with >90% invalid spectral values "
+        "(excluding raw_* columns; DuckDB streaming)..."
+    )
+
     columns_df = con.execute(
         f"DESCRIBE SELECT * FROM read_parquet('{_quote_path(str(parquet_path))}')"
     ).df()
-    all_columns = columns_df['column_name'].tolist()
-    
-    # Identify spectral columns by POSITIVE indicators (wavelength patterns)
-    # This ensures we only check actual reflectance/spectral bands, not metadata or other numeric columns
-    import re
-    
-    # Metadata columns to exclude (even if they match wavelength patterns)
+    all_columns = columns_df["column_name"].tolist()
+
     metadata_keywords = {
-        'pixel_id', 'row', 'col', 'x', 'y', 'lon', 'lat', 'epsg', 'crs',
-        'flight_id', 'polygon_source', 'reference_product', 'raster_crs',
-        'polygon_id', 'objectid', 'globalid', 'shape__area', 'shape__length',
-        'creationdate', 'creator', 'editdate', 'editor', 'description_notes',
-        'raster_file', 'polygon_file', 'chunk', 'dbh', 'tree_height', 'species',
-        'other_species', 'plot', 'location', 'aop_site', 'source_image'
+        "pixel_id",
+        "row",
+        "col",
+        "x",
+        "y",
+        "lon",
+        "lat",
+        "epsg",
+        "crs",
+        "flight_id",
+        "polygon_source",
+        "reference_product",
+        "raster_crs",
+        "polygon_id",
+        "objectid",
+        "globalid",
+        "shape__area",
+        "shape__length",
+        "creationdate",
+        "creator",
+        "editdate",
+        "editor",
+        "description_notes",
+        "raster_file",
+        "polygon_file",
+        "chunk",
+        "dbh",
+        "tree_height",
+        "species",
+        "other_species",
+        "plot",
+        "location",
+        "aop_site",
+        "source_image",
     }
-    
-    # Identify spectral columns by wavelength pattern: _wl####nm or wl####nm
-    # Examples: corr_b001_wl0450nm, landsat_tm_b001_wl0485nm, wl0450nm
-    # EXCLUDE raw_* columns (raw reflectance) - only include corrected and convolved products
-    wavelength_pattern = re.compile(r'_wl\d+nm|^wl\d+nm', re.IGNORECASE)
-    
-    spectral_columns = []
+    wavelength_pattern = re.compile(r"_wl\d+nm|^wl\d+nm", re.IGNORECASE)
+
+    spectral_columns: list[str] = []
     for col in all_columns:
         col_lower = col.lower()
-        # Skip known metadata columns
-        is_metadata = any(kw in col_lower for kw in metadata_keywords)
-        if is_metadata:
+        if any(kw in col_lower for kw in metadata_keywords):
             continue
-        
-        # EXCLUDE raw_* columns (raw reflectance values)
-        # We only want to filter based on corrected and convolved products
-        if col_lower.startswith('raw_'):
+        if col_lower.startswith("raw_"):
             continue
-        
-        # Check if column matches wavelength pattern (positive indicator of spectral data)
         if wavelength_pattern.search(col):
             spectral_columns.append(col)
-    
+
     if not spectral_columns:
         print("[merge]    ⚠️  No spectral columns found to filter - skipping no-data filter")
         return
-    
+
     print(f"[merge]    Found {len(spectral_columns)} spectral columns to check")
-    
-    # Get row count before filtering
+
+    quoted_path = _quote_path(str(parquet_path))
     row_count_before = con.execute(
-        f"SELECT COUNT(*) FROM read_parquet('{_quote_path(str(parquet_path))}')"
+        f"SELECT COUNT(*) FROM read_parquet('{quoted_path}')"
     ).fetchone()[0]
-    
     if row_count_before == 0:
         print("[merge]    ⚠️  File is empty - nothing to filter")
         return
-    
-    # Use DuckDB to read the parquet file (avoids pandas/pyarrow dependency issues)
-    # This is more reliable in test environments where pyarrow might not be available
-    print(f"[merge]    Reading parquet file for filtering ({row_count_before:,} rows)...")
-    
-    # Read the parquet file using DuckDB (we already have a connection)
-    # DuckDB's .df() method returns a pandas DataFrame without requiring pyarrow
-    import pandas as pd
-    df = con.execute(f"SELECT * FROM read_parquet('{_quote_path(str(parquet_path))}')").df()
-    
-    print(f"[merge]    Checking {len(spectral_columns)} spectral columns for rows with majority invalid values (>90%)...")
-    
-    # Select only spectral columns (ensure they exist in the dataframe)
-    available_spectral_cols = [col for col in spectral_columns if col in df.columns]
-    if not available_spectral_cols:
-        print("[merge]    ⚠️  No spectral columns found in dataframe - skipping filter")
-        return
-    # Make a copy to avoid SettingWithCopyWarning
-    spectral_df = df[available_spectral_cols].copy()
-    
-    # Check which rows have ALL spectral columns as invalid/no-data
-    # Convert to numeric, handling any non-numeric values
-    for col in available_spectral_cols:
-        spectral_df[col] = pd.to_numeric(spectral_df[col], errors='coerce')
-    
-    # Filter rows where MOST (>90%) spectral columns are invalid:
-    # Invalid = -9999 (no-data marker) or negative values
-    # Note: We do NOT filter based on >1.5 because valid reflectance can exceed 1.5,
-    # and different products may use different scales (0-1, 0-100, etc.)
-    INVALID_THRESHOLD = 0.90  # Filter rows where >90% of non-NULL values are invalid
-    
-    def get_invalid_fraction(row):
-        """Calculate what fraction of reflectance values are invalid.
-        
-        NOTE: NULL/NaN values are NOT counted as invalid - they represent missing
-        data from a product that doesn't have that pixel (e.g., BRDF product missing
-        for some pixels). Only actual invalid values (-9999, negative) count.
-        
-        We do NOT filter based on >1.5 because:
-        - Reflectance values can legitimately be >1.5 (water, bright surfaces)
-        - Different products may use different scales (0-1, 0-100, etc.)
-        - The important check is for no-data markers (-9999) and physically impossible negatives
-        """
-        values = row.values
-        # Count non-NULL values only
-        non_null_mask = ~pd.isna(values)
-        non_null_count = non_null_mask.sum()
-        
-        if non_null_count == 0:
-            # If ALL values are NULL, this row has no data from any product
-            # This should be filtered out
-            return 1.0
-        
-        # Count invalid values (only among non-NULL values)
-        # Only count -9999 (no-data marker) and negatives (physically impossible)
-        invalid_count = 0
-        for i, val in enumerate(values):
-            if not non_null_mask[i]:
-                # NULL - skip (don't count as invalid)
-                continue
-            elif np.isclose(val, -9999.0, atol=0.01):
-                invalid_count += 1
-            elif val < 0:  # Negative is invalid (reflectance can't be negative)
-                invalid_count += 1
-            # NOTE: Removed >1.5 check - valid reflectance can be >1.5, and different scales are valid
-        
-        # Calculate invalid fraction based on non-NULL values only
-        return invalid_count / non_null_count
-    
-    # Calculate invalid fraction for each row
-    invalid_fractions = spectral_df.apply(get_invalid_fraction, axis=1)
-    
-    # Filter rows where most values are invalid
-    is_no_data = invalid_fractions > INVALID_THRESHOLD
-    
-    # Keep rows that are NOT all no-data
-    df_filtered = df[~is_no_data].copy()
-    
-    rows_filtered = row_count_before - len(df_filtered)
-    
-    if rows_filtered > 0:
-        print(
-            f"[merge]    ✅ Filtered out {rows_filtered:,} rows with >{INVALID_THRESHOLD*100:.0f}% invalid reflectance values "
-            f"({rows_filtered/row_count_before*100:.1f}% of total)"
+
+    print(
+        f"[merge]    Streaming filter over {row_count_before:,} rows "
+        f"(no pandas materialization)..."
+    )
+
+    INVALID_THRESHOLD = 0.90
+
+    # Per-column pieces for DuckDB aggregates matching the prior pandas logic:
+    # invalid = non-null and (approx -9999 or negative); null ignored in fraction.
+    non_null_terms: list[str] = []
+    invalid_terms: list[str] = []
+    for col in spectral_columns:
+        q = _quote_identifier(col)
+        non_null_terms.append(f"CASE WHEN {q} IS NOT NULL THEN 1 ELSE 0 END")
+        invalid_terms.append(
+            "CASE WHEN "
+            f"{q} IS NOT NULL AND ({q} < 0 OR abs({q} + 9999.0) < 0.01) "
+            "THEN 1 ELSE 0 END"
         )
-        print(
-            f"[merge]    Remaining rows: {len(df_filtered):,} (from {row_count_before:,})"
-        )
-        
-        # Write filtered dataframe back to parquet using DuckDB (avoids pyarrow dependency)
-        temp_path = parquet_path.with_suffix('.tmp.parquet')
-        try:
-            # Register the filtered dataframe in DuckDB
-            con.register('df_filtered', df_filtered)
-            
-            # Use DuckDB to write the filtered dataframe back to parquet
-            # This avoids pyarrow dependency issues in test environments
-            copy_sql = (
-                f"COPY (SELECT * FROM df_filtered) TO '{_quote_path(str(temp_path))}' "
-                f"(FORMAT PARQUET, COMPRESSION zstd"
-            )
-            if row_group_size:
-                copy_sql += f", ROW_GROUP_SIZE {row_group_size}"
-            copy_sql += ")"
-            con.execute(copy_sql)
-            
-            # Replace original file with filtered version
-            if temp_path.exists():
-                temp_path.replace(parquet_path)
-                print("[merge]    ✅ Replaced original file with filtered version")
-            else:
-                print("[merge]    ❌ ERROR: Filtered file was not created!")
-                raise RuntimeError("Filtered parquet file was not created")
-        except Exception as write_error:
-            print(f"[merge]    ❌ ERROR writing filtered parquet: {write_error}")
-            if temp_path.exists():
-                temp_path.unlink()
-            raise
-    else:
+
+    non_null_expr = " + ".join(non_null_terms)
+    invalid_expr = " + ".join(invalid_terms)
+    # Keep when there is at least one non-null spectral value AND invalid fraction
+    # is not strictly greater than the threshold.
+    keep_predicate = (
+        f"(({non_null_expr}) > 0) AND "
+        f"(({invalid_expr}) * 1.0 / ({non_null_expr}) <= {INVALID_THRESHOLD})"
+    )
+
+    drop_sql = (
+        f"SELECT COUNT(*) FROM read_parquet('{quoted_path}') "
+        f"WHERE NOT ({keep_predicate})"
+    )
+    rows_filtered = int(con.execute(drop_sql).fetchone()[0])
+
+    if rows_filtered <= 0:
         print("[merge]    ℹ️  No rows filtered (all rows have valid data)")
-    
-    # Clean up
-    del df, df_filtered, spectral_df
+        return
+
+    remaining = row_count_before - rows_filtered
+    print(
+        f"[merge]    ✅ Will filter out {rows_filtered:,} rows with "
+        f">{INVALID_THRESHOLD * 100:.0f}% invalid reflectance values "
+        f"({rows_filtered / row_count_before * 100:.1f}% of total)"
+    )
+    print(f"[merge]    Remaining rows: {remaining:,} (from {row_count_before:,})")
+
+    temp_path = parquet_path.with_suffix(".tmp.parquet")
+    if temp_path.exists():
+        temp_path.unlink()
+
+    copy_sql = (
+        f"COPY (SELECT * FROM read_parquet('{quoted_path}') WHERE {keep_predicate}) "
+        f"TO '{_quote_path(str(temp_path))}' "
+        f"(FORMAT PARQUET, COMPRESSION zstd"
+    )
+    if row_group_size:
+        copy_sql += f", ROW_GROUP_SIZE {row_group_size}"
+    copy_sql += ")"
+
+    try:
+        con.execute(copy_sql)
+        if not temp_path.exists():
+            raise RuntimeError("Filtered parquet file was not created")
+        temp_path.replace(parquet_path)
+        print("[merge]    ✅ Replaced original file with filtered version")
+    except Exception as write_error:
+        print(f"[merge]    ❌ ERROR writing filtered parquet: {write_error}")
+        if temp_path.exists():
+            temp_path.unlink()
+        raise
 
 
 def merge_flightline(

@@ -48,6 +48,109 @@ from .qa_metrics import (
 
 logger = logging.getLogger(__name__)
 
+
+def _quote_sql_path(path: Path | str) -> str:
+    return str(path).replace("'", "''")
+
+
+def _safe_read_parquet(
+    path: Path | str,
+    *,
+    columns: Sequence[str] | None = None,
+    sample_rows: int | None = None,
+):
+    """Read a parquet file without tripping pandas/pyarrow extension clashes.
+
+    Prefer DuckDB (does not use ``pandas.read_parquet``'s pyarrow engine, which
+    can raise ``ArrowKeyError: pandas.period already defined`` when extension
+    types were already registered). Fall back to pyarrow then pandas.
+    """
+
+    if pd is None:
+        raise ImportError("pandas is required to read parquet into a DataFrame")
+
+    path = Path(path)
+    quoted = _quote_sql_path(path)
+
+    # --- DuckDB (preferred) ---
+    try:
+        import duckdb
+
+        con = duckdb.connect()
+        try:
+            if columns:
+                cols_sql = ", ".join('"' + c.replace('"', '""') + '"' for c in columns)
+            else:
+                cols_sql = "*"
+            if sample_rows is not None and sample_rows > 0:
+                sql = (
+                    f"SELECT {cols_sql} FROM read_parquet('{quoted}') "
+                    f"USING SAMPLE {int(sample_rows)} ROWS"
+                )
+            else:
+                sql = f"SELECT {cols_sql} FROM read_parquet('{quoted}')"
+            return con.execute(sql).df()
+        finally:
+            con.close()
+    except Exception as exc:
+        logger.debug("DuckDB parquet read failed for %s: %s", path, exc)
+
+    # --- pyarrow table → pandas ---
+    try:
+        import pyarrow.parquet as pq
+
+        table = pq.read_table(path, columns=list(columns) if columns else None)
+        if sample_rows is not None and sample_rows > 0 and table.num_rows > sample_rows:
+            table = table.slice(0, int(sample_rows))
+        return table.to_pandas()
+    except Exception as exc:
+        logger.debug("pyarrow parquet read failed for %s: %s", path, exc)
+
+    # --- pandas, with clash soft-recovery ---
+    try:
+        df = pd.read_parquet(path, columns=list(columns) if columns else None)
+    except Exception as exc:
+        # Common hub failure mode after DuckDB/pyarrow already registered types.
+        msg = str(exc)
+        if "pandas.period already defined" in msg or "ArrowKeyError" in type(exc).__name__:
+            raise RuntimeError(
+                "Failed to read parquet due to pandas/pyarrow extension-type clash. "
+                "Install/use DuckDB for QA reads, or restart the kernel. "
+                f"Original error: {exc}"
+            ) from exc
+        raise
+
+    if sample_rows is not None and sample_rows > 0 and len(df) > sample_rows:
+        df = df.sample(n=int(sample_rows), random_state=42)
+    return df
+
+
+def _parquet_shape(path: Path | str) -> tuple[int, int] | None:
+    """Return (n_rows, n_cols) via DuckDB metadata when possible."""
+
+    path = Path(path)
+    quoted = _quote_sql_path(path)
+    try:
+        import duckdb
+
+        con = duckdb.connect()
+        try:
+            n_rows = int(con.execute(f"SELECT COUNT(*) FROM read_parquet('{quoted}')").fetchone()[0])
+            n_cols = len(
+                con.execute(f"DESCRIBE SELECT * FROM read_parquet('{quoted}')").fetchall()
+            )
+            return n_rows, n_cols
+        finally:
+            con.close()
+    except Exception:
+        try:
+            import pyarrow.parquet as pq
+
+            pf = pq.ParquetFile(path)
+            return int(pf.metadata.num_rows), int(pf.metadata.num_columns)
+        except Exception:
+            return None
+
 _DEFAULT_RGB_TARGETS = (660.0, 560.0, 490.0)
 _EXPECTED_HEADER_KEYS = ["wavelength", "fwhm", "band names"]
 _NEGATIVE_WARN_THRESHOLD = 1.0
@@ -436,8 +539,8 @@ def _load_filtered_parquet_stats(flightline_dir: Path, prefix: str) -> dict | No
             return None
     
     try:
-        # Read a sample to get statistics
-        df = pd.read_parquet(merged_parquet)
+        # Sample for QA stats so multi-million-row full extracts stay tractable.
+        df = _safe_read_parquet(merged_parquet, sample_rows=50_000)
         
         # Identify spectral columns (excluding raw_* and metadata)
         import re
@@ -634,7 +737,7 @@ def _scatter_from_merged_parquet(
             return {}
 
     try:
-        df = pd.read_parquet(merged_parquet)
+        df = _safe_read_parquet(merged_parquet, sample_rows=50_000)
     except Exception:
         return {}
 
@@ -1068,9 +1171,10 @@ def _render_page4_parquet_merge_quality(
     if merged_parquet.exists():
         try:
             if pd is not None:
-                df = pd.read_parquet(merged_parquet)
-                n_rows = len(df)
-                n_cols = len(df.columns)
+                shape = _parquet_shape(merged_parquet)
+                if shape is None:
+                    raise RuntimeError("Could not read parquet shape")
+                n_rows, n_cols = shape
                 
                 # Count expected parquet types
                 original_parquets = list(flightline_dir.glob("*_envi.parquet"))
@@ -1118,7 +1222,8 @@ def _render_page4_parquet_merge_quality(
     ax_cols = axes[1, 0]
     if merged_parquet.exists() and pd is not None:
         try:
-            df = pd.read_parquet(merged_parquet)
+            # Only need column names for categorization — sample is enough.
+            df = _safe_read_parquet(merged_parquet, sample_rows=1)
             import re
             
             # Categorize columns
@@ -1754,8 +1859,9 @@ def _render_wavelength_reflectance_plot(
     
     print(f"[QA]   📂 Reading parquet: {merged_parquet.name}")
     try:
-        df = pd.read_parquet(merged_parquet)
-        print(f"[QA]   ✅ Loaded parquet: {df.shape[0]} rows, {df.shape[1]} columns")
+        # Sample rows for plotting — full extracts can be millions of rows.
+        df = _safe_read_parquet(merged_parquet, sample_rows=1000)
+        print(f"[QA]   ✅ Loaded parquet sample: {df.shape[0]} rows, {df.shape[1]} columns")
     except Exception as e:
         ax.text(0.5, 0.5, f"Error reading parquet: {e}", ha="center", va="center")
         print(f"[QA]   ❌ Error reading parquet: {e}")
@@ -2586,8 +2692,10 @@ def _render_drone_merged_preview(
         return summary
 
     try:
-        df = pd.read_parquet(merged_path)
-        summary["rows_total"] = int(len(df))
+        # Preview table only needs a small sample.
+        df = _safe_read_parquet(merged_path, sample_rows=5000)
+        shape = _parquet_shape(merged_path)
+        summary["rows_total"] = int(shape[0]) if shape is not None else int(len(df))
         filtered = df
         if "flight_id" in df.columns:
             filtered = df[df["flight_id"].astype(str) == str(base_name)]
