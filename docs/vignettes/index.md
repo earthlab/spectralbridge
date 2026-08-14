@@ -11,6 +11,7 @@ that appear to cover the same work.
 | Run everything for a NEON flightline | [Run the full pipeline](full-pipeline.md) |
 | Continue after a stopped or partial run | [Carry On My Wayward Son](carry-on-wayward-son.md) |
 | Work on one part of the workflow | Choose a module below |
+| Open a runnable Jupyter notebook | [Runnable notebook vignettes](notebook-vignettes.md) |
 | Look up exact arguments, filenames, or algorithms | [Technical reference](../reference/index.md) |
 
 ## Module vignettes
@@ -43,3 +44,8 @@ Every vignette answers the same four questions:
 
 The vignettes teach workflow. The [technical reference](../reference/index.md)
 defines contracts and implementation details.
+
+Prefer code you can edit interactively? Every module also has one corresponding
+[downloadable notebook](notebook-vignettes.md), including a carefully isolated template
+for adding a custom correction between the standard topo/BRDF and convolution
+stages.

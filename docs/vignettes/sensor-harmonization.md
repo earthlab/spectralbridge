@@ -1,5 +1,7 @@
 # Module vignette 3: harmonize target sensors
 
+**Notebook:** [Open or download the Landsat harmonization notebook](notebooks/03_harmonize_to_landsat.ipynb).
+
 Use this module when a corrected NEON cube exists and you want reflectance in
 configured target-sensor bandspaces such as Landsat or MicaSense. SpectralBridge
 integrates corrected spectra against the registered spectral response

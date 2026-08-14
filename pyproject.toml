@@ -58,6 +58,9 @@ docs = [
     "mkdocs-glightbox",
     "pytest-playwright>=0.5",
 ]
+notebooks = [
+    "jupyterlab>=4",
+]
 dev = [
     "pytest>=7.4,<9",
     "pytest-xdist>=3.5",

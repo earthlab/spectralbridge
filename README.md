@@ -5,7 +5,16 @@
 [AI transparency statement](docs/ai-transparency.md) ·
 [Publication readiness audit](docs/dev/publication-readiness-audit-2026-08-14.md)
 
-**SpectralBridge** is a modular Python-based tool that adjusts fine-resolution (few centimeters to ~ 5 meters) “pure” spectra from airborne imaging spectroscopy (IS) and uncrewed aerial system (UAS) multispectral imagery to match the spectral configurations of moderate-resolution satellite sensors (over 30 meters).
+**New to the repository?** Start with [`START_HERE.md`](START_HERE.md) for a
+one-page map, a container-friendly runnable script, the JSON catalog, and the
+ordered notebook vignettes.
+
+**SpectralBridge** is a modular Python-based tool for relating fine-resolution
+(few centimeters to ~5 meters) uncrewed aerial system (UAS) observations to
+moderate-resolution satellite sensors (over 30 meters). NEON airborne imaging
+spectroscopy is the translating reference in that relationship: **Drone → NEON
+→ Landsat**. The drone and NEON software workflows remain explicit and separate
+rather than presenting this as a direct, opaque drone-to-Landsat conversion.
 
 ![SpectralBridge pipeline overview](docs/EL_workflow_diagram_updatedQA.png)
 

@@ -1,3 +1,11 @@
+"""Historical runtime-monkeypatch experiment; not a supported entry point.
+
+This file is retained for provenance. The current pipeline is restart-safe and
+should normally be resumed by rerunning its standard entry point. For new
+custom corrections, use ``docs/reference/custom-correction-hook.md`` instead of
+patching installed module functions.
+"""
+
 from __future__ import annotations
 from pathlib import Path
 from spectralbridge.pipelines import pipeline
@@ -99,10 +107,10 @@ try:
         print("\n" + "=" * 80)
         print(f"🚀 Processing {fl}")
         if polygon_path:
-            print(f"🌐 Polygon extraction: ENABLED")
+            print("🌐 Polygon extraction: ENABLED")
             print(f"   Polygon file: {polygon_path}")
         else:
-            print(f"🌐 Polygon extraction: DISABLED")
+            print("🌐 Polygon extraction: DISABLED")
         print("=" * 80 + "\n")
 
         try:
@@ -129,8 +137,8 @@ try:
                     "polygon_search_buffer_m": polygon_search_buffer_m,
                 })
             elif polygon_path and not has_polygon_support:
-                print(f"⚠️  Warning: polygon_path provided but go_forth_and_multiply() doesn't support it.")
-                print(f"   Continuing without polygon extraction...")
+                print("⚠️  Warning: polygon_path provided but go_forth_and_multiply() doesn't support it.")
+                print("   Continuing without polygon extraction...")
 
             res = pipeline.go_forth_and_multiply(**kwargs)
             results[fl] = ("success", res)

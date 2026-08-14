@@ -1,5 +1,8 @@
 # Vignette: Carry On My Wayward Son
 
+**Notebook:** Use the [full-pipeline notebook](notebooks/00_full_neon_pipeline.ipynb)
+with the same `BASE_FOLDER`; valid completed stages are reused automatically.
+
 Already have part of the pipeline done? Carry on from the files you have. The
 main workflow is file-based and restart-safe: it validates expected outputs,
 skips valid stages, and recomputes missing or invalid stages in order.

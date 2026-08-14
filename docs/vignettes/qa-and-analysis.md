@@ -1,5 +1,7 @@
 # Module vignette 5: review QA outputs
 
+**Notebook:** [Open or download the QA notebook](notebooks/05_qa_and_validation.ipynb).
+
 Use this module to inspect a completed or partially completed flightline without
 recomputing its scientific products. QA PNG files support quick visual triage;
 QA JSON files support reproducible checks and summaries.

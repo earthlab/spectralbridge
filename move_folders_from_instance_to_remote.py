@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""Site-specific maintainer upload utility; not a SpectralBridge entry point.
+
+This script contains hard-coded CyVerse destinations from an earlier campaign.
+Review every configured path before running it. New users should start with
+``START_HERE.md`` and the scripts under ``examples/`` instead.
+"""
+
 import os
 import subprocess
 from pathlib import Path
@@ -6,9 +13,6 @@ from pathlib import Path
 # -------------------------------
 # USER CONFIGURATION
 # -------------------------------
-"""
-Creates NIWO_b85 folder at remote destination and puts all the files from instance. 
-"""
 SOURCE_FOLDERS = [
 
     "/home/jovyan/data-store/spectralbridge/WREF_b09",

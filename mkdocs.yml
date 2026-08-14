@@ -33,6 +33,7 @@ nav:
 
   - Learn:
       - Choose a vignette: vignettes/index.md
+      - Runnable notebooks: vignettes/notebook-vignettes.md
       - Why cross-sensor calibration?: concepts/why-calibration.md
       - End-to-end workflows:
           - Run the full pipeline: vignettes/full-pipeline.md
@@ -73,13 +74,16 @@ nav:
           - Python API: api/index.md
       - Data and validation:
           - Working with Parquet: usage/parquet.md
+          - JSON file catalog: reference/json-catalog.md
           - JSON schemas: reference/schemas.md
           - QA panels and metrics: pipeline/qa.md
           - Validation metrics: reference/validation.md
       - Algorithms and extension:
           - BRDF and topographic correction: brdf_topo_algorithm.md
+          - Add a custom correction: reference/custom-correction-hook.md
           - Extending SpectralBridge: reference/extending.md
       - Runtime and internals:
+          - Repository map: reference/repository-map.md
           - Environment: env.md
           - Package architecture: dev/architecture.md
           - Container and remote helpers: dev/container-workflows.md

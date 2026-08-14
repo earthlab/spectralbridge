@@ -1,5 +1,7 @@
 # Module vignette 4: build analysis tables
 
+**Notebook:** [Open or download the analysis-table notebook](notebooks/04_analysis_tables.ipynb).
+
 Use this module after ENVI products exist and you want analysis-ready tabular
 data. The main pipeline writes per-product Parquet sidecars and merges compatible
 tables into one flightline-level Parquet.

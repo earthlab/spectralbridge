@@ -2,6 +2,9 @@
 Get files from remote matching certain keywords and put them in the instance in a folder of your choice.
 Download flightline files from CyVerse/iRODS and organize by location (gordon/goldhill).
 
+This is a site-specific maintainer transfer utility with hard-coded campaign
+paths, not a SpectralBridge package entry point. Review every path before use.
+
 This script:
 1. Lists all files directly in AGU_prep_NIWO
 2. Downloads only files with both "georef" and "brightened" in their names
@@ -173,7 +176,7 @@ if __name__ == "__main__":
     print("DOWNLOAD AND ORGANIZE FILES BY LOCATION (GORDON/GOLDHILL)")
     print("=" * 80)
     
-    print(f"\n📂 Configuration:")
+    print("\n📂 Configuration:")
     print(f"   Remote directory: {REMOTE_BASE}")
     print(f"   Local base: {LOCAL_BASE}")
     print(f"   Gordon folder: {GORDON_FOLDER_NAME}")
@@ -197,7 +200,7 @@ if __name__ == "__main__":
     all_files = list_remote_files(REMOTE_BASE)
     
     if not all_files:
-        print(f"   ❌ No files found in remote directory")
+        print("   ❌ No files found in remote directory")
         exit(1)
     
     print(f"   ✅ Found {len(all_files)} total files")
@@ -215,11 +218,11 @@ if __name__ == "__main__":
     print(f"   📋 Filtered out: {len(all_files) - len(filtered_files)} files")
     
     if not filtered_files:
-        print(f"\n   ❌ No files match the filter criteria!")
+        print("\n   ❌ No files match the filter criteria!")
         exit(1)
     
     # Organize files by location (gordon/goldhill)
-    print(f"\n   🗂️  Organizing files by location...")
+    print("\n   🗂️  Organizing files by location...")
     
     gordon_files = []
     goldhill_files = []
@@ -264,7 +267,7 @@ if __name__ == "__main__":
         if i % 10 == 0:
             print(f"      📥 Progress: {i}/{len(gordon_files)} files processed...")
     
-    print(f"\n   📊 Gordon download summary:")
+    print("\n   📊 Gordon download summary:")
     print(f"      ✅ Downloaded: {gordon_results['downloaded']}")
     print(f"      ⏭️  Skipped (already exists): {gordon_results['skipped']}")
     print(f"      ❌ Failed: {gordon_results['failed']}")
@@ -290,7 +293,7 @@ if __name__ == "__main__":
         if i % 10 == 0:
             print(f"      📥 Progress: {i}/{len(goldhill_files)} files processed...")
     
-    print(f"\n   📊 Goldhill download summary:")
+    print("\n   📊 Goldhill download summary:")
     print(f"      ✅ Downloaded: {goldhill_results['downloaded']}")
     print(f"      ⏭️  Skipped (already exists): {goldhill_results['skipped']}")
     print(f"      ❌ Failed: {goldhill_results['failed']}")
@@ -316,7 +319,7 @@ if __name__ == "__main__":
     
     if unassigned_files:
         print(f"\n⚠️  UNASSIGNED FILES ({len(unassigned_files)}):")
-        print(f"   Files that matched filter but couldn't be assigned to gordon/goldhill")
+        print("   Files that matched filter but couldn't be assigned to gordon/goldhill")
         print(f"   (missing '{GORDON_KEYWORD}' or '{GOLDHILL_KEYWORD}' in filename)")
     
     print(f"\n{'='*80}")

@@ -1,5 +1,10 @@
 # Extending
 
+For an experimental reflectance transform after the standard topographic/BRDF
+stage, follow the dedicated [custom-correction hook](custom-correction-hook.md).
+It uses an isolated output root and explicit stage inputs instead of modifying
+or monkeypatching the working orchestrator.
+
 Use this page when adding a target sensor, a QA output, or a new writer that
 feeds the canonical pipeline outputs. SpectralBridge does not currently have a
 runtime sensor registry; supported sensors are defined through package data,

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "about": {
+    "purpose": "Process local drone HDF5 inputs through correction, extraction, and QA without entering the NEON download workflow.",
+    "edit_before_run": [
+      "pipeline.input_h5_dir",
+      "pipeline.output_dir"
+    ],
+    "path_rule": "Relative paths are resolved from the repository root.",
+    "input_rule": "The input may be one HDF5 file or a directory searched recursively for supported drone inputs."
+  },
+  "pipeline": {
+    "input_h5_dir": "data/drone_h5",
+    "polygon_path": null,
+    "output_dir": "outputs/drone_demo",
+    "apply_topo": true,
+    "apply_brdf": true,
+    "use_ndvi_brdf_bins": false,
+    "apply_brightness_adjustment": false,
+    "overwrite": false,
+    "drone_manifest_path": null,
+    "require_solar_geometry": true
+  }
+}
+

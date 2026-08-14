@@ -1,5 +1,7 @@
 # Module vignette 7: extract polygon spectra
 
+**Notebook:** [Open or download the polygon-extraction notebook](notebooks/07_polygon_extraction.ipynb).
+
 Use this optional module when you have processed flightline products and a
 polygon layer representing plots, crowns, or other sampling units. It creates a
 pixel index, filters product Parquets to intersecting pixels, and writes a merged

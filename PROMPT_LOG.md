@@ -154,6 +154,22 @@ Found 12 errors.
 Error: Process completed with exit code 1.
 ```
 
+## 2026-08-14 - clarify NEON-mediated drone-to-Landsat translation
+Branch: main
+
+```text
+the drone to landsat is good but it actually drone to landsat translated by neon.
+```
+
+## 2026-08-14 - organize repository and add runnable notebook vignettes
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5 family (exact deployment identifier not exposed)
+
+```text
+I need to make sure the repo is organized and labelled clearly without breaking any code. I want the json files to be easy to understnad what they are and what they're doing. I want the python scripts to be clearly documented and easy to understand. Right now there feels like so much information that a new user will have no idea where to start or how to find and validate the code themselves. We need more jupyter notebooks organized in the vingnettes so that people can just open and run them. this is a package that people will want to load and run in many different environments, I want them to be able to pull the repo into a container, open a script and run it and and the whole pipeline runs. Don't modify the pipeline as it's working well now, but make sure that we have scripts to run these as notebooks for someone who just wants part of the pipeline or want's to modify for their own purposes. I think some people will want to add additional corrections to the topo and brdf but we don't yet explain how they would do that by matching the naming convention and patching in between the correct modules. again, don't break the current code, just add more guidance for new users to how to use it and what it does and why they would use it and why they would do it a particular way. trying to make the repo less sprawling.
+```
+
 ## 2026-06-02 - publication cleanup review
 Branch: main
 
@@ -5506,4 +5522,18 @@ tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_ric
 FAILED tests/test_drone_pipeline.py::test_render_drone_merged_preview_prefers_non_nodata_rows - assert 0 == 2
 FAILED tests/test_drone_pipeline.py::test_render_drone_merged_preview_prioritizes_rightmost_columns - assert 0 == 1
 Error: Process completed with exit code 1.
+```
+
+## 2026-08-14 - repair cloud workflow documentation page
+Branch: main
+
+```text
+this page is messed up [https://earthlab.github.io/spectralbridge/tutorials/cloud-workflow/](https://earthlab.github.io/spectralbridge/tutorials/cloud-workflow/)
+```
+
+## 2026-08-14 - repair FAQ and audit Markdown-in-HTML pages
+Branch: main
+
+```text
+this is messed up too [https://earthlab.github.io/spectralbridge/tutorials/cloud-workflow/](https://earthlab.github.io/spectralbridge/tutorials/cloud-workflow/) [https://earthlab.github.io/spectralbridge/faq/](https://earthlab.github.io/spectralbridge/faq/)
 ```

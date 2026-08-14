@@ -20,6 +20,167 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P52. Repair FAQ And Systemic Markdown-In-HTML Rendering
+
+- Priority: User-directed
+- Status: In progress
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Repair the FAQ and prevent the same raw-HTML/code-block rendering
+  failure across documentation pages using `markdown="1"` containers.
+- Scope:
+  - Keep page content, navigation routes, pipeline instructions, and runtime
+    behavior unchanged.
+  - Normalize only the indentation that controls Markdown parsing inside the
+    existing HTML layout components.
+- Plan:
+  - Confirm the FAQ failure in the published site and inventory pages sharing
+    the same markup pattern.
+  - Normalize affected page markup and extend browser checks to detect raw HTML
+    leakage on every repaired route.
+  - Verify strict docs, links, desktop/mobile layout, and representative page
+    content before completion.
+
+### P51. Repair Cloud And HPC Tutorial Rendering
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Restore structured rendering on the published cloud/HPC tutorial,
+  which currently displays its HTML layout as literal code and text.
+- Plan:
+  - Compare the published page with its Markdown source and local rendering.
+  - Repair the malformed HTML structure without changing tutorial meaning or
+    pipeline instructions.
+  - Add a regression check for raw-HTML leakage and verify the page visually at
+    desktop and mobile widths, then run strict docs and link checks.
+- Outcome:
+  - Confirmed in the published site that indented content inside
+    `markdown="1"` containers was being parsed as code, exposing HTML tags and
+    collapsing the intended card layout.
+  - Normalized the tutorial's Markdown-in-HTML boundaries so headings, cards,
+    lists, links, and both Bash examples render as their intended elements.
+  - Added a browser regression check for the hero cards, raw-HTML leakage, and
+    mobile horizontal overflow.
+  - Made no changes to pipeline instructions, runtime code, APIs, or outputs.
+- Verification:
+  - Strict MkDocs build passed.
+  - Documentation link validation and repository whitespace checks passed.
+  - Focused Playwright documentation test passed at desktop and 390-pixel
+    mobile viewports.
+  - In-app browser inspection confirmed three hero cards, two rendered code
+    blocks, no raw-markup leakage, and no desktop horizontal overflow.
+- Blockers:
+  - None.
+- Next recommended task:
+  - Audit other pages using indented `markdown="1"` containers for the same
+    raw-markup rendering defect.
+
+### P50. Clarify NEON-Mediated Drone-To-Landsat Translation
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Correct the repository's high-level scientific framing so users
+  understand that NEON is the airborne intermediary translating between drone
+  observations and Landsat-compatible reflectance.
+- Scope:
+  - Update prominent onboarding and conceptual language.
+  - Preserve existing pipeline behavior, APIs, routes, filenames, and
+    historical tutorial filenames.
+- Plan:
+  - Replace direct drone-to-Landsat marketing shorthand with an explicit
+    Drone -> NEON -> Landsat relationship.
+  - Add a concise explanation of what “translated by NEON” means scientifically.
+  - Run documentation links and a strict site build.
+- Outcome:
+  - Reframed the homepage, README, and start guide around the explicit
+    **Drone -> NEON -> Landsat** scientific relationship.
+  - Identified NEON airborne hyperspectral observations as the translating
+    reference rather than implying a direct drone-to-Landsat conversion.
+  - Clarified on the concepts page, drone vignette, and retained MicaSense
+    tutorial that the drone and NEON entry points remain separate and that the
+    drone workflow does not directly convolve its inputs into Landsat bands.
+  - Preserved all pipeline code, APIs, routes, filenames, scientific values,
+    and restart behavior.
+- Verification:
+  - Strict MkDocs build passed.
+  - Documentation link validation passed.
+  - AI transparency artifacts regenerated and passed their consistency check.
+  - Repository diff whitespace check passed.
+- Blockers:
+  - None.
+- Next recommended task:
+  - Have a domain scientist confirm that “translating reference” matches the
+    intended description of NEON's role in the project methodology.
+
+### P49. New-User Repository Map, Runnable Examples, And Notebook Vignettes
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Make the repository understandable and runnable for scientists across
+  local, notebook, container, cloud, and HPC environments without changing the
+  working pipeline or its on-disk contracts.
+- Scope:
+  - Keep all pipeline modules, stage order, scientific assumptions, filenames,
+    and restart behavior unchanged.
+  - Add a concise start-here map and clearly label runtime code, user examples,
+    maintainer tools, validation evidence, legacy material, and data assets.
+  - Catalog every active JSON file by authority, consumer, units, edit policy,
+    and validation method rather than adding unrecognized metadata to runtime
+    JSON schemas.
+  - Add documented, container-friendly Python entry scripts and organized
+    Jupyter notebooks for the full NEON workflow, local-HDF5/resume workflows,
+    individual stages, drone processing, QA, polygon extraction, and a custom
+    correction hook between canonical stages.
+  - Link notebooks to the existing one-vignette-per-module learning structure.
+- Verification plan:
+  - Validate every notebook with `nbformat`, compile all notebook code cells,
+    and run configuration-only modes for new scripts.
+  - Run strict MkDocs, link checks, Ruff, focused docs tests, naming/path tests,
+    and existing pipeline regression tests relevant to imported entry points.
+- Outcome:
+  - Added `START_HERE.md`, a website repository map, and prominent README link
+    so new users can choose a full run, local HDF5 run, notebook, drone run,
+    validation path, or extension path without traversing the whole repository.
+  - Added two self-checking, container-friendly Python runners with
+    self-documenting JSON configurations under `examples/`.
+  - Added a JSON catalog that distinguishes authoritative packaged parameters,
+    example copies, run-generated evidence, validation plans, generated results,
+    units, consumers, edit policy, and validation methods.
+  - Added a script catalog and labeled three hard-coded root utilities as
+    site-specific or historical rather than supported entry points.
+  - Added nine clean, ordered notebook vignettes matching the full workflow and
+    module pages, including an isolated custom-correction hook after topo/BRDF
+    and before convolution.
+  - Added notebook links to every module vignette and a `notebooks` optional
+    dependency for a reproducible JupyterLab environment.
+  - Made no changes to pipeline stage order, algorithms, scientific parameter
+    values, filename contracts, or restart behavior.
+- Verification:
+  - `.venv/bin/python -m pytest -q tests/test_example_entrypoints.py tests/test_paths.py` — 4 passed.
+  - `.venv/bin/python -m pytest -q tests/test_polygon_pipeline.py` — 4 passed.
+  - Both example scripts pass `--check` without network or imagery access.
+  - Official `nbformat` schema validation passes for all nine notebooks; they
+    have stable cell IDs, clean kernels/no outputs, compile, and execute their
+    `RUN = False` cells with current imports.
+  - Strict MkDocs build, documentation link check, and docs Playwright smoke
+    test pass; browser review confirmed all nine notebook downloads and the JSON
+    and custom-correction pages are visible with no console errors.
+  - Ruff and Python compile checks pass for new examples/tests and relabeled
+    root utilities.
+  - `uv build --out-dir /tmp/spectralbridge-organized-dist` produced a wheel
+    and source distribution successfully.
+- Blockers:
+  - None.
+- Next recommended task:
+  - Ask one new package user to attempt the `START_HERE.md` check-mode flow and
+    one domain scientist to review the custom-correction validation contract.
+
 ### P48. Drone Merged-Preview Parquet Fallback Regression
 
 - Priority: User-directed CI failure

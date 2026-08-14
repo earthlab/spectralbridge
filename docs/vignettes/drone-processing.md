@@ -1,7 +1,15 @@
 # Module vignette 6: process drone imagery
 
+**Notebook:** [Open or download the drone notebook](notebooks/06_drone_pipeline.ipynb).
+
 Use this module for local drone HDF5 inputs. It is separate from the NEON
 download workflow and preserves provenance from the original drone filenames.
+
+!!! note "Where Landsat enters the scientific bridge"
+    The project-level relationship is **Drone → NEON → Landsat**. This module
+    prepares and validates the drone side; it does not directly convolve drone
+    data into Landsat bands. Corrected, Landsat-harmonized NEON products provide
+    the explicit airborne translation reference for downstream comparison.
 
 ## Prepare the inputs
 

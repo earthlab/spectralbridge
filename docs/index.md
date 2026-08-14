@@ -8,25 +8,25 @@ hide:
 
   <section class="sb-hero">
     <div class="sb-hero__copy">
-      <p class="sb-eyebrow">Drone hyperspectral → Landsat reflectance</p>
-      <h1 id="spectralbridge"><span>Drone to</span><span>Landsat</span></h1>
+      <p class="sb-eyebrow">Drone hyperspectral → NEON reference → Landsat reflectance</p>
+      <h1 id="spectralbridge"><span>Drone to Landsat</span><span>through NEON</span></h1>
       <p class="sb-hero__lead">Make hyperspectral reflectance comparable across scales.</p>
-      <p class="sb-hero__body">SpectralBridge carries drone and airborne observations through correction, spectral convolution, tabular extraction, and QA—while keeping every scientific decision inspectable and reproducible.</p>
+      <p class="sb-hero__body">SpectralBridge uses NEON airborne hyperspectral observations as the translating reference between fine-scale drone measurements and Landsat bandspace. Its correction, spectral convolution, tabular extraction, and QA steps keep every scientific decision inspectable and reproducible.</p>
       <div class="sb-button-row">
         <a class="sb-button sb-button--primary" href="vignettes/">Learn by doing</a>
         <a class="sb-button sb-button--secondary" href="vignettes/full-pipeline/">Run the full pipeline</a>
       </div>
     </div>
     <div class="sb-hero__art">
-      <img src="asset/img/spectralbridge_logo.png" alt="SpectralBridge connects drone, airborne, and satellite observations across a reflectance spectrum">
-      <p>Drone <span>→</span> airborne <span>→</span> Landsat</p>
+      <img src="asset/img/spectralbridge_logo.png" alt="SpectralBridge uses NEON airborne observations to connect drone and Landsat reflectance">
+      <p>Drone <span>→</span> NEON <span>→</span> Landsat</p>
     </div>
   </section>
 
   <section class="sb-manifesto">
     <p class="sb-kicker">Why it exists</p>
-    <h2>One spectral workflow. Three observing scales.</h2>
-    <p>Move from fine-resolution hyperspectral measurements to Landsat-compatible bands without hiding the corrections, response functions, provenance, or quality evidence along the way.</p>
+    <h2>One NEON-mediated bridge. Three observing scales.</h2>
+    <p>Relate fine-resolution drone measurements to Landsat-compatible bands through NEON's airborne hyperspectral reference without hiding the corrections, response functions, provenance, or quality evidence along the way.</p>
   </section>
 
   <section class="sb-section sb-section--routes">

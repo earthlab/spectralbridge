@@ -1,5 +1,7 @@
 # Module vignette 1: acquire NEON data
 
+**Notebook:** [Open or download the acquisition notebook](notebooks/01_acquire_neon.ipynb).
+
 Use this module when you need to place one or more NEON directional-reflectance
 HDF5 flightlines into a SpectralBridge workspace. If the HDF5 already exists in
 the canonical location, continue to [NEON correction](neon-correction.md).

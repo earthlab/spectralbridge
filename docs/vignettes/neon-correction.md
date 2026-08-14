@@ -1,5 +1,7 @@
 # Module vignette 2: correct NEON reflectance
 
+**Notebook:** [Open or download the correction notebook](notebooks/02_correct_neon.ipynb).
+
 Use this module to turn a NEON directional-reflectance HDF5 into raw ENVI and
 BRDF/topography-corrected ENVI products. The corrected cube is the canonical
 science product used by sensor harmonization.

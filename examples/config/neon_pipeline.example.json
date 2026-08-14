@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "about": {
+    "purpose": "Complete restart-safe NEON HDF5 to corrected ENVI, Landsat-compatible products, Parquet, and QA workflow.",
+    "edit_before_run": [
+      "pipeline.base_folder",
+      "pipeline.site_code",
+      "pipeline.year_month",
+      "pipeline.flight_lines"
+    ],
+    "path_rule": "Relative paths are resolved from the repository root.",
+    "network_rule": "The run downloads missing NEON HDF5 files. --check never contacts NEON."
+  },
+  "pipeline": {
+    "base_folder": "outputs/neon_demo",
+    "site_code": "NIWO",
+    "year_month": "2023-08",
+    "product_code": "DP1.30006.001",
+    "flight_lines": [
+      "NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance"
+    ],
+    "resample_method": "convolution",
+    "engine": "thread",
+    "max_workers": 1,
+    "parquet_chunk_size": 50000,
+    "extraction_mode": "full",
+    "topo_fit_mode": "scene"
+  }
+}
+

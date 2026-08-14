@@ -10,6 +10,24 @@ import pytest
 
 pytestmark = pytest.mark.playwright
 
+MARKDOWN_IN_HTML_ROUTES = (
+    "api/",
+    "concepts/why-calibration/",
+    "faq/",
+    "pipeline/outputs/",
+    "pipeline/qa/",
+    "pipeline/qa_panel/",
+    "pipeline/stages/",
+    "quickstart/",
+    "reference/configuration/",
+    "reference/schemas/",
+    "reference/validation/",
+    "troubleshooting/",
+    "tutorials/cloud-workflow/",
+    "usage/cli/",
+    "usage/parquet/",
+)
+
 
 def _docs_site_url() -> str:
     url = os.getenv("SPECTRALBRIDGE_DOCS_SITE")
@@ -102,6 +120,38 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             page.goto(urljoin(base_url, "pipeline/outputs/"), wait_until="networkidle")
             assert page.get_by_role("heading", name="Outputs & File Structure").is_visible()
             assert page.get_by_text("_merged_pixel_extraction.parquet").first.is_visible()
+
+            for route in MARKDOWN_IN_HTML_ROUTES:
+                page.goto(urljoin(base_url, route), wait_until="networkidle")
+                assert page.locator(".sb-doc-page").count() == 1, route
+                assert page.locator(".sb-doc-hero .sb-kicker").count() == 1, route
+                assert '<p class="sb-kicker">' not in page.locator(
+                    "article.md-content__inner"
+                ).inner_text(), route
+
+            page.goto(urljoin(base_url, "faq/"), wait_until="networkidle")
+            assert page.get_by_role(
+                "heading", name="Frequently asked questions"
+            ).is_visible()
+            assert page.locator(".sb-doc-hero .sb-doc-card").count() == 3
+
+            page.goto(
+                urljoin(base_url, "tutorials/cloud-workflow/"),
+                wait_until="networkidle",
+            )
+            assert page.get_by_role(
+                "heading", name="Cloud and HPC workflows"
+            ).is_visible()
+            assert page.locator(".sb-doc-hero .sb-doc-card").count() == 3
+            assert '<p class="sb-kicker">Tutorial</p>' not in page.locator(
+                "article.md-content__inner"
+            ).inner_text()
+            page.set_viewport_size({"width": 390, "height": 844})
+            assert page.evaluate(
+                "document.documentElement.scrollWidth <= window.innerWidth"
+            )
+            assert page.locator(".sb-doc-hero .sb-doc-card").first.is_visible()
+            page.set_viewport_size({"width": 1280, "height": 900})
 
             page.goto(base_url, wait_until="networkidle")
             search_query = page.locator("[data-md-component='search-query']").first

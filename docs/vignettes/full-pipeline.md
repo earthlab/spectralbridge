@@ -1,5 +1,7 @@
 # Vignette: run the full NEON pipeline
 
+**Notebook:** [Open or download the full-pipeline notebook](notebooks/00_full_neon_pipeline.ipynb).
+
 Use this vignette when you want one NEON flightline to move from source HDF5 to
 corrected ENVI, harmonized sensor products, Parquet tables, and QA artifacts.
 
