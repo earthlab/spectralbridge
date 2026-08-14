@@ -5402,3 +5402,108 @@ Model: GPT-5 family (exact deployment identifier not exposed)
 ```text
 can we change the color palette to be more like the logo we had before? I like the hierarchy and such of the website, but we don't want the actual IML color palette and such. go back to the logo we had and then play off of that for a webite theme. Also know the audience is scientists who want to convert hyperspectral data between drone and landsat.
 ```
+
+## 2026-08-14 - fix drone merged-preview CI regression
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5 family (exact deployment identifier not exposed)
+
+```text
+Run pytest -q tests/test_drone_pipeline.py
+.....................F.F.............................                    [100%]
+=================================== FAILURES ===================================
+___________ test_render_drone_merged_preview_prefers_non_nodata_rows ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_render_drone_merged_previ0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f1fa8f3e650>
+
+    def test_render_drone_merged_preview_prefers_non_nodata_rows(
+        tmp_path: Path, monkeypatch
+    ) -> None:
+        merged_path = tmp_path / "merged.parquet"
+        merged_path.write_text("placeholder", encoding="utf-8")
+        df = pd.DataFrame(
+            {
+                "flight_id": ["SPR1_20230628", "SPR1_20230628"],
+                "pixel_id": [1, 2],
+                "row": [0, 1],
+                "col": [0, 1],
+                "corr_b001_wl0440nm": [-9999.0, 0.12],
+                "corr_b002_wl0560nm": [-9999.0, 0.23],
+                "corr_b003_wl0650nm": [-9999.0, 0.34],
+            }
+        )
+        monkeypatch.setattr(pd, "read_parquet", lambda path: df.copy())
+
+        summary = _render_drone_merged_preview(_FakeAxes(), merged_path, "SPR1_20230628")
+
+>       assert summary["rows_total"] == 2
+E       assert 0 == 2
+
+tests/test_drone_pipeline.py:1049: AssertionError
+________ test_render_drone_merged_preview_prioritizes_rightmost_columns ________
+
+tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_render_drone_merged_previ1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f1fa8d905d0>
+
+    def test_render_drone_merged_preview_prioritizes_rightmost_columns(
+        tmp_path: Path, monkeypatch
+    ) -> None:
+        merged_path = tmp_path / "merged.parquet"
+        merged_path.write_text("placeholder", encoding="utf-8")
+        df = pd.DataFrame(
+            {
+                "flight_id": ["SPR1_20230628"],
+                "pixel_id": [1],
+                "row": [0],
+                "col": [1],
+                "x": [100.0],
+                "y": [200.0],
+                "left_a": [10.0],
+                "left_b": [20.0],
+                "corr_b001_wl0440nm": [0.12],
+                "corr_b002_wl0560nm": [0.23],
+                "corr_b003_wl0650nm": [0.34],
+                "corr_b004_wl0862nm": [0.45],
+            }
+        )
+        monkeypatch.setattr(pd, "read_parquet", lambda path: df.copy())
+
+        summary = _render_drone_merged_preview(_FakeAxes(), merged_path, "SPR1_20230628")
+
+>       assert summary["rows_previewed"] == 1
+E       assert 0 == 1
+
+tests/test_drone_pipeline.py:1091: AssertionError
+=============================== warnings summary ===============================
+src/spectralbridge/polygons.py:30
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:30: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:2373: RuntimeWarning: All-NaN slice encountered
+    return np.nanmedian(masked, axis=(1, 2))
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:490: RuntimeWarning: All-NaN slice encountered
+    delta_median = np.nanmedian(diff, axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/numpy/lib/_nanfunctions_impl.py:1593: RuntimeWarning: All-NaN slice encountered
+    return fnb._ureduce(a,
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:495: RuntimeWarning: All-NaN slice encountered
+    delta_abs_median = np.nanmedian(np.abs(diff), axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:2525: RuntimeWarning: All-NaN slice encountered
+    abs_delta = np.nanmedian(full_abs_diff, axis=0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_drone_pipeline.py::test_render_drone_merged_preview_prefers_non_nodata_rows - assert 0 == 2
+FAILED tests/test_drone_pipeline.py::test_render_drone_merged_preview_prioritizes_rightmost_columns - assert 0 == 1
+Error: Process completed with exit code 1.
+```

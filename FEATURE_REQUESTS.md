@@ -20,6 +20,36 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P48. Drone Merged-Preview Parquet Fallback Regression
+
+- Priority: User-directed CI failure
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Restore the drone QA merged-Parquet preview behavior when the safe
+  reader reaches its pandas fallback without a requested column projection.
+- Plan:
+  - Reproduce the two focused failures and trace the safe Parquet fallback.
+  - Make the pandas call omit the optional `columns` keyword when it is unused.
+  - Rerun the focused preview tests, safe-Parquet tests, and full drone pipeline
+    test module; run Ruff on the touched files.
+- Outcome:
+  - Updated `_safe_read_parquet` so its pandas fallback calls
+    `pandas.read_parquet(path)` when no column projection was requested, while
+    preserving the projected call when columns are supplied.
+  - Restored merged-preview row counts, non-NoData row selection, and rightmost
+    spectral-column display without changing DuckDB or PyArrow behavior.
+- Verification:
+  - `.venv/bin/python -m pytest -q tests/test_drone_pipeline.py` — 53 passed.
+  - `.venv/bin/python -m pytest -q tests/test_qa_safe_parquet.py` — 1 passed.
+  - `uvx ruff check src/spectralbridge/qa_plots.py tests/test_drone_pipeline.py tests/test_qa_safe_parquet.py`
+  - `git diff --check`
+- Blockers:
+  - None.
+- Next recommended task:
+  - Rerun the repository CI workflow to confirm the Python 3.11 runner matches
+    the focused local result.
+
 ### P47. Editorial SpectralBridge Website Redesign
 
 - Priority: User-directed

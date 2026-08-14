@@ -108,7 +108,10 @@ def _safe_read_parquet(
 
     # --- pandas, with clash soft-recovery ---
     try:
-        df = pd.read_parquet(path, columns=list(columns) if columns else None)
+        if columns:
+            df = pd.read_parquet(path, columns=list(columns))
+        else:
+            df = pd.read_parquet(path)
     except Exception as exc:
         # Common hub failure mode after DuckDB/pyarrow already registered types.
         msg = str(exc)
