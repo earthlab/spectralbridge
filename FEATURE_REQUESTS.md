@@ -23,7 +23,7 @@ left incomplete so the next agent can resume immediately.
 ### P52. Repair FAQ And Systemic Markdown-In-HTML Rendering
 
 - Priority: User-directed
-- Status: In progress
+- Status: Completed
 - Owner: Codex
 - Started: 2026-08-14
 - Goal: Repair the FAQ and prevent the same raw-HTML/code-block rendering
@@ -40,6 +40,34 @@ left incomplete so the next agent can resume immediately.
     leakage on every repaired route.
   - Verify strict docs, links, desktop/mobile layout, and representative page
     content before completion.
+- Outcome:
+  - Confirmed the published FAQ rendered its intended hero and cards as a raw
+    HTML code block, matching the cloud/HPC tutorial defect.
+  - Audited all documentation sources using `markdown="1"` containers and
+    normalized Markdown-sensitive indentation on 15 affected routes spanning
+    API, concepts, FAQ, pipeline, quickstart, reference, troubleshooting,
+    cloud/HPC, CLI, and Parquet pages.
+  - Removed the redundant plain Markdown page headings that became visible once
+    the styled hero headings rendered correctly; every repaired page now has
+    exactly one semantic `<h1>`.
+  - Expanded the Playwright smoke test to visit every affected route and reject
+    missing hero markup or leaked raw HTML, with dedicated FAQ and cloud/HPC
+    card and mobile-overflow checks.
+  - Preserved all prose, commands, links, routes, scientific values, pipeline
+    code, and runtime behavior.
+- Verification:
+  - Strict MkDocs build passed.
+  - Expanded Playwright documentation test passed across all 15 routes at
+    desktop width and the FAQ/cloud pages at 390-pixel mobile width.
+  - In-app browser inspection confirmed every repaired route has one hero, one
+    `<h1>`, no raw-markup leakage, and no desktop horizontal overflow.
+  - Ruff, documentation link validation, and repository whitespace checks
+    passed.
+- Blockers:
+  - None.
+- Next recommended task:
+  - Deploy the documentation branch and smoke-test the public GitHub Pages URLs
+    after the workflow completes.
 
 ### P51. Repair Cloud And HPC Tutorial Rendering
 

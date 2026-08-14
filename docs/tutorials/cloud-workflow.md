@@ -1,5 +1,3 @@
-# Tutorial: Cloud & HPC Workflows
-
 <div class="sb-doc-page" markdown="1">
 <section class="sb-doc-hero" markdown="1">
 <p class="sb-kicker">Tutorial</p>

@@ -3,8 +3,6 @@ search:
   exclude: true
 ---
 
-# Quickstart
-
 !!! note "Canonical learning path"
     This older walkthrough is retained for stable links. Use [Run the full
     pipeline](vignettes/full-pipeline.md) for the canonical educational

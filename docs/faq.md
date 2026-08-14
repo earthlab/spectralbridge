@@ -1,5 +1,3 @@
-# FAQ
-
 <div class="sb-doc-page" markdown="1">
 <section class="sb-doc-hero" markdown="1">
 <p class="sb-kicker">Help</p>

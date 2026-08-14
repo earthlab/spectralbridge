@@ -134,6 +134,12 @@ def test_docs_site_core_pages_render_in_browser() -> None:
                 "heading", name="Frequently asked questions"
             ).is_visible()
             assert page.locator(".sb-doc-hero .sb-doc-card").count() == 3
+            page.set_viewport_size({"width": 390, "height": 844})
+            assert page.evaluate(
+                "document.documentElement.scrollWidth <= window.innerWidth"
+            )
+            assert page.locator(".sb-doc-hero .sb-doc-card").first.is_visible()
+            page.set_viewport_size({"width": 1280, "height": 900})
 
             page.goto(
                 urljoin(base_url, "tutorials/cloud-workflow/"),

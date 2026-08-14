@@ -1,10 +1,10 @@
 {
   "ai_systems": {
-    "OpenAI Codex": 98
+    "OpenAI Codex": 99
   },
   "branches": {
     "$(git branch --show-current 2>/dev/null || echo unknown)": 1,
-    "main": 86,
+    "main": 87,
     "unknown": 7,
     "work": 4
   },
@@ -16,17 +16,17 @@
   },
   "models": {
     "GPT-5 family (exact deployment identifier not exposed)": 7,
-    "Not recorded": 91
+    "Not recorded": 92
   },
   "primary_intents": {
-    "Audit or investigation": 9,
+    "Audit or investigation": 10,
     "Execution or verification": 20,
     "Implementation or modification": 42,
     "Other or mixed": 27
   },
   "primary_topics": {
     "Data and metadata handling": 3,
-    "Documentation and website": 15,
+    "Documentation and website": 16,
     "Drone and UAS workflow": 7,
     "Other": 3,
     "Publication, packaging, release, and governance": 19,
@@ -38,24 +38,24 @@
     "2026-03": 9,
     "2026-04": 33,
     "2026-06": 47,
-    "2026-08": 9
+    "2026-08": 10
   },
   "schema_version": 1,
   "source": {
     "data_through": "2026-08-14",
     "path": "PROMPT_LOG.md",
-    "sha256": "56abe72dcbe8a16161bb87ddca67fadf14cb4d47131e3e463a874994f18a3e1f"
+    "sha256": "3d977cde447cb2c160582a36577f481bc69540ba065919cd7495017c083fe4f1"
   },
   "summary": {
     "entries_with_recorded_model": 7,
     "first_prompt_date": "2026-03-21",
     "last_prompt_date": "2026-08-14",
     "maximum_prompt_words": 2079,
-    "mean_prompt_words": 238.1,
-    "median_prompt_words": 31.5,
+    "mean_prompt_words": 236.0,
+    "median_prompt_words": 31.0,
     "minimum_prompt_words": 1,
     "model_metadata_coverage_pct": 7.1,
-    "prompt_count": 98,
-    "total_prompt_words": 23331
+    "prompt_count": 99,
+    "total_prompt_words": 23362
   }
 }
