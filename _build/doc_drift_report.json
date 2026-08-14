@@ -32,6 +32,7 @@
       "MicaSense,,,,,,,",
       "MicaSense-related",
       "MicaSense-style",
+      "MicaSense.",
       "Micasense,,",
       "Micasense,,,",
       "Micasense,,,,",
@@ -163,6 +164,14 @@
     "topo_and_brdf_correction.py": [
       "--config_file"
     ],
+    "neon_to_envi.py": [
+      "--brightness-offset"
+    ],
+    "qa_dashboard.py": [
+      "--base-folder",
+      "--out-parquet",
+      "--out-png"
+    ],
     "standard_resample.py": [
       "--hdr_path",
       "--json_file",
@@ -184,14 +193,6 @@
       "--resampled-glob",
       "--write-feather"
     ],
-    "neon_to_envi.py": [
-      "--brightness-offset"
-    ],
-    "qa_dashboard.py": [
-      "--base-folder",
-      "--out-parquet",
-      "--out-png"
-    ],
     "pipeline.py": [
       "--brightness-offset",
       "--no-sync",
@@ -207,6 +208,15 @@
       "--output",
       "--product",
       "--year-month"
+    ],
+    "qa_cli.py": [
+      "--base-folder",
+      "--full",
+      "--n-sample",
+      "--out-dir",
+      "--quick",
+      "--rgb-bands",
+      "--save-json"
     ],
     "pipeline_cli.py": [
       "--base-folder",
@@ -226,22 +236,13 @@
       "--use-ndvi-brdf-bins",
       "--year-month"
     ],
-    "qa_summary_cli.py": [
-      "--output-pdf",
-      "--pattern"
-    ],
     "recover_cli.py": [
       "--base-folder",
       "--brightness-offset"
     ],
-    "qa_cli.py": [
-      "--base-folder",
-      "--full",
-      "--n-sample",
-      "--out-dir",
-      "--quick",
-      "--rgb-bands",
-      "--save-json"
+    "qa_summary_cli.py": [
+      "--output-pdf",
+      "--pattern"
     ]
   }
 }
