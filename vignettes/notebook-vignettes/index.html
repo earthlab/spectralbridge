@@ -2576,7 +2576,11 @@
 
 
 <h1 id="runnable-notebook-vignettes">Runnable notebook vignettes<a class="headerlink" href="#runnable-notebook-vignettes" title="Permanent link">&para;</a></h1>
-<p>These notebooks mirror the learning modules and call existing SpectralBridge
+<p>These are real Jupyter <code>.ipynb</code> files tracked in the SpectralBridge repository.
+Each link opens the notebook in GitHub's repository viewer so you can read its
+Markdown and code cells on the web. GitHub does not execute the cells; clone or
+download the notebook when you are ready to run it locally.</p>
+<p>The notebooks mirror the learning modules and call existing SpectralBridge
 functions. They contain configuration cells, explanations of inputs and
 outputs, and validation checkpoints. Copy a notebook into your own analysis
 directory before changing scientific assumptions.</p>
@@ -2591,47 +2595,47 @@ directory before changing scientific assumptions.</p>
 <tbody>
 <tr>
 <td>00</td>
-<td><a href="../notebooks/00_full_neon_pipeline.ipynb">Full NEON pipeline</a></td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/00_full_neon_pipeline.ipynb">Full NEON pipeline</a></td>
 <td>You want download through QA in one restart-safe call</td>
 </tr>
 <tr>
 <td>01</td>
-<td><a href="../notebooks/01_acquire_neon.ipynb">Acquire NEON HDF5</a></td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/01_acquire_neon.ipynb">Acquire NEON HDF5</a></td>
 <td>You only want to obtain or reuse the source HDF5</td>
 </tr>
 <tr>
 <td>02</td>
-<td><a href="../notebooks/02_correct_neon.ipynb">Correct NEON reflectance</a></td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/02_correct_neon.ipynb">Correct NEON reflectance</a></td>
 <td>You want raw ENVI plus standard topo/BRDF outputs</td>
 </tr>
 <tr>
 <td>03</td>
-<td><a href="../notebooks/03_harmonize_to_landsat.ipynb">Harmonize to Landsat</a></td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/03_harmonize_to_landsat.ipynb">Harmonize to Landsat</a></td>
 <td>You already have corrected hyperspectral ENVI and want target-sensor products</td>
 </tr>
 <tr>
 <td>04</td>
-<td><a href="../notebooks/04_analysis_tables.ipynb">Build and inspect analysis tables</a></td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/04_analysis_tables.ipynb">Build and inspect analysis tables</a></td>
 <td>You want Parquet/CSV inspection and output checks</td>
 </tr>
 <tr>
 <td>05</td>
-<td><a href="../notebooks/05_qa_and_validation.ipynb">Review QA and validation</a></td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/05_qa_and_validation.ipynb">Review QA and validation</a></td>
 <td>You want to render QA and inspect machine-readable diagnostics</td>
 </tr>
 <tr>
 <td>06</td>
-<td><a href="../notebooks/06_drone_pipeline.ipynb">Process drone imagery</a></td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/06_drone_pipeline.ipynb">Process drone imagery</a></td>
 <td>You have local drone HDF5 inputs</td>
 </tr>
 <tr>
 <td>07</td>
-<td><a href="../notebooks/07_polygon_extraction.ipynb">Extract polygon spectra</a></td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/07_polygon_extraction.ipynb">Extract polygon spectra</a></td>
 <td>You want polygon-indexed spectra from a completed flightline</td>
 </tr>
 <tr>
 <td>08</td>
-<td><a href="../notebooks/08_custom_correction_hook.ipynb">Insert a custom correction</a></td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/08_custom_correction_hook.ipynb">Insert a custom correction</a></td>
 <td>You are developing a reviewed correction after topo/BRDF and before convolution</td>
 </tr>
 </tbody>

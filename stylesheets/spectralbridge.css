@@ -669,6 +669,176 @@ body:has(.sb-home) .md-content__inner::before {
   margin: 0;
 }
 
+.md-typeset .sb-science-story {
+  background: var(--sb-paper-light);
+  border-bottom: 3px solid var(--sb-black);
+  border-top: 3px solid var(--sb-black);
+  padding: clamp(2.5rem, 6vw, 6rem);
+}
+
+.md-typeset .sb-science-story__intro {
+  display: grid;
+  gap: 1rem 4rem;
+  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+  margin-bottom: clamp(2.5rem, 5vw, 5rem);
+}
+
+.md-typeset .sb-science-story__intro .sb-kicker {
+  grid-column: 1 / -1;
+}
+
+.md-typeset .sb-science-story__intro h2 {
+  font-size: clamp(2.8rem, 6vw, 5.8rem);
+  letter-spacing: -0.07em;
+  line-height: 0.92;
+}
+
+.md-typeset .sb-science-story__intro > p:last-child {
+  color: var(--sb-black);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.08rem;
+  margin: 0;
+}
+
+.md-typeset .sb-science-panel {
+  align-items: start;
+  border-top: 2px solid var(--sb-black);
+  display: grid;
+  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(17rem, 0.72fr) minmax(30rem, 1.28fr);
+  padding: clamp(2.5rem, 5vw, 5rem) 0;
+}
+
+.md-typeset .sb-science-panel--reverse {
+  grid-template-columns: minmax(30rem, 1.28fr) minmax(17rem, 0.72fr);
+}
+
+.md-typeset .sb-science-panel--reverse .sb-science-panel__copy {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.md-typeset .sb-science-panel--reverse .sb-science-panel__viewport {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.md-typeset .sb-science-panel__copy {
+  position: sticky;
+  top: 6rem;
+}
+
+.md-typeset .sb-science-panel__number {
+  color: var(--sb-teal-dark);
+  display: block;
+  font-family: "Courier New", monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.md-typeset .sb-science-panel h3 {
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+}
+
+.md-typeset .sb-science-panel__copy p {
+  color: var(--sb-black);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+}
+
+.md-typeset .sb-science-panel__copy a {
+  color: var(--sb-teal-dark);
+  font-weight: 800;
+}
+
+.md-typeset .sb-science-panel__viewport {
+  min-width: 0;
+  overflow-x: auto;
+  padding: 0 0.5rem 0.75rem 0;
+  scrollbar-color: var(--sb-teal) var(--sb-mist);
+  scrollbar-width: thin;
+}
+
+.md-typeset .sb-science-panel__viewport:focus-visible {
+  outline: 4px solid var(--sb-yellow);
+  outline-offset: 4px;
+}
+
+.md-typeset .sb-science-panel__figure {
+  background: #fff;
+  border: 2px solid #bfd5e4;
+  box-shadow: 10px 10px 0 var(--sb-black);
+  margin: 0 10px 0 0;
+  min-width: 30rem;
+  padding: 0.5rem;
+}
+
+.md-typeset .sb-science-panel__figure a,
+.md-typeset .sb-science-panel__figure svg {
+  display: block;
+  width: 100%;
+}
+
+.md-typeset .sb-science-panel__figure a {
+  border: 0;
+}
+
+.md-typeset .sb-science-panel__figure svg {
+  height: auto;
+}
+
+.md-typeset .sb-science-panel__figure figcaption {
+  border-top: 1px solid #bfd5e4;
+  color: var(--sb-muted);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  margin-top: 0.4rem;
+  padding: 0.65rem 0.35rem 0.2rem;
+}
+
+.md-typeset .sb-science-principles {
+  background: linear-gradient(90deg, #dceff8, #def3e9);
+  border: 2px solid var(--sb-black);
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.md-typeset .sb-science-principles li {
+  border-right: 1px solid var(--sb-black);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0;
+  min-width: 0;
+  padding: 1rem;
+}
+
+.md-typeset .sb-science-principles li:last-child {
+  border-right: 0;
+}
+
+.md-typeset .sb-science-principles strong {
+  color: var(--sb-black);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.md-typeset .sb-science-principles span {
+  color: var(--sb-muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
 .md-typeset .sb-section {
   padding: clamp(2.5rem, 6vw, 6rem);
 }
@@ -932,8 +1102,36 @@ body:has(.sb-home) .md-content__inner::before {
   .md-typeset .sb-card-grid--two,
   .md-typeset .sb-card-grid--three,
   .md-typeset .sb-manifesto,
+  .md-typeset .sb-science-story__intro,
   .md-typeset .sb-evidence {
     grid-template-columns: 1fr;
+  }
+
+  .md-typeset .sb-science-panel,
+  .md-typeset .sb-science-panel--reverse {
+    grid-template-columns: minmax(14rem, 0.65fr) minmax(26rem, 1.35fr);
+  }
+
+  .md-typeset .sb-science-panel--reverse .sb-science-panel__copy,
+  .md-typeset .sb-science-panel--reverse .sb-science-panel__viewport {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .md-typeset .sb-science-panel--reverse .sb-science-panel__copy {
+    grid-column: 1;
+  }
+
+  .md-typeset .sb-science-panel--reverse .sb-science-panel__viewport {
+    grid-column: 2;
+  }
+
+  .md-typeset .sb-science-principles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md-typeset .sb-science-principles li {
+    border-bottom: 1px solid var(--sb-black);
   }
 
   .md-typeset .sb-route-card:last-child {
@@ -991,10 +1189,40 @@ body:has(.sb-home) .md-content__inner::before {
 
   .md-typeset .sb-manifesto,
   .md-typeset .sb-section,
+  .md-typeset .sb-science-story,
   .md-typeset .sb-evidence,
   .md-typeset .sb-resume-strip,
   .md-typeset .sb-cta {
     padding: 2.5rem 1rem;
+  }
+
+  .md-typeset .sb-science-story__intro,
+  .md-typeset .sb-science-panel,
+  .md-typeset .sb-science-panel--reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .md-typeset .sb-science-panel__copy,
+  .md-typeset .sb-science-panel--reverse .sb-science-panel__copy,
+  .md-typeset .sb-science-panel--reverse .sb-science-panel__viewport {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .md-typeset .sb-science-panel__copy {
+    position: static;
+  }
+
+  .md-typeset .sb-science-panel__figure {
+    min-width: 34rem;
+  }
+
+  .md-typeset .sb-science-principles {
+    grid-template-columns: 1fr;
+  }
+
+  .md-typeset .sb-science-principles li {
+    border-right: 0;
   }
 
   .md-typeset .sb-route-card {
