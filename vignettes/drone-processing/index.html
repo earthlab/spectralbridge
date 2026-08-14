@@ -474,6 +474,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../notebook-vignettes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runnable notebooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../concepts/why-calibration/" class="md-nav__link">
         
   
@@ -518,10 +546,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
         
           
-          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
             
   
   
@@ -539,8 +567,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -639,10 +667,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
             
   
   
@@ -660,8 +688,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1883,6 +1911,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../reference/json-catalog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON file catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/schemas/" class="md-nav__link">
         
   
@@ -2055,6 +2111,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../reference/custom-correction-hook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a custom correction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/extending/" class="md-nav__link">
         
   
@@ -2135,6 +2219,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/repository-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Repository map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -2488,8 +2600,16 @@
 
 
 <h1 id="module-vignette-6-process-drone-imagery">Module vignette 6: process drone imagery<a class="headerlink" href="#module-vignette-6-process-drone-imagery" title="Permanent link">&para;</a></h1>
+<p><strong>Notebook:</strong> <a href="../notebooks/06_drone_pipeline.ipynb">Open or download the drone notebook</a>.</p>
 <p>Use this module for local drone HDF5 inputs. It is separate from the NEON
 download workflow and preserves provenance from the original drone filenames.</p>
+<div class="admonition note">
+<p class="admonition-title">Where Landsat enters the scientific bridge</p>
+<p>The project-level relationship is <strong>Drone → NEON → Landsat</strong>. This module
+prepares and validates the drone side; it does not directly convolve drone
+data into Landsat bands. Corrected, Landsat-harmonized NEON products provide
+the explicit airborne translation reference for downstream comparison.</p>
+</div>
 <h2 id="prepare-the-inputs">Prepare the inputs<a class="headerlink" href="#prepare-the-inputs" title="Permanent link">&para;</a></h2>
 <p>Place valid drone HDF5 files under one input directory. Discovery is recursive,
 so campaign or flight subdirectories are allowed.</p>
