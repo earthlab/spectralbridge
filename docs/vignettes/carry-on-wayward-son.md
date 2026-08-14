@@ -1,6 +1,6 @@
 # Vignette: Carry On My Wayward Son
 
-**Notebook:** Use the [full-pipeline notebook](notebooks/00_full_neon_pipeline.ipynb)
+**Notebook:** Use the [full-pipeline notebook in the repository](https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/00_full_neon_pipeline.ipynb)
 with the same `BASE_FOLDER`; valid completed stages are reused automatically.
 
 Already have part of the pipeline done? Carry on from the files you have. The

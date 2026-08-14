@@ -1,6 +1,6 @@
 # Module vignette 6: process drone imagery
 
-**Notebook:** [Open or download the drone notebook](notebooks/06_drone_pipeline.ipynb).
+**Notebook:** [View the drone notebook in the repository](https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/06_drone_pipeline.ipynb). GitHub displays the cells; clone or download the file to run them.
 
 Use this module for local drone HDF5 inputs. It is separate from the NEON
 download workflow and preserves provenance from the original drone filenames.

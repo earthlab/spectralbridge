@@ -1,6 +1,6 @@
 # Module vignette 1: acquire NEON data
 
-**Notebook:** [Open or download the acquisition notebook](notebooks/01_acquire_neon.ipynb).
+**Notebook:** [View the acquisition notebook in the repository](https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/01_acquire_neon.ipynb). GitHub displays the cells; clone or download the file to run them.
 
 Use this module when you need to place one or more NEON directional-reflectance
 HDF5 flightlines into a SpectralBridge workspace. If the HDF5 already exists in

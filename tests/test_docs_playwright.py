@@ -27,6 +27,10 @@ MARKDOWN_IN_HTML_ROUTES = (
     "usage/cli/",
     "usage/parquet/",
 )
+GITHUB_NOTEBOOK_BASE = (
+    "https://github.com/earthlab/spectralbridge/blob/main/"
+    "docs/vignettes/notebooks/"
+)
 
 
 def _docs_site_url() -> str:
@@ -87,6 +91,27 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             logo = page.locator("img[alt='SpectralBridge logo']").first
             assert logo.evaluate("(img) => img.naturalWidth") > 0
 
+            assert page.get_by_role(
+                "heading", name="Three technical views. Read them one at a time."
+            ).is_visible()
+            assert page.locator(".sb-science-panel").count() == 3
+            assert page.locator(".sb-science-panel__figure svg").count() == 3
+            assert page.locator(
+                "a[href$='images/homepage/spectralbridge-technical-overview.png']"
+            ).count() == 3
+            desktop_figure = page.locator(".sb-science-panel__figure").first
+            assert desktop_figure.bounding_box()["width"] > 500
+
+            page.set_viewport_size({"width": 390, "height": 844})
+            assert page.evaluate(
+                "document.documentElement.scrollWidth <= window.innerWidth"
+            )
+            mobile_viewport = page.locator(".sb-science-panel__viewport").first
+            assert mobile_viewport.evaluate(
+                "element => element.scrollWidth > element.clientWidth"
+            )
+            page.set_viewport_size({"width": 1280, "height": 900})
+
             page.goto(urljoin(base_url, "vignettes/"), wait_until="networkidle")
             assert page.get_by_role("heading", name="Choose a vignette").is_visible()
             assert page.get_by_role(
@@ -97,6 +122,23 @@ def test_docs_site_core_pages_render_in_browser() -> None:
                 "link",
                 name="7. Extract polygon spectra",
             ).is_visible()
+
+            page.goto(
+                urljoin(base_url, "vignettes/notebook-vignettes/"),
+                wait_until="networkidle",
+            )
+            assert page.get_by_role(
+                "heading", name="Runnable notebook vignettes"
+            ).is_visible()
+            notebook_links = page.locator(
+                f"a[href^='{GITHUB_NOTEBOOK_BASE}'][href$='.ipynb']"
+            )
+            assert notebook_links.count() == 9
+            assert page.get_by_role(
+                "link", name="Correct NEON reflectance", exact=True
+            ).get_attribute("href") == (
+                f"{GITHUB_NOTEBOOK_BASE}02_correct_neon.ipynb"
+            )
 
             page.goto(urljoin(base_url, "reference/"), wait_until="networkidle")
             assert page.get_by_role("heading", name="Technical reference map").is_visible()

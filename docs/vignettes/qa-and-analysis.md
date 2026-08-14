@@ -1,6 +1,6 @@
 # Module vignette 5: review QA outputs
 
-**Notebook:** [Open or download the QA notebook](notebooks/05_qa_and_validation.ipynb).
+**Notebook:** [View the QA notebook in the repository](https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/05_qa_and_validation.ipynb). GitHub displays the cells; clone or download the file to run them.
 
 Use this module to inspect a completed or partially completed flightline without
 recomputing its scientific products. QA PNG files support quick visual triage;

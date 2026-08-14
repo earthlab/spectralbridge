@@ -145,7 +145,6 @@ Your function should:
   correction magnitude by wavelength, and downstream Landsat-band differences.
 
 Start from the downloadable
-[custom-correction notebook](../vignettes/notebooks/08_custom_correction_hook.ipynb)
+[custom-correction notebook in the repository](https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/08_custom_correction_hook.ipynb)
 and keep the experiment separate until its assumptions and diagnostics have
 been scientifically reviewed.
-

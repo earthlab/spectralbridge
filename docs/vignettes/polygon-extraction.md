@@ -1,6 +1,6 @@
 # Module vignette 7: extract polygon spectra
 
-**Notebook:** [Open or download the polygon-extraction notebook](notebooks/07_polygon_extraction.ipynb).
+**Notebook:** [View the polygon-extraction notebook in the repository](https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/07_polygon_extraction.ipynb). GitHub displays the cells; clone or download the file to run them.
 
 Use this optional module when you have processed flightline products and a
 polygon layer representing plots, crowns, or other sampling units. It creates a

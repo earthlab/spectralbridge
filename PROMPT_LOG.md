@@ -5537,3 +5537,24 @@ Branch: main
 ```text
 this is messed up too [https://earthlab.github.io/spectralbridge/tutorials/cloud-workflow/](https://earthlab.github.io/spectralbridge/tutorials/cloud-workflow/) [https://earthlab.github.io/spectralbridge/faq/](https://earthlab.github.io/spectralbridge/faq/)
 ```
+
+## 2026-08-14 - add scientific visual story to homepage
+Branch: main
+
+```text
+here is a panel of images to add to the homepage. These are scientific figures but they are also conceptual to help understand what the package does. can you use this but stylize it to match the website and be readable and engaging? don't just crame it all in one image for example.
+```
+
+## 2026-08-14 - preserve technical figure and enlarge it
+Branch: main
+
+```text
+that is too abstracted. go back to the more technical one that i gave you but just make the font big
+```
+
+## 2026-08-14 - route notebook links to repository viewer
+Branch: main
+
+```text
+this doesn't look like a notebook [https://earthlab.github.io/spectralbridge/vignettes/notebooks/02_correct_neon.ipynb](https://earthlab.github.io/spectralbridge/vignettes/notebooks/02_correct_neon.ipynb) . we want the notebooks to be actuall notebook files in the repo that can be opens and seen on the web. we can't run them live, but have them link to the notebook in the repo.
+```

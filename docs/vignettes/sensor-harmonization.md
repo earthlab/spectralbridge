@@ -1,6 +1,6 @@
 # Module vignette 3: harmonize target sensors
 
-**Notebook:** [Open or download the Landsat harmonization notebook](notebooks/03_harmonize_to_landsat.ipynb).
+**Notebook:** [View the Landsat harmonization notebook in the repository](https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/03_harmonize_to_landsat.ipynb). GitHub displays the cells; clone or download the file to run them.
 
 Use this module when a corrected NEON cube exists and you want reflectance in
 configured target-sensor bandspaces such as Landsat or MicaSense. SpectralBridge

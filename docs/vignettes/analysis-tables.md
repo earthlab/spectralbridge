@@ -1,6 +1,6 @@
 # Module vignette 4: build analysis tables
 
-**Notebook:** [Open or download the analysis-table notebook](notebooks/04_analysis_tables.ipynb).
+**Notebook:** [View the analysis-table notebook in the repository](https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/04_analysis_tables.ipynb). GitHub displays the cells; clone or download the file to run them.
 
 Use this module after ENVI products exist and you want analysis-ready tabular
 data. The main pipeline writes per-product Parquet sidecars and merges compatible

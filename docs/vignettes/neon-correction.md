@@ -1,6 +1,6 @@
 # Module vignette 2: correct NEON reflectance
 
-**Notebook:** [Open or download the correction notebook](notebooks/02_correct_neon.ipynb).
+**Notebook:** [View the correction notebook in the repository](https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/02_correct_neon.ipynb). GitHub displays the cells; clone or download the file to run them.
 
 Use this module to turn a NEON directional-reflectance HDF5 into raw ENVI and
 BRDF/topography-corrected ENVI products. The corrected cube is the canonical

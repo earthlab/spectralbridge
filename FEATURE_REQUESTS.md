@@ -20,6 +20,111 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P54. Route Notebook Links To The Repository Viewer
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Ensure every website notebook link opens the real tracked `.ipynb` in
+  the GitHub repository viewer instead of navigating to a static GitHub Pages
+  asset that cannot render as a notebook.
+- Scope:
+  - Keep all nine notebook files, cells, kernels, code, and dry-run safeguards
+    unchanged.
+  - Update link destinations and explanatory copy only.
+- Plan:
+  - Inventory every documentation link to a notebook and replace relative
+    GitHub Pages asset links with stable GitHub `blob/main` notebook URLs.
+  - Clearly state that notebooks can be viewed on GitHub and cloned/downloaded
+    for local execution, but are not live browser runtimes.
+  - Add link-contract coverage and verify strict docs, links, notebook schema,
+    and the rendered GitHub destination.
+- Outcome:
+  - Kept all nine vignette notebooks as actual tracked `.ipynb` files under
+    `docs/vignettes/notebooks/`; no notebook cells, outputs, kernels, or
+    scientific code changed.
+  - Replaced every website-relative notebook asset link with a GitHub
+    `blob/main` link to the corresponding repository file, including the
+    module vignettes, notebook catalog, resume guide, and custom-correction
+    reference.
+  - Clarified that GitHub is the web viewer and that cloning or downloading is
+    required to execute or modify a notebook.
+  - Added source and browser contracts that require the exact nine notebooks,
+    prohibit documentation links back to GitHub Pages notebook assets, and
+    verify the rendered catalog exposes nine GitHub repository links.
+- Verification:
+  - Notebook/example contracts passed.
+  - Strict MkDocs build and documentation-link validation passed.
+  - Playwright site smoke test passed against the built documentation,
+    including the exact `02_correct_neon.ipynb` GitHub destination.
+  - Ruff, AI-transparency artifact verification, and repository whitespace
+    checks passed.
+- Blockers:
+  - None.
+- Next recommended task:
+  - Deploy the documentation changes, then confirm the public notebook catalog
+    links to GitHub after the Pages build refreshes.
+
+### P53. Homepage Scientific Visual Story
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Transform the supplied three-panel scientific concept figure into a
+  readable, engaging homepage sequence that matches the SpectralBridge visual
+  system without embedding one dense poster.
+- Scope:
+  - Use the supplied figure as the scientific and compositional reference.
+  - Derive separate text-free visual assets for sensors, processing, and
+    translation; keep scientific labels and explanations as accessible HTML.
+  - Preserve the established Drone -> NEON -> Landsat framing, pipeline
+    behavior, scientific values, routes, and existing calls to action.
+- Plan:
+  - Preserve the supplied technical figure without generative simplification;
+    do not use the rejected abstract illustration drafts.
+  - Present the original figure as three separately enlarged, editorial
+    homepage panels so its existing fonts, plots, arrows, and terminology are
+    readable while retaining exact scientific content.
+  - Integrate the panels with responsive CSS, accessible descriptions, and
+    links to the relevant vignettes.
+  - Verify asset paths, strict docs, links, browser console, desktop/mobile
+    layout, and homepage regression checks.
+- Outcome:
+  - Preserved the user's supplied 1536 x 1024 technical figure byte-for-byte in
+    `docs/images/homepage/spectralbridge-technical-overview.png`; rejected
+    abstract image-generation drafts were not added to the repository or used
+    by the site.
+  - Added an editorial homepage sequence that crops the original figure into
+    three separately enlarged views for observing systems, the processing
+    chain, and the sensor translation network.
+  - Kept every original plot, label, wavelength range, arrow, and scientific
+    relationship intact while adding large accessible HTML headings, concise
+    interpretation, related-vignette links, figure descriptions, and a
+    full-resolution source link.
+  - Added a horizontally inspectable mobile viewport so the technical figure
+    stays legible instead of being reduced to the width of a phone.
+  - Recreated the supplied reproducibility-principles strip as responsive HTML
+    so its typography remains readable at every viewport.
+  - Made no changes to pipeline code, algorithms, scientific values, routes, or
+    runtime outputs.
+- Verification:
+  - Confirmed the repository asset and supplied source have identical SHA-256
+    hashes.
+  - Strict MkDocs build and documentation link validation passed.
+  - Expanded Playwright documentation test passed, including three panels,
+    source links, minimum desktop figure width, mobile internal scrolling,
+    page overflow, asset failures, browser errors, and console errors.
+  - In-app browser review confirmed the original technical typography is
+    readable at desktop width and the page has no horizontal overflow.
+  - Ruff and repository whitespace checks passed.
+- Blockers:
+  - None.
+- Next recommended task:
+  - Ask the figure author to verify the homepage captions against the intended
+    calibration-network interpretation before deploying the site.
+
 ### P52. Repair FAQ And Systemic Markdown-In-HTML Rendering
 
 - Priority: User-directed
