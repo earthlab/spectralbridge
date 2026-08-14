@@ -2,6 +2,9 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11167877.svg)](https://doi.org/10.5281/zenodo.11167877)
 
+[AI transparency statement](docs/ai-transparency.md) ·
+[Publication readiness audit](docs/dev/publication-readiness-audit-2026-08-14.md)
+
 **SpectralBridge** is a modular Python-based tool that adjusts fine-resolution (few centimeters to ~ 5 meters) “pure” spectra from airborne imaging spectroscopy (IS) and uncrewed aerial system (UAS) multispectral imagery to match the spectral configurations of moderate-resolution satellite sensors (over 30 meters).
 
 ![SpectralBridge pipeline overview](docs/EL_workflow_diagram_updatedQA.png)

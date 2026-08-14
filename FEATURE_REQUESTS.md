@@ -1,6 +1,6 @@
 # SpectralBridge Feature Requests
 
-Review date: 2026-06-02  
+Review date: 2026-08-14
 Branch: main
 
 This file is the authoritative work queue for non-trivial SpectralBridge work.
@@ -19,6 +19,259 @@ left incomplete so the next agent can resume immediately.
 6. After verification, record outcome, blockers, and the next recommended task.
 
 ## Active Requests
+
+### P47. Editorial SpectralBridge Website Redesign
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Redesign the MkDocs site to feel like an editorial, science-focused
+  creative studio while preserving SpectralBridge's learning, validation, and
+  technical-reference information architecture.
+- Reference direction:
+  - Retain the strong hierarchy, editorial type, generous whitespace, and
+    narrative structure inspired by science media sites.
+  - Restore the original SpectralBridge logo and derive the palette from its
+    navy, sky-blue, teal, green, and spectral yellow colors instead of using
+    the reference site's black/yellow identity.
+  - Write and design for scientists translating hyperspectral observations
+    from drone and airborne sensors into Landsat-compatible reflectance.
+  - Do not copy proprietary artwork, text, logos, or page layouts. Keep the
+    result recognizably SpectralBridge and accessible as technical
+    documentation.
+- Plan:
+  - Inspect the reference site's visual system and the current MkDocs theme,
+    homepage markup, logo assets, and CSS overrides.
+  - Establish a logo-derived SpectralBridge color, typography, spacing,
+    navigation, card, table, code, and footer system with responsive behavior.
+  - Recompose the homepage into an editorial science story with clear routes
+    into Learn, Validation, and Technical reference.
+  - Apply the design system to content pages without reducing documentation
+    readability or changing scientific content.
+  - Render and inspect desktop/mobile pages, run accessibility-oriented browser
+    checks, and verify strict docs, links, and documentation smoke tests.
+- Outcome:
+  - Restored the original panoramic SpectralBridge logo on the homepage and
+    the original compact spectral bridge mark in the site header.
+  - Kept the editorial information hierarchy while replacing the reference
+    site's black/yellow identity with a logo-derived navy, sky-blue, teal,
+    green, lime, and restrained gold palette.
+  - Reframed the homepage for scientists moving hyperspectral reflectance from
+    drone and airborne observations into Landsat-compatible products.
+  - Propagated the scientific palette through navigation, content heroes,
+    cards, tables, admonitions, workflow sections, buttons, and the footer.
+  - Confirmed desktop and phone layouts have no page-level horizontal overflow;
+    wide validation tables remain independently scrollable on phones.
+- Verification:
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/mkdocs build --strict --site-dir /tmp/spectralbridge-site-impact`
+  - `python3 scripts/check_docs_links.py`
+  - `SPECTRALBRIDGE_DOCS_SITE=http://127.0.0.1:8765 .venv/bin/python -m pytest -q tests/test_docs_playwright.py`
+  - `uvx ruff check src tests scripts/generate_ai_transparency.py scripts/generate_validation_docs.py scripts/run_validation_campaign.py`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/python scripts/generate_ai_transparency.py --check`
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/python scripts/generate_validation_docs.py --check`
+  - In-app browser review of the homepage and representative learning,
+    validation, and reference pages at 1280×900 and 390×844.
+- Blockers:
+  - None.
+- Next recommended task:
+  - Ask a small group of drone and Landsat scientists to perform a short
+    findability review of the Learn, Validation, and Technical reference paths.
+
+### P46. Pipeline Validation Matrix And Published Diagnostics
+
+- Priority: User-directed
+- Status: In progress
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Add reproducible validation suites that exercise every user-facing
+  pipeline module across varied inputs, record quantitative diagnostics, and
+  publish one results page per module in a dedicated website section.
+- Plan:
+  - Inventory current stage functions, fixtures, tests, and existing QA metrics
+    to define explicit validation contracts without changing scientific
+    assumptions.
+  - Implement a deterministic validation manifest and result schema that record
+    input variation, expected behavior, observed diagnostics, status, runtime,
+    provenance, and skip reasons.
+  - Add an offline validation runner for reliable CI-scale variation testing and
+    a separately marked live NEON campaign for opt-in sampling across sites and
+    flight lines without making normal tests download hundreds of large files.
+  - Generate a validation website index and one page per module from the
+    recorded results, including variation lists, pass/fail summaries, and
+    diagnostics suitable for improving QA plots.
+  - Add contract tests for the runner and generated documentation, then verify
+    the smallest relevant suites, documentation build, and links.
+- Scope decision:
+  - Treat “100 iterations” as a campaign target, not a unit-test default. Live
+    download and full-scene processing require network, storage, compute, and a
+    pinned NEON product inventory; those runs will be explicit and resumable.
+- Progress:
+  - Added a versioned validation evidence schema with atomic JSON output,
+    explicit checks, diagnostics, runtimes, errors, skip reasons, Git revision,
+    and dirty-worktree provenance.
+  - Added a deterministic offline runner that can scale to any requested
+    iteration count and invokes actual functions for download reuse, synthetic
+    HDF5-to-ENVI conversion, topographic correction, BRDF correction, sensor
+    convolution, Parquet extraction, CSV conversion, chunked saving, restart
+    integrity, and QA rendering.
+  - Recorded an initial five-variation-per-module campaign: 40 passed, 0 failed,
+    and 0 skipped. The evidence is explicitly labeled as synthetic or
+    already-present-input software validation, not external scientific
+    validation.
+  - Added a top-level Validation website section with an overview and eight
+    generated module pages showing every input variation, quantitative
+    diagnostics, explicit checks, pass/fail state, QA implications, and
+    reproduction commands.
+  - Added a live 100-flightline campaign specification that requires exact
+    flightline inventory, checksums, dates, and approved network/storage/compute
+    resources before execution.
+  - Added CI freshness checks, validation framework tests, and rendered-site
+    smoke coverage. No scientific QA thresholds were changed from synthetic
+    evidence alone.
+  - Used the campaign to identify and fix a concrete QA-rendering issue: PDF
+    status panels now use font-safe `OK`/`WARN`/`FAIL` labels instead of a
+    missing cross-mark glyph, with a regression assertion for that warning.
+- Verification:
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/python scripts/run_validation_campaign.py --iterations-per-module 5` (40 passed)
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/python -m pytest -q tests/test_validation_campaign.py` (3 passed)
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/python -m pytest -q tests/test_qa/test_qa_metrics_smoke.py` (3 passed)
+  - `.venv/bin/python scripts/generate_validation_docs.py --check`
+  - `SPECTRALBRIDGE_DOCS_SITE=http://127.0.0.1:8765 .venv/bin/python -m pytest -q tests/test_docs_playwright.py` (1 passed)
+  - `.venv/bin/mkdocs build --strict --site-dir /tmp/spectralbridge-site-validation`
+  - `python3 scripts/check_docs_links.py`
+  - `uvx ruff check src tests scripts/generate_ai_transparency.py scripts/generate_validation_docs.py scripts/run_validation_campaign.py`
+  - `python3 -m compileall -q src tests scripts` and `git diff --check`
+  - In-app browser review covered desktop and mobile validation layouts, dense
+    table containment, navigation, and console output; no browser errors were
+    found.
+- Blockers:
+  - The repository does not currently contain 100 representative NEON HDF5
+    fixtures, and this task has not authorized the bandwidth/storage cost of a
+    100-flightline live campaign.
+- Next recommended task:
+  - Build and pin the 100-flightline NEON inventory, estimate download and
+    output storage, choose a durable campaign workspace, and approve the live
+    resource budget. Then execute the campaign restart-safely and use its
+    distributions to review QA panels and thresholds with scientific oversight.
+
+### P45. Simplify Website Into Educational And Technical Paths
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Make the documentation site less overwhelming by separating
+  task-oriented educational vignettes from technical reference material, with
+  one canonical vignette per pipeline module plus full-run and restart/resume
+  workflows.
+- Plan:
+  - Inventory existing docs and map each page to an educational vignette,
+    technical reference, troubleshooting, or maintainer-only role.
+  - Consolidate the visible MkDocs navigation into two primary learning paths
+    while preserving useful existing pages and stable file locations.
+  - Add a vignette index, one canonical vignette for each user-facing pipeline
+    module, a full-pipeline vignette, and a “Carry On My Wayward Son” restart
+    vignette for resuming partially completed file-based runs.
+  - Cross-link the educational pages to deeper technical descriptions without
+    duplicating scientific assumptions.
+  - Verify links, strict MkDocs rendering, navigation clarity, and relevant
+    documentation tests; then record completion and remaining gaps here.
+- Completion notes:
+  - Reduced the public site to four top-level destinations: Home, Learn,
+    Technical reference, and Project. The homepage now presents the educational
+    and technical paths directly instead of exposing the full documentation
+    inventory at once.
+  - Added a canonical Learn index, a full-pipeline vignette, a “Carry On My
+    Wayward Son” restart vignette, and one vignette for each of seven
+    user-facing modules: NEON acquisition, correction, sensor harmonization,
+    analysis tables, QA, drone processing, and polygon extraction.
+  - Added a technical-reference landing page that groups stage/file contracts,
+    interfaces, schemas, algorithms, extension points, and architecture.
+  - Preserved the older tutorial URLs for incoming links but removed the
+    overlapping pages from navigation and search so learners see one canonical
+    path per module.
+  - Documented the new information-architecture and vignette conventions in the
+    documentation style guide and updated the rendered-site smoke contract.
+- Verification:
+  - `.venv/bin/mkdocs build --strict --site-dir /tmp/spectralbridge-site-webcleanup`
+  - `python3 scripts/check_docs_links.py`
+  - `SPECTRALBRIDGE_DOCS_SITE=http://127.0.0.1:8765 .venv/bin/python -m pytest -q tests/test_docs_playwright.py` (1 passed)
+  - `uvx ruff check tests/test_docs_playwright.py scripts/generate_ai_transparency.py`
+  - `.venv/bin/python scripts/generate_ai_transparency.py --check`
+  - `python3 -m compileall -q tests scripts` and `git diff --check`
+  - In-app browser review covered the homepage, Learn and Technical reference
+    navigation, the restart vignette, mobile layout, search results, and browser
+    console output; no rendering or console errors were found.
+- Blockers:
+  - None for this request. MkDocs still reports intentionally unlisted legacy
+    and maintainer pages; they remain available for stable links and future
+    archival decisions.
+- Next recommended task:
+  - Have a new user follow the full-pipeline and restart vignettes against a
+    small fixture, then refine any steps whose required inputs or expected
+    outputs are not obvious without prior SpectralBridge knowledge.
+
+### P44. Publication Readiness, Test Coverage, And AI Transparency Audit
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Audit publication readiness and test coverage, then add a reproducible
+  AI-transparency report generated from the verbatim prompt log with summary
+  figures, narrative statistics, and explicit model/provenance limitations.
+- Plan:
+  - Inventory publication, citation, governance, packaging, release, and
+    reproducibility artifacts and record evidence-backed readiness findings.
+  - Run the available test suite, coverage measurement, lint, packaging, and
+    documentation checks, separating verified results from environment gaps.
+  - Define a deterministic prompt-log parser and transparent classification
+    rules that do not infer unavailable model metadata.
+  - Generate version-controlled text and figure outputs and add automation to
+    detect stale AI-transparency artifacts.
+  - Add regression tests and documentation for the generator, then rerun the
+    smallest relevant checks and the broader verification available locally.
+- Completion notes:
+  - Added an evidence-backed publication-readiness and test-coverage audit under
+    `docs/dev/`, and updated the living publication checklist with verified
+    gates and remaining blockers.
+  - Added a standard-library prompt-log analyzer that generates a public
+    Markdown statement, machine-readable JSON, and four accessible SVG figures
+    covering prompt timing, topics, intents, lengths, and recorded AI identity.
+  - Added prospective AI system/model fields to the prompt-log contract and
+    explicitly preserves unknown historical model identities as `Not recorded`.
+  - Added regression tests and a CI staleness check for all generated
+    transparency artifacts.
+  - Added branch-aware coverage collection and retained JSON/XML CI artifacts,
+    with a conservative 45% combined regression floor.
+  - Made the CI Ruff baseline explicit (`E4`, `E7`, `E9`, and `F`) and removed
+    the one unused import that prevented that baseline from passing.
+  - Aligned test extras with the existing pytest `<9` contributor constraint.
+- Verification:
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/python -m pytest -q tests/test_ai_transparency.py` (3 passed)
+  - `MPLCONFIGDIR=/tmp/spectralbridge-mpl .venv/bin/python -m pytest -q tests/test_duckdb_merge.py` (6 passed)
+  - `.venv/bin/python scripts/generate_ai_transparency.py --check`
+  - `python3 scripts/check_docs_links.py`
+  - `python3 -m compileall -q src tests scripts`
+  - `uvx ruff check src tests scripts/generate_ai_transparency.py`
+  - `uv run --extra docs mkdocs build --strict --site-dir /tmp/spectralbridge-site-audit`
+  - Full unit-mode coverage run: 186 passed, 7 skipped, 2 failed; 49.66%
+    statements, 33.43% branches, and 45.56% combined coverage.
+  - `uv build` produced the 2.2.0 sdist and wheel; both passed `twine check`.
+  - A clean Python 3.12 wheel install imported version 2.2.0, included the
+    brightness coefficient JSON, and ran primary CLI help commands.
+- Blockers:
+  - The publication release remains blocked by two drone-preview test failures,
+    metadata/version and DOI inconsistencies, placeholder authorship, and the
+    outstanding GPL/third-party provenance review. See the dated audit for the
+    complete evidence and recommendations.
+  - The strict docs build reports 25 Markdown pages outside MkDocs
+    navigation; maintainers should confirm that each exclusion is intentional.
+- Next recommended task:
+  - Repair and confirm the two drone-preview test contracts in Python 3.10/3.11
+    CI, then add a release metadata consistency check before raising coverage in
+    the lowest-tested scientific modules.
 
 ### P43. CI Regression Stabilization After Drone/Docs Updates
 

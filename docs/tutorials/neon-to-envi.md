@@ -1,4 +1,14 @@
+---
+search:
+  exclude: true
+---
+
 # Tutorial: NEON → Corrected ENVI (BRDF + Topographic)
+
+!!! note "Canonical learning path"
+    This older tutorial is retained for stable links. Use [Correct NEON
+    reflectance](../vignettes/neon-correction.md) for the canonical module
+    vignette.
 
 This tutorial walks through converting NEON hyperspectral HDF5 files into physically corrected ENVI reflectance cubes. The output is the foundational product used in all downstream harmonization workflows (e.g., Landsat-style reflectance).
 

@@ -5,146 +5,98 @@ hide:
 
 <div class="sb-home">
   <img class="sb-preload-logo" src="asset/img/spectralbridge_logo.png" alt="SpectralBridge logo" loading="eager">
+
   <section class="sb-hero">
-    <div class="sb-hero__visual">
-      <img src="asset/img/spectralbridge_logo.png" alt="SpectralBridge hero banner" loading="eager">
-    </div>
-    <div class="sb-hero__panel">
-      <p class="sb-eyebrow">Open scientific infrastructure for hyperspectral data</p>
-      <h1 id="spectralbridge">SpectralBridge</h1>
-      <p class="sb-hero__lead">Connect drone, airborne, and satellite observations through a single reproducible workflow.</p>
-      <p class="sb-hero__body">Process hyperspectral imagery across sensors, ecosystems, and scales using transparent, scalable, and scientifically defensible methods.</p>
+    <div class="sb-hero__copy">
+      <p class="sb-eyebrow">Drone hyperspectral → Landsat reflectance</p>
+      <h1 id="spectralbridge"><span>Drone to</span><span>Landsat</span></h1>
+      <p class="sb-hero__lead">Make hyperspectral reflectance comparable across scales.</p>
+      <p class="sb-hero__body">SpectralBridge carries drone and airborne observations through correction, spectral convolution, tabular extraction, and QA—while keeping every scientific decision inspectable and reproducible.</p>
       <div class="sb-button-row">
-        <a class="sb-button sb-button--primary" href="quickstart/">Get Started</a>
-        <a class="sb-button sb-button--secondary" href="reference/configuration/">Documentation</a>
-        <a class="sb-button sb-button--secondary" href="tutorials/neon-to-envi/">Example Workflow</a>
+        <a class="sb-button sb-button--primary" href="vignettes/">Learn by doing</a>
+        <a class="sb-button sb-button--secondary" href="vignettes/full-pipeline/">Run the full pipeline</a>
       </div>
     </div>
-  </section>
-
-  <section class="sb-section">
-    <div class="sb-section__intro">
-      <p class="sb-kicker">What is SpectralBridge?</p>
-      <h2>What is SpectralBridge?</h2>
-      <p>SpectralBridge is an open-source platform for transforming raw hyperspectral imagery into analysis-ready data products.</p>
-      <p>Whether you're working with drone surveys, airborne campaigns, ecological observatories, or future sensor systems, SpectralBridge provides a common framework for correction, harmonization, extraction, quality assurance, and analysis.</p>
-      <p>By creating consistent workflows across sensors and scales, SpectralBridge helps researchers focus on science rather than data wrangling.</p>
+    <div class="sb-hero__art">
+      <img src="asset/img/spectralbridge_logo.png" alt="SpectralBridge connects drone, airborne, and satellite observations across a reflectance spectrum">
+      <p>Drone <span>→</span> airborne <span>→</span> Landsat</p>
     </div>
   </section>
 
-  <section class="sb-section">
+  <section class="sb-manifesto">
+    <p class="sb-kicker">Why it exists</p>
+    <h2>One spectral workflow. Three observing scales.</h2>
+    <p>Move from fine-resolution hyperspectral measurements to Landsat-compatible bands without hiding the corrections, response functions, provenance, or quality evidence along the way.</p>
+  </section>
+
+  <section class="sb-section sb-section--routes">
     <div class="sb-section__intro">
-      <p class="sb-kicker">Why SpectralBridge?</p>
-      <h2>Built for credible, repeatable environmental data science</h2>
+      <p class="sb-kicker">Choose your way in</p>
+      <h2>Start with what you need today.</h2>
     </div>
     <div class="sb-card-grid sb-card-grid--three">
-      <article class="sb-card">
-        <h3>Cross-Sensor Interoperability</h3>
-        <p>Compare and integrate measurements collected by drones, aircraft, ecological observatories, and future sensor systems using a common analytical framework.</p>
-      </article>
-      <article class="sb-card">
-        <h3>Reproducible Science</h3>
-        <p>Every processing step is transparent, documented, and designed to support repeatable scientific workflows.</p>
-      </article>
-      <article class="sb-card">
-        <h3>Scalable Infrastructure</h3>
-        <p>Run locally, in containers, on cloud platforms, or on high-performance computing systems without changing your workflow.</p>
-      </article>
+      <a class="sb-route-card sb-route-card--yellow" href="vignettes/">
+        <span class="sb-route-card__number">01</span>
+        <h3>Learn</h3>
+        <p>Follow one focused vignette for each module—or run the complete workflow.</p>
+        <strong>Browse the vignettes →</strong>
+      </a>
+      <a class="sb-route-card sb-route-card--teal" href="validation/">
+        <span class="sb-route-card__number">02</span>
+        <h3>Validate</h3>
+        <p>See the input variations, explicit checks, and diagnostics behind reliability claims.</p>
+        <strong>Inspect the evidence →</strong>
+      </a>
+      <a class="sb-route-card sb-route-card--paper" href="reference/">
+        <span class="sb-route-card__number">03</span>
+        <h3>Reference</h3>
+        <p>Look up stage contracts, filenames, configuration, schemas, algorithms, and APIs.</p>
+        <strong>Open technical details →</strong>
+      </a>
     </div>
   </section>
 
   <section class="sb-section sb-section--workflow">
     <div class="sb-section__intro">
-      <p class="sb-kicker">Workflow</p>
-      <h2>From Raw Data to Analysis-Ready Products</h2>
-      <p class="sb-subtitle">A transparent workflow for transforming hyperspectral imagery into scientifically defensible data products.</p>
+      <p class="sb-kicker">The scientific story</p>
+      <h2>Raw signal in. Comparable evidence out.</h2>
+      <p class="sb-subtitle">Each stage writes validated files that the next stage can understand—and a future rerun can safely reuse.</p>
     </div>
     <div class="sb-workflow">
-      <div class="sb-workflow__step">Raw Data</div>
-      <div class="sb-workflow__arrow" aria-hidden="true">→</div>
-      <div class="sb-workflow__step">Quality Assessment</div>
-      <div class="sb-workflow__arrow" aria-hidden="true">→</div>
-      <div class="sb-workflow__step">Correction &amp; Harmonization</div>
-      <div class="sb-workflow__arrow" aria-hidden="true">→</div>
-      <div class="sb-workflow__step">Extraction &amp; Summarization</div>
-      <div class="sb-workflow__arrow" aria-hidden="true">→</div>
-      <div class="sb-workflow__step">Analysis-Ready Products</div>
-    </div>
-    <p class="sb-section__support">SpectralBridge helps standardize hyperspectral processing while preserving transparency, reproducibility, and scientific traceability at every step.</p>
-  </section>
-
-  <section class="sb-section">
-    <div class="sb-section__intro">
-      <p class="sb-kicker">Supported platforms</p>
-      <h2>Built for Environmental Observations Across Scales</h2>
-    </div>
-    <div class="sb-card-grid sb-card-grid--four">
-      <article class="sb-card">
-        <h3>Drone Systems</h3>
-        <p>Process hyperspectral imagery collected from low-altitude drone platforms.</p>
-      </article>
-      <article class="sb-card">
-        <h3>Airborne Campaigns</h3>
-        <p>Support regional airborne surveys and research aircraft missions.</p>
-      </article>
-      <article class="sb-card">
-        <h3>NEON Airborne Observation Platform</h3>
-        <p>Work directly with NEON hyperspectral products using dedicated workflows.</p>
-      </article>
-      <article class="sb-card">
-        <h3>Future Sensors</h3>
-        <p>Designed to support emerging environmental sensing technologies and evolving data standards.</p>
-      </article>
+      <div class="sb-workflow__step"><span>01</span>Acquire</div>
+      <div class="sb-workflow__step"><span>02</span>Correct</div>
+      <div class="sb-workflow__step"><span>03</span>Harmonize</div>
+      <div class="sb-workflow__step"><span>04</span>Tabulate</div>
+      <div class="sb-workflow__step"><span>05</span>Validate</div>
     </div>
   </section>
 
-  <section class="sb-section">
-    <div class="sb-section__intro">
-      <p class="sb-kicker">Scientific applications</p>
-      <h2>Scientific Applications</h2>
-      <p>SpectralBridge supports a wide range of environmental monitoring and research applications.</p>
-    </div>
-    <div class="sb-application-grid">
-      <div class="sb-chip">Biodiversity Monitoring</div>
-      <div class="sb-chip">Ecosystem Change Detection</div>
-      <div class="sb-chip">Vegetation Functional Traits</div>
-      <div class="sb-chip">Wildfire Science</div>
-      <div class="sb-chip">Restoration Ecology</div>
-      <div class="sb-chip">Carbon Dynamics</div>
-      <div class="sb-chip">Remote Sensing Validation</div>
-      <div class="sb-chip">Long-Term Ecological Monitoring</div>
-    </div>
-  </section>
-
-  <section class="sb-section sb-section--open-science">
-    <div class="sb-section__intro">
-      <p class="sb-kicker">Open science</p>
-      <h2>Open Science by Design</h2>
-      <p>SpectralBridge is built as open scientific infrastructure.</p>
-    </div>
-    <div class="sb-pillars">
-      <span>Transparency</span>
-      <span>Reproducibility</span>
-      <span>Interoperability</span>
-      <span>Scalability</span>
-      <span>Community Contribution</span>
-    </div>
-    <p class="sb-section__support">All workflows are designed to support reproducible environmental data science and long-term scientific reuse.</p>
-    <div class="sb-button-row">
-      <a class="sb-button sb-button--secondary" href="https://github.com/earthlab/spectralbridge">View Source Code</a>
-      <a class="sb-button sb-button--secondary" href="https://github.com/earthlab/spectralbridge/blob/main/CITATION.cff">Citation Information</a>
-    </div>
-  </section>
-
-  <section class="sb-section sb-cta">
+  <section class="sb-evidence">
     <div>
-      <p class="sb-kicker">Start here</p>
-      <h2>Build Once. Compare Everywhere.</h2>
-      <p>SpectralBridge helps connect environmental observations across sensors, ecosystems, and scales through transparent and reproducible workflows.</p>
+      <p class="sb-kicker">Evidence, not mystery</p>
+      <h2>Every transformation should leave a trail.</h2>
+    </div>
+    <div>
+      <p>Validation campaigns record input variation, expected behavior, observed diagnostics, runtime, provenance, and failures. QA panels turn those records into something scientists can inspect.</p>
+      <a href="validation/">See how SpectralBridge is validated →</a>
+    </div>
+  </section>
+
+  <section class="sb-resume-strip">
+    <p class="sb-kicker">Already halfway there?</p>
+    <h2>Carry on from the files you have.</h2>
+    <p>The pipeline validates existing artifacts and resumes at the first missing or invalid stage.</p>
+    <a class="sb-button sb-button--ink" href="vignettes/carry-on-wayward-son/">Carry On My Wayward Son →</a>
+  </section>
+
+  <section class="sb-cta">
+    <div>
+      <p class="sb-kicker">Ready when you are</p>
+      <h2>Translate reflectance across sensors and scales.</h2>
     </div>
     <div class="sb-button-row">
-      <a class="sb-button sb-button--primary" href="quickstart/">Get Started</a>
-      <a class="sb-button sb-button--secondary" href="usage/notebook-example/">Explore Examples</a>
+      <a class="sb-button sb-button--primary" href="vignettes/full-pipeline/">Run end to end</a>
+      <a class="sb-button sb-button--secondary" href="reference/">Read the reference</a>
     </div>
   </section>
 </div>

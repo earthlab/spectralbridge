@@ -1,4 +1,14 @@
+---
+search:
+  exclude: true
+---
+
 # Tutorial: MicaSense Local Drone Workflow
+
+!!! note "Canonical learning path"
+    This older tutorial is retained for stable links. Use [Process drone
+    imagery](../vignettes/drone-processing.md) for the canonical module
+    vignette.
 
 This tutorial shows the supported path for local drone or MicaSense-style
 inputs. The workflow preserves drone-native provenance, discovers HDF5 files

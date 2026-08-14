@@ -10,7 +10,10 @@ import spectralbridge.qa_plots as qa_plots
 from spectralbridge.qa_plots import render_flightline_panel
 
 
-def test_render_panel_writes_png_and_json(qa_fixture_dir: Path) -> None:
+def test_render_panel_writes_png_and_json(
+    qa_fixture_dir: Path,
+    recwarn: pytest.WarningsRecorder,
+) -> None:
     png_path, metrics = render_flightline_panel(qa_fixture_dir, quick=True)
     json_path = png_path.with_suffix(".json")
 
@@ -26,6 +29,7 @@ def test_render_panel_writes_png_and_json(qa_fixture_dir: Path) -> None:
     assert len(data["correction"]["delta_median"]) == data["header"]["n_bands"]
     assert all(isinstance(idx, int) for idx in data["correction"]["largest_delta_indices"])
     assert "wavelength_source" in data["header"]
+    assert not any("Glyph 10060" in str(warning.message) for warning in recwarn)
 
 
 def test_metrics_arrays_are_serialisable(qa_fixture_dir: Path) -> None:

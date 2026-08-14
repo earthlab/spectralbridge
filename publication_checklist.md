@@ -19,22 +19,23 @@
 
 ## 3. Code Quality, Testing & Tooling
 - [x] Expand automated test coverage beyond `tests/test_file_sort.py` to cover public function import/signature smoke, Ray/default engine behavior, QA, pipeline, drone, polygon, and docs browser smoke paths.
-- [x] Configure continuous integration (e.g., GitHub Actions) to run unit tests, linting (ruff/flake8), type checking (mypy/pyright), and documentation builds on each push/PR. Docs CI now includes Playwright browser smoke.
+- [ ] Configure continuous integration to run unit tests, linting, static type checking, coverage, and documentation builds on each push/PR. Tests, Ruff, coverage artifacts, MkDocs, and Playwright are configured; a static type checker is not yet configured.
 - [ ] Decide whether to add Black/isort. Ruff is installed, documented, and run in CI.
 - [ ] Evaluate adding type hints and optional static typing checks to critical modules for maintainability.
 - [x] Ensure `pytest` configuration (`pyproject.toml`/`pytest.ini`) ignores heavyweight data paths and sets up necessary environment variables for tests.
 
 ## 4. Documentation & Community Files
 - [x] Finish filling placeholders in `README.md`, `CITATION.cff`, and MkDocs pages. Include feature overview, supported sensors, and end-to-end workflow diagrams.
-- [ ] Verify that documentation builds cleanly with `mkdocs build` and publish instructions (`mkdocs gh-deploy` or Read the Docs) as part of release workflow.
+- [x] Verify that documentation builds cleanly with `mkdocs build --strict` and publish instructions (`mkdocs gh-deploy` or Read the Docs) as part of release workflow. The strict build passed on 2026-08-14; it reports 25 pages outside the configured navigation for maintainer review.
 - [x] Add usage examples demonstrating both library API calls and CLI entry points, ideally with runnable Jupyter notebooks linked from docs.
 - [ ] Update `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md` (create if missing), and issue/PR templates to guide external contributors once the package is public. *(Contributing guide and Code of Conduct refreshed; templates still needed.)*
 - [x] Provide citation and acknowledgement guidance consistent across README, docs, and metadata.
 - [x] Add a maintainer-facing publication and software-citation tracker. `docs/dev/software-citation.md` now records preferred citation language, versioned release citation policy, and publication placeholders.
 
 ## 5. Distribution Artifacts & QA
-- [ ] Run `python -m build` to generate sdist/wheel and inspect contents (ensure no unnecessary files, confirm console scripts are installed).
-- [ ] Execute `twine check dist/*` to validate metadata and `pip install dist/*.whl` in a clean virtual environment for smoke tests.
+- [x] Build the sdist/wheel and inspect contents (ensure no unnecessary files, confirm console scripts are installed). `uv build` succeeded for 2.2.0 on 2026-08-14; package data and primary CLI commands were present.
+- [x] Execute `twine check` to validate metadata and install the wheel in a clean virtual environment for smoke tests. Both artifacts passed and the clean Python 3.12 install imported successfully on 2026-08-14; repeat on Python 3.10/Linux before tagging.
+- [ ] Migrate deprecated setuptools license metadata to an SPDX expression before the February 2027 compatibility deadline.
 - [x] Document hardware/software prerequisites (GDAL, PROJ) and include troubleshooting tips for installation on Linux/macOS/Windows.
 - [ ] Automate changelog generation (`CHANGELOG.md`) per release with notable features and breaking changes.
 - [x] Establish release checklist (tagging, GitHub release notes, PyPI upload) and capture in this document or `RELEASING.md`. `docs/dev/releasing.md` now documents the maintainer sequence, and `.github/workflows/release.yml` packages tagged releases and publishes GitHub release artifacts.
@@ -51,5 +52,12 @@
 - [ ] Announce release channels (EarthLab blog, mailing lists) and track feedback for roadmap planning.
 - [ ] Schedule periodic dependency and security audits (Dependabot, `pip-audit`) and plan for long-term maintenance.
 
+## 8. AI Transparency
+- [x] Maintain a verbatim prompt log for AI-assisted repository work.
+- [x] Generate aggregate, machine-readable AI-use statistics and public figures without reproducing prompt text.
+- [x] Verify generated AI-transparency artifacts in CI when the prompt log changes.
+- [ ] Define a maintainer-approved retention/privacy policy for verbatim prompts and review the log before each public release.
+- [ ] Record model metadata prospectively when the execution environment exposes it; do not infer missing historical model names.
+
 ---
-_Last updated: 2026-06-02_
+_Last updated: 2026-08-14_

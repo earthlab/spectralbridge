@@ -203,14 +203,23 @@ Default behavior:
 
 - Append each new user prompt verbatim to `PROMPT_LOG.md` before making substantive edits.
 - Include the date, branch name if known, and a short task label.
+- Include `AI system` and `Model` metadata when those values are exposed by the
+  execution environment. Use `Not recorded` rather than inferring an unknown
+  model name.
 - Preserve the exact user wording inside a fenced code block.
 - Do not paraphrase the prompt in the log.
+- After changing the prompt log, run
+  `python scripts/generate_ai_transparency.py` and include the regenerated
+  statement, JSON summary, and figures with the same change. CI rejects stale
+  generated artifacts.
 
 Suggested entry format:
 
 ````md
 ## 2026-03-21 - task label
 Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
 
 ```text
 <verbatim user prompt>

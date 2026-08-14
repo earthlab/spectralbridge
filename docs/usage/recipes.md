@@ -1,4 +1,14 @@
+---
+search:
+  exclude: true
+---
+
 # Recipes: Notebook Patterns
+
+!!! note "Canonical learning path"
+    These older recipes are retained for stable links. Use the [vignette
+    map](../vignettes/index.md) to choose the single canonical workflow for each
+    module.
 
 These short recipes start from files on disk after the pipeline has run. Copy the cells into your notebook to repeat common workflows and stay aligned with the outputs-and-naming contract.
 

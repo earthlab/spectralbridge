@@ -7,6 +7,14 @@ on:
       - "src/spectralbridge/**"
       - "src/cross_sensor_cal/**"
       - "tests/**"
+      - "scripts/generate_ai_transparency.py"
+      - "scripts/generate_validation_docs.py"
+      - "scripts/run_validation_campaign.py"
+      - "PROMPT_LOG.md"
+      - "docs/ai-transparency.*"
+      - "docs/images/ai-transparency/**"
+      - "docs/validation/**"
+      - "validation/**"
       - "pyproject.toml"
       - ".github/workflows/**"
   push:
@@ -15,6 +23,14 @@ on:
       - "src/spectralbridge/**"
       - "src/cross_sensor_cal/**"
       - "tests/**"
+      - "scripts/generate_ai_transparency.py"
+      - "scripts/generate_validation_docs.py"
+      - "scripts/run_validation_campaign.py"
+      - "PROMPT_LOG.md"
+      - "docs/ai-transparency.*"
+      - "docs/images/ai-transparency/**"
+      - "docs/validation/**"
+      - "validation/**"
       - "pyproject.toml"
       - ".github/workflows/**"
 
@@ -41,8 +57,15 @@ jobs:
         env:
           CSCAL_TEST_MODE: lite
         run: |
-          ruff check src tests
+          ruff check src tests scripts/generate_ai_transparency.py \
+            scripts/generate_validation_docs.py scripts/run_validation_campaign.py
           pytest -q -m "lite"
+
+      - name: Verify AI transparency artifacts
+        run: python scripts/generate_ai_transparency.py --check
+
+      - name: Verify validation evidence pages
+        run: python scripts/generate_validation_docs.py --check
 
   unit:
     name: CI / unit
@@ -71,4 +94,17 @@ jobs:
       - name: Run full test suite
         env:
           CSCAL_TEST_MODE: unit
-        run: pytest -q
+        run: |
+          pytest -q --cov=spectralbridge --cov-branch \
+            --cov-report=term --cov-report=xml:coverage.xml \
+            --cov-report=json:coverage.json
+
+      - name: Upload coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-coverage
+          if-no-files-found: warn
+          path: |
+            coverage.xml
+            coverage.json

@@ -31,43 +31,66 @@ theme:
 nav:
   - Home: index.md
 
-  - Getting started:
-      - Quickstart: quickstart.md
-
-  - Concepts:
+  - Learn:
+      - Choose a vignette: vignettes/index.md
       - Why cross-sensor calibration?: concepts/why-calibration.md
-
-  - Tutorials:
-      - NEON → corrected ENVI: tutorials/neon-to-envi.md
-      - NEON → Landsat-style reflectance: tutorials/neon-to-landsat.md
-      - MicaSense → Landsat harmonization: tutorials/micasense-to-landsat.md
-      - Cloud & HPC workflows: tutorials/cloud-workflow.md
-
-  - Pipeline:
-      - Pipeline overview & stages: pipeline/stages.md
-      - Outputs & file structure: pipeline/outputs.md
-      - QA panels & metrics: pipeline/qa.md
-
-  - Usage:
-      - Command-line interface (CLI): usage/cli.md
-      - Working with Parquet outputs: usage/parquet.md
-      - Jupyter notebook example: usage/notebook-example.md
-
-  - Reference:
-      - Configuration: reference/configuration.md
-      - JSON schemas: reference/schemas.md
-      - Validation metrics: reference/validation.md
-
-  - Troubleshooting:
-      - Troubleshooting guide: troubleshooting.md
+      - End-to-end workflows:
+          - Run the full pipeline: vignettes/full-pipeline.md
+          - Carry On My Wayward Son (resume a run): vignettes/carry-on-wayward-son.md
+      - Module vignettes:
+          - 1. Acquire NEON data: vignettes/data-acquisition.md
+          - 2. Correct NEON reflectance: vignettes/neon-correction.md
+          - 3. Harmonize target sensors: vignettes/sensor-harmonization.md
+          - 4. Build analysis tables: vignettes/analysis-tables.md
+          - 5. Review QA outputs: vignettes/qa-and-analysis.md
+          - 6. Process drone imagery: vignettes/drone-processing.md
+          - 7. Extract polygon spectra: vignettes/polygon-extraction.md
+      - Run on cloud or HPC: tutorials/cloud-workflow.md
+      - Troubleshooting: troubleshooting.md
       - FAQ: faq.md
 
-  - Developer:
-      - How the package is organized: dev/architecture.md
-      - Container and remote helper scripts: dev/container-workflows.md
-      - Publication cleanup log: dev/publication-cleanup-log.md
-      - Contributing & development workflow: dev/contributing.md
-      - Guidelines for AI/Codex edits: dev/codex-guidelines.md
+  - Validation:
+      - Evidence overview: validation/index.md
+      - Module evidence:
+          - NEON HDF5 download: validation/neon_download.md
+          - HDF5 to raw ENVI: validation/h5_to_envi.md
+          - Topographic correction: validation/topographic_correction.md
+          - BRDF correction: validation/brdf_correction.md
+          - Sensor convolution: validation/sensor_convolution.md
+          - Parquet and CSV: validation/parquet_csv.md
+          - Save and restart behavior: validation/save_restart.md
+          - QA plots and diagnostics: validation/qa_plots.md
+
+  - Technical reference:
+      - Reference map: reference/index.md
+      - Pipeline contracts:
+          - Stage order and restart behavior: pipeline/stages.md
+          - Outputs and file structure: pipeline/outputs.md
+          - Naming conventions: naming-conventions.md
+      - Interfaces:
+          - Command-line interface: usage/cli.md
+          - Configuration: reference/configuration.md
+          - Python API: api/index.md
+      - Data and validation:
+          - Working with Parquet: usage/parquet.md
+          - JSON schemas: reference/schemas.md
+          - QA panels and metrics: pipeline/qa.md
+          - Validation metrics: reference/validation.md
+      - Algorithms and extension:
+          - BRDF and topographic correction: brdf_topo_algorithm.md
+          - Extending SpectralBridge: reference/extending.md
+      - Runtime and internals:
+          - Environment: env.md
+          - Package architecture: dev/architecture.md
+          - Container and remote helpers: dev/container-workflows.md
+
+  - Project:
+      - Contributing: dev/contributing.md
+      - Releasing: dev/releasing.md
+      - Software citation: dev/software-citation.md
+      - DOI and Zenodo status: dev/doi-zenodo.md
+      - Publication readiness audit: dev/publication-readiness-audit-2026-08-14.md
+      - AI transparency statement: ai-transparency.md
 plugins:
   - search
   - mkdocstrings:
@@ -114,7 +137,7 @@ extra:
         <p>Cooperative Institute for Research in Environmental Sciences (CIRES)</p>
         <p>Boulder, Colorado, USA</p>
         <p>Website: <a href="https://esiil.org">https://esiil.org</a></p>
-        <p>Last updated: June 2026</p>
+        <p>Last updated: August 2026</p>
       </div>
       <div class="sb-footer__logos">
         <a href="https://cires.colorado.edu" aria-label="CIRES website">

@@ -6,6 +6,9 @@ This file stores verbatim user prompts for Codex work in this repository.
 - Prompts should be logged verbatim in fenced `text` blocks.
 - Logging begins with the request that introduced this file; older prompts were not backfilled automatically.
 
+Default AI system: OpenAI Codex
+Default model: Not recorded
+
 ## 2026-03-21 - add AGENTS guidance and prompt logging
 Branch: main
 
@@ -5353,4 +5356,49 @@ Branch: main
 
 ```text
 Attached pasted-text.txt shows full pytest failure log with drone pipeline, parquet export, Ray engine, polygon ArrowDtype, and stage export failures after recent changes.
+```
+
+## 2026-08-14 - publication, coverage, and AI transparency audit
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5 family (exact deployment identifier not exposed)
+
+```text
+I want to audit this repo and see how ready it is for publication. I also want to audit the tests and the test coverage. I also want to add an automated ai transparency statement the looks at the prompt log and produces figures of summary statistics of how ai was used along with text summaries of how ai was used and which ai was used.
+```
+
+## 2026-08-14 - simplify website and organize educational vignettes
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5 family (exact deployment identifier not exposed)
+
+```text
+let's clean up the website so it feels less overwhelming. let's put all of the educational material in one section and all the more technical descriptions in another section. in the educational section, we want a single vingetter for each module and we want a vinette to run the full pipeline and to use the carry on my wayward son if they have part of the pipeline done.
+```
+
+## 2026-08-14 - pipeline validation framework and website section
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5 family (exact deployment identifier not exposed)
+
+```text
+we need some validation tests in a validation section. This should involve running each function with multiple different inputs to make sure that each step reliable does what it's should do and has some diagnostics to show how well it does it. We want a validation section on the website and in that section we want each module to have it's own page showing the list of variations of inputs it used and then showing the results of how it did with that variation. for example, we can try 100 different iterations of the neon h5 download from different sites using different site codes and 100 iterations of converting h5 to envi raw and then 100 of correcting that with topo and then 100 of correcting brdf, convolution ,then testing the parquet extraction and the conversion to csv, and the save functions and the qa plot. We can use all of that to inform the qa plots and make them as good as possible.
+```
+
+## 2026-08-14 - redesign website in an Impact Media Lab style
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5 family (exact deployment identifier not exposed)
+
+```text
+I don't love the design of the website, can you make it more like an impact media lab site?
+```
+
+## 2026-08-14 - align website palette with original SpectralBridge logo
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5 family (exact deployment identifier not exposed)
+
+```text
+can we change the color palette to be more like the logo we had before? I like the hierarchy and such of the website, but we don't want the actual IML color palette and such. go back to the logo we had and then play off of that for a webite theme. Also know the audience is scientists who want to convert hyperspectral data between drone and landsat.
 ```

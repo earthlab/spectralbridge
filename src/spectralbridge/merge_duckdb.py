@@ -41,7 +41,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
-import numpy as np
 import duckdb
 
 from .paths import scene_prefix_from_dir

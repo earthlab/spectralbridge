@@ -1185,7 +1185,7 @@ def _render_page4_parquet_merge_quality(
                 
                 lines = [
                     "=== Merge Status ===",
-                    "✅ Merged file exists",
+                    "OK: Merged file exists",
                     f"Rows: {n_rows:,}",
                     f"Columns: {n_cols}",
                     "",
@@ -1198,19 +1198,19 @@ def _render_page4_parquet_merge_quality(
             else:
                 lines = [
                     "=== Merge Status ===",
-                    "✅ Merged file exists",
+                    "OK: Merged file exists",
                     f"Size: {merged_parquet.stat().st_size / (1024*1024):.1f} MB",
                     "(pandas not available for detailed stats)",
                 ]
         except Exception as e:
             lines = [
                 "=== Merge Status ===",
-                f"⚠️ Error reading merged file: {e}",
+                f"WARN: Error reading merged file: {e}",
             ]
     else:
         lines = [
             "=== Merge Status ===",
-            "❌ Merged file not found",
+            "FAIL: Merged file not found",
             f"Expected: {merged_parquet.name}",
         ]
     
@@ -1309,9 +1309,9 @@ def _render_page4_parquet_merge_quality(
     
     # Check 1: Merged file exists
     if merged_parquet.exists():
-        quality_checks.append("✅ Merged parquet exists")
+        quality_checks.append("OK: Merged parquet exists")
     else:
-        quality_checks.append("❌ Merged parquet missing")
+        quality_checks.append("FAIL: Merged parquet missing")
     
     # Check 2: Expected parquet files
     expected_types = {
@@ -1320,18 +1320,18 @@ def _render_page4_parquet_merge_quality(
     }
     for name, files in expected_types.items():
         if files:
-            quality_checks.append(f"✅ {name}: {len(files)} file(s)")
+            quality_checks.append(f"OK: {name}: {len(files)} file(s)")
         else:
-            quality_checks.append(f"⚠️ {name}: 0 files")
+            quality_checks.append(f"WARN: {name}: 0 files")
     
     # Check 3: Resampled products
     resampled = [p for p in flightline_dir.glob("*.parquet") 
                 if "merged" not in p.name and "corrected" not in p.name 
                 and "_envi.parquet" not in p.name and "polygon" not in p.name]
     if resampled:
-        quality_checks.append(f"✅ Resampled products: {len(resampled)} file(s)")
+        quality_checks.append(f"OK: Resampled products: {len(resampled)} file(s)")
     else:
-        quality_checks.append("⚠️ No resampled products found")
+        quality_checks.append("WARN: No resampled products found")
     
     ax_quality.text(0.01, 0.99, "\n".join(quality_checks), va="top", ha="left", fontsize=9, family='monospace')
     ax_quality.axis("off")

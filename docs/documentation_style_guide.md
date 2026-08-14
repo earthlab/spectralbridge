@@ -8,12 +8,40 @@ This guide establishes conventions for writing documentation in the SpectralBrid
 - **Pragmatic examples.** Every section should include code snippets or workflows that users can run directly.
 - **Minimal prerequisites.** Link to background materials rather than assuming extensive prior knowledge.
 
-## Structure
-1. **Overview** – Briefly describe the purpose of the component and how it fits into the larger workflow.
-2. **Prerequisites** – List required data, dependencies, and setup steps.
-3. **Step-by-step tutorial** – Present instructions in chronological order.
-4. **Reference** – Provide detailed API descriptions, parameters, and links to source code.
-5. **Next steps** – Suggest follow-on tasks or sections.
+## Information architecture
+
+- **Learn** contains task-oriented educational material. Maintain one canonical
+  vignette for each user-facing workflow module, plus the full-pipeline and
+  restart/resume vignettes.
+- **Validation** contains generated evidence from recorded input-variation
+  campaigns. Maintain one page per validated module, preserve failures and
+  skips, and distinguish synthetic contracts from live scientific evidence.
+- **Technical reference** contains stage contracts, interfaces, filenames,
+  schemas, algorithms, runtime, and architecture descriptions.
+- **Project** contains contributor, release, citation, publication, and
+  transparency material.
+- Preserve old URLs when consolidating pages, but remove superseded tutorials
+  from navigation and search so readers encounter one canonical learning path.
+
+## Validation page structure
+
+1. **Evidence boundary** – State whether inputs are synthetic, already present,
+   or downloaded live and what claims the campaign can support.
+2. **Input matrix** – Show every variation and its relevant parameters.
+3. **Observed diagnostics** – Report quantitative results, not only pass/fail.
+4. **Explicit checks** – Name each tested invariant and preserve failures and
+   skip reasons.
+5. **QA implications** – Explain how the diagnostics may improve QA without
+   changing scientific thresholds before representative real-data review.
+6. **Reproduction** – Link the machine-readable record and exact runner command.
+
+## Vignette structure
+
+1. **Purpose** – State when to use the module and how it fits the workflow.
+2. **Prerequisites** – List required data, dependencies, and completed stages.
+3. **Runnable example** – Present the smallest supported entry point.
+4. **Success evidence** – Name the files or metrics that prove it worked.
+5. **Next steps** – Link to the next vignette and deeper technical reference.
 
 ## Style
 - Use Markdown headings (`#`, `##`, `###`) to organize content.

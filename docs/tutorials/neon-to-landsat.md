@@ -1,4 +1,14 @@
+---
+search:
+  exclude: true
+---
+
 # Tutorial: NEON -> Landsat-Style Reflectance
+
+!!! note "Canonical learning path"
+    This older tutorial is retained for stable links. Use [Harmonize target
+    sensors](../vignettes/sensor-harmonization.md) for the canonical module
+    vignette.
 
 This tutorial shows how SpectralBridge turns physically corrected NEON ENVI
 reflectance into Landsat-style sensor products using sensor spectral response

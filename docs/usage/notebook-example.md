@@ -1,4 +1,14 @@
+---
+search:
+  exclude: true
+---
+
 # Start Here: Notebook Workflow
+
+!!! note "Canonical learning path"
+    This older notebook walkthrough is retained for stable links. Use [Run the
+    full pipeline](../vignettes/full-pipeline.md) for the canonical end-to-end
+    vignette.
 
 This page is the canonical notebook-first path for running SpectralBridge. It walks through one successful flightline run that produces harmonized, Landsat-referenced outputs on disk—not return values—so you can bridge UAS and NEON observations to the long-term Landsat record without touching the CLI.
 

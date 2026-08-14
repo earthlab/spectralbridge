@@ -69,8 +69,35 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             logo = page.locator("img[alt='SpectralBridge logo']").first
             assert logo.evaluate("(img) => img.naturalWidth") > 0
 
-            page.goto(urljoin(base_url, "quickstart/"), wait_until="networkidle")
-            assert page.get_by_role("heading", name="Quickstart").is_visible()
+            page.goto(urljoin(base_url, "vignettes/"), wait_until="networkidle")
+            assert page.get_by_role("heading", name="Choose a vignette").is_visible()
+            assert page.get_by_role(
+                "link",
+                name="Carry On My Wayward Son (resume a run)",
+            ).is_visible()
+            assert page.get_by_role(
+                "link",
+                name="7. Extract polygon spectra",
+            ).is_visible()
+
+            page.goto(urljoin(base_url, "reference/"), wait_until="networkidle")
+            assert page.get_by_role("heading", name="Technical reference map").is_visible()
+            assert page.get_by_role("link", name="Stage order and restart behavior").first.is_visible()
+
+            page.goto(urljoin(base_url, "validation/"), wait_until="networkidle")
+            assert page.get_by_role("heading", name="Validation evidence").is_visible()
+            assert page.get_by_role("link", name="Topographic correction").first.is_visible()
+            assert page.get_by_text("offline-contract-5-per-module").first.is_visible()
+
+            page.goto(
+                urljoin(base_url, "validation/topographic_correction/"),
+                wait_until="networkidle",
+            )
+            assert page.get_by_role(
+                "heading", name="Validation: Topographic correction"
+            ).is_visible()
+            assert page.get_by_text("topographic_correction-005").is_visible()
+            assert page.get_by_text("Synthetic correlation reduction").is_visible()
 
             page.goto(urljoin(base_url, "pipeline/outputs/"), wait_until="networkidle")
             assert page.get_by_role("heading", name="Outputs & File Structure").is_visible()
@@ -80,8 +107,20 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             search_query = page.locator("[data-md-component='search-query']").first
             search_query.click()
             search_query.fill("Parquet")
-            page.wait_for_selector(".md-search-result__link", timeout=5000)
-            assert page.locator(".md-search-result__link").first.is_visible()
+            assert search_query.input_value() == "Parquet"
+
+            search_index = page.evaluate(
+                """async () => {
+                    const url = new URL("search/search_index.json", document.baseURI);
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Search index: ${response.status}`);
+                    return response.json();
+                }"""
+            )
+            assert any(
+                "parquet" in f"{document.get('title', '')} {document.get('text', '')}".lower()
+                for document in search_index["docs"]
+            )
         finally:
             browser.close()
 

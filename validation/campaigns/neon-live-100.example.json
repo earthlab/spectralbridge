@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "campaign_id": "neon-live-100",
+  "mode": "live",
+  "target_flightlines": 100,
+  "sampling": {
+    "selection_unit": "distinct NEON directional-reflectance flightline",
+    "site_strategy": "stratify across domains, sites, acquisition months, terrain, and flightline dimensions",
+    "replacement": false,
+    "inventory_requirement": "Pin exact site_code, year_month, product_code, flight_stem, product checksum, and access date before execution."
+  },
+  "modules": [
+    "neon_download",
+    "h5_to_envi",
+    "topographic_correction",
+    "brdf_correction",
+    "sensor_convolution",
+    "parquet_csv",
+    "save_restart",
+    "qa_plots"
+  ],
+  "resources": {
+    "network_approved": false,
+    "storage_budget_gb": null,
+    "compute_budget": null,
+    "workspace": null
+  },
+  "flightlines": [],
+  "notes": [
+    "This is a campaign specification, not evidence that 100 live runs occurred.",
+    "Populate flightlines from a dated NEON inventory and approve resource budgets before running.",
+    "Keep raw campaign results immutable and generate website pages from them."
+  ]
+}

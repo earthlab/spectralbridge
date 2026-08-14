@@ -42,7 +42,7 @@ dependencies = [
 
 [project.optional-dependencies]
 tests = [
-    "pytest>=7.4",
+    "pytest>=7.4,<9",
     "pytest-xdist>=3.5",
     "pytest-cov>=4.1",
 ]
@@ -59,7 +59,7 @@ docs = [
     "pytest-playwright>=0.5",
 ]
 dev = [
-    "pytest>=7.4",
+    "pytest>=7.4,<9",
     "pytest-xdist>=3.5",
     "pytest-cov>=4.1",
     "mkdocs",
@@ -104,3 +104,17 @@ spectralbridge = ["data/*.csv", "data/*.json", "data/brightness/*.json"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.coverage.run]
+branch = true
+source = ["spectralbridge"]
+
+[tool.coverage.report]
+fail_under = 45
+show_missing = true
+
+[tool.ruff]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
