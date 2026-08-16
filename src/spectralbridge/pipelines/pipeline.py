@@ -833,6 +833,8 @@ def _build_convolution_header(
         "map info": src_header.get("map info"),
         "projection": src_header.get("projection"),
         "wavelength units": src_header.get("wavelength units"),
+        "reflectance scale factor": src_header.get("reflectance scale factor"),
+        "data ignore value": src_header.get("data ignore value"),
         "wavelength": sensor_band_names,
         "description": (
             "Spectrally convolved product generated from BRDF+topo corrected hyperspectral cube"
@@ -859,6 +861,8 @@ def _sensor_requires_landsat_adjustment(sensor_name: str | None) -> bool:
 def _apply_landsat_brightness_adjustment(
     cube: np.ndarray,
     system_pair: str = "landsat_to_micasense",
+    *,
+    nodata_value: float | None = None,
 ) -> dict[int, float]:
     """Adjust Landsat-convolved cube brightness relative to MicaSense."""
 
@@ -880,7 +884,15 @@ def _apply_landsat_brightness_adjustment(
         zero_based = band_idx - 1
         if 0 <= zero_based < bands:
             frac = coeff_pct / 100.0
-            cube[zero_based] = cube[zero_based] * (1.0 + frac)
+            band = cube[zero_based]
+            if nodata_value is None:
+                band *= 1.0 + frac
+            elif np.isnan(nodata_value):
+                valid = ~np.isnan(band)
+                band[valid] *= 1.0 + frac
+            else:
+                valid = ~np.isclose(band, nodata_value, atol=1e-6)
+                band[valid] *= 1.0 + frac
             applied[band_idx] = coeff_pct
 
     return applied
@@ -1039,7 +1051,11 @@ def convolve_resample_product(
 
     if _sensor_requires_landsat_adjustment(sensor_name):
         system_pair = brightness_system_pair or "landsat_to_micasense"
-        applied_coeffs = _apply_landsat_brightness_adjustment(mm_out, system_pair=system_pair)
+        applied_coeffs = _apply_landsat_brightness_adjustment(
+            mm_out,
+            system_pair=system_pair,
+            nodata_value=nodata_float,
+        )
         if applied_coeffs:
             brightness_map[system_pair] = applied_coeffs
 
@@ -2385,6 +2401,44 @@ def stage_convolve_all_sensors(
     }
 
 
+def _emit_stage_qa_safe(*, qa_mode: str, **kwargs) -> None:
+    """Emit stage QA without hiding a successful scientific stage on QA failure."""
+
+    if qa_mode == "off":
+        return
+    try:
+        from spectralbridge.qa import emit_stage_qa
+
+        report_path, payload = emit_stage_qa(mode=qa_mode, **kwargs)
+        logger.info(
+            "Stage QA %s → %s (%s)",
+            kwargs.get("stage_id"),
+            payload.get("status"),
+            report_path,
+        )
+    except Exception as exc:  # pragma: no cover - defensive for large real artifacts
+        logger.warning(
+            "Stage QA failed for %s without invalidating the completed stage: %s",
+            kwargs.get("stage_id"),
+            exc,
+        )
+
+
+def _assemble_combined_qa_safe(*, qa_mode: str, flightline_dir: Path) -> None:
+    if qa_mode == "off":
+        return
+    try:
+        from spectralbridge.qa import assemble_combined_report
+
+        report_path, payload = assemble_combined_report(flightline_dir)
+        logger.info("Combined QA → %s (%s)", payload.get("status"), report_path)
+    except Exception as exc:  # pragma: no cover - best-effort report assembly
+        logger.warning(
+            "Combined QA assembly failed without invalidating pipeline outputs: %s",
+            exc,
+        )
+
+
 def process_one_flightline(
     *,
     base_folder: Path,
@@ -2407,6 +2461,7 @@ def process_one_flightline(
     polygon_search_buffer_m: float = 0.0,  # Buffer distance in meters to expand flightline search area. Polygons within this distance will be included even if they don't directly overlap.
     extraction_mode: str | None = None,  # "polygon", "full", or None (auto-detect from polygon_path)
     topo_fit_mode: str = "scene",  # "scene" = scene-wide topo fit; "tile" = 100x100 tile-local topo fit
+    qa_mode: Literal["off", "standard", "deep"] = "standard",
 ):
     """Run the structured, skip-aware workflow for a single flightline.
 
@@ -2430,6 +2485,10 @@ def process_one_flightline(
 
     logger.info(f"✅ Starting processing for {flight_stem}")
 
+    qa_mode = str(qa_mode).strip().lower()  # type: ignore[assignment]
+    if qa_mode not in {"off", "standard", "deep"}:
+        raise ValueError("qa_mode must be one of 'off', 'standard', or 'deep'")
+
     flight_paths = FlightlinePaths(base_folder=Path(base_folder), flight_id=flight_stem)
     flight_paths.flight_dir.mkdir(parents=True, exist_ok=True)
 
@@ -2439,6 +2498,16 @@ def process_one_flightline(
         flight_stem=flight_stem,
         brightness_offset=brightness_offset,
         parallel_mode=parallel_mode,
+    )
+
+    _emit_stage_qa_safe(
+        qa_mode=qa_mode,
+        flightline_dir=flight_paths.flight_dir,
+        stage_id="input_data",
+        inputs=[flight_paths.h5],
+        outputs=[raw_img_path, raw_hdr_path],
+        parameters={"product_code": product_code, "brightness_offset": brightness_offset},
+        primary_img=raw_img_path,
     )
 
     clean_memory("ENVI export")
@@ -2457,6 +2526,15 @@ def process_one_flightline(
         use_ndvi_brdf_bins=use_ndvi_brdf_bins,
         parallel_mode=parallel_mode,
     )
+
+    _emit_stage_qa_safe(
+        qa_mode=qa_mode,
+        flightline_dir=flight_paths.flight_dir,
+        stage_id="correction_parameters",
+        inputs=[flight_paths.h5, raw_img_path, raw_hdr_path],
+        outputs=[correction_json_path, flight_paths.brdf_model],
+        parameters={"use_ndvi_brdf_bins": use_ndvi_brdf_bins},
+    )
     if not is_valid_json(correction_json_path):
         raise RuntimeError(
             f"Correction JSON invalid for {flight_stem}: {correction_json_path}"
@@ -2474,6 +2552,21 @@ def process_one_flightline(
         parallel_mode=parallel_mode,
     )
 
+    _emit_stage_qa_safe(
+        qa_mode=qa_mode,
+        flightline_dir=flight_paths.flight_dir,
+        stage_id="brdf_topographic_correction",
+        inputs=[flight_paths.h5, raw_img_path, raw_hdr_path, correction_json_path],
+        outputs=[corrected_img_path, corrected_hdr_path],
+        parameters={
+            "topo_fit_mode": topo_fit_mode,
+            "use_ndvi_brdf_bins": use_ndvi_brdf_bins,
+        },
+        primary_img=corrected_img_path,
+        reference_img=raw_img_path,
+        chunk_shape=(100, 100) if topo_fit_mode == "tile" else None,
+    )
+
     clean_memory("corrections")
 
     if not is_valid_envi_pair(corrected_img_path, corrected_hdr_path):
@@ -2481,7 +2574,7 @@ def process_one_flightline(
             f"Corrected ENVI invalid for {flight_stem}: {corrected_img_path}"
         )
 
-    stage_convolve_all_sensors(
+    convolution_summary = stage_convolve_all_sensors(
         base_folder=base_folder,
         product_code=product_code,
         flight_stem=flight_stem,
@@ -2502,12 +2595,63 @@ def process_one_flightline(
         extraction_mode=extraction_mode,
     )
 
+    sensor_pairs = [
+        product
+        for product in flight_paths.sensor_products.values()
+        if product.img.exists() and product.hdr.exists()
+    ]
+    sensor_outputs = [
+        path
+        for product in sensor_pairs
+        for path in (product.img, product.hdr)
+    ]
+    _emit_stage_qa_safe(
+        qa_mode=qa_mode,
+        flightline_dir=flight_paths.flight_dir,
+        stage_id="spectral_convolution",
+        inputs=[flight_paths.h5, corrected_img_path, corrected_hdr_path],
+        outputs=sensor_outputs,
+        parameters={
+            "resample_method": resample_method,
+            "stage_summary": convolution_summary,
+        },
+        primary_img=sensor_pairs[0].img if sensor_pairs else None,
+        chunk_shape=(100, 100),
+    )
+
+    table_outputs = [
+        path
+        for path in (
+            flight_paths.envi_parquet,
+            flight_paths.corrected_parquet,
+            *(product.parquet for product in sensor_pairs),
+            flight_paths.merged_parquet,
+        )
+        if path.exists()
+    ]
+    table_outputs = sorted(
+        set(table_outputs).union(flight_paths.flight_dir.glob("*.parquet"))
+    )
+    _emit_stage_qa_safe(
+        qa_mode=qa_mode,
+        flightline_dir=flight_paths.flight_dir,
+        stage_id="analysis_tables",
+        inputs=[raw_img_path, corrected_img_path, *sensor_outputs],
+        outputs=table_outputs,
+        parameters={"extraction_mode": extraction_mode or "auto"},
+    )
+
     clean_memory("convolution")
 
     try:
         render_flightline_panel(Path(base_folder) / flight_stem, quick=True, save_json=True)
     except Exception as e:  # pragma: no cover - metrics best effort
         logger.warning("⚠️  QA rendering failed for %s: %s", flight_stem, e)
+
+    _assemble_combined_qa_safe(
+        qa_mode=qa_mode,
+        flightline_dir=flight_paths.flight_dir,
+    )
     
     # Polygon extraction stage (if polygon_path is provided)
     # This creates "sister parquets" for all existing parquet files
@@ -2594,6 +2738,7 @@ class _FlightlineTask(NamedTuple):
     polygon_search_buffer_m: float
     extraction_mode: str | None
     topo_fit_mode: str
+    qa_mode: str
 
 
 def _execute_flightline(task: "_FlightlineTask") -> str:
@@ -2621,6 +2766,7 @@ def _execute_flightline(task: "_FlightlineTask") -> str:
             polygon_search_buffer_m=task.polygon_search_buffer_m,
             extraction_mode=task.extraction_mode,
             topo_fit_mode=task.topo_fit_mode,
+            qa_mode=task.qa_mode,
         )
     return task.flight_stem
 
@@ -2812,6 +2958,7 @@ def go_forth_and_multiply(
     polygon_search_buffer_m: float = 0.0,  # Buffer distance in meters to expand flightline search area. Polygons within this distance will be included even if they don't directly overlap.
     extraction_mode: str | None = None,  # "polygon", "full", or None (auto-detect from polygon_path)
     topo_fit_mode: str = "scene",  # "scene" = scene-wide topo fit; "tile" = 100x100 tile-local topo fit
+    qa_mode: Literal["off", "standard", "deep"] = "standard",
 ) -> None:
     """High-level orchestrator for processing multiple flight lines.
 
@@ -2831,6 +2978,9 @@ def go_forth_and_multiply(
 
     if max_workers < 1:
         raise ValueError("max_workers must be at least 1")
+    qa_mode = str(qa_mode).strip().lower()  # type: ignore[assignment]
+    if qa_mode not in {"off", "standard", "deep"}:
+        raise ValueError("qa_mode must be one of 'off', 'standard', or 'deep'")
 
     base_path = Path(base_folder)
     base_path.mkdir(parents=True, exist_ok=True)
@@ -2966,12 +3116,25 @@ def go_forth_and_multiply(
 
     # Phase A: ensure downloads exist before spinning up heavy processing
     for flight_stem in flight_lines:
-        stage_download_h5(
+        h5_path = stage_download_h5(
             base_folder=base_path,
             site_code=site_code,
             year_month=year_month,
             product_code=product_code,
             flight_stem=flight_stem,
+        )
+        acquisition_paths = FlightlinePaths(base_folder=base_path, flight_id=flight_stem)
+        acquisition_paths.flight_dir.mkdir(parents=True, exist_ok=True)
+        _emit_stage_qa_safe(
+            qa_mode=qa_mode,
+            flightline_dir=acquisition_paths.flight_dir,
+            stage_id="acquisition",
+            outputs=[h5_path],
+            parameters={
+                "site_code": site_code,
+                "year_month": year_month,
+                "product_code": product_code,
+            },
         )
 
     tasks = [
@@ -2996,6 +3159,7 @@ def go_forth_and_multiply(
             polygon_search_buffer_m=polygon_search_buffer_m,
             extraction_mode=extraction_mode,
             topo_fit_mode=topo_fit_mode,
+            qa_mode=qa_mode,
         )
         for flight_stem in flight_lines
     ]

@@ -149,6 +149,38 @@ def test_correction_preserves_shape_and_dtype(tmp_path: Path) -> None:
     assert corrected.dtype == np.float32
 
 
+def test_correction_uses_neutral_factor_without_division_warning(
+    tmp_path: Path,
+) -> None:
+    cube = _FakeCube(np.full((2, 2, 1), 0.25, dtype=np.float32))
+    coeff_path = tmp_path / "nonpositive_kernel.json"
+    coeff_path.write_text(
+        json.dumps(
+            {
+                "iso": [0.0],
+                "vol": [0.0],
+                "geo": [0.0],
+                "volume_kernel": "RossThick",
+                "geom_kernel": "LiSparseReciprocal",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    with np.errstate(divide="raise", invalid="raise"):
+        corrected = apply_brdf_correct(
+            cube,
+            cube.data,
+            0,
+            cube.lines,
+            0,
+            cube.columns,
+            coeff_path=coeff_path,
+        )
+
+    np.testing.assert_allclose(corrected, cube.data)
+
+
 def test_outliers_masked_from_fit(tmp_path: Path) -> None:
     unitless = np.full((3, 3, 2), 0.2, dtype=np.float32)
     unitless[..., 1] = 0.35  # ensure NDVI falls inside bins

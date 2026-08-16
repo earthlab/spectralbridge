@@ -944,7 +944,12 @@ def apply_brdf_correct(
             # Use a neutral factor (1.0) when kernels are non-positive instead of
             # NaN. NaN previously propagated to -9999 and wiped otherwise-valid
             # reflectance after topographic correction.
-            cf = np.where((R_pix > 0) & (R_ref > 0), R_ref / R_pix, 1.0)
+            positive_kernel = (R_pix > 0) & (R_ref > 0)
+            cf = np.ones_like(
+                R_pix,
+                dtype=np.result_type(R_pix, R_ref, np.float32),
+            )
+            np.divide(R_ref, R_pix, out=cf, where=positive_kernel)
             cf = np.where(np.isfinite(cf) & (cf > 0), cf, 1.0)
             if bin_id == 0 and b == 0:
                 log_stats("cf_bin0_band0", cf, mask_bin)

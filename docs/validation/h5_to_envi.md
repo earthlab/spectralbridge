@@ -9,6 +9,37 @@ title: Validation — HDF5 to raw ENVI
 !!! info "Evidence boundary"
     The current checked-in campaign uses small synthetic or already-present inputs and does not contact NEON. It validates software contracts and diagnostics, not real-flightline scientific accuracy.
 
+## What this module test exercises
+
+Verify that a NEON-layout HDF5 reflectance cube becomes a band-sequential float32 ENVI image with matching dimensions, values, and a readable header.
+
+**Implementation exercised:** `neon_to_envi_no_hytools` and `EnviWriter`
+
+### Inputs varied
+
+| Field | Why it is recorded |
+| --- | --- |
+| `shape_y_x_b` | Varies lines, samples, and spectral band count. |
+| `brightness_offset` | Exercises zero and small explicit export offsets. |
+| `site_code` | Varies realistic flightline naming metadata. |
+
+### Checks and how to interpret them
+
+| Check | Question | PASS means | If it does not pass |
+| --- | --- | --- | --- |
+| `shape_preserved` | Did conversion preserve lines, samples, and bands? | The reconstructed ENVI array has the same Y×X×band shape as the source. | Inspect axis order, header dimensions, and BSQ serialization. |
+| `float32_bsq_values_preserved` | Do stored values match an independent expected array? | Maximum absolute error is at most `1e-7` after applying the configured offset. | Inspect scaling, axis transposition, datatype, and chunk writes. |
+| `header_written` | Was a non-empty ENVI header produced? | The `.hdr` exists and contains bytes. | Do not run downstream correction until dimensions and metadata parse correctly. |
+
+### Diagnostics recorded for every variation
+
+| Field | Why it is recorded |
+| --- | --- |
+| `shape` | Observed ENVI shape after independent read-back. |
+| `max_absolute_error` | Largest source-versus-output value difference. |
+| `output_bytes` | ENVI image size used to catch incomplete writes. |
+| `header_bytes` | Header size used as a minimal persistence check. |
+
 ## Input variations and results
 
 On narrow screens, scroll the table horizontally to see every diagnostic and check.
@@ -21,9 +52,25 @@ On narrow screens, scroll the table horizontally to see every diagnostic and che
 | `h5_to_envi-004`<br>Convert a 6×5×5 synthetic NEON-layout cube. | `brightness_offset`=0; `shape_y_x_b`=[6,5,5]; `site_code`=JORN | **PASS** | `header_bytes`=492; `max_absolute_error`=0; `output_bytes`=600; `shape`=[6,5,5] | float32_bsq_values_preserved=✓; header_written=✓; shape_preserved=✓ |
 | `h5_to_envi-005`<br>Convert a 7×7×6 synthetic NEON-layout cube. | `brightness_offset`=0.01; `shape_y_x_b`=[7,7,6]; `site_code`=SJER | **PASS** | `header_bytes`=505; `max_absolute_error`=0; `output_bytes`=1176; `shape`=[7,7,6] | float32_bsq_values_preserved=✓; header_written=✓; shape_preserved=✓ |
 
-## What this tells us about QA
+## What a passing result establishes
 
-Compare source and output dimensions, value error, wavelength/header integrity, and NoData handling. These checks should become visible in ENVI/header QA summaries.
+Small-cube axis, datatype, value, and header contracts.
+
+!!! warning "What it does not establish"
+    Performance on full flightlines or completeness of every provider-specific HDF5 metadata field.
+
+The matching real stage checks are explained in the [stage QA test guide](stage-qa-guide.md#input-reflectance).
+
+## Example from the real R10C test run
+
+<div class="sb-validation-grid">
+  <figure class="sb-validation-figure">
+    <a href="../artifacts/r10c-l002-20210915/qa/stages/01_input_data/overview.png"><img src="../artifacts/r10c-l002-20210915/qa/stages/01_input_data/overview.png" alt="R10C input reflectance overview" loading="lazy"></a>
+    <figcaption>The real exported ENVI is reviewed spatially and spectrally after scale and NoData metadata are applied.</figcaption>
+  </figure>
+</div>
+
+The figure is evidence from one completed flightline, not a replacement for the variation table above. Open the [real flightline walkthrough](real-data-example.md) for exact values and limitations.
 
 ## Expansion to 100 real variations
 

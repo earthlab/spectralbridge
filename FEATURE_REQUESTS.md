@@ -1,6 +1,6 @@
 # SpectralBridge Feature Requests
 
-Review date: 2026-08-14
+Review date: 2026-08-15
 Branch: main
 
 This file is the authoritative work queue for non-trivial SpectralBridge work.
@@ -19,6 +19,376 @@ left incomplete so the next agent can resume immediately.
 6. After verification, record outcome, blockers, and the next recommended task.
 
 ## Active Requests
+
+### P60. QA Code Organization And Validation Website Guide
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-15
+- Goal: Keep the expanded QA implementation easy to navigate and make the
+  Validation website explain every implemented check in the stage where users
+  encounter it, illustrated with the real R10C run.
+- Scope:
+  - Audit `src/spectralbridge/qa/` for clear responsibilities, naming,
+    docstrings, and avoidable concentration of unrelated logic.
+  - Refactor only where organization can improve without changing scientific
+    calculations, thresholds, schemas, filenames, or pipeline behavior.
+  - Expand every Validation module page with the test purpose, varied inputs,
+    pass/fail interpretation, diagnostics, limitations, and related stage QA.
+  - Add a stage-oriented real-data validation guide with example figures from
+    the checked-in R10C report bundle and clear links to HTML/JSON evidence.
+  - Keep generated validation pages reproducible from their generator.
+- Plan:
+  - Inventory QA source modules, test ownership, validation-page generation,
+    navigation, and real figures.
+  - Add a concise QA architecture map and extract documentation metadata from
+    generated-page prose so tests remain traceable and maintainable.
+  - Regenerate the website pages, add real stage examples, and verify source,
+    generated-doc, link, visual, lint, and test contracts.
+- Outcome (2026-08-15):
+  - Confirmed that `src/spectralbridge/qa/` already separates schemas, paths,
+    thresholds, metrics, brightness diagnostics, network diagnostics, plots,
+    stage assembly, reporting, and orchestration. Added section markers and
+    missing helper docstrings in the stage coordinator without changing its
+    calculations, thresholds, schemas, filenames, or output behavior.
+  - Added a maintainer-facing QA implementation map with module ownership,
+    execution flow, extension rules, and matching test locations.
+  - Centralized publication-facing explanations in typed documentation records.
+    Every recorded module input, Boolean check, diagnostic, real-stage check
+    family, pass contract, review action, and evidence limitation is covered by
+    a regression test.
+  - Expanded the Validation overview and all eight module pages, and added a
+    six-stage QA guide that reports the observed R10C status and value for each
+    check family. The pages distinguish software contracts, numerical QA, and
+    scientific validation and preserve `WARN`/`NOT EVALUATED` evidence.
+  - Added linked, captioned examples from every stage of the checked-in R10C
+    run. Figure cards are responsive and use correct nested-page paths; a
+    regression test protects that deployment contract.
+  - Regenerated the website pages from campaign JSON, refreshed the AI
+    transparency artifacts, and visually inspected desktop and narrow layouts.
+    Focused validation tests, the full suite, repository-wide Ruff, strict
+    MkDocs, documentation-link checks, generated-page freshness, and browser
+    console checks pass.
+  - Made the idempotence/skip test explicitly select the thread backend. Its
+    subject is restart behavior, while Ray selection remains covered by the
+    dedicated engine tests; this avoids a real Ray startup during unit tests.
+- Blockers: None.
+- Next recommended task: Continue P46 with a pinned, representative live NEON
+  flightline inventory before interpreting the current offline campaign as
+  cross-site scientific validation.
+
+### P59. Complete Stage Figures And Python Brightness Diagnostics
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-15
+- Goal: Give every canonical QA stage a meaningful image, add clear Parquet
+  extraction/merge and correction diagnostics, and reproduce the historical R
+  brightness-coefficient figures in tested Python code.
+- Scope:
+  - Emit at least one deterministic, location-labeled image for acquisition,
+    input, correction parameters, combined correction, convolution, and
+    analysis-table stages.
+  - Add table-structure and merged-output plots without loading entire Parquet
+    products into memory.
+  - Port the plots and statistical intent in `coef_plots_Ty.qmd` at commit
+    `a30498a` to Python against the packaged coefficient JSON files.
+  - Add brightness-correction numerical and plotting tests without changing
+    coefficients or correction behavior.
+- Plan:
+  - Audit the historical QMD, active brightness code, coefficient schemas,
+    stage artifacts, and existing tests.
+  - Add reusable stage renderers and a Python coefficient-diagnostics entry
+    point using the existing QA plot contract.
+  - Regenerate the real report bundle, document the figures, and verify tests,
+    lint, docs, and generated artifacts.
+- Outcome (2026-08-15):
+  - Added deterministic, location-labeled images for every canonical stage:
+    source artifact inventory, input reflectance, correction parameters,
+    combined BRDF/topographic correction, spectral convolution with brightness
+    audits, and Parquet extraction/merge structure.
+  - Added stage-QA schema 1.3 and plot-contract version 1.1. Every stage records
+    the plot contract; new fixed ranges cover brightness adjustments, BRDF
+    coefficients, and physical geometry summaries.
+  - Ported the core statistical intent of historical `coef_plots_Ty.qmd` into
+    Python: paired before/after reflectance, per-band linear gains,
+    fitted-versus-configured coefficient profiles, and bandwise medians.
+    Invalid diagnostic cells are excluded pairwise and source products are not
+    modified.
+  - Added a non-provisional brightness-application contract test. On the real
+    R10C run, all four Landsat products passed with maximum absolute fitted gain
+    errors between `2.61e-08` and `2.76e-08`, against a `1e-4` tolerance.
+  - Added a report-only physical-range review for persisted correction geometry.
+    The real run now marks four sentinel-contaminated fields as `WARN`, displays
+    their unfiltered summaries, and does not mask or rewrite them.
+  - Parquet figures distinguish extracted and merged products while obtaining
+    row counts and schemas through DuckDB rather than loading full tables.
+  - Regenerated and visually inspected the checked-in R10C HTML/JSON/PNG report
+    bundle. Focused tests, the full branch-aware suite, repository-wide Ruff,
+    strict MkDocs build, documentation links, and AI-transparency freshness all
+    pass. Combined branch-aware coverage is 52.84%, above the 45% gate.
+- Blockers: None.
+- Next recommended task:
+  - Run a small multi-site pilot and review whether the fixed plot ranges and
+    geometry-warning summaries remain interpretable before starting the full
+    approximately 300-flightline campaign.
+
+### P58. Comparable QA Plot Scales And Embedded Location Labels
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-15
+- Goal: Make QA figures directly comparable across an approximately 300-run
+  validation campaign without relying on surrounding report headers.
+- Scope:
+  - Standardize physical x/y axes and map color ranges wherever a shared scale
+    is scientifically meaningful.
+  - Preserve values outside display limits in metrics and annotate clipping;
+    plotting limits must not alter data or QA calculations.
+  - Embed flightline/location identity in every stage and combined figure.
+  - Use georeferenced map axes when valid ENVI map metadata are available;
+    otherwise label sampled row/column axes explicitly.
+- Plan:
+  - Define and document one reusable QA plotting-scale contract.
+  - Pass location and map metadata through the stage plotting entry points.
+  - Add plot-contract tests and regenerate the real-flightline report bundle.
+- Outcome (2026-08-15):
+  - Added stage-QA schema 1.2 and machine-readable plot-contract version 1.0
+    with fixed wavelength, reflectance, valid/negative fraction, correction,
+    RGB, and seam-score display ranges.
+  - Standardized reflectance/difference map normalization. The correction map
+    uses one fixed symmetric-log normalization so subtle differences remain
+    visible while all runs keep identical endpoints and transformation.
+  - Embedded compact site, domain, flightline, and date labels in every stage
+    and combined figure. Spatial panels now use ENVI map metadata for UTM
+    easting/northing axes, with explicit sampled row/column fallback.
+  - Values outside display limits remain unchanged in files and metrics;
+    affected panels annotate the clipped display fraction.
+  - Added direct axis, color-normalization, georeferencing, location-label, and
+    combined-figure contract tests. Regenerated and visually inspected the real
+    R10C report bundle.
+  - Full unit-mode suite: 218 passed and seven expected skips. Branch-aware
+    coverage is 56.41% statements, 38.55% branches, and 52.01% combined.
+- Blockers: None.
+- Next recommended task:
+  - Run a small multi-site pilot with plot-contract version 1.0 before the full
+    campaign, then version any display-contract change instead of silently
+    rescaling an active campaign.
+
+### P57. Report-Only Footprint And Spectral-Quality Classification
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-15
+- Goal: Interpret structural flight-track background and known poor-quality
+  wavelength regions correctly in stage QA while retaining every pixel, band,
+  and stored value unchanged.
+- Scope:
+  - Report bounding-box occupancy separately from valid support within the
+    observed flight footprint.
+  - Label established poor-quality wavelength regions in metrics, per-band
+    summaries, checks, and reports without masking, filtering, replacing, or
+    rewriting any data.
+  - Evaluate unexpected high reflectance on the remaining usable wavelengths,
+    while continuing to disclose the all-band result.
+  - Do not change correction, convolution, extraction, or pipeline behavior.
+- Plan:
+  - Add report-only footprint and spectral-quality metrics to stage QA.
+  - Add regression tests proving values are retained and classifications are
+    explicit.
+  - Regenerate the real-flightline QA artifacts and update their interpretation.
+- Outcome (2026-08-15):
+  - Added schema 1.1 footprint metrics that report bounding-box occupancy
+    separately from valid support inside the observed footprint. No spatial
+    value is cropped, masked, or rewritten.
+  - Added report-only labels for the repository's established poor-quality
+    wavelength ranges. Per-band metrics now use `known_bad_retained`, `usable`,
+    or `unclassified_retained`; all-band summaries remain visible and no
+    wavelength is removed.
+  - Real input and corrected products retain all 426 bands, with 68 labeled as
+    known bad. The all-band fraction above 1.2 remains 0.0593, while the usable
+    358-band fraction is approximately 0.0000142. Within-footprint support is
+    1.0 and bounding-box footprint occupancy remains 0.5713.
+  - Regenerated the real report bundle. Overall QA is now `WARN`: input and
+    correction warn about retained bad bands; convolution and every
+    computational/output stage pass.
+  - Added byte-preservation and classification regression coverage. The full
+    unit-mode suite passes with 213 tests and seven expected skips; combined
+    branch-aware coverage is 51.73%.
+- Blockers: None.
+- Next recommended task:
+  - Validate these report-only classifications across the planned multi-site,
+    multi-date campaign before changing any scientific mask policy.
+
+### P56. Stage-by-Stage Scientific QA Framework
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Add deterministic, restart-safe, provenance-aware QA after every
+  canonical processing stage and assemble a cross-stage report that tests
+  physical signal preservation and computational artifacts.
+- Repository audit:
+  - The current NEON orchestrator has five explicit stage functions: download,
+    raw ENVI export, correction-parameter JSON, combined BRDF/topographic
+    correction, and sensor convolution; Parquet export, DuckDB merge, and the
+    legacy final QA panel occur inside or immediately after convolution.
+  - Topographic and BRDF correction are applied sequentially inside one
+    canonical file-transform stage, but no topographic-only intermediate is
+    persisted. QA must therefore state when separate attribution is not
+    evaluable instead of inventing a stage artifact.
+  - Existing `qa_plots.py` produces useful final PNG/JSON/PDF diagnostics, and
+    `qa_metrics.py` defines a compact metrics schema, but there is no reusable
+    stage-report schema, configured threshold classification, explicit
+    `NOT EVALUATED`, or combined cross-stage synthesis.
+  - `qa_dashboard.py` consumes `_qa_metrics.parquet`, but no producer for that
+    documented artifact exists under `src/`; this is a pre-existing output
+    contract gap.
+  - The repository contains deterministic synthetic software fixtures but no
+    checked-in real processed HDF5/ENVI/Parquet dataset. Synthetic reports can
+    validate implementation mechanics but must not be presented as scientific
+    evidence.
+- Architecture plan:
+  - Add a modular `spectralbridge.qa` package for schemas, configurable
+    provisional thresholds, shared numerical metrics, seam/chunk diagnostics,
+    deterministic stage paths, stage runners, plots, and HTML assembly.
+  - Preserve existing `_qa.png/.json/.pdf` outputs while adding versioned stage
+    JSON/HTML/PNG reports below each canonical flightline directory.
+  - Emit standard QA automatically from `process_one_flightline`; expose an
+    explicit off/standard/deep mode without changing scientific defaults.
+  - Use actual on-disk stage artifacts and deterministic sampling. Record every
+    unavailable diagnostic as `NOT EVALUATED` with a reason.
+  - Assemble a combined report that compares valid fraction, reflectance
+    summaries, correction magnitude, seam scores, and stage statuses, and only
+    emits cross-stage findings supported by those metrics.
+  - Add tests for deterministic paths/metrics, threshold logic, residuals,
+    SRF support, seam/no-seam, chunk invariance, missing ancillary handling,
+    report restart safety, and orchestrator integration.
+  - Document what each implemented diagnostic means, its provisional threshold,
+    how to reproduce it, attribution limitations, and which requested advanced
+    diagnostics remain deferred pending real data or translation models.
+- Progress (2026-08-14):
+  - Added the versioned `spectralbridge.qa` package, automatic per-stage
+    emission, combined HTML/JSON reports, provisional thresholds, deterministic
+    sampling and fingerprints, spatial/spectral summaries, seam scoring,
+    correction deltas, Parquet checks, and reusable SRF, chunk-invariance,
+    residual, blocked-group, path, and cycle metrics.
+  - Added `--qa-mode`, `spectralbridge-stage-qa`, focused regression tests, and
+    the stage-QA documentation/output contract while preserving legacy QA.
+  - Added a real-flightline validation page and a compact 3.4 MB bundle of
+    stage JSON/HTML/PNG reports plus the legacy QA panel. The 2.4 GB HDF5 and
+    approximately 21 GB of intermediate products remain local and unversioned.
+  - Attempted the authorized NIWO L019 real-data download. NEON returned HTTP
+    403 because its data endpoint now requires authentication. The attempt also
+    exposed an invalid `requests.ProxyError` reference; this is fixed and
+    protected by tests. Download helpers now read `NEON_API_TOKEN` or
+    `NEON_TOKEN` from the environment and explain missing authentication.
+  - Ran the user-provided R10C L002 2021-09-15 HDF5 through the complete bounded
+    polygon pipeline with deep QA. The process exited normally, wrote 18
+    readable Parquet products, and merged 25 rows × 929 columns. Provisional QA
+    initially returned `FAIL` for 0.5713 all-array valid support and 0.0593 of
+    sampled source values above 1.2; correction magnitude itself passed at
+    absolute-difference q99 0.003894. P57 subsequently stratified those metrics
+    by flight footprint and established bad-band regions without changing data.
+  - The real run exposed and prompted regression fixes for missing reflectance
+    scale/no-data ENVI metadata, no-data leakage through Landsat brightness
+    adjustment, polygon table discovery, legacy-panel reflectance scaling and
+    no-data masking, its fixed count-scale plot axis, and an eager NumPy
+    division warning.
+  - Verified all 218 collected tests (212 passed, six expected skips) using a
+    parallel run with HDF5 file locking disabled for the test process. Current
+    branch-aware coverage is 55.95% statements, 38.18% branches, and 51.56%
+    combined, above the 45% floor. Ruff, strict
+    MkDocs, documentation-link validation, diff whitespace, and generated
+    AI-transparency checks pass. The new docs and raw reports were also
+    inspected in a browser; the only console error was the temporary local
+    server's absent favicon.
+- Blockers: None for the implemented framework.
+- Deferred diagnostics:
+  - Ancillary-aware illumination/geometry residual attribution and a genuine
+    alternate-application-chunk rerun remain `NOT EVALUATED`; the canonical
+    stage has no topo-only artifact or independent application-chunk control.
+  - Exact SRF coverage remains `NOT EVALUATED` until convolved artifacts persist
+    the response weights used for each output band.
+  - Translation-edge held-out residuals, blocked validation, path/cycle
+    consistency, and direct Landsat NBAR comparison require paired observations
+    and model artifacts outside a canonical NEON-only processing run.
+  - `_qa_metrics.parquet` remains a pre-existing documented producer gap for
+    the legacy dashboard and should be handled as a separate output-contract
+    task.
+- Next recommended task:
+  - Run a pinned multi-site, multi-date validation campaign to tune the
+    provisional support/extreme/seam thresholds and decide whether valid
+    support should be stratified by acquisition footprint or land-only pixels.
+
+### P55. Align Vignette Notebooks With Active Research Notebooks
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-14
+- Goal: Make the runnable vignette notebooks feel familiar to users of the
+  active root-level `Raster_processing.ipynb` and `Drone_processing.ipynb`
+  notebooks by following their orchestration, output-checking, and narrative
+  patterns more closely.
+- Scope:
+  - Treat the two root notebooks as the style and workflow reference.
+  - Preserve existing public pipeline functions, scientific behavior, output
+    contracts, dry-run safeguards, and the nine-notebook learning sequence.
+  - Change notebook examples and documentation only; do not modify pipeline
+    implementation.
+- Plan:
+  - Compare the root notebooks with every vignette notebook at the cell,
+    function-call, configuration, restart, and output-diagnostic levels.
+  - Reuse the root notebooks' established orchestration and inspection calls
+    where they are appropriate for a focused vignette.
+  - Normalize the vignette narrative around setup, editable configuration,
+    execution, restart-safe output checks, and interpretation.
+  - Add notebook contract coverage and verify clean execution in guarded mode,
+    documentation links, and strict site rendering.
+- Outcome:
+  - Used `Raster_processing.ipynb` and `Drone_processing.ipynb` as direct
+    workflow references without modifying either active research notebook.
+  - Reworked all nine clean vignette notebooks into a consistent numbered
+    sequence: setup or context, editable configuration, run/resume, concrete
+    output inspection, and interpretation or next steps.
+  - Kept `go_forth_and_multiply` and `run_drone_pipeline` as the public
+    orchestrators in the full NEON and drone vignettes, matching the root
+    notebooks' lower-case configuration and function-call style.
+  - Carried the root notebooks' practical diagnostics into the focused
+    vignettes: processed/failed/merged/QA summaries, `pprint`, DuckDB Parquet
+    previews, pandas merged-table previews, file inventories, and reusable ENVI
+    band/RGB plotting helpers.
+  - Retained low-level `stage_*` calls only where a notebook intentionally runs
+    one part of the pipeline, and documented how each stage relates to the
+    public orchestrator.
+  - Removed machine-specific transfer/install commands and saved outputs from
+    the reusable versions; every processing cell remains guarded by
+    `RUN = False` and no pipeline implementation or scientific behavior
+    changed.
+  - Updated the notebook catalog and directory README to explain the
+    relationship between active research notebooks and portable vignettes.
+  - Added contract tests proving that the vignettes continue to mirror the
+    root notebooks' orchestrators and diagnostic patterns.
+- Verification:
+  - All nine notebook JSON/schema, clean-output, compile, and guarded-execution
+    contracts passed, including the new root-notebook alignment assertions.
+  - Rendered temporary HTML exports of the full NEON and drone notebooks and
+    visually verified their headings, cell sequence, code, and explanatory
+    text in the browser without executing processing cells.
+  - Strict MkDocs build, documentation-link validation, Ruff, AI-transparency
+    artifact verification, and repository whitespace checks passed.
+- Blockers:
+  - None.
+- Next recommended task:
+  - Have a regular user of the two active root notebooks review the revised
+    vignettes and identify any additional exploratory checks worth promoting
+    into the portable teaching sequence.
 
 ### P54. Route Notebook Links To The Repository Viewer
 

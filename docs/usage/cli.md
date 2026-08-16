@@ -41,7 +41,14 @@
 <h2><code>spectralbridge-download</code></h2>
 <p>Downloads NEON HDF5 flightlines into a workspace directory using the package download helpers.</p>
 
+[NEON's download endpoint requires an API
+token](https://data.neonscience.org/data-api/authentication/). Export
+`NEON_API_TOKEN` (or `NEON_TOKEN`) in the shell before running either the
+download command or the full pipeline. Keep the token out of notebooks,
+configuration files, prompts, and version control.
+
 ```bash
+export NEON_API_TOKEN="<your-token>"
 spectralbridge-download SOAP \
   --year-month 2021-06 \
   --flight NEON_D17_SOAP_DP1_L057-1_20210615_directional_reflectance \

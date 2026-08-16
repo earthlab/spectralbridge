@@ -1,7 +1,7 @@
 # Publication Readiness And Test Coverage Audit
 
-Review date: 2026-08-14  
-Repository state reviewed: local `main` working tree before the AI-transparency changes in this audit
+Review date: 2026-08-15
+Repository state reviewed: local `main` working tree after report-only footprint and spectral-quality classification
 
 ## Decision
 
@@ -15,29 +15,36 @@ This is a repository-readiness assessment, not a scientific validation of the co
 | --- | --- |
 | Python syntax compilation | Passed: `python3 -m compileall -q src tests scripts` |
 | Documentation links | Passed: `python3 scripts/check_docs_links.py` |
-| Pytest collection | 195 test outcomes collected in unit mode |
-| Unit-mode test run | 186 passed, 7 skipped, 2 failed |
-| Coverage | 49.66% statements, 33.43% branches, 45.56% combined |
+| Pytest collection | 225 tests collected in unit mode |
+| Unit-mode test run | 218 passed, 7 skipped |
+| Coverage | 56.41% statements, 38.55% branches, 52.01% combined |
 | Ruff baseline (`E4,E7,E9,F`) | Passed after removing one unused NumPy import from `merge_duckdb.py`; the baseline is now explicit in `pyproject.toml` |
 | MkDocs strict build | Passed in a docs-enabled project environment |
 | Distribution build | Passed: `uv build` produced the `2.2.0` sdist and wheel |
 | Twine metadata check | Passed for both built artifacts |
 | Clean wheel install | Passed under Python 3.12.8; package data, version import, and primary CLI help commands were verified |
 
-The test environment used Python 3.12.8 and pytest 9.0.3. That is not the repository's documented Python 3.10 baseline, and pytest 9 is outside the `<9` contributor constraint. Results must therefore be confirmed in the declared CI environment before release.
+The current test environment used Python 3.12.8 and pytest 8.4.2. It now
+respects the repository's pytest `<9` constraint, but it is not the documented
+Python 3.10 baseline. Results must still be confirmed in the declared CI
+environment before release.
 
 ## Release blockers and material risks
 
-### 1. The test suite is not green
+### 1. The suite is green, but scientific validation coverage is incomplete
 
-The following tests failed:
+The two drone-preview fixture failures recorded in the first audit were fixed
+and are protected by regression tests. The current unit-mode suite completes
+with 218 passing and seven expected skipped tests. The new real-flightline run
+also passed every computational stage while honestly returning stage-QA
+warnings for known poor-quality bands that remain retained in the products.
+Structural bounding-box background and all-band extreme values remain disclosed
+but are no longer misclassified as unexpected pipeline failures.
 
-- `test_render_drone_merged_preview_prefers_non_nodata_rows`
-- `test_render_drone_merged_preview_prioritizes_rightmost_columns`
-
-Both fixtures monkeypatch `pandas.read_parquet` with a one-argument lambda, while the active safe-reader fallback calls it with a `columns=` keyword. The production reader catches that fixture error and returns an empty preview summary, causing the assertions to fail. This looks like test-fixture drift, but it still means the release gate is red until maintainers confirm and repair the intended contract.
-
-The process also returned signal-style exit code 143 after printing its complete summary, matching the shutdown issue already recorded in `FEATURE_REQUESTS.md`. CI should be used to distinguish an environment-specific teardown issue from a portable failure.
+This closes the immediate red test gate, but it does not establish scientific
+generality. Multi-site threshold tuning, independent paired-sensor validation,
+topographic-only versus BRDF-only attribution, and sensor-network path/cycle
+tests still require additional real datasets and persisted artifacts.
 
 ### 2. Release metadata is inconsistent
 
@@ -76,9 +83,9 @@ CSCAL_TEST_MODE=unit pytest --cov=spectralbridge --cov-branch \
 
 | Metric | Covered | Total | Percent |
 | --- | ---: | ---: | ---: |
-| Statements | 5,696 | 11,470 | 49.66% |
-| Branches | 1,295 | 3,874 | 33.43% |
-| Combined | — | — | 45.56% |
+| Statements | 7,127 | 12,634 | 56.41% |
+| Branches | 1,592 | 4,130 | 38.55% |
+| Combined | — | — | 52.01% |
 
 The new CI command retains JSON and XML coverage artifacts and enforces a conservative 45% combined baseline. That floor prevents immediate regression; it is not a claim of adequate scientific coverage.
 
@@ -90,14 +97,14 @@ The new CI command retains JSON and XML coverage artifacts and enforces a conser
 | `standard_resample.py` | 0% | Spectral-resampling coefficient paths need direct contract tests. |
 | `brightness.py` | 6% | General percentile/regression correction paths are largely untested. |
 | `polygon_extraction.py` | 6% | Full-mode skips leave most extraction behavior uncovered locally. |
-| `envi_writer.py` | 8% | Core output serialization needs focused round-trip tests. |
-| `envi_download.py` | 9% | Network/error paths are expected to be difficult, but local logic can be isolated. |
+| `envi_download.py` | 38% | Authentication/error paths improved, but live network variation still needs campaign evidence. |
 | `sensor_panel_plots.py` | 9% | Regression and panel-selection helpers have little direct coverage. |
 | `brdf_topo.py` | 12% | Orchestration around scientifically important corrections is thinly covered. |
 
 ### Stronger areas
 
 - `qa_metrics.py`, `io/neon_legacy.py`, and several compatibility/protocol modules reached 100%.
+- The new stage-QA modules range from 80% to 96%, and `envi_writer.py` now reaches 83% after scale/no-data round-trip regression coverage.
 - `sort_core.py` reached 95%.
 - `io/neon_schema.py` reached 89%.
 - `io/neon.py` reached 78%.
@@ -108,9 +115,10 @@ The suite has valuable synthetic contracts for HDF5 orientation, ancillary align
 
 ### Test-system risks
 
-- Seven tests were skipped in unit mode, including external/full-mode and browser/image checks.
+- Six tests were skipped in unit mode, including external/full-mode checks.
 - Several test modules install dependency shims or extensive monkeypatches. These are useful for isolation but can diverge from real dependency behavior, as the two current failures demonstrate.
-- The audit environment had pytest 9.0.3 while contributor dependencies require pytest `<9`. This audit aligns the `pyproject.toml` test and development extras with that existing constraint, but the suite still needs confirmation in a fresh supported environment.
+- The audit environment now uses pytest 8.4.2, within the contributor constraint,
+  but the suite still needs confirmation in a fresh Python 3.10 environment.
 - CI currently uses Python 3.11 even though the README states Python 3.10 is the primary tested baseline.
 - There is no maintained coverage trend service or high-value-module threshold. A single global percentage can hide zero-coverage scientific modules.
 - The strict documentation build succeeds, but reports 25 Markdown pages outside the configured navigation; maintainers should confirm which are intentionally hidden.
@@ -127,14 +135,14 @@ The suite has valuable synthetic contracts for HDF5 orientation, ancillary align
 
 ## Recommended order of work
 
-1. Resolve the two failing tests and the exit-143 teardown behavior in the declared CI environment.
-2. Synchronize version, changelog, citation, and tag metadata; add a release metadata validation gate.
-3. Approve the author/ORCID/affiliation list and DOI strategy.
-4. Complete the GPL/third-party provenance review.
+1. Synchronize version, changelog, citation, and tag metadata; add a release metadata validation gate.
+2. Approve the author/ORCID/affiliation list and DOI strategy.
+3. Complete the GPL/third-party provenance review.
+4. Run a pinned multi-site real-data campaign and scientifically review the provisional QA thresholds.
 5. Modernize the PEP 621 license metadata and repeat artifact smoke tests on Python 3.10/Linux.
-6. Add direct tests for `standard_resample.py`, `mask_raster.py`, `brightness.py`, and ENVI writing.
-7. Run strict docs/browser checks and remove or consolidate duplicate documentation deployment workflows.
-8. Add sample-data guidance, maintainer/support ownership, contributor templates, and recurring dependency/security audits.
+6. Add direct tests for `standard_resample.py`, `mask_raster.py`, and `brightness.py`.
+7. Persist SRF weights and translation-validation artifacts needed for the currently `NOT EVALUATED` checks.
+8. Remove or consolidate duplicate documentation deployment workflows and add recurring dependency/security audits.
 
 ## AI-transparency audit trail
 

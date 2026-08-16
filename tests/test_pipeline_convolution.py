@@ -164,6 +164,7 @@ def test_pipeline_idempotence_skip_behavior(
             year_month="202308",
             flight_lines=[flight_stem],
             resample_method="convolution",
+            engine="thread",
         )
     finally:
         logger.removeHandler(handler)
@@ -301,11 +302,14 @@ def test_convolution_writes_undarkened_envi(tmp_path: Path, monkeypatch: pytest.
         "data type": 4,
         "byte order": 0,
         "wavelength": [1.0, 2.0],
+        "reflectance scale factor": 10000.0,
+        "data ignore value": -9999.0,
     }
     corrected_hdr.write_text(pipeline._build_resample_header_text(header))
 
     corrected_img = corrected_hdr.with_suffix(".img")
     data = np.arange(bands * lines * samples, dtype=np.float32).reshape(bands, lines, samples)
+    data[:, 0, 0] = -9999.0
     mm = np.memmap(corrected_img, dtype="float32", mode="w+", shape=data.shape)
     mm[:] = data
     mm.flush()
@@ -346,9 +350,13 @@ def test_convolution_writes_undarkened_envi(tmp_path: Path, monkeypatch: pytest.
     undarkened_cube = np.memmap(undarkened_img, dtype="float32", mode="r", shape=(3, lines, samples))
     darkened_cube = np.memmap(darkened_img, dtype="float32", mode="r", shape=(3, lines, samples))
     assert not np.array_equal(undarkened_cube, darkened_cube)
+    assert np.all(undarkened_cube[:, 0, 0] == -9999.0)
+    assert np.all(darkened_cube[:, 0, 0] == -9999.0)
     del undarkened_cube
     del darkened_cube
 
     parsed_header = pipeline._parse_envi_header(darkened_hdr)
     assert "brightness_coefficients" in parsed_header
+    assert parsed_header["reflectance scale factor"] == 10000.0
+    assert parsed_header["data ignore value"] == -9999.0
     assert brightness_map

@@ -5558,3 +5558,1019 @@ Branch: main
 ```text
 this doesn't look like a notebook [https://earthlab.github.io/spectralbridge/vignettes/notebooks/02_correct_neon.ipynb](https://earthlab.github.io/spectralbridge/vignettes/notebooks/02_correct_neon.ipynb) . we want the notebooks to be actuall notebook files in the repo that can be opens and seen on the web. we can't run them live, but have them link to the notebook in the repo.
 ```
+
+## 2026-08-14 - align vignettes with active research notebooks
+Branch: main
+
+```text
+the code in the notebooks looks different than the notebooks i've been using throughout the develepment. I've been using some other functions to orcestrate the pipeline and check outputs. can you look at the to python notebooks that I regularly use in the top layer and try to mimic the code and documentation structure a little more to match my notebooks?
+```
+
+## 2026-08-14 - build stage-by-stage scientific QA
+Branch: main
+
+```text
+Codex Prompt: Build Stage-by-Stage QA for SpectralBridge
+
+Work in the existing earthlab/spectralbridge repository. First inspect the current pipeline, documentation, QA code, data structures, intermediate artifacts, and naming conventions. Do not invent pipeline stages or assume filenames from this prompt when the repository already defines them.
+
+The goal is to build a comprehensive QA system in which:
+
+1. Every major processing stage automatically produces its own QA report at the end of that stage.
+2. Each stage report combines:
+    * real-data maps/images,
+    * diagnostic plots,
+    * summary statistics,
+    * model-based tests,
+    * automated PASS / WARN / FAIL checks,
+    * concise interpretation of what the diagnostics mean.
+3. After the full pipeline finishes, produce a single combined QA document containing the important plots and metrics from every stage.
+4. The combined report must perform additional analyses that are only possible after viewing the entire workflow together and explicitly identify any new insight, inconsistency, or artifact revealed by cross-stage comparison.
+5. QA artifacts must be deterministic, restart-safe, versioned, and provenance-aware, consistent with the rest of SpectralBridge.
+6. Use real processed data for QA. Do not generate fake scientific results. Conceptual diagrams are acceptable only where they explain an operation such as spectral convolution.
+
+The QA should answer three questions throughout:
+
+Did this operation do what it was physically intended to do?
+
+Did it preserve the scientific signal we care about?
+
+Did it introduce any new spatial, spectral, numerical, or computational artifact?
+
+Overall implementation
+
+Create a reusable QA framework rather than a collection of one-off plotting scripts.
+
+Prefer a structure like:
+
+src/spectralbridge/qa/
+
+with modular code for:
+
+* common plotting
+* common metrics
+* spatial diagnostics
+* spectral diagnostics
+* model diagnostics
+* chunk/seam diagnostics
+* calibration diagnostics
+* triangle/network diagnostics
+* report assembly
+* QA thresholds/status classification
+
+Adapt this to the existing repository architecture if another location is more appropriate.
+
+Each processing stage should emit a machine-readable QA artifact, ideally JSON plus tables as appropriate, containing:
+
+* stage name
+* input artifact IDs/paths
+* output artifact IDs/paths
+* software/version information
+* parameters
+* sample sizes
+* metrics
+* thresholds
+* PASS/WARN/FAIL status
+* warnings
+* paths to plots
+* concise automated interpretation
+
+Also generate a human-readable stage report in HTML and/or PDF, depending on what fits the existing documentation workflow best.
+
+Do not hard-code thresholds without documenting them. Where scientifically defensible thresholds are not yet known, expose them in configuration and label the current defaults as provisional.
+
+⸻
+
+QA LEVELS
+
+Implement four levels of QA where applicable.
+
+Level 1: Visual diagnostics
+
+Maps, RGB/false color, spectra, distributions, correction maps, residual maps.
+
+Level 2: Summary statistics
+
+Bias, variance, quantiles, RMSE, MAE, correlation, valid-pixel fractions, correction-factor ranges, etc.
+
+Level 3: Diagnostic models
+
+Fit models that directly test whether an unwanted physical relationship remains after correction.
+
+Level 4: Invariance and stress tests
+
+Test whether results change with chunk size, restart point, worker count, processing layout, or other implementation details that should not affect the scientific result.
+
+Not every stage requires every level. Apply them where scientifically meaningful.
+
+⸻
+
+STAGE 0 / INPUT DATA QA
+
+For every source entering the correction pipeline, especially NEON and MicaSense:
+
+Spatial plots
+
+Generate:
+
+* natural RGB where bands permit
+* useful false-color composite where appropriate
+* valid/invalid pixel map
+* no-data map
+* saturation/clipping map if detectable
+* mask layers such as water, shadow, cloud, etc. when available
+* spatial coverage/footprint map
+
+Do not present colorized data as though it were true RGB. Clearly label false-color products.
+
+Use consistent map extent and orientation wherever before/after comparison is intended.
+
+Spectral plots
+
+Generate:
+
+* median spectrum
+* 5th–95th percentile or similarly useful envelope
+* optional representative individual spectra
+* bandwise distributions
+* fraction valid by wavelength
+* fraction clipped/saturated by wavelength
+* missing/bad-band summary
+
+Flag suspicious spectral discontinuities and extreme outliers.
+
+Summary metrics
+
+Include at minimum:
+
+* number/fraction valid pixels
+* missing data fraction
+* reflectance quantiles
+* negative reflectance fraction where meaningful
+* reflectance > physically plausible range where meaningful
+* saturation fraction
+* spectral coverage
+
+⸻
+
+TOPOGRAPHIC CORRECTION QA
+
+The central scientific question is:
+
+Did correction remove terrain-illumination dependence without destroying legitimate spectral/ecological structure?
+
+Use the actual illumination variable used by the algorithm, e.g. illumination condition/cos(i), rather than inventing a proxy.
+
+Spatial diagnostics
+
+Produce before/after maps using identical display limits.
+
+Also map:
+
+correction magnitude
+
+[
+\Delta R = R_{corrected} - R_{input}
+]
+
+Use a zero-centered diverging color scale with symmetric limits.
+
+Map the terrain/illumination predictor itself so the correction can be visually compared against the physical pattern it is intended to remove.
+
+If possible, make multi-band or representative-band versions.
+
+Diagnostic models
+
+For representative wavelengths and preferably all useful wavelengths, fit before and after relationships such as:
+
+[
+R_\lambda = \beta_0 + \beta_1 I + \epsilon
+]
+
+where I is the appropriate illumination predictor.
+
+Save by wavelength:
+
+* slope
+* correlation
+* R²
+* RMSE
+* sample size
+
+Generate a wavelength diagnostic showing before vs after:
+
+* slope versus wavelength
+* R² versus wavelength
+
+The desired pattern is a major reduction in illumination dependence after correction.
+
+Signal preservation
+
+Do not declare success merely because the illumination relationship disappears.
+
+Also quantify:
+
+* before/after spectral centroid or median changes
+* within-cover or within-homogeneous-region variability where available
+* distribution shifts
+* spectral angle/distance between before and corrected spectra
+* extreme correction factors
+
+Where land cover or homogeneous target labels exist, determine whether within-class variation decreases without unreasonable shifts in class means.
+
+Automated interpretation
+
+Report statements such as:
+
+* illumination dependence reduced substantially
+* dependence remains in wavelengths X–Y
+* correction increased variance
+* extreme corrections concentrated in particular terrain classes
+* insufficient valid observations for a reliable test
+
+⸻
+
+BRDF CORRECTION QA
+
+This stage needs especially deep QA because we have already observed possible visual artifacts related to chunking.
+
+Treat two distinct questions separately:
+
+A. Did BRDF correction remove viewing/illumination geometry effects?
+
+B. Did the implementation introduce spatial/computational artifacts?
+
+Physical BRDF diagnostics
+
+Use the actual geometry variables available to the model, such as:
+
+* view zenith angle
+* solar zenith angle
+* relative azimuth
+* other BRDF model variables
+
+Generate spatial maps of the relevant geometry.
+
+Fit before/after diagnostic models such as:
+
+[
+R_\lambda = f(VZA, SZA, RAA, \ldots) + \epsilon
+]
+
+A simple linear diagnostic is acceptable initially, but use a more appropriate model if necessary.
+
+For every useful wavelength, calculate before and after:
+
+* geometry-model R²
+* relevant slopes/effect sizes
+* residual variance
+* RMSE
+
+Plot these metrics versus wavelength.
+
+The QA should show whether viewing-geometry dependence actually decreases.
+
+BRDF correction magnitude
+
+Map:
+
+[
+\Delta R_{BRDF} = R_{after} - R_{before}
+]
+
+using symmetric zero-centered diverging limits.
+
+Also map the BRDF correction factor if the algorithm generates one.
+
+Summarize its distribution and identify pathological tails.
+
+Flag pixels/bands with unusually large corrections.
+
+Chunk-boundary artifact detection
+
+This must be a first-class automated QA component.
+
+The pipeline knows or can reconstruct chunk boundaries. Use them.
+
+For each boundary, compare neighboring-pixel discontinuities crossing chunk boundaries against ordinary neighboring-pixel discontinuities in the image interior.
+
+Develop a metric along the lines of:
+
+[
+SeamScore_\lambda =
+\frac{\operatorname{median}(|R_i-R_j|){\text{across chunk boundaries}}}
+{\operatorname{median}(|R_i-R_j|){\text{ordinary neighboring pixels}}}
+]
+
+Calculate this before and after BRDF correction.
+
+Plot:
+
+Seam score vs wavelength
+
+with a clear reference at 1.
+
+Also report percentiles and maximum seam scores.
+
+Generate a map highlighting:
+
+* chunk boundaries
+* strong local gradients
+* detected seam locations
+
+Test whether high-gradient pixels are significantly enriched along computational boundaries.
+
+If appropriate, calculate an edge-enrichment statistic or permutation/bootstrap comparison.
+
+The QA should distinguish:
+
+* genuine landscape boundaries
+* flight-line artifacts
+* computational chunk seams
+
+as well as practical diagnostics allow.
+
+Chunk invariance test
+
+For a representative subset that is small enough to rerun efficiently, process identical data with multiple chunk configurations.
+
+For example, adapt to appropriate sizes in the real pipeline:
+
+* baseline chunk layout
+* smaller chunks
+* larger chunks
+* shifted chunk boundaries if possible
+
+Then calculate:
+
+[
+\Delta C = C_a - C_b
+]
+
+for every comparison.
+
+Report:
+
+* maximum absolute difference
+* median absolute difference
+* RMSE
+* 95th/99th percentile absolute difference
+* fraction exceeding numerical tolerance
+
+Generate spatial difference maps.
+
+If the implementation is correct, results should be invariant to chunking within documented numerical tolerance.
+
+This should be a strong automated FAIL condition if differences are materially above tolerance.
+
+Other spatial artifact tests
+
+Add deeper diagnostics where useful:
+
+* gradient magnitude maps
+* local variance maps
+* before/after spatial autocorrelation
+* local Moran’s I or similar only if computationally practical and interpretable
+
+For debugging mode, optionally provide a 2-D Fourier/power-spectrum diagnostic capable of identifying periodic spatial structure corresponding to chunk dimensions.
+
+This need not be part of every routine report, but implement it as an available deep diagnostic because regular chunking artifacts can produce identifiable spatial frequencies.
+
+⸻
+
+SPECTRAL CONVOLUTION QA
+
+Use the term spectral convolution rather than generic bandpass resampling unless existing code/docs use a more precise established term.
+
+This stage takes corrected spectra and applies target-sensor spectral response functions.
+
+For example:
+
+* NEON → MicaSense-equivalent bands
+* NEON → Landsat-equivalent bands
+
+Concept/real-data figure
+
+Use real NEON spectra and real sensor response functions.
+
+Plot:
+
+* input hyperspectral spectrum
+* target SRFs
+* resulting convolved band values
+
+Clearly distinguish the underlying real spectrum from the target spectral response functions.
+
+Numerical QA
+
+For every target band calculate:
+
+* SRF normalization
+* effective wavelength if useful
+* wavelength coverage
+* fraction of SRF supported by valid source wavelengths
+* contribution from masked/bad source bands
+* number of valid source wavelengths
+* convolution output range
+
+Flag target bands for which spectral support is incomplete.
+
+Create a metric such as:
+
+SRF valid coverage fraction
+
+and establish configurable warning/failure thresholds.
+
+Reference/unit tests
+
+Create fixed reference spectra with known expected convolution outputs.
+
+The same spectra must reproduce the same convolved values across software releases within a documented numerical tolerance.
+
+These should become automated package tests, not merely plots.
+
+⸻
+
+EMPIRICAL CALIBRATION / SENSOR TRANSLATION QA
+
+The goal is not simply high in-sample correlation.
+
+We need to establish that translation is accurate on held-out data and that residual error is not systematically structured.
+
+For each learned translation edge, calculate out-of-sample:
+
+* bias
+* MAE
+* RMSE
+* unbiased RMSE where appropriate
+* R²
+* fitted slope
+* fitted intercept
+* sample size
+
+Use spatially blocked cross-validation where spatial dependence would otherwise leak information between train and test data.
+
+Where multiple sites/acquisition dates exist, consider site/date blocked validation or leave-one-site-out validation as an additional deep QA diagnostic.
+
+Core plots
+
+For each band/pair create:
+
+Observed vs translated
+
+Use hexbin/density plots for large datasets.
+
+Include:
+
+* 1:1 line
+* fitted relationship
+* metrics
+* sample size
+
+Residual vs predicted/observed reflectance
+
+Inspect heteroscedasticity and nonlinear structure.
+
+Residual maps
+
+Map:
+
+[
+R_{translated} - R_{observed}
+]
+
+Use a zero-centered diverging scale with symmetric limits.
+
+Metrics by band
+
+Plot bias, RMSE/ubRMSE, R², slope/intercept as functions of wavelength/band.
+
+Residual structure model
+
+Fit diagnostic models to determine whether errors remain predictable from variables that should ideally not matter.
+
+Test residual dependence on available variables such as:
+
+* reflectance magnitude
+* land-cover type
+* illumination
+* view geometry
+* terrain
+* wavelength/band
+* spatial coordinates/region
+* flight line/chunk
+* acquisition date
+* site
+
+The point is not necessarily formal inference.
+
+Ask:
+
+Can we predict where the translation will be wrong?
+
+Summarize which variables explain substantial residual structure.
+
+If residuals remain strongly predictable, surface this prominently in the QA report.
+
+⸻
+
+LANDSAT QA
+
+Landsat Collection 2 NBAR is acquired directly rather than being passed through the NEON/MicaSense correction pipeline.
+
+Represent that correctly in both code and documentation.
+
+For Landsat generate QA around acquisition and comparability:
+
+* source product metadata
+* acquisition/date
+* valid-pixel mask
+* QA bits/cloud/shadow/water/snow if applicable
+* spatial footprint
+* band distributions
+* coverage relative to comparison region
+* resampling/alignment diagnostics if any spatial matching occurs
+
+Do not pretend that topographic/BRDF correction is being rerun on Landsat if it is not.
+
+The important comparison is between:
+
+directly acquired Landsat NBAR
+
+and
+
+Landsat-like observations generated from another sensor through spectral convolution/calibration.
+
+⸻
+
+SENSOR TRIANGLE QA
+
+SpectralBridge ultimately produces translations between the three sensor spaces:
+
+* NEON
+* MicaSense
+* Landsat
+
+Treat each triangle edge as a model with its own QA.
+
+But also exploit the network structure.
+
+Edge QA
+
+For each edge produce:
+
+* held-out metrics
+* observed vs translated
+* residual plots
+* residual maps
+* per-band errors
+* uncertainty
+
+Path consistency
+
+This should be a first-class SpectralBridge diagnostic.
+
+For example compare:
+
+[
+T_{M \rightarrow L}(T_{N \rightarrow M}(N))
+]
+
+against:
+
+[
+T_{N \rightarrow L}(N)
+]
+
+Quantify the disagreement between direct and indirect paths.
+
+Do this wherever transformations permit scientifically meaningful comparison.
+
+Cycle consistency
+
+Where bidirectional models permit it, test closed loops such as:
+
+[
+N \rightarrow M \rightarrow L \rightarrow N
+]
+
+and calculate:
+
+[
+CycleError = N’ - N
+]
+
+Do analogous cycles beginning from other nodes.
+
+Report:
+
+* cycle bias
+* MAE
+* RMSE
+* error by wavelength/band
+* error distributions
+* relevant residual maps
+
+The intuitive QA question is:
+
+If we travel around the SpectralBridge triangle, do we return to the same observation?
+
+This should be visible in the final QA report.
+
+Final triangle visualization
+
+Create a clean triangle figure in which each edge includes a concise cross-validated performance summary.
+
+Do not overload the figure.
+
+For example, edge annotations could show:
+
+RMSE / bias / n
+
+or a compact quality score.
+
+Use line styling/width only if it communicates a clearly defined metric and remains interpretable.
+
+⸻
+
+CROSS-STAGE QA
+
+The full pipeline report should do more than concatenate stage reports.
+
+Once all stages are available, calculate additional diagnostics to determine how errors and transformations accumulate.
+
+Track changes through the pipeline
+
+For representative bands/wavelengths, track:
+
+* median reflectance
+* variance
+* spatial variance
+* spectral distance
+* valid-pixel fraction
+* extreme-value fraction
+
+through every stage.
+
+Produce a concise “pipeline evolution” graphic.
+
+Correction magnitude accumulation
+
+Compare:
+
+* topographic correction magnitude
+* BRDF correction magnitude
+* calibration correction magnitude
+
+Determine whether one stage dominates total changes.
+
+Look for spatial regions where multiple stages all make unusually large corrections.
+
+Error propagation
+
+Where uncertainty estimates exist, propagate/summarize them through the pipeline.
+
+Compare predicted uncertainty to actual held-out residual error.
+
+Test whether uncertainty is calibrated.
+
+For example, if possible ask whether approximately the expected fraction of observed errors falls inside nominal prediction intervals.
+
+Cross-stage artifact attribution
+
+If a spatial artifact appears in the final product, attempt to identify the first processing stage at which it appears.
+
+This is especially important for chunk artifacts.
+
+Compare maps and gradient/seam statistics stage-by-stage.
+
+The combined report should explicitly state things like:
+
+* chunk-aligned seams first appear after BRDF correction
+* illumination dependence is removed by topographic correction and remains low afterward
+* a particular wavelength becomes unstable after BRDF
+* calibration removes bias but introduces land-cover-dependent residuals
+* translation error is concentrated in low-reflectance/shadowed pixels
+* direct and indirect triangle translations disagree for specific bands
+
+Do not manufacture such statements. Derive them from actual metrics.
+
+⸻
+
+FINAL QA REPORT
+
+At the end of a successful pipeline run, automatically assemble one comprehensive report.
+
+Design it for both:
+
+* a scientist inspecting the processing
+* a developer debugging the pipeline
+
+Keep plots large and legible. Do not create a giant mosaic of tiny unreadable figures.
+
+Prefer one clear question per figure.
+
+Organize approximately as:
+
+1. Executive QA summary
+
+Show:
+
+* overall status
+* stage-by-stage PASS/WARN/FAIL
+* major warnings
+* key numerical metrics
+* short plain-language interpretation
+
+2. Input data
+
+Most useful maps/spectral summaries.
+
+3. Topographic correction
+
+Most useful before/after physical diagnostic and correction map.
+
+4. BRDF correction
+
+Physical geometry diagnostic plus seam/chunk diagnostics.
+
+5. Spectral convolution
+
+Real spectrum + SRF + output-band diagnostic and coverage metrics.
+
+6. Sensor calibration/translations
+
+Held-out comparison plots, residual maps, metrics.
+
+7. Sensor triangle
+
+Edge QA plus path/cycle consistency.
+
+8. Cross-stage synthesis
+
+This is important.
+
+Generate new plots and analyses that combine information from all previous stages.
+
+Write an automatically generated section titled something like:
+
+What we learn from the full pipeline
+
+This section should identify actual findings supported by the QA, not generic boilerplate.
+
+Examples of the kinds of conclusions it should be capable of producing:
+
+* correction succeeds physically but produces computational seams
+* most error enters at a particular stage
+* one wavelength range is consistently unstable
+* translation performance differs systematically by land cover
+* indirect triangle translation has higher error than direct translation
+* uncertainty estimates are too optimistic
+* processing is sensitive to chunk configuration
+* all invariance tests pass within numerical tolerance
+
+Include quantitative evidence for every automated conclusion.
+
+⸻
+
+COLOR AND VISUALIZATION RULES
+
+Use scientifically appropriate color mappings.
+
+Absolute continuous variables
+
+Use perceptually uniform sequential color maps.
+
+Examples:
+
+* reflectance
+* illumination
+* view angle
+* uncertainty
+* correction factor when one-sided
+
+Signed differences/residuals
+
+Use a diverging color map centered exactly on zero.
+
+Examples:
+
+* corrected minus raw
+* predicted minus observed
+* chunk configuration A minus B
+* cycle error
+
+Make positive/negative limits symmetric around zero.
+
+Categorical masks
+
+Use discrete colors for:
+
+* invalid
+* water
+* shadow
+* cloud
+* saturated
+* etc.
+
+Before/after comparisons
+
+Use identical:
+
+* map extents
+* value limits
+* normalization
+* wavelength/band selections
+
+unless there is a scientifically compelling reason not to.
+
+If different scales are necessary, state it prominently.
+
+Large datasets
+
+Prefer:
+
+* hexbin
+* density
+* quantile summaries
+
+over plotting millions of opaque scatter points.
+
+⸻
+
+TESTING
+
+Add automated tests for the QA framework itself.
+
+At minimum test:
+
+* deterministic QA metrics
+* deterministic output paths
+* numerical convolution reference cases
+* seam score on synthetic known seam/no-seam arrays
+* chunk invariance comparison
+* residual metrics
+* QA threshold logic
+* report generation
+* handling of missing ancillary variables
+* graceful behavior when a diagnostic cannot be computed
+
+A missing diagnostic should not silently disappear.
+
+Report it explicitly as:
+
+NOT EVALUATED
+
+with the reason.
+
+⸻
+
+PERFORMANCE
+
+QA must not make routine processing prohibitively expensive.
+
+Use:
+
+* reproducible sampling for very large scatter/model diagnostics
+* reduced-resolution map previews where appropriate
+* cached intermediate summaries
+* optional deep QA mode for expensive tests
+
+However:
+
+chunk invariance and seam detection should remain prominent because we already have evidence that BRDF chunking can produce visually obvious artifacts.
+
+Implement at least two QA modes if useful:
+
+standard
+
+and
+
+deep
+
+Standard should run automatically.
+
+Deep can add:
+
+* multiple chunk reruns
+* Fourier diagnostics
+* additional blocked cross-validation
+* expensive spatial statistics
+
+⸻
+
+DOCUMENTATION
+
+Add documentation explaining for every diagnostic:
+
+* what is plotted/calculated
+* why it matters scientifically
+* what a good result looks like
+* what a bad result looks like
+* current threshold
+* whether the threshold is provisional
+* how to reproduce the diagnostic
+* which pipeline artifact it evaluates
+
+Make the QA documentation useful to an environmental scientist who is not a remote-sensing algorithm developer.
+
+⸻
+
+IMPORTANT SCIENTIFIC DISTINCTIONS
+
+Preserve these distinctions everywhere:
+
+1. NEON and MicaSense go through the relevant correction pipeline.
+2. Landsat Collection 2 NBAR is obtained directly and is not artificially sent through the same correction pipeline.
+3. Spectral convolution projects high-spectral-resolution observations into a target sensor’s spectral response space.
+4. Empirical calibration/translation is distinct from convolution.
+5. Convolution creates comparable sensor representations.
+6. Calibration learns relationships between those representations and observed sensor measurements.
+7. QA must test both physical correctness and computational correctness.
+8. A statistically improved correction can still fail QA if it introduces seams, grid artifacts, spectral distortion, or chunk dependence.
+9. High R² alone is never sufficient evidence of a successful translation.
+10. The sensor triangle enables unique path- and cycle-consistency tests that should be treated as core SpectralBridge QA rather than optional extras.
+
+⸻
+
+DELIVERABLES
+
+Implement the code, tests, and documentation rather than only writing a proposal.
+
+At completion provide:
+
+1. a concise description of the QA architecture added
+2. files created/changed
+3. which diagnostics run at each pipeline stage
+4. example commands for generating QA
+5. example stage QA outputs using available real test/example data
+6. one complete combined QA report
+7. test results
+8. any diagnostics that could not yet be implemented and why
+9. any concerning behavior discovered in the existing pipeline while implementing QA, especially BRDF/chunking issues
+10. recommendations for thresholds that still require empirical tuning
+
+Before coding, inspect the existing pipeline thoroughly and write a short implementation plan based on the repository as it actually exists. Then implement it incrementally, running tests and generating real QA artifacts as you go.
+:::
+```
+
+## 2026-08-14 - authorize one real-data QA run
+Branch: main
+
+```text
+you can download one and run it through all the tests and qa.
+```
+## 2026-08-14 - provide local HDF5 for real QA run
+Branch: main
+
+```text
+I just added an h5 to the repo
+```
+## 2026-08-14 - confirm local HDF5 placement
+Branch: main
+
+```text
+it was in downloads, now in repo
+```
+
+## 2026-08-14 - interpret real-data QA failures and runtime
+Branch: main
+
+```text
+what do we do about those fails? can we adjust something or is this a data quality issue? how long does it take to run the whole pipeline through extraction to parquet?
+```
+
+## 2026-08-15 - reconsider remaining real-data QA failures
+Branch: main
+
+```text
+we're still failing two test but I'm not sure we should be. the fraction of NA is fixed based on how the plane flew over the site but then the bounding box goes around the whole flight track can we spend some time thinking through these two remaining failures and if they're actually failures.
+```
+
+## 2026-08-15 - label bad QA information without masking
+Branch: main
+
+```text
+I don't want to mask things yet, I just want to interprete the bad information correctly as bad and mark it as suche but don't remove it yet.
+```
+
+## 2026-08-15 - standardize QA plot axes and location labels
+Branch: main
+
+```text
+we need to standardize the plot axes so that we can compare reports between runs. this is only one run and we need to run like 300 of these and we'll want them to be interoperable. so y and x axes in figures should be a standard range when possible and maps should be labelled with their location so we can flip between graphs to compare without needing to look at the report header.
+```
+
+## 2026-08-15 - add figures for every QA stage and port brightness plots
+Branch: main
+
+```text
+can we produce images for all stages? currently we don't have good figures for the parquet extration and merge and we don't have plots for the correction. Also, we need a test an plot for the brightness correction and we need to recreate and add these plots in python when the original is in r [https://github.com/earthlab/spectralbridge/blob/a30498ac606304bca3067acbff0e0348b68db767/coef_plots_Ty.qmd](https://github.com/earthlab/spectralbridge/blob/a30498ac606304bca3067acbff0e0348b68db767/coef_plots_Ty.qmd)
+```
+
+## 2026-08-15 - organize QA code and expand validation website guidance
+Branch: main
+
+```text
+make sure all this qa stuff that we've added is cleanly organized and keeps all the code human readable and that's it's documented well. update the validation section of the website with detailed exlinations about each of the test organized in each of the sections. give example images from the test run we've been doing.
+```

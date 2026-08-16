@@ -9,6 +9,36 @@ title: Validation — NEON HDF5 download
 !!! info "Evidence boundary"
     The current checked-in campaign uses small synthetic or already-present inputs and does not contact NEON. It validates software contracts and diagnostics, not real-flightline scientific accuracy.
 
+## What this module test exercises
+
+Exercise the restart-safe acquisition contract: a valid local HDF5 must be discovered at its canonical path and reused without a network request.
+
+**Implementation exercised:** `stage_download_h5` in `spectralbridge.pipelines.pipeline`
+
+### Inputs varied
+
+| Field | Why it is recorded |
+| --- | --- |
+| `domain` | NEON domain encoded in the flightline identity. |
+| `site_code` | Site code varied across representative NEON domains. |
+| `year_month` | Acquisition month used by the download interface. |
+
+### Checks and how to interpret them
+
+| Check | Question | PASS means | If it does not pass |
+| --- | --- | --- | --- |
+| `canonical_path_returned` | Did discovery return the exact expected HDF5 path? | The returned path equals the pre-created canonical artifact path. | Inspect flightline naming, base-folder selection, and path helpers. |
+| `nonempty_h5_reused` | Was an existing non-empty source reused byte-for-byte? | Modification time and SHA-256 are unchanged and no network call occurs. | Treat a rewrite or attempted download as a restart-safety regression. |
+
+### Diagnostics recorded for every variation
+
+| Field | Why it is recorded |
+| --- | --- |
+| `artifact_reused_unchanged` | Combined timestamp/hash reuse result. |
+| `network_contacted` | Whether this offline case contacted NEON. |
+| `output_bytes` | Persisted source size; zero bytes are invalid. |
+| `sha256` | Full-file digest used by the small offline fixture. |
+
 ## Input variations and results
 
 On narrow screens, scroll the table horizontally to see every diagnostic and check.
@@ -21,9 +51,25 @@ On narrow screens, scroll the table horizontally to see every diagnostic and che
 | `neon_download-004`<br>Reuse a non-empty HDF5 artifact for site JORN. | `domain`=D14; `site_code`=JORN; `year_month`=2023-04 | **PASS** | `artifact_reused_unchanged`=true; `network_contacted`=false; `output_bytes`=17; `sha256`=c3fe844c11a0342791c89d0077750be5c3acaf7801812d6c48cb94… | canonical_path_returned=✓; nonempty_h5_reused=✓ |
 | `neon_download-005`<br>Reuse a non-empty HDF5 artifact for site SJER. | `domain`=D17; `site_code`=SJER; `year_month`=2023-05 | **PASS** | `artifact_reused_unchanged`=true; `network_contacted`=false; `output_bytes`=17; `sha256`=40af97777b435041c55e4afeace8884a6b11fe49f0c188fcc11319… | canonical_path_returned=✓; nonempty_h5_reused=✓ |
 
-## What this tells us about QA
+## What a passing result establishes
 
-Track availability, artifact size, retry count, and failure category. A live campaign should expose site/month combinations that need clearer download diagnostics.
+Local discovery and reuse behavior across several site/date identities.
+
+!!! warning "What it does not establish"
+    NEON authentication, API availability, retry behavior, or transfer integrity over the network.
+
+The matching real stage checks are explained in the [stage QA test guide](stage-qa-guide.md#acquisition).
+
+## Example from the real R10C test run
+
+<div class="sb-validation-grid">
+  <figure class="sb-validation-figure">
+    <a href="../artifacts/r10c-l002-20210915/qa/stages/00_acquisition/overview.png"><img src="../artifacts/r10c-l002-20210915/qa/stages/00_acquisition/overview.png" alt="R10C acquisition artifact inventory" loading="lazy"></a>
+    <figcaption>The real R10C acquisition stage records the 2.4 GB HDF5 and embeds site, domain, flightline, and date in the figure.</figcaption>
+  </figure>
+</div>
+
+The figure is evidence from one completed flightline, not a replacement for the variation table above. Open the [real flightline walkthrough](real-data-example.md) for exact values and limitations.
 
 ## Expansion to 100 real variations
 

@@ -47,7 +47,6 @@ def main() -> None:
 
     flight_dir = args.flight_dir.resolve()
     fid = flight_dir.name
-    raw_img = flight_dir / f"{fid}_envi.img"
     corr_json = flight_dir / f"{fid}_brdfandtopo_corrected_envi.json"
     brdf_model = flight_dir / f"{fid}_brdf_model.json"
 

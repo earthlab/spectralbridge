@@ -84,3 +84,56 @@ def test_documentation_links_to_tracked_notebooks_on_github() -> None:
                     unexpected_links.append(f"{path.relative_to(REPO_ROOT)}: {target}")
 
     assert unexpected_links == []
+
+
+def test_vignettes_mirror_active_research_notebook_workflows() -> None:
+    def notebook_source(path: Path) -> str:
+        notebook = json.loads(path.read_text(encoding="utf-8"))
+        return "\n".join(
+            "".join(cell["source"])
+            for cell in notebook["cells"]
+        )
+
+    raster_reference = notebook_source(REPO_ROOT / "Raster_processing.ipynb")
+    raster_vignette = notebook_source(
+        NOTEBOOK_DIR / "00_full_neon_pipeline.ipynb"
+    )
+    for snippet in (
+        "from spectralbridge import go_forth_and_multiply",
+        "go_forth_and_multiply(",
+    ):
+        assert snippet in raster_reference
+        assert snippet in raster_vignette
+
+    drone_reference = notebook_source(REPO_ROOT / "Drone_processing.ipynb")
+    drone_vignette = notebook_source(NOTEBOOK_DIR / "06_drone_pipeline.ipynb")
+    for snippet in (
+        "from spectralbridge import run_drone_pipeline",
+        "results = run_drone_pipeline(",
+        "pd.read_parquet",
+    ):
+        assert snippet in drone_reference
+        assert snippet in drone_vignette
+    assert "pprint(results[" in drone_reference
+    assert "pprint(results[" in drone_vignette
+
+    table_vignette = notebook_source(NOTEBOOK_DIR / "04_analysis_tables.ipynb")
+    assert "duckdb.connect()" in raster_reference
+    assert "duckdb.connect()" in table_vignette
+
+    qa_vignette = notebook_source(NOTEBOOK_DIR / "05_qa_and_validation.ipynb")
+    for snippet in ("def plot_envi_band", "def plot_envi_rgb"):
+        assert snippet in raster_reference
+        assert snippet in qa_vignette
+
+    for notebook_name in EXPECTED_NOTEBOOKS:
+        notebook = json.loads(
+            (NOTEBOOK_DIR / notebook_name).read_text(encoding="utf-8")
+        )
+        markdown_cells = [
+            "".join(cell["source"])
+            for cell in notebook["cells"]
+            if cell["cell_type"] == "markdown"
+        ]
+        assert len(markdown_cells) >= 3
+        assert any("## 1." in source for source in markdown_cells)

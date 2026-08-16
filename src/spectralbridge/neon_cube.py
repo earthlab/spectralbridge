@@ -365,6 +365,8 @@ class NeonCube:
             "wavelength": wavelengths,
             "fwhm": fwhm,
             "wavelength units": wavelength_units,
+            "reflectance scale factor": float(self.scale_factor),
+            "data ignore value": float(self.no_data),
             "map info": list(self.map_info_list),
             "projection": self.projection_wkt,
             "transform": tuple(self.transform),

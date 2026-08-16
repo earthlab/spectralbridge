@@ -4,6 +4,7 @@ import numpy as np
 import pytest
 
 from spectralbridge.io.neon import _orient_cube, read_neon_cube
+from spectralbridge.envi_writer import build_envi_header_text
 from spectralbridge.neon_cube import NeonCube
 
 h5py = pytest.importorskip("h5py")
@@ -282,6 +283,11 @@ def test_neon_cube_iter_chunks(tmp_path):
     assert "wavelength" in header
     assert "fwhm" in header
     assert "wavelength units" in header
+    assert header["reflectance scale factor"] == cube.scale_factor
+    assert header["data ignore value"] == cube.no_data
+    header_text = build_envi_header_text(header)
+    assert "reflectance scale factor = 1.0" in header_text
+    assert "data ignore value = -9999.0" in header_text
 
     assert isinstance(header["map info"], (list, tuple))
     assert len(header["map info"]) >= 6

@@ -10,6 +10,14 @@ functions. They contain configuration cells, explanations of inputs and
 outputs, and validation checkpoints. Copy a notebook into your own analysis
 directory before changing scientific assumptions.
 
+Their code and narrative follow the two active research notebooks at the
+repository root: `Raster_processing.ipynb` and `Drone_processing.ipynb`. The
+full-pipeline vignettes use the same public orchestrators, while the focused
+vignettes expose one stage at a time. Output checks use the same practical
+patterns—printed result summaries, file inventories, DuckDB or pandas table
+previews, and ENVI/QA plots—but omit machine-specific transfer commands and
+saved outputs so the files remain portable.
+
 | Order | Notebook | Use it when |
 | --- | --- | --- |
 | 00 | [Full NEON pipeline][notebook-00] | You want download through QA in one restart-safe call |

@@ -52,6 +52,8 @@ nav:
 
   - Validation:
       - Evidence overview: validation/index.md
+      - Real flightline walkthrough: validation/real-data-example.md
+      - Stage QA test guide: validation/stage-qa-guide.md
       - Module evidence:
           - NEON HDF5 download: validation/neon_download.md
           - HDF5 to raw ENVI: validation/h5_to_envi.md
@@ -77,6 +79,8 @@ nav:
           - JSON file catalog: reference/json-catalog.md
           - JSON schemas: reference/schemas.md
           - QA panels and metrics: pipeline/qa.md
+          - Stage-by-stage scientific QA: pipeline/stage-qa.md
+          - QA implementation map: reference/qa-code-map.md
           - Validation metrics: reference/validation.md
       - Algorithms and extension:
           - BRDF and topographic correction: brdf_topo_algorithm.md

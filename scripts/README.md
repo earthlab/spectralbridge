@@ -26,6 +26,12 @@ because they are intended to be copied and edited by users.
 These generators are maintainer tools. Generated pages should not be edited by
 hand; change their source records or generator instead.
 
+`validation_docs_content.py` is the structured prose catalog used by the
+validation generator. It gives every recorded input, diagnostic, and check a
+human explanation and maps real R10C figures to the appropriate module and
+stage. `tests/test_validation_docs.py` fails if campaign fields or real-stage
+check families are added without corresponding documentation.
+
 ## Root-level and deprecated utilities
 
 `move_folders_from_instance_to_remote.py`, `remote_to_instance.py`, and
@@ -36,4 +42,3 @@ entry points and should not be copied into a new scientific workflow.
 Code under `deprecated/` is retained for provenance and migration reference.
 New work should import `spectralbridge`, use `examples/`, or follow the current
 vignettes.
-

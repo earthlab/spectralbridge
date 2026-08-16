@@ -26,3 +26,6 @@ docs/_build/
 qa_dashboard_summary.parquet
 qa_dashboard_summary.png
 tlm_check_spectra/data
+
+# Local real-data validation input (2.4 GB; keep compact QA artifacts instead).
+/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5

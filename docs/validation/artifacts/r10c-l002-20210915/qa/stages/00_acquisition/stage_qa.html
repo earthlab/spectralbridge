@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Source acquisition QA</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;color:#182433}
+h1,h2{color:#123565} .badge{display:inline-block;padding:.35rem .7rem;border:2px solid currentColor;border-radius:999px;font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:.94rem} th,td{border:1px solid #d7dee8;padding:.55rem;vertical-align:top} th{background:#eef3f8;text-align:left}
+.status{font-weight:800} figure{margin:1.5rem 0} img{display:block;max-width:100%;height:auto} code,pre{background:#f4f6f8} pre{padding:1rem;overflow:auto}
+</style></head><body>
+<p>Schema 1.3 · Mode deep</p>
+<h1>Source acquisition</h1>
+<p class="badge" style="color:#2f6b3c">PASS</p>
+<h2>Automated interpretation</h2><ul><li>All evaluated checks passed their current thresholds.</li></ul>
+
+<h2>Checks</h2><table><thead><tr><th>Check</th><th>Status</th><th>Value</th><th>Warn / fail</th><th>Meaning</th><th>Reason</th></tr></thead><tbody><tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr></tbody></table>
+<h2>Diagnostics</h2><figure><img src='overview.png' alt='Stage QA diagnostic'><figcaption>overview.png</figcaption></figure>
+<h2>Unavailable diagnostics</h2><ul><li>None.</li></ul>
+<h2>Machine-readable metrics</h2><pre>{
+  &quot;plot_contract&quot;: {
+    &quot;brdf_coefficient&quot;: [
+      -1.5,
+      1.5
+    ],
+    &quot;brightness_adjustment_percent&quot;: [
+      -15.0,
+      5.0
+    ],
+    &quot;correction_difference&quot;: [
+      -0.2,
+      0.2
+    ],
+    &quot;correction_difference_norm&quot;: &quot;symmetric_log_linthresh_0.005&quot;,
+    &quot;display_only&quot;: true,
+    &quot;geometry_radians&quot;: [
+      -0.1,
+      6.383185307179586
+    ],
+    &quot;location_label&quot;: &quot;R10C \u00b7 D10 \u00b7 L002 \u00b7 2021-09-15&quot;,
+    &quot;negative_fraction&quot;: [
+      0.0,
+      0.055
+    ],
+    &quot;reflectance&quot;: [
+      -0.1,
+      1.6
+    ],
+    &quot;reflectance_map&quot;: [
+      0.0,
+      1.2
+    ],
+    &quot;rgb_reflectance&quot;: [
+      0.0,
+      0.6
+    ],
+    &quot;seam_score&quot;: [
+      0.0,
+      3.0
+    ],
+    &quot;spatial&quot;: null,
+    &quot;valid_fraction&quot;: [
+      0.0,
+      1.02
+    ],
+    &quot;valid_map&quot;: [
+      0.0,
+      1.0
+    ],
+    &quot;values_outside_limits_retained_in_metrics&quot;: true,
+    &quot;version&quot;: &quot;1.1&quot;,
+    &quot;wavelength_nm&quot;: [
+      350.0,
+      2600.0
+    ]
+  }
+}</pre>
+<h2>Provenance</h2><pre>{
+  &quot;context_fingerprint&quot;: &quot;ffb1afa6d8629b529859a9e35686930d400d57f2e660d35d795afe5923199011&quot;,
+  &quot;deterministic&quot;: true,
+  &quot;git_sha&quot;: &quot;d88e8d0947718d1e33b534080c224b703987e536&quot;,
+  &quot;package_version&quot;: &quot;2.2.0&quot;,
+  &quot;thresholds&quot;: {
+    &quot;chunk_difference_tolerance&quot;: 1e-06,
+    &quot;correction_abs_q99_fail&quot;: 0.5,
+    &quot;correction_abs_q99_warn&quot;: 0.2,
+    &quot;negative_fraction_fail&quot;: 0.05,
+    &quot;negative_fraction_warn&quot;: 0.01,
+    &quot;overbright_fraction_fail&quot;: 0.05,
+    &quot;overbright_fraction_warn&quot;: 0.01,
+    &quot;provisional&quot;: true,
+    &quot;seam_score_fail&quot;: 2.5,
+    &quot;seam_score_warn&quot;: 1.5,
+    &quot;srf_coverage_fail&quot;: 0.9,
+    &quot;srf_coverage_warn&quot;: 0.98,
+    &quot;valid_fraction_fail&quot;: 0.7,
+    &quot;valid_fraction_warn&quot;: 0.9
+  }
+}</pre>
+</body></html>

@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import pytest
 
 import spectralbridge.qa_plots as qa_plots
@@ -47,6 +48,55 @@ def test_metrics_arrays_are_serialisable(qa_fixture_dir: Path) -> None:
         "overbright_pct",
         "issues",
     }
+
+
+def test_aop_qa_uses_header_scale_and_excludes_nodata(
+    qa_fixture_dir: Path,
+) -> None:
+    for image in qa_fixture_dir.glob("*.img"):
+        values = np.fromfile(image, dtype=np.float32)
+        values *= np.float32(10_000.0)
+        if "corrected" in image.name:
+            values[0] = -9999.0
+        values.tofile(image)
+        with image.with_suffix(".hdr").open("a", encoding="utf-8") as header:
+            header.write(
+                "\nreflectance scale factor = 10000"
+                "\ndata ignore value = -9999\n"
+            )
+
+    _, metrics = render_flightline_panel(qa_fixture_dir, quick=True)
+
+    assert metrics["mask"]["valid_pct"] < 100.0
+    assert metrics["negatives_pct"] == 0.0
+    assert metrics["overbright_pct"] == 0.0
+    assert max(abs(value) for value in metrics["correction"]["delta_median"]) < 1.0
+
+
+def test_merged_scatter_uses_physical_reflectance_scale(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    prefix = "NEON_TEST_FLIGHT"
+    (tmp_path / f"{prefix}_merged_pixel_extraction.parquet").write_text(
+        "placeholder", encoding="utf-8"
+    )
+    frame = pd.DataFrame(
+        {
+            "corr_b001_wl0660nm": [2000.0, -9999.0],
+            "olioli_b001_wl0655nm": [1800.0, -9999.0],
+        }
+    )
+    monkeypatch.setattr(qa_plots, "_safe_read_parquet", lambda *args, **kwargs: frame)
+
+    scatter = qa_plots._scatter_from_merged_parquet(
+        tmp_path,
+        prefix,
+        reflectance_scale_factor=10_000.0,
+    )
+
+    corrected, convolved = scatter["olioli"]
+    np.testing.assert_allclose(corrected, [0.2])
+    np.testing.assert_allclose(convolved, [0.18])
 
 
 def test_aop_qa_png_shows_raw_corrected_and_diagnostics(

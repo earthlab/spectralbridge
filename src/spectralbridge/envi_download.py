@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import os
 from pathlib import Path
 from typing import Iterable, Sequence
 
@@ -53,6 +54,7 @@ def download_neon_file(
     *,
     output_path: str | Path | None = None,
     session: requests.Session | None = None,
+    api_token: str | None = None,
 ) -> tuple[Path, bool]:
     """Download a single NEON flight line HDF5.
 
@@ -68,6 +70,10 @@ def download_neon_file(
         provided, the file will always be written to this location.
     session
         Optional ``requests.Session`` to reuse HTTP connections.
+    api_token
+        Optional NEON Data API token. When omitted, ``NEON_API_TOKEN`` and
+        then ``NEON_TOKEN`` are checked. The token is sent only in the
+        ``X-API-Token`` request header and is never written to disk.
 
     Returns
     -------
@@ -93,6 +99,12 @@ def download_neon_file(
         session = requests.Session()
         created_session = True
 
+    resolved_token = (
+        api_token or os.environ.get("NEON_API_TOKEN") or os.environ.get("NEON_TOKEN")
+    )
+    if resolved_token:
+        session.headers.setdefault("X-API-Token", resolved_token.strip())
+
     def _session_get(url: str, *, stream: bool = False) -> requests.Response:
         """Wrapper around ``session.get`` that retries once with proxies disabled."""
 
@@ -102,7 +114,7 @@ def download_neon_file(
                 response = session.get(url, stream=stream, timeout=60)
                 response.raise_for_status()
                 return response
-            except requests.ProxyError:
+            except requests.exceptions.ProxyError:
                 if (
                     created_session
                     and getattr(session, "trust_env", True)
@@ -124,6 +136,17 @@ def download_neon_file(
     data_url = f"{_NEON_API_BASE}/data/{product_code}/{site_code}/{year_month}"
     try:
         response = _session_get(data_url)
+    except requests.exceptions.HTTPError as exc:
+        status = getattr(exc.response, "status_code", None)
+        if status in {401, 403} and not resolved_token:
+            raise RuntimeError(
+                "The NEON data endpoint requires an API token. Set "
+                "NEON_API_TOKEN (or NEON_TOKEN) in the environment and retry; "
+                "do not commit the token to the repository."
+            ) from exc
+        raise RuntimeError(
+            f"Failed to query NEON data API for {site_code}/{year_month}: {exc}"
+        ) from exc
     except requests.RequestException as exc:  # pragma: no cover - network issues
         raise RuntimeError(
             f"Failed to query NEON data API for {site_code}/{year_month}: {exc}"

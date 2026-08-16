@@ -92,6 +92,7 @@
   </article>
 </div>
 <p class="sb-doc-note">QA outputs are part of the workflow contract, not optional polish. They are meant to preserve transparency when a downstream analysis needs to explain how a product was generated.</p>
+<p>The focused stage reports and combined cross-stage synthesis are documented in <a href="../stage-qa/">Stage-by-stage scientific QA</a>. They add explicit <code>PASS</code>, <code>WARN</code>, <code>FAIL</code>, and <code>NOT EVALUATED</code> checks without replacing the existing flightline PNG, JSON, or PDF.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

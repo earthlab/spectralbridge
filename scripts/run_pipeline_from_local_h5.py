@@ -162,7 +162,7 @@ def stage_local_h5(
         canonical.symlink_to(src)
         print(f"[local-h5] Symlinked → {canonical}")
     except OSError:
-        print(f"[local-h5] Symlink failed; copying (this may take a while)…")
+        print("[local-h5] Symlink failed; copying (this may take a while)…")
         shutil.copy2(src, canonical)
         print(f"[local-h5] Copied → {canonical}")
 

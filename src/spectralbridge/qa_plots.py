@@ -681,6 +681,7 @@ def _convolution_reports(
         sensor = img_path.stem.replace(f"{prefix}_", "").replace("_convolved_envi", "")
         hdr = hdr_to_dict(img_path.with_suffix(".hdr"))
         cube = read_envi_cube(img_path, hdr)
+        cube, _ = _unit_reflectance_cube(cube, hdr)
         if cube.shape != corr_cube.shape:
             continue
         brightness_entry = hdr.get("brightness_coefficients")
@@ -720,6 +721,7 @@ def _scatter_from_merged_parquet(
     prefix: str,
     *,
     max_points: int = 50_000,
+    reflectance_scale_factor: float = 1.0,
 ) -> dict[str, tuple[np.ndarray, np.ndarray]]:
     """
     Fallback for the "Convolved vs corrected" scatter plot when no convolved ENVI cubes
@@ -816,8 +818,8 @@ def _scatter_from_merged_parquet(
         if not np.any(valid):
             continue
 
-        xv = x[valid]
-        yv = y[valid]
+        xv = x[valid] / reflectance_scale_factor
+        yv = y[valid] / reflectance_scale_factor
 
         # Downsample to keep plots light.
         if xv.size > max_points:
@@ -1037,6 +1039,7 @@ def _render_page3_remaining(
     filtered_stats: dict | None = None,
     flightline_dir: Path | None = None,
     wavelengths: np.ndarray | None = None,
+    reflectance_scale_factor: float = 1.0,
 ) -> None:
     """Page 3: remaining QA diagnostics (convolution + header/mask/issue summary)."""
 
@@ -1046,7 +1049,13 @@ def _render_page3_remaining(
     ax_wavelength = axes[0, 0]
     # Use new wavelength-based plot instead of scatter plot
     if flightline_dir is not None:
-        _render_wavelength_reflectance_plot(ax_wavelength, flightline_dir, prefix, wavelengths)
+        _render_wavelength_reflectance_plot(
+            ax_wavelength,
+            flightline_dir,
+            prefix,
+            wavelengths,
+            reflectance_scale_factor=reflectance_scale_factor,
+        )
     else:
         # Fallback to old scatter plot if flightline_dir not provided
         _render_scatter(ax_wavelength, scatter_data)
@@ -1837,6 +1846,8 @@ def _render_wavelength_reflectance_plot(
     flightline_dir: Path,
     prefix: str,
     wavelengths: np.ndarray | None = None,
+    *,
+    reflectance_scale_factor: float = 1.0,
 ) -> None:
     """
     Render a wavelength-based reflectance plot showing:
@@ -1948,7 +1959,10 @@ def _render_wavelength_reflectance_plot(
                 matched_wls.append(wl)
                 continue
         
-        vals = pd.to_numeric(sample_df[col], errors="coerce")
+        vals = (
+            pd.to_numeric(sample_df[col], errors="coerce")
+            / reflectance_scale_factor
+        )
         # Filter out -9999, negative values, and invalid values
         valid_vals = vals[(vals > -9990) & (vals >= 0) & (vals < 1000) & np.isfinite(vals)]
         if len(valid_vals) > 0:
@@ -2068,7 +2082,10 @@ def _render_wavelength_reflectance_plot(
         
         for wl, col in sensor_cols_by_sensor[pattern]:
             # Get convolved value - exclude negative values and no-data
-            vals = pd.to_numeric(sample_df[col], errors="coerce")
+            vals = (
+                pd.to_numeric(sample_df[col], errors="coerce")
+                / reflectance_scale_factor
+            )
             # Filter: exclude -9999 (no-data), negative values, and very large values
             valid_vals = vals[(vals > -9990) & (vals >= 0) & (vals < 1000) & np.isfinite(vals)]
             
@@ -2094,7 +2111,10 @@ def _render_wavelength_reflectance_plot(
             
             if wl_int in corr_by_wl:
                 corr_col = corr_by_wl[wl_int]
-                corr_vals = pd.to_numeric(sample_df[corr_col], errors="coerce")
+                corr_vals = (
+                    pd.to_numeric(sample_df[corr_col], errors="coerce")
+                    / reflectance_scale_factor
+                )
                 # Also exclude negative values for corrected
                 valid_corr = corr_vals[(corr_vals > -9990) & (corr_vals >= 0) & (corr_vals < 1000) & np.isfinite(corr_vals)]
                 if len(valid_corr) > 0:
@@ -2175,40 +2195,37 @@ def _render_wavelength_reflectance_plot(
     if plotted_sensors:
         ax.legend(loc='upper right', fontsize=7, ncol=1, framealpha=0.9)
     
-    # Set y-axis limits with fixed maximum to show more data and make curve appear smoother
-    # Use a reasonable maximum (5000) since values above this are likely invalid
-    # This wider range makes the curve appear less wavy by reducing relative variation
-    Y_AXIS_MAX = 5000  # Maximum reflectance value to display (values above are likely invalid)
-    
+    # Use a physical-reflectance display range. Values are converted from their
+    # persisted ENVI/Parquet scale before reaching this point.
+    y_axis_cap = 2.0
+
     if len(plot_vals) > 0:
-        y_data = plot_vals
-        # Filter out invalid values
+        y_data = np.concatenate(
+            [plot_vals, np.asarray(all_conv_values, dtype=float)]
+            if all_conv_values
+            else [plot_vals]
+        )
         y_valid = y_data[np.isfinite(y_data) & (y_data >= 0)]
         
         if len(y_valid) > 0:
-            # Count how many points are above the maximum threshold
-            points_above_max = np.sum(y_valid > Y_AXIS_MAX)
-            # Always use the full Y_AXIS_MAX range to make the curve appear smoother
-            # This wider range reduces relative variation, making the curve less wavy
             y_min = 0
-            y_max = Y_AXIS_MAX
-            
-            # Check convolved values to see if any extend beyond threshold
-            if all_conv_values:
-                conv_valid = np.array([v for v in all_conv_values if np.isfinite(v) and v >= 0])
-                if len(conv_valid) > 0:
-                    points_above_max += np.sum(conv_valid > Y_AXIS_MAX)
-            
+            y_max = max(1.0, min(y_axis_cap, float(np.nanmax(y_valid)) * 1.05))
+            points_above_max = int(np.count_nonzero(y_valid > y_max))
             ax.set_ylim(y_min, y_max)
-            print(f"[QA]   📊 Y-axis range: [{y_min:.1f}, {y_max:.1f}] (full range up to {Y_AXIS_MAX} for smoother visualization)")
+            print(
+                f"[QA]   📊 Physical-reflectance y-axis range: "
+                f"[{y_min:.1f}, {y_max:.2f}]"
+            )
             if points_above_max > 0:
-                print(f"[QA]   📉 {points_above_max} points above {Y_AXIS_MAX} threshold (likely invalid, excluded from display)")
+                print(
+                    f"[QA]   📉 {points_above_max} points above the "
+                    f"{y_axis_cap:.1f} display cap"
+                )
             else:
                 print(f"[QA]   ✅ All {len(y_valid)} points within display range")
         else:
-            # Fallback: use full range
             y_max_data = np.nanmax(y_data) if len(y_data) > 0 else 1.0
-            ax.set_ylim(0, min(Y_AXIS_MAX, max(1.0, y_max_data * 1.1)))
+            ax.set_ylim(0, min(y_axis_cap, max(1.0, y_max_data * 1.1)))
             print("[QA]   ⚠️  Using fallback y-axis range (no valid data)")
     
     # Summary statistics
@@ -2305,6 +2322,33 @@ def _nodata_mask(cube: np.ndarray, nodata_value: float | None) -> np.ndarray:
 
 def _cube_valid_mask(cube: np.ndarray, nodata_value: float | None) -> np.ndarray:
     return np.isfinite(cube) & ~_nodata_mask(cube, nodata_value)
+
+
+def _header_number(
+    header: dict[str, Any], key: str, default: float | None
+) -> float | None:
+    value = header.get(key)
+    if isinstance(value, list):
+        value = value[0] if value else None
+    try:
+        return float(value) if value is not None else default
+    except (TypeError, ValueError):
+        return default
+
+
+def _unit_reflectance_cube(
+    cube: np.ndarray, header: dict[str, Any]
+) -> tuple[np.ndarray, np.ndarray]:
+    """Return physical reflectance plus the pre-scaling valid-data mask."""
+
+    nodata_value = _header_number(header, "data ignore value", None)
+    scale_factor = _header_number(header, "reflectance scale factor", 1.0)
+    if scale_factor is None or scale_factor <= 0:
+        scale_factor = 1.0
+    valid = _cube_valid_mask(cube, nodata_value)
+    unit_cube = np.asarray(cube, dtype=np.float32) / np.float32(scale_factor)
+    unit_cube = np.where(valid, unit_cube, np.nan)
+    return unit_cube.astype(np.float32, copy=False), valid
 
 
 def _drone_correction_status(
@@ -3092,12 +3136,15 @@ def render_flightline_panel(
     if raw_cube.shape != corr_cube.shape:
         raise ValueError("Raw and corrected cubes must share shape for QA panel")
 
+    raw_cube, raw_valid = _unit_reflectance_cube(raw_cube, raw_hdr)
+    corr_cube, corr_valid = _unit_reflectance_cube(corr_cube, corr_hdr)
+
     rgb_targets = _rgb_targets_from_arg(rgb_bands)
 
     wavelengths, wavelength_source = wavelengths_from_hdr(corr_hdr)
     header_report = _header_report(corr_hdr, wavelengths, wavelength_source)
 
-    valid_mask = np.isfinite(corr_cube)
+    valid_mask = raw_valid & corr_valid
     mask_report = MaskReport(
         n_total=int(valid_mask.size),
         n_valid=int(np.count_nonzero(valid_mask)),
@@ -3147,7 +3194,13 @@ def render_flightline_panel(
     # Fallback: polygon mode often doesn't have convolved ENVI cubes on disk.
     # If we have sensor band columns in the merged parquet, build the scatter from there.
     if not scatter_data:
-        scatter_data = _scatter_from_merged_parquet(flightline_dir, prefix)
+        scatter_data = _scatter_from_merged_parquet(
+            flightline_dir,
+            prefix,
+            reflectance_scale_factor=(
+                _header_number(corr_hdr, "reflectance scale factor", 1.0) or 1.0
+            ),
+        )
 
     brightness_summary = _build_brightness_summary_table(brightness_map)
 
@@ -3253,6 +3306,9 @@ def render_flightline_panel(
             filtered_stats=filtered_stats,
             flightline_dir=flightline_dir,
             wavelengths=wavelengths,
+            reflectance_scale_factor=(
+                _header_number(corr_hdr, "reflectance scale factor", 1.0) or 1.0
+            ),
         )
         
         # Add Page 4: Parquet and merge quality

@@ -19,6 +19,8 @@
 | Merged Parquet | `<flight_id>_merged_pixel_extraction.parquet` | Master table that merges Parquet sidecars across stages into one analysis-ready spectral library. | Exactly one per flightline and treated as the primary success signal. |
 | QA artefacts | `<flight_id>_qa.png`, `<flight_id>_qa.json`, optional `<flight_id>_qa.pdf` | Visual and numeric QA summaries aligned to the merged outputs. | PNG and JSON are expected for completed runs; PDF is optional. |
 | QA metrics parquet | `<flight_id>_qa_metrics.parquet` | Structured QA metrics by band and sensor. | Emitted alongside QA outputs when QA calculation runs. |
+| Stage QA | `qa/stages/<order>_<stage>/stage_qa.(json|html)` plus optional `overview.png` | Focused report for one canonical stage with explicit checks and provenance. | Deterministic and restart-safe; missing diagnostics are recorded as `NOT EVALUATED`. |
+| Combined stage QA | `qa/combined/combined_qa.(json|html)` plus `pipeline_evolution.png` | Cross-stage status, pipeline evolution, and evidence-backed synthesis. | Does more than concatenate stage reports; unsupported translation/Landsat diagnostics remain explicit. |
 </section>
 
 <section class="sb-doc-section" markdown="1">
@@ -36,6 +38,7 @@
 <p class="sb-kicker">Restart safety</p>
 <h2>Idempotence and validation</h2>
 <p><code>process_one_flightline</code> and <code>go_forth_and_multiply</code> skip stages whose outputs already exist and validate, so re-running the pipeline does not recompute completed products unless outputs are missing or invalid.</p>
+<p>Stage QA uses the same principle: reports are reused when the schema, parameters, thresholds, software version, and input/output artifact fingerprints match.</p>
 <p class="sb-doc-note">Drone polygon workflows also attempt to write CSV sidecars next to parquet outputs for portability. The parquet files remain the authoritative outputs.</p>
 </section>
 

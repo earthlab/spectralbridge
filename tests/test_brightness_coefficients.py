@@ -32,3 +32,23 @@ def test_apply_landsat_brightness_darkens_negative_delta(monkeypatch: pytest.Mon
     expected_gain = 1.0 + (-10.12 / 100.0)
     assert np.isclose(expected_gain, 0.8988)
     assert np.isclose(cube[2, 0, 0], 100.0 * expected_gain)
+
+
+def test_apply_landsat_brightness_preserves_nodata(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    cube = np.full((3, 4, 4), 100.0, dtype=np.float32)
+    cube[2, 0, 0] = -9999.0
+    monkeypatch.setattr(
+        pipeline,
+        "load_brightness_coefficients",
+        lambda system_pair="landsat_to_micasense": {3: -10.0},
+    )
+
+    pipeline._apply_landsat_brightness_adjustment(
+        cube,
+        nodata_value=-9999.0,
+    )
+
+    assert cube[2, 0, 0] == -9999.0
+    assert cube[2, 1, 1] == pytest.approx(90.0)

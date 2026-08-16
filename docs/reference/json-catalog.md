@@ -16,8 +16,8 @@ is authoritative.
 | --- | --- | --- | --- | --- |
 | `src/spectralbridge/data/landsat_band_parameters.json` | Target sensor band centers and Gaussian full widths at half maximum used for convolution/resampling | Nanometers; every sensor entry has equal-length `wavelengths` and `fwhms` arrays | `standard_resample.py`, pipeline convolution, sensor-panel plots | Run resampling/convolution tests; inspect output band count, wavelengths, support, and QA |
 | `src/spectralbridge/data/hyperspectral_bands.json` | Reference hyperspectral wavelength axis for sensor-panel visualization | Nanometers in one ordered `bands` array | `sensor_panel_plots.py` | Confirm ordering, numeric values, and expected panel wavelength range |
-| `src/spectralbridge/data/brightness/landsat_to_micasense.json` | Percent brightness adjustment coefficients for the general Landsat-to-MicaSense comparison | `system_pair`, human-readable `description`, `unit: percent`, and string band indices | `brightness_config.py` | Run `tests/test_brightness_coefficients.py` and compare against coefficient provenance |
-| `src/spectralbridge/data/brightness/landsat_tm_etm_to_micasense.json` | Percent coefficients for the TM/ETM+-specific comparison | Wavelength-aligned Landsat-like order; not native Landsat numbering | `brightness_config.py` | Run coefficient tests and the coefficient-plot workflow before accepting scientific changes |
+| `src/spectralbridge/data/brightness/landsat_to_micasense.json` | Percent brightness adjustment coefficients for the general Landsat-to-MicaSense comparison | `system_pair`, human-readable `description`, `unit: percent`, and string band indices | `brightness_config.py` | Run `tests/test_brightness_coefficients.py`; inspect the convolution stage's `brightness*.png` fitted-versus-configured coefficient profiles |
+| `src/spectralbridge/data/brightness/landsat_tm_etm_to_micasense.json` | Percent coefficients for the TM/ETM+-specific comparison | Wavelength-aligned Landsat-like order; not native Landsat numbering | `brightness_config.py` | Run coefficient tests and the Python `brightness_correction_metrics`/`render_brightness_diagnostics` workflow before accepting scientific changes |
 
 The same band-definition filenames under repository-root `data/` are
 example/notebook copies. Installed package code does **not** load those copies.
@@ -73,4 +73,3 @@ similar.
 6. Keep the old and new values traceable in version control.
 
 Changing scientific JSON is a scientific-method change, not a formatting task.
-

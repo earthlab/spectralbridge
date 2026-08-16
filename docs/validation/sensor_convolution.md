@@ -9,6 +9,36 @@ title: Validation — Sensor convolution
 !!! info "Evidence boundary"
     The current checked-in campaign uses small synthetic or already-present inputs and does not contact NEON. It validates software contracts and diagnostics, not real-flightline scientific accuracy.
 
+## What this module test exercises
+
+Compare spectral convolution with an independently calculated weighted average while varying source and target band counts.
+
+**Implementation exercised:** `resample_chunk_to_sensor`
+
+### Inputs varied
+
+| Field | Why it is recorded |
+| --- | --- |
+| `input_shape_y_x_b` | Varies spatial size and source wavelength count. |
+| `target_band_count` | Varies the number of target spectral responses. |
+
+### Checks and how to interpret them
+
+| Check | Question | PASS means | If it does not pass |
+| --- | --- | --- | --- |
+| `output_band_count_correct` | Does output contain one band per supplied response function? | The final axis equals the target response count. | Inspect response iteration and output allocation. |
+| `weighted_average_matches_reference` | Does convolution match an independent normalized-weight calculation? | Maximum absolute difference is at most `2e-7`. | Inspect response normalization, wavelength alignment, and axis order. |
+| `dtype_is_float32` | Does convolution retain the expected compact datatype? | Output dtype is float32. | Review NumPy promotion and memory cost. |
+
+### Diagnostics recorded for every variation
+
+| Field | Why it is recorded |
+| --- | --- |
+| `output_shape` | Observed target cube dimensions. |
+| `max_absolute_error` | Difference from the independent reference. |
+| `output_min` | Minimum convolved reflectance in the fixture. |
+| `output_max` | Maximum convolved reflectance in the fixture. |
+
 ## Input variations and results
 
 On narrow screens, scroll the table horizontally to see every diagnostic and check.
@@ -21,9 +51,29 @@ On narrow screens, scroll the table horizontally to see every diagnostic and che
 | `sensor_convolution-004`<br>Resample 7 source bands into 4 target bands. | `input_shape_y_x_b`=[3,5,7]; `target_band_count`=4 | **PASS** | `max_absolute_error`=1.19209e-07; `output_max`=0.764092; `output_min`=0.219115; `output_shape`=[3,5,4] | dtype_is_float32=✓; output_band_count_correct=✓; weighted_average_matches_reference=✓ |
 | `sensor_convolution-005`<br>Resample 8 source bands into 5 target bands. | `input_shape_y_x_b`=[4,4,8]; `target_band_count`=5 | **PASS** | `max_absolute_error`=5.96046e-08; `output_max`=0.768413; `output_min`=0.313292; `output_shape`=[4,4,5] | dtype_is_float32=✓; output_band_count_correct=✓; weighted_average_matches_reference=✓ |
 
-## What this tells us about QA
+## What a passing result establishes
 
-Surface numerical error against an independent weighted-average reference, output range, and target-band support. QA should flag missing or near-zero spectral-response support.
+Band-count, weighting, precision, and dtype contracts.
+
+!!! warning "What it does not establish"
+    Scientific adequacy of a particular sensor response curve.
+
+The matching real stage checks are explained in the [stage QA test guide](stage-qa-guide.md#spectral-convolution-and-brightness).
+
+## Example from the real R10C test run
+
+<div class="sb-validation-grid">
+  <figure class="sb-validation-figure">
+    <a href="../artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/overview.png"><img src="../artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/overview.png" alt="R10C convolved sensor overview" loading="lazy"></a>
+    <figcaption>The real stage uses the same spatial/spectral support diagnostics as other reflectance products.</figcaption>
+  </figure>
+  <figure class="sb-validation-figure">
+    <a href="../artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/brightness.png"><img src="../artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/brightness.png" alt="R10C Landsat ETM+ brightness audit" loading="lazy"></a>
+    <figcaption>Configured and fitted brightness adjustments overlap; this verifies application, not scientific optimality of the coefficients.</figcaption>
+  </figure>
+</div>
+
+The figure is evidence from one completed flightline, not a replacement for the variation table above. Open the [real flightline walkthrough](real-data-example.md) for exact values and limitations.
 
 ## Expansion to 100 real variations
 

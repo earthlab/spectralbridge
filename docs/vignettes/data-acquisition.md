@@ -8,6 +8,19 @@ the canonical location, continue to [NEON correction](neon-correction.md).
 
 ## Download one flightline
 
+[NEON requires an API token for data
+downloads](https://data.neonscience.org/data-api/authentication/). Create one
+in your NEON Data Portal account and expose it to the process without putting
+it in a notebook, configuration file, prompt, or commit:
+
+```bash
+export NEON_API_TOKEN="<your-token>"
+```
+
+`NEON_TOKEN` is also accepted for compatibility with NEON's tutorials. The
+value is sent in the `X-API-Token` header and is not written to pipeline
+outputs.
+
 ```bash
 spectralbridge-download NIWO \
   --year-month 2023-08 \

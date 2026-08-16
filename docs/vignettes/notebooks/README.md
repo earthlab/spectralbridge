@@ -12,3 +12,10 @@ copies on GitHub Pages.
 
 All processing cells default to `RUN = False`. Edit the configuration cell,
 confirm storage and memory, then set `RUN = True`.
+
+The examples intentionally mirror the working patterns in the root
+`Raster_processing.ipynb` and `Drone_processing.ipynb`: configure with ordinary
+`Path` values, call the public orchestrator, print its result or output paths,
+and inspect the concrete Parquet, ENVI, and QA artifacts. The vignette versions
+remove saved outputs and environment-specific transfer commands so they can be
+opened safely in a fresh clone.

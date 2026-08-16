@@ -114,6 +114,15 @@ def _build_parser() -> argparse.ArgumentParser:
             "'tile' fits independently inside 100x100 tiles."
         ),
     )
+    parser.add_argument(
+        "--qa-mode",
+        choices=["off", "standard", "deep"],
+        default="standard",
+        help=(
+            "Stage QA level. 'standard' runs automatically; 'deep' increases "
+            "sampling and seam coverage; 'off' disables new stage reports."
+        ),
+    )
     return parser
 
 
@@ -140,6 +149,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         merge_row_group_size=args.merge_row_group_size,
         merge_temp_directory=args.merge_temp_directory,
         topo_fit_mode=args.topo_fit_mode,
+        qa_mode=args.qa_mode,
     )
 
     target = args.base_folder.resolve()
