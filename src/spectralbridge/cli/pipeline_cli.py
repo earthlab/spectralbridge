@@ -119,8 +119,9 @@ def _build_parser() -> argparse.ArgumentParser:
         choices=["off", "standard", "deep"],
         default="standard",
         help=(
-            "Stage QA level. 'standard' runs automatically; 'deep' increases "
-            "sampling and seam coverage; 'off' disables new stage reports."
+            "Stage QA level. 'standard' (default) and 'deep' run after the "
+            "flightline has finished, reading on-disk stage products; 'off' "
+            "skips the new stage reports but still writes the legacy QA panel."
         ),
     )
     return parser

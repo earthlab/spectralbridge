@@ -2424,19 +2424,41 @@ def _emit_stage_qa_safe(*, qa_mode: str, **kwargs) -> None:
         )
 
 
-def _assemble_combined_qa_safe(*, qa_mode: str, flightline_dir: Path) -> None:
-    if qa_mode == "off":
-        return
-    try:
-        from spectralbridge.qa import assemble_combined_report
+def _run_end_of_pipeline_qa(
+    *,
+    qa_mode: str,
+    flightline_dir: Path,
+    topo_fit_mode: str,
+) -> None:
+    """Run new stage QA from on-disk artifacts, then the legacy flightline panel."""
 
-        report_path, payload = assemble_combined_report(flightline_dir)
-        logger.info("Combined QA → %s (%s)", payload.get("status"), report_path)
-    except Exception as exc:  # pragma: no cover - best-effort report assembly
-        logger.warning(
-            "Combined QA assembly failed without invalidating pipeline outputs: %s",
-            exc,
-        )
+    clean_memory("before end-of-run QA")
+    if qa_mode != "off":
+        try:
+            from spectralbridge.qa import run_completed_flightline_qa
+
+            logger.info(
+                "📊 Running stage QA from on-disk artifacts (%s) for %s",
+                qa_mode,
+                flightline_dir.name,
+            )
+            run_completed_flightline_qa(
+                flightline_dir,
+                mode=qa_mode,
+                topo_fit_mode=topo_fit_mode,
+            )
+        except Exception as exc:  # pragma: no cover - defensive for large real artifacts
+            logger.warning(
+                "Stage QA failed for %s without invalidating completed products: %s",
+                flightline_dir.name,
+                exc,
+            )
+        clean_memory("after stage QA")
+    try:
+        render_flightline_panel(flightline_dir, quick=True, save_json=True)
+    except Exception as exc:  # pragma: no cover - metrics best effort
+        logger.warning("⚠️  QA rendering failed for %s: %s", flightline_dir.name, exc)
+
 
 
 def process_one_flightline(
@@ -2472,6 +2494,8 @@ def process_one_flightline(
       4) convolve / resample to target sensors
       5) export Parquet sidecars for all reflectance ENVI outputs
       6) merge Parquet sidecars into a DuckDB master table
+      7) optional polygon extraction
+      8) stage QA from on-disk artifacts, then the legacy flightline QA panel
 
     Each stage:
       - uses get_flightline_products() for canonical file naming
@@ -2500,16 +2524,6 @@ def process_one_flightline(
         parallel_mode=parallel_mode,
     )
 
-    _emit_stage_qa_safe(
-        qa_mode=qa_mode,
-        flightline_dir=flight_paths.flight_dir,
-        stage_id="input_data",
-        inputs=[flight_paths.h5],
-        outputs=[raw_img_path, raw_hdr_path],
-        parameters={"product_code": product_code, "brightness_offset": brightness_offset},
-        primary_img=raw_img_path,
-    )
-
     clean_memory("ENVI export")
 
     flightline_dir = flight_paths.flight_dir.resolve()
@@ -2525,15 +2539,6 @@ def process_one_flightline(
         raw_hdr_path=raw_hdr_path,
         use_ndvi_brdf_bins=use_ndvi_brdf_bins,
         parallel_mode=parallel_mode,
-    )
-
-    _emit_stage_qa_safe(
-        qa_mode=qa_mode,
-        flightline_dir=flight_paths.flight_dir,
-        stage_id="correction_parameters",
-        inputs=[flight_paths.h5, raw_img_path, raw_hdr_path],
-        outputs=[correction_json_path, flight_paths.brdf_model],
-        parameters={"use_ndvi_brdf_bins": use_ndvi_brdf_bins},
     )
     if not is_valid_json(correction_json_path):
         raise RuntimeError(
@@ -2552,21 +2557,6 @@ def process_one_flightline(
         parallel_mode=parallel_mode,
     )
 
-    _emit_stage_qa_safe(
-        qa_mode=qa_mode,
-        flightline_dir=flight_paths.flight_dir,
-        stage_id="brdf_topographic_correction",
-        inputs=[flight_paths.h5, raw_img_path, raw_hdr_path, correction_json_path],
-        outputs=[corrected_img_path, corrected_hdr_path],
-        parameters={
-            "topo_fit_mode": topo_fit_mode,
-            "use_ndvi_brdf_bins": use_ndvi_brdf_bins,
-        },
-        primary_img=corrected_img_path,
-        reference_img=raw_img_path,
-        chunk_shape=(100, 100) if topo_fit_mode == "tile" else None,
-    )
-
     clean_memory("corrections")
 
     if not is_valid_envi_pair(corrected_img_path, corrected_hdr_path):
@@ -2574,7 +2564,7 @@ def process_one_flightline(
             f"Corrected ENVI invalid for {flight_stem}: {corrected_img_path}"
         )
 
-    convolution_summary = stage_convolve_all_sensors(
+    stage_convolve_all_sensors(
         base_folder=base_folder,
         product_code=product_code,
         flight_stem=flight_stem,
@@ -2595,64 +2585,7 @@ def process_one_flightline(
         extraction_mode=extraction_mode,
     )
 
-    sensor_pairs = [
-        product
-        for product in flight_paths.sensor_products.values()
-        if product.img.exists() and product.hdr.exists()
-    ]
-    sensor_outputs = [
-        path
-        for product in sensor_pairs
-        for path in (product.img, product.hdr)
-    ]
-    _emit_stage_qa_safe(
-        qa_mode=qa_mode,
-        flightline_dir=flight_paths.flight_dir,
-        stage_id="spectral_convolution",
-        inputs=[flight_paths.h5, corrected_img_path, corrected_hdr_path],
-        outputs=sensor_outputs,
-        parameters={
-            "resample_method": resample_method,
-            "stage_summary": convolution_summary,
-        },
-        primary_img=sensor_pairs[0].img if sensor_pairs else None,
-        chunk_shape=(100, 100),
-    )
-
-    table_outputs = [
-        path
-        for path in (
-            flight_paths.envi_parquet,
-            flight_paths.corrected_parquet,
-            *(product.parquet for product in sensor_pairs),
-            flight_paths.merged_parquet,
-        )
-        if path.exists()
-    ]
-    table_outputs = sorted(
-        set(table_outputs).union(flight_paths.flight_dir.glob("*.parquet"))
-    )
-    _emit_stage_qa_safe(
-        qa_mode=qa_mode,
-        flightline_dir=flight_paths.flight_dir,
-        stage_id="analysis_tables",
-        inputs=[raw_img_path, corrected_img_path, *sensor_outputs],
-        outputs=table_outputs,
-        parameters={"extraction_mode": extraction_mode or "auto"},
-    )
-
     clean_memory("convolution")
-
-    try:
-        render_flightline_panel(Path(base_folder) / flight_stem, quick=True, save_json=True)
-    except Exception as e:  # pragma: no cover - metrics best effort
-        logger.warning("⚠️  QA rendering failed for %s: %s", flight_stem, e)
-
-    _assemble_combined_qa_safe(
-        qa_mode=qa_mode,
-        flightline_dir=flight_paths.flight_dir,
-    )
-    
     # Polygon extraction stage (if polygon_path is provided)
     # This creates "sister parquets" for all existing parquet files
     if polygon_path is not None:
@@ -2713,6 +2646,12 @@ def process_one_flightline(
             )
             import traceback
             logger.debug(traceback.format_exc())
+
+    _run_end_of_pipeline_qa(
+        qa_mode=qa_mode,
+        flightline_dir=flight_paths.flight_dir,
+        topo_fit_mode=topo_fit_mode,
+    )
 
 
 class _FlightlineTask(NamedTuple):
@@ -3125,17 +3064,7 @@ def go_forth_and_multiply(
         )
         acquisition_paths = FlightlinePaths(base_folder=base_path, flight_id=flight_stem)
         acquisition_paths.flight_dir.mkdir(parents=True, exist_ok=True)
-        _emit_stage_qa_safe(
-            qa_mode=qa_mode,
-            flightline_dir=acquisition_paths.flight_dir,
-            stage_id="acquisition",
-            outputs=[h5_path],
-            parameters={
-                "site_code": site_code,
-                "year_month": year_month,
-                "product_code": product_code,
-            },
-        )
+        logger.info("⬇️  Source H5 ready for %s -> %s", flight_stem, h5_path.name)
 
     tasks = [
         _FlightlineTask(

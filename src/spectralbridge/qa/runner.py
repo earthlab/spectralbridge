@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gc
 from pathlib import Path
 from typing import Any
 
@@ -45,6 +46,7 @@ def run_completed_flightline_qa(
         force=force,
     )
     reports["acquisition"] = {"html": str(acquisition_html), "report": acquisition}
+    gc.collect()
     if raw_img is not None:
         input_html, input_report = emit_stage_qa(
             flightline_dir=flightline_dir,
@@ -56,6 +58,7 @@ def run_completed_flightline_qa(
             force=force,
         )
         reports["input_data"] = {"html": str(input_html), "report": input_report}
+        gc.collect()
     parameter_outputs = [*correction_jsons, *brdf_models]
     if parameter_outputs:
         params_html, params_report = emit_stage_qa(
@@ -70,6 +73,7 @@ def run_completed_flightline_qa(
             "html": str(params_html),
             "report": params_report,
         }
+        gc.collect()
     if raw_img is not None and corrected_img is not None:
         correction_html, correction_report = emit_stage_qa(
             flightline_dir=flightline_dir,
@@ -87,6 +91,7 @@ def run_completed_flightline_qa(
             "html": str(correction_html),
             "report": correction_report,
         }
+        gc.collect()
     if sensor_images:
         convolution_html, convolution_report = emit_stage_qa(
             flightline_dir=flightline_dir,
@@ -114,6 +119,7 @@ def run_completed_flightline_qa(
             "html": str(convolution_html),
             "report": convolution_report,
         }
+        gc.collect()
     if parquets:
         tables_html, tables_report = emit_stage_qa(
             flightline_dir=flightline_dir,
@@ -127,6 +133,7 @@ def run_completed_flightline_qa(
             "html": str(tables_html),
             "report": tables_report,
         }
+        gc.collect()
     combined_html, combined = assemble_combined_report(flightline_dir)
     reports["combined"] = {"html": str(combined_html), "report": combined}
     return reports

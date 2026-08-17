@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gc
 import hashlib
 import json
 import subprocess
@@ -11,7 +12,7 @@ from typing import Any, Iterable
 
 import numpy as np
 
-from spectralbridge.envi import hdr_to_dict, read_envi_cube
+from spectralbridge.envi import hdr_to_dict, memmap_bsq
 from spectralbridge.brightness_config import load_brightness_coefficients
 
 from .brightness import brightness_correction_metrics
@@ -230,12 +231,72 @@ def _wavelengths(header: dict[str, Any], bands: int) -> np.ndarray:
     return values if values.size == bands else np.array([], dtype=np.float64)
 
 
-def _preview(cube: np.ndarray, max_pixels: int) -> np.ndarray:
-    """Sample a band-first cube on a deterministic regular spatial grid."""
+def _header_shape(header: dict[str, Any]) -> tuple[int, int, int]:
+    """Return ``(bands, lines, samples)`` from an ENVI header."""
 
-    _, rows, cols = cube.shape
+    return (int(header["bands"]), int(header["lines"]), int(header["samples"]))
+
+
+def _preview(cube: np.ndarray, max_pixels: int) -> np.ndarray:
+    """Sample a band-first cube on a deterministic regular spatial grid.
+
+    Copies one band at a time so a memmap source is never materialized as a
+    full ``float32`` cube.
+    """
+
+    bands, rows, cols = cube.shape
     step = max(1, int(np.sqrt((rows * cols) / max(1, max_pixels))))
-    return np.asarray(cube[:, ::step, ::step], dtype=np.float32)
+    preview = np.empty(
+        (bands, (rows + step - 1) // step, (cols + step - 1) // step),
+        dtype=np.float32,
+    )
+    for band in range(bands):
+        preview[band] = np.asarray(cube[band, ::step, ::step], dtype=np.float32)
+    return preview
+
+
+def _load_spatial_preview(
+    img_path: Path,
+    header: dict[str, Any],
+    max_pixels: int,
+) -> tuple[np.ndarray, tuple[int, int, int]]:
+    """Read a bounded spatial preview from an on-disk BSQ ENVI file.
+
+    The source is memmapped and sampled band-by-band; the memmap is released
+    before the preview is returned.
+    """
+
+    cube = memmap_bsq(img_path, header)
+    try:
+        source_shape = tuple(int(dim) for dim in cube.shape)
+        preview = _preview(cube, max_pixels)
+    finally:
+        del cube
+        gc.collect()
+    return preview, source_shape
+
+
+def _representative_seams_from_path(
+    img_path: Path,
+    header: dict[str, Any],
+    *,
+    chunk_shape: tuple[int, int] | None,
+    mode: str,
+    nodata: float | None,
+) -> dict[str, Any] | None:
+    """Compute seam scores from selected bands without loading the full cube."""
+
+    cube = memmap_bsq(img_path, header)
+    try:
+        return _representative_seams(
+            cube,
+            chunk_shape=chunk_shape,
+            mode=mode,
+            nodata=nodata,
+        )
+    finally:
+        del cube
+        gc.collect()
 
 
 # Reflectance and spatial-support interpretation ----------------------------------
@@ -387,7 +448,9 @@ def _representative_seams(
         return None
     count = min(cube.shape[0], 25 if mode == "deep" else 5)
     indices = np.unique(np.linspace(0, cube.shape[0] - 1, count, dtype=int))
-    subset = np.asarray(cube[indices], dtype=np.float32)
+    subset = np.empty((indices.size, cube.shape[1], cube.shape[2]), dtype=np.float32)
+    for offset, source_index in enumerate(indices):
+        subset[offset] = np.asarray(cube[int(source_index)], dtype=np.float32)
     result = seam_score(
         subset,
         chunk_rows=chunk_rows,
@@ -553,9 +616,9 @@ def _brightness_diagnostics(
     for before_path, after_path in _brightness_pairs(output_paths):
         before_header = hdr_to_dict(before_path.with_suffix(".hdr"))
         after_header = hdr_to_dict(after_path.with_suffix(".hdr"))
-        before_cube = read_envi_cube(before_path, before_header)
-        after_cube = read_envi_cube(after_path, after_header)
-        if before_cube.shape != after_cube.shape:
+        before_shape = _header_shape(before_header)
+        after_shape = _header_shape(after_header)
+        if before_shape != after_shape:
             diagnostics.append(
                 {
                     "product": _brightness_product_label(after_path),
@@ -563,18 +626,18 @@ def _brightness_diagnostics(
                     "after_path": str(after_path),
                     "error": (
                         "Before/after shape mismatch: "
-                        f"{before_cube.shape} vs {after_cube.shape}"
+                        f"{before_shape} vs {after_shape}"
                     ),
                 }
             )
             continue
         before_preview = _unit_reflectance(
-            _preview(before_cube, max_pixels),
+            _load_spatial_preview(before_path, before_header, max_pixels)[0],
             scale_factor=_scale_factor(before_header) or 1.0,
             nodata=_nodata(before_header),
         )
         after_preview = _unit_reflectance(
-            _preview(after_cube, max_pixels),
+            _load_spatial_preview(after_path, after_header, max_pixels)[0],
             scale_factor=_scale_factor(after_header) or 1.0,
             nodata=_nodata(after_header),
         )
@@ -619,11 +682,13 @@ def emit_stage_qa(
     thresholds: QAThresholds | None = None,
     force: bool = False,
 ) -> tuple[Path, dict[str, Any]]:
-    """Emit or reuse one deterministic stage QA JSON/HTML report.
+    """Emit or reuse one deterministic stage QA JSON/HTML report from on-disk artifacts.
 
     Missing scientific inputs are recorded as ``NOT EVALUATED`` rather than
     being silently omitted.  ``mode='deep'`` increases sampling and seam-band
-    coverage but does not rerun the scientific correction itself.
+    coverage but does not rerun the scientific correction itself.  Callers
+    should invoke this after the stage product exists on disk, not while the
+    correction working set is still resident.
     """
 
     mode = mode.strip().lower()
@@ -700,25 +765,31 @@ def emit_stage_qa(
         )
         plot_paths.append(paths.overview_png.name)
 
-    primary_cube = None
+    primary_preview = None
     primary_header: dict[str, Any] | None = None
+    primary_source_shape: tuple[int, int, int] | None = None
     wavelengths = np.array([], dtype=np.float64)
+    spatial_context: dict[str, Any] | None = None
     if primary_img is not None and Path(primary_img).exists():
         primary_img = Path(primary_img)
         primary_header = hdr_to_dict(primary_img.with_suffix(".hdr"))
-        primary_cube = read_envi_cube(primary_img, primary_header)
         max_pixels = 100_000 if mode == "deep" else 25_000
+        sampled, primary_source_shape = _load_spatial_preview(
+            primary_img, primary_header, max_pixels
+        )
         primary_scale = _scale_factor(primary_header) or fallback_scale or 1.0
         nodata = _nodata(primary_header)
         if nodata is None:
             nodata = fallback_nodata
         preview = _unit_reflectance(
-            _preview(primary_cube, max_pixels),
+            sampled,
             scale_factor=primary_scale,
             nodata=nodata,
         )
-        wavelengths = _wavelengths(primary_header, primary_cube.shape[0])
-        spatial_context = spatial_plot_context(primary_header, primary_cube.shape)
+        del sampled
+        primary_preview = preview
+        wavelengths = _wavelengths(primary_header, primary_source_shape[0])
+        spatial_context = spatial_plot_context(primary_header, primary_source_shape)
         summary = reflectance_summary(preview)
         footprint = _footprint_summary(preview)
         known_bad = _known_bad_band_mask(wavelengths, preview.shape[0])
@@ -752,7 +823,7 @@ def emit_stage_qa(
             "strategy": "deterministic_regular_grid",
             "max_pixels": max_pixels,
             "sampled_shape": list(preview.shape),
-            "source_shape": list(primary_cube.shape),
+            "source_shape": list(primary_source_shape),
         }
         checks.extend(
             [
@@ -834,17 +905,19 @@ def emit_stage_qa(
 
     if (
         reference_img is not None
-        and primary_cube is not None
+        and primary_preview is not None
+        and primary_img is not None
+        and primary_source_shape is not None
         and Path(reference_img).exists()
     ):
         reference_img = Path(reference_img)
         reference_header = hdr_to_dict(reference_img.with_suffix(".hdr"))
-        reference_cube = read_envi_cube(reference_img, reference_header)
-        if reference_cube.shape != primary_cube.shape:
+        reference_shape = _header_shape(reference_header)
+        if reference_shape != primary_source_shape:
             unavailable.append(
                 {
                     "diagnostic": "paired_before_after_metrics",
-                    "reason": f"Input and output shapes differ: {reference_cube.shape} vs {primary_cube.shape}.",
+                    "reason": f"Input and output shapes differ: {reference_shape} vs {primary_source_shape}.",
                 }
             )
         else:
@@ -857,16 +930,16 @@ def emit_stage_qa(
             reference_nodata = _nodata(reference_header)
             if reference_nodata is None:
                 reference_nodata = primary_nodata
+            before_sampled, _ = _load_spatial_preview(
+                reference_img, reference_header, max_pixels
+            )
             before_preview = _unit_reflectance(
-                _preview(reference_cube, max_pixels),
+                before_sampled,
                 scale_factor=reference_scale,
                 nodata=reference_nodata,
             )
-            after_preview = _unit_reflectance(
-                _preview(primary_cube, max_pixels),
-                scale_factor=primary_scale,
-                nodata=primary_nodata,
-            )
+            del before_sampled
+            after_preview = primary_preview
             valid = np.isfinite(before_preview) & np.isfinite(after_preview)
             difference = np.where(valid, after_preview - before_preview, np.nan)
             finite_difference = difference[np.isfinite(difference)]
@@ -895,14 +968,16 @@ def emit_stage_qa(
                 )
             )
             nodata = primary_nodata
-            seam_before = _representative_seams(
-                reference_cube,
+            seam_before = _representative_seams_from_path(
+                reference_img,
+                reference_header,
                 chunk_shape=chunk_shape,
                 mode=mode,
                 nodata=nodata,
             )
-            seam_after = _representative_seams(
-                primary_cube,
+            seam_after = _representative_seams_from_path(
+                Path(primary_img),
+                primary_header or {},
                 chunk_shape=chunk_shape,
                 mode=mode,
                 nodata=nodata,
@@ -1207,6 +1282,7 @@ def emit_stage_qa(
     )
     report.write_json(paths.json)
     render_stage_html(report, paths.html)
+    gc.collect()
     return paths.html, report.to_dict()
 
 
