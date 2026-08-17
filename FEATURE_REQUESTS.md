@@ -20,6 +20,49 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P65. Repair Current Full-Suite Test Failures
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-17
+- Goal: Resolve the pasted full-suite failures without changing scientific
+  assumptions or pipeline behavior.
+- Scope:
+  - Align brightness coefficient tests and synthetic QA fixtures with the
+    currently packaged brightness coefficient JSON files.
+  - Make pipeline engine tests robust to no-op/stubbed downloads while keeping
+    real download logging intact.
+  - Confirm the stale Playwright docs assertion is already repaired locally or
+    patch it if needed.
+  - Refresh AI transparency artifacts after logging the prompt.
+- Plan:
+  - Read the failing tests, current coefficient files, and orchestration code.
+  - Apply the smallest code/test changes that restore the intended contracts.
+  - Run focused failing tests plus lightweight repository checks.
+- Outcome (2026-08-17):
+  - Confirmed the pasted Playwright assertion was already repaired locally; the
+    local test now checks the durable "Before minus after correlation." table
+    cell.
+  - Treated commit `8417135` and the packaged brightness JSON files as the
+    current source of truth, then updated brightness tests and the synthetic
+    stage-QA brightness fixture to use those current coefficients instead of
+    stale pre-update values.
+  - Made the high-level pipeline logger tolerate test stubs or no-op download
+    helpers that return `None`, while real downloads still log the returned H5
+    filename.
+  - Regenerated and verified AI transparency artifacts after logging this
+    prompt.
+  - Focused failing tests pass, and the exact pasted full command
+    `pytest -q --cov=spectralbridge --cov-branch` passes locally with 53.94%
+    coverage against the 45% floor.
+- Blockers: Ruff is not installed in the local `.venv`, so no Ruff check was
+  available.
+- Next recommended task: Decide whether checked-in real R10C brightness QA
+  artifacts should be regenerated from products produced with the newer Table
+  Mountain HLS coefficient table, or explicitly labeled as historical
+  validation artifacts.
+
 ### P64. Add Printable Combined Stage QA PDF
 
 - Priority: User-directed

@@ -5,14 +5,18 @@ from spectralbridge.brightness_config import load_brightness_coefficients
 from spectralbridge.pipelines import pipeline
 
 
-def test_tm_coefficients_use_wavelength_aligned_order() -> None:
+def test_tm_etm_coefficients_use_current_wavelength_aligned_order() -> None:
     coeffs = load_brightness_coefficients("landsat_tm_etm_to_micasense")
-    assert coeffs[2] == pytest.approx(-6.94)
-
-
-def test_etm_coefficients_use_wavelength_aligned_order() -> None:
-    coeffs = load_brightness_coefficients("landsat_tm_etm_to_micasense")
-    assert coeffs[3] == pytest.approx(-10.12)
+    assert coeffs == pytest.approx(
+        {
+            1: -2.412679,
+            2: -1.670916,
+            3: 0.694524,
+            4: -2.566724,
+            5: -1.097476,
+            6: -1.849171,
+        }
+    )
 
 
 def test_apply_landsat_brightness_darkens_negative_delta(monkeypatch: pytest.MonkeyPatch) -> None:

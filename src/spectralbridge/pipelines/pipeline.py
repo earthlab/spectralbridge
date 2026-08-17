@@ -3064,7 +3064,10 @@ def go_forth_and_multiply(
         )
         acquisition_paths = FlightlinePaths(base_folder=base_path, flight_id=flight_stem)
         acquisition_paths.flight_dir.mkdir(parents=True, exist_ok=True)
-        logger.info("⬇️  Source H5 ready for %s -> %s", flight_stem, h5_path.name)
+        h5_label = "(path not returned)"
+        if h5_path is not None:
+            h5_label = Path(h5_path).name
+        logger.info("⬇️  Source H5 ready for %s -> %s", flight_stem, h5_label)
 
     tasks = [
         _FlightlineTask(

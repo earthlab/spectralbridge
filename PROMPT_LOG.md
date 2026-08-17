@@ -172,6 +172,21 @@ Model: GPT-5
 the qa output is nice but the html is a little restrictive for summary. can you add a pdf print of the whole summary after it's produced by the html? this should have all the pages as part of a single pdf that I could download or compare to other flight line pdfs.
 ```
 
+## 2026-08-17 - repair full-suite pytest failures
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+# Files pasted by the user:
+
+## "Run pytest -q --cov=spectralbridge --cov-branch \\ .................FF.......s..…": /Users/tuff/.codex/attachments/e8f02981-3a6f-4330-aedf-bde871598404/pasted-text.txt
+
+Pasted text contains the user's request.
+
+## My request:
+```
+
 ## 2026-08-17 - add synthetic sensor regression diagnostic
 Branch: main
 AI system: OpenAI Codex

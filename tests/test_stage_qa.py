@@ -6,6 +6,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
+from spectralbridge.brightness_config import load_brightness_coefficients
 import spectralbridge.qa.plots as qa_plots
 import spectralbridge.qa.reporting as qa_reporting
 import spectralbridge.qa.runner as qa_runner
@@ -424,9 +425,9 @@ def test_convolution_stage_audits_and_plots_brightness_application(
     flight_dir = tmp_path / "NEON_TEST_BRIGHTNESS"
     flight_dir.mkdir()
     before = np.linspace(0.05, 0.8, 36, dtype=np.float32).reshape(3, 3, 4)
-    coefficients = [-7.395941, -2.754196, -6.936788]
+    coefficients = load_brightness_coefficients("landsat_to_micasense")
     after = before.copy()
-    for index, percent in enumerate(coefficients):
+    for index, percent in enumerate(coefficients[band] for band in (1, 2, 3)):
         after[index] *= 1.0 + percent / 100.0
     final = flight_dir / f"{flight_dir.name}_landsat_tm_envi.img"
     undarkened = flight_dir / f"{flight_dir.name}_landsat_tm_undarkened_envi.img"
