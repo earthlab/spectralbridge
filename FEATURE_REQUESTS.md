@@ -20,6 +20,44 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P62. Synthetic Sensor Regression Plot And Coefficient Sidecar
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-17
+- Goal: Add an explicit end-of-run comparison of paired synthetic MicaSense and
+  Landsat products, with the plotted linear-regression coefficients retained
+  for inspection while empirical calibration remains deferred.
+- Scope:
+  - Reuse the existing wavelength-matched MicaSense/Landsat synthetic panels.
+  - Label the plot as a synthetic diagnostic rather than empirical calibration.
+  - Persist deterministic slope, intercept, correlation, R², and sample-count
+    records for every plotted band pair.
+  - Preserve existing PNG filenames and pipeline restart behavior.
+- Plan:
+  - Refactor the plotting regression helper to return its displayed metrics.
+  - Write one JSON sidecar beside each generated comparison panel.
+  - Add focused regression tests and document the new QA artifact.
+- Outcome (2026-08-17):
+  - Preserved the existing end-of-run MicaSense-versus-Landsat PNG filename and
+    made its title and footer explicitly identify both axes as synthetic
+    products derived from the same corrected NEON source.
+  - The plotted ordinary least-squares equation now comes from one reusable
+    metric record containing slope, intercept, correlation, R², and sample
+    count. Each PNG receives an atomic, same-stem JSON coefficient sidecar.
+  - Made DuckDB reservoir sampling repeatable with a fixed seed so repeated
+    runs produce identical coefficient records; the deterministic fallback
+    also avoids random ordering.
+  - Added focused numerical and artifact tests, including byte-identical JSON
+    regeneration. Nine targeted tests, strict MkDocs, documentation links,
+    generated-page checks, AI-transparency freshness, compilation, and visual
+    inspection pass.
+- Blockers: None.
+- Next recommended task: Later empirical translation work should supply paired
+  observed sensor measurements and blocked validation folds; it must not reuse
+  these same-source synthetic coefficients as fitted calibration evidence.
+
 ### P61. Repair Stale Topographic Validation Browser Assertion
 
 - Priority: User-directed

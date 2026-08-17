@@ -19,6 +19,7 @@
 | Merged Parquet | `<flight_id>_merged_pixel_extraction.parquet` | Master table that merges Parquet sidecars across stages into one analysis-ready spectral library. | Exactly one per flightline and treated as the primary success signal. |
 | QA artefacts | `<flight_id>_qa.png`, `<flight_id>_qa.json`, optional `<flight_id>_qa.pdf` | Visual and numeric QA summaries aligned to the merged outputs. | PNG and JSON are expected for completed runs; PDF is optional. |
 | QA metrics parquet | `<flight_id>_qa_metrics.parquet` | Structured QA metrics by band and sensor. | Emitted alongside QA outputs when QA calculation runs. |
+| Synthetic sensor regression diagnostic | `qa_plots/<merged_stem>__MS_vs_Landsat_FIXED.(png|json)` | Scatter panels compare wavelength-matched synthetic MicaSense and Landsat products; the JSON records the displayed slope, intercept, correlation, R², and sample count. | Both axes come from the same corrected NEON source. This is a descriptive convolution diagnostic, not empirical sensor calibration. |
 | Stage QA | `qa/stages/<order>_<stage>/stage_qa.(json|html)` plus optional `overview.png` | Focused report for one canonical stage with explicit checks and provenance. | Deterministic and restart-safe; missing diagnostics are recorded as `NOT EVALUATED`. |
 | Combined stage QA | `qa/combined/combined_qa.(json|html)` plus `pipeline_evolution.png` | Cross-stage status, pipeline evolution, and evidence-backed synthesis. | Does more than concatenate stage reports; unsupported translation/Landsat diagnostics remain explicit. |
 </section>

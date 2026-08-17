@@ -8,6 +8,7 @@ pipeline can emit the same QA artifacts automatically.
 
 from __future__ import annotations
 
+import json
 import re
 from importlib import resources
 from pathlib import Path
@@ -37,6 +38,14 @@ DEFAULT_EXPECTED_SETS: Dict[str, int] = {
     "MicaSense_to-match_OLI_and_OLI-2": 5,
     "MicaSense_to-match_TM_and_ETM+": 4,
 }
+
+_SYNTHETIC_REGRESSION_SCHEMA_VERSION = 1
+_SYNTHETIC_REGRESSION_SEED = 20260817
+_SYNTHETIC_REGRESSION_BOUNDARY = (
+    "Both axes are synthetic products convolved from the same corrected NEON "
+    "source. Coefficients are descriptive diagnostics, not empirical sensor "
+    "calibration."
+)
 
 
 def _load_json_resource(name: str) -> dict:
@@ -189,6 +198,7 @@ def _sample_pair_df(
     max_points: int,
     sentinel_at_or_below: float,
     extra_zero_filters: Optional[Sequence[str]] = None,
+    sample_seed: int = _SYNTHETIC_REGRESSION_SEED,
 ) -> pd.DataFrame:
     extra = ""
     if extra_zero_filters:
@@ -204,11 +214,15 @@ def _sample_pair_df(
         {extra}
     )
     """
-    q_sample = base + f"SELECT * FROM base USING SAMPLE {max_points} ROWS"
+    q_sample = (
+        base
+        + f"SELECT * FROM base USING SAMPLE {max_points} ROWS "
+        f"(reservoir, {sample_seed})"
+    )
     try:
         df = con.sql(q_sample).df()
     except Exception:
-        q_fallback = base + f"SELECT * FROM base ORDER BY random() LIMIT {max_points}"
+        q_fallback = base + f"SELECT * FROM base LIMIT {max_points}"
         df = con.sql(q_fallback).df()
     return df[(df["x"] >= 0) & (df["y"] >= 0)]
 
@@ -220,35 +234,78 @@ def _linreg(x: np.ndarray, y: np.ndarray) -> Tuple[float, float]:
     return float(m), float(b)
 
 
-def _regress_and_plot(ax: plt.Axes, x: np.ndarray, y: np.ndarray) -> float:
-    ax.plot(x, y, ".", markersize=0.8, alpha=0.3)
-    if x.size >= 2 and y.size >= 2:
-        mn = float(np.nanmin(np.column_stack([x, y])))
-        mx = float(np.nanmax(np.column_stack([x, y])))
+def _regression_metrics(
+    x: np.ndarray, y: np.ndarray
+) -> dict[str, float | int | None]:
+    """Return the ordinary least-squares values displayed on a scatter panel."""
+
+    x_values = np.asarray(x, dtype=float).reshape(-1)
+    y_values = np.asarray(y, dtype=float).reshape(-1)
+    valid = np.isfinite(x_values) & np.isfinite(y_values)
+    x_values = x_values[valid]
+    y_values = y_values[valid]
+    metrics: dict[str, float | int | None] = {
+        "slope": None,
+        "intercept": None,
+        "correlation": None,
+        "r2": None,
+        "sample_count": int(x_values.size),
+    }
+    if x_values.size < 2:
+        return metrics
+
+    slope, intercept = _linreg(x_values, y_values)
+    if not np.isfinite(slope) or not np.isfinite(intercept):
+        return metrics
+
+    predicted = slope * x_values + intercept
+    ss_res = float(np.sum((y_values - predicted) ** 2))
+    ss_tot = float(np.sum((y_values - np.mean(y_values)) ** 2))
+    correlation = float(np.corrcoef(x_values, y_values)[0, 1])
+    metrics.update(
+        {
+            "slope": slope,
+            "intercept": intercept,
+            "correlation": correlation if np.isfinite(correlation) else None,
+            "r2": 1.0 - ss_res / ss_tot if ss_tot > 0 else None,
+        }
+    )
+    return metrics
+
+
+def _regress_and_plot(
+    ax: plt.Axes, x: np.ndarray, y: np.ndarray
+) -> dict[str, float | int | None]:
+    valid = np.isfinite(x) & np.isfinite(y)
+    x_values = np.asarray(x)[valid]
+    y_values = np.asarray(y)[valid]
+    ax.plot(x_values, y_values, ".", markersize=0.8, alpha=0.3)
+    metrics = _regression_metrics(x_values, y_values)
+    if x_values.size >= 2 and y_values.size >= 2:
+        mn = float(np.nanmin(np.column_stack([x_values, y_values])))
+        mx = float(np.nanmax(np.column_stack([x_values, y_values])))
         ax.plot([mn, mx], [mn, mx], linewidth=1.0, alpha=0.5, color="gray")
 
-        m, b = _linreg(x, y)
-        if np.isfinite(m) and np.isfinite(b):
-            xx = np.linspace(np.nanmin(x), np.nanmax(x), 2)
-            yy = m * xx + b
+        slope = metrics["slope"]
+        intercept = metrics["intercept"]
+        if isinstance(slope, float) and isinstance(intercept, float):
+            xx = np.linspace(np.nanmin(x_values), np.nanmax(x_values), 2)
+            yy = slope * xx + intercept
             ax.plot(xx, yy, "--", linewidth=1.0, alpha=0.9, color="red")
-            ss_res = float(np.nansum((y - (m * x + b)) ** 2))
-            ss_tot = float(np.nansum((y - np.nanmean(y)) ** 2))
-            r2 = 1 - ss_res / ss_tot if ss_tot > 0 else float("nan")
+            r2 = metrics["r2"]
+            r2_text = f"{r2:.3f}" if isinstance(r2, float) else "not defined"
             ax.text(
                 0.02,
                 0.98,
-                f"y = {m:.3f}x + {b:.3f}\nR² = {r2:.3f}   n={x.size:,}",
+                f"y = {slope:.3f}x + {intercept:.3f}\n"
+                f"R² = {r2_text}   n={x_values.size:,}",
                 transform=ax.transAxes,
                 ha="left",
                 va="top",
                 fontsize=8,
                 bbox=dict(facecolor="white", alpha=0.5, edgecolor="none", pad=1),
             )
-    try:
-        return float(np.corrcoef(x, y)[0, 1])
-    except Exception:
-        return float("nan")
+    return metrics
 
 
 def _iter_merged_parquets(merged_dir: Path) -> List[Path]:
@@ -375,11 +432,15 @@ def make_sensor_vs_neon_panels(
                             ax.set_ylabel("")
                         continue
 
-                    r_val = _regress_and_plot(ax, df["x"].to_numpy(), df["y"].to_numpy())
+                    regression = _regress_and_plot(
+                        ax, df["x"].to_numpy(), df["y"].to_numpy()
+                    )
+                    r_value = regression["correlation"]
+                    r_text = f"{r_value:.2f}" if isinstance(r_value, float) else "NA"
                     sensor_text = _sensor_band_text(lab, idx)
                     corrected_text = _corrected_band_text(corrected, idx)
                     ax.set_title(
-                        f"{sensor_text} vs {corrected_text}  r={r_val:.2f}",
+                        f"{sensor_text} vs {corrected_text}  r={r_text}",
                         fontsize=9,
                     )
                     ax.set_xlabel(corrected_text, fontsize=8)
@@ -480,6 +541,7 @@ def make_micasense_vs_landsat_panels(
                 figsize=(4.0 * n_cols, 3.6 * n_rows),
                 squeeze=False,
             )
+            regression_records: list[dict[str, object]] = []
 
             for r, (ms_label, ls_label) in enumerate(ordered_pairs):
                 indices = ms_pairs[(ms_label, ls_label)]
@@ -512,10 +574,24 @@ def make_micasense_vs_landsat_panels(
                         ax.axis("off")
                         continue
 
-                    r_val = _regress_and_plot(ax, df["x"].to_numpy(), df["y"].to_numpy())
+                    regression = _regress_and_plot(
+                        ax, df["x"].to_numpy(), df["y"].to_numpy()
+                    )
+                    regression_records.append(
+                        {
+                            "micasense_sensor": ms_label,
+                            "landsat_sensor": ls_label,
+                            "band_index": idx,
+                            "x_column": xcol,
+                            "y_column": ycol,
+                            **regression,
+                        }
+                    )
+                    r_value = regression["correlation"]
+                    r_text = f"{r_value:.2f}" if isinstance(r_value, float) else "NA"
                     ms_text = _sensor_band_text(ms_label, idx)
                     ls_text = _sensor_band_text(ls_label, idx)
-                    ax.set_title(f"{ls_text} vs {ms_text}  r={r_val:.2f}", fontsize=9)
+                    ax.set_title(f"{ls_text} vs {ms_text}  r={r_text}", fontsize=9)
                     ax.set_xlabel(ms_text, fontsize=8)
                     if c == 0:
                         ax.set_ylabel(ls_text, fontsize=8)
@@ -523,15 +599,43 @@ def make_micasense_vs_landsat_panels(
                         ax.set_ylabel("")
 
             fig.suptitle(
-                f"{parquet.stem} — MicaSense (X) vs Landsat (Y) bands",
+                f"{parquet.stem} — synthetic MicaSense (X) vs synthetic Landsat (Y)",
                 y=0.995,
                 fontsize=12,
             )
-            fig.tight_layout()
+            fig.text(
+                0.5,
+                0.005,
+                _SYNTHETIC_REGRESSION_BOUNDARY,
+                ha="center",
+                va="bottom",
+                fontsize=8,
+            )
+            fig.tight_layout(rect=(0, 0.035, 1, 0.97))
 
             out_png = out_path / f"{parquet.stem}__MS_vs_Landsat_FIXED.png"
             fig.savefig(out_png, dpi=200, bbox_inches="tight")
             plt.close(fig)
+            sidecar = {
+                "schema_version": _SYNTHETIC_REGRESSION_SCHEMA_VERSION,
+                "diagnostic": "synthetic_sensor_linear_regression",
+                "evidence_boundary": _SYNTHETIC_REGRESSION_BOUNDARY,
+                "source_parquet": parquet.name,
+                "plot": out_png.name,
+                "sampling": {
+                    "method": "duckdb_reservoir",
+                    "seed": _SYNTHETIC_REGRESSION_SEED,
+                    "max_points_per_band_pair": max_points,
+                },
+                "regressions": regression_records,
+            }
+            out_json = out_png.with_suffix(".json")
+            tmp_json = out_json.with_suffix(f"{out_json.suffix}.tmp")
+            tmp_json.write_text(
+                json.dumps(sidecar, indent=2, sort_keys=True, allow_nan=False) + "\n",
+                encoding="utf-8",
+            )
+            tmp_json.replace(out_json)
             outputs.append(out_png)
     finally:
         con.close()
@@ -543,4 +647,3 @@ __all__ = [
     "make_sensor_vs_neon_panels",
     "make_micasense_vs_landsat_panels",
 ]
-

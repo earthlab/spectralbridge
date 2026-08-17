@@ -154,6 +154,15 @@ Found 12 errors.
 Error: Process completed with exit code 1.
 ```
 
+## 2026-08-17 - add synthetic sensor regression diagnostic
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+can you add a plot of the synthetic products and the linear regression coefficients for that plot? we'll work on the rest later.
+```
+
 ## 2026-08-14 - clarify NEON-mediated drone-to-Landsat translation
 Branch: main
 
