@@ -16,7 +16,7 @@
         <link rel="prev" href="../faq/">
       
       
-        <link rel="next" href="neon_download/">
+        <link rel="next" href="real-data-example/">
       
       
         
@@ -1105,6 +1105,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how-to-use-this-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to use this section
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#current-evidence" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1120,6 +1131,17 @@
     <span class="md-ellipsis">
       
         Two validation tiers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-figures-from-the-real-test-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example figures from the real test run
       
     </span>
   </a>
@@ -1163,6 +1185,62 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1180,10 +1258,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
             
   
   
@@ -1201,8 +1279,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1990,6 +2068,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../reference/validation/" class="md-nav__link">
         
   
@@ -2596,6 +2730,14 @@
 
 <h1 id="validation-evidence">Validation evidence<a class="headerlink" href="#validation-evidence" title="Permanent link">&para;</a></h1>
 <p>This section records how SpectralBridge functions behave across explicit input variations. Each row comes from a machine-readable campaign result rather than a hand-written success claim.</p>
+<h2 id="how-to-use-this-section">How to use this section<a class="headerlink" href="#how-to-use-this-section" title="Permanent link">&para;</a></h2>
+<p>Validation is presented in three connected layers:</p>
+<ol>
+<li><strong>Module contract pages</strong> explain the inputs varied, every Boolean check, every recorded diagnostic, and the limits of the evidence.</li>
+<li><strong><a href="stage-qa-guide/">Stage QA test guide</a></strong> explains the checks emitted by a completed pipeline in acquisition-to-table order.</li>
+<li><strong><a href="real-data-example/">Real flightline walkthrough</a></strong> interprets one 2.4 GB R10C run and links its complete HTML and JSON reports.</li>
+</ol>
+<p>A green offline contract does not imply scientific validation. A real stage <code>WARN</code> does not imply a crash. Read the stated evidence boundary on each page before comparing statuses.</p>
 <h2 id="current-evidence">Current evidence<a class="headerlink" href="#current-evidence" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2605,7 +2747,8 @@
 <th style="text-align: right;">Passed</th>
 <th style="text-align: right;">Failed</th>
 <th style="text-align: right;">Skipped</th>
-<th>Results</th>
+<th>Detailed test guide</th>
+<th>Real stage QA</th>
 </tr>
 </thead>
 <tbody>
@@ -2615,7 +2758,8 @@
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td><a href="neon_download/">Open module evidence</a></td>
+<td><a href="neon_download/">Inputs, checks, and results</a></td>
+<td><a href="stage-qa-guide/#acquisition">Matching stage</a></td>
 </tr>
 <tr>
 <td>HDF5 to raw ENVI</td>
@@ -2623,7 +2767,8 @@
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td><a href="h5_to_envi/">Open module evidence</a></td>
+<td><a href="h5_to_envi/">Inputs, checks, and results</a></td>
+<td><a href="stage-qa-guide/#input-reflectance">Matching stage</a></td>
 </tr>
 <tr>
 <td>Topographic correction</td>
@@ -2631,7 +2776,8 @@
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td><a href="topographic_correction/">Open module evidence</a></td>
+<td><a href="topographic_correction/">Inputs, checks, and results</a></td>
+<td><a href="stage-qa-guide/#brdf-and-topographic-correction">Matching stage</a></td>
 </tr>
 <tr>
 <td>BRDF correction</td>
@@ -2639,7 +2785,8 @@
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td><a href="brdf_correction/">Open module evidence</a></td>
+<td><a href="brdf_correction/">Inputs, checks, and results</a></td>
+<td><a href="stage-qa-guide/#correction-parameters">Matching stage</a></td>
 </tr>
 <tr>
 <td>Sensor convolution</td>
@@ -2647,7 +2794,8 @@
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td><a href="sensor_convolution/">Open module evidence</a></td>
+<td><a href="sensor_convolution/">Inputs, checks, and results</a></td>
+<td><a href="stage-qa-guide/#spectral-convolution-and-brightness">Matching stage</a></td>
 </tr>
 <tr>
 <td>Parquet extraction and CSV conversion</td>
@@ -2655,7 +2803,8 @@
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td><a href="parquet_csv/">Open module evidence</a></td>
+<td><a href="parquet_csv/">Inputs, checks, and results</a></td>
+<td><a href="stage-qa-guide/#parquet-extraction-and-merge">Matching stage</a></td>
 </tr>
 <tr>
 <td>Save and restart behavior</td>
@@ -2663,7 +2812,8 @@
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td><a href="save_restart/">Open module evidence</a></td>
+<td><a href="save_restart/">Inputs, checks, and results</a></td>
+<td><a href="stage-qa-guide/#acquisition">Matching stage</a></td>
 </tr>
 <tr>
 <td>QA plots and diagnostics</td>
@@ -2671,7 +2821,8 @@
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td><a href="qa_plots/">Open module evidence</a></td>
+<td><a href="qa_plots/">Inputs, checks, and results</a></td>
+<td><a href="stage-qa-guide/">Matching stage</a></td>
 </tr>
 </tbody>
 </table>
@@ -2681,6 +2832,27 @@
 <li><strong>Live NEON campaign:</strong> opt-in real data selected from a pinned inventory. It measures download reliability, full-stage behavior, correction support, performance, and QA usefulness across sites and acquisition conditions.</li>
 </ol>
 <p>These tiers must remain separate. Repeating synthetic inputs 100 times can expose numerical and state bugs, but it cannot establish network reliability or scientific validity across 100 real flightlines.</p>
+<h2 id="example-figures-from-the-real-test-run">Example figures from the real test run<a class="headerlink" href="#example-figures-from-the-real-test-run" title="Permanent link">&para;</a></h2>
+<p>The figures below are generated artifacts from R10C · D10 · L002 · 2021-09-15. Their axes and map scales follow plot-contract version 1.1 so later runs can be compared directly.</p>
+<div class="sb-validation-grid">
+  <figure class="sb-validation-figure">
+    <a href="artifacts/r10c-l002-20210915/qa/stages/01_input_data/overview.png"><img src="artifacts/r10c-l002-20210915/qa/stages/01_input_data/overview.png" alt="R10C input reflectance overview" loading="lazy"></a>
+    <figcaption>The real exported ENVI is reviewed spatially and spectrally after scale and NoData metadata are applied.</figcaption>
+  </figure>
+  <figure class="sb-validation-figure">
+    <a href="artifacts/r10c-l002-20210915/qa/stages/03_brdf_topographic_correction/overview.png"><img src="artifacts/r10c-l002-20210915/qa/stages/03_brdf_topographic_correction/overview.png" alt="R10C before and after correction overview" loading="lazy"></a>
+    <figcaption>Matched maps and spectra show the combined persisted BRDF/topographic result; the pipeline does not store a topo-only intermediate.</figcaption>
+  </figure>
+  <figure class="sb-validation-figure">
+    <a href="artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/brightness.png"><img src="artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/brightness.png" alt="R10C Landsat ETM+ brightness audit" loading="lazy"></a>
+    <figcaption>Configured and fitted brightness adjustments overlap; this verifies application, not scientific optimality of the coefficients.</figcaption>
+  </figure>
+  <figure class="sb-validation-figure">
+    <a href="artifacts/r10c-l002-20210915/qa/stages/05_analysis_tables/overview.png"><img src="artifacts/r10c-l002-20210915/qa/stages/05_analysis_tables/overview.png" alt="R10C Parquet extraction and merge overview" loading="lazy"></a>
+    <figcaption>The real run compares rows, schema width, and file size for 18 readable extracted and merged tables.</figcaption>
+  </figure>
+</div>
+
 <h2 id="recorded-campaigns">Recorded campaigns<a class="headerlink" href="#recorded-campaigns" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

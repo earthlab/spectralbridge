@@ -1070,6 +1070,62 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1091,10 +1147,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
             
   
   
@@ -1112,8 +1168,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1302,6 +1358,56 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-this-module-test-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What this module test exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What this module test exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inputs-varied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inputs varied
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checks-and-how-to-interpret-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checks and how to interpret them
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnostics-recorded-for-every-variation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostics recorded for every variation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#input-variations-and-results" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1313,10 +1419,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-this-tells-us-about-qa" class="md-nav__link">
+  <a href="#what-a-passing-result-establishes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this tells us about QA
+        What a passing result establishes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-from-the-real-r10c-test-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example from the real R10C test run
       
     </span>
   </a>
@@ -1992,6 +2109,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/validation/" class="md-nav__link">
         
   
@@ -2602,6 +2775,86 @@
 <p class="admonition-title">Evidence boundary</p>
 <p>The current checked-in campaign uses small synthetic or already-present inputs and does not contact NEON. It validates software contracts and diagnostics, not real-flightline scientific accuracy.</p>
 </div>
+<h2 id="what-this-module-test-exercises">What this module test exercises<a class="headerlink" href="#what-this-module-test-exercises" title="Permanent link">&para;</a></h2>
+<p>Compare spectral convolution with an independently calculated weighted average while varying source and target band counts.</p>
+<p><strong>Implementation exercised:</strong> <code>resample_chunk_to_sensor</code></p>
+<h3 id="inputs-varied">Inputs varied<a class="headerlink" href="#inputs-varied" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it is recorded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>input_shape_y_x_b</code></td>
+<td>Varies spatial size and source wavelength count.</td>
+</tr>
+<tr>
+<td><code>target_band_count</code></td>
+<td>Varies the number of target spectral responses.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="checks-and-how-to-interpret-them">Checks and how to interpret them<a class="headerlink" href="#checks-and-how-to-interpret-them" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Question</th>
+<th>PASS means</th>
+<th>If it does not pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>output_band_count_correct</code></td>
+<td>Does output contain one band per supplied response function?</td>
+<td>The final axis equals the target response count.</td>
+<td>Inspect response iteration and output allocation.</td>
+</tr>
+<tr>
+<td><code>weighted_average_matches_reference</code></td>
+<td>Does convolution match an independent normalized-weight calculation?</td>
+<td>Maximum absolute difference is at most <code>2e-7</code>.</td>
+<td>Inspect response normalization, wavelength alignment, and axis order.</td>
+</tr>
+<tr>
+<td><code>dtype_is_float32</code></td>
+<td>Does convolution retain the expected compact datatype?</td>
+<td>Output dtype is float32.</td>
+<td>Review NumPy promotion and memory cost.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="diagnostics-recorded-for-every-variation">Diagnostics recorded for every variation<a class="headerlink" href="#diagnostics-recorded-for-every-variation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it is recorded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>output_shape</code></td>
+<td>Observed target cube dimensions.</td>
+</tr>
+<tr>
+<td><code>max_absolute_error</code></td>
+<td>Difference from the independent reference.</td>
+</tr>
+<tr>
+<td><code>output_min</code></td>
+<td>Minimum convolved reflectance in the fixture.</td>
+</tr>
+<tr>
+<td><code>output_max</code></td>
+<td>Maximum convolved reflectance in the fixture.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="input-variations-and-results">Input variations and results<a class="headerlink" href="#input-variations-and-results" title="Permanent link">&para;</a></h2>
 <p>On narrow screens, scroll the table horizontally to see every diagnostic and check.</p>
 <table>
@@ -2652,8 +2905,26 @@
 </tr>
 </tbody>
 </table>
-<h2 id="what-this-tells-us-about-qa">What this tells us about QA<a class="headerlink" href="#what-this-tells-us-about-qa" title="Permanent link">&para;</a></h2>
-<p>Surface numerical error against an independent weighted-average reference, output range, and target-band support. QA should flag missing or near-zero spectral-response support.</p>
+<h2 id="what-a-passing-result-establishes">What a passing result establishes<a class="headerlink" href="#what-a-passing-result-establishes" title="Permanent link">&para;</a></h2>
+<p>Band-count, weighting, precision, and dtype contracts.</p>
+<div class="admonition warning">
+<p class="admonition-title">What it does not establish</p>
+<p>Scientific adequacy of a particular sensor response curve.</p>
+</div>
+<p>The matching real stage checks are explained in the <a href="../stage-qa-guide/#spectral-convolution-and-brightness">stage QA test guide</a>.</p>
+<h2 id="example-from-the-real-r10c-test-run">Example from the real R10C test run<a class="headerlink" href="#example-from-the-real-r10c-test-run" title="Permanent link">&para;</a></h2>
+<div class="sb-validation-grid">
+  <figure class="sb-validation-figure">
+    <a href="../artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/overview.png"><img src="../artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/overview.png" alt="R10C convolved sensor overview" loading="lazy"></a>
+    <figcaption>The real stage uses the same spatial/spectral support diagnostics as other reflectance products.</figcaption>
+  </figure>
+  <figure class="sb-validation-figure">
+    <a href="../artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/brightness.png"><img src="../artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/brightness.png" alt="R10C Landsat ETM+ brightness audit" loading="lazy"></a>
+    <figcaption>Configured and fitted brightness adjustments overlap; this verifies application, not scientific optimality of the coefficients.</figcaption>
+  </figure>
+</div>
+
+<p>The figure is evidence from one completed flightline, not a replacement for the variation table above. Open the <a href="../real-data-example/">real flightline walkthrough</a> for exact values and limitations.</p>
 <h2 id="expansion-to-100-real-variations">Expansion to 100 real variations<a class="headerlink" href="#expansion-to-100-real-variations" title="Permanent link">&para;</a></h2>
 <p>The repository includes a <a href="https://github.com/earthlab/spectralbridge/blob/main/validation/campaigns/neon-live-100.example.json">live 100-flightline campaign specification</a>. It requires a pinned inventory of real flightline IDs plus an explicit compute, storage, and network allocation. Live results must be stored as a new campaign record; they must not overwrite this offline baseline.</p>
 <h2 id="reproduce-or-expand-this-module">Reproduce or expand this module<a class="headerlink" href="#reproduce-or-expand-this-module" title="Permanent link">&para;</a></h2>

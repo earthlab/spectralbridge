@@ -1070,6 +1070,62 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1091,10 +1147,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
             
   
   
@@ -1112,8 +1168,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1218,6 +1274,56 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-this-module-test-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What this module test exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What this module test exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inputs-varied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inputs varied
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checks-and-how-to-interpret-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checks and how to interpret them
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnostics-recorded-for-every-variation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostics recorded for every variation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#input-variations-and-results" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1229,10 +1335,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-this-tells-us-about-qa" class="md-nav__link">
+  <a href="#what-a-passing-result-establishes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this tells us about QA
+        What a passing result establishes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-from-the-real-r10c-test-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example from the real R10C test run
       
     </span>
   </a>
@@ -1992,6 +2109,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/validation/" class="md-nav__link">
         
   
@@ -2602,6 +2775,90 @@
 <p class="admonition-title">Evidence boundary</p>
 <p>The current checked-in campaign uses small synthetic or already-present inputs and does not contact NEON. It validates software contracts and diagnostics, not real-flightline scientific accuracy.</p>
 </div>
+<h2 id="what-this-module-test-exercises">What this module test exercises<a class="headerlink" href="#what-this-module-test-exercises" title="Permanent link">&para;</a></h2>
+<p>Verify that a NEON-layout HDF5 reflectance cube becomes a band-sequential float32 ENVI image with matching dimensions, values, and a readable header.</p>
+<p><strong>Implementation exercised:</strong> <code>neon_to_envi_no_hytools</code> and <code>EnviWriter</code></p>
+<h3 id="inputs-varied">Inputs varied<a class="headerlink" href="#inputs-varied" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it is recorded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shape_y_x_b</code></td>
+<td>Varies lines, samples, and spectral band count.</td>
+</tr>
+<tr>
+<td><code>brightness_offset</code></td>
+<td>Exercises zero and small explicit export offsets.</td>
+</tr>
+<tr>
+<td><code>site_code</code></td>
+<td>Varies realistic flightline naming metadata.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="checks-and-how-to-interpret-them">Checks and how to interpret them<a class="headerlink" href="#checks-and-how-to-interpret-them" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Question</th>
+<th>PASS means</th>
+<th>If it does not pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shape_preserved</code></td>
+<td>Did conversion preserve lines, samples, and bands?</td>
+<td>The reconstructed ENVI array has the same Y×X×band shape as the source.</td>
+<td>Inspect axis order, header dimensions, and BSQ serialization.</td>
+</tr>
+<tr>
+<td><code>float32_bsq_values_preserved</code></td>
+<td>Do stored values match an independent expected array?</td>
+<td>Maximum absolute error is at most <code>1e-7</code> after applying the configured offset.</td>
+<td>Inspect scaling, axis transposition, datatype, and chunk writes.</td>
+</tr>
+<tr>
+<td><code>header_written</code></td>
+<td>Was a non-empty ENVI header produced?</td>
+<td>The <code>.hdr</code> exists and contains bytes.</td>
+<td>Do not run downstream correction until dimensions and metadata parse correctly.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="diagnostics-recorded-for-every-variation">Diagnostics recorded for every variation<a class="headerlink" href="#diagnostics-recorded-for-every-variation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it is recorded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shape</code></td>
+<td>Observed ENVI shape after independent read-back.</td>
+</tr>
+<tr>
+<td><code>max_absolute_error</code></td>
+<td>Largest source-versus-output value difference.</td>
+</tr>
+<tr>
+<td><code>output_bytes</code></td>
+<td>ENVI image size used to catch incomplete writes.</td>
+</tr>
+<tr>
+<td><code>header_bytes</code></td>
+<td>Header size used as a minimal persistence check.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="input-variations-and-results">Input variations and results<a class="headerlink" href="#input-variations-and-results" title="Permanent link">&para;</a></h2>
 <p>On narrow screens, scroll the table horizontally to see every diagnostic and check.</p>
 <table>
@@ -2652,8 +2909,22 @@
 </tr>
 </tbody>
 </table>
-<h2 id="what-this-tells-us-about-qa">What this tells us about QA<a class="headerlink" href="#what-this-tells-us-about-qa" title="Permanent link">&para;</a></h2>
-<p>Compare source and output dimensions, value error, wavelength/header integrity, and NoData handling. These checks should become visible in ENVI/header QA summaries.</p>
+<h2 id="what-a-passing-result-establishes">What a passing result establishes<a class="headerlink" href="#what-a-passing-result-establishes" title="Permanent link">&para;</a></h2>
+<p>Small-cube axis, datatype, value, and header contracts.</p>
+<div class="admonition warning">
+<p class="admonition-title">What it does not establish</p>
+<p>Performance on full flightlines or completeness of every provider-specific HDF5 metadata field.</p>
+</div>
+<p>The matching real stage checks are explained in the <a href="../stage-qa-guide/#input-reflectance">stage QA test guide</a>.</p>
+<h2 id="example-from-the-real-r10c-test-run">Example from the real R10C test run<a class="headerlink" href="#example-from-the-real-r10c-test-run" title="Permanent link">&para;</a></h2>
+<div class="sb-validation-grid">
+  <figure class="sb-validation-figure">
+    <a href="../artifacts/r10c-l002-20210915/qa/stages/01_input_data/overview.png"><img src="../artifacts/r10c-l002-20210915/qa/stages/01_input_data/overview.png" alt="R10C input reflectance overview" loading="lazy"></a>
+    <figcaption>The real exported ENVI is reviewed spatially and spectrally after scale and NoData metadata are applied.</figcaption>
+  </figure>
+</div>
+
+<p>The figure is evidence from one completed flightline, not a replacement for the variation table above. Open the <a href="../real-data-example/">real flightline walkthrough</a> for exact values and limitations.</p>
 <h2 id="expansion-to-100-real-variations">Expansion to 100 real variations<a class="headerlink" href="#expansion-to-100-real-variations" title="Permanent link">&para;</a></h2>
 <p>The repository includes a <a href="https://github.com/earthlab/spectralbridge/blob/main/validation/campaigns/neon-live-100.example.json">live 100-flightline campaign specification</a>. It requires a pinned inventory of real flightline IDs plus an explicit compute, storage, and network allocation. Live results must be stored as a new campaign record; they must not overwrite this offline baseline.</p>
 <h2 id="reproduce-or-expand-this-module">Reproduce or expand this module<a class="headerlink" href="#reproduce-or-expand-this-module" title="Permanent link">&para;</a></h2>

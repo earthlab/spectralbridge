@@ -1067,6 +1067,62 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../validation/real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1081,10 +1137,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
             
   
   
@@ -1102,8 +1158,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1905,6 +1961,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../validation/" class="md-nav__link">
         
   
@@ -2631,10 +2743,10 @@ for the package's standard geometry assumptions, but it is still hyperspectral.
 Applying an experimental correction before convolution lets the same corrected
 spectrum feed Landsat, MicaSense, and other target responses.</p>
 <div class="highlight"><pre><span></span><code>flowchart LR
-    A[&quot;Raw ENVI&quot;] --&gt; B[&quot;Standard topo + BRDF&quot;]
-    B --&gt; C[&quot;Your custom hyperspectral correction&quot;]
-    C --&gt; D[&quot;Sensor convolution&quot;]
-    D --&gt; E[&quot;Parquet + QA&quot;]
+    A["Raw ENVI"] --&gt; B["Standard topo + BRDF"]
+    B --&gt; C["Your custom hyperspectral correction"]
+    C --&gt; D["Sensor convolution"]
+    D --&gt; E["Parquet + QA"]
 </code></pre></div>
 <p>Do not patch functions in the installed module at runtime. Call the stages in
 order and pass explicit paths. Runtime monkeypatching makes provenance and
@@ -2668,9 +2780,9 @@ underscores; include a method version when behavior may change.</p>
     <span class="n">stage_export_envi_from_h5</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">base_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;outputs/custom_scs_v1&quot;</span><span class="p">)</span>
-<span class="n">flight_stem</span> <span class="o">=</span> <span class="s2">&quot;NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance&quot;</span>
-<span class="n">product_code</span> <span class="o">=</span> <span class="s2">&quot;DP1.30006.001&quot;</span>
+<span class="n">base_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"outputs/custom_scs_v1"</span><span class="p">)</span>
+<span class="n">flight_stem</span> <span class="o">=</span> <span class="s2">"NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance"</span>
+<span class="n">product_code</span> <span class="o">=</span> <span class="s2">"DP1.30006.001"</span>
 
 <span class="n">raw_img</span><span class="p">,</span> <span class="n">raw_hdr</span> <span class="o">=</span> <span class="n">stage_export_envi_from_h5</span><span class="p">(</span>
     <span class="n">base_folder</span><span class="o">=</span><span class="n">base_folder</span><span class="p">,</span>
@@ -2695,8 +2807,8 @@ underscores; include a method version when behavior may change.</p>
 
 <span class="c1"># Implement this in your analysis code. It must write both paths and preserve</span>
 <span class="c1"># spatial shape, wavelength order, map information, NoData semantics, and scale.</span>
-<span class="n">custom_img</span> <span class="o">=</span> <span class="n">base_folder</span> <span class="o">/</span> <span class="n">flight_stem</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">flight_stem</span><span class="si">}</span><span class="s2">_brdfandtopo_custom_scs_v1_envi.img&quot;</span>
-<span class="n">custom_hdr</span> <span class="o">=</span> <span class="n">custom_img</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.hdr&quot;</span><span class="p">)</span>
+<span class="n">custom_img</span> <span class="o">=</span> <span class="n">base_folder</span> <span class="o">/</span> <span class="n">flight_stem</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">flight_stem</span><span class="si">}</span><span class="s2">_brdfandtopo_custom_scs_v1_envi.img"</span>
+<span class="n">custom_hdr</span> <span class="o">=</span> <span class="n">custom_img</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">".hdr"</span><span class="p">)</span>
 <span class="n">apply_custom_correction</span><span class="p">(</span>
     <span class="n">input_img</span><span class="o">=</span><span class="n">standard_img</span><span class="p">,</span>
     <span class="n">input_hdr</span><span class="o">=</span><span class="n">standard_hdr</span><span class="p">,</span>
@@ -2710,8 +2822,8 @@ underscores; include a method version when behavior may change.</p>
     <span class="n">flight_stem</span><span class="o">=</span><span class="n">flight_stem</span><span class="p">,</span>
     <span class="n">corrected_img_path</span><span class="o">=</span><span class="n">custom_img</span><span class="p">,</span>
     <span class="n">corrected_hdr_path</span><span class="o">=</span><span class="n">custom_hdr</span><span class="p">,</span>
-    <span class="n">resample_method</span><span class="o">=</span><span class="s2">&quot;convolution&quot;</span><span class="p">,</span>
-    <span class="n">extraction_mode</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">,</span>
+    <span class="n">resample_method</span><span class="o">=</span><span class="s2">"convolution"</span><span class="p">,</span>
+    <span class="n">extraction_mode</span><span class="o">=</span><span class="s2">"full"</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>The stage imports are lower-level interfaces intended for controlled research

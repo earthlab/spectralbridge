@@ -1171,6 +1171,62 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../validation/real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1185,10 +1241,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
             
   
   
@@ -1206,8 +1262,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1995,6 +2051,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/validation/" class="md-nav__link">
         
   
@@ -2626,17 +2738,17 @@ view, and solar geometry.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_drone_pipeline</span>
 
 <span class="n">results</span> <span class="o">=</span> <span class="n">run_drone_pipeline</span><span class="p">(</span>
-    <span class="n">input_h5_dir</span><span class="o">=</span><span class="s2">&quot;drone_inputs&quot;</span><span class="p">,</span>
-    <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;drone_outputs&quot;</span><span class="p">,</span>
+    <span class="n">input_h5_dir</span><span class="o">=</span><span class="s2">"drone_inputs"</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s2">"drone_outputs"</span><span class="p">,</span>
     <span class="n">polygon_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">apply_topo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">apply_brdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">require_solar_geometry</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;processed&quot;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;failed&quot;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;qa_summary&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"processed"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"failed"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"qa_summary"</span><span class="p">])</span>
 </code></pre></div>
 <p>Set <code>polygon_path</code> to a supported vector file only when polygon extraction is
 part of the same run.</p>

@@ -1182,6 +1182,62 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../validation/real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1196,10 +1252,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
             
   
   
@@ -1217,8 +1273,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2006,6 +2062,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/validation/" class="md-nav__link">
         
   
@@ -2645,7 +2757,7 @@ thread engine. The same command is safe to run again.</p>
 <h2 id="confirm-the-result">Confirm the result<a class="headerlink" href="#confirm-the-result" title="Permanent link">&para;</a></h2>
 <p>Set the flightline identifier once so the expected directory is easy to inspect:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">FLIGHT</span><span class="o">=</span>NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance
-find<span class="w"> </span><span class="s2">&quot;spectralbridge_output/</span><span class="nv">$FLIGHT</span><span class="s2">&quot;</span><span class="w"> </span>-maxdepth<span class="w"> </span><span class="m">1</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort
+find<span class="w"> </span><span class="s2">"spectralbridge_output/</span><span class="nv">$FLIGHT</span><span class="s2">"</span><span class="w"> </span>-maxdepth<span class="w"> </span><span class="m">1</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort
 </code></pre></div>
 <p>A complete run normally includes:</p>
 <ul>
@@ -2662,11 +2774,11 @@ structure</a>.</p>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
 
-<span class="n">flight</span> <span class="o">=</span> <span class="s2">&quot;NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance&quot;</span>
+<span class="n">flight</span> <span class="o">=</span> <span class="s2">"NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance"</span>
 <span class="n">merged</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;spectralbridge_output&quot;</span><span class="p">)</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">"spectralbridge_output"</span><span class="p">)</span>
     <span class="o">/</span> <span class="n">flight</span>
-    <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">flight</span><span class="si">}</span><span class="s2">_merged_pixel_extraction.parquet&quot;</span>
+    <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">flight</span><span class="si">}</span><span class="s2">_merged_pixel_extraction.parquet"</span>
 <span class="p">)</span>
 
 <span class="n">preview</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">merged</span><span class="p">))</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>

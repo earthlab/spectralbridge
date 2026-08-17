@@ -1070,6 +1070,62 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1091,10 +1147,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
             
   
   
@@ -1112,8 +1168,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1386,6 +1442,56 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-this-module-test-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What this module test exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What this module test exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inputs-varied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inputs varied
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checks-and-how-to-interpret-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checks and how to interpret them
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnostics-recorded-for-every-variation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostics recorded for every variation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#input-variations-and-results" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1397,10 +1503,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-this-tells-us-about-qa" class="md-nav__link">
+  <a href="#what-a-passing-result-establishes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this tells us about QA
+        What a passing result establishes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-from-the-real-r10c-test-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example from the real R10C test run
       
     </span>
   </a>
@@ -1972,6 +2089,62 @@
     
   
     QA panels and metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
   
 
     
@@ -2602,6 +2775,100 @@
 <p class="admonition-title">Evidence boundary</p>
 <p>The current checked-in campaign uses small synthetic or already-present inputs and does not contact NEON. It validates software contracts and diagnostics, not real-flightline scientific accuracy.</p>
 </div>
+<h2 id="what-this-module-test-exercises">What this module test exercises<a class="headerlink" href="#what-this-module-test-exercises" title="Permanent link">&para;</a></h2>
+<p>Inject known correction deltas and NoData patterns, render QA, and confirm that both image and JSON diagnostics record the intended signal.</p>
+<p><strong>Implementation exercised:</strong> <code>render_flightline_panel</code> and its machine-readable QA payload</p>
+<h3 id="inputs-varied">Inputs varied<a class="headerlink" href="#inputs-varied" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it is recorded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>correction_delta</code></td>
+<td>Varies positive, negative, and zero changes.</td>
+</tr>
+<tr>
+<td><code>nodata_fraction</code></td>
+<td>Varies injected invalid support from 0% to 25%.</td>
+</tr>
+<tr>
+<td><code>shape_b_y_x</code></td>
+<td>Varies bands and spatial dimensions.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="checks-and-how-to-interpret-them">Checks and how to interpret them<a class="headerlink" href="#checks-and-how-to-interpret-them" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Question</th>
+<th>PASS means</th>
+<th>If it does not pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>png_written</code></td>
+<td>Was a non-empty visual QA artifact written?</td>
+<td>PNG exists and contains bytes.</td>
+<td>Inspect rendering dependencies, output paths, and figure closure.</td>
+</tr>
+<tr>
+<td><code>json_written</code></td>
+<td>Was a non-empty machine-readable companion written?</td>
+<td>JSON exists and contains bytes.</td>
+<td>Do not rely on the image alone; investigate serialization or path errors.</td>
+</tr>
+<tr>
+<td><code>band_count_reported</code></td>
+<td>Does QA describe the supplied spectral dimension?</td>
+<td>Reported band count equals the fixture band count.</td>
+<td>Inspect header parsing and cube orientation.</td>
+</tr>
+<tr>
+<td><code>delta_diagnostic_matches_input</code></td>
+<td>Does the reported correction magnitude recover the injected change?</td>
+<td>Median reported delta matches the known delta within numerical tolerance.</td>
+<td>Inspect NoData exclusion, scale conversion, and before/after pairing.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="diagnostics-recorded-for-every-variation">Diagnostics recorded for every variation<a class="headerlink" href="#diagnostics-recorded-for-every-variation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it is recorded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>png_bytes</code></td>
+<td>Rendered image size.</td>
+</tr>
+<tr>
+<td><code>json_bytes</code></td>
+<td>Machine-readable report size.</td>
+</tr>
+<tr>
+<td><code>median_reported_delta</code></td>
+<td>Recovered median after-minus-before change.</td>
+</tr>
+<tr>
+<td><code>reported_valid_percent</code></td>
+<td>QA-reported valid support.</td>
+</tr>
+<tr>
+<td><code>issue_count</code></td>
+<td>Number of report findings retained for review.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="input-variations-and-results">Input variations and results<a class="headerlink" href="#input-variations-and-results" title="Permanent link">&para;</a></h2>
 <p>On narrow screens, scroll the table horizontally to see every diagnostic and check.</p>
 <table>
@@ -2652,8 +2919,22 @@
 </tr>
 </tbody>
 </table>
-<h2 id="what-this-tells-us-about-qa">What this tells us about QA<a class="headerlink" href="#what-this-tells-us-about-qa" title="Permanent link">&para;</a></h2>
-<p>Verify that injected correction deltas and NoData patterns appear in machine-readable QA. Visual legibility still requires image review or approved perceptual baselines.</p>
+<h2 id="what-a-passing-result-establishes">What a passing result establishes<a class="headerlink" href="#what-a-passing-result-establishes" title="Permanent link">&para;</a></h2>
+<p>Artifact generation and recovery of deliberately injected diagnostic signals.</p>
+<div class="admonition warning">
+<p class="admonition-title">What it does not establish</p>
+<p>Human legibility across every display or scientific acceptability of a correction.</p>
+</div>
+<p>The matching real stage checks are explained in the <a href="../stage-qa-guide/">stage QA test guide</a>.</p>
+<h2 id="example-from-the-real-r10c-test-run">Example from the real R10C test run<a class="headerlink" href="#example-from-the-real-r10c-test-run" title="Permanent link">&para;</a></h2>
+<div class="sb-validation-grid">
+  <figure class="sb-validation-figure">
+    <a href="../artifacts/r10c-l002-20210915/legacy-qa.png"><img src="../artifacts/r10c-l002-20210915/legacy-qa.png" alt="R10C legacy QA panel" loading="lazy"></a>
+    <figcaption>The compatibility panel remains available alongside the more focused stage reports.</figcaption>
+  </figure>
+</div>
+
+<p>The figure is evidence from one completed flightline, not a replacement for the variation table above. Open the <a href="../real-data-example/">real flightline walkthrough</a> for exact values and limitations.</p>
 <h2 id="expansion-to-100-real-variations">Expansion to 100 real variations<a class="headerlink" href="#expansion-to-100-real-variations" title="Permanent link">&para;</a></h2>
 <p>The repository includes a <a href="https://github.com/earthlab/spectralbridge/blob/main/validation/campaigns/neon-live-100.example.json">live 100-flightline campaign specification</a>. It requires a pinned inventory of real flightline IDs plus an explicit compute, storage, and network allocation. Live results must be stored as a new campaign record; they must not overwrite this offline baseline.</p>
 <h2 id="reproduce-or-expand-this-module">Reproduce or expand this module<a class="headerlink" href="#reproduce-or-expand-this-module" title="Permanent link">&para;</a></h2>

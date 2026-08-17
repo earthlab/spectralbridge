@@ -1070,6 +1070,62 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1091,10 +1147,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
             
   
   
@@ -1112,8 +1168,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1358,6 +1414,56 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-this-module-test-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What this module test exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What this module test exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inputs-varied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inputs varied
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checks-and-how-to-interpret-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checks and how to interpret them
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnostics-recorded-for-every-variation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostics recorded for every variation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#input-variations-and-results" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1369,10 +1475,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-this-tells-us-about-qa" class="md-nav__link">
+  <a href="#what-a-passing-result-establishes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this tells us about QA
+        What a passing result establishes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-from-the-real-r10c-test-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example from the real R10C test run
       
     </span>
   </a>
@@ -1972,6 +2089,62 @@
     
   
     QA panels and metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
   
 
     
@@ -2602,6 +2775,86 @@
 <p class="admonition-title">Evidence boundary</p>
 <p>The current checked-in campaign uses small synthetic or already-present inputs and does not contact NEON. It validates software contracts and diagnostics, not real-flightline scientific accuracy.</p>
 </div>
+<h2 id="what-this-module-test-exercises">What this module test exercises<a class="headerlink" href="#what-this-module-test-exercises" title="Permanent link">&para;</a></h2>
+<p>Write one ENVI cube in separate row chunks, reconstruct it exactly, and prove that reading a reusable artifact does not modify it.</p>
+<p><strong>Implementation exercised:</strong> <code>EnviWriter</code> plus deterministic artifact hashing</p>
+<h3 id="inputs-varied">Inputs varied<a class="headerlink" href="#inputs-varied" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it is recorded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shape_y_x_b</code></td>
+<td>Varies spatial dimensions and band count.</td>
+</tr>
+<tr>
+<td><code>chunk_split_row</code></td>
+<td>Moves the internal write boundary.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="checks-and-how-to-interpret-them">Checks and how to interpret them<a class="headerlink" href="#checks-and-how-to-interpret-them" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Question</th>
+<th>PASS means</th>
+<th>If it does not pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chunked_write_reconstructs_cube</code></td>
+<td>Do independent writes reconstruct the original cube?</td>
+<td>Maximum absolute read-back error is zero.</td>
+<td>Inspect file offsets, axis order, and partial-write bounds.</td>
+</tr>
+<tr>
+<td><code>expected_byte_count</code></td>
+<td>Is the binary artifact complete for its declared shape and dtype?</td>
+<td>File bytes equal the exact float32 shape-derived count.</td>
+<td>Treat mismatch as truncation, padding, or header/data disagreement.</td>
+</tr>
+<tr>
+<td><code>read_does_not_mutate_artifact</code></td>
+<td>Is inspection itself non-destructive?</td>
+<td>SHA-256 is identical before and after read-back.</td>
+<td>Investigate accidental write mode or hidden repair behavior.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="diagnostics-recorded-for-every-variation">Diagnostics recorded for every variation<a class="headerlink" href="#diagnostics-recorded-for-every-variation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it is recorded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chunk_split_row</code></td>
+<td>Boundary between the two writes.</td>
+</tr>
+<tr>
+<td><code>image_bytes</code></td>
+<td>Observed binary size.</td>
+</tr>
+<tr>
+<td><code>max_absolute_error</code></td>
+<td>Largest reconstruction difference.</td>
+</tr>
+<tr>
+<td><code>sha256</code></td>
+<td>Post-read content digest.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="input-variations-and-results">Input variations and results<a class="headerlink" href="#input-variations-and-results" title="Permanent link">&para;</a></h2>
 <p>On narrow screens, scroll the table horizontally to see every diagnostic and check.</p>
 <table>
@@ -2652,8 +2905,22 @@
 </tr>
 </tbody>
 </table>
-<h2 id="what-this-tells-us-about-qa">What this tells us about QA<a class="headerlink" href="#what-this-tells-us-about-qa" title="Permanent link">&para;</a></h2>
-<p>Use hashes, expected byte counts, and non-mutation checks to distinguish a valid reusable artifact from a merely present file.</p>
+<h2 id="what-a-passing-result-establishes">What a passing result establishes<a class="headerlink" href="#what-a-passing-result-establishes" title="Permanent link">&para;</a></h2>
+<p>Deterministic chunk writes, complete files, and non-mutating reads.</p>
+<div class="admonition warning">
+<p class="admonition-title">What it does not establish</p>
+<p>Recovery from process termination during a write or distributed-filesystem failures.</p>
+</div>
+<p>The matching real stage checks are explained in the <a href="../stage-qa-guide/#acquisition">stage QA test guide</a>.</p>
+<h2 id="example-from-the-real-r10c-test-run">Example from the real R10C test run<a class="headerlink" href="#example-from-the-real-r10c-test-run" title="Permanent link">&para;</a></h2>
+<div class="sb-validation-grid">
+  <figure class="sb-validation-figure">
+    <a href="../artifacts/r10c-l002-20210915/qa/combined/pipeline_evolution.png"><img src="../artifacts/r10c-l002-20210915/qa/combined/pipeline_evolution.png" alt="R10C pipeline evolution summary" loading="lazy"></a>
+    <figcaption>Restart-safe stage files allow the combined report to compare persisted outputs without rerunning corrections.</figcaption>
+  </figure>
+</div>
+
+<p>The figure is evidence from one completed flightline, not a replacement for the variation table above. Open the <a href="../real-data-example/">real flightline walkthrough</a> for exact values and limitations.</p>
 <h2 id="expansion-to-100-real-variations">Expansion to 100 real variations<a class="headerlink" href="#expansion-to-100-real-variations" title="Permanent link">&para;</a></h2>
 <p>The repository includes a <a href="https://github.com/earthlab/spectralbridge/blob/main/validation/campaigns/neon-live-100.example.json">live 100-flightline campaign specification</a>. It requires a pinned inventory of real flightline IDs plus an explicit compute, storage, and network allocation. Live results must be stored as a new campaign record; they must not overwrite this offline baseline.</p>
 <h2 id="reproduce-or-expand-this-module">Reproduce or expand this module<a class="headerlink" href="#reproduce-or-expand-this-module" title="Permanent link">&para;</a></h2>

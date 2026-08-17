@@ -1061,6 +1061,62 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../validation/real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1075,10 +1131,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
             
   
   
@@ -1096,8 +1152,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1885,6 +1941,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/validation/" class="md-nav__link">
         
   
@@ -2511,13 +2623,13 @@ vignette.</p>
 <hr />
 <h2 id="1-set-up-a-working-directory">1. Set up a working directory<a class="headerlink" href="#1-set-up-a-working-directory" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="nv">BASE</span><span class="o">=</span>output_neon_to_envi
-mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASE</span><span class="s2">&quot;</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE</span><span class="s2">"</span>
 </code></pre></div>
 <hr />
 <h2 id="2-run-the-pipeline-for-one-flight-line">2. Run the pipeline for one flight line<a class="headerlink" href="#2-run-the-pipeline-for-one-flight-line" title="Permanent link">&para;</a></h2>
 <p>Here we process a single NEON hyperspectral flight line at NIWO.</p>
 <div class="highlight"><pre><span></span><code>spectralbridge-pipeline<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--base-folder<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASE</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--base-folder<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--site-code<span class="w"> </span>NIWO<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--year-month<span class="w"> </span><span class="m">2023</span>-08<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--product-code<span class="w"> </span>DP1.30006.001<span class="w"> </span><span class="se">\</span>
@@ -2558,14 +2670,14 @@ mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</
 <p>Example in Python:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">rioxarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rxr</span>
 
-<span class="n">cube</span> <span class="o">=</span> <span class="n">rxr</span><span class="o">.</span><span class="n">open_rasterio</span><span class="p">(</span><span class="s2">&quot;path/to/..._brdfandtopo_corrected_envi.img&quot;</span><span class="p">)</span>
+<span class="n">cube</span> <span class="o">=</span> <span class="n">rxr</span><span class="o">.</span><span class="n">open_rasterio</span><span class="p">(</span><span class="s2">"path/to/..._brdfandtopo_corrected_envi.img"</span><span class="p">)</span>
 <span class="n">cube</span>
 </code></pre></div>
 <p>This loads the corrected reflectance cube into an <code>xarray.DataArray</code>.</p>
 <hr />
 <h2 id="5-inspect-qa-outputs">5. Inspect QA outputs<a class="headerlink" href="#5-inspect-qa-outputs" title="Permanent link">&para;</a></h2>
 <p>Open the QA PNG:</p>
-<div class="highlight"><pre><span></span><code>open<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASE</span><span class="s2">/..._qa.png&quot;</span>
+<div class="highlight"><pre><span></span><code>open<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE</span><span class="s2">/..._qa.png"</span>
 </code></pre></div>
 <p>The QA panel includes:</p>
 <ul>

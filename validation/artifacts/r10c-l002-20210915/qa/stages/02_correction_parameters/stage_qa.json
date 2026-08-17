@@ -1,0 +1,330 @@
+{
+  "checks": [
+    {
+      "check_id": "output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_brdfandtopo_corrected_envi.json",
+      "fail_threshold": null,
+      "interpretation": "The canonical stage output exists on disk.",
+      "provisional": false,
+      "reason": null,
+      "status": "PASS",
+      "units": null,
+      "value": true,
+      "warn_threshold": null
+    },
+    {
+      "check_id": "output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_brdf_model.json",
+      "fail_threshold": null,
+      "interpretation": "The canonical stage output exists on disk.",
+      "provisional": false,
+      "reason": null,
+      "status": "PASS",
+      "units": null,
+      "value": true,
+      "warn_threshold": null
+    },
+    {
+      "check_id": "geometry_field_fraction",
+      "fail_threshold": 0.5,
+      "interpretation": "Correction QA requires the physical geometry fields used by the model.",
+      "provisional": true,
+      "reason": null,
+      "status": "PASS",
+      "units": "fraction",
+      "value": 1.0,
+      "warn_threshold": 0.99
+    },
+    {
+      "check_id": "persisted_geometry_physical_range_review",
+      "fail_threshold": null,
+      "interpretation": "Persisted geometry min/mean/max values should lie within their physical radian ranges.",
+      "provisional": false,
+      "reason": "Out-of-range summaries are retained and shown; they may indicate source no-data contamination and are not masked by QA.",
+      "status": "WARN",
+      "units": "fields",
+      "value": 4,
+      "warn_threshold": null
+    }
+  ],
+  "inputs": [
+    {
+      "exists": true,
+      "fingerprint": "74da086406277c2f331596452c15b51f8f87b33cffc9ca67426b20277ebc4e10",
+      "fingerprint_method": "sha256_size_head_tail_v1",
+      "name": "NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5",
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5",
+      "size_bytes": 2532249598
+    },
+    {
+      "exists": true,
+      "fingerprint": "cd41c2c6ce47a44652aff2ed206e0020e16b4773af85d6bc741a155919733399",
+      "fingerprint_method": "sha256_size_head_tail_v1",
+      "name": "NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_envi.img",
+      "path": "/private/tmp/spectralbridge-real-qa-fixed/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_envi.img",
+      "size_bytes": 10166685960
+    }
+  ],
+  "interpretation": [
+    "Review provisional warnings: persisted_geometry_physical_range_review."
+  ],
+  "metrics": {
+    "brdf_model_summary": {
+      "geo": {
+        "finite_count": 426,
+        "maximum": 0.0,
+        "median": 0.0,
+        "minimum": 0.0,
+        "shape": [
+          1,
+          426
+        ]
+      },
+      "iso": {
+        "finite_count": 426,
+        "maximum": 1.0,
+        "median": 0.0,
+        "minimum": 0.0,
+        "shape": [
+          1,
+          426
+        ]
+      },
+      "vol": {
+        "finite_count": 426,
+        "maximum": 0.0,
+        "median": 0.0,
+        "minimum": 0.0,
+        "shape": [
+          1,
+          426
+        ]
+      }
+    },
+    "geometry_field_fraction": 1.0,
+    "geometry_physical_range_review": {
+      "data_modified": false,
+      "fields": [
+        {
+          "expected_range_radians": [
+            0.0,
+            1.5707963267948966
+          ],
+          "field": "solar_zn",
+          "out_of_range_summaries": [],
+          "requires_review": false
+        },
+        {
+          "expected_range_radians": [
+            0.0,
+            1.5707963267948966
+          ],
+          "field": "sensor_zn",
+          "out_of_range_summaries": [
+            "min",
+            "mean"
+          ],
+          "requires_review": true
+        },
+        {
+          "expected_range_radians": [
+            0.0,
+            1.5707963267948966
+          ],
+          "field": "slope",
+          "out_of_range_summaries": [
+            "min",
+            "mean"
+          ],
+          "requires_review": true
+        },
+        {
+          "expected_range_radians": [
+            0.0,
+            6.283185307179586
+          ],
+          "field": "solar_az",
+          "out_of_range_summaries": [],
+          "requires_review": false
+        },
+        {
+          "expected_range_radians": [
+            0.0,
+            6.283185307179586
+          ],
+          "field": "sensor_az",
+          "out_of_range_summaries": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "requires_review": true
+        },
+        {
+          "expected_range_radians": [
+            0.0,
+            6.283185307179586
+          ],
+          "field": "aspect",
+          "out_of_range_summaries": [
+            "min",
+            "mean"
+          ],
+          "requires_review": true
+        }
+      ],
+      "fields_checked": 6,
+      "fields_requiring_review": 4,
+      "method": "review_persisted_min_mean_max_without_masking"
+    },
+    "geometry_summary": {
+      "aspect": {
+        "max": 6.282960414886475,
+        "mean": -73.23190979803212,
+        "min": -174.51547241210938,
+        "std": 87.23646211345113
+      },
+      "sensor_az": {
+        "max": 6.2831854820251465,
+        "mean": -72.48275791215299,
+        "min": -174.51547241210938,
+        "std": 87.89018019836662
+      },
+      "sensor_zn": {
+        "max": 0.5411774516105652,
+        "mean": -74.22423807584155,
+        "min": -174.51547241210938,
+        "std": 86.37588884236945
+      },
+      "slope": {
+        "max": 0.5016272664070129,
+        "mean": -74.2909063849527,
+        "min": -174.51547241210938,
+        "std": 86.31845381254188
+      },
+      "solar_az": {
+        "max": 3.2813198566436768,
+        "mean": 3.2813198566436768,
+        "min": 3.2813198566436768,
+        "std": 0.0
+      },
+      "solar_zn": {
+        "max": 0.6529645323753357,
+        "mean": 0.6529645323753357,
+        "min": 0.6529645323753357,
+        "std": 0.0
+      }
+    },
+    "plot_contract": {
+      "brdf_coefficient": [
+        -1.5,
+        1.5
+      ],
+      "brightness_adjustment_percent": [
+        -15.0,
+        5.0
+      ],
+      "correction_difference": [
+        -0.2,
+        0.2
+      ],
+      "correction_difference_norm": "symmetric_log_linthresh_0.005",
+      "display_only": true,
+      "geometry_radians": [
+        -0.1,
+        6.383185307179586
+      ],
+      "location_label": "R10C \u00b7 D10 \u00b7 L002 \u00b7 2021-09-15",
+      "negative_fraction": [
+        0.0,
+        0.055
+      ],
+      "reflectance": [
+        -0.1,
+        1.6
+      ],
+      "reflectance_map": [
+        0.0,
+        1.2
+      ],
+      "rgb_reflectance": [
+        0.0,
+        0.6
+      ],
+      "seam_score": [
+        0.0,
+        3.0
+      ],
+      "spatial": null,
+      "valid_fraction": [
+        0.0,
+        1.02
+      ],
+      "valid_map": [
+        0.0,
+        1.0
+      ],
+      "values_outside_limits_retained_in_metrics": true,
+      "version": "1.1",
+      "wavelength_nm": [
+        350.0,
+        2600.0
+      ]
+    }
+  },
+  "mode": "deep",
+  "outputs": [
+    {
+      "exists": true,
+      "fingerprint": "fd2c63668a6ad84163cb365a26c35e6f222555c52600a52284c95e9f6ecb3f2c",
+      "fingerprint_method": "sha256_full_v1",
+      "name": "NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_brdfandtopo_corrected_envi.json",
+      "path": "/private/tmp/spectralbridge-real-qa-fixed/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_brdfandtopo_corrected_envi.json",
+      "size_bytes": 21494
+    },
+    {
+      "exists": true,
+      "fingerprint": "3b6603adbcae7cdf91bab73a2999b16def4f9edcc5c0c535075b6ebb35a4d8c9",
+      "fingerprint_method": "sha256_full_v1",
+      "name": "NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_brdf_model.json",
+      "path": "/private/tmp/spectralbridge-real-qa-fixed/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_brdf_model.json",
+      "size_bytes": 14333
+    }
+  ],
+  "parameters": {},
+  "plots": [
+    "overview.png"
+  ],
+  "provenance": {
+    "context_fingerprint": "5ebe2000f35081887b5688bb1ef0d468212ae68c35641421ac382458c7a88a54",
+    "deterministic": true,
+    "git_sha": "d88e8d0947718d1e33b534080c224b703987e536",
+    "package_version": "2.2.0",
+    "thresholds": {
+      "chunk_difference_tolerance": 1e-06,
+      "correction_abs_q99_fail": 0.5,
+      "correction_abs_q99_warn": 0.2,
+      "negative_fraction_fail": 0.05,
+      "negative_fraction_warn": 0.01,
+      "overbright_fraction_fail": 0.05,
+      "overbright_fraction_warn": 0.01,
+      "provisional": true,
+      "seam_score_fail": 2.5,
+      "seam_score_warn": 1.5,
+      "srf_coverage_fail": 0.9,
+      "srf_coverage_warn": 0.98,
+      "valid_fraction_fail": 0.7,
+      "valid_fraction_warn": 0.9
+    }
+  },
+  "sample": {
+    "max_pixels": 0,
+    "strategy": "none"
+  },
+  "schema_version": "1.3",
+  "stage_id": "correction_parameters",
+  "stage_name": "Correction parameters",
+  "status": "WARN",
+  "unavailable_diagnostics": [],
+  "warnings": [
+    "persisted_geometry_physical_range_review"
+  ]
+}

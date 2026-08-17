@@ -1,0 +1,245 @@
+{
+  "flightline_id": "NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance",
+  "not_evaluated": [
+    {
+      "diagnostic": "sensor_triangle_path_and_cycle_consistency",
+      "reason": "No fitted translation-edge artifacts are produced by the canonical NEON processing run."
+    },
+    {
+      "diagnostic": "landsat_direct_nbar_comparability",
+      "reason": "Direct Landsat Collection 2 NBAR is acquired outside this NEON flightline pipeline."
+    }
+  ],
+  "plot_contract": {
+    "brdf_coefficient": [
+      -1.5,
+      1.5
+    ],
+    "brightness_adjustment_percent": [
+      -15.0,
+      5.0
+    ],
+    "correction_difference": [
+      -0.2,
+      0.2
+    ],
+    "correction_difference_norm": "symmetric_log_linthresh_0.005",
+    "display_only": true,
+    "geometry_radians": [
+      -0.1,
+      6.383185307179586
+    ],
+    "location_label": "R10C \u00b7 D10 \u00b7 L002 \u00b7 2021-09-15",
+    "negative_fraction": [
+      0.0,
+      0.055
+    ],
+    "reflectance": [
+      -0.1,
+      1.6
+    ],
+    "reflectance_map": [
+      0.0,
+      1.2
+    ],
+    "rgb_reflectance": [
+      0.0,
+      0.6
+    ],
+    "seam_score": [
+      0.0,
+      3.0
+    ],
+    "valid_fraction": [
+      0.0,
+      1.02
+    ],
+    "valid_map": [
+      0.0,
+      1.0
+    ],
+    "values_outside_limits_retained_in_metrics": true,
+    "version": "1.1",
+    "wavelength_nm": [
+      350.0,
+      2600.0
+    ]
+  },
+  "plots": [
+    "pipeline_evolution.png"
+  ],
+  "schema_version": "1.3",
+  "stage_reports": [
+    "qa/stages/00_acquisition/stage_qa.json",
+    "qa/stages/01_input_data/stage_qa.json",
+    "qa/stages/02_correction_parameters/stage_qa.json",
+    "qa/stages/03_brdf_topographic_correction/stage_qa.json",
+    "qa/stages/04_spectral_convolution/stage_qa.json",
+    "qa/stages/05_analysis_tables/stage_qa.json"
+  ],
+  "stages": [
+    {
+      "highlights": {
+        "above_1_2_fraction": null,
+        "absolute_correction_q99": null,
+        "bounding_box_footprint_fraction": null,
+        "known_bad_band_count": null,
+        "median_reflectance": null,
+        "negative_fraction": null,
+        "readable_parquet_outputs": null,
+        "usable_band_above_1_2_fraction": null,
+        "valid_fraction": null,
+        "within_footprint_valid_fraction": null
+      },
+      "interpretation": [
+        "All evaluated checks passed their current thresholds."
+      ],
+      "report": "qa/stages/00_acquisition/stage_qa.html",
+      "stage_id": "acquisition",
+      "stage_name": "Source acquisition",
+      "status": "PASS"
+    },
+    {
+      "highlights": {
+        "above_1_2_fraction": 0.059315271335504974,
+        "absolute_correction_q99": null,
+        "bounding_box_footprint_fraction": 0.5712745098039216,
+        "known_bad_band_count": 68,
+        "median_reflectance": 0.25040000677108765,
+        "negative_fraction": 0.0,
+        "readable_parquet_outputs": null,
+        "usable_band_above_1_2_fraction": 1.4181398543158909e-05,
+        "valid_fraction": 0.5712745098039216,
+        "within_footprint_valid_fraction": 1.0
+      },
+      "interpretation": [
+        "Review provisional warnings: known_bad_spectral_bands_retained.",
+        "1 diagnostic(s) were explicitly not evaluated; see reasons below."
+      ],
+      "report": "qa/stages/01_input_data/stage_qa.html",
+      "stage_id": "input_data",
+      "stage_name": "Input reflectance",
+      "status": "WARN"
+    },
+    {
+      "highlights": {
+        "above_1_2_fraction": null,
+        "absolute_correction_q99": null,
+        "bounding_box_footprint_fraction": null,
+        "known_bad_band_count": null,
+        "median_reflectance": null,
+        "negative_fraction": null,
+        "readable_parquet_outputs": null,
+        "usable_band_above_1_2_fraction": null,
+        "valid_fraction": null,
+        "within_footprint_valid_fraction": null
+      },
+      "interpretation": [
+        "Review provisional warnings: persisted_geometry_physical_range_review."
+      ],
+      "report": "qa/stages/02_correction_parameters/stage_qa.html",
+      "stage_id": "correction_parameters",
+      "stage_name": "Correction parameters",
+      "status": "WARN"
+    },
+    {
+      "highlights": {
+        "above_1_2_fraction": 0.05931678203001354,
+        "absolute_correction_q99": 0.003893953049555421,
+        "bounding_box_footprint_fraction": 0.5712745098039216,
+        "known_bad_band_count": 68,
+        "median_reflectance": 0.25040000677108765,
+        "negative_fraction": 0.0,
+        "readable_parquet_outputs": null,
+        "usable_band_above_1_2_fraction": 1.4141450941628884e-05,
+        "valid_fraction": 0.5712745098039216,
+        "within_footprint_valid_fraction": 1.0
+      },
+      "interpretation": [
+        "Review provisional warnings: known_bad_spectral_bands_retained.",
+        "4 diagnostic(s) were explicitly not evaluated; see reasons below."
+      ],
+      "report": "qa/stages/03_brdf_topographic_correction/stage_qa.html",
+      "stage_id": "brdf_topographic_correction",
+      "stage_name": "BRDF and topographic correction",
+      "status": "WARN"
+    },
+    {
+      "highlights": {
+        "above_1_2_fraction": 1.4301241347748985e-05,
+        "absolute_correction_q99": null,
+        "bounding_box_footprint_fraction": 0.5712745098039216,
+        "known_bad_band_count": null,
+        "median_reflectance": 0.1444500982761383,
+        "negative_fraction": 0.0,
+        "readable_parquet_outputs": null,
+        "usable_band_above_1_2_fraction": null,
+        "valid_fraction": 0.5712745098039216,
+        "within_footprint_valid_fraction": 1.0
+      },
+      "interpretation": [
+        "All evaluated checks passed their current thresholds.",
+        "2 diagnostic(s) were explicitly not evaluated; see reasons below."
+      ],
+      "report": "qa/stages/04_spectral_convolution/stage_qa.html",
+      "stage_id": "spectral_convolution",
+      "stage_name": "Spectral convolution",
+      "status": "PASS"
+    },
+    {
+      "highlights": {
+        "above_1_2_fraction": null,
+        "absolute_correction_q99": null,
+        "bounding_box_footprint_fraction": null,
+        "known_bad_band_count": null,
+        "median_reflectance": null,
+        "negative_fraction": null,
+        "readable_parquet_outputs": 18,
+        "usable_band_above_1_2_fraction": null,
+        "valid_fraction": null,
+        "within_footprint_valid_fraction": null
+      },
+      "interpretation": [
+        "All evaluated checks passed their current thresholds."
+      ],
+      "report": "qa/stages/05_analysis_tables/stage_qa.html",
+      "stage_id": "analysis_tables",
+      "stage_name": "Parquet extraction and merge",
+      "status": "PASS"
+    }
+  ],
+  "status": "WARN",
+  "what_we_learn_from_the_full_pipeline": [
+    {
+      "evidence": {
+        "stages": [
+          "Input reflectance",
+          "Correction parameters",
+          "BRDF and topographic correction"
+        ]
+      },
+      "finding": "The pipeline completed with stage-level warnings.",
+      "status": "WARN"
+    },
+    {
+      "evidence": {
+        "stages": [
+          {
+            "classification_mode": "report_only_no_masking",
+            "data_modified": false,
+            "known_bad_band_count": 68,
+            "stage": "Input reflectance"
+          },
+          {
+            "classification_mode": "report_only_no_masking",
+            "data_modified": false,
+            "known_bad_band_count": 68,
+            "stage": "BRDF and topographic correction"
+          }
+        ]
+      },
+      "finding": "Known poor-quality wavelength bands were retained and explicitly labeled; no masking or replacement was applied.",
+      "status": "WARN"
+    }
+  ]
+}

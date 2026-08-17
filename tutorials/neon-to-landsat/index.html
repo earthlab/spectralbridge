@@ -1061,6 +1061,62 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../validation/real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1075,10 +1131,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
             
   
   
@@ -1096,8 +1152,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1885,6 +1941,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/validation/" class="md-nav__link">
         
   
@@ -2525,7 +2637,7 @@ resampling.</p>
 generate or refresh Landsat-style products, re-run the standard pipeline for
 the same flight line. Completed earlier stages are skipped.</p>
 <div class="highlight"><pre><span></span><code>spectralbridge-pipeline<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--base-folder<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASE</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--base-folder<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--site-code<span class="w"> </span>NIWO<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--year-month<span class="w"> </span><span class="m">2023</span>-08<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--product-code<span class="w"> </span>DP1.30006.001<span class="w"> </span><span class="se">\</span>
@@ -2560,7 +2672,7 @@ enabling:</p>
 <p>Example in Python:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">rioxarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rxr</span>
 
-<span class="n">landsat</span> <span class="o">=</span> <span class="n">rxr</span><span class="o">.</span><span class="n">open_rasterio</span><span class="p">(</span><span class="s2">&quot;path/to/..._landsat_oli_envi.img&quot;</span><span class="p">)</span>
+<span class="n">landsat</span> <span class="o">=</span> <span class="n">rxr</span><span class="o">.</span><span class="n">open_rasterio</span><span class="p">(</span><span class="s2">"path/to/..._landsat_oli_envi.img"</span><span class="p">)</span>
 <span class="n">landsat</span>
 </code></pre></div>
 <p>Band order, wavelengths, and metadata are stored in the matching ENVI header.</p>
@@ -2581,12 +2693,12 @@ analysis.</p>
 summary looks like:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
 
-<span class="n">duckdb</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="n">duckdb</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"""</span>
 <span class="s2">    SELECT wavelength_nm, AVG(reflectance) AS mean_reflectance</span>
-<span class="s2">    FROM &#39;..._landsat_oli_envi.parquet&#39;</span>
+<span class="s2">    FROM '..._landsat_oli_envi.parquet'</span>
 <span class="s2">    GROUP BY wavelength_nm</span>
 <span class="s2">    ORDER BY wavelength_nm</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+<span class="s2">"""</span><span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
 </code></pre></div>
 <p>For analysis across all products, start with the merged table:
 <code>*_merged_pixel_extraction.parquet</code>.</p>

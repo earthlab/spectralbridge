@@ -411,6 +411,46 @@ body:not(:has(.sb-home)) .md-typeset h3 {
   color: var(--sb-muted);
 }
 
+/* Validation figures stay scannable on overview pages and expand on click. */
+
+.md-typeset .sb-validation-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  margin: 1.4rem 0 2rem;
+}
+
+.md-typeset .sb-validation-figure {
+  background: var(--sb-paper-light);
+  border: 2px solid var(--sb-black);
+  box-shadow: var(--sb-shadow-small);
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-width: 0;
+  padding: 0.65rem;
+}
+
+.md-typeset .sb-validation-figure a {
+  background: var(--sb-white);
+  display: block;
+}
+
+.md-typeset .sb-validation-figure img {
+  aspect-ratio: 16 / 9;
+  display: block;
+  height: auto;
+  object-fit: contain;
+  width: 100%;
+}
+
+.md-typeset .sb-validation-figure figcaption {
+  color: var(--sb-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  padding: 0.7rem 0.25rem 0.2rem;
+}
+
 .md-typeset .sb-doc-note {
   background: rgba(98, 189, 230, 0.16);
   border-left: 6px solid var(--sb-blue);

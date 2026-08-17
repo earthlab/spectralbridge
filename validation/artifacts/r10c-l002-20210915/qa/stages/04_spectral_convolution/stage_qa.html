@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Spectral convolution QA</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;color:#182433}
+h1,h2{color:#123565} .badge{display:inline-block;padding:.35rem .7rem;border:2px solid currentColor;border-radius:999px;font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:.94rem} th,td{border:1px solid #d7dee8;padding:.55rem;vertical-align:top} th{background:#eef3f8;text-align:left}
+.status{font-weight:800} figure{margin:1.5rem 0} img{display:block;max-width:100%;height:auto} code,pre{background:#f4f6f8} pre{padding:1rem;overflow:auto}
+</style></head><body>
+<p>Schema 1.3 · Mode deep</p>
+<h1>Spectral convolution</h1>
+<p class="badge" style="color:#2f6b3c">PASS</p>
+<h2>Automated interpretation</h2><ul><li>All evaluated checks passed their current thresholds.</li><li>2 diagnostic(s) were explicitly not evaluated; see reasons below.</li></ul>
+<h2>Spatial footprint interpretation</h2><p>The observed flight footprint occupies <strong>0.571275</strong> of the rectangular raster extent. Valid spectral support within that footprint is <strong>1</strong>. Structural background remains recorded as no-data; QA did not crop, mask, or rewrite it.</p><h2>Retained spectral-quality labels</h2><p>A complete wavelength vector was unavailable, so retained bands could not be classified. No data were changed.</p>
+<h2>Checks</h2><table><thead><tr><th>Check</th><th>Status</th><th>Value</th><th>Warn / fail</th><th>Meaning</th><th>Reason</th></tr></thead><tbody><tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_etm+_envi.img</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_etm+_envi.hdr</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_oli2_envi.img</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_oli2_envi.hdr</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_oli_envi.img</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_oli_envi.hdr</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_tm_envi.img</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_tm_envi.hdr</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_micasense_envi.img</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_micasense_envi.hdr</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_micasense_to_match_oli_oli2_envi.img</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_micasense_to_match_tm_etm+_envi.img</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>output_exists:NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr</td><td class='status' style='color:#2f6b3c'>PASS</td><td>True </td><td>— / —</td><td>The canonical stage output exists on disk.</td><td></td></tr>
+<tr><td>within_footprint_valid_reflectance_fraction</td><td class='status' style='color:#2f6b3c'>PASS</td><td>1 fraction</td><td>0.9 / 0.7</td><td>Valid spectral support should remain high inside the observed flight footprint; structural background outside it is reported separately.</td><td></td></tr>
+<tr><td>negative_reflectance_fraction</td><td class='status' style='color:#2f6b3c'>PASS</td><td>0 fraction</td><td>0.01 / 0.05</td><td>Large negative fractions may indicate correction or scaling artifacts.</td><td></td></tr>
+<tr><td>usable_band_reflectance_above_1_2_fraction</td><td class='status' style='color:#5c6670'>NOT EVALUATED</td><td>— fraction</td><td>0.01 / 0.05</td><td>Unexpected values above 1.2 are evaluated on wavelengths not already labeled as known poor-quality regions; the all-band fraction remains reported.</td><td>Metric could not be computed.</td></tr>
+<tr><td>known_bad_spectral_bands_retained</td><td class='status' style='color:#5c6670'>NOT EVALUATED</td><td>— </td><td>— / —</td><td>Known poor-quality wavelength regions require a complete wavelength vector.</td><td>The ENVI header did not provide one wavelength for every band; no data were changed.</td></tr>
+<tr><td>brightness_coefficient_application:Landsat ETM+</td><td class='status' style='color:#2f6b3c'>PASS</td><td>2.625e-08 absolute gain</td><td>— / 0.0001</td><td>The fitted before/after gain must reproduce the configured brightness coefficient in the persisted product.</td><td></td></tr>
+<tr><td>brightness_coefficient_application:Landsat OLI2</td><td class='status' style='color:#2f6b3c'>PASS</td><td>2.67092e-08 absolute gain</td><td>— / 0.0001</td><td>The fitted before/after gain must reproduce the configured brightness coefficient in the persisted product.</td><td></td></tr>
+<tr><td>brightness_coefficient_application:Landsat OLI</td><td class='status' style='color:#2f6b3c'>PASS</td><td>2.76194e-08 absolute gain</td><td>— / 0.0001</td><td>The fitted before/after gain must reproduce the configured brightness coefficient in the persisted product.</td><td></td></tr>
+<tr><td>brightness_coefficient_application:Landsat TM</td><td class='status' style='color:#2f6b3c'>PASS</td><td>2.61431e-08 absolute gain</td><td>— / 0.0001</td><td>The fitted before/after gain must reproduce the configured brightness coefficient in the persisted product.</td><td></td></tr></tbody></table>
+<h2>Diagnostics</h2><figure><img src='overview.png' alt='Stage QA diagnostic'><figcaption>overview.png</figcaption></figure><figure><img src='brightness.png' alt='Stage QA diagnostic'><figcaption>brightness.png</figcaption></figure><figure><img src='brightness_02.png' alt='Stage QA diagnostic'><figcaption>brightness_02.png</figcaption></figure><figure><img src='brightness_03.png' alt='Stage QA diagnostic'><figcaption>brightness_03.png</figcaption></figure><figure><img src='brightness_04.png' alt='Stage QA diagnostic'><figcaption>brightness_04.png</figcaption></figure>
+<h2>Unavailable diagnostics</h2><ul><li><strong>NOT EVALUATED — known_bad_spectral_band_classification:</strong> The ENVI header did not provide one wavelength for every band.</li><li><strong>NOT EVALUATED — per_band_srf_valid_coverage:</strong> The stage output contract does not currently persist the sampled SRF weights used for each output band.</li></ul>
+<h2>Machine-readable metrics</h2><pre>{
+  &quot;bandwise&quot;: [
+    {
+      &quot;band_index&quot;: 0,
+      &quot;data_retained&quot;: true,
+      &quot;median&quot;: 0.057927221059799194,
+      &quot;negative_fraction&quot;: 0.0,
+      &quot;overbright_fraction&quot;: 1.4301241347748985e-05,
+      &quot;q05&quot;: 0.027638709172606468,
+      &quot;q95&quot;: 0.10355009138584136,
+      &quot;quality_label&quot;: &quot;unclassified_retained&quot;,
+      &quot;quality_reason&quot;: null,
+      &quot;valid_fraction&quot;: 0.5712745098039216,
+      &quot;wavelength_nm&quot;: null
+    },
+    {
+      &quot;band_index&quot;: 1,
+      &quot;data_retained&quot;: true,
+      &quot;median&quot;: 0.08973865211009979,
+      &quot;negative_fraction&quot;: 0.0,
+      &quot;overbright_fraction&quot;: 1.4301241347748985e-05,
+      &quot;q05&quot;: 0.05059424042701721,
+      &quot;q95&quot;: 0.15689946115016934,
+      &quot;quality_label&quot;: &quot;unclassified_retained&quot;,
+      &quot;quality_reason&quot;: null,
+      &quot;valid_fraction&quot;: 0.5712745098039216,
+      &quot;wavelength_nm&quot;: null
+    },
+    {
+      &quot;band_index&quot;: 2,
+      &quot;data_retained&quot;: true,
+      &quot;median&quot;: 0.11124220490455627,
+      &quot;negative_fraction&quot;: 0.0,
+      &quot;overbright_fraction&quot;: 1.4301241347748985e-05,
+      &quot;q05&quot;: 0.047206492908298966,
+      &quot;q95&quot;: 0.19099324494600295,
+      &quot;quality_label&quot;: &quot;unclassified_retained&quot;,
+      &quot;quality_reason&quot;: null,
+      &quot;valid_fraction&quot;: 0.5712745098039216,
+      &quot;wavelength_nm&quot;: null
+    },
+    {
+      &quot;band_index&quot;: 3,
+      &quot;data_retained&quot;: true,
+      &quot;median&quot;: 0.2208998128771782,
+      &quot;negative_fraction&quot;: 0.0,
+      &quot;overbright_fraction&quot;: 1.4301241347748985e-05,
+      &quot;q05&quot;: 0.1620721086859703,
+      &quot;q95&quot;: 0.3386655777692794,
+      &quot;quality_label&quot;: &quot;unclassified_retained&quot;,
+      &quot;quality_reason&quot;: null,
+      &quot;valid_fraction&quot;: 0.5712745098039216,
+      &quot;wavelength_nm&quot;: null
+    },
+    {
+      &quot;band_index&quot;: 4,
+      &quot;data_retained&quot;: true,
+      &quot;median&quot;: 0.29836229979991913,
+      &quot;negative_fraction&quot;: 0.0,
+      &quot;overbright_fraction&quot;: 1.4301241347748985e-05,
+      &quot;q05&quot;: 0.16809902489185333,
+      &quot;q95&quot;: 0.4015253990888593,
+      &quot;quality_label&quot;: &quot;unclassified_retained&quot;,
+      &quot;quality_reason&quot;: null,
+      &quot;valid_fraction&quot;: 0.5712745098039216,
+      &quot;wavelength_nm&quot;: null
+    },
+    {
+      &quot;band_index&quot;: 5,
+      &quot;data_retained&quot;: true,
+      &quot;median&quot;: 0.19050442427396774,
+      &quot;negative_fraction&quot;: 0.0,
+      &quot;overbright_fraction&quot;: 1.4301241347748985e-05,
+      &quot;q05&quot;: 0.07696315944194794,
+      &quot;q95&quot;: 0.29556624293327327,
+      &quot;quality_label&quot;: &quot;unclassified_retained&quot;,
+      &quot;quality_reason&quot;: null,
+      &quot;valid_fraction&quot;: 0.5712745098039216,
+      &quot;wavelength_nm&quot;: null
+    }
+  ],
+  &quot;brightness_correction&quot;: {
+    &quot;audit_mode&quot;: &quot;persisted_before_after_products_no_refit_or_modification&quot;,
+    &quot;products&quot;: [
+      {
+        &quot;after_path&quot;: &quot;/private/tmp/spectralbridge-real-qa-fixed/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_etm+_envi.img&quot;,
+        &quot;bands&quot;: [
+          {
+            &quot;after_median&quot;: 0.057927221059799194,
+            &quot;after_q05&quot;: 0.027638709172606468,
+            &quot;after_q95&quot;: 0.10355009138584136,
+            &quot;band_index&quot;: 1,
+            &quot;before_median&quot;: 0.06255365163087845,
+            &quot;before_q05&quot;: 0.029846110474318267,
+            &quot;before_q95&quot;: 0.11182024218142031,
+            &quot;expected_gain&quot;: 0.9260405899999999,
+            &quot;expected_percent&quot;: -7.395941,
+            &quot;fitted_gain&quot;: 0.9260405897347768,
+            &quot;fitted_intercept&quot;: -8.4334127460779e-12,
+            &quot;gain_error&quot;: -2.6522317675414797e-10,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.999999999999989
+          },
+          {
+            &quot;after_median&quot;: 0.08973865211009979,
+            &quot;after_q05&quot;: 0.05059424042701721,
+            &quot;after_q95&quot;: 0.15689946115016934,
+            &quot;band_index&quot;: 2,
+            &quot;before_median&quot;: 0.09228022769093513,
+            &quot;before_q05&quot;: 0.05202717054635286,
+            &quot;before_q95&quot;: 0.16134316548705097,
+            &quot;expected_gain&quot;: 0.97245804,
+            &quot;expected_percent&quot;: -2.754196,
+            &quot;fitted_gain&quot;: 0.9724580640886176,
+            &quot;fitted_intercept&quot;: 4.875382260487214e-11,
+            &quot;gain_error&quot;: 2.408861754510383e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999863
+          },
+          {
+            &quot;after_median&quot;: 0.11124220490455627,
+            &quot;after_q05&quot;: 0.047206492908298966,
+            &quot;after_q95&quot;: 0.19099324494600295,
+            &quot;band_index&quot;: 3,
+            &quot;before_median&quot;: 0.11953402683138847,
+            &quot;before_q05&quot;: 0.0507251912727952,
+            &quot;before_q95&quot;: 0.20522959008812902,
+            &quot;expected_gain&quot;: 0.9306321200000001,
+            &quot;expected_percent&quot;: -6.936788,
+            &quot;fitted_gain&quot;: 0.9306321148394882,
+            &quot;fitted_intercept&quot;: -5.084227140783806e-11,
+            &quot;gain_error&quot;: -5.160511906687759e-09,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.999999999999986
+          },
+          {
+            &quot;after_median&quot;: 0.2208998128771782,
+            &quot;after_q05&quot;: 0.1620721086859703,
+            &quot;after_q95&quot;: 0.3386655777692794,
+            &quot;band_index&quot;: 4,
+            &quot;before_median&quot;: 0.24577981978654861,
+            &quot;before_q05&quot;: 0.18032633736729622,
+            &quot;before_q95&quot;: 0.3768095821142196,
+            &quot;expected_gain&quot;: 0.89877115,
+            &quot;expected_percent&quot;: -10.122885,
+            &quot;fitted_gain&quot;: 0.8987711660696763,
+            &quot;fitted_intercept&quot;: 1.4490990441482657e-10,
+            &quot;gain_error&quot;: 1.6069676367358454e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.999999999999969
+          },
+          {
+            &quot;after_median&quot;: 0.29836229979991913,
+            &quot;after_q05&quot;: 0.16809902489185333,
+            &quot;after_q95&quot;: 0.4015253990888593,
+            &quot;band_index&quot;: 5,
+            &quot;before_median&quot;: 0.31962376832962036,
+            &quot;before_q05&quot;: 0.18007785230875015,
+            &quot;before_q95&quot;: 0.43013830929994556,
+            &quot;expected_gain&quot;: 0.9334797,
+            &quot;expected_percent&quot;: -6.65203,
+            &quot;fitted_gain&quot;: 0.9334797262500283,
+            &quot;fitted_intercept&quot;: 5.950541419400618e-11,
+            &quot;gain_error&quot;: 2.6250028262175817e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999636
+          },
+          {
+            &quot;after_median&quot;: 0.19050442427396774,
+            &quot;after_q05&quot;: 0.07696315944194794,
+            &quot;after_q95&quot;: 0.29556624293327327,
+            &quot;band_index&quot;: 6,
+            &quot;before_median&quot;: 0.19586237519979477,
+            &quot;before_q05&quot;: 0.07912775725126267,
+            &quot;before_q95&quot;: 0.30387909263372415,
+            &quot;expected_gain&quot;: 0.97264428,
+            &quot;expected_percent&quot;: -2.735572,
+            &quot;fitted_gain&quot;: 0.9726442701548501,
+            &quot;fitted_intercept&quot;: -6.602593708406674e-11,
+            &quot;gain_error&quot;: -9.84514991753116e-09,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999817
+          }
+        ],
+        &quot;bands_evaluated&quot;: 6,
+        &quot;bands_with_expected_coefficients&quot;: 6,
+        &quot;before_path&quot;: &quot;/private/tmp/spectralbridge-real-qa-fixed/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_etm+_undarkened_envi.img&quot;,
+        &quot;coefficient_source&quot;: &quot;landsat_to_micasense.json&quot;,
+        &quot;data_modified&quot;: false,
+        &quot;maximum_absolute_gain_error&quot;: 2.6250028262175817e-08,
+        &quot;method&quot;: &quot;bandwise_ordinary_least_squares_after_on_before&quot;,
+        &quot;product&quot;: &quot;Landsat ETM+&quot;
+      },
+      {
+        &quot;after_path&quot;: &quot;/private/tmp/spectralbridge-real-qa-fixed/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_oli2_envi.img&quot;,
+        &quot;bands&quot;: [
+          {
+            &quot;after_median&quot;: 0.04946879297494888,
+            &quot;after_q05&quot;: 0.02386920154094696,
+            &quot;after_q95&quot;: 0.08999374546110628,
+            &quot;band_index&quot;: 1,
+            &quot;before_median&quot;: 0.0534196812659502,
+            &quot;before_q05&quot;: 0.025775546673685312,
+            &quot;before_q95&quot;: 0.09718121439218518,
+            &quot;expected_gain&quot;: 0.9260405899999999,
+            &quot;expected_percent&quot;: -7.395941,
+            &quot;fitted_gain&quot;: 0.9260405911389904,
+            &quot;fitted_intercept&quot;: -8.601171498977933e-11,
+            &quot;gain_error&quot;: 1.1389904575054288e-09,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999901
+          },
+          {
+            &quot;after_median&quot;: 0.06050349958240986,
+            &quot;after_q05&quot;: 0.028494005836546422,
+            &quot;after_q95&quot;: 0.10822983048856255,
+            &quot;band_index&quot;: 2,
+            &quot;before_median&quot;: 0.06221707910299301,
+            &quot;before_q05&quot;: 0.029301011934876442,
+            &quot;before_q95&quot;: 0.11129511445760723,
+            &quot;expected_gain&quot;: 0.97245804,
+            &quot;expected_percent&quot;: -2.754196,
+            &quot;fitted_gain&quot;: 0.97245806670919,
+            &quot;fitted_intercept&quot;: -1.5252477205928884e-10,
+            &quot;gain_error&quot;: 2.6709189970830494e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999889
+          },
+          {
+            &quot;after_median&quot;: 0.0853499136865139,
+            &quot;after_q05&quot;: 0.04974449276924133,
+            &quot;after_q95&quot;: 0.14886664971709238,
+            &quot;band_index&quot;: 3,
+            &quot;before_median&quot;: 0.09171176701784134,
+            &quot;before_q05&quot;: 0.05345237031579018,
+            &quot;before_q95&quot;: 0.1599629439413546,
+            &quot;expected_gain&quot;: 0.9306321200000001,
+            &quot;expected_percent&quot;: -6.936788,
+            &quot;fitted_gain&quot;: 0.9306321149962379,
+            &quot;fitted_intercept&quot;: -7.032115929746422e-11,
+            &quot;gain_error&quot;: -5.003762182376192e-09,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999857
+          },
+          {
+            &quot;after_median&quot;: 0.10480321571230888,
+            &quot;after_q05&quot;: 0.03992441389709711,
+            &quot;after_q95&quot;: 0.182712210714817,
+            &quot;band_index&quot;: 4,
+            &quot;before_median&quot;: 0.11660723388195038,
+            &quot;before_q05&quot;: 0.04442111309617758,
+            &quot;before_q95&quot;: 0.20329114049673075,
+            &quot;expected_gain&quot;: 0.89877115,
+            &quot;expected_percent&quot;: -10.122885,
+            &quot;fitted_gain&quot;: 0.8987711651926334,
+            &quot;fitted_intercept&quot;: 1.6758066140086076e-10,
+            &quot;gain_error&quot;: 1.519263348459532e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.999999999999987
+          },
+          {
+            &quot;after_median&quot;: 0.24019581079483032,
+            &quot;after_q05&quot;: 0.1774715192615986,
+            &quot;after_q95&quot;: 0.3683505058288574,
+            &quot;band_index&quot;: 5,
+            &quot;before_median&quot;: 0.2573122978210449,
+            &quot;before_q05&quot;: 0.19011823758482932,
+            &quot;before_q95&quot;: 0.39459936469793316,
+            &quot;expected_gain&quot;: 0.9334797,
+            &quot;expected_percent&quot;: -6.65203,
+            &quot;fitted_gain&quot;: 0.9334797261436472,
+            &quot;fitted_intercept&quot;: -3.909903442838577e-11,
+            &quot;gain_error&quot;: 2.6143647136045445e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999677
+          },
+          {
+            &quot;after_median&quot;: 0.28819048404693604,
+            &quot;after_q05&quot;: 0.15629701912403107,
+            &quot;after_q95&quot;: 0.3941335693001747,
+            &quot;band_index&quot;: 6,
+            &quot;before_median&quot;: 0.2962958812713623,
+            &quot;before_q05&quot;: 0.16069290041923523,
+            &quot;before_q95&quot;: 0.40521861910820006,
+            &quot;expected_gain&quot;: 0.97264428,
+            &quot;expected_percent&quot;: -2.735572,
+            &quot;fitted_gain&quot;: 0.9726442693869817,
+            &quot;fitted_intercept&quot;: -2.856595441139275e-11,
+            &quot;gain_error&quot;: -1.0613018353033965e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999659
+          },
+          {
+            &quot;after_median&quot;: 0.1920100748538971,
+            &quot;after_q05&quot;: 0.0773972287774086,
+            &quot;after_q95&quot;: 0.2979646086692809,
+            &quot;band_index&quot;: 7,
+            &quot;before_median&quot;: 0.19415926188230515,
+            &quot;before_q05&quot;: 0.07826354503631591,
+            &quot;before_q95&quot;: 0.3012997344136237,
+            &quot;expected_gain&quot;: 0.9889308,
+            &quot;expected_percent&quot;: -1.10692,
+            &quot;fitted_gain&quot;: 0.9889308222192218,
+            &quot;fitted_intercept&quot;: -7.29858746001996e-11,
+            &quot;gain_error&quot;: 2.2219221795793942e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999819
+          }
+        ],
+        &quot;bands_evaluated&quot;: 7,
+        &quot;bands_with_expected_coefficients&quot;: 7,
+        &quot;before_path&quot;: &quot;/private/tmp/spectralbridge-real-qa-fixed/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_oli2_undarkened_envi.img&quot;,
+        &quot;coefficient_source&quot;: &quot;landsat_to_micasense.json&quot;,
+        &quot;data_modified&quot;: false,
+        &quot;maximum_absolute_gain_error&quot;: 2.6709189970830494e-08,
+        &quot;method&quot;: &quot;bandwise_ordinary_least_squares_after_on_before&quot;,
+        &quot;product&quot;: &quot;Landsat OLI2&quot;
+      },
+      {
+        &quot;after_path&quot;: &quot;/private/tmp/spectralbridge-real-qa-fixed/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_oli_envi.img&quot;,
+        &quot;bands&quot;: [
+          {
+            &quot;after_median&quot;: 0.04948597401380539,
+            &quot;after_q05&quot;: 0.023869025241583585,
+            &quot;after_q95&quot;: 0.09003345817327497,
+            &quot;band_index&quot;: 1,
+            &quot;before_median&quot;: 0.05343823693692684,
+            &quot;before_q05&quot;: 0.025775356404483318,
+            &quot;before_q95&quot;: 0.09722409546375273,
+            &quot;expected_gain&quot;: 0.9260405899999999,
+            &quot;expected_percent&quot;: -7.395941,
+            &quot;fitted_gain&quot;: 0.9260405917460917,
+            &quot;fitted_intercept&quot;: -1.1779852849664565e-10,
+            &quot;gain_error&quot;: 1.7460917156597588e-09,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.99999999999999
+          },
+          {
+            &quot;after_median&quot;: 0.060537064447999,
+            &quot;after_q05&quot;: 0.028524682950228454,
+            &quot;after_q95&quot;: 0.10827271789312362,
+            &quot;band_index&quot;: 2,
+            &quot;before_median&quot;: 0.06225159391760826,
+            &quot;before_q05&quot;: 0.029332559648901226,
+            &quot;before_q95&quot;: 0.11133921816945076,
+            &quot;expected_gain&quot;: 0.97245804,
+            &quot;expected_percent&quot;: -2.754196,
+            &quot;fitted_gain&quot;: 0.9724580676194239,
+            &quot;fitted_intercept&quot;: -1.9718228865104391e-10,
+            &quot;gain_error&quot;: 2.7619423859093217e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999889
+          },
+          {
+            &quot;after_median&quot;: 0.08545338734984398,
+            &quot;after_q05&quot;: 0.04973950311541557,
+            &quot;after_q95&quot;: 0.14906941875815383,
+            &quot;band_index&quot;: 3,
+            &quot;before_median&quot;: 0.09182295203208923,
+            &quot;before_q05&quot;: 0.05344700645655394,
+            &quot;before_q95&quot;: 0.1601808212697505,
+            &quot;expected_gain&quot;: 0.9306321200000001,
+            &quot;expected_percent&quot;: -6.936788,
+            &quot;fitted_gain&quot;: 0.9306321146973696,
+            &quot;fitted_intercept&quot;: -3.242957462040994e-11,
+            &quot;gain_error&quot;: -5.302630445847001e-09,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999859
+          },
+          {
+            &quot;after_median&quot;: 0.1048731580376625,
+            &quot;after_q05&quot;: 0.03994075730443001,
+            &quot;after_q95&quot;: 0.18281277567148205,
+            &quot;band_index&quot;: 4,
+            &quot;before_median&quot;: 0.11668504402041435,
+            &quot;before_q05&quot;: 0.044439294189214704,
+            &quot;before_q95&quot;: 0.20340303406119342,
+            &quot;expected_gain&quot;: 0.89877115,
+            &quot;expected_percent&quot;: -10.122885,
+            &quot;fitted_gain&quot;: 0.8987711675337053,
+            &quot;fitted_intercept&quot;: -6.73586104647721e-11,
+            &quot;gain_error&quot;: 1.7533705376493458e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.999999999999987
+          },
+          {
+            &quot;after_median&quot;: 0.24023620784282684,
+            &quot;after_q05&quot;: 0.17750315815210344,
+            &quot;after_q95&quot;: 0.368405058979988,
+            &quot;band_index&quot;: 5,
+            &quot;before_median&quot;: 0.25735555589199066,
+            &quot;before_q05&quot;: 0.1901521287858486,
+            &quot;before_q95&quot;: 0.39465780258178695,
+            &quot;expected_gain&quot;: 0.9334797,
+            &quot;expected_percent&quot;: -6.65203,
+            &quot;fitted_gain&quot;: 0.9334797261097313,
+            &quot;fitted_intercept&quot;: 7.927719142651768e-11,
+            &quot;gain_error&quot;: 2.6109731265933078e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999676
+          },
+          {
+            &quot;after_median&quot;: 0.2884595990180969,
+            &quot;after_q05&quot;: 0.15649588108062745,
+            &quot;after_q95&quot;: 0.394325053691864,
+            &quot;band_index&quot;: 6,
+            &quot;before_median&quot;: 0.29657256603240967,
+            &quot;before_q05&quot;: 0.16089735627174379,
+            &quot;before_q95&quot;: 0.40541550219058986,
+            &quot;expected_gain&quot;: 0.97264428,
+            &quot;expected_percent&quot;: -2.735572,
+            &quot;fitted_gain&quot;: 0.9726442694595445,
+            &quot;fitted_intercept&quot;: 6.169767749020407e-11,
+            &quot;gain_error&quot;: -1.0540455508412094e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999656
+          },
+          {
+            &quot;after_median&quot;: 0.1920003443956375,
+            &quot;after_q05&quot;: 0.07749169245362282,
+            &quot;after_q95&quot;: 0.2978706717491149,
+            &quot;band_index&quot;: 7,
+            &quot;before_median&quot;: 0.194149412214756,
+            &quot;before_q05&quot;: 0.0783590629696846,
+            &quot;before_q95&quot;: 0.3012047633528709,
+            &quot;expected_gain&quot;: 0.9889308,
+            &quot;expected_percent&quot;: -1.10692,
+            &quot;fitted_gain&quot;: 0.9889308219781228,
+            &quot;fitted_intercept&quot;: -1.3343025440867872e-10,
+            &quot;gain_error&quot;: 2.1978122766164176e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999819
+          }
+        ],
+        &quot;bands_evaluated&quot;: 7,
+        &quot;bands_with_expected_coefficients&quot;: 7,
+        &quot;before_path&quot;: &quot;/private/tmp/spectralbridge-real-qa-fixed/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_oli_undarkened_envi.img&quot;,
+        &quot;coefficient_source&quot;: &quot;landsat_to_micasense.json&quot;,
+        &quot;data_modified&quot;: false,
+        &quot;maximum_absolute_gain_error&quot;: 2.7619423859093217e-08,
+        &quot;method&quot;: &quot;bandwise_ordinary_least_squares_after_on_before&quot;,
+        &quot;product&quot;: &quot;Landsat OLI&quot;
+      },
+      {
+        &quot;after_path&quot;: &quot;/private/tmp/spectralbridge-real-qa-fixed/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_tm_envi.img&quot;,
+        &quot;bands&quot;: [
+          {
+            &quot;after_median&quot;: 0.06119275838136673,
+            &quot;after_q05&quot;: 0.03181033916771412,
+            &quot;after_q95&quot;: 0.10871308222413054,
+            &quot;band_index&quot;: 1,
+            &quot;before_median&quot;: 0.066079992800951,
+            &quot;before_q05&quot;: 0.03435091339051723,
+            &quot;before_q95&quot;: 0.11739558689296235,
+            &quot;expected_gain&quot;: 0.9260405899999999,
+            &quot;expected_percent&quot;: -7.395941,
+            &quot;fitted_gain&quot;: 0.9260405906490782,
+            &quot;fitted_intercept&quot;: -5.601319916823255e-11,
+            &quot;gain_error&quot;: 6.490782356038949e-10,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.999999999999988
+          },
+          {
+            &quot;after_median&quot;: 0.09229138121008873,
+            &quot;after_q05&quot;: 0.04983620084822178,
+            &quot;after_q95&quot;: 0.16009065359830843,
+            &quot;band_index&quot;: 2,
+            &quot;before_median&quot;: 0.09490525722503662,
+            &quot;before_q05&quot;: 0.051247659139335155,
+            &quot;before_q95&quot;: 0.16462473347783077,
+            &quot;expected_gain&quot;: 0.97245804,
+            &quot;expected_percent&quot;: -2.754196,
+            &quot;fitted_gain&quot;: 0.9724580652832464,
+            &quot;fitted_intercept&quot;: -7.165889778286015e-11,
+            &quot;gain_error&quot;: 2.528324638539914e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999861
+          },
+          {
+            &quot;after_median&quot;: 0.12285489216446877,
+            &quot;after_q05&quot;: 0.08092204593122006,
+            &quot;after_q95&quot;: 0.19334041774272917,
+            &quot;band_index&quot;: 3,
+            &quot;before_median&quot;: 0.13201231509447098,
+            &quot;before_q05&quot;: 0.08695385605096817,
+            &quot;before_q95&quot;: 0.2077517233788967,
+            &quot;expected_gain&quot;: 0.9306321200000001,
+            &quot;expected_percent&quot;: -6.936788,
+            &quot;fitted_gain&quot;: 0.9306321150572228,
+            &quot;fitted_intercept&quot;: -7.445771072464905e-11,
+            &quot;gain_error&quot;: -4.942777298566625e-09,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999767
+          },
+          {
+            &quot;after_median&quot;: 0.21686191111803055,
+            &quot;after_q05&quot;: 0.16043522581458092,
+            &quot;after_q95&quot;: 0.32010756731033313,
+            &quot;band_index&quot;: 4,
+            &quot;before_median&quot;: 0.24128711968660355,
+            &quot;before_q05&quot;: 0.17850509136915207,
+            &quot;before_q95&quot;: 0.35616135597228993,
+            &quot;expected_gain&quot;: 0.89877115,
+            &quot;expected_percent&quot;: -10.122885,
+            &quot;fitted_gain&quot;: 0.8987711663366657,
+            &quot;fitted_intercept&quot;: 1.2518848265282598e-10,
+            &quot;gain_error&quot;: 1.6336665686900176e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999657
+          },
+          {
+            &quot;after_median&quot;: 0.43102802336215973,
+            &quot;after_q05&quot;: 0.2903324976563454,
+            &quot;after_q95&quot;: 0.5373832643032073,
+            &quot;band_index&quot;: 5,
+            &quot;before_median&quot;: 0.4617433249950409,
+            &quot;before_q05&quot;: 0.31102175563573836,
+            &quot;before_q95&quot;: 0.5756774514913557,
+            &quot;expected_gain&quot;: 0.9334797,
+            &quot;expected_percent&quot;: -6.65203,
+            &quot;fitted_gain&quot;: 0.9334797261431048,
+            &quot;fitted_intercept&quot;: 6.735584279483368e-11,
+            &quot;gain_error&quot;: 2.6143104792097915e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.999999999999931
+          },
+          {
+            &quot;after_median&quot;: 0.23508677631616592,
+            &quot;after_q05&quot;: 0.11409905850887299,
+            &quot;after_q95&quot;: 0.3428487583994863,
+            &quot;band_index&quot;: 6,
+            &quot;before_median&quot;: 0.24169861525297165,
+            &quot;before_q05&quot;: 0.11730810813605785,
+            &quot;before_q95&quot;: 0.3524914219975469,
+            &quot;expected_gain&quot;: 0.97264428,
+            &quot;expected_percent&quot;: -2.735572,
+            &quot;fitted_gain&quot;: 0.9726442677397334,
+            &quot;fitted_intercept&quot;: 3.962681833720456e-10,
+            &quot;gain_error&quot;: -1.2260266579744439e-08,
+            &quot;n&quot;: 69924,
+            &quot;r_squared&quot;: 0.9999999999999727
+          }
+        ],
+        &quot;bands_evaluated&quot;: 6,
+        &quot;bands_with_expected_coefficients&quot;: 6,
+        &quot;before_path&quot;: &quot;/private/tmp/spectralbridge-real-qa-fixed/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_tm_undarkened_envi.img&quot;,
+        &quot;coefficient_source&quot;: &quot;landsat_to_micasense.json&quot;,
+        &quot;data_modified&quot;: false,
+        &quot;maximum_absolute_gain_error&quot;: 2.6143104792097915e-08,
+        &quot;method&quot;: &quot;bandwise_ordinary_least_squares_after_on_before&quot;,
+        &quot;product&quot;: &quot;Landsat TM&quot;
+      }
+    ]
+  },
+  &quot;plot_contract&quot;: {
+    &quot;brdf_coefficient&quot;: [
+      -1.5,
+      1.5
+    ],
+    &quot;brightness_adjustment_percent&quot;: [
+      -15.0,
+      5.0
+    ],
+    &quot;correction_difference&quot;: [
+      -0.2,
+      0.2
+    ],
+    &quot;correction_difference_norm&quot;: &quot;symmetric_log_linthresh_0.005&quot;,
+    &quot;display_only&quot;: true,
+    &quot;geometry_radians&quot;: [
+      -0.1,
+      6.383185307179586
+    ],
+    &quot;location_label&quot;: &quot;R10C \u00b7 D10 \u00b7 L002 \u00b7 2021-09-15&quot;,
+    &quot;negative_fraction&quot;: [
+      0.0,
+      0.055
+    ],
+    &quot;reflectance&quot;: [
+      -0.1,
+      1.6
+    ],
+    &quot;reflectance_map&quot;: [
+      0.0,
+      1.2
+    ],
+    &quot;rgb_reflectance&quot;: [
+      0.0,
+      0.6
+    ],
+    &quot;seam_score&quot;: [
+      0.0,
+      3.0
+    ],
+    &quot;spatial&quot;: {
+      &quot;coordinate_system&quot;: &quot;UTM zone 13 North&quot;,
+      &quot;extent&quot;: [
+        477587.5,
+        482938.5,
+        4441592.5,
+        4442707.5
+      ],
+      &quot;mode&quot;: &quot;projected_map_coordinates&quot;,
+      &quot;x_label&quot;: &quot;Easting (m)&quot;,
+      &quot;y_label&quot;: &quot;Northing (m)&quot;
+    },
+    &quot;valid_fraction&quot;: [
+      0.0,
+      1.02
+    ],
+    &quot;valid_map&quot;: [
+      0.0,
+      1.0
+    ],
+    &quot;values_outside_limits_retained_in_metrics&quot;: true,
+    &quot;version&quot;: &quot;1.1&quot;,
+    &quot;wavelength_nm&quot;: [
+      350.0,
+      2600.0
+    ]
+  },
+  &quot;reflectance&quot;: {
+    &quot;maximum&quot;: 1.455297589302063,
+    &quot;minimum&quot;: 1.8910983001774184e-08,
+    &quot;missing_fraction&quot;: 0.4287254901960784,
+    &quot;n_total&quot;: 734400,
+    &quot;n_valid&quot;: 419544,
+    &quot;negative_fraction&quot;: 0.0,
+    &quot;overbright_fraction&quot;: 1.4301241347748985e-05,
+    &quot;q01&quot;: 0.01943302055820823,
+    &quot;q05&quot;: 0.04309811759740115,
+    &quot;q50&quot;: 0.1444500982761383,
+    &quot;q95&quot;: 0.3377353295683859,
+    &quot;q99&quot;: 0.4073419910669327,
+    &quot;valid_fraction&quot;: 0.5712745098039216
+  },
+  &quot;reflectance_scaling&quot;: {
+    &quot;nodata_value&quot;: -9999.0,
+    &quot;source&quot;: &quot;primary_header&quot;,
+    &quot;stored_value_divisor&quot;: 10000.0
+  },
+  &quot;spatial_footprint&quot;: {
+    &quot;bounding_box_footprint_fraction&quot;: 0.5712745098039216,
+    &quot;bounding_box_pixels&quot;: 122400,
+    &quot;data_modified&quot;: false,
+    &quot;footprint_pixels&quot;: 69924,
+    &quot;method&quot;: &quot;any_band_finite_on_deterministic_sample&quot;,
+    &quot;structural_background_fraction&quot;: 0.4287254901960784,
+    &quot;within_footprint_cells&quot;: 419544,
+    &quot;within_footprint_valid_cells&quot;: 419544,
+    &quot;within_footprint_valid_fraction&quot;: 1.0
+  },
+  &quot;spectral_quality&quot;: {
+    &quot;all_band_overbright_fraction&quot;: 1.4301241347748985e-05,
+    &quot;classification_available&quot;: false,
+    &quot;classification_mode&quot;: &quot;report_only_no_masking&quot;,
+    &quot;data_modified&quot;: false,
+    &quot;known_bad_band_count&quot;: null,
+    &quot;known_bad_band_fraction&quot;: null,
+    &quot;known_bad_band_indices&quot;: [],
+    &quot;known_bad_band_overbright_fraction&quot;: null,
+    &quot;known_bad_band_wavelengths_nm&quot;: [],
+    &quot;known_bad_wavelength_ranges_nm&quot;: [
+      {
+        &quot;maximum_nm&quot;: 400.0,
+        &quot;minimum_nm&quot;: 300.0,
+        &quot;reason&quot;: &quot;spectral edge / low-signal region&quot;
+      },
+      {
+        &quot;maximum_nm&quot;: 1430.0,
+        &quot;minimum_nm&quot;: 1337.0,
+        &quot;reason&quot;: &quot;strong atmospheric water-absorption region&quot;
+      },
+      {
+        &quot;maximum_nm&quot;: 1960.0,
+        &quot;minimum_nm&quot;: 1800.0,
+        &quot;reason&quot;: &quot;strong atmospheric water-absorption region&quot;
+      },
+      {
+        &quot;maximum_nm&quot;: 2600.0,
+        &quot;minimum_nm&quot;: 2450.0,
+        &quot;reason&quot;: &quot;spectral edge / low-signal region&quot;
+      }
+    ],
+    &quot;usable_band_count&quot;: null,
+    &quot;usable_band_overbright_fraction&quot;: null
+  }
+}</pre>
+<h2>Provenance</h2><pre>{
+  &quot;context_fingerprint&quot;: &quot;19dec09d692e25b2386d5b9dd4148fd8409dbe446d8d3e23df7b11bfef87b0d3&quot;,
+  &quot;deterministic&quot;: true,
+  &quot;git_sha&quot;: &quot;d88e8d0947718d1e33b534080c224b703987e536&quot;,
+  &quot;package_version&quot;: &quot;2.2.0&quot;,
+  &quot;thresholds&quot;: {
+    &quot;chunk_difference_tolerance&quot;: 1e-06,
+    &quot;correction_abs_q99_fail&quot;: 0.5,
+    &quot;correction_abs_q99_warn&quot;: 0.2,
+    &quot;negative_fraction_fail&quot;: 0.05,
+    &quot;negative_fraction_warn&quot;: 0.01,
+    &quot;overbright_fraction_fail&quot;: 0.05,
+    &quot;overbright_fraction_warn&quot;: 0.01,
+    &quot;provisional&quot;: true,
+    &quot;seam_score_fail&quot;: 2.5,
+    &quot;seam_score_warn&quot;: 1.5,
+    &quot;srf_coverage_fail&quot;: 0.9,
+    &quot;srf_coverage_warn&quot;: 0.98,
+    &quot;valid_fraction_fail&quot;: 0.7,
+    &quot;valid_fraction_warn&quot;: 0.9
+  }
+}</pre>
+</body></html>

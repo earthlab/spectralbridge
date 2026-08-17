@@ -1147,6 +1147,62 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../validation/real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1161,10 +1217,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
             
   
   
@@ -1182,8 +1238,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1971,6 +2027,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/validation/" class="md-nav__link">
         
   
@@ -2584,6 +2696,13 @@ download the notebook when you are ready to run it locally.</p>
 functions. They contain configuration cells, explanations of inputs and
 outputs, and validation checkpoints. Copy a notebook into your own analysis
 directory before changing scientific assumptions.</p>
+<p>Their code and narrative follow the two active research notebooks at the
+repository root: <code>Raster_processing.ipynb</code> and <code>Drone_processing.ipynb</code>. The
+full-pipeline vignettes use the same public orchestrators, while the focused
+vignettes expose one stage at a time. Output checks use the same practical
+patterns—printed result summaries, file inventories, DuckDB or pandas table
+previews, and ENVI/QA plots—but omit machine-specific transfer commands and
+saved outputs so the files remain portable.</p>
 <table>
 <thead>
 <tr>
@@ -2642,7 +2761,7 @@ directory before changing scientific assumptions.</p>
 </table>
 <h2 id="opening-them">Opening them<a class="headerlink" href="#opening-them" title="Permanent link">&para;</a></h2>
 <p>From a clone:</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[notebooks]&quot;</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[notebooks]"</span>
 jupyter<span class="w"> </span>lab<span class="w"> </span>docs/vignettes/notebooks/
 </code></pre></div>
 <p>The notebooks use repository-relative paths and begin with an editable

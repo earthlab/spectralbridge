@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Combined SpectralBridge QA</title>
+<style>body{font-family:system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;color:#182433}h1,h2{color:#123565}table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}td,th{border:1px solid #d7dee8;padding:.6rem;white-space:nowrap}img{max-width:100%;height:auto}pre{background:#f4f6f8;padding:.8rem;overflow:auto}</style></head><body>
+<h1>Combined QA — NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance</h1><p><strong>Overall status: WARN</strong></p>
+<h2>Stage summary</h2><table><tr><th>Stage</th><th>Status</th><th>Footprint / bounding box</th><th>Valid within footprint</th><th>Median reflectance</th><th>Negative fraction</th><th>All-band &gt;1.2</th><th>Usable-band &gt;1.2</th><th>Known bad bands retained</th><th>Correction |Δ| q99</th><th>Readable tables</th></tr><tr><td><a href='../../qa/stages/00_acquisition/stage_qa.html'>Source acquisition</a></td><td style='color:#2f6b3c;font-weight:800'>PASS</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td><a href='../../qa/stages/01_input_data/stage_qa.html'>Input reflectance</a></td><td style='color:#a65f00;font-weight:800'>WARN</td><td>0.571275</td><td>1</td><td>0.2504</td><td>0</td><td>0.0593153</td><td>1.41814e-05</td><td>68</td><td>—</td><td>—</td></tr><tr><td><a href='../../qa/stages/02_correction_parameters/stage_qa.html'>Correction parameters</a></td><td style='color:#a65f00;font-weight:800'>WARN</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td><a href='../../qa/stages/03_brdf_topographic_correction/stage_qa.html'>BRDF and topographic correction</a></td><td style='color:#a65f00;font-weight:800'>WARN</td><td>0.571275</td><td>1</td><td>0.2504</td><td>0</td><td>0.0593168</td><td>1.41415e-05</td><td>68</td><td>0.00389395</td><td>—</td></tr><tr><td><a href='../../qa/stages/04_spectral_convolution/stage_qa.html'>Spectral convolution</a></td><td style='color:#2f6b3c;font-weight:800'>PASS</td><td>0.571275</td><td>1</td><td>0.14445</td><td>0</td><td>1.43012e-05</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td><a href='../../qa/stages/05_analysis_tables/stage_qa.html'>Parquet extraction and merge</a></td><td style='color:#2f6b3c;font-weight:800'>PASS</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>18</td></tr></table>
+<h2>Pipeline evolution</h2><img src='pipeline_evolution.png' alt='Pipeline evolution'>
+<h2>What we learn from the full pipeline</h2><ul><li><strong>WARN:</strong> The pipeline completed with stage-level warnings.<pre>{
+  &quot;stages&quot;: [
+    &quot;Input reflectance&quot;,
+    &quot;Correction parameters&quot;,
+    &quot;BRDF and topographic correction&quot;
+  ]
+}</pre></li><li><strong>WARN:</strong> Known poor-quality wavelength bands were retained and explicitly labeled; no masking or replacement was applied.<pre>{
+  &quot;stages&quot;: [
+    {
+      &quot;stage&quot;: &quot;Input reflectance&quot;,
+      &quot;known_bad_band_count&quot;: 68,
+      &quot;classification_mode&quot;: &quot;report_only_no_masking&quot;,
+      &quot;data_modified&quot;: false
+    },
+    {
+      &quot;stage&quot;: &quot;BRDF and topographic correction&quot;,
+      &quot;known_bad_band_count&quot;: 68,
+      &quot;classification_mode&quot;: &quot;report_only_no_masking&quot;,
+      &quot;data_modified&quot;: false
+    }
+  ]
+}</pre></li></ul>
+<h2>Not evaluated</h2><pre>[
+  {
+    &quot;diagnostic&quot;: &quot;sensor_triangle_path_and_cycle_consistency&quot;,
+    &quot;reason&quot;: &quot;No fitted translation-edge artifacts are produced by the canonical NEON processing run.&quot;
+  },
+  {
+    &quot;diagnostic&quot;: &quot;landsat_direct_nbar_comparability&quot;,
+    &quot;reason&quot;: &quot;Direct Landsat Collection 2 NBAR is acquired outside this NEON flightline pipeline.&quot;
+  }
+]</pre>
+</body></html>

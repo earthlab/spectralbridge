@@ -1067,6 +1067,62 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../validation/real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1081,10 +1137,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
             
   
   
@@ -1102,8 +1158,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1891,6 +1947,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/validation/" class="md-nav__link">
         
   
@@ -2513,10 +2625,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-the-test-suite-is-not-green" class="md-nav__link">
+  <a href="#1-the-suite-is-green-but-scientific-validation-coverage-is-incomplete" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. The test suite is not green
+        1. The suite is green, but scientific validation coverage is incomplete
       
     </span>
   </a>
@@ -2747,8 +2859,8 @@
 
 
 <h1 id="publication-readiness-and-test-coverage-audit">Publication Readiness And Test Coverage Audit<a class="headerlink" href="#publication-readiness-and-test-coverage-audit" title="Permanent link">&para;</a></h1>
-<p>Review date: 2026-08-14<br />
-Repository state reviewed: local <code>main</code> working tree before the AI-transparency changes in this audit</p>
+<p>Review date: 2026-08-15
+Repository state reviewed: local <code>main</code> working tree after report-only footprint and spectral-quality classification</p>
 <h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
 <p>SpectralBridge has a credible scientific-software foundation, but it is <strong>not yet ready for a publication-tagged software release</strong>. The restart-safe architecture, public documentation, GPL license, citation file, release workflow, and substantial synthetic test suite are meaningful strengths. Release-blocking work remains in test health, version/citation synchronization, authorship metadata, legal provenance, and DOI ownership.</p>
 <p>This is a repository-readiness assessment, not a scientific validation of the correction algorithms or coefficient tables.</p>
@@ -2771,15 +2883,15 @@ Repository state reviewed: local <code>main</code> working tree before the AI-tr
 </tr>
 <tr>
 <td>Pytest collection</td>
-<td>195 test outcomes collected in unit mode</td>
+<td>225 tests collected in unit mode</td>
 </tr>
 <tr>
 <td>Unit-mode test run</td>
-<td>186 passed, 7 skipped, 2 failed</td>
+<td>218 passed, 7 skipped</td>
 </tr>
 <tr>
 <td>Coverage</td>
-<td>49.66% statements, 33.43% branches, 45.56% combined</td>
+<td>56.41% statements, 38.55% branches, 52.01% combined</td>
 </tr>
 <tr>
 <td>Ruff baseline (<code>E4,E7,E9,F</code>)</td>
@@ -2803,16 +2915,23 @@ Repository state reviewed: local <code>main</code> working tree before the AI-tr
 </tr>
 </tbody>
 </table>
-<p>The test environment used Python 3.12.8 and pytest 9.0.3. That is not the repository's documented Python 3.10 baseline, and pytest 9 is outside the <code>&lt;9</code> contributor constraint. Results must therefore be confirmed in the declared CI environment before release.</p>
+<p>The current test environment used Python 3.12.8 and pytest 8.4.2. It now
+respects the repository's pytest <code>&lt;9</code> constraint, but it is not the documented
+Python 3.10 baseline. Results must still be confirmed in the declared CI
+environment before release.</p>
 <h2 id="release-blockers-and-material-risks">Release blockers and material risks<a class="headerlink" href="#release-blockers-and-material-risks" title="Permanent link">&para;</a></h2>
-<h3 id="1-the-test-suite-is-not-green">1. The test suite is not green<a class="headerlink" href="#1-the-test-suite-is-not-green" title="Permanent link">&para;</a></h3>
-<p>The following tests failed:</p>
-<ul>
-<li><code>test_render_drone_merged_preview_prefers_non_nodata_rows</code></li>
-<li><code>test_render_drone_merged_preview_prioritizes_rightmost_columns</code></li>
-</ul>
-<p>Both fixtures monkeypatch <code>pandas.read_parquet</code> with a one-argument lambda, while the active safe-reader fallback calls it with a <code>columns=</code> keyword. The production reader catches that fixture error and returns an empty preview summary, causing the assertions to fail. This looks like test-fixture drift, but it still means the release gate is red until maintainers confirm and repair the intended contract.</p>
-<p>The process also returned signal-style exit code 143 after printing its complete summary, matching the shutdown issue already recorded in <code>FEATURE_REQUESTS.md</code>. CI should be used to distinguish an environment-specific teardown issue from a portable failure.</p>
+<h3 id="1-the-suite-is-green-but-scientific-validation-coverage-is-incomplete">1. The suite is green, but scientific validation coverage is incomplete<a class="headerlink" href="#1-the-suite-is-green-but-scientific-validation-coverage-is-incomplete" title="Permanent link">&para;</a></h3>
+<p>The two drone-preview fixture failures recorded in the first audit were fixed
+and are protected by regression tests. The current unit-mode suite completes
+with 218 passing and seven expected skipped tests. The new real-flightline run
+also passed every computational stage while honestly returning stage-QA
+warnings for known poor-quality bands that remain retained in the products.
+Structural bounding-box background and all-band extreme values remain disclosed
+but are no longer misclassified as unexpected pipeline failures.</p>
+<p>This closes the immediate red test gate, but it does not establish scientific
+generality. Multi-site threshold tuning, independent paired-sensor validation,
+topographic-only versus BRDF-only attribution, and sensor-network path/cycle
+tests still require additional real datasets and persisted artifacts.</p>
 <h3 id="2-release-metadata-is-inconsistent">2. Release metadata is inconsistent<a class="headerlink" href="#2-release-metadata-is-inconsistent" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>pyproject.toml</code>, <code>spectralbridge.__version__</code>, and <code>CITATION.cff</code> say <code>2.2.0</code>.</li>
@@ -2846,21 +2965,21 @@ Repository state reviewed: local <code>main</code> working tree before the AI-tr
 <tbody>
 <tr>
 <td>Statements</td>
-<td style="text-align: right;">5,696</td>
-<td style="text-align: right;">11,470</td>
-<td style="text-align: right;">49.66%</td>
+<td style="text-align: right;">7,127</td>
+<td style="text-align: right;">12,634</td>
+<td style="text-align: right;">56.41%</td>
 </tr>
 <tr>
 <td>Branches</td>
-<td style="text-align: right;">1,295</td>
-<td style="text-align: right;">3,874</td>
-<td style="text-align: right;">33.43%</td>
+<td style="text-align: right;">1,592</td>
+<td style="text-align: right;">4,130</td>
+<td style="text-align: right;">38.55%</td>
 </tr>
 <tr>
 <td>Combined</td>
 <td style="text-align: right;">—</td>
 <td style="text-align: right;">—</td>
-<td style="text-align: right;">45.56%</td>
+<td style="text-align: right;">52.01%</td>
 </tr>
 </tbody>
 </table>
@@ -2896,14 +3015,9 @@ Repository state reviewed: local <code>main</code> working tree before the AI-tr
 <td>Full-mode skips leave most extraction behavior uncovered locally.</td>
 </tr>
 <tr>
-<td><code>envi_writer.py</code></td>
-<td style="text-align: right;">8%</td>
-<td>Core output serialization needs focused round-trip tests.</td>
-</tr>
-<tr>
 <td><code>envi_download.py</code></td>
-<td style="text-align: right;">9%</td>
-<td>Network/error paths are expected to be difficult, but local logic can be isolated.</td>
+<td style="text-align: right;">38%</td>
+<td>Authentication/error paths improved, but live network variation still needs campaign evidence.</td>
 </tr>
 <tr>
 <td><code>sensor_panel_plots.py</code></td>
@@ -2920,6 +3034,7 @@ Repository state reviewed: local <code>main</code> working tree before the AI-tr
 <h3 id="stronger-areas">Stronger areas<a class="headerlink" href="#stronger-areas" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>qa_metrics.py</code>, <code>io/neon_legacy.py</code>, and several compatibility/protocol modules reached 100%.</li>
+<li>The new stage-QA modules range from 80% to 96%, and <code>envi_writer.py</code> now reaches 83% after scale/no-data round-trip regression coverage.</li>
 <li><code>sort_core.py</code> reached 95%.</li>
 <li><code>io/neon_schema.py</code> reached 89%.</li>
 <li><code>io/neon.py</code> reached 78%.</li>
@@ -2929,9 +3044,10 @@ Repository state reviewed: local <code>main</code> working tree before the AI-tr
 <p>The suite has valuable synthetic contracts for HDF5 orientation, ancillary alignment, schema parity, naming, restart behavior, QA metrics, and drone orchestration. Those tests protect scientifically important invariants without requiring the full external dataset.</p>
 <h3 id="test-system-risks">Test-system risks<a class="headerlink" href="#test-system-risks" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Seven tests were skipped in unit mode, including external/full-mode and browser/image checks.</li>
+<li>Six tests were skipped in unit mode, including external/full-mode checks.</li>
 <li>Several test modules install dependency shims or extensive monkeypatches. These are useful for isolation but can diverge from real dependency behavior, as the two current failures demonstrate.</li>
-<li>The audit environment had pytest 9.0.3 while contributor dependencies require pytest <code>&lt;9</code>. This audit aligns the <code>pyproject.toml</code> test and development extras with that existing constraint, but the suite still needs confirmation in a fresh supported environment.</li>
+<li>The audit environment now uses pytest 8.4.2, within the contributor constraint,
+  but the suite still needs confirmation in a fresh Python 3.10 environment.</li>
 <li>CI currently uses Python 3.11 even though the README states Python 3.10 is the primary tested baseline.</li>
 <li>There is no maintained coverage trend service or high-value-module threshold. A single global percentage can hide zero-coverage scientific modules.</li>
 <li>The strict documentation build succeeds, but reports 25 Markdown pages outside the configured navigation; maintainers should confirm which are intentionally hidden.</li>
@@ -2948,14 +3064,14 @@ Repository state reviewed: local <code>main</code> working tree before the AI-tr
 </ul>
 <h2 id="recommended-order-of-work">Recommended order of work<a class="headerlink" href="#recommended-order-of-work" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Resolve the two failing tests and the exit-143 teardown behavior in the declared CI environment.</li>
 <li>Synchronize version, changelog, citation, and tag metadata; add a release metadata validation gate.</li>
 <li>Approve the author/ORCID/affiliation list and DOI strategy.</li>
 <li>Complete the GPL/third-party provenance review.</li>
+<li>Run a pinned multi-site real-data campaign and scientifically review the provisional QA thresholds.</li>
 <li>Modernize the PEP 621 license metadata and repeat artifact smoke tests on Python 3.10/Linux.</li>
-<li>Add direct tests for <code>standard_resample.py</code>, <code>mask_raster.py</code>, <code>brightness.py</code>, and ENVI writing.</li>
-<li>Run strict docs/browser checks and remove or consolidate duplicate documentation deployment workflows.</li>
-<li>Add sample-data guidance, maintainer/support ownership, contributor templates, and recurring dependency/security audits.</li>
+<li>Add direct tests for <code>standard_resample.py</code>, <code>mask_raster.py</code>, and <code>brightness.py</code>.</li>
+<li>Persist SRF weights and translation-validation artifacts needed for the currently <code>NOT EVALUATED</code> checks.</li>
+<li>Remove or consolidate duplicate documentation deployment workflows and add recurring dependency/security audits.</li>
 </ol>
 <h2 id="ai-transparency-audit-trail">AI-transparency audit trail<a class="headerlink" href="#ai-transparency-audit-trail" title="Permanent link">&para;</a></h2>
 <p>The generated statement reports aggregate prompt frequency, topics, intents, lengths, AI-system metadata, and model-metadata coverage. It deliberately does not claim line-level AI authorship or reconstruct missing model identities. Reproduce it with:</p>

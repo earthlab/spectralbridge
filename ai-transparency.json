@@ -1,10 +1,10 @@
 {
   "ai_systems": {
-    "OpenAI Codex": 102
+    "OpenAI Codex": 115
   },
   "branches": {
     "$(git branch --show-current 2>/dev/null || echo unknown)": 1,
-    "main": 90,
+    "main": 103,
     "unknown": 7,
     "work": 4
   },
@@ -15,47 +15,48 @@
     "word_count": "Unicode word-like tokens matched by the generator's WORD_RE expression."
   },
   "models": {
+    "GPT-5": 2,
     "GPT-5 family (exact deployment identifier not exposed)": 7,
-    "Not recorded": 95
+    "Not recorded": 106
   },
   "primary_intents": {
-    "Audit or investigation": 10,
-    "Execution or verification": 21,
-    "Implementation or modification": 44,
-    "Other or mixed": 27
+    "Audit or investigation": 11,
+    "Execution or verification": 25,
+    "Implementation or modification": 51,
+    "Other or mixed": 28
   },
   "primary_topics": {
     "Data and metadata handling": 3,
-    "Documentation and website": 16,
+    "Documentation and website": 17,
     "Drone and UAS workflow": 7,
     "Other": 3,
     "Publication, packaging, release, and governance": 19,
-    "QA and visualization": 23,
-    "Scientific pipeline and corrections": 18,
-    "Testing and CI": 13
+    "QA and visualization": 27,
+    "Scientific pipeline and corrections": 22,
+    "Testing and CI": 17
   },
   "prompts_by_month": {
     "2026-03": 9,
     "2026-04": 33,
     "2026-06": 47,
-    "2026-08": 13
+    "2026-08": 26
   },
   "schema_version": 1,
   "source": {
-    "data_through": "2026-08-14",
+    "data_through": "2026-08-17",
     "path": "PROMPT_LOG.md",
-    "sha256": "c207166c7b06e45fd72518b616d878f0463c0dfeb2b45e67bf32dc4e76897b07"
+    "sha256": "d63f458ec484236f0c6070d08eccbf468de256420d007eb88cbb55c41a3151e8"
   },
   "summary": {
-    "entries_with_recorded_model": 7,
+    "entries_with_recorded_model": 9,
     "first_prompt_date": "2026-03-21",
-    "last_prompt_date": "2026-08-14",
-    "maximum_prompt_words": 2079,
-    "mean_prompt_words": 230.4,
-    "median_prompt_words": 31.5,
+    "last_prompt_date": "2026-08-17",
+    "maximum_prompt_words": 3201,
+    "mean_prompt_words": 240.4,
+    "median_prompt_words": 32.0,
     "minimum_prompt_words": 1,
-    "model_metadata_coverage_pct": 6.9,
-    "prompt_count": 102,
-    "total_prompt_words": 23496
+    "model_metadata_coverage_pct": 7.8,
+    "prompt_count": 115,
+    "total_prompt_words": 27650
   }
 }

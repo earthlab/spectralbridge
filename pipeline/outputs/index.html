@@ -1067,6 +1067,62 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../validation/real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1081,10 +1137,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
             
   
   
@@ -1102,8 +1158,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1998,6 +2054,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/validation/" class="md-nav__link">
         
   
@@ -2670,6 +2782,24 @@
 <td>Structured QA metrics by band and sensor.</td>
 <td>Emitted alongside QA outputs when QA calculation runs.</td>
 </tr>
+<tr>
+<td>Synthetic sensor regression diagnostic</td>
+<td><code>qa_plots/&lt;merged_stem&gt;__MS_vs_Landsat_FIXED.(png|json)</code></td>
+<td>Scatter panels compare wavelength-matched synthetic MicaSense and Landsat products; the JSON records the displayed slope, intercept, correlation, R², and sample count.</td>
+<td>Both axes come from the same corrected NEON source. This is a descriptive convolution diagnostic, not empirical sensor calibration.</td>
+</tr>
+<tr>
+<td>Stage QA</td>
+<td><code>qa/stages/&lt;order&gt;_&lt;stage&gt;/stage_qa.(json|html)</code> plus optional <code>overview.png</code></td>
+<td>Focused report for one canonical stage with explicit checks and provenance.</td>
+<td>Deterministic and restart-safe; missing diagnostics are recorded as <code>NOT EVALUATED</code>.</td>
+</tr>
+<tr>
+<td>Combined stage QA</td>
+<td><code>qa/combined/combined_qa.(json|html)</code> plus <code>pipeline_evolution.png</code></td>
+<td>Cross-stage status, pipeline evolution, and evidence-backed synthesis.</td>
+<td>Does more than concatenate stage reports; unsupported translation/Landsat diagnostics remain explicit.</td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -2687,6 +2817,7 @@
 <p class="sb-kicker">Restart safety</p>
 <h2 id="idempotence-and-validation">Idempotence and validation<a class="headerlink" href="#idempotence-and-validation" title="Permanent link">&para;</a></h2>
 <p><code>process_one_flightline</code> and <code>go_forth_and_multiply</code> skip stages whose outputs already exist and validate, so re-running the pipeline does not recompute completed products unless outputs are missing or invalid.</p>
+<p>Stage QA uses the same principle: reports are reused when the schema, parameters, thresholds, software version, and input/output artifact fingerprints match.</p>
 <p class="sb-doc-note">Drone polygon workflows also attempt to write CSV sidecars next to parquet outputs for portability. The parquet files remain the authoritative outputs.</p>
 </section>
 <section class="sb-doc-section">

@@ -1070,6 +1070,62 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1091,10 +1147,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
             
   
   
@@ -1112,8 +1168,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1330,6 +1386,56 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-this-module-test-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What this module test exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What this module test exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inputs-varied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inputs varied
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checks-and-how-to-interpret-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checks and how to interpret them
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnostics-recorded-for-every-variation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostics recorded for every variation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#input-variations-and-results" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1341,10 +1447,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-this-tells-us-about-qa" class="md-nav__link">
+  <a href="#what-a-passing-result-establishes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this tells us about QA
+        What a passing result establishes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-from-the-real-r10c-test-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example from the real R10C test run
       
     </span>
   </a>
@@ -1992,6 +2109,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/validation/" class="md-nav__link">
         
   
@@ -2602,6 +2775,100 @@
 <p class="admonition-title">Evidence boundary</p>
 <p>The current checked-in campaign uses small synthetic or already-present inputs and does not contact NEON. It validates software contracts and diagnostics, not real-flightline scientific accuracy.</p>
 </div>
+<h2 id="what-this-module-test-exercises">What this module test exercises<a class="headerlink" href="#what-this-module-test-exercises" title="Permanent link">&para;</a></h2>
+<p>Extract every synthetic raster pixel to Parquet, export a CSV copy, and verify row, coordinate, and spectral-column parity.</p>
+<p><strong>Implementation exercised:</strong> <code>build_parquet_from_envi</code> and <code>_export_csv_copy_from_parquet</code></p>
+<h3 id="inputs-varied">Inputs varied<a class="headerlink" href="#inputs-varied" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it is recorded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shape_b_y_x</code></td>
+<td>Varies band, row, and column counts.</td>
+</tr>
+<tr>
+<td><code>chunk_size</code></td>
+<td>Varies extraction batch boundaries.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="checks-and-how-to-interpret-them">Checks and how to interpret them<a class="headerlink" href="#checks-and-how-to-interpret-them" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Question</th>
+<th>PASS means</th>
+<th>If it does not pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>all_pixels_exported</code></td>
+<td>Is there one table row per raster pixel?</td>
+<td>Parquet row count equals rows × columns.</td>
+<td>Inspect chunk boundaries, pixel indexing, and filtering.</td>
+</tr>
+<tr>
+<td><code>coordinate_columns_present</code></td>
+<td>Are spatial identity fields present?</td>
+<td>Required row, column, x, and y fields exist.</td>
+<td>A table without coordinates cannot be reliably traced back to the raster.</td>
+</tr>
+<tr>
+<td><code>spectral_band_count_matches</code></td>
+<td>Is there one spectral column per input band?</td>
+<td>Detected spectral-column count equals the cube band count.</td>
+<td>Inspect naming, schema construction, and wavelength metadata.</td>
+</tr>
+<tr>
+<td><code>csv_row_count_matches</code></td>
+<td>Does CSV conversion preserve table length?</td>
+<td>CSV and Parquet row counts match.</td>
+<td>Inspect streaming conversion and header handling.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="diagnostics-recorded-for-every-variation">Diagnostics recorded for every variation<a class="headerlink" href="#diagnostics-recorded-for-every-variation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it is recorded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>parquet_rows</code></td>
+<td>Rows written to Parquet.</td>
+</tr>
+<tr>
+<td><code>csv_rows</code></td>
+<td>Rows read back from CSV.</td>
+</tr>
+<tr>
+<td><code>spectral_column_count</code></td>
+<td>Detected reflectance columns.</td>
+</tr>
+<tr>
+<td><code>column_count</code></td>
+<td>Total output schema width.</td>
+</tr>
+<tr>
+<td><code>parquet_bytes</code></td>
+<td>Persisted Parquet size.</td>
+</tr>
+<tr>
+<td><code>csv_bytes</code></td>
+<td>Persisted CSV size.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="input-variations-and-results">Input variations and results<a class="headerlink" href="#input-variations-and-results" title="Permanent link">&para;</a></h2>
 <p>On narrow screens, scroll the table horizontally to see every diagnostic and check.</p>
 <table>
@@ -2652,8 +2919,22 @@
 </tr>
 </tbody>
 </table>
-<h2 id="what-this-tells-us-about-qa">What this tells us about QA<a class="headerlink" href="#what-this-tells-us-about-qa" title="Permanent link">&para;</a></h2>
-<p>Expose row preservation, spectral-column counts, coordinate fields, and CSV parity. These are direct candidates for the Parquet/merge page of the QA report.</p>
+<h2 id="what-a-passing-result-establishes">What a passing result establishes<a class="headerlink" href="#what-a-passing-result-establishes" title="Permanent link">&para;</a></h2>
+<p>Chunk-independent row and schema preservation through extraction and CSV export.</p>
+<div class="admonition warning">
+<p class="admonition-title">What it does not establish</p>
+<p>Correct polygon membership on every real geometry or scientific translation accuracy.</p>
+</div>
+<p>The matching real stage checks are explained in the <a href="../stage-qa-guide/#parquet-extraction-and-merge">stage QA test guide</a>.</p>
+<h2 id="example-from-the-real-r10c-test-run">Example from the real R10C test run<a class="headerlink" href="#example-from-the-real-r10c-test-run" title="Permanent link">&para;</a></h2>
+<div class="sb-validation-grid">
+  <figure class="sb-validation-figure">
+    <a href="../artifacts/r10c-l002-20210915/qa/stages/05_analysis_tables/overview.png"><img src="../artifacts/r10c-l002-20210915/qa/stages/05_analysis_tables/overview.png" alt="R10C Parquet extraction and merge overview" loading="lazy"></a>
+    <figcaption>The real run compares rows, schema width, and file size for 18 readable extracted and merged tables.</figcaption>
+  </figure>
+</div>
+
+<p>The figure is evidence from one completed flightline, not a replacement for the variation table above. Open the <a href="../real-data-example/">real flightline walkthrough</a> for exact values and limitations.</p>
 <h2 id="expansion-to-100-real-variations">Expansion to 100 real variations<a class="headerlink" href="#expansion-to-100-real-variations" title="Permanent link">&para;</a></h2>
 <p>The repository includes a <a href="https://github.com/earthlab/spectralbridge/blob/main/validation/campaigns/neon-live-100.example.json">live 100-flightline campaign specification</a>. It requires a pinned inventory of real flightline IDs plus an explicit compute, storage, and network allocation. Live results must be stored as a new campaign record; they must not overwrite this offline baseline.</p>
 <h2 id="reproduce-or-expand-this-module">Reproduce or expand this module<a class="headerlink" href="#reproduce-or-expand-this-module" title="Permanent link">&para;</a></h2>
