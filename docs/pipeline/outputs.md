@@ -21,7 +21,7 @@
 | QA metrics parquet | `<flight_id>_qa_metrics.parquet` | Structured QA metrics by band and sensor. | Emitted alongside QA outputs when QA calculation runs. |
 | Synthetic sensor regression diagnostic | `qa_plots/<merged_stem>__MS_vs_Landsat_FIXED.(png|json)` | Scatter panels compare wavelength-matched synthetic MicaSense and Landsat products; the JSON records the displayed slope, intercept, correlation, R², and sample count. | Both axes come from the same corrected NEON source. This is a descriptive convolution diagnostic, not empirical sensor calibration. |
 | Stage QA | `qa/stages/<order>_<stage>/stage_qa.(json|html)` plus optional `overview.png` | Focused report for one canonical stage with explicit checks and provenance. | Deterministic and restart-safe; missing diagnostics are recorded as `NOT EVALUATED`. |
-| Combined stage QA | `qa/combined/combined_qa.(json|html)` plus `pipeline_evolution.png` | Cross-stage status, pipeline evolution, and evidence-backed synthesis. | Does more than concatenate stage reports; unsupported translation/Landsat diagnostics remain explicit. |
+| Combined stage QA | `qa/combined/combined_qa.(json|html|pdf)` plus `pipeline_evolution.png` | Cross-stage status, pipeline evolution, evidence-backed synthesis, and a printable multi-page summary. | Does more than concatenate stage reports; unsupported translation/Landsat diagnostics remain explicit. The PDF is intended for download and flightline-to-flightline comparison. |
 </section>
 
 <section class="sb-doc-section" markdown="1">

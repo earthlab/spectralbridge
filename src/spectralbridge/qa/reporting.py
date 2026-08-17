@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import html
 import json
+import re
+import textwrap
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +14,7 @@ import matplotlib
 matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 
 from .paths import CombinedQAPaths
 from .plots import (
@@ -32,12 +35,72 @@ _STATUS_COLOR = {
 }
 
 
+def _wrap_text(value: Any, *, width: int = 96) -> list[str]:
+    text = (
+        str(value)
+        .replace("—", "-")
+        .replace("–", "-")
+        .replace("·", "|")
+    )
+    lines: list[str] = []
+    for raw_line in text.splitlines() or [""]:
+        wrapped = textwrap.wrap(raw_line, width=width) or [""]
+        lines.extend(wrapped)
+    return lines
+
+
 def _value(value: Any) -> str:
     if value is None:
         return "—"
     if isinstance(value, float):
         return f"{value:.6g}"
     return html.escape(str(value))
+
+
+def _pdf_value(value: Any) -> str:
+    if value is None:
+        return "not available"
+    if isinstance(value, float):
+        return f"{value:.6g}"
+    return str(value)
+
+
+def _pdf_footer(fig: plt.Figure, footer: str) -> None:
+    fig.text(0.06, 0.035, footer, fontsize=7.5, color="#64748b", va="bottom")
+
+
+def _combined_report_identity(
+    flightline_dir: Path,
+    stage_payloads: list[dict[str, Any]],
+) -> tuple[str, str]:
+    """Return the best flightline ID and label available from stage evidence."""
+
+    fallback_id = flightline_dir.name
+    flightline_id = fallback_id
+    pattern = re.compile(r"(NEON_[A-Z0-9]+_[A-Z0-9]+_DP\d_[^/\\]+?_reflectance)")
+    for item in stage_payloads:
+        for collection_name in ("inputs", "outputs"):
+            for record in item.get(collection_name, []):
+                name = str(record.get("name") or record.get("path") or "")
+                match = pattern.search(name)
+                if match:
+                    flightline_id = match.group(1)
+                    break
+            if flightline_id != fallback_id:
+                break
+        if flightline_id != fallback_id:
+            break
+
+    location_label = ""
+    for item in stage_payloads:
+        plot_contract = item.get("metrics", {}).get("plot_contract", {})
+        candidate = plot_contract.get("location_label")
+        if candidate:
+            location_label = str(candidate)
+            break
+    if not location_label:
+        location_label = format_location_label(flightline_id)
+    return flightline_id, location_label
 
 
 def render_stage_html(report: StageQAReport, output_path: Path) -> Path:
@@ -261,6 +324,254 @@ def _render_pipeline_evolution(
     return output_path
 
 
+def _pdf_text_page(
+    pdf: PdfPages,
+    *,
+    title: str,
+    subtitle: str | None = None,
+    blocks: list[tuple[str, list[str]]],
+    footer: str,
+) -> None:
+    """Render a deterministic text summary page into the combined QA PDF."""
+
+    fig = plt.figure(figsize=(11, 8.5))
+    fig.patch.set_facecolor("white")
+    y = 0.94
+    fig.text(0.06, y, title, fontsize=18, weight="bold", color="#123565", va="top")
+    y -= 0.045
+    if subtitle:
+        for line in _wrap_text(subtitle, width=118):
+            fig.text(0.06, y, line, fontsize=9.5, color="#475569", va="top")
+            y -= 0.026
+        y -= 0.01
+    for heading, lines in blocks:
+        if y < 0.11:
+            fig.text(
+                0.06,
+                y,
+                "Additional content continues in the JSON and HTML reports.",
+                fontsize=8.5,
+                color="#5c6670",
+                va="top",
+            )
+            break
+        fig.text(
+            0.06,
+            y,
+            heading,
+            fontsize=11,
+            weight="bold",
+            color="#123565",
+            va="top",
+        )
+        y -= 0.027
+        for line in lines:
+            for wrapped in _wrap_text(line, width=126):
+                if y < 0.08:
+                    break
+                fig.text(0.075, y, wrapped, fontsize=8.2, color="#182433", va="top")
+                y -= 0.022
+            if y < 0.08:
+                break
+        y -= 0.014
+    _pdf_footer(fig, footer)
+    pdf.savefig(fig)
+    plt.close(fig)
+
+
+def _pdf_image_page(
+    pdf: PdfPages,
+    *,
+    title: str,
+    image_path: Path,
+    caption: str,
+    footer: str,
+) -> None:
+    """Render one diagnostic image page, tolerating missing or unreadable plots."""
+
+    fig = plt.figure(figsize=(11, 8.5))
+    fig.patch.set_facecolor("white")
+    fig.text(
+        0.06,
+        0.95,
+        title,
+        fontsize=16,
+        weight="bold",
+        color="#123565",
+        va="top",
+    )
+    fig.text(0.06, 0.915, caption, fontsize=8.5, color="#475569", va="top")
+    ax = fig.add_axes([0.06, 0.07, 0.88, 0.80])
+    try:
+        image = plt.imread(image_path)
+    except Exception as exc:
+        ax.text(
+            0.5,
+            0.56,
+            "Diagnostic image could not be opened",
+            ha="center",
+            va="center",
+            fontsize=13,
+            transform=ax.transAxes,
+        )
+        ax.text(
+            0.5,
+            0.48,
+            "\n".join(_wrap_text(f"{type(exc).__name__}: {exc}", width=75)),
+            ha="center",
+            va="center",
+            fontsize=9,
+            transform=ax.transAxes,
+        )
+    else:
+        ax.imshow(image)
+    ax.axis("off")
+    _pdf_footer(fig, footer)
+    pdf.savefig(fig)
+    plt.close(fig)
+
+
+def _render_combined_pdf(
+    *,
+    flightline_dir: Path,
+    paths: CombinedQAPaths,
+    payload: dict[str, Any],
+    stage_payloads: list[dict[str, Any]],
+    findings: list[dict[str, Any]],
+    location_label: str,
+) -> Path:
+    """Write one printable PDF containing the combined and stage QA summaries."""
+
+    paths.directory.mkdir(parents=True, exist_ok=True)
+    with PdfPages(paths.pdf) as pdf:
+        page_number = 1
+        stage_lines = [
+            (
+                f"{item['stage_name']}: {item['status']} | "
+                "valid within footprint="
+                f"{_pdf_value(item['highlights']['within_footprint_valid_fraction'])} | "
+                f"median={_pdf_value(item['highlights']['median_reflectance'])} | "
+                f"negative={_pdf_value(item['highlights']['negative_fraction'])} | "
+                "known bad bands="
+                f"{_pdf_value(item['highlights']['known_bad_band_count'])}"
+            )
+            for item in payload["stages"]
+        ]
+        _pdf_text_page(
+            pdf,
+            title=f"Combined QA - {location_label}",
+            subtitle=(
+                f"Flightline: {payload['flightline_id']} | "
+                f"Overall status: {payload['status']} | Schema {payload['schema_version']}"
+            ),
+            blocks=[
+                ("Stage Summary", stage_lines or ["No stage reports were available."]),
+                (
+                    "Report Artifacts",
+                    [
+                        f"HTML: {paths.html.relative_to(flightline_dir)}",
+                        f"JSON: {paths.json.relative_to(flightline_dir)}",
+                        f"PDF: {paths.pdf.relative_to(flightline_dir)}",
+                    ],
+                ),
+            ],
+            footer=f"SpectralBridge stage QA | Page {page_number}",
+        )
+        page_number += 1
+        finding_lines = [
+            (
+                f"{item['status']}: {item['finding']} Evidence: "
+                f"{json.dumps(item['evidence'], sort_keys=True)}"
+            )
+            for item in findings
+        ]
+        not_evaluated_lines = [
+            f"{item['diagnostic']}: {item['reason']}"
+            for item in payload.get("not_evaluated", [])
+        ]
+        _pdf_text_page(
+            pdf,
+            title="Cross-stage Interpretation",
+            subtitle=f"Flightline: {payload['flightline_id']}",
+            blocks=[
+                ("What We Learn", finding_lines or ["No cross-stage findings."]),
+                (
+                    "Not Evaluated",
+                    not_evaluated_lines or ["Every combined diagnostic was evaluated."],
+                ),
+            ],
+            footer=f"SpectralBridge stage QA | Page {page_number}",
+        )
+        page_number += 1
+        for plot_name in payload.get("plots", []):
+            _pdf_image_page(
+                pdf,
+                title="Combined QA Plot",
+                image_path=paths.directory / plot_name,
+                caption=plot_name,
+                footer=f"SpectralBridge stage QA | Page {page_number}",
+            )
+            page_number += 1
+        for item in stage_payloads:
+            stage_json_rel = item.get("_stage_json_relative_path")
+            stage_report_rel = (
+                str(Path(stage_json_rel).with_suffix(".html"))
+                if stage_json_rel
+                else f"{item['stage_id']}/stage_qa.html"
+            )
+            check_lines = [
+                (
+                    f"{check['check_id']}: {check['status']} | "
+                    "value="
+                    f"{_pdf_value(check.get('value'))} {check.get('units') or ''} | "
+                    f"{check['interpretation']} | {check.get('reason') or ''}"
+                )
+                for check in item.get("checks", [])
+            ]
+            interpretation_lines = item.get("interpretation") or [
+                "No automated interpretation was available."
+            ]
+            unavailable_lines = [
+                f"{entry['diagnostic']}: {entry['reason']}"
+                for entry in item.get("unavailable_diagnostics", [])
+            ]
+            _pdf_text_page(
+                pdf,
+                title=f"{item['stage_name']} - {item['status']}",
+                subtitle=(
+                    f"Stage ID: {item['stage_id']} | Mode: {item.get('mode')} | "
+                    f"Report: {stage_report_rel}"
+                ),
+                blocks=[
+                    ("Automated Interpretation", interpretation_lines),
+                    ("Checks", check_lines or ["No checks were recorded."]),
+                    (
+                        "Unavailable Diagnostics",
+                        unavailable_lines or ["None."],
+                    ),
+                ],
+                footer=f"SpectralBridge stage QA | Page {page_number}",
+            )
+            page_number += 1
+            stage_dir = (
+                flightline_dir / Path(stage_json_rel).parent
+                if stage_json_rel
+                else None
+            )
+            for plot_name in item.get("plots", []):
+                if stage_dir is None:
+                    continue
+                _pdf_image_page(
+                    pdf,
+                    title=f"{item['stage_name']} Plot",
+                    image_path=stage_dir / plot_name,
+                    caption=f"{item['stage_name']}: {plot_name}",
+                    footer=f"SpectralBridge stage QA | Page {page_number}",
+                )
+                page_number += 1
+    return paths.pdf
+
+
 def assemble_combined_report(flightline_dir: Path) -> tuple[Path, dict[str, Any]]:
     """Assemble stage reports and derive cross-stage findings."""
 
@@ -270,7 +581,12 @@ def assemble_combined_report(flightline_dir: Path) -> tuple[Path, dict[str, Any]
     stage_payloads = [
         json.loads(path.read_text(encoding="utf-8")) for path in stage_jsons
     ]
-    location_label = format_location_label(flightline_dir.name)
+    for stage_json, item in zip(stage_jsons, stage_payloads, strict=True):
+        item["_stage_json_relative_path"] = str(stage_json.relative_to(flightline_dir))
+    flightline_id, location_label = _combined_report_identity(
+        flightline_dir,
+        stage_payloads,
+    )
     findings = _cross_stage_findings(stage_payloads)
     statuses = [item["status"] for item in stage_payloads]
     overall = (
@@ -289,7 +605,7 @@ def assemble_combined_report(flightline_dir: Path) -> tuple[Path, dict[str, Any]
     )
     payload = {
         "schema_version": SCHEMA_VERSION,
-        "flightline_id": flightline_dir.name,
+        "flightline_id": flightline_id,
         "status": overall,
         "plot_contract": {
             **qa_plot_contract(),
@@ -396,13 +712,21 @@ def assemble_combined_report(flightline_dir: Path) -> tuple[Path, dict[str, Any]
     paths.html.write_text(
         f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Combined SpectralBridge QA</title>
 <style>body{{font-family:system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;color:#182433}}h1,h2{{color:#123565}}table{{border-collapse:collapse;width:100%;display:block;overflow-x:auto}}td,th{{border:1px solid #d7dee8;padding:.6rem;white-space:nowrap}}img{{max-width:100%;height:auto}}pre{{background:#f4f6f8;padding:.8rem;overflow:auto}}</style></head><body>
-<h1>Combined QA — {html.escape(flightline_dir.name)}</h1><p><strong>Overall status: {overall}</strong></p>
+<h1>Combined QA — {html.escape(flightline_id)}</h1><p><strong>Overall status: {overall}</strong></p>
 <h2>Stage summary</h2><table><tr><th>Stage</th><th>Status</th><th>Footprint / bounding box</th><th>Valid within footprint</th><th>Median reflectance</th><th>Negative fraction</th><th>All-band &gt;1.2</th><th>Usable-band &gt;1.2</th><th>Known bad bands retained</th><th>Correction |Δ| q99</th><th>Readable tables</th></tr>{stage_rows}</table>
 <h2>Pipeline evolution</h2>{image}
 <h2>What we learn from the full pipeline</h2><ul>{finding_items}</ul>
 <h2>Not evaluated</h2><pre>{html.escape(json.dumps(payload["not_evaluated"], indent=2))}</pre>
 </body></html>""",
         encoding="utf-8",
+    )
+    _render_combined_pdf(
+        flightline_dir=flightline_dir,
+        paths=paths,
+        payload=payload,
+        stage_payloads=stage_payloads,
+        findings=findings,
+        location_label=location_label,
     )
     return paths.html, payload
 

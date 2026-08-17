@@ -23,6 +23,7 @@ combined cross-stage interpretation under:
 └── combined/
     ├── combined_qa.json
     ├── combined_qa.html
+    ├── combined_qa.pdf
     └── pipeline_evolution.png
 ```
 
@@ -102,6 +103,13 @@ Stage-QA schema 1.3 includes plot-contract version 1.1 in every applicable
 stage JSON and in the combined JSON. This makes figures from a multi-run
 campaign directly comparable instead of letting Matplotlib choose a new scale
 for every flightline.
+
+The combined report also writes `qa/combined/combined_qa.pdf` after the HTML is
+created. The PDF is a single printable artifact for flightline-to-flightline
+review: it includes the combined status, cross-stage interpretation, pipeline
+evolution plot, each stage summary, and each available stage diagnostic image.
+Use the PDF for side-by-side reading or download; use the JSON for automated
+checks and exact numeric comparisons.
 
 | Display | Standard range |
 | --- | --- |

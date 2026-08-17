@@ -20,6 +20,73 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P64. Add Printable Combined Stage QA PDF
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-17
+- Goal: Produce a single downloadable PDF companion to the combined stage-QA
+  HTML report so users can compare complete flightline summaries outside the
+  browser.
+- Scope:
+  - Add a canonical `combined_qa.pdf` artifact next to `combined_qa.html`.
+  - Build the PDF from the same combined and stage payloads used by the HTML
+    reports, including stage summaries and available diagnostic figures.
+  - Preserve existing HTML, JSON, plot, naming, and restart behavior.
+  - Document the artifact and add focused regression coverage.
+- Plan:
+  - Extend the combined QA paths and report assembly code.
+  - Add a deterministic multi-page PDF renderer with graceful handling of
+    missing stage plots.
+  - Verify with a focused stage-QA test and update generated AI transparency.
+- Outcome (2026-08-17):
+  - Added canonical `qa/combined/combined_qa.pdf` output via
+    `CombinedQAPaths.pdf`.
+  - `assemble_combined_report()` now writes the HTML first and then emits a
+    single letter-sized, page-numbered PDF containing the combined summary,
+    cross-stage interpretation, pipeline evolution figure, each stage summary,
+    and each available stage diagnostic image.
+  - Regenerated the checked-in R10C validation artifact at
+    `docs/validation/artifacts/r10c-l002-20210915/qa/combined/combined_qa.pdf`
+    as a 19-page PDF.
+  - Updated output and stage-QA docs and refreshed AI transparency artifacts.
+  - Focused stage-QA tests, compile checks, doc-link checks, PDF metadata
+    inspection, and rendered-page visual checks pass.
+- Blockers: Ruff is not installed in the local `.venv`, so Ruff could not be
+  run from this environment.
+- Next recommended task: Add a small CLI/status message that prints the PDF path
+  after `spectralbridge-stage-qa` rebuilds an existing flightline report.
+
+### P63. Diagnose BRDF Kernel Crash At Zero Percent
+
+- Priority: User-directed
+- Status: Paused after user redirect
+- Owner: Codex
+- Started: 2026-08-17
+- Goal: Determine why the local kernel exits as BRDF processing begins and
+  distinguish an out-of-memory/process-backend failure from a scientific data
+  or algorithm error.
+- Scope:
+  - Trace BRDF initialization, chunk allocation, and execution backend settings.
+  - Inspect the available R10C run artifacts and any local diagnostic logs.
+  - Report the evidence-backed cause and conservative ways to run the existing
+    pipeline without changing its scientific assumptions.
+- Plan:
+  - Read the BRDF/topographic orchestration and its focused tests/docs.
+  - Estimate first-chunk memory and identify work duplicated across workers.
+  - Reproduce only with a bounded diagnostic if existing evidence is
+    insufficient, then document findings and next actions.
+- Current finding:
+  - Evidence gathered before redirect points to first-tile memory pressure in
+    scene-mode BRDF/topographic application rather than a scientific data
+    quality failure: the R10C cube expands to roughly 10 GiB as float32, and the
+    current scene-mode apply path can hold several full-scene arrays before the
+    progress bar advances beyond 0%.
+- Remaining work:
+  - If resumed, provide the user-facing diagnosis and optionally implement a
+    bounded row-strip application mode that preserves scene-level coefficients.
+
 ### P62. Synthetic Sensor Regression Plot And Coefficient Sidecar
 
 - Priority: User-directed

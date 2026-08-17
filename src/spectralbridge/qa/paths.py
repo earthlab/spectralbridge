@@ -86,6 +86,10 @@ class CombinedQAPaths:
         return self.directory / "combined_qa.html"
 
     @property
+    def pdf(self) -> Path:
+        return self.directory / "combined_qa.pdf"
+
+    @property
     def evolution_png(self) -> Path:
         return self.directory / "pipeline_evolution.png"
 

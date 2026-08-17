@@ -154,6 +154,24 @@ Found 12 errors.
 Error: Process completed with exit code 1.
 ```
 
+## 2026-08-17 - diagnose BRDF kernel crash at initialization
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+why is my kernel crashing on the brdf step at 0% completion
+```
+
+## 2026-08-17 - add combined QA PDF summary
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+the qa output is nice but the html is a little restrictive for summary. can you add a pdf print of the whole summary after it's produced by the html? this should have all the pages as part of a single pdf that I could download or compare to other flight line pdfs.
+```
+
 ## 2026-08-17 - add synthetic sensor regression diagnostic
 Branch: main
 AI system: OpenAI Codex
