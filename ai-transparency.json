@@ -1,10 +1,10 @@
 {
   "ai_systems": {
-    "OpenAI Codex": 115
+    "OpenAI Codex": 117
   },
   "branches": {
     "$(git branch --show-current 2>/dev/null || echo unknown)": 1,
-    "main": 103,
+    "main": 105,
     "unknown": 7,
     "work": 4
   },
@@ -15,14 +15,14 @@
     "word_count": "Unicode word-like tokens matched by the generator's WORD_RE expression."
   },
   "models": {
-    "GPT-5": 2,
+    "GPT-5": 4,
     "GPT-5 family (exact deployment identifier not exposed)": 7,
     "Not recorded": 106
   },
   "primary_intents": {
-    "Audit or investigation": 11,
+    "Audit or investigation": 12,
     "Execution or verification": 25,
-    "Implementation or modification": 51,
+    "Implementation or modification": 52,
     "Other or mixed": 28
   },
   "primary_topics": {
@@ -31,32 +31,32 @@
     "Drone and UAS workflow": 7,
     "Other": 3,
     "Publication, packaging, release, and governance": 19,
-    "QA and visualization": 27,
-    "Scientific pipeline and corrections": 22,
+    "QA and visualization": 28,
+    "Scientific pipeline and corrections": 23,
     "Testing and CI": 17
   },
   "prompts_by_month": {
     "2026-03": 9,
     "2026-04": 33,
     "2026-06": 47,
-    "2026-08": 26
+    "2026-08": 28
   },
   "schema_version": 1,
   "source": {
     "data_through": "2026-08-17",
     "path": "PROMPT_LOG.md",
-    "sha256": "d63f458ec484236f0c6070d08eccbf468de256420d007eb88cbb55c41a3151e8"
+    "sha256": "ba809fc6097f4fddfecd3c5de65f8c4b19adab1d48bcf070d788418eace56a4b"
   },
   "summary": {
-    "entries_with_recorded_model": 9,
+    "entries_with_recorded_model": 11,
     "first_prompt_date": "2026-03-21",
     "last_prompt_date": "2026-08-17",
     "maximum_prompt_words": 3201,
-    "mean_prompt_words": 240.4,
+    "mean_prompt_words": 236.9,
     "median_prompt_words": 32.0,
     "minimum_prompt_words": 1,
-    "model_metadata_coverage_pct": 7.8,
-    "prompt_count": 115,
-    "total_prompt_words": 27650
+    "model_metadata_coverage_pct": 9.4,
+    "prompt_count": 117,
+    "total_prompt_words": 27715
   }
 }
