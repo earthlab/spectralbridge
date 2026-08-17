@@ -6574,3 +6574,121 @@ Branch: main
 ```text
 make sure all this qa stuff that we've added is cleanly organized and keeps all the code human readable and that's it's documented well. update the validation section of the website with detailed exlinations about each of the test organized in each of the sections. give example images from the test run we've been doing.
 ```
+
+## 2026-08-17 - repair stale docs browser assertion
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+Run python -m http.server 8000 --directory site > /tmp/spectralbridge-docs-http.log 2>&1 &
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________ test_docs_site_core_pages_render_in_browser __________________
+
+    def test_docs_site_core_pages_render_in_browser() -> None:
+        base_url = _docs_site_url()
+
+        try:
+            from playwright.sync_api import sync_playwright
+        except Exception as exc:  # pragma: no cover - depends on local environment
+            raise AssertionError(
+                "Playwright is required for docs browser smoke tests. "
+                "Install pytest-playwright/playwright and Chromium."
+            ) from exc
+
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch()
+            page = browser.new_page(viewport={"width": 1280, "height": 900})
+            page_errors, console_errors, failed_assets = _collect_page_health(page, base_url)
+
+            try:
+                page.goto(base_url, wait_until="networkidle")
+                assert "SpectralBridge" in page.title()
+                assert page.locator("h1#spectralbridge").is_visible()
+
+                logo = page.locator("img[alt='SpectralBridge logo']").first
+                assert logo.evaluate("(img) => img.naturalWidth") > 0
+
+                assert page.get_by_role(
+                    "heading", name="Three technical views. Read them one at a time."
+                ).is_visible()
+                assert page.locator(".sb-science-panel").count() == 3
+                assert page.locator(".sb-science-panel__figure svg").count() == 3
+                assert page.locator(
+                    "a[href$='images/homepage/spectralbridge-technical-overview.png']"
+                ).count() == 3
+                desktop_figure = page.locator(".sb-science-panel__figure").first
+                assert desktop_figure.bounding_box()["width"] > 500
+
+                page.set_viewport_size({"width": 390, "height": 844})
+                assert page.evaluate(
+                    "document.documentElement.scrollWidth <= window.innerWidth"
+                )
+                mobile_viewport = page.locator(".sb-science-panel__viewport").first
+                assert mobile_viewport.evaluate(
+                    "element => element.scrollWidth > element.clientWidth"
+                )
+                page.set_viewport_size({"width": 1280, "height": 900})
+
+                page.goto(urljoin(base_url, "vignettes/"), wait_until="networkidle")
+                assert page.get_by_role("heading", name="Choose a vignette").is_visible()
+                assert page.get_by_role(
+                    "link",
+                    name="Carry On My Wayward Son (resume a run)",
+                ).is_visible()
+                assert page.get_by_role(
+                    "link",
+                    name="7. Extract polygon spectra",
+                ).is_visible()
+
+                page.goto(
+                    urljoin(base_url, "vignettes/notebook-vignettes/"),
+                    wait_until="networkidle",
+                )
+                assert page.get_by_role(
+                    "heading", name="Runnable notebook vignettes"
+                ).is_visible()
+                notebook_links = page.locator(
+                    f"a[href^='{GITHUB_NOTEBOOK_BASE}'][href$='.ipynb']"
+                )
+                assert notebook_links.count() == 9
+                assert page.get_by_role(
+                    "link", name="Correct NEON reflectance", exact=True
+                ).get_attribute("href") == (
+                    f"{GITHUB_NOTEBOOK_BASE}02_correct_neon.ipynb"
+                )
+
+                page.goto(urljoin(base_url, "reference/"), wait_until="networkidle")
+                assert page.get_by_role("heading", name="Technical reference map").is_visible()
+                assert page.get_by_role("link", name="Stage order and restart behavior").first.is_visible()
+
+                page.goto(urljoin(base_url, "validation/"), wait_until="networkidle")
+                assert page.get_by_role("heading", name="Validation evidence").is_visible()
+                assert page.get_by_role("link", name="Topographic correction").first.is_visible()
+                assert page.get_by_text("offline-contract-5-per-module").first.is_visible()
+
+                page.goto(
+                    urljoin(base_url, "validation/topographic_correction/"),
+                    wait_until="networkidle",
+                )
+                assert page.get_by_role(
+                    "heading", name="Validation: Topographic correction"
+                ).is_visible()
+                assert page.get_by_text("topographic_correction-005").is_visible()
+>               assert page.get_by_text("Synthetic correlation reduction").is_visible()
+E               assert False
+E                +  where False = is_visible()
+E                +    where is_visible = <Locator frame=<Frame name= url='http://127.0.0.1:8000/validation/topographic_correction/'> selector='internal:text="Synthetic correlation reduction"i'>.is_visible
+E                +      where <Locator frame=<Frame name= url='http://127.0.0.1:8000/validation/topographic_correction/'> selector='internal:text="Synthetic correlation reduction"i'> = get_by_text('Synthetic correlation reduction')
+E                +        where get_by_text = <Page url='http://127.0.0.1:8000/validation/topographic_correction/'>.get_by_text
+
+tests/test_docs_playwright.py:160: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_docs_playwright.py::test_docs_site_core_pages_render_in_browser - assert False
+ +  where False = is_visible()
+ +    where is_visible = <Locator frame=<Frame name= url='http://127.0.0.1:8000/validation/topographic_correction/'> selector='internal:text="Synthetic correlation reduction"i'>.is_visible
+ +      where <Locator frame=<Frame name= url='http://127.0.0.1:8000/validation/topographic_correction/'> selector='internal:text="Synthetic correlation reduction"i'> = get_by_text('Synthetic correlation reduction')
+ +        where get_by_text = <Page url='http://127.0.0.1:8000/validation/topographic_correction/'>.get_by_text
+Error: Process completed with exit code 1.
+```

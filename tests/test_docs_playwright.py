@@ -157,7 +157,9 @@ def test_docs_site_core_pages_render_in_browser() -> None:
                 "heading", name="Validation: Topographic correction"
             ).is_visible()
             assert page.get_by_text("topographic_correction-005").is_visible()
-            assert page.get_by_text("Synthetic correlation reduction").is_visible()
+            assert page.get_by_role(
+                "cell", name="Before minus after correlation.", exact=True
+            ).is_visible()
 
             page.goto(urljoin(base_url, "pipeline/outputs/"), wait_until="networkidle")
             assert page.get_by_role("heading", name="Outputs & File Structure").is_visible()

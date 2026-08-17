@@ -20,6 +20,39 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P61. Repair Stale Topographic Validation Browser Assertion
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-08-17
+- Goal: Restore the docs browser smoke test after the generated topographic
+  validation page replaced an older prose sentence with structured check and
+  diagnostic documentation.
+- Scope:
+  - Align the browser assertion with durable content generated from
+    `scripts/validation_docs_content.py`.
+  - Preserve the current scientific wording and generated-doc contract.
+  - Rebuild the docs and run focused source and browser verification.
+- Plan:
+  - Confirm the rendered page contains the structured topographic diagnostic.
+  - Replace only the stale prose assertion with a current durable contract.
+  - Run focused validation-doc and Playwright tests, then record the outcome.
+- Outcome (2026-08-17):
+  - Confirmed the failure was test drift introduced when the generated module
+    guide replaced the legacy sentence with structured check and diagnostic
+    tables; the validation results and page generation were current.
+  - Replaced the deleted prose assertion with the unique generated diagnostic
+    definition, `Before minus after correlation.`, preserving the intended
+    topographic-correction browser contract without changing scientific text.
+  - Generated validation pages are current, five focused validation-doc tests
+    pass, strict MkDocs build passes, the rendered diagnostic is uniquely
+    visible, and the full Playwright docs smoke test passes.
+- Blockers: None.
+- Next recommended task: Continue P46 with a pinned, representative live NEON
+  flightline inventory before interpreting the offline campaign as cross-site
+  scientific validation.
+
 ### P60. QA Code Organization And Validation Website Guide
 
 - Priority: User-directed
