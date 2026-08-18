@@ -2718,12 +2718,20 @@ For JupyterLab, install <code>-e ".[notebooks]"</code> and open
 <li><code>gocmd</code> is the root-level GoCommands binary used by CyVerse/iRODS transfer
   workflows.</li>
 <li><code>move_folders_from_instance_to_remote.py</code> helps move completed output folders
-  from a compute instance to remote storage.</li>
+  from a compute instance to remote storage. Pass one or more local sources
+  followed by one CyVerse destination (the last argument). A source may be a
+  folder or a single file. Notebooks should call
+  <code>run_transfer(*sources, destination)</code>. Default transfer flags are
+  <code>gocmd put --quiet -f --diff --no_hash</code>. Jupyter checkpoints are omitted.
+  Failures are appended to <code>gocmd_upload_failures.log</code> and the next file still
+  runs.</li>
 <li><code>remote_to_instance.py</code> helps copy remote data down to the compute instance
   before processing.</li>
-<li><code>patch_script_toworkfromcorrectedfiles.py</code> is a historical runtime-patching
-  experiment retained for provenance; new work should use normal restart
-  behavior or the documented custom-correction hook.</li>
+<li><code>patch_script_toworkfromcorrectedfiles.py</code> is a workflow-specific patch helper
+  retained for reproducibility of the corrected-file workflow. For new work
+  prefer <code>scripts/run_pipeline_from_corrected_envi.py</code>, which resumes from the
+  same corrected ENVI products but reuses a genuine raw ENVI and correction JSON
+  when they exist and records any substitution it has to make.</li>
 </ul>
 <p>The transfer files are maintainer operational helpers, not general package
 entry points or importable SpectralBridge modules. They are excluded from source
