@@ -43,7 +43,7 @@ SKIP_SUFFIXES: set[str] = set()
 # Jupyter autosaves and other non-product directories.
 SKIP_DIR_NAMES = {".duckdb_tmp", ".ipynb_checkpoints", "__pycache__"}
 
-# Failed ``gocmd put`` rows are appended here, then the file is closed.
+# Failed ``gocmd put`` rows for the current invocation.
 FAILURE_LOG = Path("gocmd_upload_failures.log")
 
 
@@ -52,13 +52,37 @@ def gocmd_exists() -> None:
         raise RuntimeError("ERROR: ./gocmd binary not found here.")
 
 
+def _remote_parent_chain(path: str) -> list[str]:
+    """Return remote folders from shallowest to deepest.
+
+    CyVerse paths look like ``i:/iplant/home/shared/...``. Some ``gocmd mkdir``
+    setups do not create intermediate folders recursively, so nested QA paths
+    like ``.../qa/stages/00_acquisition`` need every ancestor created first.
+    """
+    normalized = path.rstrip("/")
+    if not normalized:
+        return []
+
+    parts = normalized.split("/")
+    if len(parts) < 2:
+        return [normalized]
+
+    chain: list[str] = []
+    current = parts[0]
+    for part in parts[1:]:
+        current = f"{current}/{part}"
+        chain.append(current)
+    return chain
+
+
 def ensure_remote_folder(path: str) -> None:
-    subprocess.run(
-        ["./gocmd", "mkdir", path],
-        check=False,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
+    for folder in _remote_parent_chain(path):
+        subprocess.run(
+            ["./gocmd", "mkdir", folder],
+            check=False,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
 
 
 def _is_jupyter_checkpoint(name: str) -> bool:
@@ -94,6 +118,12 @@ def record_failure(local_file: Path, remote_file: str, reason: str) -> None:
         handle.flush()
     print(f"FAILED ({reason}): {local_file.name}", flush=True)
     print(f"  recorded in {FAILURE_LOG.resolve()}", flush=True)
+
+
+def reset_failure_log() -> None:
+    """Replace any prior log so each transfer run starts fresh."""
+    if FAILURE_LOG.exists():
+        FAILURE_LOG.unlink()
 
 
 def upload_file(local_file: Path, remote_file: str, label: str) -> bool:
@@ -189,6 +219,7 @@ def run_transfer(*paths: str) -> int:
 
     *sources, destination = paths
     gocmd_exists()
+    reset_failure_log()
 
     print("BEGIN TRANSFER", flush=True)
     for i, src in enumerate(sources, start=1):
