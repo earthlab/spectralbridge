@@ -42,7 +42,7 @@ dependencies = [
 
 [project.optional-dependencies]
 tests = [
-    "pytest>=7.4,<9",
+    "pytest>=7.4,<10",
     "pytest-xdist>=3.5",
     "pytest-cov>=4.1",
 ]
@@ -62,7 +62,7 @@ notebooks = [
     "jupyterlab>=4",
 ]
 dev = [
-    "pytest>=7.4,<9",
+    "pytest>=7.4,<10",
     "pytest-xdist>=3.5",
     "pytest-cov>=4.1",
     "mkdocs",
