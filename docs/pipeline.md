@@ -8,6 +8,23 @@ All persistent products land inside `<base_folder>/<flight_stem>/` (with the raw
 `.h5` kept at the base root) and include ENVI (`.img/.hdr`), JSON metadata, and
 Parquet summaries.
 
+### Optional across-track split
+
+`go_forth_and_multiply(..., split_across_track=False)` is the default and is
+unchanged: one folder and one product tree per input flight ID.
+
+When `split_across_track=True`, each requested ID is still downloaded once to
+`<base_folder>/<flight_stem>.h5`. The pipeline then processes two renamed
+halves that share that H5:
+
+- `<base_folder>/<flight_stem>_left/` — western/left samples `[0:mid]`
+- `<base_folder>/<flight_stem>_right/` — eastern/right samples `[mid:samples]`
+
+Each half folder contains the same product set as a normal flightline, using
+the half ID in every filename. Pass the original (un-suffixed) flight IDs in
+`flight_lines`. Do not pre-export ENVI; the halves are windowed at H5 read
+time so BRDF/topo also sees only that column range.
+
 ## Canonical paths via `get_flight_paths()`
 
 `get_flight_paths(base_folder, flight_stem)` is the authoritative source of
@@ -180,3 +197,43 @@ missing or invalid stages are recomputed, and partial sensor failures do not
 stop progress across the rest of the flight lines. Because each sensor is
 accounted for independently, you can inspect the summary lists to see exactly
 which products succeeded, which were reused, and which need attention.
+
+## Resuming without the source HDF5
+
+Stage 0 is the only stage that is not skip-based: it downloads when
+`<base_folder>/<flight_stem>.h5` is missing. Two helper scripts patch just that
+stage so a run can start from artifacts already on disk.
+
+`scripts/run_pipeline_from_local_h5.py` stages a local `.h5` at the canonical
+path and runs the full workflow from stage 1.
+
+`scripts/run_pipeline_from_corrected_envi.py` resumes from an existing
+`*_brdfandtopo_corrected_envi.img/.hdr` pair, which stages 1–3 then skip on
+their own:
+
+```bash
+python scripts/run_pipeline_from_corrected_envi.py \
+  --flight-id NEON_D10_R10C_DP1_L005-1_20210915_directional_reflectance \
+  --base-folder NEON_TM_5 \
+  --extraction-mode full
+```
+
+Use `--dry-run` to report what would be reused or substituted without touching
+files. A valid corrected ENVI pair is mandatory; the script refuses to run
+without one rather than trying to create it.
+
+The raw ENVI export and correction JSON are reused whenever they are present and
+valid. When they are genuinely missing, the script stands in for them so the
+stage gates pass, and records exactly what it substituted in
+`<flight_dir>/<flight_stem>_resume_from_corrected.json`:
+
+- `raw_envi_from_corrected` means the raw ENVI is a link or copy of the corrected
+  cube. Raw-vs-corrected QA deltas will be zero and `*_envi.parquet` holds
+  corrected values, so treat that flight's raw product as non-independent. Pass
+  `--require-raw-envi` to fail instead of substituting.
+- `correction_json_stub` means the correction JSON carries no illumination
+  geometry or BRDF coefficients, so QA geometry panels render empty.
+
+Substitution only affects provenance of the *raw* side. The corrected cube,
+resampled sensor products, parquet exports, and merges are all derived from the
+real corrected ENVI.

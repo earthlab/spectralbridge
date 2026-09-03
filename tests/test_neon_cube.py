@@ -315,6 +315,32 @@ def test_read_neon_cube_new_layout(tmp_path):
     assert meta["layout"] == "reflectance_group"
 
 
+def test_read_neon_cube_sample_slice_shifts_map_info(tmp_path):
+    fake_h5_path = tmp_path / "fake_neon.h5"
+    _create_fake_neon_file(fake_h5_path)
+
+    full, _, full_meta = read_neon_cube(fake_h5_path)
+    right, _, right_meta = read_neon_cube(fake_h5_path, sample_slice=(10, 20))
+
+    assert right.shape == (20, 10, 5)
+    np.testing.assert_array_equal(right, full[:, 10:20, :])
+    assert right_meta["sample_start"] == 10
+    assert right_meta["sample_stop"] == 20
+    assert float(right_meta["map_info"][3]) == float(full_meta["map_info"][3]) + 10.0
+    assert right_meta["ulx"] == pytest.approx(full_meta["ulx"] + 10.0)
+
+
+def test_neon_cube_crops_full_width_ancillary_to_sample_window(tmp_path: Path) -> None:
+    h5_path = tmp_path / "drone_orientation_contract.h5"
+    expected = _create_fake_orientation_contract_file(h5_path)
+    n_samples = expected["reflectance"].shape[1]
+    mid = n_samples // 2
+
+    cube = NeonCube(h5_path=h5_path, sample_slice=(mid, n_samples))
+    loaded = cube.get_ancillary("solar_zn", radians=False)
+    np.testing.assert_allclose(loaded, expected["Solar_Zenith_Angle"][:, mid:])
+
+
 def test_read_neon_cube_old_layout(tmp_path):
     fake_h5_path = tmp_path / "legacy_neon.h5"
     _create_fake_legacy_neon_file(fake_h5_path)

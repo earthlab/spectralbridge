@@ -87,6 +87,8 @@ from spectralbridge.brdf_topo import (
     build_correction_parameters_dict,
 )
 from spectralbridge.brightness_config import load_brightness_coefficients
+from spectralbridge.half_flight import HALF_SIDES, across_track_slices, half_flight_id
+from spectralbridge.io.neon import peek_neon_sample_count
 from spectralbridge.io.neon_schema import resolve
 try:
     from spectralbridge.paths import FlightlinePaths, normalize_brdf_model_path
@@ -1525,6 +1527,9 @@ def stage_export_envi_from_h5(
     *,
     parallel_mode: bool = False,
     recover_missing_raw: bool = True,
+    source_h5: Path | str | None = None,
+    sample_start: int | None = None,
+    sample_stop: int | None = None,
 ) -> tuple[Path, Path]:
     """
     Ensure we have the uncorrected ENVI export (.img/.hdr) for this flightline.
@@ -1548,7 +1553,12 @@ def stage_export_envi_from_h5(
     base_folder = flight_paths.base_folder
 
     work_dir = flight_paths.flight_dir
-    h5_path = flight_paths.h5
+    h5_path = Path(source_h5) if source_h5 is not None else flight_paths.h5
+    sample_slice = (
+        slice(int(sample_start), int(sample_stop))
+        if sample_start is not None and sample_stop is not None
+        else None
+    )
     
     # Ensure work_dir exists before discovery (files from previous runs should be here)
     work_dir.mkdir(parents=True, exist_ok=True)
@@ -1584,6 +1594,15 @@ def stage_export_envi_from_h5(
     # Fall back to canonical paths
     raw_img_path = flight_paths.envi_img
     raw_hdr_path = flight_paths.envi_hdr
+    export_kwargs: dict[str, Any] = {
+        "images": [str(h5_path)],
+        "output_dir": str(work_dir),
+        "brightness_offset": brightness_offset,
+        "interactive_mode": not parallel_mode,
+    }
+    if source_h5 is not None or sample_slice is not None:
+        export_kwargs["output_stem"] = raw_img_path.with_suffix("")
+        export_kwargs["sample_slice"] = sample_slice
 
     logger.debug(
         "stage_export_envi_from_h5: scoped to flightline %s (HDF5=%s, ENVI=%s/%s)",
@@ -1615,12 +1634,7 @@ def stage_export_envi_from_h5(
                 raise FileNotFoundError(
                     f"Cannot recover raw ENVI for {flight_stem}: {h5_path.name} not found."
                 )
-            neon_to_envi_no_hytools(
-                images=[str(h5_path)],
-                output_dir=str(work_dir),
-                brightness_offset=brightness_offset,
-                interactive_mode=not parallel_mode,
-            )
+            neon_to_envi_no_hytools(**export_kwargs)
             if not raw_img_path.exists() or not raw_hdr_path.exists():
                 raise FileNotFoundError(
                     f"Recovery failed: expected {raw_img_path.name} / {raw_hdr_path.name}"
@@ -1653,12 +1667,7 @@ def stage_export_envi_from_h5(
 
     # This is the heavy step that logs the NeonCube memory footprint and now
     # streams tile progress via tqdm (instead of the old "GRGRGR..." spam).
-    neon_to_envi_no_hytools(
-        images=[str(h5_path)],
-        output_dir=str(work_dir),
-        brightness_offset=brightness_offset,
-        interactive_mode=not parallel_mode,
-    )
+    neon_to_envi_no_hytools(**export_kwargs)
 
     # Snapshot AFTER export and collect the names of new files.
     after_listing = {p.name: p for p in work_dir.glob("*")}
@@ -1745,6 +1754,9 @@ def stage_build_and_write_correction_json(
     raw_hdr_path: Path,
     use_ndvi_brdf_bins: bool = False,
     parallel_mode: bool = False,
+    source_h5: Path | str | None = None,
+    sample_start: int | None = None,
+    sample_stop: int | None = None,
 ) -> Path:
     """
     Compute + persist BRDF/topo correction parameters (illumination geometry, slope/aspect,
@@ -1757,8 +1769,13 @@ def stage_build_and_write_correction_json(
     paths = get_flightline_products(base_folder, product_code, flight_stem)
 
     correction_json_path = Path(paths["correction_json"])
-    h5_path = Path(paths["h5"])
+    h5_path = Path(source_h5) if source_h5 is not None else Path(paths["h5"])
     work_dir = Path(paths.get("work_dir", correction_json_path.parent))
+    sample_slice = (
+        slice(int(sample_start), int(sample_stop))
+        if sample_start is not None and sample_stop is not None
+        else None
+    )
 
     work_dir.mkdir(parents=True, exist_ok=True)
     correction_json_path.parent.mkdir(parents=True, exist_ok=True)
@@ -1779,6 +1796,7 @@ def stage_build_and_write_correction_json(
         use_ndvi_brdf_bins=use_ndvi_brdf_bins,
         flight_stem=flight_stem,
         product_code=product_code,
+        sample_slice=sample_slice,
     )
 
     with open(correction_json_path, "w", encoding="utf-8") as f:
@@ -2484,6 +2502,9 @@ def process_one_flightline(
     extraction_mode: str | None = None,  # "polygon", "full", or None (auto-detect from polygon_path)
     topo_fit_mode: str = "scene",  # "scene" = scene-wide topo fit; "tile" = 100x100 tile-local topo fit
     qa_mode: Literal["off", "standard", "deep"] = "standard",
+    source_h5: Path | str | None = None,
+    sample_start: int | None = None,
+    sample_stop: int | None = None,
 ):
     """Run the structured, skip-aware workflow for a single flightline.
 
@@ -2522,6 +2543,9 @@ def process_one_flightline(
         flight_stem=flight_stem,
         brightness_offset=brightness_offset,
         parallel_mode=parallel_mode,
+        source_h5=source_h5,
+        sample_start=sample_start,
+        sample_stop=sample_stop,
     )
 
     clean_memory("ENVI export")
@@ -2539,6 +2563,9 @@ def process_one_flightline(
         raw_hdr_path=raw_hdr_path,
         use_ndvi_brdf_bins=use_ndvi_brdf_bins,
         parallel_mode=parallel_mode,
+        source_h5=source_h5,
+        sample_start=sample_start,
+        sample_stop=sample_stop,
     )
     if not is_valid_json(correction_json_path):
         raise RuntimeError(
@@ -2678,6 +2705,9 @@ class _FlightlineTask(NamedTuple):
     extraction_mode: str | None
     topo_fit_mode: str
     qa_mode: str
+    source_h5: str | None = None
+    sample_start: int | None = None
+    sample_stop: int | None = None
 
 
 def _execute_flightline(task: "_FlightlineTask") -> str:
@@ -2706,6 +2736,9 @@ def _execute_flightline(task: "_FlightlineTask") -> str:
             extraction_mode=task.extraction_mode,
             topo_fit_mode=task.topo_fit_mode,
             qa_mode=task.qa_mode,
+            source_h5=task.source_h5,
+            sample_start=task.sample_start,
+            sample_stop=task.sample_stop,
         )
     return task.flight_stem
 
@@ -2898,6 +2931,7 @@ def go_forth_and_multiply(
     extraction_mode: str | None = None,  # "polygon", "full", or None (auto-detect from polygon_path)
     topo_fit_mode: str = "scene",  # "scene" = scene-wide topo fit; "tile" = 100x100 tile-local topo fit
     qa_mode: Literal["off", "standard", "deep"] = "standard",
+    split_across_track: bool = False,
 ) -> None:
     """High-level orchestrator for processing multiple flight lines.
 
@@ -2913,6 +2947,12 @@ def go_forth_and_multiply(
     parallelism (default eight cores) and is interpreted as the worker budget
     for thread/process fallbacks. ``engine`` selects the parallel backend:
     Ray (default), threads, or multiprocessing.
+
+    ``split_across_track=False`` (default) processes each ``flight_lines``
+    entry as a full scene. When ``True``, each original ID is downloaded once
+    into ``<base_folder>/<flight_stem>.h5`` and then processed as two renamed
+    halves (``<flight_stem>_left`` / ``_right``) that share that H5 and write
+    a complete product tree into their own folders.
     """
 
     if max_workers < 1:
@@ -3062,15 +3102,22 @@ def go_forth_and_multiply(
             product_code=product_code,
             flight_stem=flight_stem,
         )
-        acquisition_paths = FlightlinePaths(base_folder=base_path, flight_id=flight_stem)
-        acquisition_paths.flight_dir.mkdir(parents=True, exist_ok=True)
         h5_label = "(path not returned)"
         if h5_path is not None:
             h5_label = Path(h5_path).name
         logger.info("⬇️  Source H5 ready for %s -> %s", flight_stem, h5_label)
+        if not split_across_track:
+            acquisition_paths = FlightlinePaths(base_folder=base_path, flight_id=flight_stem)
+            acquisition_paths.flight_dir.mkdir(parents=True, exist_ok=True)
 
-    tasks = [
-        _FlightlineTask(
+    def _flightline_task(
+        flight_stem: str,
+        *,
+        source_h5: Path | str | None = None,
+        sample_start: int | None = None,
+        sample_stop: int | None = None,
+    ) -> _FlightlineTask:
+        return _FlightlineTask(
             base_folder=base_path,
             product_code=product_code,
             flight_stem=flight_stem,
@@ -3092,9 +3139,45 @@ def go_forth_and_multiply(
             extraction_mode=extraction_mode,
             topo_fit_mode=topo_fit_mode,
             qa_mode=qa_mode,
+            source_h5=str(source_h5) if source_h5 is not None else None,
+            sample_start=sample_start,
+            sample_stop=sample_stop,
         )
-        for flight_stem in flight_lines
-    ]
+
+    if split_across_track:
+        tasks: list[_FlightlineTask] = []
+        for original_stem in flight_lines:
+            original_h5 = FlightlinePaths(base_folder=base_path, flight_id=original_stem).h5
+            if not original_h5.exists():
+                raise FileNotFoundError(
+                    f"split_across_track requires the original H5 at {original_h5}"
+                )
+            n_samples = peek_neon_sample_count(original_h5)
+            windows = across_track_slices(n_samples)
+            logger.info(
+                "✂️  split_across_track for %s: %d samples -> left [0:%d], right [%d:%d]",
+                original_stem,
+                n_samples,
+                windows["left"][1],
+                windows["right"][0],
+                windows["right"][1],
+            )
+            for side in HALF_SIDES:
+                start, stop = windows[side]
+                half_stem = half_flight_id(original_stem, side)
+                FlightlinePaths(base_folder=base_path, flight_id=half_stem).flight_dir.mkdir(
+                    parents=True, exist_ok=True
+                )
+                tasks.append(
+                    _flightline_task(
+                        half_stem,
+                        source_h5=original_h5,
+                        sample_start=start,
+                        sample_stop=stop,
+                    )
+                )
+    else:
+        tasks = [_flightline_task(flight_stem) for flight_stem in flight_lines]
 
     if not tasks:
         logger.info("No flight lines provided; nothing to process.")

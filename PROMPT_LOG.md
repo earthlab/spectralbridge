@@ -5469,8 +5469,7 @@ Model: GPT-5 family (exact deployment identifier not exposed)
 ```text
 Run pytest -q tests/test_drone_pipeline.py
 .....................F.F.............................                    [100%]
-=================================== FAILURES ===================================
-___________ test_render_drone_merged_preview_prefers_non_nodata_rows ___________
+=================================== FAILURES ============================___________ test_render_drone_merged_preview_prefers_non_nodata_rows ___________
 
 tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_render_drone_merged_previ0')
 monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f1fa8f3e650>
@@ -6734,3 +6733,995 @@ FAILED tests/test_docs_playwright.py::test_docs_site_core_pages_render_in_browse
  +        where get_by_text = <Page url='http://127.0.0.1:8000/validation/topographic_correction/'>.get_by_text
 Error: Process completed with exit code 1.
 ```
+=======
+## 2026-07-09 - configurable scene-wide topo fit
+Branch: main
+
+```text
+Option 2 looks like the best option becuase we would want new runs. 
+So to confirm, after the modification- 
+1) The topo correction will then be scene wide and not just on the chunks. 
+2) No other modification will be there
+3) This modification is configurable ? Like can we just send in a variable where it says we want this behaviour or not 
+```
+
+## 2026-07-13 - diagnose BRDF/topo -9999 wipe
+Branch: main
+
+```text
+here is the output-
+corr img exists: True size_gb: 14.529892128
+corr hdr exists: True
+dims: 844 x 10103 x 426
+
+row=5051, col=422
+  band   0: raw=    87.00  corr= -9999.00
+...
+So there is an issue with BRDF and Topo correction since its making a pixels invalid. THe negative 9999 values are coming from somewhere. This could be either from the h5 whos format could be chnaged recently (the json keys may be shifted). or it could be from somewhere else. We need to figure this part out before running the entire pipeline. Maybe focus on the brdf_topo.py and the corrections.py file. also FYI for line 264 and 265 in the brdf_topo.py file i tried combinations of chunk_y = 100
+    chunk_x = 100, and chunky with 500 and chunkx with cube. somehting. I dont think this is the problem. One Nan value also just propagetes and makes everything invalud i think. Can we run some some comprehensive tests for this stage and diagone the root cause and get the BRDF and topo correction to run properly?
+```
+
+## 2026-07-13 - re-run BRDF correction after sync
+Branch: main
+
+```text
+OKay i made the update to 1 to 6. Can we run the brdf correction code block again and testr
+```
+
+## 2026-07-14 - confirm 0/1 means unchunked apply
+Branch: main
+
+```text
+check this- 2026-07-14 17:50:40,909	INFO util.py:154 -- Outdated packages:
+...
+BRDF+topo correction:   0%|          | 0/1 [00:00<?, ?tile/s]
+...
+This means the BRDF and topo corrrection was unchuinked right?
+```
+
+## 2026-07-22 - full vs polygon extraction call
+Branch: main
+
+```text
+to run the full extraction instead of the polygon extraction. I can run this rihgt?
+go_forth_and_multiply(
+    base_folder=base_folder,
+    site_code=site_code,
+    year_month=year_month,
+    product_code=product_code,
+    flight_lines=flight_lines,
+    engine="thread",
+    max_workers=1,
+    polygon_path=polygon_path,
+    extraction_mode="full",
+)
+```
+
+## 2026-07-22 - run pipeline from local H5 only
+Branch: main
+
+```text
+Alright, we need to do find a way to run the pipeline. Since the h5 isnt available for download, I have just the .h5s for this pipeline- NEON_D10_R10C_DP1_L001-1_20210915_directional_reflectance
+
+Give me a sciprt i can run the pipeline just from this. We problably need to cerate certain folders for the pipeline to run n stuff. Refer to the patch_script_toworkfromcorrectedfiles.py to get an idea of how we can accomplish this. 
+```
+
+## 2026-07-22 - which 6 files to sync
+Branch: main
+
+```text
+Which are the 6 files which we updated again? I want to copy them and update the files in another instance which has the old code. 
+```
+
+## 2026-07-22 - set SCENE_APPLY_CHUNK_Y=100000
+Branch: main
+
+```text
+I dont think you made the change to nochunk to brdf_topo.py-
+...
+Make this change to your file
+```
+
+## 2026-07-22 - push/update 7 files on GitHub
+Branch: main
+
+```text
+can you run the github commands to update the 7 files (if not there, we need to add them) in the repo. 
+```
+
+## 2026-07-22 - verify 7 files on GitHub for fresh pulls
+Branch: main
+
+```text
+alright, Id like to do fresh pulls from the github repo from now on to run the pipleine on another instance. Can we quickly check if the 7 files nad other important files in the pipeline looks good to go in the Github repo?
+```
+
+## 2026-07-22 - single notebook cell for full pipeline setup+run
+Branch: main
+
+```text
+alright cool. Also, I need a single notebook cell which does all of this. Usually after downloading the repo, in the notebook - here is what i do-
+...
+```
+
+## 2026-07-22 - R10C full extract stuck on filter/CSV
+Branch: main
+
+```text
+here is how the pipeline ran-
+...
+Is thhere somehting in place to reach a larrge merged parquet like this
+```
+
+## 2026-07-22 - streaming no-data filter for large merges
+Branch: main
+
+```text
+I want somehting in place to do the filtering efficiently as well so that pipeline runs all the way through
+```
+
+## 2026-07-22 - can I just re-run local-h5 cell?
+Branch: main
+
+```text
+i can just run this cell again nad the pipeline will now finish right?
+...
+```
+
+## 2026-07-22 - confirm re-run after merge_duckdb sync
+Branch: main
+
+```text
+i alrady updated @src/spectralbridge/merge_duckdb.py , i can just run that cell again right
+```
+
+## 2026-07-22 - R10C full run assessment after streaming filter
+Branch: main
+
+```text
+here is how the piepleine ran-
+...
+whats happening and how did i go
+```
+
+## 2026-07-22 - explain row count mismatch
+Branch: main
+
+```text
+what is this row count mismatch?3. Row count mismatch
+Expected after filtering: 3.04M kept vs 4.56M pre-filter.
+```
+
+## 2026-07-22 - fix QA pyarrow pandas.period clash
+Branch: main
+
+```text
+okay, should we update the code so that the pyarrow thing doesnt occur?
+```
+
+## 2026-07-22 - push merge_duckdb + qa_plots
+Branch: main
+
+```text
+alright lets push the new changes (@src/spectralbridge/merge_duckdb.py and qa_plots.py
+```
+
+## 2026-07-22 - does notebook cell support NEON download too?
+Branch: main
+
+```text
+okay cool, also the cell you gave me, does it work if the neon data is available to download as well? and if its not is it going to do the patching with the h5 path?
+```
+
+## 2026-07-22 - one-shot cell both cases / prefer NEON then local
+Branch: main
+
+```text
+yes I am talking about this cell-
+...
+would this work for both cases?it should first check if the neon data is available for download or else do the patching stuff.
+```
+
+## 2026-07-22 - separate NEON download vs local-H5 cells
+Branch: main
+
+```text
+actually lets seperate the concerns. Give me one celll i can run for the neon download and a seperate cell which does have all the installations but has the other function for patching where I provide the h5 link. 
+```
+
+## 2026-07-22 - gocmd put i/o timeout on CSV
+Branch: main
+
+```text
+(base) jovyan@aed48c4ae:~/data-store/spectralbridge$ ./gocmd put NEON_TM_2 i:/iplant/home/shared/earthlab/macrosystems/Processed_NEON_TM_July_2026/
+Unexpected error!
+...
+write tcp 10.42.102.213:48394->206.207.252.35:1247: i/o timeout
+
+im getting this error for gocmds, whats wrong
+```
+
+## 2026-07-22 - did gocmd only fail on CSV?
+Branch: main
+
+```text
+did it only fail to upload the csv ?
+Have a look at the second one as well-
+(same gocmd put error on merged_pixel_extraction.csv / i/o timeout)
+```
+
+## 2026-07-22 - gocmd ls results (empty paste)
+Branch: main
+
+```text
+here you go-
+```
+
+## 2026-07-22 - CyVerse L002 listing + H5 symlink
+Branch: main
+
+```text
+(base) jovyan@aed48c4ae:... gocmd ls ...L002...
+...
+Also, the h5 didnt upload coz of the sym link i think-
+```
+
+## 2026-07-22 - script to verify gocmd upload completeness
+Branch: main
+
+```text
+can we be sure all the files for trasnferred except the H5 and .csv in both cases. 
+Give me a python script i can run from /home/jovyan/data-store/spectralbridge to check this first. Notice the gocmd ls in kind of weird and spits out a string kind of output 
+```
+
+## 2026-07-23 - drone H5 missing solar geometry
+Branch: main
+
+```text
+getting this -
+[drone] Skipping manifest row 31 for MTST_11 with malformed acquisition datetime: 'nan' 'nan'
+[drone] Skipping manifest row 46 with missing Plot value in /home/jovyan/data-store/spectralbridge/src/spectralbridge/data/drone_field_manifest.csv
+[drone] Starting batch: 3 discovered | 3 to process | extraction_mode=full | polygon=None | run_root=drone_outputs/aop_aug14_2023
+Click to show javascript error.
+[drone] [1/3] AOP_GOLDHILL_20230814 | source=summer-2023-10cm-10k/AOP-GOLDHILL-08-14-23-ExportPackage | type=h5 | stage=preparing working H5
+[drone] FAILED for summer-2023-10cm-10k/AOP-GOLDHILL-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5
+Traceback (most recent call last):
+  File "/home/jovyan/data-store/spectralbridge/src/spectralbridge/pipelines/drone.py", line 2373, in run_drone_pipeline
+    raise RuntimeError(
+RuntimeError: Drone correction requested but no solar geometry is available. Provide solar_zenith/solar_azimuth TIFFs, scalar solar angles, or a drone_manifest_path with acquisition datetime values; set require_solar_geometry=False to permit an uncorrected fallback.
+[drone] [1/3] AOP_GOLDHILL_20230814 -> failed_other: Drone correction requested but no solar geometry is available. Provide solar_zenith/solar_azimuth TIFFs, scalar solar angles, or a drone_manifest_path with acquisition datetime values; set require_solar_geometry=False to permit an uncorrected fallback. (0.3s)
+[drone] [2/3] AOP_GORDON_20230814 | source=summer-2023-10cm-10k/AOP-GORDON-08-14-23-ExportPackage | type=h5 | stage=preparing working H5
+[drone] FAILED for summer-2023-10cm-10k/AOP-GORDON-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5
+Traceback (most recent call last):
+  File "/home/jovyan/data-store/spectralbridge/src/spectralbridge/pipelines/drone.py", line 2373, in run_drone_pipeline
+    raise RuntimeError(
+RuntimeError: Drone correction requested but no solar geometry is available. Provide solar_zenith/solar_azimuth TIFFs, scalar solar angles, or a drone_manifest_path with acquisition datetime values; set require_solar_geometry=False to permit an uncorrected fallback.
+[drone] [2/3] AOP_GORDON_20230814 -> failed_other: Drone correction requested but no solar geometry is available. Provide solar_zenith/solar_azimuth TIFFs, scalar solar angles, or a drone_manifest_path with acquisition datetime values; set require_solar_geometry=False to permit an uncorrected fallback. (0.3s)
+[drone] [3/3] AOP_Ruby_20230814 | source=summer-2023-10cm-10k/AOP-Ruby-08-14-23-ExportPackage | type=h5 | stage=preparing working H5
+[drone] FAILED for summer-2023-10cm-10k/AOP-Ruby-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5
+Traceback (most recent call last):
+  File "/home/jovyan/data-store/spectralbridge/src/spectralbridge/pipelines/drone.py", line 2373, in run_drone_pipeline
+    raise RuntimeError(
+RuntimeError: Drone correction requested but no solar geometry is available. Provide solar_zenith/solar_azimuth TIFFs, scalar solar angles, or a drone_manifest_path with acquisition datetime values; set require_solar_geometry=False to permit an uncorrected fallback.
+[drone] [3/3] AOP_Ruby_20230814 -> failed_other: Drone correction requested but no solar geometry is available. Provide solar_zenith/solar_azimuth TIFFs, scalar solar angles, or a drone_manifest_path with acquisition datetime values; set require_solar_geometry=False to permit an uncorrected fallback. (0.1s)
+Processed: 0
+Failed: 3
+Merged: None
+```
+
+## 2026-07-23 - runtime from oldest vs newest file mtime
+Branch: main
+
+```text
+for this folder-
+(base) jovyan@aef7aad8b:~/data-store/spectralbridge/NEON_TM_5/NEON_D10_R10C_DP1_L005-1_20210915_directional_reflectance$ ls
+<full listing of L005 ENVI/parquet/QA products omitted for brevity>
+
+I want to the difference between the time for the oldest file and the newest, so that we know the runtime, give me the commadn
+```
+
+## 2026-07-24 - run pipeline from BRDF corrected ENVIs
+Branch: main
+
+```text
+We'll work on the drone pipeline soon again. 
+I realiase the patch script cell can be used to specify the path of the .h5, create required folders and run the full pipeline from there.
+I want to know if there's a way to run the pipeline from BRDF corrected envis as well. 
+```
+
+## 2026-07-24 - is patch script enough from only corrected ENVI pair?
+Branch: main
+
+```text
+Im interested in the NEON pipeline and not the drone one for now. 
+So patch_script_toworkfromcorrectedfiles.py is sufficient to run the whole NEON pipeline from just these 2 files NEON_D13_NIWO_DP1_L005-1_20230815_directional_reflectance_brdfandtopo_corrected_envi.hdr
+NEON_D13_NIWO_DP1_L005-1_20230815_directional_reflectance_brdfandtopo_corrected_envi.img?
+
+Or do we need to build another scirpt for this?
+
+ALso, does the absense of the previous files in the pipeline after the later stages (like parquet creation, merged parquet creation, will there be somehting missing from the merged_parquet creation?) 
+```
+
+## 2026-07-24 - where to place corrected ENVI + full cell for R10C L005
+Branch: main
+
+```text
+okay, I want to try the patch script on NEON_D10_R10C_DP1_L005-1_20210915_directional_reflectance flightline.
+Tell me where I have to place the brdf corrected .img and .hdr and give me the complete cell the to run the pipeline (without polygon extraction (full)). 
+```
+
+## 2026-07-24 - cell that builds folder structure from two file paths
+Branch: main
+
+```text
+I want a cell which can do this even without the folder structure.
+The script/cell should just take it the two file paths (brdf corrected .img and .hdr), also take in a base folder name ( which can be anything) and create the folder structrue required and proceed with the full piepleine. 
+```
+
+## 2026-07-24 - symlinks vs real files, and pip install needed?
+Branch: main
+
+```text
+okay i used this cell. Are any files created symlinks or is everything actual files?
+Also for this cell to work, does it need any pip install %e or something?
+```
+
+## 2026-07-24 - add pip install / cd for fresh instance
+Branch: main
+
+```text
+lets assume I havent been running the flightline processsing and I just started the instance and downloaded the spectralbridge repo in /home/jovyan/data-store/ path.
+
+Add the % pip install cding into the spectralbrdge repo. and if needed cd out and go through with the rest of the pipeline
+```
+
+## 2026-07-24 - add polygon path + extraction mode params to cell
+Branch: main
+
+```text
+What if I want polygon extraction as well? Can you update the top of the cell with 2 more parameters? like, polygonpath parameter and ercation parameter which takes full or polygon (mention this in the comments)
+```
+
+## 2026-08-13 - mask negatives in oli_envi for violins
+Branch: main
+
+```text
+okay  we'll get to the drone stuff a little later. I wanted to know what we can do for making the violin plots a little better.
+Since there are negative values in the oli_envi, can we try to remove the negative values? Would that removing all rows with even one negtative value from the .img. I know we do something like for the final csv (taking off rows with >90% negtative vlaues) but i want to do it to the oli_envi as well
+```
+
+## 2026-08-13 - count remaining pixels after any-band negative drop
+Branch: main
+
+```text
+okay so each row in the .img represents a pixel right? 
+I want to know how many rows remian after taking off rows iwth even one band negative value.
+```
+
+## 2026-08-13 - write nonneg oli_envi sibling rasters
+Branch: main
+
+```text
+Just before I run this cell-
+from __future__ import annotations
+...
+Give me the cell to create new .imgs after taking off all the pixels with even one band as negative. It shouldnt replace the existing files but create new files.
+```
+
+## 2026-08-13 - clarify nonneg raster still has -9999
+Branch: main
+
+```text
+if remaining pixels are writtten to -9999, the raster still has negative vlaues and thatll show up later right
+```
+
+## 2026-08-13 - audit notebook -9999 handling through violins
+Branch: main
+
+```text
+you have the notebook right, can you check if all the plots/cells till the violin plots deal with -9999 as no data and not as reflectance values
+```
+
+## 2026-08-13 - do violins still use induced -9999
+Branch: main
+
+```text
+so using noneg files - do the violin plots still read the -9999 vaues which we just induced by making making pixel with even one negative value as -9999? I mean, do the violin plots still read this as negative refleactance values
+```
+
+## 2026-08-13 - confirm any-band negative pixels were dropped
+Branch: main
+
+```text
+so we actually did drop all pixels which have even one band as negative right?
+```
+
+## 2026-08-13 - audit new notebook for violin outlier filters
+Branch: main
+
+```text
+I just uploaded a new notebook. Can you check if we are removing any outliers in this? I know we we worked on some outlier removal code to remove ROI*band points from violins. I dont want that here. I want this to be pure non-neg file values
+```
+
+## 2026-08-13 - list cells that drop violin outliers
+Branch: main
+
+```text
+can you tell which are all the cells where we drop the outliers?
+```
+
+## 2026-08-13 - band 4 pct negative vs abs positive
+Branch: main
+
+```text
+baseline = "HLS_L30_Boulder_09162021.tif"
+
+fig, ax, summary = violin_pct_and_abs_diffs_labeled_auto(
+    result,
+    baseline_image=baseline,
+    statistic="mean",
+    bands=range(1, 8),
+    alpha=0.05,          # test threshold
+    fdr=True,            # FDR across bands
+    pct_label_decimals=1,
+    abs_label_decimals=4,
+    abs_reflectance_scale=1.0,  # use 100.0 if you want Δ shown in % units
+    save_path="spectral_stats/violin_auto_labels.png",
+    add_jitter_points=True
+)
+
+display(summary)   # shows per-band n, p-values, choice (mean/median), and the label values used
+
+
+Im looking at this cell, and this the output-
+	band	n	p_raw	p_adj	choice	pct_value	abs_value
+0	1	55	0.845818	0.845818	mean	2.317123	19.797246
+1	2	55	0.140418	0.196586	mean	1.041665	23.331659
+2	3	55	0.343364	0.400591	mean	1.747460	33.541506
+3	4	55	0.047108	0.082438	mean	-1.055455	25.248675
+4	5	55	0.000607	0.002123	median	2.566724	53.915771
+5	6	55	0.001478	0.003449	median	1.097476	31.224854
+6	7	55	0.000006	0.000044	median	1.849171	36.095825
+
+
+Im wondering for Band 4, how the percent value is negative but abs_value is positive?
+```
+
+## 2026-08-13 - why mean Δ+ but mean %Δ-
+Branch: main
+
+```text
+here is the output-
+mean Δ   should match abs_value ~ 25.25
+mean %Δ  should match pct_value ~ -1.06
+
+I didnt still understand. If B-A for band 4 is positive, how can pct_value be negtaive
+```
+
+## 2026-08-13 - subtract abs_value to correct NEON to Landsat?
+Branch: main
+
+```text
+okay so, we are trying to add something to the neon data to correct it to landsat. So it looks for all bands- we have to subtract the abs_value from this table. Is that correct?
+```
+
+## 2026-08-13 - confirm replace brightness JSON with pct
+Branch: main
+
+```text
+so to my understanding, I just have to replace the landsat_to_micasense.json with these. And its the percentage values which are actually used right?
+```
+
+## 2026-08-17 - which of 2 brightness json files
+Branch: main
+
+```text
+Wait I dont want to add any new .jsons. Which is the file where I have to use these coefficients (percentages). My college said its there 2 files in- https://github.com/earthlab/spectralbridge/tree/main/src/spectralbridge/data/brightness Read the descroption of those 2 files. I think they are the ones where we can put in these new values right?
+```
+
+## 2026-08-17 - generate mean/median choice percents
+Branch: main
+
+```text
+Those percentage values which we generated, looks like we decided to keep choice as median instead of mean for some and median for others, can you give me code to generate that?
+```
+
+## 2026-08-17 - NEON download 400 SITE_CODE
+Branch: main
+
+```text
+okay we ll get to the cofficients in a little while. Im trying this one cell code to download neon h5 and run the whole pipeline- [NEON_TOKEN REDACTED] SITE_CODE = "NEON" YEAR_MONTH = "2020-07" FLIGHT_LINES = ["NEON_D13_NIWO_DP1_20200731_151902_reflectance"] ... HTTPError 400 for url .../DP1.30006.001/NEON/2020-07 ... requests has no attribute ProxyError
+```
+
+## 2026-08-17 - 5 flightlines sequential?
+Branch: main
+
+```text
+okay. Quick question- in that code cell i can put about 5 flgithlines here- 
+FLIGHT_LINES = [
+    "NEON_D13_NIWO_DP1_20200731_151902_reflectance",
+]
+
+and its going to run in sequence right
+```
+
+## 2026-08-17 - review unpulled remote QA
+Branch: main
+
+```text
+okay also, my firend said he added some new QA stuff. Can take a look at the repo now (the new version which we havent pulled) and see if the QA stuff he has added  doesnt slow down the pipeline too mucg
+```
+
+## 2026-08-17 - median pct_value for JSON coeffs
+Branch: main
+
+```text
+Okay i just ran this-
+import json
+import pandas as pd
+
+# `summary` from violin_pct_and_abs_diffs_labeled_auto(...)
+out = summary.copy()
+out["json_coeff_pct"] = -out["pct_value"]  # stored as subtracted NEON-HLS %
+
+display(out[["band", "n", "p_adj", "choice", "pct_value", "json_coeff_pct"]])
+
+bands = {str(int(r.band)): float(r.json_coeff_pct) for r in out.itertuples()}
+payload = {
+    "system_pair": "landsat_to_micasense",
+    "description": "Brightness coefficients to adjust Landsat convolutions relative to HLS (subtracting NEON->Landsat percent differences by band; mean or median chosen by FDR normality test).",
+    "unit": "percent",
+    "bands": bands,
+}
+print(json.dumps(payload, indent=2))
+
+And i got this- 
+	band	n	p_adj	choice	pct_value	json_coeff_pct
+0	1	55	0.845818	mean	2.317123	-2.317123
+1	2	55	0.196586	mean	1.041665	-1.041665
+2	3	55	0.400591	mean	1.747460	-1.747460
+3	4	55	0.082438	mean	-1.055455	1.055455
+4	5	55	0.002123	median	2.566724	-2.566724
+5	6	55	0.003449	median	1.097476	-1.097476
+6	7	55	0.000044	median	1.849171	-1.849171
+{
+  "system_pair": "landsat_to_micasense",
+  "description": "Brightness coefficients to adjust Landsat convolutions relative to HLS (subtracting NEON->Landsat percent differences by band; mean or median chosen by FDR normality test).",
+  "unit": "percent",
+  "bands": {
+    "1": -2.317122544256198,
+    "2": -1.0416645346519113,
+    "3": -1.747459593466453,
+    "4": 1.0554552692015908,
+    "5": -2.566724304759174,
+    "6": -1.0974761245479203,
+    "7": -1.849171372710681
+  }
+}
+
+Are we getting the pct_values for the median?
+```
+
+## 2026-08-17 - force median for all bands
+Branch: main
+
+```text
+Yes I know the funtion picks statistic as median and mean but I wna thte choice to be median for all bands, lets geenrate the pct values based on this
+```
+
+## 2026-08-17 - confirm all-median coeffs look right
+Branch: main
+
+```text
+here you go-
+	band	n	choice	pct_value	json_coeff_pct
+0	1	55	median	4.444952	-4.444952
+1	2	55	median	2.412679	-2.412679
+2	3	55	median	1.670916	-1.670916
+3	4	55	median	-0.694524	0.694524
+4	5	55	median	2.566724	-2.566724
+5	6	55	median	1.097476	-1.097476
+6	7	55	median	1.849171	-1.849171
+
+
+Does that look right?
+```
+
+## 2026-08-17 - update brightness JSONs and push
+Branch: main
+
+```text
+Okay now lets use this and update the 2 .json files in the github repo accordingly. THe landsattomicasnse fits right in i think for these 7 pct values. For the other file, we need to take the 6 values (bands 2-7). Update the jsons and push the changes
+```
+
+## 2026-08-17 - JSON values only, keep descriptions
+Branch: main
+
+```text
+I dont want the description or naything changed in the jsons, just the values. 
+```
+
+## 2026-08-17 - commit brightness JSON values only
+Branch: main
+
+```text
+Yes commit just these json files. 
+```
+
+## 2026-08-17 - confirm JSON commit vs origin ahead
+Branch: main
+
+```text
+okay the json stuff is commited already right even though main is few commits ahead?
+```
+
+## 2026-08-17 - pull remote then push JSON commit
+Branch: main
+
+```text
+oh so its not on github yet? THen yes, lets pull those commits and push this
+```
+
+## 2026-08-17 - QA crash after BRDF corrected img
+Branch: main
+
+```text
+op - 16:13:19 up 12 days, 23:09,  0 users,  load average: 2.04, 1.38, 1.05
+Tasks:   4 total,   1 running,   3 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  8.2 us,  0.4 sy,  0.0 ni, 91.2 id,  0.1 hi,  0.0 si,  0.0 st
+MiB Mem : 257315.3 total, 129131.3 free,  68227.1 used,  59956.9 buff/cache
+MiB Swap:   4111.9 total,   4111.9 free,      0.0 used. 186746.2 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                                                              
+    134 jovyan    20   0   78.6g  50.0g 135932 S 329.9  19.9   9:44.86 python                                                                               
+      1 jovyan    20   0  759516 130908  23188 S   1.0   0.0   0:08.60 jupyter-lab                                                                          
+    345 jovyan    20   0    8444   5120   3652 S   0.0   0.0   0:01.30 bash                                                                                 
+    456 jovyan    20   0   10404   4096   3412 R   0.0   0.0   0:00.00 top     
+
+Is any recent QA edit causing a problem? Coz I see that the kernel crashed just after exporting the brdf corrrected .img. 
+```
+
+## 2026-08-17 - update brightness JSONs and push
+Branch: main
+
+```text
+Okay now lets use this and update the 2 .json files in the github repo accordingly. THe landsattomicasnse fits right in i think for these 7 pct values. For the other file, we need to take the 6 values (bands 2-7). Update the jsons and push the changes
+```
+
+## 2026-08-17 - gocmd skip existing remote files
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+is there a way we can skip if the file exists. The go command asks this, that I give the option na - no all.
+```
+
+## 2026-08-17 - gocmd csv skip vs reupload
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+Have a look at this. It says skip uploading file but then uploads it anyway. And then it looks like it failed on the .csv and thats a big file (73GB)
+```
+
+## 2026-08-17 - gocmd skip vs uploading print
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+if it skipped- why do i still get- skip uploading a file "/home/jovyan/data-store/spectralbridge/NIWO_a01/NEON_D13_NIWO_DP1_20200731_151902_reflectance/NEON_D13_NIWO_DP1_20200731_151902_reflectance_micasense_to_match_tm_etm+_undarkened_envi.parquet" to "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Processed_Flightlines/NIWO_a01/NEON_D13_NIWO_DP1_20200731_151902_reflectance/NEON_D13_NIWO_DP1_20200731_151902_reflectance_micasense_to_match_tm_etm+_undarkened_envi.parquet". The file with the same hash already exists!
+📤 Uploading file: NEON_D13_NIWO_DP1_20200731_151902_reflectance_micasense_undarkened_envi.parquet
+
+WHy does it say skip but still says Uploading file. Are you sure it skips
+```
+
+## 2026-08-17 - record gocmd upload failures then continue
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+Incase it fails, I want it to record which file it failed like in another file (no need to keep the ocnnection to this file alwasys). And then move on to the go command of the next file on the list. Make the change to the sciurpt
+```
+
+## 2026-08-17 - include csv in gocmd upload
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+wait i dont want to exclude csv. Please include that as well
+```
+
+## 2026-08-17 - why 81 vs 95 files to upload
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+how come here it found 81 files -
+base) jovyan@a27c5f39d:~/data-store/spectralbridge$ python move_folders_from_instance_to_remote.py
+...
+📊 Found 81 files to upload (excluding .duckdb_tmp)
+
+but (base) jovyan@ae24ee2d3:~/data-store/spectralbridge$ python move_folders_from_instance_to_remote.py
+...
+📊 Found 95 files to upload (excluding .duckdb_tmp)
+
+Whats the difference
+```
+
+## 2026-08-17 - NIWO_a01 vs a02 file list
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+Whats the difference-
+(base) jovyan@a27c5f39d find NIWO_a02 ...
+(and NIWO_a01 95-file listing with checkpoint pngs)
+```
+
+## 2026-08-17 - exclude jupyter checkpoints from gocmd upload
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+yes lets exclude the checkpoints
+```
+
+## 2026-08-18 - truncated remote csv vs local 72G
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+check this- isee this file in the DE-
+NEON_D13_NIWO_DP1_L018-1_20230815_directional_reflectance_merged_pixel_extraction.csv
+2026-08-17 22:44:49	59.7 GiB
+
+and on my instnace i see it as- 
+-rw-r--r-- 1 jovyan jovyan  72G Aug 17 23:52 NEON_D13_NIWO_DP1_L018-1_20230815_directional_reflectance_merged_pixel_extraction.csv
+
+There is a difference in size and when i try go command again it says file already exists. Does it actually exist? Its hard to even download that file there and check. 
+```
+
+## 2026-08-18 - replace repo gocmd with latest linux-amd64
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+okay cool. Notice there is a gocmd executable in the spectralbridge repo?
+I need that replaced to the latest verison. And the way to download the latest version is- 
+GOCMD_VER=$(curl -L -s https://raw.githubusercontent.com/cyverse/gocommands/main/VERSION.txt); \
+curl -L -s https://github.com/cyverse/gocommands/releases/download/${GOCMD_VER}/gocmd-${GOCMD_VER}-linux-amd64.tar.gz | tar zxvf -
+Can you delelte the old veriosn, download this new version, push just this to github
+```
+
+## 2026-08-18 - gocmd upload CLI sources dest quiet notebook
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+Alright, can you update the @move_folders_from_instance_to_remote.py file to take in 2 parameters of source paths and 1 parameters of destination paths. 
+We're gonna be calling the same scirpt with different source folders everytime from the notebook. Also, I dont want it to spit a lot of outputs into the notebook cell. Just what it started with and how many files are there transfer and transferring that file. I dont want the progress to get displayed in the cell and produce a lot of output. 
+```
+
+## 2026-08-18 - gocmd upload variable sources last dest
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+what if I want to transfer only 1 file? lets make it in such a way that it can even accpet 2 arguments or more than 3 arugments. Only the last one is the destination
+```
+
+## 2026-08-18 - confirm polygon extraction_mode in notebook cell
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+okay i think we worked enough with the move sciprt. I want to know. If we provide the polygon path to the single code cell and change extraction mode to polygon, the polygon extraction happens instead of the full right ? and the files will be created accordingly? Can you please check
+```
+
+## 2026-08-18 - terminal equivalent of run_transfer
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+whats the equivalent of running this-
+from move_folders_from_instance_to_remote import run_transfer
+run_transfer(
+    "/home/jovyan/data-store/spectralbridge/NIWO_a01_test",
+    "i:/iplant/home/shared/earthlab/macrosystems/",
+)
+
+FRom terminal.
+```
+
+## 2026-08-18 - push move script to github
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+lets psuh the changes we made to the move script to github
+```
+
+## 2026-08-18 - push move script and aop polygons geojson
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+Wait i also just added a aop_polygons geojson, please commit and push that as well. 
+```
+
+## 2026-08-18 - create Flightline_Process notebook
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+OKay now, Create a Flightline_Process notebook in the repo. With the first cell as -
+[NEON pipeline cell; NEON_TOKEN redacted]
+The only change being it should be polygon extraction. So change extraction mode and change the polygon path to the aop polygons file we just added. It should be relative to spectral bridge.
+Then the second cell should be the gocommand init scirpt-
+[gocmd init]
+AND then the third cell should be the transfer cell. ... destination is i:/iplant/home/shared/earthlab/macrosystems/ and the soruce is the base folder in the first cell.
+THen the 4th cell should be with rm -rf command to delete the file that we just transfered using go command. Create this notebook
+```
+
+## 2026-08-18 - push Flightline_Process notebook
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+yes push it
+```
+
+## 2026-08-18 - default Flightline_Process kernel to macrosystems
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+okay i have one problem. The default kernel this notebook opened was Python3, but I want it to be macrosystems. is there a way we can make that happen by defualt?
+```
+
+## 2026-08-18 - polygon filtered geojson and parquet names
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+I want to know if the polygon extraction would create - NEON_D13_NIWO_DP1_L012-1_20230815_directional_reflectance_filtered_polygons.geojson and then the parquets created would have _envi_polygons.parquet in them
+```
+
+## 2026-08-18 - generate assigned flightline notebooks from xlsx
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+okay cool. Now that you know how the notebook looks. Lets do this. 
+I uploaded .xlsx called NEON_Flightlinetoprocess just now. Refer to row 70 to row 135 in that. There are 2 flightlines assinged to each notebook. In total you will have to create about 30 notebooks inside spectralbridge.  Each of them will have the 4 cells. The second cell will be the same, the third cell would be adjusted to the source of that notebook (2 flightline folders and the same destination - /iplant/home/shared/earthlab/macrosystems/Aug_2026_Processed_Flightlines. The 4th cell would also want to delete the respective base source folder. 
+
+Keep in mind the notebook needs to be macrosystems kernel. 
+
+The first cell would need to prepoluated with the flightlines assined to the the notebook ( 2 per notebook). Also its gonna be polygon extraction. Make sure to change the FLIGHT_LINES as well as the Base_Folder. Maybe the 2 flightlines assigned to cibele-01.ipynb can we WREF_c01 and then the 2 flightlines assigned to nayani-08.ipynb can be YELL_n08. Also change the site code accorudingly (WREF or YELL etc), and the year month as well. So basically that notebook is for those 2 flightlines exclusively. 
+```
+
+## 2026-08-18 - confirm ty-16 has 3 flightlines
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+Did you make sure ty-16.ipynb has 3 flightlines isntead of 2
+```
+
+## 2026-08-18 - cell 3 transfer base folder not flightlines
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+For cell 3, the soruce just needs to be the base folder in the notebook- example- YELL_c04, not the 2 flightlines inside it. 
+```
+
+## 2026-08-18 - commit 32 assigned notebooks
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+Alright looks good. Lets commit the 32 notebooks
+```
+
+## 2026-08-18 - push assigned notebooks
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+lets push the notebooks 
+```
+
+## 2026-08-18 - create Matt assigned notebooks
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+We forgot Matt. I shared a new excel where rows- 55 to 70 are assingend to Matt. Create Matt's notebooks keeping in the alll the fine details of customising each notebook and commit and push them
+```
+
+## 2026-08-18 - check polygon vs NEON CRS handling
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+Is the aop polygons coordinate system and neon flightline coordinate system taken into account before doing the polygon extraction, just wanted to check
+```
+
+## 2026-08-18 - switch notebooks to merged AOP polygons
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+okay the polygon file changed. I just uploaded it, its called @merged_all_AOP_polygon_data_2023_2024.geojson . Can you upload this file to github and also change and push all the notebooks to relfect this new polygons file. It would be cell 1 i think
+```
+
+## 2026-08-19 - fix nested qa upload folders
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+Yes make sure the nested QA folders are created properly/
+```
+
+## 2026-08-19 - explicit cleanup folder in notebook cell 4
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+Lets also make the change to the 4th cell where the base folder is replaced with the explicit folder name. 
+Make the change to all the notebooks and push the changes
+```
+
+## 2026-09-02 - split failed ENVI left/right and resume BRDF
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+okay lets keep the drone processing aside for now. I have some flightlines which didnt run. They only go til they create the directional_reflectance.hdr and img and I think they also create couple of other files but it doesnt go trhough with the brdf correction. Check the screenshot.
+
+So i want to run it only till it creates the envi pair. And then split the envi in half. (split it into left half and right half not top and bottom, its llike the flight made only half the run). idk what we have to do with the .hdr. Run the pipeline on these 2 envis seperately. Mayne you can take in a parameter to run the pipeline this way. So all the files have to renamed appropirately. Maybe after we split it we have to create the folder structure we have and put the envis and run the pipeline on the 2 folders so that it picks up from the envis. Can we do somehting like this?
+```
+
+## 2026-09-03 - split_across_track pipeline parameter
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+okay got it. lets have the pipeline do this. Make sure the full-fightline processing is not affected at all. I want to pass a parameter which would mean I want to process this flightline by cuting it in half. I provide an output directory folder right, in that you can have 2 flightline folders one for left half and one for right half and one .h5 common to both. and then inside the files corresponding to that that half (here I want all the files htat owuld exist for a normal flghtline processing). How do you want to go about this ? I dont have the envis. Should I first run the full pipeline till it creates envis and then start splitting and created the folder strucutre that we need?
+```
+
+
+

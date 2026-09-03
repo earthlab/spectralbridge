@@ -14,6 +14,7 @@ from .neon_schema import canonical_vectors, resolve
 
 __all__ = [
     "is_pre_2021",
+    "peek_neon_sample_count",
     "read_neon_cube",
     "read_neon_reflectance_unitless",
     "_prepare_map_info",
@@ -184,6 +185,78 @@ def _find_dataset_path(h5_file: h5py.File, candidates: Iterable[str], ndim: int 
     return None
 
 
+def _as_sample_slice(sample_slice: slice | tuple[int, int] | None) -> slice | None:
+    if sample_slice is None:
+        return None
+    if isinstance(sample_slice, tuple):
+        if len(sample_slice) != 2:
+            raise ValueError("sample_slice tuple must be (start, stop)")
+        return slice(int(sample_slice[0]), int(sample_slice[1]))
+    return sample_slice
+
+
+def _samples_axis_count(shape: tuple[int, ...], wavelength_count: int) -> int:
+    if len(shape) != 3:
+        raise RuntimeError("Reflectance data does not have (lines, columns, bands) dimensions.")
+    if shape[2] == wavelength_count:
+        return int(shape[1])
+    if shape[0] == wavelength_count:
+        return int(shape[2])
+    if shape[1] == wavelength_count:
+        return int(shape[2])
+    return int(shape[1])
+
+
+def _slice_reflectance_dataset(
+    reflectance_ds: h5py.Dataset,
+    wavelength_count: int,
+    sample_slice: slice | None,
+) -> np.ndarray:
+    """Read reflectance, optionally slicing the across-track axis before load."""
+
+    if sample_slice is None:
+        return np.asarray(reflectance_ds[()], dtype=np.float32)
+
+    shape = reflectance_ds.shape
+    if len(shape) != 3:
+        raise RuntimeError("Reflectance data does not have (lines, columns, bands) dimensions.")
+    if shape[2] == wavelength_count:
+        return np.asarray(reflectance_ds[:, sample_slice, :], dtype=np.float32)
+    if shape[0] == wavelength_count:
+        return np.asarray(reflectance_ds[:, :, sample_slice], dtype=np.float32)
+    if shape[1] == wavelength_count:
+        return np.asarray(reflectance_ds[:, :, sample_slice], dtype=np.float32)
+    return np.asarray(reflectance_ds[:, sample_slice, :], dtype=np.float32)
+
+
+def _shift_map_info_for_sample_start(
+    map_info_list: list[str],
+    sample_start: int,
+) -> tuple[list[str], tuple[float, float, float, float, float, float] | None, float | None, float | None]:
+    if not map_info_list or sample_start == 0:
+        transform = None
+        ulx = uly = None
+        if map_info_list:
+            ref_x, ref_y, ref_easting, ref_northing, pixel_x, pixel_y = _map_info_core(
+                map_info_list
+            )
+            ulx = ref_easting - pixel_x * (ref_x - 0.5)
+            uly = ref_northing + abs(pixel_y) * (ref_y - 0.5)
+            yres = -abs(pixel_y)
+            transform = (ulx, pixel_x, 0.0, uly, 0.0, yres)
+        return map_info_list, transform, ulx, uly
+
+    shifted = list(map_info_list)
+    ref_x, ref_y, ref_easting, ref_northing, pixel_x, pixel_y = _map_info_core(shifted)
+    ulx = ref_easting - pixel_x * (ref_x - 0.5) + sample_start * pixel_x
+    uly = ref_northing + abs(pixel_y) * (ref_y - 0.5)
+    new_easting = ulx + pixel_x * (ref_x - 0.5)
+    shifted[3] = str(new_easting)
+    yres = -abs(pixel_y)
+    transform = (ulx, pixel_x, 0.0, uly, 0.0, yres)
+    return shifted, transform, ulx, uly
+
+
 def _orient_cube(data: np.ndarray, wavelength_count: int) -> np.ndarray:
     array = np.asarray(data, dtype=np.float32)
     if array.ndim != 3:
@@ -207,7 +280,10 @@ def _metadata_root_from_path(dataset_path: str) -> Optional[str]:
     return None
 
 
-def _read_new_neon_layout(h5_file: h5py.File) -> tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
+def _read_new_neon_layout(
+    h5_file: h5py.File,
+    sample_slice: slice | tuple[int, int] | None = None,
+) -> tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
     base_key: Optional[str] = None
     for key in h5_file.keys():
         candidate = f"{key}/Reflectance/Reflectance_Data"
@@ -226,11 +302,17 @@ def _read_new_neon_layout(h5_file: h5py.File) -> tuple[np.ndarray, np.ndarray, D
 
     resolved = resolve(base_group)
     reflectance_ds = resolved.ds_reflectance
-    data = np.asarray(reflectance_ds[()], dtype=np.float32)
     scale_factor = _extract_scale_factor(reflectance_ds)
 
     wavelength_nm, fwhm_nm, to_sun_zenith, to_sensor_zenith = canonical_vectors(resolved)
     wavelengths = np.asarray(wavelength_nm, dtype=np.float32).reshape(-1)
+    column_slice = _as_sample_slice(sample_slice)
+    n_samples = _samples_axis_count(reflectance_ds.shape, len(wavelengths))
+    sample_start, sample_stop = 0, n_samples
+    if column_slice is not None:
+        sample_start, sample_stop, _ = column_slice.indices(n_samples)
+        column_slice = slice(sample_start, sample_stop)
+    data = _slice_reflectance_dataset(reflectance_ds, len(wavelengths), column_slice)
     fwhm = (
         np.asarray(fwhm_nm, dtype=np.float32).reshape(-1)
         if fwhm_nm is not None
@@ -265,14 +347,9 @@ def _read_new_neon_layout(h5_file: h5py.File) -> tuple[np.ndarray, np.ndarray, D
     if projection_dataset is not None:
         projection_wkt = _as_str(projection_dataset[()])
 
-    transform = None
-    ulx = uly = None
-    if map_info_list:
-        ref_x, ref_y, ref_easting, ref_northing, pixel_x, pixel_y = _map_info_core(map_info_list)
-        ulx = ref_easting - pixel_x * (ref_x - 0.5)
-        uly = ref_northing + abs(pixel_y) * (ref_y - 0.5)
-        yres = -abs(pixel_y)
-        transform = (ulx, pixel_x, 0.0, uly, 0.0, yres)
+    map_info_list, transform, ulx, uly = _shift_map_info_for_sample_start(
+        map_info_list, sample_start
+    )
 
     no_data = _extract_no_data(reflectance_ds)
     cube = _orient_cube(data, len(wavelengths))
@@ -297,16 +374,21 @@ def _read_new_neon_layout(h5_file: h5py.File) -> tuple[np.ndarray, np.ndarray, D
         "metadata_group_paths": [metadata_group.name],
         "base_key": base_key,
         "layout": "reflectance_group",
+        "sample_start": int(sample_start),
+        "sample_stop": int(sample_stop),
+        "full_samples": int(n_samples),
     }
     return cube, wavelengths, meta
 
 
-def _read_old_neon_layout(h5_file: h5py.File) -> tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
+def _read_old_neon_layout(
+    h5_file: h5py.File,
+    sample_slice: slice | tuple[int, int] | None = None,
+) -> tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
     data_path = _find_dataset_path(h5_file, ("reflectance_data", "reflectance"), ndim=3)
     if data_path is None:
         raise KeyError("Legacy NEON file missing a reflectance dataset.")
     data_ds = h5_file[data_path]
-    data = np.asarray(data_ds[()], dtype=np.float32)
     scale_factor = _extract_scale_factor(data_ds)
 
     wavelength_path = _find_dataset_path(
@@ -318,6 +400,13 @@ def _read_old_neon_layout(h5_file: h5py.File) -> tuple[np.ndarray, np.ndarray, D
         raise KeyError("Legacy NEON file missing a wavelength dataset.")
     wavelength_ds = h5_file[wavelength_path]
     wavelengths = np.asarray(wavelength_ds[()], dtype=np.float32).reshape(-1)
+    column_slice = _as_sample_slice(sample_slice)
+    n_samples = _samples_axis_count(data_ds.shape, len(wavelengths))
+    sample_start, sample_stop = 0, n_samples
+    if column_slice is not None:
+        sample_start, sample_stop, _ = column_slice.indices(n_samples)
+        column_slice = slice(sample_start, sample_stop)
+    data = _slice_reflectance_dataset(data_ds, len(wavelengths), column_slice)
 
     fwhm_path = _find_dataset_path(h5_file, ("fwhm", "full_width_half_max"), ndim=1)
     fwhm = np.asarray(h5_file[fwhm_path][()], dtype=np.float32).reshape(-1) if fwhm_path else None
@@ -336,14 +425,9 @@ def _read_old_neon_layout(h5_file: h5py.File) -> tuple[np.ndarray, np.ndarray, D
     if projection_path:
         projection_wkt = _as_str(h5_file[projection_path][()])
 
-    transform = None
-    ulx = uly = None
-    if map_info_list:
-        ref_x, ref_y, ref_easting, ref_northing, pixel_x, pixel_y = _map_info_core(map_info_list)
-        ulx = ref_easting - pixel_x * (ref_x - 0.5)
-        uly = ref_northing + abs(pixel_y) * (ref_y - 0.5)
-        yres = -abs(pixel_y)
-        transform = (ulx, pixel_x, 0.0, uly, 0.0, yres)
+    map_info_list, transform, ulx, uly = _shift_map_info_for_sample_start(
+        map_info_list, sample_start
+    )
 
     no_data = _extract_no_data(data_ds)
     cube = _orient_cube(data, len(wavelengths))
@@ -371,12 +455,16 @@ def _read_old_neon_layout(h5_file: h5py.File) -> tuple[np.ndarray, np.ndarray, D
         "metadata_group_paths": [metadata_root] if metadata_root else [],
         "base_key": base_key,
         "layout": "legacy_hdf5",
+        "sample_start": int(sample_start),
+        "sample_stop": int(sample_stop),
+        "full_samples": int(n_samples),
     }
     return cube, wavelengths, meta
 
 
 def _read_site_group_legacy_layout(
     h5_file: h5py.File,
+    sample_slice: slice | tuple[int, int] | None = None,
 ) -> tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
     root_keys = list(h5_file.keys())
     if len(root_keys) != 1:
@@ -395,7 +483,6 @@ def _read_site_group_legacy_layout(
     if not isinstance(data_ds, h5py.Dataset):
         raise KeyError("Legacy site-group layout missing 'Reflectance_Data' dataset.")
 
-    data = np.asarray(data_ds[()], dtype=np.float32)
     scale_factor = _extract_scale_factor(data_ds)
 
     metadata_group = reflectance_group.get("Metadata")
@@ -416,6 +503,13 @@ def _read_site_group_legacy_layout(
         raise KeyError("Legacy site-group layout missing spectral wavelength dataset.")
 
     wavelengths = np.asarray(wavelength_ds[()], dtype=np.float32).reshape(-1)
+    column_slice = _as_sample_slice(sample_slice)
+    n_samples = _samples_axis_count(data_ds.shape, len(wavelengths))
+    sample_start, sample_stop = 0, n_samples
+    if column_slice is not None:
+        sample_start, sample_stop, _ = column_slice.indices(n_samples)
+        column_slice = slice(sample_start, sample_stop)
+    data = _slice_reflectance_dataset(data_ds, len(wavelengths), column_slice)
 
     fwhm_ds: Optional[h5py.Dataset] = None
     for key, value in spectral_group.items():
@@ -441,16 +535,9 @@ def _read_site_group_legacy_layout(
     if projection_dataset is not None:
         projection_wkt = _as_str(projection_dataset[()])
 
-    transform = None
-    ulx = uly = None
-    if map_info_list:
-        ref_x, ref_y, ref_easting, ref_northing, pixel_x, pixel_y = _map_info_core(
-            map_info_list
-        )
-        ulx = ref_easting - pixel_x * (ref_x - 0.5)
-        uly = ref_northing + abs(pixel_y) * (ref_y - 0.5)
-        yres = -abs(pixel_y)
-        transform = (ulx, pixel_x, 0.0, uly, 0.0, yres)
+    map_info_list, transform, ulx, uly = _shift_map_info_for_sample_start(
+        map_info_list, sample_start
+    )
 
     no_data = _extract_no_data(data_ds)
     cube = _orient_cube(data, len(wavelengths))
@@ -476,19 +563,67 @@ def _read_site_group_legacy_layout(
         "base_key": f"{site_group_key}/Reflectance",
         "layout": "legacy_site_group",
         "site": site_group_key,
+        "sample_start": int(sample_start),
+        "sample_stop": int(sample_stop),
+        "full_samples": int(n_samples),
     }
 
     return cube, wavelengths, meta
 
 
-def read_neon_cube(h5_path: Path) -> tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
-    """Return ``(cube, wavelengths, metadata)`` for ``h5_path`` regardless of layout."""
+def peek_neon_sample_count(h5_path: Path) -> int:
+    """Return the across-track sample count without loading the reflectance cube."""
+
+    path = Path(h5_path)
+    if not path.exists():
+        raise FileNotFoundError(path)
+
+    with h5py.File(path, "r") as h5_file:
+        base_key: Optional[str] = None
+        for key in h5_file.keys():
+            candidate = f"{key}/Reflectance/Reflectance_Data"
+            if candidate in h5_file:
+                base_key = key
+                break
+        if base_key is not None or "Reflectance/Reflectance_Data" in h5_file:
+            base_group: h5py.Group | h5py.File
+            if base_key is None:
+                base_group = h5_file
+            else:
+                base_group = h5_file[base_key]
+            resolved = resolve(base_group)
+            n_bands = int(np.asarray(resolved.ds_wavelength[()], dtype=np.float32).size)
+            return _samples_axis_count(resolved.ds_reflectance.shape, n_bands)
+
+        data_path = _find_dataset_path(h5_file, ("reflectance_data", "reflectance"), ndim=3)
+        wavelength_path = _find_dataset_path(
+            h5_file,
+            ("wavelength", "wavelengths", "center_wavelength"),
+            ndim=1,
+        )
+        if data_path is not None and wavelength_path is not None:
+            n_bands = int(np.asarray(h5_file[wavelength_path][()], dtype=np.float32).size)
+            return _samples_axis_count(h5_file[data_path].shape, n_bands)
+
+    raise RuntimeError(f"Unable to peek NEON sample count for {path}")
+
+
+def read_neon_cube(
+    h5_path: Path,
+    sample_slice: slice | tuple[int, int] | None = None,
+) -> tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
+    """Return ``(cube, wavelengths, metadata)`` for ``h5_path`` regardless of layout.
+
+    ``sample_slice`` is an optional half-open across-track window. When omitted,
+    the full cube is loaded (the historic default).
+    """
 
     path = Path(h5_path)
     if not path.exists():
         raise FileNotFoundError(path)
 
     layout_error: Exception | None = None
+    column_slice = _as_sample_slice(sample_slice)
 
     with h5py.File(path, "r") as h5_file:
         root_keys = list(h5_file.keys())
@@ -507,7 +642,7 @@ def read_neon_cube(h5_path: Path) -> tuple[np.ndarray, np.ndarray, Dict[str, Any
 
         for reader in readers:
             try:
-                return reader(h5_file)
+                return reader(h5_file, sample_slice=column_slice)
             except Exception as exc:  # pragma: no cover - defensive cascade
                 if layout_error is None:
                     layout_error = exc

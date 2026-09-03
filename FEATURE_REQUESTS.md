@@ -20,115 +20,61 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
-### P65. Repair Current Full-Suite Test Failures
+### P64. Across-Track Half-Flight Processing
+
+- Priority: User-directed
+- Status: Complete
+- Owner: Cursor Agent
+- Started: 2026-09-03
+- Completed: 2026-09-03
+- Goal: Add an opt-in `split_across_track` mode that processes a NEON
+  flightline as independent left/right column halves without changing the
+  default full-flightline path.
+- Outcome: Default `go_forth_and_multiply` / `process_one_flightline` path
+  is unchanged. `split_across_track=True` downloads the original H5 once,
+  then processes `{id}_left` and `{id}_right` with an across-track H5
+  column window so ENVI + BRDF only load that half. Shared H5 stays at
+  `<base>/<id>.h5`; each half folder gets a full renamed product tree.
+- Verification: `pytest -q tests/test_neon_cube.py tests/test_split_across_track.py tests/test_pipeline_ray_engines.py tests/test_stage_export.py tests/test_brdf_topo_chunking.py tests/test_brdf_topo_streamlined.py`
+- Blockers: None.
+- Next recommended task: Run a real stalled YELL/WREF flightline with
+  `split_across_track=True` and `engine="thread", max_workers=1`.
+
+### P63. Defer Stage QA Until End Of Flightline And Bound ENVI Reads
 
 - Priority: User-directed
 - Status: Completed
 - Owner: Codex
 - Started: 2026-08-17
-- Goal: Resolve the pasted full-suite failures without changing scientific
-  assumptions or pipeline behavior.
-- Scope:
-  - Align brightness coefficient tests and synthetic QA fixtures with the
-    currently packaged brightness coefficient JSON files.
-  - Make pipeline engine tests robust to no-op/stubbed downloads while keeping
-    real download logging intact.
-  - Confirm the stale Playwright docs assertion is already repaired locally or
-    patch it if needed.
-  - Refresh AI transparency artifacts after logging the prompt.
+- Goal: Keep the new stage QA reports (acquisition through analysis tables)
+  and the legacy flightline QA panel, but run both only after the scientific
+  pipeline has finished. Stage QA must read each stage's on-disk ENVI/Parquet
+  products with bounded sampling so Jupyter kernels do not OOM after BRDF/topo
+  writes a multi-GB corrected cube.
 - Plan:
-  - Read the failing tests, current coefficient files, and orchestration code.
-  - Apply the smallest code/test changes that restore the intended contracts.
-  - Run focused failing tests plus lightweight repository checks.
-- Outcome (2026-08-17):
-  - Confirmed the pasted Playwright assertion was already repaired locally; the
-    local test now checks the durable "Before minus after correlation." table
-    cell.
-  - Treated commit `8417135` and the packaged brightness JSON files as the
-    current source of truth, then updated brightness tests and the synthetic
-    stage-QA brightness fixture to use those current coefficients instead of
-    stale pre-update values.
-  - Made the high-level pipeline logger tolerate test stubs or no-op download
-    helpers that return `None`, while real downloads still log the returned H5
-    filename.
-  - Regenerated and verified AI transparency artifacts after logging this
-    prompt.
-  - Focused failing tests pass, and the exact pasted full command
-    `pytest -q --cov=spectralbridge --cov-branch` passes locally with 53.94%
-    coverage against the 45% floor.
-- Blockers: Ruff is not installed in the local `.venv`, so no Ruff check was
-  available.
-- Next recommended task: Decide whether checked-in real R10C brightness QA
-  artifacts should be regenerated from products produced with the newer Table
-  Mountain HLS coefficient table, or explicitly labeled as historical
-  validation artifacts.
-
-### P64. Add Printable Combined Stage QA PDF
-
-- Priority: User-directed
-- Status: Completed
-- Owner: Codex
-- Started: 2026-08-17
-- Goal: Produce a single downloadable PDF companion to the combined stage-QA
-  HTML report so users can compare complete flightline summaries outside the
-  browser.
-- Scope:
-  - Add a canonical `combined_qa.pdf` artifact next to `combined_qa.html`.
-  - Build the PDF from the same combined and stage payloads used by the HTML
-    reports, including stage summaries and available diagnostic figures.
-  - Preserve existing HTML, JSON, plot, naming, and restart behavior.
-  - Document the artifact and add focused regression coverage.
-- Plan:
-  - Extend the combined QA paths and report assembly code.
-  - Add a deterministic multi-page PDF renderer with graceful handling of
-    missing stage plots.
-  - Verify with a focused stage-QA test and update generated AI transparency.
-- Outcome (2026-08-17):
-  - Added canonical `qa/combined/combined_qa.pdf` output via
-    `CombinedQAPaths.pdf`.
-  - `assemble_combined_report()` now writes the HTML first and then emits a
-    single letter-sized, page-numbered PDF containing the combined summary,
-    cross-stage interpretation, pipeline evolution figure, each stage summary,
-    and each available stage diagnostic image.
-  - Regenerated the checked-in R10C validation artifact at
-    `docs/validation/artifacts/r10c-l002-20210915/qa/combined/combined_qa.pdf`
-    as a 19-page PDF.
-  - Updated output and stage-QA docs and refreshed AI transparency artifacts.
-  - Focused stage-QA tests, compile checks, doc-link checks, PDF metadata
-    inspection, and rendered-page visual checks pass.
-- Blockers: Ruff is not installed in the local `.venv`, so Ruff could not be
-  run from this environment.
-- Next recommended task: Add a small CLI/status message that prints the PDF path
-  after `spectralbridge-stage-qa` rebuilds an existing flightline report.
-
-### P63. Diagnose BRDF Kernel Crash At Zero Percent
-
-- Priority: User-directed
-- Status: Paused after user redirect
-- Owner: Codex
-- Started: 2026-08-17
-- Goal: Determine why the local kernel exits as BRDF processing begins and
-  distinguish an out-of-memory/process-backend failure from a scientific data
-  or algorithm error.
-- Scope:
-  - Trace BRDF initialization, chunk allocation, and execution backend settings.
-  - Inspect the available R10C run artifacts and any local diagnostic logs.
-  - Report the evidence-backed cause and conservative ways to run the existing
-    pipeline without changing its scientific assumptions.
-- Plan:
-  - Read the BRDF/topographic orchestration and its focused tests/docs.
-  - Estimate first-chunk memory and identify work duplicated across workers.
-  - Reproduce only with a bounded diagnostic if existing evidence is
-    insufficient, then document findings and next actions.
-- Current finding:
-  - Evidence gathered before redirect points to first-tile memory pressure in
-    scene-mode BRDF/topographic application rather than a scientific data
-    quality failure: the R10C cube expands to roughly 10 GiB as float32, and the
-    current scene-mode apply path can hold several full-scene arrays before the
-    progress bar advances beyond 0%.
-- Remaining work:
-  - If resumed, provide the user-facing diagnosis and optionally implement a
-    bounded row-strip application mode that preserves scene-level coefficients.
+  - Stop emitting stage QA between download/export/correction/convolution.
+  - After polygon extraction (or skip), free memory, then
+    `run_completed_flightline_qa` followed by `render_flightline_panel`.
+  - Sample hyperspectral ENVI from a BSQ memmap one band at a time; never
+    materialize a full cube as float32.
+  - Add regression tests and update stage-QA docs.
+- Completion notes:
+  - Mid-stage `_emit_stage_qa_safe` calls were removed from
+    `process_one_flightline` and from the H5 download loop.
+  - `_run_end_of_pipeline_qa` runs after convolution/merge/polygon: stage QA
+    from on-disk artifacts, then the legacy `_qa.png` panel.
+  - `emit_stage_qa` memmaps BSQ ENVI and copies a spatial preview one band at
+    a time; paired BRDF QA loads the reference preview separately and does not
+    keep two full cubes.
+  - `qa_mode="off"` still skips new stage reports but still writes the legacy
+    panel. Default remains `standard`.
+- Verification:
+  - `/opt/anaconda3/bin/pytest -q tests/test_stage_qa.py tests/test_brightness_coefficients.py`
+    (31 passed)
+- Blockers: None.
+- Next recommended task: Re-run the NIWO flightline with default `qa_mode`
+  (or `"standard"`) so stage QA happens after convolution instead of after
+  the BRDF write.
 
 ### P62. Synthetic Sensor Regression Plot And Coefficient Sidecar
 

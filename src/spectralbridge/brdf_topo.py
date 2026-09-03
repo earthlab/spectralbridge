@@ -85,6 +85,7 @@ def build_correction_parameters_dict(
     use_ndvi_brdf_bins: bool = False,
     flight_stem: str | None = None,
     product_code: str | None = None,
+    sample_slice: slice | tuple[int, int] | None = None,
 ) -> dict:
     """Compute the correction parameter payload without writing it to disk."""
 
@@ -98,7 +99,7 @@ def build_correction_parameters_dict(
 
     corrected_stem = _derive_corrected_stem(raw_img_path)
 
-    cube = NeonCube(h5_path=h5_path)
+    cube = NeonCube(h5_path=h5_path, sample_slice=sample_slice)
     coeff_path = fit_and_save_brdf_model(
         cube,
         base_folder,
@@ -173,6 +174,9 @@ def build_correction_parameters_dict(
         "fwhm_nm": fwhm_nm.tolist() if fwhm_nm is not None else None,
         "to_sun_zenith": sun_mean,
         "to_sensor_zenith": sensor_mean,
+        "sample_start": int(cube.sample_start),
+        "sample_stop": int(cube.sample_stop),
+        "full_samples": int(cube.full_samples),
     }
 
 
@@ -295,7 +299,17 @@ def apply_brdf_topo_core(
     # ``NeonCube`` loads the reflectance cube and ancillary rasters into a common
     # coordinate system, which lets the per-tile correction functions slice both
     # data and geometry using the same ``ys:ye, xs:xe`` bounds.
-    cube = NeonCube(h5_path=source_h5)
+    sample_slice = None
+    sample_start = params.get("sample_start") if isinstance(params, dict) else None
+    sample_stop = params.get("sample_stop") if isinstance(params, dict) else None
+    full_samples = params.get("full_samples") if isinstance(params, dict) else None
+    if sample_start is not None and sample_stop is not None:
+        start = int(sample_start)
+        stop = int(sample_stop)
+        if full_samples is None or not (start == 0 and stop == int(full_samples)):
+            sample_slice = slice(start, stop)
+
+    cube = NeonCube(h5_path=source_h5, sample_slice=sample_slice)
 
     header = cube.build_envi_header()
     header["description"] = (

@@ -27,6 +27,8 @@ def neon_to_envi_no_hytools(
     *,
     interactive_mode: bool = True,
     log_every: int = 25,
+    sample_slice: slice | tuple[int, int] | None = None,
+    output_stem: str | Path | None = None,
 ) -> list[dict]:
     """Convert NEON `.h5` reflectance cubes into ENVI BSQ rasters.
 
@@ -49,74 +51,78 @@ def neon_to_envi_no_hytools(
     output_dir_path = Path(output_dir)
     output_dir_path.mkdir(parents=True, exist_ok=True)
 
-    cube = NeonCube(h5_path=h5_path)
+    cube = NeonCube(h5_path=h5_path, sample_slice=sample_slice)
 
     header = cube.build_envi_header()
     header["description"] = (
         "Uncorrected NEON reflectance (float32 BSQ) exported via NeonCube"
     )
 
-    try:
-        refl_file = NEONReflectanceFile.from_filename(h5_path)
-    except ValueError as exc:
-        raise RuntimeError(
-            "Unable to parse NEON reflectance filename. Expected one of the standard "
-            "NEON patterns (tile+directional, legacy date+time, coordinate-based, "
-            "or bidirectional reflectance)."
-        ) from exc
-
-    # For legacy datetime format files, the tile is synthetic (e.g., "20200720T163210")
-    # and we should NOT use it in the ENVI filename. Instead, construct the filename
-    # to match the flight_stem format: NEON_D13_NIWO_DP1_20200720_163210_reflectance_envi.img
-    # Detect synthetic tile: if tile contains 'T' and matches date+time pattern
-    import re
-    tile_to_use = refl_file.tile
-    is_legacy_datetime = tile_to_use and 'T' in tile_to_use and re.match(r'^\d{8}T\d{6}$', tile_to_use)
-    
-    if is_legacy_datetime:
-        # For legacy datetime format, construct filename to match flight_stem format
-        # Format: NEON_{domain}_{site}_DP1_{date}_{time}_reflectance_envi.img
-        # Note: Use "DP1" not "DP1.30006.001" to match flight_stem
-        product_part = "DP1"  # Match flight_stem format, not full product code
-        parts = ["NEON", refl_file.domain, refl_file.site, product_part]
-        if refl_file.date:
-            parts.append(refl_file.date)
-        if refl_file.time:
-            parts.append(refl_file.time)
-        descriptor = getattr(refl_file, "descriptor", "reflectance")
-        if descriptor and "directional" in descriptor:
-            parts.append("directional")
-        parts.append("reflectance")
-        parts.append("envi")
-        filename = "_".join(parts) + ".img"
-        # Create the path directly - parse_filename() won't work without a tile
-        # but we can create a minimal NEONReflectanceENVIFile object for the path
-        envi_path = output_dir_path / filename
-        envi_file = NEONReflectanceENVIFile(envi_path)
-        # Set attributes manually since we can't use from_filename()
-        envi_file.domain = refl_file.domain
-        envi_file.site = refl_file.site
-        envi_file.product = product_part
-        envi_file.tile = None  # No tile for legacy format
-        envi_file.date = refl_file.date
-        envi_file.time = refl_file.time
-        envi_file.directional = getattr(refl_file, "directional", False)
-        envi_file.descriptor = descriptor  # type: ignore[attr-defined]
+    if output_stem is not None:
+        out_stem = Path(output_stem)
+        out_stem.parent.mkdir(parents=True, exist_ok=True)
     else:
-        # For files with actual tiles (like L019-1), use the normal path
-        envi_file = NEONReflectanceENVIFile.from_components(
-            domain=refl_file.domain,
-            site=refl_file.site,
-            product=refl_file.product,
-            tile=refl_file.tile,
-            date=refl_file.date,
-            time=refl_file.time,
-            directional=getattr(refl_file, "directional", False),
-            descriptor=getattr(refl_file, "descriptor", None),
-            folder=output_dir_path,
-        )
+        try:
+            refl_file = NEONReflectanceFile.from_filename(h5_path)
+        except ValueError as exc:
+            raise RuntimeError(
+                "Unable to parse NEON reflectance filename. Expected one of the standard "
+                "NEON patterns (tile+directional, legacy date+time, coordinate-based, "
+                "or bidirectional reflectance)."
+            ) from exc
 
-    out_stem = _resolve_output(envi_file)
+        # For legacy datetime format files, the tile is synthetic (e.g., "20200720T163210")
+        # and we should NOT use it in the ENVI filename. Instead, construct the filename
+        # to match the flight_stem format: NEON_D13_NIWO_DP1_20200720_163210_reflectance_envi.img
+        # Detect synthetic tile: if tile contains 'T' and matches date+time pattern
+        import re
+        tile_to_use = refl_file.tile
+        is_legacy_datetime = tile_to_use and 'T' in tile_to_use and re.match(r'^\d{8}T\d{6}$', tile_to_use)
+        
+        if is_legacy_datetime:
+            # For legacy datetime format, construct filename to match flight_stem format
+            # Format: NEON_{domain}_{site}_DP1_{date}_{time}_reflectance_envi.img
+            # Note: Use "DP1" not "DP1.30006.001" to match flight_stem
+            product_part = "DP1"  # Match flight_stem format, not full product code
+            parts = ["NEON", refl_file.domain, refl_file.site, product_part]
+            if refl_file.date:
+                parts.append(refl_file.date)
+            if refl_file.time:
+                parts.append(refl_file.time)
+            descriptor = getattr(refl_file, "descriptor", "reflectance")
+            if descriptor and "directional" in descriptor:
+                parts.append("directional")
+            parts.append("reflectance")
+            parts.append("envi")
+            filename = "_".join(parts) + ".img"
+            # Create the path directly - parse_filename() won't work without a tile
+            # but we can create a minimal NEONReflectanceENVIFile object for the path
+            envi_path = output_dir_path / filename
+            envi_file = NEONReflectanceENVIFile(envi_path)
+            # Set attributes manually since we can't use from_filename()
+            envi_file.domain = refl_file.domain
+            envi_file.site = refl_file.site
+            envi_file.product = product_part
+            envi_file.tile = None  # No tile for legacy format
+            envi_file.date = refl_file.date
+            envi_file.time = refl_file.time
+            envi_file.directional = getattr(refl_file, "directional", False)
+            envi_file.descriptor = descriptor  # type: ignore[attr-defined]
+        else:
+            # For files with actual tiles (like L019-1), use the normal path
+            envi_file = NEONReflectanceENVIFile.from_components(
+                domain=refl_file.domain,
+                site=refl_file.site,
+                product=refl_file.product,
+                tile=refl_file.tile,
+                date=refl_file.date,
+                time=refl_file.time,
+                directional=getattr(refl_file, "directional", False),
+                descriptor=getattr(refl_file, "descriptor", None),
+                folder=output_dir_path,
+            )
+
+        out_stem = _resolve_output(envi_file)
 
     writer = EnviWriter(out_stem, header)
 
