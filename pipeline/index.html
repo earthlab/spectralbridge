@@ -2609,6 +2609,20 @@ working, and emits emoji-rich logs that make the restart-safe behavior explicit.
 All persistent products land inside <code>&lt;base_folder&gt;/&lt;flight_stem&gt;/</code> (with the raw
 <code>.h5</code> kept at the base root) and include ENVI (<code>.img/.hdr</code>), JSON metadata, and
 Parquet summaries.</p>
+<h3 id="optional-across-track-split">Optional across-track split<a class="headerlink" href="#optional-across-track-split" title="Permanent link">&para;</a></h3>
+<p><code>go_forth_and_multiply(..., split_across_track=False)</code> is the default and is
+unchanged: one folder and one product tree per input flight ID.</p>
+<p>When <code>split_across_track=True</code>, each requested ID is still downloaded once to
+<code>&lt;base_folder&gt;/&lt;flight_stem&gt;.h5</code>. The pipeline then processes two renamed
+halves that share that H5:</p>
+<ul>
+<li><code>&lt;base_folder&gt;/&lt;flight_stem&gt;_left/</code> — western/left samples <code>[0:mid]</code></li>
+<li><code>&lt;base_folder&gt;/&lt;flight_stem&gt;_right/</code> — eastern/right samples <code>[mid:samples]</code></li>
+</ul>
+<p>Each half folder contains the same product set as a normal flightline, using
+the half ID in every filename. Pass the original (un-suffixed) flight IDs in
+<code>flight_lines</code>. Do not pre-export ENVI; the halves are windowed at H5 read
+time so BRDF/topo also sees only that column range.</p>
 <h2 id="canonical-paths-via-get_flight_paths">Canonical paths via <code>get_flight_paths()</code><a class="headerlink" href="#canonical-paths-via-get_flight_paths" title="Permanent link">&para;</a></h2>
 <p><code>get_flight_paths(base_folder, flight_stem)</code> is the authoritative source of
 truth for every artifact the pipeline reads or writes. For a flight line with
@@ -2769,6 +2783,38 @@ missing or invalid stages are recomputed, and partial sensor failures do not
 stop progress across the rest of the flight lines. Because each sensor is
 accounted for independently, you can inspect the summary lists to see exactly
 which products succeeded, which were reused, and which need attention.</p>
+<h2 id="resuming-without-the-source-hdf5">Resuming without the source HDF5<a class="headerlink" href="#resuming-without-the-source-hdf5" title="Permanent link">&para;</a></h2>
+<p>Stage 0 is the only stage that is not skip-based: it downloads when
+<code>&lt;base_folder&gt;/&lt;flight_stem&gt;.h5</code> is missing. Two helper scripts patch just that
+stage so a run can start from artifacts already on disk.</p>
+<p><code>scripts/run_pipeline_from_local_h5.py</code> stages a local <code>.h5</code> at the canonical
+path and runs the full workflow from stage 1.</p>
+<p><code>scripts/run_pipeline_from_corrected_envi.py</code> resumes from an existing
+<code>*_brdfandtopo_corrected_envi.img/.hdr</code> pair, which stages 1–3 then skip on
+their own:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>scripts/run_pipeline_from_corrected_envi.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--flight-id<span class="w"> </span>NEON_D10_R10C_DP1_L005-1_20210915_directional_reflectance<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--base-folder<span class="w"> </span>NEON_TM_5<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--extraction-mode<span class="w"> </span>full
+</code></pre></div>
+<p>Use <code>--dry-run</code> to report what would be reused or substituted without touching
+files. A valid corrected ENVI pair is mandatory; the script refuses to run
+without one rather than trying to create it.</p>
+<p>The raw ENVI export and correction JSON are reused whenever they are present and
+valid. When they are genuinely missing, the script stands in for them so the
+stage gates pass, and records exactly what it substituted in
+<code>&lt;flight_dir&gt;/&lt;flight_stem&gt;_resume_from_corrected.json</code>:</p>
+<ul>
+<li><code>raw_envi_from_corrected</code> means the raw ENVI is a link or copy of the corrected
+  cube. Raw-vs-corrected QA deltas will be zero and <code>*_envi.parquet</code> holds
+  corrected values, so treat that flight's raw product as non-independent. Pass
+  <code>--require-raw-envi</code> to fail instead of substituting.</li>
+<li><code>correction_json_stub</code> means the correction JSON carries no illumination
+  geometry or BRDF coefficients, so QA geometry panels render empty.</li>
+</ul>
+<p>Substitution only affects provenance of the <em>raw</em> side. The corrected cube,
+resampled sensor products, parquet exports, and merges are all derived from the
+real corrected ENVI.</p>
 
 
 
