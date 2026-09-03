@@ -882,6 +882,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/bulk-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Build a bulk cross-run analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2000,6 +2028,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cross-run-coefficient-and-manifest-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-run coefficient and manifest JSON
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#qa-json-sidecars" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2798,6 +2837,12 @@
 <li>brightness adjustment coefficients when used</li>
 <li>bandpass integration context and summary metrics</li>
 </ul>
+</section>
+<section class="sb-doc-section">
+<p class="sb-kicker">Bulk analysis metadata</p>
+<h2 id="cross-run-coefficient-and-manifest-json">Cross-run coefficient and manifest JSON<a class="headerlink" href="#cross-run-coefficient-and-manifest-json" title="Permanent link">&para;</a></h2>
+<p><code>synthetic_translation_coefficients.json</code> records the pooled equation direction, evidence boundary, input root, source and row counts, minimum-reflectance filter, weighting rule, and one slope/intercept record per available MicaSense/Landsat band pair. <code>bulk_manifest.json</code> records the source inventory signature and canonical output names used to decide whether an unchanged bulk run can be reused.</p>
+<p class="sb-doc-note">Bulk regression JSON is an analysis output, not a packaged brightness table. The source catalog and manifest must remain with a coefficient set so its population and upstream processing state stay traceable.</p>
 </section>
 <section class="sb-doc-section">
 <p class="sb-kicker">QA metadata</p>

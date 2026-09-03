@@ -882,6 +882,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/bulk-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Build a bulk cross-run analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2870,6 +2898,21 @@ flightline or run.</p>
 <td><code>drone_qa_summary.json</code></td>
 <td>Batch-level drone provenance, status counts, paths, and failure details</td>
 <td>Drone users and QA review</td>
+</tr>
+<tr>
+<td><code>qa_plots/*__MS_vs_Landsat_FIXED.json</code></td>
+<td>Per-flightline sampled synthetic MicaSense/Landsat regression diagnostic</td>
+<td>QA inspection only; not a pooled coefficient source</td>
+</tr>
+<tr>
+<td><code>synthetic_translation_coefficients.json</code></td>
+<td>Exact pooled regression records written by the independent bulk pipeline</td>
+<td>Bulk analysis and reviewed downstream translation work</td>
+</tr>
+<tr>
+<td><code>bulk_manifest.json</code></td>
+<td>Bulk source inventory signature, settings, counts, and output names</td>
+<td>Restart validation for <code>run_bulk_pipeline</code></td>
 </tr>
 </tbody>
 </table>

@@ -30,9 +30,12 @@
       "MicaSense,,,,,",
       "MicaSense,,,,,,",
       "MicaSense,,,,,,,",
+      "MicaSense-X/Landsat-Y",
       "MicaSense-related",
       "MicaSense-style",
+      "MicaSense-to-Landsat",
       "MicaSense.",
+      "MicaSense/Landsat",
       "Micasense,,",
       "Micasense,,,",
       "Micasense,,,,",
@@ -155,6 +158,7 @@
     "spectralbridge-qa-dashboard": "spectralbridge.qa_dashboard:main",
     "spectralbridge-stage-qa": "spectralbridge.cli.stage_qa_cli:main",
     "spectralbridge-merge-duckdb": "spectralbridge.merge_duckdb:main",
+    "spectralbridge-bulk": "spectralbridge.cli.bulk_cli:main",
     "cscal-download": "spectralbridge.cli:download_main",
     "cscal-pipeline": "spectralbridge.cli.pipeline_cli:main",
     "cscal-qa": "spectralbridge.cli.qa_cli:main",
@@ -219,6 +223,17 @@
       "--quick",
       "--rgb-bands",
       "--save-json"
+    ],
+    "bulk_cli.py": [
+      "--allow-no-translation",
+      "--force",
+      "--input-kind",
+      "--memory-limit",
+      "--minimum-reflectance",
+      "--output-dir",
+      "--row-group-size",
+      "--temp-directory",
+      "--threads"
     ],
     "stage_qa_cli.py": [
       "--flightline-dir",

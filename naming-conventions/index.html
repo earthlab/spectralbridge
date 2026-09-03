@@ -882,6 +882,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vignettes/bulk-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Build a bulk cross-run analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1710,6 +1738,17 @@
     <span class="md-ellipsis">
       
         Drone output suffixes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bulk-analysis-output-suffixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bulk analysis output suffixes
       
     </span>
   </a>
@@ -2845,6 +2884,41 @@ double-underscore separator for drone products:</p>
 </tr>
 </tbody>
 </table>
+<h2 id="bulk-analysis-output-suffixes">Bulk analysis output suffixes<a class="headerlink" href="#bulk-analysis-output-suffixes" title="Permanent link">&para;</a></h2>
+<p>Bulk analysis is a separate post-processing workflow. Its output directory uses
+fixed collection-level names rather than NEON or drone flight stems:</p>
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bulk_observations.parquet</code></td>
+<td>Portable cross-run super Parquet</td>
+</tr>
+<tr>
+<td><code>bulk_analysis.duckdb</code></td>
+<td>Queryable source, observation, and coefficient catalog</td>
+</tr>
+<tr>
+<td><code>bulk_sources.parquet</code></td>
+<td>Recursive source inventory</td>
+</tr>
+<tr>
+<td><code>synthetic_translation_coefficients.parquet/.json</code></td>
+<td>Pooled MicaSense-to-Landsat regressions</td>
+</tr>
+<tr>
+<td><code>bulk_manifest.json</code></td>
+<td>Restart and provenance manifest</td>
+</tr>
+</tbody>
+</table>
+<p>These names must not be used inside individual flightline or drone product
+contracts.</p>
 <h2 id="common-violations-and-fixes">Common violations and fixes<a class="headerlink" href="#common-violations-and-fixes" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

@@ -882,6 +882,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/bulk-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Build a bulk cross-run analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1643,6 +1671,17 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#independent-bulk-pipeline-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Independent bulk-pipeline contract
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#per-flightline-contract" class="md-nav__link">
@@ -2725,6 +2764,48 @@
 <p class="sb-kicker">Pipeline</p>
 <h1 id="outputs-file-structure">Outputs &amp; File Structure<a class="headerlink" href="#outputs-file-structure" title="Permanent link">&para;</a></h1>
 <p class="sb-doc-lead">Outputs on disk are the primary interface of SpectralBridge. Downstream analysis should rely on these files rather than return values from the Python API.</p>
+</section>
+<section class="sb-doc-section">
+<p class="sb-kicker">Cross-run analysis</p>
+<h2 id="independent-bulk-pipeline-contract">Independent bulk-pipeline contract<a class="headerlink" href="#independent-bulk-pipeline-contract" title="Permanent link">&para;</a></h2>
+<p>The optional <code>spectralbridge-bulk</code> workflow recursively consumes completed merged Parquets. It writes only to its selected bulk output directory and does not modify NEON or drone run products.</p>
+<table>
+<thead>
+<tr>
+<th>Output type</th>
+<th>Canonical filename</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bulk observations</td>
+<td><code>bulk_observations.parquet</code></td>
+<td>Union-by-name super Parquet with a source ID, absolute source path, relative source path, and input kind on every row.</td>
+</tr>
+<tr>
+<td>Bulk database</td>
+<td><code>bulk_analysis.duckdb</code></td>
+<td>Source and coefficient tables plus a view over <code>bulk_observations.parquet</code>.</td>
+</tr>
+<tr>
+<td>Source catalog</td>
+<td><code>bulk_sources.parquet</code></td>
+<td>Accepted/rejected candidates, schema fingerprints, source sizes, and row counts.</td>
+</tr>
+<tr>
+<td>Pooled coefficients</td>
+<td><code>synthetic_translation_coefficients.(parquet|json)</code></td>
+<td>Exact pooled MicaSense-X/Landsat-Y slopes, intercepts, fit summaries, and provenance.</td>
+</tr>
+<tr>
+<td>Bulk manifest</td>
+<td><code>bulk_manifest.json</code></td>
+<td>Restart signature, settings, source/output counts, and artifact names.</td>
+</tr>
+</tbody>
+</table>
+<p class="sb-doc-note">These pooled slopes and intercepts are distinct from percentage brightness-adjustment coefficients. They use persisted upstream values as-is and remain synthetic same-source diagnostics unless paired observed measurements are supplied by a future calibration workflow.</p>
 </section>
 <section class="sb-doc-section">
 <p class="sb-kicker">Canonical outputs</p>

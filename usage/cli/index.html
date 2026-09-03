@@ -882,6 +882,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/bulk-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Build a bulk cross-run analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1768,6 +1796,17 @@
     <span class="md-ellipsis">
       
         Available commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spectralbridge-bulk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        spectralbridge-bulk
       
     </span>
   </a>
@@ -2788,7 +2827,22 @@
     <h3><code>spectralbridge-merge-duckdb</code></h3>
     <p>Merge per-product parquet outputs into a flightline-level master table.</p>
   </article>
+<article class="sb-doc-card">
+    <h3><code>spectralbridge-bulk</code></h3>
+    <p>Recursively aggregate completed flightline masters and fit pooled synthetic MicaSense-to-Landsat regressions.</p>
+  </article>
 </div>
+</section>
+<section class="sb-doc-section">
+<h2 id="spectralbridge-bulk"><code>spectralbridge-bulk</code><a class="headerlink" href="#spectralbridge-bulk" title="Permanent link">&para;</a></h2>
+<p>Runs the independent cross-run analysis workflow against one merged Parquet or a recursively searched directory tree.</p>
+<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>~/processed_spectralbridge<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>~/spectralbridge_bulk_results<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--input-kind<span class="w"> </span>full<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--threads<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--memory-limit<span class="w"> </span>8GB
+</code></pre></div>
+<p>The default full-pixel mode prevents polygon subsets from being double-counted. Outputs include a portable super Parquet, a DuckDB catalog, a source inventory, pooled coefficient JSON/Parquet, and a restart manifest. See <a href="../vignettes/bulk-analysis/">Build a bulk cross-run analysis</a>.</p>
 </section>
 <section class="sb-doc-section">
 <h2 id="spectralbridge-download"><code>spectralbridge-download</code><a class="headerlink" href="#spectralbridge-download" title="Permanent link">&para;</a></h2>

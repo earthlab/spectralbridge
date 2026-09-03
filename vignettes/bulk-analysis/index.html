@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/brdf_topo_algorithm/">
+        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/vignettes/bulk-analysis/">
       
       
-        <link rel="prev" href="../reference/validation/">
+        <link rel="prev" href="../polygon-extraction/">
       
       
-        <link rel="next" href="../reference/custom-correction-hook/">
+        <link rel="next" href="../../tutorials/cloud-workflow/">
       
       
         
       
       
-      <link rel="icon" href="../asset/img/spectralbridge_favicon.ico">
+      <link rel="icon" href="../../asset/img/spectralbridge_favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>BRDF and topographic correction - SpectralBridge</title>
+        <title>8. Build a bulk cross-run analysis - SpectralBridge</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,11 +53,11 @@
       
     
     
-      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../stylesheets/spectralbridge.css">
+      <link rel="stylesheet" href="../../stylesheets/spectralbridge.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#streamlined-brdf-topographic-corrections" class="md-skip">
+        <a href="#build-a-bulk-cross-run-analysis" class="md-skip">
           Skip to content
         </a>
       
@@ -96,9 +96,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="SpectralBridge" class="md-header__button md-logo" aria-label="SpectralBridge" data-md-component="logo">
+    <a href="../.." title="SpectralBridge" class="md-header__button md-logo" aria-label="SpectralBridge" data-md-component="logo">
       
-  <img src="../asset/img/spectralbridge_favicon.png" alt="logo">
+  <img src="../../asset/img/spectralbridge_favicon.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              BRDF and topographic correction
+              8. Build a bulk cross-run analysis
             
           </span>
         </div>
@@ -214,7 +214,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -231,11 +231,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../vignettes/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -255,7 +257,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../validation/" class="md-tabs__link">
+        <a href="../../validation/" class="md-tabs__link">
           
   
   
@@ -271,13 +273,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../reference/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../reference/" class="md-tabs__link">
           
   
   
@@ -297,7 +297,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../dev/contributing/" class="md-tabs__link">
+        <a href="../../dev/contributing/" class="md-tabs__link">
           
   
   
@@ -333,9 +333,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="SpectralBridge" class="md-nav__button md-logo" aria-label="SpectralBridge" data-md-component="logo">
+    <a href="../.." title="SpectralBridge" class="md-nav__button md-logo" aria-label="SpectralBridge" data-md-component="logo">
       
-  <img src="../asset/img/spectralbridge_favicon.png" alt="logo">
+  <img src="../../asset/img/spectralbridge_favicon.png" alt="logo">
 
     </a>
     SpectralBridge
@@ -362,7 +362,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -386,26 +386,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -423,7 +428,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -441,7 +446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vignettes/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -469,7 +474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vignettes/notebook-vignettes/" class="md-nav__link">
+      <a href="../notebook-vignettes/" class="md-nav__link">
         
   
   
@@ -497,7 +502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/why-calibration/" class="md-nav__link">
+      <a href="../../concepts/why-calibration/" class="md-nav__link">
         
   
   
@@ -531,17 +536,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
         
           
-          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
             
   
   
@@ -577,7 +585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vignettes/full-pipeline/" class="md-nav__link">
+      <a href="../full-pipeline/" class="md-nav__link">
         
   
   
@@ -605,7 +613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vignettes/carry-on-wayward-son/" class="md-nav__link">
+      <a href="../carry-on-wayward-son/" class="md-nav__link">
         
   
   
@@ -638,26 +646,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
             
   
   
@@ -675,7 +688,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -693,7 +706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vignettes/data-acquisition/" class="md-nav__link">
+      <a href="../data-acquisition/" class="md-nav__link">
         
   
   
@@ -721,7 +734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vignettes/neon-correction/" class="md-nav__link">
+      <a href="../neon-correction/" class="md-nav__link">
         
   
   
@@ -749,7 +762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vignettes/sensor-harmonization/" class="md-nav__link">
+      <a href="../sensor-harmonization/" class="md-nav__link">
         
   
   
@@ -777,7 +790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vignettes/analysis-tables/" class="md-nav__link">
+      <a href="../analysis-tables/" class="md-nav__link">
         
   
   
@@ -805,7 +818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vignettes/qa-and-analysis/" class="md-nav__link">
+      <a href="../qa-and-analysis/" class="md-nav__link">
         
   
   
@@ -833,7 +846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vignettes/drone-processing/" class="md-nav__link">
+      <a href="../drone-processing/" class="md-nav__link">
         
   
   
@@ -861,7 +874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vignettes/polygon-extraction/" class="md-nav__link">
+      <a href="../polygon-extraction/" class="md-nav__link">
         
   
   
@@ -886,10 +899,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../vignettes/bulk-analysis/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Build a bulk cross-run analysis
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -905,6 +945,109 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-point-it-at-the-processed-data-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Point it at the processed-data tree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-the-pipeline-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. What the pipeline builds
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-the-pooled-regressions-are-calculated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How the pooled regressions are calculated
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. How the pooled regressions are calculated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#translation-is-not-brightness-adjustment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Translation is not brightness adjustment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-query-the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Query the result
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-restart-and-update-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Restart and update behavior
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-relationship-to-the-other-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Relationship to the other pipelines
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -925,7 +1068,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/cloud-workflow/" class="md-nav__link">
+      <a href="../../tutorials/cloud-workflow/" class="md-nav__link">
         
   
   
@@ -953,7 +1096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../../troubleshooting/" class="md-nav__link">
         
   
   
@@ -981,7 +1124,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../faq/" class="md-nav__link">
+      <a href="../../faq/" class="md-nav__link">
         
   
   
@@ -1068,7 +1211,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../validation/" class="md-nav__link">
+      <a href="../../validation/" class="md-nav__link">
         
   
   
@@ -1096,7 +1239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../validation/real-data-example/" class="md-nav__link">
+      <a href="../../validation/real-data-example/" class="md-nav__link">
         
   
   
@@ -1124,7 +1267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../validation/stage-qa-guide/" class="md-nav__link">
+      <a href="../../validation/stage-qa-guide/" class="md-nav__link">
         
   
   
@@ -1204,7 +1347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../validation/neon_download/" class="md-nav__link">
+      <a href="../../validation/neon_download/" class="md-nav__link">
         
   
   
@@ -1232,7 +1375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../validation/h5_to_envi/" class="md-nav__link">
+      <a href="../../validation/h5_to_envi/" class="md-nav__link">
         
   
   
@@ -1260,7 +1403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../validation/topographic_correction/" class="md-nav__link">
+      <a href="../../validation/topographic_correction/" class="md-nav__link">
         
   
   
@@ -1288,7 +1431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../validation/brdf_correction/" class="md-nav__link">
+      <a href="../../validation/brdf_correction/" class="md-nav__link">
         
   
   
@@ -1316,7 +1459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../validation/sensor_convolution/" class="md-nav__link">
+      <a href="../../validation/sensor_convolution/" class="md-nav__link">
         
   
   
@@ -1344,7 +1487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../validation/parquet_csv/" class="md-nav__link">
+      <a href="../../validation/parquet_csv/" class="md-nav__link">
         
   
   
@@ -1372,7 +1515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../validation/save_restart/" class="md-nav__link">
+      <a href="../../validation/save_restart/" class="md-nav__link">
         
   
   
@@ -1400,7 +1543,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../validation/qa_plots/" class="md-nav__link">
+      <a href="../../validation/qa_plots/" class="md-nav__link">
         
   
   
@@ -1440,31 +1583,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -1482,7 +1620,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1500,7 +1638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/" class="md-nav__link">
+      <a href="../../reference/" class="md-nav__link">
         
   
   
@@ -1534,20 +1672,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
             
   
   
@@ -1583,7 +1718,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipeline/stages/" class="md-nav__link">
+      <a href="../../pipeline/stages/" class="md-nav__link">
         
   
   
@@ -1611,7 +1746,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipeline/outputs/" class="md-nav__link">
+      <a href="../../pipeline/outputs/" class="md-nav__link">
         
   
   
@@ -1639,7 +1774,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../naming-conventions/" class="md-nav__link">
+      <a href="../../naming-conventions/" class="md-nav__link">
         
   
   
@@ -1681,20 +1816,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
         
           
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
             
   
   
@@ -1730,7 +1862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/cli/" class="md-nav__link">
+      <a href="../../usage/cli/" class="md-nav__link">
         
   
   
@@ -1758,7 +1890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/configuration/" class="md-nav__link">
+      <a href="../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -1786,7 +1918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../api/" class="md-nav__link">
+      <a href="../../api/" class="md-nav__link">
         
   
   
@@ -1828,20 +1960,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
-          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
             
   
   
@@ -1877,7 +2006,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/parquet/" class="md-nav__link">
+      <a href="../../usage/parquet/" class="md-nav__link">
         
   
   
@@ -1905,7 +2034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/json-catalog/" class="md-nav__link">
+      <a href="../../reference/json-catalog/" class="md-nav__link">
         
   
   
@@ -1933,7 +2062,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/schemas/" class="md-nav__link">
+      <a href="../../reference/schemas/" class="md-nav__link">
         
   
   
@@ -1961,7 +2090,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipeline/qa/" class="md-nav__link">
+      <a href="../../pipeline/qa/" class="md-nav__link">
         
   
   
@@ -1989,7 +2118,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipeline/stage-qa/" class="md-nav__link">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
         
   
   
@@ -2017,7 +2146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/qa-code-map/" class="md-nav__link">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
         
   
   
@@ -2045,7 +2174,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/validation/" class="md-nav__link">
+      <a href="../../reference/validation/" class="md-nav__link">
         
   
   
@@ -2078,31 +2207,26 @@
                 
   
   
-    
   
   
-  
     
     
     
     
       
       
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
         
           
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
             
   
   
@@ -2120,7 +2244,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2135,37 +2259,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    BRDF and topographic correction
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../brdf_topo_algorithm/" class="md-nav__link">
         
   
   
@@ -2181,98 +2278,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#topographic-correction-scsc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Topographic correction (SCS+C)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Topographic correction (SCS+C)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#topographic-modes-and-defaults" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Topographic modes and defaults
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Implementation notes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ndvi-binning" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        NDVI binning
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#brdf-fitting-and-application" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        BRDF fitting and application
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scaling-and-thresholds" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scaling and thresholds
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2285,7 +2290,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/custom-correction-hook/" class="md-nav__link">
+      <a href="../../reference/custom-correction-hook/" class="md-nav__link">
         
   
   
@@ -2313,7 +2318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/extending/" class="md-nav__link">
+      <a href="../../reference/extending/" class="md-nav__link">
         
   
   
@@ -2355,20 +2360,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
         
           
-          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
             
   
   
@@ -2404,7 +2406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/repository-map/" class="md-nav__link">
+      <a href="../../reference/repository-map/" class="md-nav__link">
         
   
   
@@ -2432,7 +2434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../env/" class="md-nav__link">
+      <a href="../../env/" class="md-nav__link">
         
   
   
@@ -2460,7 +2462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/architecture/" class="md-nav__link">
+      <a href="../../dev/architecture/" class="md-nav__link">
         
   
   
@@ -2488,7 +2490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/container-workflows/" class="md-nav__link">
+      <a href="../../dev/container-workflows/" class="md-nav__link">
         
   
   
@@ -2583,7 +2585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/contributing/" class="md-nav__link">
+      <a href="../../dev/contributing/" class="md-nav__link">
         
   
   
@@ -2611,7 +2613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/releasing/" class="md-nav__link">
+      <a href="../../dev/releasing/" class="md-nav__link">
         
   
   
@@ -2639,7 +2641,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/software-citation/" class="md-nav__link">
+      <a href="../../dev/software-citation/" class="md-nav__link">
         
   
   
@@ -2667,7 +2669,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/doi-zenodo/" class="md-nav__link">
+      <a href="../../dev/doi-zenodo/" class="md-nav__link">
         
   
   
@@ -2695,7 +2697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/publication-readiness-audit-2026-08-14/" class="md-nav__link">
+      <a href="../../dev/publication-readiness-audit-2026-08-14/" class="md-nav__link">
         
   
   
@@ -2723,7 +2725,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ai-transparency/" class="md-nav__link">
+      <a href="../../ai-transparency/" class="md-nav__link">
         
   
   
@@ -2768,7 +2770,7 @@
 
 
   
-    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/brdf_topo_algorithm.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/vignettes/bulk-analysis.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2776,86 +2778,147 @@
   
 
 
-<h1 id="streamlined-brdf-topographic-corrections">Streamlined BRDF + Topographic corrections<a class="headerlink" href="#streamlined-brdf-topographic-corrections" title="Permanent link">&para;</a></h1>
-<p>This document summarises the updated streamlined correction path so it aligns with
-HyTools/FlexBRDF behaviour.</p>
-<h2 id="topographic-correction-scsc">Topographic correction (SCS+C)<a class="headerlink" href="#topographic-correction-scsc" title="Permanent link">&para;</a></h2>
+<h1 id="build-a-bulk-cross-run-analysis">Build a bulk cross-run analysis<a class="headerlink" href="#build-a-bulk-cross-run-analysis" title="Permanent link">&para;</a></h1>
+<p>Use the bulk pipeline after individual SpectralBridge runs have finished. It is
+an independent analysis workflow: it does not download data, rerun corrections,
+convolve sensors, alter flightline folders, or invoke the drone pipeline.</p>
+<h2 id="1-point-it-at-the-processed-data-tree">1. Point it at the processed-data tree<a class="headerlink" href="#1-point-it-at-the-processed-data-tree" title="Permanent link">&para;</a></h2>
+<p>The input may be one canonical merged Parquet file or a directory containing
+many processed sites, dates, and flightlines. Directory inputs are searched
+recursively.</p>
+<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>~/processed_spectralbridge<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>~/spectralbridge_bulk_results<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--threads<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--memory-limit<span class="w"> </span>8GB
+</code></pre></div>
+<p>The default <code>--input-kind full</code> discovers readable files matching:</p>
+<div class="highlight"><pre><span></span><code>*_merged_pixel_extraction.parquet
+</code></pre></div>
+<p>It deliberately excludes <code>*_polygons_merged_pixel_extraction.parquet</code>. This
+prevents polygon subsets from being counted a second time when both the full
+and polygon products exist for a flightline.</p>
+<p>Choose polygon data explicitly when that is the intended population:</p>
+<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>~/processed_spectralbridge<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--input-kind<span class="w"> </span>polygon<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>~/spectralbridge_polygon_bulk
+</code></pre></div>
+<p><code>--input-kind both</code> is available, but use it only when combining the full and
+polygon populations is scientifically intentional. The pipeline does not
+deduplicate observations across those products.</p>
+<h2 id="2-what-the-pipeline-builds">2. What the pipeline builds<a class="headerlink" href="#2-what-the-pipeline-builds" title="Permanent link">&para;</a></h2>
+<p>The output directory has its own restart-safe file contract:</p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bulk_observations.parquet</code></td>
+<td>Portable union-by-name “super Parquet” containing every accepted source row and source-provenance columns.</td>
+</tr>
+<tr>
+<td><code>bulk_analysis.duckdb</code></td>
+<td>Queryable catalog with a <code>bulk_observations</code> view plus materialized source and coefficient tables.</td>
+</tr>
+<tr>
+<td><code>bulk_sources.parquet</code></td>
+<td>Inventory of accepted and rejected candidates, row counts, schema fingerprints, and source paths.</td>
+</tr>
+<tr>
+<td><code>synthetic_translation_coefficients.parquet</code></td>
+<td>Analysis-ready pooled regression table.</td>
+</tr>
+<tr>
+<td><code>synthetic_translation_coefficients.json</code></td>
+<td>Machine-readable coefficient sidecar with interpretation and provenance.</td>
+</tr>
+<tr>
+<td><code>bulk_manifest.json</code></td>
+<td>Input inventory, settings, counts, and output names used for restart checks.</td>
+</tr>
+</tbody>
+</table>
+<p>The DuckDB database does not duplicate the large observation table. Its
+<code>bulk_observations</code> view reads the super Parquet directly, while the smaller
+catalog and coefficient tables live in the database.</p>
+<h2 id="3-how-the-pooled-regressions-are-calculated">3. How the pooled regressions are calculated<a class="headerlink" href="#3-how-the-pooled-regressions-are-calculated" title="Permanent link">&para;</a></h2>
+<p>For every wavelength-matched synthetic MicaSense/Landsat band pair found in the
+merged tables, the bulk pipeline fits all valid rows together:</p>
+<div class="highlight"><pre><span></span><code>Landsat reflectance = slope × MicaSense reflectance + intercept
+</code></pre></div>
+<p>The calculation excludes null, non-finite, negative, and explicitly
+error-flagged values. It records slope, intercept, correlation, R², bias, RMSE,
+MAE, valid-row count, contributing-source count, and value ranges.</p>
+<p>The default weighting is by valid row. A flightline with more valid pixels
+therefore contributes more observations than a smaller flightline. This is a
+pooled synthetic-sensor diagnostic, not held-out empirical calibration.</p>
+<h3 id="translation-is-not-brightness-adjustment">Translation is not brightness adjustment<a class="headerlink" href="#translation-is-not-brightness-adjustment" title="Permanent link">&para;</a></h3>
+<p>The bulk pipeline uses values already persisted by each upstream run. If a
+normal pipeline run applied the separate Landsat brightness adjustment, the
+pooled regression sees those adjusted Landsat values; it does not apply,
+remove, or estimate that adjustment itself.</p>
+<p>Brightness coefficients are percentage gains. Bulk translation coefficients
+are slopes and intercepts relating wavelength-matched synthetic MicaSense and
+Landsat values. Keep those artifacts and their provenance separate.</p>
+<h2 id="4-query-the-result">4. Query the result<a class="headerlink" href="#4-query-the-result" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
+
+<span class="k">with</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"/home/me/spectralbridge_bulk_results/bulk_analysis.duckdb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+    <span class="n">coefficients</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        SELECT landsat_sensor, band_index, slope, intercept, r2, sample_count</span>
+<span class="sd">        FROM synthetic_translation_coefficients</span>
+<span class="sd">        ORDER BY landsat_sensor, band_index</span>
+<span class="sd">        """</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+
+    <span class="n">sources</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        SELECT relative_path, status, row_count, translation_eligible</span>
+<span class="sd">        FROM bulk_sources</span>
+<span class="sd">        ORDER BY relative_path</span>
+<span class="sd">        """</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+</code></pre></div>
+<p>The same workflow is available from Python:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_bulk_pipeline</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">run_bulk_pipeline</span><span class="p">(</span>
+    <span class="s2">"~/processed_spectralbridge"</span><span class="p">,</span>
+    <span class="s2">"~/spectralbridge_bulk_results"</span><span class="p">,</span>
+    <span class="n">input_kind</span><span class="o">=</span><span class="s2">"full"</span><span class="p">,</span>
+    <span class="n">threads</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">memory_limit</span><span class="o">=</span><span class="s2">"8GB"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"coefficients_json"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"database"</span><span class="p">])</span>
+</code></pre></div>
+<h2 id="5-restart-and-update-behavior">5. Restart and update behavior<a class="headerlink" href="#5-restart-and-update-behavior" title="Permanent link">&para;</a></h2>
+<p>The pipeline records each candidate's relative path, file size, modification
+time, row count, and schema fingerprint. If the inventory and analysis settings
+are unchanged and all outputs validate, a rerun returns <code>status="reused"</code>
+without rewriting the collection. Adding, removing, or changing a source causes
+the bulk artifacts to be rebuilt. Pass <code>--force</code> for an intentional rebuild.</p>
+<p>Unreadable canonical candidates appear as rejected rows in <code>bulk_sources</code> when
+other valid inputs remain. A run fails clearly when no readable master tables
+are found or, by default, when the collection lacks paired synthetic
+MicaSense/Landsat columns. Use <code>--allow-no-translation</code> only when an
+aggregation-only super Parquet is intentional.</p>
+<h2 id="6-relationship-to-the-other-pipelines">6. Relationship to the other pipelines<a class="headerlink" href="#6-relationship-to-the-other-pipelines" title="Permanent link">&para;</a></h2>
 <ul>
-<li>For each band a regression <code>rho = a*cos(i) + b</code> is fit over valid pixels to
-  recover the C-parameter <code>C=b/a</code>.</li>
-<li>The surface correction applies <code>(cos(theta_s)*cos(beta) + C)/(cos(i)+C)</code> to
-  the reflectance in unitless space before converting back to NEON scaling;
-  a small denominator guard prevents extreme ratios when <code>cos(i)+C</code> is nearly
-  zero.</li>
-<li>This SCS+C path is now the default; a cosine-ratio fallback remains available
-  via the <code>use_scs_c</code> flag.</li>
+<li>The main NEON pipeline creates the corrected, convolved, and merged
+  per-flightline inputs.</li>
+<li>The drone pipeline remains a separate local imagery workflow.</li>
+<li>The bulk pipeline reads completed merged tables across many runs and produces
+  population-level analysis artifacts.</li>
 </ul>
-<h3 id="topographic-modes-and-defaults">Topographic modes and defaults<a class="headerlink" href="#topographic-modes-and-defaults" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>apply_topo_correct</code> supports two modes:</li>
-<li>Legacy cosine-ratio (<code>use_scs_c=False</code>).</li>
-<li>SCS+C (<code>use_scs_c=True</code>) matching HyTools/FlexBRDF behaviour.</li>
-<li>The current default is <code>use_scs_c=True</code>, which is a change from older
-  releases that defaulted to cosine-ratio. Callers that require the legacy
-  behaviour should explicitly pass <code>use_scs_c=False</code> (or the equivalent CLI
-  flag) to disable SCS+C.</li>
-</ul>
-<h2 id="implementation-notes">Implementation notes<a class="headerlink" href="#implementation-notes" title="Permanent link">&para;</a></h2>
-<p>The current streamlined NEON correction path applies BRDF/topographic correction
-in fixed non-overlapping spatial chunks.</p>
-<ul>
-<li>The correction driver currently walks the scene in <code>100 x 100</code> tiles.</li>
-<li>Tile bounds are simple raster slices with no halo, overlap, feathering, or
-  rolling-window context.</li>
-<li>Topographic correction is fit per chunk. In practice that means the SCS+C
-  regression <code>rho = a*cos(i) + b</code> and its derived <code>C = b/a</code> term are solved
-  independently inside each tile for each band.</li>
-<li>BRDF coefficients are fit once at the scene level, then applied chunk by
-  chunk using the local pixel geometry for that tile.</li>
-</ul>
-<p>This distinction matters when interpreting artifacts. If a visible seam aligns
-with the chunk grid, the present implementation makes chunk-local topographic
-fitting the first place to investigate.</p>
-<h2 id="ndvi-binning">NDVI binning<a class="headerlink" href="#ndvi-binning" title="Permanent link">&para;</a></h2>
-<ul>
-<li>NDVI is derived from bands nearest 665 nm and 865 nm after converting to
-  unitless reflectance.</li>
-<li>NDVI binning is optional and defaults to off. With the default setting, BRDF
-  fitting uses a single scene-wide coefficient row instead of NDVI-stratified
-  bins.</li>
-<li>If enabled, pixels are assigned to configurable bins (default bounds
-  ~0.05–1.0 over 25 bins with percentile clipping) used for BRDF fitting and
-  application.</li>
-<li>The fitted <code>*_brdf_model.json</code> stores the realized bin boundaries as
-  <code>ndvi_edges</code>. When NDVI binning is off, this is <code>[-1, 1]</code> for the single
-  neutral bin. When binning is on, those values document which NDVI stratum
-  each row of <code>iso</code>/<code>vol</code>/<code>geo</code> coefficients belongs to; they are BRDF model
-  metadata, not a standalone NDVI output raster.</li>
-<li>When coefficients are missing or bin counts mismatch, neutral coefficients
-  are broadcast across all bins to avoid dropping pixels. Pixels with NDVI
-  outside the bin range are remapped into the first bin to preserve coverage
-  when no explicit coefficients are available.</li>
-</ul>
-<h2 id="brdf-fitting-and-application">BRDF fitting and application<a class="headerlink" href="#brdf-fitting-and-application" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Per-band, per-bin regressions solve <code>rho = f_iso + f_vol*K_vol + f_geo*K_geo</code>.</li>
-<li>The streamlined BRDF model now persists the kernel settings used during fit
-  and apply, including the volume kernel, geometric kernel, geometric
-  parameters (<code>b/r</code>, <code>h/b</code>), and <code>solar_zn_type</code>.</li>
-<li>The shared correction helpers keep streamlined-compatible defaults, while the
-  NEON and drone correction pipelines explicitly request the historical
-  HyTools-style settings: <code>RossThick</code> volume, <code>LiDenseR</code> geometric,
-  <code>b/r = 10</code>, <code>h/b = 2</code>, and <code>solar_zn_type = scene</code>.</li>
-<li>BRDF normalization uses the FlexBRDF ratio <code>R_ref/R_pix</code>, evaluating kernels
-  at both pixel geometry and a configurable reference geometry.</li>
-</ul>
-<h2 id="scaling-and-thresholds">Scaling and thresholds<a class="headerlink" href="#scaling-and-thresholds" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Modeling occurs in unitless reflectance; scale factors are applied only at the
-  edges. Optional clamps guard obviously invalid reflectance values.</li>
-<li>All masks propagate cube no-data and NDVI bin assignments; non-finite outputs
-  resolve to the cube <code>no_data</code> value.</li>
-</ul>
+<p>This separation lets a reviewed bulk coefficient set later become an explicit
+input to drone-to-Landsat translation without making coefficient fitting part
+of every individual processing run.</p>
 
 
 
@@ -2923,12 +2986,12 @@ fitting the first place to investigate.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "toc.integrate", "content.action.edit", "content.code.copy", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "toc.integrate", "content.action.edit", "content.code.copy", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
-        <script src="../js/glightbox-init.js"></script>
+        <script src="../../js/glightbox-init.js"></script>
       
     
   </body>

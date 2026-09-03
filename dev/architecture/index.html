@@ -882,6 +882,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/bulk-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Build a bulk cross-run analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2403,6 +2431,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Directory structure (Python package)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#independent-bulk-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Independent bulk analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2429,10 +2474,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#updating-brightness-or-calibration-coefficients" class="md-nav__link">
+  <a href="#updating-brightness-or-translation-coefficients" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Updating brightness or calibration coefficients
+        Updating brightness or translation coefficients
       
     </span>
   </a>
@@ -2812,7 +2857,16 @@
 <li><code>hyperspectral_bands.json</code>: reference metadata for hyperspectral inputs</li>
 <li><code>spectralbridge/qa_plots.py</code> and <code>spectralbridge/sensor_panel_plots.py</code>: QA visualization utilities</li>
 <li><code>spectralbridge/standard_resample.py</code>: spectral resampling and coefficients</li>
+<li><code>spectralbridge/pipelines/bulk.py</code>: independent recursive cross-run
+  aggregation and pooled synthetic-sensor regression</li>
 </ul>
+<h3 id="independent-bulk-analysis">Independent bulk analysis<a class="headerlink" href="#independent-bulk-analysis" title="Permanent link">&para;</a></h3>
+<p><code>run_bulk_pipeline</code> is downstream of completed per-flightline workflows rather
+than another stage inside them. It recursively discovers canonical merged
+Parquets, writes a provenance-preserving union-by-name super Parquet, and
+creates a DuckDB catalog with pooled MicaSense-to-Landsat regressions. It does
+not call or mutate the NEON and drone orchestrators. Its manifest validates the
+source inventory and reuses current outputs on rerun.</p>
 <hr />
 <h2 id="extending-the-system-safely">Extending the system safely<a class="headerlink" href="#extending-the-system-safely" title="Permanent link">&para;</a></h2>
 <h3 id="adding-or-modifying-a-target-sensor">Adding or modifying a target sensor<a class="headerlink" href="#adding-or-modifying-a-target-sensor" title="Permanent link">&para;</a></h3>
@@ -2821,11 +2875,15 @@
 <li>Confirm <code>get_flightline_products</code> and <code>FlightlinePaths</code> generate filenames for the new sensor; outputs must still include merged Parquet and QA artifacts.</li>
 <li>Add tests that validate band definitions and resampled outputs; do not bypass the existing stage ordering.</li>
 </ul>
-<h3 id="updating-brightness-or-calibration-coefficients">Updating brightness or calibration coefficients<a class="headerlink" href="#updating-brightness-or-calibration-coefficients" title="Permanent link">&para;</a></h3>
+<h3 id="updating-brightness-or-translation-coefficients">Updating brightness or translation coefficients<a class="headerlink" href="#updating-brightness-or-translation-coefficients" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Brightness and regression tables live under <code>spectralbridge/data/brightness/</code> and are loaded via <code>brightness_config</code>. Changes here affect downstream cross-sensor harmonization.</li>
-<li>Keep JSON schema and key names stable; update any dependent tests and documentation describing the coefficients.</li>
-<li>Validate against Landsat-referenced QA outputs to confirm calibrations remain within expected bounds.</li>
+<li>Fixed percentage brightness adjustments live under
+  <code>spectralbridge/data/brightness/</code> and are loaded via <code>brightness_config</code>.</li>
+<li>Pooled synthetic translation slopes and intercepts are bulk-pipeline outputs,
+  not packaged brightness tables. Preserve their manifest and source catalog
+  when reviewing or promoting a coefficient set.</li>
+<li>Keep JSON schemas and key names stable; update dependent tests and
+  documentation when either coefficient contract changes.</li>
 </ul>
 <h3 id="modifying-qa-outputs">Modifying QA outputs<a class="headerlink" href="#modifying-qa-outputs" title="Permanent link">&para;</a></h3>
 <ul>
