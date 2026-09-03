@@ -29,6 +29,7 @@ saved outputs so the files remain portable.
 | 06 | [Process drone imagery][notebook-06] | You have local drone HDF5 inputs |
 | 07 | [Extract polygon spectra][notebook-07] | You want polygon-indexed spectra from a completed flightline |
 | 08 | [Insert a custom correction][notebook-08] | You are developing a reviewed correction after topo/BRDF and before convolution |
+| 09 | [Build a bulk cross-run analysis][notebook-09] | You want one Parquet/DuckDB collection and pooled regressions from completed runs |
 
 ## Opening them
 
@@ -59,3 +60,4 @@ editing the paths and identifiers in the configuration cell.
 [notebook-06]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/06_drone_pipeline.ipynb
 [notebook-07]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/07_polygon_extraction.ipynb
 [notebook-08]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/08_custom_correction_hook.ipynb
+[notebook-09]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/09_bulk_analysis.ipynb

@@ -16,6 +16,10 @@
     <h3>Drone workflows</h3>
     <p><code>run_drone_pipeline</code> handles the drone-specific local processing path.</p>
   </article>
+  <article class="sb-doc-card">
+    <h3>Cross-run analysis</h3>
+    <p><code>run_bulk_pipeline</code> recursively aggregates completed run tables and calculates pooled sensor regressions.</p>
+  </article>
 </div>
 </section>
 
@@ -57,6 +61,10 @@ go_forth_and_multiply(
   <article class="sb-doc-card">
     <h3><code>run_drone_pipeline</code></h3>
     <p>Local drone processing path with QA, polygon support, and mixed HDF5/TIFF source handling.</p>
+  </article>
+  <article class="sb-doc-card">
+    <h3><code>run_bulk_pipeline</code></h3>
+    <p>Independent, restart-safe post-processing path that creates the cross-run Parquet/DuckDB collection and pooled synthetic MicaSense-to-Landsat coefficients.</p>
   </article>
   <article class="sb-doc-card">
     <h3><code>apply_brightness_correction</code></h3>

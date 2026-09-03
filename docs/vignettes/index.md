@@ -10,6 +10,7 @@ that appear to cover the same work.
 | --- | --- |
 | Run everything for a NEON flightline | [Run the full pipeline](full-pipeline.md) |
 | Continue after a stopped or partial run | [Carry On My Wayward Son](carry-on-wayward-son.md) |
+| Combine many completed runs and calculate pooled regressions | [Build a bulk cross-run analysis](bulk-analysis.md) |
 | Work on one part of the workflow | Choose a module below |
 | Open a runnable Jupyter notebook | [Runnable notebook vignettes](notebook-vignettes.md) |
 | Look up exact arguments, filenames, or algorithms | [Technical reference](../reference/index.md) |
@@ -32,6 +33,9 @@ polygon workflows branch from that sequence where noted.
    drone workflow.
 7. [Extract polygon spectra](polygon-extraction.md) — build polygon-indexed
    spectral libraries from completed products.
+8. [Build a bulk cross-run analysis](bulk-analysis.md) — recursively collect
+   completed run tables and fit pooled synthetic MicaSense-to-Landsat
+   regressions without modifying individual runs.
 
 ## How to use these pages
 

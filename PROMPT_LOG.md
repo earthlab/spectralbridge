@@ -6733,7 +6733,6 @@ FAILED tests/test_docs_playwright.py::test_docs_site_core_pages_render_in_browse
  +        where get_by_text = <Page url='http://127.0.0.1:8000/validation/topographic_correction/'>.get_by_text
 Error: Process completed with exit code 1.
 ```
-=======
 ## 2026-07-09 - configurable scene-wide topo fit
 Branch: main
 
@@ -7723,5 +7722,20 @@ Model: Not recorded
 okay got it. lets have the pipeline do this. Make sure the full-fightline processing is not affected at all. I want to pass a parameter which would mean I want to process this flightline by cuting it in half. I provide an output directory folder right, in that you can have 2 flightline folders one for left half and one for right half and one .h5 common to both. and then inside the files corresponding to that that half (here I want all the files htat owuld exist for a normal flghtline processing). How do you want to go about this ? I dont have the envis. Should I first run the full pipeline till it creates envis and then start splitting and created the folder strucutre that we need?
 ```
 
+## 2026-09-03 - add independent bulk cross-run analysis pipeline
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
 
+```text
+we calculate these regressions from the bulk set of data, not for one pipeline. I think we should introduce a bulk pipeline where we give it a full file tree full of processed data and the bulk pipeline calculates these from all the outputs. The way this pipline will work is that I will move a file to the home directory and give the pipeline that file path and it should search the file for all the proper data and then do some analyses based on that. I want it to merge all the merged parquets from the individual runs into a super parquet or maybe a duckdb is better? Anyway, let's make this cleanly seperatedd from the main pipeline and the drone pipeline but it's own useful pipeline with it's own documentation and such.
+```
 
+## 2026-09-03 - restore stashed bulk pipeline changes after pull
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+i hadn't pulled before we did taht and now i have some stashed changes that we need to get back into action
+```

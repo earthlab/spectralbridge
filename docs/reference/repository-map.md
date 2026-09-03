@@ -21,6 +21,7 @@ When documentation and an old exploratory file disagree, use this order:
 | --- | --- | --- |
 | Complete NEON orchestration | `examples/run_neon_pipeline.py` | `src/spectralbridge/pipelines/pipeline.py` |
 | Drone orchestration | `examples/run_drone_pipeline.py` | `src/spectralbridge/pipelines/drone.py` |
+| Cross-run bulk analysis | The [bulk-analysis vignette](../vignettes/bulk-analysis.md) | `src/spectralbridge/pipelines/bulk.py` |
 | Canonical filenames | `docs/naming-conventions.md` | `src/spectralbridge/paths.py` and `src/spectralbridge/utils/naming.py` |
 | Topographic/BRDF correction | `docs/brdf_topo_algorithm.md` | `src/spectralbridge/corrections.py` and `src/spectralbridge/brdf_topo.py` |
 | Sensor convolution | The harmonization vignette | `src/spectralbridge/standard_resample.py` and packaged band JSON |
@@ -36,7 +37,7 @@ When documentation and an old exploratory file disagree, use this order:
 | `src/spectralbridge/` | Runtime | Installed package; changes require focused tests |
 | `tests/` | Contracts | Best place to verify what the package promises |
 | `examples/` | Copyable runners | Small scripts and JSON configs for local or container use |
-| `docs/vignettes/notebooks/` | Interactive runners | Current ordered notebook set, with processing disabled until configured |
+| `docs/vignettes/notebooks/` | Interactive runners | Current ordered notebook set, including independent bulk analysis, with processing disabled until configured |
 | `scripts/` | Operations and maintenance | Read `scripts/README.md`; not every script is a user entry point |
 | `validation/` | Evidence | Separates campaign plans from generated observations |
 | `data/` | Example/local data | Installed code uses `src/spectralbridge/data/`, not this directory |

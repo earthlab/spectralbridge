@@ -19,6 +19,11 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from spectralbridge.sensor_pairs import (
+    MICASENSE_LANDSAT_PAIRS,
+    SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY,
+)
+
 # ---------------------------------------------------------------------------
 # Shared helpers lifted from the deprecated notebook implementation
 # ---------------------------------------------------------------------------
@@ -41,11 +46,7 @@ DEFAULT_EXPECTED_SETS: Dict[str, int] = {
 
 _SYNTHETIC_REGRESSION_SCHEMA_VERSION = 1
 _SYNTHETIC_REGRESSION_SEED = 20260817
-_SYNTHETIC_REGRESSION_BOUNDARY = (
-    "Both axes are synthetic products convolved from the same corrected NEON "
-    "source. Coefficients are descriptive diagnostics, not empirical sensor "
-    "calibration."
-)
+_SYNTHETIC_REGRESSION_BOUNDARY = SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY
 
 
 def _load_json_resource(name: str) -> dict:
@@ -467,10 +468,7 @@ def make_sensor_vs_neon_panels(
     return outputs
 
 
-_MS_LANDSAT_PAIRS: Dict[str, Sequence[str]] = {
-    "MicaSense_to-match_TM_and_ETM+": ("Landsat_5_TM", "Landsat_7_ETM+"),
-    "MicaSense_to-match_OLI_and_OLI-2": ("Landsat_8_OLI", "Landsat_9_OLI-2"),
-}
+_MS_LANDSAT_PAIRS = MICASENSE_LANDSAT_PAIRS
 
 
 def _collect_ms_ls_pairs(
@@ -644,6 +642,8 @@ def make_micasense_vs_landsat_panels(
 
 
 __all__ = [
+    "MICASENSE_LANDSAT_PAIRS",
+    "SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY",
     "make_sensor_vs_neon_panels",
     "make_micasense_vs_landsat_panels",
 ]

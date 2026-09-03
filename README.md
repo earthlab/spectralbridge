@@ -292,6 +292,24 @@ This executes the download → ENVI → BRDF+topo → resample → merge → QA 
 flight line, streaming progress bars along the way. After the last worker
 finishes, the pipeline logs `✅ All requested flightlines processed.`.
 
+### Bulk analysis across completed runs
+
+Bulk coefficient fitting is intentionally separate from individual NEON and
+drone processing. Point `spectralbridge-bulk` at a directory tree of completed
+flightline outputs to create a portable super Parquet, a DuckDB catalog, and
+pooled synthetic MicaSense-to-Landsat slopes and intercepts:
+
+```bash
+spectralbridge-bulk ~/processed_spectralbridge \
+  --output-dir ~/spectralbridge_bulk_results
+```
+
+The default includes full-pixel merged masters and excludes polygon subsets to
+avoid double-counting. See [Build a bulk cross-run
+analysis](docs/vignettes/bulk-analysis.md) for the output contract, DuckDB
+queries, restart behavior, and the distinction between translation regression
+and brightness adjustment.
+
 ### Idempotent / restart-safe
 
 You can safely rerun the same command. The pipeline is stage-aware and
@@ -503,6 +521,7 @@ Key entry points:
 - [Home](docs/index.md)
 - [Quickstart](docs/quickstart.md)
 - [Pipeline overview & stages](docs/pipeline/stages.md)
+- [Bulk cross-run analysis](docs/vignettes/bulk-analysis.md)
 - [Outputs & file structure](docs/pipeline/outputs.md)
 - [QA panels & metrics](docs/pipeline/qa.md)
 - [Configuration reference](docs/reference/configuration.md)

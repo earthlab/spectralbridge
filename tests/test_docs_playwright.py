@@ -133,7 +133,7 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             notebook_links = page.locator(
                 f"a[href^='{GITHUB_NOTEBOOK_BASE}'][href$='.ipynb']"
             )
-            assert notebook_links.count() == 9
+            assert notebook_links.count() == 10
             assert page.get_by_role(
                 "link", name="Correct NEON reflectance", exact=True
             ).get_attribute("href") == (

@@ -25,6 +25,7 @@ EXPECTED_NOTEBOOKS = [
     "06_drone_pipeline.ipynb",
     "07_polygon_extraction.ipynb",
     "08_custom_correction_hook.ipynb",
+    "09_bulk_analysis.ipynb",
 ]
 
 
@@ -137,3 +138,8 @@ def test_vignettes_mirror_active_research_notebook_workflows() -> None:
         ]
         assert len(markdown_cells) >= 3
         assert any("## 1." in source for source in markdown_cells)
+
+    bulk_vignette = notebook_source(NOTEBOOK_DIR / "09_bulk_analysis.ipynb")
+    assert "from spectralbridge import run_bulk_pipeline" in bulk_vignette
+    assert "result = run_bulk_pipeline(" in bulk_vignette
+    assert "bulk_observations" in bulk_vignette

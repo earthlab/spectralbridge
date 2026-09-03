@@ -57,6 +57,9 @@ flightline or run.
 | `*_brdf_model.json` | Fitted BRDF coefficient model for the scene | Correction implementation and `diagnose_brdf_topo_stage.py` |
 | `*_qa.json` | Machine-readable diagnostic summary paired with the QA PNG | Users, tests, publication/validation review |
 | `drone_qa_summary.json` | Batch-level drone provenance, status counts, paths, and failure details | Drone users and QA review |
+| `qa_plots/*__MS_vs_Landsat_FIXED.json` | Per-flightline sampled synthetic MicaSense/Landsat regression diagnostic | QA inspection only; not a pooled coefficient source |
+| `synthetic_translation_coefficients.json` | Exact pooled regression records written by the independent bulk pipeline | Bulk analysis and reviewed downstream translation work |
+| `bulk_manifest.json` | Bulk source inventory signature, settings, counts, and output names | Restart validation for `run_bulk_pipeline` |
 
 Run-specific JSON is evidence. Keep it next to the artifacts it describes and
 do not reuse it for a different flightline merely because the filename looks

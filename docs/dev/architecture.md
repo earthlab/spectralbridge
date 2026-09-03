@@ -34,6 +34,17 @@ This page describes how SpectralBridge is organized internally. Understanding th
   - `hyperspectral_bands.json`: reference metadata for hyperspectral inputs
 - `spectralbridge/qa_plots.py` and `spectralbridge/sensor_panel_plots.py`: QA visualization utilities
 - `spectralbridge/standard_resample.py`: spectral resampling and coefficients
+- `spectralbridge/pipelines/bulk.py`: independent recursive cross-run
+  aggregation and pooled synthetic-sensor regression
+
+### Independent bulk analysis
+
+`run_bulk_pipeline` is downstream of completed per-flightline workflows rather
+than another stage inside them. It recursively discovers canonical merged
+Parquets, writes a provenance-preserving union-by-name super Parquet, and
+creates a DuckDB catalog with pooled MicaSense-to-Landsat regressions. It does
+not call or mutate the NEON and drone orchestrators. Its manifest validates the
+source inventory and reuses current outputs on rerun.
 
 ---
 
@@ -44,10 +55,14 @@ This page describes how SpectralBridge is organized internally. Understanding th
 - Confirm `get_flightline_products` and `FlightlinePaths` generate filenames for the new sensor; outputs must still include merged Parquet and QA artifacts.
 - Add tests that validate band definitions and resampled outputs; do not bypass the existing stage ordering.
 
-### Updating brightness or calibration coefficients
-- Brightness and regression tables live under `spectralbridge/data/brightness/` and are loaded via `brightness_config`. Changes here affect downstream cross-sensor harmonization.
-- Keep JSON schema and key names stable; update any dependent tests and documentation describing the coefficients.
-- Validate against Landsat-referenced QA outputs to confirm calibrations remain within expected bounds.
+### Updating brightness or translation coefficients
+- Fixed percentage brightness adjustments live under
+  `spectralbridge/data/brightness/` and are loaded via `brightness_config`.
+- Pooled synthetic translation slopes and intercepts are bulk-pipeline outputs,
+  not packaged brightness tables. Preserve their manifest and source catalog
+  when reviewing or promoting a coefficient set.
+- Keep JSON schemas and key names stable; update dependent tests and
+  documentation when either coefficient contract changes.
 
 ### Modifying QA outputs
 - QA panels and JSON summaries are produced after merging outputs. Filenames such as `<flight_id>_qa.png` and `<flight_id>_qa.json` are assumed by docs and CI.

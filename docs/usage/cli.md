@@ -34,7 +34,26 @@
     <h3><code>spectralbridge-merge-duckdb</code></h3>
     <p>Merge per-product parquet outputs into a flightline-level master table.</p>
   </article>
+  <article class="sb-doc-card">
+    <h3><code>spectralbridge-bulk</code></h3>
+    <p>Recursively aggregate completed flightline masters and fit pooled synthetic MicaSense-to-Landsat regressions.</p>
+  </article>
 </div>
+</section>
+
+<section class="sb-doc-section" markdown="1">
+<h2><code>spectralbridge-bulk</code></h2>
+<p>Runs the independent cross-run analysis workflow against one merged Parquet or a recursively searched directory tree.</p>
+
+```bash
+spectralbridge-bulk ~/processed_spectralbridge \
+  --output-dir ~/spectralbridge_bulk_results \
+  --input-kind full \
+  --threads 4 \
+  --memory-limit 8GB
+```
+
+<p>The default full-pixel mode prevents polygon subsets from being double-counted. Outputs include a portable super Parquet, a DuckDB catalog, a source inventory, pooled coefficient JSON/Parquet, and a restart manifest. See <a href="../vignettes/bulk-analysis/">Build a bulk cross-run analysis</a>.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

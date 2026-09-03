@@ -71,6 +71,22 @@ double-underscore separator for drone products:
 | `drone_merged.parquet` | Merged drone polygon table |
 | `drone_qa_summary.json` | Batch QA summary |
 
+## Bulk analysis output suffixes
+
+Bulk analysis is a separate post-processing workflow. Its output directory uses
+fixed collection-level names rather than NEON or drone flight stems:
+
+| Filename | Meaning |
+| --- | --- |
+| `bulk_observations.parquet` | Portable cross-run super Parquet |
+| `bulk_analysis.duckdb` | Queryable source, observation, and coefficient catalog |
+| `bulk_sources.parquet` | Recursive source inventory |
+| `synthetic_translation_coefficients.parquet/.json` | Pooled MicaSense-to-Landsat regressions |
+| `bulk_manifest.json` | Restart and provenance manifest |
+
+These names must not be used inside individual flightline or drone product
+contracts.
+
 ## Common violations and fixes
 
 | Violation | Why it matters | Fix |

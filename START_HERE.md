@@ -21,6 +21,7 @@ rest until you need it.
 | Run from a local NEON HDF5 file | [`scripts/run_pipeline_from_local_h5.py`](scripts/run_pipeline_from_local_h5.py) | `python scripts/run_pipeline_from_local_h5.py --help` |
 | Work interactively | [`docs/vignettes/notebooks/README.md`](docs/vignettes/notebooks/README.md) | Open the notebook matching your task |
 | Process drone HDF5 data | [`examples/run_drone_pipeline.py`](examples/run_drone_pipeline.py) | Edit its JSON config and run it |
+| Combine completed runs and fit pooled sensor regressions | [`docs/vignettes/bulk-analysis.md`](docs/vignettes/bulk-analysis.md) | `spectralbridge-bulk /path/to/processed/tree` |
 | Resume a partial run | [`docs/vignettes/carry-on-wayward-son.md`](docs/vignettes/carry-on-wayward-son.md) | Rerun the normal entry point against the same output folder |
 | Add a correction after topo/BRDF | [`docs/reference/custom-correction-hook.md`](docs/reference/custom-correction-hook.md) | Preserve the canonical product and write a separately named ENVI pair |
 | Understand a JSON file | [`docs/reference/json-catalog.md`](docs/reference/json-catalog.md) | Find its owner, units, consumer, and validation rule |
@@ -52,6 +53,10 @@ start with the smaller ordered notebook vignettes.
 5. **Harmonize:** convolve corrected spectra into Landsat and other configured sensors.
 6. **Tabulate:** export and merge Parquet tables, with optional polygon extraction.
 7. **Validate:** write QA PNG/JSON artifacts and reuse valid products on restart.
+
+After individual runs finish, the independent bulk pipeline can recursively
+collect their merged Parquets and calculate pooled synthetic-sensor
+regressions. It is not an eighth stage of either the NEON or drone pipeline.
 
 The authoritative stage order and filenames are documented in
 [`docs/pipeline/stages.md`](docs/pipeline/stages.md) and

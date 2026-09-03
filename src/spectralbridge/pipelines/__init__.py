@@ -4,10 +4,21 @@ from __future__ import annotations
 
 from importlib import import_module
 
-__all__ = ["run_pipeline", "run_drone_pipeline", "run_download", "pipeline"]
+__all__ = [
+    "run_pipeline",
+    "run_drone_pipeline",
+    "run_bulk_pipeline",
+    "run_download",
+    "pipeline",
+]
 
 
 def __getattr__(name: str):
+    if name == "run_bulk_pipeline":
+        from .bulk import run_bulk_pipeline as _run_bulk_pipeline
+
+        globals()[name] = _run_bulk_pipeline
+        return _run_bulk_pipeline
     if name == "run_drone_pipeline":
         from .drone import run_drone_pipeline as _run_drone_pipeline
 

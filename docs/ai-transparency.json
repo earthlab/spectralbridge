@@ -1,11 +1,11 @@
 {
   "ai_systems": {
     "Cursor Agent": 32,
-    "OpenAI Codex": 182
+    "OpenAI Codex": 184
   },
   "branches": {
     "$(git branch --show-current 2>/dev/null || echo unknown)": 1,
-    "main": 202,
+    "main": 204,
     "unknown": 7,
     "work": 4
   },
@@ -16,14 +16,14 @@
     "word_count": "Unicode word-like tokens matched by the generator's WORD_RE expression."
   },
   "models": {
-    "GPT-5": 5,
+    "GPT-5": 7,
     "GPT-5 family (exact deployment identifier not exposed)": 7,
     "Not recorded": 202
   },
   "primary_intents": {
     "Audit or investigation": 25,
     "Execution or verification": 47,
-    "Implementation or modification": 89,
+    "Implementation or modification": 91,
     "Other or mixed": 53
   },
   "primary_topics": {
@@ -33,7 +33,7 @@
     "Other": 28,
     "Publication, packaging, release, and governance": 20,
     "QA and visualization": 36,
-    "Scientific pipeline and corrections": 53,
+    "Scientific pipeline and corrections": 55,
     "Testing and CI": 27
   },
   "prompts_by_month": {
@@ -42,24 +42,24 @@
     "2026-06": 47,
     "2026-07": 36,
     "2026-08": 87,
-    "2026-09": 2
+    "2026-09": 4
   },
   "schema_version": 1,
   "source": {
     "data_through": "2026-09-03",
     "path": "PROMPT_LOG.md",
-    "sha256": "ecf4044561484a6a73a71bf1cf89909c3a03d64b23071cbc1896fcb834936fbf"
+    "sha256": "a1f7dc829660f2036011eb7a30c66c65e96b48358f1425c27f4889de504e47ed"
   },
   "summary": {
-    "entries_with_recorded_model": 12,
+    "entries_with_recorded_model": 14,
     "first_prompt_date": "2026-03-21",
     "last_prompt_date": "2026-09-03",
     "maximum_prompt_words": 3201,
-    "mean_prompt_words": 151.0,
+    "mean_prompt_words": 150.4,
     "median_prompt_words": 32.0,
     "minimum_prompt_words": 1,
-    "model_metadata_coverage_pct": 5.6,
-    "prompt_count": 214,
-    "total_prompt_words": 32320
+    "model_metadata_coverage_pct": 6.5,
+    "prompt_count": 216,
+    "total_prompt_words": 32477
   }
 }

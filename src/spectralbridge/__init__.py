@@ -34,6 +34,7 @@ __all__ = sorted(
                 "apply_brightness_correction",
                 "go_forth_and_multiply",
                 "process_one_flightline",
+                "run_bulk_pipeline",
                 "run_drone_pipeline",
                 load_brightness_coefficients.__name__,
             ]
@@ -44,6 +45,11 @@ __all__ = sorted(
 
 
 def __getattr__(name: str):  # pragma: no cover - thin lazy import helper
+    if name == "run_bulk_pipeline":
+        from .pipelines.bulk import run_bulk_pipeline as _run_bulk_pipeline
+
+        globals()[name] = _run_bulk_pipeline
+        return _run_bulk_pipeline
     if name == "apply_brightness_correction":
         from .brightness import (
             apply_brightness_correction as _apply_brightness_correction,

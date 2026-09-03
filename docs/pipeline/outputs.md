@@ -6,6 +6,22 @@
 </section>
 
 <section class="sb-doc-section" markdown="1">
+<p class="sb-kicker">Cross-run analysis</p>
+<h2>Independent bulk-pipeline contract</h2>
+<p>The optional <code>spectralbridge-bulk</code> workflow recursively consumes completed merged Parquets. It writes only to its selected bulk output directory and does not modify NEON or drone run products.</p>
+
+| Output type | Canonical filename | Description |
+| --- | --- | --- |
+| Bulk observations | `bulk_observations.parquet` | Union-by-name super Parquet with a source ID, absolute source path, relative source path, and input kind on every row. |
+| Bulk database | `bulk_analysis.duckdb` | Source and coefficient tables plus a view over `bulk_observations.parquet`. |
+| Source catalog | `bulk_sources.parquet` | Accepted/rejected candidates, schema fingerprints, source sizes, and row counts. |
+| Pooled coefficients | `synthetic_translation_coefficients.(parquet|json)` | Exact pooled MicaSense-X/Landsat-Y slopes, intercepts, fit summaries, and provenance. |
+| Bulk manifest | `bulk_manifest.json` | Restart signature, settings, source/output counts, and artifact names. |
+
+<p class="sb-doc-note">These pooled slopes and intercepts are distinct from percentage brightness-adjustment coefficients. They use persisted upstream values as-is and remain synthetic same-source diagnostics unless paired observed measurements are supplied by a future calibration workflow.</p>
+</section>
+
+<section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">Canonical outputs</p>
 <h2>Per-flightline contract</h2>
 <p>Naming stems come from <code>spectralbridge.paths.FlightlinePaths</code> and <code>spectralbridge.utils.naming.get_flightline_products</code>. Sensor-specific stems come from <code>SensorProductPaths</code>.</p>
