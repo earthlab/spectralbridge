@@ -20,10 +20,49 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
-### P72. Consume Completed Flightline Archives in the Bulk Pipeline
+### P73. Generalize Bulk Profiles, Products, Pairing, and Exclusions
 
 - Priority: User-directed
 - Status: In progress
+- Owner: Codex
+- Started: 2026-09-04
+- Goal: Keep the bulk workflow generic by modeling flightline identity,
+  product recognition, analysis requirements, translation relationships, and
+  structured exclusions independently of any validation archive, site set,
+  sensor pair, or manuscript analysis.
+- Scope:
+  - Add an extensible identity/product registry and generic translation-pair
+    descriptors while retaining built-in NEON and Landsat/MicaSense support.
+  - Separate processing completeness, product availability, and
+    profile-specific analysis eligibility, including minimal target-only input.
+  - Add deterministic machine-readable exclusion records and configurable
+    invalid-flightline behavior with population-safe exclusion as the default.
+  - Expose simple analysis/profile and sensor/pair selection through Python and
+    CLI, preserve current calls, and return a useful structured preflight.
+  - Cover generic/nested/target-only/zero-byte/missing/malformed/duplicate/
+    transient/optional-QA cases with tiny neutral fixtures and update the
+    generic single/multiple/bulk user journey.
+- Plan:
+  - Audit the just-added archive adapter and existing bulk analysis assumptions
+    against current package metadata, public APIs, normal output naming, tests,
+    and docs.
+  - Introduce small immutable profile/product/pair/reason-code contracts and
+    centralize target recognition without changing upstream science.
+  - Adapt discovery, extraction, catalog persistence, orchestration, and
+    preflight around those contracts; keep analysis modules independently
+    callable and merged-Parquet compatibility intact.
+  - Verify focused behavior first, then full tests, lint, compilation, strict
+    docs, generated artifacts, and a fresh package build when tooling permits.
+- Current status: Audit in progress; no P73 code changes made yet.
+- Blockers: Fresh build tooling may remain unavailable until the external
+  execution-approval usage window resets.
+- Next recommended task: Complete the bulk hardcoding/import/package audit and
+  record the selected generic contracts here before implementation.
+
+### P72. Consume Completed Flightline Archives in the Bulk Pipeline
+
+- Priority: User-directed
+- Status: Completed
 - Owner: Codex
 - Started: 2026-09-04
 - Goal: Make `run_bulk_pipeline` consume completed normal-pipeline flightline
@@ -72,13 +111,44 @@ left incomplete so the next agent can resume immediately.
   - Current translation analyses require only canonical identity and at least
     one wavelength-matched MicaSense/Landsat target pair. They do not require
     rereading corrected hyperspectral bands or rerunning convolution.
-- Current status: Canonical flightline-output discovery, metadata-only
-  preflight, compact target-raster extraction, cache reuse, duplicate handling,
-  analysis integration, and focused tests are implemented; docs and full
-  verification remain.
-- Blockers: None identified yet.
-- Next recommended task: Complete the normal-output and bulk-analysis schema
-  audit and record the exact required/optional product contract here.
+- Outcome:
+  - `run_bulk_pipeline(..., input_mode="auto")` now prefers recursively
+    discovered canonical completed-flightline directories, while explicit
+    `flightline_outputs` and compatible `merged_parquet` modes remain available.
+  - Metadata-only preflight catalogs canonical identity, arbitrary outer
+    storage provenance, raw/corrected/target products, QA status and selected
+    QA invalid/no-data metrics, pair eligibility, duplicates, structural
+    rejection reasons, source bytes, and estimated cache bytes without reading
+    raster pixels.
+  - Eligible target-sensor ENVI products are read in bounded windows through
+    the existing Parquet reader. Narrow per-sensor files and joined
+    observations are written only under `bulk_output/cache`, carry source and
+    extraction provenance, reuse valid caches, and isolate failures by
+    flightline. Correction and convolution are never recomputed.
+  - The existing DuckDB federation, census, pooled/per-flightline/per-site and
+    balanced regressions, candidate coefficient export, and leave-one-site-out
+    modules consume the compact caches unchanged.
+  - README, architecture/output/CLI/naming documentation, bulk vignette,
+    notebook, and publication audit now state the direct normal-output contract.
+    The installed-artifact smoke fixture also exercises this preferred mode.
+- Verification:
+  - `.venv/bin/pytest -q tests/test_bulk_pipeline.py tests/test_installed_artifact_smoke.py`
+    — 27 passed.
+  - `.venv/bin/pytest -q` — 272 passed, 6 skipped.
+  - `uvx ruff check src tests scripts/check_installed_artifact.py scripts/check_release_metadata.py scripts/generate_ai_transparency.py scripts/generate_validation_docs.py scripts/run_validation_campaign.py`
+    — passed.
+  - Python compileall, notebook JSON validation, docs-link check, strict MkDocs
+    build, AI-transparency freshness check, and `git diff --check` — passed.
+  - A fresh wheel rebuild was attempted for a new exact-artifact run, but the
+    execution approval service rejected cache access after its usage limit was
+    reached. The installed-smoke code path itself passed in the focused test;
+    the rebuilt-wheel rerun remains an explicit verification gap rather than a
+    hidden success claim.
+- Blockers: None for the implemented source contract. Fresh exact-wheel
+  confirmation remains pending external tool availability.
+- Next recommended task: Generalize completed-flightline discovery, product
+  requirements, and translation relationships so the validation archive
+  remains an example rather than the package data model (P73).
 
 ### P71. Bounded Stage-Complete Installed-Artifact Validation
 

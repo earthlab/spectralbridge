@@ -643,3 +643,11 @@ normal pipeline's warning-only Parquet validation reported its existing
 spectral-column ordering warning for the synthetic merged output. This
 follow-up closes artifact-contract blocker B1 locally; Linux confirmation is
 pending the release workflow.
+
+The later direct-flightline-archive bulk contract was verified by focused and
+full source-tree tests, including the installed-smoke fixture's bulk path. A
+fresh wheel rebuild for repeating the exact-artifact run was attempted but was
+blocked when the execution approval service reached its usage limit. Therefore
+the historical exact-wheel results above apply to the prior merged-Parquet
+bulk fixture; exact-wheel confirmation of the newer direct target-ENVI fixture
+remains pending and is not claimed here.

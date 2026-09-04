@@ -9944,3 +9944,615 @@ The core publication requirement is:
 
 SpectralBridge’s bulk pipeline must directly consume the completed outputs of SpectralBridge’s normal pipeline without requiring users to manually manufacture a separate intermediate dataset.
 ```
+
+## 2026-09-04 - generalize bulk scientific units and analysis profiles
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+finish what you were working on before we were interupted and then move on to this next prompt
+
+You are working in the SpectralBridge repository:
+
+https://github.com/earthlab/spectralbridge
+
+Before editing:
+- inspect current main
+- read AGENTS.md
+- inspect recent git history
+- read the existing standard, flightline, and bulk pipeline implementations
+- inspect package metadata, tests, docs, and public API
+- preserve the package’s role as a GENERIC tool for hyperspectral processing and sensor translation
+
+IMPORTANT PRODUCT PRINCIPLE
+
+SpectralBridge is not a package for the NIWO/WREF/YELL dataset.
+
+Those flightlines are being used as a large real-world validation corpus.
+
+The package must remain generic and easy to use for any user who wants to:
+
+1. process one hyperspectral flightline
+2. process multiple flightlines
+3. generate translated/convolved sensor products
+4. analyze populations of completed flightlines
+5. compare source and target sensors
+6. build reproducible cross-sensor datasets
+
+Do not encode:
+- NIWO
+- WREF
+- YELL
+- the Aug 2026 archive
+- our CyVerse hierarchy
+- our batch-folder naming convention
+- fixed assumptions about 123 flightlines
+- fixed assumptions about a specific manuscript
+- hardcoded MicaSense/Landsat-only population logic
+
+Those belong in tests/examples/validation documentation, not package architecture.
+
+Our production archive has exposed general problems in the bulk pipeline. Fix the GENERAL problems.
+
+==================================================
+1. DEFINE GENERIC SCIENTIFIC UNITS
+==================================================
+
+A flightline should be the atomic scientific processing unit.
+
+A bulk input root may contain arbitrary organizational nesting around flightlines:
+
+input_root/
+    arbitrary_folder/
+        canonical_flightline_A/
+    some_other_folder/
+        canonical_flightline_B/
+        canonical_flightline_C/
+
+The package should:
+
+- discover scientifically identifiable flightlines recursively
+- treat each independently
+- not infer scientific identity from surrounding storage folders
+- support multiple independent flightlines under one parent directory
+- preserve source-path provenance
+- explicitly report duplicate scientific identities
+
+Do not assume a particular batch naming convention.
+
+If current identity parsing is specifically NEON-oriented, preserve NEON support while structuring the code so identity parsing is modular and extensible rather than hardwired throughout the bulk system.
+
+==================================================
+2. SEPARATE PROCESSING COMPLETENESS FROM ANALYSIS ELIGIBILITY
+==================================================
+
+A completed full processing run and an analysis-ready flightline are not the same concept.
+
+Introduce a clean, generic distinction between:
+
+- processing completeness
+- product availability
+- analysis eligibility
+
+For example, an analysis may only require already-generated target sensor products and should not require the original hyperspectral cube.
+
+Design this using a generic abstraction such as:
+
+analysis_profile
+required_product_set
+product_requirements
+eligibility_profile
+
+or another maintainable design consistent with the repo.
+
+A profile should define:
+
+- required product roles
+- optional product roles
+- allowed sensor families
+- pairing requirements
+- file integrity requirements
+- whether QA metadata is required
+- whether the original/corrected hyperspectral source is required
+
+Do not make “translation” mean specifically Landsat/MicaSense.
+
+The package should be capable of representing translation between arbitrary supported sensors.
+
+==================================================
+3. GENERIC PRODUCT REGISTRY / SENSOR PRODUCT MODEL
+==================================================
+
+Review how sensor products are currently identified.
+
+Refactor where necessary so target products are represented generically.
+
+A product record should be able to express concepts such as:
+
+- sensor name
+- product role
+- wavelength family / matching group
+- source flightline
+- source processing stage
+- data path
+- header path
+- band count
+- wavelengths
+- dimensions
+- dtype
+- nodata
+- validity status
+
+Avoid spreading filename substring checks across the codebase.
+
+Where possible, centralize product recognition in a registry, parser, or product descriptor layer.
+
+Current supported Landsat and MicaSense products should be entries in that system, not the architecture itself.
+
+==================================================
+4. GENERIC TRANSLATION PAIRS
+==================================================
+
+The current real-world tests use wavelength-matched MicaSense and Landsat products.
+
+That is one instance of a general concept:
+
+two sensor products are scientifically comparable when they share a defined translation/matching relationship.
+
+Represent this generically.
+
+A translation pair/group should encode:
+
+- source sensor/product
+- target sensor/product
+- matched band/wavelength relationship
+- expected number of bands
+- compatibility rules
+- analysis eligibility
+
+The bulk translation analysis should operate over discovered valid translation relationships rather than hardcoded six-family assumptions.
+
+The package may ship built-in definitions for existing supported sensors.
+
+==================================================
+5. ATOMIC FLIGHTLINE VALIDATION
+==================================================
+
+Validation should happen per flightline and per requested analysis profile.
+
+For every required product validate generically:
+
+- expected product exists
+- expected header/sidecar exists when required
+- file is nonzero
+- metadata can be read
+- dimensions are valid
+- band metadata are valid
+- data/header relationship is coherent
+- duplicates are handled explicitly
+- required sensor pairing is complete
+
+If one flightline is invalid:
+
+- exclude that flightline from that analysis
+- do not crash the entire bulk population
+- record the reason
+- continue with valid flightlines
+
+This behavior was exposed by a real zero-byte target raster in our validation archive.
+
+That exact filename/dataset should only appear in a regression test fixture or validation note.
+
+==================================================
+6. MACHINE-READABLE EXCLUSION / QA MODEL
+==================================================
+
+Make exclusions a formal package concept.
+
+Prefer structured reason codes such as:
+
+missing_required_product
+missing_sidecar
+zero_byte_file
+duplicate_product
+unreadable_metadata
+invalid_dimensions
+incompatible_band_schema
+incomplete_translation_pair
+duplicate_scientific_identity
+extraction_failure
+
+Each exclusion record should include as applicable:
+
+- flightline ID
+- source path
+- site/date metadata if known
+- requested analysis profile
+- product role
+- sensor
+- offending file(s)
+- reason code
+- human-readable detail
+- processing stage where exclusion occurred
+
+Bulk output should expose deterministic:
+- Parquet
+- CSV and/or JSON
+
+exclusion tables.
+
+==================================================
+7. BULK PROCESSING SHOULD BE POPULATION-SAFE
+==================================================
+
+The bulk pipeline is an analysis across many independent scientific units.
+
+Implement fault containment.
+
+One bad flightline must not invalidate the population unless the user explicitly requests fail-fast behavior.
+
+Consider an option such as:
+
+on_invalid="exclude"   # sensible bulk default
+on_invalid="error"
+
+Similarly extraction failures should be associated with their flightline and surfaced in QA/provenance.
+
+Do not silently swallow failures.
+
+==================================================
+8. MINIMAL ANALYSIS INPUTS
+==================================================
+
+Support bulk analysis from a minimal local archive containing only the products required for the requested analysis.
+
+For example, a user who already generated translated target products should not need to keep or transfer:
+
+- original HDF5
+- raw hyperspectral image
+- corrected hyperspectral image
+- plots
+- HTML reports
+- unrelated sensor products
+
+unless the selected analysis actually requires them.
+
+This should be generic and profile-driven.
+
+Do not create a special “Aug 2026 minimal mode.”
+
+==================================================
+9. SOURCE DATA AND DERIVED DATA MUST BE DISTINCT
+==================================================
+
+Clarify package contracts around:
+
+- source products
+- temporary extraction products
+- bulk cache
+- database
+- reports
+- final deliverables
+
+Source trees should be treated as read-only by bulk analysis wherever possible.
+
+Derived data should go to a separate output root.
+
+Cache behavior should be:
+- restart-safe
+- deterministic
+- attributable to source flightline and package version
+- reusable when valid
+- invalidated when relevant source inputs/configuration change
+
+==================================================
+10. GENERIC PREFLIGHT
+==================================================
+
+Preflight should answer:
+
+“What will this analysis operate on, and is it safe to run?”
+
+Without scanning the full pixel population, report:
+
+- discovered flightlines
+- valid flightlines
+- excluded flightlines
+- available sensors/products
+- available translation pairs
+- selected analysis profile
+- required products
+- selected source files
+- selected source bytes
+- estimated cache/output size if possible
+- exclusion counts by reason
+- duplicate identity count
+- source/output paths
+- package version/configuration
+
+Return this as a structured Python object/dict and expose it through CLI.
+
+Preflight must not assume a particular number of sensors or flightlines.
+
+==================================================
+11. USER-FACING API SHOULD BE SIMPLE
+==================================================
+
+A normal user should be able to do something conceptually like:
+
+from spectralbridge import run_bulk_pipeline
+
+result = run_bulk_pipeline(
+    input_root,
+    output_root,
+    analysis="translation",
+    preflight_only=True,
+)
+
+and then:
+
+result = run_bulk_pipeline(
+    input_root,
+    output_root,
+    analysis="translation",
+)
+
+If the existing API has better naming, preserve consistency.
+
+Users should not need:
+- monkey patches
+- sys.path injection
+- knowledge of internal modules
+- manual Parquet merging
+- package-source checkout
+
+The installed package should expose the workflow.
+
+==================================================
+12. SENSOR SELECTION SHOULD BE CONFIGURABLE
+==================================================
+
+Do not require every supported sensor product to exist for every analysis.
+
+A user may want to compare only:
+
+- sensor A vs sensor B
+- one target family
+- several targets
+- every available compatible translation
+
+Support explicit selection where appropriate, for example:
+
+sensors=[...]
+translation_pairs=[...]
+include_available=True
+
+or a cleaner existing pattern.
+
+The correct validation requirements should derive from the requested analysis, not from every sensor SpectralBridge happens to support.
+
+==================================================
+13. TEST USING SMALL GENERIC FIXTURES
+==================================================
+
+Do not put real production-scale data in tests.
+
+Create tiny generic ENVI fixtures representing:
+
+A. one valid flightline
+B. two independent flightlines under one storage folder
+C. several flightlines under nested arbitrary folders
+D. valid target-only analysis input
+E. missing source hyperspectral cube but valid target products
+F. missing required target
+G. missing header
+H. zero-byte raster
+I. malformed header
+J. duplicate target
+K. duplicate scientific identity
+L. valid + invalid flightlines in same bulk root
+M. optional QA absent
+N. optional QA present
+O. transient filesystem file disappears during discovery
+P. one translation pair requested while unrelated supported sensors are absent
+
+Tests should prove the architecture is generic.
+
+Use neutral fixture names rather than NIWO/WREF/YELL except for an optional regression test explicitly documenting the production bug that motivated the behavior.
+
+==================================================
+14. ADD REAL-WORLD REGRESSION TESTS WITHOUT DATASET COUPLING
+==================================================
+
+The production validation archive exposed these general edge cases:
+
+- arbitrary outer compute/storage folders
+- two scientific flightlines under one outer folder
+- hundreds of large output files
+- target-only staging
+- zero-byte distributed-compute output
+- incomplete flightline should be excluded rather than crash population
+- transient transfer artifacts
+- huge source products not needed for downstream translation analysis
+
+Encode each of these as small synthetic regression tests.
+
+Mention the production test campaign in changelog/developer docs if useful, but do not make the package depend on it.
+
+==================================================
+15. DEPENDENCY / IMPORT HARDENING
+==================================================
+
+We discovered that bulk imports require pyarrow but environments can lack it.
+
+Review packaging.
+
+Ensure that:
+- required runtime dependencies are correctly declared
+- optional bulk dependencies have a coherent extra if truly optional
+- ordinary package import does not unnecessarily import heavy bulk modules
+- installed CLI entry points work
+- PyPI install exposes standard, flightline, and bulk workflows
+
+Test from a clean built wheel/sdist environment where feasible.
+
+==================================================
+16. DOCUMENT THE GENERIC USER JOURNEY
+==================================================
+
+Docs should make the package easy to understand for someone who has never seen our project data.
+
+Document three workflows clearly:
+
+A. SINGLE FLIGHTLINE
+raw hyperspectral input
+→ correction/processing
+→ translated sensor products
+
+B. MULTIPLE FLIGHTLINES
+collection of raw or processed flightlines
+→ independent processing
+→ standardized outputs
+
+C. BULK ANALYSIS
+collection of completed or minimally staged flightline products
+→ discovery
+→ preflight
+→ validation
+→ exclusions
+→ compact analytical cache
+→ population-level translation/comparison
+
+Show realistic but generic directory examples.
+
+Explain:
+- what is required
+- what is optional
+- what gets excluded
+- where outputs go
+- how to restart
+- how to select sensors
+- how to interpret preflight
+
+==================================================
+17. KEEP SCIENCE CONFIGURABLE
+==================================================
+
+Do not hardcode our current manuscript analysis as “the bulk pipeline.”
+
+Separate:
+
+1. generic bulk dataset construction
+2. generic translation/comparison primitives
+3. particular analysis modules
+
+Where current analysis modules include:
+- census
+- sensor translation
+- leave-one-site-out
+
+keep those callable independently and allow future analyses to be added without rewriting discovery or extraction.
+
+==================================================
+18. PUBLICATION-QUALITY PROVENANCE
+==================================================
+
+Every bulk run should produce enough provenance to reproduce it:
+
+- SpectralBridge version
+- git commit when available
+- analysis profile
+- configuration
+- source root
+- output root
+- accepted flightlines
+- excluded flightlines
+- sensor/product inventory
+- source file hashes or lightweight fingerprints where practical
+- extraction/cache schema version
+- analysis parameters
+- timestamps
+
+Do this generically.
+
+==================================================
+19. BACKWARD COMPATIBILITY
+==================================================
+
+Preserve existing working APIs unless there is a strong reason to change them.
+
+If introducing new concepts such as analysis profiles or product registries:
+- provide sensible defaults
+- document migration
+- avoid breaking existing standard/flightline users
+
+==================================================
+20. ACCEPTANCE CRITERIA
+==================================================
+
+Before completing the work, automated tests should demonstrate:
+
+1. arbitrary outer directory names do not affect scientific identity
+
+2. multiple flightlines under one parent remain independent
+
+3. a valid minimal target-only flightline can be analyzed without the original/corrected hyperspectral source when that source is not required by the requested analysis
+
+4. requirements are derived from the selected analysis/sensor pair, not every supported sensor
+
+5. a zero-byte required product excludes only the affected flightline
+
+6. another valid flightline in the same bulk root proceeds
+
+7. duplicate products and duplicate scientific identities are explicit
+
+8. optional metadata absence does not invalidate analyses that do not require it
+
+9. preflight reports selected source bytes without reading the full raster population
+
+10. exclusions are deterministic and machine-readable
+
+11. installed Python API works from a built package
+
+12. installed CLI works
+
+13. dependencies are correctly declared
+
+14. standard pipeline tests still pass
+
+15. flightline pipeline tests still pass
+
+16. bulk tests pass using small fixtures
+
+17. package build succeeds
+
+18. docs build succeeds if currently part of CI
+
+==================================================
+21. DELIVERABLES
+==================================================
+
+Implement the changes rather than only describing them.
+
+At the end provide:
+
+- architectural summary
+- public API changes
+- changed files
+- new tests
+- documentation changes
+- dependency changes
+- backward compatibility notes
+- exact commands/tests run
+- results
+- anything intentionally deferred
+- PR-ready summary
+
+Keep the design general, small, and maintainable.
+
+Most importantly:
+
+USE THE REAL PRODUCTION ARCHIVE AS A VALIDATION CASE,
+NOT AS THE PACKAGE DATA MODEL.
+```
