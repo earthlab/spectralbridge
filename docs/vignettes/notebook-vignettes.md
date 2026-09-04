@@ -29,7 +29,7 @@ saved outputs so the files remain portable.
 | 06 | [Process drone imagery][notebook-06] | You have local drone HDF5 inputs |
 | 07 | [Extract polygon spectra][notebook-07] | You want polygon-indexed spectra from a completed flightline |
 | 08 | [Insert a custom correction][notebook-08] | You are developing a reviewed correction after topo/BRDF and before convolution |
-| 09 | [Build a bulk cross-run analysis][notebook-09] | You want one Parquet/DuckDB collection and pooled regressions from completed runs |
+| 09 | [Build a bulk cross-run analysis][notebook-09] | You want canonical catalogs, virtual queries, balanced regressions, and held-out-site validation |
 
 ## Opening them
 

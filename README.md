@@ -294,21 +294,23 @@ finishes, the pipeline logs `✅ All requested flightlines processed.`.
 
 ### Bulk analysis across completed runs
 
-Bulk coefficient fitting is intentionally separate from individual NEON and
-drone processing. Point `spectralbridge-bulk` at a directory tree of completed
-flightline outputs to create a portable super Parquet, a DuckDB catalog, and
-pooled synthetic MicaSense-to-Landsat slopes and intercepts:
+Bulk population analysis is intentionally separate from individual NEON and
+drone processing. Point `spectralbridge-bulk` at a read-only directory tree of
+completed flightlines to build canonical catalogs, a virtual DuckDB dataset,
+balanced synthetic translation summaries, and leave-one-site-out validation:
 
 ```bash
-spectralbridge-bulk ~/processed_spectralbridge \
-  --output-dir ~/spectralbridge_bulk_results
+spectralbridge-bulk /data/spectralbridge_completed_runs \
+  --output-dir /data/spectralbridge_bulk_analysis \
+  --preflight-only
 ```
 
-The default includes full-pixel merged masters and excludes polygon subsets to
-avoid double-counting. See [Build a bulk cross-run
-analysis](docs/vignettes/bulk-analysis.md) for the output contract, DuckDB
-queries, restart behavior, and the distinction between translation regression
-and brightness adjustment.
+The default includes full-pixel merged masters, excludes polygon subsets, and
+queries the accepted source Parquets without copying the full population.
+Physical materialization is opt-in. See [Build a bulk cross-run
+analysis](docs/vignettes/bulk-analysis.md) for canonical identity, duplicate
+handling, output contracts, weighting, restart behavior, and the distinction
+between translation regression and brightness adjustment.
 
 ### Idempotent / restart-safe
 

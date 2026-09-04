@@ -10,15 +10,20 @@
 <h2>Independent bulk-pipeline contract</h2>
 <p>The optional <code>spectralbridge-bulk</code> workflow recursively consumes completed merged Parquets. It writes only to its selected bulk output directory and does not modify NEON or drone run products.</p>
 
-| Output type | Canonical filename | Description |
+| Output type | Canonical path | Description |
 | --- | --- | --- |
-| Bulk observations | `bulk_observations.parquet` | Union-by-name super Parquet with a source ID, absolute source path, relative source path, and input kind on every row. |
-| Bulk database | `bulk_analysis.duckdb` | Source and coefficient tables plus a view over `bulk_observations.parquet`. |
-| Source catalog | `bulk_sources.parquet` | Accepted/rejected candidates, schema fingerprints, source sizes, and row counts. |
-| Pooled coefficients | `synthetic_translation_coefficients.(parquet|json)` | Exact pooled MicaSense-X/Landsat-Y slopes, intercepts, fit summaries, and provenance. |
-| Bulk manifest | `bulk_manifest.json` | Restart signature, settings, source/output counts, and artifact names. |
+| Flightline catalog | `catalog/flightlines.parquet` | Product-derived canonical identity, site/date, processing state, schemas, and duplicate/rejection status. |
+| Source catalog | `catalog/source_files.parquet` | Every discovered full/polygon merged product and its original path, footer metadata, and selection status. |
+| Duplicate/rejection catalogs | `catalog/duplicates.parquet`, `catalog/rejected_sources.parquet` | Explicit exclusions; duplicate canonical IDs are never silently double-counted. |
+| Bulk database | `database/spectralbridge_bulk.duckdb` | Catalogs, virtual union-by-name observations, and modular analysis tables. |
+| Bulk observations | `database/bulk_observations.parquet` | Optional portable materialization created only with `materialize_observations=True`. |
+| Dataset census | `analyses/dataset_census/` | Metadata-only preflight JSON, report, and Parquet breakdowns. |
+| Translation analyses | `analyses/sensor_translation/` | Pixel-pooled, per-flightline, per-site, flightline-balanced, and site-balanced regressions. |
+| Leave-one-site-out | `analyses/leave_one_site_out/` | Held-out-site generalization metrics. |
+| Candidate coefficients | `coefficients/candidate_translation_coefficients.(parquet|json)` | Pooled and balanced synthetic MicaSense-X/Landsat-Y summaries with provenance. |
+| Bulk manifest | `catalog/bulk_manifest.json` | Restart signature, execution settings, counts, and artifact names. |
 
-<p class="sb-doc-note">These pooled slopes and intercepts are distinct from percentage brightness-adjustment coefficients. They use persisted upstream values as-is and remain synthetic same-source diagnostics unless paired observed measurements are supplied by a future calibration workflow.</p>
+<p class="sb-doc-note">The complete observation population remains virtual by default. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

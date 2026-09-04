@@ -7739,3 +7739,453 @@ Model: GPT-5
 ```text
 i hadn't pulled before we did taht and now i have some stashed changes that we need to get back into action
 ```
+
+## 2026-09-03 - production bulk population-analysis architecture
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+````text
+You are working in the current earthlab/spectralbridge repository.
+
+Before changing anything, read the current repo carefully, especially:
+
+* AGENTS.md
+* FEATURE_REQUESTS.md
+* PROMPT_LOG.md
+* src/spectralbridge/pipelines/bulk.py
+* src/spectralbridge/sensor_pairs.py
+* tests/test_bulk_pipeline.py
+* docs/vignettes/bulk-analysis.md
+* the normal NEON pipeline and its output naming/path helpers
+* the QA and merged-Parquet schemas
+* any existing validation and manuscript-oriented analysis code
+
+The current bulk pipeline is a good first framework, but we now need to formalize it for the real production data and begin building the scientific analysis layer.
+
+Real input model
+
+The real bulk input is a large staging directory produced from distributed computing.
+
+Inside that directory are many completed SpectralBridge flightline output folders copied from different machines to a central data store.
+
+Important constraints:
+
+1. Each scientifically meaningful unit is ONE independently processed flightline.
+2. Some machines processed two flightlines in one session, so there may be “sister” run folders from the same machine. These are still completely independent flightlines and MUST NOT be paired, averaged, grouped, or otherwise treated as one scientific unit.
+3. Distributed-compute folders may have unique storage names added only to avoid overwrite collisions. Folder names therefore MUST NOT be treated as authoritative scientific identifiers.
+4. Canonical flightline identity should be recovered from the actual SpectralBridge products and/or metadata inside each run.
+5. A true duplicate canonical flightline ID appearing in more than one source folder should be detected and explicitly reported. Do not silently double-count it.
+6. Individual completed flightline outputs may be roughly 40–80 GB.
+7. The bulk analysis will run on a large VM with substantial RAM, CPU, local scratch, and disk, but the implementation must still avoid unnecessary multi-terabyte copies and avoid loading entire datasets into Python memory.
+8. The input staging directory is READ ONLY. Do not modify, rename, delete, reorganize, or write into any source flightline folder.
+9. All new products must go into a completely fresh bulk-output directory containing only clean deliverables.
+
+Primary architectural goal
+
+Refactor the bulk pipeline into a durable population-analysis layer above the existing individual-flightline pipeline.
+
+Conceptually:
+
+distributed completed flightline outputs
+↓
+source discovery and validation
+↓
+canonical flightline catalog
+↓
+DuckDB-backed virtual/queryable bulk dataset
+↓
+modular analyses
+↓
+fresh clean deliverables directory
+
+Do NOT make the accidental distributed-compute directory structure part of the scientific model.
+
+The scientific hierarchy should be approximately:
+
+site
+→ acquisition/date
+→ flightline
+→ pixel
+
+Machine ID, distributed job ID, sister-run grouping, copy destination, etc. are computational provenance only.
+
+Phase 1: Harden discovery and cataloging
+
+Build or refactor discovery so that the pipeline recursively searches the supplied input directory for valid completed SpectralBridge flightline products.
+
+For every candidate flightline, produce a canonical catalog record including as much as can be recovered reliably:
+
+* canonical flightline ID
+* NEON site
+* acquisition date
+* source directory
+* canonical merged Parquet
+* polygon merged Parquet if present
+* QA products if present
+* processing metadata / manifests if present
+* available sensors
+* processing stages represented
+* row count
+* file size
+* schema fingerprint
+* brightness coefficient/configuration state if recoverable
+* BRDF/topographic configuration if recoverable
+* validity/rejection status
+* rejection reason
+* duplicate status
+* source provenance
+
+Do not infer scientific identity from arbitrary outer folder names.
+
+Add explicit duplicate canonical-flightline detection.
+
+If two source directories contain the same canonical flightline ID, record them as duplicate candidates and do not silently include both in population analyses.
+
+Preserve original source paths for provenance.
+
+Phase 2: Avoid unnecessary physical duplication
+
+The current bulk pipeline materializes bulk_observations.parquet.
+
+For production-scale data this may produce unnecessary multi-terabyte duplication.
+
+Change the architecture so that the DEFAULT analysis mode uses DuckDB to query the original accepted Parquet files virtually, using union-by-name and explicit provenance columns.
+
+The database should expose useful views/tables such as:
+
+* flightlines
+* bulk_sources
+* bulk_observations or equivalent virtual observation view
+* analysis result tables
+
+Do not duplicate the complete observation population by default.
+
+Retain OPTIONAL materialization for cases where a portable super-Parquet is explicitly requested, e.g. with a clear option such as:
+
+materialize_observations=True
+
+or a CLI equivalent.
+
+If materialization is requested, document clearly that it may require very large disk space.
+
+Use DuckDB projection/predicate pushdown so analyses read only the columns needed.
+
+Support:
+
+* configurable DuckDB thread count
+* configurable memory limit
+* configurable local scratch/temp directory
+* graceful spill-to-disk
+* restart-safe operation
+
+Phase 3: Fresh output contract
+
+Create a clean bulk-output structure. Use the repository’s naming conventions where possible, but conceptually aim for something like:
+
+bulk_output/
+catalog/
+flightlines.parquet
+source_files.parquet
+duplicates.parquet
+rejected_sources.parquet
+bulk_manifest.json
+
+database/
+    spectralbridge_bulk.duckdb
+analyses/
+    dataset_census/
+    sensor_translation/
+    correction_effects/
+    site_variability/
+    flightline_variability/
+    qa_population/
+coefficients/
+    candidate_translation_coefficients.parquet
+    candidate_translation_coefficients.json
+tables/
+figures/
+reports/
+logs/
+
+You may refine this structure if the existing repository conventions suggest a better layout.
+
+The critical requirements are:
+
+* source data remains untouched
+* all bulk outputs are isolated
+* deliverables are clean and interpretable
+* generated intermediate/cache products are clearly separated from publication-facing deliverables
+* every result has machine-readable provenance
+
+Phase 4: Modular analysis framework
+
+Do not keep growing pipelines/bulk.py into one giant statistics module.
+
+Create a modular analysis architecture.
+
+A reasonable structure might be:
+
+src/spectralbridge/bulk/
+catalog.py
+dataset.py
+provenance.py
+analyses/
+dataset_census.py
+sensor_translation.py
+correction_effects.py
+qa_population.py
+
+or another clean architecture consistent with the rest of the repo.
+
+run_bulk_pipeline() should orchestrate analyses rather than implement every calculation inline.
+
+Each analysis module should:
+
+* declare its required input columns/tables
+* avoid reading unrelated columns
+* write deterministic outputs
+* record settings and provenance
+* be independently restartable/reusable
+* expose a Python API where useful
+* be testable on tiny synthetic fixtures
+
+Phase 5: First scientific analyses
+
+Implement the first THREE production analysis families.
+
+A. Dataset census / preflight
+
+Before expensive analysis, generate a fast preflight summary based mostly on metadata/schema inspection.
+
+Report at minimum:
+
+* candidate source directories
+* accepted canonical flightlines
+* unique canonical flightlines
+* duplicates
+* rejected/unreadable sources
+* total source size
+* merged-Parquet size
+* total row/pixel count where available
+* sites represented
+* acquisition dates/years
+* sensors represented
+* schemas represented
+* translation-eligible flightlines
+* major missing products or inconsistencies
+
+Produce machine-readable Parquet/JSON plus a concise human-readable report.
+
+This should run before the expensive analyses and should make it easy to sanity-check the collection.
+
+B. Cross-sensor translation analysis
+
+Preserve the current synthetic MicaSense↔Landsat analysis, but expand it substantially.
+
+Important scientific boundary:
+
+Both axes are synthetic sensor products derived from the same corrected NEON hyperspectral source.
+
+Therefore these analyses characterize synthetic sensor translation relationships. They are NOT empirical field calibration between independently observed instruments.
+
+Keep that evidence boundary explicit in code, metadata, docs, and outputs.
+
+For each valid wavelength-matched sensor/band pair calculate at least:
+
+* slope
+* intercept
+* correlation
+* R²
+* bias
+* RMSE
+* MAE
+* value ranges
+* valid row count
+* contributing flightline count
+* contributing site count
+
+Calculate results at several levels:
+
+1. pixel-pooled
+2. per-flightline
+3. per-site
+4. flightline-balanced summary
+5. site-balanced summary
+
+Do NOT let a very large 80 GB flightline dominate every scientific conclusion simply because it contains more pixels.
+
+The pooled-pixel statistic is useful, but it must not be the only population result.
+
+Write separate, clearly named analysis tables.
+
+C. Leave-one-site-out generalization framework
+
+Build a first generalization analysis for compatible cross-sensor pairs.
+
+For each site:
+
+1. fit the translation relationship using all OTHER sites
+2. apply it to the held-out site
+3. calculate held-out:
+    * RMSE
+    * MAE
+    * bias
+    * R²/correlation where meaningful
+    * slope/intercept of observed vs predicted where useful
+    * sample count
+    * held-out flightline count
+
+Repeat for all eligible sites.
+
+This is a core scientific validation because it asks whether translation relationships generalize beyond the sites used to estimate them.
+
+Design this analysis so more sophisticated validation can be added later without rewriting the bulk framework.
+
+Phase 6: Statistical independence
+
+Make flightline identity explicit in all analyses.
+
+Distributed-compute sister runs MUST NOT affect weighting, grouping, replication, or statistical structure.
+
+Where analyses operate at pixel level, preserve flightline and site identifiers so hierarchical/balanced analyses can be calculated correctly.
+
+Do not treat billions of pixels as billions of independent landscape replicates.
+
+Document the distinction between:
+
+* pixel-level observations
+* flightline-level replication
+* site-level replication
+
+Phase 7: Prepare hooks for later analyses
+
+Do NOT implement all of these now, but make the architecture ready for later modules including:
+
+* effectiveness of topographic correction
+* effectiveness of BRDF correction
+* spectral-shape preservation across processing stages
+* wavelength-specific correction magnitude
+* per-flightline correction fingerprints
+* site/flightline variability
+* brightness-adjustment validation
+* translation residuals across reflectance/ecological space
+* linear vs nonlinear translation
+* variance partitioning among pixel/flightline/site
+* learning curves for number of sites/flightlines
+* population-aware QA/outlier detection
+* recurrent failure-mode characterization
+* true duplicate-run reproducibility checks
+* spectral morphospace / PCA-style population analysis
+* uncertainty models for translated observations
+* deterministic manuscript figures/tables
+
+Do not build speculative complexity for these yet. Build clean interfaces that make them easy to add.
+
+Phase 8: Testing
+
+Add focused tests for at least:
+
+* recursive discovery under arbitrary outer run-folder names
+* canonical flightline identity extraction
+* two sister runs from the same machine remaining independent
+* true duplicate canonical-flightline detection
+* rejected/corrupt source handling
+* source directories remaining bitwise/unmodified where feasible
+* virtual DuckDB union across heterogeneous schemas
+* exclusion of polygon subsets by default
+* optional inclusion of polygon data
+* no accidental full-observation materialization by default
+* optional materialization behavior
+* restart/reuse behavior
+* changed source invalidating the appropriate derived state
+* dataset census counts
+* pooled regression correctness
+* per-flightline regression correctness
+* per-site regression correctness
+* balanced summary behavior
+* leave-one-site-out correctness
+* degenerate/insufficient-data handling
+* source provenance retained in all relevant outputs
+
+Use small synthetic Parquets for unit tests.
+
+Do not require production-sized fixtures.
+
+Phase 9: Documentation and CLI
+
+Update the public bulk documentation and CLI.
+
+The docs must clearly explain:
+
+* expected real input structure
+* arbitrary distributed-compute directory names
+* canonical flightline identification
+* sister runs vs true duplicates
+* read-only source behavior
+* fresh output directory
+* very large source-file expectations
+* virtual DuckDB default
+* optional materialization
+* memory/thread/scratch configuration
+* scientific observational hierarchy
+* pixel-pooled vs flightline/site-balanced analyses
+* synthetic-regression evidence boundary
+* leave-one-site-out interpretation
+* restart behavior
+* output directory contract
+
+Provide a realistic CLI example for a large VM, something like:
+
+spectralbridge-bulk /data/spectralbridge_completed_runs \ --output-dir /data/spectralbridge_bulk_analysis \ --threads <N> \ --memory-limit <XGB> \ --temp-directory /scratch/spectralbridge_bulk
+
+Do not hard-code machine-specific values.
+
+Phase 10: Deliverables and report back
+
+Before completing:
+
+* run focused bulk tests
+* run the relevant broader test suite
+* run Ruff if available
+* run compile checks
+* run documentation link/build checks
+* regenerate AI transparency artifacts according to repository policy
+* update FEATURE_REQUESTS.md
+* update PROMPT_LOG.md
+* preserve unrelated existing functionality
+* do not change normal full-flightline processing behavior
+* do not change drone-pipeline behavior
+
+At the end, report:
+
+1. files added/modified
+2. final bulk architecture
+3. canonical input/output contract
+4. how duplicate/sister runs are handled
+5. whether full observation materialization is still default or optional
+6. analyses implemented
+7. exact tests/checks run and results
+8. known limitations
+9. recommended next scientific analysis to add
+
+Important: this is infrastructure for real, very large scientific datasets. Prefer explicit, auditable, restart-safe behavior over clever abstraction. Do not silently guess when identity, provenance, or statistical grouping is ambiguous.
+````
+
+## 2026-09-03 - preserve main and drone pipelines
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+don't change the main pipeline or the drone pipeline,
+```
+
+## 2026-09-03 - continue production bulk implementation
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+continue
+```

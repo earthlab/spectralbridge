@@ -61,8 +61,8 @@
 
 <section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">Bulk analysis metadata</p>
-<h2>Cross-run coefficient and manifest JSON</h2>
-<p><code>synthetic_translation_coefficients.json</code> records the pooled equation direction, evidence boundary, input root, source and row counts, minimum-reflectance filter, weighting rule, and one slope/intercept record per available MicaSense/Landsat band pair. <code>bulk_manifest.json</code> records the source inventory signature and canonical output names used to decide whether an unchanged bulk run can be reused.</p>
+<h2>Cross-run catalog, analysis, and manifest schemas</h2>
+<p><code>catalog/flightlines.parquet</code> identifies the site/date/flightline hierarchy and records duplicate, rejection, schema, product, QA, brightness, and correction state. <code>coefficients/candidate_translation_coefficients.json</code> records equation direction, evidence boundary, minimum-reflectance filter, and pixel-pooled plus balanced slope/intercept records. <code>catalog/bulk_manifest.json</code> ties every result to the canonical source inventory and controls restart reuse.</p>
 <p class="sb-doc-note">Bulk regression JSON is an analysis output, not a packaged brightness table. The source catalog and manifest must remain with a coefficient set so its population and upstream processing state stay traceable.</p>
 </section>
 

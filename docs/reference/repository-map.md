@@ -21,7 +21,7 @@ When documentation and an old exploratory file disagree, use this order:
 | --- | --- | --- |
 | Complete NEON orchestration | `examples/run_neon_pipeline.py` | `src/spectralbridge/pipelines/pipeline.py` |
 | Drone orchestration | `examples/run_drone_pipeline.py` | `src/spectralbridge/pipelines/drone.py` |
-| Cross-run bulk analysis | The [bulk-analysis vignette](../vignettes/bulk-analysis.md) | `src/spectralbridge/pipelines/bulk.py` |
+| Cross-run bulk analysis | The [bulk-analysis vignette](../vignettes/bulk-analysis.md) | `src/spectralbridge/bulk/` and `src/spectralbridge/pipelines/bulk.py` |
 | Canonical filenames | `docs/naming-conventions.md` | `src/spectralbridge/paths.py` and `src/spectralbridge/utils/naming.py` |
 | Topographic/BRDF correction | `docs/brdf_topo_algorithm.md` | `src/spectralbridge/corrections.py` and `src/spectralbridge/brdf_topo.py` |
 | Sensor convolution | The harmonization vignette | `src/spectralbridge/standard_resample.py` and packaged band JSON |

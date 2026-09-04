@@ -13,8 +13,8 @@ from spectralbridge.pipelines.bulk import run_bulk_pipeline
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
-            "Recursively collect completed SpectralBridge merged Parquets and "
-            "calculate pooled synthetic MicaSense-to-Landsat regressions."
+            "Catalog completed SpectralBridge flightlines, expose a virtual "
+            "DuckDB population, and run hierarchical synthetic translation analyses."
         )
     )
     parser.add_argument(
@@ -25,10 +25,9 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=None,
+        required=True,
         help=(
-            "Dedicated bulk output directory (default: "
-            "INPUT_PATH/spectralbridge_bulk)."
+            "Fresh bulk output directory outside the read-only input tree."
         ),
     )
     parser.add_argument(
@@ -55,7 +54,18 @@ def _build_parser() -> argparse.ArgumentParser:
         "--row-group-size",
         type=int,
         default=50_000,
-        help="Rows per output Parquet row group (default: 50000).",
+        help=(
+            "Rows per optional materialized observation Parquet row group "
+            "(default: 50000)."
+        ),
+    )
+    parser.add_argument(
+        "--materialize-observations",
+        action="store_true",
+        help=(
+            "Write a portable super-Parquet. Disabled by default because it may "
+            "require multi-terabyte disk space."
+        ),
     )
     parser.add_argument(
         "--memory-limit",
@@ -79,6 +89,11 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Rebuild outputs even when the source inventory is unchanged.",
     )
+    parser.add_argument(
+        "--preflight-only",
+        action="store_true",
+        help="Write catalogs and the metadata-only dataset census, then stop.",
+    )
     return parser
 
 
@@ -90,10 +105,12 @@ def main(argv: Sequence[str] | None = None) -> None:
         input_kind=args.input_kind,
         minimum_reflectance=args.minimum_reflectance,
         require_translation_pairs=not args.allow_no_translation,
+        materialize_observations=args.materialize_observations,
         row_group_size=args.row_group_size,
         memory_limit=args.memory_limit,
         threads=args.threads,
         temp_directory=args.temp_directory,
+        preflight_only=args.preflight_only,
         force=args.force,
     )
     print(json.dumps(result, indent=2, sort_keys=True))

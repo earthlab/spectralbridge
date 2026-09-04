@@ -20,6 +20,72 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P69. Production Bulk Population-Analysis Architecture
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-09-03
+- Completed: 2026-09-03
+- Goal: Harden the independent bulk pipeline for read-only, production-scale
+  collections of completed flightlines; recover canonical scientific identity
+  from products rather than distributed-compute folder names; use virtual
+  DuckDB observations by default; and add population-aware translation and
+  leave-one-site-out analyses.
+- Scope:
+  - Keep the normal NEON and drone pipelines unchanged.
+  - Add a canonical flightline/source-file catalog with explicit duplicate and
+    rejection handling, source provenance, product availability, schemas, and
+    recoverable processing configuration.
+  - Isolate all bulk outputs in a fresh directory and make full observation
+    materialization opt-in.
+  - Refactor bulk logic into catalog, dataset, provenance, and modular analysis
+    modules.
+  - Implement dataset census, pixel/flightline/site and balanced synthetic
+    translation summaries, and leave-one-site-out validation.
+  - Expand bulk tests, CLI/API contracts, and production documentation.
+- Plan:
+  - Audit the current bulk framework, canonical NEON paths/names, merged-table
+    schemas, QA metadata, and existing validation analysis.
+  - Implement the catalog and virtual dataset contracts with deterministic
+    manifests and restart validation.
+  - Add the three analysis families as independently callable modules using
+    column-projected DuckDB queries.
+  - Add synthetic regression fixtures covering identity, sister runs,
+    duplicates, heterogeneous schemas, balancing, LOSO, and source immutability.
+  - Run focused and broader tests, compile/lint checks, strict docs validation,
+    and regenerate AI transparency artifacts.
+- Outcome:
+  - Added an independent `spectralbridge.bulk` package with catalog,
+    provenance, virtual-dataset, and modular analysis layers; neither the
+    normal NEON pipeline nor the drone pipeline was changed.
+  - Canonical identities now come from SpectralBridge product names, sister
+    runs remain independent, and true cross-directory duplicate identities
+    are cataloged and excluded explicitly.
+  - The default DuckDB observation relation reads accepted Parquet products
+    in place, while `materialize_observations=True` creates an optional
+    consolidated Parquet artifact in the new output tree.
+  - Added metadata-only dataset census, pooled/per-flightline/per-site and
+    balanced synthetic translation analyses, candidate coefficient exports,
+    and leave-one-site-out validation with explicit insufficient-data states.
+  - Expanded the CLI, API documentation, production vignette, schemas,
+    naming/output contracts, notebook, and regression coverage.
+- Verification:
+  - `.venv/bin/pytest -q` (passed; 6 skipped, existing warnings only)
+  - `.venv/bin/pytest -q tests/test_bulk_pipeline.py` (14 passed)
+  - `.venv/bin/python -m compileall -q src/spectralbridge` (passed)
+  - `.venv/bin/python scripts/check_docs_links.py` (passed)
+  - `.venv/bin/mkdocs build --strict --site-dir /tmp/spectralbridge-production-bulk-site`
+    (passed; existing MkDocs navigation/version notices only)
+  - `.venv/bin/python scripts/generate_ai_transparency.py --check` (passed)
+  - `git diff --check` (passed)
+- Blockers: Ruff is not installed in the repository virtual environment or on
+  `PATH`, so the requested Ruff check could not be run.
+- Next recommended task: Add the first correction-effectiveness population
+  analysis, comparing raw, topographically corrected, and BRDF-corrected
+  products by site and flightline using the cataloged stage/configuration
+  provenance.
+
 ### P68. Across-Track Half-Flight Processing
 
 - Priority: User-directed

@@ -34,17 +34,19 @@ This page describes how SpectralBridge is organized internally. Understanding th
   - `hyperspectral_bands.json`: reference metadata for hyperspectral inputs
 - `spectralbridge/qa_plots.py` and `spectralbridge/sensor_panel_plots.py`: QA visualization utilities
 - `spectralbridge/standard_resample.py`: spectral resampling and coefficients
-- `spectralbridge/pipelines/bulk.py`: independent recursive cross-run
-  aggregation and pooled synthetic-sensor regression
+- `spectralbridge/pipelines/bulk.py`: independent bulk orchestration
+- `spectralbridge/bulk/`: canonical catalog, virtual DuckDB dataset,
+  provenance, and modular population analyses
 
 ### Independent bulk analysis
 
 `run_bulk_pipeline` is downstream of completed per-flightline workflows rather
-than another stage inside them. It recursively discovers canonical merged
-Parquets, writes a provenance-preserving union-by-name super Parquet, and
-creates a DuckDB catalog with pooled MicaSense-to-Landsat regressions. It does
-not call or mutate the NEON and drone orchestrators. Its manifest validates the
-source inventory and reuses current outputs on rerun.
+than another stage inside them. It recovers canonical flightline identity from
+products rather than distributed-compute folders, excludes unresolved
+duplicates, and creates a DuckDB union-by-name view over the original Parquets.
+Physical observation materialization is opt-in. Dataset census, hierarchical
+translation, and leave-one-site-out logic live in independent analysis modules.
+The workflow never calls or mutates the NEON and drone orchestrators.
 
 ---
 

@@ -76,16 +76,19 @@ double-underscore separator for drone products:
 Bulk analysis is a separate post-processing workflow. Its output directory uses
 fixed collection-level names rather than NEON or drone flight stems:
 
-| Filename | Meaning |
+| Path | Meaning |
 | --- | --- |
-| `bulk_observations.parquet` | Portable cross-run super Parquet |
-| `bulk_analysis.duckdb` | Queryable source, observation, and coefficient catalog |
-| `bulk_sources.parquet` | Recursive source inventory |
-| `synthetic_translation_coefficients.parquet/.json` | Pooled MicaSense-to-Landsat regressions |
-| `bulk_manifest.json` | Restart and provenance manifest |
+| `catalog/flightlines.parquet` | Canonical scientific flightline catalog |
+| `catalog/source_files.parquet` | Recursive product inventory and source provenance |
+| `catalog/duplicates.parquet` | Duplicate canonical-ID candidates excluded from analysis |
+| `catalog/rejected_sources.parquet` | Invalid, ambiguous, or excluded flightline records |
+| `catalog/bulk_manifest.json` | Restart, settings, and provenance manifest |
+| `database/spectralbridge_bulk.duckdb` | Virtual observation views, catalogs, and analysis tables |
+| `database/bulk_observations.parquet` | Optional portable super-Parquet; never created by default |
+| `coefficients/candidate_translation_coefficients.parquet/.json` | Pixel-pooled and balanced synthetic translation candidates |
 
-These names must not be used inside individual flightline or drone product
-contracts.
+Analysis-specific tables live below `analyses/`. These names must not be used
+inside individual flightline or drone product contracts.
 
 ## Common violations and fixes
 

@@ -1,151 +1,290 @@
-# Build a bulk cross-run analysis
+# Build a production bulk population analysis
 
-Use the bulk pipeline after individual SpectralBridge runs have finished. It is
-an independent analysis workflow: it does not download data, rerun corrections,
-convolve sensors, alter flightline folders, or invoke the drone pipeline.
+Use the bulk pipeline after individual SpectralBridge flightlines have finished.
+It is a separate analysis workflow: it does not download data, rerun
+corrections, convolve sensors, invoke the drone pipeline, or alter any source
+flightline folder.
 
-## 1. Point it at the processed-data tree
+## 1. Real input model
 
-The input may be one canonical merged Parquet file or a directory containing
-many processed sites, dates, and flightlines. Directory inputs are searched
-recursively.
+The input is a read-only staging tree containing completed flightline output
+folders copied from distributed workers. Outer folders may carry machine,
+worker, job, or collision-avoidance names. Those names are computational
+provenance only.
 
-```bash
-spectralbridge-bulk ~/processed_spectralbridge \
-  --output-dir ~/spectralbridge_bulk_results \
-  --threads 4 \
-  --memory-limit 8GB
-```
+The bulk pipeline recovers scientific identity from each canonical merged
+product filename:
 
-The default `--input-kind full` discovers readable files matching:
+~~~text
+<canonical-flightline-id>_merged_pixel_extraction.parquet
+<canonical-flightline-id>_polygons_merged_pixel_extraction.parquet
+~~~
 
-```text
-*_merged_pixel_extraction.parquet
-```
+The scientific hierarchy is:
 
-It deliberately excludes `*_polygons_merged_pixel_extraction.parquet`. This
-prevents polygon subsets from being counted a second time when both the full
-and polygon products exist for a flightline.
+~~~text
+site
+└── acquisition date
+    └── canonical flightline
+        └── pixel observations
+~~~
 
-Choose polygon data explicitly when that is the intended population:
+Two flightlines copied from the same machine remain separate flightlines.
+They are never paired, averaged, or grouped because of their storage location.
 
-```bash
-spectralbridge-bulk ~/processed_spectralbridge \
-  --input-kind polygon \
-  --output-dir ~/spectralbridge_polygon_bulk
-```
+If the same canonical flightline ID occurs in different source directories,
+every candidate is recorded in the duplicate catalog and excluded from
+population analysis. The pipeline does not choose a winner or silently
+double-count it.
 
-`--input-kind both` is available, but use it only when combining the full and
-polygon populations is scientifically intentional. The pipeline does not
-deduplicate observations across those products.
+## 2. Run a fast preflight first
 
-## 2. What the pipeline builds
+Choose a completely fresh output directory outside the source tree. A realistic
+large-VM invocation is:
 
-The output directory has its own restart-safe file contract:
+~~~bash
+spectralbridge-bulk /data/spectralbridge_completed_runs \
+  --output-dir /data/spectralbridge_bulk_analysis \
+  --threads <N> \
+  --memory-limit <XGB> \
+  --temp-directory /scratch/spectralbridge_bulk \
+  --preflight-only
+~~~
 
-| Artifact | Purpose |
-| --- | --- |
-| `bulk_observations.parquet` | Portable union-by-name “super Parquet” containing every accepted source row and source-provenance columns. |
-| `bulk_analysis.duckdb` | Queryable catalog with a `bulk_observations` view plus materialized source and coefficient tables. |
-| `bulk_sources.parquet` | Inventory of accepted and rejected candidates, row counts, schema fingerprints, and source paths. |
-| `synthetic_translation_coefficients.parquet` | Analysis-ready pooled regression table. |
-| `synthetic_translation_coefficients.json` | Machine-readable coefficient sidecar with interpretation and provenance. |
-| `bulk_manifest.json` | Input inventory, settings, counts, and output names used for restart checks. |
+Replace the bracketed resource values with limits appropriate for the VM.
+DuckDB may spill intermediate work to the supplied scratch directory. The
+source staging tree and scratch/output directories must be separate.
 
-The DuckDB database does not duplicate the large observation table. Its
-`bulk_observations` view reads the super Parquet directly, while the smaller
-catalog and coefficient tables live in the database.
+Preflight uses filenames, file metadata, schemas, JSON metadata, and Parquet
+footers. It does not scan the complete observation population. Review:
 
-## 3. How the pooled regressions are calculated
+- <code>catalog/flightlines.parquet</code>
+- <code>catalog/source_files.parquet</code>
+- <code>catalog/duplicates.parquet</code>
+- <code>catalog/rejected_sources.parquet</code>
+- <code>analyses/dataset_census/dataset_census.md</code>
 
-For every wavelength-matched synthetic MicaSense/Landsat band pair found in the
-merged tables, the bulk pipeline fits all valid rows together:
+The catalog records canonical identity, site/date, full and polygon products,
+QA and metadata availability, sensors, represented stages, rows, bytes, schema
+fingerprints, recoverable brightness and BRDF/topographic state, validity,
+duplicates, and original paths.
 
-```text
+Ambiguous identity is rejected rather than guessed from a surrounding folder.
+Unreadable Parquet candidates also remain visible with their rejection reason.
+
+## 3. Run the analyses
+
+After reviewing preflight, rerun without <code>--preflight-only</code>:
+
+~~~bash
+spectralbridge-bulk /data/spectralbridge_completed_runs \
+  --output-dir /data/spectralbridge_bulk_analysis \
+  --threads <N> \
+  --memory-limit <XGB> \
+  --temp-directory /scratch/spectralbridge_bulk
+~~~
+
+The default <code>--input-kind full</code> uses only full-flightline merged
+tables. Polygon companions are cataloged but excluded from observations.
+
+Use <code>--input-kind polygon</code> to analyze polygon tables or
+<code>--input-kind both</code> only when combining full pixels and their
+polygon subsets is scientifically intentional. The latter can count the
+polygon pixels again by design.
+
+## 4. Virtual observations are the default
+
+The DuckDB database exposes:
+
+- <code>flightlines</code>: canonical scientific units and processing state
+- <code>source_files</code> and <code>bulk_sources</code>: product-level provenance
+- <code>duplicates</code>: all excluded duplicate candidates
+- <code>rejected_sources</code>: invalid, ambiguous, and duplicate flightlines
+- <code>bulk_observations_virtual</code>: union-by-name over accepted originals
+- <code>bulk_observations</code>: the analysis-facing observation view
+- analysis result tables documented below
+
+By default, <code>bulk_observations</code> reads the original accepted Parquets
+virtually. DuckDB projection and predicate pushdown allow an analysis to read
+only its required columns. No complete super-Parquet is created.
+
+Every virtual observation receives explicit provenance columns:
+
+~~~text
+bulk_source_path
+bulk_source_relative_path
+bulk_source_kind
+bulk_source_id
+bulk_flightline_id
+bulk_site
+bulk_acquisition_date
+~~~
+
+Create a portable physical union only when it is really needed:
+
+~~~bash
+spectralbridge-bulk /data/spectralbridge_completed_runs \
+  --output-dir /data/spectralbridge_bulk_portable \
+  --materialize-observations \
+  --threads <N> \
+  --memory-limit <XGB> \
+  --temp-directory /scratch/spectralbridge_bulk
+~~~
+
+This writes <code>database/bulk_observations.parquet</code>. For production
+collections it may require multi-terabyte disk space.
+
+## 5. Clean output contract
+
+~~~text
+bulk_output/
+├── catalog/
+│   ├── flightlines.parquet
+│   ├── source_files.parquet
+│   ├── duplicates.parquet
+│   ├── rejected_sources.parquet
+│   └── bulk_manifest.json
+├── database/
+│   ├── spectralbridge_bulk.duckdb
+│   └── bulk_observations.parquet       # optional only
+├── analyses/
+│   ├── dataset_census/
+│   ├── sensor_translation/
+│   └── leave_one_site_out/
+├── coefficients/
+│   ├── candidate_translation_coefficients.parquet
+│   └── candidate_translation_coefficients.json
+├── tables/
+├── figures/
+├── reports/
+└── logs/
+~~~
+
+The output directory must be empty on its first run. Existing non-bulk files
+are never overwritten. Subsequent runs may reuse or update a directory carrying
+its recognized bulk manifest.
+
+## 6. Dataset census
+
+The census reports candidate source directories, accepted and unique canonical
+flightlines, duplicate candidates, rejected records, source and accepted bytes,
+Parquet-footer row counts, sites, dates/years, sensors, schemas,
+translation-eligible flightlines, and major product inconsistencies.
+
+It writes JSON, Parquet breakdowns, and a concise Markdown report under
+<code>analyses/dataset_census/</code>. Matching tables are stored in DuckDB.
+
+## 7. Synthetic cross-sensor translation
+
+For each available wavelength-matched pair the pipeline fits:
+
+~~~text
 Landsat reflectance = slope × MicaSense reflectance + intercept
-```
+~~~
 
-The calculation excludes null, non-finite, negative, and explicitly
-error-flagged values. It records slope, intercept, correlation, R², bias, RMSE,
-MAE, valid-row count, contributing-source count, and value ranges.
+Both axes are synthetic products derived from the same corrected NEON
+hyperspectral source. These results describe synthetic sensor translation.
+They are not empirical calibration between independently observed instruments.
 
-The default weighting is by valid row. A flightline with more valid pixels
-therefore contributes more observations than a smaller flightline. This is a
-pooled synthetic-sensor diagnostic, not held-out empirical calibration.
+Each result includes slope, intercept, correlation, R², bias, RMSE, MAE, value
+ranges, valid pixels, contributing sources, flightlines, and sites.
+
+Separate tables are written for:
+
+| Table | Statistical meaning |
+| --- | --- |
+| <code>pixel_pooled.parquet</code> | Every valid pixel has equal weight; large flightlines contribute more. |
+| <code>per_flightline.parquet</code> | One regression for every independently processed canonical flightline. |
+| <code>per_site.parquet</code> | One pixel-pooled regression within each site. |
+| <code>flightline_balanced.parquet</code> | Every flightline has equal total weight, regardless of pixel count. |
+| <code>site_balanced.parquet</code> | Every site has equal total weight, regardless of pixels or flightlines. |
+
+The coefficient directory contains the pooled and balanced summaries as
+candidate coefficients. They remain explicitly unapproved for empirical field
+calibration.
+
+Pixels are nested observations, flightlines are independent processing and
+sampling units, and sites are the highest replication level currently modeled.
+Billions of pixels are not interpreted as billions of independent landscapes.
 
 ### Translation is not brightness adjustment
 
-The bulk pipeline uses values already persisted by each upstream run. If a
-normal pipeline run applied the separate Landsat brightness adjustment, the
-pooled regression sees those adjusted Landsat values; it does not apply,
-remove, or estimate that adjustment itself.
+The bulk analysis consumes values persisted by upstream processing. It does not
+fit, apply, remove, or replace the separate percentage brightness adjustment.
+Recoverable brightness configuration is cataloged so collections with
+inconsistent upstream state can be identified.
 
-Brightness coefficients are percentage gains. Bulk translation coefficients
-are slopes and intercepts relating wavelength-matched synthetic MicaSense and
-Landsat values. Keep those artifacts and their provenance separate.
+## 8. Leave-one-site-out validation
 
-## 4. Query the result
+For every compatible band pair and held-out site, the pipeline:
 
-```python
+1. fits the linear relationship using pixels from all other sites;
+2. applies it to the held-out site's pixels;
+3. reports held-out RMSE, MAE, bias, predictive R², correlation, observed versus
+   predicted slope/intercept, sample count, and held-out flightline count.
+
+The output is
+<code>analyses/leave_one_site_out/leave_one_site_out.parquet</code>, with an
+interpretation/provenance JSON beside it. Degenerate fits and collections with
+too few sites receive explicit status values rather than fabricated metrics.
+
+## 9. Query the database
+
+~~~python
 import duckdb
 
-with duckdb.connect("/home/me/spectralbridge_bulk_results/bulk_analysis.duckdb") as con:
-    coefficients = con.execute(
+database = "/data/spectralbridge_bulk_analysis/database/spectralbridge_bulk.duckdb"
+with duckdb.connect(database, read_only=True) as con:
+    census = con.execute("SELECT * FROM dataset_census_summary").df()
+    balanced = con.execute(
         """
-        SELECT landsat_sensor, band_index, slope, intercept, r2, sample_count
-        FROM synthetic_translation_coefficients
+        SELECT landsat_sensor, band_index, slope, intercept, r2,
+               flightline_count, site_count
+        FROM translation_site_balanced
         ORDER BY landsat_sensor, band_index
         """
     ).df()
-
-    sources = con.execute(
+    held_out = con.execute(
         """
-        SELECT relative_path, status, row_count, translation_eligible
-        FROM bulk_sources
-        ORDER BY relative_path
+        SELECT held_out_site, landsat_sensor, band_index,
+               held_out_rmse, held_out_bias, status
+        FROM translation_leave_one_site_out
+        ORDER BY held_out_site, landsat_sensor, band_index
         """
     ).df()
-```
+~~~
 
-The same workflow is available from Python:
+The Python API provides the same options:
 
-```python
+~~~python
 from spectralbridge import run_bulk_pipeline
 
 result = run_bulk_pipeline(
-    "~/processed_spectralbridge",
-    "~/spectralbridge_bulk_results",
+    "/data/spectralbridge_completed_runs",
+    "/data/spectralbridge_bulk_analysis",
     input_kind="full",
-    threads=4,
-    memory_limit="8GB",
+    threads=16,
+    memory_limit="128GB",
+    temp_directory="/scratch/spectralbridge_bulk",
 )
+~~~
 
-print(result["coefficients_json"])
-print(result["database"])
-```
+The resource values above are examples, not hard-coded defaults.
 
-## 5. Restart and update behavior
+## 10. Restart and provenance behavior
 
-The pipeline records each candidate's relative path, file size, modification
-time, row count, and schema fingerprint. If the inventory and analysis settings
-are unchanged and all outputs validate, a rerun returns `status="reused"`
-without rewriting the collection. Adding, removing, or changing a source causes
-the bulk artifacts to be rebuilt. Pass `--force` for an intentional rebuild.
+The manifest fingerprints the canonical catalog, Parquet size/mtime/schema/row
+metadata, selection mode, scientific filters, and materialization choice.
+An unchanged complete run returns <code>status="reused"</code>. Adding,
+removing, replacing, or rewriting a source Parquet invalidates the derived run
+state. Pass <code>--force</code> for an intentional rebuild.
 
-Unreadable canonical candidates appear as rejected rows in `bulk_sources` when
-other valid inputs remain. A run fails clearly when no readable master tables
-are found or, by default, when the collection lacks paired synthetic
-MicaSense/Landsat columns. Use `--allow-no-translation` only when an
-aggregation-only super Parquet is intentional.
+Each analysis table carries a deterministic analysis-run ID tying it to the
+manifest and source catalogs. Resource controls are recorded for execution
+provenance but do not change scientific weighting.
 
-## 6. Relationship to the other pipelines
-
-- The main NEON pipeline creates the corrected, convolved, and merged
-  per-flightline inputs.
-- The drone pipeline remains a separate local imagery workflow.
-- The bulk pipeline reads completed merged tables across many runs and produces
-  population-level analysis artifacts.
-
-This separation lets a reviewed bulk coefficient set later become an explicit
-input to drone-to-Landsat translation without making coefficient fitting part
-of every individual processing run.
+The initial modules deliberately stop at census, hierarchical linear
+translation, and leave-one-site-out validation. Correction-effectiveness,
+residual-space, nonlinear, variance-partitioning, learning-curve, population
+QA, morphospace, and uncertainty analyses can be added as separate modules
+without changing the source catalog or observation-view contracts.

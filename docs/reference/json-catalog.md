@@ -58,8 +58,9 @@ flightline or run.
 | `*_qa.json` | Machine-readable diagnostic summary paired with the QA PNG | Users, tests, publication/validation review |
 | `drone_qa_summary.json` | Batch-level drone provenance, status counts, paths, and failure details | Drone users and QA review |
 | `qa_plots/*__MS_vs_Landsat_FIXED.json` | Per-flightline sampled synthetic MicaSense/Landsat regression diagnostic | QA inspection only; not a pooled coefficient source |
-| `synthetic_translation_coefficients.json` | Exact pooled regression records written by the independent bulk pipeline | Bulk analysis and reviewed downstream translation work |
-| `bulk_manifest.json` | Bulk source inventory signature, settings, counts, and output names | Restart validation for `run_bulk_pipeline` |
+| `coefficients/candidate_translation_coefficients.json` | Pixel-pooled and balanced synthetic regression candidates plus their evidence boundary | Bulk analysis and reviewed downstream translation work |
+| `analyses/*/analysis_metadata.json` | Analysis settings, interpretation, run ID, and machine-readable results where appropriate | Independent bulk analysis modules |
+| `catalog/bulk_manifest.json` | Canonical catalog signature, source policy, settings, counts, and output names | Restart validation for `run_bulk_pipeline` |
 
 Run-specific JSON is evidence. Keep it next to the artifacts it describes and
 do not reuse it for a different flightline merely because the filename looks
