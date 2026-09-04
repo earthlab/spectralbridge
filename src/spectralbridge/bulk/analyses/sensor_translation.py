@@ -318,7 +318,7 @@ def run_sensor_translation(
             for table_name, path in reusable_tables:
                 con.execute(
                     f"CREATE OR REPLACE TABLE {table_name} AS "
-                    f"SELECT * FROM read_parquet('{path.as_posix().replace("'", "''")}')"
+                    f"SELECT * FROM read_parquet({sql_literal(path.as_posix())})"
                 )
             return {
                 "status": "reused",

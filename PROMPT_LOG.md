@@ -8189,3 +8189,44 @@ Model: GPT-5
 ```text
 continue
 ```
+
+## 2026-09-03 - fix Python 3.10 Ruff syntax failures
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+Run ruff check src tests scripts/generate\_ai\_transparency.py \&#x20;
+invalid-syntax: Cannot reuse outer quote character in f-strings on Python 3.10 (syntax was added in Python 3.12)\&#x20;
+\&#x20;  \--> src/spectralbridge/bulk/analyses/dataset\_census.py:99:76\&#x20;
+\&#x20;   \|\&#x20;
+\&#x20;97 |                 con.execute(\&#x20;
+\&#x20;98 |                     f"CREATE OR REPLACE TABLE {table} AS "\&#x20;
+\&#x20;99 |                     f"SELECT \* FROM read\_parquet('{path.as\_posix().replace("'", "''")}')"\&#x20;
+\&#x20;   \|                                                                            ^\&#x20;
+100 |                 )\&#x20;
+101 |             summary = {\&#x20;
+\&#x20;   \|\&#x20;
+invalid-syntax: Cannot reuse outer quote character in f-strings on Python 3.10 (syntax was added in Python 3.12)\&#x20;
+\&#x20;  \--> src/spectralbridge/bulk/analyses/leave\_one\_site\_out.py:207:82\&#x20;
+\&#x20;   \|\&#x20;
+205 |             con.execute(\&#x20;
+206 |                 "CREATE OR REPLACE TABLE translation\_leave\_one\_site\_out AS "\&#x20;
+207 |                 f"SELECT \* FROM read\_parquet('{output.results.as\_posix().replace("'", "''")}')"\&#x20;
+\&#x20;   \|                                                                                  ^\&#x20;
+208 |             )\&#x20;
+209 |             return {\&#x20;
+\&#x20;   \|\&#x20;
+invalid-syntax: Cannot reuse outer quote character in f-strings on Python 3.10 (syntax was added in Python 3.12)\&#x20;
+\&#x20;  \--> src/spectralbridge/bulk/analyses/sensor\_translation.py:321:76\&#x20;
+\&#x20;   \|\&#x20;
+319 |                 con.execute(\&#x20;
+320 |                     f"CREATE OR REPLACE TABLE {table\_name} AS "\&#x20;
+321 |                     f"SELECT \* FROM read\_parquet('{path.as\_posix().replace("'", "''")}')"\&#x20;
+\&#x20;   \|                                                                            ^\&#x20;
+322 |                 )\&#x20;
+323 |             return {\&#x20;
+\&#x20;   \|\&#x20;
+Found 3 errors.\&#x20;
+Error: Process completed with exit code 1.
+```

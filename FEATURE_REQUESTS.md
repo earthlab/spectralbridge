@@ -68,12 +68,17 @@ left incomplete so the next agent can resume immediately.
   - Added metadata-only dataset census, pooled/per-flightline/per-site and
     balanced synthetic translation analyses, candidate coefficient exports,
     and leave-one-site-out validation with explicit insufficient-data states.
+  - Corrected the three reusable-analysis Parquet registration expressions so
+    they parse under the supported Python 3.10 grammar while preserving SQL
+    path escaping.
   - Expanded the CLI, API documentation, production vignette, schemas,
     naming/output contracts, notebook, and regression coverage.
 - Verification:
   - `.venv/bin/pytest -q` (passed; 6 skipped, existing warnings only)
   - `.venv/bin/pytest -q tests/test_bulk_pipeline.py` (14 passed)
   - `.venv/bin/python -m compileall -q src/spectralbridge` (passed)
+  - Python 3.10 grammar parse of all Python files under `src`, `tests`, plus
+    `scripts/generate_ai_transparency.py` (140 files passed)
   - `.venv/bin/python scripts/check_docs_links.py` (passed)
   - `.venv/bin/mkdocs build --strict --site-dir /tmp/spectralbridge-production-bulk-site`
     (passed; existing MkDocs navigation/version notices only)

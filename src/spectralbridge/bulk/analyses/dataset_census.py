@@ -13,6 +13,7 @@ import pyarrow.parquet as pq
 from ..dataset import copy_table_atomic
 from ..models import BulkAnalysisPaths
 from ..provenance import write_json_atomic, write_text_atomic
+from .common import sql_literal
 
 
 REQUIRED_INPUT_TABLES = ("flightlines", "source_files")
@@ -96,7 +97,7 @@ def run_dataset_census(
             for table, path in table_outputs:
                 con.execute(
                     f"CREATE OR REPLACE TABLE {table} AS "
-                    f"SELECT * FROM read_parquet('{path.as_posix().replace("'", "''")}')"
+                    f"SELECT * FROM read_parquet({sql_literal(path.as_posix())})"
                 )
             summary = {
                 key: value

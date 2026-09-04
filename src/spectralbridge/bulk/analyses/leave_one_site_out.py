@@ -204,7 +204,7 @@ def run_leave_one_site_out(
             pq.read_schema(output.results)
             con.execute(
                 "CREATE OR REPLACE TABLE translation_leave_one_site_out AS "
-                f"SELECT * FROM read_parquet('{output.results.as_posix().replace("'", "''")}')"
+                f"SELECT * FROM read_parquet({sql_literal(output.results.as_posix())})"
             )
             return {
                 "status": "reused",
