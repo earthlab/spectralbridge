@@ -2890,35 +2890,47 @@ fixed collection-level names rather than NEON or drone flight stems:</p>
 <table>
 <thead>
 <tr>
-<th>Filename</th>
+<th>Path</th>
 <th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>bulk_observations.parquet</code></td>
-<td>Portable cross-run super Parquet</td>
+<td><code>catalog/flightlines.parquet</code></td>
+<td>Canonical scientific flightline catalog</td>
 </tr>
 <tr>
-<td><code>bulk_analysis.duckdb</code></td>
-<td>Queryable source, observation, and coefficient catalog</td>
+<td><code>catalog/source_files.parquet</code></td>
+<td>Recursive product inventory and source provenance</td>
 </tr>
 <tr>
-<td><code>bulk_sources.parquet</code></td>
-<td>Recursive source inventory</td>
+<td><code>catalog/duplicates.parquet</code></td>
+<td>Duplicate canonical-ID candidates excluded from analysis</td>
 </tr>
 <tr>
-<td><code>synthetic_translation_coefficients.parquet/.json</code></td>
-<td>Pooled MicaSense-to-Landsat regressions</td>
+<td><code>catalog/rejected_sources.parquet</code></td>
+<td>Invalid, ambiguous, or excluded flightline records</td>
 </tr>
 <tr>
-<td><code>bulk_manifest.json</code></td>
-<td>Restart and provenance manifest</td>
+<td><code>catalog/bulk_manifest.json</code></td>
+<td>Restart, settings, and provenance manifest</td>
+</tr>
+<tr>
+<td><code>database/spectralbridge_bulk.duckdb</code></td>
+<td>Virtual observation views, catalogs, and analysis tables</td>
+</tr>
+<tr>
+<td><code>database/bulk_observations.parquet</code></td>
+<td>Optional portable super-Parquet; never created by default</td>
+</tr>
+<tr>
+<td><code>coefficients/candidate_translation_coefficients.parquet/.json</code></td>
+<td>Pixel-pooled and balanced synthetic translation candidates</td>
 </tr>
 </tbody>
 </table>
-<p>These names must not be used inside individual flightline or drone product
-contracts.</p>
+<p>Analysis-specific tables live below <code>analyses/</code>. These names must not be used
+inside individual flightline or drone product contracts.</p>
 <h2 id="common-violations-and-fixes">Common violations and fixes<a class="headerlink" href="#common-violations-and-fixes" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

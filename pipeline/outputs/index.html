@@ -2773,39 +2773,64 @@
 <thead>
 <tr>
 <th>Output type</th>
-<th>Canonical filename</th>
+<th>Canonical path</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Bulk observations</td>
-<td><code>bulk_observations.parquet</code></td>
-<td>Union-by-name super Parquet with a source ID, absolute source path, relative source path, and input kind on every row.</td>
-</tr>
-<tr>
-<td>Bulk database</td>
-<td><code>bulk_analysis.duckdb</code></td>
-<td>Source and coefficient tables plus a view over <code>bulk_observations.parquet</code>.</td>
+<td>Flightline catalog</td>
+<td><code>catalog/flightlines.parquet</code></td>
+<td>Product-derived canonical identity, site/date, processing state, schemas, and duplicate/rejection status.</td>
 </tr>
 <tr>
 <td>Source catalog</td>
-<td><code>bulk_sources.parquet</code></td>
-<td>Accepted/rejected candidates, schema fingerprints, source sizes, and row counts.</td>
+<td><code>catalog/source_files.parquet</code></td>
+<td>Every discovered full/polygon merged product and its original path, footer metadata, and selection status.</td>
 </tr>
 <tr>
-<td>Pooled coefficients</td>
-<td><code>synthetic_translation_coefficients.(parquet|json)</code></td>
-<td>Exact pooled MicaSense-X/Landsat-Y slopes, intercepts, fit summaries, and provenance.</td>
+<td>Duplicate/rejection catalogs</td>
+<td><code>catalog/duplicates.parquet</code>, <code>catalog/rejected_sources.parquet</code></td>
+<td>Explicit exclusions; duplicate canonical IDs are never silently double-counted.</td>
+</tr>
+<tr>
+<td>Bulk database</td>
+<td><code>database/spectralbridge_bulk.duckdb</code></td>
+<td>Catalogs, virtual union-by-name observations, and modular analysis tables.</td>
+</tr>
+<tr>
+<td>Bulk observations</td>
+<td><code>database/bulk_observations.parquet</code></td>
+<td>Optional portable materialization created only with <code>materialize_observations=True</code>.</td>
+</tr>
+<tr>
+<td>Dataset census</td>
+<td><code>analyses/dataset_census/</code></td>
+<td>Metadata-only preflight JSON, report, and Parquet breakdowns.</td>
+</tr>
+<tr>
+<td>Translation analyses</td>
+<td><code>analyses/sensor_translation/</code></td>
+<td>Pixel-pooled, per-flightline, per-site, flightline-balanced, and site-balanced regressions.</td>
+</tr>
+<tr>
+<td>Leave-one-site-out</td>
+<td><code>analyses/leave_one_site_out/</code></td>
+<td>Held-out-site generalization metrics.</td>
+</tr>
+<tr>
+<td>Candidate coefficients</td>
+<td><code>coefficients/candidate_translation_coefficients.(parquet|json)</code></td>
+<td>Pooled and balanced synthetic MicaSense-X/Landsat-Y summaries with provenance.</td>
 </tr>
 <tr>
 <td>Bulk manifest</td>
-<td><code>bulk_manifest.json</code></td>
-<td>Restart signature, settings, source/output counts, and artifact names.</td>
+<td><code>catalog/bulk_manifest.json</code></td>
+<td>Restart signature, execution settings, counts, and artifact names.</td>
 </tr>
 </tbody>
 </table>
-<p class="sb-doc-note">These pooled slopes and intercepts are distinct from percentage brightness-adjustment coefficients. They use persisted upstream values as-is and remain synthetic same-source diagnostics unless paired observed measurements are supplied by a future calibration workflow.</p>
+<p class="sb-doc-note">The complete observation population remains virtual by default. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>
 </section>
 <section class="sb-doc-section">
 <p class="sb-kicker">Canonical outputs</p>

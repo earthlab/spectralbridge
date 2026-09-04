@@ -2905,13 +2905,18 @@ flightline or run.</p>
 <td>QA inspection only; not a pooled coefficient source</td>
 </tr>
 <tr>
-<td><code>synthetic_translation_coefficients.json</code></td>
-<td>Exact pooled regression records written by the independent bulk pipeline</td>
+<td><code>coefficients/candidate_translation_coefficients.json</code></td>
+<td>Pixel-pooled and balanced synthetic regression candidates plus their evidence boundary</td>
 <td>Bulk analysis and reviewed downstream translation work</td>
 </tr>
 <tr>
-<td><code>bulk_manifest.json</code></td>
-<td>Bulk source inventory signature, settings, counts, and output names</td>
+<td><code>analyses/*/analysis_metadata.json</code></td>
+<td>Analysis settings, interpretation, run ID, and machine-readable results where appropriate</td>
+<td>Independent bulk analysis modules</td>
+</tr>
+<tr>
+<td><code>catalog/bulk_manifest.json</code></td>
+<td>Canonical catalog signature, source policy, settings, counts, and output names</td>
 <td>Restart validation for <code>run_bulk_pipeline</code></td>
 </tr>
 </tbody>

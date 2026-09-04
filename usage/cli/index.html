@@ -2829,20 +2829,21 @@
   </article>
 <article class="sb-doc-card">
     <h3><code>spectralbridge-bulk</code></h3>
-    <p>Recursively aggregate completed flightline masters and fit pooled synthetic MicaSense-to-Landsat regressions.</p>
+    <p>Catalog completed flightlines, query them virtually, and run population-aware synthetic translation analyses.</p>
   </article>
 </div>
 </section>
 <section class="sb-doc-section">
 <h2 id="spectralbridge-bulk"><code>spectralbridge-bulk</code><a class="headerlink" href="#spectralbridge-bulk" title="Permanent link">&para;</a></h2>
 <p>Runs the independent cross-run analysis workflow against one merged Parquet or a recursively searched directory tree.</p>
-<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>~/processed_spectralbridge<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--output-dir<span class="w"> </span>~/spectralbridge_bulk_results<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/data/spectralbridge_completed_runs<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>/data/spectralbridge_bulk_analysis<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--input-kind<span class="w"> </span>full<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--threads<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--memory-limit<span class="w"> </span>8GB
+<span class="w">  </span>--threads<span class="w"> </span><span class="p">&amp;</span>lt<span class="p">;</span>N<span class="p">&amp;</span>gt<span class="p">;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--memory-limit<span class="w"> </span><span class="p">&amp;</span>lt<span class="p">;</span>XGB<span class="p">&amp;</span>gt<span class="p">;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--temp-directory<span class="w"> </span>/scratch/spectralbridge_bulk
 </code></pre></div>
-<p>The default full-pixel mode prevents polygon subsets from being double-counted. Outputs include a portable super Parquet, a DuckDB catalog, a source inventory, pooled coefficient JSON/Parquet, and a restart manifest. See <a href="../vignettes/bulk-analysis/">Build a bulk cross-run analysis</a>.</p>
+<p>The source tree is read only, the output directory must be fresh and external, and default full-pixel mode prevents polygon subsets from being double-counted. The complete observation population stays virtual unless <code>--materialize-observations</code> is explicitly passed. Use <code>--preflight-only</code> to inspect catalogs and the dataset census before expensive analyses. See <a href="../vignettes/bulk-analysis/">Build a bulk cross-run analysis</a>.</p>
 </section>
 <section class="sb-doc-section">
 <h2 id="spectralbridge-download"><code>spectralbridge-download</code><a class="headerlink" href="#spectralbridge-download" title="Permanent link">&para;</a></h2>

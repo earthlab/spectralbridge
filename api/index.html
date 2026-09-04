@@ -2895,7 +2895,7 @@
   </article>
 <article class="sb-doc-card">
     <h3>Cross-run analysis</h3>
-    <p><code>run_bulk_pipeline</code> recursively aggregates completed run tables and calculates pooled sensor regressions.</p>
+    <p><code>run_bulk_pipeline</code> catalogs canonical flightlines, exposes virtual observations, and runs population-aware sensor translation.</p>
   </article>
 </div>
 </section>
@@ -2936,7 +2936,7 @@
   </article>
 <article class="sb-doc-card">
     <h3><code>run_bulk_pipeline</code></h3>
-    <p>Independent, restart-safe post-processing path that creates the cross-run Parquet/DuckDB collection and pooled synthetic MicaSense-to-Landsat coefficients.</p>
+    <p>Independent, restart-safe post-processing path with read-only discovery, duplicate exclusion, a virtual DuckDB population, balanced regressions, and leave-one-site-out validation.</p>
   </article>
 <article class="sb-doc-card">
     <h3><code>apply_brightness_correction</code></h3>
