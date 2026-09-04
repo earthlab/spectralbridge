@@ -1,0 +1,3457 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="SpectralBridge translates reflectance across sensors and scales to place NEON AOP hyperspectral flightlines into analysis-ready products.">
+      
+      
+      
+        <link rel="canonical" href="https://earthlab.github.io/spectralbridge/dev/publication-hardening-audit-2026-09-04/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../asset/img/spectralbridge_favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>PyPI Publication-Hardening Audit - SpectralBridge</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/spectralbridge.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pypi-publication-hardening-audit" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SpectralBridge" class="md-header__button md-logo" aria-label="SpectralBridge" data-md-component="logo">
+      
+  <img src="../../asset/img/spectralbridge_favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SpectralBridge
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PyPI Publication-Hardening Audit
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/earthlab/spectralbridge" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../vignettes/" class="md-tabs__link">
+          
+  
+  
+  Learn
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../validation/" class="md-tabs__link">
+          
+  
+  
+  Validation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/" class="md-tabs__link">
+          
+  
+  
+  Technical reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../contributing/" class="md-tabs__link">
+          
+  
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SpectralBridge" class="md-nav__button md-logo" aria-label="SpectralBridge" data-md-component="logo">
+      
+  <img src="../../asset/img/spectralbridge_favicon.png" alt="logo">
+
+    </a>
+    SpectralBridge
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/earthlab/spectralbridge" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choose a vignette
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/notebook-vignettes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runnable notebooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/why-calibration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why cross-sensor calibration?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    End-to-end workflows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    End-to-end workflows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/full-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run the full pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/carry-on-wayward-son/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Carry On My Wayward Son (resume a run)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module vignettes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module vignettes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/data-acquisition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Acquire NEON data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/neon-correction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Correct NEON reflectance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/sensor-harmonization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Harmonize target sensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/analysis-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Build analysis tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/qa-and-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Review QA outputs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/drone-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Process drone imagery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/polygon-extraction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Extract polygon spectra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/bulk-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Build a bulk cross-run analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/cloud-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run on cloud or HPC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Validation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evidence overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/real-data-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real flightline walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/stage-qa-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage QA test guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module evidence
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module evidence
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/neon_download/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEON HDF5 download
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/h5_to_envi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HDF5 to raw ENVI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/topographic_correction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Topographic correction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/brdf_correction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BRDF correction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/sensor_convolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sensor convolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/parquet_csv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parquet and CSV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/save_restart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Save and restart behavior
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/qa_plots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA plots and diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Technical reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipeline contracts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pipeline contracts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pipeline/stages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage order and restart behavior
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pipeline/outputs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outputs and file structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../naming-conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Interfaces
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usage/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command-line interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data and validation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data and validation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usage/parquet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Working with Parquet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/json-catalog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON file catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON schemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pipeline/qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA panels and metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pipeline/stage-qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stage-by-stage scientific QA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/qa-code-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA implementation map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms and extension
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms and extension
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../brdf_topo_algorithm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BRDF and topographic correction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/custom-correction-hook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a custom correction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/extending/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extending SpectralBridge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime and internals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Runtime and internals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/repository-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Repository map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../env/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Package architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container and remote helpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../releasing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releasing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software-citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software citation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../doi-zenodo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DOI and Zenodo status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../publication-readiness-audit-2026-08-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publication readiness audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-transparency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI transparency statement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/earthlab/spectralbridge/edit/main/docs/dev/publication-hardening-audit-2026-09-04.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="pypi-publication-hardening-audit">PyPI Publication-Hardening Audit<a class="headerlink" href="#pypi-publication-hardening-audit" title="Permanent link">&para;</a></h1>
+<p>Review date: 2026-09-04<br />
+Repository: <code>earthlab/spectralbridge</code><br />
+Reviewed commit: <code>d98b2f5</code> on <code>main</code><br />
+Distribution version built: <code>2.2.0</code><br />
+Decision: <strong>NOT READY FOR PYPI PUBLICATION</strong></p>
+<p>This document supersedes the 2026-08-14 publication-readiness audit for the
+specific question of whether the built package is ready for PyPI. It reports
+what was demonstrated from the actual wheel and source distribution, not what
+the source tree appears capable of doing.</p>
+<h2 id="executive-verdict">Executive verdict<a class="headerlink" href="#executive-verdict" title="Permanent link">&para;</a></h2>
+<p>The package builds, passes <code>twine check</code>, clean-installs, exposes the three
+canonical Python APIs, ships the five runtime data files currently located by
+the code, and passes a meaningful installed-package smoke test outside the
+repository. The bulk pipeline was exercised through its complete small-data
+analysis path. The drone pipeline was exercised through HDF5 discovery,
+conversion, orchestration, output creation, and QA with corrections disabled.
+The normal pipeline was exercised only through HDF5-to-ENVI conversion.</p>
+<p>That evidence is encouraging but does <strong>not</strong> satisfy the release-blocking
+contract:</p>
+<blockquote>
+<p>A wheel installed into a clean environment must run the normal NEON, drone,
+and bulk pipelines without access to a repository checkout.</p>
+</blockquote>
+<p>The complete normal workflow and the drone correction plus full/polygon
+extraction variants have not yet been demonstrated from an installed artifact.
+The tag workflow also neither runs such a gate nor publishes to PyPI, version
+history is inconsistent, and maintainer/legal review is still needed for
+citation and bundled-data provenance. Publication should wait until every
+BLOCKER below is closed or explicitly resolved by maintainers.</p>
+<h2 id="evidence-scope-and-limits">Evidence scope and limits<a class="headerlink" href="#evidence-scope-and-limits" title="Permanent link">&para;</a></h2>
+<p>The audit built the repository with <code>uv build</code>, producing:</p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th style="text-align: right;">Size</th>
+<th style="text-align: right;">Members</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>spectralbridge-2.2.0-py3-none-any.whl</code></td>
+<td style="text-align: right;">about 360 KiB</td>
+<td style="text-align: right;">99</td>
+</tr>
+<tr>
+<td><code>spectralbridge-2.2.0.tar.gz</code></td>
+<td style="text-align: right;">about 15 MiB</td>
+<td style="text-align: right;">319</td>
+</tr>
+</tbody>
+</table>
+<p>Artifact hashes belong in the external release evidence rather than inside this
+file: this audit is itself included in the sdist, so editing a hash here changes
+the sdist hash. The final audit-build hashes were reported with the completed
+work and must be regenerated for the eventual tagged release.</p>
+<p>Both passed <code>twine check</code>. Clean wheel installs passed dependency checks and
+installed-package smoke checks on local macOS using Python 3.10.16, 3.11.11,
+3.12.8, and 3.14.3. A Python 3.10.16 installation built from the sdist also
+passed. These are local compatibility observations, not a declaration of
+support for every version or operating system.</p>
+<p>The smoke fixtures are synthetic and offline. They do not validate scientific
+agreement with full production flightlines, remote NEON download, distributed
+Ray execution, or every combination of corrections and polygon inputs. Those
+limits must remain explicit.</p>
+<h2 id="1-actual-package-and-public-workflows">1. Actual package and public workflows<a class="headerlink" href="#1-actual-package-and-public-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="distribution-and-namespaces">Distribution and namespaces<a class="headerlink" href="#distribution-and-namespaces" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Distribution name: <code>spectralbridge</code></li>
+<li><code>pyproject.toml</code> version: <code>2.2.0</code></li>
+<li><code>spectralbridge.__version__</code>: <code>2.2.0</code></li>
+<li>Primary package namespace: <code>spectralbridge</code></li>
+<li>Compatibility namespace: <code>cross_sensor_cal</code></li>
+<li>Installed subpackages include <code>bulk</code>, <code>bulk.analyses</code>, <code>cli</code>, <code>io</code>,
+  <code>pipelines</code>, <code>qa</code>, and <code>utils</code>.</li>
+<li>Canonical top-level workflow exports are <code>go_forth_and_multiply</code>,
+  <code>run_drone_pipeline</code>, and <code>run_bulk_pipeline</code>.</li>
+<li>Other intentionally exposed top-level functions include
+  <code>process_one_flightline</code>, <code>apply_brightness_correction</code>, and
+  <code>load_brightness_coefficients</code>, plus plotting functions when their imports
+  are available.</li>
+</ul>
+<h3 id="invocation-inventory">Invocation inventory<a class="headerlink" href="#invocation-inventory" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Workflow</th>
+<th>Canonical Python invocation</th>
+<th>Canonical CLI</th>
+<th>Smallest documented package-first call</th>
+<th>Audit result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal NEON</td>
+<td><code>from spectralbridge import go_forth_and_multiply</code></td>
+<td><code>spectralbridge-pipeline</code></td>
+<td><code>go_forth_and_multiply(base_folder=..., sites=[...], years=[...])</code></td>
+<td>API/import/help passed; only offline H5-to-ENVI was run from the artifact</td>
+</tr>
+<tr>
+<td>Drone</td>
+<td><code>from spectralbridge import run_drone_pipeline</code></td>
+<td>None</td>
+<td><code>run_drone_pipeline(input_h5_dir=..., output_dir=...)</code></td>
+<td>API and abbreviated orchestration passed; corrections and extraction were not exercised</td>
+</tr>
+<tr>
+<td>Bulk</td>
+<td><code>from spectralbridge import run_bulk_pipeline</code></td>
+<td><code>spectralbridge-bulk</code></td>
+<td><code>run_bulk_pipeline(input_path, output_dir)</code></td>
+<td>Full tiny catalog/database/census/translation/LOSO smoke passed</td>
+</tr>
+<tr>
+<td>QA</td>
+<td>module-specific Python functions</td>
+<td><code>spectralbridge-qa</code>, <code>spectralbridge-qa-summary</code>, <code>spectralbridge-qa-dashboard</code>, <code>spectralbridge-stage-qa</code></td>
+<td>See QA documentation</td>
+<td>All installed command help paths passed</td>
+</tr>
+</tbody>
+</table>
+<p>The drone Python API is clear and installable. A drone CLI is not required for
+the initial release merely for symmetry; it can remain a post-release usability
+feature if maintainers confirm Python is the supported interface.</p>
+<h3 id="console-scripts">Console scripts<a class="headerlink" href="#console-scripts" title="Permanent link">&para;</a></h3>
+<p>All 15 installed commands returned exit code 0 for <code>--help</code>:</p>
+<ul>
+<li>Canonical: <code>spectralbridge-download</code>, <code>spectralbridge-pipeline</code>,
+  <code>spectralbridge-qa</code>, <code>spectralbridge-qa-summary</code>,
+  <code>spectralbridge-recover-raw</code>, <code>spectralbridge-qa-dashboard</code>,
+  <code>spectralbridge-stage-qa</code>, <code>spectralbridge-merge-duckdb</code>, and
+  <code>spectralbridge-bulk</code>.</li>
+<li>Compatibility aliases: <code>cscal-download</code>, <code>cscal-pipeline</code>, <code>cscal-qa</code>,
+  <code>cscal-recover-raw</code>, <code>cscal-qa-dashboard</code>, and <code>csc-merge-duckdb</code>.</li>
+</ul>
+<p>The <code>cscal-*</code> commands correctly emit deprecation warnings pointing users to
+canonical names. The <code>cross_sensor_cal</code> compatibility imports also work and
+emit a deprecation warning. Keep these paths for the first publication unless a
+separate compatibility decision is made.</p>
+<h2 id="2-built-artifact-and-clean-install-results">2. Built artifact and clean-install results<a class="headerlink" href="#2-built-artifact-and-clean-install-results" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Environment</th>
+<th>Artifact</th>
+<th>Import outside checkout</th>
+<th><code>pip check</code></th>
+<th>Installed smoke</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python 3.10.16</td>
+<td>wheel</td>
+<td>Passed</td>
+<td>Passed</td>
+<td>Passed</td>
+</tr>
+<tr>
+<td>Python 3.11.11</td>
+<td>wheel</td>
+<td>Passed</td>
+<td>Passed</td>
+<td>Passed</td>
+</tr>
+<tr>
+<td>Python 3.12.8</td>
+<td>wheel</td>
+<td>Passed</td>
+<td>Passed</td>
+<td>Passed</td>
+</tr>
+<tr>
+<td>Python 3.14.3</td>
+<td>wheel</td>
+<td>Passed</td>
+<td>Passed</td>
+<td>Passed</td>
+</tr>
+<tr>
+<td>Python 3.10.16</td>
+<td>sdist-built install</td>
+<td>Passed</td>
+<td>Passed</td>
+<td>Passed</td>
+</tr>
+</tbody>
+</table>
+<p>The reusable <code>scripts/check_installed_artifact.py</code> check verifies that the
+imported module is outside the checkout, verifies the canonical APIs and
+runtime resources, generates tiny inputs, and runs the three abbreviated paths.
+It must be invoked with the Python executable belonging to the clean environment
+where the artifact was installed.</p>
+<p>Pipeline-level results:</p>
+<ul>
+<li><strong>Normal NEON:</strong> import, configuration/resource lookup, public API, CLI help,
+  and real synthetic NEON HDF5-to-ENVI conversion passed. The complete
+  correction, convolution, extraction, merge, and QA orchestration did not run.</li>
+<li><strong>Drone:</strong> real <code>run_drone_pipeline</code> orchestration discovered one HDF5,
+  converted it, produced raw/corrected reuse outputs and QA, and reported
+  <code>success_qa_only_no_polygons</code>. Topographic/BRDF corrections were disabled;
+  full and polygon extraction were not run.</li>
+<li><strong>Bulk:</strong> real <code>run_bulk_pipeline</code> discovered three synthetic flightlines and
+  twelve rows, built its catalog and DuckDB database, and ran census, sensor
+  translation, coefficient export, and leave-one-site-out analysis.</li>
+</ul>
+<p>No repository path was on <code>PYTHONPATH</code>, and the import resolved from each clean
+environment's <code>site-packages</code> directory.</p>
+<h2 id="3-runtime-package-data-inventory">3. Runtime package-data inventory<a class="headerlink" href="#3-runtime-package-data-inventory" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository path</th>
+<th>Installed destination</th>
+<th>Consumer</th>
+<th style="text-align: center;">Wheel</th>
+<th style="text-align: center;">Sdist</th>
+<th>Locator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/spectralbridge/data/hyperspectral_bands.json</code></td>
+<td><code>spectralbridge/data/hyperspectral_bands.json</code></td>
+<td>spectral/convolution utilities</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td>package-relative <code>get_package_data_path</code></td>
+</tr>
+<tr>
+<td><code>src/spectralbridge/data/landsat_band_parameters.json</code></td>
+<td><code>spectralbridge/data/landsat_band_parameters.json</code></td>
+<td>normal sensor convolution</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td>package-relative <code>get_package_data_path</code></td>
+</tr>
+<tr>
+<td><code>src/spectralbridge/data/drone_field_manifest.csv</code></td>
+<td><code>spectralbridge/data/drone_field_manifest.csv</code></td>
+<td>drone metadata/orchestration</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td>package-relative <code>get_package_data_path</code></td>
+</tr>
+<tr>
+<td><code>src/spectralbridge/data/brightness/landsat_to_micasense.json</code></td>
+<td>same relative package path</td>
+<td>OLI/OLI-2 to MicaSense brightness adjustment</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td><code>importlib.resources</code></td>
+</tr>
+<tr>
+<td><code>src/spectralbridge/data/brightness/landsat_tm_etm_to_micasense.json</code></td>
+<td>same relative package path</td>
+<td>TM/ETM+ to MicaSense brightness adjustment</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td><code>importlib.resources</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>src/spectralbridge/data/README.md</code> is in neither artifact. It is not required
+at runtime, but its scientific provenance/context should be packaged or moved
+to durable public documentation. The Landsat JSON contains centers and FWHM
+values, not full spectral-response curves; public wording should not imply more
+than the packaged resource provides.</p>
+<p>One repository-relative behavior remains: normal pipeline validation looks for
+<code>bin/validate_parquets</code> above the source module and silently skips it when the
+script is absent. The script is not installed. This does not currently crash
+the pipeline, but a documented package feature cannot depend on that path.
+Move the implementation into the package or explicitly label it as a
+repository-only maintainer check.</p>
+<h2 id="4-dependency-audit">4. Dependency audit<a class="headerlink" href="#4-dependency-audit" title="Permanent link">&para;</a></h2>
+<p>The base installation declares <code>numpy</code>, <code>scipy</code>, <code>pandas</code>, <code>pyarrow</code>, <code>pyproj</code>,
+<code>h5py</code>, <code>requests</code>, <code>tqdm</code>, <code>matplotlib</code>, <code>rasterio</code>, <code>shapely</code>, <code>geopandas</code>,
+<code>spectral&gt;=0.23</code>, <code>ray[default]&gt;=2.2</code>, and <code>duckdb&gt;=1.0.0</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Dependencies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal NEON runtime</td>
+<td>NumPy, SciPy, pandas, PyArrow, pyproj, h5py, requests, tqdm, matplotlib, rasterio, shapely, GeoPandas, Spectral Python, Ray, DuckDB</td>
+</tr>
+<tr>
+<td>Drone runtime</td>
+<td>NumPy, SciPy for correction paths, pandas, PyArrow, pyproj, h5py, tqdm, matplotlib, rasterio, shapely, GeoPandas, DuckDB</td>
+</tr>
+<tr>
+<td>Bulk runtime</td>
+<td>pandas/PyArrow and DuckDB; standard library for catalog/provenance support</td>
+</tr>
+<tr>
+<td>Tests only</td>
+<td>pytest, pytest-xdist, pytest-cov</td>
+</tr>
+<tr>
+<td>Docs only</td>
+<td>MkDocs and the declared MkDocs/Playwright plugins</td>
+</tr>
+<tr>
+<td>Notebook/development</td>
+<td>JupyterLab; dev aggregates tests/docs/Ruff/build/Twine</td>
+</tr>
+</tbody>
+</table>
+<p>No missing runtime dependency was observed in clean installs. For the stated
+contract, keeping all three pipelines' requirements in the base installation
+is correct. The <code>full</code> extra currently repeats Spectral Python and Ray even
+though they are already core dependencies.</p>
+<p>Most runtime requirements have no upper bound and several have no lower bound.
+The clean environments therefore resolved substantially newer scientific
+stacks than the repository's developer lock. <code>uv.lock</code> is useful for local
+development but does not constrain <code>pip install spectralbridge</code>. Before
+publication, test a supported dependency matrix and either add evidence-based
+bounds or publish a constraints/reproducibility policy. At minimum, outputs
+should record dependency versions so an analysis can be reconstructed.</p>
+<h2 id="5-python-support">5. Python support<a class="headerlink" href="#5-python-support" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Metadata declares <code>requires-python = "&gt;=3.10"</code> with no upper bound.</li>
+<li>Ruff targets Python 3.10 syntax.</li>
+<li>README language claims Python 3.10 and 3.11 CI coverage.</li>
+<li>Actual CI tests only Python 3.11.</li>
+<li>This local clean-artifact audit passed on 3.10, 3.11, 3.12, and 3.14, but did
+  not establish full-pipeline or Linux support on all four.</li>
+</ul>
+<p>The release must define a finite tested matrix. A reasonable minimum is 3.10,
+3.11, and 3.12 in Linux CI, followed by an explicit maintainer choice about
+3.13/3.14. Update classifiers, README, and <code>requires-python</code> consistently. Do
+not describe untested future Python versions as supported merely because the
+metadata permits installation.</p>
+<h2 id="6-version-citation-doi-and-authorship">6. Version, citation, DOI, and authorship<a class="headerlink" href="#6-version-citation-doi-and-authorship" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Current value/status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pyproject.toml</code></td>
+<td><code>2.2.0</code></td>
+</tr>
+<tr>
+<td><code>spectralbridge.__version__</code></td>
+<td><code>2.2.0</code></td>
+</tr>
+<tr>
+<td>wheel/sdist metadata</td>
+<td><code>2.2.0</code></td>
+</tr>
+<tr>
+<td><code>CITATION.cff</code> and preferred citation</td>
+<td><code>2.2.0</code></td>
+</tr>
+<tr>
+<td>first changelog heading</td>
+<td><code>2.3.0</code>; an <code>Unreleased</code> section occurs later</td>
+</tr>
+<tr>
+<td>repository tags</td>
+<td><code>0.1</code>, <code>v1.0.0</code>; no 2.2.0 or 2.3.0 tag</td>
+</tr>
+</tbody>
+</table>
+<p>The intended first PyPI version cannot be inferred safely from this history.
+Maintainers must decide whether 2.2.0 is an unpublished current release or
+whether the next version should incorporate the recorded 2.3.0 work. Then make
+<code>pyproject.toml</code> the authoritative release value, derive runtime version using
+installed distribution metadata, and add an automated gate comparing package,
+tag, citation, and changelog values.</p>
+<p><code>CITATION.cff</code> still contains the placeholder “Earth Lab / SpectralBridge Team”
+and TODO comments for the approved author list, ORCIDs, and affiliations. Do not
+publish that as final metadata without maintainer input.</p>
+<p>The README DOI <code>10.5281/zenodo.11167877</code> is documented as a historical
+pre-rename <code>cross-sensor-cal</code> v1.0.0 record, not evidence of a current
+SpectralBridge 2.2.0 release. Maintainers must confirm the Zenodo integration,
+the current project identity, author metadata, and whether README/CITATION use a
+concept DOI or a release DOI. This audit did not invent or externally verify
+those facts.</p>
+<h2 id="7-release-workflow-and-ci">7. Release workflow and CI<a class="headerlink" href="#7-release-workflow-and-ci" title="Permanent link">&para;</a></h2>
+<p>The release workflow correctly checks out the requested tag, builds both
+artifacts, and runs <code>twine check</code>. It does not provide a safe PyPI release path:</p>
+<ul>
+<li>it installs the project editable before building;</li>
+<li>it force-reinstalls the wheel into that same checkout-backed environment,
+  which is not a clean artifact test;</li>
+<li>it does not run lint, tests, docs, transparency, version sync, package-data
+  validation, or the three-pipeline smoke;</li>
+<li>tag pushes do not trigger the main CI workflow;</li>
+<li>it creates a GitHub release but contains no PyPI or TestPyPI publication step;</li>
+<li>it has no PyPI trusted-publishing/OIDC permission or environment protection;</li>
+<li>manual tag input is not format/version validated.</li>
+</ul>
+<p>The normal CI workflow installs the checkout editable and tests only Python
+3.11. Its path filters can skip CI for changes to <code>README.md</code>, <code>MANIFEST.in</code>,
+<code>CITATION.cff</code>, <code>CHANGELOG.md</code>, <code>LICENSE</code>, most docs, and release-support files.
+It does not build distributions or test their installed contents.</p>
+<p>Before publishing, CI should have separate source/unit and artifact jobs. The
+artifact job must build once, inspect/package-check once, then install that
+exact wheel into clean supported-version environments and run
+<code>check_installed_artifact.py</code> after it has been expanded to meet the complete
+pipeline contract. The release workflow should consume artifacts from a
+required successful release-candidate workflow rather than rebuild an
+untested variant.</p>
+<h2 id="8-public-api-and-compatibility">8. Public API and compatibility<a class="headerlink" href="#8-public-api-and-compatibility" title="Permanent link">&para;</a></h2>
+<p>The smallest stable publication surface should be:</p>
+<ul>
+<li><code>spectralbridge.go_forth_and_multiply</code></li>
+<li><code>spectralbridge.process_one_flightline</code></li>
+<li><code>spectralbridge.run_drone_pipeline</code></li>
+<li><code>spectralbridge.run_bulk_pipeline</code></li>
+<li>documented brightness/config and QA APIs that are already public</li>
+<li>the nine canonical <code>spectralbridge-*</code> commands listed above.</li>
+</ul>
+<p>Keep <code>cross_sensor_cal</code> and <code>cscal-*</code> as deprecated compatibility paths for the
+initial release. Do not add more top-level names merely because internal
+modules are importable. Mark bulk-analysis modules whose schemas are still
+evolving as such, and document a compatibility policy before promising semantic
+versioning guarantees for every internal function.</p>
+<h2 id="9-documentation-and-pypi-landing-page">9. Documentation and PyPI landing page<a class="headerlink" href="#9-documentation-and-pypi-landing-page" title="Permanent link">&para;</a></h2>
+<p>The README communicates the overall purpose, normal and bulk workflows, QA,
+documentation, citation, license, and support links. It is not yet a clean-room
+PyPI landing page:</p>
+<ul>
+<li>many links and images are repository-relative and will not resolve on PyPI;</li>
+<li>Mermaid source may render as text rather than a diagram;</li>
+<li>the first Conda option creates an environment but does not install the
+  package;</li>
+<li>several instructions assume <code>pip install .</code>, a clone, repository scripts,
+  notebooks, or execution from the repository root;</li>
+<li>there is no minimal drone Python call in the README;</li>
+<li>the Python support/CI statement is inaccurate;</li>
+<li><code>bin/validate_parquets</code> is documented but absent from installed artifacts;</li>
+<li>stable, experimental, and maintainer-only workflows are not consistently
+  distinguished.</li>
+</ul>
+<p><code>START_HERE.md</code> is primarily repository-oriented. The normal, drone, and bulk
+docs contain useful package APIs, but package-first quickstarts should be the
+first path a PyPI reader sees. Convert public asset/doc links to absolute GitHub
+or documentation-site URLs, include one minimal invocation for each pipeline,
+and move clone/notebook instructions under explicit contributor or advanced
+example sections.</p>
+<h2 id="10-scientific-configuration-reproducibility">10. Scientific configuration reproducibility<a class="headerlink" href="#10-scientific-configuration-reproducibility" title="Permanent link">&para;</a></h2>
+<p>The release includes band-center/FWHM parameters, two brightness-coefficient
+sets, a drone field manifest, correction defaults in Python/config outputs, QA
+thresholds in code, bulk schema version 2, and translation-pair definitions.
+The installed resources are versioned indirectly by the package release, but
+reproducibility metadata is uneven:</p>
+<ul>
+<li>coefficient and band files do not consistently state source dataset,
+  derivation method, license, resource schema version, and immutable checksum;</li>
+<li>QA provenance records the installed package version and input hashes, but a
+  Git commit is normally unavailable from a wheel;</li>
+<li>the bulk manifest records run/schema/config/source catalog information but
+  not the installed package and dependency versions or resource checksums;</li>
+<li>unbounded dependencies allow numerical environments to drift under the same
+  SpectralBridge version.</li>
+</ul>
+<p>Add a shared provenance record containing distribution version, Python and key
+dependency versions, pipeline/config schema versions, and SHA-256 values for
+scientific resources. Version coefficient schemas explicitly; never alter a
+released coefficient file in place.</p>
+<h2 id="11-license-provenance-and-repository-hygiene">11. License, provenance, and repository hygiene<a class="headerlink" href="#11-license-provenance-and-repository-hygiene" title="Permanent link">&para;</a></h2>
+<p>The repository contains the GPLv3 license text and the classifier says GPLv3,
+while <code>CITATION.cff</code> says <code>GPL-3.0-or-later</code>. Those are not precise substitutes:
+maintainers must confirm whether the intended grant is GPL-3.0-only or
+GPL-3.0-or-later and align notices and metadata. Adapted HyTools-related modules
+retain author/GPL notices, which is compatible at a high level, but this is not
+a legal determination. The build emits deprecation warnings for the table-form
+<code>project.license</code> field and the license classifier; migrate to an approved SPDX
+license expression and <code>license-files</code> before the packaging-tool deadline.</p>
+<p>Maintainer/legal review is required for:</p>
+<ul>
+<li>provenance and redistribution terms of the band-parameter JSON files;</li>
+<li>source data/method/license of both brightness-coefficient JSON files;</li>
+<li>consent, privacy, and redistribution of collaborator names and operational
+  notes in <code>drone_field_manifest.csv</code>;</li>
+<li>the exact GPL-3.0-only versus GPL-3.0-or-later grant;</li>
+<li>logos and validation images included in the 15 MiB sdist, including the NSF,
+  CU/CIRES, ESIIL, and project assets.</li>
+</ul>
+<p>The wheel is compact, but the sdist includes documentation images up to several
+megabytes and validation JSON containing absolute <code>/Users/...</code> source paths.
+Reduce the sdist to source, tests needed for verification, essential docs, and
+cleared assets; sanitize local paths in published validation evidence.</p>
+<p>Large tracked deprecated rasters, a large executable, root outputs, notebooks,
+and site-specific scripts make the repository heavy, but <code>MANIFEST.in</code> excludes
+most of them from the distribution. They are repository-hygiene work rather
+than wheel blockers. No obvious credential or token was found by the audit's
+text search. Hard-coded <code>/home/jovyan</code> paths remain in repository-only helper
+scripts and should stay clearly outside the installed interface.</p>
+<h2 id="12-prioritized-findings">12. Prioritized findings<a class="headerlink" href="#12-prioritized-findings" title="Permanent link">&para;</a></h2>
+<h3 id="blocker-must-be-resolved-before-pypi">BLOCKER — must be resolved before PyPI<a class="headerlink" href="#blocker-must-be-resolved-before-pypi" title="Permanent link">&para;</a></h3>
+<h4 id="b1-the-three-pipeline-installed-wheel-contract-is-not-fully-demonstrated">B1. The three-pipeline installed-wheel contract is not fully demonstrated<a class="headerlink" href="#b1-the-three-pipeline-installed-wheel-contract-is-not-fully-demonstrated" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Problem:</strong> the normal end-to-end path and drone correction/extraction paths
+  are absent from the installed-artifact gate.</li>
+<li><strong>Evidence:</strong> normal stopped after synthetic H5-to-ENVI; drone disabled topo
+  and BRDF and had no polygons; only bulk completed all requested analyses.</li>
+<li><strong>Affected:</strong> normal and drone.</li>
+<li><strong>Impact:</strong> a PyPI user may encounter missing resources or repository
+  assumptions only after starting real processing.</li>
+<li><strong>Fix:</strong> create tiny scientifically valid fixtures and run normal correction,
+  convolution, full or polygon extraction, merge, and QA; run drone correction,
+  translation, and both full/polygon extraction selection. Execute from the
+  clean wheel environment with the checkout inaccessible.</li>
+<li><strong>Owner:</strong> Codex can implement the gate; maintainers must approve what counts
+  as a scientifically representative minimum.</li>
+</ul>
+<h4 id="b2-no-guarded-pypi-publication-path-exists">B2. No guarded PyPI publication path exists<a class="headerlink" href="#b2-no-guarded-pypi-publication-path-exists" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Problem:</strong> release automation creates a GitHub release only and does not
+  require source tests or clean artifact tests.</li>
+<li><strong>Evidence:</strong> <code>.github/workflows/release.yml</code> has no PyPI step and tests the
+  wheel in an environment already containing an editable checkout.</li>
+<li><strong>Affected:</strong> all pipelines and every release.</li>
+<li><strong>Impact:</strong> a tag can distribute an artifact that never passed the release
+  contract, while no reproducible trusted-publishing path exists.</li>
+<li><strong>Fix:</strong> add a protected release-candidate workflow, clean artifact matrix,
+  required checks, PyPI trusted publishing, and an optional explicit TestPyPI
+  rehearsal. Publish only the already-tested artifacts.</li>
+<li><strong>Owner:</strong> Codex can implement workflow code; a maintainer must configure
+  GitHub environments and PyPI trusted-publisher ownership.</li>
+</ul>
+<h4 id="b3-publication-version-and-history-are-unresolved">B3. Publication version and history are unresolved<a class="headerlink" href="#b3-publication-version-and-history-are-unresolved" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Problem:</strong> code/artifacts/citation say 2.2.0, the changelog leads with 2.3.0,
+  and tags end at v1.0.0.</li>
+<li><strong>Evidence:</strong> version table in section 6.</li>
+<li><strong>Affected:</strong> package identity, citation, release workflow.</li>
+<li><strong>Impact:</strong> users cannot unambiguously map an artifact to release notes and a
+  source tag.</li>
+<li><strong>Fix:</strong> maintainer chooses the publication version and history treatment;
+  then add and enforce a version/tag/changelog/CFF synchronization check.</li>
+<li><strong>Owner:</strong> maintainer decision first; Codex can implement synchronization.</li>
+</ul>
+<h4 id="b4-citation-identity-and-doi-are-not-publication-ready">B4. Citation identity and DOI are not publication-ready<a class="headerlink" href="#b4-citation-identity-and-doi-are-not-publication-ready" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Problem:</strong> authors are placeholders and the linked DOI describes a historic
+  pre-rename release.</li>
+<li><strong>Evidence:</strong> TODOs in <code>CITATION.cff</code> and the DOI note identifying the existing
+  record as <code>cross-sensor-cal</code> v1.0.0.</li>
+<li><strong>Affected:</strong> all published software and scientific citations.</li>
+<li><strong>Impact:</strong> PyPI/Zenodo metadata could misattribute authors or point to the
+  wrong software identity/version.</li>
+<li><strong>Fix:</strong> approve author order, names, ORCIDs, affiliations, preferred
+  citation, Zenodo project/linkage, and concept-versus-version DOI policy.</li>
+<li><strong>Owner:</strong> maintainer input required; Codex can apply approved metadata.</li>
+</ul>
+<h4 id="b5-redistributionprovenance-approval-is-incomplete-for-bundled-data">B5. Redistribution/provenance approval is incomplete for bundled data<a class="headerlink" href="#b5-redistributionprovenance-approval-is-incomplete-for-bundled-data" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Problem:</strong> scientific lookup/coefficient files and the drone manifest lack
+  complete source/license/privacy records; sdist logos/assets lack an explicit
+  distribution inventory.</li>
+<li><strong>Evidence:</strong> section 11 and package-data files themselves.</li>
+<li><strong>Affected:</strong> normal and drone; source distribution.</li>
+<li><strong>Impact:</strong> scientific provenance is insufficient and publication could
+  redistribute data, names, or marks without documented approval.</li>
+<li><strong>Fix:</strong> establish a data/asset manifest with source, author, method, version,
+  license/permission, and privacy approval; remove or replace anything not
+  approved.</li>
+<li><strong>Owner:</strong> maintainer/legal/data-owner input required; Codex can encode the
+  resulting manifest and packaging exclusions.</li>
+</ul>
+<h4 id="b6-pypi-instructions-do-not-yet-support-all-three-clean-room-workflows">B6. PyPI instructions do not yet support all three clean-room workflows<a class="headerlink" href="#b6-pypi-instructions-do-not-yet-support-all-three-clean-room-workflows" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Problem:</strong> README links/assets are not PyPI-safe and the package-first drone
+  path is missing, while some steps require repository files.</li>
+<li><strong>Evidence:</strong> section 9.</li>
+<li><strong>Affected:</strong> all workflows, especially drone.</li>
+<li><strong>Impact:</strong> even functional APIs are not discoverable/runnable by a user who
+  only installed from PyPI.</li>
+<li><strong>Fix:</strong> add concise package-first quickstarts for all three pipelines, repair
+  URLs and installation wording, and separate installed, notebook, and
+  maintainer workflows.</li>
+<li><strong>Owner:</strong> Codex can implement; maintainers should approve stability labels.</li>
+</ul>
+<h3 id="high-priority-resolve-before-publication-unless-explicitly-accepted">HIGH PRIORITY — resolve before publication unless explicitly accepted<a class="headerlink" href="#high-priority-resolve-before-publication-unless-explicitly-accepted" title="Permanent link">&para;</a></h3>
+<h4 id="h1-ci-does-not-exercise-artifacts-or-the-declared-python-range">H1. CI does not exercise artifacts or the declared Python range<a class="headerlink" href="#h1-ci-does-not-exercise-artifacts-or-the-declared-python-range" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Evidence:</strong> one Python 3.11 editable-install job; broad path-filter gaps.</li>
+<li><strong>Affected:</strong> all pipelines.</li>
+<li><strong>Impact:</strong> packaging and compatibility regressions can merge without CI.</li>
+<li><strong>Fix:</strong> add supported-version build/install smoke matrix and broaden/remove
+  release-critical path filters.</li>
+<li><strong>Owner:</strong> Codex.</li>
+</ul>
+<h4 id="h2-normal-validation-invokes-an-uninstalled-repository-script">H2. Normal validation invokes an uninstalled repository script<a class="headerlink" href="#h2-normal-validation-invokes-an-uninstalled-repository-script" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Evidence:</strong> normal orchestration searches above its module for
+  <code>bin/validate_parquets</code>; that file is not in the wheel.</li>
+<li><strong>Affected:</strong> normal pipeline validation/QA.</li>
+<li><strong>Impact:</strong> installed behavior silently omits a documented check.</li>
+<li><strong>Fix:</strong> package the implementation or document it as maintainer-only and use
+  installed validation APIs in user docs.</li>
+<li><strong>Owner:</strong> Codex; maintainer confirms desired public contract.</li>
+</ul>
+<h4 id="h3-dependency-reproducibility-is-weak">H3. Dependency reproducibility is weak<a class="headerlink" href="#h3-dependency-reproducibility-is-weak" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Evidence:</strong> mostly unbounded requirements; developer lock does not constrain
+  PyPI installs; output provenance omits dependency versions.</li>
+<li><strong>Affected:</strong> all scientific results.</li>
+<li><strong>Impact:</strong> the same package release may resolve materially different stacks.</li>
+<li><strong>Fix:</strong> test supported ranges, add evidence-based constraints, and record
+  resolved versions in outputs.</li>
+<li><strong>Owner:</strong> Codex can implement tests/provenance; maintainers approve bounds.</li>
+</ul>
+<h4 id="h4-supported-python-statements-are-inconsistent">H4. Supported-Python statements are inconsistent<a class="headerlink" href="#h4-supported-python-statements-are-inconsistent" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Evidence:</strong> metadata says all Python &gt;=3.10, README claims 3.10/3.11 CI,
+  CI runs only 3.11.</li>
+<li><strong>Affected:</strong> installation and support.</li>
+<li><strong>Impact:</strong> users cannot tell which environments maintainers will support.</li>
+<li><strong>Fix:</strong> decide and enforce a finite CI matrix, then align metadata,
+  classifiers, docs, and release checks.</li>
+<li><strong>Owner:</strong> maintainer decision plus Codex implementation.</li>
+</ul>
+<h4 id="h5-scientific-provenance-records-are-incomplete">H5. Scientific provenance records are incomplete<a class="headerlink" href="#h5-scientific-provenance-records-are-incomplete" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Evidence:</strong> coefficient/resource checksums, schemas, dependency versions,
+  and package version are not uniformly stored, especially by bulk outputs.</li>
+<li><strong>Affected:</strong> all pipelines and bulk-derived coefficients.</li>
+<li><strong>Impact:</strong> outputs cannot always be reconstructed from release identity.</li>
+<li><strong>Fix:</strong> add a common immutable provenance block and version resource schemas.</li>
+<li><strong>Owner:</strong> Codex; scientific metadata requires maintainer confirmation.</li>
+</ul>
+<h4 id="h6-sdist-is-unnecessarily-large-and-leaks-local-validation-paths">H6. Sdist is unnecessarily large and leaks local validation paths<a class="headerlink" href="#h6-sdist-is-unnecessarily-large-and-leaks-local-validation-paths" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Evidence:</strong> about 15 MiB versus a 360 KiB wheel; multi-megabyte docs images
+  and <code>/Users/...</code> paths are included.</li>
+<li><strong>Affected:</strong> sdist consumers and public source metadata.</li>
+<li><strong>Impact:</strong> larger downloads, irrelevant assets, and local-path disclosure.</li>
+<li><strong>Fix:</strong> narrow <code>MANIFEST.in</code>, sanitize generated validation records, rebuild,
+  and compare inventories in CI.</li>
+<li><strong>Owner:</strong> Codex; asset removals require provenance decision from B5.</li>
+</ul>
+<h3 id="medium-reasonable-immediately-after-the-initial-release">MEDIUM — reasonable immediately after the initial release<a class="headerlink" href="#medium-reasonable-immediately-after-the-initial-release" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Add a drone CLI only if user research shows it improves real workflows;
+  Python API availability is already sufficient.</li>
+<li>Remove or redefine the redundant <code>full</code> extra.</li>
+<li>Package or prominently publish <code>src/spectralbridge/data/README.md</code> so runtime
+  resources retain nearby context.</li>
+<li>Add explicit Python-version classifiers after the support matrix is settled.</li>
+<li>Formalize which internal bulk analysis functions are stable public API.</li>
+<li>Reduce repository-only large/deprecated files in a separate, non-destructive
+  history/hygiene project.</li>
+</ul>
+<h3 id="non-blocking-cleanup-and-future-improvements">NON-BLOCKING — cleanup and future improvements<a class="headerlink" href="#non-blocking-cleanup-and-future-improvements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>First-import Matplotlib/fontconfig cache warnings in restricted home
+  directories are environmental; the release smoke now redirects its caches.</li>
+<li>Legacy <code>cross_sensor_cal</code> and <code>cscal-*</code> paths work and can remain deprecated.</li>
+<li>Large tracked files excluded from both artifacts do not prevent PyPI
+  installation, though they still affect repository clones.</li>
+<li>Migrate deprecated packaging license syntax before the February 2027 tooling
+  deadline even if current builders still accept it.</li>
+</ul>
+<h2 id="13-ordered-pypi-release-checklist">13. Ordered PyPI release checklist<a class="headerlink" href="#13-ordered-pypi-release-checklist" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Maintainers choose the intended publication version and reconcile changelog,
+   tags/history, <code>pyproject.toml</code>, runtime version, and <code>CITATION.cff</code>.</li>
+<li>Maintainers approve the final author/ORCID/affiliation list and Zenodo
+   concept/release DOI policy.</li>
+<li>Complete the scientific data and asset provenance/license/privacy inventory;
+   remove unapproved files and sanitize local paths.</li>
+<li>Decide the supported Python versions and dependency policy; add that clean
+   Linux CI matrix and align public documentation.</li>
+<li>Expand <code>check_installed_artifact.py</code> with tiny representative fixtures for
+   the complete normal correction/convolution/extraction/merge/QA path and the
+   drone correction/translation plus full-or-polygon extraction behavior.</li>
+<li><strong>Mandatory artifact gate:</strong> build the wheel once, install it with
+   dependencies into clean environments with no repository checkout on import
+   paths, and successfully run the normal NEON, drone, and bulk pipelines. Fail
+   the release if any package data or code is obtained from the checkout.</li>
+<li>Build and install the sdist in at least the lowest supported Python version;
+   run metadata, import, resource, and smoke checks.</li>
+<li>Make CI run Ruff, unit/integration tests, docs build/link checks, AI
+   transparency, validation evidence checks, version synchronization, package
+   data inventory, <code>twine check</code>, and the artifact gate for every
+   release-relevant change.</li>
+<li>Replace the repository-relative Parquet validator behavior with an installed
+   API or clearly remove it from the public installed workflow.</li>
+<li>Rewrite the README/PyPI landing page with absolute links, accurate Python
+    support, and minimal package-first normal, drone, bulk, and QA examples.</li>
+<li>Rebuild wheel/sdist from a clean tagged commit; record artifact checksums,
+    inspect contents, run <code>twine check</code>, and rerun the exact artifact gate on
+    those final bytes.</li>
+<li>Configure protected GitHub release environments and PyPI trusted publishing;
+    optionally rehearse with TestPyPI without treating it as production.</li>
+<li>Create the signed/approved <code>vX.Y.Z</code> tag only after all required checks pass;
+    publish the already-tested artifacts, verify the PyPI page and clean
+    installation, create the Zenodo record, and update the release DOI.</li>
+<li>Archive the release evidence: workflow URLs, hashes, environment versions,
+    smoke output, citation metadata, and maintainer approvals.</li>
+</ol>
+<h2 id="14-commands-and-checks-actually-run">14. Commands and checks actually run<a class="headerlink" href="#14-commands-and-checks-actually-run" title="Permanent link">&para;</a></h2>
+<p>The following checks were run during this audit. Temporary directory names are
+shown to distinguish artifact testing from source-tree testing.</p>
+<div class="highlight"><pre><span></span><code>uv build --out-dir /tmp/spectralbridge-pypi-final-audit-20260904/dist
+uvx twine check /tmp/spectralbridge-pypi-final-audit-20260904/dist/*
+unzip -Z1 /tmp/spectralbridge-pypi-final-audit-20260904/dist/*.whl
+tar -tzf /tmp/spectralbridge-pypi-final-audit-20260904/dist/*.tar.gz
+
+# Clean environments created with uv, then the wheel was installed in each.
+/tmp/spectralbridge-pypi-audit.kPz2oj/venv310/bin/python /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/scripts/check_installed_artifact.py --expected-version 2.2.0
+/tmp/spectralbridge-pypi-audit.kPz2oj/venv311/bin/python /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/scripts/check_installed_artifact.py --expected-version 2.2.0
+/tmp/spectralbridge-pypi-audit.kPz2oj/venv312/bin/python /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/scripts/check_installed_artifact.py --expected-version 2.2.0
+/tmp/spectralbridge-pypi-audit.kPz2oj/venv314/bin/python /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/scripts/check_installed_artifact.py --expected-version 2.2.0
+/tmp/spectralbridge-pypi-final-audit-20260904/venv310-sdist/bin/python /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/scripts/check_installed_artifact.py --expected-version 2.2.0
+
+uv pip check --python /tmp/spectralbridge-pypi-audit.kPz2oj/venv310/bin/python
+uv pip check --python /tmp/spectralbridge-pypi-audit.kPz2oj/venv311/bin/python
+uv pip check --python /tmp/spectralbridge-pypi-audit.kPz2oj/venv312/bin/python
+uv pip check --python /tmp/spectralbridge-pypi-audit.kPz2oj/venv314/bin/python
+uv pip check --python /tmp/spectralbridge-pypi-audit.kPz2oj/venv310-sdist/bin/python
+
+# Every installed console script listed in section 1 was run with --help.
+
+uvx ruff check src tests scripts/generate_ai_transparency.py \
+  scripts/generate_validation_docs.py scripts/run_validation_campaign.py \
+  scripts/check_installed_artifact.py
+
+.venv/bin/python -m compileall -q src/spectralbridge scripts/check_installed_artifact.py
+.venv/bin/pytest -q tests/test_drone_pipeline.py
+.venv/bin/pytest -q tests/test_bulk_pipeline.py
+.venv/bin/pytest -q tests/test_qa
+.venv/bin/pytest -q
+.venv/bin/python scripts/check_docs_links.py
+.venv/bin/mkdocs build --strict --site-dir /tmp/spectralbridge-pypi-audit-site
+.venv/bin/python scripts/generate_ai_transparency.py --check
+git diff --check
+</code></pre></div>
+<p>All commands in this section passed. The full suite had six skips and existing
+deprecation/all-NaN warnings; focused results and the remaining build notices
+are recorded in <code>FEATURE_REQUESTS.md</code>. The commands above do not imply that the
+abbreviated artifact smoke satisfies blocker B1.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/earthlab/spectralbridge" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "toc.integrate", "content.action.edit", "content.code.copy", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../js/glightbox-init.js"></script>
+      
+    
+  </body>
+</html>
