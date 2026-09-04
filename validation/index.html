@@ -2884,16 +2884,10 @@
 </table>
 <h2 id="two-validation-tiers">Two validation tiers<a class="headerlink" href="#two-validation-tiers" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Tier A — installed-artifact CI smoke:</strong> the exact built wheel is installed outside the checkout and runs every major normal, drone, and bulk stage on tiny deterministic fixtures. It checks package resources, orchestration, schemas, output readability, bounded resource use, and restart behavior.</li>
-<li><strong>Tier B — production validation:</strong> opt-in real data selected from a pinned inventory runs on an appropriately sized machine. It measures full-scale operational behavior, correction support, performance, and QA usefulness across sites and acquisition conditions.</li>
+<li><strong>Offline contract campaign:</strong> small deterministic inputs, safe for local or CI execution. It checks dimensions, numerical invariants, schemas, restart behavior, and diagnostic generation.</li>
+<li><strong>Live NEON campaign:</strong> opt-in real data selected from a pinned inventory. It measures download reliability, full-stage behavior, correction support, performance, and QA usefulness across sites and acquisition conditions.</li>
 </ol>
-<p>These tiers must remain separate. Scale reduction in Tier A is acceptable only
-because it executes the same production algorithms and code paths. Repeating
-synthetic inputs can expose packaging, numerical, and state bugs, but it cannot
-establish scientific accuracy on real landscapes, production-scale
-performance, cross-site stability, or empirical calibration validity. See the
-<a href="../dev/production-validation-record/">production validation record</a> for the
-release evidence contract.</p>
+<p>These tiers must remain separate. Repeating synthetic inputs 100 times can expose numerical and state bugs, but it cannot establish network reliability or scientific validity across 100 real flightlines.</p>
 <h2 id="example-figures-from-the-real-test-run">Example figures from the real test run<a class="headerlink" href="#example-figures-from-the-real-test-run" title="Permanent link">&para;</a></h2>
 <p>The figures below are generated artifacts from R10C · D10 · L002 · 2021-09-15. Their axes and map scales follow plot-contract version 1.1 so later runs can be compared directly.</p>
 <div class="sb-validation-grid">

@@ -89,6 +89,7 @@
       "micasense_to_match_oli_oli,,,,,,",
       "micasense_to_match_oli_oli2",
       "micasense_to_match_oli_oli2_envi.img",
+      "micasense_to_match_oli_oli2_envi.img/.hdr",
       "micasense_to_match_tm_etm+,,,,,,",
       "micasense`)"
     ]
@@ -220,8 +221,11 @@
     ],
     "bulk_cli.py": [
       "--allow-no-translation",
+      "--extraction-chunk-size",
+      "--extraction-workers",
       "--force",
       "--input-kind",
+      "--input-mode",
       "--materialize-observations",
       "--memory-limit",
       "--minimum-reflectance",

@@ -2660,7 +2660,7 @@
 <h1 id="pypi-publication-hardening-audit">PyPI Publication-Hardening Audit<a class="headerlink" href="#pypi-publication-hardening-audit" title="Permanent link">&para;</a></h1>
 <p>Review date: 2026-09-04<br />
 Repository: <code>earthlab/spectralbridge</code><br />
-Reviewed commit: <code>d98b2f5</code> on <code>main</code><br />
+Reviewed repository state: <code>main</code> at <code>f7e7ddd</code> plus the recorded audit changes
 Distribution version built: <code>2.2.0</code><br />
 Decision: <strong>NOT READY FOR PYPI PUBLICATION</strong></p>
 <p>This document supersedes the 2026-08-14 publication-readiness audit for the
@@ -2781,8 +2781,8 @@ maintainer evidence contract and existing R10C record are documented in
 <td>Bulk</td>
 <td><code>from spectralbridge import run_bulk_pipeline</code></td>
 <td><code>spectralbridge-bulk</code></td>
-<td><code>run_bulk_pipeline(input_path, output_dir)</code></td>
-<td>Catalog/database/census/translation/LOSO/materialization artifact smoke implemented</td>
+<td><code>run_bulk_pipeline(completed_archive, output_dir)</code></td>
+<td>Direct normal-output discovery/cache/database/census/translation/LOSO/materialization artifact smoke implemented</td>
 </tr>
 <tr>
 <td>QA</td>
@@ -2818,8 +2818,8 @@ separate compatibility decision is made.</p>
 <th>Environment</th>
 <th>Artifact</th>
 <th>Import outside checkout</th>
-<th><code>pip check</code></th>
 <th>Installed smoke</th>
+<th>Scope</th>
 </tr>
 </thead>
 <tbody>
@@ -2828,38 +2828,43 @@ separate compatibility decision is made.</p>
 <td>wheel</td>
 <td>Passed</td>
 <td>Passed</td>
-<td>Passed</td>
+<td>Stage-complete Tier A</td>
 </tr>
 <tr>
 <td>Python 3.11.11</td>
 <td>wheel</td>
 <td>Passed</td>
 <td>Passed</td>
-<td>Passed</td>
+<td>Stage-complete Tier A</td>
 </tr>
 <tr>
 <td>Python 3.12.8</td>
 <td>wheel</td>
 <td>Passed</td>
 <td>Passed</td>
-<td>Passed</td>
-</tr>
-<tr>
-<td>Python 3.14.3</td>
-<td>wheel</td>
-<td>Passed</td>
-<td>Passed</td>
-<td>Passed</td>
+<td>Stage-complete Tier A</td>
 </tr>
 <tr>
 <td>Python 3.10.16</td>
 <td>sdist-built install</td>
 <td>Passed</td>
 <td>Passed</td>
+<td>Stage-complete Tier A</td>
+</tr>
+<tr>
+<td>Python 3.14.3</td>
+<td>wheel</td>
 <td>Passed</td>
+<td>Passed</td>
+<td>Earlier abbreviated compatibility observation; outside the declared release matrix</td>
 </tr>
 </tbody>
 </table>
+<p>The stage-complete wheel runs produced 12,223,911, 12,465,986, and 12,465,763
+bytes on Python 3.10, 3.11, and 3.12 and completed in 28.350, 30.329, and
+28.228 seconds respectively. The Python 3.10 sdist-built run produced
+12,225,300 bytes in 27.694 seconds. These are local macOS observations; the
+release workflow is the authority for the Linux matrix.</p>
 <p>The reusable <code>scripts/check_installed_artifact.py</code> check verifies that the
 imported module is outside the checkout, verifies the canonical APIs and
 runtime resources, generates bounded inputs, blocks outbound socket access,
@@ -2877,11 +2882,21 @@ installed.</p>
   exports ENVI, runs topographic and BRDF correction, deliberately records that
   convolution is not applicable, and separately runs full-pixel and
   intersecting-polygon extraction, merge, and QA.</li>
-<li><strong>Bulk (three flightlines, twelve rows):</strong> discovers canonical products,
-  builds the catalog and DuckDB database, runs census, sensor translation,
-  coefficient export and leave-one-site-out analysis, materializes the optional
-  observation super-Parquet, and verifies restart reuse.</li>
+<li><strong>Bulk (three completed flightline folders, twelve rows):</strong> traverses
+  arbitrary worker/storage folders, recovers identity from canonical inner
+  NEON directories, validates corrected and wavelength-matched target ENVI
+  products without scanning pixels during preflight, then performs bounded
+  target-product extraction into restartable caches. It builds the catalog and
+  DuckDB database, runs census, sensor translation, coefficient export and
+  leave-one-site-out analysis, materializes the optional observation
+  super-Parquet, and verifies restart reuse. Prebuilt merged Parquet remains a
+  compatibility path, not the primary production contract.</li>
 </ul>
+<p>No local scientific stage is omitted. Remote NEON acquisition is intentionally
+outside this offline artifact check, and upstream drone TIFF-to-HDF5 conversion
+is outside the current drone HDF5 input contract. Those external boundaries are
+covered by interface/unit checks and production evidence rather than networked
+or vendor-specific CI fixtures.</p>
 <p>The smoke hard-codes one worker, one merge thread, eight-row Parquet chunks,
 small fixture-dimension ceilings, a 2 MiB per-HDF5 fixture ceiling, a 128 MiB
 total temporary-tree ceiling, no symlinks, and all discovery/output paths below
@@ -2977,7 +2992,7 @@ repository wrapper; installed runtime behavior no longer searches for it.</p>
 </tr>
 <tr>
 <td>Bulk runtime</td>
-<td>pandas/PyArrow and DuckDB; standard library for catalog/provenance support</td>
+<td>Rasterio and PyProj for bounded target-ENVI extraction; pandas/PyArrow and DuckDB for compact caches, federation, and analysis; standard library for catalog/provenance support</td>
 </tr>
 <tr>
 <td>Tests only</td>
@@ -3390,7 +3405,7 @@ uv pip check --python /tmp/spectralbridge-pypi-audit.kPz2oj/venv310-sdist/bin/py
 
 uvx ruff check src tests scripts/generate_ai_transparency.py \
   scripts/generate_validation_docs.py scripts/run_validation_campaign.py \
-  scripts/check_installed_artifact.py
+  scripts/check_installed_artifact.py scripts/check_release_metadata.py
 
 .venv/bin/python -m compileall -q src/spectralbridge scripts/check_installed_artifact.py
 .venv/bin/pytest -q tests/test_drone_pipeline.py
@@ -3401,11 +3416,22 @@ uvx ruff check src tests scripts/generate_ai_transparency.py \
 .venv/bin/mkdocs build --strict --site-dir /tmp/spectralbridge-pypi-audit-site
 .venv/bin/python scripts/generate_ai_transparency.py --check
 git diff --check
+
+# Stage-complete follow-up: exact wheel installed into each clean environment.
+/tmp/spectralbridge-stage-complete-20260904/venv310/bin/python scripts/check_installed_artifact.py --expected-version 2.2.0
+/tmp/spectralbridge-stage-complete-20260904/venv311/bin/python scripts/check_installed_artifact.py --expected-version 2.2.0
+/tmp/spectralbridge-stage-complete-20260904/venv312/bin/python scripts/check_installed_artifact.py --expected-version 2.2.0
+
+# Exact sdist-built Python 3.10 environment.
+/tmp/spectralbridge-stage-complete-20260904/venv310-sdist/bin/python scripts/check_installed_artifact.py --expected-version 2.2.0
 </code></pre></div>
-<p>All commands in this section passed. The full suite had six skips and existing
-deprecation/all-NaN warnings; focused results and the remaining build notices
-are recorded in <code>FEATURE_REQUESTS.md</code>. The commands above do not imply that the
-abbreviated artifact smoke satisfies blocker B1.</p>
+<p>The stage-complete artifact runs and focused tests passed. The final full-suite,
+generated-document, link, and strict-site checks are recorded in
+<code>FEATURE_REQUESTS.md</code>. Existing deprecation/all-NaN warnings remain, and the
+normal pipeline's warning-only Parquet validation reported its existing
+spectral-column ordering warning for the synthetic merged output. This
+follow-up closes artifact-contract blocker B1 locally; Linux confirmation is
+pending the release workflow.</p>
 
 
 

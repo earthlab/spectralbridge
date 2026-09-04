@@ -2932,6 +2932,10 @@ fixed collection-level names rather than NEON or drone flight stems:</p>
 <td>Recursive product inventory and source provenance</td>
 </tr>
 <tr>
+<td><code>catalog/source_products.parquet</code></td>
+<td>Read-only upstream corrected/raw/target-product inventory</td>
+</tr>
+<tr>
 <td><code>catalog/duplicates.parquet</code></td>
 <td>Duplicate canonical-ID candidates excluded from analysis</td>
 </tr>
@@ -2942,6 +2946,10 @@ fixed collection-level names rather than NEON or drone flight stems:</p>
 <tr>
 <td><code>catalog/bulk_manifest.json</code></td>
 <td>Restart, settings, and provenance manifest</td>
+</tr>
+<tr>
+<td><code>cache/&lt;flightline-id&gt;/observations.parquet</code></td>
+<td>Restart-safe narrow observations derived from persisted target ENVI products</td>
 </tr>
 <tr>
 <td><code>database/spectralbridge_bulk.duckdb</code></td>

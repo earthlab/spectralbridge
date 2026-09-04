@@ -2796,7 +2796,7 @@
 <section class="sb-doc-section">
 <p class="sb-kicker">Cross-run analysis</p>
 <h2 id="independent-bulk-pipeline-contract">Independent bulk-pipeline contract<a class="headerlink" href="#independent-bulk-pipeline-contract" title="Permanent link">&para;</a></h2>
-<p>The optional <code>spectralbridge-bulk</code> workflow recursively consumes completed merged Parquets. It writes only to its selected bulk output directory and does not modify NEON or drone run products.</p>
+<p>The optional <code>spectralbridge-bulk</code> workflow directly consumes completed normal-pipeline flightline directories nested beneath arbitrary storage folders. It reads persisted target-sensor ENVI products and writes compact analytical caches only to its selected bulk output directory; it does not modify NEON or drone run products. Prebuilt merged Parquets remain a compatibility input.</p>
 <table>
 <thead>
 <tr>
@@ -2809,17 +2809,27 @@
 <tr>
 <td>Flightline catalog</td>
 <td><code>catalog/flightlines.parquet</code></td>
-<td>Product-derived canonical identity, site/date, processing state, schemas, and duplicate/rejection status.</td>
+<td>Canonical inner-directory identity, site/date, QA, processing state, analysis eligibility, and duplicate/rejection status.</td>
 </tr>
 <tr>
 <td>Source catalog</td>
 <td><code>catalog/source_files.parquet</code></td>
-<td>Every discovered full/polygon merged product and its original path, footer metadata, and selection status.</td>
+<td>Every upstream product and derived observation source with original path, metadata fingerprint, and selection status.</td>
+</tr>
+<tr>
+<td>Source-product catalog</td>
+<td><code>catalog/source_products.parquet</code></td>
+<td>Read-only raw/corrected/target ENVI inventory; derived caches are excluded.</td>
 </tr>
 <tr>
 <td>Duplicate/rejection catalogs</td>
 <td><code>catalog/duplicates.parquet</code>, <code>catalog/rejected_sources.parquet</code></td>
 <td>Explicit exclusions; duplicate canonical IDs are never silently double-counted.</td>
+</tr>
+<tr>
+<td>Per-flightline analysis cache</td>
+<td><code>cache/&lt;flight_id&gt;/</code></td>
+<td>Narrow sensor Parquets, joined observations, extraction metadata, and restart/failure status.</td>
 </tr>
 <tr>
 <td>Bulk database</td>
@@ -2878,7 +2888,7 @@
 <td>Raw ENVI (when available)</td>
 <td><code>&lt;flight_id&gt;_envi.(img|hdr|parquet)</code></td>
 <td>Direct export of the NEON HDF5 reflectance cube.</td>
-<td>Used when present to seed later stages; parquet sidecar is written when exported.</td>
+<td>The ENVI pair is the upstream raster contract; its Parquet sidecar depends on the extraction path.</td>
 </tr>
 <tr>
 <td>BRDF model JSON</td>
@@ -2890,19 +2900,19 @@
 <td>BRDF + topographic corrected ENVI</td>
 <td><code>&lt;flight_id&gt;_brdfandtopo_corrected_envi.(img|hdr|json|parquet)</code></td>
 <td>Physics-informed normalization and correction JSON produced before sensor resampling.</td>
-<td>One corrected set per flightline; parquet mirrors the corrected ENVI cube.</td>
+<td>The ENVI pair and correction JSON persist before extraction; the Parquet sidecar is conditional.</td>
 </tr>
 <tr>
 <td>Sensor-resampled ENVI + Parquet</td>
 <td><code>&lt;flight_id&gt;_&lt;sensor&gt;_envi.(img|hdr|parquet)</code></td>
 <td>Reflectance cubes resampled into the configured target sensor frame.</td>
-<td>Sensor stems match <code>FlightlinePaths.sensor_products</code>.</td>
+<td>ENVI products persist after convolution; Parquet sidecars depend on the extraction path.</td>
 </tr>
 <tr>
 <td>Merged Parquet</td>
 <td><code>&lt;flight_id&gt;_merged_pixel_extraction.parquet</code></td>
-<td>Master table that merges Parquet sidecars across stages into one analysis-ready spectral library.</td>
-<td>Exactly one per flightline and treated as the primary success signal.</td>
+<td>Master table that merges Parquet sidecars into one analysis-ready spectral library.</td>
+<td>Produced by full-pixel extraction; polygon-only runs may omit it. It is not required for bulk archive discovery.</td>
 </tr>
 <tr>
 <td>QA artefacts</td>
@@ -2941,10 +2951,10 @@
 <p class="sb-kicker">Success criteria</p>
 <h2 id="what-a-successful-run-looks-like">What a successful run looks like<a class="headerlink" href="#what-a-successful-run-looks-like" title="Permanent link">&para;</a></h2>
 <ul class="sb-doc-list">
-<li>The merged parquet exists and is readable: <code>&lt;flight_id&gt;_merged_pixel_extraction.parquet</code>.</li>
+<li>The products required by the requested stages exist and are readable. A completed correction/convolution run has corrected and configured target-sensor ENVI pairs even if full-pixel extraction was not requested.</li>
 <li>The QA PNG renders with its matching JSON: <code>&lt;flight_id&gt;_qa.png</code> and <code>&lt;flight_id&gt;_qa.json</code>.</li>
 <li>Sensor-specific ENVI and parquet products exist as configured; absence can reflect configuration rather than failure.</li>
-<li>If the merged parquet and QA outputs are present, the flightline completed successfully.</li>
+<li>If full-pixel extraction was requested, its merged Parquet should also exist and validate. Polygon-only processing has its own polygon output contract.</li>
 </ul>
 </section>
 <section class="sb-doc-section">

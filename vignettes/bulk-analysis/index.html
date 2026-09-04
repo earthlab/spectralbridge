@@ -2860,11 +2860,22 @@ flightline folder.</p>
 folders copied from distributed workers. Outer folders may carry machine,
 worker, job, or collision-avoidance names. Those names are computational
 provenance only.</p>
-<p>The bulk pipeline recovers scientific identity from each canonical merged
-product filename:</p>
-<div class="highlight"><pre><span></span><code>&lt;canonical-flightline-id&gt;_merged_pixel_extraction.parquet
-&lt;canonical-flightline-id&gt;_polygons_merged_pixel_extraction.parquet
+<p>The preferred production input is the completed output directory written by
+the normal pipeline, nested beneath any number of storage or compute folders:</p>
+<div class="highlight"><pre><span></span><code>Aug_2026_Processed_Flightlines/
+└── NIWO_a01/                         # storage identity only
+    └── NEON_D13_NIWO_DP1_L012-1_20230815_directional_reflectance/
+        ├── *_brdfandtopo_corrected_envi.img/.hdr
+        ├── *_landsat_oli_envi.img/.hdr
+        ├── *_micasense_to_match_oli_oli2_envi.img/.hdr
+        └── qa/
 </code></pre></div>
+<p>The canonical inner directory supplies flightline, site, and acquisition date.
+Names such as <code>NIWO_a01</code> and <code>worker_73</code> are recorded only as computational
+provenance. <code>input_mode="auto"</code> prefers these completed directories. If none
+are present, it retains the advanced compatibility path for canonical
+<code>*_merged_pixel_extraction.parquet</code> products. Set <code>input_mode</code> explicitly to
+<code>"flightline_outputs"</code> or <code>"merged_parquet"</code> when ambiguity must be avoided.</p>
 <p>The scientific hierarchy is:</p>
 <div class="highlight"><pre><span></span><code>site
 └── acquisition date
@@ -2880,41 +2891,60 @@ double-count it.</p>
 <h2 id="2-run-a-fast-preflight-first">2. Run a fast preflight first<a class="headerlink" href="#2-run-a-fast-preflight-first" title="Permanent link">&para;</a></h2>
 <p>Choose a completely fresh output directory outside the source tree. A realistic
 large-VM invocation is:</p>
-<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/data/spectralbridge_completed_runs<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--output-dir<span class="w"> </span>/data/spectralbridge_bulk_analysis<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/home/jovyan/data-store/Aug_2026_Processed_Flightlines<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>/home/jovyan/data-store/Aug_2026_Bulk_Analysis<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--input-mode<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--threads<span class="w"> </span>&lt;N&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--memory-limit<span class="w"> </span>&lt;XGB&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--temp-directory<span class="w"> </span>/scratch/spectralbridge_bulk<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--temp-directory<span class="w"> </span>/home/jovyan/work/spectralbridge_bulk_scratch<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--preflight-only
 </code></pre></div>
 <p>Replace the bracketed resource values with limits appropriate for the VM.
 DuckDB may spill intermediate work to the supplied scratch directory. The
 source staging tree and scratch/output directories must be separate.</p>
-<p>Preflight uses filenames, file metadata, schemas, JSON metadata, and Parquet
-footers. It does not scan the complete observation population. Review:</p>
+<p>Preflight uses filenames, file sizes and modification times, ENVI headers, JSON
+QA/metadata, and Parquet footers where present. It does not read raster pixels
+or create per-pixel caches. Review:</p>
 <ul>
 <li><code>catalog/flightlines.parquet</code></li>
 <li><code>catalog/source_files.parquet</code></li>
+<li><code>catalog/source_products.parquet</code></li>
 <li><code>catalog/duplicates.parquet</code></li>
 <li><code>catalog/rejected_sources.parquet</code></li>
 <li><code>analyses/dataset_census/dataset_census.md</code></li>
 </ul>
-<p>The catalog records canonical identity, site/date, full and polygon products,
-QA and metadata availability, sensors, represented stages, rows, bytes, schema
-fingerprints, recoverable brightness and BRDF/topographic state, validity,
-duplicates, and original paths.</p>
+<p>The catalog records canonical identity, site/date, corrected and target-sensor
+products, QA and stage status, missing products, analysis-specific pair
+eligibility, rows/dimensions, source bytes, estimated cache bytes, metadata
+signatures, duplicates, and original paths. Missing QA is a visible warning,
+not automatic exclusion. WARN and FAIL states remain explicit for downstream
+filtering rather than being silently discarded. A missing/invalid corrected
+product or the absence of every complete wavelength-matched target pair is
+structurally ineligible.</p>
 <p>Ambiguous identity is rejected rather than guessed from a surrounding folder.
 Unreadable Parquet candidates also remain visible with their rejection reason.</p>
 <h2 id="3-run-the-analyses">3. Run the analyses<a class="headerlink" href="#3-run-the-analyses" title="Permanent link">&para;</a></h2>
 <p>After reviewing preflight, rerun without <code>--preflight-only</code>:</p>
-<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/data/spectralbridge_completed_runs<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--output-dir<span class="w"> </span>/data/spectralbridge_bulk_analysis<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/home/jovyan/data-store/Aug_2026_Processed_Flightlines<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>/home/jovyan/data-store/Aug_2026_Bulk_Analysis<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--input-mode<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--threads<span class="w"> </span>&lt;N&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--memory-limit<span class="w"> </span>&lt;XGB&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--temp-directory<span class="w"> </span>/scratch/spectralbridge_bulk
+<span class="w">  </span>--temp-directory<span class="w"> </span>/home/jovyan/work/spectralbridge_bulk_scratch
 </code></pre></div>
-<p>The default <code>--input-kind full</code> uses only full-flightline merged
-tables. Polygon companions are cataloged but excluded from observations.</p>
+<p>In completed-flightline mode, the bulk pipeline reuses the corrected
+target-sensor ENVI products written by the normal pipeline. It never reruns
+correction or convolution. For every eligible flightline it reads bounded ENVI
+windows, keeps only the bands needed by current translation pairs, filters
+ENVI no-data/non-finite values, and writes a compact cache beneath the new bulk
+output directory. All valid pixels are retained because pixel-pooled regression
+is part of the current analysis contract; the cache is narrow, not sampled.</p>
+<p><code>--extraction-workers</code> controls concurrent flightlines and defaults to one to
+avoid saturating network storage. <code>--extraction-chunk-size</code> independently bounds
+ENVI windows and Parquet row groups. DuckDB <code>--threads</code> remains separate.</p>
+<p>In merged-Parquet compatibility mode, the default <code>--input-kind
+full</code> uses only full-flightline merged tables. Polygon companions are
+cataloged but excluded from observations.</p>
 <p>Use <code>--input-kind polygon</code> to analyze polygon tables or
 <code>--input-kind both</code> only when combining full pixels and their
 polygon subsets is scientifically intentional. The latter can count the
@@ -2930,9 +2960,10 @@ polygon pixels again by design.</p>
 <li><code>bulk_observations</code>: the analysis-facing observation view</li>
 <li>analysis result tables documented below</li>
 </ul>
-<p>By default, <code>bulk_observations</code> reads the original accepted Parquets
-virtually. DuckDB projection and predicate pushdown allow an analysis to read
-only its required columns. No complete super-Parquet is created.</p>
+<p>By default, <code>bulk_observations</code> virtually federates either the compact
+per-flightline caches or accepted prebuilt merged Parquets. DuckDB projection
+and predicate pushdown read only required columns. No complete super-Parquet is
+created.</p>
 <p>Every virtual observation receives explicit provenance columns:</p>
 <div class="highlight"><pre><span></span><code>bulk_source_path
 bulk_source_relative_path
@@ -2957,9 +2988,16 @@ collections it may require multi-terabyte disk space.</p>
 ├── catalog/
 │   ├── flightlines.parquet
 │   ├── source_files.parquet
+│   ├── source_products.parquet
 │   ├── duplicates.parquet
 │   ├── rejected_sources.parquet
 │   └── bulk_manifest.json
+├── cache/
+│   └── &lt;canonical-flightline-id&gt;/
+│       ├── &lt;target-sensor&gt;.parquet    # restartable narrow extraction
+│       ├── observations.parquet
+│       ├── extraction_metadata.json
+│       └── status.json
 ├── database/
 │   ├── spectralbridge_bulk.duckdb
 │   └── bulk_observations.parquet       # optional only
@@ -3075,21 +3113,28 @@ too few sites receive explicit status values rather than fabricated metrics.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_bulk_pipeline</span>
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">run_bulk_pipeline</span><span class="p">(</span>
-    <span class="s2">"/data/spectralbridge_completed_runs"</span><span class="p">,</span>
-    <span class="s2">"/data/spectralbridge_bulk_analysis"</span><span class="p">,</span>
-    <span class="n">input_kind</span><span class="o">=</span><span class="s2">"full"</span><span class="p">,</span>
+    <span class="s2">"/home/jovyan/data-store/Aug_2026_Processed_Flightlines"</span><span class="p">,</span>
+    <span class="s2">"/home/jovyan/data-store/Aug_2026_Bulk_Analysis"</span><span class="p">,</span>
+    <span class="n">input_mode</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
     <span class="n">threads</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-    <span class="n">memory_limit</span><span class="o">=</span><span class="s2">"128GB"</span><span class="p">,</span>
-    <span class="n">temp_directory</span><span class="o">=</span><span class="s2">"/scratch/spectralbridge_bulk"</span><span class="p">,</span>
+    <span class="n">memory_limit</span><span class="o">=</span><span class="s2">"175GB"</span><span class="p">,</span>
+    <span class="n">temp_directory</span><span class="o">=</span><span class="s2">"/home/jovyan/work/spectralbridge_bulk_scratch"</span><span class="p">,</span>
+    <span class="n">extraction_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">extraction_chunk_size</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>The resource values above are examples, not hard-coded defaults.</p>
 <h2 id="10-restart-and-provenance-behavior">10. Restart and provenance behavior<a class="headerlink" href="#10-restart-and-provenance-behavior" title="Permanent link">&para;</a></h2>
-<p>The manifest fingerprints the canonical catalog, Parquet size/mtime/schema/row
-metadata, selection mode, scientific filters, and materialization choice.
+<p>The manifest fingerprints the canonical catalog, source size/mtime/header hash
+and ENVI metadata, selection mode, extraction settings, scientific filters, and
+materialization choice. Each flightline cache has its own signature and status,
+so successful flightlines are reused independently. A failed extraction writes
+a status and traceback log and does not prevent other flightlines from being
+analyzed.
 An unchanged complete run returns <code>status="reused"</code>. Adding,
-removing, replacing, or rewriting a source Parquet invalidates the derived run
-state. Pass <code>--force</code> for an intentional rebuild.</p>
+removing, replacing, or rewriting a selected target product (or a source
+Parquet in compatibility mode) invalidates the derived run state. Pass
+<code>--force</code> for an intentional rebuild.</p>
 <p>Each analysis table carries a deterministic analysis-run ID tying it to the
 manifest and source catalogs. Resource controls are recorded for execution
 provenance but do not change scientific weighting.</p>
