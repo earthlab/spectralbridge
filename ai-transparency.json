@@ -1,11 +1,11 @@
 {
   "ai_systems": {
     "Cursor Agent": 32,
-    "OpenAI Codex": 184
+    "OpenAI Codex": 186
   },
   "branches": {
     "$(git branch --show-current 2>/dev/null || echo unknown)": 1,
-    "main": 204,
+    "main": 206,
     "unknown": 7,
     "work": 4
   },
@@ -16,21 +16,21 @@
     "word_count": "Unicode word-like tokens matched by the generator's WORD_RE expression."
   },
   "models": {
-    "GPT-5": 7,
+    "GPT-5": 9,
     "GPT-5 family (exact deployment identifier not exposed)": 7,
     "Not recorded": 202
   },
   "primary_intents": {
     "Audit or investigation": 25,
     "Execution or verification": 47,
-    "Implementation or modification": 91,
+    "Implementation or modification": 93,
     "Other or mixed": 53
   },
   "primary_topics": {
     "Data and metadata handling": 25,
     "Documentation and website": 17,
-    "Drone and UAS workflow": 8,
-    "Other": 28,
+    "Drone and UAS workflow": 9,
+    "Other": 29,
     "Publication, packaging, release, and governance": 20,
     "QA and visualization": 36,
     "Scientific pipeline and corrections": 55,
@@ -42,24 +42,24 @@
     "2026-06": 47,
     "2026-07": 36,
     "2026-08": 87,
-    "2026-09": 4
+    "2026-09": 6
   },
   "schema_version": 1,
   "source": {
     "data_through": "2026-09-03",
     "path": "PROMPT_LOG.md",
-    "sha256": "a1f7dc829660f2036011eb7a30c66c65e96b48358f1425c27f4889de504e47ed"
+    "sha256": "2d01fdd6c87742f6f08a3aab5ccb1f395f260d992e3d915807ed1272cbb28d0c"
   },
   "summary": {
-    "entries_with_recorded_model": 14,
+    "entries_with_recorded_model": 16,
     "first_prompt_date": "2026-03-21",
     "last_prompt_date": "2026-09-03",
     "maximum_prompt_words": 3201,
-    "mean_prompt_words": 150.4,
-    "median_prompt_words": 32.0,
+    "mean_prompt_words": 149.0,
+    "median_prompt_words": 31.5,
     "minimum_prompt_words": 1,
-    "model_metadata_coverage_pct": 6.5,
-    "prompt_count": 216,
-    "total_prompt_words": 32477
+    "model_metadata_coverage_pct": 7.3,
+    "prompt_count": 218,
+    "total_prompt_words": 32487
   }
 }

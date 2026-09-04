@@ -169,20 +169,13 @@
     "topo_and_brdf_correction.py": [
       "--config_file"
     ],
-    "neon_to_envi.py": [
-      "--brightness-offset"
-    ],
     "qa_dashboard.py": [
       "--base-folder",
       "--out-parquet",
       "--out-png"
     ],
-    "standard_resample.py": [
-      "--hdr_path",
-      "--json_file",
-      "--output_path",
-      "--resampling_file_path",
-      "--sensor_type"
+    "neon_to_envi.py": [
+      "--brightness-offset"
     ],
     "merge_duckdb.py": [
       "--corrected-glob",
@@ -198,6 +191,19 @@
       "--resampled-glob",
       "--write-feather"
     ],
+    "standard_resample.py": [
+      "--hdr_path",
+      "--json_file",
+      "--output_path",
+      "--resampling_file_path",
+      "--sensor_type"
+    ],
+    "download.py": [
+      "--flight",
+      "--output",
+      "--product",
+      "--year-month"
+    ],
     "pipeline.py": [
       "--brightness-offset",
       "--no-sync",
@@ -207,21 +213,6 @@
       "--resample-method",
       "--use-ndvi-brdf-bins",
       "--verbose"
-    ],
-    "download.py": [
-      "--flight",
-      "--output",
-      "--product",
-      "--year-month"
-    ],
-    "qa_cli.py": [
-      "--base-folder",
-      "--full",
-      "--n-sample",
-      "--out-dir",
-      "--quick",
-      "--rgb-bands",
-      "--save-json"
     ],
     "bulk_cli.py": [
       "--allow-no-translation",
@@ -236,11 +227,28 @@
       "--temp-directory",
       "--threads"
     ],
+    "qa_cli.py": [
+      "--base-folder",
+      "--full",
+      "--n-sample",
+      "--out-dir",
+      "--quick",
+      "--rgb-bands",
+      "--save-json"
+    ],
     "stage_qa_cli.py": [
       "--flightline-dir",
       "--force",
       "--mode",
       "--topo-fit-mode"
+    ],
+    "qa_summary_cli.py": [
+      "--output-pdf",
+      "--pattern"
+    ],
+    "recover_cli.py": [
+      "--base-folder",
+      "--brightness-offset"
     ],
     "pipeline_cli.py": [
       "--base-folder",
@@ -260,14 +268,6 @@
       "--topo-fit-mode",
       "--use-ndvi-brdf-bins",
       "--year-month"
-    ],
-    "recover_cli.py": [
-      "--base-folder",
-      "--brightness-offset"
-    ],
-    "qa_summary_cli.py": [
-      "--output-pdf",
-      "--pattern"
     ]
   }
 }
