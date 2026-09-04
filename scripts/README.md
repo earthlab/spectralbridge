@@ -19,6 +19,7 @@ because they are intended to be copied and edited by users.
 
 | Script | Purpose | Normal invocation |
 | --- | --- | --- |
+| `check_installed_artifact.py` | Smoke-test the public APIs and packaged data from a wheel or sdist installed in a clean environment outside the checkout | `/path/to/clean-env/bin/python scripts/check_installed_artifact.py --expected-version X.Y.Z` |
 | `check_docs_links.py` | Check local Markdown links and optional placeholder markers | `python scripts/check_docs_links.py` |
 | `generate_validation_docs.py` | Render website validation pages from machine-readable campaign results | `python scripts/generate_validation_docs.py --check` |
 | `generate_ai_transparency.py` | Render the AI transparency statement and figures from `PROMPT_LOG.md` | `python scripts/generate_ai_transparency.py --check` |

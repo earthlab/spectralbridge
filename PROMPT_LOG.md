@@ -154,6 +154,623 @@ Found 12 errors.
 Error: Process completed with exit code 1.
 ```
 
+## 2026-09-03 - PyPI publication-hardening audit
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+````text
+You are working in the current earthlab/spectralbridge repository.
+
+We are now switching from feature development to PyPI publication hardening.
+
+Do NOT broadly refactor the package yet. This task is primarily an evidence-based release-readiness audit plus only the smallest changes needed to make the audit itself runnable and accurate.
+
+The central publication requirement is:
+
+A user must be able to install SpectralBridge from the built package into a completely clean environment and successfully access and run all THREE supported pipelines without cloning the GitHub repository.
+
+The three supported pipelines are:
+
+1. Normal NEON SpectralBridge pipeline
+2. Drone pipeline
+3. Bulk cross-run analysis pipeline
+
+Treat that as a release-blocking contract.
+
+Before doing anything, read the current repository carefully, especially:
+
+* AGENTS.md
+* FEATURE_REQUESTS.md
+* PROMPT_LOG.md
+* pyproject.toml
+* MANIFEST.in
+* CITATION.cff
+* CHANGELOG.md
+* README.md
+* START_HERE.md
+* .github/workflows/
+* src/spectralbridge/
+* src/spectralbridge/pipelines/
+* src/spectralbridge/bulk/
+* drone pipeline code
+* CLI entry points
+* package-data directories
+* examples and notebooks
+* tests
+* documentation
+* release workflow
+* existing publication-readiness audits
+
+Create a new authoritative publication-hardening audit document in a sensible developer/docs location.
+
+Do not assume previous audits are still current.
+
+Primary audit question
+
+Can the exact SpectralBridge distribution artifact that would be uploaded to PyPI be installed into a clean environment and run all three supported pipelines without access to the repository checkout?
+
+The answer must be demonstrated, not inferred.
+
+1. Determine the actual package/public API
+
+Inventory the package as it currently exists.
+
+Identify:
+
+* current package version
+* spectralbridge.__version__
+* Python package namespaces
+* public imports
+* console scripts
+* normal NEON pipeline entry point
+* drone pipeline entry point
+* bulk pipeline entry point
+* legacy aliases
+* optional/experimental entry points
+* runtime package data
+* data/config files required by each pipeline
+
+Produce a table showing each public workflow and how a user invokes it from:
+
+* Python
+* CLI, where applicable
+
+For each of the three pipelines, identify the smallest documented runnable call.
+
+2. Build the real distribution artifacts
+
+Build both:
+
+* wheel
+* source distribution
+
+using the repository’s intended release tooling.
+
+Run distribution metadata validation such as twine check if available.
+
+Inspect the actual contents of BOTH artifacts.
+
+Do not assume a file is packaged simply because it exists in the repository.
+
+Produce an explicit inventory of packaged runtime resources.
+
+3. Clean-install tests must use the built artifact
+
+Create clean test environments that do NOT have the repository on PYTHONPATH.
+
+Install only the built wheel plus dependencies.
+
+Verify that imports resolve from the installed package rather than the checkout.
+
+Where practical, also test the sdist-built installation.
+
+This distinction is release critical.
+
+4. Test all three pipelines from the installed package
+
+A. Normal NEON pipeline
+
+From a clean wheel installation verify:
+
+* import spectralbridge
+* from spectralbridge import go_forth_and_multiply or the current canonical API
+* CLI --help
+* relevant path/naming/config imports
+* package data needed for sensor convolution
+* brightness/config resources
+* BRDF/topographic resources
+* QA resources
+* a small offline/synthetic smoke workflow if one exists
+
+Do not require downloading a real multi-GB NEON flightline for CI.
+
+If necessary, create or reuse a very small fixture that exercises the installed package through a meaningful abbreviated path.
+
+The smoke test should demonstrate that no repository-relative file assumptions exist.
+
+B. Drone pipeline
+
+The drone pipeline must be runnable from the installed package.
+
+Audit carefully whether it currently depends on:
+
+* example scripts that are not installed
+* repo-relative JSON
+* notebooks
+* local data files
+* root-level helper modules
+* package resources that are missing from wheel/sdist
+* hard-coded filesystem paths
+
+Establish a canonical installed-package Python API and, if appropriate, CLI.
+
+Do NOT require the user to run a script from examples/ after cloning the repo as the only supported way to access the drone pipeline.
+
+A clean user should be able to do something conceptually like:
+
+from spectralbridge import run_drone_pipeline
+
+or the current canonical equivalent.
+
+If the canonical API already exists, verify it.
+
+If not, identify this as a release blocker rather than inventing a large refactor during the audit.
+
+Create or identify a tiny synthetic drone fixture that can validate:
+
+* package import
+* configuration parsing
+* pipeline orchestration
+* expected output creation
+
+without external large files.
+
+C. Bulk pipeline
+
+From a clean installed wheel verify:
+
+from spectralbridge import run_bulk_pipeline
+
+and:
+
+spectralbridge-bulk --help
+
+Use tiny synthetic merged Parquet fixtures to verify that the installed package can:
+
+* discover flightlines
+* create the bulk catalog
+* create the DuckDB database
+* run dataset census
+* run sensor translation
+* run leave-one-site-out if fixture structure supports it
+
+No repository checkout may be required.
+
+5. Add an installed-wheel three-pipeline smoke test
+
+Design a release-level smoke test specifically for the built artifact.
+
+Prefer a script/test that:
+
+1. creates a fresh temporary environment
+2. installs the wheel
+3. executes an installed-package smoke test for the NEON pipeline
+4. executes an installed-package smoke test for the drone pipeline
+5. executes an installed-package smoke test for the bulk pipeline
+
+The smoke fixtures must be small enough for CI.
+
+This should become a release gate eventually.
+
+If implementing this safely is straightforward, add it now.
+
+If not, document exactly what prevents it.
+
+6. Audit package data
+
+Inspect all runtime non-Python files required by the three pipelines.
+
+Examples may include:
+
+* sensor response functions
+* CSVs
+* JSON coefficient files
+* brightness configuration
+* metadata templates
+* schemas
+* packaged lookup tables
+* reference wavelength information
+* any files loaded using filesystem paths
+
+For every runtime resource identify:
+
+* repository path
+* package destination
+* which pipeline uses it
+* whether it exists in wheel
+* whether it exists in sdist
+* how code locates it
+
+Prefer importlib.resources or equivalent package-safe access.
+
+Flag repository-relative resource access as a release blocker.
+
+7. Audit dependencies
+
+Review pyproject.toml.
+
+Classify dependencies into:
+
+* required for normal NEON pipeline
+* required for drone pipeline
+* required for bulk pipeline
+* documentation only
+* testing only
+* notebook/development only
+
+Determine whether the standard pip install spectralbridge should intentionally install everything required for ALL THREE pipelines.
+
+For this release, assume the desired user contract is:
+
+pip install spectralbridge is sufficient to run the normal NEON pipeline, drone pipeline, and bulk pipeline.
+
+Do not move essential pipeline dependencies into optional extras if that would violate this contract.
+
+Optional extras are acceptable for:
+
+* docs
+* notebooks
+* development
+* tests
+* clearly nonessential tooling
+
+Flag missing runtime dependencies.
+
+8. Python support matrix
+
+Determine what Python versions the dependency set realistically supports.
+
+Resolve inconsistencies among:
+
+* requires-python
+* README
+* CI
+* docs
+* actual clean installs
+
+At minimum test the currently claimed primary versions.
+
+Prefer a documented CI matrix instead of saying “periodically validated.”
+
+Do not claim Python versions that cannot install all three pipelines.
+
+9. CLI audit
+
+Inventory all console scripts from pyproject.toml.
+
+For every supported command:
+
+* run --help
+* check import success from installed wheel
+* check exit code
+* check that help text reflects current naming
+* check for repo-relative assumptions
+* identify legacy aliases
+
+Make a recommendation for which CLI names are canonical and which are compatibility aliases.
+
+For the release, the user should have obvious commands for:
+
+* main pipeline
+* bulk pipeline
+* QA
+
+If the drone pipeline should have a CLI, evaluate whether adding one is worth doing before publication. Do not add one merely for symmetry if the Python API is the intended supported interface.
+
+10. Version synchronization audit
+
+Compare:
+
+* pyproject.toml
+* spectralbridge.__version__
+* CHANGELOG.md
+* CITATION.cff
+* current tags/releases
+* docs mentioning versions
+* release workflow
+
+Flag every mismatch.
+
+Recommend one canonical publication version strategy.
+
+Do not silently change to 1.0.0 or another version without documenting the implications of existing version history.
+
+11. Release workflow audit
+
+Read .github/workflows/release.yml and related workflows.
+
+Determine whether a tag-based release:
+
+* builds from the tagged commit
+* runs tests first
+* validates metadata
+* builds wheel and sdist
+* installs/tests the artifact
+* checks all three pipelines
+* publishes to PyPI safely
+* prevents version/tag mismatch
+* supports TestPyPI dry runs if useful
+
+Identify release-blocking gaps.
+
+Do not publish anything during this task.
+
+12. CI audit
+
+Evaluate whether current CI protects the release contract.
+
+Required checks should eventually include:
+
+* lint
+* unit tests
+* package build
+* wheel/sdist validation
+* clean installed-wheel test
+* all-three-pipeline smoke test
+* docs build
+* package-data check
+* AI transparency check
+* version synchronization
+
+Also inspect whether current workflow path filters could accidentally skip important release checks.
+
+13. Public API and backward compatibility
+
+Inventory public imports currently used in:
+
+* README
+* docs
+* examples
+* tests
+
+Identify:
+
+* canonical APIs
+* undocumented-but-used APIs
+* deprecated imports
+* old cross_sensor_cal compatibility namespace
+* duplicate names
+* APIs that are likely to change
+
+Recommend the smallest stable public surface for publication.
+
+Do not remove compatibility paths in the audit unless something is actively broken.
+
+14. Documentation clean-room audit
+
+Pretend you are a researcher who only knows:
+
+pip install spectralbridge
+
+Determine whether public docs allow that person to run:
+
+1. the normal pipeline
+2. the drone pipeline
+3. the bulk pipeline
+
+without cloning GitHub.
+
+Flag every instruction that currently assumes:
+
+* git clone
+* running repo scripts
+* local notebooks
+* local JSON files
+* working from repository root
+* developer environment setup
+
+Recommend replacement package-first instructions.
+
+15. README / PyPI landing-page audit
+
+The README will become the PyPI long description.
+
+Check that it clearly explains:
+
+* what SpectralBridge does
+* scientific scope
+* installation
+* supported Python
+* minimal normal-pipeline example
+* drone pipeline entry
+* bulk pipeline entry
+* QA
+* docs link
+* citation
+* license
+* issue/support link
+* stable vs experimental functionality
+
+Also identify rendering risks on PyPI.
+
+16. Scientific configuration reproducibility
+
+Inventory scientifically meaningful runtime configuration that can change results, including where applicable:
+
+* sensor response curves
+* brightness coefficients
+* BRDF/topographic defaults
+* thresholds
+* masks
+* QA thresholds
+* bulk-analysis schema/version
+* translation pair definitions
+
+Determine whether each is packaged and versioned sufficiently to reproduce a result from a specific SpectralBridge release.
+
+Flag mutable/unversioned configuration risks.
+
+17. Citation, DOI, and authorship audit
+
+Read CITATION.cff and current DOI documentation.
+
+Determine:
+
+* whether author names are placeholders
+* whether ORCIDs/affiliations are complete
+* whether current Zenodo DOI corresponds to the current package identity/version
+* whether concept DOI vs release DOI strategy is clear
+* whether package version and citation version agree
+
+Do not invent author metadata.
+
+List exactly what requires maintainer input.
+
+18. License and provenance audit
+
+Verify:
+
+* package license metadata
+* repository license
+* third-party adapted code notices
+* bundled sensor response data
+* coefficient files
+* example/test data
+* images/assets distributed in wheel/sdist if any
+
+Identify anything needing explicit attribution or legal review.
+
+Also flag deprecated packaging license metadata if still present.
+
+19. Repository hygiene audit
+
+Search current tracked files for likely release problems:
+
+* :memory:
+* scratch files
+* accidental binaries
+* giant unrelated outputs
+* hard-coded user paths
+* local environment paths
+* credentials/tokens
+* private URLs
+* stale notebooks/scripts
+* generated files unintentionally included in package
+* repository-root imports
+
+Do not rewrite git history.
+
+20. Produce a prioritized release-blocker report
+
+Create a publication-hardening audit with categories:
+
+BLOCKER
+
+Must be fixed before PyPI release.
+
+HIGH PRIORITY
+
+Should be fixed before publication unless explicitly accepted.
+
+MEDIUM
+
+Can be handled immediately after initial release.
+
+NON-BLOCKING
+
+Cleanup or future improvement.
+
+For every item include:
+
+* problem
+* evidence
+* affected pipeline(s)
+* user impact
+* recommended fix
+* whether Codex can fix it independently or needs maintainer input
+
+21. Build a concrete PyPI release checklist
+
+End the audit with a concise ordered checklist that takes the repository from current state to published PyPI release.
+
+The checklist must explicitly include a gate that verifies:
+
+A wheel installed into a clean environment can run the normal NEON pipeline, drone pipeline, and bulk pipeline without a repository checkout.
+
+22. Verification during this audit
+
+Run as many of the following as the environment allows:
+
+* full pytest
+* focused pipeline tests
+* package build
+* twine check
+* wheel-content inspection
+* sdist-content inspection
+* clean wheel install
+* installed-package imports
+* all CLI --help
+* small installed-wheel smoke tests for all three pipelines
+* Python compile checks
+* Ruff
+* docs link checks
+* strict MkDocs build
+* AI transparency check
+* git diff --check
+
+Do not claim checks passed unless they were actually run.
+
+23. Minimal fixes allowed during this task
+
+This task is primarily an audit.
+
+You may make SMALL obvious fixes only when needed to:
+
+* repair the audit tooling
+* make a package-resource check possible
+* fix a trivial packaging omission with no design implications
+* add a release-smoke test that does not alter scientific behavior
+
+Do NOT:
+
+* redesign the pipelines
+* change scientific algorithms
+* change correction coefficients
+* change defaults without evidence
+* publish to TestPyPI or PyPI
+* create a release tag
+* remove compatibility APIs broadly
+
+Log the prompt and work according to repository AI-transparency policy.
+
+Update FEATURE_REQUESTS.md with the audit outcome.
+
+Final response
+
+Report back with:
+
+1. overall PyPI readiness verdict
+2. whether a clean wheel can currently run each of the three pipelines
+3. blockers
+4. high-priority issues
+5. package-data findings
+6. dependency findings
+7. Python support findings
+8. version/citation/DOI findings
+9. release workflow findings
+10. clean-install test results
+11. exact commands/checks run
+12. files changed during the audit
+13. ordered next-step checklist
+
+Be conservative.
+
+The goal is not to declare SpectralBridge ready.
+
+The goal is to know exactly what must be true before we can confidently publish it.
+````
+
 ## 2026-08-17 - diagnose BRDF kernel crash at initialization
 Branch: main
 AI system: OpenAI Codex

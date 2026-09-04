@@ -1,6 +1,6 @@
 # SpectralBridge Feature Requests
 
-Review date: 2026-09-03
+Review date: 2026-09-04
 Branch: main
 
 This file is the authoritative work queue for non-trivial SpectralBridge work.
@@ -19,6 +19,76 @@ left incomplete so the next agent can resume immediately.
 6. After verification, record outcome, blockers, and the next recommended task.
 
 ## Active Requests
+
+### P70. PyPI Publication-Hardening Audit
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-09-03
+- Goal: Determine, from built distribution artifacts and clean installed
+  environments, whether the normal NEON, drone, and bulk pipelines can be run
+  after `pip install spectralbridge` without a repository checkout.
+- Scope:
+  - Inventory public APIs, CLIs, runtime package data, dependencies, Python
+    support, version/citation metadata, CI/release workflows, documentation,
+    compatibility paths, scientific configuration, licensing, and repository
+    hygiene.
+  - Build and inspect the real wheel and sdist, validate their metadata, and
+    install artifacts into isolated environments with the checkout excluded
+    from import resolution.
+  - Exercise all three installed pipelines with the smallest meaningful
+    offline fixtures available, recording limitations rather than changing
+    scientific behavior.
+  - Create an authoritative prioritized audit and ordered PyPI release
+    checklist; do not publish, tag, or broadly refactor during this task.
+- Plan:
+  - Audit package configuration, APIs, resources, docs, tests, CI, release
+    metadata, citation, license, and prior readiness material.
+  - Build wheel and sdist with intended tooling and inspect exact contents.
+  - Run clean-install import, CLI, resource, and three-pipeline smoke checks.
+  - Document blockers and maintainer decisions with concrete evidence and
+    update this work queue after verification.
+- Outcome:
+  - Added `docs/dev/publication-hardening-audit-2026-09-04.md` as the current
+    authoritative PyPI readiness decision. The verdict is **not ready** and the
+    audit records six release blockers, high-priority risks, evidence limits,
+    ownership, and an ordered publication checklist.
+  - Built and inspected the exact 2.2.0 wheel and sdist, validated both with
+    Twine, and confirmed that all five runtime data resources are in both
+    artifacts and load from installed package paths.
+  - Clean-installed the wheel outside the checkout on Python 3.10, 3.11, 3.12,
+    and 3.14 and the sdist on Python 3.10. Imports, dependencies, all 15 CLI
+    help paths, and the deliberately abbreviated three-pipeline smoke passed.
+  - Added `scripts/check_installed_artifact.py`, which rejects checkout imports,
+    checks public APIs/resources, runs real synthetic normal H5-to-ENVI and
+    drone orchestration paths, and runs the tiny bulk catalog/DuckDB/census/
+    translation/leave-one-site-out path.
+- Verification:
+  - `.venv/bin/pytest -q` (passed; 6 skipped, existing warnings only)
+  - `.venv/bin/pytest -q tests/test_drone_pipeline.py` (53 passed)
+  - `.venv/bin/pytest -q tests/test_bulk_pipeline.py` (14 passed)
+  - `.venv/bin/pytest -q tests/test_qa` (5 passed, 1 skipped)
+  - `uvx ruff check src tests scripts/check_installed_artifact.py scripts/generate_ai_transparency.py scripts/generate_validation_docs.py scripts/run_validation_campaign.py` (passed)
+  - `.venv/bin/python -m compileall -q src/spectralbridge scripts/check_installed_artifact.py` (passed)
+  - `.venv/bin/python scripts/check_docs_links.py` (passed)
+  - `.venv/bin/mkdocs build --strict --site-dir /tmp/spectralbridge-pypi-audit-site` (passed; existing navigation/tool notices only)
+  - `.venv/bin/python scripts/generate_ai_transparency.py --check` (passed)
+  - `git diff --check` (passed)
+  - `uv build`, artifact-content inspection, and `uvx twine check` (passed;
+    deprecated Setuptools license-metadata warnings recorded in the audit)
+  - Clean wheel smoke on Python 3.10.16, 3.11.11, 3.12.8, and 3.14.3 and clean
+    sdist smoke on Python 3.10.16 (passed outside checkout)
+- Release blockers:
+  - The complete installed-wheel contract is not yet demonstrated: the normal
+    correction/convolution/extraction/merge/QA path and drone correction plus
+    full/polygon extraction paths remain outside the release smoke.
+  - Release automation lacks PyPI publishing and required clean-artifact gates;
+    version history, author/DOI metadata, packaged-data/assets provenance, and
+    package-first PyPI instructions require resolution.
+- Next recommended task: Close audit blocker B1 by extending the release smoke
+  with approved tiny fixtures for the complete normal path and both drone
+  extraction modes, without changing scientific defaults or algorithms.
 
 ### P69. Production Bulk Population-Analysis Architecture
 
