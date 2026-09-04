@@ -80,9 +80,11 @@ fixed collection-level names rather than NEON or drone flight stems:
 | --- | --- |
 | `catalog/flightlines.parquet` | Canonical scientific flightline catalog |
 | `catalog/source_files.parquet` | Recursive product inventory and source provenance |
+| `catalog/source_products.parquet` | Read-only upstream corrected/raw/target-product inventory |
 | `catalog/duplicates.parquet` | Duplicate canonical-ID candidates excluded from analysis |
 | `catalog/rejected_sources.parquet` | Invalid, ambiguous, or excluded flightline records |
 | `catalog/bulk_manifest.json` | Restart, settings, and provenance manifest |
+| `cache/<flightline-id>/observations.parquet` | Restart-safe narrow observations derived from persisted target ENVI products |
 | `database/spectralbridge_bulk.duckdb` | Virtual observation views, catalogs, and analysis tables |
 | `database/bulk_observations.parquet` | Optional portable super-Parquet; never created by default |
 | `coefficients/candidate_translation_coefficients.parquet/.json` | Pixel-pooled and balanced synthetic translation candidates |

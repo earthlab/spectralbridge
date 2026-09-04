@@ -43,18 +43,18 @@
 
 <section class="sb-doc-section" markdown="1">
 <h2><code>spectralbridge-bulk</code></h2>
-<p>Runs the independent cross-run analysis workflow against one merged Parquet or a recursively searched directory tree.</p>
+<p>Runs the independent cross-run analysis workflow against a completed normal-pipeline archive. Automatic mode recursively finds canonical inner flightline directories beneath arbitrary storage folders and reuses their persisted target-sensor ENVI products. If no completed flightline directories are found, it falls back to the prebuilt merged-Parquet compatibility path.</p>
 
 ```bash
 spectralbridge-bulk /data/spectralbridge_completed_runs \
   --output-dir /data/spectralbridge_bulk_analysis \
-  --input-kind full \
+  --input-mode auto \
   --threads &lt;N&gt; \
   --memory-limit &lt;XGB&gt; \
   --temp-directory /scratch/spectralbridge_bulk
 ```
 
-<p>The source tree is read only, the output directory must be fresh and external, and default full-pixel mode prevents polygon subsets from being double-counted. The complete observation population stays virtual unless <code>--materialize-observations</code> is explicitly passed. Use <code>--preflight-only</code> to inspect catalogs and the dataset census before expensive analyses. See <a href="../vignettes/bulk-analysis/">Build a bulk cross-run analysis</a>.</p>
+<p>The source tree is read only, the output directory must be fresh and external, and extraction defaults to one flightline at a time with bounded raster windows. The complete observation population stays virtual unless <code>--materialize-observations</code> is explicitly passed. Use <code>--preflight-only</code> to inspect catalogs and the dataset census without reading raster pixels. <code>--input-kind</code> applies only to merged-Parquet compatibility mode. See <a href="../vignettes/bulk-analysis/">Build a bulk cross-run analysis</a>.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

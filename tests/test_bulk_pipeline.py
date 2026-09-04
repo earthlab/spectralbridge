@@ -7,15 +7,22 @@ import json
 from pathlib import Path
 
 import duckdb
+import numpy as np
 import pyarrow as pa
 import pyarrow.parquet as pq
 import pytest
+import rasterio
+from rasterio.transform import from_origin
 
 from spectralbridge import run_bulk_pipeline
 from spectralbridge.bulk.catalog import (
     build_bulk_catalog,
     canonical_identity_from_product,
     discover_bulk_sources,
+)
+from spectralbridge.bulk.flightline_outputs import (
+    discover_completed_flightlines,
+    find_canonical_flightline_directories,
 )
 from spectralbridge.cli.bulk_cli import _build_parser
 
@@ -27,6 +34,7 @@ R10C_1 = "NEON_D10_R10C_DP1_L001-1_20210915_directional_reflectance"
 R10C_2 = "NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance"
 NIWO_1 = "NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance"
 JORN_1 = "NEON_D14_JORN_DP1_L001-1_20220701_directional_reflectance"
+YELL_1 = "NEON_D12_YELL_DP1_L099-1_20230715_directional_reflectance"
 
 
 def _merged(directory: Path, flightline_id: str, *, polygon: bool = False) -> Path:
@@ -62,6 +70,67 @@ def _sha256(path: Path) -> str:
         for chunk in iter(lambda: stream.read(64 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _write_envi(path: Path, values: np.ndarray, *, nodata: float = -9999.0) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    array = np.asarray(values, dtype="float32")
+    if array.ndim == 2:
+        array = array[np.newaxis, :, :]
+    with rasterio.open(
+        path,
+        "w",
+        driver="ENVI",
+        width=array.shape[2],
+        height=array.shape[1],
+        count=array.shape[0],
+        dtype="float32",
+        crs="EPSG:32613",
+        transform=from_origin(500000, 4420000, 1, 1),
+        nodata=nodata,
+    ) as dataset:
+        dataset.write(array)
+    return path
+
+
+def _completed_flightline(
+    root: Path,
+    outer: str,
+    flightline_id: str,
+    *,
+    micasense: np.ndarray | None = None,
+    landsat: np.ndarray | None = None,
+    qa: bool = True,
+) -> Path:
+    directory = root / outer / flightline_id
+    values = np.asarray(
+        micasense
+        if micasense is not None
+        else [[0.1, 0.2, 0.3], [0.4, 0.5, 0.6]],
+        dtype="float32",
+    )
+    target = np.asarray(
+        landsat if landsat is not None else values * 2.0 + 0.1,
+        dtype="float32",
+    )
+    _write_envi(
+        directory / f"{flightline_id}_brdfandtopo_corrected_envi.img",
+        values,
+    )
+    _write_envi(directory / f"{flightline_id}_envi.img", values)
+    _write_envi(
+        directory / f"{flightline_id}_micasense_to_match_oli_oli2_envi.img",
+        values,
+    )
+    _write_envi(
+        directory / f"{flightline_id}_landsat_oli_envi.img",
+        target,
+    )
+    if qa:
+        qa_path = directory / "qa" / "stages" / "04_spectral_convolution" / "stage_qa.json"
+        qa_path.parent.mkdir(parents=True, exist_ok=True)
+        qa_path.write_text(json.dumps({"status": "PASS"}), encoding="utf-8")
+    return directory
 
 
 def _run(input_root: Path, output: Path, **kwargs: object) -> dict[str, object]:
@@ -135,6 +204,7 @@ def test_virtual_union_is_default_and_preserves_provenance_and_sources(
     result = _run(root, tmp_path / "bulk")
 
     assert result["status"] == "created"
+    assert result["input_mode"] == "merged_parquet"
     assert result["accepted_flightline_count"] == 2
     assert result["row_count"] == 4
     assert result["materialized_observations"] is None
@@ -431,7 +501,178 @@ def test_cli_requires_clean_output_and_defaults_to_virtual_full_data() -> None:
     args = parser.parse_args(
         ["processed_data", "--output-dir", "bulk_output"]
     )
+    assert args.input_mode == "auto"
     assert args.input_kind == "full"
     assert args.materialize_observations is False
     assert args.preflight_only is False
     assert args.allow_no_translation is False
+
+
+def test_completed_archive_discovery_ignores_outer_batch_names(tmp_path: Path) -> None:
+    root = tmp_path / "Aug_2026_Processed_Flightlines"
+    niwo = _completed_flightline(root, "NIWO_a01", NIWO_1)
+    _completed_flightline(root, "NIWO_a02", R10C_1)
+    _completed_flightline(root, "worker_73", YELL_1)
+    qa_path = next((niwo / "qa").rglob("stage_qa.json"))
+    qa_path.write_text(
+        json.dumps({"status": "WARN", "metrics": {"no_data_fraction": 0.125}}),
+        encoding="utf-8",
+    )
+
+    directories = find_canonical_flightline_directories(root)
+    sources, flightlines = discover_completed_flightlines(root)
+
+    assert len(directories) == 3
+    assert {item.canonical_flightline_id for item in flightlines} == {
+        NIWO_1,
+        R10C_1,
+        YELL_1,
+    }
+    assert {item.site for item in flightlines} == {"NIWO", "R10C", "YELL"}
+    assert all(item.identity_source == "canonical_flightline_directory" for item in flightlines)
+    assert all(item.translation_eligible for item in flightlines)
+    assert all(item.status == "accepted" for item in flightlines)
+    niwo_record = next(item for item in flightlines if item.site == "NIWO")
+    assert niwo_record.qa_status == "warn"
+    assert "no_data_fraction" in niwo_record.stage_qa_status_json
+    assert {item.product_role for item in sources} == {
+        "raw_envi",
+        "corrected_envi",
+        "target_sensor_envi",
+    }
+
+
+def test_completed_archive_duplicate_ids_are_all_excluded(tmp_path: Path) -> None:
+    root = tmp_path / "archive"
+    _completed_flightline(root, "batch_A", NIWO_1)
+    _completed_flightline(root, "batch_B", NIWO_1)
+
+    sources, flightlines = discover_completed_flightlines(root)
+
+    assert len(flightlines) == 2
+    assert {item.status for item in flightlines} == {"duplicate_excluded"}
+    assert all(item.duplicate_candidate_count == 2 for item in flightlines)
+    assert {item.status for item in sources} == {"duplicate_excluded"}
+
+
+def test_completed_archive_incomplete_products_are_classified(tmp_path: Path) -> None:
+    root = tmp_path / "archive"
+    no_qa = _completed_flightline(root, "batch", NIWO_1, qa=False)
+    missing_corrected = _completed_flightline(root, "batch", R10C_1)
+    for path in missing_corrected.glob("*brdfandtopo_corrected_envi.*"):
+        path.unlink()
+    missing_micasense = _completed_flightline(root, "batch", YELL_1)
+    for path in missing_micasense.glob("*micasense_to_match_oli_oli2_envi.*"):
+        path.unlink()
+    broken_header = _completed_flightline(root, "batch", JORN_1)
+    header = next(broken_header.glob("*landsat_oli_envi.hdr"))
+    header.write_text("not an ENVI header", encoding="utf-8")
+
+    _, flightlines = discover_completed_flightlines(root)
+    by_id = {item.canonical_flightline_id: item for item in flightlines}
+
+    assert by_id[NIWO_1].status == "accepted"
+    assert by_id[NIWO_1].qa_status == "missing"
+    assert Path(by_id[NIWO_1].source_directory) == no_qa
+    assert by_id[R10C_1].status == "rejected"
+    assert "missing corrected" in (by_id[R10C_1].rejection_reason or "")
+    assert by_id[YELL_1].status == "rejected"
+    assert "no complete" in (by_id[YELL_1].rejection_reason or "")
+    assert by_id[JORN_1].status == "rejected"
+    assert "invalid target product" in by_id[JORN_1].missing_products_json
+
+
+def test_flightline_output_mode_preflight_is_metadata_only(tmp_path: Path) -> None:
+    root = tmp_path / "Aug_2026_Processed_Flightlines"
+    _completed_flightline(root, "NIWO_a01", NIWO_1)
+    output = tmp_path / "Aug_2026_Bulk_Analysis"
+
+    result = _run(root, output, preflight_only=True)
+    census = json.loads(
+        (output / "analyses" / "dataset_census" / "dataset_census.json").read_text()
+    )
+
+    assert result["input_mode"] == "flightline_outputs"
+    assert result["accepted_flightline_count"] == 1
+    assert census["observation_scan_performed"] is False
+    assert census["candidate_outer_batch_folders"] == 1
+    assert census["raw_products_found"] == 1
+    assert census["estimated_analysis_cache_bytes"] > 0
+    assert not list((output / "cache").rglob("*.parquet"))
+    products = pq.read_table(result["source_products"]).to_pylist()
+    assert {item["product_role"] for item in products} == {
+        "raw_envi",
+        "corrected_envi",
+        "target_sensor_envi",
+    }
+
+
+def test_tiny_chunked_flightline_extraction_and_restart(tmp_path: Path) -> None:
+    root = tmp_path / "Aug_2026_Processed_Flightlines"
+    micasense = np.asarray([[0.1, 0.2, -9999.0], [0.4, 0.5, 0.6]], dtype="float32")
+    landsat = np.where(micasense == -9999.0, -9999.0, micasense * 2.0 + 0.1)
+    source_dir = _completed_flightline(
+        root,
+        "NIWO_a01",
+        NIWO_1,
+        micasense=micasense,
+        landsat=landsat,
+    )
+    source_hashes = {path: _sha256(path) for path in source_dir.rglob("*") if path.is_file()}
+    output = tmp_path / "Aug_2026_Bulk_Analysis"
+
+    first = _run(root, output, extraction_chunk_size=2)
+    observations = output / "cache" / NIWO_1 / "observations.parquet"
+    sensor_cache = (
+        output
+        / "cache"
+        / NIWO_1
+        / "MicaSense_to_match_OLI_and_OLI_2.parquet"
+    )
+    metadata = json.loads(
+        (output / "cache" / NIWO_1 / "extraction_metadata.json").read_text()
+    )
+    first_mtime = observations.stat().st_mtime_ns
+    table = pq.read_table(observations)
+    reused = _run(root, output, extraction_chunk_size=2)
+
+    assert first["input_mode"] == "flightline_outputs"
+    assert first["row_count"] == 5
+    assert table.num_rows == 5
+    assert "MicaSense_to-match_OLI_and_OLI-2_band_1" in table.column_names
+    assert "Landsat_8_OLI_band_1" in table.column_names
+    assert pq.ParquetFile(sensor_cache).metadata.num_row_groups > 1
+    assert metadata["validity_filters"] == ["finite", "not ENVI nodata"]
+    assert metadata["source_directory"] == source_dir.as_posix()
+    assert reused["status"] == "reused"
+    assert observations.stat().st_mtime_ns == first_mtime
+    assert {path: _sha256(path) for path in source_hashes} == source_hashes
+    with duckdb.connect(str(first["database"]), read_only=True) as con:
+        slope = con.execute("SELECT slope FROM translation_pixel_pooled").fetchone()[0]
+    assert slope == pytest.approx(2.0)
+
+
+def test_flightline_extraction_failure_isolated_from_other_sources(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    root = tmp_path / "archive"
+    _completed_flightline(root, "batch_a", NIWO_1)
+    _completed_flightline(root, "batch_b", R10C_1)
+    from spectralbridge.pipelines import bulk as bulk_module
+
+    real_extract = bulk_module.extract_flightline_cache
+
+    def fail_one(item, *args, **kwargs):
+        if item.canonical_flightline_id == NIWO_1:
+            raise RuntimeError("synthetic extraction failure")
+        return real_extract(item, *args, **kwargs)
+
+    monkeypatch.setattr(bulk_module, "extract_flightline_cache", fail_one)
+    result = _run(root, tmp_path / "bulk", extraction_chunk_size=2)
+    records = pq.read_table(result["flightlines"]).to_pylist()
+
+    assert result["accepted_flightline_count"] == 1
+    failed = next(item for item in records if item["canonical_flightline_id"] == NIWO_1)
+    assert failed["extraction_status"] == "failure"
+    assert "synthetic extraction failure" in failed["rejection_reason"]

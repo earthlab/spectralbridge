@@ -88,7 +88,13 @@ CREATE TABLE source_files (
     modified_time_ns BIGINT,
     schema_sha256 VARCHAR,
     available_sensors_json VARCHAR,
-    translation_eligible BOOLEAN
+    translation_eligible BOOLEAN,
+    product_role VARCHAR,
+    sensor_name VARCHAR,
+    header_path VARCHAR,
+    dimensions_json VARCHAR,
+    source_signature_sha256 VARCHAR,
+    qa_status VARCHAR
 )
 """
 
@@ -121,7 +127,17 @@ CREATE TABLE flightlines (
     rejection_reason VARCHAR,
     duplicate_status VARCHAR,
     duplicate_candidate_count INTEGER,
-    source_provenance_json VARCHAR
+    source_provenance_json VARCHAR,
+    input_mode VARCHAR,
+    corrected_product_json VARCHAR,
+    target_products_json VARCHAR,
+    qa_status VARCHAR,
+    stage_qa_status_json VARCHAR,
+    missing_products_json VARCHAR,
+    analysis_eligibility_json VARCHAR,
+    estimated_cache_bytes BIGINT,
+    cache_observations VARCHAR,
+    extraction_status VARCHAR
 )
 """
 
@@ -259,6 +275,10 @@ def create_bulk_database(
     _insert_dataclasses(con, "flightlines", flightlines)
     con.execute("CREATE VIEW bulk_sources AS SELECT * FROM source_files")
     con.execute(
+        "CREATE TABLE source_products AS SELECT * FROM source_files "
+        "WHERE product_role <> 'derived_observations'"
+    )
+    con.execute(
         "CREATE TABLE duplicates AS SELECT * FROM flightlines "
         "WHERE duplicate_status = 'duplicate_canonical_id'"
     )
@@ -283,6 +303,7 @@ def create_bulk_database(
     for table_name, output_path in (
         ("flightlines", paths.flightlines),
         ("source_files", paths.source_files),
+        ("source_products", paths.source_products),
         ("duplicates", paths.duplicates),
         ("rejected_sources", paths.rejected_sources),
     ):

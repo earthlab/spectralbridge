@@ -20,10 +20,70 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
-### P71. Bounded Stage-Complete Installed-Artifact Validation
+### P72. Consume Completed Flightline Archives in the Bulk Pipeline
 
 - Priority: User-directed
 - Status: In progress
+- Owner: Codex
+- Started: 2026-09-04
+- Goal: Make `run_bulk_pipeline` consume completed normal-pipeline flightline
+  directories beneath arbitrary compute/storage folders, derive compact
+  restart-safe analytical observations in a separate output cache, and retain
+  compatibility with canonical merged-Parquet inputs.
+- Scope:
+  - Audit and document the actual normal-pipeline on-disk output contract.
+  - Add automatic or explicit discovery modes for completed flightline outputs
+    and prebuilt merged Parquets, with canonical NEON identity authoritative.
+  - Add fast metadata-only preflight, duplicate/incomplete classification,
+    QA-aware catalog records, chunked target-product extraction, provenance,
+    failure isolation, and restart-safe per-flightline caches.
+  - Feed compact observations into the existing DuckDB/census/translation/LOSO
+    analysis layer without changing scientific algorithms, coefficients,
+    thresholds, or normal-pipeline defaults.
+  - Update tests, the bulk vignette/notebook workflow, and publication-facing
+    documentation for the real Aug 2026 archive layout.
+- Plan:
+  - Trace authoritative normal output naming and the current bulk schema and
+    analysis requirements before selecting required target products.
+  - Extend catalog/preflight models and discovery with analysis-specific
+    eligibility and duplicate handling.
+  - Implement bounded ENVI-to-compact-Parquet extraction under `bulk_output/cache`
+    using existing readers, followed by the existing analytical pipeline.
+  - Add realistic nested-tree, duplicate, incomplete, restart, no-data, and
+    end-to-end tests; then run targeted and repository-wide verification.
+- Audited normal-pipeline output contract:
+  - The scientific unit is `<base>/<canonical-flightline-id>/`; the HDF5 input
+    may remain at `<base>/<canonical-flightline-id>.h5`.
+  - Raw ENVI is persisted as the canonical uncorrected `*_envi.img/.hdr` pair.
+    Corrected ENVI is persisted as
+    `<id>_brdfandtopo_corrected_envi.img/.hdr`, with correction JSON and the
+    canonical `<id>_brdf_model.json` sidecar.
+  - A completed convolution stage persists seven target ENVI pairs: Landsat 5
+    TM, Landsat 7 ETM+, Landsat 8 OLI, Landsat 9 OLI-2, MicaSense, and the two
+    wavelength-matched MicaSense products. Brightness-adjusted products and
+    their convolution-only `*_undarkened_envi` companions may both exist.
+  - Root QA files and `qa/stages/*` products are persisted when their stages
+    complete; metadata/config JSON and CSV sidecars are optional evidence.
+  - Raw, corrected, target-sensor, and merged Parquets are conditional on the
+    extraction branch and successful downstream completion. Full extraction
+    creates them by default, while polygon extraction deliberately skips the
+    full-pixel Parquets. Therefore merged Parquet is useful compatibility input
+    but is not a valid prerequisite for recognizing a completed archive.
+  - Current translation analyses require only canonical identity and at least
+    one wavelength-matched MicaSense/Landsat target pair. They do not require
+    rereading corrected hyperspectral bands or rerunning convolution.
+- Current status: Canonical flightline-output discovery, metadata-only
+  preflight, compact target-raster extraction, cache reuse, duplicate handling,
+  analysis integration, and focused tests are implemented; docs and full
+  verification remain.
+- Blockers: None identified yet.
+- Next recommended task: Complete the normal-output and bulk-analysis schema
+  audit and record the exact required/optional product contract here.
+
+### P71. Bounded Stage-Complete Installed-Artifact Validation
+
+- Priority: User-directed
+- Status: Completed
 - Owner: Codex
 - Started: 2026-09-04
 - Goal: Make the exact built wheel execute every major public stage of the
@@ -51,11 +111,63 @@ left incomplete so the next agent can resume immediately.
   - Update the publication audit and durable production-validation evidence
     template, build both artifacts, clean-install the exact wheel across the
     supported matrix, and record only observed results.
-- Current status: Request and guardrails recorded; stage/fixture investigation
-  is in progress.
-- Blockers: None yet.
-- Next recommended task: Determine the minimum structurally valid NEON and
-  drone fixtures that traverse the current production correction paths.
+- Outcome:
+  - Expanded `scripts/check_installed_artifact.py` into a deterministic,
+    offline, stage-complete exact-artifact check. Normal uses an 8 x 8 x 32 H5
+    and runs raw ENVI, BRDF/topographic preparation and application, all seven
+    sensor products, full Parquet extraction, merge, stage/legacy QA, and a
+    restart reuse assertion. Drone uses two 8 x 8 x 10 H5 fixtures and runs
+    real correction, full and intersecting-polygon extraction, merge, and QA.
+    Bulk uses three flightlines/twelve rows and runs discovery, catalog,
+    DuckDB, census, translation, LOSO, optional materialization, and restart.
+  - Added one-worker/thread and eight-row chunk limits, fixture-dimension and
+    2 MiB H5 ceilings, blocked sockets, temp-root/symlink containment, a 128 MiB
+    output ceiling, readable-value/schema assertions, and elapsed/size output.
+  - Moved Parquet validation into installed
+    `spectralbridge.parquet_validation`, added the
+    `spectralbridge-validate-parquets` console command, and retained the former
+    repository script only as a compatibility wrapper.
+  - Refactored the GitHub release workflow to run source/docs/version gates,
+    build wheel and sdist once, run `twine check`, install the exact wheel in
+    clean Python 3.10/3.11/3.12 jobs plus the sdist on Python 3.10, and permit a
+    GitHub release only after all artifact smokes pass. No PyPI publish step
+    was added.
+  - Documented Tier A installed-artifact CI versus Tier B large-VM production
+    validation and added a durable production-run evidence checklist.
+- Verification:
+  - Focused source tests: 81 passed, with existing deprecation/all-NaN warnings.
+  - Full source suite passed with six skips and the same known warnings.
+  - Ruff passed for `src`, `tests`, and all release/validation scripts used by
+    the workflow. Python compilation, generated AI-transparency and validation
+    checks, documentation links, strict MkDocs build, and workflow YAML parsing
+    also passed.
+  - The release-metadata gate correctly rejects the current `v2.2.0` candidate
+    because the first changelog version is `2.3.0`; this is a documented release
+    decision, not a smoke-framework failure.
+  - Final build: wheel (371,053 bytes) and sdist (15,644,694 bytes) succeeded;
+    both passed
+    `twine check`. Expected setuptools license-deprecation and existing sdist
+    inventory warnings remain.
+  - The final exact wheel stage-complete smoke passed outside the checkout on
+    local macOS Python 3.10.16, 3.11.11, and 3.12.8; dependency checks passed
+    in all three environments. Temporary output remained approximately
+    12.2–12.5 MB per run. The first complete matrix pass finished in
+    28.350, 30.329, and 28.228 seconds respectively; the final rebuilt-wheel
+    pass also completed successfully.
+  - The final exact sdist install and the same smoke passed on Python 3.10.16,
+    producing 12,224,965 bytes in 18.148 seconds; its dependency check passed.
+  - Synthetic H5 files are approximately 24,016 bytes (normal) and 18,296
+    bytes (drone). Wheel SHA-256:
+    `5761dcde1e6340dda83f4e34fad28888a4219799783a1f26611a4b01af4dcfe1`;
+    sdist SHA-256:
+    `557a3e3d052defe8e6e72e001eea58dadf87875d9a15a0828c67141f5057d1c5`.
+- Remaining blockers: The actual Linux GitHub matrix has not run until this
+  change reaches CI. PyPI remains blocked on maintainer decisions for release
+  version/history, authorship and DOI, data/asset provenance and licensing,
+  dependency policy, and trusted-publishing ownership/configuration.
+- Next recommended task: Resolve the publication version and approved citation
+  identity, then run a release-candidate Tier B validation on a large-memory VM
+  and attach both tiers of evidence to the candidate.
 
 ### P70. PyPI Publication-Hardening Audit
 

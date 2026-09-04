@@ -7,13 +7,14 @@ from pathlib import Path
 from typing import Literal
 
 
-BULK_SCHEMA_VERSION = 2
+BULK_SCHEMA_VERSION = 3
 BulkInputKind = Literal["full", "polygon", "both"]
+BulkInputMode = Literal["auto", "flightline_outputs", "merged_parquet"]
 
 
 @dataclass(frozen=True)
 class SourceFileRecord:
-    """One merged-Parquet candidate discovered in the read-only source tree."""
+    """One source product discovered in the read-only input tree."""
 
     source_id: str
     candidate_id: str
@@ -34,6 +35,12 @@ class SourceFileRecord:
     schema_sha256: str | None
     available_sensors_json: str
     translation_eligible: bool
+    product_role: str = "merged_parquet"
+    sensor_name: str | None = None
+    header_path: str | None = None
+    dimensions_json: str = "{}"
+    source_signature_sha256: str | None = None
+    qa_status: str | None = None
 
 
 @dataclass(frozen=True)
@@ -67,6 +74,16 @@ class FlightlineRecord:
     duplicate_status: str
     duplicate_candidate_count: int
     source_provenance_json: str
+    input_mode: str = "merged_parquet"
+    corrected_product_json: str = "{}"
+    target_products_json: str = "{}"
+    qa_status: str = "missing"
+    stage_qa_status_json: str = "{}"
+    missing_products_json: str = "[]"
+    analysis_eligibility_json: str = "{}"
+    estimated_cache_bytes: int = 0
+    cache_observations: str | None = None
+    extraction_status: str = "not_required"
 
 
 @dataclass(frozen=True)
@@ -85,6 +102,10 @@ class BulkAnalysisPaths:
     @property
     def database_dir(self) -> Path:
         return self.output_dir / "database"
+
+    @property
+    def cache_dir(self) -> Path:
+        return self.output_dir / "cache"
 
     @property
     def analyses_dir(self) -> Path:
@@ -117,6 +138,10 @@ class BulkAnalysisPaths:
     @property
     def source_files(self) -> Path:
         return self.catalog_dir / "source_files.parquet"
+
+    @property
+    def source_products(self) -> Path:
+        return self.catalog_dir / "source_products.parquet"
 
     @property
     def duplicates(self) -> Path:
@@ -157,6 +182,7 @@ class BulkAnalysisPaths:
     def ensure_directories(self) -> None:
         for directory in (
             self.catalog_dir,
+            self.cache_dir,
             self.database_dir,
             self.analyses_dir,
             self.coefficients_dir,
@@ -176,6 +202,7 @@ __all__ = [
     "BULK_SCHEMA_VERSION",
     "BulkAnalysisPaths",
     "BulkInputKind",
+    "BulkInputMode",
     "BulkSource",
     "FlightlineRecord",
     "SourceFileRecord",

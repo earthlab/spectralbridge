@@ -38,6 +38,7 @@ import numpy as np
 import pyarrow as pa
 import pyarrow.parquet as pq
 import rasterio
+from rasterio.transform import from_origin
 
 import spectralbridge
 from spectralbridge import (
@@ -45,7 +46,6 @@ from spectralbridge import (
     run_bulk_pipeline,
     run_drone_pipeline,
 )
-from spectralbridge.neon_cube import NeonCube
 from spectralbridge.paths import FlightlinePaths
 from spectralbridge.utils.paths import get_package_data_path
 
@@ -478,28 +478,42 @@ def _run_drone(root: Path) -> dict[str, object]:
 
 def _run_bulk(root: Path) -> dict[str, object]:
     started = time.monotonic()
-    bulk_source = root / "bulk_sources"
+    bulk_source = root / "Aug_2026_Processed_Flightlines"
     identifiers = (
         "NEON_D10_R10C_DP1_L001-1_20210915_directional_reflectance",
         NORMAL_FLIGHTLINE,
         "NEON_D14_JORN_DP1_L001-1_20220701_directional_reflectance",
     )
     for index, flightline_id in enumerate(identifiers):
-        table = pa.table(
-            {
-                "pixel_id": [f"p{index}_{row}" for row in range(4)],
-                "MicaSense_to-match_OLI_and_OLI-2_band_1": [0.1, 0.2, 0.3, 0.4],
-                "Landsat_8_OLI_band_1": [0.25, 0.45, 0.65, 0.85],
-                "Landsat_8_OLI_band_1_error": [0, 0, 0, 0],
-            }
+        flightline_dir = bulk_source / f"worker-{index}" / flightline_id
+        micasense = np.asarray(
+            [[0.1, 0.2], [0.3, 0.4]], dtype=np.float32
         )
-        path = (
-            bulk_source
-            / f"machine-{index}"
-            / f"{flightline_id}_merged_pixel_extraction.parquet"
-        )
-        path.parent.mkdir(parents=True, exist_ok=True)
-        pq.write_table(table, path, row_group_size=PARQUET_CHUNK_SIZE)
+        landsat = micasense * np.float32(2.0) + np.float32(0.05)
+        for suffix, values in (
+            ("envi", micasense),
+            ("brdfandtopo_corrected_envi", micasense),
+            ("micasense_to_match_oli_oli2_envi", micasense),
+            ("landsat_oli_envi", landsat),
+        ):
+            path = flightline_dir / f"{flightline_id}_{suffix}.img"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            with rasterio.open(
+                path,
+                "w",
+                driver="ENVI",
+                width=2,
+                height=2,
+                count=1,
+                dtype="float32",
+                crs="EPSG:32613",
+                transform=from_origin(500000, 4420000, 1, 1),
+                nodata=-9999.0,
+            ) as dataset:
+                dataset.write(values, 1)
+        qa = flightline_dir / "qa" / "stages" / "04_spectral_convolution" / "stage_qa.json"
+        qa.parent.mkdir(parents=True, exist_ok=True)
+        qa.write_text(json.dumps({"status": "PASS"}), encoding="utf-8")
 
     bulk_result = run_bulk_pipeline(
         bulk_source,
@@ -507,8 +521,12 @@ def _run_bulk(root: Path) -> dict[str, object]:
         threads=1,
         memory_limit="512MB",
         row_group_size=PARQUET_CHUNK_SIZE,
+        extraction_chunk_size=2,
+        extraction_workers=1,
         materialize_observations=True,
     )
+    if bulk_result["input_mode"] != "flightline_outputs":
+        raise RuntimeError(f"Bulk archive auto-detection smoke failed: {bulk_result}")
     if bulk_result["accepted_flightline_count"] != 3:
         raise RuntimeError(f"Bulk discovery smoke failed: {bulk_result}")
     if bulk_result["row_count"] != 12:
@@ -518,6 +536,7 @@ def _run_bulk(root: Path) -> dict[str, object]:
         "manifest",
         "flightlines",
         "source_files",
+        "source_products",
         "coefficients_parquet",
         "coefficients_json",
         "materialized_observations",
@@ -525,6 +544,7 @@ def _run_bulk(root: Path) -> dict[str, object]:
         _assert_nonempty(Path(str(bulk_result[key])))
     _assert_parquet(Path(str(bulk_result["flightlines"])))
     _assert_parquet(Path(str(bulk_result["source_files"])))
+    _assert_parquet(Path(str(bulk_result["source_products"])))
     _assert_parquet(Path(str(bulk_result["coefficients_parquet"])))
     _assert_parquet(Path(str(bulk_result["materialized_observations"])), minimum_rows=12)
     _assert_json(Path(str(bulk_result["manifest"])))
@@ -539,13 +559,16 @@ def _run_bulk(root: Path) -> dict[str, object]:
         threads=1,
         memory_limit="512MB",
         row_group_size=PARQUET_CHUNK_SIZE,
+        extraction_chunk_size=2,
+        extraction_workers=1,
         materialize_observations=True,
     )
     if reused["status"] != "reused":
         raise RuntimeError(f"Bulk restart did not reuse valid outputs: {reused}")
 
     return {
-        "status": "catalog_database_census_translation_loso_materialization",
+        "status": "flightline_archive_cache_database_translation_loso_materialization",
+        "input_mode": "flightline_outputs",
         "fixture_flightlines": 3,
         "fixture_rows": 12,
         "restart_reused_outputs": True,

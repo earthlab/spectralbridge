@@ -26,7 +26,7 @@ polygon workflows branch from that sequence where noted.
 3. [Harmonize target sensors](sensor-harmonization.md) — translate corrected
    spectra into configured target-sensor bandspaces.
 4. [Build analysis tables](analysis-tables.md) — work with per-product and
-   merged Parquet outputs.
+   merged Parquet outputs for an individual run.
 5. [Review QA outputs](qa-and-analysis.md) — render and interpret the PNG and
    JSON audit artifacts.
 6. [Process drone imagery](drone-processing.md) — run the separate local-HDF5
@@ -34,8 +34,9 @@ polygon workflows branch from that sequence where noted.
 7. [Extract polygon spectra](polygon-extraction.md) — build polygon-indexed
    spectral libraries from completed products.
 8. [Build a bulk cross-run analysis](bulk-analysis.md) — catalog canonical
-   flightlines, query original Parquets virtually, and fit pooled, balanced,
-   and held-out-site synthetic translations without modifying individual runs.
+   flightlines, derive narrow observations from persisted target-sensor ENVI,
+   and fit pooled, balanced, and held-out-site synthetic translations without
+   modifying individual runs. Prebuilt merged Parquets remain supported.
 
 ## How to use these pages
 

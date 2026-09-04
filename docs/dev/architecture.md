@@ -8,7 +8,7 @@ This page describes how SpectralBridge is organized internally. Understanding th
 
 - **Reproducibility first.** Pipeline behavior is predictable and restart-safe; stages skip when valid outputs already exist instead of recomputing.
 - **Fixed ordering.** `process_one_flightline` and `go_forth_and_multiply` orchestrate the same sequence: ENVI export → BRDF/topographic parameter build → BRDF+topo correction → sensor convolution/resampling → Parquet exports → DuckDB merge → QA panels.
-- **File contracts.** `FlightlinePaths` centralizes filenames and directories; stages communicate only through these artifacts. Downstream docs and CI treat the merged Parquet and QA products as required outputs.
+- **File contracts.** `FlightlinePaths` centralizes filenames and directories; stages communicate only through these artifacts. Required outputs depend on the requested extraction path: correction and convolution persist ENVI products before optional full or polygon table extraction.
 - **Outputs are the API.** Functions return little; correctness is expressed through on-disk ENVI/Parquet and QA files that can be inspected or reused.
 
 ---
@@ -42,11 +42,14 @@ This page describes how SpectralBridge is organized internally. Understanding th
 
 `run_bulk_pipeline` is downstream of completed per-flightline workflows rather
 than another stage inside them. It recovers canonical flightline identity from
-products rather than distributed-compute folders, excludes unresolved
-duplicates, and creates a DuckDB union-by-name view over the original Parquets.
-Physical observation materialization is opt-in. Dataset census, hierarchical
-translation, and leave-one-site-out logic live in independent analysis modules.
-The workflow never calls or mutates the NEON and drone orchestrators.
+inner NEON directories rather than distributed-compute folders, excludes
+unresolved duplicates, and reads only persisted wavelength-matched target ENVI
+products in bounded windows. Narrow per-flightline Parquets are cached beneath
+the separate bulk output, then federated through a DuckDB union-by-name view.
+Prebuilt merged Parquets remain a compatibility input and physical population
+materialization is opt-in. Dataset census, hierarchical translation, and
+leave-one-site-out logic live in independent analysis modules. The workflow
+never calls or mutates the NEON and drone orchestrators.
 
 ---
 
@@ -54,7 +57,7 @@ The workflow never calls or mutates the NEON and drone orchestrators.
 
 ### Adding or modifying a target sensor
 - Update spectral definitions in `spectralbridge/data/landsat_band_parameters.json` (or analogous table for the new sensor) and ensure resampling logic in `standard_resample.py` knows how to consume them.
-- Confirm `get_flightline_products` and `FlightlinePaths` generate filenames for the new sensor; outputs must still include merged Parquet and QA artifacts.
+- Confirm `get_flightline_products` and `FlightlinePaths` generate filenames for the new sensor; preserve ENVI, extraction-specific Parquet, and QA contracts.
 - Add tests that validate band definitions and resampled outputs; do not bypass the existing stage ordering.
 
 ### Updating brightness or translation coefficients

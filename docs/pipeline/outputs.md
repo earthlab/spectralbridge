@@ -8,13 +8,15 @@
 <section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">Cross-run analysis</p>
 <h2>Independent bulk-pipeline contract</h2>
-<p>The optional <code>spectralbridge-bulk</code> workflow recursively consumes completed merged Parquets. It writes only to its selected bulk output directory and does not modify NEON or drone run products.</p>
+<p>The optional <code>spectralbridge-bulk</code> workflow directly consumes completed normal-pipeline flightline directories nested beneath arbitrary storage folders. It reads persisted target-sensor ENVI products and writes compact analytical caches only to its selected bulk output directory; it does not modify NEON or drone run products. Prebuilt merged Parquets remain a compatibility input.</p>
 
 | Output type | Canonical path | Description |
 | --- | --- | --- |
-| Flightline catalog | `catalog/flightlines.parquet` | Product-derived canonical identity, site/date, processing state, schemas, and duplicate/rejection status. |
-| Source catalog | `catalog/source_files.parquet` | Every discovered full/polygon merged product and its original path, footer metadata, and selection status. |
+| Flightline catalog | `catalog/flightlines.parquet` | Canonical inner-directory identity, site/date, QA, processing state, analysis eligibility, and duplicate/rejection status. |
+| Source catalog | `catalog/source_files.parquet` | Every upstream product and derived observation source with original path, metadata fingerprint, and selection status. |
+| Source-product catalog | `catalog/source_products.parquet` | Read-only raw/corrected/target ENVI inventory; derived caches are excluded. |
 | Duplicate/rejection catalogs | `catalog/duplicates.parquet`, `catalog/rejected_sources.parquet` | Explicit exclusions; duplicate canonical IDs are never silently double-counted. |
+| Per-flightline analysis cache | `cache/<flight_id>/` | Narrow sensor Parquets, joined observations, extraction metadata, and restart/failure status. |
 | Bulk database | `database/spectralbridge_bulk.duckdb` | Catalogs, virtual union-by-name observations, and modular analysis tables. |
 | Bulk observations | `database/bulk_observations.parquet` | Optional portable materialization created only with `materialize_observations=True`. |
 | Dataset census | `analyses/dataset_census/` | Metadata-only preflight JSON, report, and Parquet breakdowns. |
@@ -33,11 +35,11 @@
 
 | Output type | Canonical filename pattern | Description | Notes / guarantees |
 | --- | --- | --- | --- |
-| Raw ENVI (when available) | `<flight_id>_envi.(img|hdr|parquet)` | Direct export of the NEON HDF5 reflectance cube. | Used when present to seed later stages; parquet sidecar is written when exported. |
+| Raw ENVI (when available) | `<flight_id>_envi.(img|hdr|parquet)` | Direct export of the NEON HDF5 reflectance cube. | The ENVI pair is the upstream raster contract; its Parquet sidecar depends on the extraction path. |
 | BRDF model JSON | `<flight_id>_brdf_model.json` | Scene-level BRDF coefficient tables written before BRDF application. | Includes `iso`/`vol`/`geo`, kernel settings, `ndvi_binning_enabled`, and `ndvi_edges`. |
-| BRDF + topographic corrected ENVI | `<flight_id>_brdfandtopo_corrected_envi.(img|hdr|json|parquet)` | Physics-informed normalization and correction JSON produced before sensor resampling. | One corrected set per flightline; parquet mirrors the corrected ENVI cube. |
-| Sensor-resampled ENVI + Parquet | `<flight_id>_<sensor>_envi.(img|hdr|parquet)` | Reflectance cubes resampled into the configured target sensor frame. | Sensor stems match `FlightlinePaths.sensor_products`. |
-| Merged Parquet | `<flight_id>_merged_pixel_extraction.parquet` | Master table that merges Parquet sidecars across stages into one analysis-ready spectral library. | Exactly one per flightline and treated as the primary success signal. |
+| BRDF + topographic corrected ENVI | `<flight_id>_brdfandtopo_corrected_envi.(img|hdr|json|parquet)` | Physics-informed normalization and correction JSON produced before sensor resampling. | The ENVI pair and correction JSON persist before extraction; the Parquet sidecar is conditional. |
+| Sensor-resampled ENVI + Parquet | `<flight_id>_<sensor>_envi.(img|hdr|parquet)` | Reflectance cubes resampled into the configured target sensor frame. | ENVI products persist after convolution; Parquet sidecars depend on the extraction path. |
+| Merged Parquet | `<flight_id>_merged_pixel_extraction.parquet` | Master table that merges Parquet sidecars into one analysis-ready spectral library. | Produced by full-pixel extraction; polygon-only runs may omit it. It is not required for bulk archive discovery. |
 | QA artefacts | `<flight_id>_qa.png`, `<flight_id>_qa.json`, optional `<flight_id>_qa.pdf` | Visual and numeric QA summaries aligned to the merged outputs. | PNG and JSON are expected for completed runs; PDF is optional. |
 | QA metrics parquet | `<flight_id>_qa_metrics.parquet` | Structured QA metrics by band and sensor. | Emitted alongside QA outputs when QA calculation runs. |
 | Synthetic sensor regression diagnostic | `qa_plots/<merged_stem>__MS_vs_Landsat_FIXED.(png|json)` | Scatter panels compare wavelength-matched synthetic MicaSense and Landsat products; the JSON records the displayed slope, intercept, correlation, R², and sample count. | Both axes come from the same corrected NEON source. This is a descriptive convolution diagnostic, not empirical sensor calibration. |
@@ -49,10 +51,10 @@
 <p class="sb-kicker">Success criteria</p>
 <h2>What a successful run looks like</h2>
 <ul class="sb-doc-list">
-  <li>The merged parquet exists and is readable: <code>&lt;flight_id&gt;_merged_pixel_extraction.parquet</code>.</li>
+  <li>The products required by the requested stages exist and are readable. A completed correction/convolution run has corrected and configured target-sensor ENVI pairs even if full-pixel extraction was not requested.</li>
   <li>The QA PNG renders with its matching JSON: <code>&lt;flight_id&gt;_qa.png</code> and <code>&lt;flight_id&gt;_qa.json</code>.</li>
   <li>Sensor-specific ENVI and parquet products exist as configured; absence can reflect configuration rather than failure.</li>
-  <li>If the merged parquet and QA outputs are present, the flightline completed successfully.</li>
+  <li>If full-pixel extraction was requested, its merged Parquet should also exist and validate. Polygon-only processing has its own polygon output contract.</li>
 </ul>
 </section>
 

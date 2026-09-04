@@ -31,16 +31,10 @@ A green offline contract does not imply scientific validation. A real stage `WAR
 
 ## Two validation tiers
 
-1. **Tier A — installed-artifact CI smoke:** the exact built wheel is installed outside the checkout and runs every major normal, drone, and bulk stage on tiny deterministic fixtures. It checks package resources, orchestration, schemas, output readability, bounded resource use, and restart behavior.
-2. **Tier B — production validation:** opt-in real data selected from a pinned inventory runs on an appropriately sized machine. It measures full-scale operational behavior, correction support, performance, and QA usefulness across sites and acquisition conditions.
+1. **Offline contract campaign:** small deterministic inputs, safe for local or CI execution. It checks dimensions, numerical invariants, schemas, restart behavior, and diagnostic generation.
+2. **Live NEON campaign:** opt-in real data selected from a pinned inventory. It measures download reliability, full-stage behavior, correction support, performance, and QA usefulness across sites and acquisition conditions.
 
-These tiers must remain separate. Scale reduction in Tier A is acceptable only
-because it executes the same production algorithms and code paths. Repeating
-synthetic inputs can expose packaging, numerical, and state bugs, but it cannot
-establish scientific accuracy on real landscapes, production-scale
-performance, cross-site stability, or empirical calibration validity. See the
-[production validation record](../dev/production-validation-record.md) for the
-release evidence contract.
+These tiers must remain separate. Repeating synthetic inputs 100 times can expose numerical and state bugs, but it cannot establish network reliability or scientific validity across 100 real flightlines.
 
 ## Example figures from the real test run
 

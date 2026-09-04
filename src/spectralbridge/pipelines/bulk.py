@@ -7,6 +7,8 @@ live under the dedicated spectralbridge.bulk package.
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from dataclasses import replace
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import logging
 import math
@@ -27,10 +29,16 @@ from spectralbridge.bulk.catalog import (
     discover_bulk_sources,
 )
 from spectralbridge.bulk.dataset import create_bulk_database, finalize_bulk_database
+from spectralbridge.bulk.flightline_outputs import (
+    discover_completed_flightlines,
+    extract_flightline_cache,
+    find_canonical_flightline_directories,
+)
 from spectralbridge.bulk.models import (
     BULK_SCHEMA_VERSION,
     BulkAnalysisPaths,
     BulkInputKind,
+    BulkInputMode,
     BulkSource,
     FlightlineRecord,
     SourceFileRecord,
@@ -66,11 +74,14 @@ def _input_signature(
     root: Path,
     paths: BulkAnalysisPaths,
     input_kind: BulkInputKind,
+    input_mode: BulkInputMode,
     minimum_reflectance: float,
     materialize_observations: bool,
     row_group_size: int,
     preflight_only: bool,
     require_translation_pairs: bool,
+    extraction_chunk_size: int,
+    extraction_workers: int,
     source_files: list[SourceFileRecord],
     flightlines: list[FlightlineRecord],
 ) -> dict[str, Any]:
@@ -79,11 +90,14 @@ def _input_signature(
         "input_path": root.as_posix(),
         "output_dir": paths.output_dir.as_posix(),
         "input_kind": input_kind,
+        "input_mode": input_mode,
         "minimum_reflectance": minimum_reflectance,
         "materialize_observations": materialize_observations,
         "row_group_size": row_group_size if materialize_observations else None,
         "preflight_only": preflight_only,
         "require_translation_pairs": require_translation_pairs,
+        "extraction_chunk_size": extraction_chunk_size,
+        "extraction_workers": extraction_workers,
         "catalog": catalog_signature_records(source_files, flightlines),
     }
 
@@ -101,6 +115,7 @@ def _outputs_are_valid(
     required = [
         paths.flightlines,
         paths.source_files,
+        paths.source_products,
         paths.duplicates,
         paths.rejected_sources,
         paths.database,
@@ -134,6 +149,7 @@ def _outputs_are_valid(
         for parquet in (
             paths.flightlines,
             paths.source_files,
+            paths.source_products,
             paths.duplicates,
             paths.rejected_sources,
         ):
@@ -166,6 +182,7 @@ def _result(
     translation_pair_count: int,
     materialize_observations: bool,
     preflight_only: bool,
+    input_mode: str,
 ) -> dict[str, Any]:
     return {
         "status": status,
@@ -177,12 +194,15 @@ def _result(
         "translation_pair_count": translation_pair_count,
         "regression_count": translation_pair_count,
         "preflight_only": preflight_only,
+        "input_mode": input_mode,
         "materialized_observations": (
             str(paths.observations) if materialize_observations else None
         ),
         "observations": str(paths.observations) if materialize_observations else None,
         "flightlines": str(paths.flightlines),
         "source_files": str(paths.source_files),
+        "source_products": str(paths.source_products),
+        "cache": str(paths.cache_dir),
         "source_catalog": str(paths.source_files),
         "duplicates": str(paths.duplicates),
         "rejected_sources": str(paths.rejected_sources),
@@ -200,6 +220,7 @@ def run_bulk_pipeline(
     output_dir: str | Path | None = None,
     *,
     input_kind: BulkInputKind = "full",
+    input_mode: BulkInputMode = "auto",
     minimum_reflectance: float = 0.0,
     require_translation_pairs: bool = True,
     materialize_observations: bool = False,
@@ -208,6 +229,8 @@ def run_bulk_pipeline(
     threads: int | None = None,
     temp_directory: str | Path | None = None,
     preflight_only: bool = False,
+    extraction_chunk_size: int = 2048,
+    extraction_workers: int = 1,
     force: bool = False,
 ) -> dict[str, Any]:
     """Catalog completed flightlines and run population analyses.
@@ -217,9 +240,10 @@ def run_bulk_pipeline(
     names. Duplicate canonical flightline IDs in different source directories
     are cataloged and excluded from analysis.
 
-    By default, bulk_observations is a DuckDB view over the accepted source
-    Parquets. Set materialize_observations only when a portable super-Parquet
-    is explicitly required and sufficient disk is available.
+    ``input_mode='auto'`` prefers canonical completed-flightline directories
+    and falls back to prebuilt merged Parquets. Completed-flightline mode reads
+    corrected target-sensor ENVI products in bounded chunks and writes compact,
+    restart-safe observation caches only beneath ``output_dir``.
     """
 
     root = Path(input_path).expanduser().resolve()
@@ -249,6 +273,10 @@ def run_bulk_pipeline(
         )
     if input_kind not in {"full", "polygon", "both"}:
         raise ValueError("input_kind must be 'full', 'polygon', or 'both'")
+    if input_mode not in {"auto", "flightline_outputs", "merged_parquet"}:
+        raise ValueError(
+            "input_mode must be 'auto', 'flightline_outputs', or 'merged_parquet'"
+        )
     minimum_reflectance = float(minimum_reflectance)
     if not math.isfinite(minimum_reflectance):
         raise ValueError("minimum_reflectance must be finite")
@@ -256,23 +284,50 @@ def run_bulk_pipeline(
         raise ValueError("row_group_size must be at least 1")
     if threads is not None and threads < 1:
         raise ValueError("threads must be at least 1")
+    if extraction_chunk_size < 1:
+        raise ValueError("extraction_chunk_size must be at least 1")
+    if extraction_workers < 1:
+        raise ValueError("extraction_workers must be at least 1")
 
     paths = BulkAnalysisPaths(resolved_output)
     _prepare_output_directory(paths)
-    source_files, flightlines = build_bulk_catalog(
-        root,
-        input_kind=input_kind,
-        exclude_dir=resolved_output,
-    )
+    resolved_input_mode: BulkInputMode
+    if input_mode == "auto":
+        resolved_input_mode = (
+            "flightline_outputs"
+            if find_canonical_flightline_directories(
+                root, exclude_dir=resolved_output
+            )
+            else "merged_parquet"
+        )
+    else:
+        resolved_input_mode = input_mode
+    if resolved_input_mode == "flightline_outputs":
+        if input_kind != "full":
+            raise ValueError(
+                "input_kind='polygon'/'both' applies only to merged_parquet mode"
+            )
+        source_files, flightlines = discover_completed_flightlines(
+            root, exclude_dir=resolved_output
+        )
+    else:
+        source_files, flightlines = build_bulk_catalog(
+            root,
+            input_kind=input_kind,
+            exclude_dir=resolved_output,
+        )
     signature = _input_signature(
         root=root,
         paths=paths,
         input_kind=input_kind,
+        input_mode=resolved_input_mode,
         minimum_reflectance=minimum_reflectance,
         materialize_observations=materialize_observations,
         row_group_size=row_group_size,
         preflight_only=preflight_only,
         require_translation_pairs=require_translation_pairs,
+        extraction_chunk_size=extraction_chunk_size,
+        extraction_workers=extraction_workers,
         source_files=source_files,
         flightlines=flightlines,
     )
@@ -302,7 +357,74 @@ def run_bulk_pipeline(
                 translation_pair_count=int(counts["translation_pairs"]),
                 materialize_observations=materialize_observations,
                 preflight_only=preflight_only,
+                input_mode=resolved_input_mode,
             )
+
+    if resolved_input_mode == "flightline_outputs" and not preflight_only:
+        extracted_sources: list[SourceFileRecord] = []
+        updated: dict[str, FlightlineRecord] = {}
+
+        def extract_one(
+            item: FlightlineRecord,
+        ) -> tuple[SourceFileRecord, FlightlineRecord]:
+            return extract_flightline_cache(
+                item,
+                paths,
+                analysis_run_id=analysis_run_id,
+                chunk_size=extraction_chunk_size,
+                force=force,
+            )
+
+        eligible = [item for item in flightlines if item.status == "accepted"]
+        if extraction_workers == 1:
+            for index, item in enumerate(eligible, start=1):
+                LOGGER.info(
+                    "Bulk extraction flightline %d/%d: %s",
+                    index,
+                    len(eligible),
+                    item.canonical_flightline_id,
+                )
+                try:
+                    source, refreshed = extract_one(item)
+                except Exception as exc:
+                    LOGGER.exception(
+                        "Bulk extraction failed for %s; continuing",
+                        item.canonical_flightline_id,
+                    )
+                    updated[item.candidate_id] = replace(
+                        item,
+                        status="rejected",
+                        rejection_reason=f"extraction failed: {type(exc).__name__}: {exc}",
+                        extraction_status="failure",
+                    )
+                else:
+                    extracted_sources.append(source)
+                    updated[item.candidate_id] = refreshed
+        else:
+            with ThreadPoolExecutor(max_workers=extraction_workers) as pool:
+                futures = {pool.submit(extract_one, item): item for item in eligible}
+                for future in as_completed(futures):
+                    item = futures[future]
+                    try:
+                        source, refreshed = future.result()
+                    except Exception as exc:
+                        LOGGER.exception(
+                            "Bulk extraction failed for %s; continuing",
+                            item.canonical_flightline_id,
+                        )
+                        updated[item.candidate_id] = replace(
+                            item,
+                            status="rejected",
+                            rejection_reason=(
+                                f"extraction failed: {type(exc).__name__}: {exc}"
+                            ),
+                            extraction_status="failure",
+                        )
+                    else:
+                        extracted_sources.append(source)
+                        updated[item.candidate_id] = refreshed
+        flightlines = [updated.get(item.candidate_id, item) for item in flightlines]
+        source_files = [*source_files, *extracted_sources]
 
     accepted_flightlines = [
         item for item in flightlines if item.status == "accepted"
@@ -337,11 +459,18 @@ def run_bulk_pipeline(
         "analysis_run_id": analysis_run_id,
         "input_path": root.as_posix(),
         "input_kind": input_kind,
+        "input_mode": resolved_input_mode,
         "source_data_policy": "read_only",
-        "identity_policy": "canonical_product_filename_not_outer_folder",
+        "identity_policy": (
+            "canonical_flightline_directory_not_outer_folder"
+            if resolved_input_mode == "flightline_outputs"
+            else "canonical_product_filename_not_outer_folder"
+        ),
         "duplicate_policy": "exclude_all_duplicate_canonical_id_candidates",
         "materialize_observations": materialize_observations,
         "minimum_reflectance": minimum_reflectance,
+        "extraction_chunk_size": extraction_chunk_size,
+        "extraction_workers": extraction_workers,
     }
     con, temporary_database = create_bulk_database(
         paths,
@@ -416,6 +545,8 @@ def run_bulk_pipeline(
         "outputs": {
             "flightlines": _relative_output(paths, paths.flightlines),
             "source_files": _relative_output(paths, paths.source_files),
+            "source_products": _relative_output(paths, paths.source_products),
+            "cache": _relative_output(paths, paths.cache_dir),
             "duplicates": _relative_output(paths, paths.duplicates),
             "rejected_sources": _relative_output(paths, paths.rejected_sources),
             "database": _relative_output(paths, paths.database),
@@ -464,6 +595,7 @@ def run_bulk_pipeline(
         translation_pair_count=int(translation["pair_count"]),
         materialize_observations=materialize_observations,
         preflight_only=preflight_only,
+        input_mode=resolved_input_mode,
     )
 
 
@@ -471,6 +603,7 @@ __all__ = [
     "BULK_SCHEMA_VERSION",
     "BulkAnalysisPaths",
     "BulkInputKind",
+    "BulkInputMode",
     "BulkSource",
     "FlightlineRecord",
     "SourceFileRecord",

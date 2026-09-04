@@ -20,7 +20,19 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "input_path",
         type=Path,
-        help="A merged Parquet file or root directory tree to search recursively.",
+        help=(
+            "A completed-flightline archive, merged Parquet, or directory tree "
+            "to discover recursively."
+        ),
+    )
+    parser.add_argument(
+        "--input-mode",
+        choices=("auto", "flightline_outputs", "merged_parquet"),
+        default="auto",
+        help=(
+            "Input contract. Auto prefers canonical completed-flightline folders "
+            "and falls back to merged Parquets."
+        ),
     )
     parser.add_argument(
         "--output-dir",
@@ -79,6 +91,18 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Optional DuckDB worker-thread count.",
     )
     parser.add_argument(
+        "--extraction-workers",
+        type=int,
+        default=1,
+        help="Concurrent flightline extractions (default: 1, conservative for I/O).",
+    )
+    parser.add_argument(
+        "--extraction-chunk-size",
+        type=int,
+        default=2048,
+        help="Maximum ENVI window edge and Parquet row-group size (default: 2048).",
+    )
+    parser.add_argument(
         "--temp-directory",
         type=Path,
         default=None,
@@ -103,6 +127,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         args.input_path,
         args.output_dir,
         input_kind=args.input_kind,
+        input_mode=args.input_mode,
         minimum_reflectance=args.minimum_reflectance,
         require_translation_pairs=not args.allow_no_translation,
         materialize_observations=args.materialize_observations,
@@ -111,6 +136,8 @@ def main(argv: Sequence[str] | None = None) -> None:
         threads=args.threads,
         temp_directory=args.temp_directory,
         preflight_only=args.preflight_only,
+        extraction_workers=args.extraction_workers,
+        extraction_chunk_size=args.extraction_chunk_size,
         force=args.force,
     )
     print(json.dumps(result, indent=2, sort_keys=True))

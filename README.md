@@ -295,19 +295,22 @@ finishes, the pipeline logs `✅ All requested flightlines processed.`.
 ### Bulk analysis across completed runs
 
 Bulk population analysis is intentionally separate from individual NEON and
-drone processing. Point `spectralbridge-bulk` at a read-only directory tree of
-completed flightlines to build canonical catalogs, a virtual DuckDB dataset,
-balanced synthetic translation summaries, and leave-one-site-out validation:
+drone processing. Point `spectralbridge-bulk` directly at a read-only archive
+of completed normal-pipeline flightline directories. Arbitrary outer batch
+folders are ignored scientifically; canonical inner NEON names define identity:
 
 ```bash
-spectralbridge-bulk /data/spectralbridge_completed_runs \
-  --output-dir /data/spectralbridge_bulk_analysis \
+spectralbridge-bulk /home/jovyan/data-store/Aug_2026_Processed_Flightlines \
+  --output-dir /home/jovyan/data-store/Aug_2026_Bulk_Analysis \
+  --input-mode auto \
   --preflight-only
 ```
 
-The default includes full-pixel merged masters, excludes polygon subsets, and
-queries the accepted source Parquets without copying the full population.
-Physical materialization is opt-in. See [Build a bulk cross-run
+The preferred mode reuses persisted target-sensor ENVI products and derives
+narrow, chunked, restart-safe observation caches in the separate bulk output;
+it does not require merged Parquets or rerun convolution. Prebuilt merged
+Parquets remain supported as an automatically detected compatibility mode.
+Physical collection-wide materialization is opt-in. See [Build a bulk cross-run
 analysis](docs/vignettes/bulk-analysis.md) for canonical identity, duplicate
 handling, output contracts, weighting, restart behavior, and the distinction
 between translation regression and brightness adjustment.

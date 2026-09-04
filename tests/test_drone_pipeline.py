@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from importlib import import_module
 from pathlib import Path
 
 import json
@@ -481,10 +482,8 @@ def test_run_drone_pipeline_explicit_full_extraction(tmp_path: Path, monkeypatch
         output_path.write_text("\n".join(outputs), encoding="utf-8")
         return output_path
 
-    monkeypatch.setattr(
-        "spectralbridge.parquet_export.ensure_parquet_from_envi",
-        _fake_full_extract,
-    )
+    parquet_export = import_module("spectralbridge.parquet_export")
+    monkeypatch.setattr(parquet_export, "ensure_parquet_from_envi", _fake_full_extract)
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone._merge_drone_polygon_outputs",
         _fake_merge,

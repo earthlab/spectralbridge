@@ -59,7 +59,12 @@ jobs:
         env:
           CSCAL_TEST_MODE: unit
         run: |
-          ruff check src tests scripts
+          ruff check src tests \
+            scripts/check_installed_artifact.py \
+            scripts/check_release_metadata.py \
+            scripts/generate_ai_transparency.py \
+            scripts/generate_validation_docs.py \
+            scripts/run_validation_campaign.py
           pytest -q
 
       - name: Validate generated evidence and documentation

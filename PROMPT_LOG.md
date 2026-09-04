@@ -9278,3 +9278,669 @@ invalid-syntax: Cannot reuse outer quote character in f-strings on Python 3.10 (
 Found 3 errors.\&#x20;
 Error: Process completed with exit code 1.
 ```
+
+## 2026-09-04 - continue stage-complete validation
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+you can continue
+```
+
+## 2026-09-04 - consume completed flightline archives directly
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+You are working in the current earthlab/spectralbridge repository.
+
+The current bulk pipeline input contract is wrong for the real production archive.
+
+We now have the actual large-VM production directory structure and need to fix the bulk pipeline so it can consume the completed output of the normal SpectralBridge pipeline directly.
+
+Do not work around this in notebooks.
+
+Fix the package architecture.
+
+Real production input structure
+
+The real bulk input root looks like this conceptually:
+
+Aug_2026_Processed_Flightlines/
+├── NIWO_a01/
+│   ├── NEON_D13_NIWO_DP1_L012-1_20230815_directional_reflectance/
+│   │   ├── qa/
+│   │   ├── metadata / JSON sidecars
+│   │   ├── ENVI headers
+│   │   ├── raw/corrected/target products
+│   │   └── NEON_D13_NIWO_DP1_L012-1_20230815_directional_reflectance_brdfandtopo_corrected_envi.img
+│   └── possibly other files/products
+├── NIWO_a02/
+├── NIWO_a03/
+├── ...
+
+Important facts:
+
+* outer folders like NIWO_a01, NIWO_a02, etc. are compute/batch/storage folders only
+* they are NOT scientific flightline identifiers
+* the actual flightline identity is encoded in the inner canonical NEON product directory/file names
+* each inner canonical flightline folder represents an independently processed flightline
+* some compute jobs may have produced sister runs, but those remain independent flightlines
+* a typical corrected ENVI image can be ~20–30 GB or larger
+* the complete per-flightline folder may be ~40–80 GB
+* the archive may eventually contain ~100 independently processed flightlines
+* this will run on a large VM
+* source data must be treated as read-only
+* all new bulk deliverables must go into a fresh output directory
+
+The current bulk pipeline instead looks for:
+
+*_merged_pixel_extraction.parquet
+
+as its primary input and therefore rejects the real archive.
+
+That is the problem to fix.
+
+Primary architectural requirement
+
+The output of the normal SpectralBridge pipeline must be directly consumable by the bulk pipeline.
+
+A user should be able to run conceptually:
+
+from spectralbridge import run_bulk_pipeline
+run_bulk_pipeline(
+    "/path/to/Aug_2026_Processed_Flightlines",
+    "/path/to/Aug_2026_Bulk_Analysis",
+)
+
+without first manufacturing or manually reorganizing intermediate merged-Parquet products.
+
+This should become a publication-level contract.
+
+Phase 1: Audit the current normal-pipeline output contract
+
+Before changing anything, read carefully:
+
+* AGENTS.md
+* FEATURE_REQUESTS.md
+* PROMPT_LOG.md
+* normal pipeline orchestration
+* paths.py
+* file_types.py
+* ENVI output naming
+* target sensor output naming
+* QA output structure
+* current bulk pipeline
+* current bulk catalog/discovery code
+* current extraction/Parquet code
+* current sensor translation code
+* current tests
+* current docs
+
+Determine exactly which per-flightline products are reliably persisted by the normal pipeline.
+
+Do not guess.
+
+Identify at minimum:
+
+* canonical flightline directory
+* raw ENVI
+* corrected ENVI
+* target-sensor ENVI products
+* QA products
+* model/config sidecars
+* any existing Parquet tables if present
+* whether full-pixel Parquet extraction is always, sometimes, or rarely generated
+
+Document the real current output contract in FEATURE_REQUESTS.md.
+
+Phase 2: Redesign bulk discovery around canonical flightline folders
+
+Bulk discovery should recursively traverse arbitrary outer batch/storage directories.
+
+It must identify canonical completed flightline folders from their actual contents and/or canonical NEON naming.
+
+For example:
+
+NIWO_a01/
+  NEON_D13_NIWO_DP1_L012-1_20230815_directional_reflectance/
+
+should resolve scientifically to something like:
+
+* site: NIWO
+* date: 2023-08-15
+* flightline: L012-1
+* canonical flightline ID: derived from the NEON naming parser
+
+Do NOT use NIWO_a01 as the flightline ID.
+
+Do NOT use arbitrary outer folder names as scientific identity.
+
+If two different outer directories contain the same canonical flightline ID, treat them as true duplicate candidates and exclude them from scientific analysis unless an explicit duplicate-resolution policy is later added.
+
+Phase 3: Support two valid bulk input modes
+
+Retain compatibility with existing prebuilt merged-Parquet input if useful, but make completed flightline folders the primary production input.
+
+Support conceptually:
+
+Mode A: completed-flightline folders
+
+Preferred/default production mode.
+
+Bulk discovers per-flightline pipeline outputs and builds the analytical dataset from those products.
+
+Mode B: prebuilt merged-Parquet products
+
+Compatibility/advanced mode.
+
+If a user already has the canonical merged Parquets, the current fast virtual-DuckDB path may still be useful.
+
+Do not force users to create Parquets before bulk analysis.
+
+If input mode can be auto-detected safely, implement that.
+
+Otherwise expose a simple explicit option such as:
+
+input_mode="auto" | "flightline_outputs" | "merged_parquet"
+
+Do not create a confusing proliferation of modes.
+
+Phase 4: Build a scalable flightline-to-analysis extraction layer
+
+The bulk pipeline needs a scalable way to derive compact analytical observations from each completed flightline folder.
+
+Do NOT blindly materialize every pixel from every 20–30 GB ENVI image into another equally huge Parquet unless scientifically necessary.
+
+The bulk analyses need a compact analytical representation.
+
+Determine what columns are actually required by the current analyses:
+
+* flightline ID
+* site
+* acquisition date
+* relevant MicaSense synthetic bands
+* relevant Landsat synthetic bands
+* validity/error flags
+* QA state
+* possibly correction metadata
+* possibly selected raw/corrected summaries for later correction-effectiveness work
+
+Use only the persisted target-sensor products needed for the current analysis where possible.
+
+Avoid rereading hundreds of hyperspectral bands if the normal pipeline has already produced target-sensor rasters.
+
+Prefer:
+
+corrected target-sensor ENVI products
+→ chunked extraction
+→ compact Parquet
+
+over:
+
+corrected hyperspectral ENVI
+→ reread all hyperspectral bands
+→ recompute sensor convolution unnecessarily
+
+unless the current output contract makes the latter unavoidable.
+
+Phase 5: Per-flightline derived analytical cache
+
+For each accepted canonical flightline, create a compact derived analysis cache inside the NEW bulk output directory, not the source directory.
+
+Conceptually:
+
+bulk_output/
+├── cache/
+│   ├── <flightline_id>/
+│   │   ├── observations.parquet
+│   │   ├── extraction_metadata.json
+│   │   └── status.json
+
+or another clean structure.
+
+This cache should:
+
+* be derived read-only from source products
+* be restartable
+* preserve canonical identity
+* record source files and hashes/size/mtime/schema
+* record which target sensor products were used
+* record extraction code/version
+* support independent rerun per flightline
+* avoid rereading successful flightlines unnecessarily
+
+The cache should be compact relative to the full raster products.
+
+Phase 6: Chunked/streaming extraction
+
+Each flightline may contain tens of GB of raster data.
+
+Extraction must be chunked.
+
+Requirements:
+
+* do not load full ENVI rasters into RAM
+* process bounded chunks/windows
+* read only required bands/products
+* configurable chunk size
+* deterministic output
+* bounded memory
+* one flightline can fail without destroying the whole bulk run
+* progress logging at flightline and chunk level
+
+Use existing SpectralBridge ENVI readers/helpers where possible.
+
+Do not introduce a second independent raster parser unnecessarily.
+
+Phase 7: Preserve scientific independence
+
+The scientific hierarchy remains:
+
+site
+→ acquisition
+→ flightline
+→ pixel
+
+Outer batch folders are computational provenance only.
+
+Sister runs from the same VM remain independent flightlines.
+
+Do not introduce any weighting/grouping based on:
+
+* batch folder
+* machine
+* worker
+* copy destination
+
+Only canonical site/date/flightline identity should drive scientific grouping.
+
+Phase 8: QA-aware extraction
+
+Use the per-flightline QA information where available.
+
+The extraction/catalog should record:
+
+* overall QA status
+* relevant stage QA status
+* known missing products
+* known warning/failure state
+* relevant no-data/invalid fractions where available
+
+Do not automatically discard WARN flightlines unless a specific analysis requires that.
+
+Preserve QA state so downstream analyses can stratify/filter explicitly.
+
+FAIL or structurally incomplete flightlines may be rejected with a clear reason.
+
+Phase 9: Preflight must work on the real archive
+
+The cheap preflight should now inspect the real directory structure and report:
+
+* candidate outer batch folders
+* canonical flightline folders discovered
+* accepted unique flightlines
+* duplicate canonical flightlines
+* rejected/incomplete flightlines
+* sites
+* dates
+* raw/corrected/target products found
+* QA availability
+* approximate total source bytes
+* estimated analysis-cache size if possible
+* flightlines eligible for current translation analysis
+* missing required target-sensor products
+* reasons for rejection
+
+Preflight should NOT scan full raster pixel populations.
+
+It may inspect:
+
+* filenames
+* headers
+* JSON metadata
+* file sizes
+* QA metadata
+* ENVI metadata
+* Parquet footers where available
+
+This should be fast enough to review before launching extraction.
+
+Phase 10: Current translation analysis path
+
+The existing downstream analytical framework should remain conceptually intact:
+
+per-flightline compact observations
+→ DuckDB virtual federation
+→ dataset census
+→ pixel pooled translation
+→ per-flightline translation
+→ per-site translation
+→ flightline-balanced translation
+→ site-balanced translation
+→ leave-one-site-out
+
+Do not rewrite these analyses unless required by the new source schema.
+
+Adapt the input layer to feed them correctly.
+
+Phase 11: Avoid unnecessary recomputation
+
+If the normal pipeline already persisted target sensor products such as:
+
+* Landsat-like ENVI products
+* MicaSense-like ENVI products
+
+use those directly.
+
+Do not recompute spectral convolution from the hyperspectral cube just because bulk can.
+
+The normal pipeline output should be considered authoritative for the bulk run.
+
+Only compute missing target products if there is an explicit opt-in recovery mode.
+
+Default behavior should be:
+
+missing required product
+→ reject/flag in preflight
+
+not
+
+missing product
+→ silently rerun the normal pipeline.
+
+Bulk must remain downstream and read-only.
+
+Phase 12: New output contract
+
+Refine the output structure conceptually to something like:
+
+bulk_output/
+├── catalog/
+│   ├── flightlines.parquet
+│   ├── source_products.parquet
+│   ├── duplicates.parquet
+│   ├── rejected_sources.parquet
+│   └── bulk_manifest.json
+│
+├── cache/
+│   └── per-flightline compact analytical Parquets
+│
+├── database/
+│   └── spectralbridge_bulk.duckdb
+│
+├── analyses/
+│   ├── dataset_census/
+│   ├── sensor_translation/
+│   ├── leave_one_site_out/
+│   └── future correction/QA analyses
+│
+├── coefficients/
+├── figures/
+├── tables/
+├── reports/
+└── logs/
+
+Do not place derived bulk files inside the source flightline folders.
+
+Phase 13: Robust source detection
+
+Add tests for input structures resembling the real archive.
+
+Synthetic fixture example:
+
+bulk_input/
+├── NIWO_a01/
+│   └── NEON_D13_NIWO_DP1_L012-1_20230815_directional_reflectance/
+│       ├── raw/corrected ENVI
+│       ├── target-sensor ENVI
+│       ├── QA
+│       └── metadata
+├── NIWO_a02/
+│   └── NEON_D13_NIWO_DP1_L013-1_20230815_directional_reflectance/
+├── worker_73/
+│   └── NEON_D13_YELL_DP1_L099-1_20230715_directional_reflectance/
+
+Verify:
+
+* all three become independent flightlines
+* outer folder names are ignored scientifically
+* site/date/flightline identity is recovered correctly
+
+Phase 14: Duplicate tests
+
+Add a fixture where:
+
+batch_A/...L012-1...
+batch_B/...L012-1...
+
+contain the same canonical flightline.
+
+Verify they are marked as duplicates and not both included.
+
+Phase 15: Incomplete-flightline tests
+
+Create fixtures missing:
+
+* corrected product
+* target Landsat product
+* target MicaSense product
+* QA
+* ENVI header
+* corrupted header
+
+Define clearly which are:
+
+* fatal/rejected
+* analyzable with warning
+* analyzable for only a subset of analyses
+
+Do not use one global validity flag if analysis-specific eligibility is more accurate.
+
+Phase 16: Tiny raster integration tests
+
+Use tiny ENVI fixtures to test actual chunked extraction.
+
+The tests should verify:
+
+* correct pixel/band values
+* no full-array loading
+* chunk boundaries
+* no-data handling
+* source provenance
+* canonical flightline metadata
+* derived Parquet schema
+* restart behavior
+
+Do not require large fixtures.
+
+Phase 17: Backward compatibility
+
+The existing run_bulk_pipeline public API should remain usable where reasonable.
+
+If signatures must change, preserve compatibility aliases/defaults or document a clean migration.
+
+The production happy path should become simple.
+
+Desired example:
+
+from spectralbridge import run_bulk_pipeline
+result = run_bulk_pipeline(
+    "/home/jovyan/data-store/Aug_2026_Processed_Flightlines",
+    "/home/jovyan/data-store/Aug_2026_Bulk_Analysis",
+    input_mode="auto",
+    threads=16,
+    memory_limit="175GB",
+    temp_directory="/home/jovyan/work/spectralbridge_bulk_scratch",
+)
+
+The user should not need to understand internal Parquet naming to use the bulk pipeline.
+
+Phase 18: Jupyter/documentation update
+
+Update the bulk vignette to describe the real production structure.
+
+Explicitly show:
+
+batch/storage folder
+→ canonical flightline folder
+→ completed normal-pipeline products
+
+Explain that:
+
+* outer names are ignored
+* canonical inner flightline identity is authoritative
+* bulk derives compact analysis observations
+* source is read-only
+* target sensor outputs are reused rather than recomputed
+* large raw/corrected rasters remain in place
+* compact bulk caches are written separately
+
+Also update the example Jupyter workflow.
+
+Do not require users to manually search for *_merged_pixel_extraction.parquet.
+
+Phase 19: Preflight-only workflow
+
+Preserve a clean two-stage user experience:
+
+run_bulk_pipeline(..., preflight_only=True)
+
+then inspect census/rejections.
+
+Then:
+
+run_bulk_pipeline(..., preflight_only=False)
+
+for actual extraction + analysis.
+
+Preflight should not create expensive per-pixel cache files.
+
+Phase 20: Performance considerations
+
+The VM currently has roughly:
+
+* 40 CPUs
+* 251 GB RAM
+
+But do not hard-code those.
+
+Use resource parameters already in the API.
+
+For extraction, consider safe per-flightline concurrency carefully.
+
+Because source rasters may each be tens of GB and storage may be network-backed, uncontrolled parallel reads could make performance worse.
+
+Prefer configurable conservative concurrency.
+
+If practical, separate:
+
+* DuckDB threads
+* number of concurrently extracted flightlines
+* chunk size
+
+Document defaults.
+
+Do not use all CPUs automatically if doing so would saturate I/O.
+
+Phase 21: Failure isolation
+
+One bad flightline should not abort the entire collection.
+
+Per-flightline extraction should record:
+
+* success
+* warning
+* failure
+* failure reason
+* traceback/log reference
+* source products
+
+Bulk should continue with other valid flightlines unless configured otherwise.
+
+Phase 22: Provenance
+
+For every compact derived observation file, record:
+
+* canonical flightline ID
+* site
+* date
+* source directory
+* exact source product paths
+* source sizes/mtime
+* SpectralBridge version
+* git commit if available
+* extraction schema version
+* selected target sensors/bands
+* validity filters
+* chunk settings
+* analysis run ID
+
+This will be publication evidence.
+
+Phase 23: Do not alter scientific algorithms
+
+Do NOT change:
+
+* BRDF correction
+* topographic correction
+* sensor-response definitions
+* brightness coefficients
+* QA thresholds
+* normal-pipeline scientific defaults
+
+This task is about connecting pipeline 1 outputs to pipeline 3 inputs correctly.
+
+Phase 24: Verification
+
+Run:
+
+* new discovery tests
+* tiny ENVI extraction tests
+* duplicate tests
+* incomplete-flightline tests
+* current bulk tests
+* normal pipeline tests relevant to output naming
+* full pytest if practical
+* Ruff
+* compile checks
+* strict docs build
+* AI transparency check
+* git diff –check
+
+Also create one realistic synthetic directory tree matching:
+
+Aug_2026_Processed_Flightlines/
+  NIWO_a01/
+    NEON_D13_NIWO_DP1_L012-1_20230815_directional_reflectance/
+
+and demonstrate preflight + full tiny bulk analysis end-to-end.
+
+Final report
+
+Report:
+
+1. what was wrong with the previous bulk input assumption
+2. the new canonical bulk input contract
+3. how arbitrary outer batch folders are handled
+4. how canonical flightline identity is recovered
+5. what normal-pipeline products are required
+6. what products are optional
+7. how per-flightline compact observations are created
+8. whether target-sensor products are reused directly
+9. chunking/memory strategy
+10. failure isolation behavior
+11. output/cache structure
+12. backward compatibility with merged-Parquet mode
+13. exact tests/checks run
+14. remaining limitations
+15. updated user invocation for the real Aug 2026 archive
+
+Update FEATURE_REQUESTS.md and PROMPT_LOG.md according to repository policy.
+
+The core publication requirement is:
+
+SpectralBridge’s bulk pipeline must directly consume the completed outputs of SpectralBridge’s normal pipeline without requiring users to manually manufacture a separate intermediate dataset.
+```
