@@ -15,15 +15,38 @@ The repository now includes a tag-driven GitHub Actions workflow:
 - trigger: push a tag matching `vMAJOR.MINOR.PATCH`
 - manual fallback: `workflow_dispatch` with a `release_tag` input
 
-That workflow currently:
+That workflow:
 
-1. checks out the tagged revision
-2. builds `sdist` and wheel artifacts with `python -m build`
-3. runs `python -m twine check dist/*`
-4. installs the built wheel and imports `spectralbridge`
-5. uploads the built artifacts to the workflow run
-6. creates or updates the GitHub release and attaches the built artifacts
-7. enables GitHub-generated release notes
+1. validates the requested `vMAJOR.MINOR.PATCH` tag against `pyproject.toml`,
+   `spectralbridge.__version__`, `CITATION.cff`, and the first versioned
+   changelog heading
+2. runs Ruff, the full test suite, strict docs/link checks, validation-evidence
+   drift checks, and AI-transparency drift checks
+3. builds the sdist and wheel once and runs `twine check`
+4. uploads those exact bytes as one release candidate
+5. installs the exact wheel outside the checkout on Python 3.10, 3.11, and 3.12
+6. installs the exact sdist outside the checkout on Python 3.10
+7. runs the bounded, offline, stage-complete normal, drone, and bulk smoke in
+   each clean environment
+8. creates the GitHub release only after every source and artifact gate passes
+
+No workflow publishes to PyPI yet.
+
+## Two-tier validation requirement
+
+The release gate intentionally separates package execution from production
+science:
+
+- **Tier A — installed-artifact CI smoke:** tiny 8 × 8 fixtures, one worker,
+  no network, strict disk budget, every major production stage, every release.
+  It proves package wiring and orchestration.
+- **Tier B — production validation:** selected real flightlines on a suitably
+  provisioned large-memory VM, periodically and for release candidates. It
+  provides scientific QA and operational evidence at real scale.
+
+CI is not required to run a workflow that may need roughly 250 GB of RAM.
+Fixture scale may be reduced only while retaining the same production code
+paths and algorithms. See the [production validation record](production-validation-record.md).
 
 ## What is still manual
 
@@ -64,8 +87,12 @@ Also confirm:
 ```bash
 python -m build
 python -m twine check dist/*
-pip install dist/*.whl
-python -c "import spectralbridge; print(spectralbridge.__version__)"
+python -m venv /tmp/spectralbridge-release-smoke
+/tmp/spectralbridge-release-smoke/bin/python -m pip install dist/*.whl
+cd /tmp
+/tmp/spectralbridge-release-smoke/bin/python \
+  /path/to/spectralbridge/scripts/check_installed_artifact.py \
+  --expected-version MAJOR.MINOR.PATCH
 ```
 
 4. commit the release-prep changes
@@ -120,7 +147,8 @@ documentation consistently rather than changing only the badge.
 - no automatic PyPI publish is configured in this repository
 - no automatic changelog rewriting is configured
 - no automatic version bumping is configured
-- no release-blocking metadata sync test exists yet
+- PyPI trusted publishing and its protected environment are not configured
 
-Those are deliberate omissions for now so release automation does not outpace
-maintainer review.
+PyPI publishing remains a deliberate omission so release automation does not
+outpace maintainer review. The workflow creates only a fully gated GitHub
+release.

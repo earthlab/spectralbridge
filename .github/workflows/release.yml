@@ -15,9 +15,11 @@ permissions:
   contents: write
 
 jobs:
-  build-and-release:
-    name: Release / build-and-publish
+  resolve-tag:
+    name: Release / resolve tag
     runs-on: ubuntu-latest
+    outputs:
+      release_tag: ${{ steps.tag.outputs.release_tag }}
     steps:
       - name: Resolve release tag
         id: tag
@@ -31,10 +33,51 @@ jobs:
             exit 1
           fi
 
+  source-gates:
+    name: Release / source, docs, and metadata gates
+    needs: resolve-tag
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ steps.tag.outputs.release_tag }}
+          ref: ${{ needs.resolve-tag.outputs.release_tag }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install source gate dependencies
+        run: |
+          python -m pip install -U pip
+          pip install -e .[tests,docs] ruff
+
+      - name: Validate release metadata
+        run: python scripts/check_release_metadata.py --tag "${{ needs.resolve-tag.outputs.release_tag }}"
+
+      - name: Run lint and tests
+        env:
+          CSCAL_TEST_MODE: unit
+        run: |
+          ruff check src tests scripts
+          pytest -q
+
+      - name: Validate generated evidence and documentation
+        run: |
+          python scripts/generate_ai_transparency.py --check
+          python scripts/generate_validation_docs.py --check
+          python scripts/check_docs_links.py
+          mkdocs build --strict
+
+  build:
+    name: Release / build exact candidate once
+    needs: [resolve-tag, source-gates]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ needs.resolve-tag.outputs.release_tag }}
 
       - uses: actions/setup-python@v5
         with:
@@ -43,29 +86,98 @@ jobs:
       - name: Install packaging dependencies
         run: |
           python -m pip install -U pip
-          pip install -e . build twine
+          pip install build twine
 
-      - name: Build distribution artifacts
+      - name: Build wheel and sdist once
         run: python -m build
 
       - name: Validate package metadata
         run: python -m twine check dist/*
 
-      - name: Install built wheel and import package
-        run: |
-          pip install --force-reinstall dist/*.whl
-          python -c "import spectralbridge; print(spectralbridge.__version__)"
-
-      - name: Upload release artifacts
+      - name: Upload exact release candidate and smoke runner
         uses: actions/upload-artifact@v4
         with:
-          name: release-dist-${{ steps.tag.outputs.release_tag }}
-          path: dist/*
+          name: release-candidate
+          if-no-files-found: error
+          retention-days: 14
+          path: |
+            dist/*
+            scripts/check_installed_artifact.py
+
+  wheel-smoke:
+    name: Release / wheel smoke / Python ${{ matrix.python-version }}
+    needs: [resolve-tag, build]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-candidate
+          path: release-candidate
+
+      - name: Install exact wheel in clean environment
+        run: |
+          python -m pip install -U pip
+          python -m pip install release-candidate/dist/*.whl
+          python -m pip check
+
+      - name: Run offline stage-complete installed-wheel smoke outside checkout
+        env:
+          RELEASE_TAG: ${{ needs.resolve-tag.outputs.release_tag }}
+        run: |
+          cd "$RUNNER_TEMP"
+          python "$GITHUB_WORKSPACE/release-candidate/scripts/check_installed_artifact.py" \
+            --expected-version "${RELEASE_TAG#v}"
+
+  sdist-smoke:
+    name: Release / sdist smoke / Python 3.10
+    needs: [resolve-tag, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-candidate
+          path: release-candidate
+
+      - name: Build and install exact sdist in clean environment
+        run: |
+          python -m pip install -U pip
+          python -m pip install release-candidate/dist/*.tar.gz
+          python -m pip check
+
+      - name: Run offline stage-complete installed-sdist smoke outside checkout
+        env:
+          RELEASE_TAG: ${{ needs.resolve-tag.outputs.release_tag }}
+        run: |
+          cd "$RUNNER_TEMP"
+          python "$GITHUB_WORKSPACE/release-candidate/scripts/check_installed_artifact.py" \
+            --expected-version "${RELEASE_TAG#v}"
+
+  github-release:
+    name: Release / create GitHub release
+    needs: [resolve-tag, source-gates, build, wheel-smoke, sdist-smoke]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-candidate
+          path: release-candidate
 
       - name: Create or update GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.tag.outputs.release_tag }}
+          tag_name: ${{ needs.resolve-tag.outputs.release_tag }}
           generate_release_notes: true
           files: |
-            dist/*
+            release-candidate/dist/*

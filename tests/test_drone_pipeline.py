@@ -455,6 +455,76 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
     assert qa_summary["success_qa_only_no_polygons_count"] == 1
 
 
+def test_run_drone_pipeline_explicit_full_extraction(tmp_path: Path, monkeypatch) -> None:
+    h5_path = (
+        tmp_path
+        / "input"
+        / "SPR1-06-28-23-ExportPackage"
+        / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
+    )
+    h5_path.parent.mkdir(parents=True, exist_ok=True)
+    h5_path.write_bytes(b"fake-h5")
+
+    _patch_basic_drone_runtime(monkeypatch)
+    extraction_calls: list[tuple[Path, Path, Path, int]] = []
+
+    def _fake_full_extract(img, hdr, output, *, chunk_size, num_cpus=None):
+        del num_cpus
+        output = Path(output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text("parquet", encoding="utf-8")
+        extraction_calls.append((Path(img), Path(hdr), output, chunk_size))
+        return output
+
+    def _fake_merge(outputs, output_path, overwrite=False):
+        del overwrite
+        output_path.write_text("\n".join(outputs), encoding="utf-8")
+        return output_path
+
+    monkeypatch.setattr(
+        "spectralbridge.parquet_export.ensure_parquet_from_envi",
+        _fake_full_extract,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._merge_drone_polygon_outputs",
+        _fake_merge,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._export_csv_copy_from_parquet",
+        _fake_csv_export,
+    )
+
+    results = run_drone_pipeline(
+        tmp_path / "input",
+        output_dir=tmp_path / "out",
+        apply_topo=False,
+        apply_brdf=False,
+        extraction_mode="full",
+        parquet_chunk_size=8,
+    )
+
+    expected = (
+        tmp_path
+        / "out"
+        / "SPR1_20230628"
+        / "SPR1_20230628__full.parquet"
+    )
+    assert extraction_calls == [
+        (
+            expected.with_name("SPR1_20230628__corrected.img"),
+            expected.with_name("SPR1_20230628__corrected.hdr"),
+            expected,
+            8,
+        )
+    ]
+    assert results["outputs"] == [str(expected)]
+    assert results["merged"] == str(tmp_path / "out" / "drone_merged.parquet")
+    file_summary = results["qa_summary"]["files"][0]
+    assert file_summary["extraction_mode"] == "full"
+    assert file_summary["full_extraction_ran"] is True
+    assert file_summary["status"] == "success_extracted"
+
+
 def test_run_drone_pipeline_accepts_tiff_sources(tmp_path: Path, monkeypatch) -> None:
     tif_path = (
         tmp_path

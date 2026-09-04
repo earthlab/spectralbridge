@@ -37,6 +37,7 @@ results = run_drone_pipeline(
     input_h5_dir="drone_inputs",
     output_dir="drone_outputs",
     polygon_path=None,
+    extraction_mode="full",
     apply_topo=True,
     apply_brdf=True,
     require_solar_geometry=True,
@@ -47,8 +48,10 @@ print(results["failed"])
 print(results["qa_summary"])
 ```
 
-Set `polygon_path` to a supported vector file only when polygon extraction is
-part of the same run.
+Set `extraction_mode="full"` to write all corrected pixels to Parquet. For an
+intersecting vector subset, pass both `polygon_path="plots.geojson"` and
+`extraction_mode="polygon"`. Omitting `extraction_mode` preserves the existing
+behavior: polygon extraction when a polygon is supplied, otherwise QA-only.
 
 ## Confirm the result
 

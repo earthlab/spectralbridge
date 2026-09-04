@@ -14,25 +14,25 @@ the source tree appears capable of doing.
 ## Executive verdict
 
 The package builds, passes `twine check`, clean-installs, exposes the three
-canonical Python APIs, ships the five runtime data files currently located by
-the code, and passes a meaningful installed-package smoke test outside the
-repository. The bulk pipeline was exercised through its complete small-data
-analysis path. The drone pipeline was exercised through HDF5 discovery,
-conversion, orchestration, output creation, and QA with corrections disabled.
-The normal pipeline was exercised only through HDF5-to-ENVI conversion.
+canonical Python APIs, and ships its required runtime data. The release
+criterion is explicitly bounded: a production flightline can require roughly
+250 GB of RAM, so GitHub Actions must not attempt to reproduce a production
+execution.
 
-That evidence is encouraging but does **not** satisfy the release-blocking
-contract:
+The release-blocking artifact contract is instead:
 
-> A wheel installed into a clean environment must run the normal NEON, drone,
-> and bulk pipelines without access to a repository checkout.
+> The exact built wheel must execute every major public stage of the normal
+> NEON, drone, and bulk pipelines on deliberately tiny, deterministic fixtures
+> outside the repository checkout, with no network or repository-relative
+> runtime dependency.
 
-The complete normal workflow and the drone correction plus full/polygon
-extraction variants have not yet been demonstrated from an installed artifact.
-The tag workflow also neither runs such a gate nor publishes to PyPI, version
-history is inconsistent, and maintainer/legal review is still needed for
-citation and bundled-data provenance. Publication should wait until every
-BLOCKER below is closed or explicitly resolved by maintainers.
+The stage-complete smoke framework and a Python 3.10/3.11/3.12 release matrix
+now encode that contract. Scale reduction is acceptable only because the same
+production orchestration and scientific algorithms execute; no fake-science
+branch replaces them. Separate large-VM evidence remains required for
+production scientific and operational validation. Publication is still
+blocked by unresolved version history, citation/DOI identity, bundled-data
+provenance, and PyPI publishing ownership described below.
 
 ## Evidence scope and limits
 
@@ -54,10 +54,21 @@ installed-package smoke checks on local macOS using Python 3.10.16, 3.11.11,
 passed. These are local compatibility observations, not a declaration of
 support for every version or operating system.
 
-The smoke fixtures are synthetic and offline. They do not validate scientific
-agreement with full production flightlines, remote NEON download, distributed
-Ray execution, or every combination of corrections and polygon inputs. Those
-limits must remain explicit.
+Validation has two non-interchangeable tiers:
+
+- **Tier A — installed-artifact CI smoke:** tiny, deterministic, offline, and
+  stage-complete. It proves packaging integrity, resource availability,
+  orchestration, stage connectivity, readable outputs, and restart behavior.
+- **Tier B — production scientific validation:** selected real flightlines on
+  an appropriately sized large-memory machine. It records scientific QA,
+  cross-site behavior, empirical calibration evidence, and production
+  performance.
+
+Tier A does not validate scientific accuracy on real landscapes, performance
+at production scale, stability across sites, or empirical calibration
+validity. Tier B does not replace exact-wheel packaging validation. The
+maintainer evidence contract and existing R10C record are documented in
+`docs/dev/production-validation-record.md`.
 
 ## 1. Actual package and public workflows
 
@@ -81,9 +92,9 @@ limits must remain explicit.
 
 | Workflow | Canonical Python invocation | Canonical CLI | Smallest documented package-first call | Audit result |
 | --- | --- | --- | --- | --- |
-| Normal NEON | `from spectralbridge import go_forth_and_multiply` | `spectralbridge-pipeline` | `go_forth_and_multiply(base_folder=..., sites=[...], years=[...])` | API/import/help passed; only offline H5-to-ENVI was run from the artifact |
-| Drone | `from spectralbridge import run_drone_pipeline` | None | `run_drone_pipeline(input_h5_dir=..., output_dir=...)` | API and abbreviated orchestration passed; corrections and extraction were not exercised |
-| Bulk | `from spectralbridge import run_bulk_pipeline` | `spectralbridge-bulk` | `run_bulk_pipeline(input_path, output_dir)` | Full tiny catalog/database/census/translation/LOSO smoke passed |
+| Normal NEON | `from spectralbridge import go_forth_and_multiply` | `spectralbridge-pipeline` | `go_forth_and_multiply(base_folder=..., sites=[...], years=[...])` | Stage-complete 8 × 8 × 32 artifact smoke implemented |
+| Drone | `from spectralbridge import run_drone_pipeline` | None | `run_drone_pipeline(input_h5_dir=..., output_dir=...)` | Corrections, QA, and full plus polygon 8 × 8 × 10 extraction artifact smoke implemented |
+| Bulk | `from spectralbridge import run_bulk_pipeline` | `spectralbridge-bulk` | `run_bulk_pipeline(input_path, output_dir)` | Catalog/database/census/translation/LOSO/materialization artifact smoke implemented |
 | QA | module-specific Python functions | `spectralbridge-qa`, `spectralbridge-qa-summary`, `spectralbridge-qa-dashboard`, `spectralbridge-stage-qa` | See QA documentation | All installed command help paths passed |
 
 The drone Python API is clear and installable. A drone CLI is not required for
@@ -119,22 +130,33 @@ separate compatibility decision is made.
 
 The reusable `scripts/check_installed_artifact.py` check verifies that the
 imported module is outside the checkout, verifies the canonical APIs and
-runtime resources, generates tiny inputs, and runs the three abbreviated paths.
-It must be invoked with the Python executable belonging to the clean environment
-where the artifact was installed.
+runtime resources, generates bounded inputs, blocks outbound socket access,
+and runs all three stage-complete tiny workflows. It must be invoked with the
+Python executable belonging to the clean environment where the artifact was
+installed.
 
 Pipeline-level results:
 
-- **Normal NEON:** import, configuration/resource lookup, public API, CLI help,
-  and real synthetic NEON HDF5-to-ENVI conversion passed. The complete
-  correction, convolution, extraction, merge, and QA orchestration did not run.
-- **Drone:** real `run_drone_pipeline` orchestration discovered one HDF5,
-  converted it, produced raw/corrected reuse outputs and QA, and reported
-  `success_qa_only_no_polygons`. Topographic/BRDF corrections were disabled;
-  full and polygon extraction were not run.
-- **Bulk:** real `run_bulk_pipeline` discovered three synthetic flightlines and
-  twelve rows, built its catalog and DuckDB database, and ran census, sensor
-  translation, coefficient export, and leave-one-site-out analysis.
+- **Normal NEON (8 × 8 × 32):** reads a canonical synthetic HDF5, exports raw
+  ENVI, prepares and applies topographic/BRDF correction, convolves all seven
+  target products through the production resampler, exports Parquet, merges,
+  emits stage and legacy QA, and reruns to assert that valid heavy artifacts
+  are reused.
+- **Drone (two 8 × 8 × 10 fixtures):** recursively discovers HDF5 input,
+  exports ENVI, runs topographic and BRDF correction, deliberately records that
+  convolution is not applicable, and separately runs full-pixel and
+  intersecting-polygon extraction, merge, and QA.
+- **Bulk (three flightlines, twelve rows):** discovers canonical products,
+  builds the catalog and DuckDB database, runs census, sensor translation,
+  coefficient export and leave-one-site-out analysis, materializes the optional
+  observation super-Parquet, and verifies restart reuse.
+
+The smoke hard-codes one worker, one merge thread, eight-row Parquet chunks,
+small fixture-dimension ceilings, a 2 MiB per-HDF5 fixture ceiling, a 128 MiB
+total temporary-tree ceiling, no symlinks, and all discovery/output paths below
+one temporary root. It records elapsed time, fixture dimensions, and total
+output bytes. These are resource-escalation guardrails, not changes to
+production defaults.
 
 No repository path was on `PYTHONPATH`, and the import resolved from each clean
 environment's `site-packages` directory.
@@ -155,12 +177,11 @@ to durable public documentation. The Landsat JSON contains centers and FWHM
 values, not full spectral-response curves; public wording should not imply more
 than the packaged resource provides.
 
-One repository-relative behavior remains: normal pipeline validation looks for
-`bin/validate_parquets` above the source module and silently skips it when the
-script is absent. The script is not installed. This does not currently crash
-the pipeline, but a documented package feature cannot depend on that path.
-Move the implementation into the package or explicitly label it as a
-repository-only maintainer check.
+The former repository-relative Parquet validator has been moved to
+`spectralbridge.parquet_validation`. Normal orchestration calls the installed
+module directly and the installed `spectralbridge-validate-parquets` console
+script exposes the same check. `bin/validate_parquets` is now only a compatible
+repository wrapper; installed runtime behavior no longer searches for it.
 
 ## 4. Dependency audit
 
@@ -199,11 +220,11 @@ should record dependency versions so an analysis can be reconstructed.
 - This local clean-artifact audit passed on 3.10, 3.11, 3.12, and 3.14, but did
   not establish full-pipeline or Linux support on all four.
 
-The release must define a finite tested matrix. A reasonable minimum is 3.10,
-3.11, and 3.12 in Linux CI, followed by an explicit maintainer choice about
-3.13/3.14. Update classifiers, README, and `requires-python` consistently. Do
-not describe untested future Python versions as supported merely because the
-metadata permits installation.
+The release artifact gate now defines Python 3.10, 3.11, and 3.12 as its finite
+Linux matrix. Python 3.13/3.14 remain compatibility observations only unless
+maintainers explicitly add and support them. Metadata and public support
+wording still need to be aligned with that decision; an unconstrained
+`>=3.10` declaration alone is not evidence of support.
 
 ## 6. Version, citation, DOI, and authorship
 
@@ -236,31 +257,29 @@ those facts.
 
 ## 7. Release workflow and CI
 
-The release workflow correctly checks out the requested tag, builds both
-artifacts, and runs `twine check`. It does not provide a safe PyPI release path:
+The release workflow now resolves and validates the requested tag, runs source
+tests plus docs/link/transparency/evidence gates, builds the wheel and sdist
+once, runs `twine check`, uploads that exact candidate, and installs the exact
+wheel in checkout-free Python 3.10, 3.11, and 3.12 jobs. A Python 3.10 job also
+builds/installs the exact sdist. Every clean job runs the offline,
+stage-complete three-pipeline smoke, including installed package-data checks,
+before the GitHub release job can attach the artifacts.
 
-- it installs the project editable before building;
-- it force-reinstalls the wheel into that same checkout-backed environment,
-  which is not a clean artifact test;
-- it does not run lint, tests, docs, transparency, version sync, package-data
-  validation, or the three-pipeline smoke;
-- tag pushes do not trigger the main CI workflow;
-- it creates a GitHub release but contains no PyPI or TestPyPI publication step;
-- it has no PyPI trusted-publishing/OIDC permission or environment protection;
-- manual tag input is not format/version validated.
+The workflow still intentionally contains no PyPI or TestPyPI publishing step,
+trusted-publishing permission, or protected PyPI environment. Those require a
+separate maintainer decision and configuration. The metadata synchronization
+gate also correctly prevents the currently inconsistent 2.2.0/2.3.0 history
+from being tagged without resolution.
 
 The normal CI workflow installs the checkout editable and tests only Python
 3.11. Its path filters can skip CI for changes to `README.md`, `MANIFEST.in`,
 `CITATION.cff`, `CHANGELOG.md`, `LICENSE`, most docs, and release-support files.
 It does not build distributions or test their installed contents.
 
-Before publishing, CI should have separate source/unit and artifact jobs. The
-artifact job must build once, inspect/package-check once, then install that
-exact wheel into clean supported-version environments and run
-`check_installed_artifact.py` after it has been expanded to meet the complete
-pipeline contract. The release workflow should consume artifacts from a
-required successful release-candidate workflow rather than rebuild an
-untested variant.
+Normal branch CI remains a source/editable test system. The tag workflow now
+provides the separate exact-artifact gate; release-critical path filters in the
+branch workflow include the smoke and metadata gate scripts. A later PyPI
+publishing job must consume these tested bytes and must not rebuild them.
 
 ## 8. Public API and compatibility
 
@@ -363,21 +382,14 @@ scripts and should stay clearly outside the installed interface.
 
 ### BLOCKER — must be resolved before PyPI
 
-#### B1. The three-pipeline installed-wheel contract is not fully demonstrated
+#### RESOLVED B1. Bounded three-pipeline installed-wheel contract
 
-- **Problem:** the normal end-to-end path and drone correction/extraction paths
-  are absent from the installed-artifact gate.
-- **Evidence:** normal stopped after synthetic H5-to-ENVI; drone disabled topo
-  and BRDF and had no polygons; only bulk completed all requested analyses.
-- **Affected:** normal and drone.
-- **Impact:** a PyPI user may encounter missing resources or repository
-  assumptions only after starting real processing.
-- **Fix:** create tiny scientifically valid fixtures and run normal correction,
-  convolution, full or polygon extraction, merge, and QA; run drone correction,
-  translation, and both full/polygon extraction selection. Execute from the
-  clean wheel environment with the checkout inaccessible.
-- **Owner:** Codex can implement the gate; maintainers must approve what counts
-  as a scientifically representative minimum.
+- **Resolution:** the exact-artifact runner now executes every major normal,
+  drone, and bulk stage using the bounded fixtures described in section 2.
+- **Boundary:** this is packaging and stage-connectivity evidence, not a claim
+  that a tiny fixture is scientifically representative.
+- **Production follow-up:** maintainers retain selected large-VM records under
+  the separate Tier B contract.
 
 #### B2. No guarded PyPI publication path exists
 
@@ -449,24 +461,17 @@ scripts and should stay clearly outside the installed interface.
 
 ### HIGH PRIORITY — resolve before publication unless explicitly accepted
 
-#### H1. CI does not exercise artifacts or the declared Python range
+#### RESOLVED H1. Release CI exact-artifact matrix
 
-- **Evidence:** one Python 3.11 editable-install job; broad path-filter gaps.
-- **Affected:** all pipelines.
-- **Impact:** packaging and compatibility regressions can merge without CI.
-- **Fix:** add supported-version build/install smoke matrix and broaden/remove
-  release-critical path filters.
-- **Owner:** Codex.
+- The tag workflow builds once and gates the exact wheel on Linux Python 3.10,
+  3.11, and 3.12, plus the sdist on Python 3.10. Branch CI remains Python 3.11
+  source validation.
 
-#### H2. Normal validation invokes an uninstalled repository script
+#### RESOLVED H2. Parquet validation is package-local
 
-- **Evidence:** normal orchestration searches above its module for
-  `bin/validate_parquets`; that file is not in the wheel.
-- **Affected:** normal pipeline validation/QA.
-- **Impact:** installed behavior silently omits a documented check.
-- **Fix:** package the implementation or document it as maintainer-only and use
-  installed validation APIs in user docs.
-- **Owner:** Codex; maintainer confirms desired public contract.
+- `spectralbridge.parquet_validation` is installed, normal orchestration calls
+  it directly, and the public console entry point is
+  `spectralbridge-validate-parquets`.
 
 #### H3. Dependency reproducibility is weak
 
@@ -537,23 +542,21 @@ scripts and should stay clearly outside the installed interface.
    concept/release DOI policy.
 3. Complete the scientific data and asset provenance/license/privacy inventory;
    remove unapproved files and sanitize local paths.
-4. Decide the supported Python versions and dependency policy; add that clean
-   Linux CI matrix and align public documentation.
-5. Expand `check_installed_artifact.py` with tiny representative fixtures for
-   the complete normal correction/convolution/extraction/merge/QA path and the
-   drone correction/translation plus full-or-polygon extraction behavior.
+4. Keep Python 3.10, 3.11, and 3.12 as the finite release-gate matrix; decide
+   the dependency-bounds policy and align all public support wording.
+5. Maintain the bounded stage-complete fixtures without replacing production
+   algorithms with test-only numerical shortcuts.
 6. **Mandatory artifact gate:** build the wheel once, install it with
    dependencies into clean environments with no repository checkout on import
    paths, and successfully run the normal NEON, drone, and bulk pipelines. Fail
    the release if any package data or code is obtained from the checkout.
 7. Build and install the sdist in at least the lowest supported Python version;
    run metadata, import, resource, and smoke checks.
-8. Make CI run Ruff, unit/integration tests, docs build/link checks, AI
-   transparency, validation evidence checks, version synchronization, package
-   data inventory, `twine check`, and the artifact gate for every
-   release-relevant change.
-9. Replace the repository-relative Parquet validator behavior with an installed
-   API or clearly remove it from the public installed workflow.
+8. Keep the release workflow's Ruff, unit/integration, docs/link, AI
+   transparency, validation-evidence, version synchronization, package-data,
+   `twine check`, and exact-artifact gates required before GitHub release.
+9. Keep Parquet validation package-local; do not reintroduce repository path
+   discovery into installed runtime behavior.
 10. Rewrite the README/PyPI landing page with absolute links, accurate Python
     support, and minimal package-first normal, drone, bulk, and QA examples.
 11. Rebuild wheel/sdist from a clean tagged commit; record artifact checksums,

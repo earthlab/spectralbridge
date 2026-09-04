@@ -70,7 +70,6 @@ import json
 import logging
 import os
 import re
-import subprocess
 import sys
 from pathlib import Path
 from typing import Any, Literal, NamedTuple, Sequence
@@ -659,21 +658,11 @@ def _export_parquet_stage(
                 parquet_outputs.append(Path(pq_path))
 
     if parquet_outputs:
-        validator = Path(__file__).resolve().parents[3] / "bin" / "validate_parquets"
-        if validator.exists():
-            try:
-                subprocess.run(
-                    [sys.executable, str(validator), "--soft", str(work_dir)],
-                    check=True,
-                )
-            except subprocess.CalledProcessError as exc:
-                logger.warning(
-                    "⚠️ Parquet validation reported an issue for %s: %s",
-                    flight_stem,
-                    exc,
-                )
-        else:
-            logger.debug("Validator script not found at %s", validator)
+        from spectralbridge.parquet_validation import collect_issues
+
+        issues = collect_issues(work_dir)
+        for filename, issue in issues:
+            logger.warning("⚠️ Parquet validation: %s → %s", filename, issue)
 
     return parquet_outputs
 

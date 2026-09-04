@@ -1,26 +1,13 @@
 from __future__ import annotations
 
-import importlib.util
-from importlib.machinery import SourceFileLoader
 from pathlib import Path
 
 import pyarrow as pa
 import pyarrow.parquet as pq
-
-
-def _load_validator():
-    script_path = Path(__file__).resolve().parents[1] / "bin" / "validate_parquets"
-    loader = SourceFileLoader("validate_parquets", str(script_path))
-    spec = importlib.util.spec_from_loader(loader.name, loader)
-    assert spec is not None
-    module = importlib.util.module_from_spec(spec)
-    loader.exec_module(module)
-    return module
+from spectralbridge import parquet_validation as validator
 
 
 def test_validate_parquets_hard_and_soft(tmp_path: Path, capsys) -> None:
-    validator = _load_validator()
-
     good = tmp_path / "good.parquet"
     table = pa.table(
         {
@@ -52,8 +39,6 @@ def test_validate_parquets_hard_and_soft(tmp_path: Path, capsys) -> None:
 
 
 def test_validate_parquets_per_stage_ordering(tmp_path: Path, capsys) -> None:
-    validator = _load_validator()
-
     interleaved = tmp_path / "interleaved.parquet"
     table = pa.table(
         {
@@ -89,8 +74,6 @@ def test_validate_parquets_per_stage_ordering(tmp_path: Path, capsys) -> None:
 
 
 def test_validate_parquets_accepts_stub_json(tmp_path: Path, capsys) -> None:
-    validator = _load_validator()
-
     stub = tmp_path / "stub.parquet"
     stub.write_text('{"columns": ["lon", "lat", "stage_b001_wl0500nm"]}', encoding="utf-8")
 

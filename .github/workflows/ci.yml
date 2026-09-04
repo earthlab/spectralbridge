@@ -10,6 +10,8 @@ on:
       - "scripts/generate_ai_transparency.py"
       - "scripts/generate_validation_docs.py"
       - "scripts/run_validation_campaign.py"
+      - "scripts/check_installed_artifact.py"
+      - "scripts/check_release_metadata.py"
       - "PROMPT_LOG.md"
       - "docs/ai-transparency.*"
       - "docs/images/ai-transparency/**"
@@ -26,6 +28,8 @@ on:
       - "scripts/generate_ai_transparency.py"
       - "scripts/generate_validation_docs.py"
       - "scripts/run_validation_campaign.py"
+      - "scripts/check_installed_artifact.py"
+      - "scripts/check_release_metadata.py"
       - "PROMPT_LOG.md"
       - "docs/ai-transparency.*"
       - "docs/images/ai-transparency/**"
@@ -58,7 +62,8 @@ jobs:
           CSCAL_TEST_MODE: lite
         run: |
           ruff check src tests scripts/generate_ai_transparency.py \
-            scripts/generate_validation_docs.py scripts/run_validation_campaign.py
+            scripts/generate_validation_docs.py scripts/run_validation_campaign.py \
+            scripts/check_installed_artifact.py scripts/check_release_metadata.py
           pytest -q -m "lite"
 
       - name: Verify AI transparency artifacts

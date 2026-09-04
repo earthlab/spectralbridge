@@ -154,6 +154,437 @@ Found 12 errors.
 Error: Process completed with exit code 1.
 ```
 
+## 2026-09-04 - bounded stage-complete installed-artifact validation
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+You are working in the current earthlab/spectralbridge repository.
+
+We have completed the first PyPI publication-hardening audit. The audit correctly found that the current installed-wheel smoke does not yet exercise every major stage of the normal NEON and drone pipelines.
+
+However, we now need to refine the release criterion.
+
+A real production SpectralBridge flightline can require roughly 250 GB of RAM. Therefore:
+
+The release gate MUST NOT require a production-scale pipeline run in CI.
+
+Instead, the release requirement is:
+
+The exact built wheel must be able to execute every major public pipeline stage on deliberately tiny, bounded synthetic fixtures outside the repository checkout, while separate production-validation evidence documents real large-memory runs.
+
+This task is to implement that bounded, stage-complete installed-artifact validation.
+
+Do not change scientific algorithms or defaults.
+
+Do not attempt to make production-scale processing fit into CI.
+
+Do not reduce scientific fidelity of the actual pipeline.
+
+The goal is to test the SAME code paths at tiny scale.
+
+Before changing anything, read carefully:
+
+* AGENTS.md
+* FEATURE_REQUESTS.md
+* PROMPT_LOG.md
+* docs/dev/publication-hardening-audit-2026-09-04.md
+* scripts/check_installed_artifact.py
+* normal NEON pipeline orchestration
+* drone pipeline orchestration
+* bulk pipeline
+* correction code
+* convolution/resampling code
+* extraction code
+* merge code
+* QA code
+* existing synthetic fixtures and tests
+* release workflow
+* CI workflows
+
+1. Update the publication-hardening contract
+
+Amend the authoritative publication-hardening audit so the release blocker is stated correctly.
+
+The required distinction is:
+
+CI/package validation
+
+Must demonstrate from the installed wheel, outside the checkout:
+
+* all public APIs import
+* all required package resources resolve
+* every major stage of all three pipelines executes on small bounded fixtures
+* expected outputs are created
+* restart/idempotent behavior is exercised where appropriate
+* no repository-relative dependencies are required
+
+Production scientific validation
+
+Must separately document selected real large-memory runs.
+
+CI is not required to reproduce a 250 GB production execution.
+
+The audit should explicitly say that scale reduction for fixtures is acceptable only when the actual production code paths and algorithms are being exercised.
+
+2. Extend the installed-artifact smoke framework
+
+Refactor or extend:
+
+scripts/check_installed_artifact.py
+
+so it can exercise stage-complete tiny workflows for:
+
+1. normal NEON pipeline
+2. drone pipeline
+3. bulk pipeline
+
+The script must continue to verify that imports come from site-packages, not the repository checkout.
+
+The smoke must remain deterministic, offline, and appropriate for standard CI hardware.
+
+Aim for fixture sizes measured in KB/MB, not GB.
+
+3. Normal NEON stage-complete synthetic smoke
+
+Build or reuse a tiny synthetic NEON-style HDF5 fixture that is structurally sufficient to exercise the installed normal pipeline.
+
+The test should execute, where technically possible, the actual code paths for:
+
+* HDF5 input/read
+* ENVI export
+* topographic/BRDF model preparation
+* correction application
+* spectral convolution/resampling
+* Parquet/table export
+* merge
+* QA generation
+
+Do not substitute mocks for entire scientific stages unless absolutely necessary.
+
+Mocks may be used only for things such as:
+
+* network download
+* external service access
+* irrelevant timing/logging behavior
+
+The scientific transformation functions themselves should run on the tiny fixture.
+
+If a production stage requires dimensions or metadata that make a truly tiny fixture impossible, identify the minimum valid synthetic shape and document why.
+
+The fixture should contain enough spectral/spatial variation that calculations are nondegenerate.
+
+Do not require meaningful scientific validation from this fixture. This is a packaging/code-path test.
+
+4. Bound resource use explicitly
+
+The synthetic normal smoke must be designed so CI cannot accidentally allocate production-scale arrays.
+
+Use tiny:
+
+* rows
+* columns
+* band counts where algorithmically permitted
+* worker counts
+* chunks
+* thread counts
+
+Use:
+
+* engine="thread" or another lightweight backend where appropriate
+* max_workers=1
+* bounded chunk dimensions
+* no Ray cluster unless the code path specifically requires one
+
+If the production code supports configuration that safely reduces fixture scale without changing algorithm semantics, use that.
+
+Do NOT add special “fake science” branches that production users would never execute.
+
+Prefer a small real input to a special testing implementation.
+
+5. Normal-pipeline stage assertions
+
+The installed smoke should verify existence and basic readability of expected artifacts, for example:
+
+* ENVI image/header
+* corrected ENVI image/header
+* convolved sensor product
+* Parquet extraction
+* merged table
+* QA JSON/figure/report as appropriate
+
+Also verify:
+
+* canonical filenames
+* nonzero artifact sizes
+* readable schemas/headers
+* reasonable finite values in a small sample
+* restart behavior does not unnecessarily recompute valid outputs
+
+Do not assert exact floating-point values unless stable and scientifically meaningful.
+
+6. Drone stage-complete synthetic smoke
+
+Extend the drone installed-wheel smoke so it exercises the actual drone code paths for:
+
+* input discovery
+* HDF5/raster reading as applicable
+* correction path
+* sensor/output generation
+* full extraction mode
+* polygon extraction mode
+* QA generation
+
+Use a tiny synthetic drone fixture.
+
+If full and polygon extraction require different fixtures, keep them both tiny.
+
+The polygon fixture should include a minimal valid geometry that intersects the synthetic scene.
+
+Verify outputs are created and readable.
+
+Do not require a drone CLI if the supported public interface remains the Python API.
+
+7. Bulk pipeline smoke
+
+Keep the existing small bulk smoke, but make sure it still exercises:
+
+* discovery
+* canonical flightline catalog
+* DuckDB database creation
+* dataset census
+* sensor translation
+* leave-one-site-out
+* optional materialization behavior if appropriate
+
+Do not make the bulk smoke scan large data.
+
+8. Add resource-budget guardrails
+
+Add explicit guardrails to the installed-artifact smoke.
+
+At minimum:
+
+* fixture dimensions must be hard-coded/small
+* worker/thread counts must be bounded
+* temporary outputs must stay under a reasonable size threshold
+* avoid accidental recursive discovery outside the fixture temp directory
+* avoid network activity
+
+If practical, record:
+
+* elapsed time
+* peak output-directory size
+* fixture dimensions
+
+Do not add fragile platform-specific memory instrumentation unless it is reliable.
+
+The main goal is preventing accidental scale escalation.
+
+9. Separate smoke from scientific validation
+
+Do not present the tiny synthetic smoke as scientific validation.
+
+Add clear language to the docs and audit:
+
+Synthetic installed-wheel smoke proves:
+
+* packaging integrity
+* resource availability
+* orchestration
+* stage connectivity
+* installed-artifact execution
+
+It does NOT prove:
+
+* scientific accuracy on real landscapes
+* performance at production scale
+* stability across sites
+* empirical calibration validity
+
+Those are covered by existing and future real-data validation campaigns.
+
+10. Production validation record
+
+Create or extend a durable location for real-run evidence.
+
+Do not run a new 250 GB production job during this task.
+
+Instead, identify existing real validated runs in the repo and document the intended release evidence contract.
+
+A production validation record should eventually include:
+
+* canonical flightline ID
+* site
+* SpectralBridge version/commit
+* Python/environment
+* pipeline configuration
+* approximate hardware/RAM
+* major output artifacts
+* QA result
+* known warnings
+* artifact hashes where appropriate
+
+If existing runs already provide sufficient information, reference them.
+
+If not, add a template/checklist for maintainers to fill after the next validated large-VM run.
+
+11. Release CI integration
+
+Update CI/release-support code so the intended future release gate is:
+
+1. build wheel and sdist once
+2. run twine check
+3. create clean environment
+4. install exact wheel
+5. run stage-complete installed-artifact smoke
+6. repeat on supported Python matrix
+7. run package-data validation
+8. run docs/version/transparency gates
+9. only then allow release
+
+Do not publish to PyPI yet unless explicitly requested separately.
+
+If modifying the release workflow would be too large for this task, add a dedicated release-artifact workflow/check that can later be required by the publishing workflow.
+
+12. Python matrix
+
+Use the audit findings to define a practical CI support matrix.
+
+At minimum consider:
+
+* Python 3.10
+* Python 3.11
+* Python 3.12
+
+Do not automatically add 3.13/3.14 to the supported contract merely because abbreviated clean installs passed locally.
+
+If the stage-complete smoke passes reliably on newer versions and maintainers want them, document that separately.
+
+13. Remove repository-relative validation dependency
+
+The audit found that the normal pipeline looks for:
+
+bin/validate_parquets
+
+relative to the repository and silently skips it when installed.
+
+Resolve this cleanly.
+
+Either:
+
+* move the implementation into the installed package and call it package-locally
+
+or
+
+* formally classify it as a maintainer-only repository check and remove it from the installed runtime contract/documentation
+
+Prefer package-local implementation if it is part of normal runtime validation.
+
+Do not leave an advertised installed feature depending on a non-installed repo script.
+
+14. Tests for the smoke framework itself
+
+Add focused tests around synthetic fixture generation and installed-artifact checks where reasonable.
+
+Verify:
+
+* fixtures are tiny
+* fixtures are structurally valid
+* expected stages execute
+* outputs are isolated to temp directories
+* source checkout is not imported
+* network is not required
+* invalid/missing package resources fail loudly
+* repo-relative assumptions are detected
+
+Avoid duplicating the entire existing unit suite.
+
+15. Documentation
+
+Update release/developer docs to explain the two-tier validation model:
+
+Tier A: installed-artifact CI smoke
+
+* tiny
+* bounded
+* stage-complete
+* every release
+* proves package wiring
+
+Tier B: production validation
+
+* real flightlines
+* large-memory VM
+* periodic/release-candidate
+* proves real scientific and operational behavior
+
+This distinction should be clear enough that a reviewer understands why a 250 GB workflow is not run in GitHub Actions.
+
+16. Verification
+
+Run as many of these as possible:
+
+* full pytest
+* focused normal-pipeline tests
+* focused drone tests
+* bulk tests
+* package build
+* twine check
+* clean wheel install
+* stage-complete installed-wheel smoke
+* Python 3.10/3.11/3.12 clean smoke
+* sdist install smoke if practical
+* Ruff
+* compile checks
+* docs-link checks
+* strict MkDocs build
+* AI transparency check
+* git diff --check
+
+Record actual results only.
+
+17. Do not change scientific behavior
+
+Do NOT:
+
+* alter BRDF equations
+* alter topographic equations
+* change brightness coefficients
+* change sensor-response definitions
+* weaken QA thresholds
+* change production defaults
+* add test-only numerical shortcuts to production algorithms
+* skip a scientific stage merely because it is expensive
+
+The fixture should be smaller, not the science.
+
+18. Final report
+
+Report:
+
+1. revised publication validation contract
+2. exact normal stages now exercised from installed wheel
+3. exact drone stages now exercised from installed wheel
+4. exact bulk stages exercised
+5. synthetic fixture dimensions and approximate output sizes
+6. runtime/resource guardrails
+7. whether any stage could not be exercised and why
+8. repository-relative dependencies removed/fixed
+9. CI/release workflow changes
+10. supported Python matrix tested
+11. exact commands/checks and results
+12. remaining PyPI blockers
+13. production validation evidence still needed
+
+Update FEATURE_REQUESTS.md and PROMPT_LOG.md according to repository policy.
+
+The goal is NOT to prove that a tiny synthetic dataset is scientifically representative.
+
+The goal is to prove that the exact PyPI artifact can execute the complete scientific software paths on bounded fixtures, while real large-memory runs remain a separate validation layer.
+```
+
 ## 2026-09-03 - PyPI publication-hardening audit
 Branch: main
 AI system: OpenAI Codex

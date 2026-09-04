@@ -20,6 +20,43 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P71. Bounded Stage-Complete Installed-Artifact Validation
+
+- Priority: User-directed
+- Status: In progress
+- Owner: Codex
+- Started: 2026-09-04
+- Goal: Make the exact built wheel execute every major public stage of the
+  normal NEON, drone, and bulk pipelines on deliberately tiny deterministic
+  fixtures outside the checkout, while keeping production-scale scientific
+  validation as a separate evidence tier.
+- Scope:
+  - Extend `scripts/check_installed_artifact.py` to exercise real correction,
+    convolution/resampling, extraction, merge, QA, restart, drone full/polygon,
+    and bulk materialization paths without altering scientific algorithms or
+    defaults.
+  - Add explicit fixture/resource budgets, offline isolation, readable-output
+    assertions, and focused tests for the smoke framework.
+  - Remove the normal pipeline's runtime dependence on the repository-local
+    `bin/validate_parquets` implementation.
+  - Add a Python 3.10/3.11/3.12 clean-wheel release-artifact gate and document
+    the two-tier synthetic-smoke versus real-production validation contract.
+- Plan:
+  - Trace the three pipeline orchestrators and reuse the smallest valid
+    synthetic fixtures and production stage functions already covered nearby.
+  - Move Parquet validation into an installed package module with a compatible
+    repository CLI wrapper and focused regression tests.
+  - Implement and test bounded stage-complete fixtures, then integrate the
+    exact built artifact into release CI without adding a publishing step.
+  - Update the publication audit and durable production-validation evidence
+    template, build both artifacts, clean-install the exact wheel across the
+    supported matrix, and record only observed results.
+- Current status: Request and guardrails recorded; stage/fixture investigation
+  is in progress.
+- Blockers: None yet.
+- Next recommended task: Determine the minimum structurally valid NEON and
+  drone fixtures that traverse the current production correction paths.
+
 ### P70. PyPI Publication-Hardening Audit
 
 - Priority: User-directed

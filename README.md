@@ -35,9 +35,9 @@ source spectralbridge-env/bin/activate  # or Windows equivalent
 pip install .
 ```
 
-We test on Python 3.10 in GitHub Actions (Linux x86_64) and periodically validate
-Python 3.11 builds on the same platform. Other operating systems may work, but Linux
-is the documented baseline.
+Source CI runs on Python 3.11, while the exact release artifact is gated on
+Python 3.10, 3.11, and 3.12 in GitHub Actions (Linux x86_64). Other operating
+systems may work, but Linux is the documented baseline.
 
 ## Quickstart (CLI)
 
@@ -382,7 +382,7 @@ The Parquet sidecar is empty, truncated, or not actually a Parquet file.
 
 Re-run the pipeline for that flightline. During Parquet export the pipeline validates
 existing files, deletes any that fail `pyarrow.parquet.read_schema`, and rebuilds them
-from the ENVI source. `bin/validate_parquets --soft` surfaces the same issues without
+from the ENVI source. `spectralbridge-validate-parquets --soft` surfaces the same issues without
 aborting the run, and the merge stage skips corrupt sidecars as long as at least one
 valid file remains for the prefix.
 
@@ -401,7 +401,7 @@ spectralbridge-pipeline \
   --flight-lines NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance
 
 # 3. Optionally, re-validate in soft mode
-bin/validate_parquets --soft base_dir/NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance
+spectralbridge-validate-parquets --soft base_dir/NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance
 ```
 
 ## Quality Assurance (QA) panels
@@ -529,12 +529,23 @@ Key entry points:
 - [Configuration reference](docs/reference/configuration.md)
 - [Validation metrics](docs/reference/validation.md)
 
+### Release validation tiers
+
+Every release candidate runs the exact installed wheel outside the checkout on
+tiny bounded fixtures through all major normal, drone, and bulk stages. This
+proves packaging, resources, orchestration, output readability, and restart
+behavior; it is not scientific validation. Selected real flightlines are
+validated separately on appropriately sized large-memory systems to establish
+scientific QA and production-scale behavior. CI does not attempt to reproduce a
+workflow that may require roughly 250 GB of RAM. See the
+[production validation record](docs/dev/production-validation-record.md).
+
 ## Support Matrix
 
 | Python versions | OS (CI)       | Notes                          |
 |-----------------|---------------|--------------------------------|
-| 3.10, 3.11      | Linux x86_64  | Tested in GitHub Actions (CI). |
-| 3.10, 3.11      | macOS / other | Community supported.           |
+| 3.10–3.12       | Linux x86_64  | Exact-artifact release gate.   |
+| 3.10–3.12       | macOS / other | Community supported.           |
 
 ## Citation
 

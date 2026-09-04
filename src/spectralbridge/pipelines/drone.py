@@ -410,6 +410,7 @@ def build_drone_output_paths(
         "working_h5": flight_dir / f"{flight_stem}__working.h5",
         "envi_stem": flight_dir / f"{flight_stem}__envi",
         "corrected_stem": flight_dir / f"{flight_stem}__corrected",
+        "full_parquet": flight_dir / f"{flight_stem}__full.parquet",
         "polygon_parquet": flight_dir / f"{flight_stem}__polygons.parquet",
         "polygon_index": flight_dir / f"{flight_stem}__polygon_index.parquet",
         "overlay_debug_png": flight_dir / f"{flight_stem}__overlay_debug.png",
@@ -2059,14 +2060,32 @@ def run_drone_pipeline(
     tiff_sensor_azimuth_deg: float | None = None,
     drone_manifest_path: str | Path | None = None,
     require_solar_geometry: bool = True,
+    extraction_mode: str | None = None,
+    parquet_chunk_size: int = 2048,
 ) -> dict[str, Any]:
-    """Run the drone pipeline from local HDF5 or reflectance TIFF sources."""
+    """Run the drone pipeline from local HDF5 or reflectance TIFF sources.
+
+    ``extraction_mode="full"`` writes a full-pixel Parquet table from the
+    corrected drone ENVI product. ``"polygon"`` uses ``polygon_path`` and the
+    existing polygon extraction path. The default preserves historical
+    behavior: polygon mode when polygons are supplied, otherwise QA-only.
+    """
 
     run_started = time.monotonic()
     input_h5_dir = Path(input_h5_dir)
     output_dir = Path(output_dir)
     polygon_path = Path(polygon_path) if polygon_path is not None else None
     output_dir.mkdir(parents=True, exist_ok=True)
+    if parquet_chunk_size < 1:
+        raise ValueError("parquet_chunk_size must be at least 1")
+    if extraction_mode is None:
+        actual_extraction_mode = "polygon" if polygon_path is not None else "qa_only"
+    else:
+        actual_extraction_mode = str(extraction_mode).strip().lower()
+        if actual_extraction_mode not in {"full", "polygon"}:
+            raise ValueError("extraction_mode must be 'full', 'polygon', or None")
+    if actual_extraction_mode == "polygon" and polygon_path is None:
+        raise ValueError("extraction_mode='polygon' requires polygon_path")
     drone_manifest_path = _resolve_drone_manifest_path(
         drone_manifest_path,
         input_path=input_h5_dir,
@@ -2092,6 +2111,8 @@ def run_drone_pipeline(
                 str(drone_manifest_path) if drone_manifest_path is not None else None
             ),
             "require_solar_geometry": bool(require_solar_geometry),
+            "extraction_mode": actual_extraction_mode,
+            "parquet_chunk_size": int(parquet_chunk_size),
             "files": [],
         },
     }
@@ -2175,6 +2196,7 @@ def run_drone_pipeline(
         prepared_h5_path = path_map["working_h5"]
         envi_stem = path_map["envi_stem"]
         corrected_stem = path_map["corrected_stem"]
+        full_output_path = path_map["full_parquet"]
         polygon_output_path = path_map["polygon_parquet"]
         polygon_index_path = path_map["polygon_index"]
         overlay_debug_path = path_map["overlay_debug_png"]
@@ -2258,6 +2280,16 @@ def run_drone_pipeline(
             "polygon_extraction_attempted": False,
             "polygon_extraction_ran": False,
             "polygon_extraction_skipped_reason": None,
+            "full_extraction_filename": (
+                full_output_path.name if actual_extraction_mode == "full" else None
+            ),
+            "full_extraction_path": (
+                str(full_output_path) if actual_extraction_mode == "full" else None
+            ),
+            "full_extraction_csv_filename": None,
+            "full_extraction_csv_path": None,
+            "full_extraction_csv_error": None,
+            "extraction_mode": actual_extraction_mode,
             "status": None,
         }
         try:
@@ -2384,7 +2416,38 @@ def run_drone_pipeline(
             file_audit["corrected_raster"] = corrected_img.name
             file_audit["corrected_raster_path"] = str(corrected_img)
 
-            if polygon_path is not None:
+            if actual_extraction_mode == "full":
+                if batch_bar is not None:
+                    batch_bar.set_postfix_str(
+                        f"{index}/{total_flights} {flight_stem} | full extraction"
+                    )
+                from spectralbridge.parquet_export import ensure_parquet_from_envi
+
+                file_audit["full_extraction_attempted"] = True
+                full_parquet = ensure_parquet_from_envi(
+                    corrected_img,
+                    corrected_hdr,
+                    full_output_path,
+                    chunk_size=parquet_chunk_size,
+                )
+                full_csv, full_csv_error = _try_export_csv_copy_from_parquet(
+                    full_parquet,
+                    overwrite=overwrite,
+                    context_label=f"{flight_stem} full parquet",
+                )
+                results["outputs"].append(str(full_parquet))
+                file_audit["full_extraction_ran"] = True
+                file_audit["full_extraction_filename"] = full_parquet.name
+                file_audit["full_extraction_path"] = str(full_parquet)
+                file_audit["full_extraction_csv_filename"] = (
+                    full_csv.name if full_csv is not None else None
+                )
+                file_audit["full_extraction_csv_path"] = (
+                    str(full_csv) if full_csv is not None else None
+                )
+                file_audit["full_extraction_csv_error"] = full_csv_error
+                file_audit["status"] = _DRONE_STATUS_SUCCESS_EXTRACTED
+            elif actual_extraction_mode == "polygon":
                 if batch_bar is not None:
                     batch_bar.set_postfix_str(
                         f"{index}/{total_flights} {flight_stem} | polygon extraction"
