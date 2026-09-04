@@ -2492,6 +2492,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../production-validation-record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production validation record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../software-citation/" class="md-nav__link">
         
   
@@ -2641,24 +2669,24 @@ what was demonstrated from the actual wheel and source distribution, not what
 the source tree appears capable of doing.</p>
 <h2 id="executive-verdict">Executive verdict<a class="headerlink" href="#executive-verdict" title="Permanent link">&para;</a></h2>
 <p>The package builds, passes <code>twine check</code>, clean-installs, exposes the three
-canonical Python APIs, ships the five runtime data files currently located by
-the code, and passes a meaningful installed-package smoke test outside the
-repository. The bulk pipeline was exercised through its complete small-data
-analysis path. The drone pipeline was exercised through HDF5 discovery,
-conversion, orchestration, output creation, and QA with corrections disabled.
-The normal pipeline was exercised only through HDF5-to-ENVI conversion.</p>
-<p>That evidence is encouraging but does <strong>not</strong> satisfy the release-blocking
-contract:</p>
+canonical Python APIs, and ships its required runtime data. The release
+criterion is explicitly bounded: a production flightline can require roughly
+250 GB of RAM, so GitHub Actions must not attempt to reproduce a production
+execution.</p>
+<p>The release-blocking artifact contract is instead:</p>
 <blockquote>
-<p>A wheel installed into a clean environment must run the normal NEON, drone,
-and bulk pipelines without access to a repository checkout.</p>
+<p>The exact built wheel must execute every major public stage of the normal
+NEON, drone, and bulk pipelines on deliberately tiny, deterministic fixtures
+outside the repository checkout, with no network or repository-relative
+runtime dependency.</p>
 </blockquote>
-<p>The complete normal workflow and the drone correction plus full/polygon
-extraction variants have not yet been demonstrated from an installed artifact.
-The tag workflow also neither runs such a gate nor publishes to PyPI, version
-history is inconsistent, and maintainer/legal review is still needed for
-citation and bundled-data provenance. Publication should wait until every
-BLOCKER below is closed or explicitly resolved by maintainers.</p>
+<p>The stage-complete smoke framework and a Python 3.10/3.11/3.12 release matrix
+now encode that contract. Scale reduction is acceptable only because the same
+production orchestration and scientific algorithms execute; no fake-science
+branch replaces them. Separate large-VM evidence remains required for
+production scientific and operational validation. Publication is still
+blocked by unresolved version history, citation/DOI identity, bundled-data
+provenance, and PyPI publishing ownership described below.</p>
 <h2 id="evidence-scope-and-limits">Evidence scope and limits<a class="headerlink" href="#evidence-scope-and-limits" title="Permanent link">&para;</a></h2>
 <p>The audit built the repository with <code>uv build</code>, producing:</p>
 <table>
@@ -2691,10 +2719,21 @@ installed-package smoke checks on local macOS using Python 3.10.16, 3.11.11,
 3.12.8, and 3.14.3. A Python 3.10.16 installation built from the sdist also
 passed. These are local compatibility observations, not a declaration of
 support for every version or operating system.</p>
-<p>The smoke fixtures are synthetic and offline. They do not validate scientific
-agreement with full production flightlines, remote NEON download, distributed
-Ray execution, or every combination of corrections and polygon inputs. Those
-limits must remain explicit.</p>
+<p>Validation has two non-interchangeable tiers:</p>
+<ul>
+<li><strong>Tier A — installed-artifact CI smoke:</strong> tiny, deterministic, offline, and
+  stage-complete. It proves packaging integrity, resource availability,
+  orchestration, stage connectivity, readable outputs, and restart behavior.</li>
+<li><strong>Tier B — production scientific validation:</strong> selected real flightlines on
+  an appropriately sized large-memory machine. It records scientific QA,
+  cross-site behavior, empirical calibration evidence, and production
+  performance.</li>
+</ul>
+<p>Tier A does not validate scientific accuracy on real landscapes, performance
+at production scale, stability across sites, or empirical calibration
+validity. Tier B does not replace exact-wheel packaging validation. The
+maintainer evidence contract and existing R10C record are documented in
+<code>docs/dev/production-validation-record.md</code>.</p>
 <h2 id="1-actual-package-and-public-workflows">1. Actual package and public workflows<a class="headerlink" href="#1-actual-package-and-public-workflows" title="Permanent link">&para;</a></h2>
 <h3 id="distribution-and-namespaces">Distribution and namespaces<a class="headerlink" href="#distribution-and-namespaces" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2729,21 +2768,21 @@ limits must remain explicit.</p>
 <td><code>from spectralbridge import go_forth_and_multiply</code></td>
 <td><code>spectralbridge-pipeline</code></td>
 <td><code>go_forth_and_multiply(base_folder=..., sites=[...], years=[...])</code></td>
-<td>API/import/help passed; only offline H5-to-ENVI was run from the artifact</td>
+<td>Stage-complete 8 × 8 × 32 artifact smoke implemented</td>
 </tr>
 <tr>
 <td>Drone</td>
 <td><code>from spectralbridge import run_drone_pipeline</code></td>
 <td>None</td>
 <td><code>run_drone_pipeline(input_h5_dir=..., output_dir=...)</code></td>
-<td>API and abbreviated orchestration passed; corrections and extraction were not exercised</td>
+<td>Corrections, QA, and full plus polygon 8 × 8 × 10 extraction artifact smoke implemented</td>
 </tr>
 <tr>
 <td>Bulk</td>
 <td><code>from spectralbridge import run_bulk_pipeline</code></td>
 <td><code>spectralbridge-bulk</code></td>
 <td><code>run_bulk_pipeline(input_path, output_dir)</code></td>
-<td>Full tiny catalog/database/census/translation/LOSO smoke passed</td>
+<td>Catalog/database/census/translation/LOSO/materialization artifact smoke implemented</td>
 </tr>
 <tr>
 <td>QA</td>
@@ -2823,22 +2862,32 @@ separate compatibility decision is made.</p>
 </table>
 <p>The reusable <code>scripts/check_installed_artifact.py</code> check verifies that the
 imported module is outside the checkout, verifies the canonical APIs and
-runtime resources, generates tiny inputs, and runs the three abbreviated paths.
-It must be invoked with the Python executable belonging to the clean environment
-where the artifact was installed.</p>
+runtime resources, generates bounded inputs, blocks outbound socket access,
+and runs all three stage-complete tiny workflows. It must be invoked with the
+Python executable belonging to the clean environment where the artifact was
+installed.</p>
 <p>Pipeline-level results:</p>
 <ul>
-<li><strong>Normal NEON:</strong> import, configuration/resource lookup, public API, CLI help,
-  and real synthetic NEON HDF5-to-ENVI conversion passed. The complete
-  correction, convolution, extraction, merge, and QA orchestration did not run.</li>
-<li><strong>Drone:</strong> real <code>run_drone_pipeline</code> orchestration discovered one HDF5,
-  converted it, produced raw/corrected reuse outputs and QA, and reported
-  <code>success_qa_only_no_polygons</code>. Topographic/BRDF corrections were disabled;
-  full and polygon extraction were not run.</li>
-<li><strong>Bulk:</strong> real <code>run_bulk_pipeline</code> discovered three synthetic flightlines and
-  twelve rows, built its catalog and DuckDB database, and ran census, sensor
-  translation, coefficient export, and leave-one-site-out analysis.</li>
+<li><strong>Normal NEON (8 × 8 × 32):</strong> reads a canonical synthetic HDF5, exports raw
+  ENVI, prepares and applies topographic/BRDF correction, convolves all seven
+  target products through the production resampler, exports Parquet, merges,
+  emits stage and legacy QA, and reruns to assert that valid heavy artifacts
+  are reused.</li>
+<li><strong>Drone (two 8 × 8 × 10 fixtures):</strong> recursively discovers HDF5 input,
+  exports ENVI, runs topographic and BRDF correction, deliberately records that
+  convolution is not applicable, and separately runs full-pixel and
+  intersecting-polygon extraction, merge, and QA.</li>
+<li><strong>Bulk (three flightlines, twelve rows):</strong> discovers canonical products,
+  builds the catalog and DuckDB database, runs census, sensor translation,
+  coefficient export and leave-one-site-out analysis, materializes the optional
+  observation super-Parquet, and verifies restart reuse.</li>
 </ul>
+<p>The smoke hard-codes one worker, one merge thread, eight-row Parquet chunks,
+small fixture-dimension ceilings, a 2 MiB per-HDF5 fixture ceiling, a 128 MiB
+total temporary-tree ceiling, no symlinks, and all discovery/output paths below
+one temporary root. It records elapsed time, fixture dimensions, and total
+output bytes. These are resource-escalation guardrails, not changes to
+production defaults.</p>
 <p>No repository path was on <code>PYTHONPATH</code>, and the import resolved from each clean
 environment's <code>site-packages</code> directory.</p>
 <h2 id="3-runtime-package-data-inventory">3. Runtime package-data inventory<a class="headerlink" href="#3-runtime-package-data-inventory" title="Permanent link">&para;</a></h2>
@@ -2901,12 +2950,11 @@ at runtime, but its scientific provenance/context should be packaged or moved
 to durable public documentation. The Landsat JSON contains centers and FWHM
 values, not full spectral-response curves; public wording should not imply more
 than the packaged resource provides.</p>
-<p>One repository-relative behavior remains: normal pipeline validation looks for
-<code>bin/validate_parquets</code> above the source module and silently skips it when the
-script is absent. The script is not installed. This does not currently crash
-the pipeline, but a documented package feature cannot depend on that path.
-Move the implementation into the package or explicitly label it as a
-repository-only maintainer check.</p>
+<p>The former repository-relative Parquet validator has been moved to
+<code>spectralbridge.parquet_validation</code>. Normal orchestration calls the installed
+module directly and the installed <code>spectralbridge-validate-parquets</code> console
+script exposes the same check. <code>bin/validate_parquets</code> is now only a compatible
+repository wrapper; installed runtime behavior no longer searches for it.</p>
 <h2 id="4-dependency-audit">4. Dependency audit<a class="headerlink" href="#4-dependency-audit" title="Permanent link">&para;</a></h2>
 <p>The base installation declares <code>numpy</code>, <code>scipy</code>, <code>pandas</code>, <code>pyarrow</code>, <code>pyproj</code>,
 <code>h5py</code>, <code>requests</code>, <code>tqdm</code>, <code>matplotlib</code>, <code>rasterio</code>, <code>shapely</code>, <code>geopandas</code>,
@@ -2965,11 +3013,11 @@ should record dependency versions so an analysis can be reconstructed.</p>
 <li>This local clean-artifact audit passed on 3.10, 3.11, 3.12, and 3.14, but did
   not establish full-pipeline or Linux support on all four.</li>
 </ul>
-<p>The release must define a finite tested matrix. A reasonable minimum is 3.10,
-3.11, and 3.12 in Linux CI, followed by an explicit maintainer choice about
-3.13/3.14. Update classifiers, README, and <code>requires-python</code> consistently. Do
-not describe untested future Python versions as supported merely because the
-metadata permits installation.</p>
+<p>The release artifact gate now defines Python 3.10, 3.11, and 3.12 as its finite
+Linux matrix. Python 3.13/3.14 remain compatibility observations only unless
+maintainers explicitly add and support them. Metadata and public support
+wording still need to be aligned with that decision; an unconstrained
+<code>&gt;=3.10</code> declaration alone is not evidence of support.</p>
 <h2 id="6-version-citation-doi-and-authorship">6. Version, citation, DOI, and authorship<a class="headerlink" href="#6-version-citation-doi-and-authorship" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -3021,30 +3069,26 @@ the current project identity, author metadata, and whether README/CITATION use a
 concept DOI or a release DOI. This audit did not invent or externally verify
 those facts.</p>
 <h2 id="7-release-workflow-and-ci">7. Release workflow and CI<a class="headerlink" href="#7-release-workflow-and-ci" title="Permanent link">&para;</a></h2>
-<p>The release workflow correctly checks out the requested tag, builds both
-artifacts, and runs <code>twine check</code>. It does not provide a safe PyPI release path:</p>
-<ul>
-<li>it installs the project editable before building;</li>
-<li>it force-reinstalls the wheel into that same checkout-backed environment,
-  which is not a clean artifact test;</li>
-<li>it does not run lint, tests, docs, transparency, version sync, package-data
-  validation, or the three-pipeline smoke;</li>
-<li>tag pushes do not trigger the main CI workflow;</li>
-<li>it creates a GitHub release but contains no PyPI or TestPyPI publication step;</li>
-<li>it has no PyPI trusted-publishing/OIDC permission or environment protection;</li>
-<li>manual tag input is not format/version validated.</li>
-</ul>
+<p>The release workflow now resolves and validates the requested tag, runs source
+tests plus docs/link/transparency/evidence gates, builds the wheel and sdist
+once, runs <code>twine check</code>, uploads that exact candidate, and installs the exact
+wheel in checkout-free Python 3.10, 3.11, and 3.12 jobs. A Python 3.10 job also
+builds/installs the exact sdist. Every clean job runs the offline,
+stage-complete three-pipeline smoke, including installed package-data checks,
+before the GitHub release job can attach the artifacts.</p>
+<p>The workflow still intentionally contains no PyPI or TestPyPI publishing step,
+trusted-publishing permission, or protected PyPI environment. Those require a
+separate maintainer decision and configuration. The metadata synchronization
+gate also correctly prevents the currently inconsistent 2.2.0/2.3.0 history
+from being tagged without resolution.</p>
 <p>The normal CI workflow installs the checkout editable and tests only Python
 3.11. Its path filters can skip CI for changes to <code>README.md</code>, <code>MANIFEST.in</code>,
 <code>CITATION.cff</code>, <code>CHANGELOG.md</code>, <code>LICENSE</code>, most docs, and release-support files.
 It does not build distributions or test their installed contents.</p>
-<p>Before publishing, CI should have separate source/unit and artifact jobs. The
-artifact job must build once, inspect/package-check once, then install that
-exact wheel into clean supported-version environments and run
-<code>check_installed_artifact.py</code> after it has been expanded to meet the complete
-pipeline contract. The release workflow should consume artifacts from a
-required successful release-candidate workflow rather than rebuild an
-untested variant.</p>
+<p>Normal branch CI remains a source/editable test system. The tag workflow now
+provides the separate exact-artifact gate; release-critical path filters in the
+branch workflow include the smoke and metadata gate scripts. A later PyPI
+publishing job must consume these tested bytes and must not rebuild them.</p>
 <h2 id="8-public-api-and-compatibility">8. Public API and compatibility<a class="headerlink" href="#8-public-api-and-compatibility" title="Permanent link">&para;</a></h2>
 <p>The smallest stable publication surface should be:</p>
 <ul>
@@ -3134,21 +3178,14 @@ text search. Hard-coded <code>/home/jovyan</code> paths remain in repository-onl
 scripts and should stay clearly outside the installed interface.</p>
 <h2 id="12-prioritized-findings">12. Prioritized findings<a class="headerlink" href="#12-prioritized-findings" title="Permanent link">&para;</a></h2>
 <h3 id="blocker-must-be-resolved-before-pypi">BLOCKER — must be resolved before PyPI<a class="headerlink" href="#blocker-must-be-resolved-before-pypi" title="Permanent link">&para;</a></h3>
-<h4 id="b1-the-three-pipeline-installed-wheel-contract-is-not-fully-demonstrated">B1. The three-pipeline installed-wheel contract is not fully demonstrated<a class="headerlink" href="#b1-the-three-pipeline-installed-wheel-contract-is-not-fully-demonstrated" title="Permanent link">&para;</a></h4>
+<h4 id="resolved-b1-bounded-three-pipeline-installed-wheel-contract">RESOLVED B1. Bounded three-pipeline installed-wheel contract<a class="headerlink" href="#resolved-b1-bounded-three-pipeline-installed-wheel-contract" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>Problem:</strong> the normal end-to-end path and drone correction/extraction paths
-  are absent from the installed-artifact gate.</li>
-<li><strong>Evidence:</strong> normal stopped after synthetic H5-to-ENVI; drone disabled topo
-  and BRDF and had no polygons; only bulk completed all requested analyses.</li>
-<li><strong>Affected:</strong> normal and drone.</li>
-<li><strong>Impact:</strong> a PyPI user may encounter missing resources or repository
-  assumptions only after starting real processing.</li>
-<li><strong>Fix:</strong> create tiny scientifically valid fixtures and run normal correction,
-  convolution, full or polygon extraction, merge, and QA; run drone correction,
-  translation, and both full/polygon extraction selection. Execute from the
-  clean wheel environment with the checkout inaccessible.</li>
-<li><strong>Owner:</strong> Codex can implement the gate; maintainers must approve what counts
-  as a scientifically representative minimum.</li>
+<li><strong>Resolution:</strong> the exact-artifact runner now executes every major normal,
+  drone, and bulk stage using the bounded fixtures described in section 2.</li>
+<li><strong>Boundary:</strong> this is packaging and stage-connectivity evidence, not a claim
+  that a tiny fixture is scientifically representative.</li>
+<li><strong>Production follow-up:</strong> maintainers retain selected large-VM records under
+  the separate Tier B contract.</li>
 </ul>
 <h4 id="b2-no-guarded-pypi-publication-path-exists">B2. No guarded PyPI publication path exists<a class="headerlink" href="#b2-no-guarded-pypi-publication-path-exists" title="Permanent link">&para;</a></h4>
 <ul>
@@ -3219,24 +3256,17 @@ scripts and should stay clearly outside the installed interface.</p>
 <li><strong>Owner:</strong> Codex can implement; maintainers should approve stability labels.</li>
 </ul>
 <h3 id="high-priority-resolve-before-publication-unless-explicitly-accepted">HIGH PRIORITY — resolve before publication unless explicitly accepted<a class="headerlink" href="#high-priority-resolve-before-publication-unless-explicitly-accepted" title="Permanent link">&para;</a></h3>
-<h4 id="h1-ci-does-not-exercise-artifacts-or-the-declared-python-range">H1. CI does not exercise artifacts or the declared Python range<a class="headerlink" href="#h1-ci-does-not-exercise-artifacts-or-the-declared-python-range" title="Permanent link">&para;</a></h4>
+<h4 id="resolved-h1-release-ci-exact-artifact-matrix">RESOLVED H1. Release CI exact-artifact matrix<a class="headerlink" href="#resolved-h1-release-ci-exact-artifact-matrix" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>Evidence:</strong> one Python 3.11 editable-install job; broad path-filter gaps.</li>
-<li><strong>Affected:</strong> all pipelines.</li>
-<li><strong>Impact:</strong> packaging and compatibility regressions can merge without CI.</li>
-<li><strong>Fix:</strong> add supported-version build/install smoke matrix and broaden/remove
-  release-critical path filters.</li>
-<li><strong>Owner:</strong> Codex.</li>
+<li>The tag workflow builds once and gates the exact wheel on Linux Python 3.10,
+  3.11, and 3.12, plus the sdist on Python 3.10. Branch CI remains Python 3.11
+  source validation.</li>
 </ul>
-<h4 id="h2-normal-validation-invokes-an-uninstalled-repository-script">H2. Normal validation invokes an uninstalled repository script<a class="headerlink" href="#h2-normal-validation-invokes-an-uninstalled-repository-script" title="Permanent link">&para;</a></h4>
+<h4 id="resolved-h2-parquet-validation-is-package-local">RESOLVED H2. Parquet validation is package-local<a class="headerlink" href="#resolved-h2-parquet-validation-is-package-local" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>Evidence:</strong> normal orchestration searches above its module for
-  <code>bin/validate_parquets</code>; that file is not in the wheel.</li>
-<li><strong>Affected:</strong> normal pipeline validation/QA.</li>
-<li><strong>Impact:</strong> installed behavior silently omits a documented check.</li>
-<li><strong>Fix:</strong> package the implementation or document it as maintainer-only and use
-  installed validation APIs in user docs.</li>
-<li><strong>Owner:</strong> Codex; maintainer confirms desired public contract.</li>
+<li><code>spectralbridge.parquet_validation</code> is installed, normal orchestration calls
+  it directly, and the public console entry point is
+  <code>spectralbridge-validate-parquets</code>.</li>
 </ul>
 <h4 id="h3-dependency-reproducibility-is-weak">H3. Dependency reproducibility is weak<a class="headerlink" href="#h3-dependency-reproducibility-is-weak" title="Permanent link">&para;</a></h4>
 <ul>
@@ -3307,23 +3337,21 @@ scripts and should stay clearly outside the installed interface.</p>
    concept/release DOI policy.</li>
 <li>Complete the scientific data and asset provenance/license/privacy inventory;
    remove unapproved files and sanitize local paths.</li>
-<li>Decide the supported Python versions and dependency policy; add that clean
-   Linux CI matrix and align public documentation.</li>
-<li>Expand <code>check_installed_artifact.py</code> with tiny representative fixtures for
-   the complete normal correction/convolution/extraction/merge/QA path and the
-   drone correction/translation plus full-or-polygon extraction behavior.</li>
+<li>Keep Python 3.10, 3.11, and 3.12 as the finite release-gate matrix; decide
+   the dependency-bounds policy and align all public support wording.</li>
+<li>Maintain the bounded stage-complete fixtures without replacing production
+   algorithms with test-only numerical shortcuts.</li>
 <li><strong>Mandatory artifact gate:</strong> build the wheel once, install it with
    dependencies into clean environments with no repository checkout on import
    paths, and successfully run the normal NEON, drone, and bulk pipelines. Fail
    the release if any package data or code is obtained from the checkout.</li>
 <li>Build and install the sdist in at least the lowest supported Python version;
    run metadata, import, resource, and smoke checks.</li>
-<li>Make CI run Ruff, unit/integration tests, docs build/link checks, AI
-   transparency, validation evidence checks, version synchronization, package
-   data inventory, <code>twine check</code>, and the artifact gate for every
-   release-relevant change.</li>
-<li>Replace the repository-relative Parquet validator behavior with an installed
-   API or clearly remove it from the public installed workflow.</li>
+<li>Keep the release workflow's Ruff, unit/integration, docs/link, AI
+   transparency, validation-evidence, version synchronization, package-data,
+   <code>twine check</code>, and exact-artifact gates required before GitHub release.</li>
+<li>Keep Parquet validation package-local; do not reintroduce repository path
+   discovery into installed runtime behavior.</li>
 <li>Rewrite the README/PyPI landing page with absolute links, accurate Python
     support, and minimal package-first normal, drone, bulk, and QA examples.</li>
 <li>Rebuild wheel/sdist from a clean tagged commit; record artifact checksums,

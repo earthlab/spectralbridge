@@ -2602,6 +2602,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../dev/production-validation-record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production validation record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../dev/software-citation/" class="md-nav__link">
         
   
@@ -2769,6 +2797,7 @@ view, and solar geometry.</p>
     <span class="n">input_h5_dir</span><span class="o">=</span><span class="s2">"drone_inputs"</span><span class="p">,</span>
     <span class="n">output_dir</span><span class="o">=</span><span class="s2">"drone_outputs"</span><span class="p">,</span>
     <span class="n">polygon_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">extraction_mode</span><span class="o">=</span><span class="s2">"full"</span><span class="p">,</span>
     <span class="n">apply_topo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">apply_brdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">require_solar_geometry</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -2778,8 +2807,10 @@ view, and solar geometry.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"failed"</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"qa_summary"</span><span class="p">])</span>
 </code></pre></div>
-<p>Set <code>polygon_path</code> to a supported vector file only when polygon extraction is
-part of the same run.</p>
+<p>Set <code>extraction_mode="full"</code> to write all corrected pixels to Parquet. For an
+intersecting vector subset, pass both <code>polygon_path="plots.geojson"</code> and
+<code>extraction_mode="polygon"</code>. Omitting <code>extraction_mode</code> preserves the existing
+behavior: polygon extraction when a polygon is supplied, otherwise QA-only.</p>
 <h2 id="confirm-the-result">Confirm the result<a class="headerlink" href="#confirm-the-result" title="Permanent link">&para;</a></h2>
 <p>Each discovered flight gets a separate output directory with drone-native
 stems. Depending on available inputs and requested modules, expect corrected

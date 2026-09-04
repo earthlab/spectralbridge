@@ -16,7 +16,7 @@
         <link rel="prev" href="../contributing/">
       
       
-        <link rel="next" href="../software-citation/">
+        <link rel="next" href="../production-validation-record/">
       
       
         
@@ -2546,6 +2546,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#two-tier-validation-requirement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two-tier validation requirement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-is-still-manual" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2615,6 +2626,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../production-validation-record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production validation record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -2777,16 +2816,36 @@ or rewrite project metadata automatically.</p>
 <li>trigger: push a tag matching <code>vMAJOR.MINOR.PATCH</code></li>
 <li>manual fallback: <code>workflow_dispatch</code> with a <code>release_tag</code> input</li>
 </ul>
-<p>That workflow currently:</p>
+<p>That workflow:</p>
 <ol>
-<li>checks out the tagged revision</li>
-<li>builds <code>sdist</code> and wheel artifacts with <code>python -m build</code></li>
-<li>runs <code>python -m twine check dist/*</code></li>
-<li>installs the built wheel and imports <code>spectralbridge</code></li>
-<li>uploads the built artifacts to the workflow run</li>
-<li>creates or updates the GitHub release and attaches the built artifacts</li>
-<li>enables GitHub-generated release notes</li>
+<li>validates the requested <code>vMAJOR.MINOR.PATCH</code> tag against <code>pyproject.toml</code>,
+   <code>spectralbridge.__version__</code>, <code>CITATION.cff</code>, and the first versioned
+   changelog heading</li>
+<li>runs Ruff, the full test suite, strict docs/link checks, validation-evidence
+   drift checks, and AI-transparency drift checks</li>
+<li>builds the sdist and wheel once and runs <code>twine check</code></li>
+<li>uploads those exact bytes as one release candidate</li>
+<li>installs the exact wheel outside the checkout on Python 3.10, 3.11, and 3.12</li>
+<li>installs the exact sdist outside the checkout on Python 3.10</li>
+<li>runs the bounded, offline, stage-complete normal, drone, and bulk smoke in
+   each clean environment</li>
+<li>creates the GitHub release only after every source and artifact gate passes</li>
 </ol>
+<p>No workflow publishes to PyPI yet.</p>
+<h2 id="two-tier-validation-requirement">Two-tier validation requirement<a class="headerlink" href="#two-tier-validation-requirement" title="Permanent link">&para;</a></h2>
+<p>The release gate intentionally separates package execution from production
+science:</p>
+<ul>
+<li><strong>Tier A — installed-artifact CI smoke:</strong> tiny 8 × 8 fixtures, one worker,
+  no network, strict disk budget, every major production stage, every release.
+  It proves package wiring and orchestration.</li>
+<li><strong>Tier B — production validation:</strong> selected real flightlines on a suitably
+  provisioned large-memory VM, periodically and for release candidates. It
+  provides scientific QA and operational evidence at real scale.</li>
+</ul>
+<p>CI is not required to run a workflow that may need roughly 250 GB of RAM.
+Fixture scale may be reduced only while retaining the same production code
+paths and algorithms. See the <a href="../production-validation-record/">production validation record</a>.</p>
 <h2 id="what-is-still-manual">What is still manual<a class="headerlink" href="#what-is-still-manual" title="Permanent link">&para;</a></h2>
 <p>Maintainers still need to:</p>
 <ul>
@@ -2823,8 +2882,12 @@ or rewrite project metadata automatically.</p>
 </ol>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>build
 python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </span>check<span class="w"> </span>dist/*
-pip<span class="w"> </span>install<span class="w"> </span>dist/*.whl
-python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import spectralbridge; print(spectralbridge.__version__)"</span>
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/tmp/spectralbridge-release-smoke
+/tmp/spectralbridge-release-smoke/bin/python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>dist/*.whl
+<span class="nb">cd</span><span class="w"> </span>/tmp
+/tmp/spectralbridge-release-smoke/bin/python<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/path/to/spectralbridge/scripts/check_installed_artifact.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--expected-version<span class="w"> </span>MAJOR.MINOR.PATCH
 </code></pre></div>
 <ol>
 <li>commit the release-prep changes</li>
@@ -2874,10 +2937,11 @@ documentation consistently rather than changing only the badge.</p>
 <li>no automatic PyPI publish is configured in this repository</li>
 <li>no automatic changelog rewriting is configured</li>
 <li>no automatic version bumping is configured</li>
-<li>no release-blocking metadata sync test exists yet</li>
+<li>PyPI trusted publishing and its protected environment are not configured</li>
 </ul>
-<p>Those are deliberate omissions for now so release automation does not outpace
-maintainer review.</p>
+<p>PyPI publishing remains a deliberate omission so release automation does not
+outpace maintainer review. The workflow creates only a fully gated GitHub
+release.</p>
 
 
 

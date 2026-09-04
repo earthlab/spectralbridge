@@ -2492,6 +2492,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../dev/production-validation-record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production validation record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../dev/software-citation/" class="md-nav__link">
         
   
@@ -2655,6 +2683,7 @@
   "spectralbridge-stage-qa": "spectralbridge.cli.stage_qa_cli:main",
   "spectralbridge-merge-duckdb": "spectralbridge.merge_duckdb:main",
   "spectralbridge-bulk": "spectralbridge.cli.bulk_cli:main",
+  "spectralbridge-validate-parquets": "spectralbridge.parquet_validation:main",
   "cscal-download": "spectralbridge.cli:download_main",
   "cscal-pipeline": "spectralbridge.cli.pipeline_cli:main",
   "cscal-qa": "spectralbridge.cli.qa_cli:main",
@@ -2666,6 +2695,9 @@
 <p>{
   "topo_and_brdf_correction.py": [
     "--config_file"
+  ],
+  "parquet_validation.py": [
+    "--soft"
   ],
   "qa_dashboard.py": [
     "--base-folder",
@@ -2797,7 +2829,7 @@
 <li>⚠️ Existing Parquet for %s is invalid (%s); regenerating</li>
 <li>⚠️ Failed Parquet export for %s: %s</li>
 <li>⚠️ Merge failed for {future_map[future]}: {exc}</li>
-<li>⚠️ Parquet validation reported an issue for %s: %s</li>
+<li>⚠️ Parquet validation: %s → %s</li>
 <li>⚠️ Skipping DuckDB merge for %s because no Parquet outputs were produced</li>
 <li>✅ BRDF+topo correction already complete for %s -&gt; %s / %s (skipping)</li>
 <li>✅ BRDF+topo correction already complete for %s, skipping</li>
