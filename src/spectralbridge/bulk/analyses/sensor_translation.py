@@ -10,11 +10,10 @@ from typing import Any
 import duckdb
 import pyarrow.parquet as pq
 
-from spectralbridge.sensor_pairs import SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY
-
 from ..dataset import copy_table_atomic
 from ..models import BulkAnalysisPaths
 from ..provenance import write_json_atomic
+from ..registry import DEFAULT_PRODUCT_REGISTRY, TranslationPair
 from .common import PairSpec, available_pair_specs, pair_literals, sql_literal, valid_pair_cte
 
 
@@ -59,6 +58,11 @@ _TRANSLATION_COLUMNS = """
     analysis_run_id VARCHAR,
     analysis_level VARCHAR,
     weighting VARCHAR,
+    translation_pair VARCHAR,
+    source_sensor VARCHAR,
+    target_sensor VARCHAR,
+    source_band_index INTEGER,
+    target_band_index INTEGER,
     micasense_sensor VARCHAR,
     landsat_sensor VARCHAR,
     band_index INTEGER,
@@ -158,7 +162,7 @@ def _grouped_query(
             {sql_literal(weighting)} AS weighting,
             {pair_literals(spec)},
             fit.flightline_id, fit.site,
-            'landsat = slope * micasense + intercept' AS equation,
+            'target = slope * source + intercept' AS equation,
             CASE WHEN fit.sample_count >= 2 AND isfinite(fit.slope)
                  AND isfinite(fit.intercept) THEN 'ok'
                  ELSE 'insufficient_data' END AS status,
@@ -251,7 +255,7 @@ def _balanced_query(
             {sql_literal(weighting)} AS weighting,
             {pair_literals(spec)},
             NULL::VARCHAR AS flightline_id, NULL::VARCHAR AS site,
-            'landsat = slope * micasense + intercept' AS equation,
+            'target = slope * source + intercept' AS equation,
             CASE WHEN sample_count >= 2 AND isfinite(slope) AND isfinite(intercept)
                  THEN 'ok' ELSE 'insufficient_data' END AS status,
             CASE WHEN isfinite(slope) THEN slope END AS slope,
@@ -276,7 +280,10 @@ def _create_table_from_queries(
     if not queries:
         con.execute(f"CREATE TABLE {table_name} ({_TRANSLATION_COLUMNS})")
         return
-    con.execute(f"CREATE TABLE {table_name} AS " + " UNION ALL ".join(queries))
+    con.execute(
+        f"CREATE TABLE {table_name} AS "
+        + " UNION ALL ".join(f"({query})" for query in queries)
+    )
 
 
 def _records(con: duckdb.DuckDBPyConnection, query: str) -> list[dict[str, Any]]:
@@ -291,9 +298,10 @@ def run_sensor_translation(
     *,
     analysis_run_id: str,
     minimum_reflectance: float,
+    translation_pairs: tuple[TranslationPair, ...] | None = None,
     reuse_existing: bool = True,
 ) -> dict[str, Any]:
-    """Run pooled, grouped, and equal-replicate synthetic regressions."""
+    """Run pooled, grouped, and equal-replicate sensor regressions."""
 
     output = SensorTranslationPaths(paths.analyses_dir / "sensor_translation")
     output.directory.mkdir(parents=True, exist_ok=True)
@@ -334,7 +342,8 @@ def run_sensor_translation(
             }
     except (OSError, ValueError, KeyError, json.JSONDecodeError):
         pass
-    specs = available_pair_specs(con)
+    selected_pairs = translation_pairs or DEFAULT_PRODUCT_REGISTRY.translation_pairs
+    specs = available_pair_specs(con, selected_pairs)
     table_specs = (
         (
             "translation_pixel_pooled",
@@ -429,9 +438,19 @@ def run_sensor_translation(
         "schema_version": 2,
         "analysis": "synthetic_sensor_translation",
         "analysis_run_id": analysis_run_id,
-        "equation": "landsat = slope * micasense + intercept",
+        "equation": "target = slope * source + intercept",
         "minimum_reflectance": minimum_reflectance,
-        "evidence_boundary": SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY,
+        "translation_pairs": [
+            {
+                "key": pair.key,
+                "source_sensor": pair.source_sensor,
+                "target_sensor": pair.target_sensor,
+                "matching_group": pair.matching_group,
+                "band_pairs": pair.band_pairs,
+                "evidence_boundary": pair.evidence_boundary,
+            }
+            for pair in selected_pairs
+        ],
         "statistical_independence_note": (
             "Pixels are observations nested within flightlines and sites. "
             "Flightline- and site-balanced estimates give each replicate equal "

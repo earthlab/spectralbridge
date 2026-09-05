@@ -12,8 +12,16 @@ from .models import (
     BulkInputKind,
     BulkInputMode,
     BulkSource,
+    ExclusionRecord,
     FlightlineRecord,
     SourceFileRecord,
+)
+from .identity import FlightlineIdentity, FlightlineIdentityParser
+from .registry import (
+    AnalysisProfile,
+    ProductDescriptor,
+    ProductRegistry,
+    TranslationPair,
 )
 
 __all__ = [
@@ -22,8 +30,15 @@ __all__ = [
     "BulkInputKind",
     "BulkInputMode",
     "BulkSource",
+    "ExclusionRecord",
+    "FlightlineIdentity",
+    "FlightlineIdentityParser",
     "FlightlineRecord",
     "SourceFileRecord",
+    "AnalysisProfile",
+    "ProductDescriptor",
+    "ProductRegistry",
+    "TranslationPair",
     "build_bulk_catalog",
     "canonical_identity_from_product",
     "discover_bulk_sources",

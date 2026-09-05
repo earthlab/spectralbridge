@@ -43,18 +43,20 @@
 
 <section class="sb-doc-section" markdown="1">
 <h2><code>spectralbridge-bulk</code></h2>
-<p>Runs the independent cross-run analysis workflow against a completed normal-pipeline archive. Automatic mode recursively finds canonical inner flightline directories beneath arbitrary storage folders and reuses their persisted target-sensor ENVI products. If no completed flightline directories are found, it falls back to the prebuilt merged-Parquet compatibility path.</p>
+<p>Runs independent cross-run analysis against completed or minimally staged flightline products. Automatic mode recursively finds scientifically identifiable flightline directories beneath arbitrary storage folders and reuses the target-sensor ENVI products required by the selected profile. Generic units use <code>spectralbridge_flightline.json</code>; canonical NEON names remain supported. If no flightline directories are found, automatic mode falls back to prebuilt merged Parquets.</p>
 
 ```bash
 spectralbridge-bulk /data/spectralbridge_completed_runs \
   --output-dir /data/spectralbridge_bulk_analysis \
   --input-mode auto \
+  --analysis translation \
+  --translation-pair MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI \
   --threads &lt;N&gt; \
   --memory-limit &lt;XGB&gt; \
   --temp-directory /scratch/spectralbridge_bulk
 ```
 
-<p>The source tree is read only, the output directory must be fresh and external, and extraction defaults to one flightline at a time with bounded raster windows. The complete observation population stays virtual unless <code>--materialize-observations</code> is explicitly passed. Use <code>--preflight-only</code> to inspect catalogs and the dataset census without reading raster pixels. <code>--input-kind</code> applies only to merged-Parquet compatibility mode. See <a href="../vignettes/bulk-analysis/">Build a bulk cross-run analysis</a>.</p>
+<p>The source tree is read only, the output directory must be fresh and external, and extraction defaults to one flightline at a time with bounded raster windows. <code>--sensor</code> and <code>--translation-pair</code> are repeatable selectors. Invalid flightlines are recorded and excluded by default; use <code>--on-invalid error</code> for strict behavior. The complete observation population stays virtual unless <code>--materialize-observations</code> is passed. Use <code>--preflight-only</code> to inspect products, selected bytes, compatible pairs, and deterministic exclusion Parquet/JSON/CSV without reading raster pixels. <code>--input-kind</code> applies only to merged-Parquet compatibility mode. See <a href="../vignettes/bulk-analysis/">Build a bulk cross-run analysis</a>.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

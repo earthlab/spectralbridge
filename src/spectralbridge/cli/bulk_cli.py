@@ -49,6 +49,34 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Merged table type to include. Defaults to full-pixel tables.",
     )
     parser.add_argument(
+        "--analysis",
+        default="translation",
+        help="Analysis profile name (default: translation).",
+    )
+    parser.add_argument(
+        "--sensor",
+        action="append",
+        dest="sensors",
+        default=None,
+        help=(
+            "Limit translation to pairs containing only the named sensors. "
+            "Repeat for each sensor in the desired relationship."
+        ),
+    )
+    parser.add_argument(
+        "--translation-pair",
+        action="append",
+        dest="translation_pairs",
+        default=None,
+        help="Built-in translation-pair key to select; may be repeated.",
+    )
+    parser.add_argument(
+        "--on-invalid",
+        choices=("exclude", "error"),
+        default="exclude",
+        help="Exclude invalid flightlines (default) or report and raise an error.",
+    )
+    parser.add_argument(
         "--minimum-reflectance",
         type=float,
         default=0.0,
@@ -58,8 +86,7 @@ def _build_parser() -> argparse.ArgumentParser:
         "--allow-no-translation",
         action="store_true",
         help=(
-            "Build the collection even when no paired MicaSense/Landsat "
-            "columns exist."
+            "Build the collection even when no requested translation columns exist."
         ),
     )
     parser.add_argument(
@@ -128,6 +155,10 @@ def main(argv: Sequence[str] | None = None) -> None:
         args.output_dir,
         input_kind=args.input_kind,
         input_mode=args.input_mode,
+        analysis=args.analysis,
+        sensors=args.sensors,
+        translation_pairs=args.translation_pairs,
+        on_invalid=args.on_invalid,
         minimum_reflectance=args.minimum_reflectance,
         require_translation_pairs=not args.allow_no_translation,
         materialize_observations=args.materialize_observations,

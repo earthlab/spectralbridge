@@ -295,25 +295,33 @@ finishes, the pipeline logs `✅ All requested flightlines processed.`.
 ### Bulk analysis across completed runs
 
 Bulk population analysis is intentionally separate from individual NEON and
-drone processing. Point `spectralbridge-bulk` directly at a read-only archive
-of completed normal-pipeline flightline directories. Arbitrary outer batch
-folders are ignored scientifically; canonical inner NEON names define identity:
+drone processing. Point `spectralbridge-bulk` at a read-only archive of
+completed or minimally staged flightline directories. A flightline is the
+scientific unit; arbitrary outer storage folders are ignored. Generic
+flightlines declare identity in `spectralbridge_flightline.json`, while
+canonical NEON names remain supported by a built-in parser:
 
 ```bash
-spectralbridge-bulk /home/jovyan/data-store/Aug_2026_Processed_Flightlines \
-  --output-dir /home/jovyan/data-store/Aug_2026_Bulk_Analysis \
+spectralbridge-bulk /data/completed_products \
+  --output-dir /data/bulk_analysis \
+  --analysis translation \
   --input-mode auto \
   --preflight-only
 ```
 
-The preferred mode reuses persisted target-sensor ENVI products and derives
-narrow, chunked, restart-safe observation caches in the separate bulk output;
-it does not require merged Parquets or rerun convolution. Prebuilt merged
-Parquets remain supported as an automatically detected compatibility mode.
-Physical collection-wide materialization is opt-in. See [Build a bulk cross-run
-analysis](docs/vignettes/bulk-analysis.md) for canonical identity, duplicate
-handling, output contracts, weighting, restart behavior, and the distinction
-between translation regression and brightness adjustment.
+The translation profile requires only one complete requested sensor pair, so a
+target-only archive can be valid without raw/corrected hyperspectral cubes, QA,
+or unrelated sensor products. Metadata-only preflight reports selected files,
+bytes, products, compatible pairs, and structured exclusions. The full run
+derives narrow, chunked, restart-safe caches in the separate output and never
+reruns upstream science. Invalid flightlines are excluded by default while the
+valid population continues; deterministic exclusion Parquet, JSON, and CSV are
+always written. Prebuilt merged Parquets remain a compatibility mode and
+physical collection-wide materialization is opt-in. See [Build a bulk cross-run
+analysis](docs/vignettes/bulk-analysis.md) for identity manifests, product and
+pair registries, sensor selection, output contracts, weighting, restart
+behavior, and the distinction between translation regression and brightness
+adjustment.
 
 ### Idempotent / restart-safe
 

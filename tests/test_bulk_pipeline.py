@@ -21,8 +21,15 @@ from spectralbridge.bulk.catalog import (
     discover_bulk_sources,
 )
 from spectralbridge.bulk.flightline_outputs import (
+    ProductValidationError,
     discover_completed_flightlines,
     find_canonical_flightline_directories,
+)
+from spectralbridge.bulk.registry import (
+    AnalysisProfile,
+    ProductDescriptor,
+    ProductRegistry,
+    TranslationPair,
 )
 from spectralbridge.cli.bulk_cli import _build_parser
 
@@ -35,6 +42,78 @@ R10C_2 = "NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance"
 NIWO_1 = "NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance"
 JORN_1 = "NEON_D14_JORN_DP1_L001-1_20220701_directional_reflectance"
 YELL_1 = "NEON_D12_YELL_DP1_L099-1_20230715_directional_reflectance"
+
+
+GENERIC_PAIR = TranslationPair(
+    key="sensor_a_to_sensor_b",
+    source_sensor="Sensor_A",
+    target_sensor="Sensor_B",
+    matching_group="visible_match",
+    band_pairs=((1, 1),),
+    expected_source_bands=1,
+    expected_target_bands=1,
+)
+UNRELATED_PAIR = TranslationPair(
+    key="sensor_c_to_sensor_d",
+    source_sensor="Sensor_C",
+    target_sensor="Sensor_D",
+    matching_group="unrelated_match",
+    band_pairs=((1, 1),),
+)
+GENERIC_REGISTRY = ProductRegistry(
+    products=(
+        ProductDescriptor(
+            key="sensor_a_product",
+            product_role="target_sensor",
+            sensor_name="Sensor_A",
+            matching_group="visible_match",
+            filename_patterns=(r"^sensor_a(?:_copy)?\.img$",),
+            processing_stage="sensor_translation",
+            expected_band_count=1,
+        ),
+        ProductDescriptor(
+            key="sensor_b_product",
+            product_role="target_sensor",
+            sensor_name="Sensor_B",
+            matching_group="visible_match",
+            filename_patterns=(r"^sensor_b\.img$",),
+            processing_stage="sensor_translation",
+            expected_band_count=1,
+        ),
+        ProductDescriptor(
+            key="sensor_c_product",
+            product_role="target_sensor",
+            sensor_name="Sensor_C",
+            matching_group="unrelated_match",
+            filename_patterns=(r"^sensor_c\.img$",),
+            processing_stage="sensor_translation",
+            expected_band_count=1,
+        ),
+        ProductDescriptor(
+            key="sensor_d_product",
+            product_role="target_sensor",
+            sensor_name="Sensor_D",
+            matching_group="unrelated_match",
+            filename_patterns=(r"^sensor_d\.img$",),
+            processing_stage="sensor_translation",
+            expected_band_count=1,
+        ),
+    ),
+    translation_pairs=(GENERIC_PAIR, UNRELATED_PAIR),
+)
+
+
+def test_bulk_runtime_dependencies_and_cli_are_packaged() -> None:
+    project = (Path(__file__).resolve().parents[1] / "pyproject.toml").read_text(
+        encoding="utf-8"
+    )
+    runtime_dependencies = project.split("[project.optional-dependencies]", 1)[0]
+
+    for dependency in ('"pyarrow"', '"rasterio"', '"duckdb>=1.0.0"'):
+        assert dependency in runtime_dependencies
+    assert (
+        'spectralbridge-bulk = "spectralbridge.cli.bulk_cli:main"' in project
+    )
 
 
 def _merged(directory: Path, flightline_id: str, *, polygon: bool = False) -> Path:
@@ -113,6 +192,18 @@ def _completed_flightline(
         landsat if landsat is not None else values * 2.0 + 0.1,
         dtype="float32",
     )
+    micasense_cube = np.stack(
+        [
+            np.where(values == -9999.0, -9999.0, values + 0.01 * index)
+            for index in range(6)
+        ]
+    )
+    landsat_cube = np.stack(
+        [
+            np.where(target == -9999.0, -9999.0, target + 0.02 * index)
+            for index in range(7)
+        ]
+    )
     _write_envi(
         directory / f"{flightline_id}_brdfandtopo_corrected_envi.img",
         values,
@@ -120,14 +211,47 @@ def _completed_flightline(
     _write_envi(directory / f"{flightline_id}_envi.img", values)
     _write_envi(
         directory / f"{flightline_id}_micasense_to_match_oli_oli2_envi.img",
-        values,
+        micasense_cube,
     )
     _write_envi(
         directory / f"{flightline_id}_landsat_oli_envi.img",
-        target,
+        landsat_cube,
     )
     if qa:
         qa_path = directory / "qa" / "stages" / "04_spectral_convolution" / "stage_qa.json"
+        qa_path.parent.mkdir(parents=True, exist_ok=True)
+        qa_path.write_text(json.dumps({"status": "PASS"}), encoding="utf-8")
+    return directory
+
+
+def _generic_flightline(
+    root: Path,
+    relative: str,
+    flightline_id: str,
+    *,
+    sensor_a: bool = True,
+    sensor_b: bool = True,
+    qa: bool = False,
+) -> Path:
+    directory = root / relative
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / "spectralbridge_flightline.json").write_text(
+        json.dumps(
+            {
+                "flightline_id": flightline_id,
+                "site": "SITE_GENERIC",
+                "acquisition_date": "2024-06-15",
+            }
+        ),
+        encoding="utf-8",
+    )
+    values = np.asarray([[0.1, 0.2], [0.3, 0.4]], dtype="float32")
+    if sensor_a:
+        _write_envi(directory / "sensor_a.img", values)
+    if sensor_b:
+        _write_envi(directory / "sensor_b.img", values * 3.0 + 0.2)
+    if qa:
+        qa_path = directory / "qa" / "stage_qa.json"
         qa_path.parent.mkdir(parents=True, exist_ok=True)
         qa_path.write_text(json.dumps({"status": "PASS"}), encoding="utf-8")
     return directory
@@ -162,6 +286,26 @@ def test_identity_comes_from_product_not_outer_folder(tmp_path: Path) -> None:
     assert sources[0].relative_path.startswith("machine-77/")
     assert flightlines[0].canonical_flightline_id == R10C_1
     assert flightlines[0].site == "R10C"
+
+
+def test_generic_merged_product_can_use_parent_identity_manifest(
+    tmp_path: Path,
+) -> None:
+    directory = tmp_path / "arbitrary" / "scientific_unit"
+    directory.mkdir(parents=True)
+    (directory / "spectralbridge_flightline.json").write_text(
+        json.dumps({"flightline_id": "flight-generic"}),
+        encoding="utf-8",
+    )
+    product = directory / "analysis_merged_pixel_extraction.parquet"
+    _write_parquet(product, [0.1, 0.2], [0.3, 0.5])
+
+    identity = canonical_identity_from_product(product)
+    _, flightlines = build_bulk_catalog(tmp_path)
+
+    assert identity["canonical_flightline_id"] == "flight-generic"
+    assert identity["identity_source"] == "spectralbridge_flightline_manifest"
+    assert flightlines[0].status == "accepted"
 
 
 def test_sister_runs_stay_independent_and_true_duplicates_are_excluded(
@@ -506,6 +650,29 @@ def test_cli_requires_clean_output_and_defaults_to_virtual_full_data() -> None:
     assert args.materialize_observations is False
     assert args.preflight_only is False
     assert args.allow_no_translation is False
+    assert args.analysis == "translation"
+    assert args.sensors is None
+    assert args.translation_pairs is None
+    assert args.on_invalid == "exclude"
+
+    selected = parser.parse_args(
+        [
+            "processed_data",
+            "--output-dir",
+            "bulk_output",
+            "--sensor",
+            "Sensor_A",
+            "--sensor",
+            "Sensor_B",
+            "--translation-pair",
+            "sensor_a_to_sensor_b",
+            "--on-invalid",
+            "error",
+        ]
+    )
+    assert selected.sensors == ["Sensor_A", "Sensor_B"]
+    assert selected.translation_pairs == ["sensor_a_to_sensor_b"]
+    assert selected.on_invalid == "error"
 
 
 def test_completed_archive_discovery_ignores_outer_batch_names(tmp_path: Path) -> None:
@@ -529,16 +696,16 @@ def test_completed_archive_discovery_ignores_outer_batch_names(tmp_path: Path) -
         YELL_1,
     }
     assert {item.site for item in flightlines} == {"NIWO", "R10C", "YELL"}
-    assert all(item.identity_source == "canonical_flightline_directory" for item in flightlines)
+    assert all(item.identity_source == "canonical_neon_directory" for item in flightlines)
     assert all(item.translation_eligible for item in flightlines)
     assert all(item.status == "accepted" for item in flightlines)
     niwo_record = next(item for item in flightlines if item.site == "NIWO")
     assert niwo_record.qa_status == "warn"
     assert "no_data_fraction" in niwo_record.stage_qa_status_json
     assert {item.product_role for item in sources} == {
-        "raw_envi",
-        "corrected_envi",
-        "target_sensor_envi",
+        "raw_hyperspectral",
+        "corrected_hyperspectral",
+        "target_sensor",
     }
 
 
@@ -574,12 +741,12 @@ def test_completed_archive_incomplete_products_are_classified(tmp_path: Path) ->
     assert by_id[NIWO_1].status == "accepted"
     assert by_id[NIWO_1].qa_status == "missing"
     assert Path(by_id[NIWO_1].source_directory) == no_qa
-    assert by_id[R10C_1].status == "rejected"
-    assert "missing corrected" in (by_id[R10C_1].rejection_reason or "")
+    assert by_id[R10C_1].status == "accepted"
+    assert by_id[R10C_1].processing_completeness == "partial"
     assert by_id[YELL_1].status == "rejected"
-    assert "no complete" in (by_id[YELL_1].rejection_reason or "")
+    assert "no requested compatible" in (by_id[YELL_1].rejection_reason or "")
     assert by_id[JORN_1].status == "rejected"
-    assert "invalid target product" in by_id[JORN_1].missing_products_json
+    assert "landsat_8_oli" in by_id[JORN_1].missing_products_json
 
 
 def test_flightline_output_mode_preflight_is_metadata_only(tmp_path: Path) -> None:
@@ -601,9 +768,9 @@ def test_flightline_output_mode_preflight_is_metadata_only(tmp_path: Path) -> No
     assert not list((output / "cache").rglob("*.parquet"))
     products = pq.read_table(result["source_products"]).to_pylist()
     assert {item["product_role"] for item in products} == {
-        "raw_envi",
-        "corrected_envi",
-        "target_sensor_envi",
+        "raw_hyperspectral",
+        "corrected_hyperspectral",
+        "target_sensor",
     }
 
 
@@ -676,3 +843,298 @@ def test_flightline_extraction_failure_isolated_from_other_sources(
     failed = next(item for item in records if item["canonical_flightline_id"] == NIWO_1)
     assert failed["extraction_status"] == "failure"
     assert "synthetic extraction failure" in failed["rejection_reason"]
+
+
+def test_generic_manifest_identity_and_target_only_archive_are_analysis_ready(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "generic_archive"
+    _generic_flightline(root, "storage_one/flight_alpha", "flight-alpha")
+    _generic_flightline(root, "storage_one/flight_beta", "flight-beta")
+    _generic_flightline(
+        root,
+        "nested/any/layout/flight_gamma",
+        "flight-gamma",
+        qa=True,
+    )
+
+    result = _run(
+        root,
+        tmp_path / "generic_bulk",
+        analysis="translation",
+        product_registry=GENERIC_REGISTRY,
+        translation_pairs=[GENERIC_PAIR.key],
+        extraction_chunk_size=1,
+    )
+    records = pq.read_table(result["flightlines"]).to_pylist()
+
+    assert result["accepted_flightline_count"] == 3
+    assert {item["canonical_flightline_id"] for item in records} == {
+        "flight-alpha",
+        "flight-beta",
+        "flight-gamma",
+    }
+    assert {item["processing_completeness"] for item in records} == {
+        "minimal_analysis_archive"
+    }
+    assert all(item["identity_source"] == "spectralbridge_flightline_manifest" for item in records)
+    assert result["preflight"]["analysis_profile"] == "translation"
+    assert result["preflight"]["census"]["selected_source_bytes"] > 0
+    assert result["preflight"]["discovered_flightlines"] == 3
+    assert result["preflight"]["available_sensors"] == ["Sensor_A", "Sensor_B"]
+    assert result["spectralbridge_version"]
+    products = pq.read_table(result["source_products"]).to_pylist()
+    target = next(item for item in products if item["sensor_name"] == "Sensor_A")
+    assert target["matching_group"] == "visible_match"
+    assert target["processing_stage"] == "sensor_translation"
+    assert target["dtype"] == "float32"
+    assert json.loads(target["dimensions_json"])["bands"] == 1
+    with duckdb.connect(result["database"], read_only=True) as con:
+        row = con.execute(
+            "SELECT source_sensor, target_sensor, slope "
+            "FROM translation_pixel_pooled"
+        ).fetchone()
+    assert row[:2] == ("Sensor_A", "Sensor_B")
+    assert row[2] == pytest.approx(3.0)
+
+
+@pytest.mark.parametrize(
+    ("mutation", "reason_code"),
+    (
+        ("missing_target", "incomplete_translation_pair"),
+        ("missing_header", "missing_sidecar"),
+        ("zero_byte", "zero_byte_file"),
+        ("malformed_header", "unreadable_metadata"),
+        ("duplicate_target", "duplicate_product"),
+    ),
+)
+def test_generic_required_product_failures_have_structured_reason_codes(
+    tmp_path: Path,
+    mutation: str,
+    reason_code: str,
+) -> None:
+    root = tmp_path / "archive"
+    directory = _generic_flightline(root, "container/flight", "flight-one")
+    if mutation == "missing_target":
+        for path in directory.glob("sensor_b.*"):
+            path.unlink()
+    elif mutation == "missing_header":
+        (directory / "sensor_b.hdr").unlink()
+    elif mutation == "zero_byte":
+        (directory / "sensor_b.img").write_bytes(b"")
+    elif mutation == "malformed_header":
+        (directory / "sensor_b.hdr").write_text("invalid header", encoding="utf-8")
+    elif mutation == "duplicate_target":
+        _write_envi(directory / "sensor_a_copy.img", np.ones((2, 2), dtype="float32"))
+
+    result = _run(
+        root,
+        tmp_path / f"bulk_{mutation}",
+        product_registry=GENERIC_REGISTRY,
+        translation_pairs=[GENERIC_PAIR.key],
+        preflight_only=True,
+    )
+    exclusions = pq.read_table(result["exclusions"]).to_pylist()
+
+    assert result["accepted_flightline_count"] == 0
+    assert reason_code in {item["reason_code"] for item in exclusions}
+    assert Path(result["exclusions_json"]).is_file()
+    assert Path(result["exclusions_csv"]).is_file()
+    assert not list((tmp_path / f"bulk_{mutation}" / "cache").rglob("*.parquet"))
+
+
+def test_invalid_flightline_is_excluded_while_valid_population_continues(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "archive"
+    _generic_flightline(root, "same_parent/valid", "valid-flight")
+    invalid = _generic_flightline(root, "same_parent/invalid", "invalid-flight")
+    (invalid / "sensor_b.img").write_bytes(b"")
+
+    result = _run(
+        root,
+        tmp_path / "bulk",
+        product_registry=GENERIC_REGISTRY,
+        translation_pairs=[GENERIC_PAIR.key],
+        extraction_chunk_size=1,
+    )
+    exclusions = pq.read_table(result["exclusions"]).to_pylist()
+
+    assert result["accepted_flightline_count"] == 1
+    assert result["row_count"] == 4
+    assert {item["canonical_flightline_id"] for item in exclusions} == {
+        "invalid-flight"
+    }
+    assert {item["reason_code"] for item in exclusions} >= {
+        "zero_byte_file",
+        "incomplete_translation_pair",
+    }
+
+
+def test_requested_pair_does_not_require_unrelated_registered_sensors(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "archive"
+    _generic_flightline(root, "arbitrary/flight", "selected-pair-flight")
+
+    result = _run(
+        root,
+        tmp_path / "bulk",
+        product_registry=GENERIC_REGISTRY,
+        translation_pairs=[GENERIC_PAIR.key],
+        preflight_only=True,
+    )
+    record = pq.read_table(result["flightlines"]).to_pylist()[0]
+
+    assert record["status"] == "accepted"
+    assert json.loads(record["analysis_eligibility_json"]) == {
+        GENERIC_PAIR.key: True
+    }
+    assert json.loads(record["missing_products_json"]) == []
+    assert result["selected_translation_pairs"] == [GENERIC_PAIR.key]
+
+
+def test_duplicate_generic_identity_is_explicit_and_on_invalid_can_error(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "archive"
+    _generic_flightline(root, "copy_a/flight", "duplicate-flight")
+    _generic_flightline(root, "copy_b/flight", "duplicate-flight")
+    output = tmp_path / "bulk"
+
+    result = _run(
+        root,
+        output,
+        product_registry=GENERIC_REGISTRY,
+        translation_pairs=[GENERIC_PAIR.key],
+        preflight_only=True,
+    )
+    assert result["duplicate_count"] == 2
+    assert {
+        item["reason_code"]
+        for item in pq.read_table(result["exclusions"]).to_pylist()
+    } == {"duplicate_scientific_identity"}
+
+    with pytest.raises(ValueError, match="excluded"):
+        _run(
+            root,
+            tmp_path / "bulk_error",
+            product_registry=GENERIC_REGISTRY,
+            translation_pairs=[GENERIC_PAIR.key],
+            preflight_only=True,
+            on_invalid="error",
+        )
+
+
+def test_invalid_duplicate_candidates_keep_both_reason_codes(tmp_path: Path) -> None:
+    root = tmp_path / "archive"
+    for relative in ("copy_a/flight", "copy_b/flight"):
+        directory = _generic_flightline(root, relative, "duplicate-invalid")
+        (directory / "sensor_b.img").write_bytes(b"")
+
+    result = _run(
+        root,
+        tmp_path / "bulk",
+        product_registry=GENERIC_REGISTRY,
+        translation_pairs=[GENERIC_PAIR.key],
+        preflight_only=True,
+    )
+    reason_codes = {
+        item["reason_code"]
+        for item in pq.read_table(result["exclusions"]).to_pylist()
+    }
+
+    assert result["duplicate_count"] == 2
+    assert {"duplicate_scientific_identity", "zero_byte_file"} <= reason_codes
+
+
+def test_on_invalid_error_ignores_invalid_optional_product(tmp_path: Path) -> None:
+    root = tmp_path / "archive"
+    directory = _generic_flightline(root, "one/flight", "valid-flight")
+    (directory / "raw.img").write_bytes(b"")
+    registry = ProductRegistry(
+        products=(
+            *GENERIC_REGISTRY.products,
+            ProductDescriptor(
+                key="optional_raw",
+                product_role="raw_hyperspectral",
+                filename_patterns=(r"^raw\.img$",),
+            ),
+        ),
+        translation_pairs=GENERIC_REGISTRY.translation_pairs,
+    )
+
+    result = _run(
+        root,
+        tmp_path / "bulk",
+        product_registry=registry,
+        translation_pairs=[GENERIC_PAIR.key],
+        preflight_only=True,
+        on_invalid="error",
+    )
+
+    assert result["accepted_flightline_count"] == 1
+    assert {
+        item["reason_code"]
+        for item in pq.read_table(result["exclusions"]).to_pylist()
+    } == {"zero_byte_file"}
+
+
+def test_transient_disappearance_becomes_a_product_exclusion(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root = tmp_path / "archive"
+    _generic_flightline(root, "container/flight", "transient-flight")
+    from spectralbridge.bulk import flightline_outputs as outputs_module
+
+    real_metadata = outputs_module._raster_metadata
+
+    def disappear(path, header, **kwargs):
+        if path.name == "sensor_b.img":
+            path.unlink()
+            raise ProductValidationError(
+                "transient_source_disappeared",
+                "source disappeared during discovery",
+            )
+        return real_metadata(path, header, **kwargs)
+
+    monkeypatch.setattr(outputs_module, "_raster_metadata", disappear)
+    sources, flightlines = discover_completed_flightlines(
+        root,
+        product_registry=GENERIC_REGISTRY,
+        translation_pairs=[GENERIC_PAIR.key],
+    )
+
+    assert flightlines[0].status == "rejected"
+    assert "incomplete_translation_pair" in flightlines[0].exclusion_reason_codes_json
+    assert "transient_source_disappeared" in {
+        source.reason_code for source in sources
+    }
+
+
+def test_profile_can_require_qa_without_requiring_hyperspectral_sources(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "archive"
+    _generic_flightline(root, "without_qa", "without-qa")
+    _generic_flightline(root, "with_qa", "with-qa", qa=True)
+    profile = AnalysisProfile(
+        name="translation_with_qa",
+        required_product_roles=("target_sensor",),
+        require_translation_pair=True,
+        require_qa=True,
+    )
+
+    _, records = discover_completed_flightlines(
+        root,
+        analysis_profile=profile,
+        product_registry=GENERIC_REGISTRY,
+        translation_pairs=[GENERIC_PAIR.key],
+    )
+    by_id = {item.canonical_flightline_id: item for item in records}
+
+    assert by_id["with-qa"].status == "accepted"
+    assert by_id["with-qa"].processing_completeness == "minimal_analysis_archive"
+    assert by_id["without-qa"].status == "rejected"
+    assert "missing_required_product" in by_id["without-qa"].exclusion_reason_codes_json

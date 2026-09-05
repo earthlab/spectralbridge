@@ -13,10 +13,21 @@ from typing import Any, Iterable, Sequence
 import pyarrow.parquet as pq
 
 from spectralbridge.file_types import NEONReflectanceFile
-from spectralbridge.sensor_pairs import MICASENSE_LANDSAT_PAIRS
 
+from .identity import (
+    DEFAULT_IDENTITY_PARSERS,
+    FlightlineIdentityParser,
+    resolve_flightline_identity,
+)
 from .models import BulkInputKind, FlightlineRecord, SourceFileRecord
 from .provenance import canonical_json
+from .registry import (
+    DEFAULT_PRODUCT_REGISTRY,
+    AnalysisProfile,
+    ProductRegistry,
+    TranslationPair,
+    resolve_analysis_profile,
+)
 
 
 _FULL_SUFFIX = "_merged_pixel_extraction.parquet"
@@ -64,7 +75,13 @@ def _iso_date(value: str | None) -> str | None:
         return None
 
 
-def canonical_identity_from_product(path: str | Path) -> dict[str, str | None]:
+def canonical_identity_from_product(
+    path: str | Path,
+    *,
+    identity_parsers: Sequence[
+        FlightlineIdentityParser
+    ] = DEFAULT_IDENTITY_PARSERS,
+) -> dict[str, str | None]:
     """Recover scientific identity from a canonical merged-product filename.
 
     Outer folder names are intentionally ignored. A product whose filename
@@ -79,13 +96,21 @@ def canonical_identity_from_product(path: str | Path) -> dict[str, str | None]:
     canonical_id = _canonical_stem(product, input_kind)
     try:
         parsed = NEONReflectanceFile.from_filename(f"{canonical_id}.h5")
-    except ValueError as exc:
-        raise ValueError(
-            "canonical flightline identity could not be recovered from product "
-            f"filename {product.name!r}"
-        ) from exc
-    if not parsed.site:
-        raise ValueError(f"canonical product has no recoverable site: {product.name!r}")
+    except ValueError:
+        identity = resolve_flightline_identity(
+            product.parent, parsers=identity_parsers
+        )
+        if identity is None:
+            raise ValueError(
+                "scientific flightline identity could not be recovered from "
+                f"product filename or parent manifest: {product.name!r}"
+            )
+        return {
+            "canonical_flightline_id": identity.flightline_id,
+            "identity_source": identity.identity_source,
+            "site": identity.site,
+            "acquisition_date": identity.acquisition_date,
+        }
     return {
         "canonical_flightline_id": canonical_id,
         "identity_source": "canonical_product_filename",
@@ -107,13 +132,23 @@ def _available_sensors(columns: Sequence[str]) -> list[str]:
     return sorted(_band_map(columns))
 
 
-def _has_translation_pair(columns: Sequence[str]) -> bool:
+def _has_translation_pair(
+    columns: Sequence[str], pairs: Sequence[TranslationPair]
+) -> bool:
     bandmap = _band_map(columns)
-    return any(
-        bandmap.get(micasense_sensor, set()) & bandmap.get(landsat_sensor, set())
-        for micasense_sensor, landsat_sensors in MICASENSE_LANDSAT_PAIRS.items()
-        for landsat_sensor in landsat_sensors
-    )
+    for pair in pairs:
+        if pair.band_pairs:
+            if any(
+                source_band in bandmap.get(pair.source_sensor, set())
+                and target_band in bandmap.get(pair.target_sensor, set())
+                for source_band, target_band in pair.band_pairs
+            ):
+                return True
+        elif bandmap.get(pair.source_sensor, set()) & bandmap.get(
+            pair.target_sensor, set()
+        ):
+            return True
+    return False
 
 
 def _schema_fingerprint(schema: Any) -> str:
@@ -134,6 +169,12 @@ def discover_bulk_sources(
     *,
     input_kind: BulkInputKind = "full",
     exclude_dir: str | Path | None = None,
+    product_registry: ProductRegistry = DEFAULT_PRODUCT_REGISTRY,
+    sensors: Sequence[str] | None = None,
+    translation_pairs: Sequence[str | TranslationPair] | None = None,
+    identity_parsers: Sequence[
+        FlightlineIdentityParser
+    ] = DEFAULT_IDENTITY_PARSERS,
 ) -> list[SourceFileRecord]:
     """Recursively inventory full and polygon merged-Parquet candidates.
 
@@ -148,6 +189,10 @@ def discover_bulk_sources(
     if input_kind not in {"full", "polygon", "both"}:
         raise ValueError("input_kind must be 'full', 'polygon', or 'both'")
     excluded = Path(exclude_dir).expanduser().resolve() if exclude_dir else None
+    pairs = product_registry.select_pairs(
+        sensors=sensors,
+        translation_pairs=translation_pairs,
+    )
     candidates, relative_root = _candidate_paths(root)
     records: list[SourceFileRecord] = []
     for candidate in candidates:
@@ -170,10 +215,14 @@ def discover_bulk_sources(
             "acquisition_date": None,
         }
         reasons: list[str] = []
+        reason_code: str | None = None
         try:
-            identity = canonical_identity_from_product(resolved)
+            identity = canonical_identity_from_product(
+                resolved, identity_parsers=identity_parsers
+            )
         except ValueError as exc:
             reasons.append(str(exc))
+            reason_code = "identity_unresolved"
 
         row_count: int | None = None
         column_count: int | None = None
@@ -181,6 +230,8 @@ def discover_bulk_sources(
         sensors: list[str] = []
         translation_eligible = False
         try:
+            if stat.st_size == 0:
+                raise ValueError("zero-byte Parquet product")
             parquet_file = pq.ParquetFile(resolved)
             schema = parquet_file.schema_arrow
             columns = schema.names
@@ -193,9 +244,13 @@ def discover_bulk_sources(
             column_count = len(columns)
             schema_sha256 = _schema_fingerprint(schema)
             sensors = _available_sensors(columns)
-            translation_eligible = _has_translation_pair(columns)
+            translation_eligible = _has_translation_pair(columns, pairs)
         except Exception as exc:
             reasons.append(f"{type(exc).__name__}: {exc}")
+            if reason_code is None:
+                reason_code = (
+                    "zero_byte_file" if stat.st_size == 0 else "unreadable_metadata"
+                )
 
         canonical_id = identity["canonical_flightline_id"]
         candidate_key = f"{resolved.parent.as_posix()}::{canonical_id or source_id}"
@@ -221,6 +276,8 @@ def discover_bulk_sources(
                 schema_sha256=schema_sha256,
                 available_sensors_json=canonical_json(sensors),
                 translation_eligible=translation_eligible,
+                reason_code=reason_code,
+                processing_stage="analysis_tables",
             )
         )
     return records
@@ -339,6 +396,13 @@ def build_bulk_catalog(
     *,
     input_kind: BulkInputKind = "full",
     exclude_dir: str | Path | None = None,
+    analysis_profile: str | AnalysisProfile = "translation",
+    product_registry: ProductRegistry = DEFAULT_PRODUCT_REGISTRY,
+    sensors: Sequence[str] | None = None,
+    translation_pairs: Sequence[str | TranslationPair] | None = None,
+    identity_parsers: Sequence[
+        FlightlineIdentityParser
+    ] = DEFAULT_IDENTITY_PARSERS,
 ) -> tuple[list[SourceFileRecord], list[FlightlineRecord]]:
     """Build source-file and canonical-flightline catalogs.
 
@@ -348,10 +412,22 @@ def build_bulk_catalog(
     """
 
     root = Path(input_path).expanduser().resolve()
+    profile = resolve_analysis_profile(analysis_profile)
+    pairs = product_registry.select_pairs(
+        sensors=sensors,
+        translation_pairs=translation_pairs,
+        allowed_sensors=profile.allowed_sensors,
+        allowed_matching_groups=profile.allowed_matching_groups,
+        allow_empty=not profile.require_translation_pair,
+    )
     source_records = discover_bulk_sources(
         root,
         input_kind=input_kind,
         exclude_dir=exclude_dir,
+        product_registry=product_registry,
+        sensors=sensors,
+        translation_pairs=pairs,
+        identity_parsers=identity_parsers,
     )
     grouped: dict[tuple[str, str], list[SourceFileRecord]] = defaultdict(list)
     unresolved: list[SourceFileRecord] = []
@@ -373,22 +449,34 @@ def build_bulk_catalog(
         selected_ids = {record.source_id for record in selected}
         selection_by_candidate[records[0].candidate_id] = selected_ids
         reasons: list[str] = []
+        reason_codes: list[str] = []
         if not selected:
             reasons.append(f"missing selected {input_kind} merged product")
+            reason_codes.append("missing_required_product")
         for kind in selected_kinds:
             if len(by_kind.get(kind, [])) > 1:
                 reasons.append(f"multiple {kind} merged products in one source directory")
+                reason_codes.append("duplicate_product")
         invalid_selected = [record for record in selected if record.status == "rejected"]
         if invalid_selected:
             reasons.extend(record.reason or "invalid source" for record in invalid_selected)
+            reason_codes.extend(
+                record.reason_code or "invalid_source" for record in invalid_selected
+            )
         readable_selected = [record for record in selected if record.status != "rejected"]
-        sensors = sorted(
+        available_sensors = sorted(
             {
                 sensor
                 for record in readable_selected
                 for sensor in json.loads(record.available_sensors_json)
             }
         )
+        pair_eligible = any(
+            record.translation_eligible for record in readable_selected
+        )
+        if profile.require_translation_pair and readable_selected and not pair_eligible:
+            reasons.append("no requested compatible translation pair is present")
+            reason_codes.append("incomplete_translation_pair")
         if source_directory not in related_by_directory:
             related_by_directory[source_directory] = _related_product_inventory(
                 Path(source_directory)
@@ -431,7 +519,7 @@ def build_bulk_catalog(
                 selected_source_paths_json=canonical_json(selected_paths),
                 qa_products_json=canonical_json(related["qa_products"]),
                 metadata_products_json=canonical_json(related["metadata_products"]),
-                available_sensors_json=canonical_json(sensors),
+                available_sensors_json=canonical_json(available_sensors),
                 processing_stages_json=canonical_json(related["processing_stages"]),
                 row_count=selected_row_count,
                 size_bytes=sum(record.size_bytes for record in readable_selected),
@@ -449,14 +537,37 @@ def build_bulk_catalog(
                 ),
                 brightness_state_json=canonical_json(related["brightness_state"]),
                 correction_state_json=canonical_json(related["correction_state"]),
-                translation_eligible=any(
-                    record.translation_eligible for record in readable_selected
-                ),
+                translation_eligible=pair_eligible,
                 status="rejected" if reasons else "accepted",
                 rejection_reason="; ".join(reasons) or None,
                 duplicate_status="unique",
                 duplicate_candidate_count=1,
                 source_provenance_json=canonical_json(provenance),
+                analysis_profile=profile.name,
+                processing_completeness="analysis_table_available",
+                product_availability_json=canonical_json(
+                    {
+                        "merged_parquet": {
+                            "candidate_count": len(selected),
+                            "valid_count": len(readable_selected),
+                        }
+                    }
+                ),
+                exclusion_reason_codes_json=canonical_json(
+                    sorted(set(reason_codes))
+                ),
+                exclusion_context_json=canonical_json(
+                    [
+                        {
+                            "reason_code": code,
+                            "detail": detail,
+                            "product_role": "merged_parquet",
+                            "processing_stage": "analysis_tables",
+                            "offending_files": [record.source_path for record in selected],
+                        }
+                        for code, detail in zip(reason_codes, reasons)
+                    ]
+                ),
             )
         )
 
@@ -503,12 +614,31 @@ def build_bulk_catalog(
                 source_provenance_json=canonical_json(
                     {"input_root": root.as_posix(), "source_path": record.source_path}
                 ),
+                analysis_profile=profile.name,
+                processing_completeness="unknown",
+                product_availability_json="{}",
+                exclusion_reason_codes_json=canonical_json(
+                    [record.reason_code or "identity_unresolved"]
+                ),
+                exclusion_context_json=canonical_json(
+                    [
+                        {
+                            "reason_code": record.reason_code
+                            or "identity_unresolved",
+                            "detail": record.reason
+                            or "scientific identity unresolved",
+                            "product_role": "merged_parquet",
+                            "processing_stage": "analysis_tables",
+                            "offending_files": [record.source_path],
+                        }
+                    ]
+                ),
             )
         )
 
     eligible_by_id: dict[str, list[int]] = defaultdict(list)
     for index, flightline in enumerate(flightlines):
-        if flightline.status == "accepted" and flightline.canonical_flightline_id:
+        if flightline.canonical_flightline_id:
             eligible_by_id[flightline.canonical_flightline_id].append(index)
     for indices in eligible_by_id.values():
         source_directories = {flightlines[index].source_directory for index in indices}
@@ -516,15 +646,35 @@ def build_bulk_catalog(
             continue
         for index in indices:
             flightline = flightlines[index]
+            detail = (
+                "scientific flightline ID occurs in multiple source directories; "
+                "all candidates are excluded pending explicit duplicate resolution"
+            )
+            existing_codes = json.loads(flightline.exclusion_reason_codes_json)
+            existing_contexts = json.loads(flightline.exclusion_context_json)
             flightlines[index] = replace(
                 flightline,
                 status="duplicate_excluded",
-                rejection_reason=(
-                    "canonical flightline ID occurs in multiple source directories; "
-                    "all candidates are excluded pending explicit duplicate resolution"
+                rejection_reason="; ".join(
+                    value
+                    for value in (flightline.rejection_reason, detail)
+                    if value
                 ),
                 duplicate_status="duplicate_canonical_id",
                 duplicate_candidate_count=len(indices),
+                exclusion_reason_codes_json=canonical_json(
+                    sorted({*existing_codes, "duplicate_scientific_identity"})
+                ),
+                exclusion_context_json=canonical_json(
+                    [
+                        *existing_contexts,
+                        {
+                            "reason_code": "duplicate_scientific_identity",
+                            "detail": detail,
+                            "offending_files": [flightline.source_directory],
+                        }
+                    ]
+                ),
             )
 
     flightline_by_candidate = {item.candidate_id: item for item in flightlines}
@@ -545,11 +695,21 @@ def build_bulk_catalog(
                     record,
                     status="duplicate_excluded",
                     reason=flightline.rejection_reason,
+                    reason_code="duplicate_scientific_identity",
                 )
             )
         else:
             final_sources.append(
-                replace(record, status="rejected", reason=flightline.rejection_reason)
+                replace(
+                    record,
+                    status="rejected",
+                    reason=flightline.rejection_reason,
+                    reason_code=(
+                        json.loads(flightline.exclusion_reason_codes_json)[0]
+                        if json.loads(flightline.exclusion_reason_codes_json)
+                        else "invalid_source"
+                    ),
+                )
             )
 
     return (

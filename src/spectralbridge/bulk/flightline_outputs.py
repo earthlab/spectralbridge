@@ -11,36 +11,31 @@ import os
 from pathlib import Path
 import re
 import traceback
-from typing import Any, Iterable
+from typing import Any, Iterable, Sequence
 
 import duckdb
 import pyarrow.parquet as pq
 
-from spectralbridge.file_types import NEONReflectanceFile
-from spectralbridge.sensor_pairs import MICASENSE_LANDSAT_PAIRS
-
 from .dataset import quote_identifier, quote_path
+from .identity import (
+    DEFAULT_IDENTITY_PARSERS,
+    FlightlineIdentityParser,
+    resolve_flightline_identity,
+)
 from .models import BulkAnalysisPaths, FlightlineRecord, SourceFileRecord
 from .provenance import canonical_json, signature_sha256, write_json_atomic, write_text_atomic
+from .registry import (
+    DEFAULT_PRODUCT_REGISTRY,
+    AnalysisProfile,
+    ProductDescriptor,
+    ProductRegistry,
+    TranslationPair,
+    resolve_analysis_profile,
+)
 
 
 LOGGER = logging.getLogger(__name__)
 EXTRACTION_SCHEMA_VERSION = 1
-
-_SENSOR_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
-    (
-        "MicaSense_to-match_OLI_and_OLI-2",
-        ("micasense_to_match_oli_oli2", "micasense-to-match_oli_and_oli-2"),
-    ),
-    (
-        "MicaSense_to-match_TM_and_ETM+",
-        ("micasense_to_match_tm_etm+", "micasense-to-match_tm_and_etm+"),
-    ),
-    ("Landsat_9_OLI-2", ("landsat_oli2", "landsat_9_oli-2")),
-    ("Landsat_8_OLI", ("landsat_oli", "landsat_8_oli")),
-    ("Landsat_7_ETM+", ("landsat_etm+", "landsat_7_etm+")),
-    ("Landsat_5_TM", ("landsat_tm", "landsat_5_tm")),
-)
 
 
 def _path_is_within(path: Path, parent: Path) -> bool:
@@ -51,26 +46,23 @@ def _path_is_within(path: Path, parent: Path) -> bool:
     return True
 
 
-def _canonical_identity(directory: Path) -> dict[str, str]:
-    parsed = NEONReflectanceFile.from_filename(f"{directory.name}.h5")
-    if not parsed.site or not parsed.date:
-        raise ValueError(f"Incomplete canonical NEON identity: {directory.name}")
-    acquisition_date = (
-        f"{parsed.date[:4]}-{parsed.date[4:6]}-{parsed.date[6:8]}"
-    )
-    return {
-        "canonical_flightline_id": directory.name,
-        "site": parsed.site,
-        "acquisition_date": acquisition_date,
-    }
+class ProductValidationError(ValueError):
+    """Validation failure with a stable machine-readable reason code."""
+
+    def __init__(self, reason_code: str, detail: str) -> None:
+        super().__init__(detail)
+        self.reason_code = reason_code
 
 
 def find_canonical_flightline_directories(
     input_path: str | Path,
     *,
     exclude_dir: str | Path | None = None,
+    identity_parsers: Sequence[
+        FlightlineIdentityParser
+    ] = DEFAULT_IDENTITY_PARSERS,
 ) -> list[Path]:
-    """Find canonical inner flightline directories, ignoring outer names."""
+    """Find scientifically identifiable flightline directories recursively."""
 
     root = Path(input_path).expanduser().resolve()
     if not root.is_dir():
@@ -82,21 +74,14 @@ def find_canonical_flightline_directories(
         if excluded is not None and _path_is_within(directory, excluded):
             continue
         try:
-            _canonical_identity(directory)
-        except ValueError:
+            identity = resolve_flightline_identity(
+                directory, parsers=identity_parsers
+            )
+        except (OSError, ValueError):
             continue
-        found.append(directory)
+        if identity is not None:
+            found.append(directory)
     return sorted(set(found))
-
-
-def _sensor_from_name(path: Path) -> str | None:
-    lowered = path.name.lower()
-    if path.suffix.lower() != ".img" or "_undarkened_envi" in lowered:
-        return None
-    for sensor, patterns in _SENSOR_PATTERNS:
-        if any(pattern in lowered for pattern in patterns):
-            return sensor
-    return None
 
 
 def _small_file_sha256(path: Path) -> str:
@@ -107,35 +92,97 @@ def _small_file_sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _raster_metadata(img: Path, hdr: Path) -> dict[str, Any]:
+def _raster_metadata(
+    img: Path,
+    hdr: Path,
+    *,
+    descriptor: ProductDescriptor,
+    profile: AnalysisProfile,
+) -> dict[str, Any]:
     import rasterio
+    from spectralbridge.exports.schema_utils import parse_envi_wavelengths_nm
 
-    if not hdr.is_file() or hdr.stat().st_size == 0:
-        raise ValueError(f"missing or empty ENVI header: {hdr.name}")
-    with rasterio.open(img) as dataset:
-        if dataset.width < 1 or dataset.height < 1 or dataset.count < 1:
-            raise ValueError(f"invalid ENVI dimensions: {img.name}")
-        metadata = {
-            "rows": int(dataset.height),
-            "columns": int(dataset.width),
-            "bands": int(dataset.count),
-            "crs": dataset.crs.to_string() if dataset.crs else None,
-            "transform": tuple(float(value) for value in dataset.transform),
-            "nodata": dataset.nodata,
-        }
-    img_stat = img.stat()
-    hdr_stat = hdr.stat()
+    try:
+        img_stat = img.stat()
+    except FileNotFoundError as exc:
+        raise ProductValidationError(
+            "transient_source_disappeared", f"source disappeared during discovery: {img}"
+        ) from exc
+    if profile.require_nonzero_files and img_stat.st_size == 0:
+        raise ProductValidationError("zero_byte_file", f"zero-byte raster: {img.name}")
+    if descriptor.header_required:
+        try:
+            hdr_stat = hdr.stat()
+        except FileNotFoundError as exc:
+            raise ProductValidationError(
+                "missing_sidecar", f"missing ENVI header: {hdr.name}"
+            ) from exc
+        if profile.require_nonzero_files and hdr_stat.st_size == 0:
+            raise ProductValidationError(
+                "zero_byte_file", f"zero-byte ENVI header: {hdr.name}"
+            )
+    else:
+        hdr_stat = None
+    try:
+        with rasterio.open(img) as dataset:
+            if (
+                profile.require_valid_dimensions
+                and (dataset.width < 1 or dataset.height < 1 or dataset.count < 1)
+            ):
+                raise ProductValidationError(
+                    "invalid_dimensions", f"invalid ENVI dimensions: {img.name}"
+                )
+            metadata = {
+                "rows": int(dataset.height),
+                "columns": int(dataset.width),
+                "bands": int(dataset.count),
+                "crs": dataset.crs.to_string() if dataset.crs else None,
+                "transform": tuple(float(value) for value in dataset.transform),
+                "nodata": dataset.nodata,
+                "dtype": dataset.dtypes[0] if dataset.dtypes else None,
+            }
+    except ProductValidationError:
+        raise
+    except Exception as exc:
+        raise ProductValidationError(
+            "unreadable_metadata",
+            f"unreadable ENVI metadata for {img.name}: {type(exc).__name__}: {exc}",
+        ) from exc
+    if (
+        profile.require_compatible_band_schema
+        and descriptor.expected_band_count is not None
+        and metadata["bands"] != descriptor.expected_band_count
+    ):
+        raise ProductValidationError(
+            "incompatible_band_schema",
+            f"{descriptor.sensor_name or descriptor.key} expected "
+            f"{descriptor.expected_band_count} bands but found {metadata['bands']}",
+        )
+    header_text = ""
+    if hdr_stat is not None:
+        try:
+            header_text = hdr.read_text(encoding="utf-8", errors="ignore")
+        except OSError as exc:
+            raise ProductValidationError(
+                "unreadable_metadata", f"cannot read ENVI header: {hdr.name}"
+            ) from exc
+    wavelengths = parse_envi_wavelengths_nm(header_text) if header_text else None
     signature = {
         "image_path": img.resolve().as_posix(),
         "image_size_bytes": int(img_stat.st_size),
         "image_modified_time_ns": int(img_stat.st_mtime_ns),
         "header_path": hdr.resolve().as_posix(),
-        "header_size_bytes": int(hdr_stat.st_size),
-        "header_modified_time_ns": int(hdr_stat.st_mtime_ns),
-        "header_sha256": _small_file_sha256(hdr),
+        "header_size_bytes": int(hdr_stat.st_size) if hdr_stat else None,
+        "header_modified_time_ns": int(hdr_stat.st_mtime_ns) if hdr_stat else None,
+        "header_sha256": _small_file_sha256(hdr) if hdr_stat else None,
         "raster_metadata": metadata,
     }
-    return {**metadata, **signature, "source_signature_sha256": signature_sha256(signature)}
+    return {
+        **metadata,
+        **signature,
+        "wavelengths_nm": wavelengths or [],
+        "source_signature_sha256": signature_sha256(signature),
+    }
 
 
 def _qa_inventory(directory: Path) -> tuple[list[str], str, dict[str, dict[str, Any]]]:
@@ -201,13 +248,36 @@ def _qa_inventory(directory: Path) -> tuple[list[str], str, dict[str, dict[str, 
     return [path.relative_to(directory).as_posix() for path in qa_files], overall, details
 
 
-def _translation_eligibility(targets: dict[str, dict[str, Any]]) -> dict[str, bool]:
+def _translation_eligibility(
+    targets: dict[str, dict[str, Any]],
+    pairs: Sequence[TranslationPair],
+) -> dict[str, bool]:
     result: dict[str, bool] = {}
-    for micasense, landsat_sensors in MICASENSE_LANDSAT_PAIRS.items():
-        for landsat in landsat_sensors:
-            result[f"{micasense}=>{landsat}"] = (
-                micasense in targets and landsat in targets
+    for pair in pairs:
+        source = targets.get(pair.source_sensor)
+        target = targets.get(pair.target_sensor)
+        compatible = source is not None and target is not None
+        if compatible:
+            compatible = (
+                source.get("matching_group") == pair.matching_group
+                and target.get("matching_group") == pair.matching_group
+                and all(
+                    source[key] == target[key]
+                    for key in ("rows", "columns", "crs", "transform")
+                )
             )
+        if compatible and pair.band_pairs:
+            compatible = (
+                max(source_band for source_band, _ in pair.band_pairs)
+                <= int(source["bands"])
+                and max(target_band for _, target_band in pair.band_pairs)
+                <= int(target["bands"])
+            )
+        if compatible and pair.expected_source_bands is not None:
+            compatible = int(source["bands"]) == pair.expected_source_bands
+        if compatible and pair.expected_target_bands is not None:
+            compatible = int(target["bands"]) == pair.expected_target_bands
+        result[pair.key] = bool(compatible)
     return result
 
 
@@ -226,14 +296,24 @@ def _source_record(
     reason: str | None,
     metadata: dict[str, Any] | None,
     qa_status: str,
+    identity_source: str = "canonical_flightline_directory",
+    reason_code: str | None = None,
+    matching_group: str | None = None,
+    processing_stage: str | None = None,
 ) -> SourceFileRecord:
     relative = path.relative_to(root).as_posix()
-    stat = path.stat()
+    try:
+        stat = path.stat()
+        size_bytes = int(stat.st_size)
+        modified_time_ns = int(stat.st_mtime_ns)
+    except FileNotFoundError:
+        size_bytes = 0
+        modified_time_ns = 0
     return SourceFileRecord(
         source_id=hashlib.sha256(relative.encode("utf-8")).hexdigest()[:20],
         candidate_id=candidate_id,
         canonical_flightline_id=canonical_id,
-        identity_source="canonical_flightline_directory",
+        identity_source=identity_source,
         site=site,
         acquisition_date=acquisition_date,
         source_directory=directory.as_posix(),
@@ -244,8 +324,8 @@ def _source_record(
         reason=reason,
         row_count=None,
         column_count=(int(metadata["bands"]) if metadata else None),
-        size_bytes=int(stat.st_size),
-        modified_time_ns=int(stat.st_mtime_ns),
+        size_bytes=size_bytes,
+        modified_time_ns=modified_time_ns,
         schema_sha256=None,
         available_sensors_json=canonical_json([sensor] if sensor else []),
         translation_eligible=False,
@@ -264,6 +344,11 @@ def _source_record(
             str(metadata["source_signature_sha256"]) if metadata else None
         ),
         qa_status=qa_status,
+        reason_code=reason_code,
+        matching_group=matching_group,
+        processing_stage=processing_stage,
+        wavelengths_json=canonical_json(metadata.get("wavelengths_nm", []) if metadata else []),
+        dtype=str(metadata.get("dtype")) if metadata and metadata.get("dtype") else None,
     )
 
 
@@ -271,199 +356,262 @@ def discover_completed_flightlines(
     input_path: str | Path,
     *,
     exclude_dir: str | Path | None = None,
+    analysis_profile: str | AnalysisProfile = "translation",
+    product_registry: ProductRegistry = DEFAULT_PRODUCT_REGISTRY,
+    identity_parsers: Sequence[
+        FlightlineIdentityParser
+    ] = DEFAULT_IDENTITY_PARSERS,
+    sensors: Sequence[str] | None = None,
+    translation_pairs: Sequence[str | TranslationPair] | None = None,
 ) -> tuple[list[SourceFileRecord], list[FlightlineRecord]]:
-    """Inventory completed flightline folders without reading raster pixels."""
+    """Inventory identifiable flightlines without reading raster pixels."""
 
     root = Path(input_path).expanduser().resolve()
-    directories = find_canonical_flightline_directories(root, exclude_dir=exclude_dir)
+    profile = resolve_analysis_profile(analysis_profile)
+    pairs = product_registry.select_pairs(
+        sensors=sensors,
+        translation_pairs=translation_pairs,
+        allowed_sensors=profile.allowed_sensors,
+        allowed_matching_groups=profile.allowed_matching_groups,
+        allow_empty=not profile.require_translation_pair,
+    )
+    directories = find_canonical_flightline_directories(
+        root,
+        exclude_dir=exclude_dir,
+        identity_parsers=identity_parsers,
+    )
     sources: list[SourceFileRecord] = []
     flightlines: list[FlightlineRecord] = []
     for directory in directories:
-        identity = _canonical_identity(directory)
-        canonical_id = identity["canonical_flightline_id"]
+        identity = resolve_flightline_identity(directory, parsers=identity_parsers)
+        if identity is None:  # pragma: no cover - already resolved above
+            continue
+        canonical_id = identity.flightline_id
         candidate_id = hashlib.sha256(
             f"{directory.as_posix()}::{canonical_id}".encode("utf-8")
         ).hexdigest()[:20]
         qa_files, qa_status, stage_statuses = _qa_inventory(directory)
-        files = sorted(path for path in directory.rglob("*") if path.is_file())
-        source_bytes = sum(int(path.stat().st_size) for path in files)
+        try:
+            candidates = sorted(directory.rglob("*"))
+        except (OSError, PermissionError):
+            candidates = []
+        files: list[Path] = []
+        source_bytes = 0
+        for path in candidates:
+            try:
+                if not path.is_file():
+                    continue
+                files.append(path)
+                source_bytes += int(path.stat().st_size)
+            except (FileNotFoundError, OSError):
+                continue
         metadata_files = [
             path.relative_to(directory).as_posix()
             for path in files
             if path.suffix.lower() in {".json", ".csv", ".toml", ".yaml", ".yml"}
         ]
 
-        raw_candidates = [
-            path
-            for path in files
-            if path.suffix.lower() == ".img"
-            and path.name.lower().endswith("reflectance_envi.img")
-            and "brdfandtopo_corrected" not in path.name.lower()
-            and "_resampled_" not in path.name.lower()
-        ]
-        for raw_img in raw_candidates:
-            try:
-                raw_metadata = _raster_metadata(raw_img, raw_img.with_suffix(".hdr"))
-            except Exception as exc:
-                raw_reason = f"invalid raw ENVI product: {type(exc).__name__}: {exc}"
-                raw_metadata = None
-            else:
-                raw_reason = None
-            raw_record = _source_record(
-                root=root,
-                directory=directory,
-                canonical_id=canonical_id,
-                site=identity["site"],
-                acquisition_date=identity["acquisition_date"],
-                candidate_id=candidate_id,
-                path=raw_img,
-                role="raw_envi",
-                sensor=None,
-                status="available" if raw_metadata else "rejected",
-                reason=raw_reason,
-                metadata=raw_metadata,
-                qa_status=qa_status,
-            )
-            sources.append(raw_record)
+        by_descriptor: dict[str, list[Path]] = defaultdict(list)
+        for path in files:
+            descriptor = product_registry.recognize(path)
+            if descriptor is not None:
+                by_descriptor[descriptor.key].append(path)
 
-        corrected_candidates = [
-            path
-            for path in files
-            if path.suffix.lower() == ".img"
-            and "brdfandtopo_corrected_envi" in path.name.lower()
-        ]
-        corrected: dict[str, Any] = {}
-        reasons: list[str] = []
-        if len(corrected_candidates) != 1:
-            reasons.append(
-                "missing corrected ENVI product"
-                if not corrected_candidates
-                else "multiple corrected ENVI products"
-            )
-        else:
-            corrected_img = corrected_candidates[0]
-            try:
-                corrected = _raster_metadata(corrected_img, corrected_img.with_suffix(".hdr"))
-            except Exception as exc:
-                reasons.append(f"invalid corrected ENVI product: {type(exc).__name__}: {exc}")
-                sources.append(
-                    _source_record(
-                        root=root,
-                        directory=directory,
-                        canonical_id=canonical_id,
-                        site=identity["site"],
-                        acquisition_date=identity["acquisition_date"],
-                        candidate_id=candidate_id,
-                        path=corrected_img,
-                        role="corrected_envi",
-                        sensor=None,
-                        status="rejected",
-                        reason=reasons[-1],
-                        metadata=None,
-                        qa_status=qa_status,
+        product_availability: dict[str, dict[str, Any]] = {}
+        valid_products: dict[str, dict[str, Any]] = {}
+        valid_by_role: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        source_records_start = len(sources)
+        for descriptor in product_registry.products:
+            product_candidates = by_descriptor.get(descriptor.key, [])
+            availability = {
+                "product_role": descriptor.product_role,
+                "sensor_name": descriptor.sensor_name,
+                "candidate_count": len(product_candidates),
+                "valid_count": 0,
+                "status": "missing" if not product_candidates else "candidate",
+            }
+            product_availability[descriptor.key] = availability
+            if len(product_candidates) > 1:
+                availability["status"] = "duplicate"
+                for path in product_candidates:
+                    sources.append(
+                        _source_record(
+                            root=root,
+                            directory=directory,
+                            canonical_id=canonical_id,
+                            site=identity.site or "",
+                            acquisition_date=identity.acquisition_date or "",
+                            candidate_id=candidate_id,
+                            path=path,
+                            role=descriptor.product_role,
+                            sensor=descriptor.sensor_name,
+                            status="rejected",
+                            reason=(
+                                "multiple products match descriptor "
+                                f"{descriptor.key}"
+                            ),
+                            metadata=None,
+                            qa_status=qa_status,
+                            identity_source=identity.identity_source,
+                            reason_code="duplicate_product",
+                            matching_group=descriptor.matching_group,
+                            processing_stage=descriptor.processing_stage,
+                        )
                     )
+                continue
+            if not product_candidates:
+                continue
+            path = product_candidates[0]
+            try:
+                metadata = _raster_metadata(
+                    path,
+                    path.with_suffix(".hdr"),
+                    descriptor=descriptor,
+                    profile=profile,
                 )
+            except ProductValidationError as exc:
+                status = "rejected"
+                reason = str(exc)
+                reason_code = exc.reason_code
+                metadata = None
+                availability["status"] = reason_code
             else:
-                record = _source_record(
+                status = "available"
+                reason = None
+                reason_code = None
+                metadata.update(
+                    {
+                        "image": path.as_posix(),
+                        "header": path.with_suffix(".hdr").as_posix(),
+                        "product_key": descriptor.key,
+                        "product_role": descriptor.product_role,
+                        "sensor_name": descriptor.sensor_name,
+                        "matching_group": descriptor.matching_group,
+                        "processing_stage": descriptor.processing_stage,
+                    }
+                )
+                availability["status"] = "available"
+                availability["valid_count"] = 1
+                valid_by_role[descriptor.product_role].append(metadata)
+                if descriptor.sensor_name:
+                    valid_products[descriptor.sensor_name] = metadata
+            sources.append(
+                _source_record(
                     root=root,
                     directory=directory,
                     canonical_id=canonical_id,
-                    site=identity["site"],
-                    acquisition_date=identity["acquisition_date"],
+                    site=identity.site or "",
+                    acquisition_date=identity.acquisition_date or "",
                     candidate_id=candidate_id,
-                    path=corrected_img,
-                    role="corrected_envi",
-                    sensor=None,
-                    status="available",
-                    reason=None,
-                    metadata=corrected,
+                    path=path,
+                    role=descriptor.product_role,
+                    sensor=descriptor.sensor_name,
+                    status=status,
+                    reason=reason,
+                    metadata=metadata,
                     qa_status=qa_status,
+                    identity_source=identity.identity_source,
+                    reason_code=reason_code,
+                    matching_group=descriptor.matching_group,
+                    processing_stage=descriptor.processing_stage,
                 )
-                sources.append(record)
-
-        by_sensor: dict[str, list[Path]] = defaultdict(list)
-        for path in files:
-            sensor = _sensor_from_name(path)
-            if sensor:
-                by_sensor[sensor].append(path)
-        targets: dict[str, dict[str, Any]] = {}
-        missing: list[str] = []
-        for sensor, candidates in sorted(by_sensor.items()):
-            if len(candidates) != 1:
-                missing.append(f"ambiguous target product: {sensor}")
-                continue
-            img = candidates[0]
-            try:
-                target = _raster_metadata(img, img.with_suffix(".hdr"))
-            except Exception as exc:
-                reason = f"invalid target product {sensor}: {type(exc).__name__}: {exc}"
-                missing.append(reason)
-                sources.append(
-                    _source_record(
-                        root=root,
-                        directory=directory,
-                        canonical_id=canonical_id,
-                        site=identity["site"],
-                        acquisition_date=identity["acquisition_date"],
-                        candidate_id=candidate_id,
-                        path=img,
-                        role="target_sensor_envi",
-                        sensor=sensor,
-                        status="rejected",
-                        reason=reason,
-                        metadata=None,
-                        qa_status=qa_status,
-                    )
-                )
-                continue
-            targets[sensor] = {"image": img.as_posix(), "header": img.with_suffix(".hdr").as_posix(), **target}
-            record = _source_record(
-                root=root,
-                directory=directory,
-                canonical_id=canonical_id,
-                site=identity["site"],
-                acquisition_date=identity["acquisition_date"],
-                candidate_id=candidate_id,
-                path=img,
-                role="target_sensor_envi",
-                sensor=sensor,
-                status="available",
-                reason=None,
-                metadata=target,
-                qa_status=qa_status,
             )
-            sources.append(record)
 
-        if corrected:
-            alignment_keys = ("rows", "columns", "crs", "transform")
-            for sensor, target in list(targets.items()):
-                if any(target[key] != corrected[key] for key in alignment_keys):
-                    alignment_reason = (
-                        "target product is not spatially aligned with corrected ENVI: "
-                        f"{sensor}"
-                    )
-                    missing.append(alignment_reason)
-                    sources = [
-                        replace(record, status="rejected", reason=alignment_reason)
-                        if record.candidate_id == candidate_id
-                        and record.sensor_name == sensor
-                        else record
-                        for record in sources
-                    ]
-                    del targets[sensor]
-
-        eligibility = _translation_eligibility(targets)
-        translation_eligible = any(eligibility.values())
-        if not translation_eligible:
-            reasons.append("no complete wavelength-matched MicaSense/Landsat target pair")
+        corrected = next(
+            iter(valid_by_role.get("corrected_hyperspectral", [])), {}
+        )
+        targets = valid_products
+        eligibility = _translation_eligibility(targets, pairs)
+        eligible_pairs = [pair for pair in pairs if eligibility[pair.key]]
         selected_sensors = sorted(
             {
                 sensor
-                for pair, eligible in eligibility.items()
-                if eligible
-                for sensor in pair.split("=>")
+                for pair in eligible_pairs
+                for sensor in (pair.source_sensor, pair.target_sensor)
             }
         )
+
+        exclusion_codes: list[str] = []
+        exclusion_contexts: list[dict[str, Any]] = []
+
+        def exclude(
+            reason_code: str,
+            detail: str,
+            *,
+            product_role: str | None = None,
+            sensor_name: str | None = None,
+            processing_stage: str | None = None,
+            offending_files: Sequence[str] = (),
+        ) -> None:
+            if reason_code not in exclusion_codes:
+                exclusion_codes.append(reason_code)
+            exclusion_contexts.append(
+                {
+                    "reason_code": reason_code,
+                    "detail": detail,
+                    "product_role": product_role,
+                    "sensor_name": sensor_name,
+                    "processing_stage": processing_stage,
+                    "offending_files": list(offending_files),
+                }
+            )
+
+        required_roles = set(profile.required_product_roles)
+        if profile.require_original_hyperspectral:
+            required_roles.add("raw_hyperspectral")
+        if profile.require_corrected_hyperspectral:
+            required_roles.add("corrected_hyperspectral")
+        requested_sensor_names = {
+            sensor
+            for pair in pairs
+            for sensor in (pair.source_sensor, pair.target_sensor)
+        }
+        required_product_keys = {
+            descriptor.key
+            for descriptor in product_registry.products
+            if (
+                descriptor.sensor_name in requested_sensor_names
+                or (
+                    descriptor.product_role in required_roles
+                    and descriptor.product_role != "target_sensor"
+                )
+            )
+        }
+        for role in sorted(required_roles - set(valid_by_role)):
+            exclude(
+                "missing_required_product",
+                f"analysis profile {profile.name!r} requires product role {role!r}",
+                product_role=role,
+            )
+        if profile.require_qa and not qa_files:
+            exclude(
+                "missing_required_product",
+                f"analysis profile {profile.name!r} requires QA metadata",
+                product_role="qa",
+                processing_stage="qa",
+            )
+        if profile.require_translation_pair and not eligible_pairs:
+            available = ", ".join(sorted(targets)) or "none"
+            exclude(
+                "incomplete_translation_pair",
+                "no requested compatible translation pair is complete; "
+                f"available sensors: {available}",
+                product_role="target_sensor",
+                processing_stage="spectral_convolution",
+            )
+
+        raw_present = bool(valid_by_role.get("raw_hyperspectral"))
+        corrected_present = bool(valid_by_role.get("corrected_hyperspectral"))
+        if raw_present and corrected_present and targets:
+            processing_completeness = "complete"
+        elif targets and not (raw_present or corrected_present):
+            processing_completeness = "minimal_analysis_archive"
+        elif targets or corrected_present or raw_present:
+            processing_completeness = "partial"
+        else:
+            processing_completeness = "incomplete"
+
+        translation_eligible = bool(eligible_pairs)
         representative = next(
             (targets[sensor] for sensor in selected_sensors if sensor in targets),
             None,
@@ -473,38 +621,57 @@ def discover_completed_flightlines(
             if representative
             else 0
         )
-        selected_band_count = sum(int(targets[sensor]["bands"]) for sensor in selected_sensors)
+        selected_band_count = sum(
+            int(targets[sensor]["bands"])
+            for sensor in selected_sensors
+            if sensor in targets
+        )
         estimated_cache_bytes = pixel_count * (24 + 4 * selected_band_count)
-        stages = ["brdf_topographic_correction", "spectral_convolution"]
-        if qa_files:
-            stages.append("qa")
-        if raw_candidates:
-            stages.append("envi_export")
+        stages = sorted(
+            {
+                str(product["processing_stage"])
+                for products in valid_by_role.values()
+                for product in products
+                if product.get("processing_stage")
+            }
+            | ({"qa"} if qa_files else set())
+        )
         provenance = {
             "input_root": root.as_posix(),
             "source_directory": directory.as_posix(),
             "outer_storage_path": directory.parent.as_posix(),
             "outer_directory_names_are_scientific_identifiers": False,
-            "identity_authority": "canonical_flightline_directory",
-            "source_signature_policy": "path_size_mtime_header_sha256_and_envi_metadata",
+            "identity_authority": identity.identity_source,
+            "source_signature_policy": (
+                "path_size_mtime_header_sha256_and_envi_metadata"
+            ),
+            "product_registry_keys": [
+                descriptor.key for descriptor in product_registry.products
+            ],
+            "selected_translation_pairs": [pair.key for pair in pairs],
         }
+        candidate_sources = sources[source_records_start:]
         flightlines.append(
             FlightlineRecord(
                 candidate_id=candidate_id,
                 canonical_flightline_id=canonical_id,
-                identity_source="canonical_flightline_directory",
-                site=identity["site"],
-                acquisition_date=identity["acquisition_date"],
-                acquisition_year=int(identity["acquisition_date"][:4]),
+                identity_source=identity.identity_source,
+                site=identity.site,
+                acquisition_date=identity.acquisition_date,
+                acquisition_year=(
+                    int(identity.acquisition_date[:4])
+                    if identity.acquisition_date
+                    else None
+                ),
                 source_directory=directory.as_posix(),
                 canonical_merged_parquet=None,
                 polygon_merged_parquet=None,
                 selected_source_ids_json=canonical_json(
                     [
                         source.source_id
-                        for source in sources
-                        if source.candidate_id == candidate_id
-                        and source.status == "available"
+                        for source in candidate_sources
+                        if source.status == "available"
+                        and source.sensor_name in selected_sensors
                     ]
                 ),
                 selected_source_paths_json=canonical_json(
@@ -513,16 +680,26 @@ def discover_completed_flightlines(
                 qa_products_json=canonical_json(qa_files),
                 metadata_products_json=canonical_json(metadata_files),
                 available_sensors_json=canonical_json(sorted(targets)),
-                processing_stages_json=canonical_json(sorted(stages)),
+                processing_stages_json=canonical_json(stages),
                 row_count=None,
-                size_bytes=sum(int(targets[sensor]["image_size_bytes"]) for sensor in selected_sensors),
+                size_bytes=sum(
+                    int(targets[sensor]["image_size_bytes"])
+                    for sensor in selected_sensors
+                ),
                 source_directory_size_bytes=source_bytes,
                 schema_fingerprints_json="[]",
                 brightness_state_json="{}",
-                correction_state_json=canonical_json({"corrected_product_present": bool(corrected)}),
+                correction_state_json=canonical_json(
+                    {"corrected_product_present": corrected_present}
+                ),
                 translation_eligible=translation_eligible,
-                status="rejected" if reasons else "accepted",
-                rejection_reason="; ".join(reasons) or None,
+                status="rejected" if exclusion_codes else "accepted",
+                rejection_reason=(
+                    "; ".join(
+                        context["detail"] for context in exclusion_contexts
+                    )
+                    or None
+                ),
                 duplicate_status="unique",
                 duplicate_candidate_count=1,
                 source_provenance_json=canonical_json(provenance),
@@ -531,30 +708,67 @@ def discover_completed_flightlines(
                 target_products_json=canonical_json(targets),
                 qa_status=qa_status,
                 stage_qa_status_json=canonical_json(stage_statuses),
-                missing_products_json=canonical_json(missing),
+                missing_products_json=canonical_json(
+                    [
+                        key
+                        for key, availability in product_availability.items()
+                        if key in required_product_keys
+                        and availability["status"] != "available"
+                    ]
+                ),
                 analysis_eligibility_json=canonical_json(eligibility),
                 estimated_cache_bytes=estimated_cache_bytes,
                 cache_observations=None,
-                extraction_status="pending" if not reasons else "not_eligible",
+                extraction_status=(
+                    "pending" if not exclusion_codes else "not_eligible"
+                ),
+                analysis_profile=profile.name,
+                processing_completeness=processing_completeness,
+                product_availability_json=canonical_json(product_availability),
+                exclusion_reason_codes_json=canonical_json(exclusion_codes),
+                exclusion_context_json=canonical_json(exclusion_contexts),
             )
         )
 
     by_id: dict[str, list[int]] = defaultdict(list)
     for index, flightline in enumerate(flightlines):
-        if flightline.status == "accepted" and flightline.canonical_flightline_id:
+        if flightline.canonical_flightline_id:
             by_id[flightline.canonical_flightline_id].append(index)
     for indices in by_id.values():
         if len({flightlines[index].source_directory for index in indices}) < 2:
             continue
         for index in indices:
             flightline = flightlines[index]
+            detail = (
+                "scientific flightline ID occurs in multiple source directories; "
+                "all candidates are excluded"
+            )
+            existing_codes = json.loads(flightline.exclusion_reason_codes_json)
+            existing_contexts = json.loads(flightline.exclusion_context_json)
             flightlines[index] = replace(
                 flightline,
                 status="duplicate_excluded",
-                rejection_reason="canonical flightline ID occurs in multiple source directories; all candidates are excluded",
+                rejection_reason="; ".join(
+                    value
+                    for value in (flightline.rejection_reason, detail)
+                    if value
+                ),
                 duplicate_status="duplicate_canonical_id",
                 duplicate_candidate_count=len(indices),
                 extraction_status="not_eligible",
+                exclusion_reason_codes_json=canonical_json(
+                    sorted({*existing_codes, "duplicate_scientific_identity"})
+                ),
+                exclusion_context_json=canonical_json(
+                    [
+                        *existing_contexts,
+                        {
+                            "reason_code": "duplicate_scientific_identity",
+                            "detail": detail,
+                            "offending_files": [flightline.source_directory],
+                        }
+                    ]
+                ),
             )
     status_by_candidate = {item.candidate_id: item.status for item in flightlines}
     final_sources = [
@@ -562,15 +776,26 @@ def discover_completed_flightlines(
             source,
             status=(
                 "duplicate_excluded"
-                if status_by_candidate.get(source.candidate_id) == "duplicate_excluded"
+                if status_by_candidate.get(source.candidate_id)
+                == "duplicate_excluded"
                 else source.status
+            ),
+            reason_code=(
+                "duplicate_scientific_identity"
+                if status_by_candidate.get(source.candidate_id)
+                == "duplicate_excluded"
+                and source.reason_code is None
+                else source.reason_code
             ),
         )
         for source in sources
     ]
     return sorted(final_sources, key=lambda item: item.relative_path), sorted(
         flightlines,
-        key=lambda item: (item.canonical_flightline_id or "", item.source_directory),
+        key=lambda item: (
+            item.canonical_flightline_id or "",
+            item.source_directory,
+        ),
     )
 
 
@@ -664,6 +889,7 @@ def extract_flightline_cache(
     *,
     analysis_run_id: str,
     chunk_size: int,
+    translation_pairs: Sequence[TranslationPair],
     force: bool = False,
 ) -> tuple[SourceFileRecord, FlightlineRecord]:
     """Create or reuse one compact observation cache from target ENVI products."""
@@ -675,9 +901,9 @@ def extract_flightline_cache(
     selected = sorted(
         {
             sensor
-            for pair, eligible in eligibility.items()
-            if eligible
-            for sensor in pair.split("=>")
+            for pair in translation_pairs
+            if eligibility.get(pair.key)
+            for sensor in (pair.source_sensor, pair.target_sensor)
         }
     )
     if not selected:
@@ -690,6 +916,17 @@ def extract_flightline_cache(
         "schema_version": EXTRACTION_SCHEMA_VERSION,
         "canonical_flightline_id": flightline.canonical_flightline_id,
         "selected_sensors": selected,
+        "translation_pairs": [
+            {
+                "key": pair.key,
+                "source_sensor": pair.source_sensor,
+                "target_sensor": pair.target_sensor,
+                "matching_group": pair.matching_group,
+                "band_pairs": pair.band_pairs,
+            }
+            for pair in translation_pairs
+            if eligibility.get(pair.key)
+        ],
         "source_signatures": {
             sensor: targets[sensor]["source_signature_sha256"] for sensor in selected
         },

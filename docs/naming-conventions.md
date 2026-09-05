@@ -78,16 +78,19 @@ fixed collection-level names rather than NEON or drone flight stems:
 
 | Path | Meaning |
 | --- | --- |
-| `catalog/flightlines.parquet` | Canonical scientific flightline catalog |
+| `catalog/flightlines.parquet` | Scientific flightline catalog with identity source, processing completeness, product availability, profile eligibility, and status |
 | `catalog/source_files.parquet` | Recursive product inventory and source provenance |
 | `catalog/source_products.parquet` | Read-only upstream corrected/raw/target-product inventory |
 | `catalog/duplicates.parquet` | Duplicate canonical-ID candidates excluded from analysis |
 | `catalog/rejected_sources.parquet` | Invalid, ambiguous, or excluded flightline records |
+| `catalog/exclusions.parquet` | Deterministic structured exclusions and reason codes |
+| `catalog/exclusions.json` | Portable structured exclusion report |
+| `catalog/exclusions.csv` | Tabular exclusion report for non-Parquet tools |
 | `catalog/bulk_manifest.json` | Restart, settings, and provenance manifest |
 | `cache/<flightline-id>/observations.parquet` | Restart-safe narrow observations derived from persisted target ENVI products |
 | `database/spectralbridge_bulk.duckdb` | Virtual observation views, catalogs, and analysis tables |
 | `database/bulk_observations.parquet` | Optional portable super-Parquet; never created by default |
-| `coefficients/candidate_translation_coefficients.parquet/.json` | Pixel-pooled and balanced synthetic translation candidates |
+| `coefficients/candidate_translation_coefficients.parquet/.json` | Pixel-pooled and balanced source-to-target translation candidates |
 
 Analysis-specific tables live below `analyses/`. These names must not be used
 inside individual flightline or drone product contracts.

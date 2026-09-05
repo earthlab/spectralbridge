@@ -41,15 +41,22 @@ This page describes how SpectralBridge is organized internally. Understanding th
 ### Independent bulk analysis
 
 `run_bulk_pipeline` is downstream of completed per-flightline workflows rather
-than another stage inside them. It recovers canonical flightline identity from
-inner NEON directories rather than distributed-compute folders, excludes
-unresolved duplicates, and reads only persisted wavelength-matched target ENVI
-products in bounded windows. Narrow per-flightline Parquets are cached beneath
-the separate bulk output, then federated through a DuckDB union-by-name view.
-Prebuilt merged Parquets remain a compatibility input and physical population
-materialization is opt-in. Dataset census, hierarchical translation, and
-leave-one-site-out logic live in independent analysis modules. The workflow
-never calls or mutates the NEON and drone orchestrators.
+than another stage inside them. Scientific identity is resolved by an
+extensible parser layer: a generic per-flightline manifest and canonical NEON
+names are the installed conventions, while outer compute/storage folders never
+define identity. A product registry centralizes filename recognition and
+metadata expectations. Analysis profiles separate processing completeness from
+product availability and analysis eligibility, and translation-pair descriptors
+define arbitrary source/target band relationships.
+
+Validation is atomic per flightline. Invalid units and duplicate identities are
+excluded with stable reason codes while valid units continue by default. The
+translation profile can consume only its requested target ENVI products, read
+them in bounded windows, and cache narrow Parquets under the separate bulk
+output. Prebuilt merged Parquets remain a compatibility input and physical
+population materialization is opt-in. Catalog/preflight, dataset census,
+hierarchical translation, and leave-one-site-out logic are independent layers.
+The workflow never calls or mutates the NEON and drone orchestrators.
 
 ---
 

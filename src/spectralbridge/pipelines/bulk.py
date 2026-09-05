@@ -7,16 +7,19 @@ live under the dedicated spectralbridge.bulk package.
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from dataclasses import replace
+from dataclasses import asdict, replace
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import logging
 import math
+import os
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 
 import duckdb
 import pyarrow.parquet as pq
+
+from spectralbridge import __version__
 
 from spectralbridge.bulk.analyses import (
     run_dataset_census,
@@ -29,6 +32,7 @@ from spectralbridge.bulk.catalog import (
     discover_bulk_sources,
 )
 from spectralbridge.bulk.dataset import create_bulk_database, finalize_bulk_database
+from spectralbridge.bulk.exclusions import build_exclusion_records
 from spectralbridge.bulk.flightline_outputs import (
     discover_completed_flightlines,
     extract_flightline_cache,
@@ -44,6 +48,17 @@ from spectralbridge.bulk.models import (
     SourceFileRecord,
 )
 from spectralbridge.bulk.provenance import signature_sha256, write_json_atomic
+from spectralbridge.bulk.identity import (
+    DEFAULT_IDENTITY_PARSERS,
+    FlightlineIdentityParser,
+)
+from spectralbridge.bulk.registry import (
+    DEFAULT_PRODUCT_REGISTRY,
+    AnalysisProfile,
+    ProductRegistry,
+    TranslationPair,
+    resolve_analysis_profile,
+)
 
 
 LOGGER = logging.getLogger(__name__)
@@ -82,6 +97,11 @@ def _input_signature(
     require_translation_pairs: bool,
     extraction_chunk_size: int,
     extraction_workers: int,
+    analysis_profile: AnalysisProfile,
+    product_registry: ProductRegistry,
+    identity_parsers: Sequence[FlightlineIdentityParser],
+    translation_pairs: tuple[TranslationPair, ...],
+    on_invalid: str,
     source_files: list[SourceFileRecord],
     flightlines: list[FlightlineRecord],
 ) -> dict[str, Any]:
@@ -98,6 +118,11 @@ def _input_signature(
         "require_translation_pairs": require_translation_pairs,
         "extraction_chunk_size": extraction_chunk_size,
         "extraction_workers": extraction_workers,
+        "analysis_profile": asdict(analysis_profile),
+        "product_registry": [asdict(item) for item in product_registry.products],
+        "identity_parsers": [parser.name for parser in identity_parsers],
+        "translation_pairs": [asdict(item) for item in translation_pairs],
+        "on_invalid": on_invalid,
         "catalog": catalog_signature_records(source_files, flightlines),
     }
 
@@ -116,6 +141,9 @@ def _outputs_are_valid(
         paths.flightlines,
         paths.source_files,
         paths.source_products,
+        paths.exclusions,
+        paths.exclusions_json,
+        paths.exclusions_csv,
         paths.duplicates,
         paths.rejected_sources,
         paths.database,
@@ -150,6 +178,7 @@ def _outputs_are_valid(
             paths.flightlines,
             paths.source_files,
             paths.source_products,
+            paths.exclusions,
             paths.duplicates,
             paths.rejected_sources,
         ):
@@ -174,6 +203,7 @@ def _outputs_are_valid(
 def _result(
     paths: BulkAnalysisPaths,
     *,
+    input_path: Path,
     status: str,
     accepted_flightline_count: int,
     duplicate_count: int,
@@ -183,7 +213,19 @@ def _result(
     materialize_observations: bool,
     preflight_only: bool,
     input_mode: str,
+    analysis_profile: AnalysisProfile,
+    translation_pairs: tuple[TranslationPair, ...],
 ) -> dict[str, Any]:
+    try:
+        census = json.loads(
+            (
+                paths.analyses_dir
+                / "dataset_census"
+                / "dataset_census.json"
+            ).read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError):
+        census = {}
     return {
         "status": status,
         "accepted_flightline_count": accepted_flightline_count,
@@ -195,6 +237,9 @@ def _result(
         "regression_count": translation_pair_count,
         "preflight_only": preflight_only,
         "input_mode": input_mode,
+        "analysis": analysis_profile.name,
+        "spectralbridge_version": __version__,
+        "selected_translation_pairs": [item.key for item in translation_pairs],
         "materialized_observations": (
             str(paths.observations) if materialize_observations else None
         ),
@@ -202,6 +247,9 @@ def _result(
         "flightlines": str(paths.flightlines),
         "source_files": str(paths.source_files),
         "source_products": str(paths.source_products),
+        "exclusions": str(paths.exclusions),
+        "exclusions_json": str(paths.exclusions_json),
+        "exclusions_csv": str(paths.exclusions_csv),
         "cache": str(paths.cache_dir),
         "source_catalog": str(paths.source_files),
         "duplicates": str(paths.duplicates),
@@ -212,6 +260,41 @@ def _result(
         "coefficients_json": None if preflight_only else str(paths.coefficients_json),
         "database": str(paths.database),
         "manifest": str(paths.manifest),
+        "preflight": {
+            "source_root": input_path.as_posix(),
+            "output_root": paths.output_dir.as_posix(),
+            "analysis_profile": analysis_profile.name,
+            "required_product_roles": list(
+                analysis_profile.required_product_roles
+            ),
+            "optional_product_roles": list(
+                analysis_profile.optional_product_roles
+            ),
+            "translation_pairs": [item.key for item in translation_pairs],
+            "discovered_flightlines": int(
+                census.get("candidate_flightline_records", 0)
+            ),
+            "accepted_flightlines": accepted_flightline_count,
+            "duplicate_candidates": duplicate_count,
+            "excluded_flightlines": rejected_count + duplicate_count,
+            "selected_observation_rows": row_count,
+            "selected_source_bytes": int(census.get("selected_source_bytes", 0)),
+            "estimated_cache_bytes": int(
+                census.get("estimated_analysis_cache_bytes", 0)
+            ),
+            "available_sensors": census.get("sensors", []),
+            "available_translation_pairs": census.get(
+                "available_translation_pairs", []
+            ),
+            "exclusion_counts_by_reason": census.get(
+                "exclusion_counts_by_reason", {}
+            ),
+            "spectralbridge_version": __version__,
+            "source_products": str(paths.source_products),
+            "exclusions": str(paths.exclusions),
+            "database": str(paths.database),
+            "census": census,
+        },
     }
 
 
@@ -221,6 +304,12 @@ def run_bulk_pipeline(
     *,
     input_kind: BulkInputKind = "full",
     input_mode: BulkInputMode = "auto",
+    analysis: str | AnalysisProfile = "translation",
+    sensors: tuple[str, ...] | list[str] | None = None,
+    translation_pairs: Sequence[str | TranslationPair] | None = None,
+    product_registry: ProductRegistry = DEFAULT_PRODUCT_REGISTRY,
+    identity_parsers: Sequence[FlightlineIdentityParser] = DEFAULT_IDENTITY_PARSERS,
+    on_invalid: str = "exclude",
     minimum_reflectance: float = 0.0,
     require_translation_pairs: bool = True,
     materialize_observations: bool = False,
@@ -235,15 +324,16 @@ def run_bulk_pipeline(
 ) -> dict[str, Any]:
     """Catalog completed flightlines and run population analyses.
 
-    The source tree is treated as read only. Canonical identity is recovered
-    from SpectralBridge product filenames, never arbitrary outer run-folder
-    names. Duplicate canonical flightline IDs in different source directories
-    are cataloged and excluded from analysis.
+    The source tree is treated as read only. Scientific identity is recovered
+    through configurable identity parsers, never arbitrary outer run-folder
+    names. Duplicate flightline IDs in different source directories are
+    cataloged and excluded from analysis.
 
     ``input_mode='auto'`` prefers canonical completed-flightline directories
-    and falls back to prebuilt merged Parquets. Completed-flightline mode reads
-    corrected target-sensor ENVI products in bounded chunks and writes compact,
-    restart-safe observation caches only beneath ``output_dir``.
+    and falls back to prebuilt merged Parquets. Completed-flightline mode needs
+    only the target products required by the selected profile and relationship;
+    it reads them in bounded chunks and writes compact, restart-safe observation
+    caches only beneath ``output_dir``.
     """
 
     root = Path(input_path).expanduser().resolve()
@@ -277,6 +367,26 @@ def run_bulk_pipeline(
         raise ValueError(
             "input_mode must be 'auto', 'flightline_outputs', or 'merged_parquet'"
         )
+    if on_invalid not in {"exclude", "error"}:
+        raise ValueError("on_invalid must be 'exclude' or 'error'")
+    analysis_profile = resolve_analysis_profile(analysis)
+    if not require_translation_pairs and analysis_profile.require_translation_pair:
+        analysis_profile = replace(
+            analysis_profile,
+            required_product_roles=tuple(
+                role
+                for role in analysis_profile.required_product_roles
+                if role != "target_sensor"
+            ),
+            require_translation_pair=False,
+        )
+    selected_pairs = product_registry.select_pairs(
+        sensors=sensors,
+        translation_pairs=translation_pairs,
+        allowed_sensors=analysis_profile.allowed_sensors,
+        allowed_matching_groups=analysis_profile.allowed_matching_groups,
+        allow_empty=not analysis_profile.require_translation_pair,
+    )
     minimum_reflectance = float(minimum_reflectance)
     if not math.isfinite(minimum_reflectance):
         raise ValueError("minimum_reflectance must be finite")
@@ -296,7 +406,9 @@ def run_bulk_pipeline(
         resolved_input_mode = (
             "flightline_outputs"
             if find_canonical_flightline_directories(
-                root, exclude_dir=resolved_output
+                root,
+                exclude_dir=resolved_output,
+                identity_parsers=identity_parsers,
             )
             else "merged_parquet"
         )
@@ -308,13 +420,24 @@ def run_bulk_pipeline(
                 "input_kind='polygon'/'both' applies only to merged_parquet mode"
             )
         source_files, flightlines = discover_completed_flightlines(
-            root, exclude_dir=resolved_output
+            root,
+            exclude_dir=resolved_output,
+            analysis_profile=analysis_profile,
+            product_registry=product_registry,
+            identity_parsers=identity_parsers,
+            sensors=sensors,
+            translation_pairs=selected_pairs,
         )
     else:
         source_files, flightlines = build_bulk_catalog(
             root,
             input_kind=input_kind,
             exclude_dir=resolved_output,
+            analysis_profile=analysis_profile,
+            product_registry=product_registry,
+            identity_parsers=identity_parsers,
+            sensors=sensors,
+            translation_pairs=selected_pairs,
         )
     signature = _input_signature(
         root=root,
@@ -328,6 +451,11 @@ def run_bulk_pipeline(
         require_translation_pairs=require_translation_pairs,
         extraction_chunk_size=extraction_chunk_size,
         extraction_workers=extraction_workers,
+        analysis_profile=analysis_profile,
+        product_registry=product_registry,
+        identity_parsers=identity_parsers,
+        translation_pairs=selected_pairs,
+        on_invalid=on_invalid,
         source_files=source_files,
         flightlines=flightlines,
     )
@@ -349,6 +477,7 @@ def run_bulk_pipeline(
             counts = previous["counts"]
             return _result(
                 paths,
+                input_path=root,
                 status="reused",
                 accepted_flightline_count=int(counts["accepted_flightlines"]),
                 duplicate_count=int(counts["duplicate_candidates"]),
@@ -358,6 +487,8 @@ def run_bulk_pipeline(
                 materialize_observations=materialize_observations,
                 preflight_only=preflight_only,
                 input_mode=resolved_input_mode,
+                analysis_profile=analysis_profile,
+                translation_pairs=selected_pairs,
             )
 
     if resolved_input_mode == "flightline_outputs" and not preflight_only:
@@ -372,6 +503,7 @@ def run_bulk_pipeline(
                 paths,
                 analysis_run_id=analysis_run_id,
                 chunk_size=extraction_chunk_size,
+                translation_pairs=selected_pairs,
                 force=force,
             )
 
@@ -396,6 +528,18 @@ def run_bulk_pipeline(
                         status="rejected",
                         rejection_reason=f"extraction failed: {type(exc).__name__}: {exc}",
                         extraction_status="failure",
+                        exclusion_reason_codes_json=json.dumps(
+                            ["extraction_failure"]
+                        ),
+                        exclusion_context_json=json.dumps(
+                            [
+                                {
+                                    "reason_code": "extraction_failure",
+                                    "detail": str(exc),
+                                    "processing_stage": "bulk_extraction",
+                                }
+                            ]
+                        ),
                     )
                 else:
                     extracted_sources.append(source)
@@ -419,6 +563,18 @@ def run_bulk_pipeline(
                                 f"extraction failed: {type(exc).__name__}: {exc}"
                             ),
                             extraction_status="failure",
+                            exclusion_reason_codes_json=json.dumps(
+                                ["extraction_failure"]
+                            ),
+                            exclusion_context_json=json.dumps(
+                                [
+                                    {
+                                        "reason_code": "extraction_failure",
+                                        "detail": str(exc),
+                                        "processing_stage": "bulk_extraction",
+                                    }
+                                ]
+                            ),
                         )
                     else:
                         extracted_sources.append(source)
@@ -436,6 +592,7 @@ def run_bulk_pipeline(
         item for item in flightlines if item.status == "rejected"
     ]
     accepted_sources = [item for item in source_files if item.status == "accepted"]
+    exclusions = build_exclusion_records(source_files, flightlines)
     accepted_rows = sum(int(item.row_count or 0) for item in accepted_sources)
     execution = {
         "threads": threads,
@@ -451,6 +608,8 @@ def run_bulk_pipeline(
         "input_signature_sha256": analysis_run_id,
         "input_signature": signature,
         "execution": execution,
+        "spectralbridge_version": __version__,
+        "git_commit": os.environ.get("GITHUB_SHA"),
     }
     write_json_atomic(paths.manifest, building_manifest)
 
@@ -471,11 +630,15 @@ def run_bulk_pipeline(
         "minimum_reflectance": minimum_reflectance,
         "extraction_chunk_size": extraction_chunk_size,
         "extraction_workers": extraction_workers,
+        "analysis_profile": asdict(analysis_profile),
+        "selected_translation_pairs": [asdict(item) for item in selected_pairs],
+        "on_invalid": on_invalid,
     }
     con, temporary_database = create_bulk_database(
         paths,
         source_files,
         flightlines,
+        exclusions,
         metadata=metadata,
         materialize_observations=materialize_observations,
         row_group_size=row_group_size,
@@ -499,7 +662,7 @@ def run_bulk_pipeline(
         if not preflight_only and require_translation_pairs and eligible_count == 0:
             raise ValueError(
                 "No accepted canonical flightline contains a compatible "
-                "synthetic MicaSense/Landsat band pair. The catalog and census "
+                "requested sensor translation pair. The catalog and census "
                 f"were written to {paths.output_dir}."
             )
         if not preflight_only:
@@ -508,6 +671,7 @@ def run_bulk_pipeline(
                 paths,
                 analysis_run_id=analysis_run_id,
                 minimum_reflectance=minimum_reflectance,
+                translation_pairs=selected_pairs,
                 reuse_existing=not force,
             )
             loso = run_leave_one_site_out(
@@ -515,6 +679,7 @@ def run_bulk_pipeline(
                 paths,
                 analysis_run_id=analysis_run_id,
                 minimum_reflectance=minimum_reflectance,
+                translation_pairs=selected_pairs,
                 reuse_existing=not force,
             )
         finalize_bulk_database(con, temporary_database, paths.database)
@@ -546,6 +711,9 @@ def run_bulk_pipeline(
             "flightlines": _relative_output(paths, paths.flightlines),
             "source_files": _relative_output(paths, paths.source_files),
             "source_products": _relative_output(paths, paths.source_products),
+            "exclusions": _relative_output(paths, paths.exclusions),
+            "exclusions_json": _relative_output(paths, paths.exclusions_json),
+            "exclusions_csv": _relative_output(paths, paths.exclusions_csv),
             "cache": _relative_output(paths, paths.cache_dir),
             "duplicates": _relative_output(paths, paths.duplicates),
             "rejected_sources": _relative_output(paths, paths.rejected_sources),
@@ -577,6 +745,15 @@ def run_bulk_pipeline(
         },
     }
     write_json_atomic(paths.manifest, complete_manifest)
+    if on_invalid == "error" and (
+        rejected_flightlines or duplicate_flightlines
+    ):
+        raise ValueError(
+            "Bulk validation excluded "
+            f"{len(rejected_flightlines) + len(duplicate_flightlines)} "
+            "flightline candidate(s); see "
+            f"{paths.exclusions}"
+        )
     LOGGER.info(
         "Bulk population analysis completed: %d accepted flightlines, "
         "%d duplicate candidates, %d rejected records, %d rows",
@@ -587,6 +764,7 @@ def run_bulk_pipeline(
     )
     return _result(
         paths,
+        input_path=root,
         status="created",
         accepted_flightline_count=len(accepted_flightlines),
         duplicate_count=len(duplicate_flightlines),
@@ -596,6 +774,8 @@ def run_bulk_pipeline(
         materialize_observations=materialize_observations,
         preflight_only=preflight_only,
         input_mode=resolved_input_mode,
+        analysis_profile=analysis_profile,
+        translation_pairs=selected_pairs,
     )
 
 

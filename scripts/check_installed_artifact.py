@@ -490,12 +490,19 @@ def _run_bulk(root: Path) -> dict[str, object]:
             [[0.1, 0.2], [0.3, 0.4]], dtype=np.float32
         )
         landsat = micasense * np.float32(2.0) + np.float32(0.05)
+        micasense_cube = np.stack(
+            [micasense + np.float32(0.01 * band) for band in range(6)]
+        )
+        landsat_cube = np.stack(
+            [landsat + np.float32(0.02 * band) for band in range(7)]
+        )
         for suffix, values in (
             ("envi", micasense),
             ("brdfandtopo_corrected_envi", micasense),
-            ("micasense_to_match_oli_oli2_envi", micasense),
-            ("landsat_oli_envi", landsat),
+            ("micasense_to_match_oli_oli2_envi", micasense_cube),
+            ("landsat_oli_envi", landsat_cube),
         ):
+            raster_values = values[np.newaxis, :, :] if values.ndim == 2 else values
             path = flightline_dir / f"{flightline_id}_{suffix}.img"
             path.parent.mkdir(parents=True, exist_ok=True)
             with rasterio.open(
@@ -504,13 +511,13 @@ def _run_bulk(root: Path) -> dict[str, object]:
                 driver="ENVI",
                 width=2,
                 height=2,
-                count=1,
+                count=raster_values.shape[0],
                 dtype="float32",
                 crs="EPSG:32613",
                 transform=from_origin(500000, 4420000, 1, 1),
                 nodata=-9999.0,
             ) as dataset:
-                dataset.write(values, 1)
+                dataset.write(raster_values)
         qa = flightline_dir / "qa" / "stages" / "04_spectral_convolution" / "stage_qa.json"
         qa.parent.mkdir(parents=True, exist_ok=True)
         qa.write_text(json.dumps({"status": "PASS"}), encoding="utf-8")

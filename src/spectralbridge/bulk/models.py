@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Literal
 
 
-BULK_SCHEMA_VERSION = 3
+BULK_SCHEMA_VERSION = 4
 BulkInputKind = Literal["full", "polygon", "both"]
 BulkInputMode = Literal["auto", "flightline_outputs", "merged_parquet"]
 
@@ -41,6 +41,11 @@ class SourceFileRecord:
     dimensions_json: str = "{}"
     source_signature_sha256: str | None = None
     qa_status: str | None = None
+    reason_code: str | None = None
+    matching_group: str | None = None
+    processing_stage: str | None = None
+    wavelengths_json: str = "[]"
+    dtype: str | None = None
 
 
 @dataclass(frozen=True)
@@ -84,6 +89,29 @@ class FlightlineRecord:
     estimated_cache_bytes: int = 0
     cache_observations: str | None = None
     extraction_status: str = "not_required"
+    analysis_profile: str = "translation"
+    processing_completeness: str = "unknown"
+    product_availability_json: str = "{}"
+    exclusion_reason_codes_json: str = "[]"
+    exclusion_context_json: str = "[]"
+
+
+@dataclass(frozen=True)
+class ExclusionRecord:
+    """One deterministic, machine-readable bulk exclusion."""
+
+    exclusion_id: str
+    canonical_flightline_id: str | None
+    source_path: str
+    site: str | None
+    acquisition_date: str | None
+    analysis_profile: str
+    product_role: str | None
+    sensor_name: str | None
+    offending_files_json: str
+    reason_code: str
+    detail: str
+    processing_stage: str | None
 
 
 @dataclass(frozen=True)
@@ -152,6 +180,18 @@ class BulkAnalysisPaths:
         return self.catalog_dir / "rejected_sources.parquet"
 
     @property
+    def exclusions(self) -> Path:
+        return self.catalog_dir / "exclusions.parquet"
+
+    @property
+    def exclusions_json(self) -> Path:
+        return self.catalog_dir / "exclusions.json"
+
+    @property
+    def exclusions_csv(self) -> Path:
+        return self.catalog_dir / "exclusions.csv"
+
+    @property
     def manifest(self) -> Path:
         return self.catalog_dir / "bulk_manifest.json"
 
@@ -204,6 +244,7 @@ __all__ = [
     "BulkInputKind",
     "BulkInputMode",
     "BulkSource",
+    "ExclusionRecord",
     "FlightlineRecord",
     "SourceFileRecord",
 ]

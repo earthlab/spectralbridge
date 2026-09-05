@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import csv
 from dataclasses import asdict
 import json
 from pathlib import Path
@@ -10,7 +11,13 @@ from typing import Any, Sequence
 import duckdb
 import pyarrow.parquet as pq
 
-from .models import BulkAnalysisPaths, FlightlineRecord, SourceFileRecord
+from .models import (
+    BulkAnalysisPaths,
+    ExclusionRecord,
+    FlightlineRecord,
+    SourceFileRecord,
+)
+from .provenance import write_json_atomic
 
 
 def quote_path(path: str | Path) -> str:
@@ -94,7 +101,12 @@ CREATE TABLE source_files (
     header_path VARCHAR,
     dimensions_json VARCHAR,
     source_signature_sha256 VARCHAR,
-    qa_status VARCHAR
+    qa_status VARCHAR,
+    reason_code VARCHAR,
+    matching_group VARCHAR,
+    processing_stage VARCHAR,
+    wavelengths_json VARCHAR,
+    dtype VARCHAR
 )
 """
 
@@ -137,7 +149,30 @@ CREATE TABLE flightlines (
     analysis_eligibility_json VARCHAR,
     estimated_cache_bytes BIGINT,
     cache_observations VARCHAR,
-    extraction_status VARCHAR
+    extraction_status VARCHAR,
+    analysis_profile VARCHAR,
+    processing_completeness VARCHAR,
+    product_availability_json VARCHAR,
+    exclusion_reason_codes_json VARCHAR,
+    exclusion_context_json VARCHAR
+)
+"""
+
+
+_EXCLUSIONS_DDL = """
+CREATE TABLE exclusions (
+    exclusion_id VARCHAR,
+    canonical_flightline_id VARCHAR,
+    source_path VARCHAR,
+    site VARCHAR,
+    acquisition_date VARCHAR,
+    analysis_profile VARCHAR,
+    product_role VARCHAR,
+    sensor_name VARCHAR,
+    offending_files_json VARCHAR,
+    reason_code VARCHAR,
+    detail VARCHAR,
+    processing_stage VARCHAR
 )
 """
 
@@ -248,6 +283,7 @@ def create_bulk_database(
     paths: BulkAnalysisPaths,
     source_files: Sequence[SourceFileRecord],
     flightlines: Sequence[FlightlineRecord],
+    exclusions: Sequence[ExclusionRecord] = (),
     *,
     metadata: dict[str, Any],
     materialize_observations: bool,
@@ -271,8 +307,10 @@ def create_bulk_database(
     )
     con.execute(_SOURCE_FILES_DDL)
     con.execute(_FLIGHTLINES_DDL)
+    con.execute(_EXCLUSIONS_DDL)
     _insert_dataclasses(con, "source_files", source_files)
     _insert_dataclasses(con, "flightlines", flightlines)
+    _insert_dataclasses(con, "exclusions", exclusions)
     con.execute("CREATE VIEW bulk_sources AS SELECT * FROM source_files")
     con.execute(
         "CREATE TABLE source_products AS SELECT * FROM source_files "
@@ -306,8 +344,21 @@ def create_bulk_database(
         ("source_products", paths.source_products),
         ("duplicates", paths.duplicates),
         ("rejected_sources", paths.rejected_sources),
+        ("exclusions", paths.exclusions),
     ):
         copy_table_atomic(con, f"SELECT * FROM {table_name}", output_path)
+    exclusion_rows = [asdict(record) for record in exclusions]
+    write_json_atomic(
+        paths.exclusions_json,
+        {"schema_version": 1, "exclusions": exclusion_rows},
+    )
+    temporary_csv = paths.exclusions_csv.with_suffix(".tmp.csv")
+    fieldnames = [field.name for field in ExclusionRecord.__dataclass_fields__.values()]
+    with temporary_csv.open("w", encoding="utf-8", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(exclusion_rows)
+    temporary_csv.replace(paths.exclusions_csv)
     return con, temporary_database
 
 

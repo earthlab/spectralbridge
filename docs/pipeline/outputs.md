@@ -8,21 +8,22 @@
 <section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">Cross-run analysis</p>
 <h2>Independent bulk-pipeline contract</h2>
-<p>The optional <code>spectralbridge-bulk</code> workflow directly consumes completed normal-pipeline flightline directories nested beneath arbitrary storage folders. It reads persisted target-sensor ENVI products and writes compact analytical caches only to its selected bulk output directory; it does not modify NEON or drone run products. Prebuilt merged Parquets remain a compatibility input.</p>
+<p>The optional <code>spectralbridge-bulk</code> workflow consumes completed or minimally staged scientific flightline directories beneath arbitrary storage folders. Identity comes from a generic manifest or another configured parser, never the outer folder. It reads only target-sensor ENVI products required by the selected analysis relationship and writes derived products to a separate output; it does not modify normal or drone runs. Canonical NEON names and prebuilt merged Parquets remain compatible inputs.</p>
 
 | Output type | Canonical path | Description |
 | --- | --- | --- |
-| Flightline catalog | `catalog/flightlines.parquet` | Canonical inner-directory identity, site/date, QA, processing state, analysis eligibility, and duplicate/rejection status. |
-| Source catalog | `catalog/source_files.parquet` | Every upstream product and derived observation source with original path, metadata fingerprint, and selection status. |
+| Flightline catalog | `catalog/flightlines.parquet` | Scientific identity, site/date, processing completeness, product availability, profile eligibility, and duplicate/rejection status. |
+| Source catalog | `catalog/source_files.parquet` | Every upstream product and derived observation source with original path, role/sensor, dimensions, dtype, wavelengths, metadata fingerprint, and selection status. |
 | Source-product catalog | `catalog/source_products.parquet` | Read-only raw/corrected/target ENVI inventory; derived caches are excluded. |
 | Duplicate/rejection catalogs | `catalog/duplicates.parquet`, `catalog/rejected_sources.parquet` | Explicit exclusions; duplicate canonical IDs are never silently double-counted. |
+| Structured exclusions | `catalog/exclusions.(parquet|json|csv)` | Deterministic reason codes, affected scientific units/products, offending paths, details, and processing stage. |
 | Per-flightline analysis cache | `cache/<flight_id>/` | Narrow sensor Parquets, joined observations, extraction metadata, and restart/failure status. |
 | Bulk database | `database/spectralbridge_bulk.duckdb` | Catalogs, virtual union-by-name observations, and modular analysis tables. |
 | Bulk observations | `database/bulk_observations.parquet` | Optional portable materialization created only with `materialize_observations=True`. |
 | Dataset census | `analyses/dataset_census/` | Metadata-only preflight JSON, report, and Parquet breakdowns. |
 | Translation analyses | `analyses/sensor_translation/` | Pixel-pooled, per-flightline, per-site, flightline-balanced, and site-balanced regressions. |
 | Leave-one-site-out | `analyses/leave_one_site_out/` | Held-out-site generalization metrics. |
-| Candidate coefficients | `coefficients/candidate_translation_coefficients.(parquet|json)` | Pooled and balanced synthetic MicaSense-X/Landsat-Y summaries with provenance. |
+| Candidate coefficients | `coefficients/candidate_translation_coefficients.(parquet|json)` | Pooled and balanced source-to-target summaries with selected-pair provenance. |
 | Bulk manifest | `catalog/bulk_manifest.json` | Restart signature, execution settings, counts, and artifact names. |
 
 <p class="sb-doc-note">The complete observation population remains virtual by default. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>

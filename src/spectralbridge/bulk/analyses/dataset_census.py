@@ -55,6 +55,10 @@ class DatasetCensusPaths:
     def inconsistencies(self) -> Path:
         return self.directory / "inconsistencies.parquet"
 
+    @property
+    def by_exclusion_reason(self) -> Path:
+        return self.directory / "by_exclusion_reason.parquet"
+
 
 def _scalar(con: duckdb.DuckDBPyConnection, query: str) -> int:
     row = con.execute(query).fetchone()
@@ -83,6 +87,7 @@ def run_dataset_census(
         ("dataset_census_by_sensor", output.by_sensor),
         ("dataset_census_by_schema", output.by_schema),
         ("dataset_census_inconsistencies", output.inconsistencies),
+        ("dataset_census_by_exclusion_reason", output.by_exclusion_reason),
     )
     try:
         previous = json.loads(output.summary_json.read_text(encoding="utf-8"))
@@ -156,6 +161,14 @@ def run_dataset_census(
         "accepted_observation_rows": _scalar(
             con, "SELECT COALESCE(SUM(row_count), 0) FROM source_files WHERE status = 'accepted'"
         ),
+        "selected_source_bytes": _scalar(
+            con,
+            "SELECT COALESCE(SUM(source.size_bytes), 0) FROM source_files source "
+            "JOIN flightlines flight USING (candidate_id) "
+            "WHERE flight.status = 'accepted' AND EXISTS ("
+            "SELECT 1 FROM json_each(flight.selected_source_ids_json) selected "
+            "WHERE json_extract_string(selected.value, '$') = source.source_id)",
+        ),
         "translation_eligible_flightlines": _scalar(
             con,
             "SELECT COUNT(*) FROM flightlines "
@@ -173,17 +186,19 @@ def run_dataset_census(
         ),
         "corrected_products_found": _scalar(
             con,
-            "SELECT COUNT(*) FROM source_files WHERE product_role = 'corrected_envi' "
+            "SELECT COUNT(*) FROM source_files "
+            "WHERE product_role = 'corrected_hyperspectral' "
             "AND status NOT IN ('rejected', 'duplicate_excluded')",
         ),
         "raw_products_found": _scalar(
             con,
-            "SELECT COUNT(*) FROM source_files WHERE product_role = 'raw_envi' "
+            "SELECT COUNT(*) FROM source_files "
+            "WHERE product_role = 'raw_hyperspectral' "
             "AND status NOT IN ('rejected', 'duplicate_excluded')",
         ),
         "target_sensor_products_found": _scalar(
             con,
-            "SELECT COUNT(*) FROM source_files WHERE product_role = 'target_sensor_envi' "
+            "SELECT COUNT(*) FROM source_files WHERE product_role = 'target_sensor' "
             "AND status NOT IN ('rejected', 'duplicate_excluded')",
         ),
         "sites": _list_values(
@@ -215,6 +230,25 @@ def run_dataset_census(
             "SELECT DISTINCT schema_sha256 FROM source_files WHERE status = 'accepted' "
             "AND schema_sha256 IS NOT NULL ORDER BY schema_sha256",
         ),
+        "analysis_profiles": _list_values(
+            con,
+            "SELECT DISTINCT analysis_profile FROM flightlines "
+            "WHERE analysis_profile IS NOT NULL ORDER BY analysis_profile",
+        ),
+        "available_translation_pairs": _list_values(
+            con,
+            "SELECT DISTINCT item.key FROM flightlines, "
+            "json_each(analysis_eligibility_json) item "
+            "WHERE status = 'accepted' AND TRY_CAST(item.value AS BOOLEAN) "
+            "ORDER BY item.key",
+        ),
+        "exclusion_counts_by_reason": {
+            str(reason): int(count)
+            for reason, count in con.execute(
+                "SELECT reason_code, COUNT(*) FROM exclusions "
+                "GROUP BY reason_code ORDER BY reason_code"
+            ).fetchall()
+        },
     }
     con.execute("DROP TABLE IF EXISTS dataset_census_summary")
     con.execute(
@@ -233,6 +267,7 @@ def run_dataset_census(
             ?::BIGINT AS candidate_merged_parquet_bytes,
             ?::BIGINT AS accepted_merged_parquet_bytes,
             ?::BIGINT AS accepted_observation_rows,
+            ?::BIGINT AS selected_source_bytes,
             ?::BIGINT AS translation_eligible_flightlines,
             ?::BIGINT AS estimated_analysis_cache_bytes,
             ?::BIGINT AS qa_available_flightlines,
@@ -243,7 +278,10 @@ def run_dataset_census(
             ?::VARCHAR AS acquisition_dates_json,
             ?::VARCHAR AS acquisition_years_json,
             ?::VARCHAR AS sensors_json,
-            ?::VARCHAR AS schema_fingerprints_json
+            ?::VARCHAR AS schema_fingerprints_json,
+            ?::VARCHAR AS analysis_profiles_json,
+            ?::VARCHAR AS available_translation_pairs_json,
+            ?::VARCHAR AS exclusion_counts_by_reason_json
         """,
         [
             summary["analysis_run_id"],
@@ -259,6 +297,7 @@ def run_dataset_census(
             summary["candidate_merged_parquet_bytes"],
             summary["accepted_merged_parquet_bytes"],
             summary["accepted_observation_rows"],
+            summary["selected_source_bytes"],
             summary["translation_eligible_flightlines"],
             summary["estimated_analysis_cache_bytes"],
             summary["qa_available_flightlines"],
@@ -270,6 +309,9 @@ def run_dataset_census(
             json.dumps(summary["acquisition_years"]),
             json.dumps(summary["sensors"]),
             json.dumps(summary["schema_fingerprints"]),
+            json.dumps(summary["analysis_profiles"]),
+            json.dumps(summary["available_translation_pairs"]),
+            json.dumps(summary["exclusion_counts_by_reason"]),
         ],
     )
     con.execute(
@@ -329,9 +371,18 @@ def run_dataset_census(
         UNION ALL
         SELECT canonical_flightline_id, source_directory,
                'translation_ineligible' AS issue_type,
-               'No compatible synthetic MicaSense/Landsat pair was found.' AS detail
+               'No compatible requested sensor translation pair was found.' AS detail
         FROM flightlines WHERE status = 'accepted' AND NOT translation_eligible
         ORDER BY canonical_flightline_id, source_directory, issue_type
+        """
+    )
+    con.execute(
+        """
+        CREATE OR REPLACE TABLE dataset_census_by_exclusion_reason AS
+        SELECT reason_code, COUNT(*)::BIGINT AS exclusion_count,
+               COUNT(DISTINCT canonical_flightline_id)::BIGINT
+                   AS flightline_count
+        FROM exclusions GROUP BY reason_code ORDER BY reason_code
         """
     )
     for table, target in table_outputs:
@@ -350,13 +401,14 @@ def run_dataset_census(
 Analysis run: `{analysis_run_id}`
 
 - Candidate source directories: {summary['candidate_source_directories']}
-- Candidate outer batch/storage folders: {summary['candidate_outer_batch_folders']}
+- Candidate outer storage folders: {summary['candidate_outer_batch_folders']}
 - Accepted canonical flightlines: {summary['accepted_canonical_flightlines']}
 - Duplicate candidates excluded: {summary['duplicate_candidates']}
 - Rejected flightline records: {summary['rejected_flightline_records']}
 - Total source-tree bytes: {summary['total_source_tree_bytes']:,}
 - Accepted observation rows (Parquet metadata): {summary['accepted_observation_rows']:,}
-- Accepted merged-Parquet bytes: {summary['accepted_merged_parquet_bytes']:,}
+- Selected source bytes: {summary['selected_source_bytes']:,}
+- Accepted analysis-table/cache bytes: {summary['accepted_merged_parquet_bytes']:,}
 - Translation-eligible flightlines: {summary['translation_eligible_flightlines']}
 - QA available: {summary['qa_available_flightlines']} flightlines
 - Corrected ENVI products found: {summary['corrected_products_found']}
@@ -366,11 +418,14 @@ Analysis run: `{analysis_run_id}`
 - Sites: {', '.join(summary['sites']) or 'none'}
 - Years: {', '.join(str(item) for item in summary['acquisition_years']) or 'none'}
 - Sensors: {', '.join(summary['sensors']) or 'none'}
+- Analysis profiles: {', '.join(summary['analysis_profiles']) or 'none'}
+- Available translation pairs: {', '.join(summary['available_translation_pairs']) or 'none'}
+- Exclusions by reason: {json.dumps(summary['exclusion_counts_by_reason'], sort_keys=True)}
 
 Counts come from canonical identity, ENVI headers, file metadata, JSON QA, and
 Parquet footers where present. No raster population or full observation scan is
 performed by this preflight analysis. Review the duplicate, rejected-source,
-and inconsistency catalogs before interpreting population results.
+exclusion, and inconsistency catalogs before interpreting population results.
 """
     write_text_atomic(output.report, report)
     return {

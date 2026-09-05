@@ -7,19 +7,33 @@ from typing import Sequence
 
 import duckdb
 
-from spectralbridge.sensor_pairs import MICASENSE_LANDSAT_PAIRS
-
 from ..dataset import observation_columns, quote_identifier
+from ..registry import DEFAULT_PRODUCT_REGISTRY, TranslationPair
 
 
 @dataclass(frozen=True)
 class PairSpec:
-    micasense_sensor: str
-    landsat_sensor: str
+    translation_pair: str
+    source_sensor: str
+    target_sensor: str
     band_index: int
+    source_band_index: int
+    target_band_index: int
     x_column: str
     y_column: str
     error_columns: tuple[str, ...]
+
+    @property
+    def micasense_sensor(self) -> str:
+        """Compatibility alias for the former source-sensor field."""
+
+        return self.source_sensor
+
+    @property
+    def landsat_sensor(self) -> str:
+        """Compatibility alias for the former target-sensor field."""
+
+        return self.target_sensor
 
 
 def band_map(columns: Sequence[str]) -> dict[str, set[int]]:
@@ -41,34 +55,53 @@ def _possible_error_columns(label: str, band_index: int) -> tuple[str, ...]:
     )
 
 
-def available_pair_specs(con: duckdb.DuckDBPyConnection) -> list[PairSpec]:
+def available_pair_specs(
+    con: duckdb.DuckDBPyConnection,
+    translation_pairs: Sequence[TranslationPair] | None = None,
+) -> list[PairSpec]:
     columns = observation_columns(con)
     column_set = set(columns)
     mapped = band_map(columns)
     result: list[PairSpec] = []
-    for micasense_sensor, landsat_sensors in MICASENSE_LANDSAT_PAIRS.items():
-        for landsat_sensor in landsat_sensors:
+    pairs = translation_pairs or DEFAULT_PRODUCT_REGISTRY.translation_pairs
+    for pair in pairs:
+        if pair.band_pairs:
+            matched_bands = pair.band_pairs
+        else:
             common = sorted(
-                mapped.get(micasense_sensor, set())
-                & mapped.get(landsat_sensor, set())
+                mapped.get(pair.source_sensor, set())
+                & mapped.get(pair.target_sensor, set())
             )
-            for band_index in common:
-                errors = tuple(
-                    column
-                    for label in (micasense_sensor, landsat_sensor)
-                    for column in _possible_error_columns(label, band_index)
-                    if column in column_set
+            matched_bands = tuple((index, index) for index in common)
+        for pair_band_index, (source_band, target_band) in enumerate(
+            matched_bands, start=1
+        ):
+            x_column = f"{pair.source_sensor}_band_{source_band}"
+            y_column = f"{pair.target_sensor}_band_{target_band}"
+            if x_column not in column_set or y_column not in column_set:
+                continue
+            errors = tuple(
+                column
+                for label, band_index in (
+                    (pair.source_sensor, source_band),
+                    (pair.target_sensor, target_band),
                 )
-                result.append(
-                    PairSpec(
-                        micasense_sensor=micasense_sensor,
-                        landsat_sensor=landsat_sensor,
-                        band_index=band_index,
-                        x_column=f"{micasense_sensor}_band_{band_index}",
-                        y_column=f"{landsat_sensor}_band_{band_index}",
-                        error_columns=errors,
-                    )
+                for column in _possible_error_columns(label, band_index)
+                if column in column_set
+            )
+            result.append(
+                PairSpec(
+                    translation_pair=pair.key,
+                    source_sensor=pair.source_sensor,
+                    target_sensor=pair.target_sensor,
+                    band_index=pair_band_index,
+                    source_band_index=source_band,
+                    target_band_index=target_band,
+                    x_column=x_column,
+                    y_column=y_column,
+                    error_columns=errors,
                 )
+            )
     return result
 
 
@@ -112,6 +145,11 @@ def valid_pair_cte(spec: PairSpec, minimum_reflectance: float) -> str:
 def pair_literals(spec: PairSpec) -> str:
     return ", ".join(
         (
+            f"{sql_literal(spec.translation_pair)} AS translation_pair",
+            f"{sql_literal(spec.source_sensor)} AS source_sensor",
+            f"{sql_literal(spec.target_sensor)} AS target_sensor",
+            f"{spec.source_band_index} AS source_band_index",
+            f"{spec.target_band_index} AS target_band_index",
             f"{sql_literal(spec.micasense_sensor)} AS micasense_sensor",
             f"{sql_literal(spec.landsat_sensor)} AS landsat_sensor",
             f"{spec.band_index} AS band_index",

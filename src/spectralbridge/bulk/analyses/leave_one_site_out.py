@@ -10,11 +10,10 @@ from typing import Any
 import duckdb
 import pyarrow.parquet as pq
 
-from spectralbridge.sensor_pairs import SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY
-
 from ..dataset import copy_table_atomic
 from ..models import BulkAnalysisPaths
 from ..provenance import write_json_atomic
+from ..registry import DEFAULT_PRODUCT_REGISTRY, TranslationPair
 from .common import PairSpec, available_pair_specs, pair_literals, sql_literal, valid_pair_cte
 
 
@@ -40,6 +39,11 @@ class LeaveOneSiteOutPaths:
 
 _LOSO_COLUMNS = """
     analysis_run_id VARCHAR,
+    translation_pair VARCHAR,
+    source_sensor VARCHAR,
+    target_sensor VARCHAR,
+    source_band_index INTEGER,
+    target_band_index INTEGER,
     micasense_sensor VARCHAR,
     landsat_sensor VARCHAR,
     band_index INTEGER,
@@ -187,6 +191,7 @@ def run_leave_one_site_out(
     *,
     analysis_run_id: str,
     minimum_reflectance: float,
+    translation_pairs: tuple[TranslationPair, ...] | None = None,
     reuse_existing: bool = True,
 ) -> dict[str, Any]:
     """Fit on all other sites and score every held-out site."""
@@ -214,7 +219,8 @@ def run_leave_one_site_out(
             }
     except (OSError, ValueError, KeyError, json.JSONDecodeError):
         pass
-    specs = available_pair_specs(con)
+    selected_pairs = translation_pairs or DEFAULT_PRODUCT_REGISTRY.translation_pairs
+    specs = available_pair_specs(con, selected_pairs)
     queries = [
         _loso_query(
             spec,
@@ -227,7 +233,7 @@ def run_leave_one_site_out(
     if queries:
         con.execute(
             "CREATE TABLE translation_leave_one_site_out AS "
-            + " UNION ALL ".join(queries)
+            + " UNION ALL ".join(f"({query})" for query in queries)
         )
     else:
         con.execute(
@@ -248,7 +254,17 @@ def run_leave_one_site_out(
         "analysis": "leave_one_site_out_synthetic_translation",
         "analysis_run_id": analysis_run_id,
         "minimum_reflectance": minimum_reflectance,
-        "evidence_boundary": SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY,
+        "translation_pairs": [
+            {
+                "key": pair.key,
+                "source_sensor": pair.source_sensor,
+                "target_sensor": pair.target_sensor,
+                "matching_group": pair.matching_group,
+                "band_pairs": pair.band_pairs,
+                "evidence_boundary": pair.evidence_boundary,
+            }
+            for pair in selected_pairs
+        ],
         "interpretation": (
             "For each held-out site, the linear relationship is fitted using "
             "valid pixels from all other sites and evaluated only on the held-out "
