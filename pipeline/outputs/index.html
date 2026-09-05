@@ -2796,7 +2796,7 @@
 <section class="sb-doc-section">
 <p class="sb-kicker">Cross-run analysis</p>
 <h2 id="independent-bulk-pipeline-contract">Independent bulk-pipeline contract<a class="headerlink" href="#independent-bulk-pipeline-contract" title="Permanent link">&para;</a></h2>
-<p>The optional <code>spectralbridge-bulk</code> workflow directly consumes completed normal-pipeline flightline directories nested beneath arbitrary storage folders. It reads persisted target-sensor ENVI products and writes compact analytical caches only to its selected bulk output directory; it does not modify NEON or drone run products. Prebuilt merged Parquets remain a compatibility input.</p>
+<p>The optional <code>spectralbridge-bulk</code> workflow consumes completed or minimally staged scientific flightline directories beneath arbitrary storage folders. Identity comes from a generic manifest or another configured parser, never the outer folder. It reads only target-sensor ENVI products required by the selected analysis relationship and writes derived products to a separate output; it does not modify normal or drone runs. Canonical NEON names and prebuilt merged Parquets remain compatible inputs.</p>
 <table>
 <thead>
 <tr>
@@ -2809,12 +2809,12 @@
 <tr>
 <td>Flightline catalog</td>
 <td><code>catalog/flightlines.parquet</code></td>
-<td>Canonical inner-directory identity, site/date, QA, processing state, analysis eligibility, and duplicate/rejection status.</td>
+<td>Scientific identity, site/date, processing completeness, product availability, profile eligibility, and duplicate/rejection status.</td>
 </tr>
 <tr>
 <td>Source catalog</td>
 <td><code>catalog/source_files.parquet</code></td>
-<td>Every upstream product and derived observation source with original path, metadata fingerprint, and selection status.</td>
+<td>Every upstream product and derived observation source with original path, role/sensor, dimensions, dtype, wavelengths, metadata fingerprint, and selection status.</td>
 </tr>
 <tr>
 <td>Source-product catalog</td>
@@ -2825,6 +2825,11 @@
 <td>Duplicate/rejection catalogs</td>
 <td><code>catalog/duplicates.parquet</code>, <code>catalog/rejected_sources.parquet</code></td>
 <td>Explicit exclusions; duplicate canonical IDs are never silently double-counted.</td>
+</tr>
+<tr>
+<td>Structured exclusions</td>
+<td><code>catalog/exclusions.(parquet|json|csv)</code></td>
+<td>Deterministic reason codes, affected scientific units/products, offending paths, details, and processing stage.</td>
 </tr>
 <tr>
 <td>Per-flightline analysis cache</td>
@@ -2859,7 +2864,7 @@
 <tr>
 <td>Candidate coefficients</td>
 <td><code>coefficients/candidate_translation_coefficients.(parquet|json)</code></td>
-<td>Pooled and balanced synthetic MicaSense-X/Landsat-Y summaries with provenance.</td>
+<td>Pooled and balanced source-to-target summaries with selected-pair provenance.</td>
 </tr>
 <tr>
 <td>Bulk manifest</td>

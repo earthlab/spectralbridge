@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#build-a-production-bulk-population-analysis" class="md-skip">
+        <a href="#build-a-bulk-cross-run-analysis" class="md-skip">
           Skip to content
         </a>
       
@@ -962,10 +962,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-real-input-model" class="md-nav__link">
+  <a href="#generic-input-model" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Real input model
+        Generic input model
       
     </span>
   </a>
@@ -973,10 +973,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-run-a-fast-preflight-first" class="md-nav__link">
+  <a href="#analysis-profiles-and-minimal-archives" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Run a fast preflight first
+        Analysis profiles and minimal archives
       
     </span>
   </a>
@@ -984,10 +984,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-run-the-analyses" class="md-nav__link">
+  <a href="#run-preflight-first" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Run the analyses
+        Run preflight first
       
     </span>
   </a>
@@ -995,10 +995,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-virtual-observations-are-the-default" class="md-nav__link">
+  <a href="#run-translation-analysis" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Virtual observations are the default
+        Run translation analysis
       
     </span>
   </a>
@@ -1006,10 +1006,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-clean-output-contract" class="md-nav__link">
+  <a href="#output-contract" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Clean output contract
+        Output contract
       
     </span>
   </a>
@@ -1017,10 +1017,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-dataset-census" class="md-nav__link">
+  <a href="#restart-and-provenance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Dataset census
+        Restart and provenance
       
     </span>
   </a>
@@ -1028,60 +1028,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-synthetic-cross-sensor-translation" class="md-nav__link">
+  <a href="#advanced-extension" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Synthetic cross-sensor translation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="7. Synthetic cross-sensor translation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#translation-is-not-brightness-adjustment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Translation is not brightness adjustment
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-leave-one-site-out-validation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Leave-one-site-out validation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-query-the-database" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Query the database
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-restart-and-provenance-behavior" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. Restart and provenance behavior
+        Advanced extension
       
     </span>
   </a>
@@ -2850,157 +2800,167 @@
   
 
 
-<h1 id="build-a-production-bulk-population-analysis">Build a production bulk population analysis<a class="headerlink" href="#build-a-production-bulk-population-analysis" title="Permanent link">&para;</a></h1>
-<p>Use the bulk pipeline after individual SpectralBridge flightlines have finished.
-It is a separate analysis workflow: it does not download data, rerun
-corrections, convolve sensors, invoke the drone pipeline, or alter any source
-flightline folder.</p>
-<h2 id="1-real-input-model">1. Real input model<a class="headerlink" href="#1-real-input-model" title="Permanent link">&para;</a></h2>
-<p>The input is a read-only staging tree containing completed flightline output
-folders copied from distributed workers. Outer folders may carry machine,
-worker, job, or collision-avoidance names. Those names are computational
-provenance only.</p>
-<p>The preferred production input is the completed output directory written by
-the normal pipeline, nested beneath any number of storage or compute folders:</p>
-<div class="highlight"><pre><span></span><code>Aug_2026_Processed_Flightlines/
-└── NIWO_a01/                         # storage identity only
-    └── NEON_D13_NIWO_DP1_L012-1_20230815_directional_reflectance/
-        ├── *_brdfandtopo_corrected_envi.img/.hdr
-        ├── *_landsat_oli_envi.img/.hdr
-        ├── *_micasense_to_match_oli_oli2_envi.img/.hdr
-        └── qa/
+<h1 id="build-a-bulk-cross-run-analysis">Build a bulk cross-run analysis<a class="headerlink" href="#build-a-bulk-cross-run-analysis" title="Permanent link">&para;</a></h1>
+<p>SpectralBridge has three related, but separate, workflows:</p>
+<ol>
+<li><strong>Single flightline:</strong> process one hyperspectral input through correction,
+   target-sensor products, extraction, and QA.</li>
+<li><strong>Multiple flightlines:</strong> apply that workflow independently to a collection;
+   each flightline keeps its own restart-safe outputs.</li>
+<li><strong>Bulk analysis:</strong> discover completed or minimally staged flightlines, validate
+   them for a selected analysis, create a compact analytical cache, and fit
+   population-level comparisons.</li>
+</ol>
+<p>The bulk workflow is downstream analysis. It does not download inputs, rerun
+correction or convolution, invoke the drone pipeline, or modify source folders.</p>
+<h2 id="generic-input-model">Generic input model<a class="headerlink" href="#generic-input-model" title="Permanent link">&para;</a></h2>
+<p>A flightline is the atomic scientific unit. Storage folders around it have no
+scientific meaning and may be nested arbitrarily:</p>
+<div class="highlight"><pre><span></span><code>completed_products/
+├── transfer_group_01/
+│   ├── flight_alpha/
+│   │   ├── spectralbridge_flightline.json
+│   │   ├── sensor_a.img
+│   │   ├── sensor_a.hdr
+│   │   ├── sensor_b.img
+│   │   └── sensor_b.hdr
+│   └── flight_beta/
+│       └── ...
+└── any/other/layout/
+    └── flight_gamma/
+        └── ...
 </code></pre></div>
-<p>The canonical inner directory supplies flightline, site, and acquisition date.
-Names such as <code>NIWO_a01</code> and <code>worker_73</code> are recorded only as computational
-provenance. <code>input_mode="auto"</code> prefers these completed directories. If none
-are present, it retains the advanced compatibility path for canonical
-<code>*_merged_pixel_extraction.parquet</code> products. Set <code>input_mode</code> explicitly to
-<code>"flightline_outputs"</code> or <code>"merged_parquet"</code> when ambiguity must be avoided.</p>
-<p>The scientific hierarchy is:</p>
-<div class="highlight"><pre><span></span><code>site
-└── acquisition date
-    └── canonical flightline
-        └── pixel observations
+<p>For a generic flightline, add
+<code>spectralbridge_flightline.json</code> to the scientific-unit directory:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"flightline_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flight-alpha"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"site"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-site"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"acquisition_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-06-15"</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>Two flightlines copied from the same machine remain separate flightlines.
-They are never paired, averaged, or grouped because of their storage location.</p>
-<p>If the same canonical flightline ID occurs in different source directories,
-every candidate is recorded in the duplicate catalog and excluded from
-population analysis. The pipeline does not choose a winner or silently
-double-count it.</p>
-<h2 id="2-run-a-fast-preflight-first">2. Run a fast preflight first<a class="headerlink" href="#2-run-a-fast-preflight-first" title="Permanent link">&para;</a></h2>
-<p>Choose a completely fresh output directory outside the source tree. A realistic
-large-VM invocation is:</p>
-<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/home/jovyan/data-store/Aug_2026_Processed_Flightlines<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--output-dir<span class="w"> </span>/home/jovyan/data-store/Aug_2026_Bulk_Analysis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--input-mode<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--threads<span class="w"> </span>&lt;N&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--memory-limit<span class="w"> </span>&lt;XGB&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--temp-directory<span class="w"> </span>/home/jovyan/work/spectralbridge_bulk_scratch<span class="w"> </span><span class="se">\</span>
+<p>Only <code>flightline_id</code> is required. <code>site</code> and an ISO <code>acquisition_date</code> are
+optional. Canonical NEON directory and merged-product names remain supported
+by a built-in identity parser. Custom Python callers can provide other identity
+parsers without changing discovery.</p>
+<p>Multiple flightlines under one parent remain independent. If one scientific ID
+appears in different directories, all copies are reported in
+<code>catalog/duplicates.parquet</code> and excluded; SpectralBridge does not guess which
+copy is authoritative.</p>
+<p>Prebuilt <code>*_merged_pixel_extraction.parquet</code> and
+<code>*_polygons_merged_pixel_extraction.parquet</code> inputs remain supported through
+<code>input_mode="merged_parquet"</code>. Automatic mode prefers identifiable flightline
+directories and otherwise uses this compatibility path.</p>
+<h2 id="analysis-profiles-and-minimal-archives">Analysis profiles and minimal archives<a class="headerlink" href="#analysis-profiles-and-minimal-archives" title="Permanent link">&para;</a></h2>
+<p>Processing completeness, product availability, and analysis eligibility are
+separate catalog fields. The built-in <code>translation</code> profile requires a complete
+requested sensor relationship, not a raw or corrected hyperspectral cube. A
+minimal archive containing only the two target ENVI products and their headers
+is therefore valid. Raw/corrected cubes, QA, plots, HTML, and unrelated sensors
+are optional unless a custom profile requires them.</p>
+<p>Product recognition and translation relationships are centralized in a
+<code>ProductRegistry</code>. The installed defaults describe SpectralBridge's current
+matched MicaSense/Landsat products, while <code>ProductDescriptor</code> and
+<code>TranslationPair</code> support other sensor names, filename patterns, matching
+groups, expected band counts, and explicit source-to-target band mappings.</p>
+<p>To select one installed relationship, use its pair key:</p>
+<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/data/completed_products<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>/data/bulk_analysis<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--analysis<span class="w"> </span>translation<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--translation-pair<span class="w"> </span>MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--preflight-only
 </code></pre></div>
-<p>Replace the bracketed resource values with limits appropriate for the VM.
-DuckDB may spill intermediate work to the supplied scratch directory. The
-source staging tree and scratch/output directories must be separate.</p>
-<p>Preflight uses filenames, file sizes and modification times, ENVI headers, JSON
-QA/metadata, and Parquet footers where present. It does not read raster pixels
-or create per-pixel caches. Review:</p>
+<p><code>--sensor</code> is repeatable and retains only relationships whose source and target
+are both selected. A requested relationship never requires unrelated products
+that merely happen to be supported by the package.</p>
+<h2 id="run-preflight-first">Run preflight first<a class="headerlink" href="#run-preflight-first" title="Permanent link">&para;</a></h2>
+<p>Use a fresh output directory outside the read-only source tree:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_bulk_pipeline</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">run_bulk_pipeline</span><span class="p">(</span>
+    <span class="s2">"/data/completed_products"</span><span class="p">,</span>
+    <span class="s2">"/data/bulk_analysis"</span><span class="p">,</span>
+    <span class="n">analysis</span><span class="o">=</span><span class="s2">"translation"</span><span class="p">,</span>
+    <span class="n">preflight_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"preflight"</span><span class="p">])</span>
+</code></pre></div>
+<p>The structured <code>preflight</code> result reports discovered, accepted, duplicate, and
+excluded flightlines; the selected profile and relationship keys; required and
+optional product roles; available sensors and relationships; selected source
+bytes; estimated cache bytes; exclusion counts; package version; and all output
+locations. The linked census adds site/date/product inventories.</p>
+<p>Preflight reads paths, sizes, modification times, ENVI headers, small QA JSON,
+and Parquet footers where applicable. It does not scan raster pixels or create
+the per-flightline cache.</p>
+<p>Review these outputs before the full run:</p>
 <ul>
 <li><code>catalog/flightlines.parquet</code></li>
-<li><code>catalog/source_files.parquet</code></li>
 <li><code>catalog/source_products.parquet</code></li>
+<li><code>catalog/exclusions.parquet</code></li>
+<li><code>catalog/exclusions.json</code></li>
+<li><code>catalog/exclusions.csv</code></li>
 <li><code>catalog/duplicates.parquet</code></li>
-<li><code>catalog/rejected_sources.parquet</code></li>
 <li><code>analyses/dataset_census/dataset_census.md</code></li>
 </ul>
-<p>The catalog records canonical identity, site/date, corrected and target-sensor
-products, QA and stage status, missing products, analysis-specific pair
-eligibility, rows/dimensions, source bytes, estimated cache bytes, metadata
-signatures, duplicates, and original paths. Missing QA is a visible warning,
-not automatic exclusion. WARN and FAIL states remain explicit for downstream
-filtering rather than being silently discarded. A missing/invalid corrected
-product or the absence of every complete wavelength-matched target pair is
-structurally ineligible.</p>
-<p>Ambiguous identity is rejected rather than guessed from a surrounding folder.
-Unreadable Parquet candidates also remain visible with their rejection reason.</p>
-<h2 id="3-run-the-analyses">3. Run the analyses<a class="headerlink" href="#3-run-the-analyses" title="Permanent link">&para;</a></h2>
-<p>After reviewing preflight, rerun without <code>--preflight-only</code>:</p>
-<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/home/jovyan/data-store/Aug_2026_Processed_Flightlines<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--output-dir<span class="w"> </span>/home/jovyan/data-store/Aug_2026_Bulk_Analysis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--input-mode<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--threads<span class="w"> </span>&lt;N&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--memory-limit<span class="w"> </span>&lt;XGB&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--temp-directory<span class="w"> </span>/home/jovyan/work/spectralbridge_bulk_scratch
+<p>Missing sidecars, zero-byte files, unreadable metadata, invalid dimensions,
+incompatible bands, incomplete requested pairs, duplicate products, duplicate
+identities, transient source disappearance, and extraction failures have stable
+reason codes. <code>on_invalid="exclude"</code> is the population-safe default. Valid
+flightlines continue when another one fails. Use <code>on_invalid="error"</code> when any
+ineligible flightline should make the call raise after diagnostic catalogs are
+written. Invalid optional products remain visible but do not invalidate an
+otherwise eligible flightline.</p>
+<h2 id="run-translation-analysis">Run translation analysis<a class="headerlink" href="#run-translation-analysis" title="Permanent link">&para;</a></h2>
+<p>After reviewing preflight, rerun without <code>preflight_only</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">result</span> <span class="o">=</span> <span class="n">run_bulk_pipeline</span><span class="p">(</span>
+    <span class="s2">"/data/completed_products"</span><span class="p">,</span>
+    <span class="s2">"/data/bulk_analysis"</span><span class="p">,</span>
+    <span class="n">analysis</span><span class="o">=</span><span class="s2">"translation"</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre></div>
-<p>In completed-flightline mode, the bulk pipeline reuses the corrected
-target-sensor ENVI products written by the normal pipeline. It never reruns
-correction or convolution. For every eligible flightline it reads bounded ENVI
-windows, keeps only the bands needed by current translation pairs, filters
-ENVI no-data/non-finite values, and writes a compact cache beneath the new bulk
-output directory. All valid pixels are retained because pixel-pooled regression
-is part of the current analysis contract; the cache is narrow, not sampled.</p>
-<p><code>--extraction-workers</code> controls concurrent flightlines and defaults to one to
-avoid saturating network storage. <code>--extraction-chunk-size</code> independently bounds
-ENVI windows and Parquet row groups. DuckDB <code>--threads</code> remains separate.</p>
-<p>In merged-Parquet compatibility mode, the default <code>--input-kind
-full</code> uses only full-flightline merged tables. Polygon companions are
-cataloged but excluded from observations.</p>
-<p>Use <code>--input-kind polygon</code> to analyze polygon tables or
-<code>--input-kind both</code> only when combining full pixels and their
-polygon subsets is scientifically intentional. The latter can count the
-polygon pixels again by design.</p>
-<h2 id="4-virtual-observations-are-the-default">4. Virtual observations are the default<a class="headerlink" href="#4-virtual-observations-are-the-default" title="Permanent link">&para;</a></h2>
-<p>The DuckDB database exposes:</p>
-<ul>
-<li><code>flightlines</code>: canonical scientific units and processing state</li>
-<li><code>source_files</code> and <code>bulk_sources</code>: product-level provenance</li>
-<li><code>duplicates</code>: all excluded duplicate candidates</li>
-<li><code>rejected_sources</code>: invalid, ambiguous, and duplicate flightlines</li>
-<li><code>bulk_observations_virtual</code>: union-by-name over accepted originals</li>
-<li><code>bulk_observations</code>: the analysis-facing observation view</li>
-<li>analysis result tables documented below</li>
-</ul>
-<p>By default, <code>bulk_observations</code> virtually federates either the compact
-per-flightline caches or accepted prebuilt merged Parquets. DuckDB projection
-and predicate pushdown read only required columns. No complete super-Parquet is
-created.</p>
-<p>Every virtual observation receives explicit provenance columns:</p>
-<div class="highlight"><pre><span></span><code>bulk_source_path
-bulk_source_relative_path
-bulk_source_kind
-bulk_source_id
-bulk_flightline_id
-bulk_site
-bulk_acquisition_date
+<p>For completed-flightline inputs, each eligible target ENVI product is read in
+bounded windows. Only selected sensors are written to narrow Parquets below
+<code>cache/&lt;flightline-id&gt;/</code>; valid bands are joined by pixel ID into
+<code>observations.parquet</code>. ENVI no-data and non-finite values are excluded.
+<code>extraction_workers</code> defaults to one to avoid saturating shared storage, while
+<code>extraction_chunk_size</code> bounds raster windows and Parquet row groups.</p>
+<p>For merged-Parquet inputs, <code>input_kind="full"</code> selects full-pixel tables,
+<code>"polygon"</code> selects polygon tables, and <code>"both"</code> deliberately combines them.
+Combining both can count polygon pixels a second time and should be a conscious
+scientific choice.</p>
+<p>The translation equation is always recorded explicitly:</p>
+<div class="highlight"><pre><span></span><code>target reflectance = slope × source reflectance + intercept
 </code></pre></div>
-<p>Create a portable physical union only when it is really needed:</p>
-<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/data/spectralbridge_completed_runs<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--output-dir<span class="w"> </span>/data/spectralbridge_bulk_portable<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--materialize-observations<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--threads<span class="w"> </span>&lt;N&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--memory-limit<span class="w"> </span>&lt;XGB&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--temp-directory<span class="w"> </span>/scratch/spectralbridge_bulk
-</code></pre></div>
-<p>This writes <code>database/bulk_observations.parquet</code>. For production
-collections it may require multi-terabyte disk space.</p>
-<h2 id="5-clean-output-contract">5. Clean output contract<a class="headerlink" href="#5-clean-output-contract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>bulk_output/
+<p>Outputs include pixel-pooled, per-flightline, per-site, flightline-balanced,
+and site-balanced fits, plus leave-one-site-out validation. Pixels are nested
+within flightlines and sites; the balanced results prevent the largest rasters
+from silently becoming the only effective replicates. Built-in matched
+MicaSense/Landsat products are synthetic products from one corrected source, so
+their coefficients are diagnostic candidates—not empirical field calibration.
+Translation coefficients are also distinct from the upstream percentage
+brightness adjustment.</p>
+<h2 id="output-contract">Output contract<a class="headerlink" href="#output-contract" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>bulk_analysis/
 ├── catalog/
 │   ├── flightlines.parquet
 │   ├── source_files.parquet
 │   ├── source_products.parquet
+│   ├── exclusions.parquet
+│   ├── exclusions.json
+│   ├── exclusions.csv
 │   ├── duplicates.parquet
 │   ├── rejected_sources.parquet
 │   └── bulk_manifest.json
 ├── cache/
-│   └── &lt;canonical-flightline-id&gt;/
-│       ├── &lt;target-sensor&gt;.parquet    # restartable narrow extraction
+│   └── &lt;flightline-id&gt;/
+│       ├── &lt;selected-sensor&gt;.parquet
 │       ├── observations.parquet
 │       ├── extraction_metadata.json
 │       └── status.json
 ├── database/
 │   ├── spectralbridge_bulk.duckdb
-│   └── bulk_observations.parquet       # optional only
+│   └── bulk_observations.parquet       # optional
 ├── analyses/
 │   ├── dataset_census/
 │   ├── sensor_translation/
@@ -3013,136 +2973,40 @@ collections it may require multi-terabyte disk space.</p>
 ├── reports/
 └── logs/
 </code></pre></div>
-<p>The output directory must be empty on its first run. Existing non-bulk files
-are never overwritten. Subsequent runs may reuse or update a directory carrying
-its recognized bulk manifest.</p>
-<h2 id="6-dataset-census">6. Dataset census<a class="headerlink" href="#6-dataset-census" title="Permanent link">&para;</a></h2>
-<p>The census reports candidate source directories, accepted and unique canonical
-flightlines, duplicate candidates, rejected records, source and accepted bytes,
-Parquet-footer row counts, sites, dates/years, sensors, schemas,
-translation-eligible flightlines, and major product inconsistencies.</p>
-<p>It writes JSON, Parquet breakdowns, and a concise Markdown report under
-<code>analyses/dataset_census/</code>. Matching tables are stored in DuckDB.</p>
-<h2 id="7-synthetic-cross-sensor-translation">7. Synthetic cross-sensor translation<a class="headerlink" href="#7-synthetic-cross-sensor-translation" title="Permanent link">&para;</a></h2>
-<p>For each available wavelength-matched pair the pipeline fits:</p>
-<div class="highlight"><pre><span></span><code>Landsat reflectance = slope × MicaSense reflectance + intercept
+<p>The DuckDB database contains the same catalogs, an <code>exclusions</code> table, a
+<code>bulk_observations</code> view, and each analysis table. The population stays virtual
+by default. Create a portable super-Parquet only when its storage cost is
+acceptable:</p>
+<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/data/completed_products<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>/data/portable_bulk_analysis<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--materialize-observations<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--threads<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--memory-limit<span class="w"> </span>16GB<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--temp-directory<span class="w"> </span>/scratch/spectralbridge_bulk
 </code></pre></div>
-<p>Both axes are synthetic products derived from the same corrected NEON
-hyperspectral source. These results describe synthetic sensor translation.
-They are not empirical calibration between independently observed instruments.</p>
-<p>Each result includes slope, intercept, correlation, R², bias, RMSE, MAE, value
-ranges, valid pixels, contributing sources, flightlines, and sites.</p>
-<p>Separate tables are written for:</p>
-<table>
-<thead>
-<tr>
-<th>Table</th>
-<th>Statistical meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>pixel_pooled.parquet</code></td>
-<td>Every valid pixel has equal weight; large flightlines contribute more.</td>
-</tr>
-<tr>
-<td><code>per_flightline.parquet</code></td>
-<td>One regression for every independently processed canonical flightline.</td>
-</tr>
-<tr>
-<td><code>per_site.parquet</code></td>
-<td>One pixel-pooled regression within each site.</td>
-</tr>
-<tr>
-<td><code>flightline_balanced.parquet</code></td>
-<td>Every flightline has equal total weight, regardless of pixel count.</td>
-</tr>
-<tr>
-<td><code>site_balanced.parquet</code></td>
-<td>Every site has equal total weight, regardless of pixels or flightlines.</td>
-</tr>
-</tbody>
-</table>
-<p>The coefficient directory contains the pooled and balanced summaries as
-candidate coefficients. They remain explicitly unapproved for empirical field
-calibration.</p>
-<p>Pixels are nested observations, flightlines are independent processing and
-sampling units, and sites are the highest replication level currently modeled.
-Billions of pixels are not interpreted as billions of independent landscapes.</p>
-<h3 id="translation-is-not-brightness-adjustment">Translation is not brightness adjustment<a class="headerlink" href="#translation-is-not-brightness-adjustment" title="Permanent link">&para;</a></h3>
-<p>The bulk analysis consumes values persisted by upstream processing. It does not
-fit, apply, remove, or replace the separate percentage brightness adjustment.
-Recoverable brightness configuration is cataloged so collections with
-inconsistent upstream state can be identified.</p>
-<h2 id="8-leave-one-site-out-validation">8. Leave-one-site-out validation<a class="headerlink" href="#8-leave-one-site-out-validation" title="Permanent link">&para;</a></h2>
-<p>For every compatible band pair and held-out site, the pipeline:</p>
-<ol>
-<li>fits the linear relationship using pixels from all other sites;</li>
-<li>applies it to the held-out site's pixels;</li>
-<li>reports held-out RMSE, MAE, bias, predictive R², correlation, observed versus
-   predicted slope/intercept, sample count, and held-out flightline count.</li>
-</ol>
-<p>The output is
-<code>analyses/leave_one_site_out/leave_one_site_out.parquet</code>, with an
-interpretation/provenance JSON beside it. Degenerate fits and collections with
-too few sites receive explicit status values rather than fabricated metrics.</p>
-<h2 id="9-query-the-database">9. Query the database<a class="headerlink" href="#9-query-the-database" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
-
-<span class="n">database</span> <span class="o">=</span> <span class="s2">"/data/spectralbridge_bulk_analysis/database/spectralbridge_bulk.duckdb"</span>
-<span class="k">with</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">database</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
-    <span class="n">census</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"SELECT * FROM dataset_census_summary"</span><span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
-    <span class="n">balanced</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-<span class="w">        </span><span class="sd">"""</span>
-<span class="sd">        SELECT landsat_sensor, band_index, slope, intercept, r2,</span>
-<span class="sd">               flightline_count, site_count</span>
-<span class="sd">        FROM translation_site_balanced</span>
-<span class="sd">        ORDER BY landsat_sensor, band_index</span>
-<span class="sd">        """</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
-    <span class="n">held_out</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-<span class="w">        </span><span class="sd">"""</span>
-<span class="sd">        SELECT held_out_site, landsat_sensor, band_index,</span>
-<span class="sd">               held_out_rmse, held_out_bias, status</span>
-<span class="sd">        FROM translation_leave_one_site_out</span>
-<span class="sd">        ORDER BY held_out_site, landsat_sensor, band_index</span>
-<span class="sd">        """</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
-</code></pre></div>
-<p>The Python API provides the same options:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_bulk_pipeline</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="n">run_bulk_pipeline</span><span class="p">(</span>
-    <span class="s2">"/home/jovyan/data-store/Aug_2026_Processed_Flightlines"</span><span class="p">,</span>
-    <span class="s2">"/home/jovyan/data-store/Aug_2026_Bulk_Analysis"</span><span class="p">,</span>
-    <span class="n">input_mode</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
-    <span class="n">threads</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-    <span class="n">memory_limit</span><span class="o">=</span><span class="s2">"175GB"</span><span class="p">,</span>
-    <span class="n">temp_directory</span><span class="o">=</span><span class="s2">"/home/jovyan/work/spectralbridge_bulk_scratch"</span><span class="p">,</span>
-    <span class="n">extraction_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">extraction_chunk_size</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span>
-<span class="p">)</span>
-</code></pre></div>
-<p>The resource values above are examples, not hard-coded defaults.</p>
-<h2 id="10-restart-and-provenance-behavior">10. Restart and provenance behavior<a class="headerlink" href="#10-restart-and-provenance-behavior" title="Permanent link">&para;</a></h2>
-<p>The manifest fingerprints the canonical catalog, source size/mtime/header hash
-and ENVI metadata, selection mode, extraction settings, scientific filters, and
-materialization choice. Each flightline cache has its own signature and status,
-so successful flightlines are reused independently. A failed extraction writes
-a status and traceback log and does not prevent other flightlines from being
-analyzed.
-An unchanged complete run returns <code>status="reused"</code>. Adding,
-removing, replacing, or rewriting a selected target product (or a source
-Parquet in compatibility mode) invalidates the derived run state. Pass
+<h2 id="restart-and-provenance">Restart and provenance<a class="headerlink" href="#restart-and-provenance" title="Permanent link">&para;</a></h2>
+<p>The source tree remains read only. The run manifest records package version,
+available git commit, profile, complete registry/pair configuration, source and
+output roots, accepted/excluded units, execution settings, timestamps, and
+artifact names. Raster fingerprints use path, size, modification time, header
+hash, and readable ENVI metadata. Every cache records its source products,
+schema version, source fingerprints, selection, and package version.</p>
+<p>An unchanged complete invocation returns <code>status="reused"</code>. Changing a selected
+source, profile, relationship, registry, integrity rule, or extraction setting
+invalidates relevant derived state. A failed extraction writes a status file
+and traceback log while other flightlines continue. Pass <code>force=True</code> or
 <code>--force</code> for an intentional rebuild.</p>
-<p>Each analysis table carries a deterministic analysis-run ID tying it to the
-manifest and source catalogs. Resource controls are recorded for execution
-provenance but do not change scientific weighting.</p>
-<p>The initial modules deliberately stop at census, hierarchical linear
-translation, and leave-one-site-out validation. Correction-effectiveness,
-residual-space, nonlinear, variance-partitioning, learning-curve, population
-QA, morphospace, and uncertainty analyses can be added as separate modules
-without changing the source catalog or observation-view contracts.</p>
+<h2 id="advanced-extension">Advanced extension<a class="headerlink" href="#advanced-extension" title="Permanent link">&para;</a></h2>
+<p>The immutable <code>AnalysisProfile</code>, <code>ProductDescriptor</code>, <code>ProductRegistry</code>, and
+<code>TranslationPair</code> types are importable from <code>spectralbridge.bulk</code>. Custom
+registries belong in calling code or a future package extension, not in the
+source archive. Discovery/cache construction is separate from the independently
+callable <code>run_dataset_census</code>, <code>run_sensor_translation</code>, and
+<code>run_leave_one_site_out</code> analysis modules, so new analyses do not need to
+reimplement source validation.</p>
+<p>The large production campaign that motivated these checks is a validation case,
+not a package data model: no site code, storage hierarchy, flightline count, or
+campaign-specific folder name is embedded in the bulk architecture.</p>
 
 
 

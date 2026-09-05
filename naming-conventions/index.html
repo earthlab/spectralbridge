@@ -2925,7 +2925,7 @@ fixed collection-level names rather than NEON or drone flight stems:</p>
 <tbody>
 <tr>
 <td><code>catalog/flightlines.parquet</code></td>
-<td>Canonical scientific flightline catalog</td>
+<td>Scientific flightline catalog with identity source, processing completeness, product availability, profile eligibility, and status</td>
 </tr>
 <tr>
 <td><code>catalog/source_files.parquet</code></td>
@@ -2942,6 +2942,18 @@ fixed collection-level names rather than NEON or drone flight stems:</p>
 <tr>
 <td><code>catalog/rejected_sources.parquet</code></td>
 <td>Invalid, ambiguous, or excluded flightline records</td>
+</tr>
+<tr>
+<td><code>catalog/exclusions.parquet</code></td>
+<td>Deterministic structured exclusions and reason codes</td>
+</tr>
+<tr>
+<td><code>catalog/exclusions.json</code></td>
+<td>Portable structured exclusion report</td>
+</tr>
+<tr>
+<td><code>catalog/exclusions.csv</code></td>
+<td>Tabular exclusion report for non-Parquet tools</td>
 </tr>
 <tr>
 <td><code>catalog/bulk_manifest.json</code></td>
@@ -2961,7 +2973,7 @@ fixed collection-level names rather than NEON or drone flight stems:</p>
 </tr>
 <tr>
 <td><code>coefficients/candidate_translation_coefficients.parquet/.json</code></td>
-<td>Pixel-pooled and balanced synthetic translation candidates</td>
+<td>Pixel-pooled and balanced source-to-target translation candidates</td>
 </tr>
 </tbody>
 </table>

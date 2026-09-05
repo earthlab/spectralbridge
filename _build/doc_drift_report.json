@@ -4,6 +4,7 @@
     "sensors": [
       "micasense_to_match_oli_and_oli",
       "micasense_to_match_oli_oli",
+      "micasense_to_match_tm_etm",
       "micasense_to_match_tm_etm_plus"
     ]
   },
@@ -30,11 +31,11 @@
       "MicaSense,,,,,",
       "MicaSense,,,,,,",
       "MicaSense,,,,,,,",
-      "MicaSense-X/Landsat-Y",
       "MicaSense-related",
       "MicaSense-style",
       "MicaSense.",
       "MicaSense/Landsat",
+      "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
       "Micasense,,",
       "Micasense,,,",
       "Micasense,,,,",
@@ -89,7 +90,6 @@
       "micasense_to_match_oli_oli,,,,,,",
       "micasense_to_match_oli_oli2",
       "micasense_to_match_oli_oli2_envi.img",
-      "micasense_to_match_oli_oli2_envi.img/.hdr",
       "micasense_to_match_tm_etm+,,,,,,",
       "micasense`)"
     ]
@@ -221,6 +221,7 @@
     ],
     "bulk_cli.py": [
       "--allow-no-translation",
+      "--analysis",
       "--extraction-chunk-size",
       "--extraction-workers",
       "--force",
@@ -229,11 +230,14 @@
       "--materialize-observations",
       "--memory-limit",
       "--minimum-reflectance",
+      "--on-invalid",
       "--output-dir",
       "--preflight-only",
       "--row-group-size",
+      "--sensor",
       "--temp-directory",
-      "--threads"
+      "--threads",
+      "--translation-pair"
     ],
     "qa_cli.py": [
       "--base-folder",
