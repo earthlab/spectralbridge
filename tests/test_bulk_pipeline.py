@@ -26,6 +26,7 @@ from spectralbridge.bulk.flightline_outputs import (
     find_canonical_flightline_directories,
 )
 from spectralbridge.bulk.registry import (
+    DEFAULT_PRODUCT_REGISTRY,
     AnalysisProfile,
     ProductDescriptor,
     ProductRegistry,
@@ -116,6 +117,31 @@ def test_bulk_runtime_dependencies_and_cli_are_packaged() -> None:
     )
 
 
+def test_default_registry_classifies_realistic_micasense_filenames() -> None:
+    stem = "NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance"
+    cases = {
+        f"{stem}_micasense_to_match_tm_etm+_envi.img": (
+            "micasense_matched_tm_etm",
+            "MicaSense_to-match_TM_and_ETM+",
+            4,
+        ),
+        f"{stem}_micasense_to_match_oli_oli2_envi.img": (
+            "micasense_matched_oli",
+            "MicaSense_to-match_OLI_and_OLI-2",
+            5,
+        ),
+    }
+
+    for filename, expected in cases.items():
+        descriptor = DEFAULT_PRODUCT_REGISTRY.recognize(filename)
+        assert descriptor is not None
+        assert (
+            descriptor.key,
+            descriptor.sensor_name,
+            descriptor.expected_band_count,
+        ) == expected
+
+
 def _merged(directory: Path, flightline_id: str, *, polygon: bool = False) -> Path:
     suffix = (
         "_polygons_merged_pixel_extraction.parquet"
@@ -195,7 +221,7 @@ def _completed_flightline(
     micasense_cube = np.stack(
         [
             np.where(values == -9999.0, -9999.0, values + 0.01 * index)
-            for index in range(6)
+            for index in range(5)
         ]
     )
     landsat_cube = np.stack(
@@ -254,6 +280,44 @@ def _generic_flightline(
         qa_path = directory / "qa" / "stage_qa.json"
         qa_path.parent.mkdir(parents=True, exist_ok=True)
         qa_path.write_text(json.dumps({"status": "PASS"}), encoding="utf-8")
+    return directory
+
+
+def _target_only_default_flightline(
+    root: Path,
+    outer: str,
+    flightline_id: str,
+) -> Path:
+    """Write the six target families used by the production staging contract."""
+
+    directory = root / outer / flightline_id
+    base = np.asarray([[0.1, 0.2], [0.3, 0.4]], dtype="float32")
+    micasense_tm = np.stack([base + index * 0.01 for index in range(4)])
+    micasense_oli = np.stack([base + index * 0.01 for index in range(5)])
+    landsat_tm = np.stack(
+        [
+            *(micasense_tm[index] * 2.0 + 0.1 for index in range(4)),
+            base + 0.5,
+            base + 0.6,
+        ]
+    )
+    landsat_oli = np.stack(
+        [
+            *(micasense_oli[index] * 2.0 + 0.1 for index in range(5)),
+            base + 0.5,
+            base + 0.6,
+        ]
+    )
+    products = {
+        "landsat_tm": landsat_tm,
+        "landsat_etm+": landsat_tm,
+        "landsat_oli": landsat_oli,
+        "landsat_oli2": landsat_oli,
+        "micasense_to_match_tm_etm+": micasense_tm,
+        "micasense_to_match_oli_oli2": micasense_oli,
+    }
+    for suffix, values in products.items():
+        _write_envi(directory / f"{flightline_id}_{suffix}_envi.img", values)
     return directory
 
 
@@ -706,6 +770,67 @@ def test_completed_archive_discovery_ignores_outer_batch_names(tmp_path: Path) -
         "raw_hyperspectral",
         "corrected_hyperspectral",
         "target_sensor",
+    }
+
+
+def test_target_only_six_family_archive_completes_all_default_pairs(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "minimal_targets"
+    directory = _target_only_default_flightline(
+        root,
+        "arbitrary_storage_folder",
+        R10C_1,
+    )
+
+    sources, flightlines = discover_completed_flightlines(root)
+    record = flightlines[0]
+    source_by_sensor = {source.sensor_name: source for source in sources}
+    eligibility = json.loads(record.analysis_eligibility_json)
+    expected_sensors = {
+        "Landsat_5_TM",
+        "Landsat_7_ETM+",
+        "Landsat_8_OLI",
+        "Landsat_9_OLI-2",
+        "MicaSense_to-match_TM_and_ETM+",
+        "MicaSense_to-match_OLI_and_OLI-2",
+    }
+
+    assert directory.is_dir()
+    assert len(sources) == 6
+    assert set(source_by_sensor) == expected_sensors
+    assert all(source.status == "available" for source in sources)
+    assert source_by_sensor["MicaSense_to-match_TM_and_ETM+"].column_count == 4
+    assert source_by_sensor["MicaSense_to-match_OLI_and_OLI-2"].column_count == 5
+    assert source_by_sensor["MicaSense_to-match_TM_and_ETM+"].header_path == str(
+        directory / f"{R10C_1}_micasense_to_match_tm_etm+_envi.hdr"
+    )
+    assert source_by_sensor["MicaSense_to-match_OLI_and_OLI-2"].header_path == str(
+        directory / f"{R10C_1}_micasense_to_match_oli_oli2_envi.hdr"
+    )
+    assert json.loads(record.available_sensors_json) == sorted(expected_sensors)
+    assert eligibility == {
+        pair.key: True for pair in DEFAULT_PRODUCT_REGISTRY.translation_pairs
+    }
+    assert record.translation_eligible is True
+    assert record.status == "accepted"
+    assert record.processing_completeness == "minimal_analysis_archive"
+    assert json.loads(record.corrected_product_json) == {}
+    assert not any(source.product_role == "raw_hyperspectral" for source in sources)
+
+    result = _run(root, tmp_path / "bulk", extraction_chunk_size=1)
+    with duckdb.connect(str(result["database"]), read_only=True) as con:
+        completed_pairs = {
+            row[0]
+            for row in con.execute(
+                "SELECT DISTINCT translation_pair "
+                "FROM translation_pixel_pooled WHERE status = 'ok'"
+            ).fetchall()
+        }
+
+    assert result["accepted_flightline_count"] == 1
+    assert completed_pairs == {
+        pair.key for pair in DEFAULT_PRODUCT_REGISTRY.translation_pairs
     }
 
 

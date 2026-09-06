@@ -491,7 +491,7 @@ def _run_bulk(root: Path) -> dict[str, object]:
         )
         landsat = micasense * np.float32(2.0) + np.float32(0.05)
         micasense_cube = np.stack(
-            [micasense + np.float32(0.01 * band) for band in range(6)]
+            [micasense + np.float32(0.01 * band) for band in range(5)]
         )
         landsat_cube = np.stack(
             [landsat + np.float32(0.02 * band) for band in range(7)]

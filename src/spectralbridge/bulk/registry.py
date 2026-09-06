@@ -182,7 +182,7 @@ _BUILTIN_PRODUCTS = (
             r"_micasense-to-match_oli_and_oli-2(?:_envi)?\.img$",
         ),
         processing_stage="spectral_convolution",
-        expected_band_count=6,
+        expected_band_count=5,
     ),
     ProductDescriptor(
         key="micasense_matched_tm_etm",
@@ -194,7 +194,7 @@ _BUILTIN_PRODUCTS = (
             r"_micasense-to-match_tm_and_etm\+(?:_envi)?\.img$",
         ),
         processing_stage="spectral_convolution",
-        expected_band_count=6,
+        expected_band_count=4,
     ),
     ProductDescriptor(
         key="landsat_9_oli2",
@@ -240,23 +240,26 @@ _BUILTIN_PAIRS = tuple(
         source_sensor=source,
         target_sensor=target,
         matching_group=group,
-        # Preserve the package's current 1:1 band-index convention. Registries
-        # may supply different explicit mappings for other product families.
-        band_pairs=tuple((index, index) for index in range(1, 7)),
-        expected_source_bands=6,
+        # These matched MicaSense products contain only the MicaSense bands
+        # corresponding to the leading reflective Landsat bands. Preserve the
+        # established 1:1 ordering within that matched subset.
+        band_pairs=tuple((index, index) for index in range(1, source_bands + 1)),
+        expected_source_bands=source_bands,
         expected_target_bands=7 if group == "oli_reflective" else 6,
         evidence_boundary=SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY,
     )
-    for source, targets, group in (
+    for source, targets, group, source_bands in (
         (
             "MicaSense_to-match_TM_and_ETM+",
             ("Landsat_5_TM", "Landsat_7_ETM+"),
             "tm_etm_reflective",
+            4,
         ),
         (
             "MicaSense_to-match_OLI_and_OLI-2",
             ("Landsat_8_OLI", "Landsat_9_OLI-2"),
             "oli_reflective",
+            5,
         ),
     )
     for target in targets

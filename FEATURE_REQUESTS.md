@@ -20,10 +20,57 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P74. Restore Default Matched-MicaSense Bulk Eligibility
+
+- Priority: User-directed
+- Status: Implemented and committed; push blocked
+- Owner: Codex
+- Started: 2026-09-06
+- Goal: Correct the built-in product schema so target-only canonical
+  flightlines containing all four Landsat and both matched MicaSense products
+  are recognized as eligible for all four default translation relationships.
+- Scope:
+  - Diagnose realistic filename matching, sidecar pairing, source-record sensor
+    assignment, product availability, and default pair completeness.
+  - Preserve strict generic validation and the target-only translation profile.
+  - Add focused realistic filename and six-family target-only discovery/full-run
+    regressions.
+  - Run focused and full verification, then commit and push the fix to main.
+- Outcome:
+  - Confirmed that both realistic filename regexes, including the escaped
+    literal `+`, match the intended descriptors and that `.img`-to-`.hdr`
+    sidecar resolution is correct.
+  - Corrected the built-in product descriptors to the authoritative generated
+    schemas: four matched TM/ETM+ bands and five matched OLI/OLI-2 bands.
+    Updated the four default pair descriptors to use the corresponding 1:1
+    matched subsets while preserving six-band TM/ETM+ and seven-band OLI/OLI-2
+    target expectations.
+  - Added a production-shaped, target-only canonical fixture with exactly the
+    six staged product families. Discovery exposes all six sensor names and
+    correct headers, marks all four relationships complete, accepts the
+    flightline without raw/corrected hyperspectral products, and completes the
+    translation pipeline.
+  - Updated the installed-artifact bulk fixture to use the correct five-band
+    matched OLI product.
+- Verification:
+  - Focused filename and six-family tests: 2 passed.
+  - Bulk plus installed-smoke tests: 44 passed.
+  - Full suite: 295 collected, 289 passed, 6 skipped; known warnings only.
+  - Ruff, compileall, `git diff --check`, docs-link validation, strict MkDocs,
+    and AI-transparency freshness checks passed.
+  - Fresh wheel and sdist build passed; the freshly built wheel passed the
+    bounded offline installed-artifact smoke for normal, drone, and bulk.
+- Blockers: The local branch is committed and one commit ahead of `origin/main`,
+  but this host cannot authenticate to GitHub: HTTPS has no usable username/
+  credential, SSH has no accepted public key, and the GitHub CLI is unavailable.
+- Next recommended task: Authenticate this host, run `git push origin main`, then
+  rerun native preflight on the read-only 122-flightline staging tree and retain
+  its census/exclusion outputs as production-validation evidence.
+
 ### P73. Generalize Bulk Profiles, Products, Pairing, and Exclusions
 
 - Priority: User-directed
-- Status: In progress
+- Status: Completed
 - Owner: Codex
 - Started: 2026-09-04
 - Goal: Keep the bulk workflow generic by modeling flightline identity,
@@ -53,11 +100,19 @@ left incomplete so the next agent can resume immediately.
     callable and merged-Parquet compatibility intact.
   - Verify focused behavior first, then full tests, lint, compilation, strict
     docs, generated artifacts, and a fresh package build when tooling permits.
-- Current status: Audit in progress; no P73 code changes made yet.
-- Blockers: Fresh build tooling may remain unavailable until the external
-  execution-approval usage window resets.
-- Next recommended task: Complete the bulk hardcoding/import/package audit and
-  record the selected generic contracts here before implementation.
+- Outcome: Added modular scientific identity parsing, analysis profiles,
+  product and translation-pair registries, target-only eligibility, strict
+  per-flightline validation, population-safe extraction, deterministic
+  exclusion Parquet/JSON/CSV, configurable pair selection, structured
+  preflight, provenance, generic documentation, and neutral regression
+  fixtures. P74 corrected the final production-discovered default band-schema
+  mismatch without adding campaign-specific behavior.
+- Verification: Full source suite, Ruff, compileall, documentation links,
+  strict MkDocs, transparency freshness, package build, and exact-wheel
+  installed-artifact smoke passed on 2026-09-06; see P74 for counts.
+- Blockers: None.
+- Next recommended task: Preserve the real staging run as external validation
+  evidence; do not encode its hierarchy or flightline count in package logic.
 
 ### P72. Consume Completed Flightline Archives in the Bulk Pipeline
 

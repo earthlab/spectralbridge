@@ -10556,3 +10556,147 @@ Most importantly:
 USE THE REAL PRODUCTION ARCHIVE AS A VALIDATION CASE,
 NOT AS THE PACKAGE DATA MODEL.
 ```
+
+## 2026-09-05 - continue generic bulk implementation
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+continue
+```
+
+## 2026-09-06 - fix default matched MicaSense discovery
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+We have now tested the current SpectralBridge main branch natively against
+the real staged Aug 2026 bulk dataset.
+
+Current tested state:
+
+- SpectralBridge 2.2.0
+- commit: 72af47c4f3fb97f984612920a43a04a2f31126c6
+- clean main branch
+- staging dataset:
+  /home/jovyan/data-store/Aug\_2026\_Bulk\_Minimal
+
+Independent filesystem verification:
+
+- 122 canonical flightlines
+- 122 complete
+- 0 incomplete
+- each flightline has the six required target product families:
+  landsat\_tm
+  landsat\_etm
+  landsat\_oli
+  landsat\_oli2
+  micasense\_tm\_etm
+  micasense\_oli
+- both .img and .hdr are present for each family
+
+Native SpectralBridge discovery now finds all 122 flightline records, which
+is progress, but rejects all 122:
+
+Flightline records: 122
+Source records: 732
+Status: {'rejected': 122}
+Translation eligible: {False: 122}
+
+Every rejection has essentially this form:
+
+"no requested compatible translation pair is complete; available sensors:
+Landsat\_5\_TM, Landsat\_7\_ETM+, Landsat\_8\_OLI, Landsat\_9\_OLI-2"
+
+This isolates the remaining bug.
+
+The four Landsat target products are being recognized as sensors, but the
+two MicaSense matched products are not appearing in available sensors:
+
+MicaSense\_to-match\_TM\_and\_ETM+
+MicaSense\_to-match\_OLI\_and\_OLI-2
+
+Those files DO exist in every staged flightline.
+
+The current ProductRegistry already contains descriptors for:
+
+micasense\_matched\_oli
+filename:
+\*\_micasense\_to\_match\_oli\_oli2\_envi.img
+sensor\_name:
+MicaSense\_to-match\_OLI\_and\_OLI-2
+
+micasense\_matched\_tm\_etm
+filename:
+\*\_micasense\_to\_match\_tm\_etm+\_envi.img
+sensor\_name:
+MicaSense\_to-match\_TM\_and\_ETM+
+
+The configured translation pairs also correctly reference those sensor names.
+
+Please diagnose why discover\_completed\_flightlines() / source-file
+classification recognizes the four Landsat products but not the two
+MicaSense matched products.
+
+Important:
+DO NOT add another notebook monkey patch.
+DO NOT special-case Aug\_2026\_Bulk\_Minimal.
+DO NOT weaken translation-pair validation.
+DO NOT require corrected hyperspectral products for analysis="translation".
+DO NOT change the scientific translation definitions merely to make the test pass.
+
+Fix the generic package implementation.
+
+Please specifically inspect:
+
+1. ProductRegistry filename matching for the MicaSense products.
+2. SourceFileRecord construction and whether MicaSense products receive their
+   ProductDescriptor sensor\_name.
+3. Header pairing logic for the MicaSense .img/.hdr products.
+4. Any normalization or regex issue involving:
+   micasense\_to\_match\_tm\_etm+
+   micasense\_to\_match\_oli\_oli2
+   especially the literal "+" in etm+.
+5. The logic that builds `available sensors` for a canonical flightline.
+6. Translation-pair completeness evaluation.
+
+Add regression tests representing a target-only canonical flightline containing
+exactly these six product families and their headers.
+
+The regression test should prove:
+
+- discovery recognizes all six sensors/products;
+- the MicaSense matched products are represented by the correct sensor names;
+- all four default translation pairs are complete:
+  MicaSense TM/ETM+ -> Landsat 5 TM
+  MicaSense TM/ETM+ -> Landsat 7 ETM+
+  MicaSense OLI/OLI-2 -> Landsat 8 OLI
+  MicaSense OLI/OLI-2 -> Landsat 9 OLI-2
+- translation\_eligible is True;
+- status is accepted;
+- corrected/raw hyperspectral absence does not reject the flightline when
+  analysis="translation";
+- the full translation pipeline can proceed beyond the eligibility gate.
+
+Also add a focused filename-classification test using realistic filenames from
+the staged dataset, particularly the MicaSense names.
+
+Run the relevant unit tests and the full test suite.
+
+Then commit and push the fix to main.
+
+In your final response report:
+
+- root cause;
+- files changed;
+- tests added;
+- test results;
+- new commit SHA;
+- whether the real 122-flightline dataset should now discover as 122 accepted,
+  translation-eligible flightlines.
+
+Do not modify or delete anything in:
+/home/jovyan/data-store/Aug\_2026\_Bulk\_Minimal
+```
