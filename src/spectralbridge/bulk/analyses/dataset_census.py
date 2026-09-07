@@ -159,7 +159,7 @@ def run_dataset_census(
             con, "SELECT COALESCE(SUM(size_bytes), 0) FROM source_files WHERE status = 'accepted'"
         ),
         "accepted_observation_rows": _scalar(
-            con, "SELECT COALESCE(SUM(row_count), 0) FROM source_files WHERE status = 'accepted'"
+            con, "SELECT COALESCE(SUM(row_count), 0) FROM flightlines WHERE status = 'accepted'"
         ),
         "selected_source_bytes": _scalar(
             con,
@@ -176,8 +176,13 @@ def run_dataset_census(
         ),
         "estimated_analysis_cache_bytes": _scalar(
             con,
-            "SELECT COALESCE(SUM(estimated_cache_bytes), 0) FROM flightlines "
+            "SELECT COALESCE(SUM(estimated_analysis_output_bytes), 0) FROM flightlines "
             "WHERE status = 'accepted'",
+        ),
+        "estimated_materialized_pixel_bytes": _scalar(
+            con,
+            "SELECT COALESCE(SUM(estimated_materialized_pixel_bytes), 0) "
+            "FROM flightlines WHERE status = 'accepted'",
         ),
         "qa_available_flightlines": _scalar(
             con,
@@ -250,6 +255,11 @@ def run_dataset_census(
             ).fetchall()
         },
     }
+    # Preserve the former key for compatibility while exposing the architectural
+    # meaning directly to new callers.
+    summary["estimated_analysis_output_bytes"] = summary[
+        "estimated_analysis_cache_bytes"
+    ]
     con.execute("DROP TABLE IF EXISTS dataset_census_summary")
     con.execute(
         """
@@ -270,6 +280,8 @@ def run_dataset_census(
             ?::BIGINT AS selected_source_bytes,
             ?::BIGINT AS translation_eligible_flightlines,
             ?::BIGINT AS estimated_analysis_cache_bytes,
+            ?::BIGINT AS estimated_analysis_output_bytes,
+            ?::BIGINT AS estimated_materialized_pixel_bytes,
             ?::BIGINT AS qa_available_flightlines,
             ?::BIGINT AS corrected_products_found,
             ?::BIGINT AS raw_products_found,
@@ -300,6 +312,8 @@ def run_dataset_census(
             summary["selected_source_bytes"],
             summary["translation_eligible_flightlines"],
             summary["estimated_analysis_cache_bytes"],
+            summary["estimated_analysis_output_bytes"],
+            summary["estimated_materialized_pixel_bytes"],
             summary["qa_available_flightlines"],
             summary["corrected_products_found"],
             summary["raw_products_found"],
@@ -406,7 +420,7 @@ Analysis run: `{analysis_run_id}`
 - Duplicate candidates excluded: {summary['duplicate_candidates']}
 - Rejected flightline records: {summary['rejected_flightline_records']}
 - Total source-tree bytes: {summary['total_source_tree_bytes']:,}
-- Accepted observation rows (Parquet metadata): {summary['accepted_observation_rows']:,}
+- Accepted valid rows (source metadata or streamed statistics): {summary['accepted_observation_rows']:,}
 - Selected source bytes: {summary['selected_source_bytes']:,}
 - Accepted analysis-table/cache bytes: {summary['accepted_merged_parquet_bytes']:,}
 - Translation-eligible flightlines: {summary['translation_eligible_flightlines']}
@@ -414,7 +428,8 @@ Analysis run: `{analysis_run_id}`
 - Corrected ENVI products found: {summary['corrected_products_found']}
 - Raw ENVI products found: {summary['raw_products_found']}
 - Target-sensor ENVI products found: {summary['target_sensor_products_found']}
-- Estimated compact-cache bytes: {summary['estimated_analysis_cache_bytes']:,}
+- Estimated compact analysis-output bytes: {summary['estimated_analysis_output_bytes']:,}
+- Estimated explicit materialized-pixel bytes: {summary['estimated_materialized_pixel_bytes']:,}
 - Sites: {', '.join(summary['sites']) or 'none'}
 - Years: {', '.join(str(item) for item in summary['acquisition_years']) or 'none'}
 - Sensors: {', '.join(summary['sensors']) or 'none'}

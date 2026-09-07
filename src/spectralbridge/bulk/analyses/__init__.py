@@ -3,9 +3,17 @@
 from .dataset_census import run_dataset_census
 from .leave_one_site_out import run_leave_one_site_out
 from .sensor_translation import run_sensor_translation
+from .spectral_library import (
+    SpectralLibraryPlotConfig,
+    inspect_spectral_library,
+    run_spectral_library_analysis,
+)
 
 __all__ = [
     "run_dataset_census",
     "run_leave_one_site_out",
     "run_sensor_translation",
+    "SpectralLibraryPlotConfig",
+    "inspect_spectral_library",
+    "run_spectral_library_analysis",
 ]

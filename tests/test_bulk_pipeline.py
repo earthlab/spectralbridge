@@ -14,7 +14,7 @@ import pytest
 import rasterio
 from rasterio.transform import from_origin
 
-from spectralbridge import run_bulk_pipeline
+from spectralbridge import build_harmonized_dataset, run_bulk_pipeline
 from spectralbridge.bulk.catalog import (
     build_bulk_catalog,
     canonical_identity_from_product,
@@ -32,6 +32,7 @@ from spectralbridge.bulk.registry import (
     ProductRegistry,
     TranslationPair,
 )
+from spectralbridge.bulk.streaming import BivariateStatistics
 from spectralbridge.cli.bulk_cli import _build_parser
 
 
@@ -482,6 +483,23 @@ def test_optional_materialization_and_restart_invalidation(tmp_path: Path) -> No
     )
 
 
+def test_harmonized_dataset_builder_is_explicit_materialization_boundary(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "staging"
+    _write_parquet(_merged(root / "run", R10C_1), [0.1, 0.2], [0.3, 0.5])
+
+    result = build_harmonized_dataset(
+        root,
+        tmp_path / "harmonized",
+        threads=1,
+        memory_limit="1GB",
+    )
+
+    assert Path(result["materialized_observations"]).is_file()
+    assert result["preflight"]["materialized_pixel_dataset"] is True
+
+
 def test_incomplete_run_reuses_completed_analysis_modules(tmp_path: Path) -> None:
     root = tmp_path / "staging"
     _write_parquet(_merged(root / "r10c", R10C_1), [0.1, 0.2], [0.3, 0.5])
@@ -718,6 +736,15 @@ def test_cli_requires_clean_output_and_defaults_to_virtual_full_data() -> None:
     assert args.sensors is None
     assert args.translation_pairs is None
     assert args.on_invalid == "exclude"
+    assert args.diagnostic_sample_size == 0
+    assert args.diagnostic_seed == 0
+    assert args.spectral_library is None
+    assert args.make_summary_plots is False
+    assert args.make_full_spectral_reports is False
+    assert args.species_sort == "count_desc"
+    assert args.spectral_panels_per_page == 4
+    assert args.spectral_trace_batch_size == 2_000
+    assert args.spectral_max_traces_per_group is None
 
     selected = parser.parse_args(
         [
@@ -732,11 +759,22 @@ def test_cli_requires_clean_output_and_defaults_to_virtual_full_data() -> None:
             "sensor_a_to_sensor_b",
             "--on-invalid",
             "error",
+            "--spectral-library",
+            "library.parquet",
+            "--make-full-spectral-reports",
+            "--spectral-stage",
+            "corr",
+            "--species-sort",
+            "alphabetical",
         ]
     )
     assert selected.sensors == ["Sensor_A", "Sensor_B"]
     assert selected.translation_pairs == ["sensor_a_to_sensor_b"]
     assert selected.on_invalid == "error"
+    assert selected.spectral_library == Path("library.parquet")
+    assert selected.make_full_spectral_reports is True
+    assert selected.spectral_stage == "corr"
+    assert selected.species_sort == "alphabetical"
 
 
 def test_completed_archive_discovery_ignores_outer_batch_names(tmp_path: Path) -> None:
@@ -890,7 +928,12 @@ def test_flightline_output_mode_preflight_is_metadata_only(tmp_path: Path) -> No
     assert census["candidate_outer_batch_folders"] == 1
     assert census["raw_products_found"] == 1
     assert census["estimated_analysis_cache_bytes"] > 0
+    assert result["preflight"]["estimated_analysis_output_bytes"] > 0
+    assert result["preflight"]["estimated_diagnostic_sample_bytes"] == 0
+    assert result["preflight"]["estimated_temporary_disk_bytes"] == 0
+    assert result["preflight"]["materialized_pixel_dataset"] is False
     assert not list((output / "cache").rglob("*.parquet"))
+    assert not (output / "statistics" / "translation_sufficient_statistics.parquet").exists()
     products = pq.read_table(result["source_products"]).to_pylist()
     assert {item["product_role"] for item in products} == {
         "raw_hyperspectral",
@@ -899,7 +942,9 @@ def test_flightline_output_mode_preflight_is_metadata_only(tmp_path: Path) -> No
     }
 
 
-def test_tiny_chunked_flightline_extraction_and_restart(tmp_path: Path) -> None:
+def test_tiny_chunked_flightline_statistics_create_no_pixel_cache_and_restart(
+    tmp_path: Path,
+) -> None:
     root = tmp_path / "Aug_2026_Processed_Flightlines"
     micasense = np.asarray([[0.1, 0.2, -9999.0], [0.4, 0.5, 0.6]], dtype="float32")
     landsat = np.where(micasense == -9999.0, -9999.0, micasense * 2.0 + 0.1)
@@ -914,34 +959,50 @@ def test_tiny_chunked_flightline_extraction_and_restart(tmp_path: Path) -> None:
     output = tmp_path / "Aug_2026_Bulk_Analysis"
 
     first = _run(root, output, extraction_chunk_size=2)
-    observations = output / "cache" / NIWO_1 / "observations.parquet"
-    sensor_cache = (
+    statistics = (
         output
-        / "cache"
+        / "statistics"
+        / "flightlines"
         / NIWO_1
-        / "MicaSense_to_match_OLI_and_OLI_2.parquet"
+        / "sufficient_statistics.parquet"
     )
     metadata = json.loads(
-        (output / "cache" / NIWO_1 / "extraction_metadata.json").read_text()
+        (
+            output
+            / "statistics"
+            / "flightlines"
+            / NIWO_1
+            / "statistics_metadata.json"
+        ).read_text()
     )
-    first_mtime = observations.stat().st_mtime_ns
-    table = pq.read_table(observations)
+    first_mtime = statistics.stat().st_mtime_ns
+    table = pq.read_table(statistics)
     reused = _run(root, output, extraction_chunk_size=2)
 
     assert first["input_mode"] == "flightline_outputs"
     assert first["row_count"] == 5
     assert table.num_rows == 5
-    assert "MicaSense_to-match_OLI_and_OLI-2_band_1" in table.column_names
-    assert "Landsat_8_OLI_band_1" in table.column_names
-    assert pq.ParquetFile(sensor_cache).metadata.num_row_groups > 1
-    assert metadata["validity_filters"] == ["finite", "not ENVI nodata"]
+    assert set(("n", "sum_x", "sum_y", "sum_x2", "sum_y2", "sum_xy")) <= set(
+        table.column_names
+    )
+    assert set(table.column("n").to_pylist()) == {5}
+    assert metadata["validity"]["finite"] is True
+    assert metadata["validity"]["exclude_sensor_pixel_if_any_band_is_nodata"] is True
+    assert metadata["chunk_count"] > 1
     assert metadata["source_directory"] == source_dir.as_posix()
     assert reused["status"] == "reused"
-    assert observations.stat().st_mtime_ns == first_mtime
+    assert statistics.stat().st_mtime_ns == first_mtime
+    assert not list((output / "cache").rglob("*.parquet"))
+    assert not (output / "database" / "bulk_observations.parquet").exists()
+    assert not (output / "statistics" / "diagnostic_sample.parquet").exists()
     assert {path: _sha256(path) for path in source_hashes} == source_hashes
     with duckdb.connect(str(first["database"]), read_only=True) as con:
         slope = con.execute("SELECT slope FROM translation_pixel_pooled").fetchone()[0]
+        stats_count = con.execute(
+            "SELECT COUNT(*) FROM translation_sufficient_statistics"
+        ).fetchone()[0]
     assert slope == pytest.approx(2.0)
+    assert stats_count == 5
 
 
 def test_flightline_extraction_failure_isolated_from_other_sources(
@@ -953,21 +1014,174 @@ def test_flightline_extraction_failure_isolated_from_other_sources(
     _completed_flightline(root, "batch_b", R10C_1)
     from spectralbridge.pipelines import bulk as bulk_module
 
-    real_extract = bulk_module.extract_flightline_cache
+    real_extract = bulk_module.compute_flightline_statistics
 
     def fail_one(item, *args, **kwargs):
         if item.canonical_flightline_id == NIWO_1:
             raise RuntimeError("synthetic extraction failure")
         return real_extract(item, *args, **kwargs)
 
-    monkeypatch.setattr(bulk_module, "extract_flightline_cache", fail_one)
+    monkeypatch.setattr(bulk_module, "compute_flightline_statistics", fail_one)
     result = _run(root, tmp_path / "bulk", extraction_chunk_size=2)
     records = pq.read_table(result["flightlines"]).to_pylist()
 
     assert result["accepted_flightline_count"] == 1
     failed = next(item for item in records if item["canonical_flightline_id"] == NIWO_1)
-    assert failed["extraction_status"] == "failure"
+    assert failed["extraction_status"] == "statistics_failure"
     assert "synthetic extraction failure" in failed["rejection_reason"]
+
+
+def test_streaming_statistics_match_legacy_materialized_regressions(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "archive"
+    fixtures = (
+        ("one", R10C_1, np.asarray([[0.1, 0.2], [0.3, 0.5]], dtype="float32")),
+        ("two", NIWO_1, np.asarray([[0.2, 0.4], [0.6, 0.9]], dtype="float32")),
+        ("three", JORN_1, np.asarray([[0.15, 0.25], [0.45, 0.8]], dtype="float32")),
+    )
+    for outer, flightline_id, source in fixtures:
+        noise = np.asarray([[0.01, -0.02], [0.015, -0.005]], dtype="float32")
+        _completed_flightline(
+            root,
+            outer,
+            flightline_id,
+            micasense=source,
+            landsat=source * 1.7 + 0.08 + noise,
+        )
+
+    streaming = _run(root, tmp_path / "streaming", extraction_chunk_size=1)
+    legacy = _run(
+        root,
+        tmp_path / "materialized",
+        extraction_chunk_size=1,
+        materialize_observations=True,
+    )
+    tables = (
+        "translation_pixel_pooled",
+        "translation_per_flightline",
+        "translation_per_site",
+        "translation_flightline_balanced",
+        "translation_site_balanced",
+    )
+    order = "translation_pair, band_index, COALESCE(flightline_id, ''), COALESCE(site, '')"
+    columns = (
+        "sample_count, slope, intercept, r2, rmse, mae, bias, correlation, "
+        "x_min, x_max, x_mean, y_min, y_max, y_mean"
+    )
+    with duckdb.connect(streaming["database"], read_only=True) as new_db, duckdb.connect(
+        legacy["database"], read_only=True
+    ) as old_db:
+        for table in tables:
+            new_rows = new_db.execute(
+                f"SELECT {columns} FROM {table} ORDER BY {order}"
+            ).fetchall()
+            old_rows = old_db.execute(
+                f"SELECT {columns} FROM {table} ORDER BY {order}"
+            ).fetchall()
+            assert len(new_rows) == len(old_rows)
+            for new, old in zip(new_rows, old_rows):
+                assert new[0] == old[0]
+                assert np.asarray(new[1:], dtype=float) == pytest.approx(
+                    np.asarray(old[1:], dtype=float), rel=1e-10, abs=1e-10
+                )
+        new_loso = new_db.execute(
+            "SELECT training_sample_count, training_slope, training_intercept, "
+            "training_correlation, held_out_sample_count, held_out_r2, "
+            "held_out_rmse, held_out_mae, held_out_bias, held_out_correlation, "
+            "observed_vs_predicted_slope, observed_vs_predicted_intercept "
+            "FROM translation_leave_one_site_out "
+            "ORDER BY translation_pair, band_index, held_out_site"
+        ).fetchall()
+        old_loso = old_db.execute(
+            "SELECT training_sample_count, training_slope, training_intercept, "
+            "training_correlation, held_out_sample_count, held_out_r2, "
+            "held_out_rmse, held_out_mae, held_out_bias, held_out_correlation, "
+            "observed_vs_predicted_slope, observed_vs_predicted_intercept "
+            "FROM translation_leave_one_site_out "
+            "ORDER BY translation_pair, band_index, held_out_site"
+        ).fetchall()
+    assert len(new_loso) == len(old_loso)
+    for new, old in zip(new_loso, old_loso):
+        assert new[0] == old[0]
+        assert np.asarray(new[1:], dtype=float) == pytest.approx(
+            np.asarray(old[1:], dtype=float), rel=1e-10, abs=1e-10
+        )
+
+
+def test_streaming_checkpoint_reuses_only_unchanged_flightline(tmp_path: Path) -> None:
+    root = tmp_path / "archive"
+    unchanged = _generic_flightline(root, "one", "flight-one")
+    changed = _generic_flightline(root, "two", "flight-two")
+    output = tmp_path / "bulk"
+    kwargs = {
+        "product_registry": GENERIC_REGISTRY,
+        "translation_pairs": [GENERIC_PAIR.key],
+        "extraction_chunk_size": 1,
+    }
+    _run(root, output, **kwargs)
+    one_metadata = output / "statistics" / "flightlines" / "flight-one" / "statistics_metadata.json"
+    two_metadata = output / "statistics" / "flightlines" / "flight-two" / "statistics_metadata.json"
+    first_one = json.loads(one_metadata.read_text())
+    first_two = json.loads(two_metadata.read_text())
+
+    _write_envi(changed / "sensor_b.img", np.asarray([[0.5, 0.8], [1.1, 1.4]]))
+    _run(root, output, **kwargs)
+    second_one = json.loads(one_metadata.read_text())
+    second_two = json.loads(two_metadata.read_text())
+    records = {
+        row["canonical_flightline_id"]: row
+        for row in pq.read_table(output / "catalog" / "flightlines.parquet").to_pylist()
+    }
+
+    assert first_one["checkpoint_signature_sha256"] == second_one["checkpoint_signature_sha256"]
+    assert first_two["checkpoint_signature_sha256"] != second_two["checkpoint_signature_sha256"]
+    assert records["flight-one"]["extraction_status"] == "statistics_reused"
+    assert records["flight-two"]["extraction_status"] == "statistics_success"
+    assert unchanged.is_dir()
+
+
+def test_loso_stable_subtraction_matches_direct_training_fit() -> None:
+    site_a = BivariateStatistics()
+    site_b = BivariateStatistics()
+    site_a.update(np.asarray([1.0e8 + 1, 1.0e8 + 2]), np.asarray([2.0, 4.0]))
+    site_b.update(
+        np.asarray([1.0e8 + 3, 1.0e8 + 5, 1.0e8 + 8]),
+        np.asarray([6.1, 10.2, 16.3]),
+    )
+    pooled = site_a.copy().merge(site_b)
+
+    recovered = pooled.subtract(site_a)
+
+    assert recovered.n == site_b.n
+    assert recovered.mean_x == pytest.approx(site_b.mean_x, rel=1e-14)
+    assert recovered.mean_y == pytest.approx(site_b.mean_y, rel=1e-14)
+    assert recovered.m2_x == pytest.approx(site_b.m2_x, rel=1e-12)
+    assert recovered.m2_y == pytest.approx(site_b.m2_y, rel=1e-12)
+    assert recovered.c_xy == pytest.approx(site_b.c_xy, rel=1e-12)
+
+
+def test_diagnostic_sample_is_global_bounded_and_reproducible(tmp_path: Path) -> None:
+    root = tmp_path / "archive"
+    _generic_flightline(root, "one", "flight-one")
+    _generic_flightline(root, "two", "flight-two")
+    kwargs = {
+        "product_registry": GENERIC_REGISTRY,
+        "translation_pairs": [GENERIC_PAIR.key],
+        "extraction_chunk_size": 1,
+        "diagnostic_sample_size": 3,
+        "diagnostic_seed": 42,
+    }
+    first = _run(root, tmp_path / "first", **kwargs)
+    second = _run(root, tmp_path / "second", **kwargs)
+    first_rows = pq.read_table(first["diagnostic_sample"]).to_pylist()
+    second_rows = pq.read_table(second["diagnostic_sample"]).to_pylist()
+
+    assert len(first_rows) <= 3
+    assert first_rows == second_rows
+    assert {row["sample_label"] for row in first_rows} == {
+        "deterministic_bounded_diagnostic_sample"
+    }
 
 
 def test_generic_manifest_identity_and_target_only_archive_are_analysis_ready(

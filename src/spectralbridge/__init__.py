@@ -32,10 +32,12 @@ __all__ = sorted(
         + (
             [
                 "apply_brightness_correction",
+                "build_harmonized_dataset",
                 "go_forth_and_multiply",
                 "process_one_flightline",
                 "run_bulk_pipeline",
                 "run_drone_pipeline",
+                "run_spectral_library_analysis",
                 load_brightness_coefficients.__name__,
             ]
             + list(_PLOT_EXPORTS)
@@ -45,11 +47,23 @@ __all__ = sorted(
 
 
 def __getattr__(name: str):  # pragma: no cover - thin lazy import helper
+    if name == "build_harmonized_dataset":
+        from .bulk.harmonized import build_harmonized_dataset as _builder
+
+        globals()[name] = _builder
+        return _builder
     if name == "run_bulk_pipeline":
         from .pipelines.bulk import run_bulk_pipeline as _run_bulk_pipeline
 
         globals()[name] = _run_bulk_pipeline
         return _run_bulk_pipeline
+    if name == "run_spectral_library_analysis":
+        from .bulk.analyses.spectral_library import (
+            run_spectral_library_analysis as _run_spectral_library_analysis,
+        )
+
+        globals()[name] = _run_spectral_library_analysis
+        return _run_spectral_library_analysis
     if name == "apply_brightness_correction":
         from .brightness import (
             apply_brightness_correction as _apply_brightness_correction,

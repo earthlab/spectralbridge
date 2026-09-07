@@ -86,10 +86,11 @@ def test_missing_runtime_resource_fails_loudly(
         SMOKE._resolve_runtime_resources()
 
 
-def test_bulk_smoke_runs_materialization_and_restart(tmp_path: Path) -> None:
+def test_bulk_smoke_runs_streaming_statistics_and_restart(tmp_path: Path) -> None:
     result = SMOKE._run_bulk(tmp_path)
     assert result["input_mode"] == "flightline_outputs"
     assert result["fixture_flightlines"] == 3
     assert result["fixture_rows"] == 12
     assert result["restart_reused_outputs"] is True
+    assert result["pixel_materialization"] is False
     assert all(path.is_relative_to(tmp_path) for path in tmp_path.rglob("*"))

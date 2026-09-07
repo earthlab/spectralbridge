@@ -6,9 +6,9 @@ SpectralBridge has three related, but separate, workflows:
    target-sensor products, extraction, and QA.
 2. **Multiple flightlines:** apply that workflow independently to a collection;
    each flightline keeps its own restart-safe outputs.
-3. **Bulk analysis:** discover completed or minimally staged flightlines, validate
-   them for a selected analysis, create a compact analytical cache, and fit
-   population-level comparisons.
+3. **Bulk analysis:** discover completed or minimally staged flightlines,
+   validate them, stream immutable products in place, and fit population-level
+   comparisons from compact sufficient statistics.
 
 The bulk workflow is downstream analysis. It does not download inputs, rerun
 correction or convolution, invoke the drone pipeline, or modify source folders.
@@ -109,12 +109,13 @@ print(result["preflight"])
 The structured `preflight` result reports discovered, accepted, duplicate, and
 excluded flightlines; the selected profile and relationship keys; required and
 optional product roles; available sensors and relationships; selected source
-bytes; estimated cache bytes; exclusion counts; package version; and all output
-locations. The linked census adds site/date/product inventories.
+bytes; estimated compact output and bounded diagnostic sample; temporary-disk
+estimate; whether a pixel dataset was requested; exclusion counts; package
+version; and all output locations. The linked census adds site/date/product
+inventories.
 
 Preflight reads paths, sizes, modification times, ENVI headers, small QA JSON,
-and Parquet footers where applicable. It does not scan raster pixels or create
-the per-flightline cache.
+and Parquet footers where applicable. It does not scan or copy raster pixels.
 
 Review these outputs before the full run:
 
@@ -128,7 +129,7 @@ Review these outputs before the full run:
 
 Missing sidecars, zero-byte files, unreadable metadata, invalid dimensions,
 incompatible bands, incomplete requested pairs, duplicate products, duplicate
-identities, transient source disappearance, and extraction failures have stable
+identities, transient source disappearance, and streaming-analysis failures have stable
 reason codes. `on_invalid="exclude"` is the population-safe default. Valid
 flightlines continue when another one fails. Use `on_invalid="error"` when any
 ineligible flightline should make the call raise after diagnostic catalogs are
@@ -147,12 +148,39 @@ result = run_bulk_pipeline(
 )
 ~~~
 
-For completed-flightline inputs, each eligible target ENVI product is read in
-bounded windows. Only selected sensors are written to narrow Parquets below
-`cache/<flightline-id>/`; valid bands are joined by pixel ID into
-`observations.parquet`. ENVI no-data and non-finite values are excluded.
-`extraction_workers` defaults to one to avoid saturating shared storage, while
-`extraction_chunk_size` bounds raster windows and Parquet row groups.
+For completed-flightline inputs, eligible source and target ENVI products are
+opened together and read in deterministic aligned windows. Spatial dimensions,
+transform, and CRS must match. A pixel is eligible only when the existing
+sensor-wide ENVI no-data/finite rules and the requested reflectance threshold
+all pass. Each chunk is immediately reduced into numerically stable bivariate
+moments. No sensor Parquet or `observations.parquet` is created.
+
+The first pass writes compact per-flightline statistics. Site, global,
+flightline-balanced, and site-balanced fits combine those checkpoints. LOSO
+training uses `global statistics - held-out site statistics`; one bounded second
+pass computes exact absolute-error and held-out metrics. `extraction_workers`
+remains the backward-compatible name for concurrent flightline readers and
+defaults to one so disk bandwidth is not oversubscribed.
+
+~~~text
+Completed flightline products (read only)
+        |
+        v
+Catalog + validation
+        |
+        v
+Aligned chunked direct reads
+        |
+        v
+Per-flightline sufficient statistics
+        |
+        v
+Population aggregation
+        +-- translation models
+        +-- site and balanced models
+        +-- LOSO
+        +-- bounded diagnostics
+~~~
 
 For merged-Parquet inputs, `input_kind="full"` selects full-pixel tables,
 `"polygon"` selects polygon tables, and `"both"` deliberately combines them.
@@ -188,41 +216,167 @@ bulk_analysis/
 │   ├── duplicates.parquet
 │   ├── rejected_sources.parquet
 │   └── bulk_manifest.json
-├── cache/
-│   └── <flightline-id>/
-│       ├── <selected-sensor>.parquet
-│       ├── observations.parquet
-│       ├── extraction_metadata.json
+├── statistics/
+│   ├── translation_sufficient_statistics.parquet
+│   ├── diagnostic_sample.parquet       # optional and globally bounded
+│   └── flightlines/<flightline-id>/
+│       ├── sufficient_statistics.parquet
+│       ├── diagnostic_sample.parquet
+│       ├── statistics_metadata.json
 │       └── status.json
 ├── database/
 │   ├── spectralbridge_bulk.duckdb
-│   └── bulk_observations.parquet       # optional
+│   └── bulk_observations.parquet       # explicit dataset build only
 ├── analyses/
 │   ├── dataset_census/
 │   ├── sensor_translation/
-│   └── leave_one_site_out/
+│   ├── leave_one_site_out/
+│   └── spectral_library/              # optional compact summaries
 ├── coefficients/
 │   ├── candidate_translation_coefficients.parquet
 │   └── candidate_translation_coefficients.json
 ├── tables/
 ├── figures/
+│   └── spectral_library/              # optional summary/full PDFs
 ├── reports/
 └── logs/
 ~~~
 
-The DuckDB database contains the same catalogs, an `exclusions` table, a
-`bulk_observations` view, and each analysis table. The population stays virtual
-by default. Create a portable super-Parquet only when its storage cost is
-acceptable:
+DuckDB stores catalogs, exclusions, sufficient statistics, models, QA summaries,
+and provenance. In completed-flightline mode the compatibility
+`bulk_observations` view is empty because analysis does not require an observation
+layer. Original merged Parquets remain virtual read-in-place inputs.
+
+Analysis and pixel-level dataset construction are separate operations:
+
+~~~text
+Completed flightline products
+        |
+        v
+EXPLICIT DATASET BUILD
+        |
+        v
+Harmonized pixel-level dataset
+~~~
+
+Use the explicit compatibility builder only when the combined pixel dataset is
+itself the requested scientific product:
+
+~~~python
+from spectralbridge import build_harmonized_dataset
+
+dataset = build_harmonized_dataset(
+    "/data/completed_products",
+    "/data/harmonized_pixel_dataset",
+    threads=8,
+    memory_limit="16GB",
+    temp_directory="/scratch/spectralbridge_bulk",
+)
+~~~
+
+`materialize_observations=True` remains temporarily available for backward
+compatibility. New code should use `build_harmonized_dataset` so the disk cost
+and scientific intent are explicit. A production analysis invocation is:
 
 ~~~bash
 spectralbridge-bulk /data/completed_products \
-  --output-dir /data/portable_bulk_analysis \
-  --materialize-observations \
-  --threads 8 \
-  --memory-limit 16GB \
-  --temp-directory /scratch/spectralbridge_bulk
+  --output-dir /data/bulk_analysis \
+  --extraction-workers 1 \
+  --extraction-chunk-size 1024 \
+  --diagnostic-sample-size 100000 \
+  --diagnostic-seed 42
 ~~~
+
+## Visualize an existing polygon spectral library
+
+The intentional merged polygon spectral library is different from the removed
+temporary observation cache. Pass its existing Parquet path separately: it is
+opened read-only and is never copied into the bulk output. The adapter inspects
+the footer before analysis, detects the species and available hierarchy fields,
+and selects one compatible wavelength-bearing spectral stage. It prefers
+`corr_*_wl*nm` columns when present; multiple other stages require an explicit
+choice. Wavelengths are parsed from column names, numerically sorted, and kept
+paired to their original values. Duplicate wavelengths, duplicate band indices,
+non-numeric spectral columns, and schemas without physical wavelengths fail
+explicitly.
+
+~~~python
+from spectralbridge import run_bulk_pipeline
+from spectralbridge.bulk import SpectralLibraryPlotConfig
+
+plots = SpectralLibraryPlotConfig(
+    spectral_stage="corr",
+    species_sort="count_desc",       # or "alphabetical"
+    panels_per_page=4,
+    trace_batch_size=2_000,
+    summary_band_batch_size=32,
+    max_traces_per_group=None,        # default: show every valid trace
+    raster_dpi=150,
+)
+
+result = run_bulk_pipeline(
+    "/data/completed_products",
+    "/data/bulk_analysis",
+    spectral_library="/data/library/polygons_merged_pixel_extraction.parquet",
+    make_summary_plots=True,
+    make_full_spectral_reports=True,
+    spectral_library_config=plots,
+)
+print(result["preflight"]["spectral_library_schema"])
+print(result["spectral_library"]["reports"])
+~~~
+
+`make_summary_plots=True` writes the between-species median overview and species
+observation-count report. `make_full_spectral_reports=True` also writes the
+species low-alpha ensemble, nested quantile envelopes, and available site,
+flightline, and within-species hierarchy reports. It also implies the two
+summary PDFs. No report is generated by default because large libraries can
+require substantial sequential I/O and rendering time.
+
+The trace alpha is deterministic:
+
+~~~text
+alpha = min(0.03, max(0.003, 0.2 / sqrt(rendered trace count)))
+~~~
+
+This makes tens of spectra individually legible and progressively lowers alpha
+for dense groups. It is a qualitative spectral trace density, not a normalized
+probability density. The raw trace layer is rendered batch by batch into a
+fixed-size raster; titles, axes, annotations, and the median remain vector PDF
+elements. By default every complete finite spectrum contributes. Sampling is
+used only when `max_traces_per_group` (or
+`--spectral-max-traces-per-group`) is explicitly set, in which case a seeded
+DuckDB hash order makes the cap reproducible.
+
+The compact products are `species_summary.parquet`,
+`species_band_summary.parquet`, `species_quantiles.parquet`,
+`species_median_spectra.parquet`, and `group_counts.parquet`. Quantiles default
+to 2.5, 10, 25, 50, 75, 90, and 97.5 percent and use DuckDB
+`approx_quantile` in bounded band batches. Complete-spectrum validity requires
+every selected-stage value to be finite and at least the run's explicit
+`minimum_reflectance` (0.0 by default), matching bulk translation validity.
+Valid extreme values above that threshold are retained and determine the shared
+report range; there is no undocumented clipping. Memory is bounded by one Arrow
+trace batch plus at most the configured page's fixed-size panel rasters during
+plotting, and by one configured band batch during summary calculation. The
+companion JSON
+records source signature, package version, run ID, detected schema, counts,
+wavelength range, exact plot configuration, alpha rule, rasterization, sampling,
+report paths, page counts, and sizes.
+
+The full suite uses these canonical names when the corresponding grouping field
+exists:
+
+- `spectral_library_species_variability.pdf`
+- `spectral_library_species_quantiles.pdf`
+- `spectral_library_species_medians.pdf`
+- `spectral_library_observation_counts.pdf`
+- `spectral_library_hierarchical_variability.pdf`
+- `spectral_library_site_variability.pdf`
+- `spectral_library_flightline_variability.pdf`
+
+These reports are additional products. Dataset census, translation, cross-
+sensor, LOSO, and other QA/statistical outputs remain unchanged.
 
 ## Restart and provenance
 
@@ -230,13 +384,15 @@ The source tree remains read only. The run manifest records package version,
 available git commit, profile, complete registry/pair configuration, source and
 output roots, accepted/excluded units, execution settings, timestamps, and
 artifact names. Raster fingerprints use path, size, modification time, header
-hash, and readable ENVI metadata. Every cache records its source products,
-schema version, source fingerprints, selection, and package version.
+hash, and readable ENVI metadata. Every flightline checkpoint records its source
+signatures, algorithm/schema version, band and validity configuration, sampling
+configuration, and package version.
 
 An unchanged complete invocation returns `status="reused"`. Changing a selected
-source, profile, relationship, registry, integrity rule, or extraction setting
-invalidates relevant derived state. A failed extraction writes a status file
-and traceback log while other flightlines continue. Pass `force=True` or
+source invalidates only that flightline checkpoint; changing a profile,
+relationship, registry, integrity rule, or streaming setting invalidates the
+affected configuration. A failed streaming analysis is cataloged while other
+flightlines continue. Pass `force=True` or
 `--force` for an intentional rebuild.
 
 ## Advanced extension
@@ -244,7 +400,7 @@ and traceback log while other flightlines continue. Pass `force=True` or
 The immutable `AnalysisProfile`, `ProductDescriptor`, `ProductRegistry`, and
 `TranslationPair` types are importable from `spectralbridge.bulk`. Custom
 registries belong in calling code or a future package extension, not in the
-source archive. Discovery/cache construction is separate from the independently
+source archive. Discovery/statistics construction is separate from the independently
 callable `run_dataset_census`, `run_sensor_translation`, and
 `run_leave_one_site_out` analysis modules, so new analyses do not need to
 reimplement source validation.

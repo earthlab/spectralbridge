@@ -1,4 +1,4 @@
-"""Discovery and compact extraction for completed normal-pipeline outputs."""
+"""Discovery plus explicit legacy materialization for completed outputs."""
 
 from __future__ import annotations
 
@@ -626,7 +626,13 @@ def discover_completed_flightlines(
             for sensor in selected_sensors
             if sensor in targets
         )
-        estimated_cache_bytes = pixel_count * (24 + 4 * selected_band_count)
+        estimated_materialized_pixel_bytes = pixel_count * (
+            24 + 4 * selected_band_count
+        )
+        fitted_band_count = sum(
+            len(pair.band_pairs) for pair in eligible_pairs
+        )
+        estimated_analysis_output_bytes = max(4096, fitted_band_count * 512)
         stages = sorted(
             {
                 str(product["processing_stage"])
@@ -717,7 +723,9 @@ def discover_completed_flightlines(
                     ]
                 ),
                 analysis_eligibility_json=canonical_json(eligibility),
-                estimated_cache_bytes=estimated_cache_bytes,
+                estimated_cache_bytes=estimated_analysis_output_bytes,
+                estimated_analysis_output_bytes=estimated_analysis_output_bytes,
+                estimated_materialized_pixel_bytes=estimated_materialized_pixel_bytes,
                 cache_observations=None,
                 extraction_status=(
                     "pending" if not exclusion_codes else "not_eligible"
@@ -892,7 +900,7 @@ def extract_flightline_cache(
     translation_pairs: Sequence[TranslationPair],
     force: bool = False,
 ) -> tuple[SourceFileRecord, FlightlineRecord]:
-    """Create or reuse one compact observation cache from target ENVI products."""
+    """Explicitly create or reuse a legacy pixel-level observation cache."""
 
     if not flightline.canonical_flightline_id:
         raise ValueError("Cannot extract a flightline without canonical identity")

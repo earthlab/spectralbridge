@@ -313,15 +313,23 @@ The translation profile requires only one complete requested sensor pair, so a
 target-only archive can be valid without raw/corrected hyperspectral cubes, QA,
 or unrelated sensor products. Metadata-only preflight reports selected files,
 bytes, products, compatible pairs, and structured exclusions. The full run
-derives narrow, chunked, restart-safe caches in the separate output and never
-reruns upstream science. Invalid flightlines are excluded by default while the
-valid population continues; deterministic exclusion Parquet, JSON, and CSV are
+streams aligned ENVI windows into compact, restart-safe sufficient statistics
+and never creates a pixel-level cache during normal analysis. Invalid
+flightlines are excluded by default while the valid population continues;
+deterministic exclusion Parquet, JSON, and CSV are
 always written. Prebuilt merged Parquets remain a compatibility mode and
 physical collection-wide materialization is opt-in. See [Build a bulk cross-run
 analysis](docs/vignettes/bulk-analysis.md) for identity manifests, product and
 pair registries, sensor selection, output contracts, weighting, restart
 behavior, and the distinction between translation regression and brightness
 adjustment.
+
+An existing merged polygon spectral library can also be analyzed in place. Use
+`--spectral-library ... --make-summary-plots` for compact species-median and
+observation-count PDFs, or add `--make-full-spectral-reports` for the explicit
+multipage low-alpha trace, quantile, site, flightline, and hierarchy reports.
+The source Parquet is never copied; only compact summaries and report files are
+written.
 
 ### Idempotent / restart-safe
 

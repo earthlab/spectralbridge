@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Literal
 
 
-BULK_SCHEMA_VERSION = 4
+BULK_SCHEMA_VERSION = 6
 BulkInputKind = Literal["full", "polygon", "both"]
 BulkInputMode = Literal["auto", "flightline_outputs", "merged_parquet"]
 
@@ -87,6 +87,8 @@ class FlightlineRecord:
     missing_products_json: str = "[]"
     analysis_eligibility_json: str = "{}"
     estimated_cache_bytes: int = 0
+    estimated_analysis_output_bytes: int = 0
+    estimated_materialized_pixel_bytes: int = 0
     cache_observations: str | None = None
     extraction_status: str = "not_required"
     analysis_profile: str = "translation"
@@ -133,7 +135,25 @@ class BulkAnalysisPaths:
 
     @property
     def cache_dir(self) -> Path:
+        """Legacy pixel-materialization directory; unused by normal analysis."""
+
         return self.output_dir / "cache"
+
+    @property
+    def statistics_dir(self) -> Path:
+        return self.output_dir / "statistics"
+
+    @property
+    def flightline_statistics_dir(self) -> Path:
+        return self.statistics_dir / "flightlines"
+
+    @property
+    def sufficient_statistics(self) -> Path:
+        return self.statistics_dir / "translation_sufficient_statistics.parquet"
+
+    @property
+    def diagnostic_sample(self) -> Path:
+        return self.statistics_dir / "diagnostic_sample.parquet"
 
     @property
     def analyses_dir(self) -> Path:
@@ -222,7 +242,8 @@ class BulkAnalysisPaths:
     def ensure_directories(self) -> None:
         for directory in (
             self.catalog_dir,
-            self.cache_dir,
+            self.statistics_dir,
+            self.flightline_statistics_dir,
             self.database_dir,
             self.analyses_dir,
             self.coefficients_dir,

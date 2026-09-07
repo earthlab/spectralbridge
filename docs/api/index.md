@@ -18,7 +18,7 @@
   </article>
   <article class="sb-doc-card">
     <h3>Cross-run analysis</h3>
-    <p><code>run_bulk_pipeline</code> catalogs canonical flightlines, exposes virtual observations, and runs population-aware sensor translation.</p>
+    <p><code>run_bulk_pipeline</code> catalogs canonical flightlines, streams compact sufficient statistics, and runs population-aware sensor translation.</p>
   </article>
 </div>
 </section>
@@ -64,7 +64,11 @@ go_forth_and_multiply(
   </article>
   <article class="sb-doc-card">
     <h3><code>run_bulk_pipeline</code></h3>
-    <p>Independent, restart-safe post-processing path with read-only discovery, duplicate exclusion, a virtual DuckDB population, balanced regressions, and leave-one-site-out validation.</p>
+    <p>Independent, restart-safe post-processing path with read-only discovery, compact streaming statistics, balanced regressions, leave-one-site-out validation, and opt-in spectral-library reports.</p>
+  </article>
+  <article class="sb-doc-card">
+    <h3><code>run_spectral_library_analysis</code></h3>
+    <p>Reads one existing merged polygon Parquet in place and writes compact species summaries plus explicitly requested low-alpha variability PDFs. Configure it with <code>SpectralLibraryPlotConfig</code> from <code>spectralbridge.bulk</code>.</p>
   </article>
   <article class="sb-doc-card">
     <h3><code>apply_brightness_correction</code></h3>

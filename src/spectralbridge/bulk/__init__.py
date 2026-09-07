@@ -4,6 +4,9 @@ from .analyses import (
     run_dataset_census,
     run_leave_one_site_out,
     run_sensor_translation,
+    run_spectral_library_analysis,
+    SpectralLibraryPlotConfig,
+    inspect_spectral_library,
 )
 from .catalog import build_bulk_catalog, canonical_identity_from_product, discover_bulk_sources
 from .models import (
@@ -17,6 +20,7 @@ from .models import (
     SourceFileRecord,
 )
 from .identity import FlightlineIdentity, FlightlineIdentityParser
+from .harmonized import build_harmonized_dataset
 from .registry import (
     AnalysisProfile,
     ProductDescriptor,
@@ -39,10 +43,14 @@ __all__ = [
     "ProductDescriptor",
     "ProductRegistry",
     "TranslationPair",
+    "SpectralLibraryPlotConfig",
     "build_bulk_catalog",
+    "build_harmonized_dataset",
     "canonical_identity_from_product",
     "discover_bulk_sources",
     "run_dataset_census",
     "run_leave_one_site_out",
     "run_sensor_translation",
+    "inspect_spectral_library",
+    "run_spectral_library_analysis",
 ]

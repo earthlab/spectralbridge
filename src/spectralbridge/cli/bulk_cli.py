@@ -7,14 +7,15 @@ import json
 from pathlib import Path
 from typing import Sequence
 
+from spectralbridge.bulk import SpectralLibraryPlotConfig
 from spectralbridge.pipelines.bulk import run_bulk_pipeline
 
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
-            "Catalog completed SpectralBridge flightlines, expose a virtual "
-            "DuckDB population, and run hierarchical synthetic translation analyses."
+            "Catalog completed SpectralBridge flightlines and run bounded, "
+            "read-in-place hierarchical translation analyses."
         )
     )
     parser.add_argument(
@@ -121,13 +122,93 @@ def _build_parser() -> argparse.ArgumentParser:
         "--extraction-workers",
         type=int,
         default=1,
-        help="Concurrent flightline extractions (default: 1, conservative for I/O).",
+        help="Concurrent flightline readers (default: 1, conservative for I/O).",
     )
     parser.add_argument(
         "--extraction-chunk-size",
         type=int,
         default=2048,
-        help="Maximum ENVI window edge and Parquet row-group size (default: 2048).",
+        help="Maximum ENVI streaming-window edge (default: 2048).",
+    )
+    parser.add_argument(
+        "--diagnostic-sample-size",
+        type=int,
+        default=0,
+        help="Optional global maximum number of sampled pixel pairs (default: 0).",
+    )
+    parser.add_argument(
+        "--diagnostic-seed",
+        type=int,
+        default=0,
+        help="Seed for deterministic bounded diagnostic sampling (default: 0).",
+    )
+    parser.add_argument(
+        "--spectral-library",
+        type=Path,
+        default=None,
+        help="Existing merged polygon spectral-library Parquet to read in place.",
+    )
+    parser.add_argument(
+        "--make-summary-plots",
+        action="store_true",
+        help="Create compact species-median and observation-count PDFs.",
+    )
+    parser.add_argument(
+        "--make-full-spectral-reports",
+        action="store_true",
+        help="Explicitly create the expensive multipage trace and hierarchy PDFs.",
+    )
+    parser.add_argument(
+        "--spectral-stage",
+        default=None,
+        help="Wavelength-bearing column prefix to plot, such as corr.",
+    )
+    parser.add_argument(
+        "--species-field",
+        default=None,
+        help="Species column override when it cannot be detected safely.",
+    )
+    parser.add_argument(
+        "--species-sort",
+        choices=("count_desc", "alphabetical"),
+        default="count_desc",
+        help="Species panel ordering (default: count_desc).",
+    )
+    parser.add_argument(
+        "--spectral-panels-per-page",
+        type=int,
+        default=4,
+        help="Readable panels per multipage PDF page (default: 4).",
+    )
+    parser.add_argument(
+        "--spectral-trace-batch-size",
+        type=int,
+        default=2_000,
+        help="Maximum spectra held in one plotting batch (default: 2000).",
+    )
+    parser.add_argument(
+        "--spectral-summary-band-batch-size",
+        type=int,
+        default=32,
+        help="Maximum bands summarized per DuckDB pass (default: 32).",
+    )
+    parser.add_argument(
+        "--spectral-max-traces-per-group",
+        type=int,
+        default=None,
+        help="Explicit deterministic per-group trace cap; default renders every trace.",
+    )
+    parser.add_argument(
+        "--spectral-sampling-seed",
+        type=int,
+        default=0,
+        help="Seed used only with an explicit per-group trace cap.",
+    )
+    parser.add_argument(
+        "--spectral-raster-dpi",
+        type=int,
+        default=150,
+        help="DPI for the rasterized low-alpha trace layer (default: 150).",
     )
     parser.add_argument(
         "--temp-directory",
@@ -150,6 +231,17 @@ def _build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> None:
     args = _build_parser().parse_args(argv)
+    spectral_config = SpectralLibraryPlotConfig(
+        species_field=args.species_field,
+        spectral_stage=args.spectral_stage,
+        species_sort=args.species_sort,
+        panels_per_page=args.spectral_panels_per_page,
+        trace_batch_size=args.spectral_trace_batch_size,
+        summary_band_batch_size=args.spectral_summary_band_batch_size,
+        max_traces_per_group=args.spectral_max_traces_per_group,
+        sampling_seed=args.spectral_sampling_seed,
+        raster_dpi=args.spectral_raster_dpi,
+    )
     result = run_bulk_pipeline(
         args.input_path,
         args.output_dir,
@@ -169,6 +261,12 @@ def main(argv: Sequence[str] | None = None) -> None:
         preflight_only=args.preflight_only,
         extraction_workers=args.extraction_workers,
         extraction_chunk_size=args.extraction_chunk_size,
+        diagnostic_sample_size=args.diagnostic_sample_size,
+        diagnostic_seed=args.diagnostic_seed,
+        spectral_library=args.spectral_library,
+        make_summary_plots=args.make_summary_plots,
+        make_full_spectral_reports=args.make_full_spectral_reports,
+        spectral_library_config=spectral_config,
         force=args.force,
     )
     print(json.dumps(result, indent=2, sort_keys=True))

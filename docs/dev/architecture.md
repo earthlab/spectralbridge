@@ -52,11 +52,24 @@ define arbitrary source/target band relationships.
 Validation is atomic per flightline. Invalid units and duplicate identities are
 excluded with stable reason codes while valid units continue by default. The
 translation profile can consume only its requested target ENVI products, read
-them in bounded windows, and cache narrow Parquets under the separate bulk
-output. Prebuilt merged Parquets remain a compatibility input and physical
-population materialization is opt-in. Catalog/preflight, dataset census,
-hierarchical translation, and leave-one-site-out logic are independent layers.
-The workflow never calls or mutates the NEON and drone orchestrators.
+them in aligned bounded windows, and persist only mergeable per-flightline
+sufficient statistics. Site/global/balanced models aggregate those compact
+checkpoints and LOSO training subtracts held-out site moments from global
+moments. Prebuilt merged Parquets remain a read-in-place compatibility input;
+pixel-level dataset construction is a separate explicit operation.
+Catalog/preflight, dataset census, statistics, translation, and validation are
+independent layers. The workflow never calls or mutates the NEON and drone
+orchestrators.
+
+An optional visualization branch accepts an already merged polygon spectral
+library as a second read-only input. A schema adapter selects one coherent set
+of wavelength-bearing columns, then DuckDB scans only the species, hierarchy,
+and current band batch needed for each calculation. Compact species/band
+summaries and approximate quantiles are persistent scientific products; the
+original spectra are never copied. Plotting streams one group in bounded Arrow
+batches into fixed-size raster trace layers while axes, labels, and median lines
+remain vector PDF elements. Summary PDFs and the expensive multipage trace
+suite are separate opt-in operations.
 
 ---
 

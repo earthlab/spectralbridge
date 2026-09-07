@@ -148,6 +148,8 @@ CREATE TABLE flightlines (
     missing_products_json VARCHAR,
     analysis_eligibility_json VARCHAR,
     estimated_cache_bytes BIGINT,
+    estimated_analysis_output_bytes BIGINT,
+    estimated_materialized_pixel_bytes BIGINT,
     cache_observations VARCHAR,
     extraction_status VARCHAR,
     analysis_profile VARCHAR,
@@ -285,6 +287,7 @@ def create_bulk_database(
     flightlines: Sequence[FlightlineRecord],
     exclusions: Sequence[ExclusionRecord] = (),
     *,
+    sufficient_statistics: Path | None = None,
     metadata: dict[str, Any],
     materialize_observations: bool,
     row_group_size: int,
@@ -324,6 +327,48 @@ def create_bulk_database(
         "CREATE TABLE rejected_sources AS SELECT * FROM flightlines "
         "WHERE status IN ('rejected', 'duplicate_excluded')"
     )
+    if sufficient_statistics is not None and sufficient_statistics.is_file():
+        con.execute(
+            "CREATE TABLE translation_sufficient_statistics AS "
+            "SELECT * FROM read_parquet(?)",
+            [sufficient_statistics.as_posix()],
+        )
+    else:
+        con.execute(
+            """
+            CREATE TABLE translation_sufficient_statistics (
+                schema_version INTEGER,
+                flightline_id VARCHAR,
+                site VARCHAR,
+                acquisition_date VARCHAR,
+                translation_pair VARCHAR,
+                source_sensor VARCHAR,
+                target_sensor VARCHAR,
+                band_index INTEGER,
+                source_band_index INTEGER,
+                target_band_index INTEGER,
+                x_column VARCHAR,
+                y_column VARCHAR,
+                n BIGINT,
+                sum_x DOUBLE,
+                sum_y DOUBLE,
+                sum_x2 DOUBLE,
+                sum_y2 DOUBLE,
+                sum_xy DOUBLE,
+                mean_x DOUBLE,
+                mean_y DOUBLE,
+                m2_x DOUBLE,
+                m2_y DOUBLE,
+                c_xy DOUBLE,
+                x_min DOUBLE,
+                x_max DOUBLE,
+                y_min DOUBLE,
+                y_max DOUBLE,
+                chunk_count INTEGER,
+                checkpoint_signature_sha256 VARCHAR
+            )
+            """
+        )
     con.execute("CREATE TABLE bulk_metadata (key VARCHAR PRIMARY KEY, value_json VARCHAR)")
     if metadata:
         con.executemany(

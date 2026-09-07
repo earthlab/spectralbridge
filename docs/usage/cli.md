@@ -56,7 +56,24 @@ spectralbridge-bulk /data/spectralbridge_completed_runs \
   --temp-directory /scratch/spectralbridge_bulk
 ```
 
-<p>The source tree is read only, the output directory must be fresh and external, and extraction defaults to one flightline at a time with bounded raster windows. <code>--sensor</code> and <code>--translation-pair</code> are repeatable selectors. Invalid flightlines are recorded and excluded by default; use <code>--on-invalid error</code> for strict behavior. The complete observation population stays virtual unless <code>--materialize-observations</code> is passed. Use <code>--preflight-only</code> to inspect products, selected bytes, compatible pairs, and deterministic exclusion Parquet/JSON/CSV without reading raster pixels. <code>--input-kind</code> applies only to merged-Parquet compatibility mode. See <a href="../vignettes/bulk-analysis/">Build a bulk cross-run analysis</a>.</p>
+<p>The source tree is read only, the output directory must be fresh and external, and streaming defaults to one flightline at a time with bounded aligned raster windows. Normal analysis writes compact sufficient statistics rather than pixel caches. <code>--diagnostic-sample-size</code> enables an optional globally bounded deterministic sample. <code>--sensor</code> and <code>--translation-pair</code> are repeatable selectors. Invalid flightlines are recorded and excluded by default; use <code>--on-invalid error</code> for strict behavior. <code>--materialize-observations</code> is retained only as an explicit legacy dataset-build option. Use <code>--preflight-only</code> to inspect products, selected bytes, compact-output estimates, compatible pairs, and deterministic exclusions without reading raster pixels. <code>--input-kind</code> applies only to merged-Parquet compatibility mode. See <a href="../vignettes/bulk-analysis/">Build a bulk cross-run analysis</a>.</p>
+
+<h3>Existing polygon spectral library</h3>
+
+<p>Pass an existing merged polygon Parquet separately when spectral-library figures are required. Summary plots are inexpensive and explicit; the complete multipage suite requires a second flag. The default renders every valid trace into bounded raster layers. <code>--spectral-max-traces-per-group</code> is the only sampling control and is never enabled implicitly.</p>
+
+```bash
+spectralbridge-bulk /data/completed_products \
+  --output-dir /data/bulk_analysis \
+  --spectral-library /data/library/polygons_merged_pixel_extraction.parquet \
+  --spectral-stage corr \
+  --make-summary-plots \
+  --make-full-spectral-reports \
+  --spectral-panels-per-page 4 \
+  --spectral-trace-batch-size 2000
+```
+
+<p>The schema adapter recognizes physical-wavelength columns such as <code>corr_b001_wl0450nm</code>, sorts them numerically, and rejects ambiguous stages or duplicate wavelengths. Use <code>--species-field</code> and <code>--spectral-stage</code> only when automatic selection cannot be unambiguous. Species can be ordered with <code>--species-sort count_desc</code> or <code>alphabetical</code>.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

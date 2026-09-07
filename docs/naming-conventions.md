@@ -87,10 +87,19 @@ fixed collection-level names rather than NEON or drone flight stems:
 | `catalog/exclusions.json` | Portable structured exclusion report |
 | `catalog/exclusions.csv` | Tabular exclusion report for non-Parquet tools |
 | `catalog/bulk_manifest.json` | Restart, settings, and provenance manifest |
-| `cache/<flightline-id>/observations.parquet` | Restart-safe narrow observations derived from persisted target ENVI products |
-| `database/spectralbridge_bulk.duckdb` | Virtual observation views, catalogs, and analysis tables |
-| `database/bulk_observations.parquet` | Optional portable super-Parquet; never created by default |
+| `statistics/flightlines/<flightline-id>/sufficient_statistics.parquet` | Restart-safe mergeable moments derived by bounded direct reads |
+| `statistics/translation_sufficient_statistics.parquet` | Compact collection of all valid flightline/band statistics |
+| `statistics/diagnostic_sample.parquet` | Optional globally bounded reproducible pixel-pair sample |
+| `database/spectralbridge_bulk.duckdb` | Catalogs, compact statistics, models, exclusions, and provenance |
+| `database/bulk_observations.parquet` | Explicit harmonized-dataset build; never created by normal analysis |
 | `coefficients/candidate_translation_coefficients.parquet/.json` | Pixel-pooled and balanced source-to-target translation candidates |
+| `analyses/spectral_library/species_summary.parquet` | Species counts, wavelength coverage, and observed reflectance bounds |
+| `analyses/spectral_library/species_band_summary.parquet` | Compact per-species/per-wavelength moments and extrema |
+| `analyses/spectral_library/species_quantiles.parquet` | Approximate spectral quantiles at configured probabilities |
+| `analyses/spectral_library/species_median_spectra.parquet` | One compact median spectrum per species |
+| `analyses/spectral_library/group_counts.parquet` | Species, site, flightline, and polygon contribution counts when available |
+| `analyses/spectral_library/spectral_library_summary.json` | Source signature, detected schema, plot configuration, reports, and interpretation |
+| `figures/spectral_library/spectral_library_*.pdf` | Opt-in summary and full spectral variability reports |
 
 Analysis-specific tables live below `analyses/`. These names must not be used
 inside individual flightline or drone product contracts.

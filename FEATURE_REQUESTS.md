@@ -20,10 +20,183 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P76. Add Bounded Spectral-Library Variability Reports
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-09-06
+- Goal: Add reproducible, scalable visualization products that expose within-
+  and between-group spectral variability directly from an existing merged
+  polygon spectral-library Parquet without duplicating its observations.
+- Scope:
+  - Inspect and validate the actual spectral-library schema, including species,
+    hierarchy fields, band columns, and physical wavelengths.
+  - Add bounded batch scanning, compact group summaries and quantiles,
+    deterministic low-alpha ensemble rendering, rasterized high-density trace
+    layers, readable multipage PDFs, and companion provenance.
+  - Make summary and expensive full-report generation separately explicit in
+    the bulk API/CLI while preserving every existing bulk output.
+  - Add numerical, ordering, counts, multipage, determinism, bounded-read,
+    source-preservation, and no-pixel-cache regressions.
+  - Update architecture, user documentation, notebook, transparency artifacts,
+    and installed-package verification as appropriate.
+- Plan:
+  - Trace the established polygon Parquet schema and existing bulk plotting
+    conventions before defining a strict spectral-library schema adapter.
+  - Implement one-group-at-a-time DuckDB/PyArrow analysis and plotting with
+    explicit schema compatibility checks and compact persisted summaries.
+  - Integrate opt-in summary/full reports into the bulk orchestrator without
+    weakening the immutable-source streaming path.
+  - Render and inspect a multi-species fixture, measure artifacts, then run
+    focused and full verification.
+- Outcome:
+  - Added a strict Parquet-footer schema adapter for the established polygon
+    library contract. It detects the species and optional polygon, flightline,
+    site, acquisition-date, and pixel fields; recognizes numeric
+    `<stage>_b###_wl####nm` columns; prefers the corrected stage; numerically
+    orders wavelengths; and rejects ambiguous stages, duplicate bands or
+    wavelengths, and nonphysical band-only schemas.
+  - Added compact species/band summaries, configurable approximate quantiles,
+    median spectra, and hierarchy counts. DuckDB scans bounded wavelength
+    batches and registers the reduced products in the bulk database without
+    copying source observations or using pandas full-table reads.
+  - Added deterministic qualitative trace alpha
+    `min(0.03, max(0.003, 0.2 / sqrt(n)))`, all-trace rendering by default,
+    explicit seeded sampling only when a per-group cap is configured, and
+    batch-by-batch fixed-raster trace layers that retain vector axes, text, and
+    median curves.
+  - Added summary PDFs for species medians and observation counts and an
+    explicit full suite for species traces, quantile envelopes, hierarchy,
+    sites, and flightlines when those fields exist. Species ordering supports
+    count-descending and alphabetical modes. Companion JSON records source
+    signature, detected schema, run ID, package version, counts, configuration,
+    page counts, sizes, alpha/rasterization/sampling policy, and interpretation.
+  - Aligned spectral-library validity with the bulk finite and explicit
+    minimum-reflectance rule. No-data sentinels are excluded while valid high
+    outliers remain visible and set the shared untrimmed report bounds.
+  - Integrated separate `make_summary_plots` and
+    `make_full_spectral_reports` controls into the bulk API/CLI, restart
+    signature, manifest, result, output validation, and DuckDB contract. The
+    existing census, translation, LOSO, QA, normal pipeline, and drone pipeline
+    behavior remains intact.
+  - Updated the README, API/CLI/architecture/output/naming documentation, bulk
+    vignette and production notebook, prompt/transparency records, and installed
+    wheel smoke contract.
+- Verification:
+  - Focused bulk, spectral-library, and installed-smoke tests: 58 passed.
+  - Full suite: 311 collected, 305 passed, 6 skipped; known warnings only.
+  - Ruff, compileall, `git diff --check`, notebook JSON validation, docs-link
+    validation, strict MkDocs, and AI-transparency freshness checks passed.
+  - A fresh wheel build passed the bounded offline installed-artifact smoke for
+    normal, drone, and non-materializing bulk execution.
+  - Visual inspection passed for species ensemble, hierarchy, quantile, and
+    annotated observation-count pages. The seven-fixture-report suite ranged
+    from about 15 KB to 30 KB per PDF; species and quantile reports were two
+    pages for five species at four panels per page.
+- Blockers: None.
+- Remaining production considerations:
+  - No production merged polygon Parquet was supplied in this workspace, so the
+    exact campaign species field and band count must be confirmed from the
+    preflight `spectral_library_schema` before launching full reports.
+  - Approximate quantile summaries rescan the selected library once per
+    configured wavelength batch, and all-trace PDFs rescan once per plotted
+    group. This keeps memory and output size bounded but can be I/O-intensive on
+    a very large remote Parquet.
+  - The first full production run should use summary plots first, review schema
+    and group counts, then enable full reports with local scratch and default
+    all-trace rasterization. Set an explicit deterministic trace cap only if
+    measured production rendering time is unacceptable.
+- Next recommended task: Run spectral-library preflight and summary plots on the
+  real read-only merged polygon Parquet, record its exact schema/counts and
+  timing, then decide whether a per-group trace cap is operationally necessary
+  before launching the complete multipage suite.
+
+### P75. Stream Bulk Analyses From Immutable Flightline Products
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-09-06
+- Goal: Make ordinary bulk analysis read completed ENVI products in bounded
+  chunks and persist only compact, mergeable statistics, without creating
+  pixel-scale Parquet caches or duplicating immutable source products.
+- Scope:
+  - Separate ordinary statistical analysis from an explicitly requested
+    harmonized pixel-dataset build and keep the normal/drone pipelines unchanged.
+  - Add deterministic aligned chunk iteration, validity filtering, robust
+    mergeable bivariate sufficient statistics, hierarchical aggregation, LOSO
+    subtraction, and bounded optional diagnostic sampling.
+  - Store catalog, compact statistics, models, diagnostics, exclusions, and
+    provenance in the bulk output while making disk use independent of total
+    valid-pixel count in normal operation.
+  - Preserve merged-Parquet compatibility and numerical agreement with the
+    legacy materialized calculation on representative fixtures.
+  - Add no-cache, multi-chunk, restart/invalidation, LOSO, sampling, and
+    end-to-end regressions; update the bulk documentation and production example.
+- Plan:
+  - Trace the existing discovery, ENVI extraction, DuckDB, translation, and
+    LOSO control flow and identify every pixel-scale materialization point.
+  - Implement compact checkpoint contracts and a direct chunked statistics
+    engine using the existing registry, pairing, validity, and naming rules.
+  - Route flightline-output analysis through compact statistics while retaining
+    explicit legacy materialization only behind a clearly named opt-in boundary.
+  - Verify focused numerical and architecture tests, then run the full suite,
+    lint, docs, transparency, and packaging checks as available.
+- Outcome:
+  - Ordinary `flightline_outputs` analysis now opens the immutable, aligned
+    ENVI products directly with Rasterio, reads deterministic bounded windows,
+    applies the existing sensor-wide validity and minimum-reflectance rules,
+    and writes only compact per-flightline and combined sufficient-statistics
+    checkpoints. It does not create `cache/<flightline>/observations.parquet`
+    or a materialized `bulk_observations.parquet`.
+  - Added numerically stable, mergeable bivariate moments with the raw sums
+    required for inspection; hierarchical flightline/site/global aggregation;
+    pixel-pooled, flightline-balanced, and site-balanced fits; and LOSO fits
+    calculated by subtracting each site from the global statistics. A bounded
+    second raster pass computes exact MAE and held-out evaluation metrics.
+  - Added an optional deterministic diagnostic sample whose configured maximum
+    is enforced globally. Sampling uses vectorized per-chunk priorities and is
+    disabled by default, so its disk footprint is explicitly bounded.
+  - Added source/config/schema signatures for per-flightline restart and
+    selective invalidation. Conservative flightline parallelism reuses the
+    existing worker control; source rasters remain read-only.
+  - Added compact-statistics and disk-estimate fields to the catalog/DuckDB
+    contract. Preflight now distinguishes ordinary analytical output from the
+    much larger estimated materialized pixel dataset.
+  - Preserved merged-Parquet input compatibility and retained the legacy pixel
+    route only when `materialize_observations=True`. Added the explicit public
+    `build_harmonized_dataset()` boundary for callers who intentionally need a
+    reusable pixel dataset.
+  - Updated the README, architecture/API/CLI/output/naming documentation, bulk
+    vignette, production notebook, and installed-artifact smoke contract. The
+    normal and drone pipeline implementations were not changed.
+- Verification:
+  - Focused bulk and installed-smoke regression suite: 49 passed.
+  - Full suite: 301 collected, 295 passed, 6 skipped; known warnings only.
+  - Ruff, compileall, `git diff --check`, notebook JSON validation, docs-link
+    validation, strict MkDocs, and AI-transparency freshness checks passed.
+  - Fresh wheel build passed; the wheel passed the bounded offline installed-
+    artifact smoke for normal, drone, and non-materializing bulk execution.
+- Blockers: None.
+- Remaining scalability risks:
+  - Exact MAE and held-out diagnostics require a documented second sequential
+    read of source pixels; disabling those metrics is not yet exposed.
+  - Peak memory is bounded by selected-sensor arrays for one window per active
+    worker, so production worker count and chunk size must still be chosen for
+    the storage and memory system.
+  - The explicit harmonized builder currently wraps the retained compatibility
+    materialization path rather than writing a purpose-built partitioned or
+    chunked analytical dataset format.
+- Next recommended task: Validate the default streaming run on the real
+  read-only 122-flightline staging tree, record observed peak memory/disk/I/O,
+  and then decide whether the explicit harmonized builder should gain a
+  dedicated partitioned Parquet or Zarr implementation.
+
 ### P74. Restore Default Matched-MicaSense Bulk Eligibility
 
 - Priority: User-directed
-- Status: Implemented and committed; push blocked
+- Status: Completed
 - Owner: Codex
 - Started: 2026-09-06
 - Goal: Correct the built-in product schema so target-only canonical
@@ -60,12 +233,10 @@ left incomplete so the next agent can resume immediately.
     and AI-transparency freshness checks passed.
   - Fresh wheel and sdist build passed; the freshly built wheel passed the
     bounded offline installed-artifact smoke for normal, drone, and bulk.
-- Blockers: The local branch is committed and one commit ahead of `origin/main`,
-  but this host cannot authenticate to GitHub: HTTPS has no usable username/
-  credential, SSH has no accepted public key, and the GitHub CLI is unavailable.
-- Next recommended task: Authenticate this host, run `git push origin main`, then
-  rerun native preflight on the read-only 122-flightline staging tree and retain
-  its census/exclusion outputs as production-validation evidence.
+- Blockers: None. Commit `4f99bec` is present on `origin/main`.
+- Next recommended task: Rerun native preflight on the read-only 122-flightline
+  staging tree and retain its census/exclusion outputs as production-validation
+  evidence.
 
 ### P73. Generalize Bulk Profiles, Products, Pairing, and Exclusions
 

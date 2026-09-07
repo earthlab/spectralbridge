@@ -45,6 +45,7 @@ from spectralbridge import (
     go_forth_and_multiply,
     run_bulk_pipeline,
     run_drone_pipeline,
+    run_spectral_library_analysis,
 )
 from spectralbridge.paths import FlightlinePaths
 from spectralbridge.utils.paths import get_package_data_path
@@ -530,7 +531,6 @@ def _run_bulk(root: Path) -> dict[str, object]:
         row_group_size=PARQUET_CHUNK_SIZE,
         extraction_chunk_size=2,
         extraction_workers=1,
-        materialize_observations=True,
     )
     if bulk_result["input_mode"] != "flightline_outputs":
         raise RuntimeError(f"Bulk archive auto-detection smoke failed: {bulk_result}")
@@ -546,14 +546,18 @@ def _run_bulk(root: Path) -> dict[str, object]:
         "source_products",
         "coefficients_parquet",
         "coefficients_json",
-        "materialized_observations",
+        "sufficient_statistics",
     ):
         _assert_nonempty(Path(str(bulk_result[key])))
     _assert_parquet(Path(str(bulk_result["flightlines"])))
     _assert_parquet(Path(str(bulk_result["source_files"])))
     _assert_parquet(Path(str(bulk_result["source_products"])))
     _assert_parquet(Path(str(bulk_result["coefficients_parquet"])))
-    _assert_parquet(Path(str(bulk_result["materialized_observations"])), minimum_rows=12)
+    _assert_parquet(Path(str(bulk_result["sufficient_statistics"])))
+    if bulk_result["materialized_observations"] is not None:
+        raise RuntimeError("Normal bulk smoke unexpectedly materialized observations")
+    if list((root / "bulk_output" / "cache").rglob("*.parquet")):
+        raise RuntimeError("Normal bulk smoke unexpectedly created pixel caches")
     _assert_json(Path(str(bulk_result["manifest"])))
     census = root / "bulk_output" / "analyses" / "dataset_census" / "dataset_census.json"
     loso = root / "bulk_output" / "analyses" / "leave_one_site_out" / "leave_one_site_out.parquet"
@@ -568,16 +572,16 @@ def _run_bulk(root: Path) -> dict[str, object]:
         row_group_size=PARQUET_CHUNK_SIZE,
         extraction_chunk_size=2,
         extraction_workers=1,
-        materialize_observations=True,
     )
     if reused["status"] != "reused":
         raise RuntimeError(f"Bulk restart did not reuse valid outputs: {reused}")
 
     return {
-        "status": "flightline_archive_cache_database_translation_loso_materialization",
+        "status": "flightline_archive_streaming_statistics_translation_loso",
         "input_mode": "flightline_outputs",
         "fixture_flightlines": 3,
         "fixture_rows": 12,
+        "pixel_materialization": False,
         "restart_reused_outputs": True,
         "elapsed_seconds": round(time.monotonic() - started, 3),
     }
@@ -606,6 +610,7 @@ def _run_smoke(root: Path, *, expected_version: str | None) -> dict[str, object]
         go_forth_and_multiply,
         run_drone_pipeline,
         run_bulk_pipeline,
+        run_spectral_library_analysis,
     ):
         if not callable(entry_point):
             raise RuntimeError(f"Public entry point is not callable: {entry_point!r}")

@@ -8,7 +8,7 @@
 <section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">Cross-run analysis</p>
 <h2>Independent bulk-pipeline contract</h2>
-<p>The optional <code>spectralbridge-bulk</code> workflow consumes completed or minimally staged scientific flightline directories beneath arbitrary storage folders. Identity comes from a generic manifest or another configured parser, never the outer folder. It reads only target-sensor ENVI products required by the selected analysis relationship and writes derived products to a separate output; it does not modify normal or drone runs. Canonical NEON names and prebuilt merged Parquets remain compatible inputs.</p>
+<p>The optional <code>spectralbridge-bulk</code> workflow consumes completed or minimally staged scientific flightline directories beneath arbitrary storage folders. Identity comes from a generic manifest or another configured parser, never the outer folder. It streams required target-sensor ENVI products in place and writes only compact analytical products to a separate output; it does not modify normal or drone runs. Canonical NEON names and prebuilt merged Parquets remain compatible inputs.</p>
 
 | Output type | Canonical path | Description |
 | --- | --- | --- |
@@ -17,16 +17,19 @@
 | Source-product catalog | `catalog/source_products.parquet` | Read-only raw/corrected/target ENVI inventory; derived caches are excluded. |
 | Duplicate/rejection catalogs | `catalog/duplicates.parquet`, `catalog/rejected_sources.parquet` | Explicit exclusions; duplicate canonical IDs are never silently double-counted. |
 | Structured exclusions | `catalog/exclusions.(parquet|json|csv)` | Deterministic reason codes, affected scientific units/products, offending paths, details, and processing stage. |
-| Per-flightline analysis cache | `cache/<flight_id>/` | Narrow sensor Parquets, joined observations, extraction metadata, and restart/failure status. |
-| Bulk database | `database/spectralbridge_bulk.duckdb` | Catalogs, virtual union-by-name observations, and modular analysis tables. |
-| Bulk observations | `database/bulk_observations.parquet` | Optional portable materialization created only with `materialize_observations=True`. |
+| Per-flightline statistics | `statistics/flightlines/<flight_id>/` | Mergeable sufficient statistics, signatures, optional bounded sample, and restart/failure status. |
+| Collection statistics | `statistics/translation_sufficient_statistics.parquet` | Compact flightline/band moments used for hierarchical model fitting. |
+| Bulk database | `database/spectralbridge_bulk.duckdb` | Catalogs, compact statistics, exclusions, provenance, and modular analysis tables. |
+| Bulk observations | `database/bulk_observations.parquet` | Explicit legacy dataset-build output; absent from normal analysis. |
 | Dataset census | `analyses/dataset_census/` | Metadata-only preflight JSON, report, and Parquet breakdowns. |
 | Translation analyses | `analyses/sensor_translation/` | Pixel-pooled, per-flightline, per-site, flightline-balanced, and site-balanced regressions. |
 | Leave-one-site-out | `analyses/leave_one_site_out/` | Held-out-site generalization metrics. |
 | Candidate coefficients | `coefficients/candidate_translation_coefficients.(parquet|json)` | Pooled and balanced source-to-target summaries with selected-pair provenance. |
+| Spectral-library summaries | `analyses/spectral_library/` | Compact species/band summaries, approximate quantiles, medians, group counts, and provenance from an optional existing merged polygon Parquet. |
+| Spectral-library reports | `figures/spectral_library/` | Explicit summary or full multipage low-alpha variability PDFs; source observations are read in place and not copied. |
 | Bulk manifest | `catalog/bulk_manifest.json` | Restart signature, execution settings, counts, and artifact names. |
 
-<p class="sb-doc-note">The complete observation population remains virtual by default. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>
+<p class="sb-doc-note">Normal completed-flightline analysis has no observation population copy. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

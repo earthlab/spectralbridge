@@ -26,6 +26,15 @@ from spectralbridge.bulk.analyses import (
     run_leave_one_site_out,
     run_sensor_translation,
 )
+from spectralbridge.bulk.analyses.streaming_translation import (
+    run_streaming_translation_analyses,
+)
+from spectralbridge.bulk.analyses.spectral_library import (
+    SpectralLibraryPaths,
+    SpectralLibraryPlotConfig,
+    inspect_spectral_library,
+    run_spectral_library_analysis,
+)
 from spectralbridge.bulk.catalog import (
     build_bulk_catalog,
     catalog_signature_records,
@@ -48,6 +57,11 @@ from spectralbridge.bulk.models import (
     SourceFileRecord,
 )
 from spectralbridge.bulk.provenance import signature_sha256, write_json_atomic
+from spectralbridge.bulk.streaming import (
+    compute_flightline_statistics,
+    write_diagnostic_sample,
+    write_statistics,
+)
 from spectralbridge.bulk.identity import (
     DEFAULT_IDENTITY_PARSERS,
     FlightlineIdentityParser,
@@ -97,6 +111,12 @@ def _input_signature(
     require_translation_pairs: bool,
     extraction_chunk_size: int,
     extraction_workers: int,
+    diagnostic_sample_size: int,
+    diagnostic_seed: int,
+    spectral_library_schema: dict[str, Any] | None,
+    spectral_library_config: SpectralLibraryPlotConfig,
+    make_summary_plots: bool,
+    make_full_spectral_reports: bool,
     analysis_profile: AnalysisProfile,
     product_registry: ProductRegistry,
     identity_parsers: Sequence[FlightlineIdentityParser],
@@ -118,6 +138,14 @@ def _input_signature(
         "require_translation_pairs": require_translation_pairs,
         "extraction_chunk_size": extraction_chunk_size,
         "extraction_workers": extraction_workers,
+        "diagnostic_sample_size": diagnostic_sample_size,
+        "diagnostic_seed": diagnostic_seed,
+        "spectral_library_schema": spectral_library_schema,
+        "spectral_library_config": (
+            asdict(spectral_library_config) if spectral_library_schema else None
+        ),
+        "make_summary_plots": make_summary_plots,
+        "make_full_spectral_reports": make_full_spectral_reports,
         "analysis_profile": asdict(analysis_profile),
         "product_registry": [asdict(item) for item in product_registry.products],
         "identity_parsers": [parser.name for parser in identity_parsers],
@@ -136,6 +164,9 @@ def _outputs_are_valid(
     *,
     materialize_observations: bool,
     preflight_only: bool,
+    input_mode: str,
+    make_summary_plots: bool,
+    make_full_spectral_reports: bool,
 ) -> bool:
     required = [
         paths.flightlines,
@@ -171,9 +202,44 @@ def _outputs_are_valid(
                 / "leave_one_site_out.parquet",
             ]
         )
+        if input_mode == "flightline_outputs" and not materialize_observations:
+            required.append(paths.sufficient_statistics)
+        if make_summary_plots or make_full_spectral_reports:
+            spectral_paths = SpectralLibraryPaths.from_bulk_paths(paths)
+            required.extend(
+                [
+                    spectral_paths.species_summary,
+                    spectral_paths.species_band_summary,
+                    spectral_paths.species_quantiles,
+                    spectral_paths.species_medians,
+                    spectral_paths.group_counts,
+                    spectral_paths.metadata,
+                    spectral_paths.species_median_report,
+                    spectral_paths.observation_counts,
+                ]
+            )
+            if make_full_spectral_reports:
+                required.extend(
+                    [
+                        spectral_paths.species_variability,
+                        spectral_paths.species_quantile_report,
+                    ]
+                )
     if any(not path.is_file() or path.stat().st_size == 0 for path in required):
         return False
     try:
+        if not preflight_only and (make_summary_plots or make_full_spectral_reports):
+            spectral_metadata = json.loads(
+                SpectralLibraryPaths.from_bulk_paths(paths).metadata.read_text(
+                    encoding="utf-8"
+                )
+            )
+            if any(
+                not Path(report["path"]).is_file()
+                or Path(report["path"]).stat().st_size == 0
+                for report in spectral_metadata.get("reports", {}).values()
+            ):
+                return False
         for parquet in (
             paths.flightlines,
             paths.source_files,
@@ -188,6 +254,10 @@ def _outputs_are_valid(
             con.execute("SELECT * FROM bulk_sources LIMIT 0").fetchall()
             con.execute("SELECT * FROM bulk_observations LIMIT 0").fetchall()
             con.execute("SELECT * FROM dataset_census_summary LIMIT 0").fetchall()
+            if input_mode == "flightline_outputs" and not materialize_observations:
+                con.execute(
+                    "SELECT * FROM translation_sufficient_statistics LIMIT 0"
+                ).fetchall()
             if not preflight_only:
                 con.execute(
                     "SELECT * FROM candidate_translation_coefficients LIMIT 0"
@@ -195,6 +265,13 @@ def _outputs_are_valid(
                 con.execute(
                     "SELECT * FROM translation_leave_one_site_out LIMIT 0"
                 ).fetchall()
+                if make_summary_plots or make_full_spectral_reports:
+                    con.execute(
+                        "SELECT * FROM spectral_library_species_summary LIMIT 0"
+                    ).fetchall()
+                    con.execute(
+                        "SELECT * FROM spectral_library_species_quantiles LIMIT 0"
+                    ).fetchall()
     except Exception:
         return False
     return True
@@ -215,6 +292,9 @@ def _result(
     input_mode: str,
     analysis_profile: AnalysisProfile,
     translation_pairs: tuple[TranslationPair, ...],
+    diagnostic_sample_size: int,
+    spectral_library_schema: dict[str, Any] | None,
+    spectral_reports_requested: bool,
 ) -> dict[str, Any]:
     try:
         census = json.loads(
@@ -226,6 +306,15 @@ def _result(
         )
     except (OSError, json.JSONDecodeError):
         census = {}
+    spectral_paths = SpectralLibraryPaths.from_bulk_paths(paths)
+    spectral_library_result = None
+    if spectral_reports_requested:
+        try:
+            spectral_library_result = json.loads(
+                spectral_paths.metadata.read_text(encoding="utf-8")
+            )
+        except (OSError, json.JSONDecodeError):
+            pass
     return {
         "status": status,
         "accepted_flightline_count": accepted_flightline_count,
@@ -251,6 +340,16 @@ def _result(
         "exclusions_json": str(paths.exclusions_json),
         "exclusions_csv": str(paths.exclusions_csv),
         "cache": str(paths.cache_dir),
+        "sufficient_statistics": (
+            str(paths.sufficient_statistics)
+            if paths.sufficient_statistics.is_file()
+            else None
+        ),
+        "diagnostic_sample": (
+            str(paths.diagnostic_sample)
+            if diagnostic_sample_size and paths.diagnostic_sample.is_file()
+            else None
+        ),
         "source_catalog": str(paths.source_files),
         "duplicates": str(paths.duplicates),
         "rejected_sources": str(paths.rejected_sources),
@@ -260,6 +359,7 @@ def _result(
         "coefficients_json": None if preflight_only else str(paths.coefficients_json),
         "database": str(paths.database),
         "manifest": str(paths.manifest),
+        "spectral_library": spectral_library_result,
         "preflight": {
             "source_root": input_path.as_posix(),
             "output_root": paths.output_dir.as_posix(),
@@ -279,8 +379,20 @@ def _result(
             "excluded_flightlines": rejected_count + duplicate_count,
             "selected_observation_rows": row_count,
             "selected_source_bytes": int(census.get("selected_source_bytes", 0)),
-            "estimated_cache_bytes": int(
-                census.get("estimated_analysis_cache_bytes", 0)
+            "estimated_analysis_output_bytes": int(
+                census.get("estimated_analysis_output_bytes", 0)
+            ),
+            "estimated_diagnostic_sample_bytes": diagnostic_sample_size * 64,
+            "estimated_temporary_disk_bytes": (
+                int(census.get("estimated_materialized_pixel_bytes", 0))
+                if materialize_observations
+                else 0
+            ),
+            "materialized_pixel_dataset": bool(materialize_observations),
+            "estimated_materialized_pixel_bytes": (
+                int(census.get("estimated_materialized_pixel_bytes", 0))
+                if materialize_observations
+                else 0
             ),
             "available_sensors": census.get("sensors", []),
             "available_translation_pairs": census.get(
@@ -294,6 +406,7 @@ def _result(
             "exclusions": str(paths.exclusions),
             "database": str(paths.database),
             "census": census,
+            "spectral_library_schema": spectral_library_schema,
         },
     }
 
@@ -320,6 +433,12 @@ def run_bulk_pipeline(
     preflight_only: bool = False,
     extraction_chunk_size: int = 2048,
     extraction_workers: int = 1,
+    diagnostic_sample_size: int = 0,
+    diagnostic_seed: int = 0,
+    spectral_library: str | Path | None = None,
+    make_summary_plots: bool = False,
+    make_full_spectral_reports: bool = False,
+    spectral_library_config: SpectralLibraryPlotConfig | None = None,
     force: bool = False,
 ) -> dict[str, Any]:
     """Catalog completed flightlines and run population analyses.
@@ -332,8 +451,9 @@ def run_bulk_pipeline(
     ``input_mode='auto'`` prefers canonical completed-flightline directories
     and falls back to prebuilt merged Parquets. Completed-flightline mode needs
     only the target products required by the selected profile and relationship;
-    it reads them in bounded chunks and writes compact, restart-safe observation
-    caches only beneath ``output_dir``.
+    it reads them in bounded chunks and writes only compact, restart-safe
+    sufficient statistics beneath ``output_dir``. Pixel observations are
+    materialized only when ``materialize_observations=True`` is explicitly set.
     """
 
     root = Path(input_path).expanduser().resolve()
@@ -398,9 +518,31 @@ def run_bulk_pipeline(
         raise ValueError("extraction_chunk_size must be at least 1")
     if extraction_workers < 1:
         raise ValueError("extraction_workers must be at least 1")
+    if diagnostic_sample_size < 0:
+        raise ValueError("diagnostic_sample_size must be at least 0")
+    plot_config = spectral_library_config or SpectralLibraryPlotConfig()
+    plot_config.validate()
+    if (make_summary_plots or make_full_spectral_reports) and spectral_library is None:
+        raise ValueError(
+            "spectral_library is required when spectral-library plots are requested"
+        )
 
     paths = BulkAnalysisPaths(resolved_output)
     _prepare_output_directory(paths)
+    spectral_schema = (
+        inspect_spectral_library(
+            spectral_library,
+            species_field=plot_config.species_field,
+            spectral_stage=plot_config.spectral_stage,
+        )
+        if spectral_library is not None
+        else None
+    )
+    if spectral_schema is not None and _path_is_within(
+        spectral_schema.source, resolved_output
+    ):
+        raise ValueError("spectral_library must be outside the bulk output directory")
+    spectral_schema_payload = spectral_schema.to_dict() if spectral_schema else None
     resolved_input_mode: BulkInputMode
     if input_mode == "auto":
         resolved_input_mode = (
@@ -451,6 +593,12 @@ def run_bulk_pipeline(
         require_translation_pairs=require_translation_pairs,
         extraction_chunk_size=extraction_chunk_size,
         extraction_workers=extraction_workers,
+        diagnostic_sample_size=diagnostic_sample_size,
+        diagnostic_seed=diagnostic_seed,
+        spectral_library_schema=spectral_schema_payload,
+        spectral_library_config=plot_config,
+        make_summary_plots=make_summary_plots,
+        make_full_spectral_reports=make_full_spectral_reports,
         analysis_profile=analysis_profile,
         product_registry=product_registry,
         identity_parsers=identity_parsers,
@@ -472,6 +620,9 @@ def run_bulk_pipeline(
                 paths,
                 materialize_observations=materialize_observations,
                 preflight_only=preflight_only,
+                input_mode=resolved_input_mode,
+                make_summary_plots=make_summary_plots,
+                make_full_spectral_reports=make_full_spectral_reports,
             )
         ):
             counts = previous["counts"]
@@ -489,9 +640,20 @@ def run_bulk_pipeline(
                 input_mode=resolved_input_mode,
                 analysis_profile=analysis_profile,
                 translation_pairs=selected_pairs,
+                diagnostic_sample_size=diagnostic_sample_size,
+                spectral_library_schema=spectral_schema_payload,
+                spectral_reports_requested=(
+                    make_summary_plots or make_full_spectral_reports
+                ),
             )
 
-    if resolved_input_mode == "flightline_outputs" and not preflight_only:
+    statistics_rows: list[dict[str, Any]] = []
+    diagnostic_rows: list[dict[str, Any]] = []
+    if (
+        resolved_input_mode == "flightline_outputs"
+        and not preflight_only
+        and materialize_observations
+    ):
         extracted_sources: list[SourceFileRecord] = []
         updated: dict[str, FlightlineRecord] = {}
 
@@ -582,6 +744,122 @@ def run_bulk_pipeline(
         flightlines = [updated.get(item.candidate_id, item) for item in flightlines]
         source_files = [*source_files, *extracted_sources]
 
+    elif resolved_input_mode == "flightline_outputs" and not preflight_only:
+        updated = {}
+        eligible = sorted(
+            (item for item in flightlines if item.status == "accepted"),
+            key=lambda item: item.canonical_flightline_id or "",
+        )
+        quota_by_candidate = {
+            item.candidate_id: diagnostic_sample_size // max(1, len(eligible))
+            + (index < diagnostic_sample_size % max(1, len(eligible)))
+            for index, item in enumerate(eligible)
+        }
+
+        def analyze_one(
+            item: FlightlineRecord,
+        ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], FlightlineRecord]:
+            return compute_flightline_statistics(
+                item,
+                paths,
+                chunk_size=extraction_chunk_size,
+                minimum_reflectance=minimum_reflectance,
+                translation_pairs=selected_pairs,
+                diagnostic_sample_size=quota_by_candidate[item.candidate_id],
+                diagnostic_seed=diagnostic_seed,
+                force=force,
+            )
+
+        def record_failure(item: FlightlineRecord, exc: Exception) -> None:
+            updated[item.candidate_id] = replace(
+                item,
+                status="rejected",
+                rejection_reason=(
+                    f"streaming statistics failed: {type(exc).__name__}: {exc}"
+                ),
+                extraction_status="statistics_failure",
+                exclusion_reason_codes_json=json.dumps(["analysis_failure"]),
+                exclusion_context_json=json.dumps(
+                    [
+                        {
+                            "reason_code": "analysis_failure",
+                            "detail": str(exc),
+                            "processing_stage": "bulk_streaming_statistics",
+                        }
+                    ]
+                ),
+            )
+
+        if extraction_workers == 1:
+            for index, item in enumerate(eligible, start=1):
+                LOGGER.info(
+                    "Bulk streaming statistics flightline %d/%d: %s",
+                    index,
+                    len(eligible),
+                    item.canonical_flightline_id,
+                )
+                try:
+                    rows, samples, refreshed = analyze_one(item)
+                except Exception as exc:
+                    LOGGER.exception(
+                        "Bulk streaming statistics failed for %s; continuing",
+                        item.canonical_flightline_id,
+                    )
+                    record_failure(item, exc)
+                else:
+                    statistics_rows.extend(rows)
+                    diagnostic_rows.extend(samples)
+                    updated[item.candidate_id] = refreshed
+        else:
+            with ThreadPoolExecutor(max_workers=extraction_workers) as pool:
+                futures = {pool.submit(analyze_one, item): item for item in eligible}
+                for future in as_completed(futures):
+                    item = futures[future]
+                    try:
+                        rows, samples, refreshed = future.result()
+                    except Exception as exc:
+                        LOGGER.exception(
+                            "Bulk streaming statistics failed for %s; continuing",
+                            item.canonical_flightline_id,
+                        )
+                        record_failure(item, exc)
+                    else:
+                        statistics_rows.extend(rows)
+                        diagnostic_rows.extend(samples)
+                        updated[item.candidate_id] = refreshed
+        flightlines = [updated.get(item.candidate_id, item) for item in flightlines]
+        accepted_ids = {
+            item.canonical_flightline_id
+            for item in flightlines
+            if item.status == "accepted"
+        }
+        statistics_rows = [
+            row for row in statistics_rows if row["flightline_id"] in accepted_ids
+        ]
+        diagnostic_rows = [
+            row for row in diagnostic_rows if row["flightline_id"] in accepted_ids
+        ]
+        statistics_rows.sort(
+            key=lambda row: (
+                row["flightline_id"],
+                row["translation_pair"],
+                row["band_index"],
+            )
+        )
+        diagnostic_rows.sort(
+            key=lambda row: (
+                row["flightline_id"],
+                row["translation_pair"],
+                row["band_index"],
+                row["pixel_id"],
+            )
+        )
+        write_statistics(paths.sufficient_statistics, statistics_rows)
+        if diagnostic_sample_size:
+            write_diagnostic_sample(paths.diagnostic_sample, diagnostic_rows)
+        elif paths.diagnostic_sample.exists():
+            paths.diagnostic_sample.unlink()
+
     accepted_flightlines = [
         item for item in flightlines if item.status == "accepted"
     ]
@@ -593,7 +871,11 @@ def run_bulk_pipeline(
     ]
     accepted_sources = [item for item in source_files if item.status == "accepted"]
     exclusions = build_exclusion_records(source_files, flightlines)
-    accepted_rows = sum(int(item.row_count or 0) for item in accepted_sources)
+    accepted_rows = (
+        sum(int(item.row_count or 0) for item in accepted_flightlines)
+        if resolved_input_mode == "flightline_outputs" and not materialize_observations
+        else sum(int(item.row_count or 0) for item in accepted_sources)
+    )
     execution = {
         "threads": threads,
         "memory_limit": memory_limit,
@@ -630,6 +912,18 @@ def run_bulk_pipeline(
         "minimum_reflectance": minimum_reflectance,
         "extraction_chunk_size": extraction_chunk_size,
         "extraction_workers": extraction_workers,
+        "diagnostic_sample_size": diagnostic_sample_size,
+        "diagnostic_seed": diagnostic_seed,
+        "spectral_library_schema": spectral_schema_payload,
+        "spectral_library_config": asdict(plot_config) if spectral_schema else None,
+        "make_summary_plots": make_summary_plots,
+        "make_full_spectral_reports": make_full_spectral_reports,
+        "analysis_engine": (
+            "streaming_mergeable_sufficient_statistics"
+            if resolved_input_mode == "flightline_outputs"
+            and not materialize_observations
+            else "virtual_or_explicit_observations"
+        ),
         "analysis_profile": asdict(analysis_profile),
         "selected_translation_pairs": [asdict(item) for item in selected_pairs],
         "on_invalid": on_invalid,
@@ -639,6 +933,13 @@ def run_bulk_pipeline(
         source_files,
         flightlines,
         exclusions,
+        sufficient_statistics=(
+            paths.sufficient_statistics
+            if resolved_input_mode == "flightline_outputs"
+            and not preflight_only
+            and not materialize_observations
+            else None
+        ),
         metadata=metadata,
         materialize_observations=materialize_observations,
         row_group_size=row_group_size,
@@ -648,6 +949,7 @@ def run_bulk_pipeline(
     )
     translation: dict[str, Any] = {"pair_count": 0, "candidate_count": 0}
     loso: dict[str, Any] = {"result_count": 0}
+    spectral_library_result: dict[str, Any] | None = None
     try:
         census = run_dataset_census(
             con,
@@ -665,7 +967,22 @@ def run_bulk_pipeline(
                 "requested sensor translation pair. The catalog and census "
                 f"were written to {paths.output_dir}."
             )
-        if not preflight_only:
+        if (
+            not preflight_only
+            and resolved_input_mode == "flightline_outputs"
+            and not materialize_observations
+        ):
+            translation, loso = run_streaming_translation_analyses(
+                con,
+                paths,
+                analysis_run_id=analysis_run_id,
+                statistics_rows=statistics_rows,
+                flightlines=flightlines,
+                minimum_reflectance=minimum_reflectance,
+                chunk_size=extraction_chunk_size,
+                translation_pairs=selected_pairs,
+            )
+        elif not preflight_only:
             translation = run_sensor_translation(
                 con,
                 paths,
@@ -681,6 +998,21 @@ def run_bulk_pipeline(
                 minimum_reflectance=minimum_reflectance,
                 translation_pairs=selected_pairs,
                 reuse_existing=not force,
+            )
+        if (
+            not preflight_only
+            and spectral_schema is not None
+            and (make_summary_plots or make_full_spectral_reports)
+        ):
+            spectral_library_result = run_spectral_library_analysis(
+                con,
+                paths,
+                spectral_library=spectral_schema.source,
+                analysis_run_id=analysis_run_id,
+                config=plot_config,
+                make_summary_plots=make_summary_plots,
+                make_full_spectral_reports=make_full_spectral_reports,
+                minimum_reflectance=minimum_reflectance,
             )
         finalize_bulk_database(con, temporary_database, paths.database)
     except Exception:
@@ -701,6 +1033,9 @@ def run_bulk_pipeline(
         "translation_pairs": int(translation["pair_count"]),
         "candidate_coefficients": int(translation["candidate_count"]),
         "leave_one_site_out_results": int(loso["result_count"]),
+        "spectral_library_species": int(
+            (spectral_library_result or {}).get("species_count", 0)
+        ),
     }
     complete_manifest = {
         **building_manifest,
@@ -715,6 +1050,16 @@ def run_bulk_pipeline(
             "exclusions_json": _relative_output(paths, paths.exclusions_json),
             "exclusions_csv": _relative_output(paths, paths.exclusions_csv),
             "cache": _relative_output(paths, paths.cache_dir),
+            "sufficient_statistics": (
+                _relative_output(paths, paths.sufficient_statistics)
+                if paths.sufficient_statistics.is_file()
+                else None
+            ),
+            "diagnostic_sample": (
+                _relative_output(paths, paths.diagnostic_sample)
+                if diagnostic_sample_size and paths.diagnostic_sample.is_file()
+                else None
+            ),
             "duplicates": _relative_output(paths, paths.duplicates),
             "rejected_sources": _relative_output(paths, paths.rejected_sources),
             "database": _relative_output(paths, paths.database),
@@ -741,6 +1086,14 @@ def run_bulk_pipeline(
                     / "leave_one_site_out"
                     / "leave_one_site_out.parquet",
                 )
+            ),
+            "spectral_library": (
+                _relative_output(
+                    paths,
+                    SpectralLibraryPaths.from_bulk_paths(paths).metadata,
+                )
+                if spectral_library_result is not None
+                else None
             ),
         },
     }
@@ -776,6 +1129,9 @@ def run_bulk_pipeline(
         input_mode=resolved_input_mode,
         analysis_profile=analysis_profile,
         translation_pairs=selected_pairs,
+        diagnostic_sample_size=diagnostic_sample_size,
+        spectral_library_schema=spectral_schema_payload,
+        spectral_reports_requested=(make_summary_plots or make_full_spectral_reports),
     )
 
 
