@@ -38,6 +38,7 @@ __all__ = sorted(
                 "run_bulk_pipeline",
                 "run_drone_pipeline",
                 "run_spectral_library_analysis",
+                "inspect_spectral_library_preflight",
                 load_brightness_coefficients.__name__,
             ]
             + list(_PLOT_EXPORTS)
@@ -64,6 +65,13 @@ def __getattr__(name: str):  # pragma: no cover - thin lazy import helper
 
         globals()[name] = _run_spectral_library_analysis
         return _run_spectral_library_analysis
+    if name == "inspect_spectral_library_preflight":
+        from .bulk.analyses.spectral_library import (
+            inspect_spectral_library_preflight as _inspect_spectral_library_preflight,
+        )
+
+        globals()[name] = _inspect_spectral_library_preflight
+        return _inspect_spectral_library_preflight
     if name == "apply_brightness_correction":
         from .brightness import (
             apply_brightness_correction as _apply_brightness_correction,

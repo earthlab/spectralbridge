@@ -98,8 +98,12 @@ fixed collection-level names rather than NEON or drone flight stems:
 | `analyses/spectral_library/species_quantiles.parquet` | Approximate spectral quantiles at configured probabilities |
 | `analyses/spectral_library/species_median_spectra.parquet` | One compact median spectrum per species |
 | `analyses/spectral_library/group_counts.parquet` | Species, site, flightline, and polygon contribution counts when available |
+| `analyses/spectral_library/species_plot_ranges.parquet` | Full and robust display bounds plus per-species out-of-range counts |
+| `analyses/spectral_library/extreme_spectra.parquet` | Bounded ranked traceability records for spectra outside the robust display range |
 | `analyses/spectral_library/spectral_library_summary.json` | Source signature, detected schema, plot configuration, reports, and interpretation |
-| `figures/spectral_library/spectral_library_*.pdf` | Opt-in summary and full spectral variability reports |
+| `figures/spectral_library/spectral_library_species_variability.pdf` | Primary low-alpha report using the configured global or per-group scale |
+| `figures/spectral_library/spectral_library_species_variability_full_range.pdf` | Full observed-range audit view from the full report suite |
+| `figures/spectral_library/spectral_library_*.pdf` | Other opt-in summary and full spectral variability reports |
 
 Analysis-specific tables live below `analyses/`. These names must not be used
 inside individual flightline or drone product contracts.

@@ -60,7 +60,7 @@ spectralbridge-bulk /data/spectralbridge_completed_runs \
 
 <h3>Existing polygon spectral library</h3>
 
-<p>Pass an existing merged polygon Parquet separately when spectral-library figures are required. Summary plots are inexpensive and explicit; the complete multipage suite requires a second flag. The default renders every valid trace into bounded raster layers. <code>--spectral-max-traces-per-group</code> is the only sampling control and is never enabled implicitly.</p>
+<p>Pass an existing merged polygon Parquet separately when spectral-library products are required. Start with <code>--preflight-only</code> to inspect its schema, counts, source size, largest groups, expected pages, and estimated scans without writing PDFs. A non-preflight run with both plotting flags omitted creates only compact summaries and outlier diagnostics. Summary plots are explicit; the complete multipage suite requires a second flag. The default renders every visualization-valid trace into bounded raster layers. <code>--spectral-max-traces-per-group</code> is the only sampling control and is never enabled implicitly.</p>
 
 ```bash
 spectralbridge-bulk /data/completed_products \
@@ -70,10 +70,12 @@ spectralbridge-bulk /data/completed_products \
   --make-summary-plots \
   --make-full-spectral-reports \
   --spectral-panels-per-page 4 \
-  --spectral-trace-batch-size 2000
+  --spectral-trace-batch-size 2000 \
+  --spectral-y-scale global_robust \
+  --spectral-plot-y-quantiles 0.005 0.995
 ```
 
-<p>The schema adapter recognizes physical-wavelength columns such as <code>corr_b001_wl0450nm</code>, sorts them numerically, and rejects ambiguous stages or duplicate wavelengths. Use <code>--species-field</code> and <code>--spectral-stage</code> only when automatic selection cannot be unambiguous. Species can be ordered with <code>--species-sort count_desc</code> or <code>alphabetical</code>.</p>
+<p>The schema adapter recognizes physical-wavelength columns such as <code>corr_b001_wl0450nm</code>, sorts them numerically, and rejects ambiguous stages or duplicate wavelengths. Use <code>--species-field</code> and <code>--spectral-stage</code> only when automatic selection cannot be unambiguous. Species can be ordered with <code>--species-sort count_desc</code> or <code>alphabetical</code>. The default <code>global_robust</code> y-scale preserves comparison between panels while clipping only the display at the configured quantiles; the full suite also writes a separate full-range audit PDF. <code>global_full</code> uses the actual common range, and <code>per_group_robust</code> exposes more within-species structure. Finite negative values remain plot-valid by default. Use repeatable <code>--spectral-nodata-value</code> for known sentinels and <code>--spectral-plot-minimum-reflectance</code> only for an explicit visualization threshold; neither changes regression validity.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

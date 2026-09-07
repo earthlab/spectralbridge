@@ -10739,3 +10739,18 @@ Model: GPT-5
 ```text
 continue
 ```
+
+## 2026-09-07 - production-harden spectral-library reports
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+# Files pasted by the user:
+
+## "Continue from the current earthlab/spectralbridge main branch after commit 4e02…": /Users/tuff/.codex/attachments/9fa3e943-4022-4a99-b575-a7be038a66b1/pasted-text.txt
+
+Pasted text contains the user's request.
+
+## My request:
+```

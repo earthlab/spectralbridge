@@ -6,6 +6,7 @@ from .sensor_translation import run_sensor_translation
 from .spectral_library import (
     SpectralLibraryPlotConfig,
     inspect_spectral_library,
+    inspect_spectral_library_preflight,
     run_spectral_library_analysis,
 )
 
@@ -15,5 +16,6 @@ __all__ = [
     "run_sensor_translation",
     "SpectralLibraryPlotConfig",
     "inspect_spectral_library",
+    "inspect_spectral_library_preflight",
     "run_spectral_library_analysis",
 ]

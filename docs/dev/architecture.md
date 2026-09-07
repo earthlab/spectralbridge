@@ -61,6 +61,14 @@ Catalog/preflight, dataset census, statistics, translation, and validation are
 independent layers. The workflow never calls or mutates the NEON and drone
 orchestrators.
 
+Optional spectral-library reporting also reads its merged polygon Parquet in
+place. Its visualization-validity policy is distinct from regression validity:
+selected bands must be present, finite, and not equal to known nodata sentinels,
+while finite negative corrected reflectance remains visible by default. Compact
+analytical summaries preserve actual valid extrema. Robust and full plot ranges
+are separate rendering metadata, and bounded extreme-spectrum records provide
+traceability without introducing an observation cache.
+
 An optional visualization branch accepts an already merged polygon spectral
 library as a second read-only input. A schema adapter selects one coherent set
 of wavelength-bearing columns, then DuckDB scans only the species, hierarchy,

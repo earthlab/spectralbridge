@@ -301,7 +301,7 @@ non-numeric spectral columns, and schemas without physical wavelengths fail
 explicitly.
 
 ~~~python
-from spectralbridge import run_bulk_pipeline
+from spectralbridge import inspect_spectral_library_preflight, run_bulk_pipeline
 from spectralbridge.bulk import SpectralLibraryPlotConfig
 
 plots = SpectralLibraryPlotConfig(
@@ -312,12 +312,22 @@ plots = SpectralLibraryPlotConfig(
     summary_band_batch_size=32,
     max_traces_per_group=None,        # default: show every valid trace
     raster_dpi=150,
+    plot_y_quantiles=(0.005, 0.995),
+    species_y_scale="global_robust",
+    spectral_plot_minimum_reflectance=None,
 )
+
+library = "/data/library/polygons_merged_pixel_extraction.parquet"
+preflight = inspect_spectral_library_preflight(library, config=plots)
+print(preflight["schema"])
+print(preflight["counts"])
+print(preflight["largest_species"])
+print(preflight["expected_pages"])
 
 result = run_bulk_pipeline(
     "/data/completed_products",
     "/data/bulk_analysis",
-    spectral_library="/data/library/polygons_merged_pixel_extraction.parquet",
+    spectral_library=library,
     make_summary_plots=True,
     make_full_spectral_reports=True,
     spectral_library_config=plots,
@@ -325,6 +335,15 @@ result = run_bulk_pipeline(
 print(result["preflight"]["spectral_library_schema"])
 print(result["spectral_library"]["reports"])
 ~~~
+
+Use the public preflight call before launching a bulk run. It reads the Parquet
+in place and returns the source size and signature, detected fields and spectral
+stage, row and hierarchy counts, largest and median species sizes, groups over
+10,000 and 100,000 valid spectra, trace-cap state, expected pages, and estimated
+logical scans. It writes no summaries or PDFs. The recommended production
+sequence is: (1) preflight, (2) run with both plot flags false to create compact
+summaries and inspect robust bounds/extremes, (3) enable summary plots, then (4)
+enable the full suite.
 
 `make_summary_plots=True` writes the between-species median overview and species
 observation-count report. `make_full_spectral_reports=True` also writes the
@@ -350,24 +369,45 @@ DuckDB hash order makes the cap reproducible.
 
 The compact products are `species_summary.parquet`,
 `species_band_summary.parquet`, `species_quantiles.parquet`,
-`species_median_spectra.parquet`, and `group_counts.parquet`. Quantiles default
+`species_median_spectra.parquet`, `group_counts.parquet`,
+`species_plot_ranges.parquet`, and `extreme_spectra.parquet`. Quantiles default
 to 2.5, 10, 25, 50, 75, 90, and 97.5 percent and use DuckDB
-`approx_quantile` in bounded band batches. Complete-spectrum validity requires
-every selected-stage value to be finite and at least the run's explicit
-`minimum_reflectance` (0.0 by default), matching bulk translation validity.
-Valid extreme values above that threshold are retained and determine the shared
-report range; there is no undocumented clipping. Memory is bounded by one Arrow
-trace batch plus at most the configured page's fixed-size panel rasters during
-plotting, and by one configured band batch during summary calculation. The
-companion JSON
+`approx_quantile` in bounded band batches.
+
+Visualization validity is intentionally separate from regression validity.
+Every selected-stage value must be present and finite; explicit nodata sentinels
+from recognized Parquet metadata and `nodata_values` (default `-9999`) are
+excluded within `nodata_tolerance`. Finite negative corrected reflectance
+remains visible by default. Set `spectral_plot_minimum_reflectance` only when a
+visualization-specific lower threshold is scientifically warranted. This does
+not change translation/regression validity.
+
+The primary species report defaults to one common robust range, estimated from
+the 0.5th and 99.5th percentiles without loading the library into memory. Values
+outside it are clipped graphically only: they remain in analytical medians,
+quantiles, min/max, and counts. Plot-range provenance records the bounds,
+method, value and spectrum exceedance counts, and per-species indicators. The
+bounded `extreme_spectra.parquet` ranks up to
+`max_extreme_spectra_per_species` observations per species with source context.
+`species_y_scale="global_full"` uses one observed full range, while
+`"per_group_robust"` maximizes within-species detail at the cost of direct
+cross-species scale comparison. The separate full-range audit PDF is always
+part of the full suite; other scale combinations are not generated
+automatically.
+
+Memory is bounded by one Arrow trace batch plus at most the configured page's
+fixed-size panel rasters during plotting, and by one configured band batch
+during summary calculation. The companion JSON
 records source signature, package version, run ID, detected schema, counts,
 wavelength range, exact plot configuration, alpha rule, rasterization, sampling,
+visualization validity, plot ranges, extreme diagnostics, report-cost estimates,
 report paths, page counts, and sizes.
 
 The full suite uses these canonical names when the corresponding grouping field
 exists:
 
 - `spectral_library_species_variability.pdf`
+- `spectral_library_species_variability_full_range.pdf`
 - `spectral_library_species_quantiles.pdf`
 - `spectral_library_species_medians.pdf`
 - `spectral_library_observation_counts.pdf`

@@ -211,6 +211,45 @@ def _build_parser() -> argparse.ArgumentParser:
         help="DPI for the rasterized low-alpha trace layer (default: 150).",
     )
     parser.add_argument(
+        "--spectral-y-scale",
+        choices=("global_robust", "global_full", "per_group_robust"),
+        default="global_robust",
+        help="Species report y-axis strategy (default: global_robust).",
+    )
+    parser.add_argument(
+        "--spectral-plot-y-quantiles",
+        type=float,
+        nargs=2,
+        metavar=("LOW", "HIGH"),
+        default=(0.005, 0.995),
+        help="Robust graphical bounds as probabilities (default: 0.005 0.995).",
+    )
+    parser.add_argument(
+        "--spectral-plot-minimum-reflectance",
+        type=float,
+        default=None,
+        help="Optional visualization-only lower threshold; default keeps finite negatives.",
+    )
+    parser.add_argument(
+        "--spectral-nodata-value",
+        type=float,
+        action="append",
+        default=None,
+        help="Explicit nodata sentinel; repeat to replace the default -9999 sentinel set.",
+    )
+    parser.add_argument(
+        "--spectral-nodata-tolerance",
+        type=float,
+        default=0.01,
+        help="Absolute tolerance for matching explicit nodata values (default: 0.01).",
+    )
+    parser.add_argument(
+        "--spectral-max-extreme-spectra-per-species",
+        type=int,
+        default=100,
+        help="Bounded ranked extreme-spectrum rows retained per species (default: 100).",
+    )
+    parser.add_argument(
         "--temp-directory",
         type=Path,
         default=None,
@@ -241,6 +280,16 @@ def main(argv: Sequence[str] | None = None) -> None:
         max_traces_per_group=args.spectral_max_traces_per_group,
         sampling_seed=args.spectral_sampling_seed,
         raster_dpi=args.spectral_raster_dpi,
+        plot_y_quantiles=tuple(args.spectral_plot_y_quantiles),
+        species_y_scale=args.spectral_y_scale,
+        spectral_plot_minimum_reflectance=(
+            args.spectral_plot_minimum_reflectance
+        ),
+        nodata_values=tuple(args.spectral_nodata_value or (-9999.0,)),
+        nodata_tolerance=args.spectral_nodata_tolerance,
+        max_extreme_spectra_per_species=(
+            args.spectral_max_extreme_spectra_per_species
+        ),
     )
     result = run_bulk_pipeline(
         args.input_path,

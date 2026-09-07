@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Literal
 
 
-BULK_SCHEMA_VERSION = 6
+BULK_SCHEMA_VERSION = 7
 BulkInputKind = Literal["full", "polygon", "both"]
 BulkInputMode = Literal["auto", "flightline_outputs", "merged_parquet"]
 

@@ -25,8 +25,8 @@
 | Translation analyses | `analyses/sensor_translation/` | Pixel-pooled, per-flightline, per-site, flightline-balanced, and site-balanced regressions. |
 | Leave-one-site-out | `analyses/leave_one_site_out/` | Held-out-site generalization metrics. |
 | Candidate coefficients | `coefficients/candidate_translation_coefficients.(parquet|json)` | Pooled and balanced source-to-target summaries with selected-pair provenance. |
-| Spectral-library summaries | `analyses/spectral_library/` | Compact species/band summaries, approximate quantiles, medians, group counts, and provenance from an optional existing merged polygon Parquet. |
-| Spectral-library reports | `figures/spectral_library/` | Explicit summary or full multipage low-alpha variability PDFs; source observations are read in place and not copied. |
+| Spectral-library summaries | `analyses/spectral_library/` | Compact species/band summaries, approximate quantiles, medians, group counts, robust/full plot ranges, bounded extreme-spectrum diagnostics, and provenance from an optional existing merged polygon Parquet. |
+| Spectral-library reports | `figures/spectral_library/` | Explicit summary or full multipage low-alpha variability PDFs, including primary robust and separate full-range audit views; source observations are read in place and not copied. |
 | Bulk manifest | `catalog/bulk_manifest.json` | Restart signature, execution settings, counts, and artifact names. |
 
 <p class="sb-doc-note">Normal completed-flightline analysis has no observation population copy. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>

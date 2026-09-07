@@ -33,6 +33,7 @@ from spectralbridge.bulk.analyses.spectral_library import (
     SpectralLibraryPaths,
     SpectralLibraryPlotConfig,
     inspect_spectral_library,
+    inspect_spectral_library_preflight,
     run_spectral_library_analysis,
 )
 from spectralbridge.bulk.catalog import (
@@ -165,6 +166,7 @@ def _outputs_are_valid(
     materialize_observations: bool,
     preflight_only: bool,
     input_mode: str,
+    spectral_library_requested: bool,
     make_summary_plots: bool,
     make_full_spectral_reports: bool,
 ) -> bool:
@@ -204,7 +206,7 @@ def _outputs_are_valid(
         )
         if input_mode == "flightline_outputs" and not materialize_observations:
             required.append(paths.sufficient_statistics)
-        if make_summary_plots or make_full_spectral_reports:
+        if spectral_library_requested:
             spectral_paths = SpectralLibraryPaths.from_bulk_paths(paths)
             required.extend(
                 [
@@ -213,22 +215,30 @@ def _outputs_are_valid(
                     spectral_paths.species_quantiles,
                     spectral_paths.species_medians,
                     spectral_paths.group_counts,
+                    spectral_paths.species_plot_ranges,
+                    spectral_paths.extreme_spectra,
                     spectral_paths.metadata,
-                    spectral_paths.species_median_report,
-                    spectral_paths.observation_counts,
                 ]
             )
+            if make_summary_plots or make_full_spectral_reports:
+                required.extend(
+                    [
+                        spectral_paths.species_median_report,
+                        spectral_paths.observation_counts,
+                    ]
+                )
             if make_full_spectral_reports:
                 required.extend(
                     [
                         spectral_paths.species_variability,
+                        spectral_paths.species_variability_full_range,
                         spectral_paths.species_quantile_report,
                     ]
                 )
     if any(not path.is_file() or path.stat().st_size == 0 for path in required):
         return False
     try:
-        if not preflight_only and (make_summary_plots or make_full_spectral_reports):
+        if not preflight_only and spectral_library_requested:
             spectral_metadata = json.loads(
                 SpectralLibraryPaths.from_bulk_paths(paths).metadata.read_text(
                     encoding="utf-8"
@@ -265,12 +275,18 @@ def _outputs_are_valid(
                 con.execute(
                     "SELECT * FROM translation_leave_one_site_out LIMIT 0"
                 ).fetchall()
-                if make_summary_plots or make_full_spectral_reports:
+                if spectral_library_requested:
                     con.execute(
                         "SELECT * FROM spectral_library_species_summary LIMIT 0"
                     ).fetchall()
                     con.execute(
                         "SELECT * FROM spectral_library_species_quantiles LIMIT 0"
+                    ).fetchall()
+                    con.execute(
+                        "SELECT * FROM spectral_library_species_plot_ranges LIMIT 0"
+                    ).fetchall()
+                    con.execute(
+                        "SELECT * FROM spectral_library_extreme_spectra LIMIT 0"
                     ).fetchall()
     except Exception:
         return False
@@ -294,7 +310,8 @@ def _result(
     translation_pairs: tuple[TranslationPair, ...],
     diagnostic_sample_size: int,
     spectral_library_schema: dict[str, Any] | None,
-    spectral_reports_requested: bool,
+    spectral_library_preflight: dict[str, Any] | None,
+    spectral_library_requested: bool,
 ) -> dict[str, Any]:
     try:
         census = json.loads(
@@ -308,7 +325,7 @@ def _result(
         census = {}
     spectral_paths = SpectralLibraryPaths.from_bulk_paths(paths)
     spectral_library_result = None
-    if spectral_reports_requested:
+    if spectral_library_requested:
         try:
             spectral_library_result = json.loads(
                 spectral_paths.metadata.read_text(encoding="utf-8")
@@ -407,6 +424,7 @@ def _result(
             "database": str(paths.database),
             "census": census,
             "spectral_library_schema": spectral_library_schema,
+            "spectral_library": spectral_library_preflight,
         },
     }
 
@@ -543,6 +561,14 @@ def run_bulk_pipeline(
     ):
         raise ValueError("spectral_library must be outside the bulk output directory")
     spectral_schema_payload = spectral_schema.to_dict() if spectral_schema else None
+    spectral_preflight_payload = (
+        inspect_spectral_library_preflight(
+            spectral_schema.source,
+            config=plot_config,
+        )
+        if spectral_schema is not None
+        else None
+    )
     resolved_input_mode: BulkInputMode
     if input_mode == "auto":
         resolved_input_mode = (
@@ -621,6 +647,7 @@ def run_bulk_pipeline(
                 materialize_observations=materialize_observations,
                 preflight_only=preflight_only,
                 input_mode=resolved_input_mode,
+                spectral_library_requested=spectral_schema is not None,
                 make_summary_plots=make_summary_plots,
                 make_full_spectral_reports=make_full_spectral_reports,
             )
@@ -642,9 +669,8 @@ def run_bulk_pipeline(
                 translation_pairs=selected_pairs,
                 diagnostic_sample_size=diagnostic_sample_size,
                 spectral_library_schema=spectral_schema_payload,
-                spectral_reports_requested=(
-                    make_summary_plots or make_full_spectral_reports
-                ),
+                spectral_library_preflight=spectral_preflight_payload,
+                spectral_library_requested=spectral_schema is not None,
             )
 
     statistics_rows: list[dict[str, Any]] = []
@@ -915,6 +941,7 @@ def run_bulk_pipeline(
         "diagnostic_sample_size": diagnostic_sample_size,
         "diagnostic_seed": diagnostic_seed,
         "spectral_library_schema": spectral_schema_payload,
+        "spectral_library_preflight": spectral_preflight_payload,
         "spectral_library_config": asdict(plot_config) if spectral_schema else None,
         "make_summary_plots": make_summary_plots,
         "make_full_spectral_reports": make_full_spectral_reports,
@@ -999,11 +1026,7 @@ def run_bulk_pipeline(
                 translation_pairs=selected_pairs,
                 reuse_existing=not force,
             )
-        if (
-            not preflight_only
-            and spectral_schema is not None
-            and (make_summary_plots or make_full_spectral_reports)
-        ):
+        if not preflight_only and spectral_schema is not None:
             spectral_library_result = run_spectral_library_analysis(
                 con,
                 paths,
@@ -1012,7 +1035,6 @@ def run_bulk_pipeline(
                 config=plot_config,
                 make_summary_plots=make_summary_plots,
                 make_full_spectral_reports=make_full_spectral_reports,
-                minimum_reflectance=minimum_reflectance,
             )
         finalize_bulk_database(con, temporary_database, paths.database)
     except Exception:
@@ -1131,7 +1153,8 @@ def run_bulk_pipeline(
         translation_pairs=selected_pairs,
         diagnostic_sample_size=diagnostic_sample_size,
         spectral_library_schema=spectral_schema_payload,
-        spectral_reports_requested=(make_summary_plots or make_full_spectral_reports),
+        spectral_library_preflight=spectral_preflight_payload,
+        spectral_library_requested=spectral_schema is not None,
     )
 
 

@@ -43,6 +43,7 @@ from rasterio.transform import from_origin
 import spectralbridge
 from spectralbridge import (
     go_forth_and_multiply,
+    inspect_spectral_library_preflight,
     run_bulk_pipeline,
     run_drone_pipeline,
     run_spectral_library_analysis,
@@ -608,6 +609,7 @@ def _run_smoke(root: Path, *, expected_version: str | None) -> dict[str, object]
         )
     for entry_point in (
         go_forth_and_multiply,
+        inspect_spectral_library_preflight,
         run_drone_pipeline,
         run_bulk_pipeline,
         run_spectral_library_analysis,

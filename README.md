@@ -325,11 +325,15 @@ behavior, and the distinction between translation regression and brightness
 adjustment.
 
 An existing merged polygon spectral library can also be analyzed in place. Use
-`--spectral-library ... --make-summary-plots` for compact species-median and
-observation-count PDFs, or add `--make-full-spectral-reports` for the explicit
-multipage low-alpha trace, quantile, site, flightline, and hierarchy reports.
-The source Parquet is never copied; only compact summaries and report files are
-written.
+`--spectral-library ... --preflight-only` first to inspect schema, counts, large
+groups, expected pages, and scan cost without writing PDFs. A normal run with no
+plot flags creates compact summaries, robust/full display ranges, and bounded
+extreme-spectrum diagnostics. Add `--make-summary-plots` for species-median and
+observation-count PDFs, or `--make-full-spectral-reports` for the explicit
+multipage low-alpha trace, full-range audit, quantile, site, flightline, and
+hierarchy reports. The primary species report uses a configurable common robust
+range by default; analytical summaries retain all visualization-valid extrema.
+The source Parquet is never copied.
 
 ### Idempotent / restart-safe
 

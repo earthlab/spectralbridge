@@ -20,6 +20,71 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P77. Production-Harden Spectral-Library Visualization
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-09-07
+- Goal: Harden the existing read-in-place spectral-library reports for
+  production-scale use without changing the streaming flightline architecture
+  or translation science.
+- Scope:
+  - Locate and inspect the real merged polygon library read-only if it is
+    available locally; otherwise preserve an explicit production-verification
+    blocker.
+  - Separate finite/nodata visualization validity from regression thresholds.
+  - Add robust common and optional local display scales, a distinct full-range
+    audit PDF, explicit graphical-clipping diagnostics, and bounded traceable
+    extreme-spectrum output.
+  - Extend preflight cost estimates, CLI/notebook inspection workflow,
+    provenance, restart validation, and report annotations.
+  - Add large-group alpha, multi-batch raster accumulation, robust-range,
+    validity, reproducibility, and source-preservation regressions.
+- Plan:
+  - Perform a targeted read-only search for production polygon-library
+    Parquets and inspect only metadata/count aggregates when found.
+  - Extend the current schema adapter and compact-summary pass with explicit
+    nodata policy, robust bounds, outlier counts, and report-cost estimates.
+  - Add the readable/full-range report pair and scaling controls using the
+    existing bounded raster compositor.
+  - Verify focused numerical/rendering contracts, visually inspect a
+    representative PDF, then run the full suite, lint, docs, and artifact
+    checks.
+- Outcome:
+  - Added a public read-only spectral-library preflight with schema, exact
+    hierarchy counts, large-group warnings, page/trace/scan estimates, and
+    source size/signature reporting.
+  - Added a visualization-only finite/null/nodata policy that retains finite
+    negative reflectance by default and does not alter translation/regression
+    validity.
+  - Added configurable global robust, global full, and per-group robust scales;
+    a separate full-range audit PDF; persisted range/outside counts; and a
+    bounded ranked extreme-spectrum Parquet with source traceability.
+  - Confirmed all raster batches accumulate, sampling remains explicit and
+    deterministic, vector annotations/medians remain legible, and representative
+    robust/full PDFs remain bounded at 25-31 KB for the synthetic fixtures.
+  - Updated the CLI, notebook, public API, output contracts, architecture docs,
+    restart validation, installed-artifact surface, and AI transparency files.
+- Verification:
+  - Focused bulk/spectral-library tests: 57 passed.
+  - Full suite: 311 passed, 6 skipped.
+  - Ruff, Python compilation, documentation links, and strict MkDocs build
+    passed. A final post-render Ruff retry was unavailable because the external
+    approval/usage service rejected it; the only subsequent source edit was a
+    Ruff-compatible conditional expression covered by the targeted test.
+  - Representative robust, per-group robust, and full-range PDFs were rendered
+    to PNG and visually inspected after correcting footer spacing.
+- Blocker:
+  - The production merged polygon library is not mounted in this macOS
+    workspace (`/home/jovyan` is absent). Production schema/count and report-cost
+    verification therefore remains outstanding; no production values were
+    inferred from synthetic fixtures.
+- Next recommended task: Run `inspect_spectral_library_preflight()` against the
+  production merged polygon Parquet, review the compact plot-range/extreme
+  outputs, and choose an explicit trace cap only if the reported report cost and
+  representative-species render justify one.
+
 ### P76. Add Bounded Spectral-Library Variability Reports
 
 - Priority: User-directed

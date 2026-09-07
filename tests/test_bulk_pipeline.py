@@ -745,6 +745,12 @@ def test_cli_requires_clean_output_and_defaults_to_virtual_full_data() -> None:
     assert args.spectral_panels_per_page == 4
     assert args.spectral_trace_batch_size == 2_000
     assert args.spectral_max_traces_per_group is None
+    assert args.spectral_y_scale == "global_robust"
+    assert args.spectral_plot_y_quantiles == (0.005, 0.995)
+    assert args.spectral_plot_minimum_reflectance is None
+    assert args.spectral_nodata_value is None
+    assert args.spectral_nodata_tolerance == 0.01
+    assert args.spectral_max_extreme_spectra_per_species == 100
 
     selected = parser.parse_args(
         [
@@ -766,6 +772,17 @@ def test_cli_requires_clean_output_and_defaults_to_virtual_full_data() -> None:
             "corr",
             "--species-sort",
             "alphabetical",
+            "--spectral-y-scale",
+            "per_group_robust",
+            "--spectral-plot-y-quantiles",
+            "0.01",
+            "0.99",
+            "--spectral-plot-minimum-reflectance",
+            "-0.1",
+            "--spectral-nodata-value",
+            "-32768",
+            "--spectral-max-extreme-spectra-per-species",
+            "25",
         ]
     )
     assert selected.sensors == ["Sensor_A", "Sensor_B"]
@@ -775,6 +792,11 @@ def test_cli_requires_clean_output_and_defaults_to_virtual_full_data() -> None:
     assert selected.make_full_spectral_reports is True
     assert selected.spectral_stage == "corr"
     assert selected.species_sort == "alphabetical"
+    assert selected.spectral_y_scale == "per_group_robust"
+    assert selected.spectral_plot_y_quantiles == [0.01, 0.99]
+    assert selected.spectral_plot_minimum_reflectance == -0.1
+    assert selected.spectral_nodata_value == [-32768.0]
+    assert selected.spectral_max_extreme_spectra_per_species == 25
 
 
 def test_completed_archive_discovery_ignores_outer_batch_names(tmp_path: Path) -> None:

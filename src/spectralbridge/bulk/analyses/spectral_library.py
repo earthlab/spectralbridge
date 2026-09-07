@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from datetime import datetime, timezone
 import math
 from pathlib import Path
@@ -19,8 +19,10 @@ from ..models import BulkAnalysisPaths
 from ..provenance import signature_sha256, write_json_atomic
 
 
-SPECTRAL_LIBRARY_SCHEMA_VERSION = 1
+SPECTRAL_LIBRARY_SCHEMA_VERSION = 2
 DEFAULT_QUANTILES = (0.025, 0.10, 0.25, 0.50, 0.75, 0.90, 0.975)
+DEFAULT_PLOT_Y_QUANTILES = (0.005, 0.995)
+DEFAULT_NODATA_VALUES = (-9999.0,)
 _SPECTRAL_COLUMN = re.compile(
     r"^(?P<stage>.+?)_b(?P<band>\d+)_wl(?P<wavelength>\d+(?:\.\d+)?)nm$",
     re.IGNORECASE,
@@ -38,6 +40,14 @@ _FIELD_CANDIDATES = {
     "site": ("site", "site_code", "bulk_site"),
     "acquisition_date": ("acquisition_date", "date", "bulk_acquisition_date"),
     "pixel": ("pixel_id", "pixelid"),
+}
+_NODATA_METADATA_KEYS = {
+    "nodata",
+    "no_data",
+    "no data",
+    "_fillvalue",
+    "fill_value",
+    "data ignore value",
 }
 
 
@@ -63,6 +73,7 @@ class SpectralLibrarySchema:
     spectral_stage: str
     bands: tuple[SpectralBand, ...]
     available_spectral_stages: tuple[str, ...]
+    detected_nodata_values: tuple[float, ...]
 
     @property
     def wavelengths_nm(self) -> tuple[float, ...]:
@@ -72,6 +83,7 @@ class SpectralLibrarySchema:
         payload = asdict(self)
         payload["source"] = self.source.as_posix()
         payload["wavelengths_nm"] = list(self.wavelengths_nm)
+        payload["detected_nodata_values"] = list(self.detected_nodata_values)
         payload["band_count"] = len(self.bands)
         return payload
 
@@ -90,6 +102,12 @@ class SpectralLibraryPlotConfig:
     sampling_seed: int = 0
     raster_dpi: int = 150
     quantiles: tuple[float, ...] = DEFAULT_QUANTILES
+    plot_y_quantiles: tuple[float, float] = DEFAULT_PLOT_Y_QUANTILES
+    species_y_scale: str = "global_robust"
+    spectral_plot_minimum_reflectance: float | None = None
+    nodata_values: tuple[float, ...] = DEFAULT_NODATA_VALUES
+    nodata_tolerance: float = 0.01
+    max_extreme_spectra_per_species: int = 100
 
     def validate(self) -> None:
         if self.species_sort not in {"alphabetical", "count_desc"}:
@@ -110,6 +128,31 @@ class SpectralLibraryPlotConfig:
             raise ValueError("quantiles must be strictly between zero and one")
         if 0.5 not in self.quantiles:
             raise ValueError("quantiles must include 0.5 for the median")
+        low, high = self.plot_y_quantiles
+        if not 0.0 < low < high < 1.0:
+            raise ValueError(
+                "plot_y_quantiles must contain increasing probabilities between zero and one"
+            )
+        if self.species_y_scale not in {
+            "global_robust",
+            "global_full",
+            "per_group_robust",
+        }:
+            raise ValueError(
+                "species_y_scale must be 'global_robust', 'global_full', or "
+                "'per_group_robust'"
+            )
+        if (
+            self.spectral_plot_minimum_reflectance is not None
+            and not math.isfinite(self.spectral_plot_minimum_reflectance)
+        ):
+            raise ValueError("spectral_plot_minimum_reflectance must be finite or None")
+        if any(not math.isfinite(value) for value in self.nodata_values):
+            raise ValueError("nodata_values must contain only finite values")
+        if not math.isfinite(self.nodata_tolerance) or self.nodata_tolerance < 0.0:
+            raise ValueError("nodata_tolerance must be finite and non-negative")
+        if self.max_extreme_spectra_per_species < 1:
+            raise ValueError("max_extreme_spectra_per_species must be at least 1")
 
 
 @dataclass(frozen=True)
@@ -145,12 +188,24 @@ class SpectralLibraryPaths:
         return self.analysis_dir / "group_counts.parquet"
 
     @property
+    def species_plot_ranges(self) -> Path:
+        return self.analysis_dir / "species_plot_ranges.parquet"
+
+    @property
+    def extreme_spectra(self) -> Path:
+        return self.analysis_dir / "extreme_spectra.parquet"
+
+    @property
     def metadata(self) -> Path:
         return self.analysis_dir / "spectral_library_summary.json"
 
     @property
     def species_variability(self) -> Path:
         return self.figures_dir / "spectral_library_species_variability.pdf"
+
+    @property
+    def species_variability_full_range(self) -> Path:
+        return self.figures_dir / "spectral_library_species_variability_full_range.pdf"
 
     @property
     def species_quantile_report(self) -> Path:
@@ -239,6 +294,40 @@ _SPECIES_SUMMARY_SCHEMA = pa.schema(
         ("reflectance_max", pa.float64()),
     ]
 )
+_PLOT_RANGE_SCHEMA = pa.schema(
+    [
+        ("species", pa.string()),
+        ("valid_spectrum_count", pa.int64()),
+        ("full_minimum", pa.float64()),
+        ("full_maximum", pa.float64()),
+        ("global_robust_lower", pa.float64()),
+        ("global_robust_upper", pa.float64()),
+        ("species_robust_lower", pa.float64()),
+        ("species_robust_upper", pa.float64()),
+        ("global_values_below", pa.int64()),
+        ("global_values_above", pa.int64()),
+        ("global_spectra_outside", pa.int64()),
+        ("species_values_below", pa.int64()),
+        ("species_values_above", pa.int64()),
+        ("species_spectra_outside", pa.int64()),
+    ]
+)
+_EXTREME_SPECTRUM_SCHEMA = pa.schema(
+    [
+        ("species", pa.string()),
+        ("polygon_id", pa.string()),
+        ("flightline_id", pa.string()),
+        ("site", pa.string()),
+        ("pixel_id", pa.string()),
+        ("spectrum_minimum", pa.float64()),
+        ("spectrum_maximum", pa.float64()),
+        ("wavelengths_below_robust_range", pa.int32()),
+        ("wavelengths_above_robust_range", pa.int32()),
+        ("wavelengths_outside_robust_range", pa.int32()),
+        ("rank_within_species", pa.int32()),
+        ("range_policy", pa.string()),
+    ]
+)
 
 
 def _field(columns: Sequence[str], explicit: str | None, candidates: Sequence[str]) -> str | None:
@@ -251,6 +340,28 @@ def _field(columns: Sequence[str], explicit: str | None, candidates: Sequence[st
         if candidate.lower() in by_lower:
             return by_lower[candidate.lower()]
     return None
+
+
+def _metadata_nodata_values(parquet: pq.ParquetFile) -> tuple[float, ...]:
+    values: set[float] = set()
+    metadata_sources = [parquet.schema_arrow.metadata, parquet.metadata.metadata]
+    metadata_sources.extend(field.metadata for field in parquet.schema_arrow)
+    for metadata in metadata_sources:
+        if not metadata:
+            continue
+        for raw_key, raw_value in metadata.items():
+            key = raw_key.decode("utf-8", errors="ignore").strip().lower()
+            if key not in _NODATA_METADATA_KEYS:
+                continue
+            value = raw_value.decode("utf-8", errors="ignore")
+            for match in re.findall(
+                r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?",
+                value,
+            ):
+                parsed = float(match)
+                if math.isfinite(parsed):
+                    values.add(parsed)
+    return tuple(sorted(values))
 
 
 def inspect_spectral_library(
@@ -362,6 +473,7 @@ def inspect_spectral_library(
         spectral_stage=selected_stage,
         bands=bands,
         available_spectral_stages=stages,
+        detected_nodata_values=_metadata_nodata_values(parquet),
     )
 
 
@@ -375,18 +487,49 @@ def trace_alpha(trace_count: int) -> float:
 
 def _valid_predicate(
     schema: SpectralLibrarySchema,
-    minimum_reflectance: float,
+    config: SpectralLibraryPlotConfig,
 ) -> str:
     checks = []
-    threshold = repr(float(minimum_reflectance))
+    nodata_values = tuple(
+        sorted(set(config.nodata_values).union(schema.detected_nodata_values))
+    )
     for band in schema.bands:
         column = quote_identifier(band.column)
-        checks.append(
-            f"{column} IS NOT NULL "
-            f"AND isfinite(TRY_CAST({column} AS DOUBLE)) "
-            f"AND TRY_CAST({column} AS DOUBLE) >= {threshold}"
+        value = f"TRY_CAST({column} AS DOUBLE)"
+        band_checks = [f"{column} IS NOT NULL", f"isfinite({value})"]
+        band_checks.extend(
+            f"ABS({value} - {repr(float(nodata))}) > {repr(config.nodata_tolerance)}"
+            for nodata in nodata_values
         )
+        if config.spectral_plot_minimum_reflectance is not None:
+            band_checks.append(
+                f"{value} >= {repr(float(config.spectral_plot_minimum_reflectance))}"
+            )
+        checks.append("(" + " AND ".join(band_checks) + ")")
     return " AND ".join(checks)
+
+
+def _visualization_validity_policy(
+    schema: SpectralLibrarySchema,
+    config: SpectralLibraryPlotConfig,
+) -> dict[str, Any]:
+    nodata_values = tuple(
+        sorted(set(config.nodata_values).union(schema.detected_nodata_values))
+    )
+    return {
+        "complete_spectrum_required": True,
+        "finite_values_required": True,
+        "null_values_excluded": True,
+        "nodata_values_excluded": list(nodata_values),
+        "schema_detected_nodata_values": list(schema.detected_nodata_values),
+        "nodata_tolerance": config.nodata_tolerance,
+        "minimum_reflectance": config.spectral_plot_minimum_reflectance,
+        "finite_negative_reflectance_allowed": (
+            config.spectral_plot_minimum_reflectance is None
+            or config.spectral_plot_minimum_reflectance < 0.0
+        ),
+        "separate_from_translation_regression_validity": True,
+    }
 
 
 def _distinct(field: str | None, valid_name: str = "is_valid") -> str:
@@ -405,7 +548,7 @@ def _group_count_rows(
     con: duckdb.DuckDBPyConnection,
     schema: SpectralLibrarySchema,
     grouping_field: str,
-    minimum_reflectance: float,
+    config: SpectralLibraryPlotConfig,
 ) -> list[dict[str, Any]]:
     field_sql = quote_identifier(grouping_field)
     projected_fields = []
@@ -421,7 +564,7 @@ def _group_count_rows(
     projection = ", ".join(quote_identifier(field) for field in projected_fields)
     query = f"""
         WITH base AS (
-            SELECT {projection}, ({_valid_predicate(schema, minimum_reflectance)}) AS is_valid
+            SELECT {projection}, ({_valid_predicate(schema, config)}) AS is_valid
             FROM read_parquet(?)
             WHERE {field_sql} IS NOT NULL
               AND TRIM(CAST({field_sql} AS VARCHAR)) <> ''
@@ -460,7 +603,7 @@ def _write_group_counts(
     con: duckdb.DuckDBPyConnection,
     schema: SpectralLibrarySchema,
     paths: SpectralLibraryPaths,
-    minimum_reflectance: float,
+    config: SpectralLibraryPlotConfig,
 ) -> list[dict[str, Any]]:
     fields = [schema.species_field]
     fields.extend(
@@ -471,7 +614,7 @@ def _write_group_counts(
     rows = [
         row
         for field in fields
-        for row in _group_count_rows(con, schema, field, minimum_reflectance)
+        for row in _group_count_rows(con, schema, field, config)
     ]
     rows.sort(key=lambda row: (row["grouping_field"], row["group_value"]))
     _write_table_atomic(paths.group_counts, rows, _GROUP_COUNT_SCHEMA)
@@ -501,7 +644,7 @@ def _write_species_spectral_summaries(
     *,
     band_batch_size: int,
     quantiles: tuple[float, ...],
-    minimum_reflectance: float,
+    config: SpectralLibraryPlotConfig,
 ) -> dict[str, tuple[float, float]]:
     writers = _open_writers(paths)
     bounds: dict[str, tuple[float, float]] = {}
@@ -528,7 +671,7 @@ def _write_species_spectral_summaries(
                 FROM read_parquet(?)
                 WHERE {species_sql} IS NOT NULL
                   AND TRIM(CAST({species_sql} AS VARCHAR)) <> ''
-                  AND {_valid_predicate(schema, minimum_reflectance)}
+                  AND {_valid_predicate(schema, config)}
                 GROUP BY CAST({species_sql} AS VARCHAR)
                 ORDER BY species
             """
@@ -630,6 +773,283 @@ def _write_species_summary(
     return result
 
 
+def _band_values_expression(schema: SpectralLibrarySchema) -> str:
+    return "[" + ", ".join(
+        f"TRY_CAST({quote_identifier(band.column)} AS DOUBLE)"
+        for band in schema.bands
+    ) + "]"
+
+
+def _outside_value_expression(
+    schema: SpectralLibrarySchema,
+    operator: str,
+    bound: str,
+) -> str:
+    return " + ".join(
+        "CASE WHEN TRY_CAST("
+        + quote_identifier(band.column)
+        + f" AS DOUBLE) {operator} {bound} THEN 1 ELSE 0 END"
+        for band in schema.bands
+    )
+
+
+def _outside_spectrum_expression(
+    schema: SpectralLibrarySchema,
+    lower: str,
+    upper: str,
+) -> str:
+    return " OR ".join(
+        "TRY_CAST("
+        + quote_identifier(band.column)
+        + f" AS DOUBLE) < {lower} OR TRY_CAST("
+        + quote_identifier(band.column)
+        + f" AS DOUBLE) > {upper}"
+        for band in schema.bands
+    )
+
+
+def _write_plot_ranges(
+    con: duckdb.DuckDBPyConnection,
+    schema: SpectralLibrarySchema,
+    paths: SpectralLibraryPaths,
+    group_rows: Sequence[dict[str, Any]],
+    full_bounds: dict[str, tuple[float, float]],
+    config: SpectralLibraryPlotConfig,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    low_quantile, high_quantile = config.plot_y_quantiles
+    species_sql = quote_identifier(schema.species_field)
+    values_sql = _band_values_expression(schema)
+    quantile_sql = f"[{low_quantile!r}, {high_quantile!r}]"
+    base = f"""
+        WITH valid AS (
+            SELECT CAST({species_sql} AS VARCHAR) AS species, {values_sql} AS values
+            FROM read_parquet(?)
+            WHERE {species_sql} IS NOT NULL
+              AND TRIM(CAST({species_sql} AS VARCHAR)) <> ''
+              AND {_valid_predicate(schema, config)}
+        ), spectral_values AS (
+            SELECT species, UNNEST(values) AS reflectance
+            FROM valid
+        )
+    """
+    global_values = con.execute(
+        base
+        + f"SELECT approx_quantile(reflectance, {quantile_sql}) FROM spectral_values",
+        [schema.source.as_posix()],
+    ).fetchone()[0]
+    global_robust = (float(global_values[0]), float(global_values[1]))
+    species_records = con.execute(
+        base
+        + f"""
+            SELECT species, approx_quantile(reflectance, {quantile_sql}) AS bounds
+            FROM spectral_values
+            GROUP BY species
+            ORDER BY species
+        """,
+        [schema.source.as_posix()],
+    ).fetchall()
+    robust_by_species = {
+        str(species): (float(values[0]), float(values[1]))
+        for species, values in species_records
+    }
+    bounds_table = pa.table(
+        {
+            "species": list(robust_by_species),
+            "species_robust_lower": [
+                robust_by_species[species][0] for species in robust_by_species
+            ],
+            "species_robust_upper": [
+                robust_by_species[species][1] for species in robust_by_species
+            ],
+        }
+    )
+    relation_name = "_spectralbridge_species_robust_bounds"
+    con.register(relation_name, bounds_table)
+    try:
+        global_lower = repr(global_robust[0])
+        global_upper = repr(global_robust[1])
+        records = con.execute(
+            f"""
+                WITH valid AS (
+                    SELECT *
+                    FROM read_parquet(?)
+                    WHERE {species_sql} IS NOT NULL
+                      AND TRIM(CAST({species_sql} AS VARCHAR)) <> ''
+                      AND {_valid_predicate(schema, config)}
+                )
+                SELECT
+                    CAST(valid.{species_sql} AS VARCHAR) AS species,
+                    SUM({_outside_value_expression(schema, '<', global_lower)})::BIGINT
+                        AS global_values_below,
+                    SUM({_outside_value_expression(schema, '>', global_upper)})::BIGINT
+                        AS global_values_above,
+                    COUNT(*) FILTER (WHERE {_outside_spectrum_expression(schema, global_lower, global_upper)})::BIGINT
+                        AS global_spectra_outside,
+                    SUM({_outside_value_expression(schema, '<', 'species_robust_lower')})::BIGINT
+                        AS species_values_below,
+                    SUM({_outside_value_expression(schema, '>', 'species_robust_upper')})::BIGINT
+                        AS species_values_above,
+                    COUNT(*) FILTER (WHERE {_outside_spectrum_expression(schema, 'species_robust_lower', 'species_robust_upper')})::BIGINT
+                        AS species_spectra_outside
+                FROM valid
+                JOIN {relation_name} bounds
+                  ON CAST(valid.{species_sql} AS VARCHAR) = bounds.species
+                GROUP BY CAST(valid.{species_sql} AS VARCHAR)
+                ORDER BY species
+            """,
+            [schema.source.as_posix()],
+        ).to_arrow_table().to_pylist()
+    finally:
+        con.unregister(relation_name)
+    counts_by_species = {
+        str(row["group_value"]): int(row["valid_spectrum_count"])
+        for row in group_rows
+        if row["grouping_field"] == schema.species_field
+    }
+    rows = []
+    for record in records:
+        species = str(record["species"])
+        full_minimum, full_maximum = full_bounds[species]
+        species_robust = robust_by_species[species]
+        rows.append(
+            {
+                "species": species,
+                "valid_spectrum_count": counts_by_species[species],
+                "full_minimum": full_minimum,
+                "full_maximum": full_maximum,
+                "global_robust_lower": global_robust[0],
+                "global_robust_upper": global_robust[1],
+                "species_robust_lower": species_robust[0],
+                "species_robust_upper": species_robust[1],
+                **{key: int(record[key]) for key in record if key != "species"},
+            }
+        )
+    _write_table_atomic(paths.species_plot_ranges, rows, _PLOT_RANGE_SCHEMA)
+    global_full = (
+        min(value[0] for value in full_bounds.values()),
+        max(value[1] for value in full_bounds.values()),
+    )
+    metadata = {
+        "quantiles": [low_quantile, high_quantile],
+        "method": "DuckDB approx_quantile over all valid selected-stage values",
+        "global_robust": list(global_robust),
+        "global_full": list(global_full),
+        "global_values_below": sum(row["global_values_below"] for row in rows),
+        "global_values_above": sum(row["global_values_above"] for row in rows),
+        "global_spectra_outside": sum(row["global_spectra_outside"] for row in rows),
+        "graphical_clipping_only": True,
+        "analytical_summaries_unchanged": True,
+    }
+    return rows, metadata
+
+
+def _metadata_expression(field: str | None, alias: str) -> str:
+    if field is None:
+        return f"NULL::VARCHAR AS {quote_identifier(alias)}"
+    return (
+        f"CAST({quote_identifier(field)} AS VARCHAR) AS {quote_identifier(alias)}"
+    )
+
+
+def _write_extreme_spectra(
+    con: duckdb.DuckDBPyConnection,
+    schema: SpectralLibrarySchema,
+    paths: SpectralLibraryPaths,
+    config: SpectralLibraryPlotConfig,
+) -> list[dict[str, Any]]:
+    range_policy = (
+        config.species_y_scale
+        if config.species_y_scale != "global_full"
+        else "global_robust"
+    )
+    if range_policy == "per_group_robust":
+        lower = "species_robust_lower"
+        upper = "species_robust_upper"
+    else:
+        lower = "global_robust_lower"
+        upper = "global_robust_upper"
+    species_sql = quote_identifier(schema.species_field)
+    metadata = ", ".join(
+        (
+            _metadata_expression(schema.polygon_field, "polygon_id"),
+            _metadata_expression(schema.flightline_field, "flightline_id"),
+            _metadata_expression(schema.site_field, "site"),
+            _metadata_expression(schema.pixel_field, "pixel_id"),
+        )
+    )
+    values = ", ".join(
+        f"TRY_CAST({quote_identifier(band.column)} AS DOUBLE)"
+        for band in schema.bands
+    )
+    below = _outside_value_expression(schema, "<", lower)
+    above = _outside_value_expression(schema, ">", upper)
+    rows = con.execute(
+        f"""
+            WITH valid AS (
+                SELECT CAST({species_sql} AS VARCHAR) AS species,
+                       {metadata},
+                       {', '.join(quote_identifier(band.column) for band in schema.bands)}
+                FROM read_parquet(?)
+                WHERE {species_sql} IS NOT NULL
+                  AND TRIM(CAST({species_sql} AS VARCHAR)) <> ''
+                  AND {_valid_predicate(schema, config)}
+            ), scored AS (
+                SELECT valid.*,
+                       {lower} AS display_lower,
+                       {upper} AS display_upper,
+                       LEAST({values}) AS spectrum_minimum,
+                       GREATEST({values}) AS spectrum_maximum,
+                       ({below})::INTEGER AS wavelengths_below_robust_range,
+                       ({above})::INTEGER AS wavelengths_above_robust_range
+                FROM valid
+                JOIN read_parquet(?) ranges USING (species)
+            ), ranked AS (
+                SELECT *,
+                       wavelengths_below_robust_range
+                           + wavelengths_above_robust_range
+                           AS wavelengths_outside_robust_range,
+                       ROW_NUMBER() OVER (
+                           PARTITION BY species
+                           ORDER BY
+                               wavelengths_below_robust_range
+                                   + wavelengths_above_robust_range DESC,
+                               GREATEST(
+                                   ABS(spectrum_minimum - display_lower),
+                                   ABS(spectrum_maximum - display_upper)
+                               ) DESC,
+                               hash(
+                                   COALESCE(pixel_id, ''),
+                                   COALESCE(polygon_id, ''),
+                                   COALESCE(flightline_id, ''),
+                                   COALESCE(site, '')
+                               )
+                       )::INTEGER AS rank_within_species
+                FROM scored
+                WHERE wavelengths_below_robust_range
+                    + wavelengths_above_robust_range > 0
+            )
+            SELECT species, polygon_id, flightline_id, site, pixel_id,
+                   spectrum_minimum, spectrum_maximum,
+                   wavelengths_below_robust_range,
+                   wavelengths_above_robust_range,
+                   wavelengths_outside_robust_range,
+                   rank_within_species,
+                   ? AS range_policy
+            FROM ranked
+            WHERE rank_within_species <= ?
+            ORDER BY species, rank_within_species
+        """,
+        [
+            schema.source.as_posix(),
+            paths.species_plot_ranges.as_posix(),
+            range_policy,
+            config.max_extreme_spectra_per_species,
+        ],
+    ).to_arrow_table().to_pylist()
+    _write_table_atomic(paths.extreme_spectra, rows, _EXTREME_SPECTRUM_SCHEMA)
+    return rows
+
+
 def _ordered_groups(
     rows: Sequence[dict[str, Any]],
     *,
@@ -649,6 +1069,244 @@ def _ordered_groups(
     )
 
 
+def inspect_spectral_library_preflight(
+    path: str | Path,
+    *,
+    config: SpectralLibraryPlotConfig | None = None,
+) -> dict[str, Any]:
+    """Inspect schema, exact group counts, and approximate report cost without PDFs."""
+
+    config = config or SpectralLibraryPlotConfig()
+    config.validate()
+    schema = inspect_spectral_library(
+        path,
+        species_field=config.species_field,
+        spectral_stage=config.spectral_stage,
+    )
+    fields = [schema.species_field]
+    fields.extend(
+        field
+        for field in (schema.polygon_field, schema.flightline_field, schema.site_field)
+        if field is not None and field not in fields
+    )
+    with duckdb.connect() as con:
+        group_rows = [
+            row
+            for field in fields
+            for row in _group_count_rows(con, schema, field, config)
+        ]
+    groups_by_field = {
+        field: [
+            row
+            for row in group_rows
+            if row["grouping_field"] == field and row["valid_spectrum_count"] > 0
+        ]
+        for field in fields
+    }
+    species_rows = groups_by_field[schema.species_field]
+    species_counts = [int(row["valid_spectrum_count"]) for row in species_rows]
+    largest = (
+        max(
+            species_rows,
+            key=lambda row: (
+                int(row["valid_spectrum_count"]),
+                str(row["group_value"]).casefold(),
+            ),
+        )
+        if species_rows
+        else None
+    )
+
+    def rendered_count(rows: Sequence[dict[str, Any]]) -> int:
+        return sum(
+            min(
+                int(row["valid_spectrum_count"]),
+                config.max_traces_per_group
+                or int(row["valid_spectrum_count"]),
+            )
+            for row in rows
+        )
+
+    species_pages = math.ceil(len(species_rows) / config.panels_per_page)
+    site_rows = groups_by_field.get(schema.site_field or "", [])
+    flightline_rows = groups_by_field.get(schema.flightline_field or "", [])
+    hierarchy_levels = sum(
+        field is not None
+        for field in (schema.polygon_field, schema.flightline_field, schema.site_field)
+    )
+    compact_scans = (
+        len(fields)
+        + math.ceil(len(schema.bands) / config.summary_band_batch_size)
+        + 4
+    )
+    full_report_scans = (
+        2 * len(species_rows)
+        + 2 * len(site_rows)
+        + 2 * len(flightline_rows)
+        + hierarchy_levels * len(species_rows)
+    )
+    expected_pages = {
+        "species_medians": 1 if species_rows else 0,
+        "observation_counts": math.ceil(len(species_rows) / 35),
+        "species_variability": species_pages,
+        "species_variability_full_range": species_pages,
+        "species_quantiles": species_pages,
+        "hierarchical_variability": species_pages if hierarchy_levels else 0,
+        "site_variability": math.ceil(len(site_rows) / config.panels_per_page),
+        "flightline_variability": math.ceil(
+            len(flightline_rows) / config.panels_per_page
+        ),
+    }
+    counts = {
+        "source_rows": schema.row_count,
+        "valid_spectra": sum(species_counts),
+        "species": len(species_rows),
+        "polygons": len(groups_by_field.get(schema.polygon_field or "", [])),
+        "flightlines": len(flightline_rows),
+        "sites": len(site_rows),
+    }
+    return {
+        "source": schema.source.as_posix(),
+        "source_size_bytes": schema.source.stat().st_size,
+        "source_signature_sha256": schema.source_signature_sha256,
+        "schema": schema.to_dict(),
+        "visualization_validity": _visualization_validity_policy(schema, config),
+        "counts": counts,
+        "largest_species": (
+            {
+                "species": str(largest["group_value"]),
+                "valid_spectrum_count": int(largest["valid_spectrum_count"]),
+            }
+            if largest is not None
+            else None
+        ),
+        "median_valid_spectra_per_species": (
+            float(np.median(species_counts)) if species_counts else 0.0
+        ),
+        "species_over_10k_traces": sum(count > 10_000 for count in species_counts),
+        "species_over_100k_traces": sum(count > 100_000 for count in species_counts),
+        "estimated_total_raw_traces_to_render": (
+            2 * rendered_count(species_rows)
+            + rendered_count(site_rows)
+            + rendered_count(flightline_rows)
+        ),
+        "trace_cap": config.max_traces_per_group,
+        "all_valid_traces_requested": config.max_traces_per_group is None,
+        "expected_pages": expected_pages,
+        "expected_repeated_parquet_scans": {
+            "preflight_group_count_scans": len(fields),
+            "compact_summary_and_diagnostic_scans": compact_scans,
+            "full_report_group_filtered_scans": full_report_scans,
+            "note": (
+                "Counts are logical source scans; DuckDB may prune row groups/columns. "
+                "PDF rendering rescans one selected group at a time."
+            ),
+        },
+        "configuration": asdict(config),
+        "pdfs_generated": False,
+    }
+
+
+def _report_cost_from_group_rows(
+    schema: SpectralLibrarySchema,
+    config: SpectralLibraryPlotConfig,
+    group_rows: Sequence[dict[str, Any]],
+) -> dict[str, Any]:
+    def selected(field: str | None) -> list[dict[str, Any]]:
+        if field is None:
+            return []
+        return [
+            row
+            for row in group_rows
+            if row["grouping_field"] == field and row["valid_spectrum_count"] > 0
+        ]
+
+    def rendered(rows: Sequence[dict[str, Any]]) -> int:
+        return sum(
+            min(
+                int(row["valid_spectrum_count"]),
+                config.max_traces_per_group
+                or int(row["valid_spectrum_count"]),
+            )
+            for row in rows
+        )
+
+    species_rows = selected(schema.species_field)
+    site_rows = selected(schema.site_field)
+    flightline_rows = selected(schema.flightline_field)
+    species_counts = [int(row["valid_spectrum_count"]) for row in species_rows]
+    largest = (
+        max(
+            species_rows,
+            key=lambda row: (
+                int(row["valid_spectrum_count"]),
+                str(row["group_value"]).casefold(),
+            ),
+        )
+        if species_rows
+        else None
+    )
+    panels = config.panels_per_page
+    species_pages = math.ceil(len(species_rows) / panels)
+    hierarchy_levels = sum(
+        field is not None
+        for field in (schema.polygon_field, schema.flightline_field, schema.site_field)
+    )
+    fields_scanned = 1 + hierarchy_levels
+    compact_scans = (
+        fields_scanned
+        + math.ceil(len(schema.bands) / config.summary_band_batch_size)
+        + 4
+    )
+    full_report_scans = (
+        2 * len(species_rows)
+        + 2 * len(site_rows)
+        + 2 * len(flightline_rows)
+        + hierarchy_levels * len(species_rows)
+    )
+    return {
+        "source_rows": schema.row_count,
+        "source_size_bytes": schema.source.stat().st_size,
+        "species_count": len(species_rows),
+        "largest_species": (
+            {
+                "species": str(largest["group_value"]),
+                "valid_spectrum_count": int(largest["valid_spectrum_count"]),
+            }
+            if largest is not None
+            else None
+        ),
+        "median_valid_spectra_per_species": (
+            float(np.median(species_counts)) if species_counts else 0.0
+        ),
+        "species_over_10k_traces": sum(count > 10_000 for count in species_counts),
+        "species_over_100k_traces": sum(count > 100_000 for count in species_counts),
+        "estimated_total_raw_traces_to_render": (
+            2 * rendered(species_rows)
+            + rendered(site_rows)
+            + rendered(flightline_rows)
+        ),
+        "trace_cap": config.max_traces_per_group,
+        "all_valid_traces_requested": config.max_traces_per_group is None,
+        "expected_full_report_pages": (
+            3 * species_pages
+            + (species_pages if hierarchy_levels else 0)
+            + math.ceil(len(site_rows) / panels)
+            + math.ceil(len(flightline_rows) / panels)
+            + math.ceil(len(species_rows) / 35)
+            + (1 if species_rows else 0)
+        ),
+        "expected_repeated_parquet_scans": {
+            "compact_summary_and_diagnostic_scans": compact_scans,
+            "full_report_group_filtered_scans": full_report_scans,
+            "note": (
+                "Counts are logical source scans; DuckDB may prune row groups/columns. "
+                "PDF rendering rescans one selected group at a time."
+            ),
+        },
+    }
+
+
 def iter_group_spectra(
     con: duckdb.DuckDBPyConnection,
     schema: SpectralLibrarySchema,
@@ -658,16 +1316,18 @@ def iter_group_spectra(
     batch_size: int,
     max_traces: int | None = None,
     sampling_seed: int = 0,
-    minimum_reflectance: float = 0.0,
+    config: SpectralLibraryPlotConfig | None = None,
 ) -> Iterator[np.ndarray]:
     """Yield one group's spectra as bounded NumPy batches without pandas."""
 
+    config = config or SpectralLibraryPlotConfig()
+    config.validate()
     fields = ", ".join(quote_identifier(band.column) for band in schema.bands)
     group_sql = quote_identifier(grouping_field)
     base = (
         f"SELECT {fields} FROM read_parquet(?) "
         f"WHERE CAST({group_sql} AS VARCHAR) = ? AND "
-        f"{_valid_predicate(schema, minimum_reflectance)}"
+        f"{_valid_predicate(schema, config)}"
     )
     parameters: list[Any] = [schema.source.as_posix(), group_value]
     if max_traces is not None:
@@ -711,7 +1371,7 @@ def _group_median(
     schema: SpectralLibrarySchema,
     grouping_field: str,
     group_value: str,
-    minimum_reflectance: float,
+    config: SpectralLibraryPlotConfig,
 ) -> np.ndarray:
     expressions = ", ".join(
         "approx_quantile(TRY_CAST("
@@ -722,7 +1382,7 @@ def _group_median(
     query = (
         f"SELECT {expressions} FROM read_parquet(?) WHERE "
         f"CAST({quote_identifier(grouping_field)} AS VARCHAR) = ? AND "
-        + _valid_predicate(schema, minimum_reflectance)
+        + _valid_predicate(schema, config)
     )
     row = con.execute(query, [schema.source.as_posix(), group_value]).fetchone()
     return np.asarray(row, dtype=np.float64)
@@ -844,7 +1504,8 @@ def _trace_report(
     output: Path,
     config: SpectralLibraryPlotConfig,
     global_bounds: tuple[float, float],
-    minimum_reflectance: float,
+    display_mode: str,
+    species_range_rows: Sequence[dict[str, Any]] = (),
 ) -> int:
     from matplotlib.backends.backend_pdf import PdfPages
     from matplotlib.figure import Figure
@@ -855,7 +1516,29 @@ def _trace_report(
         temporary.unlink()
     wavelengths = np.asarray(schema.wavelengths_nm, dtype=np.float64)
     x_limits = _limits((float(wavelengths.min()), float(wavelengths.max())))
-    y_limits = _limits(global_bounds)
+    range_by_species = {str(row["species"]): row for row in species_range_rows}
+    low_quantile, high_quantile = config.plot_y_quantiles
+    if display_mode == "global_robust":
+        range_note = (
+            f"Common display range: robust {low_quantile * 100:g}-"
+            f"{high_quantile * 100:g}% reflectance "
+            f"[{global_bounds[0]:.4g}, {global_bounds[1]:.4g}]. "
+            "Values outside are visually clipped only."
+        )
+        title_suffix = "robust common range"
+    elif display_mode == "per_group_robust":
+        range_note = (
+            f"Each panel uses its robust {low_quantile * 100:g}-"
+            f"{high_quantile * 100:g}% range. Values outside are visually clipped only; "
+            "local scales maximize within-group detail."
+        )
+        title_suffix = "robust per-group range"
+    else:
+        range_note = (
+            f"Common display range: full observed reflectance "
+            f"[{global_bounds[0]:.4g}, {global_bounds[1]:.4g}]. No graphical clipping."
+        )
+        title_suffix = "full-range audit"
     rows, columns = _page_layout(config.panels_per_page)
     pages = 0
     with PdfPages(
@@ -868,8 +1551,25 @@ def _trace_report(
         for start in range(0, len(groups), config.panels_per_page):
             page_groups = groups[start : start + config.panels_per_page]
             figure = Figure(figsize=(11.0, 8.5), facecolor="white", constrained_layout=True)
+            layout_engine = figure.get_layout_engine()
+            if layout_engine is not None:
+                layout_engine.set(rect=(0.0, 0.07, 1.0, 0.91))
             axes = figure.subplots(rows, columns, squeeze=False)
             for axis, group in zip(axes.flat, page_groups):
+                group_range = range_by_species.get(str(group["group_value"]))
+                if display_mode == "per_group_robust" and group_range is not None:
+                    panel_bounds = (
+                        float(group_range["species_robust_lower"]),
+                        float(group_range["species_robust_upper"]),
+                    )
+                else:
+                    panel_bounds = global_bounds
+                y_limits = (
+                    _limits(panel_bounds)
+                    if display_mode == "global_full"
+                    or panel_bounds[0] == panel_bounds[1]
+                    else panel_bounds
+                )
                 count = int(group["valid_spectrum_count"])
                 shown = min(count, config.max_traces_per_group or count)
                 alpha = trace_alpha(shown)
@@ -881,7 +1581,7 @@ def _trace_report(
                     batch_size=config.trace_batch_size,
                     max_traces=config.max_traces_per_group,
                     sampling_seed=config.sampling_seed,
-                    minimum_reflectance=minimum_reflectance,
+                    config=config,
                 )
                 raster = _trace_raster(
                     wavelengths,
@@ -907,7 +1607,7 @@ def _trace_report(
                         schema,
                         grouping_field,
                         group["group_value"],
-                        minimum_reflectance,
+                        config,
                     )
                 )
                 axis.plot(wavelengths, median, color="#172B4D", linewidth=1.25, zorder=3)
@@ -917,6 +1617,15 @@ def _trace_report(
                         f" | {group['polygon_count']:,} polygons | "
                         f"{group['flightline_count']:,} flightlines | {group['site_count']:,} sites"
                     )
+                    if group_range is not None and display_mode != "global_full":
+                        outlier_key = (
+                            "species_spectra_outside"
+                            if display_mode == "per_group_robust"
+                            else "global_spectra_outside"
+                        )
+                        outside = int(group_range[outlier_key])
+                        if outside:
+                            suffix += f" | {outside:,} outside display range"
                 axis.set_title(
                     str(group["group_value"]),
                     loc="left",
@@ -942,13 +1651,13 @@ def _trace_report(
                 axis.set_visible(False)
             pages += 1
             figure.suptitle(
-                f"Spectral variability by {grouping_field} - low-alpha ensemble",
+                f"Spectral variability by {grouping_field} - {title_suffix}",
                 fontsize=13,
             )
             figure.text(
                 0.5,
-                0.005,
-                f"Page {pages} | trace layer rasterized; axes and median remain vector",
+                0.012,
+                f"{range_note}\nPage {pages} | trace layer rasterized; axes and median remain vector",
                 ha="center",
                 fontsize=7,
                 color="#52606D",
@@ -1156,7 +1865,7 @@ def _iter_hierarchy_medians(
     species: str,
     grouping_field: str,
     batch_size: int,
-    minimum_reflectance: float,
+    config: SpectralLibraryPlotConfig,
 ) -> Iterator[np.ndarray]:
     expressions = ", ".join(
         "approx_quantile(TRY_CAST("
@@ -1170,7 +1879,7 @@ def _iter_hierarchy_medians(
         FROM read_parquet(?)
         WHERE CAST({quote_identifier(schema.species_field)} AS VARCHAR) = ?
           AND {quote_identifier(grouping_field)} IS NOT NULL
-          AND {_valid_predicate(schema, minimum_reflectance)}
+          AND {_valid_predicate(schema, config)}
         GROUP BY {quote_identifier(grouping_field)}
     """
     reader = con.execute(query, [schema.source.as_posix(), species]).to_arrow_reader(
@@ -1189,7 +1898,6 @@ def _hierarchy_report(
     groups: Sequence[dict[str, Any]],
     config: SpectralLibraryPlotConfig,
     global_bounds: tuple[float, float],
-    minimum_reflectance: float,
 ) -> int:
     from matplotlib.backends.backend_pdf import PdfPages
     from matplotlib.lines import Line2D
@@ -1233,7 +1941,7 @@ def _hierarchy_report(
                             species=group["group_value"],
                             grouping_field=str(field),
                             batch_size=config.trace_batch_size,
-                            minimum_reflectance=minimum_reflectance,
+                            config=config,
                         ),
                         color,
                         alpha,
@@ -1296,6 +2004,8 @@ def _register_outputs(
         ("spectral_library_species_quantiles", paths.species_quantiles),
         ("spectral_library_species_medians", paths.species_medians),
         ("spectral_library_group_counts", paths.group_counts),
+        ("spectral_library_species_plot_ranges", paths.species_plot_ranges),
+        ("spectral_library_extreme_spectra", paths.extreme_spectra),
     ):
         con.execute(
             f"CREATE OR REPLACE TABLE {table} AS SELECT * FROM read_parquet(?)",
@@ -1312,15 +2022,25 @@ def run_spectral_library_analysis(
     config: SpectralLibraryPlotConfig | None = None,
     make_summary_plots: bool = True,
     make_full_spectral_reports: bool = False,
-    minimum_reflectance: float = 0.0,
+    minimum_reflectance: float | None = None,
 ) -> dict[str, Any]:
     """Build compact summaries and requested PDFs without copying source spectra."""
 
     config = config or SpectralLibraryPlotConfig()
+    if minimum_reflectance is not None:
+        legacy_minimum = float(minimum_reflectance)
+        if not math.isfinite(legacy_minimum):
+            raise ValueError("minimum_reflectance must be finite or None")
+        configured_minimum = config.spectral_plot_minimum_reflectance
+        if configured_minimum is not None and configured_minimum != legacy_minimum:
+            raise ValueError(
+                "minimum_reflectance and spectral_plot_minimum_reflectance disagree"
+            )
+        config = replace(
+            config,
+            spectral_plot_minimum_reflectance=legacy_minimum,
+        )
     config.validate()
-    minimum_reflectance = float(minimum_reflectance)
-    if not math.isfinite(minimum_reflectance):
-        raise ValueError("minimum_reflectance must be finite")
     schema = inspect_spectral_library(
         spectral_library,
         species_field=config.species_field,
@@ -1333,7 +2053,7 @@ def run_spectral_library_analysis(
         con,
         schema,
         paths,
-        minimum_reflectance,
+        config,
     )
     bounds = _write_species_spectral_summaries(
         con,
@@ -1341,7 +2061,7 @@ def run_spectral_library_analysis(
         paths,
         band_batch_size=config.summary_band_batch_size,
         quantiles=config.quantiles,
-        minimum_reflectance=minimum_reflectance,
+        config=config,
     )
     species_summary = _write_species_summary(schema, paths, group_rows, bounds)
     species_groups = _ordered_groups(
@@ -1352,11 +2072,23 @@ def run_spectral_library_analysis(
     if not species_groups:
         raise ValueError(
             "Spectral library contains no complete spectra satisfying the "
-            "finite/minimum-reflectance validity rule by species"
+            "configured visualization validity rule by species"
         )
-    global_bounds = (
-        min(value[0] for value in bounds.values()),
-        max(value[1] for value in bounds.values()),
+    range_rows, range_metadata = _write_plot_ranges(
+        con,
+        schema,
+        paths,
+        group_rows,
+        bounds,
+        config,
+    )
+    extreme_rows = _write_extreme_spectra(con, schema, paths, config)
+    global_full_bounds = tuple(range_metadata["global_full"])
+    global_robust_bounds = tuple(range_metadata["global_robust"])
+    primary_bounds = (
+        global_full_bounds
+        if config.species_y_scale == "global_full"
+        else global_robust_bounds
     )
     reports: dict[str, dict[str, Any]] = {}
     if make_summary_plots or make_full_spectral_reports:
@@ -1379,9 +2111,31 @@ def run_spectral_library_analysis(
                 grouping_field=schema.species_field,
                 output=paths.species_variability,
                 config=config,
-                global_bounds=global_bounds,
-                minimum_reflectance=minimum_reflectance,
+                global_bounds=primary_bounds,
+                display_mode=config.species_y_scale,
+                species_range_rows=range_rows,
             ),
+            "display_mode": config.species_y_scale,
+            "display_bounds": list(primary_bounds),
+            "graphical_clipping_only": config.species_y_scale != "global_full",
+        }
+        reports["species_variability_full_range"] = {
+            "path": paths.species_variability_full_range.as_posix(),
+            "pages": _trace_report(
+                con,
+                schema,
+                paths,
+                species_groups,
+                grouping_field=schema.species_field,
+                output=paths.species_variability_full_range,
+                config=config,
+                global_bounds=global_full_bounds,
+                display_mode="global_full",
+                species_range_rows=range_rows,
+            ),
+            "display_mode": "global_full",
+            "display_bounds": list(global_full_bounds),
+            "graphical_clipping_only": False,
         }
         reports["species_quantiles"] = {
             "path": paths.species_quantile_report.as_posix(),
@@ -1393,8 +2147,7 @@ def run_spectral_library_analysis(
             paths,
             species_groups,
             config,
-            global_bounds,
-            minimum_reflectance,
+            global_robust_bounds,
         )
         if hierarchy_pages:
             reports["hierarchical_variability"] = {
@@ -1422,8 +2175,8 @@ def run_spectral_library_analysis(
                     grouping_field=field,
                     output=output,
                     config=config,
-                    global_bounds=global_bounds,
-                    minimum_reflectance=minimum_reflectance,
+                    global_bounds=global_robust_bounds,
+                    display_mode="global_robust",
                 ),
             }
     _register_outputs(con, paths)
@@ -1441,7 +2194,15 @@ def run_spectral_library_analysis(
         "source_signature_sha256": schema.source_signature_sha256,
         "schema": schema.to_dict(),
         "configuration": asdict(config),
-        "minimum_reflectance": minimum_reflectance,
+        "visualization_validity": _visualization_validity_policy(schema, config),
+        "report_cost": _report_cost_from_group_rows(schema, config, group_rows),
+        "plot_ranges": range_metadata,
+        "extreme_spectra": {
+            "path": paths.extreme_spectra.as_posix(),
+            "row_count": len(extreme_rows),
+            "maximum_rows_per_species": config.max_extreme_spectra_per_species,
+            "bounded_ranked_output": True,
+        },
         "quantile_method": "DuckDB approx_quantile in bounded spectral-band batches",
         "trace_alpha_rule": "min(0.03, max(0.003, 0.2 / sqrt(rendered_trace_count)))",
         "trace_layer_rasterized": True,
@@ -1468,10 +2229,13 @@ def run_spectral_library_analysis(
             "species_quantiles": paths.species_quantiles.as_posix(),
             "species_median_spectra": paths.species_medians.as_posix(),
             "group_counts": paths.group_counts.as_posix(),
+            "species_plot_ranges": paths.species_plot_ranges.as_posix(),
+            "extreme_spectra": paths.extreme_spectra.as_posix(),
         },
         "interpretation": (
             "Low-alpha overplotting is a qualitative spectral trace density, "
-            "not a normalized probability density. Outliers are not clipped."
+            "not a normalized probability density. Robust-range clipping is "
+            "graphical only; analytical summaries and the full-range audit preserve outliers."
         ),
     }
     write_json_atomic(paths.metadata, metadata)
@@ -1492,6 +2256,7 @@ __all__ = [
     "SpectralLibraryPlotConfig",
     "SpectralLibrarySchema",
     "inspect_spectral_library",
+    "inspect_spectral_library_preflight",
     "iter_group_spectra",
     "run_spectral_library_analysis",
     "trace_alpha",

@@ -7,6 +7,7 @@ from .analyses import (
     run_spectral_library_analysis,
     SpectralLibraryPlotConfig,
     inspect_spectral_library,
+    inspect_spectral_library_preflight,
 )
 from .catalog import build_bulk_catalog, canonical_identity_from_product, discover_bulk_sources
 from .models import (
@@ -52,5 +53,6 @@ __all__ = [
     "run_leave_one_site_out",
     "run_sensor_translation",
     "inspect_spectral_library",
+    "inspect_spectral_library_preflight",
     "run_spectral_library_analysis",
 ]

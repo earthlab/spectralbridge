@@ -71,6 +71,10 @@ go_forth_and_multiply(
     <p>Reads one existing merged polygon Parquet in place and writes compact species summaries plus explicitly requested low-alpha variability PDFs. Configure it with <code>SpectralLibraryPlotConfig</code> from <code>spectralbridge.bulk</code>.</p>
   </article>
   <article class="sb-doc-card">
+    <h3><code>inspect_spectral_library_preflight</code></h3>
+    <p>Reads one spectral-library Parquet in place and returns detected schema, visualization-valid counts, group-size warnings, expected pages, and estimated scan cost without writing summaries or PDFs.</p>
+  </article>
+  <article class="sb-doc-card">
     <h3><code>apply_brightness_correction</code></h3>
     <p>Lower-level reflectance adjustment helper used when you need targeted brightness normalization logic outside the main pipeline.</p>
   </article>
