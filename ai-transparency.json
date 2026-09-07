@@ -1,11 +1,11 @@
 {
   "ai_systems": {
     "Cursor Agent": 32,
-    "OpenAI Codex": 193
+    "OpenAI Codex": 196
   },
   "branches": {
     "$(git branch --show-current 2>/dev/null || echo unknown)": 1,
-    "main": 213,
+    "main": 216,
     "unknown": 7,
     "work": 4
   },
@@ -16,24 +16,24 @@
     "word_count": "Unicode word-like tokens matched by the generator's WORD_RE expression."
   },
   "models": {
-    "GPT-5": 16,
+    "GPT-5": 19,
     "GPT-5 family (exact deployment identifier not exposed)": 7,
     "Not recorded": 202
   },
   "primary_intents": {
     "Audit or investigation": 25,
     "Execution or verification": 47,
-    "Implementation or modification": 99,
-    "Other or mixed": 54
+    "Implementation or modification": 100,
+    "Other or mixed": 56
   },
   "primary_topics": {
     "Data and metadata handling": 26,
     "Documentation and website": 17,
     "Drone and UAS workflow": 9,
-    "Other": 31,
+    "Other": 32,
     "Publication, packaging, release, and governance": 20,
-    "QA and visualization": 36,
-    "Scientific pipeline and corrections": 57,
+    "QA and visualization": 37,
+    "Scientific pipeline and corrections": 58,
     "Testing and CI": 29
   },
   "prompts_by_month": {
@@ -42,24 +42,24 @@
     "2026-06": 47,
     "2026-07": 36,
     "2026-08": 87,
-    "2026-09": 13
+    "2026-09": 16
   },
   "schema_version": 1,
   "source": {
-    "data_through": "2026-09-06",
+    "data_through": "2026-09-07",
     "path": "PROMPT_LOG.md",
-    "sha256": "edf07d0bae0d4adc63b9d18b26028ebd9992406f43c65709f675d203a44ff9e2"
+    "sha256": "c88dada47e8039ba77d7f9a3f54e221add884b8afed4bee9d39f22e51083d6ff"
   },
   "summary": {
-    "entries_with_recorded_model": 23,
+    "entries_with_recorded_model": 26,
     "first_prompt_date": "2026-03-21",
-    "last_prompt_date": "2026-09-06",
+    "last_prompt_date": "2026-09-07",
     "maximum_prompt_words": 3201,
-    "mean_prompt_words": 173.9,
+    "mean_prompt_words": 171.9,
     "median_prompt_words": 32.0,
     "minimum_prompt_words": 1,
-    "model_metadata_coverage_pct": 10.2,
-    "prompt_count": 225,
-    "total_prompt_words": 39129
+    "model_metadata_coverage_pct": 11.4,
+    "prompt_count": 228,
+    "total_prompt_words": 39193
   }
 }

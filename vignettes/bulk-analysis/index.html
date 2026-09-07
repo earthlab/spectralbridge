@@ -1017,6 +1017,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#visualize-an-existing-polygon-spectral-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualize an existing polygon spectral library
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#restart-and-provenance" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2807,9 +2818,9 @@
    target-sensor products, extraction, and QA.</li>
 <li><strong>Multiple flightlines:</strong> apply that workflow independently to a collection;
    each flightline keeps its own restart-safe outputs.</li>
-<li><strong>Bulk analysis:</strong> discover completed or minimally staged flightlines, validate
-   them for a selected analysis, create a compact analytical cache, and fit
-   population-level comparisons.</li>
+<li><strong>Bulk analysis:</strong> discover completed or minimally staged flightlines,
+   validate them, stream immutable products in place, and fit population-level
+   comparisons from compact sufficient statistics.</li>
 </ol>
 <p>The bulk workflow is downstream analysis. It does not download inputs, rerun
 correction or convolution, invoke the drone pipeline, or modify source folders.</p>
@@ -2888,11 +2899,12 @@ that merely happen to be supported by the package.</p>
 <p>The structured <code>preflight</code> result reports discovered, accepted, duplicate, and
 excluded flightlines; the selected profile and relationship keys; required and
 optional product roles; available sensors and relationships; selected source
-bytes; estimated cache bytes; exclusion counts; package version; and all output
-locations. The linked census adds site/date/product inventories.</p>
+bytes; estimated compact output and bounded diagnostic sample; temporary-disk
+estimate; whether a pixel dataset was requested; exclusion counts; package
+version; and all output locations. The linked census adds site/date/product
+inventories.</p>
 <p>Preflight reads paths, sizes, modification times, ENVI headers, small QA JSON,
-and Parquet footers where applicable. It does not scan raster pixels or create
-the per-flightline cache.</p>
+and Parquet footers where applicable. It does not scan or copy raster pixels.</p>
 <p>Review these outputs before the full run:</p>
 <ul>
 <li><code>catalog/flightlines.parquet</code></li>
@@ -2905,7 +2917,7 @@ the per-flightline cache.</p>
 </ul>
 <p>Missing sidecars, zero-byte files, unreadable metadata, invalid dimensions,
 incompatible bands, incomplete requested pairs, duplicate products, duplicate
-identities, transient source disappearance, and extraction failures have stable
+identities, transient source disappearance, and streaming-analysis failures have stable
 reason codes. <code>on_invalid="exclude"</code> is the population-safe default. Valid
 flightlines continue when another one fails. Use <code>on_invalid="error"</code> when any
 ineligible flightline should make the call raise after diagnostic catalogs are
@@ -2919,12 +2931,36 @@ otherwise eligible flightline.</p>
     <span class="n">analysis</span><span class="o">=</span><span class="s2">"translation"</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>For completed-flightline inputs, each eligible target ENVI product is read in
-bounded windows. Only selected sensors are written to narrow Parquets below
-<code>cache/&lt;flightline-id&gt;/</code>; valid bands are joined by pixel ID into
-<code>observations.parquet</code>. ENVI no-data and non-finite values are excluded.
-<code>extraction_workers</code> defaults to one to avoid saturating shared storage, while
-<code>extraction_chunk_size</code> bounds raster windows and Parquet row groups.</p>
+<p>For completed-flightline inputs, eligible source and target ENVI products are
+opened together and read in deterministic aligned windows. Spatial dimensions,
+transform, and CRS must match. A pixel is eligible only when the existing
+sensor-wide ENVI no-data/finite rules and the requested reflectance threshold
+all pass. Each chunk is immediately reduced into numerically stable bivariate
+moments. No sensor Parquet or <code>observations.parquet</code> is created.</p>
+<p>The first pass writes compact per-flightline statistics. Site, global,
+flightline-balanced, and site-balanced fits combine those checkpoints. LOSO
+training uses <code>global statistics - held-out site statistics</code>; one bounded second
+pass computes exact absolute-error and held-out metrics. <code>extraction_workers</code>
+remains the backward-compatible name for concurrent flightline readers and
+defaults to one so disk bandwidth is not oversubscribed.</p>
+<div class="highlight"><pre><span></span><code>Completed flightline products (read only)
+        |
+        v
+Catalog + validation
+        |
+        v
+Aligned chunked direct reads
+        |
+        v
+Per-flightline sufficient statistics
+        |
+        v
+Population aggregation
+        +-- translation models
+        +-- site and balanced models
+        +-- LOSO
+        +-- bounded diagnostics
+</code></pre></div>
 <p>For merged-Parquet inputs, <code>input_kind="full"</code> selects full-pixel tables,
 <code>"polygon"</code> selects polygon tables, and <code>"both"</code> deliberately combines them.
 Combining both can count polygon pixels a second time and should be a conscious
@@ -2952,55 +2988,165 @@ brightness adjustment.</p>
 │   ├── duplicates.parquet
 │   ├── rejected_sources.parquet
 │   └── bulk_manifest.json
-├── cache/
-│   └── &lt;flightline-id&gt;/
-│       ├── &lt;selected-sensor&gt;.parquet
-│       ├── observations.parquet
-│       ├── extraction_metadata.json
+├── statistics/
+│   ├── translation_sufficient_statistics.parquet
+│   ├── diagnostic_sample.parquet       # optional and globally bounded
+│   └── flightlines/&lt;flightline-id&gt;/
+│       ├── sufficient_statistics.parquet
+│       ├── diagnostic_sample.parquet
+│       ├── statistics_metadata.json
 │       └── status.json
 ├── database/
 │   ├── spectralbridge_bulk.duckdb
-│   └── bulk_observations.parquet       # optional
+│   └── bulk_observations.parquet       # explicit dataset build only
 ├── analyses/
 │   ├── dataset_census/
 │   ├── sensor_translation/
-│   └── leave_one_site_out/
+│   ├── leave_one_site_out/
+│   └── spectral_library/              # optional compact summaries
 ├── coefficients/
 │   ├── candidate_translation_coefficients.parquet
 │   └── candidate_translation_coefficients.json
 ├── tables/
 ├── figures/
+│   └── spectral_library/              # optional summary/full PDFs
 ├── reports/
 └── logs/
 </code></pre></div>
-<p>The DuckDB database contains the same catalogs, an <code>exclusions</code> table, a
-<code>bulk_observations</code> view, and each analysis table. The population stays virtual
-by default. Create a portable super-Parquet only when its storage cost is
-acceptable:</p>
-<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/data/completed_products<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--output-dir<span class="w"> </span>/data/portable_bulk_analysis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--materialize-observations<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--threads<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--memory-limit<span class="w"> </span>16GB<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--temp-directory<span class="w"> </span>/scratch/spectralbridge_bulk
+<p>DuckDB stores catalogs, exclusions, sufficient statistics, models, QA summaries,
+and provenance. In completed-flightline mode the compatibility
+<code>bulk_observations</code> view is empty because analysis does not require an observation
+layer. Original merged Parquets remain virtual read-in-place inputs.</p>
+<p>Analysis and pixel-level dataset construction are separate operations:</p>
+<div class="highlight"><pre><span></span><code>Completed flightline products
+        |
+        v
+EXPLICIT DATASET BUILD
+        |
+        v
+Harmonized pixel-level dataset
 </code></pre></div>
+<p>Use the explicit compatibility builder only when the combined pixel dataset is
+itself the requested scientific product:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_harmonized_dataset</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">build_harmonized_dataset</span><span class="p">(</span>
+    <span class="s2">"/data/completed_products"</span><span class="p">,</span>
+    <span class="s2">"/data/harmonized_pixel_dataset"</span><span class="p">,</span>
+    <span class="n">threads</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">memory_limit</span><span class="o">=</span><span class="s2">"16GB"</span><span class="p">,</span>
+    <span class="n">temp_directory</span><span class="o">=</span><span class="s2">"/scratch/spectralbridge_bulk"</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><code>materialize_observations=True</code> remains temporarily available for backward
+compatibility. New code should use <code>build_harmonized_dataset</code> so the disk cost
+and scientific intent are explicit. A production analysis invocation is:</p>
+<div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/data/completed_products<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>/data/bulk_analysis<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--extraction-workers<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--extraction-chunk-size<span class="w"> </span><span class="m">1024</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--diagnostic-sample-size<span class="w"> </span><span class="m">100000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--diagnostic-seed<span class="w"> </span><span class="m">42</span>
+</code></pre></div>
+<h2 id="visualize-an-existing-polygon-spectral-library">Visualize an existing polygon spectral library<a class="headerlink" href="#visualize-an-existing-polygon-spectral-library" title="Permanent link">&para;</a></h2>
+<p>The intentional merged polygon spectral library is different from the removed
+temporary observation cache. Pass its existing Parquet path separately: it is
+opened read-only and is never copied into the bulk output. The adapter inspects
+the footer before analysis, detects the species and available hierarchy fields,
+and selects one compatible wavelength-bearing spectral stage. It prefers
+<code>corr_*_wl*nm</code> columns when present; multiple other stages require an explicit
+choice. Wavelengths are parsed from column names, numerically sorted, and kept
+paired to their original values. Duplicate wavelengths, duplicate band indices,
+non-numeric spectral columns, and schemas without physical wavelengths fail
+explicitly.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_bulk_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge.bulk</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpectralLibraryPlotConfig</span>
+
+<span class="n">plots</span> <span class="o">=</span> <span class="n">SpectralLibraryPlotConfig</span><span class="p">(</span>
+    <span class="n">spectral_stage</span><span class="o">=</span><span class="s2">"corr"</span><span class="p">,</span>
+    <span class="n">species_sort</span><span class="o">=</span><span class="s2">"count_desc"</span><span class="p">,</span>       <span class="c1"># or "alphabetical"</span>
+    <span class="n">panels_per_page</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">trace_batch_size</span><span class="o">=</span><span class="mi">2_000</span><span class="p">,</span>
+    <span class="n">summary_band_batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">max_traces_per_group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>        <span class="c1"># default: show every valid trace</span>
+    <span class="n">raster_dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">run_bulk_pipeline</span><span class="p">(</span>
+    <span class="s2">"/data/completed_products"</span><span class="p">,</span>
+    <span class="s2">"/data/bulk_analysis"</span><span class="p">,</span>
+    <span class="n">spectral_library</span><span class="o">=</span><span class="s2">"/data/library/polygons_merged_pixel_extraction.parquet"</span><span class="p">,</span>
+    <span class="n">make_summary_plots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">make_full_spectral_reports</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">spectral_library_config</span><span class="o">=</span><span class="n">plots</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"preflight"</span><span class="p">][</span><span class="s2">"spectral_library_schema"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"spectral_library"</span><span class="p">][</span><span class="s2">"reports"</span><span class="p">])</span>
+</code></pre></div>
+<p><code>make_summary_plots=True</code> writes the between-species median overview and species
+observation-count report. <code>make_full_spectral_reports=True</code> also writes the
+species low-alpha ensemble, nested quantile envelopes, and available site,
+flightline, and within-species hierarchy reports. It also implies the two
+summary PDFs. No report is generated by default because large libraries can
+require substantial sequential I/O and rendering time.</p>
+<p>The trace alpha is deterministic:</p>
+<div class="highlight"><pre><span></span><code>alpha = min(0.03, max(0.003, 0.2 / sqrt(rendered trace count)))
+</code></pre></div>
+<p>This makes tens of spectra individually legible and progressively lowers alpha
+for dense groups. It is a qualitative spectral trace density, not a normalized
+probability density. The raw trace layer is rendered batch by batch into a
+fixed-size raster; titles, axes, annotations, and the median remain vector PDF
+elements. By default every complete finite spectrum contributes. Sampling is
+used only when <code>max_traces_per_group</code> (or
+<code>--spectral-max-traces-per-group</code>) is explicitly set, in which case a seeded
+DuckDB hash order makes the cap reproducible.</p>
+<p>The compact products are <code>species_summary.parquet</code>,
+<code>species_band_summary.parquet</code>, <code>species_quantiles.parquet</code>,
+<code>species_median_spectra.parquet</code>, and <code>group_counts.parquet</code>. Quantiles default
+to 2.5, 10, 25, 50, 75, 90, and 97.5 percent and use DuckDB
+<code>approx_quantile</code> in bounded band batches. Complete-spectrum validity requires
+every selected-stage value to be finite and at least the run's explicit
+<code>minimum_reflectance</code> (0.0 by default), matching bulk translation validity.
+Valid extreme values above that threshold are retained and determine the shared
+report range; there is no undocumented clipping. Memory is bounded by one Arrow
+trace batch plus at most the configured page's fixed-size panel rasters during
+plotting, and by one configured band batch during summary calculation. The
+companion JSON
+records source signature, package version, run ID, detected schema, counts,
+wavelength range, exact plot configuration, alpha rule, rasterization, sampling,
+report paths, page counts, and sizes.</p>
+<p>The full suite uses these canonical names when the corresponding grouping field
+exists:</p>
+<ul>
+<li><code>spectral_library_species_variability.pdf</code></li>
+<li><code>spectral_library_species_quantiles.pdf</code></li>
+<li><code>spectral_library_species_medians.pdf</code></li>
+<li><code>spectral_library_observation_counts.pdf</code></li>
+<li><code>spectral_library_hierarchical_variability.pdf</code></li>
+<li><code>spectral_library_site_variability.pdf</code></li>
+<li><code>spectral_library_flightline_variability.pdf</code></li>
+</ul>
+<p>These reports are additional products. Dataset census, translation, cross-
+sensor, LOSO, and other QA/statistical outputs remain unchanged.</p>
 <h2 id="restart-and-provenance">Restart and provenance<a class="headerlink" href="#restart-and-provenance" title="Permanent link">&para;</a></h2>
 <p>The source tree remains read only. The run manifest records package version,
 available git commit, profile, complete registry/pair configuration, source and
 output roots, accepted/excluded units, execution settings, timestamps, and
 artifact names. Raster fingerprints use path, size, modification time, header
-hash, and readable ENVI metadata. Every cache records its source products,
-schema version, source fingerprints, selection, and package version.</p>
+hash, and readable ENVI metadata. Every flightline checkpoint records its source
+signatures, algorithm/schema version, band and validity configuration, sampling
+configuration, and package version.</p>
 <p>An unchanged complete invocation returns <code>status="reused"</code>. Changing a selected
-source, profile, relationship, registry, integrity rule, or extraction setting
-invalidates relevant derived state. A failed extraction writes a status file
-and traceback log while other flightlines continue. Pass <code>force=True</code> or
+source invalidates only that flightline checkpoint; changing a profile,
+relationship, registry, integrity rule, or streaming setting invalidates the
+affected configuration. A failed streaming analysis is cataloged while other
+flightlines continue. Pass <code>force=True</code> or
 <code>--force</code> for an intentional rebuild.</p>
 <h2 id="advanced-extension">Advanced extension<a class="headerlink" href="#advanced-extension" title="Permanent link">&para;</a></h2>
 <p>The immutable <code>AnalysisProfile</code>, <code>ProductDescriptor</code>, <code>ProductRegistry</code>, and
 <code>TranslationPair</code> types are importable from <code>spectralbridge.bulk</code>. Custom
 registries belong in calling code or a future package extension, not in the
-source archive. Discovery/cache construction is separate from the independently
+source archive. Discovery/statistics construction is separate from the independently
 callable <code>run_dataset_census</code>, <code>run_sensor_translation</code>, and
 <code>run_leave_one_site_out</code> analysis modules, so new analyses do not need to
 reimplement source validation.</p>

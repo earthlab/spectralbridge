@@ -2796,7 +2796,7 @@
 <section class="sb-doc-section">
 <p class="sb-kicker">Cross-run analysis</p>
 <h2 id="independent-bulk-pipeline-contract">Independent bulk-pipeline contract<a class="headerlink" href="#independent-bulk-pipeline-contract" title="Permanent link">&para;</a></h2>
-<p>The optional <code>spectralbridge-bulk</code> workflow consumes completed or minimally staged scientific flightline directories beneath arbitrary storage folders. Identity comes from a generic manifest or another configured parser, never the outer folder. It reads only target-sensor ENVI products required by the selected analysis relationship and writes derived products to a separate output; it does not modify normal or drone runs. Canonical NEON names and prebuilt merged Parquets remain compatible inputs.</p>
+<p>The optional <code>spectralbridge-bulk</code> workflow consumes completed or minimally staged scientific flightline directories beneath arbitrary storage folders. Identity comes from a generic manifest or another configured parser, never the outer folder. It streams required target-sensor ENVI products in place and writes only compact analytical products to a separate output; it does not modify normal or drone runs. Canonical NEON names and prebuilt merged Parquets remain compatible inputs.</p>
 <table>
 <thead>
 <tr>
@@ -2832,19 +2832,24 @@
 <td>Deterministic reason codes, affected scientific units/products, offending paths, details, and processing stage.</td>
 </tr>
 <tr>
-<td>Per-flightline analysis cache</td>
-<td><code>cache/&lt;flight_id&gt;/</code></td>
-<td>Narrow sensor Parquets, joined observations, extraction metadata, and restart/failure status.</td>
+<td>Per-flightline statistics</td>
+<td><code>statistics/flightlines/&lt;flight_id&gt;/</code></td>
+<td>Mergeable sufficient statistics, signatures, optional bounded sample, and restart/failure status.</td>
+</tr>
+<tr>
+<td>Collection statistics</td>
+<td><code>statistics/translation_sufficient_statistics.parquet</code></td>
+<td>Compact flightline/band moments used for hierarchical model fitting.</td>
 </tr>
 <tr>
 <td>Bulk database</td>
 <td><code>database/spectralbridge_bulk.duckdb</code></td>
-<td>Catalogs, virtual union-by-name observations, and modular analysis tables.</td>
+<td>Catalogs, compact statistics, exclusions, provenance, and modular analysis tables.</td>
 </tr>
 <tr>
 <td>Bulk observations</td>
 <td><code>database/bulk_observations.parquet</code></td>
-<td>Optional portable materialization created only with <code>materialize_observations=True</code>.</td>
+<td>Explicit legacy dataset-build output; absent from normal analysis.</td>
 </tr>
 <tr>
 <td>Dataset census</td>
@@ -2867,13 +2872,23 @@
 <td>Pooled and balanced source-to-target summaries with selected-pair provenance.</td>
 </tr>
 <tr>
+<td>Spectral-library summaries</td>
+<td><code>analyses/spectral_library/</code></td>
+<td>Compact species/band summaries, approximate quantiles, medians, group counts, and provenance from an optional existing merged polygon Parquet.</td>
+</tr>
+<tr>
+<td>Spectral-library reports</td>
+<td><code>figures/spectral_library/</code></td>
+<td>Explicit summary or full multipage low-alpha variability PDFs; source observations are read in place and not copied.</td>
+</tr>
+<tr>
 <td>Bulk manifest</td>
 <td><code>catalog/bulk_manifest.json</code></td>
 <td>Restart signature, execution settings, counts, and artifact names.</td>
 </tr>
 </tbody>
 </table>
-<p class="sb-doc-note">The complete observation population remains virtual by default. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>
+<p class="sb-doc-note">Normal completed-flightline analysis has no observation population copy. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>
 </section>
 <section class="sb-doc-section">
 <p class="sb-kicker">Canonical outputs</p>

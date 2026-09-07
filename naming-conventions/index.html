@@ -2960,20 +2960,56 @@ fixed collection-level names rather than NEON or drone flight stems:</p>
 <td>Restart, settings, and provenance manifest</td>
 </tr>
 <tr>
-<td><code>cache/&lt;flightline-id&gt;/observations.parquet</code></td>
-<td>Restart-safe narrow observations derived from persisted target ENVI products</td>
+<td><code>statistics/flightlines/&lt;flightline-id&gt;/sufficient_statistics.parquet</code></td>
+<td>Restart-safe mergeable moments derived by bounded direct reads</td>
+</tr>
+<tr>
+<td><code>statistics/translation_sufficient_statistics.parquet</code></td>
+<td>Compact collection of all valid flightline/band statistics</td>
+</tr>
+<tr>
+<td><code>statistics/diagnostic_sample.parquet</code></td>
+<td>Optional globally bounded reproducible pixel-pair sample</td>
 </tr>
 <tr>
 <td><code>database/spectralbridge_bulk.duckdb</code></td>
-<td>Virtual observation views, catalogs, and analysis tables</td>
+<td>Catalogs, compact statistics, models, exclusions, and provenance</td>
 </tr>
 <tr>
 <td><code>database/bulk_observations.parquet</code></td>
-<td>Optional portable super-Parquet; never created by default</td>
+<td>Explicit harmonized-dataset build; never created by normal analysis</td>
 </tr>
 <tr>
 <td><code>coefficients/candidate_translation_coefficients.parquet/.json</code></td>
 <td>Pixel-pooled and balanced source-to-target translation candidates</td>
+</tr>
+<tr>
+<td><code>analyses/spectral_library/species_summary.parquet</code></td>
+<td>Species counts, wavelength coverage, and observed reflectance bounds</td>
+</tr>
+<tr>
+<td><code>analyses/spectral_library/species_band_summary.parquet</code></td>
+<td>Compact per-species/per-wavelength moments and extrema</td>
+</tr>
+<tr>
+<td><code>analyses/spectral_library/species_quantiles.parquet</code></td>
+<td>Approximate spectral quantiles at configured probabilities</td>
+</tr>
+<tr>
+<td><code>analyses/spectral_library/species_median_spectra.parquet</code></td>
+<td>One compact median spectrum per species</td>
+</tr>
+<tr>
+<td><code>analyses/spectral_library/group_counts.parquet</code></td>
+<td>Species, site, flightline, and polygon contribution counts when available</td>
+</tr>
+<tr>
+<td><code>analyses/spectral_library/spectral_library_summary.json</code></td>
+<td>Source signature, detected schema, plot configuration, reports, and interpretation</td>
+</tr>
+<tr>
+<td><code>figures/spectral_library/spectral_library_*.pdf</code></td>
+<td>Opt-in summary and full spectral variability reports</td>
 </tr>
 </tbody>
 </table>
