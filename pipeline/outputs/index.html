@@ -2872,6 +2872,21 @@
 <td>Pooled and balanced source-to-target summaries with selected-pair provenance.</td>
 </tr>
 <tr>
+<td>Translation interpretation</td>
+<td><code>analyses/bulk_results/</code></td>
+<td>Pair-band summaries, weighting comparisons, flightline/site stability, LOSO transferability, configurable attention flags, and restart metadata derived only from compact result tables.</td>
+</tr>
+<tr>
+<td>Translation interpretation figures</td>
+<td><code>figures/bulk_results/*.png</code></td>
+<td>Weighting, fitted-correction, heterogeneity, and held-out-site comparisons.</td>
+</tr>
+<tr>
+<td>Translation interpretation report</td>
+<td><code>reports/bulk_results/bulk_translation_results.md</code></td>
+<td>Portable results narrative with counts, population summaries, pair-band screening, warning details, and explicit interpretation boundaries.</td>
+</tr>
+<tr>
 <td>Spectral-library summaries</td>
 <td><code>analyses/spectral_library/</code></td>
 <td>Compact species/band summaries, approximate quantiles, medians, group counts, robust/full plot ranges, bounded extreme-spectrum diagnostics, and provenance from an optional existing merged polygon Parquet.</td>
@@ -2888,7 +2903,7 @@
 </tr>
 </tbody>
 </table>
-<p class="sb-doc-note">Normal completed-flightline analysis has no observation population copy. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>
+<p class="sb-doc-note">Normal completed-flightline analysis has no observation population copy. The optional results report reads only compact model outputs and does not require the source archive. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>
 </section>
 <section class="sb-doc-section">
 <p class="sb-kicker">Canonical outputs</p>

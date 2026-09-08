@@ -1017,6 +1017,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#interpret-a-completed-translation-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpret a completed translation run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#visualize-an-existing-polygon-spectral-library" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3003,20 +3014,89 @@ brightness adjustment.</p>
 │   ├── dataset_census/
 │   ├── sensor_translation/
 │   ├── leave_one_site_out/
+│   ├── bulk_results/                  # optional compact interpretation
 │   └── spectral_library/              # optional compact summaries
 ├── coefficients/
 │   ├── candidate_translation_coefficients.parquet
 │   └── candidate_translation_coefficients.json
 ├── tables/
 ├── figures/
+│   ├── bulk_results/                  # optional translation PNGs
 │   └── spectral_library/              # optional summary/full PDFs
 ├── reports/
+│   └── bulk_results/                  # optional Markdown report
 └── logs/
 </code></pre></div>
 <p>DuckDB stores catalogs, exclusions, sufficient statistics, models, QA summaries,
 and provenance. In completed-flightline mode the compatibility
 <code>bulk_observations</code> view is empty because analysis does not require an observation
 layer. Original merged Parquets remain virtual read-in-place inputs.</p>
+<h2 id="interpret-a-completed-translation-run">Interpret a completed translation run<a class="headerlink" href="#interpret-a-completed-translation-run" title="Permanent link">&para;</a></h2>
+<p>The reusable results layer starts after <code>run_bulk_pipeline</code> has completed. It
+requires only these compact artifacts:</p>
+<ul>
+<li><code>catalog/bulk_manifest.json</code></li>
+<li><code>coefficients/candidate_translation_coefficients.parquet</code></li>
+<li><code>analyses/sensor_translation/per_flightline.parquet</code></li>
+<li><code>analyses/sensor_translation/per_site.parquet</code></li>
+<li><code>analyses/leave_one_site_out/leave_one_site_out.parquet</code></li>
+</ul>
+<p>The source raster archive, per-flightline sufficient-statistics checkpoints,
+diagnostic sample, observation cache, and DuckDB database are not opened or
+required. This makes the completed bulk output independently portable for
+results review.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">summarize_bulk_results</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge.bulk</span><span class="w"> </span><span class="kn">import</span> <span class="n">BulkResultsConfig</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">summarize_bulk_results</span><span class="p">(</span>
+    <span class="s2">"/data/bulk_analysis"</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">BulkResultsConfig</span><span class="p">(</span>
+        <span class="n">r2_review_threshold</span><span class="o">=</span><span class="mf">0.90</span><span class="p">,</span>
+        <span class="n">loso_r2_review_threshold</span><span class="o">=</span><span class="mf">0.80</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">make_figures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">make_report</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"overview"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"attention_flags"</span><span class="p">])</span>
+</code></pre></div>
+<p>Each pair-band uses one common representative source reflectance for comparing
+the pixel-pooled, flightline-balanced, and site-balanced fitted corrections.
+By default that value is the pixel-pooled source mean; set
+<code>representative_source_value</code> to use one explicit reflectance instead. The
+calculation is recorded as:</p>
+<div class="highlight"><pre><span></span><code>100 × ((slope × source value + intercept) - source value) / source value
+</code></pre></div>
+<p>The generated <code>analyses/bulk_results/</code> tables separate six questions:</p>
+<ol>
+<li><code>weighting_comparison.parquet</code>: do pooled and balanced coefficients agree,
+   and what correction does each imply at the common value?</li>
+<li><code>flightline_stability.parquet</code>: how broad is the per-flightline slope and
+   fit distribution, and which flightline is weakest?</li>
+<li><code>site_stability.parquet</code>: how much do site coefficients differ, and which
+   site is weakest?</li>
+<li><code>loso_transferability.parquet</code>: how well does a model trained without each
+   site transfer to that held-out site?</li>
+<li><code>attention_flags.parquet</code>: which weak fits, large corrections, weighting
+   differences, heterogeneity, site dependence, incomplete results, or weak
+   LOSO evaluations cross configured review thresholds?</li>
+<li><code>pair_band_summary.parquet</code>: what evidence should be reviewed together for
+   each translation relationship and band?</li>
+</ol>
+<p><code>bulk_results_summary.json</code> records all thresholds and compact input hashes.
+An unchanged rerun reuses valid outputs; changing inputs or configuration
+rebuilds them. The optional PNGs and Markdown report contain no hard-coded
+production statistics: every count and metric is calculated from the supplied
+completed result tables.</p>
+<p>High R² indicates a strong relationship, but it does not establish sensor
+interchangeability. A pair-band with
+<code>no_configured_warning_triggered</code> has passed only the configured screen; it has
+not received universal scientific approval. In particular, inspect weighting
+sensitivity, flightline and site heterogeneity, the observed reflectance domain,
+and LOSO performance before promoting any candidate coefficient. These bulk
+translation candidates also remain distinct from the fixed upstream brightness
+adjustment.</p>
 <p>Analysis and pixel-level dataset construction are separate operations:</p>
 <div class="highlight"><pre><span></span><code>Completed flightline products
         |

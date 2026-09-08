@@ -2967,6 +2967,10 @@
     <p>Independent, restart-safe post-processing path with read-only discovery, compact streaming statistics, balanced regressions, leave-one-site-out validation, and opt-in spectral-library reports.</p>
   </article>
 <article class="sb-doc-card">
+    <h3><code>summarize_bulk_results</code></h3>
+    <p>Interprets an existing completed bulk run from compact model tables alone, producing weighting, stability, transferability, warning, figure, and Markdown-report artifacts without the source raster archive. Configure screening with <code>BulkResultsConfig</code> from <code>spectralbridge.bulk</code>.</p>
+  </article>
+<article class="sb-doc-card">
     <h3><code>run_spectral_library_analysis</code></h3>
     <p>Reads one existing merged polygon Parquet in place and writes compact species summaries plus explicitly requested low-alpha variability PDFs. Configure it with <code>SpectralLibraryPlotConfig</code> from <code>spectralbridge.bulk</code>.</p>
   </article>
@@ -3047,7 +3051,7 @@
 
 
 <h2 id="spectralbridge.__all__" class="doc doc-heading">
-            <code class=" language-python"><span class="n">__all__</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">__all__</span> <span class="o">+</span> <span class="p">([</span><span class="s1">'apply_brightness_correction'</span><span class="p">,</span> <span class="s1">'build_harmonized_dataset'</span><span class="p">,</span> <span class="s1">'go_forth_and_multiply'</span><span class="p">,</span> <span class="s1">'process_one_flightline'</span><span class="p">,</span> <span class="s1">'run_bulk_pipeline'</span><span class="p">,</span> <span class="s1">'run_drone_pipeline'</span><span class="p">,</span> <span class="s1">'run_spectral_library_analysis'</span><span class="p">,</span> <span class="s1">'inspect_spectral_library_preflight'</span><span class="p">,</span> <span class="n">load_brightness_coefficients</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">_PLOT_EXPORTS</span><span class="p">))))</span></code>
+            <code class=" language-python"><span class="n">__all__</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">__all__</span> <span class="o">+</span> <span class="p">([</span><span class="s1">'apply_brightness_correction'</span><span class="p">,</span> <span class="s1">'build_harmonized_dataset'</span><span class="p">,</span> <span class="s1">'go_forth_and_multiply'</span><span class="p">,</span> <span class="s1">'process_one_flightline'</span><span class="p">,</span> <span class="s1">'run_bulk_pipeline'</span><span class="p">,</span> <span class="s1">'run_drone_pipeline'</span><span class="p">,</span> <span class="s1">'run_spectral_library_analysis'</span><span class="p">,</span> <span class="s1">'summarize_bulk_results'</span><span class="p">,</span> <span class="s1">'inspect_spectral_library_preflight'</span><span class="p">,</span> <span class="n">load_brightness_coefficients</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">_PLOT_EXPORTS</span><span class="p">))))</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
