@@ -20,6 +20,60 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P78. Add Compact-Output Bulk Translation Results Reporting
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-09-08
+- Goal: Add a first-class interpretation layer for completed bulk translation
+  runs that works entirely from their compact outputs and helps users assess
+  coefficient strength, weighting dependence, heterogeneity, site dependence,
+  and held-out-site transferability.
+- Scope:
+  - Read only the completed bulk manifest and compact candidate,
+    per-flightline, per-site, and leave-one-site-out result tables.
+  - Produce deterministic compact summary/diagnostic tables, configurable
+    review flags, optional figures, and a reusable report without reopening
+    source rasters or requiring the original archive.
+  - Keep production observations out of package logic and tests; derive every
+    reported metric from supplied result tables.
+  - Expose a documented public API and preserve restart-safe output validation.
+- Plan:
+  - Validate and fingerprint the compact-result contract independently of the
+    source archive and bulk database.
+  - Summarize common-reference fitted corrections, identity departure,
+    candidate weighting spread, flightline/site coefficient distributions,
+    and LOSO performance with traceable worst cases.
+  - Add configurable screening thresholds whose flags mean review is required,
+    never automatic scientific approval or universal calibration validity.
+  - Add optional bounded figures and a Markdown interpretation report, then
+    verify source independence, deterministic restart, schema failures, and
+    fixture-derived metrics with focused and full tests.
+- Completed: 2026-09-08
+- Delivered:
+  - Added the lazy top-level `summarize_bulk_results` API and public
+    `BulkResultsConfig`/`BulkResultsPaths` contracts for completed bulk outputs.
+  - Added compact pair-band, weighting, per-flightline, per-site, LOSO, and
+    attention-flag Parquets plus restart metadata, optional PNGs, and an
+    optional Markdown interpretation report.
+  - Kept all population metrics fixture/input-derived, recorded explicit
+    screening boundaries, and added installed-artifact coverage without
+    reopening source rasters, regenerating moments, or creating a pixel cache.
+  - Documented the API, architecture, portable input requirements, schemas,
+    output names, and scientific interpretation limits.
+- Verification:
+  - `pytest -q tests/test_bulk_results.py tests/test_bulk_pipeline.py tests/test_installed_artifact_smoke.py`
+    passed.
+  - Full suite: 323 tests collected; 317 passed and 6 skipped.
+  - `ruff check src tests scripts/generate_ai_transparency.py scripts/check_installed_artifact.py`
+    passed under the Python 3.10 target.
+  - `python scripts/check_docs_links.py` passed.
+  - AI transparency artifacts were regenerated from the updated prompt log.
+- Next recommended task: Exercise `summarize_bulk_results` against a portable
+  copy of the completed production compact-output directory and archive the
+  generated report/figures with its immutable manifest for scientific review.
+
 ### P77. Production-Harden Spectral-Library Visualization
 
 - Priority: User-directed

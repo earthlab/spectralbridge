@@ -61,6 +61,15 @@ Catalog/preflight, dataset census, statistics, translation, and validation are
 independent layers. The workflow never calls or mutates the NEON and drone
 orchestrators.
 
+`summarize_bulk_results` is a fourth, post-run interpretation layer. It depends
+only on the completed manifest and compact candidate, per-flightline, per-site,
+and LOSO result Parquets. It derives weighting comparisons, coefficient
+heterogeneity, held-out-site performance, and review flags without reopening
+rasters or sufficient-statistics checkpoints. Input file fingerprints and a
+configuration signature make its outputs restart-safe. Review thresholds are
+kept in `BulkResultsConfig` and are explicitly screening criteria rather than
+universal calibration acceptance rules.
+
 Optional spectral-library reporting also reads its merged polygon Parquet in
 place. Its visualization-validity policy is distinct from regression validity:
 selected bands must be present, finite, and not equal to known nodata sentinels,

@@ -231,14 +231,17 @@ bulk_analysis/
 │   ├── dataset_census/
 │   ├── sensor_translation/
 │   ├── leave_one_site_out/
+│   ├── bulk_results/                  # optional compact interpretation
 │   └── spectral_library/              # optional compact summaries
 ├── coefficients/
 │   ├── candidate_translation_coefficients.parquet
 │   └── candidate_translation_coefficients.json
 ├── tables/
 ├── figures/
+│   ├── bulk_results/                  # optional translation PNGs
 │   └── spectral_library/              # optional summary/full PDFs
 ├── reports/
+│   └── bulk_results/                  # optional Markdown report
 └── logs/
 ~~~
 
@@ -246,6 +249,81 @@ DuckDB stores catalogs, exclusions, sufficient statistics, models, QA summaries,
 and provenance. In completed-flightline mode the compatibility
 `bulk_observations` view is empty because analysis does not require an observation
 layer. Original merged Parquets remain virtual read-in-place inputs.
+
+## Interpret a completed translation run
+
+The reusable results layer starts after `run_bulk_pipeline` has completed. It
+requires only these compact artifacts:
+
+- `catalog/bulk_manifest.json`
+- `coefficients/candidate_translation_coefficients.parquet`
+- `analyses/sensor_translation/per_flightline.parquet`
+- `analyses/sensor_translation/per_site.parquet`
+- `analyses/leave_one_site_out/leave_one_site_out.parquet`
+
+The source raster archive, per-flightline sufficient-statistics checkpoints,
+diagnostic sample, observation cache, and DuckDB database are not opened or
+required. This makes the completed bulk output independently portable for
+results review.
+
+~~~python
+from spectralbridge import summarize_bulk_results
+from spectralbridge.bulk import BulkResultsConfig
+
+results = summarize_bulk_results(
+    "/data/bulk_analysis",
+    config=BulkResultsConfig(
+        r2_review_threshold=0.90,
+        loso_r2_review_threshold=0.80,
+    ),
+    make_figures=True,
+    make_report=True,
+)
+
+print(results["overview"])
+print(results["attention_flags"])
+~~~
+
+Each pair-band uses one common representative source reflectance for comparing
+the pixel-pooled, flightline-balanced, and site-balanced fitted corrections.
+By default that value is the pixel-pooled source mean; set
+`representative_source_value` to use one explicit reflectance instead. The
+calculation is recorded as:
+
+~~~text
+100 × ((slope × source value + intercept) - source value) / source value
+~~~
+
+The generated `analyses/bulk_results/` tables separate six questions:
+
+1. `weighting_comparison.parquet`: do pooled and balanced coefficients agree,
+   and what correction does each imply at the common value?
+2. `flightline_stability.parquet`: how broad is the per-flightline slope and
+   fit distribution, and which flightline is weakest?
+3. `site_stability.parquet`: how much do site coefficients differ, and which
+   site is weakest?
+4. `loso_transferability.parquet`: how well does a model trained without each
+   site transfer to that held-out site?
+5. `attention_flags.parquet`: which weak fits, large corrections, weighting
+   differences, heterogeneity, site dependence, incomplete results, or weak
+   LOSO evaluations cross configured review thresholds?
+6. `pair_band_summary.parquet`: what evidence should be reviewed together for
+   each translation relationship and band?
+
+`bulk_results_summary.json` records all thresholds and compact input hashes.
+An unchanged rerun reuses valid outputs; changing inputs or configuration
+rebuilds them. The optional PNGs and Markdown report contain no hard-coded
+production statistics: every count and metric is calculated from the supplied
+completed result tables.
+
+High R² indicates a strong relationship, but it does not establish sensor
+interchangeability. A pair-band with
+`no_configured_warning_triggered` has passed only the configured screen; it has
+not received universal scientific approval. In particular, inspect weighting
+sensitivity, flightline and site heterogeneity, the observed reflectance domain,
+and LOSO performance before promoting any candidate coefficient. These bulk
+translation candidates also remain distinct from the fixed upstream brightness
+adjustment.
 
 Analysis and pixel-level dataset construction are separate operations:
 

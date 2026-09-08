@@ -93,6 +93,10 @@ fixed collection-level names rather than NEON or drone flight stems:
 | `database/spectralbridge_bulk.duckdb` | Catalogs, compact statistics, models, exclusions, and provenance |
 | `database/bulk_observations.parquet` | Explicit harmonized-dataset build; never created by normal analysis |
 | `coefficients/candidate_translation_coefficients.parquet/.json` | Pixel-pooled and balanced source-to-target translation candidates |
+| `analyses/bulk_results/*.parquet` | Compact weighting, stability, transferability, pair-band, and attention-flag tables derived from completed model outputs |
+| `analyses/bulk_results/bulk_results_summary.json` | Results configuration, compact input fingerprints, overview, warnings, and restart signature |
+| `figures/bulk_results/*.png` | Optional compact translation interpretation figures |
+| `reports/bulk_results/bulk_translation_results.md` | Optional Markdown translation interpretation report |
 | `analyses/spectral_library/species_summary.parquet` | Species counts, wavelength coverage, and observed reflectance bounds |
 | `analyses/spectral_library/species_band_summary.parquet` | Compact per-species/per-wavelength moments and extrema |
 | `analyses/spectral_library/species_quantiles.parquet` | Approximate spectral quantiles at configured probabilities |

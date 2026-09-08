@@ -28,13 +28,22 @@ from .registry import (
     ProductRegistry,
     TranslationPair,
 )
+from .results import (
+    BULK_RESULTS_SCHEMA_VERSION,
+    BulkResultsConfig,
+    BulkResultsPaths,
+    summarize_bulk_results,
+)
 
 __all__ = [
     "BULK_SCHEMA_VERSION",
+    "BULK_RESULTS_SCHEMA_VERSION",
     "BulkAnalysisPaths",
     "BulkInputKind",
     "BulkInputMode",
     "BulkSource",
+    "BulkResultsConfig",
+    "BulkResultsPaths",
     "ExclusionRecord",
     "FlightlineIdentity",
     "FlightlineIdentityParser",
@@ -55,4 +64,5 @@ __all__ = [
     "inspect_spectral_library",
     "inspect_spectral_library_preflight",
     "run_spectral_library_analysis",
+    "summarize_bulk_results",
 ]

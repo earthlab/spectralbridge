@@ -67,6 +67,10 @@ go_forth_and_multiply(
     <p>Independent, restart-safe post-processing path with read-only discovery, compact streaming statistics, balanced regressions, leave-one-site-out validation, and opt-in spectral-library reports.</p>
   </article>
   <article class="sb-doc-card">
+    <h3><code>summarize_bulk_results</code></h3>
+    <p>Interprets an existing completed bulk run from compact model tables alone, producing weighting, stability, transferability, warning, figure, and Markdown-report artifacts without the source raster archive. Configure screening with <code>BulkResultsConfig</code> from <code>spectralbridge.bulk</code>.</p>
+  </article>
+  <article class="sb-doc-card">
     <h3><code>run_spectral_library_analysis</code></h3>
     <p>Reads one existing merged polygon Parquet in place and writes compact species summaries plus explicitly requested low-alpha variability PDFs. Configure it with <code>SpectralLibraryPlotConfig</code> from <code>spectralbridge.bulk</code>.</p>
   </article>

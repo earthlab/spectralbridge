@@ -38,6 +38,7 @@ __all__ = sorted(
                 "run_bulk_pipeline",
                 "run_drone_pipeline",
                 "run_spectral_library_analysis",
+                "summarize_bulk_results",
                 "inspect_spectral_library_preflight",
                 load_brightness_coefficients.__name__,
             ]
@@ -58,6 +59,11 @@ def __getattr__(name: str):  # pragma: no cover - thin lazy import helper
 
         globals()[name] = _run_bulk_pipeline
         return _run_bulk_pipeline
+    if name == "summarize_bulk_results":
+        from .bulk.results import summarize_bulk_results as _summarize_bulk_results
+
+        globals()[name] = _summarize_bulk_results
+        return _summarize_bulk_results
     if name == "run_spectral_library_analysis":
         from .bulk.analyses.spectral_library import (
             run_spectral_library_analysis as _run_spectral_library_analysis,

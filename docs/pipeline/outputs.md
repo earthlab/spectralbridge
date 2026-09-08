@@ -25,11 +25,14 @@
 | Translation analyses | `analyses/sensor_translation/` | Pixel-pooled, per-flightline, per-site, flightline-balanced, and site-balanced regressions. |
 | Leave-one-site-out | `analyses/leave_one_site_out/` | Held-out-site generalization metrics. |
 | Candidate coefficients | `coefficients/candidate_translation_coefficients.(parquet|json)` | Pooled and balanced source-to-target summaries with selected-pair provenance. |
+| Translation interpretation | `analyses/bulk_results/` | Pair-band summaries, weighting comparisons, flightline/site stability, LOSO transferability, configurable attention flags, and restart metadata derived only from compact result tables. |
+| Translation interpretation figures | `figures/bulk_results/*.png` | Weighting, fitted-correction, heterogeneity, and held-out-site comparisons. |
+| Translation interpretation report | `reports/bulk_results/bulk_translation_results.md` | Portable results narrative with counts, population summaries, pair-band screening, warning details, and explicit interpretation boundaries. |
 | Spectral-library summaries | `analyses/spectral_library/` | Compact species/band summaries, approximate quantiles, medians, group counts, robust/full plot ranges, bounded extreme-spectrum diagnostics, and provenance from an optional existing merged polygon Parquet. |
 | Spectral-library reports | `figures/spectral_library/` | Explicit summary or full multipage low-alpha variability PDFs, including primary robust and separate full-range audit views; source observations are read in place and not copied. |
 | Bulk manifest | `catalog/bulk_manifest.json` | Restart signature, execution settings, counts, and artifact names. |
 
-<p class="sb-doc-note">Normal completed-flightline analysis has no observation population copy. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>
+<p class="sb-doc-note">Normal completed-flightline analysis has no observation population copy. The optional results report reads only compact model outputs and does not require the source archive. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

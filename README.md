@@ -324,6 +324,26 @@ pair registries, sensor selection, output contracts, weighting, restart
 behavior, and the distinction between translation regression and brightness
 adjustment.
 
+Once that run is complete, interpret it without retaining or reopening the
+source archive:
+
+```python
+from spectralbridge import summarize_bulk_results
+
+results = summarize_bulk_results(
+    "/data/bulk_analysis",
+    make_figures=True,
+    make_report=True,
+)
+```
+
+This restart-safe results layer reads only the completed manifest and compact
+candidate, per-flightline, per-site, and leave-one-site-out tables. It writes
+compact comparison/stability Parquets, configurable attention flags, three PNG
+figures, and a Markdown report. Its thresholds are review aids—not scientific
+approval—and the report explicitly separates strong fit from sensor
+interchangeability.
+
 An existing merged polygon spectral library can also be analyzed in place. Use
 `--spectral-library ... --preflight-only` first to inspect schema, counts, large
 groups, expected pages, and scan cost without writing PDFs. A normal run with no

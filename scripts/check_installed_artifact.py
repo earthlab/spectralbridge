@@ -47,6 +47,7 @@ from spectralbridge import (
     run_bulk_pipeline,
     run_drone_pipeline,
     run_spectral_library_analysis,
+    summarize_bulk_results,
 )
 from spectralbridge.paths import FlightlinePaths
 from spectralbridge.utils.paths import get_package_data_path
@@ -565,6 +566,22 @@ def _run_bulk(root: Path) -> dict[str, object]:
     _assert_json(census)
     _assert_parquet(loso)
 
+    interpreted = summarize_bulk_results(
+        root / "bulk_output",
+        make_figures=False,
+        make_report=True,
+    )
+    if interpreted["overview"]["accepted_flightlines"] != 3:
+        raise RuntimeError(f"Bulk results interpretation smoke failed: {interpreted}")
+    _assert_json(
+        root
+        / "bulk_output"
+        / "analyses"
+        / "bulk_results"
+        / "bulk_results_summary.json"
+    )
+    _assert_nonempty(Path(str(interpreted["report"])))
+
     reused = run_bulk_pipeline(
         bulk_source,
         root / "bulk_output",
@@ -613,6 +630,7 @@ def _run_smoke(root: Path, *, expected_version: str | None) -> dict[str, object]
         run_drone_pipeline,
         run_bulk_pipeline,
         run_spectral_library_analysis,
+        summarize_bulk_results,
     ):
         if not callable(entry_point):
             raise RuntimeError(f"Public entry point is not callable: {entry_point!r}")
