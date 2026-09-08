@@ -10754,3 +10754,30 @@ Pasted text contains the user's request.
 
 ## My request:
 ```
+
+## 2026-09-08 - create Full_1 Full_2 Full_3 notebooks
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+NEON_D13_NIWO_DP1_20200807_161351_reflectance
+NEON_D13_NIWO_DP1_20200807_162134_reflectance
+NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance
+NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance
+NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance
+NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance
+can you create 3 notebooks with 2 flightlines each just like what we have in @cibele-04.ipynb  etc ( the 4 cells should be there). But make it full extraction. So in the first cell, make it full as extraction mode and dont give the polygon path.
+
+Create Full_1, Full_2 and Full_3
+```
+
+## 2026-09-08 - push Full notebooks to Aug_2026_Full_Extraction
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+wait, beofr eyou commit and push. Change the third cell- destination is Aug_2026_Full_Extraction
+```
+
