@@ -20,6 +20,37 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P79. Prepare the 2.3.0rc1 PyPI Release Candidate
+
+- Priority: User-directed
+- Status: In progress
+- Owner: Codex
+- Started: 2026-09-08
+- Starting commit: `ce13fb3c93ef888de30c309f5d99fa4cae8d23a6`
+- Goal: Prepare one internally consistent `2.3.0rc1` source tree and release
+  workflow whose exact wheel and sdist can be validated outside the checkout
+  and deliberately published through PyPI Trusted Publishing.
+- Scope:
+  - Synchronize authoritative version, citation, changelog, README, release,
+    validation, and AI-transparency records without changing scientific logic.
+  - Institutionalize current bulk, compact-results, spectral-library,
+    production-scaling, scientific-claim, and release rules in `AGENTS.md`.
+  - Add PEP 440 RC tag validation, deterministic GitHub prerelease behavior,
+    exact-artifact testing/publishing, external-tester smoke guidance, and
+    release metadata regressions.
+  - Build and inspect one wheel/sdist pair, test supported interpreters and
+    installed APIs/CLIs where locally available, and leave external trusted-
+    publisher configuration and actual publication explicit.
+- Plan:
+  - Audit the current `main` release metadata, workflow, dependencies, public
+    surfaces, documentation, validation evidence, and stale compatibility
+    references from the recorded starting commit.
+  - Implement the smallest release-facing changes and focused tests needed for
+    RC and Trusted Publishing support; do not publish or tag during this task.
+  - Run source, docs, metadata, build, artifact-content, clean-install,
+    installed-smoke, CLI, and interpreter-specific gates; record every result
+    or blocker precisely before committing the release-candidate preparation.
+
 ### P78. Add Compact-Output Bulk Translation Results Reporting
 
 - Priority: User-directed

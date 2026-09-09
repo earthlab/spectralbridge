@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 from contextlib import contextmanager
 import hashlib
+from importlib.metadata import entry_points
 import json
 import os
 from pathlib import Path
@@ -34,6 +35,7 @@ os.environ.setdefault("RAY_DISABLE_AUTO_CONNECT", "1")
 os.environ.setdefault("RAY_DISABLE_IMPORT_WARNING", "1")
 
 import h5py
+import duckdb
 import numpy as np
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -42,6 +44,7 @@ from rasterio.transform import from_origin
 
 import spectralbridge
 from spectralbridge import (
+    build_harmonized_dataset,
     go_forth_and_multiply,
     inspect_spectral_library_preflight,
     run_bulk_pipeline,
@@ -49,6 +52,7 @@ from spectralbridge import (
     run_spectral_library_analysis,
     summarize_bulk_results,
 )
+from spectralbridge.bulk import BulkAnalysisPaths
 from spectralbridge.paths import FlightlinePaths
 from spectralbridge.utils.paths import get_package_data_path
 
@@ -78,6 +82,18 @@ RUNTIME_RESOURCES = (
     "drone_field_manifest.csv",
     "brightness/landsat_to_micasense.json",
     "brightness/landsat_tm_etm_to_micasense.json",
+)
+PRIMARY_CONSOLE_SCRIPTS = (
+    "spectralbridge-download",
+    "spectralbridge-pipeline",
+    "spectralbridge-qa",
+    "spectralbridge-qa-summary",
+    "spectralbridge-recover-raw",
+    "spectralbridge-qa-dashboard",
+    "spectralbridge-stage-qa",
+    "spectralbridge-merge-duckdb",
+    "spectralbridge-bulk",
+    "spectralbridge-validate-parquets",
 )
 
 
@@ -605,6 +621,71 @@ def _run_bulk(root: Path) -> dict[str, object]:
     }
 
 
+def _run_spectral_library(root: Path) -> dict[str, object]:
+    """Exercise compact spectral-library inspection and reporting."""
+
+    started = time.monotonic()
+    source = root / "spectral_library.parquet"
+    pq.write_table(
+        pa.table(
+            {
+                "species": ["Picea", "Picea", "Pinus", "Pinus"],
+                "polygon_id": [1, 2, 3, 4],
+                "flightline_id": ["F1", "F1", "F2", "F2"],
+                "site": ["NIWO", "NIWO", "WREF", "WREF"],
+                "corrected_b001_wl0500nm": [0.10, 0.11, 0.20, 0.21],
+                "corrected_b002_wl0600nm": [0.12, 0.13, 0.22, 0.23],
+                "corrected_b003_wl0700nm": [0.15, 0.16, 0.25, 0.26],
+            }
+        ),
+        source,
+    )
+    preflight = inspect_spectral_library_preflight(source)
+    if preflight["schema"]["row_count"] != 4:
+        raise RuntimeError(f"Spectral-library preflight failed: {preflight}")
+    bulk_paths = BulkAnalysisPaths(root / "spectral_library_output")
+    bulk_paths.database_dir.mkdir(parents=True, exist_ok=True)
+    with duckdb.connect(str(bulk_paths.database)) as connection:
+        result = run_spectral_library_analysis(
+            connection,
+            bulk_paths,
+            spectral_library=source,
+            analysis_run_id="installed-artifact-smoke",
+            make_summary_plots=False,
+            make_full_spectral_reports=False,
+        )
+    for key in ("species_summary", "species_band_summary", "species_quantiles"):
+        _assert_nonempty(Path(str(result["compact_outputs"][key])))
+    return {
+        "status": "preflight_and_compact_reporting",
+        "fixture_rows": 4,
+        "source_reused_in_place": True,
+        "elapsed_seconds": round(time.monotonic() - started, 3),
+    }
+
+
+def _validate_console_scripts() -> list[str]:
+    declared = {
+        item.name
+        for item in entry_points(group="console_scripts")
+        if item.value.startswith("spectralbridge.")
+    }
+    missing = sorted(set(PRIMARY_CONSOLE_SCRIPTS) - declared)
+    scripts_dir = Path(sys.executable).parent
+    unavailable = sorted(
+        name
+        for name in PRIMARY_CONSOLE_SCRIPTS
+        if not (scripts_dir / name).is_file()
+        and not (scripts_dir / f"{name}.exe").is_file()
+    )
+    if missing or unavailable:
+        raise RuntimeError(
+            "Installed console scripts are incomplete: "
+            f"metadata_missing={missing}, path_missing={unavailable}"
+        )
+    return list(PRIMARY_CONSOLE_SCRIPTS)
+
+
 def _resolve_runtime_resources() -> list[Path]:
     resources = [get_package_data_path(name) for name in RUNTIME_RESOURCES]
     missing = [path for path in resources if not path.is_file()]
@@ -625,6 +706,7 @@ def _run_smoke(root: Path, *, expected_version: str | None) -> dict[str, object]
             f"Expected version {expected_version}, found {spectralbridge.__version__}"
         )
     for entry_point in (
+        build_harmonized_dataset,
         go_forth_and_multiply,
         inspect_spectral_library_preflight,
         run_drone_pipeline,
@@ -638,10 +720,12 @@ def _run_smoke(root: Path, *, expected_version: str | None) -> dict[str, object]
     _assert_small_shape(NORMAL_SHAPE, label="normal fixture")
     _assert_small_shape(DRONE_SHAPE, label="drone fixture")
     resources = _resolve_runtime_resources()
+    console_scripts = _validate_console_scripts()
     with _block_network():
         normal = _run_normal(root)
         drone = _run_drone(root)
         bulk = _run_bulk(root)
+        spectral_library = _run_spectral_library(root)
     output_bytes = _assert_tree_is_bounded(root, maximum_bytes=MAX_OUTPUT_BYTES)
 
     return {
@@ -650,9 +734,11 @@ def _run_smoke(root: Path, *, expected_version: str | None) -> dict[str, object]
         "spectralbridge_version": spectralbridge.__version__,
         "installed_from": str(installed),
         "runtime_resources": [str(path) for path in resources],
+        "console_scripts": console_scripts,
         "normal": normal,
         "drone": drone,
         "bulk": bulk,
+        "spectral_library": spectral_library,
         "guardrails": {
             "network": "blocked",
             "max_workers": MAX_WORKERS,

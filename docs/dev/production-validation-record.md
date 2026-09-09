@@ -41,6 +41,46 @@ The repository currently retains one real-run record:
 That run predates the eventual PyPI release candidate and is evidence about a
 real workflow, not proof for the bytes of a future distribution artifact.
 
+### 2026-09 production bulk-analysis evidence
+
+A completed streaming bulk run on the staged Aug 2026 collection provides the
+current production-scale evidence for the bulk architecture. The following
+figures are operator-reported observations from that completed run; they were
+not independently rerun in the macOS release-preparation workspace, and they
+are not constants, thresholds, or expected values in package tests.
+
+- 122 accepted flightlines across NIWO, WREF, and YELL;
+- approximately 215+ GB of staged immutable source products;
+- 899,692,166 selected observation rows reduced during streaming analysis;
+- 122 compact per-flightline sufficient-statistics checkpoints;
+- 18 unique sensor-pair × band translation regressions;
+- 54 candidate coefficient rows spanning pixel-pooled,
+  flightline-balanced, and site-balanced estimates;
+- 2,196 per-flightline fits, 54 per-site fits, and 54 leave-one-site-out
+  evaluations;
+- no ordinary pixel-scale Parquet cache.
+
+The observed translation summaries included a median slope near 0.9660, slope
+range near 0.8675–0.9970, median R² near 0.9940, and R² range near
+0.5944–0.9998. At a representative source value, the median absolute fitted
+correction was about 7.54%, while the largest observed absolute correction was
+about 110.92%. These observations support the reporting design: strong
+relationships can coexist with scientifically meaningful corrections, and
+weak or extreme cases must remain visible rather than being hidden by medians.
+
+Operational issues exposed and corrected during staging and production work
+included matched MicaSense product classification/translation eligibility,
+literal `ETM+` filename handling, and replacement of the earlier pixel-cache
+design with direct bounded-window reduction and compact restart checkpoints.
+The reusable results layer was then added to compare weighting schemes,
+flightline/site heterogeneity, correction magnitude, and held-out-site
+transferability from compact completed-run outputs alone.
+
+This record supports the algorithms and architecture incorporated into
+2.3.0rc1, but it is not evidence that the exact RC wheel or sdist processed the
+archive. The exact installed artifacts are covered by Tier A; a post-publication
+production rerun may be recorded separately if required by the maintainers.
+
 ## Maintainer record for the next large-VM run
 
 Copy this checklist into a dated Markdown or JSON record under

@@ -5746,7 +5746,7 @@ sdist = { url = "https://files.pythonhosted.org/packages/f5/07/47f8fd1afdf65e85e
 
 [[package]]
 name = "spectralbridge"
-version = "2.2.0"
+version = "2.3.0rc1"
 source = { editable = "." }
 dependencies = [
     { name = "duckdb" },

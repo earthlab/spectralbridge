@@ -47,6 +47,15 @@ def test_release_metadata_gate_accepts_synchronized_version(tmp_path: Path) -> N
     }
 
 
+def test_release_metadata_gate_accepts_synchronized_rc(tmp_path: Path) -> None:
+    _write_release_files(tmp_path, version="2.4.0rc1")
+    assert CHECK.validate_release_tag("v2.4.0rc1", tmp_path)["pyproject"] == (
+        "2.4.0rc1"
+    )
+    assert CHECK.is_prerelease_version("2.4.0rc1") is True
+    assert CHECK.is_prerelease_version("2.4.0") is False
+
+
 def test_release_metadata_gate_rejects_mismatch(tmp_path: Path) -> None:
     _write_release_files(tmp_path, version="2.4.0")
     with pytest.raises(RuntimeError, match="does not match"):
@@ -57,3 +66,24 @@ def test_release_metadata_gate_rejects_unversioned_tag(tmp_path: Path) -> None:
     _write_release_files(tmp_path, version="2.4.0")
     with pytest.raises(RuntimeError, match="vMAJOR.MINOR.PATCH"):
         CHECK.validate_release_tag("release-2.4.0", tmp_path)
+
+
+@pytest.mark.parametrize("tag", ["v2.4.0-rc1", "v2.4.0.rc1", "v2.4.0preview1"])
+def test_release_metadata_gate_rejects_non_pep440_rc_tags(
+    tmp_path: Path, tag: str
+) -> None:
+    _write_release_files(tmp_path, version="2.4.0rc1")
+    with pytest.raises(RuntimeError, match="optional PEP 440"):
+        CHECK.validate_release_tag(tag, tmp_path)
+
+
+def test_release_workflow_reuses_candidate_for_pypi() -> None:
+    workflow = (
+        Path(__file__).resolve().parents[1] / ".github" / "workflows" / "release.yml"
+    ).read_text(encoding="utf-8")
+    assert "prerelease: ${{ needs.source-gates.outputs.is_prerelease == 'true' }}" in workflow
+    assert "uses: pypa/gh-action-pypi-publish@release/v1" in workflow
+    assert "environment:\n      name: pypi" in workflow
+    assert "id-token: write" in workflow
+    assert "needs: [resolve-tag, source-gates, build, wheel-smoke, sdist-smoke, github-release]" in workflow
+    assert "packages-dir: release-candidate/dist/" in workflow

@@ -42,6 +42,25 @@ def test_example_scripts_support_no_work_check_mode() -> None:
         assert "Configuration is valid" in result.stdout
 
 
+def test_release_candidate_smoke_checks_current_installation() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(REPO_ROOT / "examples" / "release_candidate_smoke.py"),
+            "--expected-version",
+            "2.3.0rc1",
+        ],
+        cwd=REPO_ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["status"] == "PASS"
+    assert payload["validation_scope"] == "installation_and_public_api_only"
+
+
 def test_vignette_notebooks_are_clean_and_code_compiles() -> None:
     notebooks = sorted(NOTEBOOK_DIR.glob("*.ipynb"))
     assert [path.name for path in notebooks] == EXPECTED_NOTEBOOKS

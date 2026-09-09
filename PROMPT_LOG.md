@@ -10909,3 +10909,872 @@ result = summarize_bulk_results(
 )
 ```
 ```
+
+## 2026-09-08 - prepare 2.3.0rc1 release candidate
+Branch: main
+Starting commit: ce13fb3c93ef888de30c309f5d99fa4cae8d23a6
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+You are working in:
+
+https://github.com/earthlab/spectralbridge
+
+Prepare the current repository for a PyPI release candidate, targeting:
+
+spectralbridge 2.3.0rc1
+tag: v2.3.0rc1
+
+Start from the CURRENT main branch. Do not rely on an older prompt or cached repository state.
+
+Before editing:
+
+git checkout main
+git pull --ff-only origin main
+git rev-parse HEAD
+git status --short
+
+Record the starting commit in FEATURE_REQUESTS.md / prompt log according to repository policy.
+
+The current reference point should be at or beyond:
+
+ce13fb3c93ef888de30c309f5d99fa4cae8d23a6
+
+Do not roll back recent bulk-pipeline, spectral-library, results-reporting, full-scene notebook, publication-hardening, or transparency work.
+
+⸻
+
+1. Goal
+
+Get SpectralBridge genuinely ready for an RC that can be installed from PyPI by an external tester.
+
+The desired release is:
+
+2.3.0rc1
+
+The job is not merely to bump a version string.
+
+The RC should establish that:
+
+* package metadata are internally consistent
+* wheel and sdist build cleanly
+* exact built artifacts install in clean environments
+* public APIs are importable from the installed artifact
+* CLIs are installed
+* the normal NEON workflow remains usable
+* drone workflow remains usable
+* polygon workflows remain usable
+* bulk streaming analysis is included
+* compact bulk results interpretation is included
+* spectral-library inspection/reporting is included
+* no production pixel cache is reintroduced
+* documentation describes the architecture users actually get
+* README gives an understandable entry point
+* AGENTS.md captures the institutionalized engineering rules
+* RC tags are supported by release automation
+* PyPI publishing is ready and deliberate
+
+Do not publish the RC until all gates pass.
+
+⸻
+
+2. Audit the repository before changing anything
+
+Read at minimum:
+
+AGENTS.md
+FEATURE_REQUESTS.md
+PROMPT_LOG.md
+README.md
+START_HERE.md
+pyproject.toml
+CITATION.cff
+CHANGELOG.md
+publication_checklist.md
+docs/dev/releasing.md
+docs/dev/architecture.md
+docs/vignettes/bulk-analysis.md
+docs/pipeline/outputs.md
+docs/reference/schemas.md
+.github/workflows/release.yml
+scripts/check_release_metadata.py
+scripts/check_installed_artifact.py
+src/spectralbridge/__init__.py
+src/spectralbridge/pipelines/bulk.py
+src/spectralbridge/bulk/
+tests/
+
+Search for stale references to:
+
+2.2.0
+vMAJOR.MINOR.PATCH
+cscal
+cache
+observations.parquet
+bulk cache
+
+Determine which are intentional historical/compatibility references and which are stale release documentation.
+
+Do not mechanically replace historical changelog text.
+
+⸻
+
+3. Version this as 2.3.0rc1
+
+Synchronize every release-authoritative version field to:
+
+2.3.0rc1
+
+At minimum inspect/update:
+
+pyproject.toml
+src/spectralbridge/__init__.py
+CITATION.cff
+preferred-citation block
+CHANGELOG.md
+
+Any automated release metadata check must agree.
+
+Use PEP 440 correctly:
+
+2.3.0rc1
+
+and Git tag:
+
+v2.3.0rc1
+
+Do not use:
+
+2.3.0-rc1
+2.3.0.rc1
+
+unless required somewhere solely for display.
+
+⸻
+
+4. Clean up the changelog
+
+The current changelog already contains a 2.3.0 section that predates much of the recent work.
+
+Turn the current release-facing entry into a coherent RC section.
+
+Something conceptually like:
+
+## [2.3.0rc1] – 2026-09-XX
+### Added
+- production-scale streaming bulk analysis
+- mergeable sufficient statistics
+- pixel-, flightline-, and site-balanced sensor translations
+- leave-one-site-out validation
+- compact bulk-results reporting
+- spectral-library inspection and low-alpha variability reports
+- bounded extreme-spectrum diagnostics
+- harmonized-dataset boundary/API
+- full-scene processing notebooks where appropriate
+### Changed
+- bulk analysis reads immutable source rasters in place
+- normal bulk analysis no longer materializes a pixel-scale cache
+- production output contracts and restart behavior
+- release/artifact validation
+### Fixed
+- matched MicaSense/Landsat eligibility
+- bulk discovery and source identity issues
+- large spectral-report rendering/scaling issues
+
+This is illustrative. Derive the actual entry from git history and package behavior.
+
+Do not invent features.
+
+Preserve older changelog history below the new RC entry.
+
+⸻
+
+5. Update README.md substantially but keep it human-readable
+
+The README currently describes much of the historical flightline workflow well, but SpectralBridge now has several first-class modes.
+
+Reorganize it so a new user can understand the package without reading hundreds of lines.
+
+The opening should explain SpectralBridge as a package for:
+
+translating, validating, and comparing reflectance across sensors and scales.
+
+Then present the major workflows clearly.
+
+A. Process individual flightlines
+
+from spectralbridge import go_forth_and_multiply
+
+Explain:
+
+NEON HDF5
+→ ENVI
+→ BRDF/topographic correction
+→ sensor convolution
+→ Parquet
+→ QA
+
+B. Production-scale bulk analysis
+
+Introduce:
+
+from spectralbridge import run_bulk_pipeline
+
+Make this architecture explicit:
+
+completed flightline products
+        |
+        | read only
+        v
+bounded raster windows
+        v
+mergeable sufficient statistics
+        v
+pixel-pooled / flightline-balanced / site-balanced fits
+        v
+per-flightline + per-site models
+        v
+leave-one-site-out validation
+
+State prominently:
+
+Normal bulk analysis does not duplicate the source pixels or build a pixel-scale analysis cache.
+
+The source products are immutable backing data.
+
+Disk usage should primarily scale with flightlines/models rather than total pixels.
+
+Explain that physical materialization is a separate explicit dataset-building operation.
+
+C. Interpret a completed bulk run
+
+Show:
+
+from spectralbridge import summarize_bulk_results
+summary = summarize_bulk_results(
+    "/data/bulk_analysis",
+    make_figures=True,
+    make_report=True,
+)
+
+Explain that this reads only compact outputs.
+
+It must not imply that high R² means sensors are interchangeable.
+
+Mention:
+
+* weighting comparison
+* flightline stability
+* site dependence
+* LOSO transferability
+* attention flags
+* compact figures/report
+
+D. Analyze an existing spectral library
+
+Show:
+
+from spectralbridge import (
+    inspect_spectral_library_preflight,
+    run_spectral_library_analysis,
+)
+
+Clarify that the spectral library is already an intentional merged scientific dataset.
+
+Explain:
+
+* read existing merged Parquet in place
+* species summaries
+* low-alpha spectral ensembles
+* robust/full-range views
+* quantiles
+* hierarchical variability
+* bounded extreme-spectrum diagnostics
+* multipage PDFs
+* no second copy of the library
+
+E. Harmonized dataset building
+
+Mention build_harmonized_dataset separately.
+
+Make the architectural distinction explicit:
+
+ANALYZE = read source data and reduce early
+BUILD DATASET = intentionally materialize a new scientific product
+
+Do not imply ordinary analysis should create another dataset.
+
+⸻
+
+6. Reduce README redundancy
+
+The README has accumulated several overlapping explanations of:
+
+* pipeline execution
+* output layout
+* parallelism
+* restart safety
+* QA
+* installation
+
+Consolidate redundant sections.
+
+Do not remove important user-facing information, but avoid describing the same flightline pipeline three or four times.
+
+Aim for a README that works well as the PyPI landing page.
+
+Remember that PyPI renders the README.
+
+Check all relative images/links for PyPI compatibility.
+
+If repository-relative assets will not render correctly on PyPI, use suitable absolute GitHub/docs links or remove unnecessary assets.
+
+⸻
+
+7. Update AGENTS.md to capture everything that is now institutionalized
+
+This is important.
+
+AGENTS.md should become the durable operating manual for future Codex/agent work.
+
+Preserve existing useful guidance, then add the following institutional rules.
+
+Bulk pipeline
+
+Document:
+
+* bulk analysis is separate from NEON/drone processing
+* completed source products are immutable/read-only
+* source paths remain authoritative backing data
+* do not duplicate pixels for computational convenience
+* do not reintroduce automatic observations.parquet
+* normal analysis must stream bounded raster chunks
+* reduce to sufficient statistics as early as possible
+* persistent disk use should scale primarily with flightlines/models
+* large pixel materialization must be explicit and scientifically intentional
+* restart checkpoints should be compact
+* parallelism should respect storage bandwidth
+* source identity and provenance are part of the analytical contract
+
+Bulk statistics
+
+Document that translation sufficient statistics are mergeable and support hierarchical aggregation:
+
+chunk → flightline → site → global
+
+and that LOSO should reuse additive/subtractive statistics when mathematically valid.
+
+Do not casually replace stable online moment calculations with naive sums.
+
+Bulk results interpretation
+
+Document:
+
+summarize_bulk_results
+
+and its invariant:
+
+completed compact outputs should be sufficient for interpretation without access to the original raster archive.
+
+Review thresholds are aids, not universal scientific approval criteria.
+
+High R² must not be equated with sensor interchangeability.
+
+Spectral library
+
+Document:
+
+* merged polygon Parquet is an intentional scientific dataset
+* read it in place
+* do not duplicate it
+* visualization validity is separate from regression validity
+* finite negative corrected reflectance is not automatically nodata
+* low-alpha trace plots are qualitative density-like visualizations, not normalized probability densities
+* very large trace layers should be rasterized while annotations remain readable/vector where practical
+* robust plotting bounds must never alter underlying analytical summaries
+* extreme spectra should remain traceable
+
+Scientific validity
+
+Add a clear rule:
+
+Separate descriptive diagnostics from empirical calibration claims.
+
+The MicaSense/Landsat synthetic convolution comparisons are diagnostic relationships derived from the same corrected reference unless a workflow explicitly provides independent empirical observations.
+
+Do not silently describe synthetic cross-sensor regressions as universal sensor calibration.
+
+Production-scale behavior
+
+Require agents changing pixel-scale code to consider:
+
+* memory scaling
+* disk scaling
+* filesystem reads
+* number of passes through source data
+* restartability
+* progress/observability
+* large-VM behavior
+
+A pipeline that can run silently for hours with no progress/status evidence is not production-ready.
+
+Long-running code should expose meaningful progress at flightline/chunk/stage level without writing giant state files.
+
+Results are not constants
+
+Never hard-code production results such as slopes, R², corrections, counts, etc. into scientific logic or regression tests.
+
+Tests should calculate expected values from controlled fixtures.
+
+Release rules
+
+Add a dedicated release section referencing:
+
+docs/dev/releasing.md
+.github/workflows/release.yml
+scripts/check_release_metadata.py
+scripts/check_installed_artifact.py
+
+Agents preparing a release must verify:
+
+* source tests
+* exact wheel
+* exact sdist
+* installed-artifact behavior
+* CLIs
+* docs
+* version metadata
+* citation
+* changelog
+* AI transparency
+* validation evidence
+
+⸻
+
+8. Update START_HERE.md if needed
+
+README should remain approachable, while START_HERE.md can be the concise navigation map.
+
+Make sure it points users toward:
+
+normal flightline processing
+drone processing
+bulk population analysis
+bulk results interpretation
+spectral-library analysis
+docs
+release/install information
+
+Avoid duplicating the entire README.
+
+⸻
+
+9. Make the release workflow support RC tags
+
+The current workflow must support:
+
+v2.3.0rc1
+v2.3.0rc2
+...
+
+as well as final versions.
+
+Update all relevant parsing/validation.
+
+The workflow must correctly understand PEP 440 prerelease versions.
+
+The tag:
+
+v2.3.0rc1
+
+must match package version:
+
+2.3.0rc1
+
+Update:
+
+.github/workflows/release.yml
+scripts/check_release_metadata.py
+docs/dev/releasing.md
+tests for release metadata
+
+Do not weaken final-release validation.
+
+⸻
+
+10. GitHub prerelease behavior
+
+When the tag contains a prerelease version such as rc, create the GitHub release as a prerelease.
+
+For a final tag such as:
+
+v2.3.0
+
+create a normal release.
+
+Implement this deterministically in the release workflow.
+
+⸻
+
+11. Prepare PyPI publishing
+
+The current repository deliberately stops before PyPI publishing.
+
+We now want to prepare it.
+
+Prefer PyPI Trusted Publishing through GitHub Actions rather than storing an API token.
+
+Use a protected GitHub environment conceptually like:
+
+pypi
+
+and:
+
+permissions:
+  id-token: write
+
+Publish the same wheel and sdist bytes that passed artifact testing.
+
+Do not rebuild before publishing.
+
+The workflow order should be approximately:
+
+source gates
+    ↓
+build exact wheel + sdist ONCE
+    ↓
+twine metadata check
+    ↓
+wheel smoke 3.10 / 3.11 / 3.12
+    ↓
+sdist smoke
+    ↓
+GitHub prerelease/release
+    ↓
+PyPI publish exact tested artifacts
+
+Consider whether GitHub release should happen before or after PyPI publish. Choose the safest ordering and document it.
+
+Do not publish automatically from ordinary branch pushes.
+
+Only version tags / deliberate release dispatches should be eligible.
+
+⸻
+
+12. RC safety
+
+For 2.3.0rc1, publishing to PyPI is acceptable only if all artifact gates succeed.
+
+Because this is an RC, PyPI will treat it as a prerelease and:
+
+pip install spectralbridge
+
+should not normally select it over a stable version.
+
+External testers should use something like:
+
+pip install --pre spectralbridge
+
+or:
+
+pip install spectralbridge==2.3.0rc1
+
+Document this.
+
+⸻
+
+13. PyPI project metadata
+
+Review pyproject.toml.
+
+Check:
+
+* description
+* keywords
+* classifiers
+* Python versions
+* project URLs
+* license metadata
+* dependencies
+* optional groups
+* console scripts
+* README rendering
+* package data
+
+Add explicit Python classifiers where appropriate:
+
+Python 3.10
+Python 3.11
+Python 3.12
+
+Do not claim support that artifact testing does not cover.
+
+Review whether:
+
+license = { file = "LICENSE" }
+
+should now migrate to the modern SPDX form.
+
+The publication checklist already notes the setuptools license metadata migration deadline. If changing it is safe now, do it and test artifact metadata. Otherwise leave a clearly documented blocker.
+
+⸻
+
+14. Dependency audit
+
+Review standard dependencies carefully.
+
+Do not casually remove dependencies.
+
+But determine whether all current standard-install dependencies are genuinely required at import/runtime.
+
+Pay particular attention to heavy packages such as:
+
+ray[default]
+geopandas
+matplotlib
+
+The release should prioritize working behavior over aggressive dependency slimming.
+
+If changing dependency groups could cause compatibility risk this late, leave it for post-RC and document it.
+
+⸻
+
+15. Installed artifact smoke must include the new public APIs
+
+Update scripts/check_installed_artifact.py so the installed wheel/sdist test proves at minimum:
+
+import spectralbridge
+spectralbridge.__version__
+spectralbridge.go_forth_and_multiply
+spectralbridge.run_drone_pipeline
+spectralbridge.run_bulk_pipeline
+spectralbridge.summarize_bulk_results
+spectralbridge.inspect_spectral_library_preflight
+spectralbridge.run_spectral_library_analysis
+spectralbridge.build_harmonized_dataset
+
+Also verify the relevant CLI scripts exist after installation.
+
+The artifact smoke should use tiny fixtures and no network.
+
+It must exercise actual installed code outside the checkout.
+
+Do not import accidentally from the source tree.
+
+⸻
+
+16. Add a tiny RC user-validation script or notebook
+
+Create a minimal external-tester workflow such as:
+
+examples/release_candidate_smoke.py
+
+or an appropriately named notebook/script.
+
+It should begin from:
+
+pip install spectralbridge==2.3.0rc1
+
+and not assume a cloned repository.
+
+It should demonstrate a small bounded piece of functionality that confirms the package imports and key public surfaces are available.
+
+If real remote-sensing data are too large for a bundled example, clearly distinguish:
+
+installation smoke
+
+from:
+
+scientific production validation
+
+Do not ship giant example data.
+
+⸻
+
+17. Production validation record
+
+Update the production validation documentation with the recent bulk evidence where appropriate.
+
+Important production facts may be documented as evidence, but must not become software constants.
+
+Record that the streaming architecture has been exercised at production scale and that normal analysis generated compact outputs without a pixel cache, if the existing repo evidence supports that claim.
+
+Also record any operational issue discovered and subsequently fixed.
+
+Be precise about what has and has not been independently reproduced.
+
+⸻
+
+18. Release checklist
+
+Create/update one concise RC checklist.
+
+It should include:
+
+[ ] version metadata = 2.3.0rc1
+[ ] changelog curated
+[ ] citation checked
+[ ] README checked
+[ ] AGENTS.md updated
+[ ] source tests pass
+[ ] Ruff passes
+[ ] docs links pass
+[ ] strict MkDocs passes
+[ ] AI transparency artifacts current
+[ ] validation evidence current
+[ ] wheel builds
+[ ] sdist builds
+[ ] twine check passes
+[ ] exact wheel installs on Python 3.10
+[ ] exact wheel installs on Python 3.11
+[ ] exact wheel installs on Python 3.12
+[ ] exact sdist installs on Python 3.10
+[ ] pip check passes
+[ ] installed-artifact smoke passes
+[ ] CLI entry points present
+[ ] no source-tree import contamination
+[ ] GitHub RC created as prerelease
+[ ] PyPI trusted publishing configured
+[ ] exact tested artifacts published
+[ ] pip install spectralbridge==2.3.0rc1 verified
+[ ] external test instructions published
+
+⸻
+
+19. Do not publish prematurely
+
+Implement the repository changes needed to make publishing possible.
+
+If the environment cannot configure the external PyPI trusted-publisher relationship itself, stop before publication and tell me exactly what I need to configure on PyPI/GitHub.
+
+Do not replace trusted publishing with an API token merely to make the workflow pass.
+
+Do not publish 2.3.0rc1 until all repository-side validation passes.
+
+⸻
+
+20. Verification
+
+Run, at minimum, whatever the current repo supports from this list:
+
+ruff check src tests scripts
+pytest -q
+python scripts/generate_ai_transparency.py --check
+python scripts/generate_validation_docs.py --check
+python scripts/check_docs_links.py
+mkdocs build --strict
+python scripts/check_release_metadata.py --tag v2.3.0rc1
+python -m build
+python -m twine check dist/*
+
+Then test the exact wheel outside the checkout.
+
+Use isolated environments for:
+
+Python 3.10
+Python 3.11
+Python 3.12
+
+Run:
+
+pip check
+
+and the installed-artifact smoke.
+
+Test the sdist separately.
+
+If an environment/tool is unavailable, do not claim it passed. State exactly what remains.
+
+⸻
+
+21. Inspect wheel and sdist contents
+
+Verify that the release artifact contains what users need and does not contain inappropriate repository debris.
+
+Check for:
+
+* spectralbridge package
+* package data
+* CLI entry points
+* license
+* metadata
+* appropriate typing/data assets if applicable
+
+Ensure it does NOT inadvertently ship:
+
+* giant production files
+* scratch outputs
+* temporary bulk results
+* notebook execution products
+* credentials
+* local paths
+* VM data
+* cache directories
+
+⸻
+
+22. README / PyPI rendering
+
+Render or inspect the README as package metadata.
+
+Make sure:
+
+* headings render
+* code fences render
+* links work
+* images do not break the PyPI page
+* no repo-local assumptions make the PyPI page confusing
+* RC installation instructions are easy to find
+
+⸻
+
+23. Final report
+
+Do not simply say “ready.”
+
+At completion give me a release-readiness table containing:
+
+Version synchronization
+README
+AGENTS.md
+Changelog
+Citation
+PyPI metadata
+RC tag support
+GitHub prerelease support
+Trusted publishing workflow
+Source tests
+Wheel build
+Sdist build
+Twine check
+Python 3.10 wheel smoke
+Python 3.11 wheel smoke
+Python 3.12 wheel smoke
+Python 3.10 sdist smoke
+Installed-artifact API smoke
+CLI smoke
+Docs
+AI transparency
+Validation evidence
+Production-scale bulk evidence
+PyPI external configuration
+
+For each mark:
+
+PASS
+BLOCKED
+NOT RUN
+
+Then state exactly:
+
+1. the final commit SHA
+2. whether v2.3.0rc1 can safely be tagged
+3. whether PyPI trusted publishing still needs a manual setup step
+4. the exact command/action I should use next
+5. what an external tester should run after publication
+
+The target outcome is:
+
+A reviewer can tag v2.3.0rc1, GitHub builds one exact wheel/sdist pair, tests those same artifacts across supported Python versions, marks the GitHub release as a prerelease, and publishes those exact validated artifacts to PyPI using trusted publishing, with the README and AGENTS.md accurately describing the modern SpectralBridge architecture.
+```

@@ -1,646 +1,266 @@
-# SpectralBridge — Translating surface reflectance across sensors and scales
+# SpectralBridge
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11167877.svg)](https://doi.org/10.5281/zenodo.11167877)
+SpectralBridge translates, validates, and compares reflectance across sensors
+and scales. It provides restart-safe scientific workflows for individual NEON
+flightlines, local drone products, production-scale cross-sensor analysis, and
+spectral-library reporting.
 
-[AI transparency statement](docs/ai-transparency.md) ·
-[Publication readiness audit](docs/dev/publication-readiness-audit-2026-08-14.md)
+[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://earthlab.github.io/spectralbridge/)
+[![PyPI](https://img.shields.io/pypi/v/spectralbridge)](https://pypi.org/project/spectralbridge/)
+[![Python](https://img.shields.io/pypi/pyversions/spectralbridge)](https://pypi.org/project/spectralbridge/)
 
-**New to the repository?** Start with [`START_HERE.md`](START_HERE.md) for a
-one-page map, a container-friendly runnable script, the JSON catalog, and the
-ordered notebook vignettes.
+## Install
 
-**SpectralBridge** is a modular Python-based tool for relating fine-resolution
-(few centimeters to ~5 meters) uncrewed aerial system (UAS) observations to
-moderate-resolution satellite sensors (over 30 meters). NEON airborne imaging
-spectroscopy is the translating reference in that relationship: **Drone → NEON
-→ Landsat**. The drone and NEON software workflows remain explicit and separate
-rather than presenting this as a direct, opaque drone-to-Landsat conversion.
-
-![SpectralBridge pipeline overview](docs/EL_workflow_diagram_updatedQA.png)
-
-## Environment setup
-
-Option A (conda, recommended for GDAL/rasterio users):
+SpectralBridge supports Python 3.10, 3.11, and 3.12.
 
 ```bash
-conda env create -f environment.yaml
-conda activate spectralbridge
+python -m pip install spectralbridge
 ```
 
-Option B (pip, lightweight):
+To evaluate the 2.3.0 release candidate explicitly:
 
 ```bash
-python -m venv spectralbridge-env
-source spectralbridge-env/bin/activate  # or Windows equivalent
-pip install .
+python -m pip install --pre "spectralbridge==2.3.0rc1"
+python -c "import spectralbridge; print(spectralbridge.__version__)"
 ```
 
-Source CI runs on Python 3.11, while the exact release artifact is gated on
-Python 3.10, 3.11, and 3.12 in GitHub Actions (Linux x86_64). Other operating
-systems may work, but Linux is the documented baseline.
-
-## Quickstart (CLI)
-
-Run the full SpectralBridge pipeline on one or more NEON flight lines:
+Contributor, documentation, and notebook dependencies are available as extras:
 
 ```bash
-spectralbridge-pipeline \
-  --base-folder output_demo \
-  --site-code NIWO \
-  --year-month 2023-08 \
-  --product-code DP1.30006.001 \
-  --flight-lines NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance \
-                 NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance \
-  --max-workers 2
+python -m pip install -e ".[dev]"
+python -m pip install -e ".[notebooks]"
 ```
 
-Legacy CLI aliases remain available for now and forward to the same implementation.
+## Workflows
 
-This will:
+### Individual NEON flightlines
 
-- Download each NEON `.h5` flight line (with a live download progress bar).
-- Convert the cube to ENVI using canonical `<flight_stem>_envi.img/.hdr` names.
-- Compute and apply BRDF + topographic correction.
-- Convolve to multiple sensor bandpasses (Landsat TM/ETM+/OLI, OLI2, MicaSense, etc.).
-- Export reflectance products and per-sensor tables to ENVI + Parquet.
-
-Output structure:
-
-```text
-output_demo/
-    <flight_stem>.h5                       # raw NEON flightline retained at the root
-    <flight_stem>/                         # all derived products for that line
-        <flight_stem>_envi.img/.hdr/.parquet
-        <flight_stem>_brdfandtopo_corrected_envi.img/.hdr/.json/.parquet
-        <flight_stem>_landsat_tm_envi.img/.hdr/.parquet
-        ...
-        <flight_stem>_merged_pixel_extraction.parquet
-                                        # Master pixel table (original + corrected + resampled)
-        <flight_stem>_qa.png             # QA summary figure (auto-generated after merge)
-```
-
-QA panels are emitted automatically at the end of the merge stage. You can
-re-generate them on demand with:
-
-```bash
-spectralbridge-qa --base-folder output_demo
-```
-
-That command re-renders `<flight_stem>_qa.png` inside each per-flightline folder.
-
-### Parallel execution from the CLI
-
-- `--max-workers N` (defaults to `8`) bounds parallelism.
-- `--engine {ray,thread,process}` selects the parallel backend. Ray is the
-  default engine and is included in the standard install; thread/process engines
-  remain available for local debugging or constrained-memory runs.
-- Each worker processes one flight line in isolation inside its own subdirectory.
-- Logs from each worker are prefixed with the flight line ID for readability.
-- Memory warning: each hyperspectral cube can consume tens of GB in memory, so avoid
-  setting `--max-workers` higher than your hardware can support.
-
-## Quickstart (Python API)
-
-> As of v2.2 the pipeline automatically downloads NEON HDF5 cubes, streams live progress
-> bars, and writes every derived product into a dedicated per-flightline folder.
-
-Install the package:
-
-```bash
-pip install spectralbridge
-```
-
-> Ray is part of the standard dependency set. `spectralbridge[full]` remains
-> available as an alias for existing automation and currently resolves to the
-> same dependency set.
-
-> Upgrading from older versions? Legacy imports continue to work for now, but
-> new examples use the ``spectralbridge`` namespace.
-
-### Quickstart Example
+`go_forth_and_multiply()` is the canonical file-based NEON workflow. It can
+download inputs, export ENVI, build and apply topographic and BRDF corrections,
+convolve corrected reflectance to target sensors, extract full-scene or polygon
+tables, merge Parquet outputs, and create QA artifacts.
 
 ```python
-from pathlib import Path
 from spectralbridge import go_forth_and_multiply
 
 go_forth_and_multiply(
-    base_folder=Path("output_fresh"),
+    base_folder="/data/niwo",
     site_code="NIWO",
     year_month="2023-08",
-    product_code="DP1.30006.001",
-    flight_lines=[
-        "NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance",
-        "NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance",
-    ],
-    max_workers=2,  # Run flightlines in parallel
+    flight_lines=["NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance"],
+    extraction_mode="full",  # or "polygon"
+    polygon_path=None,
 )
 ```
 
-This automatically:
-
-- Downloads the required NEON HDF5 flightlines with live progress bars.
-- Converts each cube to ENVI with per-tile progress updates.
-- Builds BRDF + topo correction JSON.
-- Applies corrections, performs cross-sensor convolution, and exports Parquet tables.
-- Automatically clears memory between major steps to prevent Ray OOM crashes.
-- Writes every derived product into a per-flightline subfolder while leaving the raw
-  `.h5` next to it for easy cleanup.
-
-### Example Output Layout
+Pipeline stages communicate through validated files. A restarted run reuses
+valid outputs instead of recomputing them:
 
 ```text
-output_fresh/
-├── NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance.h5
-├── NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance/
-│   ├── ..._envi.img/.hdr/.parquet
-│   ├── ..._brdfandtopo_corrected_envi.img/.hdr/.json/.parquet
-│   ├── ..._landsat_tm_envi.img/.hdr/.parquet
-│   ├── ..._micasense_envi.img/.hdr/.parquet
-│   └── NIWO_brdf_model.json
-├── NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance.h5
-└── NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance/
-    └── <same pattern>
+NEON HDF5
+  -> raw ENVI
+  -> correction model + corrected ENVI
+  -> target-sensor ENVI products
+  -> full or polygon Parquet tables
+  -> merged tables + QA
 ```
 
-### Reproducibility guarantees
+### Drone processing
 
-- **Deterministic staging:** Each step writes files with canonical names. Downstream
-  steps never guess paths.
-- **Checkpointing / idempotence:** Stages skip work if valid outputs already exist
-  (`✅ ... already complete ... (skipping)`).
-- **Crash-safe restarts:** You can re-run `spectralbridge-pipeline` on the same folder after an
-  interruption; it will resume from what's missing.
-- **Per-flightline isolation:** Each flight line has its own subdirectory. This allows
-  parallel execution and makes it clear which outputs belong together.
-- **Ephemeral HDF5:** The original NEON `.h5` stays at the top level and can be
-  archived separately if you only want corrected/derived products in the working folder.
-- **QA panels:** After processing, `spectralbridge-qa` generates a multi-panel summary figure per
-  flight line, to visually confirm that each step (export, correction, convolution,
-  parquet) completed successfully. QA figures are re-generated on every run to reflect
-  the current pipeline settings. The spectral panel uses unitless reflectance (0–1) and
-  shades VIS/NIR/SWIR regions for readability.
-
-### Parallel Execution
-
-By default the pipeline uses the Ray engine and the configured `max_workers`
-budget to process multiple flight lines in parallel. For local debugging or
-constrained-memory workflows, set `engine="thread"` or lower `max_workers`.
-Each worker operates on its own subfolder and logs are prefixed with the
-flightline ID:
-
-```
-[NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] 🚀 Processing ...
-[NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance] 🚀 Processing ...
-```
-
-Install contents:
-
-| Feature | Standard install | `[full]` alias |
-|---|---|---|
-| Core array ops (NumPy/Scipy) | ✅ | ✅ |
-| Raster I/O (Rasterio) | ✅ | ✅ |
-| Vector I/O/ops (GeoPandas) | ✅ | ✅ |
-| ENVI/HDR (Spectral) | ✅ | ✅ |
-| HDF5 (h5py) | ✅ | ✅ |
-| Ray engine | ✅ | ✅ |
-
-Replace `SITE` with a NEON site code and `FLIGHT_LINE` with an actual line identifier.
-
-## Pipeline overview
-
-SpectralBridge runs a cross-sensor calibration workflow for every flight line
-through a restart-safe seven-stage flow. Each stage streams a tqdm-style progress bar, logs with a
-scoped `[flight_stem]` prefix, and writes artifacts using canonical names from
-`get_flight_paths()`:
-
-```mermaid
-flowchart LR
-    D[Download .h5]
-    E[Export ENVI]
-    J[Build BRDF+topo JSON]
-    C[Correct reflectance]
-    R[Resample + Parquet]
-    M[Merge parquet tables]
-    Q[QA panel]
-    D --> E --> J --> C --> R --> M --> Q
-```
-
-1. **Download** NEON HDF5 reflectance files (`*_directional_reflectance.h5`)
-2. **Export** to ENVI format (`*_envi.img/.hdr`)
-3. **Topographic and BRDF Correction** → produces `*_brdfandtopo_corrected_envi.img/.hdr`
-4. **Cross-Sensor Convolution** to target sensors (Landsat TM, ETM+, OLI/OLI-2, MicaSense, etc.)
-5. **Parquet Export** for all ENVI products. Each rerun validates existing `*.parquet`
-   sidecars with `pyarrow.parquet.read_schema`. Valid files are reused; corrupt ones are
-   deleted and rebuilt so the stage self-heals bad exports automatically.
-6. **Merge Stage (new)** → merges all pixel tables (original, corrected, resampled) into one master parquet per flightline:
-   `<prefix>_merged_pixel_extraction.parquet`
-   Each row = one pixel, all wavelengths and metadata combined.
-7. **QA Panel (restored)** → generates a per-flightline visual summary panel:
-   `<prefix>_qa.png`
-
-### Example Usage
-
-```bash
-python -m bin.merge_duckdb --data-root /path/to/output --flightline-glob "NEON_*"
-```
-
-This produces for each flightline:
-
-```
-NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
-NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance_qa.png
-```
-
-## Pipeline Outputs
-
-Each flightline directory will contain:
-
-| Output Type | Example Filename | Description |
-|--------------|------------------|--------------|
-| Original ENVI | `*_envi.img/.hdr` | Raw NEON export |
-| Corrected ENVI | `*_brdfandtopo_corrected_envi.img/.hdr` | BRDF + topography corrected |
-| Convolved Products | `*_landsat_tm_envi.img`, etc. | Sensor-matched cubes |
-| Parquet Tables | `*_envi.parquet`, `*_landsat_oli_envi.parquet` | Per-product reflectance tables |
-| **Merged Master** | `*_merged_pixel_extraction.parquet` | One row per pixel, all wavelengths and metadata combined |
-| **QA Panel (PNG)** | `*_qa.png` | Visual summary of all stages |
-| QA Metrics (JSON) | `*_qa.json` | Numeric QA measurements |
-
-Helper utilities such as `get_flight_paths(base_folder, flight_stem)` and
-`_scoped_log_prefix(prefix)` keep each worker isolated, ensure consistent
-filenames, and make the parallel logs readable.
-
-## Running the pipeline
+The drone workflow is intentionally separate from NEON acquisition. It searches
+local inputs recursively, preserves source provenance, performs wavelength-driven
+band handling, applies requested corrections, and extracts full or polygon
+tables. It does not run spectral convolution.
 
 ```python
-from pathlib import Path
-from spectralbridge import go_forth_and_multiply
+from spectralbridge import run_drone_pipeline
 
-go_forth_and_multiply(
-    base_folder=Path("output_tester"),
-    site_code="NIWO",
-    year_month="2023-08",
-    product_code="DP1.30006.001",
-    flight_lines=[
-        "NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance",
-        "NEON_D13_NIWO_DP1_L020-1_20230815_directional_reflectance",
-    ],
-    max_workers=4,
+result = run_drone_pipeline(
+    "/data/drone_exports",
+    output_dir="/data/drone_processed",
+    apply_topo=True,
+    apply_brdf=True,
+    extraction_mode="polygon",
+    polygon_path="/data/plots.geojson",
 )
 ```
 
-This executes the download → ENVI → BRDF+topo → resample → merge → QA pipeline for every
-flight line, streaming progress bars along the way. After the last worker
-finishes, the pipeline logs `✅ All requested flightlines processed.`.
+### Production bulk translation analysis
 
-### Bulk analysis across completed runs
+`run_bulk_pipeline()` analyzes a tree of immutable, completed-flightline
+products. Normal bulk analysis never creates an ordinary row-level pixel cache.
+It reads source rasters in bounded windows and reduces observations immediately
+to mergeable sufficient statistics.
 
-Bulk population analysis is intentionally separate from individual NEON and
-drone processing. Point `spectralbridge-bulk` at a read-only archive of
-completed or minimally staged flightline directories. A flightline is the
-scientific unit; arbitrary outer storage folders are ignored. Generic
-flightlines declare identity in `spectralbridge_flightline.json`, while
-canonical NEON names remain supported by a built-in parser:
-
-```bash
-spectralbridge-bulk /data/completed_products \
-  --output-dir /data/bulk_analysis \
-  --analysis translation \
-  --input-mode auto \
-  --preflight-only
+```text
+immutable completed-flightline ENVI products
+  -> discovery, identity, QA, and eligibility catalog
+  -> bounded raster windows
+  -> one compact sufficient-statistics checkpoint per flightline
+  -> pooled, flightline-balanced, and site-balanced translations
+  -> per-flightline and per-site fits
+  -> leave-one-site-out validation
+  -> candidate coefficients + compact DuckDB/Parquet/JSON outputs
 ```
 
-The translation profile requires only one complete requested sensor pair, so a
-target-only archive can be valid without raw/corrected hyperspectral cubes, QA,
-or unrelated sensor products. Metadata-only preflight reports selected files,
-bytes, products, compatible pairs, and structured exclusions. The full run
-streams aligned ENVI windows into compact, restart-safe sufficient statistics
-and never creates a pixel-level cache during normal analysis. Invalid
-flightlines are excluded by default while the valid population continues;
-deterministic exclusion Parquet, JSON, and CSV are
-always written. Prebuilt merged Parquets remain a compatibility mode and
-physical collection-wide materialization is opt-in. See [Build a bulk cross-run
-analysis](docs/vignettes/bulk-analysis.md) for identity manifests, product and
-pair registries, sensor selection, output contracts, weighting, restart
-behavior, and the distinction between translation regression and brightness
-adjustment.
+```python
+from spectralbridge import run_bulk_pipeline
 
-Once that run is complete, interpret it without retaining or reopening the
-source archive:
+result = run_bulk_pipeline(
+    "/data/completed_flightlines",
+    "/data/bulk_analysis",
+    threads=4,
+    memory_limit="8GB",
+)
+```
+
+The workflow is restart-safe: completed per-flightline statistics checkpoints
+are reused. Source observations stay in their immutable products, so the compact
+bulk output can be retained independently of the large staging archive.
+
+### Results and interpretation
+
+`summarize_bulk_results()` operates only on compact outputs from a completed
+bulk run. It does not reopen source rasters or regenerate sufficient statistics.
 
 ```python
 from spectralbridge import summarize_bulk_results
 
-results = summarize_bulk_results(
+summary = summarize_bulk_results(
     "/data/bulk_analysis",
     make_figures=True,
     make_report=True,
 )
 ```
 
-This restart-safe results layer reads only the completed manifest and compact
-candidate, per-flightline, per-site, and leave-one-site-out tables. It writes
-compact comparison/stability Parquets, configurable attention flags, three PNG
-figures, and a Markdown report. Its thresholds are review aids—not scientific
-approval—and the report explicitly separates strong fit from sensor
-interchangeability.
+The report compares pooled and balanced fits, coefficient distributions,
+site dependence, leave-one-site-out transferability, and correction magnitude.
+High R² alone is not treated as evidence that sensors are interchangeable;
+weak, unstable, or unusually large corrections are surfaced explicitly.
 
-An existing merged polygon spectral library can also be analyzed in place. Use
-`--spectral-library ... --preflight-only` first to inspect schema, counts, large
-groups, expected pages, and scan cost without writing PDFs. A normal run with no
-plot flags creates compact summaries, robust/full display ranges, and bounded
-extreme-spectrum diagnostics. Add `--make-summary-plots` for species-median and
-observation-count PDFs, or `--make-full-spectral-reports` for the explicit
-multipage low-alpha trace, full-range audit, quantile, site, flightline, and
-hierarchy reports. The primary species report uses a configurable common robust
-range by default; analytical summaries retain all visualization-valid extrema.
-The source Parquet is never copied.
+### Spectral-library reporting
 
-### Idempotent / restart-safe
+Spectral-library analysis reads a supplied Parquet library in place and writes
+compact summaries and optional reports. Run the inexpensive preflight before a
+full report to inspect schema, group counts, and estimated rendering work.
 
-You can safely rerun the same command. The pipeline is stage-aware and
-restart-safe:
+```python
+from spectralbridge import inspect_spectral_library_preflight
 
-- If a stage already produced a valid output, that stage logs a `✅ ... (skipping)`
-  message and returns immediately.
-- If an output is missing or looks corrupted/empty, only that stage is recomputed.
-- If you crashed halfway through a long run, you can rerun the same call to resume where
-  work is still needed.
-
-A realistic rerun for one flight line now looks like (progress bars omitted for
-brevity):
-
-```
-[NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] 🚀 Processing ...
-[NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] 📥 stage_download_h5() found existing .h5 (skipping)
-[NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] 🔎 ENVI export target is ..._envi.img / ..._envi.hdr
-[NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] ✅ ENVI export already complete -> ..._envi.img / ..._envi.hdr (skipping heavy export)
-[NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] ✅ Correction JSON already complete -> ..._brdfandtopo_corrected_envi.json (skipping)
-[NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] ✅ BRDF+topo correction already complete -> ..._brdfandtopo_corrected_envi.img / ..._brdfandtopo_corrected_envi.hdr (skipping)
-[NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] 🎯 Convolving corrected reflectance
-[NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] ✅ Wrote landsat_tm product -> ..._landsat_tm_envi.img / ..._landsat_tm_envi.hdr
-[NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] ✅ Wrote micasense product -> ..._micasense_envi.img / ..._micasense_envi.hdr
-[NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] 📊 Sensor convolution summary | succeeded=['landsat_tm', 'micasense'] skipped=['landsat_etm+', 'landsat_oli', 'landsat_oli2'] failed=[]
-[NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance] 🎉 Finished pipeline
+preflight = inspect_spectral_library_preflight(
+    "/data/polygon_spectral_library.parquet"
+)
 ```
 
-After all requested flight lines finish, the run concludes with
-`✅ All requested flightlines processed.`
+The most convenient production route is to provide the spectral library to
+`run_bulk_pipeline()`. Advanced callers can use both public spectral-library
+surfaces directly:
 
-### Memory safety
+```python
+from spectralbridge import (
+    inspect_spectral_library_preflight,
+    run_spectral_library_analysis,
+)
+```
 
-The new pipeline will NOT keep re-loading 20+ GB hyperspectral cubes into memory on every rerun.
-The ENVI export step now checks for an existing, valid ENVI pair before doing any heavy work.
-If it's already there, it logs "✅ ... skipping heavy export" and moves on.
+The outputs include species summaries, quantiles, low-alpha spectral ensembles,
+robust and full-range views, hierarchical variability, bounded traceable
+extreme-spectrum diagnostics, and optional multipage PDFs. Plot bounds do not
+alter analytical summaries, and the workflow does not make a second copy of the
+input library. `run_spectral_library_analysis()` accepts a DuckDB connection and
+`BulkAnalysisPaths` for direct control.
 
-### Data products
+### Explicit row-level materialization
 
-After a successful run you should see, for each flight line:
+Most analyses should use the streaming statistics path. If a row-level
+harmonized dataset is genuinely required, request it explicitly:
 
-- `<base_folder>/<flight_stem>.h5` at the workspace root for easy cleanup or
-  archival.
-- `<base_folder>/<flight_stem>/` containing every derived artifact:
-  - `<flight_stem>_envi.img/.hdr/.parquet` (uncorrected ENVI export + summary).
-  - `<flight_stem>_brdfandtopo_corrected_envi.img/.hdr/.json/.parquet` (canonical
-    corrected cube).
-  - `<flight_stem>_<sensor>_envi.img/.hdr/.parquet` for each simulated sensor.
-  - `<flight_stem>_merged_pixel_extraction.parquet` (all pixels + wavelengths merged).
-  - `<flight_stem>_qa.png` (visual QA panel produced automatically).
-  - Support files such as `NIWO_brdf_model.json` generated during correction.
+```python
+from spectralbridge import build_harmonized_dataset
 
-## Troubleshooting Parquet issues
+result = build_harmonized_dataset(
+    "/data/completed_flightlines",
+    "/data/harmonized_dataset",
+)
+```
 
-**Symptom**
+This is an explicit build/export workflow and can be much larger than the
+normal compact bulk output.
+
+## Outputs and QA
+
+On-disk outputs and naming contracts are part of the public API. Depending on
+the workflow, outputs include paired ENVI `.img`/`.hdr` products, Parquet tables,
+DuckDB catalogs, correction models, coefficient tables, stage QA JSON, figures,
+and reports. See the [outputs contract](https://earthlab.github.io/spectralbridge/pipeline/outputs/)
+and [schema reference](https://earthlab.github.io/spectralbridge/reference/schemas/).
+
+QA is evidence, not decoration. Stage reports record pass/warn/fail status and
+provenance; plots help diagnose corrections, convolution, masks, extraction,
+weighting dependence, coefficient heterogeneity, and transferability.
+
+## Command-line tools
+
+The installed package provides focused commands including:
 
 ```text
-Parquet magic bytes not found in footer. Either the file is corrupted or this is not a parquet file.
-[merge] ⚠️ Skipping invalid parquet <file>: <error>
-❌ Issues found: - <file>.parquet → unable to read schema (...)
+spectralbridge-download
+spectralbridge-pipeline
+spectralbridge-bulk
+spectralbridge-qa
+spectralbridge-qa-summary
+spectralbridge-stage-qa
+spectralbridge-qa-dashboard
+spectralbridge-merge-duckdb
+spectralbridge-validate-parquets
+spectralbridge-recover-raw
 ```
 
-**What it means**
+Use `COMMAND --help` for current options. Historical `cscal-*` aliases remain
+available for compatibility.
 
-The Parquet sidecar is empty, truncated, or not actually a Parquet file.
+## Release-candidate validation
 
-**How it recovers**
-
-Re-run the pipeline for that flightline. During Parquet export the pipeline validates
-existing files, deletes any that fail `pyarrow.parquet.read_schema`, and rebuilds them
-from the ENVI source. `spectralbridge-validate-parquets --soft` surfaces the same issues without
-aborting the run, and the merge stage skips corrupt sidecars as long as at least one
-valid file remains for the prefix.
-
-**Manual recovery (optional)**
+After installing the exact candidate in a fresh environment, external testers
+can download and run the small installation check without cloning the repository:
 
 ```bash
-# 1. Optionally, manually remove a known-bad parquet file
-rm base_dir/NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance_envi.parquet
-
-# 2. Re-run the pipeline for that flightline; auto-heal will regenerate any missing/invalid parquet
-spectralbridge-pipeline \
-  --base-folder base_dir \
-  --site-code NIWO \
-  --year-month 2023-08 \
-  --product-code DP1.30006.001 \
-  --flight-lines NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance
-
-# 3. Optionally, re-validate in soft mode
-spectralbridge-validate-parquets --soft base_dir/NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance
+python -m pip install --pre "spectralbridge==2.3.0rc1"
+curl -O https://raw.githubusercontent.com/earthlab/spectralbridge/v2.3.0rc1/examples/release_candidate_smoke.py
+python release_candidate_smoke.py --expected-version 2.3.0rc1
 ```
 
-## Quality Assurance (QA) panels
+This checks the installed version, public imports, and primary console scripts;
+it is not a scientific validation. Maintainers also run a bounded exact-artifact
+smoke that executes the normal, drone, bulk, results, and spectral-library paths.
 
-<p align="center">
-  <img src="docs/EL_workflow_diagram_updatedQA.png" alt="SpectralBridge workflow diagram showing QA reports in the output stage" width="720">
-</p>
+## Documentation and examples
 
-<p align="center"><em>SpectralBridge workflow diagram showing QA reports as part of the output contract. Per-flightline QA PNG/JSON/PDF panels are generated during each run and are documented in the QA pages.</em></p>
+- [Documentation home](https://earthlab.github.io/spectralbridge/)
+- [Start here](https://github.com/earthlab/spectralbridge/blob/main/START_HERE.md)
+- [Bulk analysis vignette](https://earthlab.github.io/spectralbridge/vignettes/bulk-analysis/)
+- [Architecture](https://earthlab.github.io/spectralbridge/dev/architecture/)
+- [Notebook vignettes](https://earthlab.github.io/spectralbridge/vignettes/notebook-vignettes/)
+- [Changelog](https://github.com/earthlab/spectralbridge/blob/main/CHANGELOG.md)
 
-- **Panel A – Raw ENVI RGB:** Confirms the uncorrected export renders with sensible
-  color balance and spatial alignment.
-- **Panel B – Patch-mean spectrum:** Compares raw vs. BRDF+topo corrected spectra with a
-  difference trace to verify the correction stage modified reflectance as expected.
-- **Panel C – Corrected NIR preview:** Displays a high-NIR band from the corrected cube to
-  quickly spot artifacts such as striping or nodata gaps.
-- **Panel D – Sensor thumbnails:** Shows downsampled previews for each convolved sensor
-  product to confirm bandstacks were generated.
-- **Panel E – Parquet summary:** Lists the Parquet sidecars and file sizes so you can
-  confirm tabular exports are present and non-empty.
-
-Generate these summaries at any time with `spectralbridge-qa --base-folder <output_dir>`.
-
-For drone runs, you can also create a single PDF that stacks all
-`__qa.png` outputs for quick visual review:
+## Development
 
 ```bash
-spectralbridge-qa-summary drone_outputs/
+git clone https://github.com/earthlab/spectralbridge.git
+cd spectralbridge
+python -m pip install -e ".[dev]"
+ruff check src tests scripts
+pytest -q
+mkdocs build --strict
 ```
 
-That writes `drone_outputs/qa_summary.pdf` by default.
+Contributions should preserve scientific assumptions, deterministic outputs,
+restart safety, bounded processing, and public filename contracts. See
+[CONTRIBUTING.md](https://github.com/earthlab/spectralbridge/blob/main/CONTRIBUTING.md).
 
-The `_brdfandtopo_corrected_envi` suffix remains the canonical "final"
-reflectance for analysis and downstream comparisons; all scientific semantics
-are unchanged from previous releases.
+## Citation and license
 
-### QA dashboard summaries
-
-To review QA performance across many flightlines at once, run:
-
-```bash
-spectralbridge-qa-dashboard --base-folder output_fresh
-```
-
-This aggregates every `*_qa_metrics.parquet` file, computes per-flightline
-statistics, writes `qa_dashboard_summary.parquet`, and renders a companion plot
-(`qa_dashboard_summary.png`). Flag rates above 25% are marked with ⚠️ for quick
-triage.
-
-### Pipeline stages
-
-Each stage uses `get_flight_paths()` to discover its inputs/outputs and performs
-restart-safe validation before doing work. Valid ENVI pairs or JSON artifacts
-are reused rather than recomputed, ensuring reruns only fill in missing or
-corrupted pieces. `_scoped_log_prefix()` keeps the console readable when several
-flightlines run concurrently.
-
-#### Sensor convolution / resampling behavior
-
-- The final stage turns the corrected reflectance cube
-  (`*_brdfandtopo_corrected_envi.img/.hdr`) into simulated sensor products
-  (e.g. Landsat-style band stacks).
-- Each target sensor is attempted independently. Missing/unknown sensor definitions
-  are logged with a warning and skipped.
-- Each simulated sensor writes an ENVI `.img/.hdr` pair named
-  `<flight_stem>_<sensor>_envi.*`. GeoTIFFs are no longer emitted by this stage.
-- If a sensor product already exists on disk and validates as an ENVI pair, it is skipped with
-  a `✅ ... already complete ... (skipping)` log.
-- At the end of the stage, the pipeline logs a summary of which sensors succeeded,
-  which were skipped (already done), and which failed.
-- The pipeline only raises a runtime error if *all* sensors failed to produce usable
-  output for that flight line. Otherwise, partial success is allowed and the
-  pipeline continues.
-
-This enforced order prevents earlier bugs where convolution could run on uncorrected data.
-
-### Developer notes
-
-- `process_one_flightline()` is now the canonical per-flightline workflow.
-- `go_forth_and_multiply()` orchestrates downloads, per-flightline workers, and
-  options like `max_workers`.
-- `get_flight_paths()` is the single source of truth for naming and layout of:
-  - the `.h5` input,
-  - the per-flightline working directory,
-  - the uncorrected ENVI export,
-  - the correction JSON,
-  - the corrected ENVI (`*_brdfandtopo_corrected_envi.*`),
-  - the per-sensor convolution outputs and Parquet summaries.
-
-  All pipeline stages call `get_flight_paths()` instead of guessing filenames.
-  If file naming changes, update `get_flight_paths()`, not each stage.
-
-- Each stage validates its outputs (non-empty files, parseable JSON, etc.). If outputs are valid,
-  that stage logs "✅ ... skipping" and returns immediately.  
-  If outputs are missing or corrupted, that stage recomputes them.  
-  This is what makes the pipeline resumable after a crash or partial run.
-
-## Install
-
-The recommended setup commands are documented in [Environment setup](#environment-setup).
-For a quick pip-based installation use:
-
-```bash
-pip install spectralbridge
-```
-
-> `spectralbridge[full]` remains available as an alias for teams with
-> existing automation but currently resolves to the same dependency set.
-
-## Documentation
-
-Browse the full documentation site at
-[earthlab.github.io/spectralbridge](https://earthlab.github.io/spectralbridge).
-The site is built with MkDocs Material and automatically deployed to GitHub
-Pages.
-
-Key entry points:
-
-- [Home](docs/index.md)
-- [Quickstart](docs/quickstart.md)
-- [Pipeline overview & stages](docs/pipeline/stages.md)
-- [Bulk cross-run analysis](docs/vignettes/bulk-analysis.md)
-- [Outputs & file structure](docs/pipeline/outputs.md)
-- [QA panels & metrics](docs/pipeline/qa.md)
-- [Configuration reference](docs/reference/configuration.md)
-- [Validation metrics](docs/reference/validation.md)
-
-### Release validation tiers
-
-Every release candidate runs the exact installed wheel outside the checkout on
-tiny bounded fixtures through all major normal, drone, and bulk stages. This
-proves packaging, resources, orchestration, output readability, and restart
-behavior; it is not scientific validation. Selected real flightlines are
-validated separately on appropriately sized large-memory systems to establish
-scientific QA and production-scale behavior. CI does not attempt to reproduce a
-workflow that may require roughly 250 GB of RAM. See the
-[production validation record](docs/dev/production-validation-record.md).
-
-## Support Matrix
-
-| Python versions | OS (CI)       | Notes                          |
-|-----------------|---------------|--------------------------------|
-| 3.10–3.12       | Linux x86_64  | Exact-artifact release gate.   |
-| 3.10–3.12       | macOS / other | Community supported.           |
-
-## Citation
-
-If you use SpectralBridge in research, please cite:
-
-- the software release you used
-- associated publications
-- relevant methods papers for the scientific workflow you rely on
-
-`CITATION.cff` is the authoritative citation source for the repository and
-should be updated alongside each release.
-
-An archived Zenodo software release already exists for the repository's
-pre-rename `cross-sensor-cal` v1.0.0 release:
-[`10.5281/zenodo.11167877`](https://doi.org/10.5281/zenodo.11167877).
-That DOI is now surfaced by the README badge above, but it should not be
-mistaken for a minted DOI for the current `SpectralBridge` `2.2.0` package
-metadata. See [docs/dev/doi-zenodo.md](docs/dev/doi-zenodo.md) for the
-maintainer-facing status and release-update guidance.
-See [docs/dev/software-citation.md](docs/dev/software-citation.md) for the
-maintainer-facing citation policy, publication tracker, and release-citation
-rules.
-
-## Open Science
-
-SpectralBridge is intended to be reusable scientific infrastructure. The
-project emphasizes reproducibility, transparent workflows, software citation,
-and interoperable data products so that results can be inspected, rerun, and
-extended across research groups and computing environments.
-
-## License Status
-
-SpectralBridge is currently distributed under **GPLv3**. The repository also
-contains code and documentation notes that explicitly credit GPLv3-derived
-HyTools adaptations, so any migration to Apache License 2.0 requires a
-maintainer-led provenance and legal review before the project can accurately
-claim that license change.
-
-Apache License 2.0 is being evaluated as a future target because it would
-support broad scientific adoption, commercial use, and long-term
-cyberinfrastructure sustainability. Until that review is complete, the current
-GPLv3 status remains authoritative.
-
-## Commercial Engagement
-
-Open-source distribution does not prevent value-added services around the
-project. Potential examples include hosted processing, cloud deployment,
-workflow support, training, consulting, interoperability validation, and sensor
-integration work. Any future Apache 2.0 migration would preserve those options
-while keeping the software itself open.
-
-## License
-
-Distributed under the GPLv3 License. Citation metadata lives in
-[CITATION.cff](CITATION.cff).
+Please cite the software using
+[CITATION.cff](https://github.com/earthlab/spectralbridge/blob/main/CITATION.cff).
+SpectralBridge is licensed under
+[GPL-3.0-or-later](https://github.com/earthlab/spectralbridge/blob/main/LICENSE).

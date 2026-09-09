@@ -181,12 +181,84 @@ When editing notebooks:
 ### Drone pipeline
 
 - Drone support should remain separate from the NEON download workflow.
-- Drone orchestration should use local H5 discovery, recurse through subfolders, and preserve provenance from original H5 filenames.
+- Drone orchestration should use local supported HDF5/TIFF discovery, recurse through subfolders, and preserve provenance from original filenames.
 - Drone logic should be wavelength-driven for conceptual band mapping.
 - Avoid index-based band assumptions in drone-only code.
 - Skip convolution unless a task explicitly introduces it.
-- Treat HDF5 as the input contract. Do not add TIFF conversion logic or repairs for malformed upstream TIFF-to-HDF5 conversions.
+- Treat the existing HDF5 and TIFF readers as explicit input contracts. Do not add ad hoc repairs for malformed upstream conversions.
 - Protect orientation, ancillary alignment, chunking, checkpointing, per-flight parquet outputs, and QA transparency with focused regression tests.
+
+### Bulk pipeline
+
+- Keep bulk analysis cleanly separated from both individual-flightline pipelines.
+- Treat completed-flightline source products as immutable. Normal bulk analysis
+  reads them in bounded windows and reduces observations immediately to compact,
+  mergeable sufficient statistics. Source paths and source identity remain the
+  authoritative backing data and are part of the analytical provenance contract.
+- Never reintroduce an ordinary pixel-scale Parquet cache into normal bulk
+  analysis. Row-level materialization is allowed only through the explicit
+  `build_harmonized_dataset()` workflow.
+- Checkpoint compact sufficient statistics per flightline and reuse valid
+  checkpoints on restart.
+- Translation statistics aggregate hierarchically from chunk to flightline to
+  site to global. Preserve stable online/mergeable moment calculations; do not
+  replace them casually with naive sums. Reuse additive/subtractive statistics
+  for LOSO when mathematically valid.
+- Persistent analysis output should scale primarily with flightlines and models,
+  not total pixels. Tune parallelism for storage bandwidth as well as CPU and RAM.
+- Preserve the full translation evidence chain: pixel-pooled,
+  flightline-balanced, site-balanced, per-flightline, per-site, and
+  leave-one-site-out fits plus candidate coefficients.
+- `summarize_bulk_results()` must operate only on compact completed-run outputs;
+  it must not reopen rasters, regenerate statistics, or require the original
+  production archive.
+- Compare pooled and balanced results. Surface weighting dependence,
+  heterogeneity, site dependence, transferability failures, weak fits, and
+  large corrections explicitly. High R² alone does not establish sensor
+  interchangeability. Configured review thresholds are decision aids, not
+  universal scientific approval criteria.
+- Spectral-library reporting reads the supplied library in place. Keep
+  preflight cheap, use compact summaries by default, and require explicit
+  choices for potentially expensive full trace reports. The merged polygon
+  Parquet is an intentional scientific dataset and must not be copied for
+  computational convenience.
+- Keep visualization validity separate from regression validity. Finite negative
+  corrected reflectance is not automatically nodata. Low-alpha ensembles are
+  qualitative density-like views, not normalized probability densities. Rasterize
+  very large trace layers while retaining readable annotations where practical.
+  Robust plot bounds must never alter analytical summaries, and bounded extreme
+  spectra must remain traceable to source records.
+- Separate descriptive diagnostics from empirical calibration claims. Synthetic
+  MicaSense/Landsat convolution comparisons derived from the same corrected
+  reference are diagnostic relationships unless independent empirical
+  observations are explicitly supplied; do not present them as universal sensor
+  calibration.
+- Production observations such as row counts, fitted slopes, R² values, or
+  correction magnitudes are evidence, not package constants. Calculate metrics
+  from supplied tables and use synthetic fixtures in tests.
+- Changes to pixel-scale code must evaluate memory and disk scaling, filesystem
+  reads, source-data passes, restartability, progress, and large-VM behavior.
+  Long-running work must expose meaningful flightline/chunk/stage progress
+  without creating giant state files; a pipeline that can run silently for hours
+  is not production-ready.
+
+### Release engineering
+
+- Keep `pyproject.toml`, `spectralbridge.__version__`, `CITATION.cff`, the first
+  changelog heading, and the release tag synchronized.
+- Release tags use `vMAJOR.MINOR.PATCH` or strict PEP 440 prerelease suffixes
+  such as `v2.3.0rc1`; do not use hyphenated RC tags.
+- Build the wheel and sdist once. Test those exact bytes and publish the same
+  artifacts; never rebuild between validation and publication.
+- Validate wheels on Python 3.10, 3.11, and 3.12 and the sdist on Python 3.10.
+- The installed-artifact smoke must run outside the source checkout and cover
+  normal, drone, bulk, compact results, spectral-library, public API, console
+  script, and packaged-data wiring without network access.
+- PyPI publication uses trusted publishing through the protected `pypi` GitHub
+  environment. Do not store an API token in repository secrets.
+- Prerelease tags must create GitHub prereleases and publish a prerelease version
+  to PyPI only after every source, documentation, build, metadata, and exact
+  artifact gate passes.
 
 ## Naming And Path Conventions
 
@@ -238,7 +310,12 @@ Exceptions:
 - Prefer repo-relative paths in examples.
 - Keep changes scientifically conservative.
 - Call out uncertainties instead of guessing.
-- Protect intentionally public APIs such as `spectralbridge.go_forth_and_multiply`, `spectralbridge.process_one_flightline`, and `spectralbridge.run_drone_pipeline`.
+- Protect intentionally public APIs such as `spectralbridge.go_forth_and_multiply`,
+  `spectralbridge.process_one_flightline`, `spectralbridge.run_drone_pipeline`,
+  `spectralbridge.run_bulk_pipeline`, `spectralbridge.summarize_bulk_results`,
+  `spectralbridge.run_spectral_library_analysis`,
+  `spectralbridge.inspect_spectral_library_preflight`, and
+  `spectralbridge.build_harmonized_dataset`.
 - Leave known issues visible: fix them or add/update a feature request instead of letting them disappear.
 
 ## Good First Files To Read For Most Tasks

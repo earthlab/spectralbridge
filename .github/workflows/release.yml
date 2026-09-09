@@ -7,12 +7,12 @@ on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: "Optional vMAJOR.MINOR.PATCH tag to package and release"
+        description: "vMAJOR.MINOR.PATCH[rcN] tag to package and publish"
         required: false
         type: string
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   resolve-tag:
@@ -37,6 +37,8 @@ jobs:
     name: Release / source, docs, and metadata gates
     needs: resolve-tag
     runs-on: ubuntu-latest
+    outputs:
+      is_prerelease: ${{ steps.metadata.outputs.is_prerelease }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -53,7 +55,11 @@ jobs:
           pip install -e .[tests,docs] ruff
 
       - name: Validate release metadata
-        run: python scripts/check_release_metadata.py --tag "${{ needs.resolve-tag.outputs.release_tag }}"
+        id: metadata
+        run: |
+          python scripts/check_release_metadata.py \
+            --tag "${{ needs.resolve-tag.outputs.release_tag }}" \
+            --github-output "$GITHUB_OUTPUT"
 
       - name: Run lint and tests
         env:
@@ -99,6 +105,9 @@ jobs:
       - name: Validate package metadata
         run: python -m twine check dist/*
 
+      - name: Record artifact checksums
+        run: sha256sum dist/* > SHA256SUMS
+
       - name: Upload exact release candidate and smoke runner
         uses: actions/upload-artifact@v4
         with:
@@ -107,6 +116,7 @@ jobs:
           retention-days: 14
           path: |
             dist/*
+            SHA256SUMS
             scripts/check_installed_artifact.py
 
   wheel-smoke:
@@ -173,6 +183,8 @@ jobs:
     name: Release / create GitHub release
     needs: [resolve-tag, source-gates, build, wheel-smoke, sdist-smoke]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -184,5 +196,28 @@ jobs:
         with:
           tag_name: ${{ needs.resolve-tag.outputs.release_tag }}
           generate_release_notes: true
+          prerelease: ${{ needs.source-gates.outputs.is_prerelease == 'true' }}
           files: |
             release-candidate/dist/*
+            release-candidate/SHA256SUMS
+
+  pypi-publish:
+    name: Release / publish exact candidate to PyPI
+    needs: [resolve-tag, source-gates, build, wheel-smoke, sdist-smoke, github-release]
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/spectralbridge
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-candidate
+          path: release-candidate
+
+      - name: Publish the already-tested distributions
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: release-candidate/dist/

@@ -20,8 +20,12 @@ rest until you need it.
 | Run a complete NEON-to-Landsat workflow | [`examples/run_neon_pipeline.py`](examples/run_neon_pipeline.py) | `python examples/run_neon_pipeline.py --check`, then rerun without `--check` |
 | Run from a local NEON HDF5 file | [`scripts/run_pipeline_from_local_h5.py`](scripts/run_pipeline_from_local_h5.py) | `python scripts/run_pipeline_from_local_h5.py --help` |
 | Work interactively | [`docs/vignettes/notebooks/README.md`](docs/vignettes/notebooks/README.md) | Open the notebook matching your task |
-| Process drone HDF5 data | [`examples/run_drone_pipeline.py`](examples/run_drone_pipeline.py) | Edit its JSON config and run it |
+| Process local drone HDF5 or supported TIFF data | [`examples/run_drone_pipeline.py`](examples/run_drone_pipeline.py) | Edit its JSON config and run it |
 | Catalog completed runs and analyze the sensor population | [`docs/vignettes/bulk-analysis.md`](docs/vignettes/bulk-analysis.md) | `spectralbridge-bulk /path/to/read-only/tree --output-dir /path/to/fresh/output --preflight-only` |
+| Interpret an existing compact bulk run | [`docs/vignettes/bulk-analysis.md`](docs/vignettes/bulk-analysis.md#interpret-a-completed-translation-run) | Call `summarize_bulk_results()`; source rasters are not reopened |
+| Inspect or report a spectral library | [`docs/vignettes/bulk-analysis.md`](docs/vignettes/bulk-analysis.md#visualize-an-existing-polygon-spectral-library) | Run `inspect_spectral_library_preflight()` before requesting reports |
+| Build an explicit row-level harmonized dataset | [`docs/vignettes/bulk-analysis.md`](docs/vignettes/bulk-analysis.md#interpret-a-completed-translation-run) | Call `build_harmonized_dataset()` only when row-level export is required |
+| Install or release the package | [`docs/dev/releasing.md`](docs/dev/releasing.md) | Install from PyPI or follow the gated RC checklist |
 | Resume a partial run | [`docs/vignettes/carry-on-wayward-son.md`](docs/vignettes/carry-on-wayward-son.md) | Rerun the normal entry point against the same output folder |
 | Add a correction after topo/BRDF | [`docs/reference/custom-correction-hook.md`](docs/reference/custom-correction-hook.md) | Preserve the canonical product and write a separately named ENVI pair |
 | Understand a JSON file | [`docs/reference/json-catalog.md`](docs/reference/json-catalog.md) | Find its owner, units, consumer, and validation rule |
@@ -56,8 +60,10 @@ start with the smaller ordered notebook vignettes.
 
 After individual runs finish, the independent bulk pipeline can catalog their
 canonical products, expose a virtual DuckDB population, and calculate pooled,
-balanced, and held-out-site synthetic-sensor relationships. It is not an
-eighth stage of either the NEON or drone pipeline.
+balanced, and held-out-site synthetic-sensor relationships. Normal bulk analysis
+streams raster windows directly into compact sufficient statistics and does not
+create an ordinary pixel cache. It is not an eighth stage of either the NEON or
+drone pipeline.
 
 The authoritative stage order and filenames are documented in
 [`docs/pipeline/stages.md`](docs/pipeline/stages.md) and

@@ -9,6 +9,7 @@ import re
 
 
 ROOT = Path(__file__).resolve().parents[1]
+VERSION_PATTERN = r"[0-9]+\.[0-9]+\.[0-9]+(?:(?:a|b|rc)[0-9]+)?"
 
 
 def _match(path: Path, pattern: str, *, label: str) -> str:
@@ -38,7 +39,7 @@ def collect_versions(root: Path = ROOT) -> dict[str, str]:
     )
     changelog = _match(
         root / "CHANGELOG.md",
-        r'^##\s+\[([0-9]+\.[0-9]+\.[0-9]+)\]',
+        rf'^##\s+\[({VERSION_PATTERN})\]',
         label="first semantic-version changelog heading",
     )
     return {
@@ -50,11 +51,14 @@ def collect_versions(root: Path = ROOT) -> dict[str, str]:
 
 
 def validate_release_tag(tag: str, root: Path = ROOT) -> dict[str, str]:
-    """Validate ``vMAJOR.MINOR.PATCH`` and all repository version declarations."""
+    """Validate a PEP 440 final/pre-release tag and repository declarations."""
 
-    match = re.fullmatch(r"v([0-9]+\.[0-9]+\.[0-9]+)", tag.strip())
+    match = re.fullmatch(rf"v({VERSION_PATTERN})", tag.strip())
     if match is None:
-        raise RuntimeError(f"Release tag must use vMAJOR.MINOR.PATCH: {tag!r}")
+        raise RuntimeError(
+            "Release tag must use vMAJOR.MINOR.PATCH with an optional "
+            f"PEP 440 aN, bN, or rcN suffix: {tag!r}"
+        )
     expected = match.group(1)
     versions = collect_versions(root)
     mismatches = {name: value for name, value in versions.items() if value != expected}
@@ -64,11 +68,33 @@ def validate_release_tag(tag: str, root: Path = ROOT) -> dict[str, str]:
     return versions
 
 
+def is_prerelease_version(version: str) -> bool:
+    """Return whether a validated release version has a pre-release suffix."""
+
+    if re.fullmatch(VERSION_PATTERN, version) is None:
+        raise RuntimeError(f"Invalid release version: {version!r}")
+    return re.search(r"(?:a|b|rc)[0-9]+$", version) is not None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--tag", required=True, help="Expected vMAJOR.MINOR.PATCH tag")
+    parser.add_argument(
+        "--tag", required=True, help="Expected vMAJOR.MINOR.PATCH[rcN] tag"
+    )
+    parser.add_argument(
+        "--github-output",
+        type=Path,
+        help="Optional GitHub Actions output file receiving version metadata",
+    )
     args = parser.parse_args()
     versions = validate_release_tag(args.tag)
+    if args.github_output is not None:
+        version = versions["pyproject"]
+        with args.github_output.open("a", encoding="utf-8") as stream:
+            stream.write(f"version={version}\n")
+            stream.write(
+                f"is_prerelease={str(is_prerelease_version(version)).lower()}\n"
+            )
     print(f"Release metadata matches {args.tag}: {versions}")
     return 0
 

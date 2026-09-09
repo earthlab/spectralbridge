@@ -1,5 +1,23 @@
-## [2.3.0] – 2025-11-03
+## [2.3.0rc1] – 2026-09-08
+
 ### Added
+
+- A separate, restart-safe bulk-analysis pipeline that discovers completed
+  flightlines and streams immutable ENVI target products into compact,
+  mergeable sufficient statistics without creating an ordinary pixel cache.
+- Translation fits at pixel-pooled, flightline-balanced, site-balanced,
+  per-flightline, and per-site levels, plus leave-one-site-out validation and
+  candidate coefficient tables.
+- `summarize_bulk_results()` for compact result summaries, scientific warning
+  flags, figures, and reusable reports without reopening source rasters.
+- Explicit `build_harmonized_dataset()` materialization for users who actually
+  need a row-level harmonized dataset; it is not part of normal bulk analysis.
+- Spectral-library preflight, compact summary, full-report, and extreme-spectrum
+  inspection infrastructure operating on bulk polygon-extraction products.
+- Product-registry-driven bulk discovery and translation-pair handling,
+  including matched MicaSense products and target-only translation runs.
+- Full-scene normal and drone processing notebooks and release-validation
+  coverage for the public pipeline entry points.
 - Config-driven brightness coefficients for Landsat→MicaSense (`landsat_to_micasense.json`) and helper loader.
 - Automatic per-band brightness adjustment applied to Landsat-convolved products, recorded in QA JSON and brightness tables.
 - Multi-page QA report (`*_qa.pdf`) with:
@@ -9,11 +27,28 @@
 - Expanded QA JSON metrics, including header integrity, mask coverage, Δ reflectance, convolution error, and brightness coefficients.
 
 ### Changed
+
+- Bulk analyses read completed-flightline source products in bounded windows and
+  checkpoint one compact statistics artifact per flightline. Restarted runs
+  reuse those checkpoints.
+- Translation reporting compares pooled and balanced fits and surfaces weak,
+  unstable, site-dependent, or high-correction cases instead of implying that a
+  high R² alone makes sensors interchangeable.
+- Drone processing remains a separate local-data workflow and supports full or
+  polygon extraction without introducing a drone convolution stage.
+- Release metadata, artifact tests, and documentation now cover Python
+  3.10–3.12 and pre-release versions.
 - ENVI export and pipeline logs now use affirmative, progress-oriented wording (e.g., “creating new ENVI export” instead of “not found or invalid”).
 - CI simplified to four main checks on PRs: `CI / lite`, `CI / unit`, `Docs Drift Check / audit`, and `QA quick check / qa`.
 - Topographic correction now defaults to SCS+C (`use_scs_c=True`) for HyTools/FlexBRDF consistency. To restore legacy cosine-ratio behaviour, call `apply_topo_correct(..., use_scs_c=False)` or use the corresponding CLI flag.
 
 ### Fixed
+
+- Matched MicaSense TM/ETM+ and OLI/OLI-2 files are classified with their
+  registered sensor identities, making all configured translation pairs
+  eligible when the six target product families are complete.
+- Bulk discovery, source identity, and reporting edge cases found during the
+  122-flightline production run, including scalable spectral-library rendering.
 - Duplicate QA/pytest workflows removed; QA quick check now runs once per PR (and optionally once per push to `main`).
 
 ## [2025-10-30] Added Merge Stage + Restored QA Panel

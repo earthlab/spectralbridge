@@ -3,12 +3,55 @@
 > Living document for preparing the project for packaging and public release. Update
 > the status boxes and notes as tasks are completed.
 
+## 2.3.0rc1 release-candidate gate (2026-09-08)
+
+Repository preparation:
+
+- [x] Synchronize `2.3.0rc1` across project, package, citation, changelog, and lock metadata.
+- [x] Use the strict PEP 440 tag `v2.3.0rc1` and validate it automatically.
+- [x] Curate the changelog from implemented normal, drone, bulk, results, and spectral-library behavior.
+- [x] Rewrite the PyPI README around installation, major workflows, QA, compact bulk analysis, and support boundaries.
+- [x] Migrate packaging metadata to the `GPL-3.0-or-later` SPDX expression while preserving the repository license.
+- [x] Audit runtime dependencies; retain the current set for the RC and defer speculative slimming to a separate tested change.
+- [x] Include package data, console scripts, the external RC check, license, README, and citation metadata in intended artifacts.
+
+Local source and artifact gates:
+
+- [x] Ruff passes for release-scoped source, tests, scripts, and examples.
+- [x] Full pytest suite passes.
+- [x] AI-transparency and validation artifacts are current.
+- [x] Documentation links and `mkdocs build --strict` pass.
+- [x] `python -m build` creates one wheel and one sdist.
+- [x] `python -m twine check dist/*` passes.
+- [x] Wheel contents and sdist contents have been inspected.
+- [x] Exact wheel passes installed smoke on Python 3.10, 3.11, and 3.12.
+- [x] Exact sdist passes installed smoke on Python 3.10.
+- [x] `pip check` passes in all four exact-artifact environments.
+- [x] Installed artifacts expose all release-critical public APIs, primary console scripts, and runtime package data.
+- [x] Installed smoke imports from isolated site-packages outside the source checkout.
+
+External/manual gates before tagging:
+
+- [ ] Confirm the PyPI `spectralbridge` project and trusted publisher for
+  `earthlab/spectralbridge`, workflow `release.yml`, environment `pypi`.
+- [ ] Create/confirm the protected GitHub `pypi` environment and desired reviewers.
+- [ ] Push the preparation commit and confirm branch CI.
+- [ ] Create and push `v2.3.0rc1` only after the two configuration checks above.
+
+Post-tag verification:
+
+- [ ] GitHub Actions reused the single candidate artifact through every smoke and publish job.
+- [ ] GitHub release is marked as a prerelease and includes wheel, sdist, and checksums.
+- [ ] PyPI shows `spectralbridge==2.3.0rc1`; a fresh external install succeeds.
+- [ ] External tester check and representative workflow feedback are recorded.
+- [ ] Zenodo/citation integration is verified if enabled for this repository.
+
 ## 1. Package Structure & Metadata
 - [x] Confirm the canonical package name (`SpectralBridge` project, `spectralbridge` package) and document legacy `cross_sensor_cal` compatibility.
 - [x] Replace the minimal `setup.py` with a `pyproject.toml` using PEP 621 metadata (name, version, description, authors, URLs, keywords, classifiers). Keep `setup.py` as a compatibility shim only.
 - [x] Add `__init__.py` exports and package-level documentation so users can discover public APIs easily. Common orchestration helpers are now lazy top-level exports.
 - [x] Decide on versioning scheme (CalVer or SemVer) and document it in CONTRIBUTING along with release tagging conventions.
-- [ ] Keep `pyproject.toml`, `src/spectralbridge/__init__.py`, `CITATION.cff`, `CHANGELOG.md`, and the release tag synchronized for every release. *(Current audit found metadata at `2.2.0`, changelog headed by `2.3.0`, and local tags still at `0.1` / `v1.0.0`.)*
+- [x] Keep `pyproject.toml`, `src/spectralbridge/__init__.py`, `CITATION.cff`, `CHANGELOG.md`, and the release tag synchronized for every release. The release metadata gate now accepts final and strict PEP 440 prerelease tags.
 - [x] Audit repository for large data or notebooks that should be excluded from source distributions. `MANIFEST.in` excludes root staging data, deprecated archives, generated docs reports, and container-only helpers.
 
 ## 2. Dependencies & Environment
@@ -35,7 +78,7 @@
 ## 5. Distribution Artifacts & QA
 - [x] Build the sdist/wheel and inspect contents (ensure no unnecessary files, confirm console scripts are installed). `uv build` succeeded for 2.2.0 on 2026-08-14; package data and primary CLI commands were present.
 - [x] Execute `twine check` to validate metadata and install the wheel in a clean virtual environment for smoke tests. Both artifacts passed and the clean Python 3.12 install imported successfully on 2026-08-14; repeat on Python 3.10/Linux before tagging.
-- [ ] Migrate deprecated setuptools license metadata to an SPDX expression before the February 2027 compatibility deadline.
+- [x] Migrate deprecated setuptools license metadata to the SPDX expression `GPL-3.0-or-later` and retain `LICENSE` in distributions.
 - [x] Document hardware/software prerequisites (GDAL, PROJ) and include troubleshooting tips for installation on Linux/macOS/Windows.
 - [ ] Automate changelog generation (`CHANGELOG.md`) per release with notable features and breaking changes.
 - [x] Establish release checklist (tagging, GitHub release notes, PyPI upload) and capture in this document or `RELEASING.md`. `docs/dev/releasing.md` now documents the maintainer sequence, and `.github/workflows/release.yml` packages tagged releases and publishes GitHub release artifacts.
@@ -60,4 +103,4 @@
 - [ ] Record model metadata prospectively when the execution environment exposes it; do not infer missing historical model names.
 
 ---
-_Last updated: 2026-08-14_
+_Last updated: 2026-09-08_

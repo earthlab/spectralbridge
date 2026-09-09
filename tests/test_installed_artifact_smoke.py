@@ -94,3 +94,14 @@ def test_bulk_smoke_runs_streaming_statistics_and_restart(tmp_path: Path) -> Non
     assert result["restart_reused_outputs"] is True
     assert result["pixel_materialization"] is False
     assert all(path.is_relative_to(tmp_path) for path in tmp_path.rglob("*"))
+
+
+def test_spectral_library_smoke_runs_preflight_and_reporting(tmp_path: Path) -> None:
+    result = SMOKE._run_spectral_library(tmp_path)
+    assert result["status"] == "preflight_and_compact_reporting"
+    assert result["fixture_rows"] == 4
+    assert result["source_reused_in_place"] is True
+
+
+def test_primary_console_script_contract_is_complete() -> None:
+    assert SMOKE._validate_console_scripts() == list(SMOKE.PRIMARY_CONSOLE_SCRIPTS)
