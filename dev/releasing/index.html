@@ -2535,10 +2535,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-automated-now" class="md-nav__link">
+  <a href="#version-and-tag-contract" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What is automated now
+        Version and tag contract
       
     </span>
   </a>
@@ -2546,10 +2546,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#two-tier-validation-requirement" class="md-nav__link">
+  <a href="#one-time-pypi-and-github-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Two-tier validation requirement
+        One-time PyPI and GitHub configuration
       
     </span>
   </a>
@@ -2557,10 +2557,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-is-still-manual" class="md-nav__link">
+  <a href="#automated-release-gates" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What is still manual
+        Automated release gates
       
     </span>
   </a>
@@ -2568,10 +2568,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pre-release-checklist" class="md-nav__link">
+  <a href="#installed-artifact-smoke-scope" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pre-release checklist
+        Installed-artifact smoke scope
       
     </span>
   </a>
@@ -2579,10 +2579,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#recommended-release-sequence" class="md-nav__link">
+  <a href="#local-candidate-checks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Recommended release sequence
+        Local candidate checks
       
     </span>
   </a>
@@ -2590,10 +2590,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#changelog-and-release-note-guidance" class="md-nav__link">
+  <a href="#recommended-rc-sequence" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Changelog and release-note guidance
+        Recommended RC sequence
       
     </span>
   </a>
@@ -2601,21 +2601,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#citation-and-doi-refresh" class="md-nav__link">
+  <a href="#dependency-and-artifact-review" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Citation and DOI refresh
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#current-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current limits
+        Dependency and artifact review
       
     </span>
   </a>
@@ -2804,144 +2793,120 @@
 
 
 <h1 id="releasing-spectralbridge">Releasing SpectralBridge<a class="headerlink" href="#releasing-spectralbridge" title="Permanent link">&para;</a></h1>
-<p>This page documents the current maintainer release process for SpectralBridge.
-It is intentionally conservative: the workflow automates packaging and GitHub
-release creation for version tags, but it does not attempt to publish to PyPI
-or rewrite project metadata automatically.</p>
-<p>Review date: 2026-06-03</p>
-<h2 id="what-is-automated-now">What is automated now<a class="headerlink" href="#what-is-automated-now" title="Permanent link">&para;</a></h2>
-<p>The repository now includes a tag-driven GitHub Actions workflow:</p>
-<ul>
-<li>workflow file: <code>.github/workflows/release.yml</code></li>
-<li>trigger: push a tag matching <code>vMAJOR.MINOR.PATCH</code></li>
-<li>manual fallback: <code>workflow_dispatch</code> with a <code>release_tag</code> input</li>
-</ul>
-<p>That workflow:</p>
-<ol>
-<li>validates the requested <code>vMAJOR.MINOR.PATCH</code> tag against <code>pyproject.toml</code>,
-   <code>spectralbridge.__version__</code>, <code>CITATION.cff</code>, and the first versioned
-   changelog heading</li>
-<li>runs Ruff, the full test suite, strict docs/link checks, validation-evidence
-   drift checks, and AI-transparency drift checks</li>
-<li>builds the sdist and wheel once and runs <code>twine check</code></li>
-<li>uploads those exact bytes as one release candidate</li>
-<li>installs the exact wheel outside the checkout on Python 3.10, 3.11, and 3.12</li>
-<li>installs the exact sdist outside the checkout on Python 3.10</li>
-<li>runs the bounded, offline, stage-complete normal, drone, and bulk smoke in
-   each clean environment</li>
-<li>creates the GitHub release only after every source and artifact gate passes</li>
-</ol>
-<p>No workflow publishes to PyPI yet.</p>
-<h2 id="two-tier-validation-requirement">Two-tier validation requirement<a class="headerlink" href="#two-tier-validation-requirement" title="Permanent link">&para;</a></h2>
-<p>The release gate intentionally separates package execution from production
-science:</p>
-<ul>
-<li><strong>Tier A — installed-artifact CI smoke:</strong> tiny 8 × 8 fixtures, one worker,
-  no network, strict disk budget, every major production stage, every release.
-  It proves package wiring and orchestration.</li>
-<li><strong>Tier B — production validation:</strong> selected real flightlines on a suitably
-  provisioned large-memory VM, periodically and for release candidates. It
-  provides scientific QA and operational evidence at real scale.</li>
-</ul>
-<p>CI is not required to run a workflow that may need roughly 250 GB of RAM.
-Fixture scale may be reduced only while retaining the same production code
-paths and algorithms. See the <a href="../production-validation-record/">production validation record</a>.</p>
-<h2 id="what-is-still-manual">What is still manual<a class="headerlink" href="#what-is-still-manual" title="Permanent link">&para;</a></h2>
-<p>Maintainers still need to:</p>
-<ul>
-<li>synchronize version metadata before tagging</li>
-<li>review and curate <code>CHANGELOG.md</code></li>
-<li>review GitHub-generated release notes</li>
-<li>verify <code>CITATION.cff</code></li>
-<li>verify the Zenodo record after the GitHub release</li>
-<li>decide separately whether and how to publish to PyPI</li>
-</ul>
-<h2 id="pre-release-checklist">Pre-release checklist<a class="headerlink" href="#pre-release-checklist" title="Permanent link">&para;</a></h2>
-<p>Before cutting a release, verify all of the following together:</p>
+<p>SpectralBridge releases use one immutable candidate: build the wheel and sdist
+once, test those exact bytes, attach those bytes to GitHub, and publish the same
+bytes to PyPI. Never rebuild between validation and publication.</p>
+<p>Review date: 2026-09-08</p>
+<h2 id="version-and-tag-contract">Version and tag contract<a class="headerlink" href="#version-and-tag-contract" title="Permanent link">&para;</a></h2>
+<p>Synchronize all of these before tagging:</p>
 <ol>
 <li><code>pyproject.toml</code></li>
 <li><code>src/spectralbridge/__init__.py</code></li>
-<li><code>CITATION.cff</code></li>
-<li><code>CHANGELOG.md</code></li>
-<li><code>README.md</code> citation/release references if needed</li>
-<li>the intended release tag, using <code>vMAJOR.MINOR.PATCH</code></li>
+<li><code>CITATION.cff</code> (top-level and preferred citation)</li>
+<li>the first versioned heading in <code>CHANGELOG.md</code></li>
+<li><code>uv.lock</code></li>
 </ol>
-<p>Also confirm:</p>
-<ul>
-<li>CI is green on <code>main</code></li>
-<li>docs links still validate</li>
-<li>any release-critical docs updates are merged</li>
-<li>the changelog entry is not left as a future-looking unreleased section by
-  accident</li>
-</ul>
-<h2 id="recommended-release-sequence">Recommended release sequence<a class="headerlink" href="#recommended-release-sequence" title="Permanent link">&para;</a></h2>
+<p>Final tags use <code>vMAJOR.MINOR.PATCH</code>. Prereleases use strict PEP 440 suffixes,
+for example <code>v2.3.0rc1</code>, <code>v2.3.0b1</code>, or <code>v2.3.0a1</code>. Do not use
+<code>v2.3.0-rc1</code> or <code>v2.3.0.rc1</code>.</p>
+<p>Validate the candidate identity locally:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>scripts/check_release_metadata.py<span class="w"> </span>--tag<span class="w"> </span>v2.3.0rc1
+</code></pre></div>
+<h2 id="one-time-pypi-and-github-configuration">One-time PyPI and GitHub configuration<a class="headerlink" href="#one-time-pypi-and-github-configuration" title="Permanent link">&para;</a></h2>
+<p>The repository workflow uses PyPI trusted publishing; it does not use a stored
+API token.</p>
+<p>Before pushing a release tag, a project owner must:</p>
 <ol>
-<li>update version metadata and changelog</li>
-<li>review <code>CITATION.cff</code> author, version, and repository information</li>
-<li>run local release checks if the environment supports them:</li>
+<li>create or confirm the <code>spectralbridge</code> project on PyPI;</li>
+<li>in PyPI project settings, add a trusted publisher with:</li>
+<li>owner: <code>earthlab</code></li>
+<li>repository: <code>spectralbridge</code></li>
+<li>workflow: <code>release.yml</code></li>
+<li>environment: <code>pypi</code>;</li>
+<li>in the GitHub repository, create the <code>pypi</code> deployment environment;</li>
+<li>optionally add required reviewers to that environment so publication needs
+   an explicit maintainer approval;</li>
+<li>confirm GitHub Actions can create releases and request an OIDC identity token.</li>
 </ol>
+<p>The workflow grants <code>id-token: write</code> only to the PyPI publication job and
+<code>contents: write</code> only to the GitHub release job. All earlier jobs are read-only.</p>
+<h2 id="automated-release-gates">Automated release gates<a class="headerlink" href="#automated-release-gates" title="Permanent link">&para;</a></h2>
+<p>Pushing a matching tag, or deliberately dispatching the workflow with a tag,
+runs these gates in order:</p>
+<ol>
+<li>check version/tag synchronization;</li>
+<li>run Ruff, the full source test suite, generated-evidence checks, link checks,
+   and a strict documentation build;</li>
+<li>build one wheel and one sdist and run <code>twine check</code>;</li>
+<li>record SHA-256 checksums and upload one <code>release-candidate</code> artifact;</li>
+<li>install the exact wheel outside the checkout on Python 3.10, 3.11, and 3.12;</li>
+<li>install the exact sdist outside the checkout on Python 3.10;</li>
+<li>run the bounded, offline installed-artifact smoke in every environment;</li>
+<li>create a GitHub release using those artifacts, marking PEP 440 prereleases
+   as GitHub prereleases;</li>
+<li>publish the same wheel and sdist to PyPI through trusted publishing.</li>
+</ol>
+<p>The build is never repeated in a downstream job. PyPI publication is last
+because it is irreversible. If trusted publishing fails after the GitHub release,
+fix the external configuration and rerun only the failed job so it downloads the
+same retained candidate artifact.</p>
+<h2 id="installed-artifact-smoke-scope">Installed-artifact smoke scope<a class="headerlink" href="#installed-artifact-smoke-scope" title="Permanent link">&para;</a></h2>
+<p>The smoke uses tiny synthetic fixtures, blocks outbound network access, limits
+parallelism and disk use, and runs outside the source checkout. It verifies:</p>
+<ul>
+<li>normal NEON stage orchestration and restart reuse;</li>
+<li>drone full and polygon extraction, corrections, QA, and no convolution;</li>
+<li>streaming bulk discovery, compact statistics, translation, LOSO, compact
+  interpretation, and restart reuse without a pixel cache;</li>
+<li>spectral-library preflight and compact reporting;</li>
+<li>all release-critical public API imports, console scripts, and packaged data.</li>
+</ul>
+<p>This is package and orchestration evidence, not production scientific
+validation. Real-data evidence is maintained separately in the
+<a href="../production-validation-record/">production validation record</a>.</p>
+<h2 id="local-candidate-checks">Local candidate checks<a class="headerlink" href="#local-candidate-checks" title="Permanent link">&para;</a></h2>
+<p>Run the source and documentation gates first:</p>
+<div class="highlight"><pre><span></span><code>ruff<span class="w"> </span>check<span class="w"> </span>src<span class="w"> </span>tests<span class="w"> </span>scripts
+pytest<span class="w"> </span>-q
+python<span class="w"> </span>scripts/generate_ai_transparency.py<span class="w"> </span>--check
+python<span class="w"> </span>scripts/generate_validation_docs.py<span class="w"> </span>--check
+python<span class="w"> </span>scripts/check_docs_links.py
+mkdocs<span class="w"> </span>build<span class="w"> </span>--strict
+</code></pre></div>
+<p>Build into a clean directory and inspect both distributions:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>build
 python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </span>check<span class="w"> </span>dist/*
-python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/tmp/spectralbridge-release-smoke
-/tmp/spectralbridge-release-smoke/bin/python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>dist/*.whl
-<span class="nb">cd</span><span class="w"> </span>/tmp
-/tmp/spectralbridge-release-smoke/bin/python<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>/path/to/spectralbridge/scripts/check_installed_artifact.py<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--expected-version<span class="w"> </span>MAJOR.MINOR.PATCH
+python<span class="w"> </span>-m<span class="w"> </span>zipfile<span class="w"> </span>-l<span class="w"> </span>dist/spectralbridge-2.3.0rc1-py3-none-any.whl
+python<span class="w"> </span>-m<span class="w"> </span>tarfile<span class="w"> </span>-l<span class="w"> </span>dist/spectralbridge-2.3.0rc1.tar.gz
 </code></pre></div>
+<p>For each required Python, create a fresh environment, install one exact local
+artifact without editable/source-checkout leakage, run <code>pip check</code>, change to a
+temporary directory, and execute <code>scripts/check_installed_artifact.py</code> with
+<code>--expected-version 2.3.0rc1</code>.</p>
+<h2 id="recommended-rc-sequence">Recommended RC sequence<a class="headerlink" href="#recommended-rc-sequence" title="Permanent link">&para;</a></h2>
 <ol>
-<li>commit the release-prep changes</li>
-<li>create and push the tag:</li>
+<li>finish the local checklist and commit release preparation;</li>
+<li>configure or verify the PyPI trusted publisher and protected GitHub <code>pypi</code>
+   environment;</li>
+<li>push the preparation commit and wait for branch CI;</li>
+<li>create and push <code>v2.3.0rc1</code> from that exact commit;</li>
+<li>approve the protected PyPI environment only after the artifact jobs pass;</li>
+<li>verify the GitHub release is a prerelease with wheel, sdist, and checksums;</li>
+<li>verify <code>https://pypi.org/project/spectralbridge/2.3.0rc1/</code> and install it in
+   a fresh external environment;</li>
+<li>ask external testers to run <code>examples/release_candidate_smoke.py</code> and one
+   representative workflow appropriate to their data;</li>
+<li>verify the archival/citation integration, including Zenodo when configured.</li>
 </ol>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>tag<span class="w"> </span>vMAJOR.MINOR.PATCH
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>vMAJOR.MINOR.PATCH
-</code></pre></div>
-<ol>
-<li>confirm <code>.github/workflows/release.yml</code> succeeds</li>
-<li>review the generated GitHub release title, notes, and attached artifacts</li>
-<li>confirm Zenodo archives the release and that the DOI target remains correct</li>
-<li>if the project is publishing to PyPI for that release, do so only after the
-   build artifacts and metadata have been verified</li>
-</ol>
-<h2 id="changelog-and-release-note-guidance">Changelog and release-note guidance<a class="headerlink" href="#changelog-and-release-note-guidance" title="Permanent link">&para;</a></h2>
-<p>Use <code>CHANGELOG.md</code> as the curated human summary and GitHub release notes as the
-automation-backed supplement.</p>
-<p>Recommended changelog sections:</p>
-<ul>
-<li><code>Added</code></li>
-<li><code>Changed</code></li>
-<li><code>Fixed</code></li>
-<li><code>Deprecated</code></li>
-<li><code>Docs</code></li>
-</ul>
-<p>Recommended release-note review points:</p>
-<ul>
-<li>scientific workflow changes are described accurately</li>
-<li>no internal-only cleanup dominates the release summary</li>
-<li>compatibility notes are visible when imports, CLIs, or output contracts are
-  affected</li>
-<li>citation and release links point at the correct repository identity</li>
-</ul>
-<h2 id="citation-and-doi-refresh">Citation and DOI refresh<a class="headerlink" href="#citation-and-doi-refresh" title="Permanent link">&para;</a></h2>
-<p>For every tagged release, check:</p>
-<ol>
-<li><code>CITATION.cff</code> version matches the tag</li>
-<li>the GitHub release points at the correct repository version</li>
-<li>Zenodo has archived the tag correctly</li>
-<li>the README DOI badge still reflects the maintainers' intended target</li>
-</ol>
-<p>If Zenodo mints a new post-rename SpectralBridge record, update the repository
-documentation consistently rather than changing only the badge.</p>
-<h2 id="current-limits">Current limits<a class="headerlink" href="#current-limits" title="Permanent link">&para;</a></h2>
-<ul>
-<li>no automatic PyPI publish is configured in this repository</li>
-<li>no automatic changelog rewriting is configured</li>
-<li>no automatic version bumping is configured</li>
-<li>PyPI trusted publishing and its protected environment are not configured</li>
-</ul>
-<p>PyPI publishing remains a deliberate omission so release automation does not
-outpace maintainer review. The workflow creates only a fully gated GitHub
-release.</p>
+<p>Do not publish a second build under the same version. If candidate contents
+must change after publication, increment the prerelease number (for example,
+<code>2.3.0rc2</code>).</p>
+<h2 id="dependency-and-artifact-review">Dependency and artifact review<a class="headerlink" href="#dependency-and-artifact-review" title="Permanent link">&para;</a></h2>
+<p>Release preparation must confirm that package data, console scripts, examples,
+license, README, and citation metadata are present where intended. Dependency
+removal is not a release-cleanup exercise: remove or move a runtime dependency
+only with import/use evidence and exact-artifact tests. Defer speculative
+dependency slimming to a separate change after the RC.</p>
 
 
 
