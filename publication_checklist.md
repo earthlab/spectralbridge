@@ -8,9 +8,11 @@
 Repository preparation:
 
 - [x] Synchronize `2.3.0rc1` across project, package, citation, changelog, and lock metadata.
+- [x] Check both `CITATION.cff` version fields and repository citation metadata.
 - [x] Use the strict PEP 440 tag `v2.3.0rc1` and validate it automatically.
 - [x] Curate the changelog from implemented normal, drone, bulk, results, and spectral-library behavior.
 - [x] Rewrite the PyPI README around installation, major workflows, QA, compact bulk analysis, and support boundaries.
+- [x] Update `AGENTS.md` with durable bulk, scientific-validity, scaling, spectral-library, and release rules.
 - [x] Migrate packaging metadata to the `GPL-3.0-or-later` SPDX expression while preserving the repository license.
 - [x] Audit runtime dependencies; retain the current set for the RC and defer speculative slimming to a separate tested change.
 - [x] Include package data, console scripts, the external RC check, license, README, and citation metadata in intended artifacts.

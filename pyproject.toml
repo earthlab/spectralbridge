@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "spectralbridge"
 version = "2.3.0rc1"
-description = "Translating reflectance across sensors and scales."
+description = "Translate, validate, and compare reflectance across sensors and scales."
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "Earth Lab" }]
@@ -19,11 +19,14 @@ keywords = [
     "cross-sensor calibration",
 ]
 classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: GIS",
 ]
 dependencies = [
     "numpy",

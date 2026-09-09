@@ -1,6 +1,6 @@
 # SpectralBridge Feature Requests
 
-Review date: 2026-09-04
+Review date: 2026-09-09
 Branch: main
 
 This file is the authoritative work queue for non-trivial SpectralBridge work.
@@ -23,7 +23,7 @@ left incomplete so the next agent can resume immediately.
 ### P79. Prepare the 2.3.0rc1 PyPI Release Candidate
 
 - Priority: User-directed
-- Status: In progress
+- Status: Completed
 - Owner: Codex
 - Started: 2026-09-08
 - Starting commit: `ce13fb3c93ef888de30c309f5d99fa4cae8d23a6`
@@ -50,6 +50,35 @@ left incomplete so the next agent can resume immediately.
   - Run source, docs, metadata, build, artifact-content, clean-install,
     installed-smoke, CLI, and interpreter-specific gates; record every result
     or blocker precisely before committing the release-candidate preparation.
+- Completed: 2026-09-09
+- Delivered:
+  - Synchronized `2.3.0rc1` release metadata, adopted SPDX license metadata,
+    refreshed the PyPI README/changelog/navigation/governance, and recorded the
+    operator-reported production bulk evidence without changing scientific logic.
+  - Added strict PEP 440 RC validation, deterministic GitHub prerelease status,
+    least-privilege trusted PyPI publishing, and one-candidate artifact reuse.
+  - Expanded the installed-artifact smoke to cover every release-critical public
+    API, all primary CLIs, compact spectral-library reporting, package data,
+    no-network execution, and source-checkout isolation.
+  - Added a standalone external-tester installation check and included it in the
+    sdist without shipping production data or generated bulk/cache outputs.
+- Verification:
+  - `ruff check src tests scripts examples` passed.
+  - Full pytest suite passed with 6 expected skips and existing warnings only.
+  - AI transparency, validation evidence, documentation links, strict MkDocs,
+    and `check_release_metadata.py --tag v2.3.0rc1` passed.
+  - One exact wheel (410 KB) and sdist (15 MB) passed `twine check`; contents,
+    SPDX metadata, package data, entry points, and exclusions were inspected.
+  - The exact wheel passed `pip check` and the offline stage-complete installed
+    smoke on Python 3.10.16, 3.11.11, and 3.12.8; the exact sdist passed the same
+    checks on Python 3.10.16.
+- External blocker:
+  - A project owner must configure/verify the PyPI trusted publisher and GitHub
+    `pypi` environment before pushing `v2.3.0rc1`; actual tag creation,
+    publication, post-publish installation, and external feedback remain manual.
+- Next recommended task:
+  - Configure the external trusted-publishing relationship, push this preparation
+    commit, confirm branch CI, and then tag the exact commit as `v2.3.0rc1`.
 
 ### P78. Add Compact-Output Bulk Translation Results Reporting
 

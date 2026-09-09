@@ -11778,3 +11778,12 @@ The target outcome is:
 
 A reviewer can tag v2.3.0rc1, GitHub builds one exact wheel/sdist pair, tests those same artifacts across supported Python versions, marks the GitHub release as a prerelease, and publishes those exact validated artifacts to PyPI using trusted publishing, with the README and AGENTS.md accurately describing the modern SpectralBridge architecture.
 ```
+
+## 2026-09-09 - continue 2.3.0rc1 release preparation
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+continue
+```

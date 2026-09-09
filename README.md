@@ -117,6 +117,8 @@ result = run_bulk_pipeline(
 The workflow is restart-safe: completed per-flightline statistics checkpoints
 are reused. Source observations stay in their immutable products, so the compact
 bulk output can be retained independently of the large staging archive.
+Persistent analysis storage grows mainly with flightline checkpoints and models,
+not with the total number of selected source pixels.
 
 ### Results and interpretation
 
