@@ -13,7 +13,7 @@ from __future__ import annotations
 import argparse
 from contextlib import contextmanager
 import hashlib
-from importlib.metadata import entry_points
+from importlib.metadata import distribution, entry_points
 import json
 import os
 from pathlib import Path
@@ -95,6 +95,8 @@ PRIMARY_CONSOLE_SCRIPTS = (
     "spectralbridge-bulk",
     "spectralbridge-validate-parquets",
 )
+EXPECTED_DISTRIBUTION = "earthlab-spectralbridge"
+EXPECTED_IMPORT_PACKAGE = "spectralbridge"
 
 
 def _is_within(path: Path, parent: Path) -> bool:
@@ -694,6 +696,25 @@ def _resolve_runtime_resources() -> list[Path]:
     return resources
 
 
+def _validate_distribution_metadata(expected_version: str | None) -> dict[str, str]:
+    installed_distribution = distribution(EXPECTED_DISTRIBUTION)
+    name = installed_distribution.metadata["Name"]
+    if name != EXPECTED_DISTRIBUTION:
+        raise RuntimeError(
+            f"Expected distribution {EXPECTED_DISTRIBUTION}, found {name}"
+        )
+    if expected_version is not None and installed_distribution.version != expected_version:
+        raise RuntimeError(
+            f"Expected distribution version {expected_version}, found "
+            f"{installed_distribution.version}"
+        )
+    return {
+        "distribution_name": name,
+        "distribution_version": installed_distribution.version,
+        "import_package": EXPECTED_IMPORT_PACKAGE,
+    }
+
+
 def _run_smoke(root: Path, *, expected_version: str | None) -> dict[str, object]:
     started = time.monotonic()
     root = root.resolve()
@@ -701,6 +722,7 @@ def _run_smoke(root: Path, *, expected_version: str | None) -> dict[str, object]
     checkout = Path(__file__).resolve().parents[1]
     installed = Path(spectralbridge.__file__).resolve()
     _assert_installed_outside_checkout(installed, checkout)
+    distribution_metadata = _validate_distribution_metadata(expected_version)
     if expected_version is not None and spectralbridge.__version__ != expected_version:
         raise RuntimeError(
             f"Expected version {expected_version}, found {spectralbridge.__version__}"
@@ -732,6 +754,7 @@ def _run_smoke(root: Path, *, expected_version: str | None) -> dict[str, object]
         "validation_kind": "bounded_installed_artifact_smoke_not_scientific_validation",
         "python": sys.version.split()[0],
         "spectralbridge_version": spectralbridge.__version__,
+        **distribution_metadata,
         "installed_from": str(installed),
         "runtime_resources": [str(path) for path in resources],
         "console_scripts": console_scripts,

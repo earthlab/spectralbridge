@@ -223,7 +223,7 @@ though they are already core dependencies.
 Most runtime requirements have no upper bound and several have no lower bound.
 The clean environments therefore resolved substantially newer scientific
 stacks than the repository's developer lock. `uv.lock` is useful for local
-development but does not constrain `pip install spectralbridge`. Before
+development but does not constrain `pip install earthlab-spectralbridge`. Before
 publication, test a supported dependency matrix and either add evidence-based
 bounds or publish a constraints/reproducibility policy. At minimum, outputs
 should record dependency versions so an analysis can be reconstructed.

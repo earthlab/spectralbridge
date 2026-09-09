@@ -20,6 +20,58 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P80. Rename the PyPI Distribution to earthlab-spectralbridge
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-09-09
+- Starting commit: `c86da6a642a8a0bef37108df31af1fed1a882bd2`
+- Goal: Publish SpectralBridge under the collision-free PyPI distribution name
+  `earthlab-spectralbridge` while preserving the repository, scientific product
+  name, `spectralbridge` import package, version `2.3.0rc1`, and release tag.
+- Scope:
+  - Update distribution metadata, installation guidance, release validation,
+    workflow links, lock metadata, and artifact smoke checks.
+  - Add regression coverage that explicitly separates distribution identity
+    from the installed Python import namespace.
+  - Build and inspect fresh wheel/sdist artifacts and test their installed
+    import from clean environments without tagging or publishing.
+- Plan:
+  - Audit release-facing metadata, documentation, examples, tests, and workflow
+    assumptions for distribution-name references.
+  - Make only packaging/release changes, retaining all scientific behavior and
+    public imports.
+  - Run Ruff, the complete tests and documentation gates, metadata validation,
+    artifact checks, and clean installed-artifact smoke tests before committing
+    and pushing the verified change to `main`.
+- Completed: 2026-09-09
+- Delivered:
+  - Renamed only the installable distribution to `earthlab-spectralbridge`;
+    preserved the SpectralBridge product, `earthlab/spectralbridge` repository,
+    `spectralbridge` imports, CLI names, version `2.3.0rc1`, and tag contract.
+  - Updated PyPI badges, installation/release guidance, trusted-publishing URL,
+    lock metadata, optional-dependency guidance, and release checklists.
+  - Made source and installed-artifact validation independently assert the
+    distribution name, import package, synchronized version, and strict tag.
+- Verification:
+  - Ruff, the focused packaging regressions, and the full pytest suite passed;
+    the full suite retained six expected skips and existing warnings only.
+  - AI-transparency, validation-doc, link, strict MkDocs, lockfile, release-tag,
+    and whitespace checks passed.
+  - Fresh artifacts named
+    `earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl` and
+    `earthlab_spectralbridge-2.3.0rc1.tar.gz` passed isolated Twine checks and
+    declare `Name: earthlab-spectralbridge`, `Version: 2.3.0rc1`.
+  - The exact wheel passed clean installation, `pip check`, import identity,
+    and offline stage-complete smoke tests on Python 3.10, 3.11, and 3.12; the
+    exact sdist passed the same gates on Python 3.10.
+- Blockers: None in the repository. Tag creation and PyPI publication remain
+  intentionally outside this task.
+- Next recommended task:
+  - Confirm branch CI on the pushed commit, then create and push `v2.3.0rc1` so
+    the existing trusted-publishing workflow publishes the tested identities.
+
 ### P79. Prepare the 2.3.0rc1 PyPI Release Candidate
 
 - Priority: User-directed
@@ -652,7 +704,7 @@ left incomplete so the next agent can resume immediately.
 - Started: 2026-09-03
 - Goal: Determine, from built distribution artifacts and clean installed
   environments, whether the normal NEON, drone, and bulk pipelines can be run
-  after `pip install spectralbridge` without a repository checkout.
+  after `pip install earthlab-spectralbridge` without a repository checkout.
 - Scope:
   - Inventory public APIs, CLIs, runtime package data, dependencies, Python
     support, version/citation metadata, CI/release workflows, documentation,

@@ -27,7 +27,7 @@ CHECK = _load_script()
 def _write_release_files(root: Path, *, version: str) -> None:
     (root / "src" / "spectralbridge").mkdir(parents=True)
     (root / "pyproject.toml").write_text(
-        f'[project]\nname = "spectralbridge"\nversion = "{version}"\n',
+        f'[project]\nname = "earthlab-spectralbridge"\nversion = "{version}"\n',
         encoding="utf-8",
     )
     (root / "src" / "spectralbridge" / "__init__.py").write_text(
@@ -40,6 +40,8 @@ def _write_release_files(root: Path, *, version: str) -> None:
 def test_release_metadata_gate_accepts_synchronized_version(tmp_path: Path) -> None:
     _write_release_files(tmp_path, version="2.4.0")
     assert CHECK.validate_release_tag("v2.4.0", tmp_path) == {
+        "distribution_name": "earthlab-spectralbridge",
+        "import_package": "spectralbridge",
         "pyproject": "2.4.0",
         "package": "2.4.0",
         "citation": "2.4.0",
@@ -60,6 +62,30 @@ def test_release_metadata_gate_rejects_mismatch(tmp_path: Path) -> None:
     _write_release_files(tmp_path, version="2.4.0")
     with pytest.raises(RuntimeError, match="does not match"):
         CHECK.validate_release_tag("v2.5.0", tmp_path)
+
+
+def test_release_metadata_gate_rejects_wrong_distribution_name(
+    tmp_path: Path,
+) -> None:
+    _write_release_files(tmp_path, version="2.4.0")
+    pyproject = tmp_path / "pyproject.toml"
+    pyproject.write_text(
+        pyproject.read_text(encoding="utf-8").replace(
+            'name = "earthlab-spectralbridge"', 'name = "spectralbridge"'
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(RuntimeError, match="distribution name must be"):
+        CHECK.validate_release_tag("v2.4.0", tmp_path)
+
+
+def test_release_metadata_gate_requires_spectralbridge_import_package(
+    tmp_path: Path,
+) -> None:
+    _write_release_files(tmp_path, version="2.4.0")
+    (tmp_path / "src" / "spectralbridge" / "__init__.py").unlink()
+    with pytest.raises(RuntimeError, match="Expected import package 'spectralbridge'"):
+        CHECK.validate_release_tag("v2.4.0", tmp_path)
 
 
 def test_release_metadata_gate_rejects_unversioned_tag(tmp_path: Path) -> None:
@@ -84,6 +110,7 @@ def test_release_workflow_reuses_candidate_for_pypi() -> None:
     assert "prerelease: ${{ needs.source-gates.outputs.is_prerelease == 'true' }}" in workflow
     assert "uses: pypa/gh-action-pypi-publish@release/v1" in workflow
     assert "environment:\n      name: pypi" in workflow
+    assert "url: https://pypi.org/p/earthlab-spectralbridge" in workflow
     assert "id-token: write" in workflow
     assert "needs: [resolve-tag, source-gates, build, wheel-smoke, sdist-smoke, github-release]" in workflow
     assert "packages-dir: release-candidate/dist/" in workflow

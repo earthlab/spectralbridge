@@ -10,7 +10,7 @@
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -U pip
-pip install spectralbridge
+pip install earthlab-spectralbridge
 ```
 
 `rioxarray` / `xarray` remain useful optional analysis companions for reading
@@ -22,5 +22,5 @@ dependencies.
 conda create -n spectralbridge python=3.11 -y
 conda activate spectralbridge
 pip install -U pip
-pip install spectralbridge
+pip install earthlab-spectralbridge
 ```

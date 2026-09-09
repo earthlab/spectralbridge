@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail unless release-facing version metadata matches a requested tag."""
+"""Fail unless release identity metadata matches a requested tag."""
 
 from __future__ import annotations
 
@@ -10,6 +10,8 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION_PATTERN = r"[0-9]+\.[0-9]+\.[0-9]+(?:(?:a|b|rc)[0-9]+)?"
+EXPECTED_DISTRIBUTION_NAME = "earthlab-spectralbridge"
+EXPECTED_IMPORT_PACKAGE = "spectralbridge"
 
 
 def _match(path: Path, pattern: str, *, label: str) -> str:
@@ -50,6 +52,25 @@ def collect_versions(root: Path = ROOT) -> dict[str, str]:
     }
 
 
+def collect_release_identity(root: Path = ROOT) -> dict[str, str]:
+    """Return the distribution and import identities declared by the source tree."""
+
+    distribution_name = _match(
+        root / "pyproject.toml",
+        r'^name\s*=\s*["\']([^"\']+)["\']',
+        label="project distribution name",
+    )
+    import_init = root / "src" / EXPECTED_IMPORT_PACKAGE / "__init__.py"
+    if not import_init.is_file():
+        raise RuntimeError(
+            f"Expected import package {EXPECTED_IMPORT_PACKAGE!r} at {import_init}"
+        )
+    return {
+        "distribution_name": distribution_name,
+        "import_package": EXPECTED_IMPORT_PACKAGE,
+    }
+
+
 def validate_release_tag(tag: str, root: Path = ROOT) -> dict[str, str]:
     """Validate a PEP 440 final/pre-release tag and repository declarations."""
 
@@ -60,12 +81,19 @@ def validate_release_tag(tag: str, root: Path = ROOT) -> dict[str, str]:
             f"PEP 440 aN, bN, or rcN suffix: {tag!r}"
         )
     expected = match.group(1)
+    identity = collect_release_identity(root)
+    if identity["distribution_name"] != EXPECTED_DISTRIBUTION_NAME:
+        raise RuntimeError(
+            "Release distribution name must be "
+            f"{EXPECTED_DISTRIBUTION_NAME!r}, found "
+            f"{identity['distribution_name']!r}"
+        )
     versions = collect_versions(root)
     mismatches = {name: value for name, value in versions.items() if value != expected}
     if mismatches:
         rendered = ", ".join(f"{name}={value}" for name, value in mismatches.items())
         raise RuntimeError(f"Release metadata does not match {tag}: {rendered}")
-    return versions
+    return {**identity, **versions}
 
 
 def is_prerelease_version(version: str) -> bool:

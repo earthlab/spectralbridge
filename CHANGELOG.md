@@ -28,6 +28,9 @@
 
 ### Changed
 
+- The PyPI distribution is now named `earthlab-spectralbridge` to avoid a
+  normalized-name collision; the SpectralBridge product name, GitHub repository,
+  `spectralbridge` import namespace, and `spectralbridge-*` commands are unchanged.
 - Bulk analyses read completed-flightline source products in bounded windows and
   checkpoint one compact statistics artifact per flightline. Restarted runs
   reuse those checkpoints.

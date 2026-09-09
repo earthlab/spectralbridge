@@ -5745,7 +5745,7 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/f5/07/47f8fd1afdf65e85e3dddf405f4c55390ca5774321c08e3f9511491bd27c/spectral-0.25.tar.gz", hash = "sha256:8e5779ed1d4e4529abd1fdf14f0ff793c17487928360550997c7c6a684f450ae", size = 215235, upload-time = "2026-07-25T17:28:59.221Z" }
 
 [[package]]
-name = "spectralbridge"
+name = "earthlab-spectralbridge"
 version = "2.3.0rc1"
 source = { editable = "." }
 dependencies = [

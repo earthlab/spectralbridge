@@ -207,7 +207,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/spectralbridge
+      url: https://pypi.org/p/earthlab-spectralbridge
     permissions:
       contents: read
       id-token: write

@@ -244,6 +244,10 @@ When editing notebooks:
 
 ### Release engineering
 
+- Keep the release identities distinct: the PyPI distribution is
+  `earthlab-spectralbridge`, the Python import package is `spectralbridge`, the
+  scientific/software name is SpectralBridge, and the repository is
+  `earthlab/spectralbridge`. Do not infer that changing one renames the others.
 - Keep `pyproject.toml`, `spectralbridge.__version__`, `CITATION.cff`, the first
   changelog heading, and the release tag synchronized.
 - Release tags use `vMAJOR.MINOR.PATCH` or strict PEP 440 prerelease suffixes

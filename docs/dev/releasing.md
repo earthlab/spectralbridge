@@ -16,6 +16,13 @@ Synchronize all of these before tagging:
 4. the first versioned heading in `CHANGELOG.md`
 5. `uv.lock`
 
+The release identities are deliberately distinct and must remain so:
+
+- PyPI distribution: `earthlab-spectralbridge`
+- Python import package: `spectralbridge`
+- scientific/software name: SpectralBridge
+- GitHub repository: `earthlab/spectralbridge`
+
 Final tags use `vMAJOR.MINOR.PATCH`. Prereleases use strict PEP 440 suffixes,
 for example `v2.3.0rc1`, `v2.3.0b1`, or `v2.3.0a1`. Do not use
 `v2.3.0-rc1` or `v2.3.0.rc1`.
@@ -33,7 +40,7 @@ API token.
 
 Before pushing a release tag, a project owner must:
 
-1. create or confirm the `spectralbridge` project on PyPI;
+1. create or confirm the `earthlab-spectralbridge` project on PyPI;
 2. in PyPI project settings, add a trusted publisher with:
    - owner: `earthlab`
    - repository: `spectralbridge`
@@ -103,8 +110,8 @@ Build into a clean directory and inspect both distributions:
 ```bash
 python -m build
 python -m twine check dist/*
-python -m zipfile -l dist/spectralbridge-2.3.0rc1-py3-none-any.whl
-python -m tarfile -l dist/spectralbridge-2.3.0rc1.tar.gz
+python -m zipfile -l dist/earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl
+python -m tarfile -l dist/earthlab_spectralbridge-2.3.0rc1.tar.gz
 ```
 
 For each required Python, create a fresh environment, install one exact local
@@ -121,7 +128,7 @@ temporary directory, and execute `scripts/check_installed_artifact.py` with
 4. create and push `v2.3.0rc1` from that exact commit;
 5. approve the protected PyPI environment only after the artifact jobs pass;
 6. verify the GitHub release is a prerelease with wheel, sdist, and checksums;
-7. verify `https://pypi.org/project/spectralbridge/2.3.0rc1/` and install it in
+7. verify `https://pypi.org/project/earthlab-spectralbridge/2.3.0rc1/` and install it in
    a fresh external environment;
 8. ask external testers to run `examples/release_candidate_smoke.py` and one
    representative workflow appropriate to their data;

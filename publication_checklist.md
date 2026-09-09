@@ -34,7 +34,7 @@ Local source and artifact gates:
 
 External/manual gates before tagging:
 
-- [ ] Confirm the PyPI `spectralbridge` project and trusted publisher for
+- [x] Confirm the pending PyPI `earthlab-spectralbridge` project and trusted publisher for
   `earthlab/spectralbridge`, workflow `release.yml`, environment `pypi`.
 - [ ] Create/confirm the protected GitHub `pypi` environment and desired reviewers.
 - [ ] Push the preparation commit and confirm branch CI.
@@ -44,12 +44,14 @@ Post-tag verification:
 
 - [ ] GitHub Actions reused the single candidate artifact through every smoke and publish job.
 - [ ] GitHub release is marked as a prerelease and includes wheel, sdist, and checksums.
-- [ ] PyPI shows `spectralbridge==2.3.0rc1`; a fresh external install succeeds.
+- [ ] PyPI shows `earthlab-spectralbridge==2.3.0rc1`; a fresh external install succeeds.
 - [ ] External tester check and representative workflow feedback are recorded.
 - [ ] Zenodo/citation integration is verified if enabled for this repository.
 
 ## 1. Package Structure & Metadata
-- [x] Confirm the canonical package name (`SpectralBridge` project, `spectralbridge` package) and document legacy `cross_sensor_cal` compatibility.
+- [x] Confirm the canonical identities (`SpectralBridge` scientific project,
+  `earthlab-spectralbridge` distribution, `spectralbridge` import package) and
+  document legacy `cross_sensor_cal` compatibility.
 - [x] Replace the minimal `setup.py` with a `pyproject.toml` using PEP 621 metadata (name, version, description, authors, URLs, keywords, classifiers). Keep `setup.py` as a compatibility shim only.
 - [x] Add `__init__.py` exports and package-level documentation so users can discover public APIs easily. Common orchestration helpers are now lazy top-level exports.
 - [x] Decide on versioning scheme (CalVer or SemVer) and document it in CONTRIBUTING along with release tagging conventions.
@@ -105,4 +107,4 @@ Post-tag verification:
 - [ ] Record model metadata prospectively when the execution environment exposes it; do not infer missing historical model names.
 
 ---
-_Last updated: 2026-09-08_
+_Last updated: 2026-09-09_

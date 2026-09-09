@@ -6,21 +6,21 @@ flightlines, local drone products, production-scale cross-sensor analysis, and
 spectral-library reporting.
 
 [![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://earthlab.github.io/spectralbridge/)
-[![PyPI](https://img.shields.io/pypi/v/spectralbridge)](https://pypi.org/project/spectralbridge/)
-[![Python](https://img.shields.io/pypi/pyversions/spectralbridge)](https://pypi.org/project/spectralbridge/)
+[![PyPI](https://img.shields.io/pypi/v/earthlab-spectralbridge)](https://pypi.org/project/earthlab-spectralbridge/)
+[![Python](https://img.shields.io/pypi/pyversions/earthlab-spectralbridge)](https://pypi.org/project/earthlab-spectralbridge/)
 
 ## Install
 
 SpectralBridge supports Python 3.10, 3.11, and 3.12.
 
 ```bash
-python -m pip install spectralbridge
+python -m pip install earthlab-spectralbridge
 ```
 
 To evaluate the 2.3.0 release candidate explicitly:
 
 ```bash
-python -m pip install --pre "spectralbridge==2.3.0rc1"
+python -m pip install --pre "earthlab-spectralbridge==2.3.0rc1"
 python -c "import spectralbridge; print(spectralbridge.__version__)"
 ```
 
@@ -227,7 +227,7 @@ After installing the exact candidate in a fresh environment, external testers
 can download and run the small installation check without cloning the repository:
 
 ```bash
-python -m pip install --pre "spectralbridge==2.3.0rc1"
+python -m pip install --pre "earthlab-spectralbridge==2.3.0rc1"
 curl -O https://raw.githubusercontent.com/earthlab/spectralbridge/v2.3.0rc1/examples/release_candidate_smoke.py
 python release_candidate_smoke.py --expected-version 2.3.0rc1
 ```

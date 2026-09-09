@@ -59,6 +59,8 @@ def test_release_candidate_smoke_checks_current_installation() -> None:
     payload = json.loads(result.stdout)
     assert payload["status"] == "PASS"
     assert payload["validation_scope"] == "installation_and_public_api_only"
+    assert payload["distribution_name"] == "earthlab-spectralbridge"
+    assert payload["import_package"] == "spectralbridge"
 
 
 def test_vignette_notebooks_are_clean_and_code_compiles() -> None:

@@ -7,7 +7,7 @@ def _missing(extra: str, package: str) -> RuntimeError:
     return RuntimeError(
         "Dependency '{package}' is required for this feature but could not be "
         "imported. Install or repair the standard SpectralBridge environment, "
-        "e.g. `pip install spectralbridge`.".format(package=package)
+        "e.g. `pip install earthlab-spectralbridge`.".format(package=package)
     )
 
 

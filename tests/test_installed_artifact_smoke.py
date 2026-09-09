@@ -7,6 +7,7 @@ from pathlib import Path
 import socket
 import sys
 from types import ModuleType
+from types import SimpleNamespace
 
 import pytest
 
@@ -105,3 +106,26 @@ def test_spectral_library_smoke_runs_preflight_and_reporting(tmp_path: Path) -> 
 
 def test_primary_console_script_contract_is_complete() -> None:
     assert SMOKE._validate_console_scripts() == list(SMOKE.PRIMARY_CONSOLE_SCRIPTS)
+
+
+def test_distribution_metadata_is_distinct_from_import_package(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    installed = SimpleNamespace(
+        metadata={"Name": "earthlab-spectralbridge"}, version="2.3.0rc1"
+    )
+    monkeypatch.setattr(SMOKE, "distribution", lambda _name: installed)
+    assert SMOKE._validate_distribution_metadata("2.3.0rc1") == {
+        "distribution_name": "earthlab-spectralbridge",
+        "distribution_version": "2.3.0rc1",
+        "import_package": "spectralbridge",
+    }
+
+
+def test_distribution_metadata_rejects_old_distribution_name(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    installed = SimpleNamespace(metadata={"Name": "spectralbridge"}, version="2.3.0rc1")
+    monkeypatch.setattr(SMOKE, "distribution", lambda _name: installed)
+    with pytest.raises(RuntimeError, match="Expected distribution earthlab-spectralbridge"):
+        SMOKE._validate_distribution_metadata("2.3.0rc1")

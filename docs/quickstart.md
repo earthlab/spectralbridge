@@ -33,10 +33,10 @@ search:
 <p>Install from PyPI:</p>
 
 ```bash
-pip install spectralbridge
+pip install earthlab-spectralbridge
 ```
 
-<p>Ray is part of the standard dependency set. The <code>spectralbridge[full]</code> extra remains available as a compatibility alias for existing automation and currently resolves to the same dependency set.</p>
+<p>Ray is part of the standard dependency set. The <code>earthlab-spectralbridge[full]</code> extra remains available as a compatibility alias for existing automation and currently resolves to the same dependency set.</p>
 <p class="sb-doc-note">Legacy imports and CLI aliases still work, but the Quickstart uses the canonical <code>spectralbridge</code> namespace and <code>spectralbridge-*</code> entry points.</p>
 </section>
 

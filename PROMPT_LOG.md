@@ -9238,6 +9238,111 @@ Model: GPT-5
 continue
 ```
 
+## 2026-09-09 - rename PyPI distribution
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+You are working in:
+
+[https://github.com/earthlab/spectralbridge](https://github.com/earthlab/spectralbridge)
+
+Start from CURRENT main.
+
+Before changing anything:
+1\. git checkout main
+2\. git pull --ff-only origin main
+3\. record git rev-parse HEAD
+4\. read AGENTS.md, FEATURE\_REQUESTS.md, PROMPT\_LOG.md, pyproject.toml,
+&#x20;  CITATION.cff, README.md, CHANGELOG.md, .github/workflows/release.yml,
+&#x20;  and any release/packaging tests.
+
+Context:
+PyPI already has an unrelated project whose normalized name conflicts with
+"spectralbridge". We have now created a pending PyPI Trusted Publisher project
+named:
+
+earthlab-spectralbridge
+
+The GitHub repository remains:
+earthlab/spectralbridge
+
+The scientific/software name remains:
+SpectralBridge
+
+The Python import namespace must remain:
+import spectralbridge
+
+The only thing that should change is the PyPI DISTRIBUTION name used for install
+and publication:
+
+pip install earthlab-spectralbridge
+
+Do NOT rename the repository.
+Do NOT rename src/spectralbridge/.
+Do NOT change public imports from spectralbridge.
+Do NOT change the scientific product name "SpectralBridge".
+
+Tasks:
+
+1\. Update pyproject.toml so the distribution/project name is:
+&#x20;  earthlab-spectralbridge
+
+2\. Audit all release metadata, docs, examples, tests, smoke tests, and release
+&#x20;  workflow assumptions that currently expect the PyPI distribution name
+&#x20;  "spectralbridge".
+
+3\. Update install instructions everywhere to:
+&#x20;  pip install earthlab-spectralbridge
+
+4\. Preserve usage examples as:
+&#x20;  import spectralbridge
+
+5\. Update release validation so it explicitly checks:
+&#x20;  \- distribution name = earthlab-spectralbridge
+&#x20;  \- import package = spectralbridge
+&#x20;  \- version remains 2.3.0rc1
+&#x20;  \- release tag remains v2.3.0rc1
+
+6\. Confirm .github/workflows/release.yml publishes via Trusted Publishing using:
+&#x20;  environment: pypi
+
+7\. Do not alter scientific pipeline behavior.
+
+8\. Build a fresh wheel and sdist and verify their filenames and METADATA use
+&#x20;  earthlab-spectralbridge / earthlab\_spectralbridge as appropriate while the
+&#x20;  installed import remains spectralbridge.
+
+9\. Test from a clean environment:
+&#x20;  pip install \<built wheel>
+&#x20;  python -c "import spectralbridge; print(spectralbridge.\_\_version\_\_)"
+
+10\. Run:
+&#x20;  \- ruff
+&#x20;  \- full pytest suite
+&#x20;  \- docs build/link checks
+&#x20;  \- release metadata validation for v2.3.0rc1
+&#x20;  \- twine check
+&#x20;  \- installed-artifact smoke tests
+
+11\. Update FEATURE\_REQUESTS.md and PROMPT\_LOG.md / AI transparency records as
+&#x20;   required by repo policy.
+
+12\. Commit and push the changes to main, but DO NOT create or push the
+&#x20;   v2.3.0rc1 tag and DO NOT publish to PyPI.
+
+At the end, report:
+\- starting commit
+\- final commit
+\- every file changed
+\- exact distribution name
+\- exact import namespace
+\- exact wheel/sdist filenames
+\- all validation results
+\- whether the repo is ready for me to push the v2.3.0rc1 tag
+```
+
 ## 2026-09-03 - fix Python 3.10 Ruff syntax failures
 Branch: main
 AI system: OpenAI Codex
