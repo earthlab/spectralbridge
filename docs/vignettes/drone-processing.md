@@ -2,31 +2,51 @@
 
 **Notebook:** [View the drone notebook in the repository](https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/06_drone_pipeline.ipynb). GitHub displays the cells; clone or download the file to run them.
 
-Use this module for local drone HDF5 inputs. It is separate from the NEON
-download workflow and preserves provenance from the original drone filenames.
+Use this module for local drone TIFF packages or HDF5 inputs. Discovery is
+recursive, the original package remains traceable, and TIFF inputs enter the
+same established HDF5, ENVI, topographic, and BRDF correction machinery.
 
-!!! note "Where Landsat enters the scientific bridge"
-    The project-level relationship is **Drone → NEON → Landsat**. This module
-    prepares and validates the drone side; it does not directly convolve drone
-    data into Landsat bands. Corrected, Landsat-harmonized NEON products provide
-    the explicit airborne translation reference for downstream comparison.
-
-## Prepare the inputs
-
-Place valid drone HDF5 files under one input directory. Discovery is recursive,
-so campaign or flight subdirectories are allowed.
+## Scientific branches
 
 ```text
-drone_inputs/
-├── flight_a/
-│   └── flight_a.h5
-└── flight_b/
-    └── flight_b.h5
+DRONE
+TIFF + ancillary + manifest
+  -> working H5 -> ENVI -> topo/BRDF -> corrected MicaSense
+  -> affine cross-sensor translation -> Landsat-like raster
+  -> full or polygon spectral library -> QA
+
+NORMAL NEON
+NEON H5 -> ENVI -> topo/BRDF -> corrected hyperspectral
+  -> spectral convolution -> Landsat-like raster
+  -> full or polygon spectral library -> QA
+
+OPTIONAL VALIDATION
+actual Landsat
+            \
+drone-like --- actual-Landsat grid -> pairwise QA
+            /
+NEON-like
 ```
 
-Reflectance and ancillary arrays in each HDF5 must already share the expected
-spatial orientation and footprint. Corrections require the relevant terrain,
-view, and solar geometry.
+The paths are shared through corrected ENVI and then diverge. Drone data use
+reviewed affine coefficients derived by the independent bulk workflow. NEON
+hyperspectral data use spectral convolution. The corrected native MicaSense
+raster remains a first-class output and is never overwritten. A translated
+product is Landsat-like; it is not an actual Landsat observation.
+
+## Prepare inputs and coefficients
+
+Place valid drone HDF5 files or reflectance TIFF packages under one input
+directory. TIFF packages may include aligned terrain/view sidecars and are
+matched to the bundled field manifest unless `drone_manifest_path` overrides
+it. See the [detailed tutorial](../tutorials/micasense-to-landsat.md) for the
+complete TIFF contract.
+
+Translation consumes the existing bulk candidate table. It does not fit
+coefficients. Select its weighting family explicitly from `pixel_pooled`,
+`flightline_balanced`, or `site_balanced`; SpectralBridge validates equation
+direction, sensor identities, unique band mappings, wavelengths, finite
+coefficients, and run provenance before writing a translated product.
 
 ## Run it
 
@@ -36,36 +56,65 @@ from spectralbridge import run_drone_pipeline
 results = run_drone_pipeline(
     input_h5_dir="drone_inputs",
     output_dir="drone_outputs",
-    polygon_path=None,
-    extraction_mode="full",
+    polygon_path="plots.geojson",
+    extraction_mode="polygon",
     apply_topo=True,
     apply_brdf=True,
-    require_solar_geometry=True,
+    apply_translation=True,
+    translation_coefficients=(
+        "bulk_analysis/coefficients/candidate_translation_coefficients.parquet"
+    ),
+    translation_weighting="site_balanced",
 )
 
 print(results["processed"])
-print(results["failed"])
-print(results["qa_summary"])
+print(results["translation_outputs"])
+print(results["translated_merged"])
 ```
 
-Set `extraction_mode="full"` to write all corrected pixels to Parquet. For an
-intersecting vector subset, pass both `polygon_path="plots.geojson"` and
-`extraction_mode="polygon"`. Omitting `extraction_mode` preserves the existing
-behavior: polygon extraction when a polygon is supplied, otherwise QA-only.
+Use `extraction_mode="full"` for all corrected pixels. Omitting
+`extraction_mode` preserves the earlier behavior: polygon extraction when a
+polygon is supplied, otherwise raster and QA outputs only. Translation remains
+opt-in and requires both the coefficient path and weighting family.
 
-## Confirm the result
+## Standalone and comparison QA
 
-Each discovered flight gets a separate output directory with drone-native
-stems. Depending on available inputs and requested modules, expect corrected
-ENVI, Parquet, QA PNG, and QA JSON outputs plus a run-level QA summary.
+Every translated run produces per-target translation JSON and PNG diagnostics
+without NEON or network access. They show band mapping, coefficient evidence,
+corrected-versus-translated values, reflectance shifts, valid fractions,
+nodata preservation, and unusual translated values.
 
-Read each QA JSON before assuming a requested correction was applied. It records
-whether correction ran, was skipped because geometry was unavailable, or fell
-back after a quality check.
+Set `landsat_qa=True` to request an overlapping Landsat Collection 2 Level 2
+scene from Microsoft Planetary Computer. Install this optional support with:
+
+```bash
+python -m pip install "earthlab-spectralbridge[landsat]"
+```
+
+Alternatively, use `landsat_product="landsat_stack.tif"` to supply an
+analysis-ready multiband raster or a previously cached observation manifest.
+The comparison selects the closest acceptable scene within
+`landsat_search_days`, applies the Landsat QA pixel mask, and aggregates the
+translated drone product onto the actual Landsat grid using valid-aware area
+averaging. Failed searches, cloud rejection, or insufficient overlap are
+recorded as optional-QA limitations and do not fail the core drone run.
+
+Add `comparison_neon_product="neon_landsat_like.img"` to compare an existing
+normal-pipeline NEON product on the same Landsat support. The three reported
+pairs are drone-like versus actual, NEON-like versus actual, and drone-like
+versus NEON-like. NEON is optional and is never processed by drone code.
+
+## Restart and outputs
+
+Valid working H5, corrected ENVI, translated ENVI, and translated Parquet
+products are reused when their inputs and translation signatures match.
+Optional Landsat failure does not invalidate or recompute core products. See
+[outputs and naming](../pipeline/outputs.md) for the complete contract, and
+review every QA JSON before treating a coefficient application as trustworthy.
 
 ## Continue
 
 - [Review QA outputs](qa-and-analysis.md)
 - [Extract polygon spectra](polygon-extraction.md)
-- Technical details: [outputs and naming](../pipeline/outputs.md) and [package
-  architecture](../dev/architecture.md)
+- [Detailed MicaSense tutorial](../tutorials/micasense-to-landsat.md)
+- [Package architecture](../dev/architecture.md)

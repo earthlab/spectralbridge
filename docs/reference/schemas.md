@@ -69,6 +69,14 @@
 </section>
 
 <section class="sb-doc-section" markdown="1">
+<p class="sb-kicker">Drone coefficient consumer</p>
+<h2>Translated-product provenance schema</h2>
+<p>The drone pipeline reads the bulk candidate coefficient Parquet or its JSON companion. It requires one selected weighting family and the existing fields for analysis run, analysis level, weighting, translation pair, source/target sensor, source/target band, shared band index, equation, fit status, slope, and intercept. Rows must encode <code>target = slope * source + intercept</code>, agree with the product registry, contain exactly one finite coefficient for every expected target band, and support an unambiguous wavelength mapping to the corrected MicaSense cube.</p>
+<p>The resulting <code>*__translation.json</code> records the coefficient path and SHA-256 fingerprint, bulk run and weighting provenance, source and translated raster fingerprints, per-band source/target wavelengths and affine values, candidate evidence fields, observed training-range checks, output summaries, warning flags, package version, processing time, and restart signature. Translated Parquet tables repeat the stable provenance identifiers as columns and keep the complete mapping in a JSON-valued column.</p>
+<p class="sb-doc-note">Candidate coefficients are cross-sensor translation evidence, not packaged brightness adjustments or a universal empirical calibration. The package does not silently choose among weighting families.</p>
+</section>
+
+<section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">QA metadata</p>
 <h2>QA JSON sidecars</h2>
 <p>Every QA JSON file acts as the machine-readable counterpart to the PNG and optional PDF reports.</p>

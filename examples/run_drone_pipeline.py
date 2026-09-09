@@ -2,8 +2,8 @@
 """Run the local-input drone SpectralBridge workflow from JSON.
 
 This wrapper calls ``spectralbridge.run_drone_pipeline`` and deliberately does
-not enter the NEON download or sensor-convolution workflow. Use ``--check`` to
-validate paths and options without reading imagery.
+not enter the NEON workflow. Use ``--check`` to validate paths and options
+without reading imagery.
 """
 
 from __future__ import annotations
@@ -35,8 +35,25 @@ ALLOWED_KEYS = {
     "tiff_sensor_azimuth_deg",
     "drone_manifest_path",
     "require_solar_geometry",
+    "extraction_mode",
+    "parquet_chunk_size",
+    "apply_translation",
+    "translation_coefficients",
+    "translation_weighting",
+    "landsat_qa",
+    "landsat_product",
+    "landsat_search_days",
+    "comparison_neon_product",
 }
-PATH_KEYS = {"input_h5_dir", "polygon_path", "output_dir", "drone_manifest_path"}
+PATH_KEYS = {
+    "input_h5_dir",
+    "polygon_path",
+    "output_dir",
+    "drone_manifest_path",
+    "translation_coefficients",
+    "landsat_product",
+    "comparison_neon_product",
+}
 
 
 def _ensure_importable() -> None:
@@ -79,7 +96,11 @@ def describe(config: dict[str, Any]) -> None:
     print(f"  output: {config['output_dir']}")
     print(f"  polygon extraction: {config.get('polygon_path') or 'disabled'}")
     print(f"  topo / BRDF: {config.get('apply_topo', True)} / {config.get('apply_brdf', True)}")
-    print("  convolution: skipped by the drone workflow contract")
+    print(
+        "  spectral branch: corrected MicaSense -> optional affine translation "
+        f"({config.get('apply_translation', False)})"
+    )
+    print(f"  Landsat comparison QA: {config.get('landsat_qa', False)}")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -109,4 +130,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

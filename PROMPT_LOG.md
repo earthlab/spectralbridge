@@ -16,6 +16,1221 @@ Branch: main
 this repo doesn't have an AGENTS.md file for agents for codex to reference. can you read through the repo and the webstie and try to use that information to write an AGENTS.md file to speed up future work. one thing i would like it to include is a prompt log that logs the verbatim promplts that i give codex.
 ```
 
+## 2026-09-09 - finish the production drone pipeline
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+You are working in:
+
+https://github.com/earthlab/spectralbridge
+
+Your task is to FINISH THE DRONE PIPELINE so it is ready for a real production run.
+
+Start from CURRENT main.
+
+Before changing anything:
+
+1. git checkout main
+2. git pull --ff-only origin main
+3. record git rev-parse HEAD
+4. inspect all repo instructions before editing
+5. read at minimum:
+   - AGENTS.md and nested AGENTS.md files
+   - FEATURE_REQUESTS.md
+   - PROMPT_LOG.md
+   - README.md
+   - docs/tutorials/micasense-to-landsat.md
+   - docs/dev/architecture.md
+   - docs/pipeline/outputs.md
+   - docs/reference/json-catalog.md
+   - src/spectralbridge/pipelines/drone.py
+   - current normal NEON pipeline implementation
+   - src/spectralbridge/neon_cube.py
+   - ENVI writer/export code
+   - correction code
+   - polygon extraction code
+   - bulk translation code
+   - bulk coefficient schemas
+   - Landsat acquisition/download helpers
+   - QA modules
+   - tests/test_drone_pipeline.py
+   - normal NEON regression tests
+   - bulk translation tests
+   - spectral-library tests
+
+Do not assume an older repo state.
+
+There may also be concurrent release-related changes on main.
+Preserve them.
+Do not roll them back.
+
+==================================================
+PRIMARY GOAL
+==================================================
+
+Make run_drone_pipeline() production-ready from raw drone products through:
+
+1. source discovery
+2. existing TIFF to H5 bridge
+3. existing H5 to ENVI processing
+4. existing topo and BRDF corrections
+5. native corrected MicaSense product
+6. MicaSense to Landsat-like translation using reviewed bulk coefficients
+7. Landsat-like spectral-library Parquet output
+8. useful standalone drone QA
+9. optional comparison against actual Landsat
+10. optional full three-way comparison against:
+    - drone-derived Landsat-like data
+    - NEON-convolved Landsat-like data
+    - actual Landsat
+
+The finished pipeline should be ready for a real drone flightline run.
+
+==================================================
+NON-NEGOTIABLE ARCHITECTURE
+==================================================
+
+The intended processing architecture is:
+
+DRONE
+
+raw MicaSense TIFFs
++ ancillary rasters
++ manifest metadata
+    ->
+EXISTING TIFF TO H5 BRIDGE
+    ->
+NeonCube-compatible working H5
+    ->
+ENVI export
+    ->
+topographic correction
+    ->
+BRDF correction
+    ->
+corrected native MicaSense ENVI
+    ->
+MicaSense to Landsat-like TRANSLATION
+    ->
+Landsat-like raster/product
+    ->
+Landsat-like spectral-library Parquet
+    ->
+QA
+
+The drone path DOES NOT use convolution.
+
+Convolution is for the hyperspectral NEON pathway.
+
+The branch is:
+
+corrected ENVI
+    |
+    +-- NEON hyperspectral -> convolution
+    |
+    +-- MicaSense drone -> affine cross-sensor translation
+
+Do not represent convolution as:
+- disabled
+- skipped
+- unavailable
+- optional
+
+inside the conceptual drone workflow.
+
+It simply does not belong there.
+
+==================================================
+PROTECT THE NORMAL NEON PIPELINE
+==================================================
+
+DO NOT change the scientific or numerical behavior of the normal NEON pipeline.
+
+Do not change:
+- go_forth_and_multiply behavior
+- NEON H5 handling
+- NEON ENVI output
+- NEON topo correction
+- NEON BRDF correction
+- NEON convolution
+- NEON brightness logic
+- NEON spectral-library output semantics
+- NEON public APIs
+- NEON default settings
+- existing NEON numerical results
+
+If shared helpers must be changed:
+- make the smallest possible change
+- add regression coverage
+- demonstrate that NEON behavior is unchanged
+
+The desired final report must explicitly say whether NEON behavior changed.
+
+Expected answer:
+NO
+
+==================================================
+PROTECT THE EXISTING TIFF TO H5 BRIDGE
+==================================================
+
+This code took substantial effort to get right.
+
+Treat the current TIFF to H5 implementation as validated infrastructure.
+
+Existing important functions include:
+
+convert_drone_tiff_to_h5()
+
+_prepare_drone_source_working_h5()
+
+_prepare_drone_h5_working_copy()
+
+existing source discovery
+
+manifest matching
+
+ancillary matching
+
+solar geometry derivation
+
+NeonCube-compatible HDF5 construction
+
+DO NOT:
+- redesign this system
+- create a second TIFF loader
+- create a TIFF-only downstream correction path
+- bypass NeonCube
+- replace the legacy site-group HDF5 layout
+- simplify manifest matching
+- simplify source precedence
+- remove TIFF/H5 fallback behavior
+- remove solar geometry computation
+- change H5 precedence when H5 and TIFF resolve to the same flight
+- refactor this code merely for elegance
+
+Before new work:
+run the current TIFF/H5 regression tests.
+
+If they pass:
+treat this boundary as frozen.
+
+Only modify these functions if a new downstream requirement truly cannot be met otherwise.
+
+Any modification to this area requires:
+- focused regression tests
+- preservation of current behavior
+- explicit explanation in the final report
+
+==================================================
+CURRENT TIFF TO H5 CONTRACT
+==================================================
+
+Preserve the existing behavior that:
+
+- drone sources may be H5, TIFF, or TIFF package inputs
+- H5 takes precedence when appropriate
+- TIFF products are converted into a working H5
+- that H5 is readable by NeonCube
+- reflectance metadata are preserved
+- wavelengths are preserved or validated
+- FWHM metadata are handled where applicable
+- CRS and transform are preserved
+- nodata is preserved
+- ancillary geometry is integrated
+- acquisition time may come from the field manifest
+- solar geometry may be computed from manifest time plus spatial information
+- provenance remains traceable to the original source package
+
+Do not fabricate unavailable physical metadata.
+
+==================================================
+THE DRONE AND NEON PATHS SHOULD BE THE SAME
+THROUGH CORRECTED ENVI
+==================================================
+
+The drone pathway should use the established SpectralBridge scientific machinery through:
+
+H5
+-> ENVI
+-> topo correction
+-> BRDF correction
+-> corrected ENVI
+
+Prefer existing shared correction functions.
+
+Do not implement a parallel scientific correction method for drones unless there is a real sensor-specific requirement.
+
+The corrected MicaSense ENVI must remain a first-class output.
+
+Never overwrite it with translated values.
+
+==================================================
+NEW WORK STARTS AFTER CORRECTED MicaSense ENVI
+==================================================
+
+The major missing stage is cross-sensor translation.
+
+The bulk workflow now provides candidate MicaSense to Landsat translation coefficients.
+
+The drone pipeline should CONSUME coefficients.
+
+The drone pipeline should NOT estimate population coefficients.
+
+Coefficient derivation belongs in the bulk workflow.
+
+Coefficient application belongs in the drone workflow.
+
+==================================================
+TRANSLATION MODEL
+==================================================
+
+Use the existing bulk coefficient schema.
+
+Apply the exact source-to-target model encoded by that schema.
+
+Conceptually:
+
+target_reflectance = intercept + slope * source_reflectance
+
+Do not assume the orientation.
+
+Validate the recorded:
+- source sensor
+- target sensor
+- source band
+- target band
+- wavelength
+- slope
+- intercept
+- weighting method
+- run provenance
+
+Translation must be band-aware and wavelength-aware.
+
+Never map bands solely by array position.
+
+==================================================
+COEFFICIENT SELECTION
+==================================================
+
+The bulk workflow contains multiple coefficient families, including where available:
+
+- pixel-pooled
+- flightline-balanced
+- site-balanced
+
+and supporting evidence:
+- per-flightline fits
+- per-site fits
+- leave-one-site-out validation
+- bulk interpretation warnings
+
+Do NOT silently choose one.
+
+For this task:
+
+build a robust coefficient consumer.
+
+Require explicit coefficient selection unless there is already a clearly reviewed production configuration in the repo.
+
+Preferred behavior:
+
+run_drone_pipeline(
+    ...,
+    apply_translation=True,
+    translation_coefficients=...,
+    translation_weighting="site_balanced",
+)
+
+Use exact existing naming conventions instead of inventing new names if the repo already defines them.
+
+Backward-compatible default should remain:
+
+apply_translation=False
+
+unless repo policy clearly supports another default.
+
+==================================================
+TRANSLATION VALIDATION
+==================================================
+
+Before applying coefficients, validate:
+
+- artifact exists
+- schema is supported
+- source sensor is correct
+- target sensor is correct
+- orientation is correct
+- required bands exist
+- band identity is unambiguous
+- selected weighting exists
+- each selected band has exactly one coefficient
+- slope is finite
+- intercept is finite
+- wavelength correspondence is sensible
+- coefficient provenance is available where possible
+
+Fail clearly on ambiguous or invalid translation configuration.
+
+Do not guess.
+
+==================================================
+OUTPUT PRODUCTS
+==================================================
+
+A successful translated drone run should retain:
+
+1. original source provenance
+2. working H5
+3. raw/native ENVI as currently appropriate
+4. corrected native MicaSense ENVI
+5. translated Landsat-like raster/product
+6. Landsat-like spectral-library Parquet
+7. QA JSON
+8. QA figures/report
+9. translation provenance
+
+The corrected native MicaSense product and translated Landsat-like product must remain distinct.
+
+Use precise naming such as:
+
+MicaSense corrected
+
+Landsat-like translated
+
+Avoid language suggesting the translated product is an actual Landsat observation.
+
+==================================================
+SPECTRAL LIBRARY PARQUET
+==================================================
+
+The translated output should feed the existing SpectralBridge polygon/spectral-library system.
+
+Where polygons are supplied:
+
+produce a Landsat-like spectral-library Parquet derived from the translated drone data.
+
+Use existing extraction infrastructure.
+
+Do not invent a parallel table architecture unless unavoidable.
+
+The drone-derived Landsat-like library should be compatible enough with NEON-derived Landsat-like library products to support later comparisons.
+
+Preserve fields linking observations to:
+
+- source flight
+- source TIFF/package
+- working H5
+- corrected MicaSense product
+- translated product
+- polygon or plot ID
+- source band
+- target band
+- coefficient set
+- coefficient weighting
+- coefficient provenance
+- acquisition datetime
+
+==================================================
+DRONE QA MUST WORK WITHOUT NEON
+==================================================
+
+A drone flightline must produce useful QA even if there is no coincident NEON flight.
+
+This is essential.
+
+There are two QA levels.
+
+==================================================
+QA LEVEL 1
+STANDALONE DRONE QA
+==================================================
+
+This must work for a normal drone-only run.
+
+Include:
+
+INPUT QA
+
+- source files discovered
+- source type
+- package identity
+- band count
+- wavelengths
+- CRS
+- dimensions
+- transform
+- nodata
+- manifest match
+- acquisition datetime
+- ancillary availability
+- solar geometry source
+- H5 preparation status
+- H5 provenance
+
+CORRECTION QA
+
+- raw/native reflectance summaries
+- corrected reflectance summaries
+- valid pixel fractions
+- topo requested/applied
+- BRDF requested/applied
+- fallback conditions
+- nodata behavior
+- per-band changes
+- spatial QA where existing tools support it
+
+TRANSLATION QA
+
+- corrected MicaSense summaries
+- translated Landsat-like summaries
+- slope/intercept by matched band
+- weighting scheme
+- coefficient provenance
+- absolute shift
+- relative shift
+- valid translated fraction
+- nodata preservation
+- unusual/extreme translated values
+- warning flags
+- coefficient evidence warnings where available
+
+Create readable plots.
+
+At minimum include a figure showing native corrected MicaSense values versus translated Landsat-like values by matched band.
+
+==================================================
+QA LEVEL 1B
+ACTUAL LANDSAT COMPARISON
+==================================================
+
+For a drone run, attempt to retrieve appropriate real Landsat observations for the same location and acquisition period.
+
+Reuse existing SpectralBridge Landsat access/download code.
+
+Do not create a redundant downloader if the package already has the needed functionality.
+
+The Landsat comparison is QA.
+
+It must NOT be a hard dependency of successful drone processing.
+
+If no suitable Landsat scene exists:
+- finish the drone run
+- record Landsat comparison unavailable
+- explain why
+
+Select scenes based on:
+- spatial overlap
+- date/time distance
+- sensor
+- valid pixels
+- cloud/QA conditions
+
+Record:
+- Landsat product ID
+- Landsat sensor
+- Landsat date
+- temporal offset
+- cloud information
+- overlap
+- scene-selection logic
+
+==================================================
+COMMON SPATIAL SUPPORT
+==================================================
+
+Do not directly compare native drone pixels against 30 m Landsat pixels.
+
+Drone, NEON, and Landsat differ dramatically in spatial support.
+
+For comparisons against actual Landsat:
+
+prefer the Landsat grid as common support.
+
+Aggregate drone-derived Landsat-like data onto the Landsat grid using valid-data-aware aggregation.
+
+Use the same principle later for NEON-derived Landsat-like data.
+
+Document:
+- CRS reprojection
+- grid alignment
+- aggregation method
+- valid-data threshold
+- nodata treatment
+- pixel counts
+- spatial support
+
+Do not modify the original high-resolution outputs.
+
+Common-support products exist only for QA.
+
+==================================================
+LANDSAT COMPARISON METRICS
+==================================================
+
+For translated drone vs actual Landsat, calculate by matched band where appropriate:
+
+- sample count
+- mean bias
+- median bias
+- MAE
+- RMSE
+- correlation
+- fitted slope
+- fitted intercept
+- residual distribution
+- percent difference
+- valid overlap fraction
+
+Avoid treating correlation alone as sufficient validation.
+
+==================================================
+QA LEVEL 2
+OPTIONAL DRONE + NEON + LANDSAT
+==================================================
+
+When a matching NEON-derived Landsat-like product exists, support a higher-level three-way comparison.
+
+The three data sources are:
+
+1. actual Landsat
+2. drone-derived Landsat-like reflectance
+3. NEON-convolved Landsat-like reflectance
+
+The NEON product MUST come from the normal NEON pipeline.
+
+Do not process NEON through drone code.
+
+Do not require NEON for ordinary drone runs.
+
+Provide an explicit way to supply or discover a comparison NEON product.
+
+If absent:
+run drone-only QA.
+
+If present and compatible:
+run three-way QA.
+
+==================================================
+THREE-WAY QA
+==================================================
+
+Bring all three products onto defensible common spatial support.
+
+Prefer the actual Landsat grid.
+
+Compare:
+
+drone-like vs actual Landsat
+
+NEON-like vs actual Landsat
+
+drone-like vs NEON-like
+
+Report by band:
+
+- sample count
+- mean bias
+- median bias
+- MAE
+- RMSE
+- correlation
+- regression slope
+- regression intercept
+- residual spread
+- percent differences
+
+Also record:
+
+- drone acquisition time
+- NEON acquisition time
+- Landsat acquisition time
+- temporal offsets
+- spatial overlap
+- valid support
+- source resolution
+- comparison resolution
+
+Produce concise visual summaries.
+
+A useful target is:
+- one three-way summary figure
+- per-band scatter or residual diagnostics
+- compact comparison table
+
+==================================================
+SCIENTIFIC INTERPRETATION
+==================================================
+
+Use careful language.
+
+The drone output is:
+Landsat-like
+or
+Landsat-equivalent
+
+It is not an actual Landsat observation.
+
+Bulk coefficients are cross-sensor translation relationships.
+
+Do not call them universal empirical calibration unless independent evidence supports that claim.
+
+Keep these evidence levels distinct:
+
+1. bulk synthetic/matched translation evidence
+2. drone application of those coefficients
+3. comparison against actual Landsat
+4. three-way drone/NEON/Landsat validation
+
+The QA should help us determine when translation is trustworthy.
+
+==================================================
+REMOVE MISLEADING DRONE CONVOLUTION LANGUAGE
+==================================================
+
+Audit drone-specific:
+- config
+- code
+- QA
+- tests
+- docs
+- examples
+
+Remove or replace concepts such as:
+
+apply_convolution=False
+
+convolution_skipped=True
+
+"drone convolution"
+
+"skip convolution"
+
+Do not touch convolution where it correctly describes the NEON/hyperspectral path.
+
+==================================================
+RESTARTABILITY
+==================================================
+
+The drone pipeline should be restart-safe.
+
+Do not recompute expensive valid stages if outputs exist and pass existing validation.
+
+Preserve or improve restart behavior for:
+
+- working H5
+- ENVI
+- corrected ENVI
+- translated product
+- spectral library
+- QA downloads
+- QA summaries
+
+A failed Landsat download or optional NEON comparison must not force complete reprocessing of the drone flightline.
+
+==================================================
+ERROR HANDLING
+==================================================
+
+Separate:
+
+CORE PIPELINE FAILURE
+
+from
+
+OPTIONAL QA UNAVAILABLE
+
+Examples:
+
+Core failures:
+- invalid TIFF/H5
+- invalid working H5
+- correction impossible when requested
+- invalid coefficient set
+- required translation band missing
+- translated output invalid
+
+Optional QA unavailable:
+- no acceptable Landsat scene
+- no matching NEON flight
+- insufficient overlap
+- too few common pixels
+- excessive cloud coverage
+
+Optional QA limitations should generate warnings and provenance, not kill otherwise successful drone processing.
+
+==================================================
+PROVENANCE
+==================================================
+
+Record a complete machine-readable chain:
+
+- source TIFF/package
+- source H5 if applicable
+- working H5
+- field manifest source
+- acquisition datetime
+- solar geometry source
+- ENVI output
+- correction settings
+- corrected ENVI
+- translation enabled
+- coefficient file
+- coefficient file fingerprint
+- bulk run ID if available
+- weighting family
+- per-band source/target mapping
+- per-band slope/intercept
+- translated product
+- spectral-library Parquet
+- Landsat scene
+- Landsat date
+- NEON comparison source if present
+- QA stages completed
+- warnings
+- package version
+- processing timestamp
+
+==================================================
+TESTING STRATEGY
+==================================================
+
+Do not rely only on unit tests.
+
+Use three layers.
+
+-----------------------------------
+LAYER A
+EXISTING REGRESSION TESTS
+-----------------------------------
+
+Before editing, run current:
+
+- TIFF to H5 tests
+- drone tests
+- NEON tests
+- bulk coefficient tests
+
+Record baseline failures if any.
+
+Do not attribute pre-existing failures to this task.
+
+-----------------------------------
+LAYER B
+NEW SYNTHETIC TESTS
+-----------------------------------
+
+Add focused small tests for:
+
+TIFF TO H5 PROTECTION
+
+- existing convert_drone_tiff_to_h5 behavior unchanged
+- H5 readable by NeonCube
+- source precedence unchanged
+- manifest matching unchanged
+- solar geometry behavior unchanged
+- nodata behavior unchanged
+
+TRANSLATION
+
+- exact affine transform
+- multiple bands
+- coefficient orientation
+- explicit weighting
+- missing coefficient
+- duplicate coefficient
+- wrong source sensor
+- wrong target sensor
+- wavelength mismatch
+- NaN/inf handling
+- nodata preservation
+- native corrected product not overwritten
+- translation provenance
+
+SPECTRAL LIBRARY
+
+- polygon extraction
+- translated values correct
+- schema compatible
+- provenance retained
+
+LANDSAT QA
+
+- mocked successful scene discovery
+- no-scene fallback
+- cloud rejection
+- common-grid aggregation
+- comparison metrics
+
+THREE-WAY QA
+
+- synthetic drone-like
+- synthetic NEON-like
+- synthetic actual Landsat
+- common-support comparison
+- pairwise metrics
+- NEON absent path
+
+RESTART
+
+- translated output reuse
+- QA-only rerun
+- optional comparison failure does not restart core pipeline
+
+NEON REGRESSION
+
+- existing NEON tests remain unchanged
+- no changed numerical expectations
+
+-----------------------------------
+LAYER C
+PRODUCTION-SHAPED SMOKE
+-----------------------------------
+
+Create or update a minimal runnable smoke path using small fixtures that follows:
+
+TIFF
+-> working H5
+-> NeonCube
+-> ENVI
+-> correction
+-> translation
+-> Parquet
+-> QA
+
+It should exercise the real orchestration path, not just isolated helpers.
+
+No network dependency should be required for the core smoke.
+
+Mock or fixture Landsat access separately.
+
+==================================================
+PUBLIC API
+==================================================
+
+Keep:
+
+from spectralbridge import run_drone_pipeline
+
+as the public entry point.
+
+Do not create a confusing second top-level drone pipeline.
+
+Extend the existing API conservatively.
+
+If adding parameters, prefer explicit names such as:
+
+apply_translation
+
+translation_coefficients
+
+translation_weighting
+
+landsat_qa
+
+landsat_search_days
+
+comparison_neon_product
+
+Adapt to existing naming conventions.
+
+Avoid excessive API surface.
+
+==================================================
+USER EXPERIENCE
+==================================================
+
+A normal user should be able to do something close to:
+
+from spectralbridge import run_drone_pipeline
+
+result = run_drone_pipeline(
+    input_h5_dir="drone_inputs",
+    output_dir="drone_outputs",
+    polygon_path="plots.geojson",
+    apply_translation=True,
+    translation_coefficients="candidate_translation_coefficients.parquet",
+    translation_weighting="site_balanced",
+)
+
+and receive:
+
+- corrected MicaSense output
+- translated Landsat-like output
+- Landsat-like spectral-library Parquet
+- QA
+- provenance
+
+without needing to understand internal TIFF/H5 conversion.
+
+If Landsat comparison is enabled and available:
+include it.
+
+If NEON comparison is also supplied:
+include three-way QA.
+
+==================================================
+DOCUMENTATION
+==================================================
+
+Update the drone tutorial to explain the actual architecture.
+
+The central diagram should be:
+
+DRONE
+
+TIFF + ancillary + manifest
+-> working H5
+-> ENVI
+-> topo/BRDF
+-> corrected MicaSense
+-> translation
+-> Landsat-like
+-> spectral library
+-> QA
+
+NORMAL NEON
+
+NEON H5
+-> ENVI
+-> topo/BRDF
+-> corrected hyperspectral
+-> convolution
+-> Landsat-like
+-> spectral library
+-> QA
+
+Then show optional validation:
+
+actual Landsat
+            \
+drone-like --- common support -> QA
+            /
+NEON-like
+
+Clearly explain that:
+- drone does not use convolution
+- NEON does
+- translation coefficients come from bulk analysis
+- native corrected MicaSense remains available
+- actual Landsat QA is optional
+- NEON comparison is optional
+- absence of NEON does not make a drone run incomplete
+
+==================================================
+DO NOT HARD-CODE THE PRODUCTION COEFFICIENT SET YET
+==================================================
+
+Do not freeze one current production coefficient family into package defaults unless the repo already contains an explicitly reviewed choice.
+
+Build the production-ready consumer.
+
+The coefficient selection policy will be finalized separately after reviewing:
+- weighting dependence
+- site stability
+- LOSO results
+- attention flags
+
+==================================================
+IMPLEMENTATION ORDER
+==================================================
+
+Work in this exact order.
+
+PHASE 0
+BASELINE
+
+- record current commit
+- run existing relevant tests
+- inspect current drone orchestration
+- identify existing functions rather than reimplementing them
+
+PHASE 1
+FREEZE INGESTION
+
+- confirm existing TIFF to H5 tests
+- confirm NeonCube can consume generated H5
+- do not refactor working ingestion
+
+PHASE 2
+VERIFY SHARED CORRECTION PATH
+
+- confirm H5 -> ENVI -> topo/BRDF works end to end
+- fix only real drone-specific failures
+- protect NEON behavior
+
+PHASE 3
+TRANSLATION CORE
+
+- coefficient loader
+- schema validation
+- explicit weighting selection
+- affine application
+- translated output
+- provenance
+- tests
+
+PHASE 4
+LANDSAT-LIKE SPECTRAL LIBRARY
+
+- translated raster to polygon/spectral-library Parquet
+- schema compatibility
+- tests
+
+PHASE 5
+STANDALONE DRONE QA
+
+- ingestion
+- correction
+- translation
+- summary figures
+- reports
+
+PHASE 6
+ACTUAL LANDSAT QA
+
+- scene selection/download
+- common support
+- metrics
+- graceful no-scene behavior
+
+PHASE 7
+OPTIONAL NEON THREE-WAY QA
+
+- optional NEON input
+- common support
+- three-way metrics
+- figures
+
+PHASE 8
+RESTARTABILITY
+
+- stage validation
+- reuse
+- QA-only reruns
+- failure recovery
+
+PHASE 9
+DOCS AND FULL VALIDATION
+
+Do not start with a large refactor.
+
+==================================================
+STOP CONDITIONS
+==================================================
+
+Do not silently push through serious scientific uncertainty.
+
+Stop and report rather than guess if:
+
+- the bulk coefficient direction is ambiguous
+- required MicaSense/Landsat band mapping cannot be resolved
+- current spectral-library schemas are incompatible in a scientifically meaningful way
+- the repo lacks sufficient Landsat infrastructure and implementing it would require a major unrelated subsystem
+- changing shared correction code would alter NEON results
+- current production data reveal a requirement not represented in tests
+
+Minor implementation decisions should be resolved using existing repo conventions.
+
+==================================================
+FINAL VALIDATION
+==================================================
+
+Run:
+
+- py_compile or equivalent
+- ruff
+- targeted drone tests
+- TIFF/H5 regression tests
+- correction tests
+- translation tests
+- spectral-library tests
+- bulk schema tests
+- normal NEON pipeline tests
+- Landsat helper tests
+- full pytest suite
+- docs link checks
+- strict docs build
+- installed-artifact smoke if practical
+
+Record exact counts.
+
+==================================================
+GOVERNANCE
+==================================================
+
+Follow AGENTS.md exactly.
+
+Update:
+- FEATURE_REQUESTS.md
+- PROMPT_LOG.md
+- AI transparency artifacts
+
+as required.
+
+Do not create a release tag.
+Do not publish to PyPI.
+
+Commit and push only after validation passes.
+
+==================================================
+FINAL REPORT
+==================================================
+
+Return a concise but complete report containing:
+
+1. starting commit
+2. final commit
+3. files changed
+4. existing TIFF to H5 functions reused
+5. whether any TIFF/H5 behavior changed
+6. exact drone end-to-end workflow
+7. exact point where drone diverges from NEON
+8. translation API
+9. coefficient schema consumed
+10. translated product names
+11. spectral-library Parquet output
+12. standalone drone QA outputs
+13. actual Landsat QA behavior
+14. optional NEON comparison behavior
+15. common spatial support method
+16. restart behavior
+17. tests added
+18. complete validation results
+19. explicit confirmation that normal NEON behavior did not change
+20. remaining scientific decisions
+21. one concrete command or Python example I can use next to run the pipeline on a real drone flightline
+
+The end state should be:
+
+A real drone TIFF package can be given to run_drone_pipeline()
+
+and SpectralBridge will:
+
+discover it
+-> use the existing TIFF-to-H5 bridge
+-> run the established correction path
+-> preserve corrected MicaSense
+-> translate to Landsat-like reflectance
+-> extract a Landsat-like spectral library
+-> generate useful drone QA
+-> compare against real Landsat when possible
+-> additionally compare against NEON-derived Landsat-like data when available
+
+without modifying the normal NEON pipeline.
+```
+
+## 2026-09-09 - approve Landsat acquisition and staged-input paths
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+2 and 3 but allow 1
+```
+
 ## 2026-03-21 - fix ruff syntax errors in drone pipeline
 Branch: main
 

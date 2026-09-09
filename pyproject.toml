@@ -67,6 +67,10 @@ docs = [
 notebooks = [
     "jupyterlab>=4",
 ]
+landsat = [
+    "pystac-client>=0.8,<1",
+    "planetary-computer>=1.0,<2",
+]
 dev = [
     "pytest>=7.4,<10",
     "pytest-xdist>=3.5",

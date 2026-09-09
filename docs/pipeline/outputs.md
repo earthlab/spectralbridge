@@ -6,6 +6,28 @@
 </section>
 
 <section class="sb-doc-section" markdown="1">
+<p class="sb-kicker">Local drone processing</p>
+<h2>Drone translation and QA contract</h2>
+<p>Drone TIFF packages enter the validated working-H5 bridge and share the normal export and correction machinery through corrected ENVI. Translation is an opt-in affine, wavelength-aware stage using an explicitly selected bulk coefficient family. It never overwrites corrected native MicaSense and does not use convolution.</p>
+
+| Output type | Drone filename pattern | Description |
+| --- | --- | --- |
+| Working H5 | `<flight>__working.h5` | NeonCube-compatible bridge retaining the original package, manifest, spatial, wavelength, nodata, ancillary, and solar-geometry provenance. |
+| Native ENVI | `<flight>__envi.(img\|hdr)` | Native drone reflectance exported from the working H5. |
+| Corrected MicaSense | `<flight>__corrected.(img\|hdr)` | Native MicaSense after requested topographic/BRDF correction; retained independently of translation. |
+| Landsat-like raster | `<flight>__landsat_like_<target>_translated_envi.(img\|hdr)` | Affine translated product with target-band wavelengths. It is not an actual Landsat observation. |
+| Translation provenance | `<translated_stem>__translation.json` | Coefficient fingerprint/run/weighting, exact equation, sensor pair, per-band wavelength mapping and coefficients, source fingerprint, range checks, output summaries, and warnings. |
+| Native library | `<flight>__polygons.parquet` or full-pixel equivalent | Existing extraction contract applied to corrected native MicaSense. |
+| Landsat-like library | `<translated_stem>__polygons.parquet` or full-pixel equivalent | Existing extraction contract plus source-package, working-H5, corrected/translated raster, coefficient, acquisition-time, and band-mapping provenance. |
+| Merged translated library | `drone_landsat_like_merged.parquet` | Run-level merge of all translated full or polygon libraries. |
+| Standalone translation QA | `<translated_stem>__translation_qa.(png\|json)` | Corrected-versus-translated distributions, slopes/intercepts, shifts, valid fractions, nodata, range/evidence warnings, and provenance. |
+| Optional common-support QA | `qa_common_support/*__on_actual_landsat_grid.tif`, `*__comparison.json`, `*__landsat_common_support_qa.png` | Drone-like, optional NEON-like, and actual Landsat comparisons after valid-aware aggregation to the actual Landsat grid. |
+| Run audit | `drone_qa_summary.json` | Core status, optional-QA availability/reasons, source and product paths, correction and translation provenance, software version, timestamps, and warnings. |
+
+<p class="sb-doc-note">Valid working H5, corrected ENVI, translated ENVI, and translated Parquet outputs are reused when their signatures remain current. Optional Landsat or NEON comparison failures do not invalidate core products.</p>
+</section>
+
+<section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">Cross-run analysis</p>
 <h2>Independent bulk-pipeline contract</h2>
 <p>The optional <code>spectralbridge-bulk</code> workflow consumes completed or minimally staged scientific flightline directories beneath arbitrary storage folders. Identity comes from a generic manifest or another configured parser, never the outer folder. It streams required target-sensor ENVI products in place and writes only compact analytical products to a separate output; it does not modify normal or drone runs. Canonical NEON names and prebuilt merged Parquets remain compatible inputs.</p>

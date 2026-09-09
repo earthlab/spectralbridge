@@ -20,6 +20,47 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P81. Finish the Production Drone Translation and Validation Pipeline
+
+- Priority: User-directed
+- Status: In progress
+- Owner: Codex
+- Started: 2026-09-09
+- Starting commit: `502f662972facd7c0baea6bea78e22db374d7358`
+- Goal: Make `run_drone_pipeline()` production-ready from the validated TIFF/H5
+  ingestion boundary through native correction, reviewed bulk-coefficient
+  translation, Landsat-like spectral-library extraction, standalone QA, and
+  optional actual-Landsat/NEON validation.
+- Scope:
+  - Freeze and reuse the existing TIFF-to-H5, manifest, solar-geometry, and
+    `NeonCube` ingestion implementation after its passing baseline.
+  - Add explicit, schema-validated, wavelength-aware affine translation from
+    corrected native MicaSense bands to a distinct Landsat-like product.
+  - Add restart-safe translated extraction and standalone drone QA.
+  - Support both user-supplied Landsat products and optional STAC-backed
+    Landsat Collection 2 discovery/download with a local cache; retain graceful
+    no-scene behavior.
+  - Add optional common-support comparison against a NEON-derived Landsat-like
+    product without making NEON required for drone completion.
+  - Preserve all normal NEON scientific behavior and defaults.
+- Plan:
+  - Implement the coefficient consumer and translation stage with focused
+    synthetic schema, direction, weighting, wavelength, and restart tests.
+  - Reuse existing ENVI/polygon extraction contracts for the translated
+    spectral library and add explicit provenance.
+  - Build standalone and optional comparison QA, including common-grid metrics
+    and transparent acquisition status.
+  - Update public API documentation and output contracts, then run targeted,
+    full-suite, docs, and installed-artifact validation before commit/push.
+- Baseline verification:
+  - 139 relevant existing tests passed before implementation, including all 54
+    drone tests and the TIFF-to-H5/`NeonCube` contract regression.
+- Blockers: None. The user explicitly approved a new STAC-backed acquisition
+  subsystem while retaining user-supplied Landsat input and permitting the
+  translation/standalone-QA work independently.
+- Next recommended task: Implement Phase 3 translation core without changing
+  ingestion or shared NEON correction behavior.
+
 ### P80. Rename the PyPI Distribution to earthlab-spectralbridge
 
 - Priority: User-directed

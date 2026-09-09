@@ -18,6 +18,11 @@
   including matched MicaSense products and target-only translation runs.
 - Full-scene normal and drone processing notebooks and release-validation
   coverage for the public pipeline entry points.
+- Production drone translation from corrected native MicaSense to separately
+  named Landsat-like rasters and full/polygon spectral-library Parquets using
+  explicitly selected, validated bulk candidate coefficients.
+- Standalone drone translation QA plus optional supplied/STAC Landsat and
+  normal-pipeline NEON comparison on the actual Landsat spatial grid.
 - Config-driven brightness coefficients for Landsat→MicaSense (`landsat_to_micasense.json`) and helper loader.
 - Automatic per-band brightness adjustment applied to Landsat-convolved products, recorded in QA JSON and brightness tables.
 - Multi-page QA report (`*_qa.pdf`) with:
@@ -38,7 +43,8 @@
   unstable, site-dependent, or high-correction cases instead of implying that a
   high R² alone makes sensors interchangeable.
 - Drone processing remains a separate local-data workflow and supports full or
-  polygon extraction without introducing a drone convolution stage.
+  polygon extraction; after corrected ENVI it uses affine cross-sensor
+  translation while the normal hyperspectral NEON branch uses convolution.
 - Release metadata, artifact tests, and documentation now cover Python
   3.10–3.12 and pre-release versions.
 - ENVI export and pipeline logs now use affirmative, progress-oriented wording (e.g., “creating new ENVI export” instead of “not found or invalid”).
@@ -53,6 +59,9 @@
 - Bulk discovery, source identity, and reporting edge cases found during the
   122-flightline production run, including scalable spectral-library rendering.
 - Duplicate QA/pytest workflows removed; QA quick check now runs once per PR (and optionally once per push to `main`).
+- Rasterio WKT2 UTM metadata from valid drone TIFFs are recognized when
+  constructing the working-H5 map information, preserving the established
+  TIFF/H5 conversion behavior while enabling downstream polygon reprojection.
 
 ## [2025-10-30] Added Merge Stage + Restored QA Panel
 

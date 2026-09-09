@@ -10,7 +10,7 @@ logic.
 | Script | Use it when | Configuration |
 | --- | --- | --- |
 | `run_neon_pipeline.py` | NEON should be downloaded and processed end to end | `config/neon_pipeline.example.json` |
-| `run_drone_pipeline.py` | Local drone HDF5 files should be corrected, extracted, and QA'd | `config/drone_pipeline.example.json` |
+| `run_drone_pipeline.py` | Local drone TIFF/HDF5 files should be corrected, optionally translated, extracted, and QA'd | `config/drone_pipeline.example.json` |
 
 Run `--check` first. It parses and validates configuration but does not contact
 the network or process imagery:

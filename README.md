@@ -68,9 +68,12 @@ NEON HDF5
 ### Drone processing
 
 The drone workflow is intentionally separate from NEON acquisition. It searches
-local inputs recursively, preserves source provenance, performs wavelength-driven
-band handling, applies requested corrections, and extracts full or polygon
-tables. It does not run spectral convolution.
+local TIFF/HDF5 inputs recursively, preserves source provenance, applies the
+requested corrections, and retains corrected native MicaSense. An optional,
+wavelength-aware affine stage consumes explicitly selected bulk coefficients to
+create distinct Landsat-like translated products and spectral libraries. The
+drone branch does not use convolution; convolution belongs to the NEON
+hyperspectral branch.
 
 ```python
 from spectralbridge import run_drone_pipeline
@@ -82,8 +85,19 @@ result = run_drone_pipeline(
     apply_brdf=True,
     extraction_mode="polygon",
     polygon_path="/data/plots.geojson",
+    apply_translation=True,
+    translation_coefficients="/data/candidate_translation_coefficients.parquet",
+    translation_weighting="site_balanced",
 )
 ```
+
+Standalone translation QA needs no NEON or network access. Set
+`landsat_qa=True` to search Microsoft Planetary Computer for an overlapping
+Landsat Collection 2 Level 2 scene; install that optional support with
+`python -m pip install "earthlab-spectralbridge[landsat]"`. Alternatively pass
+an analysis-ready stacked raster or a previously cached observation manifest as
+`landsat_product`. Pass `comparison_neon_product` only when an existing
+NEON-convolved product should join the common-Landsat-grid comparison.
 
 ### Production bulk translation analysis
 

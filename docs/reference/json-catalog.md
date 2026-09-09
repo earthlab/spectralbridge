@@ -57,6 +57,10 @@ flightline or run.
 | `*_brdf_model.json` | Fitted BRDF coefficient model for the scene | Correction implementation and `diagnose_brdf_topo_stage.py` |
 | `*_qa.json` | Machine-readable diagnostic summary paired with the QA PNG | Users, tests, publication/validation review |
 | `drone_qa_summary.json` | Batch-level drone provenance, status counts, paths, and failure details | Drone users and QA review |
+| `*__translation.json` | Exact drone source-to-target equation, coefficient artifact fingerprint/run/weighting, wavelength-aware band mapping, source/output summaries, restart signature, and warnings | Drone translation validation and restart checks |
+| `*__translation_qa.json` | Per-band corrected-MicaSense versus Landsat-like shifts, valid fractions, coefficient evidence, and unusual-value checks | Standalone drone QA; no network or NEON required |
+| `landsat_cache/*.json` | Selected or supplied actual Landsat observation, sensor/date/cloud/temporal context, asset/scaling metadata, and cached cropped raster | Optional Landsat comparison reuse and provenance |
+| `qa_common_support/*__comparison.json` | Common-grid specification, aggregation/support details, acquisition times, overlap, and pairwise drone/NEON/actual metrics | Optional two- or three-way validation QA |
 | `qa_plots/*__MS_vs_Landsat_FIXED.json` | Per-flightline sampled synthetic MicaSense/Landsat regression diagnostic | QA inspection only; not a pooled coefficient source |
 | `coefficients/candidate_translation_coefficients.json` | Pixel-pooled and balanced synthetic regression candidates plus their evidence boundary | Bulk analysis and reviewed downstream translation work |
 | `analyses/*/analysis_metadata.json` | Analysis settings, interpretation, run ID, and machine-readable results where appropriate | Independent bulk analysis modules |

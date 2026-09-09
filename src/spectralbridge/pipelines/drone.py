@@ -26,6 +26,12 @@ from spectralbridge.corrections import (
 )
 from spectralbridge.envi_writer import EnviWriter
 from spectralbridge.neon_cube import NeonCube
+from spectralbridge.drone_translation import (
+    apply_drone_translation,
+    enrich_translated_spectral_library,
+    load_drone_translation_plans,
+    translated_output_stem,
+)
 from spectralbridge.polygons import (
     _describe_parquet_columns,
     _quote_identifier,
@@ -572,9 +578,18 @@ def _build_drone_tiff_map_info(transform: Any, crs_wkt: str) -> str:
     zone = 0
     hemisphere = "North"
 
-    epsg_match = re.search(r"EPSG\",\"(\d+)\"", crs_wkt) or re.search(r"ID\[\"EPSG\",(\d+)\]", crs_wkt)
-    if epsg_match:
-        epsg = int(epsg_match.group(1))
+    epsg: int | None = None
+    try:
+        from rasterio.crs import CRS
+
+        epsg = CRS.from_wkt(crs_wkt).to_epsg()
+    except Exception:
+        epsg_match = re.search(r"EPSG\",\"(\d+)\"", crs_wkt) or re.search(
+            r"ID\[\"EPSG\",\s*(\d+)\]", crs_wkt
+        )
+        if epsg_match:
+            epsg = int(epsg_match.group(1))
+    if epsg is not None:
         if 32601 <= epsg <= 32660:
             zone = epsg - 32600
             hemisphere = "North"
@@ -1269,7 +1284,6 @@ def build_drone_config(
         "brightness_offset": 0.0,
         "apply_brightness_adjustment": False,
         "apply_cloud_mask": False,
-        "apply_convolution": False,
     }
 
 
@@ -1384,7 +1398,6 @@ def apply_drone_corrections(
         "brdf_fallback_due_to_nodata": False,
         "brightness_applied": False,
         "cloud_mask_applied": False,
-        "convolution_skipped": True,
         "reused_existing_corrected": False,
         "correction_status_source": "live_run",
         "ndvi_brdf_bins_enabled": bool(use_ndvi_brdf_bins),
@@ -2062,6 +2075,13 @@ def run_drone_pipeline(
     require_solar_geometry: bool = True,
     extraction_mode: str | None = None,
     parquet_chunk_size: int = 2048,
+    apply_translation: bool = False,
+    translation_coefficients: str | Path | None = None,
+    translation_weighting: str | None = None,
+    landsat_qa: bool = False,
+    landsat_product: str | Path | None = None,
+    landsat_search_days: int = 16,
+    comparison_neon_product: str | Path | None = None,
 ) -> dict[str, Any]:
     """Run the drone pipeline from local HDF5 or reflectance TIFF sources.
 
@@ -2069,6 +2089,9 @@ def run_drone_pipeline(
     corrected drone ENVI product. ``"polygon"`` uses ``polygon_path`` and the
     existing polygon extraction path. The default preserves historical
     behavior: polygon mode when polygons are supplied, otherwise QA-only.
+    Translation is opt-in and consumes an explicit reviewed bulk coefficient
+    artifact plus weighting family. It creates separate Landsat-like products;
+    corrected native MicaSense is never overwritten.
     """
 
     run_started = time.monotonic()
@@ -2078,6 +2101,21 @@ def run_drone_pipeline(
     output_dir.mkdir(parents=True, exist_ok=True)
     if parquet_chunk_size < 1:
         raise ValueError("parquet_chunk_size must be at least 1")
+    if landsat_search_days < 0:
+        raise ValueError("landsat_search_days must be non-negative")
+    if apply_translation and translation_coefficients is None:
+        raise ValueError(
+            "apply_translation=True requires translation_coefficients"
+        )
+    if apply_translation and translation_weighting is None:
+        raise ValueError(
+            "apply_translation=True requires explicit translation_weighting"
+        )
+    if (landsat_qa or landsat_product is not None or comparison_neon_product is not None) and not apply_translation:
+        raise ValueError(
+            "Landsat/NEON comparison QA requires apply_translation=True"
+        )
+    landsat_qa = bool(landsat_qa or landsat_product is not None)
     if extraction_mode is None:
         actual_extraction_mode = "polygon" if polygon_path is not None else "qa_only"
     else:
@@ -2097,11 +2135,14 @@ def run_drone_pipeline(
         "processed": [],
         "failed": [],
         "outputs": [],
+        "translation_outputs": [],
+        "translated_libraries": [],
         "merged": None,
         "merged_csv": None,
+        "translated_merged": None,
         "qa_summary": {
             "platform": "drone",
-            "convolution": "skipped",
+            "spectral_branch": "affine_cross_sensor_translation",
             "brightness_offset": 0.0,
             "brightness_adjustment_requested": bool(apply_brightness_adjustment),
             "brightness_adjustment_applied": False,
@@ -2113,6 +2154,23 @@ def run_drone_pipeline(
             "require_solar_geometry": bool(require_solar_geometry),
             "extraction_mode": actual_extraction_mode,
             "parquet_chunk_size": int(parquet_chunk_size),
+            "translation_requested": bool(apply_translation),
+            "translation_coefficient_path": (
+                str(translation_coefficients)
+                if translation_coefficients is not None
+                else None
+            ),
+            "translation_weighting": translation_weighting,
+            "landsat_qa_requested": bool(landsat_qa),
+            "landsat_product": (
+                str(landsat_product) if landsat_product is not None else None
+            ),
+            "landsat_search_days": int(landsat_search_days),
+            "comparison_neon_product": (
+                str(comparison_neon_product)
+                if comparison_neon_product is not None
+                else None
+            ),
             "files": [],
         },
     }
@@ -2203,8 +2261,6 @@ def run_drone_pipeline(
         package_dir = _drone_package_dir(source_path)
         acquisition_datetime = (
             lookup_flight_datetime(flight_stem, drone_manifest)
-            if source.source_type == "tiff"
-            else None
         )
         acquisition_datetime_used = (
             _datetime_to_utc_naive(acquisition_datetime).isoformat()
@@ -2246,7 +2302,8 @@ def run_drone_pipeline(
                 "brightness_requested": bool(apply_brightness_adjustment),
                 "brightness_applied": False,
                 "cloud_applied": False,
-                "convolution_skipped": True,
+                "translation_requested": bool(apply_translation),
+                "translation_applied": False,
             },
             "working_h5_filename": prepared_h5_path.name,
             "working_h5_path": str(prepared_h5_path),
@@ -2290,8 +2347,12 @@ def run_drone_pipeline(
             "full_extraction_csv_path": None,
             "full_extraction_csv_error": None,
             "extraction_mode": actual_extraction_mode,
+            "translation_products": [],
+            "translated_library_paths": [],
+            "translation_qa_paths": [],
             "status": None,
         }
+        translation_runs: list[tuple[Any, dict[str, Any]]] = []
         try:
             prepared_h5_path, nodata_patched = _prepare_drone_source_working_h5(
                 source_path,
@@ -2392,7 +2453,6 @@ def run_drone_pipeline(
                     ),
                     "brightness_applied": False,
                     "cloud_applied": False,
-                    "convolution_skipped": True,
                 }
             )
             file_audit["correction_status_source"] = str(
@@ -2415,6 +2475,34 @@ def run_drone_pipeline(
                 )
             file_audit["corrected_raster"] = corrected_img.name
             file_audit["corrected_raster_path"] = str(corrected_img)
+
+            if apply_translation:
+                if batch_bar is not None:
+                    batch_bar.set_postfix_str(
+                        f"{index}/{total_flights} {flight_stem} | translating"
+                    )
+                plans = load_drone_translation_plans(
+                    Path(translation_coefficients),
+                    weighting=str(translation_weighting),
+                    source_wavelengths_nm=meta["wavelengths"],
+                )
+                for plan in plans:
+                    translated_stem = translated_output_stem(
+                        path_map["flight_dir"], flight_stem, plan.target_sensor
+                    )
+                    translation_result = apply_drone_translation(
+                        corrected_img,
+                        corrected_hdr,
+                        output_stem=translated_stem,
+                        plan=plan,
+                        overwrite=overwrite,
+                    )
+                    translation_runs.append((plan, translation_result))
+                    results["translation_outputs"].append(
+                        translation_result["output_img"]
+                    )
+                    file_audit["translation_products"].append(translation_result)
+                file_audit["flags"]["translation_applied"] = bool(translation_runs)
 
             if actual_extraction_mode == "full":
                 if batch_bar is not None:
@@ -2446,6 +2534,32 @@ def run_drone_pipeline(
                     str(full_csv) if full_csv is not None else None
                 )
                 file_audit["full_extraction_csv_error"] = full_csv_error
+                for plan, translation_result in translation_runs:
+                    translated_img = Path(translation_result["output_img"])
+                    translated_hdr = Path(translation_result["output_hdr"])
+                    translated_parquet = translated_img.with_suffix(".parquet")
+                    if translation_result["status"] == "created" or overwrite:
+                        translated_parquet.unlink(missing_ok=True)
+                    translated_parquet = ensure_parquet_from_envi(
+                        translated_img,
+                        translated_hdr,
+                        translated_parquet,
+                        chunk_size=parquet_chunk_size,
+                    )
+                    translated_parquet = enrich_translated_spectral_library(
+                        translated_parquet,
+                        plan=plan,
+                        translation_result=translation_result,
+                        source_package_path=str(package_dir),
+                        working_h5_path=str(prepared_h5_path),
+                        corrected_micasense_path=str(corrected_img),
+                        acquisition_datetime=acquisition_datetime_used,
+                        overwrite=overwrite,
+                    )
+                    results["translated_libraries"].append(str(translated_parquet))
+                    file_audit["translated_library_paths"].append(
+                        str(translated_parquet)
+                    )
                 file_audit["status"] = _DRONE_STATUS_SUCCESS_EXTRACTED
             elif actual_extraction_mode == "polygon":
                 if batch_bar is not None:
@@ -2519,6 +2633,39 @@ def run_drone_pipeline(
                     file_audit["polygon_csv_error"] = polygon_csv_error
                     file_audit["polygon_index_filename"] = index_path.name
                     file_audit["polygon_index_path"] = str(index_path)
+                    for plan, translation_result in translation_runs:
+                        translated_img = Path(translation_result["output_img"])
+                        translated_hdr = Path(translation_result["output_hdr"])
+                        translated_parquet = translated_img.with_name(
+                            translated_img.stem + "__polygons.parquet"
+                        )
+                        translated_parquet = extract_polygon_parquet_from_envi(
+                            translated_img,
+                            translated_hdr,
+                            index_path,
+                            translated_parquet,
+                            chunk_size=parquet_chunk_size,
+                            overwrite=(
+                                overwrite
+                                or translation_result["status"] == "created"
+                            ),
+                        )
+                        translated_parquet = enrich_translated_spectral_library(
+                            translated_parquet,
+                            plan=plan,
+                            translation_result=translation_result,
+                            source_package_path=str(package_dir),
+                            working_h5_path=str(prepared_h5_path),
+                            corrected_micasense_path=str(corrected_img),
+                            acquisition_datetime=acquisition_datetime_used,
+                            overwrite=overwrite,
+                        )
+                        results["translated_libraries"].append(
+                            str(translated_parquet)
+                        )
+                        file_audit["translated_library_paths"].append(
+                            str(translated_parquet)
+                        )
                     file_audit["status"] = _DRONE_STATUS_SUCCESS_EXTRACTED
                 except Exception as polygon_exc:
                     _, polygon_reason = _classify_drone_exception(polygon_exc)
@@ -2549,6 +2696,131 @@ def run_drone_pipeline(
                 file_audit["polygon_csv_error"] = None
                 file_audit["polygon_extraction_skipped_reason"] = "no polygons provided"
                 file_audit["status"] = _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS
+
+            if translation_runs:
+                from spectralbridge.drone_qa import (
+                    render_common_support_comparison,
+                    render_drone_translation_qa,
+                )
+
+                for plan, translation_result in translation_runs:
+                    translation_qa_png = Path(
+                        str(translation_result["output_img"])
+                    ).with_name(
+                        Path(str(translation_result["output_img"])).stem
+                        + "__translation_qa.png"
+                    )
+                    try:
+                        _, translation_qa_json, _ = render_drone_translation_qa(
+                            corrected_img=corrected_img,
+                            translated_img=translation_result["output_img"],
+                            plan=plan,
+                            translation_result=translation_result,
+                            output_png=translation_qa_png,
+                        )
+                        file_audit["translation_qa_paths"].extend(
+                            [str(translation_qa_png), str(translation_qa_json)]
+                        )
+                    except Exception as translation_qa_exc:
+                        LOGGER.exception(
+                            "[drone] Translation QA rendering failed for %s",
+                            flight_stem,
+                        )
+                        file_audit.setdefault("qa_warnings", []).append(
+                            f"translation QA unavailable: {translation_qa_exc}"
+                        )
+
+                if landsat_qa:
+                    file_audit["landsat_comparison"] = {
+                        "status": "unavailable",
+                        "reason": None,
+                    }
+                    try:
+                        from spectralbridge.landsat_validation import (
+                            acquire_landsat_observation,
+                            compare_landsat_common_support,
+                            load_supplied_landsat_observation,
+                            raster_acquisition_datetime,
+                            raster_bounds_wgs84,
+                        )
+
+                        target_sensors = [
+                            plan.target_sensor for plan, _ in translation_runs
+                        ]
+                        if landsat_product is not None:
+                            observation = load_supplied_landsat_observation(
+                                landsat_product,
+                                target_sensors=target_sensors,
+                            )
+                        elif acquisition_datetime_used is None:
+                            observation = None
+                            file_audit["landsat_comparison"]["reason"] = (
+                                "drone acquisition datetime unavailable for scene search"
+                            )
+                        else:
+                            observation = acquire_landsat_observation(
+                                bounds_wgs84=raster_bounds_wgs84(corrected_img),
+                                acquisition_datetime=acquisition_datetime_used,
+                                search_days=landsat_search_days,
+                                target_sensors=target_sensors,
+                                output_dir=output_dir / "landsat_cache",
+                            )
+                        if observation is None:
+                            file_audit["landsat_comparison"]["reason"] = (
+                                file_audit["landsat_comparison"].get("reason")
+                                or "no acceptable overlapping Landsat scene was found"
+                            )
+                        else:
+                            matching = [
+                                (plan, result)
+                                for plan, result in translation_runs
+                                if plan.target_sensor == observation.target_sensor
+                            ]
+                            if len(matching) != 1:
+                                raise ValueError(
+                                    "Actual Landsat sensor does not resolve to exactly one "
+                                    "translated drone product"
+                                )
+                            plan, translation_result = matching[0]
+                            comparison = compare_landsat_common_support(
+                                translated_img=translation_result["output_img"],
+                                plan=plan,
+                                observation=observation,
+                                output_dir=path_map["flight_dir"] / "qa_common_support",
+                                neon_product=comparison_neon_product,
+                                drone_acquisition_datetime=acquisition_datetime_used,
+                                neon_acquisition_datetime=(
+                                    raster_acquisition_datetime(
+                                        comparison_neon_product
+                                    )
+                                    if comparison_neon_product is not None
+                                    else None
+                                ),
+                            )
+                            comparison_png = path_map["flight_dir"] / (
+                                f"{flight_stem}__landsat_common_support_qa.png"
+                            )
+                            comparison_png, comparison_json = (
+                                render_common_support_comparison(
+                                    comparison, output_png=comparison_png
+                                )
+                            )
+                            file_audit["landsat_comparison"] = {
+                                **comparison,
+                                "status": "ok",
+                                "qa_png": str(comparison_png),
+                                "qa_json": str(comparison_json),
+                            }
+                    except Exception as landsat_exc:
+                        LOGGER.warning(
+                            "[drone] Optional Landsat comparison unavailable for %s: %s",
+                            flight_stem,
+                            landsat_exc,
+                        )
+                        file_audit["landsat_comparison"] = {
+                            "status": "unavailable",
+                            "reason": str(landsat_exc),
+                        }
 
             results["processed"].append(str(source_path))
             if file_audit["status"] is None:
@@ -2645,6 +2917,17 @@ def run_drone_pipeline(
         results["merged"] = None
         results["merged_csv"] = None
 
+    if results["translated_libraries"]:
+        translated_merged = _merge_drone_polygon_outputs(
+            results["translated_libraries"],
+            output_dir / "drone_landsat_like_merged.parquet",
+            overwrite=overwrite,
+        )
+        results["translated_merged"] = str(translated_merged)
+        results["qa_summary"]["translated_merged_path"] = str(translated_merged)
+    else:
+        results["translated_merged"] = None
+
     try:
         from spectralbridge.qa_plots import render_drone_panel
         from spectralbridge.utils.qa_summary import build_drone_qa_summary
@@ -2718,6 +3001,9 @@ def run_drone_pipeline(
     results["qa_summary"]["total_wall_time_seconds"] = round(total_wall_time, 3)
     results["qa_summary"]["average_successful_flight_seconds"] = avg_success_time
     results["qa_summary"]["merged_path"] = results["merged"]
+    results["qa_summary"]["translated_merged_path"] = results[
+        "translated_merged"
+    ]
     qa_path = _write_json(output_dir / "drone_qa_summary.json", results["qa_summary"])
     results["qa_summary_path"] = str(qa_path)
     _drone_emit(

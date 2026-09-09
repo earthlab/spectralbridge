@@ -37,6 +37,42 @@ This page describes how SpectralBridge is organized internally. Understanding th
 - `spectralbridge/pipelines/bulk.py`: independent bulk orchestration
 - `spectralbridge/bulk/`: canonical catalog, virtual DuckDB dataset,
   provenance, and modular population analyses
+- `spectralbridge/pipelines/drone.py`: local TIFF/HDF5 orchestration through
+  corrected native MicaSense, optional coefficient translation, extraction,
+  and QA
+- `spectralbridge/drone_translation.py`: validated bulk-coefficient consumer,
+  wavelength mapping, affine raster transform, and translated-library
+  provenance
+- `spectralbridge/landsat_validation.py`: optional STAC/supplied Landsat
+  observations, QA masking, common-grid aggregation, and pairwise metrics
+
+### Drone and normal NEON branches
+
+The two pathways deliberately share the established HDF5 → ENVI →
+topographic/BRDF correction machinery. They diverge after corrected ENVI:
+
+```text
+corrected ENVI
+  |
+  +-- NEON hyperspectral -> convolution -> target-sensor products
+  |
+  +-- drone MicaSense -> affine translation -> Landsat-like products
+```
+
+Drone translation is opt-in. It consumes reviewed candidate coefficients from
+the independent bulk pipeline and requires an explicit weighting family. The
+consumer validates the recorded source-to-target equation and sensor/band
+orientation, maps source bands by wavelength, writes a distinct translated
+ENVI pair, and retains corrected native MicaSense unchanged. Polygon and
+full-pixel paths reuse the existing extraction infrastructure, then add
+translation provenance columns without creating a parallel table model.
+
+Standalone drone QA does not require a NEON flight or network service. An
+optional validation branch can search Microsoft Planetary Computer STAC or use
+a supplied Landsat raster. It aggregates translated drone and optional
+normal-pipeline NEON products to the actual Landsat grid before comparison.
+Scene absence, cloud rejection, and insufficient overlap are QA limitations,
+not core-pipeline failures.
 
 ### Independent bulk analysis
 

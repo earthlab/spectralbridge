@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "about": {
-    "purpose": "Process local drone HDF5 inputs through correction, extraction, and QA without entering the NEON download workflow.",
+    "purpose": "Process local drone TIFF or HDF5 inputs through correction, extraction, optional affine translation, and QA.",
     "edit_before_run": [
       "pipeline.input_h5_dir",
       "pipeline.output_dir"
     ],
     "path_rule": "Relative paths are resolved from the repository root.",
-    "input_rule": "The input may be one HDF5 file or a directory searched recursively for supported drone inputs."
+    "input_rule": "The input may be one HDF5 or TIFF input or a directory searched recursively for supported drone inputs. Translation requires a reviewed bulk coefficient artifact and explicit weighting."
   },
   "pipeline": {
     "input_h5_dir": "data/drone_h5",
@@ -19,7 +19,15 @@
     "apply_brightness_adjustment": false,
     "overwrite": false,
     "drone_manifest_path": null,
-    "require_solar_geometry": true
+    "require_solar_geometry": true,
+    "extraction_mode": null,
+    "parquet_chunk_size": 2048,
+    "apply_translation": false,
+    "translation_coefficients": null,
+    "translation_weighting": null,
+    "landsat_qa": false,
+    "landsat_product": null,
+    "landsat_search_days": 16,
+    "comparison_neon_product": null
   }
 }
-

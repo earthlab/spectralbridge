@@ -16,6 +16,7 @@ from spectralbridge.pipelines import run_drone_pipeline
 from spectralbridge.pipelines.drone import (
     DRONE_TARGET_BANDS,
     DroneCorrectionUnavailableError,
+    _build_drone_tiff_map_info,
     _discover_drone_input_sources,
     _enrich_drone_polygon_parquet_with_index,
     _export_csv_copy_from_parquet,
@@ -348,6 +349,15 @@ def test_derive_drone_flight_stem_uses_parent_package_folder() -> None:
     assert derive_drone_flight_stem(h5_a) != derive_drone_flight_stem(h5_b)
 
 
+def test_drone_tiff_map_info_recognizes_rasterio_utm_wkt() -> None:
+    crs_wkt = rasterio.crs.CRS.from_epsg(32613).to_wkt()
+    map_info = _build_drone_tiff_map_info(
+        from_origin(500000, 4100000, 10, 10), crs_wkt
+    )
+    assert map_info.startswith("UTM, 1.000, 1.000")
+    assert ", 13, North, WGS-84" in map_info
+
+
 def test_build_drone_output_paths_isolates_per_flight_outputs(tmp_path: Path) -> None:
     paths_a = build_drone_output_paths(tmp_path / "out", flight_stem="SPR1_20230628")
     paths_b = build_drone_output_paths(tmp_path / "out", flight_stem="SPR2_20230628")
@@ -433,7 +443,7 @@ def test_run_drone_pipeline_skips_polygons_cleanly(tmp_path: Path, monkeypatch) 
     assert results["merged"] is None
     qa_summary = results["qa_summary"]
     assert qa_summary["platform"] == "drone"
-    assert qa_summary["convolution"] == "skipped"
+    assert qa_summary["spectral_branch"] == "affine_cross_sensor_translation"
     file_summary = qa_summary["files"][0]
     assert file_summary["flight_stem"] == "SPR1_20230628"
     assert file_summary["status"] == "success_qa_only_no_polygons"
@@ -1779,6 +1789,169 @@ def test_convert_drone_tiff_to_h5_creates_neoncube_readable_working_file(
     np.testing.assert_allclose(cube.get_ancillary("solar_zn", radians=False), np.full((4, 4), 88.9, dtype=np.float32))
 
 
+def test_production_shaped_tiff_correction_translation_polygon_and_qa(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    package = tmp_path / "SPR1-06-28-23-ExportPackage"
+    reflectance = _write_test_multiband_raster(package / "aligned_orthomosaic.tif")
+    _write_test_raster(package / "slope.tif")
+    _write_test_raster(package / "aspect.tif")
+    polygons = _write_test_polygons(
+        tmp_path / "plots.geojson",
+        crs="EPSG:32613",
+        polygons=[
+            Polygon(
+                [
+                    (500000, 4099960),
+                    (500040, 4099960),
+                    (500040, 4100000),
+                    (500000, 4100000),
+                ]
+            )
+        ],
+    )
+    source_sensor = "MicaSense_to-match_OLI_and_OLI-2"
+    target_sensor = "Landsat_8_OLI"
+    pair = f"{source_sensor}__to__{target_sensor}"
+    coefficient_rows = [
+        {
+            "analysis_run_id": "smoke-run",
+            "analysis_level": "site_balanced",
+            "weighting": "each site has equal total weight",
+            "translation_pair": pair,
+            "source_sensor": source_sensor,
+            "target_sensor": target_sensor,
+            "source_band_index": index,
+            "target_band_index": index,
+            "band_index": index,
+            "equation": "target = slope * source + intercept",
+            "status": "ok",
+            "slope": 1.1,
+            "intercept": 0.01,
+            "x_min": 0.0,
+            "x_max": 2.0,
+            "x_mean": 0.3,
+            "r2": 0.99,
+        }
+        for index in range(1, 6)
+    ]
+    coefficients = tmp_path / "candidate_translation_coefficients.parquet"
+    pd.DataFrame(coefficient_rows).to_parquet(coefficients, index=False)
+    coefficients.with_suffix(".json").write_text(
+        json.dumps(
+            {
+                "schema_version": 2,
+                "candidate_status": "review_required",
+                "translation_pairs": [
+                    {
+                        "key": pair,
+                        "source_sensor": source_sensor,
+                        "target_sensor": target_sensor,
+                        "evidence_boundary": "synthetic fixture evidence",
+                    }
+                ],
+                "candidate_coefficients": coefficient_rows,
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        "spectralbridge.landsat_validation.acquire_landsat_observation",
+        lambda **_kwargs: (_ for _ in ()).throw(RuntimeError("offline fixture")),
+    )
+
+    result = run_drone_pipeline(
+        reflectance,
+        polygon_path=polygons,
+        output_dir=tmp_path / "out",
+        apply_topo=True,
+        apply_brdf=False,
+        tiff_solar_zenith_deg=30.0,
+        tiff_solar_azimuth_deg=180.0,
+        apply_translation=True,
+        translation_coefficients=coefficients,
+        translation_weighting="site_balanced",
+        landsat_qa=True,
+    )
+
+    assert result["failed"] == []
+    assert len(result["translation_outputs"]) == 1
+    assert len(result["translated_libraries"]) == 1
+    assert Path(result["translated_merged"]).is_file()
+    translated_img = Path(result["translation_outputs"][0])
+    assert translated_img.is_file()
+    assert translated_img.with_suffix(".hdr").is_file()
+    corrected = (
+        tmp_path / "out" / "SPR1_20230628" / "SPR1_20230628__corrected.img"
+    )
+    assert corrected.is_file()
+    assert corrected.read_bytes() != translated_img.read_bytes()
+    translated_library = pd.read_parquet(result["translated_libraries"][0])
+    assert set(
+        [
+            "translation_target_sensor",
+            "translation_weighting",
+            "translation_coefficient_sha256",
+            "corrected_micasense_path",
+            "translated_product_path",
+        ]
+    ).issubset(translated_library.columns)
+    file_audit = result["qa_summary"]["files"][0]
+    assert file_audit["flags"]["translation_applied"] is True
+    assert all(Path(path).is_file() for path in file_audit["translation_qa_paths"])
+    assert file_audit["landsat_comparison"] == {
+        "status": "unavailable",
+        "reason": "offline fixture",
+    }
+
+    corrected_mtime = corrected.stat().st_mtime_ns
+    translated_mtime = translated_img.stat().st_mtime_ns
+    actual_landsat = tmp_path / "actual_landsat.tif"
+    with rasterio.open(
+        actual_landsat,
+        "w",
+        driver="GTiff",
+        width=2,
+        height=2,
+        count=5,
+        dtype="float32",
+        crs="EPSG:32613",
+        transform=from_origin(500000, 4100000, 20, 20),
+        nodata=-9999.0,
+    ) as destination:
+        destination.write(np.full((5, 2, 2), 0.25, dtype=np.float32))
+        destination.update_tags(
+            target_sensor="Landsat_8_OLI", product_id="LC08_smoke"
+        )
+
+    comparison_result = run_drone_pipeline(
+        reflectance,
+        polygon_path=polygons,
+        output_dir=tmp_path / "out",
+        apply_topo=True,
+        apply_brdf=False,
+        tiff_solar_zenith_deg=30.0,
+        tiff_solar_azimuth_deg=180.0,
+        apply_translation=True,
+        translation_coefficients=coefficients,
+        translation_weighting="site_balanced",
+        landsat_qa=True,
+        landsat_product=actual_landsat,
+        comparison_neon_product=actual_landsat,
+    )
+    comparison_audit = comparison_result["qa_summary"]["files"][0]
+    assert comparison_audit["landsat_comparison"]["status"] == "ok"
+    assert comparison_audit["landsat_comparison"]["actual_landsat"][
+        "source"
+    ] == "user_supplied"
+    assert comparison_audit["landsat_comparison"]["comparison_neon_product"] == str(
+        actual_landsat
+    )
+    assert corrected.stat().st_mtime_ns == corrected_mtime
+    assert translated_img.stat().st_mtime_ns == translated_mtime
+
+
 def test_load_drone_manifest_parses_flight_datetime(tmp_path: Path) -> None:
     manifest_path = tmp_path / "manifest.csv"
     manifest_path.write_text(
@@ -2184,6 +2357,33 @@ def test_run_drone_pipeline_writes_audit_json_when_correction_unavailable(
     assert qa_payload["status"] == "failed_other"
     assert "required ancillary geometry was unavailable" in str(qa_payload["error"])
     assert qa_payload["audit"]["flags"]["correction_failed"] is True
+
+
+@pytest.mark.parametrize(
+    ("kwargs", "message"),
+    [
+        ({"apply_translation": True}, "requires translation_coefficients"),
+        (
+            {
+                "apply_translation": True,
+                "translation_coefficients": "coefficients.parquet",
+            },
+            "requires explicit translation_weighting",
+        ),
+        ({"landsat_qa": True}, "requires apply_translation=True"),
+        (
+            {"comparison_neon_product": "neon.img"},
+            "requires apply_translation=True",
+        ),
+    ],
+)
+def test_run_drone_pipeline_requires_explicit_translation_configuration(
+    tmp_path: Path,
+    kwargs: dict[str, object],
+    message: str,
+) -> None:
+    with pytest.raises(ValueError, match=message):
+        run_drone_pipeline(tmp_path / "inputs", output_dir=tmp_path / "out", **kwargs)
 
 
 def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues(
