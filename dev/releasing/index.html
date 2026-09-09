@@ -2806,6 +2806,13 @@ bytes to PyPI. Never rebuild between validation and publication.</p>
 <li>the first versioned heading in <code>CHANGELOG.md</code></li>
 <li><code>uv.lock</code></li>
 </ol>
+<p>The release identities are deliberately distinct and must remain so:</p>
+<ul>
+<li>PyPI distribution: <code>earthlab-spectralbridge</code></li>
+<li>Python import package: <code>spectralbridge</code></li>
+<li>scientific/software name: SpectralBridge</li>
+<li>GitHub repository: <code>earthlab/spectralbridge</code></li>
+</ul>
 <p>Final tags use <code>vMAJOR.MINOR.PATCH</code>. Prereleases use strict PEP 440 suffixes,
 for example <code>v2.3.0rc1</code>, <code>v2.3.0b1</code>, or <code>v2.3.0a1</code>. Do not use
 <code>v2.3.0-rc1</code> or <code>v2.3.0.rc1</code>.</p>
@@ -2817,7 +2824,7 @@ for example <code>v2.3.0rc1</code>, <code>v2.3.0b1</code>, or <code>v2.3.0a1</co
 API token.</p>
 <p>Before pushing a release tag, a project owner must:</p>
 <ol>
-<li>create or confirm the <code>spectralbridge</code> project on PyPI;</li>
+<li>create or confirm the <code>earthlab-spectralbridge</code> project on PyPI;</li>
 <li>in PyPI project settings, add a trusted publisher with:</li>
 <li>owner: <code>earthlab</code></li>
 <li>repository: <code>spectralbridge</code></li>
@@ -2876,8 +2883,8 @@ mkdocs<span class="w"> </span>build<span class="w"> </span>--strict
 <p>Build into a clean directory and inspect both distributions:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>build
 python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </span>check<span class="w"> </span>dist/*
-python<span class="w"> </span>-m<span class="w"> </span>zipfile<span class="w"> </span>-l<span class="w"> </span>dist/spectralbridge-2.3.0rc1-py3-none-any.whl
-python<span class="w"> </span>-m<span class="w"> </span>tarfile<span class="w"> </span>-l<span class="w"> </span>dist/spectralbridge-2.3.0rc1.tar.gz
+python<span class="w"> </span>-m<span class="w"> </span>zipfile<span class="w"> </span>-l<span class="w"> </span>dist/earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl
+python<span class="w"> </span>-m<span class="w"> </span>tarfile<span class="w"> </span>-l<span class="w"> </span>dist/earthlab_spectralbridge-2.3.0rc1.tar.gz
 </code></pre></div>
 <p>For each required Python, create a fresh environment, install one exact local
 artifact without editable/source-checkout leakage, run <code>pip check</code>, change to a
@@ -2892,7 +2899,7 @@ temporary directory, and execute <code>scripts/check_installed_artifact.py</code
 <li>create and push <code>v2.3.0rc1</code> from that exact commit;</li>
 <li>approve the protected PyPI environment only after the artifact jobs pass;</li>
 <li>verify the GitHub release is a prerelease with wheel, sdist, and checksums;</li>
-<li>verify <code>https://pypi.org/project/spectralbridge/2.3.0rc1/</code> and install it in
+<li>verify <code>https://pypi.org/project/earthlab-spectralbridge/2.3.0rc1/</code> and install it in
    a fresh external environment;</li>
 <li>ask external testers to run <code>examples/release_candidate_smoke.py</code> and one
    representative workflow appropriate to their data;</li>
