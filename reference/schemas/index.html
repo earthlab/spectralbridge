@@ -2039,6 +2039,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#translated-product-provenance-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Translated-product provenance schema
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#qa-json-sidecars" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2873,6 +2884,13 @@
 <p><code>analyses/bulk_results/bulk_results_summary.json</code> records the compact input fingerprints, reporting configuration, derived overview, pair-band summaries, attention flags, artifact paths, and restart signature. Its companion Parquets retain typed rows for weighting comparison, flightline stability, site stability, LOSO transferability, pair-band screening, and attention flags. Fitted correction is evaluated at one common source value per pair-band as <code>100 × ((slope × x_reference + intercept) - x_reference) / x_reference</code>; the default reference is that pair-band's pixel-pooled source mean.</p>
 <p class="sb-doc-note">Attention thresholds are configurable review rules. A <code>no_configured_warning_triggered</code> status does not establish sensor interchangeability, universal validity, or safe extrapolation beyond the observed sites and reflectance domain.</p>
 <p class="sb-doc-note">Bulk regression JSON is an analysis output, not a packaged brightness table. The source catalog and manifest must remain with a coefficient set so its population and upstream processing state stay traceable.</p>
+</section>
+<section class="sb-doc-section">
+<p class="sb-kicker">Drone coefficient consumer</p>
+<h2 id="translated-product-provenance-schema">Translated-product provenance schema<a class="headerlink" href="#translated-product-provenance-schema" title="Permanent link">&para;</a></h2>
+<p>The drone pipeline reads the bulk candidate coefficient Parquet or its JSON companion. It requires one selected weighting family and the existing fields for analysis run, analysis level, weighting, translation pair, source/target sensor, source/target band, shared band index, equation, fit status, slope, and intercept. Rows must encode <code>target = slope * source + intercept</code>, agree with the product registry, contain exactly one finite coefficient for every expected target band, and support an unambiguous wavelength mapping to the corrected MicaSense cube.</p>
+<p>The resulting <code>*__translation.json</code> records the coefficient path and SHA-256 fingerprint, bulk run and weighting provenance, source and translated raster fingerprints, per-band source/target wavelengths and affine values, candidate evidence fields, observed training-range checks, output summaries, warning flags, package version, processing time, and restart signature. Translated Parquet tables repeat the stable provenance identifiers as columns and keep the complete mapping in a JSON-valued column.</p>
+<p class="sb-doc-note">Candidate coefficients are cross-sensor translation evidence, not packaged brightness adjustments or a universal empirical calibration. The package does not silently choose among weighting families.</p>
 </section>
 <section class="sb-doc-section">
 <p class="sb-kicker">QA metadata</p>

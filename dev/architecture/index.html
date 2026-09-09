@@ -2435,6 +2435,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#drone-and-normal-neon-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drone and normal NEON branches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#independent-bulk-analysis" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2888,7 +2899,37 @@
 <li><code>spectralbridge/pipelines/bulk.py</code>: independent bulk orchestration</li>
 <li><code>spectralbridge/bulk/</code>: canonical catalog, virtual DuckDB dataset,
   provenance, and modular population analyses</li>
+<li><code>spectralbridge/pipelines/drone.py</code>: local TIFF/HDF5 orchestration through
+  corrected native MicaSense, optional coefficient translation, extraction,
+  and QA</li>
+<li><code>spectralbridge/drone_translation.py</code>: validated bulk-coefficient consumer,
+  wavelength mapping, affine raster transform, and translated-library
+  provenance</li>
+<li><code>spectralbridge/landsat_validation.py</code>: optional STAC/supplied Landsat
+  observations, QA masking, common-grid aggregation, and pairwise metrics</li>
 </ul>
+<h3 id="drone-and-normal-neon-branches">Drone and normal NEON branches<a class="headerlink" href="#drone-and-normal-neon-branches" title="Permanent link">&para;</a></h3>
+<p>The two pathways deliberately share the established HDF5 → ENVI →
+topographic/BRDF correction machinery. They diverge after corrected ENVI:</p>
+<div class="highlight"><pre><span></span><code>corrected ENVI
+  |
+  +-- NEON hyperspectral -&gt; convolution -&gt; target-sensor products
+  |
+  +-- drone MicaSense -&gt; affine translation -&gt; Landsat-like products
+</code></pre></div>
+<p>Drone translation is opt-in. It consumes reviewed candidate coefficients from
+the independent bulk pipeline and requires an explicit weighting family. The
+consumer validates the recorded source-to-target equation and sensor/band
+orientation, maps source bands by wavelength, writes a distinct translated
+ENVI pair, and retains corrected native MicaSense unchanged. Polygon and
+full-pixel paths reuse the existing extraction infrastructure, then add
+translation provenance columns without creating a parallel table model.</p>
+<p>Standalone drone QA does not require a NEON flight or network service. An
+optional validation branch can search Microsoft Planetary Computer STAC or use
+a supplied Landsat raster. It aggregates translated drone and optional
+normal-pipeline NEON products to the actual Landsat grid before comparison.
+Scene absence, cloud rejection, and insufficient overlap are QA limitations,
+not core-pipeline failures.</p>
 <h3 id="independent-bulk-analysis">Independent bulk analysis<a class="headerlink" href="#independent-bulk-analysis" title="Permanent link">&para;</a></h3>
 <p><code>run_bulk_pipeline</code> is downstream of completed per-flightline workflows rather
 than another stage inside them. Scientific identity is resolved by an

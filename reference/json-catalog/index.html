@@ -2928,6 +2928,26 @@ flightline or run.</p>
 <td>Drone users and QA review</td>
 </tr>
 <tr>
+<td><code>*__translation.json</code></td>
+<td>Exact drone source-to-target equation, coefficient artifact fingerprint/run/weighting, wavelength-aware band mapping, source/output summaries, restart signature, and warnings</td>
+<td>Drone translation validation and restart checks</td>
+</tr>
+<tr>
+<td><code>*__translation_qa.json</code></td>
+<td>Per-band corrected-MicaSense versus Landsat-like shifts, valid fractions, coefficient evidence, and unusual-value checks</td>
+<td>Standalone drone QA; no network or NEON required</td>
+</tr>
+<tr>
+<td><code>landsat_cache/*.json</code></td>
+<td>Selected or supplied actual Landsat observation, sensor/date/cloud/temporal context, asset/scaling metadata, and cached cropped raster</td>
+<td>Optional Landsat comparison reuse and provenance</td>
+</tr>
+<tr>
+<td><code>qa_common_support/*__comparison.json</code></td>
+<td>Common-grid specification, aggregation/support details, acquisition times, overlap, and pairwise drone/NEON/actual metrics</td>
+<td>Optional two- or three-way validation QA</td>
+</tr>
+<tr>
 <td><code>qa_plots/*__MS_vs_Landsat_FIXED.json</code></td>
 <td>Per-flightline sampled synthetic MicaSense/Landsat regression diagnostic</td>
 <td>QA inspection only; not a pooled coefficient source</td>

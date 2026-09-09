@@ -1673,6 +1673,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#drone-translation-and-qa-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drone translation and QA contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#independent-bulk-pipeline-contract" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2792,6 +2803,78 @@
 <p class="sb-kicker">Pipeline</p>
 <h1 id="outputs-file-structure">Outputs &amp; File Structure<a class="headerlink" href="#outputs-file-structure" title="Permanent link">&para;</a></h1>
 <p class="sb-doc-lead">Outputs on disk are the primary interface of SpectralBridge. Downstream analysis should rely on these files rather than return values from the Python API.</p>
+</section>
+<section class="sb-doc-section">
+<p class="sb-kicker">Local drone processing</p>
+<h2 id="drone-translation-and-qa-contract">Drone translation and QA contract<a class="headerlink" href="#drone-translation-and-qa-contract" title="Permanent link">&para;</a></h2>
+<p>Drone TIFF packages enter the validated working-H5 bridge and share the normal export and correction machinery through corrected ENVI. Translation is an opt-in affine, wavelength-aware stage using an explicitly selected bulk coefficient family. It never overwrites corrected native MicaSense and does not use convolution.</p>
+<table>
+<thead>
+<tr>
+<th>Output type</th>
+<th>Drone filename pattern</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Working H5</td>
+<td><code>&lt;flight&gt;__working.h5</code></td>
+<td>NeonCube-compatible bridge retaining the original package, manifest, spatial, wavelength, nodata, ancillary, and solar-geometry provenance.</td>
+</tr>
+<tr>
+<td>Native ENVI</td>
+<td><code>&lt;flight&gt;__envi.(img\|hdr)</code></td>
+<td>Native drone reflectance exported from the working H5.</td>
+</tr>
+<tr>
+<td>Corrected MicaSense</td>
+<td><code>&lt;flight&gt;__corrected.(img\|hdr)</code></td>
+<td>Native MicaSense after requested topographic/BRDF correction; retained independently of translation.</td>
+</tr>
+<tr>
+<td>Landsat-like raster</td>
+<td><code>&lt;flight&gt;__landsat_like_&lt;target&gt;_translated_envi.(img\|hdr)</code></td>
+<td>Affine translated product with target-band wavelengths. It is not an actual Landsat observation.</td>
+</tr>
+<tr>
+<td>Translation provenance</td>
+<td><code>&lt;translated_stem&gt;__translation.json</code></td>
+<td>Coefficient fingerprint/run/weighting, exact equation, sensor pair, per-band wavelength mapping and coefficients, source fingerprint, range checks, output summaries, and warnings.</td>
+</tr>
+<tr>
+<td>Native library</td>
+<td><code>&lt;flight&gt;__polygons.parquet</code> or full-pixel equivalent</td>
+<td>Existing extraction contract applied to corrected native MicaSense.</td>
+</tr>
+<tr>
+<td>Landsat-like library</td>
+<td><code>&lt;translated_stem&gt;__polygons.parquet</code> or full-pixel equivalent</td>
+<td>Existing extraction contract plus source-package, working-H5, corrected/translated raster, coefficient, acquisition-time, and band-mapping provenance.</td>
+</tr>
+<tr>
+<td>Merged translated library</td>
+<td><code>drone_landsat_like_merged.parquet</code></td>
+<td>Run-level merge of all translated full or polygon libraries.</td>
+</tr>
+<tr>
+<td>Standalone translation QA</td>
+<td><code>&lt;translated_stem&gt;__translation_qa.(png\|json)</code></td>
+<td>Corrected-versus-translated distributions, slopes/intercepts, shifts, valid fractions, nodata, range/evidence warnings, and provenance.</td>
+</tr>
+<tr>
+<td>Optional common-support QA</td>
+<td><code>qa_common_support/*__on_actual_landsat_grid.tif</code>, <code>*__comparison.json</code>, <code>*__landsat_common_support_qa.png</code></td>
+<td>Drone-like, optional NEON-like, and actual Landsat comparisons after valid-aware aggregation to the actual Landsat grid.</td>
+</tr>
+<tr>
+<td>Run audit</td>
+<td><code>drone_qa_summary.json</code></td>
+<td>Core status, optional-QA availability/reasons, source and product paths, correction and translation provenance, software version, timestamps, and warnings.</td>
+</tr>
+</tbody>
+</table>
+<p class="sb-doc-note">Valid working H5, corrected ENVI, translated ENVI, and translated Parquet outputs are reused when their signatures remain current. Optional Landsat or NEON comparison failures do not invalidate core products.</p>
 </section>
 <section class="sb-doc-section">
 <p class="sb-kicker">Cross-run analysis</p>

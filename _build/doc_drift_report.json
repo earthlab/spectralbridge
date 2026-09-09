@@ -19,8 +19,7 @@
       "_landsat_tm_envi.parquet",
       "_micasense*_envi.img",
       "_micasense_envi.hdr",
-      "_micasense_envi.img",
-      "_micasense_to_match_oli_oli2_envi.img"
+      "_micasense_envi.img"
     ],
     "sensors": [
       "MicaSense",
@@ -88,7 +87,6 @@
       "micasense_to_match_oli_oli,,,,,",
       "micasense_to_match_oli_oli,,,,,,",
       "micasense_to_match_oli_oli2",
-      "micasense_to_match_oli_oli2_envi.img",
       "micasense_to_match_tm_etm+,,,,,,",
       "micasense`)"
     ]

@@ -906,10 +906,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prepare-the-inputs" class="md-nav__link">
+  <a href="#scientific-branches" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prepare the inputs
+        Scientific branches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prepare-inputs-and-coefficients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prepare inputs and coefficients
       
     </span>
   </a>
@@ -928,10 +939,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#confirm-the-result" class="md-nav__link">
+  <a href="#standalone-and-comparison-qa" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Confirm the result
+        Standalone and comparison QA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restart-and-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restart and outputs
       
     </span>
   </a>
@@ -2769,61 +2791,101 @@
 
 <h1 id="module-vignette-6-process-drone-imagery">Module vignette 6: process drone imagery<a class="headerlink" href="#module-vignette-6-process-drone-imagery" title="Permanent link">&para;</a></h1>
 <p><strong>Notebook:</strong> <a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/06_drone_pipeline.ipynb">View the drone notebook in the repository</a>. GitHub displays the cells; clone or download the file to run them.</p>
-<p>Use this module for local drone HDF5 inputs. It is separate from the NEON
-download workflow and preserves provenance from the original drone filenames.</p>
-<div class="admonition note">
-<p class="admonition-title">Where Landsat enters the scientific bridge</p>
-<p>The project-level relationship is <strong>Drone → NEON → Landsat</strong>. This module
-prepares and validates the drone side; it does not directly convolve drone
-data into Landsat bands. Corrected, Landsat-harmonized NEON products provide
-the explicit airborne translation reference for downstream comparison.</p>
-</div>
-<h2 id="prepare-the-inputs">Prepare the inputs<a class="headerlink" href="#prepare-the-inputs" title="Permanent link">&para;</a></h2>
-<p>Place valid drone HDF5 files under one input directory. Discovery is recursive,
-so campaign or flight subdirectories are allowed.</p>
-<div class="highlight"><pre><span></span><code>drone_inputs/
-├── flight_a/
-│   └── flight_a.h5
-└── flight_b/
-    └── flight_b.h5
+<p>Use this module for local drone TIFF packages or HDF5 inputs. Discovery is
+recursive, the original package remains traceable, and TIFF inputs enter the
+same established HDF5, ENVI, topographic, and BRDF correction machinery.</p>
+<h2 id="scientific-branches">Scientific branches<a class="headerlink" href="#scientific-branches" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>DRONE
+TIFF + ancillary + manifest
+  -&gt; working H5 -&gt; ENVI -&gt; topo/BRDF -&gt; corrected MicaSense
+  -&gt; affine cross-sensor translation -&gt; Landsat-like raster
+  -&gt; full or polygon spectral library -&gt; QA
+
+NORMAL NEON
+NEON H5 -&gt; ENVI -&gt; topo/BRDF -&gt; corrected hyperspectral
+  -&gt; spectral convolution -&gt; Landsat-like raster
+  -&gt; full or polygon spectral library -&gt; QA
+
+OPTIONAL VALIDATION
+actual Landsat
+            \
+drone-like --- actual-Landsat grid -&gt; pairwise QA
+            /
+NEON-like
 </code></pre></div>
-<p>Reflectance and ancillary arrays in each HDF5 must already share the expected
-spatial orientation and footprint. Corrections require the relevant terrain,
-view, and solar geometry.</p>
+<p>The paths are shared through corrected ENVI and then diverge. Drone data use
+reviewed affine coefficients derived by the independent bulk workflow. NEON
+hyperspectral data use spectral convolution. The corrected native MicaSense
+raster remains a first-class output and is never overwritten. A translated
+product is Landsat-like; it is not an actual Landsat observation.</p>
+<h2 id="prepare-inputs-and-coefficients">Prepare inputs and coefficients<a class="headerlink" href="#prepare-inputs-and-coefficients" title="Permanent link">&para;</a></h2>
+<p>Place valid drone HDF5 files or reflectance TIFF packages under one input
+directory. TIFF packages may include aligned terrain/view sidecars and are
+matched to the bundled field manifest unless <code>drone_manifest_path</code> overrides
+it. See the <a href="../../tutorials/micasense-to-landsat/">detailed tutorial</a> for the
+complete TIFF contract.</p>
+<p>Translation consumes the existing bulk candidate table. It does not fit
+coefficients. Select its weighting family explicitly from <code>pixel_pooled</code>,
+<code>flightline_balanced</code>, or <code>site_balanced</code>; SpectralBridge validates equation
+direction, sensor identities, unique band mappings, wavelengths, finite
+coefficients, and run provenance before writing a translated product.</p>
 <h2 id="run-it">Run it<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_drone_pipeline</span>
 
 <span class="n">results</span> <span class="o">=</span> <span class="n">run_drone_pipeline</span><span class="p">(</span>
     <span class="n">input_h5_dir</span><span class="o">=</span><span class="s2">"drone_inputs"</span><span class="p">,</span>
     <span class="n">output_dir</span><span class="o">=</span><span class="s2">"drone_outputs"</span><span class="p">,</span>
-    <span class="n">polygon_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">extraction_mode</span><span class="o">=</span><span class="s2">"full"</span><span class="p">,</span>
+    <span class="n">polygon_path</span><span class="o">=</span><span class="s2">"plots.geojson"</span><span class="p">,</span>
+    <span class="n">extraction_mode</span><span class="o">=</span><span class="s2">"polygon"</span><span class="p">,</span>
     <span class="n">apply_topo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">apply_brdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">require_solar_geometry</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">apply_translation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">translation_coefficients</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">"bulk_analysis/coefficients/candidate_translation_coefficients.parquet"</span>
+    <span class="p">),</span>
+    <span class="n">translation_weighting</span><span class="o">=</span><span class="s2">"site_balanced"</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"processed"</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"failed"</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"qa_summary"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"translation_outputs"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"translated_merged"</span><span class="p">])</span>
 </code></pre></div>
-<p>Set <code>extraction_mode="full"</code> to write all corrected pixels to Parquet. For an
-intersecting vector subset, pass both <code>polygon_path="plots.geojson"</code> and
-<code>extraction_mode="polygon"</code>. Omitting <code>extraction_mode</code> preserves the existing
-behavior: polygon extraction when a polygon is supplied, otherwise QA-only.</p>
-<h2 id="confirm-the-result">Confirm the result<a class="headerlink" href="#confirm-the-result" title="Permanent link">&para;</a></h2>
-<p>Each discovered flight gets a separate output directory with drone-native
-stems. Depending on available inputs and requested modules, expect corrected
-ENVI, Parquet, QA PNG, and QA JSON outputs plus a run-level QA summary.</p>
-<p>Read each QA JSON before assuming a requested correction was applied. It records
-whether correction ran, was skipped because geometry was unavailable, or fell
-back after a quality check.</p>
+<p>Use <code>extraction_mode="full"</code> for all corrected pixels. Omitting
+<code>extraction_mode</code> preserves the earlier behavior: polygon extraction when a
+polygon is supplied, otherwise raster and QA outputs only. Translation remains
+opt-in and requires both the coefficient path and weighting family.</p>
+<h2 id="standalone-and-comparison-qa">Standalone and comparison QA<a class="headerlink" href="#standalone-and-comparison-qa" title="Permanent link">&para;</a></h2>
+<p>Every translated run produces per-target translation JSON and PNG diagnostics
+without NEON or network access. They show band mapping, coefficient evidence,
+corrected-versus-translated values, reflectance shifts, valid fractions,
+nodata preservation, and unusual translated values.</p>
+<p>Set <code>landsat_qa=True</code> to request an overlapping Landsat Collection 2 Level 2
+scene from Microsoft Planetary Computer. Install this optional support with:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"earthlab-spectralbridge[landsat]"</span>
+</code></pre></div>
+<p>Alternatively, use <code>landsat_product="landsat_stack.tif"</code> to supply an
+analysis-ready multiband raster or a previously cached observation manifest.
+The comparison selects the closest acceptable scene within
+<code>landsat_search_days</code>, applies the Landsat QA pixel mask, and aggregates the
+translated drone product onto the actual Landsat grid using valid-aware area
+averaging. Failed searches, cloud rejection, or insufficient overlap are
+recorded as optional-QA limitations and do not fail the core drone run.</p>
+<p>Add <code>comparison_neon_product="neon_landsat_like.img"</code> to compare an existing
+normal-pipeline NEON product on the same Landsat support. The three reported
+pairs are drone-like versus actual, NEON-like versus actual, and drone-like
+versus NEON-like. NEON is optional and is never processed by drone code.</p>
+<h2 id="restart-and-outputs">Restart and outputs<a class="headerlink" href="#restart-and-outputs" title="Permanent link">&para;</a></h2>
+<p>Valid working H5, corrected ENVI, translated ENVI, and translated Parquet
+products are reused when their inputs and translation signatures match.
+Optional Landsat failure does not invalidate or recompute core products. See
+<a href="../../pipeline/outputs/">outputs and naming</a> for the complete contract, and
+review every QA JSON before treating a coefficient application as trustworthy.</p>
 <h2 id="continue">Continue<a class="headerlink" href="#continue" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../qa-and-analysis/">Review QA outputs</a></li>
 <li><a href="../polygon-extraction/">Extract polygon spectra</a></li>
-<li>Technical details: <a href="../../pipeline/outputs/">outputs and naming</a> and <a href="../../dev/architecture/">package
-  architecture</a></li>
+<li><a href="../../tutorials/micasense-to-landsat/">Detailed MicaSense tutorial</a></li>
+<li><a href="../../dev/architecture/">Package architecture</a></li>
 </ul>
 
 
