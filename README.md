@@ -98,6 +98,10 @@ Landsat Collection 2 Level 2 scene; install that optional support with
 an analysis-ready stacked raster or a previously cached observation manifest as
 `landsat_product`. Pass `comparison_neon_product` only when an existing
 NEON-convolved product should join the common-Landsat-grid comparison.
+The run also writes a one-page dashboard, a self-contained PDF report, and
+separate publication-ready PNG/PDF translation
+panels. Expensive stage reuse is based on matching source/configuration
+fingerprints plus output validation, not file existence alone.
 
 ### Production bulk translation analysis
 
@@ -153,6 +157,9 @@ The report compares pooled and balanced fits, coefficient distributions,
 site dependence, leave-one-site-out transferability, and correction magnitude.
 High R² alone is not treated as evidence that sensors are interchangeable;
 weak, unstable, or unusually large corrections are surfaced explicitly.
+Outputs are separated into a one-page summary, detailed diagnostics, three
+manuscript-width publication figures, and Markdown/PDF reports. All are
+regenerable from the completed compact result tables without the raster archive.
 
 ### Spectral-library reporting
 

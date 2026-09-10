@@ -21,6 +21,8 @@ from spectralbridge.pipelines.drone import (
     _enrich_drone_polygon_parquet_with_index,
     _export_csv_copy_from_parquet,
     _prepare_drone_source_working_h5,
+    _drone_stage_signature,
+    _write_drone_stage_record,
     apply_drone_corrections,
     build_drone_output_paths,
     collect_drone_spatial_diagnostics,
@@ -714,7 +716,7 @@ def test_apply_drone_corrections_reverts_topo_chunk_when_it_becomes_all_nodata(
     assert not (tmp_path / "corrected.hdr").exists()
 
 
-def test_apply_drone_corrections_reuses_existing_qa_flags(
+def test_apply_drone_corrections_reuses_matching_stage_record(
     tmp_path: Path, monkeypatch
 ) -> None:
     flight_dir = tmp_path / "SPR1_20230628"
@@ -727,23 +729,6 @@ def test_apply_drone_corrections_reuses_existing_qa_flags(
     corrected_stem = flight_dir / "SPR1_20230628__corrected"
     corrected_stem.with_suffix(".img").write_bytes(b"corr")
     corrected_stem.with_suffix(".hdr").write_text("hdr", encoding="utf-8")
-    qa_json = flight_dir / "SPR1_20230628__qa.json"
-    qa_json.write_text(
-        json.dumps(
-            {
-                "audit": {
-                    "flags": {
-                        "topo_applied": True,
-                        "brdf_applied": True,
-                        "topo_fallback_due_to_nodata": False,
-                        "brdf_fallback_due_to_nodata": False,
-                    }
-                }
-            }
-        ),
-        encoding="utf-8",
-    )
-
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone._has_required_ancillary",
         lambda cube, names: True,
@@ -751,6 +736,33 @@ def test_apply_drone_corrections_reuses_existing_qa_flags(
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.is_valid_envi_pair",
         lambda img, hdr: img.exists() and hdr.exists(),
+    )
+    signature, payload = _drone_stage_signature(
+        "corrected_envi",
+        inputs=[raw_img, raw_hdr],
+        configuration={
+            "apply_topo": True,
+            "apply_brdf": True,
+            "use_ndvi_brdf_bins": False,
+            "topo_ready": True,
+            "brdf_ready": True,
+            "brightness_adjustment": False,
+            "cloud_mask": False,
+        },
+    )
+    _write_drone_stage_record(
+        corrected_stem.with_name(corrected_stem.name + "__correction.stage.json"),
+        signature=signature,
+        payload={
+            **payload,
+            "audit": {
+                "topo_applied": True,
+                "brdf_applied": True,
+                "topo_fallback_due_to_nodata": False,
+                "brdf_fallback_due_to_nodata": False,
+            },
+        },
+        outputs=[corrected_stem.with_suffix(".img"), corrected_stem.with_suffix(".hdr")],
     )
 
     corrected_img, corrected_hdr, audit = apply_drone_corrections(
@@ -766,7 +778,7 @@ def test_apply_drone_corrections_reuses_existing_qa_flags(
     assert corrected_img == corrected_stem.with_suffix(".img")
     assert corrected_hdr == corrected_stem.with_suffix(".hdr")
     assert audit["reused_existing_corrected"] is True
-    assert audit["correction_status_source"] == "existing_qa_json"
+    assert audit["correction_status_source"] == "correction_stage_record"
     assert audit["topo_applied"] is True
     assert audit["brdf_applied"] is True
 

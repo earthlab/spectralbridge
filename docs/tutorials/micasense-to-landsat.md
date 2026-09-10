@@ -150,10 +150,12 @@ Each discovered flight gets its own output folder:
 drone_outputs/
   <flight_stem>/
     <flight_stem>__working.h5
+    <flight_stem>__working.stage.json
     <flight_stem>__envi.img
     <flight_stem>__envi.hdr
     <flight_stem>__corrected.img
     <flight_stem>__corrected.hdr
+    <flight_stem>__corrected__correction.stage.json
     <flight_stem>__landsat_like_<target>_translated_envi.img
     <flight_stem>__landsat_like_<target>_translated_envi.hdr
     <flight_stem>__landsat_like_<target>_translated_envi__translation.json
@@ -164,13 +166,22 @@ drone_outputs/
     <flight_stem>__landsat_like_<target>_translated_envi__polygons.parquet
     <flight_stem>__qa.png
     <flight_stem>__qa.json
+    qa_publication/
+      <translated_stem>__translation_quality.png
+      <translated_stem>__translation_quality.pdf
   drone_merged.parquet
   drone_landsat_like_merged.parquet
   drone_qa_summary.json
+  qa/summary/drone_qa_summary.png
+  qa/summary/drone_qa_summary.json
+  qa/report.stage.json
+  qa_summary.pdf
 ```
 
 Parquet remains the authoritative tabular output. CSV sidecars, when present in
 drone workflows, are convenience copies for external tools.
+The stage records are the restart contract: a product is reused only when the
+recorded source/configuration fingerprint matches and the product validates.
 
 ## Inspect the run
 

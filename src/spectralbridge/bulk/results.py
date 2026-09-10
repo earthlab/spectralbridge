@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+from datetime import datetime, timezone
 import hashlib
 import json
 import math
@@ -13,15 +14,23 @@ import numpy as np
 import pyarrow as pa
 import pyarrow.parquet as pq
 
+from spectralbridge import __version__
 from spectralbridge.sensor_pairs import (
     SPECTRAL_IDENTITY_ORDER,
     sensor_band_identity,
+)
+from spectralbridge.qa_style import DEFAULT_QA_STYLE, wavelength_pair_label
+
+from .reporting import (
+    render_bulk_pdf_report,
+    render_bulk_publication_figures,
+    render_bulk_summary_dashboard,
 )
 
 from .provenance import signature_sha256, write_json_atomic, write_text_atomic
 
 
-BULK_RESULTS_SCHEMA_VERSION = 2
+BULK_RESULTS_SCHEMA_VERSION = 3
 _GLOBAL_LEVELS = ("pixel_pooled", "flightline_balanced", "site_balanced")
 _LEVEL_LABELS = {
     "pixel_pooled": "Pixel pooled",
@@ -131,6 +140,18 @@ class BulkResultsPaths:
         return self.bulk_output / "figures" / "bulk_results"
 
     @property
+    def diagnostics_dir(self) -> Path:
+        return self.figures_dir / "diagnostics"
+
+    @property
+    def publication_dir(self) -> Path:
+        return self.figures_dir / "publication"
+
+    @property
+    def summary_dir(self) -> Path:
+        return self.figures_dir / "summary"
+
+    @property
     def report_dir(self) -> Path:
         return self.bulk_output / "reports" / "bulk_results"
 
@@ -164,19 +185,38 @@ class BulkResultsPaths:
 
     @property
     def coefficient_figure(self) -> Path:
-        return self.figures_dir / "translation_coefficients_and_fit.png"
+        return self.diagnostics_dir / "translation_coefficients_and_fit.png"
 
     @property
     def correction_figure(self) -> Path:
-        return self.figures_dir / "fitted_correction_magnitude.png"
+        return self.diagnostics_dir / "fitted_correction_magnitude.png"
 
     @property
     def transferability_figure(self) -> Path:
-        return self.figures_dir / "stability_and_transferability.png"
+        return self.diagnostics_dir / "stability_and_transferability.png"
+
+    @property
+    def summary_figure_stem(self) -> Path:
+        return self.summary_dir / "bulk_qa_summary"
+
+    @property
+    def publication_stems(self) -> tuple[Path, ...]:
+        return tuple(
+            self.publication_dir / name
+            for name in (
+                "translation_performance",
+                "translation_stability",
+                "generalization_and_failures",
+            )
+        )
 
     @property
     def report(self) -> Path:
         return self.report_dir / "bulk_translation_results.md"
+
+    @property
+    def report_pdf(self) -> Path:
+        return self.report_dir / "bulk_translation_results.pdf"
 
     @property
     def required_inputs(self) -> tuple[Path, ...]:
@@ -470,14 +510,9 @@ def _report_band_label(row: dict[str, Any]) -> str:
 
 
 def _plot_band_label(row: dict[str, Any]) -> str:
+    label = wavelength_pair_label(row)
     identity = row.get("spectral_identity")
-    target_wavelength = _finite(row.get("target_wavelength_nm"))
-    if identity and target_wavelength is not None:
-        return (
-            f"{str(identity).title()}\n{row['target_sensor']} "
-            f"B{row['target_band_index']} ({target_wavelength:g} nm)"
-        )
-    return f"{row['target_sensor']} B{row['target_band_index']}"
+    return f"{str(identity).title()} · {label}" if identity else label
 
 
 def _read_compact(path: Path, label: str) -> list[dict[str, Any]]:
@@ -1081,6 +1116,7 @@ def _overview(
     successful = [row for row in weighting if row.get("status") == "ok"]
     slope = _distribution(row.get("slope") for row in successful)
     r2 = _distribution(row.get("r2") for row in successful)
+    rmse = _distribution(row.get("rmse") for row in successful)
     correction = _distribution(
         abs(value)
         for row in successful
@@ -1094,12 +1130,55 @@ def _overview(
             if row.get("site") not in (None, "")
         }
     )
+    summary_by_key = {_key(row): row for row in pair_summaries}
+
+    def ranked_case(field: str, *, maximum: bool = True) -> dict[str, Any] | None:
+        available = [
+            row for row in pair_summaries if _finite(row.get(field)) is not None
+        ]
+        if not available:
+            return None
+        row = (max if maximum else min)(
+            available, key=lambda item: float(item[field])
+        )
+        return {
+            "translation_pair": row["translation_pair"],
+            "band_index": row["band_index"],
+            "label": wavelength_pair_label(row),
+            "metric": field,
+            "value": _finite(row[field]),
+        }
+
+    valid_loso = [
+        row
+        for row in loso_rows
+        if row.get("status") == "ok" and _finite(row.get("held_out_r2")) is not None
+    ]
+    worst_loso = None
+    if valid_loso:
+        row = min(valid_loso, key=lambda item: float(item["held_out_r2"]))
+        summary = summary_by_key.get(_key(row), row)
+        worst_loso = {
+            "translation_pair": row["translation_pair"],
+            "band_index": row["band_index"],
+            "held_out_site": row.get("held_out_site"),
+            "label": f"{wavelength_pair_label(summary)} · {row.get('held_out_site') or 'unknown site'}",
+            "metric": "held_out_r2",
+            "value": _finite(row.get("held_out_r2")),
+            "rmse": _finite(row.get("held_out_rmse")),
+        }
+    excluded = sum(
+        _integer(counts.get(name))
+        for name in ("duplicate_candidates", "rejected_flightlines", "rejected_sources")
+    )
     return {
         "analysis_run_id": manifest.get("analysis_run_id"),
         "accepted_flightlines": _integer(counts.get("accepted_flightlines")),
         "selected_observation_rows": _integer(counts.get("accepted_rows")),
         "sites": sites,
         "site_count": len(sites),
+        "excluded_candidate_count": excluded,
+        "failed_or_excluded_source_count": excluded,
         "pair_band_count": len(pair_summaries),
         "candidate_coefficient_count": len(weighting),
         "successful_candidate_coefficient_count": len(successful),
@@ -1112,12 +1191,18 @@ def _overview(
         "candidate_r2_median": r2["median"],
         "candidate_r2_min": r2["min"],
         "candidate_r2_max": r2["max"],
+        "candidate_rmse_median": rmse["median"],
+        "candidate_rmse_min": rmse["min"],
+        "candidate_rmse_max": rmse["max"],
         "absolute_fitted_correction_percent_median": correction["median"],
         "absolute_fitted_correction_percent_max": correction["max"],
         "pair_bands_requiring_review": sum(
             row["screening_status"] == "review_required" for row in pair_summaries
         ),
         "attention_flag_count": len(flags),
+        "most_weighting_sensitive": ranked_case("candidate_slope_spread"),
+        "most_site_dependent": ranked_case("site_slope_range"),
+        "worst_loso": worst_loso,
     }
 
 
@@ -1337,7 +1422,7 @@ def _markdown_report(
     figures = ""
     if figure_paths:
         figures = "\n## Figures\n\n" + "\n\n".join(
-            f"![{Path(path).stem}](../../figures/bulk_results/{Path(path).name})"
+            f"![{Path(path).stem}](../../figures/bulk_results/diagnostics/{Path(path).name})"
             for path in figure_paths
         )
     rows = "\n".join(
@@ -1375,6 +1460,7 @@ pixel-level cache.
 - Accepted flightlines: {overview['accepted_flightlines']:,}
 - Sites ({overview['site_count']:,}): {', '.join(overview['sites']) or 'not available'}
 - Selected observation rows represented by compact statistics: {overview['selected_observation_rows']:,}
+- Failed or excluded source candidates: {overview['failed_or_excluded_source_count']:,}
 - Translation pair-band combinations: {overview['pair_band_count']:,}
 - Candidate coefficient rows: {overview['candidate_coefficient_count']:,}
 - Successful candidate coefficient rows: {overview['successful_candidate_coefficient_count']:,}
@@ -1386,6 +1472,7 @@ pixel-level cache.
 
 - Candidate slope median and range: {_format(overview['candidate_slope_median'])} ({_format(overview['candidate_slope_min'])} to {_format(overview['candidate_slope_max'])})
 - Candidate R-squared median and range: {_format(overview['candidate_r2_median'])} ({_format(overview['candidate_r2_min'])} to {_format(overview['candidate_r2_max'])})
+- Candidate RMSE median and range: {_format(overview['candidate_rmse_median'])} ({_format(overview['candidate_rmse_min'])} to {_format(overview['candidate_rmse_max'])})
 - Median absolute fitted correction at each pair-band's common representative source value: {_format(overview['absolute_fitted_correction_percent_median'], 2)}%
 - Largest absolute fitted correction at a representative source value: {_format(overview['absolute_fitted_correction_percent_max'], 2)}%
 - Pair-bands requiring review: {overview['pair_bands_requiring_review']:,} of {overview['pair_band_count']:,}
@@ -1449,10 +1536,16 @@ def _outputs_valid(
                 paths.coefficient_figure,
                 paths.correction_figure,
                 paths.transferability_figure,
+                paths.summary_figure_stem.with_suffix(".png"),
+                paths.summary_figure_stem.with_suffix(".pdf"),
             )
         )
+        for stem in paths.publication_stems:
+            required.extend((stem.with_suffix(".png"), stem.with_suffix(".pdf")))
     if make_report:
         required.append(paths.report)
+        if make_figures:
+            required.append(paths.report_pdf)
     if any(not path.is_file() or path.stat().st_size == 0 for path in required):
         return False
     try:
@@ -1573,7 +1666,7 @@ def summarize_bulk_results(
         loso_rows,
         flags,
     )
-    figure_paths = (
+    diagnostic_figure_paths = (
         _make_figures(
             paths,
             weighting,
@@ -1586,11 +1679,48 @@ def summarize_bulk_results(
         if make_figures
         else []
     )
+    summary_figure = (
+        render_bulk_summary_dashboard(
+            overview,
+            output_stem=paths.summary_figure_stem,
+            figure_dpi=max(config.figure_dpi, DEFAULT_QA_STYLE.figure_dpi),
+        )
+        if make_figures
+        else None
+    )
+    publication_figures = (
+        render_bulk_publication_figures(
+            weighting=weighting,
+            pair_summaries=pair_summaries,
+            flightline=flightline,
+            site=site,
+            loso=loso,
+            output_dir=paths.publication_dir,
+            figure_dpi=max(config.figure_dpi, DEFAULT_QA_STYLE.figure_dpi),
+        )
+        if make_figures
+        else {}
+    )
     if make_report:
         write_text_atomic(
             paths.report,
-            _markdown_report(overview, pair_summaries, flags, config, figure_paths),
+            _markdown_report(
+                overview,
+                pair_summaries,
+                flags,
+                config,
+                diagnostic_figure_paths,
+            ),
         )
+        if make_figures and summary_figure is not None:
+            render_bulk_pdf_report(
+                summary_png=summary_figure["png"],
+                publication_figures=publication_figures,
+                diagnostic_figures=diagnostic_figure_paths,
+                overview=overview,
+                flags=flags,
+                output_pdf=paths.report_pdf,
+            )
     compact_outputs = {
         "pair_band_summary": paths.pair_band_summary.as_posix(),
         "weighting_comparison": paths.weighting_comparison.as_posix(),
@@ -1603,6 +1733,8 @@ def summarize_bulk_results(
         "schema_version": BULK_RESULTS_SCHEMA_VERSION,
         "analysis": "bulk_translation_results_interpretation",
         "status": "complete",
+        "created_utc": datetime.now(timezone.utc).isoformat(),
+        "spectralbridge_version": __version__,
         "source_data_policy": "completed_compact_bulk_outputs_only",
         "source_rasters_opened": False,
         "sufficient_statistics_regenerated": False,
@@ -1629,8 +1761,20 @@ def summarize_bulk_results(
         "attention_flags": flags,
         "compact_outputs": compact_outputs,
         "metadata": paths.metadata.as_posix(),
-        "figures": figure_paths,
+        "stage_status": {
+            "compact_result_summary": "created",
+            "diagnostic_qa": "created" if make_figures else "not_requested",
+            "publication_figures": "created" if make_figures else "not_requested",
+            "final_report": "created" if make_report else "not_requested",
+        },
+        "figures": diagnostic_figure_paths,
+        "diagnostic_figures": diagnostic_figure_paths,
+        "qa_summary_figure": summary_figure,
+        "publication_figures": publication_figures,
         "report": paths.report.as_posix() if make_report else None,
+        "report_pdf": (
+            paths.report_pdf.as_posix() if make_report and make_figures else None
+        ),
     }
     write_json_atomic(paths.metadata, metadata)
     return {**metadata, "status": "created"}

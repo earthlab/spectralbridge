@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from dataclasses import asdict
+import json
 import math
 from pathlib import Path
 from typing import Any, Iterable, Sequence
@@ -12,7 +14,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 from ..models import BulkAnalysisPaths, FlightlineRecord
-from ..provenance import write_json_atomic
+from ..provenance import signature_sha256, write_json_atomic
 from ..registry import TranslationPair
 from ..streaming import (
     BivariateStatistics,
@@ -104,6 +106,77 @@ def _write_parquet(path: Path, rows: list[dict[str, Any]], schema: pa.Schema) ->
     pq.write_table(pa.Table.from_pylist(rows, schema=schema), temporary, compression="zstd")
     pq.read_schema(temporary)
     temporary.replace(path)
+
+
+def _streaming_stage_signature(
+    *,
+    analysis_run_id: str,
+    statistics_rows: Sequence[dict[str, Any]],
+    minimum_reflectance: float,
+    chunk_size: int,
+    translation_pairs: Sequence[TranslationPair],
+) -> str:
+    """Fingerprint the compact inputs to the coefficient/LOSO stage."""
+
+    return signature_sha256(
+        {
+            "schema_version": 1,
+            "analysis_run_id": analysis_run_id,
+            "statistics_rows": list(statistics_rows),
+            "minimum_reflectance": minimum_reflectance,
+            "chunk_size": chunk_size,
+            "translation_pairs": [asdict(pair) for pair in translation_pairs],
+        }
+    )
+
+
+def _translation_outputs_valid(
+    paths: BulkAnalysisPaths,
+    output: SensorTranslationPaths,
+    loso_output: LeaveOneSiteOutPaths,
+) -> bool:
+    parquet_outputs = (
+        output.pixel_pooled,
+        output.per_flightline,
+        output.per_site,
+        output.flightline_balanced,
+        output.site_balanced,
+        paths.coefficients_parquet,
+        loso_output.results,
+    )
+    json_outputs = (paths.coefficients_json, output.metadata, loso_output.metadata)
+    if any(not path.is_file() or path.stat().st_size == 0 for path in (*parquet_outputs, *json_outputs)):
+        return False
+    try:
+        for path in parquet_outputs:
+            pq.read_schema(path)
+        for path in json_outputs:
+            json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return False
+    return True
+
+
+def _register_translation_outputs(
+    con: duckdb.DuckDBPyConnection,
+    paths: BulkAnalysisPaths,
+    output: SensorTranslationPaths,
+    loso_output: LeaveOneSiteOutPaths,
+) -> None:
+    tables = {
+        "translation_pixel_pooled": output.pixel_pooled,
+        "translation_per_flightline": output.per_flightline,
+        "translation_per_site": output.per_site,
+        "translation_flightline_balanced": output.flightline_balanced,
+        "translation_site_balanced": output.site_balanced,
+        "candidate_translation_coefficients": paths.coefficients_parquet,
+        "translation_leave_one_site_out": loso_output.results,
+    }
+    for table_name, path in tables.items():
+        con.execute(
+            f"CREATE OR REPLACE TABLE {table_name} AS SELECT * FROM read_parquet(?)",
+            [path.as_posix()],
+        )
 
 
 def _merge(rows: Iterable[dict[str, Any]]) -> BivariateStatistics:
@@ -437,8 +510,54 @@ def run_streaming_translation_analyses(
     minimum_reflectance: float,
     chunk_size: int,
     translation_pairs: Sequence[TranslationPair],
+    reuse_existing: bool = True,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """Derive all model levels and LOSO, using one bounded MAE evaluation pass."""
+
+    output = SensorTranslationPaths(paths.analyses_dir / "sensor_translation")
+    loso_output = LeaveOneSiteOutPaths(paths.analyses_dir / "leave_one_site_out")
+    stage_signature = _streaming_stage_signature(
+        analysis_run_id=analysis_run_id,
+        statistics_rows=statistics_rows,
+        minimum_reflectance=minimum_reflectance,
+        chunk_size=chunk_size,
+        translation_pairs=translation_pairs,
+    )
+    if reuse_existing and _translation_outputs_valid(paths, output, loso_output):
+        try:
+            translation_metadata = json.loads(
+                output.metadata.read_text(encoding="utf-8")
+            )
+            loso_metadata = json.loads(
+                loso_output.metadata.read_text(encoding="utf-8")
+            )
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            translation_metadata = {}
+            loso_metadata = {}
+        if (
+            translation_metadata.get("stage_signature_sha256") == stage_signature
+            and loso_metadata.get("stage_signature_sha256") == stage_signature
+        ):
+            _register_translation_outputs(con, paths, output, loso_output)
+            return (
+                {
+                    "status": "reused",
+                    "pair_count": int(translation_metadata.get("pair_count", 0)),
+                    "candidate_count": len(
+                        translation_metadata.get("candidate_coefficients", [])
+                    ),
+                    "coefficients_parquet": str(paths.coefficients_parquet),
+                    "coefficients_json": str(paths.coefficients_json),
+                    "stage_signature_sha256": stage_signature,
+                },
+                {
+                    "status": "reused",
+                    "result_count": int(loso_metadata.get("result_count", 0)),
+                    "results": str(loso_output.results),
+                    "metadata": str(loso_output.metadata),
+                    "stage_signature_sha256": stage_signature,
+                },
+            )
 
     by_spec: dict[tuple[str, int], list[dict[str, Any]]] = {}
     by_flightline: dict[tuple[str, int, str], dict[str, Any]] = {}
@@ -585,8 +704,6 @@ def run_streaming_translation_analyses(
     loso_rows.sort(
         key=lambda row: (row["landsat_sensor"], row["band_index"], row["held_out_site"])
     )
-    output = SensorTranslationPaths(paths.analyses_dir / "sensor_translation")
-    loso_output = LeaveOneSiteOutPaths(paths.analyses_dir / "leave_one_site_out")
     output.directory.mkdir(parents=True, exist_ok=True)
     loso_output.directory.mkdir(parents=True, exist_ok=True)
     table_outputs = {
@@ -641,6 +758,8 @@ def run_streaming_translation_analyses(
         "analysis": "synthetic_sensor_translation",
         "analysis_engine": "streaming_mergeable_sufficient_statistics",
         "analysis_run_id": analysis_run_id,
+        "stage_signature_sha256": stage_signature,
+        "stage_status": "complete",
         "equation": "target = slope * source + intercept",
         "minimum_reflectance": minimum_reflectance,
         "source_data_policy": "read_only_in_place",
@@ -655,6 +774,8 @@ def run_streaming_translation_analyses(
         "analysis": "leave_one_site_out_synthetic_translation",
         "analysis_engine": "global_minus_held_out_site_sufficient_statistics",
         "analysis_run_id": analysis_run_id,
+        "stage_signature_sha256": stage_signature,
+        "stage_status": "complete",
         "training_fit": "algebraic subtraction of mergeable site moments",
         "held_out_evaluation": "bounded direct second pass for exact MAE",
         "result_count": len(loso_rows),
@@ -670,12 +791,14 @@ def run_streaming_translation_analyses(
             "candidate_count": len(candidates),
             "coefficients_parquet": str(paths.coefficients_parquet),
             "coefficients_json": str(paths.coefficients_json),
+            "stage_signature_sha256": stage_signature,
         },
         {
             "status": "created",
             "result_count": len(loso_rows),
             "results": str(loso_output.results),
             "metadata": str(loso_output.metadata),
+            "stage_signature_sha256": stage_signature,
         },
     )
 

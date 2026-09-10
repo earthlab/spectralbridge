@@ -23,6 +23,10 @@
 | Standalone translation QA | `<translated_stem>__translation_qa.(png\|json)` | Corrected-versus-translated distributions, slopes/intercepts, shifts, valid fractions, nodata, range/evidence warnings, and provenance. |
 | Optional common-support QA | `qa_common_support/*__on_actual_landsat_grid.tif`, `*__comparison.json`, `*__landsat_common_support_qa.png` | Drone-like, optional NEON-like, and actual Landsat comparisons after valid-aware aggregation to the actual Landsat grid. |
 | Run audit | `drone_qa_summary.json` | Core status, optional-QA availability/reasons, source and product paths, correction and translation provenance, software version, timestamps, and warnings. |
+| Stage records | `<flight>__working.stage.json`, `<flight>__envi__export.stage.json`, `<flight>__corrected__correction.stage.json` | Source/config fingerprints, deterministic outputs, status, and timestamp used to decide reuse. |
+| QA dashboard | `qa/summary/drone_qa_summary.(png|json)` | First-page run status, ingest/correction/translation state, valid support, coefficient provenance, external-validation metrics, and warnings. |
+| Publication translation figure | `<flight>/qa_publication/*__translation_quality.(png|pdf)` | Compact wavelength-aware MicaSense-to-Landsat-like translation summary. |
+| Final QA report | `qa_summary.pdf`, with `qa/report.stage.json` | Dashboard first, followed by available diagnostic/publication pages; regenerable from compact QA products. |
 
 <p class="sb-doc-note">Valid working H5, corrected ENVI, translated ENVI, and translated Parquet outputs are reused when their signatures remain current. Optional Landsat or NEON comparison failures do not invalidate core products.</p>
 </section>
@@ -48,8 +52,10 @@
 | Leave-one-site-out | `analyses/leave_one_site_out/` | Held-out-site generalization metrics. |
 | Candidate coefficients | `coefficients/candidate_translation_coefficients.(parquet|json)` | Pooled and balanced source-to-target summaries with selected-pair provenance. |
 | Translation interpretation | `analyses/bulk_results/` | Pair-band summaries with spectral identity and source/target wavelengths, weighting comparisons, flightline/site stability, LOSO transferability, configurable attention flags, and restart metadata derived only from compact result tables. |
-| Translation interpretation figures | `figures/bulk_results/*.png` | Wavelength-ordered weighting, fitted-correction, heterogeneity, and held-out-site comparisons; labels retain sensor-local band numbers plus physical wavelengths. |
-| Translation interpretation report | `reports/bulk_results/bulk_translation_results.md` | Portable results narrative with counts, population summaries, pair-band screening, warning details, and explicit interpretation boundaries. |
+| Translation diagnostics | `figures/bulk_results/diagnostics/*.png` | Detailed wavelength-ordered weighting, correction, heterogeneity, and held-out-site comparisons. |
+| QA dashboard | `figures/bulk_results/summary/bulk_qa_summary.(png|pdf)` | Accepted/excluded counts, rows, fit metrics, correction magnitude, weakest cases, and warning count. |
+| Publication panels | `figures/bulk_results/publication/*.(png|pdf)` | Translation performance, stability, and unseen-site generalization/failure cases using the shared accessible palette. |
+| Translation report | `reports/bulk_results/bulk_translation_results.(md|pdf)` | Portable narrative plus a dashboard-first multipage report assembled only from compact outputs. |
 | Spectral-library summaries | `analyses/spectral_library/` | Compact species/band summaries, approximate quantiles, medians, group counts, robust/full plot ranges, bounded extreme-spectrum diagnostics, and provenance from an optional existing merged polygon Parquet. |
 | Spectral-library reports | `figures/spectral_library/` | Explicit summary or full multipage low-alpha variability PDFs, including primary robust and separate full-range audit views; source observations are read in place and not copied. |
 | Bulk manifest | `catalog/bulk_manifest.json` | Restart signature, execution settings, counts, and artifact names. |

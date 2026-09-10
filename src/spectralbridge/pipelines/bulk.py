@@ -1008,6 +1008,7 @@ def run_bulk_pipeline(
                 minimum_reflectance=minimum_reflectance,
                 chunk_size=extraction_chunk_size,
                 translation_pairs=selected_pairs,
+                reuse_existing=not force,
             )
         elif not preflight_only:
             translation = run_sensor_translation(

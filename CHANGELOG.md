@@ -23,6 +23,11 @@
   explicitly selected, validated bulk candidate coefficients.
 - Standalone drone translation QA plus optional supplied/STAC Landsat and
   normal-pipeline NEON comparison on the actual Landsat spatial grid.
+- Restart-fingerprinted drone working-H5, ENVI, correction, and report stages;
+  dashboard-first drone QA PDF and publication-ready translation figures.
+- Dashboard-first bulk QA, three manuscript-width publication figures, a
+  self-contained PDF report, and restart reuse for the coupled compact
+  coefficient/LOSO stage after process interruption.
 - Config-driven brightness coefficients for Landsat→MicaSense (`landsat_to_micasense.json`) and helper loader.
 - Automatic per-band brightness adjustment applied to Landsat-convolved products, recorded in QA JSON and brightness tables.
 - Multi-page QA report (`*_qa.pdf`) with:

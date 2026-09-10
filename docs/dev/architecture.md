@@ -74,6 +74,14 @@ normal-pipeline NEON products to the actual Landsat grid before comparison.
 Scene absence, cloud rejection, and insufficient overlap are QA limitations,
 not core-pipeline failures.
 
+The drone path records stage signatures beside the working H5, native ENVI,
+and corrected ENVI products. A valid output is reused only when its source
+fingerprint and relevant configuration still match; an orphaned or corrupt
+file is not a checkpoint. Translation and translated-library stages retain
+their coefficient/source signatures. `render_drone_qa_report` is an independent
+final stage that reads the run audit and existing QA artifacts, not source
+rasters.
+
 ### Independent bulk analysis
 
 `run_bulk_pipeline` is downstream of completed per-flightline workflows rather
@@ -105,6 +113,12 @@ rasters or sufficient-statistics checkpoints. Input file fingerprints and a
 configuration signature make its outputs restart-safe. Review thresholds are
 kept in `BulkResultsConfig` and are explicitly screening criteria rather than
 universal calibration acceptance rules.
+
+The streaming coefficient and LOSO calculations form one deliberately coupled
+stage because exact MAE and held-out evaluation share the bounded second source
+pass. Its signature covers compact flightline moments, requested pairs,
+threshold, and chunk configuration. Results interpretation then has separate
+compact-summary, diagnostic, publication, and final-report stages.
 
 Optional spectral-library reporting also reads its merged polygon Parquet in
 place. Its visualization-validity policy is distinct from regression validity:

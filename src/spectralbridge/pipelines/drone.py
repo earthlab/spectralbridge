@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import inspect
+import hashlib
 import json
 import logging
 import re
@@ -17,6 +18,7 @@ import h5py
 import numpy as np
 import pandas as pd
 
+from spectralbridge import __version__
 from spectralbridge.corrections import (
     HYTOOLS_BRDF_KERNEL_CONFIG,
     NDVIBinningConfig,
@@ -366,6 +368,68 @@ def clean_name(name: str) -> str:
     while "__" in safe:
         safe = safe.replace("__", "_")
     return safe.strip("._") or "drone"
+
+
+def _drone_file_fingerprint(path: str | Path) -> dict[str, Any]:
+    candidate = Path(path).expanduser().resolve()
+    stat = candidate.stat()
+    return {
+        "path": str(candidate),
+        "size_bytes": int(stat.st_size),
+        "modified_time_ns": int(stat.st_mtime_ns),
+    }
+
+
+def _drone_stage_signature(
+    stage: str,
+    *,
+    inputs: Sequence[str | Path],
+    configuration: dict[str, Any],
+) -> tuple[str, dict[str, Any]]:
+    payload = {
+        "schema_version": 1,
+        "stage": stage,
+        "inputs": [_drone_file_fingerprint(path) for path in inputs if Path(path).is_file()],
+        "configuration": configuration,
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+    return hashlib.sha256(encoded).hexdigest(), payload
+
+
+def _write_drone_stage_record(
+    path: Path,
+    *,
+    signature: str,
+    payload: dict[str, Any],
+    outputs: Sequence[Path],
+    status: str = "complete",
+) -> Path:
+    record = {
+        **payload,
+        "status": status,
+        "stage_signature_sha256": signature,
+        "outputs": [str(output) for output in outputs],
+        "created_utc": datetime.now(timezone.utc).isoformat(),
+    }
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    temporary.replace(path)
+    return path
+
+
+def _drone_stage_matches(path: Path, signature: str) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    try:
+        record = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return None
+    if record.get("status") != "complete":
+        return None
+    if record.get("stage_signature_sha256") != signature:
+        return None
+    return record
 
 
 def _drone_package_dir(h5_path: str | Path) -> Path:
@@ -1026,35 +1090,107 @@ def _prepare_drone_source_working_h5(
     require_solar_geometry: bool = False,
 ) -> tuple[Path, bool]:
     source_path = Path(source_path)
+    working_path = Path(working_path)
+    stage_record = working_path.with_suffix(".stage.json")
     if source_type == "h5":
-        return _prepare_drone_h5_working_copy(
+        signature, signature_payload = _drone_stage_signature(
+            "working_h5",
+            inputs=[source_path],
+            configuration={
+                "algorithm_version": 1,
+                "source_type": "h5",
+                "fallback_nodata": float(_DRONE_FALLBACK_NODATA),
+            },
+        )
+        if not overwrite and _drone_stage_matches(stage_record, signature) and working_path.is_file():
+            try:
+                with h5py.File(working_path, "r") as h5_file:
+                    _find_drone_reflectance_dataset(h5_file)
+            except Exception:
+                pass
+            else:
+                LOGGER.info("[drone] working H5: reused (%s)", working_path.name)
+                return working_path, False
+        prepared, patched = _prepare_drone_h5_working_copy(
             source_path,
             working_path=working_path,
-            overwrite=overwrite,
+            overwrite=overwrite or working_path.exists(),
         )
+        _write_drone_stage_record(
+            stage_record,
+            signature=signature,
+            payload=signature_payload,
+            outputs=[prepared],
+        )
+        LOGGER.info("[drone] working H5: complete (%s)", prepared.name)
+        return prepared, patched
     if source_type != "tiff":
         raise ValueError(f"Unsupported drone source_type: {source_type}")
 
     package_dir = _drone_package_dir(source_path)
+    ancillary = {
+        name: _find_drone_tiff_ancillary(package_dir, name)
+        for name in _DRONE_TIFF_ANCILLARY_KEYWORDS
+    }
+    inputs = [source_path, *(path for path in ancillary.values() if path is not None)]
+    signature, signature_payload = _drone_stage_signature(
+        "tiff_to_working_h5",
+        inputs=inputs,
+        configuration={
+            "algorithm_version": 1,
+            "wavelengths_nm": (
+                [float(value) for value in tiff_wavelengths_nm]
+                if tiff_wavelengths_nm is not None
+                else None
+            ),
+            "fwhm_nm": (
+                [float(value) for value in tiff_fwhm_nm]
+                if tiff_fwhm_nm is not None
+                else None
+            ),
+            "solar_zenith_deg": tiff_solar_zenith_deg,
+            "solar_azimuth_deg": tiff_solar_azimuth_deg,
+            "sensor_zenith_deg": tiff_sensor_zenith_deg,
+            "sensor_azimuth_deg": tiff_sensor_azimuth_deg,
+            "acquisition_datetime": str(acquisition_datetime) if acquisition_datetime is not None else None,
+            "require_solar_geometry": bool(require_solar_geometry),
+        },
+    )
+    if not overwrite and _drone_stage_matches(stage_record, signature) and working_path.is_file():
+        try:
+            with h5py.File(working_path, "r") as h5_file:
+                _find_drone_reflectance_dataset(h5_file)
+        except Exception:
+            pass
+        else:
+            LOGGER.info("[drone] TIFF → working H5: reused (%s)", working_path.name)
+            return working_path, False
     prepared_path = convert_drone_tiff_to_h5(
         source_path,
         output_h5_path=working_path,
         wavelengths_nm=tiff_wavelengths_nm,
         fwhm_nm=tiff_fwhm_nm,
-        slope_tiff=_find_drone_tiff_ancillary(package_dir, "slope"),
-        aspect_tiff=_find_drone_tiff_ancillary(package_dir, "aspect"),
-        sensor_zenith_tiff=_find_drone_tiff_ancillary(package_dir, "sensor_zenith"),
-        sensor_azimuth_tiff=_find_drone_tiff_ancillary(package_dir, "sensor_azimuth"),
-        solar_zenith_tiff=_find_drone_tiff_ancillary(package_dir, "solar_zenith"),
-        solar_azimuth_tiff=_find_drone_tiff_ancillary(package_dir, "solar_azimuth"),
+        slope_tiff=ancillary["slope"],
+        aspect_tiff=ancillary["aspect"],
+        sensor_zenith_tiff=ancillary["sensor_zenith"],
+        sensor_azimuth_tiff=ancillary["sensor_azimuth"],
+        solar_zenith_tiff=ancillary["solar_zenith"],
+        solar_azimuth_tiff=ancillary["solar_azimuth"],
         solar_zenith_deg=tiff_solar_zenith_deg,
         solar_azimuth_deg=tiff_solar_azimuth_deg,
         sensor_zenith_deg=tiff_sensor_zenith_deg,
         sensor_azimuth_deg=tiff_sensor_azimuth_deg,
         acquisition_datetime=acquisition_datetime,
         require_solar_geometry=require_solar_geometry,
-        overwrite=overwrite,
+        overwrite=overwrite or working_path.exists(),
     )
+    _write_drone_stage_record(
+        stage_record,
+        signature=signature,
+        payload=signature_payload,
+        outputs=[prepared_path],
+    )
+    LOGGER.info("[drone] TIFF → working H5: complete (%s)", prepared_path.name)
     return prepared_path, False
 
 
@@ -1208,11 +1344,25 @@ def export_h5_to_envi(
     output_stem = Path(output_stem)
     output_img = output_stem.with_suffix(".img")
     output_hdr = output_stem.with_suffix(".hdr")
+    stage_record = output_stem.with_name(output_stem.name + "__export.stage.json")
     output_img.parent.mkdir(parents=True, exist_ok=True)
+    signature, signature_payload = _drone_stage_signature(
+        "h5_to_envi",
+        inputs=[h5_path],
+        configuration={
+            "algorithm_version": 1,
+            "brightness_offset": float(brightness_offset),
+            "output_semantics": "drone_native_reflectance_envi",
+        },
+    )
 
-    if not overwrite and is_valid_envi_pair(output_img, output_hdr):
+    if (
+        not overwrite
+        and is_valid_envi_pair(output_img, output_hdr)
+        and _drone_stage_matches(stage_record, signature)
+    ):
         LOGGER.info(
-            "[drone] Reusing ENVI export → %s / %s", output_img.name, output_hdr.name
+            "[drone] H5 → ENVI: reused (%s / %s)", output_img.name, output_hdr.name
         )
         return output_img, output_hdr
 
@@ -1250,6 +1400,14 @@ def export_h5_to_envi(
         raise RuntimeError(
             f"Drone ENVI export failed for {h5_path}: {output_img} / {output_hdr}"
         )
+
+    _write_drone_stage_record(
+        stage_record,
+        signature=signature,
+        payload=signature_payload,
+        outputs=[output_img, output_hdr],
+    )
+    LOGGER.info("[drone] H5 → ENVI: complete (%s)", output_img.name)
 
     return output_img, output_hdr
 
@@ -1414,14 +1572,40 @@ def apply_drone_corrections(
     audit["topo_ready"] = topo_ready
     audit["brdf_ready"] = brdf_ready
 
-    if not overwrite and is_valid_envi_pair(corrected_img, corrected_hdr):
-        audit["reused_existing_corrected"] = True
-        existing_flags = _load_existing_drone_correction_flags(corrected_stem)
+    stage_record = corrected_stem.with_name(
+        corrected_stem.name + "__correction.stage.json"
+    )
+    stage_signature, stage_payload = _drone_stage_signature(
+        "corrected_envi",
+        inputs=[envi_img, envi_hdr],
+        configuration={
+            "algorithm_version": 1,
+            "apply_topo": bool(apply_topo),
+            "apply_brdf": bool(apply_brdf),
+            "use_ndvi_brdf_bins": bool(use_ndvi_brdf_bins),
+            "topo_ready": bool(topo_ready),
+            "brdf_ready": bool(brdf_ready),
+            "brightness_adjustment": False,
+            "cloud_mask": False,
+        },
+    )
+
+    existing_stage = _drone_stage_matches(stage_record, stage_signature)
+    if (
+        not overwrite
+        and is_valid_envi_pair(corrected_img, corrected_hdr)
+        and existing_stage is not None
+    ):
+        existing_flags = existing_stage.get("audit")
+        if not isinstance(existing_flags, dict):
+            existing_flags = _load_existing_drone_correction_flags(corrected_stem)
         if existing_flags:
             audit.update(existing_flags)
-            audit["correction_status_source"] = "existing_qa_json"
+            audit["correction_status_source"] = "correction_stage_record"
         else:
-            audit["correction_status_source"] = "reuse_without_prior_audit"
+            audit["correction_status_source"] = "stage_signature"
+        audit["reused_existing_corrected"] = True
+        LOGGER.info("[drone] corrected ENVI: reused (%s)", corrected_img.name)
         return corrected_img, corrected_hdr, audit
 
     if not topo_ready and not brdf_ready:
@@ -1433,6 +1617,13 @@ def apply_drone_corrections(
             )
         shutil.copy2(envi_img, corrected_img)
         shutil.copy2(envi_hdr, corrected_hdr)
+        _write_drone_stage_record(
+            stage_record,
+            signature=stage_signature,
+            payload={**stage_payload, "audit": audit},
+            outputs=[corrected_img, corrected_hdr],
+        )
+        LOGGER.info("[drone] corrected ENVI: complete (uncorrected copy)")
         return corrected_img, corrected_hdr, audit
 
     coeff_path: Path | None = None
@@ -1554,6 +1745,14 @@ def apply_drone_corrections(
             "Requested drone correction did not produce a corrected output.",
             audit,
         )
+
+    _write_drone_stage_record(
+        stage_record,
+        signature=stage_signature,
+        payload={**stage_payload, "audit": audit},
+        outputs=[corrected_img, corrected_hdr],
+    )
+    LOGGER.info("[drone] corrected ENVI: complete (%s)", corrected_img.name)
 
     return corrected_img, corrected_hdr, audit
 
@@ -2176,6 +2375,43 @@ def run_drone_pipeline(
     }
 
     input_sources = _discover_drone_input_sources(input_h5_dir)
+    run_input_paths: list[Path] = [source.source_path for source in input_sources]
+    run_input_paths.extend(
+        path
+        for path in (
+            polygon_path,
+            drone_manifest_path,
+            Path(translation_coefficients) if translation_coefficients is not None else None,
+            Path(landsat_product) if landsat_product is not None else None,
+            Path(comparison_neon_product) if comparison_neon_product is not None else None,
+        )
+        if path is not None and path.is_file()
+    )
+    run_id, run_payload = _drone_stage_signature(
+        "drone_pipeline",
+        inputs=run_input_paths,
+        configuration={
+            "apply_topo": bool(apply_topo),
+            "apply_brdf": bool(apply_brdf),
+            "use_ndvi_brdf_bins": bool(use_ndvi_brdf_bins),
+            "extraction_mode": actual_extraction_mode,
+            "translation_requested": bool(apply_translation),
+            "translation_weighting": translation_weighting,
+            "landsat_qa": bool(landsat_qa),
+            "landsat_search_days": int(landsat_search_days),
+            "require_solar_geometry": bool(require_solar_geometry),
+        },
+    )
+    results["qa_summary"].update(
+        {
+            "schema_version": 2,
+            "run_id": run_id,
+            "created_utc": datetime.now(timezone.utc).isoformat(),
+            "spectralbridge_version": __version__,
+            "source_fingerprints": run_payload["inputs"],
+            "configuration": run_payload["configuration"],
+        }
+    )
     input_path_exists = input_h5_dir.exists()
     input_path_type = (
         "file"
@@ -2350,6 +2586,7 @@ def run_drone_pipeline(
             "translation_products": [],
             "translated_library_paths": [],
             "translation_qa_paths": [],
+            "publication_figure_paths": [],
             "status": None,
         }
         translation_runs: list[tuple[Any, dict[str, Any]]] = []
@@ -2700,6 +2937,7 @@ def run_drone_pipeline(
             if translation_runs:
                 from spectralbridge.drone_qa import (
                     render_common_support_comparison,
+                    render_drone_translation_publication,
                     render_drone_translation_qa,
                 )
 
@@ -2711,7 +2949,7 @@ def run_drone_pipeline(
                         + "__translation_qa.png"
                     )
                     try:
-                        _, translation_qa_json, _ = render_drone_translation_qa(
+                        _, translation_qa_json, translation_qa_payload = render_drone_translation_qa(
                             corrected_img=corrected_img,
                             translated_img=translation_result["output_img"],
                             plan=plan,
@@ -2720,6 +2958,20 @@ def run_drone_pipeline(
                         )
                         file_audit["translation_qa_paths"].extend(
                             [str(translation_qa_png), str(translation_qa_json)]
+                        )
+                        publication = render_drone_translation_publication(
+                            translation_qa_payload,
+                            output_stem=(
+                                path_map["flight_dir"]
+                                / "qa_publication"
+                                / (
+                                    Path(str(translation_result["output_img"])).stem
+                                    + "__translation_quality"
+                                )
+                            ),
+                        )
+                        file_audit["publication_figure_paths"].extend(
+                            [publication["png"], publication["pdf"]]
                         )
                     except Exception as translation_qa_exc:
                         LOGGER.exception(
@@ -2810,7 +3062,11 @@ def run_drone_pipeline(
                                 "status": "ok",
                                 "qa_png": str(comparison_png),
                                 "qa_json": str(comparison_json),
+                                "qa_pdf": str(comparison_png.with_suffix(".pdf")),
                             }
+                            file_audit["publication_figure_paths"].extend(
+                                [str(comparison_png), str(comparison_png.with_suffix(".pdf"))]
+                            )
                     except Exception as landsat_exc:
                         LOGGER.warning(
                             "[drone] Optional Landsat comparison unavailable for %s: %s",
@@ -2930,7 +3186,6 @@ def run_drone_pipeline(
 
     try:
         from spectralbridge.qa_plots import render_drone_panel
-        from spectralbridge.utils.qa_summary import build_drone_qa_summary
 
         for file_audit in results["qa_summary"]["files"]:
             if not _has_drone_qa_inputs(file_audit):
@@ -2957,16 +3212,6 @@ def run_drone_pipeline(
                 "polygon": qa_payload.get("polygon", {}),
                 "merged_preview": qa_payload.get("merged_preview", {}),
             }
-        qa_pngs = [
-            Path(str(file_audit["qa_plot_path"]))
-            for file_audit in results["qa_summary"]["files"]
-            if Path(str(file_audit.get("qa_plot_path", ""))).exists()
-        ]
-        if qa_pngs:
-            qa_summary_html = build_drone_qa_summary(output_dir)
-            results["qa_summary"]["qa_summary_pdf"] = str(qa_summary_html)
-            results["qa_summary"]["qa_summary_pdf_filename"] = qa_summary_html.name
-            results["qa_summary_pdf"] = str(qa_summary_html)
     except Exception as exc:
         LOGGER.exception("[drone] QA rendering failed")
         results["qa_summary"]["qa_render_error"] = str(exc)
@@ -3006,6 +3251,23 @@ def run_drone_pipeline(
     ]
     qa_path = _write_json(output_dir / "drone_qa_summary.json", results["qa_summary"])
     results["qa_summary_path"] = str(qa_path)
+    try:
+        from spectralbridge.utils.qa_summary import build_drone_qa_summary
+
+        report_pdf = build_drone_qa_summary(output_dir)
+        results["qa_summary"]["qa_summary_pdf"] = str(report_pdf)
+        results["qa_summary"]["qa_summary_pdf_filename"] = report_pdf.name
+        results["qa_summary"]["qa_summary_figure"] = str(
+            output_dir / "qa" / "summary" / "drone_qa_summary.png"
+        )
+        results["qa_summary"]["qa_report_stage"] = "complete"
+        results["qa_summary_pdf"] = str(report_pdf)
+        _write_json(qa_path, results["qa_summary"])
+        _drone_emit("[drone] report: complete")
+    except Exception as exc:
+        LOGGER.exception("[drone] Final QA report rendering failed")
+        results["qa_summary"]["qa_report_error"] = str(exc)
+        _write_json(qa_path, results["qa_summary"])
     _drone_emit(
         "[drone] Complete: "
         f"{total_flights} total | "

@@ -20,6 +20,56 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P84. Harden Drone And Bulk Pipeline Quality
+
+- Priority: User-directed
+- Status: In progress
+- Owner: Codex
+- Started: 2026-09-10
+- Starting commit: `c4dd2114b8cc59eeda22b1e993c169c41f0ef45c`
+- Goal: Bring only the drone and bulk pipelines up to the normal NEON
+  pipeline's quality level for naming, restartability, modular debugging,
+  one-page QA, publication figures, and self-contained reports while preserving
+  wavelength-aware matching and all normal NEON behavior.
+- Plan:
+  - Audit current naming, stage boundaries, fingerprints, output validators,
+    status records, plotting, reporting, and relevant baselines.
+  - Standardize drone/bulk display labels without changing public machine IDs.
+  - Harden dependency-aware stage reuse and expose a small set of modular stage
+    callables where current boundaries are insufficient.
+  - Add concise QA summaries, consistent accessible plotting styles,
+    publication panels, and readable reports sourced from compact artifacts.
+  - Update contracts/docs and complete targeted, full-suite, documentation, and
+    installed-artifact validation before committing and pushing.
+- Guardrail: Normal NEON orchestration, science, outputs, defaults, API, and QA
+  semantics must not change.
+- Blockers: None.
+- Next recommended task: Finish Phase 0 audit and baseline before implementation.
+
+### P83. Audit Complete Bulk Translation Correspondence
+
+- Priority: User-directed
+- Status: Superseded by P84
+- Owner: Codex
+- Started: 2026-09-10
+- Starting commit: `c4dd2114b8cc59eeda22b1e993c169c41f0ef45c`
+- Goal: Audit every scientific and technical assumption that makes a bulk
+  source/target comparison valid, extending beyond band numbering to product
+  identity, spectral response, processing state, units, masks, spatial support,
+  sampling, regression direction, weighting, and provenance.
+- Plan:
+  - Trace immutable source discovery through windowed statistics, hierarchical
+    fits, candidate coefficients, compact reporting, and drone consumption.
+  - Compare registry/product contracts with packaged response definitions and
+    persisted ENVI/Parquet metadata, identifying every place a mismatch can be
+    accepted or hidden.
+  - Add validation and regression coverage for confirmed gaps without changing
+    established scientific definitions merely for convenience.
+  - Document the audited matching contract, residual limitations, and any
+    requirement for regenerating existing compact production results.
+- Blockers: None; its full correspondence audit is incorporated into P84.
+- Next recommended task: Continue under P84.
+
 ### P82. Match Bulk QA Bands By Spectral Identity
 
 - Priority: User-directed

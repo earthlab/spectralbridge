@@ -13125,3 +13125,922 @@ Model: GPT-5
 ```text
 i need to check the bulk analysis for band matching. in the qa plots we need to match bands by their wavelength rather than by their band number. for example, band 1 doesn't represent the same wavelength trough all the sensor. I think they add a new band 1 at a lower wavelenth than the previous band 1 so the band 1 in earlier sensors is band 2 in later, i think. anyway, check them and make sure they're matching by like kind rather than just band number.
 ```
+
+## 2026-09-10 - audit complete bulk translation correspondence
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+i meant more broadly, not just band. check that they match in all the details. spend some time on this.
+```
+
+## 2026-09-10 - harden drone and bulk pipeline quality
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+You are working in:
+
+https://github.com/earthlab/spectralbridge
+
+Start from CURRENT main.
+
+Your task is to perform a HIGH-QUALITY HARDENING PASS on ONLY:
+
+1. the DRONE pipeline
+2. the BULK pipeline
+
+The normal NEON/main pipeline is the reference implementation and MUST NOT be modified scientifically, numerically, behaviorally, or structurally.
+
+Do not treat this as an opportunity to refactor the main pipeline.
+
+==================================================
+PRIMARY OBJECTIVE
+==================================================
+
+Bring the drone and bulk pipelines up to the quality level of the main NEON pipeline in four areas:
+
+1. naming consistency
+2. restartability after kernel/process failure
+3. modularity for debugging and rerunning individual stages
+4. QA and publication-quality figure/report output
+
+Quality is the top priority.
+
+Do not add unrelated scientific functionality.
+
+Do not alter the main NEON pipeline.
+
+==================================================
+BEFORE EDITING
+==================================================
+
+1. git checkout main
+2. git pull --ff-only origin main
+3. record git rev-parse HEAD
+4. read all repo instructions
+5. inspect at minimum:
+
+- AGENTS.md and nested AGENTS.md files
+- FEATURE_REQUESTS.md
+- PROMPT_LOG.md
+- README.md
+- CHANGELOG.md
+- docs/dev/architecture.md
+- docs/pipeline/outputs.md
+- docs/naming-conventions.md
+- docs/reference/json-catalog.md
+- docs/tutorials/micasense-to-landsat.md
+- docs/vignettes/bulk-analysis.md
+- normal NEON pipeline orchestration and output conventions
+- src/spectralbridge/pipelines/drone.py
+- src/spectralbridge/drone_translation.py
+- src/spectralbridge/bulk/
+- src/spectralbridge/pipelines/bulk.py
+- current QA/plotting/reporting modules
+- current tests for drone, bulk, QA, restart behavior, and installed artifacts
+
+Also inspect the recent band-matching hardening and preserve its wavelength-aware behavior.
+
+==================================================
+NON-NEGOTIABLE MAIN PIPELINE PROTECTION
+==================================================
+
+DO NOT MODIFY THE NORMAL NEON PIPELINE.
+
+Do not change:
+
+- go_forth_and_multiply behavior
+- normal NEON orchestration
+- NEON output names
+- NEON correction behavior
+- NEON convolution
+- NEON brightness logic
+- NEON scientific results
+- NEON defaults
+- NEON public API
+- NEON QA semantics
+
+If a shared helper must be touched:
+- make the smallest possible change
+- add regression coverage
+- prove NEON behavior is unchanged
+
+The desired final report must explicitly state:
+
+Normal NEON pipeline behavior changed: NO
+
+==================================================
+QUALITY TARGET
+==================================================
+
+The drone and bulk pipelines should feel like parts of one package.
+
+A user should recognize the same design philosophy in all three pipelines:
+
+- clear configuration
+- clear stage boundaries
+- deterministic outputs
+- consistent names
+- restart-safe execution
+- stage-level provenance
+- useful terminal/status messages
+- modular debugging
+- first-class QA
+- concise summary report
+- high-quality figures
+
+The main NEON pipeline is the template for this experience.
+
+==================================================
+PART 1. NAMING CONSISTENCY
+==================================================
+
+Audit all drone and bulk output names.
+
+The goal is NOT to rename the existing main-pipeline outputs.
+
+Instead, make drone and bulk follow the main pipeline's naming philosophy as closely as possible.
+
+Create or extend shared naming helpers ONLY for drone/bulk if doing so does not alter main output names.
+
+Requirements:
+
+- names should clearly encode stage and sensor/product
+- translated outputs must remain explicitly Landsat-like
+- corrected MicaSense and translated Landsat-like outputs must never be ambiguous
+- source and target sensor names should be consistent across:
+  - filenames
+  - JSON
+  - Parquet
+  - QA labels
+  - reports
+  - logs
+
+Audit inconsistent forms such as:
+- landsat_like
+- landsat-like
+- translated_landsat
+- Landsat equivalent
+- MicaSense_to-match
+- sensor-specific aliases
+
+Keep machine-readable IDs stable where already public.
+
+Prefer display-label helpers rather than changing existing identifiers unnecessarily.
+
+==================================================
+PART 2. SPECTRAL/BAND NAMING
+==================================================
+
+Preserve the recent wavelength-aware band matching work.
+
+Never treat band number alone as a global physical identity.
+
+All QA plots and reports should prefer labels like:
+
+TM B1 · 485 nm
+
+OLI B2 · 482 nm
+
+MicaSense · 475 nm
+
+rather than merely:
+
+Band 1
+
+Where source and target are shown together, make both identities explicit.
+
+Do not regress the recent fix that distinguishes:
+- TM/ETM+ blue band 1
+from
+- OLI/OLI-2 coastal aerosol band 1
+and OLI blue band 2
+
+Add regression tests where needed.
+
+==================================================
+PART 3. RESTARTABILITY
+==================================================
+
+A kernel/process death should not require rerunning completed expensive stages.
+
+Use a common stage-reuse philosophy for drone and bulk.
+
+Each expensive stage should have:
+
+- identifiable inputs
+- relevant configuration fingerprint
+- output validation
+- machine-readable stage record/provenance
+- clear reused/recomputed status
+
+If:
+- inputs match
+- config matches
+- output validates
+
+then reuse.
+
+If any of those differ:
+recompute that stage and any dependent downstream stage.
+
+Do not rely only on "file exists".
+
+==================================================
+DRONE RESTART STAGES
+==================================================
+
+Audit and harden reuse for:
+
+1. TIFF/source discovery
+2. TIFF -> working H5
+3. working H5 preparation
+4. H5 -> ENVI
+5. corrected ENVI
+6. translation
+7. Landsat-like spectral-library Parquet
+8. Landsat download/cache
+9. Landsat comparison QA
+10. optional NEON comparison QA
+11. final QA report
+
+Do not rewrite the existing TIFF->H5 bridge.
+
+Treat:
+- convert_drone_tiff_to_h5()
+- _prepare_drone_source_working_h5()
+- _prepare_drone_h5_working_copy()
+- manifest matching
+- ancillary matching
+- solar geometry
+as protected infrastructure.
+
+Only add minimal restart metadata around them if needed.
+
+==================================================
+BULK RESTART STAGES
+==================================================
+
+Audit and harden reuse for:
+
+1. source discovery/catalog
+2. per-flightline streaming/checkpoints
+3. compact statistics
+4. pooled coefficients
+5. flightline-balanced coefficients
+6. site-balanced coefficients
+7. per-flightline fits
+8. per-site fits
+9. LOSO
+10. summarize_bulk_results()
+11. detailed QA figures
+12. publication panels
+13. final summary report
+
+Bulk restartability should remain based on compact outputs.
+
+Never recreate a giant pixel cache merely to regenerate summaries or plots.
+
+==================================================
+PART 4. MODULARITY FOR DEBUGGING
+==================================================
+
+A developer should be able to rerun each major stage independently.
+
+Do not force full pipeline reruns for debugging.
+
+Audit public/internal callable boundaries.
+
+For DRONE, make sure there are clean callable stages for:
+
+- prepare working H5
+- create/export ENVI
+- apply correction
+- load translation coefficients
+- apply translation
+- create Landsat-like spectral library
+- run standalone drone QA
+- acquire/cache Landsat
+- run Landsat comparison
+- run optional NEON comparison
+- render final QA report
+
+For BULK, make sure there are clean callable stages for:
+
+- discover/archive catalog
+- process/checkpoint flightlines
+- calculate coefficient candidates
+- per-flightline summaries
+- per-site summaries
+- LOSO
+- summarize results
+- render diagnostic QA
+- render publication figures
+- render final report
+
+Do not over-expose dozens of tiny functions as public APIs.
+
+Keep a small top-level API with modular internals.
+
+==================================================
+PART 5. QA ARCHITECTURE
+==================================================
+
+Separate QA into two layers:
+
+A. FULL DIAGNOSTIC QA
+Keep rich detailed diagnostics for debugging and scientific review.
+
+B. ONE-PAGE QA SUMMARY
+Create a concise visual summary answering:
+
+Did this run work?
+What should I worry about?
+
+Every pipeline should have a high-level summary before the detailed diagnostics.
+
+==================================================
+DRONE QA SUMMARY
+==================================================
+
+Create or improve a single first-page drone QA summary panel.
+
+It should communicate at a glance:
+
+- flight/source identity
+- TIFF/H5 ingest status
+- acquisition datetime
+- topo status
+- BRDF status
+- valid-pixel fraction
+- translation status
+- coefficient weighting used
+- coefficient provenance/run ID
+- largest translation shift
+- range-compatibility warning status
+- Landsat comparison status
+- Landsat comparison key metric(s)
+- NEON comparison status if supplied
+- overall attention/warning count
+
+This should look designed, not like a debug table.
+
+Use a restrained visual hierarchy.
+
+==================================================
+BULK QA SUMMARY
+==================================================
+
+Create or improve a one-page bulk QA summary panel containing:
+
+- accepted flightlines
+- sites
+- observation rows
+- failed/excluded sources
+- coefficient rows
+- median R²
+- worst R²
+- median RMSE
+- worst RMSE
+- median correction magnitude
+- maximum correction magnitude
+- most weighting-sensitive pair-band
+- most site-dependent pair-band
+- worst LOSO pair-band/site
+- total attention flags
+
+This should immediately show whether the population analysis is trustworthy and where the weak points are.
+
+==================================================
+PART 6. PUBLICATION-QUALITY FIGURES
+==================================================
+
+This is a major priority.
+
+The current analytical figures contain good information but many are too dense for a paper.
+
+Design a consistent publication figure system for DRONE and BULK.
+
+Requirements:
+
+- large readable text
+- readable at standard manuscript width
+- minimalist design
+- no clutter
+- no tiny axis labels
+- no huge legends covering data
+- consistent typography
+- consistent margins
+- clear A/B/C panel labels
+- useful whitespace
+- concise titles
+- restrained gridlines
+- accessible color choices
+- use the same sensor colors consistently across the package
+- use the same weighting colors consistently across all bulk figures
+- avoid rainbow palettes
+- avoid unnecessary decorative backgrounds
+- export high-resolution PNG and vector PDF/SVG where practical
+
+Do not simply enlarge the existing plots.
+
+Redesign the visual hierarchy.
+
+==================================================
+COLOR SYSTEM
+==================================================
+
+Define a small shared plotting palette for DRONE/BULK only.
+
+Choose consistent categories such as:
+
+SENSORS
+- MicaSense
+- TM/ETM+
+- OLI/OLI-2
+- actual Landsat
+- NEON-derived Landsat-like
+- drone-derived Landsat-like
+
+WEIGHTINGS
+- pixel pooled
+- flightline balanced
+- site balanced
+
+STATUS
+- normal
+- attention
+- failure
+
+Use colorblind-safe distinctions.
+
+Do not use color as the only encoding where markers/linestyles can help.
+
+Do not modify main-pipeline plot colors unless strictly shared code can preserve existing appearance.
+
+==================================================
+BULK PUBLICATION PANELS
+==================================================
+
+Generate three deliberately designed publication figures from compact bulk outputs.
+
+FIGURE 1
+TRANSLATION PERFORMANCE
+
+Panel A:
+candidate slopes relative to identity
+
+Panel B:
+fit quality
+prefer a concise metric view such as R² and/or RMSE
+
+Panel C:
+correction magnitude
+
+Goal:
+Does the translation fit and how much does it change values?
+
+--------------------------------------------------
+
+FIGURE 2
+TRANSLATION STABILITY
+
+Panel A:
+weighting sensitivity
+
+Panel B:
+flightline heterogeneity
+
+Panel C:
+site heterogeneity
+
+Goal:
+Is one coefficient stable across how data are weighted and across space?
+
+--------------------------------------------------
+
+FIGURE 3
+GENERALIZATION AND FAILURE CASES
+
+Panel A:
+LOSO R²
+
+Panel B:
+LOSO RMSE
+
+Panel C:
+ranked problem cases / attention flags
+
+Goal:
+Does the translation generalize to unseen sites, and where does it fail?
+
+--------------------------------------------------
+
+Avoid 18 long text strings on a y-axis when a shorter wavelength-aware pair ID will work.
+
+Examples:
+
+MS475 → TM B1 · 485
+
+MS444 → OLI B1 · 443
+
+MS475 → OLI B2 · 482
+
+Use a lookup/display helper so labels are generated consistently.
+
+==================================================
+DRONE PUBLICATION PANELS
+==================================================
+
+Create a compact publication-ready drone QA figure, even if some panels are unavailable on a given run.
+
+Suggested structure:
+
+FIGURE A
+PIPELINE / TRANSLATION QUALITY
+
+Panel A:
+corrected MicaSense vs translated Landsat-like band summaries
+
+Panel B:
+per-band translation shift or residual relative to identity
+
+Panel C:
+translation coefficient/range compatibility summary
+
+If actual Landsat is available:
+
+FIGURE B
+EXTERNAL VALIDATION
+
+Panel A:
+drone-derived Landsat-like vs actual Landsat
+
+Panel B:
+per-band bias/RMSE
+
+Panel C:
+residual distribution or spatial comparison
+
+If NEON is also available:
+
+FIGURE C
+THREE-WAY VALIDATION
+
+Panel A:
+actual Landsat vs drone-like
+
+Panel B:
+actual Landsat vs NEON-like
+
+Panel C:
+drone-like vs NEON-like
+
+Use common Landsat spatial support.
+
+Do not fail figure creation simply because one optional comparison is unavailable.
+
+Instead clearly mark that panel as unavailable with reason.
+
+==================================================
+PART 7. QA REPORTS
+==================================================
+
+Each pipeline should produce a concise report plus detailed diagnostics.
+
+DRONE REPORT
+
+Page 1:
+QA summary dashboard
+
+Next pages:
+- input/ingestion
+- correction
+- translation
+- actual Landsat comparison if available
+- NEON comparison if available
+- provenance/warnings
+
+BULK REPORT
+
+Page 1:
+QA summary dashboard
+
+Next pages:
+- publication Figure 1
+- publication Figure 2
+- publication Figure 3
+- detailed diagnostic figures
+- ranked flagged cases
+- run/provenance summary
+
+Reports should be readable without opening a notebook.
+
+==================================================
+PART 8. FIGURE FILE ORGANIZATION
+==================================================
+
+Keep diagnostic and publication outputs separate.
+
+Conceptually:
+
+qa/
+  summary/
+  diagnostics/
+  publication/
+
+Use existing repo conventions where possible.
+
+Do not create unnecessary nested directories.
+
+Make output locations deterministic and documented.
+
+==================================================
+PART 9. SUMMARY JSON / MACHINE-READABLE QA
+==================================================
+
+Every visual summary should have corresponding machine-readable values.
+
+For both drone and bulk:
+
+- metrics
+- warning flags
+- stage status
+- run ID
+- package version
+- source fingerprints
+- configuration
+- timestamp
+
+The PDF/PNG report should be reproducible from the compact QA JSON/Parquet products wherever practical.
+
+==================================================
+PART 10. LOGGING / USER FEEDBACK
+==================================================
+
+Use concise stage-oriented output.
+
+A run should clearly say things like:
+
+[drone] working H5: reused
+[drone] corrected ENVI: reused
+[drone] translation: running
+[drone] Landsat QA: no suitable scene
+[drone] report: complete
+
+and:
+
+[bulk] catalog: reused
+[bulk] checkpoints: 122/122 valid
+[bulk] coefficients: reused
+[bulk] LOSO: reused
+[bulk] publication figures: regenerated
+
+Avoid noisy per-pixel or per-row logs.
+
+Do not change normal main-pipeline logging.
+
+==================================================
+PART 11. TESTING
+==================================================
+
+Before editing:
+
+run focused baseline tests for:
+- drone
+- bulk
+- QA
+- band matching
+- restart behavior
+- normal NEON regression
+
+Record baseline status.
+
+After changes, add tests for:
+
+NAMING
+- consistent sensor labels
+- wavelength-aware labels
+- no band-number-only assumptions
+
+RESTARTABILITY
+- completed stages reuse valid outputs
+- config/input changes invalidate only necessary downstream stages
+- corrupted outputs are recomputed
+- QA/report regeneration does not rerun core science stages
+
+MODULARITY
+- major stages callable independently
+- stage outputs feed downstream functions cleanly
+
+DRONE QA
+- summary report works with:
+  - drone only
+  - drone + Landsat
+  - drone + Landsat + NEON
+- optional data absence does not fail the run
+
+BULK QA
+- summary page generated from compact outputs
+- publication panels generated without raster archive access
+- wavelength-aware labels used
+
+FIGURE QUALITY REGRESSION
+Do not pixel-match images.
+
+Instead test:
+- expected panel count
+- non-empty outputs
+- figure dimensions
+- minimum font-size configuration
+- required axis/panel labels
+- deterministic output filenames
+
+NEON REGRESSION
+- all existing normal NEON tests pass unchanged
+
+==================================================
+PART 12. CURRENT BULK RESULT INTEGRATION
+==================================================
+
+The production bulk run already contains:
+
+- 122 accepted flightlines
+- NIWO, WREF, YELL
+- ~899.7 million selected observations
+- 18 unique pair-band regressions
+- 54 candidate coefficient rows
+- 2,196 per-flightline fits
+- 54 per-site fits
+- 54 LOSO tests
+
+Use the compact production-output schema as the design target.
+
+Do not hard-code those values.
+
+The plotting/report code must remain generic.
+
+==================================================
+PART 13. DO NOT RECOMPUTE COEFFICIENTS FOR DISPLAY CHANGES
+==================================================
+
+The band-match hardening already established the new physical correspondence.
+
+For figure/report redesign:
+
+reuse compact existing coefficient and validation outputs.
+
+Do not rerun the giant production raster analysis just to make prettier figures.
+
+If compact outputs need a minor schema augmentation for better display labels, add that generically and preserve backward compatibility if practical.
+
+==================================================
+PART 14. SCIENTIFIC LANGUAGE
+==================================================
+
+Use precise language consistently.
+
+Preferred:
+- corrected MicaSense
+- translated Landsat-like
+- Landsat-equivalent
+- cross-sensor translation
+- candidate coefficients
+- site-balanced
+- flightline-balanced
+- LOSO
+- common spatial support
+
+Avoid:
+- true Landsat
+- calibrated Landsat
+- universal calibration
+unless independently supported
+
+Do not imply high R² alone proves interchangeability.
+
+==================================================
+PART 15. IMPLEMENTATION ORDER
+==================================================
+
+Work in this order:
+
+PHASE 0
+audit + baseline tests
+
+PHASE 1
+document current naming/restart/stage contracts
+
+PHASE 2
+standardize drone/bulk display naming and label helpers
+
+PHASE 3
+harden restart/stage records
+
+PHASE 4
+expose clean modular stage functions where needed
+
+PHASE 5
+build one-page QA summaries
+
+PHASE 6
+redesign publication-quality figure system
+
+PHASE 7
+build publication panels
+
+PHASE 8
+build/revise QA PDF reports
+
+PHASE 9
+update docs/examples
+
+PHASE 10
+full validation
+
+Do not begin with a large refactor.
+
+==================================================
+STOP CONDITIONS
+==================================================
+
+Stop and report instead of guessing if:
+
+- a naming change would break public compatibility
+- a shared helper change would alter normal NEON behavior
+- restart invalidation dependencies are ambiguous
+- current compact bulk outputs lack information needed for a claimed scientific figure
+- a figure would require recomputing the full source archive
+- band identity cannot be resolved spectrally
+
+==================================================
+FINAL VALIDATION
+==================================================
+
+Run at minimum:
+
+- py_compile
+- Ruff
+- targeted drone tests
+- targeted bulk tests
+- band-matching tests
+- restartability tests
+- QA/report tests
+- normal NEON regression tests
+- full pytest suite
+- docs link checks
+- strict MkDocs build
+- installed-artifact smoke if practical
+
+Record exact results.
+
+==================================================
+GOVERNANCE
+==================================================
+
+Follow AGENTS.md.
+
+Update:
+- FEATURE_REQUESTS.md
+- PROMPT_LOG.md
+- AI transparency artifacts
+- CHANGELOG.md if appropriate
+
+Do not create a release tag.
+Do not publish to PyPI.
+
+Commit and push only after validation passes.
+
+==================================================
+FINAL REPORT
+==================================================
+
+Return:
+
+1. starting commit
+2. final commit
+3. files changed
+4. whether main NEON code changed
+5. naming changes
+6. restartability changes
+7. modular stage entry points
+8. drone QA summary design
+9. bulk QA summary design
+10. publication figure system
+11. bulk publication panels created
+12. drone publication panels created
+13. report outputs
+14. tests added
+15. full validation results
+16. any remaining weaknesses
+17. exact next real-data run recommended before v2.3.0rc1
+
+Explicitly state:
+
+Normal NEON scientific/behavioral output changed: YES/NO
+
+The expected answer is NO.
+```

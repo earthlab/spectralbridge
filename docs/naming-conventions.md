@@ -68,8 +68,12 @@ double-underscore separator for drone products:
 | `<flight_stem>__polygon_index.parquet` | Polygon-to-pixel lookup |
 | `<flight_stem>__polygons.parquet` | Polygon-filtered spectral table |
 | `<flight_stem>__qa.png/.json` | Drone QA artifacts |
+| `<stage_stem>__*.stage.json` | Input/config fingerprint, output list, and reuse status for an expensive drone stage |
+| `qa_publication/<translated_stem>__translation_quality.(png|pdf)` | Publication-ready corrected-MicaSense to translated-Landsat-like summary |
 | `drone_merged.parquet` | Merged drone polygon table |
 | `drone_qa_summary.json` | Batch QA summary |
+| `qa/summary/drone_qa_summary.(png|json)` | One-page visual dashboard and its machine-readable values |
+| `qa/report.stage.json` and `qa_summary.pdf` | Restart record and self-contained QA report |
 
 ## Bulk analysis output suffixes
 
@@ -95,8 +99,10 @@ fixed collection-level names rather than NEON or drone flight stems:
 | `coefficients/candidate_translation_coefficients.parquet/.json` | Pixel-pooled and balanced source-to-target translation candidates |
 | `analyses/bulk_results/*.parquet` | Compact weighting, stability, transferability, pair-band, and attention-flag tables derived from completed model outputs |
 | `analyses/bulk_results/bulk_results_summary.json` | Results configuration, compact input fingerprints, overview, warnings, and restart signature |
-| `figures/bulk_results/*.png` | Optional compact translation interpretation figures |
-| `reports/bulk_results/bulk_translation_results.md` | Optional Markdown translation interpretation report |
+| `figures/bulk_results/summary/bulk_qa_summary.(png|pdf)` | One-page population QA dashboard |
+| `figures/bulk_results/diagnostics/*.png` | Full diagnostic translation figures |
+| `figures/bulk_results/publication/*.(png|pdf)` | Three manuscript-width performance, stability, and generalization panels |
+| `reports/bulk_results/bulk_translation_results.(md|pdf)` | Portable narrative and self-contained multipage report |
 | `analyses/spectral_library/species_summary.parquet` | Species counts, wavelength coverage, and observed reflectance bounds |
 | `analyses/spectral_library/species_band_summary.parquet` | Compact per-species/per-wavelength moments and extrema |
 | `analyses/spectral_library/species_quantiles.parquet` | Approximate spectral quantiles at configured probabilities |

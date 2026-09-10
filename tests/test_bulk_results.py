@@ -276,6 +276,11 @@ def test_summarize_bulk_results_uses_compact_outputs_only(tmp_path: Path) -> Non
     assert result["overview"]["candidate_coefficient_count"] == 6
     assert result["overview"]["candidate_slope_median"] == pytest.approx(0.985)
     assert result["overview"]["candidate_r2_min"] == pytest.approx(0.70)
+    assert result["overview"]["candidate_rmse_median"] == pytest.approx(0.01)
+    assert result["overview"]["candidate_rmse_max"] == pytest.approx(0.01)
+    assert result["overview"]["most_weighting_sensitive"]["translation_pair"] == "unstable_pair"
+    assert result["overview"]["most_site_dependent"]["translation_pair"] == "unstable_pair"
+    assert result["overview"]["worst_loso"]["held_out_site"] == "NIWO"
     assert "never equality of sensor-local band numbers" in result[
         "band_matching_basis"
     ]
@@ -322,6 +327,19 @@ def test_summarize_bulk_results_uses_compact_outputs_only(tmp_path: Path) -> Non
         assert Path(path).is_file()
     for path in result["figures"]:
         assert Path(path).read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+    assert Path(result["qa_summary_figure"]["png"]).read_bytes().startswith(
+        b"\x89PNG\r\n\x1a\n"
+    )
+    assert Path(result["qa_summary_figure"]["pdf"]).read_bytes().startswith(b"%PDF")
+    assert set(result["publication_figures"]) == {
+        "translation_performance",
+        "translation_stability",
+        "generalization_and_failures",
+    }
+    for formats in result["publication_figures"].values():
+        assert Path(formats["png"]).read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+        assert Path(formats["pdf"]).read_bytes().startswith(b"%PDF")
+    assert Path(result["report_pdf"]).read_bytes().startswith(b"%PDF")
     report = Path(result["report"]).read_text(encoding="utf-8")
     assert "does not establish\nsensor interchangeability" in report
     assert "not universal scientific\nacceptance criteria" in report
@@ -360,7 +378,7 @@ def test_bulk_qa_band_context_uses_wavelength_identity_and_rejects_index_match()
     )
     plot_label = bulk_results_module._plot_band_label({**blue_oli, **oli_context})
     assert "Blue" in plot_label
-    assert "Landsat_8_OLI B2 (482 nm)" in plot_label
+    assert "MS475 → L8 OLI B2 · 482" in plot_label
 
     with pytest.raises(ValueError, match="wavelength-incompatible"):
         bulk_results_module._band_match_context(

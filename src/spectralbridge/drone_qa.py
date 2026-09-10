@@ -16,6 +16,13 @@ import numpy as np
 
 from spectralbridge.drone_translation import DroneTranslationPlan
 from spectralbridge.envi import hdr_to_dict, memmap_bsq
+from spectralbridge.qa_style import (
+    DEFAULT_QA_STYLE,
+    SENSOR_COLORS,
+    STATUS_COLORS,
+    apply_qa_axis_style,
+    sensor_display_label,
+)
 
 
 def _finite_without_nodata(values: np.ndarray, nodata: float) -> np.ndarray:
@@ -218,7 +225,7 @@ def render_common_support_comparison(
         ("mean_bias", "mae", "rmse", "correlation"),
         strict=True,
     )
-    for ax, metric in metric_axes:
+    for panel, (ax, metric) in zip("ABCD", metric_axes, strict=True):
         for pair_index, pair_name in enumerate(pair_names):
             values = []
             for band in bands:
@@ -233,10 +240,17 @@ def render_common_support_comparison(
         ax.set_title(metric.replace("_", " ").title())
         ax.set_xticks(x)
         ax.set_xticklabels(
-            [str(band.get("target_band_index")) for band in bands]
+            [
+                f"B{band.get('target_band_index')}\n"
+                f"{float(band.get('target_wavelength_nm')):g} nm"
+                if band.get("target_wavelength_nm") is not None
+                else f"B{band.get('target_band_index')}"
+                for band in bands
+            ]
         )
-        ax.set_xlabel("Target band")
+        ax.set_xlabel("Target band and center wavelength")
         ax.grid(axis="y", alpha=0.2)
+        ax.text(-0.08, 1.04, panel, transform=ax.transAxes, fontsize=12, weight="bold")
     axes[0, 0].legend(fontsize=8)
     actual = comparison.get("actual_landsat", {})
     fig.suptitle(
@@ -246,12 +260,120 @@ def render_common_support_comparison(
     fig.tight_layout()
     output_png.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_png, dpi=150)
+    fig.savefig(output_png.with_suffix(".pdf"), bbox_inches="tight", facecolor="white")
     plt.close(fig)
     output_json.write_text(json.dumps(comparison, indent=2), encoding="utf-8")
     return output_png, output_json
 
 
+def render_drone_translation_publication(
+    translation_qa: dict[str, Any],
+    *,
+    output_stem: str | Path,
+) -> dict[str, str]:
+    """Render a compact three-panel translation figure from QA JSON values."""
+
+    output_stem = Path(output_stem)
+    bands = translation_qa.get("bands", [])
+    figure, axes = plt.subplots(
+        1,
+        3,
+        figsize=(DEFAULT_QA_STYLE.manuscript_width_inches, 3.4),
+        constrained_layout=True,
+    )
+    if not bands:
+        for panel, axis in zip("ABC", axes, strict=True):
+            axis.text(0.5, 0.5, "Unavailable\nNo translated bands", ha="center", va="center")
+            axis.text(-0.12, 1.03, panel, transform=axis.transAxes, fontsize=12, weight="bold")
+            axis.axis("off")
+    else:
+        x = np.arange(len(bands))
+        labels = [
+            f"MS {float(row['source_wavelength_nm']):g} →\n"
+            f"B{int(row['target_band_index'])} · {float(row['target_wavelength_nm']):g} nm"
+            for row in bands
+        ]
+        axes[0].plot(
+            x,
+            [row.get("source_median", np.nan) for row in bands],
+            marker="o",
+            color=SENSOR_COLORS["micasense"],
+            label="Corrected MicaSense",
+        )
+        axes[0].plot(
+            x,
+            [row.get("translated_median", np.nan) for row in bands],
+            marker="s",
+            color=SENSOR_COLORS["drone_landsat_like"],
+            label="Translated Landsat-like",
+        )
+        axes[0].set_title("Band medians", fontsize=10, loc="left")
+        axes[0].set_ylabel("Reflectance value")
+        axes[0].legend(frameon=False, fontsize=7, loc="best")
+        shifts = [
+            float(row["median_relative_shift_percent"])
+            if row.get("median_relative_shift_percent") is not None
+            else np.nan
+            for row in bands
+        ]
+        axes[1].bar(
+            x,
+            shifts,
+            color=[
+                STATUS_COLORS["attention"]
+                if np.isfinite(value) and abs(value) > 20
+                else SENSOR_COLORS["drone_landsat_like"]
+                for value in shifts
+            ],
+        )
+        axes[1].axhline(0.0, color="#333333", linewidth=0.8)
+        axes[1].set_title("Median translation shift", fontsize=10, loc="left")
+        axes[1].set_ylabel("Change from source (%)")
+        axes[2].scatter(
+            [row.get("slope", np.nan) for row in bands],
+            x,
+            color=SENSOR_COLORS["drone_landsat_like"],
+            marker="D",
+            s=30,
+        )
+        axes[2].axvline(1.0, color="#333333", linestyle="--", linewidth=0.9)
+        axes[2].set_title("Coefficient and range", fontsize=10, loc="left")
+        axes[2].set_xlabel("Slope (identity = 1)")
+        for index, row in enumerate(bands):
+            axes[2].text(
+                axes[2].get_xlim()[1],
+                index,
+                f"R² {float(row['r2_bulk']):.3f}" if row.get("r2_bulk") is not None else "R² n/a",
+                fontsize=7,
+                va="center",
+                ha="right",
+            )
+        for panel, axis in zip("ABC", axes, strict=True):
+            axis.text(-0.12, 1.03, panel, transform=axis.transAxes, fontsize=12, weight="bold")
+            apply_qa_axis_style(axis)
+        for axis in axes[:2]:
+            axis.set_xticks(x, labels, rotation=35, ha="right", fontsize=7)
+        axes[2].set_yticks(x, labels, fontsize=7)
+        axes[2].invert_yaxis()
+    target = sensor_display_label(
+        str((translation_qa.get("translation_provenance") or {}).get("target_sensor", "Landsat target"))
+    )
+    figure.suptitle(
+        f"Drone cross-sensor translation quality · {target}",
+        fontsize=DEFAULT_QA_STYLE.title_font_size,
+        weight="bold",
+    )
+    output_stem.parent.mkdir(parents=True, exist_ok=True)
+    png = output_stem.with_suffix(".png")
+    pdf = output_stem.with_suffix(".pdf")
+    figure.savefig(png, dpi=DEFAULT_QA_STYLE.figure_dpi, bbox_inches="tight", facecolor="white")
+    figure.savefig(pdf, bbox_inches="tight", facecolor="white")
+    plt.close(figure)
+    return {"png": str(png), "pdf": str(pdf)}
+
+
 __all__ = [
     "render_common_support_comparison",
+    "render_drone_translation_publication",
     "render_drone_translation_qa",
 ]
