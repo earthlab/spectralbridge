@@ -2930,6 +2930,13 @@ a supplied Landsat raster. It aggregates translated drone and optional
 normal-pipeline NEON products to the actual Landsat grid before comparison.
 Scene absence, cloud rejection, and insufficient overlap are QA limitations,
 not core-pipeline failures.</p>
+<p>The drone path records stage signatures beside the working H5, native ENVI,
+and corrected ENVI products. A valid output is reused only when its source
+fingerprint and relevant configuration still match; an orphaned or corrupt
+file is not a checkpoint. Translation and translated-library stages retain
+their coefficient/source signatures. <code>render_drone_qa_report</code> is an independent
+final stage that reads the run audit and existing QA artifacts, not source
+rasters.</p>
 <h3 id="independent-bulk-analysis">Independent bulk analysis<a class="headerlink" href="#independent-bulk-analysis" title="Permanent link">&para;</a></h3>
 <p><code>run_bulk_pipeline</code> is downstream of completed per-flightline workflows rather
 than another stage inside them. Scientific identity is resolved by an
@@ -2958,6 +2965,11 @@ rasters or sufficient-statistics checkpoints. Input file fingerprints and a
 configuration signature make its outputs restart-safe. Review thresholds are
 kept in <code>BulkResultsConfig</code> and are explicitly screening criteria rather than
 universal calibration acceptance rules.</p>
+<p>The streaming coefficient and LOSO calculations form one deliberately coupled
+stage because exact MAE and held-out evaluation share the bounded second source
+pass. Its signature covers compact flightline moments, requested pairs,
+threshold, and chunk configuration. Results interpretation then has separate
+compact-summary, diagnostic, publication, and final-report stages.</p>
 <p>Optional spectral-library reporting also reads its merged polygon Parquet in
 place. Its visualization-validity policy is distinct from regression validity:
 selected bands must be present, finite, and not equal to known nodata sentinels,

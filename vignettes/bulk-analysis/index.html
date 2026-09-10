@@ -3028,10 +3028,13 @@ brightness adjustment.</p>
 │   └── candidate_translation_coefficients.json
 ├── tables/
 ├── figures/
-│   ├── bulk_results/                  # optional translation PNGs
+│   ├── bulk_results/
+│   │   ├── summary/                   # one-page PNG/PDF dashboard
+│   │   ├── diagnostics/               # detailed diagnostic PNGs
+│   │   └── publication/               # three PNG/PDF manuscript panels
 │   └── spectral_library/              # optional summary/full PDFs
 ├── reports/
-│   └── bulk_results/                  # optional Markdown report
+│   └── bulk_results/                  # optional Markdown and PDF reports
 └── logs/
 </code></pre></div>
 <p>DuckDB stores catalogs, exclusions, sufficient statistics, models, QA summaries,
@@ -3093,10 +3096,14 @@ calculation is recorded as:</p>
 </ol>
 <p><code>bulk_results_summary.json</code> records all thresholds and compact input hashes.
 An unchanged rerun reuses valid outputs; changing inputs or configuration
-rebuilds them. The optional PNGs and Markdown report contain no hard-coded
+rebuilds them. A corrupt or missing downstream figure/report is regenerated
+without rerunning coefficients or source-raster analysis. The optional figures
+and Markdown/PDF reports contain no hard-coded
 production statistics: every count and metric is calculated from the supplied
 completed result tables. Plot axes are ordered by spectral identity/wavelength,
-and labels show the target wavelength and sensor-local band number. The
+and labels show both the physical source wavelength and target sensor-local band
+and wavelength. The first page answers whether the run completed and ranks the
+most weighting-sensitive, site-dependent, and weakest LOSO cases. The
 pair-band summary also records spectral identity, separate source and target
 wavelengths, wavelength difference, and the matching basis. Known built-in
 sensor rows with incompatible identities fail reporting instead of being

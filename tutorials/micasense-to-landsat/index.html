@@ -2776,10 +2776,12 @@ definition, also pass:</p>
 <div class="highlight"><pre><span></span><code>drone_outputs/
   &lt;flight_stem&gt;/
     &lt;flight_stem&gt;__working.h5
+    &lt;flight_stem&gt;__working.stage.json
     &lt;flight_stem&gt;__envi.img
     &lt;flight_stem&gt;__envi.hdr
     &lt;flight_stem&gt;__corrected.img
     &lt;flight_stem&gt;__corrected.hdr
+    &lt;flight_stem&gt;__corrected__correction.stage.json
     &lt;flight_stem&gt;__landsat_like_&lt;target&gt;_translated_envi.img
     &lt;flight_stem&gt;__landsat_like_&lt;target&gt;_translated_envi.hdr
     &lt;flight_stem&gt;__landsat_like_&lt;target&gt;_translated_envi__translation.json
@@ -2790,12 +2792,21 @@ definition, also pass:</p>
     &lt;flight_stem&gt;__landsat_like_&lt;target&gt;_translated_envi__polygons.parquet
     &lt;flight_stem&gt;__qa.png
     &lt;flight_stem&gt;__qa.json
+    qa_publication/
+      &lt;translated_stem&gt;__translation_quality.png
+      &lt;translated_stem&gt;__translation_quality.pdf
   drone_merged.parquet
   drone_landsat_like_merged.parquet
   drone_qa_summary.json
+  qa/summary/drone_qa_summary.png
+  qa/summary/drone_qa_summary.json
+  qa/report.stage.json
+  qa_summary.pdf
 </code></pre></div>
 <p>Parquet remains the authoritative tabular output. CSV sidecars, when present in
-drone workflows, are convenience copies for external tools.</p>
+drone workflows, are convenience copies for external tools.
+The stage records are the restart contract: a product is reused only when the
+recorded source/configuration fingerprint matches and the product validates.</p>
 <h2 id="inspect-the-run">Inspect the run<a class="headerlink" href="#inspect-the-run" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 

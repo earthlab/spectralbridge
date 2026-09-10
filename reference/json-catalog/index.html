@@ -2928,6 +2928,16 @@ flightline or run.</p>
 <td>Drone users and QA review</td>
 </tr>
 <tr>
+<td><code>*__working.stage.json</code>, <code>*__export.stage.json</code>, <code>*__correction.stage.json</code></td>
+<td>Drone stage input/config fingerprints, validated outputs, status, and timestamp</td>
+<td>Dependency-aware working-H5/ENVI/correction restart checks</td>
+</tr>
+<tr>
+<td><code>qa/summary/drone_qa_summary.json</code>, <code>qa/report.stage.json</code></td>
+<td>Values shown on the first-page dashboard and the compact-input signature used to reuse/rebuild the final report</td>
+<td>Standalone final QA rendering without source rasters</td>
+</tr>
+<tr>
 <td><code>*__translation.json</code></td>
 <td>Exact drone source-to-target equation, coefficient artifact fingerprint/run/weighting, wavelength-aware band mapping, source/output summaries, restart signature, and warnings</td>
 <td>Drone translation validation and restart checks</td>
@@ -2961,6 +2971,11 @@ flightline or run.</p>
 <td><code>analyses/*/analysis_metadata.json</code></td>
 <td>Analysis settings, interpretation, run ID, and machine-readable results where appropriate</td>
 <td>Independent bulk analysis modules</td>
+</tr>
+<tr>
+<td><code>analyses/bulk_results/bulk_results_summary.json</code></td>
+<td>Compact input hashes, screening configuration, dashboard metrics, priority cases, figure/report paths, and results-stage status</td>
+<td>Portable bulk QA/report regeneration</td>
 </tr>
 <tr>
 <td><code>catalog/bulk_manifest.json</code></td>

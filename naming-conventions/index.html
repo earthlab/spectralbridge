@@ -2903,12 +2903,28 @@ double-underscore separator for drone products:</p>
 <td>Drone QA artifacts</td>
 </tr>
 <tr>
+<td><code>&lt;stage_stem&gt;__*.stage.json</code></td>
+<td>Input/config fingerprint, output list, and reuse status for an expensive drone stage</td>
+</tr>
+<tr>
+<td><code>qa_publication/&lt;translated_stem&gt;__translation_quality.(png|pdf)</code></td>
+<td>Publication-ready corrected-MicaSense to translated-Landsat-like summary</td>
+</tr>
+<tr>
 <td><code>drone_merged.parquet</code></td>
 <td>Merged drone polygon table</td>
 </tr>
 <tr>
 <td><code>drone_qa_summary.json</code></td>
 <td>Batch QA summary</td>
+</tr>
+<tr>
+<td><code>qa/summary/drone_qa_summary.(png|json)</code></td>
+<td>One-page visual dashboard and its machine-readable values</td>
+</tr>
+<tr>
+<td><code>qa/report.stage.json</code> and <code>qa_summary.pdf</code></td>
+<td>Restart record and self-contained QA report</td>
 </tr>
 </tbody>
 </table>
@@ -2992,12 +3008,20 @@ fixed collection-level names rather than NEON or drone flight stems:</p>
 <td>Results configuration, compact input fingerprints, overview, warnings, and restart signature</td>
 </tr>
 <tr>
-<td><code>figures/bulk_results/*.png</code></td>
-<td>Optional compact translation interpretation figures</td>
+<td><code>figures/bulk_results/summary/bulk_qa_summary.(png|pdf)</code></td>
+<td>One-page population QA dashboard</td>
 </tr>
 <tr>
-<td><code>reports/bulk_results/bulk_translation_results.md</code></td>
-<td>Optional Markdown translation interpretation report</td>
+<td><code>figures/bulk_results/diagnostics/*.png</code></td>
+<td>Full diagnostic translation figures</td>
+</tr>
+<tr>
+<td><code>figures/bulk_results/publication/*.(png|pdf)</code></td>
+<td>Three manuscript-width performance, stability, and generalization panels</td>
+</tr>
+<tr>
+<td><code>reports/bulk_results/bulk_translation_results.(md|pdf)</code></td>
+<td>Portable narrative and self-contained multipage report</td>
 </tr>
 <tr>
 <td><code>analyses/spectral_library/species_summary.parquet</code></td>

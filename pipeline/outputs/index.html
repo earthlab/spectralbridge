@@ -2872,6 +2872,26 @@
 <td><code>drone_qa_summary.json</code></td>
 <td>Core status, optional-QA availability/reasons, source and product paths, correction and translation provenance, software version, timestamps, and warnings.</td>
 </tr>
+<tr>
+<td>Stage records</td>
+<td><code>&lt;flight&gt;__working.stage.json</code>, <code>&lt;flight&gt;__envi__export.stage.json</code>, <code>&lt;flight&gt;__corrected__correction.stage.json</code></td>
+<td>Source/config fingerprints, deterministic outputs, status, and timestamp used to decide reuse.</td>
+</tr>
+<tr>
+<td>QA dashboard</td>
+<td><code>qa/summary/drone_qa_summary.(png|json)</code></td>
+<td>First-page run status, ingest/correction/translation state, valid support, coefficient provenance, external-validation metrics, and warnings.</td>
+</tr>
+<tr>
+<td>Publication translation figure</td>
+<td><code>&lt;flight&gt;/qa_publication/*__translation_quality.(png|pdf)</code></td>
+<td>Compact wavelength-aware MicaSense-to-Landsat-like translation summary.</td>
+</tr>
+<tr>
+<td>Final QA report</td>
+<td><code>qa_summary.pdf</code>, with <code>qa/report.stage.json</code></td>
+<td>Dashboard first, followed by available diagnostic/publication pages; regenerable from compact QA products.</td>
+</tr>
 </tbody>
 </table>
 <p class="sb-doc-note">Valid working H5, corrected ENVI, translated ENVI, and translated Parquet outputs are reused when their signatures remain current. Optional Landsat or NEON comparison failures do not invalidate core products.</p>
@@ -2960,14 +2980,24 @@
 <td>Pair-band summaries with spectral identity and source/target wavelengths, weighting comparisons, flightline/site stability, LOSO transferability, configurable attention flags, and restart metadata derived only from compact result tables.</td>
 </tr>
 <tr>
-<td>Translation interpretation figures</td>
-<td><code>figures/bulk_results/*.png</code></td>
-<td>Wavelength-ordered weighting, fitted-correction, heterogeneity, and held-out-site comparisons; labels retain sensor-local band numbers plus physical wavelengths.</td>
+<td>Translation diagnostics</td>
+<td><code>figures/bulk_results/diagnostics/*.png</code></td>
+<td>Detailed wavelength-ordered weighting, correction, heterogeneity, and held-out-site comparisons.</td>
 </tr>
 <tr>
-<td>Translation interpretation report</td>
-<td><code>reports/bulk_results/bulk_translation_results.md</code></td>
-<td>Portable results narrative with counts, population summaries, pair-band screening, warning details, and explicit interpretation boundaries.</td>
+<td>QA dashboard</td>
+<td><code>figures/bulk_results/summary/bulk_qa_summary.(png|pdf)</code></td>
+<td>Accepted/excluded counts, rows, fit metrics, correction magnitude, weakest cases, and warning count.</td>
+</tr>
+<tr>
+<td>Publication panels</td>
+<td><code>figures/bulk_results/publication/*.(png|pdf)</code></td>
+<td>Translation performance, stability, and unseen-site generalization/failure cases using the shared accessible palette.</td>
+</tr>
+<tr>
+<td>Translation report</td>
+<td><code>reports/bulk_results/bulk_translation_results.(md|pdf)</code></td>
+<td>Portable narrative plus a dashboard-first multipage report assembled only from compact outputs.</td>
 </tr>
 <tr>
 <td>Spectral-library summaries</td>
