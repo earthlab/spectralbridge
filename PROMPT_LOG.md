@@ -13116,3 +13116,12 @@ Model: GPT-5
 ```text
 continue
 ```
+
+## 2026-09-10 - audit bulk QA band matching
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+i need to check the bulk analysis for band matching. in the qa plots we need to match bands by their wavelength rather than by their band number. for example, band 1 doesn't represent the same wavelength trough all the sensor. I think they add a new band 1 at a lower wavelenth than the previous band 1 so the band 1 in earlier sensors is band 2 in later, i think. anyway, check them and make sure they're matching by like kind rather than just band number.
+```

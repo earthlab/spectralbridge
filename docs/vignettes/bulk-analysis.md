@@ -75,6 +75,14 @@ matched MicaSense/Landsat products, while `ProductDescriptor` and
 `TranslationPair` support other sensor names, filename patterns, matching
 groups, expected band counts, and explicit source-to-target band mappings.
 
+Band numbers are sensor-local and are never treated as a cross-sensor identity.
+The installed relationships resolve named spectral identities against the
+packaged center wavelengths and passbands. Thus Landsat 5 TM blue band 1
+corresponds to Landsat 8 OLI blue band 2; OLI band 1 is coastal aerosol. The
+matched MicaSense products already have sensor-specific subsets: their TM/ETM+
+blue band is band 1, while their OLI/OLI-2 blue band is band 2 because that
+product also contains the coastal-aerosol match.
+
 To select one installed relationship, use its pair key:
 
 ~~~bash
@@ -314,7 +322,12 @@ The generated `analyses/bulk_results/` tables separate six questions:
 An unchanged rerun reuses valid outputs; changing inputs or configuration
 rebuilds them. The optional PNGs and Markdown report contain no hard-coded
 production statistics: every count and metric is calculated from the supplied
-completed result tables.
+completed result tables. Plot axes are ordered by spectral identity/wavelength,
+and labels show the target wavelength and sensor-local band number. The
+pair-band summary also records spectral identity, separate source and target
+wavelengths, wavelength difference, and the matching basis. Known built-in
+sensor rows with incompatible identities fail reporting instead of being
+silently plotted together.
 
 High R² indicates a strong relationship, but it does not establish sensor
 interchangeability. A pair-band with

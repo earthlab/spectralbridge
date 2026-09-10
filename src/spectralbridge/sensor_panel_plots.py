@@ -22,6 +22,8 @@ import matplotlib.pyplot as plt
 from spectralbridge.sensor_pairs import (
     MICASENSE_LANDSAT_PAIRS,
     SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY,
+    sensor_band_identity,
+    wavelength_matched_band_pairs,
 )
 
 # ---------------------------------------------------------------------------
@@ -44,7 +46,7 @@ DEFAULT_EXPECTED_SETS: Dict[str, int] = {
     "MicaSense_to-match_TM_and_ETM+": 4,
 }
 
-_SYNTHETIC_REGRESSION_SCHEMA_VERSION = 1
+_SYNTHETIC_REGRESSION_SCHEMA_VERSION = 2
 _SYNTHETIC_REGRESSION_SEED = 20260817
 _SYNTHETIC_REGRESSION_BOUNDARY = SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY
 
@@ -88,6 +90,18 @@ def _corrected_band_text(corrected_label: str, band_idx1: int) -> str:
     if 1 <= band_idx1 <= len(_HYPERSPEC_BANDS):
         return f"{corrected_label} {band_idx1} ({_HYPERSPEC_BANDS[band_idx1-1]:.1f} nm)"
     return f"{corrected_label} band {band_idx1}"
+
+
+def _nearest_hyperspectral_band_index(sensor_label: str, band_idx1: int) -> int | None:
+    """Return the one-based hyperspectral band nearest a sensor center wavelength."""
+
+    identity = sensor_band_identity(sensor_label, band_idx1)
+    if identity is None or not _HYPERSPEC_BANDS:
+        return None
+    distances = np.abs(
+        np.asarray(_HYPERSPEC_BANDS, dtype=np.float64) - identity.wavelength_nm
+    )
+    return int(np.argmin(distances)) + 1
 
 
 def _read_schema(con: duckdb.DuckDBPyConnection, parquet_path: Path) -> List[str]:
@@ -361,32 +375,45 @@ def make_sensor_vs_neon_panels(
             if not sensors:
                 continue
 
+            sensor_pairs: Dict[str, List[Tuple[int, int, str, str]]] = {}
+            for lab in sensors:
+                pairs: List[Tuple[int, int, str, str]] = []
+                for sensor_idx in bandmap[lab]:
+                    corrected_idx = _nearest_hyperspectral_band_index(lab, sensor_idx)
+                    if corrected_idx is None or corrected_idx not in bandmap[corrected]:
+                        continue
+                    pairs.append(
+                        (
+                            sensor_idx,
+                            corrected_idx,
+                            f"{corrected}_band_{corrected_idx}",
+                            f"{lab}_band_{sensor_idx}",
+                        )
+                    )
+                if pairs:
+                    sensor_pairs[lab] = pairs
+
             need_cols = sorted(
                 {
-                    f"{corrected}_band_{idx}"
-                    for lab in sensors
-                    for idx in bandmap[lab]
-                }
-                | {
-                    f"{lab}_band_{idx}"
-                    for lab in sensors
-                    for idx in bandmap[lab]
+                    column
+                    for pairs in sensor_pairs.values()
+                    for _, _, x_column, y_column in pairs
+                    for column in (x_column, y_column)
                 }
             )
 
             pal_frac = _palette_fraction_by_column(con, parquet, need_cols)
 
-            sensor_pairs: Dict[str, List[Tuple[int, str, str]]] = {}
-            for lab in sensors:
-                pairs: List[Tuple[int, str, str]] = []
-                for idx in bandmap[lab]:
-                    xcol = f"{corrected}_band_{idx}"
-                    ycol = f"{lab}_band_{idx}"
+            filtered_pairs: Dict[str, List[Tuple[int, int, str, str]]] = {}
+            for lab, pairs in sensor_pairs.items():
+                selected: List[Tuple[int, int, str, str]] = []
+                for sensor_idx, corrected_idx, xcol, ycol in pairs:
                     if pal_frac.get(xcol, 0.0) >= 0.95 or pal_frac.get(ycol, 0.0) >= 0.95:
                         continue
-                    pairs.append((idx, xcol, ycol))
-                if pairs:
-                    sensor_pairs[lab] = pairs
+                    selected.append((sensor_idx, corrected_idx, xcol, ycol))
+                if selected:
+                    filtered_pairs[lab] = selected
+            sensor_pairs = filtered_pairs
 
             if not sensor_pairs:
                 continue
@@ -408,9 +435,11 @@ def make_sensor_vs_neon_panels(
                     if c >= len(pairs):
                         ax.axis("off")
                         continue
-                    idx, xcol, ycol = pairs[c]
-                    err_cols = _present_error_cols(cols, corrected, idx) + _present_error_cols(
-                        cols, lab, idx
+                    sensor_idx, corrected_idx, xcol, ycol = pairs[c]
+                    err_cols = _present_error_cols(
+                        cols, corrected, corrected_idx
+                    ) + _present_error_cols(
+                        cols, lab, sensor_idx
                     )
                     df = _sample_pair_df(
                         con,
@@ -423,12 +452,15 @@ def make_sensor_vs_neon_panels(
                     )
                     if df.empty:
                         ax.set_title(
-                            f"{_sensor_band_text(lab, idx)} vs {_corrected_band_text(corrected, idx)}",
+                            f"{_sensor_band_text(lab, sensor_idx)} vs "
+                            f"{_corrected_band_text(corrected, corrected_idx)}",
                             fontsize=9,
                         )
-                        ax.set_xlabel(_corrected_band_text(corrected, idx), fontsize=8)
+                        ax.set_xlabel(
+                            _corrected_band_text(corrected, corrected_idx), fontsize=8
+                        )
                         if c == 0:
-                            ax.set_ylabel(_sensor_band_text(lab, idx), fontsize=8)
+                            ax.set_ylabel(_sensor_band_text(lab, sensor_idx), fontsize=8)
                         else:
                             ax.set_ylabel("")
                         continue
@@ -438,8 +470,8 @@ def make_sensor_vs_neon_panels(
                     )
                     r_value = regression["correlation"]
                     r_text = f"{r_value:.2f}" if isinstance(r_value, float) else "NA"
-                    sensor_text = _sensor_band_text(lab, idx)
-                    corrected_text = _corrected_band_text(corrected, idx)
+                    sensor_text = _sensor_band_text(lab, sensor_idx)
+                    corrected_text = _corrected_band_text(corrected, corrected_idx)
                     ax.set_title(
                         f"{sensor_text} vs {corrected_text}  r={r_text}",
                         fontsize=9,
@@ -473,19 +505,25 @@ _MS_LANDSAT_PAIRS = MICASENSE_LANDSAT_PAIRS
 
 def _collect_ms_ls_pairs(
     bandmap: Dict[str, List[int]]
-) -> Dict[Tuple[str, str], List[int]]:
-    out: Dict[Tuple[str, str], List[int]] = {}
+) -> Dict[Tuple[str, str], List[Tuple[int, int]]]:
+    out: Dict[Tuple[str, str], List[Tuple[int, int]]] = {}
     for ms_label, ls_labels in _MS_LANDSAT_PAIRS.items():
         if ms_label not in bandmap:
             continue
-        ms_bands = bandmap[ms_label]
         for ls_label in ls_labels:
             if ls_label not in bandmap:
                 continue
-            ls_bands = bandmap[ls_label]
-            common = sorted(set(ms_bands) & set(ls_bands))
-            if common:
-                out[(ms_label, ls_label)] = common
+            available_source = set(bandmap[ms_label])
+            available_target = set(bandmap[ls_label])
+            matches = [
+                (source_band, target_band)
+                for source_band, target_band in wavelength_matched_band_pairs(
+                    ms_label, ls_label
+                )
+                if source_band in available_source and target_band in available_target
+            ]
+            if matches:
+                out[(ms_label, ls_label)] = matches
     return out
 
 
@@ -523,10 +561,13 @@ def make_micasense_vs_landsat_panels(
 
             need_cols = sorted(
                 {
-                    f"{label}_band_{idx}"
-                    for (ms_label, ls_label), indices in ms_pairs.items()
-                    for idx in indices
-                    for label in (ms_label, ls_label)
+                    column
+                    for (ms_label, ls_label), matches in ms_pairs.items()
+                    for source_idx, target_idx in matches
+                    for column in (
+                        f"{ms_label}_band_{source_idx}",
+                        f"{ls_label}_band_{target_idx}",
+                    )
                 }
             )
             pal_frac = _palette_fraction_by_column(con, parquet, need_cols)
@@ -542,22 +583,24 @@ def make_micasense_vs_landsat_panels(
             regression_records: list[dict[str, object]] = []
 
             for r, (ms_label, ls_label) in enumerate(ordered_pairs):
-                indices = ms_pairs[(ms_label, ls_label)]
+                matches = ms_pairs[(ms_label, ls_label)]
                 for c in range(n_cols):
                     ax = axes[r][c]
-                    if c >= len(indices):
+                    if c >= len(matches):
                         ax.axis("off")
                         continue
 
-                    idx = indices[c]
-                    xcol = f"{ms_label}_band_{idx}"
-                    ycol = f"{ls_label}_band_{idx}"
+                    source_idx, target_idx = matches[c]
+                    xcol = f"{ms_label}_band_{source_idx}"
+                    ycol = f"{ls_label}_band_{target_idx}"
                     if pal_frac.get(xcol, 0.0) >= 0.95 or pal_frac.get(ycol, 0.0) >= 0.95:
                         ax.axis("off")
                         continue
 
-                    err_cols = _present_error_cols(cols, ms_label, idx) + _present_error_cols(
-                        cols, ls_label, idx
+                    err_cols = _present_error_cols(
+                        cols, ms_label, source_idx
+                    ) + _present_error_cols(
+                        cols, ls_label, target_idx
                     )
                     df = _sample_pair_df(
                         con,
@@ -579,7 +622,19 @@ def make_micasense_vs_landsat_panels(
                         {
                             "micasense_sensor": ms_label,
                             "landsat_sensor": ls_label,
-                            "band_index": idx,
+                            "band_index": c + 1,
+                            "source_band_index": source_idx,
+                            "target_band_index": target_idx,
+                            "source_wavelength_nm": sensor_band_identity(
+                                ms_label, source_idx
+                            ).wavelength_nm,
+                            "target_wavelength_nm": sensor_band_identity(
+                                ls_label, target_idx
+                            ).wavelength_nm,
+                            "spectral_identity": sensor_band_identity(
+                                ms_label, source_idx
+                            ).spectral_identity,
+                            "matching_basis": "shared_spectral_identity_and_wavelength",
                             "x_column": xcol,
                             "y_column": ycol,
                             **regression,
@@ -587,8 +642,8 @@ def make_micasense_vs_landsat_panels(
                     )
                     r_value = regression["correlation"]
                     r_text = f"{r_value:.2f}" if isinstance(r_value, float) else "NA"
-                    ms_text = _sensor_band_text(ms_label, idx)
-                    ls_text = _sensor_band_text(ls_label, idx)
+                    ms_text = _sensor_band_text(ms_label, source_idx)
+                    ls_text = _sensor_band_text(ls_label, target_idx)
                     ax.set_title(f"{ls_text} vs {ms_text}  r={r_text}", fontsize=9)
                     ax.set_xlabel(ms_text, fontsize=8)
                     if c == 0:
@@ -618,6 +673,9 @@ def make_micasense_vs_landsat_panels(
                 "schema_version": _SYNTHETIC_REGRESSION_SCHEMA_VERSION,
                 "diagnostic": "synthetic_sensor_linear_regression",
                 "evidence_boundary": _SYNTHETIC_REGRESSION_BOUNDARY,
+                "band_matching_basis": (
+                    "shared_spectral_identity_and_packaged_wavelength"
+                ),
                 "source_parquet": parquet.name,
                 "plot": out_png.name,
                 "sampling": {

@@ -9,6 +9,7 @@ import pyarrow.parquet as pq
 import pytest
 
 import spectralbridge
+from spectralbridge.bulk import results as bulk_results_module
 from spectralbridge.bulk.analyses.streaming_translation import (
     _LOSO_SCHEMA as INPUT_LOSO_SCHEMA,
 )
@@ -275,6 +276,9 @@ def test_summarize_bulk_results_uses_compact_outputs_only(tmp_path: Path) -> Non
     assert result["overview"]["candidate_coefficient_count"] == 6
     assert result["overview"]["candidate_slope_median"] == pytest.approx(0.985)
     assert result["overview"]["candidate_r2_min"] == pytest.approx(0.70)
+    assert "never equality of sensor-local band numbers" in result[
+        "band_matching_basis"
+    ]
 
     summaries = {
         row["translation_pair"]: row for row in result["pair_band_summaries"]
@@ -325,6 +329,47 @@ def test_summarize_bulk_results_uses_compact_outputs_only(tmp_path: Path) -> Non
     reused = summarize_bulk_results(bulk_output, make_figures=True, make_report=True)
     assert reused["status"] == "reused"
     assert reused["results_signature_sha256"] == result["results_signature_sha256"]
+
+
+def test_bulk_qa_band_context_uses_wavelength_identity_and_rejects_index_match() -> None:
+    blue_tm = {
+        "translation_pair": "tm-blue",
+        "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+        "target_sensor": "Landsat_5_TM",
+        "source_band_index": 1,
+        "target_band_index": 1,
+        "band_index": 1,
+    }
+    blue_oli = {
+        "translation_pair": "oli-blue",
+        "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+        "target_sensor": "Landsat_8_OLI",
+        "source_band_index": 2,
+        "target_band_index": 2,
+        "band_index": 2,
+    }
+
+    tm_context = bulk_results_module._band_match_context(blue_tm)
+    oli_context = bulk_results_module._band_match_context(blue_oli)
+    assert tm_context["spectral_identity"] == "blue"
+    assert oli_context["spectral_identity"] == "blue"
+    assert tm_context["target_wavelength_nm"] == pytest.approx(485.0)
+    assert oli_context["target_wavelength_nm"] == pytest.approx(482.0)
+    assert "Blue" in bulk_results_module._report_band_label(
+        {**blue_oli, **oli_context}
+    )
+    plot_label = bulk_results_module._plot_band_label({**blue_oli, **oli_context})
+    assert "Blue" in plot_label
+    assert "Landsat_8_OLI B2 (482 nm)" in plot_label
+
+    with pytest.raises(ValueError, match="wavelength-incompatible"):
+        bulk_results_module._band_match_context(
+            {
+                **blue_tm,
+                "target_sensor": "Landsat_8_OLI",
+                "target_band_index": 1,
+            }
+        )
 
 
 def test_summarize_bulk_results_config_and_validation(tmp_path: Path) -> None:

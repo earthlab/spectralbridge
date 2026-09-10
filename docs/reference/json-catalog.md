@@ -61,7 +61,7 @@ flightline or run.
 | `*__translation_qa.json` | Per-band corrected-MicaSense versus Landsat-like shifts, valid fractions, coefficient evidence, and unusual-value checks | Standalone drone QA; no network or NEON required |
 | `landsat_cache/*.json` | Selected or supplied actual Landsat observation, sensor/date/cloud/temporal context, asset/scaling metadata, and cached cropped raster | Optional Landsat comparison reuse and provenance |
 | `qa_common_support/*__comparison.json` | Common-grid specification, aggregation/support details, acquisition times, overlap, and pairwise drone/NEON/actual metrics | Optional two- or three-way validation QA |
-| `qa_plots/*__MS_vs_Landsat_FIXED.json` | Per-flightline sampled synthetic MicaSense/Landsat regression diagnostic | QA inspection only; not a pooled coefficient source |
+| `qa_plots/*__MS_vs_Landsat_FIXED.json` | Per-flightline sampled synthetic MicaSense/Landsat regression diagnostic with spectral identity, separate source/target band indices, and center wavelengths | QA inspection only; not a pooled coefficient source |
 | `coefficients/candidate_translation_coefficients.json` | Pixel-pooled and balanced synthetic regression candidates plus their evidence boundary | Bulk analysis and reviewed downstream translation work |
 | `analyses/*/analysis_metadata.json` | Analysis settings, interpretation, run ID, and machine-readable results where appropriate | Independent bulk analysis modules |
 | `catalog/bulk_manifest.json` | Canonical catalog signature, source policy, settings, counts, and output names | Restart validation for `run_bulk_pipeline` |

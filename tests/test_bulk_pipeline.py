@@ -34,6 +34,10 @@ from spectralbridge.bulk.registry import (
 )
 from spectralbridge.bulk.streaming import BivariateStatistics
 from spectralbridge.cli.bulk_cli import _build_parser
+from spectralbridge.sensor_pairs import (
+    sensor_band_identity,
+    wavelength_matched_band_pairs,
+)
 
 
 MS_OLI = "MicaSense_to-match_OLI_and_OLI-2_band_1"
@@ -892,6 +896,28 @@ def test_target_only_six_family_archive_completes_all_default_pairs(
     assert completed_pairs == {
         pair.key for pair in DEFAULT_PRODUCT_REGISTRY.translation_pairs
     }
+
+
+def test_builtin_band_pairs_use_spectral_identity_not_equal_band_number() -> None:
+    assert wavelength_matched_band_pairs("Landsat_5_TM", "Landsat_8_OLI") == (
+        (1, 2),
+        (2, 3),
+        (3, 4),
+        (4, 5),
+        (5, 6),
+        (6, 7),
+    )
+
+    for pair in DEFAULT_PRODUCT_REGISTRY.translation_pairs:
+        assert pair.band_pairs == wavelength_matched_band_pairs(
+            pair.source_sensor, pair.target_sensor
+        )
+        for source_band, target_band in pair.band_pairs:
+            source = sensor_band_identity(pair.source_sensor, source_band)
+            target = sensor_band_identity(pair.target_sensor, target_band)
+            assert source is not None
+            assert target is not None
+            assert source.spectral_identity == target.spectral_identity
 
 
 def test_completed_archive_duplicate_ids_are_all_excluded(tmp_path: Path) -> None:

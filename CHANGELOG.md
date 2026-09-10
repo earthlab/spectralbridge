@@ -42,6 +42,9 @@
 - Translation reporting compares pooled and balanced fits and surfaces weak,
   unstable, site-dependent, or high-correction cases instead of implying that a
   high R² alone makes sensors interchangeable.
+- Bulk and sensor QA now resolve corresponding bands from packaged spectral
+  identities and wavelengths, retain separate source/target band indices, and
+  display wavelength-aware labels instead of treating band numbers as global.
 - Drone processing remains a separate local-data workflow and supports full or
   polygon extraction; after corrected ENVI it uses affine cross-sensor
   translation while the normal hyperspectral NEON branch uses convolution.

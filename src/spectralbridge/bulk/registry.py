@@ -7,7 +7,10 @@ import re
 from pathlib import Path
 from typing import Sequence
 
-from spectralbridge.sensor_pairs import SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY
+from spectralbridge.sensor_pairs import (
+    SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY,
+    wavelength_matched_band_pairs,
+)
 
 
 @dataclass(frozen=True)
@@ -240,10 +243,10 @@ _BUILTIN_PAIRS = tuple(
         source_sensor=source,
         target_sensor=target,
         matching_group=group,
-        # These matched MicaSense products contain only the MicaSense bands
-        # corresponding to the leading reflective Landsat bands. Preserve the
-        # established 1:1 ordering within that matched subset.
-        band_pairs=tuple((index, index) for index in range(1, source_bands + 1)),
+        # Band numbers are sensor-local. Resolve shared spectral identities
+        # against the packaged center wavelengths and passbands instead of
+        # assuming equal band numbers across instruments.
+        band_pairs=wavelength_matched_band_pairs(source, target),
         expected_source_bands=source_bands,
         expected_target_bands=7 if group == "oli_reflective" else 6,
         evidence_boundary=SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY,

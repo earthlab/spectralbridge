@@ -13,10 +13,15 @@ import numpy as np
 import pyarrow as pa
 import pyarrow.parquet as pq
 
+from spectralbridge.sensor_pairs import (
+    SPECTRAL_IDENTITY_ORDER,
+    sensor_band_identity,
+)
+
 from .provenance import signature_sha256, write_json_atomic, write_text_atomic
 
 
-BULK_RESULTS_SCHEMA_VERSION = 1
+BULK_RESULTS_SCHEMA_VERSION = 2
 _GLOBAL_LEVELS = ("pixel_pooled", "flightline_balanced", "site_balanced")
 _LEVEL_LABELS = {
     "pixel_pooled": "Pixel pooled",
@@ -284,6 +289,11 @@ _PAIR_SUMMARY_SCHEMA = pa.schema(
         ("source_band_index", pa.int32()),
         ("target_band_index", pa.int32()),
         ("band_index", pa.int32()),
+        ("spectral_identity", pa.string()),
+        ("source_wavelength_nm", pa.float64()),
+        ("target_wavelength_nm", pa.float64()),
+        ("center_wavelength_difference_nm", pa.float64()),
+        ("band_matching_basis", pa.string()),
         ("representative_source_value", pa.float64()),
         ("representative_source_value_method", pa.string()),
         ("sample_count", pa.int64()),
@@ -389,6 +399,85 @@ def _identity(row: dict[str, Any]) -> dict[str, Any]:
         "target_band_index": int(row["target_band_index"]),
         "band_index": int(row["band_index"]),
     }
+
+
+def _band_match_context(row: dict[str, Any]) -> dict[str, Any]:
+    """Resolve physical band identity without treating band numbers as global."""
+
+    source = sensor_band_identity(
+        str(row["source_sensor"]), int(row["source_band_index"])
+    )
+    target = sensor_band_identity(
+        str(row["target_sensor"]), int(row["target_band_index"])
+    )
+    if source is not None and target is not None:
+        if source.spectral_identity != target.spectral_identity:
+            raise ValueError(
+                "Bulk result contains a wavelength-incompatible band pair: "
+                f"{source.sensor} B{source.band_index} ({source.wavelength_nm:g} nm, "
+                f"{source.spectral_identity}) -> {target.sensor} B{target.band_index} "
+                f"({target.wavelength_nm:g} nm, {target.spectral_identity})"
+            )
+        return {
+            "spectral_identity": source.spectral_identity,
+            "source_wavelength_nm": source.wavelength_nm,
+            "target_wavelength_nm": target.wavelength_nm,
+            "center_wavelength_difference_nm": (
+                target.wavelength_nm - source.wavelength_nm
+            ),
+            "band_matching_basis": "shared_spectral_identity_and_wavelength",
+        }
+    return {
+        "spectral_identity": None,
+        "source_wavelength_nm": source.wavelength_nm if source is not None else None,
+        "target_wavelength_nm": target.wavelength_nm if target is not None else None,
+        "center_wavelength_difference_nm": None,
+        "band_matching_basis": "explicit_source_target_band_indices",
+    }
+
+
+def _band_sort_key(row: dict[str, Any]) -> tuple[Any, ...]:
+    identity = row.get("spectral_identity")
+    try:
+        identity_order = SPECTRAL_IDENTITY_ORDER.index(str(identity))
+    except ValueError:
+        identity_order = len(SPECTRAL_IDENTITY_ORDER)
+    wavelength = _finite(row.get("target_wavelength_nm"))
+    return (
+        identity_order,
+        wavelength if wavelength is not None else math.inf,
+        str(row["target_sensor"]),
+        int(row["target_band_index"]),
+        str(row["translation_pair"]),
+    )
+
+
+def _report_band_label(row: dict[str, Any]) -> str:
+    context = row if "band_matching_basis" in row else {**row, **_band_match_context(row)}
+    identity = context.get("spectral_identity")
+    source_wavelength = _finite(context.get("source_wavelength_nm"))
+    target_wavelength = _finite(context.get("target_wavelength_nm"))
+    if identity and source_wavelength is not None and target_wavelength is not None:
+        return (
+            f"{str(identity).title()}: {row['source_sensor']} B{row['source_band_index']} "
+            f"({source_wavelength:g} nm) → {row['target_sensor']} "
+            f"B{row['target_band_index']} ({target_wavelength:g} nm)"
+        )
+    return (
+        f"{row['source_sensor']} B{row['source_band_index']} → "
+        f"{row['target_sensor']} B{row['target_band_index']}"
+    )
+
+
+def _plot_band_label(row: dict[str, Any]) -> str:
+    identity = row.get("spectral_identity")
+    target_wavelength = _finite(row.get("target_wavelength_nm"))
+    if identity and target_wavelength is not None:
+        return (
+            f"{str(identity).title()}\n{row['target_sensor']} "
+            f"B{row['target_band_index']} ({target_wavelength:g} nm)"
+        )
+    return f"{row['target_sensor']} B{row['target_band_index']}"
 
 
 def _read_compact(path: Path, label: str) -> list[dict[str, Any]]:
@@ -915,6 +1004,7 @@ def _build_pair_summaries(
         summaries.append(
             {
                 **_identity(template),
+                **_band_match_context(template),
                 "representative_source_value": _finite(
                     template.get("representative_source_value")
                 ),
@@ -963,6 +1053,7 @@ def _build_pair_summaries(
                 ),
             }
         )
+    summaries.sort(key=_band_sort_key)
     flags.sort(key=lambda row: (_key(row), row["flag_code"]))
     return summaries, flags
 
@@ -1036,7 +1127,7 @@ def _format(value: Any, digits: int = 4) -> str:
 
 
 def _labels(rows: Sequence[dict[str, Any]]) -> list[str]:
-    return [f"{row['target_sensor']} B{row['target_band_index']}" for row in rows]
+    return [_plot_band_label(row) for row in rows]
 
 
 def _plot_value(value: Any) -> float:
@@ -1250,9 +1341,8 @@ def _markdown_report(
             for path in figure_paths
         )
     rows = "\n".join(
-        "| {target} B{band} | {slope} | {r2} | {correction} | {weighting} | {flightline} | {site} | {loso} | {status} |".format(
-            target=row["target_sensor"],
-            band=row["target_band_index"],
+        "| {match} | {slope} | {r2} | {correction} | {weighting} | {flightline} | {site} | {loso} | {status} |".format(
+            match=_report_band_label(row),
             slope=_format(row["candidate_slope_min"])
             + " to "
             + _format(row["candidate_slope_max"]),
@@ -1267,7 +1357,7 @@ def _markdown_report(
         for row in pair_summaries
     )
     warning_rows = "\n".join(
-        f"| {row['target_sensor']} B{row['target_band_index']} | {row['flag_code']} | "
+        f"| {_report_band_label(row)} | {row['flag_code']} | "
         f"{row['analysis_scope']} | {_format(row['observed_value'])} | "
         f"{row['comparison']} {_format(row['review_threshold'])} | {row['detail']} |"
         for row in flags
@@ -1307,15 +1397,20 @@ coefficient. Corrections are evaluated at one common source value per pair-band
 (the pixel-pooled source mean unless explicitly configured), so weighting
 differences are compared at the same reflectance.
 
+Band numbers are local to each sensor. Every built-in pair is matched by shared
+spectral identity and packaged center wavelength/passband; the report keeps the
+separate source and target band indices visible. For example, TM blue band 1 is
+the same spectral identity as OLI blue band 2, not OLI coastal-aerosol band 1.
+
 ## Pair-band screening summary
 
-| Target band | Candidate slope range | Minimum candidate R-squared | Maximum absolute correction (%) | Weighting slope spread | Flightline slope IQR | Site slope range | Worst LOSO R-squared | Screening status |
+| Spectral match | Candidate slope range | Minimum candidate R-squared | Maximum absolute correction (%) | Weighting slope spread | Flightline slope IQR | Site slope range | Worst LOSO R-squared | Screening status |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 {rows}
 
 ## Attention flags
 
-| Target band | Flag | Scope | Observed | Review rule | Detail |
+| Spectral match | Flag | Scope | Observed | Review rule | Detail |
 | --- | --- | --- | ---: | --- | --- |
 {warning_rows}
 
@@ -1524,6 +1619,10 @@ def summarize_bulk_results(
         "representative_correction_definition": (
             "100 * ((slope * x_reference + intercept) - x_reference) / x_reference; "
             "x_reference is shared by all weightings within a pair-band"
+        ),
+        "band_matching_basis": (
+            "Built-in sensor pairs use shared spectral identity plus packaged "
+            "center wavelength/passband, never equality of sensor-local band numbers."
         ),
         "overview": overview,
         "pair_band_summaries": pair_summaries,

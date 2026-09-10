@@ -42,6 +42,38 @@ def test_regression_metrics_report_plotted_coefficients() -> None:
     assert metrics["sample_count"] == 20
 
 
+def test_sensor_vs_neon_pair_uses_nearest_hyperspectral_wavelength() -> None:
+    corrected_index = sensor_panel_plots._nearest_hyperspectral_band_index(
+        "Landsat_8_OLI", 2
+    )
+
+    assert corrected_index is not None
+    assert corrected_index != 2
+    assert sensor_panel_plots._HYPERSPEC_BANDS[corrected_index - 1] == pytest.approx(
+        482.0, abs=1.0
+    )
+
+
+def test_micasense_landsat_panel_uses_declared_pair_not_index_intersection(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        sensor_panel_plots,
+        "wavelength_matched_band_pairs",
+        lambda source, target: ((1, 2),),
+    )
+    pairs = sensor_panel_plots._collect_ms_ls_pairs(
+        {
+            "MicaSense_to-match_OLI_and_OLI-2": [1],
+            "Landsat_8_OLI": [1, 2],
+        }
+    )
+
+    assert pairs[
+        ("MicaSense_to-match_OLI_and_OLI-2", "Landsat_8_OLI")
+    ] == [(1, 2)]
+
+
 def test_synthetic_sensor_panel_writes_deterministic_coefficient_sidecar(
     tmp_path: Path,
 ) -> None:
@@ -64,11 +96,20 @@ def test_synthetic_sensor_panel_writes_deterministic_coefficient_sidecar(
 
     first_bytes = sidecar_path.read_bytes()
     payload = json.loads(first_bytes)
+    assert payload["schema_version"] == 2
     assert payload["diagnostic"] == "synthetic_sensor_linear_regression"
     assert "not empirical sensor calibration" in payload["evidence_boundary"]
+    assert payload["band_matching_basis"] == (
+        "shared_spectral_identity_and_packaged_wavelength"
+    )
     assert payload["sampling"]["seed"] == 20260817
     assert len(payload["regressions"]) == 1
     regression = payload["regressions"][0]
+    assert regression["source_band_index"] == 1
+    assert regression["target_band_index"] == 1
+    assert regression["spectral_identity"] == "coastal aerosol"
+    assert regression["source_wavelength_nm"] == pytest.approx(444.0)
+    assert regression["target_wavelength_nm"] == pytest.approx(443.0)
     assert regression["slope"] == pytest.approx(1.75)
     assert regression["intercept"] == pytest.approx(0.04)
     assert regression["correlation"] == pytest.approx(1.0)

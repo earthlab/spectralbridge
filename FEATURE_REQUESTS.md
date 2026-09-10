@@ -1,6 +1,6 @@
 # SpectralBridge Feature Requests
 
-Review date: 2026-09-09
+Review date: 2026-09-10
 Branch: main
 
 This file is the authoritative work queue for non-trivial SpectralBridge work.
@@ -19,6 +19,60 @@ left incomplete so the next agent can resume immediately.
 6. After verification, record outcome, blockers, and the next recommended task.
 
 ## Active Requests
+
+### P82. Match Bulk QA Bands By Spectral Identity
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-09-10
+- Starting commit: `5f12a5ec220368d66b4f23a0c036c52819766e57`
+- Goal: Verify that bulk translation QA compares scientifically corresponding
+  source and target bands by declared spectral identity/wavelength rather than
+  equal band numbers, and correct any index-only plotting behavior.
+- Plan:
+  - Trace configured translation band pairs and wavelength metadata through
+    compact result tables and every bulk translation QA plot.
+  - Add focused regressions using sensors whose corresponding bands have
+    different numeric indices.
+  - Make the smallest generic correction required, document the matching
+    contract, and run targeted plus full validation.
+- Completed: 2026-09-10
+- Findings:
+  - The four production MicaSense-to-Landsat regression families were
+    numerically correct because the TM/ETM+ and OLI/OLI-2 matched MicaSense
+    products already use different sensor-specific band subsets. Their
+    registry construction nevertheless encoded that correspondence as equal
+    indices, and bulk result plots exposed target band numbers without the
+    physical wavelengths, making the contract fragile and easy to misread.
+  - The older sensor-versus-hyperspectral QA panel did contain a real index-only
+    match: sensor band N was compared with hyperspectral band N rather than the
+    hyperspectral band nearest the sensor center wavelength.
+- Delivered:
+  - Added shared packaged spectral identities, center wavelengths, FWHM lookup,
+    passband-overlap validation, and wavelength-aware source/target pairing.
+  - Made the built-in bulk registry derive its band pairs from that physical
+    contract. Landsat 5/7 blue band 1 now explicitly corresponds to Landsat
+    8/9 blue band 2; OLI band 1 remains coastal aerosol.
+  - Added bulk result validation that rejects known wavelength-incompatible
+    rows, orders QA plots by spectral identity/wavelength, labels plots and
+    reports with wavelengths, and records physical matching fields in the
+    pair-band summary and results JSON.
+  - Updated MicaSense/Landsat and sensor/NEON QA panels to use declared
+    source/target pairs or the nearest hyperspectral center wavelength instead
+    of intersecting equal band indices.
+- Verification:
+  - Baseline: 68 focused bulk/results/sensor-panel/drone-consumer/normal-pipeline
+    tests passed.
+  - Final focused matrix: 72 passed.
+  - Full suite: 357 passed, 7 skipped, 22 existing warnings.
+  - Ruff, Python compilation, AI-transparency freshness, documentation links,
+    strict MkDocs, and whitespace checks passed.
+- Blockers: None.
+- Next recommended task: Rerun `summarize_bulk_results()` on the completed
+  production compact output to regenerate the three QA figures and Markdown
+  report with wavelength-aware ordering and labels; source rasters are not
+  needed and translation coefficients will not be recomputed.
 
 ### P81. Finish the Production Drone Translation and Validation Pipeline
 
