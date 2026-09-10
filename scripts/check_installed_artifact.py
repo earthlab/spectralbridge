@@ -432,8 +432,12 @@ def _assert_drone_result(result: dict[str, object], *, mode: str) -> None:
     flags = audits[0]["flags"]
     if not flags.get("topo_applied") or not flags.get("brdf_applied"):
         raise RuntimeError(f"Drone {mode} corrections did not execute: {flags}")
-    if not flags.get("convolution_skipped"):
-        raise RuntimeError("Drone smoke unexpectedly ran convolution")
+    if result["qa_summary"].get("spectral_branch") != (
+        "affine_cross_sensor_translation"
+    ):
+        raise RuntimeError("Drone smoke did not report the affine translation branch")
+    if "convolution_skipped" in flags:
+        raise RuntimeError("Drone smoke retained obsolete convolution status")
     _assert_nonempty(Path(str(audits[0]["working_raster_path"])))
     _assert_nonempty(Path(str(audits[0]["corrected_raster_path"])))
     _assert_nonempty(Path(str(audits[0]["qa_plot_path"])))
@@ -492,7 +496,7 @@ def _run_drone(root: Path) -> dict[str, object]:
         "status": "stage_complete_full_and_polygon",
         "fixture_shapes": [list(DRONE_SHAPE), list(DRONE_SHAPE)],
         "corrections": "topographic_and_brdf",
-        "convolution": "intentionally_not_applicable",
+        "spectral_branch": "corrected_micasense_with_optional_affine_translation",
         "elapsed_seconds": round(time.monotonic() - started, 3),
     }
 

@@ -23,7 +23,7 @@ left incomplete so the next agent can resume immediately.
 ### P81. Finish the Production Drone Translation and Validation Pipeline
 
 - Priority: User-directed
-- Status: In progress
+- Status: Completed
 - Owner: Codex
 - Started: 2026-09-09
 - Starting commit: `502f662972facd7c0baea6bea78e22db374d7358`
@@ -55,11 +55,47 @@ left incomplete so the next agent can resume immediately.
 - Baseline verification:
   - 139 relevant existing tests passed before implementation, including all 54
     drone tests and the TIFF-to-H5/`NeonCube` contract regression.
-- Blockers: None. The user explicitly approved a new STAC-backed acquisition
-  subsystem while retaining user-supplied Landsat input and permitting the
-  translation/standalone-QA work independently.
-- Next recommended task: Implement Phase 3 translation core without changing
-  ingestion or shared NEON correction behavior.
+- Completed: 2026-09-09
+- Delivered:
+  - Added an explicit, wavelength-aware consumer for existing bulk candidate
+    coefficient Parquet/JSON artifacts. It validates weighting, equation and
+    sensor orientation, complete unique band sets, wavelengths, finite affine
+    terms, source units/range, and provenance before creating distinct
+    Landsat-like ENVI products.
+  - Reused existing full/polygon extraction for translated spectral libraries,
+    added streaming provenance enrichment, and retained corrected native
+    MicaSense as an independent product.
+  - Added standalone translation plots/JSON, optional user-supplied or
+    Planetary Computer STAC Landsat Collection 2 inputs, conservative QA_PIXEL
+    masking, cached footprint crops, valid-aware aggregation to the actual
+    Landsat grid, pairwise metrics, and optional normal-pipeline NEON
+    three-way comparison.
+  - Kept optional comparison failures separate from core processing and made
+    valid translation and extraction artifacts restart-safe.
+  - Removed misleading drone-specific convolution flags/language from runtime,
+    examples, tests, documentation, and installed-artifact validation.
+  - Corrected only valid rasterio WKT2 UTM recognition at the frozen TIFF/H5
+    boundary; source precedence, manifest/ancillary matching, working-H5
+    structure, wavelengths, nodata, and solar geometry are unchanged.
+- Verification:
+  - Baseline before implementation: 139 relevant existing regressions passed.
+  - Final targeted matrix: 163 drone, TIFF/H5, correction, translation,
+    spectral-library, bulk-schema, Landsat-helper, and normal-NEON tests passed.
+  - Full suite: 353 passed and 7 expected skips; existing warnings only.
+  - Python compilation, all-source Ruff, AI-transparency freshness, docs links,
+    strict MkDocs, release metadata, optional Landsat dependency imports,
+    whitespace, Twine, and isolated installed-wheel smoke passed.
+  - Fresh artifacts:
+    `earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl` and
+    `earthlab_spectralbridge-2.3.0rc1.tar.gz`.
+- Blockers: None. Live STAC/remote COG access was intentionally covered with
+  mocks rather than required by core or CI validation.
+- Remaining scientific decision: review the bulk weighting, site/LOSO evidence,
+  and field comparisons before designating one production coefficient artifact
+  and weighting family as approved; no family is hard-coded as a default.
+- Next recommended task: Run one real drone flightline with a reviewed
+  coefficient artifact, then inspect standalone and actual-Landsat QA before
+  promoting a coefficient-selection policy.
 
 ### P80. Rename the PyPI Distribution to earthlab-spectralbridge
 
