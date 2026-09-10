@@ -2884,6 +2884,13 @@ are optional unless a custom profile requires them.</p>
 matched MicaSense/Landsat products, while <code>ProductDescriptor</code> and
 <code>TranslationPair</code> support other sensor names, filename patterns, matching
 groups, expected band counts, and explicit source-to-target band mappings.</p>
+<p>Band numbers are sensor-local and are never treated as a cross-sensor identity.
+The installed relationships resolve named spectral identities against the
+packaged center wavelengths and passbands. Thus Landsat 5 TM blue band 1
+corresponds to Landsat 8 OLI blue band 2; OLI band 1 is coastal aerosol. The
+matched MicaSense products already have sensor-specific subsets: their TM/ETM+
+blue band is band 1, while their OLI/OLI-2 blue band is band 2 because that
+product also contains the coastal-aerosol match.</p>
 <p>To select one installed relationship, use its pair key:</p>
 <div class="highlight"><pre><span></span><code>spectralbridge-bulk<span class="w"> </span>/data/completed_products<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--output-dir<span class="w"> </span>/data/bulk_analysis<span class="w"> </span><span class="se">\</span>
@@ -3088,7 +3095,12 @@ calculation is recorded as:</p>
 An unchanged rerun reuses valid outputs; changing inputs or configuration
 rebuilds them. The optional PNGs and Markdown report contain no hard-coded
 production statistics: every count and metric is calculated from the supplied
-completed result tables.</p>
+completed result tables. Plot axes are ordered by spectral identity/wavelength,
+and labels show the target wavelength and sensor-local band number. The
+pair-band summary also records spectral identity, separate source and target
+wavelengths, wavelength difference, and the matching basis. Known built-in
+sensor rows with incompatible identities fail reporting instead of being
+silently plotted together.</p>
 <p>High R² indicates a strong relationship, but it does not establish sensor
 interchangeability. A pair-band with
 <code>no_configured_warning_triggered</code> has passed only the configured screen; it has

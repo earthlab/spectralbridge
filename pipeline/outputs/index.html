@@ -2957,12 +2957,12 @@
 <tr>
 <td>Translation interpretation</td>
 <td><code>analyses/bulk_results/</code></td>
-<td>Pair-band summaries, weighting comparisons, flightline/site stability, LOSO transferability, configurable attention flags, and restart metadata derived only from compact result tables.</td>
+<td>Pair-band summaries with spectral identity and source/target wavelengths, weighting comparisons, flightline/site stability, LOSO transferability, configurable attention flags, and restart metadata derived only from compact result tables.</td>
 </tr>
 <tr>
 <td>Translation interpretation figures</td>
 <td><code>figures/bulk_results/*.png</code></td>
-<td>Weighting, fitted-correction, heterogeneity, and held-out-site comparisons.</td>
+<td>Wavelength-ordered weighting, fitted-correction, heterogeneity, and held-out-site comparisons; labels retain sensor-local band numbers plus physical wavelengths.</td>
 </tr>
 <tr>
 <td>Translation interpretation report</td>
@@ -3047,7 +3047,7 @@
 <tr>
 <td>Synthetic sensor regression diagnostic</td>
 <td><code>qa_plots/&lt;merged_stem&gt;__MS_vs_Landsat_FIXED.(png|json)</code></td>
-<td>Scatter panels compare wavelength-matched synthetic MicaSense and Landsat products; the JSON records the displayed slope, intercept, correlation, R², and sample count.</td>
+<td>Scatter panels compare spectral-identity/wavelength-matched synthetic MicaSense and Landsat products; the JSON records separate source/target band indices and wavelengths plus the displayed slope, intercept, correlation, R², and sample count.</td>
 <td>Both axes come from the same corrected NEON source. This is a descriptive convolution diagnostic, not empirical sensor calibration.</td>
 </tr>
 <tr>
