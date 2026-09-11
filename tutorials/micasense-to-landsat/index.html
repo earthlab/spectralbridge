@@ -2806,7 +2806,11 @@ definition, also pass:</p>
 <p>Parquet remains the authoritative tabular output. CSV sidecars, when present in
 drone workflows, are convenience copies for external tools.
 The stage records are the restart contract: a product is reused only when the
-recorded source/configuration fingerprint matches and the product validates.</p>
+recorded source/configuration fingerprint matches and the product validates.
+Optional STAC Landsat crops follow the same rule: their JSON records bind the
+scene, target sensor, requested bounds, temporal/cloud context, QA rule, band
+contract, and reflectance scaling to a validated GeoTIFF. A changed request or
+damaged crop is rebuilt rather than trusted because both files merely exist.</p>
 <h2 id="inspect-the-run">Inspect the run<a class="headerlink" href="#inspect-the-run" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 

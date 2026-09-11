@@ -2456,6 +2456,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#debuggable-stage-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debuggable stage boundaries
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2970,6 +2981,27 @@ stage because exact MAE and held-out evaluation share the bounded second source
 pass. Its signature covers compact flightline moments, requested pairs,
 threshold, and chunk configuration. Results interpretation then has separate
 compact-summary, diagnostic, publication, and final-report stages.</p>
+<h3 id="debuggable-stage-boundaries">Debuggable stage boundaries<a class="headerlink" href="#debuggable-stage-boundaries" title="Permanent link">&para;</a></h3>
+<p>The intentionally small public API remains <code>run_drone_pipeline</code>,
+<code>run_bulk_pipeline</code>, and <code>summarize_bulk_results</code>. Maintainers can rerun major
+stages directly without duplicating orchestration:</p>
+<ul>
+<li>Drone preparation/export/correction:
+  <code>_prepare_drone_source_working_h5</code>, <code>export_h5_to_envi</code>, and
+  <code>apply_drone_corrections</code>.</li>
+<li>Drone translation/library/QA: <code>load_drone_translation_plans</code>,
+  <code>apply_drone_translation</code>, <code>enrich_translated_spectral_library</code>,
+  <code>render_drone_translation_qa</code>, and <code>render_drone_qa_report</code>.</li>
+<li>Optional external validation: <code>acquire_landsat_observation</code>,
+  <code>load_supplied_landsat_observation</code>, and <code>compare_landsat_common_support</code>.</li>
+<li>Bulk discovery/checkpoints/models: <code>discover_completed_flightlines</code>,
+  <code>compute_flightline_statistics</code>, and <code>run_streaming_translation_analyses</code>.</li>
+<li>Bulk interpretation: <code>summarize_bulk_results</code>, with internal reporting
+  functions independently rendering the summary, diagnostics, publication
+  panels, and final PDF from compact tables.</li>
+</ul>
+<p>An underscore marks protected/internal infrastructure rather than an unstable
+file contract. The documented on-disk artifacts remain the primary interface.</p>
 <p>Optional spectral-library reporting also reads its merged polygon Parquet in
 place. Its visualization-validity policy is distinct from regression validity:
 selected bands must be present, finite, and not equal to known nodata sentinels,

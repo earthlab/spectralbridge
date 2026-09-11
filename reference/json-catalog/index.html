@@ -2949,8 +2949,8 @@ flightline or run.</p>
 </tr>
 <tr>
 <td><code>landsat_cache/*.json</code></td>
-<td>Selected or supplied actual Landsat observation, sensor/date/cloud/temporal context, asset/scaling metadata, and cached cropped raster</td>
-<td>Optional Landsat comparison reuse and provenance</td>
+<td>Selected or supplied actual Landsat observation, sensor/date/cloud/temporal context, asset/scaling metadata, request fingerprint, and validated cached crop</td>
+<td>Optional Landsat comparison reuse and provenance; changed bounds/configuration or an invalid raster forces recropping</td>
 </tr>
 <tr>
 <td><code>qa_common_support/*__comparison.json</code></td>
