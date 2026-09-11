@@ -607,6 +607,11 @@ def run_bulk_pipeline(
             sensors=sensors,
             translation_pairs=selected_pairs,
         )
+    LOGGER.info(
+        "[bulk] catalog: %d flightline records, %d source records",
+        len(flightlines),
+        len(source_files),
+    )
     signature = _input_signature(
         root=root,
         paths=paths,
@@ -653,6 +658,7 @@ def run_bulk_pipeline(
             )
         ):
             counts = previous["counts"]
+            LOGGER.info("[bulk] completed run: reused")
             return _result(
                 paths,
                 input_path=root,
@@ -885,6 +891,11 @@ def run_bulk_pipeline(
             write_diagnostic_sample(paths.diagnostic_sample, diagnostic_rows)
         elif paths.diagnostic_sample.exists():
             paths.diagnostic_sample.unlink()
+        LOGGER.info(
+            "[bulk] checkpoints: %d/%d accepted flightlines valid",
+            len({row["flightline_id"] for row in statistics_rows}),
+            len(eligible),
+        )
 
     accepted_flightlines = [
         item for item in flightlines if item.status == "accepted"
@@ -1026,6 +1037,12 @@ def run_bulk_pipeline(
                 minimum_reflectance=minimum_reflectance,
                 translation_pairs=selected_pairs,
                 reuse_existing=not force,
+            )
+        if not preflight_only:
+            LOGGER.info(
+                "[bulk] coefficients: %s; LOSO: %s",
+                translation.get("status", "complete"),
+                loso.get("status", "complete"),
             )
         if not preflight_only and spectral_schema is not None:
             spectral_library_result = run_spectral_library_analysis(

@@ -99,8 +99,8 @@ an analysis-ready stacked raster or a previously cached observation manifest as
 `landsat_product`. Pass `comparison_neon_product` only when an existing
 NEON-convolved product should join the common-Landsat-grid comparison.
 The run also writes a one-page dashboard, a self-contained PDF report, and
-separate publication-ready PNG/PDF translation
-panels. Expensive stage reuse is based on matching source/configuration
+separate publication-ready PNG/PDF translation panels. Expensive stage reuse
+is based on matching source/configuration
 fingerprints plus output validation, not file existence alone.
 
 ### Production bulk translation analysis

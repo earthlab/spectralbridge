@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -24,6 +25,7 @@ PLANETARY_COMPUTER_STAC = "https://planetarycomputer.microsoft.com/api/stac/v1"
 LANDSAT_COLLECTION = "landsat-c2-l2"
 LANDSAT_SURFACE_REFLECTANCE_SCALE = 0.0000275
 LANDSAT_SURFACE_REFLECTANCE_OFFSET = -0.2
+LANDSAT_CACHE_SCHEMA_VERSION = 2
 
 _COMMON_NAMES = {
     "Landsat_5_TM": ("blue", "green", "red", "nir08"),
@@ -155,6 +157,82 @@ def _write_observation_metadata(path: Path, payload: dict[str, Any]) -> Path:
     return path
 
 
+def _landsat_cache_signature(
+    *,
+    product_id: str,
+    target_sensor: str,
+    bounds_wgs84: Sequence[float],
+    temporal_offset_days: float | None,
+    cloud_cover: float | None,
+) -> tuple[str, dict[str, Any]]:
+    """Return the deterministic request contract for one cached STAC crop."""
+
+    payload = {
+        "schema_version": LANDSAT_CACHE_SCHEMA_VERSION,
+        "product_id": str(product_id),
+        "target_sensor": target_sensor,
+        "bounds_wgs84": [float(value) for value in bounds_wgs84],
+        "temporal_offset_days": temporal_offset_days,
+        "cloud_cover": cloud_cover,
+        "band_common_names": list(_COMMON_NAMES[target_sensor]),
+        "wavelengths_nm": list(_TARGET_WAVELENGTHS[target_sensor]),
+        "qa_pixel_clear_rule": "bits 0 through 5 must all be zero",
+        "surface_reflectance_fallback_scale": LANDSAT_SURFACE_REFLECTANCE_SCALE,
+        "surface_reflectance_fallback_offset": LANDSAT_SURFACE_REFLECTANCE_OFFSET,
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+    return hashlib.sha256(encoded).hexdigest(), payload
+
+
+def _load_cached_stac_observation(
+    *,
+    raster_path: Path,
+    metadata_path: Path,
+    expected_signature: str,
+    product_id: str,
+    target_sensor: str,
+) -> LandsatObservation | None:
+    """Load a cache entry only when its request and raster contract validate."""
+
+    if not raster_path.is_file() or not metadata_path.is_file():
+        return None
+    try:
+        import rasterio
+
+        payload = json.loads(metadata_path.read_text(encoding="utf-8"))
+        if payload.get("schema_version") != LANDSAT_CACHE_SCHEMA_VERSION:
+            return None
+        if payload.get("cache_signature_sha256") != expected_signature:
+            return None
+        observation_payload = payload["observation"]
+        if (
+            observation_payload.get("product_id") != str(product_id)
+            or observation_payload.get("target_sensor") != target_sensor
+            or Path(observation_payload.get("raster_path", "")) != raster_path
+            or Path(observation_payload.get("metadata_path", "")) != metadata_path
+        ):
+            return None
+        required = _COMMON_NAMES[target_sensor]
+        with rasterio.open(raster_path) as source:
+            if source.count != len(required) or source.width < 1 or source.height < 1:
+                return None
+            if source.tags().get("product_id") != str(product_id):
+                return None
+            if source.tags().get("target_sensor") != target_sensor:
+                return None
+            if tuple(source.descriptions) != tuple(required):
+                return None
+        for field in (
+            "band_common_names",
+            "target_band_indices",
+            "wavelengths_nm",
+        ):
+            observation_payload[field] = tuple(observation_payload[field])
+        return LandsatObservation(**observation_payload)
+    except (KeyError, OSError, TypeError, ValueError, json.JSONDecodeError):
+        return None
+
+
 def _crop_stac_item(
     item: Any,
     *,
@@ -191,9 +269,22 @@ def _crop_stac_item(
     safe_id = re.sub(r"[^A-Za-z0-9_.-]+", "_", str(item.id))
     raster_path = output_dir / f"{safe_id}__surface_reflectance_crop.tif"
     metadata_path = output_dir / f"{safe_id}__observation.json"
-    if raster_path.is_file() and metadata_path.is_file():
-        payload = json.loads(metadata_path.read_text(encoding="utf-8"))
-        return LandsatObservation(**payload["observation"])
+    cache_signature, cache_contract = _landsat_cache_signature(
+        product_id=str(item.id),
+        target_sensor=target_sensor,
+        bounds_wgs84=bounds_wgs84,
+        temporal_offset_days=temporal_offset_days,
+        cloud_cover=cloud_cover,
+    )
+    cached = _load_cached_stac_observation(
+        raster_path=raster_path,
+        metadata_path=metadata_path,
+        expected_signature=cache_signature,
+        product_id=str(item.id),
+        target_sensor=target_sensor,
+    )
+    if cached is not None:
+        return cached
 
     reference_asset = assets_by_common[required[0]]
     with rasterio.open(reference_asset.href) as reference:
@@ -274,7 +365,9 @@ def _crop_stac_item(
     _write_observation_metadata(
         metadata_path,
         {
-            "schema_version": 1,
+            "schema_version": LANDSAT_CACHE_SCHEMA_VERSION,
+            "cache_signature_sha256": cache_signature,
+            "cache_contract": cache_contract,
             "observation": asdict(observation),
             "stac_url": PLANETARY_COMPUTER_STAC,
             "collection": LANDSAT_COLLECTION,

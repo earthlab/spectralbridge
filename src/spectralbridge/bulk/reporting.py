@@ -24,6 +24,14 @@ from spectralbridge.qa_style import (
 )
 
 
+BULK_PUBLICATION_FIGURE_NAMES = (
+    "translation_performance",
+    "translation_stability",
+    "generalization_and_failures",
+)
+BULK_PUBLICATION_PANEL_COUNT = 3
+
+
 def _number(value: Any, *, digits: int = 3, suffix: str = "") -> str:
     try:
         number = float(value)
@@ -327,6 +335,8 @@ def render_bulk_pdf_report(
 
 
 __all__ = [
+    "BULK_PUBLICATION_FIGURE_NAMES",
+    "BULK_PUBLICATION_PANEL_COUNT",
     "render_bulk_pdf_report",
     "render_bulk_publication_figures",
     "render_bulk_summary_dashboard",

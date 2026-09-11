@@ -7,8 +7,13 @@ from pathlib import Path
 import pyarrow as pa
 import pyarrow.parquet as pq
 import pytest
+from matplotlib.image import imread
 
 import spectralbridge
+from spectralbridge.bulk.reporting import (
+    BULK_PUBLICATION_FIGURE_NAMES,
+    BULK_PUBLICATION_PANEL_COUNT,
+)
 from spectralbridge.bulk import results as bulk_results_module
 from spectralbridge.bulk.analyses.streaming_translation import (
     _LOSO_SCHEMA as INPUT_LOSO_SCHEMA,
@@ -336,9 +341,14 @@ def test_summarize_bulk_results_uses_compact_outputs_only(tmp_path: Path) -> Non
         "translation_stability",
         "generalization_and_failures",
     }
+    assert tuple(result["publication_figures"]) == BULK_PUBLICATION_FIGURE_NAMES
+    assert BULK_PUBLICATION_PANEL_COUNT == 3
     for formats in result["publication_figures"].values():
         assert Path(formats["png"]).read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
         assert Path(formats["pdf"]).read_bytes().startswith(b"%PDF")
+        height, width = imread(formats["png"]).shape[:2]
+        assert width >= 1_800
+        assert height >= 1_200
     assert Path(result["report_pdf"]).read_bytes().startswith(b"%PDF")
     report = Path(result["report"]).read_text(encoding="utf-8")
     assert "does not establish\nsensor interchangeability" in report

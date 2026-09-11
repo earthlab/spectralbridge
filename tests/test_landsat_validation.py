@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+from dataclasses import asdict
 from datetime import datetime, timezone
+import json
 from pathlib import Path
 import sys
 from types import SimpleNamespace
@@ -12,6 +14,8 @@ from spectralbridge.drone_translation import DroneTranslationBand, DroneTranslat
 from spectralbridge.landsat_validation import (
     LandsatObservation,
     _clear_landsat_mask,
+    _landsat_cache_signature,
+    _load_cached_stac_observation,
     acquire_landsat_observation,
     compare_landsat_common_support,
     load_supplied_landsat_observation,
@@ -97,6 +101,96 @@ def _write_tif(
 def test_collection_2_clear_mask_rejects_cloud_shadow_snow_and_fill() -> None:
     qa = np.array([0, 1, 1 << 3, 1 << 4, 1 << 5, 1 << 6], dtype=np.uint16)
     assert _clear_landsat_mask(qa).tolist() == [True, False, False, False, False, True]
+
+
+def test_landsat_crop_cache_requires_matching_request_and_valid_raster(
+    tmp_path: Path,
+) -> None:
+    product_id = "LC08_cache_fixture"
+    target_sensor = "Landsat_8_OLI"
+    raster_path = _write_tif(
+        tmp_path / "crop.tif",
+        np.ones((5, 2, 2), dtype=np.float32),
+        pixel_size=30,
+        tags={"target_sensor": target_sensor, "product_id": product_id},
+    )
+    with rasterio.open(raster_path, "r+") as destination:
+        for index, name in enumerate(
+            ("coastal", "blue", "green", "red", "nir08"), start=1
+        ):
+            destination.set_band_description(index, name)
+    metadata_path = tmp_path / "observation.json"
+    observation = LandsatObservation(
+        product_id=product_id,
+        target_sensor=target_sensor,
+        acquisition_datetime="2026-06-10T00:00:00+00:00",
+        cloud_cover=4.0,
+        raster_path=str(raster_path),
+        metadata_path=str(metadata_path),
+        source="planetary_computer_stac",
+        temporal_offset_days=1.0,
+        band_common_names=("coastal", "blue", "green", "red", "nir08"),
+        target_band_indices=(1, 2, 3, 4, 5),
+        wavelengths_nm=(443.0, 482.0, 561.4, 654.6, 864.7),
+        scene_selection="fixture",
+    )
+    signature, contract = _landsat_cache_signature(
+        product_id=product_id,
+        target_sensor=target_sensor,
+        bounds_wgs84=(-105.5, 39.9, -105.4, 40.0),
+        temporal_offset_days=1.0,
+        cloud_cover=4.0,
+    )
+    metadata_path.write_text(
+        json.dumps(
+            {
+                "schema_version": 2,
+                "cache_signature_sha256": signature,
+                "cache_contract": contract,
+                "observation": asdict(observation),
+            }
+        ),
+        encoding="utf-8",
+    )
+    cached = _load_cached_stac_observation(
+        raster_path=raster_path,
+        metadata_path=metadata_path,
+        expected_signature=signature,
+        product_id=product_id,
+        target_sensor=target_sensor,
+    )
+    assert cached == observation
+
+    changed_signature, _ = _landsat_cache_signature(
+        product_id=product_id,
+        target_sensor=target_sensor,
+        bounds_wgs84=(-105.6, 39.9, -105.4, 40.0),
+        temporal_offset_days=1.0,
+        cloud_cover=4.0,
+    )
+    assert changed_signature != signature
+    assert (
+        _load_cached_stac_observation(
+            raster_path=raster_path,
+            metadata_path=metadata_path,
+            expected_signature=changed_signature,
+            product_id=product_id,
+            target_sensor=target_sensor,
+        )
+        is None
+    )
+
+    raster_path.write_bytes(b"corrupt")
+    assert (
+        _load_cached_stac_observation(
+            raster_path=raster_path,
+            metadata_path=metadata_path,
+            expected_signature=signature,
+            product_id=product_id,
+            target_sensor=target_sensor,
+        )
+        is None
+    )
 
 
 def test_mocked_scene_discovery_selects_nearest_acceptable_scene(

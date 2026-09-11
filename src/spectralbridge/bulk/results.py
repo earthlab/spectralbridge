@@ -6,6 +6,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 import hashlib
 import json
+import logging
 import math
 from pathlib import Path
 from typing import Any, Iterable, Sequence
@@ -30,6 +31,7 @@ from .reporting import (
 from .provenance import signature_sha256, write_json_atomic, write_text_atomic
 
 
+LOGGER = logging.getLogger(__name__)
 BULK_RESULTS_SCHEMA_VERSION = 3
 _GLOBAL_LEVELS = ("pixel_pooled", "flightline_balanced", "site_balanced")
 _LEVEL_LABELS = {
@@ -1623,6 +1625,7 @@ def summarize_bulk_results(
                 make_report=make_report,
             )
         ):
+            LOGGER.info("[bulk] results summary and figures: reused")
             return {**previous, "status": "reused"}
 
     candidates = _read_compact(paths.candidates, "candidates")
@@ -1777,6 +1780,13 @@ def summarize_bulk_results(
         ),
     }
     write_json_atomic(paths.metadata, metadata)
+    LOGGER.info(
+        "[bulk] results summary: created; diagnostics: %s; "
+        "publication figures: %s; report: %s",
+        metadata["stage_status"]["diagnostic_qa"],
+        metadata["stage_status"]["publication_figures"],
+        metadata["stage_status"]["final_report"],
+    )
     return {**metadata, "status": "created"}
 
 

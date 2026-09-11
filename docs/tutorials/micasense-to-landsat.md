@@ -182,6 +182,10 @@ Parquet remains the authoritative tabular output. CSV sidecars, when present in
 drone workflows, are convenience copies for external tools.
 The stage records are the restart contract: a product is reused only when the
 recorded source/configuration fingerprint matches and the product validates.
+Optional STAC Landsat crops follow the same rule: their JSON records bind the
+scene, target sensor, requested bounds, temporal/cloud context, QA rule, band
+contract, and reflectance scaling to a validated GeoTIFF. A changed request or
+damaged crop is rebuilt rather than trusted because both files merely exist.
 
 ## Inspect the run
 

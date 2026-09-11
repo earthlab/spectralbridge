@@ -23,7 +23,7 @@ left incomplete so the next agent can resume immediately.
 ### P84. Harden Drone And Bulk Pipeline Quality
 
 - Priority: User-directed
-- Status: In progress
+- Status: Completed
 - Owner: Codex
 - Started: 2026-09-10
 - Starting commit: `c4dd2114b8cc59eeda22b1e993c169c41f0ef45c`
@@ -43,8 +43,47 @@ left incomplete so the next agent can resume immediately.
     installed-artifact validation before committing and pushing.
 - Guardrail: Normal NEON orchestration, science, outputs, defaults, API, and QA
   semantics must not change.
-- Blockers: None.
-- Next recommended task: Finish Phase 0 audit and baseline before implementation.
+- Completed: 2026-09-10
+- Completion notes:
+  - Preserved public sensor IDs and introduced drone/bulk-only display labels,
+    a colorblind-safe palette, wavelength-aware pair labels, and minimum
+    publication typography/DPI contracts without importing them into normal
+    NEON plotting.
+  - Added fingerprinted, validated stage records around drone working-H5,
+    ENVI-export, correction, optional STAC Landsat-crop, and final-report
+    reuse; added coupled compact-statistics fingerprinting for the expensive
+    bulk coefficient/LOSO stage.
+  - Added compact one-page drone and bulk dashboards, machine-readable values,
+    three-panel publication figures, deterministic diagnostic/publication
+    organization, and self-contained PDF reports that can be rebuilt without
+    reopening source rasters.
+  - Documented modular drone/bulk stage boundaries and added concise stage
+    logging. Normal NEON orchestration, corrections, convolution, brightness,
+    outputs, defaults, API, and QA code were not changed.
+  - Added regression coverage for stage reuse/invalidation, corrupt-output
+    recovery, optional drone validation layers, compact-only bulk reporting,
+    wavelength-aware labels, Landsat crop-cache validation, panel counts,
+    figure dimensions, typography, filenames, and vector outputs.
+  - Verification passed: Python compile; Ruff; focused drone/bulk/QA/restart/
+    normal-NEON tests; full suite (`366 passed, 7 skipped`); documentation link
+    check; strict MkDocs build; wheel/sdist build; and a clean no-dependency
+    wheel install/import (`earthlab-spectralbridge` 2.3.0rc1 importing
+    `spectralbridge`).
+- Blockers: None. The isolated build initially could not reach PyPI, so the
+  successful package build used the local uv cache offline. `twine check` was
+  not required by this task and could not start because the existing local
+  Twine environment timed out while reading its own dependency metadata; the
+  built wheel nevertheless passed the repository installed-artifact tests and
+  a separate clean-environment import smoke test.
+- Remaining real-data validation: Run one representative drone flight through
+  TIFF/H5 ingest, corrections, translation, full or polygon extraction, actual
+  Landsat QA, and optional NEON common-support QA; interrupt once after each
+  expensive stage to verify reuse. Separately rerun `summarize_bulk_results`
+  against a portable copy of the existing 122-flightline compact output to
+  inspect the final dashboard/publication/PDF design without recomputing
+  coefficients or reopening the raster archive.
+- Next recommended task: Complete the representative real-data validation
+  above before tagging v2.3.0rc1.
 
 ### P83. Audit Complete Bulk Translation Correspondence
 

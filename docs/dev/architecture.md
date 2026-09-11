@@ -120,6 +120,29 @@ pass. Its signature covers compact flightline moments, requested pairs,
 threshold, and chunk configuration. Results interpretation then has separate
 compact-summary, diagnostic, publication, and final-report stages.
 
+### Debuggable stage boundaries
+
+The intentionally small public API remains `run_drone_pipeline`,
+`run_bulk_pipeline`, and `summarize_bulk_results`. Maintainers can rerun major
+stages directly without duplicating orchestration:
+
+- Drone preparation/export/correction:
+  `_prepare_drone_source_working_h5`, `export_h5_to_envi`, and
+  `apply_drone_corrections`.
+- Drone translation/library/QA: `load_drone_translation_plans`,
+  `apply_drone_translation`, `enrich_translated_spectral_library`,
+  `render_drone_translation_qa`, and `render_drone_qa_report`.
+- Optional external validation: `acquire_landsat_observation`,
+  `load_supplied_landsat_observation`, and `compare_landsat_common_support`.
+- Bulk discovery/checkpoints/models: `discover_completed_flightlines`,
+  `compute_flightline_statistics`, and `run_streaming_translation_analyses`.
+- Bulk interpretation: `summarize_bulk_results`, with internal reporting
+  functions independently rendering the summary, diagnostics, publication
+  panels, and final PDF from compact tables.
+
+An underscore marks protected/internal infrastructure rather than an unstable
+file contract. The documented on-disk artifacts remain the primary interface.
+
 Optional spectral-library reporting also reads its merged polygon Parquet in
 place. Its visualization-validity policy is distinct from regression validity:
 selected bands must be present, finite, and not equal to known nodata sentinels,

@@ -25,6 +25,9 @@ from spectralbridge.qa_style import (
 )
 
 
+DRONE_TRANSLATION_PUBLICATION_PANEL_COUNT = 3
+
+
 def _finite_without_nodata(values: np.ndarray, nodata: float) -> np.ndarray:
     valid = np.isfinite(values)
     if math.isnan(nodata):
@@ -373,6 +376,7 @@ def render_drone_translation_publication(
 
 
 __all__ = [
+    "DRONE_TRANSLATION_PUBLICATION_PANEL_COUNT",
     "render_common_support_comparison",
     "render_drone_translation_publication",
     "render_drone_translation_qa",

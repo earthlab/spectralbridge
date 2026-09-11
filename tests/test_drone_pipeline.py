@@ -741,6 +741,7 @@ def test_apply_drone_corrections_reuses_matching_stage_record(
         "corrected_envi",
         inputs=[raw_img, raw_hdr],
         configuration={
+            "algorithm_version": 1,
             "apply_topo": True,
             "apply_brdf": True,
             "use_ndvi_brdf_bins": False,
