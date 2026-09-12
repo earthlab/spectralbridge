@@ -1906,6 +1906,11 @@ def test_production_shaped_tiff_correction_translation_polygon_and_qa(
             "translation_target_sensor",
             "translation_weighting",
             "translation_coefficient_sha256",
+            "translation_coefficient_set_version",
+            "translation_coefficient_statuses_json",
+            "translation_source_band_names_json",
+            "translation_target_band_names_json",
+            "translation_evidence_boundary",
             "corrected_micasense_path",
             "translated_product_path",
         ]
@@ -2375,14 +2380,6 @@ def test_run_drone_pipeline_writes_audit_json_when_correction_unavailable(
 @pytest.mark.parametrize(
     ("kwargs", "message"),
     [
-        ({"apply_translation": True}, "requires translation_coefficients"),
-        (
-            {
-                "apply_translation": True,
-                "translation_coefficients": "coefficients.parquet",
-            },
-            "requires explicit translation_weighting",
-        ),
         ({"landsat_qa": True}, "requires apply_translation=True"),
         (
             {"comparison_neon_product": "neon.img"},
@@ -2397,6 +2394,27 @@ def test_run_drone_pipeline_requires_explicit_translation_configuration(
 ) -> None:
     with pytest.raises(ValueError, match=message):
         run_drone_pipeline(tmp_path / "inputs", output_dir=tmp_path / "out", **kwargs)
+
+
+def test_run_drone_pipeline_uses_fixed_site_balanced_production_default(
+    tmp_path: Path, monkeypatch
+) -> None:
+    registry = tmp_path / "drone_translation_coefficients_v1.json"
+    registry.write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.packaged_drone_translation_coefficients_path",
+        lambda: registry,
+    )
+
+    result = run_drone_pipeline(
+        tmp_path / "missing-inputs",
+        output_dir=tmp_path / "out",
+        apply_translation=True,
+    )
+
+    assert result["qa_summary"]["translation_weighting"] == "site_balanced"
+    assert result["qa_summary"]["translation_coefficient_path"] == str(registry)
+    assert result["qa_summary"]["translation_strict"] is False
 
 
 def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues(

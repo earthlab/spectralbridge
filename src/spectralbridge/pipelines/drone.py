@@ -34,6 +34,10 @@ from spectralbridge.drone_translation import (
     load_drone_translation_plans,
     translated_output_stem,
 )
+from spectralbridge.drone_translation_registry import (
+    PRODUCTION_TRANSLATION_WEIGHTING,
+    packaged_drone_translation_coefficients_path,
+)
 from spectralbridge.polygons import (
     _describe_parquet_columns,
     _quote_identifier,
@@ -2277,6 +2281,7 @@ def run_drone_pipeline(
     apply_translation: bool = False,
     translation_coefficients: str | Path | None = None,
     translation_weighting: str | None = None,
+    translation_strict: bool = False,
     landsat_qa: bool = False,
     landsat_product: str | Path | None = None,
     landsat_search_days: int = 16,
@@ -2288,9 +2293,10 @@ def run_drone_pipeline(
     corrected drone ENVI product. ``"polygon"`` uses ``polygon_path`` and the
     existing polygon extraction path. The default preserves historical
     behavior: polygon mode when polygons are supplied, otherwise QA-only.
-    Translation is opt-in and consumes an explicit reviewed bulk coefficient
-    artifact plus weighting family. It creates separate Landsat-like products;
-    corrected native MicaSense is never overwritten.
+    Translation is opt-in and consumes a versioned packaged registry by default,
+    or an explicitly supplied reviewed bulk artifact. The predetermined
+    production weighting is site-balanced. It creates separate Landsat-like
+    products; corrected native MicaSense is never overwritten.
     """
 
     run_started = time.monotonic()
@@ -2302,14 +2308,11 @@ def run_drone_pipeline(
         raise ValueError("parquet_chunk_size must be at least 1")
     if landsat_search_days < 0:
         raise ValueError("landsat_search_days must be non-negative")
-    if apply_translation and translation_coefficients is None:
-        raise ValueError(
-            "apply_translation=True requires translation_coefficients"
-        )
-    if apply_translation and translation_weighting is None:
-        raise ValueError(
-            "apply_translation=True requires explicit translation_weighting"
-        )
+    if apply_translation:
+        if translation_coefficients is None:
+            translation_coefficients = packaged_drone_translation_coefficients_path()
+        if translation_weighting is None:
+            translation_weighting = PRODUCTION_TRANSLATION_WEIGHTING
     if (landsat_qa or landsat_product is not None or comparison_neon_product is not None) and not apply_translation:
         raise ValueError(
             "Landsat/NEON comparison QA requires apply_translation=True"
@@ -2360,6 +2363,7 @@ def run_drone_pipeline(
                 else None
             ),
             "translation_weighting": translation_weighting,
+            "translation_strict": bool(translation_strict),
             "landsat_qa_requested": bool(landsat_qa),
             "landsat_product": (
                 str(landsat_product) if landsat_product is not None else None
@@ -2397,6 +2401,7 @@ def run_drone_pipeline(
             "extraction_mode": actual_extraction_mode,
             "translation_requested": bool(apply_translation),
             "translation_weighting": translation_weighting,
+            "translation_strict": bool(translation_strict),
             "landsat_qa": bool(landsat_qa),
             "landsat_search_days": int(landsat_search_days),
             "require_solar_geometry": bool(require_solar_geometry),
@@ -2722,6 +2727,7 @@ def run_drone_pipeline(
                     Path(translation_coefficients),
                     weighting=str(translation_weighting),
                     source_wavelengths_nm=meta["wavelengths"],
+                    strict=translation_strict,
                 )
                 for plan in plans:
                     translated_stem = translated_output_stem(

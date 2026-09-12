@@ -42,11 +42,13 @@ matched to the bundled field manifest unless `drone_manifest_path` overrides
 it. See the [detailed tutorial](../tutorials/micasense-to-landsat.md) for the
 complete TIFF contract.
 
-Translation consumes the existing bulk candidate table. It does not fit
-coefficients. Select its weighting family explicitly from `pixel_pooled`,
-`flightline_balanced`, or `site_balanced`; SpectralBridge validates equation
-direction, sensor identities, unique band mappings, wavelengths, finite
-coefficients, and run provenance before writing a translated product.
+Production translation consumes a static, versioned registry generated from
+the completed compact bulk output. It does not fit coefficients. The production
+weighting is fixed to `site_balanced`, reflecting intended transfer to new
+flightlines and sites rather than optimization of the pooled pixel fit.
+SpectralBridge validates equation direction, sensor identities, the exact 18
+physical pair-band mappings, wavelengths, finite coefficients, confidence, and
+bulk-run provenance before writing a translated product.
 
 ## Run it
 
@@ -61,10 +63,8 @@ results = run_drone_pipeline(
     apply_topo=True,
     apply_brdf=True,
     apply_translation=True,
-    translation_coefficients=(
-        "bulk_analysis/coefficients/candidate_translation_coefficients.parquet"
-    ),
-    translation_weighting="site_balanced",
+    translation_coefficients="drone_translation_coefficients_v1.json",
+    translation_strict=False,
 )
 
 print(results["processed"])
@@ -75,7 +75,10 @@ print(results["translated_merged"])
 Use `extraction_mode="full"` for all corrected pixels. Omitting
 `extraction_mode` preserves the earlier behavior: polygon extraction when a
 polygon is supplied, otherwise raster and QA outputs only. Translation remains
-opt-in and requires both the coefficient path and weighting family.
+opt-in. Once a reviewed registry is packaged, its path may be omitted; until
+then, an explicit generated registry is required. Normal mode writes `caution`
+bands with warnings, while `translation_strict=True` refuses them. A `reject`
+coefficient is never applied.
 
 ## Standalone and comparison QA
 

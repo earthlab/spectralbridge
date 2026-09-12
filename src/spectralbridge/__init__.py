@@ -33,6 +33,8 @@ __all__ = sorted(
             [
                 "apply_brightness_correction",
                 "build_harmonized_dataset",
+                "build_drone_translation_coefficient_registry",
+                "get_drone_translation_coefficient",
                 "go_forth_and_multiply",
                 "process_one_flightline",
                 "run_bulk_pipeline",
@@ -40,6 +42,7 @@ __all__ = sorted(
                 "run_spectral_library_analysis",
                 "summarize_bulk_results",
                 "inspect_spectral_library_preflight",
+                "load_drone_translation_coefficients",
                 load_brightness_coefficients.__name__,
             ]
             + list(_PLOT_EXPORTS)
@@ -49,6 +52,15 @@ __all__ = sorted(
 
 
 def __getattr__(name: str):  # pragma: no cover - thin lazy import helper
+    if name in {
+        "build_drone_translation_coefficient_registry",
+        "get_drone_translation_coefficient",
+        "load_drone_translation_coefficients",
+    }:
+        module = import_module("spectralbridge.drone_translation_registry")
+        value = getattr(module, name)
+        globals()[name] = value
+        return value
     if name == "build_harmonized_dataset":
         from .bulk.harmonized import build_harmonized_dataset as _builder
 

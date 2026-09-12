@@ -21,8 +21,14 @@ import duckdb
 
 from spectralbridge import __version__
 from spectralbridge.bulk.registry import DEFAULT_PRODUCT_REGISTRY, TranslationPair
+from spectralbridge.drone_translation_registry import (
+    PRODUCTION_TRANSLATION_WEIGHTING,
+    load_drone_translation_coefficients,
+    packaged_drone_translation_coefficients_path,
+)
 from spectralbridge.envi import hdr_to_dict, memmap_bsq
 from spectralbridge.envi_writer import EnviWriter
+from spectralbridge.sensor_pairs import sensor_band_identity
 from spectralbridge.utils.paths import get_package_data_path
 from spectralbridge.utils_checks import is_valid_envi_pair
 
@@ -62,6 +68,8 @@ class DroneTranslationBand:
     coefficient_source_band_index: int
     native_source_band_index: int
     target_band_index: int
+    source_spectral_identity: str
+    target_spectral_identity: str
     source_wavelength_nm: float
     native_source_wavelength_nm: float
     target_wavelength_nm: float
@@ -72,6 +80,17 @@ class DroneTranslationBand:
     x_max: float | None
     x_mean: float | None
     r2: float | None
+    rmse: float | None = None
+    fitted_correction_percent: float | None = None
+    flightline_slope_iqr: float | None = None
+    site_slope_range: float | None = None
+    worst_loso_r2: float | None = None
+    worst_loso_rmse: float | None = None
+    worst_loso_site: str | None = None
+    attention_flags: tuple[str, ...] = ()
+    coefficient_status: str | None = None
+    coefficient_warnings: tuple[str, ...] = ()
+    coefficient_set_version: str | None = None
 
 
 @dataclass(frozen=True)
@@ -89,6 +108,7 @@ class DroneTranslationPlan:
     evidence_boundary: str | None
     candidate_status: str | None
     bands: tuple[DroneTranslationBand, ...]
+    coefficient_set_version: str | None = None
 
     @property
     def output_slug(self) -> str:
@@ -135,10 +155,46 @@ def _load_coefficient_rows(path: Path) -> tuple[pd.DataFrame, dict[str, Any]]:
             metadata = json.loads(path.read_text(encoding="utf-8"))
         except json.JSONDecodeError as exc:
             raise ValueError(f"Translation coefficient JSON is invalid: {path}") from exc
-        rows = metadata.get("candidate_coefficients")
+        if isinstance(metadata.get("records"), list):
+            metadata = load_drone_translation_coefficients(path)
+            rows = [
+                {
+                    "analysis_run_id": row["bulk_analysis_run_id"],
+                    "analysis_level": row["weighting_strategy"],
+                    "weighting": row["weighting_description"],
+                    "translation_pair": row["translation_pair_key"],
+                    "source_sensor": row["source_sensor"],
+                    "target_sensor": row["target_sensor"],
+                    "source_band_index": row["source_band"],
+                    "target_band_index": row["target_band"],
+                    "band_index": row["band_index"],
+                    "equation": metadata["equation"],
+                    "status": row["fit_status"],
+                    "slope": row["slope"],
+                    "intercept": row["intercept"],
+                    "r2": row["r2"],
+                    "rmse": row["rmse"],
+                    "fitted_correction_percent": row[
+                        "fitted_correction_percent"
+                    ],
+                    "flightline_slope_iqr": row["flightline_slope_iqr"],
+                    "site_slope_range": row["site_slope_range"],
+                    "worst_loso_r2": row["worst_loso_r2"],
+                    "worst_loso_rmse": row["worst_loso_rmse"],
+                    "worst_loso_site": row["worst_loso_site"],
+                    "attention_flags": row["attention_flags"],
+                    "coefficient_status": row["status"],
+                    "coefficient_warnings": row["warnings"],
+                    "coefficient_set_version": row["coefficient_set_version"],
+                }
+                for row in metadata["records"]
+            ]
+        else:
+            rows = metadata.get("candidate_coefficients")
         if not isinstance(rows, list):
             raise ValueError(
-                "Translation coefficient JSON must contain a candidate_coefficients list"
+                "Translation coefficient JSON must contain records or a "
+                "candidate_coefficients list"
             )
         frame = pd.DataFrame(rows)
     else:
@@ -200,20 +256,27 @@ def _validate_required_columns(frame: pd.DataFrame) -> None:
 
 
 def load_drone_translation_plans(
-    coefficient_path: str | Path,
+    coefficient_path: str | Path | None = None,
     *,
-    weighting: str,
+    weighting: str = PRODUCTION_TRANSLATION_WEIGHTING,
     source_wavelengths_nm: Sequence[float] | np.ndarray,
     target_sensors: Iterable[str] | None = None,
+    strict: bool = False,
 ) -> tuple[DroneTranslationPlan, ...]:
     """Load and scientifically validate bulk coefficients for drone application.
 
-    ``weighting`` selects the bulk ``analysis_level`` and is always explicit.
-    When ``target_sensors`` is omitted, every complete built-in target present
-    in the artifact is returned; the function never silently chooses one.
+    ``weighting`` selects the bulk ``analysis_level`` and defaults to the fixed
+    production policy, ``site_balanced``. When ``coefficient_path`` is omitted,
+    the packaged versioned production registry is used. When ``target_sensors``
+    is omitted, every complete built-in target present in the artifact is
+    returned; the function never dynamically chooses a sensor or weighting.
     """
 
-    path = Path(coefficient_path).expanduser().resolve()
+    path = (
+        packaged_drone_translation_coefficients_path()
+        if coefficient_path is None
+        else Path(coefficient_path).expanduser().resolve()
+    )
     requested_weighting = str(weighting).strip().lower().replace("-", "_")
     if requested_weighting not in SUPPORTED_WEIGHTINGS:
         raise ValueError(
@@ -325,6 +388,19 @@ def load_drone_translation_plans(
                 raise ValueError(
                     f"Non-finite slope/intercept for {pair_key} band {row.band_index}"
                 )
+            coefficient_status = getattr(row, "coefficient_status", None)
+            if coefficient_status == "reject":
+                raise ValueError(
+                    f"Coefficient {pair_key} target B{target_band_index} is marked reject"
+                )
+            if strict and coefficient_status == "caution":
+                raise ValueError(
+                    "Strict translation policy rejects caution coefficient "
+                    f"{pair_key} target B{target_band_index}"
+                )
+            source_identity = sensor_band_identity(source_sensor, source_band_index)
+            target_identity = sensor_band_identity(target_sensor, target_band_index)
+            assert source_identity is not None and target_identity is not None
             expected_source_wavelength = float(source_centers[source_band_index - 1])
             native_band_index, native_wavelength = _nearest_native_band(
                 source_wavelengths,
@@ -340,6 +416,8 @@ def load_drone_translation_plans(
                     coefficient_source_band_index=source_band_index,
                     native_source_band_index=native_band_index,
                     target_band_index=target_band_index,
+                    source_spectral_identity=source_identity.spectral_identity,
+                    target_spectral_identity=target_identity.spectral_identity,
                     source_wavelength_nm=expected_source_wavelength,
                     native_source_wavelength_nm=native_wavelength,
                     target_wavelength_nm=float(target_centers[target_band_index - 1]),
@@ -350,6 +428,39 @@ def load_drone_translation_plans(
                     x_max=_optional_number(getattr(row, "x_max", None)),
                     x_mean=_optional_number(getattr(row, "x_mean", None)),
                     r2=_optional_number(getattr(row, "r2", None)),
+                    rmse=_optional_number(getattr(row, "rmse", None)),
+                    fitted_correction_percent=_optional_number(
+                        getattr(row, "fitted_correction_percent", None)
+                    ),
+                    flightline_slope_iqr=_optional_number(
+                        getattr(row, "flightline_slope_iqr", None)
+                    ),
+                    site_slope_range=_optional_number(
+                        getattr(row, "site_slope_range", None)
+                    ),
+                    worst_loso_r2=_optional_number(
+                        getattr(row, "worst_loso_r2", None)
+                    ),
+                    worst_loso_rmse=_optional_number(
+                        getattr(row, "worst_loso_rmse", None)
+                    ),
+                    worst_loso_site=(
+                        str(value)
+                        if (value := getattr(row, "worst_loso_site", None))
+                        is not None
+                        and not pd.isna(value)
+                        else None
+                    ),
+                    attention_flags=tuple(
+                        getattr(row, "attention_flags", None) or ()
+                    ),
+                    coefficient_status=coefficient_status,
+                    coefficient_warnings=tuple(
+                        getattr(row, "coefficient_warnings", None) or ()
+                    ),
+                    coefficient_set_version=getattr(
+                        row, "coefficient_set_version", None
+                    ),
                 )
             )
         native_indices = [band.native_source_band_index for band in bands]
@@ -370,6 +481,7 @@ def load_drone_translation_plans(
                 evidence_boundary=evidence_by_pair.get(pair_key) or pair.evidence_boundary,
                 candidate_status=metadata.get("candidate_status"),
                 bands=tuple(bands),
+                coefficient_set_version=metadata.get("coefficient_set_version"),
             )
         )
     if not plans:
@@ -497,7 +609,9 @@ def apply_drone_translation(
             "description": (
                 "Landsat-like translated reflectance derived from corrected native "
                 f"MicaSense using {plan.analysis_level} bulk coefficients; not an "
-                "actual Landsat observation"
+                f"actual Landsat observation; target={plan.target_sensor}; "
+                "coefficient_set="
+                f"{plan.coefficient_set_version or 'external_unversioned'}"
             ),
         }
     )
@@ -586,6 +700,19 @@ def apply_drone_translation(
                 "maximum": float(np.max(selected)) if selected.size else None,
             }
         )
+    coefficient_warnings = sorted(
+        {
+            warning
+            for band in plan.bands
+            for warning in band.coefficient_warnings
+            if warning
+        }
+    )
+    caution_bands = [
+        band.target_band_index
+        for band in plan.bands
+        if band.coefficient_status == "caution"
+    ]
     payload = {
         "schema_version": 1,
         "status": "created",
@@ -600,6 +727,7 @@ def apply_drone_translation(
         "source_fingerprint": _source_fingerprint(corrected_img, corrected_hdr),
         "coefficient_path": plan.coefficient_path,
         "coefficient_sha256": plan.coefficient_sha256,
+        "coefficient_set_version": plan.coefficient_set_version,
         "analysis_run_id": plan.analysis_run_id,
         "analysis_level": plan.analysis_level,
         "weighting": plan.weighting_description,
@@ -607,6 +735,11 @@ def apply_drone_translation(
         "source_sensor": plan.source_sensor,
         "target_sensor": plan.target_sensor,
         "candidate_status": plan.candidate_status,
+        "coefficient_statuses": {
+            str(band.target_band_index): band.coefficient_status
+            for band in plan.bands
+        },
+        "caution_target_bands": caution_bands,
         "evidence_boundary": plan.evidence_boundary,
         "bands": [asdict(band) for band in plan.bands],
         "training_range_checks": range_checks,
@@ -621,7 +754,18 @@ def apply_drone_translation(
                 (
                     f"Coefficient candidate status is {plan.candidate_status}."
                     if plan.candidate_status
-                    else "Coefficient artifact did not provide candidate_status metadata."
+                    else (
+                        "Coefficient artifact did not provide candidate_status metadata."
+                        if plan.coefficient_set_version is None
+                        else None
+                    )
+                ),
+                *coefficient_warnings,
+                (
+                    "One or more production coefficients are marked caution; "
+                    "review band-level validation evidence."
+                    if caution_bands
+                    else None
                 ),
             )
             if warning
@@ -641,10 +785,26 @@ def coefficient_rows_for_parquet(plan: DroneTranslationPlan) -> list[dict[str, A
             "translation_target_sensor": band.target_sensor,
             "translation_source_band": band.native_source_band_index,
             "translation_target_band": band.target_band_index,
+            "translation_source_spectral_identity": band.source_spectral_identity,
+            "translation_target_spectral_identity": band.target_spectral_identity,
             "translation_source_wavelength_nm": band.native_source_wavelength_nm,
             "translation_target_wavelength_nm": band.target_wavelength_nm,
             "translation_slope": band.slope,
             "translation_intercept": band.intercept,
+            "translation_r2": band.r2,
+            "translation_rmse": band.rmse,
+            "translation_fitted_correction_percent": (
+                band.fitted_correction_percent
+            ),
+            "translation_flightline_slope_iqr": band.flightline_slope_iqr,
+            "translation_site_slope_range": band.site_slope_range,
+            "translation_worst_loso_r2": band.worst_loso_r2,
+            "translation_worst_loso_rmse": band.worst_loso_rmse,
+            "translation_worst_loso_site": band.worst_loso_site,
+            "translation_attention_flags": list(band.attention_flags),
+            "translation_coefficient_status": band.coefficient_status,
+            "translation_coefficient_warnings": list(band.coefficient_warnings),
+            "translation_coefficient_set_version": band.coefficient_set_version,
             "translation_analysis_run_id": plan.analysis_run_id,
             "translation_weighting": plan.analysis_level,
             "translation_coefficient_sha256": plan.coefficient_sha256,
@@ -709,6 +869,29 @@ def enrich_translated_spectral_library(
         "translation_weighting": plan.analysis_level,
         "translation_coefficient_path": plan.coefficient_path,
         "translation_coefficient_sha256": plan.coefficient_sha256,
+        "translation_coefficient_set_version": plan.coefficient_set_version,
+        "translation_coefficient_statuses_json": json.dumps(
+            {
+                str(band.target_band_index): band.coefficient_status
+                for band in plan.bands
+            },
+            sort_keys=True,
+        ),
+        "translation_source_band_names_json": json.dumps(
+            {
+                str(band.target_band_index): band.source_spectral_identity
+                for band in plan.bands
+            },
+            sort_keys=True,
+        ),
+        "translation_target_band_names_json": json.dumps(
+            {
+                str(band.target_band_index): band.target_spectral_identity
+                for band in plan.bands
+            },
+            sort_keys=True,
+        ),
+        "translation_evidence_boundary": plan.evidence_boundary,
         "translation_band_mapping_json": mapping_json,
         "source_package_path": source_package_path,
         "working_h5_path": working_h5_path,

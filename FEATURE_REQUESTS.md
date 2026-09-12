@@ -1,6 +1,6 @@
 # SpectralBridge Feature Requests
 
-Review date: 2026-09-10
+Review date: 2026-09-11
 Branch: main
 
 This file is the authoritative work queue for non-trivial SpectralBridge work.
@@ -19,6 +19,63 @@ left incomplete so the next agent can resume immediately.
 6. After verification, record outcome, blockers, and the next recommended task.
 
 ## Active Requests
+
+### P85. Package Validated Drone Translation Coefficients
+
+- Priority: User-directed
+- Status: Blocked on exact production artifacts; implementation and validation complete
+- Owner: Codex
+- Started: 2026-09-11
+- Starting commit: `93fbbb8f4f98abdff85a997d52a11ac51716175a`
+- Goal: Package the validated bulk-derived, site-balanced affine coefficient
+  set for explicit post-correction MicaSense-to-Landsat-like drone translation,
+  including versioned provenance, confidence metadata, QA, and spectral-library
+  propagation without runtime fitting, convolution, or normal NEON changes.
+- Plan:
+  - Audit the existing drone translation implementation and locate the exact
+    completed compact coefficient and QA artifacts locally.
+  - If the artifacts exist and agree with the requested 18-band contract,
+    build a versioned packaged registry from exact rows and validation tables;
+    otherwise implement and document a strict import/update mechanism without
+    fabricating coefficients.
+  - Add schema/uniqueness/wavelength/count/confidence validation and integrate
+    a deterministic site-balanced default while preserving explicit overrides.
+  - Propagate coefficient metadata and cautions through raster provenance,
+    spectral-library outputs, and drone QA.
+  - Add focused scientific/restart regressions, update documentation and
+    transparency artifacts, then run targeted and full validation.
+- Guardrail: Do not alter normal NEON behavior or scientific outputs. Stop
+  rather than coercing inconsistent bulk artifacts.
+- Completed implementation:
+  - Added a strict versioned registry schema/loader and an importer that reads
+    only the eight exact compact bulk result artifacts, selects the fixed
+    site-balanced rows, verifies one run and the complete 18-band physical
+    mapping, and refuses inconsistent L5 TM B3 warning evidence.
+  - Integrated the registry metadata into post-correction affine raster
+    translation, restart signatures, translated full/polygon Parquets, QA JSON,
+    and caution-aware publication graphics. Normal mode retains cautions;
+    strict mode rejects them, while `reject` is never applied.
+  - Documented the fixed equation, wavelength mapping, site-balanced rationale,
+    confidence meanings, evidence boundary, exact import command, and current
+    activation state. Added focused registry/import/affine/provenance tests.
+  - Confirmed no normal NEON pipeline or convolution implementation changed.
+- Verification:
+  - `ruff check src tests scripts`: passed.
+  - `python -m compileall -q src scripts`: passed.
+  - Focused registry/translation/Landsat tests: 27 passed.
+  - Full test suite: 565 passed, 6 skipped.
+  - `mkdocs build --strict`: passed.
+  - `python scripts/check_docs_links.py`: passed.
+- Blocker: The exact production candidate/summary/weighting/stability/LOSO/flag
+  artifacts are not present in the repository or accessible local filesystem.
+  Therefore no numerical packaged registry was created and no production
+  coefficient value was inferred from rounded narrative statistics.
+- Remaining work: Supply the completed bulk-output directory; run
+  `scripts/build_drone_translation_registry.py`; scientifically review the
+  generated 18-record JSON and its hashes; add it to package data; rerun the
+  registry, full-suite, docs, and installed-artifact validations.
+- Next recommended task: Import and review the exact production registry as
+  soon as the completed compact bulk output path is available.
 
 ### P84. Harden Drone And Bulk Pipeline Quality
 

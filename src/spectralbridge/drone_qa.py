@@ -100,11 +100,24 @@ def render_drone_translation_qa(
             {
                 "source_band_index": band.native_source_band_index,
                 "target_band_index": band.target_band_index,
+                "source_spectral_identity": band.source_spectral_identity,
+                "target_spectral_identity": band.target_spectral_identity,
                 "source_wavelength_nm": band.native_source_wavelength_nm,
                 "target_wavelength_nm": band.target_wavelength_nm,
                 "slope": band.slope,
                 "intercept": band.intercept,
                 "r2_bulk": band.r2,
+                "rmse_bulk": band.rmse,
+                "fitted_correction_percent": band.fitted_correction_percent,
+                "flightline_slope_iqr": band.flightline_slope_iqr,
+                "site_slope_range": band.site_slope_range,
+                "worst_loso_r2": band.worst_loso_r2,
+                "worst_loso_rmse": band.worst_loso_rmse,
+                "worst_loso_site": band.worst_loso_site,
+                "attention_flags": list(band.attention_flags),
+                "coefficient_status": band.coefficient_status,
+                "coefficient_warnings": list(band.coefficient_warnings),
+                "coefficient_set_version": band.coefficient_set_version,
                 "valid_pixel_count": int(valid.sum()),
                 "valid_translated_fraction": float(valid.mean()),
                 "source_median": float(np.median(source_sample))
@@ -174,13 +187,14 @@ def render_drone_translation_qa(
             cellText=[
                 [
                     record["target_band_index"],
+                    record["coefficient_status"] or "unreviewed",
                     f"{record['slope']:.4g}",
                     f"{record['intercept']:.4g}",
                     f"{record['valid_translated_fraction']:.1%}",
                 ]
                 for record in band_records
             ],
-            colLabels=["Band", "Slope", "Intercept", "Valid"],
+            colLabels=["Band", "Status", "Slope", "Intercept", "Valid"],
             loc="center",
         )
     for index in range(2, columns):
@@ -199,6 +213,7 @@ def render_drone_translation_qa(
         "corrected_micasense_product": str(corrected_img),
         "translated_product": str(translated_img),
         "translation_provenance": translation_result,
+        "coefficient_set_version": plan.coefficient_set_version,
         "bands": band_records,
         "warnings": list(translation_result.get("warnings", [])),
     }
@@ -319,23 +334,33 @@ def render_drone_translation_publication(
             else np.nan
             for row in bands
         ]
-        axes[1].bar(
+        statuses = [row.get("coefficient_status") for row in bands]
+        bars = axes[1].bar(
             x,
             shifts,
             color=[
                 STATUS_COLORS["attention"]
-                if np.isfinite(value) and abs(value) > 20
+                if status == "caution" or (np.isfinite(value) and abs(value) > 20)
                 else SENSOR_COLORS["drone_landsat_like"]
-                for value in shifts
+                for value, status in zip(shifts, statuses, strict=True)
             ],
         )
+        for bar, status in zip(bars, statuses, strict=True):
+            if status == "caution":
+                bar.set_hatch("///")
+                bar.set_edgecolor("#6B4E00")
         axes[1].axhline(0.0, color="#333333", linewidth=0.8)
         axes[1].set_title("Median translation shift", fontsize=10, loc="left")
         axes[1].set_ylabel("Change from source (%)")
         axes[2].scatter(
             [row.get("slope", np.nan) for row in bands],
             x,
-            color=SENSOR_COLORS["drone_landsat_like"],
+            color=[
+                STATUS_COLORS["attention"]
+                if status == "caution"
+                else SENSOR_COLORS["drone_landsat_like"]
+                for status in statuses
+            ],
             marker="D",
             s=30,
         )
@@ -362,7 +387,12 @@ def render_drone_translation_publication(
         str((translation_qa.get("translation_provenance") or {}).get("target_sensor", "Landsat target"))
     )
     figure.suptitle(
-        f"Drone cross-sensor translation quality · {target}",
+        f"Drone cross-sensor translation quality · {target}"
+        + (
+            f" · {sum(row.get('coefficient_status') == 'caution' for row in bands)} caution"
+            if any(row.get("coefficient_status") == "caution" for row in bands)
+            else ""
+        ),
         fontsize=DEFAULT_QA_STYLE.title_font_size,
         weight="bold",
     )

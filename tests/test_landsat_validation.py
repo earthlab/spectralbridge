@@ -37,6 +37,12 @@ def _plan() -> DroneTranslationPlan:
             coefficient_source_band_index=index,
             native_source_band_index=index,
             target_band_index=index,
+            source_spectral_identity=(
+                "coastal aerosol", "blue", "green", "red", "near infrared"
+            )[index - 1],
+            target_spectral_identity=(
+                "coastal aerosol", "blue", "green", "red", "near infrared"
+            )[index - 1],
             source_wavelength_nm=wavelength,
             native_source_wavelength_nm=wavelength,
             target_wavelength_nm=target,

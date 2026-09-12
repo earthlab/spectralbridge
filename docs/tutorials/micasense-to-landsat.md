@@ -101,10 +101,8 @@ results = run_drone_pipeline(
     use_ndvi_brdf_bins=False,
     apply_brightness_adjustment=False,
     apply_translation=True,
-    translation_coefficients=(
-        "bulk_analysis/coefficients/candidate_translation_coefficients.parquet"
-    ),
-    translation_weighting="site_balanced",
+    translation_coefficients="drone_translation_coefficients_v1.json",
+    translation_strict=False,
 )
 ```
 
@@ -141,6 +139,96 @@ definition, also pass:
 tiff_wavelengths_nm=[...]
 tiff_fwhm_nm=[...]
 ```
+
+## Production translation coefficients
+
+Translation is an explicit post-correction affine operation:
+
+\[
+L = a + bM
+\]
+
+Here, \(M\) is corrected native MicaSense reflectance, \(a\) is the stored
+intercept, \(b\) is the stored slope, and \(L\) is Landsat-like translated
+reflectance. The pipeline applies these fixed values in bounded raster windows.
+It does not refit them and does not spectrally convolve drone data. The corrected
+MicaSense ENVI pair remains unchanged beside each separately named translated
+product.
+
+Production uses the site-balanced candidate from each physical pair-band. This
+gives each site equal aggregate influence and is the predetermined deployment
+policy for generalizing beyond the pooled training pixels. Alternative candidate
+families remain bulk-analysis evidence; the production loader does not choose
+among them dynamically.
+
+Band numbers are local to each sensor. Matching follows physical spectral
+identity and packaged passband metadata:
+
+| Landsat target | Target band | Physical band | Corrected MicaSense center |
+| --- | ---: | --- | ---: |
+| Landsat 5 TM / Landsat 7 ETM+ | B1 | blue | 475 nm |
+| Landsat 5 TM / Landsat 7 ETM+ | B2 | green | 560 nm |
+| Landsat 5 TM / Landsat 7 ETM+ | B3 | red | 668 nm |
+| Landsat 5 TM / Landsat 7 ETM+ | B4 | near infrared | 842 nm |
+| Landsat 8 OLI / Landsat 9 OLI-2 | B1 | coastal aerosol | 444 nm |
+| Landsat 8 OLI / Landsat 9 OLI-2 | B2 | blue | 475 nm |
+| Landsat 8 OLI / Landsat 9 OLI-2 | B3 | green | 560 nm |
+| Landsat 8 OLI / Landsat 9 OLI-2 | B4 | red | 668 nm |
+| Landsat 8 OLI / Landsat 9 OLI-2 | B5 | near infrared | 842 nm |
+
+TM/ETM+ translation includes only B1–B4. It never interprets the sixth position
+of the packaged reflective `[B1, B2, B3, B4, B5, B7]` array as thermal B6.
+
+### Importing an exact completed bulk result
+
+The numerical production file must be generated from the exact compact result
+tables, never reconstructed from rounded report statistics:
+
+```bash
+python scripts/build_drone_translation_registry.py /data/completed_bulk_output \
+  --output src/spectralbridge/data/drone_translation_coefficients_v1.json
+```
+
+The importer reads the candidate, pair summary, weighting, flightline, site,
+LOSO, attention-flag, and bulk-summary artifacts. It verifies a single bulk run,
+exactly 18 successful site-balanced relationships, the four registered sensor
+pairs, wavelength identities, and the Landsat 5 B3 warning evidence. It records
+SHA-256 hashes for every compact source artifact. It never opens source rasters
+or calculates a regression. Review the generated diff and test it before
+packaging. If any input is missing or inconsistent, no registry is written.
+
+This repository revision contains the importer and consumer but not fabricated
+numeric values. Until the exact completed compact output is supplied and the
+generated JSON is scientifically reviewed, omitting `translation_coefficients`
+fails with an actionable message. An explicit generated registry can be tested
+without installing it as package data.
+
+### Confidence and evidence boundary
+
+- `validated`: the fit completed and no configured bulk QA attention flag was
+  triggered.
+- `caution`: the coefficient remains usable in normal mode, but its flags and
+  validation statistics require review. QA renders it with an attention color
+  and hatch.
+- `reject`: the loader refuses the coefficient in every mode.
+
+`translation_strict=True` also refuses `caution` coefficients. The registry
+retains R², RMSE, fitted correction, flightline slope IQR, site slope range,
+worst held-out-site metrics, attention flags, coefficient version, bulk run ID,
+and exact input hashes. Those fields flow to translation JSON, QA JSON/figures,
+and the translated spectral-library Parquet mapping/provenance columns.
+
+Landsat 5 TM B3 has a required `caution`:
+
+> Bulk-derived translation for MicaSense 668 nm -> Landsat 5 TM B3 showed strong
+> site dependence and poor WREF leave-one-site-out transferability. Treat this
+> band as lower-confidence.
+
+The bulk regressions compare synthetic products convolved from the same
+corrected NEON source unless independent observations are explicitly provided.
+They are descriptive relationships, not independent empirical sensor
+calibration. Strong R² does not erase weighting, site, or transferability
+limitations.
 
 ## Outputs
 

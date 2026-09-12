@@ -78,6 +78,17 @@
 | QA artefacts | `<flight_id>_qa.png`, `<flight_id>_qa.json`, optional `<flight_id>_qa.pdf` | Visual and numeric QA summaries aligned to the merged outputs. | PNG and JSON are expected for completed runs; PDF is optional. |
 | QA metrics parquet | `<flight_id>_qa_metrics.parquet` | Structured QA metrics by band and sensor. | Emitted alongside QA outputs when QA calculation runs. |
 | Synthetic sensor regression diagnostic | `qa_plots/<merged_stem>__MS_vs_Landsat_FIXED.(png|json)` | Scatter panels compare spectral-identity/wavelength-matched synthetic MicaSense and Landsat products; the JSON records separate source/target band indices and wavelengths plus the displayed slope, intercept, correlation, R², and sample count. | Both axes come from the same corrected NEON source. This is a descriptive convolution diagnostic, not empirical sensor calibration. |
+
+Drone translation writes a distinct
+`<flight>__landsat_like_<target>_translated_envi.(img|hdr)` pair plus
+`*__translation.json`; it never overwrites `<flight>__corrected.*`. The JSON
+records the fixed affine equation, coefficient-set and bulk-run identities,
+site-balanced policy, per-band spectral names/wavelengths, slope/intercept,
+confidence status, R²/RMSE, correction magnitude, flightline/site/LOSO evidence,
+attention flags, artifact hashes, and evidence-boundary warning. Translated
+full/polygon Parquets keep an explicit Landsat-like product identifier and the
+same band mapping/provenance as constant columns rather than mixing their values
+with native MicaSense columns.
 | Stage QA | `qa/stages/<order>_<stage>/stage_qa.(json|html)` plus optional `overview.png` | Focused report for one canonical stage with explicit checks and provenance. | Deterministic and restart-safe; missing diagnostics are recorded as `NOT EVALUATED`. |
 | Combined stage QA | `qa/combined/combined_qa.(json|html|pdf)` plus `pipeline_evolution.png` | Cross-stage status, pipeline evolution, evidence-backed synthesis, and a printable multi-page summary. | Does more than concatenate stage reports; unsupported translation/Landsat diagnostics remain explicit. The PDF is intended for download and flightline-to-flightline comparison. |
 </section>

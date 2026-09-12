@@ -7,7 +7,7 @@
       "pipeline.output_dir"
     ],
     "path_rule": "Relative paths are resolved from the repository root.",
-    "input_rule": "The input may be one HDF5 or TIFF input or a directory searched recursively for supported drone inputs. Translation requires a reviewed bulk coefficient artifact and explicit weighting."
+    "input_rule": "The input may be one HDF5 or TIFF input or a directory searched recursively for supported drone inputs. Production translation uses the packaged, reviewed site-balanced registry; an explicit registry path may override it."
   },
   "pipeline": {
     "input_h5_dir": "data/drone_h5",
@@ -25,6 +25,7 @@
     "apply_translation": false,
     "translation_coefficients": null,
     "translation_weighting": null,
+    "translation_strict": false,
     "landsat_qa": false,
     "landsat_product": null,
     "landsat_search_days": 16,

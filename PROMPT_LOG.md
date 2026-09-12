@@ -14044,3 +14044,408 @@ Normal NEON scientific/behavioral output changed: YES/NO
 
 The expected answer is NO.
 ```
++
+## 2026-09-11 - production drone translation coefficient registry
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
++
+```text
+You are working in the earthlab/spectralbridge repository.
+
+Goal:
+Incorporate the validated bulk-derived sensor translation coefficients into the DRONE pipeline as the explicit production translation step from corrected native MicaSense reflectance to Landsat-like outputs.
+
+Important constraints:
+- Do NOT modify the normal/main NEON pipeline except where absolutely necessary for shared infrastructure.
+- Preserve the existing drone TIFF -> working HDF5 -> correction workflow.
+- Translation must remain a separate step after correction.
+- Do NOT overwrite corrected native MicaSense outputs.
+- Do NOT refit coefficients inside the drone pipeline.
+- Do NOT perform spectral convolution in the drone translation step.
+- Use the validated bulk-derived affine relationships:
+    Landsat-like = intercept + slope * corrected_MicaSense
+- Preserve full provenance and QA.
+- Scientific correctness is more important than convenience.
+
+Validated bulk-analysis context:
+- 12 accepted scientific flightlines
+- 3 sites: NIWO, WREF, YELL
+- 96,016,835 selected observation rows
+- 4 named sensor translation relationships
+- 18 physical pair-band regressions
+- 54 candidate coefficient rows = 3 weighting strategies × 18 band regressions
+- 216 per-flightline fits
+- 54 per-site fits
+- 54 leave-one-site-out evaluations
+- all candidate coefficient fits completed successfully
+- median candidate R² ≈ 0.996
+- median slope ≈ 0.976
+- median absolute fitted correction ≈ 7.5%
+- no excluded candidate fits
+
+The four named translation relationships are:
+
+1. MicaSense_to-match_OLI_and_OLI-2 -> Landsat_9_OLI-2
+   bands 1–5
+
+2. MicaSense_to-match_OLI_and_OLI-2 -> Landsat_8_OLI
+   bands 1–5
+
+3. MicaSense_to-match_TM_and_ETM+ -> Landsat_7_ETM+
+   reflective bands 1–4
+
+4. MicaSense_to-match_TM_and_ETM+ -> Landsat_5_TM
+   reflective bands 1–4
+
+Physical band matching must remain wavelength-aware and consistent with the registry:
+
+MicaSense centers:
+[444, 475, 531, 560, 650, 668, 705, 717, 740, 842]
+
+Landsat 5 TM:
+[485, 575, 660, 837.5, 1697, 2200]
+
+Landsat 7 ETM+:
+[482.5, 565, 660, 837.5, 1650, 2215]
+
+Landsat 8 OLI:
+[443, 482, 561.4, 654.6, 864.7, 1608.9, 2200.7]
+
+Landsat 9 OLI-2:
+[442.8, 481.9, 561, 654.3, 864.6, 1608.2, 2200.1]
+
+Expected visible/NIR mapping:
+
+TM / ETM+:
+- B1 blue ~483–485 <- MicaSense 475
+- B2 green ~565–575 <- MicaSense 560
+- B3 red 660 <- MicaSense 668
+- B4 NIR 837.5 <- MicaSense 842
+
+OLI / OLI-2:
+- B1 coastal aerosol ~443 <- MicaSense 444
+- B2 blue ~482 <- MicaSense 475
+- B3 green ~561 <- MicaSense 560
+- B4 red ~654–655 <- MicaSense 668
+- B5 NIR ~865 <- MicaSense 842
+
+Do not confuse TM/ETM+ reflective array position 6 with thermal B6.
+The six-position reflective arrays are [B1, B2, B3, B4, B5, B7].
+
+Important scientific caveat:
+The bulk-derived regressions are candidate translations derived from products convolved from the same corrected hyperspectral source unless independent empirical observations are involved. Preserve the existing SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY language wherever appropriate. Do not describe these as independent empirical sensor calibration.
+
+Coefficient selection:
+Use ONE predetermined weighting strategy in production. Prefer site-balanced coefficients as the default because deployment is intended to generalize to new flightlines/sites rather than optimize pooled pixel fit.
+
+Do not dynamically choose weighting strategy at runtime.
+
+However, the coefficient registry must retain all relevant validation metadata so QA can expose uncertainty.
+
+Known problematic relationship:
+MicaSense 668 -> Landsat 5 TM B3 (~660 nm)
+
+This mapping is the strongest warning case:
+- most site-dependent
+- most weighting-sensitive
+- maximum fitted correction is roughly 110%+
+- worst leave-one-site-out case is WREF
+- held-out WREF R² ≈ 0.188
+- held-out RMSE ≈ 347.5
+
+Do NOT silently treat this relationship as equally reliable to the others.
+
+Implement a confidence/status field for each pair-band coefficient with values such as:
+
+- validated
+- caution
+- reject
+
+At minimum:
+- L5 TM B3 should be `caution`
+- do not mark any coefficient `reject` unless the bulk QA evidence clearly supports doing so
+- other attention flags should be surfaced in metadata rather than automatically excluded unless thresholds clearly justify exclusion
+
+Tasks:
+
+1. Inspect the current repository before changing anything
+- understand the current drone pipeline end-to-end
+- identify where corrected native MicaSense ENVI is written
+- identify the existing translation code, registry, coefficient handling, QA, and tests
+- identify any current placeholders or hard-coded coefficients
+- identify how Landsat-like drone outputs are currently named and written
+- identify how spectral-library Parquet output is generated
+- do not guess module locations
+
+2. Locate the validated bulk coefficients
+Use the completed bulk-analysis compact outputs if they are available locally in the repo/test environment, especially:
+
+coefficients/candidate_translation_coefficients.parquet
+coefficients/candidate_translation_coefficients.json
+analyses/bulk_results/pair_band_summary.parquet
+analyses/bulk_results/weighting_comparison.parquet
+analyses/bulk_results/flightline_stability.parquet
+analyses/bulk_results/site_stability.parquet
+analyses/bulk_results/loso_transferability.parquet
+analyses/bulk_results/attention_flags.parquet
+analyses/bulk_results/bulk_results_summary.json
+
+If those exact artifacts are not available in the repo, add a clearly documented import/update mechanism rather than fabricating values.
+
+The production package must ultimately contain a static, versioned coefficient registry so normal drone runs do not depend on the bulk-analysis directory being present.
+
+3. Create a production coefficient registry
+
+Create a structured, versioned coefficient resource, for example:
+
+src/spectralbridge/data/drone_translation_coefficients_v1.json
+
+or another repo-appropriate packaged-data location.
+
+Each coefficient record should include at minimum:
+
+- coefficient_set_version
+- source_sensor
+- source_band
+- source_center_nm
+- target_sensor
+- target_band
+- target_center_nm
+- translation_pair_key
+- band_index
+- slope
+- intercept
+- weighting_strategy
+- r2
+- rmse
+- fitted_correction_percent
+- flightline_slope_iqr if available
+- site_slope_range if available
+- worst_loso_r2 if available
+- worst_loso_rmse if available
+- worst_loso_site if available
+- attention_flags
+- status
+- evidence_boundary
+- bulk_analysis_run_id
+- source coefficient artifact / provenance
+
+Use the site-balanced coefficient row for production unless the repository already has a scientifically justified explicit policy saying otherwise.
+
+Do not silently round coefficients excessively.
+Preserve enough numeric precision to reproduce the bulk-analysis outputs.
+
+4. Add an explicit loader/API
+
+Add a stable public or internal API such as:
+
+load_drone_translation_coefficients(...)
+get_drone_translation_coefficient(...)
+translate_drone_to_landsat(...)
+
+Use names consistent with the package architecture.
+
+The loader must:
+- validate schema
+- validate unique pair-band records
+- validate source/target wavelengths
+- validate that each supported target sensor has the expected band count
+- reject duplicate/conflicting coefficients
+- expose coefficient metadata to downstream QA
+
+5. Integrate translation into the drone pipeline
+
+Required sequence:
+
+MicaSense TIFF stack
+    ->
+working HDF5 / NeonCube-compatible representation
+    ->
+existing correction workflow
+    ->
+corrected native MicaSense ENVI
+    ->
+EXPLICIT BULK-DERIVED AFFINE TRANSLATION
+    ->
+Landsat-like translated raster
+    ->
+spectral-library Parquet
+    ->
+QA
+
+The translation step must consume corrected native MicaSense reflectance.
+
+For each target band:
+
+target = intercept + slope * source_band
+
+Do not modify the source corrected product.
+
+Do not apply the transform twice.
+
+Do not refit anything during a drone run.
+
+Do not convolve spectra during this step.
+
+Preserve nodata/masks/georeferencing/CRS/transform/dimensions.
+
+6. Output naming
+
+Make translated products unambiguous.
+
+The filename and metadata should distinguish:
+
+- corrected native MicaSense
+from
+- translated Landsat-like reflectance
+
+Include target sensor identity in the translated output name.
+
+Do not call the translated raster “corrected Landsat” or imply it is an actual Landsat observation.
+
+Prefer wording such as:
+- Landsat-like
+- translated_to_Landsat_8_OLI
+- translated_to_Landsat_9_OLI-2
+
+7. QA
+
+Extend drone QA so every translation run reports:
+
+- coefficient set version
+- target sensor
+- source band / wavelength
+- target band / wavelength
+- slope
+- intercept
+- weighting strategy
+- status
+- R²
+- RMSE
+- fitted correction magnitude
+- flightline heterogeneity
+- site dependence
+- worst LOSO result
+- attention flags
+- evidence-boundary warning
+
+Make `caution` bands visually obvious in QA.
+
+For L5 TM B3 specifically, include a clear warning such as:
+
+“Bulk-derived translation for MicaSense 668 nm -> Landsat 5 TM B3 showed strong site dependence and poor WREF leave-one-site-out transferability. Treat this band as lower-confidence.”
+
+Do not fail the whole pipeline merely because a band is `caution`, unless an existing strict-QA mode requests that behavior.
+
+Add a strict option if appropriate:
+- normal mode: produce caution band + warning
+- strict mode: reject caution/reject bands based on configurable policy
+
+8. Spectral-library output
+
+Ensure the translated Landsat-like product can be represented in the drone spectral-library Parquet output.
+
+Preserve:
+- target sensor name
+- target band name
+- center wavelength
+- source MicaSense band
+- coefficient-set version
+- coefficient status
+- translation provenance
+
+Do not mix native MicaSense and Landsat-like values without an explicit sensor/product identifier.
+
+9. Tests
+
+Add focused tests covering:
+
+- coefficient resource schema
+- expected 18 pair-band records
+- correct 4 named sensor relationships
+- correct band counts:
+    L8 = 5
+    L9 = 5
+    L5 = 4
+    L7 = 4
+- wavelength-aware mapping
+- L5/L7 reflective B4 maps to MicaSense 842
+- OLI/OLI-2 B1 maps to MicaSense 444
+- no TM thermal-band confusion
+- affine transform math
+- intercept handling
+- nodata/mask preservation
+- raster metadata preservation
+- no overwrite of corrected native MicaSense
+- deterministic output naming
+- coefficient provenance in metadata
+- `caution` status propagation
+- specific L5 TM B3 warning
+- strict vs non-strict QA behavior if implemented
+- drone pipeline restart/idempotency
+- existing main NEON pipeline remains unchanged
+
+Add regression tests using tiny synthetic rasters so tests stay fast.
+
+10. Documentation
+
+Update the drone documentation to explain:
+
+- translation occurs after correction
+- the coefficients are fixed bulk-derived affine relationships
+- no runtime fitting occurs
+- no spectral convolution occurs during translation
+- which MicaSense bands map to which Landsat bands
+- why site-balanced weighting is used
+- what `validated`, `caution`, and `reject` mean
+- the evidence boundary
+- the L5 TM B3 caveat
+- how coefficient provenance is recorded
+
+Include the equation:
+
+L = a + bM
+
+where:
+- M = corrected native MicaSense reflectance
+- a = stored intercept
+- b = stored slope
+- L = translated Landsat-like reflectance
+
+11. Validation
+
+Run:
+- focused drone tests
+- coefficient-registry tests
+- full package tests
+- Ruff
+- compile check
+- docs/MkDocs build if configured
+
+Do not stop after writing code.
+
+12. Final report
+
+At completion, report:
+
+A. files changed
+B. exact production coefficient source
+C. chosen weighting strategy and why
+D. number of coefficient records loaded
+E. supported target sensors and bands
+F. all caution/reject coefficients
+G. confirmation that corrected native MicaSense is preserved
+H. confirmation that translation is affine and post-correction
+I. confirmation that no runtime fitting/convolution occurs
+J. tests run and pass counts
+K. remaining scientific caveats
+L. any changes you intentionally did NOT make to the main NEON pipeline
+
+Important:
+If the bulk coefficient artifact reveals anything inconsistent with the assumptions above, STOP and report it rather than coercing the data to fit this prompt.
+
+Do not fabricate coefficients.
+Do not infer missing values.
+Do not weaken scientific QA gates just to make tests pass.
+```

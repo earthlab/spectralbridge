@@ -43,6 +43,9 @@ This page describes how SpectralBridge is organized internally. Understanding th
 - `spectralbridge/drone_translation.py`: validated bulk-coefficient consumer,
   wavelength mapping, affine raster transform, and translated-library
   provenance
+- `spectralbridge/drone_translation_registry.py`: strict static-registry schema,
+  packaged-data loader, and exact compact-bulk import path; it performs no
+  raster reads or coefficient fitting
 - `spectralbridge/landsat_validation.py`: optional STAC/supplied Landsat
   observations, QA masking, common-grid aggregation, and pairwise metrics
 

@@ -70,10 +70,11 @@ NEON HDF5
 The drone workflow is intentionally separate from NEON acquisition. It searches
 local TIFF/HDF5 inputs recursively, preserves source provenance, applies the
 requested corrections, and retains corrected native MicaSense. An optional,
-wavelength-aware affine stage consumes explicitly selected bulk coefficients to
-create distinct Landsat-like translated products and spectral libraries. The
-drone branch does not use convolution; convolution belongs to the NEON
-hyperspectral branch.
+wavelength-aware affine stage consumes a versioned, reviewed coefficient
+registry to create distinct Landsat-like translated products and spectral
+libraries. Translation is `L = a + bM` after correction; it neither fits at
+runtime nor performs convolution. Convolution belongs to the NEON hyperspectral
+branch.
 
 ```python
 from spectralbridge import run_drone_pipeline
@@ -86,10 +87,18 @@ result = run_drone_pipeline(
     extraction_mode="polygon",
     polygon_path="/data/plots.geojson",
     apply_translation=True,
-    translation_coefficients="/data/candidate_translation_coefficients.parquet",
-    translation_weighting="site_balanced",
+    translation_coefficients="/data/drone_translation_coefficients_v1.json",
+    translation_strict=False,
 )
 ```
+
+Production policy fixes weighting to `site_balanced`. If the reviewed registry
+is packaged, omit `translation_coefficients`; an explicit path is useful while
+reviewing a newly generated registry. This source revision intentionally does
+not invent a registry from summary statistics: if the exact compact bulk
+artifacts have not yet been imported, the default raises an actionable error.
+See the [drone translation tutorial](docs/tutorials/micasense-to-landsat.md) for
+the import command, wavelength mapping, confidence states, and evidence limits.
 
 Standalone translation QA needs no NEON or network access. Set
 `landsat_qa=True` to search Microsoft Planetary Computer for an overlapping

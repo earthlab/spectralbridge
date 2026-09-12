@@ -40,6 +40,7 @@ ALLOWED_KEYS = {
     "apply_translation",
     "translation_coefficients",
     "translation_weighting",
+    "translation_strict",
     "landsat_qa",
     "landsat_product",
     "landsat_search_days",
