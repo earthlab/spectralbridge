@@ -3080,20 +3080,20 @@
 <td>Scatter panels compare spectral-identity/wavelength-matched synthetic MicaSense and Landsat products; the JSON records separate source/target band indices and wavelengths plus the displayed slope, intercept, correlation, R², and sample count.</td>
 <td>Both axes come from the same corrected NEON source. This is a descriptive convolution diagnostic, not empirical sensor calibration.</td>
 </tr>
-<tr>
-<td>Stage QA</td>
-<td><code>qa/stages/&lt;order&gt;_&lt;stage&gt;/stage_qa.(json|html)</code> plus optional <code>overview.png</code></td>
-<td>Focused report for one canonical stage with explicit checks and provenance.</td>
-<td>Deterministic and restart-safe; missing diagnostics are recorded as <code>NOT EVALUATED</code>.</td>
-</tr>
-<tr>
-<td>Combined stage QA</td>
-<td><code>qa/combined/combined_qa.(json|html|pdf)</code> plus <code>pipeline_evolution.png</code></td>
-<td>Cross-stage status, pipeline evolution, evidence-backed synthesis, and a printable multi-page summary.</td>
-<td>Does more than concatenate stage reports; unsupported translation/Landsat diagnostics remain explicit. The PDF is intended for download and flightline-to-flightline comparison.</td>
-</tr>
 </tbody>
 </table>
+<p>Drone translation writes a distinct
+<code>&lt;flight&gt;__landsat_like_&lt;target&gt;_translated_envi.(img|hdr)</code> pair plus
+<code>*__translation.json</code>; it never overwrites <code>&lt;flight&gt;__corrected.*</code>. The JSON
+records the fixed affine equation, coefficient-set and bulk-run identities,
+site-balanced policy, per-band spectral names/wavelengths, slope/intercept,
+confidence status, R²/RMSE, correction magnitude, flightline/site/LOSO evidence,
+attention flags, artifact hashes, and evidence-boundary warning. Translated
+full/polygon Parquets keep an explicit Landsat-like product identifier and the
+same band mapping/provenance as constant columns rather than mixing their values
+with native MicaSense columns.
+| Stage QA | <code>qa/stages/&lt;order&gt;_&lt;stage&gt;/stage_qa.(json|html)</code> plus optional <code>overview.png</code> | Focused report for one canonical stage with explicit checks and provenance. | Deterministic and restart-safe; missing diagnostics are recorded as <code>NOT EVALUATED</code>. |
+| Combined stage QA | <code>qa/combined/combined_qa.(json|html|pdf)</code> plus <code>pipeline_evolution.png</code> | Cross-stage status, pipeline evolution, evidence-backed synthesis, and a printable multi-page summary. | Does more than concatenate stage reports; unsupported translation/Landsat diagnostics remain explicit. The PDF is intended for download and flightline-to-flightline comparison. |</p>
 </section>
 <section class="sb-doc-section">
 <p class="sb-kicker">Success criteria</p>

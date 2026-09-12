@@ -2737,10 +2737,8 @@ values.</p>
     <span class="n">use_ndvi_brdf_bins</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">apply_brightness_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">apply_translation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">translation_coefficients</span><span class="o">=</span><span class="p">(</span>
-        <span class="s2">"bulk_analysis/coefficients/candidate_translation_coefficients.parquet"</span>
-    <span class="p">),</span>
-    <span class="n">translation_weighting</span><span class="o">=</span><span class="s2">"site_balanced"</span><span class="p">,</span>
+    <span class="n">translation_coefficients</span><span class="o">=</span><span class="s2">"drone_translation_coefficients_v1.json"</span><span class="p">,</span>
+    <span class="n">translation_strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>Set <code>polygon_path=None</code> when you only need ENVI and QA products.</p>
@@ -2771,6 +2769,135 @@ definition, also pass:</p>
 <div class="highlight"><pre><span></span><code><span class="n">tiff_wavelengths_nm</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
 <span class="n">tiff_fwhm_nm</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
 </code></pre></div>
+<h2 id="production-translation-coefficients">Production translation coefficients<a class="headerlink" href="#production-translation-coefficients" title="Permanent link">&para;</a></h2>
+<p>Translation is an explicit post-correction affine operation:</p>
+<p>[
+L = a + bM
+]</p>
+<p>Here, (M) is corrected native MicaSense reflectance, (a) is the stored
+intercept, (b) is the stored slope, and (L) is Landsat-like translated
+reflectance. The pipeline applies these fixed values in bounded raster windows.
+It does not refit them and does not spectrally convolve drone data. The corrected
+MicaSense ENVI pair remains unchanged beside each separately named translated
+product.</p>
+<p>Production uses the site-balanced candidate from each physical pair-band. This
+gives each site equal aggregate influence and is the predetermined deployment
+policy for generalizing beyond the pooled training pixels. Alternative candidate
+families remain bulk-analysis evidence; the production loader does not choose
+among them dynamically.</p>
+<p>Band numbers are local to each sensor. Matching follows physical spectral
+identity and packaged passband metadata:</p>
+<table>
+<thead>
+<tr>
+<th>Landsat target</th>
+<th style="text-align: right;">Target band</th>
+<th>Physical band</th>
+<th style="text-align: right;">Corrected MicaSense center</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Landsat 5 TM / Landsat 7 ETM+</td>
+<td style="text-align: right;">B1</td>
+<td>blue</td>
+<td style="text-align: right;">475 nm</td>
+</tr>
+<tr>
+<td>Landsat 5 TM / Landsat 7 ETM+</td>
+<td style="text-align: right;">B2</td>
+<td>green</td>
+<td style="text-align: right;">560 nm</td>
+</tr>
+<tr>
+<td>Landsat 5 TM / Landsat 7 ETM+</td>
+<td style="text-align: right;">B3</td>
+<td>red</td>
+<td style="text-align: right;">668 nm</td>
+</tr>
+<tr>
+<td>Landsat 5 TM / Landsat 7 ETM+</td>
+<td style="text-align: right;">B4</td>
+<td>near infrared</td>
+<td style="text-align: right;">842 nm</td>
+</tr>
+<tr>
+<td>Landsat 8 OLI / Landsat 9 OLI-2</td>
+<td style="text-align: right;">B1</td>
+<td>coastal aerosol</td>
+<td style="text-align: right;">444 nm</td>
+</tr>
+<tr>
+<td>Landsat 8 OLI / Landsat 9 OLI-2</td>
+<td style="text-align: right;">B2</td>
+<td>blue</td>
+<td style="text-align: right;">475 nm</td>
+</tr>
+<tr>
+<td>Landsat 8 OLI / Landsat 9 OLI-2</td>
+<td style="text-align: right;">B3</td>
+<td>green</td>
+<td style="text-align: right;">560 nm</td>
+</tr>
+<tr>
+<td>Landsat 8 OLI / Landsat 9 OLI-2</td>
+<td style="text-align: right;">B4</td>
+<td>red</td>
+<td style="text-align: right;">668 nm</td>
+</tr>
+<tr>
+<td>Landsat 8 OLI / Landsat 9 OLI-2</td>
+<td style="text-align: right;">B5</td>
+<td>near infrared</td>
+<td style="text-align: right;">842 nm</td>
+</tr>
+</tbody>
+</table>
+<p>TM/ETM+ translation includes only B1–B4. It never interprets the sixth position
+of the packaged reflective <code>[B1, B2, B3, B4, B5, B7]</code> array as thermal B6.</p>
+<h3 id="importing-an-exact-completed-bulk-result">Importing an exact completed bulk result<a class="headerlink" href="#importing-an-exact-completed-bulk-result" title="Permanent link">&para;</a></h3>
+<p>The numerical production file must be generated from the exact compact result
+tables, never reconstructed from rounded report statistics:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>scripts/build_drone_translation_registry.py<span class="w"> </span>/data/completed_bulk_output<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>src/spectralbridge/data/drone_translation_coefficients_v1.json
+</code></pre></div>
+<p>The importer reads the candidate, pair summary, weighting, flightline, site,
+LOSO, attention-flag, and bulk-summary artifacts. It verifies a single bulk run,
+exactly 18 successful site-balanced relationships, the four registered sensor
+pairs, wavelength identities, and the Landsat 5 B3 warning evidence. It records
+SHA-256 hashes for every compact source artifact. It never opens source rasters
+or calculates a regression. Review the generated diff and test it before
+packaging. If any input is missing or inconsistent, no registry is written.</p>
+<p>This repository revision contains the importer and consumer but not fabricated
+numeric values. Until the exact completed compact output is supplied and the
+generated JSON is scientifically reviewed, omitting <code>translation_coefficients</code>
+fails with an actionable message. An explicit generated registry can be tested
+without installing it as package data.</p>
+<h3 id="confidence-and-evidence-boundary">Confidence and evidence boundary<a class="headerlink" href="#confidence-and-evidence-boundary" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>validated</code>: the fit completed and no configured bulk QA attention flag was
+  triggered.</li>
+<li><code>caution</code>: the coefficient remains usable in normal mode, but its flags and
+  validation statistics require review. QA renders it with an attention color
+  and hatch.</li>
+<li><code>reject</code>: the loader refuses the coefficient in every mode.</li>
+</ul>
+<p><code>translation_strict=True</code> also refuses <code>caution</code> coefficients. The registry
+retains R², RMSE, fitted correction, flightline slope IQR, site slope range,
+worst held-out-site metrics, attention flags, coefficient version, bulk run ID,
+and exact input hashes. Those fields flow to translation JSON, QA JSON/figures,
+and the translated spectral-library Parquet mapping/provenance columns.</p>
+<p>Landsat 5 TM B3 has a required <code>caution</code>:</p>
+<blockquote>
+<p>Bulk-derived translation for MicaSense 668 nm -&gt; Landsat 5 TM B3 showed strong
+site dependence and poor WREF leave-one-site-out transferability. Treat this
+band as lower-confidence.</p>
+</blockquote>
+<p>The bulk regressions compare synthetic products convolved from the same
+corrected NEON source unless independent observations are explicitly provided.
+They are descriptive relationships, not independent empirical sensor
+calibration. Strong R² does not erase weighting, site, or transferability
+limitations.</p>
 <h2 id="outputs">Outputs<a class="headerlink" href="#outputs" title="Permanent link">&para;</a></h2>
 <p>Each discovered flight gets its own output folder:</p>
 <div class="highlight"><pre><span></span><code>drone_outputs/

@@ -2835,6 +2835,13 @@ is authoritative.</p>
 <td><code>brightness_config.py</code></td>
 <td>Run coefficient tests and the Python <code>brightness_correction_metrics</code>/<code>render_brightness_diagnostics</code> workflow before accepting scientific changes</td>
 </tr>
+<tr>
+<td><code>src/spectralbridge/data/drone_translation_coefficients_v1.json</code> (when generated and reviewed)</td>
+<td>Fixed site-balanced corrected-MicaSense to Landsat-like affine coefficients and compact bulk QA/provenance</td>
+<td>Versioned 18-record schema covering four wavelength-aware target relationships; not brightness coefficients or empirical calibration</td>
+<td><code>drone_translation_registry.py</code>, <code>drone_translation.py</code></td>
+<td>Generate only with <code>scripts/build_drone_translation_registry.py</code> from the exact compact bulk output; run registry, drone, and installed-data tests; absence is an explicit error</td>
+</tr>
 </tbody>
 </table>
 <p>The same band-definition filenames under repository-root <code>data/</code> are

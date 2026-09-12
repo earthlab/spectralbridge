@@ -2824,11 +2824,13 @@ directory. TIFF packages may include aligned terrain/view sidecars and are
 matched to the bundled field manifest unless <code>drone_manifest_path</code> overrides
 it. See the <a href="../../tutorials/micasense-to-landsat/">detailed tutorial</a> for the
 complete TIFF contract.</p>
-<p>Translation consumes the existing bulk candidate table. It does not fit
-coefficients. Select its weighting family explicitly from <code>pixel_pooled</code>,
-<code>flightline_balanced</code>, or <code>site_balanced</code>; SpectralBridge validates equation
-direction, sensor identities, unique band mappings, wavelengths, finite
-coefficients, and run provenance before writing a translated product.</p>
+<p>Production translation consumes a static, versioned registry generated from
+the completed compact bulk output. It does not fit coefficients. The production
+weighting is fixed to <code>site_balanced</code>, reflecting intended transfer to new
+flightlines and sites rather than optimization of the pooled pixel fit.
+SpectralBridge validates equation direction, sensor identities, the exact 18
+physical pair-band mappings, wavelengths, finite coefficients, confidence, and
+bulk-run provenance before writing a translated product.</p>
 <h2 id="run-it">Run it<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_drone_pipeline</span>
 
@@ -2840,10 +2842,8 @@ coefficients, and run provenance before writing a translated product.</p>
     <span class="n">apply_topo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">apply_brdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">apply_translation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">translation_coefficients</span><span class="o">=</span><span class="p">(</span>
-        <span class="s2">"bulk_analysis/coefficients/candidate_translation_coefficients.parquet"</span>
-    <span class="p">),</span>
-    <span class="n">translation_weighting</span><span class="o">=</span><span class="s2">"site_balanced"</span><span class="p">,</span>
+    <span class="n">translation_coefficients</span><span class="o">=</span><span class="s2">"drone_translation_coefficients_v1.json"</span><span class="p">,</span>
+    <span class="n">translation_strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"processed"</span><span class="p">])</span>
@@ -2853,7 +2853,10 @@ coefficients, and run provenance before writing a translated product.</p>
 <p>Use <code>extraction_mode="full"</code> for all corrected pixels. Omitting
 <code>extraction_mode</code> preserves the earlier behavior: polygon extraction when a
 polygon is supplied, otherwise raster and QA outputs only. Translation remains
-opt-in and requires both the coefficient path and weighting family.</p>
+opt-in. Once a reviewed registry is packaged, its path may be omitted; until
+then, an explicit generated registry is required. Normal mode writes <code>caution</code>
+bands with warnings, while <code>translation_strict=True</code> refuses them. A <code>reject</code>
+coefficient is never applied.</p>
 <h2 id="standalone-and-comparison-qa">Standalone and comparison QA<a class="headerlink" href="#standalone-and-comparison-qa" title="Permanent link">&para;</a></h2>
 <p>Every translated run produces per-target translation JSON and PNG diagnostics
 without NEON or network access. They show band mapping, coefficient evidence,
