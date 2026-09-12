@@ -14449,3 +14449,12 @@ Do not fabricate coefficients.
 Do not infer missing values.
 Do not weaken scientific QA gates just to make tests pass.
 ```
+
+## 2026-09-12 - continue production drone translation coefficient registry
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```

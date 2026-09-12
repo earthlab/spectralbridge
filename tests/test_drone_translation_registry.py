@@ -265,6 +265,11 @@ def test_registry_validation_rejects_duplicate_and_wavelength_conflict(
     with pytest.raises(ValueError, match="record_count does not match"):
         validate_drone_translation_coefficients(wrong_count)
 
+    wrong_provenance = deepcopy(payload)
+    wrong_provenance["records"][0]["source_coefficient_sha256"] = "0" * 64
+    with pytest.raises(ValueError, match="source provenance conflicts"):
+        validate_drone_translation_coefficients(wrong_provenance)
+
 
 def test_registry_reject_status_is_never_applied(tmp_path: Path) -> None:
     payload = load_drone_translation_coefficients(_build_registry(tmp_path))
@@ -290,6 +295,20 @@ def test_registry_builder_stops_when_l5_b3_caution_evidence_is_missing(
     flags.to_parquet(flags_path, index=False)
 
     with pytest.raises(ValueError, match="does not support the required"):
+        build_drone_translation_coefficient_registry(
+            bulk,
+            tmp_path / "registry.json",
+        )
+
+
+def test_registry_builder_stops_on_cross_table_sensor_conflict(tmp_path: Path) -> None:
+    bulk = _write_compact_bulk_fixture(tmp_path / "bulk")
+    stability_path = bulk / "analyses/bulk_results/site_stability.parquet"
+    stability = pd.read_parquet(stability_path)
+    stability.loc[0, "target_sensor"] = "Landsat_9_OLI-2"
+    stability.to_parquet(stability_path, index=False)
+
+    with pytest.raises(ValueError, match="sensor identity conflicts"):
         build_drone_translation_coefficient_registry(
             bulk,
             tmp_path / "registry.json",

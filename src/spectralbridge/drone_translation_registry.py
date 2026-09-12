@@ -158,6 +158,32 @@ def _expected_pairs() -> dict[str, Any]:
     }
 
 
+def _validate_compact_table_identities(
+    rows: Mapping[tuple[str, int, int], Mapping[str, Any]],
+    *,
+    label: str,
+    expected_pairs: Mapping[str, Any],
+) -> None:
+    """Require every compact QA row to describe the same physical pairing."""
+
+    for (pair_key, source_band, target_band), row in rows.items():
+        pair = expected_pairs.get(pair_key)
+        if pair is None or (source_band, target_band) not in pair.band_pairs:
+            raise ValueError(f"{label} contains unexpected pair-band row")
+        if (
+            str(row["source_sensor"]) != pair.source_sensor
+            or str(row["target_sensor"]) != pair.target_sensor
+        ):
+            raise ValueError(
+                f"{label} sensor identity conflicts with {pair_key}"
+            )
+        expected_band_index = pair.band_pairs.index(
+            (source_band, target_band)
+        ) + 1
+        if _integer(row["band_index"], field="band_index") != expected_band_index:
+            raise ValueError(f"{label} band_index conflicts with {pair_key}")
+
+
 def packaged_drone_translation_coefficients_path() -> Path:
     """Return the packaged production registry or an actionable error."""
 
@@ -194,6 +220,23 @@ def validate_drone_translation_coefficients(
         raise ValueError("Coefficient registry records must be a list")
     if payload.get("record_count") != len(records):
         raise ValueError("Coefficient registry record_count does not match records")
+    declared_run_id = str(payload.get("bulk_analysis_run_id", "")).strip()
+    if not declared_run_id:
+        raise ValueError("Coefficient registry must declare bulk_analysis_run_id")
+    source_artifacts = payload.get("source_artifacts")
+    if not isinstance(source_artifacts, dict) or set(source_artifacts) != set(
+        _BULK_ARTIFACTS
+    ):
+        raise ValueError(
+            "Coefficient registry must identify every required compact source artifact"
+        )
+    for name, relative in _BULK_ARTIFACTS.items():
+        artifact = source_artifacts[name]
+        if not isinstance(artifact, dict) or artifact.get("path") != relative.as_posix():
+            raise ValueError(f"Source artifact path is invalid for {name}")
+        sha256 = str(artifact.get("sha256", ""))
+        if len(sha256) != 64 or any(character not in "0123456789abcdef" for character in sha256):
+            raise ValueError(f"Source artifact SHA-256 is invalid for {name}")
 
     expected_pairs = _expected_pairs()
     expected_keys = {
@@ -270,7 +313,16 @@ def validate_drone_translation_coefficients(
             raise ValueError(f"Mixed coefficient_set_version values for {key}")
         if row["evidence_boundary"] != SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY:
             raise ValueError(f"Evidence-boundary language is missing or altered for {key}")
-        run_ids.add(str(row["bulk_analysis_run_id"]))
+        row_run_id = str(row["bulk_analysis_run_id"]).strip()
+        if not row_run_id:
+            raise ValueError(f"Coefficient record omits bulk_analysis_run_id for {key}")
+        candidate_artifact = source_artifacts["candidate_coefficients"]
+        if (
+            row["source_coefficient_artifact"] != candidate_artifact["path"]
+            or row["source_coefficient_sha256"] != candidate_artifact["sha256"]
+        ):
+            raise ValueError(f"Coefficient source provenance conflicts for {key}")
+        run_ids.add(row_run_id)
         validated_records.append(row)
 
     missing_keys = expected_keys - seen
@@ -280,9 +332,7 @@ def validate_drone_translation_coefficients(
             "Production registry must contain exactly the 18 built-in physical "
             f"pair-band coefficients; missing={sorted(missing_keys)}, extra={sorted(extra_keys)}"
         )
-    if len(run_ids) != 1 or next(iter(run_ids), "") != str(
-        payload.get("bulk_analysis_run_id", "")
-    ):
+    if len(run_ids) != 1 or next(iter(run_ids), "") != declared_run_id:
         raise ValueError("Coefficient registry mixes or omits bulk_analysis_run_id")
     l5_record = next(
         row
@@ -422,6 +472,27 @@ def build_drone_translation_coefficient_registry(
                 f"{label} does not match the expected 18 pair-band keys; "
                 f"missing={sorted(expected_keys - keys)}, extra={sorted(keys - expected_keys)}"
             )
+    expected_pairs = _expected_pairs()
+    table_rows = {
+        "candidate coefficients": selected_by_key,
+        "pair-band summary": summary_by_key,
+        "weighting comparison": weighting_by_key,
+        "flightline stability": flightline_by_key,
+        "site stability": site_by_key,
+        "LOSO transferability": loso_by_key,
+    }
+    for label, rows in table_rows.items():
+        _validate_compact_table_identities(
+            rows,
+            label=label,
+            expected_pairs=expected_pairs,
+        )
+    unexpected_flag_keys = set(flags_by_key) - expected_keys
+    if unexpected_flag_keys:
+        raise ValueError(
+            "Attention flags contain unexpected pair-band keys: "
+            f"{sorted(unexpected_flag_keys)}"
+        )
 
     l5_flags = set(flags_by_key.get((_L5_TM_B3_KEY[0], 3, 3), []))
     if not _L5_REQUIRED_FLAGS <= l5_flags:

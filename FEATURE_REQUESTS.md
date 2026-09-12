@@ -62,8 +62,8 @@ left incomplete so the next agent can resume immediately.
 - Verification:
   - `ruff check src tests scripts`: passed.
   - `python -m compileall -q src scripts`: passed.
-  - Focused registry/translation/Landsat tests: 27 passed.
-  - Full test suite: 565 passed, 6 skipped.
+  - Focused registry/translation tests: 22 passed.
+  - Full test suite: 566 passed, 6 skipped.
   - `mkdocs build --strict`: passed.
   - `python scripts/check_docs_links.py`: passed.
 - Blocker: The exact production candidate/summary/weighting/stability/LOSO/flag
