@@ -1,12 +1,14 @@
 # Stage-by-stage scientific QA
 
-SpectralBridge writes a deterministic QA report after every canonical pipeline
-stage. Standard QA runs automatically. It uses the real artifact produced by
-that stage and never substitutes simulated scientific results.
+SpectralBridge writes deterministic stage QA reports **after the scientific
+pipeline for a flightline has finished**, not between stages. Standard QA runs
+automatically at the end of each flightline. It reads the real on-disk artifact
+produced by each stage and never substitutes simulated scientific results.
 
 The existing `<flight_id>_qa.png`, `.json`, and `.pdf` remain the quick-look and
-legacy audit contract. The stage framework adds smaller, focused reports and a
-combined cross-stage interpretation under:
+legacy audit contract and still render at the end of the same flightline. The
+stage framework adds smaller, focused reports and a combined cross-stage
+interpretation under:
 
 ```text
 <flightline>/qa/

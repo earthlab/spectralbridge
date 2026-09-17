@@ -86,6 +86,7 @@ def build_correction_parameters_dict(
     flight_stem: str | None = None,
     product_code: str | None = None,
     sample_slice: slice | tuple[int, int] | None = None,
+    line_slice: slice | tuple[int, int] | None = None,
 ) -> dict:
     """Compute the correction parameter payload without writing it to disk."""
 
@@ -99,7 +100,9 @@ def build_correction_parameters_dict(
 
     corrected_stem = _derive_corrected_stem(raw_img_path)
 
-    cube = NeonCube(h5_path=h5_path, sample_slice=sample_slice)
+    cube = NeonCube(
+        h5_path=h5_path, sample_slice=sample_slice, line_slice=line_slice
+    )
     coeff_path = fit_and_save_brdf_model(
         cube,
         base_folder,
@@ -177,6 +180,9 @@ def build_correction_parameters_dict(
         "sample_start": int(cube.sample_start),
         "sample_stop": int(cube.sample_stop),
         "full_samples": int(cube.full_samples),
+        "line_start": int(cube.line_start),
+        "line_stop": int(cube.line_stop),
+        "full_lines": int(cube.full_lines),
     }
 
 
@@ -309,7 +315,19 @@ def apply_brdf_topo_core(
         if full_samples is None or not (start == 0 and stop == int(full_samples)):
             sample_slice = slice(start, stop)
 
-    cube = NeonCube(h5_path=source_h5, sample_slice=sample_slice)
+    line_slice = None
+    line_start = params.get("line_start") if isinstance(params, dict) else None
+    line_stop = params.get("line_stop") if isinstance(params, dict) else None
+    full_lines = params.get("full_lines") if isinstance(params, dict) else None
+    if line_start is not None and line_stop is not None:
+        start = int(line_start)
+        stop = int(line_stop)
+        if full_lines is None or not (start == 0 and stop == int(full_lines)):
+            line_slice = slice(start, stop)
+
+    cube = NeonCube(
+        h5_path=source_h5, sample_slice=sample_slice, line_slice=line_slice
+    )
 
     header = cube.build_envi_header()
     header["description"] = (

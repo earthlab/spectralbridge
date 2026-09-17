@@ -5,18 +5,27 @@ from spectralbridge.brightness_config import load_brightness_coefficients
 from spectralbridge.pipelines import pipeline
 
 
-def test_tm_etm_coefficients_use_current_wavelength_aligned_order() -> None:
+def test_oli_coefficients_use_table_mountain_hls_medians() -> None:
+    coeffs = load_brightness_coefficients("landsat_to_micasense")
+    assert coeffs[1] == pytest.approx(-4.444952)
+    assert coeffs[4] == pytest.approx(0.694524)
+    assert coeffs[7] == pytest.approx(-1.849171)
+
+
+def test_tm_coefficients_use_wavelength_aligned_order() -> None:
     coeffs = load_brightness_coefficients("landsat_tm_etm_to_micasense")
-    assert coeffs == pytest.approx(
-        {
-            1: -2.412679,
-            2: -1.670916,
-            3: 0.694524,
-            4: -2.566724,
-            5: -1.097476,
-            6: -1.849171,
-        }
-    )
+    assert coeffs[2] == pytest.approx(-1.670916)
+
+
+def test_etm_coefficients_use_wavelength_aligned_order() -> None:
+    coeffs = load_brightness_coefficients("landsat_tm_etm_to_micasense")
+    assert coeffs[3] == pytest.approx(0.694524)
+
+
+def test_tm_coefficients_are_oli_bands_2_through_7() -> None:
+    oli = load_brightness_coefficients("landsat_to_micasense")
+    tm = load_brightness_coefficients("landsat_tm_etm_to_micasense")
+    assert tm == {idx: oli[idx + 1] for idx in range(1, 7)}
 
 
 def test_apply_landsat_brightness_darkens_negative_delta(monkeypatch: pytest.MonkeyPatch) -> None:

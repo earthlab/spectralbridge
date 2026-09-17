@@ -106,7 +106,10 @@ results = run_drone_pipeline(
 )
 ```
 
-Set `polygon_path=None` when you only need ENVI and QA products.
+Set `polygon_path=None` (or `extraction_mode="full"`) for **full-scene**
+pixel parquet export from the raw + corrected ENVI cubes (no convolution —
+drone skips Landsat/MicaSense resampling). Pass a polygon file (or
+`extraction_mode="polygon"`) to extract only polygon pixels instead.
 
 The bundled manifest is used only when explicit solar rasters or scalar solar
 angles are not supplied. Custom manifest CSVs must include:
@@ -117,8 +120,11 @@ angles are not supplied. Custom manifest CSVs must include:
 
 Derived flight stems such as `AOP_GOLDHILL_20230814` match manifest rows such
 as `AOP_GOLDHILL`. SpectralBridge uses the matched acquisition datetime plus
-the reflectance TIFF CRS/transform to compute per-pixel `Solar_Zenith_Angle`
-and `Solar_Azimuth_Angle` datasets in the generated working HDF5.
+the reflectance georeference (TIFF CRS/transform, or H5 `Map_Info` /
+`Coordinate_System_String`) to compute per-pixel `Solar_Zenith_Angle` and
+`Solar_Azimuth_Angle` datasets in the working HDF5. This applies to both
+TIFF→H5 conversion and H5 working-copy preparation when solar arrays are
+missing from the source file.
 Manifest datetimes without timezone information are treated as UTC.
 
 When `apply_topo=True` or `apply_brdf=True`, solar geometry is required by

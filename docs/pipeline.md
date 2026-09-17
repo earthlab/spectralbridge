@@ -8,22 +8,28 @@ All persistent products land inside `<base_folder>/<flight_stem>/` (with the raw
 `.h5` kept at the base root) and include ENVI (`.img/.hdr`), JSON metadata, and
 Parquet summaries.
 
-### Optional across-track split
+### Optional half-route split (`split_across_track`)
 
 `go_forth_and_multiply(..., split_across_track=False)` is the default and is
 unchanged: one folder and one product tree per input flight ID.
 
 When `split_across_track=True`, each requested ID is still downloaded once to
 `<base_folder>/<flight_stem>.h5`. The pipeline then processes two renamed
-halves that share that H5:
+half-route products that share that H5. Orientation is inferred from the
+geographic footprint (lines×pixel_y vs samples×pixel_x). Product folders are
+always named `_left` / `_right`:
 
-- `<base_folder>/<flight_stem>_left/` — western/left samples `[0:mid]`
-- `<base_folder>/<flight_stem>_right/` — eastern/right samples `[mid:samples]`
+- North–south elongated footprints → line windows
+  (`_left` = northern/first lines `[0:mid]`,
+  `_right` = southern/second lines `[mid:lines]`)
+- East–west elongated footprints → sample windows
+  (`_left` = western/first samples `[0:mid]`,
+  `_right` = eastern/second samples `[mid:samples]`)
 
 Each half folder contains the same product set as a normal flightline, using
 the half ID in every filename. Pass the original (un-suffixed) flight IDs in
 `flight_lines`. Do not pre-export ENVI; the halves are windowed at H5 read
-time so BRDF/topo also sees only that column range.
+time so BRDF/topo also sees only that window.
 
 ## Canonical paths via `get_flight_paths()`
 

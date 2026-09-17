@@ -75,6 +75,41 @@ def test_brdf_fit_scale_invariant(tmp_path: Path) -> None:
     assert model_unitless["solar_zn_type"] == "scene"
 
 
+def test_brdf_fit_accepts_neon_divisor_scale_factor(tmp_path: Path) -> None:
+    """NEON Scale_Factor=10000 means DN/10000, not DN*10000."""
+    from spectralbridge.io.neon import reflectance_to_unitless_multiplier
+
+    assert reflectance_to_unitless_multiplier(10000.0) == pytest.approx(1e-4)
+    assert reflectance_to_unitless_multiplier(1e-4) == pytest.approx(1e-4)
+    assert reflectance_to_unitless_multiplier(1.0) == pytest.approx(1.0)
+
+    unitless = np.full((5, 5, 3), 0.3, dtype=np.float32)
+    neon_dn = unitless * 10000.0  # stored DN for Scale_Factor=10000
+
+    cube_unitless = _FakeCube(unitless, scale_factor=1.0)
+    cube_neon = _FakeCube(neon_dn, scale_factor=10000.0)
+
+    model_unitless = json.loads(
+        fit_and_save_brdf_model(
+            cube_unitless,
+            tmp_path / "unitless_neon",
+            brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
+        ).read_text()
+    )
+    model_neon = json.loads(
+        fit_and_save_brdf_model(
+            cube_neon,
+            tmp_path / "neon_divisor",
+            brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
+        ).read_text()
+    )
+
+    for key in ("iso", "vol", "geo"):
+        assert np.allclose(model_unitless[key], model_neon[key], atol=1e-3)
+    # Regression: the old multiply-by-10000 path zeroed all coefficients.
+    assert np.any(np.abs(np.asarray(model_neon["iso"])) > 1e-6)
+
+
 def test_brdf_fit_defaults_to_single_bin_when_ndvi_binning_disabled(tmp_path: Path) -> None:
     unitless = np.full((4, 4, 3), 0.3, dtype=np.float32)
     cube = _FakeCube(unitless, scale_factor=1.0)
@@ -128,6 +163,25 @@ def test_correction_respects_raw_scale(tmp_path: Path) -> None:
     )
 
     assert np.allclose(corrected, cube.data, atol=1e-3)
+
+
+def test_correction_respects_neon_divisor_scale(tmp_path: Path) -> None:
+    unitless = np.full((4, 4, 2), 0.25, dtype=np.float32)
+    neon_dn = unitless * 10000.0
+    cube = _FakeCube(neon_dn, scale_factor=10000.0)
+
+    coeff_path = _neutral_coefficients(tmp_path / "coeff_neon.json", cube.bands)
+    corrected = apply_brdf_correct(
+        cube,
+        cube.data,
+        0,
+        cube.lines,
+        0,
+        cube.columns,
+        coeff_path=coeff_path,
+    )
+
+    assert np.allclose(corrected, cube.data, atol=1e-2)
 
 
 def test_correction_preserves_shape_and_dtype(tmp_path: Path) -> None:

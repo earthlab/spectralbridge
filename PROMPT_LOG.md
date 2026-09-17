@@ -14457,4 +14457,29 @@ Model: Not recorded
 
 ```text
 continue
+
+## 2026-09-15 - heading-aware half-route split
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+lets make this correction to the code. if split acorss track is true, it should divide into top and bottom if its a N-S flight and left and right if its a E-W flight.
 ```
+
+## 2026-09-17 - half-route keep left/right names
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+I see. I dont want it to be named top and bottom. Even if we are splitting in top and bottom, lets name it left and right tiself. Also tell me the files that you have changed in the pipleine so i that i can update the instnace with these new files.
+```
+
+## 2026-09-17 - fix NEON Scale_Factor BRDF
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+okay lets correct this and push all the chnages to github. I will pull spectralbrdige and run the pipeline again for those yellow stone flightlines. LEts see if we get better BRDF correciton```

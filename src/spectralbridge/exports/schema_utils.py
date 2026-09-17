@@ -77,6 +77,9 @@ def _infer_base_stage(name: str) -> str:
             if k in n:
                 return k.replace("landsat_", "oli" if "oli" in k else k.split("_")[-1])
         return "sensor"
+    # Drone corrected ENVI uses ``<stem>__corrected`` (not NEON brdfandtopo name)
+    if "__corrected" in n or n.endswith("_corrected") or "_corrected." in n:
+        return "corr"
     return "raw"
 
 

@@ -28,6 +28,7 @@ def neon_to_envi_no_hytools(
     interactive_mode: bool = True,
     log_every: int = 25,
     sample_slice: slice | tuple[int, int] | None = None,
+    line_slice: slice | tuple[int, int] | None = None,
     output_stem: str | Path | None = None,
 ) -> list[dict]:
     """Convert NEON `.h5` reflectance cubes into ENVI BSQ rasters.
@@ -51,7 +52,9 @@ def neon_to_envi_no_hytools(
     output_dir_path = Path(output_dir)
     output_dir_path.mkdir(parents=True, exist_ok=True)
 
-    cube = NeonCube(h5_path=h5_path, sample_slice=sample_slice)
+    cube = NeonCube(
+        h5_path=h5_path, sample_slice=sample_slice, line_slice=line_slice
+    )
 
     header = cube.build_envi_header()
     header["description"] = (

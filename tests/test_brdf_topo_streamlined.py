@@ -1,4 +1,8 @@
+import json
+from pathlib import Path
+
 import numpy as np
+import pytest
 
 from spectralbridge.corrections import (
     NDVIBinningConfig,
@@ -108,6 +112,24 @@ def test_topo_denominator_guard_keeps_ratios_finite():
     np.testing.assert_allclose(corrected, chunk, rtol=1e-3, atol=1e-3)
 
 
+def test_topo_with_precomputed_scs_c_applies_without_local_fit():
+    cube = _DummyCube()
+    chunk = np.full((2, 2, 2), 0.25, dtype=np.float32)
+    # C=0 → ratio = cos(solar)*cos(slope)/cos(i); still finite via helper.
+    corrected = apply_topo_correct(
+        cube,
+        chunk,
+        0,
+        2,
+        0,
+        2,
+        use_scs_c=True,
+        scs_c=np.zeros(2, dtype=np.float32),
+    )
+    assert np.all(np.isfinite(corrected))
+    assert not np.any(np.isclose(corrected, -9999.0))
+
+
 def test_scs_c_ratio_guard_handles_tiny_denominators_directly():
     numerator = np.array([1.0, 1.0, 1.0, 1.0], dtype=np.float32)
     denominator = np.array([0.5, 1e-6, 0.0, -1e-4], dtype=np.float32)
@@ -120,3 +142,61 @@ def test_scs_c_ratio_guard_handles_tiny_denominators_directly():
     np.testing.assert_allclose(ratio[[1, 2, 3]], 1.0)
     assert ratio[0] > 1.0
     assert ratio.max() <= numerator.max() / 1e-3
+
+
+def test_scs_c_ratio_rejects_negative_ratios():
+    numerator = np.array([-0.4, 0.5], dtype=np.float32)
+    denominator = np.array([0.2, 0.5], dtype=np.float32)
+
+    ratio = _scs_c_ratio(numerator, denominator, min_denom=1e-3)
+
+    assert ratio[0] == pytest.approx(1.0)
+    assert ratio[1] == pytest.approx(1.0)
+
+
+def test_brdf_invalid_kernel_factor_passes_through_input(tmp_path: Path) -> None:
+    """When R_pix/R_ref are non-positive, keep input reflectance (do not write -9999)."""
+    from spectralbridge.corrections import apply_brdf_correct, HYTOOLS_BRDF_KERNEL_CONFIG
+
+    class _Cube:
+        def __init__(self):
+            self.data = np.full((2, 2, 2), 200.0, dtype=np.float32)
+            self.scale_factor = 1e-4
+            self.lines = self.columns = 2
+            self.bands = 2
+            self.wavelengths = np.array([650.0, 850.0], dtype=np.float32)
+            self.mask_no_data = np.ones((2, 2), dtype=bool)
+            self.no_data = -9999.0
+            self.base_key = "fake"
+
+        def get_ancillary(self, name: str, radians: bool = True):
+            return np.zeros((2, 2), dtype=np.float32)
+
+    cube = _Cube()
+    # Pathological coeffs force R_pix <= 0 for Ross/Li kernels near zero angles
+    payload = {
+        "iso": [[0.0, 0.0]],
+        "vol": [[0.0, 0.0]],
+        "geo": [[0.0, 0.0]],
+        "ndvi_edges": [-1.0, 1.0],
+        "volume_kernel": "RossThick",
+        "geom_kernel": "LiDenseR",
+        "b_r": 10.0,
+        "h_b": 2.0,
+        "solar_zn_type": "scene",
+    }
+    coeff_path = tmp_path / "bad_brdf.json"
+    coeff_path.write_text(json.dumps(payload), encoding="utf-8")
+
+    out = apply_brdf_correct(
+        cube,
+        cube.data.copy(),
+        0,
+        2,
+        0,
+        2,
+        coeff_path=coeff_path,
+        brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
+    )
+    assert not np.any(np.isclose(out, -9999.0))
+    np.testing.assert_allclose(out, cube.data, rtol=1e-5)

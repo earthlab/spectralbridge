@@ -13,6 +13,11 @@ def test_infer_stage_from_name_marks_undarkened_variant() -> None:
     assert infer_stage_from_name(undarkened_name) == f"{base_stage}_undarkened"
 
 
+def test_infer_stage_from_name_drone_corrected_stem() -> None:
+    assert infer_stage_from_name("AOP_GOLDHILL_20230814__corrected.parquet") == "corr"
+    assert infer_stage_from_name("AOP_GOLDHILL_20230814__envi.parquet") == "raw"
+
+
 def test_sort_and_rename_labels_undarkened_columns() -> None:
     df = pd.DataFrame({"wl0485": [0.1], "wl0560": [0.2], "pixel_id": [1]})
     stage_key = infer_stage_from_name(Path("scene_landsat_tm_undarkened_envi.parquet").name)

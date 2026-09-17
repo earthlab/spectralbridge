@@ -87,8 +87,7 @@ from spectralbridge.brdf_topo import (
     build_correction_parameters_dict,
 )
 from spectralbridge.brightness_config import load_brightness_coefficients
-from spectralbridge.half_flight import HALF_SIDES, across_track_slices, half_flight_id
-from spectralbridge.io.neon import peek_neon_sample_count
+from spectralbridge.half_flight import half_flight_id, plan_half_flight
 from spectralbridge.io.neon_schema import resolve
 try:
     from spectralbridge.paths import FlightlinePaths, normalize_brdf_model_path
@@ -1520,6 +1519,8 @@ def stage_export_envi_from_h5(
     source_h5: Path | str | None = None,
     sample_start: int | None = None,
     sample_stop: int | None = None,
+    line_start: int | None = None,
+    line_stop: int | None = None,
 ) -> tuple[Path, Path]:
     """
     Ensure we have the uncorrected ENVI export (.img/.hdr) for this flightline.
@@ -1547,6 +1548,11 @@ def stage_export_envi_from_h5(
     sample_slice = (
         slice(int(sample_start), int(sample_stop))
         if sample_start is not None and sample_stop is not None
+        else None
+    )
+    line_slice = (
+        slice(int(line_start), int(line_stop))
+        if line_start is not None and line_stop is not None
         else None
     )
     
@@ -1590,9 +1596,10 @@ def stage_export_envi_from_h5(
         "brightness_offset": brightness_offset,
         "interactive_mode": not parallel_mode,
     }
-    if source_h5 is not None or sample_slice is not None:
+    if source_h5 is not None or sample_slice is not None or line_slice is not None:
         export_kwargs["output_stem"] = raw_img_path.with_suffix("")
         export_kwargs["sample_slice"] = sample_slice
+        export_kwargs["line_slice"] = line_slice
 
     logger.debug(
         "stage_export_envi_from_h5: scoped to flightline %s (HDF5=%s, ENVI=%s/%s)",
@@ -1747,6 +1754,8 @@ def stage_build_and_write_correction_json(
     source_h5: Path | str | None = None,
     sample_start: int | None = None,
     sample_stop: int | None = None,
+    line_start: int | None = None,
+    line_stop: int | None = None,
 ) -> Path:
     """
     Compute + persist BRDF/topo correction parameters (illumination geometry, slope/aspect,
@@ -1764,6 +1773,11 @@ def stage_build_and_write_correction_json(
     sample_slice = (
         slice(int(sample_start), int(sample_stop))
         if sample_start is not None and sample_stop is not None
+        else None
+    )
+    line_slice = (
+        slice(int(line_start), int(line_stop))
+        if line_start is not None and line_stop is not None
         else None
     )
 
@@ -1787,6 +1801,7 @@ def stage_build_and_write_correction_json(
         flight_stem=flight_stem,
         product_code=product_code,
         sample_slice=sample_slice,
+        line_slice=line_slice,
     )
 
     with open(correction_json_path, "w", encoding="utf-8") as f:
@@ -2495,6 +2510,8 @@ def process_one_flightline(
     source_h5: Path | str | None = None,
     sample_start: int | None = None,
     sample_stop: int | None = None,
+    line_start: int | None = None,
+    line_stop: int | None = None,
 ):
     """Run the structured, skip-aware workflow for a single flightline.
 
@@ -2536,6 +2553,8 @@ def process_one_flightline(
         source_h5=source_h5,
         sample_start=sample_start,
         sample_stop=sample_stop,
+        line_start=line_start,
+        line_stop=line_stop,
     )
 
     clean_memory("ENVI export")
@@ -2556,6 +2575,8 @@ def process_one_flightline(
         source_h5=source_h5,
         sample_start=sample_start,
         sample_stop=sample_stop,
+        line_start=line_start,
+        line_stop=line_stop,
     )
     if not is_valid_json(correction_json_path):
         raise RuntimeError(
@@ -2698,6 +2719,8 @@ class _FlightlineTask(NamedTuple):
     source_h5: str | None = None
     sample_start: int | None = None
     sample_stop: int | None = None
+    line_start: int | None = None
+    line_stop: int | None = None
 
 
 def _execute_flightline(task: "_FlightlineTask") -> str:
@@ -2729,6 +2752,8 @@ def _execute_flightline(task: "_FlightlineTask") -> str:
             source_h5=task.source_h5,
             sample_start=task.sample_start,
             sample_stop=task.sample_stop,
+            line_start=task.line_start,
+            line_stop=task.line_stop,
         )
     return task.flight_stem
 
@@ -2941,8 +2966,11 @@ def go_forth_and_multiply(
     ``split_across_track=False`` (default) processes each ``flight_lines``
     entry as a full scene. When ``True``, each original ID is downloaded once
     into ``<base_folder>/<flight_stem>.h5`` and then processed as two renamed
-    halves (``<flight_stem>_left`` / ``_right``) that share that H5 and write
-    a complete product tree into their own folders.
+    half-route products that share that H5:
+
+    * north–south elongated footprints → ``_left`` / ``_right`` line windows
+      (northern half, then southern half)
+    * east–west elongated footprints → ``_left`` / ``_right`` sample windows
     """
 
     if max_workers < 1:
@@ -3106,6 +3134,8 @@ def go_forth_and_multiply(
         source_h5: Path | str | None = None,
         sample_start: int | None = None,
         sample_stop: int | None = None,
+        line_start: int | None = None,
+        line_stop: int | None = None,
     ) -> _FlightlineTask:
         return _FlightlineTask(
             base_folder=base_path,
@@ -3132,6 +3162,8 @@ def go_forth_and_multiply(
             source_h5=str(source_h5) if source_h5 is not None else None,
             sample_start=sample_start,
             sample_stop=sample_stop,
+            line_start=line_start,
+            line_stop=line_stop,
         )
 
     if split_across_track:
@@ -3142,19 +3174,19 @@ def go_forth_and_multiply(
                 raise FileNotFoundError(
                     f"split_across_track requires the original H5 at {original_h5}"
                 )
-            n_samples = peek_neon_sample_count(original_h5)
-            windows = across_track_slices(n_samples)
+            orientation, windows = plan_half_flight(original_h5)
             logger.info(
-                "✂️  split_across_track for %s: %d samples -> left [0:%d], right [%d:%d]",
+                "✂️  split_across_track for %s: orientation=%s -> %s",
                 original_stem,
-                n_samples,
-                windows["left"][1],
-                windows["right"][0],
-                windows["right"][1],
+                orientation,
+                ", ".join(
+                    f"{w.side} lines[{w.line_start}:{w.line_stop}] "
+                    f"samples[{w.sample_start}:{w.sample_stop}]"
+                    for w in windows
+                ),
             )
-            for side in HALF_SIDES:
-                start, stop = windows[side]
-                half_stem = half_flight_id(original_stem, side)
+            for window in windows:
+                half_stem = half_flight_id(original_stem, window.side)
                 FlightlinePaths(base_folder=base_path, flight_id=half_stem).flight_dir.mkdir(
                     parents=True, exist_ok=True
                 )
@@ -3162,8 +3194,10 @@ def go_forth_and_multiply(
                     _flightline_task(
                         half_stem,
                         source_h5=original_h5,
-                        sample_start=start,
-                        sample_stop=stop,
+                        sample_start=window.sample_start,
+                        sample_stop=window.sample_stop,
+                        line_start=window.line_start,
+                        line_stop=window.line_stop,
                     )
                 )
     else:

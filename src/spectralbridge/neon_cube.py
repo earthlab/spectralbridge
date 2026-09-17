@@ -60,6 +60,7 @@ class NeonCube:
         h5_path: str | Path,
         ancillary_paths: Optional[Dict[str, str | Path]] = None,
         sample_slice: slice | tuple[int, int] | None = None,
+        line_slice: slice | tuple[int, int] | None = None,
     ) -> None:
         self.h5_path = Path(h5_path)
         if not self.h5_path.exists():
@@ -72,7 +73,7 @@ class NeonCube:
         self._metadata_index: Dict[str, list[_MetadataEntry]] = {}
 
         cube_data, wavelengths, meta = read_neon_cube(
-            self.h5_path, sample_slice=sample_slice
+            self.h5_path, sample_slice=sample_slice, line_slice=line_slice
         )
 
         self.data = np.asarray(cube_data, dtype=np.float32)
@@ -85,6 +86,9 @@ class NeonCube:
         self.sample_start = int(meta.get("sample_start", 0))
         self.sample_stop = int(meta.get("sample_stop", self.columns))
         self.full_samples = int(meta.get("full_samples", self.columns))
+        self.line_start = int(meta.get("line_start", 0))
+        self.line_stop = int(meta.get("line_stop", self.lines))
+        self.full_lines = int(meta.get("full_lines", self.lines))
 
         self.wavelengths = np.asarray(wavelengths, dtype=np.float32).reshape(-1)
         if self.wavelengths.size != self.bands:
@@ -273,13 +277,17 @@ class NeonCube:
             if array.shape == (self.lines, self.columns):
                 array = array.astype(np.float32, copy=False)
             elif (
-                array.shape[0] == self.lines
+                array.shape[0] >= self.line_stop
                 and array.shape[1] >= self.sample_stop
-                and (self.sample_start, self.sample_stop) != (0, array.shape[1])
-            ):
-                array = array[:, self.sample_start : self.sample_stop].astype(
-                    np.float32, copy=False
+                and (
+                    (self.line_start, self.line_stop) != (0, array.shape[0])
+                    or (self.sample_start, self.sample_stop) != (0, array.shape[1])
                 )
+            ):
+                array = array[
+                    self.line_start : self.line_stop,
+                    self.sample_start : self.sample_stop,
+                ].astype(np.float32, copy=False)
             else:
                 raise ValueError(
                     f"Ancillary '{name}' has shape {array.shape} which does not "

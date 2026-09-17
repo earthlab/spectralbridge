@@ -29,18 +29,25 @@ HyTools/FlexBRDF behaviour.
 The current streamlined NEON correction path applies BRDF/topographic correction
 in fixed non-overlapping spatial chunks.
 
-* The correction driver currently walks the scene in `100 x 100` tiles.
-* Tile bounds are simple raster slices with no halo, overlap, feathering, or
-  rolling-window context.
-* Topographic correction is fit per chunk. In practice that means the SCS+C
-  regression `rho = a*cos(i) + b` and its derived `C = b/a` term are solved
-  independently inside each tile for each band.
+* The correction driver applies in tiled footprints with no halo or feathering.
+* ``topo_fit_mode="scene"`` (default) fits SCS+C once over the full flightline
+  using streamed sufficient statistics, then applies those ``C`` values in
+  full-width row strips. ``_SCENE_APPLY_CHUNK_Y`` defaults high enough that
+  apply is typically one full-height strip (unchunked); lower it (e.g. 500)
+  if memory is tight on long NEON lines.
+* ``topo_fit_mode="tile"`` fits and applies independently inside each
+  ``100 x 100`` tile.
 * BRDF coefficients are fit once at the scene level, then applied chunk by
   chunk using the local pixel geometry for that tile.
+* Ratio / BRDF guards: non-positive SCS+C ratios and non-positive BRDF kernel
+  factors fall back to a neutral factor of ``1.0`` instead of ``NaN``. This
+  prevents the previous cascade where invalid factors were written as the cube
+  ``no_data`` value (``-9999``) across otherwise-valid pixels.
 
 This distinction matters when interpreting artifacts. If a visible seam aligns
-with the chunk grid, the present implementation makes chunk-local topographic
-fitting the first place to investigate.
+with the 100x100 grid, inspect whether `topo_fit_mode="tile"` was used. The
+default `topo_fit_mode="scene"` fits topographic correction once over the full
+footprint and is the recommended setting for new NEON runs.
 
 ## NDVI binning
 
@@ -65,6 +72,13 @@ fitting the first place to investigate.
 ## BRDF fitting and application
 
 * Per-band, per-bin regressions solve `rho = f_iso + f_vol*K_vol + f_geo*K_geo`.
+* Stored reflectance is converted to unitless reflectance before fitting and
+  correction via `reflectance_to_unitless_multiplier()`. Both conventions are
+  accepted:
+  * multiply style (`Scale_Factor=1e-4` → `unitless = DN * 1e-4`)
+  * NEON/ENVI divisor style (`Scale_Factor=10000` → `unitless = DN / 10000`)
+* Treating NEON `10000` as a multiplier incorrectly pushes nearly all pixels
+  outside the BRDF `rho_max` gate and collapses `iso`/`vol`/`geo` to zero.
 * The streamlined BRDF model now persists the kernel settings used during fit
   and apply, including the volume kernel, geometric kernel, geometric
   parameters (`b/r`, `h/b`), and `solar_zn_type`.

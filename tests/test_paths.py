@@ -19,6 +19,15 @@ def test_normalize_brdf_model_path(tmp_path: Path):
     assert scene_prefix_from_dir(fl) == "NEON_D13_NIWO_DP1_L019-1_20230815_directional_reflectance"
 
 
+def test_scene_prefix_prefers_raw_envi_over_corrected(tmp_path: Path):
+    fl = tmp_path / "NEON_D13_NIWO_DP1_L003-1_20230724_directional_reflectance"
+    fl.mkdir()
+    # Corrected name sorts before raw alphabetically; prefix must still be raw.
+    (fl / f"{fl.name}_brdfandtopo_corrected_envi.img").write_bytes(b"x")
+    (fl / f"{fl.name}_envi.img").write_bytes(b"y")
+    assert scene_prefix_from_dir(fl) == fl.name
+
+
 def test_flightline_paths_properties(tmp_path: Path):
     base = tmp_path
     flight_id = "NEON_D13_TEST_DP1_L001-1_20230101_directional_reflectance"

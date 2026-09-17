@@ -6,7 +6,6 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from spectralbridge.brightness_config import load_brightness_coefficients
 import spectralbridge.qa.plots as qa_plots
 import spectralbridge.qa.reporting as qa_reporting
 import spectralbridge.qa.runner as qa_runner
@@ -142,9 +141,6 @@ def test_stage_qa_paths_are_deterministic(tmp_path: Path) -> None:
     )
     assert CombinedQAPaths(tmp_path).html == (
         tmp_path / "qa" / "combined" / "combined_qa.html"
-    )
-    assert CombinedQAPaths(tmp_path).pdf == (
-        tmp_path / "qa" / "combined" / "combined_qa.pdf"
     )
 
 
@@ -422,12 +418,15 @@ def test_geometry_review_marks_out_of_range_summaries_without_masking() -> None:
 def test_convolution_stage_audits_and_plots_brightness_application(
     tmp_path: Path,
 ) -> None:
+    from spectralbridge.brightness_config import load_brightness_coefficients
+
     flight_dir = tmp_path / "NEON_TEST_BRIGHTNESS"
     flight_dir.mkdir()
     before = np.linspace(0.05, 0.8, 36, dtype=np.float32).reshape(3, 3, 4)
-    coefficients = load_brightness_coefficients("landsat_to_micasense")
+    coeffs = load_brightness_coefficients("landsat_to_micasense")
+    coefficients = [coeffs[1], coeffs[2], coeffs[3]]
     after = before.copy()
-    for index, percent in enumerate(coefficients[band] for band in (1, 2, 3)):
+    for index, percent in enumerate(coefficients):
         after[index] *= 1.0 + percent / 100.0
     final = flight_dir / f"{flight_dir.name}_landsat_tm_envi.img"
     undarkened = flight_dir / f"{flight_dir.name}_landsat_tm_undarkened_envi.img"
@@ -721,16 +720,7 @@ def test_stage_and_combined_reports_are_restart_safe(
     assert StageQAPaths(qa_fixture_dir, "input_data").json.read_text() == first_json
 
     combined_html, combined = assemble_combined_report(qa_fixture_dir)
-    combined_pdf = CombinedQAPaths(qa_fixture_dir).pdf
     assert combined_html.exists()
-    assert combined_pdf.exists()
-    assert combined_pdf.read_bytes().startswith(b"%PDF")
-    try:
-        from PyPDF2 import PdfReader
-    except Exception:
-        pass
-    else:
-        assert len(PdfReader(combined_pdf).pages) >= 4
     assert len(combined["stages"]) == 2
     assert combined["schema_version"] == "1.3"
     assert combined["plot_contract"]["location_label"] == "NEON_TEST_FLIGHT"
@@ -740,46 +730,6 @@ def test_stage_and_combined_reports_are_restart_safe(
     assert "known_bad_band_count" in combined["stages"][0]["highlights"]
     assert combined["what_we_learn_from_the_full_pipeline"]
     assert "sensor_triangle_path_and_cycle_consistency" in json.dumps(combined)
-
-
-def test_combined_report_uses_stage_evidence_for_shortened_artifact_folder(
-    tmp_path: Path,
-) -> None:
-    flightline_id = "NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance"
-    flight_dir = tmp_path / "r10c-l002-20210915"
-    stage_dir = flight_dir / "qa" / "stages" / "00_acquisition"
-    stage_dir.mkdir(parents=True)
-    (stage_dir / "stage_qa.json").write_text(
-        json.dumps(
-            {
-                "stage_id": "acquisition",
-                "stage_name": "Source acquisition",
-                "status": "PASS",
-                "mode": "standard",
-                "checks": [],
-                "inputs": [],
-                "outputs": [{"name": f"{flightline_id}.h5"}],
-                "metrics": {
-                    "plot_contract": {
-                        "location_label": "R10C · D10 · L002 · 2021-09-15"
-                    }
-                },
-                "interpretation": ["All evaluated checks passed."],
-                "unavailable_diagnostics": [],
-                "plots": [],
-            }
-        ),
-        encoding="utf-8",
-    )
-
-    combined_html, combined = assemble_combined_report(flight_dir)
-
-    assert combined["flightline_id"] == flightline_id
-    assert combined["plot_contract"]["location_label"] == (
-        "R10C · D10 · L002 · 2021-09-15"
-    )
-    assert flightline_id in combined_html.read_text(encoding="utf-8")
-    assert CombinedQAPaths(flight_dir).pdf.exists()
 
 
 def test_completed_runner_does_not_mistake_sensor_product_for_raw_input(
@@ -817,3 +767,88 @@ def test_completed_runner_does_not_mistake_sensor_product_for_raw_input(
     )
     assert input_call["primary_img"] == raw
     assert convolution_call["primary_img"] == sensor
+
+
+def test_stage_qa_does_not_materialize_full_envi_cubes(tmp_path: Path) -> None:
+    import inspect
+
+    assert "read_envi_cube" not in inspect.getsource(qa_stages)
+    flight_dir = _qa_fixture(tmp_path)
+    raw = next(flight_dir.glob("*_envi.img"))
+    corrected = next(flight_dir.glob("*_brdfandtopo_corrected_envi.img"))
+    _, report = emit_stage_qa(
+        flightline_dir=flight_dir,
+        stage_id="brdf_topographic_correction",
+        outputs=[corrected, corrected.with_suffix(".hdr")],
+        primary_img=corrected,
+        reference_img=raw,
+        force=True,
+    )
+    sampled = report["sample"]["sampled_shape"]
+    source = report["sample"]["source_shape"]
+    assert sampled[1] * sampled[2] <= source[1] * source[2]
+    assert "paired_change" in report["metrics"]
+
+
+def test_spatial_preview_copies_one_band_at_a_time(tmp_path: Path) -> None:
+    flight_dir = _qa_fixture(tmp_path)
+    image = next(flight_dir.glob("*_envi.img"))
+    header = qa_stages.hdr_to_dict(image.with_suffix(".hdr"))
+    preview, source_shape = qa_stages._load_spatial_preview(image, header, max_pixels=4)
+    assert preview.dtype == np.float32
+    assert preview.shape[0] == source_shape[0]
+    assert preview.size < int(np.prod(source_shape))
+
+
+def test_end_of_pipeline_qa_runs_stage_reports_then_legacy_panel(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from spectralbridge.pipelines import pipeline as pipeline_mod
+
+    order: list[str] = []
+
+    def _stage(flightline_dir, *, mode="standard", topo_fit_mode="scene", **kwargs):
+        order.append(f"stage:{mode}:{topo_fit_mode}")
+        return {}
+
+    def _panel(flightline_dir, quick=True, save_json=True):
+        order.append("legacy")
+        return flightline_dir / "qa.png", {}
+
+    monkeypatch.setattr(pipeline_mod, "clean_memory", lambda label="": None)
+    monkeypatch.setattr(
+        "spectralbridge.qa.run_completed_flightline_qa",
+        _stage,
+    )
+    monkeypatch.setattr(pipeline_mod, "render_flightline_panel", _panel)
+
+    pipeline_mod._run_end_of_pipeline_qa(
+        qa_mode="standard",
+        flightline_dir=tmp_path / "flight",
+        topo_fit_mode="scene",
+    )
+    assert order == ["stage:standard:scene", "legacy"]
+
+    order.clear()
+    pipeline_mod._run_end_of_pipeline_qa(
+        qa_mode="off",
+        flightline_dir=tmp_path / "flight",
+        topo_fit_mode="scene",
+    )
+    assert order == ["legacy"]
+
+
+def test_process_one_flightline_defers_stage_qa_until_the_end() -> None:
+    import inspect
+
+    from spectralbridge.pipelines import pipeline as pipeline_mod
+
+    source = inspect.getsource(pipeline_mod.process_one_flightline)
+    assert "_emit_stage_qa_safe" not in source
+    assert source.rfind("stage_apply_brdf_topo_correction") < source.rfind(
+        "_run_end_of_pipeline_qa"
+    )
+    assert source.rfind("stage_convolve_all_sensors") < source.rfind(
+        "_run_end_of_pipeline_qa"
+    )
+

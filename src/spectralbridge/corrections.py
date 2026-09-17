@@ -15,6 +15,7 @@ from typing import Tuple, TYPE_CHECKING
 
 import numpy as np
 
+from spectralbridge.io.neon import stored_to_unitless, unitless_to_stored
 from spectralbridge.paths import normalize_brdf_model_path, scene_prefix_from_dir
 
 __all__ = [
@@ -490,7 +491,7 @@ def fit_scs_c_coefficients(
 
     for ys, ye, xs, xe, raw_chunk in cube.iter_chunks(chunk_y=chunk_y, chunk_x=chunk_x):
         chunk = np.asarray(raw_chunk, dtype=np.float32)
-        data_unitless = chunk * np.float32(scale_factor)
+        data_unitless = stored_to_unitless(chunk, scale_factor)
         tile_mask = base_mask[ys:ye, xs:xe] & np.isfinite(data_unitless).all(axis=-1)
         if not np.any(tile_mask):
             continue
@@ -571,8 +572,9 @@ def apply_topo_correct(
 
     # Internally we work in unitless reflectance. ``scale_factor`` converts from
     # the cube's stored values to physical reflectance before the correction math.
+    # Both NEON divisor style (10000) and multiply style (1e-4) are supported.
     scale_factor = float(getattr(cube, "scale_factor", 1.0)) or 1.0
-    data_unitless = chunk_array.astype(np.float32, copy=False) * np.float32(scale_factor)
+    data_unitless = stored_to_unitless(chunk_array, scale_factor)
 
     # ``valid_mask`` is spatial, not spectral: a pixel is valid only if the
     # reflectance tile and illumination geometry are finite at that location.
@@ -665,7 +667,7 @@ def apply_topo_correct(
 
     # Convert back to the cube's stored scale and restore the configured no-data value.
     no_data_value = np.float32(getattr(cube, "no_data", np.nan))
-    corrected_scaled = corrected_unitless / np.float32(scale_factor)
+    corrected_scaled = unitless_to_stored(corrected_unitless, scale_factor)
     corrected_scaled = np.where(valid_mask[..., np.newaxis], corrected_scaled, no_data_value)
 
     return corrected_scaled.astype(np.float32, copy=False)
@@ -792,7 +794,7 @@ def apply_brdf_correct(
             "solar_zn_type": brdf_kernel_config.solar_zn_type,
         }
 
-    chunk_unitless = chunk_array * np.float32(scale_factor)
+    chunk_unitless = stored_to_unitless(chunk_array, scale_factor)
     # ``ndvi_edges`` records the NDVI boundaries associated with the coefficient
     # rows in a saved BRDF model. When present, reuse those boundaries so
     # application follows the same stratification that was used during fitting.
@@ -961,7 +963,7 @@ def apply_brdf_correct(
             )
 
     no_data_value = np.float32(getattr(cube, "no_data", np.nan))
-    corrected_scaled = corrected_unitless / np.float32(scale_factor)
+    corrected_scaled = unitless_to_stored(corrected_unitless, scale_factor)
     # Restore configured no-data only where the input was invalid / masked.
     corrected_scaled = np.where(valid_mask, corrected_scaled, no_data_value)
 
@@ -1048,8 +1050,9 @@ def fit_and_save_brdf_model(
     valid = mask.astype(bool)
     valid &= np.isfinite(volume_kernel) & np.isfinite(geom_kernel)
 
-    reflectance_unitless = (
-        np.asarray(cube.data, dtype=np.float32) * np.float32(getattr(cube, "scale_factor", 1.0) or 1.0)
+    reflectance_unitless = stored_to_unitless(
+        np.asarray(cube.data, dtype=np.float32),
+        float(getattr(cube, "scale_factor", 1.0) or 1.0),
     )
 
     if ndvi_config.enabled and ndvi_config.n_bins > 1:
