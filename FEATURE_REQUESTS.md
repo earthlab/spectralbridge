@@ -165,10 +165,27 @@ left incomplete so the next agent can resume immediately.
 - Next recommended task: Supply the path to one representative real corrected
   drone ENVI pair or source TIFF/H5 and validate the end-to-end outputs before
   relying on translated imagery for scientific interpretation.
-- 2026-09-17 publication-readiness pass: In progress. Audit packaging, runtime
-  defaults, release gates, and source provenance; rerun source/docs/artifact
-  checks; commit and push only the code and generated metadata required for a
-  VM pull. Keep the user's bulk-results input directory local and unmodified.
+- 2026-09-17 publication-readiness pass: Completed locally against the updated main
+  branch (including the independently contributed NEON Scale_Factor fix).
+  Corrected an inaccurate full-scene extraction instruction and one unused
+  import that blocked the release lint gate; no normal NEON scientific behavior
+  was changed here. The exact packaged registry rebuilt byte-for-byte from the
+  user's compact source artifacts. Ruff, Python compilation, release metadata,
+  generated AI/validation docs checks, docs links, strict MkDocs, the full
+  pytest suite, fresh wheel/sdist build, Twine, and the installed-wheel
+  stage-complete smoke passed. The wheel and sdist include the registry; the
+  user's bulk-results input directory is not packaged or committed.
+- VM handoff: Pull main and install from the checkout. Run one representative
+  real drone scene with `apply_translation=True`, confirm corrected input value
+  scale before interpreting translated values, inspect all four target QA
+  products, and verify full/polygon extraction and restart reuse. The compact
+  same-source NEON relationships are descriptive, not an empirical sensor
+  calibration. No release tag or PyPI publication was requested.
+- Push blocker: The validated commits are on local `main`, but this host could
+  not authenticate to GitHub: HTTPS reported no username credential and SSH
+  reported `Permission denied (publickey)`. Authenticate Git on this host and
+  push `main` before attempting to pull these changes in the VM. The local
+  bulk-results source folder remains untracked and untouched.
 
 ### P84. Harden Drone And Bulk Pipeline Quality
 

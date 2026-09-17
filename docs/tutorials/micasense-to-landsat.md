@@ -105,10 +105,12 @@ results = run_drone_pipeline(
 )
 ```
 
-Set `polygon_path=None` (or `extraction_mode="full"`) for **full-scene**
-pixel parquet export from the raw + corrected ENVI cubes (no convolution —
-drone skips Landsat/MicaSense resampling). Pass a polygon file (or
-`extraction_mode="polygon"`) to extract only polygon pixels instead.
+Set `extraction_mode="full"` for **full-scene** pixel Parquet export from the
+corrected native and translated ENVI cubes. Pass a polygon file and use
+`extraction_mode="polygon"` to extract only polygon pixels instead. If neither
+an extraction mode nor a polygon is supplied, the pipeline writes raster and
+QA outputs without pixel extraction. Drone translation never convolves the
+source imagery.
 
 The bundled manifest is used only when explicit solar rasters or scalar solar
 angles are not supplied. Custom manifest CSVs must include:
