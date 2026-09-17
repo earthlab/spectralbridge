@@ -2737,14 +2737,15 @@ values.</p>
     <span class="n">use_ndvi_brdf_bins</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">apply_brightness_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">apply_translation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">translation_coefficients</span><span class="o">=</span><span class="s2">"drone_translation_coefficients_v1.json"</span><span class="p">,</span>
     <span class="n">translation_strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>Set <code>polygon_path=None</code> (or <code>extraction_mode="full"</code>) for <strong>full-scene</strong>
-pixel parquet export from the raw + corrected ENVI cubes (no convolution —
-drone skips Landsat/MicaSense resampling). Pass a polygon file (or
-<code>extraction_mode="polygon"</code>) to extract only polygon pixels instead.</p>
+<p>Set <code>extraction_mode="full"</code> for <strong>full-scene</strong> pixel Parquet export from the
+corrected native and translated ENVI cubes. Pass a polygon file and use
+<code>extraction_mode="polygon"</code> to extract only polygon pixels instead. If neither
+an extraction mode nor a polygon is supplied, the pipeline writes raster and
+QA outputs without pixel extraction. Drone translation never convolves the
+source imagery.</p>
 <p>The bundled manifest is used only when explicit solar rasters or scalar solar
 angles are not supplied. Custom manifest CSVs must include:</p>
 <ul>
@@ -2780,12 +2781,24 @@ definition, also pass:</p>
 <p>[
 L = a + bM
 ]</p>
-<p>Here, (M) is corrected native MicaSense reflectance, (a) is the stored
-intercept, (b) is the stored slope, and (L) is Landsat-like translated
-reflectance. The pipeline applies these fixed values in bounded raster windows.
+<p>Here, (M) is the corrected native MicaSense numeric value in the coefficient
+training units, (a) is the stored intercept, (b) is the stored slope, and
+(L) is the Landsat-like translated value in the same numeric scale. The
+pipeline applies these fixed values in bounded raster windows.
 It does not refit them and does not spectrally convolve drone data. The corrected
 MicaSense ENVI pair remains unchanged beside each separately named translated
 product.</p>
+<p>The packaged production slopes and intercepts are stored in the numeric units
+of the completed bulk ENVI products (the bulk source training values reach
+roughly 10,000). SpectralBridge does <strong>not</strong> silently convert fractional
+reflectance to those units. Before writing a translated raster, it scans the
+corrected native bands in bounded windows and refuses a likely fractional
+input against count-scale coefficients. If that guard fires, inspect the
+drone input's physical scale and metadata; do not bypass it by changing a
+coefficient or relabeling the header.
+When a count-scale translation has no verified physical reflectance scale,
+the translation QA leaves its above-one-reflectance fraction unavailable and
+records that limitation, rather than treating count values as unit reflectance.</p>
 <p>Production uses the site-balanced candidate from each physical pair-band. This
 gives each site equal aggregate influence and is the predetermined deployment
 policy for generalizing beyond the pooled training pixels. Alternative candidate
@@ -2864,9 +2877,20 @@ of the packaged reflective <code>[B1, B2, B3, B4, B5, B7]</code> array as therma
 <h3 id="importing-an-exact-completed-bulk-result">Importing an exact completed bulk result<a class="headerlink" href="#importing-an-exact-completed-bulk-result" title="Permanent link">&para;</a></h3>
 <p>The numerical production file must be generated from the exact compact result
 tables, never reconstructed from rounded report statistics:</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>scripts/build_drone_translation_registry.py<span class="w"> </span>/data/completed_bulk_output<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--output<span class="w"> </span>src/spectralbridge/data/drone_translation_coefficients_v1.json
+<p>The installed package already includes the reviewed <code>v1</code> registry, imported
+from the exact 12-flightline candidate artifact. To reproduce the import from
+the repository's supplied flat results folder without changing its files:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>scripts/build_drone_translation_registry.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"full extraction run to calibarate drone"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--candidate-coefficients<span class="w"> </span>candidate_translation_coefficients.parquet-2<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--bulk-results-summary<span class="w"> </span>bulk_results_summary-2.json<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>src/spectralbridge/data/drone_translation_coefficients_v1.json<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--overwrite
 </code></pre></div>
+<p>The importer verifies that the candidate SHA-256 matches the completed summary,
+that the site-balanced fits match the weighting comparison, and that source
+and target band identities agree across the compact tables. Ordinary canonical
+bulk-output trees need no artifact-path overrides.</p>
 <p>The importer reads the candidate, pair summary, weighting, flightline, site,
 LOSO, attention-flag, and bulk-summary artifacts. It verifies a single bulk run,
 exactly 18 successful site-balanced relationships, the four registered sensor
@@ -2874,11 +2898,10 @@ pairs, wavelength identities, and the Landsat 5 B3 warning evidence. It records
 SHA-256 hashes for every compact source artifact. It never opens source rasters
 or calculates a regression. Review the generated diff and test it before
 packaging. If any input is missing or inconsistent, no registry is written.</p>
-<p>This repository revision contains the importer and consumer but not fabricated
-numeric values. Until the exact completed compact output is supplied and the
-generated JSON is scientifically reviewed, omitting <code>translation_coefficients</code>
-fails with an actionable message. An explicit generated registry can be tested
-without installing it as package data.</p>
+<p>The packaged numerical values come directly from that candidate Parquet,
+not rounded report statistics. The registry stores its SHA-256 and the hashes
+of all eight compact source artifacts; the original large raster archive is
+not needed for a drone run.</p>
 <h3 id="confidence-and-evidence-boundary">Confidence and evidence boundary<a class="headerlink" href="#confidence-and-evidence-boundary" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>validated</code>: the fit completed and no configured bulk QA attention flag was
@@ -2888,6 +2911,11 @@ without installing it as package data.</p>
   and hatch.</li>
 <li><code>reject</code>: the loader refuses the coefficient in every mode.</li>
 </ul>
+<p>The current production set contains 6 <code>validated</code>, 12 <code>caution</code>, and no
+<code>reject</code> coefficients. L5 TM B3 is the strongest caution. It is the most
+weighting-sensitive <em>relative to other pairs</em> in this run, but its slope spread
+does not cross the configured <code>weighting_dependence</code> flag threshold; the
+registry preserves the seven flags actually emitted by bulk QA.</p>
 <p><code>translation_strict=True</code> also refuses <code>caution</code> coefficients. The registry
 retains R², RMSE, fitted correction, flightline slope IQR, site slope range,
 worst held-out-site metrics, attention flags, coefficient version, bulk run ID,
