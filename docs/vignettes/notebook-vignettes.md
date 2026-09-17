@@ -10,13 +10,13 @@ functions. They contain configuration cells, explanations of inputs and
 outputs, and validation checkpoints. Copy a notebook into your own analysis
 directory before changing scientific assumptions.
 
-Their code and narrative follow the two active research notebooks at the
-repository root: `Raster_processing.ipynb` and `Drone_processing.ipynb`. The
-full-pipeline vignettes use the same public orchestrators, while the focused
-vignettes expose one stage at a time. Output checks use the same practical
-patterns—printed result summaries, file inventories, DuckDB or pandas table
-previews, and ENVI/QA plots—but omit machine-specific transfer commands and
-saved outputs so the files remain portable.
+The NEON and drone examples follow the two active root research notebooks.
+The local bulk example uses the public API on an already curated file tree. A
+separate advanced bulk notebook adapts the supplied production workflow for
+CyVerse-hosted collections, including discovery, transfer, duplicate
+reconciliation, preflight, compact analysis, reporting, and closeout packaging.
+It is an environment-specific recipe, not a prerequisite for using
+`run_bulk_pipeline()` on local files.
 
 | Order | Notebook | Use it when |
 | --- | --- | --- |
@@ -30,6 +30,7 @@ saved outputs so the files remain portable.
 | 07 | [Extract polygon spectra][notebook-07] | You want polygon-indexed spectra from a completed flightline |
 | 08 | [Insert a custom correction][notebook-08] | You are developing a reviewed correction after topo/BRDF and before convolution |
 | 09 | [Build a bulk cross-run analysis][notebook-09] | You want canonical catalogs, virtual queries, balanced regressions, and held-out-site validation |
+| 10 | [Run a curated CyVerse bulk production job][notebook-10] | You have a CyVerse collection in the completed-flightline format and need transfer, reconciliation, analysis, reports, and closeout gates |
 
 ## Opening them
 
@@ -46,10 +47,17 @@ with one flightline, `engine="thread"`, and `max_workers=1`.
 
 ## What “runnable” means
 
-The notebooks have valid kernels, importable code, and no saved outputs. Data
-processing cells are guarded by `RUN = False` so opening or running all cells
-does not unexpectedly download tens of gigabytes. Set `RUN = True` only after
-editing the paths and identifiers in the configuration cell.
+The notebooks have valid kernels and no saved outputs. The numbered learning
+examples use `RUN = False`; set it to `True` after editing their configuration.
+The advanced CyVerse notebook also stops at its configuration guard until you
+set `RUN = True`, replace the example `REMOTE_SOURCE`, review VM disk/output
+paths, and choose a stage. `RUN_STAGE="all"` may transfer a large archive. An
+existing reconciled stage or closeout package is not deleted without separate
+explicit flags. Remote upload remains disabled unless `UPLOAD_RESULTS=True`.
+
+The supplied PDF was used for review but is not published as runnable guidance:
+its print layout clips wide code cells. Use the tracked notebook to copy or run
+code.
 
 [notebook-00]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/00_full_neon_pipeline.ipynb
 [notebook-01]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/01_acquire_neon.ipynb
@@ -61,3 +69,4 @@ editing the paths and identifiers in the configuration cell.
 [notebook-07]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/07_polygon_extraction.ipynb
 [notebook-08]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/08_custom_correction_hook.ipynb
 [notebook-09]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/09_bulk_analysis.ipynb
+[notebook-10]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb

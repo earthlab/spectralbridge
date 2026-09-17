@@ -14521,3 +14521,12 @@ Model: Not recorded
 ```text
 I have to run this in a VM so just make sure it's publication ready so that I can pull it into my vm and run it.
 ```
+
+## 2026-09-17 - publish three-pipeline vignettes and curated bulk notebook
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+here are notebooks for running the bulk pipeline. here run with a file called full extraction but it can apply to any of the currated output files in the same formate. can you add these to the best place in the repo and update the website to reflect the current state of repo with the three pipelines and vignettes to run each of them.
+```

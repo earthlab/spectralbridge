@@ -8,13 +8,13 @@ hide:
 
   <section class="sb-hero">
     <div class="sb-hero__copy">
-      <p class="sb-eyebrow">Drone hyperspectral → NEON reference → Landsat reflectance</p>
-      <h1 id="spectralbridge"><span>Drone to Landsat</span><span>through NEON</span></h1>
-      <p class="sb-hero__lead">Make hyperspectral reflectance comparable across scales.</p>
-      <p class="sb-hero__body">SpectralBridge uses NEON airborne hyperspectral observations as the translating reference between fine-scale drone measurements and Landsat bandspace. Its correction, spectral convolution, tabular extraction, and QA steps keep every scientific decision inspectable and reproducible.</p>
+      <p class="sb-eyebrow">NEON flightlines · drone imagery · bulk analysis</p>
+      <h1 id="spectralbridge"><span>Three pipelines.</span><span>Traceable evidence.</span></h1>
+      <p class="sb-hero__lead">Process reflectance and inspect cross-sensor relationships at each scale.</p>
+      <p class="sb-hero__body">The NEON pipeline corrects and spectrally convolves individual flightlines. The drone pipeline corrects local imagery and can apply reviewed, wavelength-aware affine coefficients without convolution. The independent bulk pipeline studies completed flightlines together and reports coefficient stability and transferability. Each keeps its own outputs and QA trail.</p>
       <div class="sb-button-row">
         <a class="sb-button sb-button--primary" href="vignettes/">Learn by doing</a>
-        <a class="sb-button sb-button--secondary" href="vignettes/full-pipeline/">Run the full pipeline</a>
+        <a class="sb-button sb-button--secondary" href="vignettes/notebook-vignettes/">Open runnable notebooks</a>
       </div>
     </div>
     <div class="sb-hero__art">
@@ -25,8 +25,8 @@ hide:
 
   <section class="sb-manifesto">
     <p class="sb-kicker">Why it exists</p>
-    <h2>One NEON-mediated bridge. Three observing scales.</h2>
-    <p>Relate fine-resolution drone measurements to Landsat-compatible bands through NEON's airborne hyperspectral reference without hiding the corrections, response functions, provenance, or quality evidence along the way.</p>
+    <h2>Three workflows. One inspectable evidence chain.</h2>
+    <p>Use NEON processing for individual hyperspectral flightlines, drone processing for local MicaSense imagery, and bulk analysis for population-level comparisons across completed runs. Synthetic matched-product relationships are diagnostic candidates, not universal empirical calibration.</p>
   </section>
 
   <section class="sb-science-story" aria-labelledby="sb-science-story-title">
@@ -61,7 +61,7 @@ hide:
       <div class="sb-science-panel__copy">
         <span class="sb-science-panel__number">02 / Processing chain</span>
         <h3>Correct before you compare.</h3>
-        <p>The processing panel follows input reflectance through topographic correction, BRDF correction, spectral convolution, and empirical calibration. Keeping these operations explicit is what makes the translation inspectable.</p>
+        <p>The supplied processing diagram is a conceptual view. In the current package, NEON hyperspectral products use spectral convolution, while drone products use optional post-correction affine translation. Bulk analysis estimates and reviews the relationships from completed products.</p>
         <a href="vignettes/full-pipeline/">Walk through the full pipeline →</a>
       </div>
       <div class="sb-science-panel__viewport" tabindex="0" aria-label="Scrollable enlarged processing-pipeline figure">
@@ -82,7 +82,7 @@ hide:
       <div class="sb-science-panel__copy">
         <span class="sb-science-panel__number">03 / Translation network</span>
         <h3>Use NEON as the hyperspectral anchor.</h3>
-        <p>Paired synthetic and observed measurements define empirical translations among the three sensor spaces. NEON's dense airborne spectrum supplies the central reference for relating drone-scale measurements to Landsat.</p>
+        <p>Matched MicaSense and Landsat products generated from the same corrected NEON source support diagnostic regressions. Actual Landsat comparison is a separate, optional validation step; a strong synthetic fit alone does not prove sensor interchangeability.</p>
         <a href="vignettes/sensor-harmonization/">Inspect sensor harmonization →</a>
       </div>
       <div class="sb-science-panel__viewport" tabindex="0" aria-label="Scrollable enlarged sensor-translation figure">
@@ -111,35 +111,35 @@ hide:
   <section class="sb-section sb-section--routes">
     <div class="sb-section__intro">
       <p class="sb-kicker">Choose your way in</p>
-      <h2>Start with what you need today.</h2>
+      <h2>Choose the pipeline for your inputs.</h2>
     </div>
     <div class="sb-card-grid sb-card-grid--three">
-      <a class="sb-route-card sb-route-card--yellow" href="vignettes/">
+      <a class="sb-route-card sb-route-card--yellow" href="vignettes/full-pipeline/">
         <span class="sb-route-card__number">01</span>
-        <h3>Learn</h3>
-        <p>Follow one focused vignette for each module—or run the complete workflow.</p>
-        <strong>Browse the vignettes →</strong>
+        <h3>NEON flightlines</h3>
+        <p>Correct hyperspectral data, convolve to target sensors, extract tables, and inspect QA.</p>
+        <strong>Run the NEON vignette →</strong>
       </a>
-      <a class="sb-route-card sb-route-card--teal" href="validation/">
+      <a class="sb-route-card sb-route-card--teal" href="vignettes/drone-processing/">
         <span class="sb-route-card__number">02</span>
-        <h3>Validate</h3>
-        <p>See the input variations, explicit checks, and diagnostics behind reliability claims.</p>
-        <strong>Inspect the evidence →</strong>
+        <h3>Drone imagery</h3>
+        <p>Process local TIFF/HDF5, retain corrected native MicaSense, and optionally translate.</p>
+        <strong>Run the drone vignette →</strong>
       </a>
-      <a class="sb-route-card sb-route-card--paper" href="reference/">
+      <a class="sb-route-card sb-route-card--paper" href="vignettes/bulk-analysis/">
         <span class="sb-route-card__number">03</span>
-        <h3>Reference</h3>
-        <p>Look up stage contracts, filenames, configuration, schemas, algorithms, and APIs.</p>
-        <strong>Open technical details →</strong>
+        <h3>Bulk analysis</h3>
+        <p>Analyze a curated tree of completed flightlines with compact fits, LOSO, and reporting.</p>
+        <strong>Run the bulk vignette →</strong>
       </a>
     </div>
   </section>
 
   <section class="sb-section sb-section--workflow">
     <div class="sb-section__intro">
-      <p class="sb-kicker">The scientific story</p>
-      <h2>Raw signal in. Comparable evidence out.</h2>
-      <p class="sb-subtitle">Each stage writes validated files that the next stage can understand—and a future rerun can safely reuse.</p>
+      <p class="sb-kicker">The NEON processing path</p>
+      <h2>Raw signal in. Traceable products out.</h2>
+      <p class="sb-subtitle">The five steps below describe the individual-flightline NEON workflow. Drone and bulk follow their own linked vignettes above.</p>
     </div>
     <div class="sb-workflow">
       <div class="sb-workflow__step"><span>01</span>Acquire</div>
@@ -164,7 +164,7 @@ hide:
   <section class="sb-resume-strip">
     <p class="sb-kicker">Already halfway there?</p>
     <h2>Carry on from the files you have.</h2>
-    <p>The pipeline validates existing artifacts and resumes at the first missing or invalid stage.</p>
+    <p>Individual-flightline processing validates existing artifacts and resumes at the first missing or invalid stage.</p>
     <a class="sb-button sb-button--ink" href="vignettes/carry-on-wayward-son/">Carry On My Wayward Son →</a>
   </section>
 
@@ -174,7 +174,7 @@ hide:
       <h2>Translate reflectance across sensors and scales.</h2>
     </div>
     <div class="sb-button-row">
-      <a class="sb-button sb-button--primary" href="vignettes/full-pipeline/">Run end to end</a>
+        <a class="sb-button sb-button--primary" href="vignettes/">Choose a pipeline</a>
       <a class="sb-button sb-button--secondary" href="reference/">Read the reference</a>
     </div>
   </section>

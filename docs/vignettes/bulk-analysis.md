@@ -13,6 +13,21 @@ SpectralBridge has three related, but separate, workflows:
 The bulk workflow is downstream analysis. It does not download inputs, rerun
 correction or convolution, invoke the drone pipeline, or modify source folders.
 
+**Runnable notebooks:** Use the [local bulk analysis notebook][local-bulk-notebook]
+when the curated completed-flightline tree is already on disk. Use the
+[advanced CyVerse production notebook][cyverse-bulk-notebook] when the same
+kind of curated tree must first be inventoried and transferred from CyVerse.
+Its configuration names an example collection; replace `REMOTE_SOURCE` with
+any collection that follows the required product/sidecar format. Review the
+VM disk budget and output paths, then set `RUN = True`. The notebook preserves
+source products, gates duplicate reconciliation and preflight, and packages
+the compact outputs and interpretation reports. It does not change the bulk
+pipeline's scientific definitions. Its transfer planner currently requires
+the six default matched MicaSense/Landsat ENVI product families, with both
+`.img` and `.hdr`, in each eligible flightline. For other registered pair
+subsets or already-local merged Parquets, use the local notebook or the public
+API below instead.
+
 ## Generic input model
 
 A flightline is the atomic scientific unit. Storage folders around it have no
@@ -546,3 +561,6 @@ reimplement source validation.
 The large production campaign that motivated these checks is a validation case,
 not a package data model: no site code, storage hierarchy, flightline count, or
 campaign-specific folder name is embedded in the bulk architecture.
+
+[local-bulk-notebook]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/09_bulk_analysis.ipynb
+[cyverse-bulk-notebook]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb

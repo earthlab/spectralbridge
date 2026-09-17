@@ -26,6 +26,7 @@ EXPECTED_NOTEBOOKS = [
     "07_polygon_extraction.ipynb",
     "08_custom_correction_hook.ipynb",
     "09_bulk_analysis.ipynb",
+    "10_bulk_production_cyverse.ipynb",
 ]
 
 
@@ -82,7 +83,32 @@ def test_vignette_notebooks_are_clean_and_code_compiles() -> None:
             assert cell["id"]
             assert cell["execution_count"] is None
             assert cell["outputs"] == []
-        exec(compiled, {"__name__": "__notebook_contract_test__"})
+        if path.name != "10_bulk_production_cyverse.ipynb":
+            exec(compiled, {"__name__": "__notebook_contract_test__"})
+
+
+def test_advanced_bulk_notebook_is_guarded_and_uses_current_api() -> None:
+    path = NOTEBOOK_DIR / "10_bulk_production_cyverse.ipynb"
+    notebook = json.loads(path.read_text(encoding="utf-8"))
+    source = "\n".join(
+        "".join(cell["source"])
+        for cell in notebook["cells"]
+        if cell["cell_type"] == "code"
+    )
+
+    assert "RUN = False" in source
+    assert "YOUR_CURATED_COLLECTION" in source
+    assert "ALLOW_REBUILD_RECONCILED_STAGE = False" in source
+    assert "ALLOW_REBUILD_PACKAGE = False" in source
+    assert "UPLOAD_RESULTS = False" in source
+    assert "from spectralbridge import summarize_bulk_results" in source
+    assert "analysis=\"translation\"" in source
+    assert "materialize_observations=False" in source
+    assert "shutil.rmtree(RECONCILED_STAGE)" in source
+    assert "if not ALLOW_REBUILD_RECONCILED_STAGE" in source
+    assert "shutil.rmtree(PACKAGE_DIR)" in source
+    assert "if not ALLOW_REBUILD_PACKAGE" in source
+    assert "Aug_2026_Full_Extraction" not in source
 
 
 def test_documentation_links_to_tracked_notebooks_on_github() -> None:

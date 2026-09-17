@@ -87,6 +87,15 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             page.goto(base_url, wait_until="networkidle")
             assert "SpectralBridge" in page.title()
             assert page.locator("h1#spectralbridge").is_visible()
+            route_cards = page.locator(".sb-route-card")
+            assert route_cards.count() == 3
+            assert [
+                card.get_attribute("href") for card in route_cards.all()
+            ] == [
+                "vignettes/full-pipeline/",
+                "vignettes/drone-processing/",
+                "vignettes/bulk-analysis/",
+            ]
 
             logo = page.locator("img[alt='SpectralBridge logo']").first
             assert logo.evaluate("(img) => img.naturalWidth") > 0
@@ -133,7 +142,7 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             notebook_links = page.locator(
                 f"a[href^='{GITHUB_NOTEBOOK_BASE}'][href$='.ipynb']"
             )
-            assert notebook_links.count() == 10
+            assert notebook_links.count() == 11
             assert page.get_by_role(
                 "link", name="Correct NEON reflectance", exact=True
             ).get_attribute("href") == (
