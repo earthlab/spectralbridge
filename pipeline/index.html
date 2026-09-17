@@ -2665,20 +2665,26 @@ working, and emits emoji-rich logs that make the restart-safe behavior explicit.
 All persistent products land inside <code>&lt;base_folder&gt;/&lt;flight_stem&gt;/</code> (with the raw
 <code>.h5</code> kept at the base root) and include ENVI (<code>.img/.hdr</code>), JSON metadata, and
 Parquet summaries.</p>
-<h3 id="optional-across-track-split">Optional across-track split<a class="headerlink" href="#optional-across-track-split" title="Permanent link">&para;</a></h3>
+<h3 id="optional-half-route-split-split_across_track">Optional half-route split (<code>split_across_track</code>)<a class="headerlink" href="#optional-half-route-split-split_across_track" title="Permanent link">&para;</a></h3>
 <p><code>go_forth_and_multiply(..., split_across_track=False)</code> is the default and is
 unchanged: one folder and one product tree per input flight ID.</p>
 <p>When <code>split_across_track=True</code>, each requested ID is still downloaded once to
 <code>&lt;base_folder&gt;/&lt;flight_stem&gt;.h5</code>. The pipeline then processes two renamed
-halves that share that H5:</p>
+half-route products that share that H5. Orientation is inferred from the
+geographic footprint (lines×pixel_y vs samples×pixel_x). Product folders are
+always named <code>_left</code> / <code>_right</code>:</p>
 <ul>
-<li><code>&lt;base_folder&gt;/&lt;flight_stem&gt;_left/</code> — western/left samples <code>[0:mid]</code></li>
-<li><code>&lt;base_folder&gt;/&lt;flight_stem&gt;_right/</code> — eastern/right samples <code>[mid:samples]</code></li>
+<li>North–south elongated footprints → line windows
+  (<code>_left</code> = northern/first lines <code>[0:mid]</code>,
+  <code>_right</code> = southern/second lines <code>[mid:lines]</code>)</li>
+<li>East–west elongated footprints → sample windows
+  (<code>_left</code> = western/first samples <code>[0:mid]</code>,
+  <code>_right</code> = eastern/second samples <code>[mid:samples]</code>)</li>
 </ul>
 <p>Each half folder contains the same product set as a normal flightline, using
 the half ID in every filename. Pass the original (un-suffixed) flight IDs in
 <code>flight_lines</code>. Do not pre-export ENVI; the halves are windowed at H5 read
-time so BRDF/topo also sees only that column range.</p>
+time so BRDF/topo also sees only that window.</p>
 <h2 id="canonical-paths-via-get_flight_paths">Canonical paths via <code>get_flight_paths()</code><a class="headerlink" href="#canonical-paths-via-get_flight_paths" title="Permanent link">&para;</a></h2>
 <p><code>get_flight_paths(base_folder, flight_stem)</code> is the authoritative source of
 truth for every artifact the pipeline reads or writes. For a flight line with

@@ -2832,12 +2832,14 @@
 
 
 <h1 id="stage-by-stage-scientific-qa">Stage-by-stage scientific QA<a class="headerlink" href="#stage-by-stage-scientific-qa" title="Permanent link">&para;</a></h1>
-<p>SpectralBridge writes a deterministic QA report after every canonical pipeline
-stage. Standard QA runs automatically. It uses the real artifact produced by
-that stage and never substitutes simulated scientific results.</p>
+<p>SpectralBridge writes deterministic stage QA reports <strong>after the scientific
+pipeline for a flightline has finished</strong>, not between stages. Standard QA runs
+automatically at the end of each flightline. It reads the real on-disk artifact
+produced by each stage and never substitutes simulated scientific results.</p>
 <p>The existing <code>&lt;flight_id&gt;_qa.png</code>, <code>.json</code>, and <code>.pdf</code> remain the quick-look and
-legacy audit contract. The stage framework adds smaller, focused reports and a
-combined cross-stage interpretation under:</p>
+legacy audit contract and still render at the end of the same flightline. The
+stage framework adds smaller, focused reports and a combined cross-stage
+interpretation under:</p>
 <div class="highlight"><pre><span></span><code>&lt;flightline&gt;/qa/
 ├── stages/
 │   ├── 00_acquisition/stage_qa.json|html
