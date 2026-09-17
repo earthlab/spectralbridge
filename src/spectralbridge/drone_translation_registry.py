@@ -44,7 +44,7 @@ _L5_TM_B3_KEY = (
     3,
 )
 _L5_REQUIRED_FLAGS = frozenset(
-    {"weighting_dependence", "site_dependence", "weak_loso_transferability"}
+    {"site_dependence", "weak_loso_transferability"}
 )
 _BULK_ARTIFACTS = {
     "candidate_coefficients": Path(
@@ -87,6 +87,9 @@ _REQUIRED_RECORD_FIELDS = {
     "fit_status",
     "r2",
     "rmse",
+    "x_min",
+    "x_max",
+    "x_mean",
     "fitted_correction_percent",
     "flightline_slope_iqr",
     "site_slope_range",
@@ -232,7 +235,8 @@ def validate_drone_translation_coefficients(
         )
     for name, relative in _BULK_ARTIFACTS.items():
         artifact = source_artifacts[name]
-        if not isinstance(artifact, dict) or artifact.get("path") != relative.as_posix():
+        artifact_path = str(artifact.get("path", "")) if isinstance(artifact, dict) else ""
+        if not artifact_path or Path(artifact_path).is_absolute() or ".." in Path(artifact_path).parts:
             raise ValueError(f"Source artifact path is invalid for {name}")
         sha256 = str(artifact.get("sha256", ""))
         if len(sha256) != 64 or any(character not in "0123456789abcdef" for character in sha256):
@@ -286,8 +290,13 @@ def validate_drone_translation_coefficients(
             float(row["target_center_nm"]), target_identity.wavelength_nm, abs_tol=1e-6
         ):
             raise ValueError(f"Target wavelength conflicts with registry for {key}")
-        for field in ("slope", "intercept", "r2", "rmse", "fitted_correction_percent"):
+        for field in (
+            "slope", "intercept", "r2", "rmse", "x_min", "x_max", "x_mean",
+            "fitted_correction_percent",
+        ):
             row[field] = _finite(row[field], field=field)
+        if not row["x_min"] <= row["x_mean"] <= row["x_max"]:
+            raise ValueError(f"Coefficient training source range is inconsistent for {key}")
         for field in (
             "flightline_slope_iqr",
             "site_slope_range",
@@ -391,12 +400,29 @@ def build_drone_translation_coefficient_registry(
     *,
     coefficient_set_version: str = DRONE_TRANSLATION_COEFFICIENT_SET_VERSION,
     overwrite: bool = False,
+    artifact_paths: Mapping[str, str | Path] | None = None,
 ) -> Path:
     """Build a static registry from exact compact bulk result artifacts."""
 
     root = Path(bulk_output).expanduser().resolve()
     output = Path(output_path).expanduser().resolve()
-    paths = {name: root / relative for name, relative in _BULK_ARTIFACTS.items()}
+    overrides = dict(artifact_paths or {})
+    unknown = set(overrides) - set(_BULK_ARTIFACTS)
+    if unknown:
+        raise ValueError(f"Unknown compact artifact override(s): {sorted(unknown)}")
+    paths: dict[str, Path] = {}
+    for name, relative in _BULK_ARTIFACTS.items():
+        if name in overrides:
+            supplied = Path(overrides[name])
+            paths[name] = (supplied if supplied.is_absolute() else root / supplied).resolve()
+        else:
+            canonical = root / relative
+            flat = root / relative.name
+            paths[name] = canonical if canonical.is_file() else flat
+        try:
+            paths[name].relative_to(root)
+        except ValueError as exc:
+            raise ValueError(f"Compact artifact {name} must be inside bulk_output") from exc
     missing = [path for path in paths.values() if not path.is_file()]
     if missing:
         raise FileNotFoundError(
@@ -448,10 +474,19 @@ def build_drone_translation_coefficient_registry(
         raise ValueError("Site-balanced coefficient rows mix analysis_run_id values")
     run_id = next(iter(run_ids))
     reported_run_id = str(summary_payload.get("bulk_analysis_run_id") or "")
-    if reported_run_id and reported_run_id != run_id:
+    if reported_run_id != run_id:
         raise ValueError(
             "Bulk results summary and candidate coefficients disagree on analysis_run_id"
         )
+    expected_candidate_sha = (
+        (summary_payload.get("input_compact_outputs") or {})
+        .get("candidate_coefficients", {})
+        .get("sha256")
+    )
+    if expected_candidate_sha is not None and expected_candidate_sha != _sha256(
+        paths["candidate_coefficients"]
+    ):
+        raise ValueError("Bulk results summary candidate SHA-256 does not match supplied artifact")
 
     expected_keys = {
         (pair.key, source_band, target_band)
@@ -487,6 +522,16 @@ def build_drone_translation_coefficient_registry(
             label=label,
             expected_pairs=expected_pairs,
         )
+    for key in expected_keys:
+        candidate = selected_by_key[key]
+        compared = weighting_by_key[key]
+        for field in ("slope", "intercept", "r2", "rmse"):
+            if not math.isclose(
+                float(candidate[field]), float(compared[field]), rel_tol=1e-12, abs_tol=1e-12
+            ):
+                raise ValueError(
+                    f"Candidate and weighting comparison disagree on {field} for {key}"
+                )
     unexpected_flag_keys = set(flags_by_key) - expected_keys
     if unexpected_flag_keys:
         raise ValueError(
@@ -500,9 +545,12 @@ def build_drone_translation_coefficient_registry(
             "Bulk QA does not support the required Landsat 5 TM B3 caution; "
             f"missing flags={sorted(_L5_REQUIRED_FLAGS - l5_flags)}"
         )
+    l5_loso = loso_by_key[(_L5_TM_B3_KEY[0], 3, 3)]
+    if l5_loso.get("weakest_held_out_site") != "WREF":
+        raise ValueError("Bulk QA does not support the required Landsat 5 TM B3 WREF warning")
 
     records: list[dict[str, Any]] = []
-    candidate_relative = _BULK_ARTIFACTS["candidate_coefficients"].as_posix()
+    candidate_relative = paths["candidate_coefficients"].relative_to(root).as_posix()
     candidate_sha = _sha256(paths["candidate_coefficients"])
     for key in sorted(expected_keys):
         candidate = selected_by_key[key]
@@ -540,6 +588,9 @@ def build_drone_translation_coefficient_registry(
                 "fit_status": str(candidate["status"]),
                 "r2": _finite(candidate["r2"], field="r2"),
                 "rmse": _finite(candidate["rmse"], field="rmse"),
+                "x_min": _finite(candidate["x_min"], field="x_min"),
+                "x_max": _finite(candidate["x_max"], field="x_max"),
+                "x_mean": _finite(candidate["x_mean"], field="x_mean"),
                 "fitted_correction_percent": _finite(
                     weighting_row["fitted_correction_percent"],
                     field="fitted_correction_percent",
@@ -589,10 +640,10 @@ def build_drone_translation_coefficient_registry(
         "record_count": len(records),
         "source_artifacts": {
             name: {
-                "path": relative.as_posix(),
+                "path": paths[name].relative_to(root).as_posix(),
                 "sha256": _sha256(paths[name]),
             }
-            for name, relative in _BULK_ARTIFACTS.items()
+            for name in _BULK_ARTIFACTS
         },
         "records": records,
     }

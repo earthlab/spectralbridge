@@ -63,7 +63,6 @@ results = run_drone_pipeline(
     apply_topo=True,
     apply_brdf=True,
     apply_translation=True,
-    translation_coefficients="drone_translation_coefficients_v1.json",
     translation_strict=False,
 )
 
@@ -75,8 +74,10 @@ print(results["translated_merged"])
 Use `extraction_mode="full"` for all corrected pixels. Omitting
 `extraction_mode` preserves the earlier behavior: polygon extraction when a
 polygon is supplied, otherwise raster and QA outputs only. Translation remains
-opt-in. Once a reviewed registry is packaged, its path may be omitted; until
-then, an explicit generated registry is required. Normal mode writes `caution`
+opt-in and uses the packaged site-balanced registry by default. It checks
+corrected input values against the bulk fit's numeric domain before writing;
+apparently fractional input is refused rather than silently rescaled. Normal
+mode writes `caution`
 bands with warnings, while `translation_strict=True` refuses them. A `reject`
 coefficient is never applied.
 

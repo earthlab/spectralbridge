@@ -38,12 +38,31 @@ def main(argv: Sequence[str] | None = None) -> int:
         default=DRONE_TRANSLATION_COEFFICIENT_SET_VERSION,
     )
     parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument(
+        "--candidate-coefficients",
+        type=Path,
+        help="Original candidate Parquet when the supplied folder is flattened or renamed.",
+    )
+    parser.add_argument(
+        "--bulk-results-summary",
+        type=Path,
+        help="Completed bulk-results JSON when the supplied folder is flattened or renamed.",
+    )
     args = parser.parse_args(argv)
+    overrides = {
+        name: path
+        for name, path in (
+            ("candidate_coefficients", args.candidate_coefficients),
+            ("bulk_results_summary", args.bulk_results_summary),
+        )
+        if path is not None
+    }
     output = build_drone_translation_coefficient_registry(
         args.bulk_output,
         args.output,
         coefficient_set_version=args.coefficient_set_version,
         overwrite=args.overwrite,
+        artifact_paths=overrides,
     )
     print(output)
     return 0

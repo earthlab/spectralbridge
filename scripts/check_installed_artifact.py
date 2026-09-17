@@ -82,6 +82,7 @@ RUNTIME_RESOURCES = (
     "drone_field_manifest.csv",
     "brightness/landsat_to_micasense.json",
     "brightness/landsat_tm_etm_to_micasense.json",
+    "drone_translation_coefficients_v1.json",
 )
 PRIMARY_CONSOLE_SCRIPTS = (
     "spectralbridge-download",

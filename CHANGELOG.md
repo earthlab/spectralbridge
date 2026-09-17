@@ -28,9 +28,10 @@
 - A strict, versioned production drone-coefficient registry API and compact-bulk
   importer, with fixed site-balanced selection, 18-band wavelength validation,
   coefficient confidence/LOSO metadata, strict caution handling, and translated
-  spectral-library provenance. The numerical packaged registry remains pending
-  import from the exact completed bulk artifacts; no values were reconstructed
-  from rounded report statistics.
+  spectral-library provenance. The exact 18 site-balanced numerical records
+  are now packaged from the completed candidate Parquet, with source hashes,
+  cross-table checks, and a fail-closed input-scale guard. No values were
+  reconstructed from rounded report statistics.
 - Dashboard-first bulk QA, three manuscript-width publication figures, a
   self-contained PDF report, and restart reuse for the coupled compact
   coefficient/LOSO stage after process interruption.

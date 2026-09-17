@@ -101,7 +101,6 @@ results = run_drone_pipeline(
     use_ndvi_brdf_bins=False,
     apply_brightness_adjustment=False,
     apply_translation=True,
-    translation_coefficients="drone_translation_coefficients_v1.json",
     translation_strict=False,
 )
 ```
@@ -154,12 +153,25 @@ Translation is an explicit post-correction affine operation:
 L = a + bM
 \]
 
-Here, \(M\) is corrected native MicaSense reflectance, \(a\) is the stored
-intercept, \(b\) is the stored slope, and \(L\) is Landsat-like translated
-reflectance. The pipeline applies these fixed values in bounded raster windows.
+Here, \(M\) is the corrected native MicaSense numeric value in the coefficient
+training units, \(a\) is the stored intercept, \(b\) is the stored slope, and
+\(L\) is the Landsat-like translated value in the same numeric scale. The
+pipeline applies these fixed values in bounded raster windows.
 It does not refit them and does not spectrally convolve drone data. The corrected
 MicaSense ENVI pair remains unchanged beside each separately named translated
 product.
+
+The packaged production slopes and intercepts are stored in the numeric units
+of the completed bulk ENVI products (the bulk source training values reach
+roughly 10,000). SpectralBridge does **not** silently convert fractional
+reflectance to those units. Before writing a translated raster, it scans the
+corrected native bands in bounded windows and refuses a likely fractional
+input against count-scale coefficients. If that guard fires, inspect the
+drone input's physical scale and metadata; do not bypass it by changing a
+coefficient or relabeling the header.
+When a count-scale translation has no verified physical reflectance scale,
+the translation QA leaves its above-one-reflectance fraction unavailable and
+records that limitation, rather than treating count values as unit reflectance.
 
 Production uses the site-balanced candidate from each physical pair-band. This
 gives each site equal aggregate influence and is the predetermined deployment
@@ -190,10 +202,23 @@ of the packaged reflective `[B1, B2, B3, B4, B5, B7]` array as thermal B6.
 The numerical production file must be generated from the exact compact result
 tables, never reconstructed from rounded report statistics:
 
+The installed package already includes the reviewed `v1` registry, imported
+from the exact 12-flightline candidate artifact. To reproduce the import from
+the repository's supplied flat results folder without changing its files:
+
 ```bash
-python scripts/build_drone_translation_registry.py /data/completed_bulk_output \
-  --output src/spectralbridge/data/drone_translation_coefficients_v1.json
+python scripts/build_drone_translation_registry.py \
+  "full extraction run to calibarate drone" \
+  --candidate-coefficients candidate_translation_coefficients.parquet-2 \
+  --bulk-results-summary bulk_results_summary-2.json \
+  --output src/spectralbridge/data/drone_translation_coefficients_v1.json \
+  --overwrite
 ```
+
+The importer verifies that the candidate SHA-256 matches the completed summary,
+that the site-balanced fits match the weighting comparison, and that source
+and target band identities agree across the compact tables. Ordinary canonical
+bulk-output trees need no artifact-path overrides.
 
 The importer reads the candidate, pair summary, weighting, flightline, site,
 LOSO, attention-flag, and bulk-summary artifacts. It verifies a single bulk run,
@@ -203,11 +228,10 @@ SHA-256 hashes for every compact source artifact. It never opens source rasters
 or calculates a regression. Review the generated diff and test it before
 packaging. If any input is missing or inconsistent, no registry is written.
 
-This repository revision contains the importer and consumer but not fabricated
-numeric values. Until the exact completed compact output is supplied and the
-generated JSON is scientifically reviewed, omitting `translation_coefficients`
-fails with an actionable message. An explicit generated registry can be tested
-without installing it as package data.
+The packaged numerical values come directly from that candidate Parquet,
+not rounded report statistics. The registry stores its SHA-256 and the hashes
+of all eight compact source artifacts; the original large raster archive is
+not needed for a drone run.
 
 ### Confidence and evidence boundary
 
@@ -217,6 +241,12 @@ without installing it as package data.
   validation statistics require review. QA renders it with an attention color
   and hatch.
 - `reject`: the loader refuses the coefficient in every mode.
+
+The current production set contains 6 `validated`, 12 `caution`, and no
+`reject` coefficients. L5 TM B3 is the strongest caution. It is the most
+weighting-sensitive *relative to other pairs* in this run, but its slope spread
+does not cross the configured `weighting_dependence` flag threshold; the
+registry preserves the seven flags actually emitted by bulk QA.
 
 `translation_strict=True` also refuses `caution` coefficients. The registry
 retains R², RMSE, fitted correction, flightline slope IQR, site slope range,

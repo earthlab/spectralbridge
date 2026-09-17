@@ -87,16 +87,15 @@ result = run_drone_pipeline(
     extraction_mode="polygon",
     polygon_path="/data/plots.geojson",
     apply_translation=True,
-    translation_coefficients="/data/drone_translation_coefficients_v1.json",
     translation_strict=False,
 )
 ```
 
-Production policy fixes weighting to `site_balanced`. If the reviewed registry
-is packaged, omit `translation_coefficients`; an explicit path is useful while
-reviewing a newly generated registry. This source revision intentionally does
-not invent a registry from summary statistics: if the exact compact bulk
-artifacts have not yet been imported, the default raises an actionable error.
+Production policy fixes weighting to `site_balanced`. The reviewed 18-record
+registry is packaged and loaded when `translation_coefficients` is omitted.
+Its coefficients retain the numeric units of the completed bulk ENVI products;
+the translation step refuses apparently fractional drone values instead of
+silently applying count-scale intercepts or converting units without evidence.
 See the [drone translation tutorial](docs/tutorials/micasense-to-landsat.md) for
 the import command, wavelength mapping, confidence states, and evidence limits.
 

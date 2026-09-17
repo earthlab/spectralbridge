@@ -174,6 +174,9 @@ def _load_coefficient_rows(path: Path) -> tuple[pd.DataFrame, dict[str, Any]]:
                     "intercept": row["intercept"],
                     "r2": row["r2"],
                     "rmse": row["rmse"],
+                    "x_min": row["x_min"],
+                    "x_max": row["x_max"],
+                    "x_mean": row["x_mean"],
                     "fitted_correction_percent": row[
                         "fitted_correction_percent"
                     ],
@@ -600,6 +603,43 @@ def apply_drone_translation(
     if isinstance(nodata_raw, list):
         nodata_raw = nodata_raw[0]
     nodata = float(nodata_raw)
+    value_scale_checks: dict[str, Any] = {}
+    if plan.coefficient_set_version is not None:
+        for band in plan.bands:
+            if band.x_mean is None or band.x_mean < 20.0:
+                continue
+            valid_count = 0
+            above_fractional_count = 0
+            for row_start in range(0, int(header["lines"]), max(1, int(chunk_lines))):
+                row_stop = min(
+                    int(header["lines"]), row_start + max(1, int(chunk_lines))
+                )
+                values = np.asarray(
+                    source[band.native_source_band_index - 1, row_start:row_stop, :],
+                    dtype=np.float32,
+                )
+                valid = np.isfinite(values)
+                if not math.isnan(nodata):
+                    valid &= ~np.isclose(values, nodata, atol=1e-6)
+                valid_count += int(np.count_nonzero(valid))
+                above_fractional_count += int(np.count_nonzero(valid & (values > 2.0)))
+            above_fraction = (
+                above_fractional_count / valid_count if valid_count else None
+            )
+            value_scale_checks[str(band.target_band_index)] = {
+                "training_source_mean": band.x_mean,
+                "valid_pixel_count": valid_count,
+                "fraction_above_two": above_fraction,
+                "status": "compatible_numeric_range",
+            }
+            if valid_count and above_fraction is not None and above_fraction < 0.01:
+                raise ValueError(
+                    "Corrected drone values appear fractional (at least 99% are <=2) "
+                    "but the bulk coefficient was fitted to count-scale source values "
+                    f"(training mean {band.x_mean:g}) for {plan.target_sensor} "
+                    f"B{band.target_band_index}. No translation was written; verify "
+                    "reflectance units before applying these coefficients."
+                )
     output_header = dict(header)
     output_header.update(
         {
@@ -743,6 +783,7 @@ def apply_drone_translation(
         "evidence_boundary": plan.evidence_boundary,
         "bands": [asdict(band) for band in plan.bands],
         "training_range_checks": range_checks,
+        "value_scale_checks": value_scale_checks,
         "translated_value_summaries": value_summaries,
         "output_img": str(output_img),
         "output_hdr": str(output_hdr),

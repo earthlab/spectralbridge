@@ -11,13 +11,13 @@ do not replace those lookups with paths relative to a checkout.
 | `brightness/landsat_to_micasense.json` | Percent brightness coefficients for the current Landsat-to-MicaSense system pair | Integer-like string band keys; percent values | `brightness_config.py` |
 | `brightness/landsat_tm_etm_to_micasense.json` | Percent brightness coefficients for the TM/ETM+-specific comparison | Wavelength-aligned band order, not native Landsat band numbering | `brightness_config.py` |
 
-`drone_translation_coefficients_v1.json` is the reserved filename for the
-reviewed production drone-translation registry. It is generated only from an
-exact completed compact bulk output with
-`scripts/build_drone_translation_registry.py`. If that file is absent, the
-production loader fails explicitly; do not fill it from rounded report values.
-The registry uses site-balanced affine coefficients, records all compact source
-hashes and confidence evidence, and is consumed after native drone correction.
+`drone_translation_coefficients_v1.json` is the reviewed 18-record production
+drone-translation registry, generated from the exact completed compact bulk
+output with `scripts/build_drone_translation_registry.py`. It uses site-balanced
+affine coefficients, records all compact source hashes and confidence evidence,
+and is consumed after native drone correction. Its intercepts retain bulk ENVI
+numeric units; fractional drone input is refused before translation output is
+written rather than converted implicitly.
 
 The similarly named JSON files in repository-root `data/` are example/notebook
 copies. Installed code uses this directory. Any scientific value change needs a

@@ -95,6 +95,12 @@ def render_drone_translation_qa(
             if np.any(denominator)
             else np.array([], dtype=np.float32)
         )
+        physical_scale_known = not (
+            plan.coefficient_set_version is not None
+            and band.x_mean is not None
+            and band.x_mean >= 20.0
+            and scale >= 0.1
+        )
         physical_target = target_sample * np.float32(scale)
         band_records.append(
             {
@@ -118,6 +124,9 @@ def render_drone_translation_qa(
                 "coefficient_status": band.coefficient_status,
                 "coefficient_warnings": list(band.coefficient_warnings),
                 "coefficient_set_version": band.coefficient_set_version,
+                "physical_reflectance_scale_status": (
+                    "declared" if physical_scale_known else "unverified_count_scale"
+                ),
                 "valid_pixel_count": int(valid.sum()),
                 "valid_translated_fraction": float(valid.mean()),
                 "source_median": float(np.median(source_sample))
@@ -136,7 +145,7 @@ def render_drone_translation_qa(
                 if physical_target.size
                 else None,
                 "translated_above_one_fraction": float(np.mean(physical_target > 1))
-                if physical_target.size
+                if physical_target.size and physical_scale_known
                 else None,
             }
         )
@@ -215,7 +224,18 @@ def render_drone_translation_qa(
         "translation_provenance": translation_result,
         "coefficient_set_version": plan.coefficient_set_version,
         "bands": band_records,
-        "warnings": list(translation_result.get("warnings", [])),
+        "warnings": list(translation_result.get("warnings", []))
+        + (
+            [
+                "Physical reflectance scale is unverified for count-scale translation; "
+                "above-one reflectance fractions are not reported."
+            ]
+            if any(
+                row["physical_reflectance_scale_status"] == "unverified_count_scale"
+                for row in band_records
+            )
+            else []
+        ),
     }
     output_json.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     return output_png, output_json, payload

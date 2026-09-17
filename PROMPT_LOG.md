@@ -14457,6 +14457,7 @@ Model: Not recorded
 
 ```text
 continue
+```
 
 ## 2026-09-15 - heading-aware half-route split
 Branch: main
@@ -14482,4 +14483,41 @@ AI system: Cursor Agent
 Model: Not recorded
 
 ```text
-okay lets correct this and push all the chnages to github. I will pull spectralbrdige and run the pipeline again for those yellow stone flightlines. LEts see if we get better BRDF correciton```
+okay lets correct this and push all the chnages to github. I will pull spectralbrdige and run the pipeline again for those yellow stone flightlines. LEts see if we get better BRDF correciton
+```
+
+## 2026-09-17 - inspect newly added bulk results for drone calibration
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+i just added bulk results to the repo
+```
+
+## 2026-09-17 - re-audit updated bulk results folder
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+i updated the files in that folder
+```
+
+## 2026-09-17 - activate production drone translation coefficients
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+i'm ready to apply the coeficients to finish the drone pipeline.
+```
+
+## 2026-09-17 - publication-ready drone coefficient activation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+I have to run this in a VM so just make sure it's publication ready so that I can pull it into my vm and run it.
+```

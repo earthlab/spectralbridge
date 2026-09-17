@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import hashlib
 import json
 from pathlib import Path
+import shutil
 
 import pandas as pd
 import pytest
@@ -21,6 +23,7 @@ from spectralbridge.drone_translation_registry import (
     load_drone_translation_coefficients,
     validate_drone_translation_coefficients,
 )
+from spectralbridge.drone_qa import render_drone_translation_qa
 from spectralbridge.sensor_pairs import (
     SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY,
     sensor_band_identity,
@@ -79,12 +82,19 @@ def _write_compact_bulk_fixture(root: Path) -> Path:
                         "intercept": band_index / 10000,
                         "r2": 0.99,
                         "rmse": 0.01 + band_index / 1000,
+                        "x_min": 0.0,
+                        "x_max": 1.0,
+                        "x_mean": 0.3,
                     }
                 )
                 weighting_rows.append(
                     {
                         **identity,
                         "analysis_level": level,
+                        "slope": 0.97 + band_index / 1000 + adjustment,
+                        "intercept": band_index / 10000,
+                        "r2": 0.99,
+                        "rmse": 0.01 + band_index / 1000,
                         "fitted_correction_percent": 5.0 + band_index,
                     }
                 )
@@ -113,7 +123,6 @@ def _write_compact_bulk_fixture(root: Path) -> Path:
             )
             if pair.target_sensor == "Landsat_5_TM" and target_band == 3:
                 for flag in (
-                    "weighting_dependence",
                     "site_dependence",
                     "weak_loso_transferability",
                     "large_fitted_correction",
@@ -182,10 +191,22 @@ def test_registry_builder_uses_exact_site_balanced_rows_and_18_band_contract(
     assert l5_b3["status"] == "caution"
     assert L5_TM_B3_CAUTION in l5_b3["warnings"]
     assert {
-        "weighting_dependence",
         "site_dependence",
         "weak_loso_transferability",
     } <= set(l5_b3["attention_flags"])
+    assert "weighting_dependence" not in l5_b3["attention_flags"]
+
+
+def test_packaged_production_registry_has_complete_reviewed_mapping() -> None:
+    payload = load_drone_translation_coefficients()
+    assert payload["record_count"] == 18
+    assert payload["production_weighting_strategy"] == "site_balanced"
+    assert {row["target_sensor"] for row in payload["records"]} == {
+        "Landsat_5_TM", "Landsat_7_ETM+", "Landsat_8_OLI", "Landsat_9_OLI-2"
+    }
+    assert all(row["x_min"] <= row["x_mean"] <= row["x_max"] for row in payload["records"])
+    assert all(row["status"] != "reject" for row in payload["records"])
+    assert get_drone_translation_coefficient("Landsat_5_TM", 3)["status"] == "caution"
 
 
 def test_registry_mapping_is_wavelength_aware_and_has_no_thermal_band(
@@ -315,6 +336,51 @@ def test_registry_builder_stops_on_cross_table_sensor_conflict(tmp_path: Path) -
         )
 
 
+def test_registry_builder_reads_flat_override_layout_and_verifies_candidate_hash(
+    tmp_path: Path,
+) -> None:
+    bulk = _write_compact_bulk_fixture(tmp_path / "nested")
+    flat = tmp_path / "flat"
+    flat.mkdir()
+    for source in bulk.rglob("*.parquet"):
+        shutil.copy2(source, flat / source.name)
+    candidate = flat / "candidate_translation_coefficients.parquet"
+    renamed = flat / "candidate_translation_coefficients.parquet-2"
+    candidate.rename(renamed)
+    summary = flat / "bulk_results_summary-2.json"
+    summary.write_text(
+        json.dumps(
+            {
+                "bulk_analysis_run_id": "bulk-production-fixture",
+                "input_compact_outputs": {
+                    "candidate_coefficients": {
+                        "sha256": hashlib.sha256(renamed.read_bytes()).hexdigest()
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    overrides = {
+        "candidate_coefficients": renamed.name,
+        "bulk_results_summary": summary.name,
+    }
+    output = tmp_path / "registry.json"
+    build_drone_translation_coefficient_registry(
+        flat, output, artifact_paths=overrides
+    )
+    payload = load_drone_translation_coefficients(output)
+    assert payload["source_artifacts"]["candidate_coefficients"]["path"] == renamed.name
+
+    summary_payload = json.loads(summary.read_text(encoding="utf-8"))
+    summary_payload["input_compact_outputs"]["candidate_coefficients"]["sha256"] = "0" * 64
+    summary.write_text(json.dumps(summary_payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="candidate SHA-256"):
+        build_drone_translation_coefficient_registry(
+            flat, tmp_path / "bad_registry.json", artifact_paths=overrides
+        )
+
+
 def test_registry_builder_refuses_missing_compact_outputs(tmp_path: Path) -> None:
     with pytest.raises(FileNotFoundError, match="missing required registry inputs"):
         build_drone_translation_coefficient_registry(
@@ -387,3 +453,68 @@ def test_production_registry_affine_translation_preserves_native_and_provenance(
     assert result["caution_target_bands"] == [3]
     assert L5_TM_B3_CAUTION in result["warnings"]
     assert result["evidence_boundary"] == SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY
+
+
+def test_packaged_registry_refuses_fractional_drone_values_before_writing(
+    tmp_path: Path,
+) -> None:
+    corrected_stem = tmp_path / "fractional__corrected"
+    cube = np.full((10, 2, 2), 0.2, dtype=np.float32)
+    cube.tofile(corrected_stem.with_suffix(".img"))
+    corrected_stem.with_suffix(".hdr").write_text(
+        "\n".join(
+            [
+                "ENVI", "samples = 2", "lines = 2", "bands = 10",
+                "data type = 4", "interleave = bsq", "byte order = 0",
+                "data ignore value = -9999", "wavelength units = Nanometers",
+                "map info = {UTM, 1, 1, 500000, 4400000, 1, 1, 13, North, WGS-84}",
+                "projection = EPSG:32613",
+                "wavelength = {" + ", ".join(map(str, SOURCE_WAVELENGTHS)) + "}",
+                "fwhm = {28, 32, 14, 27, 16, 14, 10, 12, 18, 57}",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    plan = load_drone_translation_plans(
+        source_wavelengths_nm=SOURCE_WAVELENGTHS,
+        target_sensors=["Landsat_8_OLI"],
+    )[0]
+    output_stem = translated_output_stem(tmp_path, "fractional", "Landsat_8_OLI")
+
+    with pytest.raises(ValueError, match="appear fractional"):
+        apply_drone_translation(
+            corrected_stem.with_suffix(".img"),
+            corrected_stem.with_suffix(".hdr"),
+            output_stem=output_stem,
+            plan=plan,
+        )
+    assert not output_stem.with_suffix(".img").exists()
+    assert not output_stem.with_suffix(".hdr").exists()
+
+    count_scale_cube = np.full((10, 2, 2), 300.0, dtype=np.float32)
+    count_scale_cube.tofile(corrected_stem.with_suffix(".img"))
+    result = apply_drone_translation(
+        corrected_stem.with_suffix(".img"),
+        corrected_stem.with_suffix(".hdr"),
+        output_stem=output_stem,
+        plan=plan,
+    )
+    translated = memmap_bsq(output_stem.with_suffix(".img"), hdr_to_dict(output_stem.with_suffix(".hdr")))
+    assert translated[0, 0, 0] == pytest.approx(
+        plan.bands[0].slope * 300.0 + plan.bands[0].intercept, abs=1e-4
+    )
+    assert result["value_scale_checks"]["1"]["status"] == "compatible_numeric_range"
+    _, _, qa = render_drone_translation_qa(
+        corrected_img=corrected_stem.with_suffix(".img"),
+        translated_img=output_stem.with_suffix(".img"),
+        plan=plan,
+        translation_result=result,
+        output_png=tmp_path / "translation_qa.png",
+    )
+    assert qa["bands"][0]["physical_reflectance_scale_status"] == "unverified_count_scale"
+    assert qa["bands"][0]["translated_above_one_fraction"] is None
+    assert any("Physical reflectance scale is unverified" in warning for warning in qa["warnings"])
+    np.testing.assert_array_equal(
+        np.fromfile(corrected_stem.with_suffix(".img"), dtype=np.float32),
+        count_scale_cube.ravel(),
+    )

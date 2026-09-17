@@ -1,6 +1,6 @@
 # SpectralBridge Feature Requests
 
-Review date: 2026-09-11
+Review date: 2026-09-17
 Branch: main
 
 This file is the authoritative work queue for non-trivial SpectralBridge work.
@@ -46,7 +46,7 @@ left incomplete so the next agent can resume immediately.
 ### P85. Package Validated Drone Translation Coefficients
 
 - Priority: User-directed
-- Status: Blocked on exact production artifacts; implementation and validation complete
+- Status: Completed — packaged coefficient activation verified; representative real-drone scale check remains
 - Owner: Codex
 - Started: 2026-09-11
 - Starting commit: `93fbbb8f4f98abdff85a997d52a11ac51716175a`
@@ -89,16 +89,86 @@ left incomplete so the next agent can resume immediately.
   - Full test suite: 566 passed, 6 skipped.
   - `mkdocs build --strict`: passed.
   - `python scripts/check_docs_links.py`: passed.
-- Blocker: The exact production candidate/summary/weighting/stability/LOSO/flag
-  artifacts are not present in the repository or accessible local filesystem.
-  Therefore no numerical packaged registry was created and no production
-  coefficient value was inferred from rounded narrative statistics.
-- Remaining work: Supply the completed bulk-output directory; run
+- 2026-09-17 audit of user-added `full extraction run to calibarate drone/`:
+  the folder contains six compact QA Parquets, one flags Parquet, and
+  `bulk_results_summary.json`, all from the reported 12-flightline run. It
+  does **not** contain the original
+  `coefficients/candidate_translation_coefficients.parquet` or its JSON.
+  `weighting_comparison.parquet` contains full-precision site-balanced
+  slope/intercept rows but is a derived result, not the original candidate
+  artifact required for registry source provenance.
+- Scientific inconsistency requiring a stop: L5 TM B3 has seven attention
+  flags, including site dependence and weak WREF LOSO transferability, but
+  **not** the `weighting_dependence` flag currently required by the registry
+  importer. Its candidate slope spread is 0.0109196, below the configured
+  0.05 review threshold; the importer requirement appears to overstate the
+  bulk QA evidence. No registry was produced or coefficients applied.
+- Additional activation check: confirm the bulk regression value units against
+  corrected drone ENVI value units before applying the high-intercept fits.
+  The supplied bulk summary gives a representative L5 B3 source value around
+  350; existing small drone test rasters use fractional values around 0.1.
+  Neither alone establishes the real drone input scale.
+- Remaining work: Supply the original candidate artifact and resolve the
+  flag-policy discrepancy and reflectance units; then run
   `scripts/build_drone_translation_registry.py`; scientifically review the
   generated 18-record JSON and its hashes; add it to package data; rerun the
   registry, full-suite, docs, and installed-artifact validations.
-- Next recommended task: Import and review the exact production registry as
-  soon as the completed compact bulk output path is available.
+- Next recommended task: Obtain the exact candidate Parquet (and JSON if
+  available), confirm the intended L5 B3 weighting flag policy, and establish
+  a safe unit conversion or unit equality with real corrected drone data.
+- 2026-09-17 follow-up: The user added
+  `candidate_translation_coefficients.parquet-2` and
+  `candidate_translation_coefficients-2.json` to the flat results folder.
+  The Parquet has 54 successful candidate rows (18 site-balanced) and its
+  SHA-256 exactly matches the new `bulk_results_summary-2.json` recorded
+  candidate input. The candidate, summary, and `bulk_manifest.json` share run
+  ID `4710c6434c2bef864df516fce0dd024b1f71a345b742fdf573db193e88f9a989`.
+  The candidate site-balanced slope/intercept/R²/RMSE values match the
+  weighting-comparison table exactly. The L5 B3 report still has no
+  `weighting_dependence` flag because its 0.0109196 slope spread is below the
+  0.05 configured threshold; this is an overstrict importer assumption, not
+  grounds to fabricate a flag. The source units of real corrected drone imagery
+  are still unverified. No production registry was generated or activated.
+- Revised next recommended task: Resolve the L5 B3 importer policy using the
+  actual flags without inventing a flag, establish the real corrected drone
+  value scale, then import the exact 18 site-balanced records with full
+  provenance and rerun validation.
+- 2026-09-17 resumed plan: Accept the supplied flat compact-output layout via
+  explicit artifact paths without altering its source files; validate the
+  candidate SHA recorded by the completed summary and cross-table numerical
+  consistency; retain actual attention flags rather than inventing a
+  `weighting_dependence` trigger; include training value ranges in the static
+  registry and fail closed when corrected drone values appear fractional
+  against count-scale coefficients. Package and validate the reviewed 18-row
+  registry only if these gates pass.
+- 2026-09-17 completion: Imported the original 54-row candidate Parquet after
+  checking its SHA-256 against the completed bulk summary, its run ID against
+  the manifest, and all 18 site-balanced rows against the compact weighting
+  table. Packaged exactly 18 versioned records spanning the four Landsat
+  targets. The L5 TM B3 caution now uses the flags actually produced by the
+  bulk QA (site dependence and weak WREF LOSO transferability); no absent
+  weighting flag was invented. The drone translation default uses this
+  site-balanced registry only when explicitly enabled, preserves corrected
+  native products, refuses likely fractional source values before writing,
+  and withholds above-one physical-reflectance QA when the scale is unverified.
+  No source file in the user-supplied bulk-results folder was changed.
+- Verification: Focused drone tests, Ruff, Python compilation, docs link check,
+  strict MkDocs build, wheel/sdist build, installed-wheel import/resource check,
+  the bounded installed-artifact smoke test, and the full pytest suite (six
+  expected skips) passed.
+- Remaining real-data validation: The repository does not contain a verified
+  representative corrected drone scene. Run one real TIFF/H5 flight with
+  `apply_translation=True` and review numeric units, translated values, all
+  four target QA products, full/polygon extraction as applicable, and restart
+  reuse. Do not infer empirical cross-sensor calibration from the synthetic
+  same-NEON-source bulk relationships.
+- Next recommended task: Supply the path to one representative real corrected
+  drone ENVI pair or source TIFF/H5 and validate the end-to-end outputs before
+  relying on translated imagery for scientific interpretation.
+- 2026-09-17 publication-readiness pass: In progress. Audit packaging, runtime
+  defaults, release gates, and source provenance; rerun source/docs/artifact
+  checks; commit and push only the code and generated metadata required for a
+  VM pull. Keep the user's bulk-results input directory local and unmodified.
 
 ### P84. Harden Drone And Bulk Pipeline Quality
 
