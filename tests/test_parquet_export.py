@@ -325,7 +325,9 @@ def test_ensure_parquet_for_envi_creates_and_skips_valid(tmp_path: Path, monkeyp
     img.write_bytes(b"xx")
     hdr.write_bytes(b"hdr")
 
-    import spectralbridge.parquet_export as px
+    # The function under test is bound to the explicitly loaded module above.
+    # Patch that same module even when the package was imported by other tests.
+    px = parquet_export_module
 
     build_calls = {"count": 0}
 
@@ -365,7 +367,7 @@ def test_ensure_parquet_for_envi_regenerates_invalid(tmp_path: Path, monkeypatch
     hdr.write_bytes(b"hdr")
     parquet_path.write_text("not a parquet", encoding="utf-8")
 
-    import spectralbridge.parquet_export as px
+    px = parquet_export_module
 
     calls = {"count": 0}
 
@@ -424,7 +426,7 @@ def test_ensure_parquet_for_envi_skips_after_rebuilding_corrupt_output(
     hdr.write_bytes(b"hdr")
     parquet_path.write_text("not a parquet", encoding="utf-8")
 
-    import spectralbridge.parquet_export as px
+    px = parquet_export_module
 
     build_calls = {"count": 0}
 

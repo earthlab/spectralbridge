@@ -121,12 +121,19 @@ angles are not supplied. Custom manifest CSVs must include:
 
 Derived flight stems such as `AOP_GOLDHILL_20230814` match manifest rows such
 as `AOP_GOLDHILL`. SpectralBridge uses the matched acquisition datetime plus
-the reflectance georeference (TIFF CRS/transform, or H5 `Map_Info` /
-`Coordinate_System_String`) to compute per-pixel `Solar_Zenith_Angle` and
-`Solar_Azimuth_Angle` datasets in the working HDF5. This applies to both
-TIFF→H5 conversion and H5 working-copy preparation when solar arrays are
-missing from the source file.
+the reflectance TIFF georeference (CRS/transform) to compute per-pixel
+`Solar_Zenith_Angle` and `Solar_Azimuth_Angle` datasets in a TIFF-derived
+working HDF5. Existing H5 inputs preserve their supplied solar arrays; the
+H5 working-copy route does not synthesize missing angles from the manifest.
 Manifest datetimes without timezone information are treated as UTC.
+The bundled historical field manifest does not document its timezone, so this
+is a processing assumption, not a verified interpretation of those flights.
+Supplied H5 solar arrays remain authoritative for correction; the pipeline
+does not replace them with a calculated position. Each flight's QA audit now
+includes a separate scene-center solar-consistency diagnostic. Unless the
+acquisition timezone is known, the status is `NOT_EVALUATED` even when a
+hypothetical UTC position is shown. See [Process drone imagery](../vignettes/drone-processing.md#restart-and-outputs)
+for the read-only 43-flight census command and review-status meanings.
 
 When `apply_topo=True` or `apply_brdf=True`, solar geometry is required by
 default. Set `require_solar_geometry=False` only when you intentionally want to

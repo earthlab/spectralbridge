@@ -122,6 +122,55 @@ versus NEON-like. NEON is optional and is never processed by drone code.
 
 ## Restart and outputs
 
+Solar geometry deserves a separate review before accepting corrected products.
+Supplied H5 arrays (including historical `Metadata/Logs/Solar_*` arrays) are
+used as-is; missing H5 angles are not synthesized from the manifest. The working H5
+links legacy names without changing angle values; `NeonCube` interprets them
+as degrees and converts to radians for topo and BRDF. For TIFF input, aligned
+solar rasters take precedence over explicit scalar angles, which take
+precedence over manifest-derived geometry. The manifest's “Mean Time of data
+collection (24 hr clock)” has no documented timezone. A plausible 0–90°
+zenith is therefore **not** evidence that it matches the flight's date and
+location. The current TIFF derivation treats naive manifest time as
+UTC; do not assume that convention is correct for historical flights without
+checking its provenance.
+
+`run_drone_pipeline` adds a read-only `solar_geometry_consistency` record to
+each flight QA audit. It contains selected H5 dataset paths, dtype, shape,
+attributes, scene-center coordinates, candidate solar positions, circular
+azimuth residuals, and a status. The calculation reuses the package's
+approximate [NOAA-style solar-position equations](https://gml.noaa.gov/grad/solcalc/solareqns.PDF),
+not a precise ephemeris. An aware acquisition time, or an explicitly
+supplied `solar_qa_timezone="UTC"` (or verified IANA zone), permits a provisional
+comparison: `PASS` within 5°, `WARN` at 5–20°, and `FAIL` above 20° in either
+angle. These broad review bands account for scene-center and collection-time
+uncertainty; they are not scientific calibration limits. Missing location/time
+or an unverified naive timezone yields `NOT_EVALUATED`. None of these statuses
+silently replaces the supplied geometry or invalidates correction-stage
+signatures. Treat a `FAIL` as a reason to hold scientific interpretation and
+investigate provenance, not as permission to substitute 90-minus-angle.
+
+On a production VM, inspect existing working H5 files without rerunning
+corrections or rewriting products:
+
+```bash
+PYTHONPATH=src python scripts/diagnose_drone_solar_geometry.py \
+  /home/jovyan/data-store/SpectralBridge_Drone_2023_2024_Production/flight_outputs \
+  --output /home/jovyan/data-store/SpectralBridge_Drone_2023_2024_Production/solar_validation/solar_geometry.csv \
+  --candidate-timezone UTC --candidate-timezone America/Denver
+```
+
+The two timezone candidates in the CSV's `candidate_positions_json` column
+are hypothetical interpretations until the field
+manifest's convention is independently verified. Only then rerun with
+`--naive-timezone <verified-zone>` to assign evaluative statuses. Review source
+dataset units, scale/fill attributes, collection date, and scene CRS alongside
+the residuals. The CSV separately flags when a flight filename date and
+manifest date differ; such a mismatch requires provenance review, since a
+package filename need not be the acquisition date. Existing topo/BRDF
+products remain restartable but should not be used as validated scientific
+corrections while their solar geometry is in question.
+
 Valid working H5, corrected ENVI, translated ENVI, and translated Parquet
 products are reused when their inputs and translation signatures match.
 Legacy H5 sun-angle arrays under `Reflectance/Metadata`, including nested

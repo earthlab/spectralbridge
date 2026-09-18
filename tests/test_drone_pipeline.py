@@ -1960,6 +1960,8 @@ def test_h5_resume_completes_correction_all_translations_and_full_extraction(
     audit = result["qa_summary"]["files"][0]
     assert audit["flags"]["topo_applied"] is True
     assert audit["flags"]["brdf_applied"] is True
+    assert audit["solar_geometry_consistency"]["solar_geometry_consistency_status"] == "NOT_EVALUATED"
+    assert "timezone" in audit["solar_geometry_consistency"]["solar_geometry_consistency_reason"]
     assert len(audit["expected_translation_sensors"]) == 4
     assert audit.get("missing_required_outputs") is None
     reusable = [

@@ -14889,3 +14889,407 @@ FAILED tests/test\_docs\_playwright.py::test\_docs\_site\_core\_pages\_render\_i
    ]&#x20;
 Error: Process completed with exit code 1.
 ```
+
+## 2026-09-18 - drone solar-geometry consistency investigation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+You are working in the earthlab/spectralbridge repository.
+
+We have uncovered a potentially important solar-geometry validation problem during the first real 43-flight drone production run. Investigate it carefully, add the appropriate package-level validation/QA, and only change scientific processing behavior if the evidence establishes an actual implementation error.
+
+IMPORTANT
+- Read AGENTS.md and all repository instructions first.
+- Read FEATURE_REQUESTS.md before making substantive changes.
+- Add/update an appropriate high-priority FEATURE_REQUESTS.md item before implementation.
+- Work from the current main branch and inspect the current implementation rather than assuming the details below are still exact.
+- The recent drone output-contract repair is commit:
+  7ca410f4d91cf3b1403a7c6111ad9c0ef58b9bef
+- Do not undo or weaken that work.
+- Do not modify translation coefficients or their scientific interpretation.
+- Do not change NEON behavior unless a demonstrated shared bug requires it.
+- Do not silently reinterpret or alter source solar geometry.
+- Do not “fix” 89 degrees by simply doing 90-angle or any other transformation unless evidence establishes that this is the actual convention.
+- Preserve the existing working H5 and downstream artifacts so the 43-flight production run remains restartable.
+
+BACKGROUND
+
+We are currently resuming 43 real historical drone flights:
+- 17 from 2023
+- 26 from 2024
+
+The repaired pipeline is now successfully reusing the existing working H5 products and producing downstream ENVI, corrected MicaSense, translated Landsat-like, full-scene Parquet, and QA products.
+
+However, solar-geometry QA exposed something suspicious.
+
+Representative real working H5 files report mean Solar_Zenith_Angle values around:
+
+~89.0 degrees
+~89.15 degrees
+~89.23 degrees
+
+These flights were generally collected around daytime/noon at high-elevation, mid-latitude sites. At least one representative GOLDHILL flight has an acquisition datetime around:
+
+2023-08-15T19:53:07
+
+If that timestamp is UTC, that corresponds to early afternoon local solar conditions in Colorado and an ~89 degree solar zenith would be highly unexpected.
+
+The pipeline nevertheless accepts these values because ~89 degrees is technically inside the generic physical range 0–90 degrees.
+
+CURRENT REPO BEHAVIOR TO INVESTIGATE
+
+Search the current code rather than relying solely on this description.
+
+Relevant areas include at least:
+
+src/spectralbridge/pipelines/drone.py
+src/spectralbridge/neon_cube.py
+src/spectralbridge/io/neon_legacy.py
+src/spectralbridge/corrections.py
+src/spectralbridge/brdf_topo.py
+src/spectralbridge/qa/stages.py
+tests/test_drone_pipeline.py
+tests/test_neon_cube.py
+scripts/check_installed_artifact.py
+docs/tutorials/micasense-to-landsat.md
+
+The current implementation appears to have multiple possible solar-geometry sources:
+
+1. existing solar geometry arrays in an H5
+2. aligned solar geometry rasters for TIFF input
+3. explicitly supplied scalar angles
+4. solar position derived from acquisition datetime + georeference when geometry is absent
+
+For the historical H5 route, existing source arrays appear to have precedence.
+
+Historical drone H5 files contain datasets resembling:
+
+<site>/Reflectance/Metadata/Logs/Solar_Zenith_Angle
+<site>/Reflectance/Metadata/Logs/Solar_Azimuth_Angle
+
+The legacy NEON convention may instead use paths such as:
+
+Reflectance/Metadata/to-sun_Zenith_Angle
+
+We need to determine exactly what is happening for the real drone H5 route.
+
+PRIMARY SCIENTIFIC QUESTION
+
+Are the ~89 degree values in the historical drone H5 files actually correct solar zenith angles for those observations?
+
+Do not assume the answer.
+
+We need an independent solar-position calculation using:
+
+- acquisition datetime
+- spatial coordinates / scene center or per-pixel coordinates
+- CRS/georeferencing
+- explicit and documented timezone handling
+
+Then compare that independently expected geometry with the geometry persisted in the source/working H5.
+
+INVESTIGATION
+
+Trace the complete H5 solar-geometry path.
+
+For a real H5 input determine:
+
+source dataset
+    ->
+source reader / compatibility mapping
+    ->
+working H5 dataset
+    ->
+NeonCube ancillary reader
+    ->
+degree/radian conversion
+    ->
+topographic correction
+    ->
+BRDF correction
+    ->
+persisted correction metadata
+    ->
+QA
+
+Document:
+
+1. Which exact source dataset is selected.
+2. Its dtype, shape, min, mean, max and relevant attributes.
+3. Whether the source values are interpreted as degrees or radians.
+4. Whether they are changed during working-H5 preparation.
+5. Whether there is any scale factor, offset, fill value or units metadata.
+6. Whether an elevation-vs-zenith convention could be involved.
+7. Whether a 90-angle transformation occurs anywhere.
+8. Whether arrays under Metadata/Logs have documented semantics different from the canonical NEON to-sun datasets.
+9. What values actually enter topo correction.
+10. What values actually enter BRDF correction.
+
+INDEPENDENT SOLAR GEOMETRY CHECK
+
+Implement a deterministic way to calculate expected solar zenith and azimuth from the information already available to SpectralBridge.
+
+Prefer an existing dependency or a small well-tested astronomical calculation rather than introducing a large dependency unnecessarily.
+
+Be extremely explicit about time.
+
+The manifest field appears to describe:
+“Mean Time of data collection (24 hr clock)”
+
+Determine whether the manifest times are:
+- local wall time
+- UTC
+- timezone-aware
+- timezone-naive
+
+Do not guess.
+
+If the repository/data do not establish timezone semantics, report that ambiguity explicitly.
+
+Where possible, calculate expected solar position under the plausible interpretations and show how much that changes the result.
+
+For geolocation:
+- derive latitude/longitude from the H5 georeference
+- use a representative scene center for a scene-level check
+- if practical, support a small deterministic spatial sample for checking whether the supplied per-pixel arrays have the expected spatial variation
+
+Do NOT require elevation unless the chosen calculation genuinely needs it for the desired accuracy.
+
+NEW QA / VALIDATION
+
+Add a package-level solar-geometry consistency diagnostic.
+
+Conceptually it should compare:
+
+supplied solar geometry
+vs.
+independently expected solar geometry
+
+and persist something like:
+
+solar_geometry_source
+acquisition_datetime
+datetime_timezone_interpretation
+scene_center_latitude
+scene_center_longitude
+
+supplied_solar_zenith_mean_deg
+expected_solar_zenith_deg
+solar_zenith_difference_deg
+
+supplied_solar_azimuth_mean_deg
+expected_solar_azimuth_deg
+solar_azimuth_difference_deg
+
+solar_geometry_consistency_status
+solar_geometry_consistency_reason
+
+Names can follow existing repository conventions.
+
+The diagnostic should distinguish:
+
+PASS
+WARN
+FAIL or NOT_EVALUATED
+
+using the repository's existing QA framework where appropriate.
+
+Do not invent thresholds casually.
+
+First inspect the accuracy expected from:
+- scene-center approximation
+- acquisition-time precision
+- spatial extent
+- source arrays
+
+Choose and document defensible thresholds, or initially expose the residual as a diagnostic with conservative provisional thresholds.
+
+A source value being inside 0–90 degrees is NOT sufficient evidence that it is correct.
+
+VERY IMPORTANT: SOURCE PRECEDENCE
+
+Do not automatically replace supplied H5 solar arrays merely because the independent calculation disagrees.
+
+Initially treat disagreement as evidence requiring review.
+
+Preserve both:
+
+supplied geometry
+expected geometry
+
+and provenance for each.
+
+If investigation proves that the existing H5 adapter is objectively reading the wrong dataset, applying the wrong units, or performing an incorrect conversion, then fix that specific bug and add a regression test demonstrating it.
+
+If the historical source itself contains ambiguous or apparently incorrect geometry, do not silently rewrite it. Fail or warn appropriately depending on whether correction can be scientifically justified.
+
+REAL-DATA DIAGNOSTIC
+
+If the 43 real working H5 files are available on the VM, inspect them WITHOUT rerunning the expensive pipeline.
+
+They are expected under something like:
+
+/home/jovyan/data-store/SpectralBridge_Drone_2023_2024_Production/flight_outputs
+
+Find all:
+
+*__working.h5
+
+There should be 43.
+
+Build a compact diagnostic table for all available flights with at least:
+
+year
+flight
+site/package
+acquisition datetime
+source solar geometry path
+source/provenance
+solar zenith min/mean/max
+solar azimuth min/mean/max
+scene-center lat/lon
+expected zenith
+expected azimuth
+zenith residual
+azimuth circular residual
+status
+
+Write this as a compact CSV and/or Parquet under a clearly named validation/diagnostic directory. Do not alter the source H5s.
+
+Look for systematic patterns.
+
+Specifically test whether the observed discrepancy resembles:
+
+- correct geometry
+- solar elevation mislabeled as zenith
+- 90 - angle
+- radians/degrees confusion
+- centidegrees or another scale factor
+- timezone error
+- UTC/local-time error
+- wrong acquisition date
+- wrong source H5 dataset
+- fill/nodata contamination
+- wrong scene coordinates
+- source array containing a different quantity entirely
+
+Do not force the evidence into one of these explanations.
+
+CORRECTION SAFETY
+
+This matters because apply_topo=True and apply_brdf=True.
+
+Determine whether the suspect geometry materially affects the corrected reflectance.
+
+For one representative real flight, perform a bounded diagnostic comparison if feasible:
+
+A. correction using the currently supplied geometry
+B. correction using independently calculated geometry
+
+Do this as a diagnostic experiment only.
+
+Do NOT replace production products yet unless the source interpretation has been established.
+
+Summarize differences using robust metrics such as:
+
+median absolute reflectance difference
+95th/99th percentile absolute difference
+per-band differences
+fraction of valid pixels materially changed
+
+Use existing QA conventions where possible.
+
+RESTART / PRODUCTION SAFETY
+
+The 43-flight campaign is currently running/resuming.
+
+Do not:
+- delete existing products
+- overwrite working H5 files unnecessarily
+- redownload source data
+- rebuild all 43 flights
+- invalidate stage signatures unnecessarily
+- upload anything to CyVerse
+- create a release/tag
+
+If a code fix ultimately changes the scientific correction, explain exactly which downstream stage signatures become invalid and what must be rerun.
+
+Ideally the existing working H5 products should remain reusable.
+
+TESTS
+
+Add regression tests covering at least:
+
+1. correct supplied H5 solar geometry agrees with independent calculation
+2. obviously inconsistent supplied geometry is detected
+3. 89-degree-but-technically-in-range geometry can still be flagged when inconsistent with datetime/location
+4. azimuth residual uses circular angular difference correctly
+5. timezone-aware datetime handling
+6. timezone-naive/ambiguous datetime behavior
+7. missing datetime -> NOT_EVALUATED rather than fabricated geometry
+8. missing georeference -> NOT_EVALUATED
+9. source geometry is preserved rather than silently overwritten
+10. derived geometry remains available when source geometry is genuinely absent
+11. degree/radian handling remains correct through NeonCube/correction
+12. H5 restart/reuse behavior is preserved
+13. existing drone TIFF behavior remains intact
+14. existing NEON behavior remains intact
+
+Use realistic synthetic solar geometry rather than only arbitrary 30/45-degree constants where practical.
+
+DOCUMENTATION
+
+Update the drone documentation to clearly explain:
+
+- solar geometry source precedence
+- supplied vs derived geometry
+- units
+- datetime/timezone assumptions
+- independent consistency QA
+- what WARN/FAIL/NOT_EVALUATED mean
+- why physically possible geometry is not necessarily temporally/geographically consistent
+- whether correction proceeds when supplied and expected geometry disagree
+
+Also document any limitation in historical field-manifest timezone metadata.
+
+VERIFICATION
+
+Run the appropriate repository verification suite, including:
+
+- focused drone/solar tests
+- correction tests
+- full pytest
+- Ruff
+- compile checks
+- strict MkDocs build
+- package build
+- installed-wheel smoke test if that is part of the repo's current release discipline
+
+Do not weaken tests to make the change pass.
+
+FINAL REPORT
+
+At the end give me a concise but technically complete report containing:
+
+1. Root cause or current best-supported diagnosis.
+2. Exact source H5 solar dataset used.
+3. Whether ~89 degrees is actually wrong, ambiguous, or correct.
+4. Evidence supporting that conclusion.
+5. Expected vs supplied geometry for representative real flights.
+6. Results across all available 43 flights.
+7. Whether timezone interpretation matters.
+8. Whether topo/BRDF outputs already produced are scientifically affected.
+9. Whether any package code was changed.
+10. Files changed.
+11. Tests added.
+12. Verification results.
+13. Whether the existing 43 working H5s remain reusable.
+14. Exactly which downstream products, if any, need to be regenerated.
+15. The safest command/notebook configuration for continuing the production campaign.
+
+Do not release or tag anything.
+
+The goal is not to make the warning disappear. The goal is to establish what solar geometry these historical drone files actually contain, independently verify it against space and time, and ensure SpectralBridge cannot mistake “physically possible” geometry for “correct geometry.”
+```

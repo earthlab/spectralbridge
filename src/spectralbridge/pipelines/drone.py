@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
+from zoneinfo import ZoneInfo
 
 import duckdb
 import h5py
@@ -29,6 +30,7 @@ from spectralbridge.corrections import (
 from spectralbridge.envi_writer import EnviWriter
 from spectralbridge.envi import hdr_to_dict, memmap_bsq
 from spectralbridge.neon_cube import NeonCube
+from spectralbridge.io.neon import _map_info_core, _prepare_map_info
 from spectralbridge.drone_translation import (
     apply_drone_translation,
     enrich_translated_spectral_library,
@@ -1128,6 +1130,213 @@ def summarize_drone_h5_solar_geometry(h5_path: str | Path) -> dict[str, Any]:
                     summary[key] = float(metadata_group.attrs[key])
 
     return summary
+
+
+def _circular_angle_difference(left: float, right: float) -> float:
+    """Signed smallest difference in degrees, including the 0/360 boundary."""
+
+    return (left - right + 180.0) % 360.0 - 180.0
+
+
+def _circular_mean_h5_angle(dataset: h5py.Dataset | None) -> float | None:
+    """Read azimuth in bounded chunks and average directions, not numbers."""
+
+    if dataset is None:
+        return None
+    sine = cosine = 0.0
+    count = 0
+    values_per_row = int(np.prod(dataset.shape[1:], dtype=np.int64)) if dataset.ndim else 1
+    rows_per_chunk = max(1, min(256, 1_000_000 // max(1, values_per_row)))
+    chunks = (
+        (dataset[()],) if dataset.ndim == 0 else
+        (dataset[start : start + rows_per_chunk] for start in range(0, dataset.shape[0], rows_per_chunk))
+    )
+    for chunk in chunks:
+        values = np.asarray(chunk, dtype=np.float64)
+        finite = np.deg2rad(values[np.isfinite(values)])
+        sine += float(np.sum(np.sin(finite), dtype=np.float64))
+        cosine += float(np.sum(np.cos(finite), dtype=np.float64))
+        count += int(finite.size)
+    if not count or np.hypot(sine, cosine) / count < 1e-6:
+        return None
+    mean = float(np.rad2deg(np.arctan2(sine, cosine)) % 360.0)
+    return 0.0 if np.isclose(mean, 360.0, atol=1e-10) else mean
+
+
+def _drone_h5_scene_center(h5_file: h5py.File) -> tuple[float, float]:
+    """Get scene-center (longitude, latitude) without reading image pixels."""
+
+    from rasterio.crs import CRS
+    from rasterio.warp import transform as warp_transform
+
+    reflectance = _find_drone_reflectance_dataset(h5_file)
+    coordinate = h5_file.get(f"{reflectance.parent.name}/Metadata/Coordinate_System")
+    if not isinstance(coordinate, h5py.Group):
+        raise ValueError("H5 Coordinate_System metadata is missing")
+    map_dataset = coordinate.get("Map_Info")
+    crs_dataset = coordinate.get("Coordinate_System_String")
+    if not isinstance(map_dataset, h5py.Dataset) or not isinstance(crs_dataset, h5py.Dataset):
+        raise ValueError("H5 Map_Info or Coordinate_System_String is missing")
+    map_info = _prepare_map_info(map_dataset[()])
+    ref_x, ref_y, easting, northing, pixel_x, pixel_y = _map_info_core(map_info)
+    crs_value = crs_dataset[()]
+    crs_text = crs_value.decode("utf-8") if isinstance(crs_value, bytes) else str(crs_value)
+    crs = CRS.from_user_input(crs_text)
+    lines, columns = reflectance.shape[:2]
+    x = easting + (((columns - 1) / 2.0 + 1.0) - ref_x) * pixel_x
+    y = northing - (((lines - 1) / 2.0 + 1.0) - ref_y) * abs(pixel_y)
+    lon, lat = warp_transform(crs, "EPSG:4326", [x], [y])
+    return float(lon[0]), float(lat[0])
+
+
+def _h5_angle_metadata(dataset: h5py.Dataset | None) -> dict[str, Any] | None:
+    if dataset is None:
+        return None
+    return {
+        "path": dataset.name,
+        "dtype": str(dataset.dtype),
+        "shape": list(dataset.shape),
+        "attributes": {str(key): str(value) for key, value in dataset.attrs.items()},
+    }
+
+
+def diagnose_drone_h5_solar_geometry(
+    h5_path: str | Path,
+    *,
+    acquisition_datetime: datetime | str | None = None,
+    naive_timezone: str | None = None,
+    candidate_timezones: Sequence[str] = ("UTC",),
+    solar_summary: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Compare source H5 angles with scene-center solar position, read-only.
+
+    Naive timestamps have unknown provenance unless ``naive_timezone`` is
+    explicitly supplied. Candidate interpretations are informational only.
+    Thresholds (5/20 degrees) are deliberately provisional review bands, not
+    a calibration or permission to replace supplied correction geometry.
+    """
+
+    h5_path = Path(h5_path)
+    diagnostic: dict[str, Any] = {
+        **(solar_summary if solar_summary is not None else summarize_drone_h5_solar_geometry(h5_path)),
+        "h5_path": str(h5_path),
+        "acquisition_datetime": None,
+        "datetime_timezone_interpretation": None,
+        "scene_center_latitude": None,
+        "scene_center_longitude": None,
+        "source_solar_zenith": None,
+        "source_solar_azimuth": None,
+        "expected_solar_zenith_deg": None,
+        "expected_solar_azimuth_deg": None,
+        "solar_zenith_difference_deg": None,
+        "solar_azimuth_difference_deg": None,
+        "supplied_solar_azimuth_circular_mean_deg": None,
+        "candidate_positions": {},
+        "solar_geometry_consistency_status": "NOT_EVALUATED",
+        "solar_geometry_consistency_reason": None,
+    }
+    with h5py.File(h5_path, "r") as h5_file:
+        metadata = _drone_h5_metadata_group(h5_file)
+        if metadata is None:
+            diagnostic["solar_geometry_consistency_reason"] = "H5 reflectance metadata is missing"
+            return diagnostic
+        zenith = _find_drone_solar_dataset(metadata, angle="zenith")
+        azimuth = _find_drone_solar_dataset(metadata, angle="azimuth")
+        diagnostic["source_solar_zenith"] = _h5_angle_metadata(zenith)
+        diagnostic["source_solar_azimuth"] = _h5_angle_metadata(azimuth)
+        diagnostic["supplied_solar_azimuth_circular_mean_deg"] = _circular_mean_h5_angle(azimuth)
+        # Working-H5 canonical names may be hard links to original Logs arrays.
+        logs = metadata.get("Logs")
+        if isinstance(logs, h5py.Group):
+            for angle, selected in (("zenith", zenith), ("azimuth", azimuth)):
+                candidate = logs.get(f"Solar_{angle.capitalize()}_Angle")
+                if isinstance(candidate, h5py.Dataset) and selected is not None and candidate.id == selected.id:
+                    diagnostic[f"source_solar_{angle}"]["original_path"] = candidate.name
+        try:
+            longitude, latitude = _drone_h5_scene_center(h5_file)
+        except (KeyError, ValueError, RuntimeError) as exc:
+            diagnostic["solar_geometry_consistency_reason"] = f"Scene georeference unavailable: {exc}"
+            return diagnostic
+    diagnostic["scene_center_longitude"] = longitude
+    diagnostic["scene_center_latitude"] = latitude
+    if diagnostic["solar_zenith_mean"] is None or diagnostic["supplied_solar_azimuth_circular_mean_deg"] is None:
+        diagnostic["solar_geometry_consistency_reason"] = "Supplied solar geometry is missing"
+        return diagnostic
+    if (
+        diagnostic["solar_zenith_min"] < 0.0
+        or diagnostic["solar_zenith_max"] > 180.0
+        or diagnostic["solar_azimuth_min"] < 0.0
+        or diagnostic["solar_azimuth_max"] > 360.0
+    ):
+        diagnostic["solar_geometry_consistency_reason"] = (
+            "Source solar arrays contain values outside physical angular ranges; "
+            "inspect fill, scale, and units metadata before comparing means"
+        )
+        return diagnostic
+    value = acquisition_datetime or diagnostic["acquisition_datetime_used"]
+    if not value:
+        diagnostic["solar_geometry_consistency_reason"] = "Acquisition datetime is missing"
+        return diagnostic
+    try:
+        acquired = _coerce_acquisition_datetime(value)
+    except ValueError as exc:
+        diagnostic["solar_geometry_consistency_reason"] = str(exc)
+        return diagnostic
+    if acquired is None:  # pragma: no cover - guarded above
+        return diagnostic
+    diagnostic["acquisition_datetime"] = acquired.isoformat()
+    interpretations: list[tuple[str, datetime]] = []
+    if acquired.tzinfo is not None:
+        interpretations.append(("timezone-aware", acquired))
+    elif naive_timezone is not None:
+        zone = ZoneInfo(naive_timezone)
+        first = acquired.replace(tzinfo=zone, fold=0)
+        second = acquired.replace(tzinfo=zone, fold=1)
+        if first.utcoffset() != second.utcoffset():
+            diagnostic["solar_geometry_consistency_reason"] = "Ambiguous daylight-saving wall time"
+            return diagnostic
+        interpretations.append((naive_timezone, first))
+    else:
+        for timezone_name in candidate_timezones:
+            zone = ZoneInfo(timezone_name)
+            interpretations.append((timezone_name, acquired.replace(tzinfo=zone)))
+    for label, interpreted in interpretations:
+        zen, az = _compute_solar_geometry_arrays(
+            acquisition_datetime=interpreted,
+            longitude=np.asarray([longitude]),
+            latitude=np.asarray([latitude]),
+        )
+        expected_zenith, expected_azimuth = float(zen[0]), float(az[0])
+        diagnostic["candidate_positions"][label] = {
+            "datetime_utc": interpreted.astimezone(timezone.utc).isoformat(),
+            "zenith_deg": expected_zenith,
+            "azimuth_deg": expected_azimuth,
+            "zenith_difference_deg": float(diagnostic["solar_zenith_mean"]) - expected_zenith,
+            "azimuth_difference_deg": _circular_angle_difference(float(diagnostic["supplied_solar_azimuth_circular_mean_deg"]), expected_azimuth),
+        }
+    if acquired.tzinfo is None and naive_timezone is None:
+        diagnostic["solar_geometry_consistency_reason"] = "Acquisition timezone is unspecified; candidate positions are not validated"
+        return diagnostic
+    label, _ = interpretations[0]
+    candidate = diagnostic["candidate_positions"][label]
+    diagnostic["datetime_timezone_interpretation"] = label
+    diagnostic["expected_solar_zenith_deg"] = candidate["zenith_deg"]
+    diagnostic["expected_solar_azimuth_deg"] = candidate["azimuth_deg"]
+    diagnostic["solar_zenith_difference_deg"] = candidate["zenith_difference_deg"]
+    diagnostic["solar_azimuth_difference_deg"] = candidate["azimuth_difference_deg"]
+    maximum_difference = max(abs(candidate["zenith_difference_deg"]), abs(candidate["azimuth_difference_deg"]))
+    if maximum_difference <= 5.0:
+        status = "PASS"
+    elif maximum_difference <= 20.0:
+        status = "WARN"
+    else:
+        status = "FAIL"
+    diagnostic["solar_geometry_consistency_status"] = status
+    diagnostic["solar_geometry_consistency_reason"] = (
+        f"Provisional scene-center comparison: maximum angular residual {maximum_difference:.2f} degrees "
+        "(review bands 5/20 degrees; correction geometry unchanged)"
+    )
+    return diagnostic
 
 
 def convert_drone_tiff_to_h5(
@@ -2658,6 +2867,7 @@ def run_drone_pipeline(
     landsat_search_days: int = 16,
     comparison_neon_product: str | Path | None = None,
     raise_on_incomplete: bool = True,
+    solar_qa_timezone: str | None = None,
 ) -> dict[str, Any]:
     """Run the drone pipeline from local HDF5 or reflectance TIFF sources.
 
@@ -2995,6 +3205,27 @@ def run_drone_pipeline(
             file_audit["nodata_patch_applied"] = bool(nodata_patched)
             solar_geometry_summary = summarize_drone_h5_solar_geometry(prepared_h5_path)
             file_audit.update(solar_geometry_summary)
+            try:
+                file_audit["solar_geometry_consistency"] = diagnose_drone_h5_solar_geometry(
+                    prepared_h5_path,
+                    acquisition_datetime=acquisition_datetime,
+                    naive_timezone=solar_qa_timezone,
+                    solar_summary=solar_geometry_summary,
+                )
+            except Exception as exc:
+                # This read-only diagnostic must not change correction inputs or
+                # invalidate a resumable scientific stage.
+                file_audit["solar_geometry_consistency"] = {
+                    "solar_geometry_consistency_status": "NOT_EVALUATED",
+                    "solar_geometry_consistency_reason": f"Diagnostic unavailable: {exc}",
+                }
+            consistency = file_audit["solar_geometry_consistency"]
+            if consistency["solar_geometry_consistency_status"] in {"WARN", "FAIL"}:
+                file_audit.setdefault("qa_warnings", []).append(
+                    "Supplied solar geometry differs from independently calculated "
+                    f"scene-center geometry ({consistency['solar_geometry_consistency_status']}); "
+                    "review timezone and source provenance before interpreting corrections."
+                )
             if (
                 bool(require_solar_geometry)
                 and (bool(apply_topo) or bool(apply_brdf))
@@ -3710,5 +3941,6 @@ __all__ = [
     "run_drone_pipeline",
     "save_drone_overlay_debug_plot",
     "summarize_drone_h5_solar_geometry",
+    "diagnose_drone_h5_solar_geometry",
     "validate_drone_h5_metadata",
 ]
