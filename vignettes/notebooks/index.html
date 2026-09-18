@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="SpectralBridge translates reflectance across sensors and scales to place NEON AOP hyperspectral flightlines into analysis-ready products.">
+        <meta name="description" content="SpectralBridge provides separate NEON flightline, drone imagery, and bulk cross-run analysis workflows with traceable reflectance products and QA.">
       
       
       
@@ -542,7 +542,7 @@
   <span class="md-ellipsis">
     
   
-    End-to-end workflows
+    Three pipelines
   
 
     
@@ -558,7 +558,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    End-to-end workflows
+    Three pipelines
   
 
           </label>
@@ -578,7 +578,63 @@
   <span class="md-ellipsis">
     
   
-    Run the full pipeline
+    Run NEON flightlines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drone-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process drone imagery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bulk-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyze completed flightlines in bulk
   
 
     
@@ -834,7 +890,7 @@
   <span class="md-ellipsis">
     
   
-    6. Process drone imagery
+    Process drone imagery
   
 
     
@@ -890,7 +946,7 @@
   <span class="md-ellipsis">
     
   
-    8. Build a bulk cross-run analysis
+    Analyze completed flightlines in bulk
   
 
     
@@ -2666,14 +2722,19 @@ repository to run or edit a notebook.</p>
 <a href="../notebook-vignettes/"><code>../notebook-vignettes.md</code></a>. Its notebook links point
 back to these tracked files in GitHub's repository viewer rather than to static
 copies on GitHub Pages.</p>
-<p>All processing cells default to <code>RUN = False</code>. Edit the configuration cell,
-confirm storage and memory, then set <code>RUN = True</code>.</p>
-<p>The examples intentionally mirror the working patterns in the root
+<p>All learning examples default to <code>RUN = False</code>. The advanced CyVerse bulk
+production notebook also has an explicit <code>RUN = False</code> guard, but can transfer
+large datasets once enabled. Edit its collection, VM output paths, disk limits,
+and stage before running it.</p>
+<p>The first ten examples intentionally mirror the working patterns in the root
 <code>Raster_processing.ipynb</code> and <code>Drone_processing.ipynb</code>: configure with ordinary
 <code>Path</code> values, call the public orchestrator, print its result or output paths,
 and inspect the concrete Parquet, ENVI, and QA artifacts. The vignette versions
 remove saved outputs and environment-specific transfer commands so they can be
-opened safely in a fresh clone.</p>
+opened safely in a fresh clone. The advanced production notebook is the
+exception: it preserves the supplied CyVerse transfer and closeout gates for
+curated archives. The supplied PDF printout is not published because its code
+is clipped; use the notebook as executable source.</p>
 
 
 

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="SpectralBridge translates reflectance across sensors and scales to place NEON AOP hyperspectral flightlines into analysis-ready products.">
+        <meta name="description" content="SpectralBridge provides separate NEON flightline, drone imagery, and bulk cross-run analysis workflows with traceable reflectance products and QA.">
       
       
       
@@ -636,7 +636,7 @@
   <span class="md-ellipsis">
     
   
-    End-to-end workflows
+    Three pipelines
   
 
     
@@ -652,7 +652,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    End-to-end workflows
+    Three pipelines
   
 
           </label>
@@ -672,7 +672,63 @@
   <span class="md-ellipsis">
     
   
-    Run the full pipeline
+    Run NEON flightlines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="drone-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process drone imagery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bulk-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyze completed flightlines in bulk
   
 
     
@@ -931,7 +987,7 @@
   <span class="md-ellipsis">
     
   
-    6. Process drone imagery
+    Process drone imagery
   
 
     
@@ -987,7 +1043,7 @@
   <span class="md-ellipsis">
     
   
-    8. Build a bulk cross-run analysis
+    Analyze completed flightlines in bulk
   
 
     
@@ -2755,9 +2811,43 @@
 
 
 <h1 id="choose-a-vignette">Choose a vignette<a class="headerlink" href="#choose-a-vignette" title="Permanent link">&para;</a></h1>
-<p>Use this section when you want to accomplish a task. Each user-facing module has
-one canonical vignette, so you do not have to choose between several tutorials
-that appear to cover the same work.</p>
+<p>SpectralBridge has three separate pipelines. Choose the one that matches the
+data you have; the bulk pipeline analyzes completed flightline products and
+does not run NEON or drone processing for you.</p>
+<table>
+<thead>
+<tr>
+<th>Pipeline</th>
+<th>Start here</th>
+<th>Runnable notebook</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NEON flightlines</td>
+<td><a href="full-pipeline/">Full NEON vignette</a></td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/00_full_neon_pipeline.ipynb">NEON notebook</a></td>
+<td>Download or read NEON HDF5; correct, convolve, extract, and review QA for individual flightlines.</td>
+</tr>
+<tr>
+<td>Drone imagery</td>
+<td><a href="drone-processing/">Drone vignette</a></td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/06_drone_pipeline.ipynb">Drone notebook</a></td>
+<td>Read local TIFF/HDF5; correct native MicaSense; optionally apply packaged affine coefficients, extract, and review QA. No convolution.</td>
+</tr>
+<tr>
+<td>Bulk analysis</td>
+<td><a href="bulk-analysis/">Bulk vignette</a></td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/09_bulk_analysis.ipynb">Local bulk notebook</a> or <a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb">CyVerse production notebook</a></td>
+<td>Read already completed, immutable flightline products; fit population relationships and interpret compact outputs.</td>
+</tr>
+</tbody>
+</table>
+<p>The bulk coefficient evidence comes from synthetic matched products of the
+same corrected NEON source. It is diagnostic, not universal empirical sensor
+calibration. Drone use of those coefficients remains an explicit opt-in with
+band-level cautions and a corrected-value scale check.</p>
 <h2 id="start-with-your-situation">Start with your situation<a class="headerlink" href="#start-with-your-situation" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2778,6 +2868,10 @@ that appear to cover the same work.</p>
 <tr>
 <td>Catalog many completed runs and analyze a sensor population</td>
 <td><a href="bulk-analysis/">Build a bulk cross-run analysis</a></td>
+</tr>
+<tr>
+<td>Stage a curated CyVerse archive and produce a bulk closeout package</td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb">Advanced production bulk notebook</a></td>
 </tr>
 <tr>
 <td>Work on one part of the workflow</td>

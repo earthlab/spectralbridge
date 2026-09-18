@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="SpectralBridge translates reflectance across sensors and scales to place NEON AOP hyperspectral flightlines into analysis-ready products.">
+        <meta name="description" content="SpectralBridge provides separate NEON flightline, drone imagery, and bulk cross-run analysis workflows with traceable reflectance products and QA.">
       
       
       
@@ -625,7 +625,7 @@
   <span class="md-ellipsis">
     
   
-    End-to-end workflows
+    Three pipelines
   
 
     
@@ -641,7 +641,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    End-to-end workflows
+    Three pipelines
   
 
           </label>
@@ -661,7 +661,63 @@
   <span class="md-ellipsis">
     
   
-    Run the full pipeline
+    Run NEON flightlines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drone-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process drone imagery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bulk-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyze completed flightlines in bulk
   
 
     
@@ -920,7 +976,7 @@
   <span class="md-ellipsis">
     
   
-    6. Process drone imagery
+    Process drone imagery
   
 
     
@@ -976,7 +1032,7 @@
   <span class="md-ellipsis">
     
   
-    8. Build a bulk cross-run analysis
+    Analyze completed flightlines in bulk
   
 
     
@@ -2752,13 +2808,13 @@ download the notebook when you are ready to run it locally.</p>
 functions. They contain configuration cells, explanations of inputs and
 outputs, and validation checkpoints. Copy a notebook into your own analysis
 directory before changing scientific assumptions.</p>
-<p>Their code and narrative follow the two active research notebooks at the
-repository root: <code>Raster_processing.ipynb</code> and <code>Drone_processing.ipynb</code>. The
-full-pipeline vignettes use the same public orchestrators, while the focused
-vignettes expose one stage at a time. Output checks use the same practical
-patterns—printed result summaries, file inventories, DuckDB or pandas table
-previews, and ENVI/QA plots—but omit machine-specific transfer commands and
-saved outputs so the files remain portable.</p>
+<p>The NEON and drone examples follow the two active root research notebooks.
+The local bulk example uses the public API on an already curated file tree. A
+separate advanced bulk notebook adapts the supplied production workflow for
+CyVerse-hosted collections, including discovery, transfer, duplicate
+reconciliation, preflight, compact analysis, reporting, and closeout packaging.
+It is an environment-specific recipe, not a prerequisite for using
+<code>run_bulk_pipeline()</code> on local files.</p>
 <table>
 <thead>
 <tr>
@@ -2818,6 +2874,11 @@ saved outputs so the files remain portable.</p>
 <td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/09_bulk_analysis.ipynb">Build a bulk cross-run analysis</a></td>
 <td>You want canonical catalogs, virtual queries, balanced regressions, and held-out-site validation</td>
 </tr>
+<tr>
+<td>10</td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb">Run a curated CyVerse bulk production job</a></td>
+<td>You have a CyVerse collection in the completed-flightline format and need transfer, reconciliation, analysis, reports, and closeout gates</td>
+</tr>
 </tbody>
 </table>
 <h2 id="opening-them">Opening them<a class="headerlink" href="#opening-them" title="Permanent link">&para;</a></h2>
@@ -2829,10 +2890,16 @@ jupyter<span class="w"> </span>lab<span class="w"> </span>docs/vignettes/noteboo
 configuration cell. Large runs can take substantial memory and storage. Start
 with one flightline, <code>engine="thread"</code>, and <code>max_workers=1</code>.</p>
 <h2 id="what-runnable-means">What “runnable” means<a class="headerlink" href="#what-runnable-means" title="Permanent link">&para;</a></h2>
-<p>The notebooks have valid kernels, importable code, and no saved outputs. Data
-processing cells are guarded by <code>RUN = False</code> so opening or running all cells
-does not unexpectedly download tens of gigabytes. Set <code>RUN = True</code> only after
-editing the paths and identifiers in the configuration cell.</p>
+<p>The notebooks have valid kernels and no saved outputs. The numbered learning
+examples use <code>RUN = False</code>; set it to <code>True</code> after editing their configuration.
+The advanced CyVerse notebook also stops at its configuration guard until you
+set <code>RUN = True</code>, replace the example <code>REMOTE_SOURCE</code>, review VM disk/output
+paths, and choose a stage. <code>RUN_STAGE="all"</code> may transfer a large archive. An
+existing reconciled stage or closeout package is not deleted without separate
+explicit flags. Remote upload remains disabled unless <code>UPLOAD_RESULTS=True</code>.</p>
+<p>The supplied PDF was used for review but is not published as runnable guidance:
+its print layout clips wide code cells. Use the tracked notebook to copy or run
+code.</p>
 
 
 

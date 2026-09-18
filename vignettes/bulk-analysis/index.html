@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="SpectralBridge translates reflectance across sensors and scales to place NEON AOP hyperspectral flightlines into analysis-ready products.">
+        <meta name="description" content="SpectralBridge provides separate NEON flightline, drone imagery, and bulk cross-run analysis workflows with traceable reflectance products and QA.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>8. Build a bulk cross-run analysis - SpectralBridge</title>
+        <title>Analyze completed flightlines in bulk - SpectralBridge</title>
       
     
     
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              8. Build a bulk cross-run analysis
+              Analyze completed flightlines in bulk
             
           </span>
         </div>
@@ -556,7 +556,7 @@
   <span class="md-ellipsis">
     
   
-    End-to-end workflows
+    Three pipelines
   
 
     
@@ -572,7 +572,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    End-to-end workflows
+    Three pipelines
   
 
           </label>
@@ -592,7 +592,7 @@
   <span class="md-ellipsis">
     
   
-    Run the full pipeline
+    Run NEON flightlines
   
 
     
@@ -601,6 +601,208 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drone-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process drone imagery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyze completed flightlines in bulk
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyze completed flightlines in bulk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generic-input-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generic input model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analysis-profiles-and-minimal-archives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analysis profiles and minimal archives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-preflight-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run preflight first
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-translation-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run translation analysis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpret-a-completed-translation-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpret a completed translation run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualize-an-existing-polygon-spectral-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualize an existing polygon spectral library
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restart-and-provenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restart and provenance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced extension
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -853,7 +1055,7 @@
   <span class="md-ellipsis">
     
   
-    6. Process drone imagery
+    Process drone imagery
   
 
     
@@ -918,7 +1120,7 @@
   <span class="md-ellipsis">
     
   
-    8. Build a bulk cross-run analysis
+    Analyze completed flightlines in bulk
   
 
     
@@ -936,7 +1138,7 @@
   <span class="md-ellipsis">
     
   
-    8. Build a bulk cross-run analysis
+    Analyze completed flightlines in bulk
   
 
     
@@ -2835,6 +3037,20 @@
 </ol>
 <p>The bulk workflow is downstream analysis. It does not download inputs, rerun
 correction or convolution, invoke the drone pipeline, or modify source folders.</p>
+<p><strong>Runnable notebooks:</strong> Use the <a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/09_bulk_analysis.ipynb">local bulk analysis notebook</a>
+when the curated completed-flightline tree is already on disk. Use the
+<a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb">advanced CyVerse production notebook</a> when the same
+kind of curated tree must first be inventoried and transferred from CyVerse.
+Its configuration names an example collection; replace <code>REMOTE_SOURCE</code> with
+any collection that follows the required product/sidecar format. Review the
+VM disk budget and output paths, then set <code>RUN = True</code>. The notebook preserves
+source products, gates duplicate reconciliation and preflight, and packages
+the compact outputs and interpretation reports. It does not change the bulk
+pipeline's scientific definitions. Its transfer planner currently requires
+the six default matched MicaSense/Landsat ENVI product families, with both
+<code>.img</code> and <code>.hdr</code>, in each eligible flightline. For other registered pair
+subsets or already-local merged Parquets, use the local notebook or the public
+API below instead.</p>
 <h2 id="generic-input-model">Generic input model<a class="headerlink" href="#generic-input-model" title="Permanent link">&para;</a></h2>
 <p>A flightline is the atomic scientific unit. Storage folders around it have no
 scientific meaning and may be nested arbitrarily:</p>
