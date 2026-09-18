@@ -108,6 +108,7 @@ def test_advanced_bulk_notebook_is_guarded_and_uses_current_api() -> None:
     assert "if not ALLOW_REBUILD_RECONCILED_STAGE" in source
     assert "shutil.rmtree(PACKAGE_DIR)" in source
     assert "if not ALLOW_REBUILD_PACKAGE" in source
+    assert 'if RUN_STAGE not in ("all", "package", "verify")' in source
     assert "Aug_2026_Full_Extraction" not in source
 
 
