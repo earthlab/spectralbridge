@@ -3059,6 +3059,49 @@ normal-pipeline NEON product on the same Landsat support. The three reported
 pairs are drone-like versus actual, NEON-like versus actual, and drone-like
 versus NEON-like. NEON is optional and is never processed by drone code.</p>
 <h2 id="restart-and-outputs">Restart and outputs<a class="headerlink" href="#restart-and-outputs" title="Permanent link">&para;</a></h2>
+<p>Solar geometry deserves a separate review before accepting corrected products.
+Supplied H5 arrays (including historical <code>Metadata/Logs/Solar_*</code> arrays) are
+used as-is; missing H5 angles are not synthesized from the manifest. The working H5
+links legacy names without changing angle values; <code>NeonCube</code> interprets them
+as degrees and converts to radians for topo and BRDF. For TIFF input, aligned
+solar rasters take precedence over explicit scalar angles, which take
+precedence over manifest-derived geometry. The manifest's “Mean Time of data
+collection (24 hr clock)” has no documented timezone. A plausible 0–90°
+zenith is therefore <strong>not</strong> evidence that it matches the flight's date and
+location. The current TIFF derivation treats naive manifest time as
+UTC; do not assume that convention is correct for historical flights without
+checking its provenance.</p>
+<p><code>run_drone_pipeline</code> adds a read-only <code>solar_geometry_consistency</code> record to
+each flight QA audit. It contains selected H5 dataset paths, dtype, shape,
+attributes, scene-center coordinates, candidate solar positions, circular
+azimuth residuals, and a status. The calculation reuses the package's
+approximate <a href="https://gml.noaa.gov/grad/solcalc/solareqns.PDF">NOAA-style solar-position equations</a>,
+not a precise ephemeris. An aware acquisition time, or an explicitly
+supplied <code>solar_qa_timezone="UTC"</code> (or verified IANA zone), permits a provisional
+comparison: <code>PASS</code> within 5°, <code>WARN</code> at 5–20°, and <code>FAIL</code> above 20° in either
+angle. These broad review bands account for scene-center and collection-time
+uncertainty; they are not scientific calibration limits. Missing location/time
+or an unverified naive timezone yields <code>NOT_EVALUATED</code>. None of these statuses
+silently replaces the supplied geometry or invalidates correction-stage
+signatures. Treat a <code>FAIL</code> as a reason to hold scientific interpretation and
+investigate provenance, not as permission to substitute 90-minus-angle.</p>
+<p>On a production VM, inspect existing working H5 files without rerunning
+corrections or rewriting products:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python<span class="w"> </span>scripts/diagnose_drone_solar_geometry.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/home/jovyan/data-store/SpectralBridge_Drone_2023_2024_Production/flight_outputs<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>/home/jovyan/data-store/SpectralBridge_Drone_2023_2024_Production/solar_validation/solar_geometry.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--candidate-timezone<span class="w"> </span>UTC<span class="w"> </span>--candidate-timezone<span class="w"> </span>America/Denver
+</code></pre></div>
+<p>The two timezone candidates in the CSV's <code>candidate_positions_json</code> column
+are hypothetical interpretations until the field
+manifest's convention is independently verified. Only then rerun with
+<code>--naive-timezone &lt;verified-zone&gt;</code> to assign evaluative statuses. Review source
+dataset units, scale/fill attributes, collection date, and scene CRS alongside
+the residuals. The CSV separately flags when a flight filename date and
+manifest date differ; such a mismatch requires provenance review, since a
+package filename need not be the acquisition date. Existing topo/BRDF
+products remain restartable but should not be used as validated scientific
+corrections while their solar geometry is in question.</p>
 <p>Valid working H5, corrected ENVI, translated ENVI, and translated Parquet
 products are reused when their inputs and translation signatures match.
 Legacy H5 sun-angle arrays under <code>Reflectance/Metadata</code>, including nested
