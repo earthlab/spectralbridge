@@ -90,11 +90,12 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             route_cards = page.locator(".sb-route-card")
             assert route_cards.count() == 3
             assert [
-                card.get_attribute("href") for card in route_cards.all()
+                urljoin(base_url, card.get_attribute("href"))
+                for card in route_cards.all()
             ] == [
-                "vignettes/full-pipeline/",
-                "vignettes/drone-processing/",
-                "vignettes/bulk-analysis/",
+                urljoin(base_url, "vignettes/full-pipeline/"),
+                urljoin(base_url, "vignettes/drone-processing/"),
+                urljoin(base_url, "vignettes/bulk-analysis/"),
             ]
 
             logo = page.locator("img[alt='SpectralBridge logo']").first

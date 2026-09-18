@@ -1,6 +1,6 @@
 # SpectralBridge Feature Requests
 
-Review date: 2026-09-17
+Review date: 2026-09-18
 Branch: main
 
 This file is the authoritative work queue for non-trivial SpectralBridge work.
@@ -19,6 +19,29 @@ left incomplete so the next agent can resume immediately.
 6. After verification, record outcome, blockers, and the next recommended task.
 
 ## Active Requests
+
+### P87. Fix Three-Pipeline Docs Browser Link Assertion
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Codex
+- Started: 2026-09-18
+- Completed: 2026-09-18
+- Goal: Resolve the Playwright smoke-test failure for the three homepage
+  pipeline links without weakening the check that each link targets its
+  corresponding vignette.
+- Plan: Compare source and built HTML against browser-observed link URLs,
+  normalize links for assertion, and rerun focused docs and lint checks.
+- Guardrails: Preserve the three pipeline destinations and site behavior.
+- Outcome: The built HTML retains the intended relative destinations, while
+  the browser test observed absolute URLs. The assertion now resolves each
+  observed href against the site base URL before comparing it with the three
+  expected vignette URLs. No website content or pipeline behavior changed.
+- Verification: Playwright browser smoke passed against a fresh strict MkDocs
+  build served on loopback; full pytest suite, Ruff, docs-link checks, and
+  AI-transparency consistency passed.
+- Next recommended task: Rerun the docs browser CI job and continue with the
+  small-collection VM trial of the advanced bulk notebook.
 
 ### P86. Publish Three-Pipeline Vignettes And Curated Bulk Notebook
 

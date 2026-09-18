@@ -14530,3 +14530,92 @@ Model: Not recorded
 ```text
 here are notebooks for running the bulk pipeline. here run with a file called full extraction but it can apply to any of the currated output files in the same formate. can you add these to the best place in the repo and update the website to reflect the current state of repo with the three pipelines and vignettes to run each of them.
 ```
+
+## 2026-09-18 - fix docs browser pipeline link assertion
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Run python -m http.server 8000 --directory site > /tmp/spectralbridge-docs-http.log 2>&1 &&#x20;
+F                                                                        [100%]&#x20;
+\=================================== FAILURES ===================================&#x20;
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ test\_docs\_site\_core\_pages\_render\_in\_browser \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_&#x20;
+&#x20;
+   def test\_docs\_site\_core\_pages\_render\_in\_browser() -> None:&#x20;
+&#x20;
+       base\_url = \_docs\_site\_url()&#x20;
+&#x20;
+       try:&#x20;
+&#x20;
+           from playwright.sync\_api import sync\_playwright&#x20;
+&#x20;
+       except Exception as exc:  # pragma: no cover - depends on local environment&#x20;
+           raise AssertionError(&#x20;
+               "Playwright is required for docs browser smoke tests. "&#x20;
+               "Install pytest-playwright/playwright and Chromium."&#x20;
+           ) from exc&#x20;
+&#x20;
+       with sync\_playwright() as playwright:&#x20;
+&#x20;
+           browser = playwright.chromium.launch()&#x20;
+           page = browser.new\_page(viewport={"width": 1280, "height": 900})&#x20;
+           page\_errors, console\_errors, failed\_assets = \_collect\_page\_health(page, base\_url)&#x20;
+&#x20;
+           try:&#x20;
+               page.goto(base\_url, wait\_until="networkidle")&#x20;
+               assert "SpectralBridge" in page.title()&#x20;
+               assert page.locator("h1#spectralbridge").is\_visible()&#x20;
+               route\_cards = page.locator(".sb-route-card")&#x20;
+               assert route\_cards.count() == 3&#x20;
+\>               assert [&#x20;
+&#x20;
+                   card.get\_attribute("href") for card in route\_cards.all()&#x20;
+&#x20;
+               ] == [&#x20;
+&#x20;
+                   "vignettes/full-pipeline/",&#x20;
+&#x20;
+                   "vignettes/drone-processing/",&#x20;
+&#x20;
+                   "vignettes/bulk-analysis/",&#x20;
+&#x20;
+               ]&#x20;
+E               AssertionError: assert ['[http://127....lk-analysis/](http://127....lk-analysis/)'] == ['vignettes/f...lk-analysis/']&#x20;
+E                 &#x20;
+E                 At index 0 diff: '[http://127.0.0.1:8000/vignettes/full-pipeline/](http://127.0.0.1:8000/vignettes/full-pipeline/)' != 'vignettes/full-pipeline/'&#x20;
+E                 &#x20;
+E                 Full diff:&#x20;
+E                   [&#x20;
+E                 -     'vignettes/full-pipeline/',&#x20;
+E                 +     '[http://127.0.0.1:8000/vignettes/full-pipeline/](http://127.0.0.1:8000/vignettes/full-pipeline/)',&#x20;
+E                 -     'vignettes/drone-processing/',&#x20;
+E                 +     '[http://127.0.0.1:8000/vignettes/drone-processing/](http://127.0.0.1:8000/vignettes/drone-processing/)',&#x20;
+E                 ?      ++++++++++++++++++++++&#x20;
+E                 -     'vignettes/bulk-analysis/',&#x20;
+E                 +     '[http://127.0.0.1:8000/vignettes/bulk-analysis/](http://127.0.0.1:8000/vignettes/bulk-analysis/)',&#x20;
+E                   ]&#x20;
+tests/test\_docs\_playwright.py:92: AssertionError&#x20;
+\=========================== short test summary info ============================&#x20;
+FAILED tests/test\_docs\_playwright.py::test\_docs\_site\_core\_pages\_render\_in\_browser - AssertionError: assert ['[http://127....lk-analysis/](http://127....lk-analysis/)'] == ['vignettes/f...lk-analysis/']&#x20;
+&#x20;
+ At index 0 diff: '[http://127.0.0.1:8000/vignettes/full-pipeline/](http://127.0.0.1:8000/vignettes/full-pipeline/)' != 'vignettes/full-pipeline/'&#x20;
+&#x20;
+ Full diff:&#x20;
+   [&#x20;
+&#x20;
+   \-     'vignettes/full-pipeline/',&#x20;
+&#x20;
+   \+     '[http://127.0.0.1:8000/vignettes/full-pipeline/](http://127.0.0.1:8000/vignettes/full-pipeline/)',&#x20;
+&#x20;
+   \-     'vignettes/drone-processing/',&#x20;
+&#x20;
+   \+     '[http://127.0.0.1:8000/vignettes/drone-processing/](http://127.0.0.1:8000/vignettes/drone-processing/)',&#x20;
+&#x20;
+   \-     'vignettes/bulk-analysis/',&#x20;
+&#x20;
+   \+     '[http://127.0.0.1:8000/vignettes/bulk-analysis/](http://127.0.0.1:8000/vignettes/bulk-analysis/)',&#x20;
+&#x20;
+   ]&#x20;
+Error: Process completed with exit code 1.
+```
