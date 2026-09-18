@@ -1369,6 +1369,276 @@ Found 12 errors.
 Error: Process completed with exit code 1.
 ```
 
+## 2026-09-18 - fix drone false-success production bug
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+We have uncovered a production bug in the SpectralBridge drone pipeline. Treat this as a package bug, not as a notebook workaround.
+
+Repository:
+earthlab/spectralbridge
+
+Before coding:
+1. Read AGENTS.md and all repository instructions.
+2. Read FEATURE_REQUESTS.md.
+3. Add a new user-directed high-priority feature/bug item to FEATURE_REQUESTS.md before making substantive changes. Record status, owner, start date, evidence, plan, guardrails, and verification requirements.
+4. Inspect the current main branch before changing anything.
+
+PRODUCTION EVIDENCE
+
+We ran the real historical drone campaign through the current drone pipeline using 43 H5 inputs:
+- 17 flights from 2023
+- 26 flights from 2024
+
+The orchestration reported all 43 flight runs as successful with zero pipeline failures.
+
+However, inspection of the resulting production output tree found:
+
+- 43 .h5 files
+- 215 .json files
+- 43 .pdf files
+- 43 .png files
+- 0 .hdr
+- 0 .img
+- 0 .parquet
+
+Total output: 344 files, about 7.15 GB.
+
+Each representative flight directory looks roughly like:
+
+<year>/<ExportPackage>/<flight>/<flight>__working.h5
+<year>/<ExportPackage>/<flight>/<flight>__working.stage.json
+<year>/<ExportPackage>/<flight>/<flight>__qa.json
+<year>/<ExportPackage>/drone_qa_summary.json
+<year>/<ExportPackage>/qa/report.stage.json
+<year>/<ExportPackage>/qa/summary/drone_qa_summary.json
+<year>/<ExportPackage>/qa/summary/drone_qa_summary.png
+<year>/<ExportPackage>/qa_summary.pdf
+
+There are no corrected ENVI products, translated Landsat-like products, or extracted Parquet spectral libraries.
+
+This is especially concerning because the production configuration requested:
+
+apply_topo=True
+apply_brdf=True
+apply_translation=True
+translation_coefficients=None
+translation_weighting=None
+translation_strict=False
+landsat_qa=True
+require_solar_geometry=True
+extraction_mode="full"
+parquet_chunk_size=2048
+
+The current package version during the run was:
+2.3.0rc1
+
+The continuation inspection also found that the package already contains relevant functionality including:
+
+src/spectralbridge/parquet_export.py
+- build_parquet_from_envi
+- ensure_parquet_from_envi
+- ensure_parquet_for_envi
+
+src/spectralbridge/pipelines/pipeline.py
+- _export_parquet_stage
+- _parquet_worker
+- envi_parquet
+- corrected_parquet
+
+src/spectralbridge/pipelines/drone.py
+- _enrich_drone_polygon_parquet_with_index
+- _export_csv_copy_from_parquet
+- _try_export_csv_copy_from_parquet
+
+and polygon extraction machinery in polygons.py / polygon_extraction.py.
+
+IMPORTANT SCIENTIFIC/COMPUTATIONAL CONSTRAINT
+
+Do not solve this by inventing a notebook-side ENVI reader or bypassing package stages.
+
+The package should correctly implement its advertised drone workflow:
+
+source H5/TIFF
+→ working H5
+→ ENVI
+→ drone correction
+→ corrected native product
+→ optional affine Landsat translation
+→ full/polygon Parquet spectral library
+→ QA/reporting
+
+The current production run appears to stop after working-H5 creation while still being counted as successful.
+
+TASK
+
+Perform a root-cause analysis of the drone orchestration.
+
+Trace run_drone_pipeline and every stage it invokes from input discovery through:
+
+1. H5/TIFF ingest
+2. working-H5 creation
+3. ENVI export
+4. topo/BRDF correction
+5. corrected-product persistence
+6. affine translation
+7. Landsat-like product persistence
+8. full-scene extraction
+9. polygon extraction when requested
+10. Parquet export
+11. QA/report generation
+12. success/failure accounting
+13. restart/reuse state
+
+Determine exactly why a run can produce only:
+
+__working.h5
+__working.stage.json
+QA JSON/PNG/PDF
+
+while being returned as a successful processed flight.
+
+Pay particular attention to:
+
+- stage predicates
+- early returns
+- exception swallowing
+- stage-complete detection
+- extraction_mode="full"
+- apply_translation=True
+- stage signatures/fingerprints
+- whether QA generation is incorrectly treated as final pipeline completion
+- whether the H5 input route diverges from the TIFF route
+- whether an H5 source can successfully create working H5 but fail to enter ENVI/correction stages
+- whether missing outputs are classified as skipped rather than failed
+- whether run_drone_pipeline increments “processed” before validating required outputs
+- whether output validation reflects requested configuration
+
+We previously had a real-data solar-geometry issue. The source H5 contains pixel solar arrays, and later package work was intended to support this. Do not simply disable require_solar_geometry. Verify that solar geometry is being carried correctly through the working-H5 adapter.
+
+EXPECTED FIX
+
+A successful drone run must mean that all outputs required by the requested configuration exist and validate.
+
+For this production configuration, success should require at minimum:
+
+- valid working H5
+- valid ENVI export
+- valid corrected native product
+- translated products when apply_translation=True
+- full-scene Parquet when extraction_mode="full"
+- requested QA artifacts
+- appropriate stage/provenance records
+
+If a requested downstream stage cannot run, the flight must be reported as failed or explicitly incomplete. It must not count as successful.
+
+RESTARTABILITY IS CRITICAL
+
+We already have 43 expensive real working H5 files totaling ~7.14 GB.
+
+The fix must allow us to resume from these existing valid working H5 files without redownloading or rebuilding them.
+
+Do not require deleting the current production run.
+
+A rerun after the fix should recognize each valid working-H5 stage and continue:
+
+existing working H5
+→ ENVI
+→ correction
+→ translation
+→ extraction
+→ QA
+
+The restart system should validate artifacts rather than merely trusting a stage JSON.
+
+TESTS
+
+Add regression tests that reproduce the observed failure mode.
+
+At minimum test:
+
+1. H5 drone input + extraction_mode="full".
+2. H5 drone input + apply_translation=True.
+3. A pipeline cannot report success when only working H5 exists.
+4. Required downstream output missing => failed/incomplete status.
+5. Existing valid working H5 is reused after interruption.
+6. Resume continues into ENVI/correction rather than rebuilding H5.
+7. Corrected native output is retained when translation is enabled.
+8. All requested translated targets are produced/validated.
+9. Full-scene Parquet is produced for extraction_mode="full".
+10. QA/report stage does not mask missing scientific outputs.
+11. Solar geometry in a representative H5-shaped fixture survives the working-H5 route.
+12. Restart after each expensive stage produces the same final artifact contract.
+
+Also inspect existing tests. Determine why the current suite allowed this production behavior and strengthen the tests at the orchestration/contract level rather than merely adding isolated unit tests.
+
+Do not weaken existing scientific checks to make tests pass.
+
+OUTPUT CONTRACT
+
+Create one explicit function or model representing the required drone output contract for a requested configuration.
+
+For example, conceptually:
+
+required_outputs(config)
+
+should make it possible for orchestration and tests to determine whether a flight is actually complete.
+
+Avoid duplicating filename assumptions across pipeline, QA, tests, and notebooks.
+
+BACKWARD COMPATIBILITY
+
+Do not change the normal NEON pipeline.
+
+Do not change the packaged translation coefficients or their scientific meaning.
+
+Do not alter correction equations or scientific thresholds unless root-cause evidence proves a separate scientific bug.
+
+Do not infer empirical MicaSense↔Landsat calibration from the synthetic same-NEON-source coefficient relationships.
+
+Preserve the current fail-closed translation scale guard.
+
+VALIDATION
+
+After the fix run:
+
+- focused drone tests
+- restart/reuse tests
+- translation tests
+- extraction tests
+- full pytest suite
+- Ruff
+- Python compile
+- docs link checks
+- strict MkDocs build
+- package build
+- installed-wheel smoke test
+
+Then update FEATURE_REQUESTS.md with:
+- root cause
+- files changed
+- behavior before/after
+- tests added
+- verification results
+- any remaining real-data validation
+
+Finally give me:
+
+1. the root cause in plain English
+2. the exact changed files
+3. the new success/output contract
+4. how existing 43 working H5 files will resume
+5. tests and verification results
+6. the exact command/config I should use on the VM to resume the existing 43-flight production run without starting over
+
+Do not tag or publish a release.
+Do not delete production data.
+Do not upload anything to CyVerse.
+Do not work around the bug only in a notebook.
+```
+
 ## 2026-09-04 - bounded stage-complete installed-artifact validation
 Branch: main
 AI system: OpenAI Codex

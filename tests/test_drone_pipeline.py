@@ -16,6 +16,7 @@ from spectralbridge.pipelines import run_drone_pipeline
 from spectralbridge.pipelines.drone import (
     DRONE_TARGET_BANDS,
     DroneCorrectionUnavailableError,
+    DronePipelineIncompleteError,
     _build_drone_tiff_map_info,
     _discover_drone_input_sources,
     _enrich_drone_polygon_parquet_with_index,
@@ -33,9 +34,11 @@ from spectralbridge.pipelines.drone import (
     load_drone_manifest,
     lookup_flight_datetime,
     resolve_band_map,
+    required_drone_outputs,
     save_drone_overlay_debug_plot,
     summarize_drone_h5_solar_geometry,
 )
+from spectralbridge.neon_cube import NeonCube
 from spectralbridge.utils.paths import get_package_data_path
 from spectralbridge.qa_plots import (
     _classify_drone_scene,
@@ -182,6 +185,14 @@ def _patch_basic_drone_runtime(monkeypatch) -> None:
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone._prepare_drone_h5_working_copy",
         lambda path, *, working_path, overwrite=False: (Path(path), False),
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._ensure_drone_working_h5_solar_aliases",
+        lambda path: None,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._invalid_drone_outputs",
+        lambda requirements: [],
     )
     monkeypatch.setattr("spectralbridge.pipelines.drone.NeonCube", _FakeCube)
     monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", _FakeWriter)
@@ -404,6 +415,7 @@ def test_run_drone_pipeline_reports_empty_input_discovery(
         output_dir=output_dir,
         apply_topo=False,
         apply_brdf=False,
+        raise_on_incomplete=False,
     )
 
     captured = capsys.readouterr()
@@ -1496,6 +1508,7 @@ def test_run_drone_pipeline_with_polygons_and_merge(
         polygon_path=polygon_path,
         output_dir=tmp_path / "out",
         apply_topo=False,
+        raise_on_incomplete=False,
     )
 
     assert len(results["processed"]) == 2
@@ -1763,6 +1776,334 @@ def test_prepare_drone_h5_working_copy_patches_only_working_copy(tmp_path: Path)
         assert float(attrs["nodata"]) == pytest.approx(-9999.0)
 
 
+def _write_legacy_solar_drone_h5(path: Path, *, include_solar: bool = True) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    wavelengths = np.array(
+        [444, 475, 531, 560, 650, 668, 705, 717, 740, 862],
+        dtype=np.float32,
+    )
+    with h5py.File(path, "w") as h5_file:
+        reflectance = h5_file.create_group("NIWO").create_group("Reflectance")
+        dataset = reflectance.create_dataset(
+            "Reflectance_Data",
+            data=np.full((4, 4, 10), 300.0, dtype=np.float32),
+        )
+        dataset.attrs["Data_Ignore_Value"] = np.float32(-9999.0)
+        metadata = reflectance.create_group("Metadata")
+        spectral = metadata.create_group("Spectral_Data")
+        wavelength_ds = spectral.create_dataset("Wavelength", data=wavelengths)
+        wavelength_ds.attrs["Units"] = "Nanometers"
+        spectral.create_dataset("FWHM", data=np.full(10, 10, dtype=np.float32))
+        coords = metadata.create_group("Coordinate_System")
+        coords.create_dataset(
+            "Map_Info",
+            data=np.array(
+                ["UTM", "1", "1", "500000", "4100000", "20", "-20", "13", "North", "WGS-84"],
+                dtype="S",
+            ),
+        )
+        coords.create_dataset("Coordinate_System_String", data=np.bytes_("EPSG:32613"))
+        ancillary = metadata.create_group("Ancillary_Imagery")
+        for name, value in (
+            ("Slope", 5.0),
+            ("Aspect", 180.0),
+            ("Sensor_Zenith_Angle", 2.0),
+            ("Sensor_Azimuth_Angle", 180.0),
+        ):
+            ancillary.create_dataset(name, data=np.full((4, 4), value, dtype=np.float32))
+        if include_solar:
+            ancillary.create_dataset(
+                "to-sun_Zenith_Angle",
+                data=np.full((4, 4), 30.0, dtype=np.float32),
+            )
+            ancillary.create_dataset(
+                "to-sun_Azimuth_Angle",
+                data=np.full((4, 4), 175.0, dtype=np.float32),
+            )
+    return path
+
+
+def test_legacy_h5_solar_arrays_survive_working_copy_and_restart(tmp_path: Path) -> None:
+    source = _write_legacy_solar_drone_h5(tmp_path / "source.h5")
+    working = tmp_path / "flight" / "flight__working.h5"
+    first, _ = _prepare_drone_source_working_h5(
+        source, source_type="h5", working_path=working
+    )
+    assert first == working
+    summary = summarize_drone_h5_solar_geometry(working)
+    assert summary["solar_geometry_source"] == "raster"
+    assert summary["solar_zenith_mean"] == pytest.approx(30.0)
+    assert summary["solar_azimuth_mean"] == pytest.approx(175.0)
+    np.testing.assert_allclose(
+        NeonCube(working).get_ancillary("solar_zn", radians=False),
+        np.full((4, 4), 30.0),
+    )
+    with h5py.File(source, "r") as h5_file:
+        assert "Solar_Zenith_Angle" not in h5_file["NIWO/Reflectance/Metadata"]
+    with h5py.File(working, "r+") as h5_file:
+        del h5_file["NIWO/Reflectance/Metadata/Solar_Zenith_Angle"]
+        del h5_file["NIWO/Reflectance/Metadata/Solar_Azimuth_Angle"]
+    second, _ = _prepare_drone_source_working_h5(
+        source, source_type="h5", working_path=working
+    )
+    assert second == working
+    assert summarize_drone_h5_solar_geometry(working)["solar_zenith_mean"] == pytest.approx(30.0)
+
+
+def test_required_drone_output_contract_includes_native_translation_and_full_library(
+    tmp_path: Path,
+) -> None:
+    paths = build_drone_output_paths(tmp_path, flight_stem="flight")
+    requirements = required_drone_outputs(
+        paths,
+        extraction_mode="full",
+        translation_targets=("Landsat_8_OLI", "Landsat_9_OLI-2"),
+    )
+    names = {requirement.name for requirement in requirements}
+    assert {"working_h5", "envi", "corrected_native", "full_library", "flight_qa"} <= names
+    assert "translated_Landsat_8_OLI" in names
+    assert "translated_Landsat_9_OLI-2" in names
+    assert "translated_library_Landsat_8_OLI" in names
+    assert "translated_library_Landsat_9_OLI-2" in names
+
+
+def test_h5_only_working_stage_cannot_report_success(tmp_path: Path) -> None:
+    source = _write_legacy_solar_drone_h5(
+        tmp_path / "SPR1-06-28-23-ExportPackage" / "source.h5",
+        include_solar=False,
+    )
+    output = tmp_path / "out"
+    with pytest.raises(DronePipelineIncompleteError) as captured:
+        run_drone_pipeline(
+            source,
+            output_dir=output,
+            apply_topo=True,
+            apply_brdf=True,
+            apply_translation=True,
+            extraction_mode="full",
+            require_solar_geometry=True,
+            landsat_qa=True,
+        )
+    result = captured.value.results
+    assert result["status"] == "incomplete"
+    assert result["processed"] == []
+    assert len(result["failed"]) == 1
+    paths = build_drone_output_paths(output, flight_stem="SPR1_20230628")
+    assert paths["working_h5"].is_file()
+    assert not paths["envi_stem"].with_suffix(".img").exists()
+    assert not paths["full_parquet"].exists()
+    assert result["qa_summary"]["success_count"] == 0
+
+
+def test_h5_resume_completes_correction_all_translations_and_full_extraction(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    source = _write_legacy_solar_drone_h5(
+        tmp_path / "SPR1-06-28-23-ExportPackage" / "source.h5"
+    )
+    output = source.parent / "out"
+    drone_module = import_module("spectralbridge.pipelines.drone")
+    real_export = drone_module.export_h5_to_envi
+
+    def interrupted_export(*args, **kwargs):
+        raise RuntimeError("simulated interruption after working H5")
+
+    monkeypatch.setattr(drone_module, "export_h5_to_envi", interrupted_export)
+    with pytest.raises(DronePipelineIncompleteError):
+        run_drone_pipeline(
+            source,
+            output_dir=output,
+            apply_topo=True,
+            apply_brdf=True,
+            apply_translation=True,
+            extraction_mode="full",
+            parquet_chunk_size=2,
+        )
+    paths = build_drone_output_paths(output, flight_stem="SPR1_20230628")
+    working_mtime = paths["working_h5"].stat().st_mtime_ns
+    monkeypatch.setattr(drone_module, "export_h5_to_envi", real_export)
+    monkeypatch.setattr(
+        drone_module,
+        "fit_and_save_brdf_model",
+        lambda cube, output_dir, **kwargs: Path(output_dir) / "fixture_brdf.json",
+    )
+    monkeypatch.setattr(
+        drone_module,
+        "apply_topo_correct",
+        lambda cube, chunk, ys, ye, xs, xe: np.asarray(chunk, dtype=np.float32),
+    )
+    monkeypatch.setattr(
+        drone_module,
+        "apply_brdf_correct",
+        lambda cube, chunk, ys, ye, xs, xe, **kwargs: np.asarray(chunk, dtype=np.float32),
+    )
+
+    result = run_drone_pipeline(
+        source,
+        output_dir=output,
+        apply_topo=True,
+        apply_brdf=True,
+        apply_translation=True,
+        extraction_mode="full",
+        parquet_chunk_size=2,
+    )
+    assert result["status"] == "complete"
+    assert result["failed"] == []
+    assert result["processed"] == [str(source)]
+    assert paths["working_h5"].stat().st_mtime_ns == working_mtime
+    assert paths["envi_stem"].with_suffix(".img").is_file()
+    assert paths["corrected_stem"].with_suffix(".img").is_file()
+    assert paths["full_parquet"].is_file()
+    assert len(result["translation_outputs"]) == 4
+    assert len(result["translated_libraries"]) == 4
+    assert all(Path(path).is_file() for path in result["translated_libraries"])
+    audit = result["qa_summary"]["files"][0]
+    assert audit["flags"]["topo_applied"] is True
+    assert audit["flags"]["brdf_applied"] is True
+    assert len(audit["expected_translation_sensors"]) == 4
+    assert audit.get("missing_required_outputs") is None
+    reusable = [
+        paths["working_h5"],
+        paths["envi_stem"].with_suffix(".img"),
+        paths["corrected_stem"].with_suffix(".img"),
+        paths["full_parquet"],
+        *(Path(path) for path in result["translation_outputs"]),
+        *(Path(path) for path in result["translated_libraries"]),
+    ]
+    mtimes = {path: path.stat().st_mtime_ns for path in reusable}
+
+    direct_resume = run_drone_pipeline(
+        paths["working_h5"],
+        output_dir=output,
+        apply_topo=True,
+        apply_brdf=True,
+        apply_translation=True,
+        extraction_mode="full",
+        parquet_chunk_size=2,
+    )
+    assert direct_resume["status"] == "complete"
+    assert paths["working_h5"].stat().st_mtime_ns == working_mtime
+    assert {path: path.stat().st_mtime_ns for path in reusable} == mtimes
+
+    target_img = Path(result["translation_outputs"][0])
+    real_render = qa_plots.render_drone_panel
+
+    def render_then_remove_target(**kwargs):
+        rendered = real_render(**kwargs)
+        target_img.unlink()
+        return rendered
+
+    monkeypatch.setattr(qa_plots, "render_drone_panel", render_then_remove_target)
+    with pytest.raises(DronePipelineIncompleteError) as captured:
+        run_drone_pipeline(
+            source,
+            output_dir=output,
+            apply_topo=True,
+            apply_brdf=True,
+            apply_translation=True,
+            extraction_mode="full",
+            parquet_chunk_size=2,
+        )
+    assert any(
+        "translated_" in missing and str(target_img) in missing
+        for missing in captured.value.results["qa_summary"]["files"][0]["missing_required_outputs"]
+    )
+    monkeypatch.setattr(qa_plots, "render_drone_panel", real_render)
+    recovered = run_drone_pipeline(
+        source,
+        output_dir=output,
+        apply_topo=True,
+        apply_brdf=True,
+        apply_translation=True,
+        extraction_mode="full",
+        parquet_chunk_size=2,
+    )
+    assert recovered["status"] == "complete"
+    assert target_img.is_file()
+    assert paths["working_h5"].stat().st_mtime_ns == working_mtime
+
+
+def test_full_library_removed_after_qa_is_not_counted_success(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    source = _write_legacy_solar_drone_h5(
+        tmp_path / "SPR1-06-28-23-ExportPackage" / "source.h5"
+    )
+    output = tmp_path / "out"
+    paths = build_drone_output_paths(output, flight_stem="SPR1_20230628")
+    real_render = qa_plots.render_drone_panel
+
+    def render_then_remove_library(**kwargs):
+        rendered = real_render(**kwargs)
+        paths["full_parquet"].unlink()
+        return rendered
+
+    monkeypatch.setattr(qa_plots, "render_drone_panel", render_then_remove_library)
+    with pytest.raises(DronePipelineIncompleteError) as captured:
+        run_drone_pipeline(
+            source,
+            output_dir=output,
+            apply_topo=False,
+            apply_brdf=False,
+            extraction_mode="full",
+            parquet_chunk_size=2,
+        )
+    result = captured.value.results
+    assert result["status"] == "incomplete"
+    assert result["processed"] == []
+    assert result["qa_summary"]["success_count"] == 0
+    assert paths["qa_png"].is_file()
+    assert Path(result["qa_summary_pdf"]).is_file()
+    assert any(
+        "full_library" in missing
+        for missing in result["qa_summary"]["files"][0]["missing_required_outputs"]
+    )
+    working_mtime = paths["working_h5"].stat().st_mtime_ns
+    monkeypatch.setattr(qa_plots, "render_drone_panel", real_render)
+    resumed = run_drone_pipeline(
+        source,
+        output_dir=output,
+        apply_topo=False,
+        apply_brdf=False,
+        extraction_mode="full",
+        parquet_chunk_size=2,
+    )
+    assert resumed["status"] == "complete"
+    assert paths["full_parquet"].is_file()
+    assert paths["working_h5"].stat().st_mtime_ns == working_mtime
+
+
+def test_qa_render_failure_does_not_leave_scientific_run_successful(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    source = _write_legacy_solar_drone_h5(
+        tmp_path / "SPR1-06-28-23-ExportPackage" / "source.h5"
+    )
+
+    def fail_qa(**kwargs):
+        raise RuntimeError("simulated QA renderer failure")
+
+    monkeypatch.setattr(qa_plots, "render_drone_panel", fail_qa)
+    with pytest.raises(DronePipelineIncompleteError) as captured:
+        run_drone_pipeline(
+            source,
+            output_dir=tmp_path / "out",
+            apply_topo=False,
+            apply_brdf=False,
+            extraction_mode="full",
+            parquet_chunk_size=2,
+        )
+    result = captured.value.results
+    assert result["status"] == "incomplete"
+    assert result["processed"] == []
+    assert result["qa_summary"]["success_count"] == 0
+    assert "simulated QA renderer failure" in result["qa_summary"]["qa_render_error"]
+    assert any(
+        "flight_qa" in missing
+        for missing in result["qa_summary"]["files"][0]["missing_required_outputs"]
+    )
+
+
 def test_convert_drone_tiff_to_h5_creates_neoncube_readable_working_file(
     tmp_path: Path,
 ) -> None:
@@ -1999,6 +2340,7 @@ def test_run_drone_pipeline_resolves_manifest_relative_to_input_dir(tmp_path: Pa
         apply_topo=False,
         apply_brdf=False,
         drone_manifest_path="manifest.csv",
+        raise_on_incomplete=False,
     )
 
     assert results["processed"] == []
@@ -2014,6 +2356,7 @@ def test_run_drone_pipeline_uses_bundled_manifest_by_default(tmp_path: Path) -> 
         output_dir=tmp_path / "out",
         apply_topo=False,
         apply_brdf=False,
+        raise_on_incomplete=False,
     )
 
     assert results["processed"] == []
@@ -2034,6 +2377,7 @@ def test_run_drone_pipeline_resolves_original_manifest_filename_to_bundle(
         apply_topo=False,
         apply_brdf=False,
         drone_manifest_path="Drone Field Data Macrosystems - UAS Data Processing For Extraction.csv",
+        raise_on_incomplete=False,
     )
 
     assert results["processed"] == []
@@ -2063,6 +2407,7 @@ def test_run_drone_pipeline_resolves_manifest_relative_to_relative_input_folder(
         apply_topo=False,
         apply_brdf=False,
         drone_manifest_path="manifest.csv",
+        raise_on_incomplete=False,
     )
 
     assert results["processed"] == []
@@ -2204,6 +2549,14 @@ def test_run_drone_pipeline_prepares_working_copy_before_neoncube(
         "spectralbridge.pipelines.drone._prepare_drone_h5_working_copy",
         _fake_prepare,
     )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._ensure_drone_working_h5_solar_aliases",
+        lambda path: None,
+    )
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone._invalid_drone_outputs",
+        lambda requirements: [],
+    )
     monkeypatch.setattr("spectralbridge.pipelines.drone.NeonCube", _RecordingCube)
     monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", _FakeWriter)
     monkeypatch.setattr(
@@ -2310,7 +2663,14 @@ def test_run_drone_pipeline_builds_qa_summary_pdf(
     def _fake_build_summary(base_dir: Path, output_html=None, pattern="*__qa.png"):
         summary_calls.append(Path(base_dir))
         html_path = Path(base_dir) / "qa_summary.pdf"
-        html_path.write_text("summary", encoding="utf-8")
+        html_path.write_bytes(b"%PDF-1.4\nfixture")
+        summary_dir = Path(base_dir) / "qa" / "summary"
+        summary_dir.mkdir(parents=True, exist_ok=True)
+        (summary_dir / "drone_qa_summary.png").write_bytes(b"png")
+        (summary_dir / "drone_qa_summary.json").write_text("{}", encoding="utf-8")
+        (Path(base_dir) / "qa" / "report.stage.json").write_text(
+            json.dumps({"status": "complete"}), encoding="utf-8"
+        )
         return html_path
 
     monkeypatch.setattr(
@@ -2355,6 +2715,7 @@ def test_run_drone_pipeline_writes_audit_json_when_correction_unavailable(
         output_dir=tmp_path / "out",
         apply_topo=True,
         apply_brdf=True,
+        raise_on_incomplete=False,
     )
 
     assert results["processed"] == []
@@ -2410,6 +2771,7 @@ def test_run_drone_pipeline_uses_fixed_site_balanced_production_default(
         tmp_path / "missing-inputs",
         output_dir=tmp_path / "out",
         apply_translation=True,
+        raise_on_incomplete=False,
     )
 
     assert result["qa_summary"]["translation_weighting"] == "site_balanced"
@@ -2523,12 +2885,13 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
         polygon_path=polygon_path,
         output_dir=tmp_path / "out",
         apply_topo=False,
+        raise_on_incomplete=False,
     )
 
     captured = capsys.readouterr()
     assert "SPR2_20230628 -> success_qa_only_no_polygon_overlap" in captured.err
     assert "SPR3_20230628 -> failed_other: unexpected correction issue" in captured.err
-    assert "Complete: 3 total | 2 success_total | 1 success_extracted | 1 success_qa_only_no_polygon_overlap | 0 success_qa_only_no_polygons | 1 failed_other" in captured.err
+    assert "Complete: 3 total | 1 success_total | 1 success_extracted | 0 success_qa_only_no_polygon_overlap | 0 success_qa_only_no_polygons | 2 failed_other" in captured.err
 
     statuses = {
         entry["flight_stem"]: entry["status"]
@@ -2536,25 +2899,25 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
     }
     assert statuses == {
         "SPR1_20230628": "success_extracted",
-        "SPR2_20230628": "success_qa_only_no_polygon_overlap",
+        "SPR2_20230628": "failed_other",
         "SPR3_20230628": "failed_other",
     }
-    assert len(results["processed"]) == 2
-    assert len(results["failed"]) == 1
+    assert len(results["processed"]) == 1
+    assert len(results["failed"]) == 2
     assert len(results["outputs"]) == 1
     assert results["merged"] == str(tmp_path / "out" / "drone_merged.parquet")
     assert results["merged_csv"] == str(tmp_path / "out" / "drone_merged.csv")
-    assert results["qa_summary"]["success_count"] == 2
+    assert results["qa_summary"]["success_count"] == 1
     assert results["qa_summary"]["success_extracted_count"] == 1
-    assert results["qa_summary"]["success_qa_only_no_polygon_overlap_count"] == 1
+    assert results["qa_summary"]["success_qa_only_no_polygon_overlap_count"] == 0
     assert results["qa_summary"]["success_qa_only_no_polygons_count"] == 0
     assert results["qa_summary"]["skipped_no_polygon_overlap_count"] == 1
-    assert results["qa_summary"]["failed_other_count"] == 1
+    assert results["qa_summary"]["failed_other_count"] == 2
     assert results["qa_summary"]["status_counts"] == {
         "success_extracted": 1,
-        "success_qa_only_no_polygon_overlap": 1,
+        "success_qa_only_no_polygon_overlap": 0,
         "success_qa_only_no_polygons": 0,
-        "failed_other": 1,
+        "failed_other": 2,
     }
     file_entries = {
         entry["flight_stem"]: entry for entry in results["qa_summary"]["files"]

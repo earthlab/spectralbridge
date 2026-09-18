@@ -27,6 +27,7 @@ from spectralbridge.corrections import (
     fit_and_save_brdf_model,
 )
 from spectralbridge.envi_writer import EnviWriter
+from spectralbridge.envi import hdr_to_dict, memmap_bsq
 from spectralbridge.neon_cube import NeonCube
 from spectralbridge.drone_translation import (
     apply_drone_translation,
@@ -47,8 +48,9 @@ from spectralbridge.polygons import (
     validate_coordinate_match,
 )
 from spectralbridge.progress_utils import TileProgressReporter
+from spectralbridge.parquet_export import parquet_exists_and_valid
 from spectralbridge.utils.paths import get_package_data_path
-from spectralbridge.utils_checks import is_valid_envi_pair
+from spectralbridge.utils_checks import is_valid_envi_pair, is_valid_json
 
 from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
 
@@ -157,11 +159,26 @@ class DroneCorrectionUnavailableError(RuntimeError):
         self.audit = dict(audit)
 
 
+class DronePipelineIncompleteError(RuntimeError):
+    """A run did not satisfy its requested scientific output contract."""
+
+    def __init__(self, message: str, results: dict[str, Any]):
+        super().__init__(message)
+        self.results = results
+
+
 @dataclass(frozen=True)
 class DroneInputSource:
     source_path: Path
     source_type: str
     flight_stem: str
+
+
+@dataclass(frozen=True)
+class DroneOutputRequirement:
+    name: str
+    kind: str
+    paths: tuple[Path, ...]
 
 
 def _normalise_drone_manifest_id(value: Any) -> str:
@@ -493,6 +510,162 @@ def build_drone_output_paths(
     }
 
 
+def required_drone_outputs(
+    path_map: dict[str, Path],
+    *,
+    extraction_mode: str,
+    translation_targets: Sequence[str] = (),
+    include_report: bool = False,
+) -> tuple[DroneOutputRequirement, ...]:
+    """Describe the per-flight artifacts required by the requested workflow.
+
+    The same contract drives final validation and orchestration tests. Optional
+    actual-Landsat comparison is excluded because scene availability is external.
+    """
+
+    stem = path_map["flight_dir"].name
+    envi_stem = path_map["envi_stem"]
+    corrected_stem = path_map["corrected_stem"]
+    requirements = [
+        DroneOutputRequirement("working_h5", "h5", (path_map["working_h5"],)),
+        DroneOutputRequirement(
+            "working_stage", "stage", (path_map["working_h5"].with_suffix(".stage.json"),)
+        ),
+        DroneOutputRequirement(
+            "envi", "envi", (envi_stem.with_suffix(".img"), envi_stem.with_suffix(".hdr"))
+        ),
+        DroneOutputRequirement(
+            "envi_stage", "stage",
+            (envi_stem.with_name(envi_stem.name + "__export.stage.json"),),
+        ),
+        DroneOutputRequirement(
+            "corrected_native", "envi",
+            (corrected_stem.with_suffix(".img"), corrected_stem.with_suffix(".hdr")),
+        ),
+        DroneOutputRequirement(
+            "correction_stage", "stage",
+            (corrected_stem.with_name(corrected_stem.name + "__correction.stage.json"),),
+        ),
+        DroneOutputRequirement("flight_qa", "files", (path_map["qa_png"],)),
+        DroneOutputRequirement("flight_qa_json", "json", (path_map["qa_json"],)),
+    ]
+    if extraction_mode == "full":
+        requirements.append(
+            DroneOutputRequirement("full_library", "parquet", (path_map["full_parquet"],))
+        )
+    elif extraction_mode == "polygon":
+        requirements.extend(
+            (
+                DroneOutputRequirement("polygon_index", "parquet", (path_map["polygon_index"],)),
+                DroneOutputRequirement("polygon_library", "parquet", (path_map["polygon_parquet"],)),
+            )
+        )
+    elif extraction_mode != "qa_only":
+        raise ValueError(f"Unsupported drone extraction mode: {extraction_mode}")
+    for target in translation_targets:
+        target_stem = translated_output_stem(path_map["flight_dir"], stem, target)
+        requirements.extend(
+            (
+                DroneOutputRequirement(
+                    f"translated_{target}", "envi",
+                    (target_stem.with_suffix(".img"), target_stem.with_suffix(".hdr")),
+                ),
+                DroneOutputRequirement(
+                    f"translation_provenance_{target}", "json",
+                    (target_stem.with_name(target_stem.name + "__translation.json"),),
+                ),
+                DroneOutputRequirement(
+                    f"translation_qa_{target}", "files",
+                    (target_stem.with_name(target_stem.name + "__translation_qa.png"),),
+                ),
+                DroneOutputRequirement(
+                    f"translation_qa_json_{target}", "json",
+                    (target_stem.with_name(target_stem.name + "__translation_qa.json"),),
+                ),
+                DroneOutputRequirement(
+                    f"translation_publication_{target}", "files",
+                    (
+                        path_map["flight_dir"] / "qa_publication" /
+                        (target_stem.name + "__translation_quality.png"),
+                        path_map["flight_dir"] / "qa_publication" /
+                        (target_stem.name + "__translation_quality.pdf"),
+                    ),
+                ),
+            )
+        )
+        if extraction_mode in {"full", "polygon"}:
+            suffix = ".parquet" if extraction_mode == "full" else "__polygons.parquet"
+            library = (
+                target_stem.with_suffix(suffix)
+                if extraction_mode == "full"
+                else target_stem.with_name(target_stem.name + suffix)
+            )
+            requirements.append(
+                DroneOutputRequirement(f"translated_library_{target}", "parquet", (library,))
+            )
+    if include_report:
+        root = path_map["flight_dir"].parent
+        requirements.extend(
+            (
+                DroneOutputRequirement("qa_report_pdf", "pdf", (root / "qa_summary.pdf",)),
+                DroneOutputRequirement(
+                    "qa_summary_png", "files", (root / "qa" / "summary" / "drone_qa_summary.png",)
+                ),
+                DroneOutputRequirement(
+                    "qa_summary_json", "json", (root / "qa" / "summary" / "drone_qa_summary.json",)
+                ),
+                DroneOutputRequirement(
+                    "qa_report_stage", "stage", (root / "qa" / "report.stage.json",)
+                ),
+            )
+        )
+    return tuple(requirements)
+
+
+def _invalid_drone_outputs(
+    requirements: Sequence[DroneOutputRequirement],
+) -> list[str]:
+    invalid: list[str] = []
+    for requirement in requirements:
+        paths = requirement.paths
+        if requirement.kind == "envi":
+            valid = is_valid_envi_pair(paths[0], paths[1])
+            if valid:
+                try:
+                    cube = memmap_bsq(paths[0], hdr_to_dict(paths[1]))
+                    valid = cube.size > 0
+                    del cube
+                except (OSError, ValueError, KeyError, RuntimeError, TypeError):
+                    valid = False
+        elif requirement.kind == "h5":
+            try:
+                with h5py.File(paths[0], "r") as h5_file:
+                    _find_drone_reflectance_dataset(h5_file)
+                valid = True
+            except (OSError, KeyError):
+                valid = False
+        elif requirement.kind == "parquet":
+            valid = parquet_exists_and_valid(paths[0])
+        elif requirement.kind == "pdf":
+            try:
+                with paths[0].open("rb") as stream:
+                    valid = stream.read(4) == b"%PDF"
+            except OSError:
+                valid = False
+        elif requirement.kind in {"json", "stage"}:
+            valid = is_valid_json(paths[0])
+            if valid and requirement.kind == "stage":
+                try:
+                    valid = json.loads(paths[0].read_text(encoding="utf-8")).get("status") == "complete"
+                except (OSError, ValueError):
+                    valid = False
+        else:
+            valid = all(path.is_file() and path.stat().st_size > 0 for path in paths)
+        if not valid:
+            invalid.append(f"{requirement.name}: {', '.join(str(path) for path in paths)}")
+    return invalid
+
+
 def _drone_path_matches_keywords(path: Path, keyword_groups: Sequence[Sequence[str]]) -> bool:
     stem_lower = path.stem.lower()
     return any(all(token in stem_lower for token in group) for group in keyword_groups)
@@ -816,6 +989,90 @@ def _write_solar_geometry_attrs(
         metadata_group.attrs[key] = value
 
 
+def _drone_h5_metadata_group(h5_file: h5py.File) -> h5py.Group | None:
+    reflectance = _find_drone_reflectance_dataset(h5_file)
+    metadata = h5_file.get(f"{reflectance.parent.name}/Metadata")
+    return metadata if isinstance(metadata, h5py.Group) else None
+
+
+def _find_drone_solar_dataset(
+    metadata: h5py.Group, *, angle: str
+) -> h5py.Dataset | None:
+    aliases = (
+        f"solar_{angle}_angle",
+        f"to_sun_{angle}_angle",
+        f"mean_solar_{angle}_angle",
+    )
+    found: dict[str, h5py.Dataset] = {}
+
+    def visit(name: str, item: h5py.Group | h5py.Dataset) -> None:
+        if isinstance(item, h5py.Dataset):
+            key = name.rsplit("/", 1)[-1].lower().replace("-", "_")
+            if key in aliases:
+                found.setdefault(key, item)
+
+    metadata.visititems(visit)
+    return next((found[name] for name in aliases if name in found), None)
+
+
+def _summarize_h5_angle(dataset: h5py.Dataset) -> tuple[float, float, float] | None:
+    """Calculate descriptive angle statistics without loading a full raster."""
+
+    count = 0
+    total = 0.0
+    minimum = float("inf")
+    maximum = float("-inf")
+    if dataset.ndim == 0:
+        chunks = (dataset[()],)
+    else:
+        values_per_row = int(np.prod(dataset.shape[1:], dtype=np.int64))
+        rows_per_chunk = max(1, min(256, 1_000_000 // max(1, values_per_row)))
+        chunks = (
+            dataset[start : start + rows_per_chunk]
+            for start in range(0, dataset.shape[0], rows_per_chunk)
+        )
+    for chunk in chunks:
+        values = np.asarray(chunk, dtype=np.float64)
+        finite = values[np.isfinite(values)]
+        if finite.size:
+            count += int(finite.size)
+            total += float(np.sum(finite, dtype=np.float64))
+            minimum = min(minimum, float(np.min(finite)))
+            maximum = max(maximum, float(np.max(finite)))
+    if not count:
+        return None
+    return total / count, minimum, maximum
+
+
+def _ensure_drone_working_h5_solar_aliases(path: Path) -> None:
+    """Expose supported legacy sun-angle names in a run-owned working H5.
+
+    HDF5 hard links add no raster copy and leave the original input untouched.
+    This also upgrades valid working files from interrupted older runs in place.
+    """
+
+    links: dict[str, str] = {}
+    metadata_path: str | None = None
+    with h5py.File(path, "r") as h5_file:
+        metadata = _drone_h5_metadata_group(h5_file)
+        if metadata is None:
+            return
+        metadata_path = metadata.name
+        for angle in ("zenith", "azimuth"):
+            canonical = f"Solar_{angle.capitalize()}_Angle"
+            if canonical in metadata:
+                continue
+            source = _find_drone_solar_dataset(metadata, angle=angle)
+            if source is not None and source.name.rsplit("/", 1)[-1] != canonical:
+                links[canonical] = source.name
+    if not links:
+        return
+    with h5py.File(path, "r+") as h5_file:
+        metadata = h5_file[metadata_path]
+        for canonical, source_path in links.items():
+            metadata[canonical] = h5_file[source_path]
+
+
 def summarize_drone_h5_solar_geometry(h5_path: str | Path) -> dict[str, Any]:
     """Return solar geometry provenance and summary stats for a drone working H5."""
 
@@ -842,14 +1099,8 @@ def summarize_drone_h5_solar_geometry(h5_path: str | Path) -> dict[str, Any]:
         return summary
 
     with h5_file_context as h5_file:
-        metadata_group = None
-        for candidate in h5_file.values():
-            if isinstance(candidate, h5py.Group) and "Reflectance/Metadata" in candidate:
-                metadata_group = candidate["Reflectance/Metadata"]
-                break
+        metadata_group = _drone_h5_metadata_group(h5_file)
         if metadata_group is None:
-            metadata_group = h5_file.get("Reflectance/Metadata")
-        if not isinstance(metadata_group, h5py.Group):
             return summary
 
         source = metadata_group.attrs.get("solar_geometry_source")
@@ -861,12 +1112,14 @@ def summarize_drone_h5_solar_geometry(h5_path: str | Path) -> dict[str, Any]:
         summary["solar_geometry_source"] = str(source or "missing")
         summary["acquisition_datetime_used"] = str(acquisition or "") or None
 
-        if "Solar_Zenith_Angle" in metadata_group and "Solar_Azimuth_Angle" in metadata_group:
-            stats = _solar_geometry_stats(
-                metadata_group["Solar_Zenith_Angle"][()],
-                metadata_group["Solar_Azimuth_Angle"][()],
-            )
-            summary.update(stats)
+        zenith = _find_drone_solar_dataset(metadata_group, angle="zenith")
+        azimuth = _find_drone_solar_dataset(metadata_group, angle="azimuth")
+        zenith_stats = _summarize_h5_angle(zenith) if zenith is not None else None
+        azimuth_stats = _summarize_h5_angle(azimuth) if azimuth is not None else None
+        if zenith_stats is not None and azimuth_stats is not None:
+            for angle, stats in (("zenith", zenith_stats), ("azimuth", azimuth_stats)):
+                for label, value in zip(("mean", "min", "max"), stats, strict=True):
+                    summary[f"solar_{angle}_{label}"] = value
             if summary["solar_geometry_source"] == "missing":
                 summary["solar_geometry_source"] = "raster"
         else:
@@ -1097,6 +1350,32 @@ def _prepare_drone_source_working_h5(
     working_path = Path(working_path)
     stage_record = working_path.with_suffix(".stage.json")
     if source_type == "h5":
+        if source_path.resolve() == working_path.resolve():
+            with h5py.File(working_path, "r") as h5_file:
+                _find_drone_reflectance_dataset(h5_file)
+            _ensure_drone_working_h5_solar_aliases(working_path)
+            signature, signature_payload = _drone_stage_signature(
+                "working_h5",
+                inputs=[working_path],
+                configuration={
+                    "algorithm_version": 1,
+                    "source_type": "h5",
+                    "fallback_nodata": float(_DRONE_FALLBACK_NODATA),
+                },
+            )
+            try:
+                prior_record = json.loads(stage_record.read_text(encoding="utf-8"))
+            except (OSError, UnicodeError, json.JSONDecodeError):
+                prior_record = {}
+            if prior_record.get("status") != "complete":
+                _write_drone_stage_record(
+                    stage_record,
+                    signature=signature,
+                    payload=signature_payload,
+                    outputs=[working_path],
+                )
+            LOGGER.info("[drone] working H5: resumed in place (%s)", working_path.name)
+            return working_path, False
         signature, signature_payload = _drone_stage_signature(
             "working_h5",
             inputs=[source_path],
@@ -1113,6 +1392,7 @@ def _prepare_drone_source_working_h5(
             except Exception:
                 pass
             else:
+                _ensure_drone_working_h5_solar_aliases(working_path)
                 LOGGER.info("[drone] working H5: reused (%s)", working_path.name)
                 return working_path, False
         prepared, patched = _prepare_drone_h5_working_copy(
@@ -1120,6 +1400,7 @@ def _prepare_drone_source_working_h5(
             working_path=working_path,
             overwrite=overwrite or working_path.exists(),
         )
+        _ensure_drone_working_h5_solar_aliases(prepared)
         _write_drone_stage_record(
             stage_record,
             signature=signature,
@@ -2259,6 +2540,96 @@ def _has_drone_qa_inputs(file_audit: dict[str, Any]) -> bool:
     return raw_img.exists() and corrected_img.exists()
 
 
+def _reconcile_drone_completion(
+    results: dict[str, Any],
+    *,
+    output_dir: Path,
+    extraction_mode: str,
+    apply_topo: bool,
+    apply_brdf: bool,
+    apply_translation: bool,
+    report_valid: bool | None,
+) -> dict[str, int]:
+    """Demote flights missing requested artifacts before counting success."""
+
+    successful = {
+        _DRONE_STATUS_SUCCESS_EXTRACTED,
+        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP,
+        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS,
+    }
+    for audit in results["qa_summary"]["files"]:
+        if audit.get("status") not in successful:
+            continue
+        paths = build_drone_output_paths(
+            output_dir, flight_stem=str(audit["flight_stem"])
+        )
+        targets = audit.get("expected_translation_sensors", [])
+        contract = required_drone_outputs(
+            paths,
+            extraction_mode=extraction_mode,
+            translation_targets=targets,
+            include_report=report_valid is not None,
+        )
+        missing = _invalid_drone_outputs(contract)
+        audit["required_output_contract"] = [item.name for item in contract]
+        if apply_translation and not targets:
+            missing.append("translation: no target plans were produced")
+        for correction, requested in (("topo", apply_topo), ("brdf", apply_brdf)):
+            if requested and not audit["flags"].get(f"{correction}_applied", False):
+                missing.append(f"{correction}: requested correction was not applied")
+        if audit["status"] == _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP:
+            missing.append("polygon: requested extraction had no overlapping pixels")
+        if report_valid is False:
+            missing.append("report: final QA summary PDF is absent or empty")
+        if missing:
+            audit["missing_required_outputs"] = missing
+            audit["status"] = _DRONE_STATUS_FAILED_OTHER
+            audit["error"] = "Requested drone output contract incomplete: " + "; ".join(missing)
+            results["failed"].append(
+                {"input": audit["input_source_path"], "error": audit["error"]}
+            )
+            _write_drone_audit_json(audit)
+
+    results["processed"] = [
+        str(audit["input_source_path"])
+        for audit in results["qa_summary"]["files"]
+        if audit.get("status") in {
+            _DRONE_STATUS_SUCCESS_EXTRACTED,
+            _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS,
+        }
+    ]
+    status_counts = {
+        status: sum(
+            audit.get("status") == status for audit in results["qa_summary"]["files"]
+        )
+        for status in (
+            _DRONE_STATUS_SUCCESS_EXTRACTED,
+            _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP,
+            _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS,
+            _DRONE_STATUS_FAILED_OTHER,
+        )
+    }
+    summary = results["qa_summary"]
+    summary["status_counts"] = status_counts
+    summary["success_count"] = len(results["processed"])
+    summary["success_extracted_count"] = status_counts[_DRONE_STATUS_SUCCESS_EXTRACTED]
+    summary["success_qa_only_no_polygon_overlap_count"] = 0
+    summary["success_qa_only_no_polygons_count"] = status_counts[
+        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS
+    ]
+    summary["skipped_no_polygon_overlap_count"] = sum(
+        any(
+            marker in str(audit.get("polygon_extraction_skipped_reason", ""))
+            for marker in _DRONE_NO_OVERLAP_REASONS
+        )
+        for audit in summary["files"]
+    )
+    summary["failed_other_count"] = status_counts[_DRONE_STATUS_FAILED_OTHER]
+    results["status"] = "complete" if not results["failed"] else "incomplete"
+    summary["status"] = results["status"]
+    return status_counts
+
+
 def run_drone_pipeline(
     input_h5_dir: str | Path,
     polygon_path: str | Path | None = None,
@@ -2286,6 +2657,7 @@ def run_drone_pipeline(
     landsat_product: str | Path | None = None,
     landsat_search_days: int = 16,
     comparison_neon_product: str | Path | None = None,
+    raise_on_incomplete: bool = True,
 ) -> dict[str, Any]:
     """Run the drone pipeline from local HDF5 or reflectance TIFF sources.
 
@@ -2297,6 +2669,8 @@ def run_drone_pipeline(
     or an explicitly supplied reviewed bulk artifact. The predetermined
     production weighting is site-balanced. It creates separate Landsat-like
     products; corrected native MicaSense is never overwritten.
+    By default an incomplete run raises :class:`DronePipelineIncompleteError`
+    with the structured result available as ``exc.results``.
     """
 
     run_started = time.monotonic()
@@ -2459,6 +2833,11 @@ def run_drone_pipeline(
             output_dir / "drone_qa_summary.json", results["qa_summary"]
         )
         results["qa_summary_path"] = str(qa_path)
+        results["status"] = "incomplete"
+        if raise_on_incomplete:
+            raise DronePipelineIncompleteError(
+                "No supported drone inputs were discovered.", results
+            )
         return results
 
     total_flights = len(input_sources)
@@ -2700,6 +3079,17 @@ def run_drone_pipeline(
             file_audit["correction_status_source"] = str(
                 correction_audit.get("correction_status_source", "live_run")
             )
+            missing_corrections = [
+                name
+                for name, requested in (("topo", apply_topo), ("brdf", apply_brdf))
+                if requested and not correction_audit.get(f"{name}_applied", False)
+            ]
+            if missing_corrections:
+                raise DroneCorrectionUnavailableError(
+                    "Requested drone correction(s) did not apply: "
+                    + ", ".join(missing_corrections),
+                    correction_audit,
+                )
             if correction_audit.get("reused_existing_corrected", False):
                 _drone_emit(
                     f"[drone] [{index}/{total_flights}] {flight_stem} "
@@ -2729,6 +3119,9 @@ def run_drone_pipeline(
                     source_wavelengths_nm=meta["wavelengths"],
                     strict=translation_strict,
                 )
+                file_audit["expected_translation_sensors"] = [
+                    plan.target_sensor for plan in plans
+                ]
                 for plan in plans:
                     translated_stem = translated_output_stem(
                         path_map["flight_dir"], flight_stem, plan.target_sensor
@@ -3228,33 +3621,21 @@ def run_drone_pipeline(
         if completed_flight_times
         else None
     )
-    results["qa_summary"]["status_counts"] = status_counts
-    results["qa_summary"]["success_count"] = (
-        status_counts[_DRONE_STATUS_SUCCESS_EXTRACTED]
-        + status_counts[_DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP]
-        + status_counts[_DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS]
-    )
-    results["qa_summary"]["success_extracted_count"] = status_counts[
-        _DRONE_STATUS_SUCCESS_EXTRACTED
-    ]
-    results["qa_summary"]["success_qa_only_no_polygon_overlap_count"] = status_counts[
-        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP
-    ]
-    results["qa_summary"]["success_qa_only_no_polygons_count"] = status_counts[
-        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS
-    ]
-    results["qa_summary"]["skipped_no_polygon_overlap_count"] = status_counts[
-        _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP
-    ]
-    results["qa_summary"]["failed_other_count"] = status_counts[
-        _DRONE_STATUS_FAILED_OTHER
-    ]
     results["qa_summary"]["total_wall_time_seconds"] = round(total_wall_time, 3)
     results["qa_summary"]["average_successful_flight_seconds"] = avg_success_time
     results["qa_summary"]["merged_path"] = results["merged"]
     results["qa_summary"]["translated_merged_path"] = results[
         "translated_merged"
     ]
+    status_counts = _reconcile_drone_completion(
+        results,
+        output_dir=output_dir,
+        extraction_mode=actual_extraction_mode,
+        apply_topo=apply_topo,
+        apply_brdf=apply_brdf,
+        apply_translation=apply_translation,
+        report_valid=None,
+    )
     qa_path = _write_json(output_dir / "drone_qa_summary.json", results["qa_summary"])
     results["qa_summary_path"] = str(qa_path)
     try:
@@ -3274,6 +3655,23 @@ def run_drone_pipeline(
         LOGGER.exception("[drone] Final QA report rendering failed")
         results["qa_summary"]["qa_report_error"] = str(exc)
         _write_json(qa_path, results["qa_summary"])
+
+    report_path = Path(results["qa_summary_pdf"]) if results.get("qa_summary_pdf") else None
+    report_valid = bool(
+        report_path is not None
+        and report_path.is_file()
+        and report_path.stat().st_size > 0
+    )
+    status_counts = _reconcile_drone_completion(
+        results,
+        output_dir=output_dir,
+        extraction_mode=actual_extraction_mode,
+        apply_topo=apply_topo,
+        apply_brdf=apply_brdf,
+        apply_translation=apply_translation,
+        report_valid=report_valid,
+    )
+    _write_json(qa_path, results["qa_summary"])
     _drone_emit(
         "[drone] Complete: "
         f"{total_flights} total | "
@@ -3286,11 +3684,19 @@ def run_drone_pipeline(
         f"run_root={output_dir} | qa_summary={qa_path} | "
         f"merged={results['merged'] if results['merged'] else 'None'}"
     )
+    if results["status"] == "incomplete" and raise_on_incomplete:
+        raise DronePipelineIncompleteError(
+            f"Drone run incomplete: {len(results['failed'])} of {total_flights} flight(s) failed; "
+            f"see {qa_path}",
+            results,
+        )
     return results
 
 
 __all__ = [
     "DRONE_TARGET_BANDS",
+    "DronePipelineIncompleteError",
+    "required_drone_outputs",
     "build_drone_output_paths",
     "build_drone_config",
     "clean_name",

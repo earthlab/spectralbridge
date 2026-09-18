@@ -71,6 +71,18 @@ print(results["translation_outputs"])
 print(results["translated_merged"])
 ```
 
+`run_drone_pipeline()` now treats missing requested products as an incomplete
+run, rather than returning a successful-looking result. It validates the
+working H5, raw and corrected ENVI pairs, requested full or polygon Parquet,
+every requested translated target and library, stage/provenance JSON, flight QA,
+and the final report. Requested topo and BRDF corrections must actually be
+applied. A failure raises `DronePipelineIncompleteError`; its `results`
+attribute and `drone_qa_summary.json` retain per-flight reasons. Set
+`raise_on_incomplete=False` only when intentionally collecting a structured
+partial batch result. A polygon run with no intersecting pixels is incomplete,
+not a successful extraction. Optional actual-Landsat comparison remains
+non-blocking when no acceptable observation is available.
+
 Use `extraction_mode="full"` for all corrected pixels. Omitting
 `extraction_mode` preserves the earlier behavior: polygon extraction when a
 polygon is supplied, otherwise raster and QA outputs only. Translation remains
@@ -112,6 +124,12 @@ versus NEON-like. NEON is optional and is never processed by drone code.
 
 Valid working H5, corrected ENVI, translated ENVI, and translated Parquet
 products are reused when their inputs and translation signatures match.
+Legacy H5 sun-angle arrays under `Reflectance/Metadata`, including nested
+`to-sun_*` datasets, are exposed through lightweight links in the *working*
+copy; source H5 files are not changed. Existing valid `__working.h5` files can
+be passed directly as `input_h5_dir`, with `output_dir` set to the containing
+package output directory. Missing later outputs then resume from the first
+incomplete stage. Do not set `overwrite=True` for an ordinary continuation.
 Optional Landsat failure does not invalidate or recompute core products. See
 [outputs and naming](../pipeline/outputs.md) for the complete contract, and
 review every QA JSON before treating a coefficient application as trustworthy.

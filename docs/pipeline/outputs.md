@@ -17,7 +17,7 @@
 | Corrected MicaSense | `<flight>__corrected.(img\|hdr)` | Native MicaSense after requested topographic/BRDF correction; retained independently of translation. |
 | Landsat-like raster | `<flight>__landsat_like_<target>_translated_envi.(img\|hdr)` | Affine translated product with target-band wavelengths. It is not an actual Landsat observation. |
 | Translation provenance | `<translated_stem>__translation.json` | Coefficient fingerprint/run/weighting, exact equation, sensor pair, per-band wavelength mapping and coefficients, source fingerprint, range checks, output summaries, and warnings. |
-| Native library | `<flight>__polygons.parquet` or full-pixel equivalent | Existing extraction contract applied to corrected native MicaSense. |
+| Native library | `<flight>__polygons.parquet` or `<flight>__full.parquet` | Requested polygon or full-pixel extraction from corrected native MicaSense. |
 | Landsat-like library | `<translated_stem>__polygons.parquet` or full-pixel equivalent | Existing extraction contract plus source-package, working-H5, corrected/translated raster, coefficient, acquisition-time, and band-mapping provenance. |
 | Merged translated library | `drone_landsat_like_merged.parquet` | Run-level merge of all translated full or polygon libraries. |
 | Standalone translation QA | `<translated_stem>__translation_qa.(png\|json)` | Corrected-versus-translated distributions, slopes/intercepts, shifts, valid fractions, nodata, range/evidence warnings, and provenance. |
@@ -28,7 +28,7 @@
 | Publication translation figure | `<flight>/qa_publication/*__translation_quality.(png|pdf)` | Compact wavelength-aware MicaSense-to-Landsat-like translation summary. |
 | Final QA report | `qa_summary.pdf`, with `qa/report.stage.json` | Dashboard first, followed by available diagnostic/publication pages; regenerable from compact QA products. |
 
-<p class="sb-doc-note">Valid working H5, corrected ENVI, translated ENVI, and translated Parquet outputs are reused when their signatures remain current. Optional Landsat or NEON comparison failures do not invalidate core products.</p>
+<p class="sb-doc-note">A drone flight is counted as complete only after its requested H5, ENVI, correction, translation, extraction, provenance, and QA artifacts validate. Incomplete runs raise by default while preserving a structured audit. Valid working H5, corrected ENVI, translated ENVI, and translated Parquet outputs are reused when their signatures remain current; existing working H5 files can be resumed directly. Optional actual-Landsat or NEON comparison unavailability does not invalidate core products.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

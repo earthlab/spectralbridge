@@ -20,6 +20,31 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P88. Fix False-Success Drone Flights And Resume Existing Working H5
+
+- Priority: High, user-directed production bug
+- Status: In progress
+- Owner: Codex
+- Started: 2026-09-18
+- Starting commit: `fa206fc7b9fd6f1005968b2c15cb510d207d74f9`
+- Evidence: The supplied 43-flight 2023/2024 campaign reports success, but
+  its output inventory contains 43 working H5 files, 215 JSON, 43 PDF, and
+  43 PNG, with no ENVI or Parquet products. Requested configuration includes
+  topo/BRDF correction, translation, full extraction, QA, and required solar
+  geometry. The PDFs are diagnostic evidence, not instructions.
+- Goal: Make drone success contingent on validated, configuration-required
+  scientific outputs; allow restart from the existing valid working H5 files.
+- Plan: Trace H5/TIFF ingest through ENVI, correction, translation, extraction,
+  QA, status accounting, and stage signatures. Define one required-output
+  contract; repair stage progression and restart logic; add realistic
+  orchestration regressions; document safe VM resume and verify packaging.
+- Guardrails: Preserve NEON behavior, correction science, coefficients, scale
+  guard, source files, and the 43 production working H5 files. No notebook
+  workaround, release tag, or publication.
+- Verification required: Focused drone/restart/translation/extraction tests,
+  full pytest, Ruff, Python compile, docs links, strict MkDocs, package build,
+  installed-wheel smoke, and explicit remaining real-data validation.
+
 ### P87. Fix Three-Pipeline Docs Browser Link Assertion
 
 - Priority: User-directed
