@@ -3018,6 +3018,17 @@ bulk-run provenance before writing a translated product.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"translation_outputs"</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"translated_merged"</span><span class="p">])</span>
 </code></pre></div>
+<p><code>run_drone_pipeline()</code> now treats missing requested products as an incomplete
+run, rather than returning a successful-looking result. It validates the
+working H5, raw and corrected ENVI pairs, requested full or polygon Parquet,
+every requested translated target and library, stage/provenance JSON, flight QA,
+and the final report. Requested topo and BRDF corrections must actually be
+applied. A failure raises <code>DronePipelineIncompleteError</code>; its <code>results</code>
+attribute and <code>drone_qa_summary.json</code> retain per-flight reasons. Set
+<code>raise_on_incomplete=False</code> only when intentionally collecting a structured
+partial batch result. A polygon run with no intersecting pixels is incomplete,
+not a successful extraction. Optional actual-Landsat comparison remains
+non-blocking when no acceptable observation is available.</p>
 <p>Use <code>extraction_mode="full"</code> for all corrected pixels. Omitting
 <code>extraction_mode</code> preserves the earlier behavior: polygon extraction when a
 polygon is supplied, otherwise raster and QA outputs only. Translation remains
@@ -3050,6 +3061,12 @@ versus NEON-like. NEON is optional and is never processed by drone code.</p>
 <h2 id="restart-and-outputs">Restart and outputs<a class="headerlink" href="#restart-and-outputs" title="Permanent link">&para;</a></h2>
 <p>Valid working H5, corrected ENVI, translated ENVI, and translated Parquet
 products are reused when their inputs and translation signatures match.
+Legacy H5 sun-angle arrays under <code>Reflectance/Metadata</code>, including nested
+<code>to-sun_*</code> datasets, are exposed through lightweight links in the <em>working</em>
+copy; source H5 files are not changed. Existing valid <code>__working.h5</code> files can
+be passed directly as <code>input_h5_dir</code>, with <code>output_dir</code> set to the containing
+package output directory. Missing later outputs then resume from the first
+incomplete stage. Do not set <code>overwrite=True</code> for an ordinary continuation.
 Optional Landsat failure does not invalidate or recompute core products. See
 <a href="../../pipeline/outputs/">outputs and naming</a> for the complete contract, and
 review every QA JSON before treating a coefficient application as trustworthy.</p>

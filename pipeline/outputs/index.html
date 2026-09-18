@@ -2900,8 +2900,8 @@
 </tr>
 <tr>
 <td>Native library</td>
-<td><code>&lt;flight&gt;__polygons.parquet</code> or full-pixel equivalent</td>
-<td>Existing extraction contract applied to corrected native MicaSense.</td>
+<td><code>&lt;flight&gt;__polygons.parquet</code> or <code>&lt;flight&gt;__full.parquet</code></td>
+<td>Requested polygon or full-pixel extraction from corrected native MicaSense.</td>
 </tr>
 <tr>
 <td>Landsat-like library</td>
@@ -2950,7 +2950,7 @@
 </tr>
 </tbody>
 </table>
-<p class="sb-doc-note">Valid working H5, corrected ENVI, translated ENVI, and translated Parquet outputs are reused when their signatures remain current. Optional Landsat or NEON comparison failures do not invalidate core products.</p>
+<p class="sb-doc-note">A drone flight is counted as complete only after its requested H5, ENVI, correction, translation, extraction, provenance, and QA artifacts validate. Incomplete runs raise by default while preserving a structured audit. Valid working H5, corrected ENVI, translated ENVI, and translated Parquet outputs are reused when their signatures remain current; existing working H5 files can be resumed directly. Optional actual-Landsat or NEON comparison unavailability does not invalidate core products.</p>
 </section>
 <section class="sb-doc-section">
 <p class="sb-kicker">Cross-run analysis</p>
