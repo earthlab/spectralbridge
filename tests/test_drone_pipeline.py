@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from importlib import import_module
 from pathlib import Path
 
@@ -22,6 +22,7 @@ from spectralbridge.pipelines.drone import (
     _enrich_drone_polygon_parquet_with_index,
     _export_csv_copy_from_parquet,
     _prepare_drone_source_working_h5,
+    _expected_h5_scene_center_solar,
     _drone_stage_signature,
     _write_drone_stage_record,
     apply_drone_corrections,
@@ -236,6 +237,11 @@ def _patch_basic_drone_runtime(monkeypatch) -> None:
             "solar_azimuth_mean": 180.0,
             "solar_azimuth_min": 180.0,
             "solar_azimuth_max": 180.0,
+            "solar_geometry_validation": {
+                "solar_geometry_validation_status": "VALIDATED",
+                "correction_eligible": True,
+                "solar_geometry_repaired": False,
+            },
         },
     )
 
@@ -403,6 +409,21 @@ def test_discover_drone_input_sources_prefers_h5_and_skips_ancillary_tiffs(
     assert sources[0].flight_stem == "SPR1_20230628"
 
 
+def test_discover_drone_input_sources_excludes_derived_working_h5(
+    tmp_path: Path,
+) -> None:
+    package = tmp_path / "input" / "SPR1-06-28-23-ExportPackage"
+    package.mkdir(parents=True)
+    original = package / "aligned_orthomosaic.h5"
+    working = package / "SPR1_20230628__working.h5"
+    original.write_bytes(b"original")
+    working.write_bytes(b"derived")
+
+    sources = _discover_drone_input_sources(tmp_path / "input")
+
+    assert [source.source_path for source in sources] == [original]
+
+
 def test_run_drone_pipeline_reports_empty_input_discovery(
     tmp_path: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
@@ -524,6 +545,7 @@ def test_run_drone_pipeline_explicit_full_extraction(tmp_path: Path, monkeypatch
         apply_brdf=False,
         extraction_mode="full",
         parquet_chunk_size=8,
+        merge_extractions=True,
     )
 
     expected = (
@@ -598,13 +620,15 @@ def test_run_drone_pipeline_accepts_tiff_sources(tmp_path: Path, monkeypatch) ->
     )
 
     assert created_paths == [tmp_path / "out" / "SPR1_20230628" / "SPR1_20230628__working.h5"]
-    assert prepare_kwargs[0]["acquisition_datetime"] == datetime(2023, 6, 28, 19, 53, 7)
+    assert prepare_kwargs[0]["acquisition_datetime"] == datetime(
+        2023, 6, 28, 19, 53, 7, tzinfo=timezone.utc
+    )
     assert prepare_kwargs[0]["require_solar_geometry"] is False
     assert results["processed"] == [str(tif_path)]
     file_summary = results["qa_summary"]["files"][0]
     assert file_summary["input_source_type"] == "tiff"
     assert file_summary["input_source_filename"] == "aligned_orthomosaic.tif"
-    assert file_summary["manifest_flight_datetime"] == "2023-06-28T19:53:07"
+    assert file_summary["manifest_flight_datetime"] == "2023-06-28T19:53:07+00:00"
     assert file_summary["solar_geometry_source"] == "raster"
     assert results["qa_summary"]["drone_manifest_path"] == str(manifest_path)
     assert file_summary["prepared_h5_filename"] == "SPR1_20230628__working.h5"
@@ -1508,6 +1532,7 @@ def test_run_drone_pipeline_with_polygons_and_merge(
         polygon_path=polygon_path,
         output_dir=tmp_path / "out",
         apply_topo=False,
+        merge_extractions=True,
         raise_on_incomplete=False,
     )
 
@@ -1612,6 +1637,7 @@ def test_run_drone_pipeline_still_renders_qa_when_csv_export_fails(
         polygon_path=polygon_path,
         output_dir=tmp_path / "out",
         apply_topo=False,
+        merge_extractions=True,
     )
 
     assert results["processed"] == [str(h5_path)]
@@ -1776,7 +1802,13 @@ def test_prepare_drone_h5_working_copy_patches_only_working_copy(tmp_path: Path)
         assert float(attrs["nodata"]) == pytest.approx(-9999.0)
 
 
-def _write_legacy_solar_drone_h5(path: Path, *, include_solar: bool = True) -> Path:
+def _write_legacy_solar_drone_h5(
+    path: Path,
+    *,
+    include_solar: bool = True,
+    solar_zenith: float = 30.0,
+    solar_azimuth: float = 175.0,
+) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     wavelengths = np.array(
         [444, 475, 531, 560, 650, 668, 705, 717, 740, 862],
@@ -1814,11 +1846,11 @@ def _write_legacy_solar_drone_h5(path: Path, *, include_solar: bool = True) -> P
         if include_solar:
             ancillary.create_dataset(
                 "to-sun_Zenith_Angle",
-                data=np.full((4, 4), 30.0, dtype=np.float32),
+                data=np.full((4, 4), solar_zenith, dtype=np.float32),
             )
             ancillary.create_dataset(
                 "to-sun_Azimuth_Angle",
-                data=np.full((4, 4), 175.0, dtype=np.float32),
+                data=np.full((4, 4), solar_azimuth, dtype=np.float32),
             )
     return path
 
@@ -1850,6 +1882,137 @@ def test_legacy_h5_solar_arrays_survive_working_copy_and_restart(tmp_path: Path)
     assert summarize_drone_h5_solar_geometry(working)["solar_zenith_mean"] == pytest.approx(30.0)
 
 
+def test_legacy_h5_solar_is_repaired_only_in_signed_working_copy(
+    tmp_path: Path,
+) -> None:
+    source = _write_legacy_solar_drone_h5(
+        tmp_path / "JC1-07-11-23-ExportPackage" / "source.h5",
+        solar_zenith=89.56,
+        solar_azimuth=60.23,
+    )
+    source_before = source.read_bytes()
+    working = tmp_path / "out" / "JC1_20230711" / "JC1_20230711__working.h5"
+    acquired = datetime(2023, 7, 11, 21, 24, 34, tzinfo=timezone.utc)
+
+    prepared, _ = _prepare_drone_source_working_h5(
+        source,
+        source_type="h5",
+        working_path=working,
+        acquisition_datetime=acquired,
+        acquisition_timezone="UTC",
+        acquisition_datetime_source="drone_manifest",
+        repair_solar_geometry=True,
+        require_solar_geometry=True,
+    )
+
+    assert source.read_bytes() == source_before
+    summary = summarize_drone_h5_solar_geometry(prepared)
+    validation = summary["solar_geometry_validation"]
+    assert validation["solar_geometry_validation_status"] == "REPAIR_REQUIRED"
+    assert validation["solar_geometry_repaired"] is True
+    assert validation["geometry_actually_used"] == "manifest_computed_repair"
+    assert validation["embedded_solar_zenith_summary"]["mean"] == pytest.approx(89.56)
+    assert validation["embedded_solar_azimuth_summary"]["mean"] == pytest.approx(60.23)
+    expected = _expected_h5_scene_center_solar(
+        prepared,
+        acquisition_datetime=acquired,
+    )
+    assert summary["solar_zenith_mean"] == pytest.approx(
+        expected["expected_solar_zenith"], abs=0.1
+    )
+    assert summary["solar_azimuth_mean"] == pytest.approx(
+        expected["expected_solar_azimuth"], abs=0.1
+    )
+    stage = json.loads(working.with_suffix(".stage.json").read_text(encoding="utf-8"))
+    assert stage["configuration"]["acquisition_timezone"] == "UTC"
+    assert stage["configuration"]["solar_repair_algorithm_version"] == 1
+
+
+def test_changed_acquisition_metadata_invalidates_working_h5_stage(
+    tmp_path: Path,
+) -> None:
+    source = _write_legacy_solar_drone_h5(
+        tmp_path / "source.h5",
+        solar_zenith=89.56,
+        solar_azimuth=60.23,
+    )
+    working = tmp_path / "out" / "flight__working.h5"
+    first_time = datetime(2023, 7, 11, 20, 0, tzinfo=timezone.utc)
+    second_time = datetime(2023, 7, 11, 21, 0, tzinfo=timezone.utc)
+
+    _prepare_drone_source_working_h5(
+        source,
+        source_type="h5",
+        working_path=working,
+        acquisition_datetime=first_time,
+        acquisition_timezone="UTC",
+        acquisition_datetime_source="drone_manifest",
+        repair_solar_geometry=True,
+        require_solar_geometry=True,
+    )
+    stage_path = working.with_suffix(".stage.json")
+    first_stage = json.loads(stage_path.read_text(encoding="utf-8"))
+
+    _prepare_drone_source_working_h5(
+        source,
+        source_type="h5",
+        working_path=working,
+        acquisition_datetime=second_time,
+        acquisition_timezone="UTC",
+        acquisition_datetime_source="drone_manifest",
+        repair_solar_geometry=True,
+        require_solar_geometry=True,
+    )
+    second_stage = json.loads(stage_path.read_text(encoding="utf-8"))
+    validation = second_stage["solar_geometry_validation"]
+
+    assert first_stage["stage_signature_sha256"] != second_stage["stage_signature_sha256"]
+    assert validation["acquisition_datetime_used"] == second_time.isoformat()
+    assert validation["solar_geometry_repaired"] is True
+
+
+def test_working_h5_cannot_become_its_own_authoritative_source(
+    tmp_path: Path,
+) -> None:
+    working = _write_legacy_solar_drone_h5(tmp_path / "flight__working.h5")
+
+    with pytest.raises(ValueError, match="cannot be used as authoritative"):
+        _prepare_drone_source_working_h5(
+            working,
+            source_type="h5",
+            working_path=working,
+        )
+
+
+def test_legacy_h5_solar_repair_refuses_naive_time_without_timezone(
+    tmp_path: Path,
+) -> None:
+    source = _write_legacy_solar_drone_h5(
+        tmp_path / "JC1-07-11-23-ExportPackage" / "source.h5",
+        solar_zenith=89.56,
+        solar_azimuth=60.23,
+    )
+    working = tmp_path / "out" / "JC1_20230711__working.h5"
+
+    prepared, _ = _prepare_drone_source_working_h5(
+        source,
+        source_type="h5",
+        working_path=working,
+        acquisition_datetime=datetime(2023, 7, 11, 21, 24, 34),
+        acquisition_timezone=None,
+        acquisition_datetime_source="drone_manifest",
+        repair_solar_geometry=True,
+        require_solar_geometry=True,
+    )
+
+    validation = summarize_drone_h5_solar_geometry(prepared)[
+        "solar_geometry_validation"
+    ]
+    assert validation["solar_geometry_validation_status"] == "AMBIGUOUS"
+    assert validation["blocking_reason_code"] == "missing_acquisition_timezone"
+    assert validation["solar_geometry_repaired"] is False
+
+
 def test_required_drone_output_contract_includes_native_translation_and_full_library(
     tmp_path: Path,
 ) -> None:
@@ -1867,9 +2030,11 @@ def test_required_drone_output_contract_includes_native_translation_and_full_lib
     assert "translated_library_Landsat_9_OLI-2" in names
 
 
-def test_h5_only_working_stage_cannot_report_success(tmp_path: Path) -> None:
+def test_h5_missing_solar_and_manifest_time_is_scientifically_blocked(
+    tmp_path: Path,
+) -> None:
     source = _write_legacy_solar_drone_h5(
-        tmp_path / "SPR1-06-28-23-ExportPackage" / "source.h5",
+        tmp_path / "UNKNOWN-06-28-23-ExportPackage" / "source.h5",
         include_solar=False,
     )
     output = tmp_path / "out"
@@ -1879,17 +2044,17 @@ def test_h5_only_working_stage_cannot_report_success(tmp_path: Path) -> None:
             output_dir=output,
             apply_topo=True,
             apply_brdf=True,
-            apply_translation=True,
             extraction_mode="full",
             require_solar_geometry=True,
-            landsat_qa=True,
         )
     result = captured.value.results
     assert result["status"] == "incomplete"
     assert result["processed"] == []
-    assert len(result["failed"]) == 1
-    paths = build_drone_output_paths(output, flight_stem="SPR1_20230628")
+    assert result["failed"] == []
+    assert len(result["blocked"]) == 1
+    paths = build_drone_output_paths(output, flight_stem="UNKNOWN_20230628")
     assert paths["working_h5"].is_file()
+    assert paths["identity_manifest"].is_file()
     assert not paths["envi_stem"].with_suffix(".img").exists()
     assert not paths["full_parquet"].exists()
     assert result["qa_summary"]["success_count"] == 0
@@ -1955,13 +2120,17 @@ def test_h5_resume_completes_correction_all_translations_and_full_extraction(
     assert paths["corrected_stem"].with_suffix(".img").is_file()
     assert paths["full_parquet"].is_file()
     assert len(result["translation_outputs"]) == 4
+    assert len(result["matched_source_outputs"]) == 2
     assert len(result["translated_libraries"]) == 4
     assert all(Path(path).is_file() for path in result["translated_libraries"])
+    assert result["merged"] is None
+    assert result["translated_merged"] is None
     audit = result["qa_summary"]["files"][0]
     assert audit["flags"]["topo_applied"] is True
     assert audit["flags"]["brdf_applied"] is True
-    assert audit["solar_geometry_consistency"]["solar_geometry_consistency_status"] == "NOT_EVALUATED"
-    assert "timezone" in audit["solar_geometry_consistency"]["solar_geometry_consistency_reason"]
+    assert audit["solar_geometry_consistency"]["solar_geometry_consistency_status"] == "PASS"
+    assert audit["solar_geometry_validation"]["correction_eligible"] is True
+    assert paths["identity_manifest"].is_file()
     assert len(audit["expected_translation_sensors"]) == 4
     assert audit.get("missing_required_outputs") is None
     reusable = [
@@ -1974,8 +2143,8 @@ def test_h5_resume_completes_correction_all_translations_and_full_extraction(
     ]
     mtimes = {path: path.stat().st_mtime_ns for path in reusable}
 
-    direct_resume = run_drone_pipeline(
-        paths["working_h5"],
+    source_based_resume = run_drone_pipeline(
+        source,
         output_dir=output,
         apply_topo=True,
         apply_brdf=True,
@@ -1983,7 +2152,7 @@ def test_h5_resume_completes_correction_all_translations_and_full_extraction(
         extraction_mode="full",
         parquet_chunk_size=2,
     )
-    assert direct_resume["status"] == "complete"
+    assert source_based_resume["status"] == "complete"
     assert paths["working_h5"].stat().st_mtime_ns == working_mtime
     assert {path: path.stat().st_mtime_ns for path in reusable} == mtimes
 
@@ -2229,6 +2398,7 @@ def test_production_shaped_tiff_correction_translation_polygon_and_qa(
         translation_coefficients=coefficients,
         translation_weighting="site_balanced",
         landsat_qa=True,
+        merge_extractions=True,
     )
 
     assert result["failed"] == []
@@ -2324,6 +2494,24 @@ def test_load_drone_manifest_parses_flight_datetime(tmp_path: Path) -> None:
     manifest = load_drone_manifest(manifest_path)
 
     assert manifest["AOP_GOLDHILL"] == datetime(2023, 8, 15, 19, 53, 7)
+
+
+def test_load_drone_manifest_excludes_nan_malformed_and_conflicting_rows(
+    tmp_path: Path,
+) -> None:
+    manifest_path = tmp_path / "manifest.csv"
+    manifest_path.write_text(
+        "Plot,Day of data collection,Mean Time of data collection (24 hr clock)\n"
+        "MISSING,nan,nan\n"
+        "MALFORMED,not-a-date,not-a-time\n"
+        "AMBIGUOUS,2023-07-11,21:24:34\n"
+        "AMBIGUOUS,2023-07-11,22:24:34\n",
+        encoding="utf-8",
+    )
+
+    manifest = load_drone_manifest(manifest_path)
+
+    assert manifest == {}
 
 
 def test_run_drone_pipeline_resolves_manifest_relative_to_input_dir(tmp_path: Path) -> None:
@@ -2608,6 +2796,7 @@ def test_run_drone_pipeline_prepares_working_copy_before_neoncube(
         h5_path.parent,
         output_dir=tmp_path / "out",
         apply_topo=False,
+        apply_brdf=False,
     )
 
     assert results["processed"] == [str(h5_path)]
@@ -2642,7 +2831,47 @@ def test_run_drone_pipeline_reports_progress_and_statuses(
     assert "[drone] [1/2] SPR1_20230628 | source=" in captured.err
     assert "| type=h5 | stage=preparing working H5" in captured.err
     assert "[drone] [2/2] SPR2_20230628 -> success_qa_only_no_polygons (" in captured.err
-    assert "[drone] Complete: 2 total | 2 success_total | 0 success_extracted | 0 success_qa_only_no_polygon_overlap | 2 success_qa_only_no_polygons | 0 failed_other" in captured.err
+    assert "[drone] Complete: 2 total | 2 success_total | 0 success_extracted | 0 success_qa_only_no_polygon_overlap | 2 success_qa_only_no_polygons | 0 blocked_scientific | 0 failed_other" in captured.err
+
+
+def test_completed_execution_can_report_scientific_caution(
+    tmp_path: Path, monkeypatch
+) -> None:
+    h5_path = (
+        tmp_path
+        / "input"
+        / "SPR1-06-28-23-ExportPackage"
+        / "NEON_D13_NIWO_test_aligned_orthomosaic.h5"
+    )
+    h5_path.parent.mkdir(parents=True, exist_ok=True)
+    h5_path.write_bytes(b"fixture")
+    _patch_basic_drone_runtime(monkeypatch)
+    monkeypatch.setattr(
+        "spectralbridge.pipelines.drone.summarize_drone_h5_solar_geometry",
+        lambda path: {
+            "solar_geometry_source": "manifest_computed_repair",
+            "solar_geometry_validation": {
+                "solar_geometry_validation_status": "REPAIR_REQUIRED",
+                "solar_geometry_repaired": True,
+                "geometry_actually_used": "manifest_computed_repair",
+                "correction_eligible": True,
+            },
+        },
+    )
+
+    results = run_drone_pipeline(
+        h5_path.parent,
+        output_dir=tmp_path / "out",
+        apply_topo=False,
+        apply_brdf=False,
+    )
+
+    audit = results["qa_summary"]["files"][0]
+    assert audit["execution_status"] == "completed"
+    assert audit["scientific_qa_status"] == "caution"
+    assert audit["status"] == "success_qa_only_no_polygons"
+    assert results["qa_summary"]["execution_status"] == "completed"
+    assert results["qa_summary"]["scientific_qa_status"] == "caution"
 
 
 def test_run_drone_pipeline_builds_qa_summary_pdf(
@@ -2721,9 +2950,12 @@ def test_run_drone_pipeline_writes_audit_json_when_correction_unavailable(
     )
 
     assert results["processed"] == []
-    assert len(results["failed"]) == 1
+    assert results["failed"] == []
+    assert len(results["blocked"]) == 1
     file_summary = results["qa_summary"]["files"][0]
-    assert file_summary["status"] == "failed_other"
+    assert file_summary["status"] == "blocked_scientific"
+    assert file_summary["execution_status"] == "completed"
+    assert file_summary["scientific_qa_status"] == "blocked"
     assert file_summary["flags"]["correction_failed"] is True
     assert file_summary["flags"]["topo_ready"] is False
     assert file_summary["flags"]["brdf_ready"] is False
@@ -2735,7 +2967,7 @@ def test_run_drone_pipeline_writes_audit_json_when_correction_unavailable(
     assert qa_json_path.exists()
     qa_payload = json.loads(qa_json_path.read_text(encoding="utf-8"))
     assert qa_payload["qa_rendered"] is False
-    assert qa_payload["status"] == "failed_other"
+    assert qa_payload["status"] == "blocked_scientific"
     assert "required ancillary geometry was unavailable" in str(qa_payload["error"])
     assert qa_payload["audit"]["flags"]["correction_failed"] is True
 
@@ -2887,13 +3119,14 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
         polygon_path=polygon_path,
         output_dir=tmp_path / "out",
         apply_topo=False,
+        merge_extractions=True,
         raise_on_incomplete=False,
     )
 
     captured = capsys.readouterr()
     assert "SPR2_20230628 -> success_qa_only_no_polygon_overlap" in captured.err
     assert "SPR3_20230628 -> failed_other: unexpected correction issue" in captured.err
-    assert "Complete: 3 total | 1 success_total | 1 success_extracted | 0 success_qa_only_no_polygon_overlap | 0 success_qa_only_no_polygons | 2 failed_other" in captured.err
+    assert "Complete: 3 total | 1 success_total | 1 success_extracted | 0 success_qa_only_no_polygon_overlap | 0 success_qa_only_no_polygons | 0 blocked_scientific | 2 failed_other" in captured.err
 
     statuses = {
         entry["flight_stem"]: entry["status"]
@@ -2919,6 +3152,7 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
         "success_extracted": 1,
         "success_qa_only_no_polygon_overlap": 0,
         "success_qa_only_no_polygons": 0,
+        "blocked_scientific": 0,
         "failed_other": 2,
     }
     file_entries = {

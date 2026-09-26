@@ -75,6 +75,12 @@ Prebuilt `*_merged_pixel_extraction.parquet` and
 `input_mode="merged_parquet"`. Automatic mode prefers identifiable flightline
 directories and otherwise uses this compatibility path.
 
+Completed drone output roots are native `input_mode="auto"` inputs. Each
+flight's `spectralbridge_flightline.json` supplies identity, while the matched
+native-MicaSense and affine translated Landsat-like ENVI pairs supply the
+translation relationship. Bulk reads these per-flight products in place; do
+not rename them and do not create a campaign-wide pixel Parquet first.
+
 ## Analysis profiles and minimal archives
 
 Processing completeness, product availability, and analysis eligibility are

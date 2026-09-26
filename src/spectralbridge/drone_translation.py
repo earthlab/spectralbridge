@@ -55,6 +55,10 @@ _TARGET_SLUGS = {
     "Landsat_8_OLI": "landsat_oli",
     "Landsat_9_OLI-2": "landsat_oli2",
 }
+_SOURCE_SLUGS = {
+    "MicaSense_to-match_TM_and_ETM+": "micasense_to_match_tm_etm+_envi",
+    "MicaSense_to-match_OLI_and_OLI-2": "micasense_to_match_oli_oli2_envi",
+}
 
 
 @dataclass(frozen=True)
@@ -504,6 +508,128 @@ def translated_output_stem(
     except KeyError as exc:
         raise ValueError(f"Unsupported translated target sensor: {target_sensor}") from exc
     return Path(flight_dir) / f"{flight_stem}__landsat_like_{slug}_translated_envi"
+
+
+def matched_source_output_stem(
+    flight_dir: str | Path,
+    flight_stem: str,
+    source_sensor: str,
+) -> Path:
+    """Return the canonical matched-MicaSense product stem used by bulk."""
+
+    try:
+        slug = _SOURCE_SLUGS[source_sensor]
+    except KeyError as exc:
+        raise ValueError(f"Unsupported matched source sensor: {source_sensor}") from exc
+    return Path(flight_dir) / f"{flight_stem}__{slug}"
+
+
+def ensure_matched_source_product(
+    corrected_img: str | Path,
+    corrected_hdr: str | Path,
+    *,
+    output_stem: str | Path,
+    plan: DroneTranslationPlan,
+    overwrite: bool = False,
+    chunk_lines: int = 256,
+) -> dict[str, Any]:
+    """Persist the plan's wavelength-selected source bands for bulk analysis.
+
+    This is a distinct scientific product, not a copy for staging: it is the
+    exact source-side band subset paired with the translated Landsat-like
+    raster by the existing bulk translation registry.
+    """
+
+    corrected_img = Path(corrected_img)
+    corrected_hdr = Path(corrected_hdr)
+    output_stem = Path(output_stem)
+    output_img = output_stem.with_suffix(".img")
+    output_hdr = output_stem.with_suffix(".hdr")
+    provenance_path = output_stem.with_name(output_stem.name + "__source.json")
+    native_indices = [band.native_source_band_index for band in plan.bands]
+    if len(set(native_indices)) != len(native_indices):
+        raise ValueError(
+            f"Matched source plan contains duplicate native bands: {plan.source_sensor}"
+        )
+    signature_payload = {
+        "schema_version": 1,
+        "product_type": "matched_micasense_source",
+        "source_sensor": plan.source_sensor,
+        "translation_pair": plan.translation_pair,
+        "native_source_band_indices": native_indices,
+        "source": _source_fingerprint(corrected_img, corrected_hdr),
+    }
+    signature = hashlib.sha256(
+        json.dumps(signature_payload, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    if not overwrite and is_valid_envi_pair(output_img, output_hdr) and provenance_path.is_file():
+        try:
+            previous = json.loads(provenance_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            previous = {}
+        if previous.get("source_product_signature_sha256") == signature:
+            return {
+                **previous,
+                "status": "reused",
+                "output_img": str(output_img),
+                "output_hdr": str(output_hdr),
+                "provenance_json": str(provenance_path),
+            }
+
+    header = hdr_to_dict(corrected_hdr)
+    wavelengths = np.asarray(header.get("wavelength"), dtype=np.float64).reshape(-1)
+    fwhm = np.asarray(header.get("fwhm", np.zeros(wavelengths.size)), dtype=np.float64).reshape(-1)
+    if wavelengths.size != int(header["bands"]):
+        raise ValueError("Corrected drone ENVI wavelength count does not match band count")
+    if fwhm.size != wavelengths.size:
+        fwhm = np.zeros(wavelengths.size, dtype=np.float64)
+    zero_based = np.asarray(native_indices, dtype=np.int64) - 1
+    source = memmap_bsq(corrected_img, header)
+    output_header = dict(header)
+    output_header.update(
+        {
+            "bands": len(native_indices),
+            "wavelength": [float(wavelengths[index]) for index in zero_based],
+            "fwhm": [float(fwhm[index]) for index in zero_based],
+            "description": (
+                "Corrected native MicaSense band subset selected by wavelength "
+                f"for {plan.source_sensor}; paired with {plan.target_sensor}"
+            ),
+        }
+    )
+    writer = EnviWriter(output_stem, output_header)
+    lines = int(header["lines"])
+    try:
+        for row_start in range(0, lines, max(1, int(chunk_lines))):
+            row_stop = min(lines, row_start + max(1, int(chunk_lines)))
+            chunk = np.stack(
+                [
+                    np.asarray(source[index, row_start:row_stop, :], dtype=np.float32)
+                    for index in zero_based
+                ],
+                axis=-1,
+            )
+            writer.write_chunk(chunk, row_start, 0)
+    finally:
+        writer.close()
+    if not is_valid_envi_pair(output_img, output_hdr):
+        output_img.unlink(missing_ok=True)
+        output_hdr.unlink(missing_ok=True)
+        raise RuntimeError(f"Matched source export failed: {output_img}")
+    payload = {
+        **signature_payload,
+        "status": "created",
+        "created_utc": datetime.now(timezone.utc).isoformat(),
+        "spectralbridge_version": __version__,
+        "source_product_signature_sha256": signature,
+        "output_img": str(output_img),
+        "output_hdr": str(output_hdr),
+    }
+    provenance_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return {**payload, "provenance_json": str(provenance_path)}
 
 
 def _source_fingerprint(img_path: Path, hdr_path: Path) -> dict[str, Any]:
@@ -977,7 +1103,9 @@ __all__ = [
     "TRANSLATION_EQUATION",
     "apply_drone_translation",
     "coefficient_rows_for_parquet",
+    "ensure_matched_source_product",
     "enrich_translated_spectral_library",
     "load_drone_translation_plans",
+    "matched_source_output_stem",
     "translated_output_stem",
 ]

@@ -15,6 +15,7 @@ import pytest
 from spectralbridge.neon_cube import NeonCube
 from spectralbridge.pipelines.drone import (
     _circular_angle_difference,
+    _compute_solar_geometry_arrays,
     diagnose_drone_h5_solar_geometry,
 )
 
@@ -96,6 +97,47 @@ def test_naive_time_keeps_timezone_ambiguity_visible(tmp_path: Path) -> None:
 def test_circular_azimuth_difference_wraps() -> None:
     assert _circular_angle_difference(359.0, 1.0) == pytest.approx(-2.0)
     assert _circular_angle_difference(1.0, 359.0) == pytest.approx(2.0)
+
+
+def test_solar_tolerance_boundary_is_inclusive(tmp_path: Path) -> None:
+    path = _write_h5(tmp_path / "flight.h5")
+    acquired = datetime(2023, 8, 15, 19, 53, 7, tzinfo=timezone.utc)
+    initial = diagnose_drone_h5_solar_geometry(path, acquisition_datetime=acquired)
+    expected = initial["candidate_positions"]["timezone-aware"]
+    with h5py.File(path, "r+") as h5_file:
+        logs = h5_file["GOLDHILL/Reflectance/Metadata/Logs"]
+        logs["Solar_Zenith_Angle"][:] = expected["zenith_deg"] + 5.0
+        logs["Solar_Azimuth_Angle"][:] = expected["azimuth_deg"]
+    boundary = diagnose_drone_h5_solar_geometry(path, acquisition_datetime=acquired)
+    assert boundary["solar_geometry_consistency_status"] == "PASS"
+    with h5py.File(path, "r+") as h5_file:
+        h5_file[
+            "GOLDHILL/Reflectance/Metadata/Logs/Solar_Zenith_Angle"
+        ][:] = expected["zenith_deg"] + 5.01
+    outside = diagnose_drone_h5_solar_geometry(path, acquisition_datetime=acquired)
+    assert outside["solar_geometry_consistency_status"] == "WARN"
+
+
+def test_historical_degree_values_interpreted_as_radians_change_solar_position() -> None:
+    acquired = datetime(2023, 7, 11, 21, 24, 34, tzinfo=timezone.utc)
+    longitude_deg = np.asarray([-105.0])
+    latitude_deg = np.asarray([40.0])
+    correct_zenith, correct_azimuth = _compute_solar_geometry_arrays(
+        acquisition_datetime=acquired,
+        longitude=longitude_deg,
+        latitude=latitude_deg,
+    )
+    # Re-express the historical mistake without importing PyEphem: values such
+    # as 40 and -105 were consumed as radians, then used as angles.
+    wrong_zenith, wrong_azimuth = _compute_solar_geometry_arrays(
+        acquisition_datetime=acquired,
+        longitude=np.rad2deg(longitude_deg),
+        latitude=np.rad2deg(latitude_deg),
+    )
+    assert abs(float(wrong_zenith[0] - correct_zenith[0])) > 20.0
+    assert abs(
+        _circular_angle_difference(float(wrong_azimuth[0]), float(correct_azimuth[0]))
+    ) > 20.0
 
 
 def test_h5_azimuth_mean_is_circular_at_north(tmp_path: Path) -> None:

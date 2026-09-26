@@ -15293,3 +15293,3381 @@ Do not release or tag anything.
 
 The goal is not to make the warning disappear. The goal is to establish what solar geometry these historical drone files actually contain, independently verify it against space and time, and ensure SpectralBridge cannot mistake “physically possible” geometry for “correct geometry.”
 ```
+
+## 2026-09-25 - production-harden drone campaign pathway
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+Work in the current earthlab/spectralbridge repository.
+
+This is a production-hardening task for the SpectralBridge drone pathway,
+with particular emphasis on scientific correctness, compatibility with
+the existing main pipeline, clean filesystem semantics, and direct
+interoperability with the existing bulk pipeline.
+
+IMPORTANT:
+
+Before editing anything, inspect the CURRENT repository and recent git
+history.
+
+Some functionality described below may already exist from recent work.
+Preserve good existing implementations and extend them rather than
+creating parallel systems.
+
+Do not assume this prompt perfectly describes current filenames, APIs,
+schemas, or abstractions.
+
+Where this prompt's conceptual examples conflict with established
+SpectralBridge abstractions, preserve the repository architecture unless
+that architecture is itself the demonstrated source of a bug.
+
+======================================================================
+PRIMARY GOAL
+======================================================================
+
+Make the SpectralBridge drone pathway production-ready for the full
+2023 + 2024 Macrosystems drone campaign.
+
+The desired scientific processing path is:
+
+    original drone H5 / supported drone source
+            ↓
+    source discovery
+            ↓
+    flight + acquisition metadata resolution
+            ↓
+    independent validation of embedded solar geometry
+            ↓
+    conservative repair in a WORKING COPY when justified
+            ↓
+    existing H5 → ENVI machinery
+            ↓
+    existing topographic correction
+            ↓
+    existing BRDF correction
+            ↓
+    corrected native MicaSense product
+            ↓
+    existing drone affine translation
+            ↓
+    Landsat-like product
+            ↓
+    existing extraction machinery
+            ↓
+    per-flight scientific QA
+            ↓
+    canonical completed SpectralBridge flightline products
+
+Then, independently:
+
+    canonical completed flightline products
+            ↓
+    run_bulk_pipeline
+            ↓
+    existing bulk discovery/catalog/exclusion machinery
+            ↓
+    bounded sufficient statistics
+            ↓
+    translation / LOSO / population analyses
+            ↓
+    summarize_bulk_results
+
+The drone pipeline must NOT require:
+
+    notebook monkey patches
+    previously generated flight_outputs
+    previously generated __working.h5 files
+    JC1 proof-of-concept outputs
+    solar_patch_production directories
+    manual editing of H5 files
+    manual renaming before bulk
+    a special bulk staging directory
+    a giant merged Parquet prerequisite
+
+The authoritative starting point is the original staged campaign input.
+
+======================================================================
+CORE ARCHITECTURAL RULE
+======================================================================
+
+Do NOT turn the drone pathway into a parallel pipeline framework.
+
+Do NOT duplicate the normal pipeline's:
+
+    correction infrastructure
+    extraction infrastructure
+    naming infrastructure
+    restart infrastructure
+    provenance infrastructure
+    bulk-analysis infrastructure
+
+The repository deliberately uses shared processing machinery where the
+science is shared.
+
+Conceptually:
+
+    shared:
+        H5 → ENVI → topo/BRDF
+
+then:
+
+    NEON/main pathway:
+        corrected ENVI
+            → target-sensor convolution/resampling
+            → canonical products
+
+    drone pathway:
+        corrected ENVI
+            → affine translation
+            → Landsat-like products
+
+Preserve that design.
+
+The drone work should make the drone branch a well-behaved producer of
+canonical SpectralBridge flightline artifacts that are naturally
+discoverable by the existing bulk pipeline.
+
+======================================================================
+PRIORITY ORDER
+======================================================================
+
+Treat this as incremental hardening, NOT a rewrite.
+
+PRIORITY 1
+
+Correct source discovery, flight/manifest resolution, solar validation,
+and conservative legacy-H5 repair.
+
+PRIORITY 2
+
+Source immutability, provenance, datetime/timezone correctness, and
+stage-signature/restart correctness.
+
+PRIORITY 3
+
+Compatibility with the existing main-pipeline file/product contracts.
+
+PRIORITY 4
+
+Direct interoperability with the existing bulk pipeline.
+
+PRIORITY 5
+
+Correct scientific QA, including execution status versus scientific
+status.
+
+PRIORITY 6
+
+Robust campaign processing where one blocked/failed flight does not
+destroy valid flights.
+
+PRIORITY 7
+
+Human-readable per-flight QA.
+
+PRIORITY 8
+
+Campaign/population QA through the existing bulk/summarization layers.
+
+Do not allow reporting enhancements to delay scientifically critical
+processing fixes.
+
+======================================================================
+PART 1 — INSPECT THE CURRENT IMPLEMENTATION FIRST
+======================================================================
+
+Before modifying code, inspect at minimum:
+
+    AGENTS.md
+    docs/dev/architecture.md
+    docs/dev/codex-guidelines.md
+
+    src/spectralbridge/pipelines/drone.py
+    src/spectralbridge/pipelines/pipeline.py
+    src/spectralbridge/pipelines/bulk.py
+
+    src/spectralbridge/bulk/
+
+    src/spectralbridge/drone_qa.py
+    src/spectralbridge/drone_translation.py
+    src/spectralbridge/drone_translation_registry.py
+
+    src/spectralbridge/landsat_validation.py
+
+    src/spectralbridge/utils/paths.py
+    src/spectralbridge/parquet_export.py
+
+    solar-geometry utilities
+    drone manifest parsing/resolution
+    TIFF → H5 code
+    H5 discovery code
+    correction utilities
+    extraction code
+    translation code
+
+    FlightlinePaths
+    ProductRegistry
+    BulkAnalysisPaths
+    AnalysisProfile
+    identity parsing
+    completed-flightline discovery
+    stage-record/signature utilities
+
+    scripts/diagnose_drone_solar_geometry.py
+
+    relevant drone tests
+    relevant normal-pipeline tests
+    relevant bulk tests
+
+    drone documentation/vignettes
+    bulk documentation/vignettes
+
+Also inspect recent git history relating to:
+
+    drone solar geometry
+    legacy H5 processing
+    manifest datetime handling
+    QA
+    full extraction
+    Landsat translation
+    path conventions
+    ProductRegistry
+    bulk discovery
+    restart/stage signatures
+
+Summarize internally what already exists before editing.
+
+Do not duplicate functionality already implemented well.
+
+======================================================================
+PART 2 — PUBLIC API RULE
+======================================================================
+
+Preserve the intentionally small public API.
+
+The primary public entry points should remain centered on:
+
+    run_drone_pipeline
+    run_bulk_pipeline
+    summarize_bulk_results
+
+Do not create a new public campaign framework unless inspection proves
+the existing API genuinely cannot express the required workflow.
+
+Protected/internal functions may be extended where appropriate.
+
+Prefer improving existing internal stage boundaries over introducing
+new top-level APIs.
+
+======================================================================
+PART 3 — OUTPUTS ARE THE API
+======================================================================
+
+SpectralBridge's architecture treats on-disk artifacts as a major
+interface between stages.
+
+Preserve that principle.
+
+The drone pipeline should produce canonical, validated artifacts using
+existing conventions, including as applicable:
+
+    working H5
+    native ENVI
+    corrected ENVI
+    translated ENVI
+    extraction Parquets
+    QA JSON
+    QA PNG/PDF
+    stage records
+    provenance
+
+Downstream bulk analysis should discover these products from disk.
+
+Do not make downstream interoperability depend on:
+
+    notebook variables
+    a large Python return object
+    manual file movement
+    manual file renaming
+
+======================================================================
+PART 4 — CLEAN ORIGINAL-H5 ENTRY PATH
+======================================================================
+
+The full campaign must be runnable from the authoritative staged source
+tree alone.
+
+For example:
+
+    SpectralBridge_Drone_2023_2024_Production/
+        input/
+            ... original campaign data ...
+
+No prior processing outputs should be required.
+
+In particular, a clean run MUST NOT depend on:
+
+    old flight_outputs/
+    old *__working.h5
+    solar_patch_production_2023_2024/
+    JC1 proof-of-concept directories
+    notebook-created patched H5 files
+
+Recent experimental processing failed because a notebook attempted to
+use a path similar to:
+
+    flight_outputs/.../GAH1_20230725__working.h5
+
+as though it were authoritative input after that output directory had
+been deleted.
+
+That is the wrong lifecycle.
+
+The correct lifecycle is:
+
+    IMMUTABLE ORIGINAL SOURCE
+            ↓
+    prepare working source as required
+            ↓
+    native SpectralBridge processing
+            ↓
+    canonical outputs
+
+NOT:
+
+    old output/__working.h5
+            ↓
+    rerun
+
+Audit source discovery and restart logic to guarantee this.
+
+A stale or orphaned working H5 is never authoritative source data.
+
+======================================================================
+PART 5 — SOURCE DISCOVERY
+======================================================================
+
+Source discovery should identify authoritative campaign inputs.
+
+It should not accidentally treat:
+
+    *__working.h5
+
+as new scientific source observations.
+
+Tests should prove that:
+
+1. a clean run can start with only original input data
+2. no previous flight_outputs directory is required
+3. no previous __working.h5 is required
+4. deleting old processing outputs does not make original data
+   unprocessable
+5. working H5 files are not rediscovered as independent observations
+6. source identity remains tied to the original authoritative input
+
+======================================================================
+PART 6 — USE EXISTING STAGE-SIGNATURE INFRASTRUCTURE
+======================================================================
+
+Do NOT implement restartability using simple:
+
+    if file.exists(): skip
+
+logic.
+
+Use the repository's existing stronger contract:
+
+    source fingerprint
+    +
+    relevant configuration
+    +
+    stage signature
+    +
+    output validation
+
+The drone pathway already participates in this architecture.
+
+Build new solar-validation/repair behavior into the existing stage
+signature model.
+
+Scientifically relevant solar inputs that affect output should
+participate in appropriate signatures, including as relevant:
+
+    source H5 fingerprint
+    resolved flight identity
+    acquisition datetime
+    timezone
+    scene coordinates
+    expected solar geometry
+    repair decision
+    tolerance/configuration version
+
+If scientifically relevant inputs change, stale downstream products
+must not be silently reused.
+
+Do not invent a second checkpoint/state system.
+
+======================================================================
+PART 7 — HISTORICAL SOLAR-GEOMETRY DEFECT
+======================================================================
+
+We identified the likely historical source of incorrect embedded solar
+geometry in legacy drone H5 files.
+
+Historical H5-generation code approximately did:
+
+    lons, lats = pyproj transform(...)
+
+    observer = ephem.Observer()
+    observer.date = ephem.date(date_time_str)
+
+    observer.lat = latitudes[row, col]
+    observer.lon = longitudes[row, col]
+
+    sun = ephem.Sun(observer)
+
+    az = np.degrees(sun.az)
+    alt = np.degrees(sun.alt)
+    zen = 90 - alt
+
+The latitude/longitude arrays were decimal degrees.
+
+PyEphem interprets numeric values assigned directly to Observer.lat and
+Observer.lon as radians.
+
+Therefore degree-valued numeric coordinates appear to have been supplied
+where radians were expected.
+
+A safe historical form would have made angular units explicit, for
+example:
+
+    observer.lat = ephem.degrees(str(latitude))
+    observer.lon = ephem.degrees(str(longitude))
+
+This explains the pattern observed in legacy H5 solar geometry.
+
+For the JC1 proof-of-concept case, embedded geometry was approximately:
+
+    solar zenith  = 89.56°
+    solar azimuth = 60.23°
+
+while authoritative acquisition metadata and scene location produced
+approximately:
+
+    solar zenith  = 34.15°
+    solar azimuth = 250.11°
+
+The field acquisition record independently supported the datetime.
+
+Do not merely document this.
+
+Add a focused regression test demonstrating the historical degree/radian
+failure mode.
+
+Do NOT add PyEphem as a new production dependency merely to reproduce
+the historical bug.
+
+Use the package's current supported astronomy implementation for
+production calculations.
+
+======================================================================
+PART 8 — PUT SOLAR VALIDATION IN SOURCE PREPARATION
+======================================================================
+
+Solar validation/repair belongs naturally in or immediately around the
+existing drone source-preparation stage, such as:
+
+    _prepare_drone_source_working_h5
+
+if that remains the current architecture.
+
+Do NOT create a separate notebook-era solar-patch workflow.
+
+For an original H5 source:
+
+1. identify the flight
+2. resolve acquisition metadata
+3. inspect embedded solar geometry
+4. independently calculate expected geometry
+5. classify consistency
+6. determine whether repair is scientifically justified
+7. if necessary, repair the WORKING H5 only
+8. persist complete audit/provenance
+9. allow normal H5 → ENVI → correction processing to continue
+
+This must happen before shared correction machinery consumes the
+geometry.
+
+Do not fork or duplicate the existing topo/BRDF implementation.
+
+======================================================================
+PART 9 — EXISTING-H5 SOLAR VALIDATION
+======================================================================
+
+The package should independently validate embedded solar geometry before
+using it for requested topo/BRDF correction.
+
+For each source H5:
+
+1. resolve flight identity
+2. resolve authoritative acquisition datetime
+3. resolve explicit timezone
+4. determine valid scene coordinates
+5. calculate expected solar zenith and azimuth
+6. summarize embedded H5 solar arrays
+7. compare embedded versus expected geometry
+8. classify the geometry
+9. determine which geometry may safely be used
+
+Possible conceptual states include:
+
+    VALIDATED
+    REPAIR_REQUIRED
+    MISSING
+    AMBIGUOUS
+    INVALID
+    NOT_EVALUATED
+
+Use existing repository terminology if already established.
+
+Do not create redundant status vocabularies.
+
+======================================================================
+PART 10 — CENTRALIZED SOLAR TOLERANCES
+======================================================================
+
+Do not scatter arbitrary thresholds through the code.
+
+Define centralized documented tolerances for:
+
+    solar zenith difference
+    circular solar azimuth difference
+
+Azimuth comparison MUST use circular angular distance.
+
+For example:
+
+    359° versus 1° = 2°
+
+not:
+
+    358°
+
+Tests should cover:
+
+    clearly valid geometry
+    near-threshold geometry
+    threshold boundary
+    clearly invalid geometry
+    azimuth wraparound
+
+Where tolerance configuration can affect output reuse, include it in
+relevant provenance/signatures.
+
+======================================================================
+PART 11 — CONSERVATIVE AUTOMATIC REPAIR
+======================================================================
+
+If embedded geometry is consistent with independently calculated
+geometry:
+
+    use embedded geometry
+    record that it was independently validated
+
+If embedded geometry is clearly inconsistent:
+
+Automatically repair ONLY when all required evidence is unambiguous:
+
+    flight identity resolved
+    manifest/acquisition record unambiguous
+    authoritative acquisition datetime available
+    timezone explicit
+    scene coordinates valid
+    expected solar position physically plausible
+
+Then:
+
+    create/use the normal working H5
+    replace solar geometry in the working product
+    preserve original embedded values in provenance
+    process using repaired geometry
+
+NEVER modify the archived source H5.
+
+If evidence is ambiguous:
+
+    DO NOT GUESS
+    DO NOT silently repair
+    DO NOT invent noon
+    DO NOT silently disable topo/BRDF
+    DO NOT silently accept suspect embedded geometry
+
+Return a clear scientific blocking/incomplete state using existing
+pipeline semantics.
+
+======================================================================
+PART 12 — MANIFEST FAILURES DISCOVERED DURING PRODUCTION
+======================================================================
+
+Recent production testing exposed malformed/incomplete manifest rows.
+
+Examples included messages conceptually like:
+
+    malformed acquisition datetime: 'nan' 'nan'
+
+and rows with missing Plot/site information.
+
+This caused some flights to reach correction without usable solar
+geometry and fail with:
+
+    Drone correction requested but no solar geometry is available.
+
+A later failure such as:
+
+    At least one flight has no extracted Parquet.
+
+is only a downstream symptom.
+
+Fix this at the metadata-resolution/preflight stage.
+
+Do not wait until extraction or bulk preparation to discover that a
+flight could never have been corrected scientifically.
+
+======================================================================
+PART 13 — MANIFEST MATCHING MUST BE ROBUST
+======================================================================
+
+Audit existing manifest matching carefully.
+
+Production filenames/package names contain useful identity information
+such as:
+
+    JC1
+    GAH1
+    MTST_31
+    campaign dates
+    ExportPackage names
+
+Some package names encode dates, for example patterns similar to:
+
+    mtst_31-07-17-24-ExportPackage
+
+Determine what authoritative metadata can safely be derived from:
+
+1. manifest fields
+2. export-package naming
+3. source H5 metadata
+4. directory structure
+
+IMPORTANT:
+
+Do not silently treat filename-derived metadata as equally authoritative
+to a validated acquisition datetime.
+
+Define provenance/authority explicitly using existing repository
+patterns.
+
+A filename may help resolve:
+
+    flight identity
+    date
+    diagnostic context
+
+but a DATE without a reliable TIME is not sufficient for production
+solar geometry.
+
+Do not invent noon.
+
+Do not guess acquisition time.
+
+======================================================================
+PART 14 — DRONE PREFLIGHT
+======================================================================
+
+We need to detect scientific blockers before expensive processing.
+
+Implement this within the existing drone orchestration architecture.
+
+Prefer:
+
+    an internal preflight stage used by run_drone_pipeline
+
+or, if it fits the existing API cleanly:
+
+    a lightweight documented preflight/check mode
+
+Do not create a separate campaign framework.
+
+For each intended source, preflight should resolve enough information to
+determine whether the requested workflow is scientifically runnable.
+
+Useful fields include:
+
+    source path
+    source type
+    flight identity
+    site/plot
+    manifest match
+    acquisition date
+    acquisition datetime
+    timezone
+    datetime source
+    latitude
+    longitude
+    coordinate source
+    embedded solar summary
+    expected solar zenith
+    expected solar azimuth
+    solar validation status
+    repair required
+    repair allowed
+    correction eligibility
+    blocking reason
+
+Persist a compact machine-readable artifact using existing SpectralBridge
+conventions.
+
+A human-readable concise summary is desirable.
+
+======================================================================
+PART 15 — USE EXISTING ERROR/AUDIT SEMANTICS
+======================================================================
+
+The current drone pipeline already has concepts such as:
+
+    DroneCorrectionUnavailableError
+    DronePipelineIncompleteError
+    correction audit dictionaries
+    stage records
+    success/failure status
+
+Extend these rather than creating parallel exception/status systems.
+
+Where useful, add stable machine-readable reason codes while preserving
+human-readable messages.
+
+A scientifically blocked flight should be distinguishable from:
+
+    software exception
+    corrupt source
+    missing ancillary geometry
+    ambiguous acquisition metadata
+    failed correction
+    successful processing with scientific caution
+
+Keep the vocabulary compact and compatible with existing QA/bulk
+consumers.
+
+======================================================================
+PART 16 — NEVER MODIFY ARCHIVED SOURCE H5 FILES
+======================================================================
+
+Source H5 files are immutable.
+
+Correct lifecycle:
+
+    source H5
+       ↓
+    working H5
+       ↓
+    solar repair if justified
+       ↓
+    normal H5 → ENVI
+       ↓
+    topo
+       ↓
+    BRDF
+       ↓
+    translation/extraction
+       ↓
+    QA
+
+Any legacy repair happens only in the working product.
+
+Tests must verify source immutability.
+
+Where practical, verify source fingerprint before and after repair.
+
+======================================================================
+PART 17 — COMPLETE SOLAR PROVENANCE
+======================================================================
+
+The JC1 proof of concept exposed a provenance problem where repaired
+geometry could later be described approximately as:
+
+    solar_geometry_source = raster
+    acquisition_datetime_used = None
+
+That is unacceptable.
+
+For every flight preserve enough information to reconstruct exactly what
+happened.
+
+At minimum:
+
+    source H5 identity/fingerprint
+
+    flight/site identity
+
+    acquisition_datetime_used
+    acquisition_timezone
+    acquisition_datetime_source
+
+    scene_center_latitude
+    scene_center_longitude
+    coordinate_source
+
+    embedded_solar_zenith_summary
+    embedded_solar_azimuth_summary
+
+    expected_solar_zenith
+    expected_solar_azimuth
+
+    zenith_difference
+    circular_azimuth_difference
+
+    solar_geometry_validation_status
+
+    solar_geometry_source
+
+    solar_geometry_repaired
+
+    solar_geometry_repair_reason
+
+    geometry_actually_used
+
+Use stable explicit vocabulary.
+
+Conceptually useful values may include:
+
+    embedded_validated
+    manifest_computed
+    manifest_computed_repair
+    missing
+    ambiguous
+    invalid
+
+Use existing repository vocabulary where available.
+
+Do not report "raster" when the geometry actually used was calculated
+from acquisition metadata.
+
+Integrate this into existing stage-record/audit/QA structures rather
+than inventing a redundant provenance database.
+
+======================================================================
+PART 18 — DATETIME AND TIMEZONE HANDLING
+======================================================================
+
+The acquisition times we validated were UTC.
+
+Use timezone-aware datetimes internally wherever practical.
+
+Do not rely on naive datetime interpretation.
+
+Human QA should show something like:
+
+    Acquisition: 2023-07-11 21:24:34 UTC
+
+Candidate-timezone diagnostics can remain available for diagnosis.
+
+Production processing should not guess among timezones when an
+authoritative timezone is known.
+
+Tests should cover:
+
+    explicit UTC
+    timezone-aware datetime
+    naive datetime + explicit configured timezone
+    missing timezone
+    malformed datetime
+    NaN date/time fields
+    ambiguous manifest match
+
+======================================================================
+PART 19 — PRESERVE SHARED CORRECTION MACHINERY
+======================================================================
+
+Do not create drone-specific topo or BRDF algorithms.
+
+The architecture intentionally shares established correction machinery
+between normal and drone processing.
+
+Solar repair should make the working H5 conform to the ancillary
+geometry contract expected by the existing processing infrastructure.
+
+Then allow the established pathway, conceptually including:
+
+    export_h5_to_envi
+    apply_drone_corrections
+    apply_topo_correct
+    fit_and_save_brdf_model
+    apply_brdf_correct
+
+to operate normally.
+
+Use the actual current functions/abstractions after inspection.
+
+If a genuine bug exists in shared infrastructure, fix it at the shared
+layer and protect both pathways with tests.
+
+======================================================================
+PART 20 — SCIENTIFIC PREFLIGHT BEFORE EXPENSIVE PROCESSING
+======================================================================
+
+Before topo/BRDF begins, validate required prerequisites.
+
+For each flight:
+
+    input readable?
+    flight identity resolved?
+    acquisition metadata resolved?
+    solar geometry validated or safely repairable?
+    required correction inputs available?
+    output destination writable?
+    translation assets available if translation requested?
+
+Then classify using existing status machinery, conceptually:
+
+    READY
+    BLOCKED
+    WARNING
+
+Campaign processing should be able to:
+
+    process READY flights
+    record BLOCKED flights
+    continue other flights
+
+Do not wait until the end to discover that a blocked flight produced no
+Parquet.
+
+======================================================================
+PART 21 — EXECUTION SUCCESS != SCIENTIFIC SUCCESS
+======================================================================
+
+Separate:
+
+    EXECUTION STATUS
+
+from:
+
+    SCIENTIFIC QA STATUS
+
+A Python function returning without exception does not automatically
+mean the scientific product passed QA.
+
+Relevant scientific gates include:
+
+    solar geometry valid
+    repair defensible if performed
+    topo applied when requested
+    BRDF applied when requested
+    correction_failed == false
+    extraction completed
+    expected canonical products exist
+    translation completed when requested
+    valid pixel fraction acceptable
+    no fatal nodata contamination
+
+Known weak translations must NOT be treated as upstream processing
+failure.
+
+======================================================================
+PART 22 — CAMPAIGN FAILURE BEHAVIOR
+======================================================================
+
+The full campaign contains many flights.
+
+One blocked or failed flight must not destroy successful processing of
+all other flights.
+
+Preserve/support behavior equivalent to:
+
+    raise_on_incomplete=False
+
+where:
+
+    successful flights remain valid
+    failed flights are explicitly recorded
+    blocked flights are explicitly recorded
+    campaign processing continues
+    reruns can retry failures
+    validated successful flights can be reused
+    stale working H5 is never authoritative
+
+Do not invent a second campaign-state system to accomplish this.
+
+======================================================================
+PART 23 — RESTART/RESUME SEMANTICS
+======================================================================
+
+Restartability must be based on:
+
+    authoritative source
+    source fingerprint
+    relevant configuration
+    stage signature
+    output validation
+
+not merely existence of an old temporary H5.
+
+On rerun:
+
+If a flight has a validated complete output set:
+
+    reuse/skip according to existing semantics unless overwrite=True
+
+If a flight previously failed:
+
+    retry it as appropriate
+
+If a temporary working H5 exists from an interrupted run:
+
+    validate whether it is reusable according to stage signatures
+
+or:
+
+    recreate it from source
+
+Do not blindly trust stale working products.
+
+======================================================================
+PART 24 — NODATA / -9999 CONTAMINATION
+======================================================================
+
+The proof-of-concept work exposed suspicious correction statistics
+caused by nodata/sentinel values.
+
+Audit production QA/statistics paths.
+
+Use existing SpectralBridge nodata conventions.
+
+Mask nodata BEFORE:
+
+    medians
+    percent shifts
+    correction distributions
+    regressions
+    spectral summaries
+    plots
+
+Do not allow:
+
+    -9999
+
+or equivalent sentinels to distort QA.
+
+Report useful quantities such as:
+
+    valid pixel count
+    nodata count
+    valid fraction
+
+IMPORTANT:
+
+Do not confuse finite negative corrected reflectance with nodata if the
+existing scientific conventions permit finite negative values.
+
+Add regression tests.
+
+======================================================================
+PART 25 — DARK DRONE IMAGERY
+======================================================================
+
+Several raw drone flights are unusually dark.
+
+This does NOT automatically mean the pipeline failed.
+
+Many flights were acquired around midday at relatively high elevation
+and mid-latitude sites, and some locations include steep terrain and
+cliffs.
+
+QA should help distinguish:
+
+    acquisition/exposure behavior
+    calibration
+    illumination
+    terrain/shadow
+    reflectance conversion
+    correction effects
+
+Useful compact diagnostics include:
+
+    raw per-band quantiles
+    corrected per-band quantiles
+    near-zero fraction
+    saturation fraction
+    valid fraction
+    raw vs corrected distributions
+    correction delta by wavelength
+    relative correction magnitude
+    absolute correction magnitude
+    flight-level brightness metric
+
+Where practical, high-relief scenes may benefit from a spatial
+correction diagnostic.
+
+Do not create an expensive mandatory new raster-analysis stage solely
+for the report.
+
+Do not automatically classify low brightness as scientific failure.
+
+======================================================================
+PART 26 — QA SHOULD REMAIN AN INDEPENDENT FINAL STAGE
+======================================================================
+
+Preserve the architecture in which the final QA renderer reads existing
+run audit and compact QA artifacts rather than performing scientific
+processing itself.
+
+Conceptually:
+
+    render_drone_qa_report
+
+should render recorded scientific evidence.
+
+It should not reopen source data and recalculate the pipeline.
+
+Make upstream stages record the compact metrics needed for reporting.
+
+Preserve established compatibility filenames and QA contracts where
+practical.
+
+======================================================================
+PART 27 — HUMAN-READABLE FLIGHT QA
+======================================================================
+
+The primary QA PDF should be a SCIENTIFIC REPORT, not a diagnostic dump.
+
+Principle:
+
+    ROUTINE THINGS COLLAPSE.
+    EXCEPTIONAL THINGS EXPAND.
+
+Detailed diagnostics belong in:
+
+    JSON
+    CSV
+    Parquet
+    optional diagnostic figures/reports
+
+The primary report should answer:
+
+1. Did processing complete?
+2. Is the scientific product trustworthy?
+3. Was the correct acquisition/solar geometry used?
+4. Does the imagery look reasonable?
+5. Did translation behave reasonably?
+6. What specifically deserves review?
+
+======================================================================
+PART 28 — QA EXECUTIVE SUMMARY
+======================================================================
+
+Page 1 should conceptually resemble:
+
+    JC1 | 11 July 2023
+
+    PROCESSING: COMPLETE
+    SCIENTIFIC QA: CAUTION
+
+    Solar geometry          PASS
+    Topographic correction  PASS
+    BRDF correction         PASS
+    Pixel extraction        PASS
+    Landsat translation     CAUTION
+
+    4.2 million valid pixels
+    100% usable after masking
+
+    THINGS WORTH REVIEWING
+
+    - source imagery unusually dark
+    - large visible-band correction
+    - Landsat 5 TM Band 3 translation is weak
+
+Do not display something equivalent to:
+
+    1 successful
+    0 failed
+    0 warnings
+
+while hiding important scientific cautions later.
+
+======================================================================
+PART 29 — SOLAR REPAIR IN QA
+======================================================================
+
+If solar repair occurred, make it obvious.
+
+Conceptually:
+
+    SOLAR GEOMETRY REPAIRED
+
+    Embedded H5: 89.56° / 60.23°
+    Expected:     34.15° / 250.11°
+    Used:         34.15° / 250.11°
+
+    Source:
+    authoritative acquisition datetime + scene coordinates
+
+    Reason:
+    embedded geometry inconsistent with independently calculated geometry
+
+If embedded geometry validates normally, collapse this to a simple PASS.
+
+======================================================================
+PART 30 — RGB + CORRECTION QA
+======================================================================
+
+Keep imagery QA prominent.
+
+Prefer a useful comparison such as:
+
+    RAW RGB       |       CORRECTED RGB
+
+Then a compact spectral correction summary:
+
+    raw → topo → BRDF
+
+Use robust summaries.
+
+Avoid redundant plots in the primary report.
+
+Detailed diagnostic plots can remain available elsewhere.
+
+======================================================================
+PART 31 — TRANSLATION MUST FOLLOW EXISTING DRONE DESIGN
+======================================================================
+
+Do not replace the existing affine translation system.
+
+The architecture already intentionally uses:
+
+    reviewed candidate coefficients from independent bulk analysis
+    explicit weighting family
+    validated source/target equation orientation
+    wavelength-based source mapping
+    distinct translated product
+    preserved corrected native MicaSense
+    existing extraction infrastructure
+    translation provenance
+
+Preserve this.
+
+Translation remains downstream of corrected native MicaSense.
+
+======================================================================
+PART 32 — FIT QUALITY VS TRANSFORMATION MAGNITUDE
+======================================================================
+
+Translation QA should distinguish:
+
+FIT QUALITY
+
+    slope
+    intercept
+    R²
+    sample/support information
+
+from:
+
+TRANSFORMATION MAGNITUDE
+
+    median absolute shift
+    median percent shift
+    robust shift distribution
+
+A high R² does NOT mean a small transformation.
+
+Record these in compact QA artifacts so the final report can summarize
+them without reopening source rasters.
+
+======================================================================
+PART 33 — LANDSAT 5 TM BAND 3
+======================================================================
+
+Independent SpectralBridge population work has repeatedly shown Landsat
+5 TM Band 3 to be a weak translation relationship.
+
+Drone results also showed a case approximately:
+
+    MicaSense ~668 nm → Landsat 5 TM Band 3
+    R² ~ 0.598
+    median shift ~ +1050%
+
+This should be interpreted as:
+
+    TRANSLATION CAUTION
+
+not:
+
+    DRONE PROCESSING FAILURE
+
+Do not hard-code this conclusion based solely on one flight.
+
+If reviewed translation-registry/bulk metadata already provide quality
+information, use that.
+
+Otherwise let population bulk analysis establish the broader pattern.
+
+======================================================================
+PART 34 — CRITICAL INTEROPERABILITY RULE: DO NOT MOVE BULK INTO DRONE
+======================================================================
+
+The existing architecture intentionally makes:
+
+    run_bulk_pipeline
+
+DOWNSTREAM OF completed per-flightline workflows.
+
+Preserve this separation.
+
+run_drone_pipeline should NOT:
+
+    fit population translation models
+    perform LOSO
+    create bulk sufficient statistics
+    create bulk catalogs
+    own population analysis
+    call run_bulk_pipeline internally
+
+Its job is to produce canonical flightline products.
+
+Then run_bulk_pipeline independently consumes them.
+
+======================================================================
+PART 35 — BULK INTEROPERABILITY
+======================================================================
+
+Make sure drone outputs are naturally discoverable by existing bulk
+machinery, including as applicable:
+
+    discover_completed_flightlines
+    ProductRegistry
+    AnalysisProfile
+    identity parser
+    exclusion machinery
+    provenance machinery
+
+Do not special-case arbitrary outer production-folder names as
+scientific identity.
+
+If drone naming currently prevents canonical discovery, extend the
+appropriate:
+
+    identity parser
+    product registry
+    path abstraction
+    completed-flightline contract
+
+rather than teaching bulk about a specific notebook directory.
+
+The goal is:
+
+    run_drone_pipeline(input, drone_outputs)
+
+then independently:
+
+    run_bulk_pipeline(
+        drone_outputs,
+        separate_bulk_output,
+        input_mode="auto",
+        analysis="translation",
+        on_invalid="exclude",
+        ...
+    )
+
+with no notebook-side file renaming or manual catalog construction.
+
+======================================================================
+PART 36 — PARTIAL CAMPAIGN SUCCESS BELONGS IN BULK'S EXISTING MODEL
+======================================================================
+
+Do not make:
+
+    one missing extracted Parquet
+
+abort analysis of every valid flight by default.
+
+But do not silently ignore it.
+
+The bulk pipeline already validates flightlines and supports exclusion
+semantics.
+
+Use that architecture.
+
+A failed/incomplete drone flight should either:
+
+    not satisfy the selected AnalysisProfile
+
+or:
+
+    be explicitly excluded with a stable reason
+
+while valid flightlines continue when:
+
+    on_invalid="exclude"
+
+Strict behavior can remain available through:
+
+    on_invalid="error"
+
+Do not invent a second campaign exclusion framework in drone.py.
+
+======================================================================
+PART 37 — DO NOT EAGERLY BUILD GIANT MERGED PARQUETS
+======================================================================
+
+This is important.
+
+Do not make the drone pipeline automatically concatenate every pixel
+from every flight into giant campaign Parquets merely so bulk can run.
+
+The current bulk architecture intentionally supports:
+
+    canonical flightline outputs
+        ↓
+    bounded reads
+        ↓
+    per-flightline sufficient statistics
+        ↓
+    population aggregation
+
+and only materializes observations when explicitly requested.
+
+Preserve that scalability model.
+
+If users want a merged pixel-level spectral library as a scientific
+deliverable, expose/use the appropriate existing bulk
+dataset/materialization mechanism.
+
+Do not make it a prerequisite for bulk translation analysis.
+
+======================================================================
+PART 38 — BULK OUTPUT LOCATION
+======================================================================
+
+Respect the existing bulk read-only boundary.
+
+The bulk output directory must remain outside the bulk input/source
+tree.
+
+Do not alter run_bulk_pipeline to write population-analysis products
+inside the canonical drone flightline tree.
+
+Conceptually:
+
+    campaign source/
+        original H5s
+
+    drone outputs/
+        canonical per-flight products
+
+    bulk outputs/
+        catalog
+        exclusions
+        sufficient statistics
+        population analyses
+        manifests
+
+The exact outer directory names are workspace concerns.
+
+The package should care about boundaries and contracts, not arbitrary
+workspace names.
+
+======================================================================
+PART 39 — TWO DIFFERENT PREFLIGHTS
+======================================================================
+
+Do not duplicate bulk preflight inside the drone pipeline.
+
+There are two distinct questions.
+
+DRONE PREFLIGHT:
+
+    Can this original drone observation be scientifically processed?
+
+This concerns:
+
+    source integrity
+    flight identity
+    acquisition metadata
+    solar geometry
+    correction prerequisites
+
+BULK PREFLIGHT:
+
+    Are completed products eligible for the requested population
+    analysis?
+
+This concerns:
+
+    canonical identity
+    product availability
+    AnalysisProfile
+    duplicate identity
+    units
+    translation pairs
+    population-analysis eligibility
+
+Keep them separate.
+
+======================================================================
+PART 40 — SUMMARIZATION
+======================================================================
+
+Do not overload run_bulk_pipeline with report interpretation if:
+
+    summarize_bulk_results
+
+already owns that responsibility.
+
+Population-level observations such as:
+
+    TM Band 3 systematically weak
+    coefficient heterogeneity
+    held-out-site performance
+    weighting-family differences
+
+belong in bulk interpretation/summarization.
+
+Per-flight drone QA should report the flight's actual behavior without
+pretending one flight establishes the population conclusion.
+
+======================================================================
+PART 41 — EXTERNAL LANDSAT / NEON VALIDATION
+======================================================================
+
+Preserve the existing optional external-validation architecture.
+
+Standalone drone processing must not require:
+
+    network access
+    Landsat
+    a coincident NEON flight
+
+If actual Landsat is absent:
+
+    external validation = NOT AVAILABLE
+
+This is not pipeline failure.
+
+If NEON comparison is absent:
+
+    NEON comparison = NOT AVAILABLE
+
+Use existing landsat_validation infrastructure rather than creating a
+second validation implementation.
+
+The strongest eventual validation is:
+
+    drone → synthetic Landsat
+    NEON  → synthetic Landsat
+    actual Landsat
+
+Design outputs so this remains possible.
+
+Do not delay core production fixes for it.
+
+======================================================================
+PART 42 — CANONICAL FILE AND DIRECTORY STRUCTURE
+======================================================================
+
+Before changing output paths, inspect the naming and directory contracts
+used by:
+
+    FlightlinePaths
+    process_one_flightline
+    go_forth_and_multiply
+    get_flightline_products
+    discover_completed_flightlines
+    ProductRegistry
+    BulkAnalysisPaths
+    normal-pipeline tests
+    bulk tests
+
+The drone pathway must look like another SpectralBridge producer, not
+like a separately designed application.
+
+DO NOT impose directory examples in this prompt if they conflict with
+established normal-pipeline contracts.
+
+Make the smallest changes required for drone outputs to conform.
+
+======================================================================
+PART 43 — FILE ORGANIZATION PRINCIPLE
+======================================================================
+
+Production directories should describe:
+
+    scientific identity
+    processing/product identity
+
+not:
+
+    debugging history
+    notebook history
+    recovery history
+    implementation history
+
+Canonical production output names MUST NOT contain concepts such as:
+
+    patch
+    solar_fix
+    proof_of_concept
+    recovery
+    resume
+    after_freeze
+    repaired_run
+    notebook_fix
+    final2
+
+unless they are explicitly noncanonical developer diagnostics.
+
+These concepts may exist in temporary development workspaces.
+
+They must not become part of the production data model.
+
+======================================================================
+PART 44 — SCIENTIFIC UNIT FIRST
+======================================================================
+
+The canonical atomic scientific unit is the flight/flightline.
+
+All durable per-flight products belonging to the same scientific
+observation should resolve to the same canonical flight identity.
+
+Do not create competing hierarchies such as:
+
+    corrected/<flight>
+    translated/<flight>
+    qa/<flight>
+
+if the normal SpectralBridge convention is instead:
+
+    <flight>/<products>
+
+Likewise, do not create:
+
+    year/site/sensor/<flight>
+
+merely because drone metadata make that hierarchy convenient.
+
+Metadata such as:
+
+    year
+    site
+    date
+    sensor
+    platform
+
+belong in canonical identity/provenance/catalog fields unless the
+existing normal pipeline already uses them structurally.
+
+The filesystem should not become a second metadata database.
+
+======================================================================
+PART 45 — MATCH THE NORMAL PIPELINE
+======================================================================
+
+The preferred drone per-flight directory should be structurally
+indistinguishable, as far as practical, from a normal completed
+SpectralBridge flightline directory.
+
+Conceptually:
+
+    flight_outputs/
+        <canonical_flight_id>/
+            <native products>
+            <corrected products>
+            <translated products>
+            <extraction products>
+            <QA products>
+            <stage/provenance records>
+
+BUT:
+
+Do not blindly implement these exact names or nesting.
+
+First inspect FlightlinePaths and completed-flightline fixtures.
+
+Reuse their naming patterns wherever they can represent drone products.
+
+A human familiar with normal SpectralBridge outputs should immediately
+understand a drone flight directory.
+
+======================================================================
+PART 46 — ONE CANONICAL FLIGHT DIRECTORY
+======================================================================
+
+A flight must not be represented by several competing production
+directories such as:
+
+    flight_outputs/JC1/
+    solar_patch/JC1/
+    corrected/JC1/
+    translated/JC1/
+    qa/JC1/
+
+There should be one canonical completed-flight location according to
+existing SpectralBridge conventions.
+
+Stage-specific products should live according to the established file
+contract.
+
+Temporary processing artifacts may live elsewhere if that matches
+existing architecture, but they must not masquerade as additional
+completed scientific flights.
+
+======================================================================
+PART 47 — WORKING H5 IS AN INTERMEDIATE
+======================================================================
+
+The *__working.h5 artifact is NOT an authoritative input and NOT a
+second copy of the scientific source collection.
+
+Treat it as a restartable processing intermediate.
+
+Inspect how the normal pipeline handles equivalent intermediates and
+place it accordingly.
+
+Do not create a new top-level working-H5 hierarchy unless necessary.
+
+Regardless of location:
+
+    original H5
+        = authoritative immutable source
+
+    working H5
+        = derived restartable intermediate
+
+    canonical downstream products
+        = durable processing/scientific products according to existing
+          product contracts
+
+The stage record for the working H5 must point back to the authoritative
+source fingerprint.
+
+Deleting the working H5 should require recomputation, not destroy the
+ability to process the flight.
+
+======================================================================
+PART 48 — NO DUPLICATED PRODUCTS
+======================================================================
+
+Do not copy the same scientific product into several organizational
+directories merely to make later stages convenient.
+
+Do not maintain independent canonical copies under:
+
+    flight_outputs/
+    translated/
+    qa_package/
+    upload_package/
+    bulk_input/
+
+Bulk should read canonical flight products in place.
+
+Packaging/upload logic may copy selected final deliverables when
+explicitly requested.
+
+Those copies are DISTRIBUTION artifacts, not new canonical pipeline
+state.
+
+======================================================================
+PART 49 — INPUT TREE
+======================================================================
+
+The campaign input tree is immutable.
+
+Conceptually:
+
+    campaign/
+        input/
+            2023/
+                <authoritative source data>
+            2024/
+                <authoritative source data>
+
+The exact source nesting may reflect the real CyVerse ExportPackage
+organization.
+
+Do not reorganize authoritative source files merely to satisfy the
+pipeline.
+
+Source discovery should understand the real source organization.
+
+Never put derived products back into input/.
+
+In particular, do not write:
+
+    *__working.h5
+    ENVI outputs
+    corrected products
+    translated products
+    extraction Parquets
+    QA
+    stage JSON
+    PDFs
+
+into the authoritative source hierarchy.
+
+======================================================================
+PART 50 — YEAR IS METADATA, NOT NECESSARILY AN OUTPUT HIERARCHY
+======================================================================
+
+Source campaigns may naturally remain separated as 2023 and 2024.
+
+Do not automatically reproduce:
+
+    flight_outputs/2023/...
+    flight_outputs/2024/...
+
+unless the normal pipeline or canonical identity model requires it.
+
+If canonical flight IDs are globally unique, prefer the same
+per-flight discovery structure used by normal SpectralBridge outputs.
+
+Record year in metadata/catalog/provenance.
+
+Bulk discovery should see one collection of canonical completed
+flightlines rather than requiring special year-specific logic.
+
+======================================================================
+PART 51 — FILE NAMING
+======================================================================
+
+Do not invent a drone-only naming grammar where an existing
+SpectralBridge product name exists.
+
+Reuse existing:
+
+    naming utilities
+    FlightlinePaths
+    ProductRegistry roles
+
+Where a genuinely drone-specific product has no normal-pipeline
+equivalent, name it consistently with existing conventions.
+
+Names should encode PRODUCT IDENTITY, not processing history.
+
+Good conceptual distinctions:
+
+    native
+    corrected
+    translated
+    spectral library
+    QA
+    provenance
+
+Bad distinctions:
+
+    fixed
+    patched
+    new
+    final2
+    recovered
+    rerun
+    working_again
+
+Avoid encoding information redundantly in both directory names and
+filenames unless the existing pipeline already does so.
+
+======================================================================
+PART 52 — TRANSLATED PRODUCTS REMAIN PART OF THE SAME FLIGHT
+======================================================================
+
+Translated Landsat-like drone products belong to the SAME scientific
+flight identity as the native/corrected drone observation.
+
+Do not create a synthetic Landsat flight directory for each translation.
+
+The translated product is another product role associated with the
+drone flight.
+
+Its provenance should identify:
+
+    source drone product
+    target sensor
+    target band
+    coefficient set
+    weighting family
+    translation equation
+
+ProductRegistry should distinguish the product scientifically.
+
+Directory nesting should not be responsible for carrying all of this
+meaning.
+
+======================================================================
+PART 53 — QA LOCATION
+======================================================================
+
+Follow normal pipeline QA location/naming conventions.
+
+Do not create a separate campaign-wide per-flight QA hierarchy if normal
+SpectralBridge keeps QA with each flightline.
+
+Per-flight QA belongs with the flight's canonical products.
+
+Campaign/population QA belongs with bulk/summarization outputs.
+
+This creates a clean distinction:
+
+    canonical flight directory
+        → per-flight processing/scientific QA
+
+versus:
+
+    bulk output
+        → population QA
+        → translation summaries
+        → LOSO
+        → coefficient heterogeneity
+        → publication/report products
+
+Do not mix those levels.
+
+======================================================================
+PART 54 — STATE AND PROVENANCE
+======================================================================
+
+Prefer existing stage records adjacent to products where that is the
+SpectralBridge convention.
+
+Do not create a second centralized state database containing information
+already represented by stage records.
+
+A small campaign-level preflight/run census is acceptable for:
+
+    discovered source inventory
+    preflight eligibility
+    run summary
+    campaign completion status
+
+but it must not become required to interpret individual flight
+products.
+
+A canonical flight directory should remain auditable on its own.
+
+======================================================================
+PART 55 — BULK IS A SIBLING WORKFLOW, NOT A CHILD DIRECTORY
+======================================================================
+
+This is important.
+
+run_bulk_pipeline treats its source tree as read-only and its output
+must remain outside that source boundary.
+
+Therefore do NOT use:
+
+    flight_outputs/
+        ...
+        bulk_analysis/
+
+when flight_outputs is the input passed to run_bulk_pipeline.
+
+Instead preserve a sibling relationship.
+
+Conceptually:
+
+    workspace/
+
+        SpectralBridge_Drone_2023_2024_Production/
+            input/
+            flight_outputs/
+            optional campaign-level state/
+
+        SpectralBridge_Drone_2023_2024_Bulk/
+            <BulkAnalysisPaths products>
+
+The exact outer directory names are user/workspace concerns.
+
+The package should care only that:
+
+    authoritative source
+    canonical drone outputs
+    bulk outputs
+
+are distinct boundaries.
+
+======================================================================
+PART 56 — DO NOT DUPLICATE BULK'S INTERNAL DIRECTORY MODEL
+======================================================================
+
+BulkAnalysisPaths already owns the bulk output structure.
+
+Do not manually construct directories such as:
+
+    coefficients/
+    LOSO/
+    census/
+    diagnostics/
+    summaries/
+
+from drone.py.
+
+Let BulkAnalysisPaths and run_bulk_pipeline own those locations.
+
+Likewise, do not copy drone products into:
+
+    bulk_input/
+
+The canonical flight-output collection IS the bulk input.
+
+======================================================================
+PART 57 — CANONICAL FILESYSTEM FLOW
+======================================================================
+
+The resulting filesystem semantics should be:
+
+    immutable source tree
+            ↓
+    run_drone_pipeline
+            ↓
+    canonical per-flight SpectralBridge output collection
+            ↓
+    run_bulk_pipeline READS that collection
+            ↓
+    separate BulkAnalysisPaths output tree
+            ↓
+    summarize_bulk_results reads compact bulk outputs
+
+No intermediate reorganization step should be required.
+
+There should be no:
+
+    copy_to_bulk/
+    prepare_bulk_input/
+    merge_for_bulk/
+    rename_for_bulk/
+    flatten_for_bulk/
+
+step.
+
+If one is currently required, fix the relevant:
+
+    product naming
+    identity parser
+    ProductRegistry
+    AnalysisProfile
+    discovery contract
+
+rather than adding another filesystem layer.
+
+======================================================================
+PART 58 — UPLOAD / CYVERSE DISTRIBUTION
+======================================================================
+
+Do not make remote-storage organization part of the scientific file
+contract.
+
+The local canonical processing structure and CyVerse distribution
+structure are separate concerns.
+
+When final products are copied back to CyVerse, that should be a
+deliberate distribution operation.
+
+Distinguish:
+
+    authoritative source
+    canonical processing products
+    bulk analysis products
+    distribution package
+
+Do not require a later local run to download its own previously uploaded
+results in order to resume processing.
+
+======================================================================
+PART 59 — TEMPORARY VS DURABLE PRODUCTS
+======================================================================
+
+Explicitly classify major artifacts as one of:
+
+    SOURCE
+        immutable authoritative input
+
+    INTERMEDIATE
+        reproducible processing artifact that may be deleted
+
+    FLIGHT PRODUCT
+        durable canonical scientific/processing output
+
+    FLIGHT QA
+        durable per-flight audit/scientific QA
+
+    BULK PRODUCT
+        population-level analysis artifact
+
+    DISTRIBUTION
+        copy/package for external storage/collaborators
+
+Document this classification.
+
+Use it to determine placement and restart semantics.
+
+Do not infer durability merely from whether a file happens to exist.
+
+======================================================================
+PART 60 — FILE-STRUCTURE TESTS
+======================================================================
+
+Add tests verifying that:
+
+1. original source data remain isolated from outputs
+
+2. derived products are never written into input/
+
+3. one scientific flight resolves to one canonical flight identity
+
+4. working H5 is not discoverable as a second scientific flight
+
+5. translated products remain associated with the source drone flight
+
+6. drone output names follow existing SpectralBridge naming utilities
+   wherever applicable
+
+7. canonical drone flight directories are discoverable by existing bulk
+   discovery without copying or renaming
+
+8. ProductRegistry correctly distinguishes relevant product roles
+
+9. year/source-package nesting does not accidentally become scientific
+   identity
+
+10. bulk output cannot be placed inside its read-only drone input tree
+
+11. bulk does not create or modify files inside canonical flight outputs
+
+12. per-flight QA remains associated with the flight
+
+13. population QA remains in bulk/summarization outputs
+
+14. deleting a working H5 does not prevent reconstruction from source
+
+15. stale intermediates cannot override a newer authoritative source
+    fingerprint
+
+16. no canonical production path depends on notebook/recovery/patch
+    naming
+
+17. a completed drone output tree can be consumed directly by
+    run_bulk_pipeline(input_mode="auto")
+
+18. rerunning either workflow does not create duplicate alternative
+    directory hierarchies
+
+======================================================================
+PART 61 — PIXEL-LEVEL SCIENTIFIC PRODUCTS
+======================================================================
+
+Preserve the ability to produce/use both:
+
+1. corrected native MicaSense pixel observations
+
+2. translated Landsat-like pixel observations
+
+These are scientifically valuable.
+
+However:
+
+Do not force run_drone_pipeline to build campaign-wide merged Parquets.
+
+Per-flight canonical extraction products should retain useful
+identifiers/provenance.
+
+Campaign-wide materialization, when desired, should use the existing
+bulk/dataset architecture rather than become a prerequisite for bulk.
+
+======================================================================
+PART 62 — CAMPAIGN QA
+======================================================================
+
+Once enough flights are available, population-level summaries should be
+handled through bulk/summarization rather than embedded into the
+per-flight drone orchestrator.
+
+Useful campaign summaries include:
+
+    success/failure/block counts
+    exclusion reasons
+    unusually dark flights
+    unusually large corrections
+    low valid fractions
+    consistently weak translations
+    site effects
+    year effects
+    source-band effects
+    target-sensor/band effects
+
+Use robust campaign-relative statistics where appropriate.
+
+Examples:
+
+    visible brightness: 3rd percentile
+    correction magnitude: 81st percentile
+    valid fraction: 94th percentile
+    TM B3 translation: typical for TM B3
+
+Do not label scientifically meaningful extremes as failures
+automatically.
+
+======================================================================
+PART 63 — JC1 ACCEPTANCE CASE
+======================================================================
+
+Use the successful JC1 proof of concept as the real-data acceptance
+model when real data are available.
+
+Conceptually:
+
+    original JC1 H5
+        ↓
+    source fingerprint
+        ↓
+    manifest identity + acquisition datetime
+        ↓
+    inspect embedded geometry
+        ↓
+    detect approximately 89.56 / 60.23 as inconsistent
+        ↓
+    independently derive approximately 34.15 / 250.11
+        ↓
+    preserve original H5 unchanged
+        ↓
+    repair working H5
+        ↓
+    normal H5 → ENVI stage
+        ↓
+    shared topo PASS
+        ↓
+    shared BRDF PASS
+        ↓
+    corrected native MicaSense
+        ↓
+    existing drone translation
+        ↓
+    extraction
+        ↓
+    QA
+        ↓
+    canonical completed flightline
+        ↓
+    discoverable directly by bulk
+
+Do not hard-code 34.15 / 250.11 as exact universal unit-test truth.
+
+Use appropriate tolerance based on exact coordinates/time and the
+astronomy implementation.
+
+======================================================================
+PART 64 — JC1 ACCEPTANCE ARTIFACT
+======================================================================
+
+Support generation of a compact machine-readable JC1 acceptance record
+using existing audit/provenance conventions.
+
+It should make it possible to determine:
+
+    source H5
+    source fingerprint
+
+    embedded zenith
+    embedded azimuth
+
+    acquisition datetime
+    timezone
+
+    scene latitude
+    scene longitude
+
+    expected zenith
+    expected azimuth
+
+    zenith difference
+    circular azimuth difference
+
+    validation decision
+
+    repair performed
+
+    geometry actually used
+
+    topo status
+    BRDF status
+    extraction status
+    translation status
+
+    execution status
+    scientific QA status
+
+If real JC1 data are unavailable in CI, test the schema/logic
+synthetically and provide the exact production command for generating
+the real artifact.
+
+======================================================================
+PART 65 — TESTS
+======================================================================
+
+Add or update focused tests for at least:
+
+1. historical degree/radian solar failure
+
+2. correct explicit coordinate-unit handling
+
+3. valid embedded solar geometry
+
+4. invalid embedded solar geometry
+
+5. solar tolerance boundaries
+
+6. circular azimuth comparison
+
+7. unambiguous automatic repair
+
+8. ambiguous repair refusal
+
+9. source H5 immutability
+
+10. working-copy repair
+
+11. repair provenance
+
+12. explicit UTC
+
+13. timezone-aware datetime
+
+14. naive datetime + configured timezone
+
+15. malformed datetime
+
+16. NaN datetime fields
+
+17. missing timezone
+
+18. ambiguous manifest match
+
+19. source discovery from clean input
+
+20. *__working.h5 excluded as authoritative source
+
+21. no dependency on previous flight_outputs
+
+22. clean rerun after output deletion
+
+23. source fingerprint participates correctly in restart behavior
+
+24. repair metadata participates in stage signature/reuse
+
+25. changed relevant acquisition metadata invalidates stale stages
+
+26. scientific preflight READY
+
+27. scientific preflight BLOCKED
+
+28. campaign continues after blocked flight
+
+29. shared topo consumes repaired geometry
+
+30. shared BRDF consumes repaired geometry
+
+31. nodata excluded from QA
+
+32. finite negative reflectance is not accidentally treated as nodata
+
+33. execution COMPLETE + scientific CAUTION
+
+34. weak translation does not imply upstream processing failure
+
+35. translation reports fit AND transformation magnitude
+
+36. QA renderer remains independent of source-raster processing
+
+37. canonical drone outputs are discoverable by bulk
+
+38. incomplete drone flight is excluded with stable bulk reason
+
+39. valid bulk flightlines continue with on_invalid="exclude"
+
+40. bulk raises appropriately with on_invalid="error"
+
+41. bulk does not require a merged pixel Parquet
+
+42. restart/reuse respects stage signatures
+
+43. QA compatibility filenames remain available where required
+
+44. release-candidate smoke coverage remains valid
+
+45. bulk output remains outside and does not mutate its input tree
+
+46. reruns do not create competing directory hierarchies
+
+Keep CI fixtures small.
+
+Do not add huge real H5 files.
+
+======================================================================
+PART 66 — DOCUMENTATION
+======================================================================
+
+Update drone documentation/vignettes to explain the architecture as it
+actually works:
+
+    original drone source
+        ↓
+    drone source preparation
+        ↓
+    shared H5 → ENVI machinery
+        ↓
+    shared topo/BRDF correction
+        ↓
+    corrected native MicaSense
+        ↓
+    affine drone translation
+        ↓
+    canonical extraction + QA artifacts
+
+Then separately:
+
+    canonical completed flightline products
+        ↓
+    run_bulk_pipeline
+        ↓
+    catalog + exclusions
+        ↓
+    bounded sufficient statistics
+        ↓
+    translation / LOSO / population analyses
+        ↓
+    summarize_bulk_results
+
+Document:
+
+    authoritative input directory
+    source discovery
+    manifest resolution
+    metadata preflight
+    solar validation
+    legacy solar repair
+    repair criteria
+    source immutability
+    working-H5 lifecycle
+    timezone handling
+    provenance
+    stage signatures
+    restart safety
+    execution vs scientific QA
+    dark imagery diagnostics
+    translation cautions
+    Landsat 5 TM Band 3 behavior
+    native pixel products
+    Landsat-like pixel products
+    partial campaign success
+    bulk interoperability
+    bulk read-only boundary
+    future external validation
+
+Document the historical solar issue briefly and factually.
+
+Do NOT claim every historical H5 is invalid.
+
+Legacy embedded geometry should be independently checked before use.
+
+======================================================================
+PART 67 — PRODUCTION API
+======================================================================
+
+The final package should support a clean call conceptually similar to:
+
+    run_drone_pipeline(
+        input_h5_dir=INPUT,
+        output_dir=DRONE_OUTPUT,
+        apply_topo=True,
+        apply_brdf=True,
+        extraction_mode="full",
+        apply_translation=True,
+        translation_weighting="site_balanced",
+        translation_strict=False,
+        overwrite=False,
+        raise_on_incomplete=False,
+    )
+
+Use the actual current API after inspection.
+
+Preserve sensible backwards compatibility.
+
+The caller should not need to:
+
+    locate a previous working H5
+    manually patch solar arrays
+    manually edit the manifest
+    construct temporary repair directories
+    manually rename outputs
+    manually create a bulk-input hierarchy
+    manually merge all pixels before bulk
+
+Then the resulting canonical output should be directly usable by a call
+conceptually like:
+
+    run_bulk_pipeline(
+        DRONE_OUTPUT,
+        BULK_OUTPUT,
+        input_mode="auto",
+        analysis="translation",
+        on_invalid="exclude",
+        ...
+    )
+
+Use the actual current API/options after inspection.
+
+======================================================================
+PART 68 — MINIMAL CHANGE AND ARCHITECTURAL DISCIPLINE
+======================================================================
+
+Treat everything above as requirements on behavior and interoperability,
+not permission to reorganize SpectralBridge broadly.
+
+MINIMIZE THE DIFF.
+
+Do not refactor stable main-pipeline or bulk-pipeline file structures
+merely to make drone aesthetically symmetrical.
+
+Priority:
+
+    1. scientific correctness
+    2. compatibility with existing SpectralBridge contracts
+    3. interoperability with bulk
+    4. restart/reuse correctness
+    5. human comprehensibility
+    6. cosmetic filesystem symmetry
+
+If existing repository conventions differ from a conceptual directory
+tree in this prompt, the repository convention wins unless it is itself
+the demonstrated source of a bug.
+
+======================================================================
+PART 69 — EXISTING PATH ABSTRACTIONS ARE AUTHORITATIVE
+======================================================================
+
+Where the repository already defines placement/naming through:
+
+    FlightlinePaths
+    ProductRegistry
+    BulkAnalysisPaths
+    identity parsing utilities
+    product-discovery utilities
+    stage-record utilities
+
+use those abstractions.
+
+Do not duplicate their logic with manually constructed pathlib paths.
+
+Do not introduce drone-specific path constants for concepts already
+represented by shared abstractions.
+
+If a shared abstraction is almost sufficient for drone products, prefer
+a small backwards-compatible extension over a parallel DronePaths
+system.
+
+Only introduce a drone-specific path abstraction if inspection shows
+that the scientific product model genuinely cannot be represented by
+the existing one.
+
+Explain that decision explicitly if necessary.
+
+======================================================================
+PART 70 — DO NOT OVER-NEST
+======================================================================
+
+Prefer the shallowest structure compatible with existing SpectralBridge
+contracts.
+
+Do not add directory levels solely to encode metadata already contained
+in:
+
+    canonical identity
+    filenames
+    Parquet columns
+    provenance
+    stage records
+    ProductRegistry
+
+Avoid simultaneously encoding:
+
+    year
+    site
+    sensor
+    processing stage
+
+in both hierarchy and filenames unless the existing pipeline requires
+it.
+
+Every directory level should have an operational purpose.
+
+======================================================================
+PART 71 — BACKWARD COMPATIBILITY
+======================================================================
+
+Do not unnecessarily invalidate existing scientifically valid drone
+products produced by the current canonical pipeline.
+
+If existing valid drone flight directories already follow a documented
+or tested naming contract, preserve discovery compatibility where
+inexpensive and scientifically safe.
+
+However:
+
+Do NOT preserve notebook-era experimental directory conventions such as:
+
+    solar_patch_production_*
+    jc1_*proof_of_concept*
+    recovery*
+    resume*
+    patched*
+    fixed_run*
+
+Those are development artifacts, not supported production formats.
+
+No migration framework is required for those experimental directories.
+
+======================================================================
+PART 72 — NO AUTOMATIC MIGRATION OF EXPERIMENTAL OUTPUTS
+======================================================================
+
+Do not spend implementation effort transforming old experimental folders
+into the canonical structure.
+
+We retain the authoritative original inputs.
+
+The supported recovery path is:
+
+    original source
+        ↓
+    current canonical run_drone_pipeline
+        ↓
+    canonical outputs
+
+not:
+
+    arbitrary notebook-era directory
+        ↓
+    guess what is scientifically valid
+        ↓
+    migrate it
+
+This is simpler and scientifically safer.
+
+======================================================================
+PART 73 — NO BULK-SPECIFIC DRONE DIRECTORY
+======================================================================
+
+There should be no:
+
+    bulk_ready/
+    bulk_input/
+    bulk_staging/
+    bulk_compatible/
+    merged_for_bulk/
+
+directory produced by the drone pipeline.
+
+If canonical drone outputs cannot be consumed directly by bulk, diagnose
+the actual contract mismatch.
+
+Fix the smallest appropriate layer:
+
+    canonical identity
+    product role
+    ProductRegistry
+    discovery
+    AnalysisProfile
+
+Do not solve an interoperability problem by copying files.
+
+======================================================================
+PART 74 — DO NOT USE DIRECTORY NAMES AS HIDDEN SCIENTIFIC STATE
+======================================================================
+
+Scientific meaning should come from explicit metadata and product
+contracts, not assumptions such as:
+
+    parent directory contains "2024"
+    path contains "corrected"
+    folder is named "landsat"
+    root contains "drone"
+
+Directory names may participate in established canonical identity
+parsing where the repository explicitly defines that contract.
+
+Otherwise do not introduce new scientific behavior depending on
+arbitrary outer workspace names.
+
+A user should be able to rename:
+
+    SpectralBridge_Drone_2023_2024_Production/
+
+to:
+
+    my_drone_run/
+
+without changing scientific interpretation of canonical products.
+
+======================================================================
+PART 75 — ATOMIC FLIGHT CONTRACT
+======================================================================
+
+Define clearly what constitutes a COMPLETE canonical drone flightline
+for downstream discovery.
+
+Do not make bulk infer completeness from arbitrary file counts.
+
+Use existing:
+
+    completed-flightline
+    ProductRegistry
+    AnalysisProfile
+    output validation
+
+contracts.
+
+A flight directory may contain intermediate or optional products without
+becoming a second scientific unit.
+
+Conversely, directory existence alone must not imply completeness.
+
+Document which durable products/status records establish eligibility for
+each downstream analysis.
+
+======================================================================
+PART 76 — CLEAN FAILURE SEMANTICS
+======================================================================
+
+A blocked or failed flight may leave diagnostic/stage information behind.
+
+That directory must not accidentally appear to bulk as a completed
+scientific flightline.
+
+Likewise, an interrupted flight containing:
+
+    working H5
+    partial ENVI
+    partial QA
+
+must not become bulk-eligible merely because its directory exists.
+
+Use explicit product validation/completion contracts.
+
+This is especially important for long-running campaign processing.
+
+======================================================================
+PART 77 — NO DUPLICATE CAMPAIGN STATE
+======================================================================
+
+Do not create multiple overlapping state files such as:
+
+    campaign_state.json
+    flight_state.json
+    processing_state.json
+    completion.json
+
+all representing overlapping truths.
+
+Use existing stage records and product validation as the primary
+per-flight state.
+
+A campaign-level preflight/run census may be a derived summary.
+
+It must not become a second source of truth that can disagree with
+flight records.
+
+======================================================================
+PART 78 — DELETION / RECOMPUTATION CONTRACT
+======================================================================
+
+Document and test consequences of deleting each artifact class.
+
+Conceptually:
+
+SOURCE
+
+    must never be automatically deleted
+
+WORKING H5
+
+    safe to delete
+    recreated from authoritative source when required
+
+NATIVE/CORRECTED INTERMEDIATE
+
+    follows existing stage-signature/reuse semantics
+
+CANONICAL FLIGHT PRODUCT
+
+    deletion invalidates corresponding completed stage and triggers
+    appropriate recomputation
+
+QA
+
+    regenerate from authoritative compact audit/stage artifacts where
+    supported
+
+BULK OUTPUT
+
+    independently reproducible from canonical flight outputs
+
+This should make recovery predictable without special notebooks.
+
+======================================================================
+PART 79 — TWO INDEPENDENT RESTART BOUNDARIES
+======================================================================
+
+Preserve two distinct restart domains:
+
+DRONE PROCESSING
+
+    source → canonical flight products
+
+BULK ANALYSIS
+
+    canonical flight products → population products
+
+Deleting bulk outputs must never require reprocessing original H5s.
+
+Deleting a drone working intermediate must not require rebuilding
+unrelated bulk products unless the canonical flight product itself
+changes.
+
+A changed canonical flight product should naturally be reflected when
+bulk is rerun.
+
+Do not couple the orchestrators through hidden state.
+
+======================================================================
+PART 80 — ARCHITECTURAL CONFLICT RULE
+======================================================================
+
+If a requirement in this prompt conflicts with an established
+SpectralBridge invariant, do not work around the invariant locally.
+
+Instead:
+
+    1. identify the conflict
+    2. determine which layer owns the contract
+    3. make the smallest backwards-compatible change at that layer
+    4. add a regression test
+    5. report the decision
+
+Examples:
+
+If bulk cannot discover a canonical drone product:
+
+    do not copy it into a bulk-specific directory
+
+inspect:
+
+    identity parsing
+    ProductRegistry
+    completed-flight discovery
+    AnalysisProfile
+
+If solar repair requires correction integration:
+
+    do not create a second drone correction implementation
+
+inspect:
+
+    source preparation
+    ancillary-data contract
+    shared correction layer
+
+If output naming is awkward:
+
+    do not manually rename files after processing
+
+inspect the abstraction that owns naming.
+
+======================================================================
+PART 81 — IMPLEMENTATION PRINCIPLES
+======================================================================
+
+1. Inspect before editing.
+
+2. Preserve working behavior.
+
+3. Hardening, not rewrite.
+
+4. Original source H5 is authoritative.
+
+5. Working H5 is never authoritative source.
+
+6. Source data are immutable.
+
+7. Automatic repair is conservative.
+
+8. Never guess missing scientific metadata.
+
+9. Explicit coordinate units.
+
+10. Explicit timezone semantics.
+
+11. Complete provenance.
+
+12. Preflight before expensive work.
+
+13. Execution status != scientific QA.
+
+14. One failed flight should not destroy the campaign.
+
+15. Bulk owns population exclusion/analysis.
+
+16. Detailed diagnostics remain machine readable.
+
+17. Primary QA remains human readable.
+
+18. Routine things collapse; exceptional things expand.
+
+19. Dark imagery is diagnostic evidence, not automatic failure.
+
+20. Weak translation is not upstream processing failure.
+
+21. Avoid unnecessary dependencies.
+
+22. Avoid unnecessary orchestration infrastructure.
+
+23. Extend existing abstractions.
+
+24. Preserve backwards compatibility where scientifically safe.
+
+25. Do not hide warnings merely to make QA green.
+
+26. Do not duplicate products for convenience.
+
+27. Do not use filesystem history as scientific metadata.
+
+28. Do not create adapters where an existing contract can be extended.
+
+29. Keep drone processing and bulk analysis independently restartable.
+
+30. Make the drone pathway more ordinary within SpectralBridge, not
+    more special.
+
+======================================================================
+DEFINITION OF DONE
+======================================================================
+
+The core task is done when all experimental processing directories can
+be deleted and a user can retain only:
+
+    authoritative campaign input
+    current SpectralBridge repository
+
+and start a clean production run.
+
+Specifically:
+
+1. Original campaign H5s are discovered correctly.
+
+2. *__working.h5 files are not mistaken for authoritative sources.
+
+3. No previous flight_outputs directory is required.
+
+4. Manifest/acquisition metadata are preflighted before correction.
+
+5. Malformed/NaN manifest rows are surfaced clearly.
+
+6. Flights with unresolved required metadata are blocked before
+   expensive correction rather than failing mysteriously later.
+
+7. Valid embedded solar geometry is retained.
+
+8. Invalid embedded geometry is safely repaired when evidence is
+   unambiguous.
+
+9. Ambiguous geometry is not guessed.
+
+10. Source H5 remains untouched.
+
+11. Working-product provenance is complete.
+
+12. Topo and BRDF use the correct geometry through shared correction
+    infrastructure.
+
+13. Full extraction produces canonical expected products.
+
+14. Translation produces canonical Landsat-like products.
+
+15. Scientific QA distinguishes processing success from scientific
+    caution/failure.
+
+16. One failed/blocked flight does not destroy successful flights.
+
+17. Per-flight products use established SpectralBridge path/naming
+    conventions.
+
+18. One scientific flight has one canonical identity/location.
+
+19. Working/intermediate files do not appear as additional scientific
+    flights.
+
+20. Canonical drone outputs are directly discoverable by the existing
+    bulk pipeline.
+
+21. No bulk staging/copy/rename step is required.
+
+22. Bulk analysis can exclude invalid flights while analyzing valid
+    flights.
+
+23. Bulk output remains outside and does not mutate its input tree.
+
+24. Bulk does not require a giant merged pixel Parquet.
+
+25. Population analysis remains in bulk rather than drone.py.
+
+26. Tests cover the behavior.
+
+27. Documentation explains the production workflow and filesystem
+    contract.
+
+28. Deleting disposable working products has predictable recomputation
+    behavior.
+
+29. Deleting bulk outputs allows bulk to be rebuilt from canonical
+    flight outputs without rerunning original drone processing.
+
+30. No production concept depends on notebook-era patch/recovery
+    directories.
+
+======================================================================
+FINAL ARCHITECTURE ACCEPTANCE TEST
+======================================================================
+
+Test conceptually with an EMPTY output workspace.
+
+Starting state:
+
+    authoritative_source/
+        original drone H5s
+
+    drone_output/
+        DOES NOT EXIST
+
+    bulk_output/
+        DOES NOT EXIST
+
+Run:
+
+    run_drone_pipeline(
+        authoritative_source,
+        drone_output,
+        ...
+    )
+
+Expected result:
+
+    authoritative_source/
+        unchanged original data
+
+    drone_output/
+        canonical SpectralBridge per-flight products
+
+Then run:
+
+    run_bulk_pipeline(
+        drone_output,
+        bulk_output,
+        input_mode="auto",
+        ...
+    )
+
+Expected result:
+
+    authoritative_source/
+        unchanged
+
+    drone_output/
+        unchanged by bulk
+
+    bulk_output/
+        canonical BulkAnalysisPaths products
+
+Then:
+
+    summarize_bulk_results(bulk_output, ...)
+
+must operate from the bulk artifacts according to the existing
+summarization contract.
+
+There must be:
+
+    no patch directory
+    no recovery directory
+    no bulk staging directory
+    no manually merged prerequisite
+    no file-renaming step
+    no notebook-only state
+    no stale working-H5 dependency
+    no duplicated scientific flight identity
+
+Delete:
+
+    bulk_output/
+
+and verify bulk can be rebuilt from:
+
+    drone_output/
+
+without rerunning drone processing.
+
+Delete a disposable drone working intermediate and verify that the
+affected processing stage can reconstruct it from:
+
+    authoritative_source/
+
+according to existing stage-signature/restart semantics.
+
+This end-to-end filesystem test is the final interoperability criterion.
+
+======================================================================
+FINAL VERIFICATION
+======================================================================
+
+After implementation:
+
+1. Run focused drone tests.
+
+2. Run focused bulk-interoperability tests.
+
+3. Run release-candidate smoke tests.
+
+4. Run the broader test suite if feasible.
+
+5. Run repository lint/type/style checks.
+
+6. Inspect git diff for accidental architecture drift.
+
+7. Verify original-H5 immutability.
+
+8. Verify clean-source discovery.
+
+9. Verify no dependency on old flight_outputs.
+
+10. Verify malformed-manifest handling.
+
+11. Verify solar repair provenance.
+
+12. Verify stage-signature invalidation/reuse.
+
+13. Verify execution/scientific-QA separation.
+
+14. Verify canonical bulk discovery.
+
+15. Verify partial-success exclusion behavior.
+
+16. Verify bulk read-only behavior.
+
+17. Verify no duplicate directory hierarchies.
+
+18. Verify deletion/recomputation behavior.
+
+======================================================================
+FINAL REPORT
+======================================================================
+
+When finished, report:
+
+A. What you found in the current implementation before editing.
+
+B. Which requested behaviors already existed and therefore did not need
+   reimplementation.
+
+C. The actual root problems found.
+
+D. What you changed.
+
+E. Files modified.
+
+F. Why each change belongs at that architectural layer.
+
+G. Tests run and exact results.
+
+H. Remaining uncertainties.
+
+I. Anything requiring real production data.
+
+J. Exact preferred run_drone_pipeline invocation for a clean 2023 +
+   2024 campaign starting from original input only.
+
+K. Exact drone-preflight invocation if exposed.
+
+L. Exact independent run_bulk_pipeline invocation for the resulting
+   canonical drone outputs.
+
+M. Exact summarize_bulk_results invocation.
+
+N. Exact JC1 real-data acceptance command.
+
+O. How restart/resume works after an interrupted campaign.
+
+P. How blocked/failed flights are represented downstream.
+
+Q. Which artifacts are:
+
+       SOURCE
+       INTERMEDIATE
+       FLIGHT PRODUCT
+       FLIGHT QA
+       BULK PRODUCT
+       DISTRIBUTION
+
+R. Which files may safely be deleted and what recomputation each
+   deletion causes.
+
+S. Which files establish that a flight is complete and bulk-eligible.
+
+T. Whether any backward-compatibility compromises were necessary.
+
+======================================================================
+REPORT THE ACTUAL FINAL FILE CONTRACT
+======================================================================
+
+At the end, show the ACTUAL resulting tree based on implemented
+repository conventions.
+
+Do not show only a conceptual tree.
+
+Use one representative flight such as JC1.
+
+Show something equivalent to:
+
+    <source root>/
+        <actual relevant source paths>
+
+    <drone output root>/
+        <actual JC1 directory>/
+            <actual filenames>
+
+    <bulk output root>/
+        <actual BulkAnalysisPaths hierarchy>
+
+For every shown artifact identify whether it is:
+
+    SOURCE
+    INTERMEDIATE
+    FLIGHT PRODUCT
+    FLIGHT QA
+    BULK PRODUCT
+    DISTRIBUTION
+
+Explain:
+
+    which files are authoritative
+    which files may safely be deleted
+    which files trigger recomputation
+    which files bulk discovers
+    which files are optional
+    which files should normally be retained
+    which files would normally be uploaded as final deliverables
+
+The final structure should require no special knowledge that these data
+came through a notebook-era drone development workflow.
+
+======================================================================
+DO NOT COMMIT
+======================================================================
+
+Do not commit:
+
+    real production H5 files
+    giant campaign Parquets
+    generated campaign PDFs
+    temporary working products
+    production input data
+    large test fixtures
+
+unless the repository explicitly expects them.
+
+======================================================================
+DESIRED END STATE
+======================================================================
+
+The final architecture should be boring and predictable:
+
+    IMMUTABLE SOURCE
+            ↓
+    CANONICAL PER-FLIGHT PROCESSING
+            ↓
+    CANONICAL FLIGHT PRODUCTS
+            ↓
+    INDEPENDENT BULK DISCOVERY
+            ↓
+    BOUNDED POPULATION ANALYSIS
+            ↓
+    SUMMARIZATION / REPORTING
+
+No notebook monkey patch.
+
+No dependency on deleted outputs.
+
+No dependency on stale __working.h5 files.
+
+No silent solar failure.
+
+No fabricated acquisition time.
+
+No -9999 contamination.
+
+No conflation of weak Landsat translation with failed drone processing.
+
+No alternate drone-only correction stack.
+
+No bulk analysis hidden inside drone.py.
+
+No bulk staging directory.
+
+No manual renaming.
+
+No unnecessary giant merged dataset.
+
+No competing directory hierarchy.
+
+No scientific meaning encoded only in arbitrary workspace folder names.
+
+Most importantly:
+
+The downstream scientific machinery already exists and has demonstrated
+that it can work when correct inputs and solar geometry are supplied.
+
+Do not redesign functioning downstream components.
+
+Make the drone-specific path from:
+
+    ORIGINAL SOURCE
+        →
+    scientifically defensible source preparation
+        →
+    SHARED SPECTRALBRIDGE PROCESSING
+        →
+    canonical flight products
+        →
+    EXISTING BULK PIPELINE
+
+native, conservative, restartable, traceable, tested, interoperable,
+scalable, and human readable.
+
+The drone pathway should become LESS special within SpectralBridge, not
+more special.
+```
+
+## 2026-09-26 - continue production-hardening verification
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+continue
+```

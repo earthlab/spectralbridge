@@ -43,6 +43,11 @@ def test_drone_summary_handles_optional_validation_layers(
                 "training_range_checks": {"2": {"status": "overlap"}},
             }
         ],
+        "solar_geometry_validation": {
+            "solar_geometry_validation_status": "REPAIR_REQUIRED",
+            "solar_geometry_repaired": True,
+            "geometry_actually_used": "manifest_computed_repair",
+        },
     }
     if landsat_status is not None:
         file_audit["landsat_comparison"] = {
@@ -54,6 +59,7 @@ def test_drone_summary_handles_optional_validation_layers(
     payload = {
         "run_id": "drone-run",
         "success_count": 1,
+        "blocked_scientific_count": 0,
         "failed_other_count": 0,
         "comparison_neon_product": "neon.img" if with_neon else None,
         "files": [file_audit],
@@ -73,6 +79,9 @@ def test_drone_summary_handles_optional_validation_layers(
     assert metrics["largest_translation_shift_percent"] == pytest.approx(7.5)
     assert metrics["landsat"]["status"] == (landsat_status or "not_requested")
     assert metrics["neon_status"] == ("included" if with_neon else "not supplied")
+    assert metrics["solar_validation_status"] == "REPAIR_REQUIRED"
+    assert metrics["solar_geometry_repaired"] is True
+    assert result["metrics"]["solar_repair_count"] == 1
 
     reused = render_drone_qa_report(tmp_path)
     assert reused["status"] == "reused"
@@ -91,4 +100,3 @@ def test_corrupted_drone_report_is_regenerated_without_source_rasters(
 
     assert repaired["status"] == "created"
     assert Path(repaired["report_pdf"]).read_bytes().startswith(b"%PDF")
-

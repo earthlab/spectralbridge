@@ -108,6 +108,11 @@ def _dashboard_metrics(payload: dict[str, Any]) -> dict[str, Any]:
         translation = _metric_from_translation_qa(item)
         landsat = _landsat_metrics(item)
         flags = item.get("flags") if isinstance(item.get("flags"), dict) else {}
+        solar = (
+            item.get("solar_geometry_validation")
+            if isinstance(item.get("solar_geometry_validation"), dict)
+            else {}
+        )
         warning_count += len(item.get("qa_warnings", []))
         warning_count += int(str(item.get("status", "")).startswith("failed"))
         warning_count += sum(
@@ -148,6 +153,15 @@ def _dashboard_metrics(payload: dict[str, Any]) -> dict[str, Any]:
                 "brdf_status": (
                     "applied" if flags.get("brdf_applied") else "not applied"
                 ),
+                "solar_validation_status": solar.get(
+                    "solar_geometry_validation_status", "not evaluated"
+                ),
+                "solar_geometry_source": solar.get("geometry_actually_used")
+                or item.get("solar_geometry_source")
+                or "unavailable",
+                "solar_geometry_repaired": bool(
+                    solar.get("solar_geometry_repaired", False)
+                ),
                 "translation_status": (
                     "complete" if products else "not requested or unavailable"
                 ),
@@ -179,7 +193,11 @@ def _dashboard_metrics(payload: dict[str, Any]) -> dict[str, Any]:
         "run_id": payload.get("run_id"),
         "flight_count": len(files),
         "success_count": int(payload.get("success_count", 0)),
+        "blocked_count": int(payload.get("blocked_scientific_count", 0)),
         "failure_count": int(payload.get("failed_other_count", 0)),
+        "solar_repair_count": sum(
+            bool(row.get("solar_geometry_repaired")) for row in file_metrics
+        ),
         "warning_count": warning_count,
         "files": file_metrics,
     }
@@ -216,7 +234,9 @@ def _render_dashboard(metrics: dict[str, Any], output_png: Path) -> Path:
         0.055,
         0.85,
         f"{metrics['flight_count']} flights  •  {metrics['success_count']} successful  •  "
-        f"{metrics['failure_count']} failed  •  {warning_count} warnings",
+        f"{metrics['blocked_count']} scientifically blocked  •  "
+        f"{metrics['failure_count']} failed  •  {metrics['solar_repair_count']} solar repairs  •  "
+        f"{warning_count} warnings",
         fontsize=13,
         weight="bold",
     )
@@ -253,7 +273,9 @@ def _render_dashboard(metrics: dict[str, Any], output_png: Path) -> Path:
             0.30,
             y,
             f"H5 {row['ingest_status']}\nTopo {row['topo_status']} · "
-            f"BRDF {row['brdf_status']}",
+            f"BRDF {row['brdf_status']}\nSolar {row['solar_validation_status']}"
+            f"{' (repaired)' if row['solar_geometry_repaired'] else ''}\n"
+            f"Geometry {row['solar_geometry_source']}",
             fontsize=8,
             va="top",
         )

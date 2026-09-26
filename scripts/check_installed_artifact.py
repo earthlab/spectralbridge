@@ -425,7 +425,7 @@ def _run_normal(root: Path) -> dict[str, object]:
 
 
 def _assert_drone_result(result: dict[str, object], *, mode: str) -> None:
-    if len(result["processed"]) != 1 or result["failed"]:
+    if len(result["processed"]) != 1 or result["failed"] or result["blocked"]:
         raise RuntimeError(f"Drone {mode} smoke failed: {result}")
     audits = result["qa_summary"]["files"]
     if len(audits) != 1:
@@ -444,7 +444,10 @@ def _assert_drone_result(result: dict[str, object], *, mode: str) -> None:
     _assert_nonempty(Path(str(audits[0]["qa_plot_path"])))
     _assert_json(Path(str(audits[0]["qa_json_path"])))
     _assert_json(Path(str(result["qa_summary_path"])))
-    _assert_parquet(Path(str(result["merged"])))
+    if result["merged"] is not None or result["translated_merged"] is not None:
+        raise RuntimeError("Drone smoke unexpectedly created an eager campaign merge")
+    extraction_key = "full_extraction_path" if mode == "full" else "polygon_path"
+    _assert_parquet(Path(str(audits[0][extraction_key])))
 
 
 def _run_drone(root: Path) -> dict[str, object]:
@@ -466,6 +469,13 @@ def _run_drone(root: Path) -> dict[str, object]:
     )
     polygon_path = root / "drone_polygon.geojson"
     _write_intersecting_polygon(polygon_path)
+    manifest_path = root / "drone_manifest.csv"
+    manifest_path.write_text(
+        "Plot,Day of data collection,Mean Time of data collection (24 hr clock)\n"
+        "AOP_FULL,2026-09-04,18:00:00\n"
+        "AOP_POLYGON,2026-09-04,18:00:00\n",
+        encoding="utf-8",
+    )
 
     full = run_drone_pipeline(
         full_h5.parent,
@@ -474,6 +484,8 @@ def _run_drone(root: Path) -> dict[str, object]:
         apply_brdf=True,
         extraction_mode="full",
         parquet_chunk_size=PARQUET_CHUNK_SIZE,
+        drone_manifest_path=manifest_path,
+        drone_manifest_timezone="UTC",
     )
     _assert_drone_result(full, mode="full")
     full_audit = full["qa_summary"]["files"][0]
@@ -487,6 +499,8 @@ def _run_drone(root: Path) -> dict[str, object]:
         apply_brdf=True,
         extraction_mode="polygon",
         parquet_chunk_size=PARQUET_CHUNK_SIZE,
+        drone_manifest_path=manifest_path,
+        drone_manifest_timezone="UTC",
     )
     _assert_drone_result(polygon, mode="polygon")
     polygon_audit = polygon["qa_summary"]["files"][0]

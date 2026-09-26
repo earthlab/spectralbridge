@@ -23,34 +23,60 @@ left incomplete so the next agent can resume immediately.
 ### P89. Validate Historical Drone Solar Geometry Against Independent Position
 
 - Priority: High, user-directed scientific production safety
-- Status: In progress
+- Status: Implementation complete; production campaign validation pending
 - Owner: Codex
 - Started: 2026-09-18
+- Resumed: 2026-09-25 for production hardening from authoritative campaign
+  sources through canonical bulk-discoverable flight products
 - Starting commit: `7ca410f4d91cf3b1403a7c6111ad9c0ef58b9bef`
 - Evidence: The 43-flight VM resume has begun producing downstream products, but representative working H5 files report solar zenith near 89 degrees despite daytime flight timestamps. The field-manifest timezone is not documented; physical-range validation alone is insufficient.
-- Goal: Trace source solar arrays through correction, compare supplied geometry with independently computed geometry under explicit timezone interpretations, and persist non-destructive QA. Preserve correction behavior unless a specific code error is proven.
+- Goal: Trace source solar arrays through correction, compare supplied geometry with independently computed geometry under explicit timezone interpretations, and conservatively repair only signed working copies when the authoritative evidence is sufficient.
 - Plan: Inspect geometry paths/units/metadata and manifest semantics; add bounded read-only per-flight diagnostics and a campaign inventory tool; integrate concise QA without changing stage signatures; add realistic temporal/spatial/circular-angle regressions; document limitations and verify package gates.
+- Current plan: Preserve the completed read-only diagnostics, then close the
+  demonstrated production gaps in priority order: authoritative-source
+  discovery and manifest preflight; conservative working-copy-only solar
+  repair with explicit timezone/authority and stage signatures; fail-closed
+  per-flight status that still permits campaign continuation; canonical
+  output/bulk discovery contracts; focused regression tests and workflow
+  documentation. Reuse shared H5-to-ENVI, correction, extraction, path,
+  provenance, and bulk infrastructure rather than introducing parallel
+  systems.
 - Guardrails: Do not overwrite 43 working H5s or downstream artifacts, silently transform angles, change translation coefficients, or alter NEON correction science. No release/tag.
-- Real-data blocker: VM source archive is not present in this local workspace. Provide a VM command to run the diagnostics there and report unavailable campaign metrics honestly.
-- Implementation: Added read-only H5 dataset/attribute and scene-center solar
-  position diagnostics with explicit timezone treatment, circular azimuth
-  residuals, provisional review statuses, per-flight QA audit integration,
-  and a compact 43-flight CSV census command. Supplied angles and correction
-  signatures are unchanged. Corrected an H5-derivation claim in the tutorial.
-- Verification: Focused drone/solar/NEON/correction tests passed; full pytest
-  passed with six skips; Ruff, compile, docs links, strict MkDocs, AI
-  transparency, offline wheel/sdist build, and installed-wheel smoke passed.
-- Remaining work: Run the census on the VM and establish manifest timezone and
-  the exact historical H5 dataset semantics from source metadata. Then assess
-  any correction impact on bounded real pixels before deciding whether a
-  scientific correction or downstream regeneration is warranted.
-- Delivery blocker: This QA-only change is committed locally on main, but
-  `git push origin main` cannot authenticate to GitHub in this environment.
-  The user needs to push the local commit before the VM can pull it.
-- Next recommended task: Execute the read-only CSV census on all 43 working
-  H5s, inspect outliers and date/time provenance, and share the CSV and H5
-  solar dataset attributes for a scientific decision. Do not upload corrected
-  products until this review is complete.
+- Real-data blocker: The authoritative 2023/2024 VM source archive is not
+  present in this workspace, so no campaign-wide corrected metrics or upload
+  claims were made.
+- Outcome: Original H5/TIFF packages are now immutable authorities;
+  `__working.h5` files are excluded from discovery and rejected as direct
+  inputs. H5 preparation validates embedded zenith/azimuth against an
+  independent scene-center calculation, uses circular azimuth residuals and
+  centralized inclusive tolerances, and repairs only canonical arrays in a
+  signed working copy when datetime/timezone/coordinates/provenance are
+  sufficient. Unsafe cases become `blocked_scientific` while other flights
+  continue. Acquisition/repair metadata participates in restart signatures,
+  and machine plus human QA identify the source, residuals, decision, geometry
+  used, execution result, and scientific status.
+- Interoperability outcome: Completed drone flights write the generic
+  `spectralbridge_flightline.json` identity contract plus exact matched native
+  MicaSense products beside translated Landsat-like ENVI products. The existing
+  bulk pipeline discovers these directly in `input_mode="auto"`. Per-flight
+  products remain authoritative and eager campaign-wide Parquet merging is now
+  opt-in with `merge_extractions=True`.
+- Verification: Full pytest passed with six skips. Focused drone pipeline,
+  solar QA, translation, QA-summary, and bulk tests passed, including source
+  immutability, working-copy repair, malformed/ambiguous manifest handling,
+  circular/boundary geometry cases, restart contracts, no eager merge, and
+  direct drone-output-to-bulk discovery. Ruff, Python compilation, docs-link
+  checks, strict MkDocs, AI transparency generation, isolated wheel/sdist
+  build, and bounded offline smoke against the exact unpacked wheel all passed.
+- Remaining work: Run the hardened command against the VM's authoritative
+  source root and a fresh or explicitly selected output root. Review the
+  preflight/QA audit and bounded pilot before processing all 43 flights or
+  uploading any output. Confirm the historical manifest timezone from campaign
+  provenance rather than assuming UTC if better evidence exists.
+- Next recommended task: Perform a one-flight real-data pilot from the original
+  VM archive, verify the source fingerprint is unchanged, inspect repaired
+  solar arrays and correction deltas, then resume the campaign from the same
+  original-source/output-root pair only after scientific review.
 
 ### P88. Fix False-Success Drone Flights And Resume Existing Working H5
 

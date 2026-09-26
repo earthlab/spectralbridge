@@ -85,6 +85,16 @@ their coefficient/source signatures. `render_drone_qa_report` is an independent
 final stage that reads the run audit and existing QA artifacts, not source
 rasters.
 
+Original drone HDF5/TIFF inputs are immutable authorities. Generated
+`__working.h5` files are excluded from discovery and cannot be supplied as
+sources. The working-H5 signature includes acquisition datetime, timezone,
+manifest provenance, solar-validation tolerances, and repair algorithm version.
+Eligible solar repairs write only canonical arrays in that derived copy and
+verify that the source fingerprint did not change. Completed flight directories
+also expose a generic identity manifest and exact matched native-source products,
+so bulk discovery can consume a drone output root directly without an eager
+campaign-wide pixel merge.
+
 ### Independent bulk analysis
 
 `run_bulk_pipeline` is downstream of completed per-flightline workflows rather

@@ -2365,6 +2365,11 @@ def _drone_correction_status(
     )
     scene_debug = scene_debug if isinstance(scene_debug, dict) else {}
     scene_classification = list(scene_debug.get("scene_classification", []))
+    solar = (
+        audit.get("solar_geometry_validation")
+        if isinstance(audit.get("solar_geometry_validation"), dict)
+        else {}
+    )
     return {
         "topo_requested": bool(flags.get("topo_requested", False)),
         "brdf_requested": bool(flags.get("brdf_requested", False)),
@@ -2379,6 +2384,14 @@ def _drone_correction_status(
         "spatial_abs_delta_max": float(correction_max),
         "scene_classification": scene_classification,
         "scene_classification_messages": _scene_classification_messages(scene_classification),
+        "solar_validation_status": solar.get(
+            "solar_geometry_validation_status", "not evaluated"
+        ),
+        "solar_geometry_source": solar.get("geometry_actually_used")
+        or audit.get("solar_geometry_source")
+        or "unavailable",
+        "solar_geometry_repaired": bool(solar.get("solar_geometry_repaired", False)),
+        "solar_repair_reason": solar.get("solar_geometry_repair_reason"),
     }
 
 
@@ -2397,7 +2410,11 @@ def _render_drone_correction_status_box(ax: Axes, status: dict[str, Any]) -> Non
         f"Reused corrected output: {'yes' if status.get('reused_existing_corrected') else 'no'}",
         f"Observed change in panel: {'yes' if status.get('observed_change') else 'no'}",
         f"Status source: {source_label}",
+        f"Solar validation: {status.get('solar_validation_status')}",
+        f"Solar geometry used: {status.get('solar_geometry_source')}",
     ]
+    if status.get("solar_geometry_repaired"):
+        lines.append("Solar geometry repaired in working H5: yes")
     scene_messages = list(status.get("scene_classification_messages", []))
     if scene_messages:
         lines.append(f"Scene QA: {', '.join(scene_messages)}")

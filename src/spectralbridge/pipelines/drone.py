@@ -11,8 +11,8 @@ import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Sequence
-from zoneinfo import ZoneInfo
+from typing import Any, Mapping, Sequence
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import duckdb
 import h5py
@@ -33,8 +33,10 @@ from spectralbridge.neon_cube import NeonCube
 from spectralbridge.io.neon import _map_info_core, _prepare_map_info
 from spectralbridge.drone_translation import (
     apply_drone_translation,
+    ensure_matched_source_product,
     enrich_translated_spectral_library,
     load_drone_translation_plans,
+    matched_source_output_stem,
     translated_output_stem,
 )
 from spectralbridge.drone_translation_registry import (
@@ -123,6 +125,7 @@ _DRONE_TIFF_ANCILLARY_KEYWORDS = {
 _DRONE_STATUS_SUCCESS_EXTRACTED = "success_extracted"
 _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP = "success_qa_only_no_polygon_overlap"
 _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS = "success_qa_only_no_polygons"
+_DRONE_STATUS_BLOCKED_SCIENTIFIC = "blocked_scientific"
 _DRONE_STATUS_FAILED_OTHER = "failed_other"
 _DRONE_NO_OVERLAP_REASONS = (
     "No pixels intersected the supplied polygons",
@@ -141,6 +144,11 @@ _DRONE_DEFAULT_MANIFEST_ALIASES = {
     "Drone Field Data Macrosystems - UAS Data Processing For Extraction.csv",
 }
 _DRONE_SUPPORTED_INPUT_EXTENSIONS = (".h5", ".tif", ".tiff")
+_DRONE_WORKING_H5_SUFFIX = "__working.h5"
+_DRONE_SOLAR_VALIDATION_ATTR = "solar_geometry_validation_json"
+DRONE_SOLAR_ZENITH_TOLERANCE_DEG = 5.0
+DRONE_SOLAR_AZIMUTH_TOLERANCE_DEG = 5.0
+_DRONE_SOLAR_REPAIR_ALGORITHM_VERSION = 1
 _DRONE_SOLAR_GEOMETRY_ATTRS = (
     "solar_geometry_source",
     "acquisition_datetime_used",
@@ -247,6 +255,7 @@ def load_drone_manifest(manifest_path: str | Path) -> dict[str, datetime]:
         )
 
     manifest: dict[str, datetime] = {}
+    ambiguous_ids: set[str] = set()
     for row_number, row in frame.iterrows():
         flight_id = _normalise_drone_manifest_id(row.get(plot_col))
         if not flight_id:
@@ -275,9 +284,23 @@ def load_drone_manifest(manifest_path: str | Path) -> dict[str, datetime]:
             continue
 
         acquisition_datetime = parsed.to_pydatetime()
+        if flight_id in ambiguous_ids:
+            continue
         if flight_id in manifest:
+            if manifest[flight_id] != acquisition_datetime:
+                LOGGER.warning(
+                    "[drone] Ambiguous manifest flight id %s in %s has conflicting "
+                    "acquisition datetimes %s and %s; excluding the flight id",
+                    flight_id,
+                    manifest_path,
+                    manifest[flight_id].isoformat(),
+                    acquisition_datetime.isoformat(),
+                )
+                manifest.pop(flight_id)
+                ambiguous_ids.add(flight_id)
+                continue
             LOGGER.warning(
-                "[drone] Duplicate manifest flight id %s in %s; keeping the first datetime %s",
+                "[drone] Duplicate manifest flight id %s in %s repeats datetime %s",
                 flight_id,
                 manifest_path,
                 manifest[flight_id].isoformat(),
@@ -509,7 +532,35 @@ def build_drone_output_paths(
         "overlay_debug_png": flight_dir / f"{flight_stem}__overlay_debug.png",
         "qa_png": flight_dir / f"{flight_stem}__qa.png",
         "qa_json": flight_dir / f"{flight_stem}__qa.json",
+        "identity_manifest": flight_dir / "spectralbridge_flightline.json",
     }
+
+
+def _write_drone_flightline_identity(
+    path: Path,
+    *,
+    flight_stem: str,
+    acquisition_datetime: datetime | None,
+    source_path: Path,
+    source_type: str,
+) -> Path:
+    """Write the generic scientific identity contract consumed by bulk."""
+
+    site = _strip_trailing_manifest_date(_normalise_drone_manifest_id(flight_stem))
+    payload = {
+        "schema_version": 1,
+        "flightline_id": flight_stem,
+        "site": site or None,
+        "acquisition_date": (
+            acquisition_datetime.astimezone(timezone.utc).date().isoformat()
+            if acquisition_datetime is not None
+            else None
+        ),
+        "platform": "drone",
+        "authoritative_source_path": str(source_path.resolve()),
+        "authoritative_source_type": source_type,
+    }
+    return _write_json(path, payload)
 
 
 def required_drone_outputs(
@@ -529,6 +580,9 @@ def required_drone_outputs(
     envi_stem = path_map["envi_stem"]
     corrected_stem = path_map["corrected_stem"]
     requirements = [
+        DroneOutputRequirement(
+            "flight_identity", "json", (path_map["identity_manifest"],)
+        ),
         DroneOutputRequirement("working_h5", "h5", (path_map["working_h5"],)),
         DroneOutputRequirement(
             "working_stage", "stage", (path_map["working_h5"].with_suffix(".stage.json"),)
@@ -564,7 +618,25 @@ def required_drone_outputs(
         )
     elif extraction_mode != "qa_only":
         raise ValueError(f"Unsupported drone extraction mode: {extraction_mode}")
+    matched_sources: set[str] = set()
     for target in translation_targets:
+        source_sensor = (
+            "MicaSense_to-match_TM_and_ETM+"
+            if target in {"Landsat_5_TM", "Landsat_7_ETM+"}
+            else "MicaSense_to-match_OLI_and_OLI-2"
+        )
+        if source_sensor not in matched_sources:
+            source_stem = matched_source_output_stem(
+                path_map["flight_dir"], stem, source_sensor
+            )
+            requirements.append(
+                DroneOutputRequirement(
+                    f"matched_source_{source_sensor}",
+                    "envi",
+                    (source_stem.with_suffix(".img"), source_stem.with_suffix(".hdr")),
+                )
+            )
+            matched_sources.add(source_sensor)
         target_stem = translated_output_stem(path_map["flight_dir"], stem, target)
         requirements.extend(
             (
@@ -695,6 +767,12 @@ def _discover_drone_input_sources(input_path: str | Path) -> list[DroneInputSour
     for candidate in candidates:
         suffix = candidate.suffix.lower()
         if suffix == ".h5":
+            if candidate.name.lower().endswith(_DRONE_WORKING_H5_SUFFIX):
+                LOGGER.info(
+                    "[drone] Ignoring derived working H5 during source discovery: %s",
+                    candidate,
+                )
+                continue
             source_type = "h5"
         elif suffix in {".tif", ".tiff"}:
             if _is_drone_ancillary_tiff(candidate):
@@ -858,6 +936,29 @@ def _coerce_acquisition_datetime(value: datetime | str | None) -> datetime | Non
     if pd.isna(parsed):
         raise ValueError(f"Could not parse acquisition datetime: {value!r}")
     return parsed.to_pydatetime()
+
+
+def _resolve_acquisition_datetime_timezone(
+    value: datetime | str | None,
+    *,
+    naive_timezone: str | None,
+) -> datetime | None:
+    """Return an aware acquisition time without guessing a missing timezone."""
+
+    acquired = _coerce_acquisition_datetime(value)
+    if acquired is None or acquired.tzinfo is not None:
+        return acquired
+    if naive_timezone is None:
+        return None
+    zone = ZoneInfo(naive_timezone)
+    first = acquired.replace(tzinfo=zone, fold=0)
+    second = acquired.replace(tzinfo=zone, fold=1)
+    if first.utcoffset() != second.utcoffset():
+        raise ValueError(
+            "Acquisition datetime is an ambiguous daylight-saving wall time; "
+            "supply an explicitly offset timestamp."
+        )
+    return first
 
 
 def _datetime_to_utc_naive(value: datetime) -> datetime:
@@ -1113,6 +1214,17 @@ def summarize_drone_h5_solar_geometry(h5_path: str | Path) -> dict[str, Any]:
             acquisition = acquisition.decode("utf-8")
         summary["solar_geometry_source"] = str(source or "missing")
         summary["acquisition_datetime_used"] = str(acquisition or "") or None
+        validation = metadata_group.attrs.get(_DRONE_SOLAR_VALIDATION_ATTR)
+        if isinstance(validation, bytes):
+            validation = validation.decode("utf-8")
+        if validation:
+            try:
+                summary["solar_geometry_validation"] = json.loads(str(validation))
+            except json.JSONDecodeError:
+                summary["solar_geometry_validation"] = {
+                    "solar_geometry_validation_status": "INVALID",
+                    "blocking_reason_code": "invalid_solar_validation_metadata",
+                }
 
         zenith = _find_drone_solar_dataset(metadata_group, angle="zenith")
         azimuth = _find_drone_solar_dataset(metadata_group, angle="azimuth")
@@ -1325,7 +1437,12 @@ def diagnose_drone_h5_solar_geometry(
     diagnostic["solar_zenith_difference_deg"] = candidate["zenith_difference_deg"]
     diagnostic["solar_azimuth_difference_deg"] = candidate["azimuth_difference_deg"]
     maximum_difference = max(abs(candidate["zenith_difference_deg"]), abs(candidate["azimuth_difference_deg"]))
-    if maximum_difference <= 5.0:
+    if (
+        abs(candidate["zenith_difference_deg"])
+        <= DRONE_SOLAR_ZENITH_TOLERANCE_DEG + 1e-5
+        and abs(candidate["azimuth_difference_deg"])
+        <= DRONE_SOLAR_AZIMUTH_TOLERANCE_DEG + 1e-5
+    ):
         status = "PASS"
     elif maximum_difference <= 20.0:
         status = "WARN"
@@ -1337,6 +1454,281 @@ def diagnose_drone_h5_solar_geometry(
         "(review bands 5/20 degrees; correction geometry unchanged)"
     )
     return diagnostic
+
+
+def _expected_h5_scene_center_solar(
+    h5_path: str | Path,
+    *,
+    acquisition_datetime: datetime,
+) -> dict[str, float]:
+    with h5py.File(h5_path, "r") as h5_file:
+        longitude, latitude = _drone_h5_scene_center(h5_file)
+    zenith, azimuth = _compute_solar_geometry_arrays(
+        acquisition_datetime=acquisition_datetime,
+        longitude=np.asarray([longitude], dtype=np.float64),
+        latitude=np.asarray([latitude], dtype=np.float64),
+    )
+    return {
+        "scene_center_longitude": longitude,
+        "scene_center_latitude": latitude,
+        "expected_solar_zenith": float(zenith[0]),
+        "expected_solar_azimuth": float(azimuth[0]),
+    }
+
+
+def _write_repaired_h5_solar_geometry(
+    h5_path: Path,
+    *,
+    acquisition_datetime: datetime,
+) -> dict[str, float]:
+    """Write calculated solar arrays into a run-owned working H5 in chunks."""
+
+    from rasterio.crs import CRS
+    from rasterio.warp import transform as warp_transform
+
+    with h5py.File(h5_path, "r+") as h5_file:
+        reflectance = _find_drone_reflectance_dataset(h5_file)
+        metadata = _drone_h5_metadata_group(h5_file)
+        if metadata is None:
+            raise ValueError("H5 reflectance metadata is missing")
+        coordinate = h5_file.get(f"{reflectance.parent.name}/Metadata/Coordinate_System")
+        if not isinstance(coordinate, h5py.Group):
+            raise ValueError("H5 Coordinate_System metadata is missing")
+        map_dataset = coordinate.get("Map_Info")
+        crs_dataset = coordinate.get("Coordinate_System_String")
+        if not isinstance(map_dataset, h5py.Dataset) or not isinstance(crs_dataset, h5py.Dataset):
+            raise ValueError("H5 Map_Info or Coordinate_System_String is missing")
+        map_info = _prepare_map_info(map_dataset[()])
+        ref_x, ref_y, easting, northing, pixel_x, pixel_y = _map_info_core(map_info)
+        crs_value = crs_dataset[()]
+        crs_text = crs_value.decode("utf-8") if isinstance(crs_value, bytes) else str(crs_value)
+        source_crs = CRS.from_user_input(crs_text)
+        lines, columns = reflectance.shape[:2]
+        chunk_rows = max(1, min(256, int(lines)))
+        chunk_shape = (chunk_rows, max(1, min(256, int(columns))))
+        dataset_names = {
+            "zenith": "Solar_Zenith_Angle",
+            "azimuth": "Solar_Azimuth_Angle",
+        }
+        outputs: dict[str, h5py.Dataset] = {}
+        for angle, name in dataset_names.items():
+            if name in metadata:
+                del metadata[name]
+            outputs[angle] = metadata.create_dataset(
+                name,
+                shape=(lines, columns),
+                dtype=np.float32,
+                chunks=chunk_shape,
+                compression="gzip",
+                compression_opts=1,
+            )
+            outputs[angle].attrs["Units"] = "degrees"
+            outputs[angle].attrs["source"] = "manifest_computed_repair"
+        accumulators = {
+            "zenith": {"sum": 0.0, "count": 0, "min": float("inf"), "max": float("-inf")},
+            "azimuth": {"sum": 0.0, "count": 0, "min": float("inf"), "max": float("-inf")},
+        }
+        for row_start in range(0, int(lines), chunk_rows):
+            row_stop = min(int(lines), row_start + chunk_rows)
+            row_indices = np.arange(row_start, row_stop, dtype=np.float64)[:, None]
+            column_indices = np.arange(int(columns), dtype=np.float64)[None, :]
+            x = easting + ((column_indices + 1.0) - ref_x) * pixel_x
+            y = northing - ((row_indices + 1.0) - ref_y) * abs(pixel_y)
+            x = np.broadcast_to(x, (row_stop - row_start, int(columns)))
+            y = np.broadcast_to(y, (row_stop - row_start, int(columns)))
+            lon, lat = warp_transform(
+                source_crs,
+                "EPSG:4326",
+                x.ravel().tolist(),
+                y.ravel().tolist(),
+            )
+            zenith, azimuth = _compute_solar_geometry_arrays(
+                acquisition_datetime=acquisition_datetime,
+                longitude=np.asarray(lon, dtype=np.float64).reshape(x.shape),
+                latitude=np.asarray(lat, dtype=np.float64).reshape(x.shape),
+            )
+            outputs["zenith"][row_start:row_stop, :] = zenith
+            outputs["azimuth"][row_start:row_stop, :] = azimuth
+            for angle, values in (("zenith", zenith), ("azimuth", azimuth)):
+                finite = np.asarray(values, dtype=np.float64)
+                finite = finite[np.isfinite(finite)]
+                if not finite.size:
+                    continue
+                accumulator = accumulators[angle]
+                accumulator["sum"] += float(np.sum(finite, dtype=np.float64))
+                accumulator["count"] += int(finite.size)
+                accumulator["min"] = min(accumulator["min"], float(np.min(finite)))
+                accumulator["max"] = max(accumulator["max"], float(np.max(finite)))
+        metadata.attrs["solar_geometry_source"] = "manifest_computed_repair"
+        metadata.attrs["acquisition_datetime_used"] = acquisition_datetime.astimezone(
+            timezone.utc
+        ).isoformat()
+        stats: dict[str, float] = {}
+        for angle, accumulator in accumulators.items():
+            if not accumulator["count"]:
+                raise ValueError(f"Calculated solar {angle} array has no finite values")
+            stats[f"solar_{angle}_mean"] = accumulator["sum"] / accumulator["count"]
+            stats[f"solar_{angle}_min"] = accumulator["min"]
+            stats[f"solar_{angle}_max"] = accumulator["max"]
+        for key, value in stats.items():
+            metadata.attrs[key] = float(value)
+    return stats
+
+
+def _validate_and_repair_drone_working_h5_solar_geometry(
+    working_path: str | Path,
+    *,
+    source_path: str | Path,
+    acquisition_datetime: datetime | str | None,
+    acquisition_timezone: str | None,
+    acquisition_datetime_source: str | None,
+    allow_repair: bool,
+) -> dict[str, Any]:
+    """Validate embedded geometry and conservatively repair only a working H5."""
+
+    working_path = Path(working_path)
+    source_path = Path(source_path)
+    source_before = _drone_file_fingerprint(source_path)
+    embedded = summarize_drone_h5_solar_geometry(working_path)
+    audit: dict[str, Any] = {
+        "source_h5": str(source_path),
+        "source_h5_fingerprint": source_before,
+        "acquisition_datetime_used": None,
+        "acquisition_timezone": acquisition_timezone,
+        "acquisition_datetime_source": acquisition_datetime_source,
+        "coordinate_source": "h5_coordinate_system",
+        "embedded_solar_zenith_summary": {
+            key.removeprefix("solar_zenith_"): embedded.get(key)
+            for key in ("solar_zenith_mean", "solar_zenith_min", "solar_zenith_max")
+        },
+        "embedded_solar_azimuth_summary": {
+            key.removeprefix("solar_azimuth_"): embedded.get(key)
+            for key in ("solar_azimuth_mean", "solar_azimuth_min", "solar_azimuth_max")
+        },
+        "expected_solar_zenith": None,
+        "expected_solar_azimuth": None,
+        "zenith_difference": None,
+        "circular_azimuth_difference": None,
+        "solar_geometry_validation_status": "NOT_EVALUATED",
+        "solar_geometry_source": embedded.get("solar_geometry_source", "missing"),
+        "solar_geometry_repaired": False,
+        "solar_geometry_repair_reason": None,
+        "geometry_actually_used": embedded.get("solar_geometry_source", "missing"),
+        "repair_allowed": False,
+        "correction_eligible": False,
+        "blocking_reason_code": None,
+    }
+
+    def persist_audit() -> dict[str, Any]:
+        try:
+            with h5py.File(working_path, "r+") as h5_file:
+                metadata = _drone_h5_metadata_group(h5_file)
+                if metadata is not None:
+                    metadata.attrs[_DRONE_SOLAR_VALIDATION_ATTR] = json.dumps(
+                        audit, sort_keys=True
+                    )
+        except OSError:
+            pass
+        return audit
+
+    try:
+        aware_datetime = _resolve_acquisition_datetime_timezone(
+            acquisition_datetime,
+            naive_timezone=acquisition_timezone,
+        )
+    except (ValueError, ZoneInfoNotFoundError) as exc:
+        audit["solar_geometry_validation_status"] = "AMBIGUOUS"
+        audit["blocking_reason_code"] = "ambiguous_acquisition_timezone"
+        audit["solar_geometry_repair_reason"] = str(exc)
+        return persist_audit()
+    if aware_datetime is None:
+        audit["solar_geometry_validation_status"] = "AMBIGUOUS"
+        audit["blocking_reason_code"] = (
+            "missing_acquisition_datetime"
+            if acquisition_datetime is None
+            else "missing_acquisition_timezone"
+        )
+        audit["solar_geometry_repair_reason"] = (
+            "Authoritative acquisition datetime and explicit timezone are required."
+        )
+        return persist_audit()
+    audit["acquisition_datetime_used"] = aware_datetime.astimezone(timezone.utc).isoformat()
+    try:
+        expected = _expected_h5_scene_center_solar(
+            working_path,
+            acquisition_datetime=aware_datetime,
+        )
+    except (OSError, KeyError, ValueError, RuntimeError) as exc:
+        audit["solar_geometry_validation_status"] = "INVALID"
+        audit["blocking_reason_code"] = "invalid_scene_coordinates"
+        audit["solar_geometry_repair_reason"] = str(exc)
+        return persist_audit()
+    audit.update(expected)
+    if not 0.0 <= expected["expected_solar_zenith"] <= 90.0:
+        audit["solar_geometry_validation_status"] = "INVALID"
+        audit["blocking_reason_code"] = "implausible_expected_solar_position"
+        audit["solar_geometry_repair_reason"] = (
+            "Expected solar zenith places the sun below the horizon."
+        )
+        return persist_audit()
+    embedded_zenith = embedded.get("solar_zenith_mean")
+    embedded_azimuth = embedded.get("solar_azimuth_mean")
+    if embedded_zenith is None or embedded_azimuth is None:
+        audit["solar_geometry_validation_status"] = "MISSING"
+        audit["solar_geometry_repair_reason"] = "Embedded solar geometry is missing."
+    else:
+        audit["zenith_difference"] = float(embedded_zenith) - expected["expected_solar_zenith"]
+        audit["circular_azimuth_difference"] = _circular_angle_difference(
+            float(embedded_azimuth), expected["expected_solar_azimuth"]
+        )
+        if (
+            abs(audit["zenith_difference"])
+            <= DRONE_SOLAR_ZENITH_TOLERANCE_DEG + 1e-5
+            and abs(audit["circular_azimuth_difference"])
+            <= DRONE_SOLAR_AZIMUTH_TOLERANCE_DEG + 1e-5
+        ):
+            audit["solar_geometry_validation_status"] = "VALIDATED"
+            audit["solar_geometry_source"] = "embedded_validated"
+            audit["geometry_actually_used"] = "embedded_validated"
+            audit["correction_eligible"] = True
+            with h5py.File(working_path, "r+") as h5_file:
+                metadata = _drone_h5_metadata_group(h5_file)
+                if metadata is not None:
+                    metadata.attrs["solar_geometry_source"] = "embedded_validated"
+                    metadata.attrs["acquisition_datetime_used"] = audit[
+                        "acquisition_datetime_used"
+                    ]
+                    metadata.attrs["acquisition_timezone"] = str(acquisition_timezone)
+                    metadata.attrs[_DRONE_SOLAR_VALIDATION_ATTR] = json.dumps(
+                        audit, sort_keys=True
+                    )
+            return persist_audit()
+        audit["solar_geometry_validation_status"] = "REPAIR_REQUIRED"
+        audit["solar_geometry_repair_reason"] = (
+            "Embedded solar geometry is inconsistent with independently calculated "
+            "geometry beyond the configured tolerances."
+        )
+    audit["repair_allowed"] = bool(acquisition_datetime_source and allow_repair)
+    if not audit["repair_allowed"]:
+        audit["blocking_reason_code"] = "solar_geometry_repair_not_authorized"
+        return persist_audit()
+    _write_repaired_h5_solar_geometry(
+        working_path,
+        acquisition_datetime=aware_datetime,
+    )
+    audit["solar_geometry_source"] = "manifest_computed_repair"
+    audit["solar_geometry_repaired"] = True
+    audit["geometry_actually_used"] = "manifest_computed_repair"
+    audit["correction_eligible"] = True
+    with h5py.File(working_path, "r+") as h5_file:
+        metadata = _drone_h5_metadata_group(h5_file)
+        if metadata is not None:
+            metadata.attrs["acquisition_timezone"] = str(acquisition_timezone)
+            metadata.attrs[_DRONE_SOLAR_VALIDATION_ATTR] = json.dumps(audit, sort_keys=True)
+    source_after = _drone_file_fingerprint(source_path)
+    if source_after != source_before:
+        raise RuntimeError("Authoritative source H5 changed during working-copy solar repair")
+    return persist_audit()
 
 
 def convert_drone_tiff_to_h5(
@@ -1553,6 +1945,9 @@ def _prepare_drone_source_working_h5(
     tiff_sensor_zenith_deg: float | None = None,
     tiff_sensor_azimuth_deg: float | None = None,
     acquisition_datetime: datetime | str | None = None,
+    acquisition_timezone: str | None = None,
+    acquisition_datetime_source: str | None = None,
+    repair_solar_geometry: bool = False,
     require_solar_geometry: bool = False,
 ) -> tuple[Path, bool]:
     source_path = Path(source_path)
@@ -1560,38 +1955,29 @@ def _prepare_drone_source_working_h5(
     stage_record = working_path.with_suffix(".stage.json")
     if source_type == "h5":
         if source_path.resolve() == working_path.resolve():
-            with h5py.File(working_path, "r") as h5_file:
-                _find_drone_reflectance_dataset(h5_file)
-            _ensure_drone_working_h5_solar_aliases(working_path)
-            signature, signature_payload = _drone_stage_signature(
-                "working_h5",
-                inputs=[working_path],
-                configuration={
-                    "algorithm_version": 1,
-                    "source_type": "h5",
-                    "fallback_nodata": float(_DRONE_FALLBACK_NODATA),
-                },
+            raise ValueError(
+                "A derived *__working.h5 file cannot be used as authoritative "
+                "drone source data. Provide the original H5 or supported TIFF source."
             )
-            try:
-                prior_record = json.loads(stage_record.read_text(encoding="utf-8"))
-            except (OSError, UnicodeError, json.JSONDecodeError):
-                prior_record = {}
-            if prior_record.get("status") != "complete":
-                _write_drone_stage_record(
-                    stage_record,
-                    signature=signature,
-                    payload=signature_payload,
-                    outputs=[working_path],
-                )
-            LOGGER.info("[drone] working H5: resumed in place (%s)", working_path.name)
-            return working_path, False
         signature, signature_payload = _drone_stage_signature(
             "working_h5",
             inputs=[source_path],
             configuration={
-                "algorithm_version": 1,
+                "algorithm_version": 2,
                 "source_type": "h5",
                 "fallback_nodata": float(_DRONE_FALLBACK_NODATA),
+                "acquisition_datetime": (
+                    str(acquisition_datetime)
+                    if acquisition_datetime is not None
+                    else None
+                ),
+                "acquisition_timezone": acquisition_timezone,
+                "acquisition_datetime_source": acquisition_datetime_source,
+                "repair_solar_geometry": bool(repair_solar_geometry),
+                "require_solar_geometry": bool(require_solar_geometry),
+                "solar_repair_algorithm_version": _DRONE_SOLAR_REPAIR_ALGORITHM_VERSION,
+                "solar_zenith_tolerance_deg": DRONE_SOLAR_ZENITH_TOLERANCE_DEG,
+                "solar_azimuth_tolerance_deg": DRONE_SOLAR_AZIMUTH_TOLERANCE_DEG,
             },
         )
         if not overwrite and _drone_stage_matches(stage_record, signature) and working_path.is_file():
@@ -1610,10 +1996,18 @@ def _prepare_drone_source_working_h5(
             overwrite=overwrite or working_path.exists(),
         )
         _ensure_drone_working_h5_solar_aliases(prepared)
+        solar_validation = _validate_and_repair_drone_working_h5_solar_geometry(
+            prepared,
+            source_path=source_path,
+            acquisition_datetime=acquisition_datetime,
+            acquisition_timezone=acquisition_timezone,
+            acquisition_datetime_source=acquisition_datetime_source,
+            allow_repair=repair_solar_geometry,
+        )
         _write_drone_stage_record(
             stage_record,
             signature=signature,
-            payload=signature_payload,
+            payload={**signature_payload, "solar_geometry_validation": solar_validation},
             outputs=[prepared],
         )
         LOGGER.info("[drone] working H5: complete (%s)", prepared.name)
@@ -1631,7 +2025,7 @@ def _prepare_drone_source_working_h5(
         "tiff_to_working_h5",
         inputs=inputs,
         configuration={
-            "algorithm_version": 1,
+            "algorithm_version": 2,
             "wavelengths_nm": (
                 [float(value) for value in tiff_wavelengths_nm]
                 if tiff_wavelengths_nm is not None
@@ -1647,6 +2041,8 @@ def _prepare_drone_source_working_h5(
             "sensor_zenith_deg": tiff_sensor_zenith_deg,
             "sensor_azimuth_deg": tiff_sensor_azimuth_deg,
             "acquisition_datetime": str(acquisition_datetime) if acquisition_datetime is not None else None,
+            "acquisition_timezone": acquisition_timezone,
+            "acquisition_datetime_source": acquisition_datetime_source,
             "require_solar_geometry": bool(require_solar_geometry),
         },
     )
@@ -2740,7 +3136,26 @@ def _format_eta(elapsed_samples: list[float], remaining: int) -> str | None:
 
 def _classify_drone_exception(exc: Exception) -> tuple[str, str]:
     reason = str(exc).strip() or exc.__class__.__name__
+    if isinstance(exc, DroneCorrectionUnavailableError):
+        return _DRONE_STATUS_BLOCKED_SCIENTIFIC, reason
     return _DRONE_STATUS_FAILED_OTHER, reason
+
+
+def _scientific_qa_status(file_audit: Mapping[str, Any]) -> str:
+    """Separate scientific caution from successful pipeline execution."""
+
+    solar = file_audit.get("solar_geometry_validation")
+    if isinstance(solar, Mapping) and solar.get("solar_geometry_repaired"):
+        return "caution"
+    if file_audit.get("qa_warnings"):
+        return "caution"
+    products = file_audit.get("translation_products")
+    if isinstance(products, list) and any(
+        isinstance(product, Mapping) and product.get("caution_target_bands")
+        for product in products
+    ):
+        return "caution"
+    return "eligible"
 
 
 def _has_drone_qa_inputs(file_audit: dict[str, Any]) -> bool:
@@ -2793,6 +3208,8 @@ def _reconcile_drone_completion(
         if missing:
             audit["missing_required_outputs"] = missing
             audit["status"] = _DRONE_STATUS_FAILED_OTHER
+            audit["execution_status"] = "failed"
+            audit["scientific_qa_status"] = "not_evaluated"
             audit["error"] = "Requested drone output contract incomplete: " + "; ".join(missing)
             results["failed"].append(
                 {"input": audit["input_source_path"], "error": audit["error"]}
@@ -2815,6 +3232,7 @@ def _reconcile_drone_completion(
             _DRONE_STATUS_SUCCESS_EXTRACTED,
             _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP,
             _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS,
+            _DRONE_STATUS_BLOCKED_SCIENTIFIC,
             _DRONE_STATUS_FAILED_OTHER,
         )
     }
@@ -2834,7 +3252,31 @@ def _reconcile_drone_completion(
         for audit in summary["files"]
     )
     summary["failed_other_count"] = status_counts[_DRONE_STATUS_FAILED_OTHER]
-    results["status"] = "complete" if not results["failed"] else "incomplete"
+    summary["blocked_scientific_count"] = status_counts[
+        _DRONE_STATUS_BLOCKED_SCIENTIFIC
+    ]
+    summary["execution_status"] = (
+        "completed_with_failures"
+        if status_counts[_DRONE_STATUS_FAILED_OTHER]
+        else "completed"
+    )
+    file_scientific_statuses = {
+        str(audit.get("scientific_qa_status")) for audit in summary["files"]
+    }
+    summary["scientific_qa_status"] = (
+        "blocked"
+        if status_counts[_DRONE_STATUS_BLOCKED_SCIENTIFIC]
+        else "caution"
+        if "caution" in file_scientific_statuses
+        else "not_evaluated"
+        if status_counts[_DRONE_STATUS_FAILED_OTHER]
+        else "eligible"
+    )
+    results["status"] = (
+        "complete"
+        if not results["failed"] and not results.get("blocked")
+        else "incomplete"
+    )
     summary["status"] = results["status"]
     return status_counts
 
@@ -2855,9 +3297,11 @@ def run_drone_pipeline(
     tiff_sensor_zenith_deg: float | None = None,
     tiff_sensor_azimuth_deg: float | None = None,
     drone_manifest_path: str | Path | None = None,
+    drone_manifest_timezone: str | None = "UTC",
     require_solar_geometry: bool = True,
     extraction_mode: str | None = None,
     parquet_chunk_size: int = 2048,
+    merge_extractions: bool = False,
     apply_translation: bool = False,
     translation_coefficients: str | Path | None = None,
     translation_weighting: str | None = None,
@@ -2875,6 +3319,9 @@ def run_drone_pipeline(
     corrected drone ENVI product. ``"polygon"`` uses ``polygon_path`` and the
     existing polygon extraction path. The default preserves historical
     behavior: polygon mode when polygons are supplied, otherwise QA-only.
+    Per-flight extraction products remain separate by default;
+    ``merge_extractions=True`` opts into legacy campaign-wide pixel-table
+    materialization. Bulk analysis does not require that merge.
     Translation is opt-in and consumes a versioned packaged registry by default,
     or an explicitly supplied reviewed bulk artifact. The predetermined
     production weighting is site-balanced. It creates separate Landsat-like
@@ -2915,19 +3362,28 @@ def run_drone_pipeline(
         input_path=input_h5_dir,
     )
     drone_manifest = load_drone_manifest(drone_manifest_path)
+    effective_manifest_timezone = (
+        solar_qa_timezone
+        if solar_qa_timezone is not None
+        else drone_manifest_timezone
+    )
 
     results: dict[str, Any] = {
         "platform": "drone",
         "processed": [],
+        "blocked": [],
         "failed": [],
         "outputs": [],
         "translation_outputs": [],
+        "matched_source_outputs": [],
         "translated_libraries": [],
         "merged": None,
         "merged_csv": None,
         "translated_merged": None,
         "qa_summary": {
             "platform": "drone",
+            "execution_status": "processing",
+            "scientific_qa_status": "pending",
             "spectral_branch": "affine_cross_sensor_translation",
             "brightness_offset": 0.0,
             "brightness_adjustment_requested": bool(apply_brightness_adjustment),
@@ -2937,9 +3393,11 @@ def run_drone_pipeline(
             "drone_manifest_path": (
                 str(drone_manifest_path) if drone_manifest_path is not None else None
             ),
+            "drone_manifest_timezone": effective_manifest_timezone,
             "require_solar_geometry": bool(require_solar_geometry),
             "extraction_mode": actual_extraction_mode,
             "parquet_chunk_size": int(parquet_chunk_size),
+            "merge_extractions": bool(merge_extractions),
             "translation_requested": bool(apply_translation),
             "translation_coefficient_path": (
                 str(translation_coefficients)
@@ -2983,6 +3441,7 @@ def run_drone_pipeline(
             "apply_brdf": bool(apply_brdf),
             "use_ndvi_brdf_bins": bool(use_ndvi_brdf_bins),
             "extraction_mode": actual_extraction_mode,
+            "merge_extractions": bool(merge_extractions),
             "translation_requested": bool(apply_translation),
             "translation_weighting": translation_weighting,
             "translation_strict": bool(translation_strict),
@@ -3033,6 +3492,8 @@ def run_drone_pipeline(
             "Expected local .h5, .tif, or .tiff files; ancillary-only TIFFs such "
             "as slope/aspect/sensor geometry are not treated as flight inputs."
         )
+        results["qa_summary"]["execution_status"] = "failed"
+        results["qa_summary"]["scientific_qa_status"] = "not_evaluated"
         _drone_emit(
             "[drone] No supported drone inputs discovered under "
             f"{input_h5_dir!s} (exists={input_path_exists}, "
@@ -3074,6 +3535,7 @@ def run_drone_pipeline(
         _DRONE_STATUS_SUCCESS_EXTRACTED: 0,
         _DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP: 0,
         _DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS: 0,
+        _DRONE_STATUS_BLOCKED_SCIENTIFIC: 0,
         _DRONE_STATUS_FAILED_OTHER: 0,
     }
 
@@ -3089,11 +3551,13 @@ def run_drone_pipeline(
         polygon_index_path = path_map["polygon_index"]
         overlay_debug_path = path_map["overlay_debug_png"]
         package_dir = _drone_package_dir(source_path)
-        acquisition_datetime = (
-            lookup_flight_datetime(flight_stem, drone_manifest)
+        manifest_datetime = lookup_flight_datetime(flight_stem, drone_manifest)
+        acquisition_datetime = _resolve_acquisition_datetime_timezone(
+            manifest_datetime,
+            naive_timezone=effective_manifest_timezone,
         )
         acquisition_datetime_used = (
-            _datetime_to_utc_naive(acquisition_datetime).isoformat()
+            acquisition_datetime.astimezone(timezone.utc).isoformat()
             if acquisition_datetime is not None
             else None
         )
@@ -3119,6 +3583,10 @@ def run_drone_pipeline(
                 str(drone_manifest_path) if drone_manifest_path is not None else None
             ),
             "manifest_flight_datetime": acquisition_datetime_used,
+            "acquisition_timezone": effective_manifest_timezone,
+            "acquisition_datetime_source": (
+                "drone_manifest" if manifest_datetime is not None else None
+            ),
             "input_h5_filename": source_path.name if source.source_type == "h5" else None,
             "input_h5_path": str(source_path) if source.source_type == "h5" else None,
             "base_name": flight_stem,
@@ -3178,6 +3646,7 @@ def run_drone_pipeline(
             "full_extraction_csv_error": None,
             "extraction_mode": actual_extraction_mode,
             "translation_products": [],
+            "matched_source_products": [],
             "translated_library_paths": [],
             "translation_qa_paths": [],
             "publication_figure_paths": [],
@@ -3185,6 +3654,13 @@ def run_drone_pipeline(
         }
         translation_runs: list[tuple[Any, dict[str, Any]]] = []
         try:
+            _write_drone_flightline_identity(
+                path_map["identity_manifest"],
+                flight_stem=flight_stem,
+                acquisition_datetime=acquisition_datetime,
+                source_path=source_path,
+                source_type=source.source_type,
+            )
             prepared_h5_path, nodata_patched = _prepare_drone_source_working_h5(
                 source_path,
                 source_type=source.source_type,
@@ -3197,6 +3673,15 @@ def run_drone_pipeline(
                 tiff_sensor_zenith_deg=tiff_sensor_zenith_deg,
                 tiff_sensor_azimuth_deg=tiff_sensor_azimuth_deg,
                 acquisition_datetime=acquisition_datetime,
+                acquisition_timezone=effective_manifest_timezone,
+                acquisition_datetime_source=(
+                    "drone_manifest" if manifest_datetime is not None else None
+                ),
+                repair_solar_geometry=(
+                    source.source_type == "h5"
+                    and bool(require_solar_geometry)
+                    and (bool(apply_topo) or bool(apply_brdf))
+                ),
                 require_solar_geometry=bool(require_solar_geometry)
                 and (bool(apply_topo) or bool(apply_brdf)),
             )
@@ -3205,11 +3690,16 @@ def run_drone_pipeline(
             file_audit["nodata_patch_applied"] = bool(nodata_patched)
             solar_geometry_summary = summarize_drone_h5_solar_geometry(prepared_h5_path)
             file_audit.update(solar_geometry_summary)
+            solar_validation = solar_geometry_summary.get(
+                "solar_geometry_validation"
+            )
+            if isinstance(solar_validation, dict):
+                file_audit["solar_geometry_validation"] = solar_validation
             try:
                 file_audit["solar_geometry_consistency"] = diagnose_drone_h5_solar_geometry(
                     prepared_h5_path,
                     acquisition_datetime=acquisition_datetime,
-                    naive_timezone=solar_qa_timezone,
+                    naive_timezone=effective_manifest_timezone,
                     solar_summary=solar_geometry_summary,
                 )
             except Exception as exc:
@@ -3229,13 +3719,22 @@ def run_drone_pipeline(
             if (
                 bool(require_solar_geometry)
                 and (bool(apply_topo) or bool(apply_brdf))
-                and solar_geometry_summary.get("solar_geometry_source") == "missing"
+                and source.source_type == "h5"
+                and (
+                    not isinstance(solar_validation, dict)
+                    or not solar_validation.get("correction_eligible", False)
+                )
             ):
-                raise RuntimeError(
-                    "Drone correction requested but no solar geometry is available. "
-                    "Provide solar_zenith/solar_azimuth TIFFs, scalar solar angles, "
-                    "or a drone_manifest_path with acquisition datetime values; "
-                    "set require_solar_geometry=False to permit an uncorrected fallback."
+                blocking_reason = (
+                    solar_validation.get("blocking_reason_code")
+                    if isinstance(solar_validation, dict)
+                    else "solar_geometry_not_validated"
+                )
+                raise DroneCorrectionUnavailableError(
+                    "Drone correction blocked during scientific preflight because "
+                    "embedded solar geometry could not be validated or safely repaired "
+                    f"({blocking_reason}).",
+                    {"solar_geometry_validation": solar_validation or {}},
                 )
 
             cube = NeonCube(h5_path=prepared_h5_path)
@@ -3353,7 +3852,27 @@ def run_drone_pipeline(
                 file_audit["expected_translation_sensors"] = [
                     plan.target_sensor for plan in plans
                 ]
+                matched_source_runs: dict[str, dict[str, Any]] = {}
                 for plan in plans:
+                    if plan.source_sensor not in matched_source_runs:
+                        matched_source = ensure_matched_source_product(
+                            corrected_img,
+                            corrected_hdr,
+                            output_stem=matched_source_output_stem(
+                                path_map["flight_dir"],
+                                flight_stem,
+                                plan.source_sensor,
+                            ),
+                            plan=plan,
+                            overwrite=overwrite,
+                        )
+                        matched_source_runs[plan.source_sensor] = matched_source
+                        results["matched_source_outputs"].append(
+                            matched_source["output_img"]
+                        )
+                        file_audit["matched_source_products"].append(
+                            matched_source
+                        )
                     translated_stem = translated_output_stem(
                         path_map["flight_dir"], flight_stem, plan.target_sensor
                     )
@@ -3711,6 +4230,8 @@ def run_drone_pipeline(
             results["processed"].append(str(source_path))
             if file_audit["status"] is None:
                 file_audit["status"] = _DRONE_STATUS_SUCCESS_EXTRACTED
+            file_audit["execution_status"] = "completed"
+            file_audit["scientific_qa_status"] = _scientific_qa_status(file_audit)
             elapsed = time.monotonic() - flight_started
             file_audit["elapsed_seconds"] = round(elapsed, 3)
             completed_flight_times.append(elapsed)
@@ -3751,10 +4272,20 @@ def run_drone_pipeline(
                 file_audit["correction_failure_reason"] = reason
             file_audit["status"] = status
             file_audit["error"] = reason
+            if status == _DRONE_STATUS_BLOCKED_SCIENTIFIC:
+                file_audit["execution_status"] = "completed"
+                file_audit["scientific_qa_status"] = "blocked"
+            else:
+                file_audit["execution_status"] = "failed"
+                file_audit["scientific_qa_status"] = "not_evaluated"
             file_audit["elapsed_seconds"] = round(elapsed, 3)
             status_counts[status] += 1
             LOGGER.exception("[drone] FAILED for %s", source_path)
-            results["failed"].append({"input": str(source_path), "error": reason})
+            failure_record = {"input": str(source_path), "error": reason}
+            if status == _DRONE_STATUS_BLOCKED_SCIENTIFIC:
+                results["blocked"].append(failure_record)
+            else:
+                results["failed"].append(failure_record)
             eta = _format_eta(completed_flight_times, total_flights - index)
             eta_suffix = f" | eta={eta}" if eta else ""
             suffix = f": {reason}" if reason else ""
@@ -3775,7 +4306,7 @@ def run_drone_pipeline(
     if batch_bar is not None:
         batch_bar.close()
 
-    if results["outputs"]:
+    if merge_extractions and results["outputs"]:
         merged_path = _merge_drone_polygon_outputs(
             results["outputs"],
             output_dir / "drone_merged.parquet",
@@ -3803,7 +4334,7 @@ def run_drone_pipeline(
         results["merged"] = None
         results["merged_csv"] = None
 
-    if results["translated_libraries"]:
+    if merge_extractions and results["translated_libraries"]:
         translated_merged = _merge_drone_polygon_outputs(
             results["translated_libraries"],
             output_dir / "drone_landsat_like_merged.parquet",
@@ -3910,6 +4441,7 @@ def run_drone_pipeline(
         f"{status_counts[_DRONE_STATUS_SUCCESS_EXTRACTED]} success_extracted | "
         f"{status_counts[_DRONE_STATUS_SUCCESS_QA_ONLY_NO_OVERLAP]} success_qa_only_no_polygon_overlap | "
         f"{status_counts[_DRONE_STATUS_SUCCESS_QA_ONLY_NO_POLYGONS]} success_qa_only_no_polygons | "
+        f"{status_counts[_DRONE_STATUS_BLOCKED_SCIENTIFIC]} blocked_scientific | "
         f"{status_counts[_DRONE_STATUS_FAILED_OTHER]} failed_other | "
         f"{_format_elapsed(total_wall_time)} total | "
         f"run_root={output_dir} | qa_summary={qa_path} | "
@@ -3917,7 +4449,9 @@ def run_drone_pipeline(
     )
     if results["status"] == "incomplete" and raise_on_incomplete:
         raise DronePipelineIncompleteError(
-            f"Drone run incomplete: {len(results['failed'])} of {total_flights} flight(s) failed; "
+            "Drone run incomplete: "
+            f"{len(results['failed'])} failed and {len(results['blocked'])} scientifically blocked "
+            f"of {total_flights} flight(s); "
             f"see {qa_path}",
             results,
         )

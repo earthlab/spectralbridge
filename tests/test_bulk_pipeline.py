@@ -1285,6 +1285,60 @@ def test_generic_manifest_identity_and_target_only_archive_are_analysis_ready(
     assert row[2] == pytest.approx(3.0)
 
 
+def test_canonical_drone_translation_products_run_directly_through_bulk(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "drone_outputs"
+    flight = root / "JC1_20230711"
+    flight.mkdir(parents=True)
+    (flight / "spectralbridge_flightline.json").write_text(
+        json.dumps(
+            {
+                "flightline_id": "JC1_20230711",
+                "site": "JC1",
+                "acquisition_date": "2023-07-11",
+                "platform": "drone",
+            }
+        ),
+        encoding="utf-8",
+    )
+    base = np.asarray([[100.0, 200.0], [300.0, 400.0]], dtype="float32")
+    matched = np.stack([base + index for index in range(4)])
+    translated = np.stack([base * 1.5 + 10.0 + index for index in range(6)])
+    _write_envi(
+        flight / "JC1_20230711__micasense_to_match_tm_etm+_envi.img",
+        matched,
+    )
+    _write_envi(
+        flight / "JC1_20230711__landsat_like_landsat_tm_translated_envi.img",
+        translated,
+    )
+    before = {
+        path.relative_to(root).as_posix(): _sha256(path)
+        for path in root.rglob("*")
+        if path.is_file()
+    }
+
+    result = _run(
+        root,
+        tmp_path / "bulk_outputs",
+        input_mode="auto",
+        analysis="translation",
+        translation_pairs=[
+            "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM"
+        ],
+        extraction_chunk_size=1,
+    )
+
+    assert result["accepted_flightline_count"] == 1
+    assert result["input_mode"] == "flightline_outputs"
+    assert {
+        path.relative_to(root).as_posix(): _sha256(path)
+        for path in root.rglob("*")
+        if path.is_file()
+    } == before
+
+
 @pytest.mark.parametrize(
     ("mutation", "reason_code"),
     (

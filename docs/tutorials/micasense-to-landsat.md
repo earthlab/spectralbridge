@@ -53,8 +53,10 @@ GeoPandas, such as GeoPackage or GeoJSON.
 ## Input contract
 
 For existing HDF5 inputs, SpectralBridge treats the local HDF5 export as the
-authoritative drone input. Reflectance and ancillary rasters are expected to
-already share the same spatial orientation and `(lines, columns)` footprint.
+authoritative, immutable drone input. Reflectance and ancillary rasters are
+expected to already share the same spatial orientation and `(lines, columns)`
+footprint. Generated `__working.h5` files are derived artifacts: discovery
+ignores them and the API rejects them as direct sources.
 
 For TIFF-backed inputs, SpectralBridge now creates the per-flight
 `__working.h5` file itself before continuing through the existing drone
@@ -102,6 +104,7 @@ results = run_drone_pipeline(
     apply_brightness_adjustment=False,
     apply_translation=True,
     translation_strict=False,
+    drone_manifest_timezone="UTC",
 )
 ```
 
@@ -123,17 +126,21 @@ Derived flight stems such as `AOP_GOLDHILL_20230814` match manifest rows such
 as `AOP_GOLDHILL`. SpectralBridge uses the matched acquisition datetime plus
 the reflectance TIFF georeference (CRS/transform) to compute per-pixel
 `Solar_Zenith_Angle` and `Solar_Azimuth_Angle` datasets in a TIFF-derived
-working HDF5. Existing H5 inputs preserve their supplied solar arrays; the
-H5 working-copy route does not synthesize missing angles from the manifest.
-Manifest datetimes without timezone information are treated as UTC.
-The bundled historical field manifest does not document its timezone, so this
-is a processing assumption, not a verified interpretation of those flights.
-Supplied H5 solar arrays remain authoritative for correction; the pipeline
-does not replace them with a calculated position. Each flight's QA audit now
-includes a separate scene-center solar-consistency diagnostic. Unless the
-acquisition timezone is known, the status is `NOT_EVALUATED` even when a
-hypothetical UTC position is shown. See [Process drone imagery](../vignettes/drone-processing.md#restart-and-outputs)
-for the read-only 43-flight census command and review-status meanings.
+working HDF5. For H5 input, the pipeline validates embedded solar arrays
+against the independently computed scene-center position. It preserves valid
+arrays and may repair missing or inconsistent arrays only in `__working.h5`,
+never in the source. Repair requires an explicit timezone interpretation,
+valid scene coordinates, an above-horizon sun, and manifest provenance.
+Otherwise the flight is reported as `blocked_scientific` and the remaining
+campaign continues.
+
+Manifest datetimes without an offset are localized with
+`drone_manifest_timezone`, whose explicit default is UTC. The bundled
+historical field manifest does not document its timezone, so UTC remains a
+processing assumption rather than a verified interpretation. Use a verified
+IANA zone when campaign records used local time; DST ambiguity is rejected.
+See [Process drone imagery](../vignettes/drone-processing.md#restart-and-outputs)
+for the audit contract and read-only census command.
 
 When `apply_topo=True` or `apply_brdf=True`, solar geometry is required by
 default. Set `require_solar_geometry=False` only when you intentionally want to
@@ -143,6 +150,9 @@ Each per-flight QA audit records:
 
 - `solar_geometry_source`: `raster`, `scalar`, `manifest_computed`, or `missing`
 - `acquisition_datetime_used`
+- acquisition timezone/source, scene-center coordinates, and source fingerprint
+- embedded-versus-expected zenith and circular-azimuth residuals
+- validation status, repair decision/reason, and geometry actually used
 - solar zenith mean/min/max
 - solar azimuth mean/min/max
 
@@ -282,6 +292,7 @@ Each discovered flight gets its own output folder:
 ```text
 drone_outputs/
   <flight_stem>/
+    spectralbridge_flightline.json
     <flight_stem>__working.h5
     <flight_stem>__working.stage.json
     <flight_stem>__envi.img
@@ -289,6 +300,8 @@ drone_outputs/
     <flight_stem>__corrected.img
     <flight_stem>__corrected.hdr
     <flight_stem>__corrected__correction.stage.json
+    <flight_stem>__micasense_<target>_matched_envi.img
+    <flight_stem>__micasense_<target>_matched_envi.hdr
     <flight_stem>__landsat_like_<target>_translated_envi.img
     <flight_stem>__landsat_like_<target>_translated_envi.hdr
     <flight_stem>__landsat_like_<target>_translated_envi__translation.json
@@ -302,8 +315,8 @@ drone_outputs/
     qa_publication/
       <translated_stem>__translation_quality.png
       <translated_stem>__translation_quality.pdf
-  drone_merged.parquet
-  drone_landsat_like_merged.parquet
+  drone_merged.parquet                         # only with merge_extractions=True
+  drone_landsat_like_merged.parquet            # only with merge_extractions=True
   drone_qa_summary.json
   qa/summary/drone_qa_summary.png
   qa/summary/drone_qa_summary.json
@@ -313,6 +326,9 @@ drone_outputs/
 
 Parquet remains the authoritative tabular output. CSV sidecars, when present in
 drone workflows, are convenience copies for external tools.
+Per-flight tables are the default scalable contract. Campaign-wide pixel-table
+merges are disabled unless `merge_extractions=True`; direct bulk analysis does
+not require them.
 The stage records are the restart contract: a product is reused only when the
 recorded source/configuration fingerprint matches and the product validates.
 Optional STAC Landsat crops follow the same rule: their JSON records bind the
@@ -327,7 +343,8 @@ from pathlib import Path
 
 output_dir = Path("drone_outputs")
 print(results["qa_summary_path"])
-print(results["merged"])
+print(results["processed"])
+print(results["matched_source_outputs"])
 
 for qa_png in output_dir.glob("*/*__qa.png"):
     print(qa_png)
@@ -336,6 +353,24 @@ for qa_png in output_dir.glob("*/*__qa.png"):
 The QA JSON records whether requested topographic or BRDF corrections were
 applied, skipped because ancillary data were unavailable, or reverted because
 the corrected product failed quality checks.
+
+To continue an interrupted campaign, rerun the same call with the original
+input root and the same output root. Do not point discovery at a generated
+working H5. Stage signatures reuse valid work and rebuild only stale or missing
+derived products.
+
+Completed drone products feed bulk analysis without renaming or manual merge:
+
+```python
+from spectralbridge import run_bulk_pipeline
+
+bulk = run_bulk_pipeline(
+    "drone_outputs",
+    "drone_bulk_analysis",
+    input_mode="auto",
+    analysis="translation",
+)
+```
 
 ## Translation and validation architecture
 
