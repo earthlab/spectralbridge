@@ -2751,8 +2751,10 @@ either existing HDF5 files or reflectance TIFF packages.</p>
 GeoPandas, such as GeoPackage or GeoJSON.</p>
 <h2 id="input-contract">Input contract<a class="headerlink" href="#input-contract" title="Permanent link">&para;</a></h2>
 <p>For existing HDF5 inputs, SpectralBridge treats the local HDF5 export as the
-authoritative drone input. Reflectance and ancillary rasters are expected to
-already share the same spatial orientation and <code>(lines, columns)</code> footprint.</p>
+authoritative, immutable drone input. Reflectance and ancillary rasters are
+expected to already share the same spatial orientation and <code>(lines, columns)</code>
+footprint. Generated <code>__working.h5</code> files are derived artifacts: discovery
+ignores them and the API rejects them as direct sources.</p>
 <p>For TIFF-backed inputs, SpectralBridge now creates the per-flight
 <code>__working.h5</code> file itself before continuing through the existing drone
 workflow. The TIFF bridge is intentionally strict:</p>
@@ -2794,6 +2796,7 @@ values.</p>
     <span class="n">apply_brightness_adjustment</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">apply_translation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">translation_strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">drone_manifest_timezone</span><span class="o">=</span><span class="s2">"UTC"</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>Set <code>extraction_mode="full"</code> for <strong>full-scene</strong> pixel Parquet export from the
@@ -2813,17 +2816,20 @@ angles are not supplied. Custom manifest CSVs must include:</p>
 as <code>AOP_GOLDHILL</code>. SpectralBridge uses the matched acquisition datetime plus
 the reflectance TIFF georeference (CRS/transform) to compute per-pixel
 <code>Solar_Zenith_Angle</code> and <code>Solar_Azimuth_Angle</code> datasets in a TIFF-derived
-working HDF5. Existing H5 inputs preserve their supplied solar arrays; the
-H5 working-copy route does not synthesize missing angles from the manifest.
-Manifest datetimes without timezone information are treated as UTC.
-The bundled historical field manifest does not document its timezone, so this
-is a processing assumption, not a verified interpretation of those flights.
-Supplied H5 solar arrays remain authoritative for correction; the pipeline
-does not replace them with a calculated position. Each flight's QA audit now
-includes a separate scene-center solar-consistency diagnostic. Unless the
-acquisition timezone is known, the status is <code>NOT_EVALUATED</code> even when a
-hypothetical UTC position is shown. See <a href="../../vignettes/drone-processing/#restart-and-outputs">Process drone imagery</a>
-for the read-only 43-flight census command and review-status meanings.</p>
+working HDF5. For H5 input, the pipeline validates embedded solar arrays
+against the independently computed scene-center position. It preserves valid
+arrays and may repair missing or inconsistent arrays only in <code>__working.h5</code>,
+never in the source. Repair requires an explicit timezone interpretation,
+valid scene coordinates, an above-horizon sun, and manifest provenance.
+Otherwise the flight is reported as <code>blocked_scientific</code> and the remaining
+campaign continues.</p>
+<p>Manifest datetimes without an offset are localized with
+<code>drone_manifest_timezone</code>, whose explicit default is UTC. The bundled
+historical field manifest does not document its timezone, so UTC remains a
+processing assumption rather than a verified interpretation. Use a verified
+IANA zone when campaign records used local time; DST ambiguity is rejected.
+See <a href="../../vignettes/drone-processing/#restart-and-outputs">Process drone imagery</a>
+for the audit contract and read-only census command.</p>
 <p>When <code>apply_topo=True</code> or <code>apply_brdf=True</code>, solar geometry is required by
 default. Set <code>require_solar_geometry=False</code> only when you intentionally want to
 allow an uncorrected fallback for incomplete inputs.</p>
@@ -2831,6 +2837,9 @@ allow an uncorrected fallback for incomplete inputs.</p>
 <ul>
 <li><code>solar_geometry_source</code>: <code>raster</code>, <code>scalar</code>, <code>manifest_computed</code>, or <code>missing</code></li>
 <li><code>acquisition_datetime_used</code></li>
+<li>acquisition timezone/source, scene-center coordinates, and source fingerprint</li>
+<li>embedded-versus-expected zenith and circular-azimuth residuals</li>
+<li>validation status, repair decision/reason, and geometry actually used</li>
 <li>solar zenith mean/min/max</li>
 <li>solar azimuth mean/min/max</li>
 </ul>
@@ -2999,6 +3008,7 @@ limitations.</p>
 <p>Each discovered flight gets its own output folder:</p>
 <div class="highlight"><pre><span></span><code>drone_outputs/
   &lt;flight_stem&gt;/
+    spectralbridge_flightline.json
     &lt;flight_stem&gt;__working.h5
     &lt;flight_stem&gt;__working.stage.json
     &lt;flight_stem&gt;__envi.img
@@ -3006,6 +3016,8 @@ limitations.</p>
     &lt;flight_stem&gt;__corrected.img
     &lt;flight_stem&gt;__corrected.hdr
     &lt;flight_stem&gt;__corrected__correction.stage.json
+    &lt;flight_stem&gt;__micasense_&lt;target&gt;_matched_envi.img
+    &lt;flight_stem&gt;__micasense_&lt;target&gt;_matched_envi.hdr
     &lt;flight_stem&gt;__landsat_like_&lt;target&gt;_translated_envi.img
     &lt;flight_stem&gt;__landsat_like_&lt;target&gt;_translated_envi.hdr
     &lt;flight_stem&gt;__landsat_like_&lt;target&gt;_translated_envi__translation.json
@@ -3019,8 +3031,8 @@ limitations.</p>
     qa_publication/
       &lt;translated_stem&gt;__translation_quality.png
       &lt;translated_stem&gt;__translation_quality.pdf
-  drone_merged.parquet
-  drone_landsat_like_merged.parquet
+  drone_merged.parquet                         # only with merge_extractions=True
+  drone_landsat_like_merged.parquet            # only with merge_extractions=True
   drone_qa_summary.json
   qa/summary/drone_qa_summary.png
   qa/summary/drone_qa_summary.json
@@ -3029,6 +3041,9 @@ limitations.</p>
 </code></pre></div>
 <p>Parquet remains the authoritative tabular output. CSV sidecars, when present in
 drone workflows, are convenience copies for external tools.
+Per-flight tables are the default scalable contract. Campaign-wide pixel-table
+merges are disabled unless <code>merge_extractions=True</code>; direct bulk analysis does
+not require them.
 The stage records are the restart contract: a product is reused only when the
 recorded source/configuration fingerprint matches and the product validates.
 Optional STAC Landsat crops follow the same rule: their JSON records bind the
@@ -3040,7 +3055,8 @@ damaged crop is rebuilt rather than trusted because both files merely exist.</p>
 
 <span class="n">output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"drone_outputs"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"qa_summary_path"</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"merged"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"processed"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"matched_source_outputs"</span><span class="p">])</span>
 
 <span class="k">for</span> <span class="n">qa_png</span> <span class="ow">in</span> <span class="n">output_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*/*__qa.png"</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">qa_png</span><span class="p">)</span>
@@ -3048,6 +3064,20 @@ damaged crop is rebuilt rather than trusted because both files merely exist.</p>
 <p>The QA JSON records whether requested topographic or BRDF corrections were
 applied, skipped because ancillary data were unavailable, or reverted because
 the corrected product failed quality checks.</p>
+<p>To continue an interrupted campaign, rerun the same call with the original
+input root and the same output root. Do not point discovery at a generated
+working H5. Stage signatures reuse valid work and rebuild only stale or missing
+derived products.</p>
+<p>Completed drone products feed bulk analysis without renaming or manual merge:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spectralbridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_bulk_pipeline</span>
+
+<span class="n">bulk</span> <span class="o">=</span> <span class="n">run_bulk_pipeline</span><span class="p">(</span>
+    <span class="s2">"drone_outputs"</span><span class="p">,</span>
+    <span class="s2">"drone_bulk_analysis"</span><span class="p">,</span>
+    <span class="n">input_mode</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
+    <span class="n">analysis</span><span class="o">=</span><span class="s2">"translation"</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
 <h2 id="translation-and-validation-architecture">Translation and validation architecture<a class="headerlink" href="#translation-and-validation-architecture" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>DRONE
 TIFF + ancillary + manifest

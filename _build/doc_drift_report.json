@@ -5,6 +5,7 @@
       "micasense_to_match_oli_and_oli",
       "micasense_to_match_oli_oli",
       "micasense_to_match_tm_etm",
+      "micasense_to_match_tm_etm+_envi",
       "micasense_to_match_tm_etm_plus"
     ]
   },
@@ -18,6 +19,8 @@
       "_landsat_tm_envi.img",
       "_landsat_tm_envi.parquet",
       "_micasense*_envi.img",
+      "_micasense_<target>_matched_envi.hdr",
+      "_micasense_<target>_matched_envi.img",
       "_micasense_envi.hdr",
       "_micasense_envi.img"
     ],
@@ -35,6 +38,7 @@
       "MicaSense-to-Landsat-like",
       "MicaSense.",
       "MicaSense/Landsat",
+      "MicaSense/Landsat-like",
       "MicaSense;",
       "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
       "Micasense,,",
@@ -55,6 +59,9 @@
       "micasense-to-landsat.md)",
       "micasense-to-landsat`",
       "micasense.json`",
+      "micasense_<target>_matched_envi.(img\\|hdr)`",
+      "micasense_<target>_matched_envi.hdr",
+      "micasense_<target>_matched_envi.img",
       "micasense_envi\",",
       "micasense_envi.hdr",
       "micasense_envi.hdr,",
@@ -170,6 +177,16 @@
     "topo_and_brdf_correction.py": [
       "--config_file"
     ],
+    "neon_to_envi.py": [
+      "--brightness-offset"
+    ],
+    "standard_resample.py": [
+      "--hdr_path",
+      "--json_file",
+      "--output_path",
+      "--resampling_file_path",
+      "--sensor_type"
+    ],
     "parquet_validation.py": [
       "--soft"
     ],
@@ -177,9 +194,6 @@
       "--base-folder",
       "--out-parquet",
       "--out-png"
-    ],
-    "neon_to_envi.py": [
-      "--brightness-offset"
     ],
     "merge_duckdb.py": [
       "--corrected-glob",
@@ -195,19 +209,6 @@
       "--resampled-glob",
       "--write-feather"
     ],
-    "standard_resample.py": [
-      "--hdr_path",
-      "--json_file",
-      "--output_path",
-      "--resampling_file_path",
-      "--sensor_type"
-    ],
-    "download.py": [
-      "--flight",
-      "--output",
-      "--product",
-      "--year-month"
-    ],
     "pipeline.py": [
       "--brightness-offset",
       "--no-sync",
@@ -217,6 +218,35 @@
       "--resample-method",
       "--use-ndvi-brdf-bins",
       "--verbose"
+    ],
+    "download.py": [
+      "--flight",
+      "--output",
+      "--product",
+      "--year-month"
+    ],
+    "qa_summary_cli.py": [
+      "--output-pdf",
+      "--pattern"
+    ],
+    "pipeline_cli.py": [
+      "--base-folder",
+      "--brightness-offset",
+      "--engine",
+      "--flight-lines",
+      "--max-workers",
+      "--merge-memory-limit",
+      "--merge-row-group-size",
+      "--merge-temp-directory",
+      "--merge-threads",
+      "--parquet-chunk-size",
+      "--product-code",
+      "--qa-mode",
+      "--resample-method",
+      "--site-code",
+      "--topo-fit-mode",
+      "--use-ndvi-brdf-bins",
+      "--year-month"
     ],
     "bulk_cli.py": [
       "--allow-no-translation",
@@ -258,6 +288,10 @@
       "--threads",
       "--translation-pair"
     ],
+    "recover_cli.py": [
+      "--base-folder",
+      "--brightness-offset"
+    ],
     "qa_cli.py": [
       "--base-folder",
       "--full",
@@ -272,33 +306,6 @@
       "--force",
       "--mode",
       "--topo-fit-mode"
-    ],
-    "qa_summary_cli.py": [
-      "--output-pdf",
-      "--pattern"
-    ],
-    "recover_cli.py": [
-      "--base-folder",
-      "--brightness-offset"
-    ],
-    "pipeline_cli.py": [
-      "--base-folder",
-      "--brightness-offset",
-      "--engine",
-      "--flight-lines",
-      "--max-workers",
-      "--merge-memory-limit",
-      "--merge-row-group-size",
-      "--merge-temp-directory",
-      "--merge-threads",
-      "--parquet-chunk-size",
-      "--product-code",
-      "--qa-mode",
-      "--resample-method",
-      "--site-code",
-      "--topo-fit-mode",
-      "--use-ndvi-brdf-bins",
-      "--year-month"
     ]
   }
 }

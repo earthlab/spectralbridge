@@ -2874,6 +2874,11 @@
 </thead>
 <tbody>
 <tr>
+<td>Flight identity</td>
+<td><code>&lt;flight&gt;/spectralbridge_flightline.json</code></td>
+<td>Generic flight ID, site, acquisition date, platform, and authoritative source identity used by direct bulk discovery.</td>
+</tr>
+<tr>
 <td>Working H5</td>
 <td><code>&lt;flight&gt;__working.h5</code></td>
 <td>NeonCube-compatible bridge retaining the original package, manifest, spatial, wavelength, nodata, ancillary, and solar-geometry provenance.</td>
@@ -2894,6 +2899,11 @@
 <td>Affine translated product with target-band wavelengths. It is not an actual Landsat observation.</td>
 </tr>
 <tr>
+<td>Matched native source raster</td>
+<td><code>&lt;flight&gt;__micasense_&lt;target&gt;_matched_envi.(img\|hdr)</code></td>
+<td>Exact wavelength-selected native MicaSense bands paired with one translated target; this is the source side of direct bulk analysis.</td>
+</tr>
+<tr>
 <td>Translation provenance</td>
 <td><code>&lt;translated_stem&gt;__translation.json</code></td>
 <td>Coefficient fingerprint/run/weighting, exact equation, sensor pair, per-band wavelength mapping and coefficients, source fingerprint, range checks, output summaries, and warnings.</td>
@@ -2909,9 +2919,9 @@
 <td>Existing extraction contract plus source-package, working-H5, corrected/translated raster, coefficient, acquisition-time, and band-mapping provenance.</td>
 </tr>
 <tr>
-<td>Merged translated library</td>
-<td><code>drone_landsat_like_merged.parquet</code></td>
-<td>Run-level merge of all translated full or polygon libraries.</td>
+<td>Optional merged libraries</td>
+<td><code>drone_merged.parquet</code>, <code>drone_landsat_like_merged.parquet</code></td>
+<td>Legacy run-level pixel-table merges written only when <code>merge_extractions=True</code>; not required by bulk analysis.</td>
 </tr>
 <tr>
 <td>Standalone translation QA</td>
@@ -2950,12 +2960,12 @@
 </tr>
 </tbody>
 </table>
-<p class="sb-doc-note">A drone flight is counted as complete only after its requested H5, ENVI, correction, translation, extraction, provenance, and QA artifacts validate. Incomplete runs raise by default while preserving a structured audit. Valid working H5, corrected ENVI, translated ENVI, and translated Parquet outputs are reused when their signatures remain current; existing working H5 files can be resumed directly. Optional actual-Landsat or NEON comparison unavailability does not invalidate core products.</p>
+<p class="sb-doc-note">A drone flight is counted as complete only after its requested H5, ENVI, correction, translation, extraction, provenance, and QA artifacts validate. Incomplete runs raise by default while preserving a structured audit; unsafe solar inputs are classified separately as <code>blocked_scientific</code>. Valid derived outputs are reused when their signatures remain current. Continuation always starts from the authoritative original input root—generated <code>__working.h5</code> files are ignored by discovery and rejected as direct sources. Optional actual-Landsat or NEON comparison unavailability does not invalidate core products.</p>
 </section>
 <section class="sb-doc-section">
 <p class="sb-kicker">Cross-run analysis</p>
 <h2 id="independent-bulk-pipeline-contract">Independent bulk-pipeline contract<a class="headerlink" href="#independent-bulk-pipeline-contract" title="Permanent link">&para;</a></h2>
-<p>The optional <code>spectralbridge-bulk</code> workflow consumes completed or minimally staged scientific flightline directories beneath arbitrary storage folders. Identity comes from a generic manifest or another configured parser, never the outer folder. It streams required target-sensor ENVI products in place and writes only compact analytical products to a separate output; it does not modify normal or drone runs. Canonical NEON names and prebuilt merged Parquets remain compatible inputs.</p>
+<p>The optional <code>spectralbridge-bulk</code> workflow consumes completed or minimally staged scientific flightline directories beneath arbitrary storage folders. Identity comes from a generic manifest or another configured parser, never the outer folder. Completed drone output roots are directly discoverable because each flight contains the generic identity manifest plus matched native-MicaSense and translated Landsat-like ENVI pairs. Bulk streams those products in place and writes only compact analytical products to a separate output; it does not modify normal or drone runs. Canonical NEON names and prebuilt merged Parquets remain compatible inputs.</p>
 <table>
 <thead>
 <tr>

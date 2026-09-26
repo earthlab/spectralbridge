@@ -3012,11 +3012,12 @@ bulk-run provenance before writing a translated product.</p>
     <span class="n">apply_brdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">apply_translation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">translation_strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">drone_manifest_timezone</span><span class="o">=</span><span class="s2">"UTC"</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"processed"</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"translation_outputs"</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"translated_merged"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"matched_source_outputs"</span><span class="p">])</span>
 </code></pre></div>
 <p><code>run_drone_pipeline()</code> now treats missing requested products as an incomplete
 run, rather than returning a successful-looking result. It validates the
@@ -3028,7 +3029,10 @@ attribute and <code>drone_qa_summary.json</code> retain per-flight reasons. Set
 <code>raise_on_incomplete=False</code> only when intentionally collecting a structured
 partial batch result. A polygon run with no intersecting pixels is incomplete,
 not a successful extraction. Optional actual-Landsat comparison remains
-non-blocking when no acceptable observation is available.</p>
+non-blocking when no acceptable observation is available. Flights whose
+required scientific geometry cannot be validated or safely repaired are
+reported separately in <code>results["blocked"]</code>; they are not mislabeled as
+software failures.</p>
 <p>Use <code>extraction_mode="full"</code> for all corrected pixels. Omitting
 <code>extraction_mode</code> preserves the earlier behavior: polygon extraction when a
 polygon is supplied, otherwise raster and QA outputs only. Translation remains
@@ -3060,31 +3064,38 @@ pairs are drone-like versus actual, NEON-like versus actual, and drone-like
 versus NEON-like. NEON is optional and is never processed by drone code.</p>
 <h2 id="restart-and-outputs">Restart and outputs<a class="headerlink" href="#restart-and-outputs" title="Permanent link">&para;</a></h2>
 <p>Solar geometry deserves a separate review before accepting corrected products.
-Supplied H5 arrays (including historical <code>Metadata/Logs/Solar_*</code> arrays) are
-used as-is; missing H5 angles are not synthesized from the manifest. The working H5
-links legacy names without changing angle values; <code>NeonCube</code> interprets them
-as degrees and converts to radians for topo and BRDF. For TIFF input, aligned
-solar rasters take precedence over explicit scalar angles, which take
-precedence over manifest-derived geometry. The manifest's “Mean Time of data
-collection (24 hr clock)” has no documented timezone. A plausible 0–90°
-zenith is therefore <strong>not</strong> evidence that it matches the flight's date and
-location. The current TIFF derivation treats naive manifest time as
-UTC; do not assume that convention is correct for historical flights without
-checking its provenance.</p>
-<p><code>run_drone_pipeline</code> adds a read-only <code>solar_geometry_consistency</code> record to
-each flight QA audit. It contains selected H5 dataset paths, dtype, shape,
-attributes, scene-center coordinates, candidate solar positions, circular
-azimuth residuals, and a status. The calculation reuses the package's
+The original HDF5 or TIFF package is authoritative and read-only. Discovery
+ignores generated <code>__working.h5</code> files. Every run starts from the original
+source, then reuses or rebuilds the derived working copy according to its stage
+signature. Passing a working H5 as a source is rejected because it loses the
+provenance needed to decide whether a repair remains valid.</p>
+<p>For HDF5 input, the working-copy stage compares embedded solar arrays with an
+independent scene-center position computed from the acquisition datetime and
+georeference. A valid array is preserved. A missing or materially inconsistent
+array is replaced <strong>only in the working copy</strong> when the datetime has an explicit
+timezone, scene coordinates are valid, the expected sun is above the horizon,
+and manifest provenance authorizes the repair. The canonical
+<code>Solar_Zenith_Angle</code> and <code>Solar_Azimuth_Angle</code> datasets are then used by
+topographic/BRDF correction. The source H5 fingerprint is verified before and
+after repair. If those conditions are not met, the flight is
+<code>blocked_scientific</code> instead of being silently corrected with questionable
+geometry.</p>
+<p>For TIFF input, aligned solar rasters take precedence over explicit scalar
+angles, which take precedence over manifest-derived geometry. Naive manifest
+times are localized with <code>drone_manifest_timezone</code> (default <code>"UTC"</code>); pass a
+verified IANA zone when the campaign used local civil time. Ambiguous DST
+times, malformed dates, missing coordinates, conflicting duplicate manifest
+rows, and below-horizon solutions block the affected flight while the campaign
+continues.</p>
+<p>Each flight audit records source and UTC-normalized acquisition time, timezone,
+coordinate source and scene center, embedded and expected angle summaries,
+zenith and circular-azimuth residuals, validation status, geometry actually
+used, repair decision/reason, and source fingerprint. The calculation reuses the package's
 approximate <a href="https://gml.noaa.gov/grad/solcalc/solareqns.PDF">NOAA-style solar-position equations</a>,
-not a precise ephemeris. An aware acquisition time, or an explicitly
-supplied <code>solar_qa_timezone="UTC"</code> (or verified IANA zone), permits a provisional
-comparison: <code>PASS</code> within 5°, <code>WARN</code> at 5–20°, and <code>FAIL</code> above 20° in either
-angle. These broad review bands account for scene-center and collection-time
-uncertainty; they are not scientific calibration limits. Missing location/time
-or an unverified naive timezone yields <code>NOT_EVALUATED</code>. None of these statuses
-silently replaces the supplied geometry or invalidates correction-stage
-signatures. Treat a <code>FAIL</code> as a reason to hold scientific interpretation and
-investigate provenance, not as permission to substitute 90-minus-angle.</p>
+not a precise ephemeris. The 5° validation tolerance is inclusive and applies
+to zenith plus circular azimuth residuals. These are workflow validation bounds,
+not universal calibration limits, and the code never substitutes
+<code>90 - angle</code> as an undocumented repair.</p>
 <p>On a production VM, inspect existing working H5 files without rerunning
 corrections or rewriting products:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python<span class="w"> </span>scripts/diagnose_drone_solar_geometry.py<span class="w"> </span><span class="se">\</span>
@@ -3092,25 +3103,58 @@ corrections or rewriting products:</p>
 <span class="w">  </span>--output<span class="w"> </span>/home/jovyan/data-store/SpectralBridge_Drone_2023_2024_Production/solar_validation/solar_geometry.csv<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--candidate-timezone<span class="w"> </span>UTC<span class="w"> </span>--candidate-timezone<span class="w"> </span>America/Denver
 </code></pre></div>
-<p>The two timezone candidates in the CSV's <code>candidate_positions_json</code> column
-are hypothetical interpretations until the field
-manifest's convention is independently verified. Only then rerun with
-<code>--naive-timezone &lt;verified-zone&gt;</code> to assign evaluative statuses. Review source
-dataset units, scale/fill attributes, collection date, and scene CRS alongside
-the residuals. The CSV separately flags when a flight filename date and
-manifest date differ; such a mismatch requires provenance review, since a
-package filename need not be the acquisition date. Existing topo/BRDF
-products remain restartable but should not be used as validated scientific
-corrections while their solar geometry is in question.</p>
+<p>The two timezone candidates in the CSV are hypothetical interpretations until
+the field manifest's convention is independently verified. Review source
+dataset units, scale/fill attributes, collection date, scene CRS, and circular
+residuals together. A filename/manifest date mismatch requires provenance
+review because a package filename need not be the acquisition date.</p>
 <p>Valid working H5, corrected ENVI, translated ENVI, and translated Parquet
 products are reused when their inputs and translation signatures match.
 Legacy H5 sun-angle arrays under <code>Reflectance/Metadata</code>, including nested
 <code>to-sun_*</code> datasets, are exposed through lightweight links in the <em>working</em>
-copy; source H5 files are not changed. Existing valid <code>__working.h5</code> files can
-be passed directly as <code>input_h5_dir</code>, with <code>output_dir</code> set to the containing
-package output directory. Missing later outputs then resume from the first
-incomplete stage. Do not set <code>overwrite=True</code> for an ordinary continuation.
-Optional Landsat failure does not invalidate or recompute core products. See
+copy; source H5 files are not changed. Continue a campaign by rerunning the
+same command against the original input root and same output root. Missing or
+signature-invalid stages resume from the first incomplete stage. Do not set
+<code>overwrite=True</code> for an ordinary continuation.</p>
+<p>Each completed flight directory contains <code>spectralbridge_flightline.json</code> and
+matched native-MicaSense/Landsat-like ENVI pairs. Consequently
+<code>run_bulk_pipeline(drone_outputs, ..., input_mode="auto")</code> discovers completed
+drone flights directly; no manual rename or campaign-wide pixel merge is
+needed. Per-flight Parquets remain authoritative. Set <code>merge_extractions=True</code>
+only when a legacy consumer explicitly requires the optional run-level merged
+tables.</p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Role</th>
+<th>Regeneration rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Original H5/TIFF package</td>
+<td>Authoritative immutable input</td>
+<td>Never generated or modified</td>
+</tr>
+<tr>
+<td><code>__working.h5</code></td>
+<td>Derived, restartable bridge and repair target</td>
+<td>Reuse only when source/config/solar signature matches</td>
+</tr>
+<tr>
+<td>ENVI, translation, extraction, and QA outputs</td>
+<td>Derived scientific products</td>
+<td>Reuse only when their stage contracts validate</td>
+</tr>
+<tr>
+<td><code>spectralbridge_flightline.json</code> and stage/provenance JSON</td>
+<td>Identity and audit contract</td>
+<td>Required and deterministic</td>
+</tr>
+</tbody>
+</table>
+<p>Optional Landsat failure does not invalidate or recompute core products. See
 <a href="../../pipeline/outputs/">outputs and naming</a> for the complete contract, and
 review every QA JSON before treating a coefficient application as trustworthy.</p>
 <h2 id="continue">Continue<a class="headerlink" href="#continue" title="Permanent link">&para;</a></h2>

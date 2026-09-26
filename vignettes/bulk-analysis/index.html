@@ -3088,6 +3088,11 @@ copy is authoritative.</p>
 <code>*_polygons_merged_pixel_extraction.parquet</code> inputs remain supported through
 <code>input_mode="merged_parquet"</code>. Automatic mode prefers identifiable flightline
 directories and otherwise uses this compatibility path.</p>
+<p>Completed drone output roots are native <code>input_mode="auto"</code> inputs. Each
+flight's <code>spectralbridge_flightline.json</code> supplies identity, while the matched
+native-MicaSense and affine translated Landsat-like ENVI pairs supply the
+translation relationship. Bulk reads these per-flight products in place; do
+not rename them and do not create a campaign-wide pixel Parquet first.</p>
 <h2 id="analysis-profiles-and-minimal-archives">Analysis profiles and minimal archives<a class="headerlink" href="#analysis-profiles-and-minimal-archives" title="Permanent link">&para;</a></h2>
 <p>Processing completeness, product availability, and analysis eligibility are
 separate catalog fields. The built-in <code>translation</code> profile requires a complete
