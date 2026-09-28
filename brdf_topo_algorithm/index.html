@@ -2779,6 +2779,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../hytools_manuscript_guidance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HyTools manuscript guidance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../dev/publication-readiness-audit-2026-08-14/" class="md-nav__link">
         
   
@@ -2863,7 +2891,14 @@
 <h1 id="streamlined-brdf-topographic-corrections">Streamlined BRDF + Topographic corrections<a class="headerlink" href="#streamlined-brdf-topographic-corrections" title="Permanent link">&para;</a></h1>
 <p>This document summarises the updated streamlined correction path so it aligns with
 HyTools/FlexBRDF behaviour.</p>
+<p>The Ross/Li kernel helpers and parts of the BRDF path have documented HyTools
+implementation lineage. SCS+C is treated separately as a shared published
+method. See the repository's
+<a href="https://github.com/earthlab/spectralbridge/blob/main/HYTOOLS_PROVENANCE.md">HyTools provenance audit</a>
+for the fixed revisions and component-level classifications.</p>
 <h2 id="topographic-correction-scsc">Topographic correction (SCS+C)<a class="headerlink" href="#topographic-correction-scsc" title="Permanent link">&para;</a></h2>
+<p>The SCS+C equations follow Soenen, Peddle, and Coburn (2005),
+DOI <a href="https://doi.org/10.1109/TGRS.2005.852480"><code>10.1109/TGRS.2005.852480</code></a>.</p>
 <ul>
 <li>For each band a regression <code>rho = a*cos(i) + b</code> is fit over valid pixels to
   recover the C-parameter <code>C=b/a</code>.</li>
@@ -2928,6 +2963,12 @@ footprint and is the recommended setting for new NEON runs.</p>
   when no explicit coefficients are available.</li>
 </ul>
 <h2 id="brdf-fitting-and-application">BRDF fitting and application<a class="headerlink" href="#brdf-fitting-and-application" title="Permanent link">&para;</a></h2>
+<p>The Ross/Li kernel family is described by Wanner, Li, and Strahler (1995),
+DOI <a href="https://doi.org/10.1029/95JD02371"><code>10.1029/95JD02371</code></a>, and Lucht, Schaaf,
+and Strahler (2000), DOI
+<a href="https://doi.org/10.1109/36.841980"><code>10.1109/36.841980</code></a>. SpectralBridge's
+kernel implementation was adapted from HyTools; citing the scientific methods
+does not replace that software attribution.</p>
 <ul>
 <li>Per-band, per-bin regressions solve <code>rho = f_iso + f_vol*K_vol + f_geo*K_geo</code>.</li>
 <li>Stored reflectance is converted to unitless reflectance before fitting and

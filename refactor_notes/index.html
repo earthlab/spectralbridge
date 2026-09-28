@@ -23,7 +23,7 @@
     
     
       
-        <title>Refactor Notes: HyTools-Free Pipeline - SpectralBridge</title>
+        <title>Refactor Notes: Pipeline Without a HyTools Runtime Dependency - SpectralBridge</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#refactor-notes-hytools-free-pipeline" class="md-skip">
+        <a href="#refactor-notes-pipeline-without-a-hytools-runtime-dependency" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Refactor Notes: HyTools-Free Pipeline
+              Refactor Notes: Pipeline Without a HyTools Runtime Dependency
             
           </span>
         </div>
@@ -2632,6 +2632,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../hytools_manuscript_guidance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HyTools manuscript guidance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../dev/publication-readiness-audit-2026-08-14/" class="md-nav__link">
         
   
@@ -2713,7 +2741,7 @@
   
 
 
-<h1 id="refactor-notes-hytools-free-pipeline">Refactor Notes: HyTools-Free Pipeline<a class="headerlink" href="#refactor-notes-hytools-free-pipeline" title="Permanent link">&para;</a></h1>
+<h1 id="refactor-notes-pipeline-without-a-hytools-runtime-dependency">Refactor Notes: Pipeline Without a HyTools Runtime Dependency<a class="headerlink" href="#refactor-notes-pipeline-without-a-hytools-runtime-dependency" title="Permanent link">&para;</a></h1>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>These notes document the current SpectralBridge processing pipeline after removing the runtime dependency on HyTools. The steps below describe what the code does today so collaborators can reproduce results and audit intermediate products.</p>
 <h2 id="end-to-end-pipeline">End-to-End Pipeline<a class="headerlink" href="#end-to-end-pipeline" title="Permanent link">&para;</a></h2>
@@ -2723,8 +2751,8 @@
    Download or copy the required NEON Airborne Observation Platform (AOP) reflectance HDF5 files to a local workspace before running the pipeline.</p>
 </li>
 <li>
-<p><strong>Convert HDF5 to ENVI without HyTools</strong><br />
-<code>neon_to_envi_no_hytools()</code> opens the HDF5 file with <code>NeonCube</code>, streams the cube out in spatial tiles, and writes a float32 BSQ ENVI dataset via <code>EnviWriter</code>. It simultaneously exports ancillary rasters (solar/sensor geometry, slope, aspect, etc.) needed for correction. The result is an uncorrected directional reflectance <code>.img/.hdr</code> pair for each flightline. HyTools and Ray are not invoked in this stage—the conversion logic is entirely internal.</p>
+<p><strong>Convert HDF5 to ENVI without importing HyTools at runtime</strong><br />
+<code>neon_to_envi_no_hytools()</code> opens the HDF5 file with <code>NeonCube</code>, streams the cube out in spatial tiles, and writes a float32 BSQ ENVI dataset via <code>EnviWriter</code>. It simultaneously exports ancillary rasters (solar/sensor geometry, slope, aspect, etc.) needed for correction. The result is an uncorrected directional reflectance <code>.img/.hdr</code> pair for each flightline. HyTools and Ray are not imported in this stage. The historical function name describes runtime behavior; <code>NeonCube</code> and <code>EnviWriter</code> retain the adapted implementation lineage recorded in <code>HYTOOLS_PROVENANCE.md</code>.</p>
 </li>
 <li>
 <p><strong>Persist correction parameters</strong>
@@ -2780,7 +2808,7 @@
 <li>Convolution-friendly helpers for chunk-wise processing.</li>
 <li><code>spectralbridge/pipelines/pipeline.py</code></li>
 <li><code>go_forth_and_multiply()</code></li>
-<li>Orchestrates downloads, H5→ENVI export (no HyTools), BRDF fitting, topographic+BRDF correction, and spectral convolution.</li>
+<li>Orchestrates downloads, H5→ENVI export without a HyTools runtime import, BRDF fitting, topographic+BRDF correction, and spectral convolution.</li>
 <li><code>spectralbridge/deprecated/hytools.py</code></li>
 <li>Retains the older HyTools/Ray-backed correction workflow for legacy compatibility.</li>
 <li>Not used by the main NEON pipeline; the historical <code>spectralbridge/topo_and_brdf_correction.py</code> path now exists as a deprecated shim.</li>
