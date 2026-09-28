@@ -1,8 +1,17 @@
-"""
-Portions of this module are adapted from HyTools: Hyperspectral image
-processing library (GPLv3).
-HyTools Authors: Adam Chlus, Zhiwei Ye, Philip Townsend.
-This adapted version is simplified for NEON-only use in cross-sensor-cal.
+"""ENVI header and float32 BSQ writing helpers adapted from HyTools.
+
+The current implementation is modified and narrowed to SpectralBridge's output
+contracts; its implementation lineage remains documented.
+
+HyTools: Hyperspectral image processing library
+Copyright (C) 2021 University of Wisconsin
+Authors named in the relevant source notices: Adam Chlus, Zhiwei Ye, Philip Townsend.
+License: GNU General Public License, version 3
+Upstream: https://github.com/EnSpec/hytools
+Audited revision: 31286d64541791a9815d29443a33726fa4d54031
+
+Modified for SpectralBridge. See ``LICENSE``, ``NOTICE``, and
+``HYTOOLS_PROVENANCE.md``.
 """
 
 from __future__ import annotations

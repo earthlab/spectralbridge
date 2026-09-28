@@ -1,8 +1,22 @@
-"""
-Portions of this module are adapted from HyTools: Hyperspectral image
-processing library (GPLv3).
-HyTools Authors: Adam Chlus, Zhiwei Ye, Philip Townsend.
-This adapted version is simplified for NEON-only use in cross-sensor-cal.
+"""BRDF and topographic correction helpers.
+
+Portions of this module are adapted from HyTools. The incidence-angle, Ross/Li
+kernel, and BRDF fitting/application lineage is detailed in
+``HYTOOLS_PROVENANCE.md``. The SCS+C implementation follows the published method
+of Soenen et al. (2005), DOI 10.1109/TGRS.2005.852480; it is classified
+separately from the adapted incidence helper.
+
+HyTools: Hyperspectral image processing library
+Copyright (C) 2021 University of Wisconsin
+Authors named in the relevant source notices: Adam Chlus, Zhiwei Ye, Philip Townsend.
+License: GNU General Public License, version 3
+Upstream: https://github.com/EnSpec/hytools
+Audited revision: 31286d64541791a9815d29443a33726fa4d54031
+
+Modified and extended for SpectralBridge. See ``LICENSE``, ``NOTICE``, and
+``HYTOOLS_PROVENANCE.md``. The Ross/Li kernel equations are described by Wanner
+et al. (1995), DOI 10.1029/95JD02371, and Lucht et al. (2000), DOI
+10.1109/36.841980.
 """
 
 from __future__ import annotations
@@ -458,6 +472,10 @@ def fit_scs_c_coefficients(
 ) -> np.ndarray:
     """Fit per-band SCS+C ``C`` parameters over a full NeonCube footprint.
 
+    Implements the method of Soenen et al. (2005), DOI
+    10.1109/TGRS.2005.852480. The audit found no material source match between
+    this fitting/application code and HyTools' SCS+C implementation.
+
     Streams reflectance tiles and accumulates ordinary-least-squares sufficient
     statistics so scene-wide topographic fits do not require holding a second
     full corrected cube in memory.
@@ -546,6 +564,10 @@ def apply_topo_correct(
     scs_c: np.ndarray | None = None,
 ) -> np.ndarray:
     """Topographic (illumination) correction on a hyperspectral chunk.
+
+    The SCS+C branch implements Soenen et al. (2005), DOI
+    10.1109/TGRS.2005.852480. ``calc_cosine_i``, used here, has separately
+    documented HyTools implementation lineage.
 
     Parameters
     ----------

@@ -1,11 +1,14 @@
 include README.md
 include LICENSE
+include NOTICE
+include HYTOOLS_PROVENANCE.md
 include CITATION.cff
 include pyproject.toml
 include pytest.ini
 include mkdocs.yml
 include requirements-dev.txt
 include environment.yaml
+recursive-include provenance *.json
 
 recursive-include src/spectralbridge/data *.json
 recursive-include docs *.md *.png *.jpg *.jpeg *.svg *.css *.js *.yml *.yaml

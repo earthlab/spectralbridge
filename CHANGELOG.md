@@ -2,6 +2,10 @@
 
 ### Added
 
+- A fixed-revision HyTools source-provenance audit, third-party notice,
+  manuscript guidance, machine-readable component manifest, and offline
+  attribution guardrail. Documentation now distinguishes removal of the
+  HyTools runtime dependency from retained HyTools implementation lineage.
 - A separate, restart-safe bulk-analysis pipeline that discovers completed
   flightlines and streams immutable ENVI target products into compact,
   mergeable sufficient statistics without creating an ordinary pixel cache.

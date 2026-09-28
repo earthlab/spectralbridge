@@ -89,6 +89,10 @@ Post-tag verification:
 - [ ] Verify the Zenodo release record after each GitHub release (title, version, DOI target, and badge target). See `docs/dev/doi-zenodo.md`.
 
 ## 6. Licensing & Governance
+- [x] Complete a fixed-revision technical code-provenance audit of HyTools
+  relationships, package contents, source notices, and manuscript wording.
+- [ ] Obtain maintainer/legal review of the HyTools audit and notice sufficiency
+  before the final public-release decision or any license change.
 - [ ] Complete a provenance/legal review before changing the repository from GPLv3 to any future Apache 2.0 target. Current repo text still references GPL-derived HyTools adaptations.
 - [ ] Ensure all third-party code, data, and documentation comply with the chosen license and attribution requirements.
 - [ ] Identify maintainers and add contact information/support policy in README and docs.

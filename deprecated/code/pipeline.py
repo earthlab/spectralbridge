@@ -111,7 +111,7 @@ def process_flightline(
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    logger.info("📦 Exporting ENVI (no HyTools) [%s]...", h5_path.name)
+    logger.info("📦 Exporting ENVI without a HyTools runtime import [%s]...", h5_path.name)
     raw_img_path, raw_hdr_path = export_envi_from_h5(h5_path=h5_path, out_dir=out_dir)
 
     correction_json_path = build_and_write_correction_json(

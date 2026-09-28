@@ -20,6 +20,33 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P90. Audit HyTools Code Provenance, Attribution, And Release Packaging
+
+- Priority: High, user-directed release and manuscript integrity
+- Status: In progress
+- Owner: Codex
+- Started: 2026-09-26
+- SpectralBridge audit baseline: `30344404bf7787b135ed00424e624af43d42c6ab`
+  plus the prompt-log/transparency changes made for this audit
+- Goal: Establish a reproducible, evidence-backed classification of every
+  material SpectralBridge/HyTools code relationship; correct attribution and
+  packaging documentation without changing scientific behavior; add durable
+  offline provenance guardrails and manuscript guidance.
+- Plan: Pin and acquire one HyTools revision; inventory both full source trees,
+  references, licenses, package contents, and history; run raw, normalized,
+  comment/docstring-free, AST, and function-level comparisons; manually review
+  high-risk correction, kernel, NEON I/O, ENVI, resampling, and deprecated
+  components; document classifications and uncertainty before making only
+  evidence-supported attribution/packaging/guardrail changes; then run full
+  tests, documentation, and exact-artifact packaging checks.
+- Guardrails: No similarity-masking rewrites, algorithmic changes, attribution
+  removal, Git-history rewriting, or legal conclusions. Preserve uncertainty
+  and request human/legal review where repository evidence is insufficient.
+- Current blocker: HyTools must be fetched at a fixed commit before the
+  cross-repository mechanical and manual comparison can be completed.
+- Next recommended task: Freeze the HyTools revision and complete the audit
+  inventory before any source-attribution or packaging edit.
+
 ### P89. Validate Historical Drone Solar Geometry Against Independent Position
 
 - Priority: High, user-directed scientific production safety

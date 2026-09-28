@@ -1,3 +1,20 @@
+"""Legacy spectral resampling helpers with HyTools-derived code.
+
+``apply_resampler`` is substantially identical to the HyTools implementation in
+``src/hytools/transform/resampling.py``. Other parts of this module have distinct
+or uncertain lineage; see ``HYTOOLS_PROVENANCE.md``.
+
+HyTools: Hyperspectral image processing library
+Copyright (C) 2021 University of Wisconsin
+Authors named in the relevant source notice: Adam Chlus, Zhiwei Ye, Philip Townsend.
+License: GNU General Public License, version 3
+Upstream: https://github.com/EnSpec/hytools
+Audited revision: 31286d64541791a9815d29443a33726fa4d54031
+
+Modified for SpectralBridge. SpectralBridge's project license and the upstream
+notice are recorded in ``LICENSE``, ``NOTICE``, and ``HYTOOLS_PROVENANCE.md``.
+"""
+
 import os
 import argparse
 from pathlib import Path
@@ -97,7 +114,11 @@ from .file_types import NEONReflectanceBRDFCorrectedENVIHDRFile, NEONReflectance
 
 
 def apply_resampler(hy_obj, data):
-    """ Apply SCSS correction to a slice of the data
+    """Apply a HyTools resampler configuration to a data slice.
+
+    This function is substantially identical to HyTools
+    ``transform.resampling.apply_resampler`` at the audited revision recorded in
+    the module notice. SpectralBridge retains it for the legacy resampling path.
 
     Args:
         hy_obj (TYPE): DESCRIPTION.

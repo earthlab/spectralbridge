@@ -10723,6 +10723,681 @@ Model: GPT-5
 continue
 ```
 
+## 2026-09-26 - HyTools provenance and licensing audit
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+You are working in the Earth Lab SpectralBridge repository:
+
+https://github.com/earthlab/spectralbridge
+
+I need a careful code-provenance, attribution, and licensing audit focused specifically on the relationship between SpectralBridge and HyTools:
+
+https://github.com/EnSpec/hytools
+
+This is preparation for a public software release and software manuscript. The goal is NOT to cosmetically rewrite code so that it looks different from HyTools. The goal is to determine exactly what came from HyTools, what implements the same published scientific algorithms independently, what is original SpectralBridge code, and then make the repository's provenance and attribution accurate, transparent, and defensible.
+
+IMPORTANT PRINCIPLES
+
+1. Do not hide code provenance.
+2. Do not rename variables, rearrange expressions, or mechanically rewrite code merely to reduce apparent similarity.
+3. Do not change scientifically validated behavior unless there is a substantive reason.
+4. Preserve numerical behavior and existing tests.
+5. When SpectralBridge code was adapted from HyTools, say so clearly.
+6. When code merely implements the same published scientific algorithm, distinguish that from source-code derivation.
+7. Prefer citation of the original scientific literature for algorithms, while additionally crediting HyTools when its implementation informed the SpectralBridge implementation.
+8. HyTools is GPLv3 and SpectralBridge is currently GPLv3. Verify this rather than assuming it.
+9. Treat this as a provenance and licensing audit, not merely a text-similarity exercise.
+10. Do not remove attribution or copyright notices.
+11. Do not make legal claims that cannot be established from the repositories. Flag anything requiring legal review.
+12. Make no destructive changes until the audit is complete.
+
+============================================================
+PHASE 1: FREEZE AND DOCUMENT THE COMPARISON
+============================================================
+
+Record:
+
+- SpectralBridge commit SHA being audited
+- HyTools commit SHA being audited
+- repository URLs
+- license detected for each repository
+- audit date
+
+Use a fixed HyTools commit for the comparison so the audit is reproducible.
+
+Inspect the COMPLETE source trees, including:
+
+- src/
+- scripts/
+- bin/
+- deprecated/
+- tests/
+- notebooks where practical
+- package metadata
+- documentation
+- configuration files
+- historical/vendor-looking directories
+
+Do not limit the search to files containing the word "HyTools".
+
+============================================================
+PHASE 2: FIND ALL EXISTING HYTOOLS REFERENCES
+============================================================
+
+Search SpectralBridge case-insensitively for:
+
+HyTools
+hytools
+Chlus
+Ye
+Townsend
+University of Wisconsin
+GPL
+adapted
+derived
+vendor
+vendored
+open_neon
+WriteENVI
+BRDF
+Ross
+LiSparse
+LiDense
+SCS
+SCS+C
+cosine_i
+topographic
+topo
+ENVI
+
+Create an inventory of every occurrence.
+
+For each occurrence determine whether it represents:
+
+- attribution
+- documentation
+- runtime dependency
+- compatibility code
+- historical code
+- vendored code
+- adapted code
+- algorithmic reference
+- test/validation reference
+- irrelevant mention
+
+Pay special attention to files already known to have a HyTools relationship, including at minimum:
+
+src/spectralbridge/corrections.py
+src/spectralbridge/neon_cube.py
+src/spectralbridge/envi_writer.py
+src/spectralbridge/hytools_compat.py
+src/spectralbridge/deprecated/
+deprecated/code/
+deprecated/docs/
+docs/refactor_notes.md
+docs/brdf_topo_algorithm.md
+
+but DO NOT assume this list is complete.
+
+============================================================
+PHASE 3: MECHANICAL CODE-SIMILARITY AUDIT
+============================================================
+
+Perform a systematic comparison between Python source in SpectralBridge and Python source in HyTools.
+
+I want more than grep.
+
+Build or use a local comparison procedure capable of detecting:
+
+A. exact matching code blocks
+B. exact matching functions
+C. near-identical functions
+D. copied functions with renamed variables
+E. copied functions with formatting changes
+F. matching comments
+G. matching docstrings
+H. structurally similar implementations
+I. distinctive identical constants/defaults/data structures
+J. historical HyTools source copied into deprecated directories
+
+Normalize code in several ways.
+
+At minimum compare:
+
+1. raw text
+2. text with whitespace normalized
+3. text with comments/docstrings removed
+4. Python AST structure where practical
+5. function-level similarity
+
+Do NOT count ordinary Python boilerplate as meaningful copying.
+
+Do NOT treat a standard mathematical equation as source-code copying merely because both implementations necessarily contain the same arithmetic.
+
+Produce quantitative similarity information where useful, but do not use an arbitrary similarity score as the sole classification criterion.
+
+============================================================
+PHASE 4: CLASSIFY EVERY MATERIAL MATCH
+============================================================
+
+For every meaningful match, assign one of these categories:
+
+CATEGORY 1 — VERBATIM/VENDORED HYTOOLS CODE
+
+Code substantially identical to HyTools source.
+
+CATEGORY 2 — ADAPTED HYTOOLS CODE
+
+Implementation clearly derives from HyTools but has meaningful SpectralBridge modifications.
+
+CATEGORY 3 — SHARED SCIENTIFIC ALGORITHM
+
+Both projects implement a published algorithm, but there is insufficient evidence that the SpectralBridge implementation derives from HyTools source.
+
+Examples might include Ross-Thick, Li kernels, SCS+C, cosine incidence geometry, etc.
+
+For these, identify the original scientific publication/equation where it can be established from existing repository documentation or HyTools references.
+
+CATEGORY 4 — INTEROPERABILITY/COMPATIBILITY
+
+Code that interfaces with HyTools, reproduces expected file formats/APIs, or provides compatibility without incorporating HyTools implementation.
+
+CATEGORY 5 — INDEPENDENT SPECTRALBRIDGE CODE
+
+No material HyTools implementation lineage detected.
+
+CATEGORY 6 — UNCERTAIN
+
+Similarity exists but provenance cannot responsibly be determined.
+
+Do NOT force uncertain cases into another category.
+
+============================================================
+PHASE 5: DEEP REVIEW OF THE HIGH-RISK COMPONENTS
+============================================================
+
+Perform especially careful side-by-side analysis of:
+
+1. Topographic correction
+
+Compare:
+- calc_cosine_i
+- SCS+C fitting
+- SCS+C application
+- masking behavior
+- coefficient estimation
+- safeguards
+
+Determine what comes from published equations versus what appears implementation-derived.
+
+2. BRDF kernels
+
+Compare:
+- calc_volume_kernel
+- calc_geom_kernel
+- RossThick
+- LiSparseReciprocal
+- LiDenseR
+- reference geometry
+- kernel parameters
+- NDVI binning if applicable
+
+Trace equations to original literature where repository evidence supports it.
+
+3. NEON HDF5 reading
+
+Compare SpectralBridge NeonCube and io/neon logic against HyTools open_neon and related code.
+
+Look for:
+- HDF5 path assumptions
+- metadata extraction
+- ancillary geometry retrieval
+- scale factors
+- no-data handling
+- map information
+- wavelength/FWHM handling
+- geotransform construction
+
+4. ENVI writing
+
+Compare:
+- header generation
+- metadata fields
+- binary writing
+- interleave handling
+- map info
+- projection handling
+- no-data handling
+
+5. Resampling/convolution
+
+Determine whether any resampling code derives from HyTools or whether SpectralBridge independently implements sensor spectral response convolution.
+
+6. Deprecated code
+
+This is particularly important.
+
+Determine exactly how much of deprecated/code and related historical directories consists of original HyTools source.
+
+For files that are effectively historical copies of HyTools, verify that original copyright, authors, and GPL notices remain intact.
+
+Determine whether these files are actually included in the installable package or source distribution.
+
+Do not automatically delete them. Recommend removal from the release artifact if appropriate while preserving Git history.
+
+============================================================
+PHASE 6: CHECK GIT HISTORY
+============================================================
+
+Use git history where useful to understand provenance.
+
+For suspicious files/functions:
+
+- inspect git log
+- inspect git blame
+- identify when they entered SpectralBridge
+- inspect commit messages where informative
+- determine whether code entered as an explicit HyTools import/adaptation and was later refactored
+
+This matters because current textual similarity alone cannot always establish provenance.
+
+Document useful historical evidence.
+
+Do not rewrite Git history.
+
+============================================================
+PHASE 7: LICENSE AND ATTRIBUTION REVIEW
+============================================================
+
+Verify:
+
+- HyTools license
+- SpectralBridge license
+- copyright notices
+- source headers
+- package metadata
+- source distribution contents
+
+Check whether the current treatment of adapted/vendored HyTools code is consistent with the license text contained in the repositories.
+
+Do not give unsupported legal conclusions.
+
+Instead distinguish:
+
+- clearly satisfied
+- appears satisfied
+- needs improvement
+- uncertain / legal review advisable
+
+Check especially whether adapted source files should preserve more explicit copyright information.
+
+A generic "adapted from HyTools" statement may not be enough if substantial source is incorporated.
+
+Determine whether a NOTICE or provenance document would improve clarity.
+
+============================================================
+PHASE 8: CREATE A FORMAL PROVENANCE DOCUMENT
+============================================================
+
+Create:
+
+HYTOOLS_PROVENANCE.md
+
+This should be a serious permanent repository document.
+
+Suggested structure:
+
+# SpectralBridge and HyTools Code Provenance
+
+## Purpose
+
+Explain that SpectralBridge historically used and/or adapted components from HyTools and that this document records that relationship transparently.
+
+## Audited versions
+
+SpectralBridge:
+- URL
+- commit
+
+HyTools:
+- URL
+- commit
+
+## Licensing relationship
+
+Describe the licenses factually.
+
+## Component provenance table
+
+Columns:
+
+SpectralBridge component
+SpectralBridge file/function
+HyTools counterpart
+Classification
+Nature of relationship
+Original scientific reference where relevant
+Attribution status
+Action taken
+
+## HyTools-derived components
+
+Explain clearly.
+
+## Shared scientific algorithms
+
+Explain that implementation of the same published mathematical method is distinct from source-code derivation.
+
+List original literature where appropriate.
+
+## Independent SpectralBridge components
+
+Document major components for which no HyTools implementation lineage was found.
+
+This is important.
+
+Include things such as the drone pipeline, sensor harmonization/translation, bulk analysis, QA/provenance architecture, etc. ONLY if the audit actually supports those conclusions.
+
+## Deprecated historical code
+
+Explain what it contains and whether it ships with the package.
+
+## Runtime dependency
+
+Clearly distinguish:
+
+"SpectralBridge does not require HyTools at runtime"
+
+from the much stronger and potentially incorrect statement:
+
+"SpectralBridge contains no HyTools-derived code."
+
+Avoid the latter unless the audit actually establishes it.
+
+## Audit methodology
+
+Explain the mechanical and manual comparison performed.
+
+## Limitations
+
+State that code-provenance analysis cannot mathematically prove independent creation and that this is a best-effort repository audit.
+
+============================================================
+PHASE 9: FIX MISLEADING DOCUMENTATION
+============================================================
+
+Search for wording such as:
+
+"HyTools-free"
+"independent implementation"
+"reimplemented"
+"no HyTools"
+"replacement for HyTools"
+
+Evaluate each occurrence.
+
+Where "HyTools-free" really means:
+
+"does not require HyTools as a runtime dependency"
+
+change the wording accordingly.
+
+Do NOT erase discussion of HyTools.
+
+We want precise provenance, not distance from the upstream project.
+
+============================================================
+PHASE 10: IMPROVE SOURCE ATTRIBUTION
+============================================================
+
+For files/functions classified as Category 1 or 2:
+
+ensure appropriate source-level attribution is present.
+
+Where substantial HyTools code remains, preserve:
+
+- HyTools name
+- relevant copyright notice
+- authors where appropriate
+- GPLv3 identification
+- upstream repository
+- exact HyTools commit used for provenance comparison where useful
+- statement that SpectralBridge modified/adapted the implementation
+
+Do this cleanly and consistently.
+
+Do NOT put enormous license boilerplate into every function if a file-level notice plus specific function provenance is clearer and sufficient.
+
+For Category 3 scientific algorithms:
+
+cite the original scientific algorithm/reference in documentation/docstrings where appropriate.
+
+If HyTools implementation also informed the code, say both.
+
+Example conceptual wording:
+
+"Implements the Ross-Thick volumetric scattering kernel described by Wanner et al. (1995). This implementation was informed by/adapted from the HyTools implementation [if audit establishes that fact]."
+
+Do not claim independent implementation if Git history or source evidence suggests otherwise.
+
+============================================================
+PHASE 11: HANDLE DEPRECATED VENDORED SOURCE
+============================================================
+
+Determine whether historical HyTools source under deprecated/ is:
+
+A. needed for anything
+B. imported by anything
+C. tested
+D. included in wheels
+E. included in source distributions
+F. linked by documentation
+
+If it is genuinely unused historical material, prefer:
+
+- keeping history in Git
+- excluding/removing it from the active release tree if safe
+- documenting the removal in CHANGELOG/HYTOOLS_PROVENANCE.md
+
+But DO NOT delete anything until dependency/reference searches and tests demonstrate it is safe.
+
+If removal would be risky, leave it and document why.
+
+============================================================
+PHASE 12: ADD AUTOMATED PROVENANCE GUARDRAILS
+============================================================
+
+Add a lightweight mechanism so this issue does not recur.
+
+Possible implementation:
+
+scripts/audit_upstream_provenance.py
+
+It should be able to:
+
+- scan for known upstream attribution markers
+- identify files classified as HyTools-derived
+- verify required provenance notices remain present
+- optionally compare against a pinned HyTools commit if available locally
+- fail clearly if someone removes required attribution
+
+Do not make CI dependent on network availability.
+
+If useful, maintain a small machine-readable provenance manifest, for example:
+
+provenance/hytools.yml
+
+containing:
+
+SpectralBridge path/function
+classification
+upstream repository
+upstream path/function
+upstream commit
+license
+scientific citation
+notes
+
+This should be simple enough to maintain.
+
+============================================================
+PHASE 13: TEST EVERYTHING
+============================================================
+
+After any attribution/documentation/refactor changes:
+
+run the complete relevant test suite.
+
+At minimum:
+
+- unit tests
+- correction tests
+- NEON I/O tests
+- ENVI tests
+- BRDF tests
+- topo tests
+- pipeline tests
+- drone tests if affected
+- packaging/build tests
+
+Build the wheel and source distribution.
+
+Inspect their contents.
+
+Confirm that deprecated historical HyTools files are or are not included intentionally.
+
+Confirm numerical results have not changed simply because of this audit.
+
+If code changes are actually required, compare outputs before and after.
+
+============================================================
+PHASE 14: SOFTWARE MANUSCRIPT GUIDANCE
+============================================================
+
+Create:
+
+docs/hytools_manuscript_guidance.md
+
+Give us a concise, accurate description of how the SpectralBridge software paper should discuss HyTools.
+
+It should clearly distinguish:
+
+1. HyTools as important prior software
+2. scientific methods shared with HyTools
+3. code adapted from HyTools
+4. SpectralBridge's distinct contributions
+5. removal of the HyTools runtime dependency
+6. continued attribution of implementation lineage
+
+Do not overclaim novelty.
+
+Do not undersell SpectralBridge's genuinely independent contributions.
+
+Suggest one short paragraph appropriate for the manuscript Methods/Software section and one acknowledgement sentence.
+
+============================================================
+FINAL REPORT
+============================================================
+
+At the end, give me a detailed report with:
+
+1. EXECUTIVE SUMMARY
+
+Answer directly:
+
+Does SpectralBridge contain verbatim HyTools code?
+Does SpectralBridge contain adapted HyTools code?
+Does it contain independent implementations of algorithms also used by HyTools?
+Are existing attributions adequate?
+Are there any serious attribution concerns?
+Are there any license concerns requiring attention?
+Does any HyTools-derived code ship in the package?
+What should be fixed before release/publication?
+
+2. FINDINGS BY SEVERITY
+
+Use:
+
+CRITICAL
+HIGH
+MEDIUM
+LOW
+INFORMATIONAL
+
+Reserve CRITICAL/HIGH for actual substantive issues.
+
+3. FILE-BY-FILE PROVENANCE TABLE
+
+Include every meaningful HyTools relationship.
+
+4. CHANGES MADE
+
+List exact files changed and why.
+
+5. CHANGES NOT MADE
+
+Especially anything intentionally left untouched to preserve scientific behavior or because provenance was uncertain.
+
+6. TEST RESULTS
+
+Give exact commands and results.
+
+7. PACKAGING RESULTS
+
+State what HyTools-derived/historical code ends up in:
+- wheel
+- sdist
+
+8. REMAINING UNCERTAINTIES
+
+Do not hide ambiguous cases.
+
+9. RECOMMENDED HUMAN REVIEW
+
+Identify anything Ty or another maintainer should inspect manually.
+
+10. RELEASE VERDICT
+
+Do NOT give a legal verdict.
+
+Instead classify repository readiness as:
+
+- provenance documentation complete
+- provenance documentation needs work
+- unresolved source provenance exists
+
+and explain exactly why.
+
+============================================================
+IMPORTANT: WORK CONSERVATIVELY
+============================================================
+
+This audit is about scholarly and software integrity.
+
+Do not "solve" similarity by rewriting working code.
+
+If SpectralBridge legitimately adapted GPLv3 HyTools code, preserve that history and attribute it properly.
+
+If a standard scientific equation can be implemented directly from the literature, do not automatically call it copied merely because HyTools implements the same equation.
+
+If Git history demonstrates that our implementation began with HyTools code, do not relabel it as independent merely because it has subsequently diverged.
+
+Conversely, do not call ordinary scientific formulas or generic Python patterns plagiarism without evidence.
+
+The desired outcome is a repository where we can say exactly:
+
+- what came from HyTools
+- what was adapted
+- what scientific methods both projects share
+- what SpectralBridge developed independently
+- how each upstream contribution is credited
+
+Begin by auditing and reporting what you find BEFORE making substantive code changes. Once the audit is established, make safe attribution, provenance, documentation, packaging, and guardrail changes. Avoid algorithmic changes unless absolutely necessary.
+```
+
 ## 2026-09-09 - rename PyPI distribution
 Branch: main
 AI system: OpenAI Codex

@@ -1,12 +1,18 @@
 """NEON-specific in-memory hyperspectral cube handling.
 
-This module vendors the small portion of HyTools' NEON reader that is needed for
-cross-sensor-cal workflows.  The logic here is adapted and simplified from
-HyTools' ``open_neon`` and ENVI header helpers so that we can operate on NEON AOP
-reflectance products without depending on the full HyTools package at runtime.
+This module is adapted and substantially extended from concepts and data-access
+logic in HyTools ``open_neon`` and ENVI helpers. It operates without importing
+HyTools at runtime; that fact does not remove its implementation lineage.
 
 HyTools: Hyperspectral image processing library
-Authors: Adam Chlus, Zhiwei Ye, Philip Townsend.
+Copyright (C) 2021 University of Wisconsin
+Authors named in the relevant source notices: Adam Chlus, Zhiwei Ye, Philip Townsend.
+License: GNU General Public License, version 3
+Upstream: https://github.com/EnSpec/hytools
+Audited revision: 31286d64541791a9815d29443a33726fa4d54031
+
+Modified and extended for SpectralBridge. See ``LICENSE``, ``NOTICE``, and
+``HYTOOLS_PROVENANCE.md``.
 """
 
 from __future__ import annotations

@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-09-26",
+  "spectralbridge": {
+    "repository": "https://github.com/earthlab/spectralbridge",
+    "commit": "30344404bf7787b135ed00424e624af43d42c6ab",
+    "license": "GPL-3.0-or-later"
+  },
+  "upstream": {
+    "name": "HyTools",
+    "repository": "https://github.com/EnSpec/hytools",
+    "commit": "31286d64541791a9815d29443a33726fa4d54031",
+    "license": "GPL-3.0-only",
+    "copyright": "Copyright (C) 2021 University of Wisconsin",
+    "authors_in_source_notices": [
+      "Adam Chlus",
+      "Zhiwei Ye",
+      "Philip Townsend"
+    ]
+  },
+  "classifications": {
+    "1": "verbatim/vendored HyTools code",
+    "2": "adapted HyTools code",
+    "3": "shared scientific algorithm",
+    "4": "interoperability/compatibility",
+    "5": "independent SpectralBridge code",
+    "6": "uncertain"
+  },
+  "components": [
+    {
+      "spectralbridge_path": "src/spectralbridge/standard_resample.py",
+      "spectralbridge_symbols": ["apply_resampler"],
+      "classification": 1,
+      "upstream_path": "src/hytools/transform/resampling.py",
+      "upstream_symbols": ["apply_resampler"],
+      "required_markers": [
+        "Copyright (C) 2021 University of Wisconsin",
+        "https://github.com/EnSpec/hytools",
+        "31286d64541791a9815d29443a33726fa4d54031"
+      ],
+      "notes": "Function body is exact after docstring/comment removal and has canonical-AST identity at the audited commits. Git history traces it to the repository's initial Resampling/resampling_demo.py."
+    },
+    {
+      "spectralbridge_path": "src/spectralbridge/corrections.py",
+      "spectralbridge_symbols": [
+        "calc_cosine_i",
+        "calc_volume_kernel",
+        "calc_geom_kernel",
+        "apply_brdf_correct",
+        "fit_and_save_brdf_model"
+      ],
+      "classification": 2,
+      "upstream_path": "src/hytools/topo/topo.py; src/hytools/brdf/kernels.py; src/hytools/brdf/flex.py; src/hytools/brdf/universal.py",
+      "upstream_symbols": [
+        "calc_cosine_i",
+        "calc_volume_kernel",
+        "calc_geom_kernel",
+        "apply_flex",
+        "calc_flex_single",
+        "apply_universal"
+      ],
+      "required_markers": [
+        "Copyright (C) 2021 University of Wisconsin",
+        "https://github.com/EnSpec/hytools",
+        "31286d64541791a9815d29443a33726fa4d54031"
+      ],
+      "scientific_citations": [
+        "Wanner et al. (1995), doi:10.1029/95JD02371",
+        "Lucht et al. (2000), doi:10.1109/36.841980"
+      ],
+      "notes": "File history explicitly records HyTools adaptation. The implementation has subsequently diverged; shared equations alone were not used to infer copying."
+    },
+    {
+      "spectralbridge_path": "src/spectralbridge/corrections.py",
+      "spectralbridge_symbols": ["fit_scs_c_coefficients", "apply_topo_correct"],
+      "classification": 3,
+      "upstream_path": "src/hytools/topo/scsc.py",
+      "upstream_symbols": ["calc_scsc_coeffs", "apply_scsc"],
+      "required_markers": [
+        "Soenen et al. (2005)",
+        "10.1109/TGRS.2005.852480"
+      ],
+      "scientific_citations": [
+        "Soenen, Peddle, and Coburn (2005), doi:10.1109/TGRS.2005.852480"
+      ],
+      "notes": "Both projects implement SCS+C. No material function-level text or AST match was detected for the current fitting/application code; the shared equation is attributed to the scientific paper. calc_cosine_i remains separately classified as adapted HyTools code."
+    },
+    {
+      "spectralbridge_path": "src/spectralbridge/neon_cube.py",
+      "spectralbridge_symbols": ["NeonCube", "_read_envi_single_band"],
+      "classification": 2,
+      "upstream_path": "src/hytools/io/neon.py; src/hytools/io/envi.py",
+      "upstream_symbols": ["open_neon", "open_envi", "calc_geotransform"],
+      "required_markers": [
+        "Copyright (C) 2021 University of Wisconsin",
+        "https://github.com/EnSpec/hytools",
+        "31286d64541791a9815d29443a33726fa4d54031"
+      ],
+      "notes": "The file entered SpectralBridge with an explicit adapted/vendor lineage notice. Current code is NEON-specific and materially modified; no exact current function match was detected."
+    },
+    {
+      "spectralbridge_path": "src/spectralbridge/io/neon.py",
+      "spectralbridge_symbols": ["read_neon_cube", "_read_new_neon_layout"],
+      "classification": 2,
+      "upstream_path": "src/hytools/io/neon.py",
+      "upstream_symbols": ["open_neon"],
+      "required_markers": [
+        "Copyright (C) 2021 University of Wisconsin",
+        "https://github.com/EnSpec/hytools",
+        "31286d64541791a9815d29443a33726fa4d54031"
+      ],
+      "notes": "This reader was factored from the adapted NeonCube path and later expanded for historical NEON layouts, scaling, orientation, and bounded windows."
+    },
+    {
+      "spectralbridge_path": "src/spectralbridge/envi_writer.py",
+      "spectralbridge_symbols": ["build_envi_header_text", "EnviWriter"],
+      "classification": 2,
+      "upstream_path": "src/hytools/io/envi.py",
+      "upstream_symbols": ["write_envi_header", "envi_header_from_neon", "WriteENVI"],
+      "required_markers": [
+        "Copyright (C) 2021 University of Wisconsin",
+        "https://github.com/EnSpec/hytools",
+        "31286d64541791a9815d29443a33726fa4d54031"
+      ],
+      "notes": "Explicitly adapted and simplified for BSQ float32 NEON output. Current implementation is materially modified; no exact current function match was detected."
+    },
+    {
+      "spectralbridge_path": "src/spectralbridge/hytools_compat.py",
+      "spectralbridge_symbols": ["get_write_envi", "get_hytools_class"],
+      "classification": 4,
+      "upstream_path": "HyTools public and historical Python module layouts",
+      "upstream_symbols": ["WriteENVI", "HyTools"],
+      "required_markers": ["Compatibility helpers for importing HyTools"],
+      "notes": "Dynamic import compatibility; no material HyTools implementation was detected."
+    },
+    {
+      "spectralbridge_path": "src/spectralbridge/deprecated/hytools.py",
+      "spectralbridge_symbols": ["topo_and_brdf_correction", "_import_hytools"],
+      "classification": 4,
+      "upstream_path": "HyTools runtime APIs",
+      "upstream_symbols": ["HyTools", "calc_topo_coeffs", "calc_brdf_coeffs"],
+      "required_markers": ["Legacy HyTools-backed BRDF/topographic correction workflow"],
+      "notes": "Shipped legacy adapter that optionally imports an external HyTools installation. HyTools is not a declared runtime dependency."
+    },
+    {
+      "spectralbridge_path": "src/spectralbridge/topo_and_brdf_correction.py",
+      "spectralbridge_symbols": ["module re-export shim"],
+      "classification": 4,
+      "upstream_path": "not applicable",
+      "upstream_symbols": [],
+      "required_markers": ["spectralbridge.deprecated.hytools"],
+      "notes": "SpectralBridge backward-compatibility shim; it contains no HyTools implementation."
+    },
+    {
+      "spectralbridge_path": "deprecated/code/base.py",
+      "spectralbridge_symbols": ["HyTools", "Iterator", "create_bad_bands"],
+      "classification": 1,
+      "upstream_path": "src/hytools/base.py",
+      "upstream_symbols": ["HyTools", "Iterator"],
+      "required_markers": [
+        "Copyright (C) 2021 University of Wisconsin",
+        "Authors: Adam Chlus, Zhiwei Ye, Philip Townsend.",
+        "GNU General Public License"
+      ],
+      "notes": "Historical copy with many exact functions and a 0.7106 normalized whole-file similarity ratio. Retained in Git with its original notice, but pruned from source distributions and outside the Python package used for wheels."
+    },
+    {
+      "spectralbridge_path": "deprecated/bin/neon_to_envi.py; deprecated/code/pipeline.py; deprecated/code/spectral_unmixing_tools_original.py; deprecated/docs/**; deprecated/notebooks/**",
+      "spectralbridge_symbols": ["historical workflows and references"],
+      "classification": 4,
+      "upstream_path": "HyTools runtime APIs and documentation",
+      "upstream_symbols": [],
+      "required_markers": [],
+      "notes": "Historical runtime usage, examples, and mentions. The mechanical Python comparison did not identify another materially copied source file in these paths. The root deprecated tree is pruned from release artifacts."
+    },
+    {
+      "spectralbridge_path": "src/spectralbridge/resample.py; src/spectralbridge/pipelines/drone.py; src/spectralbridge/bulk*.py; src/spectralbridge/qa/**; src/spectralbridge/polygon*.py",
+      "spectralbridge_symbols": ["major active subsystems"],
+      "classification": 5,
+      "upstream_path": "not applicable",
+      "upstream_symbols": [],
+      "required_markers": [],
+      "notes": "No material HyTools source lineage was detected by repository history, direct-reference inventory, exact-block, normalized-text, function-token, or canonical-AST comparison. This is a best-effort finding, not proof of independent creation."
+    },
+    {
+      "spectralbridge_path": "src/spectralbridge/standard_resample.py",
+      "spectralbridge_symbols": ["calc_resample_coeffs fallback", "resampler_hy_obj"],
+      "classification": 6,
+      "upstream_path": "src/hytools/transform/resampling.py and HyTools resampler object contract",
+      "upstream_symbols": ["calc_resample_coeffs", "resampler configuration contract"],
+      "required_markers": [
+        "Copyright (C) 2021 University of Wisconsin",
+        "https://github.com/EnSpec/hytools"
+      ],
+      "notes": "The fallback coefficient implementation is not textually or structurally the HyTools implementation, while its surrounding module and object contract arose in a HyTools-backed workflow. The exact apply_resampler lineage is recorded separately as Category 1."
+    }
+  ]
+}

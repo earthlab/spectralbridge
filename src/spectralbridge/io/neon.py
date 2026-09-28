@@ -1,4 +1,19 @@
-"""Helpers for reading NEON reflectance HDF5 products across layout versions."""
+"""Helpers for reading NEON reflectance HDF5 products across layout versions.
+
+The new-layout reader was factored from SpectralBridge's HyTools-adapted
+``NeonCube`` path and then extended for historical schemas, bounded reads,
+orientation, and reflectance scaling.
+
+HyTools: Hyperspectral image processing library
+Copyright (C) 2021 University of Wisconsin
+Authors named in the relevant source notices: Adam Chlus, Zhiwei Ye, Philip Townsend.
+License: GNU General Public License, version 3
+Upstream: https://github.com/EnSpec/hytools
+Audited revision: 31286d64541791a9815d29443a33726fa4d54031
+
+Modified and extended for SpectralBridge. See ``LICENSE``, ``NOTICE``, and
+``HYTOOLS_PROVENANCE.md``.
+"""
 
 from __future__ import annotations
 

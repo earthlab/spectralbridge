@@ -280,6 +280,7 @@ smoke that executes the normal, drone, bulk, results, and spectral-library paths
 - [Architecture](https://earthlab.github.io/spectralbridge/dev/architecture/)
 - [Notebook vignettes](https://earthlab.github.io/spectralbridge/vignettes/notebook-vignettes/)
 - [Changelog](https://github.com/earthlab/spectralbridge/blob/main/CHANGELOG.md)
+- [HyTools code provenance](https://github.com/earthlab/spectralbridge/blob/main/HYTOOLS_PROVENANCE.md)
 
 ## Development
 
@@ -302,3 +303,7 @@ Please cite the software using
 [CITATION.cff](https://github.com/earthlab/spectralbridge/blob/main/CITATION.cff).
 SpectralBridge is licensed under
 [GPL-3.0-or-later](https://github.com/earthlab/spectralbridge/blob/main/LICENSE).
+The supported pipeline does not require HyTools at runtime, but selected source
+components retain documented HyTools implementation lineage. See
+[HYTOOLS_PROVENANCE.md](https://github.com/earthlab/spectralbridge/blob/main/HYTOOLS_PROVENANCE.md)
+and [NOTICE](https://github.com/earthlab/spectralbridge/blob/main/NOTICE).

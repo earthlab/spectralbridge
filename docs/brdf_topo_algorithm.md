@@ -3,7 +3,16 @@
 This document summarises the updated streamlined correction path so it aligns with
 HyTools/FlexBRDF behaviour.
 
+The Ross/Li kernel helpers and parts of the BRDF path have documented HyTools
+implementation lineage. SCS+C is treated separately as a shared published
+method. See the repository's
+[HyTools provenance audit](https://github.com/earthlab/spectralbridge/blob/main/HYTOOLS_PROVENANCE.md)
+for the fixed revisions and component-level classifications.
+
 ## Topographic correction (SCS+C)
+
+The SCS+C equations follow Soenen, Peddle, and Coburn (2005),
+DOI [`10.1109/TGRS.2005.852480`](https://doi.org/10.1109/TGRS.2005.852480).
 
 * For each band a regression `rho = a*cos(i) + b` is fit over valid pixels to
   recover the C-parameter `C=b/a`.
@@ -70,6 +79,13 @@ footprint and is the recommended setting for new NEON runs.
   when no explicit coefficients are available.
 
 ## BRDF fitting and application
+
+The Ross/Li kernel family is described by Wanner, Li, and Strahler (1995),
+DOI [`10.1029/95JD02371`](https://doi.org/10.1029/95JD02371), and Lucht, Schaaf,
+and Strahler (2000), DOI
+[`10.1109/36.841980`](https://doi.org/10.1109/36.841980). SpectralBridge's
+kernel implementation was adapted from HyTools; citing the scientific methods
+does not replace that software attribution.
 
 * Per-band, per-bin regressions solve `rho = f_iso + f_vol*K_vol + f_geo*K_geo`.
 * Stored reflectance is converted to unitless reflectance before fitting and

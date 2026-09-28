@@ -1,4 +1,8 @@
-"""HyTools-free NEON to ENVI exporter used by the production pipeline."""
+"""NEON-to-ENVI exporter without a HyTools runtime dependency.
+
+The reader/writer components retain documented HyTools implementation lineage;
+see ``HYTOOLS_PROVENANCE.md``.
+"""
 
 from __future__ import annotations
 

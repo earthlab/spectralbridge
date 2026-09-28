@@ -1,4 +1,4 @@
-# Refactor Notes: HyTools-Free Pipeline
+# Refactor Notes: Pipeline Without a HyTools Runtime Dependency
 
 ## Purpose
 These notes document the current SpectralBridge processing pipeline after removing the runtime dependency on HyTools. The steps below describe what the code does today so collaborators can reproduce results and audit intermediate products.
@@ -7,8 +7,8 @@ These notes document the current SpectralBridge processing pipeline after removi
 1. **Acquire NEON reflectance flightlines**  
    Download or copy the required NEON Airborne Observation Platform (AOP) reflectance HDF5 files to a local workspace before running the pipeline.
 
-2. **Convert HDF5 to ENVI without HyTools**  
-   `neon_to_envi_no_hytools()` opens the HDF5 file with `NeonCube`, streams the cube out in spatial tiles, and writes a float32 BSQ ENVI dataset via `EnviWriter`. It simultaneously exports ancillary rasters (solar/sensor geometry, slope, aspect, etc.) needed for correction. The result is an uncorrected directional reflectance `.img/.hdr` pair for each flightline. HyTools and Ray are not invoked in this stage—the conversion logic is entirely internal.
+2. **Convert HDF5 to ENVI without importing HyTools at runtime**  
+   `neon_to_envi_no_hytools()` opens the HDF5 file with `NeonCube`, streams the cube out in spatial tiles, and writes a float32 BSQ ENVI dataset via `EnviWriter`. It simultaneously exports ancillary rasters (solar/sensor geometry, slope, aspect, etc.) needed for correction. The result is an uncorrected directional reflectance `.img/.hdr` pair for each flightline. HyTools and Ray are not imported in this stage. The historical function name describes runtime behavior; `NeonCube` and `EnviWriter` retain the adapted implementation lineage recorded in `HYTOOLS_PROVENANCE.md`.
 
 3. **Persist correction parameters**
    `build_and_write_correction_json()` (in `brdf_topo.py`) inspects the flightline geometry, fits BRDF coefficients, and serialises the results as `<flightline>_brdfandtopo_corrected_envi.json`. The helper validates the JSON via `is_valid_json()` and reuses it on reruns when intact.
@@ -56,7 +56,7 @@ Every step performs the same validation checks on reruns so the pipeline is safe
   - Convolution-friendly helpers for chunk-wise processing.
 - `spectralbridge/pipelines/pipeline.py`
   - `go_forth_and_multiply()`
-  - Orchestrates downloads, H5→ENVI export (no HyTools), BRDF fitting, topographic+BRDF correction, and spectral convolution.
+  - Orchestrates downloads, H5→ENVI export without a HyTools runtime import, BRDF fitting, topographic+BRDF correction, and spectral convolution.
 - `spectralbridge/deprecated/hytools.py`
   - Retains the older HyTools/Ray-backed correction workflow for legacy compatibility.
   - Not used by the main NEON pipeline; the historical `spectralbridge/topo_and_brdf_correction.py` path now exists as a deprecated shim.
