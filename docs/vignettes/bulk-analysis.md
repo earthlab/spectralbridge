@@ -77,9 +77,18 @@ directories and otherwise uses this compatibility path.
 
 Completed drone output roots are native `input_mode="auto"` inputs. Each
 flight's `spectralbridge_flightline.json` supplies identity, while the matched
-native-MicaSense and affine translated Landsat-like ENVI pairs supply the
-translation relationship. Bulk reads these per-flight products in place; do
-not rename them and do not create a campaign-wide pixel Parquet first.
+native-MicaSense and affine translated Landsat-like ENVI pairs describe the
+available translation relationship. Canonical per-flight Parquets are cataloged
+from their footers for row counts, schemas, sizes, roles, and provenance. Bulk
+reads these products in place; do not rename them and do not create a
+campaign-wide pixel Parquet first.
+
+Availability is not the same as regression eligibility. Drone Landsat-like
+products were created from the same flight's native MicaSense observation with
+an existing coefficient registry. Bulk therefore includes them in campaign
+census and descriptive product summaries, but does not refit coefficients from
+those application outputs. Independent calibration observations require an
+explicit evidence contract; ordinary canonical drone outputs do not provide one.
 
 ## Analysis profiles and minimal archives
 
@@ -137,11 +146,12 @@ print(result["preflight"])
 
 The structured `preflight` result reports discovered, accepted, duplicate, and
 excluded flightlines; the selected profile and relationship keys; required and
-optional product roles; available sensors and relationships; selected source
-bytes; estimated compact output and bounded diagnostic sample; temporary-disk
-estimate; whether a pixel dataset was requested; exclusion counts; package
-version; and all output locations. The linked census adds site/date/product
-inventories.
+optional product roles; available and regression-eligible relationships;
+per-flight tabular product counts, rows, bytes, and schema consistency; QA
+states; selected source bytes; estimated compact output and bounded diagnostic
+sample; temporary-disk estimate; whether a pixel dataset was requested;
+exclusion counts; package version; and all output locations. The linked census
+adds site/date/product inventories.
 
 Preflight reads paths, sizes, modification times, ENVI headers, small QA JSON,
 and Parquet footers where applicable. It does not scan or copy raster pixels.
@@ -155,6 +165,10 @@ Review these outputs before the full run:
 - `catalog/exclusions.csv`
 - `catalog/duplicates.parquet`
 - `analyses/dataset_census/dataset_census.md`
+- `analyses/dataset_census/by_product.parquet`
+- `analyses/dataset_census/missing_products.parquet`
+- `reports/campaign_summary.md`
+- `reports/analysis_decisions.json`
 
 Missing sidecars, zero-byte files, unreadable metadata, invalid dimensions,
 incompatible bands, incomplete requested pairs, duplicate products, duplicate
@@ -165,7 +179,7 @@ ineligible flightline should make the call raise after diagnostic catalogs are
 written. Invalid optional products remain visible but do not invalidate an
 otherwise eligible flightline.
 
-## Run translation analysis
+## Run the eligible population analysis
 
 After reviewing preflight, rerun without `preflight_only`:
 
@@ -183,6 +197,14 @@ transform, and CRS must match. A pixel is eligible only when the existing
 sensor-wide ENVI no-data/finite rules and the requested reflectance threshold
 all pass. Each chunk is immediately reduced into numerically stable bivariate
 moments. No sensor Parquet or `observations.parquet` is created.
+
+For a canonical drone campaign produced by `run_drone_pipeline()`, this full
+call still completes the catalog, census, campaign summary, and provenance, but
+records translation regression, LOSO, and candidate-coefficient generation as
+`intentionally_not_run`. That is a successful scientifically conservative run,
+not a missing-product error. NEON convolution archives and custom registries
+that satisfy their configured evidence contract continue through bounded
+sufficient statistics and hierarchical regression.
 
 The first pass writes compact per-flightline statistics. Site, global,
 flightline-balanced, and site-balanced fits combine those checkpoints. LOSO

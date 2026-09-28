@@ -196,6 +196,16 @@ needed. Per-flight Parquets remain authoritative. Set `merge_extractions=True`
 only when a legacy consumer explicitly requires the optional run-level merged
 tables.
 
+Start bulk work with `preflight_only=True`. Bulk inventories the per-flight
+Parquet footers, schemas, row counts, sizes, QA state, sensors, and translation
+availability without scanning pixels or writing into the drone tree. The
+translated Landsat-like products are applications of an existing coefficient
+registry, not independent Landsat observations, so the ordinary drone campaign
+produces census and descriptive summaries while coefficient refitting and LOSO
+are explicitly marked `intentionally_not_run`. Supply a separately reviewed
+independent-observation contract before interpreting any regression as empirical
+calibration.
+
 | Artifact | Role | Regeneration rule |
 | --- | --- | --- |
 | Original H5/TIFF package | Authoritative immutable input | Never generated or modified |

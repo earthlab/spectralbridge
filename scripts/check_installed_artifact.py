@@ -583,6 +583,8 @@ def _run_bulk(root: Path) -> dict[str, object]:
         "flightlines",
         "source_files",
         "source_products",
+        "campaign_summary",
+        "analysis_decisions",
         "coefficients_parquet",
         "coefficients_json",
         "sufficient_statistics",
@@ -598,6 +600,7 @@ def _run_bulk(root: Path) -> dict[str, object]:
     if list((root / "bulk_output" / "cache").rglob("*.parquet")):
         raise RuntimeError("Normal bulk smoke unexpectedly created pixel caches")
     _assert_json(Path(str(bulk_result["manifest"])))
+    _assert_json(Path(str(bulk_result["analysis_decisions"])))
     census = root / "bulk_output" / "analyses" / "dataset_census" / "dataset_census.json"
     loso = root / "bulk_output" / "analyses" / "leave_one_site_out" / "leave_one_site_out.parquet"
     _assert_json(census)

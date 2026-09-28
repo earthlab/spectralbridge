@@ -106,7 +106,11 @@ CREATE TABLE source_files (
     matching_group VARCHAR,
     processing_stage VARCHAR,
     wavelengths_json VARCHAR,
-    dtype VARCHAR
+    dtype VARCHAR,
+    product_key VARCHAR,
+    storage_format VARCHAR,
+    product_semantics VARCHAR,
+    schema_json VARCHAR
 )
 """
 
@@ -156,7 +160,11 @@ CREATE TABLE flightlines (
     processing_completeness VARCHAR,
     product_availability_json VARCHAR,
     exclusion_reason_codes_json VARCHAR,
-    exclusion_context_json VARCHAR
+    exclusion_context_json VARCHAR,
+    translation_available BOOLEAN,
+    translation_availability_json VARCHAR,
+    scientific_status VARCHAR,
+    scientific_blockers_json VARCHAR
 )
 """
 

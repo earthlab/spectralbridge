@@ -36,13 +36,13 @@
 <section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">Cross-run analysis</p>
 <h2>Independent bulk-pipeline contract</h2>
-<p>The optional <code>spectralbridge-bulk</code> workflow consumes completed or minimally staged scientific flightline directories beneath arbitrary storage folders. Identity comes from a generic manifest or another configured parser, never the outer folder. Completed drone output roots are directly discoverable because each flight contains the generic identity manifest plus matched native-MicaSense and translated Landsat-like ENVI pairs. Bulk streams those products in place and writes only compact analytical products to a separate output; it does not modify normal or drone runs. Canonical NEON names and prebuilt merged Parquets remain compatible inputs.</p>
+<p>The optional <code>spectralbridge-bulk</code> workflow consumes completed or minimally staged scientific flightline directories beneath arbitrary storage folders. Identity comes from a generic manifest or another configured parser, never the outer folder. Completed drone output roots are directly discoverable because each flight contains the generic identity manifest plus matched native-MicaSense, translated Landsat-like ENVI, and per-flight tabular products. Bulk inventories Parquet footers and streams scientifically eligible raster relationships in place, writing only compact products to a separate output; it does not modify normal or drone runs. Canonical NEON names and prebuilt merged Parquets remain compatible inputs.</p>
 
 | Output type | Canonical path | Description |
 | --- | --- | --- |
 | Flightline catalog | `catalog/flightlines.parquet` | Scientific identity, site/date, processing completeness, product availability, profile eligibility, and duplicate/rejection status. |
 | Source catalog | `catalog/source_files.parquet` | Every upstream product and derived observation source with original path, role/sensor, dimensions, dtype, wavelengths, metadata fingerprint, and selection status. |
-| Source-product catalog | `catalog/source_products.parquet` | Read-only raw/corrected/target ENVI inventory; derived caches are excluded. |
+| Source-product catalog | `catalog/source_products.parquet` | Read-only raw/corrected/target ENVI plus canonical per-flight Parquet inventory, including product key, storage format, semantics, rows, schema, and sizes; derived caches are excluded. |
 | Duplicate/rejection catalogs | `catalog/duplicates.parquet`, `catalog/rejected_sources.parquet` | Explicit exclusions; duplicate canonical IDs are never silently double-counted. |
 | Structured exclusions | `catalog/exclusions.(parquet|json|csv)` | Deterministic reason codes, affected scientific units/products, offending paths, details, and processing stage. |
 | Per-flightline statistics | `statistics/flightlines/<flight_id>/` | Mergeable sufficient statistics, signatures, optional bounded sample, and restart/failure status. |
@@ -50,6 +50,8 @@
 | Bulk database | `database/spectralbridge_bulk.duckdb` | Catalogs, compact statistics, exclusions, provenance, and modular analysis tables. |
 | Bulk observations | `database/bulk_observations.parquet` | Explicit legacy dataset-build output; absent from normal analysis. |
 | Dataset census | `analyses/dataset_census/` | Metadata-only preflight JSON, report, and Parquet breakdowns. |
+| Campaign summary | `reports/campaign_summary.md` | Flights, sites/dates, products, schemas, rows, bytes, QA, exclusions, translation availability, and analyses run or intentionally omitted. |
+| Analysis decisions | `reports/analysis_decisions.json` | Machine-readable scientific eligibility decision separating available translated products from independent regression evidence. |
 | Translation analyses | `analyses/sensor_translation/` | Pixel-pooled, per-flightline, per-site, flightline-balanced, and site-balanced regressions. |
 | Leave-one-site-out | `analyses/leave_one_site_out/` | Held-out-site generalization metrics. |
 | Candidate coefficients | `coefficients/candidate_translation_coefficients.(parquet|json)` | Pooled and balanced source-to-target summaries with selected-pair provenance. |
@@ -62,7 +64,7 @@
 | Spectral-library reports | `figures/spectral_library/` | Explicit summary or full multipage low-alpha variability PDFs, including primary robust and separate full-range audit views; source observations are read in place and not copied. |
 | Bulk manifest | `catalog/bulk_manifest.json` | Restart signature, execution settings, counts, and artifact names. |
 
-<p class="sb-doc-note">Normal completed-flightline analysis has no observation population copy. The optional results report reads only compact model outputs and does not require the source archive. These slopes and intercepts are distinct from percentage brightness-adjustment coefficients and remain synthetic same-source diagnostics, not empirical field calibration.</p>
+<p class="sb-doc-note">Normal completed-flightline analysis has no observation population copy. The optional results report reads only compact model outputs and does not require the source archive. Synthetic same-source NEON comparisons remain descriptive diagnostics. Drone Landsat-like products created by applying the existing registry are cataloged but are not used to refit that registry; without independent calibration observations, regression outputs are intentionally absent.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import shutil
 
 import duckdb
 import numpy as np
@@ -200,6 +201,46 @@ def _write_envi(path: Path, values: np.ndarray, *, nodata: float = -9999.0) -> P
         nodata=nodata,
     ) as dataset:
         dataset.write(array)
+    return path
+
+
+def _write_realistic_drone_table(
+    path: Path,
+    *,
+    rows: int = 4,
+    translated_sensor: str | None = None,
+) -> Path:
+    """Write the coordinate, spectrum, and provenance shape emitted by drone export."""
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    columns: dict[str, pa.Array] = {
+        "wl0482": pa.array(np.linspace(0.1, 0.4, rows), type=pa.float32()),
+        "wl0561": pa.array(np.linspace(0.2, 0.5, rows), type=pa.float32()),
+        "row": pa.array(range(rows), type=pa.int32()),
+        "col": pa.array(range(rows), type=pa.int32()),
+        "pixel_id": pa.array(range(rows), type=pa.int64()),
+        "source_image": pa.array([path.stem + ".img"] * rows),
+        "epsg": pa.array([32613] * rows, type=pa.int64()),
+        "crs": pa.array([None] * rows, type=pa.string()),
+        "x": pa.array(np.arange(rows, dtype=np.float64)),
+        "y": pa.array(np.arange(rows, dtype=np.float64)),
+        "lon": pa.array(np.linspace(-105.0, -104.9, rows)),
+        "lat": pa.array(np.linspace(40.0, 40.1, rows)),
+    }
+    if translated_sensor is not None:
+        columns.update(
+            {
+                "drone_platform": pa.array(["drone"] * rows),
+                "translated_product_semantics": pa.array(
+                    ["landsat_like_translated"] * rows
+                ),
+                "translation_target_sensor": pa.array(
+                    [translated_sensor] * rows
+                ),
+                "translation_coefficient_sha256": pa.array(["abc123"] * rows),
+            }
+        )
+    pq.write_table(pa.table(columns), path)
     return path
 
 
@@ -1337,6 +1378,166 @@ def test_canonical_drone_translation_products_run_directly_through_bulk(
         for path in root.rglob("*")
         if path.is_file()
     } == before
+
+
+def test_default_registry_recognizes_canonical_drone_tabular_products_once() -> None:
+    names = {
+        "flight__full.parquet": "drone_corrected_native_full",
+        "flight__landsat_like_combined.parquet": "drone_landsat_like_combined",
+        "flight__landsat_like_landsat_tm_translated_envi.parquet": (
+            "drone_landsat_5_tm_full"
+        ),
+        "flight__landsat_like_landsat_etm+_translated_envi.parquet": (
+            "drone_landsat_7_etmplus_full"
+        ),
+        "flight__landsat_like_landsat_oli_translated_envi.parquet": (
+            "drone_landsat_8_oli_full"
+        ),
+        "flight__landsat_like_landsat_oli2_translated_envi.parquet": (
+            "drone_landsat_9_oli_2_full"
+        ),
+    }
+
+    for name, key in names.items():
+        descriptor = DEFAULT_PRODUCT_REGISTRY.recognize_tabular(name)
+        assert descriptor is not None
+        assert descriptor.key == key
+        assert sum(
+            candidate.matches(name)
+            for candidate in DEFAULT_PRODUCT_REGISTRY.tabular_products
+        ) == 1
+
+
+def test_production_shaped_drone_preflight_catalogs_tables_and_blocks_refit(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "campaign"
+    flight = root / "batch_A" / "arbitrary_name"
+    flight.mkdir(parents=True)
+    flight_id = "GOLDHILL_20230711"
+    (flight / "spectralbridge_flightline.json").write_text(
+        json.dumps(
+            {
+                "flightline_id": flight_id,
+                "site": "GOLDHILL",
+                "acquisition_date": "2023-07-11",
+                "platform": "drone",
+            }
+        ),
+        encoding="utf-8",
+    )
+    base = np.asarray([[100.0, 200.0], [300.0, 400.0]], dtype="float32")
+    _write_envi(
+        flight / f"{flight_id}__micasense_to_match_tm_etm+_envi.img",
+        np.stack([base + index for index in range(4)]),
+    )
+    _write_envi(
+        flight / f"{flight_id}__micasense_to_match_oli_oli2_envi.img",
+        np.stack([base + index for index in range(5)]),
+    )
+    target_specs = (
+        ("landsat_tm", "Landsat_5_TM", 6),
+        ("landsat_etm+", "Landsat_7_ETM+", 6),
+        ("landsat_oli", "Landsat_8_OLI", 7),
+        ("landsat_oli2", "Landsat_9_OLI-2", 7),
+    )
+    for slug, sensor, bands in target_specs:
+        stem = flight / f"{flight_id}__landsat_like_{slug}_translated_envi"
+        _write_envi(
+            stem.with_suffix(".img"),
+            np.stack([base * 1.5 + 10.0 + index for index in range(bands)]),
+        )
+        _write_realistic_drone_table(
+            stem.with_suffix(".parquet"), translated_sensor=sensor
+        )
+    _write_realistic_drone_table(flight / f"{flight_id}__full.parquet")
+    _write_realistic_drone_table(
+        flight / f"{flight_id}__landsat_like_combined.parquet", rows=16
+    )
+    before = {
+        path.relative_to(root).as_posix(): _sha256(path)
+        for path in root.rglob("*")
+        if path.is_file()
+    }
+
+    preflight = _run(
+        root,
+        tmp_path / "bulk_preflight",
+        input_mode="auto",
+        preflight_only=True,
+    )
+
+    assert preflight["input_mode"] == "flightline_outputs"
+    assert preflight["accepted_flightline_count"] == 1
+    assert preflight["preflight"]["tabular_products"] == 6
+    assert preflight["preflight"]["tabular_product_rows"] == 36
+    assert preflight["preflight"]["missing_tabular_product_instances"] == 0
+    assert preflight["preflight"]["translation_available_flightlines"] == 1
+    assert preflight["preflight"]["regression_eligible_flightlines"] == 0
+    products = pq.read_table(preflight["source_products"]).to_pylist()
+    tables = [item for item in products if item["storage_format"] == "parquet"]
+    assert len(tables) == 6
+    assert all(not item["product_key"].startswith("unregistered") for item in tables)
+    assert {
+        path.relative_to(root).as_posix(): _sha256(path)
+        for path in root.rglob("*")
+        if path.is_file()
+    } == before
+
+    full = _run(root, tmp_path / "bulk_full", input_mode="auto")
+    assert full["coefficients_parquet"] is None
+    assert full["analyses_intentionally_not_run"] == [
+        "sensor_translation_regression",
+        "leave_one_site_out",
+        "candidate_translation_coefficients",
+    ]
+    assert Path(full["campaign_summary"]).is_file()
+    assert "not independent regression evidence" in Path(
+        full["campaign_summary"]
+    ).read_text(encoding="utf-8")
+    resumed = _run(root, tmp_path / "bulk_full", input_mode="auto")
+    assert resumed["status"] == "reused"
+    assert resumed["analyses_intentionally_not_run"] == full[
+        "analyses_intentionally_not_run"
+    ]
+
+    second = root / "batch_B" / "different_outer_name"
+    shutil.copytree(flight, second)
+    (second / "spectralbridge_flightline.json").write_text(
+        json.dumps(
+            {
+                "flightline_id": "GOLDHILL_20230712",
+                "site": "GOLDHILL",
+                "acquisition_date": "2023-07-12",
+                "platform": "drone",
+            }
+        ),
+        encoding="utf-8",
+    )
+    (second / f"{flight_id}__landsat_like_combined.parquet").unlink()
+    incomplete = _run(
+        root,
+        tmp_path / "bulk_missing_product_preflight",
+        input_mode="auto",
+        preflight_only=True,
+    )
+    assert incomplete["preflight"]["missing_tabular_product_instances"] == 1
+    missing = pq.read_table(incomplete["missing_products"]).to_pylist()
+    assert missing == [
+        {
+            "canonical_flightline_id": "GOLDHILL_20230712",
+            "source_directory": second.as_posix(),
+            "product_key": "drone_landsat_like_combined",
+            "product_role": "combined_translated_tabular",
+            "sensor_name": None,
+            "product_semantics": "landsat_like_translated_collection",
+            "reason_code": "missing_tabular_product",
+            "detail": (
+                "Canonical tabular product is present elsewhere in the accepted "
+                "campaign but absent from this flight."
+            ),
+        }
+    ]
 
 
 @pytest.mark.parametrize(

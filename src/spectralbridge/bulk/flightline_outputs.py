@@ -29,6 +29,7 @@ from .registry import (
     AnalysisProfile,
     ProductDescriptor,
     ProductRegistry,
+    TabularProductDescriptor,
     TranslationPair,
     resolve_analysis_profile,
 )
@@ -185,6 +186,91 @@ def _raster_metadata(
     }
 
 
+def _tabular_metadata(
+    path: Path,
+    *,
+    profile: AnalysisProfile,
+) -> dict[str, Any]:
+    """Read a Parquet footer and schema without scanning observation rows."""
+
+    try:
+        stat = path.stat()
+    except FileNotFoundError as exc:
+        raise ProductValidationError(
+            "transient_source_disappeared",
+            f"source disappeared during discovery: {path}",
+        ) from exc
+    if profile.require_nonzero_files and stat.st_size == 0:
+        raise ProductValidationError("zero_byte_file", f"zero-byte table: {path.name}")
+    try:
+        parquet = pq.ParquetFile(path)
+        schema = parquet.schema_arrow
+        fields = [
+            {
+                "name": field.name,
+                "type": str(field.type),
+                "nullable": bool(field.nullable),
+            }
+            for field in schema
+        ]
+        row_count = int(parquet.metadata.num_rows)
+    except Exception as exc:
+        raise ProductValidationError(
+            "invalid_schema",
+            f"unreadable Parquet footer for {path.name}: {type(exc).__name__}: {exc}",
+        ) from exc
+    schema_sha256 = hashlib.sha256(
+        canonical_json(fields).encode("utf-8")
+    ).hexdigest()
+    signature = {
+        "path": path.resolve().as_posix(),
+        "size_bytes": int(stat.st_size),
+        "modified_time_ns": int(stat.st_mtime_ns),
+        "row_count": row_count,
+        "schema_sha256": schema_sha256,
+    }
+    return {
+        "rows": row_count,
+        "columns": len(fields),
+        "schema": fields,
+        "schema_sha256": schema_sha256,
+        "source_signature_sha256": signature_sha256(signature),
+    }
+
+
+def _pair_regression_eligibility(
+    targets: dict[str, dict[str, Any]],
+    pairs: Sequence[TranslationPair],
+    structural: dict[str, bool],
+) -> tuple[dict[str, bool], list[dict[str, Any]]]:
+    """Separate product compatibility from scientific regression evidence."""
+
+    result: dict[str, bool] = {}
+    blockers: list[dict[str, Any]] = []
+    for pair in pairs:
+        eligible = bool(structural.get(pair.key))
+        target = targets.get(pair.target_sensor, {})
+        target_name = Path(str(target.get("image", ""))).name.lower()
+        if eligible and "__landsat_like_" in target_name and "_translated_envi.img" in target_name:
+            eligible = False
+            blockers.append(
+                {
+                    "reason_code": "circular_translation_evidence",
+                    "translation_pair": pair.key,
+                    "detail": (
+                        "The Landsat-like target is an affine translation produced "
+                        "from this flight's MicaSense observation using an existing "
+                        "coefficient registry. It is available for campaign census "
+                        "and descriptive summaries but is not independent evidence "
+                        "for refitting coefficients."
+                    ),
+                    "target_path": target.get("image"),
+                }
+            )
+        result[pair.key] = eligible
+    return result, blockers
+
+
 def _qa_inventory(directory: Path) -> tuple[list[str], str, dict[str, dict[str, Any]]]:
     qa_files = sorted(
         path
@@ -208,7 +294,13 @@ def _qa_inventory(directory: Path) -> tuple[list[str], str, dict[str, dict[str, 
             if isinstance(value, dict):
                 for key, item in value.items():
                     field = f"{prefix}.{key}".strip(".")
-                    if key.lower() in {"status", "overall_status", "qa_status"}:
+                    if key.lower() in {
+                        "status",
+                        "overall_status",
+                        "qa_status",
+                        "scientific_qa_status",
+                        "execution_status",
+                    }:
                         values.append(str(item).lower())
                     elif isinstance(item, (dict, list)):
                         stack.append((field, item))
@@ -227,11 +319,11 @@ def _qa_inventory(directory: Path) -> tuple[list[str], str, dict[str, dict[str, 
         joined = " ".join(values)
         status = (
             "fail"
-            if "fail" in joined
+            if any(token in joined for token in ("fail", "blocked", "error", "incomplete"))
             else "warn"
-            if "warn" in joined
+            if any(token in joined for token in ("warn", "ambiguous"))
             else "pass"
-            if values
+            if any(token in joined for token in ("pass", "success", "complete"))
             else "unknown"
         )
         details[relative] = {"status": status, "metrics": metrics}
@@ -300,6 +392,12 @@ def _source_record(
     reason_code: str | None = None,
     matching_group: str | None = None,
     processing_stage: str | None = None,
+    product_key: str | None = None,
+    storage_format: str = "envi",
+    product_semantics: str | None = None,
+    row_count: int | None = None,
+    schema_sha256: str | None = None,
+    schema_json: str = "[]",
 ) -> SourceFileRecord:
     relative = path.relative_to(root).as_posix()
     try:
@@ -322,20 +420,25 @@ def _source_record(
         input_kind="flightline_output",
         status=status,
         reason=reason,
-        row_count=None,
-        column_count=(int(metadata["bands"]) if metadata else None),
+        row_count=row_count,
+        column_count=(
+            int(metadata.get("bands", metadata.get("columns", 0)))
+            if metadata
+            else None
+        ),
         size_bytes=size_bytes,
         modified_time_ns=modified_time_ns,
-        schema_sha256=None,
+        schema_sha256=schema_sha256,
         available_sensors_json=canonical_json([sensor] if sensor else []),
         translation_eligible=False,
         product_role=role,
         sensor_name=sensor,
-        header_path=str(path.with_suffix(".hdr")),
+        header_path=(str(path.with_suffix(".hdr")) if storage_format == "envi" else None),
         dimensions_json=canonical_json(
             {
                 key: metadata[key]
                 for key in ("rows", "columns", "bands", "crs", "transform", "nodata")
+                if key in metadata
             }
             if metadata
             else {}
@@ -349,6 +452,10 @@ def _source_record(
         processing_stage=processing_stage,
         wavelengths_json=canonical_json(metadata.get("wavelengths_nm", []) if metadata else []),
         dtype=str(metadata.get("dtype")) if metadata and metadata.get("dtype") else None,
+        product_key=product_key,
+        storage_format=storage_format,
+        product_semantics=product_semantics,
+        schema_json=schema_json,
     )
 
 
@@ -456,6 +563,14 @@ def discover_completed_flightlines(
                             reason_code="duplicate_product",
                             matching_group=descriptor.matching_group,
                             processing_stage=descriptor.processing_stage,
+                            product_key=descriptor.key,
+                            product_semantics=(
+                                "landsat_like_translated"
+                                if "__landsat_like_" in path.name.lower()
+                                else "matched_native_application_input"
+                                if "__micasense_to_match_" in path.name.lower()
+                                else "synthetic_convolution"
+                            ),
                         )
                     )
                 continue
@@ -514,19 +629,173 @@ def discover_completed_flightlines(
                     reason_code=reason_code,
                     matching_group=descriptor.matching_group,
                     processing_stage=descriptor.processing_stage,
+                    product_key=descriptor.key,
+                    product_semantics=(
+                        "landsat_like_translated"
+                        if "__landsat_like_" in path.name.lower()
+                        else "matched_native_application_input"
+                        if "__micasense_to_match_" in path.name.lower()
+                        else "synthetic_convolution"
+                    ),
                 )
             )
+
+        tabular_issues: list[dict[str, Any]] = []
+        tabular_rows: list[int] = []
+        tabular_schema_fingerprints: list[str] = []
+        native_tabular_rows: list[int] = []
+        tabular_groups: dict[
+            str, list[tuple[Path, TabularProductDescriptor | None]]
+        ] = defaultdict(list)
+        for path in files:
+            if path.suffix.lower() != ".parquet" or "__provenance_tmp" in path.name:
+                continue
+            descriptor = product_registry.recognize_tabular(path)
+            key = (
+                descriptor.key
+                if descriptor is not None
+                else "unregistered_tabular::" + path.relative_to(directory).as_posix()
+            )
+            tabular_groups[key].append((path, descriptor))
+        for key, entries in sorted(tabular_groups.items()):
+            descriptor = entries[0][1]
+            duplicate = descriptor is not None and len(entries) > 1
+            availability_key = f"tabular:{key}"
+            availability = {
+                "product_role": (
+                    descriptor.product_role if descriptor else "unregistered_tabular"
+                ),
+                "sensor_name": descriptor.sensor_name if descriptor else None,
+                "candidate_count": len(entries),
+                "valid_count": 0,
+                "status": "duplicate" if duplicate else "candidate",
+                "storage_format": "parquet",
+            }
+            product_availability[availability_key] = availability
+            if duplicate:
+                tabular_issues.append(
+                    {
+                        "reason_code": "duplicate_product",
+                        "detail": f"multiple tables match canonical product {key}",
+                        "product_role": descriptor.product_role,
+                        "sensor_name": descriptor.sensor_name,
+                        "processing_stage": descriptor.processing_stage,
+                        "offending_files": [path.name for path, _ in entries],
+                    }
+                )
+            for path, entry_descriptor in entries:
+                try:
+                    metadata = _tabular_metadata(path, profile=profile)
+                except ProductValidationError as exc:
+                    status = "rejected"
+                    reason = str(exc)
+                    reason_code = exc.reason_code
+                    metadata = None
+                    availability["status"] = reason_code
+                    tabular_issues.append(
+                        {
+                            "reason_code": reason_code,
+                            "detail": reason,
+                            "product_role": (
+                                entry_descriptor.product_role
+                                if entry_descriptor
+                                else "unregistered_tabular"
+                            ),
+                            "sensor_name": (
+                                entry_descriptor.sensor_name
+                                if entry_descriptor
+                                else None
+                            ),
+                            "processing_stage": (
+                                entry_descriptor.processing_stage
+                                if entry_descriptor
+                                else "tabular_inventory"
+                            ),
+                            "offending_files": [path.name],
+                        }
+                    )
+                else:
+                    status = "rejected" if duplicate else "available"
+                    reason = (
+                        f"multiple tables match canonical product {key}"
+                        if duplicate
+                        else None
+                    )
+                    reason_code = "duplicate_product" if duplicate else None
+                    if not duplicate:
+                        availability["status"] = "available"
+                        availability["valid_count"] += 1
+                        tabular_rows.append(int(metadata["rows"]))
+                        tabular_schema_fingerprints.append(
+                            str(metadata["schema_sha256"])
+                        )
+                        if (
+                            entry_descriptor is not None
+                            and entry_descriptor.product_role
+                            == "native_corrected_tabular"
+                        ):
+                            native_tabular_rows.append(int(metadata["rows"]))
+                sources.append(
+                    _source_record(
+                        root=root,
+                        directory=directory,
+                        canonical_id=canonical_id,
+                        site=identity.site or "",
+                        acquisition_date=identity.acquisition_date or "",
+                        candidate_id=candidate_id,
+                        path=path,
+                        role=(
+                            entry_descriptor.product_role
+                            if entry_descriptor
+                            else "unregistered_tabular"
+                        ),
+                        sensor=(
+                            entry_descriptor.sensor_name
+                            if entry_descriptor
+                            else None
+                        ),
+                        status=status,
+                        reason=reason,
+                        metadata=metadata,
+                        qa_status=qa_status,
+                        identity_source=identity.identity_source,
+                        reason_code=reason_code,
+                        processing_stage=(
+                            entry_descriptor.processing_stage
+                            if entry_descriptor
+                            else "tabular_inventory"
+                        ),
+                        product_key=key,
+                        storage_format="parquet",
+                        product_semantics=(
+                            entry_descriptor.product_semantics
+                            if entry_descriptor
+                            else "unregistered"
+                        ),
+                        row_count=(int(metadata["rows"]) if metadata else None),
+                        schema_sha256=(
+                            str(metadata["schema_sha256"]) if metadata else None
+                        ),
+                        schema_json=canonical_json(
+                            metadata.get("schema", []) if metadata else []
+                        ),
+                    )
+                )
 
         corrected = next(
             iter(valid_by_role.get("corrected_hyperspectral", [])), {}
         )
         targets = valid_products
-        eligibility = _translation_eligibility(targets, pairs)
+        availability = _translation_eligibility(targets, pairs)
+        eligibility, scientific_blockers = _pair_regression_eligibility(
+            targets, pairs, availability
+        )
+        available_pairs = [pair for pair in pairs if availability[pair.key]]
         eligible_pairs = [pair for pair in pairs if eligibility[pair.key]]
         selected_sensors = sorted(
             {
                 sensor
-                for pair in eligible_pairs
+                for pair in available_pairs
                 for sensor in (pair.source_sensor, pair.target_sensor)
             }
         )
@@ -555,6 +824,9 @@ def discover_completed_flightlines(
                     "offending_files": list(offending_files),
                 }
             )
+
+        for issue in tabular_issues:
+            exclude(**issue)
 
         required_roles = set(profile.required_product_roles)
         if profile.require_original_hyperspectral:
@@ -590,7 +862,7 @@ def discover_completed_flightlines(
                 product_role="qa",
                 processing_stage="qa",
             )
-        if profile.require_translation_pair and not eligible_pairs:
+        if profile.require_translation_pair and not available_pairs:
             available = ", ".join(sorted(targets)) or "none"
             exclude(
                 "incomplete_translation_pair",
@@ -611,6 +883,7 @@ def discover_completed_flightlines(
         else:
             processing_completeness = "incomplete"
 
+        translation_available = bool(available_pairs)
         translation_eligible = bool(eligible_pairs)
         representative = next(
             (targets[sensor] for sensor in selected_sensors if sensor in targets),
@@ -654,6 +927,9 @@ def discover_completed_flightlines(
             "product_registry_keys": [
                 descriptor.key for descriptor in product_registry.products
             ],
+            "tabular_product_registry_keys": [
+                descriptor.key for descriptor in product_registry.tabular_products
+            ],
             "selected_translation_pairs": [pair.key for pair in pairs],
         }
         candidate_sources = sources[source_records_start:]
@@ -687,13 +963,21 @@ def discover_completed_flightlines(
                 metadata_products_json=canonical_json(metadata_files),
                 available_sensors_json=canonical_json(sorted(targets)),
                 processing_stages_json=canonical_json(stages),
-                row_count=None,
+                row_count=(
+                    native_tabular_rows[0]
+                    if native_tabular_rows
+                    else tabular_rows[0]
+                    if tabular_rows
+                    else None
+                ),
                 size_bytes=sum(
                     int(targets[sensor]["image_size_bytes"])
                     for sensor in selected_sensors
                 ),
                 source_directory_size_bytes=source_bytes,
-                schema_fingerprints_json="[]",
+                schema_fingerprints_json=canonical_json(
+                    sorted(set(tabular_schema_fingerprints))
+                ),
                 brightness_state_json="{}",
                 correction_state_json=canonical_json(
                     {"corrected_product_present": corrected_present}
@@ -735,6 +1019,16 @@ def discover_completed_flightlines(
                 product_availability_json=canonical_json(product_availability),
                 exclusion_reason_codes_json=canonical_json(exclusion_codes),
                 exclusion_context_json=canonical_json(exclusion_contexts),
+                translation_available=translation_available,
+                translation_availability_json=canonical_json(availability),
+                scientific_status=(
+                    "regression_eligible"
+                    if translation_eligible
+                    else "translation_available_descriptive_only"
+                    if translation_available
+                    else "translation_unavailable"
+                ),
+                scientific_blockers_json=canonical_json(scientific_blockers),
             )
         )
 

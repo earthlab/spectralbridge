@@ -1,11 +1,11 @@
 {
   "ai_systems": {
     "Cursor Agent": 37,
-    "OpenAI Codex": 220
+    "OpenAI Codex": 221
   },
   "branches": {
     "$(git branch --show-current 2>/dev/null || echo unknown)": 1,
-    "main": 245,
+    "main": 246,
     "unknown": 7,
     "work": 4
   },
@@ -16,18 +16,18 @@
     "word_count": "Unicode word-like tokens matched by the generator's WORD_RE expression."
   },
   "models": {
-    "GPT-5": 33,
+    "GPT-5": 34,
     "GPT-5 family (exact deployment identifier not exposed)": 7,
     "Not recorded": 217
   },
   "primary_intents": {
     "Audit or investigation": 26,
     "Execution or verification": 49,
-    "Implementation or modification": 119,
+    "Implementation or modification": 120,
     "Other or mixed": 63
   },
   "primary_topics": {
-    "Data and metadata handling": 27,
+    "Data and metadata handling": 28,
     "Documentation and website": 17,
     "Drone and UAS workflow": 11,
     "Other": 39,
@@ -42,24 +42,24 @@
     "2026-06": 47,
     "2026-07": 36,
     "2026-08": 87,
-    "2026-09": 45
+    "2026-09": 46
   },
   "schema_version": 1,
   "source": {
-    "data_through": "2026-09-26",
+    "data_through": "2026-09-28",
     "path": "PROMPT_LOG.md",
-    "sha256": "100db2e0f942ee1bcae1cc65bf2a67b877d31d7ff506d1f717c258890700a5fd"
+    "sha256": "b869ea1627fc8a085f73ad95d63b99ed10cde6387c5b4898139e90cc5b2d6a98"
   },
   "summary": {
-    "entries_with_recorded_model": 40,
+    "entries_with_recorded_model": 41,
     "first_prompt_date": "2026-03-21",
-    "last_prompt_date": "2026-09-26",
+    "last_prompt_date": "2026-09-28",
     "maximum_prompt_words": 8915,
-    "mean_prompt_words": 253.3,
+    "mean_prompt_words": 259.7,
     "median_prompt_words": 32.0,
     "minimum_prompt_words": 1,
-    "model_metadata_coverage_pct": 15.6,
-    "prompt_count": 257,
-    "total_prompt_words": 65091
+    "model_metadata_coverage_pct": 15.9,
+    "prompt_count": 258,
+    "total_prompt_words": 67011
   }
 }

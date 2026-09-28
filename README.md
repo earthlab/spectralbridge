@@ -119,8 +119,8 @@ It reads source rasters in bounded windows and reduces observations immediately
 to mergeable sufficient statistics.
 
 ```text
-immutable completed-flightline ENVI products
-  -> discovery, identity, QA, and eligibility catalog
+immutable completed-flightline ENVI + per-flight Parquet products
+  -> discovery, identity, product/schema/QA, and eligibility catalog
   -> bounded raster windows
   -> one compact sufficient-statistics checkpoint per flightline
   -> pooled, flightline-balanced, and site-balanced translations
@@ -139,6 +139,15 @@ result = run_bulk_pipeline(
     memory_limit="8GB",
 )
 ```
+
+Use `preflight_only=True` first for a cheap campaign inventory. Canonical drone
+outputs are discovered directly through `spectralbridge_flightline.json`; their
+per-flight Parquet footers provide product, schema, row, and size summaries.
+Because the Landsat-like drone products are applications of an existing
+coefficient registry rather than independent observations, bulk records them as
+translation-available but intentionally does not refit coefficients or run LOSO
+from those same outputs. The campaign census and descriptive summary still
+complete normally.
 
 The workflow is restart-safe: completed per-flightline statistics checkpoints
 are reused. Source observations stay in their immutable products, so the compact

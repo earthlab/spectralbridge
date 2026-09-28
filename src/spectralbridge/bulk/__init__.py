@@ -26,6 +26,7 @@ from .registry import (
     AnalysisProfile,
     ProductDescriptor,
     ProductRegistry,
+    TabularProductDescriptor,
     TranslationPair,
 )
 from .results import (
@@ -52,6 +53,7 @@ __all__ = [
     "AnalysisProfile",
     "ProductDescriptor",
     "ProductRegistry",
+    "TabularProductDescriptor",
     "TranslationPair",
     "SpectralLibraryPlotConfig",
     "build_bulk_catalog",

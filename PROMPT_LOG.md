@@ -19346,3 +19346,527 @@ Model: GPT-5
 ```text
 continue
 ```
+
+## 2026-09-28 - harden bulk analysis for canonical drone outputs
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+Work in the current earthlab/spectralbridge repository.
+
+Goal
+
+Finish and harden the bulk-analysis path for production drone outputs.
+
+The important architectural principle is:
+
+Do not create a second special-purpose drone bulk pipeline and do not require users to reorganize or merge drone outputs before analysis.
+
+The drone pipeline now creates a canonical, self-describing per-flight structure. Bulk analysis should exploit that structure directly.
+
+A user should ultimately be able to do approximately:
+
+from spectralbridge import run_bulk_pipeline
+result = run_bulk_pipeline(
+    "/path/to/drone_outputs",
+    "/path/to/bulk_results",
+    input_mode="auto",
+)
+
+and have SpectralBridge recursively discover the completed drone flights, understand their scientific identities and products, validate them, and perform the appropriate population-level analysis.
+
+Before changing code, inspect the repository carefully and understand the current implementation. Do not assume this prompt is more current than the code.
+
+Pay particular attention to:
+
+* src/spectralbridge/pipelines/drone.py
+* src/spectralbridge/pipelines/bulk.py
+* src/spectralbridge/bulk/
+* src/spectralbridge/bulk/identity.py
+* src/spectralbridge/bulk/flightline_outputs.py
+* src/spectralbridge/bulk/catalog.py
+* src/spectralbridge/bulk/registry.py
+* src/spectralbridge/drone_translation.py
+* src/spectralbridge/drone_translation_registry.py
+* drone and bulk tests
+* drone and bulk documentation
+* the production bulk notebook(s)
+
+Also inspect AGENTS.md and obey repository instructions.
+
+Current intended architecture
+
+The repository already contains much of the desired design.
+
+Completed drone flight directories contain:
+
+spectralbridge_flightline.json
+
+Bulk identity parsing already understands this manifest.
+
+run_bulk_pipeline(..., input_mode="auto") is intended to prefer canonical completed-flightline directories over the older merged-Parquet path.
+
+The product registry already describes MicaSense-matched products, Landsat products, matching groups, expected band counts, and translation pairs.
+
+Preserve and finish this architecture rather than replacing it.
+
+Production evidence
+
+We have run the drone pipeline across a real production collection.
+
+The resulting catalog contains:
+
+* 43 flightlines
+* 6 expected tabular products per flight
+* 258 products total
+* 0 missing products
+* 0 duplicate products
+
+The products represented are:
+
+1. native/corrected drone spectral information
+2. combined Landsat-like output
+3. Landsat 5 TM translation
+4. Landsat 7 ETM+ translation
+5. Landsat 8 OLI translation
+6. Landsat 9 OLI-2 translation
+
+For a representative flight such as GOLDHILL, the four sensor-specific Landsat-like products have identical pixel counts and the merged Landsat-like product has exactly four times that count.
+
+This production output should be treated as the target shape of the data rather than inventing a synthetic organizational scheme.
+
+If these production CSV summaries are available locally during this Codex session, inspect them:
+
+drone_product_catalog.csv
+drone_product_summary.csv
+drone_product_schemas.csv
+analysis_numeric_column_frequency.csv
+
+Use them to understand the actual product layout and schemas.
+
+Do not hard-code the 43-flight campaign into library code.
+
+First task: diagnose the current failure
+
+Before implementing anything, reproduce or identify why the current bulk pipeline does not correctly consume the production drone output tree.
+
+Trace the complete path:
+
+drone output root
+    ↓
+find_canonical_flightline_directories()
+    ↓
+spectralbridge_flightline.json
+    ↓
+resolve_flightline_identity()
+    ↓
+discover_completed_flightlines()
+    ↓
+product registry recognition
+    ↓
+product validation
+    ↓
+translation-pair eligibility
+    ↓
+chunked extraction / sufficient statistics
+    ↓
+population analyses
+
+Determine exactly where the real production structure diverges from what bulk currently expects.
+
+Do not patch around the first exception. Determine the root cause.
+
+Canonical flight directory is authoritative
+
+A completed drone flight directory and its manifest should be the unit of discovery.
+
+Do not infer scientific identity from arbitrary outer campaign folder names.
+
+Use:
+
+spectralbridge_flightline.json
+
+as the canonical identity contract.
+
+Preserve the generic manifest-based identity system so this remains useful beyond drones.
+
+Bulk should recursively discover flight directories regardless of how many campaign-level folders surround them.
+
+Product discovery
+
+Inspect exactly what run_drone_pipeline() now writes.
+
+Make sure bulk recognizes the canonical outputs actually written by the drone pipeline.
+
+Do not make users rename files.
+
+Do not make users copy selected products into another directory.
+
+Do not make users concatenate all flights.
+
+Do not require the legacy campaign-wide merged extraction tables.
+
+If the drone pipeline and bulk registry disagree about filenames, sensor names, product roles, matching groups, or processing stages, establish one canonical contract and test it.
+
+Prefer fixing shared contracts over adding ad hoc filename exceptions.
+
+Important scientific distinction
+
+Be careful about what the products mean.
+
+The drone pipeline begins with native MicaSense observations and eventually creates Landsat-like products by translation.
+
+Those translated products are synthetic Landsat-like observations. They are not actual Landsat measurements.
+
+Preserve that distinction in metadata, provenance, variable names, documentation, and analysis.
+
+Likewise, do not accidentally treat the production translated drone products as the evidence used to refit themselves.
+
+The original bulk calibration analysis and application of an existing coefficient registry are scientifically different operations.
+
+Audit the code for circular analysis.
+
+Determine the scientifically valid bulk analyses
+
+Inspect what information is present in the completed drone outputs.
+
+Then explicitly determine which bulk analyses are scientifically meaningful.
+
+At minimum bulk should be able to produce a population-level census of the drone campaign:
+
+* discovered flights
+* accepted flights
+* rejected flights
+* blocked/incomplete flights if represented
+* site
+* acquisition date
+* product availability
+* sensor availability
+* row/pixel counts
+* schemas
+* file sizes
+* QA status
+* missing products
+* duplicate identities
+* product compatibility
+* translation availability
+* exclusion reasons
+
+Where scientifically valid, summarize the translated products across flights and sites.
+
+Do not silently run a regression merely because both a MicaSense-derived and Landsat-like product exist.
+
+Before fitting any coefficient, identify what the source and target observations actually represent and whether that relationship is independent calibration evidence.
+
+Exploit the canonical structure
+
+The flight structure should allow the bulk workflow to remain streaming and bounded-memory.
+
+Do not create one enormous campaign-wide DataFrame.
+
+Prefer:
+
+flight
+  → validate metadata
+  → identify relevant product pair
+  → process raster/table in chunks
+  → accumulate sufficient statistics
+  → discard chunk
+next flight
+
+The existing flightline_outputs mode and sufficient-statistics machinery appear designed for this.
+
+Finish or repair that implementation rather than bypassing it.
+
+The source drone tree must remain read-only.
+
+All bulk outputs, caches, sufficient statistics, catalogs, diagnostics, and reports belong under the separate bulk output directory.
+
+Parquet products
+
+The production drone pipeline now creates useful per-flight Parquet products.
+
+Inspect them carefully.
+
+If those canonical per-flight Parquets contain the information needed for particular population summaries, use them directly rather than rereading huge rasters unnecessarily.
+
+However, do not make the presence of a campaign-wide merged Parquet a requirement.
+
+The hierarchy should be:
+
+canonical per-flight products
+        ↓
+bulk streaming analysis
+        ↓
+compact campaign-level results
+
+not:
+
+canonical per-flight products
+        ↓
+giant merged campaign file
+        ↓
+bulk analysis
+
+A merged extraction may remain an optional compatibility/export product, but it must not be the fundamental data model.
+
+Product completeness versus scientific validity
+
+Keep these separate.
+
+A flight may be structurally complete but scientifically questionable.
+
+Bulk should distinguish things such as:
+
+complete
+incomplete
+invalid_schema
+missing_product
+duplicate_identity
+qa_warning
+qa_failure
+scientifically_blocked
+translation_ineligible
+
+Use existing reason-code machinery where possible rather than creating parallel status systems.
+
+Do not hide exclusions.
+
+Every exclusion should have a stable machine-readable reason and human-readable explanation.
+
+Real production preflight
+
+Add or improve a cheap preflight mode that can inspect a large drone campaign without performing the expensive population analysis.
+
+For a production drone output root, it should report at least:
+
+number of flight directories discovered
+number accepted
+number rejected
+number duplicated
+sites
+dates
+available products
+available sensors
+translation pairs
+row/pixel counts where cheaply available
+source bytes
+QA state
+schema compatibility
+exclusion counts by reason
+estimated analysis requirements
+
+This should make it obvious whether the 43-flight production campaign is ready before doing expensive work.
+
+Testing strategy
+
+Add tests at several levels.
+
+1. Identity
+
+Create a temporary canonical drone flight directory containing:
+
+spectralbridge_flightline.json
+
+Verify that bulk discovers the identity correctly without depending on the directory name.
+
+2. Product discovery
+
+Create representative products using the exact canonical names emitted by the current drone pipeline.
+
+Verify that every expected product is recognized by the registry exactly once.
+
+3. Recursive campaign discovery
+
+Construct something like:
+
+campaign/
+    batch_A/
+        flight_001/
+            spectralbridge_flightline.json
+            ...
+        flight_002/
+            spectralbridge_flightline.json
+            ...
+    arbitrary_outer_folder/
+        flight_003/
+            spectralbridge_flightline.json
+            ...
+
+Verify all three flights are found.
+
+4. Duplicate identities
+
+Place the same canonical flight ID in two different directories.
+
+Verify that bulk reports the duplicate explicitly and does not double-count it.
+
+5. Streaming analysis
+
+Use small raster fixtures and verify that flightline_outputs mode obtains the same sufficient statistics as an equivalent materialized calculation.
+
+6. Auto mode
+
+Verify:
+
+input_mode="auto"
+
+selects flightline_outputs when canonical manifests exist.
+
+7. Read-only source
+
+Verify the bulk workflow creates no files anywhere inside the drone input tree.
+
+8. Resume
+
+Interrupt or simulate partial bulk outputs and verify rerunning safely resumes or deterministically rebuilds the appropriate derived stage.
+
+9. Realistic drone schema
+
+Construct fixtures based on the schemas observed in the production catalog CSVs rather than only minimal toy schemas.
+
+10. Regression protection
+
+Make sure existing NEON bulk behavior still works.
+
+The generic bulk architecture must support both canonical NEON products and canonical drone products.
+
+Campaign-level outputs
+
+At the end of a successful run I want a compact, understandable bulk output directory.
+
+Retain the existing output contracts where sensible.
+
+It should contain machine-readable tables for at least:
+
+flightlines
+source files/products
+exclusions
+duplicates
+rejected sources
+dataset census
+sufficient statistics where used
+analysis results
+provenance/manifest
+
+Add a human-readable campaign summary if one does not already exist.
+
+That summary should immediately answer:
+
+* How many flights were discovered?
+* How many were usable?
+* What sites and dates are represented?
+* What products exist?
+* Are schemas consistent?
+* How many observations/pixels are represented?
+* How large is the campaign?
+* Which flights failed or were excluded and why?
+* Which sensors and translation relationships are available?
+* What scientific analyses were actually run?
+* What was intentionally not run?
+
+Documentation
+
+Update the drone and bulk vignettes so they tell one consistent story.
+
+The workflow should read conceptually as:
+
+run_drone_pipeline(...)
+        ↓
+canonical per-flight output directories
+        ↓
+spectralbridge_flightline.json
+        ↓
+run_bulk_pipeline(drone_output_root, bulk_output_root)
+        ↓
+campaign census + population analysis
+
+Remove or clearly label obsolete instructions that tell users to manually merge, rename, stage, or reorganize canonical drone outputs.
+
+Public API
+
+Keep the public API small.
+
+Prefer improving:
+
+run_drone_pipeline(...)
+run_bulk_pipeline(...)
+summarize_bulk_results(...)
+
+rather than adding a new public run_drone_bulk_pipeline() unless there is an unavoidable architectural reason.
+
+There probably is not.
+
+Validation
+
+Run the relevant test suite after implementation.
+
+At minimum run:
+
+pytest -q tests/test_bulk_pipeline.py
+
+plus all drone, translation, registry, identity, extraction, and installed-artifact tests affected by the changes.
+
+Then run the full test suite if practical.
+
+Also run formatting/lint/type checks required by this repository.
+
+Do not weaken tests merely to make them pass.
+
+Final acceptance test
+
+The conceptual production test is:
+
+result = run_bulk_pipeline(
+    drone_output_root,
+    bulk_output_root,
+    input_mode="auto",
+    preflight_only=True,
+)
+
+against the existing production drone campaign.
+
+It should discover the canonical campaign directly.
+
+For our current production collection, we expect the catalog to reconcile with approximately:
+
+43 flightlines
+258 expected per-flight tabular products
+0 missing expected products
+0 duplicate expected products
+
+Those numbers are validation evidence, not constants to hard-code.
+
+Then a full run should operate directly from those canonical per-flight outputs without requiring a giant merged campaign file.
+
+Important implementation rule
+
+Do not start by writing code.
+
+First inspect the current repository and produce a concise diagnosis containing:
+
+1. what the drone pipeline currently writes
+2. what bulk currently expects
+3. where those contracts disagree
+4. which existing abstractions should be reused
+5. the smallest coherent implementation plan
+6. any scientific ambiguity that must be resolved before fitting or interpreting regressions
+
+Then implement the fixes.
+
+After implementation, report:
+
+1. root cause
+2. files changed
+3. architecture after the fix
+4. tests added
+5. tests run and results
+6. production-scale assumptions
+7. remaining scientific limitations
+8. exact example command/notebook cell we should use on the existing drone production output tree
+
+The goal is not merely to make the current files load.
+
+The goal is to make canonical per-flight outputs the durable interface between SpectralBridge processing and SpectralBridge bulk analysis, so NEON, drone, and future sensors can participate in the same population-analysis architecture without campaign-specific staging hacks.
+```

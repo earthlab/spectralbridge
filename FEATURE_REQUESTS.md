@@ -1,6 +1,6 @@
 # SpectralBridge Feature Requests
 
-Review date: 2026-09-18
+Review date: 2026-09-28
 Branch: main
 
 This file is the authoritative work queue for non-trivial SpectralBridge work.
@@ -20,10 +20,73 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P91. Harden Bulk Analysis For Canonical Production Drone Outputs
+
+- Priority: High, user-directed production analysis
+- Status: Implementation complete; production campaign validation pending
+- Owner: Codex
+- Started: 2026-09-28
+- Goal: Make the existing bulk pipeline consume canonical completed drone
+  flight directories directly and safely, using the generic flightline
+  manifest, registered products, bounded streaming, restart-safe compact
+  checkpoints, and explicit scientific eligibility gates.
+- Plan: First trace what the drone pipeline writes and what the bulk pipeline
+  discovers, validates, pairs, and streams; inspect the supplied production
+  inventory evidence if present; then state the root cause, reusable
+  abstractions, smallest coherent implementation, and any scientific ambiguity
+  before changing implementation code. After that diagnosis, add only the
+  missing canonical discovery, preflight, reporting, regression, and
+  documentation behavior and verify focused plus full project gates.
+- Guardrails: Do not create a drone-specific bulk pipeline, materialize an
+  ordinary campaign-wide pixel table, mutate source products, hard-code the
+  observed campaign size, change NEON behavior, or fit calibration
+  coefficients from translated products derived from those same coefficients.
+  Campaign census remains valid even when independent calibration evidence is
+  absent; regression analyses must fail closed or be marked ineligible.
+- Current evidence: The expected production campaign is approximately 43
+  flights with six canonical products per flight, but those counts are
+  observations to verify from supplied artifacts rather than package
+  constants.
+- Diagnosis: Recursive manifest identity and ENVI streaming already worked. The
+  missing contract was canonical per-flight Parquet inventory, and the existing
+  eligibility flag conflated aligned product availability with independent
+  regression evidence. Consequently production table counts/schemas were
+  invisible and applied drone translations could be refit circularly.
+- Outcome: The shared registry now describes canonical native, translated,
+  combined, and auxiliary drone tables. Completed-flight discovery reads
+  Parquet footers only, persists product keys/storage/semantics/schema/rows,
+  summarizes products and QA, and emits campaign-observed per-flight missing
+  products without turning descriptive completeness into a regression gate.
+  Product availability remains separate from scientific regression eligibility.
+  Affine drone application outputs remain
+  accepted for census and descriptive summaries but are blocked from coefficient
+  refitting with `circular_translation_evidence`. Full runs without independent
+  evidence complete with machine-readable `analysis_decisions.json` and a human
+  `campaign_summary.md`; NEON/generic eligible pairs retain bounded streaming,
+  compact checkpoints, hierarchical fits, and restart reuse.
+- Verification: Production-shaped fixtures reconcile six tabular products for
+  one flight, including a combined table with four times the target row count;
+  verify read-only input, explicit missing-product reporting, circular-fit
+  blocking, and deterministic restart.
+  Full pytest passed (450 collected, 6 skipped), the focused bulk/drone/export
+  suite passed, Ruff passed, docs links passed, strict MkDocs passed, JSON and
+  diff checks passed, wheel/sdist build plus Twine checks passed, and the exact
+  unpacked wheel passed the bounded installed-artifact smoke for normal, drone,
+  bulk, spectral-library, public API, console scripts, data wiring, and restart.
+- Production validation blocker: The reported campaign CSVs and 43-flight
+  production tree are not present in this workspace, so the observed 43 flights,
+  258 products, zero missing, and zero duplicates were not independently
+  reproduced. They remain acceptance evidence to verify on the production VM,
+  not constants in package code.
+- Next recommended task: Run `preflight_only=True` against the immutable
+  production drone root, compare `analyses/dataset_census/by_product.parquet`
+  and `reports/campaign_summary.md` with the supplied campaign catalog, then run
+  the full census/descriptive workflow into a separate output directory.
+
 ### P90. Audit HyTools Code Provenance, Attribution, And Release Packaging
 
 - Priority: High, user-directed release and manuscript integrity
-- Status: In progress
+- Status: Completed; human legal review remains external
 - Owner: Codex
 - Started: 2026-09-26
 - SpectralBridge audit baseline: `30344404bf7787b135ed00424e624af43d42c6ab`
@@ -42,10 +105,20 @@ left incomplete so the next agent can resume immediately.
 - Guardrails: No similarity-masking rewrites, algorithmic changes, attribution
   removal, Git-history rewriting, or legal conclusions. Preserve uncertainty
   and request human/legal review where repository evidence is insufficient.
-- Current blocker: HyTools must be fetched at a fixed commit before the
-  cross-repository mechanical and manual comparison can be completed.
-- Next recommended task: Freeze the HyTools revision and complete the audit
-  inventory before any source-attribution or packaging edit.
+- Outcome: Completed the fixed-revision cross-repository inventory and recorded
+  evidence-backed copied/adapted/inspired classifications in
+  `HYTOOLS_PROVENANCE.md` and `provenance/hytools.json`. Added source notices,
+  package `NOTICE`, an offline provenance audit, regression tests, manuscript
+  guidance, and package metadata without changing numerical behavior.
+- Verification: Focused provenance tests, full pytest, Ruff, strict docs,
+  exact wheel/sdist contents, Twine checks, and the bounded exact-wheel smoke
+  passed. Root-level historical deprecated code remains excluded while active
+  attributed relationships and provenance files ship as documented.
+- Remaining external review: Maintainers/legal counsel should review the
+  documented GPL-related classifications and manuscript wording before release;
+  the repository evidence is preserved rather than presented as legal advice.
+- Next recommended task: Perform human/legal review of the frozen provenance
+  record during release approval; do not rewrite code merely to mask similarity.
 
 ### P89. Validate Historical Drone Solar Geometry Against Independent Position
 

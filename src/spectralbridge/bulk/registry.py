@@ -37,6 +37,30 @@ class ProductDescriptor:
 
 
 @dataclass(frozen=True)
+class TabularProductDescriptor:
+    """Recognize one canonical per-flight tabular product convention.
+
+    Tabular products are catalog inputs, not implicit regression inputs.  The
+    descriptor keeps storage layout separate from the raster relationship used
+    by the bounded statistics reader.
+    """
+
+    key: str
+    product_role: str
+    filename_patterns: tuple[str, ...]
+    sensor_name: str | None = None
+    processing_stage: str | None = None
+    product_semantics: str | None = None
+    extraction_mode: str | None = None
+
+    def matches(self, path: str | Path) -> bool:
+        name = Path(path).name
+        if Path(path).suffix.lower() != ".parquet":
+            return False
+        return any(re.search(pattern, name, re.IGNORECASE) for pattern in self.filename_patterns)
+
+
+@dataclass(frozen=True)
 class TranslationPair:
     """A scientifically defined relationship between two sensor products."""
 
@@ -80,6 +104,7 @@ class ProductRegistry:
 
     products: tuple[ProductDescriptor, ...]
     translation_pairs: tuple[TranslationPair, ...]
+    tabular_products: tuple[TabularProductDescriptor, ...] = ()
 
     def recognize(self, path: str | Path) -> ProductDescriptor | None:
         matches = [descriptor for descriptor in self.products if descriptor.matches(path)]
@@ -97,6 +122,17 @@ class ProductRegistry:
             ),
             None,
         )
+
+    def recognize_tabular(self, path: str | Path) -> TabularProductDescriptor | None:
+        matches = [
+            descriptor for descriptor in self.tabular_products if descriptor.matches(path)
+        ]
+        if len(matches) > 1:
+            keys = ", ".join(descriptor.key for descriptor in matches)
+            raise ValueError(
+                f"tabular product matches multiple descriptors ({keys}): {path}"
+            )
+        return matches[0] if matches else None
 
     def select_pairs(
         self,
@@ -286,9 +322,85 @@ _BUILTIN_PAIRS = tuple(
     for target in targets
 )
 
+
+_DRONE_TRANSLATED_TABLES = tuple(
+    descriptor
+    for sensor, slug in (
+        ("Landsat_5_TM", r"landsat_tm"),
+        ("Landsat_7_ETM+", r"landsat_etm\+"),
+        ("Landsat_8_OLI", r"landsat_oli"),
+        ("Landsat_9_OLI-2", r"landsat_oli2"),
+    )
+    for descriptor in (
+        TabularProductDescriptor(
+            key=f"drone_{sensor.lower().replace('+', 'plus').replace('-', '_')}_full",
+            product_role="translated_tabular",
+            sensor_name=sensor,
+            filename_patterns=(
+                rf"__landsat_like_{slug}_translated_envi\.parquet$",
+            ),
+            processing_stage="affine_cross_sensor_translation",
+            product_semantics="landsat_like_translated",
+            extraction_mode="full",
+        ),
+        TabularProductDescriptor(
+            key=f"drone_{sensor.lower().replace('+', 'plus').replace('-', '_')}_polygon",
+            product_role="translated_tabular",
+            sensor_name=sensor,
+            filename_patterns=(
+                rf"__landsat_like_{slug}_translated_envi__polygons\.parquet$",
+            ),
+            processing_stage="affine_cross_sensor_translation",
+            product_semantics="landsat_like_translated",
+            extraction_mode="polygon",
+        ),
+    )
+)
+
+
+_BUILTIN_TABULAR_PRODUCTS = (
+    TabularProductDescriptor(
+        key="drone_corrected_native_full",
+        product_role="native_corrected_tabular",
+        filename_patterns=(r"__(?!landsat_like_)[^/]*full\.parquet$",),
+        sensor_name="MicaSense_native_corrected",
+        processing_stage="tabular_extraction",
+        product_semantics="native_corrected_observation",
+        extraction_mode="full",
+    ),
+    TabularProductDescriptor(
+        key="drone_corrected_native_polygon",
+        product_role="native_corrected_tabular",
+        filename_patterns=(r"(?<!translated_envi)__polygons\.parquet$",),
+        sensor_name="MicaSense_native_corrected",
+        processing_stage="polygon_extraction",
+        product_semantics="native_corrected_observation",
+        extraction_mode="polygon",
+    ),
+    TabularProductDescriptor(
+        key="drone_polygon_index",
+        product_role="auxiliary_tabular",
+        filename_patterns=(r"__polygon_index\.parquet$",),
+        processing_stage="polygon_index",
+        product_semantics="spatial_index",
+        extraction_mode="polygon",
+    ),
+    TabularProductDescriptor(
+        key="drone_landsat_like_combined",
+        product_role="combined_translated_tabular",
+        filename_patterns=(
+            r"__landsat_like_(?:combined|merged)(?:_envi)?(?:__polygons)?\.parquet$",
+        ),
+        processing_stage="tabular_combination",
+        product_semantics="landsat_like_translated_collection",
+    ),
+    *_DRONE_TRANSLATED_TABLES,
+)
+
 DEFAULT_PRODUCT_REGISTRY = ProductRegistry(
     products=_BUILTIN_PRODUCTS,
     translation_pairs=_BUILTIN_PAIRS,
+    tabular_products=_BUILTIN_TABULAR_PRODUCTS,
 )
 
 
@@ -299,6 +411,7 @@ __all__ = [
     "AnalysisProfile",
     "ProductDescriptor",
     "ProductRegistry",
+    "TabularProductDescriptor",
     "TranslationPair",
     "resolve_analysis_profile",
 ]

@@ -57,7 +57,11 @@ from spectralbridge.bulk.models import (
     FlightlineRecord,
     SourceFileRecord,
 )
-from spectralbridge.bulk.provenance import signature_sha256, write_json_atomic
+from spectralbridge.bulk.provenance import (
+    signature_sha256,
+    write_json_atomic,
+    write_text_atomic,
+)
 from spectralbridge.bulk.streaming import (
     compute_flightline_statistics,
     write_diagnostic_sample,
@@ -148,7 +152,10 @@ def _input_signature(
         "make_summary_plots": make_summary_plots,
         "make_full_spectral_reports": make_full_spectral_reports,
         "analysis_profile": asdict(analysis_profile),
-        "product_registry": [asdict(item) for item in product_registry.products],
+        "product_registry": {
+            "rasters": [asdict(item) for item in product_registry.products],
+            "tables": [asdict(item) for item in product_registry.tabular_products],
+        },
         "identity_parsers": [parser.name for parser in identity_parsers],
         "translation_pairs": [asdict(item) for item in translation_pairs],
         "on_invalid": on_invalid,
@@ -181,13 +188,22 @@ def _outputs_are_valid(
         paths.rejected_sources,
         paths.database,
         paths.manifest,
+        paths.analysis_decisions,
+        paths.campaign_summary,
         paths.analyses_dir / "dataset_census" / "dataset_census.parquet",
         paths.analyses_dir / "dataset_census" / "dataset_census.json",
         paths.analyses_dir / "dataset_census" / "dataset_census.md",
+        paths.analyses_dir / "dataset_census" / "by_product.parquet",
+        paths.analyses_dir / "dataset_census" / "missing_products.parquet",
     ]
     if materialize_observations:
         required.append(paths.observations)
-    if not preflight_only:
+    try:
+        decision = json.loads(paths.analysis_decisions.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        decision = {}
+    regression_was_run = decision.get("status") == "complete"
+    if not preflight_only and regression_was_run:
         required.extend(
             [
                 paths.coefficients_parquet,
@@ -206,35 +222,35 @@ def _outputs_are_valid(
         )
         if input_mode == "flightline_outputs" and not materialize_observations:
             required.append(paths.sufficient_statistics)
-        if spectral_library_requested:
-            spectral_paths = SpectralLibraryPaths.from_bulk_paths(paths)
+    if not preflight_only and spectral_library_requested:
+        spectral_paths = SpectralLibraryPaths.from_bulk_paths(paths)
+        required.extend(
+            [
+                spectral_paths.species_summary,
+                spectral_paths.species_band_summary,
+                spectral_paths.species_quantiles,
+                spectral_paths.species_medians,
+                spectral_paths.group_counts,
+                spectral_paths.species_plot_ranges,
+                spectral_paths.extreme_spectra,
+                spectral_paths.metadata,
+            ]
+        )
+        if make_summary_plots or make_full_spectral_reports:
             required.extend(
                 [
-                    spectral_paths.species_summary,
-                    spectral_paths.species_band_summary,
-                    spectral_paths.species_quantiles,
-                    spectral_paths.species_medians,
-                    spectral_paths.group_counts,
-                    spectral_paths.species_plot_ranges,
-                    spectral_paths.extreme_spectra,
-                    spectral_paths.metadata,
+                    spectral_paths.species_median_report,
+                    spectral_paths.observation_counts,
                 ]
             )
-            if make_summary_plots or make_full_spectral_reports:
-                required.extend(
-                    [
-                        spectral_paths.species_median_report,
-                        spectral_paths.observation_counts,
-                    ]
-                )
-            if make_full_spectral_reports:
-                required.extend(
-                    [
-                        spectral_paths.species_variability,
-                        spectral_paths.species_variability_full_range,
-                        spectral_paths.species_quantile_report,
-                    ]
-                )
+        if make_full_spectral_reports:
+            required.extend(
+                [
+                    spectral_paths.species_variability,
+                    spectral_paths.species_variability_full_range,
+                    spectral_paths.species_quantile_report,
+                ]
+            )
     if any(not path.is_file() or path.stat().st_size == 0 for path in required):
         return False
     try:
@@ -268,7 +284,7 @@ def _outputs_are_valid(
                 con.execute(
                     "SELECT * FROM translation_sufficient_statistics LIMIT 0"
                 ).fetchall()
-            if not preflight_only:
+            if not preflight_only and regression_was_run:
                 con.execute(
                     "SELECT * FROM candidate_translation_coefficients LIMIT 0"
                 ).fetchall()
@@ -291,6 +307,97 @@ def _outputs_are_valid(
     except Exception:
         return False
     return True
+
+
+def _write_campaign_summary(
+    paths: BulkAnalysisPaths,
+    *,
+    census: dict[str, Any],
+    flightlines: Sequence[FlightlineRecord],
+    analysis_decision: dict[str, Any],
+) -> None:
+    """Write the human and machine explanation of campaign readiness."""
+
+    summary = census["summary"]
+    rejected = [item for item in flightlines if item.status != "accepted"]
+    blocked = [
+        item
+        for item in flightlines
+        if item.status == "accepted" and not item.translation_eligible
+    ]
+    product_rows: list[dict[str, Any]] = []
+    product_path = paths.analyses_dir / "dataset_census" / "by_product.parquet"
+    if product_path.is_file():
+        product_rows = pq.read_table(product_path).to_pylist()
+    product_lines = [
+        "- {key}: {count} product(s), {rows:,} row(s), {bytes:,} byte(s), "
+        "{schemas} schema(s), {missing} missing flight(s)".format(
+            key=row["product_key"],
+            count=int(row["product_count"]),
+            rows=int(row["row_count"]),
+            bytes=int(row["size_bytes"]),
+            schemas=int(row["schema_count"]),
+            missing=int(row["missing_flightline_count"]),
+        )
+        for row in product_rows
+    ] or ["- No accepted source products were cataloged."]
+    exclusion_lines = [
+        f"- {item.canonical_flightline_id or item.candidate_id}: "
+        f"{item.rejection_reason or item.status}"
+        for item in rejected
+    ] or ["- None."]
+    blocker_lines = [
+        f"- {item.canonical_flightline_id}: {item.scientific_blockers_json}"
+        for item in blocked
+    ] or ["- None."]
+    decision_payload = {
+        "schema_version": 1,
+        **analysis_decision,
+        "regression_eligible_flightlines": int(
+            summary.get("translation_eligible_flightlines", 0)
+        ),
+        "translation_available_flightlines": int(
+            summary.get("translation_available_flightlines", 0)
+        ),
+        "scientifically_blocked_flightlines": int(
+            summary.get("scientifically_blocked_flightlines", 0)
+        ),
+    }
+    write_json_atomic(paths.analysis_decisions, decision_payload)
+    report = f"""# SpectralBridge campaign summary
+
+- Discovered flight records: {summary.get('candidate_flightline_records', 0)}
+- Accepted flights: {summary.get('accepted_canonical_flightlines', 0)}
+- Rejected flights: {summary.get('rejected_flightline_records', 0)}
+- Duplicate candidates: {summary.get('duplicate_candidates', 0)}
+- Sites: {', '.join(summary.get('sites', [])) or 'none'}
+- Acquisition dates: {', '.join(summary.get('acquisition_dates', [])) or 'none'}
+- Campaign source bytes: {int(summary.get('total_source_tree_bytes', 0)):,}
+- Canonical tabular products: {summary.get('tabular_products_found', 0)}
+- Missing tabular product instances: {summary.get('missing_tabular_product_instances', 0)}
+- Native observation rows represented: {summary.get('accepted_observation_rows', 0):,}
+- Rows summed across tabular products: {summary.get('tabular_product_rows', 0):,}
+- Schemas consistent within product identities: {summary.get('tabular_schemas_consistent_by_product', True)}
+- QA states: {json.dumps(summary.get('qa_status_counts', {}), sort_keys=True)}
+- Translation relationships available: {', '.join(summary.get('available_translation_pairs', [])) or 'none'}
+- Regression-eligible relationships: {', '.join(summary.get('regression_eligible_translation_pairs', [])) or 'none'}
+- Requested analysis: {analysis_decision['requested_analysis']}
+- Analysis decision: {analysis_decision['status']}
+- Decision reason: {analysis_decision['reason']}
+
+## Products
+
+{chr(10).join(product_lines)}
+
+## Rejected or duplicate flights
+
+{chr(10).join(exclusion_lines)}
+
+## Scientific blockers
+
+{chr(10).join(blocker_lines)}
+"""
+    write_text_atomic(paths.campaign_summary, report)
 
 
 def _result(
@@ -323,6 +430,13 @@ def _result(
         )
     except (OSError, json.JSONDecodeError):
         census = {}
+    try:
+        analysis_decisions = json.loads(
+            paths.analysis_decisions.read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError):
+        analysis_decisions = {}
+    regression_completed = analysis_decisions.get("status") == "complete"
     spectral_paths = SpectralLibraryPaths.from_bulk_paths(paths)
     spectral_library_result = None
     if spectral_library_requested:
@@ -371,11 +485,22 @@ def _result(
         "duplicates": str(paths.duplicates),
         "rejected_sources": str(paths.rejected_sources),
         "coefficients_parquet": (
-            None if preflight_only else str(paths.coefficients_parquet)
+            str(paths.coefficients_parquet) if regression_completed else None
         ),
-        "coefficients_json": None if preflight_only else str(paths.coefficients_json),
+        "coefficients_json": (
+            str(paths.coefficients_json) if regression_completed else None
+        ),
         "database": str(paths.database),
         "manifest": str(paths.manifest),
+        "campaign_summary": str(paths.campaign_summary),
+        "analysis_decisions": str(paths.analysis_decisions),
+        "missing_products": str(
+            paths.analyses_dir / "dataset_census" / "missing_products.parquet"
+        ),
+        "analyses_run": analysis_decisions.get("analyses_run", []),
+        "analyses_intentionally_not_run": analysis_decisions.get(
+            "analyses_intentionally_not_run", []
+        ),
         "spectral_library": spectral_library_result,
         "preflight": {
             "source_root": input_path.as_posix(),
@@ -415,6 +540,29 @@ def _result(
             "available_translation_pairs": census.get(
                 "available_translation_pairs", []
             ),
+            "regression_eligible_translation_pairs": census.get(
+                "regression_eligible_translation_pairs", []
+            ),
+            "translation_available_flightlines": int(
+                census.get("translation_available_flightlines", 0)
+            ),
+            "regression_eligible_flightlines": int(
+                census.get("translation_eligible_flightlines", 0)
+            ),
+            "scientifically_blocked_flightlines": int(
+                census.get("scientifically_blocked_flightlines", 0)
+            ),
+            "tabular_products": int(census.get("tabular_products_found", 0)),
+            "tabular_product_rows": int(census.get("tabular_product_rows", 0)),
+            "tabular_product_bytes": int(census.get("tabular_product_bytes", 0)),
+            "missing_tabular_product_instances": int(
+                census.get("missing_tabular_product_instances", 0)
+            ),
+            "tabular_schemas_consistent_by_product": bool(
+                census.get("tabular_schemas_consistent_by_product", True)
+            ),
+            "qa_status_counts": census.get("qa_status_counts", {}),
+            "analysis_decision": analysis_decisions,
             "exclusion_counts_by_reason": census.get(
                 "exclusion_counts_by_reason", {}
             ),
@@ -472,6 +620,9 @@ def run_bulk_pipeline(
     it reads them in bounded chunks and writes only compact, restart-safe
     sufficient statistics beneath ``output_dir``. Pixel observations are
     materialized only when ``materialize_observations=True`` is explicitly set.
+    Canonical drone Landsat-like application products are inventoried and
+    summarized but are not treated as independent evidence for refitting the
+    coefficient registry that produced them.
     """
 
     root = Path(input_path).expanduser().resolve()
@@ -701,7 +852,11 @@ def run_bulk_pipeline(
                 force=force,
             )
 
-        eligible = [item for item in flightlines if item.status == "accepted"]
+        eligible = [
+            item
+            for item in flightlines
+            if item.status == "accepted" and item.translation_eligible
+        ]
         if extraction_workers == 1:
             for index, item in enumerate(eligible, start=1):
                 LOGGER.info(
@@ -779,7 +934,11 @@ def run_bulk_pipeline(
     elif resolved_input_mode == "flightline_outputs" and not preflight_only:
         updated = {}
         eligible = sorted(
-            (item for item in flightlines if item.status == "accepted"),
+            (
+                item
+                for item in flightlines
+                if item.status == "accepted" and item.translation_eligible
+            ),
             key=lambda item: item.canonical_flightline_id or "",
         )
         quota_by_candidate = {
@@ -988,6 +1147,17 @@ def run_bulk_pipeline(
     translation: dict[str, Any] = {"pair_count": 0, "candidate_count": 0}
     loso: dict[str, Any] = {"result_count": 0}
     spectral_library_result: dict[str, Any] | None = None
+    analysis_decision: dict[str, Any] = {
+        "requested_analysis": analysis_profile.name,
+        "status": "preflight_only" if preflight_only else "pending",
+        "reason": (
+            "Preflight requested; no population regression was run."
+            if preflight_only
+            else "Analysis eligibility has not yet been evaluated."
+        ),
+        "analyses_run": ["dataset_census"],
+        "analyses_intentionally_not_run": [],
+    }
     try:
         census = run_dataset_census(
             con,
@@ -999,14 +1169,28 @@ def run_bulk_pipeline(
             item.status == "accepted" and item.translation_eligible
             for item in flightlines
         )
-        if not preflight_only and require_translation_pairs and eligible_count == 0:
-            raise ValueError(
-                "No accepted canonical flightline contains a compatible "
-                "requested sensor translation pair. The catalog and census "
-                f"were written to {paths.output_dir}."
+        if not preflight_only and eligible_count == 0:
+            analysis_decision.update(
+                {
+                    "status": "intentionally_not_run",
+                    "reason": (
+                        "No accepted flightline contains independent evidence for "
+                        "the requested regression. Structurally available translated "
+                        "drone products remain in the census and descriptive product "
+                        "summaries, but they are not independent regression evidence; "
+                        "coefficients were not refit from their own "
+                        "application outputs."
+                    ),
+                    "analyses_intentionally_not_run": [
+                        "sensor_translation_regression",
+                        "leave_one_site_out",
+                        "candidate_translation_coefficients",
+                    ],
+                }
             )
         if (
             not preflight_only
+            and eligible_count > 0
             and resolved_input_mode == "flightline_outputs"
             and not materialize_observations
         ):
@@ -1021,7 +1205,7 @@ def run_bulk_pipeline(
                 translation_pairs=selected_pairs,
                 reuse_existing=not force,
             )
-        elif not preflight_only:
+        elif not preflight_only and eligible_count > 0:
             translation = run_sensor_translation(
                 con,
                 paths,
@@ -1038,7 +1222,23 @@ def run_bulk_pipeline(
                 translation_pairs=selected_pairs,
                 reuse_existing=not force,
             )
-        if not preflight_only:
+        if not preflight_only and eligible_count > 0:
+            analysis_decision.update(
+                {
+                    "status": "complete",
+                    "reason": (
+                        "At least one accepted flightline met the configured "
+                        "regression-evidence contract."
+                    ),
+                    "analyses_run": [
+                        "dataset_census",
+                        "sensor_translation_regression",
+                        "leave_one_site_out",
+                        "candidate_translation_coefficients",
+                    ],
+                    "analyses_intentionally_not_run": [],
+                }
+            )
             LOGGER.info(
                 "[bulk] coefficients: %s; LOSO: %s",
                 translation.get("status", "complete"),
@@ -1054,6 +1254,13 @@ def run_bulk_pipeline(
                 make_summary_plots=make_summary_plots,
                 make_full_spectral_reports=make_full_spectral_reports,
             )
+            analysis_decision["analyses_run"].append("spectral_library")
+        _write_campaign_summary(
+            paths,
+            census=census,
+            flightlines=flightlines,
+            analysis_decision=analysis_decision,
+        )
         finalize_bulk_database(con, temporary_database, paths.database)
     except Exception:
         try:
@@ -1070,6 +1277,14 @@ def run_bulk_pipeline(
         "duplicate_candidates": len(duplicate_flightlines),
         "rejected_flightlines": len(rejected_flightlines),
         "accepted_rows": accepted_rows,
+        "translation_available_flightlines": sum(
+            item.status == "accepted" and item.translation_available
+            for item in flightlines
+        ),
+        "regression_eligible_flightlines": sum(
+            item.status == "accepted" and item.translation_eligible
+            for item in flightlines
+        ),
         "translation_pairs": int(translation["pair_count"]),
         "candidate_coefficients": int(translation["candidate_count"]),
         "leave_one_site_out_results": int(loso["result_count"]),
@@ -1112,14 +1327,16 @@ def run_bulk_pipeline(
                 paths,
                 paths.analyses_dir / "dataset_census" / "dataset_census.json",
             ),
+            "campaign_summary": _relative_output(paths, paths.campaign_summary),
+            "analysis_decisions": _relative_output(paths, paths.analysis_decisions),
             "candidate_coefficients": (
                 None
-                if preflight_only
+                if analysis_decision["status"] != "complete"
                 else _relative_output(paths, paths.coefficients_parquet)
             ),
             "leave_one_site_out": (
                 None
-                if preflight_only
+                if analysis_decision["status"] != "complete"
                 else _relative_output(
                     paths,
                     paths.analyses_dir

@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Literal
 
 
-BULK_SCHEMA_VERSION = 7
+BULK_SCHEMA_VERSION = 8
 BulkInputKind = Literal["full", "polygon", "both"]
 BulkInputMode = Literal["auto", "flightline_outputs", "merged_parquet"]
 
@@ -46,6 +46,10 @@ class SourceFileRecord:
     processing_stage: str | None = None
     wavelengths_json: str = "[]"
     dtype: str | None = None
+    product_key: str | None = None
+    storage_format: str | None = None
+    product_semantics: str | None = None
+    schema_json: str = "[]"
 
 
 @dataclass(frozen=True)
@@ -96,6 +100,10 @@ class FlightlineRecord:
     product_availability_json: str = "{}"
     exclusion_reason_codes_json: str = "[]"
     exclusion_context_json: str = "[]"
+    translation_available: bool = False
+    translation_availability_json: str = "{}"
+    scientific_status: str = "not_evaluated"
+    scientific_blockers_json: str = "[]"
 
 
 @dataclass(frozen=True)
@@ -238,6 +246,14 @@ class BulkAnalysisPaths:
     @property
     def coefficients_json(self) -> Path:
         return self.coefficients_dir / "candidate_translation_coefficients.json"
+
+    @property
+    def analysis_decisions(self) -> Path:
+        return self.reports_dir / "analysis_decisions.json"
+
+    @property
+    def campaign_summary(self) -> Path:
+        return self.reports_dir / "campaign_summary.md"
 
     def ensure_directories(self) -> None:
         for directory in (
