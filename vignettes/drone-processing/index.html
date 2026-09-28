@@ -3151,6 +3151,15 @@ drone flights directly; no manual rename or campaign-wide pixel merge is
 needed. Per-flight Parquets remain authoritative. Set <code>merge_extractions=True</code>
 only when a legacy consumer explicitly requires the optional run-level merged
 tables.</p>
+<p>Start bulk work with <code>preflight_only=True</code>. Bulk inventories the per-flight
+Parquet footers, schemas, row counts, sizes, QA state, sensors, and translation
+availability without scanning pixels or writing into the drone tree. The
+translated Landsat-like products are applications of an existing coefficient
+registry, not independent Landsat observations, so the ordinary drone campaign
+produces census and descriptive summaries while coefficient refitting and LOSO
+are explicitly marked <code>intentionally_not_run</code>. Supply a separately reviewed
+independent-observation contract before interpreting any regression as empirical
+calibration.</p>
 <table>
 <thead>
 <tr>
