@@ -115,17 +115,19 @@ def _streaming_stage_signature(
     minimum_reflectance: float,
     chunk_size: int,
     translation_pairs: Sequence[TranslationPair],
+    evidence_classes: Sequence[str],
 ) -> str:
     """Fingerprint the compact inputs to the coefficient/LOSO stage."""
 
     return signature_sha256(
         {
-            "schema_version": 1,
+            "schema_version": 2,
             "analysis_run_id": analysis_run_id,
             "statistics_rows": list(statistics_rows),
             "minimum_reflectance": minimum_reflectance,
             "chunk_size": chunk_size,
             "translation_pairs": [asdict(pair) for pair in translation_pairs],
+            "evidence_classes": list(evidence_classes),
         }
     )
 
@@ -516,12 +518,23 @@ def run_streaming_translation_analyses(
 
     output = SensorTranslationPaths(paths.analyses_dir / "sensor_translation")
     loso_output = LeaveOneSiteOutPaths(paths.analyses_dir / "leave_one_site_out")
+    evidence_classes = sorted(
+        {
+            flightline.scientific_status
+            for flightline in flightlines
+            if flightline.status == "accepted" and flightline.translation_eligible
+        }
+    )
+    application_verification = evidence_classes == [
+        "derived_application_verification"
+    ]
     stage_signature = _streaming_stage_signature(
         analysis_run_id=analysis_run_id,
         statistics_rows=statistics_rows,
         minimum_reflectance=minimum_reflectance,
         chunk_size=chunk_size,
         translation_pairs=translation_pairs,
+        evidence_classes=evidence_classes,
     )
     if reuse_existing and _translation_outputs_valid(paths, output, loso_output):
         try:
@@ -753,9 +766,27 @@ def run_streaming_translation_analyses(
         [loso_output.results.as_posix()],
     )
     pair_count = len(by_spec)
+    evidence_boundary = (
+        "Targets are canonical Landsat-like drone products produced by applying "
+        "an existing affine coefficient registry to the same matched MicaSense "
+        "observations used on the x-axis. These fits verify coefficient "
+        "application and should reproduce the supplied registry; they are "
+        "circular diagnostics, not independent calibration evidence."
+        if application_verification
+        else (
+            "Both axes are synthetic products derived from the same corrected "
+            "source observation. Coefficients are descriptive diagnostics, not "
+            "empirical sensor calibration."
+        )
+    )
+    candidate_status = (
+        "diagnostic_application_verification_only"
+        if application_verification
+        else "not_approved_for_empirical_calibration"
+    )
     translation_metadata = {
-        "schema_version": 3,
-        "analysis": "synthetic_sensor_translation",
+        "schema_version": 4,
+        "analysis": "sensor_relationship_diagnostic",
         "analysis_engine": "streaming_mergeable_sufficient_statistics",
         "analysis_run_id": analysis_run_id,
         "stage_signature_sha256": stage_signature,
@@ -766,6 +797,20 @@ def run_streaming_translation_analyses(
         "pixel_materialization": False,
         "passes_over_source_pixels": 2,
         "second_pass_reason": "exact mean absolute error and held-out evaluation",
+        "evidence_classes": evidence_classes,
+        "evidence_boundary": evidence_boundary,
+        "candidate_status": candidate_status,
+        "translation_pairs": [
+            {
+                **asdict(pair),
+                "evidence_boundary": (
+                    evidence_boundary
+                    if application_verification
+                    else pair.evidence_boundary
+                ),
+            }
+            for pair in translation_pairs
+        ],
         "pair_count": pair_count,
         "candidate_coefficients": candidates,
     }
@@ -776,6 +821,9 @@ def run_streaming_translation_analyses(
         "analysis_run_id": analysis_run_id,
         "stage_signature_sha256": stage_signature,
         "stage_status": "complete",
+        "evidence_classes": evidence_classes,
+        "evidence_boundary": evidence_boundary,
+        "candidate_status": candidate_status,
         "training_fit": "algebraic subtraction of mergeable site moments",
         "held_out_evaluation": "bounded direct second pass for exact MAE",
         "result_count": len(loso_rows),

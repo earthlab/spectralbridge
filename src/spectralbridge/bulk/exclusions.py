@@ -17,6 +17,7 @@ KNOWN_REASON_CODES = frozenset(
         "zero_byte_file",
         "duplicate_product",
         "unreadable_metadata",
+        "invalid_schema",
         "invalid_dimensions",
         "incompatible_band_schema",
         "incomplete_translation_pair",

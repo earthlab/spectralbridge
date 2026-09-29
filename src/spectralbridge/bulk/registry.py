@@ -23,6 +23,8 @@ class ProductDescriptor:
     sensor_name: str | None = None
     matching_group: str | None = None
     processing_stage: str | None = None
+    product_semantics: str | None = None
+    extraction_mode: str | None = None
     expected_band_count: int | None = None
     header_required: bool = True
     include_undarkened: bool = False
@@ -52,6 +54,8 @@ class TabularProductDescriptor:
     processing_stage: str | None = None
     product_semantics: str | None = None
     extraction_mode: str | None = None
+    expected_spectral_band_count: int | None = None
+    required_columns: tuple[str, ...] = ()
 
     def matches(self, path: str | Path) -> bool:
         name = Path(path).name
@@ -71,6 +75,7 @@ class TranslationPair:
     band_pairs: tuple[tuple[int, int], ...] = ()
     expected_source_bands: int | None = None
     expected_target_bands: int | None = None
+    compatible_target_band_counts: tuple[int, ...] = ()
     evidence_boundary: str | None = None
 
 
@@ -204,12 +209,14 @@ _BUILTIN_PRODUCTS = (
         product_role="raw_hyperspectral",
         filename_patterns=(r"_reflectance_envi\.img$",),
         processing_stage="envi_export",
+        product_semantics="raw_hyperspectral_observation",
     ),
     ProductDescriptor(
         key="corrected_hyperspectral_envi",
         product_role="corrected_hyperspectral",
         filename_patterns=(r"_brdfandtopo_corrected_envi\.img$",),
         processing_stage="brdf_topographic_correction",
+        product_semantics="corrected_hyperspectral_observation",
     ),
     ProductDescriptor(
         key="micasense_matched_oli",
@@ -217,11 +224,11 @@ _BUILTIN_PRODUCTS = (
         sensor_name="MicaSense_to-match_OLI_and_OLI-2",
         matching_group="oli_reflective",
         filename_patterns=(
-            r"_micasense_to_match_oli_oli2_envi\.img$",
+            r"(?<!_)_micasense_to_match_oli_oli2_envi\.img$",
             r"_micasense-to-match_oli_and_oli-2(?:_envi)?\.img$",
-            r"__micasense_to_match_oli_oli2_envi\.img$",
         ),
         processing_stage="spectral_convolution",
+        product_semantics="synthetic_convolution",
         expected_band_count=5,
     ),
     ProductDescriptor(
@@ -230,11 +237,11 @@ _BUILTIN_PRODUCTS = (
         sensor_name="MicaSense_to-match_TM_and_ETM+",
         matching_group="tm_etm_reflective",
         filename_patterns=(
-            r"_micasense_to_match_tm_etm\+_envi\.img$",
+            r"(?<!_)_micasense_to_match_tm_etm\+_envi\.img$",
             r"_micasense-to-match_tm_and_etm\+(?:_envi)?\.img$",
-            r"__micasense_to_match_tm_etm\+_envi\.img$",
         ),
         processing_stage="spectral_convolution",
+        product_semantics="synthetic_convolution",
         expected_band_count=4,
     ),
     ProductDescriptor(
@@ -243,11 +250,11 @@ _BUILTIN_PRODUCTS = (
         sensor_name="Landsat_9_OLI-2",
         matching_group="oli_reflective",
         filename_patterns=(
-            r"_landsat_oli2_envi\.img$",
+            r"(?<!_)_landsat_oli2_envi\.img$",
             r"_landsat_9_oli-2(?:_envi)?\.img$",
-            r"__landsat_like_landsat_oli2_translated_envi\.img$",
         ),
         processing_stage="spectral_convolution",
+        product_semantics="synthetic_convolution",
         expected_band_count=7,
     ),
     ProductDescriptor(
@@ -256,11 +263,11 @@ _BUILTIN_PRODUCTS = (
         sensor_name="Landsat_8_OLI",
         matching_group="oli_reflective",
         filename_patterns=(
-            r"_landsat_oli_envi\.img$",
+            r"(?<!_)_landsat_oli_envi\.img$",
             r"_landsat_8_oli(?:_envi)?\.img$",
-            r"__landsat_like_landsat_oli_translated_envi\.img$",
         ),
         processing_stage="spectral_convolution",
+        product_semantics="synthetic_convolution",
         expected_band_count=7,
     ),
     ProductDescriptor(
@@ -269,11 +276,11 @@ _BUILTIN_PRODUCTS = (
         sensor_name="Landsat_7_ETM+",
         matching_group="tm_etm_reflective",
         filename_patterns=(
-            r"_landsat_etm\+_envi\.img$",
+            r"(?<!_)_landsat_etm\+_envi\.img$",
             r"_landsat_7_etm\+(?:_envi)?\.img$",
-            r"__landsat_like_landsat_etm\+_translated_envi\.img$",
         ),
         processing_stage="spectral_convolution",
+        product_semantics="synthetic_convolution",
         expected_band_count=6,
     ),
     ProductDescriptor(
@@ -282,12 +289,72 @@ _BUILTIN_PRODUCTS = (
         sensor_name="Landsat_5_TM",
         matching_group="tm_etm_reflective",
         filename_patterns=(
-            r"_landsat_tm_envi\.img$",
+            r"(?<!_)_landsat_tm_envi\.img$",
             r"_landsat_5_tm(?:_envi)?\.img$",
-            r"__landsat_like_landsat_tm_translated_envi\.img$",
         ),
         processing_stage="spectral_convolution",
+        product_semantics="synthetic_convolution",
         expected_band_count=6,
+    ),
+    ProductDescriptor(
+        key="drone_micasense_matched_oli",
+        product_role="target_sensor",
+        sensor_name="MicaSense_to-match_OLI_and_OLI-2",
+        matching_group="oli_reflective",
+        filename_patterns=(r"__micasense_to_match_oli_oli2_envi\.img$",),
+        processing_stage="affine_cross_sensor_translation_input",
+        product_semantics="matched_native_application_input",
+        expected_band_count=5,
+    ),
+    ProductDescriptor(
+        key="drone_micasense_matched_tm_etm",
+        product_role="target_sensor",
+        sensor_name="MicaSense_to-match_TM_and_ETM+",
+        matching_group="tm_etm_reflective",
+        filename_patterns=(r"__micasense_to_match_tm_etm\+_envi\.img$",),
+        processing_stage="affine_cross_sensor_translation_input",
+        product_semantics="matched_native_application_input",
+        expected_band_count=4,
+    ),
+    ProductDescriptor(
+        key="drone_landsat_like_9_oli2",
+        product_role="target_sensor",
+        sensor_name="Landsat_9_OLI-2",
+        matching_group="oli_reflective",
+        filename_patterns=(r"__landsat_like_landsat_oli2_translated_envi\.img$",),
+        processing_stage="affine_cross_sensor_translation",
+        product_semantics="landsat_like_translated",
+        expected_band_count=5,
+    ),
+    ProductDescriptor(
+        key="drone_landsat_like_8_oli",
+        product_role="target_sensor",
+        sensor_name="Landsat_8_OLI",
+        matching_group="oli_reflective",
+        filename_patterns=(r"__landsat_like_landsat_oli_translated_envi\.img$",),
+        processing_stage="affine_cross_sensor_translation",
+        product_semantics="landsat_like_translated",
+        expected_band_count=5,
+    ),
+    ProductDescriptor(
+        key="drone_landsat_like_7_etm",
+        product_role="target_sensor",
+        sensor_name="Landsat_7_ETM+",
+        matching_group="tm_etm_reflective",
+        filename_patterns=(r"__landsat_like_landsat_etm\+_translated_envi\.img$",),
+        processing_stage="affine_cross_sensor_translation",
+        product_semantics="landsat_like_translated",
+        expected_band_count=4,
+    ),
+    ProductDescriptor(
+        key="drone_landsat_like_5_tm",
+        product_role="target_sensor",
+        sensor_name="Landsat_5_TM",
+        matching_group="tm_etm_reflective",
+        filename_patterns=(r"__landsat_like_landsat_tm_translated_envi\.img$",),
+        processing_stage="affine_cross_sensor_translation",
+        product_semantics="landsat_like_translated",
+        expected_band_count=4,
     ),
 )
 
@@ -303,6 +370,10 @@ _BUILTIN_PAIRS = tuple(
         band_pairs=wavelength_matched_band_pairs(source, target),
         expected_source_bands=source_bands,
         expected_target_bands=7 if group == "oli_reflective" else 6,
+        compatible_target_band_counts=(
+            source_bands,
+            7 if group == "oli_reflective" else 6,
+        ),
         evidence_boundary=SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY,
     )
     for source, targets, group, source_bands in (
@@ -342,6 +413,18 @@ _DRONE_TRANSLATED_TABLES = tuple(
             processing_stage="affine_cross_sensor_translation",
             product_semantics="landsat_like_translated",
             extraction_mode="full",
+            expected_spectral_band_count=(
+                5 if sensor in {"Landsat_8_OLI", "Landsat_9_OLI-2"} else 4
+            ),
+            required_columns=(
+                "pixel_id",
+                "translated_product_semantics",
+                "translation_pair",
+                "translation_source_sensor",
+                "translation_target_sensor",
+                "translation_coefficient_sha256",
+                "translation_evidence_boundary",
+            ),
         ),
         TabularProductDescriptor(
             key=f"drone_{sensor.lower().replace('+', 'plus').replace('-', '_')}_polygon",
@@ -353,6 +436,18 @@ _DRONE_TRANSLATED_TABLES = tuple(
             processing_stage="affine_cross_sensor_translation",
             product_semantics="landsat_like_translated",
             extraction_mode="polygon",
+            expected_spectral_band_count=(
+                5 if sensor in {"Landsat_8_OLI", "Landsat_9_OLI-2"} else 4
+            ),
+            required_columns=(
+                "pixel_id",
+                "translated_product_semantics",
+                "translation_pair",
+                "translation_source_sensor",
+                "translation_target_sensor",
+                "translation_coefficient_sha256",
+                "translation_evidence_boundary",
+            ),
         ),
     )
 )

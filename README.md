@@ -144,10 +144,14 @@ Use `preflight_only=True` first for a cheap campaign inventory. Canonical drone
 outputs are discovered directly through `spectralbridge_flightline.json`; their
 per-flight Parquet footers provide product, schema, row, and size summaries.
 Because the Landsat-like drone products are applications of an existing
-coefficient registry rather than independent observations, bulk records them as
-translation-available but intentionally does not refit coefficients or run LOSO
-from those same outputs. The campaign census and descriptive summary still
-complete normally.
+coefficient registry rather than independent observations, bulk labels their
+fits as `derived_application_verification`. It writes the usual compact
+coefficient and LOSO artifacts so operators can verify that the registry was
+applied consistently, but marks those artifacts
+`diagnostic_application_verification_only`. They must not be interpreted as new
+calibration evidence or fed back into the production registry. Mixed NEON
+convolution and drone application-verification flights can share a catalog, but
+bulk does not silently pool the two evidence classes into one fit.
 
 The workflow is restart-safe: completed per-flightline statistics checkpoints
 are reused. Source observations stay in their immutable products, so the compact

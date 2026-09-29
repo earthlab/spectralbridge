@@ -372,6 +372,13 @@ bulk = run_bulk_pipeline(
 )
 ```
 
+Bulk recognizes the double-underscore drone names directly. It validates 4
+shared bands for TM/ETM+ and 5 for OLI/OLI-2, then writes compact relationship
+fits labeled `diagnostic_application_verification_only`. Those fits verify that
+the already-selected registry was applied consistently; they are circular with
+respect to that registry and are not new empirical calibration evidence. NEON
+single-underscore convolution products retain separate 6/7-band descriptors.
+
 ## Translation and validation architecture
 
 ```text

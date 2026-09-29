@@ -1,6 +1,6 @@
 # SpectralBridge Feature Requests
 
-Review date: 2026-09-28
+Review date: 2026-09-29
 Branch: main
 
 This file is the authoritative work queue for non-trivial SpectralBridge work.
@@ -23,7 +23,7 @@ left incomplete so the next agent can resume immediately.
 ### P91. Harden Bulk Analysis For Canonical Production Drone Outputs
 
 - Priority: High, user-directed production analysis
-- Status: Implementation complete; production campaign validation pending
+- Status: Completed; production VM rerun remains the external validation step
 - Owner: Codex
 - Started: 2026-09-28
 - Goal: Make the existing bulk pipeline consume canonical completed drone
@@ -39,49 +39,60 @@ left incomplete so the next agent can resume immediately.
   documentation behavior and verify focused plus full project gates.
 - Guardrails: Do not create a drone-specific bulk pipeline, materialize an
   ordinary campaign-wide pixel table, mutate source products, hard-code the
-  observed campaign size, change NEON behavior, or fit calibration
-  coefficients from translated products derived from those same coefficients.
-  Campaign census remains valid even when independent calibration evidence is
-  absent; regression analyses must fail closed or be marked ineligible.
+  observed campaign size, change NEON behavior, or present fits from translated
+  products as independent calibration. Derived application-verification fits
+  must be labeled as circular diagnostics and must not be fed back into the
+  production coefficient registry.
 - Current evidence: The expected production campaign is approximately 43
-  flights with six canonical products per flight, but those counts are
-  observations to verify from supplied artifacts rather than package
-  constants.
-- Diagnosis: Recursive manifest identity and ENVI streaming already worked. The
-  missing contract was canonical per-flight Parquet inventory, and the existing
-  eligibility flag conflated aligned product availability with independent
-  regression evidence. Consequently production table counts/schemas were
-  invisible and applied drone translations could be refit circularly.
-- Outcome: The shared registry now describes canonical native, translated,
-  combined, and auxiliary drone tables. Completed-flight discovery reads
-  Parquet footers only, persists product keys/storage/semantics/schema/rows,
-  summarizes products and QA, and emits campaign-observed per-flight missing
-  products without turning descriptive completeness into a regression gate.
-  Product availability remains separate from scientific regression eligibility.
-  Affine drone application outputs remain
-  accepted for census and descriptive summaries but are blocked from coefficient
-  refitting with `circular_translation_evidence`. Full runs without independent
-  evidence complete with machine-readable `analysis_decisions.json` and a human
-  `campaign_summary.md`; NEON/generic eligible pairs retain bounded streaming,
-  compact checkpoints, hierarchical fits, and restart reuse.
-- Verification: Production-shaped fixtures reconcile six tabular products for
-  one flight, including a combined table with four times the target row count;
-  verify read-only input, explicit missing-product reporting, circular-fit
-  blocking, and deterministic restart.
-  Full pytest passed (450 collected, 6 skipped), the focused bulk/drone/export
-  suite passed, Ruff passed, docs links passed, strict MkDocs passed, JSON and
-  diff checks passed, wheel/sdist build plus Twine checks passed, and the exact
-  unpacked wheel passed the bounded installed-artifact smoke for normal, drone,
-  bulk, spectral-library, public API, console scripts, data wiring, and restart.
+  flights with six canonical products per flight. A production rerun found 43
+  manifests and 473 source-product records but rejected every flightline with
+  172 `incompatible_band_schema`, 43 `incomplete_translation_pair`, and 43
+  `missing_required_product` exclusions. The supplied aligned H5 may be used to
+  regenerate and trace one representative canonical output locally; campaign
+  counts remain observations rather than package constants.
+- Diagnosis: The 172 failures were exactly four per flight. The generic NEON
+  convolution descriptors recognized the canonical double-underscore drone
+  targets and required full Landsat reflective schemas (6 TM/ETM+ or 7
+  OLI/OLI-2 bands). Drone translation intentionally persists only the shared
+  4/5 bands. Rejecting those four targets cascaded into one incomplete-pair and
+  one required-target failure per production flight. Recursive manifest
+  identity, aligned raster streaming, and the drone producer schemas were
+  otherwise correct.
+- Outcome: The shared registry now gives canonical drone rasters first-class
+  descriptors with `matched_native_application_input` or
+  `landsat_like_translated` semantics, affine-translation stages, and strict
+  4/5-band contracts while preserving strict NEON 6/7-band convolution
+  contracts. Canonical translated Parquets validate their 4/5 spectral columns
+  and required pair/sensor/coefficient/evidence provenance from the footer.
+  Discovery persists extraction mode and semantics. Eligible drone fits run
+  through the existing bounded sufficient-statistics engine and are labeled
+  `derived_application_verification` /
+  `diagnostic_application_verification_only`, not empirical calibration.
+  Mixed NEON and drone evidence shares one catalog but is not silently pooled.
+- Verification: The supplied 88 MB H5 completed the real drone pipeline into a
+  separate temporary output. Repaired preflight accepted its one 1,215,506-row
+  flight with four available relationships and zero exclusions; the full bulk
+  run emitted 18 band-level fits and 54 pooled/balanced diagnostic coefficient
+  rows. Production-shaped fixtures reconcile the six table identities, enforce
+  valid and invalid schemas, preserve manifest identity and read-only input,
+  exercise mixed semantics, and produce nonzero end-to-end coefficients.
+  Focused bulk/drone/translation tests passed (182/182). Full pytest passed
+  (454 collected: 448 passed, 6 skipped, 0 failed). Ruff, docs links, strict
+  MkDocs, JSON, generated AI-transparency/validation evidence, release metadata,
+  and diff checks passed. A wheel and sdist built from the working tree passed
+  Twine, and the exact wheel passed the bounded offline installed-artifact smoke
+  for normal, drone, bulk, spectral-library, public API, console scripts,
+  package data, and restart.
 - Production validation blocker: The reported campaign CSVs and 43-flight
   production tree are not present in this workspace, so the observed 43 flights,
   258 products, zero missing, and zero duplicates were not independently
   reproduced. They remain acceptance evidence to verify on the production VM,
   not constants in package code.
-- Next recommended task: Run `preflight_only=True` against the immutable
-  production drone root, compare `analyses/dataset_census/by_product.parquet`
-  and `reports/campaign_summary.md` with the supplied campaign catalog, then run
-  the full census/descriptive workflow into a separate output directory.
+- Next recommended task: Install this working-tree artifact on the production
+  VM, run metadata-only preflight against the immutable 43-flight root, confirm
+  43 accepted flights and zero band/pair/required-product exclusions, then run
+  the full bounded analysis into a fresh output directory and review the
+  application-verification labels before proceeding with the release tag.
 
 ### P90. Audit HyTools Code Provenance, Attribution, And Release Packaging
 

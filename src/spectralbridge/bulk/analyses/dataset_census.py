@@ -233,6 +233,11 @@ def run_dataset_census(
             "SELECT COUNT(*) FROM flightlines WHERE status = 'accepted' "
             "AND scientific_status = 'translation_available_descriptive_only'",
         ),
+        "application_verification_flightlines": _scalar(
+            con,
+            "SELECT COUNT(*) FROM flightlines WHERE status = 'accepted' "
+            "AND scientific_status = 'derived_application_verification'",
+        ),
         "estimated_analysis_cache_bytes": _scalar(
             con,
             "SELECT COALESCE(SUM(estimated_analysis_output_bytes), 0) FROM flightlines "
@@ -401,6 +406,7 @@ def run_dataset_census(
             ?::BIGINT AS translation_eligible_flightlines,
             ?::BIGINT AS translation_available_flightlines,
             ?::BIGINT AS scientifically_blocked_flightlines,
+            ?::BIGINT AS application_verification_flightlines,
             ?::BIGINT AS estimated_analysis_cache_bytes,
             ?::BIGINT AS estimated_analysis_output_bytes,
             ?::BIGINT AS estimated_materialized_pixel_bytes,
@@ -410,11 +416,11 @@ def run_dataset_census(
             ?::BIGINT AS target_sensor_products_found,
             ?::BIGINT AS tabular_products_found,
             ?::BIGINT AS tabular_product_rows,
-                ?::BIGINT AS tabular_product_bytes,
-                ?::BIGINT AS unregistered_tabular_products,
-                ?::BIGINT AS duplicate_product_candidates,
-                ?::BIGINT AS missing_tabular_product_instances,
-                ?::VARCHAR AS sites_json,
+            ?::BIGINT AS tabular_product_bytes,
+            ?::BIGINT AS unregistered_tabular_products,
+            ?::BIGINT AS duplicate_product_candidates,
+            ?::BIGINT AS missing_tabular_product_instances,
+            ?::VARCHAR AS sites_json,
             ?::VARCHAR AS acquisition_dates_json,
             ?::VARCHAR AS acquisition_years_json,
             ?::VARCHAR AS sensors_json,
@@ -445,6 +451,7 @@ def run_dataset_census(
             summary["translation_eligible_flightlines"],
             summary["translation_available_flightlines"],
             summary["scientifically_blocked_flightlines"],
+            summary["application_verification_flightlines"],
             summary["estimated_analysis_cache_bytes"],
             summary["estimated_analysis_output_bytes"],
             summary["estimated_materialized_pixel_bytes"],
@@ -454,11 +461,11 @@ def run_dataset_census(
             summary["target_sensor_products_found"],
             summary["tabular_products_found"],
             summary["tabular_product_rows"],
-                summary["tabular_product_bytes"],
-                summary["unregistered_tabular_products"],
-                summary["duplicate_product_candidates"],
-                summary["missing_tabular_product_instances"],
-                json.dumps(summary["sites"]),
+            summary["tabular_product_bytes"],
+            summary["unregistered_tabular_products"],
+            summary["duplicate_product_candidates"],
+            summary["missing_tabular_product_instances"],
+            json.dumps(summary["sites"]),
             json.dumps(summary["acquisition_dates"]),
             json.dumps(summary["acquisition_years"]),
             json.dumps(summary["sensors"]),
@@ -619,6 +626,7 @@ Analysis run: `{analysis_run_id}`
 - Translation-eligible flightlines: {summary['translation_eligible_flightlines']}
 - Translation-available flightlines: {summary['translation_available_flightlines']}
 - Scientifically blocked flightlines: {summary['scientifically_blocked_flightlines']}
+- Derived application-verification flightlines: {summary['application_verification_flightlines']}
 - QA available: {summary['qa_available_flightlines']} flightlines
 - Corrected ENVI products found: {summary['corrected_products_found']}
 - Raw ENVI products found: {summary['raw_products_found']}

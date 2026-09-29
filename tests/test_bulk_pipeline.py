@@ -214,8 +214,6 @@ def _write_realistic_drone_table(
 
     path.parent.mkdir(parents=True, exist_ok=True)
     columns: dict[str, pa.Array] = {
-        "wl0482": pa.array(np.linspace(0.1, 0.4, rows), type=pa.float32()),
-        "wl0561": pa.array(np.linspace(0.2, 0.5, rows), type=pa.float32()),
         "row": pa.array(range(rows), type=pa.int32()),
         "col": pa.array(range(rows), type=pa.int32()),
         "pixel_id": pa.array(range(rows), type=pa.int64()),
@@ -226,8 +224,26 @@ def _write_realistic_drone_table(
         "y": pa.array(np.arange(rows, dtype=np.float64)),
         "lon": pa.array(np.linspace(-105.0, -104.9, rows)),
         "lat": pa.array(np.linspace(40.0, 40.1, rows)),
+        "fwhm_nm": pa.array([None] * rows, type=pa.string()),
     }
     if translated_sensor is not None:
+        band_schema = {
+            "Landsat_5_TM": ("tmtm", (485, 575, 660, 838)),
+            "Landsat_7_ETM+": ("etm+etm+", (482, 565, 660, 838)),
+            "Landsat_8_OLI": ("olioli", (443, 482, 561, 655, 865)),
+            "Landsat_9_OLI-2": ("olioli", (443, 482, 561, 654, 865)),
+        }
+        prefix, wavelengths = band_schema[translated_sensor]
+        for index, wavelength in enumerate(wavelengths, start=1):
+            columns[f"{prefix}_b{index:03d}_wl{wavelength:04d}nm"] = pa.array(
+                np.linspace(0.1 * index, 0.1 * index + 0.3, rows),
+                type=pa.float32(),
+            )
+        source_sensor = (
+            "MicaSense_to-match_OLI_and_OLI-2"
+            if "OLI" in translated_sensor
+            else "MicaSense_to-match_TM_and_ETM+"
+        )
         columns.update(
             {
                 "drone_platform": pa.array(["drone"] * rows),
@@ -237,9 +253,38 @@ def _write_realistic_drone_table(
                 "translation_target_sensor": pa.array(
                     [translated_sensor] * rows
                 ),
+                "translation_source_sensor": pa.array([source_sensor] * rows),
+                "translation_pair": pa.array(
+                    [f"{source_sensor}__to__{translated_sensor}"] * rows
+                ),
                 "translation_coefficient_sha256": pa.array(["abc123"] * rows),
+                "translation_evidence_boundary": pa.array(
+                    ["derived application-verification fixture"] * rows
+                ),
+                "translation_equation": pa.array(["target = slope*x + intercept"] * rows),
+                "translation_analysis_run_id": pa.array(["fixture-run"] * rows),
+                "translation_weighting": pa.array(["pixel_pooled"] * rows),
+                "translation_coefficient_path": pa.array(["coefficients.json"] * rows),
+                "translation_coefficient_set_version": pa.array(["fixture"] * rows),
+                "translation_coefficient_statuses_json": pa.array(["{}"] * rows),
+                "translation_source_band_names_json": pa.array(["[]"] * rows),
+                "translation_target_band_names_json": pa.array(["[]"] * rows),
+                "translation_band_mapping_json": pa.array(["[]"] * rows),
+                "source_package_path": pa.array(["source-package"] * rows),
+                "working_h5_path": pa.array(["working.h5"] * rows),
+                "corrected_micasense_path": pa.array(["corrected.img"] * rows),
+                "translated_product_path": pa.array([path.stem + ".img"] * rows),
+                "acquisition_datetime": pa.array(["2023-07-11T12:00:00"] * rows),
             }
         )
+    else:
+        for index, wavelength in enumerate(
+            (444, 475, 531, 560, 650, 668, 705, 717, 740, 862), start=1
+        ):
+            columns[f"raw_b{index:03d}_wl{wavelength:04d}nm"] = pa.array(
+                np.linspace(0.1 * index, 0.1 * index + 0.3, rows),
+                type=pa.float32(),
+            )
     pq.write_table(pa.table(columns), path)
     return path
 
@@ -1345,7 +1390,7 @@ def test_canonical_drone_translation_products_run_directly_through_bulk(
     )
     base = np.asarray([[100.0, 200.0], [300.0, 400.0]], dtype="float32")
     matched = np.stack([base + index for index in range(4)])
-    translated = np.stack([base * 1.5 + 10.0 + index for index in range(6)])
+    translated = np.stack([base * 1.5 + 10.0 + index for index in range(4)])
     _write_envi(
         flight / "JC1_20230711__micasense_to_match_tm_etm+_envi.img",
         matched,
@@ -1372,7 +1417,20 @@ def test_canonical_drone_translation_products_run_directly_through_bulk(
     )
 
     assert result["accepted_flightline_count"] == 1
+    assert result["source_count"] == 1
+    assert result["row_count"] == 4
+    assert result["translation_pair_count"] == 4
+    assert Path(result["coefficients_parquet"]).is_file()
     assert result["input_mode"] == "flightline_outputs"
+    with duckdb.connect(result["database"], read_only=True) as con:
+        slopes = {
+            row[0]
+            for row in con.execute(
+                "SELECT slope FROM translation_pixel_pooled WHERE status = 'ok'"
+            ).fetchall()
+        }
+    assert len(slopes) == 1
+    assert next(iter(slopes)) == pytest.approx(1.5)
     assert {
         path.relative_to(root).as_posix(): _sha256(path)
         for path in root.rglob("*")
@@ -1408,7 +1466,136 @@ def test_default_registry_recognizes_canonical_drone_tabular_products_once() -> 
         ) == 1
 
 
-def test_production_shaped_drone_preflight_catalogs_tables_and_blocks_refit(
+def test_default_registry_separates_drone_translation_from_neon_convolution() -> None:
+    cases = {
+        "flight__micasense_to_match_tm_etm+_envi.img": (
+            "drone_micasense_matched_tm_etm",
+            "matched_native_application_input",
+            "affine_cross_sensor_translation_input",
+            4,
+        ),
+        "flight__landsat_like_landsat_tm_translated_envi.img": (
+            "drone_landsat_like_5_tm",
+            "landsat_like_translated",
+            "affine_cross_sensor_translation",
+            4,
+        ),
+        "flight_landsat_tm_envi.img": (
+            "landsat_5_tm",
+            "synthetic_convolution",
+            "spectral_convolution",
+            6,
+        ),
+        "flight_landsat_oli_envi.img": (
+            "landsat_8_oli",
+            "synthetic_convolution",
+            "spectral_convolution",
+            7,
+        ),
+    }
+
+    for name, expected in cases.items():
+        descriptor = DEFAULT_PRODUCT_REGISTRY.recognize(name)
+        assert descriptor is not None
+        assert (
+            descriptor.key,
+            descriptor.product_semantics,
+            descriptor.processing_stage,
+            descriptor.expected_band_count,
+        ) == expected
+        assert sum(
+            candidate.matches(name)
+            for candidate in DEFAULT_PRODUCT_REGISTRY.products
+        ) == 1
+
+
+def test_invalid_canonical_drone_raster_band_schema_is_excluded(tmp_path: Path) -> None:
+    root = tmp_path / "drone"
+    flight = root / "invalid"
+    flight.mkdir(parents=True)
+    (flight / "spectralbridge_flightline.json").write_text(
+        json.dumps(
+            {
+                "flightline_id": "INVALID_20230711",
+                "site": "INVALID",
+                "acquisition_date": "2023-07-11",
+            }
+        ),
+        encoding="utf-8",
+    )
+    values = np.ones((2, 2), dtype="float32")
+    _write_envi(
+        flight / "invalid__micasense_to_match_tm_etm+_envi.img",
+        np.stack([values] * 4),
+    )
+    _write_envi(
+        flight / "invalid__landsat_like_landsat_tm_translated_envi.img",
+        np.stack([values] * 6),
+    )
+
+    result = _run(root, tmp_path / "bulk", preflight_only=True)
+    exclusions = pq.read_table(result["exclusions"]).to_pylist()
+
+    assert result["accepted_flightline_count"] == 0
+    assert {item["reason_code"] for item in exclusions} >= {
+        "incompatible_band_schema",
+        "incomplete_translation_pair",
+    }
+
+
+def test_invalid_canonical_drone_tabular_schema_is_cataloged_as_exclusion(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "drone"
+    flight = root / "invalid_table"
+    flight.mkdir(parents=True)
+    (flight / "spectralbridge_flightline.json").write_text(
+        json.dumps(
+            {
+                "flightline_id": "TABLE_20230711",
+                "site": "TABLE",
+                "acquisition_date": "2023-07-11",
+            }
+        ),
+        encoding="utf-8",
+    )
+    values = np.ones((2, 2), dtype="float32")
+    _write_envi(
+        flight / "table__micasense_to_match_tm_etm+_envi.img",
+        np.stack([values] * 4),
+    )
+    _write_envi(
+        flight / "table__landsat_like_landsat_tm_translated_envi.img",
+        np.stack([values] * 4),
+    )
+    bad_table = pa.table(
+        {
+            "pixel_id": ["p1"],
+            "tmtm_b001_wl0485nm": [0.1],
+            "tmtm_b002_wl0575nm": [0.2],
+        }
+    )
+    pq.write_table(
+        bad_table,
+        flight / "table__landsat_like_landsat_tm_translated_envi.parquet",
+    )
+
+    result = _run(root, tmp_path / "bulk", preflight_only=True)
+    exclusions = pq.read_table(result["exclusions"]).to_pylist()
+    table_exclusion = next(
+        item
+        for item in exclusions
+        if item["offending_files_json"].endswith(
+            'table__landsat_like_landsat_tm_translated_envi.parquet"]'
+        )
+    )
+
+    assert result["accepted_flightline_count"] == 0
+    assert table_exclusion["reason_code"] == "invalid_schema"
+    assert "missing required column" in table_exclusion["detail"]
+
+
+def test_production_shaped_drone_catalog_and_application_verification_fit(
     tmp_path: Path,
 ) -> None:
     root = tmp_path / "campaign"
@@ -1436,10 +1623,10 @@ def test_production_shaped_drone_preflight_catalogs_tables_and_blocks_refit(
         np.stack([base + index for index in range(5)]),
     )
     target_specs = (
-        ("landsat_tm", "Landsat_5_TM", 6),
-        ("landsat_etm+", "Landsat_7_ETM+", 6),
-        ("landsat_oli", "Landsat_8_OLI", 7),
-        ("landsat_oli2", "Landsat_9_OLI-2", 7),
+        ("landsat_tm", "Landsat_5_TM", 4),
+        ("landsat_etm+", "Landsat_7_ETM+", 4),
+        ("landsat_oli", "Landsat_8_OLI", 5),
+        ("landsat_oli2", "Landsat_9_OLI-2", 5),
     )
     for slug, sensor, bands in target_specs:
         stem = flight / f"{flight_id}__landsat_like_{slug}_translated_envi"
@@ -1473,11 +1660,24 @@ def test_production_shaped_drone_preflight_catalogs_tables_and_blocks_refit(
     assert preflight["preflight"]["tabular_product_rows"] == 36
     assert preflight["preflight"]["missing_tabular_product_instances"] == 0
     assert preflight["preflight"]["translation_available_flightlines"] == 1
-    assert preflight["preflight"]["regression_eligible_flightlines"] == 0
+    assert preflight["preflight"]["regression_eligible_flightlines"] == 1
+    assert preflight["preflight"]["application_verification_flightlines"] == 1
+    flightline = pq.read_table(preflight["flightlines"]).to_pylist()[0]
+    assert flightline["canonical_flightline_id"] == flight_id
+    assert flightline["identity_source"] == "spectralbridge_flightline_manifest"
+    assert flightline["scientific_status"] == "derived_application_verification"
     products = pq.read_table(preflight["source_products"]).to_pylist()
     tables = [item for item in products if item["storage_format"] == "parquet"]
     assert len(tables) == 6
     assert all(not item["product_key"].startswith("unregistered") for item in tables)
+    translated_tables = [
+        item for item in tables if item["product_role"] == "translated_tabular"
+    ]
+    assert {item["column_count"] for item in translated_tables} == {36, 37}
+    assert {item["extraction_mode"] for item in translated_tables} == {"full"}
+    assert {item["product_semantics"] for item in translated_tables} == {
+        "landsat_like_translated"
+    }
     assert {
         path.relative_to(root).as_posix(): _sha256(path)
         for path in root.rglob("*")
@@ -1485,21 +1685,28 @@ def test_production_shaped_drone_preflight_catalogs_tables_and_blocks_refit(
     } == before
 
     full = _run(root, tmp_path / "bulk_full", input_mode="auto")
-    assert full["coefficients_parquet"] is None
-    assert full["analyses_intentionally_not_run"] == [
-        "sensor_translation_regression",
-        "leave_one_site_out",
-        "candidate_translation_coefficients",
-    ]
+    assert full["accepted_flightline_count"] == 1
+    assert full["source_count"] == 1
+    assert full["row_count"] == 4
+    assert full["translation_pair_count"] == 18
+    assert Path(full["coefficients_parquet"]).is_file()
+    assert full["analyses_intentionally_not_run"] == []
     assert Path(full["campaign_summary"]).is_file()
-    assert "not independent regression evidence" in Path(
+    assert "not independent sensor calibration evidence" in Path(
         full["campaign_summary"]
     ).read_text(encoding="utf-8")
+    coefficient_metadata = json.loads(Path(full["coefficients_json"]).read_text())
+    assert coefficient_metadata["candidate_status"] == (
+        "diagnostic_application_verification_only"
+    )
+    assert coefficient_metadata["evidence_classes"] == [
+        "derived_application_verification"
+    ]
+    assert coefficient_metadata["pair_count"] == 18
+    assert len(coefficient_metadata["candidate_coefficients"]) > 0
     resumed = _run(root, tmp_path / "bulk_full", input_mode="auto")
     assert resumed["status"] == "reused"
-    assert resumed["analyses_intentionally_not_run"] == full[
-        "analyses_intentionally_not_run"
-    ]
+    assert resumed["translation_pair_count"] == 18
 
     second = root / "batch_B" / "different_outer_name"
     shutil.copytree(flight, second)
@@ -1538,6 +1745,63 @@ def test_production_shaped_drone_preflight_catalogs_tables_and_blocks_refit(
             ),
         }
     ]
+
+
+def test_mixed_neon_and_drone_campaign_preserves_product_semantics(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "mixed"
+    _completed_flightline(root, "neon_batch", NIWO_1)
+    drone = root / "drone_batch" / "DRONE_20230711"
+    drone.mkdir(parents=True)
+    (drone / "spectralbridge_flightline.json").write_text(
+        json.dumps(
+            {
+                "flightline_id": "DRONE_20230711",
+                "site": "DRONE",
+                "acquisition_date": "2023-07-11",
+                "platform": "drone",
+            }
+        ),
+        encoding="utf-8",
+    )
+    values = np.asarray([[0.1, 0.2], [0.3, 0.4]], dtype="float32")
+    _write_envi(
+        drone / "DRONE_20230711__micasense_to_match_oli_oli2_envi.img",
+        np.stack([values + index * 0.01 for index in range(5)]),
+    )
+    _write_envi(
+        drone / "DRONE_20230711__landsat_like_landsat_oli_translated_envi.img",
+        np.stack([values * 1.2 + index * 0.01 for index in range(5)]),
+    )
+
+    preflight = _run(root, tmp_path / "bulk", preflight_only=True)
+    flightlines = {
+        item["canonical_flightline_id"]: item
+        for item in pq.read_table(preflight["flightlines"]).to_pylist()
+    }
+    products = pq.read_table(preflight["source_products"]).to_pylist()
+
+    assert preflight["accepted_flightline_count"] == 2
+    assert flightlines[NIWO_1]["scientific_status"] == "regression_eligible"
+    assert flightlines["DRONE_20230711"]["scientific_status"] == (
+        "derived_application_verification"
+    )
+    assert {
+        (item["product_semantics"], item["processing_stage"])
+        for item in products
+        if item["sensor_name"] == "Landsat_8_OLI"
+    } == {
+        ("synthetic_convolution", "spectral_convolution"),
+        ("landsat_like_translated", "affine_cross_sensor_translation"),
+    }
+
+    full = _run(root, tmp_path / "bulk_full")
+    decision = json.loads(Path(full["analysis_decisions"]).read_text())
+    assert full["coefficients_parquet"] is None
+    assert decision["status"] == "intentionally_not_run"
+    assert decision["evidence_class"] == "mixed_not_pooled"
+    assert "not pooled" in decision["reason"]
 
 
 @pytest.mark.parametrize(

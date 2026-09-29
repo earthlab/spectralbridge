@@ -320,10 +320,10 @@ def _write_campaign_summary(
 
     summary = census["summary"]
     rejected = [item for item in flightlines if item.status != "accepted"]
-    blocked = [
+    scientific_notices = [
         item
         for item in flightlines
-        if item.status == "accepted" and not item.translation_eligible
+        if item.status == "accepted" and item.scientific_blockers_json != "[]"
     ]
     product_rows: list[dict[str, Any]] = []
     product_path = paths.analyses_dir / "dataset_census" / "by_product.parquet"
@@ -348,7 +348,7 @@ def _write_campaign_summary(
     ] or ["- None."]
     blocker_lines = [
         f"- {item.canonical_flightline_id}: {item.scientific_blockers_json}"
-        for item in blocked
+        for item in scientific_notices
     ] or ["- None."]
     decision_payload = {
         "schema_version": 1,
@@ -361,6 +361,9 @@ def _write_campaign_summary(
         ),
         "scientifically_blocked_flightlines": int(
             summary.get("scientifically_blocked_flightlines", 0)
+        ),
+        "application_verification_flightlines": int(
+            summary.get("application_verification_flightlines", 0)
         ),
     }
     write_json_atomic(paths.analysis_decisions, decision_payload)
@@ -381,6 +384,7 @@ def _write_campaign_summary(
 - QA states: {json.dumps(summary.get('qa_status_counts', {}), sort_keys=True)}
 - Translation relationships available: {', '.join(summary.get('available_translation_pairs', [])) or 'none'}
 - Regression-eligible relationships: {', '.join(summary.get('regression_eligible_translation_pairs', [])) or 'none'}
+- Derived application-verification flights: {summary.get('application_verification_flightlines', 0)}
 - Requested analysis: {analysis_decision['requested_analysis']}
 - Analysis decision: {analysis_decision['status']}
 - Decision reason: {analysis_decision['reason']}
@@ -393,7 +397,7 @@ def _write_campaign_summary(
 
 {chr(10).join(exclusion_lines)}
 
-## Scientific blockers
+## Scientific blockers and evidence notices
 
 {chr(10).join(blocker_lines)}
 """
@@ -552,6 +556,9 @@ def _result(
             "scientifically_blocked_flightlines": int(
                 census.get("scientifically_blocked_flightlines", 0)
             ),
+            "application_verification_flightlines": int(
+                census.get("application_verification_flightlines", 0)
+            ),
             "tabular_products": int(census.get("tabular_products_found", 0)),
             "tabular_product_rows": int(census.get("tabular_product_rows", 0)),
             "tabular_product_bytes": int(census.get("tabular_product_bytes", 0)),
@@ -620,9 +627,10 @@ def run_bulk_pipeline(
     it reads them in bounded chunks and writes only compact, restart-safe
     sufficient statistics beneath ``output_dir``. Pixel observations are
     materialized only when ``materialize_observations=True`` is explicitly set.
-    Canonical drone Landsat-like application products are inventoried and
-    summarized but are not treated as independent evidence for refitting the
-    coefficient registry that produced them.
+    Canonical drone Landsat-like application products are inventoried and may
+    be fitted as explicitly labeled application-verification diagnostics. They
+    are not independent evidence for updating the coefficient registry that
+    produced them.
     """
 
     root = Path(input_path).expanduser().resolve()
@@ -1169,7 +1177,39 @@ def run_bulk_pipeline(
             item.status == "accepted" and item.translation_eligible
             for item in flightlines
         )
-        if not preflight_only and eligible_count == 0:
+        eligible_scientific_statuses = {
+            item.scientific_status
+            for item in flightlines
+            if item.status == "accepted" and item.translation_eligible
+        }
+        mixed_evidence_semantics = {
+            "regression_eligible",
+            "derived_application_verification",
+        }.issubset(eligible_scientific_statuses)
+        application_verification_only = (
+            eligible_count > 0
+            and eligible_scientific_statuses == {"derived_application_verification"}
+        )
+        if not preflight_only and mixed_evidence_semantics:
+            analysis_decision.update(
+                {
+                    "status": "intentionally_not_run",
+                    "reason": (
+                        "Accepted inputs mix synthetic-convolution relationships "
+                        "with derived drone application-verification relationships. "
+                        "They are cataloged together but are not pooled into one "
+                        "coefficient fit; run the two evidence classes separately."
+                    ),
+                    "evidence_class": "mixed_not_pooled",
+                    "candidate_status": "not_created",
+                    "analyses_intentionally_not_run": [
+                        "sensor_translation_regression",
+                        "leave_one_site_out",
+                        "candidate_translation_coefficients",
+                    ],
+                }
+            )
+        elif not preflight_only and eligible_count == 0:
             analysis_decision.update(
                 {
                     "status": "intentionally_not_run",
@@ -1191,6 +1231,7 @@ def run_bulk_pipeline(
         if (
             not preflight_only
             and eligible_count > 0
+            and not mixed_evidence_semantics
             and resolved_input_mode == "flightline_outputs"
             and not materialize_observations
         ):
@@ -1205,7 +1246,11 @@ def run_bulk_pipeline(
                 translation_pairs=selected_pairs,
                 reuse_existing=not force,
             )
-        elif not preflight_only and eligible_count > 0:
+        elif (
+            not preflight_only
+            and eligible_count > 0
+            and not mixed_evidence_semantics
+        ):
             translation = run_sensor_translation(
                 con,
                 paths,
@@ -1222,13 +1267,34 @@ def run_bulk_pipeline(
                 translation_pairs=selected_pairs,
                 reuse_existing=not force,
             )
-        if not preflight_only and eligible_count > 0:
+        if (
+            not preflight_only
+            and eligible_count > 0
+            and not mixed_evidence_semantics
+        ):
             analysis_decision.update(
                 {
                     "status": "complete",
                     "reason": (
-                        "At least one accepted flightline met the configured "
-                        "regression-evidence contract."
+                        "Accepted canonical drone translation outputs were fitted "
+                        "as an application-verification diagnostic. The fit should "
+                        "reproduce the supplied registry and is not independent "
+                        "sensor calibration evidence."
+                        if application_verification_only
+                        else (
+                            "At least one accepted flightline met the configured "
+                            "synthetic-convolution regression-evidence contract."
+                        )
+                    ),
+                    "evidence_class": (
+                        "derived_application_verification"
+                        if application_verification_only
+                        else "synthetic_convolution_diagnostic"
+                    ),
+                    "candidate_status": (
+                        "diagnostic_application_verification_only"
+                        if application_verification_only
+                        else "not_approved_for_empirical_calibration"
                     ),
                     "analyses_run": [
                         "dataset_census",
@@ -1283,6 +1349,11 @@ def run_bulk_pipeline(
         ),
         "regression_eligible_flightlines": sum(
             item.status == "accepted" and item.translation_eligible
+            for item in flightlines
+        ),
+        "application_verification_flightlines": sum(
+            item.status == "accepted"
+            and item.scientific_status == "derived_application_verification"
             for item in flightlines
         ),
         "translation_pairs": int(translation["pair_count"]),

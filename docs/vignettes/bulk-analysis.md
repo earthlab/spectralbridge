@@ -83,12 +83,15 @@ from their footers for row counts, schemas, sizes, roles, and provenance. Bulk
 reads these products in place; do not rename them and do not create a
 campaign-wide pixel Parquet first.
 
-Availability is not the same as regression eligibility. Drone Landsat-like
-products were created from the same flight's native MicaSense observation with
-an existing coefficient registry. Bulk therefore includes them in campaign
-census and descriptive product summaries, but does not refit coefficients from
-those application outputs. Independent calibration observations require an
-explicit evidence contract; ordinary canonical drone outputs do not provide one.
+Availability is not the same as independent calibration evidence. Drone
+Landsat-like products were created from the same flight's native MicaSense
+observation with an existing coefficient registry. Bulk accepts the canonical
+4-band TM/ETM+ and 5-band OLI/OLI-2 source/target pairs and fits them as
+application-verification diagnostics. The resulting coefficient and LOSO
+artifacts are marked `diagnostic_application_verification_only`: they should
+reproduce the supplied registry and must not be treated as a new empirical
+calibration. NEON convolution uses the full 6-band TM/ETM+ and 7-band OLI/OLI-2
+target contracts and remains a separate `synthetic_convolution` evidence class.
 
 ## Analysis profiles and minimal archives
 
@@ -102,8 +105,12 @@ are optional unless a custom profile requires them.
 Product recognition and translation relationships are centralized in a
 `ProductRegistry`. The installed defaults describe SpectralBridge's current
 matched MicaSense/Landsat products, while `ProductDescriptor` and
-`TranslationPair` support other sensor names, filename patterns, matching
-groups, expected band counts, and explicit source-to-target band mappings.
+`TabularProductDescriptor` record product roles, semantics, processing stage,
+extraction mode, required columns, and expected band count.
+`TranslationPair` supports other sensor names, matching groups, compatible
+source/target schemas, and explicit source-to-target band mappings. The
+double-underscore drone names are intentionally distinct from the single-
+underscore NEON convolution names.
 
 Band numbers are sensor-local and are never treated as a cross-sensor identity.
 The installed relationships resolve named spectral identities against the
@@ -199,12 +206,15 @@ all pass. Each chunk is immediately reduced into numerically stable bivariate
 moments. No sensor Parquet or `observations.parquet` is created.
 
 For a canonical drone campaign produced by `run_drone_pipeline()`, this full
-call still completes the catalog, census, campaign summary, and provenance, but
-records translation regression, LOSO, and candidate-coefficient generation as
-`intentionally_not_run`. That is a successful scientifically conservative run,
-not a missing-product error. NEON convolution archives and custom registries
-that satisfy their configured evidence contract continue through bounded
-sufficient statistics and hierarchical regression.
+call streams the matched native and translated rasters, writes bounded
+sufficient statistics, and emits application-verification regression, LOSO,
+and candidate-coefficient artifacts. The analysis decision and coefficient JSON
+record `derived_application_verification` and
+`diagnostic_application_verification_only`; these outputs verify coefficient
+application and are not independent sensor calibration. A mixed catalog may
+contain both drone and NEON flights, but a full run intentionally does not pool
+drone application-verification with NEON synthetic-convolution evidence. Run
+those evidence classes separately when coefficients are required.
 
 The first pass writes compact per-flightline statistics. Site, global,
 flightline-balanced, and site-balanced fits combine those checkpoints. LOSO

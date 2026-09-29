@@ -110,6 +110,7 @@ CREATE TABLE source_files (
     product_key VARCHAR,
     storage_format VARCHAR,
     product_semantics VARCHAR,
+    extraction_mode VARCHAR,
     schema_json VARCHAR
 )
 """

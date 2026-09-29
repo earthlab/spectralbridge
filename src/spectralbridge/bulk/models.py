@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Literal
 
 
-BULK_SCHEMA_VERSION = 8
+BULK_SCHEMA_VERSION = 9
 BulkInputKind = Literal["full", "polygon", "both"]
 BulkInputMode = Literal["auto", "flightline_outputs", "merged_parquet"]
 
@@ -49,6 +49,7 @@ class SourceFileRecord:
     product_key: str | None = None
     storage_format: str | None = None
     product_semantics: str | None = None
+    extraction_mode: str | None = None
     schema_json: str = "[]"
 
 

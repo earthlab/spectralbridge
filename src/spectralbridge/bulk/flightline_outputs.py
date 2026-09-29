@@ -190,6 +190,7 @@ def _tabular_metadata(
     path: Path,
     *,
     profile: AnalysisProfile,
+    descriptor: TabularProductDescriptor | None = None,
 ) -> dict[str, Any]:
     """Read a Parquet footer and schema without scanning observation rows."""
 
@@ -219,6 +220,31 @@ def _tabular_metadata(
             "invalid_schema",
             f"unreadable Parquet footer for {path.name}: {type(exc).__name__}: {exc}",
         ) from exc
+    column_names = [field["name"] for field in fields]
+    spectral_columns = [
+        name
+        for name in column_names
+        if re.search(r"_b\d{3}_wl\d+nm$", name, re.IGNORECASE)
+    ]
+    if descriptor is not None:
+        missing_columns = sorted(set(descriptor.required_columns) - set(column_names))
+        if missing_columns:
+            raise ProductValidationError(
+                "invalid_schema",
+                f"{descriptor.key} is missing required column(s): "
+                + ", ".join(missing_columns),
+            )
+        if (
+            profile.require_compatible_band_schema
+            and descriptor.expected_spectral_band_count is not None
+            and len(spectral_columns) != descriptor.expected_spectral_band_count
+        ):
+            raise ProductValidationError(
+                "incompatible_band_schema",
+                f"{descriptor.key} expected "
+                f"{descriptor.expected_spectral_band_count} spectral columns "
+                f"but found {len(spectral_columns)}",
+            )
     schema_sha256 = hashlib.sha256(
         canonical_json(fields).encode("utf-8")
     ).hexdigest()
@@ -233,6 +259,7 @@ def _tabular_metadata(
         "rows": row_count,
         "columns": len(fields),
         "schema": fields,
+        "spectral_columns": spectral_columns,
         "schema_sha256": schema_sha256,
         "source_signature_sha256": signature_sha256(signature),
     }
@@ -250,19 +277,18 @@ def _pair_regression_eligibility(
     for pair in pairs:
         eligible = bool(structural.get(pair.key))
         target = targets.get(pair.target_sensor, {})
-        target_name = Path(str(target.get("image", ""))).name.lower()
-        if eligible and "__landsat_like_" in target_name and "_translated_envi.img" in target_name:
-            eligible = False
+        if eligible and target.get("product_semantics") == "landsat_like_translated":
             blockers.append(
                 {
-                    "reason_code": "circular_translation_evidence",
+                    "reason_code": "derived_application_verification_only",
                     "translation_pair": pair.key,
                     "detail": (
                         "The Landsat-like target is an affine translation produced "
                         "from this flight's MicaSense observation using an existing "
-                        "coefficient registry. It is available for campaign census "
-                        "and descriptive summaries but is not independent evidence "
-                        "for refitting coefficients."
+                        "coefficient registry. A fitted relationship is an "
+                        "application-verification diagnostic that should reproduce "
+                        "the supplied registry; it is not independent calibration "
+                        "evidence."
                     ),
                     "target_path": target.get("image"),
                 }
@@ -367,7 +393,9 @@ def _translation_eligibility(
             )
         if compatible and pair.expected_source_bands is not None:
             compatible = int(source["bands"]) == pair.expected_source_bands
-        if compatible and pair.expected_target_bands is not None:
+        if compatible and pair.compatible_target_band_counts:
+            compatible = int(target["bands"]) in pair.compatible_target_band_counts
+        elif compatible and pair.expected_target_bands is not None:
             compatible = int(target["bands"]) == pair.expected_target_bands
         result[pair.key] = bool(compatible)
     return result
@@ -395,6 +423,7 @@ def _source_record(
     product_key: str | None = None,
     storage_format: str = "envi",
     product_semantics: str | None = None,
+    extraction_mode: str | None = None,
     row_count: int | None = None,
     schema_sha256: str | None = None,
     schema_json: str = "[]",
@@ -455,6 +484,7 @@ def _source_record(
         product_key=product_key,
         storage_format=storage_format,
         product_semantics=product_semantics,
+        extraction_mode=extraction_mode,
         schema_json=schema_json,
     )
 
@@ -564,13 +594,8 @@ def discover_completed_flightlines(
                             matching_group=descriptor.matching_group,
                             processing_stage=descriptor.processing_stage,
                             product_key=descriptor.key,
-                            product_semantics=(
-                                "landsat_like_translated"
-                                if "__landsat_like_" in path.name.lower()
-                                else "matched_native_application_input"
-                                if "__micasense_to_match_" in path.name.lower()
-                                else "synthetic_convolution"
-                            ),
+                            product_semantics=descriptor.product_semantics,
+                            extraction_mode=descriptor.extraction_mode,
                         )
                     )
                 continue
@@ -603,6 +628,8 @@ def discover_completed_flightlines(
                         "sensor_name": descriptor.sensor_name,
                         "matching_group": descriptor.matching_group,
                         "processing_stage": descriptor.processing_stage,
+                        "product_semantics": descriptor.product_semantics,
+                        "extraction_mode": descriptor.extraction_mode,
                     }
                 )
                 availability["status"] = "available"
@@ -630,13 +657,8 @@ def discover_completed_flightlines(
                     matching_group=descriptor.matching_group,
                     processing_stage=descriptor.processing_stage,
                     product_key=descriptor.key,
-                    product_semantics=(
-                        "landsat_like_translated"
-                        if "__landsat_like_" in path.name.lower()
-                        else "matched_native_application_input"
-                        if "__micasense_to_match_" in path.name.lower()
-                        else "synthetic_convolution"
-                    ),
+                    product_semantics=descriptor.product_semantics,
+                    extraction_mode=descriptor.extraction_mode,
                 )
             )
 
@@ -685,7 +707,11 @@ def discover_completed_flightlines(
                 )
             for path, entry_descriptor in entries:
                 try:
-                    metadata = _tabular_metadata(path, profile=profile)
+                    metadata = _tabular_metadata(
+                        path,
+                        profile=profile,
+                        descriptor=entry_descriptor,
+                    )
                 except ProductValidationError as exc:
                     status = "rejected"
                     reason = str(exc)
@@ -771,6 +797,11 @@ def discover_completed_flightlines(
                             entry_descriptor.product_semantics
                             if entry_descriptor
                             else "unregistered"
+                        ),
+                        extraction_mode=(
+                            entry_descriptor.extraction_mode
+                            if entry_descriptor
+                            else None
                         ),
                         row_count=(int(metadata["rows"]) if metadata else None),
                         schema_sha256=(
@@ -1022,7 +1053,9 @@ def discover_completed_flightlines(
                 translation_available=translation_available,
                 translation_availability_json=canonical_json(availability),
                 scientific_status=(
-                    "regression_eligible"
+                    "derived_application_verification"
+                    if translation_eligible and scientific_blockers
+                    else "regression_eligible"
                     if translation_eligible
                     else "translation_available_descriptive_only"
                     if translation_available

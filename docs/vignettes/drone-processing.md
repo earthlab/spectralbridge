@@ -201,10 +201,20 @@ Parquet footers, schemas, row counts, sizes, QA state, sensors, and translation
 availability without scanning pixels or writing into the drone tree. The
 translated Landsat-like products are applications of an existing coefficient
 registry, not independent Landsat observations, so the ordinary drone campaign
-produces census and descriptive summaries while coefficient refitting and LOSO
-are explicitly marked `intentionally_not_run`. Supply a separately reviewed
-independent-observation contract before interpreting any regression as empirical
-calibration.
+is analyzed as `derived_application_verification`. Bulk writes compact fits and
+LOSO outputs to verify application consistency, with coefficient metadata marked
+`diagnostic_application_verification_only`. Do not feed those circular
+diagnostics back into the registry or interpret them as empirical calibration.
+The canonical shared-band contracts are 4 bands for TM/ETM+ and 5 for
+OLI/OLI-2; the 6/7-band contracts remain specific to NEON convolution products.
+
+With full extraction, the six canonical per-flight analysis tables are the
+native corrected `__full.parquet`, four sensor-specific
+`__landsat_like_<target>_translated_envi.parquet` tables, and the optional
+combined Landsat-like table used by validated production packaging. Polygon
+extraction uses the corresponding `__polygons.parquet` forms. Every translated
+table carries the translation pair, source/target sensor, coefficient hash, and
+evidence-boundary columns; bulk validates these fields from the Parquet schema.
 
 | Artifact | Role | Regeneration rule |
 | --- | --- | --- |
