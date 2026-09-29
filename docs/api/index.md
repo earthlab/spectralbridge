@@ -14,7 +14,7 @@
   </article>
   <article class="sb-doc-card">
     <h3>Drone workflows</h3>
-    <p><code>run_drone_pipeline</code> handles the drone-specific local processing path.</p>
+    <p><code>run_drone_pipeline</code> handles one local source tree; <code>run_drone_bulk_production</code> owns remote campaign production and compact bulk closeout.</p>
   </article>
   <article class="sb-doc-card">
     <h3>Cross-run analysis</h3>
@@ -65,6 +65,14 @@ go_forth_and_multiply(
   <article class="sb-doc-card">
     <h3><code>run_bulk_pipeline</code></h3>
     <p>Independent, restart-safe post-processing path with read-only discovery, compact streaming statistics, balanced regressions, leave-one-site-out validation, and opt-in spectral-library reports.</p>
+  </article>
+  <article class="sb-doc-card">
+    <h3><code>run_drone_bulk_production</code></h3>
+    <p>Inventories remote ExportPackages, stages one H5 at a time, validates canonical drone flights, enforces completeness, delegates bulk analysis and interpretation, packages compact results, and optionally uploads and verifies the closeout.</p>
+  </article>
+  <article class="sb-doc-card">
+    <h3><code>inspect_drone_collection</code></h3>
+    <p>Builds a JSON/CSV-serializable inventory without downloading H5 data. <code>run_drone_campaign</code> and <code>validate_bulk_ready_flightline</code> expose the producer-only and producer-to-consumer gates.</p>
   </article>
   <article class="sb-doc-card">
     <h3><code>summarize_bulk_results</code></h3>

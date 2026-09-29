@@ -38,6 +38,7 @@ nav:
       - Three pipelines:
           - Run NEON flightlines: vignettes/full-pipeline.md
           - Process drone imagery: vignettes/drone-processing.md
+          - Run remote drone production: vignettes/drone-production.md
           - Analyze completed flightlines in bulk: vignettes/bulk-analysis.md
           - Carry On My Wayward Son (resume a run): vignettes/carry-on-wayward-son.md
       - Module vignettes:
@@ -49,6 +50,7 @@ nav:
           - 6. Process drone imagery: vignettes/drone-processing.md
           - 7. Extract polygon spectra: vignettes/polygon-extraction.md
           - 8. Build a bulk cross-run analysis: vignettes/bulk-analysis.md
+          - 9. Run remote drone production: vignettes/drone-production.md
       - Run on cloud or HPC: tutorials/cloud-workflow.md
       - Troubleshooting: troubleshooting.md
       - FAQ: faq.md

@@ -10,17 +10,14 @@ The website catalog, purpose of each notebook, and setup instructions are in
 back to these tracked files in GitHub's repository viewer rather than to static
 copies on GitHub Pages.
 
-All learning examples default to `RUN = False`. The advanced CyVerse bulk
-production notebook also has an explicit `RUN = False` guard, but can transfer
-large datasets once enabled. Edit its collection, VM output paths, disk limits,
-and stage before running it.
+All learning examples default to `RUN = False`. The CyVerse drone production
+notebook is intentionally just configuration plus one public API call; review
+its collection, years, VM work path, cleanup, completeness, and upload choices.
 
 The first ten examples intentionally mirror the working patterns in the root
 `Raster_processing.ipynb` and `Drone_processing.ipynb`: configure with ordinary
 `Path` values, call the public orchestrator, print its result or output paths,
 and inspect the concrete Parquet, ENVI, and QA artifacts. The vignette versions
 remove saved outputs and environment-specific transfer commands so they can be
-opened safely in a fresh clone. The advanced production notebook is the
-exception: it preserves the supplied CyVerse transfer and closeout gates for
-curated archives. The supplied PDF printout is not published because its code
-is clipped; use the notebook as executable source.
+opened safely in a fresh clone. Production transfer and closeout gates now live
+in `spectralbridge.drone_production`, not notebook cells.

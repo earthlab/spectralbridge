@@ -160,11 +160,12 @@ Persistent analysis storage grows mainly with flightline checkpoints and models,
 not with the total number of selected source pixels.
 
 Start with the [local bulk notebook](docs/vignettes/notebooks/09_bulk_analysis.ipynb)
-for a curated tree already on disk. The
-[advanced CyVerse production notebook](docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb)
-adds remote inventory, transfer, duplicate reconciliation, reporting, and
-closeout packaging for any collection with the same completed-flightline
-format. It is guarded until its source and VM paths are configured explicitly.
+for a curated tree already on disk. For source ExportPackages on CyVerse, use
+`run_drone_bulk_production()` or its
+[thin production notebook](docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb).
+The package owns remote inventory, one-H5-at-a-time staging, producer
+validation, completeness gating, reporting, compact packaging, and verified
+upload; the notebook supplies configuration only.
 
 ### Results and interpretation
 

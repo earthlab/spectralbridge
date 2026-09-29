@@ -40,6 +40,11 @@ This page describes how SpectralBridge is organized internally. Understanding th
 - `spectralbridge/pipelines/drone.py`: local TIFF/HDF5 orchestration through
   corrected native MicaSense, optional coefficient translation, extraction,
   and QA
+- `spectralbridge/remote.py`: backend protocol plus the non-interactive `gocmd`
+  adapter for safe collection listing, transfer, upload, and verification
+- `spectralbridge/drone_production.py`: remote inventory, bounded per-flight
+  staging/checkpoints, canonical bulk-readiness validation, completeness gates,
+  existing bulk/results orchestration, and compact closeout packaging
 - `spectralbridge/drone_translation.py`: validated bulk-coefficient consumer,
   wavelength mapping, affine raster transform, and translated-library
   provenance
@@ -95,6 +100,14 @@ also expose a generic identity manifest and exact matched native-source products
 so bulk discovery can consume a drone output root directly without an eager
 campaign-wide pixel merge.
 
+The production campaign layer sits above both scientific pipelines. It does not
+implement correction, translation, fitting, LOSO, or reporting algorithms.
+Each staged ExportPackage is passed to `run_drone_pipeline`; completion is
+tested with bulk's actual `discover_completed_flightlines`; population analysis
+delegates to `run_bulk_pipeline`; interpretation delegates to
+`summarize_bulk_results`. This boundary keeps remote storage and campaign state
+replaceable without creating a second scientific implementation.
+
 ### Independent bulk analysis
 
 `run_bulk_pipeline` is downstream of completed per-flightline workflows rather
@@ -135,9 +148,10 @@ compact-summary, diagnostic, publication, and final-report stages.
 
 ### Debuggable stage boundaries
 
-The intentionally small public API remains `run_drone_pipeline`,
-`run_bulk_pipeline`, and `summarize_bulk_results`. Maintainers can rerun major
-stages directly without duplicating orchestration:
+The intentionally small public API includes `run_drone_pipeline`,
+`run_drone_campaign`, `run_drone_bulk_production`, `run_bulk_pipeline`, and
+`summarize_bulk_results`. Maintainers can rerun major stages directly without
+duplicating orchestration:
 
 - Drone preparation/export/correction:
   `_prepare_drone_source_working_h5`, `export_h5_to_envi`, and

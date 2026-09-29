@@ -12,11 +12,9 @@ directory before changing scientific assumptions.
 
 The NEON and drone examples follow the two active root research notebooks.
 The local bulk example uses the public API on an already curated file tree. A
-separate advanced bulk notebook adapts the supplied production workflow for
-CyVerse-hosted collections, including discovery, transfer, duplicate
-reconciliation, preflight, compact analysis, reporting, and closeout packaging.
-It is an environment-specific recipe, not a prerequisite for using
-`run_bulk_pipeline()` on local files.
+separate production notebook configures the package-owned CyVerse drone
+campaign workflow. It contains no remote parsing, transfer loops, identity
+regexes, checkpoint implementation, bulk validation, or upload plumbing.
 
 | Order | Notebook | Use it when |
 | --- | --- | --- |
@@ -30,7 +28,7 @@ It is an environment-specific recipe, not a prerequisite for using
 | 07 | [Extract polygon spectra][notebook-07] | You want polygon-indexed spectra from a completed flightline |
 | 08 | [Insert a custom correction][notebook-08] | You are developing a reviewed correction after topo/BRDF and before convolution |
 | 09 | [Build a bulk cross-run analysis][notebook-09] | You want canonical catalogs, virtual queries, balanced regressions, and held-out-site validation |
-| 10 | [Run a curated CyVerse bulk production job][notebook-10] | You have a CyVerse collection in the completed-flightline format and need transfer, reconciliation, analysis, reports, and closeout gates |
+| 10 | [Run CyVerse drone-to-bulk production][notebook-10] | You have remote drone ExportPackages and need tested staging, producer checkpoints, strict bulk analysis, reports, and verified closeout upload |
 
 ## Opening them
 
@@ -49,11 +47,9 @@ with one flightline, `engine="thread"`, and `max_workers=1`.
 
 The notebooks have valid kernels and no saved outputs. The numbered learning
 examples use `RUN = False`; set it to `True` after editing their configuration.
-The advanced CyVerse notebook also stops at its configuration guard until you
-set `RUN = True`, replace the example `REMOTE_SOURCE`, review VM disk/output
-paths, and choose a stage. `RUN_STAGE="all"` may transfer a large archive. An
-existing reconciled stage or closeout package is not deleted without separate
-explicit flags. Remote upload remains disabled unless `UPLOAD_RESULTS=True`.
+The CyVerse production notebook calls one restart-safe public function. Remote
+upload remains disabled unless `upload_results=True`; the package never
+overwrites an existing non-matching remote result.
 
 The supplied PDF was used for review but is not published as runnable guidance:
 its print layout clips wide code cells. Use the tracked notebook to copy or run

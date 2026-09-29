@@ -20,6 +20,62 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P92. Package The Restart-Safe Remote Drone-to-Bulk Production Campaign
+
+- Priority: High, user-directed production orchestration
+- Status: Completed; live CyVerse campaign execution remains external validation
+- Owner: Codex
+- Started: 2026-09-29
+- Goal: Move CyVerse/gocmd collection inventory, bounded staging, per-flight
+  restart checkpoints, canonical producer-to-bulk validation, campaign
+  completeness gating, bulk orchestration, compact result packaging, verified
+  upload, and the thin production interface into SpectralBridge package code.
+- Plan: First inventory the existing drone producer, identity/manifest resolver,
+  canonical flight contract, bulk discovery/validation/results APIs, command-line
+  conventions, current CyVerse notebook evidence, and restart helpers. Then add
+  the smallest backend-neutral remote/campaign layer above the unchanged
+  `run_drone_pipeline()`, `run_bulk_pipeline()`, and
+  `summarize_bulk_results()` APIs; cover it with fake-remote and producer-to-bulk
+  integration tests; replace production notebook plumbing with a minimal public
+  call; and run focused, full, lint, docs, and artifact checks.
+- Guardrails: Preserve the current scientific algorithms, identities, bounded
+  bulk semantics, and diagnostic-only interpretation of same-source translated
+  products. Never require a spectral library for ordinary population analysis,
+  never overwrite the remote source, never silently analyze an incomplete
+  intended campaign, and never upload raw H5, cache, or scratch data.
+- Outcome: Added a backend-neutral remote protocol and non-interactive `gocmd`
+  adapter; bounded ExportPackage/H5 inventory with bundled-manifest identity,
+  missing-source and duplicate-identity classification; atomic size/checksum
+  staging; durable per-flight status; retry/reuse and post-validation H5 cleanup;
+  a bulk-readiness validator that calls the actual bulk discovery classifier;
+  strict campaign completeness; delegated preflight, bulk, and compact results
+  reporting; checksummed closeout packaging; fail-closed verified upload; public
+  dataclass return objects; top-level APIs; and a packaged production CLI. The
+  former 1,300-line CyVerse notebook is now configuration plus one public call.
+- Verification: New fake-backend tests cover `gocmd` command construction and
+  parsing, H5/package discovery, SPR separator normalization through the existing
+  manifest resolver, missing and duplicate identities, incomplete-download
+  replacement, local reuse, retry/restart, cleanup, completeness gating, compact
+  packaging, upload destination/verification, and exclusion of H5s from uploaded
+  results. A synthetic `run_drone_pipeline()` flight now immediately passes the
+  real bulk classifier with exactly one accepted identity. The full suite passed
+  (468 passed, 7 skipped); Ruff, Python compilation, docs links, strict MkDocs,
+  notebook contracts, generated AI transparency, release metadata, and diff
+  checks passed. Wheel and sdist built offline, passed Twine, contained the new
+  modules/console script, and the exact wheel passed the bounded offline
+  installed-artifact smoke including normal, drone, bulk, results,
+  spectral-library, packaged-data, console-script, and restart wiring.
+- External validation: No live CyVerse credentials/collection were used, so
+  actual `gocmd` listing variants, production H5 sizes/checksums, 43-flight disk
+  cadence, optional Landsat-network QA, remote quota/permissions, and a real
+  result upload still require a VM pilot. The scientific producer and bulk paths
+  themselves are covered by synthetic integration plus the P91 supplied-H5 run.
+- Next recommended task: Install the exact candidate artifact on the production
+  VM, run `spectralbridge-drone-production inventory` against the intended
+  2023+2024 collection, review the expected eligible/excluded population and
+  manifest datetimes, then run one-flight or small-collection production with
+  upload disabled before approving the complete campaign and final upload.
+
 ### P91. Harden Bulk Analysis For Canonical Production Drone Outputs
 
 - Priority: High, user-directed production analysis

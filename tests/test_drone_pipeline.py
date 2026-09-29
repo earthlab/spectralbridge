@@ -13,6 +13,7 @@ import pandas as pd
 import spectralbridge.qa_plots as qa_plots
 
 from spectralbridge.pipelines import run_drone_pipeline
+from spectralbridge.drone_production import validate_bulk_ready_flightline
 from spectralbridge.pipelines.drone import (
     DRONE_TARGET_BANDS,
     DroneCorrectionUnavailableError,
@@ -2133,6 +2134,10 @@ def test_h5_resume_completes_correction_all_translations_and_full_extraction(
     assert paths["identity_manifest"].is_file()
     assert len(audit["expected_translation_sensors"]) == 4
     assert audit.get("missing_required_outputs") is None
+    bulk_validation = validate_bulk_ready_flightline(paths["flight_dir"])
+    assert bulk_validation.bulk_ready is True
+    assert bulk_validation.accepted_count == 1
+    assert bulk_validation.canonical_flightline_id == "SPR1_20230628"
     reusable = [
         paths["working_h5"],
         paths["envi_stem"].with_suffix(".img"),

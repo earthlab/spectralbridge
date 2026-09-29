@@ -20275,3 +20275,738 @@ workflow validated before creating the release tag.
 
 here's an h5 to test if you need.
 ```
+
+## 2026-09-29 - package remote drone bulk production orchestration
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-5
+
+```text
+Work on the current `earthlab/spectralbridge` repository.
+
+Before changing code, inspect the current repository carefully, especially:
+
+- the current drone pipeline and its public API
+- `run_drone_pipeline`
+- the canonical drone output contract
+- `spectralbridge_flightline.json`
+- the bundled `drone_field_manifest.csv`
+- the current bulk pipeline and `run_bulk_pipeline`
+- bulk source discovery and canonical flightline discovery
+- `summarize_bulk_results`
+- `BulkResultsConfig`
+- the current bulk vignettes, especially:
+  - `docs/vignettes/bulk-analysis.md`
+  - `docs/vignettes/notebooks/09_bulk_analysis.ipynb`
+  - `docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb`
+- existing CyVerse/gocmd helpers, if any
+- existing tests for drone, bulk, manifests, source discovery, restart behavior, and results reporting
+- old production notebooks only as evidence for behavior that has not yet been moved into the package
+
+Do not start by writing another large notebook.
+
+## Goal
+
+Move the production orchestration into SpectralBridge so that a user can run the complete drone campaign with a small public API.
+
+The intended workflow is:
+
+CyVerse/source collection
+    ↓
+discover candidate drone ExportPackages
+    ↓
+inspect/check which files are required
+    ↓
+download only required source H5 files
+    ↓
+preserve canonical source/package identity
+    ↓
+run the normal SpectralBridge drone pipeline independently on every flight
+    ↓
+validate canonical completed-flightline outputs
+    ↓
+run the bulk pipeline across all completed flights
+    ↓
+summarize the bulk results and create figures/report
+    ↓
+send/upload the completed results back to the source collection on CyVerse
+
+The notebook should NOT contain implementations for remote discovery, downloading, campaign iteration, identity validation, restart logic, bulk orchestration, or uploading.
+
+Those should be package functionality.
+
+## Important scientific/architectural constraint
+
+Do not create a second implementation of the science.
+
+The campaign layer must orchestrate the existing:
+
+- `run_drone_pipeline()`
+- `run_bulk_pipeline()`
+- `summarize_bulk_results()`
+
+Do not duplicate topo correction, BRDF correction, translation, Landsat-like product creation, bulk fitting, LOSO, census, coefficient calculation, or reporting.
+
+Likewise, use the package's existing identity and manifest machinery rather than inventing notebook-specific parsing wherever possible.
+
+The new code should mostly solve DATA MOVEMENT + CAMPAIGN ORCHESTRATION.
+
+---
+
+# 1. Add a proper remote-source abstraction
+
+We currently use CyVerse through `gocmd`.
+
+Implement package-level functionality for interacting with a remote SpectralBridge source collection.
+
+The public API should not require users to manually construct subprocess calls.
+
+Something approximately like:
+
+    from spectralbridge import inspect_drone_collection
+
+    collection = inspect_drone_collection(
+        "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k"
+    )
+
+The exact names/classes are up to you after inspecting the repository architecture.
+
+The package needs functions that can:
+
+- verify `gocmd` is available
+- verify/authenticate or clearly report that authentication is required
+- list a remote directory
+- recursively or appropriately discover ExportPackages
+- identify required H5 inputs
+- retrieve file metadata where available
+- check whether local files already exist
+- download required files
+- upload final products
+- verify uploaded products
+
+Do not put passwords or interactive credential handling deep inside scientific functions.
+
+Authentication should remain compatible with normal `gocmd` configuration.
+
+Subprocess calls need:
+
+- useful exceptions
+- stdout/stderr capture
+- return-code validation
+- paths safely handled
+- no shell=True unless absolutely necessary
+
+Design this so a different storage backend could eventually be added without rewriting the campaign logic.
+
+---
+
+# 2. Implement collection discovery
+
+We need a package function that can inspect the source collection and build a structured inventory BEFORE downloading large files.
+
+For each candidate flight/package record at least:
+
+- remote package path
+- package name
+- H5 path/name
+- inferred/resolved flight identity
+- year/date where available
+- whether the package can be matched to the drone field manifest
+- whether acquisition datetime is resolvable
+- whether required source files exist
+- whether a completed canonical local result already exists
+- eligibility/status
+- reason for exclusion or failure
+
+Use a dataclass or similarly explicit model rather than passing loose dictionaries everywhere.
+
+The inventory should be serializable to JSON/CSV for provenance.
+
+Do NOT depend on arbitrary outer batch-directory names for scientific identity.
+
+We learned this the hard way.
+
+For example:
+
+`SPR1-06-28-23-ExportPackage`
+
+contains the identity information needed to resolve the flight. Flattening its H5 into a generic directory such as `01_input/` caused the pipeline to identify the source incorrectly and lose its manifest acquisition datetime.
+
+Preserve source package identity.
+
+Also make identifier matching robust to equivalent forms such as:
+
+- SPR-1
+- SPR1
+- SPR_1
+
+but, preferably, use or improve the package's existing identity resolver rather than implementing multiple independent normalizers.
+
+---
+
+# 3. Implement minimal/restart-safe transfer
+
+Add something like:
+
+    stage_drone_collection(...)
+
+or an equivalent API.
+
+It should:
+
+- download only files needed to run the drone producer
+- preserve each ExportPackage as its own directory
+- skip a valid already-downloaded file
+- detect zero-byte/incomplete files
+- optionally validate size/checksum when remote metadata allows it
+- record transfer provenance
+- never overwrite/delete the remote source
+- support restart after interruption
+
+Do not make the user manually download dozens of H5s.
+
+Be conscious that these files are large.
+
+It should be possible to process one flight at a time:
+
+download H5
+→ process
+→ verify canonical result
+→ optionally remove local H5
+→ move to next flight
+
+so we do not need enough local disk for the entire raw campaign at once.
+
+---
+
+# 4. Implement a campaign-level drone runner
+
+Add a public function along the lines of:
+
+    run_drone_campaign(...)
+
+It should take a collection/inventory and run the existing `run_drone_pipeline()` for every eligible flight.
+
+The exact API should fit the package, but conceptually:
+
+    campaign = run_drone_campaign(
+        source=remote_source,
+        output_dir=...,
+        years=[2023, 2024],
+        manifest=...,
+        cleanup_inputs=True,
+        resume=True,
+        ...
+    )
+
+It should preserve the production settings we have been using unless the existing package has a better configuration abstraction:
+
+- topo correction on
+- BRDF correction on
+- brightness adjustment off
+- required solar geometry
+- full extraction
+- translation on
+- translation_strict=False
+- Landsat QA on
+
+Do not hard-code these invisibly if they belong in a config dataclass.
+
+A `DroneCampaignConfig` may make sense.
+
+Each flight is an independent checkpoint.
+
+One failed flight must not destroy or invalidate already completed flights.
+
+For each flight record:
+
+- pending
+- downloading
+- downloaded
+- processing
+- completed
+- blocked
+- failed
+
+and enough information to explain why.
+
+After `run_drone_pipeline()` returns, do not declare success merely because the function returned.
+
+Validate the canonical producer contract.
+
+At minimum require the canonical identity artifact expected by bulk:
+
+    spectralbridge_flightline.json
+
+and whatever other current producer outputs are required by the bulk consumer.
+
+Use existing validation functions where possible.
+
+---
+
+# 5. Make producer → bulk compatibility a package invariant
+
+This is especially important.
+
+We spent too much time producing drone outputs that bulk could not discover.
+
+Add an explicit package-level validation function, something like:
+
+    validate_bulk_ready_flightline(path)
+
+or improve an existing validator.
+
+A newly completed `run_drone_pipeline()` result should be testable immediately for bulk compatibility.
+
+The validation should answer:
+
+- canonical identity resolved?
+- required products present?
+- required metadata present?
+- translation pair discoverable?
+- bulk candidate classification successful?
+- exclusion reason, if not?
+
+Ideally use the SAME discovery/classification functions used by the bulk pipeline.
+
+Do not implement a parallel approximation.
+
+Add an integration test proving:
+
+    run_drone_pipeline output
+        ↓
+    bulk discovery
+        ↓
+    exactly one accepted flightline
+
+That contract should never silently break again.
+
+---
+
+# 6. Implement campaign-level bulk orchestration
+
+Once all required flights are complete, the package should be able to run:
+
+    run_drone_campaign_bulk(...)
+
+or a higher-level production function.
+
+Conceptually I ultimately want something as simple as:
+
+    result = run_drone_bulk_production(
+        source="i:/.../summer-2023-10cm-10k",
+        years=[2023, 2024],
+        work_dir="/home/jovyan/data-store/...",
+        upload_results=True,
+    )
+
+This should orchestrate:
+
+1. inspect remote source
+2. create inventory
+3. stage/process flights
+4. validate completed campaign
+5. run bulk preflight
+6. require the expected completed flight population
+7. run full `run_bulk_pipeline()`
+8. run `summarize_bulk_results()`
+9. package final results
+10. optionally upload results back to CyVerse
+11. verify the uploaded result
+
+Do not duplicate those underlying APIs.
+
+---
+
+# 7. Bulk configuration
+
+Follow the CURRENT repository's bulk contract.
+
+The current bulk vignette makes an important distinction:
+
+`run_bulk_pipeline()` performs the population analysis over canonical completed flightline products.
+
+The optional:
+
+    spectral_library=
+    make_summary_plots=
+    make_full_spectral_reports=
+
+arguments refer to a separate polygon spectral-library reporting workflow.
+
+Do NOT require a spectral library for the normal drone campaign bulk analysis.
+
+For the normal production run use the equivalent of:
+
+    spectral_library=None
+    make_summary_plots=False
+    make_full_spectral_reports=False
+
+Then run:
+
+    summarize_bulk_results(
+        bulk_output,
+        config=BulkResultsConfig(),
+        make_figures=True,
+        make_report=True,
+    )
+
+for the normal compact bulk scientific interpretation, figures, diagnostics, and report.
+
+This distinction should be clear in the API and docs so users do not reasonably assume `make_summary_plots=True` means "make normal bulk summary plots."
+
+If names/docs are currently confusing, improve documentation and perhaps warnings, but preserve backwards compatibility where reasonable.
+
+---
+
+# 8. Campaign completeness policy
+
+Do not silently run the intended full 2023+2024 analysis on a partial population.
+
+The orchestrator needs an explicit policy.
+
+For example:
+
+    require_complete_campaign=True
+
+With this enabled:
+
+- discover expected eligible flights first
+- process them
+- compare expected vs completed
+- if any required flights failed or are not bulk-ready, stop before population analysis
+- produce a useful failure table
+
+Users should be able to intentionally request partial analysis with an explicit option, but partial should not masquerade as the complete campaign.
+
+Return counts such as:
+
+- remote packages discovered
+- eligible flights
+- excluded packages
+- downloaded
+- reused
+- successfully processed
+- failed
+- blocked
+- bulk-ready
+- bulk-excluded
+- years/sites represented
+
+---
+
+# 9. Results go back to the source collection
+
+This is part of the production workflow, not notebook glue.
+
+After successful bulk analysis and summarization, package the results into a clearly named result directory.
+
+Do NOT upload raw temporary files, caches, downloaded H5s, or scratch files.
+
+Include useful scientific/provenance outputs such as:
+
+- campaign inventory
+- package/version/git commit
+- flight completion table
+- exclusions/failures
+- canonical bulk catalog
+- dataset census
+- sufficient statistics
+- candidate translation coefficients
+- per-flightline fits
+- per-site fits
+- LOSO validation
+- bulk-result summaries
+- figures
+- Markdown/PDF report if produced
+- configuration
+- provenance
+- checksums/manifest
+
+Then upload that result directory back to an appropriate child directory of the remote collection it came from.
+
+For example, something conceptually like:
+
+    <REMOTE_SOURCE>/SpectralBridge_Bulk_Results_<timestamp-or-version>/
+
+Do not overwrite an existing remote result by default.
+
+Require an explicit overwrite/replace policy if that behavior is supported.
+
+After upload:
+
+- list the remote destination
+- verify expected files exist
+- compare size/checksum when supported
+- record remote destination in the returned result/provenance
+
+Remote upload should happen ONLY after the complete local scientific workflow passes.
+
+---
+
+# 10. Public return objects
+
+Avoid giant unstructured dictionaries where possible.
+
+Create useful dataclasses/models such as:
+
+    RemoteDronePackage
+    DroneCollectionInventory
+    DroneCampaignConfig
+    DroneFlightStatus
+    DroneCampaignResult
+    BulkProductionResult
+
+Names are suggestions.
+
+The final result should make it easy to inspect:
+
+    result.inventory
+    result.completed_flights
+    result.failed_flights
+    result.bulk_result
+    result.summary_result
+    result.local_result_path
+    result.remote_result_path
+
+and serialize the provenance.
+
+---
+
+# 11. CLI
+
+If SpectralBridge already has a CLI pattern, expose this workflow there too.
+
+Something approximately like:
+
+    spectralbridge drone inventory i:/remote/path
+
+    spectralbridge drone campaign \
+        i:/remote/path \
+        --years 2023 2024 \
+        --work-dir /home/jovyan/data-store/drone_campaign
+
+    spectralbridge drone bulk \
+        i:/remote/path \
+        --years 2023 2024 \
+        --work-dir ... \
+        --upload-results
+
+or preferably one production command if that better matches the current CLI architecture.
+
+Do not invent a completely separate CLI framework if one already exists.
+
+---
+
+# 12. Tests
+
+This needs serious tests because the lack of a tested producer/consumer contract caused most of our debugging.
+
+Add unit tests for:
+
+- gocmd command construction
+- remote listing parsing
+- ExportPackage discovery
+- H5 discovery
+- identity preservation
+- manifest matching
+- SPR-1 / SPR1 / SPR_1 normalization if normalization remains necessary
+- acquisition datetime resolution
+- local-file reuse
+- incomplete download detection
+- restart behavior
+- successful-flight reuse
+- failed-flight retry
+- cleanup behavior
+- campaign completeness gate
+- upload destination construction
+- upload verification
+
+Mock gocmd for unit tests.
+
+Do not require live CyVerse credentials in CI.
+
+Add integration tests using small synthetic fixtures proving:
+
+A. producer → bulk contract
+
+    synthetic H5 / suitable existing fixture
+        → run_drone_pipeline
+        → canonical completed output
+        → bulk discovery
+        → exactly one accepted flightline
+
+B. campaign → bulk contract
+
+    multiple completed synthetic flights
+        → campaign inventory
+        → bulk preflight
+        → full bulk
+        → summarize_bulk_results
+
+C. restart contract
+
+    completed flight A
+    failed/incomplete flight B
+        → rerun campaign
+        → A reused
+        → B retried
+        → no duplicate canonical flightline
+
+D. remote orchestration
+
+Use a fake/mock remote backend to prove:
+
+    discover
+    → download
+    → process
+    → summarize
+    → upload
+    → verify
+
+without requiring CyVerse.
+
+---
+
+# 13. Documentation
+
+Update the docs with one clear production workflow.
+
+The main user-facing example should become small.
+
+I want the final notebook or vignette to be approximately:
+
+    from spectralbridge import run_drone_bulk_production
+
+    result = run_drone_bulk_production(
+        source="i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k",
+        years=[2023, 2024],
+        work_dir="/home/jovyan/data-store/SpectralBridge_Drone_2023_2024",
+        upload_results=True,
+    )
+
+    result.summary()
+
+Obviously use the actual API you design.
+
+The notebook should NOT contain:
+
+- gocmd parsing
+- subprocess plumbing
+- package-name regexes
+- manual H5 loops
+- status JSON management
+- producer/bulk discovery hacks
+- bulk result validation logic
+- upload loops
+
+Those belong in tested package code.
+
+---
+
+# 14. Preserve the scientific semantics
+
+Be careful not to change the meaning of the existing bulk analysis while doing this refactor.
+
+In particular:
+
+- canonical flightline identity comes from the scientific producer contract, not arbitrary storage folders
+- translated Landsat-like drone products are derived from the MicaSense source and should retain their current interpretation
+- candidate translation coefficients and LOSO results must retain the current weighting/analysis semantics
+- do not accidentally treat same-source synthetic translations as independent empirical calibration
+- do not feed derived translation products back into a calibration registry unless the current scientific design explicitly allows that
+
+Read the current bulk documentation before changing these areas.
+
+---
+
+# 15. Backwards compatibility
+
+Do not casually break:
+
+    run_drone_pipeline()
+    run_bulk_pipeline()
+    summarize_bulk_results()
+
+The new campaign functionality should sit above them.
+
+If an underlying bug prevents the new orchestration from working correctly, fix that bug with regression tests rather than working around it in the campaign layer.
+
+---
+
+# 16. Implementation process
+
+Work incrementally.
+
+First:
+
+1. inspect repository architecture
+2. identify functionality that already exists
+3. identify notebook logic that belongs in package code
+4. propose the smallest coherent module/API design
+
+Then implement.
+
+After implementation:
+
+- run the relevant existing test suite
+- run all new tests
+- run lint/type checks used by this repository
+- run the producer→bulk integration test
+- run the campaign mock-remote integration test
+- build docs/notebooks if the repository tests them
+
+Do not declare success because code imports.
+
+Show evidence.
+
+---
+
+# 17. Final report
+
+At the end give me:
+
+## Architecture
+
+What modules/classes/functions were added or changed.
+
+## Public API
+
+Show the final recommended Python call for our actual 2023+2024 campaign.
+
+## CLI
+
+Show the equivalent command if implemented.
+
+## Producer → bulk contract
+
+Explain exactly how a newly produced drone flight is validated as bulk-ready.
+
+## Restart behavior
+
+Explain what happens if processing stops halfway through 43 flights.
+
+## Disk behavior
+
+Explain when H5s are downloaded and when they can safely be removed.
+
+## Remote result behavior
+
+Explain exactly what gets uploaded back to CyVerse and where.
+
+## Tests
+
+List tests added and actual test results.
+
+## Remaining risks
+
+Anything that cannot be validated without the live CyVerse collection or full-size H5s.
+
+## Notebook replacement
+
+Show what the new production notebook now needs to contain. It should be very small.
+
+The goal is not another notebook that happens to work.
+
+The goal is to make **SpectralBridge itself own this production workflow**, so the notebook becomes a thin, readable interface to a tested and restartable package.
+```

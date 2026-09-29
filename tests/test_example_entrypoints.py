@@ -87,7 +87,7 @@ def test_vignette_notebooks_are_clean_and_code_compiles() -> None:
             exec(compiled, {"__name__": "__notebook_contract_test__"})
 
 
-def test_advanced_bulk_notebook_is_guarded_and_uses_current_api() -> None:
+def test_drone_bulk_production_notebook_is_thin_guarded_public_api() -> None:
     path = NOTEBOOK_DIR / "10_bulk_production_cyverse.ipynb"
     notebook = json.loads(path.read_text(encoding="utf-8"))
     source = "\n".join(
@@ -97,19 +97,15 @@ def test_advanced_bulk_notebook_is_guarded_and_uses_current_api() -> None:
     )
 
     assert "RUN = False" in source
-    assert "YOUR_CURATED_COLLECTION" in source
-    assert "ALLOW_REBUILD_RECONCILED_STAGE = False" in source
-    assert "ALLOW_REBUILD_PACKAGE = False" in source
     assert "UPLOAD_RESULTS = False" in source
-    assert "from spectralbridge import summarize_bulk_results" in source
-    assert "analysis=\"translation\"" in source
-    assert "materialize_observations=False" in source
-    assert "shutil.rmtree(RECONCILED_STAGE)" in source
-    assert "if not ALLOW_REBUILD_RECONCILED_STAGE" in source
-    assert "shutil.rmtree(PACKAGE_DIR)" in source
-    assert "if not ALLOW_REBUILD_PACKAGE" in source
-    assert 'if RUN_STAGE not in ("all", "package", "verify")' in source
-    assert "Aug_2026_Full_Extraction" not in source
+    assert "from spectralbridge import run_drone_bulk_production" in source
+    assert "result = run_drone_bulk_production(" in source
+    assert "require_complete_campaign=True" in source
+    assert "subprocess" not in source
+    assert "gocmd" not in source
+    assert "run_bulk_pipeline" not in source
+    assert "summarize_bulk_results" not in source
+    assert len(source.splitlines()) < 40
 
 
 def test_documentation_links_to_tracked_notebooks_on_github() -> None:

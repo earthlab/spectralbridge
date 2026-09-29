@@ -46,9 +46,12 @@ import spectralbridge
 from spectralbridge import (
     build_harmonized_dataset,
     go_forth_and_multiply,
+    inspect_drone_collection,
     inspect_spectral_library_preflight,
     run_bulk_pipeline,
     run_drone_pipeline,
+    run_drone_campaign,
+    run_drone_bulk_production,
     run_spectral_library_analysis,
     summarize_bulk_results,
 )
@@ -94,6 +97,7 @@ PRIMARY_CONSOLE_SCRIPTS = (
     "spectralbridge-stage-qa",
     "spectralbridge-merge-duckdb",
     "spectralbridge-bulk",
+    "spectralbridge-drone-production",
     "spectralbridge-validate-parquets",
 )
 EXPECTED_DISTRIBUTION = "earthlab-spectralbridge"
@@ -752,7 +756,10 @@ def _run_smoke(root: Path, *, expected_version: str | None) -> dict[str, object]
     for entry_point in (
         build_harmonized_dataset,
         go_forth_and_multiply,
+        inspect_drone_collection,
         inspect_spectral_library_preflight,
+        run_drone_campaign,
+        run_drone_bulk_production,
         run_drone_pipeline,
         run_bulk_pipeline,
         run_spectral_library_analysis,

@@ -39,6 +39,18 @@ __all__ = sorted(
                 "process_one_flightline",
                 "run_bulk_pipeline",
                 "run_drone_pipeline",
+                "run_drone_campaign",
+                "run_drone_bulk_production",
+                "inspect_drone_collection",
+                "stage_drone_collection",
+                "validate_bulk_ready_flightline",
+                "BulkProductionResult",
+                "DroneCampaignConfig",
+                "DroneCampaignIncompleteError",
+                "DroneCampaignResult",
+                "DroneCollectionInventory",
+                "DroneFlightStatus",
+                "RemoteDronePackage",
                 "run_spectral_library_analysis",
                 "summarize_bulk_results",
                 "inspect_spectral_library_preflight",
@@ -102,6 +114,24 @@ def __getattr__(name: str):  # pragma: no cover - thin lazy import helper
 
         globals()[name] = _run_drone_pipeline
         return _run_drone_pipeline
+    if name in {
+        "BulkProductionResult",
+        "DroneCampaignConfig",
+        "DroneCampaignIncompleteError",
+        "DroneCampaignResult",
+        "DroneCollectionInventory",
+        "DroneFlightStatus",
+        "RemoteDronePackage",
+        "inspect_drone_collection",
+        "run_drone_bulk_production",
+        "run_drone_campaign",
+        "stage_drone_collection",
+        "validate_bulk_ready_flightline",
+    }:
+        module = import_module("spectralbridge.drone_production")
+        value = getattr(module, name)
+        globals()[name] = value
+        return value
     if name in {"go_forth_and_multiply", "process_one_flightline"}:
         module = import_module("spectralbridge.pipelines.pipeline")
         value = getattr(module, name)

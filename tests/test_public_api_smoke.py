@@ -99,6 +99,10 @@ def test_common_orchestration_helpers_are_available_at_top_level() -> None:
 
         assert spectralbridge.go_forth_and_multiply is go_forth_and_multiply
         assert spectralbridge.process_one_flightline is process_one_flightline
+        assert callable(spectralbridge.inspect_drone_collection)
+        assert callable(spectralbridge.run_drone_campaign)
+        assert callable(spectralbridge.run_drone_bulk_production)
+        assert callable(spectralbridge.validate_bulk_ready_flightline)
 
 
 def test_cli_backwards_compatibility_exports_are_available() -> None:

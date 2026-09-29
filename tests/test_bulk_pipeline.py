@@ -121,6 +121,10 @@ def test_bulk_runtime_dependencies_and_cli_are_packaged() -> None:
     assert (
         'spectralbridge-bulk = "spectralbridge.cli.bulk_cli:main"' in project
     )
+    assert (
+        'spectralbridge-drone-production = '
+        '"spectralbridge.cli.drone_production_cli:main"' in project
+    )
 
 
 def test_default_registry_classifies_realistic_micasense_filenames() -> None:

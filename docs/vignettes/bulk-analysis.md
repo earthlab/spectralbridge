@@ -14,19 +14,13 @@ The bulk workflow is downstream analysis. It does not download inputs, rerun
 correction or convolution, invoke the drone pipeline, or modify source folders.
 
 **Runnable notebooks:** Use the [local bulk analysis notebook][local-bulk-notebook]
-when the curated completed-flightline tree is already on disk. Use the
-[advanced CyVerse production notebook][cyverse-bulk-notebook] when the same
-kind of curated tree must first be inventoried and transferred from CyVerse.
-Its configuration names an example collection; replace `REMOTE_SOURCE` with
-any collection that follows the required product/sidecar format. Review the
-VM disk budget and output paths, then set `RUN = True`. The notebook preserves
-source products, gates duplicate reconciliation and preflight, and packages
-the compact outputs and interpretation reports. It does not change the bulk
-pipeline's scientific definitions. Its transfer planner currently requires
-the six default matched MicaSense/Landsat ENVI product families, with both
-`.img` and `.hdr`, in each eligible flightline. For other registered pair
-subsets or already-local merged Parquets, use the local notebook or the public
-API below instead.
+when the completed-flightline tree is already on disk. Use the
+[CyVerse drone production notebook][cyverse-bulk-notebook] when remote
+ExportPackages must first be processed. That notebook is a thin call to
+`run_drone_bulk_production()`; remote listing, source-H5 transfer, producer
+iteration, canonical validation, completeness gating, bulk execution, result
+packaging, and upload live in tested package code. Neither interface changes
+the bulk pipeline's scientific definitions.
 
 ## Generic input model
 

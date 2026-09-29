@@ -38,7 +38,24 @@
     <h3><code>spectralbridge-bulk</code></h3>
     <p>Catalog completed flightlines, query them virtually, and run population-aware synthetic translation analyses.</p>
   </article>
+  <article class="sb-doc-card">
+    <h3><code>spectralbridge-drone-production</code></h3>
+    <p>Inventory a remote ExportPackage collection, process independent drone flights, or run the complete strict campaign-to-bulk closeout workflow.</p>
+  </article>
 </div>
+</section>
+
+<section class="sb-doc-section" markdown="1">
+<h2><code>spectralbridge-drone-production</code></h2>
+
+```bash
+spectralbridge-drone-production bulk i:/iplant/home/shared/.../summer-2023-10cm-10k \
+  --years 2023 2024 \
+  --work-dir /home/jovyan/data-store/SpectralBridge_Drone_2023_2024 \
+  --upload-results
+```
+
+<p>The <code>inventory</code> subcommand performs no H5 transfer. <code>campaign</code> stops after validated canonical flight outputs. <code>bulk</code> adds strict population preflight, compact analysis, normal bulk figures/report, checksummed packaging, and optional verified upload. Authentication uses the caller's normal non-interactive <code>gocmd</code> configuration. See <a href="../vignettes/drone-production/">remote drone production</a>.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">
