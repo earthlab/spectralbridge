@@ -710,6 +710,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../drone-production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run remote drone production
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../bulk-analysis/" class="md-nav__link">
         
   
@@ -1033,6 +1061,34 @@
     
   
     Analyze completed flightlines in bulk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drone-production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run remote drone production
   
 
     
@@ -2838,11 +2894,9 @@ outputs, and validation checkpoints. Copy a notebook into your own analysis
 directory before changing scientific assumptions.</p>
 <p>The NEON and drone examples follow the two active root research notebooks.
 The local bulk example uses the public API on an already curated file tree. A
-separate advanced bulk notebook adapts the supplied production workflow for
-CyVerse-hosted collections, including discovery, transfer, duplicate
-reconciliation, preflight, compact analysis, reporting, and closeout packaging.
-It is an environment-specific recipe, not a prerequisite for using
-<code>run_bulk_pipeline()</code> on local files.</p>
+separate production notebook configures the package-owned CyVerse drone
+campaign workflow. It contains no remote parsing, transfer loops, identity
+regexes, checkpoint implementation, bulk validation, or upload plumbing.</p>
 <table>
 <thead>
 <tr>
@@ -2904,8 +2958,8 @@ It is an environment-specific recipe, not a prerequisite for using
 </tr>
 <tr>
 <td>10</td>
-<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb">Run a curated CyVerse bulk production job</a></td>
-<td>You have a CyVerse collection in the completed-flightline format and need transfer, reconciliation, analysis, reports, and closeout gates</td>
+<td><a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb">Run CyVerse drone-to-bulk production</a></td>
+<td>You have remote drone ExportPackages and need tested staging, producer checkpoints, strict bulk analysis, reports, and verified closeout upload</td>
 </tr>
 </tbody>
 </table>
@@ -2920,11 +2974,9 @@ with one flightline, <code>engine="thread"</code>, and <code>max_workers=1</code
 <h2 id="what-runnable-means">What “runnable” means<a class="headerlink" href="#what-runnable-means" title="Permanent link">&para;</a></h2>
 <p>The notebooks have valid kernels and no saved outputs. The numbered learning
 examples use <code>RUN = False</code>; set it to <code>True</code> after editing their configuration.
-The advanced CyVerse notebook also stops at its configuration guard until you
-set <code>RUN = True</code>, replace the example <code>REMOTE_SOURCE</code>, review VM disk/output
-paths, and choose a stage. <code>RUN_STAGE="all"</code> may transfer a large archive. An
-existing reconciled stage or closeout package is not deleted without separate
-explicit flags. Remote upload remains disabled unless <code>UPLOAD_RESULTS=True</code>.</p>
+The CyVerse production notebook calls one restart-safe public function. Remote
+upload remains disabled unless <code>upload_results=True</code>; the package never
+overwrites an existing non-matching remote result.</p>
 <p>The supplied PDF was used for review but is not published as runnable guidance:
 its print layout clips wide code cells. Use the tracked notebook to copy or run
 code.</p>

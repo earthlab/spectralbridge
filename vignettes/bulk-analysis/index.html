@@ -16,7 +16,7 @@
         <link rel="prev" href="../polygon-extraction/">
       
       
-        <link rel="next" href="../../tutorials/cloud-workflow/">
+        <link rel="next" href="../drone-production/">
       
       
         
@@ -621,6 +621,34 @@
     
   
     Process drone imagery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drone-production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run remote drone production
   
 
     
@@ -1266,6 +1294,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drone-production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run remote drone production
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -3066,19 +3122,13 @@
 <p>The bulk workflow is downstream analysis. It does not download inputs, rerun
 correction or convolution, invoke the drone pipeline, or modify source folders.</p>
 <p><strong>Runnable notebooks:</strong> Use the <a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/09_bulk_analysis.ipynb">local bulk analysis notebook</a>
-when the curated completed-flightline tree is already on disk. Use the
-<a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb">advanced CyVerse production notebook</a> when the same
-kind of curated tree must first be inventoried and transferred from CyVerse.
-Its configuration names an example collection; replace <code>REMOTE_SOURCE</code> with
-any collection that follows the required product/sidecar format. Review the
-VM disk budget and output paths, then set <code>RUN = True</code>. The notebook preserves
-source products, gates duplicate reconciliation and preflight, and packages
-the compact outputs and interpretation reports. It does not change the bulk
-pipeline's scientific definitions. Its transfer planner currently requires
-the six default matched MicaSense/Landsat ENVI product families, with both
-<code>.img</code> and <code>.hdr</code>, in each eligible flightline. For other registered pair
-subsets or already-local merged Parquets, use the local notebook or the public
-API below instead.</p>
+when the completed-flightline tree is already on disk. Use the
+<a href="https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb">CyVerse drone production notebook</a> when remote
+ExportPackages must first be processed. That notebook is a thin call to
+<code>run_drone_bulk_production()</code>; remote listing, source-H5 transfer, producer
+iteration, canonical validation, completeness gating, bulk execution, result
+packaging, and upload live in tested package code. Neither interface changes
+the bulk pipeline's scientific definitions.</p>
 <h2 id="generic-input-model">Generic input model<a class="headerlink" href="#generic-input-model" title="Permanent link">&para;</a></h2>
 <p>A flightline is the atomic scientific unit. Storage folders around it have no
 scientific meaning and may be nested arbitrarily:</p>

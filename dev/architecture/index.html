@@ -633,6 +633,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../vignettes/drone-production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run remote drone production
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../vignettes/bulk-analysis/" class="md-nav__link">
         
   
@@ -953,6 +981,34 @@
     
   
     Analyze completed flightlines in bulk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/drone-production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run remote drone production
   
 
     
@@ -2997,6 +3053,11 @@
 <li><code>spectralbridge/pipelines/drone.py</code>: local TIFF/HDF5 orchestration through
   corrected native MicaSense, optional coefficient translation, extraction,
   and QA</li>
+<li><code>spectralbridge/remote.py</code>: backend protocol plus the non-interactive <code>gocmd</code>
+  adapter for safe collection listing, transfer, upload, and verification</li>
+<li><code>spectralbridge/drone_production.py</code>: remote inventory, bounded per-flight
+  staging/checkpoints, canonical bulk-readiness validation, completeness gates,
+  existing bulk/results orchestration, and compact closeout packaging</li>
 <li><code>spectralbridge/drone_translation.py</code>: validated bulk-coefficient consumer,
   wavelength mapping, affine raster transform, and translated-library
   provenance</li>
@@ -3044,6 +3105,13 @@ verify that the source fingerprint did not change. Completed flight directories
 also expose a generic identity manifest and exact matched native-source products,
 so bulk discovery can consume a drone output root directly without an eager
 campaign-wide pixel merge.</p>
+<p>The production campaign layer sits above both scientific pipelines. It does not
+implement correction, translation, fitting, LOSO, or reporting algorithms.
+Each staged ExportPackage is passed to <code>run_drone_pipeline</code>; completion is
+tested with bulk's actual <code>discover_completed_flightlines</code>; population analysis
+delegates to <code>run_bulk_pipeline</code>; interpretation delegates to
+<code>summarize_bulk_results</code>. This boundary keeps remote storage and campaign state
+replaceable without creating a second scientific implementation.</p>
 <h3 id="independent-bulk-analysis">Independent bulk analysis<a class="headerlink" href="#independent-bulk-analysis" title="Permanent link">&para;</a></h3>
 <p><code>run_bulk_pipeline</code> is downstream of completed per-flightline workflows rather
 than another stage inside them. Scientific identity is resolved by an
@@ -3078,9 +3146,10 @@ pass. Its signature covers compact flightline moments, requested pairs,
 threshold, and chunk configuration. Results interpretation then has separate
 compact-summary, diagnostic, publication, and final-report stages.</p>
 <h3 id="debuggable-stage-boundaries">Debuggable stage boundaries<a class="headerlink" href="#debuggable-stage-boundaries" title="Permanent link">&para;</a></h3>
-<p>The intentionally small public API remains <code>run_drone_pipeline</code>,
-<code>run_bulk_pipeline</code>, and <code>summarize_bulk_results</code>. Maintainers can rerun major
-stages directly without duplicating orchestration:</p>
+<p>The intentionally small public API includes <code>run_drone_pipeline</code>,
+<code>run_drone_campaign</code>, <code>run_drone_bulk_production</code>, <code>run_bulk_pipeline</code>, and
+<code>summarize_bulk_results</code>. Maintainers can rerun major stages directly without
+duplicating orchestration:</p>
 <ul>
 <li>Drone preparation/export/correction:
   <code>_prepare_drone_source_working_h5</code>, <code>export_h5_to_envi</code>, and

@@ -627,6 +627,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../vignettes/drone-production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run remote drone production
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../vignettes/bulk-analysis/" class="md-nav__link">
         
   
@@ -947,6 +975,34 @@
     
   
     Analyze completed flightlines in bulk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vignettes/drone-production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run remote drone production
   
 
     
@@ -2767,6 +2823,7 @@
   "spectralbridge-stage-qa": "spectralbridge.cli.stage_qa_cli:main",
   "spectralbridge-merge-duckdb": "spectralbridge.merge_duckdb:main",
   "spectralbridge-bulk": "spectralbridge.cli.bulk_cli:main",
+  "spectralbridge-drone-production": "spectralbridge.cli.drone_production_cli:main",
   "spectralbridge-validate-parquets": "spectralbridge.parquet_validation:main",
   "cscal-download": "spectralbridge.cli:download_main",
   "cscal-pipeline": "spectralbridge.cli.pipeline_cli:main",
@@ -2909,6 +2966,17 @@
     "--force",
     "--mode",
     "--topo-fit-mode"
+  ],
+  "drone_production_cli.py": [
+    "--allow-partial",
+    "--extraction-workers",
+    "--keep-inputs",
+    "--manifest",
+    "--no-landsat-qa",
+    "--output-dir",
+    "--upload-results",
+    "--work-dir",
+    "--years"
   ]
 }</p>
 <h2 id="stage-markers-found-in-logs">Stage markers found in logs<a class="headerlink" href="#stage-markers-found-in-logs" title="Permanent link">&para;</a></h2>
