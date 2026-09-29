@@ -3106,6 +3106,12 @@ derived products.</p>
     <span class="n">analysis</span><span class="o">=</span><span class="s2">"translation"</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
+<p>Bulk recognizes the double-underscore drone names directly. It validates 4
+shared bands for TM/ETM+ and 5 for OLI/OLI-2, then writes compact relationship
+fits labeled <code>diagnostic_application_verification_only</code>. Those fits verify that
+the already-selected registry was applied consistently; they are circular with
+respect to that registry and are not new empirical calibration evidence. NEON
+single-underscore convolution products retain separate 6/7-band descriptors.</p>
 <h2 id="translation-and-validation-architecture">Translation and validation architecture<a class="headerlink" href="#translation-and-validation-architecture" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>DRONE
 TIFF + ancillary + manifest

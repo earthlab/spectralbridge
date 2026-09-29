@@ -22,7 +22,9 @@
       "_micasense_<target>_matched_envi.hdr",
       "_micasense_<target>_matched_envi.img",
       "_micasense_envi.hdr",
-      "_micasense_envi.img"
+      "_micasense_envi.img",
+      "_micasense_to_match_oli_oli2_envi.img",
+      "_micasense_to_match_tm_etm+_envi.img"
     ],
     "sensors": [
       "MicaSense",
@@ -59,7 +61,6 @@
       "micasense-to-landsat.md)",
       "micasense-to-landsat`",
       "micasense.json`",
-      "micasense_<target>_matched_envi.(img\\|hdr)`",
       "micasense_<target>_matched_envi.hdr",
       "micasense_<target>_matched_envi.img",
       "micasense_envi\",",
@@ -83,6 +84,8 @@
       "micasense_envi.img/.hdr/.parquet,,,,",
       "micasense_envi.img/.hdr/.parquet,,,,,",
       "micasense_envi.img/.hdr/.parquet,,,,,,",
+      "micasense_matched_oli`",
+      "micasense_matched_tm_etm`",
       "micasense_to_match_oli_and_oli,",
       "micasense_to_match_oli_and_oli,,",
       "micasense_to_match_oli_and_oli,,,",
@@ -96,7 +99,11 @@
       "micasense_to_match_oli_oli,,,,,",
       "micasense_to_match_oli_oli,,,,,,",
       "micasense_to_match_oli_oli2",
+      "micasense_to_match_oli_oli2_envi.(img\\|hdr)`",
+      "micasense_to_match_oli_oli2_envi.img`",
       "micasense_to_match_tm_etm+,,,,,,",
+      "micasense_to_match_tm_etm+_envi.(img\\|hdr)`",
+      "micasense_to_match_tm_etm+_envi.img`",
       "micasense`)"
     ]
   },

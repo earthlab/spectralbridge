@@ -3123,12 +3123,15 @@ available translation relationship. Canonical per-flight Parquets are cataloged
 from their footers for row counts, schemas, sizes, roles, and provenance. Bulk
 reads these products in place; do not rename them and do not create a
 campaign-wide pixel Parquet first.</p>
-<p>Availability is not the same as regression eligibility. Drone Landsat-like
-products were created from the same flight's native MicaSense observation with
-an existing coefficient registry. Bulk therefore includes them in campaign
-census and descriptive product summaries, but does not refit coefficients from
-those application outputs. Independent calibration observations require an
-explicit evidence contract; ordinary canonical drone outputs do not provide one.</p>
+<p>Availability is not the same as independent calibration evidence. Drone
+Landsat-like products were created from the same flight's native MicaSense
+observation with an existing coefficient registry. Bulk accepts the canonical
+4-band TM/ETM+ and 5-band OLI/OLI-2 source/target pairs and fits them as
+application-verification diagnostics. The resulting coefficient and LOSO
+artifacts are marked <code>diagnostic_application_verification_only</code>: they should
+reproduce the supplied registry and must not be treated as a new empirical
+calibration. NEON convolution uses the full 6-band TM/ETM+ and 7-band OLI/OLI-2
+target contracts and remains a separate <code>synthetic_convolution</code> evidence class.</p>
 <h2 id="analysis-profiles-and-minimal-archives">Analysis profiles and minimal archives<a class="headerlink" href="#analysis-profiles-and-minimal-archives" title="Permanent link">&para;</a></h2>
 <p>Processing completeness, product availability, and analysis eligibility are
 separate catalog fields. The built-in <code>translation</code> profile requires a complete
@@ -3139,8 +3142,12 @@ are optional unless a custom profile requires them.</p>
 <p>Product recognition and translation relationships are centralized in a
 <code>ProductRegistry</code>. The installed defaults describe SpectralBridge's current
 matched MicaSense/Landsat products, while <code>ProductDescriptor</code> and
-<code>TranslationPair</code> support other sensor names, filename patterns, matching
-groups, expected band counts, and explicit source-to-target band mappings.</p>
+<code>TabularProductDescriptor</code> record product roles, semantics, processing stage,
+extraction mode, required columns, and expected band count.
+<code>TranslationPair</code> supports other sensor names, matching groups, compatible
+source/target schemas, and explicit source-to-target band mappings. The
+double-underscore drone names are intentionally distinct from the single-
+underscore NEON convolution names.</p>
 <p>Band numbers are sensor-local and are never treated as a cross-sensor identity.
 The installed relationships resolve named spectral identities against the
 packaged center wavelengths and passbands. Thus Landsat 5 TM blue band 1
@@ -3218,12 +3225,15 @@ sensor-wide ENVI no-data/finite rules and the requested reflectance threshold
 all pass. Each chunk is immediately reduced into numerically stable bivariate
 moments. No sensor Parquet or <code>observations.parquet</code> is created.</p>
 <p>For a canonical drone campaign produced by <code>run_drone_pipeline()</code>, this full
-call still completes the catalog, census, campaign summary, and provenance, but
-records translation regression, LOSO, and candidate-coefficient generation as
-<code>intentionally_not_run</code>. That is a successful scientifically conservative run,
-not a missing-product error. NEON convolution archives and custom registries
-that satisfy their configured evidence contract continue through bounded
-sufficient statistics and hierarchical regression.</p>
+call streams the matched native and translated rasters, writes bounded
+sufficient statistics, and emits application-verification regression, LOSO,
+and candidate-coefficient artifacts. The analysis decision and coefficient JSON
+record <code>derived_application_verification</code> and
+<code>diagnostic_application_verification_only</code>; these outputs verify coefficient
+application and are not independent sensor calibration. A mixed catalog may
+contain both drone and NEON flights, but a full run intentionally does not pool
+drone application-verification with NEON synthetic-convolution evidence. Run
+those evidence classes separately when coefficients are required.</p>
 <p>The first pass writes compact per-flightline statistics. Site, global,
 flightline-balanced, and site-balanced fits combine those checkpoints. LOSO
 training uses <code>global statistics - held-out site statistics</code>; one bounded second
