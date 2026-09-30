@@ -3040,7 +3040,7 @@
 <span class="w">  </span>--work-dir<span class="w"> </span>/home/jovyan/data-store/SpectralBridge_Drone_2023_2024<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--upload-results
 </code></pre></div>
-<p>The <code>inventory</code> subcommand performs no H5 transfer. <code>campaign</code> stops after validated canonical flight outputs. <code>bulk</code> adds strict population preflight, compact analysis, normal bulk figures/report, checksummed packaging, and optional verified upload. Authentication uses the caller's normal non-interactive <code>gocmd</code> configuration. See <a href="../vignettes/drone-production/">remote drone production</a>.</p>
+<p>The <code>inventory</code> subcommand performs no H5 transfer. For a year-specific source name containing one standalone year token, every requested year is resolved as a sibling collection; a higher campaign root is scanned directly. The inventory and campaign reports retain per-year source, manifest, discovery, completion, and reuse evidence, and strict mode cannot silently accept a missing requested year. <code>campaign</code> stops after validated canonical flight outputs. <code>bulk</code> adds exact combined-population preflight, compact analysis, normal bulk figures/report, checksummed packaging, and optional verified upload. Authentication uses the caller's normal non-interactive <code>gocmd</code> configuration. See <a href="../vignettes/drone-production/">remote drone production</a>.</p>
 </section>
 <section class="sb-doc-section">
 <h2 id="spectralbridge-bulk"><code>spectralbridge-bulk</code><a class="headerlink" href="#spectralbridge-bulk" title="Permanent link">&para;</a></h2>

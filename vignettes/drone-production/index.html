@@ -3060,6 +3060,26 @@ package, preserves the package path, derives the producer flight stem, resolves
 the bundled field manifest with separator-tolerant identifiers such as <code>SPR-1</code>,
 <code>SPR1</code>, and <code>SPR_1</code>, and records local/bulk readiness. Arbitrary outer batch
 directory names never become scientific identity.</p>
+<p>Requested years control discovery, not merely filtering. A source without a
+standalone year token is treated as a campaign root and scanned recursively. A
+year-specific source such as <code>summer-2023-10cm-10k</code> deterministically resolves
+the corresponding sibling name for every requested year and records unavailable
+siblings instead of silently dropping that year. When collection names do not
+follow that convention, bind them explicitly in Python:</p>
+<div class="highlight"><pre><span></span><code><span class="n">sources</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">2023</span><span class="p">:</span> <span class="s2">"i:/.../reviewed-2023-exports"</span><span class="p">,</span>
+    <span class="mi">2024</span><span class="p">:</span> <span class="s2">"i:/.../second-season-final"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">run_drone_bulk_production</span><span class="p">(</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
+    <span class="n">years</span><span class="o">=</span><span class="p">[</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">2024</span><span class="p">],</span>
+    <span class="n">work_dir</span><span class="o">=</span><span class="s2">"/home/jovyan/data-store/SpectralBridge_Drone_2023_2024"</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Inventory JSON records the requested source, resolved source roots, resolution
+strategy, manifest flights, discovered and eligible packages, and missing
+expected identities for each year.</p>
 <h2 id="producer-to-bulk-gate">Producer-to-bulk gate<a class="headerlink" href="#producer-to-bulk-gate" title="Permanent link">&para;</a></h2>
 <p>After each <code>run_drone_pipeline()</code> call, the campaign invokes
 <code>validate_bulk_ready_flightline()</code>. That function calls the same
@@ -3069,15 +3089,27 @@ classifies it as accepted, finds a requested translation pair, and marks that
 pair regression-eligible. Missing <code>spectralbridge_flightline.json</code>, invalid
 products, duplicate identity, incompatible bands, and incomplete pairs fail at
 the producer boundary rather than hours later in population analysis.</p>
-<p>The default completeness policy is strict. SpectralBridge inventories the
-eligible population before processing and stops before bulk when any expected
-flight is failed, blocked, or not bulk-ready. Set
+<p>The default completeness policy is strict. For each requested year,
+SpectralBridge requires every valid dated manifest flight to have one eligible
+remote package and one canonically validated bulk-ready result. An unresolved
+collection, an entirely undiscovered expected year, a missing H5, a duplicate,
+or a failed flight makes that year and the campaign incomplete. A year is
+legitimately empty only when the selected manifest contains no valid dated
+flight for it. The per-year state remains in the inventory and campaign result
+even when strict mode raises before bulk. Set
 <code>require_complete_campaign=False</code> only for a deliberately partial analysis.</p>
 <h2 id="restart-and-disk-behavior">Restart and disk behavior<a class="headerlink" href="#restart-and-disk-behavior" title="Permanent link">&para;</a></h2>
 <p>Each remote package has an independently persisted state under <code>work_dir/state</code>.
 On restart, a flight that still passes the canonical bulk gate is reused. A
 failed flight is retried from its valid staged H5 and any restart-safe producer
 stages. No duplicate canonical flight is created.</p>
+<p>Expanding a run from one year to multiple years does not invalidate earlier
+outputs. The newly resolved inventory points each earlier package at the same
+<code>flight_outputs/&lt;flight_stem&gt;</code> directory, and reuse occurs only after that
+directory passes the current canonical bulk validation. New-year packages alone
+are downloaded and processed. Before population analysis, bulk discovery must
+recover exactly the combined set of validated reused and newly processed
+identities.</p>
 <p>By default the runner stages one H5, validates its remote size (and checksum when
 available), processes it, proves the completed flight is bulk-ready, and removes
 only that exact staged source H5. Its canonical output retains the restartable
@@ -3100,9 +3132,16 @@ Git provenance, bulk catalogs, census, sufficient statistics, coefficients,
 per-flight/per-site/balanced/LOSO results, figures, reports, and a SHA-256
 manifest. It excludes downloaded H5s, temporary data, DuckDB scratch/cache data,
 and diagnostic pixel samples. With <code>upload_results=True</code>, that one directory is
-uploaded beneath the source collection. Existing remote destinations are never
+uploaded beneath the campaign root or common parent of resolved year
+collections. Existing remote destinations are never
 overwritten; an equivalent package is verified and reused, while a mismatch
 fails closed.</p>
+<p>Local closeout reuse also verifies a deterministic campaign-identity digest,
+including requested years, resolved sources, manifest expectations, and the
+bulk-ready flight set. If an earlier incomplete-year run used the same result
+name, its valid package is preserved with a <code>.stale-&lt;timestamp&gt;</code> suffix and a
+new combined package is built. Remote mismatches remain fail-closed and are not
+renamed or overwritten.</p>
 <h2 id="command-line">Command line<a class="headerlink" href="#command-line" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>spectralbridge-drone-production<span class="w"> </span>inventory<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k<span class="w"> </span><span class="se">\</span>
