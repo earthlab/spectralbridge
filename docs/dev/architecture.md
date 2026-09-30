@@ -108,6 +108,16 @@ delegates to `run_bulk_pipeline`; interpretation delegates to
 `summarize_bulk_results`. This boundary keeps remote storage and campaign state
 replaceable without creating a second scientific implementation.
 
+Requested drone years are discovery constraints. The campaign layer resolves a
+higher campaign root, deterministic sibling collections from a standalone year
+token, or an explicit year-to-source mapping. It reconciles those roots with
+valid dated manifest identities and persists per-year evidence. Campaign
+completeness requires every manifest-expected identity in every requested year
+to be discovered, eligible, and canonically bulk-ready; bulk discovery must then
+recover that exact combined identity set. Existing outputs remain reusable only
+after the same canonical validation, so adding a year expands rather than
+invalidates a completed campaign.
+
 ### Independent bulk analysis
 
 `run_bulk_pipeline` is downstream of completed per-flightline workflows rather

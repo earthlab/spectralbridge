@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from pathlib import Path
 import json
 import subprocess
@@ -14,6 +15,7 @@ from spectralbridge.drone_production import (
     BulkReadinessValidation,
     DroneCampaignConfig,
     inspect_drone_collection,
+    package_drone_bulk_results,
     run_drone_bulk_production,
     run_drone_campaign,
     stage_drone_package,
@@ -91,6 +93,27 @@ def _remote_files() -> dict[str, bytes]:
         "i:/campaign/batch-b/JC1-07-11-23-ExportPackage/source.h5": b"valid-h5-2",
         "i:/campaign/readme.txt": b"metadata",
     }
+
+
+def _write_manifest(
+    path: Path, rows: list[tuple[str, str, str]]
+) -> Path:
+    lines = [
+        "Plot,Day of data collection,Mean Time of data collection (24 hr clock)"
+    ]
+    lines.extend(",".join(row) for row in rows)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return path
+
+
+def _two_flight_manifest(path: Path) -> Path:
+    return _write_manifest(
+        path,
+        [
+            ("SPR-1", "2023-06-28", "17:30:21"),
+            ("JC1", "2023-07-11", "21:24:34"),
+        ],
+    )
 
 
 def _ready(path: str | Path) -> BulkReadinessValidation:
@@ -272,7 +295,13 @@ def test_campaign_restart_reuses_success_and_retries_failure(
 
     monkeypatch.setattr(production, "run_drone_pipeline", producer)
     monkeypatch.setattr(production, "validate_bulk_ready_flightline", _ready)
-    config = DroneCampaignConfig(years=(2023,), cleanup_inputs=True, landsat_qa=False)
+    manifest = _two_flight_manifest(tmp_path / "manifest.csv")
+    config = DroneCampaignConfig(
+        years=(2023,),
+        manifest_path=manifest,
+        cleanup_inputs=True,
+        landsat_qa=False,
+    )
     first = run_drone_campaign(
         "i:/campaign", work_dir=tmp_path, backend=backend, config=config
     )
@@ -293,6 +322,274 @@ def test_campaign_restart_reuses_success_and_retries_failure(
     assert calls.count("SPR1-06-28-23-ExportPackage") == 1
     assert calls.count("JC1-07-11-23-ExportPackage") == 2
     assert len({item.flight_stem for item in second.completed_flights}) == 2
+
+
+def _multi_year_remote_files(*, include_2024: bool = True) -> dict[str, bytes]:
+    files = {
+        (
+            "i:/campaign/summer-2023-10cm-10k/"
+            "SPR1-06-28-23-ExportPackage/source.h5"
+        ): b"2023-h5",
+    }
+    if include_2024:
+        files[
+            "i:/campaign/summer-2024-10cm-10k/"
+            "kremmling_10-07-11-24-ExportPackage/source.h5"
+        ] = b"2024-h5"
+    return files
+
+
+def _multi_year_manifest(path: Path, *, include_2024: bool = True) -> Path:
+    rows = [("SPR-1", "2023-06-28", "17:30:21")]
+    if include_2024:
+        rows.append(("kremmling_10", "2024-07-11", "16:47:01"))
+    return _write_manifest(path, rows)
+
+
+def test_year_specific_source_resolves_and_discovers_requested_siblings(
+    tmp_path: Path,
+) -> None:
+    backend = FakeRemoteBackend(_multi_year_remote_files())
+    manifest = _multi_year_manifest(tmp_path / "manifest.csv")
+    inventory = inspect_drone_collection(
+        "i:/campaign/summer-2023-10cm-10k",
+        backend=backend,
+        manifest=manifest,
+        years=[2023, 2024],
+    )
+
+    assert {item.year for item in inventory.eligible_packages} == {2023, 2024}
+    assert {
+        item.source_root for item in inventory.eligible_packages
+    } == {
+        "i:/campaign/summer-2023-10cm-10k",
+        "i:/campaign/summer-2024-10cm-10k",
+    }
+    assert inventory.year_summaries()["2023"]["discovery_status"] == "complete"
+    assert inventory.year_summaries()["2024"]["discovery_status"] == "complete"
+
+
+def test_explicit_year_source_mapping_is_deterministic(tmp_path: Path) -> None:
+    backend = FakeRemoteBackend(_multi_year_remote_files())
+    manifest = _multi_year_manifest(tmp_path / "manifest.csv")
+    inventory = inspect_drone_collection(
+        {
+            2024: "i:/campaign/summer-2024-10cm-10k",
+            2023: "i:/campaign/summer-2023-10cm-10k",
+        },
+        backend=backend,
+        manifest=manifest,
+        years=[2023, 2024],
+    )
+
+    assert [item.year for item in inventory.year_sources] == [2023, 2024]
+    assert all(
+        item.resolution_strategy == "explicit_year_mapping"
+        for item in inventory.year_sources
+    )
+    assert inventory.result_parent == "i:/campaign"
+
+
+def test_campaign_root_discovers_all_requested_years(tmp_path: Path) -> None:
+    backend = FakeRemoteBackend(_multi_year_remote_files())
+    manifest = _multi_year_manifest(tmp_path / "manifest.csv")
+    inventory = inspect_drone_collection(
+        "i:/campaign",
+        backend=backend,
+        manifest=manifest,
+        years=[2023, 2024],
+    )
+
+    assert {item.year for item in inventory.eligible_packages} == {2023, 2024}
+    assert all(
+        item.resolution_strategy == "campaign_root"
+        for item in inventory.year_sources
+    )
+    assert inventory.discovery_complete is True
+
+
+def test_missing_requested_year_is_incomplete_and_reported(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    backend = FakeRemoteBackend(_multi_year_remote_files(include_2024=False))
+    manifest = _multi_year_manifest(tmp_path / "manifest.csv")
+    monkeypatch.setattr(production, "run_drone_pipeline", _fake_producer)
+    monkeypatch.setattr(production, "validate_bulk_ready_flightline", _ready)
+    campaign = run_drone_campaign(
+        "i:/campaign/summer-2023-10cm-10k",
+        work_dir=tmp_path,
+        backend=backend,
+        config=DroneCampaignConfig(
+            years=(2023, 2024), manifest_path=manifest, landsat_qa=False
+        ),
+    )
+
+    assert campaign.status == "incomplete"
+    assert campaign.year_summaries()["2023"]["complete"] is True
+    missing = campaign.year_summaries()["2024"]
+    assert missing["complete"] is False
+    assert missing["source_status"] == "no_remote_collection"
+    assert missing["expected_flights_not_discovered"] == ["KREMMLING_10"]
+    assert campaign.summary()["requested_years_complete"] is False
+    message = production._incomplete_campaign_message(campaign)
+    assert "2024:" in message
+    assert "KREMMLING_10" in message
+
+
+def test_expanded_campaign_reuses_valid_year_and_processes_new_year(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    backend = FakeRemoteBackend(_multi_year_remote_files())
+    manifest = _multi_year_manifest(tmp_path / "manifest.csv")
+    calls: list[str] = []
+
+    def producer(input_path, *, output_dir, **kwargs):
+        calls.append(Path(input_path).name)
+        return _fake_producer(input_path, output_dir=output_dir, **kwargs)
+
+    monkeypatch.setattr(production, "run_drone_pipeline", producer)
+    monkeypatch.setattr(production, "validate_bulk_ready_flightline", _ready)
+    first = run_drone_campaign(
+        "i:/campaign/summer-2023-10cm-10k",
+        work_dir=tmp_path,
+        backend=backend,
+        config=DroneCampaignConfig(
+            years=(2023,), manifest_path=manifest, landsat_qa=False
+        ),
+    )
+    assert first.status == "complete"
+
+    second = run_drone_campaign(
+        "i:/campaign/summer-2023-10cm-10k",
+        work_dir=tmp_path,
+        backend=backend,
+        config=DroneCampaignConfig(
+            years=(2023, 2024), manifest_path=manifest, landsat_qa=False
+        ),
+    )
+
+    assert second.status == "complete"
+    assert calls.count("SPR1-06-28-23-ExportPackage") == 1
+    assert calls.count("kremmling_10-07-11-24-ExportPackage") == 1
+    assert second.year_summaries()["2023"]["reused"] == 1
+    assert second.year_summaries()["2023"]["newly_processed"] == 0
+    assert second.year_summaries()["2024"]["reused"] == 0
+    assert second.year_summaries()["2024"]["newly_processed"] == 1
+
+
+def test_corrupt_local_result_is_reprocessed(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    files = _multi_year_remote_files(include_2024=False)
+    backend = FakeRemoteBackend(files)
+    manifest = _multi_year_manifest(tmp_path / "manifest.csv", include_2024=False)
+    corrupt = tmp_path / "flight_outputs/SPR1_20230628"
+    corrupt.mkdir(parents=True)
+    (corrupt / "incomplete.txt").write_text("not ready", encoding="utf-8")
+    calls: list[str] = []
+
+    def producer(input_path, *, output_dir, **kwargs):
+        calls.append(Path(input_path).name)
+        return _fake_producer(input_path, output_dir=output_dir, **kwargs)
+
+    monkeypatch.setattr(production, "run_drone_pipeline", producer)
+    monkeypatch.setattr(production, "validate_bulk_ready_flightline", _ready)
+    campaign = run_drone_campaign(
+        "i:/campaign/summer-2023-10cm-10k",
+        work_dir=tmp_path,
+        backend=backend,
+        config=DroneCampaignConfig(
+            years=(2023,), manifest_path=manifest, landsat_qa=False
+        ),
+    )
+
+    assert campaign.status == "complete"
+    assert calls == ["SPR1-06-28-23-ExportPackage"]
+    assert campaign.completed_flights[0].reused is False
+
+
+def test_manifest_proven_empty_requested_year_can_complete(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    backend = FakeRemoteBackend(_multi_year_remote_files(include_2024=False))
+    manifest = _multi_year_manifest(tmp_path / "manifest.csv", include_2024=False)
+    monkeypatch.setattr(production, "run_drone_pipeline", _fake_producer)
+    monkeypatch.setattr(production, "validate_bulk_ready_flightline", _ready)
+    campaign = run_drone_campaign(
+        "i:/campaign/summer-2023-10cm-10k",
+        work_dir=tmp_path,
+        backend=backend,
+        config=DroneCampaignConfig(
+            years=(2023, 2024), manifest_path=manifest, landsat_qa=False
+        ),
+    )
+
+    assert campaign.status == "complete"
+    empty = campaign.year_summaries()["2024"]
+    assert empty["manifest_flights"] == 0
+    assert empty["discovery_status"] == "complete_empty_manifest_year"
+    assert empty["complete"] is True
+
+
+def test_bulk_after_expanded_resume_receives_both_years(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    backend = FakeRemoteBackend(_multi_year_remote_files())
+    manifest = _multi_year_manifest(tmp_path / "manifest.csv")
+    monkeypatch.setattr(production, "run_drone_pipeline", _fake_producer)
+    monkeypatch.setattr(production, "validate_bulk_ready_flightline", _ready)
+    run_drone_campaign(
+        "i:/campaign/summer-2023-10cm-10k",
+        work_dir=tmp_path,
+        backend=backend,
+        config=DroneCampaignConfig(
+            years=(2023,), manifest_path=manifest, landsat_qa=False
+        ),
+    )
+    monkeypatch.setattr(
+        production, "_validate_campaign_bulk_population", lambda _campaign: None
+    )
+    bulk_inputs: list[set[str]] = []
+
+    def fake_bulk(input_path, output, *, preflight_only, **_kwargs):
+        bulk_inputs.append(
+            {
+                path.parent.name
+                for path in Path(input_path).glob("*/spectralbridge_flightline.json")
+            }
+        )
+        output = Path(output)
+        (output / "catalog").mkdir(parents=True, exist_ok=True)
+        (output / "catalog/bulk_manifest.json").write_text(
+            "{}", encoding="utf-8"
+        )
+        return {
+            "status": "preflight_only" if preflight_only else "complete",
+            "accepted_flightline_count": 2,
+            "regression_count": 1,
+        }
+
+    def fake_summary(output, **_kwargs):
+        report = Path(output) / "reports/bulk_results/report.md"
+        report.parent.mkdir(parents=True, exist_ok=True)
+        report.write_text("report", encoding="utf-8")
+        return {"status": "created"}
+
+    monkeypatch.setattr(production, "run_bulk_pipeline", fake_bulk)
+    monkeypatch.setattr(production, "summarize_bulk_results", fake_summary)
+    result = run_drone_bulk_production(
+        source="i:/campaign/summer-2023-10cm-10k",
+        years=[2023, 2024],
+        work_dir=tmp_path,
+        manifest=manifest,
+        backend=backend,
+        upload_results=False,
+    )
+
+    expected = {"SPR1_20230628", "kremmling_10_20240711"}
+    assert bulk_inputs == [expected, expected]
+    assert result.campaign.year_summaries()["2023"]["reused"] == 1
+    assert result.campaign.year_summaries()["2024"]["newly_processed"] == 1
 
 
 def test_complete_fake_remote_orchestration_uploads_only_closeout_package(
@@ -332,13 +629,20 @@ def test_complete_fake_remote_orchestration_uploads_only_closeout_package(
 
     monkeypatch.setattr(production, "run_bulk_pipeline", fake_bulk)
     monkeypatch.setattr(production, "summarize_bulk_results", fake_summary)
+    monkeypatch.setattr(
+        production, "_validate_campaign_bulk_population", lambda _campaign: None
+    )
+    manifest = _two_flight_manifest(tmp_path / "manifest.csv")
     result = run_drone_bulk_production(
         source="i:/campaign",
         years=[2023],
         work_dir=tmp_path,
         backend=backend,
         config=DroneCampaignConfig(
-            years=(2023,), cleanup_inputs=True, landsat_qa=False
+            years=(2023,),
+            manifest_path=manifest,
+            cleanup_inputs=True,
+            landsat_qa=False,
         ),
         upload_results=True,
     )
@@ -351,6 +655,31 @@ def test_complete_fake_remote_orchestration_uploads_only_closeout_package(
     uploaded_paths = [path for path in backend.files if path.startswith(result.remote_result_path)]
     assert any(path.endswith("PACKAGE_MANIFEST.json") for path in uploaded_paths)
     assert not any(path.endswith(".h5") for path in uploaded_paths)
+
+    original_manifest = json.loads(
+        (package / "PACKAGE_MANIFEST.json").read_text(encoding="utf-8")
+    )
+    changed_flight = replace(
+        result.campaign.flights[0], flight_stem="NEW_YEAR_FLIGHT_20240711"
+    )
+    changed_campaign = replace(
+        result.campaign,
+        flights=(changed_flight, *result.campaign.flights[1:]),
+    )
+    rebuilt = package_drone_bulk_results(
+        campaign=changed_campaign,
+        preflight_output=tmp_path / "bulk_preflight",
+        bulk_output=tmp_path / "bulk_analysis",
+        package_dir=package,
+    )
+    rebuilt_manifest = json.loads(
+        (rebuilt / "PACKAGE_MANIFEST.json").read_text(encoding="utf-8")
+    )
+    assert (
+        rebuilt_manifest["campaign_identity_sha256"]
+        != original_manifest["campaign_identity_sha256"]
+    )
+    assert len(list(package.parent.glob(package.name + ".stale-*"))) == 1
 
 
 def test_completeness_gate_stops_before_bulk(

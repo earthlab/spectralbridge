@@ -55,7 +55,7 @@ spectralbridge-drone-production bulk i:/iplant/home/shared/.../summer-2023-10cm-
   --upload-results
 ```
 
-<p>The <code>inventory</code> subcommand performs no H5 transfer. <code>campaign</code> stops after validated canonical flight outputs. <code>bulk</code> adds strict population preflight, compact analysis, normal bulk figures/report, checksummed packaging, and optional verified upload. Authentication uses the caller's normal non-interactive <code>gocmd</code> configuration. See <a href="../vignettes/drone-production/">remote drone production</a>.</p>
+<p>The <code>inventory</code> subcommand performs no H5 transfer. For a year-specific source name containing one standalone year token, every requested year is resolved as a sibling collection; a higher campaign root is scanned directly. The inventory and campaign reports retain per-year source, manifest, discovery, completion, and reuse evidence, and strict mode cannot silently accept a missing requested year. <code>campaign</code> stops after validated canonical flight outputs. <code>bulk</code> adds exact combined-population preflight, compact analysis, normal bulk figures/report, checksummed packaging, and optional verified upload. Authentication uses the caller's normal non-interactive <code>gocmd</code> configuration. See <a href="../vignettes/drone-production/">remote drone production</a>.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

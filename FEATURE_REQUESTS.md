@@ -1,6 +1,6 @@
 # SpectralBridge Feature Requests
 
-Review date: 2026-09-29
+Review date: 2026-09-30
 Branch: main
 
 This file is the authoritative work queue for non-trivial SpectralBridge work.
@@ -19,6 +19,69 @@ left incomplete so the next agent can resume immediately.
 6. After verification, record outcome, blockers, and the next recommended task.
 
 ## Active Requests
+
+### P93. Enforce Multi-Year Drone Campaign Discovery And Completeness
+
+- Priority: Critical, user-directed production correctness
+- Status: Completed; live CyVerse sibling resolution remains external validation
+- Owner: Codex
+- Started: 2026-09-30
+- Goal: Make requested drone campaign years drive deterministic remote source
+  resolution and manifest-aware inventory, reporting, resume, and completeness;
+  preserve and revalidate the 17 completed 2023 outputs while adding the real
+  2024 population; and ensure bulk receives the complete combined campaign.
+- Plan: Add backward-compatible campaign-root, year-specific sibling, and
+  explicit year-to-source resolution; record per-year resolved sources and
+  manifest expectations; fail strict campaigns on unresolved or undiscovered
+  expected years/flights; retain canonical output validation before reuse;
+  reconcile bulk preflight identities with the complete campaign; add focused
+  fake-remote regressions for multi-year discovery, missing and empty years,
+  expanded resume, corrupt reuse, per-year summaries, and combined bulk input;
+  then update docs and run targeted, full, lint, docs, and artifact checks.
+- Guardrails: Do not run the live CyVerse campaign, hard-code year names or
+  flight counts, trust directories without canonical validation, weaken
+  scientific gates, make optional Landsat QA affect completeness, or put source
+  discovery logic back into the notebook.
+- Diagnosis: `years` previously filtered packages only after recursively
+  inventorying the one literal `source`; it did not resolve another collection.
+  Completeness then considered only discovered eligible packages, so 17/17
+  discovered 2023 flights passed even though the bundled manifest contains
+  valid dated 2024 expectations. The 2024 numbered-plot naming pattern also
+  exposed an overlapping-date parser bug: a trailing plot number could be
+  mistaken for the month of an earlier date-like substring.
+- Outcome: Source resolution now supports higher campaign roots, deterministic
+  sibling collections from one standalone year token, and explicit year-to-root
+  mappings. Inventory schema v2 records each year source, strategy, manifest
+  identities, discovered/matched/eligible/excluded counts, and missing expected
+  flights. Strict completeness requires every valid dated manifest identity for
+  every requested year to become canonically bulk-ready; manifest-proven empty
+  years remain explicit and valid. Expanded campaigns revalidate and reuse
+  existing outputs by stable flight stem, retry corrupt/incomplete directories,
+  and require bulk discovery to recover exactly the combined reused/new identity
+  set. Local closeout reuse now checks a campaign-identity digest; a valid stale
+  package from the earlier incomplete-year run is timestamp-archived before the
+  combined closeout is rebuilt. Package-date parsing now uses the trailing date token and supports
+  one/two-digit month/day plus two/four-digit years. Optional Landsat QA remains
+  warning-only and outside completeness.
+- Verification: Added fake-remote regressions for year-sibling resolution,
+  campaign-root discovery, explicit mappings, missing requested years,
+  single-year/restart compatibility, expanded-year reuse, corrupt-result retry,
+  per-year status, manifest-proven empty years, and combined bulk inputs, plus
+  numbered 2024 package-name tests. Full pytest passed (481 passed, 6 skipped;
+  487 collected); Ruff,
+  compilation, docs links, strict MkDocs, notebook JSON, generated AI
+  transparency, and diff whitespace checks passed. Wheel and sdist built from
+  the working tree and passed Twine; the exact wheel passed the bounded offline
+  installed-artifact smoke with network blocked. No live remote access,
+  production download, or credential use occurred.
+- External validation: Confirm on the production VM that the real sibling
+  collection name resolves from `summer-2023-10cm-10k`, review the inventory's
+  2023/2024 manifest reconciliation before transfer, and retain the current
+  work directory so all 17 canonically valid 2023 flights are reused.
+- Next recommended task: Rerun the thin notebook first with `RUN=False` for
+  configuration review, then run inventory or the production call with upload
+  disabled; confirm the per-year report shows reused 2023 identities and the
+  real discovered 2024 population before allowing bulk analysis and upload.
 
 ### P92. Package The Restart-Safe Remote Drone-to-Bulk Production Campaign
 

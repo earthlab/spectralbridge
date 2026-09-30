@@ -9,6 +9,7 @@ from pathlib import Path
 import csv
 import json
 import os
+import posixpath
 import re
 import shutil
 import subprocess
@@ -31,14 +32,17 @@ from spectralbridge.remote import (
     RemoteEntry,
     normalize_remote_path,
     remote_join,
+    remote_parent,
     remote_relative_path,
 )
 from spectralbridge.utils.paths import get_package_data_path
 
 
-_INVENTORY_SCHEMA_VERSION = 1
-_CAMPAIGN_SCHEMA_VERSION = 1
+_INVENTORY_SCHEMA_VERSION = 2
+_CAMPAIGN_SCHEMA_VERSION = 2
 _PACKAGE_SCHEMA_VERSION = 1
+
+DroneSource = str | Mapping[int, str]
 
 
 def _utc_now() -> str:
@@ -103,6 +107,7 @@ class RemoteDronePackage:
     """One candidate ExportPackage discovered without downloading its H5."""
 
     remote_package_path: str
+    source_root: str
     package_name: str
     remote_h5_path: str | None
     h5_name: str | None
@@ -110,6 +115,7 @@ class RemoteDronePackage:
     checksum: str | None
     flight_stem: str | None
     year: int | None
+    manifest_id: str | None
     acquisition_datetime: str | None
     manifest_matched: bool
     required_source_exists: bool
@@ -117,6 +123,22 @@ class RemoteDronePackage:
     local_flightline_path: str | None
     bulk_ready: bool
     eligibility: str
+    reason: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        return _jsonable(asdict(self))
+
+
+@dataclass(frozen=True)
+class DroneYearSource:
+    """Resolved remote source and manifest expectation for one requested year."""
+
+    year: int
+    requested_source: str | None
+    resolved_sources: tuple[str, ...]
+    resolution_strategy: str
+    source_status: str
+    expected_manifest_flights: tuple[str, ...]
     reason: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
@@ -133,6 +155,8 @@ class DroneCollectionInventory:
     packages: tuple[RemoteDronePackage, ...]
     manifest_path: str
     requested_years: tuple[int, ...] = ()
+    year_sources: tuple[DroneYearSource, ...] = ()
+    result_parent: str | None = None
     schema_version: int = _INVENTORY_SCHEMA_VERSION
 
     @property
@@ -143,6 +167,55 @@ class DroneCollectionInventory:
     def excluded_packages(self) -> tuple[RemoteDronePackage, ...]:
         return tuple(item for item in self.packages if item.eligibility != "eligible")
 
+    def year_summaries(self) -> dict[str, dict[str, Any]]:
+        """Return deterministic manifest-aware discovery evidence by year."""
+
+        summaries: dict[str, dict[str, Any]] = {}
+        for source in self.year_sources:
+            packages = tuple(item for item in self.packages if item.year == source.year)
+            eligible = tuple(item for item in packages if item.eligibility == "eligible")
+            matched = tuple(item for item in packages if item.manifest_matched)
+            eligible_ids = {
+                item.manifest_id for item in eligible if item.manifest_id is not None
+            }
+            missing = tuple(
+                sorted(set(source.expected_manifest_flights) - eligible_ids)
+            )
+            if not source.expected_manifest_flights:
+                discovery_status = "complete_empty_manifest_year"
+            elif source.source_status != "resolved":
+                discovery_status = source.source_status
+            elif missing:
+                discovery_status = "expected_flights_not_discovered"
+            else:
+                discovery_status = "complete"
+            summaries[str(source.year)] = {
+                "requested_year": source.year,
+                "requested_source": source.requested_source,
+                "resolved_sources": list(source.resolved_sources),
+                "resolution_strategy": source.resolution_strategy,
+                "source_status": source.source_status,
+                "source_reason": source.reason,
+                "discovery_status": discovery_status,
+                "manifest_flights": len(source.expected_manifest_flights),
+                "manifest_flight_ids": list(source.expected_manifest_flights),
+                "remote_packages_discovered": len(packages),
+                "manifest_matched_packages": len(matched),
+                "eligible_flights": len(eligible),
+                "excluded_packages": len(packages) - len(eligible),
+                "expected_flights_not_discovered": list(missing),
+            }
+        return summaries
+
+    @property
+    def discovery_complete(self) -> bool:
+        summaries = self.year_summaries()
+        return not summaries or all(
+            item["discovery_status"]
+            in {"complete", "complete_empty_manifest_year"}
+            for item in summaries.values()
+        )
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "schema_version": self.schema_version,
@@ -151,6 +224,9 @@ class DroneCollectionInventory:
             "created_utc": self.created_utc,
             "manifest_path": self.manifest_path,
             "requested_years": list(self.requested_years),
+            "result_parent": self.result_parent,
+            "year_sources": [item.to_dict() for item in self.year_sources],
+            "years": self.year_summaries(),
             "counts": {
                 "remote_packages_discovered": len(self.packages),
                 "eligible_flights": len(self.eligible_packages),
@@ -285,6 +361,64 @@ class DroneCampaignResult:
     def failed_flights(self) -> tuple[DroneFlightStatus, ...]:
         return tuple(item for item in self.flights if item.state in {"failed", "blocked"})
 
+    def year_summaries(self) -> dict[str, dict[str, Any]]:
+        """Combine inventory evidence and durable processing state by year."""
+
+        summaries = {
+            year: dict(values)
+            for year, values in self.inventory.year_summaries().items()
+        }
+        statuses = {item.remote_package_path: item for item in self.flights}
+        for year, summary in summaries.items():
+            numeric_year = int(year)
+            expected_ids = set(summary["manifest_flight_ids"])
+            packages = tuple(
+                item for item in self.inventory.packages if item.year == numeric_year
+            )
+            year_statuses = tuple(
+                statuses[item.remote_package_path]
+                for item in packages
+                if item.remote_package_path in statuses
+                and item.manifest_id in expected_ids
+            )
+            ready_manifest_ids = {
+                item.manifest_id
+                for item in packages
+                if item.manifest_id is not None
+                and statuses.get(item.remote_package_path) is not None
+                and statuses[item.remote_package_path].bulk_ready
+            }
+            summary.update(
+                {
+                    "completed": sum(item.bulk_ready for item in year_statuses),
+                    "reused": sum(
+                        item.bulk_ready and item.reused for item in year_statuses
+                    ),
+                    "newly_processed": sum(
+                        item.bulk_ready and not item.reused for item in year_statuses
+                    ),
+                    "failed": sum(item.state == "failed" for item in year_statuses),
+                    "blocked": sum(item.state == "blocked" for item in year_statuses),
+                    "bulk_ready": sum(item.bulk_ready for item in year_statuses),
+                    "expected_flights_not_bulk_ready": sorted(
+                        expected_ids - ready_manifest_ids
+                    ),
+                }
+            )
+            summary["complete"] = bool(
+                summary["discovery_status"]
+                in {"complete", "complete_empty_manifest_year"}
+                and not summary["expected_flights_not_bulk_ready"]
+                and summary["failed"] == 0
+                and summary["blocked"] == 0
+            )
+        return summaries
+
+    @property
+    def requested_years_complete(self) -> bool:
+        years = self.year_summaries()
+        return not years or all(item["complete"] for item in years.values())
+
     def summary(self) -> dict[str, Any]:
         states: dict[str, int] = {}
         for item in self.flights:
@@ -319,6 +453,8 @@ class DroneCampaignResult:
             "bulk_excluded": len(self.inventory.eligible_packages)
             - len(self.completed_flights),
             "years_represented": sorted(years),
+            "requested_years_complete": self.requested_years_complete,
+            "years": self.year_summaries(),
             "sites_represented": sorted(sites),
         }
 
@@ -398,6 +534,158 @@ def _manifest_path(path: str | Path | None) -> Path:
         if path is not None
         else get_package_data_path("drone_field_manifest.csv")
     )
+
+
+def _remote_common_parent(paths: Sequence[str]) -> str:
+    """Return the common remote collection containing resolved source roots."""
+
+    normalized = tuple(normalize_remote_path(path) for path in paths)
+    if not normalized:
+        raise ValueError("at least one resolved remote source is required")
+    prefixes = {"i:" if path.startswith("i:") else "" for path in normalized}
+    if len(prefixes) != 1:
+        raise ValueError("remote sources must use the same path namespace")
+    prefix = prefixes.pop()
+    bodies = [path[2:] if prefix else path for path in normalized]
+    common = posixpath.commonpath(bodies)
+    if common in {"", "/"}:
+        return normalize_remote_path(prefix + "/")
+    return normalize_remote_path(prefix + common)
+
+
+def _manifest_expectations(
+    manifest_rows: Mapping[str, datetime], requested_years: Sequence[int]
+) -> dict[int, tuple[str, ...]]:
+    requested = tuple(sorted({int(year) for year in requested_years}))
+    return {
+        year: tuple(
+            sorted(
+                flight_id
+                for flight_id, acquisition in manifest_rows.items()
+                if acquisition.year == year
+            )
+        )
+        for year in requested
+    }
+
+
+def _match_manifest_flight(
+    flight_stem: str | None,
+    manifest_rows: Mapping[str, datetime],
+) -> tuple[str | None, datetime | None]:
+    if not flight_stem:
+        return None, None
+    acquisition = lookup_flight_datetime(flight_stem, dict(manifest_rows))
+    if acquisition is None:
+        return None, None
+    matches = [
+        flight_id
+        for flight_id, candidate in manifest_rows.items()
+        if candidate == acquisition
+        and lookup_flight_datetime(flight_stem, {flight_id: candidate}) is not None
+    ]
+    if not matches:
+        return None, acquisition
+    return sorted(matches, key=lambda value: (-len(value), value))[0], acquisition
+
+
+def _resolve_drone_sources(
+    source: DroneSource,
+    *,
+    requested_years: Sequence[int],
+    manifest_rows: Mapping[str, datetime],
+    backend: RemoteCollectionBackend,
+) -> tuple[str, tuple[DroneYearSource, ...], tuple[str, ...], str]:
+    """Resolve campaign-root, year-sibling, or explicit year-bound sources."""
+
+    requested = tuple(sorted({int(year) for year in requested_years}))
+    expectations = _manifest_expectations(manifest_rows, requested)
+    backend.ensure_available()
+
+    if isinstance(source, Mapping):
+        explicit: dict[int, str] = {}
+        for raw_year, raw_path in source.items():
+            year = int(raw_year)
+            if year in explicit:
+                raise ValueError(f"duplicate remote source mapping for year {year}")
+            explicit[year] = normalize_remote_path(raw_path)
+        if not requested:
+            requested = tuple(sorted(explicit))
+            expectations = _manifest_expectations(manifest_rows, requested)
+        records: list[DroneYearSource] = []
+        resolved: list[str] = []
+        for year in requested:
+            candidate = explicit.get(year)
+            exists = bool(candidate and backend.path_exists(candidate))
+            if exists and candidate is not None:
+                backend.verify_access(candidate)
+                resolved.append(candidate)
+            records.append(
+                DroneYearSource(
+                    year=year,
+                    requested_source=candidate,
+                    resolved_sources=(candidate,) if exists and candidate else (),
+                    resolution_strategy="explicit_year_mapping",
+                    source_status="resolved" if exists else "no_remote_collection",
+                    expected_manifest_flights=expectations.get(year, ()),
+                    reason=(
+                        None
+                        if exists
+                        else f"no accessible remote source was supplied for {year}"
+                    ),
+                )
+            )
+        unique = tuple(dict.fromkeys(resolved))
+        parent = _remote_common_parent(unique) if unique else normalize_remote_path("/")
+        return parent, tuple(records), unique, parent
+
+    normalized_source = normalize_remote_path(source)
+    backend.verify_access(normalized_source)
+    body = normalized_source[2:] if normalized_source.startswith("i:") else normalized_source
+    name = posixpath.basename(body)
+    year_matches = tuple(re.finditer(r"(?<!\d)(20\d{2})(?!\d)", name))
+    use_siblings = bool(requested and len(year_matches) == 1)
+    if use_siblings:
+        match = year_matches[0]
+        parent = remote_parent(normalized_source)
+        records = []
+        resolved = []
+        for year in requested:
+            sibling_name = name[: match.start()] + str(year) + name[match.end() :]
+            candidate = remote_join(parent, sibling_name)
+            exists = backend.path_exists(candidate)
+            if exists:
+                backend.verify_access(candidate)
+                resolved.append(candidate)
+            records.append(
+                DroneYearSource(
+                    year=year,
+                    requested_source=candidate,
+                    resolved_sources=(candidate,) if exists else (),
+                    resolution_strategy="year_token_sibling",
+                    source_status="resolved" if exists else "no_remote_collection",
+                    expected_manifest_flights=expectations.get(year, ()),
+                    reason=(
+                        None
+                        if exists
+                        else f"resolved sibling collection is unavailable: {candidate}"
+                    ),
+                )
+            )
+        return normalized_source, tuple(records), tuple(dict.fromkeys(resolved)), parent
+
+    records = tuple(
+        DroneYearSource(
+            year=year,
+            requested_source=normalized_source,
+            resolved_sources=(normalized_source,),
+            resolution_strategy="campaign_root",
+            source_status="resolved",
+            expected_manifest_flights=expectations.get(year, ()),
+        )
+        for year in requested
+    )
+    return normalized_source, records, (normalized_source,), normalized_source
 
 
 def _remote_package_path(remote_h5: str) -> str | None:
@@ -496,7 +784,7 @@ def validate_bulk_ready_flightline(path: str | Path) -> BulkReadinessValidation:
 
 
 def inspect_drone_collection(
-    source: str,
+    source: DroneSource,
     *,
     backend: RemoteCollectionBackend | None = None,
     manifest: str | Path | None = None,
@@ -509,46 +797,54 @@ def inspect_drone_collection(
     """Inventory remote ExportPackages and required H5s before large transfer."""
 
     backend = backend or GocmdRemoteBackend()
-    source = normalize_remote_path(source)
-    backend.ensure_available()
-    backend.verify_access(source)
     manifest_path = _manifest_path(manifest)
     manifest_rows = load_drone_manifest(manifest_path)
     requested_years = tuple(sorted({int(year) for year in years or ()}))
-    entries = _inventory_entries(
+    source_label, year_sources, scan_roots, result_parent = _resolve_drone_sources(
         source,
-        backend,
-        max_depth=max_depth,
-        max_entries=max_entries,
+        requested_years=requested_years,
+        manifest_rows=manifest_rows,
+        backend=backend,
     )
-    grouped: dict[str, list[RemoteEntry]] = {
-        entry.path: []
-        for entry in entries
-        if entry.is_collection and "exportpackage" in entry.name.lower()
-    }
-    for entry in entries:
-        if (
-            entry.is_collection
-            or not entry.name.lower().endswith(".h5")
-            or entry.name.lower().endswith("__working.h5")
-        ):
-            continue
-        package_path = _remote_package_path(entry.path)
-        if package_path is not None:
-            grouped.setdefault(package_path, []).append(entry)
+    if not requested_years and year_sources:
+        requested_years = tuple(item.year for item in year_sources)
+    grouped: dict[str, list[RemoteEntry]] = {}
+    package_sources: dict[str, str] = {}
+    total_entries = 0
+    for scan_root in scan_roots:
+        entries = _inventory_entries(
+            scan_root,
+            backend,
+            max_depth=max_depth,
+            max_entries=max_entries - total_entries,
+        )
+        total_entries += len(entries)
+        for entry in entries:
+            if entry.is_collection and "exportpackage" in entry.name.lower():
+                grouped.setdefault(entry.path, [])
+                package_sources.setdefault(entry.path, scan_root)
+                continue
+            if (
+                entry.is_collection
+                or not entry.name.lower().endswith(".h5")
+                or entry.name.lower().endswith("__working.h5")
+            ):
+                continue
+            package_path = _remote_package_path(entry.path)
+            if package_path is not None:
+                grouped.setdefault(package_path, []).append(entry)
+                package_sources.setdefault(package_path, scan_root)
 
     packages: list[RemoteDronePackage] = []
     for package_path, h5_entries in sorted(grouped.items()):
         package_name = package_path.rstrip("/").split("/")[-1]
         one_h5 = len(h5_entries) == 1
         h5_entry = h5_entries[0] if one_h5 else None
-        flight_stem = (
-            derive_drone_flight_stem(Path(package_name) / h5_entry.name)
-            if h5_entry is not None
-            else None
+        flight_stem = derive_drone_flight_stem(
+            Path(package_name) / (h5_entry.name if h5_entry is not None else "source.h5")
         )
-        acquisition = (
-            lookup_flight_datetime(flight_stem, manifest_rows) if flight_stem else None
+        manifest_id, acquisition = _match_manifest_flight(
+            flight_stem, manifest_rows
         )
         year = (
             acquisition.year
@@ -565,6 +861,9 @@ def inspect_drone_collection(
         elif requested_years and year not in requested_years:
             eligibility = "excluded"
             reason = f"year {year!r} is outside requested years {requested_years}"
+        elif manifest_id is None:
+            eligibility = "excluded"
+            reason = "remote package does not match a valid manifest acquisition"
 
         local_flightline = (
             Path(local_output_dir).expanduser().resolve() / flight_stem
@@ -579,6 +878,7 @@ def inspect_drone_collection(
         packages.append(
             RemoteDronePackage(
                 remote_package_path=package_path,
+                source_root=package_sources[package_path],
                 package_name=package_name,
                 remote_h5_path=h5_entry.path if h5_entry else None,
                 h5_name=h5_entry.name if h5_entry else None,
@@ -586,6 +886,7 @@ def inspect_drone_collection(
                 checksum=h5_entry.checksum if h5_entry else None,
                 flight_stem=flight_stem,
                 year=year,
+                manifest_id=manifest_id,
                 acquisition_datetime=acquisition.isoformat() if acquisition else None,
                 manifest_matched=acquisition is not None,
                 required_source_exists=one_h5,
@@ -614,12 +915,14 @@ def inspect_drone_collection(
                 ),
             )
     inventory = DroneCollectionInventory(
-        source=source,
+        source=source_label,
         backend=backend.name,
         created_utc=_utc_now(),
         packages=tuple(packages),
         manifest_path=str(manifest_path),
         requested_years=requested_years,
+        year_sources=year_sources,
+        result_parent=result_parent,
     )
     if inventory_output_dir is not None:
         inventory.write(inventory_output_dir)
@@ -707,7 +1010,7 @@ def stage_drone_collection(
     return tuple(
         stage_drone_package(
             package,
-            source=inventory.source,
+            source=package.source_root,
             staging_dir=staging_dir,
             backend=backend,
         )
@@ -725,7 +1028,7 @@ def _write_campaign_state(state_dir: Path, statuses: Sequence[DroneFlightStatus]
 
 
 def run_drone_campaign(
-    source: str,
+    source: DroneSource,
     *,
     work_dir: str | Path,
     years: Sequence[int] | None = None,
@@ -761,19 +1064,34 @@ def run_drone_campaign(
         max_entries=config.max_remote_entries,
         inventory_output_dir=state_dir,
     )
-    statuses = [
-        DroneFlightStatus(
-            remote_package_path=item.remote_package_path,
-            flight_stem=item.flight_stem,
-            state="pending" if item.eligibility == "eligible" else "blocked",
-            updated_utc=_utc_now(),
-            local_flightline_path=item.local_flightline_path,
-            bulk_ready=item.bulk_ready,
-            reused=item.bulk_ready,
-            reason=item.reason,
+    expected_by_year = {
+        item.year: set(item.expected_manifest_flights)
+        for item in inventory.year_sources
+    }
+    statuses = []
+    for item in inventory.packages:
+        expected = bool(
+            item.year in expected_by_year
+            and item.manifest_id in expected_by_year[item.year]
         )
-        for item in inventory.packages
-    ]
+        statuses.append(
+            DroneFlightStatus(
+                remote_package_path=item.remote_package_path,
+                flight_stem=item.flight_stem,
+                state=(
+                    "pending"
+                    if item.eligibility == "eligible"
+                    else "blocked"
+                    if expected
+                    else "excluded"
+                ),
+                updated_utc=_utc_now(),
+                local_flightline_path=item.local_flightline_path,
+                bulk_ready=item.bulk_ready,
+                reused=item.bulk_ready,
+                reason=item.reason,
+            )
+        )
     _write_campaign_state(state_dir, statuses)
 
     for package in inventory.eligible_packages:
@@ -803,7 +1121,7 @@ def run_drone_campaign(
             _write_campaign_state(state_dir, statuses)
             staged = stage_drone_package(
                 package,
-                source=inventory.source,
+                source=package.source_root,
                 staging_dir=staging,
                 backend=backend,
             )
@@ -884,11 +1202,17 @@ def run_drone_campaign(
         work_dir=str(work),
         flight_outputs=str(flight_outputs),
         state_dir=str(state_dir),
-        status="incomplete" if incomplete else "complete",
+        status=(
+            "incomplete"
+            if incomplete or not inventory.discovery_complete
+            else "complete"
+        ),
         started_utc=started,
         completed_utc=_utc_now(),
         config=config,
     )
+    if result.status == "complete" and not result.requested_years_complete:
+        result = replace(result, status="incomplete")
     _atomic_json(state_dir / "drone_campaign_result.json", result.to_dict())
     return result
 
@@ -924,8 +1248,12 @@ def _copy_result_tree(source: Path, destination: Path) -> None:
         shutil.copy2(path, target)
 
 
-def _default_result_name(source: str, years: Sequence[int]) -> str:
-    source_name = normalize_remote_path(source).rstrip("/").split("/")[-1]
+def _default_result_name(source: DroneSource, years: Sequence[int]) -> str:
+    source_name = (
+        normalize_remote_path(source).rstrip("/").split("/")[-1]
+        if isinstance(source, str)
+        else "multi-year-drone-campaign"
+    )
     source_slug = re.sub(r"[^A-Za-z0-9._-]+", "_", source_name).strip("._-")
     years_slug = "_".join(str(year) for year in years) if years else "all_years"
     version_slug = re.sub(r"[^A-Za-z0-9._-]+", "_", __version__)
@@ -948,6 +1276,56 @@ def _package_is_valid(package_dir: Path) -> bool:
         return False
 
 
+def _campaign_identity_sha256(campaign: DroneCampaignResult) -> str:
+    payload = {
+        "requested_years": list(campaign.inventory.requested_years),
+        "resolved_sources": {
+            str(item.year): list(item.resolved_sources)
+            for item in campaign.inventory.year_sources
+        },
+        "manifest_expectations": {
+            str(item.year): list(item.expected_manifest_flights)
+            for item in campaign.inventory.year_sources
+        },
+        "bulk_ready_flightlines": sorted(
+            item.flight_stem
+            for item in campaign.completed_flights
+            if item.flight_stem is not None
+        ),
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+    return sha256(encoded).hexdigest()
+
+
+def _package_matches_campaign(
+    package_dir: Path, campaign: DroneCampaignResult
+) -> bool:
+    if not _package_is_valid(package_dir):
+        return False
+    try:
+        payload = json.loads(
+            (package_dir / "PACKAGE_MANIFEST.json").read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError):
+        return False
+    return payload.get("campaign_identity_sha256") == _campaign_identity_sha256(
+        campaign
+    )
+
+
+def _archive_stale_package(package_dir: Path) -> Path:
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    candidate = package_dir.with_name(f"{package_dir.name}.stale-{timestamp}")
+    counter = 1
+    while candidate.exists():
+        candidate = package_dir.with_name(
+            f"{package_dir.name}.stale-{timestamp}-{counter}"
+        )
+        counter += 1
+    package_dir.rename(candidate)
+    return candidate
+
+
 def package_drone_bulk_results(
     *,
     campaign: DroneCampaignResult,
@@ -959,11 +1337,9 @@ def package_drone_bulk_results(
 
     package = Path(package_dir).expanduser().resolve()
     if package.exists():
-        if _package_is_valid(package):
+        if _package_matches_campaign(package, campaign):
             return package
-        raise FileExistsError(
-            f"result package exists but does not pass its manifest: {package}"
-        )
+        _archive_stale_package(package)
     results_root = package / "results"
     provenance = package / "provenance"
     preflight_root = package / "preflight"
@@ -998,6 +1374,7 @@ def package_drone_bulk_results(
             "spectralbridge_version": __version__,
             "git_commit": git_commit,
             "remote_source": campaign.inventory.source,
+            "campaign_identity_sha256": _campaign_identity_sha256(campaign),
             "configuration": campaign.config.to_dict(),
             "excluded_from_package": [
                 "downloaded source H5 files",
@@ -1023,6 +1400,7 @@ def package_drone_bulk_results(
             "created_utc": _utc_now(),
             "file_count": len(files),
             "total_bytes": sum(item["size_bytes"] for item in files),
+            "campaign_identity_sha256": _campaign_identity_sha256(campaign),
             "files": files,
         },
     )
@@ -1088,9 +1466,62 @@ def verify_uploaded_results(
     }
 
 
+def _incomplete_campaign_message(campaign: DroneCampaignResult) -> str:
+    lines = ["Requested drone campaign is incomplete."]
+    for year, summary in campaign.year_summaries().items():
+        lines.append(
+            f"{year}: manifest={summary['manifest_flights']}, "
+            f"discovered={summary['remote_packages_discovered']}, "
+            f"eligible={summary['eligible_flights']}, "
+            f"completed={summary['completed']}, reused={summary['reused']}, "
+            f"new={summary['newly_processed']}, bulk_ready={summary['bulk_ready']}, "
+            f"status={summary['discovery_status']}"
+        )
+        if summary["source_reason"]:
+            lines.append(f"  source: {summary['source_reason']}")
+        if summary["expected_flights_not_discovered"]:
+            lines.append(
+                "  expected flights not discovered/eligible: "
+                + ", ".join(summary["expected_flights_not_discovered"])
+            )
+        if summary["expected_flights_not_bulk_ready"]:
+            lines.append(
+                "  expected flights not bulk-ready: "
+                + ", ".join(summary["expected_flights_not_bulk_ready"])
+            )
+    return "\n".join(lines)
+
+
+def _validate_campaign_bulk_population(campaign: DroneCampaignResult) -> None:
+    """Require bulk discovery to see exactly the campaign's validated identities."""
+
+    _sources, records = discover_completed_flightlines(
+        campaign.flight_outputs,
+        analysis_profile="translation",
+    )
+    accepted = {
+        item.canonical_flightline_id
+        for item in records
+        if item.status == "accepted" and item.canonical_flightline_id
+    }
+    expected = {
+        item.flight_stem
+        for item in campaign.completed_flights
+        if item.flight_stem is not None
+    }
+    if accepted != expected:
+        missing = sorted(expected - accepted)
+        unexpected = sorted(accepted - expected)
+        raise DroneCampaignIncompleteError(
+            "Bulk discovery population does not match the complete requested campaign. "
+            f"Missing={missing}; unexpected={unexpected}.",
+            campaign,
+        )
+
+
 def run_drone_bulk_production(
     *,
-    source: str,
+    source: DroneSource,
     years: Sequence[int],
     work_dir: str | Path,
     manifest: str | Path | None = None,
@@ -1123,14 +1554,16 @@ def run_drone_bulk_production(
     )
     if campaign.status != "complete" and config.require_complete_campaign:
         raise DroneCampaignIncompleteError(
-            "Campaign is incomplete; population analysis was not started. "
-            f"See {Path(campaign.state_dir) / 'drone_campaign_status.csv'}.",
+            _incomplete_campaign_message(campaign)
+            + "\nPopulation analysis was not started. See "
+            + str(Path(campaign.state_dir) / "drone_campaign_status.csv"),
             campaign,
         )
     if not campaign.completed_flights:
         raise DroneCampaignIncompleteError(
             "No bulk-ready flights are available for population analysis.", campaign
         )
+    _validate_campaign_bulk_population(campaign)
     work = Path(work_dir).expanduser().resolve()
     preflight_dir = work / "bulk_preflight"
     bulk_dir = work / "bulk_analysis"
@@ -1182,7 +1615,9 @@ def run_drone_bulk_production(
     )
     remote_result = None
     if upload_results:
-        destination = remote_join(campaign.inventory.source, package.name)
+        if campaign.inventory.result_parent is None:
+            raise RuntimeError("campaign inventory has no resolved result destination")
+        destination = remote_join(campaign.inventory.result_parent, package.name)
         if backend.path_exists(destination):
             verification = verify_uploaded_results(package, destination, backend=backend)
             if not verification["verified"]:
@@ -1192,7 +1627,9 @@ def run_drone_bulk_production(
                 )
             remote_result = destination
         else:
-            remote_result = backend.upload_directory(package, campaign.inventory.source)
+            remote_result = backend.upload_directory(
+                package, campaign.inventory.result_parent
+            )
             verification = verify_uploaded_results(
                 package, remote_result, backend=backend
             )
@@ -1226,6 +1663,8 @@ __all__ = [
     "DroneCampaignResult",
     "DroneCollectionInventory",
     "DroneFlightStatus",
+    "DroneSource",
+    "DroneYearSource",
     "RemoteDronePackage",
     "StagedDroneInput",
     "inspect_drone_collection",

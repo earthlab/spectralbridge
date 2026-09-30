@@ -163,9 +163,11 @@ Start with the [local bulk notebook](docs/vignettes/notebooks/09_bulk_analysis.i
 for a curated tree already on disk. For source ExportPackages on CyVerse, use
 `run_drone_bulk_production()` or its
 [thin production notebook](docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb).
-The package owns remote inventory, one-H5-at-a-time staging, producer
-validation, completeness gating, reporting, compact packaging, and verified
-upload; the notebook supplies configuration only.
+The package owns requested-year source resolution, manifest-aware remote
+inventory, one-H5-at-a-time staging, producer validation, per-year completeness
+gating, combined-population reporting, compact packaging, and verified upload;
+the notebook supplies configuration only. Expanding a run revalidates and
+reuses completed earlier-year flight outputs rather than recomputing them.
 
 ### Results and interpretation
 

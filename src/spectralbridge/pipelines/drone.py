@@ -89,7 +89,9 @@ _DRONE_NODATA_PATCH_ATTRS = (
     "fill_value",
 )
 _DRONE_FALLBACK_NODATA = np.float32(-9999.0)
-_DRONE_PACKAGE_DATE_RE = re.compile(r"(?P<month>\d{2})-(?P<day>\d{2})-(?P<year>\d{2})")
+_DRONE_PACKAGE_DATE_RE = re.compile(
+    r"(?P<month>\d{1,2})[-_](?P<day>\d{1,2})[-_](?P<year>\d{2}|\d{4})$"
+)
 _DRONE_TIFF_DEFAULT_WAVELENGTHS_NM = (
     444.0,
     475.0,
@@ -501,10 +503,12 @@ def derive_drone_flight_stem(h5_path: str | Path) -> str:
         prefix = clean_name(
             package_core[: date_match.start()].strip("-_ ").replace("-", "_")
         )
+        year = date_match.group("year")
+        year = f"20{year}" if len(year) == 2 else year
         date_token = (
-            f"20{date_match.group('year')}"
-            f"{date_match.group('month')}"
-            f"{date_match.group('day')}"
+            f"{year}"
+            f"{int(date_match.group('month')):02d}"
+            f"{int(date_match.group('day')):02d}"
         )
         stem = "_".join(part for part in (prefix, date_token) if part)
         return stem or date_token

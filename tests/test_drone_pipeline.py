@@ -369,6 +369,26 @@ def test_derive_drone_flight_stem_uses_parent_package_folder() -> None:
     assert derive_drone_flight_stem(h5_a) != derive_drone_flight_stem(h5_b)
 
 
+@pytest.mark.parametrize(
+    ("package", "expected"),
+    [
+        (
+            "kremmling_10-07-11-24-ExportPackage",
+            "kremmling_10_20240711",
+        ),
+        (
+            "beartoothManual_3-08-01-2024-ExportPackage",
+            "beartoothManual_3_20240801",
+        ),
+        ("SPR1-06-28-23-ExportPackage", "SPR1_20230628"),
+    ],
+)
+def test_derive_drone_flight_stem_uses_trailing_package_date(
+    package: str, expected: str
+) -> None:
+    assert derive_drone_flight_stem(Path(package) / "source.h5") == expected
+
+
 def test_drone_tiff_map_info_recognizes_rasterio_utm_wkt() -> None:
     crs_wkt = rasterio.crs.CRS.from_epsg(32613).to_wkt()
     map_info = _build_drone_tiff_map_info(

@@ -21010,3 +21010,515 @@ The goal is not another notebook that happens to work.
 
 The goal is to make **SpectralBridge itself own this production workflow**, so the notebook becomes a thin, readable interface to a tested and restartable package.
 ```
+
+## 2026-09-30 - fix multi-year drone campaign completeness
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+We need to fix a production completeness/discovery bug in the SpectralBridge drone campaign workflow.
+
+Repository:
+https://github.com/earthlab/spectralbridge
+
+Do not start by changing code. First inspect the current repository, especially the drone production workflow, remote discovery, manifest handling, restart/resume logic, campaign state, and tests. Trace the relevant code paths end to end and explain briefly what is happening before implementing the fix.
+
+CONTEXT
+
+I ran the current package-owned production workflow with:
+
+REMOTE_SOURCE =
+"i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k"
+
+YEARS = [2023, 2024]
+
+and:
+
+run_drone_bulk_production(
+    source=REMOTE_SOURCE,
+    years=YEARS,
+    work_dir=WORK_DIR,
+    upload_results=False,
+    require_complete_campaign=True,
+)
+
+The run successfully processed the discovered campaign:
+
+- remote_packages_discovered: 17
+- eligible_flights: 17
+- successfully_processed: 17
+- failed: 0
+- blocked: 0
+- bulk_ready: 17
+- campaign_status: "complete"
+
+However, all 17 discovered flights appear to be from 2023.
+
+The workflow was explicitly requested to run years=[2023, 2024], but it nevertheless declared the campaign complete without discovering or processing any 2024 flights.
+
+The source path itself is named:
+
+summer-2023-10cm-10k
+
+This suggests that discovery is treating the supplied 2023 collection as the entire remote universe rather than resolving/discovering the corresponding campaign data for every requested year.
+
+This is an important semantic bug:
+
+    all discovered flights completed
+
+is NOT equivalent to:
+
+    all requested years were discovered and completed.
+
+GOAL
+
+Make multi-year drone production genuinely multi-year and make campaign completeness mean what it says.
+
+The intended behavior is:
+
+1. Discover the remote data corresponding to every requested year.
+2. Build one canonical inventory across those years.
+3. Match discovered packages to the drone field manifest.
+4. Determine eligible flights.
+5. Reuse already completed local results when resume=True.
+6. Download/process only flights that still need work.
+7. Validate each completed flight.
+8. Run the downstream bulk analysis over the complete eligible campaign.
+9. Declare the campaign complete only when every requested year's expected/discovered eligible flights have been accounted for.
+10. Make missing-year discovery visible and actionable rather than silently succeeding.
+
+CRITICAL REQUIREMENT: PRESERVE THE COMPLETED 2023 WORK
+
+The existing production work directory already contains 17 successfully processed 2023 flights.
+
+Do NOT design a fix that requires those flights to be downloaded or processed again.
+
+The next production run should ideally behave approximately like:
+
+2023:
+    discovered: 17
+    completed/reused: 17
+    newly processed: 0
+
+2024:
+    discovered: N
+    completed/reused: maybe 0 initially
+    newly processed: N
+
+overall:
+    eligible: 17 + N
+    failed/blocked: 0 if successful
+    bulk_ready: 17 + N
+
+The exact 2024 count must come from real discovery. Do not hard-code it.
+
+FIRST: INVESTIGATE THE CURRENT DESIGN
+
+Find and inspect:
+
+- run_drone_bulk_production
+- remote package discovery functions
+- inventory construction
+- year filtering
+- drone_field_manifest.csv parsing
+- acquisition datetime/year inference
+- campaign state/checkpoint files
+- resume behavior
+- completed-result detection
+- canonical flight output validation
+- bulk_ready logic
+- require_complete_campaign
+- campaign status calculation
+- production reporting
+- existing unit/integration tests for these pieces
+
+Trace exactly how:
+
+source
+    ↓
+remote discovery
+    ↓
+inventory
+    ↓
+manifest matching
+    ↓
+eligibility
+    ↓
+download/staging
+    ↓
+per-flight processing
+    ↓
+checkpoint/resume
+    ↓
+bulk readiness
+    ↓
+campaign completeness
+
+currently works.
+
+Determine WHY years=[2023, 2024] can result in a complete campaign containing only 2023.
+
+Do not assume my diagnosis is necessarily the whole problem. Verify it against the implementation.
+
+REMOTE DISCOVERY DESIGN
+
+We need a robust solution rather than a special case for this exact path.
+
+Investigate how the remote CyVerse directory hierarchy is structured and how the package currently represents remote sources.
+
+If a source such as:
+
+.../summer-2023-10cm-10k
+
+is supplied with years=[2023, 2024], determine the safest general mechanism for finding the corresponding 2024 collection.
+
+Possible designs might include:
+
+A. Accept a higher-level campaign root and discover year collections beneath it.
+
+B. Accept multiple explicit source roots.
+
+C. Resolve sibling year collections from a year-specific source path.
+
+D. Some combination of these while maintaining backwards compatibility.
+
+Choose the design that best fits the existing package architecture.
+
+Do NOT blindly string-replace "2023" with "2024" unless repository structure and tests justify that as an explicit supported resolver. Remote source resolution should be deterministic and testable.
+
+Ideally the public API should be capable of something like:
+
+run_drone_bulk_production(
+    source=<campaign root OR supported source specification>,
+    years=[2023, 2024],
+    ...
+)
+
+without notebook-side discovery logic.
+
+If supporting multiple source roots is appropriate, consider a clean API such as a mapping or sequence, but preserve backwards compatibility where practical.
+
+MANIFEST-AWARE COMPLETENESS
+
+Inspect whether the field manifest can tell us which flights should exist for each requested year.
+
+If it can, use that information.
+
+We should distinguish:
+
+- requested year
+- manifest flights for that year
+- remote packages discovered
+- manifest-matched packages
+- eligible flights
+- excluded flights
+- completed flights
+- failed flights
+- blocked flights
+- bulk-ready flights
+
+A requested year disappearing completely from discovery must not silently count as success.
+
+For example, if:
+
+years=[2023, 2024]
+
+and discovery produces:
+
+2023: 17
+2024: 0
+
+then require_complete_campaign=True should NOT produce:
+
+campaign_status="complete"
+
+unless there is explicit evidence that 2024 legitimately has zero expected flights.
+
+Prefer an explicit state/reason such as:
+
+missing_requested_year
+no_remote_collection
+expected_flights_not_discovered
+incomplete_discovery
+
+depending on what the package architecture supports.
+
+Do not invent expected flights if the manifest cannot establish them. Represent uncertainty honestly.
+
+PER-YEAR REPORTING
+
+Improve the campaign summary so this bug would be obvious immediately.
+
+Add a per-year summary, for example:
+
+"years": {
+    "2023": {
+        "manifest_flights": ...,
+        "remote_packages_discovered": ...,
+        "eligible_flights": ...,
+        "completed": ...,
+        "reused": ...,
+        "newly_processed": ...,
+        "failed": ...,
+        "blocked": ...,
+        "bulk_ready": ...
+    },
+    "2024": {
+        ...
+    }
+}
+
+Use terminology consistent with the current package rather than forcing these exact names if better names already exist.
+
+The top-level summary should still provide aggregate counts.
+
+Also record the resolved remote source/root(s) for each requested year so the provenance of discovery is clear.
+
+RESUME / RESTART SAFETY
+
+This is especially important.
+
+The existing 17 completed 2023 flight directories must be detected and reused.
+
+Inspect how completed_local_result and/or checkpoint state currently work.
+
+Make sure a resumed multi-year campaign can expand from:
+
+previous campaign:
+    years=[2023]
+
+to:
+
+new campaign:
+    years=[2023, 2024]
+
+without invalidating valid 2023 outputs.
+
+Campaign configuration changes that ADD a requested year should not automatically force valid previous flight outputs to be recomputed.
+
+However, do not weaken validation.
+
+Before reusing a completed flight, confirm it still satisfies the package's canonical output/validation contract.
+
+If valid:
+    reuse it
+
+If incomplete/corrupt:
+    reprocess it
+
+Do not merely trust the existence of a directory.
+
+BULK ANALYSIS
+
+After the additional 2024 flights are processed, the downstream bulk analysis must use the complete set of valid 2023 + 2024 flight outputs.
+
+Make sure restart behavior does not accidentally run bulk analysis using only the newly processed 2024 flights.
+
+The bulk input should be reconstructed from canonical valid outputs across the entire requested campaign.
+
+TESTS
+
+Add regression tests before considering this complete.
+
+At minimum test:
+
+1. MULTI-YEAR DISCOVERY
+
+Requested:
+    [2023, 2024]
+
+Remote fixtures contain both years.
+
+Expected:
+    both years discovered.
+
+2. MISSING REQUESTED YEAR
+
+Requested:
+    [2023, 2024]
+
+Discovery finds only 2023.
+
+Expected:
+    campaign must not silently report complete when 2024 is expected.
+
+3. SINGLE-YEAR BACKWARDS COMPATIBILITY
+
+Requested:
+    [2023]
+
+Existing behavior continues to work.
+
+4. RESUME EXPANDED CAMPAIGN
+
+Initial run:
+    2023 completed.
+
+Second run:
+    years=[2023, 2024]
+
+Expected:
+    valid 2023 outputs reused
+    2024 processed
+    2023 not recomputed.
+
+5. CORRUPT/INCOMPLETE REUSED RESULT
+
+A 2023 result directory exists but fails canonical validation.
+
+Expected:
+    it is not treated as successfully reusable.
+
+6. PER-YEAR COMPLETENESS
+
+Ensure campaign summary/status is derived from every requested year rather than aggregate discovery alone.
+
+7. BULK INPUT AFTER RESUME
+
+After expanding the campaign, bulk analysis receives valid outputs from BOTH reused 2023 flights and newly processed 2024 flights.
+
+8. EMPTY LEGITIMATE YEAR
+
+If the manifest or campaign definition explicitly establishes that a requested year has zero expected flights, test whatever semantics we choose for that case.
+
+9. SOURCE RESOLUTION
+
+Test the selected campaign-root/year-source resolution mechanism independently from the actual CyVerse service.
+
+Tests must not require live CyVerse access.
+
+Use mocked/fake remote listings or existing repository test fixtures.
+
+FAIL LOUDLY, BUT USEFULLY
+
+When require_complete_campaign=True, an unresolved requested year should produce a useful error/report.
+
+Something like:
+
+Requested drone campaign is incomplete.
+
+2023:
+    17 discovered
+    17 completed
+
+2024:
+    0 discovered
+    remote collection unresolved
+
+rather than merely:
+
+17/17 completed
+
+Do not obscure successful work. The report should make clear that the 2023 portion succeeded and is reusable.
+
+NOTEBOOK RESPONSIBILITY
+
+Keep the notebook thin.
+
+Do NOT solve this by putting logic like:
+
+if year == 2024:
+    use_some_other_path()
+
+into the notebook.
+
+The package should own:
+
+- source resolution
+- discovery
+- manifest reconciliation
+- completeness
+- resume
+- validation
+- reporting
+
+The notebook should continue to be essentially configuration + one production call.
+
+OPTIONAL LANDSAT QA
+
+The previous run also reported:
+
+"Optional Landsat comparison unavailable ... Install with
+pip install earthlab-spectralbridge[landsat]"
+
+Do not let this distract from the multi-year discovery bug.
+
+However, verify that optional Landsat QA remains optional and does not incorrectly affect campaign completeness.
+
+Do not make unrelated architectural changes unless necessary.
+
+IMPLEMENTATION QUALITY
+
+Please:
+
+- make the smallest coherent architectural change
+- preserve public API compatibility where reasonable
+- use typed/path-aware abstractions already present in the project
+- avoid notebook-specific hacks
+- avoid hard-coded 2023/2024 logic
+- avoid hard-coded flight counts
+- preserve restart safety
+- preserve deterministic inventory ordering
+- preserve provenance
+- keep remote I/O isolated enough to test
+- update docstrings/type hints
+- update user-facing documentation if the source semantics change
+
+Do not delete existing behavior or tests merely to make the new tests pass.
+
+VALIDATION
+
+After implementation:
+
+1. Run the targeted drone tests.
+2. Run the complete test suite.
+3. Run lint/type checks used by the repository.
+4. Inspect git diff.
+5. Check for accidental generated files or large artifacts.
+6. Confirm no production data or credentials were committed.
+
+Then give me a concise report containing:
+
+ROOT CAUSE
+Explain exactly why years=[2023, 2024] previously completed with only 2023.
+
+DESIGN
+Explain how multi-year source discovery now works.
+
+COMPLETENESS
+Explain exactly what "complete" now means.
+
+RESUME
+Explain how the 17 existing 2023 outputs will be recognized and reused.
+
+2024
+Explain what will happen when I rerun the production notebook and how 2024 flights will enter the campaign.
+
+BULK
+Confirm the final bulk analysis combines reused 2023 + new 2024 outputs.
+
+TESTS
+List the regression tests added and their results.
+
+FILES CHANGED
+List files changed and why.
+
+USER ACTION
+Give me the exact minimal notebook configuration/call I should use for the next production run.
+
+IMPORTANT
+
+Do not actually run the real production campaign or download the drone data as part of this coding task.
+
+We are fixing and testing the package so that I can rerun the existing production notebook afterward.
+
+The desired next real run is:
+
+reuse all 17 valid completed 2023 flights
++
+discover/process the real 2024 flights
++
+build one complete 2023–2024 campaign
++
+run bulk analysis across the combined campaign.+```

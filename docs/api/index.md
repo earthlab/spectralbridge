@@ -68,7 +68,7 @@ go_forth_and_multiply(
   </article>
   <article class="sb-doc-card">
     <h3><code>run_drone_bulk_production</code></h3>
-    <p>Inventories remote ExportPackages, stages one H5 at a time, validates canonical drone flights, enforces completeness, delegates bulk analysis and interpretation, packages compact results, and optionally uploads and verifies the closeout.</p>
+    <p>Resolves campaign-root, year-sibling, or explicit year-bound remote sources; inventories manifest-expected ExportPackages; stages one H5 at a time; validates canonical drone flights; enforces per-year completeness; delegates bulk analysis and interpretation; packages compact results; and optionally uploads and verifies the closeout.</p>
   </article>
   <article class="sb-doc-card">
     <h3><code>inspect_drone_collection</code></h3>

@@ -103,6 +103,7 @@ def test_common_orchestration_helpers_are_available_at_top_level() -> None:
         assert callable(spectralbridge.run_drone_campaign)
         assert callable(spectralbridge.run_drone_bulk_production)
         assert callable(spectralbridge.validate_bulk_ready_flightline)
+        assert spectralbridge.DroneYearSource.__name__ == "DroneYearSource"
 
 
 def test_cli_backwards_compatibility_exports_are_available() -> None:
