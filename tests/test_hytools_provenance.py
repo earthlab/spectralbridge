@@ -82,5 +82,6 @@ def test_release_metadata_includes_notice_and_excludes_root_deprecated_tree() ->
 
     assert 'license-files = ["LICENSE", "NOTICE"]' in pyproject
     assert "include HYTOOLS_PROVENANCE.md" in manifest
-    assert "recursive-include provenance *.json" in manifest
+    assert "include provenance/hytools.json" in manifest
+    assert "prune provenance" in manifest
     assert "prune deprecated" in manifest

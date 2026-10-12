@@ -1,0 +1,19 @@
+{
+  "renderer": "openjournals/inara",
+  "image": "openjournals/inara@sha256:a0414b8b72fd8923917ede614d340d98dc7aa3102aabc2e955e9c02a6100fd62",
+  "journal": "joss",
+  "network": "disabled during render",
+  "canonical_source": "paper/",
+  "inputs": {
+    "figures/paper-figure-3.png": "427c0ea34c5c2ad0bd795e8aa593d5b2af0cf535e0d05d3486381f6df0c9dcb3",
+    "figures/paper-figure-6.png": "39f8c3533b979e3e75c8d65d30cfb7967daaf8f4ce9b501b5735ad2e8aeea34a",
+    "figures/paper-figure-7.png": "11c18860b6a11df9a09db2308c30ff5ec7b3f801264e911261975ef485a9d456",
+    "paper.bib": "fdb06477583998a67b3c7e6a3f8a7415333f0ccc79c7ed5a2e84c8c3eea8b993",
+    "paper.md": "90761d996ff0ea51857c2a24a196895200f6842311b2d53ff642ce611f3f5aa7"
+  },
+  "pdf_sha256": "f8b4f667c0e1130e25e9c7e9c2d7a781d23ca6e54f575e9778a21fee32b74b93",
+  "compile_success": true,
+  "visual_review": "All 10 pages inspected after canonical-source migration and metadata update",
+  "submission_status": "Author declarations and reviewed public submission pending",
+  "preview_pages": 10
+}

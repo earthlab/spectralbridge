@@ -4,17 +4,6 @@ title: Validation evidence
 
 # Validation evidence
 
-## Complete manuscript supplementary material
-
-The [complete SI](supplement.md) contains the supplied processing contracts, scientific
-transformations, drone campaign accounting, R10C and WREF QA evidence, bulk
-analysis definitions and results, reproducibility records, software lineage,
-neighboring-software comparisons, and prospective QA/resource protocols.
-All 23 tables, both figures, equations, appendices and references are included,
-with downloadable source and editing copies. Historical evidence retains its
-original revision boundaries and limitations.
-
-
 This section records how SpectralBridge functions behave across explicit input variations. Each row comes from a machine-readable campaign result rather than a hand-written success claim.
 
 ## How to use this section
@@ -26,6 +15,14 @@ Validation is presented in three connected layers:
 3. **[Real flightline walkthrough](real-data-example.md)** interprets one 2.4 GB R10C run and links its complete HTML and JSON reports.
 
 A green offline contract does not imply scientific validation. A real stage `WARN` does not imply a crash. Read the stated evidence boundary on each page before comparing statuses.
+
+## Evidence hierarchy
+
+Execution, readable requested artifacts, internal QA and agreement with independent observations are separate evidence levels. Passing one does not establish the next. Read [what a successful result establishes](evidence-hierarchy.md).
+
+## Publication evidence
+
+The [complete technical supplement](supplement.md) preserves all supplied historical sections, tables, figures, equations, references and provenance boundaries. It is a publication record, not the first tutorial or a live certification of the current package.
 
 ## Current evidence
 

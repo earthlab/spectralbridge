@@ -227,7 +227,7 @@ the repository's supplied flat results folder without changing its files:
 
 ```bash
 python scripts/build_drone_translation_registry.py \
-  "full extraction run to calibarate drone" \
+  "archive/research/bulk-calibration" \
   --candidate-coefficients candidate_translation_coefficients.parquet-2 \
   --bulk-results-summary bulk_results_summary-2.json \
   --output src/spectralbridge/data/drone_translation_coefficients_v1.json \

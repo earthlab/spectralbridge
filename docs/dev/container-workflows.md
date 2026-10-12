@@ -47,3 +47,21 @@ infrastructure-specific tooling by accident.
 
 If these workflows are replaced, move the retired scripts to `deprecated/`
 instead of deleting them.
+
+## Installing the CyVerse transfer client
+
+SpectralBridge's remote backend calls an existing `gocmd` client on `PATH`.
+Install GoCommands for your OS/CPU using the [official CyVerse installation
+instructions](https://learning.cyverse.org/ds/gocommands/installation/) or the
+[upstream release assets](https://github.com/cyverse/gocommands/releases).
+For a Conda environment, upstream documents `conda install -c conda-forge gocommands`.
+Record the selected upstream release/version and binary checksum with your campaign configuration;
+no particular upstream version is newly certified by this repository cleanup.
+
+The root `./gocmd` is now a compatibility launcher over your installed client.
+Set `GOCMD_BINARY=/absolute/path/to/gocmd` when using a nonstandard installation.
+It forwards all arguments and preserves the working directory. Configure your
+existing authentication outside SpectralBridge; the cleanup does not alter it.
+The old Linux x86-64 binary is preserved only in this checkout's ignored local
+archive for historical replay. It is absent from fresh clones and distributions.
+The scientific pipeline does not require gocmd unless using a CyVerse backend.

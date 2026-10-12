@@ -1,4 +1,13 @@
+---
+search:
+  exclude: true
+---
+
 # Architecture Audit
+
+> Historical record — read at its stated revision and date. This is not a
+> current workflow tutorial or a live validation certificate. See the
+> [current repository map](../reference/repository-map.md) and [CI ownership](ci.md).
 
 This page records a lightweight architecture review of the current
 SpectralBridge codebase. It is intentionally descriptive rather than

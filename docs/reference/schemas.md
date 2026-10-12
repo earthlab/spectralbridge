@@ -109,15 +109,15 @@
 <p class="sb-kicker">Where to go next</p>
 <h2>Related pages</h2>
 <div class="sb-doc-grid sb-doc-grid--three">
-  <a class="sb-doc-link-card" href="validation/">
+  <a class="sb-doc-link-card" href="../validation/">
     <strong>Validation metrics</strong>
     <span>See the metric families that appear in the QA JSON payloads.</span>
   </a>
-  <a class="sb-doc-link-card" href="../pipeline/outputs/">
+  <a class="sb-doc-link-card" href="../../pipeline/outputs/">
     <strong>Outputs &amp; file structure</strong>
     <span>Match sidecars to the files they describe.</span>
   </a>
-  <a class="sb-doc-link-card" href="../pipeline/qa/">
+  <a class="sb-doc-link-card" href="../../pipeline/qa/">
     <strong>QA panels &amp; metrics</strong>
     <span>See how the structured summaries surface in the visual reports.</span>
   </a>

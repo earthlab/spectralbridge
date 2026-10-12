@@ -99,15 +99,15 @@
 <p class="sb-kicker">Where to go next</p>
 <h2>Related pages</h2>
 <div class="sb-doc-grid sb-doc-grid--three">
-  <a class="sb-doc-link-card" href="stages/">
+  <a class="sb-doc-link-card" href="../stages/">
     <strong>Pipeline stages</strong>
     <span>See how QA fits into the full ordered workflow.</span>
   </a>
-  <a class="sb-doc-link-card" href="outputs/">
+  <a class="sb-doc-link-card" href="../outputs/">
     <strong>Outputs and file structure</strong>
     <span>Find the flight-line files that sit next to the QA artifacts.</span>
   </a>
-  <a class="sb-doc-link-card" href="../troubleshooting/">
+  <a class="sb-doc-link-card" href="../../troubleshooting/">
     <strong>Troubleshooting</strong>
     <span>Use the QA outputs to diagnose common pipeline problems.</span>
   </a>

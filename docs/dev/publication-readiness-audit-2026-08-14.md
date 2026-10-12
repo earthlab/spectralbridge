@@ -1,4 +1,13 @@
+---
+search:
+  exclude: true
+---
+
 # Publication Readiness And Test Coverage Audit
+
+> Historical record — read at its stated revision and date. This is not a
+> current workflow tutorial or a live validation certificate. See the
+> [current repository map](../reference/repository-map.md) and [CI ownership](ci.md).
 
 Review date: 2026-08-15
 Repository state reviewed: local `main` working tree after report-only footprint and spectral-quality classification

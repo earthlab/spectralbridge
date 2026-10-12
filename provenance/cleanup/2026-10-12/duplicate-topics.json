@@ -1,0 +1,51 @@
+{
+  "duplicates_by_title": {
+    "HTML/frontmatter page": [
+      "docs/api/index.md",
+      "docs/concepts/why-calibration.md",
+      "docs/faq.md",
+      "docs/index.md",
+      "docs/pipeline/outputs.md",
+      "docs/pipeline/qa.md",
+      "docs/pipeline/qa_panel.md",
+      "docs/pipeline/stages.md",
+      "docs/quickstart.md",
+      "docs/reference/configuration.md",
+      "docs/reference/schemas.md",
+      "docs/reference/validation.md",
+      "docs/troubleshooting.md",
+      "docs/tutorials/cloud-workflow.md",
+      "docs/usage/cli.md",
+      "docs/usage/parquet.md"
+    ]
+  },
+  "overlapping_topics": {
+    "quick start": [
+      "START_HERE.md",
+      "docs/quickstart.md",
+      "docs/vignettes/full-pipeline.md"
+    ],
+    "QA": [
+      "docs/pipeline/qa.md",
+      "docs/pipeline/qa_panel.md",
+      "docs/pipeline/stage-qa.md",
+      "docs/vignettes/qa-and-analysis.md"
+    ],
+    "bulk/library": [
+      "docs/vignettes/bulk-analysis.md",
+      "README.md",
+      "START_HERE.md"
+    ],
+    "developer_history": [
+      "docs/dev/architecture-audit.md",
+      "docs/dev/dependency-review.md",
+      "docs/dev/doc_drift.md",
+      "docs/dev/logging-review.md",
+      "docs/dev/publication-hardening-audit-2026-09-04.md",
+      "docs/dev/publication-readiness-audit-2026-08-14.md",
+      "docs/dev/versioning-review.md",
+      "docs/usage/parquet_preview.md"
+    ]
+  },
+  "policy": "Retain stable URLs; canonical tutorial/reference/evidence owners, concise links on secondary pages"
+}

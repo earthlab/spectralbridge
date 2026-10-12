@@ -60,7 +60,7 @@ Post-tag verification:
 - [ ] Select the review source/version and publish the reviewed submission files.
 - [ ] Confirm public-history and research-use evidence, then complete the JOSS form.
 
-See `drafts/joss/SUBMISSION_CHECKLIST.md` for evidence and remaining actions.
+See `paper/SUBMISSION_CHECKLIST.md` for evidence and remaining actions.
 These checks do not supersede the distinct release-candidate gates above.
 
 ## 1. Package Structure & Metadata

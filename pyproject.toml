@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "earthlab-spectralbridge"
 version = "2.3.0rc1"
-description = "Translate, validate, and compare reflectance across sensors and scales."
+description = "Prepare and compare sensor-specific reflectance with traceable workflows."
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "Earth Lab" }]

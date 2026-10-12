@@ -150,7 +150,7 @@ def main() -> int:
     parser.add_argument("--ready", action="store_true", help="Also fail for unresolved author declarations")
     parser.add_argument("--output", type=Path, help="Write machine-readable report")
     args = parser.parse_args()
-    reports = [check_paper(ROOT / "drafts/joss" / name) for name in ("paper.md", "supplement.md")]
+    reports = [check_paper(ROOT / "paper" / name) for name in ("paper.md", "supplement.md")]
     report = {"papers": reports, "format_checks_pass": not any(r["errors"] for r in reports),
               "author_declarations_complete": not any(r["author_actions"] for r in reports)}
     if args.output:

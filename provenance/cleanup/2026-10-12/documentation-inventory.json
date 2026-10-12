@@ -1,0 +1,4817 @@
+[
+  {
+    "path": "docs/ai-transparency.md",
+    "title": "AI Transparency Statement",
+    "headings": [
+      "AI Transparency Statement",
+      "Summary",
+      "Which AI was used",
+      "How AI was used",
+      "Scope and limitations",
+      "Reproduce this statement"
+    ],
+    "bytes": 3010,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/dev/publication-readiness-audit-2026-08-14.md",
+        "line": 134,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/bibliography-audit.json",
+        "line": 505,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 592,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 109,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_ai_transparency.py",
+        "line": 373,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/api/index.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 5894,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4009,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 32,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 99,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 12,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 16,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 28,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/qa-code-map.md",
+        "line": 78,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/usage/recipes.md",
+        "line": 10,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 449,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4888,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/full-pipeline.md",
+        "line": 85,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 29,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 63,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 476,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 77,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 303,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 2021,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 111,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 449,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 32,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 35,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 59,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 74,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 82,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_validation_docs.py",
+        "line": 496,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tests/test_validation_docs.py",
+        "line": 74,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/api/merge_duckdb.md",
+    "title": "API: merge_duckdb",
+    "headings": [
+      "API: merge_duckdb"
+    ],
+    "bytes": 70,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/vignettes/analysis-tables.md",
+        "line": 60,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/api/qa_plots.md",
+    "title": "API: qa_plots",
+    "headings": [
+      "API: qa_plots"
+    ],
+    "bytes": 69,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/validation/index.md",
+        "line": 41,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 71,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/brdf_topo_algorithm.md",
+    "title": "Streamlined BRDF + Topographic corrections",
+    "headings": [
+      "Streamlined BRDF + Topographic corrections",
+      "Topographic correction (SCS+C)",
+      "Topographic modes and defaults",
+      "Implementation notes",
+      "NDVI binning",
+      "BRDF fitting and application",
+      "Scaling and thresholds"
+    ],
+    "bytes": 5910,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 591,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "HYTOOLS_PROVENANCE.md",
+        "line": 156,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 10841,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 39,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/repository-map.md",
+        "line": 26,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/neon-correction.md",
+        "line": 48,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 92,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/concepts/why-calibration.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 5722,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3997,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/usage/notebook-example.md",
+        "line": 110,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/usage/recipes.md",
+        "line": 191,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 37,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/dev-notes.md",
+    "title": "Developer Notes",
+    "headings": [
+      "Developer Notes"
+    ],
+    "bytes": 338,
+    "markers": {},
+    "referenced_by": [],
+    "code_fences": 3
+  },
+  {
+    "path": "docs/dev/architecture-audit.md",
+    "title": "Architecture Audit",
+    "headings": [
+      "Architecture Audit",
+      "Scope reviewed",
+      "High-level conclusion",
+      "Findings",
+      "1. Path authority is split between two naming systems",
+      "2. Output discovery logic exists in multiple subsystems",
+      "3. Metadata parsing is reasonably modular, but still layered",
+      "4. Chunking is consistent in principle, but implemented at two levels",
+      "5. Restart-safe behavior is strong, but status reporting is fragmented",
+      "6. QA generation is consistent in purpose, but not yet centralized",
+      "7. Shared drone and NEON infrastructure is possible, but should stay additive",
+      "Strengths worth preserving",
+      "Recommended follow-up themes",
+      "Not recommended from this audit"
+    ],
+    "bytes": 9083,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4036,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/architecture.md",
+        "line": 238,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/dev/architecture.md",
+    "title": "Package Architecture",
+    "headings": [
+      "Package Architecture",
+      "Design philosophy and invariants",
+      "Pipeline architecture (high level)",
+      "Directory structure (Python package)",
+      "Drone and normal NEON branches",
+      "Independent bulk analysis",
+      "Debuggable stage boundaries",
+      "Extending the system safely",
+      "Adding or modifying a target sensor",
+      "Updating brightness or translation coefficients",
+      "Modifying QA outputs",
+      "Relationship to scientific reproducibility",
+      "Next steps"
+    ],
+    "bytes": 14466,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "AGENTS.md",
+        "line": 30,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "AGENTS.md",
+        "line": 330,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 45,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13072,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13261,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 14136,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 16159,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/codex-guidelines.md",
+        "line": 80,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 45,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 257,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4758,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/drone-processing.md",
+        "line": 235,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 414,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 39,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 165,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 1933,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 59,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 257,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 98,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/dev/codex-guidelines.md",
+    "title": "Guidelines for AI / Codex Edits",
+    "headings": [
+      "Guidelines for AI / Codex Edits",
+      "Core rules",
+      "1. Do NOT invent scientific claims",
+      "2. Do NOT alter conceptual meaning without review",
+      "3. Do NOT change navigation or folder structure unless instructed",
+      "4. Do NOT remove placeholders, schemas, or metadata",
+      "Code-editing rules",
+      "Documentation-editing rules",
+      "When NOT to use AI tools",
+      "Safe tasks for AI tools",
+      "Summary",
+      "Next steps"
+    ],
+    "bytes": 2101,
+    "markers": {
+      "placeholder": 2
+    },
+    "referenced_by": [
+      {
+        "path": "AGENTS.md",
+        "line": 29,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "AGENTS.md",
+        "line": 329,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 16160,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/architecture.md",
+        "line": 237,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/dev/container-workflows.md",
+    "title": "Container and Remote Helper Scripts",
+    "headings": [
+      "Container and Remote Helper Scripts",
+      "Run the package in a fresh container",
+      "Site-specific root helpers"
+    ],
+    "bytes": 2284,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/dev/publication-cleanup-log.md",
+        "line": 16,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 46,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 99,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/dev/contributing.md",
+    "title": "Contributing & Development Workflow",
+    "headings": [
+      "Contributing & Development Workflow",
+      "Design philosophy and invariants",
+      "Continuous integration and guarantees",
+      "How to extend the system safely",
+      "Adding or modifying a target sensor",
+      "Updating brightness or calibration coefficients",
+      "Modifying QA outputs",
+      "Changing extraction or merge logic",
+      "Relationship to scientific reproducibility",
+      "Development environment"
+    ],
+    "bytes": 4391,
+    "markers": {
+      "fillme": 1
+    },
+    "referenced_by": [
+      {
+        "path": "docs/dev/architecture.md",
+        "line": 236,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/codex-guidelines.md",
+        "line": 79,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 102,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/dev/dependency-review.md",
+    "title": "Dependency Review",
+    "headings": [
+      "Dependency Review",
+      "Reviewed sources",
+      "Current dependency layout",
+      "Required runtime dependencies",
+      "Optional dependency groups",
+      "Findings",
+      "1. `ray` is still part of the intended standard runtime",
+      "2. `rasterio` is deeply embedded in core workflows",
+      "3. `geopandas` is required for a meaningful portion of polygon/drone tooling",
+      "4. Optional import helpers currently describe a \u201cfull\u201d extra that is not the real install story",
+      "5. `docs/env.md` had drifted behind the real dependency set",
+      "6. The current `full` extra is redundant",
+      "Recommendation summary",
+      "Follow-up"
+    ],
+    "bytes": 4711,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3959,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/dev/doc_drift.md",
+    "title": "Documentation Drift Report",
+    "headings": [
+      "Documentation Drift Report",
+      "Naming rule",
+      "Missing items in docs",
+      "Stale items in docs",
+      "Entry points (pyproject)",
+      "CLI flags discovered",
+      "Stage markers found in logs"
+    ],
+    "bytes": 5166,
+    "markers": {
+      "TODO": 1
+    },
+    "referenced_by": [],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/dev/doi-zenodo.md",
+    "title": "DOI And Zenodo Status",
+    "headings": [
+      "DOI And Zenodo Status",
+      "Current status",
+      "Important clarification",
+      "What maintainers should verify for the next release",
+      "Recommended release-to-DOI workflow",
+      "Repository files updated in this pass",
+      "Follow-up recommendations"
+    ],
+    "bytes": 2736,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4091,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/software-citation.md",
+        "line": 26,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/software-citation.md",
+        "line": 80,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/software-citation.md",
+        "line": 121,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 212,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4728,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/SUBMISSION_CHECKLIST.md",
+        "line": 83,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 399,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 31,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 136,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 1913,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 47,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 212,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 106,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "publication_checklist.md",
+        "line": 104,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/dev/drone-bulk-contract-diagnostic-2026-09-29.md",
+    "title": "Canonical drone-to-bulk contract diagnostic (2026-09-29)",
+    "headings": [
+      "Canonical drone-to-bulk contract diagnostic (2026-09-29)"
+    ],
+    "bytes": 5758,
+    "markers": {},
+    "referenced_by": [],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/dev/logging-review.md",
+    "title": "Logging Review",
+    "headings": [
+      "Logging Review",
+      "Scope reviewed",
+      "Current behavior",
+      "1. The NEON pipeline uses a module-owned stream handler",
+      "2. Some CLI entry points still call `logging.basicConfig(...)`",
+      "3. `qa_plots` forces its logger to `INFO` at import time",
+      "4. Some lower-level code writes to the root logger directly",
+      "5. Progress reporting is mixed between logging and `tqdm`",
+      "6. Ray behavior is mostly controlled through environment variables, not logging APIs",
+      "7. Multiprocessing code paths do not appear to add duplicate handlers themselves",
+      "Risk summary",
+      "Recommendation",
+      "Related follow-up"
+    ],
+    "bytes": 5520,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3834,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/dev/production-validation-record.md",
+    "title": "Production validation record",
+    "headings": [
+      "Production validation record",
+      "Tier A: installed-artifact CI smoke",
+      "Tier B: real production validation",
+      "2026-09 production bulk-analysis evidence",
+      "Maintainer record for the next large-VM run"
+    ],
+    "bytes": 5556,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/dev/publication-hardening-audit-2026-09-04.md",
+        "line": 71,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/releasing.md",
+        "line": 93,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 285,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 292,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4778,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4783,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 193,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 200,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 285,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 292,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 104,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/dev/publication-cleanup-log.md",
+    "title": "Publication Cleanup Log",
+    "headings": [
+      "Publication Cleanup Log",
+      "Completed Decisions",
+      "Notes"
+    ],
+    "bytes": 3339,
+    "markers": {
+      "FILLME": 2,
+      "fillme": 1,
+      "placeholder": 2
+    },
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4210,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/dev/publication-hardening-audit-2026-09-04.md",
+    "title": "PyPI Publication-Hardening Audit",
+    "headings": [
+      "PyPI Publication-Hardening Audit",
+      "Executive verdict",
+      "Evidence scope and limits",
+      "1. Actual package and public workflows",
+      "Distribution and namespaces",
+      "Invocation inventory",
+      "Console scripts",
+      "2. Built artifact and clean-install results",
+      "3. Runtime package-data inventory",
+      "4. Dependency audit",
+      "5. Python support",
+      "6. Version, citation, DOI, and authorship",
+      "7. Release workflow and CI",
+      "8. Public API and compatibility",
+      "9. Documentation and PyPI landing page",
+      "10. Scientific configuration reproducibility",
+      "11. License, provenance, and repository hygiene",
+      "12. Prioritized findings",
+      "BLOCKER \u2014 must be resolved before PyPI",
+      "HIGH PRIORITY \u2014 resolve before publication unless explicitly accepted",
+      "MEDIUM \u2014 reasonable immediately after the initial release",
+      "NON-BLOCKING \u2014 cleanup and future improvements",
+      "13. Ordered PyPI release checklist",
+      "14. Commands and checks actually run",
+      "Clean environments created with uv, then the wheel was installed in each.",
+      "Every installed console script listed in section 1 was run with --help.",
+      "Stage-complete follow-up: exact wheel installed into each clean environment.",
+      "Exact sdist-built Python 3.10 environment."
+    ],
+    "bytes": 36573,
+    "markers": {
+      "placeholder": 2,
+      "TODO": 2
+    },
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 1667,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "HYTOOLS_PROVENANCE.md",
+        "line": 156,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 1677,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 300,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4788,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 300,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/dev/publication-readiness-audit-2026-08-14.md",
+    "title": "Publication Readiness And Test Coverage Audit",
+    "headings": [
+      "Publication Readiness And Test Coverage Audit",
+      "Decision",
+      "Verification performed",
+      "Release blockers and material risks",
+      "1. The suite is green, but scientific validation coverage is incomplete",
+      "2. Release metadata is inconsistent",
+      "3. Citation authorship is still a placeholder",
+      "4. License and third-party provenance review is incomplete",
+      "5. Distribution artifacts work, but packaging metadata needs modernization",
+      "6. DOI status is explicitly unresolved",
+      "Test and coverage audit",
+      "Coverage baseline",
+      "Lowest-covered active modules",
+      "Stronger areas",
+      "Test-system risks",
+      "Publication-readiness strengths",
+      "Recommended order of work",
+      "AI-transparency audit trail"
+    ],
+    "bytes": 10015,
+    "markers": {
+      "placeholder": 1,
+      "TODO": 1
+    },
+    "referenced_by": [
+      {
+        "path": "HYTOOLS_PROVENANCE.md",
+        "line": 156,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 108,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 2
+  },
+  {
+    "path": "docs/dev/release-hygiene.md",
+    "title": "Release Hygiene Review",
+    "headings": [
+      "Release Hygiene Review",
+      "Reviewed files",
+      "Low-risk fixes applied",
+      "Findings",
+      "1. Prompt log was a real packaging risk",
+      "2. Repo-root notebooks are publication/support assets, not package payload",
+      "3. Large local/support assets exist in the repo tree",
+      "4. Core metadata files are present and aligned at a high level",
+      "Verification limits",
+      "Recommendation"
+    ],
+    "bytes": 2613,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3918,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/dev/releasing.md",
+    "title": "Releasing SpectralBridge",
+    "headings": [
+      "Releasing SpectralBridge",
+      "Version and tag contract",
+      "One-time PyPI and GitHub configuration",
+      "Automated release gates",
+      "Installed-artifact smoke scope",
+      "Local candidate checks",
+      "Recommended RC sequence",
+      "Dependency and artifact review"
+    ],
+    "bytes": 5941,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "CONTRIBUTING.md",
+        "line": 39,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4130,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13260,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13599,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13664,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 28,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/software-citation.md",
+        "line": 122,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/SUBMISSION_CHECKLIST.md",
+        "line": 84,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 103,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "publication_checklist.md",
+        "line": 103,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 3
+  },
+  {
+    "path": "docs/dev/software-citation.md",
+    "title": "Software Citation And Publication Tracking",
+    "headings": [
+      "Software Citation And Publication Tracking",
+      "Complete manuscript supplementary material",
+      "Current citation posture",
+      "Preferred citation policy",
+      "Recommended user-facing citation language",
+      "Versioned release citation policy",
+      "Associated publication tracker",
+      "Software paper tracking",
+      "Maintainer update rules",
+      "What this page intentionally does not do"
+    ],
+    "bytes": 4780,
+    "markers": {
+      "TODO": 9,
+      "placeholder": 1
+    },
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4165,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4181,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 105,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "publication_checklist.md",
+        "line": 95,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/dev/versioning-review.md",
+    "title": "Versioning Review",
+    "headings": [
+      "Versioning Review",
+      "Version sources reviewed",
+      "Current state",
+      "Package metadata",
+      "Changelog state",
+      "Git tags",
+      "Findings",
+      "1. Metadata version is internally aligned",
+      "2. Release-history records are not aligned",
+      "3. `setup.py` is not a second version source",
+      "Recommended release policy",
+      "Changes made in this pass",
+      "Follow-up"
+    ],
+    "bytes": 3073,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3936,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/documentation-overview.md",
+    "title": "Documentation",
+    "headings": [
+      "Documentation",
+      "Overview",
+      "Prerequisites",
+      "Step-by-step tutorial",
+      "Reference",
+      "Next steps"
+    ],
+    "bytes": 819,
+    "markers": {},
+    "referenced_by": [],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/documentation_style_guide.md",
+    "title": "SpectralBridge Documentation Style Guide",
+    "headings": [
+      "SpectralBridge Documentation Style Guide",
+      "Philosophy",
+      "Information architecture",
+      "Validation page structure",
+      "Vignette structure",
+      "Style",
+      "Formatting",
+      "Maintenance"
+    ],
+    "bytes": 3803,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/documentation-overview.md",
+        "line": 12,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/documentation-overview.md",
+        "line": 20,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/env.md",
+    "title": "Environment",
+    "headings": [
+      "Environment",
+      "Setup (venv)",
+      "Setup (conda)"
+    ],
+    "bytes": 674,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3962,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/dependency-review.md",
+        "line": 19,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/dependency-review.md",
+        "line": 129,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/dependency-review.md",
+        "line": 131,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 44,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 97,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 2
+  },
+  {
+    "path": "docs/faq.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 5670,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4007,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 56,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/hytools_manuscript_guidance.md",
+    "title": "HyTools manuscript guidance",
+    "headings": [
+      "HyTools manuscript guidance",
+      "How to describe the relationship",
+      "Suggested Methods/Software paragraph",
+      "Suggested acknowledgement",
+      "Citations to include"
+    ],
+    "bytes": 3388,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 11282,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 107,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/index.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 11351,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4009,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 32,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 99,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 12,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 16,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 28,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/qa-code-map.md",
+        "line": 78,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/usage/recipes.md",
+        "line": 10,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 449,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4888,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/full-pipeline.md",
+        "line": 85,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 29,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 63,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 476,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 77,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 303,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 2021,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 111,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 449,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 32,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 35,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 59,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 74,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 82,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_validation_docs.py",
+        "line": 496,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tests/test_validation_docs.py",
+        "line": 74,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/naming-conventions.md",
+    "title": "Naming Conventions",
+    "headings": [
+      "Naming Conventions",
+      "Authoritative helpers",
+      "NEON flightline identifiers",
+      "NEON output suffixes",
+      "Drone output suffixes",
+      "Bulk analysis output suffixes",
+      "Common violations and fixes"
+    ],
+    "bytes": 7620,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "AGENTS.md",
+        "line": 32,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 14138,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 70,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/extending.md",
+        "line": 25,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 22,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/repository-map.md",
+        "line": 25,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 78,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 4
+  },
+  {
+    "path": "docs/pipeline.md",
+    "title": "Pipeline reference",
+    "headings": [
+      "Pipeline reference",
+      "Optional half-route split (`split_across_track`)",
+      "Canonical paths via `get_flight_paths()`",
+      "Stage-by-stage details",
+      "0. Download NEON HDF5",
+      "1. ENVI export",
+      "2. Build correction JSON",
+      "3. BRDF + topographic correction",
+      "4. Sensor convolution / resampling",
+      "Example run transcript",
+      "Parallel flightline execution",
+      "Rerun guidance",
+      "Resuming without the source HDF5"
+    ],
+    "bytes": 11964,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "AGENTS.md",
+        "line": 31,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/stage-01-raster-processing.md",
+        "line": 5,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 2
+  },
+  {
+    "path": "docs/pipeline/outputs.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 17444,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3991,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 46,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13073,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13263,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 14137,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 98,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 15,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/extending.md",
+        "line": 26,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/extending.md",
+        "line": 45,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 21,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/usage/notebook-example.md",
+        "line": 109,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/usage/recipes.md",
+        "line": 190,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 278,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4773,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/analysis-tables.md",
+        "line": 60,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/carry-on-wayward-son.md",
+        "line": 72,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/drone-processing.md",
+        "line": 227,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/full-pipeline.md",
+        "line": 58,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 423,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 45,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 186,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 1944,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 65,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 278,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 77,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/pipeline/polygons.md",
+    "title": "Polygon spectral library pipeline",
+    "headings": [
+      "Polygon spectral library pipeline",
+      "Overview",
+      "Data requirements",
+      "Example usage",
+      "Status and roadmap"
+    ],
+    "bytes": 3343,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/usage/recipes.md",
+        "line": 156,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/polygon-extraction.md",
+        "line": 60,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/pipeline/qa.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 5538,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3997,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 16,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/extending.md",
+        "line": 45,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 34,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/tutorials/neon-to-landsat.md",
+        "line": 150,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/qa-and-analysis.md",
+        "line": 57,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 87,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/pipeline/qa_panel.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 4416,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3383,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/pipeline/stage-qa.md",
+    "title": "Stage-by-stage scientific QA",
+    "headings": [
+      "Stage-by-stage scientific QA",
+      "Status model",
+      "Diagnostics by canonical stage",
+      "Provisional thresholds",
+      "Comparable plot contract",
+      "Brightness coefficient audit",
+      "Run QA",
+      "Real-data example",
+      "Scientific distinctions retained",
+      "Current empirical tuning needs"
+    ],
+    "bytes": 13508,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/validation/stage-qa-guide.md",
+        "line": 216,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 88,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_validation_docs.py",
+        "line": 480,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 3
+  },
+  {
+    "path": "docs/pipeline/stages.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 5692,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3991,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 69,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 14,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 20,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/tutorials/neon-to-envi.md",
+        "line": 129,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/carry-on-wayward-son.md",
+        "line": 73,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/data-acquisition.md",
+        "line": 51,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/sensor-harmonization.md",
+        "line": 47,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 76,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/qa.md",
+    "title": "Quality Assurance (QA) panels",
+    "headings": [
+      "Quality Assurance (QA) panels",
+      "Deterministic quick pass (\u226425k sampled pixels per flightline)",
+      "Exhaustive sampling with custom RGB mapping",
+      "QA Dashboard"
+    ],
+    "bytes": 1939,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3997,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 16,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/extending.md",
+        "line": 45,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 34,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/tutorials/neon-to-landsat.md",
+        "line": 150,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/qa-and-analysis.md",
+        "line": 57,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 87,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/quickstart.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 5276,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3983,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3990,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 13,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/tutorials/neon-to-envi.md",
+        "line": 27,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 4
+  },
+  {
+    "path": "docs/refactor_notes.md",
+    "title": "Refactor Notes: Pipeline Without a HyTools Runtime Dependency",
+    "headings": [
+      "Refactor Notes: Pipeline Without a HyTools Runtime Dependency",
+      "Purpose",
+      "End-to-End Pipeline",
+      "Module Structure",
+      "Licensing"
+    ],
+    "bytes": 5248,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "HYTOOLS_PROVENANCE.md",
+        "line": 156,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 10840,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/reference/configuration.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 6113,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4007,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 17,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 27,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/sensor-harmonization.md",
+        "line": 48,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 81,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/reference/custom-correction-hook.md",
+    "title": "Add a custom correction between pipeline stages",
+    "headings": [
+      "Add a custom correction between pipeline stages",
+      "Why this location is the safe hook",
+      "Use an isolated experiment folder",
+      "Stage-by-stage skeleton",
+      "Implement this in your analysis code. It must write both paths and preserve",
+      "spatial shape, wavelength order, map information, NoData semantics, and scale.",
+      "Contract for `apply_custom_correction`",
+      "Minimum validation for a new correction"
+    ],
+    "bytes": 5610,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "START_HERE.md",
+        "line": 30,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/extending.md",
+        "line": 4,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/repository-map.md",
+        "line": 31,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/notebooks/08_custom_correction_hook.ipynb",
+        "line": 20,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 93,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "patch_script_toworkfromcorrectedfiles.py",
+        "line": 5,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 3
+  },
+  {
+    "path": "docs/reference/extending.md",
+    "title": "Extending",
+    "headings": [
+      "Extending",
+      "Adding a target sensor",
+      "Adding brightness coefficients",
+      "Adding QA or export outputs",
+      "Quick verification",
+      "Pitfalls"
+    ],
+    "bytes": 2716,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/dev/publication-cleanup-log.md",
+        "line": 21,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 40,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 94,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 2
+  },
+  {
+    "path": "docs/reference/index.md",
+    "title": "Technical reference map",
+    "headings": [
+      "Technical reference map",
+      "Complete manuscript supplementary material",
+      "Pipeline contracts",
+      "Interfaces",
+      "Data and validation",
+      "Algorithms and extension",
+      "Runtime and internals"
+    ],
+    "bytes": 1624,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4009,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 32,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 99,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 12,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/qa-code-map.md",
+        "line": 78,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/usage/recipes.md",
+        "line": 10,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 449,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4888,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/full-pipeline.md",
+        "line": 85,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 29,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 63,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 476,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 77,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 303,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 2021,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 111,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 449,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 32,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 35,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 59,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 74,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 82,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_validation_docs.py",
+        "line": 496,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tests/test_validation_docs.py",
+        "line": 74,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/reference/json-catalog.md",
+    "title": "JSON file catalog",
+    "headings": [
+      "JSON file catalog",
+      "Packaged scientific parameters",
+      "Example run configurations",
+      "Validation and transparency records",
+      "JSON produced by a pipeline run",
+      "Before changing any coefficient or band definition"
+    ],
+    "bytes": 8269,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 47,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 14139,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 31,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/repository-map.md",
+        "line": 30,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/repository-map.md",
+        "line": 63,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 85,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "src/spectralbridge/data/README.md",
+        "line": 26,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/reference/qa-code-map.md",
+    "title": "QA implementation map",
+    "headings": [
+      "QA implementation map",
+      "Where each responsibility lives",
+      "Execution flow",
+      "Readability conventions",
+      "Adding a diagnostic safely",
+      "Test ownership"
+    ],
+    "bytes": 4696,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "mkdocs.yml",
+        "line": 89,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/reference/repository-map.md",
+    "title": "Repository map",
+    "headings": [
+      "Repository map",
+      "Sources of truth",
+      "Where to begin",
+      "What each top-level area means",
+      "How to verify code yourself"
+    ],
+    "bytes": 3652,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "mkdocs.yml",
+        "line": 96,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/reference/schemas.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 9263,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4008,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13074,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13264,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 18,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 33,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 86,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/reference/validation.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 5443,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4008,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 19,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/publication-cleanup-log.md",
+        "line": 21,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 35,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/qa-and-analysis.md",
+        "line": 58,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 90,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/troubleshooting.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 6918,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3998,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/carry-on-wayward-son.md",
+        "line": 74,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 55,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 2
+  },
+  {
+    "path": "docs/tutorials/cloud-workflow.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 5267,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4009,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 54,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 2
+  },
+  {
+    "path": "docs/tutorials/micasense-to-landsat.md",
+    "title": "Tutorial: MicaSense Local Drone Workflow",
+    "headings": [
+      "Tutorial: MicaSense Local Drone Workflow",
+      "Inputs",
+      "Input contract",
+      "Run the drone pipeline",
+      "Production translation coefficients",
+      "Importing an exact completed bulk result",
+      "Confidence and evidence boundary",
+      "Outputs",
+      "Inspect the run",
+      "Translation and validation architecture"
+    ],
+    "bytes": 17889,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3500,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3614,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 44,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 14140,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 15631,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "README.md",
+        "line": 99,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/tutorials/neon-to-landsat.md",
+        "line": 148,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/drone-processing.md",
+        "line": 42,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/drone-processing.md",
+        "line": 234,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 9
+  },
+  {
+    "path": "docs/tutorials/neon-to-envi.md",
+    "title": "Tutorial: NEON \u2192 Corrected ENVI (BRDF + Topographic)",
+    "headings": [
+      "Tutorial: NEON \u2192 Corrected ENVI (BRDF + Topographic)",
+      "Overview",
+      "1. Set up a working directory",
+      "2. Run the pipeline for one flight line",
+      "3. What the corrected ENVI product contains",
+      "4. Inspect the corrected ENVI cube",
+      "5. Inspect QA outputs",
+      "6. Next steps"
+    ],
+    "bytes": 3074,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/tutorials/neon-to-landsat.md",
+        "line": 27,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 4
+  },
+  {
+    "path": "docs/tutorials/neon-to-landsat.md",
+    "title": "Tutorial: NEON -> Landsat-Style Reflectance",
+    "headings": [
+      "Tutorial: NEON -> Landsat-Style Reflectance",
+      "Prerequisites",
+      "1. Select a corrected ENVI cube",
+      "2. Run the pipeline",
+      "3. Understanding Landsat bandpass integration",
+      "4. Inspecting Landsat-style ENVI outputs",
+      "5. Checking QA outputs",
+      "6. Using the Parquet tables",
+      "Next steps"
+    ],
+    "bytes": 3668,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/tutorials/neon-to-envi.md",
+        "line": 128,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 5
+  },
+  {
+    "path": "docs/usage/cli.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 12167,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3983,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3990,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 26,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/usage/notebook-example.md",
+        "line": 111,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/data-acquisition.md",
+        "line": 50,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 80,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 9
+  },
+  {
+    "path": "docs/usage/notebook-example.md",
+    "title": "Start Here: Notebook Workflow",
+    "headings": [
+      "Start Here: Notebook Workflow",
+      "1) Minimal setup",
+      "2) Canonical single-flightline example",
+      "Where all artifacts will be written",
+      "Identify the NEON site and acquisition window for clarity",
+      "Run the structured, skip-aware pipeline for one flightline, including download",
+      "3) What gets created",
+      "4) Inspect results in the notebook",
+      "5) What to do next"
+    ],
+    "bytes": 3811,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/usage/recipes.md",
+        "line": 20,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/usage/recipes.md",
+        "line": 189,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 5
+  },
+  {
+    "path": "docs/usage/parquet.md",
+    "title": "HTML/frontmatter page",
+    "headings": [],
+    "bytes": 5044,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3998,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 32,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/tutorials/neon-to-envi.md",
+        "line": 130,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/tutorials/neon-to-landsat.md",
+        "line": 149,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/analysis-tables.md",
+        "line": 59,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/polygon-extraction.md",
+        "line": 61,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 84,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 5
+  },
+  {
+    "path": "docs/usage/parquet_preview.md",
+    "title": "Parquet Preview",
+    "headings": [
+      "Parquet Preview"
+    ],
+    "bytes": 549,
+    "markers": {},
+    "referenced_by": [],
+    "code_fences": 3
+  },
+  {
+    "path": "docs/usage/recipes.md",
+    "title": "Recipes: Notebook Patterns",
+    "headings": [
+      "Recipes: Notebook Patterns",
+      "Recipe 1: Run a single flightline (recap)",
+      "Recipe 2: Batch process multiple flightlines",
+      "Recipe 3: Re-run QA on existing outputs",
+      "Recipe 4: Load and explore the merged Parquet",
+      "Recipe 5: Extract spectra for polygons",
+      "Recipe 6: Compare sensors for the same targets",
+      "Example: pick a handful of pixels and compare corrected NEON vs Landsat-resampled bands",
+      "Where to go next"
+    ],
+    "bytes": 5988,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/usage/notebook-example.md",
+        "line": 108,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 8
+  },
+  {
+    "path": "docs/validation/brdf_correction.md",
+    "title": "Validation: BRDF correction",
+    "headings": [
+      "Validation: BRDF correction",
+      "What this module test exercises",
+      "Inputs varied",
+      "Checks and how to interpret them",
+      "Diagnostics recorded for every variation",
+      "Input variations and results",
+      "What a passing result establishes",
+      "Example from the real R10C test run",
+      "Expansion to 100 real variations",
+      "Reproduce or expand this module",
+      "Fast local evidence matrix (five variations per module)",
+      "Exercise 100 deterministic small-data variations per module"
+    ],
+    "bytes": 6004,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/validation/index.md",
+        "line": 37,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 67,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/validation/h5_to_envi.md",
+    "title": "Validation: HDF5 to raw ENVI",
+    "headings": [
+      "Validation: HDF5 to raw ENVI",
+      "What this module test exercises",
+      "Inputs varied",
+      "Checks and how to interpret them",
+      "Diagnostics recorded for every variation",
+      "Input variations and results",
+      "What a passing result establishes",
+      "Example from the real R10C test run",
+      "Expansion to 100 real variations",
+      "Reproduce or expand this module",
+      "Fast local evidence matrix (five variations per module)",
+      "Exercise 100 deterministic small-data variations per module"
+    ],
+    "bytes": 5891,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "HYTOOLS_PROVENANCE.md",
+        "line": 156,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/index.md",
+        "line": 35,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 65,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/validation/index.md",
+    "title": "Validation evidence",
+    "headings": [
+      "Validation evidence",
+      "Complete manuscript supplementary material",
+      "How to use this section",
+      "Current evidence",
+      "Two validation tiers",
+      "Example figures from the real test run",
+      "Recorded campaigns",
+      "Interpretation rules"
+    ],
+    "bytes": 6340,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4009,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 32,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 99,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 12,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 16,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 28,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/qa-code-map.md",
+        "line": 78,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/usage/recipes.md",
+        "line": 10,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 449,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4888,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/full-pipeline.md",
+        "line": 85,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 29,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 63,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 476,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 77,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 303,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 2021,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 111,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 449,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 32,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 35,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 59,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 74,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 82,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_validation_docs.py",
+        "line": 496,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tests/test_validation_docs.py",
+        "line": 74,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/validation/neon_download.md",
+    "title": "Validation: NEON HDF5 download",
+    "headings": [
+      "Validation: NEON HDF5 download",
+      "What this module test exercises",
+      "Inputs varied",
+      "Checks and how to interpret them",
+      "Diagnostics recorded for every variation",
+      "Input variations and results",
+      "What a passing result establishes",
+      "Example from the real R10C test run",
+      "Expansion to 100 real variations",
+      "Reproduce or expand this module",
+      "Fast local evidence matrix (five variations per module)",
+      "Exercise 100 deterministic small-data variations per module"
+    ],
+    "bytes": 5926,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/validation/index.md",
+        "line": 34,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 64,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/validation/parquet_csv.md",
+    "title": "Validation: Parquet extraction and CSV conversion",
+    "headings": [
+      "Validation: Parquet extraction and CSV conversion",
+      "What this module test exercises",
+      "Inputs varied",
+      "Checks and how to interpret them",
+      "Diagnostics recorded for every variation",
+      "Input variations and results",
+      "What a passing result establishes",
+      "Example from the real R10C test run",
+      "Expansion to 100 real variations",
+      "Reproduce or expand this module",
+      "Fast local evidence matrix (five variations per module)",
+      "Exercise 100 deterministic small-data variations per module"
+    ],
+    "bytes": 6340,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/validation/index.md",
+        "line": 39,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 69,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/validation/qa_plots.md",
+    "title": "Validation: QA plots and diagnostics",
+    "headings": [
+      "Validation: QA plots and diagnostics",
+      "What this module test exercises",
+      "Inputs varied",
+      "Checks and how to interpret them",
+      "Diagnostics recorded for every variation",
+      "Input variations and results",
+      "What a passing result establishes",
+      "Example from the real R10C test run",
+      "Expansion to 100 real variations",
+      "Reproduce or expand this module",
+      "Fast local evidence matrix (five variations per module)",
+      "Exercise 100 deterministic small-data variations per module"
+    ],
+    "bytes": 6315,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/validation/index.md",
+        "line": 41,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 71,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/validation/real-data-example.md",
+    "title": "Real flightline QA walkthrough",
+    "headings": [
+      "Real flightline QA walkthrough",
+      "Input and run scope",
+      "What happened",
+      "Reports and reproducibility artifacts",
+      "What this run could not evaluate",
+      "Bugs revealed by the real run"
+    ],
+    "bytes": 8314,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/dev/production-validation-record.md",
+        "line": 33,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/pipeline/stage-qa.md",
+        "line": 201,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/brdf_correction.md",
+        "line": 73,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/h5_to_envi.md",
+        "line": 73,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/index.md",
+        "line": 26,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/neon_download.md",
+        "line": 72,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/parquet_csv.md",
+        "line": 75,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/qa_plots.md",
+        "line": 75,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/save_restart.md",
+        "line": 72,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/sensor_convolution.md",
+        "line": 76,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 323,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4803,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/topographic_correction.md",
+        "line": 74,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 437,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 53,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 215,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 1965,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 77,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 323,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 61,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_validation_docs.py",
+        "line": 230,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_validation_docs.py",
+        "line": 282,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/validation/save_restart.md",
+    "title": "Validation: Save and restart behavior",
+    "headings": [
+      "Validation: Save and restart behavior",
+      "What this module test exercises",
+      "Inputs varied",
+      "Checks and how to interpret them",
+      "Diagnostics recorded for every variation",
+      "Input variations and results",
+      "What a passing result establishes",
+      "Example from the real R10C test run",
+      "Expansion to 100 real variations",
+      "Reproduce or expand this module",
+      "Fast local evidence matrix (five variations per module)",
+      "Exercise 100 deterministic small-data variations per module"
+    ],
+    "bytes": 5986,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/validation/index.md",
+        "line": 40,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 456,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4893,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 480,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 79,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 310,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 2025,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 113,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 456,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 70,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/validation/sensor_convolution.md",
+    "title": "Validation: Sensor convolution",
+    "headings": [
+      "Validation: Sensor convolution",
+      "What this module test exercises",
+      "Inputs varied",
+      "Checks and how to interpret them",
+      "Diagnostics recorded for every variation",
+      "Input variations and results",
+      "What a passing result establishes",
+      "Example from the real R10C test run",
+      "Expansion to 100 real variations",
+      "Reproduce or expand this module",
+      "Fast local evidence matrix (five variations per module)",
+      "Exercise 100 deterministic small-data variations per module"
+    ],
+    "bytes": 6333,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/validation/index.md",
+        "line": 38,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 463,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4898,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 317,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 463,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 68,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/validation/stage-qa-guide.md",
+    "title": "Stage QA test guide",
+    "headings": [
+      "Stage QA test guide",
+      "Status language",
+      "Real-run stage summary",
+      "Acquisition",
+      "Checks in this stage",
+      "Example figure from R10C",
+      "Explicitly unavailable diagnostics",
+      "Input reflectance",
+      "Checks in this stage",
+      "Example figure from R10C",
+      "Explicitly unavailable diagnostics",
+      "Correction parameters",
+      "Checks in this stage",
+      "Example figure from R10C",
+      "Explicitly unavailable diagnostics",
+      "BRDF and topographic correction",
+      "Checks in this stage",
+      "Example figure from R10C",
+      "Explicitly unavailable diagnostics",
+      "Spectral convolution and brightness",
+      "Checks in this stage",
+      "Example figure from R10C",
+      "Explicitly unavailable diagnostics",
+      "Parquet extraction and merge",
+      "Checks in this stage",
+      "Example figure from R10C",
+      "Explicitly unavailable diagnostics",
+      "Reproduce the stage reports"
+    ],
+    "bytes": 17774,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/reference/qa-code-map.md",
+        "line": 64,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/brdf_correction.md",
+        "line": 62,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/h5_to_envi.md",
+        "line": 62,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/index.md",
+        "line": 25,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/index.md",
+        "line": 34,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/index.md",
+        "line": 35,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/index.md",
+        "line": 36,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/index.md",
+        "line": 37,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/index.md",
+        "line": 38,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/index.md",
+        "line": 39,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/index.md",
+        "line": 40,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/index.md",
+        "line": 41,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/neon_download.md",
+        "line": 61,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/parquet_csv.md",
+        "line": 64,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/qa_plots.md",
+        "line": 64,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/real-data-example.md",
+        "line": 84,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/save_restart.md",
+        "line": 61,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/sensor_convolution.md",
+        "line": 61,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/topographic_correction.md",
+        "line": 63,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 62,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_validation_docs.py",
+        "line": 281,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_validation_docs.py",
+        "line": 499,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/validation_docs_content.py",
+        "line": 105,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/validation_docs_content.py",
+        "line": 165,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/validation_docs_content.py",
+        "line": 227,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/validation_docs_content.py",
+        "line": 289,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/validation_docs_content.py",
+        "line": 342,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/validation_docs_content.py",
+        "line": 402,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/validation_docs_content.py",
+        "line": 449,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/validation_docs_content.py",
+        "line": 510,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tests/test_validation_docs.py",
+        "line": 60,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/validation/supplement.md",
+    "title": "Complete manuscript supplement",
+    "headings": [
+      "Complete manuscript supplement"
+    ],
+    "bytes": 200675,
+    "markers": {
+      "fillme": 2
+    },
+    "referenced_by": [
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 21816,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 21845,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "README.md",
+        "line": 293,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/software-citation.md",
+        "line": 5,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 5,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/index.md",
+        "line": 9,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-coverage.json",
+        "line": 3,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/README.md",
+        "line": 12,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/README.md",
+        "line": 27,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/README.md",
+        "line": 107,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/google-docs/README.md",
+        "line": 15,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/submission-checks.json",
+        "line": 19,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/verification.json",
+        "line": 33,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 60,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/check_joss_submission.py",
+        "line": 153,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_supplement_docs.py",
+        "line": 24,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_supplement_docs.py",
+        "line": 57,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_supplement_docs.py",
+        "line": 99,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_supplement_docs.py",
+        "line": 107,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_supplement_docs.py",
+        "line": 112,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_supplement_docs.py",
+        "line": 118,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tests/test_supplement_docs.py",
+        "line": 25,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tests/test_supplement_docs.py",
+        "line": 35,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tests/test_supplement_docs.py",
+        "line": 63,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tests/test_supplement_docs.py",
+        "line": 65,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/validation/topographic_correction.md",
+    "title": "Validation: Topographic correction",
+    "headings": [
+      "Validation: Topographic correction",
+      "What this module test exercises",
+      "Inputs varied",
+      "Checks and how to interpret them",
+      "Diagnostics recorded for every variation",
+      "Input variations and results",
+      "What a passing result establishes",
+      "Example from the real R10C test run",
+      "Expansion to 100 real variations",
+      "Reproduce or expand this module",
+      "Fast local evidence matrix (five variations per module)",
+      "Exercise 100 deterministic small-data variations per module"
+    ],
+    "bytes": 6614,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/validation/index.md",
+        "line": 36,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 66,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/vignettes/analysis-tables.md",
+    "title": "Module vignette 4: build analysis tables",
+    "headings": [
+      "Module vignette 4: build analysis tables",
+      "Find the merged table",
+      "Explore without loading everything",
+      "Continue"
+    ],
+    "bytes": 1764,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 41,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/polygon-extraction.md",
+        "line": 58,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/sensor-harmonization.md",
+        "line": 45,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 48,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 4
+  },
+  {
+    "path": "docs/vignettes/bulk-analysis.md",
+    "title": "Build a bulk cross-run analysis",
+    "headings": [
+      "Build a bulk cross-run analysis",
+      "Generic input model",
+      "Analysis profiles and minimal archives",
+      "Run preflight first",
+      "Run the eligible population analysis",
+      "Output contract",
+      "Interpret a completed translation run",
+      "Visualize an existing polygon spectral library",
+      "Restart and provenance",
+      "Advanced extension"
+    ],
+    "bytes": 26633,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 10292,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13071,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13262,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 14141,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 20299,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 24,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 25,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 26,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 27,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/repository-map.md",
+        "line": 24,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 146,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 154,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4683,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4688,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 11,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 25,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 49,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 385,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 21,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 99,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 1885,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 1888,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 29,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 31,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 146,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 154,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 42,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 52,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/vignettes/carry-on-wayward-son.md",
+    "title": "Vignette: Carry On My Wayward Son",
+    "headings": [
+      "Vignette: Carry On My Wayward Son",
+      "The short version",
+      "What will happen",
+      "Keep the file contract intact",
+      "Special case: corrected ENVI exists but raw ENVI is missing",
+      "Diagnose before forcing a rerun"
+    ],
+    "bytes": 2893,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "START_HERE.md",
+        "line": 29,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 183,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4708,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/full-pipeline.md",
+        "line": 81,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 24,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/neon-correction.md",
+        "line": 46,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/qa-and-analysis.md",
+        "line": 56,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 394,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 27,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 122,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 1902,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 39,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 183,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 43,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 3
+  },
+  {
+    "path": "docs/vignettes/data-acquisition.md",
+    "title": "Module vignette 1: acquire NEON data",
+    "headings": [
+      "Module vignette 1: acquire NEON data",
+      "Download one flightline",
+      "Confirm the result",
+      "Continue"
+    ],
+    "bytes": 1922,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 36,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 45,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 3
+  },
+  {
+    "path": "docs/vignettes/drone-processing.md",
+    "title": "Module vignette 6: process drone imagery",
+    "headings": [
+      "Module vignette 6: process drone imagery",
+      "Scientific branches",
+      "Prepare inputs and coefficients",
+      "Run it",
+      "Standalone and comparison QA",
+      "Restart and outputs",
+      "Continue"
+    ],
+    "bytes": 12258,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/tutorials/micasense-to-landsat.md",
+        "line": 10,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/tutorials/micasense-to-landsat.md",
+        "line": 142,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 235,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4743,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 10,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 45,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 406,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 35,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 151,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 1923,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 53,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 235,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 40,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 50,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 4
+  },
+  {
+    "path": "docs/vignettes/drone-production.md",
+    "title": "Run a remote drone campaign through bulk production",
+    "headings": [
+      "Run a remote drone campaign through bulk production",
+      "Production call",
+      "Producer-to-bulk gate",
+      "Restart and disk behavior",
+      "Bulk and result semantics",
+      "Command line"
+    ],
+    "bytes": 7522,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 12,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 26,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 41,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 53,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 4
+  },
+  {
+    "path": "docs/vignettes/full-pipeline.md",
+    "title": "Vignette: run the full NEON pipeline",
+    "headings": [
+      "Vignette: run the full NEON pipeline",
+      "What you need",
+      "Run it",
+      "Confirm the result",
+      "Use the analysis-ready table",
+      "If the run stops"
+    ],
+    "bytes": 2595,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/quickstart.md",
+        "line": 8,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/usage/notebook-example.md",
+        "line": 10,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/carry-on-wayward-son.md",
+        "line": 78,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/data-acquisition.md",
+        "line": 49,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 9,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 23,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 39,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 3
+  },
+  {
+    "path": "docs/vignettes/index.md",
+    "title": "Choose a vignette",
+    "headings": [
+      "Choose a vignette",
+      "Start with your situation",
+      "Module vignettes",
+      "How to use these pages"
+    ],
+    "bytes": 4626,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4009,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 32,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 99,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/publication_cleanup_2026-06-02/README.md",
+        "line": 12,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 16,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/index.md",
+        "line": 28,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/qa-code-map.md",
+        "line": 78,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/usage/recipes.md",
+        "line": 10,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 449,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4888,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/full-pipeline.md",
+        "line": 85,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 476,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 77,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 303,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 2021,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 111,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 449,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 32,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 35,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 59,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 74,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 82,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_validation_docs.py",
+        "line": 496,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tests/test_validation_docs.py",
+        "line": 74,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/vignettes/neon-correction.md",
+    "title": "Module vignette 2: correct NEON reflectance",
+    "headings": [
+      "Module vignette 2: correct NEON reflectance",
+      "Run through the correction module",
+      "Confirm the checkpoint",
+      "Continue"
+    ],
+    "bytes": 1655,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/tutorials/neon-to-envi.md",
+        "line": 10,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/data-acquisition.md",
+        "line": 7,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/data-acquisition.md",
+        "line": 48,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 37,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 46,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 2
+  },
+  {
+    "path": "docs/vignettes/notebook-vignettes.md",
+    "title": "Runnable notebook vignettes",
+    "headings": [
+      "Runnable notebook vignettes",
+      "Opening them",
+      "What \u201crunnable\u201d means"
+    ],
+    "bytes": 4572,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/reference/repository-map.md",
+        "line": 48,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 28,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 67,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/notebooks/README.md",
+        "line": 9,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 36,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tests/test_example_entrypoints.py",
+        "line": 114,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/vignettes/notebooks/README.md",
+    "title": "SpectralBridge notebook vignettes",
+    "headings": [
+      "SpectralBridge notebook vignettes"
+    ],
+    "bytes": 1341,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": ".github/workflows/docs-drift.yml",
+        "line": 11,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "AGENTS.md",
+        "line": 27,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "AGENTS.md",
+        "line": 33,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "AGENTS.md",
+        "line": 90,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "AGENTS.md",
+        "line": 109,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "AGENTS.md",
+        "line": 327,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "CONTRIBUTING.md",
+        "line": 46,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3539,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 3549,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4002,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4089,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "FEATURE_REQUESTS.md",
+        "line": 4168,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "HYTOOLS_PROVENANCE.md",
+        "line": 157,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "MANIFEST.in",
+        "line": 1,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 43,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 2106,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 6673,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 6972,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 11418,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13070,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13254,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 13358,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 14134,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 21687,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 21806,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 21848,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "PROMPT_LOG.md",
+        "line": 21966,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 22,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "START_HERE.md",
+        "line": 42,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/docs/src_README.md",
+        "line": 4,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "deprecated/generated_docs/2026-06-02/docs/_build/doc_fix_summary.txt",
+        "line": 2,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/doi-zenodo.md",
+        "line": 62,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/publication-hardening-audit-2026-09-04.md",
+        "line": 191,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/publication-hardening-audit-2026-09-04.md",
+        "line": 292,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/publication-hardening-audit-2026-09-04.md",
+        "line": 537,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/release-hygiene.md",
+        "line": 13,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/release-hygiene.md",
+        "line": 73,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/dev/software-citation.md",
+        "line": 119,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/reference/repository-map.md",
+        "line": 41,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 397,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement-assets/supplement.bib",
+        "line": 404,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4853,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/validation/supplement.md",
+        "line": 4858,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/SUBMISSION_CHECKLIST.md",
+        "line": 24,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-extracted.txt",
+        "line": 463,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper-references-extracted.md",
+        "line": 67,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/paper.bib",
+        "line": 266,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-extracted.txt",
+        "line": 2004,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement-references-extracted.md",
+        "line": 99,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 397,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "drafts/joss/supplement.bib",
+        "line": 404,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "examples/README.md",
+        "line": 34,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "publication_checklist.md",
+        "line": 90,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "pyproject.toml",
+        "line": 9,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "scripts/generate_supplement_docs.py",
+        "line": 4,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tools/apply_doc_fixes.py",
+        "line": 38,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tools/apply_doc_fixes.py",
+        "line": 47,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tools/apply_doc_fixes.py",
+        "line": 48,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "tools/doc_drift_audit.py",
+        "line": 110,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 49,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 51,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 89,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 91,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 119,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 121,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 285,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 287,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 289,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 291,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 329,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 331,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 345,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 347,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 367,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 369,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 373,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "ty_tuff_contributions_last_year.md",
+        "line": 375,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 0
+  },
+  {
+    "path": "docs/vignettes/polygon-extraction.md",
+    "title": "Module vignette 7: extract polygon spectra",
+    "headings": [
+      "Module vignette 7: extract polygon spectra",
+      "What you need",
+      "Run it",
+      "Confirm the result",
+      "Continue"
+    ],
+    "bytes": 2072,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/vignettes/analysis-tables.md",
+        "line": 58,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/drone-processing.md",
+        "line": 233,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 47,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 51,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 1
+  },
+  {
+    "path": "docs/vignettes/qa-and-analysis.md",
+    "title": "Module vignette 5: review QA outputs",
+    "headings": [
+      "Module vignette 5: review QA outputs",
+      "Render QA from existing outputs",
+      "Review the result",
+      "Render from Python",
+      "Continue"
+    ],
+    "bytes": 1829,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/vignettes/analysis-tables.md",
+        "line": 57,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/drone-processing.md",
+        "line": 232,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 43,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/polygon-extraction.md",
+        "line": 59,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/sensor-harmonization.md",
+        "line": 46,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 49,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 2
+  },
+  {
+    "path": "docs/vignettes/sensor-harmonization.md",
+    "title": "Module vignette 3: harmonize target sensors",
+    "headings": [
+      "Module vignette 3: harmonize target sensors",
+      "Continue the standard run",
+      "Confirm the result",
+      "Continue"
+    ],
+    "bytes": 1646,
+    "markers": {},
+    "referenced_by": [
+      {
+        "path": "docs/tutorials/neon-to-landsat.md",
+        "line": 10,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/index.md",
+        "line": 39,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "docs/vignettes/neon-correction.md",
+        "line": 45,
+        "kind": "text mention; not proof of execution"
+      },
+      {
+        "path": "mkdocs.yml",
+        "line": 47,
+        "kind": "text mention; not proof of execution"
+      }
+    ],
+    "code_fences": 2
+  }
+]

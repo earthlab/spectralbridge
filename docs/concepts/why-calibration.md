@@ -1,7 +1,7 @@
 <div class="sb-doc-page" markdown="1">
 <section class="sb-doc-hero" markdown="1">
 <p class="sb-kicker">Concepts</p>
-<h1>Why cross-sensor calibration?</h1>
+<h1>Correction and cross-sensor comparison</h1>
 <p class="sb-doc-lead">SpectralBridge exists because airborne, drone, and satellite sensors do not observe the same landscape in directly comparable ways, even on the same day.</p>
 <div class="sb-doc-grid sb-doc-grid--three">
   <article class="sb-doc-card">
@@ -43,7 +43,7 @@
   </article>
   <article class="sb-doc-card">
     <h3>Sensor harmonization</h3>
-    <p>SpectralBridge then integrates corrected hyperspectral spectra against published sensor response functions to translate the data into another sensor's bandspace.</p>
+    <p>The NEON route applies configured sampled spectral weights to corrected hyperspectral spectra to construct sensor-like band representations. Recorded weight definitions and provenance must be reviewed; packaged centers and widths are not themselves measured sensor response curves.</p>
     <p>Optional brightness adjustments are documented in the QA outputs rather than applied opaquely.</p>
   </article>
 </div>
@@ -68,10 +68,10 @@
   </article>
   <article class="sb-doc-card">
     <h3>Cross-scale bridge</h3>
-    <p>NEON serves as the translating intermediary between fine-scale field or drone measurements and coarser Landsat observations.</p>
+    <p>NEON can provide a detailed spectral reference for a study that also includes drone and Landsat observations. Each observation retains its own acquisition and spatial support.</p>
   </article>
 </div>
-<p class="sb-doc-note"><strong>Drone → NEON → Landsat</strong> is the conceptual relationship. The package does not treat the drone workflow as a direct one-step Landsat conversion: it preserves drone-native outputs and builds corrected, sensor-harmonized NEON products as the inspectable cross-scale reference.</p>
+<p class="sb-doc-note"><strong>Common framework, sensor-specific treatment.</strong> A study may use NEON as a spectral reference for drone and Landsat comparisons. This is a study design, not a physical conversion chain or proof of sensor equivalence. Read <a href="../measurements/">the measurement concepts</a> before the technical details.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">
@@ -92,15 +92,15 @@
 <p class="sb-kicker">Where to go next</p>
 <h2>Continue into the workflow</h2>
 <div class="sb-doc-grid sb-doc-grid--three">
-  <a class="sb-doc-link-card" href="../pipeline/stages/">
+  <a class="sb-doc-link-card" href="../../pipeline/stages/">
     <strong>Pipeline stages</strong>
     <span>See what each stage consumes, writes, and validates.</span>
   </a>
-  <a class="sb-doc-link-card" href="../tutorials/neon-to-envi/">
+  <a class="sb-doc-link-card" href="../../tutorials/neon-to-envi/">
     <strong>NEON to corrected ENVI</strong>
     <span>Follow a stepwise workflow from HDF5 to corrected outputs.</span>
   </a>
-  <a class="sb-doc-link-card" href="../pipeline/qa/">
+  <a class="sb-doc-link-card" href="../../pipeline/qa/">
     <strong>QA panels and metrics</strong>
     <span>Review the artifacts that document each flight line.</span>
   </a>

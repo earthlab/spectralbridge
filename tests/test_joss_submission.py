@@ -15,7 +15,7 @@ SPEC.loader.exec_module(MODULE)
 
 
 def test_real_paper_contracts() -> None:
-    report = MODULE.check_paper(ROOT / "drafts/joss/paper.md")
+    report = MODULE.check_paper(ROOT / "paper/paper.md")
     assert not report["errors"]
     assert 750 <= report["word_count_including_captions"] <= 1750
     assert report["images"] == 3
@@ -37,7 +37,7 @@ def test_broken_bibliographies_are_rejected(text: str) -> None:
 
 
 def test_bad_citation_and_internal_reference_are_reported(tmp_path: Path) -> None:
-    source = ROOT / "drafts/joss/paper.md"
+    source = ROOT / "paper/paper.md"
     target = tmp_path / "paper.md"
     target.write_text(source.read_text() + "\n[@missing_citation] \\autoref{missing-figure}\n")
     (tmp_path / "paper.bib").write_text((source.parent / "paper.bib").read_text())
@@ -58,7 +58,7 @@ def test_orcid_checksum() -> None:
 
 
 def test_author_requests_are_not_mistaken_for_readiness() -> None:
-    source = ROOT / "drafts/joss/paper.md"
+    source = ROOT / "paper/paper.md"
     report = MODULE.check_paper(source)
     expected = "AUTHOR INPUT REQUIRED:" in source.read_text()
     assert bool(report["author_actions"]) == expected

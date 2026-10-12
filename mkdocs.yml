@@ -29,84 +29,84 @@ theme:
     repo: fontawesome/brands/github
 
 nav:
-  - Home: index.md
-
-  - Learn:
-      - Choose a vignette: vignettes/index.md
-      - Runnable notebooks: vignettes/notebook-vignettes.md
-      - Why cross-sensor calibration?: concepts/why-calibration.md
-      - Three pipelines:
-          - Run NEON flightlines: vignettes/full-pipeline.md
-          - Process drone imagery: vignettes/drone-processing.md
-          - Run remote drone production: vignettes/drone-production.md
-          - Analyze completed flightlines in bulk: vignettes/bulk-analysis.md
-          - Carry On My Wayward Son (resume a run): vignettes/carry-on-wayward-son.md
-      - Module vignettes:
-          - 1. Acquire NEON data: vignettes/data-acquisition.md
-          - 2. Correct NEON reflectance: vignettes/neon-correction.md
-          - 3. Harmonize target sensors: vignettes/sensor-harmonization.md
-          - 4. Build analysis tables: vignettes/analysis-tables.md
-          - 5. Review QA outputs: vignettes/qa-and-analysis.md
-          - 6. Process drone imagery: vignettes/drone-processing.md
-          - 7. Extract polygon spectra: vignettes/polygon-extraction.md
-          - 8. Build a bulk cross-run analysis: vignettes/bulk-analysis.md
-          - 9. Run remote drone production: vignettes/drone-production.md
-      - Run on cloud or HPC: tutorials/cloud-workflow.md
-      - Troubleshooting: troubleshooting.md
-      - FAQ: faq.md
-
-  - Validation:
-      - Evidence overview: validation/index.md
-      - Complete manuscript supplement: validation/supplement.md
-      - Real flightline walkthrough: validation/real-data-example.md
-      - Stage QA test guide: validation/stage-qa-guide.md
-      - Module evidence:
-          - NEON HDF5 download: validation/neon_download.md
-          - HDF5 to raw ENVI: validation/h5_to_envi.md
-          - Topographic correction: validation/topographic_correction.md
-          - BRDF correction: validation/brdf_correction.md
-          - Sensor convolution: validation/sensor_convolution.md
-          - Parquet and CSV: validation/parquet_csv.md
-          - Save and restart behavior: validation/save_restart.md
-          - QA plots and diagnostics: validation/qa_plots.md
-
-  - Technical reference:
-      - Reference map: reference/index.md
-      - Pipeline contracts:
-          - Stage order and restart behavior: pipeline/stages.md
-          - Outputs and file structure: pipeline/outputs.md
-          - Naming conventions: naming-conventions.md
-      - Interfaces:
-          - Command-line interface: usage/cli.md
-          - Configuration: reference/configuration.md
-          - Python API: api/index.md
-      - Data and validation:
-          - Working with Parquet: usage/parquet.md
-          - JSON file catalog: reference/json-catalog.md
-          - JSON schemas: reference/schemas.md
-          - QA panels and metrics: pipeline/qa.md
-          - Stage-by-stage scientific QA: pipeline/stage-qa.md
-          - QA implementation map: reference/qa-code-map.md
-          - Validation metrics: reference/validation.md
-      - Algorithms and extension:
-          - BRDF and topographic correction: brdf_topo_algorithm.md
-          - Add a custom correction: reference/custom-correction-hook.md
-          - Extending SpectralBridge: reference/extending.md
-      - Runtime and internals:
-          - Repository map: reference/repository-map.md
-          - Environment: env.md
-          - Package architecture: dev/architecture.md
-          - Container and remote helpers: dev/container-workflows.md
-
-  - Project:
-      - Contributing: dev/contributing.md
-      - Releasing: dev/releasing.md
-      - Production validation record: dev/production-validation-record.md
-      - Software citation: dev/software-citation.md
-      - DOI and Zenodo status: dev/doi-zenodo.md
-      - HyTools manuscript guidance: hytools_manuscript_guidance.md
-      - Publication readiness audit: dev/publication-readiness-audit-2026-08-14.md
-      - AI transparency statement: ai-transparency.md
+- Home: index.md
+- Understand:
+  - Measurement basics: concepts/measurements.md
+  - Correction and comparison: concepts/why-calibration.md
+- Use:
+  - First example and installation: getting-started.md
+  - Choose a workflow: vignettes/index.md
+  - NEON flightlines: vignettes/full-pipeline.md
+  - Drone imagery: vignettes/drone-processing.md
+  - Bulk analysis: vignettes/bulk-analysis.md
+  - Spectral libraries: vignettes/spectral-library.md
+  - Remote drone production: vignettes/drone-production.md
+  - Runnable notebooks: vignettes/notebook-vignettes.md
+  - Resume a run: vignettes/carry-on-wayward-son.md
+  - Cloud and HPC: tutorials/cloud-workflow.md
+  - Outputs: pipeline/outputs.md
+  - CLI: usage/cli.md
+  - Troubleshooting: troubleshooting.md
+  - FAQ: faq.md
+- Validate:
+  - Evidence hierarchy: validation/evidence-hierarchy.md
+  - Evidence overview: validation/index.md
+  - Stage QA: validation/stage-qa-guide.md
+  - Real flightline walkthrough: validation/real-data-example.md
+  - QA panels and metrics: pipeline/qa.md
+  - Module contract evidence:
+    - NEON acquisition: validation/neon_download.md
+    - HDF5 to ENVI: validation/h5_to_envi.md
+    - Topographic correction: validation/topographic_correction.md
+    - BRDF correction: validation/brdf_correction.md
+    - Spectral weighting: validation/sensor_convolution.md
+    - Tables: validation/parquet_csv.md
+    - Restart: validation/save_restart.md
+    - QA plots: validation/qa_plots.md
+  - Publication evidence:
+    - Technical supplement: validation/supplement.md
+    - Software/method provenance: hytools_manuscript_guidance.md
+    - AI transparency: ai-transparency.md
+- Reference:
+  - Reference map: reference/index.md
+  - Literature sources: reference/literature.md
+  - Stage and filename contracts:
+    - Stage order: pipeline/stages.md
+    - Naming conventions: naming-conventions.md
+    - Parquet: usage/parquet.md
+  - Configuration and data:
+    - Configuration: reference/configuration.md
+    - JSON catalog: reference/json-catalog.md
+    - Schemas: reference/schemas.md
+    - Validation metrics: reference/validation.md
+  - Algorithms and QA:
+    - BRDF and topographic methods: brdf_topo_algorithm.md
+    - Scientific QA by stage: pipeline/stage-qa.md
+    - QA implementation map: reference/qa-code-map.md
+  - Module workflows:
+    - Acquire NEON: vignettes/data-acquisition.md
+    - Correct NEON: vignettes/neon-correction.md
+    - Target-band weighting: vignettes/sensor-harmonization.md
+    - Analysis tables: vignettes/analysis-tables.md
+    - QA review: vignettes/qa-and-analysis.md
+    - Polygon extraction: vignettes/polygon-extraction.md
+- Develop:
+  - Repository map: reference/repository-map.md
+  - Architecture: dev/architecture.md
+  - API: api/index.md
+  - Environment: env.md
+  - Extending:
+    - Custom correction hook: reference/custom-correction-hook.md
+    - Extend sensors and algorithms: reference/extending.md
+  - Tests and contribution: dev/contributing.md
+  - CI ownership: dev/ci.md
+  - Release gates: dev/releasing.md
+  - Software citation: dev/software-citation.md
+  - DOI status: dev/doi-zenodo.md
+  - Production validation record: dev/production-validation-record.md
+  - Containers and remote helpers: dev/container-workflows.md
+  - Historical records: dev/history.md
+  - Retained page catalog: page-catalog.md
 plugins:
   - search
   - mkdocstrings:

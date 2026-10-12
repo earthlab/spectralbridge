@@ -78,7 +78,10 @@ jobs:
           python scripts/generate_ai_transparency.py --check
           python scripts/generate_validation_docs.py --check
           python scripts/check_docs_links.py
+          python scripts/generate_supplement_docs.py --check
+          python scripts/check_joss_submission.py
           mkdocs build --strict
+          python scripts/check_built_site.py site
 
   build:
     name: Release / build exact candidate once

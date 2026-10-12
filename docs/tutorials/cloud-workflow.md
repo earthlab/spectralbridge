@@ -115,15 +115,15 @@ spectralbridge-pipeline \
 <p class="sb-kicker">Where to go next</p>
 <h2>Related pages</h2>
 <div class="sb-doc-grid sb-doc-grid--three">
-  <a class="sb-doc-link-card" href="../pipeline/stages/">
+  <a class="sb-doc-link-card" href="../../pipeline/stages/">
     <strong>Pipeline stages</strong>
     <span>See which stages dominate runtime and disk usage.</span>
   </a>
-  <a class="sb-doc-link-card" href="../usage/parquet/">
+  <a class="sb-doc-link-card" href="../../usage/parquet/">
     <strong>Working with parquet outputs</strong>
     <span>Use the authoritative tabular products downstream.</span>
   </a>
-  <a class="sb-doc-link-card" href="../troubleshooting/">
+  <a class="sb-doc-link-card" href="../../troubleshooting/">
     <strong>Troubleshooting</strong>
     <span>Recover safely from partial jobs or cluster interruptions.</span>
   </a>

@@ -78,15 +78,15 @@
 <p class="sb-kicker">Related pages</p>
 <h2>Where to go next</h2>
 <div class="sb-doc-grid sb-doc-grid--three">
-  <a class="sb-doc-link-card" href="qa/">
+  <a class="sb-doc-link-card" href="../qa/">
     <strong>QA panels and metrics</strong>
     <span>Higher-level overview of QA artefacts and metric families.</span>
   </a>
-  <a class="sb-doc-link-card" href="../reference/validation/">
+  <a class="sb-doc-link-card" href="../../reference/validation/">
     <strong>Validation metrics</strong>
     <span>Metric definitions and interpretation guidance.</span>
   </a>
-  <a class="sb-doc-link-card" href="outputs/">
+  <a class="sb-doc-link-card" href="../outputs/">
     <strong>Outputs and file structure</strong>
     <span>Locate the QA files next to ENVI and parquet products.</span>
   </a>

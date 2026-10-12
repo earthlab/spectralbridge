@@ -1,42 +1,12 @@
-# Datasets
+# Historical study datasets
 
-## Overview
-This folder stores static geographic datasets used as inputs or examples in
-the calibration workflow. The files include vector polygons and spectral
-lookup tables that help you test the pipeline without downloading large
-archives.
+These vector layers and MicaSense spreadsheet are retained for active and historical
+notebook inputs. They are research material, not installed package fixtures or
+universal spectral-response definitions. Installed metadata lives in
+`src/spectralbridge/data/` and remains authoritative for current runtime behavior.
 
-## Prerequisites
-- A GIS application or library capable of reading `.gpkg` and `.xlsx` files
-- Optional: NEON flightline identifiers for context
-
-## Step-by-step tutorial
-1. Inspect a polygon dataset:
-
-```bash
-ogrinfo Datasets/niwot_aop_macrosystems_data_2023_12_8_23.gpkg -summary
-```
-
-2. Use the polygons when extracting spectra by passing the file path to
-   `process_base_folder`:
-
-```python
-from src.extraction import process_base_folder
-
-process_base_folder(
-    base_folder="data/NIWO_2023_08",
-    polygon_layer="Datasets/niwot_aop_macrosystems_data_2023_12_8_23.gpkg",
-)
-```
-
-## Reference
-- `Micasense band centers.xlsx` – band center definitions for MicaSense sensors
-- `niwot_aop_macrosystems_data_2023_12_8_23.gpkg` – example AOI polygons
-- `niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg` – analysis
-  subset of the above polygons
-
-## Next steps
-You can add your own datasets to this directory and reference them in the
-pipeline configurations.
-
-Last updated: 2025-08-14
+The `Drone_processing.ipynb` research notebook refers to the Niwot polygon GPKG
+here, so its path is preserved. Provenance, redistribution terms and external data
+hosting require maintainer review before removal. For new studies, supply your own
+verified polygons and follow `docs/vignettes/polygon-extraction.md`; do not use the
+former `src.extraction` example, which is not the current public API.

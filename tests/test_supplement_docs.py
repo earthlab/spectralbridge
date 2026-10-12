@@ -32,36 +32,36 @@ def test_complete_supplement_and_download_bundle():
     with zipfile.ZipFile(io.BytesIO(generated[
         "docs/validation/supplement-assets/supplement-source.zip"
     ])) as archive:
-        assert archive.read("supplement.md") == (ROOT / "drafts/joss/supplement.md").read_bytes()
-        assert archive.read("supplement.bib") == (ROOT / "drafts/joss/supplement.bib").read_bytes()
+        assert archive.read("supplement.md") == (ROOT / "paper/supplement.md").read_bytes()
+        assert archive.read("supplement.bib") == (ROOT / "paper/supplement.bib").read_bytes()
         assert len([x for x in archive.namelist() if x.startswith("figures/")]) == 23
     assert "0.6938–0.8317" in page
     assert "0.5529" in page
 
 
 def test_missing_table_is_rejected(tmp_path):
-    draft = tmp_path / "drafts/joss"
-    draft.mkdir(parents=True)
-    original = (ROOT / "drafts/joss/supplement.html").read_text()
-    (draft / "supplement.html").write_text(original.replace("<table>", "<missing-table>", 1))
+    draft = tmp_path / "paper"
+    (draft / "generated").mkdir(parents=True)
+    original = (ROOT / "paper/generated/supplement.html").read_text()
+    (draft / "generated/supplement.html").write_text(original.replace("<table>", "<missing-table>", 1))
     with pytest.raises(AssertionError, match="23 editable SI tables"):
         MODULE.outputs(tmp_path)
 
 
 def test_missing_reference_is_rejected(tmp_path):
-    draft = tmp_path / "drafts/joss"
-    draft.mkdir(parents=True)
-    original = (ROOT / "drafts/joss/supplement.html").read_text()
-    (draft / "supplement.html").write_text(original.replace('id="ref-', 'id="missing-ref-', 1))
+    draft = tmp_path / "paper"
+    (draft / "generated").mkdir(parents=True)
+    original = (ROOT / "paper/generated/supplement.html").read_text()
+    (draft / "generated/supplement.html").write_text(original.replace('id="ref-', 'id="missing-ref-', 1))
     with pytest.raises(AssertionError, match="all SI references"):
         MODULE.outputs(tmp_path)
 
 
 def test_editing_si_requires_fresh_html_render(tmp_path):
-    draft = tmp_path / "drafts/joss"
-    draft.mkdir(parents=True)
-    for name in ("supplement.html", "supplement.md", "supplement.bib"):
-        (draft / name).write_bytes((ROOT / "drafts/joss" / name).read_bytes())
+    draft = tmp_path / "paper"
+    (draft / "generated").mkdir(parents=True)
+    for name in ("generated/supplement.html", "supplement.md", "supplement.bib"):
+        (draft / name).write_bytes((ROOT / "paper" / name).read_bytes())
     source = draft / "supplement.md"
     source.write_text(source.read_text() + "\nA new author edit.\n")
     with pytest.raises(AssertionError, match="SI HTML is stale"):

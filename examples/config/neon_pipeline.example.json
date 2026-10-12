@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "about": {
-    "purpose": "Complete restart-safe NEON HDF5 to corrected ENVI, Landsat-compatible products, Parquet, and QA workflow.",
+    "purpose": "Complete restart-safe NEON HDF5 to corrected ENVI, configured Landsat-like representations, Parquet, and QA workflow.",
     "edit_before_run": [
       "pipeline.base_folder",
       "pipeline.site_code",

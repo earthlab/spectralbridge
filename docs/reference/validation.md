@@ -106,15 +106,15 @@
 <p class="sb-kicker">Where to go next</p>
 <h2>Related pages</h2>
 <div class="sb-doc-grid sb-doc-grid--three">
-  <a class="sb-doc-link-card" href="../pipeline/qa/">
+  <a class="sb-doc-link-card" href="../../pipeline/qa/">
     <strong>QA panels &amp; metrics</strong>
     <span>See how the visual QA pages present these summaries.</span>
   </a>
-  <a class="sb-doc-link-card" href="schemas/">
+  <a class="sb-doc-link-card" href="../schemas/">
     <strong>JSON schemas</strong>
     <span>Review the structured files that carry these metrics.</span>
   </a>
-  <a class="sb-doc-link-card" href="../troubleshooting/">
+  <a class="sb-doc-link-card" href="../../troubleshooting/">
     <strong>Troubleshooting</strong>
     <span>Use QA outputs to diagnose failed or questionable runs.</span>
   </a>

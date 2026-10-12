@@ -13,7 +13,7 @@ When documentation and an old exploratory file disagree, use this order:
 3. `docs/` — current user and developer documentation;
 4. `examples/` and `docs/vignettes/notebooks/` — editable adapters over the
    current package;
-5. `deprecated/` and site-specific root scripts — provenance only.
+5. `archive/`, `provenance/` and `deprecated/` — historical research and provenance; tested transfer interfaces retain stable root paths.
 
 ## Where to begin
 
@@ -40,7 +40,10 @@ When documentation and an old exploratory file disagree, use this order:
 | `docs/vignettes/notebooks/` | Interactive runners | Current ordered notebook set, including independent bulk analysis, with processing disabled until configured |
 | `scripts/` | Operations and maintenance | Read `scripts/README.md`; not every script is a user entry point |
 | `validation/` | Evidence | Separates campaign plans from generated observations |
-| `data/` | Example/local data | Installed code uses `src/spectralbridge/data/`, not this directory |
+| `data/`, `Datasets/` | Historical study inputs | Retained for notebook compatibility; installed code uses `src/spectralbridge/data/` |
+| `paper/` | Publication | Canonical manuscript/SI Markdown, BibTeX and figures; archive/ and generated/ separate snapshots/derivatives |
+| `archive/` | Research history | Campaign notebooks, polygon layers and supplied bulk evidence; immutable snapshots |
+| `provenance/` | Attribution and history | Prompt history, HyTools record, forensic audits and migration ledger |
 | `deprecated/` | Provenance | Do not use as the basis for new code |
 
 The root `Drone_processing.ipynb` and `Raster_processing.ipynb` are retained
@@ -62,3 +65,16 @@ python scripts/check_docs_links.py
 For scientific parameter changes, also run the coefficient, correction, or
 convolution tests named in the [JSON catalog](json-catalog.md) and inspect the
 resulting QA, not only the test exit status.
+
+## Compatibility interfaces
+
+`FEATURE_REQUESTS.md` and `HYTOOLS_PROVENANCE.md` remain at root because agents,
+release/attribution tooling and citations rely on them. `PROMPT_LOG.md` points to
+its canonical provenance location. Root polygon symlinks preserve active/historical
+notebook paths. The root `gocmd` is a portable launcher; install the official
+platform-specific client as described in [container/remote guidance](../dev/container-workflows.md).
+Root transfer helpers are retained because tests and external callers import them.
+New users should use the supported package workflows, not historical scripts.
+
+The [cleanup record](https://github.com/earthlab/spectralbridge/tree/main/provenance/cleanup/2026-10-12)
+contains the full artifact inventory, risk decisions and checksummed move ledger.

@@ -110,18 +110,18 @@
     <p><code>&lt;flight_id&gt;_qa.png</code>, <code>&lt;flight_id&gt;_qa.json</code>, and optional PDF output.</p>
   </article>
 </div>
-<p>QA artefacts come from <code>render_flightline_panel</code> and follow the same canonical stems described in <a href="outputs/">Outputs &amp; File Structure</a>.</p>
+<p>QA artefacts come from <code>render_flightline_panel</code> and follow the same canonical stems described in <a href="../outputs/">Outputs &amp; File Structure</a>.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">Next steps</p>
 <h2>Related pages</h2>
 <div class="sb-doc-grid sb-doc-grid--two">
-  <a class="sb-doc-link-card" href="outputs/">
+  <a class="sb-doc-link-card" href="../outputs/">
     <strong>Outputs &amp; file structure</strong>
     <span>See the on-disk contract that downstream analyses should rely on.</span>
   </a>
-  <a class="sb-doc-link-card" href="qa/">
+  <a class="sb-doc-link-card" href="../qa/">
     <strong>QA panels &amp; metrics</strong>
     <span>Understand the visual and numeric checks generated after processing.</span>
   </a>

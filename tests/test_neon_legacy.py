@@ -4,7 +4,7 @@ from spectralbridge.io.neon_legacy import detect_legacy_neon_schema, resolve_neo
 
 
 def _mk_h5(struct):
-    f = h5py.File(b":memory:", "w")
+    f = h5py.File(b":memory:", "w", driver="core", backing_store=False)
     for path, payload in struct.items():
         grp = f
         parts = path.strip("/").split("/")
@@ -45,3 +45,10 @@ def test_detect_legacy_false():
         assert p.wavelength.endswith("wavelength")
     finally:
         f.close()
+
+
+def test_memory_fixture_does_not_create_a_working_directory_file(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    with _mk_h5({"Reflectance/Reflectance_Data": [0]}) as fixture:
+        assert fixture.driver == "core"
+    assert not (tmp_path / ":memory:").exists()

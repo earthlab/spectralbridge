@@ -20,16 +20,17 @@ CI workflows enforce the invariants above:
 - **Lint + smoke (`ci.yml`, lite job):** `ruff check src tests` and `pytest -q -m "lite"` with `CSCAL_TEST_MODE=lite` on Python 3.11.
 - **Full tests (`ci.yml`, unit job):** `pytest -q` with `CSCAL_TEST_MODE=unit` after lite completes.
 - **QA quick check (`qa-ci.yml`):** runs `pytest tests/test_qa -q` and renders a QA fixture image/JSON to ensure `_qa.*` outputs remain consistent.
-- **Docs build + browser smoke (`docs.yml`):** `python tools/site_prepare.py`, `mkdocs build --strict`, Playwright browser checks for key pages/search/assets, plus a best-effort link check.
+- **Docs build + browser smoke (`docs.yml`):** generated-record and internal-link checks, `mkdocs build --strict`, and Playwright browser checks; uploads a verified site artifact without deployment. `gh-pages.yml` alone publishes that artifact. See [CI ownership](ci.md).
 - **Docs drift (`docs-drift.yml`):** `python tools/doc_drift_audit.py` flags missing mentions of critical artifacts; `_merged_pixel_extraction.parquet` and `_qa.png` are treated as required outputs in examples.
 
 Run the key checks locally before opening a PR:
 
 ```bash
-ruff check src tests
+ruff check src tests scripts
 python -m pytest -m lite
 python -m pytest
-python tools/site_prepare.py && mkdocs build --strict
+mkdocs build --strict
+python scripts/check_built_site.py site
 python scripts/check_docs_links.py
 SPECTRALBRIDGE_DOCS_SITE=http://127.0.0.1:8000 python -m pytest tests/test_docs_playwright.py
 ```

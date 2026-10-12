@@ -8,7 +8,7 @@ from spectralbridge.pipelines.pipeline import _to_canonical_table
 
 
 def _mk_h5(struct):
-    f = h5py.File(b":memory:", "w")
+    f = h5py.File(b":memory:", "w", driver="core", backing_store=False)
     for path, arr in struct.items():
         grp = f
         parts = path.strip("/").split("/")

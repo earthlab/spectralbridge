@@ -9,26 +9,56 @@ hide:
   <section class="sb-hero">
     <div class="sb-hero__copy">
       <p class="sb-eyebrow">NEON flightlines · drone imagery · bulk analysis</p>
-      <h1 id="spectralbridge"><span>Three pipelines.</span><span>Traceable evidence.</span></h1>
-      <p class="sb-hero__lead">Process reflectance and inspect cross-sensor relationships at each scale.</p>
-      <p class="sb-hero__body">The NEON pipeline corrects and spectrally convolves individual flightlines. The drone pipeline corrects local imagery and can apply reviewed, wavelength-aware affine coefficients without convolution. The independent bulk pipeline studies completed flightlines together and reports coefficient stability and transferability. Each keeps its own outputs and QA trail.</p>
+      <h1 id="spectralbridge"><span>Same place.</span><span>Many views.</span></h1>
+      <p class="sb-hero__lead">Different sensors see the same landscape differently.</p>
+      <p class="sb-hero__body">SpectralBridge prepares observations of reflected light for comparison. Reflectance describes how a surface returns incoming light under stated conditions. The software records processing choices and checks so you can inspect what changed and decide what the observations support.</p>
       <div class="sb-button-row">
-        <a class="sb-button sb-button--primary" href="vignettes/">Learn by doing</a>
-        <a class="sb-button sb-button--secondary" href="vignettes/notebook-vignettes/">Open runnable notebooks</a>
+        <a class="sb-button sb-button--primary" href="concepts/measurements/">Understand the measurements</a>
+        <a class="sb-button sb-button--secondary" href="getting-started/">Run the first example</a>
       </div>
     </div>
     <div class="sb-hero__art">
-      <img src="asset/img/spectralbridge_logo.png" alt="SpectralBridge uses NEON airborne observations to connect drone and Landsat reflectance">
-      <p>Drone <span>→</span> NEON <span>→</span> Landsat</p>
+      <img src="asset/img/spectralbridge_logo.png" alt="SpectralBridge logo">
+      <p>Common framework. Sensor-specific treatment.</p>
     </div>
   </section>
 
   <section class="sb-manifesto">
     <p class="sb-kicker">Why it exists</p>
-    <h2>Three workflows. One inspectable evidence chain.</h2>
-    <p>Use NEON processing for individual hyperspectral flightlines, drone processing for local MicaSense imagery, and bulk analysis for population-level comparisons across completed runs. Synthetic matched-product relationships are diagnostic candidates, not universal empirical calibration.</p>
+    <h2>One landscape, different measurements.</h2>
+    <p>NEON airborne instruments record reflected light across many narrow wavelength ranges. Drones such as those carrying MicaSense cameras provide fine local observations. Landsat satellites observe wider areas with larger ground footprints. SpectralBridge gives these systems a common framework while treating each according to how it was collected. Configured Landsat-like bands do not prove agreement with Landsat observations; aligning or aggregating ground footprints remains a separate scientific decision.</p>
+    <p>SpectralBridge applies configured corrections, constructs sensor-like wavelength bands from NEON observations, and compares completed products. Drone observations follow their own preparation path. The software preserves the meaning of each measurement and records the choices needed to review it.</p>
   </section>
 
+  <section class="sb-section sb-section--routes">
+    <div class="sb-section__intro">
+      <p class="sb-kicker">Choose your way in</p>
+      <h2>Choose the pipeline for your inputs.</h2>
+    </div>
+    <div class="sb-card-grid sb-card-grid--three">
+      <a class="sb-route-card sb-route-card--yellow" href="vignettes/full-pipeline/">
+        <span class="sb-route-card__number">01</span>
+        <h3>NEON flightlines</h3>
+        <p>Prepare detailed airborne spectra, apply configured corrections, construct sensor-like bands, and inspect outputs.</p>
+        <strong>Run the NEON vignette →</strong>
+      </a>
+      <a class="sb-route-card sb-route-card--teal" href="vignettes/drone-processing/">
+        <span class="sb-route-card__number">02</span>
+        <h3>Drone imagery</h3>
+        <p>Prepare supported local imagery while retaining the drone observation’s identity and its own correction path.</p>
+        <strong>Run the drone vignette →</strong>
+      </a>
+      <a class="sb-route-card sb-route-card--paper" href="vignettes/bulk-analysis/">
+        <span class="sb-route-card__number">03</span>
+        <h3>Bulk analysis</h3>
+        <p>Compare completed products across flightlines and sites; inspect how relationships and uncertainties vary.</p>
+        <strong>Run the bulk vignette →</strong>
+      </a>
+    </div>
+  </section>
+
+  <details class="sb-advanced-views">
+    <summary>Explore the technical figures</summary>
   <section class="sb-science-story" aria-labelledby="sb-science-story-title">
     <div class="sb-science-story__intro">
       <p class="sb-kicker">The system at a glance</p>
@@ -73,7 +103,7 @@ hide:
               <image xlink:href="images/homepage/spectralbridge-technical-overview.png" width="1536" height="1024"></image>
             </svg>
           </a>
-          <figcaption>Each correction and calibration step remains visible at its original technical detail.</figcaption>
+          <figcaption>The source figure is a conceptual research diagram. Its calibration labels do not certify independent sensor agreement; current drone and NEON processing routes differ.</figcaption>
         </figure>
       </div>
     </article>
@@ -89,7 +119,7 @@ hide:
         <figure class="sb-science-panel__figure">
           <a href="images/homepage/spectralbridge-technical-overview.png" aria-label="Open the complete technical overview at full resolution">
             <svg viewBox="1010 140 510 760" role="img" aria-labelledby="sb-network-title sb-network-desc" xmlns:xlink="http://www.w3.org/1999/xlink">
-              <title id="sb-network-title">Empirical translation network among NEON, MicaSense, and Landsat</title>
+              <title id="sb-network-title">Conceptual comparison network among NEON, MicaSense, and Landsat</title>
               <desc id="sb-network-desc">The supplied technical sensor triangle showing translation relationships among NEON hyperspectral, MicaSense UAS multispectral, and Landsat Collection 2 NBAR observations.</desc>
               <image xlink:href="images/homepage/spectralbridge-technical-overview.png" width="1536" height="1024"></image>
             </svg>
@@ -100,45 +130,20 @@ hide:
     </article>
 
     <ul class="sb-science-principles" aria-label="SpectralBridge workflow principles">
-      <li><strong>Deterministic</strong><span>Same input, same output</span></li>
-      <li><strong>Restartable</strong><span>Resume from any stage</span></li>
-      <li><strong>Versioned</strong><span>Code, parameters, and data tracked</span></li>
+      <li><strong>Deterministic</strong><span>Fixed inputs and configuration</span></li>
+      <li><strong>Restartable</strong><span>Reuse validated products</span></li>
+      <li><strong>Versioned</strong><span>Record software and parameters</span></li>
       <li><strong>Provenance tracked</strong><span>Inputs, models, and outputs</span></li>
-      <li><strong>Open and reproducible</strong><span>Transparent and extensible</span></li>
+      <li><strong>Open evidence</strong><span>Inspect sources and gaps</span></li>
     </ul>
   </section>
 
-  <section class="sb-section sb-section--routes">
-    <div class="sb-section__intro">
-      <p class="sb-kicker">Choose your way in</p>
-      <h2>Choose the pipeline for your inputs.</h2>
-    </div>
-    <div class="sb-card-grid sb-card-grid--three">
-      <a class="sb-route-card sb-route-card--yellow" href="vignettes/full-pipeline/">
-        <span class="sb-route-card__number">01</span>
-        <h3>NEON flightlines</h3>
-        <p>Correct hyperspectral data, convolve to target sensors, extract tables, and inspect QA.</p>
-        <strong>Run the NEON vignette →</strong>
-      </a>
-      <a class="sb-route-card sb-route-card--teal" href="vignettes/drone-processing/">
-        <span class="sb-route-card__number">02</span>
-        <h3>Drone imagery</h3>
-        <p>Process local TIFF/HDF5, retain corrected native MicaSense, and optionally translate.</p>
-        <strong>Run the drone vignette →</strong>
-      </a>
-      <a class="sb-route-card sb-route-card--paper" href="vignettes/bulk-analysis/">
-        <span class="sb-route-card__number">03</span>
-        <h3>Bulk analysis</h3>
-        <p>Analyze a curated tree of completed flightlines with compact fits, LOSO, and reporting.</p>
-        <strong>Run the bulk vignette →</strong>
-      </a>
-    </div>
-  </section>
+  </details>
 
   <section class="sb-section sb-section--workflow">
     <div class="sb-section__intro">
       <p class="sb-kicker">The NEON processing path</p>
-      <h2>Raw signal in. Traceable products out.</h2>
+      <h2>Source observations in. Traceable products out.</h2>
       <p class="sb-subtitle">The five steps below describe the individual-flightline NEON workflow. Drone and bulk follow their own linked vignettes above.</p>
     </div>
     <div class="sb-workflow">
@@ -146,7 +151,7 @@ hide:
       <div class="sb-workflow__step"><span>02</span>Correct</div>
       <div class="sb-workflow__step"><span>03</span>Harmonize</div>
       <div class="sb-workflow__step"><span>04</span>Tabulate</div>
-      <div class="sb-workflow__step"><span>05</span>Validate</div>
+      <div class="sb-workflow__step"><span>05</span>Review QA</div>
     </div>
   </section>
 
@@ -157,7 +162,7 @@ hide:
     </div>
     <div>
       <p>Validation campaigns record input variation, expected behavior, observed diagnostics, runtime, provenance, and failures. QA panels turn those records into something scientists can inspect.</p>
-      <a href="validation/">See how SpectralBridge is validated →</a>
+      <a href="validation/evidence-hierarchy/">Distinguish tests, QA and independent validation →</a>
     </div>
   </section>
 

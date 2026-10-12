@@ -1,4 +1,13 @@
+---
+search:
+  exclude: true
+---
+
 # Release Hygiene Review
+
+> Historical record — read at its stated revision and date. This is not a
+> current workflow tutorial or a live validation certificate. See the
+> [current repository map](../reference/repository-map.md) and [CI ownership](ci.md).
 
 Review date: 2026-06-03
 

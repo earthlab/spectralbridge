@@ -55,7 +55,7 @@ spectralbridge-drone-production bulk i:/iplant/home/shared/.../summer-2023-10cm-
   --upload-results
 ```
 
-<p>The <code>inventory</code> subcommand performs no H5 transfer. For a year-specific source name containing one standalone year token, every requested year is resolved as a sibling collection; a higher campaign root is scanned directly. The inventory and campaign reports retain per-year source, manifest, discovery, completion, and reuse evidence, and strict mode cannot silently accept a missing requested year. <code>campaign</code> stops after validated canonical flight outputs. <code>bulk</code> adds exact combined-population preflight, compact analysis, normal bulk figures/report, checksummed packaging, and optional verified upload. Authentication uses the caller's normal non-interactive <code>gocmd</code> configuration. See <a href="../vignettes/drone-production/">remote drone production</a>.</p>
+<p>The <code>inventory</code> subcommand performs no H5 transfer. For a year-specific source name containing one standalone year token, every requested year is resolved as a sibling collection; a higher campaign root is scanned directly. The inventory and campaign reports retain per-year source, manifest, discovery, completion, and reuse evidence, and strict mode cannot silently accept a missing requested year. <code>campaign</code> stops after validated canonical flight outputs. <code>bulk</code> adds exact combined-population preflight, compact analysis, normal bulk figures/report, checksummed packaging, and optional verified upload. Authentication uses the caller's normal non-interactive <code>gocmd</code> configuration. See <a href="../../vignettes/drone-production/">remote drone production</a>.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">
@@ -73,7 +73,7 @@ spectralbridge-bulk /data/spectralbridge_completed_runs \
   --temp-directory /scratch/spectralbridge_bulk
 ```
 
-<p>The source tree is read only, the output directory must be fresh and external, and streaming defaults to one flightline at a time with bounded aligned raster windows. Normal analysis writes compact sufficient statistics rather than pixel caches. <code>--diagnostic-sample-size</code> enables an optional globally bounded deterministic sample. <code>--sensor</code> and <code>--translation-pair</code> are repeatable selectors. Invalid flightlines are recorded and excluded by default; use <code>--on-invalid error</code> for strict behavior. <code>--materialize-observations</code> is retained only as an explicit legacy dataset-build option. Use <code>--preflight-only</code> to inspect products, selected bytes, compact-output estimates, compatible pairs, and deterministic exclusions without reading raster pixels. <code>--input-kind</code> applies only to merged-Parquet compatibility mode. See <a href="../vignettes/bulk-analysis/">Build a bulk cross-run analysis</a>.</p>
+<p>The source tree is read only, the output directory must be fresh and external, and streaming defaults to one flightline at a time with bounded aligned raster windows. Normal analysis writes compact sufficient statistics rather than pixel caches. <code>--diagnostic-sample-size</code> enables an optional globally bounded deterministic sample. <code>--sensor</code> and <code>--translation-pair</code> are repeatable selectors. Invalid flightlines are recorded and excluded by default; use <code>--on-invalid error</code> for strict behavior. <code>--materialize-observations</code> is retained only as an explicit legacy dataset-build option. Use <code>--preflight-only</code> to inspect products, selected bytes, compact-output estimates, compatible pairs, and deterministic exclusions without reading raster pixels. <code>--input-kind</code> applies only to merged-Parquet compatibility mode. See <a href="../../vignettes/bulk-analysis/">Build a bulk cross-run analysis</a>.</p>
 
 <h3>Existing polygon spectral library</h3>
 
@@ -154,7 +154,7 @@ spectralbridge-pipeline \
   </article>
 </div>
 
-<p>Outputs include raw ENVI exports when available, corrected ENVI, sensor-resampled products, per-product parquet sidecars, <code>_merged_pixel_extraction.parquet</code>, and QA files. See <a href="../pipeline/outputs/">Outputs &amp; File Structure</a> for the full contract.</p>
+<p>Outputs include raw ENVI exports when available, corrected ENVI, sensor-resampled products, per-product parquet sidecars, <code>_merged_pixel_extraction.parquet</code>, and QA files. See <a href="../../pipeline/outputs/">Outputs &amp; File Structure</a> for the full contract.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">

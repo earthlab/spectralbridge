@@ -1,7 +1,7 @@
 """Publish the complete rendered SI into MkDocs, without summarizing its content.
 
 First prepare its source fingerprint and render supplement.html with Pandoc/citeproc as documented in
-drafts/joss/README.md. Then run this script; --check detects stale source/assets.
+paper/README.md. Then run this script; --check detects stale source/assets.
 """
 
 from pathlib import Path
@@ -26,8 +26,8 @@ def source_digest(draft):
 
 
 def outputs(root=ROOT):
-    draft = root / "drafts/joss"
-    html = (draft / "supplement.html").read_text()
+    draft = root / "paper"
+    html = (draft / "generated/supplement.html").read_text()
     body = re.search(r"<body>\s*(.*?)\s*</body>", html, re.S).group(1)
     images = re.findall(r'<img[^>]+src="([^"]+)"', body)
     assert len(images) == 23, "Expected both SI figures and all table-page images"
@@ -67,17 +67,23 @@ def outputs(root=ROOT):
         authors.append(f"<li>{label}</li>")
     affiliations = [f'<li value="{item["index"]}">{escape(item["name"])}</li>'
                     for item in metadata["affiliations"]]
+    correspondence = "".join(
+        f'<p>Correspondence: <a href="mailto:{escape(author["email"])}">{escape(author["email"])}</a></p>'
+        for author in metadata["authors"] if author.get("corresponding") and author.get("email")
+    )
     identity = (f'<h2>Manuscript identity</h2><p>{escape(metadata["title"])}</p>'
                 f'<p>Revised {escape(str(metadata["date"]))}.</p><ul>' + "".join(authors)
                 + "</ul><ol>" + "".join(affiliations) + "</ol>"
-                + '<p>Correspondence: <a href="mailto:ty.tuff@colorado.edu">ty.tuff@colorado.edu</a></p>')
+                + correspondence)
     intro = """---
-title: Complete manuscript supplement
+title: Technical supplement (publication evidence)
 hide:
   - toc
+search:
+  exclude: true
 ---
 
-# Complete manuscript supplement
+# Technical supplement: publication evidence
 
 This is the complete supplementary material supplied with the manuscript revised
 12 October 2026, including all sections and appendices, 23 editable tables, two
@@ -98,8 +104,9 @@ uncertain; the source-page images remain alongside the tables for comparison.
 """
     result = {"docs/validation/supplement.md": (intro + identity + body + "\n</div>\n").encode()}
     assets = {Path(x).name: draft / x for x in images}
-    assets.update({x: draft / x for x in ("supplement-10.pdf", "supplement.bib")})
-    assets["SpectralBridge-SI.docx"] = draft / "google-docs/SpectralBridge-SI.docx"
+    assets["supplement-10.pdf"] = draft / "archive/supplement-10.pdf"
+    assets["supplement.bib"] = draft / "supplement.bib"
+    assets["SpectralBridge-SI.docx"] = draft / "generated/google-docs/SpectralBridge-SI.docx"
     for name, source in assets.items():
         result[f"docs/validation/supplement-assets/{name}"] = source.read_bytes()
     bundle = io.BytesIO()
@@ -109,7 +116,7 @@ uncertain; the source-page images remain alongside the tables for comparison.
             info.compress_type = zipfile.ZIP_DEFLATED
             archive.writestr(info, (draft / name).read_bytes())
     result["docs/validation/supplement-assets/supplement-source.zip"] = bundle.getvalue()
-    inputs = [draft / x for x in ("supplement.md", "supplement.bib", "supplement.html", "supplement-10.pdf")]
+    inputs = [draft / x for x in ("supplement.md", "supplement.bib", "generated/supplement.html", "archive/supplement-10.pdf")]
     inputs += list(assets.values())
     hashes = {str(x.relative_to(root)): hashlib.sha256(x.read_bytes()).hexdigest() for x in inputs}
     manifest = {"source_sha256": hashes, "tables": 23, "figures": 2,
@@ -127,8 +134,8 @@ def main():
     parser.add_argument("--prepare-render", action="store_true", help="Write source fingerprint before Pandoc render")
     args = parser.parse_args()
     if args.prepare_render:
-        draft = ROOT / "drafts/joss"
-        (draft / "supplement-render-header.html").write_text(
+        draft = ROOT / "paper"
+        (draft / "generated/supplement-render-header.html").write_text(
             f"<!-- SI source SHA256: {source_digest(draft)} -->\n"
         )
         return

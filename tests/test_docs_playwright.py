@@ -101,6 +101,9 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             logo = page.locator("img[alt='SpectralBridge logo']").first
             assert logo.evaluate("(img) => img.naturalWidth") > 0
 
+            assert page.get_by_text("Common framework. Sensor-specific treatment.", exact=True).is_visible()
+            assert page.get_by_role("link", name="Run the first example", exact=True).is_visible()
+            page.get_by_text("Explore the technical figures", exact=True).click()
             assert page.get_by_role(
                 "heading", name="Three technical views. Read them one at a time."
             ).is_visible()
@@ -122,15 +125,29 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             )
             page.set_viewport_size({"width": 1280, "height": 900})
 
+            page.goto(urljoin(base_url, "concepts/measurements/"), wait_until="networkidle")
+            assert page.get_by_role("heading", name="Why sensors see the same landscape differently").is_visible()
+            assert page.get_by_role("heading", name="Spatial support: what ground area a value represents").is_visible()
+            page.goto(urljoin(base_url, "getting-started/"), wait_until="networkidle")
+            assert page.get_by_role("heading", name="Your first SpectralBridge example").is_visible()
+            assert "python examples/first_example.py" in page.locator("article").inner_text()
+            page.goto(urljoin(base_url, "validation/supplement/"), wait_until="networkidle")
+            assert page.locator(".sb-supplement-content table").count() == 23
+            assert page.locator(".sb-supplement-content .csl-entry").count() == 101
+            assert page.locator(".sb-supplement-content math").count() == 3
+            page.set_viewport_size({"width": 390, "height": 844})
+            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            page.set_viewport_size({"width": 1280, "height": 900})
+
             page.goto(urljoin(base_url, "vignettes/"), wait_until="networkidle")
             assert page.get_by_role("heading", name="Choose a vignette").is_visible()
             assert page.get_by_role(
                 "link",
-                name="Carry On My Wayward Son (resume a run)",
+                name="Carry On My Wayward Son", exact=True,
             ).is_visible()
             assert page.get_by_role(
                 "link",
-                name="7. Extract polygon spectra",
+                name="Extract polygon spectra", exact=True,
             ).is_visible()
 
             page.goto(

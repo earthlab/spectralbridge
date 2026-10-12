@@ -1,0 +1,21 @@
+{
+  "moves": 147,
+  "byte_identical_to_move_snapshot": 135,
+  "subsequently_edited_canonical_or_generated_files": [
+    "paper/README.md",
+    "paper/SUBMISSION_CHECKLIST.md",
+    "paper/generated/build-verification.json",
+    "paper/generated/google-docs/README.md",
+    "paper/paper.md",
+    "paper/generated/paper.pdf",
+    "paper/generated/submission-checks.json",
+    "paper/generated/supplement-render-header.html",
+    "paper/generated/supplement.html",
+    "paper/supplement.md",
+    "paper/generated/verification.json",
+    "provenance/work-queue/FEATURE_REQUESTS.md"
+  ],
+  "lost_or_unexpectedly_changed_files": [],
+  "production_source_diff": false,
+  "note": "Move hashes preserve the migration boundary; current canonical/generated hashes are checked by generation/build records."
+}

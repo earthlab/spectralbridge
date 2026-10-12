@@ -3,14 +3,18 @@ name: JOSS paper
 on:
   push:
     paths:
-      - 'drafts/joss/**'
+      - 'paper/**'
       - 'scripts/check_joss_submission.py'
+      - 'scripts/build_publication.sh'
+      - 'scripts/record_publication_build.py'
       - 'tests/test_joss_submission.py'
       - '.github/workflows/joss-paper.yml'
   pull_request:
     paths:
-      - 'drafts/joss/**'
+      - 'paper/**'
       - 'scripts/check_joss_submission.py'
+      - 'scripts/build_publication.sh'
+      - 'scripts/record_publication_build.py'
       - 'tests/test_joss_submission.py'
       - '.github/workflows/joss-paper.yml'
   workflow_dispatch:
@@ -29,21 +33,16 @@ jobs:
       - name: Check paper source contracts
         run: |
           python -m pip install PyYAML pytest
-          python scripts/check_joss_submission.py --output drafts/joss/submission-checks.json
+          python scripts/check_joss_submission.py --output paper/generated/submission-checks.json
           python -m pytest -q tests/test_joss_submission.py
       - name: Build with the official Open Journals renderer
-        run: |
-          docker run --rm --network none \
-            --volume "$PWD/drafts/joss:/data" \
-            --user "$(id -u):$(id -g)" \
-            --env JOURNAL=joss \
-            openjournals/inara@sha256:a0414b8b72fd8923917ede614d340d98dc7aa3102aabc2e955e9c02a6100fd62 \
-            -o pdf paper.md
+        run: bash scripts/build_publication.sh paper
       - name: Upload paper preview and source checks
         uses: actions/upload-artifact@v4
         with:
           name: joss-paper-preview
           path: |
-            drafts/joss/paper.pdf
-            drafts/joss/submission-checks.json
+            paper/generated/paper.pdf
+            paper/generated/submission-checks.json
+            paper/generated/build-verification.json
           if-no-files-found: error

@@ -30,3 +30,12 @@ tlm_check_spectra/data
 
 # Local real-data validation input (2.4 GB; keep compact QA artifacts instead).
 /NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5
+
+# Private reading collection and preserved local artifacts, never public assets.
+/archive/literature/*.pdf
+/archive/local/
+/paper/generated/build/
+/site/
+/dist/
+
+/build/

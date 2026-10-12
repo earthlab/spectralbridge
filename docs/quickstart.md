@@ -4,9 +4,8 @@ search:
 ---
 
 !!! note "Canonical learning path"
-    This older walkthrough is retained for stable links. Use [Run the full
-    pipeline](vignettes/full-pipeline.md) for the canonical educational
-    vignette.
+    This older walkthrough is retained for stable links. Use [the first offline example](getting-started.md) for the beginner path,
+    then [Run the full pipeline](vignettes/full-pipeline.md) for real NEON data.
 
 <div class="sb-doc-page" markdown="1">
 <section class="sb-doc-hero" markdown="1">
@@ -128,19 +127,19 @@ duckdb.query(f"SELECT * FROM '{merged}' LIMIT 5").df()
 <p class="sb-kicker">Where to go next</p>
 <h2>Next steps</h2>
 <div class="sb-doc-grid sb-doc-grid--two">
-  <a class="sb-doc-link-card" href="concepts/why-calibration/">
+  <a class="sb-doc-link-card" href="../concepts/why-calibration/">
     <strong>Why cross-sensor calibration?</strong>
     <span>Understand the scientific motivation behind the workflow.</span>
   </a>
-  <a class="sb-doc-link-card" href="tutorials/neon-to-envi/">
+  <a class="sb-doc-link-card" href="../tutorials/neon-to-envi/">
     <strong>Tutorials</strong>
     <span>Walk through a fuller NEON processing example.</span>
   </a>
-  <a class="sb-doc-link-card" href="pipeline/stages/">
+  <a class="sb-doc-link-card" href="../pipeline/stages/">
     <strong>Pipeline stages</strong>
     <span>See what each stage consumes, writes, and validates.</span>
   </a>
-  <a class="sb-doc-link-card" href="usage/parquet/">
+  <a class="sb-doc-link-card" href="../usage/parquet/">
     <strong>Working with Parquet outputs</strong>
     <span>Use the authoritative analysis-ready outputs directly.</span>
   </a>

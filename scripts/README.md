@@ -36,10 +36,19 @@ check families are added without corresponding documentation.
 ## Root-level and deprecated utilities
 
 `move_folders_from_instance_to_remote.py`, `remote_to_instance.py`, and
-`patch_script_toworkfromcorrectedfiles.py` are site-specific historical or
+`archive/scripts/patch_script_toworkfromcorrectedfiles.py` are site-specific historical or
 maintainer utilities with hard-coded infrastructure paths. They are not package
 entry points and should not be copied into a new scientific workflow.
 
 Code under `deprecated/` is retained for provenance and migration reference.
 New work should import `spectralbridge`, use `examples/`, or follow the current
 vignettes.
+
+## Canonical publication tooling
+
+`paper/paper.md`, `paper/supplement.md`, their BibTeX files and `paper/figures/`
+are human-edited sources. `build_publication.sh` renders them with the pinned
+Open Journals/Pandoc runtime. `generate_supplement_docs.py` derives the website
+publication record/downloads and checks exact source fingerprints;
+`check_joss_submission.py` validates paper metadata, length and citations.
+See `paper/README.md` for canonical/generated/archive roles.

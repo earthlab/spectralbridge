@@ -104,15 +104,15 @@
 <p class="sb-kicker">Support</p>
 <h2>Where should I look next?</h2>
 <div class="sb-doc-grid sb-doc-grid--three">
-  <a class="sb-doc-link-card" href="troubleshooting/">
+  <a class="sb-doc-link-card" href="../troubleshooting/">
     <strong>Troubleshooting</strong>
     <span>Recovery steps for failed or partial runs.</span>
   </a>
-  <a class="sb-doc-link-card" href="pipeline/outputs/">
+  <a class="sb-doc-link-card" href="../pipeline/outputs/">
     <strong>Outputs &amp; file structure</strong>
     <span>Understand what each stage writes and reuses.</span>
   </a>
-  <a class="sb-doc-link-card" href="pipeline/qa/">
+  <a class="sb-doc-link-card" href="../pipeline/qa/">
     <strong>QA panels and metrics</strong>
     <span>Interpret the visual and machine-readable audit outputs.</span>
   </a>

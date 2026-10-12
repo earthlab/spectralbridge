@@ -1,16 +1,5 @@
 # Software Citation And Publication Tracking
 
-## Complete manuscript supplementary material
-
-The [complete SI](../validation/supplement.md) contains the supplied processing contracts, scientific
-transformations, drone campaign accounting, R10C and WREF QA evidence, bulk
-analysis definitions and results, reproducibility records, software lineage,
-neighboring-software comparisons, and prospective QA/resource protocols.
-All 23 tables, both figures, equations, appendices and references are included,
-with downloadable source and editing copies. Historical evidence retains its
-original revision boundaries and limitations.
-
-
 This page is the maintainer-facing source of truth for how SpectralBridge
 should be cited, how associated publications are tracked, and how software
 release citations should relate to papers.
@@ -127,3 +116,10 @@ When updating this page, also review:
 - It does not invent publications that are not confirmed.
 - It does not replace `CITATION.cff` as the software metadata source.
 - It does not declare a DOI strategy that maintainers have not approved.
+
+
+## Publication evidence
+
+For the historical manuscript evidence and complete SI, use the
+[technical supplement](../validation/supplement.md). Current instructions and
+contracts remain in the workflow/reference pages.

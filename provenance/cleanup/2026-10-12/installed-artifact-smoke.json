@@ -1,0 +1,180 @@
+{
+  "python": "3.12",
+  "dependency_environment": "Separate installed-package environments, reusing the existing dependency environment via a path entry; not a fresh dependency resolution",
+  "execution_cwd": "/private/tmp",
+  "artifact_sha256": {
+    "earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl": "31ccc7052f8213662c2fcfb10f99220334d14e377bb41fa647a7934ecc989f0e",
+    "earthlab_spectralbridge-2.3.0rc1.tar.gz": "913f56349477106ae6269b30445f3b27963186d7528c408df214a19a209be185"
+  },
+  "results": {
+    "wheel": {
+      "bulk": {
+        "elapsed_seconds": 0.911,
+        "fixture_flightlines": 3,
+        "fixture_rows": 12,
+        "input_mode": "flightline_outputs",
+        "pixel_materialization": false,
+        "restart_reused_outputs": true,
+        "status": "flightline_archive_streaming_statistics_translation_loso"
+      },
+      "console_scripts": [
+        "spectralbridge-download",
+        "spectralbridge-pipeline",
+        "spectralbridge-qa",
+        "spectralbridge-qa-summary",
+        "spectralbridge-recover-raw",
+        "spectralbridge-qa-dashboard",
+        "spectralbridge-stage-qa",
+        "spectralbridge-merge-duckdb",
+        "spectralbridge-bulk",
+        "spectralbridge-drone-production",
+        "spectralbridge-validate-parquets"
+      ],
+      "distribution_name": "earthlab-spectralbridge",
+      "distribution_version": "2.3.0rc1",
+      "drone": {
+        "corrections": "topographic_and_brdf",
+        "elapsed_seconds": 4.665,
+        "fixture_shapes": [
+          [
+            8,
+            8,
+            10
+          ],
+          [
+            8,
+            8,
+            10
+          ]
+        ],
+        "spectral_branch": "corrected_micasense_with_optional_affine_translation",
+        "status": "stage_complete_full_and_polygon"
+      },
+      "elapsed_seconds": 20.503,
+      "guardrails": {
+        "actual_output_bytes": 16757540,
+        "max_workers": 1,
+        "maximum_output_bytes": 134217728,
+        "network": "blocked",
+        "parquet_chunk_size": 8,
+        "temporary_root": "/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-40acsrj_"
+      },
+      "import_package": "spectralbridge",
+      "installed_from": "/private/tmp/spectralbridge-cleanup-wheel-env/lib/python3.12/site-packages/spectralbridge/__init__.py",
+      "normal": {
+        "elapsed_seconds": 14.769,
+        "fixture_shape": [
+          8,
+          8,
+          32
+        ],
+        "restart_reused_core_artifacts": true,
+        "sensor_products": 7,
+        "stage_qa_json_count": 7,
+        "status": "stage_complete"
+      },
+      "python": "3.12.8",
+      "runtime_resources": [
+        "/private/tmp/spectralbridge-cleanup-wheel-env/lib/python3.12/site-packages/spectralbridge/data/hyperspectral_bands.json",
+        "/private/tmp/spectralbridge-cleanup-wheel-env/lib/python3.12/site-packages/spectralbridge/data/landsat_band_parameters.json",
+        "/private/tmp/spectralbridge-cleanup-wheel-env/lib/python3.12/site-packages/spectralbridge/data/drone_field_manifest.csv",
+        "/private/tmp/spectralbridge-cleanup-wheel-env/lib/python3.12/site-packages/spectralbridge/data/brightness/landsat_to_micasense.json",
+        "/private/tmp/spectralbridge-cleanup-wheel-env/lib/python3.12/site-packages/spectralbridge/data/brightness/landsat_tm_etm_to_micasense.json",
+        "/private/tmp/spectralbridge-cleanup-wheel-env/lib/python3.12/site-packages/spectralbridge/data/drone_translation_coefficients_v1.json"
+      ],
+      "spectral_library": {
+        "elapsed_seconds": 0.094,
+        "fixture_rows": 4,
+        "source_reused_in_place": true,
+        "status": "preflight_and_compact_reporting"
+      },
+      "spectralbridge_version": "2.3.0rc1",
+      "validation_kind": "bounded_installed_artifact_smoke_not_scientific_validation"
+    },
+    "sdist": {
+      "bulk": {
+        "elapsed_seconds": 0.42,
+        "fixture_flightlines": 3,
+        "fixture_rows": 12,
+        "input_mode": "flightline_outputs",
+        "pixel_materialization": false,
+        "restart_reused_outputs": true,
+        "status": "flightline_archive_streaming_statistics_translation_loso"
+      },
+      "console_scripts": [
+        "spectralbridge-download",
+        "spectralbridge-pipeline",
+        "spectralbridge-qa",
+        "spectralbridge-qa-summary",
+        "spectralbridge-recover-raw",
+        "spectralbridge-qa-dashboard",
+        "spectralbridge-stage-qa",
+        "spectralbridge-merge-duckdb",
+        "spectralbridge-bulk",
+        "spectralbridge-drone-production",
+        "spectralbridge-validate-parquets"
+      ],
+      "distribution_name": "earthlab-spectralbridge",
+      "distribution_version": "2.3.0rc1",
+      "drone": {
+        "corrections": "topographic_and_brdf",
+        "elapsed_seconds": 4.254,
+        "fixture_shapes": [
+          [
+            8,
+            8,
+            10
+          ],
+          [
+            8,
+            8,
+            10
+          ]
+        ],
+        "spectral_branch": "corrected_micasense_with_optional_affine_translation",
+        "status": "stage_complete_full_and_polygon"
+      },
+      "elapsed_seconds": 17.569,
+      "guardrails": {
+        "actual_output_bytes": 16757047,
+        "max_workers": 1,
+        "maximum_output_bytes": 134217728,
+        "network": "blocked",
+        "parquet_chunk_size": 8,
+        "temporary_root": "/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-nhr0166n"
+      },
+      "import_package": "spectralbridge",
+      "installed_from": "/private/tmp/spectralbridge-cleanup-sdist-env/lib/python3.12/site-packages/spectralbridge/__init__.py",
+      "normal": {
+        "elapsed_seconds": 12.781,
+        "fixture_shape": [
+          8,
+          8,
+          32
+        ],
+        "restart_reused_core_artifacts": true,
+        "sensor_products": 7,
+        "stage_qa_json_count": 7,
+        "status": "stage_complete"
+      },
+      "python": "3.12.8",
+      "runtime_resources": [
+        "/private/tmp/spectralbridge-cleanup-sdist-env/lib/python3.12/site-packages/spectralbridge/data/hyperspectral_bands.json",
+        "/private/tmp/spectralbridge-cleanup-sdist-env/lib/python3.12/site-packages/spectralbridge/data/landsat_band_parameters.json",
+        "/private/tmp/spectralbridge-cleanup-sdist-env/lib/python3.12/site-packages/spectralbridge/data/drone_field_manifest.csv",
+        "/private/tmp/spectralbridge-cleanup-sdist-env/lib/python3.12/site-packages/spectralbridge/data/brightness/landsat_to_micasense.json",
+        "/private/tmp/spectralbridge-cleanup-sdist-env/lib/python3.12/site-packages/spectralbridge/data/brightness/landsat_tm_etm_to_micasense.json",
+        "/private/tmp/spectralbridge-cleanup-sdist-env/lib/python3.12/site-packages/spectralbridge/data/drone_translation_coefficients_v1.json"
+      ],
+      "spectral_library": {
+        "elapsed_seconds": 0.06,
+        "fixture_rows": 4,
+        "source_reused_in_place": true,
+        "status": "preflight_and_compact_reporting"
+      },
+      "spectralbridge_version": "2.3.0rc1",
+      "validation_kind": "bounded_installed_artifact_smoke_not_scientific_validation"
+    }
+  },
+  "scope": "Packaging/installed-software sanity check, not scientific validation or release approval"
+}

@@ -8,7 +8,8 @@ include pytest.ini
 include mkdocs.yml
 include requirements-dev.txt
 include environment.yaml
-recursive-include provenance *.json
+prune provenance
+include provenance/hytools.json
 
 recursive-include src/spectralbridge/data *.json
 recursive-include docs *.md *.png *.jpg *.jpeg *.svg *.css *.js *.yml *.yaml
@@ -34,3 +35,8 @@ exclude Drone_processing.ipynb
 exclude Raster_processing.ipynb
 exclude :memory:
 exclude ty_tuff_contributions_last_year.md
+
+# Research/publication snapshots are repository evidence, not installed inputs.
+prune archive
+prune paper
+prune drafts

@@ -109,15 +109,15 @@
 <p class="sb-kicker">Where to go next</p>
 <h2>Related references</h2>
 <div class="sb-doc-grid sb-doc-grid--three">
-  <a class="sb-doc-link-card" href="../usage/cli/">
+  <a class="sb-doc-link-card" href="../../usage/cli/">
     <strong>CLI reference</strong>
     <span>See the concrete command patterns for the main entry points.</span>
   </a>
-  <a class="sb-doc-link-card" href="../pipeline/stages/">
+  <a class="sb-doc-link-card" href="../../pipeline/stages/">
     <strong>Pipeline stages</strong>
     <span>Understand which stages consume each setting.</span>
   </a>
-  <a class="sb-doc-link-card" href="validation/">
+  <a class="sb-doc-link-card" href="../validation/">
     <strong>Validation metrics</strong>
     <span>Review the QA and output checks that make reruns safe.</span>
   </a>

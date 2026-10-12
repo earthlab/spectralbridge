@@ -123,15 +123,15 @@ df.head()
 <p class="sb-kicker">Where to go next</p>
 <h2>Related pages</h2>
 <div class="sb-doc-grid sb-doc-grid--three">
-  <a class="sb-doc-link-card" href="cli/">
+  <a class="sb-doc-link-card" href="../cli/">
     <strong>CLI usage</strong>
     <span>See how the parquet outputs are produced from the command line.</span>
   </a>
-  <a class="sb-doc-link-card" href="../pipeline/outputs/">
+  <a class="sb-doc-link-card" href="../../pipeline/outputs/">
     <strong>Pipeline outputs</strong>
     <span>Review the file layout and naming conventions around parquet sidecars.</span>
   </a>
-  <a class="sb-doc-link-card" href="../pipeline/qa/">
+  <a class="sb-doc-link-card" href="../../pipeline/qa/">
     <strong>QA panels and metrics</strong>
     <span>Connect parquet summaries back to the QA artifacts written for each flight line.</span>
   </a>

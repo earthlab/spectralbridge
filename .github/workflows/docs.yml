@@ -1,19 +1,26 @@
-name: Build & Deploy Docs
+name: Documentation checks
+
 on:
-  push:
-    branches: [ main, master ]
+  pull_request:
+    branches: [main]
     paths:
-      - "docs/**"
-      - "drafts/joss/**"
-      - "scripts/generate_supplement_docs.py"
-      - "tests/test_supplement_docs.py"
-      - "src/**"
-      - "bin/**"
-      - "pyproject.toml"
-      - "mkdocs.yml"
-      - "tools/**"
-      - "tests/test_docs_playwright.py"
+      - 'docs/**'
+      - 'paper/**'
+      - 'src/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'provenance/prompts/**'
+      - 'PROMPT_LOG.md'
+      - 'README.md'
+      - 'START_HERE.md'
+      - 'pyproject.toml'
+      - 'mkdocs.yml'
+      - '.github/workflows/**'
+  workflow_call:
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   docs:
@@ -22,46 +29,46 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-      - run: |
+          python-version: '3.11'
+      - name: Install documentation and test dependencies
+        run: |
           python -m pip install -U pip
-          pip install -e ".[docs]" linkchecker
+          pip install -e '.[docs,tests]'
       - run: python -m playwright install --with-deps chromium
-      - run: python tools/site_prepare.py
-      - run: python scripts/generate_supplement_docs.py --check
-      - run: mkdocs build --strict
+      - name: Verify source and generated records
+        run: |
+          python scripts/generate_ai_transparency.py --check
+          python scripts/generate_validation_docs.py --check
+          python scripts/generate_supplement_docs.py --check
+          python scripts/check_joss_submission.py
+          python scripts/check_docs_links.py
+          pytest -q tests/test_joss_submission.py tests/test_supplement_docs.py tests/test_validation_docs.py tests/test_ai_transparency.py
+      - name: Build and check the website
+        run: |
+          mkdocs build --strict
+          python scripts/check_built_site.py site
       - name: Browser smoke tests
         run: |
-          python -m http.server 8000 --directory site > /tmp/spectralbridge-docs-http.log 2>&1 &
-          echo $! > /tmp/spectralbridge-docs-http.pid
+          python -m http.server 8000 --bind 127.0.0.1 --directory site > /tmp/spectralbridge-docs-http.log 2>&1 &
+          docs_server_pid=$!
+          trap 'kill "$docs_server_pid"' EXIT
           python - <<'PY'
           import time
           import urllib.request
-
-          url = "http://127.0.0.1:8000/"
           for _ in range(30):
               try:
-                  with urllib.request.urlopen(url, timeout=2) as response:
+                  with urllib.request.urlopen('http://127.0.0.1:8000/', timeout=2) as response:
                       if response.status == 200:
                           break
-              except Exception:
+              except OSError:
                   time.sleep(1)
           else:
-              raise SystemExit("Docs server did not become ready.")
+              raise SystemExit('Docs server did not become ready')
           PY
           SPECTRALBRIDGE_DOCS_SITE=http://127.0.0.1:8000 pytest -q tests/test_docs_playwright.py
-      - name: Stop docs server
-        if: always()
-        run: |
-          if [ -f /tmp/spectralbridge-docs-http.pid ]; then
-            kill "$(cat /tmp/spectralbridge-docs-http.pid)" || true
-          fi
-      - name: Link check (best-effort)
-        continue-on-error: true
-        run: linkchecker site/index.html || true
-      - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload verified website (no deployment)
+        uses: actions/upload-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+          name: verified-documentation-site
+          path: site
+          if-no-files-found: error

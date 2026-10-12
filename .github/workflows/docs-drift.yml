@@ -35,3 +35,11 @@ jobs:
               print("Doc drift detected for critical outputs:", critical)
               sys.exit(1)
           PY
+
+      - name: Upload diagnostic drift report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-drift-report
+          path: docs/_build/doc_drift_report.*
+          if-no-files-found: warn

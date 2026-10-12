@@ -19,10 +19,11 @@ accident.
 - `landsat_band_parameters.json` - repository copy of Landsat resampling
   parameters
 
-The JSON files also exist under `src/spectralbridge/data/`, which is the
-authoritative packaged location. Keep root copies only when they are useful for
-examples or external notebooks; update both locations deliberately if values
-change.
+The root JSON files are compatibility symlinks to `src/spectralbridge/data/`,
+which is the single editable packaged source. Before replacing the root copies,
+byte identity was verified; their exact snapshots remain under
+`archive/research/metadata/` with migration checksums. Do not edit an archival
+snapshot to change current runtime metadata.
 
 ## Local Staging Pattern
 
