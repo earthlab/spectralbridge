@@ -48,6 +48,21 @@ Post-tag verification:
 - [ ] External tester check and representative workflow feedback are recorded.
 - [ ] Zenodo/citation integration is verified if enabled for this repository.
 
+## JOSS manuscript preparation (2026-10-12)
+
+- [x] Prepare Markdown paper, separate SI, bibliography and original figure assets.
+- [x] Include complete SI, editable tables and downloadable sources in website documentation.
+- [x] Check current JOSS sections, metadata, length, citations and source contracts.
+- [x] Normalize references against DOI registry/publisher metadata.
+- [x] Compile and inspect a local preview with the official JOSS renderer.
+- [x] Add a pinned JOSS paper workflow and focused contract tests.
+- [ ] Obtain final funding, sponsor-role, COI, author-consent and AI declarations.
+- [ ] Select the review source/version and publish the reviewed submission files.
+- [ ] Confirm public-history and research-use evidence, then complete the JOSS form.
+
+See `drafts/joss/SUBMISSION_CHECKLIST.md` for evidence and remaining actions.
+These checks do not supersede the distinct release-candidate gates above.
+
 ## 1. Package Structure & Metadata
 - [x] Confirm the canonical identities (`SpectralBridge` scientific project,
   `earthlab-spectralbridge` distribution, `spectralbridge` import package) and

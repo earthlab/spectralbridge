@@ -4,6 +4,17 @@ title: Validation evidence
 
 # Validation evidence
 
+## Complete manuscript supplementary material
+
+The [complete SI](supplement.md) contains the supplied processing contracts, scientific
+transformations, drone campaign accounting, R10C and WREF QA evidence, bulk
+analysis definitions and results, reproducibility records, software lineage,
+neighboring-software comparisons, and prospective QA/resource protocols.
+All 23 tables, both figures, equations, appendices and references are included,
+with downloadable source and editing copies. Historical evidence retains its
+original revision boundaries and limitations.
+
+
 This section records how SpectralBridge functions behave across explicit input variations. Each row comes from a machine-readable campaign result rather than a hand-written success claim.
 
 ## How to use this section

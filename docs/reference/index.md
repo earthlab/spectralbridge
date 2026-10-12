@@ -1,5 +1,16 @@
 # Technical reference map
 
+## Complete manuscript supplementary material
+
+The [complete SI](../validation/supplement.md) contains the supplied processing contracts, scientific
+transformations, drone campaign accounting, R10C and WREF QA evidence, bulk
+analysis definitions and results, reproducibility records, software lineage,
+neighboring-software comparisons, and prospective QA/resource protocols.
+All 23 tables, both figures, equations, appendices and references are included,
+with downloadable source and editing copies. Historical evidence retains its
+original revision boundaries and limitations.
+
+
 Use this section for exact behavior: stage order, filenames, interfaces, data
 formats, validation, algorithms, and internals. If you want a guided task,
 return to the [educational vignettes](../vignettes/index.md).

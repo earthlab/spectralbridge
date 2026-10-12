@@ -1,0 +1,571 @@
+--- Source page 1 ---
+     SpectralBridge: An Auditable Software Workflow for Reflectance
+            Comparisons Across NEON, Drones, and Landsat
+
+             Ty Tuff1,* , Aashish Mukund1 , Nayani T. Ilangakoon2 , Erick Verleye2
+         Megan E. Cattau4 , Janushi Shastri2,3 , Pavan Appanna2,3 , Tyler L. McIntosh2
+       Matthew E. Bitters2 , Carol A. Wessman5 , Jennifer K. Balch1,6 , and Cibele Amaral1
+
+                    Revised 12 October 2026; source snapshots identified in text
+
+
+1
+  Earth Lab and the Environmental Data Science Innovation & Impact Lab (ESIIL), Cooperative Institute
+for Research in Environmental Sciences (CIRES), University of Colorado Boulder, Boulder, Colorado, USA
+2
+  Earth Lab, Cooperative Institute for Research in Environmental Sciences (CIRES), University of Colorado
+                                     Boulder, Boulder, Colorado, USA
+        3
+          Department of Computer Science, University of Colorado Boulder, Boulder, Colorado, USA
+   4
+     Human-Environment Systems, School of the Environment, Boise State University, Boise, Idaho, USA
+5
+    Department of Ecology and Evolutionary Biology, University of Colorado Boulder, Boulder, Colorado, USA
+            6
+              Department of Geography, University of Colorado Boulder, Boulder, Colorado, USA
+                                *
+                                    Corresponding author: ty.tuff@colorado.edu
+    ORCID iDs: Ty Tuff, 0000-0001-5249-5197; Nayani T. Ilangakoon, 0000-0002-6607-0605; Erick Verleye,
+    0009-0009-8854-0127; Megan E. Cattau, 0000-0003-2164-3809; Tyler L. McIntosh, 0000-0002-6383-1755;
+      Carol A. Wessman, 0000-0002-7325-0153; Jennifer K. Balch, 0000-0002-3983-7970; Cibele Amaral,
+                                           0000-0001-7597-2427
+
+
+
+1       Summary
+
+Reflectance describes how a surface reflects light at different wavelengths. SpectralBridge is Python
+research software that helps teams prepare and check reflectance products from NEON airborne
+sensors, drones, and Landsat. It retains named intermediate rasters, extracted values, quality
+checks, and provenance so users can inspect how each product was made. Separate routes preserve
+sensor-specific operations, while collection tools summarize selected flightlines and sites. The package
+organizes established corrections rather than proposing a new algorithm. Tests and team research
+examples demonstrate software contracts and limitations, not agreement among sensors.
+
+
+2       Statement of need
+
+Band names invite direct comparison, but spectral response, footprint, viewing direction, and
+illumination help define the reflectance recorded by each instrument. A drone may isolate sunlit
+foliage; NEON records a dense spectrum; Landsat mixes canopy, gaps, soil, and shadow across
+broader pixels (Kampe et al., 2010; National Ecological Observatory Network, 2026; Woodcock
+
+--- Source page 2 ---
+and Strahler, 1987). Matching labels therefore do not make measurements equivalent, and these
+differences can change an ecological interpretation (Nicodemus et al., 1977; Schaepman-Strub et al.,
+2006; Teillet et al., 1997; Roy et al., 2016; Huang et al., 2002).
+The intended users are remote-sensing researchers and developers who need to construct sensor-
+oriented products, inspect intermediate states, verify outputs, or summarize flightlines. They remain
+responsible for temporal matching, co-registration, and common spatial support. Independent
+validation also requires characterized reference measurements and uncertainty analysis; process
+completion alone cannot establish it (Origo et al., 2020).
+SpectralBridge preserves the sequence from source through configured transformations to extracted
+values, helping users locate where an unexpected pattern first appears. It does not diagnose
+discrepancies or choose a valid spatial/temporal design. Figure 1 illustrates the separate roles of
+spatial support and spectral response.
+
+--- Source page 3 ---
+  Same landscape, different measurements
+  A / SPACE                           A pixel integrates an area
+
+                    Drone                                           NEON                                       Landsat
+                    Fine spatial support                            Meter-scale support                        Coarser spatial support
+
+
+
+
+                       Vegetation                  Soil                         Shadow
+
+                    Same illustrated area in each panel · outlined cell = one pixel · not to scale
+
+
+  B / SPECTRUM                               A band weights wavelengths
+  1 / INPUT: dense reflectance spectrum
+
+
+
+
+      Reflectance
+                      0.1
+
+
+                        0       2 / BAND WEIGHTS: response functions, not output spectra
+
+                        1   MicaSense red                                                             Landsat 8 OLI red
+                            16 nm FWHM                                                                37.5 nm FWHM
+ Relative
+ response
+
+                        0
+                                    620 nm                640 nm                  660 nm             680 nm                 700 nm
+
+                                                  MicaSense value ρ̂M S                               Landsat value ρ̂OLI
+  3 / OUTPUT
+
+
+
+Figure 1: Two independent sources of measurement mismatch. (A) The same illustrated vegetation,
+soil, and shadow are integrated over different pixel footprints; grids are schematic and not to scale.
+(B) Read from top to bottom: the upper curve is the input reflectance spectrum; the lower curves
+show how strongly each target band weights each wavelength. They are response functions, not
+output spectra. Applying a response curve to the input produces one weighted reflectance value,
+shown schematically by the matching colored output label and defined in Equation 1. The Gaussian
+profiles use packaged Landsat 8 OLI and MicaSense centers and full widths at half maximum
+(FWHM), not official measured response curves (Earth Lab, 2026k); the spectrum is illustrative.
+
+
+
+3              State of the field
+
+HyTools is SpectralBridge’s closest methodological relative and part of its NEON lineage. HLS
+and Sen2Like harmonize satellite products; FORCE processes satellite archives; Snakemake and
+Nextflow orchestrate general pipelines (Chlus et al., 2025; Claverie et al., 2018; Ju et al., 2025;
+
+--- Source page 4 ---
+Saunier et al., 2022; Frantz, 2019; Köster and Rahmann, 2012; Di Tommaso et al., 2017). In the
+systems compared here, none combines the separate NEON and drone routes with collection-level
+artifact and QA contracts (Earth Lab, 2026x; Earth Lab, 2026j). SpectralBridge’s contribution is
+this sensor-aware integration, restart checks, and grouped summaries—not a new correction method
+or harmonization product.
+
+
+4    Software design
+
+The workflow addresses geometry normalization and target-band weighting, while preserving geospa-
+tial products for downstream spatial reconciliation. It does not create a common spatial support;
+nominally matching bands may also require bandpass adjustment (Chander et al., 2013; Roy et al.,
+2016; Earth Lab, 2026z; Earth Lab, 2026m).
+NEON provides the dense spectrum from which configured MicaSense- and Landsat-like products
+are constructed. Independently acquired drone data follow a separate preparation path (National
+Ecological Observatory Network, 2026; Earth Lab, 2026z; Earth Lab, 2026h). Thus, Drone →
+NEON → Landsat describes a comparison design, not a physical conversion chain. A named target
+product reflects configured weighting and any recorded adjustment, while retaining NEON’s original
+spatial support.
+
+
+Geometry and terrain
+
+For NEON, the workflow estimates bandwise SCS+C topographic terms, then applies RossThick
+and LiDenseR BRDF terms using available solar and view geometry (Queally et al., 2022; Earth
+Lab, 2026r; Earth Lab, 2026ab). These are established methods, with code lineage to HyTools
+acknowledged in the implementation (Ross, 1981; Roujean et al., 1992; Li and Strahler, 1992; Soenen
+et al., 2005; Wanner et al., 1995; Schaaf et al., 2002; Chlus et al., 2025). Invalid geometry ratios
+receive neutral factors, which QA should report. Both corrections share one output cube, so their
+separate effects cannot be isolated from that artifact.
+
+
+Spectral response
+
+Different instruments weight different parts of the spectrum, so matching band names do not
+guarantee matching measurements (Chander et al., 2013; Roy et al., 2016). Given source reflectance
+samples ρi and target-band weights sb,i sampled on the same source-band grid, SpectralBridge
+computes                                       P
+                                                   ρi sb,i
+                                          ρ̂b = Pi         .                                     (1)
+                                                   i sb,i
+The implementation normalizes supplied response weights by their discrete sum; it does not perform
+wavelength-interval quadrature. Weights must therefore match the source grid and intended spectral
+support. Actual Landsat weighting requires measured relative spectral responses, not band centers
+and widths alone (Barsi et al., 2014). A deterministic fixture checks this arithmetic to an absolute
+tolerance of 2 × 10−7 (Earth Lab, 2026s; Earth Lab, 2026ae).
+Source atmospheric correction is inherited from NEON; some configured Landsat-like products
+also receive a separate empirical brightness adjustment (National Ecological Observatory Network,
+
+--- Source page 5 ---
+2026; Earth Lab, 2026l). These configured representations are not proof of physical agreement with
+another sensor (Claverie, 2023; Ju et al., 2025).
+
+
+Spatial support
+
+Matching band spaces does not make a crown-scale spectrum and a Landsat pixel the same spatial
+mixture (Teillet et al., 1997; Woodcock and Strahler, 1987; Huang et al., 2002). SpectralBridge
+preserves georeferenced rasters and polygon extractions but leaves grid alignment, overlap, and
+aggregation to the user, because these choices determine which observations contribute (Dungan
+et al., 2002; Earth Lab, 2026m; Earth Lab, 2026h).
+
+
+Architecture and data flow
+
+Figure 2 aligns the two observation routes and the shared collection-analysis path. NEON and
+drone processing share most stages; their main differences are at the edges: drone processing
+adds local-image staging and may use an affine mapping, while NEON’s dense spectrum supports
+target-band convolution.
+Each route writes named artifacts for distinct measurement states, linking the source to corrected
+and target-band products (Earth Lab, 2026e; Earth Lab, 2026m).
+
+--- Source page 6 ---
+ Two observation routes, one pattern of inspectable outputs
+ The drone adds local-image staging and an optional affine mapping; NEON adds spectral convolution.
+
+
+   NEON source                  Write raster                  Normalize geometry            Construct targets    Retain products
+
+   Reflectance HDF5             Canonical ENVI                Terrain + BRDF                Response-weighted    Rasters · tables ·
+   cube                         cube                          correction                    convolution          QA · provenance
+
+
+
+
+   Prepare + stage              Write raster                  Normalize geometry            Construct targets    Retain products
+
+   Local HDF5/TIFF              Working HDF5 +                If available                  Native bands or      Rasters · extracts
+   input                        ENVI                                                        affine               · QA · provenance
+
+
+ The drone route uses its configured coefficients; it does not convolve a drone spectrum.
+
+
+
+ COLLECTION ANALYSIS                     Consumes selected, completed, aligned products
+
+
+
+
+   Catalog + select             Stream windows                Fit relationships             Evaluate variation   Retain summaries
+
+   Matched products,            Aligned raster pairs          Pooled · flightline           Errors · held-out    Tables · diagnostics
+   exclusions                                                 · site                        groups               · manifest
+
+
+
+
+ Shared stages do not erase route-specific methods, inputs, or scientific limitations.
+
+
+
+
+Figure 2: The NEON and drone routes share most stages and retain similar rasters, tables, and
+QA/provenance. Drone processing adds local input staging and may apply a configured affine
+mapping; NEON processing convolves its dense spectrum with target-band responses. The shared
+collection path streams selected, aligned products into grouped fits and diagnostics. The diagram
+shows intended workflow structure, not one campaign’s results (Earth Lab, 2026j; Earth Lab, 2026m;
+Earth Lab, 2026h; Earth Lab, 2026x; Earth Lab, 2026a).
+
+
+The architecture evolved from a HyTools-based workflow; HyTools is no longer a runtime dependency,
+but lineage remains in NEON access, ENVI writing, and correction components (Chlus et al., 2025;
+Earth Lab, 2025a; Earth Lab, 2025b; Earth Lab, 2026i; Earth Lab, 2026t; Earth Lab, 2026r).
+The NEON route applies configured geometry corrections and spectral weighting to its source cube.
+The drone route retains native bands and may apply reviewed affine coefficients, without runtime
+coefficient fitting or spectral convolution (Earth Lab, 2026e; Earth Lab, 2026m; Earth Lab, 2026h;
+Earth Lab, 2026c). Collection analysis streams aligned ENVI windows into pooled, flightline-,
+and site-level fits. It accumulates compact statistics but still reads source rasters; no performance
+advantage is claimed without a matched benchmark (Earth Lab, 2026a; Earth Lab, 2026aa; Earth
+Lab, 2026b).
+Named files serve as stage interfaces, not disposable cache. This design lets users inspect intermediate
+states, check stage-specific QA, and reuse valid products after interruption; it costs storage and
+I/O, and does not serialize every realized parameter. Restart therefore supports recovery, not
+
+--- Source page 7 ---
+guaranteed exact replay. Completion is request-specific: every configured output must exist and be
+readable (Earth Lab, 2026j; Earth Lab, 2026d; Earth Lab, 2026ad; Earth Lab, 2026u).
+
+    Four questions, not one success flag
+
+
+      PROCESS STATUS                      ARTIFACT STATUS                     QA STATUS                          VALIDATION STATUS
+
+
+      Did the code execute?               Do required products                Did defined diagnostics            Do independent data
+                                          exist and read?                     pass?                              support meaning?
+
+                              artifact gate                         QA gate                          validation gate
+
+
+    A later claim requires evidence beyond the earlier one; no single “success” flag represents all four.
+
+
+
+Figure 3: Four questions govern a multi-stage scientific workflow. Normal process termination does
+not establish production of the requested scientific state; artifact existence does not establish QA;
+and QA does not establish agreement with independent observations. Remote-sensing validation
+frameworks likewise treat validation as staged evidence rather than a binary declaration (Morisette
+et al., 2006; Origo et al., 2020). The examples in the Research impact statement illustrate these
+separate checks (SpectralBridge project team, 2026; Earth Lab, 2026p).
+
+
+The package is OS-independent, requires Python 3.10 or newer, and is distributed under the
+GNU General Public License version 3 (GPLv3); installation and usage are documented in its
+README (Earth Lab, 2026v; Earth Lab, 2026x). The evidence spans version 2.2.0 at f7e7ddd for
+the historical NEON route and c86da6a for later bulk work and 2.3.0rc1 preparation, but supplied
+run records do not link every result to an exact revision (Earth Lab, 2026y; Earth Lab, 2026g). The
+public release page listed v1.0.0 at commit 9d1de28 as latest on 12 October 2026; the cited Zenodo
+DOI is a pre-rename archive, not a record for these results (Earth Lab, 2026w; Earth Lab, 2026f).
+The submitted source, evidence, and permanent archive citation must identify a consistent version.
+
+
+Reuse potential
+
+Reuse is most direct for NEON products and drone observations that match the supported input
+schemas. Users can configure target-band responses or reviewed affine registries, while preserving
+exact wavelength definitions and coefficient provenance; adding spatial aggregation or a new sensor
+remains a study-specific extension. The ENVI, Parquet, and JSON products can then be inspected
+or consumed by downstream analysis tools (Earth Lab, 2026m; Earth Lab, 2026h; Earth Lab,
+2026x).
+
+
+5    Research impact statement
+
+The examples below come from the authors’ ongoing research workflow for comparing NEON, drone,
+and Landsat reflectance; they are developer-team applications, not evidence of external adoption.
+Deterministic fixtures cover convolution, correction, extraction, QA, restart, and collection-analysis
+contracts (Kanewala and Bieman, 2014; Earth Lab, 2026ac; Earth Lab, 2026n). In the R10C
+
+--- Source page 8 ---
+NEON example, the declared route produced 18 readable Parquet outputs, while QA retained
+warnings, including 68 poor-quality wavelength bands that were reported but not masked. This
+demonstrates artifact completion and warning preservation, not correction efficacy or agreement
+with Landsat (Earth Lab, 2026p; Earth Lab, 2026q).
+A separate 43-flight drone attempt exposes the value of explicit completion checks: orchestration
+labeled all flights processed, but required ENVI and Parquet outputs were absent (SpectralBridge
+project team, 2026). A supplied bulk analysis summarizes 122 flightlines, but its executed software
+revision and run manifest were not provided (SpectralBridge bulk evidence bundle 2026; Earth Lab,
+2026o). Together, these cases show how the workflow can expose incomplete production, preserve
+warnings, and summarize collections while making the limits of the evidence visible. They do not
+establish independent cross-sensor accuracy, a performance advantage, improved ecological inference,
+or adoption beyond the developer team.
+
+
+6    AI usage disclosure
+
+OpenAI Codex assisted with source and documentation review, proposing software edits, investigating
+the drone defect, manuscript editing, LaTeX and citation checks, exported-table calculations, and
+figure preparation; a partial prompt log records some work (Earth Lab, 2026g). Human team
+members reviewed proposed software changes, citations, and calculations. AI output was not treated
+as scientific evidence; the authors retain responsibility for the software, analyses, and manuscript.
+[Authors: confirm the model/version and identify any other AI tools and versions used.]
+
+
+7    Acknowledgements
+
+Funding and other acknowledgements were not specified in the materials reviewed for this draft.
+The authors should identify financial support and any funder role, or state that no financial support
+was received, and complete any other acknowledgements before submission.
+
+
+References
+Barsi, Julia A., Kenton Lee, Geir Kvaran, Brian L. Markham, and Jeffrey A. Pedelty (2014).
+   “The Spectral Response of the Landsat-8 Operational Land Imager”. In: Remote Sensing 6.10,
+   pp. 10232–10251. doi: 10.3390/rs61010232.
+Chander, Gyanesh, Nischal Mishra, Dennis L. Helder, David B. Aaron, Amit Angal, Taeyoung Choi,
+   Xiaoxiong Xiong, and David R. Doelling (2013). “Applications of spectral band adjustment
+   factors (SBAF) for cross-calibration”. In: IEEE Transactions on Geoscience and Remote Sensing
+   51.3, pp. 1267–1281. doi: 10.1109/TGRS.2012.2228007.
+Chlus, Adam, Zhiwei Ye, Ting Zheng, Natalie Queally, Evan Greenberg, and Philip A. Townsend
+   (2025). HyTools: Hyperspectral image processing library. Version 1.6.1. Software release. doi:
+   10.5281/zenodo.16900026.
+Claverie, Martin (2023). “Evaluation of surface reflectance bandpass adjustment techniques”. In:
+   ISPRS Journal of Photogrammetry and Remote Sensing 198, pp. 210–222. doi: 10.1016/j.
+   isprsjprs.2023.03.011.
+
+--- Source page 9 ---
+Claverie, Martin, Junchang Ju, Jeffrey G. Masek, Jennifer L. Dungan, Eric F. Vermote, Jean-
+   Claude Roger, Sergii V. Skakun, and Christopher Justice (2018). “The Harmonized Landsat and
+   Sentinel-2 surface reflectance data set”. In: Remote Sensing of Environment 219, pp. 145–161.
+   doi: 10.1016/j.rse.2018.09.002.
+Di Tommaso, Paolo, Maria Chatzou, Evan W. Floden, Pablo Prieto Barja, Emilio Palumbo, and
+   Cedric Notredame (2017). “Nextflow enables reproducible computational workflows”. In: Nature
+   Biotechnology 35.4, pp. 316–319. doi: 10.1038/nbt.3820.
+Dungan, Jennifer L., James N. Perry, Mark R. T. Dale, Pierre Legendre, Sheila Citron-Pousty,
+   Marie-Josée Fortin, Anna Jakomulska, Maria Miriti, and Michael S. Rosenberg (2002). “A
+   balanced view of scale in spatial statistical analysis”. In: Ecography 25.5, pp. 626–640. doi:
+   10.1034/j.1600-0587.2002.250510.x.
+Earth Lab (2025a). SpectralBridge history: HyTools compatibility and dependency work, 8–23 October
+   2025. https://github.com/earthlab/spectralbridge/commits/main/?since=2025- 10-
+   08 & until = 2025 - 10 - 23. Includes commits 89178b6, 92c2bc7, 447d237, e3d3a41, 53e8206,
+   8deb979, a6656ea, and 4642eba; inspected 4 September 2026.
+— (2025b). SpectralBridge history: transition to internal NEON processing components, 27–28
+   October 2025. https : / / github . com / earthlab / spectralbridge / commits / main / ?since =
+   2025 - 10 - 27 & until = 2025 - 10 - 28. Includes commits fc370c4, b5969f5, fa0235a, e73b739,
+   5677078, 6942cdb, e88473d, 9aa0159, 328922b, a241cb1, 38c42dc, and 1c6a55f; inspected 4
+   September 2026.
+— (2026a). Build a bulk cross-run analysis. Source snapshot inspected 9 Septem-
+   ber 2026. url: https : / / github . com / earthlab / spectralbridge / blob /
+   c86da6a642a8a0bef37108df31af1fed1a882bd2/docs/vignettes/bulk-analysis.md.
+— (2026b). Bulk pipeline implementation: September snapshot. Source snapshot inspected
+   9 September 2026. url: https : / / github . com / earthlab / spectralbridge / blob /
+   c86da6a642a8a0bef37108df31af1fed1a882bd2/src/spectralbridge/pipelines/bulk.py.
+— (2026c). Bulk population-analysis pipeline source. https : / / github . com / earthlab /
+   spectralbridge / blob / f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705 / src /
+   spectralbridge/pipelines/bulk.py. Accessed 4 September 2026.
+— (2026d). Carry On My Wayward Son: resume a run. https : / / github . com / earthlab /
+   spectralbridge / blob / f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705 / docs / vignettes /
+   carry-on-wayward-son.md.
+— (2026e). Core NEON pipeline source. https://github.com/earthlab/spectralbridge/blob/
+   f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705/src/spectralbridge/pipelines/pipeline.
+   py. Accessed 4 September 2026.
+— (2026f). DOI and Zenodo status. https://github.com/earthlab/spectralbridge/blob/
+   f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705/docs/dev/doi-zenodo.md. Reviewed 3 June
+   2026.
+— (2026g). Finalize SpectralBridge 2.3.0rc1 preparation. Commit inspected 9 September 2026; prepa-
+   ration is distinct from publication. url: https://github.com/earthlab/spectralbridge/
+   commit/c86da6a642a8a0bef37108df31af1fed1a882bd2.
+— (2026h). Module vignette 6: process drone imagery. https : / / github . com / earthlab /
+   spectralbridge / blob / f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705 / docs / vignettes /
+   drone-processing.md.
+— (2026i). NeonCube and NEON ancillary-data implementation. https : / / github . com /
+   earthlab / spectralbridge / blob / f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705 / src /
+   spectralbridge/neon_cube.py. Source identifies portions adapted and simplified from HyTools
+   under GPLv3; accessed 4 September 2026.
+
+--- Source page 10 ---
+— (2026j). Package architecture. https : / / github . com / earthlab / spectralbridge / blob /
+  f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705/docs/dev/architecture.md.
+— (2026k). Packaged Landsat and MicaSense band definitions. https : / / github . com /
+  earthlab / spectralbridge / blob / f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705 / src /
+  spectralbridge/data/landsat_band_parameters.json. Accessed 4 September 2026.
+— (2026l). Packaged Landsat brightness adjustments derived from Table Moun-
+  tain HLS medians. https : / / github . com / earthlab / spectralbridge / tree /
+  f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705 / src / spectralbridge / data / brightness.
+  Immutable coefficient-directory snapshot inspected 4 September 2026.
+— (2026m). Pipeline outputs and file structure. https://github.com/earthlab/spectralbridge/
+  blob/f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705/docs/pipeline/outputs.md.
+— (2026n). Production validation record. https : / / github . com / earthlab / spectralbridge /
+  blob/f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705/ docs/ dev/ production- validation-
+  record.md. Accessed 4 September 2026.
+— (2026o). Production validation record: September snapshot. Operator-reported production evi-
+  dence; inspected 9 September 2026. url: https://github.com/earthlab/spectralbridge/
+  blob/c86da6a642a8a0bef37108df31af1fed1a882bd2/ docs/ dev/ production- validation-
+  record.md.
+— (2026p). R10C combined QA record. https://github.com/earthlab/spectralbridge/blob/
+  f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705/ docs/ validation/ artifacts/ r10c- l002-
+  20210915/qa/combined/combined_qa.json. Archived at commit f7e7ddd; report provenance
+  records generating commit d88e8d0947718d1e33b534080c224b703987e536.
+— (2026q). Real flightline QA walkthrough: R10C, D10, L002, 2021-09-15. https://github.com/
+  earthlab / spectralbridge / blob / f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705 / docs /
+  validation/real-data-example.md.
+— (2026r). SCS+C and kernel-driven BRDF correction implementation. https : / / github .
+  com/earthlab/spectralbridge/blob/f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705/src/
+  spectralbridge/corrections.py. Adapted from HyTools; accessed 4 September 2026.
+— (2026s). Spectral resampling source. https : / / github . com / earthlab / spectralbridge /
+  blob / f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705 / src / spectralbridge / resample . py.
+  Accessed 4 September 2026.
+— (2026t). SpectralBridge ENVI header and writer implementation. https : / / github . com /
+  earthlab / spectralbridge / blob / f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705 / src /
+  spectralbridge/envi_writer.py. Source identifies portions adapted from HyTools under
+  GPLv3; accessed 4 September 2026.
+— (2026u). SpectralBridge outputs and file structure. Documentation inspected 25 September 2026;
+  defines the public per-flightline artifact contract, success signals, restart checks, and QA reuse
+  fingerprints. url: https://earthlab.github.io/spectralbridge/pipeline/outputs/.
+— (2026v). SpectralBridge package metadata. https://github.com/earthlab/spectralbridge/
+  blob/f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705/pyproject.toml. Accessed 4 September
+  2026.
+— (2026w). SpectralBridge public GitHub releases. Inspected 12 October 2026; v1.0.0 was listed
+  as latest; no public 2.3.0rc1 GitHub release was listed. url: https://github.com/earthlab/
+  spectralbridge/releases.
+— (2026x). SpectralBridge repository README: September release-candidate snapshot. Pinned
+  source inspected 25 September 2026; documents the affine drone-translation registry, op-
+  tional Landsat QA, compact bulk analysis, spectral-library reporting, and exact-artifact
+
+--- Source page 11 ---
+    smoke scope. url: https : / / github . com / earthlab / spectralbridge / blob /
+    c86da6a642a8a0bef37108df31af1fed1a882bd2/README.md.
+— (2026y). SpectralBridge source repository, commit f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705.
+    https : / / github . com / earthlab / spectralbridge / tree /
+    f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705. Accessed 4 September 2026.
+— (2026z). SpectralBridge: Start Here. https://github.com/earthlab/spectralbridge/blob/
+    f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705/START_HERE.md.
+— (2026aa). Streaming bulk statistics implementation. Source snapshot inspected 9 Septem-
+    ber 2026. url: https : / / github . com / earthlab / spectralbridge / blob /
+    c86da6a642a8a0bef37108df31af1fed1a882bd2/src/spectralbridge/bulk/streaming.py.
+— (2026ab). Topographic and BRDF implementation. https : / / github . com /
+    earthlab / spectralbridge / blob / f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705 / src /
+    spectralbridge/brdf_topo.py. See also corrections.py; accessed 4 September 2026.
+— (2026ac). Validation evidence index. https : / / github . com / earthlab / spectralbridge /
+    blob/f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705/docs/validation/index.md. Updated
+    4 September 2026.
+— (2026ad). Validation—save and restart behavior. https : / / github . com / earthlab /
+    spectralbridge / blob / f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705 / docs / validation /
+    save_restart.md.
+— (2026ae). Validation—sensor convolution. https://github.com/earthlab/spectralbridge/
+    blob / f7e7ddd2e01ee5f7cd74688eb479fd12fbc0b705 / docs / validation / sensor _
+    convolution.md.
+Frantz, David (2019). “FORCE—Landsat + Sentinel-2 analysis ready data and beyond”. In: Remote
+    Sensing 11.9, p. 1124. doi: 10.3390/rs11091124.
+Huang, Chengquan, John R. G. Townshend, Shunlin Liang, Satish N. V. Kalluri, and Ruth S. DeFries
+    (2002). “Impact of sensor’s point spread function on land cover characterization: Assessment and
+    deconvolution”. In: Remote Sensing of Environment 80.2, pp. 203–212. doi: 10.1016/S0034-
+    4257(01)00298-X.
+Ju, Junchang, Qiang Zhou, Brian Freitag, David P. Roy, Hankui Zhang, Madhu Sridhar, John
+    Mandel, Saeed Arab, Gail L. Schmidt, Christopher J. Crawford, Ferran Gascon, Peter A. Strobl,
+    Jeffrey G. Masek, and Christopher S. R. Neigh (2025). “The Harmonized Landsat and Sentinel-2
+    version 2.0 surface reflectance dataset”. In: Remote Sensing of Environment 324, p. 114723. doi:
+    10.1016/j.rse.2025.114723.
+Kampe, Thomas U., Brian R. Johnson, Michele Kuester, and Michael Keller (2010). “NEON:
+    The first continental-scale ecological observatory with airborne remote sensing of vegetation
+    canopy biochemistry and structure”. In: Journal of Applied Remote Sensing 4.1, p. 043510. doi:
+    10.1117/1.3361375.
+Kanewala, Upulee and James M. Bieman (2014). “Testing scientific software: A systematic literature
+    review”. In: Information and Software Technology 56.10, pp. 1219–1232. doi: 10.1016/j.infsof.
+    2014.05.006.
+Köster, Johannes and Sven Rahmann (2012). “Snakemake—a scalable bioinformatics workflow
+    engine”. In: Bioinformatics 28.19, pp. 2520–2522. doi: 10.1093/bioinformatics/bts480.
+Li, Xiaowen and Alan H. Strahler (1992). “Geometric-optical bidirectional reflectance modeling of
+    the discrete crown vegetation canopy: Effect of crown shape and mutual shadowing”. In: IEEE
+    Transactions on Geoscience and Remote Sensing 30.2, pp. 276–292. doi: 10.1109/36.134078.
+Morisette, Jeffrey T. et al. (2006). “Validation of global moderate-resolution LAI products: A
+    framework proposed within the CEOS land product validation subgroup”. In: IEEE Transactions
+    on Geoscience and Remote Sensing 44.7, pp. 1804–1817. doi: 10.1109/TGRS.2006.872529.
+
+--- Source page 12 ---
+National Ecological Observatory Network (2026). Spectrometer orthorectified surface directional
+   reflectance—flightline, RELEASE-2026. Data product DP1.30006.001. Accessed 4 September
+   2026. doi: 10.48443/jhbd-n155.
+Nicodemus, Fred E., Joseph C. Richmond, Jack J. Hsia, Irving W. Ginsberg, and Thomas Limperis
+   (1977). Geometrical Considerations and Nomenclature for Reflectance. NBS Monograph 160.
+   National Bureau of Standards. doi: 10.6028/NBS.MONO.160.
+Origo, Niall, Javier Gorroño, James Ryder, Joanne Nightingale, and Agnieszka Bialek (2020).
+   “Fiducial Reference Measurements for validation of Sentinel-2 and Proba-V surface reflectance
+   products”. In: Remote Sensing of Environment 241, p. 111690. doi: 10.1016/j.rse.2020.
+   111690.
+Queally, Natalie, Zhiwei Ye, Ting Zheng, Adam Chlus, Fabian Schneider, Ryan P. Pavlick, and
+   Philip A. Townsend (2022). “FlexBRDF: A flexible BRDF correction for grouped processing of
+   airborne imaging spectroscopy flightlines”. In: Journal of Geophysical Research: Biogeosciences
+   127.1, e2021JG006622. doi: 10.1029/2021JG006622.
+Ross, Juhan (1981). The Radiation Regime and Architecture of Plant Stands. Vol. 3. Tasks for
+   Vegetation Science. The Hague: Dr W. Junk Publishers. doi: 10.1007/978-94-009-8647-3.
+Roujean, Jean-Louis, Marc Leroy, and Pierre-Yves Deschamps (1992). “A bidirectional reflectance
+   model of the Earth’s surface for the correction of remote sensing data”. In: Journal of Geophysical
+   Research: Atmospheres 97.D18, pp. 20455–20468. doi: 10.1029/92JD01411.
+Roy, David P., Valerii Kovalskyy, Hankui K. Zhang, Eric F. Vermote, Lin Yan, S. S. Kumar, and
+   Alexander Egorov (2016). “Characterization of Landsat-7 to Landsat-8 reflective wavelength
+   and normalized difference vegetation index continuity”. In: Remote Sensing of Environment 185,
+   pp. 57–70. doi: 10.1016/j.rse.2015.12.024.
+Saunier, Sophie, Bringfried Pflug, Ignacio M. Lobos, Belen Franch, Jerome Louis, Raquel De Los
+   Reyes, Virginie Debaecker, Elisabetta G. Cadau, Valentina Boccia, Ferran Gascon, and Sultan
+   Kocaman (2022). “Sen2Like: Paving the way towards harmonization and fusion of optical data”.
+   In: Remote Sensing 14.16, p. 3855. doi: 10.3390/rs14163855.
+Schaaf, Crystal B., Feng Gao, Alan H. Strahler, Wolfgang Lucht, Xiaowen Li, Trevor Tsang, Nicholas
+   C. Strugnell, Xiaoyang Zhang, Yufang Jin, Jan-Peter Muller, Philip Lewis, Michael Barnsley,
+   Paul Hobson, Mathias Disney, Gareth Roberts, Michael Dunderdale, Christopher Doll, Robert P.
+   D’Entremont, Baoxin Hu, Shunlin Liang, Jeffrey L. Privette, and David Roy (2002). “First
+   operational BRDF, albedo nadir reflectance products from MODIS”. In: Remote Sensing of
+   Environment 83.1–2, pp. 135–148. doi: 10.1016/S0034-4257(02)00091-3.
+Schaepman-Strub, Gabriela, Michael E. Schaepman, Thomas H. Painter, Stefan Dangel, and John V.
+   Martonchik (2006). “Reflectance quantities in optical remote sensing—definitions and case
+   studies”. In: Remote Sensing of Environment 103.1, pp. 27–42. doi: 10.1016/j.rse.2006.03.
+   002.
+Soenen, Scott A., Derek R. Peddle, and Craig A. Coburn (2005). “SCS+C: A modified sun-canopy-
+   sensor topographic correction in forested terrain”. In: IEEE Transactions on Geoscience and
+   Remote Sensing 43.9, pp. 2148–2159. doi: 10.1109/TGRS.2005.852480.
+SpectralBridge bulk evidence bundle (2026). SpectralBridge bulk results visual report and numerical
+   exports. Author-supplied local evidence bundle. Report and CSV exports reviewed 9 Septem-
+   ber 2026. Primary filenames, analysis identifier, and SHA-256 checksums are recorded in the
+   supplement. No permanent public identifier was supplied.
+SpectralBridge project team (2026). 2023–2024 drone campaign production inventory. Author-
+   supplied production inventory. Reviewed 18 September 2026. Records 43 staged working HDF5
+   observations, approximately 7.15 GB of output, QA and JSON artifacts, absent ENVI and
+   Parquet products, and orchestration status of 43 processed and zero failed. Exact production
+
+--- Source page 13 ---
+    revision, manifest, checksums, resolved configuration, root cause, and corrective revision were
+    not supplied.
+Teillet, Philippe M., Karl Staenz, and Darrel J. Williams (1997). “Effects of spectral, spatial, and
+    radiometric characteristics on remote sensing vegetation indices of forested regions”. In: Remote
+   Sensing of Environment 61.1, pp. 139–149. doi: 10.1016/S0034-4257(96)00248-9.
+Wanner, Wolfgang, Xiaowen Li, and Alan H. Strahler (1995). “On the derivation of kernels for kernel-
+    driven models of bidirectional reflectance”. In: Journal of Geophysical Research: Atmospheres
+   100.D10, pp. 21077–21089. doi: 10.1029/95JD02371.
+Woodcock, Curtis E. and Alan H. Strahler (1987). “The factor of scale in remote sensing”. In:
+   Remote Sensing of Environment 21.3, pp. 311–332. doi: 10.1016/0034-4257(87)90015-0.

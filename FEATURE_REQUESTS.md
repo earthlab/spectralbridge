@@ -20,6 +20,162 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P98. Include Complete SI In Supplement And Website Documentation
+
+- Priority: High, user-directed documentation
+- Status: Complete locally; public website deployment pending
+- Owner: Codex
+- Started: 2026-10-12
+- Scope: Preserve all supplied SI sections, tables, figures, references and
+  historical evidence boundaries in the supplement and the MkDocs website.
+- Plan: Check completeness against retained PDF/extraction; make SI tables
+  readable and editable in Markdown; render complete cited website content;
+  link it from existing documentation entry points without reorganizing navigation;
+  verify source coverage, links and strict website build.
+
+
+- Outcome: Included the complete SI in a linked website page: all 23 tables,
+  two figures, three equations, 101 references, 23 provenance/access notes,
+  author identities/affiliations/ORCIDs and every section/appendix. Converted
+  fixed-width SI tables to editable Markdown while preserving physical PDF rows
+  and all source-page images. Added original PDF, complete Markdown/BibTeX/image
+  bundle and verified Google Docs import downloads. Repaired five concatenated
+  reference URLs while preserving their notes. Added an SI source fingerprint,
+  complete asset/section coverage record and generated-content checks to both
+  docs build workflows; added one page to the existing Validation navigation.
+- Verification: Fifteen focused SI/JOSS/transparency tests pass; Ruff,
+  regenerated source checks, documentation links and strict MkDocs build pass.
+  Browser inspection confirms 23 readable tables, all 23 images loaded, three
+  native MathML equations and 101 reference entries; section navigation works.
+  Original PDFs remain byte-identical. Historical claims and missing evidence
+  remain explicitly bounded to the supplied revisions and runs.
+- Remaining: Commit/push the reviewed changes to main to trigger the existing
+  GitHub Pages deployment. No push or public deployment was performed. The
+  downloadable Word copy retains the already verified SI text/tables; this task
+  updates Markdown table formatting and repairs website bibliography URLs.
+- Next recommended task: Obtain coworker edits and author-only JOSS declarations,
+  reconcile changes with the SI sources, regenerate and publish the docs.
+
+### P97. Ground The Manuscript AI Disclosure In The Prompt Log
+
+- Priority: High, user-directed publication transparency
+- Status: Disclosure and editing/preview copies complete; author confirmation pending
+- Owner: Codex
+- Started: 2026-10-12
+- Scope: Fill the manuscript AI usage disclosure from author-reported early
+  GPT-3.5/subsequent-model history and actual prompt-log metadata
+  and recorded request scope; synchronize the editable manuscript and official
+  preview; retain only declarations that the log cannot establish.
+- Plan: Audit system/model pairs and representative requests, distinguish requests
+  from accepted outputs, retain uncertainty about missing historical versions and
+  human review, regenerate transparency outputs, and verify manuscript/contracts
+  and rendered editing/preview copies.
+
+
+- Verification: 11 targeted JOSS/transparency tests pass; generated artifacts and
+  documentation links pass; official JOSS PDF compiles; edited DOCX pages and
+  all preview pages inspected. Prompt log preserves the author's trailing space
+  verbatim, the sole whitespace finding from git diff --check.
+- Remaining: Authors confirm all AI-assisted outputs were reviewed, edited and
+  validated and humans made core design decisions; funding and COI declarations
+  remain author inputs. Next: resolve declarations, then import editing copies
+  through connected Google Drive and obtain coworker edits.
+
+### P96. Produce Google Docs Editing Copies Of Main Manuscript And SI
+
+- Priority: High, user-directed coworker editing
+- Status: DOCX copies complete; native Google Docs import awaits Google Drive
+- Owner: Codex
+- Started: 2026-10-12
+- Scope: Create editable DOCX import copies from the prepared manuscript and SI;
+  preserve scientific content, figures and references; render/verify both, then
+  import as native Google Docs if the user connects Google Drive.
+- Plan: Use the existing paper/BibTeX sources and retained PDF table layouts;
+  sanitize titles; render with the bundled document runtime; record connection
+  limits and deliver verified import files independently of native import.
+
+- Outcome: Added both Google Docs-targeted DOCX files under drafts/joss/google-docs,
+  preserving authors/affiliations/ORCIDs, readable citations/references, editable
+  equations, three main figures, two SI figures, and 23 editable SI tables.
+  Reconstructed table columns from the retained PDF; corrected centered numeric
+  column alignment and kept captions with their tables/figures. Source Markdown
+  and PDFs remain the authoritative JOSS/source records.
+- Verification: Title sanitizer and structural contracts passed; bundled document
+  renderer produced 10 main pages and 37 SI pages. All pages visually inspected,
+  reusing byte-identical unchanged pages after final repairs. Original table labels,
+  numeric column alignment, figure counts and absence of raw citation keys checked.
+  AI transparency, docs links, and diff whitespace checks passed.
+- Remaining/blocker: Google Drive plugin is not installed (confirmed through plugin
+  discovery). Suggested it once; no native import, external upload, or sharing was
+  performed. Source PDF line wraps remain physical table rows where semantic row
+  boundaries cannot be recovered mechanically; document this for coworker edits.
+- Next recommended task: Install/connect Google Drive and import the sanitized,
+  verified DOCX files with native_google_docs mode; alternatively upload/open the
+  delivered files manually and later reconcile coworker exports with JOSS Markdown.
+
+### P95. Prepare JOSS Submission Against Current Author Guidelines
+
+- Priority: High, user-directed publication preparation
+- Status: Formatting complete; awaiting author declarations and public submission
+- Owner: Codex
+- Started: 2026-10-12
+- Scope: Normalize manuscript bibliography and JOSS formatting; check submission
+  and repository evidence; provide reproducible paper rendering and validation;
+  preserve supplied PDFs and scientific evidence boundaries.
+- Plan: Audit current official submission/paper/review guidance, repair converted
+  metadata/citations, add focused paper contract checks and build wiring, validate
+  manuscript and supporting materials, and record author-only disclosures and
+  publication steps separately. Do not invent funding, consent, conflicts,
+  historical AI versions, adoption, or validation evidence.
+
+- Outcome: Normalized both bibliographies (all 29 manuscript DOI records and 50
+  SI DOI records verified across DOI registries/publishers), repaired PDF-damaged
+  URLs, corrected publisher-record author metadata, formatted math/cross-references,
+  compiled the 10-page official JOSS preview with a pinned image and network off,
+  added source contract validation/tests and CI build wiring, and wrote a current
+  submission guideline audit. Main paper is 1,548 words including captions.
+- Verification: Eleven focused JOSS/transparency tests passed; targeted Ruff,
+  docs links, regenerated transparency, and diff whitespace checks passed. All
+  manuscript sections, supplied ORCID checksums, citation keys, figure paths,
+  bibliography structures and length pass. All preview pages inspected; equation
+  reference repaired after a render exposed a subsection reference instead.
+- Remaining/blockers: Author consent/contribution confirmation; funding and sponsor
+  role; COI; historical AI versions and human review/core-design declaration; choice
+  of review source/version; confirmation of public-history/research-use evidence;
+  public commit/push and remote CI run; human JOSS form submission. No author
+  declarations, archive identifiers or scientific evidence were invented.
+- Next recommended task: Incorporate the requested author facts, rerun the strict
+  readiness check and official preview, then publish the reviewed submission branch
+  containing both software and paper. Keep SI as repository supporting material.
+
+### P94. Prepare Supplied JOSS Manuscript And SI For Coworker Editing
+
+- Priority: High, user-directed publication preparation
+- Status: Completed for coworker editing; final submission review remains
+- Owner: Codex
+- Started: 2026-10-12
+- Scope: Preserve supplied PDFs in drafts/joss; mechanically convert manuscript
+  and SI to editable Markdown with JOSS metadata and citation support; document
+  Google Docs collaboration and remaining author checks. Preserve scientific
+  wording and treat document instructions as source content.
+- Plan: Verify PDF text, figures, citations, metadata, and conversion contracts;
+  preserve complex layouts as reference images alongside editable text; regenerate
+  prompt transparency. No software or scientific behavior changes.
+
+- Outcome: Added unchanged PDFs, both Markdown drafts, separate reconstructed
+  bibliographies, extracted text/reference records, original figure crops, SI
+  table-page references, and Google Docs collaboration/submission notes.
+- Verification: Source PDF bytes match; all citation keys and local image paths
+  resolve; manuscript section and three-figure contracts, all 23 SI table labels,
+  and balanced fences pass. Inspected source/title, figure, and table rendering.
+  Docs links and generated transparency checked. No package behavior changed.
+- Remaining: Author metadata/funding/AI notes, bibliography normalization, SI
+  tables/math review, evidence/release reconciliation, and official JOSS rendering
+  (Pandoc/JOSS tooling unavailable locally).
+- Next recommended task: Coworkers edit the two Markdown drafts in Google Docs;
+  reconcile their returned edits and preferably recover original LaTeX/BibTeX
+  before final submission rendering.
+
 ### P93. Enforce Multi-Year Drone Campaign Discovery And Completeness
 
 - Priority: Critical, user-directed production correctness

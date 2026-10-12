@@ -1,0 +1,18 @@
+{
+  "renderer": "openjournals/inara",
+  "image_digest": "sha256:a0414b8b72fd8923917ede614d340d98dc7aa3102aabc2e955e9c02a6100fd62",
+  "journal": "joss",
+  "network": "disabled during render",
+  "inputs": {
+    "paper.md": "844b4d0a612c73c76d2b704fae4e916af175ca8f97731ab3093ed6efc09efbc0",
+    "paper.bib": "fdb06477583998a67b3c7e6a3f8a7415333f0ccc79c7ed5a2e84c8c3eea8b993",
+    "figures/paper-figure-3.png": "427c0ea34c5c2ad0bd795e8aa593d5b2af0cf535e0d05d3486381f6df0c9dcb3",
+    "figures/paper-figure-6.png": "39f8c3533b979e3e75c8d65d30cfb7967daaf8f4ce9b501b5735ad2e8aeea34a",
+    "figures/paper-figure-7.png": "11c18860b6a11df9a09db2308c30ff5ec7b3f801264e911261975ef485a9d456"
+  },
+  "pdf_sha256": "e02ec91ac14e6b3b5d25f4e5e881ea8d495c1d32b96564fdac1e329740f018f3",
+  "compile_success": true,
+  "preview_pages": 10,
+  "visual_review": "All 10 pages inspected after AI history update; no layout defects observed.",
+  "submission_status": "Author declarations and public publication of reviewed files pending"
+}

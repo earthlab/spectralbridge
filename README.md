@@ -290,6 +290,11 @@ smoke that executes the normal, drone, bulk, results, and spectral-library paths
 
 ## Documentation and examples
 
+The [complete manuscript supplement](docs/validation/supplement.md) includes all
+supplied SI sections and appendices, 23 tables, two figures, equations and
+references. The documentation website builds the same complete supplement with
+source downloads. Historical results retain their original revision boundaries.
+
 - [Documentation home](https://earthlab.github.io/spectralbridge/)
 - [Start here](https://github.com/earthlab/spectralbridge/blob/main/START_HERE.md)
 - [Bulk analysis vignette](https://earthlab.github.io/spectralbridge/vignettes/bulk-analysis/)

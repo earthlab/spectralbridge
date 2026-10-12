@@ -4,6 +4,9 @@ on:
     branches: [ main, master ]
     paths:
       - "docs/**"
+      - "drafts/joss/**"
+      - "scripts/generate_supplement_docs.py"
+      - "tests/test_supplement_docs.py"
       - "src/**"
       - "bin/**"
       - "pyproject.toml"
@@ -25,6 +28,7 @@ jobs:
           pip install -e ".[docs]" linkchecker
       - run: python -m playwright install --with-deps chromium
       - run: python tools/site_prepare.py
+      - run: python scripts/generate_supplement_docs.py --check
       - run: mkdocs build --strict
       - name: Browser smoke tests
         run: |
