@@ -1316,3 +1316,12 @@ body:has(.sb-home) .md-content__inner::before {
     transition: none;
   }
 }
+
+/* Complete SI: retain readable wide tables and native MathML equations. */
+.sb-supplement-content { overflow-wrap: anywhere; }
+.md-typeset .sb-supplement-content table:not([class]) { display: block; max-width: 100%; overflow-x: auto; }
+.sb-supplement-content .md-typeset__scrollwrap { overflow-x: auto; }
+.sb-supplement-content th, .sb-supplement-content td { min-width: 8rem; vertical-align: top; }
+.sb-supplement-content math[display="block"] { display: block; overflow-x: auto; margin: 1.5rem 0; }
+.sb-supplement-content img { max-width: 100%; height: auto; }
+.sb-supplement-content .csl-entry { margin-bottom: 0.8rem; }
