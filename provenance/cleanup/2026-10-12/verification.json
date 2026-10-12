@@ -1,0 +1,21 @@
+{
+  "production_src_changed": false,
+  "pytest": {
+    "passed": 500,
+    "skipped": 7,
+    "warnings": 29,
+    "python": "3.12"
+  },
+  "browser_smoke": "passed",
+  "ruff": "passed",
+  "mkdocs_strict": "passed",
+  "rendered_internal_link_anchor_asset_errors": 0,
+  "generated_ai_validation_supplement_checks": "passed",
+  "joss_source_and_official_render": "passed, author declarations pending",
+  "joss_preview_pages": 10,
+  "move_count": 147,
+  "wheel_and_sdist_installed_smokes": "passed; separate installs, reused dependency environment, Python 3.12",
+  "sdist_attribution_and_history_exclusion": "verified against actual tar",
+  "deployment": "not performed",
+  "audit_head": "b105c2e7a57e7d33466a649a0e993c6497b733ff"
+}

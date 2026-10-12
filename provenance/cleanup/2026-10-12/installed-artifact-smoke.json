@@ -4,7 +4,7 @@
   "execution_cwd": "/private/tmp",
   "artifact_sha256": {
     "earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl": "31ccc7052f8213662c2fcfb10f99220334d14e377bb41fa647a7934ecc989f0e",
-    "earthlab_spectralbridge-2.3.0rc1.tar.gz": "913f56349477106ae6269b30445f3b27963186d7528c408df214a19a209be185"
+    "earthlab_spectralbridge-2.3.0rc1.tar.gz": "db4c9cdfa0f59ec13771cc03b3ee1907f97ca5980f4a4826bc2fa3a9eeab8255"
   },
   "results": {
     "wheel": {
@@ -93,7 +93,7 @@
     },
     "sdist": {
       "bulk": {
-        "elapsed_seconds": 0.42,
+        "elapsed_seconds": 0.679,
         "fixture_flightlines": 3,
         "fixture_rows": 12,
         "input_mode": "flightline_outputs",
@@ -118,7 +118,7 @@
       "distribution_version": "2.3.0rc1",
       "drone": {
         "corrections": "topographic_and_brdf",
-        "elapsed_seconds": 4.254,
+        "elapsed_seconds": 4.183,
         "fixture_shapes": [
           [
             8,
@@ -134,19 +134,19 @@
         "spectral_branch": "corrected_micasense_with_optional_affine_translation",
         "status": "stage_complete_full_and_polygon"
       },
-      "elapsed_seconds": 17.569,
+      "elapsed_seconds": 18.253,
       "guardrails": {
-        "actual_output_bytes": 16757047,
+        "actual_output_bytes": 16757719,
         "max_workers": 1,
         "maximum_output_bytes": 134217728,
         "network": "blocked",
         "parquet_chunk_size": 8,
-        "temporary_root": "/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-nhr0166n"
+        "temporary_root": "/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-bzsmgknq"
       },
       "import_package": "spectralbridge",
       "installed_from": "/private/tmp/spectralbridge-cleanup-sdist-env/lib/python3.12/site-packages/spectralbridge/__init__.py",
       "normal": {
-        "elapsed_seconds": 12.781,
+        "elapsed_seconds": 13.24,
         "fixture_shape": [
           8,
           8,
@@ -167,7 +167,7 @@
         "/private/tmp/spectralbridge-cleanup-sdist-env/lib/python3.12/site-packages/spectralbridge/data/drone_translation_coefficients_v1.json"
       ],
       "spectral_library": {
-        "elapsed_seconds": 0.06,
+        "elapsed_seconds": 0.076,
         "fixture_rows": 4,
         "source_reused_in_place": true,
         "status": "preflight_and_compact_reporting"
@@ -176,5 +176,6 @@
       "validation_kind": "bounded_installed_artifact_smoke_not_scientific_validation"
     }
   },
-  "scope": "Packaging/installed-software sanity check, not scientific validation or release approval"
+  "scope": "Packaging/installed-software sanity check, not scientific validation or release approval",
+  "sdist_content_whitelist_verified": true
 }

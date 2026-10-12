@@ -33,6 +33,7 @@ record, not a second tutorial system.
 | Identical root and packaged sensor JSON copies | Packaged JSON is the single editable source; root compatibility symlinks and immutable original snapshots |
 | Third-party PDFs under public docs | Local ignored reading archive; citations/authoritative links retained |
 | Accidental HDF5 `:memory:` and local generated files | Preserved locally; HDF5 fixtures now use core driver with backing store disabled |
+| Large local R10C HDF5 input | Ignored local archive plus original-path symlink, preserving existing download/restart lookup |
 
 `src/`, `tests/`, `docs/`, `examples/`, `scripts/`, `validation/`, `paper/`,
 `provenance/` and `archive/` now have explicit roles. `MANIFEST.in` excludes

@@ -275,6 +275,13 @@
     "markers": []
   },
   {
+    "path": "docs/page-catalog.md",
+    "role": "specialized/stable-link discoverability catalog",
+    "in_primary_navigation": true,
+    "status": "retained",
+    "markers": []
+  },
+  {
     "path": "docs/pipeline/outputs.md",
     "role": "workflow/reference",
     "in_primary_navigation": true,
@@ -318,21 +325,21 @@
   },
   {
     "path": "docs/pipeline.md",
-    "role": "retained stable-link walkthrough",
+    "role": "workflow/reference",
     "in_primary_navigation": false,
     "status": "retained",
     "markers": []
   },
   {
     "path": "docs/qa.md",
-    "role": "retained stable-link walkthrough",
+    "role": "workflow/reference",
     "in_primary_navigation": false,
     "status": "retained",
     "markers": []
   },
   {
     "path": "docs/quickstart.md",
-    "role": "retained stable-link walkthrough",
+    "role": "workflow/reference",
     "in_primary_navigation": false,
     "status": "retained",
     "markers": []
@@ -430,21 +437,21 @@
   },
   {
     "path": "docs/tutorials/micasense-to-landsat.md",
-    "role": "retained stable-link walkthrough",
+    "role": "workflow/reference",
     "in_primary_navigation": false,
     "status": "retained",
     "markers": []
   },
   {
     "path": "docs/tutorials/neon-to-envi.md",
-    "role": "retained stable-link walkthrough",
+    "role": "workflow/reference",
     "in_primary_navigation": false,
     "status": "retained",
     "markers": []
   },
   {
     "path": "docs/tutorials/neon-to-landsat.md",
-    "role": "retained stable-link walkthrough",
+    "role": "workflow/reference",
     "in_primary_navigation": false,
     "status": "retained",
     "markers": []
@@ -458,7 +465,7 @@
   },
   {
     "path": "docs/usage/notebook-example.md",
-    "role": "retained stable-link walkthrough",
+    "role": "workflow/reference",
     "in_primary_navigation": false,
     "status": "retained",
     "markers": []
@@ -479,7 +486,7 @@
   },
   {
     "path": "docs/usage/recipes.md",
-    "role": "retained stable-link walkthrough",
+    "role": "workflow/reference",
     "in_primary_navigation": false,
     "status": "retained",
     "markers": []
@@ -594,7 +601,7 @@
   },
   {
     "path": "docs/vignettes/carry-on-wayward-son.md",
-    "role": "retained stable-link walkthrough",
+    "role": "workflow/reference",
     "in_primary_navigation": true,
     "status": "retained",
     "markers": []
