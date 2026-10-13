@@ -1,0 +1,20 @@
+.........                                                                [100%]
+=============================== warnings summary ===============================
+spectralbridge-rc-final-wheel311/lib/python3.11/site-packages/spectralbridge/polygons.py:30
+  /private/tmp/spectralbridge-rc-final-wheel311/lib/python3.11/site-packages/spectralbridge/polygons.py:30: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+spectralbridge-rc-installed-tests/test_drone_pipeline.py::test_convert_drone_tiff_to_h5_creates_neoncube_readable_working_file
+spectralbridge-rc-installed-tests/test_drone_pipeline.py::test_convert_drone_tiff_to_h5_creates_neoncube_readable_working_file
+spectralbridge-rc-installed-tests/test_drone_pipeline.py::test_convert_drone_tiff_to_h5_creates_neoncube_readable_working_file
+spectralbridge-rc-installed-tests/test_drone_pipeline.py::test_convert_drone_tiff_to_h5_creates_neoncube_readable_working_file
+spectralbridge-rc-installed-tests/test_drone_pipeline.py::test_convert_drone_tiff_to_h5_creates_neoncube_readable_working_file
+spectralbridge-rc-installed-tests/test_drone_pipeline.py::test_production_shaped_tiff_correction_translation_polygon_and_qa
+spectralbridge-rc-installed-tests/test_drone_pipeline.py::test_production_shaped_tiff_correction_translation_polygon_and_qa
+spectralbridge-rc-installed-tests/test_drone_pipeline.py::test_production_shaped_tiff_correction_translation_polygon_and_qa
+spectralbridge-rc-installed-tests/test_drone_pipeline.py::test_production_shaped_tiff_correction_translation_polygon_and_qa
+  /private/tmp/spectralbridge-rc-final-wheel311/lib/python3.11/site-packages/rasterio/transform.py:178: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(xsize, -ysize)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+9 passed, 84 deselected, 10 warnings in 80.45s (0:01:20)

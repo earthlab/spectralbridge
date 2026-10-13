@@ -19,6 +19,9 @@ def is_ok_columns(columns: Sequence[str]) -> bool:
     for column in spectral:
         match = re.search(r"(.+)_b\d+_wl(\d+)nm$", column)
         if match is None:
+            # Merge aliases omit band indices; long-table pivots also omit nm.
+            match = re.fullmatch(r"(.+)_wl(\d+)(?:nm)?", column)
+        if match is None:
             return False
         stage, wavelength_text = match.group(1), match.group(2)
         wavelength = int(wavelength_text)

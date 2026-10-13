@@ -141,7 +141,10 @@ must change after publication, increment the prerelease number (for example,
 ## Dependency and artifact review
 
 Release preparation must confirm that package data, console scripts, examples,
-license, README, and citation metadata are present where intended. Dependency
+license, README, and citation metadata are present where intended. The installed
+Parquet validator accepts both stage band columns (`stage_b001_wl0500nm`) and
+established merged wavelength aliases (`raw_wl500` or `orig_wl0500nm`), while
+checking wavelength order separately for each stage. Dependency
 removal is not a release-cleanup exercise: remove or move a runtime dependency
 only with import/use evidence and exact-artifact tests. Defer speculative
 dependency slimming to a separate change after the RC.

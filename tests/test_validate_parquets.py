@@ -81,3 +81,26 @@ def test_validate_parquets_accepts_stub_json(tmp_path: Path, capsys) -> None:
     output = capsys.readouterr()
     assert exit_code == 0
     assert "✅" in output.out
+
+
+def test_validate_parquets_accepts_merged_wavelength_aliases(tmp_path: Path) -> None:
+    table = pa.table(
+        {
+            "lon": [0.0],
+            "lat": [0.0],
+            "raw_wl400": [0.1],
+            "corrected_wl350nm": [0.2],
+            "raw_wl500": [0.3],
+            "corrected_wl450nm": [0.4],
+            "sensor_b001_wl0500nm": [0.5],
+        }
+    )
+    pq.write_table(table, tmp_path / "merged.parquet")
+    assert validator.collect_issues(tmp_path) == []
+    assert validator.main([str(tmp_path)]) == 0
+
+
+def test_validate_merged_aliases_still_rejects_bad_names_and_order() -> None:
+    assert not validator.is_ok_columns(["raw_wl500", "raw_wl400"])
+    assert not validator.is_ok_columns(["raw_wl500nm", "raw_wl400nm"])
+    assert not validator.is_ok_columns(["raw_wlunknown"])

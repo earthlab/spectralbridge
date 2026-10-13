@@ -1,0 +1,957 @@
+* Creating isolated environment: virtualenv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=77
+  - wheel
+* Getting build dependencies for sdist...
+This project uses pyproject.toml-based builds. Run 'pip install -e .' to perform an editable install.
+running egg_info
+writing src/earthlab_spectralbridge.egg-info/PKG-INFO
+writing dependency_links to src/earthlab_spectralbridge.egg-info/dependency_links.txt
+writing entry points to src/earthlab_spectralbridge.egg-info/entry_points.txt
+writing requirements to src/earthlab_spectralbridge.egg-info/requires.txt
+writing top-level names to src/earthlab_spectralbridge.egg-info/top_level.txt
+reading manifest file 'src/earthlab_spectralbridge.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no files found matching '*.jpg' under directory 'docs'
+warning: no files found matching '*.jpeg' under directory 'docs'
+warning: no files found matching '*.yml' under directory 'docs'
+warning: no files found matching '*.yaml' under directory 'docs'
+warning: no previously-included files matching '*' found under directory 'docs/_build'
+no previously-included directories found matching 'data'
+no previously-included directories found matching 'deprecated'
+no previously-included directories found matching 'site'
+no previously-included directories found matching '.github'
+no previously-included directories found matching 'Datasets'
+no previously-included directories found matching 'vendor'
+warning: no previously-included files matching '__pycache__' found anywhere in distribution
+warning: no previously-included files matching '*.py[cod]' found anywhere in distribution
+warning: no previously-included files found matching 'gocmd'
+warning: no previously-included files found matching 'move_folders_from_instance_to_remote.py'
+warning: no previously-included files found matching 'remote_to_instance.py'
+warning: no previously-included files found matching 'patch_script_toworkfromcorrectedfiles.py'
+warning: no previously-included files found matching 'PROMPT_LOG.md'
+warning: no previously-included files found matching 'Drone_processing.ipynb'
+warning: no previously-included files found matching 'Raster_processing.ipynb'
+warning: no previously-included files found matching ':memory:'
+warning: no previously-included files found matching 'ty_tuff_contributions_last_year.md'
+no previously-included directories found matching 'archive'
+no previously-included directories found matching 'paper'
+no previously-included directories found matching 'drafts'
+adding license file 'LICENSE'
+adding license file 'NOTICE'
+writing manifest file 'src/earthlab_spectralbridge.egg-info/SOURCES.txt'
+* Installed build dependency versions:
+  - setuptools==84.0.0
+  - wheel==0.48.0
+* Building sdist...
+This project uses pyproject.toml-based builds. Run 'pip install -e .' to perform an editable install.
+running sdist
+running egg_info
+writing src/earthlab_spectralbridge.egg-info/PKG-INFO
+writing dependency_links to src/earthlab_spectralbridge.egg-info/dependency_links.txt
+writing entry points to src/earthlab_spectralbridge.egg-info/entry_points.txt
+writing requirements to src/earthlab_spectralbridge.egg-info/requires.txt
+writing top-level names to src/earthlab_spectralbridge.egg-info/top_level.txt
+reading manifest file 'src/earthlab_spectralbridge.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no files found matching '*.jpg' under directory 'docs'
+warning: no files found matching '*.jpeg' under directory 'docs'
+warning: no files found matching '*.yml' under directory 'docs'
+warning: no files found matching '*.yaml' under directory 'docs'
+warning: no previously-included files matching '*' found under directory 'docs/_build'
+no previously-included directories found matching 'data'
+no previously-included directories found matching 'deprecated'
+no previously-included directories found matching 'site'
+no previously-included directories found matching '.github'
+no previously-included directories found matching 'Datasets'
+no previously-included directories found matching 'vendor'
+warning: no previously-included files matching '__pycache__' found anywhere in distribution
+warning: no previously-included files matching '*.py[cod]' found anywhere in distribution
+warning: no previously-included files found matching 'gocmd'
+warning: no previously-included files found matching 'move_folders_from_instance_to_remote.py'
+warning: no previously-included files found matching 'remote_to_instance.py'
+warning: no previously-included files found matching 'patch_script_toworkfromcorrectedfiles.py'
+warning: no previously-included files found matching 'PROMPT_LOG.md'
+warning: no previously-included files found matching 'Drone_processing.ipynb'
+warning: no previously-included files found matching 'Raster_processing.ipynb'
+warning: no previously-included files found matching ':memory:'
+warning: no previously-included files found matching 'ty_tuff_contributions_last_year.md'
+no previously-included directories found matching 'archive'
+no previously-included directories found matching 'paper'
+no previously-included directories found matching 'drafts'
+adding license file 'LICENSE'
+adding license file 'NOTICE'
+writing manifest file 'src/earthlab_spectralbridge.egg-info/SOURCES.txt'
+running check
+creating earthlab_spectralbridge-2.3.0rc1
+creating earthlab_spectralbridge-2.3.0rc1/docs
+creating earthlab_spectralbridge-2.3.0rc1/docs/api
+creating earthlab_spectralbridge-2.3.0rc1/docs/asset/img
+creating earthlab_spectralbridge-2.3.0rc1/docs/concepts
+creating earthlab_spectralbridge-2.3.0rc1/docs/dev
+creating earthlab_spectralbridge-2.3.0rc1/docs/images/ai-transparency
+creating earthlab_spectralbridge-2.3.0rc1/docs/images/homepage
+creating earthlab_spectralbridge-2.3.0rc1/docs/js
+creating earthlab_spectralbridge-2.3.0rc1/docs/pipeline
+creating earthlab_spectralbridge-2.3.0rc1/docs/reference
+creating earthlab_spectralbridge-2.3.0rc1/docs/stylesheets
+creating earthlab_spectralbridge-2.3.0rc1/docs/tutorials
+creating earthlab_spectralbridge-2.3.0rc1/docs/usage
+creating earthlab_spectralbridge-2.3.0rc1/docs/validation
+creating earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915
+creating earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/combined
+creating earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/00_acquisition
+creating earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/01_input_data
+creating earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/02_correction_parameters
+creating earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/03_brdf_topographic_correction
+creating earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution
+creating earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/05_analysis_tables
+creating earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+creating earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+creating earthlab_spectralbridge-2.3.0rc1/docs/vignettes/notebooks
+creating earthlab_spectralbridge-2.3.0rc1/examples
+creating earthlab_spectralbridge-2.3.0rc1/examples/config
+creating earthlab_spectralbridge-2.3.0rc1/provenance
+creating earthlab_spectralbridge-2.3.0rc1/src/cross_sensor_cal
+creating earthlab_spectralbridge-2.3.0rc1/src/earthlab_spectralbridge.egg-info
+creating earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+creating earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+creating earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk/analyses
+creating earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/cli
+creating earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/data
+creating earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/data/brightness
+creating earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/deprecated
+creating earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/exports
+creating earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/io
+creating earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/pipelines
+creating earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/qa
+creating earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/utils
+creating earthlab_spectralbridge-2.3.0rc1/tests
+creating earthlab_spectralbridge-2.3.0rc1/tests/test_qa
+copying files to earthlab_spectralbridge-2.3.0rc1...
+copying CITATION.cff -> earthlab_spectralbridge-2.3.0rc1
+copying HYTOOLS_PROVENANCE.md -> earthlab_spectralbridge-2.3.0rc1
+copying LICENSE -> earthlab_spectralbridge-2.3.0rc1
+copying MANIFEST.in -> earthlab_spectralbridge-2.3.0rc1
+copying NOTICE -> earthlab_spectralbridge-2.3.0rc1
+copying README.md -> earthlab_spectralbridge-2.3.0rc1
+copying environment.yaml -> earthlab_spectralbridge-2.3.0rc1
+copying mkdocs.yml -> earthlab_spectralbridge-2.3.0rc1
+copying pyproject.toml -> earthlab_spectralbridge-2.3.0rc1
+copying pytest.ini -> earthlab_spectralbridge-2.3.0rc1
+copying requirements-dev.txt -> earthlab_spectralbridge-2.3.0rc1
+copying setup.py -> earthlab_spectralbridge-2.3.0rc1
+copying docs/EL_workflow_diagram.png -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/EL_workflow_diagram_updatedQA.png -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/ai-transparency.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/brdf_topo_algorithm.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/dev-notes.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/documentation-overview.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/documentation_style_guide.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/env.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/faq.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/getting-started.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/hytools_manuscript_guidance.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/index.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/naming-conventions.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/page-catalog.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/pipeline.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/qa.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/quickstart.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/refactor_notes.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/troubleshooting.md -> earthlab_spectralbridge-2.3.0rc1/docs
+copying docs/api/index.md -> earthlab_spectralbridge-2.3.0rc1/docs/api
+copying docs/api/merge_duckdb.md -> earthlab_spectralbridge-2.3.0rc1/docs/api
+copying docs/api/qa_plots.md -> earthlab_spectralbridge-2.3.0rc1/docs/api
+copying docs/asset/img/Boulder_shorty_left_2025.png -> earthlab_spectralbridge-2.3.0rc1/docs/asset/img
+copying docs/asset/img/CIRES logo black lettering transparent bkgrnd.png -> earthlab_spectralbridge-2.3.0rc1/docs/asset/img
+copying docs/asset/img/Final_ESIIL Wordmark Color_0.png -> earthlab_spectralbridge-2.3.0rc1/docs/asset/img
+copying docs/asset/img/NSF_Official_logo_High_Res_1200ppi.png -> earthlab_spectralbridge-2.3.0rc1/docs/asset/img
+copying docs/asset/img/spectralbridge_favicon.png -> earthlab_spectralbridge-2.3.0rc1/docs/asset/img
+copying docs/asset/img/spectralbridge_header_logo.png -> earthlab_spectralbridge-2.3.0rc1/docs/asset/img
+copying docs/asset/img/spectralbridge_logo.png -> earthlab_spectralbridge-2.3.0rc1/docs/asset/img
+copying docs/concepts/measurements.md -> earthlab_spectralbridge-2.3.0rc1/docs/concepts
+copying docs/concepts/why-calibration.md -> earthlab_spectralbridge-2.3.0rc1/docs/concepts
+copying docs/dev/architecture-audit.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/architecture.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/ci.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/codex-guidelines.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/container-workflows.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/contributing.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/dependency-review.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/doc_drift.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/doi-zenodo.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/drone-bulk-contract-diagnostic-2026-09-29.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/history.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/logging-review.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/production-validation-record.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/publication-cleanup-log.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/publication-hardening-audit-2026-09-04.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/publication-readiness-audit-2026-08-14.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/release-hygiene.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/releasing.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/software-citation.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/dev/versioning-review.md -> earthlab_spectralbridge-2.3.0rc1/docs/dev
+copying docs/images/ai-transparency/prompt-lengths.svg -> earthlab_spectralbridge-2.3.0rc1/docs/images/ai-transparency
+copying docs/images/ai-transparency/prompts-by-intent.svg -> earthlab_spectralbridge-2.3.0rc1/docs/images/ai-transparency
+copying docs/images/ai-transparency/prompts-by-month.svg -> earthlab_spectralbridge-2.3.0rc1/docs/images/ai-transparency
+copying docs/images/ai-transparency/prompts-by-topic.svg -> earthlab_spectralbridge-2.3.0rc1/docs/images/ai-transparency
+copying docs/images/homepage/spectralbridge-technical-overview.png -> earthlab_spectralbridge-2.3.0rc1/docs/images/homepage
+copying docs/js/glightbox-init.js -> earthlab_spectralbridge-2.3.0rc1/docs/js
+copying docs/pipeline/outputs.md -> earthlab_spectralbridge-2.3.0rc1/docs/pipeline
+copying docs/pipeline/polygons.md -> earthlab_spectralbridge-2.3.0rc1/docs/pipeline
+copying docs/pipeline/qa.md -> earthlab_spectralbridge-2.3.0rc1/docs/pipeline
+copying docs/pipeline/qa_panel.md -> earthlab_spectralbridge-2.3.0rc1/docs/pipeline
+copying docs/pipeline/stage-qa.md -> earthlab_spectralbridge-2.3.0rc1/docs/pipeline
+copying docs/pipeline/stages.md -> earthlab_spectralbridge-2.3.0rc1/docs/pipeline
+copying docs/reference/configuration.md -> earthlab_spectralbridge-2.3.0rc1/docs/reference
+copying docs/reference/custom-correction-hook.md -> earthlab_spectralbridge-2.3.0rc1/docs/reference
+copying docs/reference/extending.md -> earthlab_spectralbridge-2.3.0rc1/docs/reference
+copying docs/reference/index.md -> earthlab_spectralbridge-2.3.0rc1/docs/reference
+copying docs/reference/json-catalog.md -> earthlab_spectralbridge-2.3.0rc1/docs/reference
+copying docs/reference/literature.md -> earthlab_spectralbridge-2.3.0rc1/docs/reference
+copying docs/reference/qa-code-map.md -> earthlab_spectralbridge-2.3.0rc1/docs/reference
+copying docs/reference/repository-map.md -> earthlab_spectralbridge-2.3.0rc1/docs/reference
+copying docs/reference/schemas.md -> earthlab_spectralbridge-2.3.0rc1/docs/reference
+copying docs/reference/validation.md -> earthlab_spectralbridge-2.3.0rc1/docs/reference
+copying docs/stylesheets/spectralbridge.css -> earthlab_spectralbridge-2.3.0rc1/docs/stylesheets
+copying docs/tutorials/cloud-workflow.md -> earthlab_spectralbridge-2.3.0rc1/docs/tutorials
+copying docs/tutorials/micasense-to-landsat.md -> earthlab_spectralbridge-2.3.0rc1/docs/tutorials
+copying docs/tutorials/neon-to-envi.md -> earthlab_spectralbridge-2.3.0rc1/docs/tutorials
+copying docs/tutorials/neon-to-landsat.md -> earthlab_spectralbridge-2.3.0rc1/docs/tutorials
+copying docs/usage/cli.md -> earthlab_spectralbridge-2.3.0rc1/docs/usage
+copying docs/usage/notebook-example.md -> earthlab_spectralbridge-2.3.0rc1/docs/usage
+copying docs/usage/parquet.md -> earthlab_spectralbridge-2.3.0rc1/docs/usage
+copying docs/usage/parquet_preview.md -> earthlab_spectralbridge-2.3.0rc1/docs/usage
+copying docs/usage/recipes.md -> earthlab_spectralbridge-2.3.0rc1/docs/usage
+copying docs/validation/brdf_correction.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/evidence-hierarchy.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/h5_to_envi.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/index.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/neon_download.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/parquet_csv.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/qa_plots.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/real-data-example.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/save_restart.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/sensor_convolution.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/stage-qa-guide.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/supplement.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/topographic_correction.md -> earthlab_spectralbridge-2.3.0rc1/docs/validation
+copying docs/validation/artifacts/r10c-l002-20210915/legacy-qa.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915
+copying docs/validation/artifacts/r10c-l002-20210915/qa/combined/pipeline_evolution.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/combined
+copying docs/validation/artifacts/r10c-l002-20210915/qa/stages/00_acquisition/overview.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/00_acquisition
+copying docs/validation/artifacts/r10c-l002-20210915/qa/stages/01_input_data/overview.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/01_input_data
+copying docs/validation/artifacts/r10c-l002-20210915/qa/stages/02_correction_parameters/overview.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/02_correction_parameters
+copying docs/validation/artifacts/r10c-l002-20210915/qa/stages/03_brdf_topographic_correction/overview.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/03_brdf_topographic_correction
+copying docs/validation/artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/brightness.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution
+copying docs/validation/artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/brightness_02.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution
+copying docs/validation/artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/brightness_03.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution
+copying docs/validation/artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/brightness_04.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution
+copying docs/validation/artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution/overview.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/04_spectral_convolution
+copying docs/validation/artifacts/r10c-l002-20210915/qa/stages/05_analysis_tables/overview.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/artifacts/r10c-l002-20210915/qa/stages/05_analysis_tables
+copying docs/validation/supplement-assets/si-figure-17.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-figure-18.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-10.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-11.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-12.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-13.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-14.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-15.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-19.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-20.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-21.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-23.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-24.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-25.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-26.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-27.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-3.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-31.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-32.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-33.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-34.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-35.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/validation/supplement-assets/si-table-page-8.png -> earthlab_spectralbridge-2.3.0rc1/docs/validation/supplement-assets
+copying docs/vignettes/analysis-tables.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/bulk-analysis.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/carry-on-wayward-son.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/data-acquisition.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/drone-processing.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/drone-production.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/full-pipeline.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/index.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/neon-correction.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/notebook-vignettes.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/polygon-extraction.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/qa-and-analysis.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/sensor-harmonization.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/spectral-library.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes
+copying docs/vignettes/notebooks/README.md -> earthlab_spectralbridge-2.3.0rc1/docs/vignettes/notebooks
+copying examples/first_example.py -> earthlab_spectralbridge-2.3.0rc1/examples
+copying examples/release_candidate_smoke.py -> earthlab_spectralbridge-2.3.0rc1/examples
+copying examples/run_drone_pipeline.py -> earthlab_spectralbridge-2.3.0rc1/examples
+copying examples/run_neon_pipeline.py -> earthlab_spectralbridge-2.3.0rc1/examples
+copying examples/config/drone_pipeline.example.json -> earthlab_spectralbridge-2.3.0rc1/examples/config
+copying examples/config/neon_pipeline.example.json -> earthlab_spectralbridge-2.3.0rc1/examples/config
+copying provenance/hytools.json -> earthlab_spectralbridge-2.3.0rc1/provenance
+copying src/cross_sensor_cal/__init__.py -> earthlab_spectralbridge-2.3.0rc1/src/cross_sensor_cal
+copying src/earthlab_spectralbridge.egg-info/PKG-INFO -> earthlab_spectralbridge-2.3.0rc1/src/earthlab_spectralbridge.egg-info
+copying src/earthlab_spectralbridge.egg-info/SOURCES.txt -> earthlab_spectralbridge-2.3.0rc1/src/earthlab_spectralbridge.egg-info
+copying src/earthlab_spectralbridge.egg-info/dependency_links.txt -> earthlab_spectralbridge-2.3.0rc1/src/earthlab_spectralbridge.egg-info
+copying src/earthlab_spectralbridge.egg-info/entry_points.txt -> earthlab_spectralbridge-2.3.0rc1/src/earthlab_spectralbridge.egg-info
+copying src/earthlab_spectralbridge.egg-info/requires.txt -> earthlab_spectralbridge-2.3.0rc1/src/earthlab_spectralbridge.egg-info
+copying src/earthlab_spectralbridge.egg-info/top_level.txt -> earthlab_spectralbridge-2.3.0rc1/src/earthlab_spectralbridge.egg-info
+copying src/spectralbridge/__init__.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/_cli_compat.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/_optional.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/_ray_utils.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/brdf_topo.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/brightness.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/brightness_config.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/corrections.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/drone_production.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/drone_qa.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/drone_translation.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/drone_translation_registry.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/envi.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/envi_download.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/envi_writer.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/file_sort.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/file_sort_adapter.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/file_types.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/half_flight.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/header_utils.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/hytools_compat.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/landsat_validation.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/logging_utils.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/mask_raster.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/merge_duckdb.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/neon_cube.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/neon_to_envi.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/parquet_export.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/parquet_validation.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/paths.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/polygon_extraction.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/polygons.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/progress_utils.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/qa_dashboard.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/qa_metrics.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/qa_plots.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/qa_style.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/ray_utils.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/remote.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/resample.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/sensor_pairs.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/sensor_panel_plots.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/sort_core.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/standard_resample.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/topo_and_brdf_correction.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/types_protocol.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/utils_checks.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/validation.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge
+copying src/spectralbridge/bulk/__init__.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/catalog.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/dataset.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/exclusions.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/flightline_outputs.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/harmonized.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/identity.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/models.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/provenance.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/registry.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/reporting.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/results.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/streaming.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk
+copying src/spectralbridge/bulk/analyses/__init__.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/common.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/dataset_census.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/leave_one_site_out.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/sensor_translation.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/spectral_library.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/streaming_translation.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/bulk/analyses
+copying src/spectralbridge/cli/__init__.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/cli
+copying src/spectralbridge/cli/bulk_cli.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/cli
+copying src/spectralbridge/cli/drone_production_cli.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/cli
+copying src/spectralbridge/cli/pipeline_cli.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/cli
+copying src/spectralbridge/cli/qa_cli.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/cli
+copying src/spectralbridge/cli/qa_summary_cli.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/cli
+copying src/spectralbridge/cli/recover_cli.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/cli
+copying src/spectralbridge/cli/stage_qa_cli.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/cli
+copying src/spectralbridge/data/__init__.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/data
+copying src/spectralbridge/data/drone_field_manifest.csv -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/data
+copying src/spectralbridge/data/drone_translation_coefficients_v1.json -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/data
+copying src/spectralbridge/data/hyperspectral_bands.json -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/data
+copying src/spectralbridge/data/landsat_band_parameters.json -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/data
+copying src/spectralbridge/data/brightness/landsat_tm_etm_to_micasense.json -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/data/brightness
+copying src/spectralbridge/data/brightness/landsat_to_micasense.json -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/data/brightness
+copying src/spectralbridge/deprecated/__init__.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/deprecated
+copying src/spectralbridge/deprecated/hytools.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/deprecated
+copying src/spectralbridge/exports/geo_utils.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/exports
+copying src/spectralbridge/exports/schema_utils.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/exports
+copying src/spectralbridge/io/__init__.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/io
+copying src/spectralbridge/io/neon.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/io
+copying src/spectralbridge/io/neon_legacy.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/io
+copying src/spectralbridge/io/neon_schema.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/io
+copying src/spectralbridge/pipelines/__init__.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/pipelines
+copying src/spectralbridge/pipelines/bulk.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/pipelines
+copying src/spectralbridge/pipelines/download.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/pipelines
+copying src/spectralbridge/pipelines/drone.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/pipelines
+copying src/spectralbridge/pipelines/pipeline.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/pipelines
+copying src/spectralbridge/qa/__init__.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/qa
+copying src/spectralbridge/qa/brightness.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/qa
+copying src/spectralbridge/qa/metrics.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/qa
+copying src/spectralbridge/qa/network.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/qa
+copying src/spectralbridge/qa/paths.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/qa
+copying src/spectralbridge/qa/plots.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/qa
+copying src/spectralbridge/qa/reporting.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/qa
+copying src/spectralbridge/qa/runner.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/qa
+copying src/spectralbridge/qa/schema.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/qa
+copying src/spectralbridge/qa/stages.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/qa
+copying src/spectralbridge/qa/thresholds.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/qa
+copying src/spectralbridge/utils/__init__.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/utils
+copying src/spectralbridge/utils/memory.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/utils
+copying src/spectralbridge/utils/naming.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/utils
+copying src/spectralbridge/utils/paths.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/utils
+copying src/spectralbridge/utils/qa_summary.py -> earthlab_spectralbridge-2.3.0rc1/src/spectralbridge/utils
+copying tests/__init__.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/conftest.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_ai_transparency.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_brdf_scale.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_brdf_topo_chunking.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_brdf_topo_streamlined.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_brightness_coefficients.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_bulk_pipeline.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_bulk_results.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_bulk_spectral_library.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_bulk_streaming_restart.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_cross_sensor_cal_shim.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_docs_playwright.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_drone_pipeline.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_drone_production.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_drone_qa_summary.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_drone_solar_qa.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_drone_translation.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_drone_translation_registry.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_duckdb_merge.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_envi_download.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_envi_header_parser.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_example_entrypoints.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_file_sort.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_file_sort_adapter_lite.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_gocmd_upload_helper.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_hytools_compat.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_hytools_preflight.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_hytools_provenance.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_installed_artifact_smoke.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_joss_submission.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_landsat_validation.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_legacy_hytools_module.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_logging_config.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_merge_filter_nodata.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_neon_cube.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_neon_filename_parsing.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_neon_legacy.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_parquet_export.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_paths.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_pipeline_convolution.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_pipeline_ray_engines.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_polygon_extraction.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_polygon_pipeline.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_polygons.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_public_api_smoke.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_publication_cleanup.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_qa_safe_parquet.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_qa_style.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_qa_summary.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_release_metadata.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_resample_math_lite.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_run_pipeline_from_corrected_envi.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_schema_parity.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_schema_utils.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_sensor_panel_plots.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_sort_core.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_split_across_track.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_stage_export.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_stage_qa.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_supplement_docs.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_types_protocol.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_validate_parquets.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_validation_campaign.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_validation_docs.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/utils_builders.py -> earthlab_spectralbridge-2.3.0rc1/tests
+copying tests/test_qa/conftest.py -> earthlab_spectralbridge-2.3.0rc1/tests/test_qa
+copying tests/test_qa/test_qa_metrics_smoke.py -> earthlab_spectralbridge-2.3.0rc1/tests/test_qa
+copying tests/test_qa/test_qa_png_phash.py -> earthlab_spectralbridge-2.3.0rc1/tests/test_qa
+Writing earthlab_spectralbridge-2.3.0rc1/setup.cfg
+Creating tar archive
+removing 'earthlab_spectralbridge-2.3.0rc1' (and everything under it)
+* Building wheel from sdist
+* Creating isolated environment: virtualenv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=77
+  - wheel
+* Getting build dependencies for wheel...
+This project uses pyproject.toml-based builds. Run 'pip install -e .' to perform an editable install.
+running egg_info
+writing src/earthlab_spectralbridge.egg-info/PKG-INFO
+writing dependency_links to src/earthlab_spectralbridge.egg-info/dependency_links.txt
+writing entry points to src/earthlab_spectralbridge.egg-info/entry_points.txt
+writing requirements to src/earthlab_spectralbridge.egg-info/requires.txt
+writing top-level names to src/earthlab_spectralbridge.egg-info/top_level.txt
+reading manifest file 'src/earthlab_spectralbridge.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no files found matching '*.jpg' under directory 'docs'
+warning: no files found matching '*.jpeg' under directory 'docs'
+warning: no files found matching '*.yml' under directory 'docs'
+warning: no files found matching '*.yaml' under directory 'docs'
+warning: no previously-included files matching '*' found under directory 'docs/_build'
+no previously-included directories found matching 'data'
+no previously-included directories found matching 'deprecated'
+no previously-included directories found matching 'site'
+no previously-included directories found matching '.github'
+no previously-included directories found matching 'Datasets'
+no previously-included directories found matching 'vendor'
+warning: no previously-included files matching '__pycache__' found anywhere in distribution
+warning: no previously-included files matching '*.py[cod]' found anywhere in distribution
+warning: no previously-included files found matching 'gocmd'
+warning: no previously-included files found matching 'move_folders_from_instance_to_remote.py'
+warning: no previously-included files found matching 'remote_to_instance.py'
+warning: no previously-included files found matching 'patch_script_toworkfromcorrectedfiles.py'
+warning: no previously-included files found matching 'PROMPT_LOG.md'
+warning: no previously-included files found matching 'Drone_processing.ipynb'
+warning: no previously-included files found matching 'Raster_processing.ipynb'
+warning: no previously-included files found matching ':memory:'
+warning: no previously-included files found matching 'ty_tuff_contributions_last_year.md'
+no previously-included directories found matching 'archive'
+no previously-included directories found matching 'paper'
+no previously-included directories found matching 'drafts'
+adding license file 'LICENSE'
+adding license file 'NOTICE'
+writing manifest file 'src/earthlab_spectralbridge.egg-info/SOURCES.txt'
+* Installed build dependency versions:
+  - setuptools==84.0.0
+  - wheel==0.48.0
+* Building wheel...
+This project uses pyproject.toml-based builds. Run 'pip install -e .' to perform an editable install.
+running bdist_wheel
+running build
+running build_py
+creating build/lib/cross_sensor_cal
+copying src/cross_sensor_cal/__init__.py -> build/lib/cross_sensor_cal
+creating build/lib/spectralbridge
+copying src/spectralbridge/_optional.py -> build/lib/spectralbridge
+copying src/spectralbridge/hytools_compat.py -> build/lib/spectralbridge
+copying src/spectralbridge/drone_translation_registry.py -> build/lib/spectralbridge
+copying src/spectralbridge/topo_and_brdf_correction.py -> build/lib/spectralbridge
+copying src/spectralbridge/resample.py -> build/lib/spectralbridge
+copying src/spectralbridge/neon_cube.py -> build/lib/spectralbridge
+copying src/spectralbridge/envi_download.py -> build/lib/spectralbridge
+copying src/spectralbridge/types_protocol.py -> build/lib/spectralbridge
+copying src/spectralbridge/paths.py -> build/lib/spectralbridge
+copying src/spectralbridge/polygons.py -> build/lib/spectralbridge
+copying src/spectralbridge/parquet_export.py -> build/lib/spectralbridge
+copying src/spectralbridge/remote.py -> build/lib/spectralbridge
+copying src/spectralbridge/_cli_compat.py -> build/lib/spectralbridge
+copying src/spectralbridge/drone_production.py -> build/lib/spectralbridge
+copying src/spectralbridge/drone_translation.py -> build/lib/spectralbridge
+copying src/spectralbridge/merge_duckdb.py -> build/lib/spectralbridge
+copying src/spectralbridge/file_types.py -> build/lib/spectralbridge
+copying src/spectralbridge/brightness_config.py -> build/lib/spectralbridge
+copying src/spectralbridge/brdf_topo.py -> build/lib/spectralbridge
+copying src/spectralbridge/half_flight.py -> build/lib/spectralbridge
+copying src/spectralbridge/sort_core.py -> build/lib/spectralbridge
+copying src/spectralbridge/file_sort.py -> build/lib/spectralbridge
+copying src/spectralbridge/qa_plots.py -> build/lib/spectralbridge
+copying src/spectralbridge/__init__.py -> build/lib/spectralbridge
+copying src/spectralbridge/file_sort_adapter.py -> build/lib/spectralbridge
+copying src/spectralbridge/standard_resample.py -> build/lib/spectralbridge
+copying src/spectralbridge/header_utils.py -> build/lib/spectralbridge
+copying src/spectralbridge/qa_metrics.py -> build/lib/spectralbridge
+copying src/spectralbridge/sensor_pairs.py -> build/lib/spectralbridge
+copying src/spectralbridge/envi_writer.py -> build/lib/spectralbridge
+copying src/spectralbridge/mask_raster.py -> build/lib/spectralbridge
+copying src/spectralbridge/parquet_validation.py -> build/lib/spectralbridge
+copying src/spectralbridge/corrections.py -> build/lib/spectralbridge
+copying src/spectralbridge/utils_checks.py -> build/lib/spectralbridge
+copying src/spectralbridge/neon_to_envi.py -> build/lib/spectralbridge
+copying src/spectralbridge/ray_utils.py -> build/lib/spectralbridge
+copying src/spectralbridge/qa_dashboard.py -> build/lib/spectralbridge
+copying src/spectralbridge/polygon_extraction.py -> build/lib/spectralbridge
+copying src/spectralbridge/qa_style.py -> build/lib/spectralbridge
+copying src/spectralbridge/envi.py -> build/lib/spectralbridge
+copying src/spectralbridge/brightness.py -> build/lib/spectralbridge
+copying src/spectralbridge/sensor_panel_plots.py -> build/lib/spectralbridge
+copying src/spectralbridge/drone_qa.py -> build/lib/spectralbridge
+copying src/spectralbridge/progress_utils.py -> build/lib/spectralbridge
+copying src/spectralbridge/landsat_validation.py -> build/lib/spectralbridge
+copying src/spectralbridge/logging_utils.py -> build/lib/spectralbridge
+copying src/spectralbridge/_ray_utils.py -> build/lib/spectralbridge
+copying src/spectralbridge/validation.py -> build/lib/spectralbridge
+creating build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/catalog.py -> build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/exclusions.py -> build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/models.py -> build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/flightline_outputs.py -> build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/results.py -> build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/registry.py -> build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/__init__.py -> build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/dataset.py -> build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/harmonized.py -> build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/provenance.py -> build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/streaming.py -> build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/identity.py -> build/lib/spectralbridge/bulk
+copying src/spectralbridge/bulk/reporting.py -> build/lib/spectralbridge/bulk
+creating build/lib/spectralbridge/io
+copying src/spectralbridge/io/neon.py -> build/lib/spectralbridge/io
+copying src/spectralbridge/io/neon_schema.py -> build/lib/spectralbridge/io
+copying src/spectralbridge/io/__init__.py -> build/lib/spectralbridge/io
+copying src/spectralbridge/io/neon_legacy.py -> build/lib/spectralbridge/io
+creating build/lib/spectralbridge/qa
+copying src/spectralbridge/qa/metrics.py -> build/lib/spectralbridge/qa
+copying src/spectralbridge/qa/runner.py -> build/lib/spectralbridge/qa
+copying src/spectralbridge/qa/paths.py -> build/lib/spectralbridge/qa
+copying src/spectralbridge/qa/thresholds.py -> build/lib/spectralbridge/qa
+copying src/spectralbridge/qa/__init__.py -> build/lib/spectralbridge/qa
+copying src/spectralbridge/qa/stages.py -> build/lib/spectralbridge/qa
+copying src/spectralbridge/qa/plots.py -> build/lib/spectralbridge/qa
+copying src/spectralbridge/qa/network.py -> build/lib/spectralbridge/qa
+copying src/spectralbridge/qa/brightness.py -> build/lib/spectralbridge/qa
+copying src/spectralbridge/qa/schema.py -> build/lib/spectralbridge/qa
+copying src/spectralbridge/qa/reporting.py -> build/lib/spectralbridge/qa
+creating build/lib/spectralbridge/pipelines
+copying src/spectralbridge/pipelines/bulk.py -> build/lib/spectralbridge/pipelines
+copying src/spectralbridge/pipelines/drone.py -> build/lib/spectralbridge/pipelines
+copying src/spectralbridge/pipelines/download.py -> build/lib/spectralbridge/pipelines
+copying src/spectralbridge/pipelines/__init__.py -> build/lib/spectralbridge/pipelines
+copying src/spectralbridge/pipelines/pipeline.py -> build/lib/spectralbridge/pipelines
+creating build/lib/spectralbridge/utils
+copying src/spectralbridge/utils/paths.py -> build/lib/spectralbridge/utils
+copying src/spectralbridge/utils/memory.py -> build/lib/spectralbridge/utils
+copying src/spectralbridge/utils/naming.py -> build/lib/spectralbridge/utils
+copying src/spectralbridge/utils/__init__.py -> build/lib/spectralbridge/utils
+copying src/spectralbridge/utils/qa_summary.py -> build/lib/spectralbridge/utils
+creating build/lib/spectralbridge/cli
+copying src/spectralbridge/cli/stage_qa_cli.py -> build/lib/spectralbridge/cli
+copying src/spectralbridge/cli/recover_cli.py -> build/lib/spectralbridge/cli
+copying src/spectralbridge/cli/pipeline_cli.py -> build/lib/spectralbridge/cli
+copying src/spectralbridge/cli/drone_production_cli.py -> build/lib/spectralbridge/cli
+copying src/spectralbridge/cli/__init__.py -> build/lib/spectralbridge/cli
+copying src/spectralbridge/cli/bulk_cli.py -> build/lib/spectralbridge/cli
+copying src/spectralbridge/cli/qa_cli.py -> build/lib/spectralbridge/cli
+copying src/spectralbridge/cli/qa_summary_cli.py -> build/lib/spectralbridge/cli
+creating build/lib/spectralbridge/exports
+copying src/spectralbridge/exports/schema_utils.py -> build/lib/spectralbridge/exports
+copying src/spectralbridge/exports/geo_utils.py -> build/lib/spectralbridge/exports
+creating build/lib/spectralbridge/data
+copying src/spectralbridge/data/__init__.py -> build/lib/spectralbridge/data
+creating build/lib/spectralbridge/deprecated
+copying src/spectralbridge/deprecated/hytools.py -> build/lib/spectralbridge/deprecated
+copying src/spectralbridge/deprecated/__init__.py -> build/lib/spectralbridge/deprecated
+creating build/lib/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/sensor_translation.py -> build/lib/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/leave_one_site_out.py -> build/lib/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/dataset_census.py -> build/lib/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/streaming_translation.py -> build/lib/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/__init__.py -> build/lib/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/spectral_library.py -> build/lib/spectralbridge/bulk/analyses
+copying src/spectralbridge/bulk/analyses/common.py -> build/lib/spectralbridge/bulk/analyses
+running egg_info
+writing src/earthlab_spectralbridge.egg-info/PKG-INFO
+writing dependency_links to src/earthlab_spectralbridge.egg-info/dependency_links.txt
+writing entry points to src/earthlab_spectralbridge.egg-info/entry_points.txt
+writing requirements to src/earthlab_spectralbridge.egg-info/requires.txt
+writing top-level names to src/earthlab_spectralbridge.egg-info/top_level.txt
+reading manifest file 'src/earthlab_spectralbridge.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no files found matching '*.jpg' under directory 'docs'
+warning: no files found matching '*.jpeg' under directory 'docs'
+warning: no files found matching '*.yml' under directory 'docs'
+warning: no files found matching '*.yaml' under directory 'docs'
+warning: no previously-included files matching '*' found under directory 'docs/_build'
+no previously-included directories found matching 'data'
+no previously-included directories found matching 'deprecated'
+no previously-included directories found matching 'site'
+no previously-included directories found matching '.github'
+no previously-included directories found matching 'Datasets'
+no previously-included directories found matching 'vendor'
+warning: no previously-included files matching '__pycache__' found anywhere in distribution
+warning: no previously-included files matching '*.py[cod]' found anywhere in distribution
+warning: no previously-included files found matching 'gocmd'
+warning: no previously-included files found matching 'move_folders_from_instance_to_remote.py'
+warning: no previously-included files found matching 'remote_to_instance.py'
+warning: no previously-included files found matching 'patch_script_toworkfromcorrectedfiles.py'
+warning: no previously-included files found matching 'PROMPT_LOG.md'
+warning: no previously-included files found matching 'Drone_processing.ipynb'
+warning: no previously-included files found matching 'Raster_processing.ipynb'
+warning: no previously-included files found matching ':memory:'
+warning: no previously-included files found matching 'ty_tuff_contributions_last_year.md'
+no previously-included directories found matching 'archive'
+no previously-included directories found matching 'paper'
+no previously-included directories found matching 'drafts'
+adding license file 'LICENSE'
+adding license file 'NOTICE'
+writing manifest file 'src/earthlab_spectralbridge.egg-info/SOURCES.txt'
+copying src/spectralbridge/data/drone_field_manifest.csv -> build/lib/spectralbridge/data
+copying src/spectralbridge/data/hyperspectral_bands.json -> build/lib/spectralbridge/data
+copying src/spectralbridge/data/drone_translation_coefficients_v1.json -> build/lib/spectralbridge/data
+copying src/spectralbridge/data/landsat_band_parameters.json -> build/lib/spectralbridge/data
+creating build/lib/spectralbridge/data/brightness
+copying src/spectralbridge/data/brightness/landsat_to_micasense.json -> build/lib/spectralbridge/data/brightness
+copying src/spectralbridge/data/brightness/landsat_tm_etm_to_micasense.json -> build/lib/spectralbridge/data/brightness
+installing to build/bdist.macosx-11.0-arm64/wheel
+running install
+running install_lib
+creating build/bdist.macosx-11.0-arm64/wheel
+creating build/bdist.macosx-11.0-arm64/wheel/cross_sensor_cal
+copying build/lib/cross_sensor_cal/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./cross_sensor_cal
+creating build/bdist.macosx-11.0-arm64/wheel/spectralbridge
+copying build/lib/spectralbridge/_optional.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+creating build/bdist.macosx-11.0-arm64/wheel/spectralbridge/bulk
+copying build/lib/spectralbridge/bulk/catalog.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+copying build/lib/spectralbridge/bulk/exclusions.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+copying build/lib/spectralbridge/bulk/models.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+copying build/lib/spectralbridge/bulk/flightline_outputs.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+copying build/lib/spectralbridge/bulk/results.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+copying build/lib/spectralbridge/bulk/registry.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+copying build/lib/spectralbridge/bulk/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+copying build/lib/spectralbridge/bulk/dataset.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+copying build/lib/spectralbridge/bulk/harmonized.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+creating build/bdist.macosx-11.0-arm64/wheel/spectralbridge/bulk/analyses
+copying build/lib/spectralbridge/bulk/analyses/sensor_translation.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk/analyses
+copying build/lib/spectralbridge/bulk/analyses/leave_one_site_out.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk/analyses
+copying build/lib/spectralbridge/bulk/analyses/dataset_census.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk/analyses
+copying build/lib/spectralbridge/bulk/analyses/streaming_translation.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk/analyses
+copying build/lib/spectralbridge/bulk/analyses/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk/analyses
+copying build/lib/spectralbridge/bulk/analyses/spectral_library.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk/analyses
+copying build/lib/spectralbridge/bulk/analyses/common.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk/analyses
+copying build/lib/spectralbridge/bulk/provenance.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+copying build/lib/spectralbridge/bulk/streaming.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+copying build/lib/spectralbridge/bulk/identity.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+copying build/lib/spectralbridge/bulk/reporting.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/bulk
+copying build/lib/spectralbridge/hytools_compat.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/drone_translation_registry.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/topo_and_brdf_correction.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/resample.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/neon_cube.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/envi_download.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/types_protocol.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/paths.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/polygons.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/parquet_export.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/remote.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/_cli_compat.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/drone_production.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/drone_translation.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/merge_duckdb.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/file_types.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/brightness_config.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/brdf_topo.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/half_flight.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/sort_core.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+creating build/bdist.macosx-11.0-arm64/wheel/spectralbridge/io
+copying build/lib/spectralbridge/io/neon.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/io
+copying build/lib/spectralbridge/io/neon_schema.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/io
+copying build/lib/spectralbridge/io/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/io
+copying build/lib/spectralbridge/io/neon_legacy.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/io
+copying build/lib/spectralbridge/file_sort.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/qa_plots.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/file_sort_adapter.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/standard_resample.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/header_utils.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+creating build/bdist.macosx-11.0-arm64/wheel/spectralbridge/qa
+copying build/lib/spectralbridge/qa/metrics.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/qa
+copying build/lib/spectralbridge/qa/runner.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/qa
+copying build/lib/spectralbridge/qa/paths.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/qa
+copying build/lib/spectralbridge/qa/thresholds.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/qa
+copying build/lib/spectralbridge/qa/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/qa
+copying build/lib/spectralbridge/qa/stages.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/qa
+copying build/lib/spectralbridge/qa/plots.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/qa
+copying build/lib/spectralbridge/qa/network.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/qa
+copying build/lib/spectralbridge/qa/brightness.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/qa
+copying build/lib/spectralbridge/qa/schema.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/qa
+copying build/lib/spectralbridge/qa/reporting.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/qa
+creating build/bdist.macosx-11.0-arm64/wheel/spectralbridge/pipelines
+copying build/lib/spectralbridge/pipelines/bulk.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/pipelines
+copying build/lib/spectralbridge/pipelines/drone.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/pipelines
+copying build/lib/spectralbridge/pipelines/download.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/pipelines
+copying build/lib/spectralbridge/pipelines/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/pipelines
+copying build/lib/spectralbridge/pipelines/pipeline.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/pipelines
+creating build/bdist.macosx-11.0-arm64/wheel/spectralbridge/utils
+copying build/lib/spectralbridge/utils/paths.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/utils
+copying build/lib/spectralbridge/utils/memory.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/utils
+copying build/lib/spectralbridge/utils/naming.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/utils
+copying build/lib/spectralbridge/utils/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/utils
+copying build/lib/spectralbridge/utils/qa_summary.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/utils
+creating build/bdist.macosx-11.0-arm64/wheel/spectralbridge/cli
+copying build/lib/spectralbridge/cli/stage_qa_cli.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/cli
+copying build/lib/spectralbridge/cli/recover_cli.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/cli
+copying build/lib/spectralbridge/cli/pipeline_cli.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/cli
+copying build/lib/spectralbridge/cli/drone_production_cli.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/cli
+copying build/lib/spectralbridge/cli/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/cli
+copying build/lib/spectralbridge/cli/bulk_cli.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/cli
+copying build/lib/spectralbridge/cli/qa_cli.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/cli
+copying build/lib/spectralbridge/cli/qa_summary_cli.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/cli
+copying build/lib/spectralbridge/qa_metrics.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/sensor_pairs.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+creating build/bdist.macosx-11.0-arm64/wheel/spectralbridge/exports
+copying build/lib/spectralbridge/exports/schema_utils.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/exports
+copying build/lib/spectralbridge/exports/geo_utils.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/exports
+copying build/lib/spectralbridge/envi_writer.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/mask_raster.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/parquet_validation.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/corrections.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/utils_checks.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/neon_to_envi.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/ray_utils.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/qa_dashboard.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/polygon_extraction.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/qa_style.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/envi.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/brightness.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/sensor_panel_plots.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/drone_qa.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+creating build/bdist.macosx-11.0-arm64/wheel/spectralbridge/data
+copying build/lib/spectralbridge/data/hyperspectral_bands.json -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/data
+copying build/lib/spectralbridge/data/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/data
+creating build/bdist.macosx-11.0-arm64/wheel/spectralbridge/data/brightness
+copying build/lib/spectralbridge/data/brightness/landsat_to_micasense.json -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/data/brightness
+copying build/lib/spectralbridge/data/brightness/landsat_tm_etm_to_micasense.json -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/data/brightness
+copying build/lib/spectralbridge/data/drone_translation_coefficients_v1.json -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/data
+copying build/lib/spectralbridge/data/landsat_band_parameters.json -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/data
+copying build/lib/spectralbridge/data/drone_field_manifest.csv -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/data
+copying build/lib/spectralbridge/progress_utils.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/landsat_validation.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/logging_utils.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/_ray_utils.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+copying build/lib/spectralbridge/validation.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge
+creating build/bdist.macosx-11.0-arm64/wheel/spectralbridge/deprecated
+copying build/lib/spectralbridge/deprecated/hytools.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/deprecated
+copying build/lib/spectralbridge/deprecated/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./spectralbridge/deprecated
+running install_egg_info
+Copying src/earthlab_spectralbridge.egg-info to build/bdist.macosx-11.0-arm64/wheel/./earthlab_spectralbridge-2.3.0rc1-py3.11.egg-info
+running install_scripts
+creating build/bdist.macosx-11.0-arm64/wheel/earthlab_spectralbridge-2.3.0rc1.dist-info/WHEEL
+creating '/private/tmp/spectralbridge-rc-final-dist/.tmp-5587ogyr/earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl' and adding 'build/bdist.macosx-11.0-arm64/wheel' to it
+adding 'cross_sensor_cal/__init__.py'
+adding 'earthlab_spectralbridge-2.3.0rc1.dist-info/licenses/LICENSE'
+adding 'earthlab_spectralbridge-2.3.0rc1.dist-info/licenses/NOTICE'
+adding 'spectralbridge/__init__.py'
+adding 'spectralbridge/_cli_compat.py'
+adding 'spectralbridge/_optional.py'
+adding 'spectralbridge/_ray_utils.py'
+adding 'spectralbridge/brdf_topo.py'
+adding 'spectralbridge/brightness.py'
+adding 'spectralbridge/brightness_config.py'
+adding 'spectralbridge/corrections.py'
+adding 'spectralbridge/drone_production.py'
+adding 'spectralbridge/drone_qa.py'
+adding 'spectralbridge/drone_translation.py'
+adding 'spectralbridge/drone_translation_registry.py'
+adding 'spectralbridge/envi.py'
+adding 'spectralbridge/envi_download.py'
+adding 'spectralbridge/envi_writer.py'
+adding 'spectralbridge/file_sort.py'
+adding 'spectralbridge/file_sort_adapter.py'
+adding 'spectralbridge/file_types.py'
+adding 'spectralbridge/half_flight.py'
+adding 'spectralbridge/header_utils.py'
+adding 'spectralbridge/hytools_compat.py'
+adding 'spectralbridge/landsat_validation.py'
+adding 'spectralbridge/logging_utils.py'
+adding 'spectralbridge/mask_raster.py'
+adding 'spectralbridge/merge_duckdb.py'
+adding 'spectralbridge/neon_cube.py'
+adding 'spectralbridge/neon_to_envi.py'
+adding 'spectralbridge/parquet_export.py'
+adding 'spectralbridge/parquet_validation.py'
+adding 'spectralbridge/paths.py'
+adding 'spectralbridge/polygon_extraction.py'
+adding 'spectralbridge/polygons.py'
+adding 'spectralbridge/progress_utils.py'
+adding 'spectralbridge/qa_dashboard.py'
+adding 'spectralbridge/qa_metrics.py'
+adding 'spectralbridge/qa_plots.py'
+adding 'spectralbridge/qa_style.py'
+adding 'spectralbridge/ray_utils.py'
+adding 'spectralbridge/remote.py'
+adding 'spectralbridge/resample.py'
+adding 'spectralbridge/sensor_pairs.py'
+adding 'spectralbridge/sensor_panel_plots.py'
+adding 'spectralbridge/sort_core.py'
+adding 'spectralbridge/standard_resample.py'
+adding 'spectralbridge/topo_and_brdf_correction.py'
+adding 'spectralbridge/types_protocol.py'
+adding 'spectralbridge/utils_checks.py'
+adding 'spectralbridge/validation.py'
+adding 'spectralbridge/bulk/__init__.py'
+adding 'spectralbridge/bulk/catalog.py'
+adding 'spectralbridge/bulk/dataset.py'
+adding 'spectralbridge/bulk/exclusions.py'
+adding 'spectralbridge/bulk/flightline_outputs.py'
+adding 'spectralbridge/bulk/harmonized.py'
+adding 'spectralbridge/bulk/identity.py'
+adding 'spectralbridge/bulk/models.py'
+adding 'spectralbridge/bulk/provenance.py'
+adding 'spectralbridge/bulk/registry.py'
+adding 'spectralbridge/bulk/reporting.py'
+adding 'spectralbridge/bulk/results.py'
+adding 'spectralbridge/bulk/streaming.py'
+adding 'spectralbridge/bulk/analyses/__init__.py'
+adding 'spectralbridge/bulk/analyses/common.py'
+adding 'spectralbridge/bulk/analyses/dataset_census.py'
+adding 'spectralbridge/bulk/analyses/leave_one_site_out.py'
+adding 'spectralbridge/bulk/analyses/sensor_translation.py'
+adding 'spectralbridge/bulk/analyses/spectral_library.py'
+adding 'spectralbridge/bulk/analyses/streaming_translation.py'
+adding 'spectralbridge/cli/__init__.py'
+adding 'spectralbridge/cli/bulk_cli.py'
+adding 'spectralbridge/cli/drone_production_cli.py'
+adding 'spectralbridge/cli/pipeline_cli.py'
+adding 'spectralbridge/cli/qa_cli.py'
+adding 'spectralbridge/cli/qa_summary_cli.py'
+adding 'spectralbridge/cli/recover_cli.py'
+adding 'spectralbridge/cli/stage_qa_cli.py'
+adding 'spectralbridge/data/__init__.py'
+adding 'spectralbridge/data/drone_field_manifest.csv'
+adding 'spectralbridge/data/drone_translation_coefficients_v1.json'
+adding 'spectralbridge/data/hyperspectral_bands.json'
+adding 'spectralbridge/data/landsat_band_parameters.json'
+adding 'spectralbridge/data/brightness/landsat_tm_etm_to_micasense.json'
+adding 'spectralbridge/data/brightness/landsat_to_micasense.json'
+adding 'spectralbridge/deprecated/__init__.py'
+adding 'spectralbridge/deprecated/hytools.py'
+adding 'spectralbridge/exports/geo_utils.py'
+adding 'spectralbridge/exports/schema_utils.py'
+adding 'spectralbridge/io/__init__.py'
+adding 'spectralbridge/io/neon.py'
+adding 'spectralbridge/io/neon_legacy.py'
+adding 'spectralbridge/io/neon_schema.py'
+adding 'spectralbridge/pipelines/__init__.py'
+adding 'spectralbridge/pipelines/bulk.py'
+adding 'spectralbridge/pipelines/download.py'
+adding 'spectralbridge/pipelines/drone.py'
+adding 'spectralbridge/pipelines/pipeline.py'
+adding 'spectralbridge/qa/__init__.py'
+adding 'spectralbridge/qa/brightness.py'
+adding 'spectralbridge/qa/metrics.py'
+adding 'spectralbridge/qa/network.py'
+adding 'spectralbridge/qa/paths.py'
+adding 'spectralbridge/qa/plots.py'
+adding 'spectralbridge/qa/reporting.py'
+adding 'spectralbridge/qa/runner.py'
+adding 'spectralbridge/qa/schema.py'
+adding 'spectralbridge/qa/stages.py'
+adding 'spectralbridge/qa/thresholds.py'
+adding 'spectralbridge/utils/__init__.py'
+adding 'spectralbridge/utils/memory.py'
+adding 'spectralbridge/utils/naming.py'
+adding 'spectralbridge/utils/paths.py'
+adding 'spectralbridge/utils/qa_summary.py'
+adding 'earthlab_spectralbridge-2.3.0rc1.dist-info/METADATA'
+adding 'earthlab_spectralbridge-2.3.0rc1.dist-info/WHEEL'
+adding 'earthlab_spectralbridge-2.3.0rc1.dist-info/entry_points.txt'
+adding 'earthlab_spectralbridge-2.3.0rc1.dist-info/top_level.txt'
+adding 'earthlab_spectralbridge-2.3.0rc1.dist-info/RECORD'
+removing build/bdist.macosx-11.0-arm64/wheel
+Successfully built earthlab_spectralbridge-2.3.0rc1.tar.gz and earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl

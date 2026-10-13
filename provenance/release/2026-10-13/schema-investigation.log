@@ -1,0 +1,289 @@
+ENVI export:   0%|          | 0/1 [00:00<?, ?tile/s]                                                    BRDF+topo correction:   0%|          | 0/1 [00:00<?, ?tile/s]                                                             🧪 landsat_tm tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                            🧪 landsat_etm+ tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                              🧪 landsat_oli tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                             🧪 landsat_oli2 tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                              🧪 micasense tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                           🧪 micasense_to_match_tm_etm+ tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                                            🧪 micasense_to_match_oli_oli2 tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                                             [merge] Start flightline=NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance prefix=NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[merge] Output parquet → /private/tmp/spectralbridge-rc-schema/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[merge] Engine=duckdb memory_limit=0.5GB threads=1 row_group_size=8 temp_dir=/private/tmp/spectralbridge-rc-schema/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/.duckdb_tmp
+[merge] Capping threads at 0 (requested 1) based on memory_limit
+[merge] Set DuckDB memory_limit = 0.5GB
+[merge] Disabled insertion-order preservation to reduce memory usage
+[merge] 🔍 Starting streaming merge for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[merge] 📊 Discovered inputs: orig=1, corr=1, resamp=14
+[merge] 🔨 Building CTEs (streaming, no materialization)...
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ orig CTE built (43 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ corr CTE built (43 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_0 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_etm+_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_1 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_etm+_undarkened_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_2 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli2_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_3 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli2_undarkened_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_4 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_5 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli_undarkened_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_6 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_tm_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_7 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_tm_undarkened_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_8 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_envi.parquet (21 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_9 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_oli_oli2_envi.parquet (16 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_10 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_oli_oli2_undarkened_envi.parquet (16 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_11 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_tm_etm+_envi.parquet (15 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_12 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_tm_etm+_undarkened_envi.parquet (15 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_13 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_undarkened_envi.parquet (21 columns)
+[merge] 📤 Streaming join results to parquet (no materialization)...
+[merge]    Output: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[merge]    Input: 1 orig, 1 corr, 14 resamp
+[merge]    Testing query with LIMIT 1000...
+[merge]    ✅ Test query successful - returned 64 rows
+[merge]    ✅ Test query: no duplicate pixel_ids in sample
+[merge]    Expected rows: 64
+[merge]    Executing streaming COPY (this may take 5-15 minutes for large datasets)...
+[merge]    You can check progress by monitoring file size: ls -lh NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[merge]    ✅ Streaming COPY complete in 0.0 seconds (0.0 minutes)
+[merge]    ✅ Output file created: 0.00 GB
+[merge] ✅ Wrote parquet: /private/tmp/spectralbridge-rc-schema/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet (exists=True)
+[merge] 🔍 About to filter no-data rows...
+[merge] 🔍 Filtering rows with >90% invalid spectral values (excluding raw_* columns; DuckDB streaming)...
+[merge]    Found 122 spectral columns to check
+[merge]    Streaming filter over 64 rows (no pandas materialization)...
+[merge]    ℹ️  No rows filtered (all rows have valid data)
+[merge] ✅ Filtering complete, continuing...
+[merge] 📄 Exporting filtered parquet to CSV: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.csv
+[merge] ✅ CSV export complete in 0.0 seconds (0.0 minutes), size: 0.2 MB
+[merge] 🔍 Starting row count validation...
+[merge] ✅ Row count validation: 64 rows (as expected)
+[merge] ✅ Row count validation section complete
+[merge] 🔄 Closing DuckDB connection...
+[merge] ✅ DuckDB connection closed
+[merge] 🔍 Reached end of merge function (after finally block)
+[merge] ✅ File system sync complete
+[merge] 🔍 Checking QA panel generation: emit_qa_panel=True
+[merge] 🔍 emit_qa_panel type: <class 'bool'>, value: True
+[merge] 🖼️  QA panel generation requested for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[merge] 🔄 Reloaded qa_plots module to ensure latest code
+[merge] 📦 Importing render_flightline_panel...
+[merge]    Attempting import: from spectralbridge.qa_plots import render_flightline_panel
+[merge] ✅ Successfully imported render_flightline_panel
+[merge] 🖼️  Starting QA panel generation...
+[QA] 📍 QA plots module file: /private/tmp/spectralbridge-rc-final-wheel311/lib/python3.11/site-packages/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-13 10:42:33
+[QA] ✅ Page 4 function found in module
+[QA] 📄 Generating QA PDF with 4 pages: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf
+[QA]   📑 Rendering Page 1: ENVI overview...
+[QA]   📊 Loading filtered parquet statistics...
+[QA]     ✅ Found filtered stats: 64 rows
+[QA]   📑 Rendering Page 2: Topographic + BRDF diagnostics...
+[QA]   📑 Rendering Page 3: Additional QA diagnostics...
+[QA]   📊 Starting wavelength reflectance plot for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[QA]   📂 Reading parquet: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[QA]   ✅ Loaded parquet sample: 64 rows, 207 columns
+[QA]   🔍 Found 32 corrected spectral columns
+[QA]   📊 Wavelength plot: 32 bands, range 400.0-2400.0 nm
+[QA]   ✅ Plotting 32 valid points (range: 400.0-2400.0 nm, values: 0.434-0.643)
+[QA]   🔄 Applied Gaussian smoothing (sigma: 0.8, effective window: 5) for straighter curve
+[QA]   🔍 Found 78 convolved sensor columns across 3 sensors
+[QA]     - olioli: 28 bands
+[QA]     - tmtm: 12 bands
+[QA]     - micasense: 38 bands
+[QA]     ✅ OLI: Plotting 8/28 bands (filtered: 20 no corrected match)
+[QA]     ✅ TM: Plotting 4/12 bands (filtered: 8 no corrected match)
+[QA]     ✅ MicaSense: Plotting 12/38 bands (filtered: 26 no corrected match)
+[QA]   📊 Physical-reflectance y-axis range: [0.0, 1.00]
+[QA]   ✅ All 110 points within display range
+[QA]   ✅ Successfully plotted 3 sensors: OLI, TM, MicaSense10:45:59 | WARNING  | [NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance] ⚠️ Parquet validation: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet → spectral columns unsorted or misnamed
+
+[QA]   📊 Summary: 24/78 convolved bands plotted (54 filtered out)
+[QA]   ℹ️  Sensors not found in data: ETM+, OLI (undark), MicaSense (undark), ETM+ (undark), TM (undark)
+[QA]   📑 Rendering Page 4: Parquet & Merge Quality Analysis...
+[QA]   ✅ Page 4 rendered successfully
+[QA] ✅ QA PDF complete: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf (PyPDF2 not available to verify page count)
+[merge] 🖼️  QA panel → /private/tmp/spectralbridge-rc-schema/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.png (exists=True)
+[merge] ✅ Done for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance at 2026-10-13T10:45:54
+[merge] 📋 Summary: merge complete, QA panel requested=True
+[QA] 📍 QA plots module file: /private/tmp/spectralbridge-rc-final-wheel311/lib/python3.11/site-packages/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-13 10:42:33
+[QA] ✅ Page 4 function found in module
+[QA] 📄 Generating QA PDF with 4 pages: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf
+[QA]   📑 Rendering Page 1: ENVI overview...
+[QA]   📊 Loading filtered parquet statistics...
+[QA]     ✅ Found filtered stats: 64 rows
+[QA]   📑 Rendering Page 2: Topographic + BRDF diagnostics...
+[QA]   📑 Rendering Page 3: Additional QA diagnostics...
+[QA]   📊 Starting wavelength reflectance plot for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[QA]   📂 Reading parquet: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[QA]   ✅ Loaded parquet sample: 64 rows, 207 columns
+[QA]   🔍 Found 32 corrected spectral columns
+[QA]   📊 Wavelength plot: 32 bands, range 400.0-2400.0 nm
+[QA]   ✅ Plotting 32 valid points (range: 400.0-2400.0 nm, values: 0.434-0.643)
+[QA]   🔄 Applied Gaussian smoothing (sigma: 0.8, effective window: 5) for straighter curve
+[QA]   🔍 Found 78 convolved sensor columns across 3 sensors
+[QA]     - olioli: 28 bands
+[QA]     - tmtm: 12 bands
+[QA]     - micasense: 38 bands
+[QA]     ✅ OLI: Plotting 8/28 bands (filtered: 20 no corrected match)
+[QA]     ✅ TM: Plotting 4/12 bands (filtered: 8 no corrected match)
+[QA]     ✅ MicaSense: Plotting 12/38 bands (filtered: 26 no corrected match)
+[QA]   📊 Physical-reflectance y-axis range: [0.0, 1.00]
+[QA]   ✅ All 110 points within display range
+[QA]   ✅ Successfully plotted 3 sensors: OLI, TM, MicaSense
+[QA]   📊 Summary: 24/78 convolved bands plotted (54 filtered out)
+[QA]   ℹ️  Sensors not found in data: ETM+, OLI (undark), MicaSense (undark), ETM+ (undark), TM (undark)
+[QA]   📑 Rendering Page 4: Parquet & Merge Quality Analysis...
+[QA]   ✅ Page 4 rendered successfully
+[QA] ✅ QA PDF complete: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf (PyPDF2 not available to verify page count)
+[merge] Start flightline=NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance prefix=NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[merge] Output parquet → /private/tmp/spectralbridge-rc-schema/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[merge] Engine=duckdb memory_limit=0.5GB threads=1 row_group_size=8 temp_dir=/private/tmp/spectralbridge-rc-schema/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/.duckdb_tmp
+[merge] Capping threads at 0 (requested 1) based on memory_limit
+[merge] Set DuckDB memory_limit = 0.5GB
+[merge] Disabled insertion-order preservation to reduce memory usage
+[merge] 🔍 Starting streaming merge for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[merge] 📊 Discovered inputs: orig=1, corr=1, resamp=14
+[merge] 🔨 Building CTEs (streaming, no materialization)...
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ orig CTE built (43 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ corr CTE built (43 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_0 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_etm+_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_1 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_etm+_undarkened_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_2 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli2_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_3 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli2_undarkened_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_4 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_5 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli_undarkened_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_6 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_tm_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_7 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_tm_undarkened_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_8 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_envi.parquet (21 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_9 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_oli_oli2_envi.parquet (16 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_10 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_oli_oli2_undarkened_envi.parquet (16 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_11 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_tm_etm+_envi.parquet (15 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_12 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_tm_etm+_undarkened_envi.parquet (15 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_13 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_undarkened_envi.parquet (21 columns)
+[merge] 📤 Streaming join results to parquet (no materialization)...
+[merge]    Output: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[merge]    Input: 1 orig, 1 corr, 14 resamp
+[merge]    Testing query with LIMIT 1000...
+[merge]    ✅ Test query successful - returned 64 rows
+[merge]    ✅ Test query: no duplicate pixel_ids in sample
+[merge]    Expected rows: 64
+[merge]    Executing streaming COPY (this may take 5-15 minutes for large datasets)...
+[merge]    You can check progress by monitoring file size: ls -lh NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[merge]    ✅ Streaming COPY complete in 0.0 seconds (0.0 minutes)
+[merge]    ✅ Output file created: 0.00 GB
+[merge] ✅ Wrote parquet: /private/tmp/spectralbridge-rc-schema/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet (exists=True)
+[merge] 🔍 About to filter no-data rows...
+[merge] 🔍 Filtering rows with >90% invalid spectral values (excluding raw_* columns; DuckDB streaming)...
+[merge]    Found 122 spectral columns to check
+[merge]    Streaming filter over 64 rows (no pandas materialization)...
+[merge]    ℹ️  No rows filtered (all rows have valid data)
+[merge] ✅ Filtering complete, continuing...
+[merge] 📄 Exporting filtered parquet to CSV: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.csv
+[merge] ✅ CSV export complete in 0.0 seconds (0.0 minutes), size: 0.2 MB
+[merge] 🔍 Starting row count validation...
+[merge] ✅ Row count validation: 64 rows (as expected)
+[merge] ✅ Row count validation section complete
+[merge] 🔄 Closing DuckDB connection...
+[merge] ✅ DuckDB connection closed
+[merge] 🔍 Reached end of merge function (after finally block)
+[merge] ✅ File system sync complete
+[merge] 🔍 Checking QA panel generation: emit_qa_panel=True
+[merge] 🔍 emit_qa_panel type: <class 'bool'>, value: True
+[merge] 🖼️  QA panel generation requested for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[merge] 🔄 Reloaded qa_plots module to ensure latest code
+[merge] 📦 Importing render_flightline_panel...
+[merge]    Attempting import: from spectralbridge.qa_plots import render_flightline_panel
+[merge] ✅ Successfully imported render_flightline_panel
+[merge] 🖼️  Starting QA panel generation...
+[QA] 📍 QA plots module file: /private/tmp/spectralbridge-rc-final-wheel311/lib/python3.11/site-packages/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-13 10:42:33
+[QA] ✅ Page 4 function found in module
+[QA] 📄 Generating QA PDF with 4 pages: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf
+[QA]   📑 Rendering Page 1: ENVI overview...
+[QA]   📊 Loading filtered parquet statistics...
+[QA]     ✅ Found filtered stats: 64 rows
+[QA]   📑 Rendering Page 2: Topographic + BRDF diagnostics...
+[QA]   📑 Rendering Page 3: Additional QA diagnostics...
+[QA]   📊 Starting wavelength reflectance plot for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[QA]   📂 Reading parquet: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[QA]   ✅ Loaded parquet sample: 64 rows, 207 columns
+[QA]   🔍 Found 32 corrected spectral columns
+[QA]   📊 Wavelength plot: 32 bands, range 400.0-2400.0 nm
+[QA]   ✅ Plotting 32 valid points (range: 400.0-2400.0 nm, values: 0.434-0.643)
+[QA]   🔄 Applied Gaussian smoothing (sigma: 0.8, effective window: 5) for straighter curve
+[QA]   🔍 Found 78 convolved sensor columns across 3 sensors
+[QA]     - olioli: 28 bands
+[QA]     - tmtm: 12 bands
+[QA]     - micasense: 38 bands
+[QA]     ✅ OLI: Plotting 8/28 bands (filtered: 20 no corrected match)
+[QA]     ✅ TM: Plotting 4/12 bands (filtered: 8 no corrected match)
+[QA]     ✅ MicaSense: Plotting 12/38 bands (filtered: 26 no corrected match)
+[QA]   📊 Physical-reflectance y-axis range: [0.0, 1.00]
+[QA]   ✅ All 110 points within display range
+[QA]   ✅ Successfully plotted 3 sensors: OLI, TM, MicaSense
+[QA]   📊 Summary: 24/78 convolved bands plotted (54 filtered out)
+[QA]   ℹ️  Sensors not found in data: ETM+, OLI (undark), MicaSense (undark), ETM+ (undark), TM (undark)
+[QA]   📑 Rendering Page 4: Parquet & Merge Quality Analysis...
+[QA]   ✅ Page 4 rendered successfully
+[QA] ✅ QA PDF complete: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf (PyPDF2 not available to verify page count)
+[merge] 🖼️  QA panel → /private/tmp/spectralbridge-rc-schema/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.png (exists=True)
+[merge] ✅ Done for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance at 2026-10-13T10:46:01
+[merge] 📋 Summary: merge complete, QA panel requested=True
+[QA] 📍 QA plots module file: /private/tmp/spectralbridge-rc-final-wheel311/lib/python3.11/site-packages/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-13 10:42:33
+[QA] ✅ Page 4 function found in module
+[QA] 📄 Generating QA PDF with 4 pages: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf
+[QA]   📑 Rendering Page 1: ENVI overview...
+[QA]   📊 Loading filtered parquet statistics...
+[QA]     ✅ Found filtered stats: 64 rows
+[QA]   📑 Rendering Page 2: Topographic + BRDF diagnostics...
+[QA]   📑 Rendering Page 3: Additional QA diagnostics...
+[QA]   📊 Starting wavelength reflectance plot for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[QA]   📂 Reading parquet: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[QA]   ✅ Loaded parquet sample: 64 rows, 207 columns
+[QA]   🔍 Found 32 corrected spectral columns
+[QA]   📊 Wavelength plot: 32 bands, range 400.0-2400.0 nm
+[QA]   ✅ Plotting 32 valid points (range: 400.0-2400.0 nm, values: 0.434-0.643)
+[QA]   🔄 Applied Gaussian smoothing (sigma: 0.8, effective window: 5) for straighter curve
+[QA]   🔍 Found 78 convolved sensor columns across 3 sensors
+[QA]     - olioli: 28 bands
+[QA]     - tmtm: 12 bands
+[QA]     - micasense: 38 bands
+[QA]     ✅ OLI: Plotting 8/28 bands (filtered: 20 no corrected match)
+[QA]     ✅ TM: Plotting 4/12 bands (filtered: 8 no corrected match)
+[QA]     ✅ MicaSense: Plotting 12/38 bands (filtered: 26 no corrected match)
+[QA]   📊 Physical-reflectance y-axis range: [0.0, 1.00]
+[QA]   ✅ All 110 points within display range
+[QA]   ✅ Successfully plotted 3 sensors: OLI, TM, MicaSense
+[QA]   📊 Summary: 24/78 convolved bands plotted (54 filtered out)
+[QA]   ℹ️  Sensors not found in data: ETM+, OLI (undark), MicaSense (undark), ETM+ (undark), TM (undark)
+[QA]   📑 Rendering Page 4: Parquet & Merge Quality Analysis...
+[QA]   ✅ Page 4 rendered successfully
+[QA] ✅ QA PDF complete: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf (PyPDF2 not available to verify page count)
+SCHEMA_ISSUES [('order', 'corr', 852, 1045, 'corr_b008_wl0852nm'), ('order', 'corr', 787, 852, 'corr_b007_wl0787nm'), ('order', 'corr', 594, 2013, 'corr_b004_wl0594nm'), ('order', 'corr', 1239, 1497, 'corr_b014_wl1239nm'), ('order', 'corr', 723, 1239, 'corr_b006_wl0723nm'), ('order', 'corr', 529, 2335, 'corr_b003_wl0529nm'), ('order', 'corr', 981, 2142, 'corr_b010_wl0981nm'), ('order', 'corr', 1690, 1819, 'corr_b021_wl1690nm'), ('order', 'corr', 1561, 1690, 'corr_b019_wl1561nm'), ('order', 'corr', 400, 1561, 'corr_b001_wl0400nm'), ('order', 'corr', 916, 2400, 'corr_b009_wl0916nm'), ('order', 'corr', 465, 916, 'corr_b002_wl0465nm'), ('order', 'corr', 658, 1303, 'corr_b005_wl0658nm'), ('order', 'corr', 1755, 2206, 'corr_b022_wl1755nm'), ('order', 'etm+etm+', 485, 1650, 'etm+etm+_b001_wl0485nm'), ('order', 'etm+etm+', 560, 2220, 'etm+etm+_b002_wl0560nm'), ('order', 'etm+etm+_undarkened', 485, 2220, 'etm+etm+_undarkened_b001_wl0485nm'), ('order', 'olioli', 443, 1609, 'olioli_b001_wl0443nm'), ('order', 'olioli', 655, 2201, 'olioli_b004_wl0655nm'), ('order', 'olioli_undarkened', 443, 2201, 'olioli_undarkened_b001_wl0443nm'), ('order', 'olioli_undarkened', 655, 865, 'olioli_undarkened_b004_wl0655nm'), ('name', 'olioli_b006_wl1609nm_1'), ('name', 'olioli_b001_wl0443nm_1'), ('name', 'olioli_b002_wl0482nm_1'), ('name', 'olioli_b003_wl0561nm_1'), ('name', 'olioli_b005_wl0865nm_1'), ('name', 'olioli_b007_wl2201nm_1'), ('name', 'olioli_b004_wl0655nm_1'), ('name', 'olioli_undarkened_b002_wl0482nm_1'), ('name', 'olioli_undarkened_b003_wl0561nm_1'), ('name', 'olioli_undarkened_b006_wl1609nm_1'), ('name', 'olioli_undarkened_b007_wl2201nm_1'), ('name', 'olioli_undarkened_b001_wl0443nm_1'), ('name', 'olioli_undarkened_b005_wl0865nm_1'), ('name', 'olioli_undarkened_b004_wl0655nm_1'), ('order', 'tmtm', 1650, 2210, 'tmtm_b005_wl1650nm'), ('order', 'tmtm', 830, 1650, 'tmtm_b004_wl0830nm'), ('order', 'tmtm_undarkened', 570, 1650, 'tmtm_undarkened_b002_wl0570nm'), ('order', 'tmtm_undarkened', 660, 830, 'tmtm_undarkened_b003_wl0660nm'), ('order', 'micasense', 560, 844, 'micasense_b002_wl0560nm'), ('order', 'micasense', 668, 840, 'micasense_b003_wl0668nm'), ('order', 'micasense', 717, 842, 'micasense_b004_wl0717nm'), ('order', 'micasense', 843, 845, 'micasense_b008_wl0843nm'), ('order', 'micasense', 841, 843, 'micasense_b006_wl0841nm'), ('order', 'micasense', 475, 841, 'micasense_b001_wl0475nm'), ('name', 'micasense_b003_wl0668nm_1'), ('name', 'micasense_b002_wl0560nm_1'), ('name', 'micasense_b001_wl0475nm_1'), ('name', 'micasense_b004_wl0717nm_1'), ('name', 'micasense_b005_wl0840nm_1'), ('order', 'micasense_undarkened', 560, 717, 'micasense_undarkened_b002_wl0560nm'), ('order', 'micasense_undarkened', 475, 840, 'micasense_undarkened_b001_wl0475nm'), ('name', 'micasense_b003_wl0668nm_2'), ('name', 'micasense_b002_wl0560nm_2'), ('name', 'micasense_b001_wl0475nm_2'), ('name', 'micasense_b004_wl0717nm_2'), ('name', 'micasense_undarkened_b003_wl0668nm_1'), ('name', 'micasense_undarkened_b004_wl0717nm_1'), ('name', 'micasense_undarkened_b002_wl0560nm_1'), ('name', 'micasense_undarkened_b001_wl0475nm_1'), ('order', 'micasense_undarkened', 841, 842, 'micasense_undarkened_b006_wl0841nm'), ('name', 'micasense_undarkened_b004_wl0717nm_2'), ('name', 'micasense_undarkened_b005_wl0840nm_1'), ('name', 'micasense_undarkened_b003_wl0668nm_2'), ('name', 'micasense_undarkened_b001_wl0475nm_2'), ('name', 'micasense_undarkened_b002_wl0560nm_2'), ('order', 'micasense_undarkened', 844, 845, 'micasense_undarkened_b009_wl0844nm')]
+SCHEMA_COLUMNS ['pixel_id', 'row', 'col', 'x', 'y', 'fwhm_nm', 'source_image', 'epsg', 'crs', 'lon', 'lat', 'raw_b001_wl0400nm', 'raw_b002_wl0465nm', 'raw_b003_wl0529nm', 'raw_b004_wl0594nm', 'raw_b005_wl0658nm', 'raw_b006_wl0723nm', 'raw_b007_wl0787nm', 'raw_b008_wl0852nm', 'raw_b009_wl0916nm', 'raw_b010_wl0981nm', 'raw_b011_wl1045nm', 'raw_b012_wl1110nm', 'raw_b013_wl1174nm', 'raw_b014_wl1239nm', 'raw_b015_wl1303nm', 'raw_b016_wl1368nm', 'raw_b017_wl1432nm', 'raw_b018_wl1497nm', 'raw_b019_wl1561nm', 'raw_b020_wl1626nm', 'raw_b021_wl1690nm', 'raw_b022_wl1755nm', 'raw_b023_wl1819nm', 'raw_b024_wl1884nm', 'raw_b025_wl1948nm', 'raw_b026_wl2013nm', 'raw_b027_wl2077nm', 'raw_b028_wl2142nm', 'raw_b029_wl2206nm', 'raw_b030_wl2271nm', 'raw_b031_wl2335nm', 'raw_b032_wl2400nm', 'corr_b011_wl1045nm', 'corr_b008_wl0852nm', 'corr_b007_wl0787nm', 'corr_b012_wl1110nm', 'corr_b026_wl2013nm', 'corr_b004_wl0594nm', 'corr_b018_wl1497nm', 'corr_b014_wl1239nm', 'corr_b006_wl0723nm', 'corr_b016_wl1368nm', 'corr_b030_wl2271nm', 'corr_b031_wl2335nm', 'corr_b003_wl0529nm', 'corr_b020_wl1626nm', 'corr_b024_wl1884nm', 'corr_b028_wl2142nm', 'corr_b010_wl0981nm', 'corr_b013_wl1174nm', 'corr_b023_wl1819nm', 'corr_b021_wl1690nm', 'corr_b019_wl1561nm', 'corr_b001_wl0400nm', 'corr_b017_wl1432nm', 'corr_b032_wl2400nm', 'corr_b009_wl0916nm', 'corr_b002_wl0465nm', 'corr_b015_wl1303nm', 'corr_b005_wl0658nm', 'corr_b027_wl2077nm', 'corr_b029_wl2206nm', 'corr_b022_wl1755nm', 'corr_b025_wl1948nm', 'etm+etm+_b003_wl0660nm', 'crs_1', 'etm+etm+_b005_wl1650nm', 'etm+etm+_b001_wl0485nm', 'etm+etm+_b006_wl2220nm', 'etm+etm+_b002_wl0560nm', 'source_image_1', 'fwhm_nm_1', 'etm+etm+_b004_wl0835nm', 'crs_2', 'etm+etm+_undarkened_b002_wl0560nm', 'etm+etm+_undarkened_b003_wl0660nm', 'etm+etm+_undarkened_b004_wl0835nm', 'etm+etm+_undarkened_b006_wl2220nm', 'etm+etm+_undarkened_b001_wl0485nm', 'etm+etm+_undarkened_b005_wl1650nm', 'source_image_2', 'fwhm_nm_2', 'olioli_b006_wl1609nm', 'crs_3', 'olioli_b001_wl0443nm', 'olioli_b002_wl0482nm', 'olioli_b003_wl0561nm', 'olioli_b005_wl0865nm', 'source_image_3', 'olioli_b007_wl2201nm', 'olioli_b004_wl0655nm', 'fwhm_nm_3', 'olioli_undarkened_b002_wl0482nm', 'olioli_undarkened_b003_wl0561nm', 'crs_4', 'olioli_undarkened_b006_wl1609nm', 'olioli_undarkened_b007_wl2201nm', 'olioli_undarkened_b001_wl0443nm', 'olioli_undarkened_b005_wl0865nm', 'source_image_4', 'olioli_undarkened_b004_wl0655nm', 'fwhm_nm_4', 'olioli_b006_wl1609nm_1', 'crs_5', 'olioli_b001_wl0443nm_1', 'olioli_b002_wl0482nm_1', 'olioli_b003_wl0561nm_1', 'olioli_b005_wl0865nm_1', 'source_image_5', 'olioli_b007_wl2201nm_1', 'olioli_b004_wl0655nm_1', 'fwhm_nm_5', 'olioli_undarkened_b002_wl0482nm_1', 'olioli_undarkened_b003_wl0561nm_1', 'crs_6', 'olioli_undarkened_b006_wl1609nm_1', 'olioli_undarkened_b007_wl2201nm_1', 'olioli_undarkened_b001_wl0443nm_1', 'olioli_undarkened_b005_wl0865nm_1', 'source_image_6', 'olioli_undarkened_b004_wl0655nm_1', 'fwhm_nm_6', 'crs_7', 'tmtm_b001_wl0485nm', 'tmtm_b002_wl0570nm', 'tmtm_b003_wl0660nm', 'tmtm_b006_wl2210nm', 'tmtm_b005_wl1650nm', 'source_image_7', 'tmtm_b004_wl0830nm', 'fwhm_nm_7', 'tmtm_undarkened_b001_wl0485nm', 'crs_8', 'tmtm_undarkened_b005_wl1650nm', 'tmtm_undarkened_b002_wl0570nm', 'tmtm_undarkened_b004_wl0830nm', 'source_image_8', 'tmtm_undarkened_b003_wl0660nm', 'fwhm_nm_8', 'tmtm_undarkened_b006_wl2210nm', 'micasense_b009_wl0844nm', 'micasense_b002_wl0560nm', 'micasense_b005_wl0840nm', 'micasense_b003_wl0668nm', 'micasense_b007_wl0842nm', 'micasense_b004_wl0717nm', 'fwhm_nm_9', 'source_image_9', 'micasense_b010_wl0845nm', 'micasense_b008_wl0843nm', 'crs_9', 'micasense_b006_wl0841nm', 'micasense_b001_wl0475nm', 'crs_10', 'micasense_b003_wl0668nm_1', 'micasense_b002_wl0560nm_1', 'micasense_b001_wl0475nm_1', 'source_image_10', 'micasense_b004_wl0717nm_1', 'micasense_b005_wl0840nm_1', 'fwhm_nm_10', 'crs_11', 'micasense_undarkened_b003_wl0668nm', 'micasense_undarkened_b004_wl0717nm', 'micasense_undarkened_b002_wl0560nm', 'micasense_undarkened_b005_wl0840nm', 'micasense_undarkened_b001_wl0475nm', 'source_image_11', 'fwhm_nm_11', 'crs_12', 'micasense_b003_wl0668nm_2', 'micasense_b002_wl0560nm_2', 'micasense_b001_wl0475nm_2', 'source_image_12', 'micasense_b004_wl0717nm_2', 'fwhm_nm_12', 'crs_13', 'micasense_undarkened_b003_wl0668nm_1', 'micasense_undarkened_b004_wl0717nm_1', 'micasense_undarkened_b002_wl0560nm_1', 'micasense_undarkened_b001_wl0475nm_1', 'source_image_13', 'fwhm_nm_13', 'micasense_undarkened_b007_wl0842nm', 'micasense_undarkened_b006_wl0841nm', 'micasense_undarkened_b008_wl0843nm', 'micasense_undarkened_b004_wl0717nm_2', 'micasense_undarkened_b005_wl0840nm_1', 'fwhm_nm_14', 'micasense_undarkened_b003_wl0668nm_2', 'micasense_undarkened_b010_wl0845nm', 'micasense_undarkened_b001_wl0475nm_2', 'source_image_14', 'crs_14', 'micasense_undarkened_b002_wl0560nm_2', 'micasense_undarkened_b009_wl0844nm']

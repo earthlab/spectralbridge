@@ -20,6 +20,22 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P100. Final v2.3.0rc1 release audit
+
+- Priority: P0, user-directed release freeze
+- Status: Complete locally; READY TO TAG v2.3.0rc1 after maintainer review and remote CI
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: Audit final HEAD and run source, documentation, metadata and exact-artifact release gates; fix only proven blockers or small unambiguous RC fixes.
+- Plan: Preserve scientific behavior; record commands and evidence in a readiness report; validate clean installs and required Python matrix where available; leave tagging/publication to the maintainer.
+- RC fix: Validator rejects established merged wavelength-only aliases. Extend validation only, add regressions, rerun all gates, and build one final candidate after discarding diagnostic pre-fix artifacts.
+- Verification: Final full suite 502 passed/7 skipped, 66.08% branch coverage; Ruff, metadata, generated evidence, strict MkDocs, source/rendered links, browser smoke and Twine pass. Final exact wheel passes clean offline installed smokes on Python 3.10/3.11/3.12; exact sdist passes on 3.10. Nine installed TIFF/translation/validator regressions pass.
+- Outcome: Fixed validator acceptance of established merged wavelength aliases without changing data/names/scientific behavior. Recorded remaining merged-order/suffixed-alias diagnostics and citation/JOSS/real-data limitations as post-RC findings.
+- Report: provenance/release/2026-10-13/RC_READINESS.md, artifact checksums, environment inventory and retained gate logs.
+- Remaining: Owner verifies trusted publisher/protected pypi configuration; review/push preparation, await branch CI, then tag. No tag, push, publication or deployment performed.
+- Next recommended task: Trigger reviewed v2.3.0rc1 release from successful remote CI, then collect external RC/real-data and merged-schema review evidence.
+
+
 ### P99. Repository, Documentation And Publication Cleanup For JOSS
 
 - Priority: P0, user-directed

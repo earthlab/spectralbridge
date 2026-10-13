@@ -4,7 +4,7 @@
 
 ## Summary
 
-From 2026-03-21 through 2026-10-12, the log contains **268 prompts** totaling **74,984 words**. The median prompt contains **32 words** and the mean contains **279.8 words**. Under the published keyword rules, the most common primary topic is **Scientific pipeline and corrections**, and the most common request intent is **Implementation or modification**.
+From 2026-03-21 through 2026-10-13, the log contains **269 prompts** totaling **76,119 words**. The median prompt contains **32 words** and the mean contains **283 words**. Under the published keyword rules, the most common primary topic is **Scientific pipeline and corrections**, and the most common request intent is **Implementation or modification**.
 
 ![Logged prompts by month](images/ai-transparency/prompts-by-month.svg)
 
@@ -20,17 +20,17 @@ The prompt log declares the AI system used for logged work. Model names are repo
 
 | AI system | Logged prompts |
 | --- | ---: |
-| OpenAI Codex | 231 |
+| OpenAI Codex | 232 |
 | Cursor Agent | 37 |
 
 | Model metadata | Logged prompts |
 | --- | ---: |
-| Not recorded | 218 |
+| Not recorded | 219 |
 | GPT-5 | 36 |
 | GPT-5 family (exact deployment identifier not exposed) | 7 |
 | GPT-6 | 7 |
 
-Model metadata is recorded for **50 of 268 entries (18.7%)**.
+Model metadata is recorded for **50 of 269 entries (18.6%)**.
 
 ## How AI was used
 

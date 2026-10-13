@@ -22283,3 +22283,292 @@ Start by auditing the current repository at HEAD. Do not assume this prompt's de
 
 Then implement as much of the cleanup as can be done safely and automatically. Leave explicit HUMAN REVIEW items for decisions that cannot be established from repository evidence.
 ```
+
+## 2026-10-13 - Final RC1 release audit
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+You are preparing the SpectralBridge repository for its first release candidate of the current release:
+
+https://github.com/earthlab/spectralbridge
+
+The intended release is v2.3.0rc1.
+
+The package has undergone extensive development and review. Treat the current implementation as feature complete for this release candidate. Your job is not to redesign, refactor, or expand the package. Your job is to perform a final release audit, fix only genuine release-blocking problems, and prepare a clean RC.
+
+Goal
+
+Determine whether the current HEAD is safe to release as v2.3.0rc1.
+
+If it is, make the minimal changes necessary to prepare the repository for the RC and leave it ready to tag and publish.
+
+Do not add new scientific features.
+
+1. Audit the current repository
+
+Inspect the entire current repository, especially:
+
+* pyproject.toml
+* package/version metadata
+* src/spectralbridge/
+* NEON pipeline
+* drone pipeline
+* bulk pipeline
+* QA modules
+* tests
+* documentation
+* examples/notebooks where relevant
+* GitHub Actions
+* release workflows
+* changelog/release notes
+* README
+* CITATION metadata
+* license
+* package data
+* build configuration
+
+Use the repository itself as the source of truth. Do not rely on assumptions from older versions of the project.
+
+2. Run the complete release gates
+
+Run the same checks that should protect a real PyPI release.
+
+At minimum:
+
+1. install from a clean environment
+2. run the complete test suite
+3. run linting/format/type checks that are part of the repository’s supported CI
+4. build the documentation
+5. build both sdist and wheel
+6. inspect the resulting distributions
+7. install the built wheel into a clean environment
+8. verify import spectralbridge
+9. verify the installed package reports the expected RC version
+10. run representative smoke tests against the installed artifact rather than the source tree
+11. verify package data and resources required at runtime are included
+12. check that GitHub release/PyPI workflows are internally consistent
+
+Pay particular attention to anything that passes when run from the repository but fails from an installed wheel.
+
+3. Verify the three major workflows
+
+Confirm that the release contains functioning interfaces for:
+
+NEON
+
+Verify the established workflow through acquisition/input, correction, spectral transformation/convolution, extraction, and QA.
+
+Drone
+
+Verify the drone workflow, including TIFF/input handling, conversion into the internal representation where required, corrections, wavelength-aware translation, output generation, and QA.
+
+Do not invent or silently alter scientific behavior.
+
+Bulk
+
+Verify discovery/catalog behavior, bulk processing, statistics, translation analyses, validation/LOSO functionality, and output handling.
+
+Use existing tests and fixtures wherever possible.
+
+The goal is not to prove every scientific result using enormous external datasets. The goal is to establish that the software machinery represented by the RC works reproducibly.
+
+4. Check scientific guardrails
+
+Pay special attention to changes that could silently alter scientific output:
+
+* reflectance units
+* wavelength units
+* nodata handling
+* masks
+* scaling
+* CRS/geospatial metadata
+* spectral interpolation
+* convolution
+* translation
+* topographic correction
+* BRDF correction
+* brightness handling
+* band ordering
+* sensor metadata
+* parquet schemas
+* HDF5/ENVI conversion
+* QA statistics
+
+Do not change established scientific conventions simply because another implementation seems cleaner.
+
+If you find a scientifically ambiguous behavior, report it rather than making a speculative change.
+
+5. Check release metadata
+
+Confirm that all release-facing metadata agrees on the intended version and package identity.
+
+Check:
+
+* version
+* package name
+* Python requirements
+* dependencies
+* optional dependencies
+* classifiers
+* authors
+* project URLs
+* repository URL
+* documentation URL
+* license metadata
+* citation metadata
+* README badges
+* changelog/release notes
+
+Confirm that the license is OSI-approved and that repository metadata and distributed license files are consistent.
+
+6. Review documentation as an RC user
+
+Approach the documentation as someone encountering SpectralBridge for the first time.
+
+Verify that a user can determine:
+
+* what SpectralBridge does
+* what problems it solves
+* supported data/sensors
+* how to install it
+* how to run a basic workflow
+* how NEON processing works
+* how drone processing works
+* how bulk processing works
+* what corrections are available
+* what assumptions are made
+* what QA/validation exists
+* important limitations
+* how to cite the software
+
+Fix broken links, obviously stale references, incorrect API names, incorrect commands, and documentation that contradicts the current implementation.
+
+Do not undertake a large documentation rewrite for RC1.
+
+7. Classify every problem
+
+Classify findings as:
+
+BLOCKER
+Must be fixed before v2.3.0rc1.
+
+Examples:
+
+* failing release CI
+* package cannot install
+* wheel is incomplete
+* core pipeline is broken
+* incorrect version
+* clearly incorrect scientific calculation
+* release workflow cannot publish
+* required runtime dependency missing
+
+RC FIX
+Small, low-risk issue worth correcting before RC1.
+
+POST-RC
+Real issue that should be addressed during RC testing or before the final release but should not delay RC1.
+
+FUTURE
+Enhancement, refactor, optimization, or feature request.
+
+Be conservative about BLOCKER classification. An RC exists partly so that remaining noncritical problems can be discovered.
+
+8. Make only justified fixes
+
+Automatically fix BLOCKER and straightforward RC FIX issues when:
+
+* the correct behavior is unambiguous
+* the change is small
+* the change does not alter the scientific design
+* adequate testing can demonstrate correctness
+
+Add or update regression tests for substantive fixes.
+
+Do not:
+
+* refactor working architecture
+* rename public APIs without necessity
+* redesign modules
+* change scientific assumptions
+* add speculative abstractions
+* add new features
+* expand scope because something could be improved
+* perform cosmetic churn
+
+This is a release freeze.
+
+9. Re-run everything after modifications
+
+After making changes, repeat the complete release gates.
+
+The final judgment must be based on the final working tree, not the state you initially inspected.
+
+10. Produce an RC readiness report
+
+Create or update an appropriate release-readiness document in the repository summarizing:
+
+Release candidate
+
+v2.3.0rc1
+
+Release gate results
+
+For each gate report:
+
+PASS / FAIL / NOT TESTED
+
+and provide the relevant command/evidence.
+
+Findings
+
+Separate into:
+
+* Blockers
+* RC fixes completed
+* Post-RC issues
+* Future improvements
+
+Scientific validation
+
+Clearly distinguish:
+
+* software correctness/testing
+* synthetic validation
+* real-data validation
+* scientific assumptions that remain intentionally unchanged
+
+Do not imply that passing software tests constitutes validation of every scientific result.
+
+Final recommendation
+
+End with exactly one of:
+
+READY TO TAG v2.3.0rc1
+
+or
+
+DO NOT TAG v2.3.0rc1
+
+If the latter, identify the exact remaining blockers.
+
+11. If ready, prepare the release
+
+If and only if all BLOCKER issues are resolved:
+
+1. ensure the repository is clean and release metadata is correct
+2. ensure release notes summarize the major functionality represented by this RC
+3. ensure version references consistently identify 2.3.0rc1
+4. run the final release gates one last time
+5. prepare the repository so that the next action is tagging/publishing v2.3.0rc1
+
+Do not silently publish to PyPI or create/push the Git tag unless the repository’s established release procedure explicitly makes that the requested action and credentials/permissions are available.
+
+Instead, finish by giving me the exact commands or GitHub actions needed to perform the irreversible release step.
+
+The guiding principle is:
+
+We believe SpectralBridge is ready. Try to falsify that belief with rigorous release testing. If you cannot find a release-blocking problem, freeze the software and prepare v2.3.0rc1.
+```
