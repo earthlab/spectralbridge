@@ -47,6 +47,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+quantile-models = ["xgboost>=2.0,<4"]
 tests = [
     "pytest>=7.4,<10",
     "pytest-xdist>=3.5",

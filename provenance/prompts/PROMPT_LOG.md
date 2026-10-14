@@ -22572,3 +22572,957 @@ The guiding principle is:
 
 We believe SpectralBridge is ready. Try to falsify that belief with rigorous release testing. If you cannot find a release-blocking problem, freeze the software and prepare v2.3.0rc1.
 ```
+
+## 2026-10-13 - Plant spectral atlas
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+I have added the merged polygon-extraction Parquet file to this repository. I want you to use the actual data to build a publication-quality multipanel figure showing spectral signatures by plant species.
+
+Do not assume the structure of the spectral data from column names alone. Inspect the Parquet carefully first and determine how spectra, flights, sensors, wavelength grids, polygons, and species relate to one another.
+
+BACKGROUND
+
+A previous exploratory notebook established:
+
+- 85,706 total pixel rows
+- 45,880 pixels have species labels
+- 57 labeled species
+- 8,845 plant/polygon observations
+- spectral families include:
+  - corr
+  - raw
+  - micasense
+  - micasense_undarkened
+  - Landsat-like products
+- corr and raw each appear as 1,140 spectral columns spanning roughly 382–2512 nm
+- spectral columns have names like:
+    corr_b###_wl####nm
+    raw_b###_wl####nm
+- the merged table combines multiple flights and/or wavelength grids
+
+A naive attempt to combine all `corr` wavelength columns into one spectrum failed.
+
+The resulting matrix was only about 37% finite. Some species had disconnected spectral segments, some panels were blank, and narrow artificial spikes appeared near atmospheric absorption regions. This indicates that the 1,140 columns should not simply be interpreted as a single universal wavelength grid.
+
+THE SCIENTIFIC GOAL
+
+I want a large figure with one subplot per plant species.
+
+Each panel should show the distribution of corrected hyperspectral signatures for individual plants of that species.
+
+Conceptually:
+
+    extracted pixels
+        ↓
+    individual polygon / plant spectrum
+        ↓
+    species distribution
+        ↓
+    one subplot per species
+
+The unit of replication should be the individual polygon/plant, NOT individual pixels.
+
+A polygon containing many extracted pixels must not receive more weight than a polygon containing fewer pixels.
+
+STEP 1: AUDIT THE PARQUET
+
+Before implementing the final figure, inspect the actual data and determine:
+
+1. What uniquely identifies:
+   - flight
+   - sensor/source
+   - polygon
+   - species
+
+2. For each flight/source:
+   - which corrected spectral columns contain data
+   - wavelength range
+   - wavelength spacing
+   - number of valid bands
+   - whether wavelength grids differ among flights
+   - whether multiple sets of columns encode the same nominal wavelengths
+
+3. Determine why the merged `corr` matrix is only ~37% finite.
+
+4. Determine whether missing values primarily reflect:
+   - different flight/sensor wavelength grids
+   - atmospheric bands removed during processing
+   - missing data
+   - some other structure.
+
+5. Check whether species occur across multiple flights/sensors.
+
+Produce a concise diagnostic summary before choosing the harmonization method.
+
+STEP 2: BUILD REAL PLANT SPECTRA
+
+For each polygon/plant:
+
+- use the corrected (`corr`) spectra
+- retain only the spectral columns actually belonging to that observation's flight/source
+- aggregate its extracted pixels using the median at each valid wavelength
+- do not clip, normalize, standardize, or multiply reflectance values unless the data themselves demonstrate that such a transformation is required
+- preserve missing atmospheric regions rather than inventing reflectance across large unsupported gaps
+
+The result should be one coherent spectrum per individual plant.
+
+STEP 3: HARMONIZE ACROSS FLIGHTS
+
+We need species to be comparable even when their plants came from different flights.
+
+Use the actual data to determine the scientifically defensible solution.
+
+Likely possibilities include:
+
+- identifying a shared wavelength grid
+- interpolation onto a common grid
+- wavelength-bin aggregation
+- restricting to a common supported wavelength range
+- treating incompatible sensors separately
+
+Do NOT blindly interpolate across atmospheric absorption gaps or unsupported wavelength regions.
+
+Prefer a simple and transparent harmonization strategy.
+
+Document exactly what you decide and why.
+
+Include diagnostics showing:
+
+- native wavelength grids by flight
+- common wavelength coverage
+- number of plants retained/lost
+- missingness before and after harmonization
+
+STEP 4: SPECIES FILTERING
+
+Make the minimum number of independent plants per species configurable.
+
+Start with something scientifically useful such as:
+
+    MIN_PLANTS_PER_SPECIES = 10
+
+Do not treat labels such as:
+
+    Unidentified
+    Other
+
+as biological species in the main figure.
+
+Keep them in diagnostics if useful.
+
+Order species by decreasing number of independent plants unless another ordering is clearly more informative.
+
+STEP 5: MAKE THE MULTIPANEL FIGURE
+
+Create one subplot per retained species.
+
+Within each subplot:
+
+- x = wavelength in nm
+- y = corrected spectral value / reflectance in the native scientifically appropriate units
+- each faint line = ONE individual plant/polygon median spectrum
+- overlay a strong species median spectrum
+- optionally include a subtle interquartile or 5–95% envelope if it improves interpretation
+- title with italicized scientific species name
+- include `n = ### plants`
+
+All panels should use consistent wavelength axes.
+
+Use shared y limits when scientifically reasonable so species are visually comparable.
+
+If extreme values destroy readability, investigate their origin rather than simply clipping them.
+
+Do not assign arbitrary rainbow colors to species. A restrained publication-quality visual treatment is preferred.
+
+The goal should resemble a spectral atlas.
+
+FIGURE QUALITY
+
+The final figure should be suitable for a scientific manuscript.
+
+Requirements:
+
+- clean typography
+- readable species names
+- minimal visual clutter
+- sensible subplot dimensions
+- no giant whitespace
+- shared outer axis labels
+- wavelength ticks appropriate for ~400–2500 nm
+- high-resolution PNG
+- vector PDF
+- preferably SVG as well
+- 300+ dpi raster output
+- figure should remain interpretable when printed
+
+Because there may be dozens of species, choose the grid dimensions intelligently.
+
+If 57 species make the figure unreadable, use the sample-size threshold to produce a scientifically useful main panel and optionally create a complete supplementary atlas.
+
+ATMOSPHERIC ABSORPTION REGIONS
+
+Pay particular attention to the strong water-vapor absorption regions around approximately 1350–1450 nm and 1800–2000 nm.
+
+Determine how these regions are represented in the processed data.
+
+Do not connect lines across large regions with no valid observations if doing so creates artificial spectral structure.
+
+If appropriate, represent excluded wavelength regions as gaps or subtle shaded regions.
+
+VALIDATION
+
+Before accepting the final figure, explicitly verify:
+
+1. every faint trace corresponds to one polygon/plant
+2. no plant is weighted according to pixel count
+3. no spectrum combines incompatible columns from multiple flight grids
+4. wavelength order is correct
+5. species labels are correct
+6. species medians are calculated across plants, not pixels
+7. interpolation has not crossed unsupported spectral gaps
+8. the major spectral shapes are biologically plausible
+9. blank species panels no longer occur
+10. artificial narrow spikes caused by schema merging are gone or explained
+
+OUTPUTS
+
+Please create:
+
+1. a reusable analysis module/function in an appropriate place in the package
+2. a notebook or script that reproduces the complete analysis
+3. a diagnostic table describing flight/source wavelength grids
+4. a plant-level harmonized spectral table
+5. a species sample-size table
+6. main species spectral panel:
+   - PDF
+   - PNG
+   - SVG if practical
+7. optional full-species supplementary atlas
+8. concise documentation explaining the harmonization approach
+
+Keep generated large data and figure artifacts out of git if that is consistent with the repository's existing conventions.
+
+IMPORTANT
+
+Do not optimize for merely producing a pretty figure.
+
+The previous attempt already produced a visually plausible but scientifically incorrect figure because it treated the merged spectral columns as one universal wavelength grid.
+
+Use the actual Parquet to understand the data-generating structure first.
+
+The key question is:
+
+"What constitutes one real corrected spectrum for one plant, and how can those real spectra be compared across flights without creating artificial spectral information?"
+
+Answer that from the data, implement it, validate it, and only then make the species panel.
+```
+
+## 2026-10-13 - Ignore source Parquet and explain finite fraction
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+can you git ignore the parquet so we don't commit it to github. also, what do you mean by 37.7%
+```
+
+## 2026-10-13 - Raw and darkened spectra
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+so you could do the same for the uncorrected and the darkened?
+```
+
+## 2026-10-13 - Comparison atlas layouts
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+OK, we want to do a few things. 1) make the panel so the rows are the plants and the columns are raw, then corrected, then darkened. 2) make those same plots into three panels, one panel for raw, one for corrected, one for darkened, 3) make the columns landsat, neon, and drone and rows the plants.  
+```
+
+## 2026-10-13 - Comparison product selection
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Use the derived OLI and MicaSense products
+```
+
+## 2026-10-13 - Regional spectral comparisons
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+can we also look at things regionally? you should have the name of the table that they came from, whcih should have the site code in them to identify region. 
+```
+
+## 2026-10-13 - Alphabetical species rows
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+need to organize the panels so the species names are alphabatized and so each plant gets it's own row instead of the version i just saw with species organized raw a, raw b, corrected a, corrected b,... 
+```
+
+## 2026-10-13 - Sensor-band trace styling
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+lets make the landsat and micasense look like traces instead of dots. 
+```
+
+## 2026-10-13 - Boosted quantile spectral signatures
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+next step is to do the 100 lines version. this does a boosted quantile regression for every quantile 1-100. The boosted regression captures the boucing around of the line and doing 100 of them gives us 100 lines to represent each plant. That makes it easier to sort when we have an unknown line and we're looking for the match. 
+```
+
+## 2026-10-13 - Quantile replication choice
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+both
+```
+
+## 2026-10-13 - Quantile range choice
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+1-99
+```
+
+## 2026-10-13 - Descending quantile overlays
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+now give me a panel with 100 plots, each of them with one quantile regression from each plant. so the first is the 100 the quantile regression for all the plants stacked so we can see how they differr, then next is all the 99, then the 98,...
+```
+
+## 2026-10-13 - Separate sensor quantile panels
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+can you seperate the landsat and micasense into their own graphs on the panels so we can see the differen traces?
+```
+
+## 2026-10-13 - Year and site spectral panels
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+can we now go back to the plots and make a new panel that is split out by year and site?
+```
+
+## 2026-10-13 - Year/site plot choice
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Boosted quantile plots
+```
+
+## 2026-10-13 - Detailed plot robustness report
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+generate a detailed pdf report on all the plots we just made, how robust they are, what they tell use, etc. 
+```
+
+## 2026-10-13 - Species-to-PFT grouping and plots
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+I want to clump species into PFTs. can you use the species name to give it a PFT tag and then do the plots again but dividing by pft?
+```
+
+## 2026-10-13 - Publication documentation audit
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+You are preparing the SpectralBridge repository and documentation website for scientific publication and JOSS review.
+
+Repository:
+earthlab/spectralbridge
+
+Published documentation:
+https://earthlab.github.io/spectralbridge/
+
+I want you to perform a careful documentation and website improvement pass.
+
+IMPORTANT
+
+Do not blindly implement the specific edits below.
+
+First inspect the current repository, documentation, website configuration, examples, tests, release metadata, and recent git history. Some documentation may already have been updated.
+
+For every proposed change:
+
+1. determine what is currently true
+2. determine whether the issue still exists
+3. preserve correct existing documentation
+4. make the smallest high-quality change that improves the scientific story
+5. do not invent scientific results, validation evidence, numbers, DOIs, publication status, or package capabilities
+
+The goal is NOT to make the documentation larger.
+
+The goal is to make SpectralBridge easier to understand, scientifically clearer, internally consistent, and publication ready.
+
+==================================================
+CORE NARRATIVE
+==================================================
+
+The website should communicate three things quickly:
+
+1. WHY DOES SPECTRALBRIDGE EXIST?
+
+Environmental spectral observations come from different instruments, platforms, resolutions, spectral response functions, processing histories, and spatial scales.
+
+SpectralBridge provides reproducible ways to process, harmonize, compare, and validate those observations while preserving provenance and the assumptions behind transformations.
+
+2. WHAT CAN SPECTRALBRIDGE DO?
+
+The package contains three major processing workflows/pipelines. Preserve the terminology currently used by the package.
+
+It also enables downstream scientific products such as:
+
+- corrected spectral observations
+- cross-sensor representations
+- spectral libraries
+- polygon-level spectral extraction
+- population/species-level spectral analyses
+- bulk analyses across many flights/products
+
+Do NOT describe downstream applications as additional pipelines unless the package actually implements them that way.
+
+3. WHY SHOULD A SCIENTIST TRUST THE RESULTS?
+
+The documentation should clearly distinguish:
+
+- software correctness
+- workflow validation
+- scientific validation
+- cross-sensor harmonization
+- independent sensor agreement
+- known limitations
+
+Avoid implying that successful translation/convolution automatically proves physical sensor equivalence.
+
+==================================================
+TASK 1: AUDIT THE CURRENT DOCUMENTATION
+==================================================
+
+Before editing, inspect:
+
+- README
+- documentation homepage
+- navigation
+- usage documentation
+- workflow pages
+- validation pages
+- spectral-library documentation
+- Parquet documentation
+- API documentation
+- citation/release pages
+- JOSS-related documentation
+- publication-readiness material
+- examples/notebooks/vignettes
+- MkDocs configuration
+- package metadata
+- CITATION.cff
+- pyproject.toml
+- tests relevant to documented behavior
+
+Also inspect recent git history so that you understand what has changed recently.
+
+Create a concise internal checklist of:
+
+- already good
+- stale
+- inconsistent
+- missing
+- redundant
+- publication blockers
+- nice-to-have improvements
+
+Then implement the worthwhile changes.
+
+Do not create a giant audit document unless one is genuinely useful.
+
+==================================================
+TASK 2: IMPROVE THE HOMEPAGE
+==================================================
+
+The homepage should lead with the scientific problem rather than internal pipeline architecture.
+
+The existing "Three pipelines. Traceable evidence." concept can remain if useful, but it should not be the first thing a new scientist must understand.
+
+Develop a concise opening along the lines of:
+
+SpectralBridge
+Connecting environmental observations across sensors and scales
+
+SpectralBridge is an open-source Python package for processing, harmonizing, and comparing spectral observations from airborne, drone, and satellite platforms. It connects individual observations to reproducible spectral libraries and population-level analyses while preserving the assumptions and provenance of each transformation.
+
+Do not copy this mechanically if the existing terminology supports a better version.
+
+The homepage should establish:
+
+problem
+→ approach
+→ workflows
+→ scientific products
+→ evidence/validation
+→ getting started
+
+Keep it concise.
+
+Do not turn the homepage into a manual.
+
+==================================================
+TASK 3: MAKE THE SCIENTIFIC OUTPUTS VISIBLE
+==================================================
+
+Determine what REAL figures and results already exist in the repository and documentation.
+
+Where supported by existing artifacts, add or improve a section such as:
+
+"From spectral measurements to scientific insight"
+
+Potential examples include:
+
+1. raw versus corrected hyperspectral signatures
+2. cross-sensor comparison or harmonization
+3. spectral-library products
+4. polygon/species spectral variation
+5. validation against independent observations
+
+Only use figures/results that actually exist and whose interpretation is supported.
+
+Do not invent example results.
+
+Do not manufacture a species figure if the final scientifically valid version has not yet been produced.
+
+Instead, prepare an appropriate place in the documentation for it if useful.
+
+Every scientific figure should answer:
+
+- what am I looking at?
+- why does it matter?
+- what does it demonstrate?
+- what does it NOT demonstrate?
+
+==================================================
+TASK 4: FIX THE PARQUET / DATA MODEL DOCUMENTATION
+==================================================
+
+This is particularly important.
+
+Inspect the actual code AND any representative Parquet files available in the repository.
+
+The documentation needs to accurately explain the different Parquet/data structures produced by SpectralBridge.
+
+Recent merged polygon extraction data include wide spectral columns with names resembling:
+
+corr_b###_wl####nm
+raw_b###_wl####nm
+
+The merged data may contain multiple flight-specific wavelength grids.
+
+A naive interpretation of every `corr_*` column as one universal spectrum can produce a matrix with substantial missingness and scientifically invalid discontinuous spectra.
+
+Document the ACTUAL behavior.
+
+Clearly distinguish, where applicable:
+
+- per-product outputs
+- pixel extraction outputs
+- polygon extraction outputs
+- per-flight merged outputs
+- cross-flight merged outputs
+- bulk outputs
+- spectral-library tables
+
+For each relevant schema explain:
+
+- observational unit / row meaning
+- identifiers
+- spectral representation
+- wavelength representation
+- provenance fields
+- missing-data behavior
+- whether wavelength grids are shared
+- how a valid spectrum should be reconstructed
+- what users should NOT do
+
+If multiple flights/sensors use different wavelength grids, say so explicitly.
+
+Add a warning where appropriate:
+
+Do not assume that concatenated wide spectral columns from multiple flights constitute a single common wavelength grid.
+
+Make the documentation match the implementation.
+
+If the implementation itself is ambiguous, document the ambiguity rather than guessing.
+
+==================================================
+TASK 5: CLARIFY HARMONIZATION VS VALIDATION
+==================================================
+
+Review all descriptions of:
+
+- convolution
+- translation
+- affine transformations
+- synthetic Landsat-like products
+- actual Landsat observations
+- NEON products
+- drone products
+- sensor comparisons
+
+Make sure the language distinguishes:
+
+spectral harmonization
+from
+independent validation.
+
+A transformed observation resembling another sensor's spectral representation does not, by itself, establish real-world interchangeability.
+
+If the existing documentation already explains this well, preserve it and make it easier to discover.
+
+Consider adding a small conceptual diagram or comparison table if it can be generated reproducibly using normal documentation tools.
+
+Do not use AI-generated scientific imagery.
+
+==================================================
+TASK 6: IMPROVE THE VALIDATION STORY
+==================================================
+
+Do not simply list validation artifacts.
+
+Create a clear hierarchy:
+
+SOFTWARE CORRECTNESS
+Examples:
+- unit/integration tests
+- CI
+- deterministic behavior
+- restart/resume behavior
+
+WORKFLOW VALIDATION
+Examples:
+- successful processing of real flightlines
+- expected intermediate products
+- QA checks
+- provenance
+
+SCIENTIFIC VALIDATION
+Examples:
+- independent observations
+- cross-sensor comparisons
+- physically meaningful diagnostics
+
+LIMITATIONS
+Examples:
+- unresolved calibration issues
+- spatial mismatch
+- sensor differences
+- atmospheric regions
+- extrapolation limitations
+
+Use only verified evidence.
+
+If numerical counts are shown, determine where they came from and whether they are current.
+
+Do not perpetuate stale validation counts just because an old audit contains them.
+
+==================================================
+TASK 7: IMPROVE GETTING STARTED
+==================================================
+
+Preserve a tiny synthetic example if it is useful as an installation smoke test.
+
+But clearly distinguish:
+
+"Verify your installation"
+
+from
+
+"Run your first scientific workflow"
+
+If the repository contains a small real example dataset suitable for a quick-start analysis, create a concise scientific quick-start.
+
+The ideal first experience is:
+
+install
+→ load example
+→ run workflow
+→ inspect QA
+→ produce interpretable spectral output
+
+Do not introduce a large remote-data dependency merely to improve the quick start.
+
+==================================================
+TASK 8: ELEVATE SPECTRAL LIBRARIES
+==================================================
+
+Spectral libraries appear to be an increasingly important scientific product of SpectralBridge.
+
+Review the current spectral-library functionality and documentation.
+
+Make this capability easier to discover.
+
+Potential concepts to document, if implemented:
+
+pixel
+→ polygon
+→ individual plant/object
+→ species/population
+→ cross-flight library
+
+Explain the distinction between the processing pipelines and these downstream scientific products.
+
+If polygon/species metadata are supported, document how users can move from corrected spectra to biological analyses.
+
+Do not claim classification/detection capabilities unless implemented.
+
+It is fine to identify them as downstream uses.
+
+==================================================
+TASK 9: CLEAN UP PUBLICATION AND CITATION STATUS
+==================================================
+
+Inspect:
+
+- CITATION.cff
+- citation docs
+- release docs
+- JOSS docs
+- publication-readiness audits
+- version information
+- package metadata
+
+Identify stale placeholders or historical warnings.
+
+Do not delete useful historical audits.
+
+Instead, distinguish clearly between:
+
+CURRENT STATUS
+
+and
+
+HISTORICAL AUDITS
+
+A visitor should not encounter an old blocker and wonder whether it remains unresolved.
+
+Do not invent:
+
+- DOI
+- publication venue
+- acceptance status
+- author list
+- release status
+
+If human input is required, leave a clear TODO rather than guessing.
+
+==================================================
+TASK 10: INFORMATION ARCHITECTURE
+==================================================
+
+Review the navigation as a new scientist would encounter it.
+
+The conceptual hierarchy should approximately support:
+
+Overview
+Getting Started
+Workflows
+Scientific Products / Spectral Libraries
+Validation
+Examples / Vignettes
+Reference
+Development / Publication
+
+Do not reorganize pages merely for the sake of reorganizing them.
+
+Prefer minimal changes that make important material discoverable.
+
+Keep maintainer/developer material from overwhelming first-time users.
+
+==================================================
+TASK 11: FIGURES AND VISUAL QUALITY
+==================================================
+
+Audit the website visually.
+
+Check:
+
+- oversized figures
+- tiny labels
+- inconsistent figure widths
+- poor captions
+- duplicated figures
+- broken images
+- unnecessary whitespace
+- mobile behavior
+- dark/light mode if supported
+- navigation readability
+- code overflow
+- tables wider than the page
+
+Scientific figures should have captions that explain interpretation, not just filenames or implementation steps.
+
+Do not introduce decorative imagery that does not improve scientific understanding.
+
+==================================================
+TASK 12: TERMINOLOGY CONSISTENCY
+==================================================
+
+Search the entire documentation for inconsistent use of terms such as:
+
+correction
+calibration
+translation
+convolution
+harmonization
+validation
+spectral library
+flight
+flightline
+product
+sensor
+platform
+polygon
+pixel
+reflectance
+corrected reflectance
+Landsat-like
+
+Determine how the code actually uses these concepts.
+
+Standardize terminology where possible.
+
+Do not silently collapse scientifically distinct concepts into one term.
+
+==================================================
+TASK 13: VERIFY EVERYTHING
+==================================================
+
+After editing:
+
+- build the documentation locally
+- fail on warnings if practical
+- check internal links
+- check external links where tooling permits
+- run documentation tests
+- run relevant package tests
+- verify code examples
+- verify navigation
+- inspect rendered pages
+- ensure figures resolve
+- ensure no generated junk or large artifacts are accidentally tracked
+- check git diff carefully
+
+Make sure documentation claims match package behavior.
+
+==================================================
+DESIRED RESULT
+==================================================
+
+SpectralBridge should feel like a mature scientific software package rather than a collection of processing scripts.
+
+A new visitor should understand within roughly one minute:
+
+1. what scientific problem SpectralBridge solves
+2. why multiple sensors require bridging
+3. what the three workflows do
+4. what scientific products they produce
+5. how provenance is preserved
+6. how the results have been validated
+7. how to try the package
+
+A JOSS reviewer should be able to quickly locate:
+
+- statement of need
+- installation
+- example usage
+- API/reference
+- tests
+- validation
+- limitations
+- citation
+- contribution guidance
+- license
+- reproducibility information
+
+==================================================
+IMPLEMENTATION STYLE
+==================================================
+
+Be conservative.
+
+Prefer improving existing pages over creating many new ones.
+
+Prefer concise scientific prose.
+
+Avoid marketing language.
+
+Avoid repetition.
+
+Do not make unsupported claims.
+
+Do not alter scientific algorithms simply to make documentation easier.
+
+If you discover an implementation issue while auditing the docs, document it clearly and fix it only if the correction is straightforward, well tested, and clearly within scope.
+
+Otherwise create a focused issue/TODO.
+
+At the end, report:
+
+1. what you inspected
+2. what you changed
+3. important inconsistencies you found
+4. anything you deliberately did not change
+5. remaining human decisions
+6. tests/build checks run and their results
+7. your assessment of whether the website/docs are ready for JOSS review
+```
+
+## 2026-10-13 - Continue publication documentation audit
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```

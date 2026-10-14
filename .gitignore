@@ -39,3 +39,8 @@ tlm_check_spectra/data
 /dist/
 
 /build/
+
+# Supplied source library and regenerable plant atlas derivatives.
+/Aug_2026_all_polygons_merged_pixel_extraction.parquet
+/artifacts/plant_spectral_atlas/
+/output/pdf/plant_spectral_review/

@@ -137,3 +137,8 @@ sensor, LOSO, and other QA/statistical outputs remain unchanged.
 
 
 For raster-population processing, return to [bulk analysis](bulk-analysis.md).
+
+For merged polygon libraries containing different native wavelength grids, use
+[the plant-balanced spectral atlas](plant-spectral-atlas.md). It audits actual
+flight/source support, aggregates pixels into independent GlobalID plants, and
+preserves unsupported atmospheric gaps before making species panels.

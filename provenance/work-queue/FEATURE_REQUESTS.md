@@ -20,6 +20,195 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P114. Publication and JOSS documentation/website improvement
+
+- Priority: P0, user-directed
+- Status: In progress
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: Audit current docs, implementation/schema contracts, examples, release/citation status and rendered website; make concise, evidence-backed improvements without changing scientific algorithms or promoting exploratory figures.
+- Plan: Inspect current sources/history and published pages; record a compact checklist here; improve scientific-product discovery, Parquet reconstruction and evidence/status clarity where gaps remain; build strict docs, verify examples/tests/links, and inspect desktop/mobile rendering.
+
+### P113. Species-to-PFT crosswalk and grouped spectral plots
+
+- Priority: P0, user-directed
+- Status: Incomplete; user redirected work to publication documentation
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: Add auditable species-name-derived PFT tags without altering source labels; regenerate empirical and boosted pooled/site/year-site plots with PFT groups and preserve plant replication.
+- Plan: Confirm grouping resolution, research trait assignments from authoritative sources, retain unresolved/ambiguous labels explicitly, build a reviewable crosswalk, refit PFT models from plant spectra rather than species curves, test identity/weighting/provenance and render outputs. Preserve units, gaps, sensor separation and metadata warnings.
+- Resume state: Curated 57-label crosswalk saved in src/spectralbridge/data/plant_pft_crosswalk.csv; draft module/CLI saved as plant_spectral_pfts.py. Working five-PFT scheme assigns 1,944 plants and leaves 552 unresolved; these are preliminary lookup counts, not completed analytical outputs. No PFT fits, tests or plots have run. One known Ruff F841 remains (unused all_labels). Review unresolved custom-crosswalk hashing, config compatibility for reused individual models, label adapters, cohort matching and tests before running. Grouping preference remains optional/unanswered; working tree/shrub scheme and variable habits were disclosed.
+- Next PFT task: Add focused crosswalk/grouping/weighting/reuse tests, resolve draft issues, then generate and inspect outputs. No completed-PFT or publication-readiness claim.
+
+
+### P112. Detailed plot interpretation and robustness report
+
+- Priority: P0, user-directed
+- Status: Complete locally
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: Detailed PDF synthesizing all plot families, methods, empirical/boosted/region/year findings, scientific robustness, limits and next analyses.
+- Plan: Verify saved audits and figures, calculate compact diagnostic summaries and uncertainty from held-out records, create sourced report with representative figures and complete inventory, render and inspect every page. Preserve existing fits/data; distinguish software checks from scientific validation.
+
+- Outcome: Created a 33-page illustrated PDF at output/pdf/plant_spectral_review/spectral_plots_methods_robustness_report.pdf. Covers all empirical, regional, derived-sensor, species/individual quantile, descending-grid and year/site plot families; inventories all 46 original PDFs (421 source pages including aliases). Includes detailed methods, paired correction diagnostics, fixed-holdout Wilson intervals, full validation/baseline tables, measured tail-fit failure, MicaSense metadata limitations, repeated-year cohort interpretation, robustness matrix and prioritized next analyses. Compact evidence, interval CSV and figure inventory embedded as PDF attachments.
+- Verification: Verified 16,455 manifest-covered output entries during evidence extraction; final report contract checks cover 19 source hashes, all 16 recalculated intervals, exact attachment bytes, 33 pages and text bounds. All pages/layouts inspected via renders; corrected excerpt crops and overlapping labels before delivery. Focused authoring-source Ruff and docs-link checks pass. Verbatim prompt trailing spaces remain intentionally unchanged.
+- Remaining/blockers: None for the requested report. Production models/data remain unchanged; no new calibration, classifier or paired temporal-change validation claimed. Generated report/evidence/figures are Git-ignored; reproducible authoring/verification sources retained under provenance/plot-report/2026-10-13. No commit or publication performed.
+- Next recommended task: P107 original MicaSense source-header verification, followed by P108 tail-fit/blocked-identification validation; consider a separately specified paired analysis of the 886 repeated NIWO plants.
+
+### P111. Year × site spectral panels
+
+- Priority: P0, user-directed
+- Status: Complete locally
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: Source-acquisition-year/site views without mixing a plant's observations across years; preserve alphabetical species rows and separate sensor products.
+- Plan: Validate year/site from compact flight/source provenance, aggregate within plant/year/site with equal observation medians, report repeated identities and unavailable combinations, render panels and test grouping contracts. Confirmed boosted quantile plots: refit species-level 1–99% curves separately per year/site, using independent plant medians within that year. Keep stages in separate panels.
+
+- Outcome: Fitted 164 year/site species signatures (41 eligible cohorts × 4 stages), each with 99 quantiles. Four separate raw/corrected/Landsat/MicaSense PDF/SVG/PNG panels use 21 alphabetical species rows and chronological year/site columns. NIWO has 2020/2023; WREF/YELL 2020 explicitly unavailable. Source and flight year/site cross-checked, including legacy timestamped NEON names. 886 repeated GlobalIDs remain identifiable across years.
+- Verification: 26 targeted year/site/regions/quantile tests pass; focused Ruff and docs links pass. Tests demonstrate year-separated equal-observation medians, negative/NaN preservation, source/flight conflict rejection, unique observation contracts, missing acquisition annotations and fit-checkpoint reuse. All production output checksums verified; all four PDFs visually inspected.
+- Scientific limits: Species/year cohorts can differ; no paired temporal change, causal year effect or classifier validation is claimed. Existing extreme-quantile underfitting and unverified MicaSense coordinates remain disclosed. Generated outputs remain ignored; no commit or push.
+- Next recommended task: Review year/site panels; use the 886 repeated NIWO identities for a separately specified paired-change analysis if desired. P107/P108 remain open.
+
+### P110. Separate Landsat and MicaSense quantile panels
+
+- Priority: P0, user-directed
+- Status: Complete locally
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: Separate Landsat/OLI and MicaSense plots in quantile species/individual reports and add independent descending sensor grids; preserve fitted values and flag unverified MicaSense coordinates.
+- Plan: Extend existing plotting helpers, verify stage isolation/coordinates with tests, reuse checkpoints and regenerate figures with visual QA.
+- Outcome: Added standalone Landsat OLI and MicaSense descending 10×10 PDF/PNG grids, 1,886 individual curves per fitted percentile. Quantile species/individual reports now have four columns: raw, corrected, Landsat OLI, MicaSense; sensor columns use separate wavelength ranges. Unverified MicaSense export coordinates remain flagged. Fits and source values are unchanged; no refitting or guessed remapping.
+- Verification: 18 targeted overlay/quantile regression tests pass; focused Ruff and docs links pass. Tests cover stage-isolated columns, exact discrete sensor coordinates, sensor-specific axis ranges, absent NEON atmospheric shading, all plants/quantiles and checksum rejection. Sensor grids, species atlas and individual layout visually inspected.
+- Remaining/blockers: Existing scientific fit and coordinate limitations remain P108/P107. Generated outputs remain ignored; no commit or push.
+- Next recommended task: P107 source-header verification before physical MicaSense interpretation, then P108 fit-quality improvements.
+
+
+### P109. Descending quantile overlays across individual plants
+
+- Priority: P0, user-directed
+- Status: Complete locally
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: 10×10 panels descending 100 to 1; overlay the same quantile from every individual plant, preserve gaps and source values, color by species. The 100th slot explicitly states unfitted because the confirmed models cover 1–99 only.
+- Plan: Read verified existing checkpoints only; create corrected and raw panels without refitting; add coverage/order regression tests, visually inspect outputs and record provenance.
+- Outcome: Separate corrected/raw PDF and PNG panels under ignored artifacts/plant_spectral_atlas/quantile_overlays. Every fitted subplot contains one ordered curve from each of 1,886 unique individual plants, colored by 22 species, descending 100 to 1; the unfitted 100% slot is disclosed. Shared full-range axes, negative values and NaN gaps retained; PDF trace layers rasterized. Checkpoints remain unchanged; audit records source/code/output hashes and GlobalIDs.
+- Verification: 13 targeted overlay/quantile tests pass; focused Ruff and docs links pass. Regression checks cover all 100 subplot positions, all plant paths at all 99 fitted percentiles, exact source coordinates/values/NaNs, alphabetical legend and checksum rejection. PDF layout visually inspected.
+- Remaining/blockers: No blocker for this view. Existing tail-fit and MicaSense limitations remain P108/P107; these panels use NEON only. Generated outputs remain ignored; no commit or push.
+- Next recommended task: Review descending overlays, then P108 fit quality/identification improvements.
+
+
+### P106. Boosted 100-quantile spectral signatures
+
+- Priority: P0, user-directed modeling
+- Status: Complete locally as exploratory models; scientific limitations remain
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: Boosted wavelength-dependent quantile signatures from real plant spectra, with transparent fitted-line figures and evidence for unknown-spectrum matching.
+- Plan: Resolve per-species versus per-individual models and quantile endpoints; preserve source-aware native units/gaps and independent plant weighting; select/benchmark optional boosting backend; implement checkpointed models, diagnostics and regression tests; assess matching on held-out independent plants before claiming utility.
+- Confirmed: User requests both species and individual plant models and integer percentiles 1 through 99 (99 curves). Individual models use existing repeated-flight polygon medians rather than reopening pixel data.
+- Audit: No boosting backend was initially installed in the repository venv. Existing library reports use empirical/approximate quantiles, not boosted conditional quantile models. Per-individual and per-species fits have different uncertainty meanings and substantially different computational costs.
+- Outcome: Fitted 7,960 checkpointed XGBoost signatures with 99 quantiles (1–99%) at species and individual levels, across raw/corrected/derived OLI/MicaSense stages; 1,886 plants, 22 pooled species, three sites. Preserved source units, gaps, equal independent-plant weighting and GlobalID holdout separation. Added ranking API, validation and alphabetical species/individual reports (378 individual PDF pages).
+- Verification: 59 targeted tests pass; focused Ruff passes. Full production run and checkpoint reuse exercised. Additional matching baselines recorded under provenance/quantile-models/2026-10-13; generated large models/reports remain ignored.
+- Scientific limits: Pooled corrected top-1 species accuracy 15.70%, unchanged from median-RMSE baseline and below majority 22.04%; extreme quantiles underfit. No reliable identifier or calibrated uncertainty claim. MicaSense export labels match legacy padding and remain unverified; figures flag this and physical-wavelength matching rejects them by default. No guessed remapping.
+- Next recommended tasks: P107 source-header verification; P108 tail-fitting and identification validation. No commit, push, release or publication performed.
+
+### P107. Verify MicaSense exported band identity
+
+- Priority: High
+- Status: Pending; source headers required
+- Scope: Establish physical coordinates from original product headers for the supplied ten-band MicaSense data; investigate legacy five-band fallback/padding in exporters with contract tests. Preserve current values and provenance; do not infer wavelengths from band order alone.
+- Blocker: Original source headers have not been supplied in this analysis.
+
+### P108. Improve and validate boosted spectral signatures
+
+- Priority: High
+- Status: Pending
+- Scope: Tune extreme-quantile shape fidelity with training-only selection and independent held-out evaluation; compare empirical templates and majority baselines, assess covariance-aware matching and transfer beyond this library. Preserve current exploratory results and report failures explicitly.
+- Evidence: Current 99-line fits show tail underfitting and do not reliably improve species matching. No pilot tuning was adopted into production defaults.
+
+
+
+### P105. Landsat and MicaSense band-center traces
+
+- Priority: P0, user-directed visualization
+- Status: Complete locally
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: Replace sensor-band dot ensembles with individual plant traces and species-median traces in existing alphabetical pooled/regional layouts.
+- Plan: Connect native discrete band centers visually without resampling analytical spectra; preserve NaN breaks, native values, medians, counts and band-level IQR; distinguish OLI/MicaSense by line style, update disclosure and tests, regenerate all affected outputs.
+- Outcome: Replaced OLI and MicaSense dot ensembles with faint one-plant-per-trace lines and strong species-median lines. OLI uses blue-gray solid traces, MicaSense muted brown dashed traces; subtle IQR bars remain at native band centers. Captions, audits and docs explicitly identify visual band-center connections without new spectral samples.
+- Regeneration: Updated pooled and all three regional alphabetical row layouts and standalone atlases in vector PDF/SVG and 350 dpi PNG. Scientific values, wavelength samples, species medians, counts, plant weights, cohorts, y limits and NEON atmospheric gaps are preserved; no spectral pixel reaggregation.
+- Verification: 38 focused atlas/comparison/regions/existing-library tests pass; Ruff and docs links pass. Parameterized OLI/MicaSense artist tests verify exact native coordinates, retained negative values, missing-band NaN breaks, one trace per plant plus the plant-balanced median, and line styles. Pooled and NIWO sensor comparison exports visually inspected; both checksum restart paths reuse updated outputs. Whitespace findings remain limited to verbatim prompt trailing spaces.
+- Remaining/blockers: None. These sparse-band connections are visualization guides, not newly measured hyperspectral information. Generated artifacts remain ignored; no commit, push, release or external publication performed.
+- Next recommended task: Review revised trace-based manuscript panels; rerun release gates before packaging new analysis modules.
+
+
+### P104. Alphabetical species rows in comparison panels
+
+- Priority: P0, user-directed
+- Status: Complete locally
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: Alphabetize species and use one species per row, aligned raw/corrected/darkened columns, in pooled/regional comparison panels and single-product atlases.
+- Plan: Keep scientific tables/cohorts unchanged; update ordering/layout, regenerate all affected figures from compact products, verify SVG row order and geometry with regression tests and visual QA.
+- Outcome: Alphabetized pooled and regional species rows; replaced separate three-panel atlas grids with aligned raw/corrected/darkened columns, one species per row. The established three_panel_atlas filenames now alias the corresponding species-row figure. Standalone raw/corrected/darkened atlases also have exactly one species per row. The direct between-site corrected atlas and Landsat/NEON/drone layouts use the same alphabetical ordering.
+- Regeneration: Rebuilt six pooled and nineteen regional figures in vector PDF/SVG and 350 dpi PNG, preserving species thresholds, cohorts, plant spectra, medians, units, gaps and shared full y limits. No spectral pixel decoding or reaggregation required; compact product checkpoints reused.
+- Verification: 37 focused tests pass; Ruff and docs links pass. New exported-SVG regression checks prove alphabetical order, one occurrence/row per species, three aligned stage columns or one standalone column, including low-count alphabetically early species. Real exported-SVG geometry checks pass for all 24 pooled/site figures plus between-site ordering. Pooled/YELL visual QA and checksum-verified reruns pass. Whitespace findings remain confined to verbatim user prompt trailing spaces.
+- Remaining/blockers: None for requested layout. No commit, push or release performed; large generated artifacts remain ignored.
+- Next recommended task: Review the aligned alphabetical manuscript layouts; rerun release gates before packaging the analysis modules.
+
+
+### P103. Regional plant spectral comparisons from source-table provenance
+
+- Priority: P0, user-directed
+- Status: Complete locally
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: Resolve site regions from source-table names, cross-check metadata, produce within-site versions of the comparison layouts and a direct between-site corrected atlas.
+- Plan: Reuse compact completed plant spectra; validate source/flight/site and plant-region identities, count independent plants per species/site, apply within-site thresholds, preserve matched cohorts/shared axes and produce provenance and regional diagnostics.
+- Outcome: Resolved all 122 source tables and 2,496 labeled GlobalID plants into NIWO/SouthernRockies (1,223 plants, 12 eligible species/964 plotted plants), WREF/Cascades (704, 10/540) and YELL/MiddleRockies (569, 8/354). Site codes from NEON source-table basenames agree with flight IDs and aop_site; no plant spans sites. Names come from supplied ecoregion metadata.
+- Outputs: All six comparison layouts per site plus a 21-species corrected atlas with NIWO/WREF/YELL columns (19 figures total), each vector PDF/SVG and 350 dpi PNG. Source-table inventory, unique plant/site mapping, long/wide species counts, region summaries and exact regional medians under ignored artifacts/plant_spectral_atlas/comparisons/regional/.
+- Method: Threshold is per species/site; matched compact spectra preserve prior source-aware medians and equal plant weighting. Full y limits and wavelength axes are shared across sites/products; broadband points remain discrete and unsupported NEON gaps remain missing. Unavailable cells explicitly distinguish unsampled species from counts below threshold.
+- Verification: 35 focused atlas/comparison/regions/existing-library tests pass; Ruff and docs links pass. Real-data checks validate all source and plant totals, within-region cohorts, independent recalculated medians for four stages/all qualifying sites, full y limits, source/checkpoint stability, vector PDF/SVG and PNG DPI. Visually inspected regional layouts, repaired short-atlas title/tick spacing, and verified checksum restart reuse. Whitespace check retains only verbatim user prompt trailing spaces.
+- Scaling/restart: Reads source provenance metadata and hashes only; no spectral pixel decoding, raster reopening or pixel cache. Compact stage and regional manifests verify source/products/options/code/output bytes; staged publication writes completion manifest last.
+- Remaining/blockers: None for requested regional analysis. Regional differences are descriptive sampled-site comparisons, not whole-ecoregion population estimates or causal regional effects. No commit, push, release or external publication performed.
+- Next recommended task: Review site/sample composition and choose manuscript figures; investigate native terminal-band behavior from source rasters if further scientific interpretation is needed. Rerun release gates before packaging the new modules.
+
+
+### P102. Raw, corrected and darkened plant comparison layouts
+
+- Priority: P0, user-directed
+- Status: Complete locally
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: Species rows with raw/corrected/darkened columns; three grouped atlas panels and separate atlases; species rows with Landsat/NEON/drone representations.
+- Plan: Reuse source-aware plant aggregation; audit raw and broadband products, keep sensor bands discrete, compare matched independent plants, document derived-product provenance, render and verify all layouts.
+- Outcome: Created species-row raw/corrected/darkened and Landsat/NEON/drone layouts, three grouped atlas panels, plus three standalone atlases; all six figures in vector PDF/SVG and 350 dpi PNG. Same 22 species/1,886 independent plants across every figure; all 2,496 labeled plants match all four stages, with zero matching loss.
+- Audit: Raw matches corrected's three 426-band grids and 37.3684% finite merged schema. OLI has seven and MicaSense ten fully finite discrete bands; use supplied final darkened representations, as explicitly selected by the user. No second brightness adjustment, interpolation/joining of sensor bands, or pixel weighting.
+- Implementation: Extended existing aggregation with explicit stage selection, exact shared sensor band centers and table-only mode; added reusable comparison module and reproduction script. Stage and figure checksum checkpoints support restart. Original corrected-only exports remain available; all generated outputs stay under ignored artifacts/plant_spectral_atlas/comparisons/.
+- Verification: 27 focused tests across plant atlas/comparison and existing spectral-library modules pass; Ruff and doc links pass. Whitespace check reports only the user's two trailing spaces preserved in the required verbatim prompt log. Real-data assertions verify matching by GlobalID, 8,845 observations per stage, independently recalculated species medians, native wavelength order, supported-band completeness, excluded gaps, full y limits, DPI and vector PDF/SVG. Visually inspected both row layouts and three-panel figure; checksum-verified restart reuses outputs.
+- Scientific limits: Derived OLI/MicaSense products are explicitly labeled rather than presented as independent acquisitions. Retained source terminal-band rises; traced the largest adjacent-band rise to two WREF native observations of an Acer circinatum GlobalID and documented values/provenance. Source raster/header investigation is needed to establish its cause; no clipping or repair applied.
+- Remaining/blockers: None for the requested layouts. No commit, push, release or external publication performed.
+- Next recommended task: Select manuscript layout and confirm field labels/native units; rerun release gates if packaging the new modules.
+
+
+### P101. Data-audited plant spectral atlas
+
+- Priority: P0, user-directed
+- Status: Complete locally; source and field-label interpretation documented
+- Owner: Codex
+- Started: 2026-10-13
+- Scope: Audit supplied merged polygon Parquet; aggregate independent plants, harmonize native grids without bridging gaps, create manuscript atlas and diagnostics.
+- Plan: Verify flight/source and global plant identities before choosing harmonization; implement reusable analysis, regression tests and reproduction script; retain large outputs locally.
+- Outcome: Audited 85,706 rows/122 flight sources: three 426-band grids explain exactly 37.3684% finite union values. Aggregated 8,845 labeled polygon-flight observations to 2,496 independent GlobalID polygons with equal observation weights. Retained all plants; 22-species main atlas (1,886 plants) and 55-label supplement in vector PDF/SVG and 350 dpi PNG, plus native/harmonized plant tables, source grids, band extremes, coverage, counts and species medians.
+- Method: Adjacent-band interpolation onto 385–2510 nm every 5 nm; excluded 1340–1450 and 1790–2000 nm, never bridged missing/unsupported samples, no scaling/clipping. Every supported common band is finite; 15.493% intentionally excluded. Genus-only and unknown labels excluded from main species panels.
+- Verification: 22 tests across new plant-atlas and existing spectral-library modules pass; Ruff and docs links pass. Independent real-data assertions verify GlobalID uniqueness, 426 native paired/sorted bands, exact species medians, unbridged gaps, all supported bands, vector SVGs, raster dimensions/dpi and checksum reuse. Main and supplementary exports visually inspected.
+- Outputs: Ignored artifacts/plant_spectral_atlas/; docs/vignettes/plant-spectral-atlas.md explains data audit, provenance, decisions, units and limits. Source Parquet remains byte-identified/read-only and ignored; no pixel-scale cache added. Staged rebuilds and final checksum manifests protect restart/reuse.
+- Limits: Parquet lacks physical sensor serials and scale metadata; retained native stored units. GlobalID polygons are presumed plants, field labels remain supplied, and repeated flight/date medians summarize acquisition variation; independent biological/correction validation is not claimed.
+- Remaining/blockers: None for requested analysis. No release, commit, push or publication performed; prior release artifacts exclude this new module.
+- Next recommended task: Review atlas/scientific labels and scale headers for manuscript use; rerun release gates/builds before including the new module in a release.
+
+
 ### P100. Final v2.3.0rc1 release audit
 
 - Priority: P0, user-directed release freeze
