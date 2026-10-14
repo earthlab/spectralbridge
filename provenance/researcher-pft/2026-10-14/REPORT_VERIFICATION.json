@@ -1,0 +1,14 @@
+{
+  "pdf": "output/pdf/researcher_pft_distinguishability_report.pdf",
+  "pdf_sha256": "db40e16ac6430caf526e1091b19866eb2ddcf2a38aca4b2d6ce13cc83d1b1376",
+  "analysis_manifest_sha256": "ecc8f6dfd79877f28f3291b0179fa88212ef2396c597909c6695bbd9e4bb420b",
+  "interpretation_manifest_sha256": "06ef9780ad56e3d02848eda3fcffc2ccec95c38b138c58142c36e23b03e0b67d",
+  "report_source_sha256": "12592bd7fa687f655aff1efd34ef2517a8d77a824986415ce40b5e28883e5793",
+  "source_parquet_sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+  "pages": 15,
+  "text_checks": "all five tests, core counts, p-value exceptions and conclusions present",
+  "layout_checks": "all text within page margins; all pages have footers and numbers",
+  "visual_review": "all 15 rendered pages reviewed; dense methods/results/references inspected individually",
+  "references": "four clickable primary method references",
+  "ruff": "passed"
+}

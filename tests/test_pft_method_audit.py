@@ -117,3 +117,27 @@ def test_complete_audit_reproduces_legacy_and_validates_restart(tmp_path,monkeyp
     checkpoint.write_bytes(b'invalid bytes')
     with pytest.raises(ValueError,match='checkpoint checksum'):
         audit.run_method_audit(tmp_path,oldroot,root,config=AuditConfig(permutations=39))
+
+
+def test_explicit_discrete_band_weights_do_not_bridge_gaps():
+    rng=np.random.default_rng(95)
+    y=rng.normal(size=(20,3))
+    z=np.tile([0,1],10)
+    cfg=AuditConfig(permutations=39)
+    r=method_statistics(y,z,np.zeros(20),[443,865,2201],config=cfg,seed=5,integration_weights=[1,1,1])
+    np.testing.assert_allclose(r['weights'],[1/3]*3)
+    np.testing.assert_allclose(r['stats'][0,1],np.mean((r['curves'][0]/r['se'])**2))
+    with pytest.raises(ValueError,match='weights'):
+        method_statistics(y,z,np.zeros(20),[443,865,2201],config=cfg,integration_weights=[1,-1,1])
+
+
+def test_explicit_legacy_weights_preserve_default_numerics():
+    rng=np.random.default_rng(51)
+    y=rng.normal(size=(24,6))
+    z=np.tile([0,1],12)
+    w=np.arange(400,430,5)
+    cfg=AuditConfig(permutations=39)
+    a=method_statistics(y,z,np.zeros(24),w,config=cfg,seed=72)
+    b=method_statistics(y,z,np.zeros(24),w,config=cfg,seed=72,integration_weights=wavelength_weights(w))
+    np.testing.assert_allclose(a['stats'],b['stats'],rtol=1e-14,atol=1e-14)
+    assert a['p']==b['p']

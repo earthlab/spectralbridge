@@ -81,7 +81,7 @@ def envelope_critical(maxima, alpha):
     return float(np.sort(null)[k-1]) if k <= len(null) else float("inf")
 
 
-def method_statistics(values, labels, blocks, wavelengths, *, config=None, seed=None):
+def method_statistics(values, labels, blocks, wavelengths, *, config=None, seed=None, integration_weights=None):
     """One ensemble, identical units/blocks for max, integral, energy and FPCA.
 
     The full observed+permuted ensemble is retained for reproducible NPC and
@@ -109,7 +109,14 @@ def method_statistics(values, labels, blocks, wavelengths, *, config=None, seed=
     scale = np.sqrt(variance[informative])
     if len(columns) < 2:
         raise ValueError("No complete variable spectral domain")
-    weights = wavelength_weights(w[columns], config.max_gap_nm)
+    if integration_weights is None:
+        weights = wavelength_weights(w[columns], config.max_gap_nm)
+    else:
+        supplied = np.asarray(integration_weights, float)
+        if (supplied.shape != w.shape or not np.isfinite(supplied).all()
+                or np.any(supplied < 0) or supplied[columns].sum() <= 0):
+            raise ValueError("Integration weights must be finite nonnegative band weights with positive retained sum")
+        weights = supplied[columns] / supplied[columns].sum()
     x = _center(z[:, None], b).ravel()
     xx = x @ x
     standardized = yc / scale

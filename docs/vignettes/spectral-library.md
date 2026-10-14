@@ -149,3 +149,15 @@ For merged polygon libraries containing different native wavelength grids, use
 [the plant-balanced spectral atlas](plant-spectral-atlas.md). It audits actual
 flight/source support, aggregates pixels into independent GlobalID plants, and
 preserves unsupported atmospheric gaps before making species panels.
+
+### Paired PFT structure under sensor reduction
+
+For synthetic sensor representations of the same NEON observations, compare
+identical polygon/year units and acquisition histories before attributing a
+change to spectral resolution. The
+[plant spectral atlas workflow](plant-spectral-atlas.md#test-retention-under-synthetic-oli-spectral-reduction)
+reports paired OLI effect, direction and ranking retention with cluster-aware
+uncertainty; inferred PFTs and researcher cover categories remain separate.
+These are conditional group-structure results, not independent satellite/drone
+validation or classification accuracy. The supplied MicaSense export fails its
+physical-coordinate gate and is excluded from biological inference.

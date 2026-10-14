@@ -20,15 +20,33 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P120. Paired sensor spectral-resolution transfer of PFT structure
+
+- Priority: P0, user-directed
+- Status: Complete for validated synthetic OLI; MicaSense branch explicitly stopped by physical-metadata gate
+- Owner: Codex
+- Started: 2026-10-14
+- Scope: Audit native/corrected/synthetic band families, validate physical coordinates before inference, analyze paired common-support polygon/year spectral structure with inferred PFTs first and researcher classes separately. Report effect/direction/rank/cross-site retention, not sensor p-value rankings or classification. Stop MicaSense inference if source identities cannot be validated.
+- Plan: Write DESIGN/METHODS before comparisons; reuse compact empirical extraction, identical acquisition histories and synchronized max/integrated NPC with explicit discrete-band weights; checkpoint inference/cluster bootstrap; produce requested evidence and figures; reproduce NEON common-support baseline; targeted and full-suite verification.
+- Outcome: Added reusable sensor_pft_transfer module/CLI and explicit optional integration weights in the existing audited core (legacy defaults unchanged). Audited exact source families/metadata, brightness gains and bounded sampled corrected-versus-raw Gaussian generation consistency. Used undarkened seven-band OLI primary, positive-gain invariance and FWHM metric sensitivities, identical 12,504 observations / 4,807 polygon-years / 3,639 IDs, separate inferred (1,944 assigned IDs) and researcher schemes. No pixel cache or source copy.
+- Findings: OLI retains 15/16 supported inferred contrasts (93.75%, dependent descriptive summary); all five previously unsupported comparisons remain unsupported. Strong DBS/ECT and DBT/ECT survive all cohorts; NIWO 2023 borderline DBS/DBT loses support with ratio 0.665, not sample loss. Median inferred effect ratio 0.824 (paired conditional 95% interval 0.801–0.889), rank correlation 0.982 (0.921–0.994). Researcher contrasts retain 40/40, median ratio 1.016 (0.989–1.029), rank correlation 0.961. All 427 corresponding point-estimate band signs agree with NEON support projections, but only 348 have both pointwise intervals resolved. Strong cross-site patterns broadly survive; full-domain and channel-support metrics distinguished. All five cited historical NEON intervals verified; SWIR ablation is descriptive only. Ratios are norm-specific, not literal information fractions or accuracy.
+- MicaSense decision: Ten stored coordinates match five-band fallback plus 1-nm padding; no original headers/physical mapping available. Values are complete and identical to undarkened values, but physical inference is blocked. No MicaSense tests/correlations/ratios computed; tables/figures show explicit gate. P107 remains unresolved pending original provenance or separately authorized verified regeneration.
+- Deliverables: provenance/sensor-pft-transfer/2026-10-14 contains requested DESIGN, SENSOR_AUDIT, METHODS, RESULTS, VALIDATION, support/contrast/retention/correlation/band tables and statistics manifest; additional native signed curves, ranks, cross-site/region coverage and bootstrap evidence. Six publication figure sets (A split by label scheme, B–E) each in PDF/PNG/SVG. Ignored analytical checkpoints and memberships under artifacts/plant_spectral_atlas/sensor_pft_transfer; source-specific audit/interpretation scripts retained. Nearest spectral-library/atlas docs updated.
+- Verification: Full configured offline repository suite: 580 passed, 7 skipped, 29 warnings; 17 targeted sensor/core tests pass. Focused Ruff, strict MkDocs, docs links, AI transparency and whitespace pass. All 21 inferred and 40 researcher NEON max/integrated/NPC raw and adjusted p-values reproduce legacy exactly. Checked all 170 analysis-owned files, 43 evidence files, metadata-definition hashes, 61 exact memberships, finite paired-bootstrap arrays, unchanged three legacy result ledgers, source hash and valid restart with unchanged output mtimes. Six figure sets visually reviewed; vector PDF/text SVG formats verified.
+- Next: Review ecological interpretation and original MicaSense headers before opening its branch. Actual sensor noise/spatial resolution, independent acquisitions, species/spatial confounding, classification and causal effects remain untested. No universal hyperspectral requirement is inferred from one lost borderline detection. No commit/push/publication.
+
 ### P119. Human-readable researcher PFT statistical PDF report
 
 - Priority: P0, user-directed
-- Status: In progress
+- Status: Complete locally; PDF generated, rendered and verified
 - Owner: Codex
 - Started: 2026-10-14
 - Scope: Explain every executed test, design, results, uncertainty and practical distinguishability in a self-contained illustrated PDF based on verified P118 outputs.
 - Plan: Verify source tables/manifests; describe primary and sensitivity tests without equating significance with classification; include class spread, effects, simultaneous envelopes and full numerical results; generate and visually inspect PDF, retain reproducible report source.
-- Remaining: Author, render, inspect, verify and deliver.
+- Outcome: Created output/pdf/researcher_pft_distinguishability_report.pdf (15 pages), with reproducible builder, README and hash/QA record under provenance/researcher-pft/2026-10-14. Explains maximum, integrated, synchronized NPC, FPCA and energy; permutation assumptions, matching, envelopes and Holm correction; includes support, effect heatmap, class spectra/spread, selected localization panels, all 40 matched numerical results, observational limitations and primary references.
+- Main conclusion: Conditional sampled-group differences supported in all 40 primary contrasts; energy supports 38/40. Statistical differentiation is explicitly separated from unknown-polygon classification, effect magnitude, equivalence and causal claims. No new scientific tests or classification accuracy are claimed.
+- Verification: Verified analysis and interpretation manifest hashes and compact source-table copies before generation. All 15 Poppler-rendered pages visually reviewed, with dense method/result/reference pages inspected at larger size. PDF text checks verify five methods, counts and exception p-values; geometry, footers, numbering and clickable references pass. Focused Ruff passes; report/output/input hashes recorded. Scientific source/analysis files unchanged; no dependency installation. Temporary render files cleaned after review.
+- Next recommended task: Read/report-review before manuscript claims; separately design blocked held-out polygon classification if individual unknown recognition is the next goal. No commit/push or publication.
 
 ### P118. Researcher-defined five-class spectral inference
 
@@ -190,7 +208,7 @@ left incomplete so the next agent can resume immediately.
 - Priority: High
 - Status: Pending; source headers required
 - Scope: Establish physical coordinates from original product headers for the supplied ten-band MicaSense data; investigate legacy five-band fallback/padding in exporters with contract tests. Preserve current values and provenance; do not infer wavelengths from band order alone.
-- Blocker: Original source headers have not been supplied in this analysis.
+- Blocker: Original source headers have not been supplied in this analysis. P120 traced the supplied ten-band coordinates to the five-band fallback plus 1-nm padding; intended packaged metadata cannot establish the physical mapping. Biological inference remains stopped; see provenance/sensor-pft-transfer/2026-10-14/SENSOR_AUDIT.md.
 
 ### P108. Improve and validate boosted spectral signatures
 

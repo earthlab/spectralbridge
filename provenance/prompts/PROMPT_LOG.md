@@ -24059,3 +24059,560 @@ Model: Not recorded
 ```text
 give me a pdf report that tells a human what each test is and how it works and what the results are. the main question is can we tell the PFTs apart?
 ```
+
+## 2026-10-14 - paired sensor spectral-resolution transfer
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+We have now established a whole-spectrum PFT/category analysis in SpectralBridge using corrected NEON hyperspectral spectra. I want to test whether the same biological results persist when those spectra are represented using Landsat OLI and MicaSense bands.
+
+This should be treated as a SENSOR / SPECTRAL-RESOLUTION TRANSFER experiment.
+
+Do not simply run the existing analysis on new columns and report which p-values are significant.
+
+The scientific question is:
+
+"How much of the plant functional information detectable in hyperspectral NEON spectra survives when the same observations are reduced to Landsat OLI or MicaSense spectral resolution?"
+
+And more specifically:
+
+"Do the PFT/category contrasts that are strong and repeatable in corrected NEON remain detectable, have the same direction, and retain similar relative effect sizes when represented in Landsat-like or MicaSense-like spectral space?"
+
+--------------------------------------------------
+1. AUDIT THE AVAILABLE SENSOR REPRESENTATIONS
+--------------------------------------------------
+
+Inspect the actual merged spectral-library data and SpectralBridge code before running anything.
+
+We know the dataset contains spectral families resembling:
+
+corr
+raw
+olioli
+olioli_undarkened
+micasense
+micasense_undarkened
+etm+
+tm
+
+Verify exactly what each represents.
+
+For OLI and MicaSense determine:
+
+- exact columns
+- wavelength centers
+- number of bands
+- how values were generated
+- whether they are physical sensor observations or synthetic transformations
+- whether they were derived from corrected or raw NEON spectra
+- whether every plant has both representations
+- whether missingness differs among representations
+- whether the same plant identities can be paired across representations
+- whether wavelength metadata are trustworthy
+
+CRITICAL:
+
+Previous work flagged that exported MicaSense wavelength coordinates may be unverified.
+
+Do NOT use MicaSense for biological inference until that issue is resolved.
+
+Trace the MicaSense band definitions through the source code and metadata and determine whether they correspond to the intended physical MicaSense bands.
+
+If MicaSense cannot be validated, stop that branch and clearly report why rather than silently proceeding.
+
+Also distinguish:
+
+SYNTHETIC Landsat/MicaSense representation derived from NEON
+
+from
+
+ACTUAL Landsat/MicaSense observations.
+
+Do not call a synthetic representation independent sensor validation.
+
+--------------------------------------------------
+2. USE IDENTICAL BIOLOGICAL UNITS
+--------------------------------------------------
+
+For comparisons among:
+
+corrected NEON
+Landsat OLI-like
+MicaSense-like
+
+use the SAME plants/polygons whenever possible.
+
+Do not allow differences in plant membership to masquerade as sensor effects.
+
+Construct a paired/common-support dataset containing only biological units with valid representations for the sensors being compared.
+
+Preserve:
+
+site
+year
+plant/polygon identity
+species
+PFT/category
+flight/source history
+
+Use one plant/year or polygon/year spectrum per biological replicate, consistent with the existing analysis.
+
+Report exactly how many observations survive common-support filtering for each cohort and PFT/category.
+
+--------------------------------------------------
+3. START WITH THE STRONGEST EXISTING RESULTS
+--------------------------------------------------
+
+The corrected-NEON audit found especially strong and repeatable differences for:
+
+DBS vs ECT
+DBT vs ECT
+
+These were supported across the available cohorts and methods.
+
+Also include useful negative/weak comparisons such as:
+
+DBT vs ECS
+
+and other eligible contrasts so we can determine whether sensor reduction preserves BOTH:
+
+strong differences
+
+and
+
+weak/non-supported differences.
+
+Do not evaluate the lower-resolution sensors only on contrasts already known to be significant.
+
+--------------------------------------------------
+4. USE THE NEW PRIMARY WHOLE-SPECTRUM TEST
+--------------------------------------------------
+
+Use the current recommended SpectralBridge primary procedure:
+
+blocked functional permutation omnibus combining
+
+1. maximum standardized spectral contrast
+2. wavelength-integrated standardized spectral contrast
+
+with synchronized permutations and the existing nonparametric combination procedure.
+
+Preserve the acquisition-history conditioning wherever possible.
+
+Use the same permutation logic, biological units, blocking and multiplicity correction as the corrected-NEON analysis.
+
+However:
+
+DO NOT mechanically reuse hyperspectral wavelength weighting for discrete multispectral bands.
+
+Determine the scientifically correct definition of the integrated component for:
+
+NEON hyperspectral wavelengths
+OLI bands
+MicaSense bands.
+
+For multispectral sensors, explicitly determine whether weighting should represent:
+
+band width
+spectral support
+equal sensor bands
+or another defensible measure.
+
+Document the choice.
+
+Do not invent pseudo-wavelength resolution between multispectral bands.
+
+--------------------------------------------------
+5. THIS IS NOT JUST A SIGNIFICANCE COMPARISON
+--------------------------------------------------
+
+For every eligible contrast calculate, for each representation:
+
+whole-spectrum adjusted p
+maximum statistic
+integrated statistic
+NPC statistic
+standardized RMS contrast
+signed contrast by band
+sample support
+
+But then directly compare SENSOR REPRESENTATIONS.
+
+For each PFT/category contrast ask:
+
+A. DETECTION RETENTION
+Was the NEON-supported contrast also supported in OLI?
+Was it supported in MicaSense?
+
+B. DIRECTION RETENTION
+Do corresponding sensor bands preserve the direction of the biological difference?
+
+C. EFFECT RETENTION
+How much of the standardized spectral contrast remains after spectral reduction?
+
+D. RANK RETENTION
+Are the strongest and weakest PFT contrasts ranked similarly across representations?
+
+E. CROSS-SITE RETENTION
+If a contrast has a consistent direction/shape across NIWO, WREF and YELL in NEON, does that consistency remain in OLI/MicaSense?
+
+--------------------------------------------------
+6. CREATE A "BIOLOGICAL INFORMATION RETENTION" ANALYSIS
+--------------------------------------------------
+
+I want a direct summary of how much biological separation survives sensor reduction.
+
+Construct a table like:
+
+contrast
+cohort
+NEON effect
+OLI effect
+MicaSense effect
+OLI / NEON effect ratio
+MicaSense / NEON effect ratio
+NEON supported?
+OLI supported?
+MicaSense supported?
+direction preserved?
+common n
+
+Be cautious with ratios near zero.
+
+Also summarize across contrasts:
+
+percentage of NEON-supported contrasts retained by OLI
+percentage retained by MicaSense
+
+BUT do not treat these percentages as independent Bernoulli trials because contrasts share plants and PFTs.
+
+They are descriptive retention summaries.
+
+--------------------------------------------------
+7. TEST WHETHER THE PATTERN OF BIOLOGICAL DIFFERENCES IS PRESERVED
+--------------------------------------------------
+
+This may be more interesting than individual p-values.
+
+For each sensor representation, create a vector containing the standardized effect magnitude for every eligible PFT contrast.
+
+Then compare the vectors between:
+
+NEON vs OLI
+NEON vs MicaSense
+OLI vs MicaSense
+
+Evaluate:
+
+Pearson correlation
+Spearman rank correlation
+appropriate uncertainty via blocked/cluster-aware bootstrap if feasible
+
+This asks:
+
+"Do sensors agree about WHICH plant groups are most spectrally different?"
+
+That is potentially a very strong SpectralBridge result.
+
+Also examine whether sensor reduction systematically compresses effect magnitudes.
+
+--------------------------------------------------
+8. COMPARE CONTRAST DIRECTION IN SENSOR SPACE
+--------------------------------------------------
+
+For OLI and MicaSense, plot the signed PFT difference at each actual sensor band.
+
+Do not interpolate these into fake continuous spectra.
+
+For example:
+
+Blue
+Green
+Red
+NIR
+SWIR1
+SWIR2
+
+for OLI as appropriate to the actual implementation.
+
+Show:
+
+A − B standardized difference
+uncertainty
+whole-spectrum test result
+
+This should make it visually obvious whether the same biological difference survives spectral aggregation.
+
+--------------------------------------------------
+9. DISTINGUISH INFORMATION LOSS FROM SAMPLE LOSS
+--------------------------------------------------
+
+This is essential.
+
+If a contrast is significant in NEON but not OLI/MicaSense, determine whether the change results from:
+
+spectral information loss
+different sample membership
+missing sensor representation
+lower statistical power
+different variance structure
+different acquisition conditioning
+
+The primary sensor comparison should therefore use identical common-support observations.
+
+If the same plants are used, loss of support becomes much more interpretable as spectral-resolution/information loss.
+
+--------------------------------------------------
+10. PAIRED SENSOR-REDUCTION EXPERIMENT
+--------------------------------------------------
+
+If OLI and MicaSense representations are derived directly from corrected NEON spectra, exploit that.
+
+This is effectively a controlled spectral-degradation experiment:
+
+same plant
+same acquisition
+same underlying spectrum
+
+NEON hyperspectral
+    ↓
+MicaSense-like
+    ↓
+OLI-like
+
+or whatever the actual spectral relationship is.
+
+Determine the actual relationship from code rather than assuming this ordering.
+
+This paired structure lets us ask a particularly clean question:
+
+"What ecological information is lost when spectral dimensionality is reduced?"
+
+This may be more scientifically valuable than treating the representations as separate datasets.
+
+--------------------------------------------------
+11. OPTIONAL BAND ABLATION
+--------------------------------------------------
+
+If computationally reasonable, investigate WHY information survives or disappears.
+
+For strong contrasts such as DBS–ECT and DBT–ECT:
+
+start with corrected NEON
+reduce to OLI
+reduce to MicaSense
+
+Then examine which sensor bands retain the hyperspectral wavelength regions that previously carried strong evidence.
+
+Previous corrected-NEON work identified recurring regions including approximately:
+
+DBS–ECT:
+1500–1785 nm
+2260–2285 nm
+
+DBT–ECT:
+955–1030 nm
+1140–1335 nm
+1550–1785 nm
+
+Verify these from the current results before using them.
+
+Ask whether OLI or MicaSense actually sample these regions.
+
+This may explain differences in retained PFT information mechanistically.
+
+For example, if MicaSense lacks SWIR coverage while OLI includes SWIR bands, that could produce a scientifically interpretable difference in retention.
+
+Do not assume this result. Test it.
+
+--------------------------------------------------
+12. FIGURES
+--------------------------------------------------
+
+Produce publication-quality figures.
+
+FIGURE A
+Sensor × PFT contrast heatmap
+
+Rows:
+PFT/category pairs
+
+Columns grouped by:
+NEON
+OLI
+MicaSense
+
+Within sensor:
+NIWO-2020
+NIWO-2023
+WREF-2023
+YELL-2023
+
+Use a common standardized-effect scale wherever scientifically defensible.
+
+Stars indicate the same declared whole-spectrum inferential criterion.
+
+Blank = insufficient common support.
+
+FIGURE B
+Effect retention
+
+x = corrected NEON standardized contrast
+y = OLI or MicaSense standardized contrast
+
+Include identity line.
+
+This immediately shows whether spectral reduction preserves biological separation.
+
+FIGURE C
+Strong exemplar contrasts
+
+For DBS–ECT and DBT–ECT show:
+
+NEON difference curve
+OLI band differences
+MicaSense band differences
+
+Do not visually imply that sparse multispectral bands form a continuous hyperspectral curve.
+
+FIGURE D
+Contrast ranking
+
+Show whether the ordering from easiest-to-distinguish to hardest-to-distinguish PFT pairs is preserved across sensor representations.
+
+--------------------------------------------------
+13. STATISTICAL CAUTION
+--------------------------------------------------
+
+Do NOT conclude:
+
+"OLI is better than NEON"
+
+because OLI has a smaller p-value.
+
+Do NOT conclude:
+
+"MicaSense is worse"
+
+simply because fewer contrasts reach p < 0.05.
+
+Compare:
+
+effect retention
+direction
+cross-site consistency
+contrast ranking
+uncertainty
+sample support
+
+rather than ranking sensors by p-values.
+
+Likewise, do not call this classification accuracy.
+
+We are testing retention of spectral group structure.
+
+--------------------------------------------------
+14. RESEARCHER CATEGORIES VS INFERRED PFTS
+--------------------------------------------------
+
+The repository now contains two related label systems:
+
+1. inferred species-to-PFT labels
+2. researcher-defined source cover_category labels
+
+Do not silently combine them.
+
+Run the primary sensor-retention experiment first using the label system associated with the existing corrected-NEON PFT result.
+
+Then, if support permits, repeat the analysis using researcher-defined cover categories as a separate analysis.
+
+Report them separately.
+
+This could be particularly useful because the researcher-category analysis currently shows very broad differentiation.
+
+Ask whether that result also survives OLI/MicaSense reduction.
+
+--------------------------------------------------
+15. VALIDATION
+--------------------------------------------------
+
+Before interpreting results verify:
+
+- identical biological units across sensor comparisons
+- identical block membership where required
+- no pixel pseudoreplication
+- no repeated-flight pseudoreplication
+- no interpolation across atmospheric gaps
+- no fake wavelengths
+- valid OLI band definitions
+- valid MicaSense band definitions
+- permutation exchangeability assumptions unchanged
+- multiplicity families declared before looking at results
+- legacy corrected-NEON results reproduce when rerun on identical common support
+
+Run targeted tests plus the FULL SpectralBridge test suite when complete.
+
+--------------------------------------------------
+16. OUTPUTS
+--------------------------------------------------
+
+Create a provenance directory such as:
+
+provenance/sensor-pft-transfer/2026-10-14/
+
+containing:
+
+DESIGN.md
+SENSOR_AUDIT.md
+RESULTS.md
+METHODS.md
+VALIDATION.md
+sensor_support.csv
+sensor_contrasts.csv
+effect_retention.csv
+cross_sensor_correlations.csv
+band_retention.csv
+statistics_manifest.json
+
+plus publication-quality PDF/PNG/SVG figures.
+
+Add reusable functionality to SpectralBridge rather than leaving the analysis entirely in an ad hoc notebook.
+
+Document it on the spectral-library / plant spectral atlas pages if the analysis validates successfully.
+
+--------------------------------------------------
+17. THE QUESTION I WANT ANSWERED
+--------------------------------------------------
+
+At the end, give me a direct answer:
+
+"Does the biological spectral structure we found with NEON hyperspectral data survive when the same plants are viewed through Landsat OLI and MicaSense spectral representations?"
+
+Break the answer into:
+
+LANDSAT OLI
+- what survives?
+- what disappears?
+- effect retention
+- cross-site consistency
+- likely spectral reason
+
+MICASENSE
+- what survives?
+- what disappears?
+- effect retention
+- cross-site consistency
+- likely spectral reason
+
+OVERALL
+- which biological conclusions are sensor-robust?
+- which require hyperspectral information?
+- which cannot currently be tested?
+- what does this tell us scientifically about the spectral resolution needed to distinguish these plant groups?
+
+Do not give me only p-values.
+
+I want to know whether the ECOLOGICAL PATTERN survives spectral reduction.
+```

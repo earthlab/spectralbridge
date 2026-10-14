@@ -742,3 +742,44 @@ checksummed manifest expose the actual target and support. These exploratory
 observational comparisons do not establish classification accuracy or a causal
 PFT mechanism. The species-confounding diagnosis for the earlier inferred labels
 must be recalculated for researcher labels, which can vary within a species.
+
+## Test retention under synthetic OLI spectral reduction
+
+The paired sensor-transfer analysis asks whether group differences survive a
+lower-dimensional spectral representation, rather than comparing sensor p-values
+on different samples:
+
+```bash
+python examples/sensor_pft_transfer.py \
+  Aug_2026_all_polygons_merged_pixel_extraction.parquet \
+  --output artifacts/plant_spectral_atlas/sensor_pft_transfer \
+  --permutations 9999 --bootstraps 499
+python provenance/sensor-pft-transfer/2026-10-14/analyze_results.py
+```
+
+`run_sensor_pft_transfer()` in `spectralbridge.sensor_pft_transfer` intersects
+valid polygon/acquisition records before constructing polygon/year spectra.
+It preserves labels, source/flight histories and exactly matched biological
+units. Inferred species-to-PFT labels are primary; researcher cover categories
+are analyzed separately. The blocked max/integrated NPC remains primary, with
+Holm families declared separately by label system and representation. NEON uses
+supported wavelength integration; discrete OLI uses equal channel weights with
+a FWHM-weighted sensitivity. Sparse bands are never interpolated into a continuous
+spectrum. Effect ratios compare declared standardized spectral norms, not a
+literal fraction of all biological information or classifier accuracy.
+
+Outputs include support, whole-spectrum tests, effects/ratios, signed channel
+contrasts, paired GlobalID cluster-bootstrap intervals, contrast-vector
+correlations, within-cohort ranks and cross-site direction diagnostics. Repeated
+years and shared contrasts are coupled in the bootstrap. Singletons, fixed-site
+conditioning and observational exchangeability remain limitations.
+
+For the supplied library, synthetic OLI retains the strong broadleaf/conifer
+contrasts and all broad researcher-category detections, with some effect
+compression and a lost borderline inferred-PFT detection. This validates a
+conditional spectral-reduction comparison, not independent Landsat observations.
+The MicaSense branch is explicitly blocked: exported padded wavelengths do not
+establish physical band identity. Original headers/response provenance are needed
+before MicaSense biological inference. The audit, design, detailed results,
+validation and PDF/PNG/SVG figures are recorded under
+`provenance/sensor-pft-transfer/2026-10-14/`.
