@@ -1,72 +1,28 @@
-# DOI And Zenodo Status
+# DOI and Zenodo status
 
-This page documents the current DOI and Zenodo state for SpectralBridge so
-release and citation behavior stays explicit.
+Review date: 2026-10-13
 
-Review date: 2026-06-03
+## Current repository versus archived release
 
-## Current status
+The repository metadata identifies **2.3.0rc1**. This is a release-candidate
+identity, not proof of a published tag, PyPI release or current Zenodo archive.
+A matching SpectralBridge release DOI has not been confirmed in this audit.
+`CITATION.cff` remains the machine-readable software citation source.
 
-An existing Zenodo software record was found for the repository's pre-rename
-release:
+The historical pre-rename archive is
+[`earthlab/cross-sensor-cal: Version 1`, DOI 10.5281/zenodo.11167877](https://zenodo.org/records/11167877),
+published 2024-05-09. Cite it for that archived release; do not present it as the
+DOI for SpectralBridge 2.3.0rc1. The current README does not display a DOI badge.
 
-- Zenodo record: `earthlab/cross-sensor-cal: Version 1`
-- Published: 2024-05-09
-- DOI: [`10.5281/zenodo.11167877`](https://doi.org/10.5281/zenodo.11167877)
-- Record URL: [zenodo.org/records/11167877](https://zenodo.org/records/11167877)
+## Maintainer verification before publication
 
-This confirms that Zenodo archiving is already present at the repository level.
+1. Confirm the GitHub–Zenodo integration and intended archive ownership.
+2. Follow the [release gates](releasing.md), using the same tested artifacts.
+3. Confirm the actual tagged version has been archived.
+4. Verify the archive title, version, authors, license and repository link.
+5. Decide between the release-specific DOI and a concept DOI for general links.
+6. Update `CITATION.cff`, README and citation guidance only with verified metadata.
 
-## Important clarification
-
-The current repository and package are now named `SpectralBridge`, while the
-existing archived Zenodo release still reflects the earlier
-`cross-sensor-cal` naming and release metadata.
-
-That means:
-
-- the README can safely display the existing DOI badge
-- the DOI is real and citable for that archived release
-- the DOI should not be presented as the DOI for the current `2.2.0`
-  `SpectralBridge` package unless Zenodo has also minted a matching modern
-  release record
-- `CITATION.cff` should remain version-focused and repository-focused until a
-  maintainers-approved current SpectralBridge DOI is confirmed
-
-## What maintainers should verify for the next release
-
-Before treating Zenodo as current release infrastructure, confirm:
-
-1. the GitHub repository is still connected to Zenodo
-2. the next tagged release is being archived automatically
-3. the archived release title uses `SpectralBridge`, not only
-   `cross-sensor-cal`
-4. the archived version number matches `pyproject.toml`,
-   `src/spectralbridge/__init__.py`, `CITATION.cff`, and the release tag
-5. the README badge still points at the intended DOI
-
-## Recommended release-to-DOI workflow
-
-For each release:
-
-1. synchronize version metadata locally
-2. create the release tag using the documented canonical tag scheme
-3. publish the GitHub release
-4. confirm Zenodo archives the release and mints or updates the DOI record
-5. verify the Zenodo title, version, authors, and repository link
-6. update `CITATION.cff` if a release-specific DOI should now be cited
-7. confirm the README badge still points at the intended DOI target
-
-## Repository files updated in this pass
-
-- `README.md` now shows the existing Zenodo DOI badge
-- the README citation section now distinguishes the historic Zenodo release
-  DOI from the current package version
-
-## Follow-up recommendations
-
-- mint and verify a new SpectralBridge-named Zenodo release for the current
-  package line
-- decide whether the project wants the README badge to point at a historic
-  version DOI or a future concept/latest-release DOI once maintainers confirm
-  the preferred Zenodo setup
+Keep [software citation and paper status](software-citation.md) aligned.
+A software archive DOI and an accepted paper DOI identify different objects;
+neither should be invented to fill a publication checklist.

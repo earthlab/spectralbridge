@@ -159,7 +159,7 @@ The helper rasterises polygons, filters per-product Parquet tables, and writes `
 
 ## Recipe 6: Compare sensors for the same targets
 
-Pull harmonized spectra across sensors from the merged Parquet to validate translation results.
+Inspect corrected NEON and its synthetic sensor resamples for the same pixels. This is an internal diagnostic, not independent validation. Inspect the actual stage prefixes first; product aliases vary.
 
 ```python
 import pandas as pd
@@ -170,17 +170,17 @@ merged_parquet = flight_dir / f"{flight_dir.name}_merged_pixel_extraction.parque
 
 df = pd.read_parquet(merged_parquet)
 
-# Example: pick a handful of pixels and compare corrected NEON vs Landsat-resampled bands
-pixel_subset = df.head(100)["pixel_id"]
-
-corr_cols = [c for c in df.columns if c.startswith("corr_")]
-landsat_cols = [c for c in df.columns if "landsat" in c and c.endswith("nm")]
-
-comparison = df.loc[df["pixel_id"].isin(pixel_subset), ["pixel_id", *corr_cols[:5], *landsat_cols[:5]]]
+# A bounded view of the fields actually present; inspect prefixes before selecting.
+print([c for c in df.columns if "_wl" in c])
+comparison = df.head(100)
 comparison.head()
 ```
 
-This lightweight slice shows matched bands from corrected NEON cubes alongside Landsat-referenced resamples for the same pixels; extend the selection for full-band comparisons or summary statistics.
+Select each product's verified native wavelength columns from this schema, then
+plot each product on its own axis or with its own wavelength coordinates. The
+first five columns of two stages are not necessarily matched bands. See the
+[Parquet data-model guide](parquet.md) before combining native grids, and the
+[evidence hierarchy](../validation/evidence-hierarchy.md) before interpreting agreement.
 
 ---
 

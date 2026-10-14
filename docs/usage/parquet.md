@@ -2,139 +2,115 @@
 <section class="sb-doc-hero" markdown="1">
 <p class="sb-kicker">Usage</p>
 <h1>Working with parquet outputs</h1>
-<p class="sb-doc-lead">Parquet sidecars and merged parquet tables are the main analysis-ready outputs for tabular workflows in SpectralBridge.</p>
-<div class="sb-doc-grid sb-doc-grid--three">
-  <article class="sb-doc-card">
-    <h3>Authoritative tables</h3>
-    <p>They are the intended interface for DuckDB, pandas, and other columnar tools.</p>
-  </article>
-  <article class="sb-doc-card">
-    <h3>Restart-safe exports</h3>
-    <p>The pipeline validates and reuses good parquet outputs instead of recomputing them blindly.</p>
-  </article>
-  <article class="sb-doc-card">
-    <h3>Large-scene friendly</h3>
-    <p>They support filtering and aggregation without loading a whole raster cube into memory.</p>
-  </article>
-</div>
+<p class="sb-doc-lead">Read the row model, source identity and native wavelength grid before combining spectral tables.</p>
 </section>
 
 <section class="sb-doc-section" markdown="1">
-<p class="sb-kicker">Why parquet</p>
-<h2>Why the pipeline writes columnar outputs</h2>
-<p>ENVI remains the raster authority for image-style access, but parquet is the practical entry point for most analysis, validation, and merge workflows. It compresses well, reads efficiently by column, and works cleanly with DuckDB and pandas.</p>
-<p>That makes parquet especially useful when you want to summarize reflectance, inspect metadata, or join outputs across stages without materializing the full scene in Python memory.</p>
-</section>
 
-<section class="sb-doc-section" markdown="1">
-<p class="sb-kicker">File contract</p>
-<h2>What files you should expect</h2>
-<p>Typical per-product sidecars and merged outputs include names such as:</p>
+## Table families and rows
 
-```text
-*_envi.parquet
-*_brdfandtopo_corrected_envi.parquet
-*_landsat_oli_envi.parquet
-*_merged_pixel_extraction.parquet
-```
+Current raster exports are **wide tables: one row per retained pixel**, with
+one reflectance column per band. They are not long pixel–band tables.
 
-<div class="sb-doc-grid sb-doc-grid--two">
-  <article class="sb-doc-card">
-    <h3>Per-product parquet sidecars</h3>
-    <p>These sit beside the corresponding ENVI products and store one row per pixel-band observation for that product.</p>
-  </article>
-  <article class="sb-doc-card">
-    <h3>Merged parquet</h3>
-    <p>This combines raw, corrected, and sensor-resampled products into the per-flightline table named <code>&lt;flight_id&gt;_merged_pixel_extraction.parquet</code>.</p>
-  </article>
-</div>
+| Product | Row represents | Spectral fields and provenance |
+| --- | --- | --- |
+| Per-product ENVI sidecar | One retained pixel from one raster product | Stage-prefixed band columns, such as `corr_b001_wl0382nm`; `row`, `col`, `pixel_id`, `source_image` and coordinate/CRS fields where available |
+| Per-flightline merged table | One pixel with available stages joined | Raw, corrected and resampled columns; stage availability depends on supplied products |
+| Polygon extraction / merged polygon table | One retained pixel linked to polygon attributes | Polygon/source identifiers and labels alongside spectral columns; **not** one median spectrum per plant |
+| Cross-flight concatenation | Rows from several source tables | May contain a sparse union of different native wavelength grids; retain original table/flightline identity |
+| Spectral-library input | Supplied spectra with grouping labels; row meaning must be declared | One compatible wavelength-bearing grid; polygon, plant, species and source fields where supplied; preflight reports counts, not biological independence |
+| Normal bulk analysis | Compact sufficient statistics, coefficients and diagnostics | Not an ordinary pixel cache; explicit `build_harmonized_dataset()` is a separate row-materialization workflow |
 
-<p>Common columns include:</p>
-<ul class="sb-doc-list">
-  <li><code>flightline_id</code></li>
-  <li><code>row</code>, <code>col</code>, <code>x</code>, <code>y</code></li>
-  <li><code>band</code></li>
-  <li><code>wavelength_nm</code></li>
-  <li><code>fwhm_nm</code></li>
-  <li><code>reflectance</code></li>
-</ul>
-</section>
+The merge reader also accepts legacy long inputs with wavelength and reflectance
+fields and pivots them. This compatibility does not make `wavelength_nm` and
+`reflectance` universal columns in current exports. Inspect the actual schema.
+Stage prefixes vary with product names; do not assume a column contains the
+word `landsat` simply because it is an OLI product.
 
-<section class="sb-doc-section" markdown="1">
-<p class="sb-kicker">DuckDB</p>
-<h2>Inspect outputs without loading everything</h2>
-<p>DuckDB is usually the best first tool for large flight lines because it can query parquet lazily.</p>
+`pixel_id` is derived from raster row/column and width. It is local to a raster,
+not a globally unique plant or pixel identifier. Preserve source table/flightline
+identity and use it with `pixel_id` for cross-flight joins. Check polygon IDs and
+repeated observations separately before counting independent plants.
+
+Per-product exports exclude pixels with nodata or nonfinite bands. Finite negative
+corrected reflectance is not automatically nodata. Stored values are not guaranteed
+to be unit-interval reflectance: verify source scaling and units before plotting
+or comparing products. Column wavelength labels are
+rounded to integer nanometres; missing or short header wavelengths can trigger
+fallback labels. Verify physical wavelengths against source headers and sensor
+configuration before treating labels as a calibrated spectral axis.
+
+## Native grids are not a common spectral axis
+
+!!! warning "A merged schema can contain several native grids"
+    Cross-flight unioning can retain multiple wavelength-bearing columns for the
+    same band index. A row may populate only its source grid, leaving the other
+    grids null. Sorting every `corr_*` column by wavelength can therefore create
+    a false spectrum, duplicate bands and artificial gaps. A low fraction of
+    finite cells across the union schema alone does not establish data loss.
+
+Reconstruct each source grid from its original schema/header and provenance.
+Select the verified band columns for that source, keep values paired with their
+wavelengths, then inspect missingness **within that grid**. Preserve the source
+identity and wavelength mapping with any derived table. If a common grid is
+needed, document the interpolation/convolution method, overlap, gap handling and
+excluded wavelengths explicitly; concatenation is not harmonization.
+
+The [spectral-library adapter](../vignettes/spectral-library.md) expects one
+compatible physical grid. Selecting `spectral_stage="corr"` does not reconstruct
+multiple source grids or repair a sparse union schema.
+
+## Inspect before collecting data
+
+DuckDB can inspect the schema and a bounded sample without loading a whole cube:
 
 ```python
 import duckdb
 
-duckdb.query("""
-    SELECT *
-    FROM '..._brdfandtopo_corrected_envi.parquet'
-    LIMIT 5
-""").df()
+source = "flight_merged_pixel_extraction.parquet"  # your existing output
+relation = duckdb.read_parquet(source)
+print(list(zip(relation.columns, relation.types)))
+print(relation.limit(5).df())
 ```
 
-<p>Check the size of a product:</p>
+After checking that this is one source grid, select a verified spectral column
+from that schema. This example summarizes one band, not an entire spectrum:
 
 ```python
-duckdb.query("""
-    SELECT COUNT(*) AS nrows
-    FROM '..._landsat_oli_envi.parquet'
-""").df()
+band = "corr_b001_wl0382nm"  # replace with a verified column in your file
+if band not in relation.columns:
+    raise ValueError(f"Band not in supplied schema: {band}")
+quoted_band = '"' + band.replace('"', '""') + '"'
+print(relation.aggregate(f"count(*) AS pixels, avg({quoted_band}) AS mean_reflectance").df())
 ```
 
-<p>Summarize reflectance by wavelength:</p>
+For a union table, filter by the retained source identifier and select that
+source's verified native column list **before** collecting into pandas. Do not
+fill structural nulls with zero or infer a plant's grid from species name.
+Use ENVI `.img/.hdr` for spatial cube access, orientation and authoritative raster
+metadata. Parquet is useful for bounded filtering, grouping and joining; it does
+not replace the raster contract.
 
-```python
-duckdb.query("""
-    SELECT wavelength_nm, AVG(reflectance) AS mean_reflectance
-    FROM '..._landsat_oli_envi.parquet'
-    GROUP BY wavelength_nm
-    ORDER BY wavelength_nm
-""").df()
-```
-</section>
+## From pixels to biological summaries
 
-<section class="sb-doc-section" markdown="1">
-<p class="sb-kicker">Python access</p>
-<h2>Use pandas carefully and keep ENVI for raster-style work</h2>
-<div class="sb-doc-grid sb-doc-grid--two">
-  <article class="sb-doc-card" markdown="1">
-    <h3>Pandas</h3>
-    <p>Pandas works well once you have narrowed the data down to a manageable size.</p>
+Polygon pixels are spatially correlated subsamples. First define a per-polygon
+summary, then identify repeat observations of the same plant, and only then
+summarize independent plants within species or PFT. Report pixel, polygon,
+plant, flightline, site and year counts separately where those identifiers exist.
+Species labels alone do not establish independence or trait accuracy.
+A source table name can supply a site/year only when its naming contract has
+been checked; retain the original name and expose unresolved identifiers.
 
-```python
-import pandas as pd
+Synthetic Landsat or MicaSense products convolved from NEON are derived views
+of the same observations. Their agreement is a diagnostic, not independent
+satellite/drone validation. See the [evidence hierarchy](../validation/evidence-hierarchy.md).
 
-df = pd.read_parquet("..._merged_pixel_extraction.parquet")
-df.head()
-```
-  </article>
-  <article class="sb-doc-card">
-    <h3>Raster and cube views</h3>
-    <p>If you need full spatial cube behavior, the ENVI <code>.img/.hdr</code> outputs are still the better interface. Parquet-to-xarray workflows usually work best after pivoting or aggregation.</p>
-  </article>
-</div>
-<p class="sb-doc-note">For big flight lines, prefer DuckDB for filtering and aggregation first, then collect smaller results into pandas.</p>
-</section>
+## Related pages
 
-<section class="sb-doc-section" markdown="1">
-<p class="sb-kicker">Where to go next</p>
-<h2>Related pages</h2>
-<div class="sb-doc-grid sb-doc-grid--three">
-  <a class="sb-doc-link-card" href="../cli/">
-    <strong>CLI usage</strong>
-    <span>See how the parquet outputs are produced from the command line.</span>
-  </a>
-  <a class="sb-doc-link-card" href="../../pipeline/outputs/">
-    <strong>Pipeline outputs</strong>
-    <span>Review the file layout and naming conventions around parquet sidecars.</span>
-  </a>
-  <a class="sb-doc-link-card" href="../../pipeline/qa/">
-    <strong>QA panels and metrics</strong>
-    <span>Connect parquet summaries back to the QA artifacts written for each flight line.</span>
-  </a>
-</div>
+- [Output files and naming](../pipeline/outputs.md)
+- [Polygon extraction](../pipeline/polygons.md)
+- [Spectral-library preflight and reports](../vignettes/spectral-library.md)
+- [Bulk analysis](../vignettes/bulk-analysis.md)
+
 </section>
 </div>

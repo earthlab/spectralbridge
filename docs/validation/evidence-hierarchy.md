@@ -15,6 +15,14 @@ constructed from the same source spectrum does not independently validate a
 sensor calibration. Configured thresholds are review aids, not universal
 scientific approval criteria.
 
+Software correctness is a separate prerequisite: unit/integration tests and CI
+exercise numerical contracts, deterministic outputs and restart behavior against
+their test inputs. See [tests and contribution](../dev/contributing.md) and the
+[release gates](../dev/releasing.md). A passing test suite is not independent
+scientific validation. Workflow evidence comes from readable real-run products,
+provenance and internal QA; scientific agreement requires a suitable independent
+comparison with stated spatial support, acquisition alignment and uncertainty.
+
 Start with [stage QA](stage-qa-guide.md) and the [R10C real-run
 walkthrough](real-data-example.md). The [evidence index](index.md) records the
 actual campaigns and their source revision/date, including synthetic contract

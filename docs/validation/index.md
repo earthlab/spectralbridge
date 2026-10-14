@@ -24,7 +24,9 @@ Execution, readable requested artifacts, internal QA and agreement with independ
 
 The [complete technical supplement](supplement.md) preserves all supplied historical sections, tables, figures, equations, references and provenance boundaries. It is a publication record, not the first tutorial or a live certification of the current package.
 
-## Current evidence
+## Recorded offline contract evidence
+
+These counts describe the checked-in campaigns listed below, with their dates and revisions; they are not the current full test-suite count or independent scientific validation. For release-specific source and installed-artifact checks, see the [release procedure](../dev/releasing.md).
 
 | Module | Variations | Passed | Failed | Skipped | Detailed test guide | Real stage QA |
 | --- | ---: | ---: | ---: | ---: | --- | --- |

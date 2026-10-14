@@ -87,6 +87,9 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             page.goto(base_url, wait_until="networkidle")
             assert "SpectralBridge" in page.title()
             assert page.locator("h1#spectralbridge").is_visible()
+            assert page.locator("h1#spectralbridge").evaluate(
+                "element => getComputedStyle(element).color"
+            ) == "rgb(255, 255, 255)"
             route_cards = page.locator(".sb-route-card")
             assert route_cards.count() == 3
             assert [
@@ -102,7 +105,11 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             assert logo.evaluate("(img) => img.naturalWidth") > 0
 
             assert page.get_by_text("Common framework. Sensor-specific treatment.", exact=True).is_visible()
-            assert page.get_by_role("link", name="Run the first example", exact=True).is_visible()
+            assert page.get_by_role("link", name="Verify your installation", exact=True).is_visible()
+            product_image = page.locator(".sb-product-example img")
+            assert product_image.count() == 1
+            assert product_image.evaluate("img => img.naturalWidth") > 0
+            assert page.locator(".sb-products .sb-doc-link-card").count() == 3
             page.get_by_text("Explore the technical figures", exact=True).click()
             assert page.get_by_role(
                 "heading", name="Three technical views. Read them one at a time."
@@ -199,6 +206,12 @@ def test_docs_site_core_pages_render_in_browser() -> None:
                 assert '<p class="sb-kicker">' not in page.locator(
                     "article.md-content__inner"
                 ).inner_text(), route
+
+            page.goto(urljoin(base_url, "usage/parquet/"), wait_until="networkidle")
+            assert page.get_by_role("heading", name="Native grids are not a common spectral axis").is_visible()
+            page.set_viewport_size({"width": 390, "height": 844})
+            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            page.set_viewport_size({"width": 1280, "height": 900})
 
             page.goto(urljoin(base_url, "faq/"), wait_until="networkidle")
             assert page.get_by_role(

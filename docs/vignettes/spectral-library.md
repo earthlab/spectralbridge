@@ -4,6 +4,13 @@ A spectral library is a table of spectra with grouping information, such as
 plant species, polygon, flightline or site. Start with input preflight before
 requesting large plots; retain the supplied table as the source of truth.
 
+!!! warning "Check cross-flight wavelength grids first"
+    This adapter requires one compatible physical wavelength grid. A cross-flight
+    Parquet union can contain several native grids with structural nulls and
+    repeated band indices. `spectral_stage="corr"` selects a stage; it does not
+    reconstruct or harmonize those grids. Follow the [Parquet data-model guide](../usage/parquet.md)
+    before passing such a table. Pixel counts are not independent plant counts.
+
 ## Visualize an existing polygon spectral library
 
 The intentional merged polygon spectral library is different from the removed

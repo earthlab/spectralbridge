@@ -9,7 +9,11 @@ does not run NEON or drone processing for you.
 | NEON flightlines | [Full NEON vignette](full-pipeline.md) | [NEON notebook][neon-notebook] | Download or read NEON HDF5; correct, convolve, extract, and review QA for individual flightlines. |
 | Drone imagery | [Drone vignette](drone-processing.md) | [Drone notebook][drone-notebook] | Read local TIFF/HDF5; correct native MicaSense; optionally apply packaged affine coefficients, extract, and review QA. No convolution. |
 | Bulk analysis | [Bulk vignette](bulk-analysis.md) | [Local bulk notebook][bulk-notebook] | Read already completed, immutable flightline products; fit population relationships and interpret compact outputs. |
-| Remote drone production | [Production vignette](drone-production.md) | [CyVerse production notebook][bulk-production-notebook] | Inventory remote ExportPackages, process one flight at a time, enforce completeness, run bulk/reporting, and optionally upload verified compact results. |
+
+Remote drone production is a campaign wrapper around the drone and bulk workflows,
+not a fourth processing pipeline. Use the [production vignette](drone-production.md)
+and [CyVerse notebook][bulk-production-notebook] to inventory ExportPackages,
+enforce per-year completeness and optionally upload a verified compact closeout.
 
 The bulk coefficient evidence comes from synthetic matched products of the
 same corrected NEON source. It is diagnostic, not universal empirical sensor
@@ -25,6 +29,7 @@ band-level cautions and a corrected-value scale check.
 | Catalog many completed runs and analyze a sensor population | [Build a bulk cross-run analysis](bulk-analysis.md) |
 | Process CyVerse drone ExportPackages and produce a bulk closeout package | [Remote drone production](drone-production.md) |
 | Work on one part of the workflow | Choose a module below |
+| Inspect labeled polygon/species spectra | [Spectral-library preflight and reporting](spectral-library.md) |
 | Open a runnable Jupyter notebook | [Runnable notebook vignettes](notebook-vignettes.md) |
 | Look up exact arguments, filenames, or algorithms | [Technical reference](../reference/index.md) |
 

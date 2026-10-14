@@ -40,3 +40,18 @@ return to the [educational vignettes](../vignettes/index.md).
 For the historical manuscript evidence and complete SI, use the
 [technical supplement](../validation/supplement.md). Current instructions and
 contracts remain in the workflow/reference pages.
+
+## Reviewer and publication paths
+
+- [Scientific need and measurement differences](../concepts/measurements.md)
+- [Installation and bounded example](../getting-started.md)
+- [Tests, contribution and development checks](../dev/contributing.md)
+- [Evidence hierarchy and limitations](../validation/evidence-hierarchy.md)
+- [Citation and paper status](../dev/software-citation.md)
+- [Release and reproducibility gates](../dev/releasing.md)
+- [License and provenance](https://github.com/earthlab/spectralbridge/blob/main/LICENSE)
+  and [attribution](https://github.com/earthlab/spectralbridge/blob/main/NOTICE)
+- [JOSS author checklist](https://github.com/earthlab/spectralbridge/blob/main/paper/SUBMISSION_CHECKLIST.md)
+
+Historical audits remain under [development history](../dev/history.md); their
+counts and blockers describe their recorded revisions, not the current checkout.

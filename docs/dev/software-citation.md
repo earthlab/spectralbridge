@@ -4,7 +4,7 @@ This page is the maintainer-facing source of truth for how SpectralBridge
 should be cited, how associated publications are tracked, and how software
 release citations should relate to papers.
 
-Review date: 2026-06-03
+Review date: 2026-10-13
 
 ## Current citation posture
 
@@ -67,7 +67,8 @@ maintainer confirmation.
 | Primary software citation source | Active | `CITATION.cff` |
 | Zenodo archived software record | Active | `10.5281/zenodo.11167877` for the pre-rename `cross-sensor-cal` release |
 | Current SpectralBridge-specific Zenodo release record | Needs verification | See `docs/dev/doi-zenodo.md` and `P27` |
-| Canonical software paper citation | TODO | Maintainers should record the exact paper once approved |
+| Software paper sources | Prepared draft | [Canonical paper and build instructions](https://github.com/earthlab/spectralbridge/tree/main/paper); preparation does not establish submission or acceptance |
+| Canonical published paper citation | Not confirmed | Add an accepted/published citation only after verification |
 | Associated project/manuscript list | TODO | Populate with stable references, not draft working titles unless intentionally public |
 | Preferred publication landing page | TODO | Could be README, docs home, or a dedicated docs page once publication list is stable |
 
@@ -82,16 +83,15 @@ If the project is preparing or maintaining a software paper, track at least:
 - citation string once published
 - relationship between the paper and versioned software releases
 
-Suggested placeholder format:
+The [submission checklist](https://github.com/earthlab/spectralbridge/blob/main/paper/SUBMISSION_CHECKLIST.md)
+records author actions, including consent, funding, conflicts and AI declarations.
+The source-format check cannot certify those decisions or JOSS acceptance.
 
-| Field | Value |
-| --- | --- |
-| Venue | TODO |
-| Status | TODO |
-| Title | TODO |
-| Authors | TODO |
-| DOI / URL | TODO |
-| Notes | TODO |
+Repository version **2.3.0rc1** and the
+[2026-10-13 RC audit](https://github.com/earthlab/spectralbridge/blob/main/provenance/release/2026-10-13/RC_READINESS.md)
+are release preparation evidence. That audit describes its recorded revision and
+artifacts; it does not certify later working-tree changes or demonstrate a public
+release. See [DOI status](doi-zenodo.md) before citing an archive.
 
 ## Maintainer update rules
 

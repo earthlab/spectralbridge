@@ -3,6 +3,21 @@
 > Living document for preparing the project for packaging and public release. Update
 > the status boxes and notes as tasks are completed.
 
+## Current status boundary (2026-10-13)
+
+Repository metadata targets `2.3.0rc1`; a version string is not evidence that a
+release has been published. The dated [RC audit](provenance/release/2026-10-13/RC_READINESS.md)
+records source and exact-artifact checks for its candidate. It records no tag,
+push, release, publication or deployment. Subsequent working-tree edits need
+applicable gates rerun before release; the checked boxes below are recorded
+preparation evidence, not certification of later source or artifacts.
+
+The documentation pass corrects the Parquet row/native-grid model and clarifies
+scientific products, evidence and citation status. Paper sources are prepared;
+authors still need to complete the [submission checklist](paper/SUBMISSION_CHECKLIST.md).
+Current archive DOI verification and public review-source selection remain open.
+Older dated build counts and remaining tasks below retain their historical scope.
+
 ## 2.3.0rc1 release-candidate gate (2026-09-08)
 
 Repository preparation:

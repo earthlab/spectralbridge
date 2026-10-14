@@ -8,7 +8,7 @@ background, credentials or real data are required.
 If the terms are new, read [why sensors see the same landscape
 differently](concepts/measurements.md) first.
 
-## Install the repository version
+## Verify your installation
 
 Use Python 3.10–3.12 in a virtual environment. From a cloned repository:
 
@@ -40,7 +40,7 @@ is short enough to adapt. For a real spectral library, run the same preflight on
 your supplied table, then choose compact summaries or explicit full reports in
 [the spectral-library guide](vignettes/spectral-library.md).
 
-## Choose the next workflow
+## Run your first scientific workflow
 
 | Your inputs / goal | Next step |
 | --- | --- |
@@ -48,6 +48,13 @@ your supplied table, then choose compact summaries or explicit full reports in
 | Supported local drone TIFF/HDF5 | [Process drone observations](vignettes/drone-processing.md) |
 | Already completed flightline products | [Run bulk analysis](vignettes/bulk-analysis.md) |
 | An existing spectral table | [Inspect a spectral library](vignettes/spectral-library.md) |
+
+No small, complete real reflectance dataset with verified redistribution terms
+is bundled for this quick start. The retained GPKGs are research vector inputs,
+not a runnable spectral dataset. Supply a real flightline or supported local drone
+input through the guides above; do not interpret the invented example as a
+scientific benchmark. To inspect an existing real run without downloading its
+large inputs, read the [R10C walkthrough and QA](validation/real-data-example.md).
 
 For the NEON example, first run `python examples/run_neon_pipeline.py --check`
 to validate configuration without downloading. Choose real site/month/flightline

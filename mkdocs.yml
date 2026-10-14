@@ -69,6 +69,7 @@ nav:
     - AI transparency: ai-transparency.md
 - Reference:
   - Reference map: reference/index.md
+  - Python API: api/index.md
   - Literature sources: reference/literature.md
   - Stage and filename contracts:
     - Stage order: pipeline/stages.md
@@ -93,7 +94,6 @@ nav:
 - Develop:
   - Repository map: reference/repository-map.md
   - Architecture: dev/architecture.md
-  - API: api/index.md
   - Environment: env.md
   - Extending:
     - Custom correction hook: reference/custom-correction-hook.md

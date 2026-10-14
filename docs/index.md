@@ -9,12 +9,12 @@ hide:
   <section class="sb-hero">
     <div class="sb-hero__copy">
       <p class="sb-eyebrow">NEON flightlines · drone imagery · bulk analysis</p>
-      <h1 id="spectralbridge"><span>Same place.</span><span>Many views.</span></h1>
-      <p class="sb-hero__lead">Different sensors see the same landscape differently.</p>
-      <p class="sb-hero__body">SpectralBridge prepares observations of reflected light for comparison. Reflectance describes how a surface returns incoming light under stated conditions. The software records processing choices and checks so you can inspect what changed and decide what the observations support.</p>
+      <h1 id="spectralbridge">SpectralBridge</h1>
+      <p class="sb-hero__lead">Connecting environmental observations across sensors and scales.</p>
+      <p class="sb-hero__body">Airborne, drone and satellite observations differ in wavelength coverage, ground footprint, geometry and processing history. SpectralBridge is an open-source Python package for processing, harmonizing and comparing these observations, with explicit assumptions, provenance and QA.</p>
       <div class="sb-button-row">
         <a class="sb-button sb-button--primary" href="concepts/measurements/">Understand the measurements</a>
-        <a class="sb-button sb-button--secondary" href="getting-started/">Run the first example</a>
+        <a class="sb-button sb-button--secondary" href="getting-started/">Verify your installation</a>
       </div>
     </div>
     <div class="sb-hero__art">
@@ -55,6 +55,29 @@ hide:
         <strong>Run the bulk vignette →</strong>
       </a>
     </div>
+  </section>
+
+  <section class="sb-section sb-products" aria-labelledby="sb-products-title">
+    <div class="sb-section__intro">
+      <p class="sb-kicker">Scientific products</p>
+      <h2 id="sb-products-title">From measurements to interpretable spectra.</h2>
+      <p>The three workflows produce corrected observations, configured sensor-like representations and compact comparison evidence. Polygon extraction and spectral-library analysis are downstream products and modules, not additional processing pipelines.</p>
+    </div>
+    <div class="sb-card-grid sb-card-grid--three">
+      <a class="sb-doc-link-card" href="pipeline/outputs/">
+        <h3>Corrected observations</h3><p>Inspect persisted raw, corrected and derived sensor products together with their QA and provenance.</p><strong>Read the output contracts →</strong>
+      </a>
+      <a class="sb-doc-link-card" href="vignettes/spectral-library/">
+        <h3>Spectral libraries</h3><p>Carry pixel and polygon identities into labeled libraries; inspect species or population variation with explicit sampling units.</p><strong>Inspect a spectral library →</strong>
+      </a>
+      <a class="sb-doc-link-card" href="validation/evidence-hierarchy/">
+        <h3>Evidence and limitations</h3><p>Separate successful execution and internal QA from agreement with independently collected observations.</p><strong>Read the evidence hierarchy →</strong>
+      </a>
+    </div>
+    <figure class="sb-product-example">
+      <a href="validation/artifacts/r10c-l002-20210915/qa/stages/03_brdf_topographic_correction/overview.png"><img src="validation/artifacts/r10c-l002-20210915/qa/stages/03_brdf_topographic_correction/overview.png" alt="Real R10C flightline QA comparing raw and persisted BRDF/topography-corrected reflectance" loading="lazy"></a>
+      <figcaption>Recorded R10C flightline, 15 September 2021: spatial and spectral diagnostics compare raw and combined BRDF/topography-corrected products. The median curves nearly overlap; flagged poor-quality wavelengths remain visible. This demonstrates inspectable processing and internal QA, not independent sensor agreement or a separately stored topo-only correction. <a href="validation/real-data-example/">Read the run, warnings and provenance.</a> <a href="validation/artifacts/r10c-l002-20210915/qa/stages/03_brdf_topographic_correction/overview.png">Open the figure at full size.</a></figcaption>
+    </figure>
   </section>
 
   <details class="sb-advanced-views">

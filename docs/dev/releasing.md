@@ -4,7 +4,14 @@ SpectralBridge releases use one immutable candidate: build the wheel and sdist
 once, test those exact bytes, attach those bytes to GitHub, and publish the same
 bytes to PyPI. Never rebuild between validation and publication.
 
-Review date: 2026-09-08
+Review date: 2026-10-13
+
+The repository currently targets **2.3.0rc1**. The
+[recorded RC audit](https://github.com/earthlab/spectralbridge/blob/main/provenance/release/2026-10-13/RC_READINESS.md)
+contains dated source and exact-artifact checks. It records no publication or
+deployment. Its results apply to the audited candidate, not subsequent edits;
+rerun applicable gates before releasing a changed candidate. Paper source
+preparation and [DOI verification](doi-zenodo.md) remain separate from these gates.
 
 ## Version and tag contract
 

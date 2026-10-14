@@ -29,7 +29,7 @@ python -c "import spectralbridge; print(spectralbridge.__version__)"
 Repository examples describe the checked-out version. Candidate metadata is not
 proof that the same candidate has been published; see [release status and gates](https://earthlab.github.io/spectralbridge/dev/releasing/).
 
-## First example
+## Verify your installation
 
 From a clone in a virtual environment:
 
@@ -50,6 +50,11 @@ calibrate sensors or establish scientific validity. [Read the result and continu
 | Supported local drone TIFF/HDF5 | [Drone processing](https://earthlab.github.io/spectralbridge/vignettes/drone-processing/) |
 | Completed flightline products | [Bulk analysis](https://earthlab.github.io/spectralbridge/vignettes/bulk-analysis/) |
 | Existing polygon spectral library | [Library preflight and reporting](https://earthlab.github.io/spectralbridge/vignettes/spectral-library/) |
+
+The three workflows also support downstream products: polygon-level pixel
+extraction, labeled spectral libraries, species/population summaries and compact
+cross-flight evidence. These are products and analysis modules, not extra
+processing pipelines. [Read the data model before combining flights](https://earthlab.github.io/spectralbridge/usage/parquet/): wide wavelength columns can represent different native grids.
 
 Use [the documentation](https://earthlab.github.io/spectralbridge/) for outputs,
 configuration, QA, resume behavior, remote production and APIs. Distinguish

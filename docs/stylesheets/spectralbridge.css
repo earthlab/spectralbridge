@@ -1325,3 +1325,15 @@ body:has(.sb-home) .md-content__inner::before {
 .sb-supplement-content math[display="block"] { display: block; overflow-x: auto; margin: 1.5rem 0; }
 .sb-supplement-content img { max-width: 100%; height: auto; }
 .sb-supplement-content .csl-entry { margin-bottom: 0.8rem; }
+
+/* Publication landing page: retain readable brand and a bounded real-QA preview. */
+.md-typeset .sb-hero h1 {
+  color: var(--sb-white);
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+.md-typeset .sb-product-example { margin: 2rem auto 0; max-width: 52rem; }
+.md-typeset .sb-product-example img { display: block; width: 100%; height: auto; }
+.md-typeset .sb-product-example figcaption { font-size: .78rem; line-height: 1.55; text-align: left; }
+.md-typeset .sb-products .sb-doc-link-card { min-width: 0; }

@@ -23,11 +23,27 @@ left incomplete so the next agent can resume immediately.
 ### P114. Publication and JOSS documentation/website improvement
 
 - Priority: P0, user-directed
-- Status: In progress
+- Status: Complete locally; submission and publication remain human gates
 - Owner: Codex
 - Started: 2026-10-13
 - Scope: Audit current docs, implementation/schema contracts, examples, release/citation status and rendered website; make concise, evidence-backed improvements without changing scientific algorithms or promoting exploratory figures.
 - Plan: Inspect current sources/history and published pages; record a compact checklist here; improve scientific-product discovery, Parquet reconstruction and evidence/status clarity where gaps remain; build strict docs, verify examples/tests/links, and inspect desktop/mobile rendering.
+- Audit checklist: Already good: three-workflow terminology, synthetic-vs-independent evidence hierarchy, file contracts, current README caution and guarded examples/notebooks. Stale/inconsistent: usage/parquet describes wide exports as long rows; example queries assume nonexistent long fields; DOI page names 2.2.0 as current and claims a README DOI badge that is absent; citation tracker overlooks prepared paper sources; validation campaign heading implies old counts are current; workflow chooser lists remote production as a fourth pipeline. Missing/discoverability: homepage scientific products and real-QA interpretation, library union-grid input warning, front-door API/reviewer links. Redundant: concepts/validation already explain harmonization limits; link rather than duplicate. Blockers: author consent/declarations, current archival DOI and actual release publication remain unconfirmed; uncommitted exploratory/PFT changes invalidate reuse of older exact-RC evidence. Nice-to-have: broader real-data quickstart deferred because available GPKGs lack verified redistribution metadata and no small complete real raster/spectral fixture is shipped. Historical audits retained.
+
+
+- Outcome: Improved the problem-first homepage and downstream-product/library discovery using only the existing R10C QA figure with interpretive limits; separated installation smoke from scientific workflows; moved API discovery into Reference and added reviewer paths. Replaced the incorrect long-row Parquet guide with wide pixel/schema-family, identifiers, units/nodata and native-grid reconstruction guidance; added compatible-grid warnings to library docs. Corrected synthetic-comparison language and the fourth-pipeline presentation. Dated recorded campaign counts and reconciled citation/DOI/release preparation with historical evidence. Algorithms, source data, historical audits and manuscript sources are unchanged; exploratory plant/PFT figures were not promoted as publication evidence.
+- Verification: Strict MkDocs build passed; source links valid; rendered link/anchor/asset checker found zero errors. 63 targeted tests passed across documentation/publication/example contracts (33), wide-guide/merge/library contracts (22), legacy export (7) and Chromium desktop/mobile browser smoke (1). Executed documented DuckDB examples on a synthetic wide fixture with negative/null values and wrong-grid rejection. Focused Ruff, version/tag metadata, JOSS source format, generated validation/SI and AI-transparency checks passed. Desktop/mobile screenshots inspected (home, Parquet, getting started and citation); fixed title contrast, confirmed responsive tables/code and no horizontal page overflow. Reused existing figure bytes, build/screenshots stayed in /tmp, supplied Parquet and plot outputs remain ignored; diff whitespace clean.
+- Limits/deferred: Full source suite and exact-artifact release matrix were not rerun for this docs pass. A combined targeted invocation exposed existing test_parquet_export module-stub contamination of merge/library collection; both groups pass in isolated processes, recorded separately as P115. Selected external Zenodo/JOSS links resolve; PyPI fetch failed with cache miss, so no current publication state was inferred. No current DOI, release publication or JOSS acceptance is claimed. A redistributable small real spectral fixture remains a future improvement.
+- Remaining human gates: Final authorship/consent, funding/sponsor, COI and AI design/review declarations; confirm public-history/research-use evidence; choose and publish the review revision; verify release/archive metadata and rerun applicable release gates for that source. See paper/SUBMISSION_CHECKLIST.md and publication_checklist.md.
+- Next recommended task: Maintainer review of the local docs and remaining submission decisions. P113 remains resumable and incomplete; P107/P108 scientific limitations remain visible.
+
+### P115. Isolate legacy export test module stubs
+
+- Priority: P2
+- Status: Open; discovered during P114 verification
+- Scope: Prevent tests/test_parquet_export.py from leaving lightweight spectralbridge.file_types and dependency stubs in sys.modules where unrelated real merge/library tests consume them.
+- Reproduction: `.venv/bin/pytest -q -o addopts= tests/test_documented_parquet_examples.py tests/test_parquet_export.py tests/test_duckdb_merge.py tests/test_bulk_spectral_library.py` fails collection importing NEONReflectanceFile. The export module alone passes (7); the guide/merge/library group passes in a separate process (22).
+- Recommended fix: Restore affected modules after fixture use or isolate the legacy importer; add an order-sensitive collection regression. No runtime scientific change is needed. Deferred to preserve the documentation task scope.
 
 ### P113. Species-to-PFT crosswalk and grouped spectral plots
 
