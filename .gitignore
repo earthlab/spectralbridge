@@ -44,3 +44,9 @@ tlm_check_spectra/data
 /Aug_2026_all_polygons_merged_pixel_extraction.parquet
 /artifacts/plant_spectral_atlas/
 /output/pdf/plant_spectral_review/
+
+# Regenerable full-flight real Landsat validation rasters and window caches.
+/artifacts/real_landsat_validation/
+
+# Temporary narrative PDF assembled into the final report.
+/tmp/pdfs/real_landsat_validation/

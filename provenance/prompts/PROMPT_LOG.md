@@ -24616,3 +24616,1029 @@ Do not give me only p-values.
 
 I want to know whether the ECOLOGICAL PATTERN survives spectral reduction.
 ```
+
+## 2026-10-14 - independent real Landsat flight-line validation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+I want to add the next major validation experiment to SpectralBridge.
+
+We have already shown that ecological spectral structure in corrected NEON hyperspectral data largely survives when those spectra are synthetically reduced to Landsat OLI-like bands.
+
+Now I want to test the actual cross-sensor translation against REAL LANDSAT observations.
+
+The central question is:
+
+"How closely does the Landsat-like product generated from a NEON flight reproduce the real Landsat surface-reflectance observation from the same place and approximately the same time?"
+
+This is no longer merely a spectral-resolution experiment.
+
+It is an INDEPENDENT REAL-SENSOR VALIDATION of the SpectralBridge translation.
+
+The final product should make it possible to place:
+
+    NEON-derived Landsat-like image
+                 |
+                 | side by side
+                 v
+          REAL LANDSAT IMAGE
+
+and quantitatively describe how similar they are.
+
+Do not optimize this analysis to produce good agreement. I want an honest validation that identifies both agreement and failure.
+
+==================================================
+1. AUDIT THE EXISTING SPECTRALBRIDGE IMPLEMENTATION
+==================================================
+
+Before writing new code, inspect the entire relevant SpectralBridge implementation.
+
+Find:
+
+- corrected NEON products
+- flight-line metadata
+- acquisition dates/times
+- spatial footprints
+- CRS information
+- OLI synthetic products
+- Landsat band definitions
+- Gaussian/convolution code
+- brightness adjustments
+- QA functionality
+- existing Landsat download code, if any
+- STAC / Planetary Computer functionality already in the repository
+- bulk-processing architecture
+- provenance architecture
+- existing sensor-transfer analysis
+- tests
+- documentation
+
+Do not duplicate functionality that already exists.
+
+Determine exactly what the stored `olioli` and `olioli_undarkened` products mean.
+
+The previous audit established that the synthetic OLI-like representation uses seven bands approximately centered at:
+
+443
+482
+561
+655
+865
+1609
+2201 nm
+
+and is derived from corrected NEON spectra.
+
+Verify this again from current code.
+
+==================================================
+2. DEFINE THE VALIDATION UNIT
+==================================================
+
+The validation unit should be a NEON flight line or other scientifically justified acquisition unit.
+
+For each flight line determine:
+
+NEON site
+NEON acquisition date
+NEON acquisition time if available
+flight-line footprint
+CRS
+pixel resolution
+corrected NEON raster
+synthetic OLI raster
+
+Then find real Landsat observations intersecting that footprint.
+
+Do not begin by mosaicking everything across sites or years.
+
+First establish a scientifically clean flight-line-level comparison.
+
+==================================================
+3. RETRIEVE REAL LANDSAT DATA
+==================================================
+
+Use a reproducible public Landsat source.
+
+Prefer the existing SpectralBridge/cloud infrastructure if one already exists.
+
+Planetary Computer STAC or USGS Landsat Collection 2 are reasonable candidates.
+
+Inspect the repo before deciding.
+
+Use LANDSAT COLLECTION 2 LEVEL-2 SURFACE REFLECTANCE.
+
+Do NOT compare:
+
+NEON surface reflectance
+
+against
+
+Landsat top-of-atmosphere radiance/reflectance.
+
+Use the Landsat surface-reflectance bands corresponding to the synthetic OLI bands where scientifically appropriate.
+
+Document exact Landsat product IDs.
+
+For every scene record:
+
+platform
+sensor
+scene/product ID
+acquisition datetime
+processing level
+collection
+cloud cover
+sun elevation
+sun azimuth
+spatial footprint
+time difference from NEON acquisition
+
+Preserve this metadata in machine-readable provenance.
+
+==================================================
+4. SCENE SELECTION MUST BE EXPLICIT
+==================================================
+
+Do not simply take "nearest Landsat scene."
+
+For every NEON flight line, search an explicit temporal window such as:
+
+same day
+±1 day
+±3 days
+±7 days
+±16 days
+
+Record ALL candidate scenes.
+
+Rank candidates using:
+
+1. temporal distance from NEON
+2. usable cloud-free overlap with the flight line
+3. sensor compatibility
+4. spatial coverage
+5. quality flags
+
+Prefer same-day observations where available.
+
+Do not automatically combine multiple dates.
+
+Produce a scene-selection table containing every candidate and the reason the selected scene was chosen.
+
+I want to know:
+
+How often do we have same-day Landsat?
+How often within 1 day?
+3 days?
+7 days?
+How much usable overlap remains after QA?
+
+==================================================
+5. LANDSAT QA MASKING
+==================================================
+
+Implement rigorous Collection 2 QA masking.
+
+At minimum consider:
+
+cloud
+cirrus
+cloud shadow
+snow
+fill
+saturation
+
+Use QA_PIXEL and QA_RADSAT appropriately.
+
+Do not treat cloudy or shadowed Landsat pixels as valid disagreement with SpectralBridge.
+
+Keep QA masking explicit and reproducible.
+
+Generate a QA visualization showing:
+
+valid Landsat
+cloud
+shadow
+snow
+invalid/no-data
+
+over the NEON footprint.
+
+==================================================
+6. THE SPATIAL-SCALE PROBLEM IS CENTRAL
+==================================================
+
+NEON and Landsat operate at very different spatial resolutions.
+
+Do NOT simply resample Landsat to the NEON grid and compare the resulting pixels as though this creates new independent observations.
+
+The scientifically meaningful comparison should generally aggregate the high-resolution NEON-derived Landsat-like product to the REAL Landsat pixel support.
+
+For each Landsat pixel:
+
+identify the actual spatial footprint
+
+aggregate the synthetic OLI-like NEON observations contained within that footprint
+
+compare:
+
+    aggregated NEON-derived OLI
+
+with
+
+    observed Landsat OLI
+
+Use appropriate spatial weighting when pixels only partially overlap the flight line.
+
+Document:
+
+number of NEON pixels contributing
+valid fraction
+coverage fraction
+variance within the Landsat footprint
+
+Require a defensible minimum NEON coverage threshold.
+
+Do not compare edge pixels with tiny NEON coverage as though they were complete observations.
+
+==================================================
+7. CHECK GEOREGISTRATION
+==================================================
+
+Before interpreting spectral differences, determine whether the imagery is spatially aligned.
+
+Small geolocation offsets can create large apparent spectral disagreement at 30 m resolution, especially near:
+
+forest edges
+roads
+water
+bare ground
+canopy gaps
+snow
+
+Investigate spatial registration between:
+
+NEON-derived OLI
+real Landsat
+
+Consider a small registration sensitivity analysis such as offsets around:
+
+-1 Landsat pixel
+0
++1 Landsat pixel
+
+or a finer physically meaningful grid.
+
+Do NOT automatically shift imagery to maximize correlation and then report that optimized correlation as validation.
+
+If an offset is estimated:
+
+report the original alignment
+report the estimated offset
+explain the criterion
+report sensitivity with and without correction
+
+Never hide a registration adjustment.
+
+==================================================
+8. TEMPORAL MISMATCH MUST REMAIN VISIBLE
+==================================================
+
+For every comparison calculate:
+
+Δt = Landsat acquisition time - NEON acquisition time.
+
+Stratify validation by temporal difference.
+
+At minimum:
+
+same day
+≤1 day
+≤3 days
+≤7 days
+>7 days
+
+if sample sizes permit.
+
+Ask whether agreement degrades with increasing Δt.
+
+This is important because vegetation, illumination, moisture, disturbance, snow and atmosphere can change.
+
+Do not call temporal change a SpectralBridge translation error.
+
+==================================================
+9. COMPARE THE SAME PHYSICAL QUANTITY
+==================================================
+
+Audit units and scaling carefully.
+
+Confirm:
+
+NEON corrected reflectance units
+synthetic OLI units
+Landsat Collection 2 scaling factors
+offsets
+valid ranges
+
+Apply official Landsat scaling correctly.
+
+Do NOT infer scaling from the numerical values.
+
+Document all conversions.
+
+Before calculating statistics, verify that both products represent comparable surface reflectance.
+
+==================================================
+10. PRIMARY BAND-BY-BAND VALIDATION
+==================================================
+
+For each matched Landsat pixel and each valid OLI band compare:
+
+x = real Landsat surface reflectance
+y = aggregated NEON-derived Landsat-like reflectance
+
+or choose the reverse convention and use it consistently.
+
+Calculate at minimum:
+
+N
+mean bias
+median bias
+MAE
+RMSE
+normalized RMSE where defensible
+Pearson r
+Spearman rho
+R² where appropriate
+
+Also consider:
+
+slope
+intercept
+
+from a scientifically defensible regression.
+
+Do NOT rely on R² alone.
+
+A product can correlate strongly while having severe bias.
+
+==================================================
+11. REGRESSION CHOICE
+==================================================
+
+Because both sensors contain measurement error, ordinary least squares may not be the best primary agreement model.
+
+Investigate:
+
+Deming regression
+orthogonal distance regression
+major-axis regression
+
+and choose a defensible approach.
+
+The primary question is agreement with the 1:1 line, not simply whether one variable predicts the other.
+
+Report:
+
+slope relative to 1
+intercept relative to 0
+uncertainty
+
+Do not "calibrate away" disagreement before reporting the raw validation.
+
+Any fitted correction should be a secondary experiment.
+
+==================================================
+12. AGREEMENT ANALYSIS
+==================================================
+
+Include agreement-oriented diagnostics, not only correlation.
+
+Consider Bland-Altman style analysis:
+
+difference =
+synthetic OLI - real Landsat
+
+versus
+
+mean reflectance.
+
+Ask whether error changes with brightness.
+
+Calculate:
+
+mean bias
+limits/spread of agreement
+heteroscedasticity diagnostics
+
+Do this per band.
+
+This may reveal systematic brightness dependence that correlation hides.
+
+==================================================
+13. SPATIAL AUTOCORRELATION
+==================================================
+
+Landsat pixels within a flight line are not independent ecological replicates.
+
+Do not produce absurdly tiny p-values from thousands of spatially correlated pixels.
+
+The primary validation should emphasize:
+
+effect sizes
+agreement metrics
+uncertainty
+flight-level replication
+
+For pooled inference, treat flight line/site/date as the higher-level replication structure.
+
+Use block/bootstrap or hierarchical summaries where appropriate.
+
+For example:
+
+calculate metrics independently for each flight line
+
+then summarize their distribution across flights.
+
+Do not let a huge flight line dominate the entire result.
+
+==================================================
+14. REQUIRED SIDE-BY-SIDE FIGURE
+==================================================
+
+For every successful flight-line comparison generate a figure like:
+
+-------------------------------------------------
+NEON-derived OLI      |      Real Landsat OLI
+-------------------------------------------------
+RGB                   |      RGB
+-------------------------------------------------
+
+Use identical:
+
+extent
+projection
+display stretch
+color limits where possible
+
+Then include:
+
+-------------------------------------------------
+Residual / difference map
+-------------------------------------------------
+
+Difference:
+
+synthetic - observed
+
+for selected bands or RGB-derived summary.
+
+The viewer should immediately see:
+
+where they agree
+where they disagree
+
+Do not independently auto-stretch the two RGB panels in a way that makes them appear artificially similar.
+
+==================================================
+15. BAND SCATTERPLOTS
+==================================================
+
+Create one scatterplot per Landsat band:
+
+real Landsat
+vs
+NEON-derived OLI
+
+Include:
+
+1:1 line
+agreement regression
+N
+bias
+RMSE
+r
+slope
+
+Use alpha or density representation for large numbers of pixels.
+
+Do not hide outliers.
+
+==================================================
+16. SPECTRAL COMPARISON
+==================================================
+
+For selected representative Landsat pixels or homogeneous regions, show:
+
+real Landsat spectrum
+
+and
+
+NEON-derived Landsat-like spectrum
+
+using the seven actual OLI bands.
+
+Use points/lines carefully so this is clearly a seven-band multispectral comparison, not a continuous hyperspectral spectrum.
+
+Consider examples of:
+
+excellent agreement
+median agreement
+poor agreement
+
+and investigate why the poor cases fail.
+
+==================================================
+17. RGB / IMAGE-LEVEL SIMILARITY
+==================================================
+
+Since I ultimately want to say how visually and quantitatively similar the real and translated images are, investigate image-level metrics.
+
+Potentially include:
+
+SSIM
+normalized cross-correlation
+spectral angle mapper
+multiband RMSE
+
+But audit whether each metric is meaningful for reflectance imagery before using it.
+
+Do not make SSIM the primary scientific validation.
+
+Pixelwise reflectance agreement is more important.
+
+==================================================
+18. SPECTRAL ANGLE
+==================================================
+
+For every valid matched Landsat pixel calculate spectral angle between the two seven-band vectors.
+
+Summarize:
+
+median angle
+distribution
+flight-level median
+spatial map
+
+This provides a useful measure of spectral-shape agreement that is less sensitive to overall brightness.
+
+Pair it with magnitude-sensitive metrics such as RMSE/bias.
+
+==================================================
+19. ERROR DECOMPOSITION
+==================================================
+
+Try to understand disagreement rather than merely measure it.
+
+Investigate error as a function of:
+
+band
+reflectance magnitude
+land-cover/spectral class if available
+NEON within-Landsat-pixel heterogeneity
+time difference
+cloud proximity
+view geometry
+solar geometry
+flight line
+site
+year
+edge/coverage fraction
+
+Ask:
+
+Are errors largest in heterogeneous pixels?
+
+Do SWIR bands behave differently?
+
+Does agreement deteriorate with temporal separation?
+
+Are residuals spatially structured?
+
+Does NEON-to-Landsat aggregation explain part of the error?
+
+==================================================
+20. HOMOGENEITY SENSITIVITY
+==================================================
+
+A particularly important analysis:
+
+Calculate within-pixel spectral/spatial variability from the high-resolution NEON data.
+
+Classify Landsat footprints from relatively homogeneous to heterogeneous.
+
+Test whether agreement improves for homogeneous pixels.
+
+If it does, that tells us that some apparent disagreement is due to spatial-support mismatch rather than spectral translation failure.
+
+This could be one of the strongest validation diagnostics.
+
+==================================================
+21. SAME-DAY GOLD-STANDARD SUBSET
+==================================================
+
+If enough same-day or near-simultaneous observations exist, create a "gold-standard" subset.
+
+Prefer something like:
+
+same day
+high valid Landsat coverage
+low cloud contamination
+high NEON coverage
+good spatial registration
+
+Report this subset separately from the full dataset.
+
+Do NOT quietly discard difficult scenes.
+
+Show:
+
+GOLD-STANDARD VALIDATION
+
+and
+
+ALL ELIGIBLE VALIDATION
+
+side by side.
+
+==================================================
+22. VALIDATE THE BRIGHTNESS ADJUSTMENT
+==================================================
+
+SpectralBridge currently contains both:
+
+olioli_undarkened
+olioli
+
+and a Landsat-specific brightness adjustment.
+
+This real Landsat comparison is finally an opportunity to determine whether that adjustment actually improves agreement.
+
+Compare BOTH synthetic products against real Landsat:
+
+undarkened synthetic OLI
+adjusted/darkened synthetic OLI
+
+using identical pixels.
+
+Ask whether the brightness adjustment improves:
+
+bias
+MAE
+RMSE
+slope/intercept
+spectral angle
+
+Do not choose the adjusted version merely because it was intended to work.
+
+Test it.
+
+This is potentially an important SpectralBridge validation result.
+
+==================================================
+23. DO NOT TUNE AND TEST ON THE SAME DATA
+==================================================
+
+If the existing brightness/translation coefficients were derived using any of these Landsat observations, identify that immediately.
+
+Separate:
+
+calibration data
+
+from
+
+validation data.
+
+If new coefficients are fitted, use held-out flight lines/sites.
+
+Prefer leave-one-flight-out or leave-one-site-out validation.
+
+Never report training fit as independent validation.
+
+==================================================
+24. VALIDATION HIERARCHY
+==================================================
+
+Structure the evidence as:
+
+LEVEL 1
+Synthetic internal validation
+corrected NEON -> synthetic OLI
+
+LEVEL 2
+Real-sensor spectral agreement
+synthetic OLI -> real Landsat
+
+LEVEL 3
+Cross-flight replication
+
+LEVEL 4
+Cross-site replication
+
+LEVEL 5
+Held-out generalization if coefficients are fitted
+
+Keep these levels conceptually separate.
+
+==================================================
+25. OUTPUT DATA PRODUCTS
+==================================================
+
+For each flight line save a compact validation table containing:
+
+flight_id
+site
+NEON datetime
+Landsat datetime
+delta_time
+Landsat product ID
+Landsat pixel row/col or stable ID
+coordinates
+coverage fraction
+NEON contributing-pixel count
+heterogeneity metric
+
+for each band:
+
+real Landsat reflectance
+synthetic OLI reflectance
+residual
+
+Avoid gigantic unnecessary intermediate files.
+
+Use cloud/windowed processing where possible.
+
+==================================================
+26. SUMMARY TABLE
+==================================================
+
+Produce a table like:
+
+flight | site | Δt | valid pixels | band | bias | MAE | RMSE | r | slope | spectral-angle summary
+
+Then an across-flight table:
+
+band
+number of flights
+median bias
+median MAE
+median RMSE
+median correlation
+median slope
+between-flight range/interval
+
+This is what we should eventually be able to cite in the paper.
+
+==================================================
+27. SUMMARY FIGURE FOR THE PAPER
+==================================================
+
+Create a publication-quality summary figure with approximately:
+
+A. Example NEON-derived Landsat-like RGB
+
+B. Matching real Landsat RGB
+
+C. Difference/residual map
+
+D. Real-vs-synthetic reflectance scatterplots
+
+E. Agreement statistics by band
+
+F. Spectral-angle or RMSE distribution across flight lines
+
+The exact layout can change after seeing the data.
+
+The figure should answer visually:
+
+"Did SpectralBridge actually reproduce what Landsat saw?"
+
+==================================================
+28. FAILURE GALLERY
+==================================================
+
+Also generate examples where agreement is poor.
+
+For the worst comparisons inspect:
+
+cloud/shadow
+temporal mismatch
+georegistration
+heterogeneous pixels
+water/snow
+edge effects
+illumination
+sensor saturation
+processing problems
+
+A useful validation should tell us when NOT to trust the translation.
+
+==================================================
+29. SOFTWARE ARCHITECTURE
+==================================================
+
+Implement this as reusable SpectralBridge functionality.
+
+Consider a module such as:
+
+src/spectralbridge/validation/landsat.py
+
+or whatever fits the existing architecture.
+
+Potential API conceptually:
+
+find_landsat_matches(...)
+load_landsat_surface_reflectance(...)
+mask_landsat_qa(...)
+aggregate_to_landsat_grid(...)
+compare_landsat_products(...)
+compute_agreement_metrics(...)
+build_validation_report(...)
+
+Do not force these exact names if the repository architecture suggests something better.
+
+Provide a CLI/example workflow.
+
+Make it usable for one flight line first and then bulk processing.
+
+==================================================
+30. TESTING
+==================================================
+
+Add unit tests for:
+
+scene selection
+date matching
+QA masking
+Landsat scaling
+CRS transformations
+pixel aggregation
+partial coverage
+band matching
+agreement statistics
+spectral angle
+registration handling
+missing data
+cloud-only scenes
+no-scene cases
+
+Mock remote STAC calls for unit tests.
+
+Do not make the normal test suite depend on live network access.
+
+Add an optional integration test using a small real Landsat scene/window.
+
+Run the FULL repository test suite when complete.
+
+==================================================
+31. PROVENANCE
+==================================================
+
+Create something like:
+
+provenance/real-landsat-validation/2026-10-14/
+
+with:
+
+DESIGN.md
+LANDSAT_SEARCH.md
+METHODS.md
+RESULTS.md
+VALIDATION.md
+scene_candidates.csv
+scene_selection.csv
+flight_metrics.csv
+band_metrics.csv
+pixel_metrics.parquet or appropriately compact equivalent
+statistics_manifest.json
+figures/
+
+Record Landsat STAC/item IDs so every comparison can be reproduced.
+
+==================================================
+32. DOCUMENTATION
+==================================================
+
+If successful, add this to the SpectralBridge documentation as a major validation vignette.
+
+The story should be:
+
+NEON hyperspectral
+        |
+        v
+SpectralBridge
+        |
+        v
+synthetic Landsat-like observation
+        |
+        | VALIDATE AGAINST
+        v
+real Landsat observation
+
+Explain why agreement will never be perfect:
+
+different spatial support
+different acquisition times
+different atmosphere
+different viewing geometry
+different sensor response functions
+registration error
+surface change
+processing differences
+
+The goal is not pixel-perfect identity.
+
+The goal is to determine whether SpectralBridge preserves the physically meaningful spectral signal observed by Landsat.
+
+==================================================
+33. IMPORTANT GUARDRAILS
+==================================================
+
+DO NOT:
+
+- compare TOA Landsat with surface-reflectance NEON
+- use cloud/shadow pixels as validation failures
+- treat upsampled Landsat pixels as independent observations
+- independently stretch images to make them look similar
+- fit a correction and validate it on the same observations
+- select scenes based on which gives the best agreement
+- shift imagery to maximize correlation without reporting it
+- use correlation alone as evidence of agreement
+- hide poor-performing flight lines
+- call synthetic OLI "Landsat observations"
+- treat thousands of spatial pixels as thousands of independent ecological replicates
+- overwrite existing synthetic sensor-transfer results
+
+==================================================
+34. START SMALL BEFORE BULK PROCESSING
+==================================================
+
+Do NOT immediately run every flight line.
+
+First identify ONE exceptionally good validation case:
+
+- strong NEON/Landsat overlap
+- same-day or nearest possible acquisition
+- minimal cloud
+- high spatial coverage
+- valid corrected NEON product
+- valid synthetic OLI product
+
+Run the entire workflow on that one case.
+
+Produce:
+
+real Landsat RGB
+synthetic Landsat-like RGB
+residual map
+band scatterplots
+agreement statistics
+spectral-angle map
+QA mask
+
+Inspect the result scientifically.
+
+Only after that workflow is validated should you scale to all eligible flight lines.
+
+==================================================
+35. FINAL QUESTIONS
+==================================================
+
+At the end answer these directly:
+
+1. How similar are SpectralBridge Landsat-like products to real Landsat observations?
+
+2. Which bands agree best and worst?
+
+3. Is disagreement mostly bias, spectral-shape disagreement, spatial heterogeneity, temporal mismatch, or something else?
+
+4. Does the current Landsat brightness adjustment improve real-sensor agreement?
+
+5. How much does agreement vary among flight lines and sites?
+
+6. Does agreement improve for same-day, homogeneous, well-aligned pixels?
+
+7. Are there systematic failure modes?
+
+8. Is the translation accurate enough to justify scientific comparison between NEON-derived Landsat-like spectra and real Landsat?
+
+9. What exact claim can we defend in a manuscript?
+
+10. What should SpectralBridge change, if anything, based on the real-Landsat validation?
+
+Give quantitative answers.
+
+Do not stop at "the images look similar."
+```
+
+## 2026-10-14 - Continue real Landsat validation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```

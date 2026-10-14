@@ -102,6 +102,9 @@ def _asset_common_name(key: str, asset: Any) -> str | None:
         "nir08": "nir08",
         "nir": "nir08",
         "coastal": "coastal",
+        "swir16": "swir16",
+        "swir22": "swir22",
+        "qa_radsat": "qa_radsat",
     }
     return aliases.get(lowered)
 

@@ -20,6 +20,27 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P121. Independent real Landsat validation at flight-line scale
+
+- Priority: P0, user-directed
+- Status: Complete for one real flight pilot; cross-flight/site scaling deliberately deferred
+- Owner: Codex
+- Started: 2026-10-14
+- Scope: Extend existing Landsat validation for one seven-band NEON flight first, explicit Collection 2 Level-2 scene search/QA, real Landsat grid aggregation, honest agreement and brightness/registration diagnostics. Preserve independent validation hierarchy and existing synthetic outputs.
+- Plan: Audit modules/products/metadata and data availability, fix design before comparisons, extend existing primitives with regression tests and reproducible CLI/provenance, run one real case only if full corrected/synthetic rasters and units are verifiable. Never substitute sparse polygon pixels for a complete image or label fixtures real. Run full suite; document missing inputs and unsupported claims.
+- Data resolution: Found the real full R10C 2021-09-15 archived H5 (not the memory fixture), ran canonical scene correction and seven-band OLI products, and matched next-day real Landsat 8 Collection 2 L2 SR. Original H5 is unchanged/read in place; large regenerated products and public window caches remain ignored.
+- Outcome: Added reusable strict seven-band flight validation/CLI and scientific figures using existing Landsat transport/metadata helpers, joint source/variant support, exact actual-cell area weighting, QA_PIXEL/RADSAT, official scaling, complete candidate ranking, Deming lambda sensitivity, Bland-Altman, spatial-block uncertainty, nine declared unoptimized offsets, heterogeneity/coverage/cloud subsets and checksum restart. One independent real observation: 3,583 footprints, 56 blocks, median angle 2.089 degrees, pooled undarkened RMSE 0.01477. Adjustment is mixed; paired overall interval spans zero. Ten PDF/PNG/SVG sets and a human PDF report preserve outliers and limitations.
+- Verification: Full suite 597 passed, 8 skipped, 29 warnings; 18 targeted contracts including optional actual cached-window integration passed separately. Cross-CRS/partial-support tests are in the full suite. PNG figures and rendered report reviewed; offline mocked transport, no-scene/cloud-only and checksum restart covered. Final docs/lint/evidence checks recorded in provenance/real-landsat-validation/2026-10-14/CHECKS.md.
+- Remaining/limits: One flight/site and next-day scene, no same-day gold; legacy timestamp timezone remains conditional, historical brightness training scene IDs unavailable. No global calibration changes or bulk run justified by this pilot. Next: verify time/training provenance, collect independent same-day OLI flight/site cases, evaluate block-size/subpixel/PSF sensitivity before scaling.
+
+### P122. Physical target-band wavelength metadata and legacy coverage disclosure
+
+- Priority: P1
+- Status: Open; identified during P121 audit
+- Scope: Repair production `_build_convolution_header` / `_build_sensor_srfs` contract so generic SRF dictionary keys cannot become ENVI physical wavelength coordinates. Preserve exact convolution weights and filenames; add metadata regression tests and a documented migration for prior headers. P121 pilot passed declared numerical physical centers explicitly without changing spectral definitions.
+- Additional follow-up: Existing optional drone `_aggregate_to_reference_grid` mask averages are normalized to contributing source support; they do not demonstrate full 30 m footprint coverage at partial raster edges. Assess an explicit migration to strict area coverage with tests; preserve compatibility deliberately rather than silently change the old path.
+- Next: Audit all header call sites and fixtures, then fix metadata at its authoritative source. Do not infer coordinates from band_01 strings.
+
 ### P120. Paired sensor spectral-resolution transfer of PFT structure
 
 - Priority: P0, user-directed

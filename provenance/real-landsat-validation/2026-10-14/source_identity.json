@@ -1,0 +1,61 @@
+{
+  "note": "Read-only source and canonical correction/response metadata at completed pilot freeze; no original source copied or mutated",
+  "files": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/validation-input/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5": {
+      "bytes": 2532249598,
+      "sha256": "7ad8032cbfca6879b38bf854640031b6fb2547f792e93bc9e915b3633345a8ff"
+    },
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/artifacts/real_landsat_validation/neon/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_brdfandtopo_corrected_envi.hdr": {
+      "bytes": 17002,
+      "sha256": "86000fbdf6f432c9682acca950bb2346b3d77799991ad4243acf08c600fde638"
+    },
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/artifacts/real_landsat_validation/neon/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_oli_envi.hdr": {
+      "bytes": 1044,
+      "sha256": "ddf8609e2a29df97ad12042e09dbb6dddc90809c5cb39adb189cf9e5f4557609"
+    },
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/artifacts/real_landsat_validation/neon/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_brdf_model.json": {
+      "bytes": 35464,
+      "sha256": "d2cbbfa33a4b4ea19cbcd65b1c7e6a8aeac182119347255fa5b3133afbbd3d09"
+    },
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/artifacts/real_landsat_validation/neon/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_envi.hdr": {
+      "bytes": 16976,
+      "sha256": "dae9e29a7c11487c001be6883b810a07168ce63c908ef7282c3ab3c46d60d415"
+    },
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/artifacts/real_landsat_validation/neon/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_brdfandtopo_corrected_envi.json": {
+      "bytes": 21895,
+      "sha256": "ebf91240d53ef81ee1bf6d6130351cebf6f0526d6db469783dff99a26fb5332e"
+    },
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/artifacts/real_landsat_validation/neon/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_oli_undarkened_envi.hdr": {
+      "bytes": 880,
+      "sha256": "1d3707d15e1d8b2ba48613a9ca51c22b0202f392b890393f865106c2c73712bf"
+    },
+    "src/spectralbridge/data/brightness/landsat_to_micasense.json": {
+      "bytes": 382,
+      "sha256": "fd5368e72d09bd289261d6df5f86ee54643bb9814c58235a413cf745c7d3c52c"
+    },
+    "src/spectralbridge/data/brightness/landsat_tm_etm_to_micasense.json": {
+      "bytes": 529,
+      "sha256": "789c6395746d5b27781a01362f633d40282c6fefc0e52cc646c40f657059c554"
+    },
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/pipeline.py": {
+      "bytes": 132782,
+      "sha256": "829aedba9b84b595802ab5f12ee7b9a9ca7214218fb86220e85e0e71990d490c"
+    },
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/brdf_topo.py": {
+      "bytes": 18907,
+      "sha256": "b4d7afc2ae0a02964ce70ce291f8c5233380fe926ef698b01b55b4ce7c156e7e"
+    },
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/resample.py": {
+      "bytes": 2544,
+      "sha256": "ec1ebcd356f43fad0ca95145c4f8a8a16310f297583354f00eae6404d64719c9"
+    },
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/landsat_band_parameters.json": {
+      "bytes": 1045,
+      "sha256": "b5ed747a00ae48a4216164ee73c4e4959b838d96688e2f13df8c82e1becab5e4"
+    },
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/brightness_config.py": {
+      "bytes": 917,
+      "sha256": "5aecb0f492f3dd74c0838c6f1c4d9623a07f51f285282027ffbfaf86e6b33597"
+    }
+  }
+}

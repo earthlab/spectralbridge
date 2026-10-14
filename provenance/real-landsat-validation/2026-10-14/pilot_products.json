@@ -1,0 +1,14 @@
+{
+  "acquisition_datetime_local_metadata": "2021-09-15 19:15:30",
+  "acquisition_timezone_status": "H5 computer time; UTC not yet independently verified",
+  "adjusted_raster": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/artifacts/real_landsat_validation/neon/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_oli_envi.img",
+  "apply_strip_rows": 32,
+  "corrected_raster": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/artifacts/real_landsat_validation/neon/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_brdfandtopo_corrected_envi.img",
+  "flight_id": "NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance",
+  "scale_provenance": "NEON H5 Scale_Factor and inherited ENVI reflectance scale factor",
+  "site": "R10C",
+  "source_h5": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/validation-input/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5",
+  "synthetic_scale_factor": 10000,
+  "topo_fit_mode": "scene",
+  "undarkened_raster": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/artifacts/real_landsat_validation/neon/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_landsat_oli_undarkened_envi.img"
+}
