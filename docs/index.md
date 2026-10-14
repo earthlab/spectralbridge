@@ -10,7 +10,7 @@ hide:
     <div class="sb-hero__copy">
       <p class="sb-eyebrow">NEON flightlines · drone imagery · bulk analysis</p>
       <h1 id="spectralbridge">SpectralBridge</h1>
-      <p class="sb-hero__lead">Connecting environmental observations across sensors and scales.</p>
+      <p class="sb-hero__lead">Connect reflectance processing, spectral libraries and sensor comparisons.</p>
       <p class="sb-hero__body">Airborne, drone and satellite observations differ in wavelength coverage, ground footprint, geometry and processing history. SpectralBridge is an open-source Python package for processing, harmonizing and comparing these observations, with explicit assumptions, provenance and QA.</p>
       <div class="sb-button-row">
         <a class="sb-button sb-button--primary" href="concepts/measurements/">Understand the measurements</a>
@@ -75,9 +75,13 @@ hide:
       </a>
     </div>
     <figure class="sb-product-example">
-      <a href="validation/artifacts/r10c-l002-20210915/qa/stages/03_brdf_topographic_correction/overview.png"><img src="validation/artifacts/r10c-l002-20210915/qa/stages/03_brdf_topographic_correction/overview.png" alt="Real R10C flightline QA comparing raw and persisted BRDF/topography-corrected reflectance" loading="lazy"></a>
-      <figcaption>Recorded R10C flightline, 15 September 2021: spatial and spectral diagnostics compare raw and combined BRDF/topography-corrected products. The median curves nearly overlap; flagged poor-quality wavelengths remain visible. This demonstrates inspectable processing and internal QA, not independent sensor agreement or a separately stored topo-only correction. <a href="validation/real-data-example/">Read the run, warnings and provenance.</a> <a href="validation/artifacts/r10c-l002-20210915/qa/stages/03_brdf_topographic_correction/overview.png">Open the figure at full size.</a></figcaption>
+      <a href="spectral-library/"><img src="images/spectral-library/figure-1.png" alt="Empirical polygon spectral library showing category variability, sampling hierarchy, spectral PCA and paired NEON to synthetic OLI representations" loading="lazy"></a>
+      <figcaption>Real polygon spectra retain both within-group variability and overlapping ecological structure. The library's physical scale remains unresolved, so values are labeled in stored units. <a href="spectral-library/">Explore the library, data model and source provenance.</a></figcaption>
     </figure>
+    <div class="sb-evidence-flow" role="group" aria-label="Optional paths from processing to ecological research">
+      <span>Correction and QA</span><b aria-hidden="true">→</b><span>Spectral library</span><b aria-hidden="true">→</b><span>Biological variation</span><b aria-hidden="true">→</b><span>Sensor translation</span><b aria-hidden="true">→</b><span>Independent comparison</span><b aria-hidden="true">→</b><span>Experimental mixture readiness</span>
+    </div>
+    <p>Follow optional downstream analyses without changing the core NEON, drone and bulk processing routes. <a href="spectral-library/sensor-transfer/">Sensor information retention</a> and <a href="validation/landsat-pilot/">one real-Landsat pilot</a> supply different evidence; <a href="spectral-library/mesma-readiness/">operational abundance validation remains incomplete</a>.</p>
   </section>
 
   <details class="sb-advanced-views">
@@ -93,7 +97,7 @@ hide:
       <div class="sb-science-panel__copy">
         <span class="sb-science-panel__number">01 / Observing systems</span>
         <h3>Measure at three scales.</h3>
-        <p>NEON airborne imaging spectroscopy, MicaSense UAS observations, and Landsat Collection 2 NBAR each sample reflectance differently. The first panel keeps their spectral ranges and sampling patterns visible together.</p>
+        <p>NEON airborne imaging spectroscopy, MicaSense UAS observations and Landsat each sample reflectance differently. The supplied conceptual artwork uses NBAR terminology; the independent pilot documented here uses Collection 2 Level-2 surface reflectance and does not establish NBAR agreement. The first panel keeps their spectral ranges and sampling patterns visible together.</p>
         <a href="concepts/why-calibration/">Why cross-sensor calibration matters →</a>
       </div>
       <div class="sb-science-panel__viewport" tabindex="0" aria-label="Scrollable enlarged sensor-platform figure">

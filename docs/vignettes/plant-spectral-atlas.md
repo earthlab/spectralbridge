@@ -783,3 +783,84 @@ establish physical band identity. Original headers/response provenance are neede
 before MicaSense biological inference. The audit, design, detailed results,
 validation and PDF/PNG/SVG figures are recorded under
 `provenance/sensor-pft-transfer/2026-10-14/`.
+
+## Assess MESMA readiness separately from spectral differences
+
+A significant PFT/category spectrum contrast does not prove that its fractions
+can be recovered from mixtures. The experimental readiness audit checks material
+annotations, valid spectral support, within-class variability, candidate selection,
+convex ambiguity, controlled fractions, detection errors and grouped transfer.
+It reuses the verified empirical compact summaries, not fitted quantile curves
+as independent endmembers.
+
+```bash
+python examples/mesma_readiness.py \
+  Aug_2026_all_polygons_merged_pixel_extraction.parquet \
+  --compact artifacts/plant_spectral_atlas/sensor_pft_transfer/compact \
+  --output artifacts/plant_spectral_atlas/mesma_readiness_first_pass \
+  --first-pass
+```
+
+After checking the analytic solver tests and controlled first pass, omit
+`--first-pass` and use a separate output directory for the expanded grouped audit.
+The implementation is experimental and does not add a stable top-level MESMA
+processing API. No raster abundance map is produced.
+
+The input source is read in place. Atmospheric masks and disconnected wavelength
+support are inherited. Up to 12 training candidate identities/class bound the
+proposal pool; exact two/three-material searches check a 20,000-model cap before
+allocation. A small fixed-library FCLS benchmark and empirical Monte Carlo
+endmember bundles provide alternatives. Library-size, idealized shade and selector
+sensitivities are retained in the source-specific provenance workflow. A sum-one
+nonnegative L1 penalty is constant, so it is not presented as a sparse benchmark.
+
+Every test GlobalID is excluded from training across all flights/years; selectors
+are rerun inside training. Flight targets are actual flight-specific spectra,
+not all-flight year medians. Unsupported class/year directions remain explicit.
+NEON and synthetic OLI use identical sources, fractions and candidate identities.
+Gradient points and overlapping folds are not independent biological replicates.
+
+For the supplied library, three plant-fold benchmarks with two EAR-selected
+candidates/class and up to three materials yielded macro class/fold fraction
+RMSE 0.344 for inferred PFTs and 0.380 for researcher categories in NEON, versus
+0.351 and 0.380 in synthetic OLI. These are conditional linear-mixture errors on
+held-out polygon spectra, **not field-cover accuracy**. Other selectors, larger
+sets and Monte Carlo change the errors, but none establishes operational readiness.
+More candidate spectra can improve reconstruction while increasing wrong-class
+mixture ambiguity. Small spectral residuals do not guarantee correct fractions.
+
+The library supports controlled spectral/mixture diagnostics. Operational material
+abundance remains insufficiently supported: per-source physical scales and purity
+are unverified, verified soil/litter/water/snow/measured shade coverage is missing,
+and independent reference fractions are unavailable. Rock, Bare and some dead
+subtypes exist in the original annotations; Bare is not automatically soil, and
+Non-vegetated & dead is not one pure material. The real R10C Landsat pilot does not
+validate ecological fractions or noise for these different sites.
+
+Design, all twenty scientific answers, exact memberships, compressed tables, six
+primary figure families and coverage supplement are in the repository's
+[MESMA readiness evidence](https://github.com/earthlab/spectralbridge/tree/main/provenance/mesma-readiness/2026-10-14).
+The full workflow distinguishes spectral separability, mixture identifiability,
+fraction recovery and transferable ecological inference.
+
+## Reproduce the two manuscript summary figures
+
+The source-specific example
+`python -m examples.publication_figures.build_spectral_library_figures` verifies
+completed local sensor-transfer, method-audit and real-Landsat pilot manifests,
+then exports two four-panel figures and their standalone panels as PDF/PNG/SVG,
+a 400 dpi combined preview, captions and panel-level provenance. It uses the
+original merged library in place and the existing compact empirical summaries;
+it does not rerun inference or create a pixel cache.
+
+The first figure shows researcher-category spectral medians/IQRs, sample
+hierarchy, descriptive common-support weighted PCA and deterministic paired
+NEON/OLI representatives. The second reuses acquisition-matched inferred-PFT
+contrasts/localization, paired OLI effect retention and the separate single
+real-Landsat pilot. Library values remain labeled in stored units until source
+scaling is verified; the pilot's surface reflectance scaling is independently
+verified. Neither figure establishes classification, causal mechanisms or
+mixture recovery. See the example README and
+[panel source audit](https://github.com/earthlab/spectralbridge/blob/main/provenance/publication-figures/2026-10-14/FIGURE_SOURCE_AUDIT.md).
+
+For a concise scientific reading path, use the [library overview](../spectral-library/index.md), [biological analysis](../spectral-library/biological-variation.md) and [API maturity map](../api/scientific-analysis.md). This retained vignette contains the detailed historical analysis commands.

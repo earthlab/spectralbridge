@@ -1,0 +1,433 @@
+scheme,fold,sensor,label,formulation,estimand,N,fraction_RMSE,mean_bias,shade_truth,shade_estimate_mean
+inferred_pft,plant_0,NEON,DBS,no_shade,total_footprint,170,0.28911129547613457,-0.12440050766306708,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,DBT,no_shade,total_footprint,170,0.25768316195260016,-0.008490205986131821,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,EBS,no_shade,total_footprint,170,0.22246262253361723,0.03278908998294183,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,ECS,no_shade,total_footprint,170,0.294398273683264,-0.12250381660667065,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,ECT,no_shade,total_footprint,170,0.5807662611355474,0.4726054402729278,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,DBS,explicit_black_shade,total_footprint,170,0.20994896023632853,-0.04401862686211015,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,DBT,explicit_black_shade,total_footprint,170,0.24300139817641125,0.031820500392379596,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,EBS,explicit_black_shade,total_footprint,170,0.23711221393447057,0.06741097361558478,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,ECS,explicit_black_shade,total_footprint,170,0.2573577773041121,-0.07899136623777478,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,ECT,explicit_black_shade,total_footprint,170,0.24382001249622318,0.03296746565813899,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,DBS,no_shade,nonshade_composition,170,0.37640041008490877,-0.17395933119247883,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,DBT,no_shade,nonshade_composition,170,0.31378007381225914,-0.05716667657436711,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,EBS,no_shade,nonshade_composition,170,0.260203189627634,-0.01610796884058757,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,ECS,no_shade,nonshade_composition,170,0.38088639899560983,-0.1727244048419648,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,ECT,no_shade,nonshade_composition,170,0.5641078975454411,0.4199583814493983,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,DBS,shade_normalized,nonshade_composition,170,0.26778142464883126,-0.05263668943990465,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,DBT,shade_normalized,nonshade_composition,170,0.2960860698831546,0.02302684701921225,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,EBS,shade_normalized,nonshade_composition,170,0.31980740805176844,0.09704332953338896,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,ECS,shade_normalized,nonshade_composition,170,0.34350329830803916,-0.08566673512493278,0.25,0.2408110534337816
+inferred_pft,plant_0,NEON,ECT,shade_normalized,nonshade_composition,170,0.317783295870557,0.018233248012236213,0.25,0.2408110534337816
+inferred_pft,plant_0,OLI,DBS,no_shade,total_footprint,170,0.2902339773281648,-0.13232387886255317,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,DBT,no_shade,total_footprint,170,0.26422443949406915,-5.05030087384039e-05,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,EBS,no_shade,total_footprint,170,0.22965142459262183,0.06368981835750591,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,ECS,no_shade,total_footprint,170,0.28499336892611576,-0.12471902275079023,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,ECT,no_shade,total_footprint,170,0.5564521783297038,0.443403586264576,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,DBS,explicit_black_shade,total_footprint,170,0.2703240830394783,-0.08558987954287442,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,DBT,explicit_black_shade,total_footprint,170,0.2881998228377953,0.0635260313892703,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,EBS,explicit_black_shade,total_footprint,170,0.24256745480340747,0.07030223040155298,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,ECS,explicit_black_shade,total_footprint,170,0.27878748021767974,-0.06926193663526724,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,ECT,explicit_black_shade,total_footprint,170,0.2673825067450822,0.03991136878103592,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,DBS,no_shade,nonshade_composition,170,0.3802738070319497,-0.18188270239196497,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,DBT,no_shade,nonshade_composition,170,0.3141916237718637,-0.04872697359697369,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,EBS,no_shade,nonshade_composition,170,0.25267324749488934,0.014792759533976498,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,ECS,no_shade,nonshade_composition,170,0.37358581642628375,-0.17493961098608438,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,ECT,no_shade,nonshade_composition,170,0.5409999363762716,0.39075652744104644,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,DBS,shade_normalized,nonshade_composition,170,0.36259187225941225,-0.09994069796608639,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,DBT,shade_normalized,nonshade_composition,170,0.340305908191169,0.05652645649884872,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,EBS,shade_normalized,nonshade_composition,170,0.330360562987916,0.0997717108487186,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,ECS,shade_normalized,nonshade_composition,170,0.37199222531070825,-0.07704431328216156,0.25,0.23111218560628244
+inferred_pft,plant_0,OLI,ECT,shade_normalized,nonshade_composition,170,0.3342417064439065,0.020686843900680606,0.25,0.23111218560628244
+inferred_pft,plant_1,NEON,DBS,no_shade,total_footprint,170,0.24247847038032996,-0.0355372894694233,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,DBT,no_shade,total_footprint,170,0.2916153505863802,-0.031303921547990325,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,EBS,no_shade,total_footprint,170,0.21482236036180533,0.03912361985489176,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,ECS,no_shade,total_footprint,170,0.5058495038053155,0.38668504076732535,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,ECT,no_shade,total_footprint,170,0.2627468901151713,-0.10896744960480352,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,DBS,explicit_black_shade,total_footprint,170,0.2576078883763673,0.0726969329384649,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,DBT,explicit_black_shade,total_footprint,170,0.2735438963400784,0.03329547179447081,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,EBS,explicit_black_shade,total_footprint,170,0.21412206413636842,0.07304770311657281,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,ECS,explicit_black_shade,total_footprint,170,0.21620139590744827,-0.058722330974947765,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,ECT,explicit_black_shade,total_footprint,170,0.1989058334788264,-0.09850209499582081,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,DBS,no_shade,nonshade_composition,170,0.3070273739768617,-0.08509611299883507,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,DBT,no_shade,nonshade_composition,170,0.34742850569477823,-0.07998039213622563,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,EBS,no_shade,nonshade_composition,170,0.2515262329827234,-0.00977343896863765,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,ECS,no_shade,nonshade_composition,170,0.4821769071753002,0.3364644525320313,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,ECT,no_shade,nonshade_composition,170,0.34678433149984195,-0.16161450842833294,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,DBS,shade_normalized,nonshade_composition,170,0.3352170224032502,0.07511756226290263,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,DBT,shade_normalized,nonshade_composition,170,0.30409805394588924,0.027472633968276722,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,EBS,shade_normalized,nonshade_composition,170,0.26375726943869315,0.09748026684234562,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,ECS,shade_normalized,nonshade_composition,170,0.26905894327222923,-0.06547767855824008,0.25,0.22818431812126003
+inferred_pft,plant_1,NEON,ECT,shade_normalized,nonshade_composition,170,0.26863394295781806,-0.13459278451528492,0.25,0.22818431812126003
+inferred_pft,plant_1,OLI,DBS,no_shade,total_footprint,170,0.21415904999785176,-0.03259136989123515,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,DBT,no_shade,total_footprint,170,0.28615418155440603,-0.039933346034525634,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,EBS,no_shade,total_footprint,170,0.2143796846756424,0.07709024842889906,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,ECS,no_shade,total_footprint,170,0.4818410334002857,0.3289777907380109,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,ECT,no_shade,total_footprint,170,0.2998555362263093,-0.08354332324114913,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,DBS,explicit_black_shade,total_footprint,170,0.22915575740494062,0.06900962871099157,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,DBT,explicit_black_shade,total_footprint,170,0.24441274093522086,0.010842402847828444,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,EBS,explicit_black_shade,total_footprint,170,0.20496747487757547,0.09266467579626966,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,ECS,explicit_black_shade,total_footprint,170,0.2567760983212972,-0.09763833423041712,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,ECT,explicit_black_shade,total_footprint,170,0.18463689560291435,-0.04834313162866479,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,DBS,no_shade,nonshade_composition,170,0.27683322819085987,-0.0821501934206469,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,DBT,no_shade,nonshade_composition,170,0.34618733203621455,-0.08860981662276092,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,EBS,no_shade,nonshade_composition,170,0.22942931547347115,0.02819318960536965,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,ECS,no_shade,nonshade_composition,170,0.46815157885679903,0.27875720250271674,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,ECT,no_shade,nonshade_composition,170,0.37722453352710367,-0.1361903820646785,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,DBS,shade_normalized,nonshade_composition,170,0.30149245189476775,0.06677103766358783,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,DBT,shade_normalized,nonshade_composition,170,0.2647592752583175,-0.0018096723062561663,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,EBS,shade_normalized,nonshade_composition,170,0.2566824146764543,0.1233336296343547,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,ECS,shade_normalized,nonshade_composition,170,0.33048160277945715,-0.12786793404786462,0.25,0.22346475850399222
+inferred_pft,plant_1,OLI,ECT,shade_normalized,nonshade_composition,170,0.24919942736688186,-0.06042706094382173,0.25,0.22346475850399222
+inferred_pft,plant_2,NEON,DBS,no_shade,total_footprint,170,0.35555850396921834,0.007899869379017451,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,DBT,no_shade,total_footprint,170,0.25778375923132096,-0.06852285540929014,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,EBS,no_shade,total_footprint,170,0.12914898566125246,0.02265490350197996,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,ECS,no_shade,total_footprint,170,0.2728146996102691,-0.1439441271599665,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,ECT,no_shade,total_footprint,170,0.5858395222039734,0.4319122096882592,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,DBS,explicit_black_shade,total_footprint,170,0.3697505548273533,0.1600818541628382,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,DBT,explicit_black_shade,total_footprint,170,0.3583392905468624,0.056941944777296936,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,EBS,explicit_black_shade,total_footprint,170,0.16415333580476074,0.0644891436980191,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,ECS,explicit_black_shade,total_footprint,170,0.2527573344997687,-0.13099877757310346,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,ECT,explicit_black_shade,total_footprint,170,0.2530727731498469,-0.10413607781437084,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,DBS,no_shade,nonshade_composition,170,0.40008157926491283,-0.04165895415039432,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,DBT,no_shade,nonshade_composition,170,0.33392133569626337,-0.11719932599752544,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,EBS,no_shade,nonshade_composition,170,0.1506238723611946,-0.02624215532154945,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,ECS,no_shade,nonshade_composition,170,0.3638162552811611,-0.19416471539526065,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,ECT,no_shade,nonshade_composition,170,0.5699340456180171,0.3792651508647298,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,DBS,shade_normalized,nonshade_composition,170,0.4055188230084603,0.15822724627479529,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,DBT,shade_normalized,nonshade_composition,170,0.5042321304404593,0.09792617185724335,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,EBS,shade_normalized,nonshade_composition,170,0.2112579837929583,0.06321964938640987,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,ECS,shade_normalized,nonshade_composition,170,0.33336148893434636,-0.1739433734124855,0.25,0.20362191274932007
+inferred_pft,plant_2,NEON,ECT,shade_normalized,nonshade_composition,170,0.3284515159919589,-0.14542969410596304,0.25,0.20362191274932007
+inferred_pft,plant_2,OLI,DBS,no_shade,total_footprint,170,0.3607343447108846,0.02555439753720469,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,DBT,no_shade,total_footprint,170,0.2793282222046891,-0.1009189014331405,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,EBS,no_shade,total_footprint,170,0.11795325398921695,0.013275590689027936,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,ECS,no_shade,total_footprint,170,0.27636355960473746,-0.1454717030614939,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,ECT,no_shade,total_footprint,170,0.6126804214343264,0.4575606162684017,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,DBS,explicit_black_shade,total_footprint,170,0.38558293169007724,0.19853862558313204,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,DBT,explicit_black_shade,total_footprint,170,0.36320515690042743,0.02777937770353493,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,EBS,explicit_black_shade,total_footprint,170,0.1478982912589971,0.05168673111147988,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,ECS,explicit_black_shade,total_footprint,170,0.26533456238863834,-0.139728347813303,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,ECT,explicit_black_shade,total_footprint,170,0.2647209923724647,-0.10157683909461188,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,DBS,no_shade,nonshade_composition,170,0.40140354996020117,-0.02400442599220707,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,DBT,no_shade,nonshade_composition,170,0.3599819834816969,-0.1495953720213758,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,EBS,no_shade,nonshade_composition,170,0.14578592797199505,-0.03562146813450148,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,ECS,no_shade,nonshade_composition,170,0.36712521361186584,-0.19569229129678806,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,ECT,no_shade,nonshade_composition,170,0.6025813144389038,0.4049135574448724,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,DBS,shade_normalized,nonshade_composition,170,0.43625330872533025,0.22534254292174113,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,DBT,shade_normalized,nonshade_composition,170,0.49676270432033137,0.052068975099083134,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,EBS,shade_normalized,nonshade_composition,170,0.20024897597623667,0.05151894907767123,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,ECS,shade_normalized,nonshade_composition,170,0.352471971035487,-0.18534388280768233,0.25,0.21330045250976806
+inferred_pft,plant_2,OLI,ECT,shade_normalized,nonshade_composition,170,0.3415970019053074,-0.14358658429081317,0.25,0.21330045250976806
+material,plant_0,NEON,Bare,no_shade,total_footprint,588,0.22378761283863338,-0.059613164819251184,0.25,0.15005792639216195
+material,plant_0,NEON,Dead - Woody downed,no_shade,total_footprint,588,0.23761191280836796,0.011210449801469173,0.25,0.15005792639216195
+material,plant_0,NEON,Dead - Woody standing,no_shade,total_footprint,588,0.35839001688034205,0.1443002168484784,0.25,0.15005792639216195
+material,plant_0,NEON,Deciduous,no_shade,total_footprint,588,0.23344710263480464,-0.0005816884492706634,0.25,0.15005792639216195
+material,plant_0,NEON,Evergreen,no_shade,total_footprint,588,0.3167656587118191,0.1356876463675186,0.25,0.15005792639216195
+material,plant_0,NEON,Herbaceous,no_shade,total_footprint,588,0.28569521374175455,0.006759488230642474,0.25,0.15005792639216195
+material,plant_0,NEON,Rock,no_shade,total_footprint,588,0.2611335552379733,0.02703534124875493,0.25,0.15005792639216195
+material,plant_0,NEON,Woody shrub,no_shade,total_footprint,588,0.26062886780693123,-0.014798289228341739,0.25,0.15005792639216195
+material,plant_0,NEON,Bare,explicit_black_shade,total_footprint,588,0.21464151991898184,-0.04423215867475139,0.25,0.15005792639216195
+material,plant_0,NEON,Dead - Woody downed,explicit_black_shade,total_footprint,588,0.25682427045000916,0.040133019620138335,0.25,0.15005792639216195
+material,plant_0,NEON,Dead - Woody standing,explicit_black_shade,total_footprint,588,0.21129717818838203,-0.049888758630975055,0.25,0.15005792639216195
+material,plant_0,NEON,Deciduous,explicit_black_shade,total_footprint,588,0.25384992925299915,0.042548611290202105,0.25,0.15005792639216195
+material,plant_0,NEON,Evergreen,explicit_black_shade,total_footprint,588,0.18560962120701663,-0.006539662222972608,0.25,0.15005792639216195
+material,plant_0,NEON,Herbaceous,explicit_black_shade,total_footprint,588,0.2856760665382157,0.02211242438189852,0.25,0.15005792639216195
+material,plant_0,NEON,Rock,explicit_black_shade,total_footprint,588,0.2596225208641135,0.04055019515771989,0.25,0.15005792639216195
+material,plant_0,NEON,Woody shrub,explicit_black_shade,total_footprint,588,0.2813129520477095,0.05525840268657826,0.25,0.15005792639216195
+material,plant_0,NEON,Bare,no_shade,nonshade_composition,588,0.29163886752699064,-0.0904167362478226,0.25,0.15005792639216195
+material,plant_0,NEON,Dead - Woody downed,no_shade,nonshade_composition,588,0.27964542876369575,-0.0190829175454696,0.25,0.15005792639216195
+material,plant_0,NEON,Dead - Woody standing,no_shade,nonshade_composition,588,0.37698920470994546,0.11419817603215184,0.25,0.15005792639216195
+material,plant_0,NEON,Deciduous,no_shade,nonshade_composition,588,0.2771108308168094,-0.030811280286005355,0.25,0.15005792639216195
+material,plant_0,NEON,Evergreen,no_shade,nonshade_composition,588,0.3286800655736109,0.10501162595935536,0.25,0.15005792639216195
+material,plant_0,NEON,Herbaceous,no_shade,nonshade_composition,588,0.333092626066993,-0.024681838299969776,0.25,0.15005792639216195
+material,plant_0,NEON,Rock,no_shade,nonshade_composition,588,0.29685081809824004,-0.005490168955326707,0.25,0.15005792639216195
+material,plant_0,NEON,Woody shrub,no_shade,nonshade_composition,588,0.3166612764908591,-0.048726860656913173,0.25,0.15005792639216195
+material,plant_0,NEON,Bare,shade_normalized,nonshade_composition,588,0.2794428734067131,-0.06746282944866645,0.25,0.15005792639216195
+material,plant_0,NEON,Dead - Woody downed,shade_normalized,nonshade_composition,588,0.30656982988528503,0.024271359314508696,0.25,0.15005792639216195
+material,plant_0,NEON,Dead - Woody standing,shade_normalized,nonshade_composition,588,0.28190986389481354,-0.06758177515935249,0.25,0.15005792639216195
+material,plant_0,NEON,Deciduous,shade_normalized,nonshade_composition,588,0.3169721661667205,0.044282089116620446,0.25,0.15005792639216195
+material,plant_0,NEON,Evergreen,shade_normalized,nonshade_composition,588,0.23686870058010429,-0.008125929807174574,0.25,0.15005792639216195
+material,plant_0,NEON,Herbaceous,shade_normalized,nonshade_composition,588,0.3328388241687771,-0.0029634985376128034,0.25,0.15005792639216195
+material,plant_0,NEON,Rock,shade_normalized,nonshade_composition,588,0.2953449633949807,0.014944592226852509,0.25,0.15005792639216195
+material,plant_0,NEON,Woody shrub,shade_normalized,nonshade_composition,588,0.35586307208825046,0.06263599229482467,0.25,0.15005792639216195
+material,plant_0,OLI,Bare,no_shade,total_footprint,588,0.2129942549530825,-0.08143094820539666,0.25,0.13924200586614324
+material,plant_0,OLI,Dead - Woody downed,no_shade,total_footprint,588,0.2755562095943315,0.03903846461989229,0.25,0.13924200586614324
+material,plant_0,OLI,Dead - Woody standing,no_shade,total_footprint,588,0.31875129988834205,0.10884698694477074,0.25,0.13924200586614324
+material,plant_0,OLI,Deciduous,no_shade,total_footprint,588,0.25942257314246286,0.030066132392057934,0.25,0.13924200586614324
+material,plant_0,OLI,Evergreen,no_shade,total_footprint,588,0.3429090597762767,0.16471309928652336,0.25,0.13924200586614324
+material,plant_0,OLI,Herbaceous,no_shade,total_footprint,588,0.27000078774394565,0.0039475759322816365,0.25,0.13924200586614324
+material,plant_0,OLI,Rock,no_shade,total_footprint,588,0.3069037170343763,0.06217522529006,0.25,0.13924200586614324
+material,plant_0,OLI,Woody shrub,no_shade,total_footprint,588,0.22669951071840244,-0.07735653626018929,0.25,0.13924200586614324
+material,plant_0,OLI,Bare,explicit_black_shade,total_footprint,588,0.2145663975298697,-0.07948562713400655,0.25,0.13924200586614324
+material,plant_0,OLI,Dead - Woody downed,explicit_black_shade,total_footprint,588,0.2803388629815225,0.04799298340442558,0.25,0.13924200586614324
+material,plant_0,OLI,Dead - Woody standing,explicit_black_shade,total_footprint,588,0.20172319009267842,-0.044113846146198406,0.25,0.13924200586614324
+material,plant_0,OLI,Deciduous,explicit_black_shade,total_footprint,588,0.27131052337412187,0.06425142034451005,0.25,0.13924200586614324
+material,plant_0,OLI,Evergreen,explicit_black_shade,total_footprint,588,0.22353919702397412,0.045242615339784756,0.25,0.13924200586614324
+material,plant_0,OLI,Herbaceous,explicit_black_shade,total_footprint,588,0.27944673293046896,0.03509896911587746,0.25,0.13924200586614324
+material,plant_0,OLI,Rock,explicit_black_shade,total_footprint,588,0.3131833148085163,0.09365679199606973,0.25,0.13924200586614324
+material,plant_0,OLI,Woody shrub,explicit_black_shade,total_footprint,588,0.20720549402768684,-0.05188531278660585,0.25,0.13924200586614324
+material,plant_0,OLI,Bare,no_shade,nonshade_composition,588,0.28448673736576446,-0.11223451963396808,0.25,0.13924200586614324
+material,plant_0,OLI,Dead - Woody downed,no_shade,nonshade_composition,588,0.3109856513018563,0.00874509727295352,0.25,0.13924200586614324
+material,plant_0,OLI,Dead - Woody standing,no_shade,nonshade_composition,588,0.34264235281430155,0.07874494612844422,0.25,0.13924200586614324
+material,plant_0,OLI,Deciduous,no_shade,nonshade_composition,588,0.29327281906288827,-0.00016345944467675342,0.25,0.13924200586614324
+material,plant_0,OLI,Evergreen,no_shade,nonshade_composition,588,0.35037866944235924,0.13403707887836008,0.25,0.13924200586614324
+material,plant_0,OLI,Herbaceous,no_shade,nonshade_composition,588,0.3186551689637964,-0.027493750598330608,0.25,0.13924200586614324
+material,plant_0,OLI,Rock,no_shade,nonshade_composition,588,0.33742250826471754,0.02964971508597835,0.25,0.13924200586614324
+material,plant_0,OLI,Woody shrub,no_shade,nonshade_composition,588,0.2963438199233138,-0.11128510768876072,0.25,0.13924200586614324
+material,plant_0,OLI,Bare,shade_normalized,nonshade_composition,588,0.28546407988347283,-0.10800765083691405,0.25,0.13924200586614324
+material,plant_0,OLI,Dead - Woody downed,shade_normalized,nonshade_composition,588,0.3244883503164156,0.032075516969600495,0.25,0.13924200586614324
+material,plant_0,OLI,Dead - Woody standing,shade_normalized,nonshade_composition,588,0.27184492488584433,-0.059296039985921825,0.25,0.13924200586614324
+material,plant_0,OLI,Deciduous,shade_normalized,nonshade_composition,588,0.32795999218057154,0.06638879534510597,0.25,0.13924200586614324
+material,plant_0,OLI,Evergreen,shade_normalized,nonshade_composition,588,0.27426765325201424,0.05101034487315004,0.25,0.13924200586614324
+material,plant_0,OLI,Herbaceous,shade_normalized,nonshade_composition,588,0.3326908494683189,0.018108554779221495,0.25,0.13924200586614324
+material,plant_0,OLI,Rock,shade_normalized,nonshade_composition,588,0.3454160901240767,0.0776385777192864,0.25,0.13924200586614324
+material,plant_0,OLI,Woody shrub,shade_normalized,nonshade_composition,588,0.2701541696363767,-0.07791809886352856,0.25,0.13924200586614324
+material,plant_1,NEON,Bare,no_shade,total_footprint,588,0.17111786205472113,-0.04155532201228864,0.25,0.26659947130075
+material,plant_1,NEON,Dead - Woody downed,no_shade,total_footprint,588,0.27895645128858915,-0.0031098689884149944,0.25,0.26659947130075
+material,plant_1,NEON,Dead - Woody standing,no_shade,total_footprint,588,0.4206698481454986,0.2874648728141618,0.25,0.26659947130075
+material,plant_1,NEON,Deciduous,no_shade,total_footprint,588,0.20670065516893818,-0.029499560552363545,0.25,0.26659947130075
+material,plant_1,NEON,Evergreen,no_shade,total_footprint,588,0.3682259968133337,0.2582954941151326,0.25,0.26659947130075
+material,plant_1,NEON,Herbaceous,no_shade,total_footprint,588,0.21888158038305694,-0.07405472752617857,0.25,0.26659947130075
+material,plant_1,NEON,Rock,no_shade,total_footprint,588,0.23782959038271462,-0.06709203551564165,0.25,0.26659947130075
+material,plant_1,NEON,Woody shrub,no_shade,total_footprint,588,0.21560318910634932,-0.08044885233440695,0.25,0.26659947130075
+material,plant_1,NEON,Bare,explicit_black_shade,total_footprint,588,0.12363540798282466,0.021650560762092402,0.25,0.26659947130075
+material,plant_1,NEON,Dead - Woody downed,explicit_black_shade,total_footprint,588,0.2714228210716447,0.050743343531561264,0.25,0.26659947130075
+material,plant_1,NEON,Dead - Woody standing,explicit_black_shade,total_footprint,588,0.19086516412350663,-0.024530516476836402,0.25,0.26659947130075
+material,plant_1,NEON,Deciduous,explicit_black_shade,total_footprint,588,0.20367162761685842,0.05131179434868208,0.25,0.26659947130075
+material,plant_1,NEON,Evergreen,explicit_black_shade,total_footprint,588,0.14973822273314533,0.007830229707830321,0.25,0.26659947130075
+material,plant_1,NEON,Herbaceous,explicit_black_shade,total_footprint,588,0.20506584712918832,-0.008673321417775697,0.25,0.26659947130075
+material,plant_1,NEON,Rock,explicit_black_shade,total_footprint,588,0.20765832804295442,-0.07975553111960171,0.25,0.26659947130075
+material,plant_1,NEON,Woody shrub,explicit_black_shade,total_footprint,588,0.17537783726884731,-0.03517603063670226,0.25,0.26659947130075
+material,plant_1,NEON,Bare,no_shade,nonshade_composition,588,0.22628929626831554,-0.07235889344086009,0.25,0.26659947130075
+material,plant_1,NEON,Dead - Woody downed,no_shade,nonshade_composition,588,0.32234962476187684,-0.03340323633535376,0.25,0.26659947130075
+material,plant_1,NEON,Dead - Woody standing,no_shade,nonshade_composition,588,0.4168207965100716,0.2573628319978352,0.25,0.26659947130075
+material,plant_1,NEON,Deciduous,no_shade,nonshade_composition,588,0.2560741437950745,-0.059729152389098226,0.25,0.26659947130075
+material,plant_1,NEON,Evergreen,no_shade,nonshade_composition,588,0.36312299086686595,0.22761947370696933,0.25,0.26659947130075
+material,plant_1,NEON,Herbaceous,no_shade,nonshade_composition,588,0.28579109672474884,-0.10549605405679081,0.25,0.26659947130075
+material,plant_1,NEON,Rock,no_shade,nonshade_composition,588,0.3016630608307821,-0.09961754571972328,0.25,0.26659947130075
+material,plant_1,NEON,Woody shrub,no_shade,nonshade_composition,588,0.28692132283124266,-0.11437742376297838,0.25,0.26659947130075
+material,plant_1,NEON,Bare,shade_normalized,nonshade_composition,588,0.15072087834018377,0.03126186219535965,0.25,0.26659947130075
+material,plant_1,NEON,Dead - Woody downed,shade_normalized,nonshade_composition,588,0.3283856301956311,0.05262904651730054,0.25,0.26659947130075
+material,plant_1,NEON,Dead - Woody standing,shade_normalized,nonshade_composition,588,0.2398824068499654,-0.02655662397425578,0.25,0.26659947130075
+material,plant_1,NEON,Deciduous,shade_normalized,nonshade_composition,588,0.2568011960866536,0.07164950048640062,0.25,0.26659947130075
+material,plant_1,NEON,Evergreen,shade_normalized,nonshade_composition,588,0.2004659593048313,0.0207491290360148,0.25,0.26659947130075
+material,plant_1,NEON,Herbaceous,shade_normalized,nonshade_composition,588,0.2765089659746449,-0.006920858539000128,0.25,0.26659947130075
+material,plant_1,NEON,Rock,shade_normalized,nonshade_composition,588,0.27828100149938423,-0.1042027910088094,0.25,0.26659947130075
+material,plant_1,NEON,Woody shrub,shade_normalized,nonshade_composition,588,0.2240431904667255,-0.03860926471301031,0.25,0.26659947130075
+material,plant_1,OLI,Bare,no_shade,total_footprint,588,0.16304119037655926,-0.03821289889368747,0.25,0.24797676873567795
+material,plant_1,OLI,Dead - Woody downed,no_shade,total_footprint,588,0.23160882803346394,-0.031345682173750083,0.25,0.24797676873567795
+material,plant_1,OLI,Dead - Woody standing,no_shade,total_footprint,588,0.41149168636716876,0.27150086528201944,0.25,0.24797676873567795
+material,plant_1,OLI,Deciduous,no_shade,total_footprint,588,0.21656692674356623,-0.04022461256462158,0.25,0.24797676873567795
+material,plant_1,OLI,Evergreen,no_shade,total_footprint,588,0.3841412611211817,0.27195598029244894,0.25,0.24797676873567795
+material,plant_1,OLI,Herbaceous,no_shade,total_footprint,588,0.21697054520158632,-0.08472565787604154,0.25,0.24797676873567795
+material,plant_1,OLI,Rock,no_shade,total_footprint,588,0.24982733733631513,-0.023373885980037406,0.25,0.24797676873567795
+material,plant_1,OLI,Woody shrub,no_shade,total_footprint,588,0.2351918889436317,-0.07557410808633037,0.25,0.24797676873567795
+material,plant_1,OLI,Bare,explicit_black_shade,total_footprint,588,0.12108047138185639,0.017709381106633174,0.25,0.24797676873567795
+material,plant_1,OLI,Dead - Woody downed,explicit_black_shade,total_footprint,588,0.22420825243889977,0.03535338688217449,0.25,0.24797676873567795
+material,plant_1,OLI,Dead - Woody standing,explicit_black_shade,total_footprint,588,0.20378445748845603,-0.04190760997294563,0.25,0.24797676873567795
+material,plant_1,OLI,Deciduous,explicit_black_shade,total_footprint,588,0.20181440078434318,0.022463347394177907,0.25,0.24797676873567795
+material,plant_1,OLI,Evergreen,explicit_black_shade,total_footprint,588,0.19280318683302006,0.0473387157319162,0.25,0.24797676873567795
+material,plant_1,OLI,Herbaceous,explicit_black_shade,total_footprint,588,0.22144822487134755,-0.0520887194595558,0.25,0.24797676873567795
+material,plant_1,OLI,Rock,explicit_black_shade,total_footprint,588,0.2084416034594805,-0.017509421991161466,0.25,0.24797676873567795
+material,plant_1,OLI,Woody shrub,explicit_black_shade,total_footprint,588,0.22984196186387404,-0.009335848426916813,0.25,0.24797676873567795
+material,plant_1,OLI,Bare,no_shade,nonshade_composition,588,0.21655261856919267,-0.0690164703222589,0.25,0.24797676873567795
+material,plant_1,OLI,Dead - Woody downed,no_shade,nonshade_composition,588,0.2831826546725999,-0.061639049520688854,0.25,0.24797676873567795
+material,plant_1,OLI,Dead - Woody standing,no_shade,nonshade_composition,588,0.40979946799809197,0.24139882446569294,0.25,0.24797676873567795
+material,plant_1,OLI,Deciduous,no_shade,nonshade_composition,588,0.26890683618433553,-0.07045420440135627,0.25,0.24797676873567795
+material,plant_1,OLI,Evergreen,no_shade,nonshade_composition,588,0.378974524623306,0.24127995988428572,0.25,0.24797676873567795
+material,plant_1,OLI,Herbaceous,no_shade,nonshade_composition,588,0.28537667826211854,-0.11616698440665378,0.25,0.24797676873567795
+material,plant_1,OLI,Rock,no_shade,nonshade_composition,588,0.30112329194632764,-0.055899396184119036,0.25,0.24797676873567795
+material,plant_1,OLI,Woody shrub,no_shade,nonshade_composition,588,0.3022596467868458,-0.10950267951490181,0.25,0.24797676873567795
+material,plant_1,OLI,Bare,shade_normalized,nonshade_composition,588,0.15440006799440598,0.023141132593544122,0.25,0.24797676873567795
+material,plant_1,OLI,Dead - Woody downed,shade_normalized,nonshade_composition,588,0.27147222970102913,0.032533909101049314,0.25,0.24797676873567795
+material,plant_1,OLI,Dead - Woody standing,shade_normalized,nonshade_composition,588,0.2660256909437094,-0.05029071931065482,0.25,0.24797676873567795
+material,plant_1,OLI,Deciduous,shade_normalized,nonshade_composition,588,0.25909779255005466,0.036827890183941225,0.25,0.24797676873567795
+material,plant_1,OLI,Evergreen,shade_normalized,nonshade_composition,588,0.2436792873665386,0.06554966128753603,0.25,0.24797676873567795
+material,plant_1,OLI,Herbaceous,shade_normalized,nonshade_composition,588,0.2932087738121016,-0.07012925711337709,0.25,0.24797676873567795
+material,plant_1,OLI,Rock,shade_normalized,nonshade_composition,588,0.27614308684834266,-0.020755402241664382,0.25,0.24797676873567795
+material,plant_1,OLI,Woody shrub,shade_normalized,nonshade_composition,588,0.29349213528475354,-0.016877214500374396,0.25,0.24797676873567795
+material,plant_2,NEON,Bare,no_shade,total_footprint,588,0.20773167083640118,-0.04967096539254893,0.25,0.27173283178232965
+material,plant_2,NEON,Dead - Woody downed,no_shade,total_footprint,588,0.22110744308908098,-0.032778812861122684,0.25,0.27173283178232965
+material,plant_2,NEON,Dead - Woody standing,no_shade,total_footprint,588,0.38730040532140875,0.22901803600936857,0.25,0.27173283178232965
+material,plant_2,NEON,Deciduous,no_shade,total_footprint,588,0.17856116690512916,-0.04443552362359511,0.25,0.27173283178232965
+material,plant_2,NEON,Evergreen,no_shade,total_footprint,588,0.42960512649829896,0.33538754096913026,0.25,0.27173283178232965
+material,plant_2,NEON,Herbaceous,no_shade,total_footprint,588,0.18945135938278496,-0.07855032924965327,0.25,0.27173283178232965
+material,plant_2,NEON,Rock,no_shade,total_footprint,588,0.2404861657606298,-0.05934855803025149,0.25,0.27173283178232965
+material,plant_2,NEON,Woody shrub,no_shade,total_footprint,588,0.2497497990065446,-0.049621387821327384,0.25,0.27173283178232965
+material,plant_2,NEON,Bare,explicit_black_shade,total_footprint,588,0.197832867069757,-0.033272245274735456,0.25,0.27173283178232965
+material,plant_2,NEON,Dead - Woody downed,explicit_black_shade,total_footprint,588,0.1901224855784205,-0.0006945256859539065,0.25,0.27173283178232965
+material,plant_2,NEON,Dead - Woody standing,explicit_black_shade,total_footprint,588,0.2091653888892698,-0.015241648252438655,0.25,0.27173283178232965
+material,plant_2,NEON,Deciduous,explicit_black_shade,total_footprint,588,0.18535808417651736,0.0005750361792611332,0.25,0.27173283178232965
+material,plant_2,NEON,Evergreen,explicit_black_shade,total_footprint,588,0.2371828138000594,0.10606485147065185,0.25,0.27173283178232965
+material,plant_2,NEON,Herbaceous,explicit_black_shade,total_footprint,588,0.19305775005931305,-0.04832659929218682,0.25,0.27173283178232965
+material,plant_2,NEON,Rock,explicit_black_shade,total_footprint,588,0.2663647736582529,-0.010911645922666514,0.25,0.27173283178232965
+material,plant_2,NEON,Woody shrub,explicit_black_shade,total_footprint,588,0.2523684718422771,-0.01992605500426132,0.25,0.27173283178232965
+material,plant_2,NEON,Bare,no_shade,nonshade_composition,588,0.26634768423481003,-0.08047453682112035,0.25,0.27173283178232965
+material,plant_2,NEON,Dead - Woody downed,no_shade,nonshade_composition,588,0.28126405886111777,-0.06307218020806146,0.25,0.27173283178232965
+material,plant_2,NEON,Dead - Woody standing,no_shade,nonshade_composition,588,0.3843863991566699,0.19891599519304207,0.25,0.27173283178232965
+material,plant_2,NEON,Deciduous,no_shade,nonshade_composition,588,0.2379448315758185,-0.07466511546032982,0.25,0.27173283178232965
+material,plant_2,NEON,Evergreen,no_shade,nonshade_composition,588,0.41549586700957764,0.304711520560967,0.25,0.27173283178232965
+material,plant_2,NEON,Herbaceous,no_shade,nonshade_composition,588,0.2573925193267004,-0.10999165578026554,0.25,0.27173283178232965
+material,plant_2,NEON,Rock,no_shade,nonshade_composition,588,0.3001431631407395,-0.09187406823433311,0.25,0.27173283178232965
+material,plant_2,NEON,Woody shrub,no_shade,nonshade_composition,588,0.3142449644990653,-0.0835499592498988,0.25,0.27173283178232965
+material,plant_2,NEON,Bare,shade_normalized,nonshade_composition,588,0.24898115301599263,-0.04599006979271522,0.25,0.27173283178232965
+material,plant_2,NEON,Dead - Woody downed,shade_normalized,nonshade_composition,588,0.2718901059062491,0.01857936191839517,0.25,0.27173283178232965
+material,plant_2,NEON,Dead - Woody standing,shade_normalized,nonshade_composition,588,0.282993834572423,-0.0007909754376872552,0.25,0.27173283178232965
+material,plant_2,NEON,Deciduous,shade_normalized,nonshade_composition,588,0.2600550708109698,0.003994130159070474,0.25,0.27173283178232965
+material,plant_2,NEON,Evergreen,shade_normalized,nonshade_composition,588,0.28164899472042704,0.12016358027104362,0.25,0.27173283178232965
+material,plant_2,NEON,Herbaceous,shade_normalized,nonshade_composition,588,0.2647390068292278,-0.05330826854326008,0.25,0.27173283178232965
+material,plant_2,NEON,Rock,shade_normalized,nonshade_composition,588,0.3373029803373185,-0.016651179074914268,0.25,0.27173283178232965
+material,plant_2,NEON,Woody shrub,shade_normalized,nonshade_composition,588,0.31859811314291564,-0.025996579499932445,0.25,0.27173283178232965
+material,plant_2,OLI,Bare,no_shade,total_footprint,588,0.20686770973981083,-0.04076789105508309,0.25,0.2605739745801993
+material,plant_2,OLI,Dead - Woody downed,no_shade,total_footprint,588,0.24081390099036273,-0.008098322940903457,0.25,0.2605739745801993
+material,plant_2,OLI,Dead - Woody standing,no_shade,total_footprint,588,0.38350168622630554,0.22410893056054038,0.25,0.2605739745801993
+material,plant_2,OLI,Deciduous,no_shade,total_footprint,588,0.16353671692530888,-0.01457236578303377,0.25,0.2605739745801993
+material,plant_2,OLI,Evergreen,no_shade,total_footprint,588,0.43924168676643377,0.34057308659731467,0.25,0.2605739745801993
+material,plant_2,OLI,Herbaceous,no_shade,total_footprint,588,0.20532114518547384,-0.0914167558484999,0.25,0.2605739745801993
+material,plant_2,OLI,Rock,no_shade,total_footprint,588,0.2208888758940261,-0.08165309677250142,0.25,0.2605739745801993
+material,plant_2,OLI,Woody shrub,no_shade,total_footprint,588,0.2324688633303178,-0.07817358475783344,0.25,0.2605739745801993
+material,plant_2,OLI,Bare,explicit_black_shade,total_footprint,588,0.19591349679179867,-0.023318878084759256,0.25,0.2605739745801993
+material,plant_2,OLI,Dead - Woody downed,explicit_black_shade,total_footprint,588,0.20223618126366835,0.01914918408770762,0.25,0.2605739745801993
+material,plant_2,OLI,Dead - Woody standing,explicit_black_shade,total_footprint,588,0.19324558372134387,-0.008200681109428027,0.25,0.2605739745801993
+material,plant_2,OLI,Deciduous,explicit_black_shade,total_footprint,588,0.19246787339942129,0.055422812318124674,0.25,0.2605739745801993
+material,plant_2,OLI,Evergreen,explicit_black_shade,total_footprint,588,0.2529692157530605,0.122163090398927,0.25,0.2605739745801993
+material,plant_2,OLI,Herbaceous,explicit_black_shade,total_footprint,588,0.19482840005698324,-0.07818278281735024,0.25,0.2605739745801993
+material,plant_2,OLI,Rock,explicit_black_shade,total_footprint,588,0.2226315053910812,-0.025599980836421916,0.25,0.2605739745801993
+material,plant_2,OLI,Woody shrub,explicit_black_shade,total_footprint,588,0.23050161038209208,-0.07200673853699917,0.25,0.2605739745801993
+material,plant_2,OLI,Bare,no_shade,nonshade_composition,588,0.2606284444017948,-0.07157146248365452,0.25,0.2605739745801993
+material,plant_2,OLI,Dead - Woody downed,no_shade,nonshade_composition,588,0.29298159876971774,-0.038391690287842235,0.25,0.2605739745801993
+material,plant_2,OLI,Dead - Woody standing,no_shade,nonshade_composition,588,0.38076249694732367,0.19400688974421385,0.25,0.2605739745801993
+material,plant_2,OLI,Deciduous,no_shade,nonshade_composition,588,0.20742064860908718,-0.044801957619768455,0.25,0.2605739745801993
+material,plant_2,OLI,Evergreen,no_shade,nonshade_composition,588,0.42494413888670685,0.30989706618915147,0.25,0.2605739745801993
+material,plant_2,OLI,Herbaceous,no_shade,nonshade_composition,588,0.2749099718556571,-0.12285808237911215,0.25,0.2605739745801993
+material,plant_2,OLI,Rock,no_shade,nonshade_composition,588,0.2880042724119541,-0.11417860697658304,0.25,0.2605739745801993
+material,plant_2,OLI,Woody shrub,no_shade,nonshade_composition,588,0.301891775520464,-0.11210215618640487,0.25,0.2605739745801993
+material,plant_2,OLI,Bare,shade_normalized,nonshade_composition,588,0.24369734835541962,-0.03417619156096959,0.25,0.2605739745801993
+material,plant_2,OLI,Dead - Woody downed,shade_normalized,nonshade_composition,588,0.25605852178829014,0.031735515355730555,0.25,0.2605739745801993
+material,plant_2,OLI,Dead - Woody standing,shade_normalized,nonshade_composition,588,0.2755507401852687,0.015036240657660608,0.25,0.2605739745801993
+material,plant_2,OLI,Deciduous,shade_normalized,nonshade_composition,588,0.2817843332118228,0.07779019042445863,0.25,0.2605739745801993
+material,plant_2,OLI,Evergreen,shade_normalized,nonshade_composition,588,0.3044318677142364,0.1416202422295317,0.25,0.2605739745801993
+material,plant_2,OLI,Herbaceous,shade_normalized,nonshade_composition,588,0.26016993496233587,-0.10317519699203975,0.25,0.2605739745801993
+material,plant_2,OLI,Rock,shade_normalized,nonshade_composition,588,0.2855357623033369,-0.026308693224405752,0.25,0.2605739745801993
+material,plant_2,OLI,Woody shrub,shade_normalized,nonshade_composition,588,0.2983599532004292,-0.10252210688996637,0.25,0.2605739745801993
+researcher,plant_0,NEON,Deciduous,no_shade,total_footprint,170,0.21984311583344682,-0.10255249678308526,0.25,0.3186592301890379
+researcher,plant_0,NEON,Evergreen,no_shade,total_footprint,170,0.43744222419286155,0.33692438342640685,0.25,0.3186592301890379
+researcher,plant_0,NEON,Herbaceous,no_shade,total_footprint,170,0.2810439795364759,-0.10614670150341836,0.25,0.3186592301890379
+researcher,plant_0,NEON,Non-vegetated & dead,no_shade,total_footprint,170,0.22947767659891716,0.18070120690903968,0.25,0.3186592301890379
+researcher,plant_0,NEON,Woody shrub,no_shade,total_footprint,170,0.22942690411348365,-0.05892639204894294,0.25,0.3186592301890379
+researcher,plant_0,NEON,Deciduous,explicit_black_shade,total_footprint,170,0.205860108529848,-0.06617642152768072,0.25,0.3186592301890379
+researcher,plant_0,NEON,Evergreen,explicit_black_shade,total_footprint,170,0.21464465329515864,-0.005350872058851072,0.25,0.3186592301890379
+researcher,plant_0,NEON,Herbaceous,explicit_black_shade,total_footprint,170,0.305957931460903,0.04432441684267045,0.25,0.3186592301890379
+researcher,plant_0,NEON,Non-vegetated & dead,explicit_black_shade,total_footprint,170,0.15166973968331804,-0.05192924650484022,0.25,0.3186592301890379
+researcher,plant_0,NEON,Woody shrub,explicit_black_shade,total_footprint,170,0.24759278983434113,0.010472893059663674,0.25,0.3186592301890379
+researcher,plant_0,NEON,Deciduous,no_shade,nonshade_composition,170,0.3005259019152949,-0.15211132031249702,0.25,0.3186592301890379
+researcher,plant_0,NEON,Evergreen,no_shade,nonshade_composition,170,0.43455596335214314,0.2882479128381715,0.25,0.3186592301890379
+researcher,plant_0,NEON,Herbaceous,no_shade,nonshade_composition,170,0.3643175222136405,-0.15504376032694778,0.25,0.3186592301890379
+researcher,plant_0,NEON,Non-vegetated & dead,no_shade,nonshade_composition,170,0.22661686929665753,0.13048061867374555,0.25,0.3186592301890379
+researcher,plant_0,NEON,Woody shrub,no_shade,nonshade_composition,170,0.2938112084894204,-0.11157345087247239,0.25,0.3186592301890379
+researcher,plant_0,NEON,Deciduous,shade_normalized,nonshade_composition,170,0.279423129955851,-0.09535625966805764,0.25,0.3186592301890379
+researcher,plant_0,NEON,Evergreen,shade_normalized,nonshade_composition,170,0.25115095525403874,0.04066005076780729,0.25,0.3186592301890379
+researcher,plant_0,NEON,Herbaceous,shade_normalized,nonshade_composition,170,0.4241246978421103,0.08068042433866407,0.25,0.3186592301890379
+researcher,plant_0,NEON,Non-vegetated & dead,shade_normalized,nonshade_composition,170,0.138897382064987,-0.044316015988276,0.25,0.3186592301890379
+researcher,plant_0,NEON,Woody shrub,shade_normalized,nonshade_composition,170,0.34709969517481193,0.01833180054986225,0.25,0.3186592301890379
+researcher,plant_0,OLI,Deciduous,no_shade,total_footprint,170,0.2201812041194282,-0.10377361742424156,0.25,0.31431264744274046
+researcher,plant_0,OLI,Evergreen,no_shade,total_footprint,170,0.43940089478221617,0.33384979786773233,0.25,0.31431264744274046
+researcher,plant_0,OLI,Herbaceous,no_shade,total_footprint,170,0.27850268046308535,-0.11610192561012223,0.25,0.31431264744274046
+researcher,plant_0,OLI,Non-vegetated & dead,no_shade,total_footprint,170,0.22051716303402324,0.17163886234993897,0.25,0.31431264744274046
+researcher,plant_0,OLI,Woody shrub,no_shade,total_footprint,170,0.25000693112109307,-0.03561311718330748,0.25,0.31431264744274046
+researcher,plant_0,OLI,Deciduous,explicit_black_shade,total_footprint,170,0.22187071887008147,-0.051390786784753534,0.25,0.31431264744274046
+researcher,plant_0,OLI,Evergreen,explicit_black_shade,total_footprint,170,0.2525360470354609,-0.03797248803918383,0.25,0.31431264744274046
+researcher,plant_0,OLI,Herbaceous,explicit_black_shade,total_footprint,170,0.28651924488027286,-0.0009249209031851103,0.25,0.31431264744274046
+researcher,plant_0,OLI,Non-vegetated & dead,explicit_black_shade,total_footprint,170,0.14606225383104138,-0.034439902889556784,0.25,0.31431264744274046
+researcher,plant_0,OLI,Woody shrub,explicit_black_shade,total_footprint,170,0.2625874994456421,0.06041545117393878,0.25,0.31431264744274046
+researcher,plant_0,OLI,Deciduous,no_shade,nonshade_composition,170,0.30206667882353316,-0.15333244095365334,0.25,0.31431264744274046
+researcher,plant_0,OLI,Evergreen,no_shade,nonshade_composition,170,0.4337771335482835,0.285173327279497,0.25,0.31431264744274046
+researcher,plant_0,OLI,Herbaceous,no_shade,nonshade_composition,170,0.36424080053392666,-0.16499898443365166,0.25,0.31431264744274046
+researcher,plant_0,OLI,Non-vegetated & dead,no_shade,nonshade_composition,170,0.22104108235547087,0.12141827411464481,0.25,0.31431264744274046
+researcher,plant_0,OLI,Woody shrub,no_shade,nonshade_composition,170,0.3036210937041008,-0.0882601760068369,0.25,0.31431264744274046
+researcher,plant_0,OLI,Deciduous,shade_normalized,nonshade_composition,170,0.3231076179638617,-0.060199369701663716,0.25,0.31431264744274046
+researcher,plant_0,OLI,Evergreen,shade_normalized,nonshade_composition,170,0.31564901659022077,-0.011105850754319116,0.25,0.31431264744274046
+researcher,plant_0,OLI,Herbaceous,shade_normalized,nonshade_composition,170,0.3886773307789664,0.011590768483038106,0.25,0.31431264744274046
+researcher,plant_0,OLI,Non-vegetated & dead,shade_normalized,nonshade_composition,170,0.12704546247096296,-0.02289003744245695,0.25,0.31431264744274046
+researcher,plant_0,OLI,Woody shrub,shade_normalized,nonshade_composition,170,0.3628323502982165,0.08260448941540169,0.25,0.31431264744274046
+researcher,plant_1,NEON,Deciduous,no_shade,total_footprint,170,0.2424681860215183,-0.04598021295591444,0.25,0.21558276016584169
+researcher,plant_1,NEON,Evergreen,no_shade,total_footprint,170,0.36180694392495544,0.19951377537268017,0.25,0.21558276016584169
+researcher,plant_1,NEON,Herbaceous,no_shade,total_footprint,170,0.31203139261287155,-0.10519266812908654,0.25,0.21558276016584169
+researcher,plant_1,NEON,Non-vegetated & dead,no_shade,total_footprint,170,0.35506254206809196,0.2733636757692461,0.25,0.21558276016584169
+researcher,plant_1,NEON,Woody shrub,no_shade,total_footprint,170,0.30875625880763397,-0.07170457005692527,0.25,0.21558276016584169
+researcher,plant_1,NEON,Deciduous,explicit_black_shade,total_footprint,170,0.2977223198343223,0.05807469502300557,0.25,0.21558276016584169
+researcher,plant_1,NEON,Evergreen,explicit_black_shade,total_footprint,170,0.22661041519299044,-0.10573708193404695,0.25,0.21558276016584169
+researcher,plant_1,NEON,Herbaceous,explicit_black_shade,total_footprint,170,0.3053809067642729,0.008828274874477435,0.25,0.21558276016584169
+researcher,plant_1,NEON,Non-vegetated & dead,explicit_black_shade,total_footprint,170,0.20827603811609094,0.0737849937946094,0.25,0.21558276016584169
+researcher,plant_1,NEON,Woody shrub,explicit_black_shade,total_footprint,170,0.28346445213640575,-0.0005336419238870842,0.25,0.21558276016584169
+researcher,plant_1,NEON,Deciduous,no_shade,nonshade_composition,170,0.30649006865956974,-0.0955390364853262,0.25,0.21558276016584169
+researcher,plant_1,NEON,Evergreen,no_shade,nonshade_composition,170,0.36133320546351116,0.1508373047844449,0.25,0.21558276016584169
+researcher,plant_1,NEON,Herbaceous,no_shade,nonshade_composition,170,0.38985833218364657,-0.154089726952616,0.25,0.21558276016584169
+researcher,plant_1,NEON,Non-vegetated & dead,no_shade,nonshade_composition,170,0.3296708350530468,0.22314308753395196,0.25,0.21558276016584169
+researcher,plant_1,NEON,Woody shrub,no_shade,nonshade_composition,170,0.3883023501346755,-0.12435162888045467,0.25,0.21558276016584169
+researcher,plant_1,NEON,Deciduous,shade_normalized,nonshade_composition,170,0.4237604814924165,0.09387126222307592,0.25,0.21558276016584169
+researcher,plant_1,NEON,Evergreen,shade_normalized,nonshade_composition,170,0.2968126567797703,-0.14018487632630833,0.25,0.21558276016584169
+researcher,plant_1,NEON,Herbaceous,shade_normalized,nonshade_composition,170,0.38547334682033907,0.007072864613624376,0.25,0.21558276016584169
+researcher,plant_1,NEON,Non-vegetated & dead,shade_normalized,nonshade_composition,170,0.20755001957942093,0.05428531326855751,0.25,0.21558276016584169
+researcher,plant_1,NEON,Woody shrub,shade_normalized,nonshade_composition,170,0.3522270703095698,-0.015044563778949475,0.25,0.21558276016584169
+researcher,plant_1,OLI,Deciduous,no_shade,total_footprint,170,0.2448555450809626,-0.043092563363616006,0.25,0.19610985129305042
+researcher,plant_1,OLI,Evergreen,no_shade,total_footprint,170,0.378148059259906,0.21562440573342034,0.25,0.19610985129305042
+researcher,plant_1,OLI,Herbaceous,no_shade,total_footprint,170,0.29264252678924463,-0.12154467488981938,0.25,0.19610985129305042
+researcher,plant_1,OLI,Non-vegetated & dead,no_shade,total_footprint,170,0.3575180571286624,0.2729073389508333,0.25,0.19610985129305042
+researcher,plant_1,OLI,Woody shrub,no_shade,total_footprint,170,0.3009750604552244,-0.07389450643081821,0.25,0.19610985129305042
+researcher,plant_1,OLI,Deciduous,explicit_black_shade,total_footprint,170,0.31251170959824154,0.11556885217750666,0.25,0.19610985129305042
+researcher,plant_1,OLI,Evergreen,explicit_black_shade,total_footprint,170,0.24260832464244217,-0.10100290960689406,0.25,0.19610985129305042
+researcher,plant_1,OLI,Herbaceous,explicit_black_shade,total_footprint,170,0.2535149661410205,-0.08144176615476245,0.25,0.19610985129305042
+researcher,plant_1,OLI,Non-vegetated & dead,explicit_black_shade,total_footprint,170,0.24110278675077929,0.10841206901475903,0.25,0.19610985129305042
+researcher,plant_1,OLI,Woody shrub,explicit_black_shade,total_footprint,170,0.2925476706771872,0.012353903276340434,0.25,0.19610985129305042
+researcher,plant_1,OLI,Deciduous,no_shade,nonshade_composition,170,0.3018903223827348,-0.09265138689302777,0.25,0.19610985129305042
+researcher,plant_1,OLI,Evergreen,no_shade,nonshade_composition,170,0.3785418362281448,0.16694793514518502,0.25,0.19610985129305042
+researcher,plant_1,OLI,Herbaceous,no_shade,nonshade_composition,170,0.37557856203016216,-0.1704417337133488,0.25,0.19610985129305042
+researcher,plant_1,OLI,Non-vegetated & dead,no_shade,nonshade_composition,170,0.32758587766595915,0.22268675071553917,0.25,0.19610985129305042
+researcher,plant_1,OLI,Woody shrub,no_shade,nonshade_composition,170,0.38015610710066283,-0.1265415652543476,0.25,0.19610985129305042
+researcher,plant_1,OLI,Deciduous,shade_normalized,nonshade_composition,170,0.4473024485557172,0.16595729903252063,0.25,0.19610985129305042
+researcher,plant_1,OLI,Evergreen,shade_normalized,nonshade_composition,170,0.3191706631502058,-0.1399016880927669,0.25,0.19610985129305042
+researcher,plant_1,OLI,Herbaceous,shade_normalized,nonshade_composition,170,0.3257209475304784,-0.12131451574297329,0.25,0.19610985129305042
+researcher,plant_1,OLI,Non-vegetated & dead,shade_normalized,nonshade_composition,170,0.23388017026570182,0.09145481252003121,0.25,0.19610985129305042
+researcher,plant_1,OLI,Woody shrub,shade_normalized,nonshade_composition,170,0.3708566064580929,0.0038040922831882908,0.25,0.19610985129305042
+researcher,plant_2,NEON,Deciduous,no_shade,total_footprint,170,0.34992117052374744,0.011341584311009721,0.25,0.17840597023823154
+researcher,plant_2,NEON,Evergreen,no_shade,total_footprint,170,0.4131172442874252,0.2728532327111652,0.25,0.17840597023823154
+researcher,plant_2,NEON,Herbaceous,no_shade,total_footprint,170,0.2551240831145993,-0.10994886399203878,0.25,0.17840597023823154
+researcher,plant_2,NEON,Non-vegetated & dead,no_shade,total_footprint,170,0.17923846270560756,0.0960990971268919,0.25,0.17840597023823154
+researcher,plant_2,NEON,Woody shrub,no_shade,total_footprint,170,0.27751319832861837,-0.02034505015702801,0.25,0.17840597023823154
+researcher,plant_2,NEON,Deciduous,explicit_black_shade,total_footprint,170,0.3410767684597884,0.09683353611006355,0.25,0.17840597023823154
+researcher,plant_2,NEON,Evergreen,explicit_black_shade,total_footprint,170,0.24675603387857697,-0.12175419679928166,0.25,0.17840597023823154
+researcher,plant_2,NEON,Herbaceous,explicit_black_shade,total_footprint,170,0.26684091595061593,-0.011961238573028204,0.25,0.17840597023823154
+researcher,plant_2,NEON,Non-vegetated & dead,explicit_black_shade,total_footprint,170,0.1586849972674818,0.039827915262594105,0.25,0.17840597023823154
+researcher,plant_2,NEON,Woody shrub,explicit_black_shade,total_footprint,170,0.2751637544350083,0.06864801376142066,0.25,0.17840597023823154
+researcher,plant_2,NEON,Deciduous,no_shade,nonshade_composition,170,0.39779642243238345,-0.03821723921840204,0.25,0.17840597023823154
+researcher,plant_2,NEON,Evergreen,no_shade,nonshade_composition,170,0.39772547966203753,0.22417676212292986,0.25,0.17840597023823154
+researcher,plant_2,NEON,Herbaceous,no_shade,nonshade_composition,170,0.34074173365400123,-0.15884592281556822,0.25,0.17840597023823154
+researcher,plant_2,NEON,Non-vegetated & dead,no_shade,nonshade_composition,170,0.18301854044675012,0.04587850889159778,0.25,0.17840597023823154
+researcher,plant_2,NEON,Woody shrub,no_shade,nonshade_composition,170,0.33786105823174983,-0.07299210898055741,0.25,0.17840597023823154
+researcher,plant_2,NEON,Deciduous,shade_normalized,nonshade_composition,170,0.40623989398239246,0.10432659379034298,0.25,0.17840597023823154
+researcher,plant_2,NEON,Evergreen,shade_normalized,nonshade_composition,170,0.3246898614323266,-0.16446858185447066,0.25,0.17840597023823154
+researcher,plant_2,NEON,Herbaceous,shade_normalized,nonshade_composition,170,0.36035602774790126,-0.021511246075861228,0.25,0.17840597023823154
+researcher,plant_2,NEON,Non-vegetated & dead,shade_normalized,nonshade_composition,170,0.16349809129553083,0.02723803507603887,0.25,0.17840597023823154
+researcher,plant_2,NEON,Woody shrub,shade_normalized,nonshade_composition,170,0.327319465746575,0.05441519906395006,0.25,0.17840597023823154
+researcher,plant_2,OLI,Deciduous,no_shade,total_footprint,170,0.3503719790135761,0.013925396127007198,0.25,0.17157189494211914
+researcher,plant_2,OLI,Evergreen,no_shade,total_footprint,170,0.41652350547779565,0.28228304358192136,0.25,0.17157189494211914
+researcher,plant_2,OLI,Herbaceous,no_shade,total_footprint,170,0.24054748571265447,-0.1043125841254987,0.25,0.17157189494211914
+researcher,plant_2,OLI,Non-vegetated & dead,no_shade,total_footprint,170,0.2129898518771806,0.12413633724616577,0.25,0.17157189494211914
+researcher,plant_2,OLI,Woody shrub,no_shade,total_footprint,170,0.2507434040810028,-0.06603219282959565,0.25,0.17157189494211914
+researcher,plant_2,OLI,Deciduous,explicit_black_shade,total_footprint,170,0.32986770717346964,0.09459392807241053,0.25,0.17157189494211914
+researcher,plant_2,OLI,Evergreen,explicit_black_shade,total_footprint,170,0.21877502283593336,-0.04905626169269036,0.25,0.17157189494211914
+researcher,plant_2,OLI,Herbaceous,explicit_black_shade,total_footprint,170,0.21887358233938847,-0.04212063026870707,0.25,0.17157189494211914
+researcher,plant_2,OLI,Non-vegetated & dead,explicit_black_shade,total_footprint,170,0.19947061597279495,0.08316704604557669,0.25,0.17157189494211914
+researcher,plant_2,OLI,Woody shrub,explicit_black_shade,total_footprint,170,0.24987077874508776,-0.008155977098708906,0.25,0.17157189494211914
+researcher,plant_2,OLI,Deciduous,no_shade,nonshade_composition,170,0.39760613653037075,-0.03563342740240456,0.25,0.17157189494211914
+researcher,plant_2,OLI,Evergreen,no_shade,nonshade_composition,170,0.3982298222861734,0.2336065729936861,0.25,0.17157189494211914
+researcher,plant_2,OLI,Herbaceous,no_shade,nonshade_composition,170,0.32522739465585515,-0.1532096429490281,0.25,0.17157189494211914
+researcher,plant_2,OLI,Non-vegetated & dead,no_shade,nonshade_composition,170,0.1999362515727787,0.07391574901087165,0.25,0.17157189494211914
+researcher,plant_2,OLI,Woody shrub,no_shade,nonshade_composition,170,0.3211779629465272,-0.11867925165312505,0.25,0.17157189494211914
+researcher,plant_2,OLI,Deciduous,shade_normalized,nonshade_composition,170,0.39504993115856485,0.09925228502509753,0.25,0.17157189494211914
+researcher,plant_2,OLI,Evergreen,shade_normalized,nonshade_composition,170,0.29792225864835037,-0.06943575814219932,0.25,0.17157189494211914
+researcher,plant_2,OLI,Herbaceous,shade_normalized,nonshade_composition,170,0.2963469399538173,-0.07265329158503023,0.25,0.17157189494211914
+researcher,plant_2,OLI,Non-vegetated & dead,shade_normalized,nonshade_composition,170,0.1932480542212662,0.07678342508726833,0.25,0.17157189494211914
+researcher,plant_2,OLI,Woody shrub,shade_normalized,nonshade_composition,170,0.3167683827624161,-0.0339466603851363,0.25,0.17157189494211914

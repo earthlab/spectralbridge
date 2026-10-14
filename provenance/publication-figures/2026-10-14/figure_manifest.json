@@ -1,0 +1,387 @@
+{
+  "status": "complete",
+  "data_sources": {
+    "Aug_2026_all_polygons_merged_pixel_extraction.parquet": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+    "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json": "de79661640bc693cc16670042c5bbaa2c5ab7ac217a7d3ae60d49c3e4a6a3c65",
+    "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json": "2f8ca620631d6a99173683af46568898005d9caa9fed9c707121ef073678c9e5",
+    "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json": "7321e6f859dde57fb19c4f44512fe7df83ee36cd45969c079b23d671750cd356",
+    "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/corr_polygon_year.parquet": "61370e567e8367eddc5ab71d49afc58bfa1bf5a0b8b7314d1ac80af9cc1c338f",
+    "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/olioli_undarkened_polygon_year.parquet": "9f1ae26af77ef3ac234afdfb23f8d55cc1cc13600ba34a00b1bb7e799ebbbf21",
+    "artifacts/plant_spectral_atlas/pft_method_audit/empirical/envelopes.csv": "6c98462510f492abe27dd222559141f7fece862557fbacec7f44e57555e31b45",
+    "provenance/sensor-pft-transfer/2026-10-14/neon_region_coverage.csv": "cd49570191d0349014cf58519c91eb032bb3e4770e44570c40d5049f536eb696",
+    "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json": "f15b60ecec45dfd20f3caf2276f72aa68137e368a27eec02064efb97ffa96e8f",
+    "artifacts/real_landsat_validation/R10C_20210915/matched_grid.npz": "70dd56f496378082f626fecd3f197a5f170dc0c5ee7e80dcabda3fa7193d108b",
+    "src/spectralbridge/data/landsat_band_parameters.json": "b5ed747a00ae48a4216164ee73c4e4959b838d96688e2f13df8c82e1becab5e4",
+    "provenance/sensor-pft-transfer/2026-10-14/effect_retention.csv": "ae7232103d94080aeb4c2be8996cf164db3d3b5562ed2b9a73f24614c4b48964",
+    "provenance/sensor-pft-transfer/2026-10-14/neon_signed_contrasts.csv": "f8a2911e685538fa30799165a1fc13928c0f5e0fbeecbe0fd189651f357c7c5a",
+    "provenance/sensor-pft-transfer/2026-10-14/cross_sensor_correlations.csv": "7018b07e3b5c53ec5e90e0becba43c1f4d9da4841e2840a8d7424f85f1ea59dd",
+    "provenance/sensor-pft-transfer/2026-10-14/retention_summary.csv": "563874e4b82a210d800c96114b9418a65c3c5f93d65b047e4a04d1bee2b2837f",
+    "provenance/real-landsat-validation/2026-10-14/grid.json": "85d1a9c3c7c87185561889a5718fd76892a265ec9e7dd7250209b74f7ea83760",
+    "provenance/real-landsat-validation/2026-10-14/flight_metrics.csv": "c4b8fac93b21fad067d4b50be2cce8a217c3350152cca28138cfa9c7f0522e32",
+    "provenance/real-landsat-validation/2026-10-14/band_metrics.csv": "89a1e00313d9718fcf021de6af58f3962f8e7ca19544c6ab5997a1f7ec68893f",
+    "provenance/real-landsat-validation/2026-10-14/pixel_metrics.parquet": "e9db30b375b9f845b42b2bda532086fe32c6670807f8b36b4443ac33f9f581ce"
+  },
+  "panels": [
+    {
+      "figure": 1,
+      "panel": "A",
+      "source_files": [
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/corr_polygon_year.parquet",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json"
+      ],
+      "source_hashes": {
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json": "2f8ca620631d6a99173683af46568898005d9caa9fed9c707121ef073678c9e5",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/corr_polygon_year.parquet": "61370e567e8367eddc5ab71d49afc58bfa1bf5a0b8b7314d1ac80af9cc1c338f",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json": "de79661640bc693cc16670042c5bbaa2c5ab7ac217a7d3ae60d49c3e4a6a3c65",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json": "7321e6f859dde57fb19c4f44512fe7df83ee36cd45969c079b23d671750cd356",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json": "f15b60ecec45dfd20f3caf2276f72aa68137e368a27eec02064efb97ffa96e8f"
+      },
+      "sample_unit": "Polygon/year; repeated years not independent",
+      "sensor_representation": "Corrected NEON / synthetic undarkened OLI",
+      "filters": "See predeclared FIGURE_SOURCE_AUDIT.md; all canonical eligible observations retained",
+      "statistic": "Median and empirical IQR",
+      "N": {
+        "polygon_years": 4807,
+        "wavelengths": 360
+      },
+      "code_function": "examples.publication_figures.figure_panels.plot_spectral_atlas",
+      "generated_file": [
+        "output/pdf/publication_figures/panels/Figure_1_A.pdf",
+        "output/pdf/publication_figures/panels/Figure_1_A.png",
+        "output/pdf/publication_figures/panels/Figure_1_A.svg"
+      ]
+    },
+    {
+      "figure": 1,
+      "panel": "B",
+      "source_files": [
+        "Aug_2026_all_polygons_merged_pixel_extraction.parquet",
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/corr_polygon_year.parquet",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/olioli_undarkened_polygon_year.parquet",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json",
+        "provenance/real-landsat-validation/2026-10-14/pixel_metrics.parquet",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json"
+      ],
+      "source_hashes": {
+        "Aug_2026_all_polygons_merged_pixel_extraction.parquet": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json": "2f8ca620631d6a99173683af46568898005d9caa9fed9c707121ef073678c9e5",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/corr_polygon_year.parquet": "61370e567e8367eddc5ab71d49afc58bfa1bf5a0b8b7314d1ac80af9cc1c338f",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/olioli_undarkened_polygon_year.parquet": "9f1ae26af77ef3ac234afdfb23f8d55cc1cc13600ba34a00b1bb7e799ebbbf21",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json": "de79661640bc693cc16670042c5bbaa2c5ab7ac217a7d3ae60d49c3e4a6a3c65",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json": "7321e6f859dde57fb19c4f44512fe7df83ee36cd45969c079b23d671750cd356",
+        "provenance/real-landsat-validation/2026-10-14/pixel_metrics.parquet": "e9db30b375b9f845b42b2bda532086fe32c6670807f8b36b4443ac33f9f581ce",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json": "f15b60ecec45dfd20f3caf2276f72aa68137e368a27eec02064efb97ffa96e8f"
+      },
+      "sample_unit": "Polygon/year; repeated years not independent",
+      "sensor_representation": "Corrected NEON / synthetic undarkened OLI",
+      "filters": "See predeclared FIGURE_SOURCE_AUDIT.md; all canonical eligible observations retained",
+      "statistic": "Exact counts",
+      "N": {
+        "pixel_rows": 85706,
+        "identities": 3639,
+        "polygon_years": 4807,
+        "species_identified": 2496,
+        "species_missing": 1143,
+        "sites": 3,
+        "years": 2,
+        "cover_categories": 5
+      },
+      "code_function": "examples.publication_figures.figure_panels.plot_library_structure",
+      "generated_file": [
+        "output/pdf/publication_figures/panels/Figure_1_B.pdf",
+        "output/pdf/publication_figures/panels/Figure_1_B.png",
+        "output/pdf/publication_figures/panels/Figure_1_B.svg"
+      ]
+    },
+    {
+      "figure": 1,
+      "panel": "C",
+      "source_files": [
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/corr_polygon_year.parquet",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json"
+      ],
+      "source_hashes": {
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json": "2f8ca620631d6a99173683af46568898005d9caa9fed9c707121ef073678c9e5",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/corr_polygon_year.parquet": "61370e567e8367eddc5ab71d49afc58bfa1bf5a0b8b7314d1ac80af9cc1c338f",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json": "de79661640bc693cc16670042c5bbaa2c5ab7ac217a7d3ae60d49c3e4a6a3c65",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json": "7321e6f859dde57fb19c4f44512fe7df83ee36cd45969c079b23d671750cd356",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json": "f15b60ecec45dfd20f3caf2276f72aa68137e368a27eec02064efb97ffa96e8f"
+      },
+      "sample_unit": "Polygon/year; repeated years not independent",
+      "sensor_representation": "Corrected NEON / synthetic undarkened OLI",
+      "filters": "See predeclared FIGURE_SOURCE_AUDIT.md; all canonical eligible observations retained",
+      "statistic": "Centered wavelength-weighted PCA",
+      "N": {
+        "polygon_years": 4807,
+        "wavelengths": 360
+      },
+      "code_function": "examples.publication_figures.figure_panels.plot_morphospace",
+      "generated_file": [
+        "output/pdf/publication_figures/panels/Figure_1_C.pdf",
+        "output/pdf/publication_figures/panels/Figure_1_C.png",
+        "output/pdf/publication_figures/panels/Figure_1_C.svg"
+      ]
+    },
+    {
+      "figure": 1,
+      "panel": "D",
+      "source_files": [
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/corr_polygon_year.parquet",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/olioli_undarkened_polygon_year.parquet",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json",
+        "src/spectralbridge/data/landsat_band_parameters.json"
+      ],
+      "source_hashes": {
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json": "2f8ca620631d6a99173683af46568898005d9caa9fed9c707121ef073678c9e5",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/corr_polygon_year.parquet": "61370e567e8367eddc5ab71d49afc58bfa1bf5a0b8b7314d1ac80af9cc1c338f",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/olioli_undarkened_polygon_year.parquet": "9f1ae26af77ef3ac234afdfb23f8d55cc1cc13600ba34a00b1bb7e799ebbbf21",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json": "de79661640bc693cc16670042c5bbaa2c5ab7ac217a7d3ae60d49c3e4a6a3c65",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json": "7321e6f859dde57fb19c4f44512fe7df83ee36cd45969c079b23d671750cd356",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json": "f15b60ecec45dfd20f3caf2276f72aa68137e368a27eec02064efb97ffa96e8f",
+        "src/spectralbridge/data/landsat_band_parameters.json": "b5ed747a00ae48a4216164ee73c4e4959b838d96688e2f13df8c82e1becab5e4"
+      },
+      "sample_unit": "Polygon/year; repeated years not independent",
+      "sensor_representation": "Corrected NEON / synthetic undarkened OLI",
+      "filters": "See predeclared FIGURE_SOURCE_AUDIT.md; all canonical eligible observations retained",
+      "statistic": "Observed median-nearest representative and paired OLI",
+      "N": {
+        "representatives": 5,
+        "OLI_bands": 7
+      },
+      "code_function": "examples.publication_figures.figure_panels.plot_sensor_representation",
+      "generated_file": [
+        "output/pdf/publication_figures/panels/Figure_1_D.pdf",
+        "output/pdf/publication_figures/panels/Figure_1_D.png",
+        "output/pdf/publication_figures/panels/Figure_1_D.svg"
+      ]
+    },
+    {
+      "figure": 2,
+      "panel": "A",
+      "source_files": [
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json",
+        "provenance/sensor-pft-transfer/2026-10-14/effect_retention.csv",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json"
+      ],
+      "source_hashes": {
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json": "2f8ca620631d6a99173683af46568898005d9caa9fed9c707121ef073678c9e5",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json": "de79661640bc693cc16670042c5bbaa2c5ab7ac217a7d3ae60d49c3e4a6a3c65",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json": "7321e6f859dde57fb19c4f44512fe7df83ee36cd45969c079b23d671750cd356",
+        "provenance/sensor-pft-transfer/2026-10-14/effect_retention.csv": "ae7232103d94080aeb4c2be8996cf164db3d3b5562ed2b9a73f24614c4b48964",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json": "f15b60ecec45dfd20f3caf2276f72aa68137e368a27eec02064efb97ffa96e8f"
+      },
+      "sample_unit": "Polygon/year; repeated years not independent",
+      "sensor_representation": "Corrected NEON / synthetic undarkened OLI",
+      "filters": "See predeclared FIGURE_SOURCE_AUDIT.md; all canonical eligible observations retained",
+      "statistic": "Standardized RMS beta/s, adjusted NPC support",
+      "N": {
+        "eligible_comparisons": 21,
+        "counts_table": "provenance/publication-figures/2026-10-14/plotted_effects.csv"
+      },
+      "code_function": "examples.publication_figures.figure_panels.plot_effect_matrix",
+      "generated_file": [
+        "output/pdf/publication_figures/panels/Figure_2_A.pdf",
+        "output/pdf/publication_figures/panels/Figure_2_A.png",
+        "output/pdf/publication_figures/panels/Figure_2_A.svg"
+      ]
+    },
+    {
+      "figure": 2,
+      "panel": "B",
+      "source_files": [
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json",
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/envelopes.csv",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json",
+        "provenance/sensor-pft-transfer/2026-10-14/neon_region_coverage.csv",
+        "provenance/sensor-pft-transfer/2026-10-14/neon_signed_contrasts.csv",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json",
+        "src/spectralbridge/data/landsat_band_parameters.json"
+      ],
+      "source_hashes": {
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json": "2f8ca620631d6a99173683af46568898005d9caa9fed9c707121ef073678c9e5",
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/envelopes.csv": "6c98462510f492abe27dd222559141f7fece862557fbacec7f44e57555e31b45",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json": "de79661640bc693cc16670042c5bbaa2c5ab7ac217a7d3ae60d49c3e4a6a3c65",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json": "7321e6f859dde57fb19c4f44512fe7df83ee36cd45969c079b23d671750cd356",
+        "provenance/sensor-pft-transfer/2026-10-14/neon_region_coverage.csv": "cd49570191d0349014cf58519c91eb032bb3e4770e44570c40d5049f536eb696",
+        "provenance/sensor-pft-transfer/2026-10-14/neon_signed_contrasts.csv": "f8a2911e685538fa30799165a1fc13928c0f5e0fbeecbe0fd189651f357c7c5a",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json": "f15b60ecec45dfd20f3caf2276f72aa68137e368a27eec02064efb97ffa96e8f",
+        "src/spectralbridge/data/landsat_band_parameters.json": "b5ed747a00ae48a4216164ee73c4e4959b838d96688e2f13df8c82e1becab5e4"
+      },
+      "sample_unit": "Polygon/year; repeated years not independent",
+      "sensor_representation": "Corrected NEON / synthetic undarkened OLI",
+      "filters": "See predeclared FIGURE_SOURCE_AUDIT.md; all canonical eligible observations retained",
+      "statistic": "Signed beta/s; family-controlled simultaneous null excursions",
+      "N": {
+        "contrasts": 2,
+        "points_per_contrast": {
+          "DBS / ECT": 360,
+          "DBT / ECT": 360
+        },
+        "counts_table": "provenance/publication-figures/2026-10-14/plotted_effects.csv"
+      },
+      "code_function": "examples.publication_figures.figure_panels.plot_spectral_localization",
+      "generated_file": [
+        "output/pdf/publication_figures/panels/Figure_2_B.pdf",
+        "output/pdf/publication_figures/panels/Figure_2_B.png",
+        "output/pdf/publication_figures/panels/Figure_2_B.svg"
+      ]
+    },
+    {
+      "figure": 2,
+      "panel": "C",
+      "source_files": [
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json",
+        "provenance/sensor-pft-transfer/2026-10-14/cross_sensor_correlations.csv",
+        "provenance/sensor-pft-transfer/2026-10-14/effect_retention.csv",
+        "provenance/sensor-pft-transfer/2026-10-14/retention_summary.csv",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json"
+      ],
+      "source_hashes": {
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json": "2f8ca620631d6a99173683af46568898005d9caa9fed9c707121ef073678c9e5",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json": "de79661640bc693cc16670042c5bbaa2c5ab7ac217a7d3ae60d49c3e4a6a3c65",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json": "7321e6f859dde57fb19c4f44512fe7df83ee36cd45969c079b23d671750cd356",
+        "provenance/sensor-pft-transfer/2026-10-14/cross_sensor_correlations.csv": "7018b07e3b5c53ec5e90e0becba43c1f4d9da4841e2840a8d7424f85f1ea59dd",
+        "provenance/sensor-pft-transfer/2026-10-14/effect_retention.csv": "ae7232103d94080aeb4c2be8996cf164db3d3b5562ed2b9a73f24614c4b48964",
+        "provenance/sensor-pft-transfer/2026-10-14/retention_summary.csv": "563874e4b82a210d800c96114b9418a65c3c5f93d65b047e4a04d1bee2b2837f",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json": "f15b60ecec45dfd20f3caf2276f72aa68137e368a27eec02064efb97ffa96e8f"
+      },
+      "sample_unit": "Polygon/year; repeated years not independent",
+      "sensor_representation": "Corrected NEON / synthetic undarkened OLI",
+      "filters": "See predeclared FIGURE_SOURCE_AUDIT.md; all canonical eligible observations retained",
+      "statistic": "Paired standardized RMS effects; canonical Pearson/Spearman/support retention",
+      "N": {
+        "eligible_comparisons": 21,
+        "counts_table": "provenance/publication-figures/2026-10-14/plotted_effects.csv"
+      },
+      "code_function": "examples.publication_figures.figure_panels.plot_sensor_retention",
+      "generated_file": [
+        "output/pdf/publication_figures/panels/Figure_2_C.pdf",
+        "output/pdf/publication_figures/panels/Figure_2_C.png",
+        "output/pdf/publication_figures/panels/Figure_2_C.svg"
+      ]
+    },
+    {
+      "figure": 2,
+      "panel": "D",
+      "source_files": [
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json",
+        "artifacts/real_landsat_validation/R10C_20210915/matched_grid.npz",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json",
+        "provenance/real-landsat-validation/2026-10-14/band_metrics.csv",
+        "provenance/real-landsat-validation/2026-10-14/flight_metrics.csv",
+        "provenance/real-landsat-validation/2026-10-14/grid.json",
+        "provenance/real-landsat-validation/2026-10-14/pixel_metrics.parquet",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json"
+      ],
+      "source_hashes": {
+        "artifacts/plant_spectral_atlas/pft_method_audit/empirical/audit_manifest.json": "2f8ca620631d6a99173683af46568898005d9caa9fed9c707121ef073678c9e5",
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/statistics_manifest.json": "de79661640bc693cc16670042c5bbaa2c5ab7ac217a7d3ae60d49c3e4a6a3c65",
+        "artifacts/real_landsat_validation/R10C_20210915/matched_grid.npz": "70dd56f496378082f626fecd3f197a5f170dc0c5ee7e80dcabda3fa7193d108b",
+        "artifacts/real_landsat_validation/R10C_20210915/statistics_manifest.json": "7321e6f859dde57fb19c4f44512fe7df83ee36cd45969c079b23d671750cd356",
+        "provenance/real-landsat-validation/2026-10-14/band_metrics.csv": "89a1e00313d9718fcf021de6af58f3962f8e7ca19544c6ab5997a1f7ec68893f",
+        "provenance/real-landsat-validation/2026-10-14/flight_metrics.csv": "c4b8fac93b21fad067d4b50be2cce8a217c3350152cca28138cfa9c7f0522e32",
+        "provenance/real-landsat-validation/2026-10-14/grid.json": "85d1a9c3c7c87185561889a5718fd76892a265ec9e7dd7250209b74f7ea83760",
+        "provenance/real-landsat-validation/2026-10-14/pixel_metrics.parquet": "e9db30b375b9f845b42b2bda532086fe32c6670807f8b36b4443ac33f9f581ce",
+        "provenance/sensor-pft-transfer/2026-10-14/statistics_manifest.json": "f15b60ecec45dfd20f3caf2276f72aa68137e368a27eec02064efb97ffa96e8f"
+      },
+      "sample_unit": "Actual 30 m Landsat footprint",
+      "sensor_representation": "Verified unitless SR; synthetic OLI versus actual Landsat C2 L2",
+      "filters": "See predeclared FIGURE_SOURCE_AUDIT.md; all canonical eligible observations retained",
+      "statistic": "Matched RGB/NIR signed residual; pooled RMSE, median angle, bandwise Pearson",
+      "N": {
+        "flight_pairs": 1,
+        "footprints": 3583,
+        "blocks": 56
+      },
+      "code_function": "examples.publication_figures.figure_panels.plot_real_landsat_validation",
+      "generated_file": [
+        "output/pdf/publication_figures/panels/Figure_2_D.pdf",
+        "output/pdf/publication_figures/panels/Figure_2_D.png",
+        "output/pdf/publication_figures/panels/Figure_2_D.svg"
+      ]
+    }
+  ],
+  "source_audit": "FIGURE_SOURCE_AUDIT.md",
+  "source_library_read_in_place": true,
+  "upstream_owned_files_verified": 338,
+  "PCA": {
+    "N": 4807,
+    "support": 360,
+    "explained_variance": [
+      0.7090049433416605,
+      0.2676811105619891
+    ],
+    "method": "Centered unscaled wavelength-quadrature-weighted SVD; all singular values denominator"
+  },
+  "runtime": {
+    "python": "3.12.8",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "matplotlib": "3.11.1"
+  },
+  "code_hashes": {
+    "examples/publication_figures/build_spectral_library_figures.py": "8bd8d74b472dde3baa16f99e4ee53f2e7ca069366b5ebef5e7d41959da9c0aa0",
+    "examples/publication_figures/validate_figures.py": "496baf32110288446f3ec0ec123a2770c28e1b695706ed5abb5692df9ba9d142",
+    "examples/publication_figures/figure_panels.py": "9de6ac77c82521bc054994cd0352a0e11b7438da3e2269131c233ed6c5ec5def",
+    "examples/publication_figures/figure_data.py": "992208ddea43bf928955019a90a4e2b1414156416d51f0717cd7a5edd2c283dc"
+  },
+  "output_hashes": {
+    "output/pdf/publication_figures/Figure_1_caption.md": "1365e5d21032a4e0aa1e4b57fbe46ccfa31fb39feea88b730298db7751287d3e",
+    "output/pdf/publication_figures/Figure_1_spectral_library.pdf": "f2a63693ffe5f2ab89c16d2fc604b4b0d2ee59d1899827c956cbbdaae240cf2c",
+    "output/pdf/publication_figures/Figure_1_spectral_library.png": "5e850744576ee122a4c5b754a81fc70fdf2aecc3c805b35e2aaa6ffb9a1ca7d8",
+    "output/pdf/publication_figures/Figure_1_spectral_library.svg": "801c0bea846d25caf9d85467fcb204c873883ee183920ade344ac66a0bc04d48",
+    "output/pdf/publication_figures/Figure_2_caption.md": "0a5364be44e84bbeb6bf34af5f2c1c7f101d5c4af21c4c9ff4f00b3d60949255",
+    "output/pdf/publication_figures/Figure_2_ecological_information.pdf": "30d2b593844bff6faee5f450edc060c3cb8b76da1a42bbc185a37639e95c9298",
+    "output/pdf/publication_figures/Figure_2_ecological_information.png": "59979e10424c6dbf7d2787ae3f21f282102df2042ff244008b9da36840495934",
+    "output/pdf/publication_figures/Figure_2_ecological_information.svg": "d6880d1c291bcee72d5f287953337acad4aaa71623092e10402daf73e8a12299",
+    "output/pdf/publication_figures/combined_preview.png": "bb0248282e92c0b10ebec09db83b7d34b60980f3845d60e2da2335372b519aab",
+    "output/pdf/publication_figures/panels/Figure_1_A.pdf": "848326b15da4885cea710d58e53111fc86c345b4c7e44e442a1043df2f91b837",
+    "output/pdf/publication_figures/panels/Figure_1_A.png": "65482e7df65255bb0df620c49d8124c4bee656546950439e341a3e43d906f396",
+    "output/pdf/publication_figures/panels/Figure_1_A.svg": "e86a578c5af9f90fb6447a7d84cde6e86d41f20e2fad1198bf2c1ddaa876e358",
+    "output/pdf/publication_figures/panels/Figure_1_B.pdf": "4dd878ee254ff5625537a15accd2478f30fe29a8194bbd5dcd8d78693543f836",
+    "output/pdf/publication_figures/panels/Figure_1_B.png": "9d5cea93ad8604bec03d215b8d3121086d605b8fc130e63f49461b238b48f0e5",
+    "output/pdf/publication_figures/panels/Figure_1_B.svg": "f2299b60aa6be1693f3d1734284e72e79ad17f69996bce7f7f07500aed96be0d",
+    "output/pdf/publication_figures/panels/Figure_1_C.pdf": "30f8aaa9347d468731d47506dca7b08f6179e82e1a6566825ddb21f55a5629fa",
+    "output/pdf/publication_figures/panels/Figure_1_C.png": "7baf2b01b79eef742def57ebf5262dcbdc89237e21be4b649ad4930062ef442b",
+    "output/pdf/publication_figures/panels/Figure_1_C.svg": "1b6b293f87dcf704724da7715b409493290cf275342620281e636cf3cbc64d7b",
+    "output/pdf/publication_figures/panels/Figure_1_D.pdf": "2d05be9ad7de7846b8e72223b387590189ee9ed6219c07390f6967a584823e19",
+    "output/pdf/publication_figures/panels/Figure_1_D.png": "4b4efcbdeb6eb47b6d9f77db4de288f09603dabd6d7b49a22cb6eb7e6b4049bf",
+    "output/pdf/publication_figures/panels/Figure_1_D.svg": "8fd0c8eed28a29e8e53f3e97a9f8a63bc7def40bc247e53f55cffdaaa8f70d5d",
+    "output/pdf/publication_figures/panels/Figure_2_A.pdf": "887adbf30a53faf5c2e835c78d2ce41472d9cf1d046dbccdb8e242ba3ca8a344",
+    "output/pdf/publication_figures/panels/Figure_2_A.png": "11d6a35684caf25c8de960ccaa93f1661de7306bb3a9c3ba8d1a1124bd02ab72",
+    "output/pdf/publication_figures/panels/Figure_2_A.svg": "6ab6761670cc97a7d78aa147edcf711c538e1abca46f07139469c402272bc56f",
+    "output/pdf/publication_figures/panels/Figure_2_B.pdf": "1e3a66e684cb40e5c5daae30537a26d735f178db8eb87ea007ab8ed8852e619c",
+    "output/pdf/publication_figures/panels/Figure_2_B.png": "4164bd28d85f8ab86e61a830e9d4b9302e75372e893ff956de2340e144c99c81",
+    "output/pdf/publication_figures/panels/Figure_2_B.svg": "e031bf569e33e6cbeb4487086cda11104d349328cddb66693e2d7cd08417178e",
+    "output/pdf/publication_figures/panels/Figure_2_C.pdf": "2f42a22a881d3e798b9bca572d1e8599b44c8edb9c19539786e96cca9731d03e",
+    "output/pdf/publication_figures/panels/Figure_2_C.png": "05a5393412c63383f9cc249b288491b9e4c5a4c1fb8090b23944fb119d2ce972",
+    "output/pdf/publication_figures/panels/Figure_2_C.svg": "4d3e5e3ba40bb27ed77704fca84a73cfb84ee01caea7cc4eb61e3702b2aebcb3",
+    "output/pdf/publication_figures/panels/Figure_2_D.pdf": "eca896e99304dd6c122567bf781e604a08165ef9588a6d050614b90ca0f02d94",
+    "output/pdf/publication_figures/panels/Figure_2_D.png": "a569825f739d416c3e06d7b74633d9abac6002305ace8daaa74ede10cb8c9308",
+    "output/pdf/publication_figures/panels/Figure_2_D.svg": "3cda1f865a7c184f45e4c87346d7350a3a8618a52212517f45bdab27dcd858a0",
+    "provenance/publication-figures/2026-10-14/atlas_summary.csv": "aed9abc95268edbd6ca665aba4330ce7496d8c264042e1f5682409ced6f8f25c",
+    "provenance/publication-figures/2026-10-14/pca_loadings.csv": "3b235336def8cd51038f2052f49b2e2f5c0e950a67f7bacadecede80a8a91082",
+    "provenance/publication-figures/2026-10-14/pca_scores.csv": "b597e61e446b42b3b9778192acb6719b37c97ee63602f4ef540139f72e583641",
+    "provenance/publication-figures/2026-10-14/plotted_effects.csv": "a66f9038cf217173a65fc5f36d660f143669c24ba1fc82ed02b0610d46b338ff",
+    "provenance/publication-figures/2026-10-14/plotted_localization.csv": "e214b2eb14b0f86cbe16b2171b36422197380cfe60d77a268fbea0eb320dd7b0",
+    "provenance/publication-figures/2026-10-14/representatives.csv": "009110f27afa6c81f29bfb12b41360c9364849f3ceb4f3d8a2000b8391119c3b",
+    "provenance/publication-figures/2026-10-14/sampling_counts.csv": "e79d17bda6c5937b64681499de09b3a8d6e7dc2dda3071259494b40d63998dc0"
+  }
+}

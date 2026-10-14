@@ -17,6 +17,13 @@ alignment or footprint differences. [Start with the measurement concepts](https:
 [![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://earthlab.github.io/spectralbridge/)
 [![PyPI](https://img.shields.io/pypi/v/earthlab-spectralbridge)](https://pypi.org/project/earthlab-spectralbridge/)
 
+Explore the [spectral library](https://earthlab.github.io/spectralbridge/spectral-library/)
+and its ecological variation, paired synthetic OLI analysis and
+[separate real-Landsat pilot](https://earthlab.github.io/spectralbridge/validation/landsat-pilot/).
+Experimental mixture-readiness diagnostics do not establish operational abundance
+mapping. [Scientific tests and evidence levels](https://earthlab.github.io/spectralbridge/dev/scientific-testing/)
+explain what has been checked and what still needs independent observations.
+
 ## Install
 
 Python 3.10–3.12 is the tested baseline. The distribution and import names differ:

@@ -20,6 +20,41 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P125. Documentation, website and scientific test integration
+
+- Priority: P0, user-directed
+- Status: In progress
+- Owner: Codex
+- Started: 2026-10-14
+- Scope: Synthesize current library/biology/sensor/pilot/MESMA evidence into navigable docs; stable versus research API reference, offline examples, targeted scientific invariants/regressions, website contracts and CI/coverage assessment. Preserve prior outputs and caveats.
+- Plan: Complete capability and claims audit first; retain URLs and add a coherent scientific section; generate evidence-backed figures/counts from verified compact provenance; fill test gaps rather than duplicate existing tests; measure coverage, full offline suite, figure smoke, strict docs/link/accessibility checks. Audit release/JOSS metadata without tagging or publishing.
+- Remaining: Audit, documentation implementation, test/CI additions, verification and final integration report.
+
+### P124. Two publication figures for the library and ecological sensor transfer
+
+- Priority: P0, user-directed
+- Status: Complete locally; two manuscript figures generated and verified
+- Owner: Codex
+- Started: 2026-10-14
+- Scope: Two four-panel Python manuscript figures from real library and verified existing PFT, sensor-transfer and real-Landsat outputs; individual panels, captions, manifest, source audit, validation and combined preview.
+- Plan: Verify upstream hashes and panel estimands; preserve atmospheric gaps and unresolved library units; deterministic harmonized PCA/representatives with contracts; reuse canonical inference and pilot imagery/metrics. Render/review vector and raster outputs, run full suite, record limitations and source identities.
+- Outcome: Two four-panel PDF/SVG/400 dpi PNG figures, eight standalone panels in all three formats, combined preview and captions; panel source audit/hash manifest, analytical tables, validation and supplementary plan. Reused empirical compact curves and canonical matched PFT/OLI/pilot results; only new scientific calculations are descriptive weighted PCA and deterministic median-nearest representatives.
+- Verification: 616 passed, 8 skipped, 29 warnings full suite; four targeted contracts, numerical/source/export checks, PDF boundary checks, PNG/PDF/SVG/grayscale visual review, 33-file byte-identical rebuild, focused Ruff, strict MkDocs, docs links, transparency and whitespace pass.
+- Limits/next: Recover verified library physical units before changing stored-unit axes; independently replicate the one next-day real-Landsat pilot. Review taxonomy, final journal dimensions/caption length and input archiving before manuscript submission. No source copy, inference rerun, pipeline change, commit or publication.
+
+### P123. Scientific MESMA readiness audit
+
+- Priority: P0, user-directed
+- Status: Complete for the current-data readiness audit; operational/real-abundance branches explicitly blocked by missing evidence
+- Owner: Codex
+- Started: 2026-10-14
+- Scope: Reuse validated empirical library and prior PFT/sensor/real-Landsat evidence; distinguish spectral separability, mixture identifiability, fraction recovery and ecological transfer. Assess ten readiness dimensions, explicit material gaps, grouped out-of-sample experiments, selection methods, paired NEON/OLI, unknown/shade sensitivity and computational feasibility. No operational MESMA claim without independent cover truth.
+- Plan: Audit code/data and primary definitions; fix design/thresholds and compact inputs; validate small analytic solvers/selection/holdouts and controlled representative subset before complete eligible-library experiments. Keep data/material blocks explicit. Save reproducible tables, memberships, figures and all requested audit documents. Run focused and full tests plus lint/docs/provenance checks.
+- Outcome: Reused complete 4,807 paired polygon/year spectra and original metadata/native pixel QC; 360 supported grouped tests across inferred PFT, researcher cover and conservative material hierarchies, 369,048 synthetic fitted results, exact parent/endmember/fold memberships and candidate/complexity constraints. Physical scale/purity/full-image/real-fraction gates remain blocked; no operational abundance claim. Full suite 612 passed, 8 skipped, 29 warnings; 15 targeted contracts pass. Six figure families, requested scientific documents and compact provenance table exports are generated; completed size/shade/selector ambiguity sensitivities provide the robustness assessment.
+- Verification/outcome: Exact small-model faces agree with an independent constrained optimizer; actual-flight targets and global identity purging are regression-protected. Final source/code/output lineage, unchanged 3,643-file restart, 404 legacy owned outputs, 15 focused tests, full suite, focused Ruff, strict MkDocs, docs links, AI transparency and whitespace pass. Six primary figure sets plus coverage supplement and 22-page human PDF are rendered/reviewed; compact exports link to original result checksums.
+- Findings: Conditional primary macro class/fold fraction RMSE is 0.344 PFT / 0.380 researcher / 0.292 material in NEON and 0.351 / 0.380 / 0.291 in OLI. Higher candidate budgets reduce some fraction errors but increase other-class convex alternatives. Monte Carlo improves mean fraction error but leaves uncalibrated wide intervals and material-detection tradeoffs. No operational material fraction is promoted to READY from synthetic evidence.
+- Deferred/next: Recover verified per-flight units/QA/purity, reconcile mixed/rare backgrounds, add missing pure soil/litter/water/snow/shade coverage, obtain independent complete fractional-cover truth and same-site source rasters, then expand source-parent replication/candidate budgets and calibrate rejection/uncertainty. Current experiments are conditional proxies, not intrinsic material impossibility or field accuracy. No source copy/pixel cache, coefficient change, commit or publication.
+
 ### P121. Independent real Landsat validation at flight-line scale
 
 - Priority: P0, user-directed

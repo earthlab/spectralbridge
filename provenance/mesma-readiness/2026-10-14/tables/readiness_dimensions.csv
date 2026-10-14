@@ -1,0 +1,11 @@
+dimension,name,status,evidence
+A,spectral integrity,PARTIAL,Three grids/common masks verified; physical units/source QA/purity unverified
+B,material coverage,PARTIAL,Rock/Bare/dead tags exist; water/snow/litter/measured shade/verified soil gaps
+C,representativeness,INSUFFICIENT EVIDENCE,Held-out library distances do not measure full-image coverage
+D,distinguishability,CONDITIONAL,"Prior sampled-curve differences, directed reconstruction here"
+E,mixture identifiability,NOT ESTABLISHED,"Other-class convex ambiguity, bounded candidates"
+F,fraction recovery,CONDITIONAL SYNTHETIC ONLY,Known algebraic weights on held-out composite spectra
+G,transferability,LIMITED,Grouped tests; support gaps and changing classes
+H,sensor robustness,CONDITIONAL,"Paired synthetic OLI, no real abundance truth"
+I,uncertainty calibration,NOT ESTABLISHED,Empirical endmember spread is not calibrated probability
+J,computational feasibility,FEASIBLE WITH BUDGETS,Exact bounded search/checkpoints; all-library raster combinations not run

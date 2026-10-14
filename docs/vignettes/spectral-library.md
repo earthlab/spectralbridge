@@ -161,3 +161,12 @@ uncertainty; inferred PFTs and researcher cover categories remain separate.
 These are conditional group-structure results, not independent satellite/drone
 validation or classification accuracy. The supplied MicaSense export fails its
 physical-coordinate gate and is excluded from biological inference.
+
+For abundance questions, use the separate
+[MESMA readiness assessment](plant-spectral-atlas.md#assess-mesma-readiness-separately-from-spectral-differences).
+It evaluates held-out mixture geometry and fractions; a previous spectral
+difference test or synthetic sensor-retention result is not an abundance
+validation. The current library supports controlled diagnostics, with operational
+material fractions blocked by source/purity/background/reference-data gaps.
+
+For the observation model, label systems, empirical atlas and current ecological evidence, start with the [spectral-library overview](../spectral-library/index.md). This page retains the stable preflight/report workflow.

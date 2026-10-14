@@ -24,10 +24,24 @@ _LOG = logging.getLogger(__name__)
 def harmonize_spectrum(
     wavelengths, values, target, *, excluded=((1340, 1450), (1790, 2000)), max_gap_nm=8
 ):
-    """Linear interpolation only between adjacent supported native samples.
+    """Linearly harmonize one spectrum without bridging unsupported intervals.
 
-    Missing samples, excluded regions, and gaps over max_gap_nm break traces.
-    No extrapolation, scaling, zero removal, or value clipping is performed.
+    Args:
+        wavelengths (array-like): Increasing native coordinates in nm, shape (B,).
+        values (array-like): Same-shape stored reflectance values; nonfinite
+            entries break support. Finite negatives and zeros are preserved.
+        target (array-like): Output wavelength coordinates in nm.
+        excluded (sequence): Inclusive wavelength intervals in nm to omit.
+        max_gap_nm (float): Largest adjacent native interval to interpolate.
+
+    Returns:
+        numpy.ndarray: Target-shaped values in unchanged input units. Unsupported
+        coordinates are NaN; no extrapolation, scaling or clipping occurs.
+
+    Raises:
+        ValueError: Native lengths differ or coordinates are not increasing.
+
+    Exact isolated samples survive, but do not connect across gaps.
     """
     w, v, t = map(lambda a: np.asarray(a, dtype=float), (wavelengths, values, target))
     if len(w) != len(v) or len(w) < 2 or np.any(np.diff(w) <= 0):
@@ -415,17 +429,33 @@ def _file_hash(path):
 
 
 def run_plant_spectral_atlas(source, output_dir, **kwargs):
-    """Create or reuse verified plant-atlas derivatives without altering pixels.
+    """Create/reuse empirical plant-atlas derivatives without copying source pixels.
 
-    Options: min_plants_per_species=10, plant_field='GlobalID',
-    flight_field='flight_id', source_field='source_image', species_field='species',
-    excluded=((1340,1450),(1790,2000)), grid_step_nm=5, max_gap_nm=8,
-    band_batch_size=32, dpi=350, supplementary=True, spectral_stage="corr",
-    make_figures=True. Set grid_step_nm=None for exact shared sensor bands;
-    use make_figures=False when preparing discrete bands for comparison plots.
+    Args:
+        source (str or pathlib.Path): Existing merged polygon Parquet, read in place.
+        output_dir (str or pathlib.Path): Directory for compact products/manifest.
+        **kwargs: Atlas options: plant_field='GlobalID', flight_field='flight_id',
+            source_field='source_image', species_field='species',
+            min_plants_per_species=10, spectral_stage='corr', grid_step_nm=5,
+            max_gap_nm=8, excluded=((1340,1450),(1790,2000)), band_batch_size=32,
+            dpi=350, supplementary=True, make_figures=True. Set grid_step_nm=None
+            for exact shared discrete sensor coordinates; make_figures=False
+            skips figures. Wavelengths are nm; stored reflectance units unchanged.
 
-    A completed run is reused only if source bytes, options, implementation and
-    every output checksum match. Failed reruns leave previous outputs intact.
+    Returns:
+        dict: Audit counts, grids, support and output provenance. Derivative
+        Parquets/CSVs and optional PDF/PNG/SVG persist in output_dir.
+
+    Raises:
+        ValueError: Missing/conflicting identities, ambiguous native grids,
+            undeclared nodata sentinel, or no sufficiently supported taxa.
+        OSError: Source/products cannot be read or written.
+
+    Pixel medians form polygon/flight/source observations, then equal-observation
+    plant medians. Structural NaNs are native-grid absence, not zero values.
+    Completed output is reused only when source/options/code/output hashes match.
+    Failed reruns preserve completed products. Years require the separate
+    year-aware workflow; this default atlas aggregates across observations.
     """
     source, out = Path(source), Path(output_dir)
     out.parent.mkdir(parents=True, exist_ok=True)

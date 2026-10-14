@@ -132,11 +132,30 @@ def bootstrap_contrasts(values, labels, blocks, multiplicities, integration_weig
 
 
 def project_neon_to_oli(values, wavelengths):
-    """Diagnostic response average AFTER medians, never interpolate OLI points."""
+    """Diagnostically project common-support NEON curves to seven OLI channels.
+
+    Args:
+        values (array-like): Stored reflectance, shape (N, B).
+        wavelengths (array-like): Increasing finite native coordinates (B,), nm.
+
+    Returns:
+        tuple[numpy.ndarray, numpy.ndarray]: Projected values (N, 7), in input
+        units, and Gaussian response-mass fractions (7,). Order is coastal,
+        blue, green, red, NIR, SWIR1, SWIR2. Packaged centers/FWHMs define the
+        Gaussian approximation; these are not independent Landsat observations.
+
+    Raises:
+        ValueError: Invalid grid/dimensions or no supported response mass.
+
+    Uses columns finite across all supplied observations and local quadrature
+    only across adjacent intervals <=8 nm. No interpolation across atmospheric
+    gaps. Caller must omit excluded regions before this diagnostic. Applied
+    after medians, it need not equal a product convolved before medians.
+    """
     y = np.asarray(values, float)
     w = np.asarray(wavelengths, float)
-    if np.any(np.diff(w) <= 0):
-        raise ValueError("NEON grid must increase")
+    if y.ndim != 2 or w.ndim != 1 or y.shape[1] != len(w) or len(w) < 2 or not np.isfinite(w).all() or np.any(np.diff(w) <= 0):
+        raise ValueError("Aligned spectra and finite increasing NEON grid required")
     valid = np.isfinite(y).all(0)
     w = w[valid]
     y = y[:, valid]

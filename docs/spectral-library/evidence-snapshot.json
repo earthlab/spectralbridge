@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-14",
+  "source_sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+  "counts": {
+    "pixel_rows": 85706,
+    "identities": 3639,
+    "polygon_years": 4807,
+    "species_identified": 2496,
+    "species_missing": 1143,
+    "sites": 3,
+    "years": 2,
+    "cover_categories": 5
+  },
+  "inferred_pft_retention": {
+    "eligible": "21",
+    "NEON_supported": "16",
+    "retained": "15"
+  },
+  "researcher_retention": {
+    "eligible": "40",
+    "NEON_supported": "40",
+    "retained": "40"
+  },
+  "limitations": [
+    "Stored library scale unresolved",
+    "Synthetic OLI is not independent Landsat",
+    "One next-day real-Landsat pilot",
+    "MESMA operational readiness not established"
+  ]
+}

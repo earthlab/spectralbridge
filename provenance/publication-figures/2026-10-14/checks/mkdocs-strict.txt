@@ -1,0 +1,54 @@
+
+[31m │  ⚠  Warning from the Material for MkDocs team[0m
+[31m │[0m
+[31m │[0m  MkDocs 2.0, the underlying framework of Material for MkDocs,
+[31m │[0m  will introduce backward-incompatible changes, including:
+[31m │[0m
+[31m │  × [0mAll plugins will stop working – the plugin system has been removed
+[31m │  × [0mAll theme overrides will break – the theming system has been rewritten
+[31m │  × [0mNo migration path exists – existing projects cannot be upgraded
+[31m │  × [0mClosed contribution model – community members can't report bugs
+[31m │  × [0mCurrently unlicensed – unsuitable for production use
+[31m │[0m
+[31m │[0m  Our full analysis:
+[31m │[0m
+[31m │[0m  [4mhttps://squidfunk.github.io/mkdocs-material/blog/2026/02/18/mkdocs-2.0/[0m
+[0m
+INFO    -  [macros] - No default module `main` found
+INFO    -  [macros] - Config variables: ['extra', 'config', 'environment', 'plugin', 'git', 'social', 'footer', 'macros', 'filters', 'filters_builtin']
+INFO    -  [macros] - Config macros: ['context', 'macros_info', 'now', 'fix_url']
+INFO    -  [macros] - Config filters: ['pretty', 'relative_url']
+INFO    -  Cleaning site directory
+INFO    -  Building documentation to directory: /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/site
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+  - dev-notes.md
+  - documentation-overview.md
+  - documentation_style_guide.md
+  - pipeline.md
+  - qa.md
+  - quickstart.md
+  - refactor_notes.md
+  - api/merge_duckdb.md
+  - api/qa_plots.md
+  - dev/architecture-audit.md
+  - dev/codex-guidelines.md
+  - dev/dependency-review.md
+  - dev/doc_drift.md
+  - dev/drone-bulk-contract-diagnostic-2026-09-29.md
+  - dev/logging-review.md
+  - dev/publication-cleanup-log.md
+  - dev/publication-hardening-audit-2026-09-04.md
+  - dev/publication-readiness-audit-2026-08-14.md
+  - dev/release-hygiene.md
+  - dev/versioning-review.md
+  - pipeline/polygons.md
+  - pipeline/qa_panel.md
+  - tutorials/micasense-to-landsat.md
+  - tutorials/neon-to-envi.md
+  - tutorials/neon-to-landsat.md
+  - usage/notebook-example.md
+  - usage/parquet_preview.md
+  - usage/recipes.md
+  - vignettes/plant-spectral-atlas.md
+  - vignettes/notebooks/README.md
+INFO    -  Documentation built in 2.31 seconds

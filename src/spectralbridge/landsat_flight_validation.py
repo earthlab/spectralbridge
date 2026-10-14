@@ -390,7 +390,32 @@ def _interval_metrics(x, values, draws):
 def compare_flight_to_real_landsat(
     flight, output, *, config=None, items=None, client=None
 ):
-    """One independently selected actual scene; preserve all failure/status records."""
+    """Select one real scene and compare it with a verified seven-band flight.
+
+    Args:
+        flight (FlightValidationInput): Source paths, identity, acquisition time
+            and explicit scale/time provenance. Synthetic bands must be ordered
+            coastal/blue/green/red/NIR/SWIR1/SWIR2.
+        output (str or pathlib.Path): Checkpoint/result directory.
+        config (FlightValidationConfig, optional): Search, coverage and bootstrap
+            settings; defaults include 0.9 whole-footprint valid coverage.
+        items (sequence, optional): Supplied STAC items; None enables discovery.
+        client (object, optional): STAC client for discovery.
+
+    Returns:
+        dict: Status/identity/checksummed output manifest. Explicit no-scene and
+        unusable-scene statuses are retained, not fabricated successful fits.
+        Results contain matched arrays, tables, QA and figures in output.
+
+    Raises:
+        ValueError: Source coordinates/scales, metadata or configuration invalid.
+        OSError: Source/cache/output IO fails. Network/library errors propagate
+            when discovery/download is requested; use optional landsat extra.
+
+    Inputs are read in place. Complete valid outputs are reused. Uses actual
+    footprint area, QA_PIXEL/RADSAT, official C2 SR scaling, seven-band joint
+    support and spatial-block uncertainty. One flight is not cross-site evidence.
+    """
     config = config or FlightValidationConfig()
     config.validate()
     root = Path(output)

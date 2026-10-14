@@ -1,0 +1,142 @@
+[
+  {
+    "original_name": "directed_confusion.csv",
+    "original_sha256": "cef07e7ad3077b493d32ab15d5087584002a8fa7384bfafbf5f801e3f46b7a3f",
+    "compact_name": "directed_confusion.csv",
+    "compact_sha256": "cef07e7ad3077b493d32ab15d5087584002a8fa7384bfafbf5f801e3f46b7a3f"
+  },
+  {
+    "original_name": "cross_site_library_coverage.csv",
+    "original_sha256": "3f0880bf87a4fd0acfc98c6c5c4bc6c25b2c24fad58049bab790a21bf1ace7a1",
+    "compact_name": "cross_site_library_coverage.csv",
+    "compact_sha256": "3f0880bf87a4fd0acfc98c6c5c4bc6c25b2c24fad58049bab790a21bf1ace7a1"
+  },
+  {
+    "original_name": "sensor_comparison.csv",
+    "original_sha256": "d51d1191203ce9d882599e0f545aad1339fdeeba23fa5bbda850bb4b1f4957f0",
+    "compact_name": "sensor_comparison.csv",
+    "compact_sha256": "d51d1191203ce9d882599e0f545aad1339fdeeba23fa5bbda850bb4b1f4957f0"
+  },
+  {
+    "original_name": "between_class_distances.csv",
+    "original_sha256": "6ccf741027bc462732229d7ff67c8e98c330ef80f660a6455f9a74b2d13678c8",
+    "compact_name": "between_class_distances.csv",
+    "compact_sha256": "6ccf741027bc462732229d7ff67c8e98c330ef80f660a6455f9a74b2d13678c8"
+  },
+  {
+    "original_name": "endmember_scores.csv",
+    "original_sha256": "3f169ae3d1b59a1451ae754b98777d515a4184b5ce49137be6707ca2a59622f2",
+    "compact_name": "endmember_scores.csv",
+    "compact_sha256": "3f169ae3d1b59a1451ae754b98777d515a4184b5ce49137be6707ca2a59622f2"
+  },
+  {
+    "original_name": "within_class_variability.csv",
+    "original_sha256": "3111a0926264740d13e5140eab924dd6fd9093d09b10971047b1c2d602ee0a4c",
+    "compact_name": "within_class_variability.csv",
+    "compact_sha256": "3111a0926264740d13e5140eab924dd6fd9093d09b10971047b1c2d602ee0a4c"
+  },
+  {
+    "original_name": "fold_support.csv",
+    "original_sha256": "55f55419f825eb4e05885580abe055af362b6a5c1c5a301010e5b9f6db42a7fd",
+    "compact_name": "fold_support.csv",
+    "compact_sha256": "55f55419f825eb4e05885580abe055af362b6a5c1c5a301010e5b9f6db42a7fd"
+  },
+  {
+    "original_name": "fold_membership.parquet",
+    "original_sha256": "aac39530e563bd33f35a932418d6fd86542460fc1f344cffd23b425a0222fc30",
+    "compact_name": "fold_membership.parquet",
+    "compact_sha256": "aac39530e563bd33f35a932418d6fd86542460fc1f344cffd23b425a0222fc30"
+  },
+  {
+    "original_name": "library_size.csv",
+    "original_sha256": "c22eb4b4d05152c5789b0c7f49f7bbfd8fd8b4c93d702c0d1f4b6641c99eb3e1",
+    "compact_name": "library_size.csv",
+    "compact_sha256": "c22eb4b4d05152c5789b0c7f49f7bbfd8fd8b4c93d702c0d1f4b6641c99eb3e1"
+  },
+  {
+    "original_name": "mixture_ambiguity.csv",
+    "original_sha256": "7cf68d4412c070703344d7dfd9bf12390303929e2072b5d5f294e436090565cc",
+    "compact_name": "mixture_ambiguity.parquet",
+    "compact_sha256": "4d282a91c918a37a0bd3217bd437bfbb9f92f842951c5633a12eb4b92d3194bf",
+    "rows": 422022,
+    "conversion": "lossless Parquet compression of round-trip-parsed CSV values"
+  },
+  {
+    "original_name": "class_sample_sizes.csv",
+    "original_sha256": "1750759888b266b445c1eb5d8b1559cc44f0f85708f9e768c8dd0bbbde1e337d",
+    "compact_name": "class_sample_sizes.csv",
+    "compact_sha256": "1750759888b266b445c1eb5d8b1559cc44f0f85708f9e768c8dd0bbbde1e337d"
+  },
+  {
+    "original_name": "synthetic_mixture_truth.parquet",
+    "original_sha256": "467e7153065306521e3a58dc1de1e07be6204dc009a45920a381777ce72b19fa",
+    "compact_name": "synthetic_mixture_truth.parquet",
+    "compact_sha256": "467e7153065306521e3a58dc1de1e07be6204dc009a45920a381777ce72b19fa"
+  },
+  {
+    "original_name": "uncertainty.csv",
+    "original_sha256": "a36dffce35c9fa0f5ad5c602e41eaa780fd516abc01b68e8dee17d45ab70ca0f",
+    "compact_name": "uncertainty.csv",
+    "compact_sha256": "a36dffce35c9fa0f5ad5c602e41eaa780fd516abc01b68e8dee17d45ab70ca0f"
+  },
+  {
+    "original_name": "abundance_estimates.parquet",
+    "original_sha256": "b381b6d6170e1e479b4267cf3d7e061bf76cbc3a20e3f51357ea97a620a57e99",
+    "compact_name": "abundance_estimates.parquet",
+    "compact_sha256": "b381b6d6170e1e479b4267cf3d7e061bf76cbc3a20e3f51357ea97a620a57e99"
+  },
+  {
+    "original_name": "fraction_errors.csv",
+    "original_sha256": "0b3071a09ecbca0fd2cb69766c84d34eb8d7cff083cb79238b66a2fbae42bf60",
+    "compact_name": "fraction_errors.csv",
+    "compact_sha256": "0b3071a09ecbca0fd2cb69766c84d34eb8d7cff083cb79238b66a2fbae42bf60"
+  },
+  {
+    "original_name": "detection_errors.csv",
+    "original_sha256": "cdcc4833805e21c66bd7191c7450d2d5137b060d3929db22bf91edb8a9ecd5ed",
+    "compact_name": "detection_errors.parquet",
+    "compact_sha256": "232ad9ed1a7f3a38f6977eb6f6f3086150ca63c2f0b2c2f5d545fc5d857782eb",
+    "rows": 451404,
+    "conversion": "lossless Parquet compression of round-trip-parsed CSV values"
+  },
+  {
+    "original_name": "sample_membership.csv",
+    "original_sha256": "cd322e87febff054806846e18f5d41c92dddb76913459e192bbb8b4902bb06c8",
+    "compact_name": "sample_membership.csv",
+    "compact_sha256": "cd322e87febff054806846e18f5d41c92dddb76913459e192bbb8b4902bb06c8"
+  },
+  {
+    "original_name": "runtime.csv",
+    "original_sha256": "9f9da90e17b8946303616dfa17b0b171399d02289c3770ad8262c03ee117be9e",
+    "compact_name": "runtime.csv",
+    "compact_sha256": "9f9da90e17b8946303616dfa17b0b171399d02289c3770ad8262c03ee117be9e"
+  },
+  {
+    "original_name": "unknown_detection.csv",
+    "original_sha256": "d95f2092f7bbb118e12f29f9d9d58715f3d6cd019914564cc2a2eff855d26864",
+    "compact_name": "unknown_detection.parquet",
+    "compact_sha256": "e0520b5e01436de091d013574079d29fded7fa8a03185c3d7e6f132f911d20ed",
+    "rows": 140674,
+    "conversion": "lossless Parquet compression of round-trip-parsed CSV values"
+  },
+  {
+    "original_name": "endmember_accumulation.csv",
+    "original_sha256": "32604c625fb1123299da362a7f548b99a3b5d95b8b74ee855ccb5e1d79b089a1",
+    "compact_name": "endmember_accumulation.csv",
+    "compact_sha256": "32604c625fb1123299da362a7f548b99a3b5d95b8b74ee855ccb5e1d79b089a1"
+  },
+  {
+    "original_name": "spectral_qc.csv",
+    "original_sha256": "f730e9a306fd65958b24e71a4916f5684dbcaf4b5455ec8423af3c92e884467b",
+    "compact_name": "spectral_qc.csv",
+    "compact_sha256": "f730e9a306fd65958b24e71a4916f5684dbcaf4b5455ec8423af3c92e884467b"
+  },
+  {
+    "original_name": "detection_curves.csv",
+    "original_sha256": "946b67ed81edc21096d243674b61edf74aa3321c8186e1e31092dedcd071bbad",
+    "compact_name": "detection_curves.parquet",
+    "compact_sha256": "904105ea5541300b5fe1a69d48b7ab7e0b1a8b9c52ef5a65be026bef9a0d50f2",
+    "rows": 451404,
+    "conversion": "lossless Parquet compression of round-trip-parsed CSV values"
+  }
+]

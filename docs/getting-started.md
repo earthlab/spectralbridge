@@ -64,3 +64,5 @@ A preflight check is not a completed scientific run.
 When processing stops, [resume against existing valid files](vignettes/carry-on-wayward-son.md).
 After it finishes, inspect [required outputs](pipeline/outputs.md) and
 [QA evidence](validation/evidence-hierarchy.md) before drawing scientific conclusions.
+
+Continue with `python examples/scientific_workflows_offline.py` for invented-data library aggregation, gap-preserving harmonization, synthetic OLI projection and agreement metrics. The [API maturity map](api/scientific-analysis.md) separates these numerical examples from full research analyses.

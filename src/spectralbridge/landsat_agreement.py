@@ -102,6 +102,24 @@ def deming_regression(x, y, error_variance_ratio=1.0):
 
 
 def compute_agreement_metrics(real, synthetic):
+    """Summarize paired scalar reflectance observations in their supplied units.
+
+    Args:
+        real (array-like): Reference reflectance values.
+        synthetic (array-like): Same-shape modeled reflectance values.
+
+    Returns:
+        dict: Finite-pair N/status, bias (synthetic minus real), MAE, RMSE,
+        IQR-normalized RMSE, correlations, identity/Deming fits and residual
+        diagnostics. Undefined sparse/constant statistics are NaN. No clipping
+        or unit conversion occurs; bias/MAE/RMSE retain reflectance units.
+
+    Raises:
+        ValueError: Inputs cannot be broadcast/aligned for pairwise evaluation.
+
+    Correlation is not radiometric agreement. This function supplies no
+    population uncertainty; spatial-block intervals are added by the workflow.
+    """
     x = np.asarray(real, float)
     y = np.asarray(synthetic, float)
     valid = np.isfinite(x) & np.isfinite(y)
@@ -219,12 +237,29 @@ def _source_scale(source, explicit):
 def aggregate_to_landsat_grid(
     products, grid, *, scale_factors=None, offset_m=(0.0, 0.0), strip_rows=8
 ):
-    """Joint seven-band source support, exact area weights on the actual grid.
+    """Aggregate joint seven-band products to actual projected Landsat footprints.
 
-    Same-CRS rectilinear grids use separable interval intersections. Cross-CRS
-    support uses transformed source-cell polygons intersected in the destination
-    projected CRS (straight edges at source-cell corner resolution). Neither
-    path interprets normalized GDAL mask averages as whole-pixel coverage.
+    Args:
+        products (dict): Variant names mapped to seven-band raster paths.
+        grid (ReferenceGrid): Actual north-up projected Landsat grid.
+        scale_factors (dict, optional): Explicit divisor by variant. Otherwise
+            verified raster metadata must declare scale; never infer visually.
+        offset_m (tuple[float, float]): Declared source registration offset in
+            projected meters; unsupported cross-CRS offsets raise ValueError.
+        strip_rows (int): Positive destination strip size for bounded reads.
+
+    Returns:
+        dict: Variant means/variances in unitless reflectance, source geometry
+        coverage, joint validity/full-footprint coverage, contributing counts,
+        and aggregation method. Unsupported cells have NaN means.
+
+    Raises:
+        ValueError: Invalid grid, scale, dimensions, offsets or variant alignment.
+        OSError: Rasters cannot be read.
+
+    Same-CRS uses interval intersections; cross-CRS uses transformed source-cell
+    polygons. Whole-footprint coverage is not normalized to contributing source
+    overlap. Joint finite/nodata masks keep variants and seven channels paired.
     """
     import rasterio
     from rasterio.windows import from_bounds, Window

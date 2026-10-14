@@ -82,11 +82,33 @@ def envelope_critical(maxima, alpha):
 
 
 def method_statistics(values, labels, blocks, wavelengths, *, config=None, seed=None, integration_weights=None):
-    """One ensemble, identical units/blocks for max, integral, energy and FPCA.
+    """Evaluate synchronized conditional whole-spectrum permutation statistics.
 
-    The full observed+permuted ensemble is retained for reproducible NPC and
-    envelope calibration. Energy is a weighted mean of within-block V-statistic
-    energy distances on fixed null-scaled, wavelength-weighted curves.
+    Args:
+        values (array-like): Stored reflectance matrix (N polygon/year curves, B
+            wavelengths). Units remain unchanged; finite common variable columns
+            within eligible mixed blocks are used, without imputation.
+        labels (array-like): Binary 0/1 group labels, shape (N,).
+        blocks (array-like): Nonmissing exact-history block labels, shape (N,).
+        wavelengths (array-like): Increasing coordinates in nm, shape (B,).
+        config (AuditConfig, optional): Permutations, rank and gap settings.
+        seed (int, optional): Overrides the config seed.
+        integration_weights (array-like, optional): Nonnegative weights (B,).
+            Default is disconnected wavelength quadrature; use explicit discrete
+            sensor weights for widely spaced channels.
+
+    Returns:
+        dict: Observed/permuted curves and four statistics, component/NPC p-values,
+        rows/columns retained, scale, SE, normalized weights and FPCA diagnostics.
+
+    Raises:
+        ValueError: Invalid dimensions/labels/blocks/weights or insufficient
+            complete variable support / exchangeable mixed blocks.
+
+    Labels move as whole curves within blocks. Conditional exchangeability is an
+    assumption; results do not establish causal PFT mechanisms. NPC calibrates a
+    joint probability combination, not an uncorrected minimum p. Multiplicity
+    adjustment and family envelopes belong to the calling analysis.
     """
     config = config or AuditConfig()
     config.validate()

@@ -1337,3 +1337,12 @@ body:has(.sb-home) .md-content__inner::before {
 .md-typeset .sb-product-example img { display: block; width: 100%; height: auto; }
 .md-typeset .sb-product-example figcaption { font-size: .78rem; line-height: 1.55; text-align: left; }
 .md-typeset .sb-products .sb-doc-link-card { min-width: 0; }
+
+/* Optional scientific evidence flow; semantic reading order retained on mobile. */
+.sb-evidence-flow { display:flex; flex-wrap:wrap; align-items:center; gap:.55rem;
+  margin:1.4rem 0; color:var(--md-default-fg-color); font-size:.76rem; }
+.sb-evidence-flow span { padding:.5rem .65rem; border-left:3px solid #0072b2;
+  background:var(--md-code-bg-color); flex:1 1 135px; }
+.sb-evidence-flow b { color:var(--md-default-fg-color--light); }
+@media(max-width:600px) { .sb-evidence-flow span { flex-basis:100%; }
+  .sb-evidence-flow b { transform:rotate(90deg); margin-left:.6rem; } }

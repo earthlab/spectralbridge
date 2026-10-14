@@ -116,3 +116,5 @@ go_forth_and_multiply(
       - "!^_"
 </section>
 </div>
+
+See the [scientific analysis API and maturity map](scientific-analysis.md) for explicit module imports, dimensions, units and experimental boundaries beyond the stable top-level surface.

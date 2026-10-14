@@ -1,7 +1,8 @@
 site_name: SpectralBridge
 site_description: >-
   SpectralBridge provides separate NEON flightline, drone imagery, and bulk
-  cross-run analysis workflows with traceable reflectance products and QA.
+  cross-run analysis, hyperspectral spectral libraries, sensor translation and
+  scoped scientific validation with traceable reflectance products and QA.
 site_url: https://earthlab.github.io/spectralbridge
 repo_url: https://github.com/earthlab/spectralbridge
 edit_uri: edit/main/docs/
@@ -48,7 +49,17 @@ nav:
   - CLI: usage/cli.md
   - Troubleshooting: troubleshooting.md
   - FAQ: faq.md
+- Spectral Library:
+  - What is the library?: spectral-library/index.md
+  - Atlas, sites and years: spectral-library/atlas.md
+  - Label systems: spectral-library/labels.md
+  - Biological variation: spectral-library/biological-variation.md
+  - Sensor information retention: spectral-library/sensor-transfer.md
+  - Experimental MESMA readiness: spectral-library/mesma-readiness.md
 - Validate:
+  - Scientific validation levels: validation/scientific-validation.md
+  - Whole-spectrum method audit: validation/pft-methods.md
+  - Independent Landsat pilot: validation/landsat-pilot.md
   - Evidence hierarchy: validation/evidence-hierarchy.md
   - Evidence overview: validation/index.md
   - Stage QA: validation/stage-qa-guide.md
@@ -70,6 +81,7 @@ nav:
 - Reference:
   - Reference map: reference/index.md
   - Python API: api/index.md
+  - Scientific analysis API and maturity: api/scientific-analysis.md
   - Literature sources: reference/literature.md
   - Stage and filename contracts:
     - Stage order: pipeline/stages.md
@@ -99,6 +111,7 @@ nav:
     - Custom correction hook: reference/custom-correction-hook.md
     - Extend sensors and algorithms: reference/extending.md
   - Tests and contribution: dev/contributing.md
+  - Scientific testing: dev/scientific-testing.md
   - CI ownership: dev/ci.md
   - Release gates: dev/releasing.md
   - Software citation: dev/software-citation.md

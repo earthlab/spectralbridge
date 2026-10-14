@@ -34,3 +34,5 @@ For work with external Landsat observations, consult the explicit comparison
 scope in [the drone/translation guide](../tutorials/micasense-to-landsat.md).
 Spatial support, acquisition conditions and independent reference quality remain
 part of the scientific study design.
+
+The [six-level scientific validation map](scientific-validation.md) connects numerical correctness, pipeline contracts, biological associations, synthetic sensor reduction, the separate real-Landsat pilot and incomplete ecological abundance validation.

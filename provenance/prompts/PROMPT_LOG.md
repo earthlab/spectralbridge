@@ -25642,3 +25642,4082 @@ Model: Not recorded
 ```text
 continue
 ```
+
+## 2026-10-14 - MESMA readiness audit
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+You are working in the earthlab/spectralbridge repository.
+
+I want you to conduct a comprehensive scientific and computational assessment of whether the current SpectralBridge spectral library is ready for Multiple Endmember Spectral Mixture Analysis (MESMA).
+
+This is NOT a request to simply implement MESMA.
+
+The goal is to determine:
+
+1. whether the spectral library contains the right endmembers
+2. whether those endmembers adequately represent observed spectral variability
+3. whether ecological/material classes are distinguishable in mixtures
+4. whether mixture fractions are identifiable and recoverable
+5. how endmember selection affects performance
+6. whether performance generalizes across plants, flights, sites and years
+7. how much performance survives spectral reduction from NEON hyperspectral data to Landsat-like data
+8. whether the library is ready for real MESMA analysis
+9. which ecological questions are supportable now
+10. what deficiencies must be fixed before operational MESMA
+
+Treat this as a publication-quality MESMA READINESS AUDIT.
+
+Do not optimize the analysis to produce a positive answer.
+
+A conclusion of "ready for some material classes but not others" is preferable to an unjustified global pass/fail.
+
+============================================================
+SCIENTIFIC CONTEXT
+============================================================
+
+A substantial amount of spectral-library analysis has already been completed.
+
+DO NOT restart from scratch.
+
+First audit the repository, documentation, provenance records, existing outputs, tests and current implementation.
+
+Relevant recent work includes:
+
+- construction and QA of the merged spectral library
+- polygon/plant-level aggregation
+- raw versus corrected spectra
+- site/year/acquisition-history analyses
+- species and inferred-PFT analyses
+- researcher-defined `cover_category` analyses
+- whole-spectrum functional permutation testing
+- spectral localization
+- PFT method audit
+- synthetic sensor-transfer analysis
+- corrected NEON -> OLI-like reduction
+- real Landsat validation pilot
+- spectral variability plots
+- quantile analyses
+- plant spectral atlas
+- cross-site comparisons
+
+Existing results already establish important facts that should be reused rather than rediscovered.
+
+Examples include:
+
+- 3,639 polygon identities
+- 4,807 polygon/year spectra
+- 1,944 identities with inferred PFT labels
+- 1,143 identities without species names
+- researcher `cover_category` labels:
+  Deciduous
+  Evergreen
+  Herbaceous
+  Non-vegetated & dead
+  Woody shrub
+
+Existing inferred PFT codes include:
+
+DBS = deciduous broadleaf shrub
+DBT = deciduous broadleaf tree
+EBS = evergreen broadleaf shrub
+ECS = evergreen conifer shrub
+ECT = evergreen conifer tree
+
+Previous work showed strong whole-spectrum differences for some contrasts, especially:
+
+DBS vs ECT
+DBT vs ECT
+
+and weak/nonrobust differences for others such as:
+
+DBT vs ECS
+
+Previous synthetic OLI work found that 15/16 NEON-supported inferred-PFT contrasts survived spectral reduction to synthetic Landsat OLI, with strong preservation of effect ranking.
+
+Previous real-Landsat validation has begun testing whether the synthetic OLI representation agrees with actual Landsat observations.
+
+These analyses are useful context but DO NOT prove MESMA readiness.
+
+The critical distinction is:
+
+SPECTRAL SEPARABILITY != MIXTURE IDENTIFIABILITY != ABUNDANCE RECOVERY.
+
+This audit must explicitly test all three.
+
+============================================================
+0. BEGIN WITH A REPOSITORY AND EVIDENCE AUDIT
+============================================================
+
+Before writing new analysis code, inspect:
+
+src/spectralbridge/
+tests/
+examples/
+docs/
+provenance/
+output/
+configuration files
+data definitions
+sensor response functions
+existing spectral-library utilities
+
+Find and understand all relevant existing code before creating new functionality.
+
+Particularly inspect recent provenance directories related to:
+
+pft-audit
+researcher-pft
+sensor-pft-transfer
+real-landsat-validation
+spectral-library analyses
+
+Identify reusable functionality.
+
+Do not duplicate existing:
+
+spectral loading
+aggregation
+band masking
+atmospheric gap handling
+functional statistics
+sensor reduction
+bootstrap
+provenance
+plotting
+metadata validation
+
+Create an audit document explaining what existing code/results are being reused.
+
+============================================================
+1. DEFINE MESMA READINESS BEFORE TESTING IT
+============================================================
+
+Do not create one arbitrary "MESMA readiness score."
+
+Define readiness as multiple measurable dimensions:
+
+A. spectral integrity
+B. material coverage
+C. within-class representativeness
+D. between-class distinguishability
+E. mixture identifiability
+F. fraction recovery
+G. transferability
+H. sensor robustness
+I. uncertainty calibration
+J. computational feasibility
+
+At the end, report each dimension independently.
+
+Readiness may differ by:
+
+material hierarchy
+site
+sensor
+spectral resolution
+ecological question
+
+For example:
+
+ready for broad vegetation/soil/shade separation
+
+does NOT imply:
+
+ready for species-level abundance estimation.
+
+============================================================
+2. AUDIT THE MATERIAL CLASS SYSTEM
+============================================================
+
+Before running MESMA, determine what the endmember classes actually should be.
+
+Do not automatically assume inferred PFTs are the correct MESMA classes.
+
+Evaluate separately:
+
+species
+inferred PFT
+researcher `cover_category`
+physically meaningful spectral/material classes
+
+MESMA traditionally operates on MATERIALS, not necessarily taxonomic labels.
+
+Explicitly inventory whether the library adequately represents:
+
+green vegetation
+non-photosynthetic vegetation
+dead vegetation
+litter
+soil
+rock
+water
+snow
+shadow
+woody material
+other important background materials
+
+Determine whether:
+
+"Non-vegetated & dead"
+
+is too heterogeneous to serve as one physical endmember class.
+
+If the current data cannot distinguish soil from litter from dead vegetation, say so.
+
+Do NOT invent labels.
+
+Create:
+
+MATERIAL_CLASS_AUDIT.md
+
+with:
+
+existing classes
+sample sizes
+physical interpretation
+known confounding
+recommended MESMA hierarchy
+unsupported classes
+missing classes
+
+============================================================
+3. SPECTRAL INTEGRITY AUDIT
+============================================================
+
+Characterize the physical quality of candidate spectra.
+
+Check:
+
+reflectance ranges
+negative values
+extreme values
+saturation
+NaNs
+structural missingness
+atmospheric absorption regions
+spectral discontinuities
+spectral smoothness
+noise
+wavelength-grid differences
+flight-specific artifacts
+site-specific artifacts
+year-specific artifacts
+BRDF/topographic correction effects
+illumination effects
+
+Do NOT interpret the merged 1,140-column union as one common spectrum if multiple wavelength grids produce structural NaNs.
+
+Use the repository's established valid spectral-support logic.
+
+Never interpolate across atmospheric gaps simply to make analysis easier.
+
+Quantify variability at:
+
+pixel within polygon
+polygon/plant
+species
+material class
+flight
+site
+year
+
+Distinguish:
+
+real ecological variability
+
+from
+
+processing artifacts.
+
+Do not discard unusual spectra solely because they are unusual.
+
+============================================================
+4. REPRESENTATIVENESS AND COVERAGE
+============================================================
+
+Determine whether the library adequately covers the spectral space encountered in the source imagery.
+
+Use multiple complementary diagnostics.
+
+Consider:
+
+PCA
+robust PCA if justified
+spectral-angle space
+nearest-neighbor spectral distance
+convex-hull coverage
+density-based coverage
+novelty/out-of-distribution distance
+
+Do NOT rely on a 2-D PCA plot alone.
+
+Calculate library coverage as spectra are accumulated by:
+
+plant
+species
+class
+flight
+site
+year
+
+Create accumulation curves showing diminishing returns.
+
+Ask:
+
+How many plants are needed before class spectral diversity saturates?
+
+How much new spectral space does another site contribute?
+
+How much does another year contribute?
+
+Which classes remain poorly sampled?
+
+Identify image spectra poorly represented by ANY library spectrum.
+
+These are especially important because MESMA cannot recover a material that is absent from its candidate library.
+
+============================================================
+5. WITHIN-CLASS SPECTRAL VARIABILITY
+============================================================
+
+Quantify spectral variability within every candidate class.
+
+Calculate appropriate measures such as:
+
+spectral angle
+RMSE
+Euclidean distance in standardized spectral space
+within-class covariance
+functional variance
+PCA dispersion
+
+Do this hierarchically:
+
+within plant
+between plants
+between species
+between flights
+between years
+between sites
+
+Ask:
+
+What fraction of class variability comes from biological identity versus acquisition/environment?
+
+Where sample structure permits, use variance decomposition or hierarchical models.
+
+Do not overclaim components that are unidentifiable because of confounding.
+
+============================================================
+6. ENDMember SEPARABILITY
+============================================================
+
+Extend the existing whole-spectrum biological tests into MESMA-relevant separability analyses.
+
+Implement or verify established spectral-library selection metrics where appropriate:
+
+EAR
+Endmember Average RMSE
+
+MASA
+Minimum Average Spectral Angle
+
+CoB
+Count-based Endmember Selection
+
+IES
+Iterative Endmember Selection
+
+Also consider:
+
+class medoids
+spectral diversity selection
+farthest-point selection
+cluster representatives
+
+Use the published definitions.
+
+Do not invent similarly named statistics.
+
+For each class determine:
+
+how well spectra represent other members of the same class
+
+and
+
+how often they incorrectly model another class.
+
+Create directed confusion matrices.
+
+For example:
+
+Can ECT spectra model DBS observations?
+
+Can DBS spectra model ECT observations?
+
+These are not necessarily symmetric.
+
+============================================================
+7. THE CRITICAL MIXTURE IDENTIFIABILITY TEST
+============================================================
+
+This is one of the most important parts of the entire audit.
+
+Spectral separability does NOT guarantee mixture identifiability.
+
+A spectrum from class C may be approximated by a mixture of A and B:
+
+f*A + (1-f)*B ≈ C
+
+even if A, B and C have significantly different mean spectra.
+
+Explicitly test this.
+
+For every candidate material/class:
+
+ask whether held-out spectra from that class can be reconstructed by convex combinations of endmembers from OTHER classes.
+
+Test:
+
+two-endmember mixtures
+three-endmember mixtures
+higher complexity only where scientifically justified
+
+Use constraints appropriate to linear spectral mixture analysis:
+
+fractions >= 0
+
+and appropriate sum-to-one constraints.
+
+Treat shade explicitly rather than hiding it inside arbitrary fraction sums.
+
+For every held-out spectrum record:
+
+best correct-class model error
+best incorrect-class model error
+difference between them
+number of near-equivalent models
+composition of best incorrect model
+fraction stability
+
+Define a scientifically transparent ambiguity criterion.
+
+Do sensitivity analysis rather than pretending one RMSE threshold is universal.
+
+Create a:
+
+MIXTURE_AMBIGUITY_MATRIX
+
+showing which materials can masquerade as mixtures of others.
+
+This analysis may be more important than the existing significance tests.
+
+============================================================
+8. LIBRARY OPTIMIZATION
+============================================================
+
+Do NOT simply run MESMA with every available spectrum.
+
+Compare endmember-selection strategies.
+
+At minimum benchmark:
+
+random stratified
+class medoid
+EAR
+MASA
+CoB
+IES
+
+and a reasonable hybrid if supported by the literature.
+
+Also evaluate diversity-preserving selection.
+
+Vary library size.
+
+Use scientifically reasonable sequences based on available samples, for example:
+
+1
+2
+5
+10
+20
+50
+100
+
+endmembers per class where feasible.
+
+Do not force impossible sizes for rare classes.
+
+Measure:
+
+within-class reconstruction error
+cross-class confusion
+mixture ambiguity
+fraction recovery
+runtime
+model count
+
+Create endmember accumulation curves.
+
+Determine whether performance:
+
+improves
+plateaus
+or deteriorates
+
+as library size increases.
+
+Look for a Pareto frontier between:
+
+library size
+coverage
+accuracy
+ambiguity
+runtime
+
+============================================================
+9. STRICT TRAIN / TEST SEPARATION
+============================================================
+
+This is essential.
+
+Endmember selection must NEVER use the observations on which performance is evaluated.
+
+Build grouped holdout strategies.
+
+Examples:
+
+leave-one-plant-out
+leave-one-flight-out
+leave-one-year-out
+leave-one-site-out
+
+For repeated NIWO years, do not pretend they are independent geographic sites.
+
+Every endmember selection method must be rerun INSIDE each training fold.
+
+Do not:
+
+select endmembers globally
+
+then evaluate those selected endmembers on held-out data.
+
+That is leakage.
+
+============================================================
+10. SYNTHETIC MIXTURE BENCHMARK
+============================================================
+
+Create controlled synthetic mixtures.
+
+Use HELD-OUT source spectra to generate validation mixtures.
+
+Do not create a mixture from spectra that remain available as candidate endmembers.
+
+Generate:
+
+2-component mixtures
+3-component mixtures
+
+and potentially more only if ecologically realistic.
+
+Explore fraction gradients such as:
+
+0/100
+5/95
+10/90
+20/80
+30/70
+...
+90/10
+95/5
+100/0
+
+Use denser sampling around detection thresholds if useful.
+
+Add realistic noise sensitivity.
+
+Where possible estimate noise from observed spectral variability rather than arbitrary Gaussian values.
+
+For each mixture, recover fractions.
+
+Measure:
+
+fraction bias
+fraction MAE
+fraction RMSE
+material false positives
+material false negatives
+model-selection error
+spectral reconstruction RMSE
+spectral angle
+fraction-sum violations
+negative fractions if unconstrained sensitivity is tested
+
+============================================================
+11. TYPE I / TYPE II ERROR AND DETECTION PROBABILITY
+============================================================
+
+Explicitly connect this to detection theory.
+
+For each material:
+
+FALSE POSITIVE:
+material estimated present when true fraction = 0
+
+FALSE NEGATIVE:
+material truly present but not detected
+
+Estimate:
+
+P(detection | true fraction)
+
+across mixture fractions.
+
+Generate detection curves.
+
+Estimate approximate abundance thresholds such as:
+
+fraction required for 50% detection
+fraction required for 80% detection
+fraction required for 95% detection
+
+Only report these if the simulation and decision rule justify them.
+
+Report false-positive rate separately.
+
+Do NOT define "detected" after looking at results.
+
+Predeclare a defensible fraction/model threshold and perform sensitivity analysis.
+
+============================================================
+12. COMPARE UNMIXING METHODS
+============================================================
+
+MESMA should be the main target, but benchmark it against alternatives.
+
+At minimum:
+
+A. FCLS
+Fully Constrained Least Squares
+
+B. classical MESMA
+
+C. sparse library unmixing if implementable robustly
+
+D. variability-aware / Monte Carlo endmember unmixing
+
+Do not build an enormous machine-learning benchmark.
+
+The goal is to determine whether MESMA provides a meaningful advantage over simpler models and whether uncertainty-aware methods materially improve results.
+
+Keep methods physically interpretable.
+
+============================================================
+13. SENSOR-RESOLUTION EXPERIMENT
+============================================================
+
+Use SpectralBridge's strongest unique capability.
+
+Repeat the controlled mixture experiment in:
+
+corrected NEON hyperspectral space
+
+and
+
+synthetic Landsat OLI space.
+
+Use IDENTICAL biological source spectra and mixture fractions.
+
+This creates a paired spectral-information-loss experiment.
+
+Ask:
+
+Which materials remain identifiable after spectral reduction?
+
+How much does abundance RMSE increase?
+
+How do detection thresholds change?
+
+Which confusions appear only after reduction?
+
+Which endmember distinctions require hyperspectral information?
+
+Do not interpret synthetic OLI as independent Landsat validation.
+
+============================================================
+14. CONNECT TO REAL LANDSAT VALIDATION
+============================================================
+
+Reuse the real-Landsat validation work.
+
+Do NOT treat the existing n=1 pilot as universal validation.
+
+Use real-Landsat results to characterize realistic sensor mismatch.
+
+As more flight comparisons become available, incorporate empirical:
+
+band bias
+RMSE
+spectral angle
+heterogeneity dependence
+flight-to-flight variation
+
+into sensitivity analyses.
+
+Potentially perturb synthetic OLI mixtures using empirically observed real-Landsat residual structure.
+
+Do this only if statistically defensible.
+
+Clearly separate:
+
+synthetic spectral reduction
+
+from
+
+real sensor validation.
+
+============================================================
+15. REAL MIXTURE VALIDATION
+============================================================
+
+Synthetic mixtures test performance under the assumed mixing model.
+
+They are not enough.
+
+Search existing project data for opportunities to obtain independent reference fractions for real pixels.
+
+Potential sources might include:
+
+high-resolution mapped polygons
+validated vegetation maps
+field observations
+high-resolution classification
+known homogeneous patches
+
+Do NOT derive "truth" from the same spectra being unmixed.
+
+If independent fractional cover truth is unavailable, explicitly mark:
+
+REAL ABUNDANCE VALIDATION = NOT YET AVAILABLE
+
+and specify exactly what data would be required.
+
+Do not manufacture pseudo-ground-truth.
+
+============================================================
+16. SHADE AND NONLINEARITY
+============================================================
+
+Audit how shade should be handled.
+
+Compare, where defensible:
+
+shade as explicit endmember
+shade-normalized fractions
+no-shade models
+
+Do not assume one formulation is universally correct.
+
+Also test whether linear mixing is obviously inadequate for some held-out spectra.
+
+Look for systematic reconstruction residuals associated with:
+
+dense canopy
+shadow
+high heterogeneity
+specific classes
+specific wavelengths
+
+Do not immediately implement nonlinear unmixing.
+
+First determine whether there is evidence that linear MESMA is failing structurally.
+
+============================================================
+17. MODEL COMPLEXITY
+============================================================
+
+Compare:
+
+2-endmember
+3-endmember
+possibly 4-endmember
+
+MESMA models.
+
+Do not automatically prefer lower RMSE from more complex models.
+
+Use physically meaningful model-selection constraints.
+
+Record:
+
+model complexity
+RMSE
+fraction validity
+class ambiguity
+
+Determine when additional endmembers improve true abundance recovery versus merely overfit spectra.
+
+============================================================
+18. UNCERTAINTY
+============================================================
+
+A MESMA result should not simply produce fractions.
+
+Estimate uncertainty or stability.
+
+Use appropriate approaches such as:
+
+bootstrap across endmember choices
+Monte Carlo endmember combinations
+held-out replicate variability
+sensor-noise perturbation
+
+For every abundance estimate ask:
+
+How stable is this fraction to plausible endmember choice?
+
+How often does the selected model change?
+
+How wide is the fraction distribution?
+
+Can unreliable estimates be flagged?
+
+A major goal should be to produce an uncertainty-aware MESMA workflow.
+
+============================================================
+19. CROSS-SITE / CROSS-YEAR TRANSFERABILITY
+============================================================
+
+Construct explicit transfer experiments.
+
+Examples:
+
+train NIWO 2020 -> test NIWO 2023
+
+train NIWO -> test WREF
+
+train NIWO + WREF -> test YELL
+
+train all-but-one flight -> held-out flight
+
+train all-but-one site -> held-out site
+
+Use only comparisons supported by the actual sample structure.
+
+For every experiment measure:
+
+fraction error
+detection probability
+false positives
+false negatives
+spectral reconstruction error
+model ambiguity
+
+Create a transferability matrix.
+
+============================================================
+20. RARE MATERIALS
+============================================================
+
+Do not allow common classes to dominate the readiness conclusion.
+
+Identify rare materials/classes.
+
+Evaluate separately:
+
+sample coverage
+spectral variability
+endmember availability
+detection probability
+
+If a rare class cannot be evaluated reliably, mark it:
+
+INSUFFICIENT EVIDENCE
+
+rather than merging it away simply to improve performance.
+
+============================================================
+21. NOVELTY / UNKNOWN MATERIAL DETECTION
+============================================================
+
+MESMA can produce plausible-looking fractions even when the correct material is absent from the library.
+
+Explicitly test this failure mode.
+
+Hold out an entire class.
+
+Attempt unmixing without it.
+
+Measure:
+
+residual increase
+spectral angle
+fraction instability
+incorrect material assignment
+
+Develop diagnostics for:
+
+"NO ADEQUATE LIBRARY MODEL"
+
+rather than forcing every pixel into known materials.
+
+This is essential for operational use.
+
+============================================================
+22. PERFORMANCE AT NEON VS LANDSAT RESOLUTION
+============================================================
+
+Separate two kinds of information loss:
+
+spectral loss
+
+and
+
+spatial mixing.
+
+Use high-resolution NEON observations to create controlled spatial aggregations approximating Landsat footprints.
+
+Then compare:
+
+native hyperspectral pixels
+
+spatially aggregated hyperspectral pixels
+
+synthetic OLI from native spectra
+
+synthetic OLI from aggregated spectra
+
+where appropriate.
+
+This should help distinguish:
+
+spectral-resolution limitation
+
+from
+
+spatial-mixture limitation.
+
+============================================================
+23. REQUIRED PRIMARY FIGURES
+============================================================
+
+Aim for approximately six major scientific figures.
+
+FIGURE 1
+SPECTRAL LIBRARY ATLAS
+
+Show:
+
+sampling structure
+spectral distributions
+within-class variability
+site/year coverage
+
+FIGURE 2
+ENDMEMBER CONFUSION / IDENTIFIABILITY
+
+Show:
+
+directed class reconstruction error
+mixture ambiguity
+near-equivalent models
+
+FIGURE 3
+LIBRARY OPTIMIZATION
+
+Show:
+
+performance vs endmember count
+
+for:
+
+EAR
+MASA
+CoB
+IES
+other justified methods
+
+FIGURE 4
+MIXTURE RECOVERY SURFACE
+
+For important material pairs show:
+
+true fraction
+estimated fraction error
+detection probability
+false-positive behavior
+
+This should be one of the central figures.
+
+FIGURE 5
+SENSOR INFORMATION LOSS
+
+Compare:
+
+NEON hyperspectral
+synthetic OLI
+
+for:
+
+fraction RMSE
+detection thresholds
+material confusion
+
+FIGURE 6
+MESMA READINESS
+
+Summarize readiness by:
+
+material
+sensor
+site-transfer condition
+
+Do NOT reduce this to one opaque score.
+
+Use interpretable categories such as:
+
+READY
+CONDITIONALLY READY
+INSUFFICIENT EVIDENCE
+NOT READY
+
+with quantitative evidence behind every designation.
+
+============================================================
+24. IMPORTANT RESULT TABLES
+============================================================
+
+Produce machine-readable tables for:
+
+class sample sizes
+spectral QC
+spectral coverage
+within-class variability
+between-class distances
+EAR
+MASA
+CoB
+IES selections
+library-size experiments
+mixture ambiguity
+synthetic mixture truth
+abundance estimates
+fraction errors
+false positives
+false negatives
+detection curves
+sensor comparison
+cross-site transfer
+cross-year transfer
+method comparison
+runtime
+readiness assessment
+
+============================================================
+25. PROVENANCE
+============================================================
+
+Create a dedicated provenance directory such as:
+
+provenance/mesma-readiness/2026-10-14/
+
+Include:
+
+README.md
+DESIGN.md
+LITERATURE_METHODS.md
+MATERIAL_CLASS_AUDIT.md
+SPECTRAL_QC.md
+COVERAGE.md
+ENDMEMBER_SELECTION.md
+MIXTURE_IDENTIFIABILITY.md
+SYNTHETIC_MIXTURES.md
+SENSOR_TRANSFER.md
+TRANSFERABILITY.md
+UNCERTAINTY.md
+RESULTS.md
+VALIDATION.md
+RECOMMENDATIONS.md
+
+plus:
+
+tables/
+figures/
+manifests/
+
+Every analysis should be reproducible.
+
+Record:
+
+source hashes
+code version
+random seeds
+sample membership
+endmember membership
+holdout folds
+model constraints
+thresholds
+sensor representation
+spectral support
+
+============================================================
+26. SOFTWARE ARCHITECTURE
+============================================================
+
+Build reusable package functionality where appropriate.
+
+Possible conceptual organization:
+
+spectralbridge.mesma
+spectralbridge.endmembers
+spectralbridge.unmixing
+spectralbridge.mixture_validation
+
+but inspect the existing package before choosing names.
+
+Potential reusable concepts include:
+
+select_endmembers(...)
+compute_ear(...)
+compute_masa(...)
+compute_cob(...)
+iterative_endmember_selection(...)
+fit_fcls(...)
+fit_mesma(...)
+generate_synthetic_mixtures(...)
+evaluate_fraction_recovery(...)
+compute_detection_curve(...)
+evaluate_mixture_ambiguity(...)
+evaluate_library_coverage(...)
+
+Do not expose a huge unstable public API unnecessarily.
+
+Keep experimental analysis code separate from stable package functionality.
+
+============================================================
+27. COMPUTATIONAL STRATEGY
+============================================================
+
+Some of these analyses may become combinatorially expensive.
+
+Do not brute-force millions or billions of endmember combinations blindly.
+
+Estimate computational complexity first.
+
+Use:
+
+vectorization
+chunking
+parallelism
+candidate pruning
+coarse-to-fine search
+
+where scientifically valid.
+
+For large mixture searches, validate optimized implementations against exhaustive solutions on small cases.
+
+Do not change the scientific answer merely to make computation cheaper.
+
+============================================================
+28. TESTING
+============================================================
+
+Add targeted unit tests for new reusable functionality.
+
+Especially test:
+
+fraction constraints
+sum-to-one behavior
+known synthetic mixtures
+perfect recovery cases
+missing endmember cases
+mixture ambiguity
+spectral angle
+RMSE
+EAR
+MASA
+endmember selection
+holdout leakage
+sensor consistency
+atmospheric-gap handling
+deterministic seeds
+class imbalance
+
+Create tiny synthetic examples where the correct answer is analytically obvious.
+
+Run:
+
+focused tests
+Ruff
+strict MkDocs if docs change
+FULL repository test suite
+
+Do not stop with targeted tests.
+
+============================================================
+29. LITERATURE GROUNDING
+============================================================
+
+Before implementing MESMA-specific methods, verify definitions against the primary literature and authoritative implementations.
+
+At minimum investigate and cite appropriately:
+
+Roberts et al. foundational MESMA work
+
+Dennison & Roberts on endmember selection / EAR
+
+Roth et al. comparisons involving CoB/EAR/IES
+
+Somers et al. spectral variability review
+
+modern spectral-unmixing / endmember-variability methods
+
+modern validation guidance for fractional abundance products
+
+Monte Carlo / uncertainty-aware endmember approaches
+
+Do not rely on AI memory for exact formulas.
+
+Verify the equations.
+
+Record references and methodological decisions in:
+
+LITERATURE_METHODS.md
+
+Clearly distinguish:
+
+published method
+
+from
+
+SpectralBridge-specific adaptation.
+
+============================================================
+30. DO NOT MAKE THESE MISTAKES
+============================================================
+
+DO NOT:
+
+- assume significant spectral differences imply MESMA readiness
+- assume PFT is automatically the correct material hierarchy
+- use all spectra as endmembers without optimization
+- select endmembers using validation observations
+- evaluate mixtures generated from the exact candidate spectra
+- interpolate across atmospheric gaps
+- treat repeated pixels as independent biological samples
+- use training reconstruction error as validation
+- report only spectral reconstruction RMSE
+- ignore abundance error
+- ignore false positives
+- ignore false negatives
+- ignore missing endmembers
+- ignore shade
+- ignore library incompleteness
+- assume linear mixing is always adequate
+- treat synthetic OLI as real Landsat
+- treat the current one-flight Landsat pilot as cross-site validation
+- force every pixel into a known class
+- hide poor-performing materials
+- merge rare classes simply to improve accuracy
+- choose thresholds after looking at results
+- claim classification accuracy when testing abundance recovery
+- claim species generalization from species-confounded PFT tests
+- build a single opaque MESMA-readiness score
+
+============================================================
+31. EXECUTION ORDER
+============================================================
+
+Do this in stages.
+
+STAGE 1 — AUDIT
+
+Repository audit
+material hierarchy
+spectral QC
+sampling structure
+coverage
+variability
+
+STOP AND DOCUMENT any blocking data problems.
+
+STAGE 2 — IDENTIFIABILITY
+
+EAR/MASA/CoB
+cross-class reconstruction
+mixture ambiguity
+library-size analysis
+
+This stage should tell us whether MESMA is conceptually viable.
+
+STAGE 3 — CONTROLLED UNMIXING
+
+FCLS
+MESMA
+synthetic mixtures
+fraction recovery
+false positives
+false negatives
+detection curves
+uncertainty
+
+STAGE 4 — GENERALIZATION
+
+held-out plants
+held-out flights
+held-out years
+held-out sites
+
+STAGE 5 — SENSOR TRANSFER
+
+NEON hyperspectral
+synthetic OLI
+eventually real Landsat where independent truth permits
+
+STAGE 6 — READINESS ASSESSMENT
+
+Only after all previous evidence exists should you decide what is MESMA-ready.
+
+============================================================
+32. FIRST PASS SHOULD BE COMPUTATIONALLY CONTROLLED
+============================================================
+
+Do NOT immediately launch the largest possible analysis.
+
+Start with a representative subset that contains:
+
+strongly separated classes
+weakly separated classes
+multiple sites where possible
+multiple years where possible
+
+Include contrasts such as:
+
+DBS vs ECT
+DBT vs ECT
+DBT vs ECS
+
+and representative researcher cover classes.
+
+Use this subset to validate:
+
+endmember selection
+mixture generation
+fraction recovery
+ambiguity testing
+holdout logic
+
+Once scientifically and computationally validated, scale to the complete eligible library.
+
+============================================================
+33. FINAL REPORT
+============================================================
+
+At the end produce a concise executive scientific answer to:
+
+"Is this spectral library ready for MESMA?"
+
+Do NOT answer simply yes or no.
+
+Answer:
+
+1. Which material classes are currently supported?
+
+2. Which classes are spectrally distinguishable but mixture-ambiguous?
+
+3. Which classes have inadequate sampling?
+
+4. Are important background materials missing?
+
+5. How many endmembers per class are needed before performance plateaus?
+
+6. Which endmember-selection method performs best on held-out data?
+
+7. How accurately can known fractions be recovered?
+
+8. What are the false-positive and false-negative rates?
+
+9. At what fractional abundance does each material become reliably detectable?
+
+10. How much performance is lost from NEON hyperspectral to Landsat OLI resolution?
+
+11. Does MESMA outperform FCLS?
+
+12. Does a variability-aware/Monte Carlo approach improve performance?
+
+13. How well does the library transfer across flights?
+
+14. How well does it transfer across years?
+
+15. How well does it transfer across sites?
+
+16. What happens when the correct material is absent from the library?
+
+17. Can unreliable abundance estimates be detected from residuals/uncertainty?
+
+18. Which scientific applications are supported NOW?
+
+19. Which applications are NOT supported?
+
+20. What exact work remains before operational MESMA?
+
+Finish with a readiness matrix resembling:
+
+                        NEON hyperspectral    Landsat-like
+Green vegetation       READY / ...          ...
+Deciduous               ...                  ...
+Evergreen               ...                  ...
+Herbaceous              ...                  ...
+Woody shrub             ...                  ...
+NPV/dead                 ...                  ...
+Soil                     ...                  ...
+Shade                    ...                  ...
+Species-level            ...                  ...
+
+Every cell must be supported by quantitative evidence or say:
+
+INSUFFICIENT EVIDENCE.
+
+============================================================
+34. THE CENTRAL SCIENTIFIC PRINCIPLE
+============================================================
+
+Keep this distinction visible throughout the analysis:
+
+DIFFERENT SPECTRA
+        ↓
+does not necessarily mean
+        ↓
+IDENTIFIABLE ENDMEMBERS
+        ↓
+does not necessarily mean
+        ↓
+RECOVERABLE MIXTURE FRACTIONS
+        ↓
+does not necessarily mean
+        ↓
+TRANSFERABLE ECOLOGICAL INFERENCE
+
+The purpose of this audit is to determine how far down that chain the current SpectralBridge library actually allows us to go.
+
+Do not try to prove MESMA works.
+
+Find the boundary of what the data can support.
+```
+
+## 2026-10-14 - Two publication figures
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+You are working in the earthlab/spectralbridge repository.
+
+I want you to create TWO publication-ready scientific figures in Python that summarize and showcase the SpectralBridge spectral library and the major analyses we have completed since constructing it.
+
+The attached/reference concept image is ONLY a visual/layout inspiration.
+
+DO NOT reproduce any numerical value, label, site count, category count, PCA result, map, spectrum, effect size, significance marker, Landsat image, or other scientific content from the concept image unless it is independently verified from the repository.
+
+EVERY scientific element in the final figures must come from REAL SpectralBridge data or existing verified provenance outputs.
+
+The figures should be suitable for a peer-reviewed remote sensing / environmental data science manuscript.
+
+============================================================
+CENTRAL STORY
+============================================================
+
+The two figures should tell a simple progression.
+
+FIGURE 1:
+
+"What is this spectral library?"
+
+Show that SpectralBridge contains a large, structured, biologically meaningful spectral library spanning plants/polygons, ecological groups, sites, years, wavelengths and sensor representations.
+
+FIGURE 2:
+
+"What ecological information does the library contain, and does that information survive sensor reduction?"
+
+Show that biological spectral structure exists, identify where it occurs spectrally, show how strongly it survives reduction from NEON hyperspectral data to synthetic Landsat OLI, and finish with the comparison against a real Landsat observation.
+
+The figures should NOT try to explain every statistical analysis performed in the repository.
+
+They should communicate the major scientific findings.
+
+MESMA is the next scientific question and should NOT dominate these figures.
+
+============================================================
+0. AUDIT THE REPOSITORY FIRST
+============================================================
+
+Before plotting anything, inspect the current repository.
+
+Pay particular attention to:
+
+src/spectralbridge/
+examples/
+docs/
+provenance/
+output/
+tests/
+
+Find the canonical results from:
+
+spectral-library analysis
+plant spectral atlas
+PFT analysis
+researcher cover-category analysis
+PFT method audit
+sensor-PFT transfer
+real-Landsat validation
+spectral quantile analyses
+
+Likely relevant provenance includes directories resembling:
+
+provenance/pft-audit/
+provenance/researcher-pft/
+provenance/sensor-pft-transfer/
+provenance/real-landsat-validation/
+
+but use the CURRENT repository rather than assuming these paths have not changed.
+
+Find the actual merged spectral-library source and the established loaders/aggregation utilities.
+
+Reuse existing validated package functions whenever possible.
+
+DO NOT independently reimplement scientific calculations when canonical verified results already exist.
+
+Create:
+
+provenance/publication-figures/2026-10-14/FIGURE_SOURCE_AUDIT.md
+
+Document for every planned panel:
+
+data source
+provenance file
+calculation
+sample unit
+sensor representation
+statistic
+filter
+aggregation
+output
+
+============================================================
+1. ABSOLUTE DATA-INTEGRITY RULE
+============================================================
+
+Nothing in these figures may be invented.
+
+DO NOT:
+
+invent spectra
+invent sites
+invent counts
+invent effect sizes
+invent PCA coordinates
+invent significance
+invent Landsat imagery
+invent wavelengths
+invent category labels
+invent sample sizes
+invent uncertainty
+invent maps
+
+Every plotted value must trace to:
+
+a source dataset
+
+or
+
+a verified provenance result.
+
+If the requested panel cannot be constructed from current real data, omit or redesign it.
+
+Do not create placeholder scientific content.
+
+============================================================
+2. OUTPUTS
+============================================================
+
+Create:
+
+Figure_1_spectral_library.pdf
+Figure_1_spectral_library.png
+Figure_1_spectral_library.svg
+
+Figure_2_ecological_information.pdf
+Figure_2_ecological_information.png
+Figure_2_ecological_information.svg
+
+Also create individual panel files for A-D for both figures.
+
+Create a high-resolution combined preview PNG showing Figure 1 and Figure 2 side-by-side for visual review, but the manuscript figures themselves should remain separate.
+
+Use vector PDF/SVG wherever possible.
+
+PNG should be at least 300 dpi at final publication dimensions.
+
+============================================================
+3. PYTHON ONLY
+============================================================
+
+Generate the figures programmatically in Python.
+
+Prefer:
+
+matplotlib
+numpy
+pandas
+scipy
+geopandas
+rasterio
+xarray
+
+and existing SpectralBridge dependencies/utilities.
+
+Do NOT use AI-generated scientific imagery.
+
+Do NOT use decorative raster artwork.
+
+Everything should be reproducible from code and data.
+
+The figures must satisfy journal expectations for reproducible scientific graphics.
+
+============================================================
+4. VISUAL DESIGN
+============================================================
+
+Aim for a clean PNAS / Nature / Science / Remote Sensing of Environment style.
+
+Use:
+
+white background
+minimal framing
+thin axes
+restrained grid lines
+consistent typography
+clear panel labels
+generous whitespace
+aligned panels
+shared legends where possible
+limited color palette
+high information density without clutter
+
+Do not use:
+
+drop shadows
+gradient backgrounds
+3-D charts
+chartjunk
+unnecessary boxes
+giant titles
+tiny text
+rainbow palettes
+
+Use one consistent ecological color mapping throughout both figures.
+
+For example, assign each researcher cover category a stable color and NEVER change it between panels.
+
+Use a colorblind-safe palette.
+
+Do not encode critical information by color alone where possible.
+
+Use line style, marker, shape or labels as secondary encodings when needed.
+
+============================================================
+5. TYPOGRAPHY
+============================================================
+
+Use publication-appropriate fonts already available in the environment.
+
+Do not add external proprietary fonts.
+
+At final print size:
+
+panel letters: approximately 10-12 pt bold
+panel headings: approximately 8-10 pt
+axis labels: approximately 7-9 pt
+tick labels: approximately 6.5-8 pt
+legend text: approximately 6.5-8 pt
+
+Avoid anything below approximately 6 pt.
+
+Make sure SVG/PDF text remains editable/vector text where possible.
+
+============================================================
+6. FIGURE DIMENSIONS
+============================================================
+
+Design each figure for approximately a full two-column manuscript width.
+
+Something around:
+
+7.0-7.5 inches wide
+
+is reasonable, but inspect likely journal requirements before finalizing.
+
+Allow figure height to follow content.
+
+Do not make an enormous poster.
+
+These should be manuscript figures.
+
+============================================================
+FIGURE 1
+THE SPECTRAL LIBRARY
+============================================================
+
+Working conceptual title:
+
+"A plant spectral library captures ecological variation across space, time and sensor resolution"
+
+Do not necessarily place this full sentence inside the figure.
+
+The manuscript caption can carry the declarative title.
+
+Figure 1 should contain approximately four panels.
+
+============================================================
+FIGURE 1A — SPECTRAL ATLAS
+============================================================
+
+This is the HERO PANEL.
+
+It should occupy approximately 40-50% of the visual weight of Figure 1.
+
+Use the corrected NEON hyperspectral library.
+
+Prefer researcher-defined `cover_category` for this opening panel because it has broad coverage and comes directly from source data.
+
+Current categories may include:
+
+Deciduous
+Evergreen
+Herbaceous
+Non-vegetated & dead
+Woody shrub
+
+VERIFY them from the current dataset.
+
+Plot polygon/year-level spectra rather than every raw pixel unless the existing scientific workflow indicates otherwise.
+
+The goal is to simultaneously show:
+
+within-category variability
+
+and
+
+category-level spectral structure.
+
+Use something like:
+
+very transparent individual spectra
+
+plus
+
+strong category median
+
+plus optionally
+
+25-75% or another defensible interval.
+
+Do not create an unreadable spaghetti plot.
+
+If there are too many spectra, use alpha rasterization or quantile envelopes while preserving the underlying distribution.
+
+IMPORTANT:
+
+preserve atmospheric absorption gaps.
+
+Do NOT interpolate across them.
+
+Clearly indicate excluded wavelength regions subtly.
+
+Use wavelength in nm.
+
+Use physically correct reflectance units.
+
+Audit whether reflectance should be shown as:
+
+0-1
+
+or another scale.
+
+Do not infer scaling from visual appearance.
+
+============================================================
+FIGURE 1B — WHAT THE LIBRARY CONTAINS
+============================================================
+
+Create a compact graphical summary of the actual dataset structure.
+
+Use VERIFIED counts.
+
+Likely important quantities include:
+
+number of unique polygon/plant identities
+number of polygon/year spectra
+number with species identification
+number without species identification
+number of sites
+number of years
+number of cover categories
+
+VERIFY every number.
+
+Do not use the concept-image numbers.
+
+Show the observational hierarchy visually:
+
+polygon / plant
+↓
+pixels
+↓
+polygon/year spectrum
+↓
+library
+
+Avoid clip-art or AI plants.
+
+Use simple geometric/scientific schematic elements generated in matplotlib.
+
+If useful, include a tiny real raster/sample footprint example from the data, but only if it improves comprehension.
+
+The panel should answer:
+
+"What exactly is one observation in this library?"
+
+============================================================
+FIGURE 1C — SPECTRAL MORPHOSPACE
+============================================================
+
+Show the structure of the spectral library in a low-dimensional spectral space.
+
+Use PCA unless the existing analysis provides a more defensible alternative.
+
+IMPORTANT:
+
+PCA must be calculated correctly given:
+
+multiple wavelength grids
+structural missingness
+atmospheric gaps
+
+Do NOT naively run PCA over the 1,140-column merged union if that combines incompatible flight wavelength grids.
+
+Use an established harmonized/common-support representation.
+
+Document exactly how spectra were harmonized.
+
+Potential encodings:
+
+color = researcher cover category
+
+marker shape or outline = site
+
+But avoid visual overload.
+
+If there are too many sites for marker shape to work, do NOT create 15+ shapes.
+
+Instead consider:
+
+color = category
+small multiples / contours / hulls = site
+
+or
+
+color = category
+opacity = observations
+site centroids = labeled symbols
+
+The panel's purpose is:
+
+show that ecological groups occupy overlapping but structured spectral space.
+
+Do NOT use PCA as proof of statistical significance.
+
+Label axes with actual explained variance.
+
+============================================================
+FIGURE 1D — HYPERSPECTRAL TO MULTISPECTRAL
+============================================================
+
+Show how the same ecological spectra are represented across sensor resolution.
+
+Use REAL spectra from the library.
+
+Select a small number of representative examples scientifically.
+
+For example, choose class medoids or another reproducible representative spectrum.
+
+Do NOT cherry-pick visually attractive examples.
+
+For each example show:
+
+corrected NEON hyperspectral curve
+
+and
+
+synthetic OLI band values
+
+at the actual OLI centers.
+
+Potentially show 3-4 representative material categories.
+
+Do not show fake real-Landsat points for the exact plant spectrum unless those measurements actually exist.
+
+This panel is primarily:
+
+NEON hyperspectral
+→
+SpectralBridge OLI-like representation
+
+Clearly show the seven OLI centers.
+
+Keep atmospheric gaps visible.
+
+The purpose is to make spectral compression visually intuitive.
+
+============================================================
+FIGURE 1 VISUAL FLOW
+============================================================
+
+Figure 1 should read approximately:
+
+A
+large spectral atlas
+
+B
+library structure
+
+C
+spectral morphospace
+
+D
+same information represented at different spectral resolution
+
+The reader should finish Figure 1 understanding:
+
+"This is a large ecological spectral library, it contains structured biological variation, and SpectralBridge can represent that information at multiple sensor resolutions."
+
+============================================================
+FIGURE 2
+ECOLOGICAL INFORMATION AND SENSOR TRANSFER
+============================================================
+
+Working conceptual title:
+
+"Ecological spectral information persists after sensor reduction and is consistent with real Landsat observations"
+
+Again, this may belong primarily in the caption.
+
+Figure 2 should also contain approximately four major panels.
+
+============================================================
+FIGURE 2A — BIOLOGICAL DIFFERENTIATION
+============================================================
+
+Use existing VERIFIED whole-spectrum biological results.
+
+Do NOT rerun or replace the existing statistical framework unnecessarily.
+
+Choose one hierarchy for the main panel.
+
+The inferred-PFT analysis may be particularly useful because it contains strong and weak contrasts and has already undergone extensive methodological audit.
+
+Possible matrix:
+
+rows:
+PFT contrasts
+
+columns:
+site/year/acquisition-matched cohorts
+
+color:
+effect magnitude
+
+symbol:
+statistical support
+
+Use the repository's actual effect definition.
+
+DO NOT label something Cohen's d unless that is literally the statistic.
+
+The current work may use standardized RMS contrast or another whole-spectrum effect.
+
+Use the correct name.
+
+The matrix should visually highlight:
+
+strong repeated contrasts such as DBS-ECT and DBT-ECT
+
+and
+
+weak/nonrobust contrasts such as DBT-ECS.
+
+Do not show every exploratory test if it makes the panel unreadable.
+
+Prefer the primary acquisition-matched family.
+
+Explain exclusions in the caption/provenance rather than filling the figure with footnotes.
+
+============================================================
+FIGURE 2B — WHERE THE INFORMATION LIVES
+============================================================
+
+Use existing spectral localization results.
+
+Focus on approximately two strongest contrasts, likely:
+
+DBS - ECT
+
+DBT - ECT
+
+VERIFY from current results.
+
+Plot:
+
+standardized signed contrast versus wavelength
+
+with supported wavelength regions indicated.
+
+Use existing validated spectral-localization results.
+
+Do NOT reinterpret pointwise bands as simultaneous evidence if the current method says otherwise.
+
+Respect the methodological distinction established in the PFT audit.
+
+Show actual OLI band positions underneath the hyperspectral contrast curves.
+
+This is critical.
+
+The visual should connect:
+
+biological difference
+
+to
+
+spectral wavelength
+
+to
+
+what Landsat can observe.
+
+Known evidence regions from previous work may include regions around:
+
+955-1030 nm
+1140-1335 nm
+1500-1785 nm
+2260-2285 nm
+
+but VERIFY these from current provenance.
+
+Do not copy these blindly from this prompt.
+
+============================================================
+FIGURE 2C — INFORMATION RETENTION AFTER SENSOR REDUCTION
+============================================================
+
+Use the existing sensor-PFT-transfer analysis.
+
+Create a scatter plot:
+
+x =
+NEON hyperspectral effect magnitude
+
+y =
+synthetic OLI effect magnitude
+
+Each point =
+one eligible biological contrast/cohort
+
+Add:
+
+1:1 line
+
+and possibly a fitted descriptive relationship if scientifically useful.
+
+Distinguish:
+
+supported in both sensors
+
+supported in NEON but not OLI
+
+unsupported in both
+
+Do not use statistical significance as the only visual encoding.
+
+Annotate only scientifically important exceptions.
+
+For example, the previously identified NIWO 2023 DBS-DBT loss may be useful.
+
+Use the VERIFIED results for:
+
+Pearson correlation
+Spearman correlation
+detection/support retention
+
+Existing provenance previously reported values around:
+
+Pearson ~0.955
+Spearman ~0.982
+15/16 supported inferred-PFT contrasts retained
+
+but VERIFY from the current repository.
+
+This panel should be visually simple and powerful.
+
+Its message:
+
+"Most biological effect structure survives reduction from hyperspectral NEON to seven-band OLI."
+
+============================================================
+FIGURE 2D — SYNTHETIC VERSUS REAL LANDSAT
+============================================================
+
+Use the REAL Landsat validation results.
+
+This panel should finish the two-figure story.
+
+Use the existing validated pilot data and imagery.
+
+Do not generate a fake landscape.
+
+Show approximately:
+
+NEON-derived synthetic OLI RGB
+
+REAL Landsat RGB
+
+residual / difference image
+
+Use:
+
+same spatial extent
+same projection
+same display stretch
+same valid mask
+
+Do not independently stretch the synthetic and real images to make them appear more similar.
+
+Include only a few high-value quantitative metrics.
+
+Potentially:
+
+bandwise Pearson r range
+pooled seven-band RMSE
+median spectral angle
+
+Existing pilot results were approximately:
+
+r = 0.81-0.95
+RMSE = 0.0148 reflectance
+spectral angle = 2.09 degrees
+
+but VERIFY these from the current repository.
+
+Clearly identify this as:
+
+ONE real-Landsat pilot acquisition pair
+
+unless additional flights have now been validated.
+
+Do NOT imply cross-site validation if n=1.
+
+If more real-Landsat validations exist by the time this script is run, inspect them and determine whether a small across-flight summary should replace the pilot-only statistics.
+
+============================================================
+7. KEEP IMPORTANT SECONDARY RESULTS OUT OF THE MAIN FIGURES
+============================================================
+
+Do NOT overload Figures 1 and 2 with:
+
+EAR
+MASA
+CoB
+IES
+MESMA readiness
+permutation-method comparisons
+all researcher-category contrasts
+all 54 inferred-PFT contrasts
+all sensor variants
+registration sensitivity
+QA masks
+brightness-adjustment comparisons
+failure galleries
+simulation diagnostics
+full uncertainty tables
+
+Those belong in:
+
+supplementary figures
+MESMA figures
+methods
+documentation
+
+The two main figures should communicate the DATASET and the BIOLOGICAL INFORMATION.
+
+============================================================
+8. FIGURE CAPTIONS
+============================================================
+
+Generate manuscript-ready captions for both figures.
+
+Each caption should:
+
+state the main scientific message
+
+explain panels A-D
+
+define abbreviations
+
+state sample units
+
+state sensor representations
+
+state what uncertainty/statistical symbols mean
+
+state important limitations
+
+Avoid turning captions into methods sections.
+
+Save as:
+
+Figure_1_caption.md
+Figure_2_caption.md
+
+============================================================
+9. PANEL-LEVEL PROVENANCE
+============================================================
+
+Create:
+
+figure_manifest.json
+
+For every panel include:
+
+figure
+panel
+source_files
+source_hashes if available
+sample_unit
+filters
+statistic
+N
+code_function
+generated_file
+
+This should make it possible to trace every plotted quantity back to its origin.
+
+============================================================
+10. CREATE REUSABLE PLOTTING CODE
+============================================================
+
+Do not put the entire analysis in one enormous script.
+
+Create a clean structure such as:
+
+examples/publication_figures/
+    build_spectral_library_figures.py
+
+and reusable internal helpers if justified.
+
+Potential organization:
+
+load_figure_data()
+build_figure1()
+build_figure2()
+
+plot_spectral_atlas()
+plot_library_structure()
+plot_morphospace()
+plot_sensor_representation()
+
+plot_effect_matrix()
+plot_spectral_localization()
+plot_sensor_retention()
+plot_real_landsat_validation()
+
+Use GridSpec or subplot_mosaic for precise layouts.
+
+Avoid fragile manual coordinate positioning.
+
+============================================================
+11. EXPORT QUALITY
+============================================================
+
+Before finalizing:
+
+inspect PDFs
+inspect PNGs
+inspect SVGs
+
+Check:
+
+font sizes
+line widths
+legend overlap
+cropped labels
+panel alignment
+colorblind accessibility
+grayscale interpretability
+raster resolution
+vector output
+atmospheric-gap representation
+scientific notation
+significant digits
+
+Rasterize extremely dense spectral traces/scatter points if necessary while preserving vector axes/text.
+
+Do not rasterize the entire figure unnecessarily.
+
+============================================================
+12. SCIENTIFIC VALIDATION
+============================================================
+
+For every panel perform numerical checks.
+
+Examples:
+
+Figure 1A:
+number of plotted spectra matches intended sample set
+
+Figure 1B:
+counts exactly match source data
+
+Figure 1C:
+PCA N and explained variance verified
+
+Figure 1D:
+representative spectra selected deterministically
+
+Figure 2A:
+effect values exactly reproduce canonical provenance
+
+Figure 2B:
+localization intervals reproduce canonical results
+
+Figure 2C:
+effect-retention values and correlation statistics reproduce sensor-transfer provenance
+
+Figure 2D:
+real Landsat metrics reproduce real-Landsat provenance
+
+Create:
+
+FIGURE_VALIDATION.md
+
+Document these checks.
+
+============================================================
+13. VISUAL REVIEW
+============================================================
+
+After generating the first version, render both figures to PNG.
+
+Actually inspect them visually.
+
+Look specifically for:
+
+crowding
+tiny text
+misleading scales
+too many legends
+excessive whitespace
+panel imbalance
+visual hierarchy
+colors that are too similar
+spectral traces overwhelming medians
+heatmap labels too dense
+map stretches that hide differences
+
+Iteratively improve the design.
+
+Do not stop merely because the script executed successfully.
+
+============================================================
+14. THE STORY MUST BE OBVIOUS WITHOUT READING THE PAPER
+============================================================
+
+A reader should be able to look at the two figures and understand:
+
+FIGURE 1
+
+We assembled a large plant/polygon spectral library.
+
+The library contains substantial within-group variability but organized ecological spectral structure.
+
+That structure spans sites and years.
+
+The same spectra can be represented from hyperspectral NEON down to Landsat-like spectral resolution.
+
+FIGURE 2
+
+Some ecological contrasts are much stronger than others.
+
+Those differences occur in identifiable regions of the spectrum.
+
+Most of that biological structure survives reduction to Landsat OLI resolution.
+
+The resulting synthetic Landsat-like imagery resembles an actual Landsat observation, although measurable residual differences remain.
+
+That is the entire visual narrative.
+
+============================================================
+15. IMPORTANT DESIGN PRINCIPLE
+============================================================
+
+These should NOT look like eight unrelated plots placed in rectangles.
+
+Use shared visual language.
+
+For example:
+
+the same category colors in Figure 1A and 1C
+
+the same DBS/ECT colors in Figure 2A and 2B
+
+the same OLI band markers in Figure 1D and Figure 2B
+
+the same synthetic-OLI visual identity in Figure 1D, Figure 2C and Figure 2D
+
+Create visual continuity.
+
+============================================================
+16. DO NOT OVERSTATE RESULTS
+============================================================
+
+Keep these distinctions explicit:
+
+researcher cover categories != inferred PFTs
+
+PFT association != causal PFT mechanism
+
+spectral separability != classification accuracy
+
+spectral separability != mixture recoverability
+
+synthetic OLI != real Landsat
+
+one real-Landsat flight != cross-site sensor validation
+
+correlation != radiometric agreement
+
+Do not make the graphics imply stronger conclusions than the underlying analyses support.
+
+============================================================
+17. OPTIONAL SUPPLEMENTARY FIGURES
+============================================================
+
+If important results do not fit the two main figures, create a recommendation file:
+
+SUPPLEMENTARY_FIGURE_PLAN.md
+
+Suggest supplementary figures for things such as:
+
+spectral QA
+sampling balance
+all PFT contrasts
+researcher-category analysis
+method sensitivity
+brightness adjustment
+real-Landsat scatterplots
+registration sensitivity
+failure pixels
+sensor-transfer ablations
+
+Do not automatically create all of them unless useful.
+
+============================================================
+18. FINAL DELIVERABLE
+============================================================
+
+At completion I want:
+
+1. Figure_1_spectral_library.pdf
+2. Figure_1_spectral_library.svg
+3. Figure_1_spectral_library.png
+
+4. Figure_2_ecological_information.pdf
+5. Figure_2_ecological_information.svg
+6. Figure_2_ecological_information.png
+
+7. combined_preview.png
+
+8. Figure_1_caption.md
+9. Figure_2_caption.md
+
+10. FIGURE_SOURCE_AUDIT.md
+11. FIGURE_VALIDATION.md
+12. figure_manifest.json
+13. SUPPLEMENTARY_FIGURE_PLAN.md
+
+14. clean reproducible Python source
+
+15. tests for any new reusable scientific calculations
+
+Run the full existing repository test suite after changes.
+
+============================================================
+19. FINAL RESPONSE
+============================================================
+
+When finished, tell me:
+
+- exactly which real data went into each panel
+- which existing analyses were reused
+- whether any planned panel had to change because the data did not support the concept
+- the strongest visual result
+- the weakest panel
+- any scientific concern discovered while building the figures
+- what you would change before manuscript submission
+
+Most importantly:
+
+DO NOT optimize the figures to look impressive at the expense of scientific accuracy.
+
+Make the REAL DATA impressive.
+```
+
+## 2026-10-14 - Documentation website and scientific test integration
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+You are working in the current earthlab/spectralbridge repository.
+
+We have completed a large amount of new work around the SpectralBridge spectral library, ecological spectral analysis, sensor translation, real-Landsat validation, publication figures, and MESMA readiness.
+
+I now want a comprehensive DOCUMENTATION + WEBSITE + TEST-SUITE integration pass.
+
+This is not a cosmetic cleanup.
+
+The goals are:
+
+1. make the current documentation accurately represent everything SpectralBridge can now do
+2. turn the spectral-library work into a coherent scientific story
+3. expose the important new workflows as usable package capabilities rather than buried provenance experiments
+4. clearly distinguish stable package functionality from research analyses
+5. add rigorous automated tests for all new reusable scientific functionality
+6. make the website publication-ready
+7. make the repository ready for JOSS review and subsequent scientific use
+8. preserve the exact scientific caveats established by the recent audits
+
+Do not simply add every provenance report to the navigation.
+
+The documentation should synthesize the work.
+
+============================================================
+0. START WITH A COMPLETE REPOSITORY AUDIT
+============================================================
+
+Before changing anything, inspect the CURRENT repository.
+
+Audit:
+
+src/spectralbridge/
+tests/
+docs/
+examples/
+provenance/
+output/
+mkdocs.yml
+pyproject.toml
+README.md
+CITATION.cff
+CHANGELOG / release files
+GitHub workflows
+existing notebooks/scripts
+
+Also inspect the current documentation website structure.
+
+Pay special attention to recent work involving:
+
+spectral library construction
+plant spectral atlas
+spectral quantiles
+spectral regions
+year/site comparisons
+researcher cover categories
+inferred PFT analyses
+PFT methodological audit
+sensor-PFT transfer
+synthetic Landsat OLI
+real Landsat validation
+publication figures
+MESMA readiness
+endmember analysis
+synthetic mixtures
+unmixing
+real-sensor validation
+
+Do not assume filenames from this prompt are current.
+
+Find the actual implementation and provenance.
+
+Create first:
+
+provenance/docs-integration/2026-10-14/REPOSITORY_AUDIT.md
+
+For every major new capability identify:
+
+- implementation module
+- tests
+- example
+- provenance
+- documentation
+- current public API status
+- whether it belongs in package docs
+- whether it belongs only in scientific provenance
+- gaps
+
+============================================================
+1. DEFINE THE DOCUMENTATION STORY
+============================================================
+
+The website should no longer read as:
+
+"SpectralBridge is a collection of spectral correction utilities."
+
+The documentation should communicate a complete workflow:
+
+RAW / CORRECTED SPECTRAL DATA
+        ↓
+SPECTRAL LIBRARY
+        ↓
+BIOLOGICAL SPECTRAL VARIATION
+        ↓
+SENSOR TRANSLATION
+        ↓
+REAL-SENSOR VALIDATION
+        ↓
+ENDMEMBER / MIXTURE READINESS
+        ↓
+ECOLOGICAL APPLICATIONS
+
+But preserve the package's original core purpose.
+
+Do not rewrite SpectralBridge as a MESMA package if MESMA functionality is still experimental.
+
+============================================================
+2. REORGANIZE THE WEBSITE AROUND USER QUESTIONS
+============================================================
+
+Review the current MkDocs navigation and improve it if needed.
+
+Aim for a structure approximately like:
+
+HOME
+
+GET STARTED
+- Installation
+- Quick start
+- Core concepts
+- Data model
+
+WORKFLOWS
+- NEON processing
+- Drone processing
+- Bulk processing
+- Spectral libraries
+- Sensor translation
+- Landsat validation
+
+SPECTRAL LIBRARY
+- Overview
+- Spectral atlas
+- Biological variation
+- Functional groups
+- Sensor information retention
+- Real Landsat comparison
+- MESMA readiness
+
+VALIDATION
+- Correction validation
+- Cross-sensor validation
+- Real Landsat validation
+- Scientific validation
+- Known limitations
+
+REFERENCE
+- API
+- Configuration
+- Data products
+- Provenance
+- Reproducibility
+
+CONTRIBUTING / DEVELOPMENT
+- Testing
+- Development
+- Release process
+- AI transparency if currently required
+
+Do not force this exact hierarchy if the existing website already has a better organization.
+
+Preserve good existing pages.
+
+Avoid unnecessary URL breakage.
+
+If URLs must change, implement redirects or compatibility where possible.
+
+============================================================
+3. CREATE A SPECTRAL LIBRARY LANDING PAGE
+============================================================
+
+Create a polished page answering:
+
+"What is the SpectralBridge spectral library?"
+
+This should become one of the strongest pages on the website.
+
+Explain:
+
+what observations represent
+how pixel spectra become polygon/plant spectra
+how repeated years/acquisitions are handled
+what metadata accompany spectra
+which biological labels exist
+which sensor representations exist
+what the library can be used for
+what it cannot yet support
+
+Use VERIFIED current counts.
+
+Do not hardcode stale numbers unnecessarily.
+
+Where practical, generate summary statistics from canonical data/provenance.
+
+Clearly distinguish:
+
+species
+inferred PFT
+researcher cover_category
+physical material classes
+
+Explain that these are not interchangeable.
+
+============================================================
+4. ADD THE PUBLICATION FIGURES
+============================================================
+
+Find the new publication-ready spectral-library figures if they now exist.
+
+Add them strategically to the documentation.
+
+Do NOT simply dump both figures onto one page.
+
+Use Figure 1 on the spectral-library overview.
+
+Use Figure 2 on the biological-information / sensor-transfer page.
+
+Provide:
+
+concise explanatory text
+accessible alt text
+caption
+link to methods/provenance
+link to reproducible source
+
+Do not duplicate manuscript prose verbatim.
+
+The website should explain the figures to users.
+
+============================================================
+5. DOCUMENT THE SPECTRAL ATLAS
+============================================================
+
+Create or improve documentation showing:
+
+corrected spectra
+within-category variability
+median/quantile spectra
+atmospheric gaps
+sites
+years
+polygon-level aggregation
+
+Explain why:
+
+the merged 1,140-column union is NOT one universally complete wavelength grid
+
+and why structural missingness occurs.
+
+This is important.
+
+Users must not accidentally treat structural NaNs as missing observations.
+
+Explain the established harmonization strategy.
+
+============================================================
+6. DOCUMENT BIOLOGICAL SPECTRAL ANALYSIS
+============================================================
+
+Create a page explaining what the biological analyses establish.
+
+Cover:
+
+researcher cover categories
+inferred PFTs
+whole-spectrum comparisons
+effect magnitude
+functional permutation tests
+acquisition-history conditioning
+multiplicity
+spectral localization
+
+Explain major findings using current verified results.
+
+Examples may include strong contrasts such as:
+
+DBS vs ECT
+DBT vs ECT
+
+and weak contrasts such as:
+
+DBT vs ECS
+
+but VERIFY from current provenance.
+
+Do not oversell significance.
+
+Explicitly state:
+
+spectral differentiation != classification accuracy
+
+spectral differentiation != causal PFT mechanism
+
+spectral differentiation != MESMA abundance recoverability
+
+============================================================
+7. DOCUMENT THE PFT METHOD AUDIT
+============================================================
+
+The methodological audit contains important safeguards that should not remain buried in provenance.
+
+Create a concise methodology/validation page explaining:
+
+max statistic
+integrated statistic
+NPC combination
+permutation structure
+rank sensitivity
+energy sensitivity
+FPCA sensitivity
+multiplicity families
+exchangeability assumptions
+species/PFT confounding
+pseudoreplication
+
+Do not expose every simulation table on the main page.
+
+Summarize what users need to understand.
+
+Link to full provenance for detailed evidence.
+
+Explicitly explain why polygon/plant-level replication matters.
+
+============================================================
+8. DOCUMENT SENSOR INFORMATION RETENTION
+============================================================
+
+Create a dedicated sensor-transfer page.
+
+Explain:
+
+corrected NEON hyperspectral
+        ↓
+synthetic OLI-like representation
+
+and what this experiment means.
+
+Use current verified results.
+
+Likely key results include:
+
+high effect-ranking retention
+most supported contrasts retained
+some effect compression
+one borderline contrast lost
+SWIR importance
+
+VERIFY all values.
+
+Explain:
+
+synthetic OLI is NOT independent Landsat validation.
+
+This distinction must be impossible to miss.
+
+============================================================
+9. DOCUMENT REAL LANDSAT VALIDATION
+============================================================
+
+Create a polished real-Landsat validation page.
+
+Explain the workflow:
+
+NEON flight
+↓
+corrected NEON
+↓
+synthetic OLI
+↓
+aggregate to real Landsat footprint
+↓
+match real Landsat Collection 2 Level-2 surface reflectance
+↓
+QA
+↓
+agreement analysis
+
+Document:
+
+scene selection
+temporal matching
+cloud/shadow/snow masking
+spatial support
+coverage thresholds
+georegistration sensitivity
+reflectance scaling
+agreement metrics
+spectral angle
+heterogeneity
+brightness adjustment
+
+Use the actual real-data comparison figures.
+
+Clearly label the current evidence level.
+
+If only one pilot flight has been independently validated, say so prominently.
+
+Do not let the page imply multi-site real-Landsat validation until it exists.
+
+============================================================
+10. DOCUMENT MESMA READINESS
+============================================================
+
+If the MESMA-readiness analysis has been implemented, create a page that explains it.
+
+This page should answer:
+
+"What does it mean for a spectral library to be ready for MESMA?"
+
+Explain the hierarchy:
+
+different spectra
+↓
+identifiable endmembers
+↓
+recoverable mixtures
+↓
+transferable abundance inference
+
+Document, where implemented:
+
+spectral integrity
+material coverage
+EAR
+MASA
+CoB
+IES
+library optimization
+mixture ambiguity
+synthetic mixtures
+fraction recovery
+false positives
+false negatives
+detection probability
+cross-site transfer
+sensor-resolution effects
+unknown-material detection
+
+Do not claim readiness where the analysis says insufficient evidence.
+
+Use a readiness matrix if one exists.
+
+If MESMA work is incomplete, mark the page:
+
+EXPERIMENTAL / RESEARCH VALIDATION
+
+rather than pretending it is stable package functionality.
+
+============================================================
+11. DOCUMENT MATERIAL CLASSES CAREFULLY
+============================================================
+
+Add a concise authoritative explanation of the different class systems.
+
+Potential table:
+
+Label system | Meaning | Source | Appropriate use
+
+Species
+Inferred PFT
+Researcher cover_category
+Physical MESMA material class
+
+Explain limitations.
+
+Especially explain:
+
+"Non-vegetated & dead"
+
+is a researcher cover category and may NOT represent one physically coherent MESMA endmember class.
+
+Do not silently translate researcher categories into physical materials.
+
+============================================================
+12. UPDATE THE HOME PAGE
+============================================================
+
+The home page should communicate what SpectralBridge now enables without becoming crowded.
+
+Aim for:
+
+one-sentence purpose
+
+short workflow graphic
+
+3-4 major capabilities
+
+one strong spectral-library visual
+
+quick-start entry point
+
+links to:
+processing
+spectral library
+sensor translation
+validation
+API
+
+Potential conceptual language:
+
+"SpectralBridge connects airborne imaging spectroscopy, drone observations, spectral libraries and satellite-scale representations through reproducible processing and validation."
+
+Do not use this sentence blindly.
+
+Write the best version consistent with the actual package.
+
+Avoid a long wall of badges.
+
+============================================================
+13. CREATE A VISUAL WORKFLOW
+============================================================
+
+Build a clean non-AI diagram using HTML/CSS/SVG/Graphviz/Matplotlib or existing docs tooling.
+
+Something conceptually like:
+
+NEON / DRONE
+     ↓
+CORRECTION
+     ↓
+SPECTRAL LIBRARY
+     ↓
+BIOLOGICAL SIGNAL
+     ↓
+SENSOR TRANSLATION
+     ↓
+LANDSAT VALIDATION
+     ↓
+UNMIXING / ECOLOGICAL APPLICATION
+
+But mark experimental stages appropriately.
+
+Do not imply all branches are mandatory.
+
+Keep it scientifically accurate.
+
+============================================================
+14. UPDATE QUICK STARTS
+============================================================
+
+Review existing quick-start material.
+
+A new user should be able to find working examples for:
+
+load/process spectral data
+construct/read spectral-library output
+translate to Landsat-like bands
+inspect spectra
+run relevant validation
+
+Only expose stable functionality.
+
+Do not make users start from provenance scripts.
+
+============================================================
+15. ADD REPRODUCIBLE EXAMPLES
+============================================================
+
+For each stable new capability, provide a minimal example.
+
+Examples should:
+
+run quickly
+use small bundled/test data where possible
+avoid network dependency
+show actual API
+have deterministic output
+
+Separate:
+
+PACKAGE EXAMPLES
+
+from
+
+FULL SCIENTIFIC ANALYSES.
+
+The latter can point to provenance/examples and larger datasets.
+
+============================================================
+16. API DOCUMENTATION
+============================================================
+
+Audit every new public function.
+
+For each public API function require:
+
+docstring
+parameter types
+return types
+units
+expected dimensions
+missing-data behavior
+exceptions
+scientific assumptions
+
+Particularly inspect new functionality around:
+
+spectral library
+PFT statistics
+sensor transfer
+Landsat agreement
+endmember selection
+mixture generation
+unmixing
+
+Do not automatically make research helper functions public.
+
+Minimize public API surface.
+
+============================================================
+17. TEST STRATEGY
+============================================================
+
+Now add a rigorous test suite for ALL NEW REUSABLE FUNCTIONALITY.
+
+The objective is not just code coverage.
+
+We need:
+
+NUMERICAL CORRECTNESS
+SCIENTIFIC INVARIANTS
+REGRESSION PROTECTION
+PROVENANCE REPRODUCIBILITY
+DOCUMENTATION EXECUTABILITY
+
+Organize tests logically.
+
+Potential structure:
+
+tests/
+    spectral_library/
+    sensor_transfer/
+    landsat_validation/
+    endmembers/
+    unmixing/
+    docs/
+
+Adapt to existing test conventions.
+
+Do not reorganize the entire existing suite without reason.
+
+============================================================
+18. SPECTRAL LIBRARY TESTS
+============================================================
+
+Test:
+
+wavelength detection
+wavelength ordering
+multiple flight wavelength grids
+structural missingness
+atmospheric gaps
+polygon aggregation
+year aggregation
+metadata preservation
+category labels
+empty groups
+single-observation groups
+invalid reflectance handling
+
+CRITICAL TEST:
+
+A merged table containing structural NaNs from different wavelength grids must NOT be interpreted as one complete common spectrum.
+
+============================================================
+19. FUNCTIONAL STATISTICS TESTS
+============================================================
+
+Create analytically obvious synthetic examples.
+
+Test:
+
+identical groups -> zero effect
+known constant offset -> expected effect
+label permutation reproducibility
+block preservation
+maximum statistic
+integrated statistic
+NPC combination
+multiplicity adjustment
+spectral localization
+rank transformation
+missing wavelengths
+gap handling
+
+Use fixed random seeds.
+
+For tiny permutation spaces, test against exact enumeration where possible.
+
+============================================================
+20. PSEUDOREPLICATION TEST
+============================================================
+
+Create an explicit regression test demonstrating:
+
+duplicating pixels within the same plant/polygon
+
+must NOT increase the effective biological replicate count.
+
+If plant-level aggregation is used, duplicating rows within a plant should leave the inferential result unchanged or behave according to the documented aggregation rule.
+
+This is a scientifically important invariant.
+
+============================================================
+21. SENSOR TRANSLATION TESTS
+============================================================
+
+Test:
+
+known flat spectrum
+known linear spectrum
+band-center mapping
+Gaussian response weighting
+FWHM handling
+missing spectral support
+atmospheric gaps
+OLI band order
+units
+brightness adjustment
+undarkened output
+deterministic behavior
+
+Create analytically calculable toy spectra.
+
+Where possible compare numerical integration to known expected values.
+
+============================================================
+22. SENSOR-TRANSFER ANALYSIS TESTS
+============================================================
+
+Test that paired NEON/OLI comparisons:
+
+use identical sample membership
+use identical blocks
+preserve contrast direction where expected
+do not silently drop observations
+calculate effect-retention ratios correctly
+calculate Pearson/Spearman correctly
+bootstrap at the documented unit
+
+Test zero-effect and perfect-retention cases.
+
+============================================================
+23. LANDSAT VALIDATION TESTS
+============================================================
+
+Test:
+
+scene ranking
+temporal distance
+QA_PIXEL masks
+QA_RADSAT
+cloud
+cirrus
+cloud shadow
+snow
+fill
+saturation
+Collection 2 scaling
+CRS conversion
+Landsat footprint construction
+NEON aggregation to Landsat support
+partial coverage
+coverage threshold
+residual calculation
+bias
+MAE
+RMSE
+Pearson
+Spearman
+spectral angle
+registration shifts
+homogeneity metric
+
+Use synthetic raster fixtures.
+
+Do NOT require network access for normal unit tests.
+
+============================================================
+24. REAL LANDSAT REGRESSION TEST
+============================================================
+
+If licensing/storage allows, create a TINY immutable real-data fixture from the validated Landsat pilot.
+
+This should be only large enough to verify the pipeline.
+
+For example:
+
+small spatial window
+few Landsat pixels
+seven bands
+matching synthetic OLI values
+QA metadata
+
+Store source/product identifiers and provenance.
+
+Test that the pipeline reproduces expected metrics within numerical tolerance.
+
+If storing real raster data is inappropriate, create a frozen derived fixture from canonical provenance instead.
+
+============================================================
+25. MESMA / ENDMEMBER TESTS
+============================================================
+
+If the new MESMA-readiness functionality exists, test it rigorously.
+
+EAR:
+construct toy library with analytically obvious representative endmember.
+
+MASA:
+verify known angular relationships.
+
+CoB:
+construct candidate endmembers with known modeling counts.
+
+IES:
+verify deterministic selection on small known example.
+
+FCLS:
+test exact mixture recovery.
+
+Example:
+
+A = [1,0,0]
+B = [0,1,0]
+
+mixture =
+0.3*A + 0.7*B
+
+Expected fractions:
+
+A = 0.3
+B = 0.7
+
+within numerical tolerance.
+
+Test:
+
+non-negativity
+sum-to-one
+missing endmember
+pure pixels
+two-endmember mixtures
+three-endmember mixtures
+noise
+degenerate endmembers
+
+============================================================
+26. MIXTURE IDENTIFIABILITY TESTS
+============================================================
+
+Create a deliberately ambiguous toy system.
+
+Example:
+
+C = 0.5*A + 0.5*B
+
+Verify that the ambiguity detector identifies that pure C cannot be uniquely distinguished from an A/B mixture under the specified model.
+
+Also create a clearly identifiable system.
+
+This should become a core scientific regression test.
+
+============================================================
+27. DETECTION ERROR TESTS
+============================================================
+
+Test:
+
+true absence -> false-positive calculation
+true presence -> false-negative calculation
+perfect detector
+always-positive detector
+always-negative detector
+fraction thresholds
+detection curves
+
+Ensure edge cases at:
+
+fraction = 0
+fraction = 1
+
+behave correctly.
+
+============================================================
+28. HOLDOUT / LEAKAGE TESTS
+============================================================
+
+This is critical.
+
+Add tests proving that:
+
+held-out plant IDs do not appear in endmember training data
+
+held-out flights do not leak
+
+held-out sites do not leak
+
+endmember selection occurs INSIDE training folds
+
+not before splitting.
+
+Create tests that intentionally introduce leakage and verify that validation catches it.
+
+============================================================
+29. UNKNOWN-MATERIAL TEST
+============================================================
+
+Create synthetic classes A, B and C.
+
+Train library using only A and B.
+
+Evaluate C.
+
+Verify that:
+
+C is not silently treated as successful A/B unmixing merely because a mathematical fit exists.
+
+Test whatever residual/novelty/adequacy rule is implemented.
+
+============================================================
+30. SCIENTIFIC INVARIANT TESTS
+============================================================
+
+Add tests for invariants that should hold regardless of implementation details.
+
+Examples:
+
+permuting row order does not change results
+
+renaming IDs does not change numerical results
+
+duplicating identical metadata does not create new biological units
+
+positive common multiplicative scaling behaves as theoretically expected for standardized statistics
+
+sensor band ordering cannot silently change results
+
+atmospheric gaps remain gaps
+
+same random seed reproduces stochastic analyses
+
+different random seeds remain statistically consistent where appropriate
+
+============================================================
+31. PROVENANCE REGRESSION TESTS
+============================================================
+
+For key canonical analyses, create small regression fixtures.
+
+Do NOT freeze every floating-point output in the project.
+
+Choose scientifically important summaries.
+
+Potential checks:
+
+number of eligible PFT comparisons
+known strong contrast remains supported
+known weak contrast remains unsupported
+sensor-transfer sample membership
+support-retention count
+real-Landsat pilot valid pixel count
+real-Landsat metric ranges
+
+Use tolerances where appropriate.
+
+These tests should detect accidental scientific changes.
+
+If a scientific result intentionally changes, updating the regression fixture should require explicit review.
+
+============================================================
+32. PROPERTY-BASED TESTING
+============================================================
+
+Investigate whether Hypothesis or an existing equivalent is already available.
+
+If adding a dependency is justified, use property-based tests for mathematical utilities such as:
+
+spectral angle
+mixture fractions
+band integration
+coverage fractions
+RMSE
+permutation invariants
+
+Do not add a large dependency solely for trivial tests.
+
+============================================================
+33. DOCUMENTATION TESTS
+============================================================
+
+The website itself needs tests.
+
+Require:
+
+strict MkDocs build
+no broken internal links
+no missing images
+no orphaned critical pages
+valid navigation
+valid code references
+
+If feasible, execute small documentation examples during CI.
+
+At minimum ensure code snippets are synchronized with actual API.
+
+============================================================
+34. FIGURE TESTS
+============================================================
+
+Test publication-figure generation.
+
+Do not pixel-compare entire figures.
+
+Instead test:
+
+script completes
+expected output files exist
+expected panels receive non-empty data
+counts match canonical sources
+figure statistics reproduce provenance
+no placeholder values remain
+no NaN-only panel
+no missing image dependency
+
+Optionally test PDF/SVG/PNG creation.
+
+============================================================
+35. NETWORK TEST POLICY
+============================================================
+
+Normal unit tests must run offline.
+
+Mark tests requiring:
+
+Planetary Computer
+STAC
+remote Landsat
+CyVerse
+large source datasets
+
+as integration/network tests.
+
+Mock network calls in unit tests.
+
+Document exactly how to run:
+
+unit tests
+
+integration tests
+
+full scientific validation
+
+Do not make JOSS reviewers download huge datasets to run the normal test suite.
+
+============================================================
+36. TEST MARKERS
+============================================================
+
+Review existing pytest markers.
+
+Consider clear categories such as:
+
+unit
+integration
+network
+slow
+scientific
+regression
+
+Only add markers if useful.
+
+Register them correctly.
+
+No unknown-marker warnings.
+
+============================================================
+37. TEST COVERAGE
+============================================================
+
+Measure coverage.
+
+Do not chase 100% coverage blindly.
+
+Prioritize high coverage for:
+
+scientific calculations
+data transformations
+sensor translation
+validation metrics
+endmember selection
+unmixing
+
+Report uncovered scientifically important branches.
+
+Add tests where those gaps matter.
+
+============================================================
+38. CI
+============================================================
+
+Review GitHub Actions.
+
+Ensure CI covers at least:
+
+supported Python versions
+installation
+unit tests
+lint
+documentation build
+
+Add scientific regression tests if they are fast enough.
+
+Keep network-dependent validation separate.
+
+Cache responsibly.
+
+Do not make CI fragile by relying on live external services.
+
+============================================================
+39. TEST DATA
+============================================================
+
+Create compact scientifically meaningful fixtures.
+
+Prefer:
+
+tiny spectra
+tiny polygons
+tiny raster windows
+small metadata tables
+analytically known mixtures
+
+Avoid checking giant binary datasets into Git.
+
+Document every real-data fixture's origin.
+
+============================================================
+40. DOCUMENT THE TESTING PHILOSOPHY
+============================================================
+
+Create or update a testing page.
+
+Explain the hierarchy:
+
+UNIT TESTS
+Does the code calculate correctly?
+
+SCIENTIFIC INVARIANT TESTS
+Does the implementation preserve required scientific behavior?
+
+REGRESSION TESTS
+Do canonical validated results remain stable?
+
+INTEGRATION TESTS
+Do package components work together?
+
+NETWORK TESTS
+Do external services still work?
+
+SCIENTIFIC VALIDATION
+Do large analyses reproduce publication results?
+
+This distinction is important for JOSS reviewers and future maintainers.
+
+============================================================
+41. UPDATE VALIDATION DOCUMENTATION
+============================================================
+
+Create one high-level validation page answering:
+
+"How do we know SpectralBridge works?"
+
+Organize evidence by level:
+
+LEVEL 1
+mathematical/unit validation
+
+LEVEL 2
+pipeline validation
+
+LEVEL 3
+biological signal validation
+
+LEVEL 4
+synthetic sensor-transfer validation
+
+LEVEL 5
+real-sensor validation
+
+LEVEL 6
+mixture-recovery validation
+
+Mark Level 6 as incomplete if appropriate.
+
+This could become one of the strongest pages on the website.
+
+============================================================
+42. UPDATE README
+============================================================
+
+Review README.md.
+
+Keep it concise.
+
+It should contain:
+
+what SpectralBridge is
+why it exists
+installation
+minimal example
+documentation link
+citation
+license
+testing status
+
+Do not turn README into the full documentation website.
+
+Add one compelling spectral-library figure only if appropriate.
+
+============================================================
+43. UPDATE CITATION / RELEASE MATERIAL
+============================================================
+
+Audit:
+
+CITATION.cff
+pyproject metadata
+license
+authors
+version
+DOI references
+JOSS references
+release documentation
+
+Do not change version unless appropriate.
+
+Do not tag or publish a release.
+
+Just identify anything inconsistent.
+
+============================================================
+44. AI TRANSPARENCY
+============================================================
+
+Preserve the repository's existing AI-transparency requirements.
+
+Do not remove:
+
+prompt logs
+AI statements
+provenance
+
+if they are intentionally part of the project.
+
+Make sure generated documentation and analysis code follow current project policy.
+
+============================================================
+45. ACCESSIBILITY
+============================================================
+
+Check documentation for:
+
+alt text
+descriptive link text
+heading hierarchy
+color contrast
+keyboard/navigation basics
+meaningful figure captions
+
+Figures must not rely solely on red/green distinctions.
+
+============================================================
+46. SEO / DISCOVERABILITY
+============================================================
+
+Without turning the site into marketing copy, ensure important terminology appears naturally:
+
+hyperspectral
+imaging spectroscopy
+spectral library
+NEON
+Landsat
+drone spectroscopy
+sensor translation
+spectral mixture analysis
+MESMA
+environmental remote sensing
+
+Use meaningful page titles and descriptions.
+
+============================================================
+47. AVOID DOCUMENTATION DUPLICATION
+============================================================
+
+There are now many provenance reports.
+
+Do NOT copy them wholesale into docs.
+
+Use this hierarchy:
+
+PACKAGE DOCS
+stable explanation and user guidance
+
+SCIENTIFIC DOCS
+interpreted results and validation
+
+PROVENANCE
+full reproducibility details
+
+PUBLICATION
+concise scientific narrative
+
+Link among them.
+
+Do not maintain the same large table in four places.
+
+============================================================
+48. BUILD A CLAIMS AUDIT
+============================================================
+
+Create:
+
+provenance/docs-integration/2026-10-14/CLAIMS_AUDIT.md
+
+For every important website claim record:
+
+claim
+source
+evidence level
+current status
+allowed wording
+wording to avoid
+
+Examples:
+
+"preserves ecological information"
+
+may be supported.
+
+"reproduces Landsat"
+
+may be too strong depending on evidence.
+
+"validated across sites"
+
+must not appear if real-Landsat validation is still n=1.
+
+"ready for MESMA"
+
+must depend on the readiness analysis.
+
+Search the entire docs site for language violating these distinctions.
+
+============================================================
+49. REMOVE STALE CONTENT
+============================================================
+
+Find:
+
+obsolete workflows
+old function names
+stale counts
+deprecated outputs
+duplicated pages
+broken links
+old screenshots
+contradictory descriptions
+references to superseded methods
+
+Do not delete useful historical provenance.
+
+Update the user-facing documentation.
+
+============================================================
+50. JOSS READINESS
+============================================================
+
+Review the documentation from the perspective of a JOSS reviewer.
+
+A reviewer should quickly find:
+
+statement of need
+installation
+usage
+API
+examples
+tests
+contribution instructions
+license
+citation
+research impact
+validation
+reproducibility
+
+Do not expand the JOSS manuscript.
+
+Use the website to provide the depth the software note cannot contain.
+
+============================================================
+51. RUN EVERYTHING
+============================================================
+
+At the end run:
+
+format/lint checks
+focused new tests
+full offline/unit test suite
+scientific regression tests
+strict documentation build
+internal link checks
+figure-generation smoke tests
+
+If integration/network tests can be run in the current environment, run them separately.
+
+Do not treat unavailable credentials/network as failures of unit testing.
+
+Record exact results.
+
+============================================================
+52. CREATE A FINAL INTEGRATION REPORT
+============================================================
+
+Create:
+
+provenance/docs-integration/2026-10-14/RESULTS.md
+
+Report:
+
+documentation pages added
+documentation pages changed
+navigation changes
+new examples
+new public API documentation
+new tests
+test count
+test coverage
+CI changes
+broken/stale content fixed
+claims corrected
+remaining documentation gaps
+remaining test gaps
+network tests not run
+scientific validation not yet complete
+
+Also create:
+
+TEST_MATRIX.md
+
+with columns:
+
+Capability
+Implementation
+Unit test
+Scientific invariant test
+Regression test
+Integration test
+Docs
+Status
+
+I want to be able to see immediately whether every major SpectralBridge capability is protected.
+
+============================================================
+53. DEFINITION OF DONE
+============================================================
+
+Do NOT declare this complete merely because MkDocs builds and pytest passes.
+
+The work is complete when:
+
+- the website tells one coherent SpectralBridge story
+- the spectral library has a strong landing page
+- biological analyses are explained correctly
+- sensor translation is clearly distinguished from real-sensor validation
+- MESMA readiness is represented at its actual maturity level
+- the new publication figures are integrated
+- every stable new scientific calculation has meaningful tests
+- important scientific invariants have tests
+- canonical results have regression protection
+- network dependence is isolated
+- documentation examples match the real API
+- the full offline suite passes
+- strict documentation build passes
+- no unsupported scientific claims remain
+- provenance makes every major claim traceable
+
+============================================================
+54. FINAL RESPONSE TO ME
+============================================================
+
+When finished, give me:
+
+1. the new website/navigation structure
+
+2. pages created
+
+3. pages substantially revised
+
+4. new tests added, grouped by scientific capability
+
+5. total test-suite result
+
+6. coverage of scientifically important modules
+
+7. CI changes
+
+8. scientific claims you weakened or corrected
+
+9. functionality that remains experimental
+
+10. missing data or validation preventing stronger claims
+
+11. the five most important remaining tasks before JOSS/publication
+
+12. your assessment of whether the repository is now publication-ready
+
+Do not simply say "all tests pass."
+
+Tell me whether the documentation, software, tests and scientific claims agree with one another.
+```
