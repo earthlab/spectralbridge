@@ -1,0 +1,40 @@
+{
+  "observations": 8845,
+  "plants": 2496,
+  "labels": 57,
+  "flights": 122,
+  "flight_source_pairs": 122,
+  "plant_years": 3382,
+  "assigned_plants": 1944,
+  "assigned_plant_years": 2659,
+  "assigned_taxa": 42,
+  "repeat_year_plants": 886,
+  "assigned_repeat_year_plants": 715,
+  "cross_site_taxa": 12,
+  "pft_species_counts": {
+    "DBS": 18,
+    "DBT": 7,
+    "EBS": 3,
+    "ECS": 1,
+    "ECT": 13
+  },
+  "species_design_rank": 42,
+  "species_plus_pft_rank": 42,
+  "complete_bands_by_cohort": {
+    "NIWO-2020": 360,
+    "NIWO-2023": 360,
+    "WREF-2023": 360,
+    "YELL-2023": 360
+  },
+  "observations_per_plant": {
+    "count": 2496.0,
+    "mean": 3.543669871794872,
+    "std": 1.4980601998298908,
+    "min": 1.0,
+    "25%": 2.0,
+    "50%": 3.0,
+    "75%": 5.0,
+    "max": 8.0
+  },
+  "source_manifest_sha256": "98cb249a3d350c21c4a75ef10b6a74b5f5d1a54966a10cc995907328af91ee09"
+}

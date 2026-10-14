@@ -1,0 +1,13 @@
+{
+  "targeted_tests": 34,
+  "ruff": "passed",
+  "docs_links": "passed",
+  "ai_transparency": "passed",
+  "primary_outputs_verified": 181,
+  "old_inferred_outputs_verified": 173,
+  "restart": "all owned output mtimes unchanged",
+  "envelopes": "all 80 tests agree with max scalar decisions at within-contrast and family thresholds",
+  "source_sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+  "source_unchanged": true,
+  "figures": "category spread and simultaneous envelope panels visually inspected"
+}

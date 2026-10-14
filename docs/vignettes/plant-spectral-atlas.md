@@ -623,3 +623,122 @@ New Wilson intervals condition on the fixed holdout and assume independent
 Bernoulli outcomes; they are not flight/site-clustered uncertainty or model
 selection evidence. All report artifacts remain Git-ignored; authoring and
 verification sources remain reviewable.
+
+## Test PFT differences among sampled plants
+
+Use empirical plant spectra for inference. The 99 fitted quantile lines are
+summaries of the same observations, not 99 independent replicates.
+
+```bash
+python examples/plant_pft_statistics.py \
+  artifacts/plant_spectral_atlas/comparisons \
+  --output artifacts/plant_spectral_atlas/pft_statistics \
+  --permutations 9999 --bootstraps 999 --min-plants 10
+```
+
+This reads the verified compact comparison products in place. The species-name
+crosswalk adds auditable PFT tags; unresolved names remain unassigned. PFT tags
+are typical species traits, not measured traits of each plant. This statistical
+workflow does not require completion or refitting of the draft PFT quantile atlas.
+All assigned taxa contribute; the earlier species plots may exclude small species
+groups, so their display cohort is not automatically this inferential cohort.
+
+Comparisons are separate within site/acquisition year. Each plant has one
+within-year median, with equal weight per flight/polygon observation. The main
+contrasts use all sampled plants in that cohort; a sensitivity comparison
+conditions on exact shared flight/source histories and retains mixed-PFT overlap
+blocks. Missing PFTs and inadequate overlap are reported explicitly. A PFT
+represented by one species cannot support a species-independent PFT conclusion.
+
+The whole-spectrum statistic is the maximum standardized block-adjusted mean
+contrast over complete variable bands. Plant labels are permuted jointly across
+bands within blocks, preserving PFT counts. A second maximum-statistic test uses
+within-block band ranks to reduce amplitude-outlier influence. Holm adjustment
+covers all mean/rank whole-curve tests across products, site/years and conditioning
+methods. Band evidence additionally uses a maximum over wavelengths and
+Bonferroni across the recorded family size. Pointwise plant-bootstrap intervals
+are descriptive, not simultaneous significance bands. The test assumes
+exchangeability within blocks; it does not remove all spatial dependence,
+species effects, heterogeneity or unmeasured field covariates.
+
+Read `CONCLUSIONS.md` alongside `pairwise_tests.csv`, the sample/species counts
+and `test_membership.parquet`. The heatmap shows effect magnitudes and marks
+contrasts supported by both mean and rank tests; the corrected-NEON difference
+panels show direction, uncertainty and wavelength evidence. Unsupported bands
+and atmospheric gaps are retained as gaps, and finite negative values remain.
+
+**Nonsignificance does not establish equivalence.** No ecological importance
+margin or equivalence margin is assumed. These are exploratory associations among
+the supplied plants, following visual exploration; they do not test unknown-plant
+classification or transfer to new species/regions. Raw/corrected/derived OLI are
+related products, not independent sensor validations. Physical MicaSense tests
+remain deferred pending verification of its exported coordinates (P107).
+
+The resampling choices follow [Monte Carlo permutation probability guidance](https://gksmyth.github.io/pubs/PermPValuesPreprint.pdf),
+[Holm's sequential family-wise procedure](https://www.jstor.org/stable/4615733)
+and [average-tie band ranks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.rankdata.html).
+All source/config/code/crosswalk checksums and per-contrast checkpoints are saved
+for restart and audit. Output scales with plants and contrasts rather than pixels.
+
+## Audit alternative whole-spectrum tests
+
+The statistical audit retains the empirical plant/year units and acquisition
+blocks. It compares the existing maximum statistic, its simultaneous scaled-MAD
+null envelope, a wavelength-weighted integrated statistic, a synchronized
+max/integrated omnibus, blocked energy distance and a label-blind FPCA functional
+response model. The envelope is global over supported wavelengths; it is not a
+pointwise bootstrap interval or an ERL implementation.
+
+```bash
+python examples/pft_method_audit.py \
+  artifacts/plant_spectral_atlas/comparisons \
+  artifacts/plant_spectral_atlas/pft_statistics \
+  --output artifacts/plant_spectral_atlas/pft_method_audit/empirical
+
+python scripts/simulate_pft_methods.py \
+  --output artifacts/plant_spectral_atlas/pft_method_audit/simulations \
+  --replicates 1000 --permutations 499
+python -m scripts.extend_pft_null_calibration
+python provenance/pft-audit/2026-10-14/analyze_results.py
+```
+
+The last two commands reproduce this supplied-library audit at its default
+output paths. The four review documents, measured design support, comparison
+and simulation tables, final interpretation and reproducible interpretation
+script live under `provenance/pft-audit/2026-10-14/` in the repository.
+
+Interpret each method's null separately. A distributional test can detect
+covariance differences when mean functions agree. Changing the correction family
+can change significance with an unchanged statistic. A combined/integrated test
+can reject without a maximum-envelope excursion, so it cannot assign significant
+wavelengths from that rejection alone. These are exploratory conditional
+associations among sampled species mixtures; PFT is determined by species here,
+and a species-independent mechanism or unknown-plant classifier is not established.
+
+## Use researcher-defined cover categories
+
+When the supplied polygon table contains researcher labels, use those rather
+than deriving PFTs from species names:
+
+```bash
+python examples/researcher_pft_statistics.py \
+  Aug_2026_all_polygons_merged_pixel_extraction.parquet \
+  --output artifacts/plant_spectral_atlas/researcher_pft_statistics
+```
+
+This separate analysis preserves `cover_category` verbatim and includes
+polygons without a species name. Its compact extraction reuses the source-aware
+atlas aggregation, retaining missing wavelength gaps and negative finite values.
+Each sampling unit is a polygon/year, including herbaceous patches and the
+nonvegetated/dead cover comparator. It is not always an individual plant.
+Repeated acquisitions are reduced before inference; years are analyzed separately.
+
+The corrected NEON analysis uses the audited max/integrated synchronized omnibus
+as primary, energy and FPCA as sensitivities, and simultaneous maximum envelopes.
+Holm families span eligible class-pair × site/year comparisons separately for
+exact acquisition-history matching and the broader site/year sensitivity.
+`RESULTS.md`, `support.csv`, `membership.parquet`, `envelopes.csv` and the
+checksummed manifest expose the actual target and support. These exploratory
+observational comparisons do not establish classification accuracy or a causal
+PFT mechanism. The species-confounding diagnosis for the earlier inferred labels
+must be recalculated for researcher labels, which can vary within a species.

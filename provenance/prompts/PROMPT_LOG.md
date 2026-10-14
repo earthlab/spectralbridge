@@ -23526,3 +23526,536 @@ Model: Not recorded
 ```text
 continue
 ```
+
+## 2026-10-14 - PFT distinguishability statistics
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+back to our spectral library plots. we made a lot of them to explore the space but now we needs some stats tests to see when PFTs are distinguishable or not. I need to start drawing conclusions about these plots. 
+```
+
+## 2026-10-14 - Statistical inference scope
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Differences among the sampled plants
+```
+
+## 2026-10-14 - Deep scientific audit of PFT spectral inference
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+I want you to perform a deep statistical and scientific audit of the PFT spectral distinguishability analysis in this repository.
+
+Do not assume the current method is optimal, and do not replace it simply because another method sounds more sophisticated. I want you to understand the actual data structure, the scientific question, the existing implementation, and the statistical literature well enough to recommend and, where justified, implement the strongest defensible analysis.
+
+The central scientific question is:
+
+"Do plant functional types have distinguishable whole-spectrum spectral signatures, and which differences remain after accounting for the hierarchical acquisition structure of the data?"
+
+A stronger version of the question is:
+
+"Is there evidence for spectral structure associated with PFT beyond differences attributable to site, year, flight/source history, species composition, and repeated observations of plants?"
+
+A separate downstream question is:
+
+"Are those differences large and reliable enough to classify or detect an unknown plant?"
+
+DO NOT conflate statistical spectral differences with classification performance.
+
+--------------------------------------------------
+1. FIRST UNDERSTAND THE EXISTING ANALYSIS
+--------------------------------------------------
+
+Inspect the repository, data, scripts, notebooks, outputs, CONCLUSIONS.md, and relevant documentation.
+
+Reconstruct exactly how the current PFT analysis works.
+
+The current analysis appears to use:
+
+- empirical plant/year median spectra as replicates
+- comparisons within site and acquisition year
+- site_year and stricter flight_history conditioning
+- pairwise PFT contrasts
+- block-centered spectral differences
+- standardized bandwise effects
+- a maximum absolute standardized coefficient across wavelengths as the whole-spectrum test statistic
+- whole-plant PFT-label permutation within blocks
+- 9,999 permutations
+- a parallel rank-based sensitivity test
+- Holm correction across the family of whole-spectrum tests
+- RMS standardized whole-spectrum contrast as the displayed effect magnitude
+- bootstrap uncertainty
+- minimum overlap of 10 plants per PFT
+- wavelength-level multiplicity-controlled evidence
+
+Verify all of this from code rather than trusting this description.
+
+Pay special attention to the distinction between:
+
+1. RMS effect magnitude shown in the heatmap
+2. maximum statistic used for inference
+3. wavelength-specific evidence
+4. mean-based test
+5. rank-based test
+
+Explain whether the current procedure is statistically valid for the actual design and exactly what null hypothesis it tests.
+
+--------------------------------------------------
+2. MAP THE ACTUAL DATA-GENERATING STRUCTURE
+--------------------------------------------------
+
+Before recommending another method, determine the hierarchy in the real data.
+
+Identify, where possible:
+
+site
+year
+flight
+source product
+plant identity
+polygon/crown identity
+species
+PFT
+sensor/product representation
+wavelength
+repeated observations of the same plant
+repeated plants across years
+species nested within PFT
+species occurring in more than one site
+PFTs represented by only one or very few species
+unequal PFT sample sizes
+unequal flight histories
+missing wavelength support
+
+Produce a concise diagram or written hierarchy of the sampling design.
+
+This is critical because a sophisticated method with the wrong unit of replication is worse than the existing permutation test.
+
+--------------------------------------------------
+3. DEFINE THE CLAIMS WE COULD ACTUALLY TEST
+--------------------------------------------------
+
+Separate at least these hypotheses:
+
+H1. Sampled-group association
+Within a site/year, do the sampled plants assigned to PFT A and PFT B have different spectral functions?
+
+H2. Acquisition-robust association
+Does that difference remain when comparing plants with compatible flight/source histories?
+
+H3. Cross-site consistency
+Does the direction/shape of the PFT contrast recur across independent sites or cohorts?
+
+H4. Species-independent PFT effect
+Is there evidence for spectral differences associated with PFT beyond the particular species composing each PFT?
+
+H5. Generalization
+Can a PFT relationship learned in one site/species/acquisition context predict spectra from held-out sites, species, or flights?
+
+H6. Classification/detection
+Can an unknown plant actually be assigned to PFT with useful sensitivity/specificity?
+
+Tell me which of these the current dataset can genuinely test.
+
+Do not claim H4-H6 if the sampling design cannot identify them.
+
+--------------------------------------------------
+4. INVESTIGATE BETTER WHOLE-SPECTRUM METHODS
+--------------------------------------------------
+
+Research and critically evaluate methods appropriate for functional spectral data.
+
+At minimum investigate:
+
+A. Current max-statistic permutation test
+
+B. Functional ANOVA / permutation functional ANOVA
+
+C. Global envelope tests / simultaneous functional permutation envelopes
+
+D. Functional linear models
+
+E. Functional mixed-effects models
+
+F. Functional PCA followed by appropriate multivariate inference
+
+G. PERMANOVA / distance-based multivariate testing
+
+H. Energy distance / energy statistics
+
+I. Maximum Mean Discrepancy (MMD) / kernel two-sample tests
+
+J. Hotelling-type functional tests or high-dimensional two-sample tests where appropriate
+
+K. Functional MANOVA approaches
+
+L. GAM/GAMM or spline-based wavelength × PFT models
+
+M. Gaussian-process functional models, if realistic rather than gratuitously complex
+
+N. Any modern method specifically developed for hyperspectral functional-data comparison that is more appropriate than the above.
+
+For each method tell me:
+
+- exact null hypothesis
+- assumptions
+- whether it handles wavelength covariance
+- whether it handles repeated plants
+- whether it handles flight/site blocking
+- whether it handles species nesting
+- sensitivity to unequal sample sizes
+- sensitivity to covariance differences
+- whether it provides a global p-value
+- whether it identifies wavelength regions responsible for differences
+- interpretability
+- computational feasibility
+- implementation maturity in Python or R
+- suitability for publication
+- what scientific claim it would permit
+
+Do not equate complexity with quality.
+
+--------------------------------------------------
+5. RESEARCH THE STATISTICAL LITERATURE
+--------------------------------------------------
+
+Use primary literature wherever possible.
+
+Look specifically for literature on:
+
+- functional data analysis for spectra
+- hyperspectral curve comparison
+- functional ANOVA
+- functional permutation tests
+- global envelope tests
+- repeated-measures functional data
+- functional mixed models
+- ecological spectroscopy
+- vegetation spectroscopy
+- spectral trait inference
+- high-dimensional two-sample testing
+- permutation inference for correlated functional observations
+
+I want actual citations, not generic statements that a method is "commonly used."
+
+Create a methods comparison document with citations and DOI/URL where available.
+
+Distinguish established methods from your own proposed adaptations.
+
+--------------------------------------------------
+6. INVESTIGATE GLOBAL ENVELOPE TESTING IN DEPTH
+--------------------------------------------------
+
+I am particularly interested in whether a global permutation envelope is a natural extension of the current analysis.
+
+The current method already constructs a bandwise difference curve and permutes whole-plant labels while preserving the spectrum.
+
+Investigate whether we can retain the full observed contrast function
+
+    d(lambda)
+
+and compare it against simultaneous null envelopes generated from the same blocked whole-plant permutations.
+
+Determine whether this would let us say:
+
+- whether the curves differ globally
+- where along the spectrum evidence for that difference occurs
+
+while maintaining appropriate family-wise error control across wavelength.
+
+Compare:
+
+maximum absolute statistic
+studentized maximum statistic
+rank envelope methods
+extreme-rank-length envelopes
+simultaneous confidence/envelope approaches
+
+Do not implement an ad hoc "95% pointwise permutation envelope" and call it simultaneous inference.
+
+If global envelope methodology is appropriate, use a statistically established procedure.
+
+--------------------------------------------------
+7. INVESTIGATE FUNCTIONAL MIXED MODELS
+--------------------------------------------------
+
+Determine whether the actual sampling design can support a model conceptually like:
+
+R_i(lambda) =
+    mu(lambda)
+    + PFT_i(lambda)
+    + site(lambda)
+    + year(lambda)
+    + flight(lambda)
+    + species(lambda)
+    + plant(lambda)
+    + error_i(lambda)
+
+Do NOT blindly fit this exact formula.
+
+First determine which effects are:
+
+fixed
+random
+nested
+crossed
+confounded
+unidentifiable
+
+In particular, examine whether PFT can actually be separated from species.
+
+If some PFTs contain only one species in some cohorts, explicitly explain the consequences.
+
+Ask whether a leave-one-species-out or leave-one-site-out analysis would provide stronger evidence than attempting to estimate an underidentified mixed model.
+
+--------------------------------------------------
+8. CONSIDER GENERALIZATION TESTS
+--------------------------------------------------
+
+A statistically significant spectral difference is not necessarily useful biological information.
+
+Explore validation designs such as:
+
+leave-one-site-out
+leave-one-year-out
+leave-one-flight-out
+leave-one-species-out
+leave-one-plant-out
+
+Determine which are scientifically meaningful and actually possible with these data.
+
+I am especially interested in leave-one-species-out:
+
+Can a PFT-level spectral pattern learned from some species generalize to a previously unseen species belonging to the same PFT?
+
+If the data cannot support that test, say so explicitly.
+
+--------------------------------------------------
+9. COMPARE METHODS EMPIRICALLY
+--------------------------------------------------
+
+Where computationally feasible, run several defensible methods on the existing data.
+
+At minimum compare:
+
+1. current max-statistic permutation test
+2. a legitimate functional/global-envelope method
+3. one distributional whole-spectrum method such as energy distance or MMD
+4. an FDA or functional-model approach if identifiable
+
+Use the SAME valid biological units and blocking structure wherever possible.
+
+Compare conclusions, not just p-values.
+
+For example:
+
+Does DBS vs ECT remain strongly supported?
+Does DBT vs ECT remain strongly supported?
+Does DBT vs ECS remain weak?
+Which apparent differences disappear after acquisition conditioning?
+Do methods disagree?
+Why?
+
+If methods disagree, investigate the reason rather than choosing the method with the smallest p-value.
+
+--------------------------------------------------
+10. SIMULATION / CALIBRATION CHECK
+--------------------------------------------------
+
+This is important.
+
+Build a small simulation that resembles the real data:
+
+- correlated wavelengths
+- realistic smooth spectral curves
+- unequal group sizes
+- site/flight blocks
+- repeated observations where appropriate
+- realistic missingness
+- null PFT differences
+- localized PFT differences
+- broad low-amplitude differences
+- amplitude-only differences
+- shape differences
+
+Use this to compare candidate methods for:
+
+type I error
+power
+sensitivity to localized effects
+sensitivity to broad weak effects
+robustness to block structure
+robustness to unequal sample size
+
+A method that appears more powerful because it has inflated type I error is not an improvement.
+
+--------------------------------------------------
+11. PAY ATTENTION TO THE CURRENT MAX TEST
+--------------------------------------------------
+
+Do not dismiss the current max-statistic approach.
+
+It may be very good for detecting localized spectral differences and provides strong family-wise protection.
+
+But determine whether it has poor power for a biologically important situation where two PFTs differ modestly across a broad region of the spectrum without a single extreme wavelength.
+
+Compare this with RMS/integrated statistics such as:
+
+integral d(lambda)^2 d(lambda)
+
+or an appropriately standardized functional norm.
+
+Consider whether a permutation test based on BOTH:
+
+maximum deviation
+
+and
+
+integrated/RMS deviation
+
+would distinguish localized versus distributed spectral differences.
+
+If combining tests, use a principled omnibus procedure rather than cherry-picking whichever is significant.
+
+--------------------------------------------------
+12. DESIRED SCIENTIFIC OUTPUT
+--------------------------------------------------
+
+I ultimately want a result that a colleague can understand as:
+
+"We compared each plant's entire spectral curve rather than testing wavelengths independently. [METHOD] asks whether the observed difference between the two groups is larger than expected when whole-plant identities are permuted under the appropriate sampling design. This gives a whole-spectrum test while preserving correlation among wavelengths."
+
+But only write this if it accurately describes the selected method.
+
+I would also like, if statistically justified, a figure where:
+
+observed PFT difference curve
++
+simultaneous null envelope
++
+wavelength regions with whole-spectrum-controlled evidence
+
+can be interpreted visually.
+
+--------------------------------------------------
+13. REQUIRED DELIVERABLES
+--------------------------------------------------
+
+Do not begin by rewriting the entire analysis.
+
+First produce:
+
+A. CURRENT_METHOD_AUDIT.md
+Exactly what the existing analysis does, what is valid about it, weaknesses, assumptions, and the precise claim it supports.
+
+B. METHODS_REVIEW.md
+Literature-supported comparison of candidate whole-spectrum methods.
+
+C. DESIGN_IDENTIFIABILITY.md
+What site/year/flight/species/PFT structure permits and prevents us from estimating.
+
+D. RECOMMENDATION.md
+Your recommended primary analysis, sensitivity analyses, and validation strategy.
+
+Give a clear recommendation rather than "all methods have pros and cons."
+
+Rank the candidate approaches.
+
+For example:
+
+PRIMARY:
+[method]
+
+WHY:
+[...]
+
+SENSITIVITY:
+[...]
+
+VALIDATION:
+[...]
+
+DO NOT USE:
+[...]
+
+FUTURE DATA NEEDED:
+[...]
+
+E. Only after the audit, implement the recommended analysis in a clean reusable module/notebook/script if the evidence supports changing or extending the current workflow.
+
+F. Produce a comparison table showing whether the major biological conclusions change under the candidate methods.
+
+--------------------------------------------------
+14. IMPORTANT SCIENTIFIC GUARDRAILS
+--------------------------------------------------
+
+Do not:
+
+- treat pixels as independent plants
+- treat repeated spectra from one plant as independent replicates
+- independently permute wavelengths
+- interpolate across unsupported atmospheric gaps
+- impute missing spectral regions merely to satisfy a statistical method
+- call statistical difference "classification accuracy"
+- infer equivalence from nonsignificance
+- claim a PFT mechanism when PFT is confounded with species
+- treat NIWO repeated years as independent sites
+- compare raw/corrected/OLI p-values as though smaller p means better processing
+- optimize the analysis for significance
+- choose a method because it produces the strongest result
+
+Preserve the distinction between:
+
+association
+spectral effect size
+statistical distinguishability
+generalization
+classification
+causal biological mechanism
+
+--------------------------------------------------
+15. FINAL QUESTION
+--------------------------------------------------
+
+At the end, answer this directly:
+
+"If this were your paper and reviewers asked how you know these plant functional types have different spectra, what single primary statistical test would you use, what sensitivity analyses would you include, and what exact biological claim would you make?"
+
+I want a confident answer based on the design, simulations, literature, and empirical results, not a menu of possible methods.
+
+If the current permutation method turns out to be the best primary analysis, say that clearly and explain why. Sophistication alone is not a reason to replace a transparent, design-appropriate test.
+```
+
+## 2026-10-14 - researcher category statistical analysis
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+in the polygon table it contains 5 pft categories picked by researchers, can we use those and then do those more advanced tests you suggested.
+```
+
+## 2026-10-14 - researcher category statistical analysis
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+category column with 5 major classes
+```
+
+## 2026-10-14 - human-readable PFT statistical PDF report
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+give me a pdf report that tells a human what each test is and how it works and what the results are. the main question is can we tell the PFTs apart?
+```

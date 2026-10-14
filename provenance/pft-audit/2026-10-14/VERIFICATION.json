@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-14",
+  "ledger_output_hash_counts": {
+    "statistics_manifest.json": 173,
+    "audit_manifest.json": 115,
+    "simulation_manifest.json": 24,
+    "interpretation_manifest.json": 12
+  },
+  "source_parquet_sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+  "legacy_manifest_unchanged": true,
+  "all_54_legacy_max_p_reproduced": true,
+  "all_54_memberships_identical": true,
+  "all_envelope_excursions_match_max_scalar_thresholds": true,
+  "gaps_not_imputed": true,
+  "unique_simulated_datasets": 15000,
+  "tests": "61 targeted tests passed; full project suite not rerun",
+  "checks": [
+    "focused Ruff",
+    "strict MkDocs",
+    "source docs links",
+    "built links/anchors/assets",
+    "AI transparency",
+    "checkpoint hash/corruption/reuse tests",
+    "final figures visually inspected"
+  ],
+  "restart_checkpoints_unchanged": true,
+  "sources": {
+    "src/spectralbridge/pft_method_audit.py": "cd2394657e9c3d132b04244c717cdba75a74a69d59902c42045da639d7cf10b8",
+    "scripts/simulate_pft_methods.py": "efae55157487c1e1fe04c91fe5807f9f5ce0fea9ba1a5c75b82d584735227ccd",
+    "scripts/extend_pft_null_calibration.py": "89bb046798f7688fe05cf393dd1bc946f419a330951d907309fd1931948d2b1a",
+    "provenance/pft-audit/2026-10-14/analyze_results.py": "86af56177afd0ea4259ec7701d775410d713ccd7d559a4c102e6c1a7805954e2"
+  }
+}
