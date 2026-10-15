@@ -37,3 +37,5 @@ Metadata identities agree at 2.3.0rc1, GPL-3.0-or-later. CITATION retains mainta
 ## Execution choices
 
 Use verified local provenance to generate small documentation summary JSON/Markdown and copy the two publication PNGs as traceable site assets. Generation/check is offline and does not need raw data. Reuse mathematical calculations, tests and results; add targeted gaps and frozen derived real-data fixture, not a binary raster archive. Coverage and live browser review determine remaining gaps, not a universal readiness badge.
+
+Published-site inspection on 2026-10-14 found an older Learn/Validation/Technical reference/Project navigation than the current local checkout. Local sources are authoritative for this integration; no site deployment is performed. Published reference inspected: https://earthlab.github.io/spectralbridge/.

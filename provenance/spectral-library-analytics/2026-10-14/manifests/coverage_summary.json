@@ -1,0 +1,29 @@
+{
+  "totals": {
+    "covered_lines": 18632,
+    "num_statements": 25990,
+    "percent_covered": 68.0187025131502,
+    "percent_covered_display": "68",
+    "missing_lines": 7358,
+    "excluded_lines": 481,
+    "percent_statements_covered": 71.68911119661408,
+    "percent_statements_covered_display": "72",
+    "num_branches": 8230,
+    "num_partial_branches": 1480,
+    "covered_branches": 4644,
+    "missing_branches": 3586,
+    "percent_branches_covered": 56.4277035236938,
+    "percent_branches_covered_display": "56"
+  },
+  "meta": {
+    "format": 3,
+    "version": "7.15.4",
+    "timestamp": "2026-10-14T19:07:55.117875",
+    "branch_coverage": true,
+    "show_contexts": false
+  },
+  "command": "pytest -q -o addopts='' -m 'not network and not full and not playwright' --cov=src/spectralbridge --cov-branch --cov-fail-under=45",
+  "passed": 687,
+  "skipped": 7,
+  "deselected": 2
+}

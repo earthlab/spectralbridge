@@ -52,7 +52,7 @@ jobs:
       - name: Install source gate dependencies
         run: |
           python -m pip install -U pip
-          pip install -e .[tests,docs] ruff
+          pip install -e .[tests,docs,analytics] ruff
 
       - name: Validate release metadata
         id: metadata

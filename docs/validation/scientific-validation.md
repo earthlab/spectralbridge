@@ -32,3 +32,25 @@ pure-material and full fractional-cover truth are missing.
 
 Passing a test or threshold does not eliminate these limitations. New geographic,
 sensor or ecological applications require validation designed for that target.
+
+## Integrated information-retention audit
+
+The 2026-10-14 integrated audit connects biological differences to whole-plant,
+acquisition, year and site holdouts, training-only wavelength selection, prototype
+coverage, withheld-class rejection and calibration. It reuses the canonical
+functional, sensor and mixture evidence rather than treating classification as
+abundance validation. Full-spectrum logistic recognition is strong for held-out
+plants in this sample; site transfer is uneven and unknown-class rejection weak.
+
+The experimental workflow requires the optional `analytics` extra. Its staged
+entry point is `examples/spectral_library_analytics.py`; `--stage profile` measures
+proper-training cost, while explicit learning/extensions/domains/mixtures stages
+run the declared experiments. `--stage all` completes secondary diagnostics before
+sealing the learning ledger. Training-only preprocessing, GlobalID purging and
+independent calibration are required. This is not a stable top-level package API.
+
+The source-specific human PDF, editable narrative, master tables, code-linked
+model index, figures and checks are recorded under
+`provenance/spectral-library-analytics/2026-10-14/`. The report is generated at
+`output/pdf/spectral_library_analytics/SpectralBridge_Spectral_Library_Analytics_Report.pdf`.
+Read its evidence dimensions and limitations before drawing a deployment claim.

@@ -33,3 +33,14 @@ Run a manual external link check when preparing the actual submission.
 `tools/site_prepare.py` is a legacy diagnostic helper. CI does not use it to copy
 a temporary drift report into the public documentation. `docs-drift.yml` retains
 the audit as a separate heuristic whose outputs are an artifact, not a tutorial.
+
+## Scientific documentation and regression gates
+
+The ordinary unit job now runs a Python 3.10/3.11/3.12 matrix with offline branch
+coverage; the aggregate `CI / unit` gate preserves the existing check name.
+Live/network, external `full` and local-server `playwright` tests are excluded
+from this job. The documentation workflow runs the verified scientific snapshot
+and image freshness check, executable offline examples/regression contracts,
+strict build, rendered links/assets and desktop/mobile browser tests. It uploads
+the verified site without deploying it. Large original library/flight archives
+remain separate scientific reproduction inputs, not ordinary CI dependencies.

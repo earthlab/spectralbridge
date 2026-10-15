@@ -81,7 +81,7 @@ def envelope_critical(maxima, alpha):
     return float(np.sort(null)[k-1]) if k <= len(null) else float("inf")
 
 
-def method_statistics(values, labels, blocks, wavelengths, *, config=None, seed=None, integration_weights=None):
+def method_statistics(values, labels, blocks, wavelengths, *, config=None, seed=None, integration_weights=None) -> dict:
     """Evaluate synchronized conditional whole-spectrum permutation statistics.
 
     Args:
@@ -99,7 +99,7 @@ def method_statistics(values, labels, blocks, wavelengths, *, config=None, seed=
 
     Returns:
         dict: Observed/permuted curves and four statistics, component/NPC p-values,
-        rows/columns retained, scale, SE, normalized weights and FPCA diagnostics.
+            rows/columns retained, scale, SE, normalized weights and FPCA diagnostics.
 
     Raises:
         ValueError: Invalid dimensions/labels/blocks/weights or insufficient

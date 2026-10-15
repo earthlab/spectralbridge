@@ -189,7 +189,7 @@ def fit_models(
     )
 
 
-def fcls(targets, endmembers):
+def fcls(targets, endmembers) -> dict:
     """Exactly fit a small fixed library under nonnegative sum-one constraints.
 
     Args:
@@ -198,7 +198,7 @@ def fcls(targets, endmembers):
 
     Returns:
         dict: Fractions (N, M), RMSE/reconstructions, angle and ambiguity details
-        from fit_models. Fractions are dimensionless; RMSE retains input units.
+            from fit_models. Fractions are dimensionless; RMSE retains input units.
 
     Raises:
         ValueError: Nonfinite/inconsistent matrices or oversized library.
@@ -468,7 +468,7 @@ def adequacy_status(residuals, threshold) -> np.ndarray:
 
     Returns:
         numpy.ndarray: Same-shape string labels. Low residual is explicitly
-        unvalidated membership, even when an unknown material fits exactly.
+            unvalidated membership, even when an unknown material fits exactly.
 
     Raises:
         ValueError: Invalid residuals or threshold. No data are clipped.
@@ -492,9 +492,9 @@ def detection_metrics(truth, estimated, *, threshold=0.1) -> dict:
 
     Returns:
         dict: TP, FP, TN, FN, N and false-positive/negative rates across supplied
-        entries. A rate with no eligible denominator is NaN. These conditional
-        observations do not define population detection limits. Truth >= 0.1
-        class-set error in the readiness audit is a separate estimand.
+            entries. A rate with no eligible denominator is NaN. These conditional
+            observations do not define population detection limits. Truth >= 0.1
+            class-set error in the readiness audit is a separate estimand.
 
     Raises:
         ValueError: Shape, range or nonfinite inputs are invalid.

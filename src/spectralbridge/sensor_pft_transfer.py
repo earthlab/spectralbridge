@@ -131,7 +131,7 @@ def bootstrap_contrasts(values, labels, blocks, multiplicities, integration_weig
     return effect, delta
 
 
-def project_neon_to_oli(values, wavelengths):
+def project_neon_to_oli(values, wavelengths) -> tuple[np.ndarray, np.ndarray]:
     """Diagnostically project common-support NEON curves to seven OLI channels.
 
     Args:
@@ -140,9 +140,9 @@ def project_neon_to_oli(values, wavelengths):
 
     Returns:
         tuple[numpy.ndarray, numpy.ndarray]: Projected values (N, 7), in input
-        units, and Gaussian response-mass fractions (7,). Order is coastal,
-        blue, green, red, NIR, SWIR1, SWIR2. Packaged centers/FWHMs define the
-        Gaussian approximation; these are not independent Landsat observations.
+            units, and Gaussian response-mass fractions (7,). Order is coastal,
+            blue, green, red, NIR, SWIR1, SWIR2. Packaged centers/FWHMs define the
+            Gaussian approximation; these are not independent Landsat observations.
 
     Raises:
         ValueError: Invalid grid/dimensions or no supported response mass.

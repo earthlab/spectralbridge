@@ -1,0 +1,219 @@
+{
+  "source": "provenance/sensor-pft-transfer/2026-10-14/effect_retention.csv",
+  "source_sha256": "ae7232103d94080aeb4c2be8996cf164db3d3b5562ed2b9a73f24614c4b48964",
+  "records": [
+    {
+      "cohort": "NIWO-2020",
+      "contrast": "DBS / DBT",
+      "n_a": 31,
+      "n_b": 30,
+      "NEON_effect": 0.4168351916929184,
+      "OLI_effect": 0.2984687529586196,
+      "NEON_supported": false,
+      "OLI_supported": false
+    },
+    {
+      "cohort": "NIWO-2020",
+      "contrast": "DBS / ECT",
+      "n_a": 24,
+      "n_b": 68,
+      "NEON_effect": 1.3013487889965232,
+      "OLI_effect": 1.0132375101285145,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "NIWO-2020",
+      "contrast": "DBT / EBS",
+      "n_a": 23,
+      "n_b": 11,
+      "NEON_effect": 1.647795780222685,
+      "OLI_effect": 1.7883046255390251,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "NIWO-2020",
+      "contrast": "DBT / ECS",
+      "n_a": 59,
+      "n_b": 17,
+      "NEON_effect": 0.4837868612224925,
+      "OLI_effect": 0.4294842142580892,
+      "NEON_supported": false,
+      "OLI_supported": false
+    },
+    {
+      "cohort": "NIWO-2020",
+      "contrast": "DBT / ECT",
+      "n_a": 147,
+      "n_b": 572,
+      "NEON_effect": 0.7992549716462638,
+      "OLI_effect": 0.6501740391171884,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "NIWO-2020",
+      "contrast": "ECS / ECT",
+      "n_a": 12,
+      "n_b": 185,
+      "NEON_effect": 1.3288671161518162,
+      "OLI_effect": 1.2854307448260782,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "NIWO-2023",
+      "contrast": "DBS / DBT",
+      "n_a": 25,
+      "n_b": 88,
+      "NEON_effect": 0.3525897489524318,
+      "OLI_effect": 0.2344797231012983,
+      "NEON_supported": true,
+      "OLI_supported": false
+    },
+    {
+      "cohort": "NIWO-2023",
+      "contrast": "DBS / ECS",
+      "n_a": 24,
+      "n_b": 11,
+      "NEON_effect": 0.7688933087246321,
+      "OLI_effect": 0.5874068625960683,
+      "NEON_supported": false,
+      "OLI_supported": false
+    },
+    {
+      "cohort": "NIWO-2023",
+      "contrast": "DBS / ECT",
+      "n_a": 25,
+      "n_b": 204,
+      "NEON_effect": 1.1310473530632756,
+      "OLI_effect": 0.8229544855446321,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "NIWO-2023",
+      "contrast": "DBT / EBS",
+      "n_a": 31,
+      "n_b": 11,
+      "NEON_effect": 1.359263321724102,
+      "OLI_effect": 1.6434631379363542,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "NIWO-2023",
+      "contrast": "DBT / ECS",
+      "n_a": 80,
+      "n_b": 14,
+      "NEON_effect": 0.4150622721327671,
+      "OLI_effect": 0.4910484425466535,
+      "NEON_supported": false,
+      "OLI_supported": false
+    },
+    {
+      "cohort": "NIWO-2023",
+      "contrast": "DBT / ECT",
+      "n_a": 134,
+      "n_b": 438,
+      "NEON_effect": 0.9453891064298784,
+      "OLI_effect": 0.7029579515664317,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "NIWO-2023",
+      "contrast": "EBS / ECT",
+      "n_a": 11,
+      "n_b": 56,
+      "NEON_effect": 1.951172555853395,
+      "OLI_effect": 2.038620625774816,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "NIWO-2023",
+      "contrast": "ECS / ECT",
+      "n_a": 13,
+      "n_b": 198,
+      "NEON_effect": 1.0114234264430506,
+      "OLI_effect": 0.867429551806987,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "WREF-2023",
+      "contrast": "DBS / DBT",
+      "n_a": 124,
+      "n_b": 140,
+      "NEON_effect": 0.3887218765515446,
+      "OLI_effect": 0.3203222449861099,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "WREF-2023",
+      "contrast": "DBS / ECT",
+      "n_a": 133,
+      "n_b": 213,
+      "NEON_effect": 0.943989891225924,
+      "OLI_effect": 0.7348428414648495,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "WREF-2023",
+      "contrast": "DBT / ECT",
+      "n_a": 139,
+      "n_b": 144,
+      "NEON_effect": 0.7489233992051131,
+      "OLI_effect": 0.6527769341556658,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "YELL-2023",
+      "contrast": "DBS / ECT",
+      "n_a": 21,
+      "n_b": 89,
+      "NEON_effect": 1.181821594260689,
+      "OLI_effect": 0.9299773335309458,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "YELL-2023",
+      "contrast": "DBT / ECT",
+      "n_a": 36,
+      "n_b": 74,
+      "NEON_effect": 1.0392735471286336,
+      "OLI_effect": 0.792107531143519,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "YELL-2023",
+      "contrast": "EBS / ECT",
+      "n_a": 45,
+      "n_b": 153,
+      "NEON_effect": 1.4303595755267653,
+      "OLI_effect": 1.5332330887486414,
+      "NEON_supported": true,
+      "OLI_supported": true
+    },
+    {
+      "cohort": "YELL-2023",
+      "contrast": "ECS / ECT",
+      "n_a": 10,
+      "n_b": 39,
+      "NEON_effect": 0.2289008814856497,
+      "OLI_effect": 0.2561998751990559,
+      "NEON_supported": false,
+      "OLI_supported": false
+    }
+  ],
+  "eligible": 21,
+  "NEON_supported": 16,
+  "retained": 15
+}

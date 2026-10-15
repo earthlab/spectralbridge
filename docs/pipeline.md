@@ -1,7 +1,8 @@
 # Pipeline reference
 
-SpectralBridge orchestrates a cross-sensor calibration workflow for every
-flight line. Each stage consults `get_flight_paths()` to locate its inputs,
+SpectralBridge orchestrates restart-safe reflectance processing and configured
+target-band weighting for NEON flightlines. Independent sensor calibration
+requires a separate empirical comparison. Each stage consults `get_flight_paths()` to locate its inputs,
 per-flightline working directory, and outputs, validates artifacts before
 working, and emits emoji-rich logs that make the restart-safe behavior explicit.
 All persistent products land inside `<base_folder>/<flight_stem>/` (with the raw

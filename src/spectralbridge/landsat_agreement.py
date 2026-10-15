@@ -101,7 +101,7 @@ def deming_regression(x, y, error_variance_ratio=1.0):
     return float(slope), float(y.mean() - slope * x.mean())
 
 
-def compute_agreement_metrics(real, synthetic):
+def compute_agreement_metrics(real, synthetic) -> dict:
     """Summarize paired scalar reflectance observations in their supplied units.
 
     Args:
@@ -110,9 +110,9 @@ def compute_agreement_metrics(real, synthetic):
 
     Returns:
         dict: Finite-pair N/status, bias (synthetic minus real), MAE, RMSE,
-        IQR-normalized RMSE, correlations, identity/Deming fits and residual
-        diagnostics. Undefined sparse/constant statistics are NaN. No clipping
-        or unit conversion occurs; bias/MAE/RMSE retain reflectance units.
+            IQR-normalized RMSE, correlations, identity/Deming fits and residual
+            diagnostics. Undefined sparse/constant statistics are NaN. No clipping
+            or unit conversion occurs; bias/MAE/RMSE retain reflectance units.
 
     Raises:
         ValueError: Inputs cannot be broadcast/aligned for pairwise evaluation.
@@ -236,7 +236,7 @@ def _source_scale(source, explicit):
 
 def aggregate_to_landsat_grid(
     products, grid, *, scale_factors=None, offset_m=(0.0, 0.0), strip_rows=8
-):
+) -> dict:
     """Aggregate joint seven-band products to actual projected Landsat footprints.
 
     Args:
@@ -250,8 +250,8 @@ def aggregate_to_landsat_grid(
 
     Returns:
         dict: Variant means/variances in unitless reflectance, source geometry
-        coverage, joint validity/full-footprint coverage, contributing counts,
-        and aggregation method. Unsupported cells have NaN means.
+            coverage, joint validity/full-footprint coverage, contributing counts,
+            and aggregation method. Unsupported cells have NaN means.
 
     Raises:
         ValueError: Invalid grid, scale, dimensions, offsets or variant alignment.

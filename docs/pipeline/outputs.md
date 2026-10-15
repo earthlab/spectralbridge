@@ -127,7 +127,7 @@ with native MicaSense columns.
   </article>
   <article class="sb-doc-card">
     <h3>Inspect QA before modeling</h3>
-    <p>Review QA PNG and JSON outputs to confirm spectral health and calibration quality.</p>
+    <p>Review QA PNG and JSON outputs to inspect spectral quality and configured processing diagnostics.</p>
   </article>
   <article class="sb-doc-card">
     <h3>Treat ENVI as diagnostic</h3>

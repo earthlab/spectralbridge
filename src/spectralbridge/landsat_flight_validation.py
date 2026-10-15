@@ -389,7 +389,7 @@ def _interval_metrics(x, values, draws):
 
 def compare_flight_to_real_landsat(
     flight, output, *, config=None, items=None, client=None
-):
+) -> dict:
     """Select one real scene and compare it with a verified seven-band flight.
 
     Args:
@@ -404,8 +404,8 @@ def compare_flight_to_real_landsat(
 
     Returns:
         dict: Status/identity/checksummed output manifest. Explicit no-scene and
-        unusable-scene statuses are retained, not fabricated successful fits.
-        Results contain matched arrays, tables, QA and figures in output.
+            unusable-scene statuses are retained, not fabricated successful fits.
+            Results contain matched arrays, tables, QA and figures in output.
 
     Raises:
         ValueError: Source coordinates/scales, metadata or configuration invalid.

@@ -1,0 +1,861 @@
+sensor,label,repeat,endmembers,test_identities,median_nearest_RMSE,p95_nearest_RMSE,median_nearest_angle_deg,interpretation
+NEON,Deciduous,0,1,133,1349.6997204560969,2469.013905912629,4.777096511486687,library_holdout_not_full_image_coverage
+NEON,Deciduous,0,2,133,516.0875740838882,1355.9878616292906,3.6325929248396207,library_holdout_not_full_image_coverage
+NEON,Deciduous,0,5,133,413.0669906755431,646.673629681623,3.3119570744688733,library_holdout_not_full_image_coverage
+NEON,Deciduous,0,10,133,262.60296763192827,572.2348804531334,3.0265756848729444,library_holdout_not_full_image_coverage
+NEON,Deciduous,0,20,133,204.01746509112672,487.2198658243709,2.52089857107787,library_holdout_not_full_image_coverage
+NEON,Deciduous,0,50,133,151.93903314135903,347.4764054008291,1.900726537895656,library_holdout_not_full_image_coverage
+NEON,Deciduous,0,100,133,129.89326300547506,253.98652333085028,1.5354235379280294,library_holdout_not_full_image_coverage
+NEON,Deciduous,0,200,133,105.93182509326012,235.94829975650225,1.411997369951066,library_holdout_not_full_image_coverage
+NEON,Deciduous,1,1,133,1098.4797446477166,2207.8862937206723,5.496499393638629,library_holdout_not_full_image_coverage
+NEON,Deciduous,1,2,133,677.3765450163096,1757.151390153576,4.611721425033854,library_holdout_not_full_image_coverage
+NEON,Deciduous,1,5,133,305.5833276470549,686.6244080759899,2.955169308482425,library_holdout_not_full_image_coverage
+NEON,Deciduous,1,10,133,262.8810710781252,662.4441398974129,2.67495901049389,library_holdout_not_full_image_coverage
+NEON,Deciduous,1,20,133,186.3170091832894,439.9337997301641,2.198749650011305,library_holdout_not_full_image_coverage
+NEON,Deciduous,1,50,133,135.6655761826562,368.1707667954751,1.8404219927495795,library_holdout_not_full_image_coverage
+NEON,Deciduous,1,100,133,118.24977888561716,268.0617484479802,1.576807541451077,library_holdout_not_full_image_coverage
+NEON,Deciduous,1,200,133,102.33124572503348,246.1039450803065,1.379854122793758,library_holdout_not_full_image_coverage
+NEON,Deciduous,2,1,133,819.7596071967035,1889.4289904707864,14.3908758143556,library_holdout_not_full_image_coverage
+NEON,Deciduous,2,2,133,477.2575044273616,1083.265788744719,4.369166303796597,library_holdout_not_full_image_coverage
+NEON,Deciduous,2,5,133,353.9382913764539,634.9106705858032,3.9102474450873927,library_holdout_not_full_image_coverage
+NEON,Deciduous,2,10,133,235.70993617139544,520.674209699011,3.636397323204875,library_holdout_not_full_image_coverage
+NEON,Deciduous,2,20,133,177.33980862245562,426.70401645896294,2.357257871856107,library_holdout_not_full_image_coverage
+NEON,Deciduous,2,50,133,153.52218807879586,382.2927640250538,1.986535238874278,library_holdout_not_full_image_coverage
+NEON,Deciduous,2,100,133,125.11192655561264,365.48696149630786,1.6349640274501238,library_holdout_not_full_image_coverage
+NEON,Deciduous,2,200,133,105.32552691578856,225.33543530834712,1.4185967958262369,library_holdout_not_full_image_coverage
+NEON,Deciduous,3,1,133,644.8934383645035,1638.682016786381,4.909691854015785,library_holdout_not_full_image_coverage
+NEON,Deciduous,3,2,133,497.0462016334813,1308.41107733864,3.976464602916395,library_holdout_not_full_image_coverage
+NEON,Deciduous,3,5,133,381.3115980288239,1272.8404310994997,3.140794389435242,library_holdout_not_full_image_coverage
+NEON,Deciduous,3,10,133,331.22792666944423,1272.8404310994997,2.8247475522882217,library_holdout_not_full_image_coverage
+NEON,Deciduous,3,20,133,223.19630829821335,520.8458746657476,2.412772558312029,library_holdout_not_full_image_coverage
+NEON,Deciduous,3,50,133,146.99006381986285,359.5457174553809,1.8829032028381345,library_holdout_not_full_image_coverage
+NEON,Deciduous,3,100,133,123.1543013545719,302.56955802358124,1.4982369501688155,library_holdout_not_full_image_coverage
+NEON,Deciduous,3,200,133,105.0011510817025,247.06381932548527,1.3785078397080623,library_holdout_not_full_image_coverage
+NEON,Deciduous,4,1,133,2095.047664202138,3267.1350028099196,7.19999760814876,library_holdout_not_full_image_coverage
+NEON,Deciduous,4,2,133,669.6545535416334,1206.769688507409,7.144219301246408,library_holdout_not_full_image_coverage
+NEON,Deciduous,4,5,133,337.32844608949586,812.424733974713,3.522254573493847,library_holdout_not_full_image_coverage
+NEON,Deciduous,4,10,133,272.84438651960625,626.8085308486878,2.949430943576287,library_holdout_not_full_image_coverage
+NEON,Deciduous,4,20,133,231.51769885456625,564.5676782896367,2.4399577989150205,library_holdout_not_full_image_coverage
+NEON,Deciduous,4,50,133,145.6001969878124,466.7860135058762,1.7953898419927905,library_holdout_not_full_image_coverage
+NEON,Deciduous,4,100,133,120.5861160779036,429.3419838251266,1.582127215890247,library_holdout_not_full_image_coverage
+NEON,Deciduous,4,200,133,108.0827744141018,233.05635832201008,1.3798264235210895,library_holdout_not_full_image_coverage
+NEON,Deciduous,5,1,133,2095.762946801871,3287.0087594138677,5.105368584471546,library_holdout_not_full_image_coverage
+NEON,Deciduous,5,2,133,694.7493161203888,1234.6872315413425,4.087528221888602,library_holdout_not_full_image_coverage
+NEON,Deciduous,5,5,133,353.63105935410385,942.3868615426856,3.5037295666461157,library_holdout_not_full_image_coverage
+NEON,Deciduous,5,10,133,257.56864765457567,829.4611925370707,2.6168543738094376,library_holdout_not_full_image_coverage
+NEON,Deciduous,5,20,133,228.42005916253513,776.5084499465918,2.210650828567854,library_holdout_not_full_image_coverage
+NEON,Deciduous,5,50,133,156.59305248150187,454.5719626287447,1.8195725667219504,library_holdout_not_full_image_coverage
+NEON,Deciduous,5,100,133,137.84184960196316,316.7872489234539,1.6692316554173916,library_holdout_not_full_image_coverage
+NEON,Deciduous,5,200,133,110.93367426418747,241.83862511850293,1.4149434337764262,library_holdout_not_full_image_coverage
+NEON,Deciduous,6,1,133,633.9150290877161,1531.1387929800696,5.1281803615822605,library_holdout_not_full_image_coverage
+NEON,Deciduous,6,2,133,538.0353998306683,1487.907321832664,3.9191098119855345,library_holdout_not_full_image_coverage
+NEON,Deciduous,6,5,133,339.3828700522477,974.6398165957183,3.072730963737392,library_holdout_not_full_image_coverage
+NEON,Deciduous,6,10,133,255.15831665367295,804.3281715627345,2.6540504199228,library_holdout_not_full_image_coverage
+NEON,Deciduous,6,20,133,201.67026440470588,631.3637911144572,2.3533204109904378,library_holdout_not_full_image_coverage
+NEON,Deciduous,6,50,133,151.95762338218182,296.7663301820515,1.882509823048995,library_holdout_not_full_image_coverage
+NEON,Deciduous,6,100,133,123.1543013545719,270.40108647070605,1.6054089742749411,library_holdout_not_full_image_coverage
+NEON,Deciduous,6,200,133,105.76747565167165,223.2977722917665,1.4557710849143115,library_holdout_not_full_image_coverage
+NEON,Deciduous,7,1,133,681.8395015192286,1491.376542356678,5.374331591670891,library_holdout_not_full_image_coverage
+NEON,Deciduous,7,2,133,621.8668172895702,1416.5096416858337,4.5444282844819925,library_holdout_not_full_image_coverage
+NEON,Deciduous,7,5,133,318.18011455804935,1076.115827116146,3.7510706761507353,library_holdout_not_full_image_coverage
+NEON,Deciduous,7,10,133,288.14871552131837,1076.115827116146,2.8507812643760153,library_holdout_not_full_image_coverage
+NEON,Deciduous,7,20,133,207.26252558547893,766.198838160265,2.5993947110437463,library_holdout_not_full_image_coverage
+NEON,Deciduous,7,50,133,151.22918387024916,388.9570403298804,1.993382843073432,library_holdout_not_full_image_coverage
+NEON,Deciduous,7,100,133,124.37736251442412,305.65033670677633,1.585580841522677,library_holdout_not_full_image_coverage
+NEON,Deciduous,7,200,133,105.76747565167165,247.6398435393851,1.4011965690769368,library_holdout_not_full_image_coverage
+NEON,Deciduous,8,1,133,672.7595665347217,1737.705277799637,5.306381860895159,library_holdout_not_full_image_coverage
+NEON,Deciduous,8,2,133,382.37801955192833,1020.153189996207,4.028753801525902,library_holdout_not_full_image_coverage
+NEON,Deciduous,8,5,133,267.426423236596,887.0484966591297,3.25140682537784,library_holdout_not_full_image_coverage
+NEON,Deciduous,8,10,133,233.3929092822418,686.4193378201599,2.8441296744082503,library_holdout_not_full_image_coverage
+NEON,Deciduous,8,20,133,193.52449502025917,544.9845246203971,2.331115410806456,library_holdout_not_full_image_coverage
+NEON,Deciduous,8,50,133,155.56081046666023,399.91016432347567,1.82120878490234,library_holdout_not_full_image_coverage
+NEON,Deciduous,8,100,133,124.72555855727666,334.1205984790795,1.576807541451077,library_holdout_not_full_image_coverage
+NEON,Deciduous,8,200,133,103.82813717850765,232.9990021428625,1.3675241564041565,library_holdout_not_full_image_coverage
+NEON,Deciduous,9,1,133,704.1555479483491,1615.7227189158632,6.497798872203512,library_holdout_not_full_image_coverage
+NEON,Deciduous,9,2,133,555.7776256703788,1389.0711249324097,3.829335283434129,library_holdout_not_full_image_coverage
+NEON,Deciduous,9,5,133,347.58016558478766,1164.144018524764,3.1809336760624536,library_holdout_not_full_image_coverage
+NEON,Deciduous,9,10,133,273.2601317956535,759.8816592085445,2.741019001990583,library_holdout_not_full_image_coverage
+NEON,Deciduous,9,20,133,200.54638297463768,457.3626228282709,2.2945644687957754,library_holdout_not_full_image_coverage
+NEON,Deciduous,9,50,133,146.60883948389574,334.1915157257958,1.8927057984151392,library_holdout_not_full_image_coverage
+NEON,Deciduous,9,100,133,124.37736251442412,302.32999087041264,1.5992003467032463,library_holdout_not_full_image_coverage
+NEON,Deciduous,9,200,133,107.0657409505546,223.421331448211,1.4036670487236405,library_holdout_not_full_image_coverage
+NEON,Evergreen,0,1,409,377.8821892874478,975.8653484444252,4.708210415682437,library_holdout_not_full_image_coverage
+NEON,Evergreen,0,2,409,323.57927324414203,944.3602941231228,3.6759991389434776,library_holdout_not_full_image_coverage
+NEON,Evergreen,0,5,409,198.42408846288097,802.558158442587,2.983096675893604,library_holdout_not_full_image_coverage
+NEON,Evergreen,0,10,409,174.5649877506362,608.6068015926006,2.792914529840532,library_holdout_not_full_image_coverage
+NEON,Evergreen,0,20,409,123.425609775831,434.95661940018374,2.109877910003915,library_holdout_not_full_image_coverage
+NEON,Evergreen,0,50,409,91.01689467109148,253.41669833587352,1.7996490030938954,library_holdout_not_full_image_coverage
+NEON,Evergreen,0,100,409,76.4820502925418,227.76378215652895,1.5608280771355745,library_holdout_not_full_image_coverage
+NEON,Evergreen,0,200,409,66.85498951045706,171.33608998015023,1.385465498987115,library_holdout_not_full_image_coverage
+NEON,Evergreen,0,500,409,55.69042742188775,135.1722407030808,1.2210488599221176,library_holdout_not_full_image_coverage
+NEON,Evergreen,1,1,409,432.7946440882487,1059.980503076658,5.325359472896482,library_holdout_not_full_image_coverage
+NEON,Evergreen,1,2,409,293.4876586008311,752.4713547493966,4.995552322351388,library_holdout_not_full_image_coverage
+NEON,Evergreen,1,5,409,195.82306821698583,749.4430587317661,3.4414749575860215,library_holdout_not_full_image_coverage
+NEON,Evergreen,1,10,409,145.3524449631297,701.1647375848127,2.7053575822562816,library_holdout_not_full_image_coverage
+NEON,Evergreen,1,20,409,114.02793898007587,621.2790119603983,2.193837755288063,library_holdout_not_full_image_coverage
+NEON,Evergreen,1,50,409,87.06620208061332,325.28395733074814,1.7911814349125292,library_holdout_not_full_image_coverage
+NEON,Evergreen,1,100,409,74.318671735093,229.6759644616169,1.577998974907244,library_holdout_not_full_image_coverage
+NEON,Evergreen,1,200,409,65.76537325546497,172.27340239357085,1.4476434294414595,library_holdout_not_full_image_coverage
+NEON,Evergreen,1,500,409,54.58415060907757,130.68286802998853,1.2534694654722085,library_holdout_not_full_image_coverage
+NEON,Evergreen,2,1,409,728.066929981883,1631.05820715355,11.30395254674698,library_holdout_not_full_image_coverage
+NEON,Evergreen,2,2,409,560.9559886788995,844.2682669757471,5.479873519882572,library_holdout_not_full_image_coverage
+NEON,Evergreen,2,5,409,233.4461860334966,502.91452770851214,2.737927633682353,library_holdout_not_full_image_coverage
+NEON,Evergreen,2,10,409,160.29698969088804,340.1072917963399,2.4454761434444467,library_holdout_not_full_image_coverage
+NEON,Evergreen,2,20,409,125.91034560245598,254.8315064038825,2.288111813182633,library_holdout_not_full_image_coverage
+NEON,Evergreen,2,50,409,93.94838883912188,253.18148011477612,1.9188674062046165,library_holdout_not_full_image_coverage
+NEON,Evergreen,2,100,409,76.39036087831718,196.93408516678187,1.6250784531104636,library_holdout_not_full_image_coverage
+NEON,Evergreen,2,200,409,67.78644519788068,151.62470854606545,1.479544523444447,library_holdout_not_full_image_coverage
+NEON,Evergreen,2,500,409,56.13421618804659,133.27488672839897,1.245960248558093,library_holdout_not_full_image_coverage
+NEON,Evergreen,3,1,409,354.20828267892085,1044.970640874359,4.123997564793556,library_holdout_not_full_image_coverage
+NEON,Evergreen,3,2,409,330.8614007699008,1000.5655600478138,4.009242099188118,library_holdout_not_full_image_coverage
+NEON,Evergreen,3,5,409,235.65587903683547,700.922483552727,2.6336168612009088,library_holdout_not_full_image_coverage
+NEON,Evergreen,3,10,409,152.08341076620087,525.9656543794653,2.3510381347937246,library_holdout_not_full_image_coverage
+NEON,Evergreen,3,20,409,124.62874271907629,313.3182131031753,2.162315323802833,library_holdout_not_full_image_coverage
+NEON,Evergreen,3,50,409,91.9731511802878,258.37133462627986,1.773170504841564,library_holdout_not_full_image_coverage
+NEON,Evergreen,3,100,409,77.25985085376135,214.2058816319441,1.600388421974123,library_holdout_not_full_image_coverage
+NEON,Evergreen,3,200,409,66.02997318077857,167.60005006852202,1.4097649669482042,library_holdout_not_full_image_coverage
+NEON,Evergreen,3,500,409,56.136305466612505,134.74620836784885,1.2301326504367769,library_holdout_not_full_image_coverage
+NEON,Evergreen,4,1,409,520.2973695108544,1189.7411990025391,4.594050209182127,library_holdout_not_full_image_coverage
+NEON,Evergreen,4,2,409,266.8632044866578,706.5217625630355,3.786109703688767,library_holdout_not_full_image_coverage
+NEON,Evergreen,4,5,409,163.64099925577457,585.6988651493411,3.332469647594901,library_holdout_not_full_image_coverage
+NEON,Evergreen,4,10,409,150.45826453339853,399.02009481656887,2.7954147353579133,library_holdout_not_full_image_coverage
+NEON,Evergreen,4,20,409,115.61511608362918,348.00535167458787,2.316740619989518,library_holdout_not_full_image_coverage
+NEON,Evergreen,4,50,409,93.77755476347528,248.08255142568265,1.7569643828090675,library_holdout_not_full_image_coverage
+NEON,Evergreen,4,100,409,76.30563196191392,228.67656249480632,1.6108773577311002,library_holdout_not_full_image_coverage
+NEON,Evergreen,4,200,409,66.44190717897783,192.5847560664216,1.479156228035837,library_holdout_not_full_image_coverage
+NEON,Evergreen,4,500,409,56.02748322932421,147.8563408738429,1.2512860535692774,library_holdout_not_full_image_coverage
+NEON,Evergreen,5,1,409,402.14710354681114,1210.2836095715113,4.927186367515807,library_holdout_not_full_image_coverage
+NEON,Evergreen,5,2,409,265.8360169543366,1003.3971730762256,3.4271655262291008,library_holdout_not_full_image_coverage
+NEON,Evergreen,5,5,409,214.6953185193617,454.76656810151104,3.172550088383806,library_holdout_not_full_image_coverage
+NEON,Evergreen,5,10,409,159.87391391305232,392.8791910700537,2.651650978342001,library_holdout_not_full_image_coverage
+NEON,Evergreen,5,20,409,126.09369881895547,282.47418918744256,2.2066203087733554,library_holdout_not_full_image_coverage
+NEON,Evergreen,5,50,409,92.2939730994286,240.43565501692677,1.7928486997406354,library_holdout_not_full_image_coverage
+NEON,Evergreen,5,100,409,77.88082558961949,192.94211725100988,1.596896086318829,library_holdout_not_full_image_coverage
+NEON,Evergreen,5,200,409,65.98887254280118,167.18517757913003,1.4360216490905664,library_holdout_not_full_image_coverage
+NEON,Evergreen,5,500,409,55.02718179836158,134.74620836784885,1.2397488403255037,library_holdout_not_full_image_coverage
+NEON,Evergreen,6,1,409,501.5128468137645,1372.6102575457717,4.528831060582799,library_holdout_not_full_image_coverage
+NEON,Evergreen,6,2,409,474.969202034632,1372.6102575457717,4.053753912661819,library_holdout_not_full_image_coverage
+NEON,Evergreen,6,5,409,186.94123981080588,410.086394877101,3.0811839898842637,library_holdout_not_full_image_coverage
+NEON,Evergreen,6,10,409,161.16415456932856,376.95116258540384,2.682028611095978,library_holdout_not_full_image_coverage
+NEON,Evergreen,6,20,409,117.1821258948495,313.41893778143606,2.2244833491840126,library_holdout_not_full_image_coverage
+NEON,Evergreen,6,50,409,88.92895166143975,212.27503507688772,1.866462426111854,library_holdout_not_full_image_coverage
+NEON,Evergreen,6,100,409,75.27968695168136,193.43444414649213,1.6010029038506175,library_holdout_not_full_image_coverage
+NEON,Evergreen,6,200,409,65.96786594217792,158.7302499778113,1.4458682382938324,library_holdout_not_full_image_coverage
+NEON,Evergreen,6,500,409,55.26714326442281,131.85982566150815,1.2697736369964154,library_holdout_not_full_image_coverage
+NEON,Evergreen,7,1,409,976.265585365607,1880.8890181533625,7.83393885682457,library_holdout_not_full_image_coverage
+NEON,Evergreen,7,2,409,328.70729356993456,1169.149602169549,5.178242182920458,library_holdout_not_full_image_coverage
+NEON,Evergreen,7,5,409,182.88190541664613,948.0132598876056,3.3553138382912557,library_holdout_not_full_image_coverage
+NEON,Evergreen,7,10,409,160.4643277833317,394.57327550144635,2.6924954898510665,library_holdout_not_full_image_coverage
+NEON,Evergreen,7,20,409,121.9185619094001,372.332088898784,2.19170605479934,library_holdout_not_full_image_coverage
+NEON,Evergreen,7,50,409,96.36906448648467,220.255228076296,1.9140833811217275,library_holdout_not_full_image_coverage
+NEON,Evergreen,7,100,409,76.39612396667557,197.26854504079787,1.65941908540916,library_holdout_not_full_image_coverage
+NEON,Evergreen,7,200,409,64.75344280503583,175.7634936400469,1.4245396994950728,library_holdout_not_full_image_coverage
+NEON,Evergreen,7,500,409,55.69042742188775,135.36059143879083,1.2494039358607936,library_holdout_not_full_image_coverage
+NEON,Evergreen,8,1,409,393.64626364084165,1015.6106998421808,6.389677696294258,library_holdout_not_full_image_coverage
+NEON,Evergreen,8,2,409,366.94341044483497,954.1042018337324,6.1554816332133555,library_holdout_not_full_image_coverage
+NEON,Evergreen,8,5,409,247.45133980226467,843.8560587334653,2.989236589526167,library_holdout_not_full_image_coverage
+NEON,Evergreen,8,10,409,150.88780162825526,419.986032014464,2.477954690508708,library_holdout_not_full_image_coverage
+NEON,Evergreen,8,20,409,114.25438794093152,287.5829905983071,2.0317786870295187,library_holdout_not_full_image_coverage
+NEON,Evergreen,8,50,409,90.65698159449668,203.02506621418223,1.7836765502161973,library_holdout_not_full_image_coverage
+NEON,Evergreen,8,100,409,77.33397662494315,186.8494637894818,1.57111993023454,library_holdout_not_full_image_coverage
+NEON,Evergreen,8,200,409,67.11549365825266,158.6967304423295,1.404727009059708,library_holdout_not_full_image_coverage
+NEON,Evergreen,8,500,409,54.34835103296639,137.18003714086888,1.2540950784798768,library_holdout_not_full_image_coverage
+NEON,Evergreen,9,1,409,362.4107317303658,1068.159899413251,4.680431783558405,library_holdout_not_full_image_coverage
+NEON,Evergreen,9,2,409,280.6564114972785,697.9826686969933,3.494922601550491,library_holdout_not_full_image_coverage
+NEON,Evergreen,9,5,409,182.4539382345608,580.7743013977758,2.727240860460572,library_holdout_not_full_image_coverage
+NEON,Evergreen,9,10,409,157.9083053157006,459.25512986117513,2.528833746808213,library_holdout_not_full_image_coverage
+NEON,Evergreen,9,20,409,120.68618241434744,381.8087052837969,2.178808095638174,library_holdout_not_full_image_coverage
+NEON,Evergreen,9,50,409,94.38692939044016,258.69620694496473,1.8323284829096451,library_holdout_not_full_image_coverage
+NEON,Evergreen,9,100,409,74.9254908957426,172.35148810302198,1.58909382498693,library_holdout_not_full_image_coverage
+NEON,Evergreen,9,200,409,64.86472410978288,160.5398036115139,1.4216909371676394,library_holdout_not_full_image_coverage
+NEON,Evergreen,9,500,409,56.01642891993541,125.64907327886148,1.250142095284795,library_holdout_not_full_image_coverage
+NEON,Herbaceous,0,1,204,635.0284756436051,1624.4158820831556,8.233950957261328,library_holdout_not_full_image_coverage
+NEON,Herbaceous,0,2,204,445.3616463551132,1473.257902724744,7.95773417504658,library_holdout_not_full_image_coverage
+NEON,Herbaceous,0,5,204,332.5952255033276,688.5847847048171,3.758370892459997,library_holdout_not_full_image_coverage
+NEON,Herbaceous,0,10,204,236.38011442856117,623.9165616565538,3.1991297888012995,library_holdout_not_full_image_coverage
+NEON,Herbaceous,0,20,204,170.80674488898714,415.4125523188321,2.640591771453947,library_holdout_not_full_image_coverage
+NEON,Herbaceous,0,50,204,131.45740436391628,353.185545101675,2.047949311027528,library_holdout_not_full_image_coverage
+NEON,Herbaceous,0,100,204,115.14581530798156,246.92620419731895,1.812517973893896,library_holdout_not_full_image_coverage
+NEON,Herbaceous,0,200,204,96.44299589925812,219.9451586454912,1.5863340403242183,library_holdout_not_full_image_coverage
+NEON,Herbaceous,0,500,204,75.87882151203465,197.0246967198705,1.2867729361369336,library_holdout_not_full_image_coverage
+NEON,Herbaceous,1,1,204,575.2586338123272,1746.2117991255247,10.910034244739016,library_holdout_not_full_image_coverage
+NEON,Herbaceous,1,2,204,534.6819884639305,1156.2431175273591,4.42220874842136,library_holdout_not_full_image_coverage
+NEON,Herbaceous,1,5,204,329.0337180482177,677.9199213410021,3.5633473320089877,library_holdout_not_full_image_coverage
+NEON,Herbaceous,1,10,204,277.70822140410667,654.8796188541119,3.113424383660231,library_holdout_not_full_image_coverage
+NEON,Herbaceous,1,20,204,181.50925782978567,416.2272503123977,2.4626957338804107,library_holdout_not_full_image_coverage
+NEON,Herbaceous,1,50,204,142.99190613455323,344.3288640992173,2.129017920187689,library_holdout_not_full_image_coverage
+NEON,Herbaceous,1,100,204,112.67961945804208,254.07323422533148,1.7645775985371956,library_holdout_not_full_image_coverage
+NEON,Herbaceous,1,200,204,92.9082012483324,215.30544547295804,1.522684296842288,library_holdout_not_full_image_coverage
+NEON,Herbaceous,1,500,204,74.04512728262529,196.8392354229806,1.320680327720439,library_holdout_not_full_image_coverage
+NEON,Herbaceous,2,1,204,627.3106664083871,1988.9554812798735,11.018498195831944,library_holdout_not_full_image_coverage
+NEON,Herbaceous,2,2,204,599.7578912205025,1884.3034171763716,5.424218663038289,library_holdout_not_full_image_coverage
+NEON,Herbaceous,2,5,204,404.5764079095941,741.2918300365195,4.6203108648023345,library_holdout_not_full_image_coverage
+NEON,Herbaceous,2,10,204,225.10904711445227,506.4477783132386,3.031572592280169,library_holdout_not_full_image_coverage
+NEON,Herbaceous,2,20,204,185.81662245687116,402.3530345494892,2.641489053374263,library_holdout_not_full_image_coverage
+NEON,Herbaceous,2,50,204,135.5415300841624,300.260754423486,1.9437262003584184,library_holdout_not_full_image_coverage
+NEON,Herbaceous,2,100,204,111.58999582584758,244.3071345398047,1.6618515277345225,library_holdout_not_full_image_coverage
+NEON,Herbaceous,2,200,204,91.30006076587786,223.5282108135251,1.5015341059220613,library_holdout_not_full_image_coverage
+NEON,Herbaceous,2,500,204,76.88361794744736,196.62369449099003,1.3098807526497396,library_holdout_not_full_image_coverage
+NEON,Herbaceous,3,1,204,1353.1424725697348,2987.255920244658,6.4433104105832015,library_holdout_not_full_image_coverage
+NEON,Herbaceous,3,2,204,818.1152111060121,1932.1688792116656,5.579376693142152,library_holdout_not_full_image_coverage
+NEON,Herbaceous,3,5,204,454.1029346328843,1364.5082230496914,4.523516622556995,library_holdout_not_full_image_coverage
+NEON,Herbaceous,3,10,204,268.6202156616877,1065.7346802095342,2.6507669653439203,library_holdout_not_full_image_coverage
+NEON,Herbaceous,3,20,204,185.9201746646741,413.3102466689048,2.40142917359412,library_holdout_not_full_image_coverage
+NEON,Herbaceous,3,50,204,137.42175278821804,305.21150585071985,2.025565138801668,library_holdout_not_full_image_coverage
+NEON,Herbaceous,3,100,204,113.91237363485084,250.87168315544855,1.8435339501927477,library_holdout_not_full_image_coverage
+NEON,Herbaceous,3,200,204,96.82444565499948,206.6292511030529,1.5856444738204138,library_holdout_not_full_image_coverage
+NEON,Herbaceous,3,500,204,77.50000910512372,196.62369449099003,1.320680327720439,library_holdout_not_full_image_coverage
+NEON,Herbaceous,4,1,204,527.7021931731322,1898.9693020967509,6.91252249409024,library_holdout_not_full_image_coverage
+NEON,Herbaceous,4,2,204,419.0203590863112,1466.9512330579569,4.216920651338381,library_holdout_not_full_image_coverage
+NEON,Herbaceous,4,5,204,332.98026311781973,1466.9512330579569,3.4993855183768483,library_holdout_not_full_image_coverage
+NEON,Herbaceous,4,10,204,200.52112796443615,606.3308524280287,3.1471092434764536,library_holdout_not_full_image_coverage
+NEON,Herbaceous,4,20,204,177.41168313704537,497.8982963162628,2.640346599563311,library_holdout_not_full_image_coverage
+NEON,Herbaceous,4,50,204,127.59380730492964,338.13895136246816,1.9007869515110551,library_holdout_not_full_image_coverage
+NEON,Herbaceous,4,100,204,102.45562171694468,299.2391841191895,1.684848230459393,library_holdout_not_full_image_coverage
+NEON,Herbaceous,4,200,204,90.97414726447435,227.66645434545177,1.5131127751460849,library_holdout_not_full_image_coverage
+NEON,Herbaceous,4,500,204,75.69043700237734,196.62369449099003,1.323542612171467,library_holdout_not_full_image_coverage
+NEON,Herbaceous,5,1,204,906.44009735559,1724.72278967989,20.93632846813319,library_holdout_not_full_image_coverage
+NEON,Herbaceous,5,2,204,686.1795718849289,1468.8973824573511,4.849447337576002,library_holdout_not_full_image_coverage
+NEON,Herbaceous,5,5,204,343.09612574357914,1468.8973824573511,3.919466171680331,library_holdout_not_full_image_coverage
+NEON,Herbaceous,5,10,204,242.39559891508003,1468.8973824573511,3.47833370557559,library_holdout_not_full_image_coverage
+NEON,Herbaceous,5,20,204,182.30213973906837,472.539422400414,2.3769876749892394,library_holdout_not_full_image_coverage
+NEON,Herbaceous,5,50,204,147.9399768920573,324.0900304285718,2.1575520411806304,library_holdout_not_full_image_coverage
+NEON,Herbaceous,5,100,204,111.3121561610454,283.72233541132044,1.814809669031237,library_holdout_not_full_image_coverage
+NEON,Herbaceous,5,200,204,95.3078834452314,218.0981905617596,1.5839199171061522,library_holdout_not_full_image_coverage
+NEON,Herbaceous,5,500,204,76.89555231112914,196.62369449099003,1.3202892180904473,library_holdout_not_full_image_coverage
+NEON,Herbaceous,6,1,204,1756.6986867988587,2579.8790597284396,12.118163137105,library_holdout_not_full_image_coverage
+NEON,Herbaceous,6,2,204,1756.6986867988587,2579.8790597284396,11.676693855173696,library_holdout_not_full_image_coverage
+NEON,Herbaceous,6,5,204,328.57194513020687,874.978365534222,3.5794626799544167,library_holdout_not_full_image_coverage
+NEON,Herbaceous,6,10,204,236.00917915621267,492.2119060300092,3.0765230965235375,library_holdout_not_full_image_coverage
+NEON,Herbaceous,6,20,204,180.53453417276623,383.48757817949286,2.6376047491827137,library_holdout_not_full_image_coverage
+NEON,Herbaceous,6,50,204,127.30065889250338,349.7887686970434,1.9218327129624515,library_holdout_not_full_image_coverage
+NEON,Herbaceous,6,100,204,106.64045394447912,281.8320043548021,1.6984022350855144,library_holdout_not_full_image_coverage
+NEON,Herbaceous,6,200,204,94.43367234483316,217.68657020735736,1.5582578789661223,library_holdout_not_full_image_coverage
+NEON,Herbaceous,6,500,204,75.4415610649406,196.62369449099003,1.3098807526497396,library_holdout_not_full_image_coverage
+NEON,Herbaceous,7,1,204,541.4559298416382,1839.3820416586,5.982788537776861,library_holdout_not_full_image_coverage
+NEON,Herbaceous,7,2,204,417.2888801304763,1810.6298331958988,4.9964724399382625,library_holdout_not_full_image_coverage
+NEON,Herbaceous,7,5,204,341.86531637140405,1713.7469287526308,3.976478011391477,library_holdout_not_full_image_coverage
+NEON,Herbaceous,7,10,204,246.30395900021375,564.0858832274358,3.065571542123294,library_holdout_not_full_image_coverage
+NEON,Herbaceous,7,20,204,179.96904211986532,402.356457985448,2.696241021329392,library_holdout_not_full_image_coverage
+NEON,Herbaceous,7,50,204,133.8832376069313,318.60444553997877,1.9767735891255176,library_holdout_not_full_image_coverage
+NEON,Herbaceous,7,100,204,104.04175433900988,257.42754027697185,1.662573819648537,library_holdout_not_full_image_coverage
+NEON,Herbaceous,7,200,204,88.24138126461935,210.65840901330515,1.5211953308848871,library_holdout_not_full_image_coverage
+NEON,Herbaceous,7,500,204,76.70315496858859,196.62369449099003,1.3098807526497396,library_holdout_not_full_image_coverage
+NEON,Herbaceous,8,1,204,1165.5912498565813,1783.92246350259,28.94953146664426,library_holdout_not_full_image_coverage
+NEON,Herbaceous,8,2,204,711.777389844544,1650.333138473767,12.12667060700342,library_holdout_not_full_image_coverage
+NEON,Herbaceous,8,5,204,341.73009474981706,1566.6982588668084,4.726953212792442,library_holdout_not_full_image_coverage
+NEON,Herbaceous,8,10,204,255.13995656688988,523.7191862572481,3.103921800795673,library_holdout_not_full_image_coverage
+NEON,Herbaceous,8,20,204,176.77755067426318,457.14236000595434,2.352351063020566,library_holdout_not_full_image_coverage
+NEON,Herbaceous,8,50,204,143.8076483871077,380.6996821914277,2.116098620691882,library_holdout_not_full_image_coverage
+NEON,Herbaceous,8,100,204,115.29202622230628,279.2554125933997,1.7572296731404495,library_holdout_not_full_image_coverage
+NEON,Herbaceous,8,200,204,96.8439138796607,219.99300310181005,1.579240595357114,library_holdout_not_full_image_coverage
+NEON,Herbaceous,8,500,204,76.0848688100454,198.2722875936608,1.3098807526497396,library_holdout_not_full_image_coverage
+NEON,Herbaceous,9,1,204,711.9526680828127,1818.1940765029465,15.278369733448391,library_holdout_not_full_image_coverage
+NEON,Herbaceous,9,2,204,674.7192591287233,1323.736101210337,6.008171176570942,library_holdout_not_full_image_coverage
+NEON,Herbaceous,9,5,204,298.91454561501564,961.8710978477072,3.53451875579266,library_holdout_not_full_image_coverage
+NEON,Herbaceous,9,10,204,248.35208378517456,526.8866666713569,3.240762593966986,library_holdout_not_full_image_coverage
+NEON,Herbaceous,9,20,204,187.9657498292848,409.73740273692465,2.784986986534692,library_holdout_not_full_image_coverage
+NEON,Herbaceous,9,50,204,129.58741005528066,298.8407355023166,2.0481851982839614,library_holdout_not_full_image_coverage
+NEON,Herbaceous,9,100,204,113.0763959144125,249.1968940669054,1.7265201783785835,library_holdout_not_full_image_coverage
+NEON,Herbaceous,9,200,204,92.23959395348312,223.68485035046345,1.4648444284465236,library_holdout_not_full_image_coverage
+NEON,Herbaceous,9,500,204,75.87239085347406,200.69235567499103,1.2938499531464314,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,0,1,125,875.7159846455736,1824.157739154669,7.539046008101066,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,0,2,125,551.1683794543698,972.6361347865736,7.416230801066747,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,0,5,125,377.4880633901744,854.856375724766,5.1420955084299,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,0,10,125,287.84319873587344,851.5259686446664,4.279884294724178,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,0,20,125,230.04822957561535,794.0481413962765,3.9950849935336414,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,0,50,125,174.74477270887982,359.7683972315872,3.340049056742922,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,0,100,125,147.94919182932205,330.4781098397752,2.9189575840159394,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,0,200,125,126.99334137920783,298.8890532378469,2.4819660035191933,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,1,1,125,910.2760293981332,1852.1045865677504,8.466576293123484,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,1,2,125,521.2868734126147,1383.8500857231058,8.347853015532678,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,1,5,125,346.57664292868367,1142.4576189287488,4.968882206628011,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,1,10,125,248.03767601541108,754.322595327024,4.091834683464411,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,1,20,125,222.88430036417824,690.5519341042234,3.932768982026264,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,1,50,125,180.62284562357593,562.1693259598075,3.2325447155104525,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,1,100,125,157.88433018083936,302.7517751391241,2.9555842220194832,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,1,200,125,134.78487553360452,268.7490076167621,2.471508598513815,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,2,1,125,672.2324039042787,1470.46452677733,9.094808182035448,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,2,2,125,509.46869415831907,1384.386943664289,7.565857952807972,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,2,5,125,464.52417490628454,1357.209128753027,6.203900854332598,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,2,10,125,315.07460976380435,764.1941868727594,5.10575561195898,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,2,20,125,244.87654185399927,677.9647773990272,4.419713937061237,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,2,50,125,195.4298354624191,477.0395827594714,3.3648949201987968,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,2,100,125,160.51170073769373,352.5256268276613,2.785399989999676,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,2,200,125,124.5677031950884,285.5925973863827,2.5414250675228693,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,3,1,125,642.3107278866153,1879.1483308815689,10.06518460934752,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,3,2,125,505.121538078244,1084.5555514817008,7.136666253470744,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,3,5,125,323.5680907219564,749.8223974780843,5.3159676853751785,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,3,10,125,282.7600887046322,628.6942121677031,4.8820584154254245,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,3,20,125,236.42834731808807,628.6942121677031,4.4248579172978015,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,3,50,125,189.9846145220439,394.636782014377,3.210053573172087,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,3,100,125,159.3533235069524,325.5667911132809,2.8311100227551025,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,3,200,125,129.90378997002907,293.1903487689639,2.5820485158795243,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,4,1,125,608.0542791349947,1646.4644752967972,7.9319574666993296,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,4,2,125,449.2587114312496,1195.8267252183307,6.356815263103109,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,4,5,125,357.3961436470321,713.7666561903912,5.5512741737716915,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,4,10,125,332.27746626332475,651.3609443637774,5.282173692692121,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,4,20,125,230.40618307140156,593.4014819331829,4.106104216877235,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,4,50,125,190.4076916504096,401.3359395885906,3.410145913637019,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,4,100,125,161.68316417003246,353.8716425578784,2.8856674003145244,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,4,200,125,137.00090832616556,302.53331526480036,2.5293160753056796,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,5,1,125,1062.82323664562,2046.7087602606036,7.435726507310505,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,5,2,125,663.5633496669611,1110.143009989382,6.305494432944247,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,5,5,125,321.16541559607316,781.631849765575,5.279840175640416,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,5,10,125,302.8123854499826,781.631849765575,4.636074963857485,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,5,20,125,239.427276304715,450.9435657627867,4.087113797635801,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,5,50,125,182.8878378358313,409.3622285997621,3.376616338020694,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,5,100,125,160.15661689847653,346.3643939384372,2.815087997760158,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,5,200,125,136.40789693720913,269.19946145878106,2.5320148409648393,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,6,1,125,983.7700810961808,1959.776608312373,7.08190938716654,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,6,2,125,856.5245119799096,1811.190818750876,6.870661784026238,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,6,5,125,372.3700224729914,848.3318913373289,5.370815915925208,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,6,10,125,276.10490180256045,809.6236117607187,4.3293125074659535,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,6,20,125,212.56332240330727,618.698291632816,3.7484082870755113,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,6,50,125,172.97088100071693,388.59218028982,3.3182528394042996,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,6,100,125,156.38578281328105,366.6142395387496,3.090312338225411,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,6,200,125,137.63635529463437,302.53331526480036,2.5293160753056796,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,7,1,125,629.4457598183685,1821.381769154222,7.300809495144039,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,7,2,125,566.3278539295267,1821.381769154222,7.30080949514389,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,7,5,125,348.7227226483382,733.8491192238096,4.756167160449941,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,7,10,125,321.3582935650676,584.120096164924,4.276657967434088,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,7,20,125,229.58027075508028,507.50779522520935,3.9175826828047704,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,7,50,125,186.30755585412544,392.3152102348763,3.3054185086669716,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,7,100,125,155.8528226752801,362.7276898188839,2.914228681796663,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,7,200,125,132.60599209512966,302.4793329813302,2.621476667622315,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,8,1,125,1338.9692356731798,2601.9871939875,12.287988779822864,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,8,2,125,1060.4292640453682,2324.8967162370363,11.28724567431678,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,8,5,125,512.6181319083241,899.6424734510871,7.092481642658529,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,8,10,125,290.7047374347578,899.6424734510871,4.562585842852491,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,8,20,125,222.4979178954112,607.5740845013656,3.9388035153316014,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,8,50,125,183.44133910606823,480.8192087827419,3.418232483471768,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,8,100,125,160.88444881637946,354.87835098693023,2.843516846375334,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,8,200,125,125.42947904866104,292.8216046042243,2.505552482224058,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,9,1,125,704.2023357228804,1913.9970233626511,10.97594237425065,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,9,2,125,525.8499454448045,1074.94074270236,8.071717466194638,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,9,5,125,368.88161324157306,844.6794519002337,5.606746380041869,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,9,10,125,287.0430946714399,611.8571113412863,4.756597818570283,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,9,20,125,265.0627152475024,561.5596501752651,4.226924810654072,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,9,50,125,184.60067431141533,409.6791557089503,3.3681540041588063,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,9,100,125,158.3602429373309,334.0309583222729,3.0489094309148035,library_holdout_not_full_image_coverage
+NEON,Non-vegetated & dead,9,200,125,141.96977007614038,286.3030663217495,2.619877288552668,library_holdout_not_full_image_coverage
+NEON,Woody shrub,0,1,223,1236.1203168922846,1939.5660074304049,6.1327757098176185,library_holdout_not_full_image_coverage
+NEON,Woody shrub,0,2,223,1084.0505221425512,1782.0718056478404,6.0220372888675815,library_holdout_not_full_image_coverage
+NEON,Woody shrub,0,5,223,344.0003894138506,959.033544805635,3.720010106805182,library_holdout_not_full_image_coverage
+NEON,Woody shrub,0,10,223,241.62765903337944,474.9691553144802,3.1207491767276743,library_holdout_not_full_image_coverage
+NEON,Woody shrub,0,20,223,176.6840522164647,376.5293330798385,2.7650003234328064,library_holdout_not_full_image_coverage
+NEON,Woody shrub,0,50,223,138.8805088423011,259.12450998600707,2.137319766433893,library_holdout_not_full_image_coverage
+NEON,Woody shrub,0,100,223,111.8068590743148,216.55689429364503,1.7876627189487435,library_holdout_not_full_image_coverage
+NEON,Woody shrub,0,200,223,92.7021828131859,173.97179156523922,1.5830322565079618,library_holdout_not_full_image_coverage
+NEON,Woody shrub,0,500,223,75.8303283552726,137.70045635995027,1.302097011201923,library_holdout_not_full_image_coverage
+NEON,Woody shrub,1,1,223,1013.345500837218,1693.6452598327987,7.312860768395209,library_holdout_not_full_image_coverage
+NEON,Woody shrub,1,2,223,1013.345500837218,1693.6452598327987,4.228987834322281,library_holdout_not_full_image_coverage
+NEON,Woody shrub,1,5,223,284.5142333689505,650.3875519608932,3.602193610341755,library_holdout_not_full_image_coverage
+NEON,Woody shrub,1,10,223,210.4657086374506,518.547835887998,2.8284056337090555,library_holdout_not_full_image_coverage
+NEON,Woody shrub,1,20,223,164.36965320996666,405.2190802956752,2.3404178896073056,library_holdout_not_full_image_coverage
+NEON,Woody shrub,1,50,223,127.08240506736708,288.01646226029305,1.885248414597171,library_holdout_not_full_image_coverage
+NEON,Woody shrub,1,100,223,107.2350766259762,242.66264668663044,1.6637633181782163,library_holdout_not_full_image_coverage
+NEON,Woody shrub,1,200,223,92.82547261452356,194.05849863296737,1.5201503939247754,library_holdout_not_full_image_coverage
+NEON,Woody shrub,1,500,223,75.92211579254888,145.52834878256127,1.3013449915464093,library_holdout_not_full_image_coverage
+NEON,Woody shrub,2,1,223,452.9770067234373,1418.4384698219571,5.7049111948195765,library_holdout_not_full_image_coverage
+NEON,Woody shrub,2,2,223,401.2813648330983,1380.7341273591164,5.634883030389522,library_holdout_not_full_image_coverage
+NEON,Woody shrub,2,5,223,276.9887011674242,787.8122074202217,4.371010722206725,library_holdout_not_full_image_coverage
+NEON,Woody shrub,2,10,223,210.1933817744128,770.0832052777378,3.64856422713922,library_holdout_not_full_image_coverage
+NEON,Woody shrub,2,20,223,173.89765779609394,563.0506704985582,2.4952088941936172,library_holdout_not_full_image_coverage
+NEON,Woody shrub,2,50,223,132.26689830366237,357.21053686016535,2.0202931609278636,library_holdout_not_full_image_coverage
+NEON,Woody shrub,2,100,223,110.18280035314748,230.17414477776097,1.7001029324770902,library_holdout_not_full_image_coverage
+NEON,Woody shrub,2,200,223,95.22907438380716,182.67945342032675,1.5460090217651086,library_holdout_not_full_image_coverage
+NEON,Woody shrub,2,500,223,76.27135082293395,151.6833170294358,1.3016817962820872,library_holdout_not_full_image_coverage
+NEON,Woody shrub,3,1,223,713.2135263837001,1417.536558945293,4.956955072473452,library_holdout_not_full_image_coverage
+NEON,Woody shrub,3,2,223,375.7160793889989,734.2374280280128,3.8193778181212585,library_holdout_not_full_image_coverage
+NEON,Woody shrub,3,5,223,261.1051995842892,701.3629130937367,3.3010055853039164,library_holdout_not_full_image_coverage
+NEON,Woody shrub,3,10,223,206.65645361087627,629.0150406234142,3.0432689096386385,library_holdout_not_full_image_coverage
+NEON,Woody shrub,3,20,223,166.02498153000428,427.0470340563156,2.6495348015732896,library_holdout_not_full_image_coverage
+NEON,Woody shrub,3,50,223,127.00899540765758,347.7499960740752,2.0260369711251434,library_holdout_not_full_image_coverage
+NEON,Woody shrub,3,100,223,106.38985566244337,235.864786600604,1.7123079157800682,library_holdout_not_full_image_coverage
+NEON,Woody shrub,3,200,223,91.86993110314496,186.99602965459903,1.5397050309399023,library_holdout_not_full_image_coverage
+NEON,Woody shrub,3,500,223,76.22732094831147,152.1630645957633,1.302097011201923,library_holdout_not_full_image_coverage
+NEON,Woody shrub,4,1,223,439.89692540759006,1305.275656265093,5.1302398521709165,library_holdout_not_full_image_coverage
+NEON,Woody shrub,4,2,223,368.68273488254266,1122.2373162626802,4.696152275946918,library_holdout_not_full_image_coverage
+NEON,Woody shrub,4,5,223,269.3892284077648,863.6532221224643,2.9792299999320875,library_holdout_not_full_image_coverage
+NEON,Woody shrub,4,10,223,193.47996432521555,694.4158793137601,2.544393432430086,library_holdout_not_full_image_coverage
+NEON,Woody shrub,4,20,223,161.4399525918089,414.28892039128783,2.3148164050178845,library_holdout_not_full_image_coverage
+NEON,Woody shrub,4,50,223,132.69571249362593,311.8358574938056,2.0243633346914818,library_holdout_not_full_image_coverage
+NEON,Woody shrub,4,100,223,108.30747345320783,228.90523469264417,1.7409121902915152,library_holdout_not_full_image_coverage
+NEON,Woody shrub,4,200,223,95.39428140756196,183.62150133184824,1.5689670677149938,library_holdout_not_full_image_coverage
+NEON,Woody shrub,4,500,223,76.27671744141114,140.57324800824713,1.295109792649929,library_holdout_not_full_image_coverage
+NEON,Woody shrub,5,1,223,682.2101012926853,1373.218917733708,5.285842186867393,library_holdout_not_full_image_coverage
+NEON,Woody shrub,5,2,223,612.1686738555327,1203.6338403839416,5.205738768127787,library_holdout_not_full_image_coverage
+NEON,Woody shrub,5,5,223,339.9548241848338,653.929373246323,3.7504431585737334,library_holdout_not_full_image_coverage
+NEON,Woody shrub,5,10,223,202.91966196437903,653.929373246323,3.064877620764537,library_holdout_not_full_image_coverage
+NEON,Woody shrub,5,20,223,167.72898249421445,575.5569409003525,2.621398681072521,library_holdout_not_full_image_coverage
+NEON,Woody shrub,5,50,223,128.17780491372054,289.721954679978,1.9076452086654876,library_holdout_not_full_image_coverage
+NEON,Woody shrub,5,100,223,105.43709151281176,245.3851437160289,1.7470771942670047,library_holdout_not_full_image_coverage
+NEON,Woody shrub,5,200,223,94.98719265957062,201.9759074284357,1.52417746573004,library_holdout_not_full_image_coverage
+NEON,Woody shrub,5,500,223,75.97680806802794,160.92982199196115,1.315287540862592,library_holdout_not_full_image_coverage
+NEON,Woody shrub,6,1,223,524.8330713051536,1484.541994132776,5.904971973605617,library_holdout_not_full_image_coverage
+NEON,Woody shrub,6,2,223,517.8256735963438,1484.541994132776,5.255183370194974,library_holdout_not_full_image_coverage
+NEON,Woody shrub,6,5,223,268.3100467865877,898.7823897674065,4.500964762361422,library_holdout_not_full_image_coverage
+NEON,Woody shrub,6,10,223,248.7872912444507,787.6191856731806,3.174300224456942,library_holdout_not_full_image_coverage
+NEON,Woody shrub,6,20,223,166.88088166060578,584.5832884005016,2.4562403089257168,library_holdout_not_full_image_coverage
+NEON,Woody shrub,6,50,223,128.7793907587989,316.5566125507698,1.979733672169252,library_holdout_not_full_image_coverage
+NEON,Woody shrub,6,100,223,106.2830605535816,242.7474616582979,1.7031823907317092,library_holdout_not_full_image_coverage
+NEON,Woody shrub,6,200,223,91.34200822647136,175.8975275721651,1.4961869228625584,library_holdout_not_full_image_coverage
+NEON,Woody shrub,6,500,223,75.84115898699612,164.650990406247,1.2709303530134033,library_holdout_not_full_image_coverage
+NEON,Woody shrub,7,1,223,1018.7253116230202,1772.6391157562427,10.173181265228369,library_holdout_not_full_image_coverage
+NEON,Woody shrub,7,2,223,453.636209532596,1100.1405432455142,4.597561061940381,library_holdout_not_full_image_coverage
+NEON,Woody shrub,7,5,223,310.13319742843885,569.8412067940983,3.1047140709087517,library_holdout_not_full_image_coverage
+NEON,Woody shrub,7,10,223,204.79043692792888,500.57038773437694,2.7613674966085844,library_holdout_not_full_image_coverage
+NEON,Woody shrub,7,20,223,175.2405156778772,353.10680021553657,2.41144975901072,library_holdout_not_full_image_coverage
+NEON,Woody shrub,7,50,223,132.21933743626388,267.9940843349067,2.089470699715744,library_holdout_not_full_image_coverage
+NEON,Woody shrub,7,100,223,114.5954551573106,234.77212863161543,1.722536643575722,library_holdout_not_full_image_coverage
+NEON,Woody shrub,7,200,223,96.74220834198692,186.92777095291723,1.5559506711953834,library_holdout_not_full_image_coverage
+NEON,Woody shrub,7,500,223,76.6197447598428,157.1169241388427,1.362024914658683,library_holdout_not_full_image_coverage
+NEON,Woody shrub,8,1,223,1051.3903479309029,2083.8449834185885,5.249237533978986,library_holdout_not_full_image_coverage
+NEON,Woody shrub,8,2,223,437.3836250676867,972.6955974285546,4.233048554353631,library_holdout_not_full_image_coverage
+NEON,Woody shrub,8,5,223,340.1098737120061,677.8401901229901,3.3657805173699087,library_holdout_not_full_image_coverage
+NEON,Woody shrub,8,10,223,212.0921866604221,645.7725530273931,2.892504825295479,library_holdout_not_full_image_coverage
+NEON,Woody shrub,8,20,223,162.18106277160962,447.63886412690186,2.4531122493739623,library_holdout_not_full_image_coverage
+NEON,Woody shrub,8,50,223,122.34008230682522,331.30408428592295,2.036416638738377,library_holdout_not_full_image_coverage
+NEON,Woody shrub,8,100,223,107.0650535412808,227.9525371854337,1.7359756987395385,library_holdout_not_full_image_coverage
+NEON,Woody shrub,8,200,223,89.10764598610635,176.8244300719191,1.5078391809714484,library_holdout_not_full_image_coverage
+NEON,Woody shrub,8,500,223,75.39577533075231,137.70045635995027,1.3163194757549392,library_holdout_not_full_image_coverage
+NEON,Woody shrub,9,1,223,954.6257347168256,1705.3945795204943,5.978766384033678,library_holdout_not_full_image_coverage
+NEON,Woody shrub,9,2,223,498.65544799599024,868.8124927747406,5.20403396827952,library_holdout_not_full_image_coverage
+NEON,Woody shrub,9,5,223,357.3137774540129,592.5733165789115,4.061786320030983,library_holdout_not_full_image_coverage
+NEON,Woody shrub,9,10,223,212.0630017448542,510.11546427594885,2.9613029484716344,library_holdout_not_full_image_coverage
+NEON,Woody shrub,9,20,223,177.4024671683572,402.9298690410666,2.3141870950349457,library_holdout_not_full_image_coverage
+NEON,Woody shrub,9,50,223,134.80913882957867,261.33303301405414,2.043316367075457,library_holdout_not_full_image_coverage
+NEON,Woody shrub,9,100,223,106.64056604391712,214.0985606298441,1.7243344434611605,library_holdout_not_full_image_coverage
+NEON,Woody shrub,9,200,223,92.13483803020398,166.39275163511232,1.5020791043246122,library_holdout_not_full_image_coverage
+NEON,Woody shrub,9,500,223,77.6570386158516,140.23968801315942,1.266463883979374,library_holdout_not_full_image_coverage
+OLI,Deciduous,0,1,133,1052.1024972964142,1899.0692227345885,5.181430495761981,library_holdout_not_full_image_coverage
+OLI,Deciduous,0,2,133,410.70948258298125,979.9829675660832,4.006608282674328,library_holdout_not_full_image_coverage
+OLI,Deciduous,0,5,133,346.4481619116448,504.224787052276,3.1779079633841376,library_holdout_not_full_image_coverage
+OLI,Deciduous,0,10,133,213.856534616032,475.9885228777094,2.4938222844660363,library_holdout_not_full_image_coverage
+OLI,Deciduous,0,20,133,151.92028271638654,402.5223718921819,2.028759174604659,library_holdout_not_full_image_coverage
+OLI,Deciduous,0,50,133,110.16752658934996,287.7602590832336,1.2795216322240457,library_holdout_not_full_image_coverage
+OLI,Deciduous,0,100,133,84.00922452242607,223.1235302503688,1.063932008166761,library_holdout_not_full_image_coverage
+OLI,Deciduous,0,200,133,65.79153793366635,179.41063166709782,0.8924609670084529,library_holdout_not_full_image_coverage
+OLI,Deciduous,1,1,133,935.1078600626896,1771.792438259059,5.049784804240348,library_holdout_not_full_image_coverage
+OLI,Deciduous,1,2,133,511.80448441823495,1318.184019973988,3.970948427659561,library_holdout_not_full_image_coverage
+OLI,Deciduous,1,5,133,249.1039207198449,608.9638840485743,2.441617726926198,library_holdout_not_full_image_coverage
+OLI,Deciduous,1,10,133,191.91091245360528,537.1656087120413,2.0219591650610327,library_holdout_not_full_image_coverage
+OLI,Deciduous,1,20,133,137.08579478709012,339.7458083047929,1.6540474133507672,library_holdout_not_full_image_coverage
+OLI,Deciduous,1,50,133,102.55852479043956,297.3519692019451,1.289873687520399,library_holdout_not_full_image_coverage
+OLI,Deciduous,1,100,133,81.38357338227573,211.7856754644478,1.098212001386831,library_holdout_not_full_image_coverage
+OLI,Deciduous,1,200,133,64.6738432312546,179.41063166709782,0.8932853745314626,library_holdout_not_full_image_coverage
+OLI,Deciduous,2,1,133,637.2832573803264,1403.9872235716934,16.642943492980198,library_holdout_not_full_image_coverage
+OLI,Deciduous,2,2,133,388.7119993436768,812.035238286643,4.857338737790827,library_holdout_not_full_image_coverage
+OLI,Deciduous,2,5,133,283.10160485122526,503.091140840616,3.4739636758101153,library_holdout_not_full_image_coverage
+OLI,Deciduous,2,10,133,185.4894425569842,411.63212338135634,3.2130253955768926,library_holdout_not_full_image_coverage
+OLI,Deciduous,2,20,133,131.59243450204812,347.0742653990681,1.8108494760078329,library_holdout_not_full_image_coverage
+OLI,Deciduous,2,50,133,104.881601698811,315.77007508446695,1.4222009485750355,library_holdout_not_full_image_coverage
+OLI,Deciduous,2,100,133,84.6907518397803,278.5319544697029,1.098212001386831,library_holdout_not_full_image_coverage
+OLI,Deciduous,2,200,133,64.06624035917852,182.89454427618003,0.870942177760422,library_holdout_not_full_image_coverage
+OLI,Deciduous,3,1,133,495.61163570374816,1247.1634087514228,4.89872686395324,library_holdout_not_full_image_coverage
+OLI,Deciduous,3,2,133,390.0486899205345,1007.4138530356132,4.028349489814675,library_holdout_not_full_image_coverage
+OLI,Deciduous,3,5,133,336.69711931547437,990.2982384018936,2.548754008866302,library_holdout_not_full_image_coverage
+OLI,Deciduous,3,10,133,274.0647838870199,971.9357233163644,2.147198712126284,library_holdout_not_full_image_coverage
+OLI,Deciduous,3,20,133,170.17107560473605,389.7279709243221,1.6105805758035008,library_holdout_not_full_image_coverage
+OLI,Deciduous,3,50,133,106.72490989778008,257.1799712607165,1.2795216322240457,library_holdout_not_full_image_coverage
+OLI,Deciduous,3,100,133,80.26168514707942,223.23932781400856,1.0239742707273112,library_holdout_not_full_image_coverage
+OLI,Deciduous,3,200,133,61.64571166917264,182.63094806561045,0.8690235717695151,library_holdout_not_full_image_coverage
+OLI,Deciduous,4,1,133,1568.2629084511088,2437.9814936763696,8.558405175091195,library_holdout_not_full_image_coverage
+OLI,Deciduous,4,2,133,498.5473866826685,908.7869655076722,8.012886005365075,library_holdout_not_full_image_coverage
+OLI,Deciduous,4,5,133,260.148355980413,596.9605142839297,2.9882253011607633,library_holdout_not_full_image_coverage
+OLI,Deciduous,4,10,133,210.9974635326975,509.18830847397487,2.08265297888812,library_holdout_not_full_image_coverage
+OLI,Deciduous,4,20,133,162.36051833168494,481.4569015504465,1.634213200983171,library_holdout_not_full_image_coverage
+OLI,Deciduous,4,50,133,96.67650606867508,397.5964951976566,1.2062148015009406,library_holdout_not_full_image_coverage
+OLI,Deciduous,4,100,133,77.91435989138814,294.19931809957524,0.9906631129952594,library_holdout_not_full_image_coverage
+OLI,Deciduous,4,200,133,58.67166620838426,166.68224540038142,0.9101752341140044,library_holdout_not_full_image_coverage
+OLI,Deciduous,5,1,133,1652.8958079729207,2527.799626372531,5.3193127666534,library_holdout_not_full_image_coverage
+OLI,Deciduous,5,2,133,531.6548934682055,927.9998544585088,3.965879065557437,library_holdout_not_full_image_coverage
+OLI,Deciduous,5,5,133,287.1548521826364,788.9439215492504,2.93060513273401,library_holdout_not_full_image_coverage
+OLI,Deciduous,5,10,133,203.5792702057196,698.1481317111533,2.1440280101641767,library_holdout_not_full_image_coverage
+OLI,Deciduous,5,20,133,165.14484747143493,657.394001138009,1.655732265477583,library_holdout_not_full_image_coverage
+OLI,Deciduous,5,50,133,99.62675324629208,397.31508717609034,1.3869241787357425,library_holdout_not_full_image_coverage
+OLI,Deciduous,5,100,133,86.29655243569157,246.77192036006636,1.0632764721818055,library_holdout_not_full_image_coverage
+OLI,Deciduous,5,200,133,65.1752096788415,183.6411139206843,0.8807838743047806,library_holdout_not_full_image_coverage
+OLI,Deciduous,6,1,133,492.5275161547833,1117.062522929274,6.397148895765507,library_holdout_not_full_image_coverage
+OLI,Deciduous,6,2,133,416.3440110505044,1103.3001119800238,4.007552644451892,library_holdout_not_full_image_coverage
+OLI,Deciduous,6,5,133,261.54577419874676,731.1696021251125,2.777771731874735,library_holdout_not_full_image_coverage
+OLI,Deciduous,6,10,133,203.83437562504145,692.3069381446942,2.16436767645678,library_holdout_not_full_image_coverage
+OLI,Deciduous,6,20,133,154.10939509030663,476.3787384556016,1.796328825852191,library_holdout_not_full_image_coverage
+OLI,Deciduous,6,50,133,106.03430255352124,237.0779735797365,1.340074673322591,library_holdout_not_full_image_coverage
+OLI,Deciduous,6,100,133,79.99400439725703,203.181400460756,0.9903747251143464,library_holdout_not_full_image_coverage
+OLI,Deciduous,6,200,133,62.526776563109166,164.7679097652979,0.8633949597603063,library_holdout_not_full_image_coverage
+OLI,Deciduous,7,1,133,528.136149207806,1096.4436489422349,5.906518373220542,library_holdout_not_full_image_coverage
+OLI,Deciduous,7,2,133,483.36408082595574,1043.1377524253537,4.650869016012576,library_holdout_not_full_image_coverage
+OLI,Deciduous,7,5,133,265.80394072057,870.3885613954121,3.3093267764563565,library_holdout_not_full_image_coverage
+OLI,Deciduous,7,10,133,220.58723039179688,870.3885613954121,2.2275516041247885,library_holdout_not_full_image_coverage
+OLI,Deciduous,7,20,133,151.62491581573724,618.9300277551649,1.8904623897761708,library_holdout_not_full_image_coverage
+OLI,Deciduous,7,50,133,105.87631424963966,335.97309232873636,1.303958224820931,library_holdout_not_full_image_coverage
+OLI,Deciduous,7,100,133,76.37290091701625,251.70254774042192,1.0239742707273112,library_holdout_not_full_image_coverage
+OLI,Deciduous,7,200,133,65.32450737641078,169.5353637273617,0.8457106925440663,library_holdout_not_full_image_coverage
+OLI,Deciduous,8,1,133,525.5938041062847,1312.006442537128,5.9134570042495564,library_holdout_not_full_image_coverage
+OLI,Deciduous,8,2,133,291.5115877686749,787.0330790077531,3.721161251380227,library_holdout_not_full_image_coverage
+OLI,Deciduous,8,5,133,219.84096560676923,670.2759348985654,2.5870823569492822,library_holdout_not_full_image_coverage
+OLI,Deciduous,8,10,133,171.91638651956373,524.4253105346465,2.2200738985194906,library_holdout_not_full_image_coverage
+OLI,Deciduous,8,20,133,134.0610156987623,437.0811059576258,1.777056337837316,library_holdout_not_full_image_coverage
+OLI,Deciduous,8,50,133,103.47531840891097,294.32525165360914,1.2228222427971374,library_holdout_not_full_image_coverage
+OLI,Deciduous,8,100,133,80.26168514707942,245.73858239444988,0.9947217741116546,library_holdout_not_full_image_coverage
+OLI,Deciduous,8,200,133,61.39073215119223,183.7749115201952,0.8932853745314626,library_holdout_not_full_image_coverage
+OLI,Deciduous,9,1,133,577.1022476117494,1278.5513492258146,7.890133401565863,library_holdout_not_full_image_coverage
+OLI,Deciduous,9,2,133,419.10632454736384,1043.220669778208,3.978668984005568,library_holdout_not_full_image_coverage
+OLI,Deciduous,9,5,133,254.03090564736257,860.8212763139082,2.7244557477434825,library_holdout_not_full_image_coverage
+OLI,Deciduous,9,10,133,202.60339531446056,578.0738234875132,2.217040593007587,library_holdout_not_full_image_coverage
+OLI,Deciduous,9,20,133,142.49057424085908,322.71383295744243,1.7766672265454602,library_holdout_not_full_image_coverage
+OLI,Deciduous,9,50,133,93.8915081526743,259.96419399367664,1.2842040286497671,library_holdout_not_full_image_coverage
+OLI,Deciduous,9,100,133,74.27961312775098,218.9915846948983,1.0244001786915315,library_holdout_not_full_image_coverage
+OLI,Deciduous,9,200,133,63.41082587288976,170.83746390041168,0.9010936400925474,library_holdout_not_full_image_coverage
+OLI,Evergreen,0,1,409,292.588004708801,751.3301030098371,4.127127351660938,library_holdout_not_full_image_coverage
+OLI,Evergreen,0,2,409,249.06408445505383,721.6065064571901,3.080991091788812,library_holdout_not_full_image_coverage
+OLI,Evergreen,0,5,409,148.0398942593437,606.5084766726028,2.2391571929927823,library_holdout_not_full_image_coverage
+OLI,Evergreen,0,10,409,133.98837371924165,513.5942892281357,2.065864539134203,library_holdout_not_full_image_coverage
+OLI,Evergreen,0,20,409,89.8725239216445,375.6557808346131,1.6267006758212164,library_holdout_not_full_image_coverage
+OLI,Evergreen,0,50,409,62.75643058118669,185.495253859397,1.3344266437557513,library_holdout_not_full_image_coverage
+OLI,Evergreen,0,100,409,52.75047124162535,170.44148858267147,1.1062564720832255,library_holdout_not_full_image_coverage
+OLI,Evergreen,0,200,409,44.27769115031008,121.99733671438608,0.933149178636304,library_holdout_not_full_image_coverage
+OLI,Evergreen,0,500,409,33.10345939261606,97.37774504189244,0.7514443408974498,library_holdout_not_full_image_coverage
+OLI,Evergreen,1,1,409,351.6116539589217,827.2295360500085,4.671391131822001,library_holdout_not_full_image_coverage
+OLI,Evergreen,1,2,409,234.825329629477,583.629983714935,4.0824215293040265,library_holdout_not_full_image_coverage
+OLI,Evergreen,1,5,409,156.09058499318814,558.9020843474883,2.5612202750470656,library_holdout_not_full_image_coverage
+OLI,Evergreen,1,10,409,114.47166791043516,500.26601723901393,2.1037041331800452,library_holdout_not_full_image_coverage
+OLI,Evergreen,1,20,409,89.67304506403599,476.1993338660103,1.6780700595604336,library_holdout_not_full_image_coverage
+OLI,Evergreen,1,50,409,63.11871942849493,260.89066353913057,1.3190213252070184,library_holdout_not_full_image_coverage
+OLI,Evergreen,1,100,409,49.28180448444212,176.52784508153053,1.0787881193937725,library_holdout_not_full_image_coverage
+OLI,Evergreen,1,200,409,41.55374625510557,134.1894297599093,0.9306268755908988,library_holdout_not_full_image_coverage
+OLI,Evergreen,1,500,409,33.692729499049165,99.94916734403893,0.7668001986113901,library_holdout_not_full_image_coverage
+OLI,Evergreen,2,1,409,558.4344239218207,1235.2866865633057,13.79149761517036,library_holdout_not_full_image_coverage
+OLI,Evergreen,2,2,409,443.8030171275234,661.8564117353,6.051191326214143,library_holdout_not_full_image_coverage
+OLI,Evergreen,2,5,409,185.12412421171967,412.40823190430086,2.254476374963748,library_holdout_not_full_image_coverage
+OLI,Evergreen,2,10,409,122.14921231574397,273.7980087185967,1.9005588474589723,library_holdout_not_full_image_coverage
+OLI,Evergreen,2,20,409,90.15899155505495,209.45426157902185,1.695562742073851,library_holdout_not_full_image_coverage
+OLI,Evergreen,2,50,409,65.81655690559114,201.11916208774883,1.3281610724670454,library_holdout_not_full_image_coverage
+OLI,Evergreen,2,100,409,52.65102061194536,143.55836391094587,1.1084550519078735,library_holdout_not_full_image_coverage
+OLI,Evergreen,2,200,409,42.3735884040404,113.76146258414836,0.906753875722694,library_holdout_not_full_image_coverage
+OLI,Evergreen,2,500,409,34.22854504733951,90.48528822290086,0.7469521450565251,library_holdout_not_full_image_coverage
+OLI,Evergreen,3,1,409,281.47454771177036,803.4367533725922,4.50900589495133,library_holdout_not_full_image_coverage
+OLI,Evergreen,3,2,409,252.65285247559416,705.7853517023966,4.226734737364821,library_holdout_not_full_image_coverage
+OLI,Evergreen,3,5,409,182.00332617317375,533.8482383920203,2.5387398568100363,library_holdout_not_full_image_coverage
+OLI,Evergreen,3,10,409,117.66058441225884,400.6187815762156,1.8405497520740828,library_holdout_not_full_image_coverage
+OLI,Evergreen,3,20,409,93.57847066359562,240.0224025719504,1.5489428984316438,library_holdout_not_full_image_coverage
+OLI,Evergreen,3,50,409,65.5724524457134,208.74838125953184,1.3125486584098014,library_holdout_not_full_image_coverage
+OLI,Evergreen,3,100,409,52.688032701999305,176.80048092984194,1.0903514347770722,library_holdout_not_full_image_coverage
+OLI,Evergreen,3,200,409,43.02729370754799,121.48267978917364,0.9259699536766324,library_holdout_not_full_image_coverage
+OLI,Evergreen,3,500,409,33.781550256485154,96.4077254173949,0.7557187255823294,library_holdout_not_full_image_coverage
+OLI,Evergreen,4,1,409,403.04713350955274,902.7983332094208,4.222451273135912,library_holdout_not_full_image_coverage
+OLI,Evergreen,4,2,409,199.2678069136932,538.0572645146557,3.138475729068844,library_holdout_not_full_image_coverage
+OLI,Evergreen,4,5,409,131.91780773619035,444.7553366121869,2.8580515040192873,library_holdout_not_full_image_coverage
+OLI,Evergreen,4,10,409,113.32611071085864,307.75909279485836,2.229115838410439,library_holdout_not_full_image_coverage
+OLI,Evergreen,4,20,409,82.75509846877101,290.8756241713051,1.8059443977033105,library_holdout_not_full_image_coverage
+OLI,Evergreen,4,50,409,61.91505288213126,199.28527296014744,1.304554181665992,library_holdout_not_full_image_coverage
+OLI,Evergreen,4,100,409,50.87067582984395,158.56283251202277,1.085301283027432,library_holdout_not_full_image_coverage
+OLI,Evergreen,4,200,409,43.53991679564893,143.32060973433616,0.938837816898626,library_holdout_not_full_image_coverage
+OLI,Evergreen,4,500,409,34.107054653472765,104.8868503431649,0.753957558623519,library_holdout_not_full_image_coverage
+OLI,Evergreen,5,1,409,312.0124833934489,941.15715274198,4.604472619311142,library_holdout_not_full_image_coverage
+OLI,Evergreen,5,2,409,207.3856524730984,777.6515174083088,3.239674234111474,library_holdout_not_full_image_coverage
+OLI,Evergreen,5,5,409,174.21661437538475,375.04970727141887,2.949954750359269,library_holdout_not_full_image_coverage
+OLI,Evergreen,5,10,409,123.55596847149567,350.36333221112983,2.110389665756367,library_holdout_not_full_image_coverage
+OLI,Evergreen,5,20,409,92.08004926361524,216.6633900919512,1.6734633385096034,library_holdout_not_full_image_coverage
+OLI,Evergreen,5,50,409,66.16773757328048,188.6287984806217,1.2320158936808308,library_holdout_not_full_image_coverage
+OLI,Evergreen,5,100,409,54.38077825725071,141.3488588391083,1.0603382025780532,library_holdout_not_full_image_coverage
+OLI,Evergreen,5,200,409,43.16504184445007,117.09602601639138,0.9296860174673942,library_holdout_not_full_image_coverage
+OLI,Evergreen,5,500,409,33.3282509748953,91.5361402619826,0.7479988480858644,library_holdout_not_full_image_coverage
+OLI,Evergreen,6,1,409,374.7807755604146,1025.1493957553291,4.4480506712045935,library_holdout_not_full_image_coverage
+OLI,Evergreen,6,2,409,347.40874960327517,1025.1493957553291,3.687037366048669,library_holdout_not_full_image_coverage
+OLI,Evergreen,6,5,409,144.24849203084193,333.16104777657125,2.533202328004247,library_holdout_not_full_image_coverage
+OLI,Evergreen,6,10,409,121.59605365999012,317.36255225684283,1.960449962677854,library_holdout_not_full_image_coverage
+OLI,Evergreen,6,20,409,91.72465566958329,221.7695198927975,1.7400330501140384,library_holdout_not_full_image_coverage
+OLI,Evergreen,6,50,409,62.60814191260876,160.4895339499052,1.268761484100429,library_holdout_not_full_image_coverage
+OLI,Evergreen,6,100,409,50.08007995129772,149.39166255345356,1.0823785454798216,library_holdout_not_full_image_coverage
+OLI,Evergreen,6,200,409,42.35079389505121,117.7986596277288,0.9493016413863876,library_holdout_not_full_image_coverage
+OLI,Evergreen,6,500,409,33.47958171021406,98.3787443877524,0.782968112175938,library_holdout_not_full_image_coverage
+OLI,Evergreen,7,1,409,721.3958778491369,1400.5576711301874,9.316394109497498,library_holdout_not_full_image_coverage
+OLI,Evergreen,7,2,409,247.88243088188315,900.7029223164394,5.517125138410345,library_holdout_not_full_image_coverage
+OLI,Evergreen,7,5,409,138.09320389107432,704.1298798565653,2.780621323843096,library_holdout_not_full_image_coverage
+OLI,Evergreen,7,10,409,123.18747896852987,314.12859693548995,2.103080923470923,library_holdout_not_full_image_coverage
+OLI,Evergreen,7,20,409,87.04859056834928,296.9170434444573,1.6301062409647982,library_holdout_not_full_image_coverage
+OLI,Evergreen,7,50,409,65.47798134257994,174.15375475555302,1.3971904259356385,library_holdout_not_full_image_coverage
+OLI,Evergreen,7,100,409,51.96399249040659,146.86140778764693,1.132978052984872,library_holdout_not_full_image_coverage
+OLI,Evergreen,7,200,409,41.53091155618816,134.17477231196233,0.9446855954871762,library_holdout_not_full_image_coverage
+OLI,Evergreen,7,500,409,33.80539801253785,95.13172891899124,0.7663078162106345,library_holdout_not_full_image_coverage
+OLI,Evergreen,8,1,409,313.58213329554087,765.0039581753266,7.074180329613045,library_holdout_not_full_image_coverage
+OLI,Evergreen,8,2,409,292.95120087292673,728.5888368106386,6.931659044852768,library_holdout_not_full_image_coverage
+OLI,Evergreen,8,5,409,185.36100988397897,631.340542992202,2.8722816473034656,library_holdout_not_full_image_coverage
+OLI,Evergreen,8,10,409,115.24864310590284,347.15120391832426,2.1392574763114744,library_holdout_not_full_image_coverage
+OLI,Evergreen,8,20,409,86.5684506536245,227.60316227247776,1.6381660708548869,library_holdout_not_full_image_coverage
+OLI,Evergreen,8,50,409,64.66689808723206,158.6191430659615,1.3617588988681666,library_holdout_not_full_image_coverage
+OLI,Evergreen,8,100,409,50.95010064142157,141.7920766466331,1.1266484989608787,library_holdout_not_full_image_coverage
+OLI,Evergreen,8,200,409,41.79061820166173,122.00719299312313,0.9234214959750908,library_holdout_not_full_image_coverage
+OLI,Evergreen,8,500,409,34.55275031877927,92.48932963155367,0.7520101594693341,library_holdout_not_full_image_coverage
+OLI,Evergreen,9,1,409,282.73476793368525,800.8325803755362,4.817185358201591,library_holdout_not_full_image_coverage
+OLI,Evergreen,9,2,409,219.34231541615475,568.596270009384,2.99951031992874,library_holdout_not_full_image_coverage
+OLI,Evergreen,9,5,409,139.46553119336846,471.1111934543813,2.547189662283058,library_holdout_not_full_image_coverage
+OLI,Evergreen,9,10,409,114.0178351367782,400.1706683283631,2.194202400899663,library_holdout_not_full_image_coverage
+OLI,Evergreen,9,20,409,84.37354006972072,330.60570366621914,1.6200131363948904,library_holdout_not_full_image_coverage
+OLI,Evergreen,9,50,409,67.1201745607017,208.37451868715917,1.2907787250970415,library_holdout_not_full_image_coverage
+OLI,Evergreen,9,100,409,51.2856672531173,136.2181934215279,1.1078118026133332,library_holdout_not_full_image_coverage
+OLI,Evergreen,9,200,409,41.99279743644216,114.77696843645766,0.9183005189144942,library_holdout_not_full_image_coverage
+OLI,Evergreen,9,500,409,34.38858544442458,92.52006717541502,0.7576885803072575,library_holdout_not_full_image_coverage
+OLI,Herbaceous,0,1,204,493.21571444286633,1148.4682293968508,10.503782747937263,library_holdout_not_full_image_coverage
+OLI,Herbaceous,0,2,204,372.4061184467853,1100.3674246621404,10.315977260408038,library_holdout_not_full_image_coverage
+OLI,Herbaceous,0,5,204,264.0089430719677,529.9085210859155,3.5536208906845954,library_holdout_not_full_image_coverage
+OLI,Herbaceous,0,10,204,182.0035317560428,484.2461479723681,2.5145610389955246,library_holdout_not_full_image_coverage
+OLI,Herbaceous,0,20,204,122.62065966805682,315.68568247712983,2.0962831287933916,library_holdout_not_full_image_coverage
+OLI,Herbaceous,0,50,204,89.98115727397307,271.1901668630813,1.5214575792587963,library_holdout_not_full_image_coverage
+OLI,Herbaceous,0,100,204,74.06122262705725,178.85164064258413,1.2447646192374728,library_holdout_not_full_image_coverage
+OLI,Herbaceous,0,200,204,63.21534102578436,155.28049457645818,0.999592709176182,library_holdout_not_full_image_coverage
+OLI,Herbaceous,0,500,204,47.92400283976161,116.46505029070948,0.8232302255104592,library_holdout_not_full_image_coverage
+OLI,Herbaceous,1,1,204,460.1648792553277,1254.3290819592876,13.254427130718982,library_holdout_not_full_image_coverage
+OLI,Herbaceous,1,2,204,408.3605239193407,944.896678947042,4.723399780697164,library_holdout_not_full_image_coverage
+OLI,Herbaceous,1,5,204,272.2814051257478,569.1494285743775,3.093081288299377,library_holdout_not_full_image_coverage
+OLI,Herbaceous,1,10,204,206.71043020979516,457.0086510474213,2.635705832536675,library_holdout_not_full_image_coverage
+OLI,Herbaceous,1,20,204,142.46360252668754,363.0808220897726,1.9388109401902032,library_holdout_not_full_image_coverage
+OLI,Herbaceous,1,50,204,101.72762016783788,281.96569948133896,1.6418860192045792,library_holdout_not_full_image_coverage
+OLI,Herbaceous,1,100,204,77.21259035635407,190.92336407071463,1.2819889924582752,library_holdout_not_full_image_coverage
+OLI,Herbaceous,1,200,204,61.90234704561072,145.93598971801512,1.0227533369262531,library_holdout_not_full_image_coverage
+OLI,Herbaceous,1,500,204,49.178805320667145,116.46505029070948,0.8292455611331302,library_holdout_not_full_image_coverage
+OLI,Herbaceous,2,1,204,475.1931674978842,1365.96601709952,13.135190826678285,library_holdout_not_full_image_coverage
+OLI,Herbaceous,2,2,204,449.9824423000426,1306.2041994316626,6.174329022611278,library_holdout_not_full_image_coverage
+OLI,Herbaceous,2,5,204,317.8809506020763,567.6099832374985,4.44806833290505,library_holdout_not_full_image_coverage
+OLI,Herbaceous,2,10,204,166.29305882826444,374.5194645463798,2.4786417039372637,library_holdout_not_full_image_coverage
+OLI,Herbaceous,2,20,204,130.44379609241207,303.91517906550564,2.0785447258136056,library_holdout_not_full_image_coverage
+OLI,Herbaceous,2,50,204,95.2716014229026,227.55037515862773,1.3494221720690684,library_holdout_not_full_image_coverage
+OLI,Herbaceous,2,100,204,71.99423627274535,170.88915917061777,1.1188058902961644,library_holdout_not_full_image_coverage
+OLI,Herbaceous,2,200,204,59.79810922112259,161.5217523959818,1.0097386158765973,library_holdout_not_full_image_coverage
+OLI,Herbaceous,2,500,204,49.00572285296863,115.93253165606806,0.8217685536663499,library_holdout_not_full_image_coverage
+OLI,Herbaceous,3,1,204,977.48852419015,2151.758158366251,7.972920942876794,library_holdout_not_full_image_coverage
+OLI,Herbaceous,3,2,204,637.857203752595,1491.537864685946,6.185730686047336,library_holdout_not_full_image_coverage
+OLI,Herbaceous,3,5,204,366.3229492303775,994.3426352813892,5.012796959490226,library_holdout_not_full_image_coverage
+OLI,Herbaceous,3,10,204,204.5439668339288,811.7709017448988,2.4124388351717987,library_holdout_not_full_image_coverage
+OLI,Herbaceous,3,20,204,142.03110941317703,308.28727714270667,1.8980891108431512,library_holdout_not_full_image_coverage
+OLI,Herbaceous,3,50,204,97.13042004025012,235.9725432645975,1.3789432154791137,library_holdout_not_full_image_coverage
+OLI,Herbaceous,3,100,204,77.17511907484494,148.1256334349181,1.239562885190065,library_holdout_not_full_image_coverage
+OLI,Herbaceous,3,200,204,64.1925997505534,130.84162804669154,1.0197614869201457,library_holdout_not_full_image_coverage
+OLI,Herbaceous,3,500,204,49.62575874937879,119.13880502625268,0.8316205576546185,library_holdout_not_full_image_coverage
+OLI,Herbaceous,4,1,204,427.9531776107961,1420.5862328595674,8.5185875685177,library_holdout_not_full_image_coverage
+OLI,Herbaceous,4,2,204,363.7475328981277,1078.9709772766605,4.514039470539667,library_holdout_not_full_image_coverage
+OLI,Herbaceous,4,5,204,248.2304923348579,1078.2632096526531,3.59671996527328,library_holdout_not_full_image_coverage
+OLI,Herbaceous,4,10,204,156.18178278426757,444.7921478510815,2.7847408813524543,library_holdout_not_full_image_coverage
+OLI,Herbaceous,4,20,204,135.32989321197488,367.5682534811169,2.0353050551863907,library_holdout_not_full_image_coverage
+OLI,Herbaceous,4,50,204,87.83309743078892,262.5259914811035,1.4344240290296604,library_holdout_not_full_image_coverage
+OLI,Herbaceous,4,100,204,70.6122736407751,216.59347820445328,1.2427122897027845,library_holdout_not_full_image_coverage
+OLI,Herbaceous,4,200,204,60.246429702398274,156.60108284219737,1.0103463181125956,library_holdout_not_full_image_coverage
+OLI,Herbaceous,4,500,204,49.178805320667145,115.93253165606806,0.8309752174917245,library_holdout_not_full_image_coverage
+OLI,Herbaceous,5,1,204,725.1966934976124,1312.0415738238487,25.134189008524935,library_holdout_not_full_image_coverage
+OLI,Herbaceous,5,2,204,566.0941633623468,1138.983008231676,4.968433503474226,library_holdout_not_full_image_coverage
+OLI,Herbaceous,5,5,204,268.9576385919754,1112.0617210956464,4.1778890322557105,library_holdout_not_full_image_coverage
+OLI,Herbaceous,5,10,204,194.51494034222463,1112.0617210956464,3.3196568003461167,library_holdout_not_full_image_coverage
+OLI,Herbaceous,5,20,204,132.21570873492675,382.5143685867562,2.2065572167546414,library_holdout_not_full_image_coverage
+OLI,Herbaceous,5,50,204,103.79347082910236,260.69594390860186,1.5833009960924191,library_holdout_not_full_image_coverage
+OLI,Herbaceous,5,100,204,76.28267356576109,246.38965008705512,1.2722329266107368,library_holdout_not_full_image_coverage
+OLI,Herbaceous,5,200,204,63.06557647738301,146.2590149132167,1.0833559872950396,library_holdout_not_full_image_coverage
+OLI,Herbaceous,5,500,204,49.62575874937879,115.93253165606806,0.8232302255104592,library_holdout_not_full_image_coverage
+OLI,Herbaceous,6,1,204,1278.1055901977843,1869.5786932391493,14.297826423937735,library_holdout_not_full_image_coverage
+OLI,Herbaceous,6,2,204,1278.1055901977843,1869.5786932391493,13.641443982592383,library_holdout_not_full_image_coverage
+OLI,Herbaceous,6,5,204,254.11453715583383,702.5640632571155,4.04541973649124,library_holdout_not_full_image_coverage
+OLI,Herbaceous,6,10,204,177.62576463808008,398.6756203985829,2.812906766291587,library_holdout_not_full_image_coverage
+OLI,Herbaceous,6,20,204,135.51242651964475,297.96452440379466,2.0990108882369025,library_holdout_not_full_image_coverage
+OLI,Herbaceous,6,50,204,88.93902356360968,272.2636158888471,1.4059727004437943,library_holdout_not_full_image_coverage
+OLI,Herbaceous,6,100,204,71.92106891901261,187.43139676754816,1.226953353870981,library_holdout_not_full_image_coverage
+OLI,Herbaceous,6,200,204,60.17038955875197,142.92966100320555,0.9980671473857984,library_holdout_not_full_image_coverage
+OLI,Herbaceous,6,500,204,49.108570864192615,115.93253165606806,0.8243097628571436,library_holdout_not_full_image_coverage
+OLI,Herbaceous,7,1,204,419.0551582834214,1295.1754623619695,7.023798602398768,library_holdout_not_full_image_coverage
+OLI,Herbaceous,7,2,204,331.1509736571875,1295.1754623619695,5.463479192609055,library_holdout_not_full_image_coverage
+OLI,Herbaceous,7,5,204,265.85877892130327,1218.1314611330297,4.00570169125323,library_holdout_not_full_image_coverage
+OLI,Herbaceous,7,10,204,195.3678835956294,426.8453754002022,2.877840922603272,library_holdout_not_full_image_coverage
+OLI,Herbaceous,7,20,204,133.03010817046203,310.79099425951455,2.1999727980405375,library_holdout_not_full_image_coverage
+OLI,Herbaceous,7,50,204,97.42550250877645,228.9130770519629,1.558913395038628,library_holdout_not_full_image_coverage
+OLI,Herbaceous,7,100,204,75.44948016455642,181.655546893739,1.1841073371383957,library_holdout_not_full_image_coverage
+OLI,Herbaceous,7,200,204,62.10599470008581,148.31551046812348,0.960646747981767,library_holdout_not_full_image_coverage
+OLI,Herbaceous,7,500,204,49.8249761919143,115.93253165606806,0.83242621042605,library_holdout_not_full_image_coverage
+OLI,Herbaceous,8,1,204,895.9852099121582,1399.243196184689,32.93361982237987,library_holdout_not_full_image_coverage
+OLI,Herbaceous,8,2,204,541.073338396943,1195.475546220496,14.575167530375998,library_holdout_not_full_image_coverage
+OLI,Herbaceous,8,5,204,279.43856738229056,1130.2876767719872,4.958293411385062,library_holdout_not_full_image_coverage
+OLI,Herbaceous,8,10,204,197.7429732094434,415.6944541778837,2.861269528356552,library_holdout_not_full_image_coverage
+OLI,Herbaceous,8,20,204,137.38902504208477,362.28956394332454,1.9761843070328535,library_holdout_not_full_image_coverage
+OLI,Herbaceous,8,50,204,108.29449392086948,297.38699944449263,1.5452333628878794,library_holdout_not_full_image_coverage
+OLI,Herbaceous,8,100,204,80.67487579411079,183.41831306455865,1.3173835809713907,library_holdout_not_full_image_coverage
+OLI,Herbaceous,8,200,204,63.932649015044014,143.66831984929948,1.116973355882936,library_holdout_not_full_image_coverage
+OLI,Herbaceous,8,500,204,49.33447732108267,115.93253165606806,0.8309834152631839,library_holdout_not_full_image_coverage
+OLI,Herbaceous,9,1,204,575.2925097283392,1347.4306260717292,18.48586707902725,library_holdout_not_full_image_coverage
+OLI,Herbaceous,9,2,204,500.2720863033843,1025.348344807115,6.902145641681871,library_holdout_not_full_image_coverage
+OLI,Herbaceous,9,5,204,237.6118357885104,728.3892628729021,3.1083700525190734,library_holdout_not_full_image_coverage
+OLI,Herbaceous,9,10,204,195.86654448399972,404.6420965542756,2.8178949852445,library_holdout_not_full_image_coverage
+OLI,Herbaceous,9,20,204,134.46583027290177,332.5286717791037,1.98376180697678,library_holdout_not_full_image_coverage
+OLI,Herbaceous,9,50,204,91.43431309389558,225.83308002552496,1.4652599196268827,library_holdout_not_full_image_coverage
+OLI,Herbaceous,9,100,204,75.77361211301826,188.59067317542173,1.3144761453720903,library_holdout_not_full_image_coverage
+OLI,Herbaceous,9,200,204,64.42034383542236,146.99485953549112,1.055278629774359,library_holdout_not_full_image_coverage
+OLI,Herbaceous,9,500,204,49.89935734760646,115.93253165606806,0.822420114105642,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,0,1,125,701.8683713429411,1556.7422352343035,7.156898841226609,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,0,2,125,473.42257720231504,783.4700479973733,7.13577544521451,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,0,5,125,306.8853147787936,775.5695674304824,5.0986051119391345,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,0,10,125,209.66933076386908,672.9637531053439,3.9917423240738774,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,0,20,125,176.22997827829047,612.651943312713,3.635951571474631,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,0,50,125,126.86402966535589,353.77112818490343,2.8779678090253817,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,0,100,125,107.17925585770897,309.40149816209146,2.2478823286620155,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,0,200,125,87.6538760076472,261.4188762504453,1.890254385342026,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,1,1,125,725.101974862059,1530.2874875050093,9.649955539878372,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,1,2,125,422.82413879136266,1076.7489743166318,8.527351911656362,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,1,5,125,304.60742282750346,1049.2844382758838,4.609554627919712,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,1,10,125,198.1449123018244,640.7604878058755,3.8109987788428312,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,1,20,125,164.91926975008755,612.4294771285394,3.4186584012013994,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,1,50,125,141.713214649529,550.8034526242756,2.6908056953411656,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,1,100,125,115.2129992309108,251.19642708662192,2.306050962666869,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,1,200,125,93.93371838546229,220.0776053425788,1.853649962308004,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,2,1,125,586.0702541593123,1237.5348565485451,11.339899129031808,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,2,2,125,487.21741001793674,1212.2339385610435,8.552340911206123,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,2,5,125,478.9240308692396,1212.2339385610435,6.9651374476023,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,2,10,125,266.76888130298516,577.0732097513584,4.547151449035968,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,2,20,125,200.08787357635168,542.8943552684202,3.608794210187847,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,2,50,125,146.91601757394272,401.63876306405353,2.6768374486289916,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,2,100,125,113.84027767932425,298.9234889908464,2.2286292509933183,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,2,200,125,85.8291529984632,251.82695169263732,1.8202608846633144,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,3,1,125,557.5487896338408,1434.2829720263785,12.90758262993158,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,3,2,125,412.53839040210426,929.388113580884,7.508512322330938,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,3,5,125,260.9016703043545,664.1712277796604,4.631684578805407,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,3,10,125,226.81624681178488,648.3557150459876,4.212521623849632,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,3,20,125,182.17244636003585,570.2752129299536,3.6577391675517985,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,3,50,125,150.86054325569728,320.60507724608794,2.9077188667405864,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,3,100,125,111.27657805358146,288.39263357210876,2.243437273097423,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,3,200,125,89.78470541116786,243.02620471465508,1.8813180965272915,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,4,1,125,498.4757973089082,1312.3552338086406,8.11883116050181,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,4,2,125,390.14722548119187,924.7154836648668,6.276307432431861,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,4,5,125,284.65487246082915,624.1113833328184,5.206196537052293,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,4,10,125,272.6641400808604,540.2336632833864,4.708873316386423,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,4,20,125,184.428175281528,533.8239877817348,3.3314063333583164,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,4,50,125,142.84511916378543,323.5988539208303,2.687540749461075,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,4,100,125,115.65389756139648,298.337473742032,2.2322392012295893,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,4,200,125,99.18934574152428,252.2256801215881,1.990192829952887,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,5,1,125,847.463001966986,1667.8010251056262,7.38000574103277,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,5,2,125,519.5678267709463,896.5641649207402,5.9942354101092565,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,5,5,125,255.49809536102072,713.1819177623524,4.2937263937909105,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,5,10,125,243.7081634969388,682.135335963537,4.116833917089756,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,5,20,125,184.02970079029845,426.6973441325634,3.445771964799344,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,5,50,125,138.71048226731847,352.29746736029455,2.744733227762307,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,5,100,125,114.6164364915918,296.03168187964934,2.238416549000223,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,5,200,125,97.25089936901472,245.28020680496087,1.8902438876949064,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,6,1,125,805.8075968404155,1609.0871620558034,7.21429897577538,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,6,2,125,776.7541335914143,1533.8783343774294,6.655995691299914,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,6,5,125,297.67696636732364,675.4065843018535,5.3990742441095385,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,6,10,125,204.2872661852169,673.8116200590003,4.072908910658361,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,6,20,125,162.72993173628151,599.87946311758,3.2870572952705777,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,6,50,125,126.95594197413612,325.47230257406693,2.619623483144767,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,6,100,125,113.60493583098386,300.0665448222728,2.3991811185099867,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,6,200,125,90.65742000231096,287.0585487092684,1.8838855147403464,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,7,1,125,512.1489613636309,1470.8606944433432,7.135116125660549,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,7,2,125,454.57899561663913,1470.8606944433432,7.135116125660549,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,7,5,125,272.6927592026609,723.3532726731468,4.590163472231225,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,7,10,125,254.62961043479825,514.8216954404552,3.845174844751842,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,7,20,125,185.63278278687153,502.3437508748378,3.3668340510871904,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,7,50,125,133.47370558759798,407.0693574331495,2.6357839712021813,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,7,100,125,110.05901129014518,335.8922321437047,2.2772476246490614,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,7,200,125,91.47188932073104,252.2256801215881,2.011433803805284,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,8,1,125,1042.4362173179466,2159.15298509753,11.245020221977242,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,8,2,125,814.4680501208043,1921.8672783834108,11.126568176024412,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,8,5,125,385.22977281054966,800.1037349565445,7.30665735424175,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,8,10,125,219.8682924269407,753.7983493583884,4.28591428433097,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,8,20,125,173.66788774084372,656.4019284761558,3.516642498549397,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,8,50,125,129.58917905834343,474.57975100532826,2.740051548586812,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,8,100,125,110.58796311547096,290.1201526972986,2.1064473407102184,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,8,200,125,86.52957672208002,257.1400830070755,1.85059889512716,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,9,1,125,608.9911671817017,1524.1381459547588,14.082112152101836,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,9,2,125,417.62340531527946,944.5966704372474,8.205597537324538,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,9,5,125,320.4789988130909,676.0630000748239,5.152167815417055,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,9,10,125,245.72114293393068,611.0176021052018,4.178212033820122,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,9,20,125,203.907904264481,423.3826340177308,3.525125910206747,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,9,50,125,131.372485064972,388.6570623794929,2.5401033887633515,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,9,100,125,111.30017182966164,287.7430105729368,2.298510266105671,library_holdout_not_full_image_coverage
+OLI,Non-vegetated & dead,9,200,125,97.53449805196178,272.9700209528997,1.9603856305818472,library_holdout_not_full_image_coverage
+OLI,Woody shrub,0,1,223,923.105031943735,1422.5719723389425,7.619534084477952,library_holdout_not_full_image_coverage
+OLI,Woody shrub,0,2,223,791.7021676667277,1283.387878035744,7.565041401228344,library_holdout_not_full_image_coverage
+OLI,Woody shrub,0,5,223,275.19334116472294,714.519114302734,3.667896446953738,library_holdout_not_full_image_coverage
+OLI,Woody shrub,0,10,223,192.4924205335009,405.8771241750828,3.1603746580647867,library_holdout_not_full_image_coverage
+OLI,Woody shrub,0,20,223,142.43390305249756,306.1902887707518,2.793665481990006,library_holdout_not_full_image_coverage
+OLI,Woody shrub,0,50,223,100.75313805540154,197.67586604687148,1.7175081006040358,library_holdout_not_full_image_coverage
+OLI,Woody shrub,0,100,223,80.62935368260949,170.68473283208357,1.303954488408524,library_holdout_not_full_image_coverage
+OLI,Woody shrub,0,200,223,62.34849009904988,132.23466248603228,1.1314765127589812,library_holdout_not_full_image_coverage
+OLI,Woody shrub,0,500,223,48.489806987216184,105.31227277245767,0.8917437842767248,library_holdout_not_full_image_coverage
+OLI,Woody shrub,1,1,223,763.2528137953541,1246.8720250806302,8.928641299619224,library_holdout_not_full_image_coverage
+OLI,Woody shrub,1,2,223,763.2528137953541,1246.8720250806302,4.521031642596437,library_holdout_not_full_image_coverage
+OLI,Woody shrub,1,5,223,248.49953082940812,556.1140832651779,3.641796454295719,library_holdout_not_full_image_coverage
+OLI,Woody shrub,1,10,223,173.57424708961548,424.8236545597178,2.680585022156146,library_holdout_not_full_image_coverage
+OLI,Woody shrub,1,20,223,120.96662469096565,327.59441426831717,2.074906371057799,library_holdout_not_full_image_coverage
+OLI,Woody shrub,1,50,223,94.092666154026,238.67429014656815,1.5353110953147122,library_holdout_not_full_image_coverage
+OLI,Woody shrub,1,100,223,81.27806310543586,191.34486420850263,1.3504911077308153,library_holdout_not_full_image_coverage
+OLI,Woody shrub,1,200,223,62.28615159543773,142.38453875203393,1.1388396663259297,library_holdout_not_full_image_coverage
+OLI,Woody shrub,1,500,223,49.97730673834829,111.35570976878869,0.9135724255828666,library_holdout_not_full_image_coverage
+OLI,Woody shrub,2,1,223,350.48893986024416,1051.4792576740424,7.28607095119763,library_holdout_not_full_image_coverage
+OLI,Woody shrub,2,2,223,309.9632443533932,1051.4792576740424,6.847648804700315,library_holdout_not_full_image_coverage
+OLI,Woody shrub,2,5,223,235.18620728260296,601.2418805068523,4.750746040095313,library_holdout_not_full_image_coverage
+OLI,Woody shrub,2,10,223,169.56182868304214,590.2093674894834,3.540964899007363,library_holdout_not_full_image_coverage
+OLI,Woody shrub,2,20,223,128.83755416770833,391.0616627950614,2.173094544833373,library_holdout_not_full_image_coverage
+OLI,Woody shrub,2,50,223,96.32004496509626,278.9949089501339,1.690334225610497,library_holdout_not_full_image_coverage
+OLI,Woody shrub,2,100,223,75.41533924243194,179.83957777000143,1.334488684555021,library_holdout_not_full_image_coverage
+OLI,Woody shrub,2,200,223,61.83810088031793,133.615952734415,1.066679027205328,library_holdout_not_full_image_coverage
+OLI,Woody shrub,2,500,223,50.5144045877873,106.32083153671358,0.8807927225745672,library_holdout_not_full_image_coverage
+OLI,Woody shrub,3,1,223,543.0234214126749,1104.336251955817,6.0739728520816,library_holdout_not_full_image_coverage
+OLI,Woody shrub,3,2,223,301.46174754123,570.593397859628,4.608321301053632,library_holdout_not_full_image_coverage
+OLI,Woody shrub,3,5,223,215.9280505146836,521.4027016919587,3.2260552870058734,library_holdout_not_full_image_coverage
+OLI,Woody shrub,3,10,223,175.04737918387988,483.938090868133,2.700456486470338,library_holdout_not_full_image_coverage
+OLI,Woody shrub,3,20,223,124.9318660798545,303.9990395728722,2.192120189842055,library_holdout_not_full_image_coverage
+OLI,Woody shrub,3,50,223,102.178044665455,270.9765606768074,1.545240098250289,library_holdout_not_full_image_coverage
+OLI,Woody shrub,3,100,223,77.51543789975148,181.94488588683163,1.270652032274504,library_holdout_not_full_image_coverage
+OLI,Woody shrub,3,200,223,65.58190423529834,150.4262880456451,1.0753114615522548,library_holdout_not_full_image_coverage
+OLI,Woody shrub,3,500,223,49.53191639567386,115.10075310982272,0.9167189340645032,library_holdout_not_full_image_coverage
+OLI,Woody shrub,4,1,223,365.57441740386366,965.8802549230184,6.319456430870673,library_holdout_not_full_image_coverage
+OLI,Woody shrub,4,2,223,286.97380479474043,844.8606668733094,5.774777552669157,library_holdout_not_full_image_coverage
+OLI,Woody shrub,4,5,223,214.3179028078713,647.7218888259457,3.1859541204298454,library_holdout_not_full_image_coverage
+OLI,Woody shrub,4,10,223,154.16952011042105,515.5336047719795,2.4771141725930885,library_holdout_not_full_image_coverage
+OLI,Woody shrub,4,20,223,127.7470369459056,333.1296669270498,2.156199648083958,library_holdout_not_full_image_coverage
+OLI,Woody shrub,4,50,223,98.72727745733266,265.55791199728077,1.622392077071391,library_holdout_not_full_image_coverage
+OLI,Woody shrub,4,100,223,83.51429348191303,169.53328884391993,1.3739111473321048,library_holdout_not_full_image_coverage
+OLI,Woody shrub,4,200,223,63.68075003166989,150.91034236500124,1.1355506207250523,library_holdout_not_full_image_coverage
+OLI,Woody shrub,4,500,223,49.298634477682654,108.46496727150196,0.8878844460514128,library_holdout_not_full_image_coverage
+OLI,Woody shrub,5,1,223,496.4950308671249,994.4013837740616,6.128334498219731,library_holdout_not_full_image_coverage
+OLI,Woody shrub,5,2,223,404.3171608309691,855.469210266814,5.468989250992642,library_holdout_not_full_image_coverage
+OLI,Woody shrub,5,5,223,249.8075263108817,509.99959948916575,3.7225850281228,library_holdout_not_full_image_coverage
+OLI,Woody shrub,5,10,223,161.74507071572145,509.99959948916575,2.8432504467615662,library_holdout_not_full_image_coverage
+OLI,Woody shrub,5,20,223,133.06192162837726,450.437119253497,2.07476394175984,library_holdout_not_full_image_coverage
+OLI,Woody shrub,5,50,223,97.5758371949243,230.4779648643177,1.4987316918657343,library_holdout_not_full_image_coverage
+OLI,Woody shrub,5,100,223,77.24196045321469,185.4704523449475,1.2572331225965712,library_holdout_not_full_image_coverage
+OLI,Woody shrub,5,200,223,63.1615689921999,152.55756649590188,1.086410501609334,library_holdout_not_full_image_coverage
+OLI,Woody shrub,5,500,223,48.578487657533,118.48595787494008,0.8757668249349804,library_holdout_not_full_image_coverage
+OLI,Woody shrub,6,1,223,402.40092775359767,1096.9348145744789,7.86187080372029,library_holdout_not_full_image_coverage
+OLI,Woody shrub,6,2,223,385.8902310685996,1096.9348145744789,6.825095086659569,library_holdout_not_full_image_coverage
+OLI,Woody shrub,6,5,223,209.00335802737752,675.2528198436573,5.007572262196061,library_holdout_not_full_image_coverage
+OLI,Woody shrub,6,10,223,195.76808125912763,639.3094955351376,3.2697923946454828,library_holdout_not_full_image_coverage
+OLI,Woody shrub,6,20,223,125.6745193701172,519.5994298440996,2.14640613382222,library_holdout_not_full_image_coverage
+OLI,Woody shrub,6,50,223,95.16611861826816,258.4018504578777,1.5998278987692889,library_holdout_not_full_image_coverage
+OLI,Woody shrub,6,100,223,72.94340608166306,198.80952733321783,1.370929566615661,library_holdout_not_full_image_coverage
+OLI,Woody shrub,6,200,223,61.61335528613296,143.4033951846238,1.117672708139981,library_holdout_not_full_image_coverage
+OLI,Woody shrub,6,500,223,48.92062385088187,119.1025759873795,0.9167189340645032,library_holdout_not_full_image_coverage
+OLI,Woody shrub,7,1,223,850.1421992657017,1416.6499902186372,11.789609304331483,library_holdout_not_full_image_coverage
+OLI,Woody shrub,7,2,223,348.9019250255749,822.0611270033487,5.28016577243638,library_holdout_not_full_image_coverage
+OLI,Woody shrub,7,5,223,239.4341048711521,496.125280863147,3.4095668079320216,library_holdout_not_full_image_coverage
+OLI,Woody shrub,7,10,223,167.84265162613326,407.1869850451755,2.948619900084818,library_holdout_not_full_image_coverage
+OLI,Woody shrub,7,20,223,129.45614085391867,279.7808587034794,2.1400844619332,library_holdout_not_full_image_coverage
+OLI,Woody shrub,7,50,223,101.88566327343446,219.4404742931959,1.6559549940827474,library_holdout_not_full_image_coverage
+OLI,Woody shrub,7,100,223,79.73618184921088,182.9598044291116,1.313682094177838,library_holdout_not_full_image_coverage
+OLI,Woody shrub,7,200,223,66.34375404097294,152.13735683716655,1.1248686276839115,library_holdout_not_full_image_coverage
+OLI,Woody shrub,7,500,223,50.29673643004801,108.44094457751788,0.9145391094599828,library_holdout_not_full_image_coverage
+OLI,Woody shrub,8,1,223,765.7086502585275,1551.7452335911817,6.204748265134558,library_holdout_not_full_image_coverage
+OLI,Woody shrub,8,2,223,355.8572380207086,735.0685447108415,4.723127184873935,library_holdout_not_full_image_coverage
+OLI,Woody shrub,8,5,223,284.3905225340409,551.1261596744092,3.2079535728892754,library_holdout_not_full_image_coverage
+OLI,Woody shrub,8,10,223,171.8147635369189,479.9701246214101,2.847793125781637,library_holdout_not_full_image_coverage
+OLI,Woody shrub,8,20,223,125.27296452232832,367.4816435272032,2.056041068531634,library_holdout_not_full_image_coverage
+OLI,Woody shrub,8,50,223,88.65053563612048,260.5391454078207,1.60634986296349,library_holdout_not_full_image_coverage
+OLI,Woody shrub,8,100,223,74.66383338615243,196.1324308118563,1.3284707222986536,library_holdout_not_full_image_coverage
+OLI,Woody shrub,8,200,223,62.48108148501157,126.38888778391592,1.0848659811527803,library_holdout_not_full_image_coverage
+OLI,Woody shrub,8,500,223,48.787053953428256,103.15250599558529,0.9286046738090692,library_holdout_not_full_image_coverage
+OLI,Woody shrub,9,1,223,746.9192257413445,1329.0558894334488,7.628498794532279,library_holdout_not_full_image_coverage
+OLI,Woody shrub,9,2,223,448.4746557012945,712.5156277139022,6.455831202126015,library_holdout_not_full_image_coverage
+OLI,Woody shrub,9,5,223,299.1536639279417,493.7529792295316,4.672724470558425,library_holdout_not_full_image_coverage
+OLI,Woody shrub,9,10,223,176.2611892862672,398.5716515208385,2.686349126403943,library_holdout_not_full_image_coverage
+OLI,Woody shrub,9,20,223,137.68612987636726,316.1704825630652,2.1842014157478338,library_holdout_not_full_image_coverage
+OLI,Woody shrub,9,50,223,103.19729022302916,212.78324655521703,1.6038379105242349,library_holdout_not_full_image_coverage
+OLI,Woody shrub,9,100,223,76.15290640904705,175.18232457036302,1.3273638175316174,library_holdout_not_full_image_coverage
+OLI,Woody shrub,9,200,223,61.6969513370746,135.14311043827294,1.164001010425585,library_holdout_not_full_image_coverage
+OLI,Woody shrub,9,500,223,50.12645422913855,105.43467785508096,0.9183491669432656,library_holdout_not_full_image_coverage

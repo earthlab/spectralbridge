@@ -23,7 +23,7 @@ _LOG = logging.getLogger(__name__)
 
 def harmonize_spectrum(
     wavelengths, values, target, *, excluded=((1340, 1450), (1790, 2000)), max_gap_nm=8
-):
+) -> np.ndarray:
     """Linearly harmonize one spectrum without bridging unsupported intervals.
 
     Args:
@@ -36,7 +36,7 @@ def harmonize_spectrum(
 
     Returns:
         numpy.ndarray: Target-shaped values in unchanged input units. Unsupported
-        coordinates are NaN; no extrapolation, scaling or clipping occurs.
+            coordinates are NaN; no extrapolation, scaling or clipping occurs.
 
     Raises:
         ValueError: Native lengths differ or coordinates are not increasing.
@@ -428,13 +428,13 @@ def _file_hash(path):
     return digest.hexdigest()
 
 
-def run_plant_spectral_atlas(source, output_dir, **kwargs):
+def run_plant_spectral_atlas(source, output_dir, **kwargs) -> dict:
     """Create/reuse empirical plant-atlas derivatives without copying source pixels.
 
     Args:
         source (str or pathlib.Path): Existing merged polygon Parquet, read in place.
         output_dir (str or pathlib.Path): Directory for compact products/manifest.
-        **kwargs: Atlas options: plant_field='GlobalID', flight_field='flight_id',
+        **kwargs (object): Atlas options: plant_field='GlobalID', flight_field='flight_id',
             source_field='source_image', species_field='species',
             min_plants_per_species=10, spectral_stage='corr', grid_step_nm=5,
             max_gap_nm=8, excluded=((1340,1450),(1790,2000)), band_batch_size=32,
@@ -444,7 +444,7 @@ def run_plant_spectral_atlas(source, output_dir, **kwargs):
 
     Returns:
         dict: Audit counts, grids, support and output provenance. Derivative
-        Parquets/CSVs and optional PDF/PNG/SVG persist in output_dir.
+            Parquets/CSVs and optional PDF/PNG/SVG persist in output_dir.
 
     Raises:
         ValueError: Missing/conflicting identities, ambiguous native grids,

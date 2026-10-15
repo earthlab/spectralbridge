@@ -1,0 +1,7 @@
+......................................                                   [100%]
+=============================== warnings summary ===============================
+tests/test_scientific_docs_integration.py::test_both_publication_figures_compose_offline_without_original_archive
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/examples/publication_figures/figure_panels.py:132: PendingDeprecationWarning: The set_bad function will be deprecated in a future version. Use cmap.with_extremes(bad=...) or Colormap(bad=...) instead.
+    cmap.set_bad('#eeeeee')
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html

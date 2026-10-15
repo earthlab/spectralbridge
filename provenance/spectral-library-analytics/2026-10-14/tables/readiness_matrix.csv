@@ -1,0 +1,91 @@
+scheme,label,dimension,status,reason,evidence
+inferred_pft,DBS,spectral integrity,CONDITIONALLY READY,Common finite coordinate support validated; absolute library units and source purity unresolved,library_summary.csv; DATA_AUDIT.md
+inferred_pft,DBS,biological distinction,CONDITIONALLY READY,Conditional observational contrasts available; support differs by pair/site/year,biological_contrasts.csv
+inferred_pft,DBS,plant classification,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+inferred_pft,DBS,site transfer,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+inferred_pft,DBS,endmember identifiability,NOT READY,Other-class convex reconstructions create ambiguity; no demonstrated unique inversion,mixture_identifiability.csv
+inferred_pft,DBS,fraction recovery,NOT READY,Substantial conditional synthetic fraction error; no independent field validation,mixture_recovery.csv; sensor_resolution_mixture_results.csv
+inferred_pft,DBS,unknown rejection,INSUFFICIENT EVIDENCE,"Withheld ecological classes are proxies, not exhaustive physical unknown materials",unknown_material_detection.csv
+inferred_pft,DBS,uncertainty calibration,INSUFFICIENT EVIDENCE,Held-out calibration assessed; no geographic guarantee or validated abundance intervals,uncertainty_calibration.csv; mixture_uncertainty.csv
+inferred_pft,DBS,operational MESMA,INSUFFICIENT EVIDENCE,No independent ecological abundance/purity truth,mixture_recovery.csv; MATERIAL_CLASS_AUDIT.md
+inferred_pft,DBT,spectral integrity,CONDITIONALLY READY,Common finite coordinate support validated; absolute library units and source purity unresolved,library_summary.csv; DATA_AUDIT.md
+inferred_pft,DBT,biological distinction,CONDITIONALLY READY,Conditional observational contrasts available; support differs by pair/site/year,biological_contrasts.csv
+inferred_pft,DBT,plant classification,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+inferred_pft,DBT,site transfer,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+inferred_pft,DBT,endmember identifiability,NOT READY,Other-class convex reconstructions create ambiguity; no demonstrated unique inversion,mixture_identifiability.csv
+inferred_pft,DBT,fraction recovery,NOT READY,Substantial conditional synthetic fraction error; no independent field validation,mixture_recovery.csv; sensor_resolution_mixture_results.csv
+inferred_pft,DBT,unknown rejection,INSUFFICIENT EVIDENCE,"Withheld ecological classes are proxies, not exhaustive physical unknown materials",unknown_material_detection.csv
+inferred_pft,DBT,uncertainty calibration,INSUFFICIENT EVIDENCE,Held-out calibration assessed; no geographic guarantee or validated abundance intervals,uncertainty_calibration.csv; mixture_uncertainty.csv
+inferred_pft,DBT,operational MESMA,INSUFFICIENT EVIDENCE,No independent ecological abundance/purity truth,mixture_recovery.csv; MATERIAL_CLASS_AUDIT.md
+inferred_pft,EBS,spectral integrity,CONDITIONALLY READY,Common finite coordinate support validated; absolute library units and source purity unresolved,library_summary.csv; DATA_AUDIT.md
+inferred_pft,EBS,biological distinction,CONDITIONALLY READY,Conditional observational contrasts available; support differs by pair/site/year,biological_contrasts.csv
+inferred_pft,EBS,plant classification,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+inferred_pft,EBS,site transfer,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+inferred_pft,EBS,endmember identifiability,NOT READY,Other-class convex reconstructions create ambiguity; no demonstrated unique inversion,mixture_identifiability.csv
+inferred_pft,EBS,fraction recovery,NOT READY,Substantial conditional synthetic fraction error; no independent field validation,mixture_recovery.csv; sensor_resolution_mixture_results.csv
+inferred_pft,EBS,unknown rejection,INSUFFICIENT EVIDENCE,"Withheld ecological classes are proxies, not exhaustive physical unknown materials",unknown_material_detection.csv
+inferred_pft,EBS,uncertainty calibration,INSUFFICIENT EVIDENCE,Held-out calibration assessed; no geographic guarantee or validated abundance intervals,uncertainty_calibration.csv; mixture_uncertainty.csv
+inferred_pft,EBS,operational MESMA,INSUFFICIENT EVIDENCE,No independent ecological abundance/purity truth,mixture_recovery.csv; MATERIAL_CLASS_AUDIT.md
+inferred_pft,ECS,spectral integrity,CONDITIONALLY READY,Common finite coordinate support validated; absolute library units and source purity unresolved,library_summary.csv; DATA_AUDIT.md
+inferred_pft,ECS,biological distinction,CONDITIONALLY READY,Conditional observational contrasts available; support differs by pair/site/year,biological_contrasts.csv
+inferred_pft,ECS,plant classification,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+inferred_pft,ECS,site transfer,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+inferred_pft,ECS,endmember identifiability,NOT READY,Other-class convex reconstructions create ambiguity; no demonstrated unique inversion,mixture_identifiability.csv
+inferred_pft,ECS,fraction recovery,NOT READY,Substantial conditional synthetic fraction error; no independent field validation,mixture_recovery.csv; sensor_resolution_mixture_results.csv
+inferred_pft,ECS,unknown rejection,INSUFFICIENT EVIDENCE,"Withheld ecological classes are proxies, not exhaustive physical unknown materials",unknown_material_detection.csv
+inferred_pft,ECS,uncertainty calibration,INSUFFICIENT EVIDENCE,Held-out calibration assessed; no geographic guarantee or validated abundance intervals,uncertainty_calibration.csv; mixture_uncertainty.csv
+inferred_pft,ECS,operational MESMA,INSUFFICIENT EVIDENCE,No independent ecological abundance/purity truth,mixture_recovery.csv; MATERIAL_CLASS_AUDIT.md
+inferred_pft,ECT,spectral integrity,CONDITIONALLY READY,Common finite coordinate support validated; absolute library units and source purity unresolved,library_summary.csv; DATA_AUDIT.md
+inferred_pft,ECT,biological distinction,CONDITIONALLY READY,Conditional observational contrasts available; support differs by pair/site/year,biological_contrasts.csv
+inferred_pft,ECT,plant classification,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+inferred_pft,ECT,site transfer,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+inferred_pft,ECT,endmember identifiability,NOT READY,Other-class convex reconstructions create ambiguity; no demonstrated unique inversion,mixture_identifiability.csv
+inferred_pft,ECT,fraction recovery,NOT READY,Substantial conditional synthetic fraction error; no independent field validation,mixture_recovery.csv; sensor_resolution_mixture_results.csv
+inferred_pft,ECT,unknown rejection,INSUFFICIENT EVIDENCE,"Withheld ecological classes are proxies, not exhaustive physical unknown materials",unknown_material_detection.csv
+inferred_pft,ECT,uncertainty calibration,INSUFFICIENT EVIDENCE,Held-out calibration assessed; no geographic guarantee or validated abundance intervals,uncertainty_calibration.csv; mixture_uncertainty.csv
+inferred_pft,ECT,operational MESMA,INSUFFICIENT EVIDENCE,No independent ecological abundance/purity truth,mixture_recovery.csv; MATERIAL_CLASS_AUDIT.md
+researcher,Deciduous,spectral integrity,CONDITIONALLY READY,Common finite coordinate support validated; absolute library units and source purity unresolved,library_summary.csv; DATA_AUDIT.md
+researcher,Deciduous,biological distinction,CONDITIONALLY READY,Conditional observational contrasts available; support differs by pair/site/year,biological_contrasts.csv
+researcher,Deciduous,plant classification,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+researcher,Deciduous,site transfer,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+researcher,Deciduous,endmember identifiability,NOT READY,Other-class convex reconstructions create ambiguity; no demonstrated unique inversion,mixture_identifiability.csv
+researcher,Deciduous,fraction recovery,NOT READY,Substantial conditional synthetic fraction error; no independent field validation,mixture_recovery.csv; sensor_resolution_mixture_results.csv
+researcher,Deciduous,unknown rejection,INSUFFICIENT EVIDENCE,"Withheld ecological classes are proxies, not exhaustive physical unknown materials",unknown_material_detection.csv
+researcher,Deciduous,uncertainty calibration,INSUFFICIENT EVIDENCE,Held-out calibration assessed; no geographic guarantee or validated abundance intervals,uncertainty_calibration.csv; mixture_uncertainty.csv
+researcher,Deciduous,operational MESMA,INSUFFICIENT EVIDENCE,No independent ecological abundance/purity truth,mixture_recovery.csv; MATERIAL_CLASS_AUDIT.md
+researcher,Evergreen,spectral integrity,CONDITIONALLY READY,Common finite coordinate support validated; absolute library units and source purity unresolved,library_summary.csv; DATA_AUDIT.md
+researcher,Evergreen,biological distinction,CONDITIONALLY READY,Conditional observational contrasts available; support differs by pair/site/year,biological_contrasts.csv
+researcher,Evergreen,plant classification,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+researcher,Evergreen,site transfer,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+researcher,Evergreen,endmember identifiability,NOT READY,Other-class convex reconstructions create ambiguity; no demonstrated unique inversion,mixture_identifiability.csv
+researcher,Evergreen,fraction recovery,NOT READY,Substantial conditional synthetic fraction error; no independent field validation,mixture_recovery.csv; sensor_resolution_mixture_results.csv
+researcher,Evergreen,unknown rejection,INSUFFICIENT EVIDENCE,"Withheld ecological classes are proxies, not exhaustive physical unknown materials",unknown_material_detection.csv
+researcher,Evergreen,uncertainty calibration,INSUFFICIENT EVIDENCE,Held-out calibration assessed; no geographic guarantee or validated abundance intervals,uncertainty_calibration.csv; mixture_uncertainty.csv
+researcher,Evergreen,operational MESMA,INSUFFICIENT EVIDENCE,No independent ecological abundance/purity truth,mixture_recovery.csv; MATERIAL_CLASS_AUDIT.md
+researcher,Herbaceous,spectral integrity,CONDITIONALLY READY,Common finite coordinate support validated; absolute library units and source purity unresolved,library_summary.csv; DATA_AUDIT.md
+researcher,Herbaceous,biological distinction,CONDITIONALLY READY,Conditional observational contrasts available; support differs by pair/site/year,biological_contrasts.csv
+researcher,Herbaceous,plant classification,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+researcher,Herbaceous,site transfer,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+researcher,Herbaceous,endmember identifiability,NOT READY,Other-class convex reconstructions create ambiguity; no demonstrated unique inversion,mixture_identifiability.csv
+researcher,Herbaceous,fraction recovery,NOT READY,Substantial conditional synthetic fraction error; no independent field validation,mixture_recovery.csv; sensor_resolution_mixture_results.csv
+researcher,Herbaceous,unknown rejection,INSUFFICIENT EVIDENCE,"Withheld ecological classes are proxies, not exhaustive physical unknown materials",unknown_material_detection.csv
+researcher,Herbaceous,uncertainty calibration,INSUFFICIENT EVIDENCE,Held-out calibration assessed; no geographic guarantee or validated abundance intervals,uncertainty_calibration.csv; mixture_uncertainty.csv
+researcher,Herbaceous,operational MESMA,INSUFFICIENT EVIDENCE,No independent ecological abundance/purity truth,mixture_recovery.csv; MATERIAL_CLASS_AUDIT.md
+researcher,Non-vegetated & dead,spectral integrity,CONDITIONALLY READY,Common finite coordinate support validated; absolute library units and source purity unresolved,library_summary.csv; DATA_AUDIT.md
+researcher,Non-vegetated & dead,biological distinction,CONDITIONALLY READY,Conditional observational contrasts available; support differs by pair/site/year,biological_contrasts.csv
+researcher,Non-vegetated & dead,plant classification,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+researcher,Non-vegetated & dead,site transfer,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+researcher,Non-vegetated & dead,endmember identifiability,NOT READY,Other-class convex reconstructions create ambiguity; no demonstrated unique inversion,mixture_identifiability.csv
+researcher,Non-vegetated & dead,fraction recovery,NOT READY,Substantial conditional synthetic fraction error; no independent field validation,mixture_recovery.csv; sensor_resolution_mixture_results.csv
+researcher,Non-vegetated & dead,unknown rejection,INSUFFICIENT EVIDENCE,"Withheld ecological classes are proxies, not exhaustive physical unknown materials",unknown_material_detection.csv
+researcher,Non-vegetated & dead,uncertainty calibration,INSUFFICIENT EVIDENCE,Held-out calibration assessed; no geographic guarantee or validated abundance intervals,uncertainty_calibration.csv; mixture_uncertainty.csv
+researcher,Non-vegetated & dead,operational MESMA,INSUFFICIENT EVIDENCE,No independent ecological abundance/purity truth,mixture_recovery.csv; MATERIAL_CLASS_AUDIT.md
+researcher,Woody shrub,spectral integrity,CONDITIONALLY READY,Common finite coordinate support validated; absolute library units and source purity unresolved,library_summary.csv; DATA_AUDIT.md
+researcher,Woody shrub,biological distinction,CONDITIONALLY READY,Conditional observational contrasts available; support differs by pair/site/year,biological_contrasts.csv
+researcher,Woody shrub,plant classification,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+researcher,Woody shrub,site transfer,CONDITIONALLY READY,Held-out class recall recorded; no universal acceptance threshold or species extrapolation,class_predictive_performance.csv; fold_support.csv
+researcher,Woody shrub,endmember identifiability,NOT READY,Other-class convex reconstructions create ambiguity; no demonstrated unique inversion,mixture_identifiability.csv
+researcher,Woody shrub,fraction recovery,NOT READY,Substantial conditional synthetic fraction error; no independent field validation,mixture_recovery.csv; sensor_resolution_mixture_results.csv
+researcher,Woody shrub,unknown rejection,INSUFFICIENT EVIDENCE,"Withheld ecological classes are proxies, not exhaustive physical unknown materials",unknown_material_detection.csv
+researcher,Woody shrub,uncertainty calibration,INSUFFICIENT EVIDENCE,Held-out calibration assessed; no geographic guarantee or validated abundance intervals,uncertainty_calibration.csv; mixture_uncertainty.csv
+researcher,Woody shrub,operational MESMA,INSUFFICIENT EVIDENCE,No independent ecological abundance/purity truth,mixture_recovery.csv; MATERIAL_CLASS_AUDIT.md

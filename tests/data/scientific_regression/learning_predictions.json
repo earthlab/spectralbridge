@@ -1,0 +1,144 @@
+{
+  "description": "Ten actual held-out predictions, sampling correct/incorrect cases within labels for metric regression; not a performance estimate",
+  "source": "artifacts/plant_spectral_atlas/analytics/predictions.parquet",
+  "source_sha256": "ca21c617f8352435f1e0485c9dd69d3be5f8a28b8608b9fa9a10cfbd237b983f",
+  "context": {
+    "scheme": "inferred_pft",
+    "fold": "plant_0",
+    "model": "logistic",
+    "representation": "NEON_full"
+  },
+  "classes": [
+    "DBS",
+    "DBT",
+    "EBS",
+    "ECS",
+    "ECT"
+  ],
+  "records": [
+    {
+      "observation_id": "NIWO:2020:07528268-4a9b-4e0f-89d1-f732923c957f",
+      "GlobalID": "07528268-4a9b-4e0f-89d1-f732923c957f",
+      "truth": "DBS",
+      "probabilities": [
+        0.9674418957405235,
+        0.03224559100755976,
+        2.6049932130365706e-05,
+        0.00027316460486997995,
+        1.3298714916496617e-05
+      ]
+    },
+    {
+      "observation_id": "NIWO:2020:5238cd08-c63f-4c86-94e3-7b001c33f94d",
+      "GlobalID": "5238cd08-c63f-4c86-94e3-7b001c33f94d",
+      "truth": "DBS",
+      "probabilities": [
+        0.08745175692433307,
+        0.7951691098913956,
+        0.0012716369358030442,
+        0.037305450819749834,
+        0.07880204542871849
+      ]
+    },
+    {
+      "observation_id": "NIWO:2020:01347212-b589-4a5c-8ad7-1eb788b7e123",
+      "GlobalID": "01347212-b589-4a5c-8ad7-1eb788b7e123",
+      "truth": "DBT",
+      "probabilities": [
+        0.0985688113213025,
+        0.9013933605285591,
+        3.536995054063689e-05,
+        4.168412913332576e-07,
+        2.041358306423977e-06
+      ]
+    },
+    {
+      "observation_id": "NIWO:2020:33a46840-e0ed-4dc8-9117-ebcdf7f88f5d",
+      "GlobalID": "33a46840-e0ed-4dc8-9117-ebcdf7f88f5d",
+      "truth": "DBT",
+      "probabilities": [
+        0.5845869006350985,
+        0.41415387975452417,
+        0.0008857678468479854,
+        0.00037305303123563174,
+        3.987322935869965e-07
+      ]
+    },
+    {
+      "observation_id": "NIWO:2020:0067f7c4-c34a-4481-a4bb-e5cac10178cd",
+      "GlobalID": "0067f7c4-c34a-4481-a4bb-e5cac10178cd",
+      "truth": "EBS",
+      "probabilities": [
+        9.514067015388233e-05,
+        0.004538935384695017,
+        0.9944376204961114,
+        0.0002656828989240224,
+        0.0006626205501158356
+      ]
+    },
+    {
+      "observation_id": "WREF:2023:de00a768-2764-425b-9d3e-c39114153a8d",
+      "GlobalID": "de00a768-2764-425b-9d3e-c39114153a8d",
+      "truth": "EBS",
+      "probabilities": [
+        0.3699920850115291,
+        0.21144352328329385,
+        0.0059915650468895165,
+        0.026462157154238882,
+        0.3861106695040488
+      ]
+    },
+    {
+      "observation_id": "NIWO:2020:08a90d40-f6a9-40c2-89bd-37950d9d3f2d",
+      "GlobalID": "08a90d40-f6a9-40c2-89bd-37950d9d3f2d",
+      "truth": "ECS",
+      "probabilities": [
+        0.009348856117197086,
+        0.015786894193521115,
+        0.003005562744425493,
+        0.9048863936248263,
+        0.06697229332003
+      ]
+    },
+    {
+      "observation_id": "NIWO:2020:c18642db-f733-4375-9c07-bb9e92448470",
+      "GlobalID": "c18642db-f733-4375-9c07-bb9e92448470",
+      "truth": "ECS",
+      "probabilities": [
+        7.643043479566993e-05,
+        0.00307751656608971,
+        2.560510741915171e-05,
+        0.08896874327186363,
+        0.9078517046198319
+      ]
+    },
+    {
+      "observation_id": "NIWO:2020:02174f74-bed7-4654-b5c6-1b99aa5a4b88",
+      "GlobalID": "02174f74-bed7-4654-b5c6-1b99aa5a4b88",
+      "truth": "ECT",
+      "probabilities": [
+        0.001289574035163947,
+        0.09611121548092062,
+        5.429929394719194e-05,
+        0.0013033443450305925,
+        0.9012415668449377
+      ]
+    },
+    {
+      "observation_id": "NIWO:2020:0a05eae5-326a-4ba9-a1e0-8f9dddeed1ac",
+      "GlobalID": "0a05eae5-326a-4ba9-a1e0-8f9dddeed1ac",
+      "truth": "ECT",
+      "probabilities": [
+        0.07873987172837377,
+        0.34654044087337776,
+        0.0739909466835143,
+        0.15913302098837984,
+        0.3415957197263544
+      ]
+    }
+  ],
+  "expected": {
+    "balanced_accuracy": 0.5,
+    "macro_F1": 0.5266666666666666
+  }
+}

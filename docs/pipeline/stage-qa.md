@@ -205,8 +205,9 @@ artifacts retained in the repository.
 ## Scientific distinctions retained
 
 - NEON and MicaSense can pass through the relevant corrections; Landsat
-  Collection 2 NBAR is acquired directly and is not sent through the NEON
-  correction chain.
+  products are acquired independently and are not sent through the NEON
+  correction chain. The current real pilot uses Collection 2 Level-2 SR; it
+  does not evaluate NBAR agreement.
 - Spectral convolution creates target-sensor representations. Empirical
   calibration learns translations against observed sensors; they are not the
   same operation.

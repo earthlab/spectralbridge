@@ -20,15 +20,30 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P126. Integrated spectral-library analytics audit and human science PDF
+
+- Priority: P0, user-directed
+- Status: Complete locally; 27-page human PDF, experiments, independent checks and provenance verified
+- Owner: Codex
+- Started: 2026-10-14
+- Scope: Information-retention ladder from empirical characterization and audited functional inference through grouped ML/domain transfer, training-only wavelength/prototype selection, sensor/mixing/open-set/uncertainty analysis, with canonical result reuse and a human science report. Original source read in place; all scientific gates explicit.
+- Plan: Write requested repository audit, fixed Q1–Q15 design, observational structure and primary-literature methods before experiments. Reuse P118–P124 canonical evidence; run staged leakage-safe classical ML, nested selection and uncertainty only where class/fold support permits. Preserve immutable earlier outputs and produce machine-readable master tables, readiness evidence matrix, editable report source and required PDF at output/pdf/spectral_library_analytics/SpectralBridge_Spectral_Library_Analytics_Report.pdf. No deep learning without earned scientific justification.
+- Outcome: Completed 708 grouped classical learning fits; separate researcher categories/inferred PFTs, actual held-flight targets, nested training-only selection/tuning, plant/year/site and within-NIWO transfer, paired identity-bootstrap differences, domain diagnostics, prototypes, 90 withheld-class challenges, calibration/coverage and 111,225 exact-parent selected-band mixture counterparts. Reused canonical biological, full-spectrum/OLI mixture and real-Landsat evidence. Human report: output/pdf/spectral_library_analytics/SpectralBridge_Spectral_Library_Analytics_Report.pdf (27 substantive pages), editable JSON/Markdown/builders, ten figure sets, master tables, evidence-linked readiness dimensions and model/membership index.
+- Scientific conclusion: Conditional new-plant recognition is strong; geographic transfer varies, narrow-band F selection is redundant, complex classifiers do not consistently beat logistic, unknown rejection is weak and mixture inversion remains ambiguous. No operational abundance, universal detection limit or geographic uncertainty guarantee is established. Missing independent fraction/purity truth, library-scale provenance and MicaSense coordinates remain explicit gates.
+- Verification: 687 passed, 7 skipped, 2 deselected in final offline suite; 68.02% branch-aware coverage. Focused analytics 32 passed. Independent math/preprocessing/identity/prediction checks pass all 708 fits; exact truth/fraction/detection checks pass 111,225 targets, all 90 withheld-class roles and 24,387 observed prototype sources. Restart reuses 9,829 owned files. Strict docs, links, snapshots, AI transparency, Ruff and whitespace pass. All 27 PDF pages rendered/reviewed; no out-of-bounds text. Thirty figure files and PDF reproduce byte-identically.
+- Next recommended task: Human science-team review, then collect independent fraction/purity truth and balanced repeated site/year/species data before operational MESMA or novel-domain claims. P122's physical metadata/drone-coverage issues remain separately open. No commit, push, tag or publication.
+
 ### P125. Documentation, website and scientific test integration
 
 - Priority: P0, user-directed
-- Status: In progress
+- Status: Complete locally; docs, offline tests, coverage and browser checks verified
 - Owner: Codex
 - Started: 2026-10-14
 - Scope: Synthesize current library/biology/sensor/pilot/MESMA evidence into navigable docs; stable versus research API reference, offline examples, targeted scientific invariants/regressions, website contracts and CI/coverage assessment. Preserve prior outputs and caveats.
 - Plan: Complete capability and claims audit first; retain URLs and add a coherent scientific section; generate evidence-backed figures/counts from verified compact provenance; fill test gaps rather than duplicate existing tests; measure coverage, full offline suite, figure smoke, strict docs/link/accessibility checks. Audit release/JOSS metadata without tagging or publishing.
-- Remaining: Audit, documentation implementation, test/CI additions, verification and final integration report.
+- Outcome: Eleven focused scientific/API/testing pages, coherent Spectral Library navigation, verified figure assets/snapshots, claims audit and capability test matrix. Stable top-level surface unchanged; experimental guards explicit.
+- Verification: 655 offline passed, 7 skipped, 2 browser tests excluded and passed separately; 68.31% branch-aware coverage. Strict site, zero rendered-link errors, focused lint, snapshot/figure validators, JOSS format and aligned release metadata pass.
+- Remaining/next: Maintainer author/funding/conflict/AI/citation declarations, physical units/MicaSense provenance, independent materials/fraction truth and replicated Landsat evidence. Lower PFT plotting/transport branches visible. P126 analytics audit proceeds next; no site deployment, release or commit by Codex.
 
 ### P124. Two publication figures for the library and ecological sensor transfer
 

@@ -28,8 +28,7 @@ MARKDOWN_IN_HTML_ROUTES = (
     "usage/parquet/",
 )
 GITHUB_NOTEBOOK_BASE = (
-    "https://github.com/earthlab/spectralbridge/blob/main/"
-    "docs/vignettes/notebooks/"
+    "https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/"
 )
 
 
@@ -48,7 +47,9 @@ def _collect_page_health(page, base_url: str) -> tuple[list[str], list[str], lis
 
     def _same_origin(url: str) -> bool:
         parsed = urlparse(url)
-        return parsed.scheme == parsed_base.scheme and parsed.netloc == parsed_base.netloc
+        return (
+            parsed.scheme == parsed_base.scheme and parsed.netloc == parsed_base.netloc
+        )
 
     page.on("pageerror", lambda exc: page_errors.append(str(exc)))
     page.on(
@@ -57,11 +58,13 @@ def _collect_page_health(page, base_url: str) -> tuple[list[str], list[str], lis
     )
     page.on(
         "response",
-        lambda response: failed_assets.append(
-            f"{response.status} {response.request.resource_type} {response.url}"
-        )
-        if response.status >= 400 and _same_origin(response.url)
-        else None,
+        lambda response: (
+            failed_assets.append(
+                f"{response.status} {response.request.resource_type} {response.url}"
+            )
+            if response.status >= 400 and _same_origin(response.url)
+            else None
+        ),
     )
 
     return page_errors, console_errors, failed_assets
@@ -81,15 +84,20 @@ def test_docs_site_core_pages_render_in_browser() -> None:
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
         page = browser.new_page(viewport={"width": 1280, "height": 900})
-        page_errors, console_errors, failed_assets = _collect_page_health(page, base_url)
+        page_errors, console_errors, failed_assets = _collect_page_health(
+            page, base_url
+        )
 
         try:
             page.goto(base_url, wait_until="networkidle")
             assert "SpectralBridge" in page.title()
             assert page.locator("h1#spectralbridge").is_visible()
-            assert page.locator("h1#spectralbridge").evaluate(
-                "element => getComputedStyle(element).color"
-            ) == "rgb(255, 255, 255)"
+            assert (
+                page.locator("h1#spectralbridge").evaluate(
+                    "element => getComputedStyle(element).color"
+                )
+                == "rgb(255, 255, 255)"
+            )
             route_cards = page.locator(".sb-route-card")
             assert route_cards.count() == 3
             assert [
@@ -104,8 +112,12 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             logo = page.locator("img[alt='SpectralBridge logo']").first
             assert logo.evaluate("(img) => img.naturalWidth") > 0
 
-            assert page.get_by_text("Common framework. Sensor-specific treatment.", exact=True).is_visible()
-            assert page.get_by_role("link", name="Verify your installation", exact=True).is_visible()
+            assert page.get_by_text(
+                "Common framework. Sensor-specific treatment.", exact=True
+            ).is_visible()
+            assert page.get_by_role(
+                "link", name="Verify your installation", exact=True
+            ).is_visible()
             product_image = page.locator(".sb-product-example img")
             assert product_image.count() == 1
             assert product_image.evaluate("img => img.naturalWidth") > 0
@@ -116,9 +128,12 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             ).is_visible()
             assert page.locator(".sb-science-panel").count() == 3
             assert page.locator(".sb-science-panel__figure svg").count() == 3
-            assert page.locator(
-                "a[href$='images/homepage/spectralbridge-technical-overview.png']"
-            ).count() == 3
+            assert (
+                page.locator(
+                    "a[href$='images/homepage/spectralbridge-technical-overview.png']"
+                ).count()
+                == 3
+            )
             desktop_figure = page.locator(".sb-science-panel__figure").first
             assert desktop_figure.bounding_box()["width"] > 500
 
@@ -132,29 +147,46 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             )
             page.set_viewport_size({"width": 1280, "height": 900})
 
-            page.goto(urljoin(base_url, "concepts/measurements/"), wait_until="networkidle")
-            assert page.get_by_role("heading", name="Why sensors see the same landscape differently").is_visible()
-            assert page.get_by_role("heading", name="Spatial support: what ground area a value represents").is_visible()
+            page.goto(
+                urljoin(base_url, "concepts/measurements/"), wait_until="networkidle"
+            )
+            assert page.get_by_role(
+                "heading", name="Why sensors see the same landscape differently"
+            ).is_visible()
+            assert page.get_by_role(
+                "heading", name="Spatial support: what ground area a value represents"
+            ).is_visible()
             page.goto(urljoin(base_url, "getting-started/"), wait_until="networkidle")
-            assert page.get_by_role("heading", name="Your first SpectralBridge example").is_visible()
-            assert "python examples/first_example.py" in page.locator("article").inner_text()
-            page.goto(urljoin(base_url, "validation/supplement/"), wait_until="networkidle")
+            assert page.get_by_role(
+                "heading", name="Your first SpectralBridge example"
+            ).is_visible()
+            assert (
+                "python examples/first_example.py"
+                in page.locator("article").inner_text()
+            )
+            page.goto(
+                urljoin(base_url, "validation/supplement/"), wait_until="networkidle"
+            )
             assert page.locator(".sb-supplement-content table").count() == 23
             assert page.locator(".sb-supplement-content .csl-entry").count() == 101
             assert page.locator(".sb-supplement-content math").count() == 3
             page.set_viewport_size({"width": 390, "height": 844})
-            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            assert page.evaluate(
+                "document.documentElement.scrollWidth <= window.innerWidth"
+            )
             page.set_viewport_size({"width": 1280, "height": 900})
 
             page.goto(urljoin(base_url, "vignettes/"), wait_until="networkidle")
             assert page.get_by_role("heading", name="Choose a vignette").is_visible()
             assert page.get_by_role(
                 "link",
-                name="Carry On My Wayward Son", exact=True,
+                name="Carry On My Wayward Son",
+                exact=True,
             ).is_visible()
             assert page.get_by_role(
                 "link",
-                name="Extract polygon spectra", exact=True,
+                name="Extract polygon spectra",
+                exact=True,
             ).is_visible()
 
             page.goto(
@@ -170,17 +202,21 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             assert notebook_links.count() == 11
             assert page.get_by_role(
                 "link", name="Correct NEON reflectance", exact=True
-            ).get_attribute("href") == (
-                f"{GITHUB_NOTEBOOK_BASE}02_correct_neon.ipynb"
-            )
+            ).get_attribute("href") == (f"{GITHUB_NOTEBOOK_BASE}02_correct_neon.ipynb")
 
             page.goto(urljoin(base_url, "reference/"), wait_until="networkidle")
-            assert page.get_by_role("heading", name="Technical reference map").is_visible()
-            assert page.get_by_role("link", name="Stage order and restart behavior").first.is_visible()
+            assert page.get_by_role(
+                "heading", name="Technical reference map"
+            ).is_visible()
+            assert page.get_by_role(
+                "link", name="Stage order and restart behavior"
+            ).first.is_visible()
 
             page.goto(urljoin(base_url, "validation/"), wait_until="networkidle")
             assert page.get_by_role("heading", name="Validation evidence").is_visible()
-            assert page.get_by_role("link", name="Topographic correction").first.is_visible()
+            assert page.get_by_role(
+                "link", name="Topographic correction"
+            ).first.is_visible()
             assert page.get_by_text("offline-contract-5-per-module").first.is_visible()
 
             page.goto(
@@ -196,21 +232,30 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             ).is_visible()
 
             page.goto(urljoin(base_url, "pipeline/outputs/"), wait_until="networkidle")
-            assert page.get_by_role("heading", name="Outputs & File Structure").is_visible()
-            assert page.get_by_text("_merged_pixel_extraction.parquet").first.is_visible()
+            assert page.get_by_role(
+                "heading", name="Outputs & File Structure"
+            ).is_visible()
+            assert page.get_by_text(
+                "_merged_pixel_extraction.parquet"
+            ).first.is_visible()
 
             for route in MARKDOWN_IN_HTML_ROUTES:
                 page.goto(urljoin(base_url, route), wait_until="networkidle")
                 assert page.locator(".sb-doc-page").count() == 1, route
                 assert page.locator(".sb-doc-hero .sb-kicker").count() == 1, route
-                assert '<p class="sb-kicker">' not in page.locator(
-                    "article.md-content__inner"
-                ).inner_text(), route
+                assert (
+                    '<p class="sb-kicker">'
+                    not in page.locator("article.md-content__inner").inner_text()
+                ), route
 
             page.goto(urljoin(base_url, "usage/parquet/"), wait_until="networkidle")
-            assert page.get_by_role("heading", name="Native grids are not a common spectral axis").is_visible()
+            assert page.get_by_role(
+                "heading", name="Native grids are not a common spectral axis"
+            ).is_visible()
             page.set_viewport_size({"width": 390, "height": 844})
-            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            assert page.evaluate(
+                "document.documentElement.scrollWidth <= window.innerWidth"
+            )
             page.set_viewport_size({"width": 1280, "height": 900})
 
             page.goto(urljoin(base_url, "faq/"), wait_until="networkidle")
@@ -233,9 +278,10 @@ def test_docs_site_core_pages_render_in_browser() -> None:
                 "heading", name="Cloud and HPC workflows"
             ).is_visible()
             assert page.locator(".sb-doc-hero .sb-doc-card").count() == 3
-            assert '<p class="sb-kicker">Tutorial</p>' not in page.locator(
-                "article.md-content__inner"
-            ).inner_text()
+            assert (
+                '<p class="sb-kicker">Tutorial</p>'
+                not in page.locator("article.md-content__inner").inner_text()
+            )
             page.set_viewport_size({"width": 390, "height": 844})
             assert page.evaluate(
                 "document.documentElement.scrollWidth <= window.innerWidth"
@@ -258,7 +304,8 @@ def test_docs_site_core_pages_render_in_browser() -> None:
                 }"""
             )
             assert any(
-                "parquet" in f"{document.get('title', '')} {document.get('text', '')}".lower()
+                "parquet"
+                in f"{document.get('title', '')} {document.get('text', '')}".lower()
                 for document in search_index["docs"]
             )
         finally:
@@ -267,3 +314,56 @@ def test_docs_site_core_pages_render_in_browser() -> None:
     assert page_errors == []
     assert console_errors == []
     assert failed_assets == []
+
+
+def test_spectral_library_science_pages_and_figures_render() -> None:
+    base_url = _docs_site_url()
+    from playwright.sync_api import sync_playwright
+
+    routes = [
+        ("spectral-library/", "What is the SpectralBridge spectral library?"),
+        (
+            "spectral-library/sensor-transfer/",
+            "Does ecological spectral structure survive fewer bands?",
+        ),
+        (
+            "validation/landsat-pilot/",
+            "How does synthetic OLI compare with real Landsat?",
+        ),
+        (
+            "spectral-library/mesma-readiness/",
+            "Is this library ready for spectral mixture analysis?",
+        ),
+        ("api/scientific-analysis/", "Scientific analysis API and maturity"),
+    ]
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        page = browser.new_page(viewport={"width": 1280, "height": 900})
+        errors, console, assets = _collect_page_health(page, base_url)
+        try:
+            for route, title in routes:
+                page.goto(urljoin(base_url, route), wait_until="networkidle")
+                assert page.get_by_role("heading", name=title, exact=False).is_visible()
+                for image in page.locator("article img").all():
+                    assert image.get_attribute("alt")
+                    assert image.evaluate("img => img.complete && img.naturalWidth > 0")
+                if route == "api/scientific-analysis/":
+                    assert (
+                        "::: spectralbridge" not in page.locator("article").inner_text()
+                    )
+                    assert (
+                        page.locator(
+                            "[id='spectralbridge.mixtures.validate_holdout']"
+                        ).count()
+                        == 1
+                    )
+                page.set_viewport_size({"width": 390, "height": 844})
+                assert page.evaluate(
+                    "document.documentElement.scrollWidth <= window.innerWidth"
+                )
+                page.set_viewport_size({"width": 1280, "height": 900})
+            assert not errors
+            assert not console
+            assert not assets
+        finally:
+            browser.close()

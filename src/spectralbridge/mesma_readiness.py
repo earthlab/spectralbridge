@@ -29,6 +29,7 @@ from .mixtures import (
     grouped_identity_split,
     validate_holdout,
     adequacy_status,
+    detection_metrics,
     mixture_truth,
     _angles,
 )
@@ -403,6 +404,7 @@ def _record_fit(
         for threshold in [0.05, 0.1, 0.2]:
             for fraction in np.unique(np.round(true[:, j], 8)):
                 ix = np.isclose(true[:, j], fraction)
+                counts = detection_metrics(true[ix, j], f[ix, j], threshold=threshold)
                 detection.append(
                     dict(
                         **context,
@@ -411,8 +413,8 @@ def _record_fit(
                         true_fraction=fraction,
                         detection_threshold=threshold,
                         N=int(ix.sum()),
-                        detections=int((f[ix, j] >= threshold - 1e-10).sum()),
-                        probability=float(np.mean(f[ix, j] >= threshold - 1e-10)),
+                        detections=counts["TP"] + counts["FP"],
+                        probability=(counts["TP"] + counts["FP"]) / counts["N"],
                         interpretation="conditional_synthetic_draws_not_independent_plants",
                     )
                 )
@@ -441,7 +443,7 @@ def _record_fit(
     return f
 
 
-def run_readiness(source, compact, output, *, config=None, first_pass=False):
+def run_readiness(source, compact, output, *, config=None, first_pass=False) -> dict:
     """Run experimental grouped readiness diagnostics on verified compact inputs.
 
     Args:
@@ -455,7 +457,7 @@ def run_readiness(source, compact, output, *, config=None, first_pass=False):
 
     Returns:
         dict: Conditional synthetic status, source/config/code identity and owned
-        output hashes. This is not an operational MESMA readiness certificate.
+            output hashes. This is not an operational MESMA readiness certificate.
 
     Raises:
         ValueError: Invalid budgets, pairing, coordinates, conflicts or corrupt

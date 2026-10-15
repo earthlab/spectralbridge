@@ -130,8 +130,9 @@ identity. These discrepancies cannot all be attributed to translation error.
 Full design, all ten scientific questions, methods, candidate scenes, compact
 records and PDF/PNG/SVG figures are preserved in the repository's
 [real Landsat provenance](https://github.com/earthlab/spectralbridge/tree/main/provenance/real-landsat-validation/2026-10-14).
-Independent real-observation agreement is level 2 evidence; cross-flight,
-cross-site and held-out calibration generalization remain later levels.
+Independent real-observation agreement is scoped to this acquisition pair;
+cross-flight, cross-site and held-out calibration generalization remain untested.
+See the [scientific validation levels](../validation/scientific-validation.md).
 
 ## Continue
 

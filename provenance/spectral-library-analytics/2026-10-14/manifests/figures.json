@@ -1,0 +1,104 @@
+{
+  "figures": [
+    {
+      "caption": "Logistic classification by holdout and representation. Dots are eligible folds; bars are medians, not confidence intervals. Support and populations differ across holdout types; this is not a causal loss decomposition.",
+      "files": [
+        "figures/03_information_ladder.png",
+        "figures/03_information_ladder.pdf",
+        "figures/03_information_ladder.svg"
+      ],
+      "name": "03_information_ladder",
+      "source": "tables"
+    },
+    {
+      "caption": "Training-confined coordinate selection; full NEON and OLI are distinct response representations. Points summarize different eligible folds; inspect paired differences for conditional intervals.",
+      "files": [
+        "figures/04_resolution_curve.png",
+        "figures/04_resolution_curve.pdf",
+        "figures/04_resolution_curve.svg"
+      ],
+      "name": "04_resolution_curve",
+      "source": "tables"
+    },
+    {
+      "caption": "Frequency of selection among twenty proper-training F-ranked coordinates. Ranking is exploratory; correlated adjacent coordinates can substitute. Site stability uses only the observed holdout sites.",
+      "files": [
+        "figures/05_wavelength_stability.png",
+        "figures/05_wavelength_stability.pdf",
+        "figures/05_wavelength_stability.svg"
+      ],
+      "name": "05_wavelength_stability",
+      "source": "tables"
+    },
+    {
+      "caption": "All predeclared models; bars are means of plant folds, dots individual folds. No model was selected using these test scores.",
+      "files": [
+        "figures/06_classical_models.png",
+        "figures/06_classical_models.pdf",
+        "figures/06_classical_models.svg"
+      ],
+      "name": "06_classical_models",
+      "source": "tables"
+    },
+    {
+      "caption": "Proper-training representatives in training-standardized coordinate space. Unsupported sizes are omitted. Mean/median are synthetic centers; medoids/diversity are observed plants. More representatives are not a purity or mixture-identifiability certificate.",
+      "files": [
+        "figures/07_prototype_coverage.png",
+        "figures/07_prototype_coverage.pdf",
+        "figures/07_prototype_coverage.svg"
+      ],
+      "name": "07_prototype_coverage",
+      "source": "tables"
+    },
+    {
+      "caption": "Identical saved parents, fractions and EAR candidate identities. Left averages class/fold errors equally. Right frequencies condition on a few repeated parent trajectories; they are not population detection limits. Positive detection at zero fraction is false detection.",
+      "files": [
+        "figures/08_mixtures_detection.png",
+        "figures/08_mixtures_detection.pdf",
+        "figures/08_mixtures_detection.svg"
+      ],
+      "name": "08_mixtures_detection",
+      "source": "tables"
+    },
+    {
+      "caption": "Left: mean withheld-class diagnostics at independent known-calibration thresholds; class prevalence changes precision and AP. Right: raw-score group-conformal empirical coverage versus set size, not a domain-shift guarantee.",
+      "files": [
+        "figures/09_unknowns_uncertainty.png",
+        "figures/09_unknowns_uncertainty.pdf",
+        "figures/09_unknowns_uncertainty.svg"
+      ],
+      "name": "09_unknowns_uncertainty",
+      "source": "tables"
+    },
+    {
+      "caption": "A wrong-class mixture reconstructs the held-out pure observation within the declared 0.01 tolerance of its own-class fit or better. Repeated held-out records are not independent new plants.",
+      "files": [
+        "figures/10_mixture_ambiguity.png",
+        "figures/10_mixture_ambiguity.pdf",
+        "figures/10_mixture_ambiguity.svg"
+      ],
+      "name": "10_mixture_ambiguity",
+      "source": "tables"
+    },
+    {
+      "name": "01_readable_atlas",
+      "caption": "Left: canonical corrected median spectra in unresolved stored units, with atmospheric gaps disconnected. Right: PFT identities within each cohort; repeated identities across years are not new independent plants.",
+      "source": "atlas_curves.csv; canonical class_sample_sizes.csv",
+      "files": [
+        "figures/01_readable_atlas.png",
+        "figures/01_readable_atlas.pdf",
+        "figures/01_readable_atlas.svg"
+      ]
+    },
+    {
+      "name": "00_validation_diagram",
+      "caption": "Conceptual design, not an empirical result. Calibration never trains the base model; final targets never select parameters. Grouped holdouts do not remove all ecological confounding.",
+      "source": "DESIGN.md",
+      "files": [
+        "figures/00_validation_diagram.png",
+        "figures/00_validation_diagram.pdf",
+        "figures/00_validation_diagram.svg"
+      ]
+    }
+  ]
+}

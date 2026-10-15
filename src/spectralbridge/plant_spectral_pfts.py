@@ -550,7 +550,6 @@ def run_pft_spectral_analysis(
             {s: (w, v[frame.source_position.to_numpy()]) for s, (w, v) in data.items()},
         )
     full = index[index.partition == "full"]
-    all_labels = sorted(counts.loc[(counts.scope == "ALL") & counts.eligible, "pft"])
     for scope in ["ALL", *sorted(plants.region.unique())]:
         labels = sorted(counts.loc[(counts.scope == scope) & counts.eligible, "pft"])
         if not labels:

@@ -47,7 +47,7 @@ includes every polygon/year observation; its first two axes explain 70.9% and
 the same observations. Library reflectance remains in stored units because
 absolute scaling is unresolved.*
 
-[Figure methods and panel sources](https://github.com/earthlab/spectralbridge/blob/main/provenance/publication-figures/2026-10-14/FIGURE_SOURCE_AUDIT.md)
+[Open the atlas figure at full resolution](../images/spectral-library/figure-1.png) · [Figure methods and panel sources](https://github.com/earthlab/spectralbridge/blob/main/provenance/publication-figures/2026-10-14/FIGURE_SOURCE_AUDIT.md)
 · [Reproducible Python source](https://github.com/earthlab/spectralbridge/tree/main/examples/publication_figures)
 · [Numerical and visual validation](https://github.com/earthlab/spectralbridge/blob/main/provenance/publication-figures/2026-10-14/FIGURE_VALIDATION.md)
 

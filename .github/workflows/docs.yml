@@ -5,6 +5,11 @@ on:
     branches: [main]
     paths:
       - 'docs/**'
+      - 'examples/publication_figures/**'
+      - 'provenance/sensor-pft-transfer/**'
+      - 'provenance/publication-figures/**'
+      - 'provenance/real-landsat-validation/**'
+      - 'output/pdf/publication_figures/**'
       - 'paper/**'
       - 'src/**'
       - 'scripts/**'
@@ -37,12 +42,13 @@ jobs:
       - run: python -m playwright install --with-deps chromium
       - name: Verify source and generated records
         run: |
+          python scripts/generate_scientific_docs.py --check
           python scripts/generate_ai_transparency.py --check
           python scripts/generate_validation_docs.py --check
           python scripts/generate_supplement_docs.py --check
           python scripts/check_joss_submission.py
           python scripts/check_docs_links.py
-          pytest -q tests/test_joss_submission.py tests/test_supplement_docs.py tests/test_validation_docs.py tests/test_ai_transparency.py
+          pytest -q tests/test_joss_submission.py tests/test_supplement_docs.py tests/test_validation_docs.py tests/test_ai_transparency.py tests/test_scientific_docs_integration.py
       - name: Build and check the website
         run: |
           mkdocs build --strict

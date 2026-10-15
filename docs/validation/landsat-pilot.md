@@ -39,6 +39,8 @@ accepts explicit source paths and times. STAC discovery needs the optional
 
 ![Synthetic OLI and real Landsat imagery plus NIR residual maps and agreement diagnostics for the one R10C pilot.](../images/spectral-library/real-landsat-pilot.png)
 
+[Open the pilot comparison at full resolution](../images/spectral-library/real-landsat-pilot.png)
+
 *The recorded comparison uses a common grid, spatial extent, valid mask and fixed
 0–0.4 RGB stretch. Maps and residuals are empirical; no synthetic landscape is
 invented. [Open the retained comparison and methods](https://github.com/earthlab/spectralbridge/tree/main/provenance/real-landsat-validation/2026-10-14).*

@@ -12,7 +12,7 @@ summarizes all 21 eligible inferred-PFT comparisons; 15 of 16 NEON-supported
 comparisons retain support in synthetic OLI. The final panel uses a separate real
 R10C acquisition pair, not satellite observations of these exact library polygons.*
 
-[Panel sources and statistics](https://github.com/earthlab/spectralbridge/blob/main/provenance/publication-figures/2026-10-14/FIGURE_SOURCE_AUDIT.md)
+[Open the information-retention figure at full resolution](../images/spectral-library/figure-2.png) · [Panel sources and statistics](https://github.com/earthlab/spectralbridge/blob/main/provenance/publication-figures/2026-10-14/FIGURE_SOURCE_AUDIT.md)
 · [Reproducible figure code](https://github.com/earthlab/spectralbridge/tree/main/examples/publication_figures)
 · [Complete sensor analysis](https://github.com/earthlab/spectralbridge/tree/main/provenance/sensor-pft-transfer/2026-10-14)
 

@@ -48,6 +48,7 @@ dependencies = [
 
 [project.optional-dependencies]
 quantile-models = ["xgboost>=2.0,<4"]
+analytics = ["scikit-learn>=1.4,<1.11"]
 tests = [
     "pytest>=7.4,<10",
     "pytest-xdist>=3.5",

@@ -1,0 +1,560 @@
+{
+  "pdf": "output/pdf/spectral_library_analytics/SpectralBridge_Spectral_Library_Analytics_Report.pdf",
+  "pdf_sha256": "4abcb780a5bfe614b76226ab7f6ce6d8280d3942a36c3e5d49bbe07cca91e535",
+  "builder": "provenance/spectral-library-analytics/2026-10-14/build_report.py",
+  "sections": [
+    {
+      "title": "Ecological signal is real. Transfer and inversion are conditional.",
+      "figure": null,
+      "evidence": "ml_generalization.csv; biological_contrasts.csv; sensor_resolution_mixture_results.csv",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/biological_contrasts.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/ml_generalization.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/sensor_resolution_mixture_results.csv"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "Five findings and the decision",
+      "figure": null,
+      "evidence": "readiness_matrix.csv; unknown_material_detection.csv; uncertainty_calibration.csv",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/readiness_matrix.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/uncertainty_calibration.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/unknown_material_detection.csv"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "1 \u00b7 Why this audit follows an information ladder",
+      "figure": "00_validation_diagram",
+      "evidence": "DESIGN.md; REPOSITORY_AUDIT.md; OBSERVATIONAL_STRUCTURE.md",
+      "result_files": [],
+      "figure_files": [
+        "provenance/spectral-library-analytics/2026-10-14/figures/00_validation_diagram.png",
+        "provenance/spectral-library-analytics/2026-10-14/figures/00_validation_diagram.pdf",
+        "provenance/spectral-library-analytics/2026-10-14/figures/00_validation_diagram.svg"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "2 \u00b7 What is in the library?",
+      "figure": "atlas",
+      "evidence": "library_summary.csv; canonical metadata/reference index; material_unique_counts.csv",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/library_summary.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/material_unique_counts.csv"
+      ],
+      "figure_files": [
+        "provenance/spectral-library-analytics/2026-10-14/figures/01_readable_atlas.png",
+        "provenance/spectral-library-analytics/2026-10-14/figures/01_readable_atlas.pdf",
+        "provenance/spectral-library-analytics/2026-10-14/figures/01_readable_atlas.svg"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "3 \u00b7 Do ecological groups actually look different?",
+      "figure": "02_biological",
+      "evidence": "biological_contrasts.csv; original pft-audit and sensor-pft-transfer manifests",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/biological_contrasts.csv"
+      ],
+      "figure_files": [
+        "provenance/sensor-pft-transfer/2026-10-14/figures/C_strong_exemplar_contrasts.png"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "4 \u00b7 Can we recognize a new plant?",
+      "figure": "06_classical_models",
+      "evidence": "ml_generalization.csv; class_predictive_performance.csv; paired_model_differences.csv",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/class_predictive_performance.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/ml_generalization.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/paired_model_differences.csv"
+      ],
+      "figure_files": [
+        "provenance/spectral-library-analytics/2026-10-14/figures/06_classical_models.png",
+        "provenance/spectral-library-analytics/2026-10-14/figures/06_classical_models.pdf",
+        "provenance/spectral-library-analytics/2026-10-14/figures/06_classical_models.svg"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "5 \u00b7 What changes across acquisition, year and site?",
+      "figure": "03_information_ladder",
+      "evidence": "ml_generalization.csv; fold_support.csv; paired_sensor_differences.csv",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/fold_support.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/ml_generalization.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/paired_sensor_differences.csv"
+      ],
+      "figure_files": [
+        "provenance/spectral-library-analytics/2026-10-14/figures/03_information_ladder.png",
+        "provenance/spectral-library-analytics/2026-10-14/figures/03_information_ladder.pdf",
+        "provenance/spectral-library-analytics/2026-10-14/figures/03_information_ladder.svg"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "6 \u00b7 The spectra also encode observational domains",
+      "figure": null,
+      "evidence": "domain_performance.csv; domain memberships/predictions",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/domain_performance.csv"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "7 \u00b7 Where is transferable wavelength information?",
+      "figure": "05_wavelength_stability",
+      "evidence": "wavelength_selection.csv; wavelength_coefficients.csv; original functional localization",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/wavelength_coefficients.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/wavelength_selection.csv"
+      ],
+      "figure_files": [
+        "provenance/spectral-library-analytics/2026-10-14/figures/05_wavelength_stability.png",
+        "provenance/spectral-library-analytics/2026-10-14/figures/05_wavelength_stability.pdf",
+        "provenance/spectral-library-analytics/2026-10-14/figures/05_wavelength_stability.svg"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "8 \u00b7 How much spectral resolution is enough?",
+      "figure": "04_resolution_curve",
+      "evidence": "spectral_resolution_performance.csv; paired_sensor_differences.csv; SENSOR_AUDIT predecessor",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/paired_sensor_differences.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/spectral_resolution_performance.csv"
+      ],
+      "figure_files": [
+        "provenance/spectral-library-analytics/2026-10-14/figures/04_resolution_curve.png",
+        "provenance/spectral-library-analytics/2026-10-14/figures/04_resolution_curve.pdf",
+        "provenance/spectral-library-analytics/2026-10-14/figures/04_resolution_curve.svg"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "9 \u00b7 Does one example describe a class?",
+      "figure": "07_prototype_coverage",
+      "evidence": "prototype_performance.csv; prototype memberships; library_size.csv predecessor; library_size_recovery_summary.csv",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/library_size.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/library_size_recovery_summary.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/prototype_performance.csv"
+      ],
+      "figure_files": [
+        "provenance/spectral-library-analytics/2026-10-14/figures/07_prototype_coverage.png",
+        "provenance/spectral-library-analytics/2026-10-14/figures/07_prototype_coverage.pdf",
+        "provenance/spectral-library-analytics/2026-10-14/figures/07_prototype_coverage.svg"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "10 \u00b7 Can a pure class be mistaken for a mixture?",
+      "figure": "10_mixture_ambiguity",
+      "evidence": "mixture_identifiability.csv; original ambiguity and selector-sensitivity tables",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/mixture_identifiability.csv"
+      ],
+      "figure_files": [
+        "provenance/spectral-library-analytics/2026-10-14/figures/10_mixture_ambiguity.png",
+        "provenance/spectral-library-analytics/2026-10-14/figures/10_mixture_ambiguity.pdf",
+        "provenance/spectral-library-analytics/2026-10-14/figures/10_mixture_ambiguity.svg"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "11 \u00b7 Can known fractions be recovered?",
+      "figure": "08_mixtures_detection",
+      "evidence": "mixture_recovery.csv; sensor_resolution_mixture_results.csv; legacy reproduction manifests",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/mixture_recovery.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/sensor_resolution_mixture_results.csv"
+      ],
+      "figure_files": [
+        "provenance/spectral-library-analytics/2026-10-14/figures/08_mixtures_detection.png",
+        "provenance/spectral-library-analytics/2026-10-14/figures/08_mixtures_detection.pdf",
+        "provenance/spectral-library-analytics/2026-10-14/figures/08_mixtures_detection.svg"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "12 \u00b7 How much must be present to detect it?",
+      "figure": null,
+      "evidence": "detection_limits.csv; original cutoff sensitivity tables",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/detection_limits.csv"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "13 \u00b7 Does the library know when it lacks the answer?",
+      "figure": "09_unknowns_uncertainty",
+      "evidence": "unknown_material_detection.csv; withheld memberships/predictions; earlier unknown residual audit",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/unknown_material_detection.csv"
+      ],
+      "figure_files": [
+        "provenance/spectral-library-analytics/2026-10-14/figures/09_unknowns_uncertainty.png",
+        "provenance/spectral-library-analytics/2026-10-14/figures/09_unknowns_uncertainty.pdf",
+        "provenance/spectral-library-analytics/2026-10-14/figures/09_unknowns_uncertainty.svg"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "14 \u00b7 Are confidence and uncertainty trustworthy?",
+      "figure": null,
+      "evidence": "uncertainty_calibration.csv; class_conformal_coverage.csv; mixture_uncertainty.csv; reliability.csv",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/class_conformal_coverage.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/mixture_uncertainty.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/uncertainty_calibration.csv"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "15 \u00b7 What does real Landsat add?",
+      "figure": "landsat",
+      "evidence": "REAL_LANDSAT_CONTEXT.md; provenance/real-landsat-validation/2026-10-14",
+      "result_files": [],
+      "figure_files": [
+        "docs/images/spectral-library/real-landsat-pilot.png"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "16 \u00b7 Is the library ready for MESMA?",
+      "figure": null,
+      "evidence": "readiness_matrix.csv; MATERIAL_CLASS_AUDIT.md; RECOMMENDATIONS.md",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/readiness_matrix.csv"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "17 \u00b7 The three most valuable new datasets",
+      "figure": null,
+      "evidence": "RECOMMENDATIONS.md; LIMITATIONS.md; readiness_matrix.csv",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/readiness_matrix.csv"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "Methods choices \u00b7 why these tests?",
+      "figure": null,
+      "evidence": "DESIGN.md; LITERATURE_METHODS.md; reusable experimental modules",
+      "result_files": [],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "Model protocol and candidate budgets",
+      "figure": null,
+      "evidence": "manifests/model_protocol.json; per-fit parameter/warning/membership records; DESIGN.md",
+      "result_files": [],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "Methods glossary",
+      "figure": null,
+      "evidence": "Methods implementation and master-table schemas",
+      "result_files": [],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "Reproducibility and statistical scope",
+      "figure": null,
+      "evidence": "manifests/learning_run.json; full_learning_validation.json; report_manifest.json; VALIDATION.md",
+      "result_files": [],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "Detailed geographic evidence \u00b7 inferred PFTs",
+      "figure": null,
+      "evidence": "ml_generalization.csv; class_predictive_performance.csv; fold_support.csv",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/class_predictive_performance.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/fold_support.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/ml_generalization.csv"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "Unknown challenge \u00b7 full-spectrum diagnostic detail",
+      "figure": null,
+      "evidence": "unknown_material_detection.csv",
+      "result_files": [
+        "provenance/spectral-library-analytics/2026-10-14/tables/unknown_material_detection.csv"
+      ],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "Limitations that bound every conclusion",
+      "figure": null,
+      "evidence": "LIMITATIONS.md; all stage and readiness evidence",
+      "result_files": [],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    },
+    {
+      "title": "Primary literature and implementation provenance",
+      "figure": null,
+      "evidence": "LITERATURE_METHODS.md; original audited references",
+      "result_files": [],
+      "analysis_scripts": [
+        "examples/spectral_library_analytics.py",
+        "examples/spectral_library_analytics_results.py",
+        "provenance/spectral-library-analytics/2026-10-14/build_report.py"
+      ]
+    }
+  ],
+  "table_hashes": {
+    "provenance/spectral-library-analytics/2026-10-14/tables/atlas_curves.csv": "c530e9759e3c1e0c220cfe3534c937a02ae7f38cf8ba9d9d14e9364305f5c9e4",
+    "provenance/spectral-library-analytics/2026-10-14/tables/biological_contrasts.csv": "fcc873d77cf67eba27246231f97be4e0b36833511eeb6f8eebafb7696d9d31f4",
+    "provenance/spectral-library-analytics/2026-10-14/tables/class_conformal_coverage.csv": "1df75cb688222cd6ced4c2656e6657d5db9712a62dc352d686a126135b2799bf",
+    "provenance/spectral-library-analytics/2026-10-14/tables/class_predictive_performance.csv": "81e9266b21b609992333e6b9f8e4f34d546d8894e307bd7d44b0b9464ac3c2e0",
+    "provenance/spectral-library-analytics/2026-10-14/tables/class_prototype_coverage.csv": "d3be24e1c823dba0000fabad2c1cacfe8a4675edf9f3932749326903e076ba18",
+    "provenance/spectral-library-analytics/2026-10-14/tables/class_sample_sizes.csv": "1750759888b266b445c1eb5d8b1559cc44f0f85708f9e768c8dd0bbbde1e337d",
+    "provenance/spectral-library-analytics/2026-10-14/tables/cover_category_inventory.csv": "e9b216f3a5fac330657e1c8e7075d475d1d565f75e598a1c502277c38ed5021c",
+    "provenance/spectral-library-analytics/2026-10-14/tables/cross_site_library_coverage.csv": "d32a712ae5c6ce19097860de9af33dfc597b8457b8d8373fcf97e914c6fc3441",
+    "provenance/spectral-library-analytics/2026-10-14/tables/detection_limits.csv": "7a4695f21ee7da962860d5ef4790ab297970b23918bfd4227ffce2e12016e75b",
+    "provenance/spectral-library-analytics/2026-10-14/tables/domain_performance.csv": "967534e66eab3f88bdf4908ffc4178e3f0d1756afe9b7f64a116bae56a1165b0",
+    "provenance/spectral-library-analytics/2026-10-14/tables/endmember_accumulation.csv": "4163bcc6f4f5405eed493122ed18fd4859828ce3d9fd65f9372e451832f546a7",
+    "provenance/spectral-library-analytics/2026-10-14/tables/fold_support.csv": "344259e01291f7a53667e386bbabcb66ec8e2ba23b44139d8b1f705eabe30354",
+    "provenance/spectral-library-analytics/2026-10-14/tables/hierarchical_dispersion.csv": "c9c64efcdc8f358d0db21ee93a7c1130ea76bb5d54d9af913ed6defcc36ee37f",
+    "provenance/spectral-library-analytics/2026-10-14/tables/library_size.csv": "c22eb4b4d05152c5789b0c7f49f7bbfd8fd8b4c93d702c0d1f4b6641c99eb3e1",
+    "provenance/spectral-library-analytics/2026-10-14/tables/library_size_recovery_summary.csv": "5682cd4729bd1fc0637ab998d450f7ae2d5d115a9d69961a989f2e9060ba6239",
+    "provenance/spectral-library-analytics/2026-10-14/tables/library_summary.csv": "e33e7765755baa6c356f292940eebd423f37e852fbb99d834826610d6e9143c3",
+    "provenance/spectral-library-analytics/2026-10-14/tables/material_unique_counts.csv": "f798dc474df95b2709279d32d7adbfff6fea7adadb0fc66ce2f2db436581fb0c",
+    "provenance/spectral-library-analytics/2026-10-14/tables/mixture_identifiability.csv": "178cd0b8793ca5aec6236af2072035d66f24f3569188b895915b6570645c8925",
+    "provenance/spectral-library-analytics/2026-10-14/tables/mixture_recovery.csv": "a937300714f4da5e63cfa577458a3fb90c7cdb879ba0d235e181415ab2ebb82c",
+    "provenance/spectral-library-analytics/2026-10-14/tables/mixture_uncertainty.csv": "852cf3813f41867b67afcc3be5bc58b5cb81d527059378cbae9fb9892c5940cd",
+    "provenance/spectral-library-analytics/2026-10-14/tables/ml_generalization.csv": "99111d04b1bcd044bc9fa1f0a0dff6bf6d517cbbf2300956250a6c7a727a33c4",
+    "provenance/spectral-library-analytics/2026-10-14/tables/paired_model_differences.csv": "62f96d2b975c6f1a256db3aa78359bc03c1f34cea09892118655788986c527f1",
+    "provenance/spectral-library-analytics/2026-10-14/tables/paired_sensor_differences.csv": "3c84da791a60cd3ee8addbe60287e72ae729bf05234614173a3bd53643d34e60",
+    "provenance/spectral-library-analytics/2026-10-14/tables/primary_learning_memberships.csv": "be9f5f29c429e16957c272be16171882084f21969cc8febc2e2eca02b29309c9",
+    "provenance/spectral-library-analytics/2026-10-14/tables/prototype_performance.csv": "ce1b923f18b2b9742462ce396e6527e10fdbded0a0227aa285f4b966f37e64a4",
+    "provenance/spectral-library-analytics/2026-10-14/tables/readiness_matrix.csv": "101565856e3e6af4a7381194f03bc4f78afd5921b752bf48bcf432fca53d9ba5",
+    "provenance/spectral-library-analytics/2026-10-14/tables/real_landsat_flight_metrics.csv": "c4b8fac93b21fad067d4b50be2cce8a217c3350152cca28138cfa9c7f0522e32",
+    "provenance/spectral-library-analytics/2026-10-14/tables/selected_mixture_recovery.csv": "2cd7020da560da19c60383859d7cd8aa3b738d9132cf76e5e912fa90b9ac1572",
+    "provenance/spectral-library-analytics/2026-10-14/tables/sensor_resolution_mixture_results.csv": "e6a8464f226e07fe1659617cddf6bfba387c4d5f7d52bca10ec4e4a2a26c37b8",
+    "provenance/spectral-library-analytics/2026-10-14/tables/spectral_resolution_performance.csv": "a6b7804c0e0e10218eaaf48f9a22f358f690bfefd9897c5d372183605d51e80b",
+    "provenance/spectral-library-analytics/2026-10-14/tables/uncertainty_calibration.csv": "99111d04b1bcd044bc9fa1f0a0dff6bf6d517cbbf2300956250a6c7a727a33c4",
+    "provenance/spectral-library-analytics/2026-10-14/tables/unknown_material_detection.csv": "dc4f541f58171846d3fccdd23ec60b016548dcfa37c50236e03e945337b78818",
+    "provenance/spectral-library-analytics/2026-10-14/tables/wavelength_coefficients.csv": "1e108d86ca8c7eb9b5fde368402d1e755f8961747a69553d3a2deee4fc00aff0",
+    "provenance/spectral-library-analytics/2026-10-14/tables/wavelength_selection.csv": "082aa18365261ef2dd57b7c849aa87e8ce5fd25c97b9e64847fe5d3e42ea156b"
+  },
+  "figure_definitions": [
+    {
+      "caption": "Logistic classification by holdout and representation. Dots are eligible folds; bars are medians, not confidence intervals. Support and populations differ across holdout types; this is not a causal loss decomposition.",
+      "files": [
+        "figures/03_information_ladder.png",
+        "figures/03_information_ladder.pdf",
+        "figures/03_information_ladder.svg"
+      ],
+      "name": "03_information_ladder",
+      "source": "tables"
+    },
+    {
+      "caption": "Training-confined coordinate selection; full NEON and OLI are distinct response representations. Points summarize different eligible folds; inspect paired differences for conditional intervals.",
+      "files": [
+        "figures/04_resolution_curve.png",
+        "figures/04_resolution_curve.pdf",
+        "figures/04_resolution_curve.svg"
+      ],
+      "name": "04_resolution_curve",
+      "source": "tables"
+    },
+    {
+      "caption": "Frequency of selection among twenty proper-training F-ranked coordinates. Ranking is exploratory; correlated adjacent coordinates can substitute. Site stability uses only the observed holdout sites.",
+      "files": [
+        "figures/05_wavelength_stability.png",
+        "figures/05_wavelength_stability.pdf",
+        "figures/05_wavelength_stability.svg"
+      ],
+      "name": "05_wavelength_stability",
+      "source": "tables"
+    },
+    {
+      "caption": "All predeclared models; bars are means of plant folds, dots individual folds. No model was selected using these test scores.",
+      "files": [
+        "figures/06_classical_models.png",
+        "figures/06_classical_models.pdf",
+        "figures/06_classical_models.svg"
+      ],
+      "name": "06_classical_models",
+      "source": "tables"
+    },
+    {
+      "caption": "Proper-training representatives in training-standardized coordinate space. Unsupported sizes are omitted. Mean/median are synthetic centers; medoids/diversity are observed plants. More representatives are not a purity or mixture-identifiability certificate.",
+      "files": [
+        "figures/07_prototype_coverage.png",
+        "figures/07_prototype_coverage.pdf",
+        "figures/07_prototype_coverage.svg"
+      ],
+      "name": "07_prototype_coverage",
+      "source": "tables"
+    },
+    {
+      "caption": "Identical saved parents, fractions and EAR candidate identities. Left averages class/fold errors equally. Right frequencies condition on a few repeated parent trajectories; they are not population detection limits. Positive detection at zero fraction is false detection.",
+      "files": [
+        "figures/08_mixtures_detection.png",
+        "figures/08_mixtures_detection.pdf",
+        "figures/08_mixtures_detection.svg"
+      ],
+      "name": "08_mixtures_detection",
+      "source": "tables"
+    },
+    {
+      "caption": "Left: mean withheld-class diagnostics at independent known-calibration thresholds; class prevalence changes precision and AP. Right: raw-score group-conformal empirical coverage versus set size, not a domain-shift guarantee.",
+      "files": [
+        "figures/09_unknowns_uncertainty.png",
+        "figures/09_unknowns_uncertainty.pdf",
+        "figures/09_unknowns_uncertainty.svg"
+      ],
+      "name": "09_unknowns_uncertainty",
+      "source": "tables"
+    },
+    {
+      "caption": "A wrong-class mixture reconstructs the held-out pure observation within the declared 0.01 tolerance of its own-class fit or better. Repeated held-out records are not independent new plants.",
+      "files": [
+        "figures/10_mixture_ambiguity.png",
+        "figures/10_mixture_ambiguity.pdf",
+        "figures/10_mixture_ambiguity.svg"
+      ],
+      "name": "10_mixture_ambiguity",
+      "source": "tables"
+    },
+    {
+      "name": "01_readable_atlas",
+      "caption": "Left: canonical corrected median spectra in unresolved stored units, with atmospheric gaps disconnected. Right: PFT identities within each cohort; repeated identities across years are not new independent plants.",
+      "source": "atlas_curves.csv; canonical class_sample_sizes.csv",
+      "files": [
+        "figures/01_readable_atlas.png",
+        "figures/01_readable_atlas.pdf",
+        "figures/01_readable_atlas.svg"
+      ]
+    },
+    {
+      "name": "00_validation_diagram",
+      "caption": "Conceptual design, not an empirical result. Calibration never trains the base model; final targets never select parameters. Grouped holdouts do not remove all ecological confounding.",
+      "source": "DESIGN.md",
+      "files": [
+        "figures/00_validation_diagram.png",
+        "figures/00_validation_diagram.pdf",
+        "figures/00_validation_diagram.svg"
+      ]
+    }
+  ],
+  "editable_source": "provenance/spectral-library-analytics/2026-10-14/report_source.json",
+  "original_source": {
+    "path": "Aug_2026_all_polygons_merged_pixel_extraction.parquet",
+    "sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978"
+  },
+  "analysis_model_index": "provenance/spectral-library-analytics/2026-10-14/models/model_index.csv"
+}

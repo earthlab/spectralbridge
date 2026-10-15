@@ -29721,3 +29721,2207 @@ Do not simply say "all tests pass."
 
 Tell me whether the documentation, software, tests and scientific claims agree with one another.
 ```
+
+## 2026-10-14 - Spectral-library analytics audit and human report
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+You are working in the current earthlab/spectralbridge repository.
+
+I want you to conduct a comprehensive, publication-quality ANALYTICS AUDIT OF THE SPECTRAL LIBRARY.
+
+This is an end-to-end scientific analysis.
+
+The goal is NOT to maximize machine-learning accuracy, prove that MESMA works, or run every available algorithm.
+
+The goal is to answer:
+
+"What ecological information is contained in the SpectralBridge spectral library, how transferable is that information, how much survives sensor reduction and spectral mixing, and under what conditions can we reliably recover it?"
+
+The analysis should integrate:
+
+1. spectral-library characterization
+2. existing biological/PFT analyses
+3. machine-learning generalization
+4. wavelength-information analysis
+5. endmember/library analysis
+6. mixture identifiability
+7. MESMA/unmixing
+8. detection limits
+9. uncertainty
+10. unknown-material rejection
+11. sensor-resolution transfer
+12. existing real-Landsat validation
+
+The FINAL PRODUCT must include a polished PDF report written for the HUMAN SCIENCE TEAM.
+
+That report is a major deliverable.
+
+It must explain:
+
+- what we tested
+- why we tested it
+- why each method was chosen
+- what alternatives exist
+- what the results mean biologically
+- what the results do NOT establish
+- where the spectral library works
+- where it fails
+- what information is lost across plants, years, sites, sensors and mixtures
+- whether the library is ready for MESMA
+- what should happen next
+
+The report should be understandable to ecologists, remote-sensing scientists and project scientists who are NOT machine-learning specialists.
+
+============================================================
+CORE SCIENTIFIC PRINCIPLE
+============================================================
+
+Organize the entire analysis around an INFORMATION-RETENTION LADDER:
+
+TOTAL OBSERVED SPECTRAL INFORMATION
+        ↓ new individual
+INDIVIDUAL-TRANSFERABLE INFORMATION
+        ↓ new acquisition
+ACQUISITION-TRANSFERABLE INFORMATION
+        ↓ new year
+TEMPORALLY TRANSFERABLE INFORMATION
+        ↓ new site
+GEOGRAPHICALLY TRANSFERABLE INFORMATION
+        ↓ spectral reduction
+SATELLITE-OBSERVABLE INFORMATION
+        ↓ spectral mixing
+COMPOSITIONALLY RECOVERABLE INFORMATION
+        ↓ unknown material / uncertainty
+DEFENSIBLE ECOLOGICAL INFERENCE
+
+Each stage asks a harder question.
+
+Do not treat PFT statistics, ML, MESMA and Landsat validation as disconnected projects.
+
+They are different tests of how much ecological information survives progressively harder transformations.
+
+============================================================
+0. AUDIT EVERYTHING BEFORE RUNNING NEW ANALYSES
+============================================================
+
+Inspect the CURRENT repository.
+
+Audit:
+
+src/spectralbridge/
+tests/
+examples/
+docs/
+provenance/
+output/
+pyproject.toml
+README.md
+mkdocs.yml
+publication-figure work
+spectral-library data loaders
+current merged spectral-library products
+
+Find all existing work involving:
+
+spectral atlas
+spectral quantiles
+spectral regions
+plant/polygon aggregation
+researcher cover categories
+species
+inferred PFT
+PFT statistics
+PFT methodological audit
+sensor-PFT transfer
+synthetic OLI
+MicaSense audit
+real Landsat validation
+publication figures
+MESMA readiness
+endmember selection
+mixture analysis
+unmixing
+ML if any has already been implemented
+
+DO NOT duplicate validated analyses.
+
+Reuse canonical results.
+
+Create:
+
+provenance/spectral-library-analytics/2026-10-14/REPOSITORY_AUDIT.md
+
+For every relevant analysis identify:
+
+implementation
+input data
+sample unit
+output
+tests
+provenance
+scientific status
+whether it needs rerunning
+whether it can simply be reused
+
+============================================================
+1. FREEZE THE SCIENTIFIC QUESTIONS
+============================================================
+
+Before analysis, create:
+
+DESIGN.md
+
+State the primary questions.
+
+Q1.
+What spectral and ecological variation exists in the library?
+
+Q2.
+Which biological groups have repeatable spectral differences?
+
+Q3.
+Can ecological identity be predicted for observations not used during training?
+
+Q4.
+How does predictive information degrade across:
+
+plant
+acquisition
+year
+site
+sensor?
+
+Q5.
+Which wavelengths contain transferable ecological information?
+
+Q6.
+How much spectral resolution is actually necessary?
+
+Q7.
+Does one representative spectrum adequately describe an ecological/material class?
+
+Q8.
+Can candidate endmembers be uniquely distinguished from mixtures of other endmembers?
+
+Q9.
+Can known mixture fractions be recovered?
+
+Q10.
+What abundance is necessary before a material can be reliably detected?
+
+Q11.
+How much mixture information is lost when hyperspectral data are reduced to OLI-like bands?
+
+Q12.
+Can the system recognize when an observation is outside the spectral library's domain?
+
+Q13.
+Are uncertainty estimates calibrated?
+
+Q14.
+What does the existing real-Landsat comparison tell us about translation from synthetic to actual satellite observations?
+
+Q15.
+For which ecological/material classes is the library currently ready for MESMA?
+
+Do not modify these questions post hoc merely because results are inconvenient.
+
+============================================================
+2. DEFINE THE OBSERVATIONAL UNIT
+============================================================
+
+This is critical.
+
+Audit the exact hierarchy:
+
+pixels
+polygon/plant
+polygon/year
+flight/acquisition
+site
+year
+species
+researcher cover_category
+inferred PFT
+
+For inferential and ML analyses, do not treat repeated pixels from one biological unit as independent biological replicates.
+
+Use the existing validated polygon/plant aggregation strategy unless there is a compelling documented reason not to.
+
+Document:
+
+what constitutes an independent observation
+
+and
+
+what constitutes repeated measurement.
+
+Create:
+
+OBSERVATIONAL_STRUCTURE.md
+
+============================================================
+3. BUILD ONE CANONICAL ANALYTICS TABLE
+============================================================
+
+Where feasible, construct a canonical analysis index linking each biological observation to:
+
+stable identity
+year
+site
+flight/acquisition
+species
+researcher cover category
+inferred PFT
+wavelength-grid identity
+corrected NEON spectrum
+available synthetic sensor representations
+quality metadata
+provenance identifiers
+
+Do not create a giant duplicated spectral matrix unnecessarily.
+
+Use references/keys where appropriate.
+
+The canonical index should make it possible to use IDENTICAL biological observations across experiments.
+
+This is crucial for sensor comparisons.
+
+============================================================
+4. STAGE 1 — CHARACTERIZE THE LIBRARY
+============================================================
+
+Question:
+
+"What do we actually have?"
+
+Quantify:
+
+number of independent polygon/plant identities
+polygon/year observations
+pixels where relevant
+sites
+years
+flights
+species
+researcher categories
+inferred PFTs
+unassigned observations
+spectral grids
+wavelength coverage
+sensor representations
+
+Characterize:
+
+within-individual variation
+within-category variation
+between-category variation
+site variation
+year variation
+flight variation
+
+Preserve atmospheric gaps.
+
+Do NOT interpolate across excluded spectral regions.
+
+Do NOT treat the union of mixed wavelength grids as one universally complete spectrum.
+
+Create a spectral atlas.
+
+Create sampling/coverage tables.
+
+Create an interpretable spectral morphospace using PCA as the primary baseline.
+
+PCA must be performed on scientifically valid common/harmonized support.
+
+Record explained variance.
+
+Do not interpret PCA clustering as inferential evidence.
+
+============================================================
+5. STAGE 2 — BIOLOGICAL DIFFERENTIATION
+============================================================
+
+Question:
+
+"Which ecological distinctions have spectral support?"
+
+Reuse the validated existing functional inference wherever possible.
+
+The existing framework may include:
+
+maximum standardized contrast
+wavelength-integrated contrast
+NPC combination
+blocked permutations
+multiplicity adjustment
+rank sensitivity
+energy sensitivity
+FPCA sensitivity
+
+Use the audited primary method.
+
+Do not replace it with ML.
+
+ML comes later.
+
+Summarize:
+
+effect magnitude
+direction
+spectral localization
+cross-site consistency
+cross-year consistency
+acquisition-matched consistency
+
+Identify:
+
+strong contrasts
+weak contrasts
+ambiguous contrasts
+
+Use strong and weak contrasts as scientifically meaningful controls in later stages.
+
+Preserve caveats concerning:
+
+species/PFT aliasing
+exchangeability
+sampling imbalance
+observational association
+multiplicity
+
+============================================================
+6. STAGE 3 — MACHINE-LEARNING GENERALIZATION
+============================================================
+
+Question:
+
+"Can the spectral information identify ecology it has not already seen?"
+
+This is NOT a leaderboard exercise.
+
+Begin with interpretable/simple models.
+
+Primary model ladder:
+
+1. regularized multinomial logistic regression
+2. PLS-DA or equivalent defensible PLS classification
+3. RBF SVM
+4. Random Forest or gradient-boosted trees
+
+Do not add deep learning yet.
+
+Deep learning must earn its inclusion by demonstrating a scientifically meaningful improvement later.
+
+Use appropriate class weighting where justified.
+
+Report at minimum:
+
+balanced accuracy
+macro F1
+class-specific precision
+class-specific recall
+confusion matrix
+calibration
+sample counts
+
+Do not emphasize ordinary accuracy when classes are imbalanced.
+
+============================================================
+7. THE HOLDOUT LADDER
+============================================================
+
+Run increasingly difficult validation.
+
+Where scientifically and statistically possible:
+
+A. held-out polygon/plant
+
+B. held-out acquisition/flight
+
+C. held-out year
+
+D. held-out site
+
+Use group-aware splitting.
+
+All of the following MUST occur inside the training fold:
+
+scaling
+PCA
+feature selection
+wavelength selection
+hyperparameter tuning
+prototype selection
+endmember selection
+representation learning
+
+No leakage.
+
+If a class is absent from training but present in test, do not count it as ordinary classification failure.
+
+That becomes an OPEN-SET test.
+
+Record which classes can actually be evaluated under each holdout design.
+
+============================================================
+8. BASELINES
+============================================================
+
+Every ML result requires meaningful baselines.
+
+Include:
+
+majority-class baseline
+stratified/random baseline where useful
+simple nearest-centroid or spectral-angle baseline
+
+A complicated model is not scientifically interesting unless it improves upon a simple defensible baseline.
+
+============================================================
+9. STAGE 4 — WHERE IS THE INFORMATION?
+============================================================
+
+Question:
+
+"Which wavelengths carry ecological information that transfers?"
+
+Compare several approaches.
+
+Potential methods:
+
+functional spectral localization from Stage 2
+PLS loadings
+sparse logistic regression
+permutation importance
+contiguous wavelength selection
+
+Do NOT rely on Random Forest feature importance alone.
+
+Perform feature selection INSIDE training folds.
+
+Record wavelength-selection frequency across folds.
+
+Ask:
+
+Which wavelengths repeatedly survive?
+
+Which are site-specific?
+
+Which are class-specific?
+
+Which correspond to existing functional spectral evidence?
+
+============================================================
+10. INFORMATION-RETENTION CURVE
+============================================================
+
+Create a controlled spectral-resolution experiment.
+
+Start with full corrected NEON hyperspectral information.
+
+Then evaluate progressively reduced representations.
+
+For example:
+
+full spectrum
+100 selected bands
+50 bands
+20 bands
+10 bands
+7 optimally selected bands
+synthetic OLI 7 bands
+
+Exact numbers may change if scientifically or computationally justified.
+
+IMPORTANT:
+
+compare OLI against an equally sized optimally selected 7-band representation.
+
+This answers:
+
+"Is OLI limited because it has only seven bands, or because of where those bands are?"
+
+That is an important scientific result.
+
+Plot predictive performance against number of bands.
+
+Repeat under the strongest available generalization test, especially leave-site-out where possible.
+
+============================================================
+11. SENSOR INFORMATION LOSS
+============================================================
+
+Repeat key ML tasks using identical biological observations represented as:
+
+corrected NEON hyperspectral
+
+selected-band representations
+
+synthetic OLI
+
+Do not change sample membership between sensor representations when making direct information-retention comparisons.
+
+Quantify:
+
+absolute performance loss
+relative performance retention
+class-specific loss
+confusion changes
+calibration changes
+
+Use bootstrap uncertainty at the appropriate independent unit.
+
+============================================================
+12. OPTIONAL REPRESENTATION LEARNING GATE
+============================================================
+
+Only after classical ML results exist, determine whether nonlinear representation learning is justified.
+
+Compare:
+
+PCA
+
+against perhaps:
+
+small autoencoder
+contrastive spectral representation
+
+DO NOT immediately implement a transformer.
+
+Any learned representation must be evaluated using the same grouped holdouts.
+
+Ask:
+
+Does the representation improve held-out-site biological prediction?
+
+Does it reduce site/acquisition predictability while retaining ecological predictability?
+
+Does it improve mixture recovery?
+
+If not, retain PCA/simple models.
+
+Document negative results.
+
+============================================================
+13. DOMAIN-STRUCTURE ANALYSIS
+============================================================
+
+Train diagnostic models to predict:
+
+site
+flight/acquisition
+year
+
+from spectra.
+
+This is NOT because site prediction is an ecological goal.
+
+It measures how strongly observational/domain information is encoded in spectra.
+
+Compare this with ecological prediction.
+
+Interpret carefully.
+
+High site predictability may reflect:
+
+environment
+species composition
+phenology
+measurement conditions
+real geographic biology
+
+It does NOT automatically imply instrumental confounding.
+
+Use this analysis diagnostically.
+
+============================================================
+14. STAGE 5 — CLASS REPRESENTATION
+============================================================
+
+Question:
+
+"Does one spectrum adequately represent a class?"
+
+Compare:
+
+class mean
+class median
+class medoid
+multiple medoids
+cluster prototypes
+diversity-selected prototypes
+
+and where implemented:
+
+EAR
+MASA
+CoB
+IES
+
+Potentially compare ML-derived multi-prototypes later.
+
+For each ecological/material class, estimate how reconstruction/generalization changes as the number of prototypes increases.
+
+Example:
+
+1
+2
+5
+10
+20
+50
+
+where supported.
+
+Generate:
+
+performance versus library-size curves.
+
+Do not assume more endmembers are always better.
+
+============================================================
+15. MATERIAL-CLASS AUDIT
+============================================================
+
+Before MESMA, audit whether the biological labels correspond to defensible physical endmember classes.
+
+Explicitly distinguish:
+
+species
+
+inferred PFT
+
+researcher cover_category
+
+physical material/endmember class
+
+Inventory evidence for:
+
+green vegetation
+deciduous vegetation
+evergreen vegetation
+herbaceous vegetation
+woody shrub
+non-photosynthetic vegetation
+dead vegetation
+litter
+soil
+rock
+water
+snow
+shadow
+woody material
+other backgrounds
+
+Do not assume:
+
+"Non-vegetated & dead"
+
+is one physically coherent endmember class.
+
+Create:
+
+MATERIAL_CLASS_AUDIT.md
+
+============================================================
+16. STAGE 6 — MIXTURE IDENTIFIABILITY
+============================================================
+
+This is mandatory before claiming MESMA readiness.
+
+Question:
+
+"Can one material spectrum be reproduced by mixtures of other materials?"
+
+For held-out spectra from each class:
+
+attempt constrained reconstruction using OTHER classes.
+
+Test:
+
+2-component mixtures
+3-component mixtures
+higher complexity only if justified
+
+Constraints should include where appropriate:
+
+fractions >= 0
+sum fractions = 1
+
+Handle shade explicitly and document the model.
+
+Record:
+
+correct-class reconstruction error
+best incorrect reconstruction error
+margin between correct and incorrect models
+number of near-equivalent models
+composition of confusing mixtures
+fraction stability
+sensitivity to noise
+
+Create:
+
+MIXTURE_AMBIGUITY_MATRIX
+
+This is one of the most scientifically important analyses.
+
+Significant spectral differences do NOT guarantee mixture identifiability.
+
+============================================================
+17. STAGE 7 — CONTROLLED MIXTURE RECOVERY
+============================================================
+
+Question:
+
+"If we know the true fractions, can we recover them?"
+
+Construct synthetic mixtures from REAL held-out source spectra.
+
+Do not generate and test using the same source spectra.
+
+Use strict train/test separation.
+
+Start with 2-component mixtures.
+
+Use fractions such as:
+
+0/100
+5/95
+10/90
+20/80
+30/70
+40/60
+50/50
+
+and symmetric counterparts.
+
+Then test 3-component mixtures.
+
+Use realistic noise based on empirical spectral variability where defensible.
+
+Do not make noise assumptions silently.
+
+============================================================
+18. UNMIXING METHODS
+============================================================
+
+Primary methods:
+
+FCLS
+MESMA
+
+Then, if justified:
+
+sparse library unmixing
+variability-aware method
+
+Only after these baselines:
+
+physics-constrained autoencoder or similar ML unmixing benchmark
+
+The ML method must respect physically meaningful abundance constraints where appropriate.
+
+Do not let a neural model win solely through unconstrained reconstruction.
+
+============================================================
+19. MIXTURE METRICS
+============================================================
+
+Measure:
+
+abundance MAE
+abundance RMSE
+bias
+class-specific fraction error
+false-positive detection
+false-negative detection
+material detection probability
+model-selection accuracy
+spectral reconstruction RMSE
+spectral angle
+fraction stability
+
+Do NOT use reconstruction error alone.
+
+A spectrally excellent reconstruction can have incorrect fractions.
+
+============================================================
+20. DETECTION LIMITS
+============================================================
+
+For each material/class estimate:
+
+P(detect | true fraction)
+
+Generate detection curves.
+
+Where supported, estimate the fraction required for:
+
+50% detection
+80% detection
+95% detection
+
+Do not extrapolate beyond supported data.
+
+Predeclare the detection rule.
+
+Compare detection limits between:
+
+NEON hyperspectral
+
+selected bands
+
+synthetic OLI
+
+This directly quantifies the ecological cost of spectral reduction.
+
+============================================================
+21. STAGE 8 — UNKNOWN-MATERIAL CHALLENGE
+============================================================
+
+Question:
+
+"Does the system know when the library does not contain the answer?"
+
+Hold out an ENTIRE material/class from the library.
+
+Then present its spectra to the system.
+
+Compare unknown-material detection using:
+
+spectral angle / nearest-library distance
+PCA-space or latent-space distance
+Mahalanobis distance if appropriate
+classifier confidence
+conformal prediction
+MESMA residual
+MESMA ambiguity
+fraction instability
+
+Potentially test Isolation Forest or one-class methods if justified.
+
+The desired behavior is:
+
+"NO ADEQUATE LIBRARY MODEL"
+
+rather than forced assignment.
+
+Measure:
+
+unknown detection recall
+known-class false rejection
+precision
+recall
+PR-AUC where appropriate
+
+============================================================
+22. STAGE 9 — UNCERTAINTY
+============================================================
+
+Evaluate whether predictive uncertainty means anything.
+
+For classification:
+
+probability calibration
+reliability curves
+Brier score
+expected calibration error where appropriate
+
+Evaluate conformal prediction if scientifically defensible.
+
+Report:
+
+coverage
+prediction-set size
+class-specific coverage
+coverage under domain shift
+
+Do not claim conformal coverage guarantees across geographic/sensor shift unless assumptions support them.
+
+For mixture fractions:
+
+use bootstrap / Monte Carlo / ensemble uncertainty where justified.
+
+Evaluate whether nominal intervals have reasonable empirical coverage in synthetic mixtures.
+
+============================================================
+23. STAGE 10 — SENSOR-RESOLUTION EXPERIMENT
+============================================================
+
+Repeat the most important mixture experiments using:
+
+full NEON
+
+selected-band representations
+
+synthetic OLI
+
+Keep:
+
+source spectra
+true fractions
+holdout structure
+
+identical.
+
+Measure how spectral reduction changes:
+
+fraction RMSE
+detection limits
+mixture ambiguity
+unknown-material detection
+uncertainty
+
+This is the mixture counterpart of the ML information-retention curve.
+
+============================================================
+24. CONNECT TO REAL LANDSAT
+============================================================
+
+Reuse existing real-Landsat validation.
+
+Do NOT claim ecological abundance validation from real Landsat unless independent ecological fraction truth exists.
+
+Use real Landsat to establish:
+
+radiometric agreement
+spectral agreement
+spatial-support issues
+heterogeneity dependence
+sensor mismatch
+empirical residual structure
+
+If scientifically defensible, use the observed synthetic-vs-real Landsat residual distribution as a SENSITIVITY ANALYSIS for synthetic OLI mixture experiments.
+
+For example:
+
+synthetic OLI mixtures
++
+empirical real-Landsat-like perturbation
+
+But clearly label this as a sensitivity experiment.
+
+It is not independent abundance validation.
+
+============================================================
+25. COMMON EXPERIMENTAL AXES
+============================================================
+
+Where possible, organize every analysis around the same axes:
+
+BIOLOGICAL INDEPENDENCE
+
+plant
+→ acquisition
+→ year
+→ site
+→ unknown material
+
+SPECTRAL INFORMATION
+
+full NEON
+→ selected wavelengths
+→ OLI
+
+MIXTURE COMPLEXITY
+
+pure
+→ 2-component
+→ 3-component
+
+This common design is important.
+
+It lets the human science team understand the entire analysis as one information-loss experiment.
+
+============================================================
+26. DEEP LEARNING STOP RULE
+============================================================
+
+Do not use deep learning because it is fashionable.
+
+Only proceed to neural models if:
+
+1. classical models establish meaningful signal
+2. sample size is adequate
+3. leakage-safe evaluation is possible
+4. nonlinear models answer a scientific question
+5. they materially improve held-out generalization, mixture recovery, or uncertainty
+
+If not:
+
+document that simpler models are sufficient.
+
+That is a valid scientific result.
+
+============================================================
+27. STATISTICAL UNCERTAINTY
+============================================================
+
+Use uncertainty intervals throughout.
+
+Respect the independent unit.
+
+Do not bootstrap pixels as though they were independent plants.
+
+Use:
+
+group bootstrap
+site bootstrap where possible
+flight/acquisition bootstrap
+Monte Carlo uncertainty
+
+as scientifically appropriate.
+
+Be explicit when the number of independent sites is too small for strong geographic uncertainty estimation.
+
+============================================================
+28. MULTIPLE TESTING
+============================================================
+
+Where inferential families are created, predefine them.
+
+Use the existing multiplicity framework where appropriate.
+
+Do not treat hundreds of exploratory ML feature importances as independent confirmatory tests.
+
+Clearly distinguish:
+
+confirmatory inference
+
+from
+
+predictive/exploratory analysis.
+
+============================================================
+29. COMPUTATIONAL STRATEGY
+============================================================
+
+Estimate computational cost before large jobs.
+
+Use:
+
+vectorization
+chunking
+parallelization
+cached intermediate results
+restartable checkpoints
+
+Avoid enormous combinatorial MESMA searches when pruning or coarse-to-fine search can be validated.
+
+For optimized algorithms:
+
+verify against exhaustive results on small examples.
+
+============================================================
+30. TEST SUITE
+============================================================
+
+All reusable functionality created here requires tests.
+
+At minimum test:
+
+group-aware splits
+no plant leakage
+no site leakage
+no year leakage
+training-only preprocessing
+training-only wavelength selection
+training-only endmember selection
+metric calculations
+balanced accuracy
+macro F1
+calibration
+spectral angle
+PCA handling
+wavelength selection
+prototype selection
+FCLS constraints
+known mixture recovery
+MESMA candidate selection
+mixture ambiguity
+detection curves
+false positives
+false negatives
+unknown-material challenge
+conformal coverage calculation
+sensor-reduction consistency
+random-seed reproducibility
+atmospheric gaps
+mixed wavelength grids
+
+Create deliberate leakage tests that FAIL when leakage is introduced.
+
+============================================================
+31. SCIENTIFIC REGRESSION TESTS
+============================================================
+
+Protect important established findings.
+
+Use small canonical fixtures.
+
+Examples:
+
+strong known PFT contrast remains strong
+weak known contrast remains weak
+sensor-transfer memberships remain identical
+known OLI information-retention summaries reproduce
+real-Landsat pilot metrics reproduce within tolerance
+
+Do not freeze every floating-point output.
+
+Protect scientifically meaningful quantities.
+
+============================================================
+32. NEGATIVE RESULTS
+============================================================
+
+Negative results are part of the analysis.
+
+Record:
+
+models that do not improve generalization
+wavelength-selection methods that are unstable
+classes that cannot be distinguished
+materials that cannot be uniquely unmixed
+sites that fail transfer
+sensor reductions that destroy information
+uncertainty methods that are poorly calibrated
+unknown materials that are confidently misclassified
+
+Do not hide these.
+
+They define the library's domain of validity.
+
+============================================================
+33. OUTPUT STRUCTURE
+============================================================
+
+Create:
+
+provenance/spectral-library-analytics/2026-10-14/
+
+with at least:
+
+README.md
+DESIGN.md
+REPOSITORY_AUDIT.md
+OBSERVATIONAL_STRUCTURE.md
+LITERATURE_METHODS.md
+DATA_AUDIT.md
+
+STAGE1_LIBRARY_CHARACTERIZATION.md
+STAGE2_BIOLOGICAL_DIFFERENTIATION.md
+STAGE3_ML_GENERALIZATION.md
+STAGE4_WAVELENGTH_INFORMATION.md
+STAGE5_CLASS_REPRESENTATION.md
+MATERIAL_CLASS_AUDIT.md
+STAGE6_MIXTURE_IDENTIFIABILITY.md
+STAGE7_MIXTURE_RECOVERY.md
+STAGE8_UNKNOWN_MATERIALS.md
+STAGE9_UNCERTAINTY.md
+STAGE10_SENSOR_RESOLUTION.md
+REAL_LANDSAT_CONTEXT.md
+
+RESULTS.md
+LIMITATIONS.md
+RECOMMENDATIONS.md
+VALIDATION.md
+
+tables/
+figures/
+models/
+manifests/
+
+============================================================
+34. MACHINE-READABLE MASTER RESULTS
+============================================================
+
+Create tidy machine-readable result tables.
+
+At minimum:
+
+library_summary.csv
+
+biological_contrasts.csv
+
+ml_generalization.csv
+
+wavelength_selection.csv
+
+spectral_resolution_performance.csv
+
+prototype_performance.csv
+
+mixture_identifiability.csv
+
+mixture_recovery.csv
+
+detection_limits.csv
+
+unknown_material_detection.csv
+
+uncertainty_calibration.csv
+
+sensor_resolution_mixture_results.csv
+
+Use stable identifiers.
+
+Do not make the PDF the only place results exist.
+
+============================================================
+35. KEY FIGURES
+============================================================
+
+Create publication-quality figures.
+
+At minimum consider:
+
+FIGURE 1
+Spectral library atlas and sampling structure
+
+FIGURE 2
+Biological contrast and spectral localization
+
+FIGURE 3
+Ecological information-retention ladder
+
+For example:
+
+held-out plant
+held-out flight
+held-out year
+held-out site
+
+versus:
+
+full NEON
+selected bands
+OLI
+
+FIGURE 4
+Wavelength-information stability and performance versus number of bands
+
+FIGURE 5
+Prototype/endmember coverage and mixture ambiguity
+
+FIGURE 6
+Fraction recovery and detection probability
+
+FIGURE 7
+Unknown-material rejection and uncertainty
+
+FIGURE 8
+Sensor-resolution effect on mixture recovery
+
+Do not force eight figures if fewer communicate the results better.
+
+The human report can include additional explanatory graphics.
+
+============================================================
+36. BUILD A READINESS MATRIX
+============================================================
+
+Create a final evidence matrix.
+
+Rows should include defensible ecological/material classes.
+
+Columns:
+
+spectral quality
+sampling coverage
+cross-year evidence
+cross-site evidence
+classification generalization
+endmember coverage
+mixture identifiability
+fraction recovery
+detection limit
+OLI retention
+unknown-material discrimination
+uncertainty calibration
+
+Each cell should use:
+
+READY
+CONDITIONALLY READY
+INSUFFICIENT EVIDENCE
+NOT READY
+
+Every status must link to evidence.
+
+Do not create a single opaque readiness score.
+
+============================================================
+37. THE FINAL HUMAN SCIENCE REPORT
+============================================================
+
+This is a REQUIRED major deliverable.
+
+Create:
+
+output/pdf/spectral_library_analytics/
+SpectralBridge_Spectral_Library_Analytics_Report.pdf
+
+Also create the editable source used to build it.
+
+The report should be polished enough to circulate directly to:
+
+ecologists
+remote-sensing scientists
+ESIIL/Earth Lab collaborators
+manuscript coauthors
+project leadership
+
+It should NOT read like a software log.
+
+It should read like a scientific assessment.
+
+============================================================
+38. REPORT AUDIENCE
+============================================================
+
+Assume the reader understands:
+
+ecology
+spectra
+remote sensing
+statistics at a general scientific level
+
+but does NOT necessarily understand:
+
+PLS-DA
+SVM
+NPC
+conformal prediction
+EAR
+MASA
+CoB
+IES
+FCLS
+MESMA
+domain adaptation
+open-set recognition
+
+Every specialized method must be explained in plain scientific language.
+
+============================================================
+39. REPORT STRUCTURE
+============================================================
+
+Use approximately this structure.
+
+TITLE
+
+SpectralBridge Spectral Library:
+What Ecological Information Does It Contain and When Can We Trust It?
+
+EXECUTIVE SUMMARY
+
+No more than approximately 2 pages.
+
+Answer immediately:
+
+What did we learn?
+
+What works?
+
+What does not?
+
+How transferable is the library?
+
+How much information survives Landsat reduction?
+
+Is it ready for MESMA?
+
+What should the team do next?
+
+Include a compact readiness matrix.
+
+------------------------------------------------------------
+1. WHY WE DID THIS
+------------------------------------------------------------
+
+Explain the scientific problem.
+
+A spectral library is useful only if we know:
+
+what it represents
+what ecological distinctions it contains
+whether those distinctions transfer
+whether mixtures are identifiable
+whether predictions are trustworthy
+
+Introduce the information-retention ladder.
+
+------------------------------------------------------------
+2. WHAT IS IN THE LIBRARY?
+------------------------------------------------------------
+
+Explain:
+
+sampling
+sites
+years
+plants/polygons
+labels
+spectral resolution
+sensor representations
+
+Show the spectral atlas.
+
+Explain observational units.
+
+------------------------------------------------------------
+3. DO ECOLOGICAL GROUPS ACTUALLY LOOK DIFFERENT?
+------------------------------------------------------------
+
+Explain existing functional statistics in plain language.
+
+Do not begin with equations.
+
+Start with the scientific question.
+
+Explain strong and weak examples.
+
+Then provide technical detail in a sidebar or methods section.
+
+------------------------------------------------------------
+4. CAN WE RECOGNIZE ECOLOGY WE HAVE NOT SEEN BEFORE?
+------------------------------------------------------------
+
+Explain why random train/test splitting would be misleading.
+
+Explain the holdout ladder.
+
+Show ML generalization results.
+
+Interpret performance loss scientifically.
+
+------------------------------------------------------------
+5. WHERE IS THE INFORMATION IN THE SPECTRUM?
+------------------------------------------------------------
+
+Explain wavelength localization and feature selection.
+
+Show which regions repeatedly matter.
+
+Explain stability versus site-specific importance.
+
+------------------------------------------------------------
+6. HOW MUCH SPECTRAL INFORMATION DO WE NEED?
+------------------------------------------------------------
+
+Show the information-retention curve.
+
+Compare:
+
+full hyperspectral
+selected bands
+optimal seven bands
+OLI
+
+Explain whether OLI loses information because of:
+
+band number
+band placement
+both
+
+------------------------------------------------------------
+7. HOW MANY SPECTRAL EXAMPLES DOES A CLASS NEED?
+------------------------------------------------------------
+
+Explain why one mean spectrum may not represent a biological class.
+
+Explain prototype/endmember diversity.
+
+Show library-size curves.
+
+------------------------------------------------------------
+8. CAN THE LIBRARY DISTINGUISH MIXTURES?
+------------------------------------------------------------
+
+Explain mixture identifiability.
+
+Use a simple example:
+
+If spectrum C can be reproduced almost perfectly by:
+
+0.5 A + 0.5 B
+
+then C may be distinguishable as a pure spectrum yet difficult to identify inside mixtures.
+
+This conceptual distinction is crucial.
+
+Show ambiguity results.
+
+------------------------------------------------------------
+9. CAN WE RECOVER HOW MUCH OF EACH MATERIAL IS PRESENT?
+------------------------------------------------------------
+
+Explain:
+
+FCLS
+MESMA
+
+in accessible language.
+
+Show fraction-recovery results.
+
+Focus on ecological meaning.
+
+------------------------------------------------------------
+10. HOW MUCH MATERIAL MUST BE PRESENT BEFORE WE CAN DETECT IT?
+------------------------------------------------------------
+
+Explain Type I / Type II errors in ecological terms.
+
+Show detection probability versus abundance.
+
+Discuss false positives and false negatives.
+
+------------------------------------------------------------
+11. WHAT HAPPENS WHEN THE LIBRARY DOES NOT CONTAIN THE MATERIAL?
+------------------------------------------------------------
+
+Explain the unknown-material experiment.
+
+Explain why forced classification/unmixing is dangerous.
+
+Show whether the system can recognize:
+
+"I do not know."
+
+------------------------------------------------------------
+12. HOW CERTAIN ARE THE ANSWERS?
+------------------------------------------------------------
+
+Explain calibration and conformal prediction in plain language.
+
+Focus on:
+
+Does 90% confidence behave like 90% confidence?
+
+When does uncertainty become unreliable?
+
+------------------------------------------------------------
+13. WHAT INFORMATION SURVIVES LANDSAT?
+------------------------------------------------------------
+
+Bring together:
+
+synthetic OLI ecological information retention
+
+mixture recovery under OLI
+
+existing real-Landsat validation
+
+Clearly separate:
+
+synthetic sensor reduction
+
+from
+
+actual satellite validation.
+
+------------------------------------------------------------
+14. IS THE LIBRARY READY FOR MESMA?
+------------------------------------------------------------
+
+Give a nuanced answer.
+
+Not simply:
+
+YES / NO.
+
+Use the readiness matrix.
+
+Explain:
+
+which classes
+which sensors
+which sites
+which applications
+
+are:
+
+READY
+CONDITIONALLY READY
+INSUFFICIENT EVIDENCE
+NOT READY
+
+------------------------------------------------------------
+15. WHAT SHOULD WE DO NEXT?
+------------------------------------------------------------
+
+Prioritize actionable science.
+
+Examples might include:
+
+collect missing material classes
+improve soil/litter/NPV sampling
+validate more sites
+validate same-day Landsat
+collect independent abundance truth
+improve endmember coverage
+resolve specific ambiguous classes
+
+Rank recommendations by:
+
+scientific importance
+expected information gain
+effort
+
+============================================================
+40. WHY EACH METHOD WAS CHOSEN
+============================================================
+
+The report must include a methods-choice table.
+
+Columns:
+
+Scientific question
+Chosen method
+Why chosen
+Simpler alternative
+More complex alternative
+Why we did not choose the complex alternative initially
+Main assumption
+Main failure mode
+
+Examples:
+
+Ecological differentiation
+→ functional permutation test
+
+Generalization
+→ regularized logistic / PLS / SVM
+
+Wavelength information
+→ stability-selected predictive features
+
+Mixture baseline
+→ FCLS
+
+Variable endmembers
+→ MESMA
+
+Unknown material
+→ novelty/open-set analysis
+
+Uncertainty
+→ calibration/conformal methods
+
+This table is important.
+
+The science team should understand that methods were selected to answer specific questions, not because they are fashionable.
+
+============================================================
+41. METHODS GLOSSARY
+============================================================
+
+Include a short glossary.
+
+For each term provide:
+
+one-sentence plain-language explanation
+
+and
+
+one technical sentence.
+
+Include as relevant:
+
+PCA
+PLS
+SVM
+Random Forest
+balanced accuracy
+F1
+cross-validation
+group holdout
+NPC
+spectral angle
+endmember
+EAR
+MASA
+CoB
+IES
+FCLS
+MESMA
+conformal prediction
+calibration
+open-set recognition
+spectral mixture
+abundance
+
+============================================================
+42. USE VISUAL EXPLANATIONS
+============================================================
+
+The PDF should not be 50 pages of dense text.
+
+Use diagrams.
+
+Examples:
+
+information-retention ladder
+
+training versus held-out-site schematic
+
+hyperspectral → selected bands → OLI
+
+pure spectra → mixture
+
+correct endmember versus ambiguous mixture
+
+known material versus unknown material
+
+confidence versus calibrated uncertainty
+
+Use reproducible vector graphics.
+
+No AI-generated scientific figures.
+
+============================================================
+43. REPORT WRITING STYLE
+============================================================
+
+Write for humans.
+
+Prefer:
+
+"We asked whether a model trained at one site could recognize the same vegetation group at another site."
+
+over:
+
+"LOSO cross-domain classification was performed."
+
+Then explain the technical method.
+
+Use technical terminology where necessary, but introduce it after the scientific question.
+
+Avoid:
+
+AI hype
+ML hype
+unnecessary jargon
+software-engineering language
+overclaiming
+giant tables of metrics without interpretation
+
+Every results section should contain:
+
+QUESTION
+
+WHY IT MATTERS
+
+WHAT WE DID
+
+WHAT WE FOUND
+
+WHAT IT MEANS
+
+WHAT IT DOES NOT MEAN
+
+============================================================
+44. REPORT TECHNICAL APPENDIX
+============================================================
+
+Put detailed implementation information in an appendix.
+
+Include:
+
+model hyperparameters
+cross-validation definitions
+sample sizes
+exact metrics
+statistical tests
+multiplicity
+bootstrap details
+random seeds
+software versions
+data hashes
+provenance paths
+
+Keep the main report readable.
+
+============================================================
+45. REPORT LIMITATIONS
+============================================================
+
+Be explicit.
+
+Discuss as applicable:
+
+few independent sites
+site/species confounding
+observational sampling
+class imbalance
+researcher-category heterogeneity
+PFT/species aliasing
+lack of independent abundance truth
+synthetic versus real sensor data
+spatial support
+temporal mismatch
+linear mixture assumptions
+spectral variability
+unknown materials
+limited real-Landsat replication
+
+Do not bury limitations in fine print.
+
+============================================================
+46. LITERATURE GROUNDING
+============================================================
+
+Before implementing specialized methods, verify them against peer-reviewed literature.
+
+At minimum review and cite authoritative work for:
+
+MESMA
+EAR
+MASA
+CoB
+IES
+spectral variability
+hyperspectral ML leakage
+domain generalization
+wavelength selection
+spectral unmixing
+conformal prediction
+open-set / novelty detection
+variability-aware unmixing
+
+Create:
+
+LITERATURE_METHODS.md
+
+For every method distinguish:
+
+published method
+
+from
+
+our adaptation.
+
+Do not invent formulas from memory if an authoritative definition can be checked.
+
+============================================================
+47. DECISION GATES
+============================================================
+
+Do not blindly execute every stage.
+
+Use scientific gates.
+
+GATE A
+
+If basic spectral QC fails:
+stop downstream analysis for affected observations.
+
+GATE B
+
+If a class lacks sufficient independent observations:
+mark insufficient evidence rather than force ML.
+
+GATE C
+
+If leave-site-out is impossible because a class occurs at only one site:
+do not report geographic generalization for that class.
+
+GATE D
+
+If material classes are physically incoherent:
+do not run MESMA under misleading labels.
+
+GATE E
+
+If mixture identifiability fails badly:
+report that before investing heavily in optimized MESMA.
+
+GATE F
+
+If simple ML models perform as well as complex models:
+do not escalate to deep learning.
+
+GATE G
+
+If uncertainty is poorly calibrated:
+do not present probabilities as reliable confidence.
+
+These stop rules are part of the scientific design.
+
+============================================================
+48. REPRODUCIBILITY
+============================================================
+
+Every result in the PDF must trace back to:
+
+code
+data
+machine-readable result
+provenance record
+
+Create a report manifest linking:
+
+PDF section
+figure
+table
+source data
+analysis script
+result file
+
+No manually typed scientific numbers in the report if they can be read programmatically.
+
+============================================================
+49. VALIDATION
+============================================================
+
+Create:
+
+VALIDATION.md
+
+Verify:
+
+sample counts
+holdout membership
+no leakage
+canonical existing results
+sensor membership
+mixture truth
+fraction constraints
+detection metrics
+uncertainty calculations
+figure values
+PDF values
+
+Run:
+
+focused tests
+full offline test suite
+scientific regression tests
+lint
+docs build if modified
+
+Record exact outcomes.
+
+============================================================
+50. FINAL DECISION DOCUMENT
+============================================================
+
+Create:
+
+RECOMMENDATIONS.md
+
+It should answer, concisely:
+
+What can we already claim?
+
+What can we probably claim after these analyses?
+
+What can we NOT claim?
+
+Which ecological groups are best supported?
+
+Which are poorly supported?
+
+Is the limitation:
+
+sampling
+biology
+spectral resolution
+domain shift
+mixture ambiguity
+sensor mismatch
+or lack of validation?
+
+What new data would provide the largest increase in scientific confidence?
+
+============================================================
+51. FINAL DELIVERABLES
+============================================================
+
+At minimum produce:
+
+SpectralBridge_Spectral_Library_Analytics_Report.pdf
+
+editable report source
+
+README.md
+DESIGN.md
+REPOSITORY_AUDIT.md
+OBSERVATIONAL_STRUCTURE.md
+LITERATURE_METHODS.md
+MATERIAL_CLASS_AUDIT.md
+RESULTS.md
+LIMITATIONS.md
+RECOMMENDATIONS.md
+VALIDATION.md
+
+machine-readable tables
+
+publication-quality figures
+
+reusable analysis code
+
+tests
+
+report manifest
+
+============================================================
+52. MOST IMPORTANT GUARDRAILS
+============================================================
+
+NEVER:
+
+treat pixels as independent plants
+
+use random pixel train/test splitting as evidence of generalization
+
+perform preprocessing before the train/test split
+
+select wavelengths globally before cross-validation
+
+select endmembers using test data
+
+equate statistical significance with predictive usefulness
+
+equate classification accuracy with MESMA readiness
+
+equate spectral separability with mixture identifiability
+
+equate low reconstruction error with correct abundance
+
+equate synthetic OLI with real Landsat
+
+equate one real-Landsat pair with sensor validation across sites
+
+force unknown materials into known classes
+
+interpolate across atmospheric gaps
+
+treat mixed wavelength grids as one complete spectrum
+
+hide negative results
+
+merge rare classes merely to improve model performance
+
+optimize thresholds on the final test set
+
+use deep learning without demonstrating why it is needed
+
+report a single arbitrary "readiness score"
+
+============================================================
+53. FINAL SCIENTIFIC PHILOSOPHY
+============================================================
+
+The analysis should NOT try to prove:
+
+"The spectral library works."
+
+It should determine:
+
+WHERE it works
+
+FOR WHAT ecological questions
+
+AT WHAT spectral resolution
+
+UNDER WHAT domain shift
+
+AT WHAT mixture fractions
+
+WITH WHAT uncertainty
+
+AND WHERE IT FAILS.
+
+The final conceptual chain is:
+
+SPECTRAL DIFFERENCE
+        ↓
+TRANSFERABLE ECOLOGICAL INFORMATION
+        ↓
+STABLE WAVELENGTH INFORMATION
+        ↓
+IDENTIFIABLE ENDMEMBERS
+        ↓
+RECOVERABLE MIXTURE FRACTIONS
+        ↓
+CALIBRATED UNCERTAINTY
+        ↓
+DEFENSIBLE ECOLOGICAL INFERENCE
+
+Make that logic obvious in both the analysis and the human science report.
+
+============================================================
+54. FINAL RESPONSE TO ME
+============================================================
+
+When the work is complete, do not merely list files.
+
+Tell me:
+
+1. the five most important scientific findings
+
+2. the strongest evidence that the library contains transferable ecological information
+
+3. the strongest evidence against overgeneralizing from the library
+
+4. where information is lost most strongly:
+   individual, acquisition, year, site, sensor or mixture
+
+5. which wavelengths carry the most stable transferable information
+
+6. whether OLI's main limitation appears to be band number, band placement, or both
+
+7. which classes require multiple prototypes/endmembers
+
+8. which classes are mixture-identifiable
+
+9. which classes have reliable abundance recovery
+
+10. detection limits by class where estimable
+
+11. how well unknown materials can be rejected
+
+12. whether uncertainty is calibrated
+
+13. what real Landsat adds to the evidence
+
+14. the MESMA readiness assessment
+
+15. the three most valuable new datasets/measurements we should collect
+
+16. whether any sophisticated ML method materially beat the simple baselines
+
+17. any surprising negative result
+
+18. any result that changes how we should describe SpectralBridge
+
+19. whether the tests and provenance support every major claim in the PDF
+
+20. the exact path to the final human-readable PDF
+
+The standard is not:
+
+"the analysis ran."
+
+The standard is:
+
+"a skeptical scientist can read the PDF, understand why each analysis was performed, understand what the evidence means, and know exactly how far they should trust the spectral library."
+```
+
+## 2026-10-14 - Continue documentation and analytics work
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```
