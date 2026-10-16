@@ -33957,3 +33957,1704 @@ REMAINING LIMITATION
 Do not declare the report finished until every major claim has gone through
 this adversarial validation.
 ```
+
+## 2026-10-16 - Primary six-panel manuscript synthesis figure
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Work in the current SpectralBridge / spectral-library analysis repository.
+
+I want you to create the PRIMARY MANUSCRIPT SYNTHESIS FIGURE from the completed
+Separability, Identifiability, and Abundance analysis.
+
+Read the current final validation report and its underlying numerical tables
+before doing anything:
+
+    Separability_Identifiability_and_Abundance.pdf
+
+Use the existing validated numerical products. Do NOT rerun or modify the
+scientific analysis unless a value required for the figure cannot be
+reconstructed from the canonical saved outputs.
+
+This is a SCIENCE FIGURE, not a methods figure.
+
+The goal is to put as many meaningful scientific results as possible into one
+coherent figure without making it confusing.
+
+The figure should tell one continuous story:
+
+    spectral structure
+        ->
+    category separability
+        ->
+    category identifiability
+        ->
+    abundance recovery
+        ->
+    limits from spectral ambiguity
+
+The reader should understand the main scientific result even if they never
+read the methods.
+
+
+======================================================================
+OVERALL DESIGN
+======================================================================
+
+Create one publication-quality 6-panel figure:
+
+A. CATEGORY SPECTRA
+B. WHERE CATEGORIES SEPARATE
+C. HOW SPECTRAL INFORMATION BUILDS IDENTIFIABILITY
+D. WHICH CATEGORIES TRANSFER
+E. HOW WELL ABUNDANCE IS RECOVERED
+F. WHY ABUNDANCE REMAINS LIMITED
+
+Arrange as a coherent 3 x 2 narrative:
+
+    SEPARABILITY
+    A | B
+
+    IDENTIFIABILITY
+    C | D
+
+    ABUNDANCE
+    E | F
+
+But do NOT put giant section headers that waste space.
+
+Use subtle grouping and panel titles to make the progression obvious.
+
+The figure should feel like ONE figure rather than six plots pasted together.
+
+
+======================================================================
+VISUAL STYLE
+======================================================================
+
+Style should be clean, modern, scientific, and suitable for a high-impact
+ecology / remote-sensing journal.
+
+I strongly prefer CORNFLOWER BLUE as the visual anchor.
+
+Use:
+
+    cornflowerblue / #6495ED
+
+as the principal highlight color.
+
+Build the rest of the palette around it.
+
+Requirements:
+
+- white background
+- black/dark charcoal text
+- cornflower blue as primary emphasis
+- restrained complementary colors
+- avoid rainbow palettes
+- avoid viridis unless genuinely necessary
+- avoid excessive saturation
+- avoid decorative gradients
+- avoid chartjunk
+- avoid excessive grid lines
+- avoid legends when direct labels can replace them
+- consistent category colors everywhere
+- consistent model colors everywhere
+- consistent colors for NEON / OLI / selected / random across panels
+- atmospheric gaps should be light neutral grey
+- uncertainty should be visually subordinate to central estimates
+
+IMPORTANT:
+Do not use cornflower blue to mean two different things.
+
+Create a small centralized palette dictionary/configuration so colors are
+identical across all panels.
+
+
+======================================================================
+TEXT AND LABELS
+======================================================================
+
+TEXT MUST BE LARGE AND SIMPLE.
+
+This figure will eventually be reduced to manuscript width.
+
+At final printed size:
+
+- panel letters must be unmistakable
+- panel titles must be readable immediately
+- axis labels must remain readable
+- tick labels must not be tiny
+- annotations should be concise
+- no paragraph-sized annotations inside panels
+- avoid acronyms when a short plain-English label works
+- abbreviate category names only if absolutely necessary
+
+Use direct labels wherever possible.
+
+Do NOT rely on a giant legend.
+
+Panel titles should communicate the result rather than the method.
+
+For example:
+
+A. Five categories occupy different spectral space
+
+B. Separation is distributed across the spectrum
+
+C. Complementary wavelengths improve recognition
+
+D. Recognition weakens across sites
+
+E. Abundance recovery depends on category and fraction
+
+F. Better prediction does not remove ambiguity
+
+These can be shortened if needed, but preserve this result-oriented style.
+
+
+======================================================================
+PANEL A
+FIVE CATEGORIES OCCUPY DIFFERENT SPECTRAL SPACE
+======================================================================
+
+Show the actual spectral signatures for the five researcher categories:
+
+- Deciduous
+- Evergreen
+- Herbaceous
+- Non-vegetated & dead
+- Woody shrub
+
+x = wavelength
+y = corrected spectral value / reflectance using the exact terminology
+supported by the dataset
+
+Use a central tendency plus a restrained variability representation.
+
+Prefer median + an interpretable interval if supported by existing products.
+
+Do NOT make this look like hundreds of spaghetti spectra.
+
+Use the SAME category colors later in panels D and E.
+
+Subtly indicate spectral regions:
+
+VIS
+red edge
+NIR
+SWIR1
+SWIR2
+
+Also show atmospheric gaps clearly.
+
+Add OLI band positions subtly along the upper edge if this can be done without
+clutter.
+
+Scientific purpose:
+
+The reader first sees the biological spectral structure before seeing any
+statistical result.
+
+
+======================================================================
+PANEL B
+SEPARATION IS DISTRIBUTED ACROSS THE SPECTRUM
+======================================================================
+
+Use the validated wavelength-level separability results.
+
+Create a compact heatmap:
+
+rows = all 10 researcher-category pairs
+columns = wavelength
+
+Encode signed standardized effect magnitude with a restrained diverging
+palette centered at zero.
+
+Use cornflower blue for one direction and a restrained warm complementary
+color for the other.
+
+Do NOT use bright red/blue rainbow styling.
+
+Visually distinguish wavelengths lacking corrected evidence, but do not let
+statistical significance dominate the plot.
+
+Atmospheric gaps must remain grey/blank.
+
+Place the synthetic OLI bands along the top of the heatmap so readers can see
+which portions of hyperspectral structure are compressed into broad bands.
+
+If useful and not cluttered, add a tiny right-side summary for each pair
+showing whole-spectrum effect magnitude or OLI effect retention.
+
+The main scientific message should be visually obvious:
+
+    all 10 category pairs separate,
+    but the location, magnitude and direction of separation differ.
+
+Do not turn this into a p-value figure.
+
+
+======================================================================
+PANEL C
+COMPLEMENTARY WAVELENGTHS IMPROVE RECOGNITION
+======================================================================
+
+Plot five-class balanced accuracy against number of wavelengths.
+
+x should contain the tested feature budgets:
+
+1
+2
+3
+5
+7
+10
+20
+50
+100
+full spectrum
+
+Use the canonical saved values.
+
+Show:
+
+selected wavelengths, new polygon
+random wavelengths, new polygon
+
+selected wavelengths, held site
+random wavelengths, held site
+
+Use solid versus dashed lines and color carefully so the reader can distinguish:
+
+selection effect
+and
+transfer effect
+
+without decoding four unrelated colors.
+
+Cornflower blue should represent the primary selected-spectrum result.
+
+Random controls should be visually quieter.
+
+Directly annotate the important 20-wavelength result:
+
+new polygon:
+81.6% selected
+77.4% random
+
+held site:
+70.1% selected
+65.0% random
+
+Also directly label the full-spectrum endpoints:
+
+85.2% new polygon
+73.8% held site
+
+If the synthetic OLI point can be incorporated cleanly, include it as a
+distinct labeled endpoint/reference.
+
+Do not imply that 20 wavelengths is an optimal sensor.
+
+The visual result should be:
+
+    information accumulates across wavelengths,
+    complementary selection helps,
+    and geographic transfer remains harder.
+
+
+======================================================================
+PANEL D
+RECOGNITION WEAKENS ACROSS SITES AND DIFFERS BY CATEGORY
+======================================================================
+
+Show the biological structure of recognition failure.
+
+Use the held-site confusion matrix as the main component.
+
+Five rows / five columns:
+
+Deciduous
+Evergreen
+Herbaceous
+Non-vegetated & dead
+Woody shrub
+
+Use a sequential scale anchored in cornflower blue.
+
+Put the numeric values inside cells only if they remain readable at final
+manuscript size.
+
+Alongside the confusion matrix, add a compact class-specific transfer display:
+
+new-polygon recall -> held-site recall
+
+for each of the five categories.
+
+Use the same category colors as Panel A.
+
+Make Woody shrub's held-site recall of approximately 46.3% directly visible.
+
+Do not hide class-specific failure behind overall accuracy.
+
+Scientific message:
+
+    identification is useful overall,
+    but transfer is biologically asymmetric.
+
+
+======================================================================
+PANEL E
+ABUNDANCE RECOVERY DEPENDS ON CATEGORY AND TRUE FRACTION
+======================================================================
+
+Show abundance as a biological result rather than only an RMSE table.
+
+Use five small calibration curves, one per category:
+
+Deciduous
+Evergreen
+Herbaceous
+Non-vegetated & dead
+Woody shrub
+
+x = known synthetic fraction
+y = predicted fraction
+
+Show:
+
+- 1:1 reference
+- ridge120 as the primary curve
+- MESMA as a secondary comparison if it remains visually readable
+
+Do not overload this panel with every tested model.
+
+Use the same category ordering/colors used in A and D.
+
+Make zero, low fractions and high fractions visible.
+
+The reader should be able to see:
+
+- false abundance at true zero
+- shrinkage
+- class-specific bias
+- failure to reach high true fractions
+- differences among categories
+
+Use the canonical held-site benchmark unless there is a strong scientific
+reason from the existing report to use another domain.
+
+Clearly label these as SYNTHETIC fractions.
+
+Do not imply field-cover validation.
+
+
+======================================================================
+PANEL F
+BETTER PREDICTION DOES NOT REMOVE AMBIGUITY
+======================================================================
+
+This is the scientific punchline.
+
+Combine TWO closely related results without making it look like two unrelated
+panels.
+
+
+PART 1 — MODEL / LIBRARY RESULT
+
+Show abundance RMSE for:
+
+- no-spectrum prior
+- MESMA15
+- Ridge15
+- Ridge120
+
+for:
+
+- new-parent targets
+- held-site targets
+
+Use points with connecting structure or compact grouped bars.
+
+Avoid a generic giant bar chart.
+
+Directly annotate the primary result:
+
+Ridge120 relative to MESMA:
+~40% lower RMSE for new parents
+~26% lower RMSE for held sites
+
+BUT make equally clear that:
+
+Ridge15 loses the Ridge120 advantage when restricted to the same 15 retained
+MESMA parents.
+
+This is critical.
+
+The figure must NOT visually communicate:
+
+    "ridge is simply better than MESMA."
+
+Instead it should communicate:
+
+    "abundance prediction improves with the richer training library,
+     while matched retained-library capacity removes the apparent
+     intrinsic ridge advantage."
+
+
+PART 2 — AMBIGUITY
+
+Next to or immediately below that result, show abundance error as a function
+of:
+
+LOW
+MODERATE
+HIGH
+
+candidate-library ambiguity.
+
+Compare MESMA and Ridge120.
+
+The visual should show that ridge can reduce expected error even where
+alternative compositions remain feasible.
+
+Add one very short annotation:
+
+    lower error ≠ unique mixture
+
+or:
+
+    better prediction ≠ unique inversion
+
+This should be the final visual takeaway of the entire figure.
+
+
+======================================================================
+CROSS-PANEL BIOLOGICAL CONNECTION
+======================================================================
+
+One important result should be discoverable across panels D and E:
+
+categories that are harder to recognize also tend to be harder to quantify.
+
+The existing analysis reports a descriptive ordering corresponding to
+Spearman rho = -1.0 across the five class means.
+
+Do NOT headline rho=-1 because n=5 categories is too small for that to become
+a major inferential claim.
+
+Instead, make D and E use:
+
+- identical category ordering
+- identical category colors
+- aligned labels where possible
+
+so the reader can visually discover the relationship.
+
+If there is room, include a tiny unobtrusive annotation:
+
+    harder to recognize -> larger fraction error
+
+but only if supported directly by the canonical class-level table.
+
+
+======================================================================
+SCIENTIFIC NARRATIVE
+======================================================================
+
+The finished figure should visually support this sequence:
+
+A
+The five cover categories have structured spectral differences.
+
+B
+Those differences occur across broad but category-specific parts of the
+spectrum.
+
+C
+Combining complementary wavelengths converts those differences into strong
+recognition of unseen polygons.
+
+D
+Recognition is not equally transferable across biological categories or
+sites.
+
+E
+Recovering quantity is harder than recognizing identity and introduces
+class-specific bias, false abundance and shrinkage.
+
+F
+A richer spectral library substantially improves expected synthetic abundance
+prediction, but spectral ambiguity remains and the inverse problem is not
+uniquely solved.
+
+The figure should therefore move naturally from:
+
+    DIFFERENCE
+        ->
+    IDENTITY
+        ->
+    QUANTITY
+        ->
+    NON-UNIQUENESS
+
+
+======================================================================
+WHAT NOT TO PUT IN THE MAIN FIGURE
+======================================================================
+
+Do NOT include:
+
+- validation checklist
+- PASS/FAIL tables
+- adversarial audit table
+- PCA diagnostics
+- derivative diagnostics
+- every ML model
+- every temporal analysis
+- permutation-method diagrams
+- train/test diagrams
+- long methods text
+- giant legends
+- giant evidence-status labels
+- p-value tables
+
+Those belong in supplementary figures or methods.
+
+However, use those analyses to ensure every main-panel claim is valid.
+
+
+======================================================================
+LAYOUT AND POLISH
+======================================================================
+
+Target a wide two-column manuscript figure.
+
+Try both:
+
+1. 2 columns x 3 rows
+2. a slightly asymmetric layout if it materially improves readability
+
+Do not force every panel into exactly equal dimensions.
+
+For example:
+
+- B may need more width for the wavelength heatmap
+- E may need more width for five calibration curves
+- F may benefit from a split internal structure
+
+Use whitespace intentionally.
+
+Align axes and category labels where scientifically meaningful.
+
+Panel letters A-F should occupy exactly the same relative location.
+
+Keep typography consistent.
+
+Use sentence case.
+
+Avoid redundant axis titles.
+
+Prefer direct labels over legends.
+
+Make sure all text survives reduction to publication size.
+
+
+======================================================================
+IMPLEMENTATION
+======================================================================
+
+Build this as a reproducible manuscript-figure script using the repository's
+existing plotting stack.
+
+Do not use generative AI imagery.
+
+Use vector plotting.
+
+Export at minimum:
+
+figure_main_synthesis.pdf
+figure_main_synthesis.svg
+figure_main_synthesis.png
+
+PNG should be >= 600 dpi at intended print dimensions.
+
+Save a figure-specific data manifest that identifies the exact source table,
+filter and fields used for every panel.
+
+No manually typed scientific values should exist only in plotting code.
+Important annotation values should be read from canonical result tables where
+possible.
+
+If an annotation must be manually specified, validate it against the source
+table and assert equality/tolerance in code.
+
+
+======================================================================
+RENDER-REVIEW-REVISE LOOP
+======================================================================
+
+Do NOT stop after the script executes.
+
+Render the complete figure.
+
+Open/view the rendered figure at:
+
+- full resolution
+- approximate final manuscript size
+
+Then critically inspect it as a human reader.
+
+Specifically ask:
+
+1. Can I understand A-F without reading the caption?
+2. Is the progression difference -> identity -> quantity obvious?
+3. Are any labels too small?
+4. Are any plots visually dominated by methods rather than results?
+5. Are category colors consistent?
+6. Is cornflower blue used consistently?
+7. Can I distinguish selected/random and new-polygon/held-site immediately?
+8. Can I see Woody shrub's transfer problem?
+9. Can I see abundance shrinkage and false abundance?
+10. Can I see that Ridge120 improves RMSE?
+11. Can I ALSO see that Ridge15 removes the apparent intrinsic ridge advantage?
+12. Can I see that better abundance prediction does not remove ambiguity?
+13. Does any panel imply field abundance validation?
+14. Is there anything that can be removed without losing a scientific result?
+
+Revise until the answers are satisfactory.
+
+Favor LARGE readable graphics over squeezing in one additional minor result.
+
+
+======================================================================
+CAPTION
+======================================================================
+
+After the figure is finalized, write a publication-ready caption.
+
+The caption should follow the A-F narrative and explain WHAT each panel shows
+and WHAT it means scientifically.
+
+Do not turn the caption into a methods section.
+
+End the caption with the critical scope statement:
+
+All abundance fractions shown here are controlled synthetic algebraic fractions;
+independent field fractional-cover validation remains outstanding.
+
+
+======================================================================
+FINAL DELIVERABLE
+======================================================================
+
+Return:
+
+1. final PDF
+2. final SVG
+3. final high-resolution PNG
+4. plotting script
+5. figure-data manifest
+6. concise caption
+7. short README identifying every numerical source
+8. a brief note describing any requested element that could not be supported
+   by the canonical results
+
+Before finishing, compare every quantitative annotation in the figure against
+the final validation report and canonical tables.
+
+This should look like a flagship scientific figure, not an analytics dashboard.
+Complexity is acceptable. Confusion is not.
+```
+
+## 2026-10-16 - Lean formal verification layer
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+I want to build a Lean 4 formal verification layer for the SpectralBridge
+spectral-library pipeline.
+
+This is NOT a request to rewrite the scientific software in Lean.
+
+The goal is to construct a mathematical specification of the pipeline and
+machine-check the mathematical claims that can actually be proved, from
+sensor observations through spectral correction/harmonization, sensor
+translation, library construction, mixture generation, MESMA/FCLS and ridge
+abundance estimation.
+
+Work in the current SpectralBridge / spectral-library repository.
+
+First inspect the actual implementation, documentation, configuration files,
+calibration/translation coefficients, current validation report, and tests.
+
+Do not formalize an imagined version of the algorithm.
+
+The Lean specification must correspond to the implementation that actually
+exists.
+
+Use Lean 4 + mathlib.
+
+Create a separate formal verification directory, for example:
+
+    formal/
+        lakefile.toml
+        lean-toolchain
+        SpectralBridge/
+        README.md
+        CLAIMS.md
+        ASSUMPTIONS.md
+        TRACEABILITY.md
+
+Do not modify scientific outputs while doing this.
+
+
+======================================================================
+PRIMARY OBJECTIVE
+======================================================================
+
+Formally specify the mathematical pipeline:
+
+RAW SENSOR OBSERVATION
+        ↓
+RADIOMETRIC / SPECTRAL REPRESENTATION
+        ↓
+TOPOGRAPHIC / BRDF / OTHER IMPLEMENTED CORRECTIONS
+        ↓
+CROSS-SENSOR HARMONIZATION / BRIGHTNESS TRANSFORMATION
+        ↓
+SENSOR RESPONSE / CONVOLUTION / TRANSLATION
+        ↓
+COMMON SPECTRAL REPRESENTATION
+        ↓
+POLYGON EXTRACTION / AGGREGATION
+        ↓
+SPECTRAL LIBRARY
+        ↓
+ENDMEMBER / REFERENCE SELECTION
+        ↓
+MIXTURE MODEL
+        ↓
+MESMA / FCLS
+        ↓
+RIDGE
+        ↓
+SIMPLEX-CONSTRAINED ABUNDANCE ESTIMATE
+
+Include every implemented path that matters scientifically:
+
+- NEON/AOP
+- Landsat-like convolution
+- actual Landsat comparison where mathematically relevant
+- drone/MicaSense path
+- drone-to-Landsat-like translation
+- brightness/darkening/harmonization transformations
+- any affine sensor translations currently implemented
+
+The final result should tell us exactly which mathematical properties are:
+
+    PROVED
+    PROVED CONDITIONAL ON ASSUMPTIONS
+    NUMERICALLY VERIFIED
+    EMPIRICALLY VALIDATED
+    NOT FORMALLY PROVABLE FROM CURRENT EVIDENCE
+
+
+======================================================================
+RULE 1 — TRACE THE REAL CODE FIRST
+======================================================================
+
+Before writing Lean:
+
+1. Map the actual pipeline.
+2. Identify every mathematical transformation.
+3. Find the implementation function.
+4. Find its configuration/calibration parameters.
+5. Find existing tests.
+6. Find scientific validation evidence.
+7. State its mathematical domain and codomain.
+8. State assumptions currently made by the code.
+
+Create:
+
+    formal/TRACEABILITY.md
+
+with columns:
+
+Pipeline stage
+Scientific purpose
+Implementation file/function
+Mathematical definition
+Input assumptions
+Output guarantees
+Existing numerical test
+Lean definition
+Lean theorem
+Status
+
+Do not proceed to a theorem until the corresponding implementation has been
+identified.
+
+
+======================================================================
+PART I — CORE MATHEMATICAL OBJECTS
+======================================================================
+
+Define appropriate Lean types for:
+
+Sensor
+Wavelength
+Band
+Spectrum
+ReflectanceSpectrum
+ResponseFunction
+TranslationMatrix
+AffineTranslation
+PolygonID
+Category
+Endmember
+FractionVector
+Mixture
+CandidateLibrary
+
+Where practical use finite-dimensional vectors/matrices over ℝ.
+
+Represent an n-component abundance vector as belonging to the simplex:
+
+    Δⁿ = { f | ∀i, 0 ≤ fᵢ ∧ Σ fᵢ = 1 }
+
+Prove basic properties of the simplex.
+
+Define validity predicates separately from raw data types so we can distinguish:
+
+    mathematically valid spectrum
+
+from
+
+    physically validated reflectance
+
+Do not encode empirical assumptions as axioms unless unavoidable.
+
+Prefer explicit hypotheses in theorem statements.
+
+
+======================================================================
+PART II — SENSOR TRANSFORMATIONS
+======================================================================
+
+Formalize every implemented linear or affine spectral transformation.
+
+For a linear sensor operator:
+
+    T : ℝⁿ → ℝᵐ
+
+prove where applicable:
+
+    T(0) = 0
+
+    T(x + y) = T(x) + T(y)
+
+    T(a x) = a T(x)
+
+and therefore:
+
+    T(Σ fᵢ xᵢ) = Σ fᵢ T(xᵢ)
+
+This theorem is extremely important.
+
+It tells us when sensor convolution COMMUTES with a linear spectral mixture.
+
+For affine transformations:
+
+    T(x) = A x + b
+
+derive explicitly:
+
+    T(Σ fᵢ xᵢ)
+
+and prove the exact conditions under which mixture fractions are preserved.
+
+In particular, because:
+
+    Σ fᵢ = 1
+
+show whether:
+
+    A(Σ fᵢxᵢ) + b
+        =
+    Σ fᵢ(Axᵢ + b)
+
+for simplex fractions.
+
+This should give us a clean theorem explaining why an affine sensor
+translation can preserve convex mixtures when the same transformation is
+applied to all components.
+
+Do not assume every implemented correction is linear.
+
+Classify every stage as:
+
+LINEAR
+AFFINE
+NONLINEAR
+DATA-DEPENDENT
+EMPIRICAL
+
+
+======================================================================
+PART III — SENSOR RESPONSE / CONVOLUTION
+======================================================================
+
+Formalize spectral response convolution.
+
+For a band response R:
+
+    y_b =
+        ∫ R_b(λ) x(λ) dλ
+        ----------------
+        ∫ R_b(λ) dλ
+
+or the actual discrete approximation used by SpectralBridge.
+
+Use the implementation's actual discrete formula.
+
+Prove:
+
+- normalized weighted-average properties
+- constant-spectrum preservation
+- linearity
+- mixture commutation
+- conditions for bounded output
+
+If response weights are nonnegative and normalized, prove:
+
+    min(x) ≤ T(x) ≤ max(x)
+
+where mathematically appropriate.
+
+Formalize NEON → synthetic Landsat/OLI convolution exactly as implemented.
+
+If MicaSense transformations use a different operation, formalize that
+separately rather than pretending they are equivalent.
+
+
+======================================================================
+PART IV — CROSS-SENSOR TRANSLATION
+======================================================================
+
+Audit and formalize the implemented sensor translations.
+
+This includes, as applicable:
+
+NEON → Landsat-like
+MicaSense → Landsat-like
+Landsat ↔ MicaSense brightness/harmonization
+drone darkening / brightness correction
+other affine translations
+
+For each transformation determine whether it is:
+
+multiplicative
+linear
+affine
+bandwise affine
+matrix-valued
+empirical regression
+convolution
+other
+
+Prove all algebraic properties that follow from the implemented form.
+
+For multiplicative correction:
+
+    yᵢ = kᵢ xᵢ
+
+prove positivity preservation if:
+
+    kᵢ ≥ 0
+
+and prove mixture commutation.
+
+For affine translation:
+
+    y = Ax + b
+
+prove convex-mixture preservation under simplex weights.
+
+IMPORTANT:
+
+Separate:
+
+    mathematical preservation of mixture structure
+
+from
+
+    empirical correctness of the calibration coefficients.
+
+Lean can prove the former.
+
+The latter remains empirical.
+
+
+======================================================================
+PART V — CORRECTION PIPELINE
+======================================================================
+
+Inspect topographic correction, BRDF correction and every other correction
+used before library extraction.
+
+Determine whether each operation can be formalized meaningfully.
+
+For every correction state:
+
+- mathematical definition
+- required parameter bounds
+- domain restrictions
+- possible singularities
+- positivity behavior
+- monotonicity where relevant
+- linearity/nonlinearity
+- whether it preserves convex mixtures
+- whether order of operations matters
+
+Prove commutativity ONLY where it actually holds.
+
+Where operations do not commute, construct a Lean theorem or counterexample
+showing that order matters.
+
+This is scientifically useful.
+
+Document the exact required pipeline ordering.
+
+
+======================================================================
+PART VI — POLYGON AGGREGATION
+======================================================================
+
+Formalize extraction/aggregation from pixel spectra to polygon spectra.
+
+If the implementation uses arithmetic means, medians, quantiles or another
+operation, model the actual operation.
+
+For arithmetic averaging prove:
+
+    mean(T(xᵢ)) = T(mean(xᵢ))
+
+for linear T.
+
+For affine T, determine whether the same equality holds.
+
+For nonlinear aggregation/corrections, explicitly prove or demonstrate when
+the order cannot be exchanged.
+
+This can formally tell us which pipeline operations may safely occur before or
+after aggregation.
+
+
+======================================================================
+PART VII — LINEAR MIXTURE MODEL
+======================================================================
+
+Define the linear mixture model:
+
+    y = E f
+
+where:
+
+    E = endmember/reference matrix
+    f ∈ simplex
+
+Prove:
+
+- convex combination validity
+- nonnegative fraction constraints
+- sum-to-one
+- generated spectrum lies in convex hull of endmembers
+- exact reconstruction when y = Ef
+
+Formalize synthetic mixture generation exactly as implemented.
+
+Prove that the generated truth fractions satisfy the simplex constraints.
+
+
+======================================================================
+PART VIII — IDENTIFIABILITY
+======================================================================
+
+This is one of the most important formal sections.
+
+Define identifiability of fractions:
+
+    Ef₁ = Ef₂ → f₁ = f₂
+
+Prove sufficient conditions for unique linear abundance recovery.
+
+Connect uniqueness to properties such as affine independence / matrix rank as
+appropriate.
+
+Then prove the opposite:
+
+If the endmember system is not appropriately independent, distinct fraction
+vectors can generate the same spectrum.
+
+Construct explicit examples/counterexamples.
+
+Formalize:
+
+    spectral reconstruction
+        ≠
+    abundance identifiability
+
+This should mathematically support the empirical ambiguity result in the
+validation report.
+
+Where possible prove that dimensionality reduction / sensor convolution cannot
+increase linear rank:
+
+    rank(T E) ≤ rank(E)
+
+and therefore cannot create linear identifiability that was absent before.
+
+If mathematically appropriate, prove conditions under which convolution can
+destroy identifiability.
+
+This theorem would be particularly valuable.
+
+
+======================================================================
+PART IX — FCLS
+======================================================================
+
+Formalize Fully Constrained Least Squares:
+
+    minimize ||y - Ef||²
+
+subject to:
+
+    f ≥ 0
+    Σf = 1
+
+Prove:
+
+- feasible set is the simplex
+- simplex is convex
+- objective is convex
+- a minimizer exists under finite-dimensional assumptions
+- conditions for uniqueness
+
+Show:
+
+If the true generating E is supplied and is identifiable and:
+
+    y = Ef*
+
+then:
+
+    f*
+
+is the unique zero-residual solution.
+
+This theorem should correspond directly to the empirical known-parent oracle
+test in the current report.
+
+
+======================================================================
+PART X — MESMA
+======================================================================
+
+Read the actual SpectralBridge MESMA implementation.
+
+Formalize the implemented candidate search.
+
+At a conceptual level MESMA selects among candidate endmember matrices E_j:
+
+    min_j min_f ||y - E_j f||²
+
+subject to simplex constraints.
+
+Formalize the exact restrictions used by the implementation.
+
+Prove:
+
+- selected solution has residual no greater than any searched candidate
+- feasible fraction constraints
+- zero residual does NOT imply true biological composition
+- two different candidate systems can achieve equal residual with different
+  fractions
+
+Construct a formal ambiguity example.
+
+If the code uses tolerances, model them explicitly.
+
+Define the candidate ambiguity set:
+
+    Aε(y) =
+      { f | exists candidate E,
+            ||y - Ef|| ≤ r_min + ε }
+
+or the exact definition corresponding to current implementation.
+
+Prove basic properties of this set.
+
+Connect this to the empirical candidate-library ambiguity diagnostic.
+
+
+======================================================================
+PART XI — RIDGE
+======================================================================
+
+Formalize the actual ridge model.
+
+For training spectra X and abundance targets F:
+
+    minimize
+        ||F - X B||² + λ ||B||²
+
+using the implementation's intercept/standardization conventions.
+
+Derive or use the closed-form solution where assumptions allow:
+
+    B = (XᵀX + λI)⁻¹ XᵀF
+
+Prove:
+
+for λ > 0:
+
+    XᵀX + λI
+
+is positive definite / invertible under the appropriate finite-dimensional
+conditions.
+
+Prove uniqueness of the ridge coefficient solution.
+
+Then formalize prediction:
+
+    f_raw = Bᵀx + intercept
+
+followed by Euclidean projection onto the simplex.
+
+
+======================================================================
+PART XII — SIMPLEX PROJECTION
+======================================================================
+
+Formalize:
+
+    ΠΔ(x) = argmin_{f∈Δ} ||x-f||²
+
+Prove:
+
+- existence
+- uniqueness
+- output nonnegativity
+- output sums to one
+- idempotence:
+      ΠΔ(ΠΔ(x)) = ΠΔ(x)
+- if x already belongs to the simplex:
+      ΠΔ(x) = x
+- Euclidean projection does not increase distance to any feasible truth:
+
+      ||ΠΔ(x)-f*|| ≤ ||x-f*||
+
+      for f* ∈ Δ
+
+if supported by the standard convex-projection theorem in mathlib.
+
+This theorem would formally explain why simplex projection can improve fraction
+error without adding new spectral information.
+
+
+======================================================================
+PART XIII — RIDGE VERSUS MESMA
+======================================================================
+
+DO NOT attempt to prove:
+
+    ridge is better than MESMA.
+
+That is an empirical statement and the current report explicitly shows that it
+depends on retained library capacity.
+
+Instead formally establish that the two estimators optimize DIFFERENT
+objectives.
+
+MESMA:
+
+    chooses feasible fractions/endmembers to minimize spectral reconstruction
+    error.
+
+Ridge:
+
+    learns a regularized mapping from spectra to expected training fractions.
+
+Formalize enough to prove that:
+
+    lower MESMA spectral residual
+        does not imply
+    lower abundance error
+
+and:
+
+    lower ridge abundance prediction error
+        does not imply
+    unique spectral inversion.
+
+Construct small explicit counterexamples for both.
+
+This should connect directly to the current empirical result:
+
+- Ridge120 improves synthetic fraction RMSE.
+- Ridge15 loses that advantage when restricted to MESMA's 15 retained parents.
+- Better expected prediction does not eliminate candidate ambiguity.
+
+
+======================================================================
+PART XIV — FULL PIPELINE COMPOSITION
+======================================================================
+
+Now compose the formal pieces.
+
+Define an abstract full transformation:
+
+    P =
+      abundance_estimator
+      ∘ library_representation
+      ∘ polygon_aggregation
+      ∘ sensor_translation
+      ∘ spectral_correction
+      ∘ sensor_observation
+
+Do NOT pretend every stage is provably physically correct.
+
+Instead derive conditional theorems.
+
+For example:
+
+IF
+
+1. sensor response is the specified linear operator
+2. calibration coefficients are correct
+3. correction functions satisfy specified assumptions
+4. the physical spectrum follows a linear mixture
+5. aggregation obeys the specified operator
+6. endmembers represent the generating materials
+7. the transformed endmember system is identifiable
+
+THEN
+
+the ideal constrained solver recovers the generating fractions.
+
+State the assumptions explicitly in the theorem.
+
+Do not hide them as global axioms.
+
+
+======================================================================
+PART XV — TRANSLATION INVARIANCE OF ABUNDANCE
+======================================================================
+
+This deserves special attention.
+
+Determine mathematically when abundance fractions are invariant under
+cross-sensor transformations.
+
+Given:
+
+    y = E f
+
+and sensor transformation T,
+
+show:
+
+    T(y) = T(E) f
+
+for linear T.
+
+For affine T and simplex f, determine and prove the corresponding result.
+
+Then identify exactly which implemented SpectralBridge transformations satisfy
+these conditions.
+
+Produce a table:
+
+Transformation
+Linear?
+Affine?
+Mixture preserving?
+Fraction preserving in ideal model?
+Requires sum-to-one?
+Empirical calibration assumption?
+Lean theorem
+
+This could become an important piece of the scientific documentation.
+
+
+======================================================================
+PART XVI — INFORMATION LOSS BETWEEN SENSORS
+======================================================================
+
+Formalize the fact that a many-to-fewer-band transformation is generally
+non-injective.
+
+For T : ℝⁿ → ℝᵐ with m < n, under appropriate finite-dimensional assumptions,
+show that T cannot be injective.
+
+Connect this to sensor translation/convolution.
+
+Prove that:
+
+    x₁ ≠ x₂
+
+can nevertheless satisfy:
+
+    T(x₁) = T(x₂)
+
+when T has a nontrivial kernel.
+
+Then connect this to mixtures:
+
+two distinguishable hyperspectral mixtures can become indistinguishable after
+sensor convolution.
+
+This is the formal mathematical counterpart to the empirical observation that
+synthetic OLI can retain statistical separability while losing identification
+accuracy.
+
+
+======================================================================
+PART XVII — NUMERICAL IMPLEMENTATION BRIDGE
+======================================================================
+
+Lean proves mathematics, not that Python executed it correctly.
+
+Therefore build a small bridge between formal definitions and implementation.
+
+For representative deterministic examples:
+
+1. generate exact/simple rational inputs where possible
+2. calculate result in Lean
+3. calculate result using SpectralBridge Python
+4. compare outputs within declared floating-point tolerance
+
+Do this for:
+
+- spectral convolution
+- multiplicative correction
+- affine translation
+- polygon mean where relevant
+- synthetic mixture generation
+- FCLS/oracle example
+- MESMA toy candidate search
+- ridge prediction
+- simplex projection
+
+Save these as implementation-conformance tests.
+
+Do NOT claim floating-point Python is formally verified merely because these
+examples agree.
+
+
+======================================================================
+PART XVIII — ASSUMPTION LEDGER
+======================================================================
+
+Create:
+
+    formal/ASSUMPTIONS.md
+
+Separate assumptions into:
+
+MATHEMATICAL
+
+Examples:
+- λ > 0
+- response weights normalized
+- simplex fractions
+- dimensions compatible
+
+IMPLEMENTATION
+
+Examples:
+- coefficient file loaded correctly
+- wavelength ordering correct
+- expected band ordering preserved
+
+PHYSICAL
+
+Examples:
+- stored values represent intended reflectance quantity
+- linear mixing is physically appropriate
+- BRDF/topographic model is appropriate
+- calibration coefficients transfer
+
+BIOLOGICAL
+
+Examples:
+- polygon label represents intended cover category
+- reference spectra adequately represent category variability
+- category fractions have the intended ecological interpretation
+
+EMPIRICAL
+
+Examples:
+- calibration estimated adequately
+- cross-site transfer supported
+- sensor translation residual acceptable
+
+Lean should prove consequences CONDITIONAL on physical/biological assumptions,
+not convert them into mathematical facts.
+
+
+======================================================================
+PART XIX — PROOF STATUS MATRIX
+======================================================================
+
+Produce a final table:
+
+Claim
+Lean theorem
+Implementation conformance test
+Empirical evidence
+Remaining assumption
+Status
+
+Examples:
+
+"OLI convolution is linear"
+    PROVED
+
+"Linear convolution preserves ideal mixture fractions"
+    PROVED
+
+"Affine translation preserves simplex mixture weights"
+    PROVED under explicit assumptions
+
+"Sensor convolution can destroy identifiability"
+    PROVED
+
+"Simplex projection returns valid fractions"
+    PROVED
+
+"Simplex projection cannot worsen Euclidean error to feasible truth"
+    PROVED if formalized successfully
+
+"Known-parent ideal linear mixture is recoverable"
+    PROVED under identifiability assumptions
+
+"MESMA minimum residual identifies true biology"
+    FALSE — provide counterexample
+
+"Ridge solution is unique for λ > 0"
+    PROVED
+
+"Ridge abundance is physically unique"
+    FALSE / NOT IMPLIED
+
+"MicaSense calibration coefficients are physically correct"
+    EMPIRICAL, NOT LEAN-PROVABLE
+
+"Field fractions are recovered"
+    NOT ESTABLISHED
+
+
+======================================================================
+PART XX — FIND BUGS, DO NOT JUST PROVE THE DESIGN
+======================================================================
+
+Treat this as an adversarial formal audit.
+
+If the implementation violates the mathematical specification:
+
+STOP calling that stage proved.
+
+Document the discrepancy.
+
+Look specifically for:
+
+- wavelength-order assumptions
+- band-order mismatches
+- normalization differences
+- intercept handling
+- inconsistent scaling
+- coefficient direction errors
+- translation direction errors
+- correction-order differences
+- nonnegative constraint differences
+- sum-to-one tolerance differences
+- different MESMA candidate sets
+- ridge intercept differences
+- ridge standardization leakage
+- simplex projection differences
+- NaN/masked-band behavior
+- atmospheric-gap handling
+- rounding of sensor centers/FWHM
+- float versus exact-math assumptions
+
+Create:
+
+    formal/IMPLEMENTATION_AUDIT.md
+
+Every discovered mismatch should include:
+
+expected mathematics
+actual code
+scientific consequence
+severity
+recommended fix
+
+
+======================================================================
+DELIVERABLES
+======================================================================
+
+Produce:
+
+formal/SpectralBridge/*.lean
+formal/README.md
+formal/TRACEABILITY.md
+formal/ASSUMPTIONS.md
+formal/CLAIMS.md
+formal/IMPLEMENTATION_AUDIT.md
+formal/PROOF_STATUS.md
+
+plus implementation-conformance tests.
+
+The README should explain the result to a scientist who does not know Lean.
+
+At the end summarize:
+
+1. What is formally proved.
+2. What is proved only conditional on explicit assumptions.
+3. What Python implementation behavior was checked against the formal spec.
+4. What remains empirical.
+5. What is currently not identifiable/provable.
+6. Any implementation bugs or specification mismatches discovered.
+7. Which assumptions most strongly limit biological interpretation.
+
+
+======================================================================
+MOST IMPORTANT PRINCIPLE
+======================================================================
+
+Do not use Lean as a way to make empirical science sound more certain.
+
+The point is exactly the opposite:
+
+use formal proof to draw the sharpest possible boundary between
+
+    mathematical guarantee
+
+and
+
+    empirical assumption.
+
+A successful result may therefore be a theorem showing that something CANNOT
+be inferred.
+
+Counterexamples and impossibility results are first-class scientific outputs.
+```

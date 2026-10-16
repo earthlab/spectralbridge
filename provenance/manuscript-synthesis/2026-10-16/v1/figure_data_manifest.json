@@ -1,0 +1,139 @@
+{
+  "status": "prepared from validated products; no fits or source-spectrum reads",
+  "panel_sources": {
+    "A": {
+      "source": "provenance/publication-figures/2026-10-14/atlas_summary.csv",
+      "filter": "All five cover_category labels; all 360 supported wavelengths",
+      "fields": [
+        "cover_category",
+        "wavelength_nm",
+        "N",
+        "q25",
+        "median",
+        "q75"
+      ],
+      "aggregation": "Previously validated annual-observation median and 25th/75th percentiles, unchanged; repeated years are descriptive observations, not independent replicate counts.",
+      "units": "Corrected spectral value in stored units; absolute physical reflectance scale unresolved."
+    },
+    "B": {
+      "source": "provenance/researcher-pft-information/2026-10-15/v1/tables/cohort_wavelength_inference.csv",
+      "filter": "All ten researcher-category pairs; NIWO2020, NIWO2023, WREF2023, YELL2023; all 360 coordinates",
+      "fields": [
+        "pair",
+        "site",
+        "year",
+        "wavelength_nm",
+        "matched_effect",
+        "adjusted_p"
+      ],
+      "aggregation": "Median signed standardized effect across four observed cohorts. Full saturation only if all four joint-adjusted p<=.05 AND effect signs agree; otherwise opacity .24. This is a descriptive display, not a new pooled test.",
+      "sign": "First named category minus second named category. Wavelength family uses saved max-T / 40-contrast Bonferroni evidence."
+    },
+    "C": {
+      "sources": [
+        "provenance/researcher-evidence/2026-10-16/v1/tables/recognition_control_summary.csv",
+        "provenance/researcher-pft-information/2026-10-15/v1/tables/complementary_feature_performance.csv"
+      ],
+      "filter": "plant/site; Selected replay / Random; budgets1,2,3,5,7,10,20,50,100; full360 baseline",
+      "fields": [
+        "kind",
+        "method",
+        "budget",
+        "mean",
+        "min",
+        "max",
+        "balanced_accuracy"
+      ],
+      "aggregation": "Mean across three outer folds; random averages five fixed paths per fold. Ranges are observed folds/seeds, not confidence intervals. Random series ends at100; only actual full-spectrum endpoints shown."
+    },
+    "D": {
+      "sources": [
+        "provenance/researcher-pft-information/2026-10-15/v1/tables/class_specific_transfer.csv",
+        "provenance/researcher-pft-information/2026-10-15/v1/tables/confusion_plot_values.csv"
+      ],
+      "filter": "budget360; new-polygons/held-sites; NEON held-site confusion",
+      "fields": [
+        "researcher_category",
+        "kind",
+        "recall",
+        "truth",
+        "predicted",
+        "mean_fold_row_fraction"
+      ],
+      "aggregation": "Mean per-class recall / row-normalized confusion fraction across the three observed outer folds; not pooled pixel counts."
+    },
+    "E": {
+      "source": "provenance/researcher-evidence/2026-10-16/v1/tables/fraction_grid_calibration.csv",
+      "filter": "kind=site,representation=NEON,method in[Ridge,MESMA]",
+      "fields": [
+        "fold",
+        "researcher_category",
+        "method",
+        "true_fraction",
+        "prediction_mean",
+        "N"
+      ],
+      "aggregation": "Equal-weight mean of three canonical held-site fold means at every supported nominal fraction, matching report. Existing counts/nominal-bin handling retained.",
+      "scope": "Synthetic algebraic fractions only; Ridge denotes 120 proper parents, MESMA retains15 candidates."
+    },
+    "F": {
+      "sources": [
+        "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv",
+        "provenance/researcher-evidence/2026-10-16/v1/tables/same_candidate_ridge.csv",
+        "provenance/researcher-pft-information/2026-10-15/v1/tables/abundance_by_ambiguity.csv"
+      ],
+      "filter": "NEON; main comparison plant/site; prior/MESMA15/Ridge15/Ridge120. Ambiguity: held-site MESMA/Ridge120 only.",
+      "fields": [
+        "kind",
+        "method",
+        "RMSE",
+        "mean",
+        "min",
+        "max",
+        "ambiguity",
+        "fraction_RMSE"
+      ],
+      "aggregation": "Mean-fold macro fraction RMSE. Retained-capacity ridge uses exact15 MESMA parents; original ridge120 uses120. Ambiguity curves average fold-stratum RMSE, not all mixture rows pooled.",
+      "ambiguity_definition": "Maximum candidate-class fraction range under existing .01 near-fit tolerance: low<.10, moderate .10-.30, high>=.30. Same target strata for both models. Not exhaustive physical uncertainty.",
+      "limit": "Same-candidate control changes retained biological diversity/training bundles and learning prior; no isolated causal library-size claim or intrinsic algorithm superiority."
+    }
+  },
+  "source_sha256": {
+    "provenance/publication-figures/2026-10-14/atlas_summary.csv": "aed9abc95268edbd6ca665aba4330ce7496d8c264042e1f5682409ced6f8f25c",
+    "provenance/researcher-pft-information/2026-10-15/v1/tables/cohort_wavelength_inference.csv": "3c87fb4074735d1c0835e62be9ad973eba1ece005fa3f24f78a1034245a7ec96",
+    "provenance/researcher-evidence/2026-10-16/v1/tables/whole_spectrum_separability.csv": "e24f1fde6510c81e38518ddd71ea7b56df020d5399bdcd7617b99f6d1749bba5",
+    "src/spectralbridge/data/landsat_band_parameters.json": "b5ed747a00ae48a4216164ee73c4e4959b838d96688e2f13df8c82e1becab5e4",
+    "provenance/researcher-evidence/2026-10-16/v1/tables/recognition_control_summary.csv": "72b5c605f4100223d1f6b46763686b8fc574c7db1b7bc03e4a9239a4266997cf",
+    "provenance/researcher-pft-information/2026-10-15/v1/tables/complementary_feature_performance.csv": "4168db27ba32faaef0f0edd77197359e410ade4aff3c67b071223e3a7454d1d7",
+    "provenance/researcher-pft-information/2026-10-15/v1/tables/class_specific_transfer.csv": "9a9dfca318cd92bbc065a6baf4cdfb40bbeda7aa24b01238e9a149940ea58e47",
+    "provenance/researcher-pft-information/2026-10-15/v1/tables/confusion_plot_values.csv": "04066a824a291250172f9d0b0418fc300229a3f3ad1c8c325cef95c4f0d14433",
+    "provenance/researcher-evidence/2026-10-16/v1/tables/fraction_grid_calibration.csv": "6ebd292173659fd3196837edd7b18a2e7cf455c03927c325e506f5b1c0e6d293",
+    "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv": "eb26224c857915d628fd498cb7e7f5e10d8b8644bd302d2aa7076689af6503cc",
+    "provenance/researcher-evidence/2026-10-16/v1/tables/same_candidate_ridge.csv": "c33d6b0d515efa7a7b2eb2e29bc4a5baa82fa3c56ed46f58ae46ef1fd9fc0fd9",
+    "provenance/researcher-pft-information/2026-10-15/v1/tables/abundance_by_ambiguity.csv": "81922bcb6c0fb124a3e1a0f6d4a165bc9c39325c2e3ef067eac2b46dc927275b",
+    "output/pdf/researcher_evidence/Separability_Identifiability_and_Abundance.pdf": "847dc6179214ae92c3a1fa84904748d742bc963cc91c473dc3fd29f75026c2bb"
+  },
+  "report": "output/pdf/researcher_evidence/Separability_Identifiability_and_Abundance.pdf",
+  "data_sha256": {
+    "data/A_category_spectra.csv": "c530e9759e3c1e0c220cfe3534c937a02ae7f38cf8ba9d9d14e9364305f5c9e4",
+    "data/B_wavelength_effects.csv": "897fec4c90006ea4c77aaf49aab5e35ae330d3d5a2eac9e67f77f5c1e5a286ef",
+    "data/B_whole_spectrum_support.csv": "49f4748f152a91ea6deb4e6d638ebd6aaab87ebe27d03e8884f6db1b18cca26c",
+    "data/C_recognition.csv": "d86bcbf054fd9a41759393cd9fa0fafce5d5a4e2725c3e97ea56898d199584b0",
+    "data/D_confusion.csv": "e3f0b61ec8bed62fd65352edcfca184741a69565f01d78277895faed962b51e2",
+    "data/D_recall.csv": "4f05b71c5d035d5d7b590f4351db6e023ad15aca7f148af6f16418e5175ceecd",
+    "data/E_calibration.csv": "79d0d3d1a489d466d8f024f210e539baf3811bec07a76ac4c2a01f1b763e9288",
+    "data/F_ambiguity.csv": "2c002d5e4d4b83a6b649d5c70d016780a21e8503363fefb786fb0a4a3d49a2cd",
+    "data/F_library_comparison.csv": "6bcd050864dd03516c60447b44c0298293420c07647e52048ce9e46bf8fb4c2e",
+    "data/OLI_band_positions.csv": "59505fca30d875f8c123c785ed16d5eb77ce53b97563de991e6abef39070320e",
+    "data/annotations.csv": "3ea02bc21d1f629ed0520691bb6d31d6ec4b7730b962fee5a2330a9ea2c33e7e"
+  },
+  "cohort_count": 4,
+  "categories": [
+    "Deciduous",
+    "Evergreen",
+    "Herbaceous",
+    "Non-vegetated & dead",
+    "Woody shrub"
+  ],
+  "annotation_checks": "data/annotations.csv"
+}

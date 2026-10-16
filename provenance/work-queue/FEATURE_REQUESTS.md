@@ -20,6 +20,40 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P132. Lean 4 mathematical specification and adversarial implementation bridge
+
+- Priority: P0, user-directed
+- Status: Complete locally; Lean/mathlib mathematics, conformance bridge and adversarial audit verified
+- Owner: Codex
+- Started: 2026-10-16
+- Scope: Separate Lean 4/mathlib layer for actual sensor, correction, mixture and estimator mathematics; explicit assumptions and proof statuses; deterministic Python conformance examples. Preserve scientific outputs.
+- Plan: Audit implementations/configuration/tests/evidence; write traceability; pin Lean/mathlib; prove supported mathematics and counterexamples; check bridge examples; document limitations and discrepancies.
+- Completed: 2026-10-16. Separate formal/ project pins Lean/mathlib v4.24.0. Actual-code traceability, 106 checked theorem declarations, finite rational/Python bridge, scientist-facing claims/assumptions/status/translation tables and implementation audit. Linear/affine preservation, normalized/epsilon response, simplex/projection, information loss, ideal FCLS, finite tolerance search, centered ridge minimizer and conditional pipeline recovery are distinguished from empirical claims.
+- Verification: Complete lake build and all-theorem axiom audit passed (standard foundations only); 13 conformance/audit tests and 21 existing focused tests passed. Source/config/test hashes match; all 940 preceding packet files unchanged. Ruff, transparency, local links and whitespace pass.
+- Remaining/limits: No formal-layer implementation blocker. General Python sorting/active-face/IEEE equivalence, full correction/geometry correctness, native-sensor coefficient transfer, purity and independent field fractions are not proved. No scientific outputs, algorithms or coefficients changed; no commit/publication. Next recommended task: P133 production discrepancy fixes with source-provenance impact audit.
+
+### P133. Resolve production discrepancies exposed by the formal audit
+
+- Priority: P1
+- Status: Planned; not modified in formal-only P132
+- Scope: Replace brightness band-axis inference with an explicit contract; make polygon extraction windows disjoint and assert unique raster/pixel identity; explicitly import pyarrow.parquet in its lazy helper. Review zero/near-zero SRF normalization/masking, optional brightness axis inference and rounded wavelength metadata.
+- Evidence: formal/IMPLEMENTATION_AUDIT.md; 3×3 extraction fixture emits 15 rows for 9 unique pixels; (7,2,3) brightness fixture selects a spatial axis. Deterministic tests preserve current counterexamples separately from expected-correct behavior.
+- Required before scientific regeneration: Identify which historical products used affected paths, quantify impact without modifying originals, implement focused fixes/tests, and make a provenance-backed decision about new versioned outputs. These findings do not by themselves establish that the supplied historical library was affected.
+- Next: Fix explicit axis handling and disjoint extraction windows; revise audit tests/status after reviewed corrections. Do not silently replace existing scientific outputs.
+
+### P131. Primary manuscript synthesis figure
+
+- Priority: P0, user-directed
+- Status: Complete locally; six-panel manuscript figure and reproducibility packet validated
+- Owner: Codex
+- Started: 2026-10-16
+- Scope: A single coherent A-F science figure, spectra through separability, recognition/transfer, synthetic fraction calibration and matched-library/ambiguity limits. Reuse validated numerical products without analysis refits; preserve all sealed evidence.
+- Plan: Read report and source tables; assemble traceable panel data; compare equal/asymmetric layouts at manuscript width; render/review/revise vector PDF/SVG and >=600 dpi PNG; validate every annotation, source checksum and reproducibility. Supply caption, plotting script, manifest and source README.
+- Completed: 2026-10-16. Vector PDF/SVG and nominal 600 dpi PNG, narrative caption, plotting scripts, panel CSV bundle, source manifest and README. Compared balanced/asymmetric layouts and reviewed final print-size and detailed renders.
+- Verification: Five focused tests; independent A–F reconstruction and nine annotations; all 903 previous owned files unchanged; zero embedded raster images; byte-identical export rebuilding with original data/cache access denied; scoped Ruff, transparency and whitespace checks.
+- Remaining/blockers: No implementation blocker. Optional OLI classifier point and small whole-spectrum inset omitted for readability. Absolute scaling and independent field fractions remain unsupported. Next: researcher/manuscript review and independent empirical validation. No scientific refits, source copies, commit or publication.
+
+
 ### P130. Separability, identifiability and abundance adversarial validation
 
 - Priority: P0, user-directed

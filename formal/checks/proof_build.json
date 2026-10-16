@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "toolchain": "leanprover/lean4:v4.24.0",
+  "lake_manifest_sha256": "ba55c6933250a6d1a1b678578d7f7cec7f1d4a2d3c028bd875707b6bffd35820",
+  "foundation_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "lean_sources": {
+    "SpectralBridge/AxiomAudit.lean": "5f884a12acff7073ad093f7a3bf79277db5f5eb1343295509ffaa9d11b49d7e2",
+    "SpectralBridge/Bridge.lean": "4555a90d81755c807da1c798613370e8e7cabd7dc0f03749783a084b867cfeb8",
+    "SpectralBridge/Core.lean": "ae6be91a8fd6bb323907cdf452d7f05cc4074017b332e04fcd9766f17e6a1f8e",
+    "SpectralBridge/Counterexamples.lean": "1f2249e8848df358f33577180f1c90fba984bd0b108f127c2e8030fbe94050b4",
+    "SpectralBridge/Inference.lean": "4b95b5b957ab8b16a9a4f0b903591d055747e2d8072d2344c7430e680af93646",
+    "SpectralBridge/Pipeline.lean": "64417c18dc6bc5b37956f34f8dc57fb466ba3a67ed0b2e7620780eddad411a5c",
+    "SpectralBridge/Projection.lean": "14c05a50e42fe373370298f8c0cfdba64136679ae0446992306ccd45a2c09a34",
+    "SpectralBridge/Ridge.lean": "0f0f4a8d5d548da2e272a6c0af82ee20f6cac16587e79d2eb6b2c84b3f48f92f"
+  },
+  "axiom_audit_sha256": "463c74cffd243cbad0198c5b718f8413fb24161449cfd43475d6a625e864cbf6",
+  "no_custom_axioms_or_proof_holes": true,
+  "python_conformance": "Run pytest separately; see conformance.log"
+}
