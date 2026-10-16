@@ -1,0 +1,277 @@
+{
+  "title": "Researcher cover categories: spectral information and synthetic abundance",
+  "date": "15 October 2026",
+  "figures": [
+    {
+      "number": 1,
+      "name": "R01_researcher_category_overview",
+      "caption": "A: full-cohort acquisition-matched descriptive effects, not Cohen d. B: nested full-spectrum logistic class recall. Five recorded classes only; within-class spread and domain dependence remain.",
+      "sources": [
+        "cohort_wavelength_inference.csv",
+        "class_specific_transfer.csv"
+      ],
+      "hashes": {
+        "png": "77db945ee0e2b4165291cc3f8b3c81fe58523d080194dfe35a95e706a9bc00e9",
+        "pdf": "32416bea66db59dccb1419c709d635b0fd12b031d35dcc246202bf4a71334d8b",
+        "svg": "92521f009344ff8817895cedf56fd525ed8582f1d718220b14a3ee00ff8293e9"
+      },
+      "title": "Whole-spectrum differences and recognition answer different questions",
+      "finding": "All forty eligible researcher-category whole-spectrum comparisons were supported in the prior matched NPC analysis. Magnitudes differ. In the new full-spectrum tests, mean held-site recall is 94.2% for Evergreen and 91.7% for Non-vegetated & dead, versus 46.3% for Woody shrub.",
+      "limit": "These are observational cover labels, not randomized traits or pure-material guarantees. Full-cohort matched effects and nested prediction use different populations/weighting.",
+      "read": "A: full-cohort acquisition-matched descriptive effects, not Cohen d. B: nested full-spectrum logistic class recall. Five recorded classes only; within-class spread and domain dependence remain."
+    },
+    {
+      "number": 2,
+      "name": "R02_wavelength_effect_and_support",
+      "caption": "A: full-cohort descriptive effects. B: training-only max-T and within-design Bonferroni support in eight outer-training designs, which overlap and are not independent replications. No inference map selects predictive features. Triangles/short bars mark configured OLI centers/FWHM. Visible <700; red edge 700-750; NIR 750-1340; SWIR1 1450-1790; SWIR2 2000-2510 nm.",
+      "sources": [
+        "researcher_pft_information_atlas.csv"
+      ],
+      "hashes": {
+        "png": "b9dbce7d5b1cad436e766b3ccc65e5eab923f06f9f85d2c2655df5f8441ba3e2",
+        "pdf": "a66d30c3e47f0fa8804ec37c8c176bf8c1cb5246eadfd64e72b14c3dd54c6eb9",
+        "svg": "419783307e86ce350b6c23c2177faf7165bd5a07e28836067a7461ed039ff3ce"
+      },
+      "title": "Where do the matched spectral differences occur?",
+      "finding": "Strong differences occupy broad regions rather than isolated independent channels. Training-only corrected support is shown across eight overlapping outer-training designs; these are not independent replications. The signed mean can conceal reversals; consult individual site/year effects and sign consistency in the atlas.",
+      "limit": "Full-cohort evidence and training-only evidence are separate. Max-T and within-design Bonferroni control the declared training family. Neither inference map selects predictive features. Null support is not an effect confidence interval.",
+      "read": "A: full-cohort descriptive effects. B: training-only max-T and within-design Bonferroni support in eight outer-training designs, which overlap and are not independent replications. No inference map selects predictive features. Triangles/short bars mark configured OLI centers/FWHM. Visible <700; red edge 700-750; NIR 750-1340; SWIR1 1450-1790; SWIR2 2000-2510 nm."
+    },
+    {
+      "number": 3,
+      "name": "R03_single_wavelength_prediction",
+      "caption": "Balanced-prior univariate LDA; direction and threshold trained without target identities. Mean versus weakest-site performance are different views. These are estimates for one rule, not a theoretical information bound.",
+      "sources": [
+        "single_wavelength_discrimination.parquet",
+        "researcher_pft_information_atlas.csv"
+      ],
+      "hashes": {
+        "png": "e37531d012e27378d8224df4c4ffbf8e5b1f2f2bc99668316716fa394a64c018",
+        "pdf": "54442dad550ab0bedcaa16cba7b0ebf386a6926b350efd654a3a7fba638f84bd",
+        "svg": "e174fc143a4963e2656a3e42d111853b01167a008954ddc7a8164ca4b792e807"
+      },
+      "title": "Which individual wavelengths predict held-out categories?",
+      "finding": "Evergreen/Herbaceous and several contrasts involving Non-vegetated & dead have stronger single-coordinate signals. Herbaceous/Woody shrub remains below chance at its best observed worst-site coordinate under this mean-based rule.",
+      "limit": "LDA learns means, direction and midpoint threshold on training IDs only. It estimates one rule, not an upper bound on all nonlinear single-coordinate information. Outer peaks are descriptive, not selected deployment bands.",
+      "read": "Balanced-prior univariate LDA; direction and threshold trained without target identities. Mean versus weakest-site performance are different views. These are estimates for one rule, not a theoretical information bound."
+    },
+    {
+      "number": 4,
+      "name": "R04_spectral_curves_colored_by_discrimination",
+      "caption": "Four declared illustrations; all ten pairs are in the atlas. Effect height describes matched group differences; color describes a separate held-site predictor. Segments do not cross atmospheric gaps.",
+      "sources": [
+        "researcher_pft_information_atlas.csv"
+      ],
+      "hashes": {
+        "png": "08b0e365c174cc2185c9197b32ee35cd841389e0a599b070522a69062840dfa4",
+        "pdf": "edeed9207ac981911ae2289204bba5f10dd4c5993b2c80a14e1dc83aa3f8b102",
+        "svg": "fb8bca0aa5c6044c7755ca0b0bd367f3ed09555563885d85566aff467c74dfb6"
+      },
+      "title": "A large group difference can still be a weak predictor",
+      "finding": "These four selected pairs compare two distinct quantities: adjusted curve magnitude and held-site prediction. Effect height is not accuracy. Near-infrared and shortwave-infrared information helps some pairs, while the difficult Herbaceous/Woody shrub contrast lacks a robust single-coordinate rule.",
+      "limit": "Illustrations are selected for interpretation, not another testing family. All ten pairs are available in the full map. Spectral association does not uniquely identify a biochemical cause.",
+      "read": "Four declared illustrations; all ten pairs are in the atlas. Effect height describes matched group differences; color describes a separate held-site predictor. Segments do not cross atmospheric gaps."
+    },
+    {
+      "number": 5,
+      "name": "R05_class_recall_across_wavelengths",
+      "caption": "Prespecified five-class balanced-prior nearest-mean discriminant. A single coordinate can separate two classes yet confuse the five-way classification. This differs from pairwise balanced accuracy and full-spectrum logistic recall.",
+      "sources": [
+        "single_wavelength_class_recall.csv"
+      ],
+      "hashes": {
+        "png": "b6a7f2afb44034376c9473e47d4798b4c57a3ba92c881dd471a0994c61b57ffd",
+        "pdf": "a095de80497de2417d2ce6a97b3b3f520898e55c67a28654819d03e9a1b7a6da",
+        "svg": "b52909be6cab1c0e9900c10f11c36ab2573497eb8b7c6ba9af201bc34a115ed1"
+      },
+      "title": "Which classes can one spectral coordinate recognize?",
+      "finding": "A coordinate that helps a two-class comparison need not distinguish all five classes at once. Mean-based class centers can crowd together. Full-spectrum logistic recognition is a separate, stronger model; these are not its wavelength importances.",
+      "limit": "Five-class nearest-mean recall differs from pairwise balanced accuracy. Class sizes differ; every identity, including its repeated years, stays together in train/test splitting.",
+      "read": "Prespecified five-class balanced-prior nearest-mean discriminant. A single coordinate can separate two classes yet confuse the five-way classification. This differs from pairwise balanced accuracy and full-spectrum logistic recall."
+    },
+    {
+      "number": 6,
+      "name": "R06_site_year_stability",
+      "caption": "Score=max(0,2*minimum held-site BA-1) times cohort sign consistency. It is a review aid over three observed sites. Temporal changes preserve target identities; annotations are reused later field labels. No geographic-population or annual-truth guarantee.",
+      "sources": [
+        "researcher_pft_information_atlas.csv",
+        "domain_rank_consistency.csv"
+      ],
+      "hashes": {
+        "png": "819da2441a7ac8586472391279f906e335b30b99d9df8b4b8dad593599f5a3de",
+        "pdf": "2cd6ac2be38cdb571a4bf6d3056605a2b22b07e094f4a0a6e03222423ac37f1b",
+        "svg": "05338e9fbb4f721eaff58619a1a0ab69a93d71be01a3cb1a838095817eef9786"
+      },
+      "title": "Separate spectral magnitude from site and year stability",
+      "finding": "Some regions retain sign and predictive performance across sites; others are geographically specific or change between the paired image years. The score rewards the weakest observed site, so averaging cannot hide a failed domain.",
+      "limit": "Only three sites and two incompletely crossed years are available. Labels dated 2023/2024 are reused across image years. These are retrospective footprints, not independently verified annual individuals.",
+      "read": "Score=max(0,2*minimum held-site BA-1) times cohort sign consistency. It is a review aid over three observed sites. Temporal changes preserve target identities; annotations are reused later field labels. No geographic-population or annual-truth guarantee."
+    },
+    {
+      "number": 7,
+      "name": "R07_complementary_measurement_budgets",
+      "caption": "All selection and C tuning refit inside group-aware inner folds. Correlation panel compresses unsupported gaps in its coordinate index and interpolates no missing channel. The greedy residual criterion seeks complementary information; it is not an optimized sensor.",
+      "sources": [
+        "complementary_feature_performance.csv",
+        "complementary_selection.csv",
+        "training_correlation_clusters.csv"
+      ],
+      "hashes": {
+        "png": "d863306985d15409a4b1d0bcd805f467c195e985aab76ef8d2cf244b9218d5a4",
+        "pdf": "c4fd83ecd2d1bc3ef30cfd94c9d6271ee9eb42c2d912cb8e843236d5b0a196cb",
+        "svg": "d7afcc3e0c1263e5c08052529f4c2d91a5748f21c770b34e419571afc721822f"
+      },
+      "title": "Complementary information accumulates over many coordinates",
+      "finding": "New-polygon balanced accuracy rises from 41.6% at one complementary coordinate to 81.6% at twenty and 85.2% for the full grid. Held-site values are 70.1% and 73.8%. The inner-only parsimony rule chooses 50-100 coordinates across these folds.",
+      "limit": "Selectors and regularization refit inside each inner identity fold. The greedy residual path is not a globally optimal sensor. Correlation alone does not establish conditional predictive redundancy.",
+      "read": "All selection and C tuning refit inside group-aware inner folds. Correlation panel compresses unsupported gaps in its coordinate index and interpolates no missing channel. The greedy residual criterion seeks complementary information; it is not an optimized sensor."
+    },
+    {
+      "number": 8,
+      "name": "R08_NEON_to_synthetic_Landsat",
+      "caption": "Identical class labels and paired source observations. OLI spectral convolution is synthetic, at native/polygon support; it does not supply independent sensor noise, a 30 m footprint or field validation.",
+      "sources": [
+        "complementary_feature_performance.csv",
+        "reused_researcher_sensor_effect_retention.csv"
+      ],
+      "hashes": {
+        "png": "75335020ce12ba943f08e7167e5821f3c6a1c94c4bbe209c6fc3ecc38286bb36",
+        "pdf": "b0e34d51bf03b84f2a2d533579a4adb9837224151814426a74d38e8663a28a99",
+        "svg": "69931181f7f65a3e7931d5537313f82fffdd6dee5028f6d3c8299a8da24f180a"
+      },
+      "title": "Synthetic OLI preserves tests better than predictive accuracy",
+      "finding": "All forty researcher contrasts retain statistical support in OLI. Yet full-spectrum new-polygon/held-site accuracy changes from 85.2%/73.8% for NEON to 66.8%/57.7% for synthetic OLI. Support retention is not preservation of all predictive information.",
+      "limit": "OLI is derived from the same NEON spectra at native/polygon support. It is neither independent Landsat validation nor 30 m spatial aggregation. MicaSense is excluded because physical coordinates remain unresolved.",
+      "read": "Identical class labels and paired source observations. OLI spectral convolution is synthetic, at native/polygon support; it does not supply independent sensor noise, a 30 m footprint or field validation."
+    },
+    {
+      "number": "S1",
+      "name": "S1_researcher_confusion_matrices",
+      "caption": "Rows are true classes; columns are predictions. Cells are fold-mean row fractions. The year panels reuse the earlier validated researcher-only logistic baseline and annual-row target weighting; new polygon/site panels use the new nested identity-weighted model. These are conditional observed-domain tests.",
+      "sources": [
+        "confusion_matrices.csv",
+        "reused_researcher_year_confusion.csv"
+      ],
+      "hashes": {
+        "png": "49a64a2b8d42e41e6874ff7bdde1f86d0d1ab596b9f67bde2499e10fdbf8df9d",
+        "svg": "59bb8f0103cb05f5c58cfb4bfff060e620ee7c34ff93d82acacd2a0ac8fd5c49"
+      },
+      "title": "Which researcher categories are confused?",
+      "read": "Rows are true classes; columns are predictions. Cells are fold-mean row fractions. The year panels reuse the earlier validated researcher-only logistic baseline and annual-row target weighting; new polygon/site panels use the new nested identity-weighted model. These are conditional observed-domain tests.",
+      "finding": "Evergreen and the broad background category transfer better than Woody shrub. Off-diagonal cells identify the alternatives receiving mistakes. The year panels preserve the prior researcher-only model and clearly label that reuse.",
+      "limit": "Rows are normalized within each fold, then averaged. The new polygon/site model uses identity weighting; historical year panels use the validated earlier annual-row model. Do not interpret these as identical fitted pipelines."
+    },
+    {
+      "number": 9,
+      "name": "R09_abundance_model_benchmark",
+      "caption": "Solid bars: NEON; pale bars: OLI. Dots are outer folds, not independent fraction levels. All methods use identical parent-disjoint targets; 120 proper and40 tuning parents per fold, up to60 test parents. These are synthetic weights, not field cover.",
+      "sources": [
+        "abundance_model_comparison.parquet",
+        "abundance_paired_uncertainty.csv"
+      ],
+      "hashes": {
+        "png": "1f15f67c96fd0d5d82967a081a7d4ec5cffa9434b8c4e60e97a2d7a2d76b092d",
+        "pdf": "7e109da51610f3c43aaebfc5091f3ffdd094244a73fd8c916122c480f5c23028",
+        "svg": "a8cd26752a4ec15cd4e1359c5d1e77fba206af42b37a916cc7bf833bc10ce98e"
+      },
+      "title": "Supervised models improve known synthetic fraction recovery",
+      "finding": "NEON ridge fraction RMSE is 0.216 for new-polygon parents and 0.269 for held sites, versus MESMA 0.359/0.362. The no-spectrum training-prior control is 0.309: ridge beats it for new-parent/held-site targets, but not on average in the global-year tests. Flexible trees do not outperform ridge in the principal mean.",
+      "limit": "Each experiment uses 120 proper and 40 tuning parents, with up to 60 test parents. All methods share targets. Synthetic rows within a parent bundle are dependent; field abundance is not measured.",
+      "read": "Solid bars: NEON; pale bars: OLI. Dots are outer folds, not independent fraction levels. All methods use identical parent-disjoint targets; 120 proper and 40 tuning parents per fold, up to 60 test parents. These are synthetic weights, not field cover."
+    },
+    {
+      "number": 10,
+      "name": "R10_predicted_vs_known_fraction",
+      "caption": "Curves average the three new-polygon folds; complete grids for all methods/domains are saved. At true zero, positive detection is false detection. The .10 cutoff is declared, not a universal detection limit. Mixtures sharing parents are dependent.",
+      "sources": [
+        "abundance_by_true_fraction.csv"
+      ],
+      "hashes": {
+        "png": "7ad0b6dc63f24e3691a28f88cd461224ae4b326405a44ebf493fbe44b165e3ba",
+        "pdf": "54a1a05c03bcb35b0d6e0dd03b459a832b1e2648a67b8c758a97d18c8ab73490",
+        "svg": "a5740da3939386fce393ed03d8a365ee8e759296c84327ac61ab0f33465138cd"
+      },
+      "title": "Fraction errors depend on both class and true abundance",
+      "finding": "Models can shrink extremes, assign nonzero fractions to absent classes and differ substantially among researcher categories. Overall RMSE hides these patterns. The common projection enforces physical fraction constraints but cannot certify the biological interpretation.",
+      "limit": "Known fractions are algebraic source weights, not independent physical cover. Curves average folds on the stated synthetic prior. Every saved fraction is nonnegative and sums to one after projection.",
+      "read": "Curves average the three new-polygon folds; complete grids for all methods/domains are saved. At true zero, positive detection is false detection. The .10 cutoff is declared, not a universal detection limit. Mixtures sharing parents are dependent."
+    },
+    {
+      "number": 11,
+      "name": "R11_detection_vs_known_fraction",
+      "caption": "Curves average the three new-polygon folds; complete grids for all methods/domains are saved. At true zero, positive detection is false detection. The .10 cutoff is declared, not a universal detection limit. Mixtures sharing parents are dependent.",
+      "sources": [
+        "abundance_by_true_fraction.csv"
+      ],
+      "hashes": {
+        "png": "8a0b93709d13139056e343de9e7ee880c52f3d062d1b20bb53de4645ad59d6fc",
+        "pdf": "44e4e330375f5fa5800fbae388e78054f4c15a8ff1720ebd4d15bb5e970c1ea4",
+        "svg": "53c772206f07e724ca00b6ce8986dd941e7598eef5ddb1e70f45e9a2decfb2fc"
+      },
+      "title": "Fewer false detections can mean more missed low fractions",
+      "finding": "For Evergreen in new-parent tests, two-stage modeling reduces zero-fraction false detections relative to ridge, but increases low-fraction misses. Other classes show their own tradeoffs. A lower average fraction RMSE does not establish a reliable presence detector.",
+      "limit": "The .10 fraction cutoff is a stated comparison rule, not a universal detection limit. Parent-bundle dependence limits uncertainty; source class truth does not certify pure endmembers.",
+      "read": "Curves average the three new-polygon folds; complete grids for all methods/domains are saved. At true zero, positive detection is false detection. The .10 cutoff is declared, not a universal detection limit. Mixtures sharing parents are dependent."
+    },
+    {
+      "number": 12,
+      "name": "R12_abundance_error_and_ambiguity",
+      "caption": "Strata are shared across every method, using full-NEON MESMA near solutions within .01 training-RMS-scaled tolerance. Missing strata are unsupported. This diagnoses a candidate-library inverse problem, not intrinsic physical ambiguity or calibrated intervals.",
+      "sources": [
+        "abundance_by_ambiguity.csv"
+      ],
+      "hashes": {
+        "png": "08f97f8792ab675dea5d0e069faa54d471fbd55ec1c56cc6fec872b3ed0b42d4",
+        "pdf": "579c2c639294a643c4b42747cd71e0205a9adfa19773a4f91349ee7b52b56ad4",
+        "svg": "64ba0f5349990a70642d69ea99907249280fecc97d78eac9312f8f0e9253597b"
+      },
+      "title": "Lower fraction error does not remove spectral ambiguity",
+      "finding": "Ridge improves average error in the high-ambiguity held-site stratum, but gains are not uniform: MESMA can perform better in a moderate stratum. A learned prior can improve expected error while another biological composition still fits almost as well.",
+      "limit": "Ambiguity is candidate-library- and tolerance-dependent. Strata use the same NEON diagnostic for all methods. Missing strata are unsupported, and near ranges are not calibrated confidence intervals.",
+      "read": "Strata are shared across every method, using full-NEON MESMA near solutions within .01 training-RMS-scaled tolerance. Missing strata are unsupported. This diagnoses a candidate-library inverse problem, not intrinsic physical ambiguity or calibrated intervals."
+    },
+    {
+      "number": 13,
+      "name": "R13_abundance_domain_transfer",
+      "caption": "Global year holds alter site composition. Paired NIWO directions reuse the same held-out target IDs/fractions in both years, with other IDs for proper/tuning pools. Annotation labels are retrospective. Each cell is conditional on sampled parent bundles.",
+      "sources": [
+        "abundance_model_comparison.parquet"
+      ],
+      "hashes": {
+        "png": "f864dc8a177ad1680ef125629d202cd2826abce51942259a6de971abd09c9114",
+        "pdf": "d4181959440937d9f18029bb0fda72ed7611515a4907aff41676d1aa9cd37152",
+        "svg": "b50ea8a55a09cd3e6f384daecf644ac77cd389fc5be3fa32f434e5b4367d6131"
+      },
+      "title": "Abundance transfer depends on the target domain",
+      "finding": "Held-site and year targets alter model performance. Ridge global-year mean RMSE is 0.311, versus 0.309 for the no-spectrum training prior. The complete-pair NIWO design tests the same unseen IDs/fractions in both years, using other identities for fitting. Global year holds additionally change site composition; those columns are not a clean causal temporal effect.",
+      "limit": "Paired abundance is a fixed identity split, not the three-fold single-wavelength temporal experiment. Interval estimates condition on observed parent bundles; they do not cover new geographic populations.",
+      "read": "Global year holds alter site composition. Paired NIWO directions reuse the same held-out target IDs/fractions in both years, with other IDs for proper/tuning pools. Annotation labels are retrospective. Each cell is conditional on sampled parent bundles."
+    },
+    {
+      "number": 14,
+      "name": "R14_final_researcher_evidence",
+      "caption": "Evidence status is use-specific, not an aggregate score. Lowest observed outer score is descriptive, not a tuning choice or multiplicity-corrected winner. No synthetic success is promoted to field abundance validation.",
+      "sources": [
+        "final_evidence_summary.csv"
+      ],
+      "hashes": {
+        "png": "1a0b2e621d020068d23a468ad0b57a01fb273bc3eca13ead6f3b0a6f5007b4b4",
+        "pdf": "ed3b0092724c1224b9d1496f8b0a6add4d77a87f8cead5c8a30e85224f7eb24c",
+        "svg": "65d3b121142ab105cde409b50e225f6de3f7f78bd0783254894a97f96deb7218"
+      },
+      "title": "The final evidence is conditional, with a field-truth gate",
+      "finding": "Researcher-category recognition and controlled synthetic fraction recovery are useful, with clear domain limits. Supervised regression improves the latter. Unique physical inversion and operational fractional cover remain unestablished without independent purity and complete field fractions.",
+      "limit": "The lowest observed outer score is a descriptive comparison, not test-set hyperparameter tuning or a multiplicity-corrected winner. No current result is promoted to field abundance validation.",
+      "read": "Evidence status is use-specific, not an aggregate score. Lowest observed outer score is descriptive, not a tuning choice or multiplicity-corrected winner. No synthetic success is promoted to field abundance validation."
+    }
+  ],
+  "counts": {
+    "identities": 3639,
+    "annual_observations": 4807,
+    "atlas_rows": 3600,
+    "class_pairs": 10,
+    "NEON_coordinates": 360,
+    "synthetic_OLI_channels": 7
+  },
+  "main_finding": "Supervised regression improves known synthetic fraction recovery: NEON ridge 0.216 versus MESMA 0.359 on new-parent tests, and 0.269 versus 0.362 on held sites. These gains do not establish unique inversion or field-cover accuracy."
+}

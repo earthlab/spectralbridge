@@ -1,0 +1,55 @@
+{
+  "canonical_label_field": "cover_category",
+  "canonical_classes": [
+    "Deciduous",
+    "Evergreen",
+    "Herbaceous",
+    "Non-vegetated & dead",
+    "Woody shrub"
+  ],
+  "primary_analysis": "provenance/researcher-pft-information/2026-10-15/v1",
+  "primary_entrypoint": "examples/researcher_pft_information.py",
+  "historical_material": [
+    {
+      "path": "provenance/pft",
+      "status": "historical_or_superseded_primary",
+      "reason": "may contain retired species-derived grouping; use category-only reusable evidence only"
+    },
+    {
+      "path": "provenance/pft-audit",
+      "status": "historical_or_superseded_primary",
+      "reason": "may contain retired species-derived grouping; use category-only reusable evidence only"
+    },
+    {
+      "path": "provenance/publication-figures",
+      "status": "historical_or_superseded_primary",
+      "reason": "may contain retired species-derived grouping; use category-only reusable evidence only"
+    },
+    {
+      "path": "provenance/sensor-pft-transfer",
+      "status": "historical_or_superseded_primary",
+      "reason": "may contain retired species-derived grouping; use category-only reusable evidence only"
+    },
+    {
+      "path": "provenance/mesma-readiness",
+      "status": "historical_or_superseded_primary",
+      "reason": "may contain retired species-derived grouping; use category-only reusable evidence only"
+    },
+    {
+      "path": "provenance/spectral-library-analytics",
+      "status": "historical_or_superseded_primary",
+      "reason": "may contain retired species-derived grouping; use category-only reusable evidence only"
+    },
+    {
+      "path": "provenance/scientific-closure",
+      "status": "historical_or_superseded_primary",
+      "reason": "may contain retired species-derived grouping; use category-only reusable evidence only"
+    },
+    {
+      "path": "provenance/lab-story",
+      "status": "historical_or_superseded_primary",
+      "reason": "may contain retired species-derived grouping; use category-only reusable evidence only"
+    }
+  ],
+  "policy": "Historical builders/artifacts remain frozen for checksum provenance; they are not final primary outputs. New final builder admits recorded researcher categories only."
+}

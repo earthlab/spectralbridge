@@ -20,6 +20,59 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P130. Separability, identifiability and abundance adversarial validation
+
+- Priority: P0, user-directed
+- Status: Complete locally; three-question scientific report, missing controls and adversarial validation sealed
+- Owner: Codex
+- Started: 2026-10-16
+- Scope: Five researcher categories only. Audit foundational design and every requested scientific claim; reuse sealed evidence; implement scientifically supported missing tests, especially random-subset controls; preserve prior reports and numerical outputs. Create a new source-linked three-question PDF, explicit checklists, evidence ladder and adversarial appendix.
+- Plan: Inventory evidence/support; fix missing-test design; add regression tests and restart-safe analyses; independently verify new results and unchanged prior evidence; build compact numerical products and readable figures; render/review PDF and update canonical entry points.
+- Completed: 2026-10-16. New packet provenance/researcher-evidence/2026-10-16/v1; 26-page source-linked PDF, ten publication figure families, 66 requirements and 19 hostile-review failure modes. Only the five recorded categories are primary. Prior five-class single-coordinate tests were reused; added five matched random paths per budget, PCA controls, consistent nested temporal recognition, exact-15-candidate ridge fairness and class-level recognition/abundance links. All 196 sealed preceding packet files preserved.
+- Verification: 709 tests passed, 7 skipped, 2 deselected; coverage 68.28%. All 352 classifier model exports / 364 targets replayed, original inner memberships reconstructed, all 24 same-candidate targets independently reproduced by normal equations. All 384 canonical abundance evaluations checked; 30 figure files and the PDF rebuild byte-identically, with original data/cache access denied for figures. All 26 final pages rendered/reviewed; geometry, source hashes, docs, links, transparency and scoped Ruff/whitespace pass.
+- New findings: At 20 wavelengths held-site BA is selected 70.1% versus random 65.0%; small subsets do not always win and the large-budget gap narrows. Restricting NEON ridge to the exact 15 MESMA candidates raises RMSE to 0.365/0.387 versus MESMA 0.359/0.362, removing the original ridge120 advantage. The original larger-library comparison does not establish intrinsic method superiority; diversity/capacity and differing priors remain confounded. Global-year ridge still fails the no-spectrum prior on average.
+- Remaining/blockers: No report/implementation blocker. Absolute units, purity, independent annual biological labels and independent field fractions remain NOT TESTABLE. Broader spatial/temporal validation and contemporaneous fraction truth are the next recommended work, not additional synthetic model sweeps. Root final aliases and primary docs point to the new evidence ladder. No commit or publication.
+
+
+### P129. Canonical researcher-category information atlas and abundance benchmark
+
+- Priority: P0, user-directed
+- Status: Complete locally; canonical five-category atlas, abundance benchmark and 20-page human report validated
+- Owner: Codex
+- Started: 2026-10-15
+- Scope: Researcher cover_category is the only active biological grouping. Preserve species-derived woody-PFT artifacts as historical. Locate wavelength effects/evidence/prediction and transfer stability; nested complementary-feature experiments; common identity-disjoint synthetic abundance benchmark including supervised models, detection and ambiguity. Version all outputs.
+- Plan: Audit labels and reusable code; fix protocol and computational budgets before outer evaluation; add tested primitives and restart-safe stages; reuse category-only valid evidence; run controlled classification/abundance experiments; build source-linked tables, fourteen figure families and a human PDF; update canonical docs/report entry points and validate.
+- Completed: 2026-10-16. Versioned packet: provenance/researcher-pft-information/2026-10-15/v1. Researcher-only labels, 3,600-row wavelength atlas, nested complementary budgets, 230 training-only permutation cases, common identity-disjoint synthetic abundance experiments, no-spectrum control, 14 main figure families plus confusion supplement and editable 20-page PDF. Historical evidence preserved and primary entry points updated.
+- Verification: Full suite 705 passed, 7 skipped, 2 deselected; coverage 68.25%. All 384 abundance evaluations independently checked; 73 representative prediction cases replayed; 116 previous analytical outputs unchanged. All 44 figure exports rebuild byte-identically without original data/cache access; PDF geometry, hashes and exact rebuilding pass. Docs, transparency, targeted Ruff and whitespace verified.
+- Findings: NEON balanced accuracy 85.2% for new polygons and 73.8% for held sites; Woody shrub held-site recall 46.3%. Ridge synthetic fraction RMSE 0.216/0.269 versus MESMA 0.359/0.362, but global-year ridge 0.311 does not beat the 0.309 prior. Derivatives worsen principal results; two-stage detection has a false-positive/missed-low-fraction tradeoff. Predictive gains do not establish unique inversion.
+- Remaining/blockers: No implementation blocker. Independent contemporaneous field fractions, purity evidence and broader spatial/temporal support are required for defensible field abundance claims. Next recommended task is acquiring/reviewing that evidence, not adding algorithm branches. No source-table copy, historical deletion, commit or publication.
+
+### P128. Curated visual scientific story for the lab group
+
+- Priority: P0, user-directed
+- Status: Complete locally; shareable 29-page visual story with 23 figure-led explanations
+- Owner: Codex
+- Started: 2026-10-15
+- Scope: A cohesive human-researcher PDF from exploratory spectral plots through PFT inference, transfer, mixtures and scientific closure. Reuse validated results; clearly explain every figure and distinguish exploratory displays from inferential evidence.
+- Plan: Audit source reports/figures, curate a narrative and figure inventory, build an editable illustrated report, verify quantitative claims, render/review every page, retain source/checksum lineage and update transparency.
+- Outcome: Standalone PDF at output/pdf/lab_story/SpectralBridge_The_Visual_Scientific_Story.pdf tells the complete exploratory-to-readiness story. Every figure explains marks, lessons and limits; four early visuals are redrawn for readability. Editable JSON/Markdown, 23-figure source inventory, builders and checksum evidence are retained.
+- Verification: All 29 pages rendered/reviewed; no out-of-bounds text. Twenty-nine quantitative claims, 95 source hashes and 48 comparisons with earlier sealed evidence pass. PDF and four descriptive redraws reconstruct byte-identically. Relevant Ruff, docs links, transparency and whitespace pass. Existing experiments reused with no new fits or production changes.
+- Remaining/blockers: None for the curated report. Scientific data gaps remain those of P127.
+- Next recommended task: Lab-group discussion of intended use, acceptable errors and the prioritized independent data collection. No commit, push or publication.
+
+### P127. Scientific closure: temporal pairing, biological resolution and final decision
+
+- Priority: P0, user-directed
+- Status: Complete locally; scientific closure, five figures and 19-page human report verified
+- Owner: Codex
+- Started: 2026-10-15
+- Scope: Finish rather than proliferate analysis. Reuse P118–P126 evidence; add only paired temporal/variance attribution, biological-resolution and brightness/shape/weighting sensitivities needed for defensible closure. Original source and completed evidence remain immutable.
+- Plan: Log prompt; write analysis matrix and fixed closure design; quantify hierarchy/support and repeated NIWO observations; reuse grouped learning utilities for species/broad/coarse resolution and targeted sensitivities; synthesize evidence/readiness with explicit quantitative review criteria, five figures and a human PDF. Update tests/docs/transparency, run full feasible offline checks and verify all claims and PDF.
+- Outcome: Reused completed evidence and added 172 fixed focused fits. Final named synthesis, audit, readiness matrix, future-data policy, five synthesis figures and editable 19-page PDF are complete. Broad woody leaf habit transfers best; species transfer/coverage is limited; abundance and dependable unknown rejection remain unvalidated. Annotation dates are 2023/2024 and reused across years; native support is 1 m with median two extracted pixels.
+- Verification: 694 passed, 7 skipped, 2 deselected; 68.11% branch-aware coverage. Two browser checks pass. All 172 fits independently validated; 116 prior owned outputs unchanged. Fifteen figure exports and PDF rebuild byte-identically; all report pages visually reviewed. Strict docs, links, snapshots, Ruff, transparency and whitespace pass.
+- Remaining/blockers: No required closure work remains. Independent annual labels, verified units/purity, balanced site/year coverage and independent fraction truth are needed for stronger claims.
+- Next recommended task: Human scientific review of the final decisions, then targeted data collection in NEXT_DATA_NEEDED.md; do not expand analytical branches without new evidence. No commit, push or publication.
+
 ### P126. Integrated spectral-library analytics audit and human science PDF
 
 - Priority: P0, user-directed

@@ -7,7 +7,7 @@ necessary; neither proves a broad ecological application works.
 |---|---|---|
 | 1. Mathematical correctness | Analytic spectra/fractions, independent constrained optimizer, QA/scaling/geometry tests | Real-world measurement accuracy |
 | 2. Pipeline contracts | IO, orientation, ancillary alignment, chunking, filename contracts, restart and source immutability | External sensor agreement |
-| 3. Biological association | Whole-curve conditional permutation analysis; researcher labels and inferred PFTs separate | Causal functional mechanisms, novel-species classification |
+| 3. Biological association | Whole-curve conditional permutation analysis; recorded researcher cover categories only | Causal functional mechanisms, novel-species classification |
 | 4. Synthetic sensor reduction | Paired memberships/history, effect/direction/rank retention in OLI | Independent satellite or drone observations |
 | 5. Real-sensor comparison | One independently selected next-day R10C/OLI pilot with QA, footprint and uncertainty checks | Multisite/general sensor interchangeability |
 | 6. Mixture/abundance inference | Experimental synthetic fraction recovery and ambiguity tests | Operational ecological fraction accuracy; incomplete independent truth |

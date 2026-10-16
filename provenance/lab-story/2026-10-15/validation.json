@@ -1,0 +1,185 @@
+{
+  "status": "passed",
+  "pages": 29,
+  "figure_stories": 23,
+  "outside_text_words": [],
+  "hashed_source_files_verified": 95,
+  "sources_compared_to_prior_sealed_ledgers": 48,
+  "report_rebuild_byte_identical": true,
+  "numeric_checks": [
+    {
+      "claim": "species_level_plant_BA",
+      "actual": 0.7174902644178168,
+      "expected": 0.717,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "species_level_site_BA",
+      "actual": 0.47417742883345476,
+      "expected": 0.474,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "researcher_level_plant_BA",
+      "actual": 0.8580963628822835,
+      "expected": 0.858,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "researcher_level_site_BA",
+      "actual": 0.7250765268790222,
+      "expected": 0.725,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "broad_pft_plant_BA",
+      "actual": 0.9665260354620676,
+      "expected": 0.967,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "broad_pft_site_BA",
+      "actual": 0.901293328044935,
+      "expected": 0.901,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "broad_site_shape",
+      "actual": 0.9256308600673454,
+      "expected": 0.926,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "broad_site_amplitude",
+      "actual": 0.6741124066207225,
+      "expected": 0.674,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "paired_train2020_species_level_2020",
+      "actual": 0.6394712014564955,
+      "expected": 0.639,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "paired_train2020_species_level_2023",
+      "actual": 0.3000008863080758,
+      "expected": 0.3,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "paired_train2020_broad_pft_2020",
+      "actual": 0.959186722954839,
+      "expected": 0.959,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "paired_train2020_broad_pft_2023",
+      "actual": 0.8632917337627481,
+      "expected": 0.863,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "species_WREF_target_coverage",
+      "actual": 0.243103448275862,
+      "expected": 0.243,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "early_match_raw",
+      "actual": 0.1818181818181818,
+      "expected": 0.18181818,
+      "tolerance": 1e-07
+    },
+    {
+      "claim": "early_match_corr",
+      "actual": 0.1570247933884297,
+      "expected": 0.15702479,
+      "tolerance": 1e-07
+    },
+    {
+      "claim": "early_match_olioli",
+      "actual": 0.209366391184573,
+      "expected": 0.20936639,
+      "tolerance": 1e-07
+    },
+    {
+      "claim": "early_match_micasense",
+      "actual": 0.1294765840220385,
+      "expected": 0.12947658,
+      "tolerance": 1e-07
+    },
+    {
+      "claim": "retained_NEON_supported_inferred_contrasts",
+      "actual": 15.0,
+      "expected": 15,
+      "tolerance": 0
+    },
+    {
+      "claim": "median_effect_ratio",
+      "actual": 0.8240396651399553,
+      "expected": 0.824039665,
+      "tolerance": 1e-08
+    },
+    {
+      "claim": "effect_ratio_interval_low",
+      "actual": 0.8014033018280217,
+      "expected": 0.801403302,
+      "tolerance": 1e-08
+    },
+    {
+      "claim": "effect_ratio_interval_high",
+      "actual": 0.888761521368513,
+      "expected": 0.888761521,
+      "tolerance": 1e-08
+    },
+    {
+      "claim": "unknown_recall",
+      "actual": 0.16455211366964892,
+      "expected": 0.164552,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "known_false_rejection",
+      "actual": 0.03747260044126873,
+      "expected": 0.037473,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "plant_conformal_low",
+      "actual": 0.8837209302325582,
+      "expected": 0.884,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "plant_conformal_high",
+      "actual": 0.901689708141321,
+      "expected": 0.902,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "site_conformal_low",
+      "actual": 0.503448275862069,
+      "expected": 0.503,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "site_conformal_high",
+      "actual": 0.8372093023255814,
+      "expected": 0.837,
+      "tolerance": 0.00051
+    },
+    {
+      "claim": "real_pilot_RMSE",
+      "actual": 0.0147706508514228,
+      "expected": 0.0147706508514,
+      "tolerance": 1e-12
+    },
+    {
+      "claim": "real_pilot_angle",
+      "actual": 2.0891007605071943,
+      "expected": 2.08910076,
+      "tolerance": 1e-08
+    }
+  ]
+}

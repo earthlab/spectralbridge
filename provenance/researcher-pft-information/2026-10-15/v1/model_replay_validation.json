@@ -1,0 +1,649 @@
+{
+  "status": "passed",
+  "independent_ridge_normal_equations": true,
+  "replayed_prediction_cases": 73,
+  "checks": [
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 8.459899447643693e-14,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 2.0650148258027912e-14,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "PLS",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "shape",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 2.1393997684526767e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "derivative1",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 5.260236690673992e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "derivative2",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 4.964362254611387e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "PCA20",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 5.551115123125783e-16,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "selected7",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 3.8996583739958623e-14,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "selected20",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 1.3388803954406114e-12,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "PLS",
+      "representation": "shape",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "PLS",
+      "representation": "derivative1",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "PLS",
+      "representation": "derivative2",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "PLS",
+      "representation": "PCA20",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "PLS",
+      "representation": "selected7",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "PLS",
+      "representation": "selected20",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 8,
+      "max_absolute_prediction_difference": 3.2729374765949615e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 16,
+      "max_absolute_prediction_difference": 1.8396395518038844e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 8,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 16,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Random forest",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Random forest",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Gradient boosting",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "target": "target",
+      "method": "Gradient boosting",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_0",
+      "method": "FCLS",
+      "representation": "NEON",
+      "max_absolute_prediction_difference": 0.0
+    },
+    {
+      "fold": "plant_0",
+      "method": "MESMA",
+      "representation": "NEON",
+      "max_absolute_prediction_difference": 0.0
+    },
+    {
+      "fold": "plant_0",
+      "method": "FCLS",
+      "representation": "OLI",
+      "max_absolute_prediction_difference": 0.0
+    },
+    {
+      "fold": "plant_0",
+      "method": "MESMA",
+      "representation": "OLI",
+      "max_absolute_prediction_difference": 0.0
+    },
+    {
+      "fold": "plant_0",
+      "method": "Two-stage",
+      "representation": "NEON",
+      "max_absolute_prediction_difference": 0.0
+    },
+    {
+      "fold": "plant_1",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 1.3840317780733358e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_1",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 3.0531133177191805e-15,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_1",
+      "target": "target",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_1",
+      "target": "target",
+      "method": "PLS",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_2",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 1.1397827126558013e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_2",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 1.2656542480726785e-14,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_2",
+      "target": "target",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "plant_2",
+      "target": "target",
+      "method": "PLS",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "site_NIWO",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 2.0028423364237824e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "site_NIWO",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 8.1601392309949e-15,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "site_NIWO",
+      "target": "target",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "site_NIWO",
+      "target": "target",
+      "method": "PLS",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "site_WREF",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 2.892130979148533e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "site_WREF",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 7.799316747991725e-15,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "site_WREF",
+      "target": "target",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "site_WREF",
+      "target": "target",
+      "method": "PLS",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "site_YELL",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 2.328692794151266e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "site_YELL",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 4.1244785364824565e-14,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "site_YELL",
+      "target": "target",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "site_YELL",
+      "target": "target",
+      "method": "PLS",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "year_2020",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 1.3555823130673161e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "year_2020",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 6.106226635438361e-15,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "year_2020",
+      "target": "target",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "year_2020",
+      "target": "target",
+      "method": "PLS",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "year_2023",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 3.1097346919750635e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "year_2023",
+      "target": "target",
+      "method": "Ridge",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 8.382183835919932e-15,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "year_2023",
+      "target": "target",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "year_2023",
+      "target": "target",
+      "method": "PLS",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2020",
+      "target": "target2020",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 9.356404540028507e-14,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2020",
+      "target": "target2023",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 2.3964163986534004e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2020",
+      "target": "target2020",
+      "method": "Ridge",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 1.2490009027033011e-14,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2020",
+      "target": "target2023",
+      "method": "Ridge",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 1.965094753586527e-14,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2020",
+      "target": "target2020",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2020",
+      "target": "target2023",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2020",
+      "target": "target2020",
+      "method": "PLS",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2020",
+      "target": "target2023",
+      "method": "PLS",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2023",
+      "target": "target2020",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 1.7330581414398694e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2023",
+      "target": "target2023",
+      "method": "Ridge",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 1.8376966615107904e-13,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2023",
+      "target": "target2020",
+      "method": "Ridge",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 2.5091040356528538e-14,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2023",
+      "target": "target2023",
+      "method": "Ridge",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 3.352873534367973e-14,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2023",
+      "target": "target2020",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2023",
+      "target": "target2023",
+      "method": "PLS",
+      "representation": "NEON",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2023",
+      "target": "target2020",
+      "method": "PLS",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    },
+    {
+      "fold": "paired_train2023",
+      "target": "target2023",
+      "method": "PLS",
+      "representation": "OLI",
+      "training_bundles": 24,
+      "max_absolute_prediction_difference": 0.0,
+      "training_transform_reproduced": true
+    }
+  ]
+}

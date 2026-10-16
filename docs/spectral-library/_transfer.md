@@ -1,3 +1,5 @@
+> **Historical snapshot:** superseded by the recorded researcher-category primary analysis. Retained for provenance; not the current biological conclusion.
+
 <!-- Generated from verified canonical sensor-transfer tables. -->
 
 | Label system | Eligible matched comparisons | NEON supported | Retained in synthetic OLI |

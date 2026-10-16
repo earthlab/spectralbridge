@@ -1,0 +1,151 @@
+representation,kind,truth,predicted,mean_fold_row_fraction,source
+NEON,plant,Deciduous,Deciduous,0.7840151795631248,new_nested_identity_weighted
+NEON,plant,Deciduous,Evergreen,0.040710230778723926,new_nested_identity_weighted
+NEON,plant,Deciduous,Herbaceous,0.027088732568184625,new_nested_identity_weighted
+NEON,plant,Deciduous,Non-vegetated & dead,0.015873750462791558,new_nested_identity_weighted
+NEON,plant,Deciduous,Woody shrub,0.1323121066271751,new_nested_identity_weighted
+NEON,plant,Evergreen,Deciduous,0.012112991303905725,new_nested_identity_weighted
+NEON,plant,Evergreen,Evergreen,0.9519417249423214,new_nested_identity_weighted
+NEON,plant,Evergreen,Herbaceous,0.008435468210743329,new_nested_identity_weighted
+NEON,plant,Evergreen,Non-vegetated & dead,0.0051411535056583215,new_nested_identity_weighted
+NEON,plant,Evergreen,Woody shrub,0.022368662037371145,new_nested_identity_weighted
+NEON,plant,Herbaceous,Deciduous,0.01846630771740904,new_nested_identity_weighted
+NEON,plant,Herbaceous,Evergreen,0.013294175232501225,new_nested_identity_weighted
+NEON,plant,Herbaceous,Herbaceous,0.875225974873552,new_nested_identity_weighted
+NEON,plant,Herbaceous,Non-vegetated & dead,0.034677761461902434,new_nested_identity_weighted
+NEON,plant,Herbaceous,Woody shrub,0.05833578071463535,new_nested_identity_weighted
+NEON,plant,Non-vegetated & dead,Deciduous,0.018090383294760575,new_nested_identity_weighted
+NEON,plant,Non-vegetated & dead,Evergreen,0.012033851179925623,new_nested_identity_weighted
+NEON,plant,Non-vegetated & dead,Herbaceous,0.027883817985281723,new_nested_identity_weighted
+NEON,plant,Non-vegetated & dead,Non-vegetated & dead,0.9238226048802342,new_nested_identity_weighted
+NEON,plant,Non-vegetated & dead,Woody shrub,0.0181693426597979,new_nested_identity_weighted
+NEON,plant,Woody shrub,Deciduous,0.12521340422418417,new_nested_identity_weighted
+NEON,plant,Woody shrub,Evergreen,0.041068457365223375,new_nested_identity_weighted
+NEON,plant,Woody shrub,Herbaceous,0.09358080093653968,new_nested_identity_weighted
+NEON,plant,Woody shrub,Non-vegetated & dead,0.015449110883479937,new_nested_identity_weighted
+NEON,plant,Woody shrub,Woody shrub,0.7246882265905729,new_nested_identity_weighted
+NEON,site,Deciduous,Deciduous,0.6730119375573921,new_nested_identity_weighted
+NEON,site,Deciduous,Evergreen,0.07509641873278237,new_nested_identity_weighted
+NEON,site,Deciduous,Herbaceous,0.06069788797061524,new_nested_identity_weighted
+NEON,site,Deciduous,Non-vegetated & dead,0.010532598714416896,new_nested_identity_weighted
+NEON,site,Deciduous,Woody shrub,0.18066115702479338,new_nested_identity_weighted
+NEON,site,Evergreen,Deciduous,0.007945521200423638,new_nested_identity_weighted
+NEON,site,Evergreen,Evergreen,0.9422740092585974,new_nested_identity_weighted
+NEON,site,Evergreen,Herbaceous,0.00945641356352573,new_nested_identity_weighted
+NEON,site,Evergreen,Non-vegetated & dead,0.016823300313267293,new_nested_identity_weighted
+NEON,site,Evergreen,Woody shrub,0.02350075566418598,new_nested_identity_weighted
+NEON,site,Herbaceous,Deciduous,0.025470174224068304,new_nested_identity_weighted
+NEON,site,Herbaceous,Evergreen,0.1317641629168109,new_nested_identity_weighted
+NEON,site,Herbaceous,Herbaceous,0.6956147407114894,new_nested_identity_weighted
+NEON,site,Herbaceous,Non-vegetated & dead,0.10272833493403016,new_nested_identity_weighted
+NEON,site,Herbaceous,Woody shrub,0.04442258721360121,new_nested_identity_weighted
+NEON,site,Non-vegetated & dead,Deciduous,0.011350882563003775,new_nested_identity_weighted
+NEON,site,Non-vegetated & dead,Evergreen,0.02748018909635071,new_nested_identity_weighted
+NEON,site,Non-vegetated & dead,Herbaceous,0.02303336394245485,new_nested_identity_weighted
+NEON,site,Non-vegetated & dead,Non-vegetated & dead,0.9166728975310979,new_nested_identity_weighted
+NEON,site,Non-vegetated & dead,Woody shrub,0.021462666867092806,new_nested_identity_weighted
+NEON,site,Woody shrub,Deciduous,0.2441918535702643,new_nested_identity_weighted
+NEON,site,Woody shrub,Evergreen,0.10781338671261231,new_nested_identity_weighted
+NEON,site,Woody shrub,Herbaceous,0.1405015541832755,new_nested_identity_weighted
+NEON,site,Woody shrub,Non-vegetated & dead,0.044815889260044976,new_nested_identity_weighted
+NEON,site,Woody shrub,Woody shrub,0.46267731627380293,new_nested_identity_weighted
+NEON,year,Deciduous,Deciduous,0.5133082706766917,reused_researcher_logistic_annual_row
+NEON,year,Deciduous,Evergreen,0.034185463659147874,reused_researcher_logistic_annual_row
+NEON,year,Deciduous,Herbaceous,0.11854636591478696,reused_researcher_logistic_annual_row
+NEON,year,Deciduous,Non-vegetated & dead,0.04588972431077694,reused_researcher_logistic_annual_row
+NEON,year,Deciduous,Woody shrub,0.2880701754385965,reused_researcher_logistic_annual_row
+NEON,year,Evergreen,Deciduous,0.02232772850628095,reused_researcher_logistic_annual_row
+NEON,year,Evergreen,Evergreen,0.857360602075931,reused_researcher_logistic_annual_row
+NEON,year,Evergreen,Herbaceous,0.07892454466608846,reused_researcher_logistic_annual_row
+NEON,year,Evergreen,Non-vegetated & dead,0.01602383683518451,reused_researcher_logistic_annual_row
+NEON,year,Evergreen,Woody shrub,0.025363287916515122,reused_researcher_logistic_annual_row
+NEON,year,Herbaceous,Deciduous,0.018013016254896517,reused_researcher_logistic_annual_row
+NEON,year,Herbaceous,Evergreen,0.09291045927022608,reused_researcher_logistic_annual_row
+NEON,year,Herbaceous,Herbaceous,0.7532463526726505,reused_researcher_logistic_annual_row
+NEON,year,Herbaceous,Non-vegetated & dead,0.08124363838252985,reused_researcher_logistic_annual_row
+NEON,year,Herbaceous,Woody shrub,0.05458653341969711,reused_researcher_logistic_annual_row
+NEON,year,Non-vegetated & dead,Deciduous,0.02924791086350975,reused_researcher_logistic_annual_row
+NEON,year,Non-vegetated & dead,Evergreen,0.07215688297396747,reused_researcher_logistic_annual_row
+NEON,year,Non-vegetated & dead,Herbaceous,0.155498813576808,reused_researcher_logistic_annual_row
+NEON,year,Non-vegetated & dead,Non-vegetated & dead,0.7277760583238764,reused_researcher_logistic_annual_row
+NEON,year,Non-vegetated & dead,Woody shrub,0.01532033426183844,reused_researcher_logistic_annual_row
+NEON,year,Woody shrub,Deciduous,0.1819331402032464,reused_researcher_logistic_annual_row
+NEON,year,Woody shrub,Evergreen,0.11137628178599347,reused_researcher_logistic_annual_row
+NEON,year,Woody shrub,Herbaceous,0.35724237825907024,reused_researcher_logistic_annual_row
+NEON,year,Woody shrub,Non-vegetated & dead,0.046985791143606015,reused_researcher_logistic_annual_row
+NEON,year,Woody shrub,Woody shrub,0.3024624086080839,reused_researcher_logistic_annual_row
+OLI,plant,Deciduous,Deciduous,0.6558836233493768,new_nested_identity_weighted
+OLI,plant,Deciduous,Evergreen,0.057740960138220415,new_nested_identity_weighted
+OLI,plant,Deciduous,Herbaceous,0.09507281253856596,new_nested_identity_weighted
+OLI,plant,Deciduous,Non-vegetated & dead,0.009086140935456004,new_nested_identity_weighted
+OLI,plant,Deciduous,Woody shrub,0.18221646303838088,new_nested_identity_weighted
+OLI,plant,Evergreen,Deciduous,0.01321351316169078,new_nested_identity_weighted
+OLI,plant,Evergreen,Evergreen,0.9035252143399313,new_nested_identity_weighted
+OLI,plant,Evergreen,Herbaceous,0.054288668923136864,new_nested_identity_weighted
+OLI,plant,Evergreen,Non-vegetated & dead,0.005129050953472116,new_nested_identity_weighted
+OLI,plant,Evergreen,Woody shrub,0.023843552621768946,new_nested_identity_weighted
+OLI,plant,Herbaceous,Deciduous,0.18386359928210147,new_nested_identity_weighted
+OLI,plant,Herbaceous,Evergreen,0.11075216185348342,new_nested_identity_weighted
+OLI,plant,Herbaceous,Herbaceous,0.4683439386523087,new_nested_identity_weighted
+OLI,plant,Herbaceous,Non-vegetated & dead,0.07602218959047154,new_nested_identity_weighted
+OLI,plant,Herbaceous,Woody shrub,0.16101811062163485,new_nested_identity_weighted
+OLI,plant,Non-vegetated & dead,Deciduous,0.0024330900243309003,new_nested_identity_weighted
+OLI,plant,Non-vegetated & dead,Evergreen,0.013259211735657491,new_nested_identity_weighted
+OLI,plant,Non-vegetated & dead,Herbaceous,0.025345575649921192,new_nested_identity_weighted
+OLI,plant,Non-vegetated & dead,Non-vegetated & dead,0.9275600148253341,new_nested_identity_weighted
+OLI,plant,Non-vegetated & dead,Woody shrub,0.03140210776475614,new_nested_identity_weighted
+OLI,plant,Woody shrub,Deciduous,0.3115213892005268,new_nested_identity_weighted
+OLI,plant,Woody shrub,Evergreen,0.10165086797933975,new_nested_identity_weighted
+OLI,plant,Woody shrub,Herbaceous,0.1400365293833905,new_nested_identity_weighted
+OLI,plant,Woody shrub,Non-vegetated & dead,0.05985886867307286,new_nested_identity_weighted
+OLI,plant,Woody shrub,Woody shrub,0.38693234476367006,new_nested_identity_weighted
+OLI,site,Deciduous,Deciduous,0.37847566574839303,new_nested_identity_weighted
+OLI,site,Deciduous,Evergreen,0.05537190082644628,new_nested_identity_weighted
+OLI,site,Deciduous,Herbaceous,0.3542699724517906,new_nested_identity_weighted
+OLI,site,Deciduous,Non-vegetated & dead,0.014710743801652893,new_nested_identity_weighted
+OLI,site,Deciduous,Woody shrub,0.19717171717171714,new_nested_identity_weighted
+OLI,site,Evergreen,Deciduous,0.019276407814292674,new_nested_identity_weighted
+OLI,site,Evergreen,Evergreen,0.842191106737503,new_nested_identity_weighted
+OLI,site,Evergreen,Herbaceous,0.08414290545147957,new_nested_identity_weighted
+OLI,site,Evergreen,Non-vegetated & dead,0.011573956481246296,new_nested_identity_weighted
+OLI,site,Evergreen,Woody shrub,0.04281562351547857,new_nested_identity_weighted
+OLI,site,Herbaceous,Deciduous,0.15875873679831384,new_nested_identity_weighted
+OLI,site,Herbaceous,Evergreen,0.13490981657801893,new_nested_identity_weighted
+OLI,site,Herbaceous,Herbaceous,0.42949556111330495,new_nested_identity_weighted
+OLI,site,Herbaceous,Non-vegetated & dead,0.12456102717609452,new_nested_identity_weighted
+OLI,site,Herbaceous,Woody shrub,0.15227485833426777,new_nested_identity_weighted
+OLI,site,Non-vegetated & dead,Deciduous,0.008264462809917356,new_nested_identity_weighted
+OLI,site,Non-vegetated & dead,Evergreen,0.0516427674072828,new_nested_identity_weighted
+OLI,site,Non-vegetated & dead,Herbaceous,0.0698103454676822,new_nested_identity_weighted
+OLI,site,Non-vegetated & dead,Non-vegetated & dead,0.8396477951956399,new_nested_identity_weighted
+OLI,site,Non-vegetated & dead,Woody shrub,0.030634629119477605,new_nested_identity_weighted
+OLI,site,Woody shrub,Deciduous,0.13573652958040464,new_nested_identity_weighted
+OLI,site,Woody shrub,Evergreen,0.1058343950917102,new_nested_identity_weighted
+OLI,site,Woody shrub,Herbaceous,0.3055095941484383,new_nested_identity_weighted
+OLI,site,Woody shrub,Non-vegetated & dead,0.057804199680921264,new_nested_identity_weighted
+OLI,site,Woody shrub,Woody shrub,0.39511528149852565,new_nested_identity_weighted
+OLI,year,Deciduous,Deciduous,0.2357644110275689,reused_researcher_logistic_annual_row
+OLI,year,Deciduous,Evergreen,0.02461152882205514,reused_researcher_logistic_annual_row
+OLI,year,Deciduous,Herbaceous,0.30724310776942354,reused_researcher_logistic_annual_row
+OLI,year,Deciduous,Non-vegetated & dead,0.0225062656641604,reused_researcher_logistic_annual_row
+OLI,year,Deciduous,Woody shrub,0.40987468671679195,reused_researcher_logistic_annual_row
+OLI,year,Evergreen,Deciduous,0.033824804856895055,reused_researcher_logistic_annual_row
+OLI,year,Evergreen,Evergreen,0.8543899504798143,reused_researcher_logistic_annual_row
+OLI,year,Evergreen,Herbaceous,0.03929216909604678,reused_researcher_logistic_annual_row
+OLI,year,Evergreen,Non-vegetated & dead,0.00411437204487592,reused_researcher_logistic_annual_row
+OLI,year,Evergreen,Woody shrub,0.06837870352236801,reused_researcher_logistic_annual_row
+OLI,year,Herbaceous,Deciduous,0.0570540698929706,reused_researcher_logistic_annual_row
+OLI,year,Herbaceous,Evergreen,0.04151630116282656,reused_researcher_logistic_annual_row
+OLI,year,Herbaceous,Herbaceous,0.40857777366521697,reused_researcher_logistic_annual_row
+OLI,year,Herbaceous,Non-vegetated & dead,0.19531322291107614,reused_researcher_logistic_annual_row
+OLI,year,Herbaceous,Woody shrub,0.2975386323679097,reused_researcher_logistic_annual_row
+OLI,year,Non-vegetated & dead,Deciduous,0.01532033426183844,reused_researcher_logistic_annual_row
+OLI,year,Non-vegetated & dead,Evergreen,0.025370542315760514,reused_researcher_logistic_annual_row
+OLI,year,Non-vegetated & dead,Herbaceous,0.07720348017469651,reused_researcher_logistic_annual_row
+OLI,year,Non-vegetated & dead,Non-vegetated & dead,0.8717545307610303,reused_researcher_logistic_annual_row
+OLI,year,Non-vegetated & dead,Woody shrub,0.010351112486674231,reused_researcher_logistic_annual_row
+OLI,year,Woody shrub,Deciduous,0.13871108658665565,reused_researcher_logistic_annual_row
+OLI,year,Woody shrub,Evergreen,0.0924610291074631,reused_researcher_logistic_annual_row
+OLI,year,Woody shrub,Herbaceous,0.3267899020554559,reused_researcher_logistic_annual_row
+OLI,year,Woody shrub,Non-vegetated & dead,0.038653607394123324,reused_researcher_logistic_annual_row
+OLI,year,Woody shrub,Woody shrub,0.403384374856302,reused_researcher_logistic_annual_row

@@ -1,0 +1,241 @@
+fold,kind,target,method,representation,macro_RMSE
+paired_train2020,paired_year,target2020,FCLS,NEON,0.35074733109418443
+paired_train2020,paired_year,target2020,FCLS,OLI,0.3454633899824452
+paired_train2020,paired_year,target2020,Gradient boosting,NEON,0.2443195439319758
+paired_train2020,paired_year,target2020,Gradient boosting,OLI,0.2526245185758652
+paired_train2020,paired_year,target2020,MESMA,NEON,0.3648638079963405
+paired_train2020,paired_year,target2020,MESMA,OLI,0.38659430665767847
+paired_train2020,paired_year,target2020,PLS,NEON,0.21878611153297525
+paired_train2020,paired_year,target2020,PLS,OLI,0.2447771997977631
+paired_train2020,paired_year,target2020,PLS (16 bundles),NEON,0.2429786962858828
+paired_train2020,paired_year,target2020,PLS (8 bundles),NEON,0.24084667131366144
+paired_train2020,paired_year,target2020,Random forest,NEON,0.25456095539363144
+paired_train2020,paired_year,target2020,Random forest,OLI,0.2617834444966397
+paired_train2020,paired_year,target2020,Ridge,NEON,0.21921138541154953
+paired_train2020,paired_year,target2020,Ridge,OLI,0.2448046800585352
+paired_train2020,paired_year,target2020,Ridge (16 bundles),NEON,0.23092736915047443
+paired_train2020,paired_year,target2020,Ridge (8 bundles),NEON,0.24542352444313303
+paired_train2020,paired_year,target2020,Training prior,NEON,0.3086127198318045
+paired_train2020,paired_year,target2020,Training prior,OLI,0.3086127198318045
+paired_train2020,paired_year,target2020,Two-stage,NEON,0.24130572210866683
+paired_train2020,paired_year,target2020,Two-stage,OLI,0.2655811427630985
+paired_train2020,paired_year,target2023,FCLS,NEON,0.3439298320326699
+paired_train2020,paired_year,target2023,FCLS,OLI,0.34346354729751566
+paired_train2020,paired_year,target2023,Gradient boosting,NEON,0.2486858164090566
+paired_train2020,paired_year,target2023,Gradient boosting,OLI,0.2651362860096187
+paired_train2020,paired_year,target2023,MESMA,NEON,0.33663938946316624
+paired_train2020,paired_year,target2023,MESMA,OLI,0.3642000113542973
+paired_train2020,paired_year,target2023,PLS,NEON,0.2502623013955578
+paired_train2020,paired_year,target2023,PLS,OLI,0.24380079539689462
+paired_train2020,paired_year,target2023,PLS (16 bundles),NEON,0.2708282412990369
+paired_train2020,paired_year,target2023,PLS (8 bundles),NEON,0.286089749741837
+paired_train2020,paired_year,target2023,Random forest,NEON,0.25809032946247484
+paired_train2020,paired_year,target2023,Random forest,OLI,0.27329911366338444
+paired_train2020,paired_year,target2023,Ridge,NEON,0.255237090963481
+paired_train2020,paired_year,target2023,Ridge,OLI,0.2438180281033464
+paired_train2020,paired_year,target2023,Ridge (16 bundles),NEON,0.2409987623876831
+paired_train2020,paired_year,target2023,Ridge (8 bundles),NEON,0.2551389155079431
+paired_train2020,paired_year,target2023,Training prior,NEON,0.3086127198318045
+paired_train2020,paired_year,target2023,Training prior,OLI,0.3086127198318045
+paired_train2020,paired_year,target2023,Two-stage,NEON,0.29661377233678315
+paired_train2020,paired_year,target2023,Two-stage,OLI,0.25698770478694327
+paired_train2023,paired_year,target2020,FCLS,NEON,0.3121652998506247
+paired_train2023,paired_year,target2020,FCLS,OLI,0.3173470072339805
+paired_train2023,paired_year,target2020,Gradient boosting,NEON,0.26935960220764255
+paired_train2023,paired_year,target2020,Gradient boosting,OLI,0.2562959323487621
+paired_train2023,paired_year,target2020,MESMA,NEON,0.3769991529958415
+paired_train2023,paired_year,target2020,MESMA,OLI,0.37323579958416425
+paired_train2023,paired_year,target2020,PLS,NEON,0.3108284703343305
+paired_train2023,paired_year,target2020,PLS,OLI,0.25135438625638323
+paired_train2023,paired_year,target2020,PLS (16 bundles),NEON,0.2957023918936041
+paired_train2023,paired_year,target2020,PLS (8 bundles),NEON,0.26507681496624746
+paired_train2023,paired_year,target2020,Random forest,NEON,0.25521137224497115
+paired_train2023,paired_year,target2020,Random forest,OLI,0.2612109241367641
+paired_train2023,paired_year,target2020,Ridge,NEON,0.2783061726221233
+paired_train2023,paired_year,target2020,Ridge,OLI,0.2511842440021543
+paired_train2023,paired_year,target2020,Ridge (16 bundles),NEON,0.27866862437041334
+paired_train2023,paired_year,target2020,Ridge (8 bundles),NEON,0.2694857526768499
+paired_train2023,paired_year,target2020,Training prior,NEON,0.3086127198318045
+paired_train2023,paired_year,target2020,Training prior,OLI,0.3086127198318045
+paired_train2023,paired_year,target2020,Two-stage,NEON,0.30210731035877914
+paired_train2023,paired_year,target2020,Two-stage,OLI,0.2868981018813188
+paired_train2023,paired_year,target2023,FCLS,NEON,0.3070728227110727
+paired_train2023,paired_year,target2023,FCLS,OLI,0.32257361317278327
+paired_train2023,paired_year,target2023,Gradient boosting,NEON,0.22485281661054854
+paired_train2023,paired_year,target2023,Gradient boosting,OLI,0.24209605381596355
+paired_train2023,paired_year,target2023,MESMA,NEON,0.3323572363415027
+paired_train2023,paired_year,target2023,MESMA,OLI,0.3275883181833317
+paired_train2023,paired_year,target2023,PLS,NEON,0.2085869230087593
+paired_train2023,paired_year,target2023,PLS,OLI,0.23577650329474126
+paired_train2023,paired_year,target2023,PLS (16 bundles),NEON,0.21570440772331717
+paired_train2023,paired_year,target2023,PLS (8 bundles),NEON,0.2197751330086833
+paired_train2023,paired_year,target2023,Random forest,NEON,0.23226797272030436
+paired_train2023,paired_year,target2023,Random forest,OLI,0.2467148823950017
+paired_train2023,paired_year,target2023,Ridge,NEON,0.19882846903105472
+paired_train2023,paired_year,target2023,Ridge,OLI,0.235755472613346
+paired_train2023,paired_year,target2023,Ridge (16 bundles),NEON,0.20531112485606773
+paired_train2023,paired_year,target2023,Ridge (8 bundles),NEON,0.2201563348974138
+paired_train2023,paired_year,target2023,Training prior,NEON,0.3086127198318045
+paired_train2023,paired_year,target2023,Training prior,OLI,0.3086127198318045
+paired_train2023,paired_year,target2023,Two-stage,NEON,0.21747434008240413
+paired_train2023,paired_year,target2023,Two-stage,OLI,0.27243740050814486
+plant_0,plant,target,FCLS,NEON,0.3213143110896864
+plant_0,plant,target,FCLS,OLI,0.33017134069393517
+plant_0,plant,target,Gradient boosting,NEON,0.25097997245146136
+plant_0,plant,target,Gradient boosting,OLI,0.25665485717607284
+plant_0,plant,target,MESMA,NEON,0.36765434692229954
+plant_0,plant,target,MESMA,OLI,0.3475211096928779
+plant_0,plant,target,PLS,NEON,0.23344244884077356
+plant_0,plant,target,PLS,OLI,0.2755762516057907
+plant_0,plant,target,PLS (16 bundles),NEON,0.24884791116373864
+plant_0,plant,target,PLS (8 bundles),NEON,0.24027317483285557
+plant_0,plant,target,Random forest,NEON,0.2491162205201117
+plant_0,plant,target,Random forest,OLI,0.2559659687568802
+plant_0,plant,target,Ridge,NEON,0.22232833285110595
+plant_0,plant,target,Ridge,OLI,0.275948767166663
+plant_0,plant,target,Ridge (16 bundles),NEON,0.24359911302889442
+plant_0,plant,target,Ridge (8 bundles),NEON,0.24127569652855807
+plant_0,plant,target,Training prior,NEON,0.3086127198318045
+plant_0,plant,target,Training prior,OLI,0.3086127198318045
+plant_0,plant,target,Two-stage,NEON,0.24491601101252744
+plant_0,plant,target,Two-stage,OLI,0.2872414335066361
+plant_1,plant,target,FCLS,NEON,0.3463338396232956
+plant_1,plant,target,FCLS,OLI,0.35049418785957487
+plant_1,plant,target,Gradient boosting,NEON,0.24426171827760523
+plant_1,plant,target,Gradient boosting,OLI,0.2570362670660827
+plant_1,plant,target,MESMA,NEON,0.344399602366772
+plant_1,plant,target,MESMA,OLI,0.3375811365129549
+plant_1,plant,target,PLS,NEON,0.21477562080404658
+plant_1,plant,target,PLS,OLI,0.26115825947085175
+plant_1,plant,target,PLS (16 bundles),NEON,0.2175106875775115
+plant_1,plant,target,PLS (8 bundles),NEON,0.24188769479568864
+plant_1,plant,target,Random forest,NEON,0.24538390954782316
+plant_1,plant,target,Random forest,OLI,0.25703134011537343
+plant_1,plant,target,Ridge,NEON,0.2114217986657597
+plant_1,plant,target,Ridge,OLI,0.26568671875823074
+plant_1,plant,target,Ridge (16 bundles),NEON,0.21616111990054784
+plant_1,plant,target,Ridge (8 bundles),NEON,0.2331041717516602
+plant_1,plant,target,Training prior,NEON,0.3086127198318045
+plant_1,plant,target,Training prior,OLI,0.3086127198318045
+plant_1,plant,target,Two-stage,NEON,0.23122053284836344
+plant_1,plant,target,Two-stage,OLI,0.285971728832398
+plant_2,plant,target,FCLS,NEON,0.3672464652313566
+plant_2,plant,target,FCLS,OLI,0.3720258307238744
+plant_2,plant,target,Gradient boosting,NEON,0.24269923984006242
+plant_2,plant,target,Gradient boosting,OLI,0.24920827176917199
+plant_2,plant,target,MESMA,NEON,0.36574531796995974
+plant_2,plant,target,MESMA,OLI,0.3721598307964981
+plant_2,plant,target,PLS,NEON,0.21848368863148404
+plant_2,plant,target,PLS,OLI,0.25633056167789825
+plant_2,plant,target,PLS (16 bundles),NEON,0.2311458782331289
+plant_2,plant,target,PLS (8 bundles),NEON,0.27326737350910163
+plant_2,plant,target,Random forest,NEON,0.24351265508397613
+plant_2,plant,target,Random forest,OLI,0.2540443950781363
+plant_2,plant,target,Ridge,NEON,0.2154039968495793
+plant_2,plant,target,Ridge,OLI,0.2563901360094016
+plant_2,plant,target,Ridge (16 bundles),NEON,0.22399217372910873
+plant_2,plant,target,Ridge (8 bundles),NEON,0.2578383098317529
+plant_2,plant,target,Training prior,NEON,0.3086127198318045
+plant_2,plant,target,Training prior,OLI,0.3086127198318045
+plant_2,plant,target,Two-stage,NEON,0.23025518991203617
+plant_2,plant,target,Two-stage,OLI,0.280429466945946
+site_NIWO,site,target,FCLS,NEON,0.33864018184449307
+site_NIWO,site,target,FCLS,OLI,0.3428863200373103
+site_NIWO,site,target,Gradient boosting,NEON,0.30343288793107054
+site_NIWO,site,target,Gradient boosting,OLI,0.27402509365325056
+site_NIWO,site,target,MESMA,NEON,0.39668511422437547
+site_NIWO,site,target,MESMA,OLI,0.40797978641214055
+site_NIWO,site,target,PLS,NEON,0.2889858248940415
+site_NIWO,site,target,PLS,OLI,0.2697503302710497
+site_NIWO,site,target,PLS (16 bundles),NEON,0.2834384446883886
+site_NIWO,site,target,PLS (8 bundles),NEON,0.33396279625155834
+site_NIWO,site,target,Random forest,NEON,0.2921347497325223
+site_NIWO,site,target,Random forest,OLI,0.2731455948592154
+site_NIWO,site,target,Ridge,NEON,0.2787819343426248
+site_NIWO,site,target,Ridge,OLI,0.2697194186095769
+site_NIWO,site,target,Ridge (16 bundles),NEON,0.28211445359168785
+site_NIWO,site,target,Ridge (8 bundles),NEON,0.2961224195435278
+site_NIWO,site,target,Training prior,NEON,0.3086127198318045
+site_NIWO,site,target,Training prior,OLI,0.3086127198318045
+site_NIWO,site,target,Two-stage,NEON,0.29734927735227884
+site_NIWO,site,target,Two-stage,OLI,0.31135828308579677
+site_WREF,site,target,FCLS,NEON,0.4162726656103315
+site_WREF,site,target,FCLS,OLI,0.4192775941442641
+site_WREF,site,target,Gradient boosting,NEON,0.30278181964601236
+site_WREF,site,target,Gradient boosting,OLI,0.3057015157760517
+site_WREF,site,target,MESMA,NEON,0.34413864847057174
+site_WREF,site,target,MESMA,OLI,0.3375744302263492
+site_WREF,site,target,PLS,NEON,0.2973677832406224
+site_WREF,site,target,PLS,OLI,0.2988097707070734
+site_WREF,site,target,PLS (16 bundles),NEON,0.32936680808800733
+site_WREF,site,target,PLS (8 bundles),NEON,0.4502614185817735
+site_WREF,site,target,Random forest,NEON,0.2946400194908333
+site_WREF,site,target,Random forest,OLI,0.28577486660647117
+site_WREF,site,target,Ridge,NEON,0.27244361661939814
+site_WREF,site,target,Ridge,OLI,0.29878650889939123
+site_WREF,site,target,Ridge (16 bundles),NEON,0.3119928678285767
+site_WREF,site,target,Ridge (8 bundles),NEON,0.4134549590840122
+site_WREF,site,target,Training prior,NEON,0.3086127198318045
+site_WREF,site,target,Training prior,OLI,0.3086127198318045
+site_WREF,site,target,Two-stage,NEON,0.31361758873255535
+site_WREF,site,target,Two-stage,OLI,0.3178895641277344
+site_YELL,site,target,FCLS,NEON,0.35589281561417285
+site_YELL,site,target,FCLS,OLI,0.3337195567216186
+site_YELL,site,target,Gradient boosting,NEON,0.28575937092096
+site_YELL,site,target,Gradient boosting,OLI,0.287668778161058
+site_YELL,site,target,MESMA,NEON,0.345263064069291
+site_YELL,site,target,MESMA,OLI,0.3503333303989832
+site_YELL,site,target,PLS,NEON,0.26295218272033316
+site_YELL,site,target,PLS,OLI,0.27289031635869077
+site_YELL,site,target,PLS (16 bundles),NEON,0.2961555904215083
+site_YELL,site,target,PLS (8 bundles),NEON,0.2821629383127247
+site_YELL,site,target,Random forest,NEON,0.293245520928952
+site_YELL,site,target,Random forest,OLI,0.28979154651325534
+site_YELL,site,target,Ridge,NEON,0.25660466015729233
+site_YELL,site,target,Ridge,OLI,0.27274654189304576
+site_YELL,site,target,Ridge (16 bundles),NEON,0.29130284179171323
+site_YELL,site,target,Ridge (8 bundles),NEON,0.37084088612026445
+site_YELL,site,target,Training prior,NEON,0.3086127198318045
+site_YELL,site,target,Training prior,OLI,0.3086127198318045
+site_YELL,site,target,Two-stage,NEON,0.27038514798305585
+site_YELL,site,target,Two-stage,OLI,0.2977861455515035
+year_2020,year,target,FCLS,NEON,0.3592654170719877
+year_2020,year,target,FCLS,OLI,0.36916871092586473
+year_2020,year,target,Gradient boosting,NEON,0.31891858719993826
+year_2020,year,target,Gradient boosting,OLI,0.2993504328255253
+year_2020,year,target,MESMA,NEON,0.38271617587693346
+year_2020,year,target,MESMA,OLI,0.41722531840520954
+year_2020,year,target,PLS,NEON,0.3080821801269715
+year_2020,year,target,PLS,OLI,0.2827909152019677
+year_2020,year,target,PLS (16 bundles),NEON,0.2918963678863928
+year_2020,year,target,PLS (8 bundles),NEON,0.30490265176461434
+year_2020,year,target,Random forest,NEON,0.3036904472836762
+year_2020,year,target,Random forest,OLI,0.29710460717458737
+year_2020,year,target,Ridge,NEON,0.28833821570054285
+year_2020,year,target,Ridge,OLI,0.2796673212772414
+year_2020,year,target,Ridge (16 bundles),NEON,0.28597396199848374
+year_2020,year,target,Ridge (8 bundles),NEON,0.31186375531240157
+year_2020,year,target,Training prior,NEON,0.3086127198318045
+year_2020,year,target,Training prior,OLI,0.3086127198318045
+year_2020,year,target,Two-stage,NEON,0.328765862584811
+year_2020,year,target,Two-stage,OLI,0.32689507569510207
+year_2023,year,target,FCLS,NEON,0.38744613365193176
+year_2023,year,target,FCLS,OLI,0.38998337634199276
+year_2023,year,target,Gradient boosting,NEON,0.27653540239901286
+year_2023,year,target,Gradient boosting,OLI,0.28563165391140133
+year_2023,year,target,MESMA,NEON,0.3924164997427754
+year_2023,year,target,MESMA,OLI,0.3895021016247488
+year_2023,year,target,PLS,NEON,0.3521539283376858
+year_2023,year,target,PLS,OLI,0.2885187941518029
+year_2023,year,target,PLS (16 bundles),NEON,0.35288897348451337
+year_2023,year,target,PLS (8 bundles),NEON,0.3538461900245642
+year_2023,year,target,Random forest,NEON,0.27961572169587107
+year_2023,year,target,Random forest,OLI,0.28733662323802867
+year_2023,year,target,Ridge,NEON,0.33350500664829075
+year_2023,year,target,Ridge,OLI,0.28835361987280717
+year_2023,year,target,Ridge (16 bundles),NEON,0.3284783022344007
+year_2023,year,target,Ridge (8 bundles),NEON,0.334786137806926
+year_2023,year,target,Training prior,NEON,0.3086127198318045
+year_2023,year,target,Training prior,OLI,0.3086127198318045
+year_2023,year,target,Two-stage,NEON,0.34222605855622495
+year_2023,year,target,Two-stage,OLI,0.3002340218605801

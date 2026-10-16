@@ -61,3 +61,34 @@ Full research runs remain separately reproducible in examples/provenance. They
 require the original data and explicit computational budgets. Testing a solver,
 plot or bootstrap implementation does not promote an ecological application to
 stable operational status.
+
+## Historical closure diagnostics (experimental)
+
+`spectralbridge.spectral_closure` supplies the tested descriptive two-year
+partition, per-observation shape/amplitude sensitivity, explicit partial label
+hierarchy and class-wise error rates with whole-identity intervals. It does not
+change production normalization, fit causal regional variance components or
+certify physical material purity. The source-specific execution and final report
+builders are retained in `provenance/scientific-closure/2026-10-15/`.
+
+
+## Canonical researcher-category research helpers
+
+`spectralbridge.researcher_information` supplies explicit recorded-category
+validation, identity weights, single-coordinate discriminants, complementary
+orthogonal selection, disconnected derivatives, parent bundles and simplex
+projection. These are experimental numerical helpers, not a field-abundance API.
+The category-only repository experiment runs with
+`python examples/researcher_pft_information.py --stage all`; its METHODS fixes
+source paths, support, preprocessing, tuning and scientific interpretation.
+`mesma_readiness.load_compact_inputs(..., include_historical_labels=False)`
+reads paired products without constructing the retired taxonomic grouping.
+
+## Three-question researcher-category validation
+
+`python examples/researcher_evidence_validation.py --stage all --report-python /path/to/report/python`
+reproduces the current separability / identifiability / abundance evidence packet.
+Stages can run separately; completed fitting checkpoints verify input/code identities.
+See the [spectral-library overview](../spectral-library/index.md#three-distinct-scientific-questions)
+for the new matched controls and limits. Earlier researcher-information functions
+and tables remain the preserved numerical companion.

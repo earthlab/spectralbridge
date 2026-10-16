@@ -1,0 +1,101 @@
+fold,kind,representation,model,probability,true_label,predicted_label,N
+year_2023,year,OLI,logistic,raw,Deciduous,Deciduous,111
+year_2023,year,OLI,logistic,raw,Deciduous,Evergreen,9
+year_2023,year,OLI,logistic,raw,Deciduous,Herbaceous,51
+year_2023,year,OLI,logistic,raw,Deciduous,Non-vegetated & dead,2
+year_2023,year,OLI,logistic,raw,Deciduous,Woody shrub,226
+year_2023,year,OLI,logistic,raw,Evergreen,Deciduous,78
+year_2023,year,OLI,logistic,raw,Evergreen,Evergreen,905
+year_2023,year,OLI,logistic,raw,Evergreen,Herbaceous,43
+year_2023,year,OLI,logistic,raw,Evergreen,Non-vegetated & dead,8
+year_2023,year,OLI,logistic,raw,Evergreen,Woody shrub,119
+year_2023,year,OLI,logistic,raw,Herbaceous,Deciduous,38
+year_2023,year,OLI,logistic,raw,Herbaceous,Evergreen,22
+year_2023,year,OLI,logistic,raw,Herbaceous,Herbaceous,246
+year_2023,year,OLI,logistic,raw,Herbaceous,Non-vegetated & dead,30
+year_2023,year,OLI,logistic,raw,Herbaceous,Woody shrub,270
+year_2023,year,OLI,logistic,raw,Non-vegetated & dead,Deciduous,11
+year_2023,year,OLI,logistic,raw,Non-vegetated & dead,Evergreen,16
+year_2023,year,OLI,logistic,raw,Non-vegetated & dead,Herbaceous,51
+year_2023,year,OLI,logistic,raw,Non-vegetated & dead,Non-vegetated & dead,278
+year_2023,year,OLI,logistic,raw,Non-vegetated & dead,Woody shrub,3
+year_2023,year,OLI,logistic,raw,Woody shrub,Deciduous,65
+year_2023,year,OLI,logistic,raw,Woody shrub,Evergreen,32
+year_2023,year,OLI,logistic,raw,Woody shrub,Herbaceous,239
+year_2023,year,OLI,logistic,raw,Woody shrub,Non-vegetated & dead,15
+year_2023,year,OLI,logistic,raw,Woody shrub,Woody shrub,308
+year_2023,year,NEON_full,logistic,raw,Deciduous,Deciduous,125
+year_2023,year,NEON_full,logistic,raw,Deciduous,Evergreen,6
+year_2023,year,NEON_full,logistic,raw,Deciduous,Herbaceous,68
+year_2023,year,NEON_full,logistic,raw,Deciduous,Non-vegetated & dead,18
+year_2023,year,NEON_full,logistic,raw,Deciduous,Woody shrub,182
+year_2023,year,NEON_full,logistic,raw,Evergreen,Deciduous,50
+year_2023,year,NEON_full,logistic,raw,Evergreen,Evergreen,833
+year_2023,year,NEON_full,logistic,raw,Evergreen,Herbaceous,182
+year_2023,year,NEON_full,logistic,raw,Evergreen,Non-vegetated & dead,31
+year_2023,year,NEON_full,logistic,raw,Evergreen,Woody shrub,57
+year_2023,year,NEON_full,logistic,raw,Herbaceous,Deciduous,19
+year_2023,year,NEON_full,logistic,raw,Herbaceous,Evergreen,5
+year_2023,year,NEON_full,logistic,raw,Herbaceous,Herbaceous,491
+year_2023,year,NEON_full,logistic,raw,Herbaceous,Non-vegetated & dead,39
+year_2023,year,NEON_full,logistic,raw,Herbaceous,Woody shrub,52
+year_2023,year,NEON_full,logistic,raw,Non-vegetated & dead,Deciduous,21
+year_2023,year,NEON_full,logistic,raw,Non-vegetated & dead,Evergreen,23
+year_2023,year,NEON_full,logistic,raw,Non-vegetated & dead,Herbaceous,105
+year_2023,year,NEON_full,logistic,raw,Non-vegetated & dead,Non-vegetated & dead,199
+year_2023,year,NEON_full,logistic,raw,Non-vegetated & dead,Woody shrub,11
+year_2023,year,NEON_full,logistic,raw,Woody shrub,Deciduous,100
+year_2023,year,NEON_full,logistic,raw,Woody shrub,Evergreen,11
+year_2023,year,NEON_full,logistic,raw,Woody shrub,Herbaceous,369
+year_2023,year,NEON_full,logistic,raw,Woody shrub,Non-vegetated & dead,14
+year_2023,year,NEON_full,logistic,raw,Woody shrub,Woody shrub,165
+year_2020,year,OLI,logistic,raw,Deciduous,Deciduous,29
+year_2020,year,OLI,logistic,raw,Deciduous,Evergreen,4
+year_2020,year,OLI,logistic,raw,Deciduous,Herbaceous,73
+year_2020,year,OLI,logistic,raw,Deciduous,Non-vegetated & dead,6
+year_2020,year,OLI,logistic,raw,Deciduous,Woody shrub,38
+year_2020,year,OLI,logistic,raw,Evergreen,Deciduous,0
+year_2020,year,OLI,logistic,raw,Evergreen,Evergreen,716
+year_2020,year,OLI,logistic,raw,Evergreen,Herbaceous,32
+year_2020,year,OLI,logistic,raw,Evergreen,Non-vegetated & dead,1
+year_2020,year,OLI,logistic,raw,Evergreen,Woody shrub,26
+year_2020,year,OLI,logistic,raw,Herbaceous,Deciduous,11
+year_2020,year,OLI,logistic,raw,Herbaceous,Evergreen,10
+year_2020,year,OLI,logistic,raw,Herbaceous,Herbaceous,88
+year_2020,year,OLI,logistic,raw,Herbaceous,Non-vegetated & dead,73
+year_2020,year,OLI,logistic,raw,Herbaceous,Woody shrub,32
+year_2020,year,OLI,logistic,raw,Non-vegetated & dead,Deciduous,0
+year_2020,year,OLI,logistic,raw,Non-vegetated & dead,Evergreen,1
+year_2020,year,OLI,logistic,raw,Non-vegetated & dead,Herbaceous,2
+year_2020,year,OLI,logistic,raw,Non-vegetated & dead,Non-vegetated & dead,157
+year_2020,year,OLI,logistic,raw,Non-vegetated & dead,Woody shrub,2
+year_2020,year,OLI,logistic,raw,Woody shrub,Deciduous,59
+year_2020,year,OLI,logistic,raw,Woody shrub,Evergreen,45
+year_2020,year,OLI,logistic,raw,Woody shrub,Herbaceous,96
+year_2020,year,OLI,logistic,raw,Woody shrub,Non-vegetated & dead,18
+year_2020,year,OLI,logistic,raw,Woody shrub,Woody shrub,112
+year_2020,year,NEON_full,logistic,raw,Deciduous,Deciduous,107
+year_2020,year,NEON_full,logistic,raw,Deciduous,Evergreen,8
+year_2020,year,NEON_full,logistic,raw,Deciduous,Herbaceous,10
+year_2020,year,NEON_full,logistic,raw,Deciduous,Non-vegetated & dead,7
+year_2020,year,NEON_full,logistic,raw,Deciduous,Woody shrub,18
+year_2020,year,NEON_full,logistic,raw,Evergreen,Deciduous,1
+year_2020,year,NEON_full,logistic,raw,Evergreen,Evergreen,769
+year_2020,year,NEON_full,logistic,raw,Evergreen,Herbaceous,0
+year_2020,year,NEON_full,logistic,raw,Evergreen,Non-vegetated & dead,4
+year_2020,year,NEON_full,logistic,raw,Evergreen,Woody shrub,1
+year_2020,year,NEON_full,logistic,raw,Herbaceous,Deciduous,1
+year_2020,year,NEON_full,logistic,raw,Herbaceous,Evergreen,38
+year_2020,year,NEON_full,logistic,raw,Herbaceous,Herbaceous,149
+year_2020,year,NEON_full,logistic,raw,Herbaceous,Non-vegetated & dead,21
+year_2020,year,NEON_full,logistic,raw,Herbaceous,Woody shrub,5
+year_2020,year,NEON_full,logistic,raw,Non-vegetated & dead,Deciduous,0
+year_2020,year,NEON_full,logistic,raw,Non-vegetated & dead,Evergreen,13
+year_2020,year,NEON_full,logistic,raw,Non-vegetated & dead,Herbaceous,3
+year_2020,year,NEON_full,logistic,raw,Non-vegetated & dead,Non-vegetated & dead,146
+year_2020,year,NEON_full,logistic,raw,Non-vegetated & dead,Woody shrub,0
+year_2020,year,NEON_full,logistic,raw,Woody shrub,Deciduous,70
+year_2020,year,NEON_full,logistic,raw,Woody shrub,Evergreen,68
+year_2020,year,NEON_full,logistic,raw,Woody shrub,Herbaceous,51
+year_2020,year,NEON_full,logistic,raw,Woody shrub,Non-vegetated & dead,24
+year_2020,year,NEON_full,logistic,raw,Woody shrub,Woody shrub,117

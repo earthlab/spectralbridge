@@ -82,3 +82,31 @@ current runtime dependency.
 See [CONTRIBUTING.md](https://github.com/earthlab/spectralbridge/blob/main/CONTRIBUTING.md), the [repository map](https://earthlab.github.io/spectralbridge/reference/repository-map/)
 and [developer workflow](https://earthlab.github.io/spectralbridge/dev/contributing/). Research history is preserved
 under `archive/` and `provenance/`; installed code lives in `src/spectralbridge/`.
+
+
+## Current researcher-category scientific analysis
+
+The recorded `cover_category` field is the sole primary biological grouping:
+Deciduous, Evergreen, Herbaceous, Non-vegetated & dead, and Woody shrub.
+The [three-question validation report](provenance/researcher-evidence/2026-10-16/v1/README.md)
+is the current primary synthesis: **separability → identifiability → abundance**,
+with field abundance a separate unestablished evidence level. The audit adds matched
+random-subset and temporal recognition controls and a same-candidate ridge control.
+The latter removes ridge's original NEON advantage when reduced to MESMA's 15
+retained parents; do not interpret the larger-library result as intrinsic method
+superiority. All earlier reports and numerical evidence remain preserved.
+
+The [preceding numerical companion](provenance/researcher-pft-information/2026-10-15/v1/README.md)
+contains the wavelength-information atlas, nested complementary-feature tests,
+class-specific transfer, common synthetic abundance benchmark and human PDF.
+Supervised regression improves known synthetic fraction recovery under the
+stated validation design; independent field-cover validation remains missing.
+
+[Scientific synthesis](FINAL_SCIENTIFIC_SYNTHESIS.md),
+[readiness matrix](FINAL_READINESS_MATRIX.csv),
+[label/analysis audit](FINAL_ANALYSIS_AUDIT.md) and
+[next data needed](NEXT_DATA_NEEDED.md) identify the current final interpretation.
+Earlier species-derived analyses and the
+[earlier lab-story report](provenance/lab-story/2026-10-15/README.md)
+are preserved as historical/exploratory records. Their grouping system is not
+used in the current primary results.

@@ -1,0 +1,13 @@
+{
+  "number": "S1",
+  "name": "S1_researcher_confusion_matrices",
+  "caption": "Rows are true classes; columns are predictions. Cells are fold-mean row fractions. The year panels reuse the earlier validated researcher-only logistic baseline and annual-row target weighting; new polygon/site panels use the new nested identity-weighted model. These are conditional observed-domain tests.",
+  "sources": [
+    "confusion_matrices.csv",
+    "reused_researcher_year_confusion.csv"
+  ],
+  "hashes": {
+    "png": "98eefae63a4294d9a04ee7cd9c6bb9ae0779877c3ae22f83c0b0fa1586c02e45",
+    "svg": "5ef7eee74b6c6dcf480ebf986811060a407332b3501aec926d769c5854d04019"
+  }
+}

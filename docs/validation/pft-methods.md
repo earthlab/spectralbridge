@@ -1,3 +1,8 @@
+!!! note "Historical / exploratory workflow sections"
+    Species-derived grouping examples on this page are retained for historical
+    reproduction. The primary analysis now uses only recorded researcher
+    `cover_category` labels; see [the canonical label policy](../spectral-library/labels.md).
+
 # How do the whole-spectrum tests work?
 
 The [biological analysis](../spectral-library/biological-variation.md) compares

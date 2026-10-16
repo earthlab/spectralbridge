@@ -106,7 +106,189 @@ These are dependent contrast/cohort summaries, not independent trials or classif
     if hashlib.sha256(raw).hexdigest() != real_manifest[name]:
         raise ValueError("Changed pilot comparison image")
     outputs[root / "docs/images/spectral-library/real-landsat-pilot.png"] = raw
+    outputs.update(closure_generated_files(root))
+    outputs.update(researcher_generated_files(root))
+    for relative in [
+        "docs/spectral-library/_snapshot.md",
+        "docs/spectral-library/_transfer.md",
+        "docs/spectral-library/_closure.md",
+    ]:
+        path = root / relative
+        if path in outputs:
+            outputs[path] = (
+                b"> **Historical snapshot:** superseded by the recorded researcher-category primary analysis. Retained for provenance; not the current biological conclusion.\n\n"
+                + outputs[path]
+            )
     return outputs
+
+
+def closure_generated_files(root=ROOT):
+    """Small final-science snapshot; verified tidy evidence, never raw data."""
+    root = Path(root)
+    base = root / "provenance/scientific-closure/2026-10-15"
+    manifest = json.loads((base / "manifests/report_manifest.json").read_text())
+
+    def rows(name):
+        path = base / "tables" / name
+        expected = manifest["table_hashes"][str(path.relative_to(root))]
+        raw = path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != expected:
+            raise ValueError("Changed closure evidence: " + name)
+        return list(csv.DictReader(io.StringIO(raw.decode())))
+
+    summary = rows("biological_generalization.csv")
+    paired = rows("paired_temporal_recognition.csv")
+    coverage = rows("closed_set_coverage.csv")
+
+    def average(values):
+        return sum(values) / len(values)
+
+    def ba(level, kind="plant", rep="NEON_full", mode="stored"):
+        experiment = "hierarchy" if mode == "stored" else "sensitivity"
+        return average(
+            [
+                float(r["balanced_accuracy"])
+                for r in summary
+                if r["scheme"] == level
+                and r["kind"] == kind
+                and r["representation"] == rep
+                and r["mode"] == mode
+                and r["experiment"] == experiment
+                and r["probability"] == "raw"
+            ]
+        )
+
+    table = [
+        "| Label resolution | New-polygon BA | Held-site BA | Synthetic OLI new-polygon BA |",
+        "|---|---:|---:|---:|",
+    ]
+    for name, label in [
+        ("species_level", "Supported recorded species"),
+        ("researcher_level", "Researcher categories"),
+        ("narrow_pft", "Narrow woody PFT"),
+        ("broad_pft", "Broad woody leaf habit"),
+        ("coarse_cover", "Coarse cover proxy"),
+    ]:
+        table.append(
+            f"| {label} | {ba(name):.1%} | {ba(name, 'site'):.1%} | {ba(name, rep='OLI'):.1%} |"
+        )
+    temporal = average(
+        [
+            float(r["balanced_accuracy"])
+            for r in paired
+            if r["scheme"] == "broad_pft"
+            and r["training_year"] == "2020"
+            and r["test_year"] == "2023"
+            and r["representation"] == "NEON_full"
+        ]
+    )
+    wref = next(
+        r
+        for r in coverage
+        if r["level"] == "species_level" and r["fold"] == "site_WREF"
+    )
+    text = (
+        "<!-- Generated from the verified 15 October 2026 closure tables. -->\n\n"
+        + "\n".join(table)
+        + f"""
+
+These are mean fold balanced accuracies on **supported closed-set targets**,
+not overall deployment accuracy. Class counts and populations differ. Broad leaf
+habit means inferred deciduous/evergreen **woody taxa**, not every plant in the
+library. Only {float(wref["closed_set_fraction"]):.1%} of WREF named-species target
+polygons met closed-set support; unknown/absent classes are not hidden successes.
+
+In the paired NIWO test, training on other 2020 polygons recognized broad leaf
+habit on the same unseen 2023 targets at {temporal:.1%}. Shape-only broad held-site
+BA was {ba("broad_pft", "site", mode="shape"):.1%}; this is an analytical sensitivity,
+not a production normalization rule. Repeated polygons and two sampled years
+cannot define a geographic or long-term temporal guarantee.
+
+**Final decision:** supported ecological recognition is scientifically promising;
+mixture abundance and dependable physical unknown-material rejection remain
+unvalidated. Preserve valid repeats with year/site/source metadata and group or
+weight identities during inference. Synthetic OLI is not independent Landsat.
+"""
+    )
+    outputs = {root / "docs/spectral-library/_closure.md": text.encode()}
+    relative = (
+        "provenance/scientific-closure/2026-10-15/figures/F2_temporal_resolution.png"
+    )
+    raw = (root / relative).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != manifest["figure_hashes"][relative]:
+        raise ValueError("Changed closure temporal figure")
+    outputs[root / "docs/images/spectral-library/closure-temporal.png"] = raw
+    return outputs
+
+
+def researcher_generated_files(root=ROOT):
+    """Current category-only evidence; old two-label snapshots remain historical."""
+    import math
+
+    root = Path(root)
+    base = root / "provenance/researcher-pft-information/2026-10-15/v1"
+    if not (base / "report_manifest.json").exists():
+        return {}
+    manifest = json.loads((base / "report_manifest.json").read_text())
+
+    def verified(name):
+        relative = "tables/" + name
+        data = (base / relative).read_bytes()
+        if hashlib.sha256(data).hexdigest() != manifest["table_hashes"][relative]:
+            raise ValueError("Changed canonical researcher evidence: " + name)
+        return list(csv.DictReader(io.StringIO(data.decode())))
+
+    features = verified("complementary_feature_performance.csv")
+    abundance = verified("abundance_model_comparison.csv")
+
+    def average(values):
+        return sum(values) / len(values)
+
+    def accuracy(kind, budget):
+        return average(
+            [
+                float(r["balanced_accuracy"])
+                for r in features
+                if r["kind"] == kind and r["budget"] == budget
+            ]
+        )
+
+    def fraction(kind, method, representation):
+        groups = {}
+        for r in abundance:
+            if (
+                r["kind"] == kind
+                and r["method"] == method
+                and r["representation"] == representation
+            ):
+                groups.setdefault((r["fold"], r["target"]), []).append(
+                    float(r["RMSE"]) ** 2
+                )
+        return average([math.sqrt(average(v)) for v in groups.values()])
+
+    lines = [
+        "<!-- Generated from verified researcher-category-only primary products. -->",
+        "",
+        "| Primary question | New polygon parents / identities | Held site |",
+        "|---|---:|---:|",
+        f"| Full NEON five-category balanced accuracy | {accuracy('plant', '360'):.1%} | {accuracy('site', '360'):.1%} |",
+        f"| Synthetic OLI five-category balanced accuracy | {accuracy('plant', 'OLI'):.1%} | {accuracy('site', 'OLI'):.1%} |",
+        f"| Synthetic NEON fraction RMSE: MESMA | {fraction('plant', 'MESMA', 'NEON'):.3f} | {fraction('site', 'MESMA', 'NEON'):.3f} |",
+        f"| Synthetic NEON fraction RMSE: projected ridge | {fraction('plant', 'Ridge', 'NEON'):.3f} | {fraction('site', 'Ridge', 'NEON'):.3f} |",
+        "",
+        "Only recorded researcher cover categories define the current biological groups. Scores are conditional on sampled source labels and domains. Synthetic fractions are known algebraic weights, not independent field cover. Better regression does not establish unique physical inversion or operational abundance validity.",
+        "",
+    ]
+    relative = "figures/R03_single_wavelength_prediction.png"
+    image = (base / relative).read_bytes()
+    if hashlib.sha256(image).hexdigest() != manifest["figure_hashes"][relative]:
+        raise ValueError("Changed canonical researcher separability figure")
+    return {
+        root / "docs/spectral-library/_researcher_information.md": "\n".join(
+            lines
+        ).encode(),
+        root / "docs/images/spectral-library/researcher-information-primary.png": image,
+    }
 
 
 def main():

@@ -1,0 +1,18 @@
+{
+  "identity": {
+    "source_sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+    "compact_manifest_sha256": "de79661640bc693cc16670042c5bbaa2c5ab7ac217a7d3ae60d49c3e4a6a3c65",
+    "code_sha256": "9f17032f4a5be1ffefeacb3d6a0a19597b84e41cdf09acbc04205d24e6745d73",
+    "helper_sha256": "39178ead2057801e16900e6fbd43c4d1598eba44b29d583231e156d2c7fb0953",
+    "protocol_sha256": "b14f45143ab2f1724a6fcf23e7810787fe533130db520593599bac8a8afbedf3",
+    "prior_common_sha256": "9dc018259dc0c519fa3fe5900d90e91c1605b136899dda1baa4a8e614425e3ab",
+    "control_code": "7957b49a3300603ccaa4e09441b5c051d62828287ec6af2760274d206a9ab56c",
+    "control_design": "5ad84d859a6c3107eb3fe27448b68ab0e9836b46cb9660cf42517bbebd808c48"
+  },
+  "outputs": {
+    "tuning.csv": "8dedff472eda36bbf3474f493d42f91d787baddcd4ed33f3784da76b60540f25",
+    "model.npz": "00ac5bc38f2f701f1ce69871d19a1fe7bfe09be586d6492022e8712315d3cfa4",
+    "target.npz": "5879f0ddf660fe2d6dd46c0029878f6dc7e868eb9a2d0e09add6bbdab1347ecd",
+    "candidate_parents.csv": "b27dcf0b70fa7ff15f4f09b07bce2b778428149a43bff89e6615604fd590f48f"
+  }
+}

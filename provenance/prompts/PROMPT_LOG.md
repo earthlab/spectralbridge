@@ -31925,3 +31925,2035 @@ Model: Not recorded
 ```text
 continue
 ```
+
+## 2026-10-15 - scientific closure
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Work in the current earthlab/spectralbridge repository on main.
+
+The repository has undergone substantial spectral-library analysis and validation work. Your job is now to finish the scientific analysis, not expand it indefinitely.
+
+Treat the existing implementation, provenance records, reports, figures, tests, documentation, and prior analyses as the starting point. First audit what already exists. Do not duplicate completed analyses unless rerunning them is necessary to validate or integrate the final result.
+
+Primary objective
+
+Determine, as rigorously as the available data allow:
+
+What can the current SpectralBridge spectral library reliably distinguish, generalize, detect, and unmix, and at what biological, spatial, temporal, and sensor resolutions?
+
+The final product should tell a remote-sensing scientist what the library is ready to be used for, what it is not ready for, and how future observations should be incorporated.
+
+This is a scientific closure exercise.
+
+Do not optimize for the number of analyses performed. Optimize for defensible conclusions.
+
+⸻
+
+1. Audit the current state before changing anything
+
+Inspect at minimum:
+
+* src/spectralbridge/
+* examples/
+* docs/spectral-library/
+* docs/validation/
+* docs/vignettes/
+* provenance/spectral-library-analytics/
+* provenance/sensor-pft-transfer/
+* provenance/real-landsat-validation/
+* provenance/mesma-readiness/
+* provenance/publication-figures/
+* existing PDF reports
+* tests associated with these analyses
+
+Build a concise analysis matrix containing:
+
+* scientific question
+* existing method
+* dataset used
+* unit of replication
+* grouping/cross-validation structure
+* result
+* uncertainty
+* validation level
+* remaining gap
+* whether another analysis is actually needed
+
+Explicitly identify redundant analyses and do not repeat them.
+
+⸻
+
+2. Establish the observational structure
+
+Before fitting additional models, characterize what the library actually contains.
+
+Quantify support by:
+
+* site
+* year
+* flight
+* flightline where relevant
+* polygon
+* species
+* researcher-defined vegetation class
+* inferred PFT
+* broader PFT
+* sensor/product type
+
+Distinguish clearly between:
+
+* pixels
+* polygons
+* biological individuals/populations if available
+* flights
+* sites
+* years
+
+Do not treat pixels from the same polygon as independent biological replicates.
+
+Determine where the dataset is balanced, sparse, nested, duplicated, or confounded.
+
+Pay particular attention to NIWO and any locations sampled in multiple years.
+
+⸻
+
+3. Resolve the cross-year question
+
+This is one of the most important remaining scientific questions.
+
+For polygons observed in multiple years, quantify:
+
+within-polygon temporal variation
+
+versus
+
+between-polygon variation
+
+versus
+
+between-class variation.
+
+For NIWO and any other repeated observations, determine whether the same polygon shifts substantially between years and whether those shifts alter class separability.
+
+Where possible use paired comparisons because these are repeated observations of the same polygons.
+
+Estimate variance components or equivalent quantities for:
+
+* polygon
+* year
+* site
+* class/PFT
+* residual variation
+
+Ask explicitly:
+
+Is year-to-year variation large relative to biological class separation?
+
+Then test whether conclusions differ at:
+
+* species level
+* narrow vegetation-class level
+* broad PFT level
+
+The expected possibility is that narrow classes vary considerably between years while broad PFT structure remains distinguishable. Test this rather than assuming it.
+
+⸻
+
+4. Determine the biological resolution supported by the library
+
+Construct an empirical hierarchy of distinguishability.
+
+For example:
+
+species
+→ researcher vegetation class
+→ narrow PFT
+→ broad PFT
+→ vegetation/nonvegetation or other coarse material classes
+
+For every level report:
+
+* sample support
+* effect size
+* uncertainty
+* cross-validation performance
+* cross-site generalization
+* cross-year generalization where possible
+* confusion structure
+
+Avoid presenting raw accuracy without context.
+
+Prefer grouped validation such as:
+
+* leave-one-polygon-out
+* leave-one-flight-out
+* leave-one-year-out
+* leave-one-site-out
+
+depending on what the data support.
+
+Prevent pixel leakage between training and testing.
+
+Determine the finest biological resolution that generalizes beyond the observations used to construct the library.
+
+⸻
+
+5. Separate spectral separability from predictive generalization
+
+Do not conflate:
+
+1. classes looking different in spectral space
+2. a classifier distinguishing them within the existing dataset
+3. the distinction generalizing to new polygons
+4. generalization to new years
+5. generalization to new sites
+6. generalization across sensors
+
+For each major biological grouping, create an evidence ladder showing which of these levels has actually been demonstrated.
+
+This should become one of the central outputs of the analysis.
+
+⸻
+
+6. Finish the wavelength-information analysis
+
+Use the existing wavelength-selection work rather than starting over.
+
+Determine:
+
+* which wavelength regions consistently carry biological information
+* which effects are unstable across sites or years
+* how much information survives conversion from hyperspectral resolution to multispectral sensor resolution
+* whether important biological contrasts depend on narrow hyperspectral features
+
+Separate:
+
+brightness/intensity information
+
+from
+
+spectral-shape information.
+
+Test whether conclusions survive normalization or brightness-controlled analyses where scientifically appropriate.
+
+Do not automatically normalize the production library. This is an analytical sensitivity test.
+
+⸻
+
+7. Finish the sensor-transfer analysis
+
+Using existing synthetic sensor products and the real Landsat pilot, distinguish clearly between:
+
+Synthetic transfer
+
+What biological information survives when hyperspectral spectra are mathematically reduced to Landsat-like bands?
+
+and
+
+Real sensor agreement
+
+How closely do actual Landsat observations agree with corresponding SpectralBridge-derived products?
+
+Quantify where disagreement comes from when possible:
+
+* spectral response
+* spatial support
+* georegistration
+* acquisition timing
+* atmospheric effects
+* illumination
+* BRDF
+* brightness scaling
+* heterogeneous pixels
+
+Do not claim operational cross-sensor validation based solely on synthetic convolution.
+
+⸻
+
+8. Finish the MESMA / mixture-readiness question
+
+This analysis should answer a very specific question:
+
+Does the current library contain sufficiently distinct and representative endmembers to justify testing spectral mixture analysis?
+
+Do not turn this into an operational abundance-mapping claim unless the evidence genuinely supports that.
+
+Evaluate:
+
+* endmember separability
+* within-class variability
+* between-class variability
+* library coverage
+* redundancy
+* mixture identifiability
+* synthetic mixture recovery
+* sensitivity to library size
+* sensitivity to endmember selection
+* unknown-material detection
+* uncertainty in recovered fractions
+
+Most importantly, distinguish:
+
+mathematical recoverability using library-derived mixtures
+
+from
+
+validated recovery of real-world mixture fractions.
+
+If no independent real mixture-fraction observations exist, state clearly that abundance mapping remains unvalidated.
+
+Produce a final readiness classification such as:
+
+* not ready
+* exploratory
+* scientifically promising
+* validated for constrained use
+* operationally validated
+
+with explicit quantitative criteria.
+
+⸻
+
+9. Treat uncertainty and detection probability as first-class outputs
+
+Build on the existing unknown-material and uncertainty analyses.
+
+For classification/detection tasks estimate where possible:
+
+* sensitivity
+* specificity
+* false-positive rate
+* false-negative rate
+* precision
+* recall
+* calibrated probability or conformal coverage
+* uncertainty by class
+
+Frame this as a detection problem where useful.
+
+Identify classes for which the library has:
+
+* high detection probability
+* high confusion
+* insufficient support
+* strong domain dependence
+
+Do not force binary Type I/Type II terminology where multiclass or probabilistic metrics are more appropriate, but connect the results explicitly to false-positive and false-negative interpretation.
+
+⸻
+
+10. Decide how the spectral library should be maintained
+
+Use the results to answer the practical question:
+
+Should multiple observations of the same polygon, population, or class across years remain in the library?
+
+Do not simply choose between “keep everything” and “average everything.”
+
+Evaluate a hierarchical library model in which observations retain metadata such as:
+
+* polygon
+* site
+* year
+* flight
+* sensor
+* class
+* PFT
+
+Determine whether repeated observations increase useful representation of natural spectral variability or simply overweight repeatedly sampled locations.
+
+Consider recommendations such as:
+
+* preserve all scientifically valid observations
+* never erase year/site identity
+* prevent repeated polygons from dominating models
+* use grouped sampling or weighting during inference
+* allow researchers to filter by biological/spatiotemporal domain
+* derive representative prototypes/endmembers separately from the raw archive
+
+Quantitatively justify the recommendation.
+
+⸻
+
+11. Identify the actual ecological result
+
+After all analyses are complete, step away from individual metrics.
+
+Ask:
+
+What is the strongest ecological result in this dataset?
+
+Possibilities might include:
+
+* vegetation spectra contain stable broad functional structure despite substantial temporal variation
+* species-level signatures are context dependent while broad PFT structure generalizes
+* hyperspectral biological information is progressively lost but not eliminated at multispectral resolution
+* within-class spectral variability is itself ecologically informative
+* temporal variation should be represented rather than treated solely as measurement error
+
+Do not assume any of these are true.
+
+Determine what the data support.
+
+Write the strongest result in:
+
+1. one sentence
+2. one paragraph
+3. a manuscript-ready Results narrative
+
+⸻
+
+12. Produce a final decision matrix
+
+Create a compact table with rows such as:
+
+* species discrimination
+* vegetation-class discrimination
+* broad PFT discrimination
+* cross-year transfer
+* cross-site transfer
+* hyperspectral classification
+* synthetic Landsat transfer
+* real Landsat agreement
+* endmember selection
+* mixture detection
+* mixture abundance estimation
+* unknown-material detection
+
+Columns should include:
+
+* evidence
+* validation design
+* quantitative performance
+* uncertainty
+* readiness
+* recommended use
+* major limitation
+
+This table should make the entire project understandable in a few minutes.
+
+⸻
+
+13. Final figures
+
+Do not generate dozens of new figures.
+
+Select or construct approximately 3–5 synthesis figures that answer the major questions.
+
+Strong candidates are:
+
+Figure 1 — What is in the library?
+
+Spectral diversity and observational hierarchy.
+
+Figure 2 — What biological distinctions survive?
+
+Effect size/generalization across biological resolution, year, site, and sensor.
+
+Figure 3 — Where does information live?
+
+Wavelength information and loss under sensor aggregation.
+
+Figure 4 — Can mixtures be recovered?
+
+Endmember coverage, mixture identifiability, recovery error, and unknown detection.
+
+Figure 5 — What is the library ready for?
+
+Evidence/readiness matrix.
+
+Prefer figures that compress multiple related results into interpretable panels.
+
+Every plotted number must trace back to a reproducible table or analysis artifact.
+
+⸻
+
+14. Produce the final human-facing report
+
+Create a polished PDF aimed at the human remote-sensing and ecology science team.
+
+Suggested title:
+
+What Can We Reliably Learn from the SpectralBridge Spectral Library?
+
+The report should explain:
+
+1. What data we have
+2. What variation exists
+3. What biological groups can be distinguished
+4. What generalizes across polygons, years, and sites
+5. What survives sensor aggregation
+6. How real Landsat compares
+7. Whether the library is ready for MESMA
+8. Where false positives and false negatives occur
+9. How uncertainty should be interpreted
+10. How the library should be maintained
+11. What researchers can safely do now
+12. What still requires new data
+
+Write for scientists, not software developers.
+
+Every statistical method should be explained in plain scientific language:
+
+* what question it answers
+* why it was chosen
+* what its result means
+* what it does not prove
+
+Keep implementation details secondary.
+
+⸻
+
+15. Scientific restraint
+
+This requirement is critical.
+
+Actively search for:
+
+* pseudoreplication
+* train/test leakage
+* class imbalance
+* repeated-polygons bias
+* site confounding
+* year confounding
+* flightline confounding
+* brightness-driven discrimination
+* synthetic-validation circularity
+* unstable small classes
+* optimistic mixture recovery
+* claims unsupported by independent observations
+
+Downgrade conclusions when necessary.
+
+A negative result is preferable to an unsupported positive result.
+
+⸻
+
+16. Repository integration
+
+When the scientific analysis is complete:
+
+* consolidate rather than proliferate analysis code
+* place reusable methods in appropriate src/spectralbridge/ modules
+* keep one-off scientific evidence in provenance
+* update relevant documentation
+* update tests
+* regenerate reports
+* regenerate scientific docs
+* run formatting/linting
+* run focused tests
+* run the complete feasible offline test suite
+* run strict documentation build
+* verify internal links
+* verify generated figures and PDFs
+* update AI transparency/provenance records according to repository conventions
+
+Do not modify unrelated production behavior merely to make an analysis easier.
+
+⸻
+
+17. Final deliverables
+
+Leave behind:
+
+1. FINAL_SCIENTIFIC_SYNTHESIS.md
+2. FINAL_READINESS_MATRIX.csv
+3. FINAL_ANALYSIS_AUDIT.md
+4. reproducible final synthesis tables
+5. approximately 3–5 synthesis figures
+6. a polished final PDF report
+7. updated spectral-library documentation
+8. tests for reusable scientific-analysis functionality
+9. provenance sufficient to reconstruct every quantitative claim
+
+Also produce:
+
+NEXT_DATA_NEEDED.md
+
+This should list the smallest set of new observations that would most increase scientific confidence.
+
+Examples might include:
+
+* independent mixture-fraction ground truth
+* more repeated polygons across years
+* synchronized NEON/Landsat acquisitions
+* additional sites for underrepresented PFTs
+* independent species observations
+
+Prioritize them by expected scientific value.
+
+⸻
+
+18. Stop condition
+
+The task is finished when we can answer, quantitatively and defensibly:
+
+What is in the library?
+
+What biological information does it contain?
+
+At what resolution is that information reliable?
+
+Does it generalize across polygons, years, sites, and sensors?
+
+Can mixtures be detected or quantified?
+
+Where do false positives, false negatives, and uncertainty arise?
+
+How should repeated observations be retained and used?
+
+What can a researcher safely use the library for today?
+
+What new data would change those answers most?
+
+Do not add another analytical branch unless it materially changes one of these answers.
+
+Finish the analysis, synthesize the evidence, and make a decision.
+```
+
+## 2026-10-15 - Curated lab-group scientific story
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+we have done a few summary reports and many figures that I would like to share with the lab group. can you give me a currated report that tries to tell the whole story of the analyses we've done from teh exploritory plots and what they showed us all the way throught he analyses we've just done. I want a report made for human researchers meaning that everything is clearly labelled and it's clear what we're supposed to understand from each figure. but we want to tell the whole story with data driven visuals as possible
+```
+
+## 2026-10-15 - Researcher-category spectral information and abundance benchmark
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Work in the current earthlab/spectral_library analysis repository.
+
+GOAL
+
+Refocus the scientific analysis around ONE biological label system only:
+
+    researcher PFT / researcher cover category
+
+Use the five researcher-defined classes:
+
+    Deciduous
+    Evergreen
+    Herbaceous
+    Non-vegetated & dead
+    Woody shrub
+
+Stop using the species-derived woody PFT system:
+
+    DBS
+    DBT
+    EBS
+    ECS
+    ECT
+
+Do not delete historical results or source data. Preserve them for provenance,
+but remove the species-derived PFT system from the active/final analysis,
+figures, summaries, and scientific conclusions.
+
+The new analysis should go substantially deeper than the existing
+whole-spectrum tests.
+
+The main scientific questions are now:
+
+1. Which individual wavelengths/bands distinguish each researcher PFT pair?
+2. Where in the spectrum are those differences strongest and most reliable?
+3. Which parts of the spectrum contain redundant versus complementary
+   information?
+4. How much classification information is available at each wavelength?
+5. Which spectral regions generalize across polygons, sites, and years?
+6. Can multivariate/ML methods improve fractional abundance estimation beyond
+   the current MESMA-style approach?
+7. Can we determine whether abundance failure is caused primarily by spectral
+   ambiguity, insufficient labels/truth, or the unmixing model itself?
+
+IMPORTANT DESIGN RULES
+
+Respect the existing observational structure.
+
+GlobalID/polygon is the biological sampling unit, not individual pixels.
+
+Keep all observations belonging to one GlobalID together in train/test splits.
+
+Do not allow repeated pixels, years, or acquisitions from the same GlobalID to
+leak between training and test.
+
+For geographic-transfer experiments, hold out entire sites.
+
+For temporal-transfer experiments, preserve the existing paired/repeated-year
+logic where appropriate.
+
+All feature selection, wavelength selection, model tuning, endmember selection,
+normalization decisions, and hyperparameter optimization must happen using
+training data only.
+
+Never select wavelengths or models using the final outer test data.
+
+Use balanced metrics because class sizes differ.
+
+Preserve the distinction among:
+
+    statistical difference
+    classification / recognition
+    fractional abundance / unmixing
+
+Do not treat success at one as evidence for another.
+
+
+PART 1 — CLEAN UP THE LABEL SYSTEM
+
+Find every active analysis, notebook, script, figure, table, report builder,
+and documentation page that uses the species-derived DBS/DBT/EBS/ECS/ECT
+system.
+
+Do not destroy historical artifacts.
+
+Instead:
+
+- mark that label system as historical/exploratory
+- exclude it from the new primary analysis
+- make researcher PFT the canonical biological grouping
+- make filenames and plot labels explicit enough that "PFT" cannot ambiguously
+  refer to the old system
+- update final report builders accordingly
+
+Create an audit showing what was changed and what historical material remains.
+
+
+PART 2 — SINGLE-WAVELENGTH / BAND DISCRIMINATION
+
+The current analysis demonstrates whole-spectrum differences. Extend this to
+measure how informative EVERY usable wavelength is individually.
+
+For each wavelength and each researcher-PFT pair, calculate appropriate
+training-only estimates of:
+
+A. effect magnitude
+
+Examples:
+- standardized mean/median difference
+- robust standardized effect size
+- distributional separation
+
+B. statistical evidence
+
+Use the existing blocked/grouped observational design.
+
+Correct for the wavelength-wise multiple-testing problem.
+
+Do not treat neighboring wavelengths as independent biological replicates.
+
+C. single-wavelength predictive ability
+
+This is especially important.
+
+For each wavelength, ask:
+
+    If this wavelength were the ONLY spectral measurement available,
+    how accurately could we distinguish these two classes?
+
+Use grouped cross-validation by GlobalID.
+
+Calculate metrics such as:
+
+- balanced accuracy
+- ROC AUC where appropriate
+- sensitivity / specificity
+- uncertainty across grouped folds or bootstrap units
+
+This should produce a wavelength-by-wavelength predictive information curve,
+not merely a p-value curve.
+
+Call this "single-wavelength discrimination" rather than "band accuracy" when
+working with NEON hyperspectral channels, because these are wavelengths rather
+than independent broadband sensors.
+
+
+PART 3 — CLASS-SPECIFIC RECALL
+
+The final analysis needs much more detail than overall balanced accuracy.
+
+For every researcher PFT calculate:
+
+- recall
+- precision
+- specificity where meaningful
+- false-positive rate
+- false-negative rate
+- confusion with every other class
+
+Do this for:
+
+- new-polygon tests
+- held-site tests
+- held-year tests where supported
+- NEON hyperspectral
+- synthetic Landsat representation
+
+Produce confusion matrices and class-specific transfer plots.
+
+We specifically want to know WHICH researcher categories are easy or hard,
+rather than only reporting one overall balanced accuracy.
+
+
+PART 4 — SPECTRAL SEPARABILITY MAP
+
+Build a comprehensive researcher-PFT separability map.
+
+Rows:
+    every pair of researcher PFTs
+
+Columns:
+    NEON wavelengths
+
+Cell values should support multiple views:
+
+- standardized effect magnitude
+- statistical support
+- single-wavelength predictive performance
+- stability across site/year cohorts
+
+Make publication-quality heatmaps.
+
+The result should let a scientist immediately see:
+
+    "Deciduous versus Evergreen separates strongly here"
+
+or
+
+    "Herbaceous versus Woody shrub overlaps here but separates in this region."
+
+Overlay or annotate:
+
+- visible
+- red edge
+- NIR
+- SWIR1
+- SWIR2
+- atmospheric gaps
+- Landsat band locations / response regions
+
+Do not interpolate across excluded atmospheric regions.
+
+
+PART 5 — STABILITY OF WAVELENGTH INFORMATION
+
+A wavelength that separates classes at NIWO but fails at WREF is different from
+a wavelength that works everywhere.
+
+For every wavelength and PFT pair quantify:
+
+- effect magnitude by site/year
+- sign consistency
+- rank consistency
+- predictive accuracy by domain
+- variance among domains
+
+Develop a "transfer stability" score.
+
+Identify:
+
+A. consistently informative wavelengths
+B. site-specific wavelengths
+C. year-sensitive wavelengths
+D. unstable wavelengths
+E. wavelengths that are statistically different but poor predictors
+
+Produce figures separating magnitude from stability.
+
+Do not hide domain dependence by averaging everything together.
+
+
+PART 6 — REDUNDANCY AND COMPLEMENTARITY
+
+Individual wavelengths are highly correlated.
+
+Determine whether apparently informative neighboring wavelengths provide
+independent information or repeat the same signal.
+
+Use appropriate methods such as:
+
+- wavelength correlation structure
+- hierarchical clustering
+- conditional permutation importance
+- grouped feature selection
+- regularized logistic regression
+- sparse PLS / PLS-DA where scientifically justified
+- mutual information, estimated only within training data
+- sequential forward selection under grouped CV
+
+Do NOT simply rank wavelengths independently and call the top N wavelengths
+an optimal sensor.
+
+Compare:
+
+1 wavelength
+2 wavelengths
+3
+5
+7
+10
+20
+50
+100
+full spectrum
+synthetic Landsat
+
+For each feature budget, select features entirely inside the training folds.
+
+Evaluate on unseen GlobalIDs and held sites.
+
+The question is:
+
+    How many genuinely complementary spectral measurements are needed before
+    additional spectral resolution stops materially improving researcher-PFT
+    recognition?
+
+
+PART 7 — SPECTRAL INFORMATION ATLAS
+
+Produce a compact scientific output that summarizes, for every wavelength:
+
+- wavelength
+- spectral region
+- researcher-PFT pair
+- effect magnitude
+- adjusted statistical evidence
+- single-wavelength balanced accuracy/AUC
+- site stability
+- year stability
+- frequency selected by multivariate models
+- whether Landsat samples that region
+
+Write this as a machine-readable parquet/CSV as well as figures.
+
+This should become a reusable product of the spectral library rather than only
+a figure.
+
+
+PART 8 — REVISIT ABUNDANCE / UNMIXING
+
+Now tackle the hardest question:
+
+    Can machine learning improve researcher-PFT abundance estimation?
+
+Do NOT assume that MESMA is necessarily the best final model.
+
+The current results indicate that spectral reconstruction and biological
+identifiability are different problems.
+
+Establish a common abundance benchmark.
+
+Use the existing controlled synthetic mixtures because their fractions are
+known exactly.
+
+Rebuild the mixture experiments using ONLY the five researcher PFTs.
+
+Keep mixture parents and all related spectra grouped so that the same biological
+identity cannot appear in both training and test.
+
+Use identical train/test mixtures across all competing methods.
+
+
+PART 9 — ABUNDANCE MODEL BENCHMARK
+
+Compare at minimum:
+
+BASELINES
+
+1. FCLS / constrained linear unmixing
+2. current MESMA implementation
+
+SUPERVISED ML
+
+3. regularized multi-output linear regression
+4. partial least squares regression
+5. random forest regression
+6. gradient-boosted tree regression
+
+COMPOSITION-AWARE METHODS
+
+Fractions must be:
+
+    >= 0
+    sum to 1
+
+Where necessary, model transformed fractions or project predictions back onto
+the simplex.
+
+Consider log-ratio/compositional approaches when mathematically appropriate.
+
+Also investigate whether a neural network is justified by sample size and
+independence.
+
+Do NOT add deep learning merely because it is possible.
+
+If a small constrained multilayer perceptron is tested, treat it as an
+experimental benchmark and compare it against the simpler models.
+
+
+PART 10 — TWO-STAGE DETECTION + ABUNDANCE
+
+Test whether abundance improves when the problem is decomposed into:
+
+STAGE A:
+    Is class X present?
+
+STAGE B:
+    If present, how much X is present?
+
+For every researcher PFT:
+
+fit/evaluate presence detection followed by conditional abundance estimation.
+
+This may be preferable to forcing every class to receive a continuous fraction
+in every mixture.
+
+Measure:
+
+- false detection when true fraction = 0
+- detection probability versus true fraction
+- abundance RMSE conditional on presence
+- abundance bias
+- abundance calibration
+- low-abundance performance
+
+Generate detection curves rather than claiming a single universal detection
+limit unless the data support one.
+
+
+PART 11 — SPECTRAL FEATURES FOR ABUNDANCE
+
+Test whether abundance estimation benefits from:
+
+- full reflectance spectrum
+- unit-normalized spectral shape
+- continuum-normalized variants if scientifically justified
+- first derivatives
+- second derivatives if stable enough
+- PCA scores
+- PLS latent variables
+- selected wavelength subsets
+- synthetic Landsat bands
+
+Be very careful about preprocessing leakage.
+
+Every transformation that learns parameters must be fitted on training data
+only.
+
+
+PART 12 — AMBIGUITY-AWARE ML
+
+This is scientifically important.
+
+For each mixture, calculate both:
+
+    reconstruction quality
+
+and
+
+    biological fraction accuracy.
+
+Ask whether ML models can predict abundance correctly in regions where MESMA
+has multiple nearly equivalent spectral solutions.
+
+Stratify mixtures by existing or newly calculated spectral ambiguity.
+
+Compare model performance for:
+
+- low ambiguity
+- moderate ambiguity
+- high ambiguity
+
+If ML improves RMSE only by learning the training distribution but fails on
+held-out sites/classes/domains, say so explicitly.
+
+We need to know whether ML actually resolves spectral non-identifiability or
+merely exploits correlations in the synthetic training distribution.
+
+
+PART 13 — ERROR BY TRUE ABUNDANCE
+
+Do not report abundance RMSE alone.
+
+For each researcher PFT plot prediction behavior against known fraction:
+
+0
+0.05
+0.10
+0.20
+...
+1.0
+
+or whatever fraction grid is supported.
+
+Calculate:
+
+- bias
+- RMSE
+- MAE
+- detection probability
+- false-positive rate at zero
+- false-negative rate at low abundance
+- calibration slope
+- uncertainty where support allows
+
+We need to see where each method fails.
+
+
+PART 14 — DOMAIN TRANSFER FOR ABUNDANCE
+
+Where data permit, test:
+
+train on some sites
+predict mixtures constructed from held-out-site parents
+
+and separately investigate year transfer.
+
+This is critical.
+
+A model that estimates fractions accurately only when mixture parents resemble
+the training library is not yet a transferable abundance estimator.
+
+
+PART 15 — DETERMINE THE LIMITING FACTOR
+
+At the end, explicitly diagnose whether abundance estimation is currently
+limited primarily by:
+
+A. model choice
+B. spectral resolution
+C. within-class spectral variability
+D. between-class spectral ambiguity
+E. geographic/temporal domain shift
+F. insufficient independent biological fraction truth
+
+Do not force a positive conclusion.
+
+It is scientifically useful if the result is:
+
+    "ML does not solve the abundance problem because the spectra themselves are
+    non-identifiable."
+
+Likewise, it is important if ML substantially improves fraction recovery under
+proper held-out evaluation.
+
+
+FIGURES
+
+Create publication-quality figures including:
+
+1. researcher-PFT whole-spectrum contrast overview
+2. wavelength × PFT-pair effect-size heatmap
+3. wavelength × PFT-pair single-band prediction heatmap
+4. spectral curves colored by pairwise separability
+5. class-specific recall across wavelengths
+6. site/year stability of wavelength information
+7. accuracy versus number of selected wavelengths
+8. NEON versus Landsat information retention
+9. abundance-model benchmark
+10. predicted versus true abundance by PFT
+11. detection probability versus abundance
+12. abundance error versus spectral ambiguity
+13. held-site abundance transfer
+14. final evidence/readiness summary
+
+Use readable researcher-category names in primary figures rather than cryptic
+abbreviations whenever space permits.
+
+
+SCIENTIFIC INTERPRETATION
+
+The final analysis should answer these questions in plain language:
+
+- Which researcher PFTs are most spectrally distinct?
+- Which are hardest to separate?
+- Exactly where in the spectrum does that information occur?
+- Which wavelength regions generalize geographically?
+- Which regions are temporally unstable?
+- How much information is lost when moving from NEON to Landsat?
+- How many spectral measurements are actually useful?
+- Which individual classes drive classification errors?
+- Does ML improve fractional abundance estimation?
+- If so, under what conditions?
+- Does ML reduce wrong-class mixture ambiguity?
+- What remains impossible to establish without independent field fraction
+  measurements?
+
+
+OUTPUTS
+
+Create a new versioned analysis directory rather than overwriting historical
+results.
+
+Include:
+
+- README.md
+- METHODS.md
+- RESULTS.md
+- LIMITATIONS.md
+- researcher_pft_information_atlas.parquet
+- researcher_pft_information_atlas.csv
+- abundance_model_comparison.parquet
+- all numerical source tables
+- publication figures
+- provenance/configuration
+- software/environment information
+- a concise scientific report PDF
+
+The report should tell a coherent story:
+
+    researcher PFTs differ
+        ->
+    locate where those differences occur
+        ->
+    determine which differences generalize
+        ->
+    determine how little spectral information is needed
+        ->
+    ask whether those signals support fractional abundance
+        ->
+    test whether ML improves on linear/MESMA unmixing
+        ->
+    identify the remaining scientific limitation.
+
+QUALITY CONTROL
+
+Before finalizing:
+
+- verify no active result accidentally uses DBS/DBT/EBS/ECS/ECT
+- verify no pixel-level leakage across GlobalIDs
+- verify feature selection is nested inside CV
+- verify held-site data are never used for tuning
+- verify abundance fractions remain physically valid
+- verify every reported number can be traced to a saved table
+- verify figures can be regenerated from saved numerical products
+- clearly label synthetic-mixture results as synthetic
+- do not claim field abundance validation
+- do not interpret statistical significance as predictive accuracy
+- do not interpret classification accuracy as unique unmixing
+- preserve negative results
+
+At the end, give me:
+
+1. a concise summary of what was implemented
+2. the strongest new scientific findings
+3. any failed or inconclusive experiments
+4. the files containing the final figures and numerical results
+5. remaining blockers to a defensible abundance claim.
+```
+
+## 2026-10-16 - Complete researcher-category analysis validation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```
+
+## 2026-10-16 - Three-question adversarial scientific validation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Work in the current spectral-library analysis repository.
+
+I want to restructure the final scientific analysis and report around THREE
+questions only:
+
+1. SEPARABILITY
+2. IDENTIFIABILITY
+3. ABUNDANCE
+
+Use ONLY the five researcher-defined categories as the primary biological
+grouping:
+
+- Deciduous
+- Evergreen
+- Herbaceous
+- Non-vegetated & dead
+- Woody shrub
+
+The old species-derived DBS/DBT/EBS/ECS/ECT grouping must remain historical
+only and must not appear in the new primary analysis.
+
+IMPORTANT:
+
+Do not simply reorganize the existing report.
+
+First AUDIT the existing analyses and determine whether we have actually run
+all of the tests needed to make defensible claims about separability,
+identifiability, and abundance.
+
+Reuse validated existing results where appropriate.
+
+If an important test is missing, implement it.
+
+If a requested test cannot be supported by the available data, explicitly say
+that rather than creating a weak substitute.
+
+Preserve all existing provenance and numerical outputs.
+
+The final product should be a rigorous scientific validation report organized
+around the progression:
+
+    spectra can differ
+        ->
+    differences may allow identity to be recognized
+        ->
+    recognized components may or may not have recoverable abundance
+
+These are different levels of evidence and must never be conflated.
+
+
+======================================================================
+FOUNDATIONAL VALIDATION
+======================================================================
+
+Before the three scientific sections, audit the data and experimental design.
+
+Verify and document:
+
+- number of polygon GlobalIDs
+- number of polygon/year spectra
+- researcher-category sample sizes
+- site/year coverage
+- repeated identities
+- spectral coordinate count
+- atmospheric-gap handling
+- NEON reflectance scaling/units
+- synthetic OLI construction
+- annotation dates
+- class imbalance
+- missing data
+- duplicate spectra
+- possible leakage
+- parent identity membership in synthetic mixtures
+
+GlobalID/polygon is the primary independent biological sampling unit.
+
+Pixels, wavelengths, repeated acquisitions, and synthetic mixtures generated
+from the same parents are NOT independent biological replicates.
+
+All repeated observations from a GlobalID must stay together in train/test
+splits.
+
+For synthetic mixtures, all mixtures involving a test parent must remain
+outside model training/tuning.
+
+All preprocessing, wavelength selection, feature selection, scaling,
+hyperparameter tuning, and model selection must occur inside training data.
+
+Use nested/group-aware validation where required.
+
+Produce a machine-readable validation table showing PASS / FAIL / NOT TESTABLE
+for every design requirement.
+
+
+======================================================================
+SECTION 1 — SEPARABILITY
+======================================================================
+
+QUESTION:
+
+    Are the five researcher categories spectrally different, where in the
+    spectrum do those differences occur, and are those differences stable
+    across domains?
+
+This section is about DIFFERENCE, not classification and not abundance.
+
+
+1A. WHOLE-SPECTRUM SEPARABILITY
+
+For all ten pairwise researcher-category contrasts, quantify whole-spectrum
+difference.
+
+Reuse validated acquisition-matched / blocked permutation analyses where
+appropriate.
+
+Report:
+
+- effect magnitude
+- permutation evidence
+- multiple-testing correction
+- site/year-specific effects
+- direction consistency
+
+Explicitly distinguish effect magnitude from statistical significance.
+
+Validate that all ten category pairs have adequate support before interpreting
+them.
+
+
+1B. WAVELENGTH-LEVEL SEPARABILITY
+
+For every supported NEON wavelength and every category pair, quantify:
+
+- signed effect
+- absolute effect
+- uncertainty/support
+- adjusted statistical evidence
+- site-specific effect
+- year-specific effect
+- sign consistency
+
+Correct for the wavelength-wise testing family.
+
+Account for the fact that adjacent wavelengths are strongly correlated.
+
+Do not present 360 wavelengths as 360 independent biological tests.
+
+
+1C. SPECTRAL REGIONS
+
+Summarize where separability occurs in:
+
+- visible
+- red edge
+- NIR
+- SWIR1
+- SWIR2
+
+Mask atmospheric gaps rather than interpolating across them.
+
+Determine whether separation is:
+
+- narrow/localized
+- broad
+- redundant across neighboring wavelengths
+- domain dependent
+
+
+1D. DOMAIN STABILITY
+
+For every category pair and wavelength, test whether separation persists across:
+
+- NIWO
+- WREF
+- YELL
+- available years
+
+Report:
+
+- sign consistency
+- magnitude consistency
+- rank consistency
+- weakest observed site
+- temporal sensitivity
+
+Do not average across sites in a way that hides a failed site.
+
+
+1E. SENSOR RESOLUTION
+
+Compare NEON hyperspectral separability with synthetic OLI.
+
+Ask:
+
+- Which effects survive convolution?
+- How much effect magnitude is retained?
+- Which category pairs lose the most information?
+
+Keep synthetic OLI clearly labeled as shared-source convolution rather than
+independent Landsat validation.
+
+
+SEPARABILITY VALIDATION CHECKLIST
+
+Before closing this section, explicitly answer:
+
+[ ] Are all ten pairwise researcher-category contrasts tested?
+[ ] Is whole-spectrum separation established?
+[ ] Is wavelength-level separation established?
+[ ] Are multiple comparisons controlled?
+[ ] Are effects separated from p-values?
+[ ] Are site differences evaluated?
+[ ] Are year differences evaluated?
+[ ] Are atmospheric gaps handled correctly?
+[ ] Is wavelength redundancy acknowledged/tested?
+[ ] Is NEON-to-OLI information retention tested?
+[ ] Are unsupported wavelengths/domains clearly marked?
+
+End the section with:
+
+WHAT WE KNOW
+WHAT WE DO NOT KNOW
+WHAT WOULD FALSIFY THE CURRENT INTERPRETATION
+
+
+======================================================================
+SECTION 2 — IDENTIFIABILITY
+======================================================================
+
+QUESTION:
+
+    Given an unseen spectrum, can we correctly identify its researcher
+    category?
+
+This is different from separability.
+
+A statistically significant difference does not imply that an individual
+observation can be identified correctly.
+
+
+2A. SINGLE-WAVELENGTH IDENTIFIABILITY
+
+For each category pair and wavelength, evaluate predictive discrimination using
+training-only fitted rules and held-out GlobalIDs.
+
+Report:
+
+- balanced accuracy
+- ROC AUC where appropriate
+- sensitivity
+- specificity
+- uncertainty across outer folds
+
+Also evaluate five-class recognition from individual wavelengths.
+
+Do not call a wavelength useful merely because its pairwise effect is
+significant.
+
+
+2B. FULL-SPECTRUM IDENTIFIABILITY
+
+Evaluate the existing full-spectrum researcher-category classifier using
+proper nested group-aware validation.
+
+Report:
+
+- overall balanced accuracy
+- per-class recall
+- precision
+- confusion matrices
+- false positives
+- false negatives
+
+Evaluate separately for:
+
+- unseen polygons
+- held sites
+- temporal targets where valid
+
+
+2C. CLASS-SPECIFIC IDENTIFIABILITY
+
+Identify which classes are:
+
+- consistently identifiable
+- confused with specific alternatives
+- geographically unstable
+- temporally unstable
+
+Pay particular attention to Woody shrub, which the current analysis suggests
+is substantially harder to transfer than Evergreen or Non-vegetated & dead.
+
+Do not hide poor classes behind mean accuracy.
+
+
+2D. COMPLEMENTARY INFORMATION
+
+Determine how identification improves as complementary wavelengths are added.
+
+Evaluate feature budgets such as:
+
+1
+2
+3
+5
+7
+10
+20
+50
+100
+full spectrum
+
+Feature selection MUST occur inside inner training folds.
+
+Compare against random wavelength subsets of equal size so that we know whether
+the selector actually adds value.
+
+This random-subset comparison is important if it has not already been done.
+
+Estimate the incremental information gained by adding wavelengths.
+
+Do not claim that the selected wavelengths define an optimal sensor.
+
+
+2E. REDUNDANCY
+
+Quantify wavelength correlation/redundancy.
+
+Test whether selected wavelengths contain complementary information rather than
+simply neighboring correlated channels.
+
+Where practical compare:
+
+- greedy complementary selection
+- random subsets
+- regularized full-spectrum model
+- PCA or PLS representation
+
+The objective is not to find the fanciest classifier.
+
+The objective is to determine how much independent spectral information is
+needed for identification.
+
+
+2F. DOMAIN TRANSFER
+
+Test identification under:
+
+- new GlobalIDs
+- entire held sites
+- temporal transfer where support exists
+
+Report the drop from within-domain/new-polygon performance to held-domain
+performance.
+
+This transfer penalty is itself a scientific result.
+
+
+2G. NEON VERSUS OLI
+
+Run the same properly validated identification framework using:
+
+- NEON hyperspectral
+- synthetic OLI
+
+Quantify how much predictive information is lost.
+
+Explicitly compare this result with Section 1.
+
+A particularly important result is:
+
+    statistical separability can be retained while identification accuracy
+    declines.
+
+
+IDENTIFIABILITY VALIDATION CHECKLIST
+
+Explicitly answer:
+
+[ ] Is prediction evaluated only on unseen identities?
+[ ] Is feature selection nested?
+[ ] Is tuning nested?
+[ ] Are held sites completely unseen?
+[ ] Are all five classes evaluated separately?
+[ ] Are confusion matrices available?
+[ ] Are pairwise and five-class problems distinguished?
+[ ] Are single-wavelength and full-spectrum results distinguished?
+[ ] Is complementary information tested?
+[ ] Are selected subsets compared with random subsets?
+[ ] Is redundancy evaluated?
+[ ] Is geographic transfer evaluated?
+[ ] Is temporal transfer evaluated where valid?
+[ ] Is NEON versus OLI predictive information loss quantified?
+
+End with:
+
+WHAT WE CAN IDENTIFY
+WHAT WE CANNOT RELIABLY IDENTIFY
+WHERE IDENTIFICATION FAILS
+WHAT ADDITIONAL DATA WOULD MOST IMPROVE IDENTIFICATION
+
+
+======================================================================
+SECTION 3 — ABUNDANCE
+======================================================================
+
+QUESTION:
+
+    Given a mixed spectrum, can we recover the fraction belonging to each
+    researcher category?
+
+This is the strongest claim and requires the strongest validation.
+
+Keep two concepts separate:
+
+    reconstruction accuracy
+    fraction accuracy
+
+A model can reconstruct a spectrum extremely well while assigning the wrong
+biological fractions.
+
+
+3A. SYNTHETIC MIXTURE BENCHMARK
+
+Use the controlled pair/triple mixtures with known algebraic fractions.
+
+Verify:
+
+- parent identities are disjoint across proper/tuning/test sets
+- mixture bundles remain grouped
+- all models receive exactly the same test mixtures
+- fractions remain >= 0 and sum to 1
+- uncertainty resamples parent bundles rather than individual synthetic rows
+
+Clearly label these as synthetic fractions, NOT field cover.
+
+
+3B. ORACLE / SOLVER VALIDATION
+
+Before comparing abundance methods, verify that the mathematical mixing solver
+can recover fractions when given the actual generating parent spectra.
+
+This is essential.
+
+If known-parent oracle error is near zero, then failures using the candidate
+library cannot simply be blamed on the constrained solver.
+
+Report this explicitly.
+
+
+3C. BASELINE METHODS
+
+At minimum compare:
+
+- no-spectrum training prior
+- FCLS
+- MESMA
+- ridge
+- PLS
+- random forest
+- gradient boosting
+- existing two-stage approach
+
+Use exactly the same outer targets.
+
+Do not select a winner based only on mean RMSE.
+
+
+3D. RIDGE VALIDATION
+
+Because ridge currently appears to substantially outperform MESMA, audit this
+result especially carefully.
+
+Verify:
+
+- regularization selected only from tuning/training data
+- no mixture-parent leakage
+- no preprocessing leakage
+- simplex projection performed correctly
+- performance is not caused solely by class priors
+- ridge beats the no-spectrum prior
+- ridge beats MESMA on paired test bundles
+- uncertainty for the paired difference is reported
+
+Report both absolute and relative improvement.
+
+Current results suggest approximately:
+
+new-parent:
+    MESMA ~0.359
+    ridge ~0.216
+
+held-site:
+    MESMA ~0.362
+    ridge ~0.269
+
+Recalculate from canonical outputs rather than hard-coding these values.
+
+
+3E. CLASS-SPECIFIC ABUNDANCE
+
+For every researcher category, evaluate:
+
+- RMSE
+- MAE
+- bias
+- calibration slope
+- true-zero behavior
+- low-fraction behavior
+- high-fraction shrinkage
+
+Overall RMSE is not sufficient.
+
+
+3F. ERROR AS A FUNCTION OF TRUE FRACTION
+
+Plot predicted versus true fraction for each class and method.
+
+At minimum examine:
+
+- true zero
+- low fractions
+- intermediate fractions
+- high fractions
+- pure/high-end fractions where supported
+
+Quantify shrinkage toward the mean.
+
+
+3G. DETECTION VERSUS QUANTIFICATION
+
+Explicitly separate:
+
+    Is this category present?
+
+from
+
+    If present, how much is present?
+
+Evaluate the two-stage detection + abundance model.
+
+For each category report:
+
+- false detection at true zero
+- probability of detection versus true fraction
+- missed low fractions
+- conditional abundance RMSE
+- bias
+
+Do not claim a universal detection threshold unless validated independently.
+
+The current .10 threshold should remain a declared comparison rule, not a
+physical detection limit.
+
+
+3H. MIXTURE AMBIGUITY
+
+This is critical.
+
+Quantify whether alternative biological mixtures can produce nearly equivalent
+spectral fits.
+
+For every test mixture calculate an ambiguity diagnostic using the declared
+MESMA/candidate-library tolerance.
+
+Stratify abundance error by:
+
+- low ambiguity
+- moderate ambiguity
+- high ambiguity
+
+Ask:
+
+    Does ridge improve abundance prediction when the inverse problem is
+    spectrally ambiguous?
+
+And separately:
+
+    Does ridge REMOVE the ambiguity?
+
+These are not the same question.
+
+If ridge reduces expected error while alternative compositions still fit the
+spectrum, state explicitly that ML has learned a useful statistical prior but
+has not established unique physical inversion.
+
+
+3I. DOMAIN TRANSFER
+
+Evaluate abundance under:
+
+- unseen parent identities
+- held sites
+- global-year targets
+- complete-pair temporal tests where valid
+
+Compare every method against the no-spectrum prior in every domain.
+
+A supervised model that beats MESMA but fails to beat the prior in a new domain
+is not demonstrating transferable spectral abundance information.
+
+
+3J. SPECTRAL REPRESENTATION
+
+Verify whether abundance performance changes using:
+
+- full NEON spectrum
+- synthetic OLI
+- any already-tested derivatives/transforms
+
+Do not run endless transformations.
+
+If first/second derivatives have already failed, report that result.
+
+Only add a transformation if there is a clear scientific hypothesis.
+
+
+3K. IDENTIFIABILITY VERSUS ABUNDANCE
+
+Connect Sections 2 and 3.
+
+Ask whether classes that are difficult to identify are also difficult to
+quantify.
+
+Calculate class-level relationships among:
+
+- classification recall
+- spectral ambiguity
+- abundance RMSE
+- false detections
+- low-fraction misses
+
+This could reveal whether the same spectral overlap drives both recognition
+and abundance failures.
+
+
+3L. LIMITING-FACTOR DIAGNOSIS
+
+At the end, determine what the evidence says about:
+
+- solver failure
+- spectral resolution
+- candidate-library variability
+- class overlap
+- geographic shift
+- temporal shift
+- training priors
+- missing independent field truth
+
+Do not force one limiting factor if the data cannot distinguish them.
+
+
+ABUNDANCE VALIDATION CHECKLIST
+
+Explicitly answer:
+
+[ ] Are mixture parents separated across train/tune/test?
+[ ] Are dependent mixtures grouped correctly?
+[ ] Does the oracle recover known generating fractions?
+[ ] Are all models evaluated on identical mixtures?
+[ ] Are abundance constraints enforced correctly?
+[ ] Does ridge beat MESMA?
+[ ] Does ridge beat the no-spectrum prior?
+[ ] Are paired uncertainties reported?
+[ ] Is performance evaluated by class?
+[ ] Is performance evaluated across true fraction?
+[ ] Are false detections measured?
+[ ] Are low-fraction misses measured?
+[ ] Is detection separated from quantification?
+[ ] Is ambiguity quantified?
+[ ] Does lower RMSE coexist with non-unique solutions?
+[ ] Is held-site transfer tested?
+[ ] Is temporal transfer tested where supported?
+[ ] Is NEON versus OLI tested?
+[ ] Are synthetic abundance and field abundance kept explicitly separate?
+
+End with:
+
+WHAT WE CAN ESTIMATE
+HOW ACCURATELY
+WHERE IT TRANSFERS
+WHERE IT FAILS
+WHETHER THE INVERSION IS UNIQUE
+WHAT IS STILL REQUIRED FOR FIELD ABUNDANCE
+
+
+======================================================================
+FINAL SYNTHESIS
+======================================================================
+
+After the three sections, create a single evidence ladder:
+
+LEVEL 1 — SEPARABILITY
+Can we show that researcher categories have different spectral distributions?
+
+LEVEL 2 — IDENTIFIABILITY
+Can we identify the category of a new observation?
+
+LEVEL 3 — ABUNDANCE
+Can we recover fractions in mixtures?
+
+LEVEL 4 — FIELD ABUNDANCE
+Can we recover real fractional cover in independent field observations?
+
+For each level assign:
+
+ESTABLISHED
+CONDITIONAL
+EXPLORATORY
+NOT ESTABLISHED
+
+and give the exact evidence supporting that status.
+
+Do not collapse these into one readiness score.
+
+
+======================================================================
+FINAL REPORT
+======================================================================
+
+Create a publication-quality PDF with the main body organized exactly as:
+
+1. SEPARABILITY
+2. IDENTIFIABILITY
+3. ABUNDANCE
+
+Keep methods immediately relevant to each question near that section rather
+than creating a long detached methods narrative.
+
+For every major figure include:
+
+HOW TO READ IT
+WHAT WE LEARN
+WHAT REMAINS UNCERTAIN
+
+Prefer a small number of information-dense figures over many repetitive plots.
+
+Each section should begin with the scientific question and end with its
+validation checklist and evidence statement.
+
+Include a short opening page explaining the three-level logic.
+
+End with:
+
+FINAL EVIDENCE LADDER
+LIMITATIONS
+WHAT DATA SHOULD BE COLLECTED NEXT
+REPRODUCIBILITY
+
+Every plotted value must trace to a saved numerical product.
+
+Every important claim must trace to a specific analysis/table.
+
+Save all newly required analyses in the existing versioned provenance
+structure.
+
+Do not overwrite historical reports.
+
+
+======================================================================
+MOST IMPORTANT QUALITY CHECK
+======================================================================
+
+Before rendering the final PDF, act as a hostile reviewer.
+
+Try to invalidate each of the three claims.
+
+For SEPARABILITY ask:
+    Could this be pseudoreplication, multiple testing, one site, one year,
+    scaling, or correlated wavelengths?
+
+For IDENTIFIABILITY ask:
+    Could this be leakage, class imbalance, feature-selection leakage,
+    site memorization, or an easy majority/background class?
+
+For ABUNDANCE ask:
+    Could this be parent leakage, synthetic-prior learning, simplex projection,
+    an unfair MESMA comparison, class-prior prediction, or dependent mixtures?
+
+Run additional tests where the data allow those alternatives to be evaluated.
+
+Add a final validation appendix/table:
+
+CLAIM
+POTENTIAL FAILURE MODE
+TEST PERFORMED
+RESULT
+STATUS
+REMAINING LIMITATION
+
+Do not declare the report finished until every major claim has gone through
+this adversarial validation.
+```

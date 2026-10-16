@@ -157,7 +157,7 @@ identical polygon/year units and acquisition histories before attributing a
 change to spectral resolution. The
 [plant spectral atlas workflow](plant-spectral-atlas.md#test-retention-under-synthetic-oli-spectral-reduction)
 reports paired OLI effect, direction and ranking retention with cluster-aware
-uncertainty; inferred PFTs and researcher cover categories remain separate.
+uncertainty; the primary grouping is now recorded researcher cover_category; older taxonomic groupings remain historical only.
 These are conditional group-structure results, not independent satellite/drone
 validation or classification accuracy. The supplied MicaSense export fails its
 physical-coordinate gate and is excluded from biological inference.

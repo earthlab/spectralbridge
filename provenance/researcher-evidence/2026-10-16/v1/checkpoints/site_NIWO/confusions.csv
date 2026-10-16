@@ -1,0 +1,1401 @@
+fold,kind,target,method,representation,budget,random_seed,C,truth,predicted,identity_weighted_count
+site_NIWO,site,target,Random,NEON,1,0,0.1,Deciduous,Deciduous,11.0
+site_NIWO,site,target,Random,NEON,1,0,0.1,Deciduous,Evergreen,48.0
+site_NIWO,site,target,Random,NEON,1,0,0.1,Deciduous,Herbaceous,29.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Deciduous,Non-vegetated & dead,56.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Deciduous,Woody shrub,5.0
+site_NIWO,site,target,Random,NEON,1,0,0.1,Evergreen,Deciduous,9.0
+site_NIWO,site,target,Random,NEON,1,0,0.1,Evergreen,Evergreen,620.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Evergreen,Herbaceous,31.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Evergreen,Non-vegetated & dead,110.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Evergreen,Woody shrub,3.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Herbaceous,Deciduous,24.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Herbaceous,Evergreen,21.0
+site_NIWO,site,target,Random,NEON,1,0,0.1,Herbaceous,Herbaceous,56.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Herbaceous,Non-vegetated & dead,102.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Herbaceous,Woody shrub,9.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Non-vegetated & dead,Deciduous,12.0
+site_NIWO,site,target,Random,NEON,1,0,0.1,Non-vegetated & dead,Evergreen,96.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Non-vegetated & dead,Herbaceous,22.0
+site_NIWO,site,target,Random,NEON,1,0,0.1,Non-vegetated & dead,Non-vegetated & dead,28.0
+site_NIWO,site,target,Random,NEON,1,0,0.1,Non-vegetated & dead,Woody shrub,3.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Woody shrub,Deciduous,33.0
+site_NIWO,site,target,Random,NEON,1,0,0.1,Woody shrub,Evergreen,89.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Woody shrub,Herbaceous,79.0
+site_NIWO,site,target,Random,NEON,1,0,0.1,Woody shrub,Non-vegetated & dead,109.5
+site_NIWO,site,target,Random,NEON,1,0,0.1,Woody shrub,Woody shrub,19.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Deciduous,Deciduous,14.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Deciduous,Evergreen,82.5
+site_NIWO,site,target,Random,NEON,2,0,1.0,Deciduous,Herbaceous,27.5
+site_NIWO,site,target,Random,NEON,2,0,1.0,Deciduous,Non-vegetated & dead,10.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Deciduous,Woody shrub,16.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Evergreen,Deciduous,10.5
+site_NIWO,site,target,Random,NEON,2,0,1.0,Evergreen,Evergreen,659.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Evergreen,Herbaceous,75.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Evergreen,Non-vegetated & dead,9.5
+site_NIWO,site,target,Random,NEON,2,0,1.0,Evergreen,Woody shrub,21.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Herbaceous,Deciduous,12.5
+site_NIWO,site,target,Random,NEON,2,0,1.0,Herbaceous,Evergreen,18.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Herbaceous,Herbaceous,23.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Herbaceous,Non-vegetated & dead,88.5
+site_NIWO,site,target,Random,NEON,2,0,1.0,Herbaceous,Woody shrub,72.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Non-vegetated & dead,Evergreen,0.5
+site_NIWO,site,target,Random,NEON,2,0,1.0,Non-vegetated & dead,Herbaceous,1.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Non-vegetated & dead,Non-vegetated & dead,160.5
+site_NIWO,site,target,Random,NEON,2,0,1.0,Non-vegetated & dead,Woody shrub,0.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Woody shrub,Deciduous,41.0
+site_NIWO,site,target,Random,NEON,2,0,1.0,Woody shrub,Evergreen,86.5
+site_NIWO,site,target,Random,NEON,2,0,1.0,Woody shrub,Herbaceous,92.5
+site_NIWO,site,target,Random,NEON,2,0,1.0,Woody shrub,Non-vegetated & dead,21.5
+site_NIWO,site,target,Random,NEON,2,0,1.0,Woody shrub,Woody shrub,88.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Deciduous,Deciduous,13.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Deciduous,Evergreen,81.0
+site_NIWO,site,target,Random,NEON,3,0,1.0,Deciduous,Herbaceous,28.0
+site_NIWO,site,target,Random,NEON,3,0,1.0,Deciduous,Non-vegetated & dead,10.0
+site_NIWO,site,target,Random,NEON,3,0,1.0,Deciduous,Woody shrub,17.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Evergreen,Deciduous,12.0
+site_NIWO,site,target,Random,NEON,3,0,1.0,Evergreen,Evergreen,679.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Evergreen,Herbaceous,59.0
+site_NIWO,site,target,Random,NEON,3,0,1.0,Evergreen,Non-vegetated & dead,9.0
+site_NIWO,site,target,Random,NEON,3,0,1.0,Evergreen,Woody shrub,15.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Herbaceous,Deciduous,7.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Herbaceous,Evergreen,12.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Herbaceous,Herbaceous,19.0
+site_NIWO,site,target,Random,NEON,3,0,1.0,Herbaceous,Non-vegetated & dead,91.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Herbaceous,Woody shrub,83.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,3,0,1.0,Non-vegetated & dead,Evergreen,1.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Non-vegetated & dead,Herbaceous,0.0
+site_NIWO,site,target,Random,NEON,3,0,1.0,Non-vegetated & dead,Non-vegetated & dead,160.0
+site_NIWO,site,target,Random,NEON,3,0,1.0,Non-vegetated & dead,Woody shrub,0.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Woody shrub,Deciduous,28.0
+site_NIWO,site,target,Random,NEON,3,0,1.0,Woody shrub,Evergreen,75.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Woody shrub,Herbaceous,79.0
+site_NIWO,site,target,Random,NEON,3,0,1.0,Woody shrub,Non-vegetated & dead,21.5
+site_NIWO,site,target,Random,NEON,3,0,1.0,Woody shrub,Woody shrub,126.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Deciduous,Deciduous,15.5
+site_NIWO,site,target,Random,NEON,5,0,10.0,Deciduous,Evergreen,100.5
+site_NIWO,site,target,Random,NEON,5,0,10.0,Deciduous,Herbaceous,4.5
+site_NIWO,site,target,Random,NEON,5,0,10.0,Deciduous,Non-vegetated & dead,11.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Deciduous,Woody shrub,18.5
+site_NIWO,site,target,Random,NEON,5,0,10.0,Evergreen,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Evergreen,Evergreen,761.5
+site_NIWO,site,target,Random,NEON,5,0,10.0,Evergreen,Herbaceous,2.5
+site_NIWO,site,target,Random,NEON,5,0,10.0,Evergreen,Non-vegetated & dead,5.5
+site_NIWO,site,target,Random,NEON,5,0,10.0,Evergreen,Woody shrub,4.5
+site_NIWO,site,target,Random,NEON,5,0,10.0,Herbaceous,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Herbaceous,Evergreen,30.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Herbaceous,Herbaceous,78.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Herbaceous,Non-vegetated & dead,60.5
+site_NIWO,site,target,Random,NEON,5,0,10.0,Herbaceous,Woody shrub,44.5
+site_NIWO,site,target,Random,NEON,5,0,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Non-vegetated & dead,Evergreen,4.5
+site_NIWO,site,target,Random,NEON,5,0,10.0,Non-vegetated & dead,Herbaceous,2.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Non-vegetated & dead,Non-vegetated & dead,154.5
+site_NIWO,site,target,Random,NEON,5,0,10.0,Non-vegetated & dead,Woody shrub,1.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Woody shrub,Deciduous,18.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Woody shrub,Evergreen,106.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Woody shrub,Herbaceous,95.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Woody shrub,Non-vegetated & dead,13.0
+site_NIWO,site,target,Random,NEON,5,0,10.0,Woody shrub,Woody shrub,98.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Deciduous,Deciduous,27.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Deciduous,Evergreen,48.5
+site_NIWO,site,target,Random,NEON,7,0,10.0,Deciduous,Herbaceous,21.5
+site_NIWO,site,target,Random,NEON,7,0,10.0,Deciduous,Non-vegetated & dead,6.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Deciduous,Woody shrub,47.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Evergreen,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Evergreen,Evergreen,764.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Evergreen,Herbaceous,2.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Evergreen,Non-vegetated & dead,3.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Evergreen,Woody shrub,5.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Herbaceous,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,7,0,10.0,Herbaceous,Evergreen,18.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Herbaceous,Herbaceous,125.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Herbaceous,Non-vegetated & dead,15.5
+site_NIWO,site,target,Random,NEON,7,0,10.0,Herbaceous,Woody shrub,55.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Non-vegetated & dead,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Non-vegetated & dead,Evergreen,2.5
+site_NIWO,site,target,Random,NEON,7,0,10.0,Non-vegetated & dead,Herbaceous,12.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Non-vegetated & dead,Non-vegetated & dead,145.0
+site_NIWO,site,target,Random,NEON,7,0,10.0,Non-vegetated & dead,Woody shrub,1.5
+site_NIWO,site,target,Random,NEON,7,0,10.0,Woody shrub,Deciduous,3.5
+site_NIWO,site,target,Random,NEON,7,0,10.0,Woody shrub,Evergreen,63.5
+site_NIWO,site,target,Random,NEON,7,0,10.0,Woody shrub,Herbaceous,116.5
+site_NIWO,site,target,Random,NEON,7,0,10.0,Woody shrub,Non-vegetated & dead,10.5
+site_NIWO,site,target,Random,NEON,7,0,10.0,Woody shrub,Woody shrub,136.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Deciduous,Deciduous,28.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Deciduous,Evergreen,61.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Deciduous,Herbaceous,14.5
+site_NIWO,site,target,Random,NEON,10,0,10.0,Deciduous,Non-vegetated & dead,7.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Deciduous,Woody shrub,39.5
+site_NIWO,site,target,Random,NEON,10,0,10.0,Evergreen,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Evergreen,Evergreen,771.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Evergreen,Herbaceous,0.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Evergreen,Non-vegetated & dead,1.5
+site_NIWO,site,target,Random,NEON,10,0,10.0,Evergreen,Woody shrub,2.5
+site_NIWO,site,target,Random,NEON,10,0,10.0,Herbaceous,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,10,0,10.0,Herbaceous,Evergreen,41.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Herbaceous,Herbaceous,138.5
+site_NIWO,site,target,Random,NEON,10,0,10.0,Herbaceous,Non-vegetated & dead,18.5
+site_NIWO,site,target,Random,NEON,10,0,10.0,Herbaceous,Woody shrub,15.5
+site_NIWO,site,target,Random,NEON,10,0,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Non-vegetated & dead,Evergreen,43.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Non-vegetated & dead,Herbaceous,5.5
+site_NIWO,site,target,Random,NEON,10,0,10.0,Non-vegetated & dead,Non-vegetated & dead,113.5
+site_NIWO,site,target,Random,NEON,10,0,10.0,Non-vegetated & dead,Woody shrub,0.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Woody shrub,Deciduous,9.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Woody shrub,Evergreen,79.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Woody shrub,Herbaceous,69.0
+site_NIWO,site,target,Random,NEON,10,0,10.0,Woody shrub,Non-vegetated & dead,11.5
+site_NIWO,site,target,Random,NEON,10,0,10.0,Woody shrub,Woody shrub,161.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Deciduous,Deciduous,41.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Deciduous,Evergreen,23.0
+site_NIWO,site,target,Random,NEON,20,0,10.0,Deciduous,Herbaceous,13.0
+site_NIWO,site,target,Random,NEON,20,0,10.0,Deciduous,Non-vegetated & dead,4.0
+site_NIWO,site,target,Random,NEON,20,0,10.0,Deciduous,Woody shrub,68.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Evergreen,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Evergreen,Evergreen,766.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Evergreen,Herbaceous,3.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Evergreen,Non-vegetated & dead,2.0
+site_NIWO,site,target,Random,NEON,20,0,10.0,Evergreen,Woody shrub,2.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Herbaceous,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,20,0,10.0,Herbaceous,Evergreen,36.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Herbaceous,Herbaceous,135.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Herbaceous,Non-vegetated & dead,18.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Herbaceous,Woody shrub,23.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,20,0,10.0,Non-vegetated & dead,Evergreen,7.0
+site_NIWO,site,target,Random,NEON,20,0,10.0,Non-vegetated & dead,Herbaceous,3.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Non-vegetated & dead,Non-vegetated & dead,150.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Non-vegetated & dead,Woody shrub,1.0
+site_NIWO,site,target,Random,NEON,20,0,10.0,Woody shrub,Deciduous,19.0
+site_NIWO,site,target,Random,NEON,20,0,10.0,Woody shrub,Evergreen,66.5
+site_NIWO,site,target,Random,NEON,20,0,10.0,Woody shrub,Herbaceous,47.0
+site_NIWO,site,target,Random,NEON,20,0,10.0,Woody shrub,Non-vegetated & dead,9.0
+site_NIWO,site,target,Random,NEON,20,0,10.0,Woody shrub,Woody shrub,188.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Deciduous,Deciduous,58.0
+site_NIWO,site,target,Random,NEON,50,0,10.0,Deciduous,Evergreen,7.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Deciduous,Herbaceous,7.0
+site_NIWO,site,target,Random,NEON,50,0,10.0,Deciduous,Non-vegetated & dead,3.0
+site_NIWO,site,target,Random,NEON,50,0,10.0,Deciduous,Woody shrub,74.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Evergreen,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Evergreen,Evergreen,766.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Evergreen,Herbaceous,1.0
+site_NIWO,site,target,Random,NEON,50,0,10.0,Evergreen,Non-vegetated & dead,3.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Evergreen,Woody shrub,3.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Herbaceous,Deciduous,2.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Herbaceous,Evergreen,34.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Herbaceous,Herbaceous,120.0
+site_NIWO,site,target,Random,NEON,50,0,10.0,Herbaceous,Non-vegetated & dead,28.0
+site_NIWO,site,target,Random,NEON,50,0,10.0,Herbaceous,Woody shrub,29.0
+site_NIWO,site,target,Random,NEON,50,0,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,50,0,10.0,Non-vegetated & dead,Evergreen,4.0
+site_NIWO,site,target,Random,NEON,50,0,10.0,Non-vegetated & dead,Herbaceous,2.0
+site_NIWO,site,target,Random,NEON,50,0,10.0,Non-vegetated & dead,Non-vegetated & dead,153.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Non-vegetated & dead,Woody shrub,2.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Woody shrub,Deciduous,15.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Woody shrub,Evergreen,61.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Woody shrub,Herbaceous,23.5
+site_NIWO,site,target,Random,NEON,50,0,10.0,Woody shrub,Non-vegetated & dead,15.0
+site_NIWO,site,target,Random,NEON,50,0,10.0,Woody shrub,Woody shrub,214.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Deciduous,Deciduous,95.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Deciduous,Evergreen,6.0
+site_NIWO,site,target,Random,NEON,100,0,10.0,Deciduous,Herbaceous,5.0
+site_NIWO,site,target,Random,NEON,100,0,10.0,Deciduous,Non-vegetated & dead,4.0
+site_NIWO,site,target,Random,NEON,100,0,10.0,Deciduous,Woody shrub,39.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Evergreen,Deciduous,3.0
+site_NIWO,site,target,Random,NEON,100,0,10.0,Evergreen,Evergreen,761.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Evergreen,Herbaceous,1.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Evergreen,Non-vegetated & dead,4.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Evergreen,Woody shrub,4.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Herbaceous,Deciduous,5.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Herbaceous,Evergreen,35.0
+site_NIWO,site,target,Random,NEON,100,0,10.0,Herbaceous,Herbaceous,124.0
+site_NIWO,site,target,Random,NEON,100,0,10.0,Herbaceous,Non-vegetated & dead,25.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Herbaceous,Woody shrub,24.0
+site_NIWO,site,target,Random,NEON,100,0,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,100,0,10.0,Non-vegetated & dead,Evergreen,4.0
+site_NIWO,site,target,Random,NEON,100,0,10.0,Non-vegetated & dead,Herbaceous,2.0
+site_NIWO,site,target,Random,NEON,100,0,10.0,Non-vegetated & dead,Non-vegetated & dead,152.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Non-vegetated & dead,Woody shrub,3.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Woody shrub,Deciduous,59.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Woody shrub,Evergreen,62.0
+site_NIWO,site,target,Random,NEON,100,0,10.0,Woody shrub,Herbaceous,21.0
+site_NIWO,site,target,Random,NEON,100,0,10.0,Woody shrub,Non-vegetated & dead,13.5
+site_NIWO,site,target,Random,NEON,100,0,10.0,Woody shrub,Woody shrub,174.0
+site_NIWO,site,target,Random,NEON,1,1,0.1,Deciduous,Deciduous,3.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Deciduous,Evergreen,98.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Deciduous,Herbaceous,27.0
+site_NIWO,site,target,Random,NEON,1,1,0.1,Deciduous,Non-vegetated & dead,12.0
+site_NIWO,site,target,Random,NEON,1,1,0.1,Deciduous,Woody shrub,9.0
+site_NIWO,site,target,Random,NEON,1,1,0.1,Evergreen,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,1,1,0.1,Evergreen,Evergreen,710.0
+site_NIWO,site,target,Random,NEON,1,1,0.1,Evergreen,Herbaceous,52.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Evergreen,Non-vegetated & dead,4.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Evergreen,Woody shrub,7.0
+site_NIWO,site,target,Random,NEON,1,1,0.1,Herbaceous,Deciduous,10.0
+site_NIWO,site,target,Random,NEON,1,1,0.1,Herbaceous,Evergreen,29.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Herbaceous,Herbaceous,30.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Herbaceous,Non-vegetated & dead,100.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Herbaceous,Woody shrub,43.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Non-vegetated & dead,Deciduous,2.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Non-vegetated & dead,Evergreen,26.0
+site_NIWO,site,target,Random,NEON,1,1,0.1,Non-vegetated & dead,Herbaceous,19.0
+site_NIWO,site,target,Random,NEON,1,1,0.1,Non-vegetated & dead,Non-vegetated & dead,98.0
+site_NIWO,site,target,Random,NEON,1,1,0.1,Non-vegetated & dead,Woody shrub,16.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Woody shrub,Deciduous,19.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Woody shrub,Evergreen,117.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Woody shrub,Herbaceous,130.5
+site_NIWO,site,target,Random,NEON,1,1,0.1,Woody shrub,Non-vegetated & dead,15.0
+site_NIWO,site,target,Random,NEON,1,1,0.1,Woody shrub,Woody shrub,47.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Deciduous,Deciduous,69.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Deciduous,Evergreen,46.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Deciduous,Herbaceous,14.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Deciduous,Non-vegetated & dead,7.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Deciduous,Woody shrub,12.0
+site_NIWO,site,target,Random,NEON,2,1,10.0,Evergreen,Deciduous,18.0
+site_NIWO,site,target,Random,NEON,2,1,10.0,Evergreen,Evergreen,687.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Evergreen,Herbaceous,17.0
+site_NIWO,site,target,Random,NEON,2,1,10.0,Evergreen,Non-vegetated & dead,19.0
+site_NIWO,site,target,Random,NEON,2,1,10.0,Evergreen,Woody shrub,33.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Herbaceous,Deciduous,26.0
+site_NIWO,site,target,Random,NEON,2,1,10.0,Herbaceous,Evergreen,20.0
+site_NIWO,site,target,Random,NEON,2,1,10.0,Herbaceous,Herbaceous,16.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Herbaceous,Non-vegetated & dead,47.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Herbaceous,Woody shrub,104.0
+site_NIWO,site,target,Random,NEON,2,1,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,2,1,10.0,Non-vegetated & dead,Evergreen,13.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Non-vegetated & dead,Herbaceous,0.0
+site_NIWO,site,target,Random,NEON,2,1,10.0,Non-vegetated & dead,Non-vegetated & dead,147.0
+site_NIWO,site,target,Random,NEON,2,1,10.0,Non-vegetated & dead,Woody shrub,1.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Woody shrub,Deciduous,92.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Woody shrub,Evergreen,80.0
+site_NIWO,site,target,Random,NEON,2,1,10.0,Woody shrub,Herbaceous,67.0
+site_NIWO,site,target,Random,NEON,2,1,10.0,Woody shrub,Non-vegetated & dead,14.5
+site_NIWO,site,target,Random,NEON,2,1,10.0,Woody shrub,Woody shrub,76.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Deciduous,Deciduous,17.5
+site_NIWO,site,target,Random,NEON,3,1,10.0,Deciduous,Evergreen,78.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Deciduous,Herbaceous,42.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Deciduous,Non-vegetated & dead,2.5
+site_NIWO,site,target,Random,NEON,3,1,10.0,Deciduous,Woody shrub,10.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Evergreen,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Evergreen,Evergreen,729.5
+site_NIWO,site,target,Random,NEON,3,1,10.0,Evergreen,Herbaceous,18.5
+site_NIWO,site,target,Random,NEON,3,1,10.0,Evergreen,Non-vegetated & dead,24.5
+site_NIWO,site,target,Random,NEON,3,1,10.0,Evergreen,Woody shrub,2.5
+site_NIWO,site,target,Random,NEON,3,1,10.0,Herbaceous,Deciduous,13.5
+site_NIWO,site,target,Random,NEON,3,1,10.0,Herbaceous,Evergreen,25.5
+site_NIWO,site,target,Random,NEON,3,1,10.0,Herbaceous,Herbaceous,69.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Herbaceous,Non-vegetated & dead,49.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Herbaceous,Woody shrub,57.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Non-vegetated & dead,Evergreen,13.5
+site_NIWO,site,target,Random,NEON,3,1,10.0,Non-vegetated & dead,Herbaceous,0.5
+site_NIWO,site,target,Random,NEON,3,1,10.0,Non-vegetated & dead,Non-vegetated & dead,147.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Non-vegetated & dead,Woody shrub,1.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Woody shrub,Deciduous,51.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Woody shrub,Evergreen,90.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Woody shrub,Herbaceous,102.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Woody shrub,Non-vegetated & dead,15.0
+site_NIWO,site,target,Random,NEON,3,1,10.0,Woody shrub,Woody shrub,72.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Deciduous,Deciduous,16.5
+site_NIWO,site,target,Random,NEON,5,1,10.0,Deciduous,Evergreen,13.5
+site_NIWO,site,target,Random,NEON,5,1,10.0,Deciduous,Herbaceous,101.5
+site_NIWO,site,target,Random,NEON,5,1,10.0,Deciduous,Non-vegetated & dead,3.5
+site_NIWO,site,target,Random,NEON,5,1,10.0,Deciduous,Woody shrub,15.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Evergreen,Deciduous,2.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Evergreen,Evergreen,653.5
+site_NIWO,site,target,Random,NEON,5,1,10.0,Evergreen,Herbaceous,93.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Evergreen,Non-vegetated & dead,7.5
+site_NIWO,site,target,Random,NEON,5,1,10.0,Evergreen,Woody shrub,19.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Herbaceous,Deciduous,7.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Herbaceous,Evergreen,9.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Herbaceous,Herbaceous,77.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Herbaceous,Non-vegetated & dead,61.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Herbaceous,Woody shrub,60.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Non-vegetated & dead,Evergreen,0.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Non-vegetated & dead,Herbaceous,2.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Non-vegetated & dead,Non-vegetated & dead,157.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Non-vegetated & dead,Woody shrub,3.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Woody shrub,Deciduous,29.5
+site_NIWO,site,target,Random,NEON,5,1,10.0,Woody shrub,Evergreen,21.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Woody shrub,Herbaceous,190.0
+site_NIWO,site,target,Random,NEON,5,1,10.0,Woody shrub,Non-vegetated & dead,11.5
+site_NIWO,site,target,Random,NEON,5,1,10.0,Woody shrub,Woody shrub,78.0
+site_NIWO,site,target,Random,NEON,7,1,10.0,Deciduous,Deciduous,9.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Deciduous,Evergreen,13.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Deciduous,Herbaceous,101.0
+site_NIWO,site,target,Random,NEON,7,1,10.0,Deciduous,Non-vegetated & dead,3.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Deciduous,Woody shrub,22.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Evergreen,Deciduous,3.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Evergreen,Evergreen,541.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Evergreen,Herbaceous,212.0
+site_NIWO,site,target,Random,NEON,7,1,10.0,Evergreen,Non-vegetated & dead,3.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Evergreen,Woody shrub,14.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Herbaceous,Deciduous,3.0
+site_NIWO,site,target,Random,NEON,7,1,10.0,Herbaceous,Evergreen,4.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Herbaceous,Herbaceous,143.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Herbaceous,Non-vegetated & dead,47.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Herbaceous,Woody shrub,15.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,7,1,10.0,Non-vegetated & dead,Evergreen,0.0
+site_NIWO,site,target,Random,NEON,7,1,10.0,Non-vegetated & dead,Herbaceous,4.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Non-vegetated & dead,Non-vegetated & dead,156.0
+site_NIWO,site,target,Random,NEON,7,1,10.0,Non-vegetated & dead,Woody shrub,1.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Woody shrub,Deciduous,22.0
+site_NIWO,site,target,Random,NEON,7,1,10.0,Woody shrub,Evergreen,17.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Woody shrub,Herbaceous,206.0
+site_NIWO,site,target,Random,NEON,7,1,10.0,Woody shrub,Non-vegetated & dead,11.5
+site_NIWO,site,target,Random,NEON,7,1,10.0,Woody shrub,Woody shrub,73.0
+site_NIWO,site,target,Random,NEON,10,1,10.0,Deciduous,Deciduous,24.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Deciduous,Evergreen,20.0
+site_NIWO,site,target,Random,NEON,10,1,10.0,Deciduous,Herbaceous,52.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Deciduous,Non-vegetated & dead,2.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Deciduous,Woody shrub,50.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Evergreen,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,10,1,10.0,Evergreen,Evergreen,714.0
+site_NIWO,site,target,Random,NEON,10,1,10.0,Evergreen,Herbaceous,46.0
+site_NIWO,site,target,Random,NEON,10,1,10.0,Evergreen,Non-vegetated & dead,3.0
+site_NIWO,site,target,Random,NEON,10,1,10.0,Evergreen,Woody shrub,11.0
+site_NIWO,site,target,Random,NEON,10,1,10.0,Herbaceous,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Herbaceous,Evergreen,25.0
+site_NIWO,site,target,Random,NEON,10,1,10.0,Herbaceous,Herbaceous,140.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Herbaceous,Non-vegetated & dead,19.0
+site_NIWO,site,target,Random,NEON,10,1,10.0,Herbaceous,Woody shrub,29.0
+site_NIWO,site,target,Random,NEON,10,1,10.0,Non-vegetated & dead,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Non-vegetated & dead,Evergreen,2.0
+site_NIWO,site,target,Random,NEON,10,1,10.0,Non-vegetated & dead,Herbaceous,5.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Non-vegetated & dead,Non-vegetated & dead,152.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Non-vegetated & dead,Woody shrub,1.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Woody shrub,Deciduous,32.0
+site_NIWO,site,target,Random,NEON,10,1,10.0,Woody shrub,Evergreen,57.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Woody shrub,Herbaceous,95.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Woody shrub,Non-vegetated & dead,8.5
+site_NIWO,site,target,Random,NEON,10,1,10.0,Woody shrub,Woody shrub,136.5
+site_NIWO,site,target,Random,NEON,20,1,10.0,Deciduous,Deciduous,22.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Deciduous,Evergreen,3.5
+site_NIWO,site,target,Random,NEON,20,1,10.0,Deciduous,Herbaceous,54.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Deciduous,Non-vegetated & dead,3.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Deciduous,Woody shrub,67.5
+site_NIWO,site,target,Random,NEON,20,1,10.0,Evergreen,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Evergreen,Evergreen,742.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Evergreen,Herbaceous,14.5
+site_NIWO,site,target,Random,NEON,20,1,10.0,Evergreen,Non-vegetated & dead,4.5
+site_NIWO,site,target,Random,NEON,20,1,10.0,Evergreen,Woody shrub,14.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Herbaceous,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Herbaceous,Evergreen,27.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Herbaceous,Herbaceous,146.5
+site_NIWO,site,target,Random,NEON,20,1,10.0,Herbaceous,Non-vegetated & dead,16.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Herbaceous,Woody shrub,24.5
+site_NIWO,site,target,Random,NEON,20,1,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Non-vegetated & dead,Evergreen,2.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Non-vegetated & dead,Herbaceous,7.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Non-vegetated & dead,Non-vegetated & dead,150.5
+site_NIWO,site,target,Random,NEON,20,1,10.0,Non-vegetated & dead,Woody shrub,2.5
+site_NIWO,site,target,Random,NEON,20,1,10.0,Woody shrub,Deciduous,21.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Woody shrub,Evergreen,58.5
+site_NIWO,site,target,Random,NEON,20,1,10.0,Woody shrub,Herbaceous,91.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Woody shrub,Non-vegetated & dead,10.0
+site_NIWO,site,target,Random,NEON,20,1,10.0,Woody shrub,Woody shrub,149.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Deciduous,Deciduous,62.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Deciduous,Evergreen,5.0
+site_NIWO,site,target,Random,NEON,50,1,10.0,Deciduous,Herbaceous,35.0
+site_NIWO,site,target,Random,NEON,50,1,10.0,Deciduous,Non-vegetated & dead,3.0
+site_NIWO,site,target,Random,NEON,50,1,10.0,Deciduous,Woody shrub,44.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Evergreen,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Evergreen,Evergreen,759.0
+site_NIWO,site,target,Random,NEON,50,1,10.0,Evergreen,Herbaceous,5.0
+site_NIWO,site,target,Random,NEON,50,1,10.0,Evergreen,Non-vegetated & dead,6.0
+site_NIWO,site,target,Random,NEON,50,1,10.0,Evergreen,Woody shrub,4.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Herbaceous,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,50,1,10.0,Herbaceous,Evergreen,37.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Herbaceous,Herbaceous,158.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Herbaceous,Non-vegetated & dead,11.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Herbaceous,Woody shrub,5.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,50,1,10.0,Non-vegetated & dead,Evergreen,2.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Non-vegetated & dead,Herbaceous,9.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Non-vegetated & dead,Non-vegetated & dead,148.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Non-vegetated & dead,Woody shrub,1.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Woody shrub,Deciduous,42.0
+site_NIWO,site,target,Random,NEON,50,1,10.0,Woody shrub,Evergreen,63.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Woody shrub,Herbaceous,79.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Woody shrub,Non-vegetated & dead,11.5
+site_NIWO,site,target,Random,NEON,50,1,10.0,Woody shrub,Woody shrub,133.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Deciduous,Deciduous,73.0
+site_NIWO,site,target,Random,NEON,100,1,10.0,Deciduous,Evergreen,5.0
+site_NIWO,site,target,Random,NEON,100,1,10.0,Deciduous,Herbaceous,6.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Deciduous,Non-vegetated & dead,1.0
+site_NIWO,site,target,Random,NEON,100,1,10.0,Deciduous,Woody shrub,64.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Evergreen,Deciduous,2.0
+site_NIWO,site,target,Random,NEON,100,1,10.0,Evergreen,Evergreen,758.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Evergreen,Herbaceous,2.0
+site_NIWO,site,target,Random,NEON,100,1,10.0,Evergreen,Non-vegetated & dead,3.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Evergreen,Woody shrub,9.0
+site_NIWO,site,target,Random,NEON,100,1,10.0,Herbaceous,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Herbaceous,Evergreen,31.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Herbaceous,Herbaceous,142.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Herbaceous,Non-vegetated & dead,13.0
+site_NIWO,site,target,Random,NEON,100,1,10.0,Herbaceous,Woody shrub,26.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Non-vegetated & dead,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,100,1,10.0,Non-vegetated & dead,Evergreen,2.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Non-vegetated & dead,Herbaceous,5.0
+site_NIWO,site,target,Random,NEON,100,1,10.0,Non-vegetated & dead,Non-vegetated & dead,147.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Non-vegetated & dead,Woody shrub,6.0
+site_NIWO,site,target,Random,NEON,100,1,10.0,Woody shrub,Deciduous,13.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Woody shrub,Evergreen,59.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Woody shrub,Herbaceous,34.0
+site_NIWO,site,target,Random,NEON,100,1,10.0,Woody shrub,Non-vegetated & dead,6.5
+site_NIWO,site,target,Random,NEON,100,1,10.0,Woody shrub,Woody shrub,216.5
+site_NIWO,site,target,Random,NEON,1,2,1.0,Deciduous,Deciduous,20.5
+site_NIWO,site,target,Random,NEON,1,2,1.0,Deciduous,Evergreen,97.5
+site_NIWO,site,target,Random,NEON,1,2,1.0,Deciduous,Herbaceous,6.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Deciduous,Non-vegetated & dead,8.5
+site_NIWO,site,target,Random,NEON,1,2,1.0,Deciduous,Woody shrub,17.5
+site_NIWO,site,target,Random,NEON,1,2,1.0,Evergreen,Deciduous,95.5
+site_NIWO,site,target,Random,NEON,1,2,1.0,Evergreen,Evergreen,612.5
+site_NIWO,site,target,Random,NEON,1,2,1.0,Evergreen,Herbaceous,25.5
+site_NIWO,site,target,Random,NEON,1,2,1.0,Evergreen,Non-vegetated & dead,5.5
+site_NIWO,site,target,Random,NEON,1,2,1.0,Evergreen,Woody shrub,36.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Herbaceous,Deciduous,15.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Herbaceous,Evergreen,27.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Herbaceous,Herbaceous,14.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Herbaceous,Non-vegetated & dead,82.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Herbaceous,Woody shrub,76.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Non-vegetated & dead,Deciduous,6.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Non-vegetated & dead,Evergreen,11.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Non-vegetated & dead,Herbaceous,2.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Non-vegetated & dead,Non-vegetated & dead,121.5
+site_NIWO,site,target,Random,NEON,1,2,1.0,Non-vegetated & dead,Woody shrub,21.5
+site_NIWO,site,target,Random,NEON,1,2,1.0,Woody shrub,Deciduous,78.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Woody shrub,Evergreen,109.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Woody shrub,Herbaceous,34.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Woody shrub,Non-vegetated & dead,16.0
+site_NIWO,site,target,Random,NEON,1,2,1.0,Woody shrub,Woody shrub,93.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Deciduous,Deciduous,26.5
+site_NIWO,site,target,Random,NEON,2,2,10.0,Deciduous,Evergreen,89.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Deciduous,Herbaceous,9.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Deciduous,Non-vegetated & dead,13.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Deciduous,Woody shrub,12.5
+site_NIWO,site,target,Random,NEON,2,2,10.0,Evergreen,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Evergreen,Evergreen,726.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Evergreen,Herbaceous,9.5
+site_NIWO,site,target,Random,NEON,2,2,10.0,Evergreen,Non-vegetated & dead,28.5
+site_NIWO,site,target,Random,NEON,2,2,10.0,Evergreen,Woody shrub,11.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Herbaceous,Deciduous,7.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Herbaceous,Evergreen,44.5
+site_NIWO,site,target,Random,NEON,2,2,10.0,Herbaceous,Herbaceous,10.5
+site_NIWO,site,target,Random,NEON,2,2,10.0,Herbaceous,Non-vegetated & dead,122.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Herbaceous,Woody shrub,30.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Non-vegetated & dead,Evergreen,17.5
+site_NIWO,site,target,Random,NEON,2,2,10.0,Non-vegetated & dead,Herbaceous,0.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Non-vegetated & dead,Non-vegetated & dead,144.5
+site_NIWO,site,target,Random,NEON,2,2,10.0,Non-vegetated & dead,Woody shrub,0.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Woody shrub,Deciduous,54.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Woody shrub,Evergreen,110.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Woody shrub,Herbaceous,62.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Woody shrub,Non-vegetated & dead,43.0
+site_NIWO,site,target,Random,NEON,2,2,10.0,Woody shrub,Woody shrub,61.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Deciduous,Deciduous,42.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Deciduous,Evergreen,69.5
+site_NIWO,site,target,Random,NEON,3,2,1.0,Deciduous,Herbaceous,10.5
+site_NIWO,site,target,Random,NEON,3,2,1.0,Deciduous,Non-vegetated & dead,11.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Deciduous,Woody shrub,17.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Evergreen,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Evergreen,Evergreen,715.5
+site_NIWO,site,target,Random,NEON,3,2,1.0,Evergreen,Herbaceous,17.5
+site_NIWO,site,target,Random,NEON,3,2,1.0,Evergreen,Non-vegetated & dead,31.5
+site_NIWO,site,target,Random,NEON,3,2,1.0,Evergreen,Woody shrub,9.5
+site_NIWO,site,target,Random,NEON,3,2,1.0,Herbaceous,Deciduous,14.5
+site_NIWO,site,target,Random,NEON,3,2,1.0,Herbaceous,Evergreen,30.5
+site_NIWO,site,target,Random,NEON,3,2,1.0,Herbaceous,Herbaceous,11.5
+site_NIWO,site,target,Random,NEON,3,2,1.0,Herbaceous,Non-vegetated & dead,100.5
+site_NIWO,site,target,Random,NEON,3,2,1.0,Herbaceous,Woody shrub,57.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Non-vegetated & dead,Evergreen,16.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Non-vegetated & dead,Herbaceous,0.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Non-vegetated & dead,Non-vegetated & dead,145.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Non-vegetated & dead,Woody shrub,1.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Woody shrub,Deciduous,71.5
+site_NIWO,site,target,Random,NEON,3,2,1.0,Woody shrub,Evergreen,86.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Woody shrub,Herbaceous,66.5
+site_NIWO,site,target,Random,NEON,3,2,1.0,Woody shrub,Non-vegetated & dead,34.0
+site_NIWO,site,target,Random,NEON,3,2,1.0,Woody shrub,Woody shrub,72.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Deciduous,Deciduous,68.5
+site_NIWO,site,target,Random,NEON,5,2,10.0,Deciduous,Evergreen,10.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Deciduous,Herbaceous,19.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Deciduous,Non-vegetated & dead,10.5
+site_NIWO,site,target,Random,NEON,5,2,10.0,Deciduous,Woody shrub,42.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Evergreen,Deciduous,6.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Evergreen,Evergreen,709.5
+site_NIWO,site,target,Random,NEON,5,2,10.0,Evergreen,Herbaceous,33.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Evergreen,Non-vegetated & dead,3.5
+site_NIWO,site,target,Random,NEON,5,2,10.0,Evergreen,Woody shrub,23.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Herbaceous,Deciduous,14.5
+site_NIWO,site,target,Random,NEON,5,2,10.0,Herbaceous,Evergreen,20.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Herbaceous,Herbaceous,21.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Herbaceous,Non-vegetated & dead,85.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Herbaceous,Woody shrub,73.5
+site_NIWO,site,target,Random,NEON,5,2,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Non-vegetated & dead,Evergreen,3.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Non-vegetated & dead,Herbaceous,0.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Non-vegetated & dead,Non-vegetated & dead,157.5
+site_NIWO,site,target,Random,NEON,5,2,10.0,Non-vegetated & dead,Woody shrub,1.5
+site_NIWO,site,target,Random,NEON,5,2,10.0,Woody shrub,Deciduous,75.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Woody shrub,Evergreen,21.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Woody shrub,Herbaceous,53.0
+site_NIWO,site,target,Random,NEON,5,2,10.0,Woody shrub,Non-vegetated & dead,21.5
+site_NIWO,site,target,Random,NEON,5,2,10.0,Woody shrub,Woody shrub,159.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Deciduous,Deciduous,70.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Deciduous,Evergreen,13.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Deciduous,Herbaceous,50.0
+site_NIWO,site,target,Random,NEON,7,2,10.0,Deciduous,Non-vegetated & dead,6.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Deciduous,Woody shrub,9.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Evergreen,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,7,2,10.0,Evergreen,Evergreen,764.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Evergreen,Herbaceous,6.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Evergreen,Non-vegetated & dead,2.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Evergreen,Woody shrub,1.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Herbaceous,Deciduous,12.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Herbaceous,Evergreen,42.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Herbaceous,Herbaceous,102.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Herbaceous,Non-vegetated & dead,35.0
+site_NIWO,site,target,Random,NEON,7,2,10.0,Herbaceous,Woody shrub,21.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,7,2,10.0,Non-vegetated & dead,Evergreen,18.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Non-vegetated & dead,Herbaceous,1.0
+site_NIWO,site,target,Random,NEON,7,2,10.0,Non-vegetated & dead,Non-vegetated & dead,142.0
+site_NIWO,site,target,Random,NEON,7,2,10.0,Non-vegetated & dead,Woody shrub,0.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Woody shrub,Deciduous,97.0
+site_NIWO,site,target,Random,NEON,7,2,10.0,Woody shrub,Evergreen,57.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Woody shrub,Herbaceous,98.5
+site_NIWO,site,target,Random,NEON,7,2,10.0,Woody shrub,Non-vegetated & dead,13.0
+site_NIWO,site,target,Random,NEON,7,2,10.0,Woody shrub,Woody shrub,64.0
+site_NIWO,site,target,Random,NEON,10,2,10.0,Deciduous,Deciduous,70.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Deciduous,Evergreen,18.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Deciduous,Herbaceous,39.0
+site_NIWO,site,target,Random,NEON,10,2,10.0,Deciduous,Non-vegetated & dead,2.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Deciduous,Woody shrub,19.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Evergreen,Deciduous,1.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Evergreen,Evergreen,763.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Evergreen,Herbaceous,4.0
+site_NIWO,site,target,Random,NEON,10,2,10.0,Evergreen,Non-vegetated & dead,3.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Evergreen,Woody shrub,2.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Herbaceous,Deciduous,3.0
+site_NIWO,site,target,Random,NEON,10,2,10.0,Herbaceous,Evergreen,43.0
+site_NIWO,site,target,Random,NEON,10,2,10.0,Herbaceous,Herbaceous,132.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Herbaceous,Non-vegetated & dead,10.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Herbaceous,Woody shrub,25.0
+site_NIWO,site,target,Random,NEON,10,2,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,10,2,10.0,Non-vegetated & dead,Evergreen,29.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Non-vegetated & dead,Herbaceous,2.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Non-vegetated & dead,Non-vegetated & dead,127.0
+site_NIWO,site,target,Random,NEON,10,2,10.0,Non-vegetated & dead,Woody shrub,3.0
+site_NIWO,site,target,Random,NEON,10,2,10.0,Woody shrub,Deciduous,68.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Woody shrub,Evergreen,64.0
+site_NIWO,site,target,Random,NEON,10,2,10.0,Woody shrub,Herbaceous,107.5
+site_NIWO,site,target,Random,NEON,10,2,10.0,Woody shrub,Non-vegetated & dead,7.0
+site_NIWO,site,target,Random,NEON,10,2,10.0,Woody shrub,Woody shrub,83.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Deciduous,Deciduous,17.5
+site_NIWO,site,target,Random,NEON,20,2,10.0,Deciduous,Evergreen,13.5
+site_NIWO,site,target,Random,NEON,20,2,10.0,Deciduous,Herbaceous,93.5
+site_NIWO,site,target,Random,NEON,20,2,10.0,Deciduous,Non-vegetated & dead,2.5
+site_NIWO,site,target,Random,NEON,20,2,10.0,Deciduous,Woody shrub,23.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Evergreen,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Evergreen,Evergreen,764.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Evergreen,Herbaceous,7.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Evergreen,Non-vegetated & dead,2.5
+site_NIWO,site,target,Random,NEON,20,2,10.0,Evergreen,Woody shrub,1.5
+site_NIWO,site,target,Random,NEON,20,2,10.0,Herbaceous,Deciduous,2.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Herbaceous,Evergreen,34.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Herbaceous,Herbaceous,165.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Herbaceous,Non-vegetated & dead,6.5
+site_NIWO,site,target,Random,NEON,20,2,10.0,Herbaceous,Woody shrub,6.5
+site_NIWO,site,target,Random,NEON,20,2,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Non-vegetated & dead,Evergreen,8.5
+site_NIWO,site,target,Random,NEON,20,2,10.0,Non-vegetated & dead,Herbaceous,5.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Non-vegetated & dead,Non-vegetated & dead,147.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Non-vegetated & dead,Woody shrub,1.5
+site_NIWO,site,target,Random,NEON,20,2,10.0,Woody shrub,Deciduous,8.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Woody shrub,Evergreen,60.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Woody shrub,Herbaceous,149.0
+site_NIWO,site,target,Random,NEON,20,2,10.0,Woody shrub,Non-vegetated & dead,4.5
+site_NIWO,site,target,Random,NEON,20,2,10.0,Woody shrub,Woody shrub,108.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Deciduous,Deciduous,76.0
+site_NIWO,site,target,Random,NEON,50,2,10.0,Deciduous,Evergreen,15.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Deciduous,Herbaceous,20.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Deciduous,Non-vegetated & dead,1.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Deciduous,Woody shrub,36.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Evergreen,Deciduous,1.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Evergreen,Evergreen,765.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Evergreen,Herbaceous,3.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Evergreen,Non-vegetated & dead,1.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Evergreen,Woody shrub,3.0
+site_NIWO,site,target,Random,NEON,50,2,10.0,Herbaceous,Deciduous,2.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Herbaceous,Evergreen,44.0
+site_NIWO,site,target,Random,NEON,50,2,10.0,Herbaceous,Herbaceous,145.0
+site_NIWO,site,target,Random,NEON,50,2,10.0,Herbaceous,Non-vegetated & dead,11.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Herbaceous,Woody shrub,11.0
+site_NIWO,site,target,Random,NEON,50,2,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,50,2,10.0,Non-vegetated & dead,Evergreen,40.0
+site_NIWO,site,target,Random,NEON,50,2,10.0,Non-vegetated & dead,Herbaceous,3.0
+site_NIWO,site,target,Random,NEON,50,2,10.0,Non-vegetated & dead,Non-vegetated & dead,116.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Non-vegetated & dead,Woody shrub,2.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Woody shrub,Deciduous,43.0
+site_NIWO,site,target,Random,NEON,50,2,10.0,Woody shrub,Evergreen,70.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Woody shrub,Herbaceous,62.5
+site_NIWO,site,target,Random,NEON,50,2,10.0,Woody shrub,Non-vegetated & dead,2.0
+site_NIWO,site,target,Random,NEON,50,2,10.0,Woody shrub,Woody shrub,152.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Deciduous,Deciduous,85.5
+site_NIWO,site,target,Random,NEON,100,2,10.0,Deciduous,Evergreen,9.5
+site_NIWO,site,target,Random,NEON,100,2,10.0,Deciduous,Herbaceous,6.5
+site_NIWO,site,target,Random,NEON,100,2,10.0,Deciduous,Non-vegetated & dead,4.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Deciduous,Woody shrub,44.5
+site_NIWO,site,target,Random,NEON,100,2,10.0,Evergreen,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Evergreen,Evergreen,766.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Evergreen,Herbaceous,2.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Evergreen,Non-vegetated & dead,3.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Evergreen,Woody shrub,3.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Herbaceous,Deciduous,2.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Herbaceous,Evergreen,41.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Herbaceous,Herbaceous,138.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Herbaceous,Non-vegetated & dead,18.5
+site_NIWO,site,target,Random,NEON,100,2,10.0,Herbaceous,Woody shrub,14.5
+site_NIWO,site,target,Random,NEON,100,2,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Non-vegetated & dead,Evergreen,10.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Non-vegetated & dead,Herbaceous,3.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Non-vegetated & dead,Non-vegetated & dead,146.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Non-vegetated & dead,Woody shrub,3.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Woody shrub,Deciduous,45.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Woody shrub,Evergreen,70.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Woody shrub,Herbaceous,34.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Woody shrub,Non-vegetated & dead,8.0
+site_NIWO,site,target,Random,NEON,100,2,10.0,Woody shrub,Woody shrub,173.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Deciduous,Deciduous,101.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Deciduous,Evergreen,12.5
+site_NIWO,site,target,Random,NEON,1,3,1.0,Deciduous,Herbaceous,7.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Deciduous,Non-vegetated & dead,4.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Deciduous,Woody shrub,25.5
+site_NIWO,site,target,Random,NEON,1,3,1.0,Evergreen,Deciduous,605.5
+site_NIWO,site,target,Random,NEON,1,3,1.0,Evergreen,Evergreen,56.5
+site_NIWO,site,target,Random,NEON,1,3,1.0,Evergreen,Herbaceous,33.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Evergreen,Non-vegetated & dead,11.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Evergreen,Woody shrub,69.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Herbaceous,Deciduous,70.5
+site_NIWO,site,target,Random,NEON,1,3,1.0,Herbaceous,Evergreen,19.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Herbaceous,Herbaceous,22.5
+site_NIWO,site,target,Random,NEON,1,3,1.0,Herbaceous,Non-vegetated & dead,31.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Herbaceous,Woody shrub,71.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Non-vegetated & dead,Deciduous,11.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Non-vegetated & dead,Evergreen,1.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Non-vegetated & dead,Herbaceous,5.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Non-vegetated & dead,Non-vegetated & dead,121.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Non-vegetated & dead,Woody shrub,24.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Woody shrub,Deciduous,184.5
+site_NIWO,site,target,Random,NEON,1,3,1.0,Woody shrub,Evergreen,36.5
+site_NIWO,site,target,Random,NEON,1,3,1.0,Woody shrub,Herbaceous,31.5
+site_NIWO,site,target,Random,NEON,1,3,1.0,Woody shrub,Non-vegetated & dead,20.0
+site_NIWO,site,target,Random,NEON,1,3,1.0,Woody shrub,Woody shrub,57.5
+site_NIWO,site,target,Random,NEON,2,3,10.0,Deciduous,Deciduous,81.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Deciduous,Evergreen,40.5
+site_NIWO,site,target,Random,NEON,2,3,10.0,Deciduous,Herbaceous,8.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Deciduous,Non-vegetated & dead,2.5
+site_NIWO,site,target,Random,NEON,2,3,10.0,Deciduous,Woody shrub,18.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Evergreen,Deciduous,296.5
+site_NIWO,site,target,Random,NEON,2,3,10.0,Evergreen,Evergreen,392.5
+site_NIWO,site,target,Random,NEON,2,3,10.0,Evergreen,Herbaceous,19.5
+site_NIWO,site,target,Random,NEON,2,3,10.0,Evergreen,Non-vegetated & dead,3.5
+site_NIWO,site,target,Random,NEON,2,3,10.0,Evergreen,Woody shrub,63.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Herbaceous,Deciduous,44.5
+site_NIWO,site,target,Random,NEON,2,3,10.0,Herbaceous,Evergreen,84.5
+site_NIWO,site,target,Random,NEON,2,3,10.0,Herbaceous,Herbaceous,11.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Herbaceous,Non-vegetated & dead,32.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Herbaceous,Woody shrub,42.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Non-vegetated & dead,Evergreen,10.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Non-vegetated & dead,Herbaceous,0.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Non-vegetated & dead,Non-vegetated & dead,149.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Non-vegetated & dead,Woody shrub,3.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Woody shrub,Deciduous,113.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Woody shrub,Evergreen,134.5
+site_NIWO,site,target,Random,NEON,2,3,10.0,Woody shrub,Herbaceous,15.5
+site_NIWO,site,target,Random,NEON,2,3,10.0,Woody shrub,Non-vegetated & dead,18.0
+site_NIWO,site,target,Random,NEON,2,3,10.0,Woody shrub,Woody shrub,49.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Deciduous,Deciduous,82.5
+site_NIWO,site,target,Random,NEON,3,3,10.0,Deciduous,Evergreen,33.5
+site_NIWO,site,target,Random,NEON,3,3,10.0,Deciduous,Herbaceous,11.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Deciduous,Non-vegetated & dead,3.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Deciduous,Woody shrub,20.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Evergreen,Deciduous,345.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Evergreen,Evergreen,302.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Evergreen,Herbaceous,69.5
+site_NIWO,site,target,Random,NEON,3,3,10.0,Evergreen,Non-vegetated & dead,3.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Evergreen,Woody shrub,55.5
+site_NIWO,site,target,Random,NEON,3,3,10.0,Herbaceous,Deciduous,53.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Herbaceous,Evergreen,5.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Herbaceous,Herbaceous,13.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Herbaceous,Non-vegetated & dead,36.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Herbaceous,Woody shrub,107.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Non-vegetated & dead,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Non-vegetated & dead,Evergreen,2.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Non-vegetated & dead,Herbaceous,1.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Non-vegetated & dead,Non-vegetated & dead,152.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Non-vegetated & dead,Woody shrub,6.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Woody shrub,Deciduous,122.5
+site_NIWO,site,target,Random,NEON,3,3,10.0,Woody shrub,Evergreen,59.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Woody shrub,Herbaceous,51.5
+site_NIWO,site,target,Random,NEON,3,3,10.0,Woody shrub,Non-vegetated & dead,12.0
+site_NIWO,site,target,Random,NEON,3,3,10.0,Woody shrub,Woody shrub,85.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Deciduous,Deciduous,79.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Deciduous,Evergreen,15.5
+site_NIWO,site,target,Random,NEON,5,3,10.0,Deciduous,Herbaceous,30.5
+site_NIWO,site,target,Random,NEON,5,3,10.0,Deciduous,Non-vegetated & dead,5.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Deciduous,Woody shrub,20.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Evergreen,Deciduous,124.5
+site_NIWO,site,target,Random,NEON,5,3,10.0,Evergreen,Evergreen,605.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Evergreen,Herbaceous,15.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Evergreen,Non-vegetated & dead,4.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Evergreen,Woody shrub,26.5
+site_NIWO,site,target,Random,NEON,5,3,10.0,Herbaceous,Deciduous,42.5
+site_NIWO,site,target,Random,NEON,5,3,10.0,Herbaceous,Evergreen,3.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Herbaceous,Herbaceous,27.5
+site_NIWO,site,target,Random,NEON,5,3,10.0,Herbaceous,Non-vegetated & dead,29.5
+site_NIWO,site,target,Random,NEON,5,3,10.0,Herbaceous,Woody shrub,111.5
+site_NIWO,site,target,Random,NEON,5,3,10.0,Non-vegetated & dead,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Non-vegetated & dead,Evergreen,3.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Non-vegetated & dead,Herbaceous,1.5
+site_NIWO,site,target,Random,NEON,5,3,10.0,Non-vegetated & dead,Non-vegetated & dead,153.5
+site_NIWO,site,target,Random,NEON,5,3,10.0,Non-vegetated & dead,Woody shrub,3.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Woody shrub,Deciduous,111.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Woody shrub,Evergreen,28.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Woody shrub,Herbaceous,96.5
+site_NIWO,site,target,Random,NEON,5,3,10.0,Woody shrub,Non-vegetated & dead,16.0
+site_NIWO,site,target,Random,NEON,5,3,10.0,Woody shrub,Woody shrub,78.5
+site_NIWO,site,target,Random,NEON,7,3,10.0,Deciduous,Deciduous,79.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Deciduous,Evergreen,16.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Deciduous,Herbaceous,31.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Deciduous,Non-vegetated & dead,4.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Deciduous,Woody shrub,20.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Evergreen,Deciduous,143.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Evergreen,Evergreen,581.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Evergreen,Herbaceous,17.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Evergreen,Non-vegetated & dead,5.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Evergreen,Woody shrub,29.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Herbaceous,Deciduous,41.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Herbaceous,Evergreen,3.5
+site_NIWO,site,target,Random,NEON,7,3,10.0,Herbaceous,Herbaceous,38.5
+site_NIWO,site,target,Random,NEON,7,3,10.0,Herbaceous,Non-vegetated & dead,30.5
+site_NIWO,site,target,Random,NEON,7,3,10.0,Herbaceous,Woody shrub,100.5
+site_NIWO,site,target,Random,NEON,7,3,10.0,Non-vegetated & dead,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Non-vegetated & dead,Evergreen,3.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Non-vegetated & dead,Herbaceous,0.5
+site_NIWO,site,target,Random,NEON,7,3,10.0,Non-vegetated & dead,Non-vegetated & dead,154.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Non-vegetated & dead,Woody shrub,3.5
+site_NIWO,site,target,Random,NEON,7,3,10.0,Woody shrub,Deciduous,112.5
+site_NIWO,site,target,Random,NEON,7,3,10.0,Woody shrub,Evergreen,30.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Woody shrub,Herbaceous,68.0
+site_NIWO,site,target,Random,NEON,7,3,10.0,Woody shrub,Non-vegetated & dead,15.5
+site_NIWO,site,target,Random,NEON,7,3,10.0,Woody shrub,Woody shrub,104.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Deciduous,Deciduous,70.5
+site_NIWO,site,target,Random,NEON,10,3,10.0,Deciduous,Evergreen,17.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Deciduous,Herbaceous,26.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Deciduous,Non-vegetated & dead,3.5
+site_NIWO,site,target,Random,NEON,10,3,10.0,Deciduous,Woody shrub,33.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Evergreen,Deciduous,74.5
+site_NIWO,site,target,Random,NEON,10,3,10.0,Evergreen,Evergreen,645.5
+site_NIWO,site,target,Random,NEON,10,3,10.0,Evergreen,Herbaceous,30.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Evergreen,Non-vegetated & dead,4.5
+site_NIWO,site,target,Random,NEON,10,3,10.0,Evergreen,Woody shrub,20.5
+site_NIWO,site,target,Random,NEON,10,3,10.0,Herbaceous,Deciduous,4.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Herbaceous,Evergreen,14.5
+site_NIWO,site,target,Random,NEON,10,3,10.0,Herbaceous,Herbaceous,144.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Herbaceous,Non-vegetated & dead,13.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Herbaceous,Woody shrub,38.5
+site_NIWO,site,target,Random,NEON,10,3,10.0,Non-vegetated & dead,Deciduous,1.5
+site_NIWO,site,target,Random,NEON,10,3,10.0,Non-vegetated & dead,Evergreen,1.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Non-vegetated & dead,Herbaceous,2.5
+site_NIWO,site,target,Random,NEON,10,3,10.0,Non-vegetated & dead,Non-vegetated & dead,153.5
+site_NIWO,site,target,Random,NEON,10,3,10.0,Non-vegetated & dead,Woody shrub,3.5
+site_NIWO,site,target,Random,NEON,10,3,10.0,Woody shrub,Deciduous,59.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Woody shrub,Evergreen,44.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Woody shrub,Herbaceous,112.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Woody shrub,Non-vegetated & dead,12.0
+site_NIWO,site,target,Random,NEON,10,3,10.0,Woody shrub,Woody shrub,103.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Deciduous,Deciduous,71.5
+site_NIWO,site,target,Random,NEON,20,3,10.0,Deciduous,Evergreen,8.5
+site_NIWO,site,target,Random,NEON,20,3,10.0,Deciduous,Herbaceous,21.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Deciduous,Non-vegetated & dead,2.5
+site_NIWO,site,target,Random,NEON,20,3,10.0,Deciduous,Woody shrub,46.5
+site_NIWO,site,target,Random,NEON,20,3,10.0,Evergreen,Deciduous,2.5
+site_NIWO,site,target,Random,NEON,20,3,10.0,Evergreen,Evergreen,745.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Evergreen,Herbaceous,12.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Evergreen,Non-vegetated & dead,6.5
+site_NIWO,site,target,Random,NEON,20,3,10.0,Evergreen,Woody shrub,9.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Herbaceous,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,20,3,10.0,Herbaceous,Evergreen,28.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Herbaceous,Herbaceous,148.5
+site_NIWO,site,target,Random,NEON,20,3,10.0,Herbaceous,Non-vegetated & dead,15.5
+site_NIWO,site,target,Random,NEON,20,3,10.0,Herbaceous,Woody shrub,21.5
+site_NIWO,site,target,Random,NEON,20,3,10.0,Non-vegetated & dead,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Non-vegetated & dead,Evergreen,3.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Non-vegetated & dead,Herbaceous,4.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Non-vegetated & dead,Non-vegetated & dead,150.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Non-vegetated & dead,Woody shrub,4.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Woody shrub,Deciduous,35.5
+site_NIWO,site,target,Random,NEON,20,3,10.0,Woody shrub,Evergreen,56.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Woody shrub,Herbaceous,68.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Woody shrub,Non-vegetated & dead,10.0
+site_NIWO,site,target,Random,NEON,20,3,10.0,Woody shrub,Woody shrub,160.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Deciduous,Deciduous,66.0
+site_NIWO,site,target,Random,NEON,50,3,10.0,Deciduous,Evergreen,5.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Deciduous,Herbaceous,18.0
+site_NIWO,site,target,Random,NEON,50,3,10.0,Deciduous,Non-vegetated & dead,4.0
+site_NIWO,site,target,Random,NEON,50,3,10.0,Deciduous,Woody shrub,56.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Evergreen,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,50,3,10.0,Evergreen,Evergreen,761.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Evergreen,Herbaceous,2.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Evergreen,Non-vegetated & dead,4.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Evergreen,Woody shrub,6.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Herbaceous,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Herbaceous,Evergreen,34.0
+site_NIWO,site,target,Random,NEON,50,3,10.0,Herbaceous,Herbaceous,139.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Herbaceous,Non-vegetated & dead,20.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Herbaceous,Woody shrub,19.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,50,3,10.0,Non-vegetated & dead,Evergreen,4.0
+site_NIWO,site,target,Random,NEON,50,3,10.0,Non-vegetated & dead,Herbaceous,3.0
+site_NIWO,site,target,Random,NEON,50,3,10.0,Non-vegetated & dead,Non-vegetated & dead,152.0
+site_NIWO,site,target,Random,NEON,50,3,10.0,Non-vegetated & dead,Woody shrub,3.0
+site_NIWO,site,target,Random,NEON,50,3,10.0,Woody shrub,Deciduous,16.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Woody shrub,Evergreen,61.5
+site_NIWO,site,target,Random,NEON,50,3,10.0,Woody shrub,Herbaceous,48.0
+site_NIWO,site,target,Random,NEON,50,3,10.0,Woody shrub,Non-vegetated & dead,16.0
+site_NIWO,site,target,Random,NEON,50,3,10.0,Woody shrub,Woody shrub,188.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Deciduous,Deciduous,92.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Deciduous,Evergreen,8.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Deciduous,Herbaceous,6.5
+site_NIWO,site,target,Random,NEON,100,3,10.0,Deciduous,Non-vegetated & dead,7.5
+site_NIWO,site,target,Random,NEON,100,3,10.0,Deciduous,Woody shrub,36.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Evergreen,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Evergreen,Evergreen,766.5
+site_NIWO,site,target,Random,NEON,100,3,10.0,Evergreen,Herbaceous,1.5
+site_NIWO,site,target,Random,NEON,100,3,10.0,Evergreen,Non-vegetated & dead,5.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Evergreen,Woody shrub,2.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Herbaceous,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Herbaceous,Evergreen,40.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Herbaceous,Herbaceous,138.5
+site_NIWO,site,target,Random,NEON,100,3,10.0,Herbaceous,Non-vegetated & dead,20.5
+site_NIWO,site,target,Random,NEON,100,3,10.0,Herbaceous,Woody shrub,15.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Non-vegetated & dead,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,100,3,10.0,Non-vegetated & dead,Evergreen,4.5
+site_NIWO,site,target,Random,NEON,100,3,10.0,Non-vegetated & dead,Herbaceous,4.5
+site_NIWO,site,target,Random,NEON,100,3,10.0,Non-vegetated & dead,Non-vegetated & dead,149.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Non-vegetated & dead,Woody shrub,3.5
+site_NIWO,site,target,Random,NEON,100,3,10.0,Woody shrub,Deciduous,25.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Woody shrub,Evergreen,67.5
+site_NIWO,site,target,Random,NEON,100,3,10.0,Woody shrub,Herbaceous,30.5
+site_NIWO,site,target,Random,NEON,100,3,10.0,Woody shrub,Non-vegetated & dead,13.0
+site_NIWO,site,target,Random,NEON,100,3,10.0,Woody shrub,Woody shrub,194.0
+site_NIWO,site,target,Random,NEON,1,4,10.0,Deciduous,Deciduous,18.0
+site_NIWO,site,target,Random,NEON,1,4,10.0,Deciduous,Evergreen,101.0
+site_NIWO,site,target,Random,NEON,1,4,10.0,Deciduous,Herbaceous,9.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Deciduous,Non-vegetated & dead,8.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Deciduous,Woody shrub,13.0
+site_NIWO,site,target,Random,NEON,1,4,10.0,Evergreen,Deciduous,105.0
+site_NIWO,site,target,Random,NEON,1,4,10.0,Evergreen,Evergreen,581.0
+site_NIWO,site,target,Random,NEON,1,4,10.0,Evergreen,Herbaceous,35.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Evergreen,Non-vegetated & dead,7.0
+site_NIWO,site,target,Random,NEON,1,4,10.0,Evergreen,Woody shrub,46.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Herbaceous,Deciduous,18.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Herbaceous,Evergreen,23.0
+site_NIWO,site,target,Random,NEON,1,4,10.0,Herbaceous,Herbaceous,14.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Herbaceous,Non-vegetated & dead,77.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Herbaceous,Woody shrub,80.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Non-vegetated & dead,Deciduous,2.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Non-vegetated & dead,Evergreen,9.0
+site_NIWO,site,target,Random,NEON,1,4,10.0,Non-vegetated & dead,Herbaceous,2.0
+site_NIWO,site,target,Random,NEON,1,4,10.0,Non-vegetated & dead,Non-vegetated & dead,132.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Non-vegetated & dead,Woody shrub,16.0
+site_NIWO,site,target,Random,NEON,1,4,10.0,Woody shrub,Deciduous,74.0
+site_NIWO,site,target,Random,NEON,1,4,10.0,Woody shrub,Evergreen,116.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Woody shrub,Herbaceous,45.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Woody shrub,Non-vegetated & dead,15.5
+site_NIWO,site,target,Random,NEON,1,4,10.0,Woody shrub,Woody shrub,78.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Deciduous,Deciduous,77.0
+site_NIWO,site,target,Random,NEON,2,4,10.0,Deciduous,Evergreen,39.0
+site_NIWO,site,target,Random,NEON,2,4,10.0,Deciduous,Herbaceous,12.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Deciduous,Non-vegetated & dead,7.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Deciduous,Woody shrub,14.0
+site_NIWO,site,target,Random,NEON,2,4,10.0,Evergreen,Deciduous,9.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Evergreen,Evergreen,715.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Evergreen,Herbaceous,14.0
+site_NIWO,site,target,Random,NEON,2,4,10.0,Evergreen,Non-vegetated & dead,15.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Evergreen,Woody shrub,20.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Herbaceous,Deciduous,30.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Herbaceous,Evergreen,27.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Herbaceous,Herbaceous,9.0
+site_NIWO,site,target,Random,NEON,2,4,10.0,Herbaceous,Non-vegetated & dead,56.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Herbaceous,Woody shrub,90.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Non-vegetated & dead,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Non-vegetated & dead,Evergreen,16.0
+site_NIWO,site,target,Random,NEON,2,4,10.0,Non-vegetated & dead,Herbaceous,0.0
+site_NIWO,site,target,Random,NEON,2,4,10.0,Non-vegetated & dead,Non-vegetated & dead,123.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Non-vegetated & dead,Woody shrub,22.0
+site_NIWO,site,target,Random,NEON,2,4,10.0,Woody shrub,Deciduous,116.0
+site_NIWO,site,target,Random,NEON,2,4,10.0,Woody shrub,Evergreen,68.5
+site_NIWO,site,target,Random,NEON,2,4,10.0,Woody shrub,Herbaceous,59.0
+site_NIWO,site,target,Random,NEON,2,4,10.0,Woody shrub,Non-vegetated & dead,19.0
+site_NIWO,site,target,Random,NEON,2,4,10.0,Woody shrub,Woody shrub,67.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Deciduous,Deciduous,14.0
+site_NIWO,site,target,Random,NEON,3,4,10.0,Deciduous,Evergreen,61.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Deciduous,Herbaceous,60.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Deciduous,Non-vegetated & dead,5.0
+site_NIWO,site,target,Random,NEON,3,4,10.0,Deciduous,Woody shrub,9.0
+site_NIWO,site,target,Random,NEON,3,4,10.0,Evergreen,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Evergreen,Evergreen,731.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Evergreen,Herbaceous,19.0
+site_NIWO,site,target,Random,NEON,3,4,10.0,Evergreen,Non-vegetated & dead,21.0
+site_NIWO,site,target,Random,NEON,3,4,10.0,Evergreen,Woody shrub,3.0
+site_NIWO,site,target,Random,NEON,3,4,10.0,Herbaceous,Deciduous,14.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Herbaceous,Evergreen,25.0
+site_NIWO,site,target,Random,NEON,3,4,10.0,Herbaceous,Herbaceous,70.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Herbaceous,Non-vegetated & dead,55.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Herbaceous,Woody shrub,48.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,3,4,10.0,Non-vegetated & dead,Evergreen,14.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Non-vegetated & dead,Herbaceous,14.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Non-vegetated & dead,Non-vegetated & dead,129.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Non-vegetated & dead,Woody shrub,3.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Woody shrub,Deciduous,56.0
+site_NIWO,site,target,Random,NEON,3,4,10.0,Woody shrub,Evergreen,68.0
+site_NIWO,site,target,Random,NEON,3,4,10.0,Woody shrub,Herbaceous,123.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Woody shrub,Non-vegetated & dead,16.5
+site_NIWO,site,target,Random,NEON,3,4,10.0,Woody shrub,Woody shrub,66.0
+site_NIWO,site,target,Random,NEON,5,4,10.0,Deciduous,Deciduous,7.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Deciduous,Evergreen,113.0
+site_NIWO,site,target,Random,NEON,5,4,10.0,Deciduous,Herbaceous,11.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Deciduous,Non-vegetated & dead,5.0
+site_NIWO,site,target,Random,NEON,5,4,10.0,Deciduous,Woody shrub,13.0
+site_NIWO,site,target,Random,NEON,5,4,10.0,Evergreen,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Evergreen,Evergreen,750.0
+site_NIWO,site,target,Random,NEON,5,4,10.0,Evergreen,Herbaceous,0.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Evergreen,Non-vegetated & dead,20.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Evergreen,Woody shrub,3.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Herbaceous,Deciduous,16.0
+site_NIWO,site,target,Random,NEON,5,4,10.0,Herbaceous,Evergreen,44.0
+site_NIWO,site,target,Random,NEON,5,4,10.0,Herbaceous,Herbaceous,30.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Herbaceous,Non-vegetated & dead,60.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Herbaceous,Woody shrub,63.0
+site_NIWO,site,target,Random,NEON,5,4,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,5,4,10.0,Non-vegetated & dead,Evergreen,29.0
+site_NIWO,site,target,Random,NEON,5,4,10.0,Non-vegetated & dead,Herbaceous,0.0
+site_NIWO,site,target,Random,NEON,5,4,10.0,Non-vegetated & dead,Non-vegetated & dead,130.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Non-vegetated & dead,Woody shrub,2.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Woody shrub,Deciduous,66.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Woody shrub,Evergreen,114.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Woody shrub,Herbaceous,17.5
+site_NIWO,site,target,Random,NEON,5,4,10.0,Woody shrub,Non-vegetated & dead,18.0
+site_NIWO,site,target,Random,NEON,5,4,10.0,Woody shrub,Woody shrub,113.5
+site_NIWO,site,target,Random,NEON,7,4,10.0,Deciduous,Deciduous,28.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Deciduous,Evergreen,19.5
+site_NIWO,site,target,Random,NEON,7,4,10.0,Deciduous,Herbaceous,72.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Deciduous,Non-vegetated & dead,10.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Deciduous,Woody shrub,20.5
+site_NIWO,site,target,Random,NEON,7,4,10.0,Evergreen,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Evergreen,Evergreen,738.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Evergreen,Herbaceous,3.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Evergreen,Non-vegetated & dead,24.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Evergreen,Woody shrub,10.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Herbaceous,Deciduous,3.5
+site_NIWO,site,target,Random,NEON,7,4,10.0,Herbaceous,Evergreen,26.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Herbaceous,Herbaceous,65.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Herbaceous,Non-vegetated & dead,66.5
+site_NIWO,site,target,Random,NEON,7,4,10.0,Herbaceous,Woody shrub,53.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Non-vegetated & dead,Evergreen,1.5
+site_NIWO,site,target,Random,NEON,7,4,10.0,Non-vegetated & dead,Herbaceous,1.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Non-vegetated & dead,Non-vegetated & dead,159.5
+site_NIWO,site,target,Random,NEON,7,4,10.0,Non-vegetated & dead,Woody shrub,0.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Woody shrub,Deciduous,42.5
+site_NIWO,site,target,Random,NEON,7,4,10.0,Woody shrub,Evergreen,64.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Woody shrub,Herbaceous,78.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Woody shrub,Non-vegetated & dead,19.0
+site_NIWO,site,target,Random,NEON,7,4,10.0,Woody shrub,Woody shrub,126.5
+site_NIWO,site,target,Random,NEON,10,4,10.0,Deciduous,Deciduous,41.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Deciduous,Evergreen,22.5
+site_NIWO,site,target,Random,NEON,10,4,10.0,Deciduous,Herbaceous,19.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Deciduous,Non-vegetated & dead,10.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Deciduous,Woody shrub,57.5
+site_NIWO,site,target,Random,NEON,10,4,10.0,Evergreen,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Evergreen,Evergreen,756.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Evergreen,Herbaceous,1.5
+site_NIWO,site,target,Random,NEON,10,4,10.0,Evergreen,Non-vegetated & dead,9.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Evergreen,Woody shrub,8.5
+site_NIWO,site,target,Random,NEON,10,4,10.0,Herbaceous,Deciduous,2.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Herbaceous,Evergreen,30.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Herbaceous,Herbaceous,38.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Herbaceous,Non-vegetated & dead,73.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Herbaceous,Woody shrub,71.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Non-vegetated & dead,Evergreen,1.5
+site_NIWO,site,target,Random,NEON,10,4,10.0,Non-vegetated & dead,Herbaceous,0.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Non-vegetated & dead,Non-vegetated & dead,159.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Non-vegetated & dead,Woody shrub,1.5
+site_NIWO,site,target,Random,NEON,10,4,10.0,Woody shrub,Deciduous,45.5
+site_NIWO,site,target,Random,NEON,10,4,10.0,Woody shrub,Evergreen,61.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Woody shrub,Herbaceous,38.5
+site_NIWO,site,target,Random,NEON,10,4,10.0,Woody shrub,Non-vegetated & dead,18.0
+site_NIWO,site,target,Random,NEON,10,4,10.0,Woody shrub,Woody shrub,167.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Deciduous,Deciduous,30.5
+site_NIWO,site,target,Random,NEON,20,4,10.0,Deciduous,Evergreen,28.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Deciduous,Herbaceous,63.5
+site_NIWO,site,target,Random,NEON,20,4,10.0,Deciduous,Non-vegetated & dead,6.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Deciduous,Woody shrub,22.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Evergreen,Deciduous,1.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Evergreen,Evergreen,761.5
+site_NIWO,site,target,Random,NEON,20,4,10.0,Evergreen,Herbaceous,6.5
+site_NIWO,site,target,Random,NEON,20,4,10.0,Evergreen,Non-vegetated & dead,4.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Evergreen,Woody shrub,2.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Herbaceous,Deciduous,2.5
+site_NIWO,site,target,Random,NEON,20,4,10.0,Herbaceous,Evergreen,39.5
+site_NIWO,site,target,Random,NEON,20,4,10.0,Herbaceous,Herbaceous,111.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Herbaceous,Non-vegetated & dead,43.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Herbaceous,Woody shrub,18.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Non-vegetated & dead,Evergreen,7.5
+site_NIWO,site,target,Random,NEON,20,4,10.0,Non-vegetated & dead,Herbaceous,3.5
+site_NIWO,site,target,Random,NEON,20,4,10.0,Non-vegetated & dead,Non-vegetated & dead,150.5
+site_NIWO,site,target,Random,NEON,20,4,10.0,Non-vegetated & dead,Woody shrub,0.5
+site_NIWO,site,target,Random,NEON,20,4,10.0,Woody shrub,Deciduous,36.5
+site_NIWO,site,target,Random,NEON,20,4,10.0,Woody shrub,Evergreen,69.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Woody shrub,Herbaceous,113.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Woody shrub,Non-vegetated & dead,15.0
+site_NIWO,site,target,Random,NEON,20,4,10.0,Woody shrub,Woody shrub,96.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Deciduous,Deciduous,54.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Deciduous,Evergreen,13.0
+site_NIWO,site,target,Random,NEON,50,4,10.0,Deciduous,Herbaceous,18.0
+site_NIWO,site,target,Random,NEON,50,4,10.0,Deciduous,Non-vegetated & dead,6.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Deciduous,Woody shrub,58.0
+site_NIWO,site,target,Random,NEON,50,4,10.0,Evergreen,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,50,4,10.0,Evergreen,Evergreen,764.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Evergreen,Herbaceous,3.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Evergreen,Non-vegetated & dead,3.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Evergreen,Woody shrub,3.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Herbaceous,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,50,4,10.0,Herbaceous,Evergreen,38.0
+site_NIWO,site,target,Random,NEON,50,4,10.0,Herbaceous,Herbaceous,134.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Herbaceous,Non-vegetated & dead,26.0
+site_NIWO,site,target,Random,NEON,50,4,10.0,Herbaceous,Woody shrub,15.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,50,4,10.0,Non-vegetated & dead,Evergreen,8.0
+site_NIWO,site,target,Random,NEON,50,4,10.0,Non-vegetated & dead,Herbaceous,2.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Non-vegetated & dead,Non-vegetated & dead,148.0
+site_NIWO,site,target,Random,NEON,50,4,10.0,Non-vegetated & dead,Woody shrub,3.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Woody shrub,Deciduous,17.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Woody shrub,Evergreen,68.5
+site_NIWO,site,target,Random,NEON,50,4,10.0,Woody shrub,Herbaceous,60.0
+site_NIWO,site,target,Random,NEON,50,4,10.0,Woody shrub,Non-vegetated & dead,13.0
+site_NIWO,site,target,Random,NEON,50,4,10.0,Woody shrub,Woody shrub,171.0
+site_NIWO,site,target,Random,NEON,100,4,10.0,Deciduous,Deciduous,76.0
+site_NIWO,site,target,Random,NEON,100,4,10.0,Deciduous,Evergreen,8.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Deciduous,Herbaceous,12.0
+site_NIWO,site,target,Random,NEON,100,4,10.0,Deciduous,Non-vegetated & dead,5.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Deciduous,Woody shrub,48.0
+site_NIWO,site,target,Random,NEON,100,4,10.0,Evergreen,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Evergreen,Evergreen,765.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Evergreen,Herbaceous,1.0
+site_NIWO,site,target,Random,NEON,100,4,10.0,Evergreen,Non-vegetated & dead,3.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Evergreen,Woody shrub,4.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Herbaceous,Deciduous,0.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Herbaceous,Evergreen,38.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Herbaceous,Herbaceous,138.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Herbaceous,Non-vegetated & dead,23.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Herbaceous,Woody shrub,13.0
+site_NIWO,site,target,Random,NEON,100,4,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Random,NEON,100,4,10.0,Non-vegetated & dead,Evergreen,5.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Non-vegetated & dead,Herbaceous,3.0
+site_NIWO,site,target,Random,NEON,100,4,10.0,Non-vegetated & dead,Non-vegetated & dead,150.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Non-vegetated & dead,Woody shrub,3.0
+site_NIWO,site,target,Random,NEON,100,4,10.0,Woody shrub,Deciduous,26.0
+site_NIWO,site,target,Random,NEON,100,4,10.0,Woody shrub,Evergreen,66.0
+site_NIWO,site,target,Random,NEON,100,4,10.0,Woody shrub,Herbaceous,50.5
+site_NIWO,site,target,Random,NEON,100,4,10.0,Woody shrub,Non-vegetated & dead,12.0
+site_NIWO,site,target,Random,NEON,100,4,10.0,Woody shrub,Woody shrub,175.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Deciduous,Deciduous,14.0
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Deciduous,Evergreen,102.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Deciduous,Herbaceous,11.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Deciduous,Non-vegetated & dead,8.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Deciduous,Woody shrub,13.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Evergreen,Deciduous,96.0
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Evergreen,Evergreen,550.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Evergreen,Herbaceous,59.0
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Evergreen,Non-vegetated & dead,8.0
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Evergreen,Woody shrub,61.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Herbaceous,Deciduous,11.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Herbaceous,Evergreen,33.0
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Herbaceous,Herbaceous,17.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Herbaceous,Non-vegetated & dead,65.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Herbaceous,Woody shrub,86.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Non-vegetated & dead,Deciduous,2.0
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Non-vegetated & dead,Evergreen,8.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Non-vegetated & dead,Herbaceous,1.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Non-vegetated & dead,Non-vegetated & dead,133.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Non-vegetated & dead,Woody shrub,16.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Woody shrub,Deciduous,55.0
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Woody shrub,Evergreen,137.0
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Woody shrub,Herbaceous,44.5
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Woody shrub,Non-vegetated & dead,15.0
+site_NIWO,site,target,Selected replay,NEON,1,-1,10.0,Woody shrub,Woody shrub,78.5
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Deciduous,Deciduous,70.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Deciduous,Evergreen,48.5
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Deciduous,Herbaceous,11.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Deciduous,Non-vegetated & dead,8.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Deciduous,Woody shrub,12.5
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Evergreen,Deciduous,18.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Evergreen,Evergreen,709.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Evergreen,Herbaceous,7.5
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Evergreen,Non-vegetated & dead,20.5
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Evergreen,Woody shrub,20.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Herbaceous,Deciduous,32.5
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Herbaceous,Evergreen,24.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Herbaceous,Herbaceous,10.5
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Herbaceous,Non-vegetated & dead,39.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Herbaceous,Woody shrub,108.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Non-vegetated & dead,Evergreen,13.5
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Non-vegetated & dead,Herbaceous,0.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Non-vegetated & dead,Non-vegetated & dead,147.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Non-vegetated & dead,Woody shrub,1.5
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Woody shrub,Deciduous,100.0
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Woody shrub,Evergreen,89.5
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Woody shrub,Herbaceous,53.5
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Woody shrub,Non-vegetated & dead,15.5
+site_NIWO,site,target,Selected replay,NEON,2,-1,10.0,Woody shrub,Woody shrub,71.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Deciduous,Deciduous,45.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Deciduous,Evergreen,80.0
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Deciduous,Herbaceous,6.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Deciduous,Non-vegetated & dead,9.0
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Deciduous,Woody shrub,9.0
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Evergreen,Deciduous,2.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Evergreen,Evergreen,745.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Evergreen,Herbaceous,0.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Evergreen,Non-vegetated & dead,18.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Evergreen,Woody shrub,8.0
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Herbaceous,Deciduous,6.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Herbaceous,Evergreen,35.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Herbaceous,Herbaceous,96.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Herbaceous,Non-vegetated & dead,28.0
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Herbaceous,Woody shrub,47.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Non-vegetated & dead,Evergreen,11.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Non-vegetated & dead,Herbaceous,13.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Non-vegetated & dead,Non-vegetated & dead,136.0
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Non-vegetated & dead,Woody shrub,1.0
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Woody shrub,Deciduous,92.0
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Woody shrub,Evergreen,103.5
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Woody shrub,Herbaceous,51.0
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Woody shrub,Non-vegetated & dead,13.0
+site_NIWO,site,target,Selected replay,NEON,3,-1,10.0,Woody shrub,Woody shrub,70.5
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Deciduous,Deciduous,91.5
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Deciduous,Evergreen,22.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Deciduous,Herbaceous,10.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Deciduous,Non-vegetated & dead,10.5
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Deciduous,Woody shrub,16.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Evergreen,Deciduous,3.5
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Evergreen,Evergreen,762.5
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Evergreen,Herbaceous,0.5
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Evergreen,Non-vegetated & dead,6.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Evergreen,Woody shrub,2.5
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Herbaceous,Deciduous,3.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Herbaceous,Evergreen,33.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Herbaceous,Herbaceous,124.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Herbaceous,Non-vegetated & dead,43.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Herbaceous,Woody shrub,11.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Non-vegetated & dead,Deciduous,1.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Non-vegetated & dead,Evergreen,4.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Non-vegetated & dead,Herbaceous,4.5
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Non-vegetated & dead,Non-vegetated & dead,152.5
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Non-vegetated & dead,Woody shrub,0.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Woody shrub,Deciduous,103.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Woody shrub,Evergreen,60.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Woody shrub,Herbaceous,84.5
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Woody shrub,Non-vegetated & dead,18.0
+site_NIWO,site,target,Selected replay,NEON,5,-1,10.0,Woody shrub,Woody shrub,64.5
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Deciduous,Deciduous,60.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Deciduous,Evergreen,29.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Deciduous,Herbaceous,26.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Deciduous,Non-vegetated & dead,7.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Deciduous,Woody shrub,28.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Evergreen,Deciduous,1.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Evergreen,Evergreen,763.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Evergreen,Herbaceous,4.5
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Evergreen,Non-vegetated & dead,3.5
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Evergreen,Woody shrub,3.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Herbaceous,Deciduous,0.5
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Herbaceous,Evergreen,34.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Herbaceous,Herbaceous,153.5
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Herbaceous,Non-vegetated & dead,17.5
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Herbaceous,Woody shrub,8.5
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Non-vegetated & dead,Evergreen,6.5
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Non-vegetated & dead,Herbaceous,11.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Non-vegetated & dead,Non-vegetated & dead,144.5
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Non-vegetated & dead,Woody shrub,0.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Woody shrub,Deciduous,42.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Woody shrub,Evergreen,65.0
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Woody shrub,Herbaceous,136.5
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Woody shrub,Non-vegetated & dead,11.5
+site_NIWO,site,target,Selected replay,NEON,7,-1,10.0,Woody shrub,Woody shrub,75.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Deciduous,Deciduous,75.5
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Deciduous,Evergreen,12.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Deciduous,Herbaceous,20.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Deciduous,Non-vegetated & dead,7.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Deciduous,Woody shrub,35.5
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Evergreen,Deciduous,0.5
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Evergreen,Evergreen,761.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Evergreen,Herbaceous,1.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Evergreen,Non-vegetated & dead,7.5
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Evergreen,Woody shrub,5.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Herbaceous,Deciduous,1.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Herbaceous,Evergreen,36.5
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Herbaceous,Herbaceous,128.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Herbaceous,Non-vegetated & dead,35.5
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Herbaceous,Woody shrub,13.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Non-vegetated & dead,Deciduous,1.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Non-vegetated & dead,Evergreen,3.5
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Non-vegetated & dead,Herbaceous,1.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Non-vegetated & dead,Non-vegetated & dead,155.5
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Non-vegetated & dead,Woody shrub,1.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Woody shrub,Deciduous,22.0
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Woody shrub,Evergreen,57.5
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Woody shrub,Herbaceous,113.5
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Woody shrub,Non-vegetated & dead,16.5
+site_NIWO,site,target,Selected replay,NEON,10,-1,10.0,Woody shrub,Woody shrub,120.5
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Deciduous,Deciduous,66.5
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Deciduous,Evergreen,5.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Deciduous,Herbaceous,21.5
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Deciduous,Non-vegetated & dead,5.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Deciduous,Woody shrub,52.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Evergreen,Deciduous,0.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Evergreen,Evergreen,765.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Evergreen,Herbaceous,2.5
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Evergreen,Non-vegetated & dead,4.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Evergreen,Woody shrub,3.5
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Herbaceous,Deciduous,1.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Herbaceous,Evergreen,37.5
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Herbaceous,Herbaceous,130.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Herbaceous,Non-vegetated & dead,28.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Herbaceous,Woody shrub,17.5
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Non-vegetated & dead,Evergreen,4.5
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Non-vegetated & dead,Herbaceous,3.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Non-vegetated & dead,Non-vegetated & dead,152.5
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Non-vegetated & dead,Woody shrub,2.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Woody shrub,Deciduous,25.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Woody shrub,Evergreen,65.5
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Woody shrub,Herbaceous,57.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Woody shrub,Non-vegetated & dead,13.0
+site_NIWO,site,target,Selected replay,NEON,20,-1,10.0,Woody shrub,Woody shrub,169.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Deciduous,Deciduous,99.0
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Deciduous,Evergreen,9.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Deciduous,Herbaceous,9.0
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Deciduous,Non-vegetated & dead,7.0
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Deciduous,Woody shrub,25.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Evergreen,Deciduous,0.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Evergreen,Evergreen,766.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Evergreen,Herbaceous,1.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Evergreen,Non-vegetated & dead,4.0
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Evergreen,Woody shrub,2.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Herbaceous,Deciduous,2.0
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Herbaceous,Evergreen,42.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Herbaceous,Herbaceous,131.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Herbaceous,Non-vegetated & dead,29.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Herbaceous,Woody shrub,8.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Non-vegetated & dead,Deciduous,0.0
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Non-vegetated & dead,Evergreen,5.0
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Non-vegetated & dead,Herbaceous,2.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Non-vegetated & dead,Non-vegetated & dead,153.0
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Non-vegetated & dead,Woody shrub,1.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Woody shrub,Deciduous,59.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Woody shrub,Evergreen,69.5
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Woody shrub,Herbaceous,51.0
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Woody shrub,Non-vegetated & dead,17.0
+site_NIWO,site,target,Selected replay,NEON,50,-1,10.0,Woody shrub,Woody shrub,133.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Deciduous,Deciduous,101.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Deciduous,Evergreen,8.5
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Deciduous,Herbaceous,8.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Deciduous,Non-vegetated & dead,3.5
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Deciduous,Woody shrub,29.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Evergreen,Deciduous,2.5
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Evergreen,Evergreen,765.5
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Evergreen,Herbaceous,1.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Evergreen,Non-vegetated & dead,2.5
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Evergreen,Woody shrub,3.5
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Herbaceous,Deciduous,1.5
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Herbaceous,Evergreen,41.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Herbaceous,Herbaceous,137.5
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Herbaceous,Non-vegetated & dead,21.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Herbaceous,Woody shrub,13.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Non-vegetated & dead,Deciduous,1.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Non-vegetated & dead,Evergreen,5.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Non-vegetated & dead,Herbaceous,3.5
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Non-vegetated & dead,Non-vegetated & dead,151.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Non-vegetated & dead,Woody shrub,1.5
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Woody shrub,Deciduous,45.5
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Woody shrub,Evergreen,65.5
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Woody shrub,Herbaceous,44.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Woody shrub,Non-vegetated & dead,9.0
+site_NIWO,site,target,Selected replay,NEON,100,-1,10.0,Woody shrub,Woody shrub,166.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Deciduous,Deciduous,76.5
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Deciduous,Evergreen,10.5
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Deciduous,Herbaceous,34.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Deciduous,Non-vegetated & dead,4.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Deciduous,Woody shrub,25.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Evergreen,Deciduous,1.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Evergreen,Evergreen,765.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Evergreen,Herbaceous,5.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Evergreen,Non-vegetated & dead,3.5
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Evergreen,Woody shrub,0.5
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Herbaceous,Deciduous,0.5
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Herbaceous,Evergreen,41.5
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Herbaceous,Herbaceous,149.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Herbaceous,Non-vegetated & dead,17.5
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Herbaceous,Woody shrub,5.5
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Non-vegetated & dead,Deciduous,1.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Non-vegetated & dead,Evergreen,11.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Non-vegetated & dead,Herbaceous,8.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Non-vegetated & dead,Non-vegetated & dead,141.5
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Non-vegetated & dead,Woody shrub,0.5
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Woody shrub,Deciduous,46.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Woody shrub,Evergreen,70.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Woody shrub,Herbaceous,77.0
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Woody shrub,Non-vegetated & dead,12.5
+site_NIWO,site,target,PCA,NEON,20,-1,1.0,Woody shrub,Woody shrub,124.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Deciduous,Deciduous,105.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Deciduous,Evergreen,12.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Deciduous,Herbaceous,5.0
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Deciduous,Non-vegetated & dead,3.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Deciduous,Woody shrub,23.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Evergreen,Deciduous,2.0
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Evergreen,Evergreen,766.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Evergreen,Herbaceous,0.0
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Evergreen,Non-vegetated & dead,2.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Evergreen,Woody shrub,4.0
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Herbaceous,Deciduous,2.0
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Herbaceous,Evergreen,42.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Herbaceous,Herbaceous,137.0
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Herbaceous,Non-vegetated & dead,22.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Herbaceous,Woody shrub,10.0
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Non-vegetated & dead,Deciduous,0.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Non-vegetated & dead,Evergreen,9.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Non-vegetated & dead,Herbaceous,5.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Non-vegetated & dead,Non-vegetated & dead,144.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Non-vegetated & dead,Woody shrub,2.0
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Woody shrub,Deciduous,46.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Woody shrub,Evergreen,72.0
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Woody shrub,Herbaceous,39.0
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Woody shrub,Non-vegetated & dead,7.5
+site_NIWO,site,target,PCA,NEON,50,-1,10.0,Woody shrub,Woody shrub,165.0

@@ -1,0 +1,12 @@
+claim_id,claim,source,source_filter,scope
+ID_plant,Full NEON BA 0.852; synthetic OLI BA 0.668,prior:tables/complementary_feature_performance.csv,"kind=plant, budget=360 or OLI; mean balanced_accuracy","Three observed outer folds, no deployment guarantee"
+RANDOM_plant,"20-coordinate BA selected 0.816, random 0.774",tables/metrics.csv,"kind=plant, budget=20; mean BA by method","Five random paths, no outer seed selection"
+AB_plant,"NEON RMSE ridge120 0.216, MESMA15 0.359, prior 0.309",tables/abundance_domain_summary.csv,"kind=plant, representation=NEON","Synthetic finite-parent mixtures, conditional mean-fold error"
+FAIR_plant,Same-candidate ridge15 RMSE 0.365 versus MESMA15 0.359,tables/same_candidate_ridge.csv,"kind=plant, representation=NEON; mean RMSE/MESMA_RMSE","Capacity sensitivity, not a causal decomposition"
+ID_site,Full NEON BA 0.738; synthetic OLI BA 0.577,prior:tables/complementary_feature_performance.csv,"kind=site, budget=360 or OLI; mean balanced_accuracy","Three observed outer folds, no deployment guarantee"
+RANDOM_site,"20-coordinate BA selected 0.701, random 0.650",tables/metrics.csv,"kind=site, budget=20; mean BA by method","Five random paths, no outer seed selection"
+AB_site,"NEON RMSE ridge120 0.269, MESMA15 0.362, prior 0.309",tables/abundance_domain_summary.csv,"kind=site, representation=NEON","Synthetic finite-parent mixtures, conditional mean-fold error"
+FAIR_site,Same-candidate ridge15 RMSE 0.387 versus MESMA15 0.362,tables/same_candidate_ridge.csv,"kind=site, representation=NEON; mean RMSE/MESMA_RMSE","Capacity sensitivity, not a causal decomposition"
+YEAR_PRIOR,"Global-year NEON ridge RMSE 0.311, prior 0.309",tables/abundance_domain_summary.csv,"kind=year, representation=NEON","Site/year confounding, retrospective category truth"
+SEP_ALL,10 category pairs in 40 supported cohort contrasts; largest adjusted whole-spectrum p=0.004,tables/pair_support_and_evidence.csv,"all ten pairs, four acquisition-matched cohorts",Exchangeability within exact acquisition-history blocks assumed
+SHRUB,Woody shrub held-site NEON recall 0.463,prior:tables/class_specific_transfer.csv,"kind=site,budget=360,researcher_category=Woody shrub; mean recall","Three sampled site targets, not all woody shrubs"

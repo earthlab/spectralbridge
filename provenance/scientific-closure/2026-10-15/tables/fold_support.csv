@@ -1,0 +1,637 @@
+label,train_identities,test_identities,status,level,fold,kind,status_fold,excluded_conflicting_ids,experiment
+Abies amabilis,41,21,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Abies grandis,2,1,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Abies lasiocarpa,21,11,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Abies procera,4,3,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Acer circinatum,44,22,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Acer glabrum,31,17,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Acer macrophyllum,13,7,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Alnus rubra,66,33,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Alnus tenuifolia,1,1,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Arctostaphylos uva-ursi,0,1,absent_training_open_set,species_level,plant_0,plant,eligible,0.0,hierarchy
+Artemisia tridentata,42,22,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Cercocarpus montanus,0,1,absent_training_open_set,species_level,plant_0,plant,eligible,0.0,hierarchy
+Cornus nuttallii,7,4,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Corylus cornuta,36,18,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Jamesia americana,0,1,absent_training_open_set,species_level,plant_0,plant,eligible,0.0,hierarchy
+Juniperus communis,19,10,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Juniperus scopulorum,23,12,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Mahonia aquifolium,2,1,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Pentaphylloides floribunda,4,3,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Physocarpus malvaceus,2,2,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Physocarpus monogynus,1,1,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Picea engelmannii,58,30,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Picea pungens,1,1,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Pinus contorta,145,73,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Pinus flexilis,56,29,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Pinus ponderosa,162,82,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Populus balsamifera,1,1,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Populus tremuloides,127,65,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Prunus virginiana,18,10,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Pseudotsuga menziesii,272,137,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Rhamnus purshiana,8,4,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Rhus aromatica,2,2,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Ribes cereum,0,1,absent_training_open_set,species_level,plant_0,plant,eligible,0.0,hierarchy
+Rosa woodsii,0,1,absent_training_open_set,species_level,plant_0,plant,eligible,0.0,hierarchy
+Rubus deliciosus,2,1,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Rubus leucodermis,0,1,absent_training_open_set,species_level,plant_0,plant,eligible,0.0,hierarchy
+Rubus parviflorus,2,1,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Salix scouleriana,6,3,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Symphoricarpos albus,8,4,insufficient_training_support,species_level,plant_0,plant,eligible,0.0,hierarchy
+Symphoricarpos oreophilus,0,1,absent_training_open_set,species_level,plant_0,plant,eligible,0.0,hierarchy
+Thuja plicata,12,6,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Tsuga heterophylla,40,20,closed_evaluable,species_level,plant_0,plant,eligible,0.0,hierarchy
+Vaccinium parvifolium,0,1,absent_training_open_set,species_level,plant_0,plant,eligible,0.0,hierarchy
+Abies amabilis,41,21,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Abies grandis,2,1,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Abies lasiocarpa,21,11,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Abies procera,5,2,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Acer circinatum,44,22,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Acer glabrum,32,16,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Acer macrophyllum,13,7,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Alnus rubra,66,33,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Alnus tenuifolia,1,1,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Arctostaphylos uva-ursi,1,0,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Artemisia tridentata,42,22,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Cercocarpus montanus,1,0,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Cornus nuttallii,7,4,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Corylus cornuta,36,18,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Jamesia americana,1,0,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Juniperus communis,19,10,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Juniperus scopulorum,23,12,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Mahonia aquifolium,2,1,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Pentaphylloides floribunda,5,2,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Physocarpus malvaceus,3,1,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Physocarpus monogynus,1,1,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Picea engelmannii,59,29,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Picea pungens,1,1,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Pinus contorta,145,73,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Pinus flexilis,56,29,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Pinus ponderosa,163,81,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Populus balsamifera,1,1,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Populus tremuloides,128,64,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Prunus virginiana,18,10,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Pseudotsuga menziesii,272,137,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Rhamnus purshiana,8,4,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Rhus aromatica,3,1,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Ribes cereum,1,0,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Rosa woodsii,1,0,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Rubus deliciosus,2,1,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Rubus leucodermis,1,0,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Rubus parviflorus,2,1,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Salix scouleriana,6,3,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Symphoricarpos albus,8,4,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Symphoricarpos oreophilus,1,0,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Thuja plicata,12,6,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Tsuga heterophylla,40,20,closed_evaluable,species_level,plant_1,plant,eligible,0.0,hierarchy
+Vaccinium parvifolium,1,0,insufficient_training_support,species_level,plant_1,plant,eligible,0.0,hierarchy
+Abies amabilis,42,20,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Abies grandis,2,1,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Abies lasiocarpa,22,10,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Abies procera,5,2,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Acer circinatum,44,22,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Acer glabrum,33,15,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Acer macrophyllum,14,6,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Alnus rubra,66,33,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Alnus tenuifolia,2,0,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Arctostaphylos uva-ursi,1,0,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Artemisia tridentata,44,20,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Cercocarpus montanus,1,0,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Cornus nuttallii,8,3,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Corylus cornuta,36,18,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Jamesia americana,1,0,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Juniperus communis,20,9,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Juniperus scopulorum,24,11,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Mahonia aquifolium,2,1,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Pentaphylloides floribunda,5,2,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Physocarpus malvaceus,3,1,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Physocarpus monogynus,2,0,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Picea engelmannii,59,29,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Picea pungens,2,0,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Pinus contorta,146,72,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Pinus flexilis,58,27,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Pinus ponderosa,163,81,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Populus balsamifera,2,0,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Populus tremuloides,129,63,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Prunus virginiana,20,8,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Pseudotsuga menziesii,274,135,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Rhamnus purshiana,8,4,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Rhus aromatica,3,1,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Ribes cereum,1,0,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Rosa woodsii,1,0,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Rubus deliciosus,2,1,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Rubus leucodermis,1,0,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Rubus parviflorus,2,1,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Salix scouleriana,6,3,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Symphoricarpos albus,8,4,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Symphoricarpos oreophilus,1,0,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Thuja plicata,12,6,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Tsuga heterophylla,40,20,closed_evaluable,species_level,plant_2,plant,eligible,0.0,hierarchy
+Vaccinium parvifolium,1,0,insufficient_training_support,species_level,plant_2,plant,eligible,0.0,hierarchy
+Abies amabilis,62,0,insufficient_test_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Abies grandis,3,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Abies lasiocarpa,0,32,absent_training_open_set,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Abies procera,7,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Acer circinatum,66,0,insufficient_test_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Acer glabrum,4,44,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Acer macrophyllum,20,0,insufficient_test_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Alnus rubra,99,0,insufficient_test_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Alnus tenuifolia,0,2,absent_training_open_set,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Arctostaphylos uva-ursi,1,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Artemisia tridentata,53,11,closed_evaluable,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Cercocarpus montanus,1,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Cornus nuttallii,11,0,insufficient_test_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Corylus cornuta,54,0,insufficient_test_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Jamesia americana,0,1,absent_training_open_set,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Juniperus communis,12,17,closed_evaluable,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Juniperus scopulorum,23,12,closed_evaluable,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Mahonia aquifolium,3,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Pentaphylloides floribunda,7,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Physocarpus malvaceus,4,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Physocarpus monogynus,2,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Picea engelmannii,33,55,closed_evaluable,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Picea pungens,0,2,absent_training_open_set,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Pinus contorta,50,168,closed_evaluable,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Pinus flexilis,14,71,closed_evaluable,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Pinus ponderosa,1,243,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Populus balsamifera,2,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Populus tremuloides,44,148,closed_evaluable,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Prunus virginiana,8,20,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Pseudotsuga menziesii,266,143,closed_evaluable,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Rhamnus purshiana,12,0,insufficient_test_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Rhus aromatica,0,4,absent_training_open_set,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Ribes cereum,0,1,absent_training_open_set,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Rosa woodsii,1,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Rubus deliciosus,0,3,absent_training_open_set,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Rubus leucodermis,1,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Rubus parviflorus,3,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Salix scouleriana,9,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Symphoricarpos albus,12,0,insufficient_test_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Symphoricarpos oreophilus,1,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Thuja plicata,18,0,insufficient_test_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Tsuga heterophylla,60,0,insufficient_test_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Vaccinium parvifolium,1,0,insufficient_training_support,species_level,site_NIWO,site,eligible,0.0,hierarchy
+Abies amabilis,0,62,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Abies grandis,0,3,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Abies lasiocarpa,32,0,insufficient_test_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Abies procera,0,7,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Acer circinatum,0,66,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Acer glabrum,48,0,insufficient_test_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Acer macrophyllum,0,20,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Alnus rubra,0,99,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Alnus tenuifolia,2,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Arctostaphylos uva-ursi,1,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Artemisia tridentata,64,0,insufficient_test_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Cercocarpus montanus,1,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Cornus nuttallii,0,11,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Corylus cornuta,0,54,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Jamesia americana,1,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Juniperus communis,29,0,insufficient_test_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Juniperus scopulorum,35,0,insufficient_test_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Mahonia aquifolium,0,3,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Pentaphylloides floribunda,7,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Physocarpus malvaceus,4,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Physocarpus monogynus,2,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Picea engelmannii,88,0,insufficient_test_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Picea pungens,2,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Pinus contorta,215,3,closed_evaluable,species_level,site_WREF,site,eligible,0.0,hierarchy
+Pinus flexilis,85,0,insufficient_test_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Pinus ponderosa,243,1,insufficient_test_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Populus balsamifera,0,2,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Populus tremuloides,192,0,insufficient_test_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Prunus virginiana,28,0,insufficient_test_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Pseudotsuga menziesii,271,138,closed_evaluable,species_level,site_WREF,site,eligible,0.0,hierarchy
+Rhamnus purshiana,0,12,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Rhus aromatica,4,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Ribes cereum,1,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Rosa woodsii,1,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Rubus deliciosus,3,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Rubus leucodermis,0,1,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Rubus parviflorus,3,0,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Salix scouleriana,0,9,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Symphoricarpos albus,3,9,insufficient_training_support,species_level,site_WREF,site,eligible,0.0,hierarchy
+Symphoricarpos oreophilus,0,1,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Thuja plicata,0,18,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Tsuga heterophylla,0,60,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Vaccinium parvifolium,0,1,absent_training_open_set,species_level,site_WREF,site,eligible,0.0,hierarchy
+Abies amabilis,62,0,insufficient_test_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Abies grandis,3,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Abies lasiocarpa,32,0,insufficient_test_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Abies procera,7,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Acer circinatum,66,0,insufficient_test_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Acer glabrum,44,4,closed_evaluable,species_level,site_YELL,site,eligible,0.0,hierarchy
+Acer macrophyllum,20,0,insufficient_test_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Alnus rubra,99,0,insufficient_test_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Alnus tenuifolia,2,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Arctostaphylos uva-ursi,0,1,absent_training_open_set,species_level,site_YELL,site,eligible,0.0,hierarchy
+Artemisia tridentata,11,53,closed_evaluable,species_level,site_YELL,site,eligible,0.0,hierarchy
+Cercocarpus montanus,0,1,absent_training_open_set,species_level,site_YELL,site,eligible,0.0,hierarchy
+Cornus nuttallii,11,0,insufficient_test_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Corylus cornuta,54,0,insufficient_test_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Jamesia americana,1,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Juniperus communis,17,12,closed_evaluable,species_level,site_YELL,site,eligible,0.0,hierarchy
+Juniperus scopulorum,12,23,closed_evaluable,species_level,site_YELL,site,eligible,0.0,hierarchy
+Mahonia aquifolium,3,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Pentaphylloides floribunda,0,7,absent_training_open_set,species_level,site_YELL,site,eligible,0.0,hierarchy
+Physocarpus malvaceus,0,4,absent_training_open_set,species_level,site_YELL,site,eligible,0.0,hierarchy
+Physocarpus monogynus,0,2,absent_training_open_set,species_level,site_YELL,site,eligible,0.0,hierarchy
+Picea engelmannii,55,33,closed_evaluable,species_level,site_YELL,site,eligible,0.0,hierarchy
+Picea pungens,2,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Pinus contorta,171,47,closed_evaluable,species_level,site_YELL,site,eligible,0.0,hierarchy
+Pinus flexilis,71,14,closed_evaluable,species_level,site_YELL,site,eligible,0.0,hierarchy
+Pinus ponderosa,244,0,insufficient_test_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Populus balsamifera,2,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Populus tremuloides,148,44,closed_evaluable,species_level,site_YELL,site,eligible,0.0,hierarchy
+Prunus virginiana,20,8,closed_evaluable,species_level,site_YELL,site,eligible,0.0,hierarchy
+Pseudotsuga menziesii,281,128,closed_evaluable,species_level,site_YELL,site,eligible,0.0,hierarchy
+Rhamnus purshiana,12,0,insufficient_test_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Rhus aromatica,4,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Ribes cereum,1,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Rosa woodsii,0,1,absent_training_open_set,species_level,site_YELL,site,eligible,0.0,hierarchy
+Rubus deliciosus,3,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Rubus leucodermis,1,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Rubus parviflorus,0,3,absent_training_open_set,species_level,site_YELL,site,eligible,0.0,hierarchy
+Salix scouleriana,9,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Symphoricarpos albus,9,3,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Symphoricarpos oreophilus,1,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Thuja plicata,18,0,insufficient_test_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Tsuga heterophylla,60,0,insufficient_test_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Vaccinium parvifolium,1,0,insufficient_training_support,species_level,site_YELL,site,eligible,0.0,hierarchy
+Abies amabilis,62,0,insufficient_test_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Abies grandis,3,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Abies lasiocarpa,0,32,absent_training_open_set,species_level,year_2020,year,eligible,0.0,hierarchy
+Abies procera,7,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Acer circinatum,66,0,insufficient_test_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Acer glabrum,4,44,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Acer macrophyllum,20,0,insufficient_test_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Alnus rubra,99,0,insufficient_test_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Alnus tenuifolia,0,2,absent_training_open_set,species_level,year_2020,year,eligible,0.0,hierarchy
+Arctostaphylos uva-ursi,1,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Artemisia tridentata,53,11,closed_evaluable,species_level,year_2020,year,eligible,0.0,hierarchy
+Cercocarpus montanus,1,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Cornus nuttallii,11,0,insufficient_test_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Corylus cornuta,54,0,insufficient_test_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Jamesia americana,0,1,absent_training_open_set,species_level,year_2020,year,eligible,0.0,hierarchy
+Juniperus communis,12,17,closed_evaluable,species_level,year_2020,year,eligible,0.0,hierarchy
+Juniperus scopulorum,23,12,closed_evaluable,species_level,year_2020,year,eligible,0.0,hierarchy
+Mahonia aquifolium,3,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Pentaphylloides floribunda,7,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Physocarpus malvaceus,4,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Physocarpus monogynus,2,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Picea engelmannii,33,55,closed_evaluable,species_level,year_2020,year,eligible,0.0,hierarchy
+Picea pungens,0,2,absent_training_open_set,species_level,year_2020,year,eligible,0.0,hierarchy
+Pinus contorta,50,168,closed_evaluable,species_level,year_2020,year,eligible,0.0,hierarchy
+Pinus flexilis,14,71,closed_evaluable,species_level,year_2020,year,eligible,0.0,hierarchy
+Pinus ponderosa,1,243,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Populus balsamifera,2,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Populus tremuloides,44,148,closed_evaluable,species_level,year_2020,year,eligible,0.0,hierarchy
+Prunus virginiana,8,20,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Pseudotsuga menziesii,266,143,closed_evaluable,species_level,year_2020,year,eligible,0.0,hierarchy
+Rhamnus purshiana,12,0,insufficient_test_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Rhus aromatica,0,4,absent_training_open_set,species_level,year_2020,year,eligible,0.0,hierarchy
+Ribes cereum,0,1,absent_training_open_set,species_level,year_2020,year,eligible,0.0,hierarchy
+Rosa woodsii,1,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Rubus deliciosus,0,3,absent_training_open_set,species_level,year_2020,year,eligible,0.0,hierarchy
+Rubus leucodermis,1,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Rubus parviflorus,3,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Salix scouleriana,9,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Symphoricarpos albus,12,0,insufficient_test_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Symphoricarpos oreophilus,1,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Thuja plicata,18,0,insufficient_test_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Tsuga heterophylla,60,0,insufficient_test_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Vaccinium parvifolium,1,0,insufficient_training_support,species_level,year_2020,year,eligible,0.0,hierarchy
+Abies amabilis,0,62,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Abies grandis,0,3,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Abies lasiocarpa,11,21,closed_evaluable,species_level,year_2023,year,eligible,0.0,hierarchy
+Abies procera,0,7,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Acer circinatum,0,66,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Acer glabrum,12,36,closed_evaluable,species_level,year_2023,year,eligible,0.0,hierarchy
+Acer macrophyllum,0,20,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Alnus rubra,0,99,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Alnus tenuifolia,2,0,insufficient_training_support,species_level,year_2023,year,eligible,0.0,hierarchy
+Arctostaphylos uva-ursi,0,1,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Artemisia tridentata,0,64,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Cercocarpus montanus,0,1,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Cornus nuttallii,0,11,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Corylus cornuta,0,54,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Jamesia americana,1,0,insufficient_training_support,species_level,year_2023,year,eligible,0.0,hierarchy
+Juniperus communis,3,26,insufficient_training_support,species_level,year_2023,year,eligible,0.0,hierarchy
+Juniperus scopulorum,11,24,closed_evaluable,species_level,year_2023,year,eligible,0.0,hierarchy
+Mahonia aquifolium,0,3,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Pentaphylloides floribunda,0,7,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Physocarpus malvaceus,0,4,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Physocarpus monogynus,0,2,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Picea engelmannii,32,56,closed_evaluable,species_level,year_2023,year,eligible,0.0,hierarchy
+Picea pungens,0,2,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Pinus contorta,65,153,closed_evaluable,species_level,year_2023,year,eligible,0.0,hierarchy
+Pinus flexilis,22,63,closed_evaluable,species_level,year_2023,year,eligible,0.0,hierarchy
+Pinus ponderosa,47,197,closed_evaluable,species_level,year_2023,year,eligible,0.0,hierarchy
+Populus balsamifera,0,2,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Populus tremuloides,43,149,closed_evaluable,species_level,year_2023,year,eligible,0.0,hierarchy
+Prunus virginiana,3,25,insufficient_training_support,species_level,year_2023,year,eligible,0.0,hierarchy
+Pseudotsuga menziesii,10,399,closed_evaluable,species_level,year_2023,year,eligible,0.0,hierarchy
+Rhamnus purshiana,0,12,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Rhus aromatica,0,4,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Ribes cereum,0,1,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Rosa woodsii,0,1,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Rubus deliciosus,0,3,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Rubus leucodermis,0,1,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Rubus parviflorus,0,3,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Salix scouleriana,0,9,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Symphoricarpos albus,0,12,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Symphoricarpos oreophilus,0,1,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Thuja plicata,0,18,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Tsuga heterophylla,0,60,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Vaccinium parvifolium,0,1,absent_training_open_set,species_level,year_2023,year,eligible,0.0,hierarchy
+Abies lasiocarpa,14,7,closed_evaluable,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Acer glabrum,21,11,closed_evaluable,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Artemisia tridentata,7,4,insufficient_training_support,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Juniperus communis,9,5,insufficient_training_support,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Juniperus scopulorum,0,1,absent_training_open_set,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Picea engelmannii,15,8,closed_evaluable,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Picea pungens,1,1,insufficient_training_support,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Pinus contorta,68,35,closed_evaluable,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Pinus flexilis,32,17,closed_evaluable,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Pinus ponderosa,130,66,closed_evaluable,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Populus tremuloides,70,35,closed_evaluable,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Prunus virginiana,11,6,closed_evaluable,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Pseudotsuga menziesii,88,45,closed_evaluable,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Rhus aromatica,2,2,insufficient_training_support,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Ribes cereum,0,1,absent_training_open_set,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Rubus deliciosus,2,1,insufficient_training_support,species_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Abies lasiocarpa,14,7,closed_evaluable,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Acer glabrum,21,11,closed_evaluable,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Artemisia tridentata,7,4,insufficient_training_support,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Juniperus communis,9,5,insufficient_training_support,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Juniperus scopulorum,0,1,absent_training_open_set,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Picea engelmannii,15,8,closed_evaluable,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Picea pungens,1,1,insufficient_training_support,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Pinus contorta,68,35,closed_evaluable,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Pinus flexilis,32,17,closed_evaluable,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Pinus ponderosa,130,66,closed_evaluable,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Populus tremuloides,70,35,closed_evaluable,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Prunus virginiana,11,6,closed_evaluable,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Pseudotsuga menziesii,88,45,closed_evaluable,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Rhus aromatica,2,2,insufficient_training_support,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Ribes cereum,0,1,absent_training_open_set,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Rubus deliciosus,2,1,insufficient_training_support,species_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Abies lasiocarpa,14,7,closed_evaluable,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Acer glabrum,21,11,closed_evaluable,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Artemisia tridentata,7,4,insufficient_training_support,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Juniperus communis,9,5,insufficient_training_support,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Juniperus scopulorum,1,0,insufficient_training_support,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Picea engelmannii,15,8,closed_evaluable,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Picea pungens,1,1,insufficient_training_support,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Pinus contorta,69,34,closed_evaluable,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Pinus flexilis,33,16,closed_evaluable,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Pinus ponderosa,131,65,closed_evaluable,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Populus tremuloides,70,35,closed_evaluable,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Prunus virginiana,11,6,closed_evaluable,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Pseudotsuga menziesii,89,44,closed_evaluable,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Rhus aromatica,3,1,insufficient_training_support,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Ribes cereum,1,0,insufficient_training_support,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Rubus deliciosus,2,1,insufficient_training_support,species_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Abies lasiocarpa,14,7,closed_evaluable,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Acer glabrum,21,11,closed_evaluable,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Artemisia tridentata,7,4,insufficient_training_support,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Juniperus communis,9,5,insufficient_training_support,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Juniperus scopulorum,1,0,insufficient_training_support,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Picea engelmannii,15,8,closed_evaluable,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Picea pungens,1,1,insufficient_training_support,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Pinus contorta,69,34,closed_evaluable,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Pinus flexilis,33,16,closed_evaluable,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Pinus ponderosa,131,65,closed_evaluable,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Populus tremuloides,70,35,closed_evaluable,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Prunus virginiana,11,6,closed_evaluable,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Pseudotsuga menziesii,89,44,closed_evaluable,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Rhus aromatica,3,1,insufficient_training_support,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Ribes cereum,1,0,insufficient_training_support,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Rubus deliciosus,2,1,insufficient_training_support,species_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Abies lasiocarpa,14,7,closed_evaluable,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Acer glabrum,22,10,closed_evaluable,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Artemisia tridentata,8,3,insufficient_training_support,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Juniperus communis,10,4,closed_evaluable,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Juniperus scopulorum,1,0,insufficient_training_support,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Picea engelmannii,16,7,closed_evaluable,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Picea pungens,2,0,insufficient_training_support,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Pinus contorta,69,34,closed_evaluable,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Pinus flexilis,33,16,closed_evaluable,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Pinus ponderosa,131,65,closed_evaluable,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Populus tremuloides,70,35,closed_evaluable,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Prunus virginiana,12,5,closed_evaluable,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Pseudotsuga menziesii,89,44,closed_evaluable,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Rhus aromatica,3,1,insufficient_training_support,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Ribes cereum,1,0,insufficient_training_support,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Rubus deliciosus,2,1,insufficient_training_support,species_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Abies lasiocarpa,14,7,closed_evaluable,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Acer glabrum,22,10,closed_evaluable,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Artemisia tridentata,8,3,insufficient_training_support,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Juniperus communis,10,4,closed_evaluable,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Juniperus scopulorum,1,0,insufficient_training_support,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Picea engelmannii,16,7,closed_evaluable,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Picea pungens,2,0,insufficient_training_support,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Pinus contorta,69,34,closed_evaluable,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Pinus flexilis,33,16,closed_evaluable,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Pinus ponderosa,131,65,closed_evaluable,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Populus tremuloides,70,35,closed_evaluable,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Prunus virginiana,12,5,closed_evaluable,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Pseudotsuga menziesii,89,44,closed_evaluable,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Rhus aromatica,3,1,insufficient_training_support,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Ribes cereum,1,0,insufficient_training_support,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Rubus deliciosus,2,1,insufficient_training_support,species_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Deciduous,294,148,closed_evaluable,researcher_level,plant_0,plant,eligible,0.0,sensitivity
+Evergreen,907,456,closed_evaluable,researcher_level,plant_0,plant,eligible,0.0,sensitivity
+Herbaceous,450,227,closed_evaluable,researcher_level,plant_0,plant,eligible,0.0,sensitivity
+Non-vegetated & dead,275,139,closed_evaluable,researcher_level,plant_0,plant,eligible,0.0,sensitivity
+Woody shrub,494,249,closed_evaluable,researcher_level,plant_0,plant,eligible,0.0,sensitivity
+Deciduous,294,148,closed_evaluable,researcher_level,plant_1,plant,eligible,0.0,sensitivity
+Evergreen,909,454,closed_evaluable,researcher_level,plant_1,plant,eligible,0.0,sensitivity
+Herbaceous,452,225,closed_evaluable,researcher_level,plant_1,plant,eligible,0.0,sensitivity
+Non-vegetated & dead,276,138,closed_evaluable,researcher_level,plant_1,plant,eligible,0.0,sensitivity
+Woody shrub,496,247,closed_evaluable,researcher_level,plant_1,plant,eligible,0.0,sensitivity
+Deciduous,296,146,closed_evaluable,researcher_level,plant_2,plant,eligible,0.0,sensitivity
+Evergreen,910,453,closed_evaluable,researcher_level,plant_2,plant,eligible,0.0,sensitivity
+Herbaceous,452,225,closed_evaluable,researcher_level,plant_2,plant,eligible,0.0,sensitivity
+Non-vegetated & dead,277,137,closed_evaluable,researcher_level,plant_2,plant,eligible,0.0,sensitivity
+Woody shrub,496,247,closed_evaluable,researcher_level,plant_2,plant,eligible,0.0,sensitivity
+Deciduous,292,150,closed_evaluable,researcher_level,site_NIWO,site,eligible,0.0,sensitivity
+Evergreen,588,775,closed_evaluable,researcher_level,site_NIWO,site,eligible,0.0,sensitivity
+Herbaceous,463,214,closed_evaluable,researcher_level,site_NIWO,site,eligible,0.0,sensitivity
+Non-vegetated & dead,252,162,closed_evaluable,researcher_level,site_NIWO,site,eligible,0.0,sensitivity
+Woody shrub,413,330,closed_evaluable,researcher_level,site_NIWO,site,eligible,0.0,sensitivity
+Deciduous,200,242,closed_evaluable,researcher_level,site_WREF,site,eligible,0.0,sensitivity
+Evergreen,1029,334,closed_evaluable,researcher_level,site_WREF,site,eligible,0.0,sensitivity
+Herbaceous,569,108,closed_evaluable,researcher_level,site_WREF,site,eligible,0.0,sensitivity
+Non-vegetated & dead,293,121,closed_evaluable,researcher_level,site_WREF,site,eligible,0.0,sensitivity
+Woody shrub,601,142,closed_evaluable,researcher_level,site_WREF,site,eligible,0.0,sensitivity
+Deciduous,392,50,closed_evaluable,researcher_level,site_YELL,site,eligible,0.0,sensitivity
+Evergreen,1109,254,closed_evaluable,researcher_level,site_YELL,site,eligible,0.0,sensitivity
+Herbaceous,322,355,closed_evaluable,researcher_level,site_YELL,site,eligible,0.0,sensitivity
+Non-vegetated & dead,283,131,closed_evaluable,researcher_level,site_YELL,site,eligible,0.0,sensitivity
+Woody shrub,472,271,closed_evaluable,researcher_level,site_YELL,site,eligible,0.0,sensitivity
+Deciduous,292,150,closed_evaluable,researcher_level,year_2020,year,eligible,0.0,sensitivity
+Evergreen,588,775,closed_evaluable,researcher_level,year_2020,year,eligible,0.0,sensitivity
+Herbaceous,463,214,closed_evaluable,researcher_level,year_2020,year,eligible,0.0,sensitivity
+Non-vegetated & dead,252,162,closed_evaluable,researcher_level,year_2020,year,eligible,0.0,sensitivity
+Woody shrub,413,330,closed_evaluable,researcher_level,year_2020,year,eligible,0.0,sensitivity
+Deciduous,43,399,closed_evaluable,researcher_level,year_2023,year,eligible,0.0,sensitivity
+Evergreen,210,1153,closed_evaluable,researcher_level,year_2023,year,eligible,0.0,sensitivity
+Herbaceous,71,606,closed_evaluable,researcher_level,year_2023,year,eligible,0.0,sensitivity
+Non-vegetated & dead,55,359,closed_evaluable,researcher_level,year_2023,year,eligible,0.0,sensitivity
+Woody shrub,84,659,closed_evaluable,researcher_level,year_2023,year,eligible,0.0,sensitivity
+Deciduous,71,36,closed_evaluable,researcher_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Evergreen,376,189,closed_evaluable,researcher_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Herbaceous,95,48,closed_evaluable,researcher_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Non-vegetated & dead,71,36,closed_evaluable,researcher_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Woody shrub,164,82,closed_evaluable,researcher_level,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Deciduous,71,36,closed_evaluable,researcher_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Evergreen,376,189,closed_evaluable,researcher_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Herbaceous,95,48,closed_evaluable,researcher_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Non-vegetated & dead,71,36,closed_evaluable,researcher_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Woody shrub,164,82,closed_evaluable,researcher_level,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Deciduous,71,36,closed_evaluable,researcher_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Evergreen,377,188,closed_evaluable,researcher_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Herbaceous,95,48,closed_evaluable,researcher_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Non-vegetated & dead,71,36,closed_evaluable,researcher_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Woody shrub,164,82,closed_evaluable,researcher_level,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Deciduous,71,36,closed_evaluable,researcher_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Evergreen,377,188,closed_evaluable,researcher_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Herbaceous,95,48,closed_evaluable,researcher_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Non-vegetated & dead,71,36,closed_evaluable,researcher_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Woody shrub,164,82,closed_evaluable,researcher_level,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Deciduous,72,35,closed_evaluable,researcher_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Evergreen,377,188,closed_evaluable,researcher_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Herbaceous,96,47,closed_evaluable,researcher_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Non-vegetated & dead,72,35,closed_evaluable,researcher_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Woody shrub,164,82,closed_evaluable,researcher_level,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Deciduous,72,35,closed_evaluable,researcher_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Evergreen,377,188,closed_evaluable,researcher_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Herbaceous,96,47,closed_evaluable,researcher_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Non-vegetated & dead,72,35,closed_evaluable,researcher_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Woody shrub,164,82,closed_evaluable,researcher_level,paired_train2023_plant_2,paired,eligible,,paired_transfer
+DBS,132,68,closed_evaluable,narrow_pft,plant_0,plant,eligible,0.0,sensitivity
+DBT,256,128,closed_evaluable,narrow_pft,plant_0,plant,eligible,0.0,sensitivity
+EBS,45,23,closed_evaluable,narrow_pft,plant_0,plant,eligible,0.0,sensitivity
+ECS,19,10,closed_evaluable,narrow_pft,plant_0,plant,eligible,0.0,sensitivity
+ECT,841,422,closed_evaluable,narrow_pft,plant_0,plant,eligible,0.0,sensitivity
+DBS,134,66,closed_evaluable,narrow_pft,plant_1,plant,eligible,0.0,sensitivity
+DBT,256,128,closed_evaluable,narrow_pft,plant_1,plant,eligible,0.0,sensitivity
+EBS,45,23,closed_evaluable,narrow_pft,plant_1,plant,eligible,0.0,sensitivity
+ECS,19,10,closed_evaluable,narrow_pft,plant_1,plant,eligible,0.0,sensitivity
+ECT,842,421,closed_evaluable,narrow_pft,plant_1,plant,eligible,0.0,sensitivity
+DBS,134,66,closed_evaluable,narrow_pft,plant_2,plant,eligible,0.0,sensitivity
+DBT,256,128,closed_evaluable,narrow_pft,plant_2,plant,eligible,0.0,sensitivity
+EBS,46,22,closed_evaluable,narrow_pft,plant_2,plant,eligible,0.0,sensitivity
+ECS,20,9,closed_evaluable,narrow_pft,plant_2,plant,eligible,0.0,sensitivity
+ECT,843,420,closed_evaluable,narrow_pft,plant_2,plant,eligible,0.0,sensitivity
+DBS,169,31,closed_evaluable,narrow_pft,site_NIWO,site,eligible,0.0,sensitivity
+DBT,192,192,closed_evaluable,narrow_pft,site_NIWO,site,eligible,0.0,sensitivity
+EBS,57,11,closed_evaluable,narrow_pft,site_NIWO,site,eligible,0.0,sensitivity
+ECS,12,17,closed_evaluable,narrow_pft,site_NIWO,site,eligible,0.0,sensitivity
+ECT,537,726,closed_evaluable,narrow_pft,site_NIWO,site,eligible,0.0,sensitivity
+DBS,59,141,closed_evaluable,narrow_pft,site_WREF,site,eligible,0.0,sensitivity
+DBT,240,144,closed_evaluable,narrow_pft,site_WREF,site,eligible,0.0,sensitivity
+EBS,65,3,closed_evaluable,narrow_pft,site_WREF,site,eligible,0.0,sensitivity
+ECS,29,0,insufficient_test_support,narrow_pft,site_WREF,site,eligible,0.0,sensitivity
+ECT,971,292,closed_evaluable,narrow_pft,site_WREF,site,eligible,0.0,sensitivity
+DBS,172,28,closed_evaluable,narrow_pft,site_YELL,site,eligible,0.0,sensitivity
+DBT,336,48,closed_evaluable,narrow_pft,site_YELL,site,eligible,0.0,sensitivity
+EBS,14,54,closed_evaluable,narrow_pft,site_YELL,site,eligible,0.0,sensitivity
+ECS,17,12,closed_evaluable,narrow_pft,site_YELL,site,eligible,0.0,sensitivity
+ECT,1018,245,closed_evaluable,narrow_pft,site_YELL,site,eligible,0.0,sensitivity
+DBS,169,31,closed_evaluable,narrow_pft,year_2020,year,eligible,0.0,sensitivity
+DBT,192,192,closed_evaluable,narrow_pft,year_2020,year,eligible,0.0,sensitivity
+EBS,57,11,closed_evaluable,narrow_pft,year_2020,year,eligible,0.0,sensitivity
+ECS,12,17,closed_evaluable,narrow_pft,year_2020,year,eligible,0.0,sensitivity
+ECT,537,726,closed_evaluable,narrow_pft,year_2020,year,eligible,0.0,sensitivity
+DBS,6,194,insufficient_training_support,narrow_pft,year_2023,year,eligible,0.0,sensitivity
+DBT,55,329,closed_evaluable,narrow_pft,year_2023,year,eligible,0.0,sensitivity
+EBS,0,68,absent_training_open_set,narrow_pft,year_2023,year,eligible,0.0,sensitivity
+ECS,3,26,insufficient_training_support,narrow_pft,year_2023,year,eligible,0.0,sensitivity
+ECT,198,1065,closed_evaluable,narrow_pft,year_2023,year,eligible,0.0,sensitivity
+DBS,16,9,closed_evaluable,narrow_pft,paired_train2020_plant_0,paired,eligible,,paired_transfer
+DBT,91,46,closed_evaluable,narrow_pft,paired_train2020_plant_0,paired,eligible,,paired_transfer
+EBS,7,4,insufficient_training_support,narrow_pft,paired_train2020_plant_0,paired,eligible,,paired_transfer
+ECS,9,5,insufficient_training_support,narrow_pft,paired_train2020_plant_0,paired,eligible,,paired_transfer
+ECT,352,176,closed_evaluable,narrow_pft,paired_train2020_plant_0,paired,eligible,,paired_transfer
+DBS,16,9,closed_evaluable,narrow_pft,paired_train2023_plant_0,paired,eligible,,paired_transfer
+DBT,91,46,closed_evaluable,narrow_pft,paired_train2023_plant_0,paired,eligible,,paired_transfer
+EBS,7,4,insufficient_training_support,narrow_pft,paired_train2023_plant_0,paired,eligible,,paired_transfer
+ECS,9,5,insufficient_training_support,narrow_pft,paired_train2023_plant_0,paired,eligible,,paired_transfer
+ECT,352,176,closed_evaluable,narrow_pft,paired_train2023_plant_0,paired,eligible,,paired_transfer
+DBS,17,8,closed_evaluable,narrow_pft,paired_train2020_plant_1,paired,eligible,,paired_transfer
+DBT,91,46,closed_evaluable,narrow_pft,paired_train2020_plant_1,paired,eligible,,paired_transfer
+EBS,7,4,insufficient_training_support,narrow_pft,paired_train2020_plant_1,paired,eligible,,paired_transfer
+ECS,9,5,insufficient_training_support,narrow_pft,paired_train2020_plant_1,paired,eligible,,paired_transfer
+ECT,352,176,closed_evaluable,narrow_pft,paired_train2020_plant_1,paired,eligible,,paired_transfer
+DBS,17,8,closed_evaluable,narrow_pft,paired_train2023_plant_1,paired,eligible,,paired_transfer
+DBT,91,46,closed_evaluable,narrow_pft,paired_train2023_plant_1,paired,eligible,,paired_transfer
+EBS,7,4,insufficient_training_support,narrow_pft,paired_train2023_plant_1,paired,eligible,,paired_transfer
+ECS,9,5,insufficient_training_support,narrow_pft,paired_train2023_plant_1,paired,eligible,,paired_transfer
+ECT,352,176,closed_evaluable,narrow_pft,paired_train2023_plant_1,paired,eligible,,paired_transfer
+DBS,17,8,closed_evaluable,narrow_pft,paired_train2020_plant_2,paired,eligible,,paired_transfer
+DBT,92,45,closed_evaluable,narrow_pft,paired_train2020_plant_2,paired,eligible,,paired_transfer
+EBS,8,3,insufficient_training_support,narrow_pft,paired_train2020_plant_2,paired,eligible,,paired_transfer
+ECS,10,4,closed_evaluable,narrow_pft,paired_train2020_plant_2,paired,eligible,,paired_transfer
+ECT,352,176,closed_evaluable,narrow_pft,paired_train2020_plant_2,paired,eligible,,paired_transfer
+DBS,17,8,closed_evaluable,narrow_pft,paired_train2023_plant_2,paired,eligible,,paired_transfer
+DBT,92,45,closed_evaluable,narrow_pft,paired_train2023_plant_2,paired,eligible,,paired_transfer
+EBS,8,3,insufficient_training_support,narrow_pft,paired_train2023_plant_2,paired,eligible,,paired_transfer
+ECS,10,4,closed_evaluable,narrow_pft,paired_train2023_plant_2,paired,eligible,,paired_transfer
+ECT,352,176,closed_evaluable,narrow_pft,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Deciduous woody,388,196,closed_evaluable,broad_pft,plant_0,plant,eligible,0.0,hierarchy
+Evergreen woody,905,455,closed_evaluable,broad_pft,plant_0,plant,eligible,0.0,hierarchy
+Deciduous woody,390,194,closed_evaluable,broad_pft,plant_1,plant,eligible,0.0,hierarchy
+Evergreen woody,907,453,closed_evaluable,broad_pft,plant_1,plant,eligible,0.0,hierarchy
+Deciduous woody,390,194,closed_evaluable,broad_pft,plant_2,plant,eligible,0.0,hierarchy
+Evergreen woody,908,452,closed_evaluable,broad_pft,plant_2,plant,eligible,0.0,hierarchy
+Deciduous woody,361,223,closed_evaluable,broad_pft,site_NIWO,site,eligible,0.0,hierarchy
+Evergreen woody,606,754,closed_evaluable,broad_pft,site_NIWO,site,eligible,0.0,hierarchy
+Deciduous woody,299,285,closed_evaluable,broad_pft,site_WREF,site,eligible,0.0,hierarchy
+Evergreen woody,1065,295,closed_evaluable,broad_pft,site_WREF,site,eligible,0.0,hierarchy
+Deciduous woody,508,76,closed_evaluable,broad_pft,site_YELL,site,eligible,0.0,hierarchy
+Evergreen woody,1049,311,closed_evaluable,broad_pft,site_YELL,site,eligible,0.0,hierarchy
+Deciduous woody,361,223,closed_evaluable,broad_pft,year_2020,year,eligible,0.0,hierarchy
+Evergreen woody,606,754,closed_evaluable,broad_pft,year_2020,year,eligible,0.0,hierarchy
+Deciduous woody,61,523,closed_evaluable,broad_pft,year_2023,year,eligible,0.0,hierarchy
+Evergreen woody,201,1159,closed_evaluable,broad_pft,year_2023,year,eligible,0.0,hierarchy
+Deciduous woody,108,54,closed_evaluable,broad_pft,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Evergreen woody,368,185,closed_evaluable,broad_pft,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Deciduous woody,108,54,closed_evaluable,broad_pft,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Evergreen woody,368,185,closed_evaluable,broad_pft,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Deciduous woody,108,54,closed_evaluable,broad_pft,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Evergreen woody,369,184,closed_evaluable,broad_pft,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Deciduous woody,108,54,closed_evaluable,broad_pft,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Evergreen woody,369,184,closed_evaluable,broad_pft,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Deciduous woody,108,54,closed_evaluable,broad_pft,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Evergreen woody,369,184,closed_evaluable,broad_pft,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Deciduous woody,108,54,closed_evaluable,broad_pft,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Evergreen woody,369,184,closed_evaluable,broad_pft,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Nonvegetated/dead proxy,275,139,closed_evaluable,coarse_cover,plant_0,plant,eligible,0.0,hierarchy
+Vegetation-labelled,2149,1076,closed_evaluable,coarse_cover,plant_0,plant,eligible,0.0,hierarchy
+Nonvegetated/dead proxy,276,138,closed_evaluable,coarse_cover,plant_1,plant,eligible,0.0,hierarchy
+Vegetation-labelled,2150,1075,closed_evaluable,coarse_cover,plant_1,plant,eligible,0.0,hierarchy
+Nonvegetated/dead proxy,277,137,closed_evaluable,coarse_cover,plant_2,plant,eligible,0.0,hierarchy
+Vegetation-labelled,2151,1074,closed_evaluable,coarse_cover,plant_2,plant,eligible,0.0,hierarchy
+Nonvegetated/dead proxy,252,162,closed_evaluable,coarse_cover,site_NIWO,site,eligible,0.0,hierarchy
+Vegetation-labelled,1756,1469,closed_evaluable,coarse_cover,site_NIWO,site,eligible,0.0,hierarchy
+Nonvegetated/dead proxy,293,121,closed_evaluable,coarse_cover,site_WREF,site,eligible,0.0,hierarchy
+Vegetation-labelled,2399,826,closed_evaluable,coarse_cover,site_WREF,site,eligible,0.0,hierarchy
+Nonvegetated/dead proxy,283,131,closed_evaluable,coarse_cover,site_YELL,site,eligible,0.0,hierarchy
+Vegetation-labelled,2295,930,closed_evaluable,coarse_cover,site_YELL,site,eligible,0.0,hierarchy
+Nonvegetated/dead proxy,252,162,closed_evaluable,coarse_cover,year_2020,year,eligible,0.0,hierarchy
+Vegetation-labelled,1756,1469,closed_evaluable,coarse_cover,year_2020,year,eligible,0.0,hierarchy
+Nonvegetated/dead proxy,55,359,closed_evaluable,coarse_cover,year_2023,year,eligible,0.0,hierarchy
+Vegetation-labelled,408,2817,closed_evaluable,coarse_cover,year_2023,year,eligible,0.0,hierarchy
+Nonvegetated/dead proxy,71,36,closed_evaluable,coarse_cover,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Vegetation-labelled,707,354,closed_evaluable,coarse_cover,paired_train2020_plant_0,paired,eligible,,paired_transfer
+Nonvegetated/dead proxy,71,36,closed_evaluable,coarse_cover,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Vegetation-labelled,707,354,closed_evaluable,coarse_cover,paired_train2023_plant_0,paired,eligible,,paired_transfer
+Nonvegetated/dead proxy,71,36,closed_evaluable,coarse_cover,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Vegetation-labelled,707,354,closed_evaluable,coarse_cover,paired_train2020_plant_1,paired,eligible,,paired_transfer
+Nonvegetated/dead proxy,71,36,closed_evaluable,coarse_cover,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Vegetation-labelled,707,354,closed_evaluable,coarse_cover,paired_train2023_plant_1,paired,eligible,,paired_transfer
+Nonvegetated/dead proxy,72,35,closed_evaluable,coarse_cover,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Vegetation-labelled,708,353,closed_evaluable,coarse_cover,paired_train2020_plant_2,paired,eligible,,paired_transfer
+Nonvegetated/dead proxy,72,35,closed_evaluable,coarse_cover,paired_train2023_plant_2,paired,eligible,,paired_transfer
+Vegetation-labelled,708,353,closed_evaluable,coarse_cover,paired_train2023_plant_2,paired,eligible,,paired_transfer

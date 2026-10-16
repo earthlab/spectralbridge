@@ -1,0 +1,18 @@
+{
+  "identity": {
+    "source_sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+    "compact_manifest_sha256": "de79661640bc693cc16670042c5bbaa2c5ab7ac217a7d3ae60d49c3e4a6a3c65",
+    "code_sha256": "9f17032f4a5be1ffefeacb3d6a0a19597b84e41cdf09acbc04205d24e6745d73",
+    "helper_sha256": "39178ead2057801e16900e6fbd43c4d1598eba44b29d583231e156d2c7fb0953",
+    "protocol_sha256": "b14f45143ab2f1724a6fcf23e7810787fe533130db520593599bac8a8afbedf3",
+    "prior_common_sha256": "9dc018259dc0c519fa3fe5900d90e91c1605b136899dda1baa4a8e614425e3ab",
+    "control_code": "7957b49a3300603ccaa4e09441b5c051d62828287ec6af2760274d206a9ab56c",
+    "control_design": "5ad84d859a6c3107eb3fe27448b68ab0e9836b46cb9660cf42517bbebd808c48"
+  },
+  "outputs": {
+    "tuning.csv": "bd648e830e53919b666903ba74dc684facee24fa30320104b943a78636a9bb04",
+    "model.npz": "eacfce44c2d15e4a33000d0e55cf313fcc7d3bfd9471201e9478b3176094c4d5",
+    "target.npz": "9fc8648224572ae6950d3a5e5718de3a0eb6133abe0184bd6ace74e8b8e3899c",
+    "candidate_parents.csv": "1835275e1655a050778657dc41f3a5180f5ecaf74726311e310d23daaaa63df3"
+  }
+}

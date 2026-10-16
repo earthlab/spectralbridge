@@ -1,0 +1,29 @@
+{
+  "processing_effects": [
+    "artifacts/plant_spectral_atlas/comparisons/products/raw/plant_harmonized_spectra.parquet",
+    "artifacts/plant_spectral_atlas/comparisons/products/corr/plant_harmonized_spectra.parquet",
+    "artifacts/plant_spectral_atlas/comparisons/products/olioli/plant_harmonized_spectra.parquet",
+    "artifacts/plant_spectral_atlas/comparisons/products/micasense/plant_harmonized_spectra.parquet",
+    "src/spectralbridge/plant_spectral_comparison.py",
+    "provenance/sensor-pft-transfer/2026-10-14/brightness_audit.csv"
+  ],
+  "quantile_fans": [
+    "artifacts/plant_spectral_atlas/quantile_models/model_index.parquet",
+    "src/spectralbridge/plant_spectral_quantiles.py",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/e2e1bb43713278f6b076.npz",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/d0e05850fafaa0e33162.npz",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/fdefc5588ae0311645cc.npz",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/8eda647b5d710e944973.npz",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/10a7f2224939df5448e3.npz",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/a394a68d62bbaa498346.npz",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/436dd13dcf033c528ede.npz",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/2b59ff7e87a7f3ceeed5.npz"
+  ],
+  "early_matching": [
+    "output/pdf/plant_spectral_review/accuracy_intervals.csv"
+  ],
+  "majority_baseline": {
+    "correct": 80,
+    "N": 363
+  }
+}

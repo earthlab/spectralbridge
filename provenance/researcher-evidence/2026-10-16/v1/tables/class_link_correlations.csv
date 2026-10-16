@@ -1,0 +1,9 @@
+kind,metric,Spearman_rho,categories,interpretation
+plant,RMSE,-0.8999999999999998,5,descriptive five-category relationship; no population p-value or causal claim
+plant,FPR,-0.8999999999999998,5,descriptive five-category relationship; no population p-value or causal claim
+plant,low_FNR,0.9999999999999999,5,descriptive five-category relationship; no population p-value or causal claim
+plant,high_ambiguity_fraction_when_present,-0.6,5,descriptive five-category relationship; no population p-value or causal claim
+site,RMSE,-0.9999999999999999,5,descriptive five-category relationship; no population p-value or causal claim
+site,FPR,-0.6,5,descriptive five-category relationship; no population p-value or causal claim
+site,low_FNR,0.6,5,descriptive five-category relationship; no population p-value or causal claim
+site,high_ambiguity_fraction_when_present,-0.7999999999999999,5,descriptive five-category relationship; no population p-value or causal claim

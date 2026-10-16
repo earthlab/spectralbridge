@@ -1,0 +1,37 @@
+{
+  "label_field": "cover_category",
+  "classes": [
+    "Deciduous",
+    "Evergreen",
+    "Herbaceous",
+    "Non-vegetated & dead",
+    "Woody shrub"
+  ],
+  "seed": 20261015,
+  "outer_identity_fold_seed_reused": 20261014,
+  "classification_budgets": [
+    1,
+    2,
+    3,
+    5,
+    7,
+    10,
+    20,
+    50,
+    100,
+    360,
+    "OLI7"
+  ],
+  "proper_parent_bundles": 24,
+  "tuning_parent_bundles": 8,
+  "maximum_test_parent_bundles": 12,
+  "detection_fraction_cutoff": 0.1,
+  "ambiguity_metric_tolerance": 0.01,
+  "paired_bundle_bootstraps": 499,
+  "field_fraction_truth_available": false,
+  "continuum_normalization": "not justified by current purity/continuum metadata",
+  "neural_network": "not justified initially by only120 independent proper-training parents; not fitted",
+  "log_ratio_fractions": "not used; exact zeros would require arbitrary replacement",
+  "source_OLI_labels": "Rounded export coordinates accepted by existing validator; overlays use exact packaged centers/FWHM",
+  "parsimonious_budget_policy": "training-only synthesis policy within2percentage points of best inner BA; no outer choice"
+}

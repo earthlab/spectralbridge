@@ -1,0 +1,46 @@
+[
+  {
+    "source": "artifacts/plant_spectral_atlas/researcher_information_20261015_v1/classification/plant_0/training_correlation.npz",
+    "target": "tables/training_correlation_plant_0.npz",
+    "source_sha256": "111ba548362fa700e07d83d9e5053479c8e3405d27b6baa2e9be70cf6512d63b",
+    "target_sha256": "111ba548362fa700e07d83d9e5053479c8e3405d27b6baa2e9be70cf6512d63b"
+  },
+  {
+    "source": "artifacts/plant_spectral_atlas/researcher_information_20261015_v1/classification/plant_1/training_correlation.npz",
+    "target": "tables/training_correlation_plant_1.npz",
+    "source_sha256": "291393f34cb0b6ccf80694cc3daf33d1017bf77897ec126c705944322aa290dd",
+    "target_sha256": "291393f34cb0b6ccf80694cc3daf33d1017bf77897ec126c705944322aa290dd"
+  },
+  {
+    "source": "artifacts/plant_spectral_atlas/researcher_information_20261015_v1/classification/plant_2/training_correlation.npz",
+    "target": "tables/training_correlation_plant_2.npz",
+    "source_sha256": "5462562ebaef4fa3d86c1135514eba92fac85c9116a9bec3a20f3082863ecbf2",
+    "target_sha256": "5462562ebaef4fa3d86c1135514eba92fac85c9116a9bec3a20f3082863ecbf2"
+  },
+  {
+    "source": "artifacts/plant_spectral_atlas/researcher_information_20261015_v1/classification/site_NIWO/training_correlation.npz",
+    "target": "tables/training_correlation_site_NIWO.npz",
+    "source_sha256": "45408366ebdf8114d8004e0fb075c8943330c28e3ebb0674126eb96fc11b0005",
+    "target_sha256": "45408366ebdf8114d8004e0fb075c8943330c28e3ebb0674126eb96fc11b0005"
+  },
+  {
+    "source": "artifacts/plant_spectral_atlas/researcher_information_20261015_v1/classification/site_WREF/training_correlation.npz",
+    "target": "tables/training_correlation_site_WREF.npz",
+    "source_sha256": "4bc40be42a2682a4e75d2f5b6bc5df3ef951a39c4d0132c346188748b6a9acdd",
+    "target_sha256": "4bc40be42a2682a4e75d2f5b6bc5df3ef951a39c4d0132c346188748b6a9acdd"
+  },
+  {
+    "source": "artifacts/plant_spectral_atlas/researcher_information_20261015_v1/classification/site_YELL/training_correlation.npz",
+    "target": "tables/training_correlation_site_YELL.npz",
+    "source_sha256": "1a1ff963da6fbdb6a9a61767897986f595629329e11b3aaa17920454e840551a",
+    "target_sha256": "1a1ff963da6fbdb6a9a61767897986f595629329e11b3aaa17920454e840551a"
+  },
+  {
+    "source": "provenance/sensor-pft-transfer/2026-10-14/effect_retention.csv",
+    "target": "tables/reused_researcher_sensor_effect_retention.csv",
+    "source_sha256": "ae7232103d94080aeb4c2be8996cf164db3d3b5562ed2b9a73f24614c4b48964",
+    "target_sha256": "77fb0724f073d4a10e2c3c7cdbc2329ef43590e608ab09b172b86288055ab14f",
+    "filter": "scheme == researcher_category",
+    "rows": 40
+  }
+]

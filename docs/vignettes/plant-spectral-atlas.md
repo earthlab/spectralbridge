@@ -1,3 +1,8 @@
+!!! note "Historical / exploratory workflow sections"
+    Species-derived grouping examples on this page are retained for historical
+    reproduction. The primary analysis now uses only recorded researcher
+    `cover_category` labels; see [the canonical label policy](../spectral-library/labels.md).
+
 # A plant-balanced corrected spectral atlas
 
 Use this workflow for a polygon library whose merged columns contain several

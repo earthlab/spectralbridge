@@ -1,52 +1,54 @@
-# Can we tell the functional groups apart?
+# Where do researcher categories differ, and can those differences predict?
 
-Some groups differ strongly in the sampled spectra; others overlap or lack
-robust matched support. The primary conclusion concerns the sampled plants and
-species mixtures, conditional on recorded acquisition histories. It is not a
-validated classifier for an unknown plant, new species or new region.
+The current [three-question validation](index.md#three-distinct-scientific-questions)
+adds matched random/temporal recognition and same-candidate abundance controls.
+The latter removes the larger-library NEON ridge advantage when reduced to the
+exact 15 MESMA parents. Treat the preceding numerical snapshot below as a
+preserved companion, with this new capacity limitation.
 
-## Compare whole curves, not thousands of independent bands
 
-A biological observation is a polygon/year curve. Comparisons use mixed blocks
-sharing the exact flight/source acquisition history, within site/year cohorts.
-Whole labels move within these blocks during permutation, preserving wavelength
-covariance. The synchronized maximum and integrated tests combine into one
-nonparametric combination (NPC) probability, with the declared family adjusted
-for multiple comparisons. No exchangeable mixed block means no supported test.
+The sole primary grouping is the five recorded [researcher categories](labels.md).
+Statistical difference, recognition and fractional abundance are separate tasks.
 
-The plotted effect is the standardized RMS contrast
-`sqrt(sum w * (beta / s)**2)`: beta is the block-centered mean coefficient and s
-is a fixed label-independent within-block spectral SD. This removes the
-sample-size multiplier in the test statistic. It is not Cohen's d. A small
-p-value does not establish large separation or nonoverlapping individuals.
+## Whole-spectrum and individual-wavelength evidence
 
-DBS–ECT and DBT–ECT show repeated strong contrasts across the represented
-cohorts. DBT–ECS is weak/unsupported in the eligible NIWO cohorts. The borderline
-NIWO 2023 DBS–DBT result is sensitive to family/representation choices. The
-[method audit](../validation/pft-methods.md) explains these limits and the
-separate roles of scalar significance and spectral localization.
+Existing exact-acquisition-history tests compare whole polygon/year curves
+within site/year cohorts. Labels move as synchronized curves inside eligible
+mixed blocks, preserving wavelength covariance. Maximum and integrated evidence
+combine into an NPC test; Holm controls the declared pair/cohort family.
+All forty supported researcher-category comparisons are retained as evidence,
+with varying effect magnitudes rather than forty identical biological effects.
 
-## Keep label hierarchies separate
+The new atlas derives wavelength-wise evidence from the saved null maxima:
+maximum-statistic correction across coordinates, then Bonferroni across forty
+pair/cohort contrasts. These full-cohort descriptive tests are **not used to
+select features for predictive tests**. Atmospheric gaps remain disconnected.
+A statistically supported coordinate may still predict individual polygons poorly.
 
-Inferred PFTs are derived from species names; researcher cover categories come
-from source annotations and include nonliving material. The latter provide
-broader coverage, not an independent biological experiment. Their strong
-conditional associations do not resolve species/PFT confounding.
+## Single-wavelength discrimination and transfer
 
---8<-- "docs/spectral-library/_transfer.md"
+A prespecified balanced-prior univariate discriminant learns its direction and
+threshold from training identities only. It measures held-out balanced accuracy,
+AUC, sensitivity and specificity for every category pair and usable coordinate.
+It is a particular predictive rule, not an upper bound on all information in a
+channel. Site/year values, sign consistency, rank dependence and the weakest
+observed-site score stay visible rather than disappearing into one average.
 
-## What the evidence establishes
+## Complementary spectral measurements
 
-- Spectral differentiation: conditional differences among the sampled groups.
-- Localization: wavelengths exceeding a specified simultaneous **null** envelope.
-- Effect magnitude: descriptive standardized separation at stated support.
+An orthogonal residual selector searches for complementary label information.
+Every inner group fold refits selection; inner balanced accuracy chooses logistic
+regularization. Outer new-polygon and entire-site tests remain untouched.
+Budgets are 1,2,3,5,7,10,20,50,100 and all supported coordinates, plus synthetic
+OLI. Independent top-coordinate ranking is not called an optimal sensor design.
 
-It does **not** establish classification accuracy, a causal PFT mechanism,
-universal cross-site generalization or MESMA abundance recoverability. Repeated
-years and overlapping contrasts share plants and are not independent trials.
-Acquisition matching controls recorded histories, not all ecological/spatial
-confounding. See [sensor retention](sensor-transfer.md) for the paired resolution
-experiment and its publication figure.
+--8<-- "docs/spectral-library/_researcher_information.md"
 
-[Audited methodology and results](https://github.com/earthlab/spectralbridge/tree/main/provenance/pft-audit/2026-10-14)
-· [Researcher-category evidence](https://github.com/earthlab/spectralbridge/tree/main/provenance/researcher-pft/2026-10-14)
+[Versioned atlas, numerical products and methodology](https://github.com/earthlab/spectralbridge/tree/main/provenance/researcher-pft-information/2026-10-15/v1)
+contains class recall/precision/specificity, full confusion matrices and explicit
+year-transfer support. Complete NIWO paired histories are held out together;
+reused later annotations remain a temporal-interpretation limitation.
+
+![Two wavelength-by-researcher-category-pair maps compare new-polygon discrimination with the weakest observed held-site result. Gray bands are excluded atmospheric gaps.](../images/spectral-library/researcher-information-primary.png)
+
+*The same prespecified single-wavelength rule can recognize sampled identities and fail at an entire held-out site. The map is predictive performance, not a p-value or a claim about every possible nonlinear rule.*

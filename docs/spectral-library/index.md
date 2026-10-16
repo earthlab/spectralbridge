@@ -9,6 +9,26 @@ place, preserves identities, and produces compact summaries rather than another
 pixel cache. Its original purpose remains reproducible NEON and drone processing
 and comparison across sensors and scales.
 
+## Three distinct scientific questions
+
+The current primary validation separates **separability**, **identifiability** and
+**abundance**. Different category spectra do not guarantee accurate recognition;
+accurate recognition does not guarantee unique mixture fractions; synthetic
+fraction recovery does not establish field cover.
+
+The [versioned evidence packet](https://github.com/earthlab/spectralbridge/tree/main/provenance/researcher-evidence/2026-10-16/v1)
+contains the source-linked report, ten figure families, explicit requirement and
+hostile-review tables, and the four-level evidence ladder. Only the five recorded
+researcher cover categories are primary. The new same-candidate control is a
+material negative result: reducing NEON ridge to the exact 15 retained MESMA
+parents removes its original larger-library advantage. Independent field fraction
+truth and verified physical units/purity remain missing.
+
+The numerical snapshot below is the preserved preceding companion, not the final
+word on intrinsic model superiority. New random-subset, PCA and consistent nested
+temporal controls are documented in the primary packet. These local results must
+be committed before the repository links are available on the published site.
+
 ## From measurements to ecological questions
 
 <div class="sb-evidence-flow" role="group" aria-label="Optional workflow branches from processing to research applications">
@@ -33,7 +53,7 @@ species, cover labels and available site/year/shade annotations. Completeness
 varies; missing labels are retained as missing, not guessed. Read the
 [class systems](labels.md) before grouping observations.
 
---8<-- "docs/spectral-library/_snapshot.md"
+--8<-- "docs/spectral-library/_researcher_information.md"
 
 ## A view of the empirical library
 
@@ -64,3 +84,19 @@ These results support questions about the sampled library. They do not establish
 novel-species classification, regional abundance maps, causal PFT mechanisms or
 universal sensor calibration. See [evidence levels](../validation/scientific-validation.md)
 and the [API maturity map](../api/scientific-analysis.md).
+
+
+## Canonical researcher-category information and abundance analysis
+
+The five recorded researcher categories are the sole primary biological groups.
+The versioned analysis locates wavelength-level discrimination, evaluates
+complementary measurements with nested group validation, and compares supervised
+fraction models with constrained linear/MESMA baselines on identical synthetic
+mixtures. Earlier dual-label summaries are historical, not the current final
+interpretation. See the [label policy](labels.md) and
+[researcher-category evidence packet](https://github.com/earthlab/spectralbridge/tree/main/provenance/researcher-pft-information/2026-10-15/v1).
+
+Keep valid repeat observations with identity/site/year/acquisition/annotation
+metadata. Hold complete histories together in validation. Conditional spectral
+recognition, synthetic mixing-weight recovery and independent field abundance
+remain distinct levels of evidence.

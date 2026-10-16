@@ -251,3 +251,92 @@ def test_both_publication_figures_compose_offline_without_original_archive(tmp_p
         for ext in ["pdf", "png", "svg"]:
             path = tmp_path / (name + "." + ext)
             assert path.is_file() and path.stat().st_size > 1000
+
+
+def test_closure_snapshot_rejects_modified_source_table(tmp_path):
+    import shutil
+    from scripts.generate_scientific_docs import closure_generated_files
+
+    relative = Path("provenance/scientific-closure/2026-10-15")
+    base = tmp_path / relative
+    (base / "tables").mkdir(parents=True)
+    (base / "manifests").mkdir()
+    (base / "figures").mkdir()
+    for name in [
+        "biological_generalization.csv",
+        "paired_temporal_recognition.csv",
+        "closed_set_coverage.csv",
+    ]:
+        shutil.copyfile(ROOT / relative / "tables" / name, base / "tables" / name)
+    shutil.copyfile(
+        ROOT / relative / "manifests/report_manifest.json",
+        base / "manifests/report_manifest.json",
+    )
+    shutil.copyfile(
+        ROOT / relative / "figures/F2_temporal_resolution.png",
+        base / "figures/F2_temporal_resolution.png",
+    )
+    outputs = closure_generated_files(tmp_path)
+    assert b"closed-set" in outputs[tmp_path / "docs/spectral-library/_closure.md"]
+    with (base / "tables/biological_generalization.csv").open("a") as f:
+        f.write("\n")
+    with pytest.raises(ValueError, match="Changed closure evidence"):
+        closure_generated_files(tmp_path)
+
+
+def test_researcher_primary_snapshot_rejects_changed_results(tmp_path):
+    from scripts.generate_scientific_docs import researcher_generated_files
+
+    base = tmp_path / "provenance/researcher-pft-information/2026-10-15/v1"
+    (base / "tables").mkdir(parents=True)
+    (base / "figures").mkdir()
+    features = pd.DataFrame(
+        [
+            dict(kind=k, budget=b, balanced_accuracy=v)
+            for k in ["plant", "site"]
+            for b, v in [("360", 0.8), ("OLI", 0.6)]
+        ]
+    )
+    abundance = pd.DataFrame(
+        [
+            dict(
+                kind=k,
+                method=m,
+                representation="NEON",
+                fold="example",
+                target="target",
+                RMSE=v,
+            )
+            for k in ["plant", "site"]
+            for m, v in [("MESMA", 0.4), ("Ridge", 0.2)]
+        ]
+    )
+    features.to_csv(base / "tables/complementary_feature_performance.csv", index=False)
+    abundance.to_csv(base / "tables/abundance_model_comparison.csv", index=False)
+    raw = b"fixture image bytes"
+    (base / "figures/R03_single_wavelength_prediction.png").write_bytes(raw)
+    table_hashes = {
+        f"tables/{p.name}": hashlib.sha256(p.read_bytes()).hexdigest()
+        for p in (base / "tables").iterdir()
+    }
+    (base / "report_manifest.json").write_text(
+        json.dumps(
+            {
+                "table_hashes": table_hashes,
+                "figure_hashes": {
+                    "figures/R03_single_wavelength_prediction.png": hashlib.sha256(
+                        raw
+                    ).hexdigest()
+                },
+            }
+        )
+    )
+    outputs = researcher_generated_files(tmp_path)
+    text = outputs[
+        tmp_path / "docs/spectral-library/_researcher_information.md"
+    ].decode()
+    assert "80.0%" in text and "0.200" in text
+    assert "DBS" not in text and "DBT" not in text
+    (base / "tables/abundance_model_comparison.csv").write_text("changed")
+    with pytest.raises(ValueError, match="Changed canonical researcher evidence"):
+        researcher_generated_files(tmp_path)

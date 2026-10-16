@@ -1,0 +1,809 @@
+{
+  "title": "Separability, Identifiability and Abundance",
+  "subtitle": "Five researcher categories: a hostile-review validation report",
+  "date": "2026-10-16",
+  "pages": [
+    {
+      "title": "Three questions, three different levels of evidence",
+      "paragraphs": [
+        [
+          "Purpose",
+          "Do the five researcher-defined categories have different spectra? Can we recognize an unseen observation? Can we recover category fractions from a mixture? These questions demand progressively stronger evidence. A positive answer at one level is not a positive answer at the next."
+        ],
+        [
+          "The biological grouping",
+          "Deciduous; Evergreen; Herbaceous; Non-vegetated & dead; Woody shrub. Only the recorded cover_category field enters this primary analysis. Historical groupings and all earlier reports remain preserved separately."
+        ],
+        [
+          "The evidence progression",
+          "Spectra can differ \u2192 differences may allow category recognition \u2192 recognized components may or may not have recoverable abundance \u2192 real field cover still requires independent validation."
+        ],
+        [
+          "The main result",
+          "All ten category pairs differ in the sampled blocked comparisons. Full-NEON recognition BA is 85.2% for unseen polygons and 73.8% for held sites. Synthetic ridge120 fraction RMSE is 0.216/0.269, but the same-candidate ridge15 control loses that advantage, and global-year ridge does not beat the no-spectrum prior."
+        ],
+        [
+          "What changed after the audit",
+          "This is more than a rearranged report: five random-subset paths per budget, PCA recognition controls, a consistent nested temporal classifier, a 15-parent same-candidate ridge test, class-level recognition/abundance links and explicit adverse explanations were added. Valid prior evidence was reused."
+        ],
+        [
+          "Scope",
+          "This is a structured reanalysis of an extensively explored observational library, not an independently preregistered confirmation. Scores concern labelled polygon footprints and synthetic algebraic weights. No independent field fractional-cover validation exists."
+        ]
+      ],
+      "figure": null,
+      "table": null,
+      "ending": [],
+      "sources": [
+        "tables/claim_registry.csv",
+        "DESIGN.md",
+        "ABUNDANCE_CONTROL_DESIGN.md"
+      ]
+    },
+    {
+      "title": "Foundational validation: observations, support and independence",
+      "paragraphs": [
+        [
+          "Source validity",
+          "The supplied table has 85,706 pixel rows. Its merged corrected schema contains 1,140 native wavelength columns because source products have different native coordinates; each pixel has exactly 426 finite corrected native values. Structural null padding must not be called analytical-grid missingness. The retained 360-coordinate polygon/year grid is finite, and no exact duplicate annual NEON/OLI spectra were found."
+        ],
+        [
+          "Truth and units",
+          "Annotations date to 2023/2024 and are reused across acquisition years. GlobalID denotes a polygon footprint, not certified plant/material purity. Absolute stored reflectance scaling is unresolved; no guessed correction, rescaling or interpolation was introduced."
+        ]
+      ],
+      "figure": 1,
+      "table": null,
+      "ending": [],
+      "sources": []
+    },
+    {
+      "title": "Foundational validation: what passes and what cannot be tested",
+      "paragraphs": [
+        [
+          "How to read this audit",
+          "PASS means the stated design requirement was met or its limitation was documented by evidence. FAIL means a substantive tested claim failed. NOT TESTABLE means the required truth or independent support is unavailable. A procedurally valid experiment may correctly produce a negative scientific result."
+        ]
+      ],
+      "figure": null,
+      "table": "FOUNDATION",
+      "ending": [],
+      "sources": [
+        "foundation.json",
+        "tables/source_corrected_validity.csv",
+        "tables/duplicate_spectra.csv",
+        "tables/design_validation.csv"
+      ]
+    },
+    {
+      "title": "1. SEPARABILITY",
+      "paragraphs": [
+        [
+          "Scientific question",
+          "Are the five researcher categories spectrally different, where do differences occur, and are those differences stable across observed domains? This section concerns difference, not classification or fractions."
+        ],
+        [
+          "Relevant method",
+          "Reuse 40 exact-acquisition-history matched cohort contrasts: ten category pairs in NIWO 2020, NIWO 2023, WREF 2023 and YELL 2023. Whole-curve category permutations preserve adjacent-wavelength correlation; 9,999 synchronized shuffles per contrast support the existing maximum, integrated and combined tests. Whole-spectrum evidence uses its declared Holm family."
+        ],
+        [
+          "Wavelength evidence",
+          "The wavelength map uses within-contrast max-T and Bonferroni across 40 contrasts. Whole-curve null maxima account for correlated channels; 360 wavelengths are never treated as 360 independent biological samples. Full-cohort inferential maps are descriptive and never select predictive features. Separate training-only evidence was previously validated."
+        ],
+        [
+          "Effect versus evidence",
+          "Standardized signed effects and width-weighted RMS whole-spectrum effects quantify magnitude. Adjusted permutation probabilities quantify evidence under the exchangeability assumption. Saved null standard errors/envelopes localize departures from that null; they are not confidence intervals for effect size."
+        ],
+        [
+          "Domain and resolution",
+          "All four cohort effects, wavelength sign/magnitude consistency, rank consistency, weakest observed effect domain and NIWO year differences are retained. Visible, red edge, NIR, SWIR1 and SWIR2 are summaries of disconnected supported coordinates. OLI is a synthetic convolution of the same corrected reference, not independent satellite validation."
+        ]
+      ],
+      "figure": null,
+      "table": "PAIR_SUPPORT",
+      "ending": [],
+      "sources": [
+        "tables/pair_support_and_evidence.csv",
+        "tables/whole_spectrum_separability.csv",
+        "tables/wavelength_effect_stability.csv",
+        "tables/wavelength_null_uncertainty.csv",
+        "prior:tables/domain_rank_consistency.csv"
+      ]
+    },
+    {
+      "title": "1. SEPARABILITY | effect magnitude and sensor resolution",
+      "paragraphs": [],
+      "figure": 2,
+      "table": null,
+      "ending": [],
+      "sources": []
+    },
+    {
+      "title": "1. SEPARABILITY | every supported wavelength, every observed cohort",
+      "paragraphs": [],
+      "figure": 3,
+      "table": null,
+      "ending": [],
+      "sources": []
+    },
+    {
+      "title": "1. SEPARABILITY | validation and evidence statement",
+      "paragraphs": [],
+      "figure": null,
+      "table": "SEPARABILITY",
+      "ending": [
+        [
+          "WHAT WE KNOW",
+          "All ten researcher-category contrasts differ in these acquisition-matched cohorts. Many broad spectral intervals carry adjusted evidence; magnitudes and directions are not equally stable everywhere. Synthetic OLI often retains substantial standardized effect despite reduced spectral resolution."
+        ],
+        [
+          "WHAT WE DO NOT KNOW",
+          "Universal differences across ecological regions, physical pure-material distinctions, independently verified annual biological change, and absolute physical reflectance units are not established."
+        ],
+        [
+          "WHAT WOULD FALSIFY THE CURRENT INTERPRETATION",
+          "An independently annotated, adequately supported acquisition-matched sample that fails to reproduce the effect, reverses its domain stability, or reveals an unaccounted source/label/scaling artifact would challenge generalization. A documented violation of within-block exchangeability would weaken the present permutation interpretation."
+        ]
+      ],
+      "sources": [
+        "tables/design_validation.csv",
+        "tables/whole_spectrum_separability.csv",
+        "tables/wavelength_effect_stability.csv"
+      ]
+    },
+    {
+      "title": "2. IDENTIFIABILITY",
+      "paragraphs": [
+        [
+          "Scientific question",
+          "Given an unseen polygon spectrum, can we identify its researcher category? A significant distributional difference does not guarantee a correct label for an individual observation."
+        ],
+        [
+          "Relevant method",
+          "Binary comparisons use the prespecified balanced-prior univariate linear discriminant rule: direction and midpoint are learned only from training IDs. Five-class single-coordinate recognition uses nearest training-class mean with equal priors. These rules were already run; they are reused rather than silently replaced with an optimized classifier. Pairwise BA has chance .50, five-class BA .20."
+        ]
+      ],
+      "figure": 4,
+      "table": null,
+      "ending": [],
+      "sources": []
+    },
+    {
+      "title": "2. IDENTIFIABILITY | complementary information and matched controls",
+      "paragraphs": [
+        [
+          "Relevant method",
+          "The original greedy orthogonal-residual selector is refitted within each inner group fold; logistic C is chosen from .1/1/10. Five fixed uniform random coordinate permutations now supply nested equal-size controls using the exact same inner folds and C grid. No random seed is chosen by target performance. PCA20/PCA50 and regularized full NEON/OLI provide training-only sensitivities."
+        ],
+        [
+          "Incremental information",
+          "At 20 coordinates, new-polygon BA is 81.6% selected versus 77.4% random; held-site BA is 70.1% versus 65.0%. At 100 coordinates the average gap narrows. These curves do not establish an optimal sensor or universal independent information dimension."
+        ]
+      ],
+      "figure": 5,
+      "table": null,
+      "ending": [],
+      "sources": []
+    },
+    {
+      "title": "2. IDENTIFIABILITY | class-specific and domain failures",
+      "paragraphs": [
+        [
+          "Relevant method",
+          "Full-spectrum recognition is identity-balanced regularized logistic with group-aware inner tuning. Every held site is absent from training. The new temporal framework uses the same full/OLI model procedure: global-year holds plus three NIWO held-ID folds in each training-year direction, with the same targets evaluated in both acquisition years."
+        ],
+        [
+          "Transfer penalty",
+          "Mean new-polygon to held-site BA falls by 11.4 percentage points for NEON and 9.1 percentage points for OLI. Woody shrub held-site recall is 46.3%. Means alone must not hide this failure or the differing temporal directions."
+        ]
+      ],
+      "figure": 6,
+      "table": null,
+      "ending": [],
+      "sources": []
+    },
+    {
+      "title": "2. IDENTIFIABILITY | validation and evidence statement",
+      "paragraphs": [],
+      "figure": null,
+      "table": "IDENTIFIABILITY",
+      "ending": [
+        [
+          "WHAT WE CAN IDENTIFY",
+          "The five-category label of unseen sampled-population polygons with useful but imperfect accuracy. Evergreen and background transfer more reliably than Woody shrub. Complementary subsets add average moderate-budget value over equal-size random controls."
+        ],
+        [
+          "WHAT WE CANNOT RELIABLY IDENTIFY",
+          "Every Woody shrub footprint, every small-subset target, or observations from arbitrary new regions/years. Category recognition is not species identity, material purity or unique mixture composition."
+        ],
+        [
+          "WHERE IDENTIFICATION FAILS",
+          "Held sites, asymmetric paired image-year transfer, difficult category overlaps, and insufficient individual-coordinate information. Small selected budgets do not uniformly outperform random subsets."
+        ],
+        [
+          "WHAT ADDITIONAL DATA WOULD MOST IMPROVE IDENTIFICATION",
+          "Independently annotated footprints across more sites and acquisition years, deliberate hard-class sampling, spatially separated target plots and contemporaneous repeated biological labels."
+        ]
+      ],
+      "sources": [
+        "tables/design_validation.csv",
+        "tables/metrics.csv",
+        "tables/selected_minus_random.csv",
+        "tables/temporal_recognition_summary.csv"
+      ]
+    },
+    {
+      "title": "3. ABUNDANCE",
+      "paragraphs": [
+        [
+          "Scientific question",
+          "Given a mixed spectrum, can we recover the fraction belonging to each researcher category? Fraction accuracy is the target. Spectral reconstruction alone is not a biological fraction validation."
+        ],
+        [
+          "Relevant method",
+          "Reuse the fixed 170 pair/triple-grid mixtures per five-parent bundle. A training context has 24 proper bundles (120 distinct parents), eight tuning bundles (40 parents) and 12 target bundles (60 parents). GlobalIDs are disjoint across roles; all primary methods receive identical outer targets. Twelve dependent bundles, not 2,040 synthetic rows, define each target experiment."
+        ],
+        [
+          "Models and constraints",
+          "No-spectrum proper-training fraction mean, FCLS, EAR/MESMA, ridge, PLS, forest, boosting and two-stage presence/conditional regression are compared. Hyperparameters/scalers/transforms are fitted only in the appropriate training/tuning roles. Supervised fractions use independently tested Euclidean simplex projection; raw error/constraint violations are retained."
+        ],
+        [
+          "Oracle before model ranking",
+          "Given the actual generating parents, the ideal linear constrained oracle recovers fractions to near machine precision. That verifies the algebraic solver/mixture control; failure with a candidate library cannot simply be blamed on the solver. The oracle cannot be deployed and does not validate physical mixing or purity."
+        ],
+        [
+          "Uncertainty and domain scope",
+          "Paired bootstrap draws resample whole target parent bundles, retaining matching method errors. Report per-target intervals against MESMA and the no-spectrum prior. New-parent, held-site, global-year and complete-pair temporal targets remain distinct; the same identities across paired target years are not independent replicates."
+        ],
+        [
+          "The most important new adverse test",
+          "The main ridge uses all 120 proper parents but MESMA retains 15 candidates from that pool. The new fairness control uses exactly those 15 saved MESMA parents to train ridge, with the unchanged tuning/target sets. Its failure materially limits an intrinsic ridge-versus-MESMA interpretation."
+        ]
+      ],
+      "figure": null,
+      "table": null,
+      "ending": [],
+      "sources": [
+        "DESIGN.md",
+        "ABUNDANCE_CONTROL_DESIGN.md",
+        "prior:METHODS.md",
+        "prior:tables/abundance_parent_memberships.csv",
+        "prior:tables/oracle_solver_controls.csv",
+        "tables/same_candidate_ridge.csv"
+      ]
+    },
+    {
+      "title": "3. ABUNDANCE | model, prior, projection and capacity controls",
+      "paragraphs": [],
+      "figure": 7,
+      "table": null,
+      "ending": [],
+      "sources": []
+    },
+    {
+      "title": "3. ABUNDANCE | error across the supported true-fraction grid",
+      "paragraphs": [],
+      "figure": 8,
+      "table": null,
+      "ending": [],
+      "sources": []
+    },
+    {
+      "title": "3. ABUNDANCE | presence, amount and category-specific overlap",
+      "paragraphs": [],
+      "figure": 9,
+      "table": null,
+      "ending": [],
+      "sources": []
+    },
+    {
+      "title": "3. ABUNDANCE | detection and conditional quantification",
+      "paragraphs": [
+        [
+          "Two distinct questions",
+          "Stage A tests presence using tuning-only thresholds. If every class is rejected, the existing algorithm admits its highest-scoring class; the table reports this admitted gate. Raw versus admitted decisions and detection by fraction are saved separately. Final-fraction detection uses the separate declared .10 comparison cutoff. Positive RMSE below is conditional on true presence, not on the model accepting the category. Missed low fractions and absent-category false detections must be assessed together."
+        ],
+        [
+          "Class-level link",
+          "Across these five categories, higher held-site recognition recall is descriptively associated with lower ridge120 fraction RMSE (Spearman rho=-1.0), but low-fraction misses do not follow the same ranking. Five class means do not supply population or causal correlation evidence. Mixture ambiguity burden is the maximum feasible range of any class in mixtures containing the named class, not a class-specific uncertainty interval."
+        ]
+      ],
+      "figure": null,
+      "table": "DETECTION",
+      "ending": [],
+      "sources": [
+        "prior:tables/abundance_model_comparison.csv",
+        "prior:tables/two_stage_presence_metrics.csv",
+        "tables/class_recognition_abundance_links.csv",
+        "tables/class_link_correlations.csv",
+        "tables/stage_A_detection_by_fraction.csv",
+        "tables/forced_presence_admission.csv"
+      ]
+    },
+    {
+      "title": "3. ABUNDANCE | ambiguity, reconstruction and spectral representation",
+      "paragraphs": [],
+      "figure": 10,
+      "table": null,
+      "ending": [],
+      "sources": []
+    },
+    {
+      "title": "3. ABUNDANCE | paired uncertainty against both baselines",
+      "paragraphs": [
+        [
+          "How to read the table",
+          "Each row is a NEON target set. Differences are ridge120 minus the named comparator, so a negative value favors ridge. Brackets are conditional 95% paired whole-bundle bootstrap intervals (999 draws), not joint family-corrected declarations. Target sets from paired years reuse parents; do not pool them as independent biological samples."
+        ],
+        [
+          "Absolute and relative gains",
+          "For new-parent targets, mean RMSE decreases 0.143 (39.8%) relative to MESMA; held-site reduction is 0.093 (25.6%). These are gains for the configured unequal-capacity benchmark, not intrinsic method superiority."
+        ],
+        [
+          "Negative controls matter",
+          "Global-year mean ridge error 0.311 exceeds the no-spectrum prior 0.309. Same-candidate ridge15 NEON error is 0.365/0.387, so the full-parent gains cannot be generalized to equal retained training diversity."
+        ]
+      ],
+      "figure": null,
+      "table": "PAIRED",
+      "ending": [],
+      "sources": [
+        "tables/abundance_paired_vs_baselines.csv",
+        "tables/abundance_domain_summary.csv",
+        "tables/same_candidate_ridge.csv"
+      ]
+    },
+    {
+      "title": "3. ABUNDANCE | validation checklist",
+      "paragraphs": [],
+      "figure": null,
+      "table": "ABUNDANCE",
+      "ending": [],
+      "sources": [
+        "tables/design_validation.csv"
+      ]
+    },
+    {
+      "title": "3. ABUNDANCE | limiting factors and evidence statement",
+      "paragraphs": [],
+      "figure": null,
+      "table": "LIMITING",
+      "ending": [
+        [
+          "WHAT WE CAN ESTIMATE",
+          "Known algebraic researcher-category weights in this finite-parent synthetic benchmark; these are not independently measured field fractions."
+        ],
+        [
+          "HOW ACCURATELY",
+          "Full-parent ridge120 mean RMSE is 0.216 for new parents and 0.269 for held sites. Class-specific biases, false detections and low-fraction misses remain substantial."
+        ],
+        [
+          "WHERE IT TRANSFERS",
+          "Some sampled held-site and paired acquisition-year targets retain useful conditional skill. This does not establish performance in arbitrary regions or years."
+        ],
+        [
+          "WHERE IT FAILS",
+          "Global-year mean fails the no-spectrum prior, same-candidate NEON ridge loses its original advantage, and derivatives worsen the main results. Do not select a winner solely from one favorable mean."
+        ],
+        [
+          "WHETHER THE INVERSION IS UNIQUE",
+          "Not established. Alternative candidate compositions can fit nearly equally well even when expected fraction error is reduced. Learned priors can improve prediction without removing non-uniqueness."
+        ],
+        [
+          "WHAT IS STILL REQUIRED FOR FIELD ABUNDANCE",
+          "Independent contemporaneous field fractions at aligned spatial support, validated annotation/material purity and reflectance units, real mixing/nonlinearity checks, and broader site/year external targets. More mixtures from the same parents do not fill these gaps."
+        ]
+      ],
+      "sources": [
+        "tables/abundance_domain_summary.csv",
+        "tables/same_candidate_ridge.csv",
+        "prior:tables/abundance_by_ambiguity.csv",
+        "prior:tables/abundance_model_comparison.csv"
+      ]
+    },
+    {
+      "title": "FINAL EVIDENCE LADDER",
+      "paragraphs": [],
+      "figure": null,
+      "table": "LADDER",
+      "ending": [
+        [
+          "LIMITATIONS",
+          "The dataset was repeatedly explored before these experiments. Nested splitting protects within-experiment tuning, not all design adaptation to known data. Only three sites and one repeatedly sampled site are available; site/year/class/acquisition effects are not fully crossed. Distinct polygons can be spatially correlated. Retrospective annotations do not certify biological persistence or purity."
+        ],
+        [
+          "Do not collapse the ladder",
+          "A significant distributional contrast is not reliable individual recognition; recognition is not unique inversion; low synthetic fraction error is not independent field-cover validation. The four levels retain separate statuses and evidence."
+        ]
+      ],
+      "sources": [
+        "tables/evidence_ladder.csv",
+        "tables/adversarial_validation.csv"
+      ]
+    },
+    {
+      "title": "WHAT DATA SHOULD BE COLLECTED NEXT",
+      "paragraphs": [
+        [
+          "1. Independent field fraction targets",
+          "Collect contemporaneous fractional cover for all five categories at explicitly matched footprint/PSF support, including true zeros, small fractions, intermediate and near-pure cases. Hold these plots out from all library selection, model development and calibration. Include repeated human/measurement uncertainty."
+        ],
+        [
+          "2. Verify physical reference meaning",
+          "Document reflectance scaling/units, radiometric lineage, spatial support and parent-material/category purity. Synthetic convolution from the same reference cannot establish satellite/drone interchangeability or certify physical endmembers."
+        ],
+        [
+          "3. Separate geography from time",
+          "Add balanced category samples across multiple new regions and years, with independently repeated biological annotations and acquisition metadata. Use spatially separated or buffered targets to test residual neighborhood dependence."
+        ],
+        [
+          "4. Target known failures",
+          "Oversample independently verified Woody shrub versus Herbaceous/Deciduous overlaps; include varied within-category conditions and mixed backgrounds. Assess absent-category false detections and low-fraction misses independently of the comparison cutoff."
+        ],
+        [
+          "5. Freeze the next validation protocol",
+          "Before collecting/evaluating the new targets, fix models, training-library capacity, fraction priors, spatial aggregation, missingness rules, sensor construction, detection/quantification criteria and acceptable uncertainty. Treat current thresholds and data-dependent discoveries as hypothesis-generating."
+        ]
+      ],
+      "figure": null,
+      "table": null,
+      "ending": [],
+      "sources": [
+        "NEXT_DATA_NEEDED.md",
+        "tables/adversarial_validation.csv"
+      ]
+    },
+    {
+      "title": "REPRODUCIBILITY",
+      "paragraphs": [
+        [
+          "Canonical inputs and preserved history",
+          "The supplied polygon Parquet is read in place. No source spectral dataset was copied. The sealed P129 packet and its previous report remain immutable; its 196 owned files are checked before/after. All new scientific grouping uses cover_category only."
+        ],
+        [
+          "New analysis protocol",
+          "DESIGN.md fixes random/PCA/temporal controls; ABUNDANCE_CONTROL_DESIGN.md records the later hostile-review fairness addition before its evaluation. Fixed seeds, split memberships, feature paths, inner scores, model parameters, target contributions and per-case hashes are saved. This is a documented exploratory reanalysis, not retrospective preregistration."
+        ],
+        [
+          "Numerical reproduction",
+          "run_controls.py and run_candidate_control.py are restart-safe. validate_controls.py independently reconstructs all saved classification predictions and inner groups; validate_candidates.py uses independent ridge normal equations. synthesize.py checks every canonical abundance evaluation against saved truth; no model is accepted solely from a summary CSV."
+        ],
+        [
+          "Figures and report",
+          "Ten figure families have PNG/PDF/SVG exports. Every caption states how to read it, what is learned and what remains uncertain. figure_manifest.json lists exact numerical sources/hashes. report_source.json and report_source.md are editable; build_report.py renders from saved sources without refitting. Final geometry, rendered-page review, source hashes and deterministic rebuilding are recorded."
+        ],
+        [
+          "Interpretive traceability",
+          "tables/design_validation.csv contains every requirement and its PASS/FAIL/NOT TESTABLE result. tables/adversarial_validation.csv records the hostile review. tables/claim_registry.csv maps key quantitative claims to their exact source filters. tables/evidence_ladder.csv keeps four scientific evidence levels separate."
+        ]
+      ],
+      "figure": null,
+      "table": null,
+      "ending": [],
+      "sources": [
+        "README.md",
+        "VALIDATION.md",
+        "control_validation.json",
+        "candidate_validation.json",
+        "synthesis_validation.json",
+        "figure_manifest.json",
+        "tables/claim_registry.csv"
+      ]
+    },
+    {
+      "title": "Adversarial validation appendix | 1-7",
+      "paragraphs": [
+        [
+          "Hostile-review rule",
+          "Each major claim must survive its plausible alternative explanations. FAIL explicitly preserves a failed interpretation; it does not disappear because other tests passed. NOT TESTABLE identifies missing evidence rather than an invented substitute."
+        ]
+      ],
+      "figure": null,
+      "table": "ADVERSARIAL:0",
+      "ending": [],
+      "sources": [
+        "tables/adversarial_validation.csv"
+      ]
+    },
+    {
+      "title": "Adversarial validation appendix | 8-14",
+      "paragraphs": [
+        [
+          "Hostile-review rule",
+          "Each major claim must survive its plausible alternative explanations. FAIL explicitly preserves a failed interpretation; it does not disappear because other tests passed. NOT TESTABLE identifies missing evidence rather than an invented substitute."
+        ]
+      ],
+      "figure": null,
+      "table": "ADVERSARIAL:7",
+      "ending": [],
+      "sources": [
+        "tables/adversarial_validation.csv"
+      ]
+    },
+    {
+      "title": "Adversarial validation appendix | 15-19",
+      "paragraphs": [
+        [
+          "Hostile-review rule",
+          "Each major claim must survive its plausible alternative explanations. FAIL explicitly preserves a failed interpretation; it does not disappear because other tests passed. NOT TESTABLE identifies missing evidence rather than an invented substitute."
+        ]
+      ],
+      "figure": null,
+      "table": "ADVERSARIAL:14",
+      "ending": [],
+      "sources": [
+        "tables/adversarial_validation.csv"
+      ]
+    }
+  ],
+  "figures": [
+    {
+      "number": 1,
+      "name": "F01_foundation",
+      "title": "The biological sampling unit is the polygon, not the pixel",
+      "how": "Counts use distinct GlobalIDs. A repeated ID can occur in two acquisition-year cells. Audit FAIL refers to a tested claim failing, not a concealed pipeline error.",
+      "learn": "The library has broad category coverage but only four site/year cells. The experimental independence and truth limits are explicit.",
+      "uncertain": "Polygon purity, absolute reflectance units and independent annual/field fraction truth are not verified. Distinct nearby polygons can remain spatially correlated.",
+      "sources": [
+        "tables/category_support.csv",
+        "tables/site_year_category_support.csv",
+        "foundation.json",
+        "tables/design_validation.csv"
+      ],
+      "hashes": {
+        "png": "94db28729ddbb7ed14fc6aef431f43fcf359ff8b1fbfbb36592e3a168f976f55",
+        "pdf": "651a8522ed59ac2eb0b74af0369f2683ed1d0b3e115e6987b07018e221a17781",
+        "svg": "5cd109fe2f99f4576ea0e524e5d8749c855d5a6f252d9c52d26bc01b8ecf4a5d"
+      }
+    },
+    {
+      "number": 2,
+      "name": "F02_separability",
+      "title": "Different spectra: effect size, statistical evidence and sensor retention",
+      "how": "Each heatmap row is one of ten category pairs. All four cohorts remain visible. Ratios measure standardized effect retention, not prediction accuracy or a probability.",
+      "learn": "All ten whole-spectrum contrasts are supported in the four observed cohorts after declared blocked permutation correction. Effect magnitude and OLI retention vary by pair/domain.",
+      "uncertain": "Absolute physical units remain unresolved. Convolution can smooth within-class variability, so a standardized effect ratio above one is possible. Synthetic OLI is not independent Landsat evidence.",
+      "sources": [
+        "tables/whole_spectrum_separability.csv",
+        "tables/pair_support_and_evidence.csv",
+        "tables/region_separability.csv"
+      ],
+      "hashes": {
+        "png": "df7ba093ee7094931963a8eb38b451b3e21bf801cbcfba5c9cf65ef8690d1d22",
+        "pdf": "941f57fa49313a9079711fadef476aa6b90ab0558627a894e0e7614e00d27b91",
+        "svg": "ebd3a4b10151ccb8497429451f89526ee5c8d5a4b1aac529bfb2ef598e41e3a2"
+      }
+    },
+    {
+      "number": 3,
+      "name": "F03_wavelength_separability",
+      "title": "Wavelength-level differences retain their domain context",
+      "how": "Top: signed matched effect, class A minus B in the displayed pair. Bottom: adjusted evidence; 1.30 corresponds to p=.05. Grey intervals are masked gaps. Color limits bound display only.",
+      "learn": "Many broad regions are supported, but sign/magnitude/rank stability is pair- and domain-dependent. All coordinates share whole-curve permutation shuffles; adjacent channels are not independent tests.",
+      "uncertain": "The lower map is evidence against exchangeability, not an effect confidence interval. Full-cohort maps are descriptive and never used to select predictive features. Null standard errors and every unbounded effect are saved.",
+      "sources": [
+        "prior:tables/cohort_wavelength_inference.csv",
+        "tables/wavelength_effect_stability.csv",
+        "tables/wavelength_null_uncertainty.csv",
+        "prior:tables/domain_rank_consistency.csv"
+      ],
+      "hashes": {
+        "png": "cfb4f1660a4eab7eaf28adb3c57f8d879152a7aa3ab67705681e318daca63c07",
+        "pdf": "572212f458f80183fcf631361bc15345849a77ecbcff1761f360cd3ffed9b63e",
+        "svg": "0eb105ac3ce7ff051b50b11821f5c0686f2f2383b905fcb525689f4e85ddaa0a"
+      }
+    },
+    {
+      "number": 4,
+      "name": "F04_single_coordinate_recognition",
+      "title": "Statistical differences do not guarantee individual recognition",
+      "how": "Left is a five-class problem (chance BA=.20); shaded ranges are observed outer-fold ranges. Right contains ten separate binary problems (chance=.50). No coordinate is chosen using these test scores.",
+      "learn": "Single-coordinate five-class recognition is limited. Herbaceous versus Woody shrub remains especially weak under the fixed pairwise rule despite supported differences.",
+      "uncertain": "This tests specified mean-based rules, not all possible nonlinear classifiers. Observed maxima are descriptive and not validated operational bands.",
+      "sources": [
+        "tables/single_coordinate_five_class.csv",
+        "tables/pairwise_single_coordinate_summary.csv"
+      ],
+      "hashes": {
+        "png": "a25bd5286838a80e72d023bcb267bbee73cefe15d1df8730f2f78c070408c4ef",
+        "pdf": "214537b5696d43c4d7482c63b73efa44ee546909d22cd9b593b2523122b79b4a",
+        "svg": "19aa274aa6c6e2ff1c0495319de49c74194b323a8c7919689820549d410c7596"
+      }
+    },
+    {
+      "number": 5,
+      "name": "F05_complementarity_controls",
+      "title": "Complementary selection adds value, but random bands can catch up",
+      "how": "Selected and random subsets use identical inner folds and tuning grids. Five fixed random paths are averaged; shaded envelopes include seed/fold variation, not confidence intervals. PCA uses every input wavelength.",
+      "learn": "Selected subsets improve modest-budget average recognition. The gap narrows at large budgets; two/three-band held-site controls can favor random subsets. High correlation does not make every additional band useless.",
+      "uncertain": "No seed or budget is chosen from outer scores. Five random controls do not establish an optimal selector, universal intrinsic dimension or optimized sensor. PCA fit uses annual rows within training only.",
+      "sources": [
+        "tables/recognition_control_summary.csv",
+        "tables/selected_minus_random.csv",
+        "tables/recognition_budget_increments.csv",
+        "tables/subset_redundancy.csv",
+        "prior:tables/complementary_feature_performance.csv"
+      ],
+      "hashes": {
+        "png": "50bb1668f96802237d60ffac68f3d6cc55f83359dddc1940f6e93671740288be",
+        "pdf": "b1740de399e7c8a8487f2160f51b4d31db4294a1c4a7c8858ebbd837f0993c81",
+        "svg": "cc33618c4fbd6cb1086e9efb1e2e186c975141f7c395e768bcfaed207f66ab15"
+      }
+    },
+    {
+      "number": 6,
+      "name": "F06_class_and_domain_failures",
+      "title": "Recognition failures are class-specific and domain-dependent",
+      "how": "Recall measures recovered true-category observations. Confusion rows sum to one. Paired-year targets keep the same held identities and trained model; global-year targets change site composition.",
+      "learn": "Woody shrub transfers poorly relative to Evergreen/background. Controlled paired NEON recognition drops in both temporal directions and is asymmetric. OLI can be less temporally sensitive despite lower familiar-domain recognition.",
+      "uncertain": "Static retrospective annotations test footprint recognition, not annual biological truth. Three sites and one repeatedly observed site cannot isolate ecological, illumination and processing causes.",
+      "sources": [
+        "prior:tables/class_specific_transfer.csv",
+        "prior:tables/confusion_plot_values.csv",
+        "tables/temporal_recognition_summary.csv",
+        "tables/rates.csv",
+        "tables/confusions.csv"
+      ],
+      "hashes": {
+        "png": "74f422aba49197ae0d9316664b13570c51ea316157acb2ca54e352395b247bf1",
+        "pdf": "640373f3bdfc64255620eb85958b71c1a65f81df05514ecb18d0ab5e0fbaf675",
+        "svg": "355a09be4393fd188c88c45ad0a6b5fd2923cc0c6c611cb89997f67c27ec79a1"
+      }
+    },
+    {
+      "number": 7,
+      "name": "F07_abundance_controls",
+      "title": "Synthetic abundance gains depend on domain, priors and retained library",
+      "how": "All main models see identical outer mixtures. Macro RMSE is sqrt(mean class MSE) within target then averaged across folds. The fairness control reduces ridge to the exact 15 MESMA candidates; the original ridge uses 120 parents.",
+      "learn": "Ridge120 improves the primary new-parent/held-site benchmark, but fails the global-year prior on average. Ridge15 loses the NEON advantage. Projection improves error. The known-generating-parent oracle has near-zero fraction error.",
+      "uncertain": "The candidate control changes training diversity/bundle count and model prior; it does not prove a single cause. Methods are not intrinsically ranked, and these algebraic fractions are not field cover.",
+      "sources": [
+        "tables/abundance_domain_summary.csv",
+        "tables/same_candidate_ridge.csv",
+        "tables/abundance_paired_vs_baselines.csv",
+        "prior:tables/raw_prediction_constraint_diagnostics.csv",
+        "prior:tables/oracle_solver_controls.csv"
+      ],
+      "hashes": {
+        "png": "6f983e21af0e1b8d71ea2d1866e07ba4e688e07bec02bdee42d49dc092e86c06",
+        "pdf": "54a370ad147a74fc6a5fd9324ad279682762e230b7f8cf42a17c3575f5bcbe4a",
+        "svg": "7231908dfd3d0ade80936f7bbcc6467145a4d7efcf237c360071cba4a2cfd63b"
+      }
+    },
+    {
+      "number": 8,
+      "name": "F08_fraction_calibration",
+      "title": "Zero, low and pure-end mixtures reveal shrinkage hidden by RMSE",
+      "how": "Each point averages predictions at a nominal truth-grid fraction, first count-weighting machine-precision-equivalent bins within fold, then averaging held sites. The diagonal represents unbiased mean recovery. Endpoints are synthetic pure-parent mixtures, not verified pure materials.",
+      "learn": "Many methods overpredict absent categories and shrink high fractions. Similar overall RMSE can hide different class-specific biases and detection behavior.",
+      "uncertain": "Mean calibration curves hide bundle variation; paired intervals and per-fold/per-class errors remain saved. No universal field detection threshold follows from this grid.",
+      "sources": [
+        "tables/calibration_plot_values.csv",
+        "tables/fraction_grid_calibration.csv"
+      ],
+      "hashes": {
+        "png": "c8d67a93fcb18725741854444b1dd0b4d88cc3eacbed8577dd0f0cc39538984a",
+        "pdf": "13137785d5f4b95701d3ff16882b8a8110b473b70063e7cac6a4f366f8fea448",
+        "svg": "480894f946e81ca2aaf43b80184900ead07e5420bf596d61626ec0367073e571"
+      }
+    },
+    {
+      "number": 9,
+      "name": "F09_detection_and_class_links",
+      "title": "Recognition, false detection and quantification are different outcomes",
+      "how": "Rows are researcher categories and columns are methods. False detection and low-fraction misses use the declared .10 final-fraction cutoff. The final panel shows empirical detection frequency versus truth, ridge solid and two-stage dashed. Class-level links are saved separately for all five categories.",
+      "learn": "Harder-to-recognize categories also tend to have larger ridge fraction error here. False detection and missed low fractions trade off; a stronger prior can improve one while worsening the other.",
+      "uncertain": "Class-level associations are descriptive, not five independent geographic replicates. Stage-A presence metrics are separately saved; .10 is a comparison rule, not an independently validated detection limit.",
+      "sources": [
+        "prior:tables/abundance_model_comparison.csv",
+        "prior:tables/two_stage_presence_metrics.csv",
+        "tables/fraction_grid_calibration.csv",
+        "tables/class_recognition_abundance_links.csv",
+        "tables/class_link_correlations.csv"
+      ],
+      "hashes": {
+        "png": "fd1092c0f39ccf68817e1eeb1c63cd729fce6d276024a8345a0d70de1bcd959b",
+        "pdf": "4decbdde65bf68d9a7915ecfed9207f8143b7a6d85c9e50af9cbc470163abbb2",
+        "svg": "944b621a7de9c6fd7f97485b2f49e5694d2515a04b2f61685a192c77ca3a5a8b"
+      }
+    },
+    {
+      "number": 10,
+      "name": "F10_ambiguity_and_limits",
+      "title": "Better expected fractions do not establish unique physical inversion",
+      "how": "Ambiguity is maximum candidate-class fraction range among near-fitting solutions at the declared .01 tolerance. High means range >=.30. Every scatter point is one saved synthetic mixture, not an independent plant.",
+      "learn": "Ridge can reduce error in high-ambiguity targets while alternatives remain feasible. The moderate stratum can favor MESMA. Spectral reconstruction is insufficient, and derivatives do not remedy the main limitations.",
+      "uncertain": "Candidate/tolerance ambiguity is not exhaustive physical uncertainty. The class burden is mixture-level ambiguity conditional on category presence. Observational data cannot uniquely apportion library variability, overlap, acquisition shift and prior effects.",
+      "sources": [
+        "prior:tables/abundance_by_ambiguity.csv",
+        "tables/reconstruction_fraction_points.parquet",
+        "prior:tables/abundance_model_comparison.csv",
+        "tables/class_recognition_abundance_links.csv"
+      ],
+      "hashes": {
+        "png": "5122efa49036876d8a170a41f0a4f2f0010dba0e1bc7b1983d2730bcec788d4e",
+        "pdf": "5071c7d3a168b71e9579672351fadee96f458edd2e2b60895a195743e00f1eee",
+        "svg": "1c8498234fd0b7cdc77ec135ae45ddebb81e7c309f0d2ecc3e2ce51d01977903"
+      }
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "ID_plant",
+      "claim": "Full NEON BA 0.852; synthetic OLI BA 0.668",
+      "source": "prior:tables/complementary_feature_performance.csv",
+      "source_filter": "kind=plant, budget=360 or OLI; mean balanced_accuracy",
+      "scope": "Three observed outer folds, no deployment guarantee"
+    },
+    {
+      "claim_id": "RANDOM_plant",
+      "claim": "20-coordinate BA selected 0.816, random 0.774",
+      "source": "tables/metrics.csv",
+      "source_filter": "kind=plant, budget=20; mean BA by method",
+      "scope": "Five random paths, no outer seed selection"
+    },
+    {
+      "claim_id": "AB_plant",
+      "claim": "NEON RMSE ridge120 0.216, MESMA15 0.359, prior 0.309",
+      "source": "tables/abundance_domain_summary.csv",
+      "source_filter": "kind=plant, representation=NEON",
+      "scope": "Synthetic finite-parent mixtures, conditional mean-fold error"
+    },
+    {
+      "claim_id": "FAIR_plant",
+      "claim": "Same-candidate ridge15 RMSE 0.365 versus MESMA15 0.359",
+      "source": "tables/same_candidate_ridge.csv",
+      "source_filter": "kind=plant, representation=NEON; mean RMSE/MESMA_RMSE",
+      "scope": "Capacity sensitivity, not a causal decomposition"
+    },
+    {
+      "claim_id": "ID_site",
+      "claim": "Full NEON BA 0.738; synthetic OLI BA 0.577",
+      "source": "prior:tables/complementary_feature_performance.csv",
+      "source_filter": "kind=site, budget=360 or OLI; mean balanced_accuracy",
+      "scope": "Three observed outer folds, no deployment guarantee"
+    },
+    {
+      "claim_id": "RANDOM_site",
+      "claim": "20-coordinate BA selected 0.701, random 0.650",
+      "source": "tables/metrics.csv",
+      "source_filter": "kind=site, budget=20; mean BA by method",
+      "scope": "Five random paths, no outer seed selection"
+    },
+    {
+      "claim_id": "AB_site",
+      "claim": "NEON RMSE ridge120 0.269, MESMA15 0.362, prior 0.309",
+      "source": "tables/abundance_domain_summary.csv",
+      "source_filter": "kind=site, representation=NEON",
+      "scope": "Synthetic finite-parent mixtures, conditional mean-fold error"
+    },
+    {
+      "claim_id": "FAIR_site",
+      "claim": "Same-candidate ridge15 RMSE 0.387 versus MESMA15 0.362",
+      "source": "tables/same_candidate_ridge.csv",
+      "source_filter": "kind=site, representation=NEON; mean RMSE/MESMA_RMSE",
+      "scope": "Capacity sensitivity, not a causal decomposition"
+    },
+    {
+      "claim_id": "YEAR_PRIOR",
+      "claim": "Global-year NEON ridge RMSE 0.311, prior 0.309",
+      "source": "tables/abundance_domain_summary.csv",
+      "source_filter": "kind=year, representation=NEON",
+      "scope": "Site/year confounding, retrospective category truth"
+    },
+    {
+      "claim_id": "SEP_ALL",
+      "claim": "10 category pairs in 40 supported cohort contrasts; largest adjusted whole-spectrum p=0.004",
+      "source": "tables/pair_support_and_evidence.csv",
+      "source_filter": "all ten pairs, four acquisition-matched cohorts",
+      "scope": "Exchangeability within exact acquisition-history blocks assumed"
+    },
+    {
+      "claim_id": "SHRUB",
+      "claim": "Woody shrub held-site NEON recall 0.463",
+      "source": "prior:tables/class_specific_transfer.csv",
+      "source_filter": "kind=site,budget=360,researcher_category=Woody shrub; mean recall",
+      "scope": "Three sampled site targets, not all woody shrubs"
+    }
+  ]
+}

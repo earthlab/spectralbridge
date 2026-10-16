@@ -1,0 +1,6 @@
+question,value,scope,decision
+Five-category recognition: plant,NEON 85.2%; synthetic OLI 66.8%,Supported labelled polygon identities; nested CV,Conditional evidence
+Five-category recognition: site,NEON 73.8%; synthetic OLI 57.7%,Supported labelled polygon identities; nested CV,Conditional evidence
+Synthetic fraction recovery: plant,MESMA 0.359; lowest observed Ridge 0.216,Fixed parent budget; outer comparison is exploratory,Conditional synthetic evidence
+Synthetic fraction recovery: site,MESMA 0.362; lowest observed Ridge 0.269,Fixed parent budget; outer comparison is exploratory,Conditional synthetic evidence
+Independent field abundance,No independent complete fraction truth supplied,Researcher cover labels do not certify purity,Not established

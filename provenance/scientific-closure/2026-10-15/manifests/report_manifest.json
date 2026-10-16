@@ -1,0 +1,156 @@
+{
+  "pdf": "output/pdf/scientific_closure/What_Can_We_Reliably_Learn_from_the_SpectralBridge_Spectral_Library.pdf",
+  "pdf_sha256": "0079f02588d565f65e7d8bdbae958224ba6044a6a5323a62fe043d492cc38861",
+  "pages": 19,
+  "source": "provenance/scientific-closure/2026-10-15/report_source.json",
+  "sections": [
+    {
+      "title": "What can we reliably learn from this library?",
+      "figure": null,
+      "evidence": "biological_generalization.csv; paired_temporal_recognition.csv; FINAL_READINESS_MATRIX.csv"
+    },
+    {
+      "title": "1. What data do we actually have?",
+      "figure": null,
+      "evidence": "observational_support.csv; flight_support.csv; product_support.csv; identity_sampling.csv; DATA_AUDIT inherited from P126"
+    },
+    {
+      "title": "Figure 1. Observations, labels and repeat sampling",
+      "figure": "F1_library_structure",
+      "evidence": "observational_support.csv; sampling_weight_effect.csv; identity_sampling.csv"
+    },
+    {
+      "title": "2. How large is change in the same polygon?",
+      "figure": null,
+      "evidence": "paired_temporal_partition.csv; paired_polygon_changes.csv; paired_label_audit.csv"
+    },
+    {
+      "title": "Figure 2. Paired temporal change and recognition",
+      "figure": "F2_temporal_resolution",
+      "evidence": "paired_temporal_partition.csv; paired_temporal_recognition.csv; paired_temporal_accuracy_change.csv"
+    },
+    {
+      "title": "3. What is the finest useful biological resolution?",
+      "figure": null,
+      "evidence": "biological_generalization.csv; biological_effect_sizes.csv; closed_set_coverage.csv; fold_support.csv; all_class_detection_rates.csv"
+    },
+    {
+      "title": "Figure 3. Biological resolution, shape and sensor retention",
+      "figure": "F3_generalization_shape_sensor",
+      "evidence": "biological_generalization.csv; brightness_sampling_sensitivity.csv; closed_set_coverage.csv; prior wavelength_selection.csv"
+    },
+    {
+      "title": "4. Is the result merely brightness? What survives Landsat?",
+      "figure": null,
+      "evidence": "brightness_sampling_sensitivity.csv; prior biological_contrasts.csv; prior real_landsat_flight_metrics.csv; prior registration/heterogeneity diagnostics"
+    },
+    {
+      "title": "5. Is the library ready to test mixtures?",
+      "figure": null,
+      "evidence": "prior mixture_identifiability.csv; prior mixture_recovery.csv; prior detection_limits.csv; prior library-size/selector/uncertainty tables"
+    },
+    {
+      "title": "Figure 4. Mixture ambiguity, recovery and false detection",
+      "figure": "F4_mixture_limits",
+      "evidence": "verified P123/P126 mixture, detection and withheld-class master tables"
+    },
+    {
+      "title": "6. How should false positives and uncertainty be read?",
+      "figure": null,
+      "evidence": "all_class_detection_rates.csv; new_confusion.csv; prior unknown_material_detection.csv; uncertainty_calibration.csv; mixture_uncertainty.csv"
+    },
+    {
+      "title": "7. Keep repeats, but do not let them dominate",
+      "figure": null,
+      "evidence": "sampling_weight_effect.csv; identity_sampling.csv; brightness_sampling_sensitivity.csv; paired_polygon_changes.csv; label_hierarchy.csv"
+    },
+    {
+      "title": "Figure 5. What the library is ready for",
+      "figure": "F5_final_decisions",
+      "evidence": "FINAL_READINESS_MATRIX.csv; DESIGN.md"
+    },
+    {
+      "title": "8. The final use decision and its criteria",
+      "figure": null,
+      "evidence": "FINAL_READINESS_MATRIX.csv; DESIGN.md; biological_evidence_ladder.csv; class-specific support/rates"
+    },
+    {
+      "title": "9. The smallest new evidence that would change the answer",
+      "figure": null,
+      "evidence": "NEXT_DATA_NEEDED.md; FINAL_READINESS_MATRIX.csv"
+    },
+    {
+      "title": "Descriptive class effects and their limits",
+      "figure": null,
+      "evidence": "biological_effect_sizes.csv; observational_support.csv; fold_support.csv; prior blocked functional results"
+    },
+    {
+      "title": "Methods in plain language",
+      "figure": null,
+      "evidence": "FINAL_ANALYSIS_AUDIT.md; DESIGN.md; manifests/numerical_validation.json; tests/test_spectral_closure.py"
+    },
+    {
+      "title": "Manuscript-ready Results narrative",
+      "figure": null,
+      "evidence": "all numerical master tables; original conditional inference/sensor/mixture evidence"
+    },
+    {
+      "title": "Validation, literature and provenance",
+      "figure": null,
+      "evidence": "VALIDATION.md; manifests/closure_run.json; manifests/broad_sensitivity.json; manifests/report_manifest.json; reused literature audits"
+    }
+  ],
+  "table_hashes": {
+    "provenance/scientific-closure/2026-10-15/tables/FINAL_READINESS_MATRIX.csv": "8ffa22d8fb6733c34aaf3844772df1b5e3776a4e309df78db1da5fad6a8c8ec3",
+    "provenance/scientific-closure/2026-10-15/tables/acquisition_date_support.csv": "0bb3bef1566ffe4a25988ceeb4caef0eaf4aa2b6dafcc925b37ab7089760cbdf",
+    "provenance/scientific-closure/2026-10-15/tables/all_class_detection_rates.csv": "e0179f87891af3341db56564b734dd633b56cfecd1b5e277d2ad8fb02ed5a8db",
+    "provenance/scientific-closure/2026-10-15/tables/annotation_year_audit.csv": "7bd926e3c2ca75d4f834b18f654551ec025d8f4ef880d3c5e3191f519d72ae0b",
+    "provenance/scientific-closure/2026-10-15/tables/biological_effect_sizes.csv": "faa148d7dc2810aea14dbc65628ba3d1d94b1a6a0e248be4a4348d7640b73115",
+    "provenance/scientific-closure/2026-10-15/tables/biological_evidence_ladder.csv": "6af0ba5085e99559e981db79df7a14f074a250ea094999973bddb42bf076cd1a",
+    "provenance/scientific-closure/2026-10-15/tables/biological_generalization.csv": "6090805708a31e56a9632de33c74479ed5be3936778fc1e77775c80be91bf6fb",
+    "provenance/scientific-closure/2026-10-15/tables/brightness_sampling_sensitivity.csv": "4f344768e49e6c771ef0de51e955bdb92a552658333961f8b94677f85fd95ef4",
+    "provenance/scientific-closure/2026-10-15/tables/broad_sensitivity_summary.csv": "8a901bd4539515bb95e2ed07ea3dc1820309fdb4611c81c2a44d6240202cc008",
+    "provenance/scientific-closure/2026-10-15/tables/closed_set_coverage.csv": "59573d4fc2f4af0ef6eb26af295810945a14d91fa33823d86b187ff0c902da2a",
+    "provenance/scientific-closure/2026-10-15/tables/exact_pixel_overlap_edges.csv": "88b0e757904787e6b7aecb92a42190dddcba9e6baf5cae5546c2b494cb2b5e63",
+    "provenance/scientific-closure/2026-10-15/tables/false_detection_rates.csv": "f36efd8d4cc9f3696b1b19793dde377b18e44f1b73223beac018e311572b0971",
+    "provenance/scientific-closure/2026-10-15/tables/flight_support.csv": "853b136fddb17d5fd733b9016baec7d659c6d5c03d23bd83c706aaafe9b1576f",
+    "provenance/scientific-closure/2026-10-15/tables/fold_support.csv": "65a102c3a37a3fb090a54f4fe29e1ebe468babb8524289d806383df52ce51df4",
+    "provenance/scientific-closure/2026-10-15/tables/identity_sampling.csv": "4d6a50faed0022bc2f61b3da5c45d115e09bf27f404853dc44e6148693844016",
+    "provenance/scientific-closure/2026-10-15/tables/label_hierarchy.csv": "5a2d5615590bbb582822395ab027e6911e2786ee7f58f6ffb19d8fa86dfe86c6",
+    "provenance/scientific-closure/2026-10-15/tables/native_spatial_support.csv": "1896d29bca4cdd3440f245a4388c96c871b5afb2f13448b609b14f0d52169d87",
+    "provenance/scientific-closure/2026-10-15/tables/new_class_metrics.csv": "a84441f93e58617cc3a14bb327ba6d99e5e647e83a35d70039ded222f2ef418e",
+    "provenance/scientific-closure/2026-10-15/tables/new_confusion.csv": "80eb7a62bf9a3a49ed1b5ff46ef3a462b4733dc82237df26b5b01aabbb944705",
+    "provenance/scientific-closure/2026-10-15/tables/new_model_index.csv": "1beb65ad9442d3ff0ffcf23d8fd9c37a0699c2ce8a0bea3b7bed13a5f280041d",
+    "provenance/scientific-closure/2026-10-15/tables/new_reliability.csv": "62f4a279992f300a7cf8d024d5ef5383ed9c44d95036fc1511a8bd683aca4650",
+    "provenance/scientific-closure/2026-10-15/tables/new_summary.csv": "818265fbf5e047780c9476f07e220c37d4bdda0f94250fb52a69fe9fd01f0b88",
+    "provenance/scientific-closure/2026-10-15/tables/observational_support.csv": "9513aa50cb573848312110d0492bee4939790430049012e73f93a70263c23b35",
+    "provenance/scientific-closure/2026-10-15/tables/paired_label_audit.csv": "d50c57601f5b7b75ba675ce43ff546ac2e38a55d79e53950514f17f817e96e86",
+    "provenance/scientific-closure/2026-10-15/tables/paired_polygon_changes.csv": "5bb49ba7a474da870cd4f93f10abcb3150292ac7c7f5f6f3841894d14e966067",
+    "provenance/scientific-closure/2026-10-15/tables/paired_temporal_accuracy_change.csv": "8e556f1ef7c38d228e73ba04feee4753f6882a77653f3d1a055b46f152c3959b",
+    "provenance/scientific-closure/2026-10-15/tables/paired_temporal_partition.csv": "454bdd5b4dab1fd8d85981024b44fdc59fb1483a38295b53fcadf7532fb26979",
+    "provenance/scientific-closure/2026-10-15/tables/paired_temporal_recognition.csv": "109c4bdd3d60bb15e9918e1d5bd605bf81d9466207fcbf4a1414bace60a635ef",
+    "provenance/scientific-closure/2026-10-15/tables/pixel_support_by_category.csv": "3f4ef0dff9fabb25e6da6c8c5960338412034b96bfd767bdbbfe13d5e756cbee",
+    "provenance/scientific-closure/2026-10-15/tables/plot_location_support.csv": "8931a63e5c2378d988d3829aba03468e893276bb40d9c747dfd3eaafdfacab12",
+    "provenance/scientific-closure/2026-10-15/tables/polygon_acquisition_pixel_support.csv": "8b8440d6585be079e2566ef6f22c99229c78e3004c297310243ab8fc31d2eede",
+    "provenance/scientific-closure/2026-10-15/tables/product_support.csv": "a8e265a825fc46852fd9cd58645dc0257477313ea18a7c7629afd54d0e1f6592",
+    "provenance/scientific-closure/2026-10-15/tables/sampling_weight_effect.csv": "95d74c93da60064879f24f7d915123c7f044d0d79ed73b7efb92289640ee88e0"
+  },
+  "source_library_sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+  "figure_hashes": {
+    "provenance/scientific-closure/2026-10-15/figures/F1_library_structure.pdf": "2ab0718a2c281d20757cbb60b9a5b0cc512b20662c2bcea89ba992ed77bd78e6",
+    "provenance/scientific-closure/2026-10-15/figures/F1_library_structure.png": "ef4f7da01f2eb5aaca4db3084dc5b36d6fa345c05a8bad70453111124d99bd38",
+    "provenance/scientific-closure/2026-10-15/figures/F1_library_structure.svg": "2812a7c298ea1adea5f0ae27d922057f2d823609fac0e44f25b18edaffcd6254",
+    "provenance/scientific-closure/2026-10-15/figures/F2_temporal_resolution.pdf": "dec1cf1b863a08ad8afbd32b6ed9ae22c8a2e3c5999869ad4c41262915c1340f",
+    "provenance/scientific-closure/2026-10-15/figures/F2_temporal_resolution.png": "8ce5149f0e78b22228d972c55a6e9c8e7c7138196e44851e62de54cc32d2d45f",
+    "provenance/scientific-closure/2026-10-15/figures/F2_temporal_resolution.svg": "a2847e6b327d662f461d9074ad7299687d3f5435f156df11360d0ad609046082",
+    "provenance/scientific-closure/2026-10-15/figures/F3_generalization_shape_sensor.pdf": "633cfb17e21098402d8b7eaacf328a66ee97721ec078fb9f9bd759c771201441",
+    "provenance/scientific-closure/2026-10-15/figures/F3_generalization_shape_sensor.png": "17319b2651add77da6d2b6b8a31a83e6ad4a6f0c65632a3ec92e68ab16ee408a",
+    "provenance/scientific-closure/2026-10-15/figures/F3_generalization_shape_sensor.svg": "fc3e176094ce5fb1325b3dc7c3736c04e3e8d277ad81d3a06d441fdc44fdd6b3",
+    "provenance/scientific-closure/2026-10-15/figures/F4_mixture_limits.pdf": "c22a4911d6208e4bdf12857abe4d2222001bc4d2e7274059a2235ba901d17be9",
+    "provenance/scientific-closure/2026-10-15/figures/F4_mixture_limits.png": "742afb438c4dc088c68f6c2420c71e788aefa469b72345a4d5758619ebe9e1c1",
+    "provenance/scientific-closure/2026-10-15/figures/F4_mixture_limits.svg": "ee0e02d41bb5f67a1949edafaa455423b3e724fe5424591931a72fc147361c9b",
+    "provenance/scientific-closure/2026-10-15/figures/F5_final_decisions.pdf": "2dc3da3fe430ca0213e171f523b9d9e29671bcf4659e60235e8dff20b51c5586",
+    "provenance/scientific-closure/2026-10-15/figures/F5_final_decisions.png": "664c1a32c089528f95af206020a3a2a07285594f0e10f1b0e7c75fed994e764d",
+    "provenance/scientific-closure/2026-10-15/figures/F5_final_decisions.svg": "67dedb4bf5b721ff518f02292612b00531f0eb7f12174ebef5f876d189420538"
+  }
+}

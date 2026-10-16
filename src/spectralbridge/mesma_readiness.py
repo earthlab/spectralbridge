@@ -74,7 +74,7 @@ def decode_flight_history(value):
     return tuple(sorted(set(p[0] for p in pairs)))
 
 
-def load_compact_inputs(source, compact):
+def load_compact_inputs(source, compact, *, include_historical_labels=True):
     """Validate paired memberships/support; retain stored units without guessing."""
     root = Path(compact)
     frames = {
@@ -96,7 +96,8 @@ def load_compact_inputs(source, compact):
     table = frames["NEON"][key + ["flight_history", "flight_observations"]].merge(
         meta, on="GlobalID", validate="many_to_one"
     )
-    table = tag_pfts(table, load_pft_crosswalk())
+    if include_historical_labels:
+        table = tag_pfts(table, load_pft_crosswalk())
     table["flights"] = table.flight_history.map(decode_flight_history)
     table["material_label"] = table.cover_category
     background = table.cover_category.eq("Non-vegetated & dead")

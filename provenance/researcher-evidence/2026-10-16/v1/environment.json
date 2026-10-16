@@ -1,0 +1,18 @@
+{
+  "python": "3.12.8",
+  "platform": "macOS-26.7.1-arm64-arm-64bit",
+  "packages": {
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "scipy": "1.18.0",
+    "scikit-learn": "1.9.1",
+    "pyarrow": "25.0.1",
+    "matplotlib": "3.11.1"
+  },
+  "outer_split_seed": 20261014,
+  "inner_seed": "20261015 + stable SHA256 case name offset, as original common.seed",
+  "random_coordinate_seed": "20261016 + replicate 0..4",
+  "bootstrap_seed": 20261016,
+  "candidate_parent_seed": "original P129 context / source memberships",
+  "report_runtime": "Codex bundled Python with ReportLab, pypdf, pandas, Pillow; macOS Arial fonts"
+}

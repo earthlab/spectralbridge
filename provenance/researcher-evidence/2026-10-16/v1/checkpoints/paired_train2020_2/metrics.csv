@@ -1,0 +1,5 @@
+fold,kind,target,method,representation,budget,random_seed,C,BA,train_IDs,test_IDs
+paired_train2020_2,paired_year,paired_train2020_target2020_2,Full,NEON,360,-1,1.0,0.880059060469024,779,389
+paired_train2020_2,paired_year,paired_train2020_target2023_2,Full,NEON,360,-1,1.0,0.7645786278531479,779,389
+paired_train2020_2,paired_year,paired_train2020_target2020_2,Full,OLI,7,-1,10.0,0.8034308064458557,779,389
+paired_train2020_2,paired_year,paired_train2020_target2023_2,Full,OLI,7,-1,10.0,0.7064742190481681,779,389

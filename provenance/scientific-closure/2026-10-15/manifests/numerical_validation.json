@@ -1,0 +1,14 @@
+{
+  "fits": 172,
+  "identity_balanced_class_effects_independently_reproduced": true,
+  "independent_BA_F1_Brier_and_conformal_math": true,
+  "paired_SS_partition_exact": true,
+  "paired_targets_two_years_same_unseen_IDs": true,
+  "paired_transfer_fits": 60,
+  "paired_year_specific_BA_independently_reproduced": true,
+  "predictions_reproduced": true,
+  "prior_116_artifacts_unchanged": true,
+  "proper_train_calibration_test_IDs_disjoint": true,
+  "scaling_and_feature_scores_training_only": true,
+  "status": "passed"
+}

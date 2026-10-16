@@ -1,0 +1,462 @@
+{
+  "pages": 29,
+  "figures": 23,
+  "pdf": "output/pdf/lab_story/SpectralBridge_The_Visual_Scientific_Story.pdf",
+  "pdf_sha256": "2ce4337b524aea95c758aa71343ba07c642092a084e18ac4d01b9a6703606c03",
+  "inputs": {
+    "artifacts/plant_spectral_atlas/comparisons/products/corr/plant_harmonized_spectra.parquet": "654f762cca574394aa71ebf08ece72db476ecaec6bdfc1f000d439fd5db1bcf4",
+    "artifacts/plant_spectral_atlas/comparisons/products/micasense/plant_harmonized_spectra.parquet": "de76a03b15637ed3a042f5b50957c0672dba08daef7809c81742f8b1a786389d",
+    "artifacts/plant_spectral_atlas/comparisons/products/olioli/plant_harmonized_spectra.parquet": "65452663ae6fb560377b17fd471f3104ac087959610baecefbd6931d2c1c7d1a",
+    "artifacts/plant_spectral_atlas/comparisons/products/raw/plant_harmonized_spectra.parquet": "a04fcad156873afc55e3a49aa98dde99b3fc8187432a634b6bf7ffafb98ead84",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/10a7f2224939df5448e3.npz": "ad80fe5b28ceb9ce18013568ad8ef4541cd970eda69f711f25569e0d131cfc0d",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/2b59ff7e87a7f3ceeed5.npz": "959765d6f9241f2caccb8b4487ebb8e8cf3877a1faaf02d88507cd8a80c1cc44",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/436dd13dcf033c528ede.npz": "b4a5d5a492e8c8ec875f9ee73e91c4b1f195bab996a5f1a33bf9115c72b254f5",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/8eda647b5d710e944973.npz": "ebfcb235d0b338e5dd165c32103f1903eff896f0d1d9a4411bae3dc44d228089",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/a394a68d62bbaa498346.npz": "9d5e63b98e04dfadbb13244cedfd213dd531878fd3a61770e4a8358bc3f62455",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/d0e05850fafaa0e33162.npz": "6c2da17152dc47898352808ec7e93d7bdc093395a319227f44dde28a420d5cfa",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/e2e1bb43713278f6b076.npz": "49555aaf395219cfd3cef655ee694d8a12e0ef7c8326dd64abec7b36e2cca134",
+    "artifacts/plant_spectral_atlas/quantile_models/checkpoints/fdefc5588ae0311645cc.npz": "194df9af0f5a1a55787f8940dbdcf39de063d20708e33a161fe96962113ee1d6",
+    "artifacts/plant_spectral_atlas/quantile_models/model_index.parquet": "0aedf9627e7b0e062836e680f64f1fc559dbba61f9f492fa7f44d14d429a5f3c",
+    "output/pdf/plant_spectral_review/accuracy_intervals.csv": "46092da1c3e08c95fe22b2a8fdcb0bcdb9c638127e1548051e36da3fef9d141d",
+    "output/pdf/plant_spectral_review/figures/site_2023_examples.png": "a72eeb01144e5a43b185f9e6a065043fd607e59646d4d5bd3d4000b4054bac2f",
+    "output/pdf/plant_spectral_review/figures/tail_fit_diagnostic.png": "e6aa3285cbda1aab81a9743d6310835378dc744b82dda7e3ddb6f25f4cb9930a",
+    "output/pdf/plant_spectral_review/report_evidence.json": "85292c018ad553bdfa6fb16f1220f2af15dad1fb22d704d5d595b0e29ed3b4ea",
+    "output/pdf/publication_figures/panels/Figure_1_A.png": "65482e7df65255bb0df620c49d8124c4bee656546950439e341a3e43d906f396",
+    "output/pdf/publication_figures/panels/Figure_2_A.png": "11d6a35684caf25c8de960ccaa93f1661de7306bb3a9c3ba8d1a1124bd02ab72",
+    "output/pdf/publication_figures/panels/Figure_2_B.png": "4164bd28d85f8ab86e61a830e9d4b9302e75372e893ff956de2340e144c99c81",
+    "provenance/lab-story/2026-10-15/build_figures.py": "97f3f552310ded1817ec2149fc031127a3c7ec3732a4bc2f2a75dfc20c08190a",
+    "provenance/lab-story/2026-10-15/build_report.py": "d95fb7c55908fb9b8f37b32f60ca2daf7a5fe39893d7972a1fa7dc7f5db03bd5",
+    "provenance/lab-story/2026-10-15/curate.py": "34ed3aa61d3c8464473ebc27d3c4b84bc0e12c3180a1aa50cdf4b92518956605",
+    "provenance/lab-story/2026-10-15/figures/early_matching.png": "3a805824ec8302628a50a49f013fb689297b4b963f21993278510569df4e65de",
+    "provenance/lab-story/2026-10-15/figures/empirical_traces.png": "a5bc6258fd9ebecd11345163cf918bb9a7cd335d1c3d2ac923fbbbc45780a1f9",
+    "provenance/lab-story/2026-10-15/figures/processing_effects.png": "61edc1f10a4bf240f9134ab61386040a2a396ea5250ddd9630450bce21666536",
+    "provenance/lab-story/2026-10-15/figures/quantile_fans.png": "f2409de17851ab1e58421866d22cfbfe011f20080a42c75c327d2ee506710b9a",
+    "provenance/lab-story/2026-10-15/figures/redraw_sources.json": "f222afdbdde37c2a139a29bfce7d45dbfd3f58a5e68b06d32fe8201802fe6ef5",
+    "provenance/lab-story/2026-10-15/report_source.json": "cf21ac7ed23ff5797629d7b3e66f2cb82e727fe1d7753759285b82a907593979",
+    "provenance/plot-report/2026-10-13/README.md": "7f7fadf2c87f4c8ba74d5c3904aa198cedd82e7bd1590b8fc339c6410e0e9375",
+    "provenance/publication-figures/2026-10-14/plotted_effects.csv": "a66f9038cf217173a65fc5f36d660f143669c24ba1fc82ed02b0610d46b338ff",
+    "provenance/publication-figures/2026-10-14/plotted_localization.csv": "e214b2eb14b0f86cbe16b2171b36422197380cfe60d77a268fbea0eb320dd7b0",
+    "provenance/quantile-models/2026-10-13/VALIDATION.md": "8ae85f94f1e53aedb93e6ef625403e536d30d0761cee718891f2e3984b84fd48",
+    "provenance/quantile-models/2026-10-13/matching_baselines.csv": "f5ae981aa658afa9d7487c12d5ca9d76dfcaf6b25ce94d5e82f8a5a9b68ca903",
+    "provenance/real-landsat-validation/2026-10-14/RESULTS.md": "15dc3b46af1c67aea6728d8f4ae3e3bd5b048e97e184c65b75bb785f2e7d984e",
+    "provenance/real-landsat-validation/2026-10-14/band_metrics.csv": "89a1e00313d9718fcf021de6af58f3962f8e7ca19544c6ab5997a1f7ec68893f",
+    "provenance/real-landsat-validation/2026-10-14/figures/H_paper_summary.png": "0a873ed15b919a0be1b7d01249da53a949633c284160318218c1fefa9addfce8",
+    "provenance/researcher-pft/2026-10-14/RESULTS.md": "73faf0d0fb09d448abda60d7df5d49177a7704df39956a77cd095d329cde76b4",
+    "provenance/researcher-pft/2026-10-14/methods_and_effects.csv": "8bf21bd1361dc11c8ff12deda5414ec3845e2984f8d9649a29aff1e3ef878d50",
+    "provenance/scientific-closure/2026-10-15/DESIGN.md": "c81daf991c4c398cafb7cdf198267b339b82fc037f80b2d8ac68de67849c8ff6",
+    "provenance/scientific-closure/2026-10-15/NEXT_DATA_NEEDED.md": "07be5b54c4c324af8ddbf4f6cbdfdb16c8785add94d5db92578b58f498289f39",
+    "provenance/scientific-closure/2026-10-15/figures/F1_library_structure.png": "ef4f7da01f2eb5aaca4db3084dc5b36d6fa345c05a8bad70453111124d99bd38",
+    "provenance/scientific-closure/2026-10-15/figures/F2_temporal_resolution.png": "8ce5149f0e78b22228d972c55a6e9c8e7c7138196e44851e62de54cc32d2d45f",
+    "provenance/scientific-closure/2026-10-15/figures/F3_generalization_shape_sensor.png": "17319b2651add77da6d2b6b8a31a83e6ad4a6f0c65632a3ec92e68ab16ee408a",
+    "provenance/scientific-closure/2026-10-15/figures/F5_final_decisions.png": "664c1a32c089528f95af206020a3a2a07285594f0e10f1b0e7c75fed994e764d",
+    "provenance/scientific-closure/2026-10-15/manifests/numerical_validation.json": "bca6560afcd4ebfc9b49516b8edd21addd5ff4a752d73f3a90b523fe0fbb02c3",
+    "provenance/scientific-closure/2026-10-15/tables/FINAL_READINESS_MATRIX.csv": "8ffa22d8fb6733c34aaf3844772df1b5e3776a4e309df78db1da5fad6a8c8ec3",
+    "provenance/scientific-closure/2026-10-15/tables/annotation_year_audit.csv": "7bd926e3c2ca75d4f834b18f654551ec025d8f4ef880d3c5e3191f519d72ae0b",
+    "provenance/scientific-closure/2026-10-15/tables/biological_generalization.csv": "6090805708a31e56a9632de33c74479ed5be3936778fc1e77775c80be91bf6fb",
+    "provenance/scientific-closure/2026-10-15/tables/brightness_sampling_sensitivity.csv": "4f344768e49e6c771ef0de51e955bdb92a552658333961f8b94677f85fd95ef4",
+    "provenance/scientific-closure/2026-10-15/tables/closed_set_coverage.csv": "59573d4fc2f4af0ef6eb26af295810945a14d91fa33823d86b187ff0c902da2a",
+    "provenance/scientific-closure/2026-10-15/tables/native_spatial_support.csv": "1896d29bca4cdd3440f245a4388c96c871b5afb2f13448b609b14f0d52169d87",
+    "provenance/scientific-closure/2026-10-15/tables/observational_support.csv": "9513aa50cb573848312110d0492bee4939790430049012e73f93a70263c23b35",
+    "provenance/scientific-closure/2026-10-15/tables/paired_temporal_accuracy_change.csv": "8e556f1ef7c38d228e73ba04feee4753f6882a77653f3d1a055b46f152c3959b",
+    "provenance/scientific-closure/2026-10-15/tables/paired_temporal_partition.csv": "454bdd5b4dab1fd8d85981024b44fdc59fb1483a38295b53fcadf7532fb26979",
+    "provenance/scientific-closure/2026-10-15/tables/paired_temporal_recognition.csv": "109c4bdd3d60bb15e9918e1d5bd605bf81d9466207fcbf4a1414bace60a635ef",
+    "provenance/scientific-closure/2026-10-15/tables/sampling_weight_effect.csv": "95d74c93da60064879f24f7d915123c7f044d0d79ed73b7efb92289640ee88e0",
+    "provenance/sensor-pft-transfer/2026-10-14/RESULTS.md": "e64f9c10489fb5aa448015dd1b4378fb3d74afcbdb492af4ae5851c87f25c4a3",
+    "provenance/sensor-pft-transfer/2026-10-14/brightness_audit.csv": "cb92c3682dcc99a570dc078694cc6faa16650f8e99c7815f5e8da6db4af46e20",
+    "provenance/sensor-pft-transfer/2026-10-14/effect_retention.csv": "ae7232103d94080aeb4c2be8996cf164db3d3b5562ed2b9a73f24614c4b48964",
+    "provenance/sensor-pft-transfer/2026-10-14/figures/A_effect_heatmap_researcher_category.png": "e32539db5884a4252a02f241ed68d91f69e111becb3afe853d5f5b0eb1c7abce",
+    "provenance/sensor-pft-transfer/2026-10-14/figures/B_effect_retention.png": "ae5ed08906d40f0fb5d0a140e00ce588f14acfe92a96b8b202d76ad76a64a285",
+    "provenance/sensor-pft-transfer/2026-10-14/neon_region_coverage.csv": "cd49570191d0349014cf58519c91eb032bb3e4770e44570c40d5049f536eb696",
+    "provenance/sensor-pft-transfer/2026-10-14/retention_summary.csv": "563874e4b82a210d800c96114b9418a65c3c5f93d65b047e4a04d1bee2b2837f",
+    "provenance/sensor-pft-transfer/2026-10-14/sensor_contrasts.csv": "c096c0081dbf12959377d76e5c66361edaef816a8c96e9fa9a357a36f0abb0ca",
+    "provenance/spectral-library-analytics/2026-10-14/DESIGN.md": "5841aee3644b961058fd40ca7d1de9a4d78dbb8b311593154c7f33350dfb1b3e",
+    "provenance/spectral-library-analytics/2026-10-14/OBSERVATIONAL_STRUCTURE.md": "a5d2f9d02bb7bbff40218a4232cfbcb7995b3c4f4bb9e5c6e1705edeb8e8160f",
+    "provenance/spectral-library-analytics/2026-10-14/STAGE3_ML_GENERALIZATION.md": "08a9b2af30c9d93c151817a0b9c68967b33819f598352b80d8f48d95a79deffa",
+    "provenance/spectral-library-analytics/2026-10-14/STAGE4_WAVELENGTH_INFORMATION.md": "ac4216abc89e563f33de504abf8d52fab7abd3a9c1276709983f546cc2d548f6",
+    "provenance/spectral-library-analytics/2026-10-14/STAGE5_CLASS_REPRESENTATION.md": "763df6e6ad91a80b67de6dc24ba82d563f779e9fbf75e00697d84b3dfcbaa42e",
+    "provenance/spectral-library-analytics/2026-10-14/STAGE6_MIXTURE_IDENTIFIABILITY.md": "14754b4a721a84ad216aea52965d0f473eb6c2e3bbba26a35bfba20028f4907a",
+    "provenance/spectral-library-analytics/2026-10-14/STAGE7_MIXTURE_RECOVERY.md": "a712261765a3ab8b958a51011bc5669c91769e1ac31f7ae938e475613ad796ac",
+    "provenance/spectral-library-analytics/2026-10-14/STAGE8_UNKNOWN_MATERIALS.md": "7b86c680a154b0f654639110edb5bc23195a4a6018e35f77e9588a77432048d1",
+    "provenance/spectral-library-analytics/2026-10-14/STAGE9_UNCERTAINTY.md": "86c6bf7d724a25e8a61aaad572076e58d8c7a2d49d75fd179d49a6d5d0e15a73",
+    "provenance/spectral-library-analytics/2026-10-14/figures/00_validation_diagram.png": "03d5ec3e08e55e65cce0b00e4862fdd8f9841a3ad7d5d6d5a48b9c560a8dacf3",
+    "provenance/spectral-library-analytics/2026-10-14/figures/01_readable_atlas.png": "48aa85f87530cad9144f83182b941abcb3137957c5c85cac91b3b9979fec4b80",
+    "provenance/spectral-library-analytics/2026-10-14/figures/04_resolution_curve.png": "393dbfd296af02d20fa293b4c7bc3a56ff668de506605882044525d817759069",
+    "provenance/spectral-library-analytics/2026-10-14/figures/06_classical_models.png": "e853e36d2e53f58f1cd3ab666f03bdb2b158a4d6336b16f8827f938a916abfca",
+    "provenance/spectral-library-analytics/2026-10-14/figures/07_prototype_coverage.png": "b0576995a427ee10f3d7ca060ef1bbe700cf1e2f3281933f99fa633536f973fa",
+    "provenance/spectral-library-analytics/2026-10-14/figures/08_mixtures_detection.png": "321c9eb782255cbb0507fb0db449518710d9b59f5b70ae699726328bfd4b21ca",
+    "provenance/spectral-library-analytics/2026-10-14/figures/09_unknowns_uncertainty.png": "b294280c86893bcc7e8e4744a03265b018a88f2b4468fec33b3c7878b873d407",
+    "provenance/spectral-library-analytics/2026-10-14/figures/10_mixture_ambiguity.png": "f09153d89c0427564054320885f9ea235268b8100fd7bcd4ec39ff88187fc5d5",
+    "provenance/spectral-library-analytics/2026-10-14/tables/class_prototype_coverage.csv": "d3be24e1c823dba0000fabad2c1cacfe8a4675edf9f3932749326903e076ba18",
+    "provenance/spectral-library-analytics/2026-10-14/tables/detection_limits.csv": "7a4695f21ee7da962860d5ef4790ab297970b23918bfd4227ffce2e12016e75b",
+    "provenance/spectral-library-analytics/2026-10-14/tables/library_summary.csv": "e33e7765755baa6c356f292940eebd423f37e852fbb99d834826610d6e9143c3",
+    "provenance/spectral-library-analytics/2026-10-14/tables/mixture_identifiability.csv": "178cd0b8793ca5aec6236af2072035d66f24f3569188b895915b6570645c8925",
+    "provenance/spectral-library-analytics/2026-10-14/tables/mixture_recovery.csv": "a937300714f4da5e63cfa577458a3fb90c7cdb879ba0d235e181415ab2ebb82c",
+    "provenance/spectral-library-analytics/2026-10-14/tables/ml_generalization.csv": "99111d04b1bcd044bc9fa1f0a0dff6bf6d517cbbf2300956250a6c7a727a33c4",
+    "provenance/spectral-library-analytics/2026-10-14/tables/real_landsat_flight_metrics.csv": "c4b8fac93b21fad067d4b50be2cce8a217c3350152cca28138cfa9c7f0522e32",
+    "provenance/spectral-library-analytics/2026-10-14/tables/spectral_resolution_performance.csv": "a6b7804c0e0e10218eaaf48f9a22f358f690bfefd9897c5d372183605d51e80b",
+    "provenance/spectral-library-analytics/2026-10-14/tables/uncertainty_calibration.csv": "99111d04b1bcd044bc9fa1f0a0dff6bf6d517cbbf2300956250a6c7a727a33c4",
+    "provenance/spectral-library-analytics/2026-10-14/tables/unknown_material_detection.csv": "dc4f541f58171846d3fccdd23ec60b016548dcfa37c50236e03e945337b78818",
+    "provenance/spectral-library-analytics/2026-10-14/tables/wavelength_selection.csv": "082aa18365261ef2dd57b7c849aa87e8ce5fd25c97b9e64847fe5d3e42ea156b",
+    "src/spectralbridge/plant_spectral_comparison.py": "2834a48da0b0806324aac3c856497b5e66ae50a2732a12e738a5a30b0763824e",
+    "src/spectralbridge/plant_spectral_quantiles.py": "cae35565c9b91853bd52b9485f32eeaf75118b4ef3174ea8d8f1426118b0ab48"
+  },
+  "figure_inventory": [
+    {
+      "number": 1,
+      "page": 4,
+      "chapter": "I. What is in the library?",
+      "title": "The sampling structure sets the limits of every result",
+      "image": "provenance/scientific-closure/2026-10-15/figures/F1_library_structure.png",
+      "question": "What counts as replication, and which cohorts dominate?",
+      "read": "A: category counts by site and image year. B: annual-spectrum share versus unique-polygon share. C: polygons observed in one or both years. NIWO, WREF and YELL are the three source-site codes.",
+      "learn": "The library contains 85,706 extracted pixel records, 3,639 polygon identities and 4,807 polygon/year spectra. All 1,168 repeated-year identities are at NIWO. Counting annual rows equally increases NIWO weight: 58.2% of annual spectra versus 44.8% of unique identities.",
+      "limit": "GlobalID identifies a polygon footprint, not a verified individual plant. Field annotations dated 2023/2024 were reused across image years. Native coordinate spacing is 1 m; median extracted support is two pixels per polygon/acquisition. Three sites cannot represent all regions.",
+      "evidence": [
+        "provenance/scientific-closure/2026-10-15/tables/observational_support.csv",
+        "provenance/scientific-closure/2026-10-15/tables/sampling_weight_effect.csv",
+        "provenance/scientific-closure/2026-10-15/tables/annotation_year_audit.csv",
+        "provenance/scientific-closure/2026-10-15/tables/native_spatial_support.csv"
+      ]
+    },
+    {
+      "number": 2,
+      "page": 5,
+      "chapter": "II. Explore before inferring",
+      "title": "Species have recognizable shapes, with substantial overlap",
+      "image": "provenance/lab-story/2026-10-15/figures/empirical_traces.png",
+      "question": "What did the first trace plots actually show?",
+      "read": "Rows are selected named species; columns separate raw NEON, corrected NEON, derived OLI and archive MicaSense values. Thin curves show polygon summaries; the heavy curve is the displayed central summary. Use the original axis labels: these are stored spectral values, not verified unitless reflectance.",
+      "learn": "The red-edge rise, high near-infrared signal and shortwave-infrared structure are visible, but spectra within a species span a broad range. Correction changes magnitudes; OLI retains only a few channels. This motivated distribution plots rather than one representative line per species.",
+      "limit": "These are illustrative species, not the whole cohort. Traces join measured channels for readability and do not create extra bands. MicaSense coordinates are unverified: the sharp right-edge pattern cannot be interpreted biologically. Derived OLI and MicaSense are not independent satellite/drone observations.",
+      "evidence": [
+        "provenance/plot-report/2026-10-13/README.md",
+        "output/pdf/plant_spectral_review/report_evidence.json"
+      ]
+    },
+    {
+      "number": 3,
+      "page": 6,
+      "chapter": "II. Explore before inferring",
+      "title": "Corrections and darkening are distinct operations",
+      "image": "provenance/lab-story/2026-10-15/figures/processing_effects.png",
+      "question": "How much did processing change the observed values?",
+      "read": "A: the histogram counts selected polygon identities by median absolute raw-to-corrected difference. B: saved per-band ratios show the OLI adjusted/undarkened gain; the dashed line is no change. Values below one reduce a band and values above one increase it.",
+      "learn": "Most selected polygons have smaller correction differences, with a long tail. The operation called darkening is a fixed bandwise brightness adjustment, not a guarantee that every band gets darker. Its standardized matched group effects change by less than 8.8e-8, consistent with positive scale invariance.",
+      "limit": "The histogram uses 1,886 selected labelled identities and stored units; it does not validate the physical correction. Scale-invariant tests cannot decide whether absolute radiometry improved. That question is addressed by the separate real-sensor pilot.",
+      "evidence": [
+        "output/pdf/plant_spectral_review/report_evidence.json",
+        "provenance/sensor-pft-transfer/2026-10-14/brightness_audit.csv",
+        "provenance/sensor-pft-transfer/2026-10-14/RESULTS.md"
+      ]
+    },
+    {
+      "number": 4,
+      "page": 7,
+      "chapter": "II. Explore before inferring",
+      "title": "Quantile fans describe variation, not independent plants",
+      "image": "provenance/lab-story/2026-10-15/figures/quantile_fans.png",
+      "question": "Can a family of curves describe more than a species mean?",
+      "read": "Rows are selected species; each sensor representation has its own column. Thin lines are boosted regressions for percentiles 1 through 99; the heavy line is the fitted median and the dotted reference is the empirical median. Gaps remain excluded rather than interpolated.",
+      "learn": "We fitted both species-level and individual-polygon signatures. A fan can represent central and tail behavior and makes curve variability easier to compare. The final exploratory run used 99 quantiles, not an exact 100th percentile or 100 independent observations.",
+      "limit": "7,960 fitted signatures are model outputs, not the sample size. Individual signatures can have very little acquisition support; 62 selected polygons have only one observation. A fitted quantile fan is neither a confidence band nor a calibrated probability distribution over new plants.",
+      "evidence": [
+        "provenance/quantile-models/2026-10-13/VALIDATION.md"
+      ]
+    },
+    {
+      "number": 5,
+      "page": 8,
+      "chapter": "II. Explore before inferring",
+      "title": "A dramatic upper tail was a fitting warning",
+      "image": "output/pdf/plant_spectral_review/figures/tail_fit_diagnostic.png",
+      "question": "Are the outer fitted curves faithful to the observations?",
+      "read": "Left: fitted outer curves and empirical reference curves for NIWO Abies lasiocarpa. Right: at 425 nm, compare the fitted and empirical value at each percentile. The upper fitted curve diverges while the empirical tail remains much lower.",
+      "learn": "At the 99th percentile and 425 nm, the fitted value is about 3,529 stored units versus an empirical value of about 287. The discrepancy is model behavior. It explains why a dense, visually impressive fan cannot be accepted without empirical checks.",
+      "limit": "This is a selected failure diagnostic, not the error rate across all wavelengths/species. It does not prove all quantiles fail. The project did not adopt experimental tail-repair pilots as validated replacements.",
+      "evidence": [
+        "provenance/quantile-models/2026-10-13/VALIDATION.md"
+      ]
+    },
+    {
+      "number": 6,
+      "page": 9,
+      "chapter": "II. Explore before inferring",
+      "title": "Simple quantile matching did not establish identification",
+      "image": "provenance/lab-story/2026-10-15/figures/early_matching.png",
+      "question": "Did the early curve-matching idea recognize held-out species?",
+      "read": "Bars show ordinary top-1 species accuracy for 363 held-out polygon identities in the pooled early benchmark. Error bars are saved Wilson intervals. The dashed line is the majority-species baseline, not random equal-class chance.",
+      "learn": "Corrected NEON achieved 15.7% and synthetic OLI 20.9%, below the 22.0% majority baseline. The earlier matching rule was not a useful general species identifier on this split. That motivated explicit class models, balanced metrics and structured holdouts.",
+      "limit": "This benchmark uses a different task, class cohort, matcher and metric from the later logistic models. Do not subtract these accuracies from later balanced accuracy or attribute the difference to one processing change. MicaSense is shown only as an archived-label diagnostic.",
+      "evidence": [
+        "output/pdf/plant_spectral_review/accuracy_intervals.csv",
+        "provenance/quantile-models/2026-10-13/matching_baselines.csv"
+      ]
+    },
+    {
+      "number": 7,
+      "page": 10,
+      "chapter": "II. Explore before inferring",
+      "title": "Site-specific plots exposed an uneven comparison",
+      "image": "output/pdf/plant_spectral_review/figures/site_2023_examples.png",
+      "question": "Are the same species equally represented at all sites?",
+      "read": "Columns are NIWO, WREF and YELL in image year 2023; rows are selected species. Read n in each panel and the explicit missing/low-support panels before comparing curve shapes. Lines are exploratory boosted quantiles, with an empirical median reference.",
+      "learn": "Some species are absent or below the display threshold at a site, while others occur across all three. Geographic composition and spectral change are entangled. This is why a pooled species plot alone cannot answer regional transfer.",
+      "limit": "Displayed curve shifts may combine environment, acquisition and population composition, as well as fitting error. These selected panels are not a statistical site effect. Year-specific interpretation later uses complete paired NIWO identities and holds test histories out of training.",
+      "evidence": [
+        "provenance/plot-report/2026-10-13/README.md",
+        "provenance/quantile-models/2026-10-13/VALIDATION.md"
+      ]
+    },
+    {
+      "number": 8,
+      "page": 11,
+      "chapter": "III. Ask whether biological groups differ",
+      "title": "There are two different five-group label systems",
+      "image": "provenance/spectral-library-analytics/2026-10-14/figures/01_readable_atlas.png",
+      "question": "What does PFT mean in these analyses?",
+      "read": "Left: full-cohort median spectra for the five researcher cover categories. Right: inferred woody-PFT identity counts by observed cohort. DBS/DBT are deciduous broadleaf shrub/tree; EBS is evergreen broadleaf shrub; ECS/ECT are evergreen conifer shrub/tree. UNASSIGNED is a missing inferred label, not a sixth PFT.",
+      "learn": "Researcher categories use all 3,639 polygon IDs: Deciduous, Evergreen, Herbaceous, Non-vegetated & dead, Woody shrub. Species-derived woody PFTs use 1,944 assigned IDs. These populations answer different questions; the missing-species polygons are still useful for researcher-category analysis.",
+      "limit": "Non-vegetated & dead is heterogeneous, not a pure soil or dead-material endmember. A species-to-PFT lookup aliases species composition with traits. Neither label system is an independently measured causal physiological treatment. Full-cohort medians are not acquisition-matched contrast estimates.",
+      "evidence": [
+        "provenance/researcher-pft/2026-10-14/RESULTS.md",
+        "provenance/spectral-library-analytics/2026-10-14/tables/library_summary.csv"
+      ]
+    },
+    {
+      "number": 9,
+      "page": 12,
+      "chapter": "III. Ask whether biological groups differ",
+      "title": "Strong and weak woody-PFT contrasts coexist",
+      "image": "output/pdf/publication_figures/panels/Figure_2_A.png",
+      "question": "Which inferred PFT pairs differ, within observed cohorts?",
+      "read": "Rows compare PFT pairs; columns are site/year cohorts. Color is standardized root-mean-square curve contrast, not percent accuracy. Dots mark adjusted whole-spectrum test support. Blank cells lack matched support. Use the code definitions on the preceding page.",
+      "learn": "Sixteen of 21 eligible NEON contrasts are supported in the fixed family. DBS versus ECT and DBT versus ECT are strong across cohorts; DBT versus ECS is weak in the NIWO years. Differentiation is contrast- and cohort-specific, not a universal statement that every PFT pair is separable.",
+      "limit": "An acquisition-history-matched permutation test asks whether the sampled group curves differ under its exchangeability assumption. It does not establish nonoverlap, causal trait effects, equal distributions or reliable assignment of a new polygon. Species and site composition remain observational constraints.",
+      "evidence": [
+        "provenance/sensor-pft-transfer/2026-10-14/RESULTS.md",
+        "provenance/publication-figures/2026-10-14/plotted_effects.csv"
+      ]
+    },
+    {
+      "number": 10,
+      "page": 13,
+      "chapter": "III. Ask whether biological groups differ",
+      "title": "The five researcher categories differ, by varying amounts",
+      "image": "provenance/sensor-pft-transfer/2026-10-14/figures/A_effect_heatmap_researcher_category.png",
+      "question": "Does using the researchers' own category field change the answer?",
+      "read": "Rows are the ten category pairs, with four site/year cohorts in each representation. Colors/numbers show standardized RMS separation; stars indicate Holm-adjusted combined-test support. Hatched MicaSense cells mean metadata-blocked, not a zero effect.",
+      "learn": "All 40 eligible NEON comparisons and all 40 corresponding synthetic OLI comparisons are supported. NEON standardized effects span 0.336 to 1.795. Smaller differences include Deciduous versus Woody shrub at WREF; a uniform significance decision hides large variation in magnitude.",
+      "limit": "The combined test integrates maximum and distributed curve evidence, with family correction. Primary adjusted p=0.004 is a permutation-resolution floor, not identical effects. An energy-statistic sensitivity supports 38/40, so distribution-wide evidence is less consistent for two comparisons.",
+      "evidence": [
+        "provenance/researcher-pft/2026-10-14/RESULTS.md",
+        "provenance/researcher-pft/2026-10-14/methods_and_effects.csv",
+        "provenance/sensor-pft-transfer/2026-10-14/sensor_contrasts.csv"
+      ]
+    },
+    {
+      "number": 11,
+      "page": 14,
+      "chapter": "III. Ask whether biological groups differ",
+      "title": "Differentiation occupies broad spectral regions",
+      "image": "output/pdf/publication_figures/panels/Figure_2_B.png",
+      "question": "Where along the spectrum do two strong contrasts occur?",
+      "read": "The two NIWO 2023 examples plot signed adjusted group differences divided by pooled spectral SD. Positive values mean the first named group is higher. Thick segments mark family-controlled null exclusion; thin/dashed segments do not. Gray areas are atmospheric gaps; diamonds locate OLI bands.",
+      "learn": "For these strong deciduous-versus-evergreen-tree contrasts, substantial differences extend across near-infrared and shortwave-infrared regions. This offers a spectral explanation for broad contrast retention after OLI convolution, while finer regions are averaged or absent.",
+      "limit": "Localization is statistical evidence in these sampled curves, not a unique biochemical diagnosis. Correlated wavelengths can carry redundant information. Selected strong examples do not describe every pair, and no optimal universal band set follows from them.",
+      "evidence": [
+        "provenance/publication-figures/2026-10-14/plotted_localization.csv",
+        "provenance/sensor-pft-transfer/2026-10-14/neon_region_coverage.csv"
+      ]
+    },
+    {
+      "number": 12,
+      "page": 15,
+      "chapter": "IV. Reduce spectral resolution, then test real imagery",
+      "title": "Synthetic OLI retains much of the contrast structure",
+      "image": "provenance/sensor-pft-transfer/2026-10-14/figures/B_effect_retention.png",
+      "question": "What survives seven-band spectral reduction on identical polygons?",
+      "read": "Compare each paired NEON and OLI standardized effect; the identity reference means equal numerical effect. The two panels keep inferred PFTs and researcher categories separate. Samples and acquisition-history matching are identical across these sensor representations.",
+      "learn": "OLI retains 15 of 16 NEON-supported inferred-PFT contrasts and all 40 researcher-category contrasts. The inferred-PFT median effect ratio is 0.824, with conditional paired-bootstrap interval 0.801-0.889. A borderline NIWO 2023 DBS/DBT contrast loses support.",
+      "limit": "The 0.824 ratio is not 82.4% of all biological information: wavelength-integrated NEON and equal-channel OLI use different metrics. Shared-source convolution has no independent sensor noise or 30 m spatial mixing. MicaSense ecological inference remains blocked by unverified physical coordinates.",
+      "evidence": [
+        "provenance/sensor-pft-transfer/2026-10-14/effect_retention.csv",
+        "provenance/sensor-pft-transfer/2026-10-14/retention_summary.csv",
+        "provenance/sensor-pft-transfer/2026-10-14/RESULTS.md"
+      ]
+    },
+    {
+      "number": 13,
+      "page": 16,
+      "chapter": "IV. Reduce spectral resolution, then test real imagery",
+      "title": "One real Landsat pilot is encouraging, with structured error",
+      "image": "provenance/real-landsat-validation/2026-10-14/figures/H_paper_summary.png",
+      "question": "Does the synthetic spectrum agree with an independent satellite observation?",
+      "read": "A-B: matched image views. C: synthetic-minus-real near-infrared residual. D: NIR scatter around the identity line. E: bandwise error before/after brightness adjustment. F: spectral angles. SR denotes unitless surface reflectance; image axes are matched grid positions.",
+      "learn": "At R10C on 15-16 September 2021, one NEON flight and one next-day Landsat 8 scene yield 3,583 matched 30 m footprints in 56 spatial bootstrap blocks. Pooled seven-band RMSE is 0.01477 and median spectral angle is 2.089 degrees. Broad agreement coexists with spatially and spectrally structured discrepancies.",
+      "limit": "The lag is about 22.37 h conditional on the legacy timestamp basis. Overall brightness-adjustment RMSE change is -0.000184, with interval [-0.000440, +0.000041], spanning zero. This single acquisition pair validates a constrained comparison, not universal calibration or multi-site interchangeability.",
+      "evidence": [
+        "provenance/real-landsat-validation/2026-10-14/RESULTS.md",
+        "provenance/real-landsat-validation/2026-10-14/band_metrics.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/real_landsat_flight_metrics.csv"
+      ]
+    },
+    {
+      "number": 14,
+      "page": 17,
+      "chapter": "V. Predict on genuinely held-out data",
+      "title": "The evaluation target changes the scientific claim",
+      "image": "provenance/spectral-library-analytics/2026-10-14/figures/00_validation_diagram.png",
+      "question": "What did we do to avoid training on the answer?",
+      "read": "Proper training learns scaling, features and model parameters. Calibration uses other training identities for temperature/threshold/set choices. The outer test evaluates unseen identities or a held-out acquisition, year or site. An entire GlobalID history stays in one role.",
+      "learn": "A new-polygon test measures familiar-domain recognition. A held-site test asks a harder geographic-transfer question; a year test asks a temporal/domain question. Feature and endmember selection use training data only. Results are reported for supported class targets, not silently extrapolated to unseen labels.",
+      "limit": "A polygon split is not complete ecological independence. Nearby footprints, shared species and environmental confounding can remain. Held-site tests have only three sites. Global year holdouts change site composition; the later paired NIWO test isolates the repeated-footprint comparison more directly.",
+      "evidence": [
+        "provenance/spectral-library-analytics/2026-10-14/DESIGN.md",
+        "provenance/spectral-library-analytics/2026-10-14/OBSERVATIONAL_STRUCTURE.md",
+        "provenance/scientific-closure/2026-10-15/manifests/numerical_validation.json"
+      ]
+    },
+    {
+      "number": 15,
+      "page": 18,
+      "chapter": "V. Predict on genuinely held-out data",
+      "title": "More complicated classifiers were not consistently better",
+      "image": "provenance/spectral-library-analytics/2026-10-14/figures/06_classical_models.png",
+      "question": "Do flexible models earn their added complexity?",
+      "read": "Bars compare mean new-polygon balanced accuracy for two label systems. Dots show fold scores. Majority/stratified baselines precede centroid, logistic, partial-least-squares discrimination, support-vector and forest models. Balanced accuracy is mean recall across classes.",
+      "learn": "On this task logistic regression is a strong reference, while several more elaborate alternatives do not consistently improve it. Class information is real, but model complexity alone is not the limiting factor. This justified focusing the final closure on interpretable, grouped logistic comparisons.",
+      "limit": "The figure is a familiar-domain model comparison, not a geographic transfer ranking. Fixed grids and available sample size constrain conclusions. These results do not establish that nonlinear models can never help, nor do they motivate a deep-model branch without new evidence.",
+      "evidence": [
+        "provenance/spectral-library-analytics/2026-10-14/STAGE3_ML_GENERALIZATION.md",
+        "provenance/spectral-library-analytics/2026-10-14/tables/ml_generalization.csv"
+      ]
+    },
+    {
+      "number": 16,
+      "page": 19,
+      "chapter": "V. Predict on genuinely held-out data",
+      "title": "Biological resolution governs how well recognition transfers",
+      "image": "provenance/scientific-closure/2026-10-15/figures/F3_generalization_shape_sensor.png",
+      "question": "What can be recognized, at which label and sensor resolution?",
+      "read": "A-B: mean fold balanced accuracy for supported labels under new-polygon, held-year and held-site tests, for common NEON and synthetic OLI. C: held-site stored spectra, unit-norm shape and one-amplitude models. D: frequency of training-selected coordinates; it is not a causal importance map.",
+      "learn": "NEON new-polygon/held-site scores are 71.7/47.4% for species, 85.8/72.5% for researcher categories and 96.7/90.1% for broad woody leaf habit. Broad shape-only held-site accuracy is 92.6%, versus 67.4% for amplitude alone: recognition is not explained solely by brightness.",
+      "limit": "Broad leaf habit is a two-class deciduous/evergreen woody subset, not all five researcher classes. Label counts, chance and eligible populations differ. Species target coverage at WREF is only 24.3%; scores are conditional on supported labels. Normalization is a sensitivity, not a production change.",
+      "evidence": [
+        "provenance/scientific-closure/2026-10-15/tables/biological_generalization.csv",
+        "provenance/scientific-closure/2026-10-15/tables/closed_set_coverage.csv",
+        "provenance/scientific-closure/2026-10-15/tables/brightness_sampling_sensitivity.csv"
+      ]
+    },
+    {
+      "number": 17,
+      "page": 20,
+      "chapter": "V. Predict on genuinely held-out data",
+      "title": "A handful of neighboring bands is not an optimized sensor",
+      "image": "provenance/spectral-library-analytics/2026-10-14/figures/04_resolution_curve.png",
+      "question": "Can a compact wavelength subset reproduce full-spectrum prediction?",
+      "read": "Each curve links separately evaluated feature budgets; x is a discrete budget, not a continuous wavelength scale. Coordinates are selected using proper training only. The last OLI point is a different broad-response representation, not seven of the same narrow channels.",
+      "learn": "Reducing channels changes prediction, and the outcome depends on transfer domain and label system. Seven selected narrow NEON coordinates yield about 63.2% new-polygon narrow-PFT balanced accuracy versus 76.4% for synthetic OLI. OLI can outperform this particular narrow-coordinate selection.",
+      "limit": "The narrow-PFT top-20 site selections concentrate at 1695-1760 nm, demonstrating repeated but highly correlated information. These experiments do not separate band number, placement and width; univariate selection is not a globally optimized sensor design.",
+      "evidence": [
+        "provenance/spectral-library-analytics/2026-10-14/STAGE4_WAVELENGTH_INFORMATION.md",
+        "provenance/spectral-library-analytics/2026-10-14/tables/wavelength_selection.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/spectral_resolution_performance.csv"
+      ]
+    },
+    {
+      "number": 18,
+      "page": 21,
+      "chapter": "VI. Represent classes, detect mixtures, admit unknowns",
+      "title": "A single average does not span a heterogeneous class",
+      "image": "provenance/spectral-library-analytics/2026-10-14/figures/07_prototype_coverage.png",
+      "question": "How many reference spectra should represent each group?",
+      "read": "The horizontal axis is prototype count per class. Curves compare observed cluster representatives, diversity-selected observations and central summaries. Dashed references indicate the plotted baseline. Only training spectra supply prototypes; outer tests remain held out.",
+      "learn": "Several observed prototypes can improve coverage relative to one center, but gains depend on selection rule and label system. Increasing coverage does not guarantee correct class attribution: flexible libraries can also explain spectra using the wrong classes.",
+      "limit": "A prototype is a selected observed reference, not a verified pure endmember. Keep all valid raw repeats and their provenance; derive compact references separately. Optimizing a library on the final test set would erase the distinction this experiment is designed to preserve.",
+      "evidence": [
+        "provenance/spectral-library-analytics/2026-10-14/STAGE5_CLASS_REPRESENTATION.md",
+        "provenance/spectral-library-analytics/2026-10-14/tables/class_prototype_coverage.csv"
+      ]
+    },
+    {
+      "number": 19,
+      "page": 22,
+      "chapter": "VI. Represent classes, detect mixtures, admit unknowns",
+      "title": "Synthetic fraction recovery is a harder task than classification",
+      "image": "provenance/spectral-library-analytics/2026-10-14/figures/08_mixtures_detection.png",
+      "question": "Can the library recover how much of a class is present?",
+      "read": "Left: class/fold-averaged fraction RMSE for selected narrow-coordinate budgets and OLI. Right: fraction of inferred-PFT trials estimated above the 0.10 presence cutoff versus known synthetic fraction. At a true fraction of zero, positive detection is a false detection.",
+      "learn": "The reused full-spectrum primary inferred-PFT fraction RMSE is about 0.344 in NEON and 0.351 in OLI. Errors and detections vary greatly by class. Some zero-fraction trials are falsely positive, while some truly present classes are missed even at higher fractions.",
+      "limit": "Mixtures are constructed from saved observed parents under a controlled linear model; there is no independent field-cover truth. Dependent parent trajectories cannot be treated as independent population detection replicates. No universal 50/80/95% detection limit or calibrated abundance interval is established.",
+      "evidence": [
+        "provenance/spectral-library-analytics/2026-10-14/STAGE7_MIXTURE_RECOVERY.md",
+        "provenance/spectral-library-analytics/2026-10-14/tables/mixture_recovery.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/detection_limits.csv"
+      ]
+    },
+    {
+      "number": 20,
+      "page": 23,
+      "chapter": "VI. Represent classes, detect mixtures, admit unknowns",
+      "title": "A good spectral fit can have the wrong biological explanation",
+      "image": "provenance/spectral-library-analytics/2026-10-14/figures/10_mixture_ambiguity.png",
+      "question": "Is a class spectrum uniquely identifiable against mixtures of other classes?",
+      "read": "Bars show the proportion of held-out class spectra admitting a close fit using candidates from other classes. NEON and OLI are paired. The declared tolerance is 0.01 in a training-normalized analytical metric, not 0.01 absolute reflectance.",
+      "learn": "Many class spectra have other-class convex alternatives; NEON and OLI show similarly serious ambiguity. EBS has a lower observed rate but is rare. This explains how low residual error can coexist with poor fraction recovery or wrong class allocation.",
+      "limit": "Ambiguity depends on candidate library, normalization, tolerance and parent support; it is not proof that nature makes all PFTs intrinsically indistinguishable. More endmembers can improve approximation while increasing ambiguity. Classification success does not solve this inverse problem.",
+      "evidence": [
+        "provenance/spectral-library-analytics/2026-10-14/STAGE6_MIXTURE_IDENTIFIABILITY.md",
+        "provenance/spectral-library-analytics/2026-10-14/tables/mixture_identifiability.csv"
+      ]
+    },
+    {
+      "number": 21,
+      "page": 24,
+      "chapter": "VI. Represent classes, detect mixtures, admit unknowns",
+      "title": "Confidence is not a reliable detector of unfamiliar biology",
+      "image": "provenance/spectral-library-analytics/2026-10-14/figures/09_unknowns_uncertainty.png",
+      "question": "Will a model know when a class is absent from its training library?",
+      "read": "Left: circles are unknown-class recall; crosses are rejection of known classes, for thresholds chosen with known calibration only. Higher recall is desirable, but higher known rejection is costly. Right: empirical prediction-set coverage versus mean set size, with 90% nominal coverage marked.",
+      "learn": "For inferred PFTs, nearest-angle rejection detects only 16.5% of omitted-class challenges while rejecting 3.7% of known cases. Ordinary 90% conformal sets attain roughly 88.4-90.2% joint-identity coverage in new-polygon tests but only 50.3-83.7% at held sites.",
+      "limit": "Omitted ecological labels are proxies for unknowns, not verified new physical materials. The coverage dots span methods/domains; they are not independent populations. Temperature scaling and small prediction sets do not guarantee reliable uncertainty after geographic shift.",
+      "evidence": [
+        "provenance/spectral-library-analytics/2026-10-14/STAGE8_UNKNOWN_MATERIALS.md",
+        "provenance/spectral-library-analytics/2026-10-14/STAGE9_UNCERTAINTY.md",
+        "provenance/spectral-library-analytics/2026-10-14/tables/unknown_material_detection.csv",
+        "provenance/spectral-library-analytics/2026-10-14/tables/uncertainty_calibration.csv"
+      ]
+    },
+    {
+      "number": 22,
+      "page": 25,
+      "chapter": "VII. Close the temporal and readiness questions",
+      "title": "Repeat observations reveal a substantial temporal penalty",
+      "image": "provenance/scientific-closure/2026-10-15/figures/F2_temporal_resolution.png",
+      "question": "Does a label remain recognizable in a different image year?",
+      "read": "A partitions complete-pair spectral sums of squares. B compares paired temporal change with class-centroid separation; a ratio of one means similar magnitudes. C-D train on other identities in one year and evaluate the same unseen target IDs in both years; curves average three folds.",
+      "learn": "For species, 2020-trained balanced accuracy drops from 63.9% on 2020 targets to 30.0% on their 2023 counterparts. Broad woody leaf habit drops from 95.9% to 86.3%; the coarse-cover proxy is more stable. Temporal change can be comparable to class-centroid separation.",
+      "limit": "All complete pairs are NIWO footprints. Labels come from reused 2023/2024 annotations; there is no independent annual biological verification. The partition is exact descriptive accounting, not causal variance components. Species/classes/populations differ across rows; centroid separation and prediction accuracy are different quantities.",
+      "evidence": [
+        "provenance/scientific-closure/2026-10-15/tables/paired_temporal_recognition.csv",
+        "provenance/scientific-closure/2026-10-15/tables/paired_temporal_accuracy_change.csv",
+        "provenance/scientific-closure/2026-10-15/tables/paired_temporal_partition.csv"
+      ]
+    },
+    {
+      "number": 23,
+      "page": 26,
+      "chapter": "VII. Close the temporal and readiness questions",
+      "title": "Readiness must be decided separately for each intended use",
+      "image": "provenance/scientific-closure/2026-10-15/figures/F5_final_decisions.png",
+      "question": "What should the lab use now, and what requires more evidence?",
+      "read": "Each row is a separate use case. Colors are explicit evidence-based readiness categories, not an averaged score. Scientifically promising means conditional evidence merits further use/review; constrained validation applies only within the stated experiment.",
+      "learn": "Use the library to characterize sampled spectra, compare researcher categories and investigate conditional label recognition. Broad woody leaf habit is the strongest transfer result. The one real-Landsat pilot supports its constrained radiometric comparison. Mixture abundance and dependable unknown detection are not ready.",
+      "limit": "No row is operationally validated. Species and cross-year use remain exploratory. Synthetic sensor transfer is not field validation, and good classification is not evidence of unique unmixing. Future claims need independent labels, physical metadata, balanced domains and independent fractional-cover truth.",
+      "evidence": [
+        "provenance/scientific-closure/2026-10-15/tables/FINAL_READINESS_MATRIX.csv",
+        "provenance/scientific-closure/2026-10-15/DESIGN.md",
+        "provenance/scientific-closure/2026-10-15/NEXT_DATA_NEEDED.md"
+      ]
+    }
+  ]
+}
