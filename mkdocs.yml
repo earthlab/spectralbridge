@@ -50,12 +50,16 @@ nav:
   - Troubleshooting: troubleshooting.md
   - FAQ: faq.md
 - Spectral Library:
+  - Scientific synthesis: spectral-library/scientific-synthesis.md
   - What is the library?: spectral-library/index.md
   - Atlas, sites and years: spectral-library/atlas.md
   - Label systems: spectral-library/labels.md
+  - Separability: spectral-library/separability.md
+  - Identifiability: spectral-library/identifiability.md
   - Biological variation: spectral-library/biological-variation.md
   - Sensor information retention: spectral-library/sensor-transfer.md
-  - Experimental MESMA readiness: spectral-library/mesma-readiness.md
+  - Abundance and ambiguity: spectral-library/mesma-readiness.md
+  - What the mathematics guarantees: spectral-library/mathematical-guarantees.md
 - Validate:
   - Scientific validation levels: validation/scientific-validation.md
   - Whole-spectrum method audit: validation/pft-methods.md

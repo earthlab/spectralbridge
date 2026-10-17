@@ -3,6 +3,8 @@ description: Empirical polygon spectra, ecological labels and sensor representat
 ---
 # What is the SpectralBridge spectral library?
 
+Start with [From spectra to ecological inference](scientific-synthesis.md): the current evidence and reusable numerical methods, from difference to field validation.
+
 A spectral library links wavelength-dependent reflectance to observations and
 their provenance. SpectralBridge reads a supplied polygon-extraction Parquet in
 place, preserves identities, and produces compact summaries rather than another

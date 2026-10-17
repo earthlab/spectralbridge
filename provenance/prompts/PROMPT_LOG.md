@@ -36844,3 +36844,1142 @@ Model: Not recorded
 ```text
 continue
 ```
+
+## 2026-10-17 - General scientific analysis APIs and website integration
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Work in the current `earthlab/spectralbridge` repository.
+
+This is a focused PACKAGE + DOCUMENTATION expansion.
+
+DO NOT refactor the repository.
+DO NOT reorganize provenance.
+DO NOT perform a broad cleanup.
+DO NOT redesign the package architecture.
+DO NOT regenerate old analyses unless needed to test a new function.
+DO NOT turn this into a release-readiness project.
+
+We have recently run a large number of useful spectral-library analyses. Some
+are mature enough that they should now become hardened, reusable
+SpectralBridge functions rather than living only in analysis scripts and
+provenance reports.
+
+We have also learned substantially more about the spectral library,
+separability, identifiability, abundance, MESMA/ridge behavior, sensor
+information loss, and the mathematical guarantees of sensor translation.
+
+The goal is:
+
+1. identify the most useful NEW analysis methods we have developed
+2. promote those methods into stable reusable package functions
+3. test and document those functions
+4. add the new scientific results to the website
+5. add the formal-verification insights to the website in human-readable form
+
+Keep the scope focused.
+
+
+======================================================================
+1. READ THE CURRENT STATE
+======================================================================
+
+Inspect:
+
+src/spectralbridge/
+tests/
+docs/
+mkdocs.yml
+README.md
+
+and the recent scientific work under:
+
+provenance/researcher-evidence/
+provenance/researcher-pft-information/
+provenance/spectral-library-analytics/
+provenance/scientific-closure/
+
+plus:
+
+FINAL_SCIENTIFIC_SYNTHESIS.md
+FINAL_READINESS_MATRIX.csv
+FINAL_ANALYSIS_AUDIT.md
+NEXT_DATA_NEEDED.md
+
+and:
+
+formal/README.md
+formal/PROOF_STATUS.md
+formal/TRANSLATION_INVARIANCE.md
+formal/IMPLEMENTATION_AUDIT.md
+formal/SpectralBridge/*.lean
+
+Also inspect existing scientific-analysis functions so that we DO NOT duplicate
+capabilities already present.
+
+Before coding, create a short internal implementation plan identifying:
+
+EXISTING FUNCTION
+NEW FUNCTION NEEDED
+ANALYSIS-ONLY / DO NOT PACKAGE
+
+Then proceed.
+
+
+======================================================================
+2. HARDEN THE NEW SPECTRAL-LIBRARY ANALYSIS METHODS
+======================================================================
+
+Look through the recent analyses and extract the methods that are generally
+useful beyond this one dataset.
+
+Prefer a small number of strong composable functions over dozens of tiny
+functions.
+
+Candidate capabilities include the following, but inspect the existing code
+before deciding what is actually missing.
+
+
+----------------------------------------------------------------------
+A. SPECTRAL SEPARABILITY
+----------------------------------------------------------------------
+
+Provide a reusable function/API for testing whether labelled groups differ
+across a spectrum.
+
+It should support, where appropriate:
+
+- grouped observations
+- wavelength coordinates
+- pairwise group contrasts
+- standardized effect curves
+- whole-spectrum permutation tests
+- synchronized permutations across wavelengths
+- maximum-statistic correction
+- integrated spectral effect summaries
+- multiple-comparison correction
+- atmospheric-gap masks
+- optional spectral-region summaries
+
+Inputs should be generic.
+
+Do NOT hard-code the five researcher categories.
+
+Outputs should be structured machine-readable results suitable for plotting
+and reporting.
+
+Example conceptual API:
+
+    spectral_separability(
+        spectra,
+        labels,
+        wavelengths,
+        groups=None,
+        ...
+    )
+
+Return things such as:
+
+- pair
+- wavelength
+- signed effect
+- standardized effect
+- adjusted significance
+- whole-spectrum statistic
+- whole-spectrum p-value
+- sample sizes
+
+Use terminology carefully:
+
+This tests spectral DIFFERENCE.
+
+It does not establish classification accuracy or abundance recovery.
+
+
+----------------------------------------------------------------------
+B. GROUP-AWARE SPECTRAL IDENTIFIABILITY
+----------------------------------------------------------------------
+
+Harden the analysis for determining whether spectral information can identify
+unseen labelled observations.
+
+Support:
+
+- group-aware splitting
+- unseen-ID evaluation
+- held-site evaluation where grouping metadata are supplied
+- balanced accuracy
+- per-class recall
+- confusion matrix
+- regularized classifier
+- training-only preprocessing
+- nested hyperparameter selection where required
+
+Do not hard-code sites or researcher categories.
+
+Make leakage difficult by API design.
+
+If an observation identity/group is supplied, the function should ensure that
+the same identity cannot occur in train and test.
+
+Return a structured result object/dataframe containing:
+
+- overall metrics
+- class metrics
+- confusion matrix
+- fold membership
+- selected hyperparameters
+- predictions
+- probabilities/scores where available
+
+
+----------------------------------------------------------------------
+C. INFORMATION-VERSUS-FEATURE-BUDGET ANALYSIS
+----------------------------------------------------------------------
+
+Package the useful analysis we developed for asking:
+
+    How much spectral information is needed?
+
+Support:
+
+- nested feature selection
+- selected wavelength subsets
+- fixed random-subset controls
+- multiple feature budgets
+- group-aware outer validation
+- training-only feature selection
+- balanced accuracy
+- held-domain evaluation
+- optional PCA/full-spectrum comparison
+
+The important output is a learning/information curve:
+
+    number of wavelengths
+            vs
+    predictive performance
+
+with selected features compared against matched random subsets.
+
+Do NOT call this "optimal bands."
+
+It measures predictive information under the specified design.
+
+
+----------------------------------------------------------------------
+D. SENSOR INFORMATION RETENTION
+----------------------------------------------------------------------
+
+Create a reusable comparison for asking:
+
+    How much identifiable information survives a sensor transformation?
+
+Given paired representations of the same observations, for example:
+
+    hyperspectral NEON
+    synthetic OLI
+
+compare:
+
+- classification performance
+- class-specific recall
+- transfer penalties
+- feature dimensionality
+- optional pairwise separability summaries
+
+This should work for arbitrary paired spectral representations.
+
+Do not assume that synthetic sensor representations are independent sensor
+validation.
+
+Call this information retention / representation comparison.
+
+
+----------------------------------------------------------------------
+E. SYNTHETIC MIXTURE GENERATION
+----------------------------------------------------------------------
+
+If not already sufficiently hardened, expose a clean function for generating
+known synthetic mixtures.
+
+Support:
+
+- pair mixtures
+- triple mixtures
+- configurable fraction grids
+- simplex-valid fractions
+- parent identity tracking
+- category tracking
+- reproducible random state
+- explicit parent-role metadata
+
+Return both:
+
+    mixed spectra
+    exact generating fractions
+
+Preserve parent identities so downstream leakage-safe experiments are
+possible.
+
+
+----------------------------------------------------------------------
+F. FCLS / CONSTRAINED LINEAR UNMIXING
+----------------------------------------------------------------------
+
+If the current implementation is internal or analysis-specific, expose a
+well-tested public function.
+
+Requirements:
+
+- nonnegative fractions
+- sum-to-one constraint
+- reconstruction residual
+- explicit endmember ordering
+- clear failure behavior
+- structured output
+
+Document that:
+
+good reconstruction does not imply unique biological composition.
+
+
+----------------------------------------------------------------------
+G. MESMA
+----------------------------------------------------------------------
+
+Harden the MESMA implementation used by the recent abundance analysis.
+
+Support:
+
+- candidate endmember libraries
+- category membership
+- configurable maximum components
+- candidate restrictions
+- residual/RMSE
+- fraction estimates
+- selected endmembers
+- tolerances
+- reproducible candidate handling
+
+Expose enough information to inspect WHY a solution was selected.
+
+Do not return only final fractions.
+
+
+----------------------------------------------------------------------
+H. MESMA AMBIGUITY / NEAR-FIT ANALYSIS
+----------------------------------------------------------------------
+
+This is one of the most useful new capabilities.
+
+Create a reusable function that asks:
+
+    Among candidate compositions that fit nearly as well as the best solution,
+    how much can the inferred fractions vary?
+
+Inputs should include:
+
+- candidate solutions
+- reconstruction errors
+- tolerance
+
+Return:
+
+- best solution
+- near-fit solution set
+- per-class fraction range
+- maximum fraction range
+- ambiguity score
+- number of near-fit alternatives
+
+Make the scope explicit:
+
+This is ambiguity among the evaluated candidate solutions.
+
+It is NOT exhaustive physical uncertainty.
+
+
+----------------------------------------------------------------------
+I. RIDGE FRACTION ESTIMATION
+----------------------------------------------------------------------
+
+Harden the supervised fraction-estimation workflow.
+
+Requirements:
+
+- multi-output ridge
+- training-only standardization
+- configurable regularization
+- grouped/nested tuning where appropriate
+- raw predictions
+- simplex-projected predictions
+- saved preprocessing parameters
+- reproducible predictions
+
+Do not bury simplex projection inside an opaque pipeline.
+
+Expose both:
+
+    raw_prediction
+    projected_prediction
+
+
+----------------------------------------------------------------------
+J. SIMPLEX PROJECTION
+----------------------------------------------------------------------
+
+Provide a small, well-tested public utility for Euclidean projection onto the
+probability simplex.
+
+Requirements:
+
+- nonnegative output
+- sum exactly/within numerical tolerance to one
+- deterministic
+- vector and matrix support if appropriate
+- tests against known examples
+
+Document why it exists:
+
+It enforces valid fraction geometry.
+
+It does NOT add spectral information or solve identifiability.
+
+
+----------------------------------------------------------------------
+K. FRACTION-RECOVERY DIAGNOSTICS
+----------------------------------------------------------------------
+
+Create reusable abundance-evaluation functions for known synthetic truth.
+
+Support:
+
+- RMSE
+- bias
+- per-class RMSE
+- calibration by true fraction
+- absent-class false positive rate
+- low-fraction miss rate
+- positive-only quantification error
+- optional detection threshold
+- grouped/bootstrap uncertainty
+
+Keep detection and quantification separate.
+
+
+----------------------------------------------------------------------
+L. LIBRARY SIZE / REPRESENTATION EXPERIMENTS
+----------------------------------------------------------------------
+
+We have learned that retained spectral-library diversity/capacity matters.
+
+Add a reusable analysis for evaluating model performance as a function of
+library size.
+
+Support something like:
+
+    evaluate_library_size(
+        spectra,
+        labels,
+        sizes=[...],
+        strategy=...,
+        ...
+    )
+
+Possible selection strategies:
+
+- random
+- class-balanced random
+- medoid
+- diversity / farthest-point
+
+Only implement strategies that are scientifically clear and sufficiently
+tested.
+
+Return:
+
+library size
+selection strategy
+replicate
+coverage metrics
+prediction/unmixing metrics
+
+This should allow future experiments to determine whether performance gains
+come from model choice or library representation.
+
+
+======================================================================
+3. DO NOT OVER-PACKAGE
+======================================================================
+
+Not every recent analysis belongs in `src/`.
+
+Keep things in provenance if they are:
+
+- specific to the current five categories
+- specific to NIWO/WREF/YELL
+- specific to one manuscript figure
+- a one-time adversarial check
+- historical
+- exploratory
+- computationally huge and not generally reusable
+
+Package GENERAL METHODS.
+
+Keep SPECIFIC EXPERIMENTS in provenance.
+
+
+======================================================================
+4. PUBLIC API
+======================================================================
+
+After inspecting existing namespaces, expose these functions coherently without
+breaking current APIs.
+
+Prefer fitting them into the existing package architecture.
+
+Do not create a major namespace refactor.
+
+A user should be able to discover functions for:
+
+spectral separability
+spectral identifiability
+feature-budget analysis
+sensor information retention
+mixture generation
+FCLS
+MESMA
+ambiguity
+ridge fractions
+simplex projection
+fraction diagnostics
+library-size experiments
+
+Use docstrings with:
+
+WHAT IT DOES
+INPUTS
+SAMPLING UNIT
+OUTPUTS
+ASSUMPTIONS
+WHAT IT DOES NOT ESTABLISH
+
+This last item matters for scientific functions.
+
+
+======================================================================
+5. TEST THE NEW FUNCTIONS HARD
+======================================================================
+
+Add unit tests using small synthetic datasets.
+
+Tests should cover:
+
+- deterministic behavior
+- expected shapes
+- group leakage prevention
+- category-order stability
+- wavelength-order behavior
+- simplex constraints
+- known synthetic mixture recovery
+- ambiguity with intentionally nonunique candidates
+- ridge raw vs projected prediction
+- training-only preprocessing
+- random-subset controls
+- feature-budget behavior
+- missing values where supported
+- informative failure messages
+
+Use small fixtures.
+
+Do NOT make CI rerun the huge researcher-category study.
+
+
+======================================================================
+6. ADD EXAMPLES / NOTEBOOKS
+======================================================================
+
+Create one or two focused examples showing how the hardened functions fit
+together.
+
+For example:
+
+    spectral_library_analysis.ipynb
+
+with a small included or synthetic dataset:
+
+spectra
+    ↓
+separability
+    ↓
+identifiability
+    ↓
+sensor information retention
+    ↓
+synthetic mixtures
+    ↓
+MESMA / ridge
+    ↓
+ambiguity
+    ↓
+fraction diagnostics
+
+Keep it runnable.
+
+The notebook should teach the scientific distinctions rather than reproduce
+the full study.
+
+
+======================================================================
+7. NOW UPDATE THE WEBSITE WITH THE SCIENCE WE HAVE LEARNED
+======================================================================
+
+The current website already has a good structure.
+
+Do NOT redesign it.
+
+Expand the existing Spectral Library section.
+
+Add a new primary page:
+
+    Scientific synthesis
+
+Title:
+
+    From spectra to ecological inference
+
+Tell the story:
+
+    DIFFERENCE
+        ↓
+    IDENTITY
+        ↓
+    QUANTITY
+        ↓
+    UNIQUENESS
+
+and then:
+
+    FIELD VALIDATION
+
+Use the current researcher categories:
+
+Deciduous
+Evergreen
+Herbaceous
+Non-vegetated & dead
+Woody shrub
+
+Explain that these are the recorded researcher `cover_category` groups.
+
+
+======================================================================
+8. ADD / IMPROVE THE SEPARABILITY PAGE
+======================================================================
+
+Use the current validated results.
+
+Explain:
+
+- all ten category pairs show whole-spectrum differences in the observed
+  cohorts
+- differences occur across broad spectral regions
+- magnitude and direction vary among category pairs and domains
+- spectral difference does not automatically imply reliable classification
+
+Use the best current figure(s).
+
+Add a small example showing how to run the new package separability function.
+
+Separate:
+
+SCIENTIFIC RESULT
+
+from:
+
+HOW TO RUN THIS ANALYSIS
+
+
+======================================================================
+9. ADD / IMPROVE THE IDENTIFIABILITY PAGE
+======================================================================
+
+Explain:
+
+- unseen-polygon recognition
+- held-site recognition
+- temporal transfer
+- per-class differences
+- feature-budget results
+- random-subset controls
+
+Use the canonical current values from repository evidence.
+
+Current headline results should be verified from source before publication,
+including approximately:
+
+85.2% balanced accuracy for unseen polygons
+73.8% for held sites
+
+Explain that Woody shrub is substantially harder under geographic transfer.
+
+Show the feature-budget result and explain why selected wavelengths help most
+at moderate budgets but do not imply a universally optimal sensor.
+
+Add runnable API examples.
+
+
+======================================================================
+10. IMPROVE SENSOR INFORMATION RETENTION
+======================================================================
+
+Update the existing sensor-transfer page.
+
+Explain clearly:
+
+Hyperspectral NEON
+        ↓
+sensor representation
+        ↓
+synthetic OLI
+
+The question is:
+
+    How much information survives?
+
+NOT:
+
+    Is synthetic OLI equivalent to real Landsat?
+
+Use the empirical recognition/separability comparisons.
+
+Then connect this to the formal result:
+
+A sensor transformation can preserve an ideal mixture equation while still
+losing information needed to distinguish compositions.
+
+
+======================================================================
+11. EXPAND MESMA READINESS INTO ABUNDANCE + AMBIGUITY
+======================================================================
+
+The current MESMA-readiness page should now tell the fuller story.
+
+Explain:
+
+KNOWN SYNTHETIC MIXTURES
+        ↓
+FCLS / MESMA / RIDGE
+        ↓
+fraction estimates
+        ↓
+error + ambiguity
+
+Include:
+
+- known-parent oracle
+- MESMA
+- Ridge120
+- matched Ridge15
+- no-spectrum prior
+- new-parent evaluation
+- held-site evaluation
+- temporal/global-year behavior
+- class-specific errors
+- false detections
+- low-fraction misses
+- ambiguity
+
+Make the fairness result prominent:
+
+The larger Ridge120 model improves expected synthetic fraction error relative
+to the 15-candidate MESMA configuration, BUT when ridge is restricted to the
+same 15 retained parents its original NEON advantage disappears.
+
+Therefore:
+
+    DO NOT claim ridge is intrinsically superior to MESMA.
+
+The stronger conclusion is:
+
+    library representation and retained spectral diversity matter.
+
+Explain the different scientific questions:
+
+MESMA:
+    Which candidate mixture reconstructs the spectrum well?
+
+Ridge:
+    What fractions are expected from this spectrum given the training data?
+
+Ambiguity:
+    Could substantially different candidate fractions fit almost as well?
+
+
+======================================================================
+12. ADD A HUMAN-READABLE FORMAL VERIFICATION PAGE
+======================================================================
+
+Create a website page such as:
+
+    What the mathematics guarantees
+
+Use the completed `formal/` work.
+
+Do NOT teach Lean.
+
+Explain:
+
+For an ideal mixture:
+
+    y = Σ fᵢxᵢ
+
+and fixed linear transformation T:
+
+    T(y) = Σ fᵢT(xᵢ)
+
+For appropriate affine transformations and simplex weights, the same mixture
+relationship is preserved.
+
+Then explain the central result:
+
+    PRESERVING COMPOSITION
+            ≠
+    PRESERVING IDENTIFIABILITY
+
+Show a simple visual example where two distinguishable hyperspectral spectra
+collapse to the same lower-dimensional observation.
+
+Explain:
+
+- linear/affine mixture preservation
+- information loss
+- identifiability
+- FCLS
+- MESMA
+- ridge
+- simplex projection
+- ambiguity
+
+Use the formal proof statuses accurately.
+
+Link to `formal/` for advanced readers.
+
+Do not imply Lean validates physical calibration or field biology.
+
+
+======================================================================
+13. ADD THE ASSUMPTION LADDER
+======================================================================
+
+Create one strong explanatory figure:
+
+MATHEMATICS
+    ↓
+IMPLEMENTATION
+    ↓
+SENSOR PHYSICS
+    ↓
+SPECTRAL LIBRARY
+    ↓
+BIOLOGICAL REPRESENTATION
+    ↓
+FIELD ABUNDANCE
+
+Explain what is established at each level.
+
+Use statuses such as:
+
+PROVED
+NUMERICALLY CHECKED
+EMPIRICALLY SUPPORTED
+CONDITIONAL
+NOT ESTABLISHED
+
+This should help readers understand why formal proof and empirical validation
+are complementary.
+
+
+======================================================================
+14. UPDATE THE HOMEPAGE LIGHTLY
+======================================================================
+
+Do NOT redesign the homepage.
+
+Add one concise section pointing readers to the new scientific synthesis.
+
+Something like:
+
+    What have we learned?
+
+    DIFFERENCE → IDENTITY → QUANTITY
+
+Use 2–3 verified headline results.
+
+For example, if confirmed from canonical outputs:
+
+10 / 10
+category pairs spectrally different
+
+85.2% → 73.8%
+unseen polygon → held-site identification
+
+and a concise abundance result.
+
+Then:
+
+    Better prediction does not imply unique composition.
+
+Link to the scientific synthesis.
+
+
+======================================================================
+15. UPDATE NAVIGATION
+======================================================================
+
+Keep the existing MkDocs structure.
+
+Expand Spectral Library to something approximately like:
+
+Spectral Library
+    Scientific synthesis
+    What is the library?
+    Atlas, sites and years
+    Label systems
+    Separability
+    Identifiability
+    Sensor information retention
+    Abundance and ambiguity
+    What the mathematics guarantees
+
+Reuse/rename existing pages where sensible.
+
+Do not create unnecessary duplicate pages.
+
+
+======================================================================
+16. DOCUMENT THE NEW PACKAGE FUNCTIONS ON THE RELEVANT SCIENCE PAGES
+======================================================================
+
+Each scientific page should have a small section:
+
+    Run this analysis with SpectralBridge
+
+Show concise code.
+
+For example:
+
+result = spectral_separability(...)
+
+or:
+
+result = evaluate_identifiability(...)
+
+The website should therefore serve both purposes:
+
+WHAT DID WE LEARN?
+
+and
+
+HOW CAN I RUN THIS ANALYSIS ON MY OWN LIBRARY?
+
+
+======================================================================
+17. FIGURES
+======================================================================
+
+Reuse existing validated figures where possible.
+
+Only generate new figures when they improve explanation.
+
+Preferred design:
+
+white background
+large labels
+simple axes
+direct labeling
+consistent researcher-category colors
+cornflower blue (#6495ED) as primary analytical accent
+
+Useful public figures include:
+
+- five category spectra
+- pairwise wavelength separability
+- performance vs number of wavelengths
+- held-site confusion matrix
+- NEON vs synthetic OLI information retention
+- abundance model comparison
+- fraction calibration
+- ambiguity example
+- mixture-preservation / information-loss diagram
+- assumption ladder
+
+Figures should have plain-language captions explaining:
+
+WHAT YOU SEE
+WHAT TO NOTICE
+WHAT IT MEANS
+WHAT IT DOES NOT MEAN
+
+
+======================================================================
+18. SCIENTIFIC LANGUAGE RULES
+======================================================================
+
+Maintain these distinctions everywhere.
+
+SEPARABILITY
+    distributional spectral difference
+
+IDENTIFIABILITY
+    recognition of unseen observations
+
+ABUNDANCE
+    recovery of known synthetic fractions
+
+FIELD ABUNDANCE
+    independent real fractional cover
+
+Do not collapse them.
+
+Also:
+
+synthetic OLI
+    ≠ independent Landsat validation
+
+same-source sensor translation
+    ≠ physical cross-platform calibration
+
+low reconstruction error
+    ≠ correct biological composition
+
+unique ridge prediction
+    ≠ unique physical inversion
+
+simplex projection
+    ≠ added spectral information
+
+synthetic abundance
+    ≠ field abundance
+
+
+======================================================================
+19. LEAVE THESE THINGS ALONE
+======================================================================
+
+Unless absolutely required for the new functions:
+
+DO NOT:
+
+- refactor the whole repository
+- reorganize provenance
+- rewrite release infrastructure
+- perform broad cleanup
+- rename large portions of the package
+- regenerate every historical analysis
+- rewrite the manuscript
+- redesign the website
+- delete old reports
+- attempt to solve every issue in IMPLEMENTATION_AUDIT.md
+
+If you encounter a serious unrelated bug, document it separately rather than
+expanding this task uncontrollably.
+
+
+======================================================================
+20. VALIDATION
+======================================================================
+
+Before finishing:
+
+- run tests for all new package functions
+- run the existing relevant package tests
+- build the documentation
+- check new API examples
+- render all new pages
+- inspect figures
+- check internal links
+- verify scientific numbers against their source artifacts
+- ensure old species-derived PFT results are not accidentally presented as
+  current researcher-category results
+- ensure no field-abundance overclaim
+- ensure no ridge-over-MESMA overclaim
+
+
+======================================================================
+21. FINAL REPORT
+======================================================================
+
+Create:
+
+NEW_ANALYSES_INTEGRATION_REPORT.md
+
+Keep it practical.
+
+Include:
+
+NEW PACKAGE FUNCTIONS
+
+For each:
+- function
+- purpose
+- location
+- tests
+- docs/example
+
+WEBSITE CHANGES
+
+- pages added
+- pages expanded
+- figures added
+- navigation changes
+
+SCIENTIFIC RESULTS NOW EXPOSED
+
+- separability
+- identifiability
+- sensor information retention
+- abundance
+- ambiguity
+- formal guarantees
+
+LEFT UNCHANGED
+
+Explicitly list major repository areas intentionally not refactored.
+
+REMAINING OPPORTUNITIES
+
+List useful future analyses/functions without implementing them now.
+
+
+======================================================================
+SUCCESS CRITERION
+======================================================================
+
+A scientist with their own spectral library should now be able to:
+
+1. install SpectralBridge
+2. test whether their groups are spectrally different
+3. test whether unseen observations can be identified
+4. determine how performance changes with spectral information
+5. compare sensor representations
+6. generate known synthetic mixtures
+7. run FCLS/MESMA/ridge fraction estimation
+8. quantify fraction error
+9. quantify candidate ambiguity
+10. test sensitivity to library size
+
+And a visitor to the SpectralBridge website should be able to understand:
+
+    what we tested,
+    what we found,
+    what the mathematics explains,
+    what the new functions do,
+    and what remains scientifically unestablished.
+
+That is the scope.
+
+Do not turn it into a repository cleanup project.
+```

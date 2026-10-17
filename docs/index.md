@@ -211,3 +211,13 @@ hide:
     </div>
   </section>
 </div>
+
+## What have we learned?
+
+**Difference → identity → quantity.** All 10 researcher-category pairs differ in
+the observed matched cohorts. Full-NEON recognition falls from **85.2% for unseen
+polygons to 73.8% for held sites**. The original synthetic Ridge120 advantage
+disappears under the matched15 NEON library control: retained diversity matters.
+**Better prediction does not imply unique composition.**
+[Read the scientific synthesis](spectral-library/scientific-synthesis.md) for the
+evidence, reusable methods, mathematical explanation and remaining field-validation gap.

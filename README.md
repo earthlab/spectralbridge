@@ -110,3 +110,15 @@ Earlier species-derived analyses and the
 [earlier lab-story report](provenance/lab-story/2026-10-15/README.md)
 are preserved as historical/exploratory records. Their grouping system is not
 used in the current primary results.
+
+## Reusable spectral-library methods
+
+The checkout now provides composable methods in `spectralbridge.library_analysis`
+for spectral differences, grouped recognition, feature budgets, paired representations,
+synthetic mixtures, FCLS/MESMA/ridge, candidate ambiguity, fraction diagnostics and
+library-size experiments. Install the `analytics` extra and run
+`python examples/spectral_library_methods.py` for a small offline lesson.
+[Scientific synthesis and API guide](https://earthlab.github.io/spectralbridge/spectral-library/scientific-synthesis/)
+separate observed results, mathematical assumptions and the missing independent
+field-abundance validation. These additions describe this checkout; publication
+of a release containing them is a separate task.

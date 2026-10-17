@@ -20,6 +20,18 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P135. General analysis APIs and scientific website integration
+
+- Priority: P0, user-directed
+- Status: Complete locally; generic methods, examples and scientific website verified
+- Owner: Codex
+- Started: 2026-10-17
+- Scope: Harden composable general spectral difference, recognition/information and synthetic fraction methods; reuse existing kernels; extend existing Spectral Library website with validated science and formal insights. No pipeline refactor, historical refits or production audit fixes.
+- Plan: Classify existing/new/analysis-only capabilities; implement strict generic wrappers and missing methods; synthetic tests and runnable example; evidence-linked website pages/figures; focused regression, example, docs build/link and rendered-page verification.
+- Completed: 2026-10-17. Twelve generic library_analysis entry points reuse existing solver/statistic/selection kernels; strict identity/domain/nested validation, explicit parent provenance, candidate ambiguity, raw/projected ridge and library capacity controls. Four science pages added, existing sensor/abundance/API pages expanded; eleven validated figure assets reused with hashes; offline script/notebook and practical integration report.
+- Verification: 87 targeted tests passed (one existing colormap deprecation warning); five website examples and notebook cells executed; strict MkDocs and local links pass; nine desktop/six mobile routes rendered/reviewed without broken article images or horizontal page overflow; canonical headline values and all 1,053 prior owned packet files verified unchanged. Scoped Ruff, transparency and whitespace pass.
+- Remaining/limits: No integration blocker. This is local source/documentation work, not a published release or deployed website. No historical refits, production fixes, new theorems or provenance reorganization. Next: P133 source-impact audit/production fixes and independent field validation; optional bounded unmixing capacity experiments remain future work.
+
 ### P134. Human-readable illustrated formal verification report
 
 - Priority: P0, user-directed

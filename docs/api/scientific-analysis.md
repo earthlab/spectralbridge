@@ -3,7 +3,7 @@
 Stable top-level orchestration remains documented in the [Python API](index.md).
 Use direct module imports below for explicit numerical/analysis contracts. A
 module import does not automatically make every helper a stable public API.
-No new top-level MESMA, PFT-classification or abundance-mapping export is added.
+The reusable numerical surface below is available by explicit module import; no operational abundance-mapping claim is added.
 
 | Capability | Import / entry point | Maturity and input contract |
 |---|---|---|
@@ -92,3 +92,116 @@ Stages can run separately; completed fitting checkpoints verify input/code ident
 See the [spectral-library overview](../spectral-library/index.md#three-distinct-scientific-questions)
 for the new matched controls and limits. Earlier researcher-information functions
 and tables remain the preserved numerical companion.
+
+## Reusable library-analysis methods
+
+The focused generic numerical surface is **`spectralbridge.library_analysis`**.
+Its twelve named exports are supported callable contracts for finite in-memory
+arrays; their scientific interpretations remain conditional. Existing experimental
+study workflows and top-level pipeline APIs retain their previous status. Install
+`earthlab-spectralbridge[analytics]`; these additions currently describe the checkout,
+not a claim that a containing release has been published.
+
+| Function | Input and sampling unit | Structured output / scientific limit |
+|---|---|---|
+| `spectral_separability` | Spectra, ordered wavelengths, labels; identity means within justified exchangeability blocks | Pair/coordinate/region tables; synchronized permutation/max and pair-family correction. Difference does not imply recognition |
+| `evaluate_identifiability` | Spectra, labels, identities; optional held domains | Identity-weighted metrics, recall/confusion, scores, memberships, hyperparameters, pipelines. Strict grouped inner tuning; no inverse uniqueness claim |
+| `evaluate_feature_budget` | Same plus wavelengths and explicit budgets | Selected/random/full/PCA curves and outer-fold coordinates. Selection inside inner training; not optimal sensor bands |
+| `compare_representations` | Same-row paired representations | Dimensions, class recall, recognition/transfer penalties and reference differences. Caller guarantees alignment; synthetic data are not independent validation |
+| `generate_mixtures` | Parent spectra/IDs/categories, pair/triple fraction grids | Algebraic spectra/truth, parent IDs/roles and weights. Shared-parent rows are dependent |
+| `constrained_unmixing` | Common-support targets and ordered ≤12 endmembers | Nonnegative sum-one FCLS fractions, IDs, residual/reconstruction. Uses admitted numerical faces, not a certified unique biological inverse |
+| `fit_mesma` | Candidate library/categories, maximum components or explicit index tuples | Selected references, component/category fractions, every evaluated candidate error/solution and ambiguity. Explicit budget and numerical tolerances |
+| `candidate_ambiguity` | One target's candidate fractions/errors/tolerance | Best/near set, class ranges, maximum-range score and alternative count. Evaluated set only, not exhaustive uncertainty |
+| `fit_ridge_fractions` | Training spectra and known simplex targets; independent parent-connected groups for multi-alpha tuning | Model with saved scale/coefficients/intercept, tuning memberships; `predict()` returns both raw and projected fractions. Fitted coefficient uniqueness is not inverse uniqueness |
+| `project_simplex` | Finite fraction vector or matrix | Euclidean nonnegative sum-one projection; deterministic, including one component. Geometry does not add information |
+| `fraction_diagnostics` | Known truth, finite raw/projected predictions, optional independent groups | RMSE/bias/class errors, calibration, false detections, low-fraction misses, positive-only error; optional whole-group bootstrap intervals |
+| `evaluate_library_size` | Spectra/identities, sizes, random/balanced/farthest selection | Fold metrics, coverage distances, selected IDs. Training histories averaged; fixed C=1 classifier controls model rule, not every prior confound |
+
+All recognition scale/selection/PCA/tuning fits exclude outer targets. Within a
+fold, metrics give every identity total weight one; fitting uses supplied rows.
+Held-domain splits globally purge target identities. Tuning requires sufficient
+independent groups; unsupported splits raise instead of silently leaking or
+changing the design. A single declared regularization value skips tuning.
+
+The separability energy kernel uses quadratic unit-distance storage; its explicit
+`maximum_units=5000` default prevents an accidental unbounded run. Raise that
+budget deliberately for an appropriately sized in-memory identity analysis.
+
+Nonfinite inputs are rejected, except separability's explicit mask/incomplete-column
+policy. Spectral ordering stays caller-controlled; separability requires increasing
+coordinates. Category order is deterministic (sorted by default, explicit where
+available). Never infer sensor response coefficients from rounded wavelength names.
+The implementation preserves existing production coefficients, scaling and masks.
+
+`fit_mesma` performs FCLS for each explicit candidate, including faces. This
+inspectable small-library route can be expensive: declare `maximum_models` and
+keep the arrays/budgets bounded. It does not replace the historical study solver
+or silently rerun its large benchmark. `constrained_unmixing` uses the same existing
+rank/interior/update tolerances documented in the formal audit; ideal-real proofs
+are separate from numerical checks.
+
+[Run the offline lesson](https://github.com/earthlab/spectralbridge/blob/main/examples/spectral_library_methods.py)
+or its [notebook](https://github.com/earthlab/spectralbridge/blob/main/examples/spectral_library_methods.ipynb).
+[Scientific synthesis](../spectral-library/scientific-synthesis.md) explains the
+current results separately from how to run these methods on another library.
+
+::: spectralbridge.library_analysis.spectral_separability
+    options:
+      show_root_heading: true
+      show_root_full_path: false
+      heading_level: 3
+::: spectralbridge.library_analysis.evaluate_identifiability
+    options:
+      show_root_heading: true
+      show_root_full_path: false
+      heading_level: 3
+::: spectralbridge.library_analysis.evaluate_feature_budget
+    options:
+      show_root_heading: true
+      show_root_full_path: false
+      heading_level: 3
+::: spectralbridge.library_analysis.compare_representations
+    options:
+      show_root_heading: true
+      show_root_full_path: false
+      heading_level: 3
+::: spectralbridge.library_analysis.generate_mixtures
+    options:
+      show_root_heading: true
+      show_root_full_path: false
+      heading_level: 3
+::: spectralbridge.library_analysis.constrained_unmixing
+    options:
+      show_root_heading: true
+      show_root_full_path: false
+      heading_level: 3
+::: spectralbridge.library_analysis.fit_mesma
+    options:
+      show_root_heading: true
+      show_root_full_path: false
+      heading_level: 3
+::: spectralbridge.library_analysis.candidate_ambiguity
+    options:
+      show_root_heading: true
+      show_root_full_path: false
+      heading_level: 3
+::: spectralbridge.library_analysis.fit_ridge_fractions
+    options:
+      show_root_heading: true
+      show_root_full_path: false
+      heading_level: 3
+::: spectralbridge.library_analysis.project_simplex
+    options:
+      show_root_heading: true
+      show_root_full_path: false
+      heading_level: 3
+::: spectralbridge.library_analysis.fraction_diagnostics
+    options:
+      show_root_heading: true
+      show_root_full_path: false
+      heading_level: 3
+::: spectralbridge.library_analysis.evaluate_library_size
+    options:
+      show_root_heading: true
+      show_root_full_path: false
+      heading_level: 3
