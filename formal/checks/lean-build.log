@@ -1,5 +1,4 @@
-✔ [7357/7360] Built SpectralBridge.Bridge (21s)
-ℹ [7358/7360] Built SpectralBridge.AxiomAudit (23s)
+ℹ [7358/7360] Replayed SpectralBridge.AxiomAudit
 info: SpectralBridge/AxiomAudit.lean:4:0: 'SpectralBridge.Bridge.convolution_real' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: SpectralBridge/AxiomAudit.lean:5:0: 'SpectralBridge.Bridge.multiplicative_real' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: SpectralBridge/AxiomAudit.lean:6:0: 'SpectralBridge.Bridge.affine_real' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -108,5 +107,4 @@ info: SpectralBridge/AxiomAudit.lean:106:0: 'SpectralBridge.gram_dot' depends on
 info: SpectralBridge/AxiomAudit.lean:107:0: 'SpectralBridge.ridge_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: SpectralBridge/AxiomAudit.lean:108:0: 'SpectralBridge.ridge_minimizes' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: SpectralBridge/AxiomAudit.lean:109:0: 'SpectralBridge.ridge_minimizer_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
-✔ [7359/7360] Built SpectralBridge (4.8s)
 Build completed successfully (7360 jobs).

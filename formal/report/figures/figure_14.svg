@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="208.8pt" viewBox="0 0 504 208.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.1, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 208.8 
+L 504 208.8 
+L 504 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 198.5382 167.825088 
+L 435.2418 167.825088 
+Q 441.1008 167.825088 441.1008 165.413448 
+L 441.1008 47.082312 
+Q 441.1008 44.670672 435.2418 44.670672 
+L 198.5382 44.670672 
+Q 192.6792 44.670672 192.6792 47.082312 
+L 192.6792 165.413448 
+Q 192.6792 167.825088 198.5382 167.825088 
+z
+" clip-path="url(#p5519b3a925)" style="fill: #6495ed; opacity: 0.13; stroke: #6495ed; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="PathCollection_1">
+    <defs>
+     <path id="m2ff41ee684" d="M 0 4.1833 
+C 1.109424 4.1833 2.173559 3.742521 2.95804 2.95804 
+C 3.742521 2.173559 4.1833 1.109424 4.1833 0 
+C 4.1833 -1.109424 3.742521 -2.173559 2.95804 -2.95804 
+C 2.173559 -3.742521 1.109424 -4.1833 0 -4.1833 
+C -1.109424 -4.1833 -2.173559 -3.742521 -2.95804 -2.95804 
+C -3.742521 -2.173559 -4.1833 -1.109424 -4.1833 0 
+C -4.1833 1.109424 -3.742521 2.173559 -2.95804 2.95804 
+C -2.173559 3.742521 -1.109424 4.1833 0 4.1833 
+z
+" style="stroke: #b67f63"/>
+    </defs>
+    <g clip-path="url(#p5519b3a925)">
+     <use xlink:href="#m2ff41ee684" x="230.958" y="118.30608" style="fill: #b67f63; stroke: #b67f63"/>
+     <use xlink:href="#m2ff41ee684" x="305.172" y="82.93536" style="fill: #b67f63; stroke: #b67f63"/>
+     <use xlink:href="#m2ff41ee684" x="379.386" y="127.95264" style="fill: #b67f63; stroke: #b67f63"/>
+    </g>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #25303d" transform="translate(260.875937 102.504228)">Inputs satisfying the</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #25303d" transform="translate(260.130859 115.707235)">theorem hypotheses</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #6495ed" x="125.496" y="86.312821" transform="rotate(-0 125.496 86.312821)">Lean proof</text>
+   </g>
+   <g id="patch_3">
+    <path d="M 74.8136 95.79744 
+Q 129.401247 95.79744 182.088237 95.79744 
+" style="fill: none; stroke: #6495ed; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 177.288237 93.39744 
+L 182.088237 95.79744 
+L 177.288237 98.19744 
+" style="fill: none; stroke: #6495ed; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #b67f63" x="125.496" y="149.015461" transform="rotate(-0 125.496 149.015461)">Python tests</text>
+   </g>
+   <g id="patch_4">
+    <path d="M 125.558342 130.684183 
+Q 174.321325 124.73708 221.197628 119.020076 
+" style="fill: none; stroke: #b67f63; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 216.142383 117.218827 
+L 221.197628 119.020076 
+L 216.723483 121.983523 
+" style="fill: none; stroke: #b67f63; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #84909d" x="316.89" y="159.750172" transform="rotate(-0 316.89 159.750172)">Dots = finite checked examples</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p5519b3a925">
+   <rect x="63" y="25.056" width="390.6" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>

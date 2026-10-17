@@ -31,7 +31,7 @@
     "formal/checks/bridge_execution.json": "5fbfd41b7b0cb0a8e284a23246ed6b59b77e4314155897936899ba1ba58ca5cb",
     "formal/checks/conformance.log": "27825a42c0fcc6576840ec8a6ea33c465dc9a3ed2d49385e09a34fedceb75df8",
     "formal/checks/existing-regression.log": "f0fa9fdf2e4fffc627141ad83a480a700f8a2727e9b1c99447fbd9d924a26cff",
-    "formal/checks/lean-build.log": "009fae30d309748d4acad97b2ae90882b3fa6da95a63bb3d1f2a9655bc94a4c8",
+    "formal/checks/lean-build.log": "b498b138fa91303ef96b29b1067db24d774a3100ddb06b3308358cda823b3eac",
     "formal/checks/preservation.json": "92623af79a96d3c0e6f20fa9c144beece9b8aa45ecd75119bd7786d20adfc409",
     "formal/checks/proof_build.json": "43d6140be73346325f41dd1f9aedf0950d01aeb4c400a03597931b6db46af52e",
     "formal/checks/rational_examples.json": "d7a15ed987a220c53edd391de03bca61159bfb8be97ca84f25e0a421d61dc435",
@@ -42,5 +42,6 @@
     "formal/lean-toolchain": "42779d67b81608af8a12aa4328d2ab47ca201925b3b2bd68369587b5340bb434",
     "formal/source_manifest.json": "675c31ab27fb086f4e00a24143f1001f370fb556cdefa056a3cfe68351f7e671",
     "formal/tests/test_conformance.py": "c7a18d81f1d59cd8c2e39973ab763bc5bf10d646cff591af2d5d9d2c58c12d4f"
-  }
+  },
+  "P134_verification_note": "Operational build log refreshed after required rerun; report separately sealed."
 }

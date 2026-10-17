@@ -1,0 +1,152 @@
+{
+  "figure_01": {
+    "title": "The actual pipeline has several kinds of guarantees",
+    "kind": "implementation diagram",
+    "source": "formal/TRACEABILITY.md; named production functions",
+    "files": {
+      "pdf": "5a4db608a32937516dc891e3b28c622ba2a9b4611674faf1e88558701afaba57",
+      "svg": "a1e166be506d285858d2cef10ddab4dccfafd59e8d653b0b16071d5b807df793",
+      "png": "16626f6ba168a365adb11ce81ce37ff54499d8ab9083e41776931032e94929e5"
+    }
+  },
+  "figure_02": {
+    "title": "A curve, a vector and valid fractions",
+    "kind": "hypothetical illustration",
+    "source": "Core.mixture; pair_simplex; mixture_convexHull; explicit toy formula",
+    "files": {
+      "pdf": "86c747ca56b13b385a1ad9627e5f016778190dce9328bc5dcfcdd7a8e17a9162",
+      "svg": "0983952527b716171794b1f08f83524dee2656330da3b9264869676f42bde865",
+      "png": "747f7a64020a1b2c16aedfe224e6f5a97c3dd99773c683d3d5573a00ec53b8a6"
+    }
+  },
+  "figure_03": {
+    "title": "Mix then transform = transform then mix",
+    "kind": "proved toy example",
+    "source": "Core.linear_mixture; Counterexamples.sumSensor",
+    "files": {
+      "pdf": "d9da15555a52cf8479ee2d979f57818c77a3a724b686871a589587d4a362f9ce",
+      "svg": "380a0ec403e7b69922c3c9f3e5dfb6f86d0d7a1ad25f5f9af457bc3d79d98129",
+      "png": "7d2700bc1f38189771254307043e65b817cd0393e7194163551fe323aaf8df7c"
+    }
+  },
+  "figure_04": {
+    "title": "A valid reduction erases the distinction",
+    "kind": "exact proved counterexample",
+    "source": "Counterexamples.hyperspectral_identifiable; convolution_destroys_identifiability",
+    "files": {
+      "pdf": "3e34433c8c22c4fda3b7a75af995a5712ecd8666929c66e4a3d29590387de199",
+      "svg": "9bee0e0a442ae9f15e3b45b6bb346089a4f586d22946dd15ed002ba5345894c8",
+      "png": "f1a1ab0630d6996371214826b319d81fe00605adacb77b0fd23df7fe8ac3ac1b"
+    }
+  },
+  "figure_05": {
+    "title": "Exact reconstruction with two different compositions",
+    "kind": "exact proved counterexample",
+    "source": "Counterexamples.ambiguousE; ambiguous_reconstruction; mesma_ambiguity",
+    "files": {
+      "pdf": "840839396adf713b4aa523a9c6a5747d536fd34eb54e05e66f596ac8d1c5b299",
+      "svg": "47581f4bfe55565cbd85cddc7afe6d5864635181736da6e685b6cdd41a349fb6",
+      "png": "019d98af7d28e33ed963e44e66438fa249cc6e7919b4554d3a8e22250200dbf1"
+    }
+  },
+  "figure_06": {
+    "title": "FCLS finds the nearest feasible reconstruction",
+    "kind": "hypothetical geometry",
+    "source": "Inference.IsFCLS; fcls_exists; fcls_unique; oracle_unique; explicit triangle projection",
+    "files": {
+      "pdf": "e0354b71812e95cd4c9ca9aff818820b081c1902e92976791fd626e2460585bb",
+      "svg": "c9804fa504ba076f36c47c640990a2ef5fab53d961a90185d2bd4ccd2881edc1",
+      "png": "f430b4e6248fcd507775d8c5cb1e581bf0ee51d715a37fe721d7f6efcb50a757"
+    }
+  },
+  "figure_07": {
+    "title": "MESMA selects among admitted candidate mixtures",
+    "kind": "proved toy plus conceptual tolerance",
+    "source": "Inference.tolerant_search_bound; ambiguity_mono; Counterexamples.mesma_ambiguity",
+    "files": {
+      "pdf": "103529ba97a54bfbcddb4c053630598a8632eb6c6aebaa842658222a01f2c6b8",
+      "svg": "d4873be84836d2ccbf4df05a4493ec4286f28a7546ba873019e614233a64aaf9",
+      "png": "2fb00f117bb9e8b5600de98e25288fd6d8337f4e2883e6d1b7ada1074ab6fe58"
+    }
+  },
+  "figure_08": {
+    "title": "Different estimators optimize different targets",
+    "kind": "conceptual estimator diagram",
+    "source": "Ridge.ridge_minimizer_unique; mixtures.fit_models; P129 supervised; Counterexamples.perfect_prediction_not_unique_inversion",
+    "files": {
+      "pdf": "12da96ba8cb42e4ac1eaeea27d0deaf21941e5a6ae736b3b2899acd13b1268a1",
+      "svg": "c71f778a405e82d3dace2fbcb66254fb96fc6322c5860f0c90b35be337b82339",
+      "png": "87bb9e0eb6deb4a5795393b14ee70268cefe2ec73a7760ccaa095ba2d26a311d"
+    }
+  },
+  "figure_09": {
+    "title": "Projection imposes valid fraction geometry",
+    "kind": "hypothetical sum-one plane; exact geometry",
+    "source": "Projection.simplex_projection_error; projection_idempotent; threshold_projection; Python project_simplex",
+    "files": {
+      "pdf": "e81f9226378d8dda9b5a07b5fead1c1a2b958f74b67a9003ec12a100d7c63347",
+      "svg": "efb68eb1867938dca837d921037bd519637b433f5728d65d369de3d1a448bdbd",
+      "png": "5e550542270d2b7c36ea8533cc049e1300ce6cad33749e5f88535fa17e6b102b"
+    }
+  },
+  "figure_10": {
+    "title": "Where proportions survive and interpretation needs evidence",
+    "kind": "conditional synthesis diagram",
+    "source": "Pipeline.full_pipeline_conditional; formal/ASSUMPTIONS.md",
+    "files": {
+      "pdf": "d7473f6ba9947622c36bbe80815e1e04b663c1ce234a9f8f5556160f8c70a77b",
+      "svg": "8fb31f376aeca8c8a8ac42869a573e9a1a93b8038398a5579e069ccbb55789de",
+      "png": "82c7f8590a5826af91bfa6e7c5e6836df545bd8dabef79a117c600984e27030c"
+    }
+  },
+  "figure_11": {
+    "title": "Each interpretive step needs its own support",
+    "kind": "assumption diagram",
+    "source": "formal/ASSUMPTIONS.md",
+    "files": {
+      "pdf": "25e9e36d3f637a6347d4f38e2aaad85f71ee93d2bfe645a2fc9a931616fddeec",
+      "svg": "b338b441f96b221e09c974d55bf98f3b2518926247d6266c65a044bbb01f5d64",
+      "png": "2cce5763e94cd56ff64b286ff57955c70974a3cebd6edab4414d618188a1309e"
+    }
+  },
+  "figure_12": {
+    "title": "Canonical recognition and synthetic fraction evidence",
+    "kind": "empirical data; mean saved outer scores",
+    "source": "P129 tables/complementary_feature_performance.csv; P130 tables/abundance_domain_summary.csv",
+    "files": {
+      "pdf": "5f93ba39267309e7f6e8b54b8f485ecc8b483fa20a1756eccc6228522a83db5d",
+      "svg": "0617707f2b0f10d7128494957b1da483accf766016061a832a3820841cfd74c0",
+      "png": "a0626f3c187f7792b61371ee24fa51963bbda60c29597f98fe3afd39576e753d"
+    }
+  },
+  "figure_13": {
+    "title": "Two reproduced implementation discrepancies",
+    "kind": "actual deterministic audit fixtures",
+    "source": "formal/tests/test_conformance.py: test_audit_axis_counterexample; test_audit_polygon_chunk_overlap",
+    "files": {
+      "pdf": "9231b485a146a3e17389284ce05da6c10eaf7089b34965e665acaec9a2d3e722",
+      "svg": "6f2269ab62663946c03b93f10af8d4921d13b67f04ea66ffd0e7746311075dcd",
+      "png": "b68639e3b373cf7c665c9c48805fc9089b4bc0c5cc7dd80d5f7be48d37c8b2b1"
+    }
+  },
+  "figure_14": {
+    "title": "Examples and universal conditional statements",
+    "kind": "conceptual domain diagram",
+    "source": "formal/PROOF_STATUS.md; checks/axioms.log; conformance tests",
+    "files": {
+      "pdf": "273fcc583644614479c630f221fa5ccbced48bdf79d02a7b7ce305a2f89a754b",
+      "svg": "d83db6f631b29ab4bc01f27a36fcadf21e6a6713fe2523a4f568832077e7eadd",
+      "png": "126058c63e7d5fe8501ed36e92a92d02ff5fe8a77c459c1afa870b0dd2d97fe4"
+    }
+  },
+  "figure_15": {
+    "title": "The epsilon guard changes constant preservation",
+    "kind": "exact-real formula and Python toy check",
+    "source": "Core.epsilon_constant; resample.py; test_audit_epsilon_degenerate_srf",
+    "files": {
+      "pdf": "0ff42bbc469b10e3baae1175d501d452a7d1587e499b264a287979a4c320817b",
+      "svg": "f7718bfc44b162515914fa3559b9f43bade322ed5a1c097b61dd6f6a4c12c85a",
+      "png": "91f12f93b4862cf25f8c693193e733cd9d1de2381fed54f596ea7a2617b06f81"
+    }
+  }
+}

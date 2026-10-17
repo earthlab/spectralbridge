@@ -1,0 +1,21 @@
+statement,status,meaning,source_reference
+Fixed sensor weighting is linear,PROVED IF ASSUMPTIONS HOLD,Same finite weights and support; no physical response validation.,Core.linear_mixture
+Ideal linear maps preserve weights,PROVED,The forward weighted-sum equation commutes with any fixed linear map.,Core.linear_mixture
+Shared affine maps preserve simplex mixtures,PROVED IF ASSUMPTIONS HOLD,Sum-to-one or the exact offset-defect condition; same map on every component.,Core.affine_mixture
+Band reduction can destroy identifiability,PROVED,The exact two-coordinate counterexample loses the A/B distinction.,Counterexamples.convolution_destroys_identifiability
+Every fewer-band library loses uniqueness,NOT ESTABLISHED,Whole-space noninjectivity does not imply failure on every restricted mixture simplex.,Inference.fewer_bands_not_injective
+A mixture spectrum lies in the reference convex hull,PROVED IF ASSUMPTIONS HOLD,Nonnegative fractions total one; reference spectra use compatible coordinates.,Inference.mixture_convexHull
+FCLS minimizer exists and is unique,PROVED IF ASSUMPTIONS HOLD,Existence needs a nonempty finite simplex; uniqueness additionally needs identifiability.,Inference.fcls_unique
+Known-parent ideal recovery works,PROVED IF ASSUMPTIONS HOLD,"True generating references, exact linear model, transformed identifiability, ideal solver.",Inference.fcls_exact_recovery
+Good reconstruction guarantees true composition,FALSE / COUNTEREXAMPLE,Pure C and half A/B reconstruct the same spectrum with different class fractions.,Counterexamples.mesma_ambiguity
+MESMA winner beats every physical mixture,NOT ESTABLISHED,"The proved bound concerns admitted finite costs and a tolerance, not all biology.",Inference.tolerant_search_bound
+Positive-alpha ridge has unique fitted coefficients,PROVED IF ASSUMPTIONS HOLD,Fixed centered design/targets and positive regularization; restore the intercept.,Ridge.ridge_minimizer_unique
+One ridge prediction implies physical uniqueness,FALSE / COUNTEREXAMPLE,Perfect prediction can coexist with an ambiguous reference inverse.,Counterexamples.perfect_prediction_not_unique_inversion
+Ideal projection gives valid fractions,PROVED,Nonnegative entries total one; feasible predictions are fixed and projection is idempotent.,Projection.projection_mem
+Projection cannot worsen distance to feasible truth,PROVED IF ASSUMPTIONS HOLD,Euclidean projection and truth in the same nonempty simplex.,Projection.simplex_projection_error
+Python exactly matches the spec for every input,NOT ESTABLISHED,Nine rational examples agree numerically; full IEEE/sorting/active-face equivalence is not proved.,CONFORMANCE
+Representative Python calculations agree,NUMERICALLY CHECKED,Nine bridge cases plus four audit tests; declared per-case tolerances.,CONFORMANCE
+Sampled category spectra differ,EMPIRICALLY SUPPORTED,All ten pairs in the reported acquisition-matched design; not a Lean biological theorem.,SCIENTIFIC_REPORT
+Ridge is universally better than MESMA,NOT ESTABLISHED,Matched15 removes the mean NEON advantage; domain and library capacity matter.,EMP_MATCHED
+Calibration and field observations are correct,NOT ESTABLISHED,Algebra does not supply independent sensor or label truth.,ASSUMPTIONS
+Synthetic fractions establish field fractional cover,NOT ESTABLISHED,Independent contemporaneous field-fraction validation remains outstanding.,SCIENTIFIC_REPORT

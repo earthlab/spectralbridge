@@ -1,0 +1,321 @@
+{
+  "scope": "Read-only formal, implementation and canonical evidence sources; generated report adds no theorems or scientific fits",
+  "sha256": {
+    "formal/ASSUMPTIONS.md": "1c512646f800d137c112a2afc822b58833aea8b3e8b1273b1a03e91af3ad09fa",
+    "formal/CLAIMS.md": "5f536e33dd9e37504ccc9b48ed760d7ff31eee2fdbdef343180b6ce32e4f3a2c",
+    "formal/IMPLEMENTATION_AUDIT.md": "32200b4de85a4cd5ff1c96abbbb616549abbd08b92887cd1c3a5f7ee9d0bc128",
+    "formal/PROOF_STATUS.md": "9ac0aa1cd4d36143e16fdf7b4edecbe3521bdf7eca512c2f71a0860a93f702e9",
+    "formal/README.md": "687d467ee06bccad99a04662dbe15492f01d39b1baa25b64b4ff0d3b106f2f82",
+    "formal/SpectralBridge/AxiomAudit.lean": "5f884a12acff7073ad093f7a3bf79277db5f5eb1343295509ffaa9d11b49d7e2",
+    "formal/SpectralBridge/Bridge.lean": "4555a90d81755c807da1c798613370e8e7cabd7dc0f03749783a084b867cfeb8",
+    "formal/SpectralBridge/Core.lean": "ae6be91a8fd6bb323907cdf452d7f05cc4074017b332e04fcd9766f17e6a1f8e",
+    "formal/SpectralBridge/Counterexamples.lean": "1f2249e8848df358f33577180f1c90fba984bd0b108f127c2e8030fbe94050b4",
+    "formal/SpectralBridge/Inference.lean": "4b95b5b957ab8b16a9a4f0b903591d055747e2d8072d2344c7430e680af93646",
+    "formal/SpectralBridge/Pipeline.lean": "64417c18dc6bc5b37956f34f8dc57fb466ba3a67ed0b2e7620780eddad411a5c",
+    "formal/SpectralBridge/Projection.lean": "14c05a50e42fe373370298f8c0cfdba64136679ae0446992306ccd45a2c09a34",
+    "formal/SpectralBridge/Ridge.lean": "0f0f4a8d5d548da2e272a6c0af82ee20f6cac16587e79d2eb6b2c84b3f48f92f",
+    "formal/TRACEABILITY.md": "b8df4a0e7668d9ad85c67e28ca47b154c0e96dd322f0645fa462ca79fb9b2869",
+    "formal/TRANSLATION_INVARIANCE.md": "189367e52c82bac308283e74ac775526849abbf134afa55aa9c1b2ecc4abd7f2",
+    "formal/checks/axioms.log": "463c74cffd243cbad0198c5b718f8413fb24161449cfd43475d6a625e864cbf6",
+    "formal/tests/test_conformance.py": "c7a18d81f1d59cd8c2e39973ab763bc5bf10d646cff591af2d5d9d2c58c12d4f",
+    "output/pdf/researcher_evidence/Separability_Identifiability_and_Abundance.pdf": "847dc6179214ae92c3a1fa84904748d742bc963cc91c473dc3fd29f75026c2bb",
+    "provenance/researcher-evidence/2026-10-16/v1/run_candidate_control.py": "7957b49a3300603ccaa4e09441b5c051d62828287ec6af2760274d206a9ab56c",
+    "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv": "eb26224c857915d628fd498cb7e7f5e10d8b8644bd302d2aa7076689af6503cc",
+    "provenance/researcher-evidence/2026-10-16/v1/tables/same_candidate_ridge.csv": "c33d6b0d515efa7a7b2eb2e29bc4a5baa82fa3c56ed46f58ae46ef1fd9fc0fd9",
+    "provenance/researcher-pft-information/2026-10-15/v1/run_abundance.py": "c1703b721c727dd3071b55364403d98e557f401c59ee04257795f25f212cb09f",
+    "provenance/researcher-pft-information/2026-10-15/v1/tables/complementary_feature_performance.csv": "4168db27ba32faaef0f0edd77197359e410ade4aff3c67b071223e3a7454d1d7",
+    "provenance/researcher-pft-information/2026-10-15/v1/tables/oracle_solver_controls.csv": "8737e7bd4cb584e672a42d54daff9d7d10f29cd3a11f42f9bb511553201f40a0",
+    "src/spectralbridge/__init__.py": "e2b659adca27ed6e2c04f35cbe910ac924d59e8a0f71ec575d6e8daac8d9bfb6",
+    "src/spectralbridge/_cli_compat.py": "4063fc87328d402e92a8321744cc6694307db0e9398557b9eca48c6167b6b9ff",
+    "src/spectralbridge/_optional.py": "2fd3517cad8d6b3bdd4827adac0384edac9b18a825ef427f7d8ca1fc232d7a43",
+    "src/spectralbridge/_ray_utils.py": "4c79f1ba598a05a875f1484c428ebeb9132828e2ad5092f6620dc45e7525ff4b",
+    "src/spectralbridge/brdf_topo.py": "b4d7afc2ae0a02964ce70ce291f8c5233380fe926ef698b01b55b4ce7c156e7e",
+    "src/spectralbridge/brightness.py": "90069459d70b4d838a9fa0f92d66ca7ed99c55d13bc63d0824c3ba697915c9cf",
+    "src/spectralbridge/brightness_config.py": "5aecb0f492f3dd74c0838c6f1c4d9623a07f51f285282027ffbfaf86e6b33597",
+    "src/spectralbridge/bulk/__init__.py": "a7bcf45eb2c1e903cc157ec9bc9ba1fef916d185ca48a4048de88c13e74da7f7",
+    "src/spectralbridge/bulk/analyses/__init__.py": "380eacba74d1de917098d06e0faed559fac8cb8c73e4362b3c818336919d010b",
+    "src/spectralbridge/bulk/analyses/common.py": "8c35f598dd4cf146b102d1cf0feb38bf7b62098044edc2964a234aa5ac06197f",
+    "src/spectralbridge/bulk/analyses/dataset_census.py": "b6f6bed2e9fb88394783d6fa070e4f3258825d6a16ccd951d3f334a25795fe70",
+    "src/spectralbridge/bulk/analyses/leave_one_site_out.py": "a54652ea6b43607ee35abc96f956494c0b39436e0f5b0dae4e72e3139499e12d",
+    "src/spectralbridge/bulk/analyses/sensor_translation.py": "65fb4cfbaf3fe354735d1949e69e2dbcc3a0d903f85804361af2f064b03b871c",
+    "src/spectralbridge/bulk/analyses/spectral_library.py": "0905bab2caa4ebcf2aad3589d4c58e2dcc918c5f2865ea11793a6458b1150848",
+    "src/spectralbridge/bulk/analyses/streaming_translation.py": "853adf6cf394fc9bb917e07c92ab191c90839d5b724b32745ac5a508bffdf6e0",
+    "src/spectralbridge/bulk/catalog.py": "21b41be6588dece94032a62bfdabdcf59253201ce72a37fb4f1d8c09cb6a4921",
+    "src/spectralbridge/bulk/dataset.py": "c0c6e6f9a99fc41625fbd35a9e9b35572bfc086993e31d6a706024c895172cb6",
+    "src/spectralbridge/bulk/exclusions.py": "0f95db60b5cb044cea09eb9373b8809587ccf0503c958d95cf65a1b8f14df9e5",
+    "src/spectralbridge/bulk/flightline_outputs.py": "f4c9d3e67a8859b64ede4737b96e401601b2ce4ba8f015d94ed884ee3222b014",
+    "src/spectralbridge/bulk/harmonized.py": "fe9431175f81dd1f1b92eed414d51b07d41c920bcc661c0fcc611d8a9524ace5",
+    "src/spectralbridge/bulk/identity.py": "9ce505a4bf1f051fe24e62c9986bb70053263d25e88d2c142762f197980325d6",
+    "src/spectralbridge/bulk/models.py": "229edecdd84b88a6c5fb8a83fbad8e55e805fe3d4b3af7b07a09bdaa2d218b96",
+    "src/spectralbridge/bulk/provenance.py": "5e4ad20baa54fa598a129b3502d4a8971dbbbbe241fc15a3b2228bcff30f7266",
+    "src/spectralbridge/bulk/registry.py": "9e54eefdd4f96824076a53f7de7cccb5ce6d7063c57df7058648fec5dd3f994c",
+    "src/spectralbridge/bulk/reporting.py": "ea9325dde7ad07d242c81ef260414daad0fd557f9b008844dee42b56d2b38413",
+    "src/spectralbridge/bulk/results.py": "ff05afd0a985da44aa066c8535ef97c8aa70a3c7e5d82f44e7846c1c1c2cb1d3",
+    "src/spectralbridge/bulk/streaming.py": "282c73f300023f130a8229fc88a3bfd7c4d30050818c8d64d257d76b58098844",
+    "src/spectralbridge/cli/__init__.py": "61ce8bf66c60542222dda831d945ef62ace2477babf0e5718cb151f9a151f87d",
+    "src/spectralbridge/cli/bulk_cli.py": "625e59d8f9b9fa21111477366e6fa7ed708cd942bd943652a98a0bf5c5484a9a",
+    "src/spectralbridge/cli/drone_production_cli.py": "93f657a52baee30324c5e639ca79a7cbcc3a8545ab5edd55e4146690a585d38d",
+    "src/spectralbridge/cli/pipeline_cli.py": "85893243a55b4c9c37e53c80b4ba6ca416f1d42fcdfc3b4fb9056fb4da5355c5",
+    "src/spectralbridge/cli/qa_cli.py": "beeacdef13623e772c173acbd0c65ab47346e1e160ca8c7addb0c794afa9e0f5",
+    "src/spectralbridge/cli/qa_summary_cli.py": "070b58884fe98bc684a67a27d7dbba9afab77aeab2c7b57f3bcbc80fd5fa2ade",
+    "src/spectralbridge/cli/recover_cli.py": "1ffe7c64c478d41c4d9070faa9b58ff7f7b8dc948e1f803c6194e670a2572191",
+    "src/spectralbridge/cli/stage_qa_cli.py": "2f72a9e844ab590456be8899135e707b237e8d1603053e5a8c6f6c176baf57b6",
+    "src/spectralbridge/corrections.py": "ece9bca2c17d4d17e70fcefd4d67b51f088ea2103e836b04f9b816e32a68aa7a",
+    "src/spectralbridge/data/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/spectralbridge/data/brightness/landsat_tm_etm_to_micasense.json": "789c6395746d5b27781a01362f633d40282c6fefc0e52cc646c40f657059c554",
+    "src/spectralbridge/data/brightness/landsat_to_micasense.json": "fd5368e72d09bd289261d6df5f86ee54643bb9814c58235a413cf745c7d3c52c",
+    "src/spectralbridge/data/drone_translation_coefficients_v1.json": "44d164ae50de17fee98f139a546f28efb06c8966649c98247e0178f5d12e1024",
+    "src/spectralbridge/data/landsat_band_parameters.json": "b5ed747a00ae48a4216164ee73c4e4959b838d96688e2f13df8c82e1becab5e4",
+    "src/spectralbridge/deprecated/__init__.py": "1bcce0b330117b3dbf9190341f8cb0c8c6b4eef70c18decc37273faee41559cc",
+    "src/spectralbridge/deprecated/hytools.py": "a16fe080273bb2b155edbdab9d92ecd749686c96761abf49465a2b1064d47a0c",
+    "src/spectralbridge/drone_production.py": "2e8d8f6ad88aaf9ebc3b3e32a13404d0292f1e8148ea180a3c89ddbd1e6a0ba1",
+    "src/spectralbridge/drone_qa.py": "6604a484d9d89c4902425914f7de0176c16ba236b3f2337ffcf26516031b8673",
+    "src/spectralbridge/drone_translation.py": "ca3b65f6745c033ad9f1ea31cc63a8ef27b38a0c24ee204ecb72f26e7bf2a7c0",
+    "src/spectralbridge/drone_translation_registry.py": "c14143137b097d56cb45203cf871ee5b6af6fda043b161c9e084aac4ff39f416",
+    "src/spectralbridge/envi.py": "f488833b8c1419781b89c0b5f33e9853880ee85b2ae777669dd98c682eab20ec",
+    "src/spectralbridge/envi_download.py": "ff1327ed7165d33f8495c33f445423fdc34bf66f7b37a3b6e63eb92ad0a480e8",
+    "src/spectralbridge/envi_writer.py": "8abf2a40a3e81f40c0f7406bd7620aebbbc82ec29b19e0a1a19f71ff4b1ccd98",
+    "src/spectralbridge/exports/geo_utils.py": "83ca1114fffc755a3334540d19f1976bb3d17c18fc63a291bf83be1dc1ad1e40",
+    "src/spectralbridge/exports/schema_utils.py": "b9b855cc5d2e17e143d66f99efc3585c7a974d952dfa1ff62ea6568b86813ddd",
+    "src/spectralbridge/file_sort.py": "a11fece3aa322f8068e44efb28c58f17244923a58c48126236c9f7c6f4fa4242",
+    "src/spectralbridge/file_sort_adapter.py": "a9732294be29baf88584542d82c888cbb9ecf88b82428c97529d55be62a41c7e",
+    "src/spectralbridge/file_types.py": "af5584709ee69657bcd5c3bf1af0739ffaa93a5581b95d2775b2daaef13d4860",
+    "src/spectralbridge/half_flight.py": "d9bffb169586e2c71dfcbffb21cc6637d0853362018b06209065034392ffd864",
+    "src/spectralbridge/header_utils.py": "f13d4f94aa8c595d618729b67d7a268ffdfceb1a651a7d3f712947318af72a7b",
+    "src/spectralbridge/hytools_compat.py": "ed2e765698a8609f66a6fb65a2633c006646e9ec3bbe6b594b984f662fb0b758",
+    "src/spectralbridge/io/__init__.py": "e127f2ee26b411522083a1cd9a89c5f2b0924eaf5303f0673d6807ee199029bd",
+    "src/spectralbridge/io/neon.py": "7082d547bfbc94950dc2b1d472be050444fec27815f09b8bb6113bd83b09912e",
+    "src/spectralbridge/io/neon_legacy.py": "63a54f76e061e355bb5290c96f288fd186e5ca3200402b57bf9976f03896f6f3",
+    "src/spectralbridge/io/neon_schema.py": "530943f1ff951e57006168137f7d4943e699a3a4b13310e93bdc87cf59f8243d",
+    "src/spectralbridge/landsat_agreement.py": "2c88026baa484d3946e744f0327064a006279c7fc87a625f5876b6b54d5de97e",
+    "src/spectralbridge/landsat_flight_report.py": "62ae8a243a8424306cb9a7f70e013707bfa7905549433fc151f9b8804b8e09ed",
+    "src/spectralbridge/landsat_flight_validation.py": "b0a32ff542c67774ed366a53224d82e33c9f407105043cb4146dbd3f994f7687",
+    "src/spectralbridge/landsat_validation.py": "b095e22d8695d9f0679043be320f434baa5dae7f839d5deb85efebe15c4f53b6",
+    "src/spectralbridge/logging_utils.py": "109e82127641beeb952394c80b9d2079da241693f984dacbf424ff223275e94c",
+    "src/spectralbridge/mask_raster.py": "a21cd7f834552fbe2514a8936ec754af70d19a1cecfd4af6200c996fbe4ea270",
+    "src/spectralbridge/merge_duckdb.py": "28ea35cf5907c310d99cfffa9cfc54586b80863081915b7aea3936c1d23f2876",
+    "src/spectralbridge/mesma_readiness.py": "19b15a040c7d9eb716488243aacdf95ef4b7f20af145917bb7fc9a647ffe63f4",
+    "src/spectralbridge/mixtures.py": "15a93f5401960ebeadee608ca98ee1e6683e41ab9ae41f8a1e9f5b0e3f79463c",
+    "src/spectralbridge/neon_cube.py": "40e18ca4dd6a8a334623bfed6f9320d896a52063cbeeebc8d45cb62428e972dd",
+    "src/spectralbridge/neon_to_envi.py": "273dfa0d36a491b2d62ea14ff51826c8b546772581d23f9ecd7b55c4d7e93600",
+    "src/spectralbridge/parquet_export.py": "1e4bcae2269d3f1eff56fd800f2d5a8b970df95038fde1e7a91adb872180931d",
+    "src/spectralbridge/parquet_validation.py": "5365be25d0bcd73746c316f3103dc19531ebf0e63ec4c2255d8069fb5b3dbbb2",
+    "src/spectralbridge/paths.py": "a79e7347821de51409298085c6511f120482e4eb17bc7c6712e90a6717963216",
+    "src/spectralbridge/pft_method_audit.py": "1b39cffa6e5edac7002f3f56f060cab2884a7762023535e5d568e9dfaa7d767a",
+    "src/spectralbridge/pipelines/__init__.py": "4b5e1be68dcfc42360ffbc59a929483bae52e85613b48c5647ff18fb3188cf97",
+    "src/spectralbridge/pipelines/bulk.py": "672861f0a22c28d6ccf60c4dc345c86d3505132a1cee627411d8f586c55dfd37",
+    "src/spectralbridge/pipelines/download.py": "68e9efce563099259a206d1356641aecf2d6c97fddca60fd1ac0629dba2a688c",
+    "src/spectralbridge/pipelines/drone.py": "5c70ab76349f273a4cd3109968de38afb14725328b840e6784a25cfa300b63e2",
+    "src/spectralbridge/pipelines/pipeline.py": "829aedba9b84b595802ab5f12ee7b9a9ca7214218fb86220e85e0e71990d490c",
+    "src/spectralbridge/plant_pft_statistics.py": "4f8adf8d8c08045850fa2882531acf22e4cbfc4df50989e18edf69e835abc27d",
+    "src/spectralbridge/plant_quantile_overlays.py": "8603ebf75ebe4b361832c1b68af247c933195ae7b1b190c6ea427d452d09a3ba",
+    "src/spectralbridge/plant_spectral_atlas.py": "aa4b98b8c6919eac4bb9b99ec09bfcf5a3ad9097adc81d6fcc595f504ccd9248",
+    "src/spectralbridge/plant_spectral_comparison.py": "2834a48da0b0806324aac3c856497b5e66ae50a2732a12e738a5a30b0763824e",
+    "src/spectralbridge/plant_spectral_pfts.py": "fe586150d9cbe80208db956bd3ebd85eb08d1cf16535526c8e47669d3752591f",
+    "src/spectralbridge/plant_spectral_quantiles.py": "cae35565c9b91853bd52b9485f32eeaf75118b4ef3174ea8d8f1426118b0ab48",
+    "src/spectralbridge/plant_spectral_regions.py": "cb78bc2575253e069c9b8776adf068c56a46c9f081371ce54906023cfd27170f",
+    "src/spectralbridge/plant_spectral_years.py": "c5a26cda27ff73090e41976e3f1420f29b43bc5bf769d83da3e18db7cb2041a5",
+    "src/spectralbridge/polygon_extraction.py": "2f5cecd6ca20e21b3012d2d8318c077fe4a7476702c6bc5907f49f827fbdf3e8",
+    "src/spectralbridge/polygons.py": "484afaa6a87e6cc240ffd914a6ac709eb21cbf586c6722838d88303a789a9dd8",
+    "src/spectralbridge/progress_utils.py": "03192732afc0df21f619d5fcefd6780ed0d597314a5e83d786380b6521b8f5e2",
+    "src/spectralbridge/qa/__init__.py": "69728a21086698628004da6eaea6d43a44b912f0db9a15c88320f2475da9e470",
+    "src/spectralbridge/qa/brightness.py": "f7b83d75a4f30377059bdc1fab8ab3343da6d97d5fff4776bd646e58c46fadb8",
+    "src/spectralbridge/qa/metrics.py": "e728747cfd1a172edeed5fbe92eb93e825d4497c31c7fd536056c49b31140798",
+    "src/spectralbridge/qa/network.py": "ad1a120a523b853fc5da90316db4a73a6e37d0bd73b86f0320b2047cf4babc62",
+    "src/spectralbridge/qa/paths.py": "2bff0e107881ddb5aef02bbdbdf84b50142105c105d270d2466b58c6045ad655",
+    "src/spectralbridge/qa/plots.py": "b56a5030f0ea154fe4bb75f15dcb97b0f8b7b646fdbab10c9b8c6091223bc586",
+    "src/spectralbridge/qa/reporting.py": "bab3180fcde3c940e4ce5930b66b79cef026f3051bbae47624fdadf3fcf4895e",
+    "src/spectralbridge/qa/runner.py": "afd6cc9b466d922ca88addd14fd7c264df8c308db2f1d06ae72f6ffc5b0bc8d0",
+    "src/spectralbridge/qa/schema.py": "26e1a9f70f6ddc169d1a2f2f973fffdb28e7e27932cca7807998abb1018823ac",
+    "src/spectralbridge/qa/stages.py": "45bd15b0b8d191f9e0a8d25e325f035bddda4c55b22e3cc500e114a754144fe8",
+    "src/spectralbridge/qa/thresholds.py": "c48d007310cbdd0ac42b39fce4417154bf9dea49cfd1c8a93dbb1cabf57921a7",
+    "src/spectralbridge/qa_dashboard.py": "498e2a9f5110f1dbc095c8821152679fc2e96a9ef46eed7086aaec4131e97acd",
+    "src/spectralbridge/qa_metrics.py": "e670fdcdd7479bb5317fc6fd2ab6b307f973b68517b7f886d27c6755e50b6d6e",
+    "src/spectralbridge/qa_plots.py": "b87c2776b08a2b4a098997ba8511953ad9e8d3cff542b7572218291993c96aae",
+    "src/spectralbridge/qa_style.py": "f4b3cfd4c31c2ff3fad6a799872c3fc27838509be89a987ee4c657351789ae88",
+    "src/spectralbridge/ray_utils.py": "e4b573e96898632eb5b12053f790385262a23685cff49d5856299fd407acab9e",
+    "src/spectralbridge/remote.py": "1b036e99f1929ec97795ed79e11f015f54e2e78bb35255ddefc758936b1352cf",
+    "src/spectralbridge/resample.py": "ec1ebcd356f43fad0ca95145c4f8a8a16310f297583354f00eae6404d64719c9",
+    "src/spectralbridge/researcher_information.py": "7ef03dc3ccb98d85163bd91331549ced0cb5dd879c0ef05d75e5ebd4565747fa",
+    "src/spectralbridge/researcher_pft_statistics.py": "aae1ab3b093eb3ce93208f3e1feae5091fdaf28ac18303438f4c06e52071925c",
+    "src/spectralbridge/researcher_validation.py": "39178ead2057801e16900e6fbd43c4d1598eba44b29d583231e156d2c7fb0953",
+    "src/spectralbridge/sensor_pairs.py": "bcedd5dc0bdcac046497e0ef683e24d2ecc9eb16a42d202a1c35be25e2f9c660",
+    "src/spectralbridge/sensor_panel_plots.py": "1613fe7574604fe16a4eb21b8a88dd571eea91179002edcb7c9f8cf83c0a7b0e",
+    "src/spectralbridge/sensor_pft_transfer.py": "6210796fa19b01a989901d153dba0ee0e4f69c179d26f90f08c04ac0514a1424",
+    "src/spectralbridge/sort_core.py": "ccc1da5b5a81235dd0bc70acb7cfc19d41260cbcdb46b83338cb06023141d0d3",
+    "src/spectralbridge/spectral_analytics_extensions.py": "68a20f149344d8c54c8e33294766229f3e9fc1675d36ffbbd73d71834c0dc979",
+    "src/spectralbridge/spectral_analytics_mixtures.py": "a201a32f9ef81cc13bf95dc53de22c9bf8575a055118dddc227cf67d3a8ef269",
+    "src/spectralbridge/spectral_analytics_validation.py": "f255d4e060809b910cbba3fea7f255813befbba76958b2801a4a8b7b0c6ea659",
+    "src/spectralbridge/spectral_closure.py": "74cf936f11421aa709faec29e47daf22b92794e57be6b2c0b182ca40536c4863",
+    "src/spectralbridge/spectral_learning.py": "ed26eeefbdd2f70d9510877dd3a8ed9b62defdb2b00a310a10ef95ffc1626249",
+    "src/spectralbridge/spectral_library_analytics.py": "8ee2294f22d373a6ade43488e9ef6e10572c26a6001770d61c28942b5d9fcd7b",
+    "src/spectralbridge/standard_resample.py": "1985dd8e7414404302258ed66281292bc3961bf3aed1ea8e7108012f2891baa9",
+    "src/spectralbridge/topo_and_brdf_correction.py": "77f27476750040703f1d426ae72ee2839a027ddc8c3b145c833f4a6cd51094f8",
+    "src/spectralbridge/types_protocol.py": "bde578b0b7cf8b476159e18c24ddf4471ea9e0b293f079a91a0a69c564214384",
+    "src/spectralbridge/utils/__init__.py": "29dcae7fce67a087b9cc00eb97ff668a911046b48e8d3b8035f5a1c76b5289e9",
+    "src/spectralbridge/utils/memory.py": "89a7f94bc65a8e4464c4c4924359b602d060005851e1e1a34b33c2119f847ebf",
+    "src/spectralbridge/utils/naming.py": "4afe93f821c37e63b35998ad123236f3eb41e417a38bdeeeab58a720a14c0d8a",
+    "src/spectralbridge/utils/paths.py": "f5914e7a169fef5e4ca356c0820e0c35f2de20ffffdf9445f44ac68b88e98dca",
+    "src/spectralbridge/utils/qa_summary.py": "97a65a1de3201042dd8f7029165794e67e55990764680c613c6a0cd4183ccd2e",
+    "src/spectralbridge/utils_checks.py": "2ec8a6d4201d620883a672451cc3e9b062dbf392bfd407a976261826fb73d1c4",
+    "src/spectralbridge/validation.py": "e17ff9f4632c58897b14b380657fc91a5a848ddf0e6c3d38c00c6eefc7e73fa7"
+  },
+  "page_evidence": {
+    "1": [
+      "formal/SpectralBridge/Core.lean: linear_mixture",
+      "formal/SpectralBridge/Core.lean: affine_mixture",
+      "formal/SpectralBridge/Inference.lean: rank_cannot_increase",
+      "formal/SpectralBridge/Counterexamples.lean: convolution_destroys_identifiability"
+    ],
+    "2": [
+      "formal/TRACEABILITY.md",
+      "formal/SpectralBridge/Pipeline.lean: full_pipeline_conditional"
+    ],
+    "3": [
+      "formal/checks/axioms.log",
+      "formal/SpectralBridge/Bridge.lean",
+      "formal/tests/test_conformance.py"
+    ],
+    "4": [
+      "formal/SpectralBridge/Core.lean: pair_simplex",
+      "formal/SpectralBridge/Core.lean: triple_simplex",
+      "formal/SpectralBridge/Inference.lean: mixture_convexHull"
+    ],
+    "5": [
+      "formal/SpectralBridge/Core.lean: linear_zero",
+      "formal/SpectralBridge/Core.lean: linear_add",
+      "formal/SpectralBridge/Core.lean: linear_smul",
+      "formal/SpectralBridge/Core.lean: linear_mixture",
+      "formal/SpectralBridge/Counterexamples.lean: sumSensor"
+    ],
+    "6": [
+      "formal/SpectralBridge/Core.lean: weighted_bounds",
+      "formal/SpectralBridge/Core.lean: normalized_constant",
+      "formal/SpectralBridge/Core.lean: epsilon_constant",
+      "src/spectralbridge/resample.py"
+    ],
+    "7": [
+      "formal/SpectralBridge/Core.lean: affine_mixture_defect",
+      "formal/SpectralBridge/Core.lean: affine_mixture",
+      "formal/SpectralBridge/Core.lean: affine_mixture_iff",
+      "formal/TRANSLATION_INVARIANCE.md"
+    ],
+    "8": [
+      "formal/SpectralBridge/Core.lean: mean_affine",
+      "formal/SpectralBridge/Core.lean: multipliers_commute",
+      "formal/SpectralBridge/Core.lean: order_matters",
+      "formal/SpectralBridge/Core.lean: median_not_additive",
+      "formal/SpectralBridge/Core.lean: clipping_not_mixture",
+      "formal/TRANSLATION_INVARIANCE.md"
+    ],
+    "9": [
+      "formal/SpectralBridge/Inference.lean: rank_cannot_increase",
+      "formal/SpectralBridge/Inference.lean: fewer_bands_not_injective",
+      "formal/SpectralBridge/Counterexamples.lean: hyperspectral_identifiable",
+      "formal/SpectralBridge/Counterexamples.lean: convolution_destroys_identifiability"
+    ],
+    "10": [
+      "formal/SpectralBridge/Counterexamples.lean: ambiguous_reconstruction",
+      "formal/SpectralBridge/Counterexamples.lean: reconstruction_not_identifiability",
+      "formal/SpectralBridge/Counterexamples.lean: mesma_ambiguity"
+    ],
+    "11": [
+      "formal/SpectralBridge/Inference.lean: fcls_exists",
+      "formal/SpectralBridge/Inference.lean: fcls_convex",
+      "formal/SpectralBridge/Inference.lean: fcls_unique",
+      "formal/SpectralBridge/Inference.lean: fcls_exact_recovery",
+      "provenance/researcher-pft-information/2026-10-15/v1/tables/oracle_solver_controls.csv"
+    ],
+    "12": [
+      "formal/SpectralBridge/Inference.lean: tolerant_search_bound",
+      "formal/SpectralBridge/Inference.lean: ambiguity_mono",
+      "formal/SpectralBridge/Inference.lean: selected_feasible",
+      "src/spectralbridge/mixtures.py"
+    ],
+    "13": [
+      "formal/SpectralBridge/Ridge.lean: ridge_positive",
+      "formal/SpectralBridge/Ridge.lean: ridge_normal_equation",
+      "formal/SpectralBridge/Ridge.lean: ridge_minimizer_unique",
+      "formal/SpectralBridge/Counterexamples.lean: perfect_prediction_not_unique_inversion",
+      "provenance/researcher-pft-information/2026-10-15/v1/run_abundance.py"
+    ],
+    "14": [
+      "formal/SpectralBridge/Projection.lean: projection_unique",
+      "formal/SpectralBridge/Projection.lean: projection_mem",
+      "formal/SpectralBridge/Projection.lean: projection_idempotent",
+      "formal/SpectralBridge/Projection.lean: simplex_projection_error",
+      "formal/SpectralBridge/Bridge.lean: projection_certificate"
+    ],
+    "15": [
+      "formal/SpectralBridge/Inference.lean: pipeline_recovery",
+      "formal/SpectralBridge/Pipeline.lean: full_pipeline_conditional",
+      "formal/ASSUMPTIONS.md"
+    ],
+    "16": [
+      "provenance/researcher-pft-information/2026-10-15/v1/tables/complementary_feature_performance.csv",
+      "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv",
+      "output/pdf/researcher_evidence/Separability_Identifiability_and_Abundance.pdf"
+    ],
+    "17": [
+      "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv",
+      "provenance/researcher-evidence/2026-10-16/v1/tables/same_candidate_ridge.csv",
+      "provenance/researcher-pft-information/2026-10-15/v1/tables/oracle_solver_controls.csv",
+      "formal/SpectralBridge/Counterexamples.lean: residual_does_not_order_abundance_error",
+      "output/pdf/researcher_evidence/Separability_Identifiability_and_Abundance.pdf"
+    ],
+    "18": [
+      "formal/IMPLEMENTATION_AUDIT.md",
+      "formal/tests/test_conformance.py"
+    ],
+    "19": [
+      "formal/IMPLEMENTATION_AUDIT.md",
+      "formal/tests/test_conformance.py",
+      "formal/TRACEABILITY.md"
+    ],
+    "20": [
+      "formal/IMPLEMENTATION_AUDIT.md",
+      "formal/tests/test_conformance.py",
+      "formal/TRACEABILITY.md"
+    ],
+    "21": [
+      "formal/IMPLEMENTATION_AUDIT.md",
+      "formal/tests/test_conformance.py",
+      "formal/TRACEABILITY.md"
+    ],
+    "22": [
+      "formal/IMPLEMENTATION_AUDIT.md",
+      "formal/tests/test_conformance.py",
+      "formal/TRACEABILITY.md"
+    ],
+    "23": [
+      "formal/IMPLEMENTATION_AUDIT.md",
+      "formal/tests/test_conformance.py",
+      "formal/TRACEABILITY.md"
+    ],
+    "24": [
+      "formal/PROOF_STATUS.md",
+      "formal/checks/axioms.log"
+    ],
+    "25": [
+      "formal/PROOF_STATUS.md",
+      "formal/checks/axioms.log",
+      "output/pdf/researcher_evidence/Separability_Identifiability_and_Abundance.pdf"
+    ],
+    "26": [
+      "formal/ASSUMPTIONS.md",
+      "formal/SpectralBridge/Pipeline.lean: full_pipeline_conditional"
+    ],
+    "27": [
+      "formal/checks/axioms.log",
+      "formal/SpectralBridge/Bridge.lean",
+      "formal/tests/test_conformance.py",
+      "output/pdf/researcher_evidence/Separability_Identifiability_and_Abundance.pdf"
+    ],
+    "28": [
+      "formal/CLAIMS.md",
+      "formal/PROOF_STATUS.md",
+      "formal/IMPLEMENTATION_AUDIT.md",
+      "output/pdf/researcher_evidence/Separability_Identifiability_and_Abundance.pdf"
+    ]
+  }
+}

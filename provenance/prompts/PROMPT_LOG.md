@@ -35658,3 +35658,1189 @@ be inferred.
 
 Counterexamples and impossibility results are first-class scientific outputs.
 ```
+
+## 2026-10-16 - Illustrated formal verification explanation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Work in the current SpectralBridge repository.
+
+I want you to create a HUMAN-READABLE, ILLUSTRATED REPORT explaining the entire
+SpectralBridge formal verification effort.
+
+The formal Lean work is already present in `formal/`.
+
+DO NOT add new theorems unless you discover that an explanation requires a
+missing result.
+
+Your primary task is to READ, UNDERSTAND, SYNTHESIZE, and EXPLAIN the formal
+work that already exists.
+
+Read at minimum:
+
+formal/README.md
+formal/TRACEABILITY.md
+formal/CLAIMS.md
+formal/PROOF_STATUS.md
+formal/ASSUMPTIONS.md
+formal/IMPLEMENTATION_AUDIT.md
+formal/TRANSLATION_INVARIANCE.md
+
+and all Lean source files:
+
+formal/SpectralBridge/Core.lean
+formal/SpectralBridge/Projection.lean
+formal/SpectralBridge/Inference.lean
+formal/SpectralBridge/Ridge.lean
+formal/SpectralBridge/Counterexamples.lean
+formal/SpectralBridge/Pipeline.lean
+formal/SpectralBridge/Bridge.lean
+formal/SpectralBridge/AxiomAudit.lean
+
+Also inspect the actual Python implementation referenced by TRACEABILITY.md,
+the numerical conformance tests, and the current scientific validation report.
+
+The report must explain what has ACTUALLY been proved and tested.
+
+Do not infer stronger results than the Lean files support.
+
+
+======================================================================
+AUDIENCE
+======================================================================
+
+Write for an environmental scientist / remote-sensing scientist who:
+
+- understands spectra
+- understands vegetation categories
+- understands regression conceptually
+- has probably heard of spectral unmixing
+- does NOT know Lean
+- may not know formal verification
+- does not want a computer-science proof document
+
+The reader should finish the report understanding:
+
+1. what SpectralBridge does mathematically
+2. why we formally verified it
+3. what Lean actually proves
+4. how spectra move between sensors
+5. when mixture fractions survive those transformations
+6. why information can nevertheless be lost
+7. what FCLS/MESMA are actually solving
+8. what ridge is actually solving
+9. why reconstruction, prediction and identifiability are different
+10. what the proof says about the empirical SpectralBridge results
+11. what remains an empirical assumption
+12. what the proof explicitly DOES NOT establish
+
+
+======================================================================
+CENTRAL NARRATIVE
+======================================================================
+
+Build the entire report around this idea:
+
+    SpectralBridge can preserve composition while losing identifiability.
+
+A fixed linear or affine sensor transformation can preserve the weights of an
+ideal spectral mixture:
+
+    mixture before transformation
+            ↓
+    sensor transformation
+            ↓
+    same mixture weights after transformation
+
+BUT:
+
+    preserving the mixture equation
+            ≠
+    preserving all spectral information
+            ≠
+    uniquely recovering the mixture
+
+This should become the conceptual backbone of the report.
+
+The reader should understand the difference between:
+
+    PRESERVATION
+    INFORMATION
+    IDENTIFIABILITY
+    RECONSTRUCTION
+    PREDICTION
+    FIELD VALIDITY
+
+These are different things.
+
+Do not let them collapse into one another.
+
+
+======================================================================
+REPORT STYLE
+======================================================================
+
+This should read like a scientific narrative, not software documentation.
+
+Use:
+
+- plain language
+- short equations
+- diagrams
+- worked examples
+- visual analogies where scientifically accurate
+- real SpectralBridge transformations
+- real empirical results where relevant
+- explicit interpretation after every mathematical result
+
+Avoid:
+
+- pages of Lean syntax
+- theorem names without explanation
+- giant code blocks
+- excessive mathematical notation
+- proof-theory jargon
+- formal-methods jargon
+- implementation details unless scientifically important
+
+Every important equation should be followed by:
+
+    "In plain language: ..."
+
+Every important theorem should answer:
+
+    What does this mean for a scientist using SpectralBridge?
+
+Every figure should answer:
+
+    What am I looking at?
+    What should I notice?
+    What does it mean?
+    What does it NOT mean?
+
+
+======================================================================
+VISUAL DESIGN
+======================================================================
+
+Create a polished PDF report with publication-quality figures.
+
+Use a clean white background.
+
+Use CORNFLOWER BLUE (#6495ED) as the primary visual anchor.
+
+Use restrained complementary colors.
+
+Large text.
+Large axis labels.
+Simple labels.
+Minimal legends.
+Direct labeling where possible.
+
+Figures should look like scientific explanatory figures, not dashboards.
+
+Create figures as vector graphics where possible.
+
+Save each figure independently as:
+
+PDF
+SVG
+PNG
+
+and assemble them into the report.
+
+All figures must be generated from code.
+
+No generative AI imagery.
+
+
+======================================================================
+OPENING
+======================================================================
+
+Start with approximately one page titled:
+
+    What did we prove?
+
+Begin without Lean terminology.
+
+Something close in meaning to:
+
+SpectralBridge moves spectral information among sensors and then uses that
+information to distinguish and quantify ecological cover categories. The
+formal verification asks a simple question: when we transform a spectrum,
+which scientific properties are mathematically guaranteed to survive?
+
+The answer is both reassuring and limiting.
+
+Under the appropriate assumptions, linear and affine sensor transformations
+preserve the proportions of an ideal spectral mixture. But reducing spectral
+information can make different mixtures indistinguishable. The composition
+can therefore survive the forward transformation even when it can no longer
+be uniquely recovered from the transformed observation.
+
+Then introduce the full story:
+
+    observation
+        ↓
+    correction
+        ↓
+    sensor translation
+        ↓
+    spectral library
+        ↓
+    mixture
+        ↓
+    reconstruction / prediction
+        ↓
+    abundance
+
+Explain that formal verification determines which arrows have mathematical
+guarantees and which depend on empirical assumptions.
+
+
+======================================================================
+FIGURE 1 — THE WHOLE PIPELINE
+======================================================================
+
+Create a large conceptual diagram of the actual SpectralBridge pipeline.
+
+Something like:
+
+FIELD / LANDSCAPE
+       ↓
+sensor observation
+       ↓
+spectral correction
+       ↓
+sensor transformation
+       ↓
+common spectral representation
+       ↓
+polygon/library spectrum
+       ↓
+spectral library
+       ↓
+mixture inference
+      ↙ ↘
+ MESMA   Ridge
+      ↘ ↙
+ abundance estimate
+
+Include NEON, Landsat-like and MicaSense/drone paths where appropriate.
+
+Color-code each operation according to:
+
+PROVED MATHEMATICAL PROPERTY
+CONDITIONAL MATHEMATICAL PROPERTY
+NUMERICALLY CHECKED IMPLEMENTATION
+EMPIRICAL ASSUMPTION
+
+Do NOT imply the entire pipeline is formally verified as one linear operator.
+
+Explicitly show nonlinear/data-dependent operations where they occur.
+
+Caption:
+
+WHAT TO NOTICE:
+Some transformations have exact mathematical guarantees. Others depend on
+calibration, scene fitting, masks, clipping, aggregation or biological
+assumptions.
+
+WHAT IT MEANS:
+The proof applies locally to the mathematical transformations that satisfy its
+hypotheses rather than magically certifying every observation.
+
+
+======================================================================
+SECTION 1 — WHAT DOES FORMAL VERIFICATION MEAN?
+======================================================================
+
+Explain Lean in approximately one page.
+
+No computer-science lecture.
+
+Explain:
+
+A conventional unit test asks:
+
+    "Did this example produce the expected answer?"
+
+A mathematical proof asks:
+
+    "For every input satisfying these assumptions, must this property hold?"
+
+Then explain that SpectralBridge uses both.
+
+Include a small visual:
+
+              ONE EXAMPLE             ALL VALID CASES
+Python test       ●                       -----
+Lean proof                                 █████
+
+Explain that Python↔Lean conformance examples connect the mathematical
+specification to representative implementation calculations, but do not
+formally certify arbitrary IEEE floating-point execution.
+
+Describe the actual conformance cases from the repository.
+
+
+======================================================================
+SECTION 2 — A SPECTRUM AS A MATHEMATICAL OBJECT
+======================================================================
+
+Explain a spectrum visually.
+
+FIGURE 2:
+
+Show one simple hypothetical spectrum.
+
+Then show it represented as a vector:
+
+    x = [x₁, x₂, ..., xₙ]
+
+Explain:
+
+The curve and vector are the same information represented differently.
+
+Then show a mixture:
+
+    y = 0.6 A + 0.4 B
+
+Use two simple spectra and visually generate the mixture spectrum.
+
+Make this figure intuitive.
+
+Explain the simplex:
+
+fractions must be:
+
+    nonnegative
+    and
+    sum to one
+
+Use a triangle diagram for a three-component example.
+
+Show:
+
+pure A
+pure B
+pure C
+and mixtures inside the triangle.
+
+This should make the later simplex-projection proof intuitive.
+
+
+======================================================================
+SECTION 3 — WHAT HAPPENS WHEN WE CHANGE SENSORS?
+======================================================================
+
+This is the heart of the report.
+
+Explain linear transformations.
+
+Use a simple example:
+
+Hyperspectral spectrum
+        ↓
+Landsat-like band integration
+        ↓
+fewer measurements
+
+Introduce:
+
+    T(x)
+
+Then show:
+
+    y = Σ fᵢ xᵢ
+
+and:
+
+    T(y) = T(Σ fᵢxᵢ)
+
+For a linear transformation:
+
+    T(Σ fᵢxᵢ) = Σ fᵢT(xᵢ)
+
+Then write:
+
+IN PLAIN LANGUAGE:
+
+If the original observation is a mixture of spectra, applying the same linear
+sensor transformation to the mixture gives the same result as transforming
+each component first and then mixing them using the original fractions.
+
+Create FIGURE 3 showing this as two paths through a diagram:
+
+PATH A
+
+A + B
+  ↓ mix
+mixture
+  ↓ sensor transformation
+translated mixture
+
+PATH B
+
+A → transformed A
+B → transformed B
+        ↓ mix using same fractions
+translated mixture
+
+Both arrows should meet at exactly the same endpoint.
+
+Label:
+
+    SAME RESULT
+
+This should visually explain commutation.
+
+
+======================================================================
+SECTION 4 — WHY AFFINE TRANSLATIONS CAN ALSO WORK
+======================================================================
+
+Explain:
+
+    T(x) = Ax + b
+
+Then show why the intercept does not break convex-mixture preservation when:
+
+    Σ fᵢ = 1
+
+Keep derivation short.
+
+Show:
+
+Σ fᵢ(Axᵢ + b)
+=
+AΣ fᵢxᵢ + bΣfᵢ
+=
+AΣ fᵢxᵢ + b
+
+because:
+
+    Σfᵢ = 1
+
+IN PLAIN LANGUAGE:
+
+A shared affine translation can shift all spectra while preserving their
+mixture proportions because mixture fractions sum to one.
+
+Connect this directly to the actual implemented SpectralBridge sensor
+translations identified in TRANSLATION_INVARIANCE.md.
+
+Create a table:
+
+Transformation
+Actual implementation
+Linear / affine / nonlinear
+Mixture preserving?
+Conditions
+Empirical assumption
+
+Use REAL transformations from the repository.
+
+Do not generalize beyond what the formal audit supports.
+
+
+======================================================================
+SECTION 5 — THE CENTRAL SURPRISE:
+PRESERVING FRACTIONS DOES NOT PRESERVE INFORMATION
+======================================================================
+
+This should be the strongest explanatory section.
+
+Create FIGURE 4.
+
+Start with two clearly distinguishable hyperspectral spectra:
+
+A
+B
+
+Then apply a toy band-reduction transformation.
+
+After reduction show:
+
+    transformed A = transformed B
+
+Visually:
+
+HYPERSPECTRAL
+
+A  ─╲_/──╲___
+B  __/╲____/──
+
+clearly different
+
+        ↓ band reduction
+
+BROADBAND SENSOR
+
+A   ● ● ●
+B   ● ● ●
+
+indistinguishable
+
+Use the ACTUAL proved counterexample if it can be visualized cleanly.
+Otherwise use a visually equivalent explanatory example and separately state
+the exact formal counterexample.
+
+Explain:
+
+The forward transformation was mathematically valid.
+
+Nothing "went wrong."
+
+The sensor simply discarded dimensions containing the distinction.
+
+Introduce:
+
+    rank(T E) ≤ rank(E)
+
+only if it is actually proved in the Lean work.
+
+Explain:
+
+A sensor transformation can retain information or lose it, but a fixed
+linear dimensionality reduction cannot manufacture spectral dimensions that
+were not present.
+
+Then state the major result in large text:
+
+    COMPOSITION CAN BE PRESERVED
+    WHILE IDENTIFIABILITY IS LOST.
+
+Explain why this connects directly to the empirical NEON versus synthetic OLI
+results.
+
+
+======================================================================
+SECTION 6 — WHAT DOES "IDENTIFIABLE" MEAN?
+======================================================================
+
+Explain identifiability using mixtures rather than abstract matrices.
+
+Show:
+
+Mixture 1:
+60% A + 40% B
+
+Mixture 2:
+20% A + 50% C + 30% D
+
+If both generate the same observed spectrum, the inverse problem has more than
+one answer.
+
+Create FIGURE 5:
+
+LEFT:
+one observed spectrum
+
+RIGHT:
+two different compositions
+
+both arrows point to the same observation.
+
+Label:
+
+    SAME SPECTRUM
+    DIFFERENT COMPOSITION
+
+Explain:
+
+Good reconstruction does not imply unique biological composition.
+
+Then explain the relevant formal theorem/counterexample.
+
+Connect this directly to the empirical abundance ambiguity analysis.
+
+
+======================================================================
+SECTION 7 — WHAT FCLS ACTUALLY DOES
+======================================================================
+
+Explain FCLS visually.
+
+Given:
+
+observed spectrum y
+endmember matrix E
+
+find fractions f such that:
+
+    Ef
+
+is as close as possible to y, subject to:
+
+    fᵢ ≥ 0
+    Σfᵢ = 1
+
+Create FIGURE 6:
+
+Use a simple 2D or 3D spectral-space geometry.
+
+Show:
+
+endmembers defining a convex region
+observed spectrum
+closest feasible mixture
+
+Explain:
+
+FCLS asks:
+
+    Which allowed mixture best reconstructs this spectrum?
+
+Then explain the ideal oracle theorem:
+
+If:
+
+- the supplied endmembers are the true generating endmembers
+- the mixture is exactly linear
+- the solution is identifiable
+- the observation is generated exactly from those endmembers
+
+then the true fractions are recovered.
+
+IN PLAIN LANGUAGE:
+
+When we give the solver the right ingredients and the mathematical model is
+true, the solver works.
+
+This should connect directly to the near-machine-precision synthetic oracle
+result in the empirical analysis.
+
+Then explain why this does NOT establish field abundance.
+
+
+======================================================================
+SECTION 8 — WHAT MESMA ADDS
+======================================================================
+
+Explain MESMA as:
+
+    try multiple plausible endmember combinations
+    and select the combination that reconstructs the observation best
+
+Create FIGURE 7.
+
+Observed spectrum in center.
+
+Around it:
+
+Candidate library A
+Candidate library B
+Candidate library C
+
+Show several candidate mixtures reaching nearly the same observed spectrum.
+
+One may have the lowest residual, but several may be plausible.
+
+Introduce the tolerance-aware ambiguity set from the actual formalization.
+
+Do not drown the reader in notation.
+
+Explain:
+
+MESMA can answer:
+
+    Which candidate composition reconstructs this observation best?
+
+It cannot automatically answer:
+
+    Is this the unique biological composition capable of producing the
+    observation?
+
+This distinction should be extremely clear.
+
+
+======================================================================
+SECTION 9 — WHAT RIDGE DOES DIFFERENTLY
+======================================================================
+
+Explain ridge as prediction rather than inversion.
+
+Create FIGURE 8 with two contrasting diagrams.
+
+MESMA:
+
+    spectrum
+       ↓
+    search candidate mixtures
+       ↓
+    best spectral reconstruction
+
+RIDGE:
+
+    training spectra + known synthetic fractions
+       ↓
+    learn mapping
+       ↓
+    new spectrum
+       ↓
+    expected fraction prediction
+
+Explain regularization conceptually.
+
+Do not derive ridge regression unless useful.
+
+Explain the formal result:
+
+with positive regularization, the fitted ridge coefficient solution is unique
+under the proved conditions.
+
+Then make the crucial distinction:
+
+    UNIQUE MODEL FIT
+          ≠
+    UNIQUE PHYSICAL COMPOSITION
+
+Create a visual showing:
+
+one unique ridge prediction
+
+but
+
+multiple physically plausible mixtures underneath it.
+
+This is one of the most important results in the report.
+
+
+======================================================================
+SECTION 10 — WHY SIMPLEX PROJECTION HELPS
+======================================================================
+
+Show an intuitive simplex diagram.
+
+Raw ridge prediction lies outside the valid triangle.
+
+Projection moves it to the nearest valid point.
+
+Create FIGURE 9:
+
+triangle/simplex
+raw prediction outside
+arrow
+projected prediction inside
+
+Explain the proved properties:
+
+- nonnegative fractions
+- sum to one
+- valid prediction stays unchanged
+- projection is idempotent
+- projection has the relevant Euclidean nearest-point property
+- include the non-worsening-to-feasible-truth statement ONLY if actually proved
+
+Explain:
+
+Projection imposes valid fraction geometry.
+
+It does not add spectral information.
+
+Therefore:
+
+    better constrained prediction
+        ≠
+    resolved ambiguity
+
+
+======================================================================
+SECTION 11 — THE FULL CHAIN
+======================================================================
+
+Now return to the whole SpectralBridge pipeline.
+
+Create FIGURE 10 as the synthesis figure.
+
+Use a simple example:
+
+LANDSCAPE
+
+60% A
+40% B
+
+        ↓
+
+HYPERSPECTRAL OBSERVATION
+
+many wavelengths
+
+        ↓
+
+SENSOR TRANSLATION
+
+same ideal 60/40 mixture
+
+        ↓
+
+LANDSAT-LIKE OBSERVATION
+
+fewer bands
+
+        ↓
+
+two possibilities:
+
+MESMA
+    reconstruct candidate mixtures
+
+RIDGE
+    predict expected fractions
+
+        ↓
+
+ABUNDANCE ESTIMATE
+
+Then overlay where information can be lost.
+
+Use visual labels:
+
+PRESERVED
+LOST
+ASSUMED
+ESTIMATED
+
+The reader should be able to see exactly where:
+
+- fractions are mathematically preserved
+- dimensions are reduced
+- identifiability can disappear
+- library assumptions enter
+- model assumptions enter
+- field truth is still required
+
+
+======================================================================
+SECTION 12 — WHAT THE PROOF SAYS ABOUT OUR EMPIRICAL RESULTS
+======================================================================
+
+Connect formal results explicitly to the current scientific analysis.
+
+Use the canonical validation report.
+
+Explain:
+
+SEPARABILITY
+
+The empirical data show category spectra differ.
+
+The proof does NOT establish that biological fact.
+
+IDENTIFIABILITY
+
+The empirical classifiers show much of that information can identify unseen
+polygons, with weaker geographic/temporal transfer.
+
+The formal work explains why sensor reduction can reduce identifiability even
+when forward mixture relationships remain valid.
+
+ABUNDANCE
+
+The known-parent oracle works nearly exactly.
+
+The formal proof explains why this is expected under the ideal assumptions.
+
+MESMA ambiguity
+
+The empirical analysis finds multiple near-fitting compositions.
+
+The formal work proves that good reconstruction cannot guarantee unique
+composition.
+
+RIDGE120
+
+The empirical analysis finds lower expected synthetic fraction error with the
+larger library.
+
+The proof explains why a unique ridge prediction does not imply unique
+physical inversion.
+
+MATCHED15
+
+The empirical ridge advantage disappears when retained library capacity is
+matched.
+
+Explain that this is empirical evidence about representation/library diversity,
+not a theorem that one algorithm is universally superior.
+
+GLOBAL-YEAR PRIOR
+
+Explain the empirical failure relative to the no-spectrum prior.
+
+Again:
+
+Lean does not rank the algorithms empirically.
+
+
+======================================================================
+SECTION 13 — THE IMPLEMENTATION AUDIT
+======================================================================
+
+Read IMPLEMENTATION_AUDIT.md carefully.
+
+Explain EVERY discovered discrepancy in plain language.
+
+For each one include:
+
+WHAT THE CODE DOES
+
+WHAT THE MATHEMATICAL SPECIFICATION EXPECTS
+
+WHY THEY DIFFER
+
+CAN IT CHANGE OUTPUTS?
+
+CAN IT CHANGE EXISTING SCIENTIFIC RESULTS?
+
+SEVERITY
+
+RECOMMENDED ACTION
+
+Pay particular attention to the currently documented issues involving:
+
+- band-axis inference
+- overlapping extraction windows
+
+Do NOT minimize these.
+
+Do NOT exaggerate them.
+
+If impact has not been established, say:
+
+    impact not yet established
+
+rather than guessing.
+
+If useful, create small explanatory figures showing the problem.
+
+
+======================================================================
+SECTION 14 — WHAT IS ACTUALLY PROVED?
+======================================================================
+
+Create a large reader-friendly table.
+
+Columns:
+
+Scientific statement
+Status
+Meaning
+
+Use statuses:
+
+PROVED
+PROVED IF ASSUMPTIONS HOLD
+NUMERICALLY CHECKED
+EMPIRICALLY SUPPORTED
+NOT ESTABLISHED
+FALSE / COUNTEREXAMPLE
+
+Examples should come from PROOF_STATUS.md.
+
+Include statements such as:
+
+sensor convolution is linear
+ideal linear transformation preserves mixture weights
+affine transformation preserves simplex mixtures
+band reduction can destroy identifiability
+good reconstruction guarantees correct composition
+ridge solution uniqueness
+ridge prediction implies physical uniqueness
+simplex projection produces valid fractions
+ideal known-parent mixture recovery
+field abundance recovery
+
+Do not mark anything PROVED merely because it was planned.
+
+Confirm theorem existence and axiom status.
+
+
+======================================================================
+SECTION 15 — THE ASSUMPTION LADDER
+======================================================================
+
+Create FIGURE 11.
+
+Show a ladder:
+
+MATHEMATICS
+    ↓
+IMPLEMENTATION
+    ↓
+SENSOR PHYSICS
+    ↓
+SPECTRAL LIBRARY
+    ↓
+BIOLOGICAL REPRESENTATION
+    ↓
+FIELD ABUNDANCE
+
+At each level show what must be assumed or measured.
+
+Example:
+
+MATHEMATICS
+proved in Lean
+
+IMPLEMENTATION
+checked against representative Python examples
+
+SENSOR PHYSICS
+requires calibration / response validity
+
+LIBRARY
+requires representative spectra
+
+BIOLOGY
+requires categories to mean what labels claim
+
+FIELD ABUNDANCE
+requires independent contemporaneous fractional-cover truth
+
+This figure should explain why formal verification is powerful without
+overclaiming.
+
+
+======================================================================
+SECTION 16 — WHAT WE LEARNED
+======================================================================
+
+End with a short synthesis.
+
+The final narrative should be approximately:
+
+1. The mathematical core of SpectralBridge is coherent under explicit
+   assumptions.
+
+2. Linear and appropriate affine sensor transformations can preserve ideal
+   mixture fractions.
+
+3. Preserving fractions forward does not guarantee that they can be recovered
+   backward.
+
+4. Band reduction can mathematically destroy identifiability.
+
+5. FCLS/MESMA solve reconstruction problems.
+
+6. Ridge solves a supervised prediction problem.
+
+7. Good reconstruction and good prediction are both different from unique
+   physical inversion.
+
+8. Library representation is therefore central to abundance inference.
+
+9. Formal verification tells us exactly where the mathematical guarantees end.
+
+10. Calibration, biological representation and field abundance remain
+    empirical scientific questions.
+
+End with one strong sentence:
+
+    The proof does not tell us that every abundance estimate is true.
+    It tells us precisely what must be true for an abundance estimate to have
+    the interpretation we give it.
+
+
+======================================================================
+REPORT OUTPUT
+======================================================================
+
+Create:
+
+formal/report/
+    SpectralBridge_Formal_Verification_Explained.pdf
+    SpectralBridge_Formal_Verification_Explained.md
+    figures/
+    tables/
+    figure_manifest.json
+    source_manifest.json
+
+The PDF should be polished enough to give directly to:
+
+- the SpectralBridge science team
+- collaborators
+- reviewers
+- remote-sensing researchers
+- environmental data scientists
+
+Aim for approximately 20–30 pages if needed.
+
+Do not pad to reach a page count.
+
+Clarity matters more than length.
+
+
+======================================================================
+QUALITY CONTROL
+======================================================================
+
+Before finalizing:
+
+1. Build all Lean files.
+2. Run the axiom audit.
+3. Run the Python conformance tests.
+4. Confirm every statement labeled PROVED corresponds to an actual theorem.
+5. Confirm no theorem depends on a custom axiom or sorry.
+6. Check every empirical number against the canonical scientific outputs.
+7. Check every implementation statement against actual production code.
+8. Check every sensor transformation against TRANSLATION_INVARIANCE.md.
+9. Render the PDF.
+10. Visually inspect EVERY page.
+11. Check figure text at normal reading size.
+12. Remove unnecessary jargon.
+13. Make sure equations render correctly.
+14. Make sure no figure is clipped.
+15. Make sure captions explain how to interpret each figure.
+16. Make sure no formal result is presented as empirical validation.
+17. Make sure no empirical result is presented as mathematical proof.
+18. Make sure synthetic abundance is never called field abundance.
+
+Then perform a final hostile-reader pass:
+
+Could a reader mistakenly conclude that:
+
+- Lean proved the field observations correct?
+- Lean proved calibration coefficients correct?
+- sensor translation never loses information?
+- MESMA recovers unique biological truth?
+- ridge solves spectral ambiguity?
+- ridge is universally superior to MESMA?
+- synthetic fractions establish field cover?
+
+If yes, revise the report until that interpretation is difficult to make.
+
+
+======================================================================
+MOST IMPORTANT WRITING RULE
+======================================================================
+
+Never present a theorem and move on.
+
+For every major result use this structure:
+
+    THE IDEA
+    THE MATHEMATICS
+    THE FIGURE
+    WHAT IT MEANS
+    WHAT IT DOES NOT MEAN
+    HOW IT CONNECTS TO SPECTRALBRIDGE
+
+The goal is not to teach the reader Lean.
+
+The goal is for the reader to understand SpectralBridge better BECAUSE Lean
+forced us to state exactly what the algorithm can and cannot guarantee.
+```
+
+## 2026-10-16 - Continue illustrated formal report
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```

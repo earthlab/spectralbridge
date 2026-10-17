@@ -1,0 +1,11 @@
+Transformation / actual path,Class and preservation conditions,Empirical assumption
+NEON storage scaling<br/>io/neon.py,Fixed multiplier: linear. Same scale and support preserve weights.,Header scale represents the intended quantity.
+NEON → synthetic OLI/MicaSense<br/>resample.py + pipeline SRFs,"Fixed sampled weights: linear, including epsilon. Exact normalized constants require true normalization.",Response approximation adequately represents the target sensor.
+Synthetic Landsat percentage adjustment<br/>pipeline brightness helper,Fixed gains: linear on valid bands; axis and coefficients must match.,Percent coefficients transfer to the intended comparison.
+Native drone → Landsat-like<br/>drone_translation.py,Wavelength-mapped affine. Shared transform preserves simplex weights. No convolution here.,Synthetic NEON-derived coefficients are appropriate for native drone data.
+Actual Landsat DN conversion<br/>landsat_agreement.py,"Affine: 0.0000275 × DN − 0.2 on valid DN [1,65455].","Product metadata, QA and independent acquisition alignment."
+Frozen topo/BRDF factors<br/>corrections.py,Diagonal linear map at a location. Shared frozen positive factors preserve weights/signs.,Geometry and fitted model are appropriate; masks remain fixed.
+Fitted/clipped scene brightness<br/>brightness.py,Data-dependent; frozen preclip map affine. Clipping is nonlinear. No universal preservation.,Scene statistics and reference matching have scientific relevance.
+Area-weighted footprint mean<br/>landsat_agreement.py,Linear with fixed common support and normalized weights; commutes with shared affine maps.,"Registration, overlap and joint-valid support are correct."
+Hierarchical polygon/year median<br/>plant_spectral_atlas.py,Nonlinear under arbitrary mixing. Mean commutation does not apply.,"Labels, identities and reference variability represent intended cover."
+Ridge + simplex projection<br/>researcher_information.py + benchmark,Frozen raw prediction affine; projection nonlinear. No inverse uniqueness guarantee.,Training fractions and distribution support the intended prediction.
