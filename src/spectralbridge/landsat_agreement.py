@@ -20,6 +20,8 @@ OLI_CENTERS = np.array([443, 482, 561.4, 654.6, 864.7, 1608.9, 2200.7])
 
 @dataclass(frozen=True)
 class ReferenceGrid:
+    """Describe the common CRS, affine grid, dimensions and support used for Landsat comparisons."""
+
     crs: str
     transform: tuple
     width: int
@@ -63,6 +65,8 @@ def scale_landsat_sr(dn):
 
 
 def spectral_angle(real, synthetic):
+    """Compute spectral angle in degrees along matching seven-channel vectors; zero-norm comparisons yield NaN."""
+
     x = np.asarray(real, float)
     y = np.asarray(synthetic, float)
     if x.shape != y.shape or x.shape[-1] != 7:

@@ -8,6 +8,8 @@ import h5py
 
 @dataclass
 class NeonPaths:
+    """Group legacy NEON HDF5 dataset locations for reflectance, wavelengths and ancillary metadata."""
+
     reflectance: str
     wavelength: str
     fwhm: Optional[str]

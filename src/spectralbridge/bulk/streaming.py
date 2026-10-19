@@ -151,6 +151,8 @@ class BivariateStatistics:
 
 @dataclass(frozen=True)
 class PairBand:
+    """Record a one-based source/target band relationship for streamed sufficient statistics."""
+
     translation_pair: str
     source_sensor: str
     target_sensor: str
@@ -168,6 +170,8 @@ class PairBand:
 
 
 def pair_bands(pairs: Sequence[TranslationPair]) -> tuple[PairBand, ...]:
+    """Expand registered translation pairs into ordered band-level statistics specifications."""
+
     result: list[PairBand] = []
     for pair in pairs:
         matched = pair.band_pairs
@@ -325,10 +329,14 @@ def _write_parquet_atomic(path: Path, rows: list[dict[str, Any]], schema: pa.Sch
 
 
 def write_statistics(path: Path, rows: list[dict[str, Any]]) -> None:
+    """Atomically write compact sufficient-statistics rows using the fixed statistics schema."""
+
     _write_parquet_atomic(path, rows, _STATISTICS_SCHEMA)
 
 
 def write_diagnostic_sample(path: Path, rows: list[dict[str, Any]]) -> None:
+    """Atomically write the explicitly requested diagnostic pixel sample using its fixed schema."""
+
     _write_parquet_atomic(path, rows, _SAMPLE_SCHEMA)
 
 

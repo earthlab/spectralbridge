@@ -8,6 +8,8 @@ import json
 
 @dataclass
 class HeaderReport:
+    """Store legacy ENVI header QA findings and metadata."""
+
     keys_present: List[str]
     keys_missing: List[str]
     wavelength_unit: Optional[str]
@@ -21,6 +23,8 @@ class HeaderReport:
 
 @dataclass
 class MaskReport:
+    """Store legacy validity-mask QA findings."""
+
     n_total: int
     n_valid: int
     valid_pct: float
@@ -28,6 +32,8 @@ class MaskReport:
 
 @dataclass
 class CorrectionReport:
+    """Store legacy correction QA diagnostics."""
+
     delta_median: List[float]
     delta_iqr: List[float]
     delta_q10: List[float]
@@ -40,6 +46,8 @@ class CorrectionReport:
 
 @dataclass
 class ConvolutionReport:
+    """Store legacy target-sensor convolution QA diagnostics."""
+
     sensor: str
     rmse: List[float]
     sam: Optional[float]
@@ -47,6 +55,8 @@ class ConvolutionReport:
 
 @dataclass
 class Provenance:
+    """Store source and execution metadata accompanying a legacy QA report."""
+
     flightline_id: str
     created_utc: str
     package_version: str
@@ -56,6 +66,8 @@ class Provenance:
 
 @dataclass
 class QAMetrics:
+    """Group legacy header, mask, correction, convolution and provenance QA records."""
+
     provenance: Provenance
     header: HeaderReport
     mask: MaskReport
@@ -72,6 +84,8 @@ class QAMetrics:
 
 
 def write_json(metrics: QAMetrics, out_path: Path) -> Path:
+    """Serialize legacy QAMetrics to JSON, creating the destination parent directory."""
+
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(metrics.to_json())
     return out_path

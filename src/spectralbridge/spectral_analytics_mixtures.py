@@ -38,6 +38,8 @@ def reconstruct_saved_mixtures(records, index, spectra, labels):
 
 
 def run_selected_mixtures(source, compact, root, previous):
+    """Run the retained selected-endmember mixture sensitivity study using verified prior truth and fold membership."""
+
     root, previous = Path(root), Path(previous)
     table, arrays, waves, actual, metadata = load_analytics_inputs(
         source, compact, root

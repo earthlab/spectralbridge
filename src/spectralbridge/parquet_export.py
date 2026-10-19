@@ -583,6 +583,8 @@ def ensure_parquet_from_envi(
     chunk_size: int = 50_000,
     num_cpus: int | None = None,
 ) -> Path:
+    """Reuse a readable Parquet schema or rebuild the table from the existing ENVI image/header in bounded chunks."""
+
     import pyarrow.parquet as pq
 
     parquet_path = Path(parquet_path)
@@ -605,6 +607,8 @@ def ensure_parquet_from_envi(
 
 
 def repair_lonlat_in_place(folder: Path):
+    """Add missing coordinate columns to eligible Parquets in place using matching ENVI geometry."""
+
     from spectralbridge.merge_duckdb import EXCLUDE_PATTERNS
 
     folder = Path(folder)

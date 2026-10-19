@@ -45,6 +45,23 @@ This does not establish that ridge is intrinsically superior to MESMA.
 training bundles and priors change together, so the control does not isolate a
 single causal mechanism. Global-year ridge also fails the no-spectrum prior on average.
 
+## What exhaustive endmember searching adds
+
+The supplied 603-member synthetic OLI reference library was searched over all
+16,918,447 permitted one-to-three-category combinations for each of 360 fixed
+synthetic targets. Mean spectral RMSE fell from 0.003721 to 0.000792, while pooled
+PFT fraction RMSE changed from 0.3215 to 0.3336. Fraction error improved for 156
+targets and worsened for 203, with one effectively unchanged. The paired
+eight-bundle uncertainty range includes no aggregate difference.
+
+**Better spectral reconstruction does not guarantee better compositional
+recovery.** Candidate screening does not explain away this benchmark result;
+it is not a universal MESMA failure or proof that all physical inversions are
+impossible. Selection used the whole library, so this remains an internal
+synthetic test, not field-cover validation. See the
+[experiment and numerical checks](mesma-readiness.md#exhaustive-search-of-the-supplied-603-member-library)
+and [versioned report](https://github.com/earthlab/spectralbridge/tree/main/provenance/endmember-quality/2026-10-19/exhaustive-v1).
+
 ## What the mathematics adds
 
 [Fixed linear and appropriate affine transformations preserve an ideal mixture
@@ -56,14 +73,14 @@ test whether the implementation and world meet them.
 
 ## Run these methods on your own library
 
-Install the analytics extra for the generic numerical API:
+From a source checkout, install the analytics extra for the generic numerical API:
 
 ```bash
-python -m pip install 'earthlab-spectralbridge[analytics]'
+python -m pip install -e '.[analytics]'
 ```
 
-These new functions are part of this checkout; use `python -m pip install -e '.[analytics]'`
-until a release containing them is published. Start with the
+These functions are part of this checkout; a containing PyPI release has not
+been verified. Start with the
 [API contracts](../api/scientific-analysis.md#reusable-library-analysis-methods)
 and [offline teaching example](https://github.com/earthlab/spectralbridge/blob/main/examples/spectral_library_methods.py).
 The example connects separability, recognition, feature budgets, paired

@@ -1,0 +1,212 @@
+[
+  {
+    "name": "BulkProductionResult",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "DroneCampaignConfig",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "DroneCampaignIncompleteError",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "DroneCampaignResult",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "DroneCollectionInventory",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "DroneFlightStatus",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "DroneSource",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "DroneYearSource",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "RemoteDronePackage",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "__version__",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": false,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "apply_brightness_correction",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "build_drone_translation_coefficient_registry",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "build_harmonized_dataset",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "get_drone_translation_coefficient",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "go_forth_and_multiply",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "inspect_drone_collection",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "inspect_spectral_library_preflight",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "load_brightness_coefficients",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "load_drone_translation_coefficients",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "make_micasense_vs_landsat_panels",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "make_sensor_vs_neon_panels",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "process_one_flightline",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "run_bulk_pipeline",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "run_drone_bulk_production",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "run_drone_campaign",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "run_drone_pipeline",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "run_spectral_library_analysis",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "stage_drone_collection",
+    "present": true,
+    "mentioned_in_docs": false,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "summarize_bulk_results",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  },
+  {
+    "name": "validate_bulk_ready_flightline",
+    "present": true,
+    "mentioned_in_docs": true,
+    "callable": true,
+    "mentioned_in_rendered_API": true
+  }
+]

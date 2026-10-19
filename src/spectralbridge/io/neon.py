@@ -43,7 +43,22 @@ _DATE_RE = re.compile(r"_([0-9]{8})_")
 
 
 def is_pre_2021(h5_path: Path) -> bool:
-    """Return ``True`` when ``h5_path`` appears to be a pre-2021 NEON export."""
+    """Return ``True`` when ``h5_path`` appears to be a pre-2021 NEON export.
+
+    Parameters
+    ----------
+    h5_path : Path
+        Existing NEON reflectance HDF5 file; layout is detected from file metadata rather than assumed from array dimensions.
+
+    Returns
+    -------
+    bool
+        Whether a year parsed from the filename is earlier than 2021; False when no year is recognized. This is not the schema resolver.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+    """
 
     path = Path(h5_path)
     match = _DATE_RE.search(path.name)
@@ -681,7 +696,29 @@ def _read_site_group_legacy_layout(
 
 
 def peek_neon_raster_shape(h5_path: Path) -> tuple[int, int]:
-    """Return ``(n_lines, n_samples)`` without loading the reflectance cube."""
+    """Return ``(n_lines, n_samples)`` without loading the reflectance cube.
+
+    Parameters
+    ----------
+    h5_path : Path
+        Existing NEON reflectance HDF5 file; layout is detected from file metadata rather than assumed from array dimensions.
+
+    Returns
+    -------
+    tuple[int, int]
+        Number of along-track lines and across-track samples, without loading the reflectance cube.
+
+    Raises
+    ------
+    FileNotFoundError
+        If a required source or completed artifact is absent.
+    RuntimeError
+        If required processing or artifact validation cannot complete.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+    """
 
     path = Path(h5_path)
     if not path.exists():
@@ -726,7 +763,22 @@ def peek_neon_raster_shape(h5_path: Path) -> tuple[int, int]:
 
 
 def peek_neon_sample_count(h5_path: Path) -> int:
-    """Return the across-track sample count without loading the reflectance cube."""
+    """Return the across-track sample count without loading the reflectance cube.
+
+    Parameters
+    ----------
+    h5_path : Path
+        Existing NEON reflectance HDF5 file; layout is detected from file metadata rather than assumed from array dimensions.
+
+    Returns
+    -------
+    int
+        Across-track sample count, without loading the reflectance cube.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+    """
 
     return peek_neon_raster_shape(h5_path)[1]
 
@@ -738,8 +790,35 @@ def read_neon_cube(
 ) -> tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
     """Return ``(cube, wavelengths, metadata)`` for ``h5_path`` regardless of layout.
 
+    Parameters
+    ----------
+    h5_path : Path
+        Existing NEON reflectance HDF5 file; layout is detected from file metadata rather than assumed from array dimensions.
+    sample_slice : slice | tuple[int, int] | None, default=None
+        Optional half-open across-track sample window, supplied as a slice or (start, stop); None reads the full sample axis.
+    line_slice : slice | tuple[int, int] | None, default=None
+        Optional half-open along-track line window, supplied as a slice or (start, stop); None reads the full line axis.
+
+    Returns
+    -------
+    tuple[np.ndarray, np.ndarray, Dict[str, Any]]
+        Cube shaped (lines, samples, bands), wavelength vector (bands,) in nanometers, and metadata including nodata, scale_factor and spatial/window provenance. Stored reflectance values are retained; use the explicit unitless reader when conversion is required.
+
+    Raises
+    ------
+    FileNotFoundError
+        If a required source or completed artifact is absent.
+    RuntimeError
+        If required processing or artifact validation cannot complete.
+
+    Notes
+    -----
     ``sample_slice`` / ``line_slice`` are optional half-open windows on the
     across-track and along-track axes. When omitted, the full cube is loaded.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
     """
 
     path = Path(h5_path)

@@ -26,7 +26,8 @@ safe to deploy in scientific, notebook, cloud, and container workflows.
 
 ## Versioning and releases
 - We follow **Semantic Versioning (SemVer)**: `MAJOR.MINOR.PATCH`.
-- Tag releases in Git with `vMAJOR.MINOR.PATCH` (e.g., `v0.2.0`).
+- Tag final releases with `vMAJOR.MINOR.PATCH`; use strict PEP 440 prerelease
+  suffixes such as `v2.3.0rc1`, as required by the release workflow.
 - Update the version in `pyproject.toml`, `src/spectralbridge/__init__.py`,
   and `CITATION.cff` as part of release preparation. `setup.py` is a
   compatibility shim only.
@@ -42,7 +43,7 @@ safe to deploy in scientific, notebook, cloud, and container workflows.
   the GitHub release.
 
 ## Licensing and provenance
-- The repository currently distributes under GPLv3. Keep `LICENSE`,
+- The repository currently distributes under GPL-3.0-or-later. Keep `LICENSE`,
   `pyproject.toml`, `README.md`, and `CITATION.cff` consistent with the actual
   legal status of the codebase.
 - Do not claim an Apache 2.0 migration is complete unless maintainers have
@@ -72,8 +73,9 @@ safe to deploy in scientific, notebook, cloud, and container workflows.
   in doubt, open an issue before changing any production path conventions.
 - Keep Parquet as the authoritative tabular output. CSV files, when present, are
   convenience sidecars only.
-- Avoid committing large data artifacts to active paths. Move historical or
-  provenance material to `deprecated/` instead of deleting it.
+- Avoid committing large data artifacts to active paths. Preserve historical evidence in
+  its existing `provenance/` or `archive/` location; do not relocate sealed records
+  as part of an ordinary contribution.
 
 ## Communication
 - Use GitHub Issues or Discussions for asynchronous questions.

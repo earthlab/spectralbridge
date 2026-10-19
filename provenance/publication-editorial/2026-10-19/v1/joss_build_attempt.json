@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "returncode": 0,
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--volume",
+    "/private/tmp/p139-paper-build:/data",
+    "--user",
+    "504:20",
+    "--env",
+    "JOURNAL=joss",
+    "openjournals/inara@sha256:a0414b8b72fd8923917ede614d340d98dc7aa3102aabc2e955e9c02a6100fd62",
+    "-o",
+    "pdf",
+    "paper.md"
+  ],
+  "pdf": "/private/tmp/p139-paper-build/paper.pdf"
+}

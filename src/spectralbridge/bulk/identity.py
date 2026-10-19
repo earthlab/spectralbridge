@@ -13,7 +13,19 @@ from spectralbridge.file_types import NEONReflectanceFile
 
 @dataclass(frozen=True)
 class FlightlineIdentity:
-    """Scientific identity for one independently processed flightline."""
+    """Scientific identity for one independently processed flightline.
+
+    Attributes
+    ----------
+    flightline_id : str
+        Canonical scientific flightline identifier; histories from the same underlying flight must retain this identity.
+    site : str | None
+        Scientific site code recovered from the canonical identity or manifest, not an arbitrary outer directory name.
+    acquisition_date : str | None
+        ISO acquisition date associated with this scientific flightline; None indicates unavailable metadata.
+    identity_source : str
+        Parser or manifest provenance explaining how the scientific flightline identity was recovered.
+    """
 
     flightline_id: str
     site: str | None
@@ -22,7 +34,13 @@ class FlightlineIdentity:
 
 
 class FlightlineIdentityParser(Protocol):
-    """Protocol for adding identity conventions without changing discovery."""
+    """Protocol for adding identity conventions without changing discovery.
+
+    Attributes
+    ----------
+    name : str
+        Stable parser/profile identifier used in configuration and provenance.
+    """
 
     name: str
 

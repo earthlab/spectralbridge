@@ -1,0 +1,922 @@
+[
+  {
+    "path": "docs/ai-transparency.md",
+    "navigation": "/Validate/Publication evidence/AI transparency",
+    "title": "AI Transparency Statement",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3011
+  },
+  {
+    "path": "docs/api/index.md",
+    "navigation": "/Reference/Python API",
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6082
+  },
+  {
+    "path": "docs/api/merge_duckdb.md",
+    "navigation": null,
+    "title": "API: merge_duckdb",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 70
+  },
+  {
+    "path": "docs/api/qa_plots.md",
+    "navigation": null,
+    "title": "API: qa_plots",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 69
+  },
+  {
+    "path": "docs/api/scientific-analysis.md",
+    "navigation": "/Reference/Scientific analysis API and maturity",
+    "title": "Scientific analysis API and maturity",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 13318
+  },
+  {
+    "path": "docs/brdf_topo_algorithm.md",
+    "navigation": "/Reference/Algorithms and QA/BRDF and topographic methods",
+    "title": "Streamlined BRDF + Topographic corrections",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5910
+  },
+  {
+    "path": "docs/concepts/measurements.md",
+    "navigation": "/Understand/Measurement basics",
+    "title": "Why sensors see the same landscape differently",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5582
+  },
+  {
+    "path": "docs/concepts/why-calibration.md",
+    "navigation": "/Understand/Correction and comparison",
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5939
+  },
+  {
+    "path": "docs/dev/architecture-audit.md",
+    "navigation": null,
+    "title": "Architecture Audit",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 9349
+  },
+  {
+    "path": "docs/dev/architecture.md",
+    "navigation": "/Develop/Architecture",
+    "title": "Package Architecture",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 14592
+  },
+  {
+    "path": "docs/dev/ci.md",
+    "navigation": "/Develop/CI ownership",
+    "title": "CI ownership and publication gates",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3083
+  },
+  {
+    "path": "docs/dev/codex-guidelines.md",
+    "navigation": null,
+    "title": "Guidelines for AI / Codex Edits",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 2101
+  },
+  {
+    "path": "docs/dev/container-workflows.md",
+    "navigation": "/Develop/Containers and remote helpers",
+    "title": "Container and Remote Helper Scripts",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3456
+  },
+  {
+    "path": "docs/dev/contributing.md",
+    "navigation": "/Develop/Tests and contribution",
+    "title": "Contributing & Development Workflow",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 4633
+  },
+  {
+    "path": "docs/dev/dependency-review.md",
+    "navigation": null,
+    "title": "Dependency Review",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 4977
+  },
+  {
+    "path": "docs/dev/doc_drift.md",
+    "navigation": null,
+    "title": "Documentation Drift Report",
+    "linked_from_markdown": true,
+    "classification": "HISTORICAL/PROVENANCE",
+    "bytes": 5432
+  },
+  {
+    "path": "docs/dev/doi-zenodo.md",
+    "navigation": "/Develop/DOI status",
+    "title": "DOI and Zenodo status",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 1586
+  },
+  {
+    "path": "docs/dev/drone-bulk-contract-diagnostic-2026-09-29.md",
+    "navigation": null,
+    "title": "Canonical drone-to-bulk contract diagnostic (2026-09-29)",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5758
+  },
+  {
+    "path": "docs/dev/history.md",
+    "navigation": "/Develop/Historical records",
+    "title": "Historical development and publication records",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 1162
+  },
+  {
+    "path": "docs/dev/logging-review.md",
+    "navigation": null,
+    "title": "Logging Review",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5786
+  },
+  {
+    "path": "docs/dev/production-validation-record.md",
+    "navigation": "/Develop/Production validation record",
+    "title": "Production validation record",
+    "linked_from_markdown": true,
+    "classification": "HISTORICAL/PROVENANCE",
+    "bytes": 5556
+  },
+  {
+    "path": "docs/dev/publication-cleanup-log.md",
+    "navigation": null,
+    "title": "Publication Cleanup Log",
+    "linked_from_markdown": true,
+    "classification": "HISTORICAL/PROVENANCE",
+    "bytes": 3605
+  },
+  {
+    "path": "docs/dev/publication-hardening-audit-2026-09-04.md",
+    "navigation": null,
+    "title": "PyPI Publication-Hardening Audit",
+    "linked_from_markdown": true,
+    "classification": "HISTORICAL/PROVENANCE",
+    "bytes": 36839
+  },
+  {
+    "path": "docs/dev/publication-readiness-audit-2026-08-14.md",
+    "navigation": null,
+    "title": "Publication Readiness And Test Coverage Audit",
+    "linked_from_markdown": true,
+    "classification": "HISTORICAL/PROVENANCE",
+    "bytes": 10281
+  },
+  {
+    "path": "docs/dev/release-hygiene.md",
+    "navigation": null,
+    "title": "Release Hygiene Review",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 2879
+  },
+  {
+    "path": "docs/dev/releasing.md",
+    "navigation": "/Develop/Release gates",
+    "title": "Releasing SpectralBridge",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6650
+  },
+  {
+    "path": "docs/dev/scientific-testing.md",
+    "navigation": "/Develop/Scientific testing",
+    "title": "What do the tests establish?",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 4757
+  },
+  {
+    "path": "docs/dev/software-citation.md",
+    "navigation": "/Develop/Software citation",
+    "title": "Software Citation And Publication Tracking",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5460
+  },
+  {
+    "path": "docs/dev/versioning-review.md",
+    "navigation": null,
+    "title": "Versioning Review",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3339
+  },
+  {
+    "path": "docs/dev-notes.md",
+    "navigation": null,
+    "title": "Developer Notes",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 338
+  },
+  {
+    "path": "docs/documentation-overview.md",
+    "navigation": null,
+    "title": "Documentation",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 819
+  },
+  {
+    "path": "docs/documentation_style_guide.md",
+    "navigation": null,
+    "title": "SpectralBridge Documentation Style Guide",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3803
+  },
+  {
+    "path": "docs/env.md",
+    "navigation": "/Develop/Environment",
+    "title": "Environment",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 1001
+  },
+  {
+    "path": "docs/faq.md",
+    "navigation": "/Use/FAQ",
+    "title": null,
+    "linked_from_markdown": false,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5679
+  },
+  {
+    "path": "docs/getting-started.md",
+    "navigation": "/Use/First example and installation",
+    "title": "Your first SpectralBridge example",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3781
+  },
+  {
+    "path": "docs/hytools_manuscript_guidance.md",
+    "navigation": "/Validate/Publication evidence/Software/method provenance",
+    "title": "HyTools manuscript guidance",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3388
+  },
+  {
+    "path": "docs/index.md",
+    "navigation": "/Home",
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 15879
+  },
+  {
+    "path": "docs/naming-conventions.md",
+    "navigation": "/Reference/Stage and filename contracts/Naming conventions",
+    "title": "Naming Conventions",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 7620
+  },
+  {
+    "path": "docs/page-catalog.md",
+    "navigation": "/Develop/Retained page catalog",
+    "title": "Retained specialized and stable-link pages",
+    "linked_from_markdown": false,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 813
+  },
+  {
+    "path": "docs/pipeline/outputs.md",
+    "navigation": "/Use/Outputs",
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 17459
+  },
+  {
+    "path": "docs/pipeline/polygons.md",
+    "navigation": null,
+    "title": "Polygon spectral library pipeline",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3343
+  },
+  {
+    "path": "docs/pipeline/qa.md",
+    "navigation": "/Validate/QA panels and metrics",
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5547
+  },
+  {
+    "path": "docs/pipeline/qa_panel.md",
+    "navigation": null,
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 4425
+  },
+  {
+    "path": "docs/pipeline/stage-qa.md",
+    "navigation": "/Reference/Algorithms and QA/Scientific QA by stage",
+    "title": "Stage-by-stage scientific QA",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 13598
+  },
+  {
+    "path": "docs/pipeline/stages.md",
+    "navigation": "/Reference/Stage and filename contracts/Stage order",
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5701
+  },
+  {
+    "path": "docs/pipeline.md",
+    "navigation": null,
+    "title": "Pipeline reference",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 12073
+  },
+  {
+    "path": "docs/qa.md",
+    "navigation": null,
+    "title": "Quality Assurance (QA) panels",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 1939
+  },
+  {
+    "path": "docs/quickstart.md",
+    "navigation": null,
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5706
+  },
+  {
+    "path": "docs/refactor_notes.md",
+    "navigation": null,
+    "title": "Refactor Notes: Pipeline Without a HyTools Runtime Dependency",
+    "linked_from_markdown": true,
+    "classification": "HISTORICAL/PROVENANCE",
+    "bytes": 5248
+  },
+  {
+    "path": "docs/reference/configuration.md",
+    "navigation": "/Reference/Configuration and data/Configuration",
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6122
+  },
+  {
+    "path": "docs/reference/custom-correction-hook.md",
+    "navigation": "/Develop/Extending/Custom correction hook",
+    "title": "Add a custom correction between pipeline stages",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5610
+  },
+  {
+    "path": "docs/reference/extending.md",
+    "navigation": "/Develop/Extending/Extend sensors and algorithms",
+    "title": "Extending",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 2716
+  },
+  {
+    "path": "docs/reference/index.md",
+    "navigation": "/Reference/Reference map",
+    "title": "Technical reference map",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 2142
+  },
+  {
+    "path": "docs/reference/json-catalog.md",
+    "navigation": "/Reference/Configuration and data/JSON catalog",
+    "title": "JSON file catalog",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 8269
+  },
+  {
+    "path": "docs/reference/literature.md",
+    "navigation": "/Reference/Literature sources",
+    "title": "Literature and scientific-method sources",
+    "linked_from_markdown": false,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 1264
+  },
+  {
+    "path": "docs/reference/qa-code-map.md",
+    "navigation": "/Reference/Algorithms and QA/QA implementation map",
+    "title": "QA implementation map",
+    "linked_from_markdown": false,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 4696
+  },
+  {
+    "path": "docs/reference/repository-map.md",
+    "navigation": "/Develop/Repository map",
+    "title": "Repository map",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 4935
+  },
+  {
+    "path": "docs/reference/schemas.md",
+    "navigation": "/Reference/Configuration and data/Schemas",
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 9272
+  },
+  {
+    "path": "docs/reference/validation.md",
+    "navigation": "/Reference/Configuration and data/Validation metrics",
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5452
+  },
+  {
+    "path": "docs/spectral-library/_closure.md",
+    "navigation": null,
+    "title": null,
+    "linked_from_markdown": false,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 1608
+  },
+  {
+    "path": "docs/spectral-library/_researcher_information.md",
+    "navigation": null,
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 729
+  },
+  {
+    "path": "docs/spectral-library/_snapshot.md",
+    "navigation": null,
+    "title": null,
+    "linked_from_markdown": false,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 793
+  },
+  {
+    "path": "docs/spectral-library/_transfer.md",
+    "navigation": null,
+    "title": null,
+    "linked_from_markdown": false,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 517
+  },
+  {
+    "path": "docs/spectral-library/atlas.md",
+    "navigation": "/Spectral Library/Atlas, sites and years",
+    "title": "How should I inspect spectra across plants, sites and years?",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3592
+  },
+  {
+    "path": "docs/spectral-library/biological-variation.md",
+    "navigation": "/Spectral Library/Biological variation",
+    "title": "Where do researcher categories differ, and can those differences predict?",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3386
+  },
+  {
+    "path": "docs/spectral-library/identifiability.md",
+    "navigation": "/Spectral Library/Identifiability",
+    "title": "Identifiability: can unseen observations be recognized?",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 4236
+  },
+  {
+    "path": "docs/spectral-library/index.md",
+    "navigation": "/Spectral Library/What is the library?",
+    "title": "What is the SpectralBridge spectral library?",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6743
+  },
+  {
+    "path": "docs/spectral-library/labels.md",
+    "navigation": "/Spectral Library/Label systems",
+    "title": "Researcher categories are the canonical biological grouping",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 1445
+  },
+  {
+    "path": "docs/spectral-library/mathematical-guarantees.md",
+    "navigation": "/Spectral Library/What the mathematics guarantees",
+    "title": "What the mathematics guarantees",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6263
+  },
+  {
+    "path": "docs/spectral-library/mesma-readiness.md",
+    "navigation": "/Spectral Library/Abundance and ambiguity",
+    "title": "Can researcher-category fractions be estimated reliably?",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 12446
+  },
+  {
+    "path": "docs/spectral-library/scientific-synthesis.md",
+    "navigation": "/Spectral Library/Scientific synthesis",
+    "title": "From spectra to ecological inference",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6509
+  },
+  {
+    "path": "docs/spectral-library/sensor-transfer.md",
+    "navigation": "/Spectral Library/Sensor information retention",
+    "title": "What researcher-category information survives synthetic Landsat reduction?",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 4087
+  },
+  {
+    "path": "docs/spectral-library/separability.md",
+    "navigation": "/Spectral Library/Separability",
+    "title": "Separability: where do labelled spectra differ?",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3676
+  },
+  {
+    "path": "docs/troubleshooting.md",
+    "navigation": "/Use/Troubleshooting",
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6927
+  },
+  {
+    "path": "docs/tutorials/cloud-workflow.md",
+    "navigation": "/Use/Cloud and HPC",
+    "title": null,
+    "linked_from_markdown": false,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5276
+  },
+  {
+    "path": "docs/tutorials/micasense-to-landsat.md",
+    "navigation": null,
+    "title": "Tutorial: MicaSense Local Drone Workflow",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 17883
+  },
+  {
+    "path": "docs/tutorials/neon-to-envi.md",
+    "navigation": null,
+    "title": "Tutorial: NEON \u2192 Corrected ENVI (BRDF + Topographic)",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3074
+  },
+  {
+    "path": "docs/tutorials/neon-to-landsat.md",
+    "navigation": null,
+    "title": "Tutorial: NEON -> Landsat-Style Reflectance",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3668
+  },
+  {
+    "path": "docs/usage/cli.md",
+    "navigation": "/Use/CLI",
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 12176
+  },
+  {
+    "path": "docs/usage/notebook-example.md",
+    "navigation": null,
+    "title": "Start Here: Notebook Workflow",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3811
+  },
+  {
+    "path": "docs/usage/parquet.md",
+    "navigation": "/Reference/Stage and filename contracts/Parquet",
+    "title": null,
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6533
+  },
+  {
+    "path": "docs/usage/parquet_preview.md",
+    "navigation": null,
+    "title": "Parquet Preview",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 549
+  },
+  {
+    "path": "docs/usage/recipes.md",
+    "navigation": null,
+    "title": "Recipes: Notebook Patterns",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6076
+  },
+  {
+    "path": "docs/validation/brdf_correction.md",
+    "navigation": "/Validate/Module contract evidence/BRDF correction",
+    "title": "Validation: BRDF correction",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6004
+  },
+  {
+    "path": "docs/validation/evidence-hierarchy.md",
+    "navigation": "/Validate/Evidence hierarchy",
+    "title": "What does a successful result establish?",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 2765
+  },
+  {
+    "path": "docs/validation/h5_to_envi.md",
+    "navigation": "/Validate/Module contract evidence/HDF5 to ENVI",
+    "title": "Validation: HDF5 to raw ENVI",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5891
+  },
+  {
+    "path": "docs/validation/index.md",
+    "navigation": "/Validate/Evidence overview",
+    "title": "Validation evidence",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6626
+  },
+  {
+    "path": "docs/validation/landsat-pilot.md",
+    "navigation": "/Validate/Independent Landsat pilot",
+    "title": "How does synthetic OLI compare with real Landsat?",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3909
+  },
+  {
+    "path": "docs/validation/neon_download.md",
+    "navigation": "/Validate/Module contract evidence/NEON acquisition",
+    "title": "Validation: NEON HDF5 download",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5926
+  },
+  {
+    "path": "docs/validation/parquet_csv.md",
+    "navigation": "/Validate/Module contract evidence/Tables",
+    "title": "Validation: Parquet extraction and CSV conversion",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6340
+  },
+  {
+    "path": "docs/validation/pft-methods.md",
+    "navigation": "/Validate/Whole-spectrum method audit",
+    "title": "How do the whole-spectrum tests work?",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3349
+  },
+  {
+    "path": "docs/validation/qa_plots.md",
+    "navigation": "/Validate/Module contract evidence/QA plots",
+    "title": "Validation: QA plots and diagnostics",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6315
+  },
+  {
+    "path": "docs/validation/real-data-example.md",
+    "navigation": "/Validate/Real flightline walkthrough",
+    "title": "Real flightline QA walkthrough",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 8314
+  },
+  {
+    "path": "docs/validation/save_restart.md",
+    "navigation": "/Validate/Module contract evidence/Restart",
+    "title": "Validation: Save and restart behavior",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 5986
+  },
+  {
+    "path": "docs/validation/scientific-validation.md",
+    "navigation": "/Validate/Scientific validation levels",
+    "title": "How do we know SpectralBridge works?",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 3849
+  },
+  {
+    "path": "docs/validation/sensor_convolution.md",
+    "navigation": "/Validate/Module contract evidence/Spectral weighting",
+    "title": "Validation: Sensor convolution",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6333
+  },
+  {
+    "path": "docs/validation/stage-qa-guide.md",
+    "navigation": "/Validate/Stage QA",
+    "title": "Stage QA test guide",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 17774
+  },
+  {
+    "path": "docs/validation/supplement.md",
+    "navigation": "/Validate/Publication evidence/Technical supplement",
+    "title": "Technical supplement: publication evidence",
+    "linked_from_markdown": true,
+    "classification": "HISTORICAL/PROVENANCE",
+    "bytes": 200724
+  },
+  {
+    "path": "docs/validation/topographic_correction.md",
+    "navigation": "/Validate/Module contract evidence/Topographic correction",
+    "title": "Validation: Topographic correction",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6614
+  },
+  {
+    "path": "docs/vignettes/analysis-tables.md",
+    "navigation": "/Reference/Module workflows/Analysis tables",
+    "title": "Module vignette 4: build analysis tables",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 1764
+  },
+  {
+    "path": "docs/vignettes/bulk-analysis.md",
+    "navigation": "/Use/Bulk analysis",
+    "title": "Build a bulk cross-run analysis",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 20574
+  },
+  {
+    "path": "docs/vignettes/carry-on-wayward-son.md",
+    "navigation": "/Use/Resume a run",
+    "title": "Vignette: Carry On My Wayward Son",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 2893
+  },
+  {
+    "path": "docs/vignettes/data-acquisition.md",
+    "navigation": "/Reference/Module workflows/Acquire NEON",
+    "title": "Module vignette 1: acquire NEON data",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 1922
+  },
+  {
+    "path": "docs/vignettes/drone-processing.md",
+    "navigation": "/Use/Drone imagery",
+    "title": "Module vignette 6: process drone imagery",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 12267
+  },
+  {
+    "path": "docs/vignettes/drone-production.md",
+    "navigation": "/Use/Remote drone production",
+    "title": "Run a remote drone campaign through bulk production",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 7522
+  },
+  {
+    "path": "docs/vignettes/full-pipeline.md",
+    "navigation": "/Use/NEON flightlines",
+    "title": "Vignette: run the full NEON pipeline",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 2595
+  },
+  {
+    "path": "docs/vignettes/index.md",
+    "navigation": "/Use/Choose a workflow",
+    "title": "Choose a vignette",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 4778
+  },
+  {
+    "path": "docs/vignettes/neon-correction.md",
+    "navigation": "/Reference/Module workflows/Correct NEON",
+    "title": "Module vignette 2: correct NEON reflectance",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 1655
+  },
+  {
+    "path": "docs/vignettes/notebook-vignettes.md",
+    "navigation": "/Use/Runnable notebooks",
+    "title": "Runnable notebook vignettes",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 4572
+  },
+  {
+    "path": "docs/vignettes/notebooks/README.md",
+    "navigation": null,
+    "title": "SpectralBridge notebook vignettes",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 1341
+  },
+  {
+    "path": "docs/vignettes/plant-spectral-atlas.md",
+    "navigation": null,
+    "title": "A plant-balanced corrected spectral atlas",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 50545
+  },
+  {
+    "path": "docs/vignettes/polygon-extraction.md",
+    "navigation": "/Reference/Module workflows/Polygon extraction",
+    "title": "Module vignette 7: extract polygon spectra",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 2072
+  },
+  {
+    "path": "docs/vignettes/qa-and-analysis.md",
+    "navigation": "/Reference/Module workflows/QA review",
+    "title": "Module vignette 5: review QA outputs",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 1829
+  },
+  {
+    "path": "docs/vignettes/sensor-harmonization.md",
+    "navigation": "/Reference/Module workflows/Target-band weighting",
+    "title": "Module vignette 3: harmonize target sensors",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 6634
+  },
+  {
+    "path": "docs/vignettes/spectral-library.md",
+    "navigation": "/Use/Spectral libraries",
+    "title": "Inspect and report a spectral library",
+    "linked_from_markdown": true,
+    "classification": "ACTIVE OR SPECIALIZED",
+    "bytes": 8959
+  }
+]

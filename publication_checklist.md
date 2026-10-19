@@ -3,7 +3,16 @@
 > Living document for preparing the project for packaging and public release. Update
 > the status boxes and notes as tasks are completed.
 
-## Current status boundary (2026-10-13)
+## Current editorial status (2026-10-19)
+
+The [final publication audit](PUBLICATION_READINESS_AUDIT.md),
+[true blockers](PUBLICATION_BLOCKERS.md) and
+[human decisions](HUMAN_DECISIONS_REQUIRED.md) supersede older readiness wording.
+The checkboxes below remain dated preparation records, not fresh certification.
+Current authorship/citation declarations and archive/version decisions are open;
+no release or JOSS submission was made by this audit.
+
+## Previous status boundary (2026-10-13)
 
 Repository metadata targets `2.3.0rc1`; a version string is not evidence that a
 release has been published. The dated [RC audit](provenance/release/2026-10-13/RC_READINESS.md)

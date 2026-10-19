@@ -42,21 +42,20 @@ synthetic helpers do not emulate actual correction.
 
 ## Selected callable contracts
 
-::: spectralbridge.plant_spectral_atlas.harmonize_spectrum
-::: spectralbridge.plant_spectral_atlas.run_plant_spectral_atlas
-::: spectralbridge.pft_method_audit.method_statistics
-::: spectralbridge.sensor_pft_transfer.project_neon_to_oli
-::: spectralbridge.landsat_agreement.compute_agreement_metrics
-::: spectralbridge.landsat_agreement.aggregate_to_landsat_grid
-::: spectralbridge.landsat_flight_validation.FlightValidationInput
-::: spectralbridge.landsat_flight_validation.FlightValidationConfig
-::: spectralbridge.landsat_flight_validation.compare_flight_to_real_landsat
-::: spectralbridge.mixtures.fcls
-::: spectralbridge.mixtures.validate_holdout
-::: spectralbridge.mixtures.adequacy_status
-::: spectralbridge.mixtures.detection_metrics
-::: spectralbridge.mesma_readiness.run_readiness
-
+- [`spectralbridge.plant_spectral_atlas.harmonize_spectrum`](generated/plant_spectral_atlas.md#spectralbridge.plant_spectral_atlas.harmonize_spectrum)
+- [`spectralbridge.plant_spectral_atlas.run_plant_spectral_atlas`](generated/plant_spectral_atlas.md#spectralbridge.plant_spectral_atlas.run_plant_spectral_atlas)
+- [`spectralbridge.pft_method_audit.method_statistics`](generated/pft_method_audit.md#spectralbridge.pft_method_audit.method_statistics)
+- [`spectralbridge.sensor_pft_transfer.project_neon_to_oli`](generated/sensor_pft_transfer.md#spectralbridge.sensor_pft_transfer.project_neon_to_oli)
+- [`spectralbridge.landsat_agreement.compute_agreement_metrics`](generated/landsat_agreement.md#spectralbridge.landsat_agreement.compute_agreement_metrics)
+- [`spectralbridge.landsat_agreement.aggregate_to_landsat_grid`](generated/landsat_agreement.md#spectralbridge.landsat_agreement.aggregate_to_landsat_grid)
+- [`spectralbridge.landsat_flight_validation.FlightValidationInput`](generated/landsat_flight_validation.md#spectralbridge.landsat_flight_validation.FlightValidationInput)
+- [`spectralbridge.landsat_flight_validation.FlightValidationConfig`](generated/landsat_flight_validation.md#spectralbridge.landsat_flight_validation.FlightValidationConfig)
+- [`spectralbridge.landsat_flight_validation.compare_flight_to_real_landsat`](generated/landsat_flight_validation.md#spectralbridge.landsat_flight_validation.compare_flight_to_real_landsat)
+- [`spectralbridge.mixtures.fcls`](generated/mixtures.md#spectralbridge.mixtures.fcls)
+- [`spectralbridge.mixtures.validate_holdout`](generated/mixtures.md#spectralbridge.mixtures.validate_holdout)
+- [`spectralbridge.mixtures.adequacy_status`](generated/mixtures.md#spectralbridge.mixtures.adequacy_status)
+- [`spectralbridge.mixtures.detection_metrics`](generated/mixtures.md#spectralbridge.mixtures.detection_metrics)
+- [`spectralbridge.mesma_readiness.run_readiness`](generated/mesma_readiness.md#spectralbridge.mesma_readiness.run_readiness)
 Full research runs remain separately reproducible in examples/provenance. They
 require the original data and explicit computational budgets. Testing a solver,
 plot or bootstrap implementation does not promote an ecological application to
@@ -145,62 +144,62 @@ or its [notebook](https://github.com/earthlab/spectralbridge/blob/main/examples/
 [Scientific synthesis](../spectral-library/scientific-synthesis.md) explains the
 current results separately from how to run these methods on another library.
 
-::: spectralbridge.library_analysis.spectral_separability
+- [`spectralbridge.library_analysis.spectral_separability`](generated/library_analysis.md#spectralbridge.library_analysis.spectral_separability)
     options:
       show_root_heading: true
       show_root_full_path: false
       heading_level: 3
-::: spectralbridge.library_analysis.evaluate_identifiability
+- [`spectralbridge.library_analysis.evaluate_identifiability`](generated/library_analysis.md#spectralbridge.library_analysis.evaluate_identifiability)
     options:
       show_root_heading: true
       show_root_full_path: false
       heading_level: 3
-::: spectralbridge.library_analysis.evaluate_feature_budget
+- [`spectralbridge.library_analysis.evaluate_feature_budget`](generated/library_analysis.md#spectralbridge.library_analysis.evaluate_feature_budget)
     options:
       show_root_heading: true
       show_root_full_path: false
       heading_level: 3
-::: spectralbridge.library_analysis.compare_representations
+- [`spectralbridge.library_analysis.compare_representations`](generated/library_analysis.md#spectralbridge.library_analysis.compare_representations)
     options:
       show_root_heading: true
       show_root_full_path: false
       heading_level: 3
-::: spectralbridge.library_analysis.generate_mixtures
+- [`spectralbridge.library_analysis.generate_mixtures`](generated/library_analysis.md#spectralbridge.library_analysis.generate_mixtures)
     options:
       show_root_heading: true
       show_root_full_path: false
       heading_level: 3
-::: spectralbridge.library_analysis.constrained_unmixing
+- [`spectralbridge.library_analysis.constrained_unmixing`](generated/library_analysis.md#spectralbridge.library_analysis.constrained_unmixing)
     options:
       show_root_heading: true
       show_root_full_path: false
       heading_level: 3
-::: spectralbridge.library_analysis.fit_mesma
+- [`spectralbridge.library_analysis.fit_mesma`](generated/library_analysis.md#spectralbridge.library_analysis.fit_mesma)
     options:
       show_root_heading: true
       show_root_full_path: false
       heading_level: 3
-::: spectralbridge.library_analysis.candidate_ambiguity
+- [`spectralbridge.library_analysis.candidate_ambiguity`](generated/library_analysis.md#spectralbridge.library_analysis.candidate_ambiguity)
     options:
       show_root_heading: true
       show_root_full_path: false
       heading_level: 3
-::: spectralbridge.library_analysis.fit_ridge_fractions
+- [`spectralbridge.library_analysis.fit_ridge_fractions`](generated/library_analysis.md#spectralbridge.library_analysis.fit_ridge_fractions)
     options:
       show_root_heading: true
       show_root_full_path: false
       heading_level: 3
-::: spectralbridge.library_analysis.project_simplex
+- [`spectralbridge.library_analysis.project_simplex`](generated/library_analysis.md#spectralbridge.library_analysis.project_simplex)
     options:
       show_root_heading: true
       show_root_full_path: false
       heading_level: 3
-::: spectralbridge.library_analysis.fraction_diagnostics
+- [`spectralbridge.library_analysis.fraction_diagnostics`](generated/library_analysis.md#spectralbridge.library_analysis.fraction_diagnostics)
     options:
       show_root_heading: true
       show_root_full_path: false
       heading_level: 3
-::: spectralbridge.library_analysis.evaluate_library_size
+- [`spectralbridge.library_analysis.evaluate_library_size`](generated/library_analysis.md#spectralbridge.library_analysis.evaluate_library_size)
     options:
       show_root_heading: true
       show_root_full_path: false

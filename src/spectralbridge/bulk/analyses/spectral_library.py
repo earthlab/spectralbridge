@@ -53,6 +53,8 @@ _NODATA_METADATA_KEYS = {
 
 @dataclass(frozen=True)
 class SpectralBand:
+    """Record one wavelength-bearing Parquet column and its band index and nanometer coordinate."""
+
     column: str
     stage: str
     band_index: int
@@ -61,6 +63,8 @@ class SpectralBand:
 
 @dataclass(frozen=True)
 class SpectralLibrarySchema:
+    """Record the detected group fields, source fingerprint and selected wavelength-bearing spectral stage."""
+
     source: Path
     source_signature_sha256: str
     row_count: int
@@ -90,7 +94,43 @@ class SpectralLibrarySchema:
 
 @dataclass(frozen=True)
 class SpectralLibraryPlotConfig:
-    """Explicit controls for potentially expensive spectral-library reports."""
+    """Explicit controls for potentially expensive spectral-library reports.
+
+    Attributes
+    ----------
+    species_field : str | None, default=None
+        Parquet column containing species/group names; None requests schema-based detection.
+    spectral_stage : str | None, default=None
+        One wavelength-bearing column prefix to analyze; specify it when multiple processing stages are present.
+    species_sort : str, default='count_desc'
+        Panel ordering: 'count_desc' (default) sorts by group size; 'alphabetical' sorts by species name.
+    panels_per_page : int, default=4
+        Maximum number of group panels per report page, from 1 through 8.
+    trace_batch_size : int, default=2000
+        Positive bounded trace-row or summary-band processing batch size, controlling memory rather than scientific support.
+    summary_band_batch_size : int, default=32
+        Positive bounded trace-row or summary-band processing batch size, controlling memory rather than scientific support.
+    max_traces_per_group : int | None, default=None
+        Optional cap on rendered traces per group; None retains all eligible traces. Numerical summaries retain their own declared full support.
+    sampling_seed : int, default=0
+        Seed controlling reproducible trace sampling when a render cap is configured.
+    raster_dpi : int, default=150
+        Positive output rendering resolution in dots per inch; rasterization controls file size without changing analytical summaries.
+    quantiles : tuple[float, ...], default=DEFAULT_QUANTILES
+        Nonempty sorted probability tuple strictly between 0 and 1, including 0.5 for the median; compact distribution summaries, not fitted boosted quantile models.
+    plot_y_quantiles : tuple[float, float], default=DEFAULT_PLOT_Y_QUANTILES
+        Lower/upper probability bounds used for robust display limits only; analytical values are not clipped.
+    species_y_scale : str, default='global_robust'
+        Display bounds policy: 'global_robust', 'global_full', or 'per_group_robust'. Graphical limits do not clip analytical summaries.
+    spectral_plot_minimum_reflectance : float | None, default=None
+        Optional stored-unit lower visualization bound; finite negative corrected reflectance is not automatically nodata.
+    nodata_values : tuple[float, ...], default=DEFAULT_NODATA_VALUES
+        Explicit stored-value sentinels excluded from visualization support.
+    nodata_tolerance : float, default=0.01
+        Absolute stored-unit tolerance used when comparing values with configured nodata sentinels.
+    max_extreme_spectra_per_species : int, default=100
+        Bounded number of extreme group traces retained with source identities for display-bound diagnostics.
+    """
 
     species_field: str | None = None
     spectral_stage: str | None = None
@@ -110,6 +150,19 @@ class SpectralLibraryPlotConfig:
     max_extreme_spectra_per_species: int = 100
 
     def validate(self) -> None:
+        """Validate configuration ranges and supported option combinations.
+
+        Returns
+        -------
+        None
+            No return value; unsupported report settings raise ValueError before rendering.
+
+        Raises
+        ------
+        ValueError
+            If option values violate the configuration or relationship-selection contract.
+        """
+
         if self.species_sort not in {"alphabetical", "count_desc"}:
             raise ValueError("species_sort must be 'alphabetical' or 'count_desc'")
         if self.panels_per_page < 1 or self.panels_per_page > 8:
@@ -157,6 +210,8 @@ class SpectralLibraryPlotConfig:
 
 @dataclass(frozen=True)
 class SpectralLibraryPaths:
+    """Resolve compact spectral-library summaries, trace diagnostics and report locations."""
+
     analysis_dir: Path
     figures_dir: Path
 
@@ -370,7 +425,33 @@ def inspect_spectral_library(
     species_field: str | None = None,
     spectral_stage: str | None = None,
 ) -> SpectralLibrarySchema:
-    """Inspect a merged polygon Parquet and select one coherent spectral stage."""
+    """Inspect a merged polygon Parquet and select one coherent spectral stage.
+
+    Parameters
+    ----------
+    path : str | Path
+        Existing merged polygon Parquet to inspect in place; no spectral rows are copied into a cache.
+    species_field : str | None, default=None
+        Parquet column containing species/group names; None requests schema-based detection.
+    spectral_stage : str | None, default=None
+        One wavelength-bearing column prefix to analyze; specify it when multiple processing stages are present.
+
+    Returns
+    -------
+    SpectralLibrarySchema
+        Detected source identity, species/group fields, selected spectral stage and ordered wavelength-bearing bands.
+
+    Raises
+    ------
+    FileNotFoundError
+        If a required source or completed artifact is absent.
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    See Also
+    --------
+    spectralbridge.pipelines.bulk.run_bulk_pipeline : Related source-derived API contract.
+    """
 
     source = Path(path).expanduser().resolve()
     if not source.is_file():
@@ -1074,7 +1155,31 @@ def inspect_spectral_library_preflight(
     *,
     config: SpectralLibraryPlotConfig | None = None,
 ) -> dict[str, Any]:
-    """Inspect schema, exact group counts, and approximate report cost without PDFs."""
+    """Inspect schema, exact group counts, and approximate report cost without PDFs.
+
+    Parameters
+    ----------
+    path : str | Path
+        Existing merged polygon Parquet to inspect in place; no spectral rows are copied into a cache.
+    config : SpectralLibraryPlotConfig | None, default=None
+        Configuration object for this workflow; None selects the documented defaults of its configuration class.
+
+    Returns
+    -------
+    dict[str, Any]
+        Detected schema, validity/group counts, largest groups, expected pages and approximate scan/render cost; no PDFs are written.
+
+    See Also
+    --------
+    spectralbridge.pipelines.bulk.run_bulk_pipeline : Related source-derived API contract.
+
+    Examples
+    --------
+    The supplied path must be a real existing library. For a fully executable invented-data example, run ``python examples/first_example.py`` from a checkout.
+
+    >>> from spectralbridge import inspect_spectral_library_preflight
+    >>> result = inspect_spectral_library_preflight(library_path)  # doctest: +SKIP
+    """
 
     config = config or SpectralLibraryPlotConfig()
     config.validate()
@@ -2024,7 +2129,48 @@ def run_spectral_library_analysis(
     make_full_spectral_reports: bool = False,
     minimum_reflectance: float | None = None,
 ) -> dict[str, Any]:
-    """Build compact summaries and requested PDFs without copying source spectra."""
+    """Build compact summaries and requested PDFs without copying source spectra.
+
+    Parameters
+    ----------
+    con : duckdb.DuckDBPyConnection
+        Open DuckDB connection prepared by the bulk workflow with the required catalog and observation views; the caller owns its lifetime.
+    bulk_paths : BulkAnalysisPaths
+        BulkAnalysisPaths instance selecting isolated catalog, database, analysis and report locations.
+    spectral_library : str | Path
+        Existing merged polygon Parquet with wavelength-bearing columns; read in place without copying the source dataset.
+    analysis_run_id : str
+        Provenance identifier written into generated tables and restart metadata for this run.
+    config : SpectralLibraryPlotConfig | None, default=None
+        Configuration object for this workflow; None selects the documented defaults of its configuration class.
+    make_summary_plots : bool, default=True
+        Write compact spectral-summary figures in addition to numerical summaries.
+    make_full_spectral_reports : bool, default=False
+        Explicitly enable potentially expensive full trace reports; inspect preflight costs before enabling.
+    minimum_reflectance : float | None, default=None
+        Lower screening bound in the stored reflectance units; used for regression validity, not automatic unit conversion.
+
+    Returns
+    -------
+    dict[str, Any]
+        Analysis metadata, validity/count summaries and output paths; compact summaries and explicitly enabled report files are persisted beneath bulk_paths.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    See Also
+    --------
+    spectralbridge.pipelines.bulk.run_bulk_pipeline : Related source-derived API contract.
+
+    Examples
+    --------
+    Use a bulk-prepared connection and isolated paths object. Read the existing library in place; full trace reports remain opt-in.
+
+    >>> from spectralbridge import run_spectral_library_analysis
+    >>> result = run_spectral_library_analysis(con, bulk_paths, spectral_library=library_path, analysis_run_id=run_id, make_full_spectral_reports=False)  # doctest: +SKIP
+    """
 
     config = config or SpectralLibraryPlotConfig()
     if minimum_reflectance is not None:

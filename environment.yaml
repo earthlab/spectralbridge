@@ -1,3 +1,5 @@
+# Legacy conda environment label retained for existing users; the current
+# distribution is earthlab-spectralbridge and the import is spectralbridge.
 name: cross-sensor-cal
 channels:
   - conda-forge

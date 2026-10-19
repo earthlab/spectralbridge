@@ -29,10 +29,10 @@ search:
 <section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">Install</p>
 <h2>Install SpectralBridge</h2>
-<p>Install from PyPI:</p>
+<p>Install from a cloned source checkout:</p>
 
 ```bash
-pip install earthlab-spectralbridge
+pip install -e .
 ```
 
 <p>Ray is part of the standard dependency set. The <code>earthlab-spectralbridge[full]</code> extra remains available as a compatibility alias for existing automation and currently resolves to the same dependency set.</p>
@@ -146,3 +146,9 @@ duckdb.query(f"SELECT * FROM '{merged}' LIMIT 5").df()
 </div>
 </section>
 </div>
+
+The source-install commands assume you have cloned
+[`earthlab/spectralbridge`](https://github.com/earthlab/spectralbridge) and changed
+into its directory. The distribution name is `earthlab-spectralbridge`, but no
+PyPI project was exposed at that name in the 19 October 2026 audit. See the
+[beginner path](getting-started.md) for setup and a tiny offline example.

@@ -62,10 +62,35 @@ def _fractions(values, name="fractions"):
 def project_simplex(values):
     """Enforce Euclidean nonnegative sum-one fraction geometry.
 
+    Parameters
+    ----------
+    values : array-like
+        Finite vector (C,) or matrix (N, C) of fraction coordinates for row-wise Euclidean projection onto the nonnegative sum-one simplex.
+
+    Returns
+    -------
+    numpy.ndarray
+        Same-shaped array of row-wise projected fractions; nonnegative coordinates sum to one but need not be uniquely physically identifiable.
+
+    Notes
+    -----
     Inputs: finite vector (C,) or matrix (N,C); C >= 1. Sampling unit: each row.
     Outputs: same-shaped projected array. Assumptions: Euclidean distance and
     common fraction coordinates. Does not add information or establish uniqueness
     of a physical inversion. Reuses the audited sorting implementation.
+
+    See Also
+    --------
+    spectralbridge.library_analysis.constrained_unmixing : Related source-derived API contract.
+
+    Examples
+    --------
+    All spectra below are invented teaching data, not empirical validation.
+
+    >>> import numpy as np
+    >>> from spectralbridge import library_analysis as api
+    >>> projected = api.project_simplex([-1., 2.])
+    >>> assert np.allclose(projected, [0., 1.])
     """
     from .researcher_information import project_simplex as project
 
@@ -99,6 +124,47 @@ def spectral_separability(
 ):
     """Test pairwise conditional whole-spectrum differences, not prediction.
 
+    Parameters
+    ----------
+    spectra : array-like
+        Finite observations-by-features matrix (N, B) on a common spectral support and scale; rows must align with labels and identity metadata.
+    labels : array-like
+        Nonmissing class/category labels with one value per spectrum; repeated identities must have a consistent label.
+    wavelengths : array-like
+        Finite wavelength coordinates in nanometers, aligned with spectral columns; numerical analysis routines require strictly increasing unique coordinates.
+    groups : array-like, default=None
+        Aligned independent-unit identifiers; keep repeated observations or parent-connected mixtures in the same group. None uses the function-specific row-based convention described in Notes.
+    blocks : array-like, default=None
+        Aligned exchangeability strata for restricted curve permutations; labels must be exchangeable within retained mixed blocks.
+    mask : array-like, default=None
+        Boolean wavelength vector (B,), True for admitted common support; atmospheric and unsupported gaps should be excluded explicitly.
+    regions : dict, default=None
+        Optional mapping from region names to (lower, upper) wavelength bounds in nanometers; gaps remain disconnected.
+    permutations : int, default=999
+        Number of seeded restricted random permutations; spectral_separability requires at least 19.
+    seed : int, default=0
+        Random-number seed for reproducible sampling, splits or resampling; it does not create independent observations.
+    max_gap : float, default=8
+        Maximum wavelength gap in nanometers treated as contiguous during integration; larger gaps are not bridged.
+    missing : {'raise', 'drop_columns'}, default='raise'
+        Nonfinite-value policy: 'raise' rejects missing support; 'drop_columns' removes incomplete columns globally before aggregation.
+    integration_weights : array-like or None, default=None
+        Optional positive quadrature weights aligned with wavelengths, expressing the declared support measure rather than sampling density.
+    maximum_units : int, default=5000
+        Maximum independent mean curves allowed in the quadratic energy-distance calculation; an explicit memory/runtime guard.
+
+    Returns
+    -------
+    dict
+        Pair-test, wavelength and region DataFrames plus retained-coordinate and multiplicity metadata; effect direction is second label minus first.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Inputs: spectra (N,B), labels (N,), strictly increasing wavelengths (B,);
     groups are observation identities, blocks are exchangeability strata. Optional
     boolean mask keeps supported coordinates; regions maps names to (low,high).
@@ -116,6 +182,23 @@ def spectral_separability(
     default rejects nonfinite values on requested support. Atmospheric gaps must be
     masked explicitly. Region effects use disconnected quadrature, not gap bridges.
     Does not establish classification, abundance, causality or universal difference.
+
+    See Also
+    --------
+    spectralbridge.library_analysis.constrained_unmixing : Related source-derived API contract.
+
+    Examples
+    --------
+    All spectra below are invented teaching data, not empirical validation.
+
+    >>> import numpy as np
+    >>> from spectralbridge import library_analysis as api
+    >>> rng = np.random.default_rng(13)
+    >>> labels = np.repeat(["A", "B", "C"], 12)
+    >>> spectra = np.repeat(np.eye(3), 12, axis=0) + rng.normal(0, .01, (36, 3))
+    >>> identities = np.arange(36)
+    >>> result = api.spectral_separability(spectra, labels, [500., 505., 510.], identities, permutations=19)
+    >>> assert len(result["pairs"]) == 3
     """
     from .pft_method_audit import method_statistics, AuditConfig, wavelength_weights
     from .plant_pft_statistics import holm
@@ -258,6 +341,41 @@ def generate_mixtures(
 ):
     """Generate reproducible pair/triple linear mixtures and exact generating weights.
 
+    Parameters
+    ----------
+    spectra : array-like
+        Finite observations-by-features matrix (N, B) on a common spectral support and scale; rows must align with labels and identity metadata.
+    labels : array-like
+        Nonmissing class/category labels with one value per spectrum; repeated identities must have a consistent label.
+    parent_ids : array-like
+        Unique identifiers for candidate parent spectra; aggregate repeated parents before generating mixtures.
+    pair_grid : sequence of float, default=(0, 0.1, 0.5, 0.9, 1)
+        Fractions in [0, 1] used for two-parent mixtures; the complementary fraction is one minus the supplied value.
+    triple_grid : sequence of 3-element sequences, default=((1 / 3, 1 / 3, 1 / 3),)
+        Sequence of three-element nonnegative sum-one fraction vectors; an empty sequence disables three-parent mixtures.
+    replicates : int, default=1
+        Positive number of seeded repetitions for parent selection or library-size sampling.
+    seed : int, default=0
+        Random-number seed for reproducible sampling, splits or resampling; it does not create independent observations.
+    class_order : sequence or None, default=None
+        Explicit unique class-column order; None uses the function-specific canonical ordering. Preserve this order when comparing fraction arrays.
+    parent_roles : array-like or None, default=None
+        Optional role labels aligned with candidate parents; retained as provenance alongside generating weights.
+    maximum_mixtures : int, default=100000
+        Positive upper limit on generated synthetic mixtures; prevents accidental combinatorial expansion.
+
+    Returns
+    -------
+    dict
+        Synthetic spectra, exact class fractions, classes and padded parent indices/IDs/categories/roles/fractions; shared parents imply dependence.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Inputs: finite parent spectra (P,B), labels/parent_ids (P,), explicit pair scalar
     fractions and triple simplex vectors; triple_grid=() disables triples.
     Sampling unit: synthetic mixture; shared parent mixtures are dependent.
@@ -265,6 +383,19 @@ def generate_mixtures(
     parent fractions; zero-weight parents remain tracked for conservative holdout.
     Assumptions: one common spectral support/scale and ideal algebraic mixing.
     Does not establish physical mixing, parent purity or independent field truth.
+
+    See Also
+    --------
+    spectralbridge.library_analysis.constrained_unmixing : Related source-derived API contract.
+
+    Examples
+    --------
+    All spectra below are invented teaching data, not empirical validation.
+
+    >>> import numpy as np
+    >>> from spectralbridge import library_analysis as api
+    >>> result = api.generate_mixtures(np.eye(2), ["A", "B"], ["p1", "p2"], pair_grid=(.25,), triple_grid=())
+    >>> assert np.allclose(result["truth"].sum(axis=1), 1)
     """
     x = _matrix(spectra)
     y = _vector(labels, len(x), "labels")
@@ -334,11 +465,47 @@ def generate_mixtures(
 def constrained_unmixing(targets, endmembers, *, endmember_ids=None):
     """Fit nonnegative sum-one FCLS using the existing small-library face solver.
 
+    Parameters
+    ----------
+    targets : array-like
+        Finite target spectra (N, B) sharing the endmember library wavelength support and reflectance units.
+    endmembers : array-like
+        Finite reference matrix (M, B), one reference per row; constrained_unmixing admits at most 12 references.
+    endmember_ids : array-like or None, default=None
+        Optional unique identifiers aligned with reference rows; None uses row indices.
+
+    Returns
+    -------
+    dict
+        Endmember-ordered fractions, reconstruction, RMSE, reference IDs and solver details for each target.
+
+    Raises
+    ------
+    RuntimeError
+        If required processing or artifact validation cannot complete.
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Inputs: targets (N,B), ordered endmembers (M,B), M<=12; optional unique IDs.
     Sampling unit: target spectrum. Outputs: fractions in supplied endmember order,
     reconstruction, RMSE, IDs and solver details. Assumptions: common units/support,
     admitted numerical faces/rank thresholds of mixtures.fcls (not exact arithmetic).
     Does not establish unique composition or biological truth from good residuals.
+
+    See Also
+    --------
+    spectralbridge.library_analysis.fit_mesma : Related source-derived API contract.
+
+    Examples
+    --------
+    All spectra below are invented teaching data, not empirical validation.
+
+    >>> import numpy as np
+    >>> from spectralbridge import library_analysis as api
+    >>> result = api.constrained_unmixing([[.25, .75]], np.eye(2))
+    >>> assert np.allclose(result["fractions"], [[.25, .75]])
     """
     from .mixtures import fcls
 
@@ -363,6 +530,29 @@ def constrained_unmixing(targets, endmembers, *, endmember_ids=None):
 def candidate_ambiguity(fractions, errors, *, tolerance=0.01, class_order=None):
     """Summarize fraction variation among evaluated near-best candidate solutions.
 
+    Parameters
+    ----------
+    fractions : array-like
+        Nonnegative sum-one fraction coordinates, with classes/endmembers in the declared column order; shape requirements are given in Notes.
+    errors : array-like
+        Finite nonnegative reconstruction RMSE for each candidate composition, in the same target reflectance units.
+    tolerance : float, default=0.01
+        Absolute numerical tolerance in the compared quantity: reflectance for chunk checks, additive RMSE for candidate ambiguity.
+    class_order : sequence or None, default=None
+        Explicit unique class-column order; None uses the function-specific canonical ordering. Preserve this order when comparing fraction arrays.
+
+    Returns
+    -------
+    dict
+        Best and near-best candidate indices/compositions, per-class ranges and maximum range; uncertainty covers evaluated candidates only.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Inputs: simplex fractions (K,C) and nonnegative reconstruction RMSE (K,);
     tolerance is additive in those RMSE units. Sampling unit: one target's finite
     candidate set. Outputs: best index/fractions, near indices/solutions, per-class
@@ -370,6 +560,19 @@ def candidate_ambiguity(fractions, errors, *, tolerance=0.01, class_order=None):
     Assumptions: comparable errors, common class order. Stable first-index tie rule.
     Counts refer to evaluated solutions and may include redundant compositions.
     Does not describe exhaustive physical uncertainty or all feasible fractions.
+
+    See Also
+    --------
+    spectralbridge.library_analysis.constrained_unmixing : Related source-derived API contract.
+
+    Examples
+    --------
+    All spectra below are invented teaching data, not empirical validation.
+
+    >>> import numpy as np
+    >>> from spectralbridge import library_analysis as api
+    >>> result = api.candidate_ambiguity([[.2, .8], [.21, .79]], [.01, .015], tolerance=.01)
+    >>> assert result["near_count"] == 2
     """
     f = _fractions(fractions)
     e = np.asarray(errors, float)
@@ -414,6 +617,39 @@ def fit_mesma(
 ):
     """Search explicit candidate models and retain inspectable near-fit compositions.
 
+    Parameters
+    ----------
+    targets : array-like
+        Finite target spectra (N, B) sharing the endmember library wavelength support and reflectance units.
+    endmembers : array-like
+        Finite reference matrix (M, B), one reference per row; constrained_unmixing admits at most 12 references.
+    labels : array-like
+        Nonmissing class/category labels with one value per spectrum; repeated identities must have a consistent label.
+    endmember_ids : array-like or None, default=None
+        Optional unique identifiers aligned with reference rows; None uses row indices.
+    max_components : int, default=3
+        Maximum references per candidate MESMA model, from 1 through 12; zero-weight selected components remain possible.
+    candidates : sequence of tuples or None, default=None
+        Optional sequence of tuples of zero-based library row indices; None enumerates distinct-category models up to max_components.
+    maximum_models : int, default=20000
+        Positive upper bound on evaluated candidate models; the search fails explicitly when the requested budget is exceeded.
+    tolerance : float, default=0.01
+        Absolute numerical tolerance in the compared quantity: reflectance for chunk checks, additive RMSE for candidate ambiguity.
+    class_order : sequence or None, default=None
+        Explicit unique class-column order; None uses the function-specific canonical ordering. Preserve this order when comparing fraction arrays.
+
+    Returns
+    -------
+    dict
+        Class fractions, RMSE/reconstruction, selected references/component fractions, full candidate errors/fractions and ambiguity summaries.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Inputs: targets (N,B), library (P,B), category labels/optional IDs (P,);
     candidates is a sequence of tuples of library row indices. Default enumerates
     distinct-category models up to max_components. Sampling unit: target spectrum.
@@ -423,6 +659,19 @@ def fit_mesma(
     candidate is solved with the existing FCLS face/rank thresholds. Boundaries are
     allowed, so selected tuple can include zero-weight references. Stable first tie.
     Does not establish exhaustive uncertainty, purity or correct biological cover.
+
+    See Also
+    --------
+    spectralbridge.library_analysis.constrained_unmixing : Related source-derived API contract.
+
+    Examples
+    --------
+    All spectra below are invented teaching data, not empirical validation.
+
+    >>> import numpy as np
+    >>> from spectralbridge import library_analysis as api
+    >>> result = api.fit_mesma([[.25, .75]], np.eye(2), ["A", "B"], max_components=2)
+    >>> assert np.allclose(result["fractions"], [[.25, .75]])
     """
     from .mixtures import model_indices
 
@@ -696,6 +945,34 @@ def evaluate_identifiability(
 ):
     """Evaluate unseen identities or held domains with nested regularized recognition.
 
+    Parameters
+    ----------
+    spectra : array-like
+        Finite observations-by-features matrix (N, B) on a common spectral support and scale; rows must align with labels and identity metadata.
+    labels : array-like
+        Nonmissing class/category labels with one value per spectrum; repeated identities must have a consistent label.
+    groups : array-like, default=None
+        Aligned independent-unit identifiers; keep repeated observations or parent-connected mixtures in the same group. None uses the function-specific row-based convention described in Notes.
+    domains : array-like, default=None
+        Optional aligned site/year/domain labels for held-domain evaluation; held identities are purged globally from training.
+    folds : int, default=3
+        Number of grouped outer evaluation folds, or grouped tuning folds for the ridge fraction estimator; requires enough independent groups.
+    inner_folds : int, default=3
+        Number of grouped inner training-only folds used for regularization and feature-selection tuning.
+    regularization : sequence of positive float, default=(0.1, 1, 10)
+        Prespecified positive classifier C values; multiple values trigger grouped inner tuning entirely within training data.
+    seed : int, default=0
+        Random-number seed for reproducible sampling, splits or resampling; it does not create independent observations.
+    class_order : sequence or None, default=None
+        Explicit unique class-column order; None uses the function-specific canonical ordering. Preserve this order when comparing fraction arrays.
+
+    Returns
+    -------
+    dict
+        Grouped fold/overall scores, class recall/confusion, row-aligned predictions/probabilities, tuning memberships and fitted models.
+
+    Notes
+    -----
     Inputs: finite spectra (N,B), labels, optional identity groups and site/year
     domains. Sampling unit: identity; repeated histories never cross train/test.
     Outputs: fold/overall balanced accuracy, per-class recall/confusion, predictions,
@@ -706,6 +983,23 @@ def evaluate_identifiability(
     Held domains purge target identities globally, even from other training domains.
     Missing values are rejected; probabilities are not calibrated uncertainty.
     Does not establish mixture uniqueness, field fractions or universal transfer.
+
+    See Also
+    --------
+    spectralbridge.library_analysis.constrained_unmixing : Related source-derived API contract.
+
+    Examples
+    --------
+    All spectra below are invented teaching data, not empirical validation.
+
+    >>> import numpy as np
+    >>> from spectralbridge import library_analysis as api
+    >>> rng = np.random.default_rng(13)
+    >>> labels = np.repeat(["A", "B", "C"], 12)
+    >>> spectra = np.repeat(np.eye(3), 12, axis=0) + rng.normal(0, .01, (36, 3))
+    >>> identities = np.arange(36)
+    >>> result = api.evaluate_identifiability(spectra, labels, identities, folds=2, regularization=(1,))
+    >>> assert "balanced_accuracy" in result["overall"]
     """
     return _evaluate(
         spectra,
@@ -843,6 +1137,47 @@ def evaluate_feature_budget(
 ):
     """Measure predictive information versus feature count with nested selection.
 
+    Parameters
+    ----------
+    spectra : array-like
+        Finite observations-by-features matrix (N, B) on a common spectral support and scale; rows must align with labels and identity metadata.
+    labels : array-like
+        Nonmissing class/category labels with one value per spectrum; repeated identities must have a consistent label.
+    wavelengths : array-like
+        Finite wavelength coordinates in nanometers, aligned with spectral columns; numerical analysis routines require strictly increasing unique coordinates.
+    groups : array-like, default=None
+        Aligned independent-unit identifiers; keep repeated observations or parent-connected mixtures in the same group. None uses the function-specific row-based convention described in Notes.
+    budgets : sequence of int, default=(1, 3, 5)
+        Distinct positive feature counts to evaluate, bounded by the available spectral columns.
+    random_replicates : int, default=3
+        Positive number of seeded label-independent random feature paths; each path is nested across budgets.
+    domains : array-like, default=None
+        Optional aligned site/year/domain labels for held-domain evaluation; held identities are purged globally from training.
+    folds : int, default=3
+        Number of grouped outer evaluation folds, or grouped tuning folds for the ridge fraction estimator; requires enough independent groups.
+    inner_folds : int, default=3
+        Number of grouped inner training-only folds used for regularization and feature-selection tuning.
+    regularization : sequence of positive float, default=(0.1, 1, 10)
+        Prespecified positive classifier C values; multiple values trigger grouped inner tuning entirely within training data.
+    seed : int, default=0
+        Random-number seed for reproducible sampling, splits or resampling; it does not create independent observations.
+    include_full : bool, default=True
+        Include the full-feature classifier as a reference alongside budget-constrained models.
+    pca_components : int or None, default=None
+        Optional PCA dimension evaluated using training-only fitted transforms; None omits this comparison.
+
+    Returns
+    -------
+    dict
+        Curve and selected-feature DataFrames plus detailed fold evaluations; selection is refitted within each training fold.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Inputs: finite spectra, labels, wavelengths, identities and optional held domains;
     explicit integer budgets, fixed seeded random paths and optional PCA size.
     Sampling unit: held-out identity. Outputs: curve DataFrame, detailed evaluation
@@ -851,6 +1186,23 @@ def evaluate_feature_budget(
     Assumptions: valid group splits; PCA/scale fitting is training-only. Budgets
     are experimental settings, not chosen from outer scores for final evaluation.
     Does not establish globally optimal bands, a sensor design or field accuracy.
+
+    See Also
+    --------
+    spectralbridge.library_analysis.constrained_unmixing : Related source-derived API contract.
+
+    Examples
+    --------
+    All spectra below are invented teaching data, not empirical validation.
+
+    >>> import numpy as np
+    >>> from spectralbridge import library_analysis as api
+    >>> rng = np.random.default_rng(13)
+    >>> labels = np.repeat(["A", "B", "C"], 12)
+    >>> spectra = np.repeat(np.eye(3), 12, axis=0) + rng.normal(0, .01, (36, 3))
+    >>> identities = np.arange(36)
+    >>> result = api.evaluate_feature_budget(spectra, labels, [500., 505., 510.], identities, budgets=(1,), folds=2, regularization=(1,), random_replicates=1)
+    >>> assert not result["curve"].empty
     """
     x, y, ids = _learning_inputs(spectra, labels, groups)
     w = np.asarray(wavelengths, float)
@@ -938,6 +1290,33 @@ def compare_representations(
 ):
     """Compare paired same-row representations under identical grouped splits.
 
+    Parameters
+    ----------
+    representations : dict
+        Mapping of names to finite (N, B) arrays with identical row identity/order; feature counts may differ.
+    labels : array-like
+        Nonmissing class/category labels with one value per spectrum; repeated identities must have a consistent label.
+    groups : array-like, default=None
+        Aligned independent-unit identifiers; keep repeated observations or parent-connected mixtures in the same group. None uses the function-specific row-based convention described in Notes.
+    domains : array-like, default=None
+        Optional aligned site/year/domain labels for held-domain evaluation; held identities are purged globally from training.
+    reference : str or None, default=None
+        Optional representation name used for paired differences; None selects the first supplied representation.
+    evaluation_options : keyword arguments
+        Additional keyword options forwarded to evaluate_identifiability for each representation; domains must use the explicit argument.
+
+    Returns
+    -------
+    dict
+        Paired score summary, class metrics, detailed evaluations and reference name; synthetic representations remain diagnostic evidence.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Inputs: name->(N,B) finite arrays in identical observation order; labels/groups
     and optional held domains. Sampling unit: same held-out identity for every
     representation. Outputs: within and optional held-domain results, recall,
@@ -945,6 +1324,23 @@ def compare_representations(
     Assumptions: caller guarantees row alignment and paired preprocessing lineage;
     each classifier is separately nested and scaled using training rows only.
     Does not turn synthetic products into independent native-sensor validation.
+
+    See Also
+    --------
+    spectralbridge.library_analysis.constrained_unmixing : Related source-derived API contract.
+
+    Examples
+    --------
+    All spectra below are invented teaching data, not empirical validation.
+
+    >>> import numpy as np
+    >>> from spectralbridge import library_analysis as api
+    >>> rng = np.random.default_rng(13)
+    >>> labels = np.repeat(["A", "B", "C"], 12)
+    >>> spectra = np.repeat(np.eye(3), 12, axis=0) + rng.normal(0, .01, (36, 3))
+    >>> identities = np.arange(36)
+    >>> result = api.compare_representations({"full": spectra, "subset": spectra[:, :2]}, labels, identities, folds=2, regularization=(1,))
+    >>> assert len(result["summary"]) == 2
     """
     if not representations:
         raise ValueError("Need at least one representation")
@@ -1020,6 +1416,21 @@ class _RidgeFractionModel:
         }
 
     def predict(self, spectra):
+        """Predict raw and simplex-projected fraction coordinates for new spectra.
+
+        Parameters
+        ----------
+        spectra : array-like
+            Finite matrix (N, B) on the training support and scale; fitted training
+            preprocessing is reused, rather than refitted on these targets.
+
+        Returns
+        -------
+        dict
+            raw_prediction and projected_prediction arrays (N, C), plus the
+            corresponding classes vector (C,). Projection enforces geometry,
+            not physical uniqueness or calibrated uncertainty.
+        """
         raw = self.pipeline.predict(_matrix(spectra))
         return dict(
             raw_prediction=raw,
@@ -1033,6 +1444,35 @@ def fit_ridge_fractions(
 ):
     """Fit supervised multi-output ridge with explicit raw/projected predictions.
 
+    Parameters
+    ----------
+    spectra : array-like
+        Finite observations-by-features matrix (N, B) on a common spectral support and scale; rows must align with labels and identity metadata.
+    fractions : array-like
+        Nonnegative sum-one fraction coordinates, with classes/endmembers in the declared column order; shape requirements are given in Notes.
+    groups : array-like, default=None
+        Aligned independent-unit identifiers; keep repeated observations or parent-connected mixtures in the same group. None uses the function-specific row-based convention described in Notes.
+    alphas : sequence of positive float, default=(1,)
+        Prespecified positive ridge penalties; multiple penalties require explicit independent parent-connected tuning groups.
+    folds : int, default=3
+        Number of grouped outer evaluation folds, or grouped tuning folds for the ridge fraction estimator; requires enough independent groups.
+    seed : int, default=0
+        Random-number seed for reproducible sampling, splits or resampling; it does not create independent observations.
+    class_order : sequence or None, default=None
+        Explicit unique class-column order; None uses the function-specific canonical ordering. Preserve this order when comparing fraction arrays.
+
+    Returns
+    -------
+    object
+        Fitted fraction model exposing predict(spectra), raw and simplex-projected predictions, fitted preprocessing/coefficients and tuning metadata.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Inputs: spectra (N,B), exact known simplex targets (N,C), positive alpha grid;
     groups are independent parent-connected bundles for synthetic training mixtures.
     Sampling unit: training mixture, with group-disjoint tuning if grid has >1 alpha.
@@ -1044,6 +1484,20 @@ def fit_ridge_fractions(
     caller must form connected parent groups, not arbitrary mixture-row IDs.
     Does not establish unique physical inversion, calibrated uncertainty or field
     cover. Prediction returns both raw_prediction and projected_prediction.
+
+    See Also
+    --------
+    spectralbridge.library_analysis.constrained_unmixing : Related source-derived API contract.
+
+    Examples
+    --------
+    All spectra below are invented teaching data, not empirical validation.
+
+    >>> import numpy as np
+    >>> from spectralbridge import library_analysis as api
+    >>> model = api.fit_ridge_fractions(np.eye(2), np.eye(2), alphas=(1,))
+    >>> prediction = model.predict([[.25, .75]])
+    >>> assert np.allclose(prediction["projected_prediction"].sum(axis=1), 1)
     """
     from sklearn.pipeline import Pipeline
     from sklearn.preprocessing import StandardScaler
@@ -1126,6 +1580,39 @@ def fraction_diagnostics(
 ):
     """Separate known-fraction quantification from thresholded detection errors.
 
+    Parameters
+    ----------
+    truth : array-like
+        Known nonnegative sum-one mixture fractions (N, C); these are synthetic targets, not independently measured field cover.
+    predictions : array-like
+        Finite predicted fraction matrix (N, C), in the same class order as truth; raw unconstrained predictions are accepted.
+    class_order : sequence or None, default=None
+        Explicit unique class-column order; None uses the function-specific canonical ordering. Preserve this order when comparing fraction arrays.
+    detection_threshold : float, default=0.1
+        Fraction in (0, 1] at or above which the predicted class is declared detected.
+    low_fraction : float, default=0.2
+        Upper positive truth-fraction bound in (0, 1] for low-abundance miss-rate summaries.
+    bins : sequence of float, default=(0, 0.1, 0.25, 0.5, 0.75, 1)
+        Strictly increasing calibration-bin edges spanning zero to one.
+    groups : array-like, default=None
+        Aligned independent-unit identifiers; keep repeated observations or parent-connected mixtures in the same group. None uses the function-specific row-based convention described in Notes.
+    bootstraps : int, default=0
+        Nonnegative number of whole-group bootstrap resamples; positive values require at least two explicitly independent groups.
+    seed : int, default=0
+        Random-number seed for reproducible sampling, splits or resampling; it does not create independent observations.
+
+    Returns
+    -------
+    dict
+        Overall/per-class fraction errors, calibration bins, absent/low-positive detection summaries and optional whole-group intervals.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Inputs: truth (N,C) simplex and finite predictions (N,C), possibly raw;
     class ordering, detection/low-fraction thresholds and calibration bin edges.
     Sampling unit: mixture; supplied independent groups receive equal total weight
@@ -1135,6 +1622,19 @@ def fraction_diagnostics(
     Assumptions: synthetic truth is known; absent means exactly zero; detection is
     prediction >= threshold. Empty conditional denominators yield NaN. Bootstraps
     require explicit groups. Does not establish biological absence or field accuracy.
+
+    See Also
+    --------
+    spectralbridge.library_analysis.constrained_unmixing : Related source-derived API contract.
+
+    Examples
+    --------
+    All spectra below are invented teaching data, not empirical validation.
+
+    >>> import numpy as np
+    >>> from spectralbridge import library_analysis as api
+    >>> result = api.fraction_diagnostics(np.eye(2), np.eye(2))
+    >>> assert result["overall"]["RMSE"] == 0
     """
     t = _fractions(truth, "truth")
     p = _matrix(predictions, "predictions")
@@ -1248,6 +1748,39 @@ def evaluate_library_size(
 ):
     """Evaluate retained identity-library capacity with fixed classifier/prior.
 
+    Parameters
+    ----------
+    spectra : array-like
+        Finite observations-by-features matrix (N, B) on a common spectral support and scale; rows must align with labels and identity metadata.
+    labels : array-like
+        Nonmissing class/category labels with one value per spectrum; repeated identities must have a consistent label.
+    groups : array-like, default=None
+        Aligned independent-unit identifiers; keep repeated observations or parent-connected mixtures in the same group. None uses the function-specific row-based convention described in Notes.
+    sizes : sequence of int, default=(10, 20)
+        Positive total counts of retained training identities; each must fit within every evaluated training fold.
+    strategies : sequence of str, default=('balanced_random', 'farthest')
+        Library selection strategies drawn from 'random', 'balanced_random', and 'farthest'; selection uses training identities only.
+    replicates : int, default=3
+        Positive number of seeded repetitions for parent selection or library-size sampling.
+    domains : array-like, default=None
+        Optional aligned site/year/domain labels for held-domain evaluation; held identities are purged globally from training.
+    folds : int, default=3
+        Number of grouped outer evaluation folds, or grouped tuning folds for the ridge fraction estimator; requires enough independent groups.
+    seed : int, default=0
+        Random-number seed for reproducible sampling, splits or resampling; it does not create independent observations.
+
+    Returns
+    -------
+    dict
+        Metrics and selected-identity DataFrames plus fixed-classifier description; unsupported classes are explicit rather than scored as valid.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Inputs: finite spectra/labels/identities; total library sizes, strategies
     random, balanced_random or farthest; optional held-domain metadata.
     Sampling unit: held-out identity; training histories collapse to identity means.
@@ -1258,6 +1791,23 @@ def evaluate_library_size(
     Assumptions: fixed C=1 regularized classifier; sizes are predeclared, selection
     and coverage use training rows only. Coverage distances use full-training scale.
     Does not isolate every model/prior confound or establish universal best size.
+
+    See Also
+    --------
+    spectralbridge.library_analysis.constrained_unmixing : Related source-derived API contract.
+
+    Examples
+    --------
+    All spectra below are invented teaching data, not empirical validation.
+
+    >>> import numpy as np
+    >>> from spectralbridge import library_analysis as api
+    >>> rng = np.random.default_rng(13)
+    >>> labels = np.repeat(["A", "B", "C"], 12)
+    >>> spectra = np.repeat(np.eye(3), 12, axis=0) + rng.normal(0, .01, (36, 3))
+    >>> identities = np.arange(36)
+    >>> result = api.evaluate_library_size(spectra, labels, identities, sizes=(6,), strategies=("balanced_random",), replicates=1, folds=2)
+    >>> assert not result["metrics"].empty
     """
     from sklearn.preprocessing import StandardScaler
     from sklearn.metrics import balanced_accuracy_score

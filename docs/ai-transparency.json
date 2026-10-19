@@ -1,17 +1,175 @@
 {
   "ai_systems": {
     "Cursor Agent": 37,
-    "OpenAI Codex": 278
+    "OpenAI Codex": 282
   },
   "branches": {
     "$(git branch --show-current 2>/dev/null || echo unknown)": 1,
-    "main": 303,
+    "main": 307,
     "unknown": 7,
     "work": 4
+  },
+  "historical_context": {
+    "basis": "Maintainer statement, 2026-10-19; early usage is not reconstructed from the log.",
+    "statement": "Maintainers report using LLM assistance since GPT-3.5 and continuing thereafter; a prompt log was introduced when agentic assistants were adopted."
+  },
+  "mention_analysis": {
+    "tool_mentions": {
+      "Browser / Playwright": 9,
+      "Docker / containers": 4,
+      "Git / GitHub": 38,
+      "Lean / Lake": 1,
+      "MkDocs": 15,
+      "Notebooks / Jupyter": 54,
+      "Python": 40,
+      "Ruff": 17,
+      "pytest": 31
+    },
+    "validation_mentions": {
+      "Artifact / installation checks": 14,
+      "Documentation / link builds": 17,
+      "Formal verification": 4,
+      "Human review / approval": 8,
+      "Lint / static checks": 26,
+      "Scientific / numerical checks": 28,
+      "Tests / regression checks": 54,
+      "Visual inspection": 36
+    },
+    "workflow_mentions": {
+      "Audit / investigation": 67,
+      "Documentation / reporting": 78,
+      "Implementation / refactoring": 80,
+      "Reproducibility / provenance": 39,
+      "Scientific analysis / figures": 135
+    }
   },
   "method": {
     "ai_identity": "Entry metadata when present; otherwise the prompt log's declared defaults.",
     "intent_classification": "Deterministic keyword scoring over each prompt and its logged task label; one primary intent per entry; ties follow documented rule order.",
+    "mention_classification": "Case-insensitive literal phrase matching over prompt and task label; each prompt counted once per category; categories overlap. Negated instructions and pasted text also count. No execution or success inferred.",
+    "mention_rules": {
+      "tool_mentions": {
+        "Browser / Playwright": [
+          "browser",
+          "playwright"
+        ],
+        "Docker / containers": [
+          "docker",
+          "container"
+        ],
+        "Git / GitHub": [
+          "github",
+          "git ",
+          "git\n"
+        ],
+        "Lean / Lake": [
+          "lean 4",
+          "lean4",
+          "lake build"
+        ],
+        "MkDocs": [
+          "mkdocs"
+        ],
+        "Notebooks / Jupyter": [
+          "notebook",
+          "jupyter",
+          ".ipynb"
+        ],
+        "Python": [
+          "python"
+        ],
+        "Ruff": [
+          "ruff"
+        ],
+        "pytest": [
+          "pytest"
+        ]
+      },
+      "validation_mentions": {
+        "Artifact / installation checks": [
+          "wheel",
+          "sdist",
+          "installed artifact",
+          "installation"
+        ],
+        "Documentation / link builds": [
+          "mkdocs",
+          "check_docs_links",
+          "link check",
+          "strict build"
+        ],
+        "Formal verification": [
+          "lean 4",
+          "lean4",
+          "lake build",
+          "formal verification"
+        ],
+        "Human review / approval": [
+          "human review",
+          "maintainer",
+          "approval",
+          "author input"
+        ],
+        "Lint / static checks": [
+          "ruff",
+          "lint",
+          "type check"
+        ],
+        "Scientific / numerical checks": [
+          "statistical",
+          "confidence interval",
+          "permutation",
+          "numerical",
+          "cross-validation"
+        ],
+        "Tests / regression checks": [
+          "pytest",
+          "regression test",
+          "unit test",
+          "smoke",
+          "test suite"
+        ],
+        "Visual inspection": [
+          "screenshot",
+          "visual inspection",
+          "render",
+          "visually"
+        ]
+      },
+      "workflow_mentions": {
+        "Audit / investigation": [
+          "audit",
+          "investigate",
+          "inspect",
+          "review"
+        ],
+        "Documentation / reporting": [
+          "documentation",
+          "report",
+          "manuscript",
+          "website"
+        ],
+        "Implementation / refactoring": [
+          "implement",
+          "refactor",
+          "modify",
+          "fix"
+        ],
+        "Reproducibility / provenance": [
+          "reproducib",
+          "provenance",
+          "checkpoint",
+          "restart"
+        ],
+        "Scientific analysis / figures": [
+          "regression",
+          "spectra",
+          "statistical",
+          "figure",
+          "plot"
+        ]
+      }
+    },
     "topic_classification": "Deterministic keyword scoring over each prompt and its logged task label; one primary topic per entry; ties follow documented rule order.",
     "word_count": "Unicode word-like tokens matched by the generator's WORD_RE expression."
   },
@@ -19,20 +177,20 @@
     "GPT-5": 36,
     "GPT-5 family (exact deployment identifier not exposed)": 7,
     "GPT-6": 7,
-    "Not recorded": 265
+    "Not recorded": 269
   },
   "primary_intents": {
     "Audit or investigation": 31,
     "Execution or verification": 55,
-    "Implementation or modification": 144,
+    "Implementation or modification": 148,
     "Other or mixed": 85
   },
   "primary_topics": {
     "Data and metadata handling": 30,
-    "Documentation and website": 23,
+    "Documentation and website": 26,
     "Drone and UAS workflow": 13,
     "Other": 48,
-    "Publication, packaging, release, and governance": 28,
+    "Publication, packaging, release, and governance": 29,
     "QA and visualization": 51,
     "Scientific pipeline and corrections": 77,
     "Testing and CI": 45
@@ -44,24 +202,24 @@
     "2026-07": 36,
     "2026-08": 87,
     "2026-09": 49,
-    "2026-10": 54
+    "2026-10": 58
   },
-  "schema_version": 1,
+  "schema_version": 2,
   "source": {
     "data_through": "2026-10-19",
     "path": "PROMPT_LOG.md",
-    "sha256": "a6c004a7db2f031d9a7fa335dcffcd381af86d7798ee317ae83e7a007b7e8480"
+    "sha256": "7741dc15bd699bf6cf509d3dbc66a9e94db1ab0f83533dc666e7ce371e495802"
   },
   "summary": {
     "entries_with_recorded_model": 50,
     "first_prompt_date": "2026-03-21",
     "last_prompt_date": "2026-10-19",
     "maximum_prompt_words": 8915,
-    "mean_prompt_words": 375.3,
-    "median_prompt_words": 33.0,
+    "mean_prompt_words": 393.3,
+    "median_prompt_words": 34.0,
     "minimum_prompt_words": 1,
-    "model_metadata_coverage_pct": 15.9,
-    "prompt_count": 315,
-    "total_prompt_words": 118224
+    "model_metadata_coverage_pct": 15.7,
+    "prompt_count": 319,
+    "total_prompt_words": 125465
   }
 }

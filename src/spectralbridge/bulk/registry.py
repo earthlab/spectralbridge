@@ -15,7 +15,33 @@ from spectralbridge.sensor_pairs import (
 
 @dataclass(frozen=True)
 class ProductDescriptor:
-    """Recognize and describe one persisted raster-product convention."""
+    """Recognize and describe one persisted raster-product convention.
+
+    Attributes
+    ----------
+    key : str
+        Unique registry key identifying this descriptor or translation relationship.
+    product_role : str
+        Scientific role of this product within the analysis profile, distinct from its storage format.
+    filename_patterns : tuple[str, ...]
+        Recognized canonical filename glob patterns; matching does not alone establish scientific eligibility.
+    sensor_name : str | None, default=None
+        Canonical sensor identity used to match registered products and translation relationships.
+    matching_group : str | None, default=None
+        Registry key declaring products that can be paired on common spatial/observational support.
+    processing_stage : str | None, default=None
+        Recorded processing lineage, such as raw, corrected or translated; stages are not silently interchangeable.
+    product_semantics : str | None, default=None
+        Declared meaning of the product values and their role in the evidence chain.
+    extraction_mode : str | None, default=None
+        'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.
+    expected_band_count : int | None, default=None
+        Required number of spectral bands under this descriptor; metadata and actual products are validated separately.
+    header_required : bool, default=True
+        Require a companion raster header for this product descriptor.
+    include_undarkened : bool, default=False
+        Include the matching undarkened product convention when recognizing these filenames.
+    """
 
     key: str
     product_role: str
@@ -30,6 +56,19 @@ class ProductDescriptor:
     include_undarkened: bool = False
 
     def matches(self, path: str | Path) -> bool:
+        """Check whether the filename matches this registered product convention.
+
+        Parameters
+        ----------
+        path : str | Path
+            Existing source path to match against registered canonical filename patterns.
+
+        Returns
+        -------
+        bool
+            Whether the recorded state satisfies this method's predicate; no source processing is performed.
+        """
+
         name = Path(path).name
         if Path(path).suffix.lower() != ".img":
             return False
@@ -45,6 +84,27 @@ class TabularProductDescriptor:
     Tabular products are catalog inputs, not implicit regression inputs.  The
     descriptor keeps storage layout separate from the raster relationship used
     by the bounded statistics reader.
+
+    Attributes
+    ----------
+    key : str
+        Unique registry key identifying this descriptor or translation relationship.
+    product_role : str
+        Scientific role of this product within the analysis profile, distinct from its storage format.
+    filename_patterns : tuple[str, ...]
+        Recognized canonical filename glob patterns; matching does not alone establish scientific eligibility.
+    sensor_name : str | None, default=None
+        Canonical sensor identity used to match registered products and translation relationships.
+    processing_stage : str | None, default=None
+        Recorded processing lineage, such as raw, corrected or translated; stages are not silently interchangeable.
+    product_semantics : str | None, default=None
+        Declared meaning of the product values and their role in the evidence chain.
+    extraction_mode : str | None, default=None
+        'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.
+    expected_spectral_band_count : int | None, default=None
+        Required number of spectral bands under this descriptor; metadata and actual products are validated separately.
+    required_columns : tuple[str, ...], default=()
+        Required tabular column names for metadata validation; not a request to materialize all observation rows.
     """
 
     key: str
@@ -58,6 +118,19 @@ class TabularProductDescriptor:
     required_columns: tuple[str, ...] = ()
 
     def matches(self, path: str | Path) -> bool:
+        """Check whether the filename matches this registered product convention.
+
+        Parameters
+        ----------
+        path : str | Path
+            Existing source path to match against registered canonical filename patterns.
+
+        Returns
+        -------
+        bool
+            Whether the recorded state satisfies this method's predicate; no source processing is performed.
+        """
+
         name = Path(path).name
         if Path(path).suffix.lower() != ".parquet":
             return False
@@ -66,7 +139,29 @@ class TabularProductDescriptor:
 
 @dataclass(frozen=True)
 class TranslationPair:
-    """A scientifically defined relationship between two sensor products."""
+    """A scientifically defined relationship between two sensor products.
+
+    Attributes
+    ----------
+    key : str
+        Unique registry key identifying this descriptor or translation relationship.
+    source_sensor : str
+        Canonical sensor identity used to match registered products and translation relationships.
+    target_sensor : str
+        Canonical target sensor key present in the reviewed drone coefficient registry.
+    matching_group : str
+        Registry key declaring products that can be paired on common spatial/observational support.
+    band_pairs : tuple[tuple[int, int], ...], default=()
+        Explicit source/target band relationships in the registry convention; preserve their declared index convention.
+    expected_source_bands : int | None, default=None
+        Declared source/target band-count contract for this registered translation relationship.
+    expected_target_bands : int | None, default=None
+        Declared source/target band-count contract for this registered translation relationship.
+    compatible_target_band_counts : tuple[int, ...], default=()
+        Declared source/target band-count contract for this registered translation relationship.
+    evidence_boundary : str | None, default=None
+        Scientific limitation attached to this relationship; common-source synthetic products do not become independent calibration observations.
+    """
 
     key: str
     source_sensor: str
@@ -81,7 +176,37 @@ class TranslationPair:
 
 @dataclass(frozen=True)
 class AnalysisProfile:
-    """Product and integrity requirements for one bulk analysis."""
+    """Product and integrity requirements for one bulk analysis.
+
+    Attributes
+    ----------
+    name : str
+        Stable parser/profile identifier used in configuration and provenance.
+    required_product_roles : tuple[str, ...], default=()
+        Product roles required or additionally recognized by this analysis profile.
+    optional_product_roles : tuple[str, ...], default=('raw_hyperspectral', 'corrected_hyperspectral', 'qa', 'metadata')
+        Product roles required or additionally recognized by this analysis profile.
+    allowed_sensors : tuple[str, ...] | None, default=None
+        Optional registry restrictions on sensor identities or common-support matching groups.
+    allowed_matching_groups : tuple[str, ...] | None, default=None
+        Optional registry restrictions on sensor identities or common-support matching groups.
+    require_translation_pair : bool, default=False
+        Require at least one compatible registered translation relationship for eligibility.
+    require_qa : bool, default=False
+        Require the profile's QA artifacts during source validation.
+    require_original_hyperspectral : bool, default=False
+        Require the corresponding original/corrected hyperspectral source role for this profile.
+    require_corrected_hyperspectral : bool, default=False
+        Require the corresponding original/corrected hyperspectral source role for this profile.
+    require_nonzero_files : bool, default=True
+        Reject zero-byte product artifacts during completeness validation.
+    require_readable_metadata : bool, default=True
+        Require metadata to be readable before admitting a candidate.
+    require_valid_dimensions : bool, default=True
+        Require compatible positive raster dimensions during validation.
+    require_compatible_band_schema : bool, default=True
+        Require product band metadata to satisfy the selected relationship contract.
+    """
 
     name: str
     required_product_roles: tuple[str, ...] = ()
@@ -105,13 +230,36 @@ class AnalysisProfile:
 
 @dataclass(frozen=True)
 class ProductRegistry:
-    """Immutable registry used by discovery, extraction, and analysis."""
+    """Immutable registry used by discovery, extraction, and analysis.
+
+    Attributes
+    ----------
+    products : tuple[ProductDescriptor, ...]
+        Immutable collection of raster/tabular descriptors recognized by this registry.
+    translation_pairs : tuple[TranslationPair, ...]
+        Explicit registered source-to-target relationships to analyze; None uses the selected registry/profile defaults.
+    tabular_products : tuple[TabularProductDescriptor, ...], default=()
+        Immutable collection of raster/tabular descriptors recognized by this registry.
+    """
 
     products: tuple[ProductDescriptor, ...]
     translation_pairs: tuple[TranslationPair, ...]
     tabular_products: tuple[TabularProductDescriptor, ...] = ()
 
     def recognize(self, path: str | Path) -> ProductDescriptor | None:
+        """Return the raster descriptor matching this product filename.
+
+        Parameters
+        ----------
+        path : str | Path
+            Existing source path to match against registered canonical filename patterns.
+
+        Returns
+        -------
+        ProductDescriptor | None
+            Matching raster ProductDescriptor, or None when no filename convention matches.
+        """
+
         matches = [descriptor for descriptor in self.products if descriptor.matches(path)]
         if len(matches) > 1:
             keys = ", ".join(descriptor.key for descriptor in matches)
@@ -119,6 +267,19 @@ class ProductRegistry:
         return matches[0] if matches else None
 
     def product_for_sensor(self, sensor_name: str) -> ProductDescriptor | None:
+        """Return the registered raster descriptor for a sensor identity.
+
+        Parameters
+        ----------
+        sensor_name : str
+            Canonical sensor identity used to match registered products and translation relationships.
+
+        Returns
+        -------
+        ProductDescriptor | None
+            ProductDescriptor for the requested canonical sensor name, or None when no descriptor exists.
+        """
+
         return next(
             (
                 descriptor
@@ -129,6 +290,19 @@ class ProductRegistry:
         )
 
     def recognize_tabular(self, path: str | Path) -> TabularProductDescriptor | None:
+        """Return the tabular descriptor matching this product filename.
+
+        Parameters
+        ----------
+        path : str | Path
+            Existing source path to match against registered canonical filename patterns.
+
+        Returns
+        -------
+        TabularProductDescriptor | None
+            Matching TabularProductDescriptor, or None when no tabular filename convention matches.
+        """
+
         matches = [
             descriptor for descriptor in self.tabular_products if descriptor.matches(path)
         ]
@@ -148,6 +322,32 @@ class ProductRegistry:
         allowed_matching_groups: Sequence[str] | None = None,
         allow_empty: bool = False,
     ) -> tuple[TranslationPair, ...]:
+        """Resolve and validate the requested registered sensor relationships.
+
+        Parameters
+        ----------
+        sensors : Sequence[str] | None
+            Optional sensor-name selection passed to the product registry; None retains profile-compatible sensors.
+        translation_pairs : Sequence[str | TranslationPair] | None
+            Explicit registered source-to-target relationships to analyze; None uses the selected registry/profile defaults.
+        allowed_sensors : Sequence[str] | None
+            Optional registry restrictions on sensor identities or common-support matching groups.
+        allowed_matching_groups : Sequence[str] | None
+            Optional registry restrictions on sensor identities or common-support matching groups.
+        allow_empty : bool
+            Allow an empty relationship selection rather than raising an error.
+
+        Returns
+        -------
+        tuple[TranslationPair, ...]
+            Ordered tuple of compatible TranslationPair records selected from this registry.
+
+        Raises
+        ------
+        ValueError
+            If option values violate the configuration or relationship-selection contract.
+        """
+
         by_key = {pair.key: pair for pair in self.translation_pairs}
         if translation_pairs is not None:
             selected: list[TranslationPair] = []
@@ -195,6 +395,8 @@ ANALYSIS_PROFILES = {TRANSLATION_PROFILE.name: TRANSLATION_PROFILE}
 
 
 def resolve_analysis_profile(value: str | AnalysisProfile) -> AnalysisProfile:
+    """Resolve a registered profile name or retain an explicit AnalysisProfile; reject unknown names."""
+
     if isinstance(value, AnalysisProfile):
         return value
     try:

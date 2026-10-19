@@ -26,6 +26,8 @@ REQUIRED_PROVENANCE_COLUMNS = (
 
 @dataclass(frozen=True)
 class LeaveOneSiteOutPaths:
+    """Resolve held-site fit tables and metadata beneath a bulk analysis run."""
+
     directory: Path
 
     @property
@@ -194,7 +196,32 @@ def run_leave_one_site_out(
     translation_pairs: tuple[TranslationPair, ...] | None = None,
     reuse_existing: bool = True,
 ) -> dict[str, Any]:
-    """Fit on all other sites and score every held-out site."""
+    """Fit on all other sites and score every held-out site.
+
+    Parameters
+    ----------
+    con : duckdb.DuckDBPyConnection
+        Open DuckDB connection prepared by the bulk workflow with the required catalog and observation views; the caller owns its lifetime.
+    paths : BulkAnalysisPaths
+        BulkAnalysisPaths instance selecting isolated catalog, database, analysis and report locations.
+    analysis_run_id : str
+        Provenance identifier written into generated tables and restart metadata for this run.
+    minimum_reflectance : float
+        Lower screening bound in the stored reflectance units; used for regression validity, not automatic unit conversion.
+    translation_pairs : tuple[TranslationPair, ...] | None, default=None
+        Explicit registered source-to-target relationships to analyze; None uses the selected registry/profile defaults.
+    reuse_existing : bool, default=True
+        Reuse valid analysis outputs when their recorded inputs match, rather than recomputing them.
+
+    Returns
+    -------
+    dict[str, Any]
+        Status, held-site result count and paths to compact results and metadata.
+
+    See Also
+    --------
+    spectralbridge.pipelines.bulk.run_bulk_pipeline : Related source-derived API contract.
+    """
 
     output = LeaveOneSiteOutPaths(paths.analyses_dir / "leave_one_site_out")
     output.directory.mkdir(parents=True, exist_ok=True)

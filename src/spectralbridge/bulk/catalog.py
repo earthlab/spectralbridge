@@ -84,9 +84,32 @@ def canonical_identity_from_product(
 ) -> dict[str, str | None]:
     """Recover scientific identity from a canonical merged-product filename.
 
+    Parameters
+    ----------
+    path : str | Path
+        Canonical merged-product path whose filename or parent manifest carries scientific identity.
+    identity_parsers : Sequence[FlightlineIdentityParser], default=DEFAULT_IDENTITY_PARSERS
+        Ordered parsers for canonical scientific identity from filenames or manifests; outer run-folder names are not scientific identifiers.
+
+    Returns
+    -------
+    dict[str, str | None]
+        Canonical flightline ID, identity source, site and ISO acquisition date recovered without guessing outer folder identity.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Outer folder names are intentionally ignored. A product whose filename
     cannot be parsed as a NEON reflectance identity is rejected rather than
     assigned a guessed identity.
+
+    See Also
+    --------
+    spectralbridge.pipelines.bulk.run_bulk_pipeline : Related source-derived API contract.
     """
 
     product = Path(path)
@@ -178,9 +201,44 @@ def discover_bulk_sources(
 ) -> list[SourceFileRecord]:
     """Recursively inventory full and polygon merged-Parquet candidates.
 
+    Parameters
+    ----------
+    input_path : str | Path
+        Existing source tree or merged Parquet to inventory; input products are read in place.
+    input_kind : BulkInputKind, default='full'
+        Select eligible 'full', 'polygon', or 'both' table products; discovery still records companions for transparency.
+    exclude_dir : str | Path | None, default=None
+        Optional output subtree to omit from recursive discovery to avoid treating generated products as sources.
+    product_registry : ProductRegistry, default=DEFAULT_PRODUCT_REGISTRY
+        ProductRegistry describing recognized filenames, sensor roles, band contracts and translation relationships.
+    sensors : Sequence[str] | None, default=None
+        Optional sensor-name selection passed to the product registry; None retains profile-compatible sensors.
+    translation_pairs : Sequence[str | TranslationPair] | None, default=None
+        Explicit registered source-to-target relationships to analyze; None uses the selected registry/profile defaults.
+    identity_parsers : Sequence[FlightlineIdentityParser], default=DEFAULT_IDENTITY_PARSERS
+        Ordered parsers for canonical scientific identity from filenames or manifests; outer run-folder names are not scientific identifiers.
+
+    Returns
+    -------
+    list[SourceFileRecord]
+        Deterministically ordered source records, including rejected candidates and their reasons.
+
+    Raises
+    ------
+    FileNotFoundError
+        If a required source or completed artifact is absent.
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Both product kinds are cataloged so companion availability is visible.
     ``input_kind`` controls later scientific selection, not discovery. Invalid
     candidates remain explicit rejected records.
+
+    See Also
+    --------
+    spectralbridge.pipelines.bulk.run_bulk_pipeline : Related source-derived API contract.
     """
 
     root = Path(input_path).expanduser().resolve()
@@ -406,9 +464,39 @@ def build_bulk_catalog(
 ) -> tuple[list[SourceFileRecord], list[FlightlineRecord]]:
     """Build source-file and canonical-flightline catalogs.
 
+    Parameters
+    ----------
+    input_path : str | Path
+        Existing source tree or merged Parquet to inventory; input products are read in place.
+    input_kind : BulkInputKind, default='full'
+        Select eligible 'full', 'polygon', or 'both' table products; discovery still records companions for transparency.
+    exclude_dir : str | Path | None, default=None
+        Optional output subtree to omit from recursive discovery to avoid treating generated products as sources.
+    analysis_profile : str | AnalysisProfile, default='translation'
+        Registered analysis profile name or AnalysisProfile controlling required products and permissible sensor pairs.
+    product_registry : ProductRegistry, default=DEFAULT_PRODUCT_REGISTRY
+        ProductRegistry describing recognized filenames, sensor roles, band contracts and translation relationships.
+    sensors : Sequence[str] | None, default=None
+        Optional sensor-name selection passed to the product registry; None retains profile-compatible sensors.
+    translation_pairs : Sequence[str | TranslationPair] | None, default=None
+        Explicit registered source-to-target relationships to analyze; None uses the selected registry/profile defaults.
+    identity_parsers : Sequence[FlightlineIdentityParser], default=DEFAULT_IDENTITY_PARSERS
+        Ordered parsers for canonical scientific identity from filenames or manifests; outer run-folder names are not scientific identifiers.
+
+    Returns
+    -------
+    tuple[list[SourceFileRecord], list[FlightlineRecord]]
+        Source-file records and canonical-flightline records; duplicate identities remain explicitly excluded.
+
+    Notes
+    -----
     Duplicate canonical IDs in different source directories are explicitly
     excluded. Multiple different IDs in one machine/run directory remain
     independent scientific flightlines.
+
+    See Also
+    --------
+    spectralbridge.pipelines.bulk.run_bulk_pipeline : Related source-derived API contract.
     """
 
     root = Path(input_path).expanduser().resolve()

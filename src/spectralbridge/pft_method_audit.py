@@ -32,6 +32,8 @@ METHODS = ("max", "integrated", "npc", "energy", "fpca")
 
 @dataclass(frozen=True)
 class AuditConfig:
+    """Configure the historical whole-spectrum PFT method audit and its explicit resampling budgets."""
+
     permutations: int = 9999
     seed: int = 20261014
     pc_variance: float = .95
@@ -236,6 +238,8 @@ def _plot_envelopes(root, summary, records, family):
 
 
 def run_method_audit(comparisons, legacy, output, *, config=None):
+    """Audit historical PFT comparisons against checksum-verified prior results with restart checkpoints."""
+
     config = config or AuditConfig()
     config.validate()
     comparisons, legacy, root = map(Path,(comparisons,legacy,output))

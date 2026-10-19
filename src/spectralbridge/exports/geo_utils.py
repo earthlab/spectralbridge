@@ -35,6 +35,8 @@ Transformer = _LazyModule("pyproj", attr="Transformer", install_hint="`pip insta
 
 @dataclass
 class GeoContext:
+    """Store EPSG and affine pixel geometry needed for export-coordinate columns."""
+
     crs_epsg: Optional[int]
     a: float  # pixel width
     e: float  # pixel height (negative for north-up)
@@ -86,6 +88,8 @@ def _guess_epsg(block: str) -> Optional[int]:
 
 
 def load_geo_from_hdr(hdr_path: Path) -> Optional[GeoContext]:
+    """Extract pixel size, origin and an inferred EPSG code from an existing ENVI header; return None without map information."""
+
     if not hdr_path or not Path(hdr_path).exists():
         return None
     text = Path(hdr_path).read_text(encoding="utf-8", errors="ignore")

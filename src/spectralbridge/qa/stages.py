@@ -684,11 +684,52 @@ def emit_stage_qa(
 ) -> tuple[Path, dict[str, Any]]:
     """Emit or reuse one deterministic stage QA JSON/HTML report from on-disk artifacts.
 
+    Parameters
+    ----------
+    flightline_dir : Path
+        Existing canonical completed flightline directory containing stage artifacts and QA sidecars.
+    stage_id : str
+        Canonical processing-stage identifier used for deterministic QA paths and stage-specific diagnostics.
+    inputs : Iterable[Path], default=()
+        Paths to the stage input/output artifacts; their availability and provenance are recorded in the QA payload.
+    outputs : Iterable[Path], default=()
+        Paths to the stage input/output artifacts; their availability and provenance are recorded in the QA payload.
+    parameters : dict[str, Any] | None, default=None
+        Optional serializable stage configuration recorded for reproducibility; does not modify the stage products.
+    mode : str, default='standard'
+        Diagnostic coverage level, normally 'standard' or 'deep'; existing artifacts are inspected without rerunning correction.
+    primary_img : Path | None, default=None
+        Optional primary ENVI image to inspect for this stage.
+    reference_img : Path | None, default=None
+        Optional aligned ENVI reference image for paired diagnostics.
+    chunk_shape : tuple[int, int] | None, default=None
+        Optional (rows, columns) block shape in pixels for seam/chunk diagnostics.
+    thresholds : QAThresholds | None, default=None
+        QAThresholds instance providing provisional review bounds; None uses the configured defaults, not universal scientific acceptance criteria.
+    force : bool, default=False
+        Regenerate the requested outputs instead of reusing an otherwise valid checkpoint or report.
+
+    Returns
+    -------
+    tuple[Path, dict[str, Any]]
+        Stage HTML path and JSON-serializable QA payload, written or reused with deterministic stage paths.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Missing scientific inputs are recorded as ``NOT EVALUATED`` rather than
     being silently omitted.  ``mode='deep'`` increases sampling and seam-band
     coverage but does not rerun the scientific correction itself.  Callers
     should invoke this after the stage product exists on disk, not while the
     correction working set is still resident.
+
+    See Also
+    --------
+    spectralbridge.qa.metrics.reflectance_summary : Related source-derived API contract.
     """
 
     mode = mode.strip().lower()

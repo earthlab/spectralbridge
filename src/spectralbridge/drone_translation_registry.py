@@ -356,7 +356,29 @@ def validate_drone_translation_coefficients(
 def load_drone_translation_coefficients(
     path: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Load the packaged or explicitly supplied static production registry."""
+    """Load the packaged or explicitly supplied static production registry.
+
+    Parameters
+    ----------
+    path : str | Path | None, default=None
+        Optional coefficient-registry JSON path; None loads the packaged reviewed static registry.
+
+    Returns
+    -------
+    dict[str, Any]
+        Validated versioned registry payload with coefficient records, statuses and provenance.
+
+    Raises
+    ------
+    FileNotFoundError
+        If a required source or completed artifact is absent.
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+    """
 
     resolved = (
         packaged_drone_translation_coefficients_path()
@@ -378,7 +400,31 @@ def get_drone_translation_coefficient(
     *,
     path: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Return one unambiguous production target-band coefficient."""
+    """Return one unambiguous production target-band coefficient.
+
+    Parameters
+    ----------
+    target_sensor : str
+        Canonical target sensor key present in the reviewed drone coefficient registry.
+    target_band : int
+        One-based target sensor band number in the registry; this is not a zero-based array index.
+    path : str | Path | None, default=None
+        Optional coefficient-registry JSON path; None loads the packaged reviewed static registry.
+
+    Returns
+    -------
+    dict[str, Any]
+        Exactly one matching target-band coefficient record, including equation, weighting and status metadata.
+
+    Raises
+    ------
+    KeyError
+        If the requested sensor/band does not identify exactly one coefficient.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+    """
 
     payload = load_drone_translation_coefficients(path)
     matches = [
@@ -402,7 +448,39 @@ def build_drone_translation_coefficient_registry(
     overwrite: bool = False,
     artifact_paths: Mapping[str, str | Path] | None = None,
 ) -> Path:
-    """Build a static registry from exact compact bulk result artifacts."""
+    """Build a static registry from exact compact bulk result artifacts.
+
+    Parameters
+    ----------
+    bulk_output : str | Path
+        Root of an existing completed bulk run, containing its manifest and compact model tables.
+    output_path : str | Path
+        Destination JSON registry path; existing files are protected unless overwrite is enabled.
+    coefficient_set_version : str, default=DRONE_TRANSLATION_COEFFICIENT_SET_VERSION
+        Version string embedded in the newly built coefficient set and its provenance.
+    overwrite : bool, default=False
+        Replace existing requested products; False preserves reusable products or rejects a conflicting destination.
+    artifact_paths : Mapping[str, str | Path] | None, default=None
+        Optional mapping overriding known compact bulk artifact paths; unknown keys or mismatched provenance are rejected.
+
+    Returns
+    -------
+    Path
+        Written registry path; coefficients retain compact-source hashes and attention flags.
+
+    Raises
+    ------
+    FileExistsError
+        If a protected destination already exists or conflicts with the requested product.
+    FileNotFoundError
+        If a required source or completed artifact is absent.
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+    """
 
     root = Path(bulk_output).expanduser().resolve()
     output = Path(output_path).expanduser().resolve()

@@ -1,13 +1,15 @@
 # DOI and Zenodo status
 
-Review date: 2026-10-13
+Review date: 2026-10-19
 
 ## Current repository versus archived release
 
 The repository metadata identifies **2.3.0rc1**. This is a release-candidate
 identity, not proof of a published tag, PyPI release or current Zenodo archive.
 A matching SpectralBridge release DOI has not been confirmed in this audit.
-`CITATION.cff` remains the machine-readable software citation source.
+`CITATION.cff` remains provisional pending author approval. Public API checks
+on this date found only GitHub releases `0.1` and `v1.0.0`, and PyPI returned
+404 for `earthlab-spectralbridge`; no current candidate publication was verified.
 
 The historical pre-rename archive is
 [`earthlab/cross-sensor-cal: Version 1`, DOI 10.5281/zenodo.11167877](https://zenodo.org/records/11167877),

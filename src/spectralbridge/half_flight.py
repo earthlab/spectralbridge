@@ -111,6 +111,8 @@ def along_track_slices(n_lines: int) -> dict[HalfSide, tuple[int, int]]:
 
 
 def half_flight_id(original_flight_id: str, side: HalfSide) -> str:
+    """Append a validated left/right half-route suffix to the original flight identifier."""
+
     if side not in HALF_SIDES:
         raise ValueError(f"side must be one of {HALF_SIDES}, got {side!r}")
     return f"{original_flight_id}_{side}"

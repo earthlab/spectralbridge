@@ -56,3 +56,5 @@ print(metrics.get("issues", []))
 - [Carry on from a partial run](carry-on-wayward-son.md)
 - Technical details: [QA panels and metrics](../pipeline/qa.md) and
   [validation metrics](../reference/validation.md)
+
+See the [API Reference for QA numerical contracts](../api/generated/qa-metrics.md) for current signatures, defaults, inputs and outputs.

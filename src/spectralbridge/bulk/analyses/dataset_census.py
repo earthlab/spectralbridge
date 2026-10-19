@@ -21,6 +21,8 @@ REQUIRED_INPUT_TABLES = ("flightlines", "source_files")
 
 @dataclass(frozen=True)
 class DatasetCensusPaths:
+    """Resolve compact census tables and report paths beneath a bulk analysis run."""
+
     directory: Path
 
     @property
@@ -84,7 +86,28 @@ def run_dataset_census(
     analysis_run_id: str,
     reuse_existing: bool = True,
 ) -> dict[str, Any]:
-    """Write metadata-only census tables without scanning observation values."""
+    """Write metadata-only census tables without scanning observation values.
+
+    Parameters
+    ----------
+    con : duckdb.DuckDBPyConnection
+        Open DuckDB connection prepared by the bulk workflow with the required catalog and observation views; the caller owns its lifetime.
+    paths : BulkAnalysisPaths
+        BulkAnalysisPaths instance selecting isolated catalog, database, analysis and report locations.
+    analysis_run_id : str
+        Provenance identifier written into generated tables and restart metadata for this run.
+    reuse_existing : bool, default=True
+        Reuse valid analysis outputs when their recorded inputs match, rather than recomputing them.
+
+    Returns
+    -------
+    dict[str, Any]
+        Status, summary counts and paths to census Parquet, JSON, missing-product table and report.
+
+    See Also
+    --------
+    spectralbridge.pipelines.bulk.run_bulk_pipeline : Related source-derived API contract.
+    """
 
     output = DatasetCensusPaths(paths.analyses_dir / "dataset_census")
     output.directory.mkdir(parents=True, exist_ok=True)

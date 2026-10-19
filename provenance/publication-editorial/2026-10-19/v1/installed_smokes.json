@@ -1,0 +1,34 @@
+[
+  {
+    "artifact": "earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl",
+    "sha256": "e4bf3791c06a3d062b2b04880bbf1de81c3f426a492fccd6827be46b36ae873c",
+    "python": "3.10.16",
+    "kind": "wheel",
+    "returncode": 0,
+    "log": "wheel-310-smoke.log"
+  },
+  {
+    "artifact": "earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl",
+    "sha256": "e4bf3791c06a3d062b2b04880bbf1de81c3f426a492fccd6827be46b36ae873c",
+    "python": "3.11.11",
+    "kind": "wheel",
+    "returncode": 0,
+    "log": "wheel-311-smoke.log"
+  },
+  {
+    "artifact": "earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl",
+    "sha256": "e4bf3791c06a3d062b2b04880bbf1de81c3f426a492fccd6827be46b36ae873c",
+    "python": "3.12.8",
+    "kind": "wheel",
+    "returncode": 0,
+    "log": "wheel-312-smoke.log"
+  },
+  {
+    "artifact": "earthlab_spectralbridge-2.3.0rc1.tar.gz",
+    "sha256": "88430cd88a610fb4c02c8d131684e50855cacb428d5d820f8ab0da7b06b7d9cb",
+    "python": "3.10.16",
+    "kind": "sdist",
+    "returncode": 0,
+    "log": "sdist-310-smoke.log"
+  }
+]

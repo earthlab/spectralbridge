@@ -1,0 +1,32 @@
+{
+  "papers": [
+    {
+      "file": "paper/paper.md",
+      "sha256": "90761d996ff0ea51857c2a24a196895200f6842311b2d53ff642ce611f3f5aa7",
+      "word_count_including_captions": 1647,
+      "word_count_excluding_captions": 1415,
+      "bibliography_entries": 65,
+      "unique_citation_keys": 65,
+      "images": 3,
+      "errors": [],
+      "author_actions": [
+        "confirm that human authors reviewed, edited and validated all AI-assisted outputs and made the core design decisions.",
+        "list financial support and award numbers, describe sponsor involvement, or confirm no financial support.",
+        "provide the authors\u2019 disclosure or confirm that there are no relevant conflicts."
+      ]
+    },
+    {
+      "file": "paper/supplement.md",
+      "sha256": "6613f63b74c0d98ad46e165d85062b6bf7b82ad6cab7cb53a8708cb44cc791df",
+      "word_count_including_captions": 13542,
+      "word_count_excluding_captions": 13275,
+      "bibliography_entries": 101,
+      "unique_citation_keys": 91,
+      "images": 23,
+      "errors": [],
+      "author_actions": []
+    }
+  ],
+  "format_checks_pass": true,
+  "author_declarations_complete": false
+}

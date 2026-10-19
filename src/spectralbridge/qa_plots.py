@@ -190,7 +190,7 @@ def _hash_file(path: Path) -> str:
 def _discover_primary_cube(flightline_dir: Path) -> tuple[Path, Path]:
     """
     Discover the raw and corrected ENVI cubes for a flightline.
-    
+
     Handles naming mismatches between raw files (which may use legacy T-separator format)
     and corrected files (which use canonical flight_id format).
     """
@@ -203,28 +203,28 @@ def _discover_primary_cube(flightline_dir: Path) -> tuple[Path, Path]:
         raise FileNotFoundError(f"No ENVI cube found in {flightline_dir}")
     raw_path = raw_candidates[0]
     prefix = raw_path.stem.rsplit("_envi", 1)[0]
-    
+
     # Strategy 1: Try exact prefix match first (works if naming is consistent)
     corrected = flightline_dir / f"{prefix}_brdfandtopo_corrected_envi.img"
     if corrected.exists():
         return raw_path, corrected
-    
+
     # Strategy 2: Try to construct canonical flight_id from parsed raw file
     # Raw file might have legacy format: NEON_D13_NIWO_DP1_20200720T163210_20200720_163210_reflectance_envi.img
     # Corrected file uses canonical format: NEON_D13_NIWO_DP1_20200720_163210_reflectance_brdfandtopo_corrected_envi.img
     try:
         from .file_types import NEONReflectanceENVIFile
-        
+
         # Try parsing the raw ENVI filename
         envi_file = NEONReflectanceENVIFile.from_filename(raw_path)
-        
+
         # Extract components for canonical flight_id format
         # Format: NEON_{domain}_{site}_DP1_{date}_{time}_reflectance
         domain = getattr(envi_file, "domain", None)
         site = getattr(envi_file, "site", None)
         date = getattr(envi_file, "date", None)
         time = getattr(envi_file, "time", None)
-        
+
         if domain and site and date and time:
             # Construct canonical flight_id (remove T-separator and duplicate date/time)
             canonical_flight_id = f"NEON_{domain}_{site}_DP1_{date}_{time}_reflectance"
@@ -237,7 +237,7 @@ def _discover_primary_cube(flightline_dir: Path) -> tuple[Path, Path]:
     except Exception:
         # Catch any other unexpected errors and log them, then fall through to Strategy 3
         pass
-    
+
     # Strategy 3: Fallback - glob search for any corrected file
     corrected_candidates = sorted(
         p
@@ -246,7 +246,7 @@ def _discover_primary_cube(flightline_dir: Path) -> tuple[Path, Path]:
     )
     if corrected_candidates:
         return raw_path, corrected_candidates[0]
-    
+
     # If all strategies fail, raise error with helpful message
     raise FileNotFoundError(
         f"Missing corrected cube: Could not find corrected ENVI file for raw file {raw_path.name}.\n"
@@ -468,18 +468,18 @@ def _correction_report(
     # -9999 values can cause spurious large deltas (e.g., -9999 - 0.5 = -9999.5, or 0.5 - (-9999) = 9999.5)
     # Use a more lenient threshold to catch values close to -9999
     no_data_threshold = -9990.0  # Anything <= -9990 is considered no-data
-    
+
     # Mask out pixels where either raw or corrected is no-data
     raw_is_nodata = raw_sample <= no_data_threshold
     corr_is_nodata = corr_sample <= no_data_threshold
     either_is_nodata = raw_is_nodata | corr_is_nodata
-    
+
     # Combined mask: valid pixels AND not no-data
     combined_mask = sample_mask & ~either_is_nodata
-    
+
     # Calculate difference only for valid, non-no-data pixels
     diff = np.where(combined_mask, corr_sample - raw_sample, np.nan)
-    
+
     # CRITICAL: Exclude deltas that are suspiciously large (likely -9999 contamination)
     # If absolute delta is > 1000, it's almost certainly from a -9999 value
     # This catches cases like: -9999 - 76 = -10075 or 76 - (-9999) = 10075
@@ -489,7 +489,7 @@ def _correction_report(
     if n_suspicious > 0:
         print(f"[QA] ⚠️  Excluding {n_suspicious:,} suspicious deltas (|delta| > 1000) likely from -9999 contamination")
     diff = np.where(suspicious_deltas, np.nan, diff)
-    
+
     delta_median = np.nanmedian(diff, axis=1)
     q10 = np.nanpercentile(diff, 10, axis=1)
     q25 = np.nanpercentile(diff, 25, axis=1)
@@ -497,13 +497,13 @@ def _correction_report(
     q90 = np.nanpercentile(diff, 90, axis=1)
     delta_abs_median = np.nanmedian(np.abs(diff), axis=1)
     delta_iqr = q75 - q25
-    
+
     # Count how many bands had -9999 contamination
     nodata_bands = np.sum(either_is_nodata, axis=1)
     if np.any(nodata_bands > 0):
         max_contaminated = np.max(nodata_bands)
         print(f"[QA] ⚠️  Excluded -9999 values from delta calculation (max {max_contaminated} pixels per band)")
-    
+
     order = np.argsort(np.abs(delta_median))[::-1]
     top = order[:3].tolist()
     return CorrectionReport(
@@ -532,7 +532,7 @@ def _load_filtered_parquet_stats(flightline_dir: Path, prefix: str) -> dict | No
     """Load statistics from filtered merged parquet file if available."""
     if pd is None:
         return None
-    
+
     # Check for both regular and polygon mode merged parquet files
     merged_parquet = flightline_dir / f"{prefix}_merged_pixel_extraction.parquet"
     if not merged_parquet.exists():
@@ -540,40 +540,40 @@ def _load_filtered_parquet_stats(flightline_dir: Path, prefix: str) -> dict | No
         merged_parquet = flightline_dir / f"{prefix}_polygons_merged_pixel_extraction.parquet"
         if not merged_parquet.exists():
             return None
-    
+
     try:
         # Sample for QA stats so multi-million-row full extracts stay tractable.
         df = _safe_read_parquet(merged_parquet, sample_rows=50_000)
-        
+
         # Identify spectral columns (excluding raw_* and metadata)
         import re
         spectral_cols = [col for col in df.columns 
                         if re.search(r'_wl\d+nm|^wl\d+nm', col, re.IGNORECASE) 
                         and not col.lower().startswith('raw_')
                         and col.lower() not in ['pixel_id', 'row', 'col', 'x', 'y', 'lon', 'lat']]
-        
+
         if not spectral_cols:
             return None
-        
+
         # Convert to numeric
         spectral_df = df[spectral_cols].apply(pd.to_numeric, errors='coerce')
-        
+
         # Calculate statistics
         # First identify no-data values (close to -9999)
         no_data_mask = (np.abs(spectral_df - (-9999.0)) < 0.01) & spectral_df.notna()
         # Valid cells exclude no-data
         valid_mask = spectral_df.notna() & ~no_data_mask
-        
+
         # Calculate statistics on VALID cells only (exclude no-data)
         negative_mask = (spectral_df < 0) & valid_mask
         overbright_mask = (spectral_df > 1.2) & valid_mask
-        
+
         total_cells = spectral_df.notna().sum().sum()  # All non-NaN cells (including no-data)
         no_data_cells = no_data_mask.sum().sum()
         valid_cells = valid_mask.sum().sum()  # Non-NaN, non-no-data cells
         negative_cells = negative_mask.sum().sum()  # Only on valid cells
         overbright_cells = overbright_mask.sum().sum()  # Only on valid cells
-        
+
         return {
             'n_rows': len(df),
             'n_spectral_cols': len(spectral_cols),
@@ -877,7 +877,7 @@ def _render_page1_envi_overview(
         wavelengths, _ = wavelengths_from_hdr(hdr)
         rgb_image, _ = _rgb_preview(cube, wavelengths, rgb_targets)
         ax.imshow(np.clip(rgb_image, 0, 1))
-        
+
         # Shorten product name for display - extract key identifier
         stem = img_path.stem
         # Remove long prefix if present
@@ -885,13 +885,13 @@ def _render_page1_envi_overview(
             short_name = stem[len(prefix):].lstrip('_')
         else:
             short_name = stem
-        
+
         # Further shorten common suffixes
         short_name = short_name.replace('_brdfandtopo_corrected_envi', '_corrected')
         short_name = short_name.replace('_envi', '')
         short_name = short_name.replace('_convolved', '_conv')
         short_name = short_name.replace('_resampled', '_resamp')
-        
+
         # Wrap long names
         if len(short_name) > 30:
             # Try to split at underscores
@@ -901,7 +901,7 @@ def _render_page1_envi_overview(
                 short_name = f"{parts[0]}_{parts[-1]}"
             else:
                 short_name = short_name[:27] + "..."
-        
+
         ax.set_title(short_name, fontsize=8, wrap=True)
         ax.axis("off")
 
@@ -1145,21 +1145,21 @@ def _render_page4_parquet_merge_quality(
     prefix: str,
 ) -> None:
     """Page 4: Parquet and merge quality analysis."""
-    
+
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))
     fig.suptitle(f"Parquet & Merge Quality Analysis – {prefix}")
-    
+
     # Top-left: Parquet file inventory
     ax_parquet = axes[0, 0]
     parquet_files = sorted(flightline_dir.glob("*.parquet"))
     parquet_info = []
     total_size = 0
-    
+
     for pq in parquet_files:
         size_mb = pq.stat().st_size / (1024 * 1024)
         total_size += size_mb
         parquet_info.append(f"{pq.name[:50]}: {size_mb:.1f} MB")
-    
+
     if parquet_info:
         text = "=== Parquet Files ===\n" + "\n".join(parquet_info[:15])  # Limit to 15 files
         if len(parquet_info) > 15:
@@ -1167,11 +1167,11 @@ def _render_page4_parquet_merge_quality(
         text += f"\n\nTotal: {len(parquet_files)} files, {total_size:.1f} MB"
     else:
         text = "No parquet files found"
-    
+
     ax_parquet.text(0.01, 0.99, text, va="top", ha="left", fontsize=8, family='monospace')
     ax_parquet.axis("off")
     ax_parquet.set_title("Parquet File Inventory")
-    
+
     # Top-right: Merge status
     ax_merge = axes[0, 1]
     # Check for both regular and polygon mode merged parquet files
@@ -1179,7 +1179,7 @@ def _render_page4_parquet_merge_quality(
     if not merged_parquet.exists():
         # Try polygon mode merged file
         merged_parquet = flightline_dir / f"{prefix}_polygons_merged_pixel_extraction.parquet"
-    
+
     if merged_parquet.exists():
         try:
             if pd is not None:
@@ -1187,14 +1187,14 @@ def _render_page4_parquet_merge_quality(
                 if shape is None:
                     raise RuntimeError("Could not read parquet shape")
                 n_rows, n_cols = shape
-                
+
                 # Count expected parquet types
                 original_parquets = list(flightline_dir.glob("*_envi.parquet"))
                 corrected_parquets = list(flightline_dir.glob("*_corrected*.parquet"))
                 resampled_parquets = [p for p in flightline_dir.glob("*.parquet") 
                                     if "merged" not in p.name and "corrected" not in p.name 
                                     and "_envi.parquet" not in p.name]
-                
+
                 lines = [
                     "=== Merge Status ===",
                     "OK: Merged file exists",
@@ -1225,11 +1225,11 @@ def _render_page4_parquet_merge_quality(
             "FAIL: Merged file not found",
             f"Expected: {merged_parquet.name}",
         ]
-    
+
     ax_merge.text(0.01, 0.99, "\n".join(lines), va="top", ha="left", fontsize=9, family='monospace')
     ax_merge.axis("off")
     ax_merge.set_title("Merge Status")
-    
+
     # Bottom-left: Column listing
     ax_cols = axes[1, 0]
     if merged_parquet.exists() and pd is not None:
@@ -1237,14 +1237,14 @@ def _render_page4_parquet_merge_quality(
             # Only need column names for categorization — sample is enough.
             df = _safe_read_parquet(merged_parquet, sample_rows=1)
             import re
-            
+
             # Categorize columns
             spectral_cols = [c for c in df.columns if re.search(r'_wl\d+nm|^wl\d+nm', c, re.IGNORECASE)]
             raw_cols = [c for c in spectral_cols if c.lower().startswith('raw_')]
             corr_cols = [c for c in spectral_cols if 'corr' in c.lower() and not c.lower().startswith('raw_')]
             conv_cols = [c for c in spectral_cols if any(x in c.lower() for x in ['etm', 'oli', 'tm', 'micasense']) and not c.lower().startswith('raw_')]
             meta_cols = [c for c in df.columns if c not in spectral_cols]
-            
+
             lines = [
                 "=== Column Summary ===",
                 f"Total columns: {len(df.columns)}",
@@ -1259,7 +1259,7 @@ def _render_page4_parquet_merge_quality(
                 "",
                 "=== Sample Column Names ===",
             ]
-            
+
             # Show sample columns from each category
             max_samples = 8
             if corr_cols:
@@ -1269,7 +1269,7 @@ def _render_page4_parquet_merge_quality(
                 if len(corr_cols) > max_samples:
                     lines.append(f"  ... and {len(corr_cols) - max_samples} more")
                 lines.append("")
-            
+
             # Group convolved columns by sensor
             sensor_groups: dict[str, list[str]] = {}
             for col in conv_cols:
@@ -1287,7 +1287,7 @@ def _render_page4_parquet_merge_quality(
                     if sensor not in sensor_groups:
                         sensor_groups[sensor] = []
                     sensor_groups[sensor].append(col)
-            
+
             if sensor_groups:
                 lines.append("Convolved sensors:")
                 for sensor in sorted(sensor_groups.keys()):
@@ -1298,33 +1298,33 @@ def _render_page4_parquet_merge_quality(
                     if len(cols) > 5:
                         lines.append(f"    ... and {len(cols) - 5} more")
                 lines.append("")
-            
+
             if meta_cols:
                 lines.append(f"Metadata (showing {min(max_samples, len(meta_cols))} of {len(meta_cols)}):")
                 for col in sorted(meta_cols)[:max_samples]:
                     lines.append(f"  • {col}")
                 if len(meta_cols) > max_samples:
                     lines.append(f"  ... and {len(meta_cols) - max_samples} more")
-            
+
         except Exception as e:
             lines = [f"Error analyzing columns: {e}"]
     else:
         lines = ["Column analysis requires merged parquet file"]
-    
+
     ax_cols.text(0.01, 0.99, "\n".join(lines), va="top", ha="left", fontsize=7, family='monospace')
     ax_cols.axis("off")
     ax_cols.set_title("Column Listing & Summary")
-    
+
     # Bottom-right: Quality checks
     ax_quality = axes[1, 1]
     quality_checks = []
-    
+
     # Check 1: Merged file exists
     if merged_parquet.exists():
         quality_checks.append("OK: Merged parquet exists")
     else:
         quality_checks.append("FAIL: Merged parquet missing")
-    
+
     # Check 2: Expected parquet files
     expected_types = {
         "Original ENVI": list(flightline_dir.glob("*_envi.parquet")),
@@ -1335,7 +1335,7 @@ def _render_page4_parquet_merge_quality(
             quality_checks.append(f"OK: {name}: {len(files)} file(s)")
         else:
             quality_checks.append(f"WARN: {name}: 0 files")
-    
+
     # Check 3: Resampled products
     resampled = [p for p in flightline_dir.glob("*.parquet") 
                 if "merged" not in p.name and "corrected" not in p.name 
@@ -1344,11 +1344,11 @@ def _render_page4_parquet_merge_quality(
         quality_checks.append(f"OK: Resampled products: {len(resampled)} file(s)")
     else:
         quality_checks.append("WARN: No resampled products found")
-    
+
     ax_quality.text(0.01, 0.99, "\n".join(quality_checks), va="top", ha="left", fontsize=9, family='monospace')
     ax_quality.axis("off")
     ax_quality.set_title("Quality Checks")
-    
+
     pdf.savefig(fig, bbox_inches="tight")
     plt.close(fig)
 
@@ -1856,12 +1856,12 @@ def _render_wavelength_reflectance_plot(
     - Highlighted regions showing where convolutions occur
     """
     print(f"[QA]   📊 Starting wavelength reflectance plot for {prefix}")
-    
+
     if pd is None:
         ax.text(0.5, 0.5, "Pandas required for wavelength plot", ha="center", va="center")
         print("[QA]   ⚠️  Pandas not available")
         return
-    
+
     # Find merged parquet
     merged_parquet = flightline_dir / f"{prefix}_merged_pixel_extraction.parquet"
     if not merged_parquet.exists():
@@ -1870,7 +1870,7 @@ def _render_wavelength_reflectance_plot(
             ax.text(0.5, 0.5, "Merged parquet not found", ha="center", va="center")
             print(f"[QA]   ⚠️  Merged parquet not found in {flightline_dir}")
             return
-    
+
     print(f"[QA]   📂 Reading parquet: {merged_parquet.name}")
     try:
         # Sample rows for plotting — full extracts can be millions of rows.
@@ -1882,10 +1882,10 @@ def _render_wavelength_reflectance_plot(
         import traceback
         traceback.print_exc()
         return
-    
+
     import re
     wl_re = re.compile(r"_wl(\d+)nm", re.IGNORECASE)
-    
+
     def _wl_nm(col: str) -> int | None:
         m = wl_re.search(col)
         if not m:
@@ -1894,7 +1894,7 @@ def _render_wavelength_reflectance_plot(
             return int(m.group(1))
         except ValueError:
             return None
-    
+
     # Get corrected hyperspectral columns
     corr_cols = [
         c for c in df.columns
@@ -1905,42 +1905,42 @@ def _render_wavelength_reflectance_plot(
         ax.text(0.5, 0.5, "No corrected spectral columns found", ha="center", va="center")
         print(f"[QA]   ⚠️  No corr_* columns found. Sample columns: {list(df.columns[:10])}")
         return
-    
+
     # Build wavelength -> corrected column mapping
     corr_by_wl: dict[int, str] = {}
     for c in corr_cols:
         wl = _wl_nm(c)
         if wl is not None:
             corr_by_wl[wl] = c
-    
+
     if not corr_by_wl:
         ax.text(0.5, 0.5, "No valid corrected wavelengths found", ha="center", va="center")
         return
-    
+
     # Use wavelengths from column names (most reliable)
     # The provided wavelengths might not match column names exactly
     wl_array = np.array(sorted(corr_by_wl.keys()), dtype=float)
-    
+
     if len(wl_array) == 0:
         ax.text(0.5, 0.5, "No wavelengths found in columns", ha="center", va="center", fontsize=10)
         print(f"[QA]   ⚠️  No wavelengths extracted from {len(corr_cols)} columns")
         return
-    
+
     # Log wavelength range for debugging
     print(f"[QA]   📊 Wavelength plot: {len(wl_array)} bands, range {wl_array.min():.1f}-{wl_array.max():.1f} nm")
-    
+
     # Sample a subset of rows for plotting (to avoid memory issues)
     n_sample = min(1000, len(df))
     if len(df) > n_sample:
         sample_df = df.sample(n=n_sample, random_state=42)
     else:
         sample_df = df
-    
+
     # Plot corrected hyperspectral data (median across samples)
     # Match wavelengths to columns more flexibly
     corr_values = []
     matched_wls = []
-    
+
     for wl in wl_array:
         wl_int = int(round(wl))
         # Try exact match first
@@ -1958,7 +1958,7 @@ def _render_wavelength_reflectance_plot(
                 corr_values.append(np.nan)
                 matched_wls.append(wl)
                 continue
-        
+
         vals = (
             pd.to_numeric(sample_df[col], errors="coerce")
             / reflectance_scale_factor
@@ -1971,11 +1971,11 @@ def _render_wavelength_reflectance_plot(
         else:
             corr_values.append(np.nan)
             matched_wls.append(wl)
-    
+
     corr_values = np.array(corr_values)
     matched_wls = np.array(matched_wls)
     valid_mask = np.isfinite(corr_values)
-    
+
     if not np.any(valid_mask):
         error_msg = (
             f"No valid corrected reflectance data\n"
@@ -1987,13 +1987,13 @@ def _render_wavelength_reflectance_plot(
         ax.text(0.5, 0.5, error_msg, ha="center", va="center", fontsize=8, family='monospace')
         print(f"[QA] ⚠️  No valid data for wavelength plot: {len(corr_by_wl)} cols, {len(wl_array)} wls, {df.shape}")
         return
-    
+
     # Use matched wavelengths for plotting
     plot_wls = matched_wls[valid_mask]
     plot_vals = corr_values[valid_mask]
-    
+
     print(f"[QA]   ✅ Plotting {len(plot_wls)} valid points (range: {plot_wls.min():.1f}-{plot_wls.max():.1f} nm, values: {plot_vals.min():.3f}-{plot_vals.max():.3f})")
-    
+
     # Smooth the corrected hyperspectral spectrum to reduce vertical noise
     # Use Gaussian smoothing for a smoother, straighter curve
     if len(plot_vals) > 20:
@@ -2002,7 +2002,7 @@ def _render_wavelength_reflectance_plot(
         window_size = max(5, min(35, int(len(plot_vals) * 0.06)))
         if window_size % 2 == 0:
             window_size += 1  # Make odd for symmetric smoothing
-        
+
         # Use Gaussian smoothing if scipy is available, otherwise use larger moving average
         if ndimage is not None:
             sigma = window_size / 6.0  # Standard deviation for Gaussian
@@ -2017,11 +2017,11 @@ def _render_wavelength_reflectance_plot(
             print(f"[QA]   🔄 Applied weighted smoothing (window size: {window_size}) for straighter curve")
     else:
         smoothed_vals = plot_vals
-    
+
     # Plot corrected hyperspectral spectrum as a smooth continuous line (the "mountain curve")
     ax.plot(plot_wls, smoothed_vals, 
             color='black', linewidth=2.0, alpha=0.8, label='Corrected hyperspectral (smoothed)', zorder=1)
-    
+
     # Find convolved sensor columns and plot them directly on the line
     sensor_patterns = {
         'etm+etm+': ('olive', 'ETM+', '^'),
@@ -2033,7 +2033,7 @@ def _render_wavelength_reflectance_plot(
         'micasense': ('purple', 'MicaSense', 'o'),
         'micasense_undarkened': ('plum', 'MicaSense (undark)', 'o'),
     }
-    
+
     # Group sensor columns by sensor name
     sensor_cols_by_sensor: dict[str, list[tuple[int, str]]] = {}
     for col in df.columns:
@@ -2051,35 +2051,35 @@ def _render_wavelength_reflectance_plot(
                         sensor_cols_by_sensor[pattern] = []
                     sensor_cols_by_sensor[pattern].append((wl, col))
                     break
-    
+
     print(f"[QA]   🔍 Found {sum(len(v) for v in sensor_cols_by_sensor.values())} convolved sensor columns across {len(sensor_cols_by_sensor)} sensors")
     for pattern, cols in sensor_cols_by_sensor.items():
         print(f"[QA]     - {pattern}: {len(cols)} bands")
-    
+
     # Plot each sensor's bands, showing both corrected value (on line) and convolved value
     plotted_sensors = []
     all_conv_values = []  # Collect all convolved values for y-axis limits
     total_plotted_bands = 0  # Track total bands plotted across all sensors
-    
+
     for pattern, (color, label, marker) in sensor_patterns.items():
         if pattern not in sensor_cols_by_sensor:
             continue
-        
+
         sensor_wls = sorted([wl for wl, _ in sensor_cols_by_sensor[pattern]])
         if not sensor_wls:
             continue
-        
+
         # For each convolved band, find the corrected value at that wavelength
         corr_at_sensor_wls = []
         conv_values = []
         conv_wavelengths = []
-        
+
         # Track filtering reasons
         total_bands = len(sensor_cols_by_sensor[pattern])
         filtered_no_data = 0
         filtered_negative = 0
         filtered_no_corr_match = 0
-        
+
         for wl, col in sensor_cols_by_sensor[pattern]:
             # Get convolved value - exclude negative values and no-data
             vals = (
@@ -2088,7 +2088,7 @@ def _render_wavelength_reflectance_plot(
             )
             # Filter: exclude -9999 (no-data), negative values, and very large values
             valid_vals = vals[(vals > -9990) & (vals >= 0) & (vals < 1000) & np.isfinite(vals)]
-            
+
             if len(valid_vals) == 0:
                 # Check why it was filtered
                 all_vals = vals[np.isfinite(vals)]
@@ -2099,16 +2099,16 @@ def _render_wavelength_reflectance_plot(
                 else:
                     filtered_no_data += 1
                 continue
-            
+
             conv_val = np.median(valid_vals)
             conv_values.append(conv_val)
             conv_wavelengths.append(wl)
-            
+
             # Find corrected value at this wavelength
             # Interpolate from the plot data if exact match not found
             wl_int = int(round(wl))
             corr_val = None
-            
+
             if wl_int in corr_by_wl:
                 corr_col = corr_by_wl[wl_int]
                 corr_vals = (
@@ -2130,16 +2130,16 @@ def _render_wavelength_reflectance_plot(
                         # Only use if non-negative
                         if corr_val < 0:
                             corr_val = None
-            
+
             if corr_val is not None:
                 corr_at_sensor_wls.append((wl, corr_val, conv_val))
             else:
                 filtered_no_corr_match += 1
-        
+
         if not corr_at_sensor_wls:
             print(f"[QA]     ⚠️  {label}: No valid data points after filtering")
             continue
-        
+
         # Report statistics
         plotted_count = len(corr_at_sensor_wls)
         filtered_count = total_bands - plotted_count
@@ -2158,16 +2158,16 @@ def _render_wavelength_reflectance_plot(
                 print()
         else:
             print()
-        
+
         total_plotted_bands += plotted_count
-        
+
         # Plot vertical lines from corrected (on line) to convolved (point)
         for wl, corr_val, conv_val in corr_at_sensor_wls:
             # Draw a vertical line from the corrected line to the convolved point
             # This shows where convolution occurred and the difference
             ax.plot([wl, wl], [corr_val, conv_val], 
                    color=color, linewidth=1.5, alpha=0.6, linestyle='--', zorder=2)
-        
+
         # Plot convolved values as colored markers
         if conv_wavelengths:
             ax.scatter(conv_wavelengths, conv_values, 
@@ -2175,7 +2175,7 @@ def _render_wavelength_reflectance_plot(
                       edgecolors='black', linewidths=1.5, zorder=4,
                       label=label)
             all_conv_values.extend(conv_values)
-        
+
         # Mark the corrected values at these wavelengths on the line with small markers
         corr_wls = [wl for wl, _, _ in corr_at_sensor_wls]
         corr_vals_at_wls = [corr_val for _, corr_val, _ in corr_at_sensor_wls]
@@ -2183,18 +2183,18 @@ def _render_wavelength_reflectance_plot(
             ax.scatter(corr_wls, corr_vals_at_wls,
                       color=color, s=40, alpha=0.7, marker='|', 
                       linewidths=3.0, zorder=3)
-        
+
         plotted_sensors.append(label)
-    
+
     ax.set_xlabel("Wavelength (nm)", fontsize=10)
     ax.set_ylabel("Reflectance", fontsize=10)
     ax.set_title("Corrected Reflectance vs Wavelength\n(Convolved bands marked on spectrum)", fontsize=10)
     ax.grid(True, alpha=0.3)
-    
+
     # Only show legend if we have sensors
     if plotted_sensors:
         ax.legend(loc='upper right', fontsize=7, ncol=1, framealpha=0.9)
-    
+
     # Use a physical-reflectance display range. Values are converted from their
     # persisted ENVI/Parquet scale before reaching this point.
     y_axis_cap = 2.0
@@ -2206,7 +2206,7 @@ def _render_wavelength_reflectance_plot(
             else [plot_vals]
         )
         y_valid = y_data[np.isfinite(y_data) & (y_data >= 0)]
-        
+
         if len(y_valid) > 0:
             y_min = 0
             y_max = max(1.0, min(y_axis_cap, float(np.nanmax(y_valid)) * 1.05))
@@ -2227,10 +2227,10 @@ def _render_wavelength_reflectance_plot(
             y_max_data = np.nanmax(y_data) if len(y_data) > 0 else 1.0
             ax.set_ylim(0, min(y_axis_cap, max(1.0, y_max_data * 1.1)))
             print("[QA]   ⚠️  Using fallback y-axis range (no valid data)")
-    
+
     # Summary statistics
     total_found_bands = sum(len(v) for v in sensor_cols_by_sensor.values())
-    
+
     if plotted_sensors:
         print(f"[QA]   ✅ Successfully plotted {len(plotted_sensors)} sensors: {', '.join(plotted_sensors)}")
         if total_found_bands > total_plotted_bands:
@@ -2240,7 +2240,7 @@ def _render_wavelength_reflectance_plot(
             print(f"[QA]   📊 Summary: All {total_plotted_bands} convolved bands plotted")
     else:
         print(f"[QA]   ⚠️  No convolved sensors plotted (found {len(sensor_cols_by_sensor)} sensor groups)")
-    
+
     # Check for missing sensors
     found_sensor_patterns = set(sensor_cols_by_sensor.keys())
     expected_sensor_patterns = set(sensor_patterns.keys())
@@ -2872,6 +2872,8 @@ def render_drone_panel(
     rgb_bands: str | None = None,
     qa_max_samples: int = _DRONE_QA_MAX_SAMPLES,
 ) -> tuple[Path, dict[str, Any]]:
+    """Render paired raw/corrected drone QA, respecting nodata and wavelength metadata, with optional JSON diagnostics."""
+
     raw_path = Path(raw_path)
     corrected_path = Path(corrected_path)
     output_png = Path(output_png)
@@ -3101,7 +3103,7 @@ def render_flightline_panel(
     rgb_bands: str | None = None,
 ) -> tuple[Path, dict]:
     """Return (png_path, metrics_dict); also writes _qa.json/_qa.pdf when requested."""
-    
+
     # Debug: Print which file is being used and version identifier
     import inspect
     import os
@@ -3109,14 +3111,14 @@ def render_flightline_panel(
         current_file = inspect.getfile(render_flightline_panel)
         print(f"[QA] 📍 QA plots module file: {current_file}")
         print("[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)")
-        
+
         # Verify file modification time
         if os.path.exists(current_file):
             mtime = os.path.getmtime(current_file)
             import datetime
             mod_time = datetime.datetime.fromtimestamp(mtime).strftime('%Y-%m-%d %H:%M:%S')
             print(f"[QA] 📅 File modification time: {mod_time}")
-        
+
         # Verify Page 4 function exists
         if '_render_page4_parquet_merge_quality' in globals():
             print("[QA] ✅ Page 4 function found in module")
@@ -3124,15 +3126,15 @@ def render_flightline_panel(
             print("[QA] ❌ WARNING: Page 4 function NOT found in module!")
     except Exception as e:
         print(f"[QA] ⚠️  Could not inspect module file: {e}")
-    
+
     flightline_dir = Path(flightline_dir)
     raw_path, corr_path = _discover_primary_cube(flightline_dir)
     prefix = _flightline_prefix(raw_path)
-    
+
     # Check if header files exist before trying to read them
     raw_hdr_path = raw_path.with_suffix(".hdr")
     corr_hdr_path = corr_path.with_suffix(".hdr")
-    
+
     if not raw_hdr_path.exists():
         raise FileNotFoundError(
             f"Missing raw ENVI header: {raw_hdr_path}\n"
@@ -3145,7 +3147,7 @@ def render_flightline_panel(
             f"Corrected ENVI image exists at: {corr_path}\n"
             f"Flightline directory: {flightline_dir}"
         )
-    
+
     raw_hdr = hdr_to_dict(raw_hdr_path)
     corr_hdr = hdr_to_dict(corr_hdr_path)
     raw_cube = read_envi_cube(raw_path, raw_hdr)
@@ -3293,7 +3295,7 @@ def render_flightline_panel(
     with PdfPages(pdf_path) as pdf:
         print("[QA]   📑 Rendering Page 1: ENVI overview...")
         _render_page1_envi_overview(pdf, flightline_dir, prefix, rgb_targets)
-        
+
         # Load filtered parquet statistics if available
         print("[QA]   📊 Loading filtered parquet statistics...")
         filtered_stats = _load_filtered_parquet_stats(flightline_dir, prefix)
@@ -3301,7 +3303,7 @@ def render_flightline_panel(
             print(f"[QA]     ✅ Found filtered stats: {filtered_stats['n_rows']:,} rows")
         else:
             print("[QA]     ⚠️  No filtered parquet stats available")
-        
+
         print("[QA]   📑 Rendering Page 2: Topographic + BRDF diagnostics...")
         _render_page2_topo_brdf(
             pdf=pdf,
@@ -3327,7 +3329,7 @@ def render_flightline_panel(
                 _header_number(corr_hdr, "reflectance scale factor", 1.0) or 1.0
             ),
         )
-        
+
         # Add Page 4: Parquet and merge quality
         print("[QA]   📑 Rendering Page 4: Parquet & Merge Quality Analysis...")
         try:
@@ -3342,7 +3344,7 @@ def render_flightline_panel(
             import traceback
             traceback.print_exc()
             # Continue anyway - 3 pages is still useful
-    
+
     # Verify PDF was created and count pages
     try:
         try:

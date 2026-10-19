@@ -21,10 +21,10 @@ def brightness_correction_metrics(
 
     Parameters
     ----------
-    before, after
+    before, after : numpy.ndarray
         Matching band-first arrays in unit reflectance. Invalid cells must be
         represented by ``NaN`` before calling this function.
-    expected_percent
+    expected_percent : Mapping[int, float], optional
         One-based band indices mapped to the configured percent adjustment.
 
     Returns

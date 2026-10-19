@@ -17,6 +17,8 @@ except ImportError:
 # ──────────────────────────────────────────────────────────────────────────────
 
 class SensorType(str, Enum):
+    """Enumerate sensor-name strings used by the legacy typed filename conventions."""
+
     LANDSAT_5_TM = "Landsat_5_TM"
     LANDSAT_7_ETM_PLUS = "Landsat_7_ETM+"
     LANDSAT_8_OLI = "Landsat_8_OLI"
@@ -176,6 +178,8 @@ class MaskedFileMixin:
 
 @dataclass
 class NEONReflectanceFile(DataFile):
+    """Represent the legacy typed filename contract for a raw reflectance HDF5 product."""
+
     tile: str | None = None
     descriptor: str = "reflectance"
     suffix: str | None = None
@@ -489,6 +493,8 @@ class NEONReflectanceENVIFile(DataFile):
 
 @dataclass
 class NEONReflectanceENVIHDRFile(MaskedFileMixin, DataFile):
+    """Represent the legacy typed filename contract for a raw reflectance ENVI header product."""
+
     pattern = re.compile(
         r"^NEON_(?P<domain>D\d+?)_(?P<site>[A-Z0-9]+?)_(?P<product>DP\d(?:\.\d{5}\.\d{3})?)_"
         r"(?:(?P<tile>[A-Za-z0-9-]+(?:_[A-Za-z0-9-]+)*)_)?"
@@ -647,7 +653,7 @@ class NEONReflectanceAncillaryENVIFile(DataFile):
     ) -> "NEONReflectanceAncillaryENVIFile":
         """
         Build a filename like:
-        NEON_{domain}_{site}_{product}_{tile}_{date}[_HHMMSS][_directional]_reflectance_ancillary_envi.img
+        ``NEON_{domain}_{site}_{product}_{tile}_{date}[_HHMMSS][_directional]_reflectance_ancillary_envi.img``
         """
         parts = ["NEON", domain, site, product, tile, date]
         if time:
@@ -671,6 +677,8 @@ class NEONReflectanceAncillaryENVIFile(DataFile):
 
 
 class NEONReflectanceAncillaryENVIHDRFile(MaskedFileMixin, DataFile):
+    """Represent the legacy typed filename contract for a ancillary ENVI header product."""
+
     pattern = re.compile(
         r"^NEON_(?P<domain>D\d+?)_(?P<site>[A-Z0-9]+?)_(?P<product>DP\d(?:\.\d{5}\.\d{3})?)_"
         r"(?:(?P<tile>L\d{3}-\d)_)?"
@@ -720,6 +728,8 @@ class NEONReflectanceAncillaryENVIHDRFile(MaskedFileMixin, DataFile):
 
 @dataclass
 class NEONReflectanceConfigFile(DataFile):
+    """Represent the legacy typed filename contract for a correction configuration JSON product."""
+
     pattern = re.compile(
         r"^NEON_(?P<domain>D\d+?)_(?P<site>[A-Z0-9]+?)_(?P<product>DP\d(?:\.\d{5}\.\d{3})?)_"
         r"(?:(?P<tile>L\d{3}-\d)_)?"
@@ -783,6 +793,8 @@ class NEONReflectanceConfigFile(DataFile):
 
 @dataclass
 class NEONReflectanceBRDFCorrectedENVIFile(MaskedFileMixin, DataFile):
+    """Represent the legacy typed filename contract for a BRDF/topographically corrected ENVI image product."""
+
     pattern = re.compile(
         r"^NEON_(?P<domain>D\d+?)_(?P<site>[A-Z0-9]+?)_DP1"
         r"(?:\.(?P<product>\d{5}\.\d{3}))?_"
@@ -879,6 +891,8 @@ class NEONReflectanceBRDFCorrectedENVIFile(MaskedFileMixin, DataFile):
 
 @dataclass
 class NEONReflectanceBRDFCorrectedENVIHDRFile(MaskedFileMixin, DataFile):
+    """Represent the legacy typed filename contract for a BRDF/topographically corrected ENVI header product."""
+
     pattern = re.compile(
         r"^NEON_(?P<domain>D\d+?)_(?P<site>[A-Z0-9]+?)_DP1"
         r"(?:\.(?P<product>\d{5}\.\d{3}))?_"
@@ -946,6 +960,8 @@ class NEONReflectanceBRDFCorrectedENVIHDRFile(MaskedFileMixin, DataFile):
 
 @dataclass
 class NEONReflectanceBRDFMaskENVIFile(MaskedFileMixin, DataFile):
+    """Represent the legacy typed filename contract for a BRDF mask ENVI image product."""
+
     pattern = re.compile(
         r"^NEON_(?P<domain>D\d+?)_(?P<site>[A-Z0-9]+?)_DP1"
         r"(?:\.(?P<product>\d{5}\.\d{3}))?_"
@@ -1035,6 +1051,8 @@ class NEONReflectanceBRDFMaskENVIFile(MaskedFileMixin, DataFile):
 
 @dataclass
 class NEONReflectanceBRDFMaskENVIHDRFile(MaskedFileMixin, DataFile):
+    """Represent the legacy typed filename contract for a BRDF mask ENVI header product."""
+
     pattern = re.compile(
         r"^NEON_(?P<domain>D\d+?)_(?P<site>[A-Z0-9]+?)_DP1"
         r"(?:\.(?P<product>\d{5}\.\d{3}))?_"
@@ -1128,6 +1146,8 @@ class NEONReflectanceBRDFMaskENVIHDRFile(MaskedFileMixin, DataFile):
 
 @dataclass
 class NEONReflectanceCoefficientsFile(DataFile):
+    """Represent the legacy typed filename contract for a correction coefficient product."""
+
     pattern = re.compile(
         r"^NEON_(?P<domain>D\d+?)_(?P<site>[A-Z0-9]+?)_DP1"
         r"(?:\.(?P<product>\d{5}\.\d{3}))?_"
@@ -1228,6 +1248,8 @@ class NEONReflectanceCoefficientsFile(DataFile):
 
 @dataclass
 class NEONReflectanceResampledENVIFile(MaskedFileMixin, DataFile):
+    """Represent the legacy typed filename contract for a resampled sensor ENVI image product."""
+
     pattern = re.compile(
         r"^NEON_(?P<domain>D\d+?)_(?P<site>[A-Z0-9]+?)_DP1"
         r"(?:\.(?P<product>\d{5}\.\d{3}))?_"
@@ -1310,6 +1332,8 @@ class NEONReflectanceResampledENVIFile(MaskedFileMixin, DataFile):
 
 
 class NEONReflectanceResampledHDRFile(DataFile):
+    """Represent the legacy typed filename contract for a resampled sensor ENVI header product."""
+
     pattern = re.compile(
         r"^NEON_(?P<domain>D\d+?)_(?P<site>[A-Z0-9]+?)_DP1"
         r"(?:\.(?P<product>\d{5}\.\d{3}))?_"
@@ -1399,6 +1423,8 @@ class NEONReflectanceResampledHDRFile(DataFile):
 
 @dataclass
 class NEONReflectanceResampledMaskENVIFile(MaskedFileMixin, DataFile):
+    """Represent the legacy typed filename contract for a resampled sensor mask ENVI image product."""
+
     pattern = re.compile(
         r"^NEON_(?P<domain>D\d+?)_(?P<site>[A-Z0-9]+?)_DP1"
         r"(?:\.(?P<product>\d{5}\.\d{3}))?_"
@@ -1474,6 +1500,8 @@ class NEONReflectanceResampledMaskENVIFile(MaskedFileMixin, DataFile):
 
 
 class NEONReflectanceResampledMaskHDRFile(MaskedFileMixin, DataFile):
+    """Represent the legacy typed filename contract for a resampled sensor mask ENVI header product."""
+
     pattern = re.compile(
         r"^NEON_(?P<domain>D\d+?)_(?P<site>[A-Z0-9]+?)_DP1"
         r"(?:\.(?P<product>\d{5}\.\d{3}))?_"
@@ -1566,6 +1594,8 @@ class NEONReflectanceResampledMaskHDRFile(MaskedFileMixin, DataFile):
 # ──────────────────────────────────────────────────────────────────────────────
 
 class SpectralDataParquetFile(DataFile):
+    """Represent the legacy typed filename contract for a spectral-data Parquet product."""
+
     pattern = re.compile(r"^(?P<base>NEON_.*)_spectral_data\.parquet$")
 
     def __init__(self, path: Path, base: str):

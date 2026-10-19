@@ -573,7 +573,22 @@ def _render_combined_pdf(
 
 
 def assemble_combined_report(flightline_dir: Path) -> tuple[Path, dict[str, Any]]:
-    """Assemble stage reports and derive cross-stage findings."""
+    """Assemble stage reports and derive cross-stage findings.
+
+    Parameters
+    ----------
+    flightline_dir : Path
+        Existing canonical completed flightline directory containing stage artifacts and QA sidecars.
+
+    Returns
+    -------
+    tuple[Path, dict[str, Any]]
+        Combined HTML path and report payload; stage findings and unavailable diagnostics remain explicit.
+
+    See Also
+    --------
+    spectralbridge.qa.metrics.reflectance_summary : Related source-derived API contract.
+    """
 
     flightline_dir = Path(flightline_dir)
     paths = CombinedQAPaths(flightline_dir)

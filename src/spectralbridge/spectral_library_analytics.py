@@ -47,6 +47,8 @@ REPRESENTATIONS = [
 
 
 def stable_seed(name, seed=20261014):
+    """Derive a deterministic 32-bit-compatible random seed from a name and base seed."""
+
     return (seed + int(hashlib.sha256(name.encode()).hexdigest()[:8], 16)) % (2**32 - 1)
 
 
@@ -135,6 +137,8 @@ def load_analytics_inputs(source, compact, output):
 
 
 def scheme_data(table, values, field):
+    """Subset paired arrays to assigned, nonmissing labels with nonzero spectral support."""
+
     eligible = (
         ~table[field].isna() & ~table[field].eq("UNASSIGNED") & ~table.paired_zero_norm
     )
@@ -145,6 +149,8 @@ def scheme_data(table, values, field):
 
 
 def fold_support(table, train, test, config):
+    """Report per-label training/test identity counts and explicit closed/open/insufficient-support statuses."""
+
     tr = table.loc[train].groupby("label").GlobalID.nunique()
     te = table.loc[test].groupby("label").GlobalID.nunique()
     records = []
@@ -224,6 +230,8 @@ def prepare_fold(table, arrays, actual, fold, kind, train, test, config):
 
 
 def representation_values(arrays, representation):
+    """Decode a representation name into its NEON/OLI sensor and feature budget; the arrays argument is retained but unused."""
+
     sensor = "OLI" if representation == "OLI" else "NEON"
     k = (
         "all"

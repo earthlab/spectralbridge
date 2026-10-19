@@ -18,7 +18,33 @@ def run_completed_flightline_qa(
     force: bool = False,
     topo_fit_mode: str = "scene",
 ) -> dict[str, Any]:
-    """Generate every applicable stage report from existing real artifacts."""
+    """Generate every applicable stage report from existing real artifacts.
+
+    Parameters
+    ----------
+    flightline_dir : Path
+        Existing canonical completed flightline directory containing stage artifacts and QA sidecars.
+    mode : str, default='standard'
+        Diagnostic coverage level, normally 'standard' or 'deep'; existing artifacts are inspected without rerunning correction.
+    force : bool, default=False
+        Regenerate the requested outputs instead of reusing an otherwise valid checkpoint or report.
+    topo_fit_mode : str, default='scene'
+        Topographic fit mode passed to correction/QA; the default 'scene' retains the existing scene-wide fit.
+
+    Returns
+    -------
+    dict[str, Any]
+        Mapping of applicable stage IDs to their QA report results, generated only from existing artifacts.
+
+    Raises
+    ------
+    FileNotFoundError
+        If a required source or completed artifact is absent.
+
+    See Also
+    --------
+    spectralbridge.qa.metrics.reflectance_summary : Related source-derived API contract.
+    """
 
     flightline_dir = Path(flightline_dir).expanduser().resolve()
     if not flightline_dir.is_dir():

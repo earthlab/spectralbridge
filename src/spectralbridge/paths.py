@@ -174,14 +174,14 @@ class FlightlinePaths:
         # For legacy datetime format files, the tile is synthetic (e.g., "20200720T163210")
         # Detect synthetic tile: if tile contains 'T' and matches date+time pattern
         is_legacy_datetime = tile and 'T' in tile and re.match(r'^\d{8}T\d{6}$', tile)
-        
+
         if is_legacy_datetime:
             # For legacy datetime format, check if files exist with the OLD format first
             # (with T-separator and duplicate date/time), then fall back to NEW format
             date = getattr(reflectance, "date", None)
             time = getattr(reflectance, "time", None)
             descriptor = getattr(reflectance, "descriptor", "reflectance")
-            
+
             # OLD format: NEON_{domain}_{site}_DP1_{date}T{time}_{date}_{time}_reflectance_envi.img
             # This is what files from previous runs might have
             product_part = "DP1"
@@ -200,7 +200,7 @@ class FlightlinePaths:
             old_path_stem = self.flight_dir / old_filename.replace(".img", "")
             old_img = old_path_stem.with_suffix(".img")
             old_hdr = old_path_stem.with_suffix(".hdr")
-            
+
             # Check if old format file exists - try/except to handle any path issues
             try:
                 old_img_exists = old_img.exists()
@@ -216,7 +216,7 @@ class FlightlinePaths:
             except (OSError, ValueError):
                 # If there's any issue checking the old format, fall through to new format
                 pass
-            
+
             # NEW format: NEON_{domain}_{site}_DP1_{date}_{time}_reflectance_envi.img
             # This is what neon_to_envi_no_hytools() now creates
             new_parts = ["NEON", reflectance.domain, reflectance.site, product_part]
@@ -257,6 +257,8 @@ class FlightlinePaths:
 
 
 def scene_prefix_from_dir(flightline_dir: Path) -> str:
+    """Recover a scene prefix from a raw ENVI image, HDF5 filename or, as a last fallback, the directory name."""
+
     flightline_dir = Path(flightline_dir)
     # Prefer raw ``*_envi.img`` over corrected products. Sorted globbing alone
     # picks ``*_brdfandtopo_corrected_envi.img`` first alphabetically, which
@@ -281,6 +283,8 @@ _site_re = re.compile(r"NEON_[A-Z0-9]+_([A-Z]{4})_DP1_")
 
 
 def site_from_prefix(prefix: str) -> str | None:
+    """Extract a NEON site code from a matching canonical scene prefix, otherwise return None."""
+
     m = _site_re.search(prefix)
     return m.group(1) if m else None
 

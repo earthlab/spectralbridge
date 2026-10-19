@@ -16,6 +16,8 @@ from .landsat_agreement import OLI_CHANNELS
 
 
 def build_flight_validation_figures(output, rgb_max=0.4):
+    """Render common-support maps and band diagnostics from an existing flight-validation result packet."""
+
     root = Path(output)
     figures = root / "figures"
     figures.mkdir(exist_ok=True)

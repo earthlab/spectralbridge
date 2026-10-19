@@ -27,6 +27,8 @@ REQUIRED_PROVENANCE_COLUMNS = (
 
 @dataclass(frozen=True)
 class SensorTranslationPaths:
+    """Resolve pooled, balanced and grouped sensor-fit artifacts beneath a bulk run."""
+
     directory: Path
 
     @property
@@ -301,7 +303,32 @@ def run_sensor_translation(
     translation_pairs: tuple[TranslationPair, ...] | None = None,
     reuse_existing: bool = True,
 ) -> dict[str, Any]:
-    """Run pooled, grouped, and equal-replicate sensor regressions."""
+    """Run pooled, grouped, and equal-replicate sensor regressions.
+
+    Parameters
+    ----------
+    con : duckdb.DuckDBPyConnection
+        Open DuckDB connection prepared by the bulk workflow with the required catalog and observation views; the caller owns its lifetime.
+    paths : BulkAnalysisPaths
+        BulkAnalysisPaths instance selecting isolated catalog, database, analysis and report locations.
+    analysis_run_id : str
+        Provenance identifier written into generated tables and restart metadata for this run.
+    minimum_reflectance : float
+        Lower screening bound in the stored reflectance units; used for regression validity, not automatic unit conversion.
+    translation_pairs : tuple[TranslationPair, ...] | None, default=None
+        Explicit registered source-to-target relationships to analyze; None uses the selected registry/profile defaults.
+    reuse_existing : bool, default=True
+        Reuse valid analysis outputs when their recorded inputs match, rather than recomputing them.
+
+    Returns
+    -------
+    dict[str, Any]
+        Status, pair/candidate counts and paths to pooled, balanced, per-flightline/per-site fits and candidate coefficients.
+
+    See Also
+    --------
+    spectralbridge.pipelines.bulk.run_bulk_pipeline : Related source-derived API contract.
+    """
 
     output = SensorTranslationPaths(paths.analyses_dir / "sensor_translation")
     output.directory.mkdir(parents=True, exist_ok=True)

@@ -16,6 +16,9 @@ hide:
         <a class="sb-button sb-button--primary" href="concepts/measurements/">Understand the measurements</a>
         <a class="sb-button sb-button--secondary" href="getting-started/">Verify your installation</a>
       </div>
+      <p class="sb-hero__body">Install from a source checkout with <code>python -m pip install -e .</code>;
+      <a href="getting-started/">follow the setup instructions</a>.
+      <a href="api/">API Reference</a> · <a href="dev/software-citation/">How to cite</a> · <a href="ai-transparency/">AI transparency</a></p>
     </div>
     <div class="sb-hero__art">
       <img src="asset/img/spectralbridge_logo.png" alt="SpectralBridge logo">

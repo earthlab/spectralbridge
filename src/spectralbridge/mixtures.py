@@ -376,6 +376,8 @@ def select_endmembers(
 
 
 def grouped_identity_split(identities, test_rows):
+    """Purge every held-out identity from training while preserving the supplied test-row mask."""
+
     ids = np.asarray(identities)
     test = np.array(test_rows, dtype=bool, copy=True)
     if ids.shape != test.shape:

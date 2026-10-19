@@ -40,7 +40,39 @@ KNOWN_BAD_WAVELENGTH_RANGES_NM: tuple[dict[str, float | str], ...] = (
 
 @dataclass(frozen=True)
 class QAThresholds:
-    """Provisional standard-mode thresholds expressed as fractions."""
+    """Provisional standard-mode thresholds expressed as fractions.
+
+    Attributes
+    ----------
+    valid_fraction_warn : float, default=0.9
+        Fractional support/range review threshold in [0, 1]; warn/fail interpretation follows the corresponding metric, not a universal scientific validity rule.
+    valid_fraction_fail : float, default=0.7
+        Fractional support/range review threshold in [0, 1]; warn/fail interpretation follows the corresponding metric, not a universal scientific validity rule.
+    negative_fraction_warn : float, default=0.01
+        Fractional support/range review threshold in [0, 1]; warn/fail interpretation follows the corresponding metric, not a universal scientific validity rule.
+    negative_fraction_fail : float, default=0.05
+        Fractional support/range review threshold in [0, 1]; warn/fail interpretation follows the corresponding metric, not a universal scientific validity rule.
+    overbright_fraction_warn : float, default=0.01
+        Fractional support/range review threshold in [0, 1]; warn/fail interpretation follows the corresponding metric, not a universal scientific validity rule.
+    overbright_fraction_fail : float, default=0.05
+        Fractional support/range review threshold in [0, 1]; warn/fail interpretation follows the corresponding metric, not a universal scientific validity rule.
+    correction_abs_q99_warn : float, default=0.2
+        Review threshold for the 99th percentile of absolute reflectance correction, in the diagnostic reflectance units.
+    correction_abs_q99_fail : float, default=0.5
+        Review threshold for the 99th percentile of absolute reflectance correction, in the diagnostic reflectance units.
+    seam_score_warn : float, default=1.5
+        Dimensionless seam/interior gradient-ratio review threshold; landscape structure can also exceed it.
+    seam_score_fail : float, default=2.5
+        Dimensionless seam/interior gradient-ratio review threshold; landscape structure can also exceed it.
+    chunk_difference_tolerance : float, default=1e-06
+        Absolute same-unit tolerance for chunk-invariance comparisons.
+    srf_coverage_warn : float, default=0.98
+        Fractional support/range review threshold in [0, 1]; warn/fail interpretation follows the corresponding metric, not a universal scientific validity rule.
+    srf_coverage_fail : float, default=0.9
+        Fractional support/range review threshold in [0, 1]; warn/fail interpretation follows the corresponding metric, not a universal scientific validity rule.
+    provisional : bool, default=True
+        Whether these configured review bounds are explicitly provisional rather than empirically calibrated acceptance criteria.
+    """
 
     valid_fraction_warn: float = 0.90
     valid_fraction_fail: float = 0.70
@@ -58,6 +90,14 @@ class QAThresholds:
     provisional: bool = True
 
     def to_dict(self) -> dict[str, float | bool]:
+        """Serialize this record to its established machine-readable mapping.
+
+        Returns
+        -------
+        dict[str, float | bool]
+            Mapping of record fields and workflow-derived summary entries in the established serialization schema.
+        """
+
         return asdict(self)
 
 
@@ -72,6 +112,8 @@ def classify_high_bad(
     provisional: bool = True,
     reason: str | None = None,
 ) -> QACheck:
+    """Classify a metric against inclusive upper warn/fail bounds; None yields NOT EVALUATED."""
+
     if value is None:
         return QACheck(
             check_id=check_id,
@@ -113,6 +155,8 @@ def classify_low_bad(
     provisional: bool = True,
     reason: str | None = None,
 ) -> QACheck:
+    """Classify a metric against inclusive lower warn/fail bounds; None yields NOT EVALUATED."""
+
     if value is None:
         return QACheck(
             check_id=check_id,

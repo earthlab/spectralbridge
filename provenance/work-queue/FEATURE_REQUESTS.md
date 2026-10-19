@@ -20,6 +20,56 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P141. Complete source-derived API reference
+
+- Priority: P0, user-directed
+- Status: Complete locally; advanced API limitations explicitly reported
+- Owner: Codex
+- Started: 2026-10-19
+- Audit: 131 Python modules; 432 non-underscore functions, 116 non-underscore classes, 289 non-underscore methods; 125 functions/classes lack docstrings. Counts include implementation helpers, not a stability declaration.
+- Scope: Source-derived API inventory, explicit audience/maturity classifications, structured public docstrings, generated glossary and module entries, first-class navigation, workflow cross-links and coverage/example/rendering checks. Preserve signatures, algorithms and historical packets.
+- Completed: First-class API Reference using existing MkDocs/mkdocstrings; source-derived inventory of 132 modules and all definitions/exports/fields/methods; 493 canonical public/advanced functions/classes across eight task areas, 102 generated module pages, 30 package exports, structured source docstrings for 84 primary public functions/classes and 90 public class members, documented inputs/defaults/units/outputs and checked examples. Fifty-five public-looking implementation details remain flagged in the inventory. Added source/reference and rendered-signature checkers, workflow links and CI freshness/coverage gates.
+- Verified: 75 targeted tests pass; 379 rendered module-function signatures/defaults match source; Ruff, strict MkDocs, source and rendered links/anchors/assets, all generated freshness checks pass. Eighteen representative desktop/mobile renders have no broken article images or page overflow. Existing executable ASTs unchanged in all 131 original modules; 1,053 prior scientific/formal manifest entries unchanged. One docstring-only exports package marker fixes static collection.
+- Limits/next: Advanced helpers retain maturity and detailed-contract limitations; three hash-pinned advanced definitions use explicitly attributed reference summaries without modifying their source. Initial audit and current implementation/limitations report are in docs/api/audit.md and linked JSON records. Existing polygon compatibility deprecation warning remains. No algorithm, scientific default, pipeline output, historical manifest, release or deployment changes. Use normal site deployment; API design promotion and advanced contract expansion remain recommendations, not silently changed exports.
+
+
+### P140. Automated AI transparency history and evidence figures
+
+- Priority: P0, user-directed
+- Status: Complete locally
+- Owner: Codex
+- Started: 2026-10-19
+- Scope: Extend the existing generated statement with maintainer-reported GPT-3.5 history, reproducible multi-label tool/workflow/validation mentions, evidence limitations and public entry links. Preserve historical publication packets.
+- Completed: Existing generator now publishes maintainer-reported GPT-3.5 history, three overlapping prompt-mention figures (workflows/tools/validation), matching rules and historical context in schema-v2 JSON, captions separating requests from execution, and homepage/README links. All nine generated files remain covered by existing CI freshness checks.
+- Verified: Seven focused tests pass; Ruff, documentation links, strict MkDocs and generator --check pass. Four desktop/mobile browser renders have no broken article images or horizontal overflow; full transparency-page render inspected.
+- Limits/next: Prompt mentions do not establish actual tool calls, successful validation or human approval. Early history is explicitly attributed to maintainers. Historical audit packets remain unchanged; publish through the normal website deployment workflow.
+
+
+### P139. Final publication editorial audit
+
+- Priority: P0, user-directed
+- Status: Editorial audit complete locally; publication remains blocked by recorded human/release decisions and P133 disposition
+- Owner: Codex
+- Started: 2026-10-19
+- Scope: Official current requirements, reader-facing organization, citation/authorship/metadata comparison, safe editorial corrections, exact artifact/site/paper checks and explicit human publication blockers. Preserve science, licensing and historical provenance.
+- Plan: Inventory/surface map before editing; verify external standards; record human-only decisions; fix evidence-backed prose/links/findability; build and inspect exact artifacts, paper and site; deliver root audit/blocker/human-decision files plus machine-readable evidence.
+- Completed: Root PUBLICATION_READINESS_AUDIT.md, PUBLICATION_BLOCKERS.md, HUMAN_DECISIONS_REQUIRED.md and publication_readiness.json plus dated provenance/publication-editorial/2026-10-19/v1 evidence. Shortened PyPI-safe README; corrected unavailable-PyPI source install instructions, stale manuscript prose, contribution tags/paths and citation status; added Changelog URL and issue/PR templates; improved examples/provenance indexes and exhaustive-MESMA findability; retained existing navigation.
+- Verified: Current official requirements; 115 docs pages; 166 main/SI references and 52 DOI records; all 12 paper/SI authors, eight checksum/public-name-compatible ORCIDs; current/conditional CFF schema; 749 broad tests pass, 7 skip, 2 deselected; Ruff, strict site, links, generated freshness, exact wheel3.10/3.11/3.12 and sdist3.10 smokes/dependency checks; actual distribution README rendering; fresh official ten-page JOSS PDF; 24 site renders; 1,861 protected historical/formal files unchanged.
+- Limits/next: Canonical software authorship/consent, funding/sponsor/COI, final human AI declaration, public reviewed release/archive and rights attestations remain human decisions. P133 axis/extraction findings remain in source and need focused disposition before unqualified stable-release claims. P138 science scale gate remains separate. No package implementation/science/proof changes, historical regeneration, commit, tag, upload or submission. Final candidate bytes retained under ignored dist/publication-editorial-2026-10-19; root audit links exact evidence and residual limitations.
+
+### P138. Stable-stage promotion and abundance information experiment
+
+- Priority: P0, user-directed
+- Status: Audit recorded; awaiting authoritative source-scaling information under user stop rule
+- Owner: Codex
+- Started: 2026-10-19
+- Scope: Audit main, classify existing/reusable/analysis-only functionality; promote reference diagnostics and safe streaming MESMA; new fixed-parent spectral-information experiment and scientific website integration, subject to explicit scientific gates.
+- Plan: Audit and historical/source hash verification first; document A–E implementation classification and frozen-design plan; resolve authoritative source scaling before package promotion, experiment or result integration, as required by attachment section 15.
+- Blocker: Canonical input_identity.json and foundation.json explicitly report unresolved absolute reflectance scale; merged source has no schema metadata or scale/unit columns, compact tables only pandas schema metadata. No multiplier or offset will be guessed.
+- Verified: 1,039 unique historical files across four sealed manifests and seven canonical numerical source hashes match; source and paired compact identities agree. 49 existing targeted API/mixture/endmember/scientific-integration cases passed, with one existing colormap warning; scoped Ruff, documentation links, transparency and audit hashes pass.
+- Deliverables: New provenance/abundance-information/2026-10-19/v1 contains current-main/source metadata audit, A–E implementation classification, frozen-design proposal, planned configuration, claim registry and explicit validation/limitations. No promoted functionality, new science fitting/figures, website result integration or release claim.
+- Resume: Obtain source-linked corrected NEON/OLI units and scaling records (or explicit user revision of the source-scale stop condition), verify preflight gate, then implement/test promoted APIs and frozen-parent feature-budget experiment. No sealed artifact regeneration. Full tests, strict site/package builds and scientific result/render checks remain for resumed implementation.
+
 ### P137. Exhaustive selected-library MESMA benchmark
 
 - Priority: P0, user-directed

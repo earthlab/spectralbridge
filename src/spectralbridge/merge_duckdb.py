@@ -639,7 +639,7 @@ def merge_flightline(
 
     flightline_dir = Path(flightline_dir).resolve()
     prefix = _derive_prefix(flightline_dir)
-    
+
     # Auto-detect polygon mode if not explicitly set
     if is_polygon_mode is None:
         is_polygon_mode = (
@@ -651,7 +651,7 @@ def merge_flightline(
             and "*_polygons.parquet" in corrected_glob
             and "*_polygons.parquet" in resampled_glob
         )
-    
+
     # Set output name based on mode
     if out_name is None:
         if is_polygon_mode:
@@ -698,7 +698,7 @@ def merge_flightline(
             and corrected_glob == "*_polygons.parquet"
             and resampled_glob == "*_polygons.parquet"
         )
-        
+
         # When default globs are supplied, favour precise patterns with exclusions.
         if (
             original_glob == "**/*original*.parquet"
@@ -733,7 +733,7 @@ def merge_flightline(
                 all_polygon_parquets = sorted(flightline_dir.glob("*_polygons.parquet"))
                 orig_set = set(inputs["orig"])
                 corr_set = set(inputs["corr"])
-                
+
                 for pq in all_polygon_parquets:
                     # Skip originals and corrected
                     if pq in orig_set or pq in corr_set:
@@ -770,18 +770,18 @@ def merge_flightline(
                 # Find all parquets that end with _envi.parquet but are not originals or corrected
                 # Capture both brightness-adjusted and *_undarkened_envi parquet sidecars
                 resamp: List[Path] = []
-                
+
                 # Find all parquets ending with _envi.parquet (includes both regular and undarkened)
                 all_envi_parquets = sorted(flightline_dir.glob("*_envi.parquet"))
-                
+
                 # Also find undarkened parquets explicitly
                 all_undarkened_parquets = sorted(flightline_dir.glob("*_undarkened_envi.parquet"))
                 all_envi_parquets.extend(all_undarkened_parquets)
-                
+
                 # Build sets of already-discovered files to exclude
                 orig_set = set(inputs["orig"])
                 corr_set = set(inputs["corr"])
-                
+
                 for pq in all_envi_parquets:
                     # Skip originals and corrected
                     if pq in orig_set or pq in corr_set:
@@ -801,7 +801,7 @@ def merge_flightline(
                     elif "landsat" in name or "micasense" in name or "oli" in name or "tm" in name or "etm" in name:
                         # Known sensor keywords (including undarkened versions)
                         resamp.append(pq)
-            
+
             # Remove duplicates and sort
             resamp = sorted(set(resamp))
             inputs["resamp"] = _exclude_parquets(resamp)
@@ -849,7 +849,7 @@ def merge_flightline(
                     memory_gb = 64.0  # Fallback
             else:
                 memory_gb = float(merge_memory_limit_gb)
-            
+
             # Scale threads with memory: 2 threads per 32GB, max 8 threads
             # This allows more parallelism when memory is available
             effective_threads = min(max(2, int(memory_gb / 32) * 2), 8)
@@ -867,13 +867,13 @@ def merge_flightline(
             else:
                 memory_gb = float(merge_memory_limit_gb)
                 max_threads = min(int(memory_gb / 16), 8)  # 1 thread per 16GB, max 8
-            
+
             effective_threads = min(merge_threads, max_threads)
             # Ensure at least 1 thread (DuckDB requires at least 1)
             effective_threads = max(1, effective_threads)
             if merge_threads > max_threads:
                 print(f"[merge] Capping threads at {max_threads} (requested {merge_threads}) based on memory_limit")
-        
+
         con.execute(f"PRAGMA threads = {effective_threads}")
 
         # Set memory limit - increase default for large merges
@@ -889,20 +889,20 @@ def merge_flightline(
                 memory_limit_value = merge_memory_limit_gb
             else:
                 memory_limit_value = f"{merge_memory_limit_gb}GB"
-        
+
         # Always set memory limit (fix: was missing for default case)
         memory_limit_value = memory_limit_value.replace("'", "''")
         con.execute(f"PRAGMA memory_limit = '{memory_limit_value}'")
         print(f"[merge] Set DuckDB memory_limit = {memory_limit_value}")
-        
+
         # Disable insertion-order preservation to reduce memory usage (as suggested by error)
         con.execute("SET preserve_insertion_order=false")
         print("[merge] Disabled insertion-order preservation to reduce memory usage")
-        
+
         # Enable query optimizations for faster JOINs
         con.execute("PRAGMA enable_object_cache=true")
         con.execute("PRAGMA checkpoint_threshold='1GB'")
-        
+
         con.execute("SET enable_progress_bar = true")
         con.execute(
             "PRAGMA temp_directory = '"
@@ -915,14 +915,14 @@ def merge_flightline(
             # Much faster than creating views first
             print(f"[merge] 🔍 Starting streaming merge for {flightline_dir.name}")
             print(f"[merge] 📊 Discovered inputs: orig={len(inputs['orig'])}, corr={len(inputs['corr'])}, resamp={len(inputs['resamp'])}")
-            
+
             def _build_streaming_cte(paths: List[Path], alias: str) -> tuple[str, set[str]]:
                 """Build a CTE that reads parquet files directly (streaming)."""
                 # Empty CTE must have pixel_id column for UNION to work
                 empty_cte = f"{alias} AS (SELECT CAST(NULL AS VARCHAR) AS pixel_id WHERE 1=0)"
                 if not paths:
                     return empty_cte, set()
-                
+
                 # Validate parquets
                 valid_paths, skipped = _filter_valid_parquets(paths, num_cpus=ray_cpus)
                 for bad_path, message in skipped:
@@ -930,11 +930,11 @@ def merge_flightline(
                         f"[merge] ⚠️ Skipping invalid parquet {bad_path.name}: {message}\n"
                         f"        Delete or regenerate this file before re-running the merge."
                     )
-                
+
                 if not valid_paths:
                     return empty_cte, set()
-                
-                
+
+
                 # Get schema from first file (fast, just reads metadata)
                 sample_path = valid_paths[0]
                 # Use DESCRIBE to get columns without reading data - very fast
@@ -943,7 +943,7 @@ def merge_flightline(
                 ).fetchall()
                 sample_cols = [r[0] for r in desc_result]
                 col_set = set(sample_cols)
-                
+
                 # Build read_parquet expression
                 if len(valid_paths) == 1:
                     read_expr = f"read_parquet('{_quote_path(valid_paths[0].as_posix())}', union_by_name = TRUE)"
@@ -952,7 +952,7 @@ def merge_flightline(
                         "'" + _quote_path(p.as_posix()) + "'" for p in valid_paths
                     )
                     read_expr = f"read_parquet([{files_array}], union_by_name = TRUE)"
-                
+
                 # Normalize pixel_id inline (same logic as before but in CTE)
                 pixel_expr_parts: List[str] = []
                 if "pixel_id" in col_set:
@@ -968,7 +968,7 @@ def merge_flightline(
                 if not pixel_expr_parts:
                     pixel_expr_parts.append("'pixel_' || ROW_NUMBER() OVER ()")
                 pixel_expr = "COALESCE(" + ", ".join(pixel_expr_parts) + ")"
-                
+
                 # Select all columns with normalized pixel_id
                 # Note: We don't use DISTINCT here to avoid materialization/OOM risk
                 # Source files already have unique pixel_ids (confirmed by inspection)
@@ -978,7 +978,7 @@ def merge_flightline(
                     if col == "pixel_id":
                         continue
                     select_parts.append(_quote_identifier(col))
-                
+
                 # Simple CTE without DISTINCT - relies on:
                 # 1. Source files having unique pixel_ids (confirmed)
                 # 2. LEFT JOIN structure from unique base preventing duplicates
@@ -987,9 +987,9 @@ def merge_flightline(
                     SELECT {", ".join(select_parts)}
                     FROM {read_expr}
                 )"""
-                
+
                 return cte_sql, col_set
-            
+
             # Build streaming CTEs
             print("[merge] 🔨 Building CTEs (streaming, no materialization)...")
             orig_cte, orig_cols = _build_streaming_cte(inputs["orig"], "orig")
@@ -998,14 +998,14 @@ def merge_flightline(
             corr_cte, corr_cols = _build_streaming_cte(inputs["corr"], "corr")
             corr_valid = len(corr_cols) > 0
             print(f"[merge]   ✅ corr CTE built ({len(corr_cols)} columns)")
-            
+
             # CRITICAL FIX: Join each resampled file separately to avoid row multiplication
             # When multiple files are combined with UNION, each pixel_id appears multiple times
             # causing a Cartesian product during JOIN. Instead, join each file separately.
             resamp_ctes: List[str] = []
             resamp_aliases: List[str] = []
             resamp_cols_by_file: List[set[str]] = []
-            
+
             # Build a CTE for each resampled file separately
             for idx, resamp_path in enumerate(inputs["resamp"]):
                 alias = f"resamp_{idx}"
@@ -1014,7 +1014,7 @@ def merge_flightline(
                 resamp_aliases.append(alias)
                 resamp_cols_by_file.append(resamp_cols)
                 print(f"[merge]   ✅ {alias} CTE built from {resamp_path.name} ({len(resamp_cols)} columns)")
-            
+
             # Check if all categories are empty after filtering (raise error if so)
             resamp_valid = len(resamp_ctes) > 0
             if not orig_valid and not corr_valid and not resamp_valid:
@@ -1022,17 +1022,17 @@ def merge_flightline(
                     f"No valid parquet inputs found in {flightline_dir} after filtering invalid files. "
                     f"Remove or recreate the invalid files and try again."
                 )
-            
+
             # Collect all columns across all resampled files
             all_resamp_cols = set()
             for cols in resamp_cols_by_file:
                 all_resamp_cols.update(cols)
-            
+
             # Detect if orig is in long format (has wavelength_nm and reflectance columns)
             # Long format: one row per wavelength per pixel (needs pivoting)
             # Wide format: one row per pixel with all wavelengths as columns
             orig_is_long = "wavelength_nm" in orig_cols and "reflectance" in orig_cols
-            
+
             # If orig is long format, pivot it to wide format within the CTE
             # This preserves using orig as the base (maintains merge behavior)
             if orig_is_long:
@@ -1057,24 +1057,24 @@ def merge_flightline(
                         # Fallback: use a reasonable default range if discovery fails
                         print(f"[merge]   ⚠️  Could not discover wavelengths dynamically: {e}, using default range 1-426")
                         wl_values = list(range(1, 427))
-                    
+
                     # Get metadata columns (non-spectral)
                     metadata_cols = [c for c in orig_cols if c not in ('pixel_id', 'wavelength_nm', 'reflectance')]
                     metadata_select = ', '.join([f"ANY_VALUE({_quote_identifier(c)}) AS {_quote_identifier(c)}"
                                                  for c in metadata_cols]) if metadata_cols else ''
-                    
+
                     # Build wavelength columns only for wavelengths that exist (more memory-efficient)
                     wavelength_selects = ', '.join([
                         f"MAX(CASE WHEN CAST(wavelength_nm AS INTEGER) = {wl} THEN reflectance END) AS {_quote_identifier(f'orig_wl{wl:04d}nm')}"
                         for wl in wl_values
                     ])
-                    
+
                     # Build pivot CTE
                     if metadata_select:
                         all_selects = f"pixel_id, {metadata_select}, {wavelength_selects}"
                     else:
                         all_selects = f"pixel_id, {wavelength_selects}"
-                    
+
                     pivot_cte = f"""
                         orig_wide AS (
                             SELECT 
@@ -1086,16 +1086,16 @@ def merge_flightline(
                     # Add pivot CTE after orig_cte
                     orig_cte = orig_cte + ", " + pivot_cte
                     print("[merge]   ℹ️  orig is long format, pivoted to wide format")
-            
+
             # Always use orig as base (preserves original merge behavior)
             select_clause: List[str] = ["orig.*"] if not orig_is_long else ["orig_wide.*"]
-            
+
             # Add spectral columns from corr (non-metadata columns with _wl)
             corr_spectral = [c for c in corr_cols if "_wl" in c and c not in META_CANDIDATES]
             for col in corr_spectral:
                 ident = _quote_identifier(col)
                 select_clause.append(f"corr.{ident} AS {ident}")
-            
+
             # Add spectral columns from each resampled file separately
             # Each resampled file has different spectral bands, so we select all non-metadata columns
             for idx, alias in enumerate(resamp_aliases):
@@ -1105,7 +1105,7 @@ def merge_flightline(
                     if col not in META_CANDIDATES and col != "pixel_id":
                         ident = _quote_identifier(col)
                         select_clause.append(f"{alias}.{ident} AS {ident}")
-            
+
             # Build JOIN clauses using USING syntax (faster than ON, matches old script)
             # CRITICAL: Each resampled file is joined separately to prevent row multiplication
             # Since all files have unique pixel_ids and the same set of pixel_ids (confirmed by inspection),
@@ -1114,10 +1114,10 @@ def merge_flightline(
             join_clauses: List[str] = [
                 "LEFT JOIN corr USING (pixel_id)"
             ]
-            
+
             for alias in resamp_aliases:
                 join_clauses.append(f"LEFT JOIN {alias} USING (pixel_id)")
-            
+
             # Build final streaming query with CTEs (no materialization)
             # Always use orig as base (preserves merge behavior)
             # Structure: FROM orig (wide format, unique rows) → LEFT JOIN each file separately (1:1 matches)
@@ -1128,7 +1128,7 @@ def merge_flightline(
                 base_table = "orig_wide"
             else:
                 base_table = "orig"
-                
+
             select_sql = f"""
             WITH {", ".join(all_ctes)}
             SELECT {", ".join(select_clause)}
@@ -1148,7 +1148,7 @@ def merge_flightline(
             print("[merge] 📤 Streaming join results to parquet (no materialization)...")
             print(f"[merge]    Output: {out_parquet.name}")
             print(f"[merge]    Input: {len(inputs['orig'])} orig, {len(inputs['corr'])} corr, {len(inputs['resamp'])} resamp")
-            
+
             # Test query first with LIMIT to verify it works (catches errors early)
             print("[merge]    Testing query with LIMIT 1000...")
             test_sql = select_sql + " LIMIT 1000"
@@ -1166,7 +1166,7 @@ def merge_flightline(
             except Exception as e:
                 print(f"[merge]    ❌ Test query failed: {e}")
                 raise
-            
+
             # Get row count estimate (fast, just counts from orig or orig_wide if pivoted)
             row_count = None
             try:
@@ -1180,7 +1180,7 @@ def merge_flightline(
             except Exception as e:
                 print(f"[merge]    ⚠️  Could not get row count estimate: {e}")
                 # Continue anyway - validation will catch issues
-            
+
             # Only include ROW_GROUP_SIZE if explicitly set (None = let DuckDB auto-determine for better streaming)
             row_group_option = f", ROW_GROUP_SIZE {merge_row_group_size}" if merge_row_group_size is not None else ""
             copy_sql = (
@@ -1197,7 +1197,7 @@ def merge_flightline(
                 con.execute(copy_sql)
                 elapsed = time.time() - start_time
                 print(f"[merge]    ✅ Streaming COPY complete in {elapsed:.1f} seconds ({elapsed/60:.1f} minutes)")
-                
+
                 # Verify output file was created and has data
                 if out_parquet.exists():
                     size_gb = out_parquet.stat().st_size / (1024**3)
@@ -1214,7 +1214,7 @@ def merge_flightline(
         print(
             f"[merge] ✅ Wrote parquet: {out_parquet} (exists={Path(out_parquet).exists()})"
         )
-        
+
         # Filter rows with majority invalid reflectance values (>90%) if requested
         if filter_no_data_rows:
             print("[merge] 🔍 About to filter no-data rows...")
@@ -1222,7 +1222,7 @@ def merge_flightline(
             print("[merge] ✅ Filtering complete, continuing...")
         else:
             print("[merge] ⚠️  Filtering is DISABLED (filter_no_data_rows=False)")
-        
+
         # Export filtered parquet to CSV (streaming to avoid memory issues)
         out_csv = out_parquet.with_suffix(".csv").resolve()
         if out_csv.exists():
@@ -1245,7 +1245,7 @@ def merge_flightline(
             import traceback
             traceback.print_exc()
             # Don't fail the entire merge if CSV export fails
-        
+
         # Validate row count matches expectations
         print("[merge] 🔍 Starting row count validation...")
         try:
@@ -1253,12 +1253,12 @@ def merge_flightline(
             parquet_file = pq.ParquetFile(out_parquet)
             actual_rows = parquet_file.metadata.num_rows
             expected_rows = row_count if row_count else None
-            
+
             # Get expected rows from orig file if not available
             if expected_rows is None and inputs["orig"]:
                 orig_file = pq.ParquetFile(inputs["orig"][0])
                 expected_rows = orig_file.metadata.num_rows
-            
+
             if expected_rows:
                 if actual_rows == expected_rows:
                     print(f"[merge] ✅ Row count validation: {actual_rows:,} rows (as expected)")
@@ -1298,7 +1298,7 @@ def merge_flightline(
         print("[merge] ✅ DuckDB connection closed")
 
     print("[merge] 🔍 Reached end of merge function (after finally block)")
-    
+
     if hasattr(os, "sync"):
         try:
             os.sync()
@@ -1317,7 +1317,7 @@ def merge_flightline(
             if 'spectralbridge.qa_plots' in sys.modules:
                 importlib.reload(sys.modules['spectralbridge.qa_plots'])
                 print("[merge] 🔄 Reloaded qa_plots module to ensure latest code")
-            
+
             print("[merge] 📦 Importing render_flightline_panel...")
             print("[merge]    Attempting import: from spectralbridge.qa_plots import render_flightline_panel")
             try:
@@ -1364,6 +1364,8 @@ def merge_all_flightlines(
     flightline_glob: str = "NEON_*",
     **kwargs,
 ) -> List[Path]:
+    """Run per-flightline merges across matching directories, collecting successful output paths and reporting failures."""
+
     data_root = Path(data_root)
     flightline_dirs = sorted(
         [p for p in data_root.glob(flightline_glob) if p.is_dir()]

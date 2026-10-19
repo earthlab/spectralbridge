@@ -467,7 +467,30 @@ def build_drone_qa_summary(
     qa_summary: dict[str, Any] | None = None,
     force: bool = False,
 ) -> Path:
-    """Backward-compatible wrapper returning the final drone QA PDF path."""
+    """Backward-compatible wrapper returning the final drone QA PDF path.
+
+    Parameters
+    ----------
+    base_dir : Path
+        Directory containing completed drone QA products to summarize.
+    output_html : Path | None, default=None
+        Legacy report destination argument forwarded to the established QA report writer; the wrapper returns its final PDF path.
+    pattern : str, default='*__qa.png'
+        Glob selecting legacy per-flight QA PNG products when no structured QA summary is supplied.
+    qa_summary : dict[str, Any] | None, default=None
+        Optional structured drone QA payload; None discovers the established on-disk summary/products.
+    force : bool, default=False
+        Regenerate the requested outputs instead of reusing an otherwise valid checkpoint or report.
+
+    Returns
+    -------
+    Path
+        Final drone QA PDF path produced by the compatibility report wrapper.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+    """
 
     del pattern
     result = render_drone_qa_report(

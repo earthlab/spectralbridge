@@ -104,7 +104,47 @@ def _sha256_file(path: Path) -> str:
 
 @dataclass(frozen=True)
 class RemoteDronePackage:
-    """One candidate ExportPackage discovered without downloading its H5."""
+    """One candidate ExportPackage discovered without downloading its H5.
+
+    Attributes
+    ----------
+    remote_package_path : str
+        Authoritative remote ExportPackage or HDF5 location; inventory does not imply it has been downloaded.
+    source_root : str
+        Requested or resolved remote collection location(s), retained to distinguish year-resolution strategy from scientific identity.
+    package_name : str
+        Original remote package/HDF5 basename preserved as source provenance.
+    remote_h5_path : str | None
+        Authoritative remote ExportPackage or HDF5 location; inventory does not imply it has been downloaded.
+    h5_name : str | None
+        Original remote package/HDF5 basename preserved as source provenance.
+    size_bytes : int | None
+        Size or estimated storage requirement in bytes; estimates describe planned artifacts rather than guaranteed disk use.
+    checksum : str | None
+        Optional source checksum used for transfer integrity; absence does not imply verification.
+    flight_stem : str | None
+        Canonical scientific flightline identifier; histories from the same underlying flight must retain this identity.
+    year : int | None
+        Calendar acquisition year used for inventory grouping and completeness checks.
+    manifest_id : str | None
+        Flight identifier matched against the acquisition manifest.
+    acquisition_datetime : str | None
+        Recorded acquisition timestamp, interpreted with the configured timezone convention.
+    manifest_matched : bool
+        Recorded manifest/source/local-result evidence used to decide package eligibility.
+    required_source_exists : bool
+        Recorded manifest/source/local-result evidence used to decide package eligibility.
+    completed_local_result : bool
+        Recorded manifest/source/local-result evidence used to decide package eligibility.
+    local_flightline_path : str | None
+        Canonical local producer output directory; completed products are reused only after readiness validation.
+    bulk_ready : bool
+        Whether the recorded product satisfies the corresponding translation availability/eligibility or producer-to-bulk gate; does not certify empirical sensor calibration.
+    eligibility : str
+        Recorded stage-specific outcome or eligibility state; inspect reason/detail and the relevant workflow before interpreting it scientifically.
+    reason : str | None, default=None
+        Explicit reason for exclusion, failure or unavailable status; None when no reason applies.
+    """
 
     remote_package_path: str
     source_root: str
@@ -126,12 +166,38 @@ class RemoteDronePackage:
     reason: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
+        """Serialize this record to its established machine-readable mapping.
+
+        Returns
+        -------
+        dict[str, Any]
+            Mapping of record fields and workflow-derived summary entries in the established serialization schema.
+        """
+
         return _jsonable(asdict(self))
 
 
 @dataclass(frozen=True)
 class DroneYearSource:
-    """Resolved remote source and manifest expectation for one requested year."""
+    """Resolved remote source and manifest expectation for one requested year.
+
+    Attributes
+    ----------
+    year : int
+        Calendar acquisition year used for inventory grouping and completeness checks.
+    requested_source : str | None
+        Requested or resolved remote collection location(s), retained to distinguish year-resolution strategy from scientific identity.
+    resolved_sources : tuple[str, ...]
+        Requested or resolved remote collection location(s), retained to distinguish year-resolution strategy from scientific identity.
+    resolution_strategy : str
+        Recorded strategy used to resolve a requested remote root to explicit acquisition-year source locations.
+    source_status : str
+        Recorded stage-specific outcome or eligibility state; inspect reason/detail and the relevant workflow before interpreting it scientifically.
+    expected_manifest_flights : tuple[str, ...]
+        Expected flight identifiers for this requested year, derived from the manifest rather than discovered availability alone.
+    reason : str | None, default=None
+        Explicit reason for exclusion, failure or unavailable status; None when no reason applies.
+    """
 
     year: int
     requested_source: str | None
@@ -142,12 +208,42 @@ class DroneYearSource:
     reason: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
+        """Serialize this record to its established machine-readable mapping.
+
+        Returns
+        -------
+        dict[str, Any]
+            Mapping of record fields and workflow-derived summary entries in the established serialization schema.
+        """
+
         return _jsonable(asdict(self))
 
 
 @dataclass(frozen=True)
 class DroneCollectionInventory:
-    """Serializable remote collection inventory and campaign expectation set."""
+    """Serializable remote collection inventory and campaign expectation set.
+
+    Attributes
+    ----------
+    source : str
+        Remote collection root, year-bound source mapping, or supported source specification; inspect_drone_collection resolves it before transfer.
+    backend : str
+        RemoteCollectionBackend implementation; None selects the normal noninteractive gocmd adapter.
+    created_utc : str
+        Recorded UTC inventory/state/run timestamp; unavailable completion time remains explicit.
+    packages : tuple[RemoteDronePackage, ...]
+        Immutable remote package inventory, including eligible and excluded records.
+    manifest_path : str
+        Existing acquisition manifest path, or None to follow supported discovery.
+    requested_years : tuple[int, ...], default=()
+        Requested acquisition years whose manifest expectations define campaign completeness.
+    year_sources : tuple[DroneYearSource, ...], default=()
+        Per-year source-resolution and expectation records.
+    result_parent : str | None, default=None
+        Resolved remote result parent or configured result package name; uploads remain explicit opt-in operations.
+    schema_version : int, default=_INVENTORY_SCHEMA_VERSION
+        Serialized payload schema version; preserve it when storing or exchanging this record.
+    """
 
     source: str
     backend: str
@@ -161,10 +257,26 @@ class DroneCollectionInventory:
 
     @property
     def eligible_packages(self) -> tuple[RemoteDronePackage, ...]:
+        """Select package records marked eligible for staging.
+
+        Returns
+        -------
+        tuple[RemoteDronePackage, ...]
+            Tuple of package records whose eligibility equals eligible; no transfer is performed.
+        """
+
         return tuple(item for item in self.packages if item.eligibility == "eligible")
 
     @property
     def excluded_packages(self) -> tuple[RemoteDronePackage, ...]:
+        """Select package records excluded from staging.
+
+        Returns
+        -------
+        tuple[RemoteDronePackage, ...]
+            Tuple of package records whose eligibility is not eligible, retaining their recorded reasons.
+        """
+
         return tuple(item for item in self.packages if item.eligibility != "eligible")
 
     def year_summaries(self) -> dict[str, dict[str, Any]]:
@@ -209,6 +321,14 @@ class DroneCollectionInventory:
 
     @property
     def discovery_complete(self) -> bool:
+        """Report whether all requested-year source discovery is complete.
+
+        Returns
+        -------
+        bool
+            Whether the recorded state satisfies this method's predicate; no source processing is performed.
+        """
+
         summaries = self.year_summaries()
         return not summaries or all(
             item["discovery_status"]
@@ -217,6 +337,14 @@ class DroneCollectionInventory:
         )
 
     def to_dict(self) -> dict[str, Any]:
+        """Serialize this record to its established machine-readable mapping.
+
+        Returns
+        -------
+        dict[str, Any]
+            Mapping of record fields and workflow-derived summary entries in the established serialization schema.
+        """
+
         return {
             "schema_version": self.schema_version,
             "source": self.source,
@@ -236,6 +364,19 @@ class DroneCollectionInventory:
         }
 
     def write(self, output_dir: str | Path) -> tuple[Path, Path]:
+        """Write inventory JSON and CSV tables.
+
+        Parameters
+        ----------
+        output_dir : str | Path
+            Directory for generated products; bulk outputs must be outside the read-only input tree.
+
+        Returns
+        -------
+        tuple[Path, Path]
+            Inventory JSON path and package CSV path, in that order.
+        """
+
         output = Path(output_dir)
         json_path = _atomic_json(output / "drone_collection_inventory.json", self.to_dict())
         csv_path = _write_rows_csv(
@@ -280,7 +421,49 @@ class StagedDroneInput:
 
 @dataclass(frozen=True)
 class DroneCampaignConfig:
-    """Explicit production settings for independent drone flight checkpoints."""
+    """Explicit production settings for independent drone flight checkpoints.
+
+    Attributes
+    ----------
+    years : tuple[int, ...], default=()
+        Requested acquisition years used to resolve sources and verify campaign completeness.
+    manifest_path : str | Path | None, default=None
+        Existing acquisition manifest path, or None to follow supported discovery.
+    manifest_timezone : str | None, default='UTC'
+        Timezone used to interpret manifest acquisition timestamps.
+    cleanup_inputs : bool, default=True
+        Remove staged inputs only after the established producer/readiness checkpoint has completed.
+    resume : bool, default=True
+        Reuse valid durable per-flight checkpoints on restart.
+    require_complete_campaign : bool, default=True
+        Require all expected eligible flights to be bulk-ready before population analysis; prevents silent partial-population claims.
+    apply_topo : bool, default=True
+        Enable the existing topographic correction when required terrain/geometry metadata are available.
+    apply_brdf : bool, default=True
+        Enable the existing BRDF correction when required angular metadata are available.
+    apply_brightness_adjustment : bool, default=False
+        Opt into the established brightness adjustment; does not change the packaged coefficients.
+    require_solar_geometry : bool, default=True
+        Require scientifically usable solar geometry before correction rather than silently proceeding without it.
+    extraction_mode : str, default='full'
+        'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.
+    parquet_chunk_size : int, default=2048
+        Positive pixel/window processing budget for bounded extraction; the default and interpretation follow the selected producer.
+    apply_translation : bool, default=True
+        Create separate Landsat-like application products using the reviewed coefficient registry; does not overwrite corrected native MicaSense.
+    translation_strict : bool, default=False
+        Treat unsupported/flagged translation conditions as blocking rather than returning the configured non-strict status.
+    landsat_qa : bool, default=True
+        Enable actual Landsat comparison QA for translated products; requires apply_translation=True and appropriate data/dependencies.
+    extraction_workers : int, default=1
+        Positive number of independent flightline extraction workers; storage bandwidth can limit useful concurrency.
+    max_remote_depth : int, default=8
+        Positive remote traversal limit controlling inventory depth or inspected-entry budget.
+    max_remote_entries : int, default=100000
+        Positive remote traversal limit controlling inventory depth or inspected-entry budget.
+    result_name : str | None, default=None
+        Resolved remote result parent or configured result package name; uploads remain explicit opt-in operations.
+    """
 
     years: tuple[int, ...] = ()
     manifest_path: str | Path | None = None
@@ -303,6 +486,19 @@ class DroneCampaignConfig:
     result_name: str | None = None
 
     def validate(self) -> None:
+        """Validate configuration ranges and supported option combinations.
+
+        Returns
+        -------
+        None
+            No return value; validation raises on unsupported configuration and directory creation persists the canonical hierarchy.
+
+        Raises
+        ------
+        ValueError
+            If option values violate the configuration or relationship-selection contract.
+        """
+
         if self.extraction_mode not in {"full", "polygon"}:
             raise ValueError("campaign extraction_mode must be 'full' or 'polygon'")
         if self.extraction_mode == "polygon":
@@ -316,12 +512,46 @@ class DroneCampaignConfig:
             raise ValueError("remote inventory bounds must be non-negative")
 
     def to_dict(self) -> dict[str, Any]:
+        """Serialize this record to its established machine-readable mapping.
+
+        Returns
+        -------
+        dict[str, Any]
+            Mapping of record fields and workflow-derived summary entries in the established serialization schema.
+        """
+
         return _jsonable(asdict(self))
 
 
 @dataclass(frozen=True)
 class DroneFlightStatus:
-    """Durable campaign state for one expected remote flight package."""
+    """Durable campaign state for one expected remote flight package.
+
+    Attributes
+    ----------
+    remote_package_path : str
+        Authoritative remote ExportPackage or HDF5 location; inventory does not imply it has been downloaded.
+    flight_stem : str | None
+        Canonical scientific flightline identifier; histories from the same underlying flight must retain this identity.
+    state : str
+        Recorded stage-specific outcome or eligibility state; inspect reason/detail and the relevant workflow before interpreting it scientifically.
+    updated_utc : str
+        Recorded UTC inventory/state/run timestamp; unavailable completion time remains explicit.
+    local_input_path : str | None, default=None
+        Backing input product path retained for traceability and restart checks.
+    local_flightline_path : str | None, default=None
+        Canonical local producer output directory; completed products are reused only after readiness validation.
+    transfer_status : str | None, default=None
+        Recorded stage-specific outcome or eligibility state; inspect reason/detail and the relevant workflow before interpreting it scientifically.
+    bulk_ready : bool, default=False
+        Whether the recorded product satisfies the corresponding translation availability/eligibility or producer-to-bulk gate; does not certify empirical sensor calibration.
+    reused : bool, default=False
+        Recorded checkpoint reuse or staged-input cleanup outcome; inspect flight state for scientific success.
+    input_removed : bool, default=False
+        Recorded checkpoint reuse or staged-input cleanup outcome; inspect flight state for scientific success.
+    reason : str | None, default=None
+        Explicit reason for exclusion, failure or unavailable status; None when no reason applies.
+    """
 
     remote_package_path: str
     flight_stem: str | None
@@ -336,12 +566,42 @@ class DroneFlightStatus:
     reason: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
+        """Serialize this record to its established machine-readable mapping.
+
+        Returns
+        -------
+        dict[str, Any]
+            Mapping of record fields and workflow-derived summary entries in the established serialization schema.
+        """
+
         return _jsonable(asdict(self))
 
 
 @dataclass(frozen=True)
 class DroneCampaignResult:
-    """Completed, partial, or failed per-flight campaign outcome."""
+    """Completed, partial, or failed per-flight campaign outcome.
+
+    Attributes
+    ----------
+    inventory : DroneCollectionInventory
+        DroneCollectionInventory produced by inspect_drone_collection, including eligibility and resolved source provenance.
+    flights : tuple[DroneFlightStatus, ...]
+        Per-flight durable outcomes, including failed, blocked and completed states.
+    work_dir : str
+        Local campaign workspace containing staging, flight outputs and restart/status records.
+    flight_outputs : str
+        Local producer-output or durable restart/status directory.
+    state_dir : str
+        Local producer-output or durable restart/status directory.
+    status : str
+        Recorded stage-specific outcome or eligibility state; inspect reason/detail and the relevant workflow before interpreting it scientifically.
+    started_utc : str
+        Recorded UTC inventory/state/run timestamp; unavailable completion time remains explicit.
+    completed_utc : str
+        Recorded UTC inventory/state/run timestamp; unavailable completion time remains explicit.
+    config : DroneCampaignConfig
+        Configuration object for this workflow; None selects the documented defaults of its configuration class.
+    """
 
     inventory: DroneCollectionInventory
     flights: tuple[DroneFlightStatus, ...]
@@ -355,10 +615,26 @@ class DroneCampaignResult:
 
     @property
     def completed_flights(self) -> tuple[DroneFlightStatus, ...]:
+        """Select producer flight records currently marked bulk-ready.
+
+        Returns
+        -------
+        tuple[DroneFlightStatus, ...]
+            Tuple of producer flight records marked bulk_ready; this property does not rerun readiness validation.
+        """
+
         return tuple(item for item in self.flights if item.bulk_ready)
 
     @property
     def failed_flights(self) -> tuple[DroneFlightStatus, ...]:
+        """Select failed or scientifically blocked flight records.
+
+        Returns
+        -------
+        tuple[DroneFlightStatus, ...]
+            Tuple of flight records whose state is failed or blocked.
+        """
+
         return tuple(item for item in self.flights if item.state in {"failed", "blocked"})
 
     def year_summaries(self) -> dict[str, dict[str, Any]]:
@@ -416,10 +692,26 @@ class DroneCampaignResult:
 
     @property
     def requested_years_complete(self) -> bool:
+        """Report whether every requested year satisfies its manifest expectation.
+
+        Returns
+        -------
+        bool
+            Whether the recorded state satisfies this method's predicate; no source processing is performed.
+        """
+
         years = self.year_summaries()
         return not years or all(item["complete"] for item in years.values())
 
     def summary(self) -> dict[str, Any]:
+        """Summarize recorded flight/campaign states without rerunning processing.
+
+        Returns
+        -------
+        dict[str, Any]
+            Recorded campaign counts, per-year completeness and output locations; this summary does not regenerate source products.
+        """
+
         states: dict[str, int] = {}
         for item in self.flights:
             states[item.state] = states.get(item.state, 0) + 1
@@ -459,6 +751,14 @@ class DroneCampaignResult:
         }
 
     def to_dict(self) -> dict[str, Any]:
+        """Serialize this record to its established machine-readable mapping.
+
+        Returns
+        -------
+        dict[str, Any]
+            Mapping of record fields and workflow-derived summary entries in the established serialization schema.
+        """
+
         return {
             "schema_version": _CAMPAIGN_SCHEMA_VERSION,
             "status": self.status,
@@ -476,7 +776,27 @@ class DroneCampaignResult:
 
 @dataclass(frozen=True)
 class BulkProductionResult:
-    """Top-level campaign, bulk, summary, package, and upload result."""
+    """Top-level campaign, bulk, summary, package, and upload result.
+
+    Attributes
+    ----------
+    inventory : DroneCollectionInventory
+        DroneCollectionInventory produced by inspect_drone_collection, including eligibility and resolved source provenance.
+    campaign : DroneCampaignResult
+        DroneCampaignResult retaining producer inventory, completeness and per-flight outcomes.
+    bulk_result : Mapping[str, Any]
+        Structured result returned by the corresponding compact bulk, interpretation or eligibility-preflight stage.
+    summary_result : Mapping[str, Any]
+        Structured result returned by the corresponding compact bulk, interpretation or eligibility-preflight stage.
+    local_result_path : str
+        Final compact result package path; remote location may be absent when upload is disabled.
+    remote_result_path : str | None
+        Final compact result package path; remote location may be absent when upload is disabled.
+    preflight_result : Mapping[str, Any]
+        Structured result returned by the corresponding compact bulk, interpretation or eligibility-preflight stage.
+    status : str, default='complete'
+        Recorded stage-specific outcome or eligibility state; inspect reason/detail and the relevant workflow before interpreting it scientifically.
+    """
 
     inventory: DroneCollectionInventory
     campaign: DroneCampaignResult
@@ -489,13 +809,37 @@ class BulkProductionResult:
 
     @property
     def completed_flights(self) -> tuple[DroneFlightStatus, ...]:
+        """Select producer flight records currently marked bulk-ready.
+
+        Returns
+        -------
+        tuple[DroneFlightStatus, ...]
+            Tuple of producer flight records marked bulk_ready; this property does not rerun readiness validation.
+        """
+
         return self.campaign.completed_flights
 
     @property
     def failed_flights(self) -> tuple[DroneFlightStatus, ...]:
+        """Select failed or scientifically blocked flight records.
+
+        Returns
+        -------
+        tuple[DroneFlightStatus, ...]
+            Tuple of flight records whose state is failed or blocked.
+        """
+
         return self.campaign.failed_flights
 
     def summary(self) -> dict[str, Any]:
+        """Summarize recorded flight/campaign states without rerunning processing.
+
+        Returns
+        -------
+        dict[str, Any]
+            Recorded campaign counts, per-year completeness and output locations; this summary does not regenerate source products.
+        """
+
         return {
             **self.campaign.summary(),
             "production_status": self.status,
@@ -508,6 +852,14 @@ class BulkProductionResult:
         }
 
     def to_dict(self) -> dict[str, Any]:
+        """Serialize this record to its established machine-readable mapping.
+
+        Returns
+        -------
+        dict[str, Any]
+            Mapping of record fields and workflow-derived summary entries in the established serialization schema.
+        """
+
         return {
             "status": self.status,
             "inventory": self.inventory.to_dict(),
@@ -521,7 +873,15 @@ class BulkProductionResult:
 
 
 class DroneCampaignIncompleteError(RuntimeError):
-    """The intended eligible population was not fully bulk-ready."""
+    """The intended eligible population was not fully bulk-ready.
+
+    Parameters
+    ----------
+    message : str
+        Explanation of the failed campaign completeness or readiness gate.
+    result : DroneCampaignResult
+        Durable per-flight outcomes retained as ``exception.result`` for inspection.
+    """
 
     def __init__(self, message: str, result: DroneCampaignResult):
         super().__init__(message)
@@ -729,7 +1089,22 @@ def _inventory_entries(
 
 
 def validate_bulk_ready_flightline(path: str | Path) -> BulkReadinessValidation:
-    """Apply bulk's real discovery/classification contract to one producer output."""
+    """Apply bulk's real discovery/classification contract to one producer output.
+
+    Parameters
+    ----------
+    path : str | Path
+        Existing producer flightline directory to validate using the actual bulk discovery and product-classification contract.
+
+    Returns
+    -------
+    BulkReadinessValidation
+        Structured readiness result, canonical identity, accepted counts, availability and any captured discovery error.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+    """
 
     candidate = Path(path).expanduser().resolve()
     try:
@@ -794,7 +1169,43 @@ def inspect_drone_collection(
     max_entries: int = 100_000,
     inventory_output_dir: str | Path | None = None,
 ) -> DroneCollectionInventory:
-    """Inventory remote ExportPackages and required H5s before large transfer."""
+    """Inventory remote ExportPackages and required H5s before large transfer.
+
+    Parameters
+    ----------
+    source : DroneSource
+        Remote collection root, year-bound source mapping, or supported source specification; inspect_drone_collection resolves it before transfer.
+    backend : RemoteCollectionBackend | None, default=None
+        RemoteCollectionBackend implementation; None selects the normal noninteractive gocmd adapter.
+    manifest : str | Path | None, default=None
+        Existing flight manifest providing acquisition identity/time; None uses supported discovery or embedded metadata.
+    years : Sequence[int] | None, default=None
+        Requested acquisition years used to resolve sources and verify campaign completeness.
+    local_output_dir : str | Path | None, default=None
+        Existing local flight-output root used to recognize completed, bulk-ready flights during remote inventory.
+    max_depth : int, default=8
+        Maximum recursive remote inventory depth; bounds traversal cost.
+    max_entries : int, default=100000
+        Maximum entries inspected during remote inventory; bounds unintentional collection-wide traversal.
+    inventory_output_dir : str | Path | None, default=None
+        Optional directory for inventory JSON/CSV artifacts; None returns the inventory without those files.
+
+    Returns
+    -------
+    DroneCollectionInventory
+        Serializable resolved remote/local inventory with per-package eligibility and source/year provenance.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+
+    Examples
+    --------
+    Requires an authorized remote source and configured backend; this inventories metadata before large transfer.
+
+    >>> from spectralbridge import inspect_drone_collection
+    >>> inventory = inspect_drone_collection(remote_source, years=(2025,))  # doctest: +SKIP
+    """
 
     backend = backend or GocmdRemoteBackend()
     manifest_path = _manifest_path(manifest)
@@ -1004,7 +1415,26 @@ def stage_drone_collection(
     staging_dir: str | Path,
     backend: RemoteCollectionBackend | None = None,
 ) -> tuple[StagedDroneInput, ...]:
-    """Stage every eligible H5; campaign runners normally stage one at a time."""
+    """Stage every eligible H5; campaign runners normally stage one at a time.
+
+    Parameters
+    ----------
+    inventory : DroneCollectionInventory
+        DroneCollectionInventory produced by inspect_drone_collection, including eligibility and resolved source provenance.
+    staging_dir : str | Path
+        Local directory for downloaded input packages; stage_drone_collection stages all eligible inputs, unlike the bounded campaign runner.
+    backend : RemoteCollectionBackend | None, default=None
+        RemoteCollectionBackend implementation; None selects the normal noninteractive gocmd adapter.
+
+    Returns
+    -------
+    tuple[StagedDroneInput, ...]
+        StagedDroneInput records for every eligible package; unlike the campaign runner, this stages the full eligible inventory.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+    """
 
     backend = backend or GocmdRemoteBackend()
     return tuple(
@@ -1036,7 +1466,39 @@ def run_drone_campaign(
     backend: RemoteCollectionBackend | None = None,
     config: DroneCampaignConfig | None = None,
 ) -> DroneCampaignResult:
-    """Stage and run independent restart-safe drone producer checkpoints."""
+    """Stage and run independent restart-safe drone producer checkpoints.
+
+    Parameters
+    ----------
+    source : DroneSource
+        Remote collection root, year-bound source mapping, or supported source specification; inspect_drone_collection resolves it before transfer.
+    work_dir : str | Path
+        Local campaign workspace containing staging, flight outputs and restart/status records.
+    years : Sequence[int] | None, default=None
+        Requested acquisition years used to resolve sources and verify campaign completeness.
+    manifest : str | Path | None, default=None
+        Existing flight manifest providing acquisition identity/time; None uses supported discovery or embedded metadata.
+    backend : RemoteCollectionBackend | None, default=None
+        RemoteCollectionBackend implementation; None selects the normal noninteractive gocmd adapter.
+    config : DroneCampaignConfig | None, default=None
+        Configuration object for this workflow; None selects the documented defaults of its configuration class.
+
+    Returns
+    -------
+    DroneCampaignResult
+        Per-flight outcomes, inventory, status and restart/output locations; inspect completeness before population analysis.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+
+    Examples
+    --------
+    Requires a configured remote source, acquisition manifest and suitable local storage; source packages are staged one at a time.
+
+    >>> from spectralbridge import run_drone_campaign
+    >>> result = run_drone_campaign(remote_source, work_dir=work_dir, years=(2025,))  # doctest: +SKIP
+    """
 
     backend = backend or GocmdRemoteBackend()
     config = config or DroneCampaignConfig(
@@ -1530,7 +1992,52 @@ def run_drone_bulk_production(
     upload_results: bool = False,
     require_complete_campaign: bool = True,
 ) -> BulkProductionResult:
-    """Run remote inventory through producer, bulk, reporting, and optional upload."""
+    """Run remote inventory through producer, bulk, reporting, and optional upload.
+
+    Parameters
+    ----------
+    source : DroneSource
+        Remote collection root, year-bound source mapping, or supported source specification; inspect_drone_collection resolves it before transfer.
+    years : Sequence[int]
+        Requested acquisition years used to resolve sources and verify campaign completeness.
+    work_dir : str | Path
+        Local campaign workspace containing staging, flight outputs and restart/status records.
+    manifest : str | Path | None, default=None
+        Existing flight manifest providing acquisition identity/time; None uses supported discovery or embedded metadata.
+    backend : RemoteCollectionBackend | None, default=None
+        RemoteCollectionBackend implementation; None selects the normal noninteractive gocmd adapter.
+    config : DroneCampaignConfig | None, default=None
+        Configuration object for this workflow; None selects the documented defaults of its configuration class.
+    upload_results : bool, default=False
+        Upload and verify the completed compact result package at its resolved remote destination; False keeps results local.
+    require_complete_campaign : bool, default=True
+        Require all expected eligible flights to be bulk-ready before population analysis; prevents silent partial-population claims.
+
+    Returns
+    -------
+    BulkProductionResult
+        Inventory/campaign, preflight, bulk and summary results plus local/remote package locations.
+
+    Raises
+    ------
+    DroneCampaignIncompleteError
+        If required campaign completeness or the producer-to-bulk population gate fails.
+    FileExistsError
+        If a protected destination already exists or conflicts with the requested product.
+    RuntimeError
+        If required processing or artifact validation cannot complete.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+
+    Examples
+    --------
+    Requires real remote source data and complete producer inputs. Upload is an explicit separate choice.
+
+    >>> from spectralbridge import run_drone_bulk_production
+    >>> result = run_drone_bulk_production(source=remote_source, years=(2025,), work_dir=work_dir, upload_results=False)  # doctest: +SKIP
+    """
 
     backend = backend or GocmdRemoteBackend()
     if config is None:

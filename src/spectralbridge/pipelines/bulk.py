@@ -616,6 +616,77 @@ def run_bulk_pipeline(
 ) -> dict[str, Any]:
     """Catalog completed flightlines and run population analyses.
 
+    Parameters
+    ----------
+    input_path : str | Path
+        Existing source tree or merged Parquet to inventory; input products are read in place.
+    output_dir : str | Path | None, default=None
+        Directory for generated products; bulk outputs must be outside the read-only input tree.
+    input_kind : BulkInputKind, default='full'
+        Select eligible 'full', 'polygon', or 'both' table products; discovery still records companions for transparency.
+    input_mode : BulkInputMode, default='auto'
+        'auto' prefers completed flightline directories and falls back to merged Parquets; alternatives are 'flightline_outputs' and 'merged_parquet'.
+    analysis : str | AnalysisProfile, default='translation'
+        Registered analysis profile name or AnalysisProfile controlling required products and permissible sensor pairs.
+    sensors : tuple[str, ...] | list[str] | None, default=None
+        Optional sensor-name selection passed to the product registry; None retains profile-compatible sensors.
+    translation_pairs : Sequence[str | TranslationPair] | None, default=None
+        Explicit registered source-to-target relationships to analyze; None uses the selected registry/profile defaults.
+    product_registry : ProductRegistry, default=DEFAULT_PRODUCT_REGISTRY
+        ProductRegistry describing recognized filenames, sensor roles, band contracts and translation relationships.
+    identity_parsers : Sequence[FlightlineIdentityParser], default=DEFAULT_IDENTITY_PARSERS
+        Ordered parsers for canonical scientific identity from filenames or manifests; outer run-folder names are not scientific identifiers.
+    on_invalid : str, default='exclude'
+        'exclude' records invalid sources; 'error' stops instead of continuing with an excluded population.
+    minimum_reflectance : float, default=0.0
+        Lower screening bound in the stored reflectance units; used for regression validity, not automatic unit conversion.
+    require_translation_pairs : bool, default=True
+        Require eligible registered pairs; False permits a modified profile without a translation-pair requirement.
+    materialize_observations : bool, default=False
+        Explicit opt-in to pixel-scale observation materialization; normal bulk runs retain compact sufficient statistics only.
+    row_group_size : int, default=50000
+        Positive rows per written Parquet row group; None in the merge workflow delegates to its established default.
+    memory_limit : str | None, default=None
+        DuckDB memory budget string, such as "4GB"; None leaves the connection default.
+    threads : int | None, default=None
+        Positive DuckDB thread budget; None delegates to the established database default.
+    temp_directory : str | Path | None, default=None
+        DuckDB spill directory; bulk temporary storage must be outside the read-only source tree.
+    preflight_only : bool, default=False
+        Return catalog/eligibility and cost information without executing the population analyses.
+    extraction_chunk_size : int, default=2048
+        Positive bounded raster window size in pixels for sufficient-statistics extraction.
+    extraction_workers : int, default=1
+        Positive number of independent flightline extraction workers; storage bandwidth can limit useful concurrency.
+    diagnostic_sample_size : int, default=0
+        Maximum diagnostic pixel sample count; zero disables row-level diagnostic sample output.
+    diagnostic_seed : int, default=0
+        Random-number seed for reproducible sampling, splits or resampling; it does not create independent observations.
+    spectral_library : str | Path | None, default=None
+        Existing merged polygon Parquet with wavelength-bearing columns; read in place without copying the source dataset.
+    make_summary_plots : bool, default=False
+        Write compact spectral-summary figures in addition to numerical summaries.
+    make_full_spectral_reports : bool, default=False
+        Explicitly enable potentially expensive full trace reports; inspect preflight costs before enabling.
+    spectral_library_config : SpectralLibraryPlotConfig | None, default=None
+        SpectralLibraryPlotConfig controlling group fields, stage, validity and rendering; None uses its defaults.
+    force : bool, default=False
+        Regenerate the requested outputs instead of reusing an otherwise valid checkpoint or report.
+
+    Returns
+    -------
+    dict[str, Any]
+        Status, accepted/rejected/duplicate counts, pair counts, manifest/catalog/database and analysis paths; preflight returns before fits.
+
+    Raises
+    ------
+    FileNotFoundError
+        If a required source or completed artifact is absent.
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     The source tree is treated as read only. Scientific identity is recovered
     through configurable identity parsers, never arbitrary outer run-folder
     names. Duplicate flightline IDs in different source directories are
@@ -631,6 +702,17 @@ def run_bulk_pipeline(
     be fitted as explicitly labeled application-verification diagnostics. They
     are not independent evidence for updating the coefficient registry that
     produced them.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+
+    Examples
+    --------
+    With an existing completed-flightline source tree, inspect eligibility first. The destination must be outside that source tree.
+
+    >>> from spectralbridge import run_bulk_pipeline
+    >>> result = run_bulk_pipeline(input_path=source_dir, output_dir=output_dir, preflight_only=True)  # doctest: +SKIP
     """
 
     root = Path(input_path).expanduser().resolve()

@@ -17,8 +17,9 @@ python -m pip install -e .
 python examples/first_example.py
 ```
 
-For a release installation use `python -m pip install earthlab-spectralbridge`.
-The installed distribution is `earthlab-spectralbridge`; the Python import is
+The 19 October 2026 publication audit found no project at the PyPI
+`earthlab-spectralbridge` endpoint; use the source checkout above until a release
+is verified. The distribution is `earthlab-spectralbridge`; the Python import is
 `spectralbridge`. Repository examples describe the checked-out source version;
 verify that your installed release includes the API you intend to use.
 

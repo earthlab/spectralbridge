@@ -4,7 +4,7 @@ This page is the maintainer-facing source of truth for how SpectralBridge
 should be cited, how associated publications are tracked, and how software
 release citations should relate to papers.
 
-Review date: 2026-10-13
+Review date: 2026-10-19
 
 ## Current citation posture
 
@@ -37,8 +37,11 @@ approve a different policy:
 > any associated SpectralBridge publication or software paper, and relevant
 > methods papers for the workflow components your analysis depends on.
 
-`CITATION.cff` remains the authoritative machine-readable source for the
-software citation itself.
+`CITATION.cff` is the intended machine-readable citation source, but currently
+contains provisional team authorship. Its schema validity does not establish
+author approval. The 12-person paper list and organizational package metadata
+must be reconciled by the authors before publication; do not copy the placeholder
+team name as a finalized personal author list.
 
 ## Versioned release citation policy
 
@@ -69,8 +72,8 @@ maintainer confirmation.
 | Current SpectralBridge-specific Zenodo release record | Needs verification | See `docs/dev/doi-zenodo.md` and `P27` |
 | Software paper sources | Prepared draft | [Canonical paper and build instructions](https://github.com/earthlab/spectralbridge/tree/main/paper); preparation does not establish submission or acceptance |
 | Canonical published paper citation | Not confirmed | Add an accepted/published citation only after verification |
-| Associated project/manuscript list | TODO | Populate with stable references, not draft working titles unless intentionally public |
-| Preferred publication landing page | TODO | Could be README, docs home, or a dedicated docs page once publication list is stable |
+| Associated project/manuscript list | No additional published list verified | Maintainers must supply stable references before adding publication claims |
+| Publication sources | [Canonical paper directory](https://github.com/earthlab/spectralbridge/tree/main/paper) | Prepared sources and submission checklist; no acceptance implied |
 
 ## Software paper tracking
 

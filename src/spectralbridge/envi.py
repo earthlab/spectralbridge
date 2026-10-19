@@ -134,6 +134,8 @@ def _parse_envi_header_tolerant(hdr_path: Path) -> dict[str, Any]:
 
 
 def hdr_to_dict(hdr_path: Path) -> dict[str, Any]:
+    """Parse an ENVI header, tolerating absent or unparseable wavelength lists where supported."""
+
     try:
         header = _parse_envi_header(hdr_path)
     except RuntimeError as exc:
@@ -152,6 +154,8 @@ def hdr_to_dict(hdr_path: Path) -> dict[str, Any]:
 
 
 def band_axis_from_header(arr: np.ndarray, hdr: dict[str, Any]) -> int:
+    """Locate a band-count-matching axis, falling back to the last axis for unmatched three-dimensional arrays."""
+
     nb = int(hdr.get("bands", 0) or 0)
     if nb <= 0:
         raise ValueError("Header has no valid 'bands' value.")
@@ -165,6 +169,8 @@ def band_axis_from_header(arr: np.ndarray, hdr: dict[str, Any]) -> int:
 
 
 def wavelength_array(header_dict: dict[str, Any]) -> np.ndarray | None:
+    """Read numeric wavelength metadata as an array, returning None when absent or unparseable."""
+
     wavs = header_dict.get("wavelength")
     if wavs is None:
         return None
@@ -222,6 +228,8 @@ def _dtype_from_header(header: dict[str, Any], hdr_path: Path) -> np.dtype:
 
 
 def memmap_bsq(img_path: Path, header: dict[str, Any]) -> np.memmap:
+    """Open a read-only BSQ memory map shaped (bands, lines, samples) with header-declared dtype and byte order."""
+
     try:
         samples = int(header["samples"])
         lines = int(header["lines"])
@@ -239,6 +247,8 @@ def memmap_bsq(img_path: Path, header: dict[str, Any]) -> np.memmap:
 
 
 def read_envi_cube(img_path: Path, header: dict[str, Any] | None = None) -> np.ndarray:
+    """Read a BSQ ENVI image as float32 in (bands, lines, samples) order without reflectance rescaling."""
+
     hdr_path = img_path.with_suffix(".hdr")
     if header is None:
         header = hdr_to_dict(hdr_path)
@@ -262,6 +272,8 @@ def read_envi_cube(img_path: Path, header: dict[str, Any] | None = None) -> np.n
 
 
 def to_unitless_reflectance(arr: np.ndarray) -> np.ndarray:
+    """Apply the legacy median heuristic: divide by 10000 when the finite median exceeds 1.5."""
+
     med = float(np.nanmedian(arr))
     if np.isnan(med):
         return arr

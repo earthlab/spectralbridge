@@ -429,6 +429,8 @@ def finalize_bulk_database(
 
 
 def observation_columns(con: duckdb.DuckDBPyConnection) -> list[str]:
+    """List column names in the prepared ``bulk_observations`` DuckDB view."""
+
     return [row[0] for row in con.execute("DESCRIBE bulk_observations").fetchall()]
 
 

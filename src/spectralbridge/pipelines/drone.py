@@ -181,6 +181,8 @@ class DronePipelineIncompleteError(RuntimeError):
 
 @dataclass(frozen=True)
 class DroneInputSource:
+    """Describe one supported discovered drone HDF5/TIFF source and its provenance."""
+
     source_path: Path
     source_type: str
     flight_stem: str
@@ -188,6 +190,8 @@ class DroneInputSource:
 
 @dataclass(frozen=True)
 class DroneOutputRequirement:
+    """Describe one canonical product required by a selected drone extraction/translation workflow."""
+
     name: str
     kind: str
     paths: tuple[Path, ...]
@@ -1755,6 +1759,8 @@ def convert_drone_tiff_to_h5(
     require_solar_geometry: bool = False,
     overwrite: bool = False,
 ) -> Path:
+    """Convert a supported georeferenced multiband reflectance TIFF and aligned ancillary inputs to the drone HDF5 contract."""
+
     reflectance_tiff_path = Path(reflectance_tiff_path)
     output_h5_path = Path(output_h5_path)
     if output_h5_path.exists() and not overwrite:
@@ -2176,6 +2182,8 @@ def _prepare_drone_h5_working_copy(
 def resolve_band_map(
     wavelengths: list[float] | np.ndarray, targets: dict[str, int]
 ) -> dict[str, dict[str, float | int]]:
+    """Map conceptual drone band names to nearest wavelength coordinates, recording selected indices and distances."""
+
     wavelengths_arr = np.asarray(wavelengths, dtype=float)
     if wavelengths_arr.ndim != 1 or wavelengths_arr.size == 0:
         raise ValueError("wavelengths must be a non-empty 1-D array")
@@ -2320,6 +2328,8 @@ def build_drone_config(
     apply_brdf: bool,
     use_ndvi_brdf_bins: bool,
 ) -> dict[str, Any]:
+    """Build the explicit local drone correction configuration from existing paths, wavelengths and correction flags."""
+
     return {
         "platform": "drone",
         "h5_path": str(Path(h5_path)),
@@ -3319,6 +3329,85 @@ def run_drone_pipeline(
 ) -> dict[str, Any]:
     """Run the drone pipeline from local HDF5 or reflectance TIFF sources.
 
+    Parameters
+    ----------
+    input_h5_dir : str | Path
+        Existing local supported HDF5/TIFF file or directory; discovery recurses through source packages.
+    polygon_path : str | Path | None, default=None
+        Existing polygon vector dataset for extraction; coordinates are handled by the established polygon workflow.
+    output_dir : str | Path, default='.'
+        Directory for generated products; bulk outputs must be outside the read-only input tree.
+    apply_topo : bool, default=True
+        Enable the existing topographic correction when required terrain/geometry metadata are available.
+    apply_brdf : bool, default=True
+        Enable the existing BRDF correction when required angular metadata are available.
+    use_ndvi_brdf_bins : bool, default=False
+        Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.
+    apply_brightness_adjustment : bool, default=False
+        Opt into the established brightness adjustment; does not change the packaged coefficients.
+    overwrite : bool, default=False
+        Replace existing requested products; False preserves reusable products or rejects a conflicting destination.
+    tiff_wavelengths_nm : Sequence[float] | np.ndarray | None, default=None
+        Explicit per-band center wavelengths in nanometers for TIFF inputs lacking embedded spectral metadata; must match band order/count.
+    tiff_fwhm_nm : Sequence[float] | np.ndarray | None, default=None
+        Per-band full widths at half maximum in nanometers, aligned with TIFF bands; None uses supported metadata.
+    tiff_solar_zenith_deg : float | None, default=None
+        Explicit TIFF solar zenith in degrees when valid embedded metadata are unavailable.
+    tiff_solar_azimuth_deg : float | None, default=None
+        Explicit TIFF solar azimuth in degrees when valid embedded metadata are unavailable.
+    tiff_sensor_zenith_deg : float | None, default=None
+        Explicit TIFF view zenith in degrees when valid embedded metadata are unavailable.
+    tiff_sensor_azimuth_deg : float | None, default=None
+        Explicit TIFF view azimuth in degrees when valid embedded metadata are unavailable.
+    drone_manifest_path : str | Path | None, default=None
+        Existing flight manifest providing acquisition identity/time; None uses supported discovery or embedded metadata.
+    drone_manifest_timezone : str | None, default='UTC'
+        Timezone used to interpret manifest acquisition times; the default is UTC.
+    require_solar_geometry : bool, default=True
+        Require scientifically usable solar geometry before correction rather than silently proceeding without it.
+    extraction_mode : str | None, default=None
+        'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.
+    parquet_chunk_size : int, default=2048
+        Positive pixel/window processing budget for bounded extraction; the default and interpretation follow the selected producer.
+    merge_extractions : bool, default=False
+        Explicit opt-in to legacy campaign-wide pixel-table merging; normal bulk consumers use separate completed flights.
+    apply_translation : bool, default=False
+        Create separate Landsat-like application products using the reviewed coefficient registry; does not overwrite corrected native MicaSense.
+    translation_coefficients : str | Path | None, default=None
+        Optional reviewed registry JSON path; None uses the packaged static coefficient set.
+    translation_weighting : str | None, default=None
+        Optional reviewed weighting selection; normal production uses the predetermined site-balanced weighting.
+    translation_strict : bool, default=False
+        Treat unsupported/flagged translation conditions as blocking rather than returning the configured non-strict status.
+    landsat_qa : bool, default=False
+        Enable actual Landsat comparison QA for translated products; requires apply_translation=True and appropriate data/dependencies.
+    landsat_product : str | Path | None, default=None
+        Optional existing actual Landsat product for independent comparison; None permits the documented search path.
+    landsat_search_days : int, default=16
+        Nonnegative acquisition-date search radius in days for actual Landsat comparison.
+    comparison_neon_product : str | Path | None, default=None
+        Optional independent NEON product for common-support comparison QA.
+    raise_on_incomplete : bool, default=True
+        Raise DronePipelineIncompleteError when flights fail or are scientifically blocked; its results attribute retains structured status.
+    solar_qa_timezone : str | None, default=None
+        Optional timezone override for solar-geometry QA; None follows the existing metadata/timezone resolution.
+
+    Returns
+    -------
+    dict[str, Any]
+        Per-flight processed/reused/failed/blocked outcomes and QA/output paths; incomplete runs normally raise with this payload attached.
+
+    Raises
+    ------
+    DroneCorrectionUnavailableError
+        If scientifically required correction inputs cannot be validated.
+    DronePipelineIncompleteError
+        If any requested flight is incomplete and raise_on_incomplete is True; inspect the attached results.
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     ``extraction_mode="full"`` writes a full-pixel Parquet table from the
     corrected drone ENVI product. ``"polygon"`` uses ``polygon_path`` and the
     existing polygon extraction path. The default preserves historical
@@ -3332,6 +3421,17 @@ def run_drone_pipeline(
     products; corrected native MicaSense is never overwritten.
     By default an incomplete run raises :class:`DronePipelineIncompleteError`
     with the structured result available as ``exc.results``.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+
+    Examples
+    --------
+    Requires an existing supported source tree with usable spectral/spatial/solar metadata. Choose a separate output directory.
+
+    >>> from spectralbridge import run_drone_pipeline
+    >>> result = run_drone_pipeline(input_h5_dir=source_dir, output_dir=output_dir)  # doctest: +SKIP
     """
 
     run_started = time.monotonic()

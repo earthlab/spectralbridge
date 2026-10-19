@@ -15,12 +15,14 @@ on:
       - "scripts/generate_scientific_docs.py"
       - "pytest.ini"
       - "scripts/generate_ai_transparency.py"
+      - "scripts/generate_api_reference.py"
       - "scripts/generate_validation_docs.py"
       - "scripts/run_validation_campaign.py"
       - "scripts/check_installed_artifact.py"
       - "scripts/check_release_metadata.py"
       - "PROMPT_LOG.md"
       - "provenance/prompts/**"
+      - "docs/api/**"
       - "docs/ai-transparency.*"
       - "docs/images/ai-transparency/**"
       - "docs/validation/**"
@@ -41,12 +43,14 @@ on:
       - "scripts/generate_scientific_docs.py"
       - "pytest.ini"
       - "scripts/generate_ai_transparency.py"
+      - "scripts/generate_api_reference.py"
       - "scripts/generate_validation_docs.py"
       - "scripts/run_validation_campaign.py"
       - "scripts/check_installed_artifact.py"
       - "scripts/check_release_metadata.py"
       - "PROMPT_LOG.md"
       - "provenance/prompts/**"
+      - "docs/api/**"
       - "docs/ai-transparency.*"
       - "docs/images/ai-transparency/**"
       - "docs/validation/**"
@@ -78,12 +82,14 @@ jobs:
           CSCAL_TEST_MODE: lite
         run: |
           ruff check src tests scripts/generate_ai_transparency.py \
-            scripts/generate_validation_docs.py scripts/run_validation_campaign.py \
+            scripts/generate_api_reference.py scripts/check_api_reference.py scripts/generate_validation_docs.py scripts/run_validation_campaign.py \
             scripts/check_installed_artifact.py scripts/check_release_metadata.py
           pytest -q -m "lite"
 
-      - name: Verify AI transparency artifacts
-        run: python scripts/generate_ai_transparency.py --check
+      - name: Verify AI transparency and API reference artifacts
+        run: |
+          python scripts/generate_ai_transparency.py --check
+          python scripts/generate_api_reference.py --check
 
       - name: Verify validation evidence pages
         run: python scripts/generate_validation_docs.py --check

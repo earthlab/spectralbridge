@@ -24,6 +24,12 @@ def load_brightness_coefficients(
     Notes
     -----
     - Values are stored in percent (e.g., -7.3959 means "reduce by 7.3959%").
+
+    Examples
+    --------
+    >>> from spectralbridge import load_brightness_coefficients
+    >>> coefficients = load_brightness_coefficients()
+    >>> assert all(isinstance(band, int) and band >= 1 for band in coefficients)
     """
     filename = f"{system_pair}.json"
     with resources.files("spectralbridge.data.brightness").joinpath(filename).open(

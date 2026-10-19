@@ -471,3 +471,5 @@ campaign-specific folder name is embedded in the bulk architecture.
 
 [local-bulk-notebook]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/09_bulk_analysis.ipynb
 [cyverse-bulk-notebook]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb
+
+See the [API Reference for bulk orchestration](../api/generated/pipelines-bulk.md) for current signatures, defaults, inputs and outputs.

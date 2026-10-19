@@ -545,6 +545,8 @@ def plot_spectra_from_parquet_dir(
 
 
 def select_best_files(files: List[DataFile]) -> List[DataFile]:
+    """Choose one product per domain/site/date/time group, preferring masked and BRDF-corrected ENVI candidates."""
+
     grouped = defaultdict(list)
     for f in files:
         key = (f.domain, f.site, f.date, f.time)
@@ -567,6 +569,8 @@ def select_best_files(files: List[DataFile]) -> List[DataFile]:
 
 
 def find_best_resampled_files(directory: Path, suffix: str) -> List[NEONReflectanceResampledENVIFile]:
+    """Discover typed resampled products and apply the established per-flight product preference."""
+
     all_resampled = NEONReflectanceResampledENVIFile.find_all_sensors_in_directory(directory, suffix)
     return select_best_files(all_resampled)
 

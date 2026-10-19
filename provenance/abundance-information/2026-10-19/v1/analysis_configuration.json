@@ -1,0 +1,18 @@
+{
+  "status": "planned, not executed: source-scale gate",
+  "baseline_git_SHA": "38f646a",
+  "label_field": "cover_category",
+  "class_order": ["Deciduous", "Evergreen", "Herbaceous", "Non-vegetated & dead", "Woody shrub"],
+  "feature_budgets": [1, 2, 3, 5, 7, 10, 15, 20, 30, 50, 75, 100, "full validated support"],
+  "random_paths": 5,
+  "seed_status": "to freeze from existing design before execution; no RNG draws made",
+  "reference_design": "provenance/researcher-pft-information/2026-10-15/v1/METHODS.md",
+  "planned_parent_bundles": {"proper": 24, "tuning": 8, "target_maximum": 12},
+  "new_models_fitted": 0,
+  "mixtures_generated": 0,
+  "source_units_verified": false,
+  "physical_scale_inferred": false,
+  "historical_artifacts_regenerated": 0,
+  "package_functionality_promoted": false,
+  "website_results_integrated": false
+}

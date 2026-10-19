@@ -1346,3 +1346,9 @@ body:has(.sb-home) .md-content__inner::before {
 .sb-evidence-flow b { color:var(--md-default-fg-color--light); }
 @media(max-width:600px) { .sb-evidence-flow span { flex-basis:100%; }
   .sb-evidence-flow b { transform:rotate(90deg); margin-left:.6rem; } }
+
+/* Keep setup and citation links readable against the homepage hero. */
+.md-typeset .sb-hero__body a {
+  color: #fff;
+  text-decoration: underline;
+}

@@ -548,6 +548,8 @@ def load_supplied_landsat_observation(
 
 
 def raster_bounds_wgs84(path: str | Path) -> tuple[float, float, float, float]:
+    """Transform raster bounds to (west, south, east, north) in WGS84 degrees; reject a missing CRS."""
+
     import rasterio
     from rasterio.warp import transform_bounds
 

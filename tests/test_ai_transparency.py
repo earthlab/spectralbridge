@@ -103,3 +103,29 @@ def test_generated_repository_artifacts_are_current() -> None:
     payload = json.loads((ROOT / "docs" / "ai-transparency.json").read_text())
     assert payload["source"]["path"] == "PROMPT_LOG.md"
     assert payload["summary"]["prompt_count"] > 0
+
+
+def test_mentions_count_prompts_once_and_preserve_overlap_and_negation() -> None:
+    counts = MODULE.mention_counts(
+        ['Run PYTEST twice: pytest; use Ruff.', 'Do not run pytest.', 'No tools named.'],
+        {'Tests': ('pytest',), 'Lint': ('ruff',), 'Absent': ('docker',)},
+    )
+    assert counts == {'Tests': 2, 'Lint': 1, 'Absent': 0}
+
+
+def test_generated_statement_explains_history_and_evidence_limits() -> None:
+    outputs = MODULE._resolve_outputs(ROOT, ROOT / 'PROMPT_LOG.md')
+    data = json.loads(outputs[ROOT / 'docs/ai-transparency.json'])
+    page = outputs[ROOT / 'docs/ai-transparency.md']
+    assert data['schema_version'] == 2
+    assert 'Maintainer statement' in data['historical_context']['basis']
+    assert 'GPT-3.5' in page
+    assert 'execution outcomes are not recorded' in page
+    assert 'negated instructions' in page
+    for key, rules in MODULE.MENTION_RULES.items():
+        counts = data['mention_analysis'][key]
+        assert set(counts) == set(rules)
+        assert all(0 <= n <= data['summary']['prompt_count'] for n in counts.values())
+        svg = outputs[ROOT / 'docs/images/ai-transparency' / (key.replace('_', '-') + '.svg')]
+        assert 'role="img"' in svg and '<desc' in svg
+        assert 'execution is not established' in svg

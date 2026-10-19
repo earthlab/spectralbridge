@@ -1,0 +1,302 @@
+{
+  "audit_date": "2026-10-19",
+  "baseline_commit": "38f646a38150b4d991c4f6f094f70e91785a06d7",
+  "changed_source_files": 58,
+  "protected_manifest_entries_verified": 1053,
+  "records": [
+    {
+      "path": "src/spectralbridge/brightness.py",
+      "executable_ast_sha256": "18c37136a0be8bdde69f997d3d4c171e0ab253617738b7fc8c0ec008c547f472",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/brightness_config.py",
+      "executable_ast_sha256": "2ec31e872a5db7938a6795f13db8a924e24ef4d7ba06a1b300d5a57e7931a960",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/analyses/common.py",
+      "executable_ast_sha256": "29309a39791cad31fa382f845b827a10d89da316d4cc84e9b5c69763591d31a0",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/analyses/dataset_census.py",
+      "executable_ast_sha256": "ce585234e8acdfc811b02b2f48adc3ac5b1f3975ed700c13fa91b3d73780aa22",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/analyses/leave_one_site_out.py",
+      "executable_ast_sha256": "a2b500c31376eda317e0e90721e005e27665ac8dac44b3bf00752c609f94bdac",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/analyses/sensor_translation.py",
+      "executable_ast_sha256": "aaea436610613cd3cbf315f6f7846e7e97265d34a2e359b8981955bbded55c94",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/analyses/spectral_library.py",
+      "executable_ast_sha256": "0ae9997a0b2db59e76bd8e851e4c55c8807dfe19503d23b8b377ef7df03fb49a",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/catalog.py",
+      "executable_ast_sha256": "ce8dee0e9db1d90332710870793bd8831533c066416d5338eff072d480828ccc",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/dataset.py",
+      "executable_ast_sha256": "eb42cd0f96356da111cd60148e7fdc21a61046692b971825b69e3c5b19fdc1c7",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/harmonized.py",
+      "executable_ast_sha256": "6c2fcbe77b11510c0628a5f859217fe30f10db1ecbdaa4ee868555d47a75c4ea",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/identity.py",
+      "executable_ast_sha256": "8eb3a5083f9495f8509fe11067205d311e6f3b1ce366eda72bb26a66f45a8b22",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/models.py",
+      "executable_ast_sha256": "b7207cdfdb7d5d2291bef541b292f7c63a0f2ec1a4208844896d9d7df4bc7fcb",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/registry.py",
+      "executable_ast_sha256": "74b29e6e34a9cc9a8c1bc79ab23fb3bdcb1d0be3c47ed7f546863f0415e7c14d",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/results.py",
+      "executable_ast_sha256": "318ad645671a68b89fea28ae5ac33e70573392e09f35e84713c25b1e9857ff95",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/bulk/streaming.py",
+      "executable_ast_sha256": "9e97ff47e5d3c379774ad27df73e502cec7ff776d61e3786c6da7f9b74d2bb6b",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/drone_production.py",
+      "executable_ast_sha256": "74eee6565385d99021df0aad32edceef081f72a1980c64c56a8d200e8adca1f3",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/drone_translation_registry.py",
+      "executable_ast_sha256": "643fb5653bc7d5b17c8ff397de32166f760c5c04d52a50022833690593354e93",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/envi.py",
+      "executable_ast_sha256": "b400f0f4286a0ac4cfafe0a92c77da801896524669e72d42b2b53aa9ba6363e4",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/exports/__init__.py",
+      "change": "Added docstring-only package marker"
+    },
+    {
+      "path": "src/spectralbridge/exports/geo_utils.py",
+      "executable_ast_sha256": "8798c168b9e89ddf91e0e216b4317271ef0395bbe033baae4a04b069ae685839",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/file_types.py",
+      "executable_ast_sha256": "685848495e09a647db002d58cb2ae864de0588c543df43f34a15bef3cce39e07",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/half_flight.py",
+      "executable_ast_sha256": "2070274196d12e54b8d87259deda2fc090e1131fee2c896fa6727751e5e33cd9",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/header_utils.py",
+      "executable_ast_sha256": "b7c5a833c175749a3f4090bbe988908268882fc72260c680139e675614c60be5",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/io/neon.py",
+      "executable_ast_sha256": "884fe2dc81ed43fb3a07197f0c675a441aef6e55d33549eafe1dd589ca82f628",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/io/neon_legacy.py",
+      "executable_ast_sha256": "8985ae647ced7bf06ad4e9d98f015984945918ef0eddec138ce5fd281fdb29db",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/landsat_agreement.py",
+      "executable_ast_sha256": "340be8fefead59298744777c2a94aa43ef239281317f33a277209246b90964ba",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/landsat_flight_report.py",
+      "executable_ast_sha256": "06791022609deb9db6ed04ed0e1c2c7b597cc77ccb70d2bd23ed82e2a60c2cff",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/landsat_flight_validation.py",
+      "executable_ast_sha256": "82aa102106d39ace6137e005069a0f9bf65a0bf09d843edcd8bd5f35d0e1d674",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/landsat_validation.py",
+      "executable_ast_sha256": "3c4dbbefb747ddd422688dac2e1dd4c923116bf93e20916964c2abf68f96da7c",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/library_analysis.py",
+      "executable_ast_sha256": "28c99d13891259ceebebf6ee6c6c45c2618c7bd43ab705579986091a666bdf26",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/merge_duckdb.py",
+      "executable_ast_sha256": "1ff6102e714e429fb82f1ff30a19fcd516b8ef915d5125a147f2e0b9c807ac14",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/mixtures.py",
+      "executable_ast_sha256": "31a92b763187a7d7b238b9fa96bdf8c9d395d2198d4af346a4465ec67b821a8f",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/parquet_export.py",
+      "executable_ast_sha256": "49d378e7e3bcbbd7f2b87df900915f746a414b9c79082e91c29191b1018302c3",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/paths.py",
+      "executable_ast_sha256": "f07667bceae8b3f35fda2133d856e5cdb482a351ae811410308f663511e90d88",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/pft_method_audit.py",
+      "executable_ast_sha256": "78c4104f40306176a4167fab9da2fb74ffff18ce6ce85fef7de096c7451e458a",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/pipelines/bulk.py",
+      "executable_ast_sha256": "a0169888d3929e7e48af840c05006b8069393d34819239b4cbada448daa3457b",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/pipelines/drone.py",
+      "executable_ast_sha256": "3bf9f7d0058fac600943d7cc329ad2ddd2a9e97158555f3d1ba7031580eb6edb",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/pipelines/pipeline.py",
+      "executable_ast_sha256": "8d8104b7a3ac7b25693591c2f5c1e6aff167ab6fa6486e12daeb278aeb48baae",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/plant_spectral_quantiles.py",
+      "executable_ast_sha256": "84bee2abe291f9c0c620807ce1de4e417a394cd7870bb67b33c41770a527f51e",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/plant_spectral_years.py",
+      "executable_ast_sha256": "a32f9c1645f0c67733ada539b137fe0eba9612f82705d23ee478eb0872f73eab",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/polygon_extraction.py",
+      "executable_ast_sha256": "01b730c6153555abe25cce811b22a942e20ead060946835326609869e9c58013",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/qa/brightness.py",
+      "executable_ast_sha256": "2af63757aa29cc90948990c44db55d91016408427358f5b9e7bca5aed17929c1",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/qa/metrics.py",
+      "executable_ast_sha256": "7ae343aaf4460f4f06ddfc83ffa7b8f0886a757cdf83c6f3d32b58f1c256fc73",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/qa/network.py",
+      "executable_ast_sha256": "832949207a15d5c23f0b74314fc3b119f12aabb9a7f7b7fa01bf20da3f556c0d",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/qa/paths.py",
+      "executable_ast_sha256": "39f31537fd2810b424c82a3c54da6a8ad2d56fa3f943b53b4e329fc4e5894604",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/qa/reporting.py",
+      "executable_ast_sha256": "926364a19db0b50d72bede72ca78ddacb085f30179c598737d0e4da57d752855",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/qa/runner.py",
+      "executable_ast_sha256": "0c8a304cb952b11f87fd78259d124b8f422ef0bd26e6b4eff388d0625c2c7407",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/qa/schema.py",
+      "executable_ast_sha256": "7bc2253287650bf6ba19526c622b90d13efa4fed388fa6d3e71ae5c22d7163ca",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/qa/stages.py",
+      "executable_ast_sha256": "d48f20c4709e5d1141c188fe5d5aad9113b71917487c7a9b4cb5beaeb60b8978",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/qa/thresholds.py",
+      "executable_ast_sha256": "600efd0563246abc20906e4dcbe7a855f8883fd086a8225ccf345fa439e5d0ed",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/qa_metrics.py",
+      "executable_ast_sha256": "c3d080e295ccdc33596658d81fb93a6e3b28e05c292aa91877b96aacd839929f",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/qa_plots.py",
+      "executable_ast_sha256": "1c96788c0d6c094c4c7967f6fb869350ea3089ac002bee01d801d9689f88bcd6",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/sensor_panel_plots.py",
+      "executable_ast_sha256": "53563fef0b94813bbf443e8e15eb868d170b77a17cab56de036002310d3c4941",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/spectral_analytics_mixtures.py",
+      "executable_ast_sha256": "8217f833b81ff1e7055f140a947e416bb1db5c71db9ff06807cdcd83fb031897",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/spectral_learning.py",
+      "executable_ast_sha256": "39182b9ca3c8477283496bb4ddb643fc0288121c72afdeac969ca04a2427c28c",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/spectral_library_analytics.py",
+      "executable_ast_sha256": "3cb962e91c7b9f4c7afdf4c86060c71b370ac7dbd6585efb28f9a06a0e3dfc95",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/standard_resample.py",
+      "executable_ast_sha256": "3daa8a0f28c7408b496e136cfc14c2cb182ef9069e3b8421c1d82c5cc3727b76",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/utils/paths.py",
+      "executable_ast_sha256": "aabd087976f057c0a222181477ef353c3646b229ce3ad1a72bca1831cefcf6b9",
+      "executable_ast_unchanged": true
+    },
+    {
+      "path": "src/spectralbridge/utils/qa_summary.py",
+      "executable_ast_sha256": "27bb86ba526f90b5e9273bc374168821cf85f2a88096d7d9b8ca8ba17edcd055",
+      "executable_ast_unchanged": true
+    }
+  ]
+}

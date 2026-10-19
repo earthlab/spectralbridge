@@ -1,0 +1,83 @@
+# CONDITIONAL PROPOSAL ONLY: assumes all 12 paper authors are approved
+# as software citation authors in this order. Do not publish without consent.
+cff-version: 1.2.0
+message: If you use SpectralBridge in research, please cite the software release you
+  used.
+title: 'SpectralBridge: Translating reflectance across sensors and scales'
+type: software
+version: 2.3.0rc1
+abstract: SpectralBridge is a scientific Python package for translating reflectance
+  across sensors and scales with restart-safe, file-based workflows.
+repository-code: https://github.com/earthlab/spectralbridge
+url: https://earthlab.github.io/spectralbridge/
+license: GPL-3.0-or-later
+keywords:
+- NEON
+- hyperspectral
+- remote sensing
+- scientific infrastructure
+- cross-sensor calibration
+authors:
+- given-names: Ty
+  family-names: Tuff
+  affiliation: Earth Lab and the Environmental Data Science Innovation & Impact Lab
+    (ESIIL), Cooperative Institute for Research in Environmental Sciences (CIRES),
+    University of Colorado Boulder, Boulder, Colorado, USA
+  orcid: https://orcid.org/0000-0001-5249-5197
+- given-names: Aashish
+  family-names: Mukund
+  affiliation: Earth Lab and the Environmental Data Science Innovation & Impact Lab
+    (ESIIL), Cooperative Institute for Research in Environmental Sciences (CIRES),
+    University of Colorado Boulder, Boulder, Colorado, USA
+- given-names: Nayani T.
+  family-names: Ilangakoon
+  affiliation: Earth Lab, Cooperative Institute for Research in Environmental Sciences
+    (CIRES), University of Colorado Boulder, Boulder, Colorado, USA
+  orcid: https://orcid.org/0000-0002-6607-0605
+- given-names: Erick
+  family-names: Verleye
+  affiliation: Earth Lab, Cooperative Institute for Research in Environmental Sciences
+    (CIRES), University of Colorado Boulder, Boulder, Colorado, USA
+  orcid: https://orcid.org/0009-0009-8854-0127
+- given-names: Megan E.
+  family-names: Cattau
+  affiliation: Human-Environment Systems, School of the Environment, Boise State University,
+    Boise, Idaho, USA
+  orcid: https://orcid.org/0000-0003-2164-3809
+- given-names: Janushi
+  family-names: Shastri
+  affiliation: Earth Lab, Cooperative Institute for Research in Environmental Sciences
+    (CIRES), University of Colorado Boulder, Boulder, Colorado, USA; Department of
+    Computer Science, University of Colorado Boulder, Boulder, Colorado, USA
+- given-names: Pavan
+  family-names: Appanna
+  affiliation: Earth Lab, Cooperative Institute for Research in Environmental Sciences
+    (CIRES), University of Colorado Boulder, Boulder, Colorado, USA; Department of
+    Computer Science, University of Colorado Boulder, Boulder, Colorado, USA
+- given-names: Tyler L.
+  family-names: McIntosh
+  affiliation: Earth Lab, Cooperative Institute for Research in Environmental Sciences
+    (CIRES), University of Colorado Boulder, Boulder, Colorado, USA
+  orcid: https://orcid.org/0000-0002-6383-1755
+- given-names: Matthew E.
+  family-names: Bitters
+  affiliation: Earth Lab, Cooperative Institute for Research in Environmental Sciences
+    (CIRES), University of Colorado Boulder, Boulder, Colorado, USA
+- given-names: Carol A.
+  family-names: Wessman
+  affiliation: Department of Ecology and Evolutionary Biology, University of Colorado
+    Boulder, Boulder, Colorado, USA
+  orcid: https://orcid.org/0000-0002-7325-0153
+- given-names: Jennifer K.
+  family-names: Balch
+  affiliation: Earth Lab and the Environmental Data Science Innovation & Impact Lab
+    (ESIIL), Cooperative Institute for Research in Environmental Sciences (CIRES),
+    University of Colorado Boulder, Boulder, Colorado, USA; Department of Geography,
+    University of Colorado Boulder, Boulder, Colorado, USA
+  orcid: https://orcid.org/0000-0002-3983-7970
+- given-names: Cibele
+  family-names: Amaral
+  affiliation: Earth Lab and the Environmental Data Science Innovation & Impact Lab
+    (ESIIL), Cooperative Institute for Research in Environmental Sciences (CIRES),
+    University of Colorado Boulder, Boulder, Colorado, USA
+  orcid: https://orcid.org/0000-0001-7597-2427

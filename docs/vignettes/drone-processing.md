@@ -108,7 +108,7 @@ Set `landsat_qa=True` to request an overlapping Landsat Collection 2 Level 2
 scene from Microsoft Planetary Computer. Install this optional support with:
 
 ```bash
-python -m pip install "earthlab-spectralbridge[landsat]"
+python -m pip install -e ".[landsat]"  # from the source checkout
 ```
 
 Alternatively, use `landsat_product="landsat_stack.tif"` to supply an
@@ -233,3 +233,5 @@ review every QA JSON before treating a coefficient application as trustworthy.
 - [Extract polygon spectra](polygon-extraction.md)
 - [Detailed MicaSense tutorial](../tutorials/micasense-to-landsat.md)
 - [Package architecture](../dev/architecture.md)
+
+See the [API Reference for drone call signatures](../api/generated/pipelines-drone.md) for current signatures, defaults, inputs and outputs.

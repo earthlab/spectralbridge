@@ -64,7 +64,7 @@ publication gate. Start a local server for the Playwright check with
 
 ## Relationship to scientific reproducibility
 
-- The repository implements the workflow described in the RSE manuscript, so code changes can affect published analyses.
+- The repository implements the workflow described in the [prepared software paper](https://github.com/earthlab/spectralbridge/tree/main/paper); code changes can affect recorded research analyses. A prepared manuscript is not evidence of acceptance or publication.
 - Explicit artifacts (ENVI, Parquet, QA) plus drift and QA checks provide an audit trail; contributors are stewards of that record.
 - When altering calibration tables, QA logic, or stage ordering, consider how prior runs would be reproduced and update documentation accordingly.
 

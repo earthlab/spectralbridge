@@ -10,7 +10,7 @@
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -U pip
-pip install earthlab-spectralbridge
+pip install -e .
 ```
 
 `rioxarray` / `xarray` remain useful optional analysis companions for reading
@@ -22,5 +22,11 @@ dependencies.
 conda create -n spectralbridge python=3.11 -y
 conda activate spectralbridge
 pip install -U pip
-pip install earthlab-spectralbridge
+pip install -e .
 ```
+
+The source-install commands assume you have cloned
+[`earthlab/spectralbridge`](https://github.com/earthlab/spectralbridge) and changed
+into its directory. The distribution name is `earthlab-spectralbridge`, but no
+PyPI project was exposed at that name in the 19 October 2026 audit. See the
+[beginner path](getting-started.md) for setup and a tiny offline example.

@@ -29,6 +29,8 @@ QUANTILES = tuple(i / 100 for i in range(1, 100))
 
 @dataclass(frozen=True)
 class QuantileModelConfig:
+    """Configure historical boosted quantile spectral models, group eligibility and rendering budgets."""
+
     quantiles: tuple[float, ...] = QUANTILES
     boosting_rounds: int = 80
     learning_rate: float = 0.1

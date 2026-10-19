@@ -1,0 +1,120 @@
+{
+  "status": "STOP: source scaling unclear",
+  "instruction": "Attached request section 15: source scaling is unclear",
+  "git_SHA": "38f646a38150b4d991c4f6f094f70e91785a06d7",
+  "branch": "main",
+  "package_version": "2.3.0rc1",
+  "source_files": [
+    {
+      "path": "Aug_2026_all_polygons_merged_pixel_extraction.parquet",
+      "sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+      "rows": 85706,
+      "metadata_keys": [],
+      "non_pandas_metadata": {},
+      "scale_unit_columns": []
+    },
+    {
+      "path": "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/corr_polygon_year.parquet",
+      "sha256": "61370e567e8367eddc5ab71d49afc58bfa1bf5a0b8b7314d1ac80af9cc1c338f",
+      "rows": 4807,
+      "metadata_keys": [
+        "pandas"
+      ],
+      "non_pandas_metadata": {},
+      "scale_unit_columns": []
+    },
+    {
+      "path": "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/olioli_undarkened_polygon_year.parquet",
+      "sha256": "9f1ae26af77ef3ac234afdfb23f8d55cc1cc13600ba34a00b1bb7e799ebbbf21",
+      "rows": 4807,
+      "metadata_keys": [
+        "pandas"
+      ],
+      "non_pandas_metadata": {},
+      "scale_unit_columns": []
+    }
+  ],
+  "prior_units_statement": "stored spectral units; absolute reflectance scale unresolved",
+  "prior_foundation_units_status": "NOT TESTABLE: stored numerical units; absolute reflectance scale unresolved",
+  "prior_input_record_sha256": "2237ab983b086f10533c19b48e317aeee422c2657091646c81253228b11b79ec",
+  "prior_foundation_sha256": "9ca746057315c8bcf8bce6f357633e28c6fd56e9fce34e492fb3ae5fed0d616c",
+  "canonical_values": {
+    "plant_360_BA": 0.851938742169961,
+    "plant_OLI_BA": 0.6684490271861242,
+    "site_360_BA": 0.738050180266476,
+    "site_OLI_BA": 0.5769850820586733,
+    "shrub_site_recall": 0.46267731627380293,
+    "site20_Selected": 0.7012480682767906,
+    "site20_Random": 0.6499601726962478,
+    "plant_Ridge_RMSE": 0.2163847094554816,
+    "plant_MESMA_RMSE": 0.3592664224196771,
+    "plant_No-spectrum prior_RMSE": 0.3086127198318045,
+    "plant_Ridge15_RMSE": 0.36549949602862425,
+    "site_Ridge_RMSE": 0.2692767370397718,
+    "site_MESMA_RMSE": 0.3620289422547461,
+    "site_No-spectrum prior_RMSE": 0.3086127198318045,
+    "site_Ridge15_RMSE": 0.38676304302603065,
+    "year_Ridge_RMSE": 0.3109216111744168,
+    "year_MESMA_RMSE": 0.3875663378098544,
+    "year_No-spectrum prior_RMSE": 0.3086127198318045,
+    "year_Ridge15_RMSE": 0.4047259848969934,
+    "pairs": 10,
+    "contrasts": 40,
+    "largest_adjusted_p": 0.004,
+    "oracle_max_fraction_RMSE": 3.895302920806837e-13
+  },
+  "integration_sources_verified": 7,
+  "exhaustive_evidence": {
+    "model_count": 16918447,
+    "targets": 360,
+    "target_model_evaluations": 6090640920,
+    "metrics": [
+      {
+        "method": "Exhaustive selected",
+        "fraction_RMSE": 0.3336367986757348,
+        "fraction_MAE": 0.23392287483664512,
+        "mean_target_fraction_RMSE": 0.31124433864631273
+      },
+      {
+        "method": "Screened selected (3/category)",
+        "fraction_RMSE": 0.3215405145067264,
+        "fraction_MAE": 0.22256544198670206,
+        "mean_target_fraction_RMSE": 0.29311182510334516
+      },
+      {
+        "method": "Screened selected (5/category)",
+        "fraction_RMSE": 0.316474641223827,
+        "fraction_MAE": 0.21890390138520058,
+        "mean_target_fraction_RMSE": 0.2882366489413421
+      },
+      {
+        "method": "Screened matched random (one draw)",
+        "fraction_RMSE": 0.3130285859978941,
+        "fraction_MAE": 0.2141105826414989,
+        "mean_target_fraction_RMSE": 0.28349695452277723
+      },
+      {
+        "method": "Dense design prior",
+        "fraction_RMSE": 0.3035591345160744,
+        "fraction_MAE": 0.2488888888888889,
+        "mean_target_fraction_RMSE": 0.29167132554004965
+      },
+      {
+        "method": "Sparse design prior",
+        "fraction_RMSE": 0.34469524919095534,
+        "fraction_MAE": 0.256,
+        "mean_target_fraction_RMSE": 0.32814459091175296
+      },
+      {
+        "method": "Known-parent oracle",
+        "fraction_RMSE": 3.572240529139202e-14,
+        "fraction_MAE": 3.790871937346828e-15,
+        "mean_target_fraction_RMSE": 5.8443206580393156e-15
+      }
+    ]
+  },
+  "new_empirical_models_fitted": 0,
+  "historical_artifacts_regenerated": 0,
+  "source_scale_inferred": false,
+  "production_changes": 0
+}

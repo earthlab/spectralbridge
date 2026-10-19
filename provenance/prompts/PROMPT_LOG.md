@@ -38029,3 +38029,2400 @@ how do I do and exhaustive mesma test?
 ```text
 do it
 ```
+
+## 2026-10-19 - stable-stage audit and information experiment gate
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+You are working in the current main branch of:
+
+https://github.com/earthlab/spectralbridge
+
+Your task is to move SpectralBridge from its current integrated scientific-analysis state to the next stable stage.
+
+This is NOT a request for another broad refactor and NOT a request to invent more machine-learning models.
+
+The repository has already undergone extensive scientific validation, documentation integration, formal verification, MESMA testing, ridge testing, endmember-selection testing, and an exhaustive MESMA experiment.
+
+The goal now is:
+
+1. determine exactly what remains unfinished
+2. promote the genuinely reusable pieces of the latest endmember/MESMA work into the package
+3. integrate the resulting scientific interpretation into the website
+4. build the next experiment around spectral information and abundance identifiability
+5. leave the repository in a tested, reproducible, publication-ready state
+
+Do not silently alter or regenerate sealed historical provenance artifacts.
+
+============================================================
+0. FIRST: AUDIT CURRENT MAIN
+============================================================
+
+Before changing anything, inspect the current repository.
+
+At minimum read:
+
+- README.md
+- pyproject.toml
+- mkdocs.yml
+- src/spectralbridge/library_analysis.py
+- src/spectralbridge/mixtures.py
+- relevant spectral-learning and researcher-information modules
+- docs/spectral-library/*
+- docs/api/scientific-analysis.md
+- formal/README.md
+- formal/PROOF_STATUS.md
+- formal/IMPLEMENTATION_AUDIT.md
+- formal/TRANSLATION_INVARIANCE.md
+
+And all current researcher-category / endmember provenance, especially:
+
+- provenance/researcher-evidence/2026-10-16/v1/
+- provenance/researcher-pft-information/2026-10-15/v1/
+- provenance/endmember-quality/2026-10-19/
+- the exhaustive-v1 packet
+- current integration validation files
+- current tests related to library_analysis, mixtures, scientific docs and provenance
+
+Also inspect the most recent commits.
+
+Write a short implementation plan before editing.
+
+Classify proposed work as:
+
+A. already implemented, do not duplicate
+B. reusable package functionality worth promoting
+C. analysis-only functionality that should remain provenance
+D. documentation/scientific interpretation work
+E. future work requiring new observations
+
+Do not rebuild functionality that already exists.
+
+============================================================
+1. SCIENTIFIC GROUND RULES
+============================================================
+
+The current primary categories are ONLY the researcher cover_category labels:
+
+- Deciduous
+- Evergreen
+- Herbaceous
+- Non-vegetated & dead
+- Woody shrub
+
+Do not restore species-derived historical PFTs as primary categories.
+
+Keep these evidence levels separate:
+
+SEPARABILITY
+Do distributions differ?
+
+IDENTIFIABILITY
+Can an unseen observation be assigned to the correct category?
+
+ABUNDANCE
+Can known algebraic fractions be recovered?
+
+UNIQUENESS / AMBIGUITY
+Could substantially different compositions explain nearly the same spectrum?
+
+FIELD ABUNDANCE
+Do predictions recover independently measured biological fractional cover?
+
+Field abundance is NOT established.
+
+Do not collapse these levels.
+
+Also preserve the distinction among:
+
+- mathematically proved
+- numerically verified
+- empirically validated
+- conditionally supported
+- not established
+
+Never imply that a Lean theorem validates biological assumptions.
+
+============================================================
+2. PRESERVE THE CURRENT KEY RESULTS
+============================================================
+
+Do not change the scientific interpretation simply because a new analysis is added.
+
+The current evidence includes:
+
+Separability:
+- all 10 researcher-category pairs differ in the four acquisition-matched cohorts
+
+Recognition:
+- full NEON balanced accuracy approximately:
+  - 85.2% unseen polygons
+  - 73.8% held sites
+
+Synthetic OLI recognition:
+- approximately:
+  - 66.8% unseen polygons
+  - 57.7% held sites
+
+Synthetic abundance:
+- Ridge120 approximately:
+  - 0.216 RMSE new-parent
+  - 0.269 held-site
+
+But:
+- matched Ridge15 loses the original advantage over MESMA15
+- global-year ridge does not beat the no-spectrum prior on average
+- therefore DO NOT claim intrinsic ridge superiority
+
+Known-parent FCLS is effectively exact and establishes that the numerical constrained solver itself is not the main limitation.
+
+The newest exhaustive MESMA experiment is particularly important:
+
+- 603-member supplied library
+- 16,918,447 candidate combinations per target
+- 360 synthetic targets
+- 6,090,640,920 target-model evaluations
+
+Exhaustive search substantially improves spectral reconstruction but does NOT improve fraction recovery.
+
+Current reported values include approximately:
+
+screened MESMA fraction RMSE:
+0.3215
+
+exhaustive MESMA fraction RMSE:
+0.3336
+
+spectral reconstruction RMSE:
+0.003721 -> 0.000792
+
+Fraction error:
+- improved for 156 targets
+- worsened for 203
+- effectively unchanged for 1
+
+Interpretation:
+
+SEARCH FAILURE IS NO LONGER A SATISFYING EXPLANATION.
+
+The algorithm can find spectra that match extremely well while choosing the wrong composition.
+
+That is scientific evidence about identifiability.
+
+Do not turn this into “MESMA failed.”
+
+The stronger interpretation is:
+
+spectral reconstruction quality and compositional correctness are different objectives.
+
+============================================================
+3. PROMOTE ENDMEMBER-LIBRARY DIAGNOSTICS
+============================================================
+
+Inspect the latest endmember-quality analyses and determine which pieces are sufficiently generic to become public SpectralBridge functionality.
+
+We want a reusable API for evaluating a reference/endmember library.
+
+Prefer one coherent public interface such as:
+
+evaluate_reference_library(...)
+
+or
+
+evaluate_endmember_library(...)
+
+rather than many tiny functions unless separation is architecturally justified.
+
+It should support, where appropriate:
+
+- within-category spectral coverage
+- nearest-reference distance
+- between-category discrimination
+- matched random-library controls
+- class-balanced controls
+- category-specific coverage
+- category confusion
+- nearest wrong-category alternatives
+- cross-category reconstruction
+- fraction/composition ambiguity among near-fitting references
+- retained library size
+- identity tracking
+- domain/site/year metadata when supplied
+
+Results must clearly distinguish:
+
+COVERAGE
+How well does the library represent within-category variation?
+
+DISCRIMINATION
+How well does it separate categories?
+
+RECONSTRUCTION
+How well can candidate spectra reproduce observations?
+
+IDENTIFIABILITY
+Do good reconstructions imply the correct category/composition?
+
+They are not interchangeable.
+
+Selection must never use held-out targets.
+
+Add strong validation for:
+
+- duplicate identities
+- class ordering
+- nonfinite data
+- incompatible wavelength support
+- leakage
+- insufficient class support
+- deterministic seeds
+- library-size constraints
+
+Return structured results suitable for both analysis and plotting.
+
+Do NOT package researcher-category constants or this study's exact splits into the generic API.
+
+============================================================
+4. PROMOTE EXHAUSTIVE MESMA AS A SAFE BACKEND
+============================================================
+
+The exhaustive 603-member experiment required a streaming/checkpointed runner because eager enumeration is not appropriate for billions of evaluations.
+
+Inspect that implementation.
+
+Extract only the generic machinery needed for a reusable large-library MESMA search.
+
+Do NOT simply increase maximum_models in the existing eager implementation.
+
+Design an explicit large-search interface.
+
+Possible conceptual API:
+
+fit_mesma(
+    ...,
+    search="screened"
+)
+
+and/or a separate:
+
+fit_mesma_streaming(...)
+
+Choose the cleanest design after inspecting the code.
+
+Requirements:
+
+- explicit search mode
+- model-count estimation before execution
+- batching
+- bounded memory
+- deterministic ordering
+- checkpoint/restart support where appropriate
+- restart compatibility checks
+- candidate category constraints
+- maximum component count
+- numerical rank/interior rules
+- tie/improvement tolerances
+- compact winner storage
+- optional retention of category-set winners
+- explicit metadata describing the searched model space
+- hard resource guards
+- useful progress reporting
+
+Never accidentally launch a multi-billion-model search from a normal unit test or documentation example.
+
+Small synthetic tests should prove that streaming and eager search produce identical winners when the complete candidate space is tractable.
+
+The public API must explain:
+
+exhaustive candidate search means exhaustive over the DECLARED FINITE LIBRARY AND MODEL FAMILY.
+
+It does NOT mean exhaustive physical uncertainty.
+
+============================================================
+5. BUILD THE NEXT SCIENTIFIC EXPERIMENT:
+ABUNDANCE IDENTIFIABILITY VS SPECTRAL INFORMATION
+============================================================
+
+This is the main new scientific analysis.
+
+We no longer need another contest among arbitrary regressors.
+
+The question is:
+
+HOW MUCH SPECTRAL INFORMATION IS REQUIRED BEFORE THE FIVE RESEARCHER CATEGORIES BECOME SUFFICIENTLY IDENTIFIABLE FOR ABUNDANCE ESTIMATION?
+
+Build a reproducible experiment that begins with the full corrected NEON hyperspectral representation and progressively removes spectral information.
+
+Conceptual progression:
+
+FULL NEON HYPERSPECTRAL
+        ↓
+selected wavelength subsets
+        ↓
+broader / reduced spectral representations
+        ↓
+synthetic multispectral representations
+        ↓
+synthetic Landsat OLI
+
+The exact representations should be based on existing SpectralBridge functionality and actual available sensor-response definitions.
+
+Do not invent arbitrary sensor physics.
+
+============================================================
+6. FEATURE-BUDGET EXPERIMENT
+============================================================
+
+At minimum evaluate spectral feature budgets such as:
+
+1
+2
+3
+5
+7
+10
+15
+20
+30
+50
+75
+100
+full hyperspectral
+
+Modify only if actual support makes another grid more sensible.
+
+For every budget compare:
+
+A. training-only selected wavelengths
+
+B. matched random wavelength subsets
+
+Use multiple deterministic random paths.
+
+Selection must happen strictly inside training data.
+
+Never select wavelengths using held-out target performance.
+
+Where computationally reasonable, also compare PCA representations with matched dimensionality, clearly labeled as statistical dimensions rather than physical bands.
+
+============================================================
+7. HOLD THE BIOLOGICAL EXPERIMENT CONSTANT
+============================================================
+
+The point is to vary spectral information, not everything at once.
+
+Use the existing parent-disjoint abundance design wherever possible.
+
+Keep constant:
+
+- researcher categories
+- target mixtures
+- parent identities
+- training/tuning/test roles
+- fraction grids
+- target domains
+- abundance estimators
+- projection rules
+- evaluation metrics
+- uncertainty units
+
+Do not regenerate different synthetic mixtures for each feature budget.
+
+The same target recipes should be evaluated across spectral representations.
+
+============================================================
+8. MEASURE FOUR DIFFERENT THINGS AT EACH INFORMATION LEVEL
+============================================================
+
+For every spectral representation / feature budget measure:
+
+1. CATEGORY RECOGNITION
+
+Examples:
+- balanced accuracy
+- class recall
+- confusion
+- held-domain penalty
+
+2. FRACTION RECOVERY
+
+Examples:
+- pooled fraction RMSE
+- per-category RMSE
+- bias
+- calibration
+- false detection of absent categories
+- low-fraction miss rate
+
+3. RECONSTRUCTION
+
+Examples:
+- spectral reconstruction RMSE
+- candidate residual
+
+4. COMPOSITIONAL AMBIGUITY
+
+Examples:
+- number of near-fitting candidate compositions
+- fraction range among near fits
+- maximum category-fraction range
+- wrong-category alternatives
+- exact/near-exact cross-category reconstruction where appropriate
+
+The key scientific question is whether these curves separate.
+
+For example:
+
+reconstruction error may continue falling
+while
+fraction error plateaus
+and
+ambiguity remains high.
+
+That would be a scientifically meaningful result.
+
+============================================================
+9. ESTIMATE AN EMPIRICAL IDENTIFIABILITY CURVE
+============================================================
+
+Produce a result showing abundance information as a function of retained spectral information.
+
+Do NOT force a single “minimum number of bands” threshold unless the evidence genuinely supports one.
+
+Instead look for:
+
+- diminishing returns
+- transition regions
+- plateaus
+- class-specific thresholds
+- wavelength regions repeatedly selected
+- domains where additional wavelengths stop helping
+- domains where ambiguity collapses
+- domains where recognition improves but abundance does not
+
+If useful, define descriptive quantities such as:
+
+information budget
+vs
+recognition accuracy
+fraction RMSE
+ambiguity
+reconstruction RMSE
+
+Do not call this an information-theoretic measure unless it actually is one.
+
+============================================================
+10. CONNECT THE RESULT TO THE FORMAL THEORY
+============================================================
+
+Use the existing Lean results conceptually.
+
+The formal layer already establishes the important possibility:
+
+a linear/affine transformation can preserve mixture algebra while destroying identifiability.
+
+The empirical experiment should test where that information loss becomes consequential in these observed spectra.
+
+Do NOT modify formal proofs merely to fit empirical results.
+
+Instead make the relationship explicit:
+
+FORMAL RESULT:
+spectral reduction can destroy injectivity / identifiability.
+
+EMPIRICAL QUESTION:
+how rapidly does abundance information degrade for this spectral library as spectral dimensionality and resolution are reduced?
+
+That connection is scientifically important.
+
+============================================================
+11. FIGURES
+============================================================
+
+Create a compact set of publication-quality figures.
+
+Prefer approximately 3-5 major figures rather than dozens.
+
+At minimum consider:
+
+FIGURE A
+Recognition balanced accuracy vs spectral information budget.
+
+Selected wavelengths vs matched random controls.
+
+Include new-parent / held-domain where appropriate.
+
+FIGURE B
+Fraction RMSE vs spectral information budget.
+
+Show relevant abundance methods, but avoid turning this into another algorithm race.
+
+Include the no-spectrum prior.
+
+FIGURE C
+Ambiguity vs spectral information budget.
+
+Show whether compositional nonuniqueness falls as spectral information increases.
+
+FIGURE D
+Reconstruction RMSE vs fraction RMSE.
+
+Show directly that spectral fit and compositional correctness can decouple.
+
+FIGURE E
+Spectral locations repeatedly selected at useful budgets.
+
+Overlay on the observed spectral domain with VIS / red edge / NIR / SWIR regions.
+
+Use restrained publication-quality styling.
+
+Cornflower blue (#6495ED) may be the primary analytical-result color.
+
+Use category colors only when category identity is actually encoded.
+
+Do not use the same color to mean two unrelated things.
+
+Every figure caption must explain:
+
+- what you see
+- what to notice
+- what it means
+- what it does not mean
+
+============================================================
+12. DOCUMENTATION INTEGRATION
+============================================================
+
+Update the scientific website only after the results are validated.
+
+The public narrative should become approximately:
+
+SPECTRAL DIFFERENCE
+        ↓
+CATEGORY IDENTITY
+        ↓
+REFERENCE-LIBRARY QUALITY
+        ↓
+ABUNDANCE
+        ↓
+COMPOSITIONAL AMBIGUITY
+        ↓
+INFORMATION LOSS
+        ↓
+FIELD VALIDATION
+
+Do not overload the homepage.
+
+The scientific synthesis page should contain the strongest result and links outward.
+
+Add or revise a page explaining:
+
+“How much spectral information is enough?”
+
+or another clear scientist-facing title.
+
+The page should explain why hyperspectral information can preserve distinctions that disappear after sensor reduction.
+
+Keep the synthetic OLI distinction explicit:
+
+synthetic OLI is derived from the same source spectra and is NOT independent Landsat validation.
+
+============================================================
+13. PROVENANCE
+============================================================
+
+Create a new versioned provenance packet for this experiment.
+
+Do not overwrite existing packets.
+
+It should contain at least:
+
+README.md
+DESIGN.md
+analysis configuration
+identity memberships
+feature selections
+random-control selections
+metrics
+class-specific results
+uncertainty summaries
+figure data
+figures
+machine-readable manifest
+hashes
+claim registry
+validation report
+
+Record:
+
+- git SHA
+- package version
+- random seeds
+- source artifact hashes
+- wavelength support
+- masks
+- category order
+- target identities
+- parent roles
+- model settings
+- feature budgets
+- sensor-response definitions
+
+The experiment must be reproducible without relying on undocumented notebook state.
+
+============================================================
+14. TESTING
+============================================================
+
+Add tests for all promoted functionality.
+
+At minimum:
+
+- no identity leakage
+- training-only feature selection
+- deterministic random controls
+- class ordering
+- wavelength ordering
+- mixture identity consistency across representations
+- streaming vs eager MESMA equivalence on small cases
+- restart/checkpoint correctness
+- model-count calculations
+- ambiguity monotonicity with tolerance
+- simplex validity
+- finite outputs
+- documentation examples execute
+- provenance manifests validate
+- current canonical scientific numbers remain unchanged unless this experiment explicitly supersedes them
+
+Run:
+
+- relevant pytest suite
+- full test suite if feasible
+- Ruff
+- strict MkDocs build
+- internal link checks
+- package build
+- existing scientific integration validation
+- formal checks if touched
+- website rendering/screenshot checks for changed pages
+
+============================================================
+15. STOP-THE-LINE RULES
+============================================================
+
+Stop and document rather than silently fixing around any of these:
+
+- historical artifact hashes change unexpectedly
+- existing canonical results cannot be reproduced
+- identity leakage is discovered
+- target mixtures differ between spectral budgets
+- wavelength mappings are ambiguous
+- sensor response metadata are missing
+- source scaling is unclear
+- package behavior differs from the documented mathematical model in a scientifically meaningful way
+- exhaustive search produces different answers after restart
+- current provenance cannot establish which source data generated a result
+
+Do not hide failed controls.
+
+A failed control is a scientific result.
+
+============================================================
+16. WHAT NOT TO DO
+============================================================
+
+Do not:
+
+- add arbitrary ML algorithms
+- tune models on test targets
+- select wavelengths using held-out results
+- call synthetic OLI independent Landsat validation
+- call researcher categories pure materials
+- call synthetic fractions field cover
+- claim ridge intrinsically beats MESMA
+- claim exhaustive finite-library MESMA establishes physical uniqueness
+- claim good reconstruction establishes correct fractions
+- claim a valid simplex prediction establishes biology
+- rewrite historical provenance
+- silently regenerate sealed reports
+- replace the five researcher categories with old species-derived PFTs
+- make a final release simply because tests pass
+
+============================================================
+17. DECISION POINT AT THE END
+============================================================
+
+At completion, answer these scientific questions explicitly:
+
+1. Does increasing spectral information improve category recognition?
+
+2. Does it improve abundance recovery?
+
+3. Does it reduce compositional ambiguity?
+
+4. At what spectral-information range do improvements begin to plateau?
+
+5. Are some categories fundamentally harder than others?
+
+6. Which wavelength regions repeatedly contribute useful information?
+
+7. Does hyperspectral information materially outperform seven-band OLI for abundance, or does ambiguity remain even at high spectral resolution?
+
+8. Does better spectral reconstruction track better fraction recovery?
+
+9. Is the dominant limitation now:
+   - spectral information,
+   - reference-library coverage,
+   - biological class overlap,
+   - domain shift,
+   - model assumptions,
+   - or some combination?
+
+10. What evidence would be required next to move from synthetic abundance to field abundance?
+
+If the existing data cannot answer one of these, say so.
+
+============================================================
+18. FINAL DELIVERABLE
+============================================================
+
+Finish with a concise report containing:
+
+A. CURRENT REPOSITORY STATUS
+What was already complete before this task.
+
+B. PACKAGE CHANGES
+What reusable functionality was promoted.
+
+C. SCIENTIFIC EXPERIMENT
+Exact design and leakage protections.
+
+D. RESULTS
+Recognition, abundance, reconstruction and ambiguity as spectral information changes.
+
+E. SCIENTIFIC INTERPRETATION
+What the results establish and what they do not.
+
+F. WEBSITE/DOCUMENTATION CHANGES
+Pages and figures added or revised.
+
+G. VALIDATION
+Tests, builds, hashes and controls.
+
+H. REMAINING LIMITATIONS
+Especially field abundance.
+
+I. RECOMMENDATION
+Whether additional analysis of the existing data is scientifically justified.
+
+The likely stopping criterion is important:
+
+If full hyperspectral information still leaves substantial compositional ambiguity, and the relevant algorithms/controls have passed, state clearly that additional algorithm searches on the same observations are unlikely to establish field abundance.
+
+At that point the next scientific requirement is new independent information, especially contemporaneous fractional-cover measurements at matched spatial support.
+
+Do not manufacture another analysis merely to keep the project moving.
+
+The goal is to discover where the information limit actually is.
+```
+
+## 2026-10-19 - final publication editorial audit
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+You are performing a FINAL PUBLICATION EDITORIAL AUDIT of:
+
+https://github.com/earthlab/spectralbridge
+
+This is a detailed editing, organization, metadata, citation, authorship,
+documentation, JOSS-readiness, and PyPI-readiness pass.
+
+This is NOT a scientific-analysis task.
+This is NOT a package refactor.
+This is NOT an opportunity to add new features.
+This is NOT an opportunity to regenerate historical analyses.
+This is NOT an opportunity to rewrite the scientific conclusions.
+
+Act like a combination of:
+
+1. a meticulous JOSS reviewer
+2. a scientific software editor
+3. a Python packaging/release reviewer
+4. a documentation information architect
+5. a bibliography/citation editor
+6. a new user trying to understand the repository
+
+The central question is:
+
+IF WE PUBLISHED SPECTRALBRIDGE TODAY, WOULD A NEW USER, JOSS REVIEWER,
+SCIENTIST, CONTRIBUTOR, OR PACKAGE INDEX READER BE ABLE TO FIND,
+UNDERSTAND, INSTALL, CITE, VERIFY, AND CONTRIBUTE TO THE SOFTWARE
+WITHOUT KNOWING THE HISTORY OF THIS REPOSITORY?
+
+Do a complete pass.
+
+Do not merely produce recommendations.
+Fix clear editorial/documentation/metadata problems when the correct answer
+can be established from repository evidence.
+
+For decisions requiring human judgment, especially AUTHORSHIP, CONSENT,
+FUNDING, COI, LEGAL STATUS, or unknown ORCIDs, DO NOT GUESS.
+
+Instead clearly flag them.
+
+============================================================
+0. USE CURRENT EXTERNAL REQUIREMENTS
+============================================================
+
+Before editing, verify the CURRENT official requirements for:
+
+- Journal of Open Source Software submission
+- JOSS paper format
+- JOSS reviewer checklist
+- JOSS AI usage disclosure
+- JOSS authorship requirements
+- Python Packaging User Guide
+- PyPI project metadata
+- PEP 621 / pyproject.toml
+- CITATION.cff 1.2
+- GitHub citation behavior
+- Zenodo software archiving
+- SPDX licensing metadata
+
+Use primary/official sources whenever possible.
+
+Record the URLs and review date in the final audit.
+
+Do not rely on repository checklists as evidence that current external
+requirements have not changed.
+
+============================================================
+1. INVENTORY THE REPOSITORY
+============================================================
+
+Inspect the entire publication-facing repository.
+
+At minimum inspect:
+
+ROOT
+
+README.md
+CITATION.cff
+LICENSE
+NOTICE
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+CHANGELOG.md
+publication_checklist.md
+pyproject.toml
+MANIFEST.in
+requirements-dev.txt
+environment.yaml
+mkdocs.yml
+src/spectralbridge/__init__.py
+GitHub workflows
+issue templates
+PR templates
+release configuration
+
+PAPER
+
+paper/
+paper/README.md
+paper/paper.md
+paper/paper.bib
+paper/supplement.md
+paper/supplement.bib
+paper/SUBMISSION_CHECKLIST.md
+paper/figures/
+paper/generated/
+paper/archive/
+
+DOCS
+
+Every configured MkDocs page
+Every important docs directory
+Every README/index page
+Every page not included in MkDocs navigation
+
+Especially:
+
+docs/index.md
+docs/getting-started.md
+docs/vignettes/
+docs/concepts/
+docs/spectral-library/
+docs/validation/
+docs/reference/
+docs/api/
+docs/dev/
+docs/pipeline/
+
+PROVENANCE
+
+Do not editorially rewrite historical provenance.
+
+But inspect the top-level organization and determine whether a new reader can
+understand what provenance contains and which records are current.
+
+Inspect:
+
+provenance/
+archive/
+examples/
+tests/
+
+Ask whether each major directory needs a README or index.
+
+============================================================
+2. CREATE A PUBLICATION SURFACE MAP
+============================================================
+
+Before editing, make a map of all reader-facing surfaces.
+
+Classify each as:
+
+USER ENTRY POINT
+SCIENTIFIC DOCUMENTATION
+API REFERENCE
+VALIDATION/EVIDENCE
+DEVELOPER DOCUMENTATION
+PUBLICATION MATERIAL
+HISTORICAL/PROVENANCE
+INTERNAL/MAINTAINER MATERIAL
+
+Identify duplicated responsibilities.
+
+For example:
+
+README should answer:
+- what is this?
+- who is it for?
+- install
+- minimal example
+- major workflows
+- documentation
+- citation
+- contribution/license
+
+README should NOT become a second scientific manuscript or a giant
+chronological project report.
+
+Website should provide the detailed user/scientific documentation.
+
+paper/ should contain publication sources.
+
+provenance/ should preserve evidence.
+
+archive/ should preserve historical records.
+
+Make these boundaries obvious.
+
+============================================================
+3. WEBSITE INFORMATION ARCHITECTURE
+============================================================
+
+Audit the MkDocs navigation as if you have never seen SpectralBridge.
+
+Check:
+
+- section names
+- page names
+- ordering
+- duplicate concepts
+- pages that belong elsewhere
+- pages that are too deeply nested
+- pages that are orphaned
+- pages absent from navigation
+- pages with ambiguous titles
+- pages whose title and navigation label disagree
+- stale links
+- circular navigation
+- pages that assume historical project knowledge
+
+A new reader should understand the hierarchy:
+
+HOME
+
+UNDERSTAND
+What problem does SpectralBridge solve?
+
+USE
+How do I install and run it?
+
+SPECTRAL LIBRARY / SCIENCE
+What scientific analyses can I perform and what have we learned?
+
+VALIDATE
+What evidence supports each part of the workflow?
+
+REFERENCE
+What exactly does the software/API/configuration do?
+
+DEVELOP
+How do I contribute, test, release, cite, and maintain it?
+
+Do not radically redesign a structure that already works.
+
+Prefer editorial cleanup, consolidation, clearer names, introductions,
+cross-links, and landing pages.
+
+============================================================
+4. LANDING PAGE PASS
+============================================================
+
+Review docs/index.md as the public homepage.
+
+A visitor should understand within approximately 30 seconds:
+
+- what SpectralBridge is
+- why it exists
+- which sensors/workflows it supports
+- what makes it different
+- what it does NOT claim
+- how to install it
+- where to start
+- where the scientific results live
+- where the API lives
+- how to cite it
+
+Avoid overwhelming a first-time visitor with internal validation terminology.
+
+Keep technical rigor but use progressive disclosure.
+
+============================================================
+5. README PASS
+============================================================
+
+Perform a detailed edit of README.md.
+
+Check:
+
+- first paragraph
+- package identity
+- distribution name vs import name
+- installation
+- minimal verification
+- workflows
+- documentation
+- citation
+- license
+- contribution
+- publication status
+
+Remove or relocate material that is too detailed for a repository README.
+
+In particular review whether the long current researcher-category analysis and
+reusable-method descriptions belong primarily in the website rather than root
+README.
+
+The README should remain useful on:
+
+- GitHub
+- PyPI
+- source distributions
+
+because PyPI will render it.
+
+Make all links appropriate when rendered on PyPI.
+
+============================================================
+6. DIRECTORY README / FINDABILITY AUDIT
+============================================================
+
+For every important top-level or conceptually difficult directory ask:
+
+IF I LANDED HERE DIRECTLY FROM GITHUB, WOULD I KNOW WHAT THIS DIRECTORY IS?
+
+Check especially:
+
+paper/
+provenance/
+archive/
+examples/
+tests/
+docs/
+scripts/
+formal/
+
+Add concise README files where genuinely useful.
+
+Do not add README files mechanically to every directory.
+
+Important READMEs should explain:
+
+- purpose
+- what is current
+- what is historical
+- where to start
+- what may be edited
+- what must not be edited
+- how to reproduce important outputs
+
+The provenance directory particularly needs an obvious map if one does not
+already exist.
+
+============================================================
+7. CITATION.CFF — STOP-THE-LINE AUDIT
+============================================================
+
+CITATION.cff is currently a critical publication issue.
+
+It contains placeholder team authorship and TODO text.
+
+DO NOT GUESS THE CORRECT AUTHORS.
+
+Instead reconcile all available evidence from:
+
+- paper/paper.md
+- Git commit/contributor history
+- repository documentation
+- acknowledgement material
+- author-provided metadata
+- ORCIDs already recorded
+- affiliations
+- prior manuscript versions
+- Zenodo metadata if applicable
+
+Create a table:
+
+PERSON
+PAPER AUTHOR?
+SOFTWARE CONTRIBUTOR EVIDENCE
+CITATION.CFF?
+ORCID
+AFFILIATION
+CONSISTENT?
+HUMAN CONFIRMATION NEEDED?
+
+The current JOSS paper contains 12 authors.
+
+Determine whether:
+
+A. all 12 should be software citation authors
+B. only a subset should be software authors
+C. additional software contributors need credit
+D. contributors should be acknowledged but not authors
+
+DO NOT decide authorship solely from commit count.
+
+JOSS authorship can include qualifying non-code contributions.
+
+Where evidence cannot establish authorship, flag it for human decision.
+
+Once a human-confirmable canonical list is apparent, prepare the exact
+CITATION.cff changes but do not invent missing information.
+
+Check:
+
+- CFF syntax
+- title
+- version
+- authors
+- ORCIDs
+- affiliations
+- repository
+- documentation URL
+- license
+- keywords
+- preferred citation
+- release date if appropriate
+- DOI only if verified
+
+There must be NO TODO markers in a publication-ready CITATION.cff.
+
+============================================================
+8. AUTHOR CONSISTENCY AUDIT
+============================================================
+
+Create one canonical authorship comparison across:
+
+- paper/paper.md
+- CITATION.cff
+- pyproject.toml
+- Zenodo metadata/configuration
+- README citation guidance
+- docs citation page
+- acknowledgements
+- NOTICE where relevant
+
+Check spelling exactly.
+
+Check middle initials.
+
+Check name order.
+
+Check ORCIDs.
+
+Check affiliations.
+
+Check corresponding author metadata.
+
+Check institutional naming consistency.
+
+Check whether Earth Lab, ESIIL, CIRES, CU Boulder, Boise State, etc. are
+represented consistently and correctly.
+
+Do not “correct” an affiliation from general knowledge.
+
+Only use authoritative repository/author information.
+
+Flag uncertainty.
+
+============================================================
+9. PYPROJECT / PYPI METADATA AUDIT
+============================================================
+
+Review pyproject.toml as PyPI metadata.
+
+Check:
+
+- project name
+- version
+- description
+- README
+- Python requirement
+- authors/maintainers
+- license
+- keywords
+- classifiers
+- dependencies
+- optional dependencies
+- URLs
+- package data
+- scripts
+
+The current pyproject author metadata appears to contain only:
+
+Earth Lab
+
+Determine whether that is deliberate organizational authorship or stale
+placeholder metadata.
+
+Reconcile it with the canonical authorship decision.
+
+Check whether maintainers should be explicitly specified separately from authors.
+
+Check project URLs for useful entries such as:
+
+Homepage
+Documentation
+Repository
+Issues
+Changelog
+Citation
+
+Do not add URLs merely for completeness if they do not exist.
+
+Build the package and inspect the actual wheel/sdist metadata.
+
+The PyPI page should communicate the same project identity as GitHub/docs.
+
+============================================================
+10. VERSION CONSISTENCY
+============================================================
+
+Check version identity across:
+
+pyproject.toml
+src/spectralbridge/__init__.py
+CITATION.cff
+CHANGELOG.md
+release docs
+Git tags
+GitHub releases
+PyPI
+Zenodo
+paper wording
+
+Do not confuse:
+
+repository HEAD
+release candidate
+published release
+JOSS review version
+historical v1.0.0
+historical pre-rename archive
+
+Produce one explicit version-status table.
+
+Fix stale prose where the intended status is unambiguous.
+
+============================================================
+11. JOSS PAPER — DETAILED EDIT PASS
+============================================================
+
+Review paper/paper.md sentence by sentence.
+
+Do NOT rewrite it into a different paper.
+
+Preserve the existing human narrative and technical restraint.
+
+Check against current JOSS requirements.
+
+Verify presence and quality of:
+
+- metadata
+- Summary
+- Statement of need
+- State of the field
+- Software design
+- Research impact statement
+- AI usage disclosure
+- Acknowledgements
+- References
+
+Check word count against current JOSS guidance.
+
+Check whether the Summary is understandable to a non-specialist.
+
+Check that the Statement of Need clearly establishes the software need.
+
+Check that State of the Field compares against relevant existing software
+fairly and specifically.
+
+Check that Software Design describes the software rather than becoming an
+implementation dump.
+
+Check that Research Impact provides actual demonstrated research use rather
+than aspirations.
+
+Check that the paper remains a SOFTWARE PAPER.
+
+Do not let the newer spectral-library scientific results turn the JOSS paper
+into a new-results manuscript.
+
+============================================================
+12. JOSS AUTHORSHIP AND AFFILIATIONS
+============================================================
+
+Audit every author in paper/paper.md.
+
+For each:
+
+- exact name
+- ORCID if present
+- affiliation indices
+- affiliation wording
+- consistency with known repository metadata
+- apparent contribution evidence where available
+
+Do not remove or add authors automatically.
+
+Create HUMAN REVIEW REQUIRED items where authorship cannot be established from
+repository evidence.
+
+Check all ORCIDs syntactically and by checksum.
+
+Where possible, verify ORCID/name agreement using authoritative public records,
+but do not infer identity from ambiguous names.
+
+============================================================
+13. PAPER CITATION AUDIT
+============================================================
+
+Audit every citation in paper.md.
+
+For each citation key:
+
+- exists in paper.bib
+- is actually relevant to the sentence
+- author names correct
+- year correct
+- title correct
+- venue correct
+- DOI correct
+- DOI resolves
+- URL correct if used
+- no duplicate bibliographic records
+- no unnecessary repository self-citation
+- no citation used to support something it does not establish
+
+Pay special attention to:
+
+NEON
+HyTools
+HLS
+Sen2Like
+FORCE
+Snakemake
+Nextflow
+SCS+C
+RossThick
+LiDenseR
+spectral response
+Landsat
+remote-sensing validation
+software testing
+SpectralBridge repository/provenance citations
+
+Use publisher/Crossref/DOI metadata where possible.
+
+Do not silently replace historical source citations without recording why.
+
+Create a machine-readable citation audit.
+
+============================================================
+14. REPOSITORY-WIDE CITATION AUDIT
+============================================================
+
+Search the entire active documentation for citations and publication references.
+
+Check for:
+
+- stale manuscript titles
+- old project names
+- old cross-sensor-cal references presented as current
+- stale DOI claims
+- incorrect Zenodo claims
+- inconsistent package names
+- unpublished work described as published
+- dead URLs
+- inconsistent funding acknowledgements
+- old author lists
+- old software versions
+- historical PFT results accidentally presented as current
+
+Historical provenance may retain historical wording.
+
+Current user-facing docs should not.
+
+============================================================
+15. ACKNOWLEDGEMENTS AND FUNDING
+============================================================
+
+Audit:
+
+paper acknowledgements
+README acknowledgements
+website footer
+funding statements
+NSF references
+CIRES/CU acknowledgements
+ESIIL references
+
+DO NOT invent award numbers.
+
+If an award number is required and unavailable, create a clear human-action item.
+
+Check whether sponsor involvement must be disclosed under current JOSS guidance.
+
+Separate:
+
+AUTHORSHIP
+ACKNOWLEDGEMENT
+FUNDING
+INSTITUTIONAL AFFILIATION
+SOFTWARE LINEAGE
+
+These are not interchangeable.
+
+============================================================
+16. AI DISCLOSURE
+============================================================
+
+Compare:
+
+paper AI disclosure
+docs AI transparency page
+repository prompt-log policy
+current JOSS AI requirements
+
+The disclosure should accurately state:
+
+- systems/models known
+- unknown historical model identities
+- kinds of assistance
+- code/documentation/manuscript usage
+- verification procedures
+- human review
+- human responsibility for core design decisions
+
+Do not claim human confirmation that has not actually been supplied.
+
+If the final required human declaration is missing, leave it as a blocking
+human-action item.
+
+============================================================
+17. LICENSE AND SOFTWARE LINEAGE
+============================================================
+
+Verify consistency among:
+
+LICENSE
+NOTICE
+HYTOOLS_PROVENANCE.md
+pyproject.toml
+README
+paper
+docs
+
+The package currently claims GPL-3.0-or-later.
+
+Make sure nothing still implies an Apache migration has happened.
+
+Check HyTools attribution and methodological citations.
+
+Do not make a legal judgment.
+
+Flag anything requiring maintainer/legal review.
+
+============================================================
+18. CONTRIBUTOR EXPERIENCE
+============================================================
+
+Review:
+
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+issue templates
+PR template
+support/contact guidance
+security policy if one exists
+
+Ask whether a JOSS reviewer would consider the repository welcoming and
+maintainable.
+
+Check whether:
+
+- contribution instructions actually work
+- development install is current
+- test commands are current
+- docs build commands are current
+- issue route exists
+- support expectations are clear
+- maintainer contact is clear
+- governance expectations are sufficient for the project's scale
+
+Do not create bureaucracy for its own sake.
+
+============================================================
+19. EXAMPLES AND GETTING STARTED
+============================================================
+
+A new user should have one obvious path:
+
+INSTALL
+→ VERIFY INSTALL
+→ RUN TINY EXAMPLE
+→ CHOOSE REAL WORKFLOW
+→ UNDERSTAND OUTPUTS
+→ VALIDATE RESULTS
+
+Test that path from documentation alone.
+
+Check commands against the current package.
+
+Check examples for stale imports or renamed APIs.
+
+Check whether examples require undocumented data.
+
+Check that synthetic teaching examples are explicitly identified as synthetic.
+
+============================================================
+20. API DOCUMENTATION
+============================================================
+
+Check that public APIs are discoverable.
+
+Compare:
+
+__all__
+documented APIs
+examples
+CLI commands
+README promises
+
+Look for:
+
+- public functions with no docs
+- documented functions that no longer exist
+- experimental functions presented as stable
+- stable functions labeled experimental unnecessarily
+- missing optional dependency instructions
+- unclear input/output units
+- unclear array orientation
+- unclear identity/sampling-unit assumptions
+
+Do not document every internal helper.
+
+============================================================
+21. SCIENTIFIC DOCUMENTATION EDIT
+============================================================
+
+Perform a prose/editing pass across the active science pages.
+
+Focus on:
+
+- organization
+- definitions
+- repeated explanations
+- terminology consistency
+- transitions
+- figure captions
+- headings
+- scope statements
+- what the result means
+- what it does not mean
+
+Preserve the evidence ladder:
+
+DIFFERENCE
+→ IDENTITY
+→ QUANTITY
+→ UNIQUENESS
+→ FIELD VALIDATION
+
+Keep the researcher cover categories primary.
+
+Do not reintroduce historical species-derived PFTs as current.
+
+Make the new endmember/exhaustive-MESMA result easy to find.
+
+The central abundance conclusion should remain approximately:
+
+better spectral reconstruction does not guarantee better compositional recovery.
+
+Do not overstate this into a universal impossibility claim.
+
+============================================================
+22. WEBSITE LABEL CONSISTENCY
+============================================================
+
+Build a terminology dictionary and check the entire active site.
+
+Examples:
+
+SpectralBridge
+earthlab-spectralbridge
+spectralbridge
+NEON
+synthetic OLI
+actual Landsat
+researcher categories
+cover_category
+separability
+identifiability
+abundance
+field abundance
+MESMA
+FCLS
+ridge
+endmember/reference library
+candidate ambiguity
+
+Find accidental synonyms that make concepts look different when they are not.
+
+Find identical words used for different concepts.
+
+Standardize where appropriate.
+
+============================================================
+23. CROSS-LINKING
+============================================================
+
+Every major page should answer:
+
+WHERE AM I?
+WHAT SHOULD I READ BEFORE THIS?
+WHAT SHOULD I DO NEXT?
+
+Add restrained cross-links.
+
+Examples:
+
+science result → API
+API → conceptual explanation
+workflow → outputs
+outputs → QA
+QA → evidence hierarchy
+science synthesis → evidence packet
+citation guidance → CITATION.cff
+JOSS paper → canonical paper sources
+release guide → citation/DOI guide
+
+Avoid link clutter.
+
+============================================================
+24. STALE/TODO/PLACEHOLDER SEARCH
+============================================================
+
+Search active publication surfaces for:
+
+TODO
+FIXME
+TBD
+PLACEHOLDER
+XXX
+coming soon
+needs verification
+needs confirmation
+draft
+temporary
+example.com
+old project names
+stale version strings
+
+Classify each occurrence:
+
+BLOCKING
+INTENTIONAL/ACCEPTABLE
+HISTORICAL
+REMOVE/FIX
+
+Publication-facing metadata should not contain unresolved TODOs.
+
+============================================================
+25. BUILD AND RENDER EVERYTHING
+============================================================
+
+Run the relevant validation.
+
+At minimum:
+
+ruff check
+pytest
+mkdocs build --strict
+docs link checker
+package build
+twine check
+installed wheel smoke
+installed sdist smoke
+JOSS source checker
+JOSS PDF build
+JOSS reference checker
+CITATION.cff validator
+publication-specific tests
+
+Render the website.
+
+Actually inspect important rendered pages, not merely the Markdown source.
+
+Inspect:
+
+homepage
+getting started
+workflow landing page
+spectral-library synthesis
+abundance/ambiguity
+mathematical guarantees
+validation landing page
+API page
+contribution page
+citation page
+JOSS PDF
+
+Look for:
+
+bad wrapping
+huge tables
+tiny figures
+broken equations
+broken anchors
+poor heading hierarchy
+duplicated navigation labels
+bad mobile behavior where practical
+images without useful captions/alt text
+raw Markdown artifacts
+overly dense pages
+
+============================================================
+26. CHECK PYPI RENDERING
+============================================================
+
+Build the actual distribution.
+
+Inspect the long description as PyPI will render it.
+
+Verify:
+
+- badges
+- links
+- images if any
+- installation
+- project URLs
+- license
+- Python versions
+- package name
+- citation link
+- docs link
+
+Run twine check.
+
+Do not assume GitHub README rendering equals PyPI rendering.
+
+============================================================
+27. JOSS REVIEWER SIMULATION
+============================================================
+
+After editing, perform a fresh simulated JOSS review.
+
+Pretend you did not build the repository.
+
+Answer:
+
+Can I install it?
+
+Can I run an example?
+
+Can I find API documentation?
+
+Can I find automated tests?
+
+Can I understand its purpose?
+
+Can I identify research use?
+
+Can I determine the license?
+
+Can I find contribution guidance?
+
+Can I determine who wrote the software?
+
+Can I cite the software correctly?
+
+Can I distinguish the software release from the JOSS paper?
+
+Can I understand the AI disclosure?
+
+Can I reproduce the paper build?
+
+Can I tell what claims are validated versus conditional?
+
+Can I find archived evidence without mistaking it for current documentation?
+
+List every likely reviewer issue.
+
+Fix straightforward issues.
+
+============================================================
+28. PYPI REVIEWER SIMULATION
+============================================================
+
+Pretend you found the package only on PyPI.
+
+Can you determine:
+
+what it does?
+why you would use it?
+how to install it?
+supported Python versions?
+minimal example?
+documentation?
+repository?
+license?
+authors/maintainers?
+citation?
+issue tracker?
+
+Fix omissions where metadata is known.
+
+============================================================
+29. DO NOT GUESS HUMAN FACTS
+============================================================
+
+The following require explicit human confirmation when repository evidence is
+insufficient:
+
+- author inclusion/exclusion
+- author order
+- author consent
+- contribution qualification
+- missing ORCIDs
+- current affiliations
+- funding award numbers
+- sponsor roles
+- conflicts of interest
+- legal sufficiency
+- final AI responsibility declaration
+
+Create a concise HUMAN DECISIONS REQUIRED file.
+
+Do not bury these among hundreds of automated checks.
+
+============================================================
+30. OUTPUT AUDIT FILES
+============================================================
+
+Create:
+
+PUBLICATION_READINESS_AUDIT.md
+
+with sections:
+
+EXECUTIVE STATUS
+
+WEBSITE
+README
+DOCUMENTATION ORGANIZATION
+DIRECTORY FINDABILITY
+PYPI
+JOSS
+AUTHORS
+CITATIONS
+FUNDING
+AI DISCLOSURE
+LICENSE
+COMMUNITY/GOVERNANCE
+VERSION/RELEASE
+DOI/ARCHIVE
+TEST/BUILD STATUS
+BLOCKERS
+NON-BLOCKING IMPROVEMENTS
+
+Also create:
+
+PUBLICATION_BLOCKERS.md
+
+Only true blockers.
+
+And:
+
+HUMAN_DECISIONS_REQUIRED.md
+
+Only decisions that cannot safely be automated.
+
+And machine-readable:
+
+publication_readiness.json
+
+Use statuses:
+
+PASS
+PASS WITH EDIT
+NEEDS HUMAN CONFIRMATION
+BLOCKING
+NOT APPLICABLE
+
+============================================================
+31. FINAL CLEANUP PRINCIPLE
+============================================================
+
+This is an EDITORIAL pass, not a repository-cleanup campaign.
+
+Do not:
+
+- reorganize source architecture
+- move historical provenance unnecessarily
+- rename stable APIs
+- rerun expensive scientific analyses
+- alter scientific conclusions
+- change licensing
+- decide authorship
+- invent ORCIDs
+- invent affiliations
+- invent funding
+- invent DOIs
+- publish a release
+- create a tag
+- submit to JOSS
+- upload to PyPI
+
+Make the repository easy to understand without destroying its history.
+
+============================================================
+32. FINAL REPORT
+============================================================
+
+At the end report:
+
+1. What you changed
+2. What was already good
+3. What was confusing and how you clarified it
+4. Website/navigation changes
+5. README changes
+6. Missing/added README/index files
+7. JOSS readiness
+8. PyPI readiness
+9. Citation audit result
+10. Exact author inconsistencies found
+11. Bibliography corrections
+12. Version inconsistencies
+13. Remaining publication blockers
+14. Exact human decisions needed
+15. Commands/tests/builds run and results
+16. Files changed
+17. Whether you believe the repository is technically ready for:
+    - public documentation
+    - PyPI RC
+    - final PyPI release
+    - JOSS submission
+
+Do not say "ready" if unresolved authorship, citation, funding, COI,
+AI declaration, version/archive, or required build failures remain.
+
+The goal is not to make the repository look finished.
+
+The goal is to make it possible for a stranger to correctly understand,
+use, evaluate, cite, and review SpectralBridge.
+```
+
+## 2026-10-19 - automated AI transparency history and evidence figures
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+we want to add an automated ai transparency statement to the documentation and website that not only state that we started using LLMs at GPT 3.5 and have used it every since. When we started using agentic LLM assistants, we created a prompt log that you can see in the repo. The the statement should show figures derived from the prompt log showing what the agent did and how it did it, what tools it used, how it validated things, etc. 
+```
+
+## 2026-10-19 - complete source-derived API reference
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+You are working in the earthlab/spectralbridge repository.
+
+I want to add a complete, standardized, publication-quality API Reference to the SpectralBridge documentation and website.
+
+The goal is to give SpectralBridge the Python equivalent of the standardized function documentation found in mature R packages: every user-facing function should be discoverable from one API reference, with a consistent page/entry showing its signature, purpose, inputs, defaults, outputs, examples, and related functionality.
+
+This is primarily a documentation and API-discovery task. Do not perform a broad refactor of the package. Do not rename or reorganize functions merely to make the documentation cleaner. Preserve existing behavior and public interfaces unless you discover an actual documentation-breaking problem that requires a very small fix.
+
+1. Audit the actual package first
+
+Before changing anything, recursively inspect the current Python source under src/spectralbridge/.
+
+Build an inventory of:
+
+* modules
+* submodules
+* public functions
+* public classes
+* important public methods
+* intentionally exposed constants or objects, if any
+* existing __all__ definitions
+* objects exported from package and subpackage __init__.py files
+* existing docstrings
+* existing type hints
+* existing examples
+* existing documentation pages referring to these functions
+
+Do not infer the API from README examples alone. Use the actual current source code as the source of truth.
+
+Distinguish between:
+
+1. Public/user-facing API
+2. Useful advanced API
+3. Internal implementation helpers
+
+Functions beginning with _ should normally remain internal and should not receive prominent API pages unless there is clear evidence they are intended for users.
+
+Also identify public-looking functions that are actually implementation details and flag them rather than silently changing their visibility.
+
+Produce a short API audit before implementation showing:
+
+* total modules
+* total public functions/classes
+* undocumented or inadequately documented objects
+* objects currently exported at package level
+* obvious inconsistencies in the public API
+
+Then proceed with the implementation.
+
+2. Inspect the existing documentation system
+
+Determine what SpectralBridge currently uses for its documentation and website.
+
+Do not introduce Sphinx, MkDocs, mkdocstrings, pdoc, or another documentation framework blindly.
+
+Use and extend the existing documentation architecture wherever practical.
+
+If the site is already based on MkDocs, determine whether mkdocstrings or an equivalent compatible mechanism is already available or is the cleanest addition.
+
+If it uses Sphinx, use the appropriate autodoc/autosummary approach.
+
+The important requirement is that the API documentation should be generated from the actual Python source and docstrings whenever possible, rather than manually duplicating signatures and parameter definitions in Markdown.
+
+The source code should remain the source of truth.
+
+3. Standardize public docstrings
+
+For every genuinely public function/class, make sure its docstring provides enough structured information for high-quality generated documentation.
+
+Prefer the docstring convention already used consistently by the project. If there is no strong existing convention, use NumPy-style docstrings, which are appropriate for a scientific Python package.
+
+Each public function should document, where applicable:
+
+* short summary
+* longer explanation when needed
+* Parameters
+* parameter types
+* parameter meanings
+* units
+* accepted values
+* defaults
+* Returns
+* return type
+* interpretation of the returned object
+* Raises
+* Notes
+* Examples
+* See Also
+
+For example, the rendered documentation should make something like:
+
+spectralbridge.some_function(
+    input_data,
+    wavelengths,
+    method="...",
+    ...
+)
+
+immediately understandable.
+
+Do not write useless descriptions such as:
+
+wavelengths : array
+The wavelengths.
+
+Instead explain what the values represent, expected units, required shape where important, and how they affect the operation.
+
+Pay particular attention to scientific assumptions and units.
+
+4. Build a complete API Reference
+
+Add a clearly labeled top-level section of the website:
+
+API Reference
+
+This should function as the complete glossary of what SpectralBridge can do programmatically.
+
+Organize it around the package’s actual conceptual structure rather than producing one enormous alphabetical dump.
+
+Determine the best categories after inspecting the source. Likely areas may include things such as:
+
+* preprocessing
+* corrections
+* spectral processing
+* sensor translation
+* spectral libraries
+* drone processing
+* NEON processing
+* bulk processing
+* analyses
+* QA / validation
+* I/O
+* utilities
+
+Do not force these exact categories if the current source suggests a better organization.
+
+The API landing page should give users a compact overview of the available areas and make every public function reachable.
+
+5. Standardized function presentation
+
+Every public function should ultimately render in a consistent form containing:
+
+Function name
+
+Signature
+
+The actual callable signature including defaults.
+
+Description
+
+What the function does and, importantly, why someone would use it.
+
+Parameters
+
+For every argument:
+
+* name
+* type
+* default where applicable
+* meaning
+* units where applicable
+* constraints or accepted values where relevant
+
+Returns
+
+Clearly explain:
+
+* return type
+* structure
+* dimensions/shape where relevant
+* units
+* scientific interpretation
+
+Raises
+
+Document important expected errors where applicable.
+
+Example
+
+Include at least one minimal, realistic example for important user-facing functions.
+
+Examples should use the actual current API and should not invent files, arguments, functions, or behavior.
+
+See also
+
+Link to closely related functions where useful.
+
+6. Make it useful as a glossary
+
+The API Reference landing page should allow a user who does not know the exact function name to discover the correct tool.
+
+For each public function, provide a very short one-line description.
+
+For example conceptually:
+
+Function	Purpose
+function_a()	Apply X correction to hyperspectral reflectance
+function_b()	Translate hyperspectral spectra into target sensor bands
+function_c()	Run quality checks on translated spectra
+
+Use the actual SpectralBridge functions and descriptions.
+
+If practical within the existing documentation framework, make each function name link directly to its detailed API documentation.
+
+This page should answer:
+
+“What functions does SpectralBridge provide?”
+
+while the individual API entries answer:
+
+“Exactly how do I use this function?”
+
+7. Connect API documentation to narrative documentation
+
+SpectralBridge already has or is developing workflow-oriented documentation.
+
+Do not replace those pages with API documentation.
+
+Maintain the distinction:
+
+Tutorials / workflows
+“How do I accomplish a scientific task?”
+
+API Reference
+“What exactly does this function do?”
+
+Where useful, add links from workflow pages to the relevant API entries.
+
+Likewise, API entries can use See Also or related links to point users toward relevant workflow documentation.
+
+This should make the website navigable in both directions.
+
+8. Cover the newer analytical functionality
+
+Pay special attention to functionality added during the recent spectral-library, bulk-processing, sensor-translation, drone, calibration, and QA work.
+
+Make sure newer hardened analysis functions are not accidentally omitted simply because older documentation does not mention them.
+
+The inventory must come from the current source tree.
+
+9. Examples must be trustworthy
+
+Do not create elaborate examples that cannot actually run.
+
+For important public functions, prefer:
+
+* minimal examples
+* small synthetic inputs where appropriate
+* existing package test data
+* existing documented datasets
+
+Avoid examples requiring enormous NEON/drone downloads unless that function inherently requires them.
+
+Where practical, make examples executable or testable so documentation cannot silently drift away from the API.
+
+Do not claim an example works unless it matches the actual function signature and expected data structures.
+
+10. Cross-reference the API
+
+Make related functionality discoverable.
+
+For example, if the workflow naturally follows:
+
+load → correct → translate → validate → analyze
+
+the relevant API pages should help the user discover the next or related functions.
+
+Use cross-references rather than duplicating explanations.
+
+11. Navigation
+
+Update the website navigation so API Reference is a first-class documentation section.
+
+A new user should be able to go:
+
+Documentation → API Reference
+
+and immediately see the complete package functionality.
+
+Do not bury this under developer documentation.
+
+12. Documentation quality checks
+
+After implementation:
+
+* build the documentation locally
+* treat warnings as meaningful
+* fix broken internal links
+* fix unresolved cross-references
+* check that every intended public function appears
+* check that no important API section is empty
+* check for duplicate API entries
+* verify rendered signatures against actual Python signatures
+* verify parameter defaults
+* verify examples against current APIs
+* check navigation
+* check formatting
+* check that private helpers have not flooded the public reference
+
+If the repository has documentation CI, make sure the changes are compatible with it.
+
+If appropriate, add a lightweight automated check that detects public functions/classes that have accidentally been omitted from the API reference.
+
+13. Do not over-refactor
+
+This is important.
+
+Do NOT:
+
+* redesign SpectralBridge
+* reorganize the entire source tree
+* rename large numbers of functions
+* rewrite working pipelines
+* change scientific algorithms
+* alter outputs
+* perform unrelated cleanup
+
+Small changes to docstrings, typing, exports, documentation configuration, and documentation-supporting code are appropriate.
+
+If you discover larger API design problems, document them separately as recommendations rather than fixing them during this task.
+
+14. Deliverables
+
+At completion I want:
+
+1. A complete API inventory of the current package.
+2. Standardized docstrings for all intended public functions/classes.
+3. A generated API Reference integrated into the website.
+4. A browsable API/glossary landing page showing every public function with a one-line description.
+5. Detailed standardized documentation for every public function.
+6. Cross-links between API documentation and relevant workflow/concept pages.
+7. Updated website navigation.
+8. Successful local documentation build.
+9. A short report describing:
+    * number of public functions/classes documented
+    * documentation framework used
+    * files changed
+    * previously undocumented functions found
+    * functions intentionally excluded as internal
+    * warnings/errors remaining
+    * any API inconsistencies that should be handled later
+
+The final result should feel like the documentation for a mature scientific Python package.
+
+A scientist should be able to open the SpectralBridge website, click API Reference, see everything the package can do, choose a function, and immediately understand:
+
+what it does → how to call it → what each input means → what comes back → how to use it → what related function to use next.
+
+Do the audit first, then implement this systematically across the entire current package.
+```

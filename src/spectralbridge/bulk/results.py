@@ -56,6 +56,27 @@ class BulkResultsConfig:
     Thresholds are report-screening defaults, not scientific acceptance
     criteria. A result that triggers no warning is not automatically approved
     for universal calibration or extrapolation beyond the evaluated domain.
+
+    Attributes
+    ----------
+    representative_source_value : float | None, default=None
+        Source reflectance value at which relative correction magnitude is reported; use the same reflectance units as the fitted coefficients.
+    r2_review_threshold : float, default=0.9
+        R-squared screening threshold for descriptive/held-site attention flags; not a universal acceptance criterion.
+    absolute_correction_review_threshold_pct : float, default=20.0
+        Absolute predicted correction review bound in percent at representative_source_value.
+    weighting_slope_spread_review_threshold : float, default=0.05
+        Dimensionless slope heterogeneity screening threshold for weighting, flightline or site comparisons; flags require scientific interpretation.
+    flightline_slope_iqr_review_threshold : float, default=0.05
+        Dimensionless slope heterogeneity screening threshold for weighting, flightline or site comparisons; flags require scientific interpretation.
+    site_slope_range_review_threshold : float, default=0.05
+        Dimensionless slope heterogeneity screening threshold for weighting, flightline or site comparisons; flags require scientific interpretation.
+    loso_r2_review_threshold : float, default=0.8
+        R-squared screening threshold for descriptive/held-site attention flags; not a universal acceptance criterion.
+    correction_denominator_floor : float, default=1e-08
+        Positive denominator floor in reflectance units used to avoid unstable relative correction percentages near zero.
+    figure_dpi : int, default=150
+        Positive output rendering resolution in dots per inch; rasterization controls file size without changing analytical summaries.
     """
 
     representative_source_value: float | None = None
@@ -69,6 +90,19 @@ class BulkResultsConfig:
     figure_dpi: int = 150
 
     def validate(self) -> None:
+        """Validate configuration ranges and supported option combinations.
+
+        Returns
+        -------
+        None
+            No return value; validation raises on unsupported configuration and directory creation persists the canonical hierarchy.
+
+        Raises
+        ------
+        ValueError
+            If option values violate the configuration or relationship-selection contract.
+        """
+
         if self.representative_source_value is not None and not math.isfinite(
             self.representative_source_value
         ):
@@ -106,7 +140,13 @@ class BulkResultsConfig:
 
 @dataclass(frozen=True)
 class BulkResultsPaths:
-    """Canonical compact inputs and interpretation outputs for one bulk run."""
+    """Canonical compact inputs and interpretation outputs for one bulk run.
+
+    Attributes
+    ----------
+    bulk_output : Path
+        Root of an existing completed bulk run, containing its manifest and compact model tables.
+    """
 
     bulk_output: Path
 
@@ -115,94 +155,278 @@ class BulkResultsPaths:
 
     @property
     def manifest(self) -> Path:
+        """Resolve the canonical manifest location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.bulk_output / 'catalog' / 'bulk_manifest.json'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.bulk_output / "catalog" / "bulk_manifest.json"
 
     @property
     def candidates(self) -> Path:
+        """Resolve the canonical candidates location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.bulk_output / 'coefficients' / 'candidate_translation_coefficients.parquet'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.bulk_output / "coefficients" / "candidate_translation_coefficients.parquet"
 
     @property
     def per_flightline(self) -> Path:
+        """Resolve the canonical per flightline location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.bulk_output / 'analyses' / 'sensor_translation' / 'per_flightline.parquet'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.bulk_output / "analyses" / "sensor_translation" / "per_flightline.parquet"
 
     @property
     def per_site(self) -> Path:
+        """Resolve the canonical per site location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.bulk_output / 'analyses' / 'sensor_translation' / 'per_site.parquet'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.bulk_output / "analyses" / "sensor_translation" / "per_site.parquet"
 
     @property
     def loso(self) -> Path:
+        """Resolve the canonical loso location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.bulk_output / 'analyses' / 'leave_one_site_out' / 'leave_one_site_out.parquet'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.bulk_output / "analyses" / "leave_one_site_out" / "leave_one_site_out.parquet"
 
     @property
     def analysis_dir(self) -> Path:
+        """Resolve the canonical analysis dir location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.bulk_output / 'analyses' / 'bulk_results'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.bulk_output / "analyses" / "bulk_results"
 
     @property
     def figures_dir(self) -> Path:
+        """Resolve the canonical figures dir location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.bulk_output / 'figures' / 'bulk_results'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.bulk_output / "figures" / "bulk_results"
 
     @property
     def diagnostics_dir(self) -> Path:
+        """Resolve the canonical diagnostics dir location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.figures_dir / 'diagnostics'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.figures_dir / "diagnostics"
 
     @property
     def publication_dir(self) -> Path:
+        """Resolve the canonical publication dir location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.figures_dir / 'publication'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.figures_dir / "publication"
 
     @property
     def summary_dir(self) -> Path:
+        """Resolve the canonical summary dir location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.figures_dir / 'summary'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.figures_dir / "summary"
 
     @property
     def report_dir(self) -> Path:
+        """Resolve the canonical report dir location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.bulk_output / 'reports' / 'bulk_results'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.bulk_output / "reports" / "bulk_results"
 
     @property
     def pair_band_summary(self) -> Path:
+        """Resolve the canonical pair band summary location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.analysis_dir / 'pair_band_summary.parquet'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.analysis_dir / "pair_band_summary.parquet"
 
     @property
     def weighting_comparison(self) -> Path:
+        """Resolve the canonical weighting comparison location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.analysis_dir / 'weighting_comparison.parquet'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.analysis_dir / "weighting_comparison.parquet"
 
     @property
     def flightline_stability(self) -> Path:
+        """Resolve the canonical flightline stability location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.analysis_dir / 'flightline_stability.parquet'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.analysis_dir / "flightline_stability.parquet"
 
     @property
     def site_stability(self) -> Path:
+        """Resolve the canonical site stability location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.analysis_dir / 'site_stability.parquet'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.analysis_dir / "site_stability.parquet"
 
     @property
     def loso_transferability(self) -> Path:
+        """Resolve the canonical loso transferability location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.analysis_dir / 'loso_transferability.parquet'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.analysis_dir / "loso_transferability.parquet"
 
     @property
     def attention_flags(self) -> Path:
+        """Resolve the canonical attention flags location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.analysis_dir / 'attention_flags.parquet'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.analysis_dir / "attention_flags.parquet"
 
     @property
     def metadata(self) -> Path:
+        """Resolve the canonical metadata location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.analysis_dir / 'bulk_results_summary.json'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.analysis_dir / "bulk_results_summary.json"
 
     @property
     def coefficient_figure(self) -> Path:
+        """Resolve the canonical coefficient figure location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.diagnostics_dir / 'translation_coefficients_and_fit.png'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.diagnostics_dir / "translation_coefficients_and_fit.png"
 
     @property
     def correction_figure(self) -> Path:
+        """Resolve the canonical correction figure location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.diagnostics_dir / 'fitted_correction_magnitude.png'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.diagnostics_dir / "fitted_correction_magnitude.png"
 
     @property
     def transferability_figure(self) -> Path:
+        """Resolve the canonical transferability figure location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.diagnostics_dir / 'stability_and_transferability.png'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.diagnostics_dir / "stability_and_transferability.png"
 
     @property
     def summary_figure_stem(self) -> Path:
+        """Resolve the canonical summary figure stem location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.summary_dir / 'bulk_qa_summary'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.summary_dir / "bulk_qa_summary"
 
     @property
     def publication_stems(self) -> tuple[Path, ...]:
+        """Resolve the canonical publication stems location.
+
+        Returns
+        -------
+        tuple[Path, ...]
+            Path computed as ``tuple((self.publication_dir / name for name in ('translation_performance', 'translation_stability', 'generalization_and_failures')))``. Accessing this property does not create or validate the artifact.
+        """
+
         return tuple(
             self.publication_dir / name
             for name in (
@@ -214,14 +438,38 @@ class BulkResultsPaths:
 
     @property
     def report(self) -> Path:
+        """Resolve the canonical report location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.report_dir / 'bulk_translation_results.md'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.report_dir / "bulk_translation_results.md"
 
     @property
     def report_pdf(self) -> Path:
+        """Resolve the canonical report pdf location.
+
+        Returns
+        -------
+        Path
+            Path computed as ``self.report_dir / 'bulk_translation_results.pdf'``. Accessing this property does not create or validate the artifact.
+        """
+
         return self.report_dir / "bulk_translation_results.pdf"
 
     @property
     def required_inputs(self) -> tuple[Path, ...]:
+        """Resolve the canonical required inputs location.
+
+        Returns
+        -------
+        tuple[Path, ...]
+            Path computed as ``(self.manifest, self.candidates, self.per_flightline, self.per_site, self.loso)``. Accessing this property does not create or validate the artifact.
+        """
+
         return (
             self.manifest,
             self.candidates,
@@ -1568,9 +1816,47 @@ def summarize_bulk_results(
 ) -> dict[str, Any]:
     """Summarize completed translation results without the source archive.
 
+    Parameters
+    ----------
+    bulk_output : str | Path
+        Root of an existing completed bulk run, containing its manifest and compact model tables.
+    config : BulkResultsConfig | None, default=None
+        Configuration object for this workflow; None selects the documented defaults of its configuration class.
+    make_figures : bool, default=True
+        Render interpretation figures from completed compact results.
+    make_report : bool, default=True
+        Write the human-readable interpretation report alongside machine-readable summaries.
+    force : bool, default=False
+        Regenerate the requested outputs instead of reusing an otherwise valid checkpoint or report.
+
+    Returns
+    -------
+    dict[str, Any]
+        Created/reused interpretation metadata, attention flags, compact summaries and enabled figure/report paths.
+
+    Raises
+    ------
+    FileNotFoundError
+        If a required source or completed artifact is absent.
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Only the completed bulk manifest and compact model-result Parquets are read.
     Source rasters, sufficient-statistics checkpoints, diagnostic pixel samples,
     and observation datasets are neither required nor opened.
+
+    See Also
+    --------
+    spectralbridge.pipelines.bulk.run_bulk_pipeline : Related source-derived API contract.
+
+    Examples
+    --------
+    Use the directory returned by a completed bulk run; original rasters are not needed.
+
+    >>> from spectralbridge import summarize_bulk_results
+    >>> result = summarize_bulk_results(completed_bulk_dir, make_figures=False)  # doctest: +SKIP
     """
 
     config = config or BulkResultsConfig()

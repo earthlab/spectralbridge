@@ -13,6 +13,8 @@ from ..registry import DEFAULT_PRODUCT_REGISTRY, TranslationPair
 
 @dataclass(frozen=True)
 class PairSpec:
+    """Describe one registered source/target band pair available in a bulk observation view."""
+
     translation_pair: str
     source_sensor: str
     target_sensor: str
@@ -37,6 +39,8 @@ class PairSpec:
 
 
 def band_map(columns: Sequence[str]) -> dict[str, set[int]]:
+    """Map sensor-labelled ``*_band_<integer>`` columns to their available band indices."""
+
     mapped: dict[str, set[int]] = {}
     for column in columns:
         label, separator, suffix = column.rpartition("_band_")
@@ -59,6 +63,8 @@ def available_pair_specs(
     con: duckdb.DuckDBPyConnection,
     translation_pairs: Sequence[TranslationPair] | None = None,
 ) -> list[PairSpec]:
+    """Select registered band relationships whose source and target columns both exist."""
+
     columns = observation_columns(con)
     column_set = set(columns)
     mapped = band_map(columns)
@@ -143,6 +149,8 @@ def valid_pair_cte(spec: PairSpec, minimum_reflectance: float) -> str:
 
 
 def pair_literals(spec: PairSpec) -> str:
+    """Build SQL literal columns identifying one registered band relationship."""
+
     return ", ".join(
         (
             f"{sql_literal(spec.translation_pair)} AS translation_pair",

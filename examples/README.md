@@ -32,3 +32,16 @@ python scripts/run_pipeline_from_local_h5.py --help
 
 For interactive or stage-focused use, open a notebook under
 [`docs/vignettes/notebooks/`](../docs/vignettes/notebooks/README.md).
+
+## Start without research data
+
+Run `python examples/first_example.py` after installation for the tiny invented-
+data preflight lesson. Continue with `scientific_workflows_offline.py` or, with
+the `analytics` extra, `spectral_library_methods.py`. These examples verify
+numerical/software use; they are not field-validation data.
+
+The `researcher_pft_information.py` and `researcher_evidence_validation.py`
+runners reproduce versioned research and can regenerate outputs. Read their
+provenance README and preservation rules before running them; they are not
+installation smoke tests. See [getting started](../docs/getting-started.md) for
+the install → verify → workflow → outputs → QA path.

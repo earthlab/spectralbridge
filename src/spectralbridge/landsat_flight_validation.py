@@ -33,6 +33,8 @@ LOG = logging.getLogger(__name__)
 
 @dataclass(frozen=True)
 class FlightValidationInput:
+    """Specify existing raw/adjusted synthetic products and an actual Landsat comparison source for one flight."""
+
     flight_id: str
     site: str
     acquisition_datetime: str
@@ -47,6 +49,8 @@ class FlightValidationInput:
 
 @dataclass(frozen=True)
 class FlightValidationConfig:
+    """Configure explicit support, acquisition-time, screening and rendering settings for flight validation."""
+
     search_days: int = 16
     minimum_valid_coverage: float = 0.90
     minimum_pixels: int = 100

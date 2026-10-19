@@ -134,8 +134,11 @@ def apply_brightness_correction(
 
     Examples
     --------
-    >>> corr, meta = apply_brightness_correction(cube, mask=mask)
-    >>> corr2, meta = apply_brightness_correction(cube, reference_cube=panel, method='linear_regression')
+    >>> import numpy as np
+    >>> from spectralbridge import apply_brightness_correction
+    >>> cube = np.full((2, 4, 4), .2, dtype=np.float32)
+    >>> corr, meta = apply_brightness_correction(cube)
+    >>> assert corr.shape == cube.shape
 
     Notes
     -----

@@ -82,10 +82,13 @@ nav:
     - Technical supplement: validation/supplement.md
     - Software/method provenance: hytools_manuscript_guidance.md
     - AI transparency: ai-transparency.md
+- API Reference:
+  - Function glossary: api/index.md
+  - Examples and data requirements: api/examples.md
+  - Scientific analysis maturity: api/scientific-analysis.md
+  - API audit and maintenance: api/audit.md
 - Reference:
   - Reference map: reference/index.md
-  - Python API: api/index.md
-  - Scientific analysis API and maturity: api/scientific-analysis.md
   - Literature sources: reference/literature.md
   - Stage and filename contracts:
     - Stage order: pipeline/stages.md

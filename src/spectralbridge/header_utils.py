@@ -23,6 +23,8 @@ def _parse_numeric_list(value: str) -> np.ndarray:
 
 
 def wavelengths_from_hdr(hdr: Dict[str, Any], sensor_default: Optional[np.ndarray] = None) -> tuple[np.ndarray, str]:
+    """Return header wavelength values and their provenance, with an explicitly supplied sensor fallback."""
+
     keys = {k.lower(): k for k in hdr.keys()}
     wl_key = next((keys[k] for k in keys if k in ("wavelength", "wavelengths", "band centers")), None)
     if wl_key:

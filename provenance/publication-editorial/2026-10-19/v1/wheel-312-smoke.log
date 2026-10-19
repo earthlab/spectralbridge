@@ -1,0 +1,476 @@
+COMMAND: /Users/tuff/.local/bin/uv venv --python /Users/tuff/.local/share/uv/python/cpython-3.12.8-macos-aarch64-none/bin/python3.12 /private/tmp/p139-wheel-312
+Using CPython 3.12.8 interpreter at: /Users/tuff/.local/share/uv/python/cpython-3.12.8-macos-aarch64-none/bin/python3.12
+Creating virtual environment at: p139-wheel-312
+Activate with: source p139-wheel-312/bin/activate
+COMMAND: /Users/tuff/.local/bin/uv pip install --python /private/tmp/p139-wheel-312/bin/python /private/tmp/p139-dist/earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl
+Using Python 3.12.8 environment at: p139-wheel-312
+Resolved 80 packages in 223ms
+Prepared 28 packages in 9.16s
+Installed 80 packages in 647ms
+ + affine==3.0.1
+ + aiohappyeyeballs==2.7.1
+ + aiohttp==3.14.5
+ + aiohttp-cors==0.8.1
+ + aiosignal==1.4.0
+ + annotated-types==0.8.0
+ + attrs==26.1.0
+ + certifi==2026.10.18
+ + cffi==2.1.1
+ + charset-normalizer==3.5.2
+ + click==8.5.0
+ + colorful==0.5.8
+ + contourpy==1.4.0
+ + cryptography==50.0.2
+ + cycler==0.12.1
+ + distlib==0.4.4
+ + duckdb==1.5.6
+ + earthlab-spectralbridge==2.3.0rc1 (from file:///private/tmp/p139-dist/earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl)
+ + filelock==4.2.4
+ + fonttools==4.67.0
+ + frozenlist==1.8.0
+ + geopandas==1.2.0
+ + google-api-core==2.42.0
+ + google-auth==2.62.0
+ + googleapis-common-protos==1.75.5
+ + grpcio==1.84.0
+ + h5py==3.16.0
+ + idna==3.20
+ + jsonschema==4.26.0
+ + jsonschema-specifications==2025.9.1
+ + kiwisolver==1.5.1
+ + matplotlib==3.11.2
+ + msgpack==1.2.3
+ + multidict==7.1.0
+ + numpy==2.5.4
+ + opencensus==0.11.4
+ + opencensus-context==0.1.3
+ + opentelemetry-api==1.45.1
+ + opentelemetry-exporter-prometheus==0.66b1
+ + opentelemetry-proto==1.45.1
+ + opentelemetry-sdk==1.45.1
+ + opentelemetry-semantic-conventions==0.66b1
+ + packaging==26.3
+ + pandas==3.0.6
+ + pillow==13.0.0
+ + platformdirs==4.13.5
+ + prometheus-client==0.26.0
+ + propcache==0.5.4
+ + proto-plus==1.29.0
+ + protobuf==7.36.2
+ + py-spy==0.4.2
+ + pyarrow==26.0.0
+ + pyasn1==0.6.4
+ + pyasn1-modules==0.4.2
+ + pycparser==3.11
+ + pydantic==2.14.1
+ + pydantic-core==2.50.1
+ + pyogrio==0.13.0
+ + pyparsing==3.3.3
+ + pyproj==3.8.0
+ + python-dateutil==2.9.0.post0
+ + python-discovery==1.6.4
+ + pyyaml==6.0.3
+ + rasterio==1.5.2
+ + ray==2.59.0
+ + referencing==0.37.0
+ + requests==2.34.2
+ + rpds-py==2026.9.1
+ + scipy==1.18.1
+ + shapely==2.2.0
+ + six==1.17.0
+ + smart-open==8.0.4
+ + spectral==0.25
+ + tqdm==4.70.1
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.4
+ + urllib3==2.8.0
+ + virtualenv==21.14.11
+ + wrapt==2.5.1
+ + yarl==1.25.1
+COMMAND: /private/tmp/p139-wheel-312/bin/python /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/scripts/check_installed_artifact.py --expected-version 2.3.0rc1
+ENVI export:   0%|          | 0/1 [00:00<?, ?tile/s]                                                    BRDF+topo correction:   0%|          | 0/1 [00:00<?, ?tile/s]                                                             🧪 landsat_tm tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                            🧪 landsat_etm+ tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                              🧪 landsat_oli tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                             🧪 landsat_oli2 tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                              🧪 micasense tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                           🧪 micasense_to_match_tm_etm+ tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                                            🧪 micasense_to_match_oli_oli2 tiles:   0%|          | 0/1 [00:00<?, ?tile/s]                                                                             [merge] Start flightline=NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance prefix=NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[merge] Output parquet → /private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[merge] Engine=duckdb memory_limit=0.5GB threads=1 row_group_size=8 temp_dir=/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/.duckdb_tmp
+[merge] Capping threads at 0 (requested 1) based on memory_limit
+[merge] Set DuckDB memory_limit = 0.5GB
+[merge] Disabled insertion-order preservation to reduce memory usage
+[merge] 🔍 Starting streaming merge for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[merge] 📊 Discovered inputs: orig=1, corr=1, resamp=14
+[merge] 🔨 Building CTEs (streaming, no materialization)...
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ orig CTE built (43 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ corr CTE built (43 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_0 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_etm+_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_1 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_etm+_undarkened_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_2 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli2_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_3 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli2_undarkened_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_4 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_5 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli_undarkened_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_6 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_tm_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_7 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_tm_undarkened_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_8 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_envi.parquet (21 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_9 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_oli_oli2_envi.parquet (16 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_10 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_oli_oli2_undarkened_envi.parquet (16 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_11 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_tm_etm+_envi.parquet (15 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_12 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_tm_etm+_undarkened_envi.parquet (15 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_13 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_undarkened_envi.parquet (21 columns)
+[merge] 📤 Streaming join results to parquet (no materialization)...
+[merge]    Output: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[merge]    Input: 1 orig, 1 corr, 14 resamp
+[merge]    Testing query with LIMIT 1000...
+[merge]    ✅ Test query successful - returned 64 rows
+[merge]    ✅ Test query: no duplicate pixel_ids in sample
+[merge]    Expected rows: 64
+[merge]    Executing streaming COPY (this may take 5-15 minutes for large datasets)...
+[merge]    You can check progress by monitoring file size: ls -lh NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[merge]    ✅ Streaming COPY complete in 0.0 seconds (0.0 minutes)
+[merge]    ✅ Output file created: 0.00 GB
+[merge] ✅ Wrote parquet: /private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet (exists=True)
+[merge] 🔍 About to filter no-data rows...
+[merge] 🔍 Filtering rows with >90% invalid spectral values (excluding raw_* columns; DuckDB streaming)...
+[merge]    Found 122 spectral columns to check
+[merge]    Streaming filter over 64 rows (no pandas materialization)...
+[merge]    ℹ️  No rows filtered (all rows have valid data)
+[merge] ✅ Filtering complete, continuing...
+[merge] 📄 Exporting filtered parquet to CSV: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.csv
+[merge] ✅ CSV export complete in 0.0 seconds (0.0 minutes), size: 0.2 MB
+[merge] 🔍 Starting row count validation...
+[merge] ✅ Row count validation: 64 rows (as expected)
+[merge] ✅ Row count validation section complete
+[merge] 🔄 Closing DuckDB connection...
+[merge] ✅ DuckDB connection closed
+[merge] 🔍 Reached end of merge function (after finally block)
+[merge] ✅ File system sync complete
+[merge] 🔍 Checking QA panel generation: emit_qa_panel=True
+[merge] 🔍 emit_qa_panel type: <class 'bool'>, value: True
+[merge] 🖼️  QA panel generation requested for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[merge] 🔄 Reloaded qa_plots module to ensure latest code
+[merge] 📦 Importing render_flightline_panel...
+[merge]    Attempting import: from spectralbridge.qa_plots import render_flightline_panel
+[merge] ✅ Successfully imported render_flightline_panel
+[merge] 🖼️  Starting QA panel generation...
+[QA] 📍 QA plots module file: /private/tmp/p139-wheel-312/lib/python3.12/site-packages/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-19 14:31:42
+[QA] ✅ Page 4 function found in module
+[QA] 📄 Generating QA PDF with 4 pages: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf
+[QA]   📑 Rendering Page 1: ENVI overview...
+[QA]   📊 Loading filtered parquet statistics...
+[QA]     ✅ Found filtered stats: 64 rows
+[QA]   📑 Rendering Page 2: Topographic + BRDF diagnostics...
+[QA]   📑 Rendering Page 3: Additional QA diagnostics...
+[QA]   📊 Starting wavelength reflectance plot for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[QA]   📂 Reading parquet: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[QA]   ✅ Loaded parquet sample: 64 rows, 207 columns
+[QA]   🔍 Found 32 corrected spectral columns
+[QA]   📊 Wavelength plot: 32 bands, range 400.0-2400.0 nm
+[QA]   ✅ Plotting 32 valid points (range: 400.0-2400.0 nm, values: 0.434-0.643)
+[QA]   🔄 Applied Gaussian smoothing (sigma: 0.8, effective window: 5) for straighter curve
+[QA]   🔍 Found 78 convolved sensor columns across 3 sensors
+[QA]     - olioli: 28 bands
+[QA]     - tmtm: 12 bands
+[QA]     - micasense: 38 bands
+[QA]     ✅ OLI: Plotting 8/28 bands (filtered: 20 no corrected match)
+[QA]     ✅ TM: Plotting 4/12 bands (filtered: 8 no corrected match)
+[QA]     ✅ MicaSense: Plotting 12/38 bands (filtered: 26 no corrected match)14:35:42 | WARNING  | [NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance] ⚠️ Parquet validation: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet → spectral columns unsorted or misnamed
+
+[QA]   📊 Physical-reflectance y-axis range: [0.0, 1.00]
+[QA]   ✅ All 110 points within display range
+[QA]   ✅ Successfully plotted 3 sensors: OLI, TM, MicaSense
+[QA]   📊 Summary: 24/78 convolved bands plotted (54 filtered out)
+[QA]   ℹ️  Sensors not found in data: MicaSense (undark), ETM+, TM (undark), OLI (undark), ETM+ (undark)
+[QA]   📑 Rendering Page 4: Parquet & Merge Quality Analysis...
+[QA]   ✅ Page 4 rendered successfully
+[QA] ✅ QA PDF complete: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf (PyPDF2 not available to verify page count)
+[merge] 🖼️  QA panel → /private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.png (exists=True)
+[merge] ✅ Done for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance at 2026-10-19T14:35:36
+[merge] 📋 Summary: merge complete, QA panel requested=True
+[QA] 📍 QA plots module file: /private/tmp/p139-wheel-312/lib/python3.12/site-packages/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-19 14:31:42
+[QA] ✅ Page 4 function found in module
+[QA] 📄 Generating QA PDF with 4 pages: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf
+[QA]   📑 Rendering Page 1: ENVI overview...
+[QA]   📊 Loading filtered parquet statistics...
+[QA]     ✅ Found filtered stats: 64 rows
+[QA]   📑 Rendering Page 2: Topographic + BRDF diagnostics...
+[QA]   📑 Rendering Page 3: Additional QA diagnostics...
+[QA]   📊 Starting wavelength reflectance plot for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[QA]   📂 Reading parquet: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[QA]   ✅ Loaded parquet sample: 64 rows, 207 columns
+[QA]   🔍 Found 32 corrected spectral columns
+[QA]   📊 Wavelength plot: 32 bands, range 400.0-2400.0 nm
+[QA]   ✅ Plotting 32 valid points (range: 400.0-2400.0 nm, values: 0.434-0.643)
+[QA]   🔄 Applied Gaussian smoothing (sigma: 0.8, effective window: 5) for straighter curve
+[QA]   🔍 Found 78 convolved sensor columns across 3 sensors
+[QA]     - olioli: 28 bands
+[QA]     - tmtm: 12 bands
+[QA]     - micasense: 38 bands
+[QA]     ✅ OLI: Plotting 8/28 bands (filtered: 20 no corrected match)
+[QA]     ✅ TM: Plotting 4/12 bands (filtered: 8 no corrected match)
+[QA]     ✅ MicaSense: Plotting 12/38 bands (filtered: 26 no corrected match)
+[QA]   📊 Physical-reflectance y-axis range: [0.0, 1.00]
+[QA]   ✅ All 110 points within display range
+[QA]   ✅ Successfully plotted 3 sensors: OLI, TM, MicaSense
+[QA]   📊 Summary: 24/78 convolved bands plotted (54 filtered out)
+[QA]   ℹ️  Sensors not found in data: MicaSense (undark), ETM+, TM (undark), OLI (undark), ETM+ (undark)
+[QA]   📑 Rendering Page 4: Parquet & Merge Quality Analysis...
+[QA]   ✅ Page 4 rendered successfully
+[QA] ✅ QA PDF complete: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf (PyPDF2 not available to verify page count)
+[merge] Start flightline=NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance prefix=NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[merge] Output parquet → /private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[merge] Engine=duckdb memory_limit=0.5GB threads=1 row_group_size=8 temp_dir=/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/.duckdb_tmp
+[merge] Capping threads at 0 (requested 1) based on memory_limit
+[merge] Set DuckDB memory_limit = 0.5GB
+[merge] Disabled insertion-order preservation to reduce memory usage
+[merge] 🔍 Starting streaming merge for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[merge] 📊 Discovered inputs: orig=1, corr=1, resamp=14
+[merge] 🔨 Building CTEs (streaming, no materialization)...
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ orig CTE built (43 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ corr CTE built (43 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_0 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_etm+_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_1 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_etm+_undarkened_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_2 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli2_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_3 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli2_undarkened_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_4 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_5 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_oli_undarkened_envi.parquet (18 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_6 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_tm_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_7 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_landsat_tm_undarkened_envi.parquet (17 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_8 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_envi.parquet (21 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_9 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_oli_oli2_envi.parquet (16 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_10 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_oli_oli2_undarkened_envi.parquet (16 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_11 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_tm_etm+_envi.parquet (15 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_12 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_to_match_tm_etm+_undarkened_envi.parquet (15 columns)
+[merge] Validating 1 parquet files sequentially (no Ray)
+[merge]   ✅ resamp_13 CTE built from NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_micasense_undarkened_envi.parquet (21 columns)
+[merge] 📤 Streaming join results to parquet (no materialization)...
+[merge]    Output: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[merge]    Input: 1 orig, 1 corr, 14 resamp
+[merge]    Testing query with LIMIT 1000...
+[merge]    ✅ Test query successful - returned 64 rows
+[merge]    ✅ Test query: no duplicate pixel_ids in sample
+[merge]    Expected rows: 64
+[merge]    Executing streaming COPY (this may take 5-15 minutes for large datasets)...
+[merge]    You can check progress by monitoring file size: ls -lh NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[merge]    ✅ Streaming COPY complete in 0.0 seconds (0.0 minutes)
+[merge]    ✅ Output file created: 0.00 GB
+[merge] ✅ Wrote parquet: /private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet (exists=True)[drone] Starting batch: 1 discovered | 1 to process | polygon=None | run_root=/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/drone_full_output
+
+[merge] 🔍 About to filter no-data rows...
+[merge] 🔍 Filtering rows with >90% invalid spectral values (excluding raw_* columns; DuckDB streaming)...
+[merge]    Found 122 spectral columns to check
+[merge]    Streaming filter over 64 rows (no pandas materialization)...
+[merge]    ℹ️  No rows filtered (all rows have valid data)
+[merge] ✅ Filtering complete, continuing...
+[merge] 📄 Exporting filtered parquet to CSV: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.csv
+[merge] ✅ CSV export complete in 0.0 seconds (0.0 minutes), size: 0.2 MB
+[merge] 🔍 Starting row count validation...
+[merge] ✅ Row count validation: 64 rows (as expected)
+[merge] ✅ Row count validation section complete
+[merge] 🔄 Closing DuckDB connection...
+[merge] ✅ DuckDB connection closed
+[merge] 🔍 Reached end of merge function (after finally block)
+[merge] ✅ File system sync complete
+[merge] 🔍 Checking QA panel generation: emit_qa_panel=True
+[merge] 🔍 emit_qa_panel type: <class 'bool'>, value: True
+[merge] 🖼️  QA panel generation requested for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[merge] 🔄 Reloaded qa_plots module to ensure latest code
+[merge] 📦 Importing render_flightline_panel...
+[merge]    Attempting import: from spectralbridge.qa_plots import render_flightline_panel
+[merge] ✅ Successfully imported render_flightline_panel
+[merge] 🖼️  Starting QA panel generation...
+[QA] 📍 QA plots module file: /private/tmp/p139-wheel-312/lib/python3.12/site-packages/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-19 14:31:42
+[QA] ✅ Page 4 function found in module
+[QA] 📄 Generating QA PDF with 4 pages: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf
+[QA]   📑 Rendering Page 1: ENVI overview...
+[QA]   📊 Loading filtered parquet statistics...
+[QA]     ✅ Found filtered stats: 64 rows
+[QA]   📑 Rendering Page 2: Topographic + BRDF diagnostics...
+[QA]   📑 Rendering Page 3: Additional QA diagnostics...
+[QA]   📊 Starting wavelength reflectance plot for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[QA]   📂 Reading parquet: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[QA]   ✅ Loaded parquet sample: 64 rows, 207 columns
+[QA]   🔍 Found 32 corrected spectral columns
+[QA]   📊 Wavelength plot: 32 bands, range 400.0-2400.0 nm
+[QA]   ✅ Plotting 32 valid points (range: 400.0-2400.0 nm, values: 0.434-0.643)
+[QA]   🔄 Applied Gaussian smoothing (sigma: 0.8, effective window: 5) for straighter curve
+[QA]   🔍 Found 78 convolved sensor columns across 3 sensors
+[QA]     - olioli: 28 bands
+[QA]     - tmtm: 12 bands
+[QA]     - micasense: 38 bands
+[QA]     ✅ OLI: Plotting 8/28 bands (filtered: 20 no corrected match)
+[QA]     ✅ TM: Plotting 4/12 bands (filtered: 8 no corrected match)
+[QA]     ✅ MicaSense: Plotting 12/38 bands (filtered: 26 no corrected match)
+[QA]   📊 Physical-reflectance y-axis range: [0.0, 1.00]
+[QA]   ✅ All 110 points within display range
+[QA]   ✅ Successfully plotted 3 sensors: OLI, TM, MicaSense
+[QA]   📊 Summary: 24/78 convolved bands plotted (54 filtered out)
+[QA]   ℹ️  Sensors not found in data: MicaSense (undark), ETM+, TM (undark), OLI (undark), ETM+ (undark)
+[QA]   📑 Rendering Page 4: Parquet & Merge Quality Analysis...
+[QA]   ✅ Page 4 rendered successfully
+[QA] ✅ QA PDF complete: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf (PyPDF2 not available to verify page count)
+[merge] 🖼️  QA panel → /private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.png (exists=True)
+[merge] ✅ Done for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance at 2026-10-19T14:35:44
+[merge] 📋 Summary: merge complete, QA panel requested=True
+[QA] 📍 QA plots module file: /private/tmp/p139-wheel-312/lib/python3.12/site-packages/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-19 14:31:42
+[QA] ✅ Page 4 function found in module
+[QA] 📄 Generating QA PDF with 4 pages: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf
+[QA]   📑 Rendering Page 1: ENVI overview...
+[QA]   📊 Loading filtered parquet statistics...
+[QA]     ✅ Found filtered stats: 64 rows
+[QA]   📑 Rendering Page 2: Topographic + BRDF diagnostics...
+[QA]   📑 Rendering Page 3: Additional QA diagnostics...
+[QA]   📊 Starting wavelength reflectance plot for NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance
+[QA]   📂 Reading parquet: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_merged_pixel_extraction.parquet
+[QA]   ✅ Loaded parquet sample: 64 rows, 207 columns
+[QA]   🔍 Found 32 corrected spectral columns
+[QA]   📊 Wavelength plot: 32 bands, range 400.0-2400.0 nm
+[QA]   ✅ Plotting 32 valid points (range: 400.0-2400.0 nm, values: 0.434-0.643)
+[QA]   🔄 Applied Gaussian smoothing (sigma: 0.8, effective window: 5) for straighter curve
+[QA]   🔍 Found 78 convolved sensor columns across 3 sensors
+[QA]     - olioli: 28 bands
+[QA]     - tmtm: 12 bands
+[QA]     - micasense: 38 bands
+[QA]     ✅ OLI: Plotting 8/28 bands (filtered: 20 no corrected match)
+[QA]     ✅ TM: Plotting 4/12 bands (filtered: 8 no corrected match)
+[QA]     ✅ MicaSense: Plotting 12/38 bands (filtered: 26 no corrected match)
+[QA]   📊 Physical-reflectance y-axis range: [0.0, 1.00]
+[QA]   ✅ All 110 points within display range
+[QA]   ✅ Successfully plotted 3 sensors: OLI, TM, MicaSense
+[QA]   📊 Summary: 24/78 convolved bands plotted (54 filtered out)
+[QA]   ℹ️  Sensors not found in data: MicaSense (undark), ETM+, TM (undark), OLI (undark), ETM+ (undark)
+[QA]   📑 Rendering Page 4: Parquet & Merge Quality Analysis...
+[QA]   ✅ Page 4 rendered successfully
+[QA] ✅ QA PDF complete: NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_qa.pdf (PyPDF2 not available to verify page count)
+[drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s][drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s, 1/1 AOP_FULL_20260904 | preparing h5]                                                                                                [drone] [1/1] AOP_FULL_20260904 | source=/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/drone_inputs/AOP-FULL-09-04-26-ExportPackage | type=h5 | stage=preparing working H5
+[drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s, 1/1 AOP_FULL_20260904 | preparing h5][drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s, 1/1 AOP_FULL_20260904 | converting to ENVI][drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s, 1/1 AOP_FULL_20260904 | correcting]        [drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s, 1/1 AOP_FULL_20260904 | full extraction]                                                                                                   [drone] [1/1] AOP_FULL_20260904 -> success_extracted (0.1s)
+[drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s, 1/1 AOP_FULL_20260904 | full extraction][drone] flights: 100%|██████████| 1/1 [00:00<00:00,  6.81flight/s, 1/1 AOP_FULL_20260904 | full extraction][drone] flights: 100%|██████████| 1/1 [00:00<00:00,  6.81flight/s, 1/1 AOP_FULL_20260904 | finished]       [drone] flights: 100%|██████████| 1/1 [00:00<00:00,  6.78flight/s, 1/1 AOP_FULL_20260904 | finished]
+[drone] report: complete
+[drone] Complete: 1 total | 1 success_total | 1 success_extracted | 0 success_qa_only_no_polygon_overlap | 0 success_qa_only_no_polygons | 0 blocked_scientific | 0 failed_other | 0.7s total | run_root=/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/drone_full_output | qa_summary=/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/drone_full_output/drone_qa_summary.json | merged=None
+[drone] Starting batch: 1 discovered | 1 to process | polygon=/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/drone_polygon.geojson | run_root=/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/drone_polygon_output
+[drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s][drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s, 1/1 AOP_POLYGON_20260904 | preparing h5]                                                                                                   [drone] [1/1] AOP_POLYGON_20260904 | source=/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/drone_inputs/AOP-POLYGON-09-04-26-ExportPackage | type=h5 | stage=preparing working H5
+[drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s, 1/1 AOP_POLYGON_20260904 | preparing h5][drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s, 1/1 AOP_POLYGON_20260904 | converting to ENVI][drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s, 1/1 AOP_POLYGON_20260904 | correcting]        [drone] flights:   0%|          | 0/1 [00:00<?, ?flight/s, 1/1 AOP_POLYGON_20260904 | polygon extraction]                                                                                                         [drone] [1/1] AOP_POLYGON_20260904 raster_crs=EPSG:32613 polygon_crs=EPSG:32613 reprojected=False overlap_after_reproject=True intersecting_polygons=1
+[drone] flights:   0%|          | 0/1 [00:02<?, ?flight/s, 1/1 AOP_POLYGON_20260904 | polygon extraction][drone-polygons] Coordinate validation warning: Bounds do not overlap. Polygon center (500003.0, 4420003.0) is 1.4m from raster center (500004.0, 4420004.0). Polygon bounds: (500001.0, 4420001.0, 500005.0, 4420005.0), Raster bounds: (500000.0, 4420008.0, 500008.0, 4420000.0)
+                                                                                                         [drone] [1/1] AOP_POLYGON_20260904 -> success_extracted (3.0s)
+[drone] flights:   0%|          | 0/1 [00:03<?, ?flight/s, 1/1 AOP_POLYGON_20260904 | polygon extraction][drone] flights: 100%|██████████| 1/1 [00:03<00:00,  3.01s/flight, 1/1 AOP_POLYGON_20260904 | polygon extraction][drone] flights: 100%|██████████| 1/1 [00:03<00:00,  3.01s/flight, 1/1 AOP_POLYGON_20260904 | finished]          [drone] flights: 100%|██████████| 1/1 [00:03<00:00,  3.01s/flight, 1/1 AOP_POLYGON_20260904 | finished]
+Ignoring fixed y limits to fulfill fixed data aspect with adjustable data limits.
+[drone] report: complete
+[drone] Complete: 1 total | 1 success_total | 1 success_extracted | 0 success_qa_only_no_polygon_overlap | 0 success_qa_only_no_polygons | 0 blocked_scientific | 0 failed_other | 3.8s total | run_root=/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/drone_polygon_output | qa_summary=/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk/drone_polygon_output/drone_qa_summary.json | merged=None
+{
+  "bulk": {
+    "elapsed_seconds": 2.339,
+    "fixture_flightlines": 3,
+    "fixture_rows": 12,
+    "input_mode": "flightline_outputs",
+    "pixel_materialization": false,
+    "restart_reused_outputs": true,
+    "status": "flightline_archive_streaming_statistics_translation_loso"
+  },
+  "console_scripts": [
+    "spectralbridge-download",
+    "spectralbridge-pipeline",
+    "spectralbridge-qa",
+    "spectralbridge-qa-summary",
+    "spectralbridge-recover-raw",
+    "spectralbridge-qa-dashboard",
+    "spectralbridge-stage-qa",
+    "spectralbridge-merge-duckdb",
+    "spectralbridge-bulk",
+    "spectralbridge-drone-production",
+    "spectralbridge-validate-parquets"
+  ],
+  "distribution_name": "earthlab-spectralbridge",
+  "distribution_version": "2.3.0rc1",
+  "drone": {
+    "corrections": "topographic_and_brdf",
+    "elapsed_seconds": 5.67,
+    "fixture_shapes": [
+      [
+        8,
+        8,
+        10
+      ],
+      [
+        8,
+        8,
+        10
+      ]
+    ],
+    "spectral_branch": "corrected_micasense_with_optional_affine_translation",
+    "status": "stage_complete_full_and_polygon"
+  },
+  "elapsed_seconds": 26.67,
+  "guardrails": {
+    "actual_output_bytes": 16758653,
+    "max_workers": 1,
+    "maximum_output_bytes": 134217728,
+    "network": "blocked",
+    "parquet_chunk_size": 8,
+    "temporary_root": "/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-artifact-smoke-n1wfsiuk"
+  },
+  "import_package": "spectralbridge",
+  "installed_from": "/private/tmp/p139-wheel-312/lib/python3.12/site-packages/spectralbridge/__init__.py",
+  "normal": {
+    "elapsed_seconds": 18.506,
+    "fixture_shape": [
+      8,
+      8,
+      32
+    ],
+    "restart_reused_core_artifacts": true,
+    "sensor_products": 7,
+    "stage_qa_json_count": 7,
+    "status": "stage_complete"
+  },
+  "python": "3.12.8",
+  "runtime_resources": [
+    "/private/tmp/p139-wheel-312/lib/python3.12/site-packages/spectralbridge/data/hyperspectral_bands.json",
+    "/private/tmp/p139-wheel-312/lib/python3.12/site-packages/spectralbridge/data/landsat_band_parameters.json",
+    "/private/tmp/p139-wheel-312/lib/python3.12/site-packages/spectralbridge/data/drone_field_manifest.csv",
+    "/private/tmp/p139-wheel-312/lib/python3.12/site-packages/spectralbridge/data/brightness/landsat_to_micasense.json",
+    "/private/tmp/p139-wheel-312/lib/python3.12/site-packages/spectralbridge/data/brightness/landsat_tm_etm_to_micasense.json",
+    "/private/tmp/p139-wheel-312/lib/python3.12/site-packages/spectralbridge/data/drone_translation_coefficients_v1.json"
+  ],
+  "spectral_library": {
+    "elapsed_seconds": 0.075,
+    "fixture_rows": 4,
+    "source_reused_in_place": true,
+    "status": "preflight_and_compact_reporting"
+  },
+  "spectralbridge_version": "2.3.0rc1",
+  "validation_kind": "bounded_installed_artifact_smoke_not_scientific_validation"
+}

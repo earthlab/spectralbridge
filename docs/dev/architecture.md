@@ -225,7 +225,7 @@ suite are separate opt-in operations.
 
 ## Relationship to scientific reproducibility
 
-- The repository encodes the workflow described in the RSE manuscript; artifacts (ENVI, Parquet, QA) are the evidence trail for analyses.
+- The repository encodes the workflow described in the [prepared software paper](https://github.com/earthlab/spectralbridge/tree/main/paper); artifacts (ENVI, Parquet, QA) provide the evidence trail for recorded analyses. Publication status is tracked separately.
 - Centralized naming, stage ordering, and idempotent execution make runs auditable and repeatable across environments.
 - Contributors are expected to preserve these invariants so published and future analyses can be reproduced from the same on-disk products.
 

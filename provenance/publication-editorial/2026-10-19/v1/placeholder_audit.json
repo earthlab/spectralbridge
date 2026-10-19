@@ -1,0 +1,126 @@
+[
+  {
+    "path": "docs/dev/codex-guidelines.md",
+    "line": 25,
+    "text": "### 4. Do NOT remove placeholders, schemas, or metadata",
+    "classification": "INTENTIONAL/ACCEPTABLE",
+    "reason": "Example or explanatory occurrence, not project metadata"
+  },
+  {
+    "path": "docs/dev/codex-guidelines.md",
+    "line": 65,
+    "text": "- generating placeholder scaffolding",
+    "classification": "INTENTIONAL/ACCEPTABLE",
+    "reason": "Example or explanatory occurrence, not project metadata"
+  },
+  {
+    "path": "docs/dev/doc_drift.md",
+    "line": 141,
+    "text": "TODO: Review sensor labels in docs for formatting issues.",
+    "classification": "HISTORICAL"
+  },
+  {
+    "path": "docs/dev/publication-cleanup-log.md",
+    "line": 28,
+    "text": "| FR-007 README QA placeholder | Removed the \u201ccoming soon\u201d placeholder and linked the checked-in workflow diagram that includes QA reports in the output contract. A renderer-produced QA PNG was not generated locally because this environment lacks `matplotlib`; QA fixture rendering remains covered by tests/CI. |",
+    "classification": "HISTORICAL"
+  },
+  {
+    "path": "docs/dev/publication-hardening-audit-2026-09-04.md",
+    "line": 273,
+    "text": "`CITATION.cff` still contains the placeholder \u201cEarth Lab / SpectralBridge Team\u201d",
+    "classification": "HISTORICAL"
+  },
+  {
+    "path": "docs/dev/publication-hardening-audit-2026-09-04.md",
+    "line": 274,
+    "text": "and TODO comments for the approved author list, ORCIDs, and affiliations. Do not",
+    "classification": "HISTORICAL"
+  },
+  {
+    "path": "docs/dev/publication-hardening-audit-2026-09-04.md",
+    "line": 449,
+    "text": "- **Problem:** authors are placeholders and the linked DOI describes a historic",
+    "classification": "HISTORICAL"
+  },
+  {
+    "path": "docs/dev/publication-hardening-audit-2026-09-04.md",
+    "line": 451,
+    "text": "- **Evidence:** TODOs in `CITATION.cff` and the DOI note identifying the existing",
+    "classification": "HISTORICAL"
+  },
+  {
+    "path": "docs/dev/publication-readiness-audit-2026-08-14.md",
+    "line": 66,
+    "text": "### 3. Citation authorship is still a placeholder",
+    "classification": "HISTORICAL"
+  },
+  {
+    "path": "docs/dev/publication-readiness-audit-2026-08-14.md",
+    "line": 68,
+    "text": "`CITATION.cff` uses \u201cEarth Lab / SpectralBridge Team\u201d and contains a TODO for the maintainer-approved author list, ORCIDs, and affiliations. A publication release needs an approved author/contributor record and a clear distinction between software authorship, acknowledgements, and associated-paper authorship.",
+    "classification": "HISTORICAL"
+  },
+  {
+    "path": "docs/dev/publication-readiness-audit-2026-08-14.md",
+    "line": 130,
+    "text": "but the suite still needs confirmation in a fresh Python 3.10 environment.",
+    "classification": "HISTORICAL"
+  },
+  {
+    "path": "docs/dev/software-citation.md",
+    "line": 43,
+    "text": "must be reconciled by the authors before publication; do not copy the placeholder",
+    "classification": "INTENTIONAL/ACCEPTABLE",
+    "reason": "Example or explanatory occurrence, not project metadata"
+  },
+  {
+    "path": "docs/dev/software-citation.md",
+    "line": 72,
+    "text": "| Current SpectralBridge-specific Zenodo release record | Needs verification | See `docs/dev/doi-zenodo.md` and `P27` |",
+    "classification": "INTENTIONAL/ACCEPTABLE",
+    "reason": "Explicit maintainer status/review instruction, not an invented completed fact; see human decisions where applicable"
+  },
+  {
+    "path": "CITATION.cff",
+    "line": 20,
+    "text": "# TODO: Replace with the preferred maintainer-approved author list, ORCIDs, and affiliations.",
+    "classification": "BLOCKING"
+  },
+  {
+    "path": "CITATION.cff",
+    "line": 31,
+    "text": "# TODO: Keep this block aligned with the canonical author list above.",
+    "classification": "BLOCKING"
+  },
+  {
+    "path": "publication_checklist.md",
+    "line": 114,
+    "text": "- [x] Finish filling placeholders in `README.md`, `CITATION.cff`, and MkDocs pages. Include feature overview, supported sensors, and end-to-end workflow diagrams.",
+    "classification": "INTENTIONAL/ACCEPTABLE"
+  },
+  {
+    "path": "publication_checklist.md",
+    "line": 119,
+    "text": "- [x] Add a maintainer-facing publication and software-citation tracker. `docs/dev/software-citation.md` now records preferred citation language, versioned release citation policy, and publication placeholders.",
+    "classification": "INTENTIONAL/ACCEPTABLE"
+  },
+  {
+    "path": "paper/paper.md",
+    "line": 122,
+    "text": "Human team members reviewed proposed software changes, citations, and calculations. AI output was not treated as scientific evidence; the authors retain responsibility for the software, scientific interpretation, and manuscript. [AUTHOR INPUT REQUIRED: confirm that human authors reviewed, edited and validated all AI-assisted outputs and made the core design decisions.]",
+    "classification": "BLOCKING"
+  },
+  {
+    "path": "paper/paper.md",
+    "line": 126,
+    "text": "[AUTHOR INPUT REQUIRED: list financial support and award numbers, describe sponsor involvement, or confirm no financial support.]",
+    "classification": "BLOCKING"
+  },
+  {
+    "path": "paper/paper.md",
+    "line": 128,
+    "text": "Conflicts of interest: [AUTHOR INPUT REQUIRED: provide the authors\u2019 disclosure or confirm that there are no relevant conflicts.]",
+    "classification": "BLOCKING"
+  }
+]

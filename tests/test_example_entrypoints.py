@@ -125,7 +125,12 @@ def test_documentation_links_to_tracked_notebooks_on_github() -> None:
         text = path.read_text(encoding="utf-8")
         for pattern in notebook_link_patterns:
             for target in pattern.findall(text):
-                if not target.startswith(GITHUB_NOTEBOOK_BASE):
+                example_base = "https://github.com/earthlab/spectralbridge/blob/main/examples/"
+                tracked_example = (
+                    target.startswith(example_base)
+                    and (REPO_ROOT / "examples" / target.removeprefix(example_base)).is_file()
+                )
+                if not target.startswith(GITHUB_NOTEBOOK_BASE) and not tracked_example:
                     unexpected_links.append(f"{path.relative_to(REPO_ROOT)}: {target}")
 
     assert unexpected_links == []

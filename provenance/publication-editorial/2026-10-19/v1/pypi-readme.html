@@ -1,0 +1,78 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Distribution README rendering</title><style>body{font:17px/1.6 system-ui;max-width:1000px;margin:30px auto;padding:0 20px}table{border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid #ccc}pre{background:#eee;padding:12px;overflow:auto}a{color:#245497}</style><h1 id="user-content-spectralbridge">SpectralBridge<a href="#user-content-spectralbridge" rel="nofollow"></a></h1>
+<p>SpectralBridge is scientific Python software for preparing and comparing
+reflectance across airborne, drone and satellite sensor representations. It
+serves remote-sensing researchers who need traceable intermediate products,
+restart-safe processing and explicit quality checks.</p>
+<p>Three separate workflows process NEON flightlines, supported local drone imagery,
+and collections of completed products. Spectral libraries and numerical analysis
+methods support downstream research. Configured sensor-like bands do not establish
+agreement with independent sensor observations or field fractional cover.</p>
+<p><a href="https://earthlab.github.io/spectralbridge/" rel="nofollow">Documentation</a> ·
+<a href="https://earthlab.github.io/spectralbridge/spectral-library/scientific-synthesis/" rel="nofollow">Scientific synthesis</a> ·
+<a href="https://earthlab.github.io/spectralbridge/api/" rel="nofollow">Python API</a> ·
+<a href="https://github.com/earthlab/spectralbridge/issues" rel="nofollow">Issues</a></p>
+<h2 id="user-content-install-and-verify">Install and verify<a href="#user-content-install-and-verify" rel="nofollow"></a></h2>
+<p>The distribution is <strong><code>earthlab-spectralbridge</code></strong>; the Python import is
+<strong><code>spectralbridge</code></strong>. Python 3.10–3.12 is the tested release range.</p>
+<p>At the 19 October 2026 audit, PyPI did not expose this distribution name.
+Use the source installation below. Repository HEAD identifies <code>2.3.0rc1</code>,
+which is a candidate identity rather than a published release. Create a virtual
+environment, then run:</p>
+<pre lang="bash">git<span class="w"> </span>clone<span class="w"> </span>https://github.com/earthlab/spectralbridge.git
+<span class="nb">cd</span><span class="w"> </span>spectralbridge
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+python<span class="w"> </span>examples/first_example.py
+</pre>
+<p>The tiny example inspects an invented spectral table without downloads or
+credentials. It verifies software use, not scientific accuracy.
+<a href="https://earthlab.github.io/spectralbridge/getting-started/" rel="nofollow">Continue the beginner path</a>.</p>
+<h2 id="user-content-choose-a-workflow">Choose a workflow<a href="#user-content-choose-a-workflow" rel="nofollow"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Your inputs</th>
+<th>Guide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NEON airborne flightlines</td>
+<td><a href="https://earthlab.github.io/spectralbridge/vignettes/full-pipeline/" rel="nofollow">NEON processing</a></td>
+</tr>
+<tr>
+<td>Supported local drone TIFF/HDF5</td>
+<td><a href="https://earthlab.github.io/spectralbridge/vignettes/drone-processing/" rel="nofollow">Drone processing</a></td>
+</tr>
+<tr>
+<td>Completed flightline products</td>
+<td><a href="https://earthlab.github.io/spectralbridge/vignettes/bulk-analysis/" rel="nofollow">Bulk analysis</a></td>
+</tr>
+<tr>
+<td>Existing polygon spectral library</td>
+<td><a href="https://earthlab.github.io/spectralbridge/vignettes/spectral-library/" rel="nofollow">Library preflight and reporting</a></td>
+</tr>
+</tbody>
+</table>
+<p>Review <a href="https://earthlab.github.io/spectralbridge/pipeline/outputs/" rel="nofollow">output contracts</a>
+and <a href="https://earthlab.github.io/spectralbridge/validation/evidence-hierarchy/" rel="nofollow">QA evidence</a>
+before drawing conclusions. Reusable numerical methods require the <code>analytics</code>
+extra; <a href="https://earthlab.github.io/spectralbridge/api/scientific-analysis/" rel="nofollow">their API guide</a>
+separates supported numerical contracts from conditional scientific inference.</p>
+<h2 id="user-content-cite-contribute-and-find-the-evidence">Cite, contribute and find the evidence<a href="#user-content-cite-contribute-and-find-the-evidence" rel="nofollow"></a></h2>
+<p>Cite the software release actually used and relevant scientific methods.
+<a href="https://earthlab.github.io/spectralbridge/dev/software-citation/" rel="nofollow">Software citation guidance</a>
+explains the current author-metadata and archive limitations. The repository's
+<a href="https://github.com/earthlab/spectralbridge/blob/main/CITATION.cff" rel="nofollow">CITATION.cff</a>
+still requires maintainer-approved authorship; the
+<a href="https://github.com/earthlab/spectralbridge/tree/main/paper" rel="nofollow">software paper sources</a>
+are a prepared manuscript, not an accepted publication.</p>
+<p>Read <a href="https://github.com/earthlab/spectralbridge/blob/main/CONTRIBUTING.md" rel="nofollow">contribution guidance</a>,
+<a href="https://github.com/earthlab/spectralbridge/tree/main/tests" rel="nofollow">tests</a> and
+<a href="https://earthlab.github.io/spectralbridge/dev/releasing/" rel="nofollow">release gates</a>.
+The license is <strong>GPL-3.0-or-later</strong>; see
+<a href="https://github.com/earthlab/spectralbridge/blob/main/LICENSE" rel="nofollow">LICENSE</a>,
+<a href="https://github.com/earthlab/spectralbridge/blob/main/NOTICE" rel="nofollow">NOTICE</a> and
+<a href="https://github.com/earthlab/spectralbridge/blob/main/HYTOOLS_PROVENANCE.md" rel="nofollow">HyTools lineage</a>.
+Historical research is preserved in
+<a href="https://github.com/earthlab/spectralbridge/tree/main/provenance" rel="nofollow">provenance</a> and
+<a href="https://github.com/earthlab/spectralbridge/tree/main/archive" rel="nofollow">archive</a>.</p>

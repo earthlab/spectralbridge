@@ -295,6 +295,8 @@ def probabilities(model, X):
 
 
 def check_probabilities(p):
+    """Validate finite nonnegative (observations, classes) scores whose rows sum to one."""
+
     p = np.asarray(p, float)
     if (
         p.ndim != 2
@@ -308,6 +310,8 @@ def check_probabilities(p):
 
 
 def temperature_probabilities(p, temperature=1.0):
+    """Apply a positive temperature to clipped log probabilities and renormalize with softmax."""
+
     if not np.isfinite(temperature) or temperature <= 0:
         raise ValueError("Positive finite temperature required")
     return softmax(

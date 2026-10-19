@@ -83,3 +83,5 @@ reuses completed stages.
 
 For exact CLI arguments and stage contracts, use the [technical
 reference](../reference/index.md).
+
+See the [API Reference for NEON orchestration](../api/generated/pipelines-pipeline.md) for current signatures, defaults, inputs and outputs.

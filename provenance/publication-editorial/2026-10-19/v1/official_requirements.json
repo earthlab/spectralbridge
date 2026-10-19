@@ -1,0 +1,75 @@
+{
+  "review_date": "2026-10-19",
+  "sources": [
+    {
+      "topic": "JOSS submission, authorship, AI, COI and sponsor roles",
+      "url": "https://joss.readthedocs.io/en/latest/submitting.html",
+      "review_note": "Human authors decide qualified authorship/consent and must supply review/design, funding/sponsor and COI declarations."
+    },
+    {
+      "topic": "JOSS paper format",
+      "url": "https://joss.readthedocs.io/en/latest/paper.html",
+      "review_note": "750\u20131750 words; eight named sections and YAML authors/affiliations; software rather than new scientific results."
+    },
+    {
+      "topic": "JOSS reviewer checklist",
+      "url": "https://joss.readthedocs.io/en/latest/review_checklist.html",
+      "review_note": "Install, functionality, documentation, tests, research use, development history and community routes."
+    },
+    {
+      "topic": "JOSS review criteria",
+      "url": "https://joss.readthedocs.io/en/latest/review_criteria.html",
+      "review_note": "Review criteria complement the checklist; checklist presence is not eligibility certification."
+    },
+    {
+      "topic": "Python Packaging User Guide",
+      "url": "https://packaging.python.org/en/latest/tutorials/packaging-projects/",
+      "review_note": "Build and inspect actual distribution metadata and long description."
+    },
+    {
+      "topic": "PyPI project metadata",
+      "url": "https://docs.pypi.org/project_metadata/",
+      "review_note": "Useful project links and consistent metadata should describe the actual distribution."
+    },
+    {
+      "topic": "Current pyproject specification",
+      "url": "https://packaging.python.org/en/latest/specifications/pyproject-toml/",
+      "review_note": "Static project fields, dependencies, optional extras, SPDX expression and license-files."
+    },
+    {
+      "topic": "PEP621",
+      "url": "https://peps.python.org/pep-0621/",
+      "review_note": "Original standard; current packaging specification is the maintained reference."
+    },
+    {
+      "topic": "CFF1.2 specification/schema",
+      "url": "https://github.com/citation-file-format/citation-file-format/blob/1.2.0/schema.json",
+      "review_note": "Schema validity is distinct from correct approved authorship."
+    },
+    {
+      "topic": "CFF project",
+      "url": "https://citation-file-format.github.io/",
+      "review_note": "Machine-readable software citation metadata."
+    },
+    {
+      "topic": "GitHub citation behavior",
+      "url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files",
+      "review_note": "Default-branch CFF supplies citation UI; preferred-citation can identify a different object."
+    },
+    {
+      "topic": "Zenodo software archive",
+      "url": "https://help.zenodo.org/docs/github/archive-software/",
+      "review_note": "An archived release and its DOI must identify the reviewed software version."
+    },
+    {
+      "topic": "Zenodo metadata precedence",
+      "url": "https://help.zenodo.org/docs/github/describe-software/",
+      "review_note": "Review CFF and any Zenodo override metadata; no .zenodo.json found here."
+    },
+    {
+      "topic": "SPDX identifier",
+      "url": "https://spdx.org/licenses/GPL-3.0-or-later.html",
+      "review_note": "GPL-3.0-or-later is the recorded expression; no legal determination or migration."
+    }
+  ]
+}

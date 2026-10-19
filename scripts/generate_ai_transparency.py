@@ -181,6 +181,43 @@ def classify(text: str, rules: Sequence[tuple[str, Sequence[str]]], fallback: st
     return best_name if best_score else fallback
 
 
+# Multi-label literal phrase matches describe mentions, including negations and pasted text.
+MENTION_RULES = {
+    "workflow_mentions": {
+        "Implementation / refactoring": ("implement", "refactor", "modify", "fix"),
+        "Audit / investigation": ("audit", "investigate", "inspect", "review"),
+        "Documentation / reporting": ("documentation", "report", "manuscript", "website"),
+        "Reproducibility / provenance": ("reproducib", "provenance", "checkpoint", "restart"),
+        "Scientific analysis / figures": ("regression", "spectra", "statistical", "figure", "plot"),
+    },
+    "tool_mentions": {
+        "Python": ("python",), "pytest": ("pytest",), "Ruff": ("ruff",),
+        "Git / GitHub": ("github", "git ", "git\n"),
+        "MkDocs": ("mkdocs",), "Notebooks / Jupyter": ("notebook", "jupyter", ".ipynb"),
+        "Docker / containers": ("docker", "container"),
+        "Browser / Playwright": ("browser", "playwright"),
+        "Lean / Lake": ("lean 4", "lean4", "lake build",),
+    },
+    "validation_mentions": {
+        "Tests / regression checks": ("pytest", "regression test", "unit test", "smoke", "test suite"),
+        "Lint / static checks": ("ruff", "lint", "type check"),
+        "Documentation / link builds": ("mkdocs", "check_docs_links", "link check", "strict build"),
+        "Visual inspection": ("screenshot", "visual inspection", "render", "visually"),
+        "Artifact / installation checks": ("wheel", "sdist", "installed artifact", "installation"),
+        "Scientific / numerical checks": ("statistical", "confidence interval", "permutation", "numerical", "cross-validation"),
+        "Formal verification": ("lean 4", "lean4", "lake build", "formal verification"),
+        "Human review / approval": ("human review", "maintainer", "approval", "author input"),
+    },
+}
+
+
+def mention_counts(texts: Sequence[str], rules: dict[str, Sequence[str]]) -> dict[str, int]:
+    """Count each prompt once per category; mentions do not establish execution."""
+    lowered = [text.casefold() for text in texts]
+    return {name: sum(any(term in text for term in terms) for text in lowered)
+            for name, terms in rules.items()}
+
+
 def summarize(entries: Sequence[PromptEntry], source_sha256: str) -> dict[str, object]:
     word_counts = [entry.word_count for entry in entries]
     labeled_text = [(entry, f"{entry.label}\n{entry.prompt}") for entry in entries]
@@ -192,7 +229,15 @@ def summarize(entries: Sequence[PromptEntry], source_sha256: str) -> dict[str, o
     branches = Counter(entry.branch for entry in entries)
     known_models = sum(count for model, count in models.items() if model.casefold() != "not recorded")
     return {
-        "schema_version": 1,
+        "schema_version": 2,
+        "historical_context": {
+            "statement": "Maintainers report using LLM assistance since GPT-3.5 and continuing thereafter; a prompt log was introduced when agentic assistants were adopted.",
+            "basis": "Maintainer statement, 2026-10-19; early usage is not reconstructed from the log.",
+        },
+        "mention_analysis": {
+            name: mention_counts([text for _, text in labeled_text], rules)
+            for name, rules in MENTION_RULES.items()
+        },
         "source": {
             "path": "PROMPT_LOG.md",
             "sha256": source_sha256,
@@ -219,6 +264,8 @@ def summarize(entries: Sequence[PromptEntry], source_sha256: str) -> dict[str, o
         "method": {
             "topic_classification": "Deterministic keyword scoring over each prompt and its logged task label; one primary topic per entry; ties follow documented rule order.",
             "intent_classification": "Deterministic keyword scoring over each prompt and its logged task label; one primary intent per entry; ties follow documented rule order.",
+            "mention_classification": "Case-insensitive literal phrase matching over prompt and task label; each prompt counted once per category; categories overlap. Negated instructions and pasted text also count. No execution or success inferred.",
+            "mention_rules": MENTION_RULES,
             "word_count": "Unicode word-like tokens matched by the generator's WORD_RE expression.",
             "ai_identity": "Entry metadata when present; otherwise the prompt log's declared defaults.",
         },
@@ -293,6 +340,12 @@ def render_markdown(summary: dict[str, object]) -> str:
 
 > This page is generated from `PROMPT_LOG.md` by `scripts/generate_ai_transparency.py`. It reports the development requests recorded in the repository; it does not measure scientific validity or assign code authorship.
 
+## History and responsibility
+
+Maintainers report that SpectralBridge development began using LLM assistance with **GPT-3.5** and has continued using LLMs since then. When agentic assistants were adopted, the project introduced the repository prompt log. This historical account was supplied by maintainers on 2026-10-19; the log does not establish an early start date, every model used, or complete coverage of subsequent work.
+
+AI assistance is part of the development process. Scientific interpretation and release decisions remain human responsibilities. This statement does not certify that every suggestion received human review; recorded requests for review are not evidence of approval.
+
 ## Summary
 
 From {stats['first_prompt_date']} through {stats['last_prompt_date']}, the log contains **{stats['prompt_count']} prompts** totaling **{stats['total_prompt_words']:,} words**. The median prompt contains **{stats['median_prompt_words']:g} words** and the mean contains **{stats['mean_prompt_words']:g} words**. Under the published keyword rules, the most common primary topic is **{leading_topic}**, and the most common request intent is **{leading_intent}**.
@@ -304,6 +357,24 @@ From {stats['first_prompt_date']} through {stats['last_prompt_date']}, the log c
 ![Primary prompt intents](images/ai-transparency/prompts-by-intent.svg)
 
 ![Prompt length distribution](images/ai-transparency/prompt-lengths.svg)
+
+## What assistance and methods were discussed
+
+The following figures count **prompts mentioning** each activity, tool or validation method. Each prompt counts at most once within a category and may count in several categories. Bar lengths measure recorded attention, not effort, executed commands or successful checks. All figures use the {stats['prompt_count']} logged prompts as their denominator.
+
+![Workflows mentioned in logged prompts](images/ai-transparency/workflow-mentions.svg)
+
+**Read this as:** the kinds of work users asked assistants to undertake or discussed in their instructions. Implementation and audits can occur in the same prompt.
+
+![Tools mentioned in logged prompts](images/ai-transparency/tool-mentions.svg)
+
+**Read this as:** named tools in requests, specifications or pasted material. A mention of pytest, for example, does not establish that pytest ran. Tools absent from prompts can still have been used.
+
+![Validation methods mentioned in logged prompts](images/ai-transparency/validation-mentions.svg)
+
+**Read this as:** the review and checking methods discussed in the log. These counts do not estimate test pass rates, numerical correctness, successful formal proofs or human sign-off.
+
+To establish what actually happened, inspect the corresponding Git changes, test/CI outputs and dated evidence packets in the [provenance directory](https://github.com/earthlab/spectralbridge/tree/main/provenance). Those records cover particular revisions and experiments; this generator does not treat them as evidence for every prompt. Complete tool-call traces and per-prompt execution outcomes are not recorded in this log.
 
 ## Which AI was used
 
@@ -328,6 +399,7 @@ The logged requests cover implementation and modification, audits and investigat
 - The source log begins after repository development was already underway, so it is not a complete history of AI use.
 - It records user prompts, not assistant responses, accepted/rejected suggestions, token usage, elapsed time, or line-level authorship.
 - Long prompts may contain pasted logs or specifications; word counts measure prompt text, not effort.
+- Mention matching includes negated instructions (for example, “do not run pytest”) and pasted examples. Counts are descriptive text indicators, not semantic judgments. The machine-readable output publishes every matching phrase and includes zero-count categories.
 - Topic and intent labels are rule-based approximations based on prompt text and the logged task label. The rules are version-controlled in the generator.
 - Legacy entries use the log-level AI-system default. Their model is `Not recorded` unless an entry explicitly provides model metadata.
 - Prompts may contain sensitive material. The generated report includes aggregates only and does not reproduce prompt text.
@@ -369,6 +441,15 @@ def build_outputs(prompt_log: Path, figures_dir: Path) -> dict[Path, str]:
             "Word-like tokens per logged prompt; pasted specifications and logs can increase counts.",
         ),
     }
+    for key, title in (
+        ("workflow_mentions", "Workflows mentioned in logged prompts"),
+        ("tool_mentions", "Tools mentioned in logged prompts"),
+        ("validation_mentions", "Validation methods mentioned in logged prompts"),
+    ):
+        figure_specs[figures_dir / (key.replace("_", "-") + ".svg")] = (
+            title, summary["mention_analysis"][key],
+            f"Prompts mentioning each category (N={len(entries)}); categories overlap; execution is not established.",
+        )
     outputs = {
         Path("docs/ai-transparency.md"): render_markdown(summary),
         Path("docs/ai-transparency.json"): json.dumps(summary, indent=2, sort_keys=True) + "\n",

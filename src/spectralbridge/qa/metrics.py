@@ -24,7 +24,32 @@ def reflectance_summary(
     nodata: float | None = None,
     plausible_max: float = 1.2,
 ) -> dict[str, float | int | None]:
-    """Summarize valid support and distribution without changing reflectance scale."""
+    """Summarize valid support and distribution without changing reflectance scale.
+
+    Parameters
+    ----------
+    values : np.ndarray
+        Numeric reflectance values of any shape; stored scale is retained and finite values are summarized without clipping.
+    nodata : float | None, default=None
+        Optional numeric nodata sentinel excluded alongside nonfinite values; None excludes only nonfinite values.
+    plausible_max : float, default=1.2
+        Upper reflectance screening threshold for the reported overbright fraction, in the input units; values are counted, not clipped.
+
+    Returns
+    -------
+    dict[str, float | int | None]
+        Total/valid counts, valid/missing fractions, quantiles, extrema and negative/overbright fractions; unsupported numeric summaries are None.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+
+    Examples
+    --------
+    >>> from spectralbridge.qa.metrics import reflectance_summary
+    >>> result = reflectance_summary([.1, .2, float("nan")])
+    >>> assert result["n_valid"] == 2
+    """
 
     arr = np.asarray(values, dtype=np.float64)
     finite = _finite_values(arr, nodata)
@@ -66,7 +91,30 @@ def reflectance_summary(
 
 
 def linear_diagnostic(x: np.ndarray, y: np.ndarray) -> dict[str, float | int | None]:
-    """Fit ``y = intercept + slope*x`` for diagnostic, not inferential, use."""
+    """Fit ``y = intercept + slope*x`` for diagnostic, not inferential, use.
+
+    Parameters
+    ----------
+    x : np.ndarray
+        Paired numeric observations flattened to equal-length vectors; nonfinite pairs are omitted from descriptive linear fitting.
+    y : np.ndarray
+        Paired numeric observations flattened to equal-length vectors; nonfinite pairs are omitted from descriptive linear fitting.
+
+    Returns
+    -------
+    dict[str, float | int | None]
+        Finite-pair count, intercept, slope, correlation, squared correlation and fitted-line RMSE; insufficient or constant-x support yields None metrics.
+
+    See Also
+    --------
+    spectralbridge.qa.metrics.reflectance_summary : Related source-derived API contract.
+
+    Examples
+    --------
+    >>> from spectralbridge.qa.metrics import linear_diagnostic
+    >>> result = linear_diagnostic([.1, .2, .3], [.2, .4, .6])
+    >>> assert abs(result["slope"] - 2) < 1e-12
+    """
 
     x_arr = np.asarray(x, dtype=np.float64).reshape(-1)
     y_arr = np.asarray(y, dtype=np.float64).reshape(-1)
@@ -102,7 +150,29 @@ def residual_metrics(
     observed: np.ndarray,
     predicted: np.ndarray,
 ) -> dict[str, float | int | None]:
-    """Return held-out-style residual metrics for paired observations."""
+    """Return held-out-style residual metrics for paired observations.
+
+    Parameters
+    ----------
+    observed : np.ndarray
+        Paired measured/reference and predicted values in common units; nonfinite pairs are omitted and residuals are predicted minus observed.
+    predicted : np.ndarray
+        Paired measured/reference and predicted values in common units; nonfinite pairs are omitted and residuals are predicted minus observed.
+
+    Returns
+    -------
+    dict[str, float | int | None]
+        Finite-pair count, predicted-minus-observed bias, MAE, RMSE, unbiased RMSE and descriptive fit diagnostics; no support yields None metrics.
+
+    See Also
+    --------
+    spectralbridge.qa.metrics.reflectance_summary : Related source-derived API contract.
+
+    Examples
+    --------
+    >>> from spectralbridge.qa.metrics import residual_metrics
+    >>> assert residual_metrics([.1, .2], [.1, .2])["rmse"] == 0
+    """
 
     obs = np.asarray(observed, dtype=np.float64).reshape(-1)
     pred = np.asarray(predicted, dtype=np.float64).reshape(-1)
@@ -158,9 +228,36 @@ def seam_score(
 ) -> dict[str, Any]:
     """Compare gradients crossing chunk boundaries with interior neighbors.
 
+    Parameters
+    ----------
+    image : np.ndarray
+        Raster diagnostic array; two-dimensional data or the established band-first cube convention is expected, with no implicit unit conversion.
+    chunk_rows : int
+        Positive computational block size in rows/columns, used to locate expected processing seams.
+    chunk_cols : int
+        Positive computational block size in rows/columns, used to locate expected processing seams.
+    nodata : float | None, default=None
+        Optional numeric nodata sentinel excluded alongside nonfinite values; None excludes only nonfinite values.
+
+    Returns
+    -------
+    dict[str, Any]
+        Per-band seam/interior gradient ratios and median, 95th-percentile and maximum seam scores; landscape edges can also produce large ratios.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     A score near one means chunk boundaries are not unusually discontinuous.
     Scores above one require interpretation because genuine landscape edges can
     coincide with a computational boundary.
+
+    See Also
+    --------
+    spectralbridge.qa.metrics.reflectance_summary : Related source-derived API contract.
     """
 
     if chunk_rows < 1 or chunk_cols < 1:
@@ -232,7 +329,36 @@ def chunk_invariance_metrics(
     *,
     tolerance: float = 1e-6,
 ) -> dict[str, float | int | None]:
-    """Compare two outputs that should be scientifically identical."""
+    """Compare two outputs that should be scientifically identical.
+
+    Parameters
+    ----------
+    baseline : np.ndarray
+        Same-shaped reference and comparison outputs; only jointly finite cells contribute to invariance diagnostics.
+    candidate : np.ndarray
+        Same-shaped reference and comparison outputs; only jointly finite cells contribute to invariance diagnostics.
+    tolerance : float, default=1e-06
+        Absolute numerical tolerance in the compared quantity: reflectance for chunk checks, additive RMSE for candidate ambiguity.
+
+    Returns
+    -------
+    dict[str, float | int | None]
+        Jointly finite count, absolute-difference quantiles, RMSE and fraction exceeding tolerance; invalid-support differences are not counted.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    See Also
+    --------
+    spectralbridge.qa.metrics.reflectance_summary : Related source-derived API contract.
+
+    Examples
+    --------
+    >>> from spectralbridge.qa.metrics import chunk_invariance_metrics
+    >>> assert chunk_invariance_metrics([.1, .2], [.1, .2])["rmse"] == 0
+    """
 
     a = np.asarray(baseline, dtype=np.float64)
     b = np.asarray(candidate, dtype=np.float64)
@@ -270,7 +396,31 @@ def spectral_response_support(
     *,
     valid_source_mask: np.ndarray | None = None,
 ) -> dict[str, float | int | None]:
-    """Quantify SRF normalization and support on available source wavelengths."""
+    """Quantify SRF normalization and support on available source wavelengths.
+
+    Parameters
+    ----------
+    source_wavelengths : np.ndarray
+        Finite wavelength coordinates in nanometers, aligned with spectral columns; numerical analysis routines require strictly increasing unique coordinates.
+    response : np.ndarray
+        Spectral-response weights aligned with source_wavelengths; finite nonnegative support determines normalization and effective wavelength.
+    valid_source_mask : np.ndarray | None, default=None
+        Optional boolean vector matching the spectral response; True marks available source coordinates for coverage reporting.
+
+    Returns
+    -------
+    dict[str, float | int | None]
+        Response weight sum, effective wavelength in nanometers, admitted coverage fraction and source-support counts.
+
+    Raises
+    ------
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    See Also
+    --------
+    spectralbridge.qa.metrics.reflectance_summary : Related source-derived API contract.
+    """
 
     wavelengths = np.asarray(source_wavelengths, dtype=np.float64).reshape(-1)
     weights = np.asarray(response, dtype=np.float64).reshape(-1)

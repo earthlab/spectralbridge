@@ -1,0 +1,27 @@
+{
+  "manifests": [
+    {
+      "path": "provenance/researcher-evidence/2026-10-16/v1/final_manifest.json",
+      "entries": 707,
+      "sha256": "efcc6c5c167a5281cec8387440ef2e3b126dd4465dd9271d7dc530a0f79e1b82"
+    },
+    {
+      "path": "provenance/researcher-pft-information/2026-10-15/v1/final_manifest.json",
+      "entries": 196,
+      "sha256": "9b8e7945179346da23cde2e94874adbb968d5a7e11a0dd8ad35880a6396b9a3f"
+    },
+    {
+      "path": "provenance/endmember-quality/2026-10-19/v1/packet_manifest.json",
+      "entries": 52,
+      "sha256": "22f366f8649e86758b2bec310e2390fea4c7bdc494b1436cda1d3e49fed5dbed"
+    },
+    {
+      "path": "provenance/endmember-quality/2026-10-19/exhaustive-v1/packet_manifest.json",
+      "entries": 84,
+      "sha256": "7bd54b0007a04a02f565b68f8537641df3bf5d16c9ea845aceec0d3361dd25f0"
+    }
+  ],
+  "unique_owned_files": 1039,
+  "failures": [],
+  "status": "passed"
+}

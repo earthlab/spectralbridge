@@ -1,0 +1,9 @@
+{
+  "fresh_pages": 10,
+  "existing_pages": 10,
+  "text_identical": true,
+  "fresh_sha256": "e36e62ce2570b64d02a7e21385f23f12eb5120a2d21f472b102a95390096718d",
+  "source": "fresh official pinned renderer, network disabled",
+  "visual_review": "PASS: all ten fresh pages rendered and inspected; template draft marks and author-input placeholders explicitly distinguished",
+  "runtime_note": "Compiler log emitted Ticker/poll interruption text, but official command exited0 and produced a complete ten-page PDF with text identical to existing preview; success independently checked."
+}

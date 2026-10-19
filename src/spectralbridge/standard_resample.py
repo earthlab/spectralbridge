@@ -157,6 +157,8 @@ def apply_resampler(hy_obj, data):
 
 class resampler_hy_obj:
 
+    """Configure the retained legacy sensor-response resampler and ENVI writer."""
+
     def __init__(self, sensor_type, json_file, hdr_path):
         """
             Initializes the resampler object with the specified sensor type, JSON file, and HDR file path.
@@ -217,7 +219,7 @@ class resampler_hy_obj:
 
             If the wavelength information is not found in the header file, the method raises a ValueError, indicating the absence of this crucial data. This method is essential for processing spectral data as it provides the fundamental wavelength values needed for various analytical processes, such as resampling.
         """
-        
+
         spectral = require_spectral()
         header = spectral.envi.read_envi_header(hdr_path)
 
@@ -246,7 +248,7 @@ class resampler_hy_obj:
         """
         fwhm_list = [fwhm_value] * number_of_bands
         return fwhm_list
-    
+
     def create_header_info(self, hdr_path):
         """
         Create header information for the resampled data.
@@ -257,15 +259,15 @@ class resampler_hy_obj:
         """
         spectral = require_spectral()
         header = spectral.envi.read_envi_header(hdr_path)
-    
+
         # Extract the number of lines and samples
         lines = header.get('lines')
         samples = header.get('samples')
-    
+
         # Extract CRS information if available
         map_info = header.get('map info', None)  # 'map info' contains georeferencing details
         coordinate_system_string = header.get('coordinate system string', None)  # Optional CRS details
-    
+
         header_info = {
             'description': 'Resampled hyperspectral data',
             'file type': 'ENVI Standard',
@@ -280,16 +282,16 @@ class resampler_hy_obj:
             'wavelength units': 'Nanometers',
             'wavelength': self.out_wave,
         }
-    
+
         # Add georeferencing and CRS details if available
         if map_info:
             header_info['map info'] = map_info
         if coordinate_system_string:
             header_info['coordinate system string'] = coordinate_system_string
-    
+
         return header_info
 
-    
+
     @staticmethod    
     def save_envi_data(data, header_info, output_filename):
         """
@@ -321,6 +323,8 @@ def load_envi_data(filename):
 
 def translate_to_sensor(sensor_type, json_file, hdr_path, resampling_file_path: str, output_file_path: str):
     # create the obj
+    """Read an existing ENVI product and write one target-sensor product through the retained legacy resampler."""
+
     resampler_config_obj = resampler_hy_obj(sensor_type, json_file, hdr_path)
 
     # Generate header information
@@ -338,6 +342,8 @@ def translate_to_sensor(sensor_type, json_file, hdr_path, resampling_file_path: 
 
 def translate_to_other_sensors(brdf_corrected_img_file: NEONReflectanceBRDFCorrectedENVIFile):
     # List of sensor types to loop through
+    """Run the retained legacy resampler for its configured Landsat and MicaSense targets."""
+
     sensor_types = [
         'Landsat 5 TM',
         'Landsat 7 ETM+',

@@ -1,0 +1,57 @@
+........................................................................ [  9%]
+........................................................................ [ 19%]
+........................................................................ [ 28%]
+...........................................................ssss......... [ 38%]
+...............................s........................................ [ 47%]
+........................................................................ [ 57%]
+........................................................................ [ 66%]
+.......................................................s................ [ 76%]
+........................................................................ [ 85%]
+........................................................................ [ 95%]
+...................................                                      [100%]
+=============================== warnings summary ===============================
+src/spectralbridge/polygons.py:30
+tests/test_cross_sensor_cal_shim.py::test_project_script_entry_points_resolve_from_non_repo_cwd
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/polygons.py:30: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+tests/test_drone_pipeline.py: 13 warnings
+tests/test_qa/test_qa_metrics_smoke.py: 3 warnings
+tests/test_validation_campaign.py: 1 warning
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:1377: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    created_utc=_dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:2437: RuntimeWarning: All-NaN slice encountered
+    return np.nanmedian(masked, axis=(1, 2))
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:493: RuntimeWarning: All-NaN slice encountered
+    delta_median = np.nanmedian(diff, axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/.venv/lib/python3.12/site-packages/numpy/lib/_nanfunctions_impl.py:1593: RuntimeWarning: All-NaN slice encountered
+    return fnb._ureduce(a,
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:498: RuntimeWarning: All-NaN slice encountered
+    delta_abs_median = np.nanmedian(np.abs(diff), axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:2589: RuntimeWarning: All-NaN slice encountered
+    abs_delta = np.nanmedian(full_abs_diff, axis=0)
+
+tests/test_polygon_pipeline.py::test_build_polygon_pixel_index
+tests/test_polygon_pipeline.py::test_extract_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_merge_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_run_polygon_pipeline_for_flightline
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/polygons.py:1860: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+    polygon_ids = polygons["polygon_id"].astype("int64", copy=False)
+
+tests/test_scientific_docs_integration.py::test_both_publication_figures_compose_offline_without_original_archive
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/examples/publication_figures/figure_panels.py:132: PendingDeprecationWarning: The set_bad function will be deprecated in a future version. Use cmap.with_extremes(bad=...) or Colormap(bad=...) instead.
+    cmap.set_bad('#eeeeee')
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+749 passed, 7 skipped, 2 deselected, 30 warnings in 131.16s (0:02:11)

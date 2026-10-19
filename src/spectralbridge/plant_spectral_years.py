@@ -216,6 +216,8 @@ def _year_site_figure(root, index, counts, stage, years, sites, labels, limits):
 
 
 def run_year_site_quantiles(comparisons, output, *, config=None):
+    """Fit or reuse boosted spectral quantiles within eligible species-by-site-by-year cohorts."""
+
     import matplotlib
 
     matplotlib.use("Agg")

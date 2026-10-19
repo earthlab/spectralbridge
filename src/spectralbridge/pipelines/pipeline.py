@@ -902,6 +902,8 @@ def convolve_resample_product(
     sensor_name: str | None = None,
     brightness_system_pair: str | None = None,
 ) -> dict[str, dict[int, float]]:
+    """Stream a corrected BSQ cube through supplied spectral-response weights into canonical target-sensor products."""
+
     src_header = _parse_envi_header(corrected_hdr_path)
     try:
         samples = int(src_header["samples"])  # type: ignore[index]
@@ -1316,6 +1318,8 @@ def resample_to_sensor_bands(
     resolved_name: str | None = None,
     sensor_library: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, np.ndarray]:
+    """Construct target-band response weights from source wavelength metadata and a registered sensor specification."""
+
     method_norm = (method or "convolution").lower()
     if method_norm not in {"convolution", "gaussian", "straight"}:
         raise RuntimeError(f"Resample method '{method}' is not supported for inline convolution")
@@ -1372,6 +1376,8 @@ def write_resampled_product(
     interactive_mode: bool = True,
     log_every: int = 25,
 ) -> dict[str, dict[int, float]]:
+    """Delegate target-response convolution and writing using the canonical sensor output stem."""
+
     out_path = Path(out_path)
     out_stem = out_path.with_suffix("")
     return convolve_resample_product(
@@ -1555,16 +1561,16 @@ def stage_export_envi_from_h5(
         if line_start is not None and line_stop is not None
         else None
     )
-    
+
     # Ensure work_dir exists before discovery (files from previous runs should be here)
     work_dir.mkdir(parents=True, exist_ok=True)
-    
+
     # First, try to discover existing ENVI files via get_flightline_products()
     # This handles files with variant naming (e.g., T-separator format)
     products = get_flightline_products(base_folder, product_code, flight_stem)
     discovered_img = products.get("raw_envi_img")
     discovered_hdr = products.get("raw_envi_hdr")
-    
+
     # Use discovered paths if they exist and are valid, otherwise fall back to canonical paths
     def _looks_valid(img_path: Path, hdr_path: Path) -> bool:
         if not img_path or not hdr_path:
@@ -1580,13 +1586,13 @@ def stage_export_envi_from_h5(
             )
         except (OSError, ValueError):
             return False
-    
+
     if discovered_img and discovered_hdr and _looks_valid(discovered_img, discovered_hdr):
         logger.info(
             f"✅ Discovered existing ENVI export → {discovered_img.name} / {discovered_hdr.name}"
         )
         return discovered_img, discovered_hdr
-    
+
     # Fall back to canonical paths
     raw_img_path = flight_paths.envi_img
     raw_hdr_path = flight_paths.envi_hdr
@@ -1686,7 +1692,7 @@ def stage_export_envi_from_h5(
     products = get_flightline_products(base_folder, product_code, flight_stem)
     discovered_img = products.get("raw_envi_img")
     discovered_hdr = products.get("raw_envi_hdr")
-    
+
     if discovered_img and discovered_hdr and _looks_valid(discovered_img, discovered_hdr):
         logger.info(
             f"✅ ENVI export found via discovery → {discovered_img.name} / {discovered_hdr.name}"
@@ -1697,7 +1703,7 @@ def stage_export_envi_from_h5(
     # we assume get_flightline_products() is wrong for this stage.
     # Raise a RuntimeError that tells the dev EXACTLY which files actually appeared.
     created_pretty = "\n  ".join(created_names) if created_names else "(no new files detected)"
-    
+
     # Also list all existing *_reflectance_envi.img files for debugging
     # Check both work_dir and base_folder for files
     existing_envi_files = sorted(work_dir.glob("*_reflectance_envi.img"))
@@ -1706,10 +1712,10 @@ def stage_export_envi_from_h5(
     if base_folder != work_dir:
         existing_envi_files.extend(sorted(base_folder.glob("*_reflectance_envi.img")))
         existing_all_envi.extend(sorted(base_folder.glob("*_envi.img")))
-    
+
     existing_pretty = "\n  ".join(f.name for f in existing_envi_files) if existing_envi_files else "(no *_reflectance_envi.img files found)"
     existing_all_pretty = "\n  ".join(f.name for f in existing_all_envi) if existing_all_envi else "(no *_envi.img files found)"
-    
+
 
     raise RuntimeError(
         (
@@ -2091,9 +2097,9 @@ def stage_convolve_all_sensors(
         actual_extraction_mode = extraction_mode.lower()
         if actual_extraction_mode not in ("polygon", "full"):
             raise ValueError(f"extraction_mode must be 'polygon' or 'full', got '{extraction_mode}'")
-    
+
     logger.info("📋 Extraction mode: %s", actual_extraction_mode)
-    
+
     # Polygon extraction mode: skip full parquet export, extract polygon parquets directly
     polygon_extraction_succeeded = False
     polygon_index_path_for_merge = None
@@ -2113,10 +2119,10 @@ def stage_convolve_all_sensors(
                 filter_polygons_by_overlap,
                 visualize_polygons_on_envi,
             )
-            
+
             # Get FlightlinePaths for polygon extraction
             flight_paths = FlightlinePaths(base_folder=Path(base_folder), flight_id=flight_stem)
-            
+
             # Determine which reference product to use (corrected ENVI may not exist yet)
             reference_product = "brdfandtopo_corrected_envi"
             if not flight_paths.corrected_img.exists():
@@ -2124,10 +2130,10 @@ def stage_convolve_all_sensors(
                     "⚠️  Corrected ENVI not found yet, using raw ENVI for polygon operations"
                 )
                 reference_product = "envi"
-            
+
             # Handle polygon file
             polygon_path_obj = Path(polygon_path) if isinstance(polygon_path, str) else polygon_path
-            
+
             # Check if it's a dummy polygon request
             if polygon_path_obj.name == "dummy" or str(polygon_path_obj) == "dummy":
                 pixel_size = polygon_pixel_size if polygon_pixel_size else (4, 4)
@@ -2151,7 +2157,7 @@ def stage_convolve_all_sensors(
                     min_overlap_pct=polygon_min_overlap,
                     search_buffer_m=polygon_search_buffer_m,
                 )
-                
+
                 # Create visualization
                 logger.info("🎨 Creating polygon overlay visualization...")
                 try:
@@ -2163,7 +2169,7 @@ def stage_convolve_all_sensors(
                     logger.info("✅ Visualization saved: %s", viz_path)
                 except Exception as viz_exc:
                     logger.warning("⚠️  Failed to create visualization: %s", viz_exc)
-            
+
             # Delete existing polygon parquets if overwrite is enabled
             if polygon_overwrite:
                 logger.info("🗑️  Removing existing polygon parquets (overwrite=True)...")
@@ -2173,7 +2179,7 @@ def stage_convolve_all_sensors(
                         logger.debug("   Deleted: %s", existing_parquet.name)
                     except Exception as e:
                         logger.warning("   Failed to delete %s: %s", existing_parquet.name, e)
-            
+
             # Build polygon pixel index (use filtered polygons)
             polygon_index_path = build_polygon_pixel_index(
                 flight_paths,
@@ -2182,7 +2188,7 @@ def stage_convolve_all_sensors(
                 overwrite=polygon_overwrite,
             )
             logger.info("✅ Polygon pixel index created: %s", polygon_index_path)
-            
+
             # Extract polygon parquets directly from ENVI files
             polygon_parquets = extract_all_polygon_parquets_from_envi(
                 flight_paths,
@@ -2190,14 +2196,14 @@ def stage_convolve_all_sensors(
                 chunk_size=effective_parquet_chunk_size,
                 overwrite=polygon_overwrite,
             )
-            
+
             logger.info(
                 "✅ Polygon extraction complete: %d products extracted",
                 len(polygon_parquets),
             )
             for product, parquet_path in polygon_parquets.items():
                 logger.info("   - %s → %s", product, parquet_path.name)
-            
+
             # Use polygon parquets for merge
             parquet_outputs = list(polygon_parquets.values())
             polygon_extraction_succeeded = True
@@ -2270,7 +2276,7 @@ def stage_convolve_all_sensors(
             from spectralbridge.polygons import merge_polygon_parquets_for_flightline
             from spectralbridge.merge_duckdb import _filter_no_data_rows_from_parquet
             import duckdb
-            
+
             print("[pipeline] 🔗 Merging polygon parquets with polygon index...")
             logger.info("🔗 Merging polygon parquets with polygon index...")
             merge_out = merge_polygon_parquets_for_flightline(
@@ -2283,7 +2289,7 @@ def stage_convolve_all_sensors(
             )
             print(f"[pipeline] ✅ Polygon merge complete: {merge_out}")
             logger.info("✅ Polygon merge complete: %s", merge_out)
-            
+
             # Apply filtering to remove rows with majority invalid reflectance values (>90%)
             print("[pipeline] 🔍 About to filter no-data rows from merged file...")
             print(f"[pipeline] 📍 merge_out path: {merge_out}, exists: {merge_out.exists()}")
@@ -2297,7 +2303,7 @@ def stage_convolve_all_sensors(
                     merge_row_group_size,
                 )
                 print("[pipeline] ✅ _filter_no_data_rows_from_parquet completed successfully")
-                
+
                 # Export filtered parquet to CSV (streaming to avoid memory issues)
                 # Do this before closing the connection
                 merge_out_csv = merge_out.with_suffix(".csv").resolve()
@@ -2334,7 +2340,7 @@ def stage_convolve_all_sensors(
                 print("[pipeline] ✅ DuckDB connection closed")
             print("[pipeline] ✅ No-data filtering complete - continuing to QA panel generation")
             logger.info("✅ No-data filtering complete")
-            
+
             # Generate QA panel for polygon mode (merge_polygon_parquets_for_flightline doesn't do this)
             print("[pipeline] 🖼️  Generating QA panel for polygon merge...")
             print(f"[pipeline] 📍 Current flightline_dir: {flightline_dir}")
@@ -2349,7 +2355,7 @@ def stage_convolve_all_sensors(
                     importlib.reload(sys.modules['spectralbridge.qa_plots'])
                     print("[pipeline] 🔄 Reloaded qa_plots module to ensure latest code")
                     logger.info("🔄 Reloaded qa_plots module to ensure latest code")
-                
+
                 print("[pipeline] 📞 Calling render_flightline_panel...")
                 qa_png_path, _ = render_flightline_panel(
                     flightline_dir, quick=True, save_json=True
@@ -2515,6 +2521,77 @@ def process_one_flightline(
 ):
     """Run the structured, skip-aware workflow for a single flightline.
 
+    Parameters
+    ----------
+    base_folder : Path
+        Local NEON download and per-flightline output root; canonical filename helpers determine stage paths.
+    product_code : str
+        NEON product identifier; the normal directional-reflectance workflow uses DP1.30006.001.
+    flight_stem : str
+        Canonical source flightline identifier used by naming helpers, excluding the .h5 extension.
+    resample_method : str | None, default='convolution'
+        Target-sensor method: 'convolution' (also selected by None), 'gaussian', 'straight', or the retained 'legacy'/'resample' adapter.
+    brightness_offset : float | None, default=None
+        Optional legacy additive brightness offset in stored reflectance units; None preserves the normal correction behavior.
+    use_ndvi_brdf_bins : bool, default=False
+        Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.
+    parallel_mode : bool, default=False
+        Internal orchestration flag controlling nested execution; direct single-flightline callers normally retain False.
+    parquet_chunk_size : int, default=50000
+        Positive pixel/window processing budget for bounded extraction; the default and interpretation follow the selected producer.
+    ray_cpus : int | None, default=None
+        Optional CPU allocation for Ray-backed work; None delegates to established resource selection.
+    merge_memory_limit_gb : float | str | None, default=64.0
+        DuckDB merge memory budget in GiB when numeric, or an accepted memory string; None follows the merge default.
+    merge_threads : int | None, default=4
+        Positive DuckDB thread budget; None delegates to the established database default.
+    merge_row_group_size : int | None, default=None
+        Positive rows per written Parquet row group; None in the merge workflow delegates to its established default.
+    merge_temp_directory : Path | None, default=None
+        DuckDB spill directory; bulk temporary storage must be outside the read-only source tree.
+    polygon_path : Path | str | None, default=None
+        Existing polygon vector dataset for extraction; coordinates are handled by the established polygon workflow.
+    polygon_pixel_size : tuple[int, int] | None, default=(4, 4)
+        Requested (x, y) pixel-size pair for polygon indexing; None delegates to raster-derived sizing. Units follow the raster coordinate system.
+    polygon_overwrite : bool, default=False
+        Rebuild existing polygon-derived products instead of reusing them.
+    polygon_min_overlap : float, default=0.0
+        Minimum fractional polygon/pixel overlap admitted by the existing extraction routine.
+    polygon_search_buffer_m : float, default=0.0
+        Search expansion in meters for polygon/raster matching; does not change source polygon geometry.
+    extraction_mode : str | None, default=None
+        'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.
+    topo_fit_mode : str, default='scene'
+        Topographic fit mode passed to correction/QA; the default 'scene' retains the existing scene-wide fit.
+    qa_mode : Literal['off', 'standard', 'deep'], default='standard'
+        QA coverage: 'off', 'standard', or 'deep'; deep diagnostics do not replace scientific validation of correction assumptions.
+    source_h5 : Path | str | None, default=None
+        Optional explicit existing HDF5 backing this flightline, used for windowed half-route processing without copying the source.
+    sample_start : int | None, default=None
+        Optional zero-based half-open bounds on the across-track sample axis; None uses the corresponding full-axis bound.
+    sample_stop : int | None, default=None
+        Optional zero-based half-open bounds on the across-track sample axis; None uses the corresponding full-axis bound.
+    line_start : int | None, default=None
+        Optional zero-based half-open bounds on the along-track line axis; None uses the corresponding full-axis bound.
+    line_stop : int | None, default=None
+        Optional zero-based half-open bounds on the along-track line axis; None uses the corresponding full-axis bound.
+
+    Returns
+    -------
+    None
+        No in-memory result. Canonical ENVI, correction JSON, sensor products, extraction tables and QA artifacts are written or reused on disk.
+
+    Raises
+    ------
+    FileNotFoundError
+        If a required source or completed artifact is absent.
+    RuntimeError
+        If required processing or artifact validation cannot complete.
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Enforced stage order:
       1) export ENVI from H5
       2) build correction JSON
@@ -2533,6 +2610,17 @@ def process_one_flightline(
 
     Partially written / corrupt files will fail validation and
     trigger recomputation so partial runs recover safely.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+
+    Examples
+    --------
+    Use an existing downloaded flight HDF5 and its canonical stem; this call writes real processing outputs.
+
+    >>> from spectralbridge import process_one_flightline
+    >>> process_one_flightline(base_folder=base_folder, product_code="DP1.30006.001", flight_stem=flight_stem)  # doctest: +SKIP
     """
 
     logger.info(f"✅ Starting processing for {flight_stem}")
@@ -2633,12 +2721,12 @@ def process_one_flightline(
                 extract_polygon_parquets_for_flightline,
                 create_dummy_polygon,
             )
-            
+
             logger.info("🌐 Starting polygon extraction for %s", flight_stem)
-            
+
             # Get FlightlinePaths for polygon extraction
             flight_paths = FlightlinePaths(base_folder=Path(base_folder), flight_id=flight_stem)
-            
+
             # Handle dummy polygon creation
             polygon_path_obj = Path(polygon_path) if isinstance(polygon_path, str) else polygon_path
             if polygon_path_obj.name == "dummy" or str(polygon_path_obj) == "dummy":
@@ -2651,7 +2739,7 @@ def process_one_flightline(
                 )
             elif not polygon_path_obj.exists():
                 raise FileNotFoundError(f"Polygon file not found: {polygon_path_obj}")
-            
+
             # Build polygon pixel index
             polygon_index_path = build_polygon_pixel_index(
                 flight_paths,
@@ -2660,7 +2748,7 @@ def process_one_flightline(
                 overwrite=polygon_overwrite,
             )
             logger.info("✅ Polygon pixel index created: %s", polygon_index_path)
-            
+
             # Extract polygon parquets for all products
             polygon_parquets = extract_polygon_parquets_for_flightline(
                 flight_paths,
@@ -2668,14 +2756,14 @@ def process_one_flightline(
                 products=None,  # Extract all available products
                 overwrite=polygon_overwrite,
             )
-            
+
             logger.info(
                 "✅ Polygon extraction complete: %d products extracted",
                 len(polygon_parquets),
             )
             for product, parquet_path in polygon_parquets.items():
                 logger.info("   - %s → %s", product, parquet_path.name)
-                
+
         except Exception as exc:
             logger.warning(
                 "⚠️ Polygon extraction failed for %s: %s",
@@ -2831,7 +2919,7 @@ def _iter_engine_results(
 
     # Explicitly check engine to prevent accidental Ray initialization
     engine_lower = engine.lower() if isinstance(engine, str) else str(engine).lower()
-    
+
     if engine_lower in {"thread", "process"}:
         logger.info("Using %s executor (Ray will NOT be initialized)", engine_lower)
         # Double-check: ensure Ray is not initialized (shutdown if it is)
@@ -2861,63 +2949,63 @@ def _iter_engine_results(
 def sort_and_sync_files(base_folder: str, remote_prefix: str = "", sync_files: bool = True):
     """
     Generate file sorting list and optionally sync files to iRODS using gocmd.
-    
+
     Parameters:
     - base_folder: Base directory containing processed files
     - remote_prefix: Optional custom path to add after i:/iplant/ for remote paths
     - sync_files: Whether to actually sync files (True) or just generate the list (False)
     """
     print("\n=== Starting file sorting and syncing ===")
-    
+
     # Generate the file move list
     print(f"Generating file move list for: {base_folder}")
     df_move_list = generate_file_move_list(base_folder, base_folder, remote_prefix)
-    
+
     # Save the move list to base_folder (not in sorted_files subdirectory)
     csv_path = os.path.join(base_folder, "envi_file_move_list.csv")
     df_move_list.to_csv(csv_path, index=False)
     print(f"✅ File move list saved to: {csv_path}")
-    
+
     if not sync_files:
         print("Sync disabled. File list generated but no files transferred.")
         return
-    
+
     if len(df_move_list) == 0:
         print("No files to sync.")
         return
-    
+
     # Sync files using gocmd
     print(f"\nStarting file sync to iRODS ({len(df_move_list)} files)...")
-    
+
     # Process each unique source-destination directory pair
     # Group by source directory to minimize gocmd calls
     source_dirs = df_move_list.groupby(df_move_list['Source Path'].apply(lambda x: os.path.dirname(x)))
-    
+
     total_synced = 0
     for source_dir, group in source_dirs:
         # Get unique destination directory for this group
         dest_dirs = group['Destination Path'].apply(lambda x: os.path.dirname(x)).unique()
-        
+
         for dest_dir in dest_dirs:
             # Filter files for this specific source-dest pair
             files_to_sync = group[group['Destination Path'].apply(lambda x: os.path.dirname(x)) == dest_dir]
-            
+
             print(f"\nSyncing {len(files_to_sync)} files from {source_dir} to {dest_dir}")
-            
+
             try:
                 # Run gocmd sync command
                 cmd = ["gocmd", "sync", source_dir, dest_dir, "--progress"]
                 result = subprocess.run(cmd, capture_output=True, text=True)
-                
+
                 if result.returncode == 0:
                     print(f"✅ Successfully synced {len(files_to_sync)} files")
                     total_synced += len(files_to_sync)
                 else:
                     print(f"❌ Error syncing files: {result.stderr}")
-                    
+
             except Exception as e:
                 print(f"❌ Exception during sync: {str(e)}")
-    
+
     print(f"\n✅ File sync complete. Total files synced: {total_synced}/{len(df_move_list)}")
 
 
@@ -2950,6 +3038,73 @@ def go_forth_and_multiply(
 ) -> None:
     """High-level orchestrator for processing multiple flight lines.
 
+    Parameters
+    ----------
+    base_folder : Path
+        Local NEON download and per-flightline output root; canonical filename helpers determine stage paths.
+    site_code : str
+        NEON site code used for source discovery, for example NIWO.
+    year_month : str
+        Acquisition month in YYYY-MM form used by NEON download discovery.
+    flight_lines : list[str]
+        Canonical NEON flightline identifiers to stage and process; source downloads are performed serially before parallel processing.
+    product_code : str, default='DP1.30006.001'
+        NEON product identifier; the normal directional-reflectance workflow uses DP1.30006.001.
+    resample_method : str | None, default='convolution'
+        Target-sensor method: 'convolution' (also selected by None), 'gaussian', 'straight', or the retained 'legacy'/'resample' adapter.
+    brightness_offset : float | None, default=None
+        Optional legacy additive brightness offset in stored reflectance units; None preserves the normal correction behavior.
+    use_ndvi_brdf_bins : bool, default=False
+        Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.
+    max_workers : int, default=8
+        Positive parallel worker budget; eight by default for the batch NEON orchestrator.
+    parquet_chunk_size : int, default=50000
+        Positive pixel/window processing budget for bounded extraction; the default and interpretation follow the selected producer.
+    engine : Literal['thread', 'process', 'ray'], default='ray'
+        Parallel backend: 'ray', 'thread', or 'process'; existing Ray state must be compatible with the chosen engine.
+    merge_memory_limit_gb : float | str | None, default=64.0
+        DuckDB merge memory budget in GiB when numeric, or an accepted memory string; None follows the merge default.
+    merge_threads : int | None, default=4
+        Positive DuckDB thread budget; None delegates to the established database default.
+    merge_row_group_size : int | None, default=None
+        Positive rows per written Parquet row group; None in the merge workflow delegates to its established default.
+    merge_temp_directory : Path | None, default=None
+        DuckDB spill directory; bulk temporary storage must be outside the read-only source tree.
+    polygon_path : Path | str | None, default=None
+        Existing polygon vector dataset for extraction; coordinates are handled by the established polygon workflow.
+    polygon_pixel_size : tuple[int, int] | None, default=(4, 4)
+        Requested (x, y) pixel-size pair for polygon indexing; None delegates to raster-derived sizing. Units follow the raster coordinate system.
+    polygon_overwrite : bool, default=False
+        Rebuild existing polygon-derived products instead of reusing them.
+    polygon_min_overlap : float, default=0.0
+        Minimum fractional polygon/pixel overlap admitted by the existing extraction routine.
+    polygon_search_buffer_m : float, default=0.0
+        Search expansion in meters for polygon/raster matching; does not change source polygon geometry.
+    extraction_mode : str | None, default=None
+        'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.
+    topo_fit_mode : str, default='scene'
+        Topographic fit mode passed to correction/QA; the default 'scene' retains the existing scene-wide fit.
+    qa_mode : Literal['off', 'standard', 'deep'], default='standard'
+        QA coverage: 'off', 'standard', or 'deep'; deep diagnostics do not replace scientific validation of correction assumptions.
+    split_across_track : bool, default=False
+        Produce two canonical half-route windows from each original HDF5, retaining shared source provenance; False processes full scenes.
+
+    Returns
+    -------
+    None
+        No in-memory result. Requested flightline products and associated canonical sidecars are persisted under base_folder.
+
+    Raises
+    ------
+    FileNotFoundError
+        If a required source or completed artifact is absent.
+    RuntimeError
+        If required processing or artifact validation cannot complete.
+    ValueError
+        If the supplied options, dimensions, support or provenance violate the input contract.
+
+    Notes
+    -----
     Steps:
 
       1. Ensure the NEON ``.h5`` for each ``flight_stem`` is present locally via
@@ -2971,6 +3126,17 @@ def go_forth_and_multiply(
     * north–south elongated footprints → ``_left`` / ``_right`` line windows
       (northern half, then southern half)
     * east–west elongated footprints → ``_left`` / ``_right`` sample windows
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+
+    Examples
+    --------
+    Requires real NEON flight identifiers and network/download access; see the NEON workflow for preparing these arguments.
+
+    >>> from spectralbridge import go_forth_and_multiply
+    >>> go_forth_and_multiply(base_folder, site_code, year_month, flight_lines, engine="thread", max_workers=1)  # doctest: +SKIP
     """
 
     if max_workers < 1:
@@ -3236,7 +3402,7 @@ def go_forth_and_multiply(
                         ) from e
             except ImportError:
                 pass  # Ray not installed, which is fine
-        
+
         for done_flight in _iter_engine_results(
             tasks,
             engine=engine_norm,
@@ -3251,6 +3417,8 @@ def go_forth_and_multiply(
     logger.info("✅ All requested flightlines processed.")
 
 def resample_translation_to_other_sensors(base_folder: Path):
+    """Run the retained legacy sensor-translation adapter across discovered corrected ENVI products."""
+
     from ..standard_resample import translate_to_other_sensors
 
     # List all subdirectories in the base folder

@@ -343,6 +343,29 @@ def make_sensor_vs_neon_panels(
     max_points: int = 50_000,
     sentinel_at_or_below: float = -9999.0,
 ) -> List[Path]:
+    """Render matched sensor products against corrected NEON bands.
+
+    Parameters
+    ----------
+    merged_dir : str | Path
+        Directory of existing merged Parquets with recognized sensor-labelled spectral columns.
+    out_dir : str | Path | None, default=None
+        Directory for generated products; bulk outputs must be outside the read-only input tree.
+    max_points : int, default=50000
+        Maximum sampled points per plotted pair; controls rendering cost rather than total source-row coverage.
+    sentinel_at_or_below : float, default=-9999.0
+        Exclude values at or below this numeric sentinel in stored reflectance units before paired plotting.
+
+    Returns
+    -------
+    List[Path]
+        Paths to saved paired-scatter panel images; unsupported/missing sensor groups are skipped.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+    """
+
     merged_dir = Path(merged_dir)
     out_path = Path(out_dir) if out_dir is not None else merged_dir
     out_path.mkdir(parents=True, exist_ok=True)
@@ -534,6 +557,29 @@ def make_micasense_vs_landsat_panels(
     max_points: int = 50_000,
     sentinel_at_or_below: float = -9999.0,
 ) -> List[Path]:
+    """Render wavelength-matched MicaSense and Landsat diagnostic panels.
+
+    Parameters
+    ----------
+    merged_dir : str | Path
+        Directory of existing merged Parquets with recognized sensor-labelled spectral columns.
+    out_dir : str | Path | None, default=None
+        Directory for generated products; bulk outputs must be outside the read-only input tree.
+    max_points : int, default=50000
+        Maximum sampled points per plotted pair; controls rendering cost rather than total source-row coverage.
+    sentinel_at_or_below : float, default=-9999.0
+        Exclude values at or below this numeric sentinel in stored reflectance units before paired plotting.
+
+    Returns
+    -------
+    List[Path]
+        Paths to saved wavelength-matched MicaSense/Landsat panel images; common-source synthetic pairs are diagnostic, not independent calibration.
+
+    See Also
+    --------
+    spectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.
+    """
+
     merged_dir = Path(merged_dir)
     out_path = Path(out_dir) if out_dir is not None else merged_dir
     out_path.mkdir(parents=True, exist_ok=True)

@@ -18,6 +18,8 @@ _STAGE_ORDER = {
 
 
 def normalize_stage_id(stage_id: str) -> str:
+    """Normalize a stage label to a nonempty lowercase underscore identifier for deterministic QA paths."""
+
     normalized = re.sub(r"[^a-z0-9]+", "_", stage_id.strip().lower()).strip("_")
     if not normalized:
         raise ValueError("stage_id must contain at least one letter or number")
