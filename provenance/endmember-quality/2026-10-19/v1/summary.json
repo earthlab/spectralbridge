@@ -1,0 +1,100 @@
+{
+  "status": "completed internal diagnostics",
+  "config": {
+    "seed": 20261019,
+    "index_base": 0,
+    "selection_scope": "whole library, confirmed by user",
+    "random_replicates": 30,
+    "screen_per_class": 3,
+    "exploratory_screen_sensitivity": [
+      1,
+      2,
+      5
+    ],
+    "max_components": 3,
+    "bundles_per_site_year": 2,
+    "near_RMSE_tolerance": 0.01,
+    "LP_feasibility_tolerance": 1e-09,
+    "LP_verified_RMSE_tolerance": 1e-08,
+    "class_mapping": {
+      "1": "Deciduous",
+      "2": "Evergreen",
+      "3": "Herbaceous",
+      "4": "Non-vegetated & dead",
+      "5": "Woody shrub"
+    }
+  },
+  "array_shape": [
+    85706,
+    7
+  ],
+  "selected_members": 603,
+  "selected_polygon_IDs": 367,
+  "selected_class_counts": {
+    "Deciduous": 115,
+    "Evergreen": 166,
+    "Herbaceous": 90,
+    "Non-vegetated & dead": 141,
+    "Woody shrub": 91
+  },
+  "target_polygon_IDs": 3272,
+  "target_curves": 4261,
+  "target_aggregation": "within-flight median then polygon/site/source-acquisition-year median; all candidate GlobalIDs excluded globally",
+  "selection_blind": false,
+  "selected_macro_same_class_RMSE": 0.015072088840464437,
+  "selected_single_reference_BA": 0.59380541179752,
+  "matched_random_macro_same_class_RMSE_mean": 0.011589540223726153,
+  "matched_random_macro_same_class_RMSE_range": [
+    0.01130206226482569,
+    0.01206554179575447
+  ],
+  "matched_random_single_reference_BA_mean": 0.5556193993305757,
+  "matched_random_single_reference_BA_range": [
+    0.5323402198768125,
+    0.5733677791083992
+  ],
+  "flight_matched_random_macro_same_class_RMSE_mean": 0.01255864137983952,
+  "flight_matched_random_single_reference_BA_mean": 0.5478646668573492,
+  "cross_class_convex_hull_matches": 223,
+  "affine_singular_values": [
+    8.249537744629905,
+    2.897680105559435,
+    2.150338027528313,
+    0.4707284821198966,
+    0.2782558080562534,
+    0.13089176589277607,
+    0.06357501238063247
+  ],
+  "affine_rank": 7,
+  "full_distinct_class_up_to_three_model_count": 16918447,
+  "synthetic_targets": 360,
+  "synthetic_bundles": 8,
+  "synthetic_RMSE": {
+    "Selected screened MESMA": 0.3215405145067264,
+    "Matched random screened MESMA": 0.3130285859978941,
+    "Screen1 sensitivity": 0.33639874771462697,
+    "Screen2 sensitivity": 0.32798178840723613,
+    "Screen5 sensitivity": 0.316474641223827,
+    "Uniform design prior": 0.3035591345160744,
+    "Sparse design prior": 0.34469524919095534,
+    "Known-parent FCLS oracle": 3.572240529139202e-14
+  },
+  "synthetic_mean_row_RMSE": {
+    "Selected screened MESMA": 0.29311182510334516,
+    "Matched random screened MESMA": 0.28349695452277723,
+    "Screen1 sensitivity": 0.3033183802733989,
+    "Screen2 sensitivity": 0.2991085473527385,
+    "Screen5 sensitivity": 0.2882366489413421,
+    "Uniform design prior": 0.29167132554004965,
+    "Sparse design prior": 0.32814459091175296,
+    "Known-parent FCLS oracle": 5.8443206580393156e-15
+  },
+  "elapsed_seconds": 19.82240891456604,
+  "input_sha256": {
+    "/Users/tuff/Downloads/library_oli_undarkened_10_12_26.npy": "c9d8a945b99c20a966de1254d3525b6250c1be3ffa0dcf4ed7a226fa9ffc80d5",
+    "/Users/tuff/Downloads/class_list_oli_undarkened_10_12_26.npy": "c41b0a9eeda9e80025076d75343002f46dffe32383e6ada065c04bc5a017e7f5",
+    "/Users/tuff/Downloads/selected_constrained_members.csv": "62c364c22375547cc4b361820b9bf51f9c6206adf9e67243757f676e4c1ee826"
+  },
+  "code_sha256": "961d38b0e21f33c6bb5be605c3d33b6ec0f2067b6e2edb281aad59a29019adee",
+  "imagery_year_mismatch_rows": 18399
+}

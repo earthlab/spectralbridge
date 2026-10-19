@@ -1,0 +1,60 @@
+{
+  "status": "preflight passed; selected-index convention and selection provenance unconfirmed",
+  "sources": {
+    "/Users/tuff/Downloads/library_oli_undarkened_10_12_26.npy": "c9d8a945b99c20a966de1254d3525b6250c1be3ffa0dcf4ed7a226fa9ffc80d5",
+    "/Users/tuff/Downloads/class_list_oli_undarkened_10_12_26.npy": "c41b0a9eeda9e80025076d75343002f46dffe32383e6ada065c04bc5a017e7f5",
+    "/Users/tuff/Downloads/selected_constrained_members.csv": "62c364c22375547cc4b361820b9bf51f9c6206adf9e67243757f676e4c1ee826"
+  },
+  "shape_observations_by_bands": [
+    85706,
+    7
+  ],
+  "category_counts": {
+    "Herbaceous": 24857,
+    "Deciduous": 19974,
+    "Evergreen": 17994,
+    "Non-vegetated & dead": 13885,
+    "Woody shrub": 8996
+  },
+  "selected_indices": 603,
+  "index_min": 10,
+  "index_max": 85591,
+  "finite_spectra": 85706,
+  "negative_rows": 0,
+  "source_parquet": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Aug_2026_all_polygons_merged_pixel_extraction.parquet",
+  "alignment": "All labels match in order; all seven scaled source columns match within recorded tolerance",
+  "alignment_max_absolute_difference": 7.456817618933798e-08,
+  "scaling_relation": "supplied array approximately source stored values / 10000; this is numerical lineage, not physical unit validation",
+  "polygon_identities": 3639,
+  "source_acquisition_year_counts": {
+    "2020": 26089,
+    "2023": 59617
+  },
+  "imagery_year_disagrees_with_source_year_rows": 18399,
+  "index_base_hypotheses": {
+    "0": {
+      "category_counts": {
+        "Evergreen": 166,
+        "Non-vegetated & dead": 141,
+        "Deciduous": 115,
+        "Woody shrub": 91,
+        "Herbaceous": 90
+      },
+      "polygon_identities": 367,
+      "duplicate_selected_spectra": 0
+    },
+    "1": {
+      "category_counts": {
+        "Evergreen": 180,
+        "Deciduous": 122,
+        "Non-vegetated & dead": 114,
+        "Herbaceous": 96,
+        "Woody shrub": 91
+      },
+      "polygon_identities": 393,
+      "duplicate_selected_spectra": 0
+    }
+  },
+  "selected_index_overlap_between_conventions": 26,
+  "interpretation": "Do not score one proposed selected library as definitive until index convention is known. Non-selected pixels are not independent test plants. Selection using full library also prevents an honest selection-blind holdout claim."
+}

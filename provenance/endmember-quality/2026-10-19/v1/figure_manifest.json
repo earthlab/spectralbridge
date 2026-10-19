@@ -1,0 +1,70 @@
+{
+  "01_selected_spectra": {
+    "caption": "Selected curves span substantial within-category variation; dark lines are medians. Connecting segments do not represent continuous hyperspectral measurements.",
+    "sources": [
+      "selected_members.csv"
+    ],
+    "sha256": {
+      "png": "3c31c6727f97e88d0bdc9fec2dd14c11d2e22823effae549be014bbc82beace1",
+      "svg": "deaff5d3b972b5e1e551d7204932010ab5d083708d761c32eb8a939ce306d24e"
+    }
+  },
+  "02_coverage_controls": {
+    "caption": "Random controls preserve all 367 selected polygon identities and the selected pixel count per polygon. Bars show central 95% of 30 random draws, not population confidence intervals.",
+    "sources": [
+      "coverage_selected.csv",
+      "coverage_random.csv"
+    ],
+    "sha256": {
+      "png": "43367791787f7f6113c9356ccf503c3b5414fb38a42633acd46dd0a7c9ddfcaf",
+      "svg": "4f30e90066ea41d8b1a198455bae98bfe94381f52bd7345bfa5ee4f198611a0b"
+    }
+  },
+  "03_category_agreement": {
+    "caption": "Evergreen matches labels through this nearest-reference rule more reliably than Woody shrub and Herbaceous. Each source domain is visible, but the endmember selection saw all domains.",
+    "sources": [
+      "confusion.csv",
+      "coverage_domains.csv"
+    ],
+    "sha256": {
+      "png": "79d7818aaed15bd810735f7a7c0ab93cc4dc6df68168562f165eb3a7d4a15522",
+      "svg": "6f0c5b39a6009c94f18b8bf7861a8bbe8b7e6603343fe311abb56dce0a9d4fb0"
+    }
+  },
+  "04_cross_category_ambiguity": {
+    "caption": "Full-library linear programs exclude every reference with the target label. Verified alternatives use nonnegative sum-one weights; multiple references per category and up to eight active references are allowed. These are not restricted three-material MESMA solutions.",
+    "sources": [
+      "cross_class_hull.csv",
+      "cross_class_hull_weights.csv",
+      "selected_members.csv",
+      "illustrative_ambiguity.csv"
+    ],
+    "sha256": {
+      "png": "c7e005844afcd1f173f9ae948b3783722579010a4960f75cc70f05b92d7297ea",
+      "svg": "c8339353bfed852a4563541863c7f1cf2929fdb4e7b6951c2aa607d76ae89e1c"
+    }
+  },
+  "05_synthetic_recovery": {
+    "caption": "Primary MESMA screens three references per category from the full library, then tests 375 admitted models with at most three categories. Error bars are conditional whole-bundle bootstrap intervals; eight bundles do not provide broad ecological validation.",
+    "sources": [
+      "selected_synthetic_predictions.csv",
+      "fraction_bootstrap_intervals.csv",
+      "summary.json"
+    ],
+    "sha256": {
+      "png": "2a8085ab95a1665082b0928e2d7656e6f028514ab9f0b7b7827aaa18999c1d1f",
+      "svg": "ea282217fca48d0abe87cd917ce483d0031fae254eb2bddf613c83e8b52cb451"
+    }
+  },
+  "06_sensitivity": {
+    "caption": "Screening 1, 2, 3 or 5 candidates per class does not beat the dense prior, but beats the three-category sparse prior in this synthetic design. These follow-up checks do not exhaust the full 16.9-million-model search. Near-fit tolerances are illustrative, not independently measured sensor noise.",
+    "sources": [
+      "screened_mesma_details.csv",
+      "summary.json"
+    ],
+    "sha256": {
+      "png": "0e811799230c8419e2afea602297712b9eaad0369e5c99ba6caa14d8478c4b1e",
+      "svg": "38542f67137d8eb6c65a68f8e0da8197453fb09ac3cc2f56b1e8273c26a35709"
+    }
+  }
+}

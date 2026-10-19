@@ -167,3 +167,41 @@ ridge/MESMA comparison and does not retroactively isolate its confounders.
 [matched15 results](https://github.com/earthlab/spectralbridge/blob/main/provenance/researcher-evidence/2026-10-16/v1/tables/same_candidate_ridge.csv)
 and [oracle controls](https://github.com/earthlab/spectralbridge/blob/main/provenance/researcher-pft-information/2026-10-15/v1/tables/oracle_solver_controls.csv)
 preserve the exact values. Independent field fraction truth is still missing.
+
+## Exhaustive search of the supplied 603-member library
+
+A separate fixed-library experiment extends the selected-endmember diagnostics
+with all **16,918,447** one-, two- and three-category combinations, evaluated for
+all **360 unchanged synthetic targets** (6,090,640,920 target–model evaluations).
+Each category contributes at most one reference to a candidate. This experiment
+uses the supplied seven-band undarkened OLI representation and does not replace
+the preceding broader method-comparison benchmark.
+
+The analysis-only streaming runner is recorded in
+[`provenance/endmember-quality/2026-10-19/exhaustive-v1`](https://github.com/earthlab/spectralbridge/tree/main/provenance/endmember-quality/2026-10-19/exhaustive-v1).
+It evaluates fixed-size batches, checkpoints compact winners by category set,
+rejects incompatible restart inputs/code, and applies the existing numerical
+rank/interior/improvement thresholds. Raising the eager enumeration budget in
+`mixtures.fit_models` is not a bounded-memory way to run this experiment.
+
+Interpret reconstruction RMSE and known-fraction RMSE separately. Removing
+candidate screening guarantees access to the shortlisted feasible models;
+it does not guarantee better fractions. The same synthetic targets, dense and
+sparsity-matched fraction priors, and known-parent oracle are retained for
+comparison. Whole-bundle paired resampling respects shared generating parents.
+Near-category-set counts summarize one best interior solution per category set,
+not all possible abundance ranges.
+
+Although target parent IDs are absent from the candidate library, selection used
+the whole archive. This remains an **internal synthetic diagnostic**, not
+selection-blind validation or independently measured field PFT-cover accuracy.
+
+In this fixed-library experiment, mean spectral reconstruction RMSE fell from
+0.003721 to 0.000792 (78.7%), while pooled PFT fraction RMSE changed from 0.3215
+(screened three-per-category) to 0.3336 (exhaustive). Fraction error improved for
+156 targets and worsened for 203, with one effectively unchanged. The paired
+whole-bundle bootstrap range for exhaustive minus screened fraction RMSE was
+[-0.0055, +0.0289]; only eight bundles were available. Thus full search resolved
+the screening question for this benchmark but did not demonstrate improved
+fraction recovery. See the packet's illustrated report and compact comparison
+tables for category errors, priors, ambiguity and numerical verification.

@@ -20,6 +20,35 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P137. Exhaustive selected-library MESMA benchmark
+
+- Priority: P0, user-directed
+- Status: Complete locally; exhaustive search and numerical/report verification passed
+- Owner: Codex
+- Started: 2026-10-19
+- Scope: Stream all one-to-three distinct-category models from the fixed 603 references over the unchanged 360 synthetic targets; preserve P136 evidence and compare spectral and fraction errors.
+- Plan: Add an analysis-only bounded-memory solver with atomic composition checkpoints and input/code fingerprints; regression tests and independent affine-solver checks; pilot timing then complete search; compact comparison tables and illustrated human report.
+- Progress: Streaming analysis-only solver implemented; 23 targeted tests passed. Twelve-target full-library pilot completed in 22.1 s; independent direct-geometry enumeration of all 16,918,447 models for target 30 agrees. Full 360-target search is running with atomic class-set checkpoints under exhaustive-v1/full_checkpoints.
+- Completed: Full 360-target search evaluated 6,090,640,920 target/model combinations in 364.3 s; 25 atomic checkpoints, portable illustrated HTML/Markdown report, four PNG/SVG figures, source/code fingerprints and compact paired/category/domain tables saved under exhaustive-v1.
+- Findings: Mean spectral RMSE fell 78.7% (.003721 to .000792), but fraction RMSE rose from .3215 to .3336; 156 targets improved and 203 worsened. Paired eight-bundle descriptive 95% range for the fraction-RMSE difference [-.0055,+.0289] includes zero. No general worsening or field-accuracy claim.
+- Verification: 23 targeted tests, all 360 reconstruction/class aggregation/constrained-optimizer checks, direct-affine weight checks, independent full enumeration for target 30, 12 pilot/full agreements, exact checkpoint reuse and 53 prior packet file hashes passed. Four figures and desktop/mobile HTML reviewed; scoped Ruff, docs links and code whitespace pass. macOS optional time resource counters unavailable; internal numerical timing recorded.
+- Remaining/next: No implementation blocker. Whole-library selection remains an internal diagnostic; freeze library for independent complete-fraction targets or reselect within training-only identity/domain splits. Exhaustive random-library controls and unrestricted near-optimal fraction envelopes are separate future experiments. No production solver/pipeline behavior changes, commit or publication.
+
+### P136. Test supplied undarkened OLI endmember selection
+
+- Priority: P0, user-directed
+- Status: Complete locally; internal endmember diagnostics, controls and report verified
+- Owner: Codex
+- Started: 2026-10-19
+- Scope: Read supplied arrays/603 selection indices in place; recover verified row metadata where possible; evaluate coverage, class confusion, redundancy/ambiguity and supported synthetic fraction recovery against matched controls. Separate descriptive fixed-library tests from independent validation; preserve previous evidence.
+- Plan: Verify array/label/index contracts and exact source alignment; clarify index base and selection/holdout provenance; run bounded identity-aware diagnostics and tested numerical methods; generate interpretable plots, compact tables and a source-linked human report.
+- Verified: 85,706 finite seven-band curves, five recorded categories, 603 unique valid indices; labels align exactly with the original polygon table and scaled spectra agree within 7.46e-8 maximum absolute error. Source IDs/acquisition dates recoverable. Zero/one-based interpretations overlap at only 26 selected row indices; 367 versus 393 polygon identities, so convention materially changes the experiment. Reproducible input_audit.json/preflight.py saved under provenance/endmember-quality/2026-10-19/v1.
+- Confirmed: User confirms zero-based spectral columns; numeric classes 1–5 map to recorded names; selection used the whole library. Therefore all tests are internal fixed-library diagnostics, not selection-blind external validation.
+- Completed: 2026-10-19. Versioned packet provenance/endmember-quality/2026-10-19/v1 contains a portable illustrated HTML report, Markdown, six PNG/SVG figures, source/index metadata, 60 matched random controls, 223 cross-category numerical certificates, 360 synthetic targets from eight disjoint parent bundles, screened-MESMA search sensitivities, dense/sparsity-matched priors and known-parent oracle. Numeric class mapping 1–5 and zero-based spectral indices are distinct.
+- Findings: Selected nearest-reference BA 59.4% versus parent-matched random mean 55.6%, but within-category nearest-reference RMSE 30% larger; stricter flight-matched controls retain the trade-off. 223/603 (37.0%) selected spectra admit other-category convex-mixture matches. Screened MESMA fraction RMSE .322 improves on a constraint-matched sparse prior .345, but not the dense prior .304. These priors have different objectives/output constraints; no blanket method/library rejection follows.
+- Verification: 16 synthetic/control tests passed; independent replay of all 4,261 target-coverage rows, 223 certificates and 1,800 screened model reconstructions; 12 targets independently optimized by affine face enumeration; analytic dense/sparse prior difference checked. All 1,053 prior owned files preserved, original inputs unchanged. Six figures and desktop/mobile report reviewed; scoped Ruff/transparency and code whitespace checks pass (verbatim prompt trailing blank preserved).
+- Remaining/limits: No implementation blocker. Selection used the whole library, so these are internal diagnostics, not selection-blind validation. Full 16.9-million-model MESMA not run; broad convex-hull ambiguity differs from three-component MESMA; near-fit/bootstrap summaries are conditional, not field uncertainty. Next: obtain selector/objective and reselect inside training-only identity/site folds or collect independent frozen-library targets; field abundance still needs independent fractions. No production/package changes, historical refits, commit or publication.
+
 ### P135. General analysis APIs and scientific website integration
 
 - Priority: P0, user-directed

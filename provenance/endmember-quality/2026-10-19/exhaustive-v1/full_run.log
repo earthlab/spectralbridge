@@ -1,0 +1,71 @@
+Completed 1/25 class sets: 115/16,918,447 models; set 0.00s
+Completed 2/25 class sets: 281/16,918,447 models; set 0.00s
+Completed 3/25 class sets: 371/16,918,447 models; set 0.00s
+Completed 4/25 class sets: 512/16,918,447 models; set 0.00s
+Completed 5/25 class sets: 603/16,918,447 models; set 0.00s
+Completed 6/25 class sets: 19,693/16,918,447 models; set 0.27s
+Completed 7/25 class sets: 30,043/16,918,447 models; set 0.15s
+Completed 8/25 class sets: 46,258/16,918,447 models; set 0.23s
+Completed 9/25 class sets: 56,723/16,918,447 models; set 0.14s
+Completed 10/25 class sets: 71,663/16,918,447 models; set 0.21s
+Completed 11/25 class sets: 95,069/16,918,447 models; set 0.33s
+Completed 12/25 class sets: 110,175/16,918,447 models; set 0.22s
+Completed 13/25 class sets: 122,865/16,918,447 models; set 0.18s
+Completed 14/25 class sets: 131,055/16,918,447 models; set 0.12s
+Completed 15/25 class sets: 143,886/16,918,447 models; set 0.18s
+Set 16/25, 834,560/1,718,100; total 978,446/16,918,447; 20.0s this invocation
+Completed 16/25 class sets: 1,861,986/16,918,447 models; set 36.95s
+Set 17/25, 47,104/2,691,690; total 1,909,090/16,918,447; 40.0s this invocation
+Set 17/25, 976,896/2,691,690; total 2,838,882/16,918,447; 60.0s this invocation
+Set 17/25, 1,907,712/2,691,690; total 3,769,698/16,918,447; 80.0s this invocation
+Completed 17/25 class sets: 4,553,676/16,918,447 models; set 58.11s
+Set 18/25, 132,096/1,737,190; total 4,685,772/16,918,447; 100.1s this invocation
+Set 18/25, 1,048,576/1,737,190; total 5,602,252/16,918,447; 120.1s this invocation
+Completed 18/25 class sets: 6,290,866/16,918,447 models; set 37.79s
+Set 19/25, 235,520/1,459,350; total 6,526,386/16,918,447; 140.1s this invocation
+Set 19/25, 1,163,264/1,459,350; total 7,454,130/16,918,447; 160.1s this invocation
+Completed 19/25 class sets: 7,750,216/16,918,447 models; set 31.54s
+Set 20/25, 630,784/941,850; total 8,381,000/16,918,447; 180.1s this invocation
+Completed 20/25 class sets: 8,692,066/16,918,447 models; set 20.41s
+Set 21/25, 613,376/1,475,565; total 9,305,442/16,918,447; 200.1s this invocation
+Completed 21/25 class sets: 10,167,631/16,918,447 models; set 31.84s
+Set 22/25, 63,488/2,106,540; total 10,231,119/16,918,447; 220.1s this invocation
+Set 22/25, 994,304/2,106,540; total 11,161,935/16,918,447; 240.1s this invocation
+Set 22/25, 1,926,144/2,106,540; total 12,093,775/16,918,447; 260.2s this invocation
+Completed 22/25 class sets: 12,274,171/16,918,447 models; set 45.30s
+Set 23/25, 744,448/1,359,540; total 13,018,619/16,918,447; 280.2s this invocation
+Completed 23/25 class sets: 13,633,711/16,918,447 models; set 29.44s
+Set 24/25, 310,272/2,129,946; total 13,943,983/16,918,447; 300.2s this invocation
+Set 24/25, 1,234,944/2,129,946; total 14,868,655/16,918,447; 320.2s this invocation
+Completed 24/25 class sets: 15,763,657/16,918,447 models; set 46.03s
+Set 25/25, 32,768/1,154,790; total 15,796,425/16,918,447; 340.2s this invocation
+Set 25/25, 961,536/1,154,790; total 16,725,193/16,918,447; 360.2s this invocation
+Completed 25/25 class sets: 16,918,447/16,918,447 models; set 24.88s
+{
+  "mode": "full",
+  "targets": 360,
+  "model_count": 16918447,
+  "target_model_evaluations": 6090640920,
+  "search_seconds": 364.32082462497056,
+  "elapsed_seconds": 364.9038529396057,
+  "source_parquet_sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+  "previous_summary_sha256": "7f4f691938d04c285334125692e0132a5fdc4312ea80eb60d8b8d88e0948babd",
+  "input_sha256": {
+    "/Users/tuff/Downloads/library_oli_undarkened_10_12_26.npy": "c9d8a945b99c20a966de1254d3525b6250c1be3ffa0dcf4ed7a226fa9ffc80d5",
+    "/Users/tuff/Downloads/class_list_oli_undarkened_10_12_26.npy": "c41b0a9eeda9e80025076d75343002f46dffe32383e6ada065c04bc5a017e7f5",
+    "/Users/tuff/Downloads/selected_constrained_members.csv": "62c364c22375547cc4b361820b9bf51f9c6206adf9e67243757f676e4c1ee826"
+  },
+  "source_code_sha256": {
+    "run_exhaustive.py": "7d6545157e472b51fec46ad1c5464d0af74b71e02487754008ce689da58bdc3f",
+    "stream_mesma.py": "37c15f47a31e690074fcb637bb26c4c8f6c126b8cd0970013cc57e24128dcf58"
+  },
+  "selection_blind": false,
+  "max_components": 3,
+  "one_reference_per_category": true,
+  "same_targets_as_P136": true,
+  "near_set_warning": "One best interior per class set; not all near-optimal fractions",
+  "fraction_RMSE": 0.3336367986757348,
+  "mean_spectral_RMSE": 0.0007918783896398094
+}
+      365.44 real       364.92 user         0.31 sys
+time: sysctl kern.clockrate: Operation not permitted

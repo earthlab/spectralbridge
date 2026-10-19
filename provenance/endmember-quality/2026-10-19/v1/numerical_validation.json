@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "verified_input_hashes": 3,
+  "independent_target_coverage_rows": 4261,
+  "all_cross_category_certificates_verified": 223,
+  "synthetic_target_rows_verified": 360,
+  "selected_model_reconstructions_replayed": 1800,
+  "independent_lstsq_search_targets": [
+    0,
+    32,
+    65,
+    97,
+    130,
+    163,
+    195,
+    228,
+    261,
+    293,
+    326,
+    359
+  ],
+  "previous_owned_files_preserved": 1053,
+  "source_parquet_sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+  "note": "No independent field truth or selection-blind validation is claimed."
+}

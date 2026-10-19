@@ -1,0 +1,23 @@
+{
+  "desktop": {
+    "images": 4,
+    "broken_images": [],
+    "horizontal_overflow": false,
+    "height": 5060
+  },
+  "mobile": {
+    "horizontal_overflow": false
+  },
+  "figures_reviewed": [
+    "01_fraction_accuracy",
+    "02_fit_vs_fractions",
+    "03_category_errors",
+    "04_target_examples"
+  ],
+  "observations": [
+    "All axes, category names, units and captions checked against compact tables.",
+    "Moved category comparison legend below bars to prevent covering observations.",
+    "Added generating-component legend to spectral-versus-fraction scatter.",
+    "Desktop/mobile report has four embedded figures, no broken images or horizontal page overflow."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "mode": "pilot",
+  "targets": 12,
+  "model_count": 16918447,
+  "target_model_evaluations": 203021364,
+  "search_seconds": 22.138488877913915,
+  "elapsed_seconds": 22.99309015274048,
+  "source_parquet_sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+  "previous_summary_sha256": "7f4f691938d04c285334125692e0132a5fdc4312ea80eb60d8b8d88e0948babd",
+  "input_sha256": {
+    "/Users/tuff/Downloads/library_oli_undarkened_10_12_26.npy": "c9d8a945b99c20a966de1254d3525b6250c1be3ffa0dcf4ed7a226fa9ffc80d5",
+    "/Users/tuff/Downloads/class_list_oli_undarkened_10_12_26.npy": "c41b0a9eeda9e80025076d75343002f46dffe32383e6ada065c04bc5a017e7f5",
+    "/Users/tuff/Downloads/selected_constrained_members.csv": "62c364c22375547cc4b361820b9bf51f9c6206adf9e67243757f676e4c1ee826"
+  },
+  "source_code_sha256": {
+    "run_exhaustive.py": "7d6545157e472b51fec46ad1c5464d0af74b71e02487754008ce689da58bdc3f",
+    "stream_mesma.py": "37c15f47a31e690074fcb637bb26c4c8f6c126b8cd0970013cc57e24128dcf58"
+  },
+  "selection_blind": false,
+  "max_components": 3,
+  "one_reference_per_category": true,
+  "same_targets_as_P136": true,
+  "near_set_warning": "One best interior per class set; not all near-optimal fractions"
+}
