@@ -2,7 +2,9 @@
 
 import numpy as np
 import pytest
-from spectralbridge.spectral_analytics_extensions import (
+
+pytest.importorskip("sklearn", reason="optional analytics extra")
+from spectralbridge.spectral_analytics_extensions import (  # noqa: E402
     novelty_threshold,
     unknown_metrics,
     checkpoint,

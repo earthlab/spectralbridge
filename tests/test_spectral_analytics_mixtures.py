@@ -1,9 +1,11 @@
 import numpy as np
 import pandas as pd
 import pytest
-from spectralbridge.spectral_analytics_mixtures import reconstruct_saved_mixtures
-from spectralbridge.spectral_analytics_extensions import safe_novelty_scores
-from spectralbridge.spectral_learning import fit_novelty_space
+
+pytest.importorskip("sklearn", reason="optional analytics extra")
+from spectralbridge.spectral_analytics_mixtures import reconstruct_saved_mixtures  # noqa: E402
+from spectralbridge.spectral_analytics_extensions import safe_novelty_scores  # noqa: E402
+from spectralbridge.spectral_learning import fit_novelty_space  # noqa: E402
 
 
 def test_saved_parent_fractions_reconstruct_exactly():

@@ -20,6 +20,18 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P142. Repair optional-analytics collection and browser CI regressions
+
+- Priority: P0, user-directed
+- Status: Complete locally
+- Owner: Codex
+- Started: 2026-10-19
+- Scope: Guard optional analytics imports during lite collection; align browser assertions with the generated API and current scientific page titles. Preserve package behavior, scientific outputs and historical evidence.
+- Completed: Added existing optional-analytics importorskip convention before imports in the three failing modules; added subprocess regression that blocks sklearn and checks all three module skips. Browser smoke now checks generated API heading, callable link, canonical target and real signature instead of obsolete HTML wrapper; science titles and canonical API cross-link assertion match current documentation. No package or scientific behavior changes.
+- Verified: Entire lite run with sklearn explicitly blocked: 3 passed, 11 skipped, 698 deselected, zero collection errors. Installed-analytics focused slice: 11 passed. Actual full tests/test_docs_playwright.py against a strict local build: 2 passed, including all navigation/science assertions. Ruff, generated API/AI freshness, built links/anchors/assets (zero errors), and all 379 rendered signatures/defaults pass. Verbatim pasted logs retain their original whitespace in PROMPT_LOG.md.
+- Next: Rerun the normal GitHub CI jobs; no additional dependency added to core/lite and no deployment or historical packet changes.
+
+
 ### P141. Complete source-derived API reference
 
 - Priority: P0, user-directed

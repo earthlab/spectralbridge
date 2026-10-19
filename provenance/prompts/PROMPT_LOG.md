@@ -40426,3 +40426,308 @@ what it does → how to call it → what each input means → what comes back �
 
 Do the audit first, then implement this systematically across the entire current package.
 ```
+
+## 2026-10-19 - repair lite collection and browser CI regressions
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Run ruff check src tests scripts/generate_ai_transparency.py \&#x20;
+All checks passed!&#x20;
+\==================================== ERRORS ====================================&#x20;
+\_\_\_\_\_\_\_\_\_\_ ERROR collecting tests/test_selected_endmember_quality.py \_\_\_\_\_\_\_\_\_\_\_&#x20;
+ImportError while importing test module '/home/runner/work/spectralbridge/spectralbridge/tests/test_selected_endmember_quality.py'.&#x20;
+Hint: make sure your test modules/packages have valid Python names.&#x20;
+Traceback:&#x20;
+/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/importlib/\_\_init\_\_.py:126: in import_module&#x20;
+&#x20;   return \_bootstrap.\_gcd_import(name[level:], package, level)&#x20;
+&#x20;          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#x20;
+tests/test_selected_endmember_quality.py:17: in \<module>&#x20;
+&#x20;   spec.loader.exec_module(module)&#x20;
+provenance/endmember-quality/2026-10-19/v1/run_analysis.py:18: in \<module>&#x20;
+&#x20;   from spectralbridge.library_analysis import fraction_diagnostics&#x20;
+src/spectralbridge/library_analysis.py:768: in \<module>&#x20;
+&#x20;   from sklearn.base import BaseEstimator, TransformerMixin  # noqa: E402&#x20;
+&#x20;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#x20;
+E   ModuleNotFoundError: No module named 'sklearn'&#x20;
+\_\_\_\_\_\_\_\_\_ ERROR collecting tests/test_spectral_analytics_extensions.py \_\_\_\_\_\_\_\_\_\_\_&#x20;
+ImportError while importing test module '/home/runner/work/spectralbridge/spectralbridge/tests/test_spectral_analytics_extensions.py'.&#x20;
+Hint: make sure your test modules/packages have valid Python names.&#x20;
+Traceback:&#x20;
+/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/importlib/\_\_init\_\_.py:126: in import_module&#x20;
+&#x20;   return \_bootstrap.\_gcd_import(name[level:], package, level)&#x20;
+&#x20;          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#x20;
+tests/test_spectral_analytics_extensions.py:5: in \<module>&#x20;
+&#x20;   from spectralbridge.spectral_analytics_extensions import (&#x20;
+src/spectralbridge/spectral_analytics_extensions.py:12: in \<module>&#x20;
+&#x20;   from sklearn.metrics import average_precision_score&#x20;
+E   ModuleNotFoundError: No module named 'sklearn'&#x20;
+\_\_\_\_\_\_\_\_\_\_ ERROR collecting tests/test_spectral_analytics_mixtures.py \_\_\_\_\_\_\_\_\_\_\_\_&#x20;
+ImportError while importing test module '/home/runner/work/spectralbridge/spectralbridge/tests/test_spectral_analytics_mixtures.py'.&#x20;
+Hint: make sure your test modules/packages have valid Python names.&#x20;
+Traceback:&#x20;
+/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/importlib/\_\_init\_\_.py:126: in import_module&#x20;
+&#x20;   return \_bootstrap.\_gcd_import(name[level:], package, level)&#x20;
+&#x20;          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#x20;
+tests/test_spectral_analytics_mixtures.py:4: in \<module>&#x20;
+&#x20;   from spectralbridge.spectral_analytics_mixtures import reconstruct_saved_mixtures&#x20;
+src/spectralbridge/spectral_analytics_mixtures.py:13: in \<module>&#x20;
+&#x20;   from .spectral_library_analytics import load_analytics_inputs&#x20;
+src/spectralbridge/spectral_library_analytics.py:20: in \<module>&#x20;
+&#x20;   from .spectral_learning import (&#x20;
+src/spectralbridge/spectral_learning.py:16: in \<module>&#x20;
+&#x20;   from sklearn.base import BaseEstimator, ClassifierMixin, TransformerMixin&#x20;
+E   ModuleNotFoundError: No module named 'sklearn'&#x20;
+\=============================== warnings summary ===============================&#x20;
+src/spectralbridge/polygons.py:30&#x20;
+&#x20; /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:30: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.&#x20;
+&#x20;   from cross_sensor_cal.exports.schema_utils import ensure_coord_columns&#x20;
+\-- Docs: [https://docs.pytest.org/en/stable/how-to/capture-warnings.html](https://docs.pytest.org/en/stable/how-to/capture-warnings.html)&#x20;
+\=========================== short test summary info ============================&#x20;
+ERROR tests/test_selected_endmember_quality.py&#x20;
+ERROR tests/test_spectral_analytics_extensions.py&#x20;
+ERROR tests/test_spectral_analytics_mixtures.py&#x20;
+!!!!!!!!!!!!!!!!!!! Interrupted: 3 errors during collection !!!!!!!!!!!!!!!!!!!!&#x20;
+Error: Process completed with exit code 2.
+```
+
+Attached browser failure log (verbatim):
+
+```text
+Run python -m http.server 8000 --bind 127.0.0.1 --directory site > /tmp/spectralbridge-docs-http.log 2>&1 &
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_________________ test_docs_site_core_pages_render_in_browser __________________
+
+    def test_docs_site_core_pages_render_in_browser() -> None:
+        base_url = _docs_site_url()
+    
+        try:
+            from playwright.sync_api import sync_playwright
+        except Exception as exc:  # pragma: no cover - depends on local environment
+            raise AssertionError(
+                "Playwright is required for docs browser smoke tests. "
+                "Install pytest-playwright/playwright and Chromium."
+            ) from exc
+    
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch()
+            page = browser.new_page(viewport={"width": 1280, "height": 900})
+            page_errors, console_errors, failed_assets = _collect_page_health(
+                page, base_url
+            )
+    
+            try:
+                page.goto(base_url, wait_until="networkidle")
+                assert "SpectralBridge" in page.title()
+                assert page.locator("h1#spectralbridge").is_visible()
+                assert (
+                    page.locator("h1#spectralbridge").evaluate(
+                        "element => getComputedStyle(element).color"
+                    )
+                    == "rgb(255, 255, 255)"
+                )
+                route_cards = page.locator(".sb-route-card")
+                assert route_cards.count() == 3
+                assert [
+                    urljoin(base_url, card.get_attribute("href"))
+                    for card in route_cards.all()
+                ] == [
+                    urljoin(base_url, "vignettes/full-pipeline/"),
+                    urljoin(base_url, "vignettes/drone-processing/"),
+                    urljoin(base_url, "vignettes/bulk-analysis/"),
+                ]
+    
+                logo = page.locator("img[alt='SpectralBridge logo']").first
+                assert logo.evaluate("(img) => img.naturalWidth") > 0
+    
+                assert page.get_by_text(
+                    "Common framework. Sensor-specific treatment.", exact=True
+                ).is_visible()
+                assert page.get_by_role(
+                    "link", name="Verify your installation", exact=True
+                ).is_visible()
+                product_image = page.locator(".sb-product-example img")
+                assert product_image.count() == 1
+                assert product_image.evaluate("img => img.naturalWidth") > 0
+                assert page.locator(".sb-products .sb-doc-link-card").count() == 3
+                page.get_by_text("Explore the technical figures", exact=True).click()
+                assert page.get_by_role(
+                    "heading", name="Three technical views. Read them one at a time."
+                ).is_visible()
+                assert page.locator(".sb-science-panel").count() == 3
+                assert page.locator(".sb-science-panel__figure svg").count() == 3
+                assert (
+                    page.locator(
+                        "a[href$='images/homepage/spectralbridge-technical-overview.png']"
+                    ).count()
+                    == 3
+                )
+                desktop_figure = page.locator(".sb-science-panel__figure").first
+                assert desktop_figure.bounding_box()["width"] > 500
+    
+                page.set_viewport_size({"width": 390, "height": 844})
+                assert page.evaluate(
+                    "document.documentElement.scrollWidth <= window.innerWidth"
+                )
+                mobile_viewport = page.locator(".sb-science-panel__viewport").first
+                assert mobile_viewport.evaluate(
+                    "element => element.scrollWidth > element.clientWidth"
+                )
+                page.set_viewport_size({"width": 1280, "height": 900})
+    
+                page.goto(
+                    urljoin(base_url, "concepts/measurements/"), wait_until="networkidle"
+                )
+                assert page.get_by_role(
+                    "heading", name="Why sensors see the same landscape differently"
+                ).is_visible()
+                assert page.get_by_role(
+                    "heading", name="Spatial support: what ground area a value represents"
+                ).is_visible()
+                page.goto(urljoin(base_url, "getting-started/"), wait_until="networkidle")
+                assert page.get_by_role(
+                    "heading", name="Your first SpectralBridge example"
+                ).is_visible()
+                assert (
+                    "python examples/first_example.py"
+                    in page.locator("article").inner_text()
+                )
+                page.goto(
+                    urljoin(base_url, "validation/supplement/"), wait_until="networkidle"
+                )
+                assert page.locator(".sb-supplement-content table").count() == 23
+                assert page.locator(".sb-supplement-content .csl-entry").count() == 101
+                assert page.locator(".sb-supplement-content math").count() == 3
+                page.set_viewport_size({"width": 390, "height": 844})
+                assert page.evaluate(
+                    "document.documentElement.scrollWidth <= window.innerWidth"
+                )
+                page.set_viewport_size({"width": 1280, "height": 900})
+    
+                page.goto(urljoin(base_url, "vignettes/"), wait_until="networkidle")
+                assert page.get_by_role("heading", name="Choose a vignette").is_visible()
+                assert page.get_by_role(
+                    "link",
+                    name="Carry On My Wayward Son",
+                    exact=True,
+                ).is_visible()
+                assert page.get_by_role(
+                    "link",
+                    name="Extract polygon spectra",
+                    exact=True,
+                ).is_visible()
+    
+                page.goto(
+                    urljoin(base_url, "vignettes/notebook-vignettes/"),
+                    wait_until="networkidle",
+                )
+                assert page.get_by_role(
+                    "heading", name="Runnable notebook vignettes"
+                ).is_visible()
+                notebook_links = page.locator(
+                    f"a[href^='{GITHUB_NOTEBOOK_BASE}'][href$='.ipynb']"
+                )
+                assert notebook_links.count() == 11
+                assert page.get_by_role(
+                    "link", name="Correct NEON reflectance", exact=True
+                ).get_attribute("href") == (f"{GITHUB_NOTEBOOK_BASE}02_correct_neon.ipynb")
+    
+                page.goto(urljoin(base_url, "reference/"), wait_until="networkidle")
+                assert page.get_by_role(
+                    "heading", name="Technical reference map"
+                ).is_visible()
+                assert page.get_by_role(
+                    "link", name="Stage order and restart behavior"
+                ).first.is_visible()
+    
+                page.goto(urljoin(base_url, "validation/"), wait_until="networkidle")
+                assert page.get_by_role("heading", name="Validation evidence").is_visible()
+                assert page.get_by_role(
+                    "link", name="Topographic correction"
+                ).first.is_visible()
+                assert page.get_by_text("offline-contract-5-per-module").first.is_visible()
+    
+                page.goto(
+                    urljoin(base_url, "validation/topographic_correction/"),
+                    wait_until="networkidle",
+                )
+                assert page.get_by_role(
+                    "heading", name="Validation: Topographic correction"
+                ).is_visible()
+                assert page.get_by_text("topographic_correction-005").is_visible()
+                assert page.get_by_role(
+                    "cell", name="Before minus after correlation.", exact=True
+                ).is_visible()
+    
+                page.goto(urljoin(base_url, "pipeline/outputs/"), wait_until="networkidle")
+                assert page.get_by_role(
+                    "heading", name="Outputs & File Structure"
+                ).is_visible()
+                assert page.get_by_text(
+                    "_merged_pixel_extraction.parquet"
+                ).first.is_visible()
+    
+                for route in MARKDOWN_IN_HTML_ROUTES:
+                    page.goto(urljoin(base_url, route), wait_until="networkidle")
+>                   assert page.locator(".sb-doc-page").count() == 1, route
+E                   AssertionError: api/
+E                   assert 0 == 1
+E                    +  where 0 = count()
+E                    +    where count = <Locator frame=<Frame name= url='http://127.0.0.1:8000/api/'> selector='.sb-doc-page'>.count
+E                    +      where <Locator frame=<Frame name= url='http://127.0.0.1:8000/api/'> selector='.sb-doc-page'> = locator('.sb-doc-page')
+E                    +        where locator = <Page url='http://127.0.0.1:8000/api/'>.locator
+
+tests/test_docs_playwright.py:244: AssertionError
+____________ test_spectral_library_science_pages_and_figures_render ____________
+
+    def test_spectral_library_science_pages_and_figures_render() -> None:
+        base_url = _docs_site_url()
+        from playwright.sync_api import sync_playwright
+    
+        routes = [
+            ("spectral-library/", "What is the SpectralBridge spectral library?"),
+            (
+                "spectral-library/sensor-transfer/",
+                "Does ecological spectral structure survive fewer bands?",
+            ),
+            (
+                "validation/landsat-pilot/",
+                "How does synthetic OLI compare with real Landsat?",
+            ),
+            (
+                "spectral-library/mesma-readiness/",
+                "Is this library ready for spectral mixture analysis?",
+            ),
+            ("api/scientific-analysis/", "Scientific analysis API and maturity"),
+        ]
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch()
+            page = browser.new_page(viewport={"width": 1280, "height": 900})
+            errors, console, assets = _collect_page_health(page, base_url)
+            try:
+                for route, title in routes:
+                    page.goto(urljoin(base_url, route), wait_until="networkidle")
+>                   assert page.get_by_role("heading", name=title, exact=False).is_visible()
+E                   assert False
+E                    +  where False = is_visible()
+E                    +    where is_visible = <Locator frame=<Frame name= url='http://127.0.0.1:8000/spectral-library/sensor-transfer/'> selector='internal:role=heading[name="Does ecological spectral structure survive fewer bands?"i]'>.is_visible
+E                    +      where <Locator frame=<Frame name= url='http://127.0.0.1:8000/spectral-library/sensor-transfer/'> selector='internal:role=heading[name="Does ecological spectral structure survive fewer bands?"i]'> = get_by_role('heading', name='Does ecological spectral structure survive fewer bands?', exact=False)
+E                    +        where get_by_role = <Page url='http://127.0.0.1:8000/spectral-library/sensor-transfer/'>.get_by_role
+
+tests/test_docs_playwright.py:346: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_docs_playwright.py::test_docs_site_core_pages_render_in_browser - AssertionError: api/
+assert 0 == 1
+ +  where 0 = count()
+ +    where count = <Locator frame=<Frame name= url='http://127.0.0.1:8000/api/'> selector='.sb-doc-page'>.count
+ +      where <Locator frame=<Frame name= url='http://127.0.0.1:8000/api/'> selector='.sb-doc-page'> = locator('.sb-doc-page')
+ +        where locator = <Page url='http://127.0.0.1:8000/api/'>.locator
+FAILED tests/test_docs_playwright.py::test_spectral_library_science_pages_and_figures_render - assert False
+ +  where False = is_visible()
+ +    where is_visible = <Locator frame=<Frame name= url='http://127.0.0.1:8000/spectral-library/sensor-transfer/'> selector='internal:role=heading[name="Does ecological spectral structure survive fewer bands?"i]'>.is_visible
+ +      where <Locator frame=<Frame name= url='http://127.0.0.1:8000/spectral-library/sensor-transfer/'> selector='internal:role=heading[name="Does ecological spectral structure survive fewer bands?"i]'> = get_by_role('heading', name='Does ecological spectral structure survive fewer bands?', exact=False)
+ +        where get_by_role = <Page url='http://127.0.0.1:8000/spectral-library/sensor-transfer/'>.get_by_role
+Error: Process completed with exit code 1.
+```

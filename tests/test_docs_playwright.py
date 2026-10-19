@@ -11,7 +11,6 @@ import pytest
 pytestmark = pytest.mark.playwright
 
 MARKDOWN_IN_HTML_ROUTES = (
-    "api/",
     "concepts/why-calibration/",
     "faq/",
     "pipeline/outputs/",
@@ -248,6 +247,19 @@ def test_docs_site_core_pages_render_in_browser() -> None:
                     not in page.locator("article.md-content__inner").inner_text()
                 ), route
 
+            # The generated API uses semantic Markdown/autodoc rather than the
+            # hand-written HTML wrapper checked by the route loop above.
+            page.goto(urljoin(base_url, "api/"), wait_until="networkidle")
+            assert page.get_by_role(
+                "heading", name="API Reference", level=1
+            ).is_visible()
+            page.get_by_role("link", name="run_bulk_pipeline", exact=True).click()
+            assert page.locator(
+                "[id='spectralbridge.pipelines.bulk.run_bulk_pipeline']"
+            ).is_visible()
+            signature = page.locator(".doc-signature").first.inner_text()
+            assert "preflight_only" in signature and "False" in signature
+
             page.goto(urljoin(base_url, "usage/parquet/"), wait_until="networkidle")
             assert page.get_by_role(
                 "heading", name="Native grids are not a common spectral axis"
@@ -324,7 +336,7 @@ def test_spectral_library_science_pages_and_figures_render() -> None:
         ("spectral-library/", "What is the SpectralBridge spectral library?"),
         (
             "spectral-library/sensor-transfer/",
-            "Does ecological spectral structure survive fewer bands?",
+            "What researcher-category information survives synthetic Landsat reduction?",
         ),
         (
             "validation/landsat-pilot/",
@@ -332,7 +344,7 @@ def test_spectral_library_science_pages_and_figures_render() -> None:
         ),
         (
             "spectral-library/mesma-readiness/",
-            "Is this library ready for spectral mixture analysis?",
+            "Can researcher-category fractions be estimated reliably?",
         ),
         ("api/scientific-analysis/", "Scientific analysis API and maturity"),
     ]
@@ -351,11 +363,14 @@ def test_spectral_library_science_pages_and_figures_render() -> None:
                     assert (
                         "::: spectralbridge" not in page.locator("article").inner_text()
                     )
-                    assert (
-                        page.locator(
-                            "[id='spectralbridge.mixtures.validate_holdout']"
-                        ).count()
-                        == 1
+                    link = page.get_by_role(
+                        "link",
+                        name="spectralbridge.mixtures.validate_holdout",
+                        exact=True,
+                    )
+                    assert link.count() == 1
+                    assert link.get_attribute("href").endswith(
+                        "generated/mixtures/#spectralbridge.mixtures.validate_holdout"
                     )
                 page.set_viewport_size({"width": 390, "height": 844})
                 assert page.evaluate(

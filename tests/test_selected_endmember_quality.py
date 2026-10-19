@@ -5,6 +5,9 @@ import importlib.util
 import sys
 import numpy as np
 import pandas as pd
+import pytest
+
+pytest.importorskip("sklearn", reason="optional analytics extra")
 
 PATH = (
     Path(__file__).resolve().parents[1] / "provenance/endmember-quality/2026-10-19/v1"
