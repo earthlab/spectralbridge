@@ -71,6 +71,7 @@ def test_conflicting_source_flight_year_and_duplicate_observations_rejected():
 def test_year_site_panels_refit_correct_cohorts_and_mark_missing_acquisitions(
     tmp_path, monkeypatch
 ):
+    pytest.importorskip("xgboost", reason="optional quantile-models extra")
     import spectralbridge.plant_spectral_years as module
     from spectralbridge.plant_spectral_quantiles import QuantileModelConfig
     import matplotlib.pyplot as plt

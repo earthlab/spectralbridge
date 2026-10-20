@@ -7,7 +7,12 @@ does not break existing functionality.
 
 ## Prerequisites
 - Python 3.10+
-- `pytest`
+- Install the test dependencies with `python -m pip install -e '.[tests]'`.
+  This installs the `tomli` backport on Python 3.10; Python 3.11+ uses `tomllib`.
+- Optional analytics and boosted-quantile tests require their corresponding extras:
+  `python -m pip install -e '.[tests,analytics,quantile-models]'`.
+  Without XGBoost, the year/cohort tests still run and only the actual boosted
+  year/site fitting test skips; the dedicated boosted-model module also skips.
 
 ## Step-by-step tutorial
 1. Execute the full test suite from the repository root:

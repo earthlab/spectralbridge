@@ -20,6 +20,18 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P143. Repair Python 3.10 TOML and optional quantile CI failures
+
+- Priority: P0, user-directed
+- Status: Complete locally
+- Owner: Codex
+- Started: 2026-10-19
+- Scope: Python 3.10-compatible TOML parsing for tests and conditional backport test dependency; guard the genuine boosted year/site fitting test when quantile-models is unavailable. Preserve ordinary cohort tests and scientific code.
+- Completed: TOML test import falls back to tomli on Python 3.10; tests/dev extras declare the backport only below Python 3.11. Only the real year/site boosted-fitting test checks the optional XGBoost dependency; ordinary cohort/date tests remain active. Added subprocess regression proving three cohort tests pass and exactly one fitter skips when XGBoost is blocked; documented test extras in tests/README.md.
+- Verified: Real Python 3.10.16 combined slice: 9 passed, 1 expected fitting skip; native installed-XGBoost focused slice: 10 passed. Full non-network/non-browser suite with branch coverage: 766 passed, 7 skipped, 2 deselected, 30 warnings in 209 seconds; combined coverage 68.45% exceeds the 45% gate. Conditional markers select tomli for 3.10 and exclude it for 3.11+. Ruff and generated API/AI freshness pass. No package implementation or scientific behavior changed.
+- Next: Rerun the normal GitHub Python 3.10/3.11/3.12 matrix; the final unit gate should follow the corrected job outcomes. No core dependency expansion, gate bypass or deployment.
+
+
 ### P142. Repair optional-analytics collection and browser CI regressions
 
 - Priority: P0, user-directed

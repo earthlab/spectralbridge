@@ -40731,3 +40731,674 @@ FAILED tests/test_docs_playwright.py::test_spectral_library_science_pages_and_fi
  +        where get_by_role = <Page url='http://127.0.0.1:8000/spectral-library/sensor-transfer/'>.get_by_role
 Error: Process completed with exit code 1.
 ```
+
+## 2026-10-19 - repair Python 3.10 TOML and optional quantile CI failures
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Run pytest -q -m "not full and not network and not playwright" --cov=spectralbridge --cov-branch \&#x20;
+\==================================== ERRORS ====================================&#x20;
+\_\_\_\_\_\_\_\_\_\_\_\_\_ ERROR collecting tests/test_cross_sensor_cal_shim.py \_\_\_\_\_\_\_\_\_\_\_\_\_&#x20;
+ImportError while importing test module '/home/runner/work/spectralbridge/spectralbridge/tests/test_cross_sensor_cal_shim.py'.&#x20;
+Hint: make sure your test modules/packages have valid Python names.&#x20;
+Traceback:&#x20;
+/opt/hostedtoolcache/Python/3.10.22/x64/lib/python3.10/importlib/\_\_init\_\_.py:126: in import_module&#x20;
+&#x20;   return \_bootstrap.\_gcd_import(name[level:], package, level)&#x20;
+tests/test_cross_sensor_cal_shim.py:3: in \<module>&#x20;
+&#x20;   import tomllib&#x20;
+E   ModuleNotFoundError: No module named 'tomllib'&#x20;
+\=============================== warnings summary ===============================&#x20;
+src/spectralbridge/polygons.py:30&#x20;
+&#x20; /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:30: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.&#x20;
+&#x20;   from cross_sensor_cal.exports.schema_utils import ensure_coord_columns&#x20;
+\-- Docs: [https://docs.pytest.org/en/stable/how-to/capture-warnings.html](https://docs.pytest.org/en/stable/how-to/capture-warnings.html)&#x20;
+\=========================== short test summary info ============================&#x20;
+ERROR tests/test_cross_sensor_cal_shim.py&#x20;
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!&#x20;
+Error: Process completed with exit code 2.     0s
+Run test "failure" = success&#x20;
+Error: Process completed with exit code 1.
+```
+
+Attached CI failure log (verbatim):
+
+```text
+Run pytest -q -m "not full and not network and not playwright" --cov=spectralbridge --cov-branch \
+........................................................................ [  9%]
+........................................................................ [ 18%]
+........................................................................ [ 28%]
+........................................................................ [ 37%]
+..ssss........................................s......................... [ 47%]
+........................................................................ [ 56%]
+..................................................................F..... [ 66%]
+..........................................................s............. [ 75%]
+........................................................................ [ 85%]
+........................................................................ [ 94%]
+......................................                                   [100%]
+=================================== FAILURES ===================================
+__ test_year_site_panels_refit_correct_cohorts_and_mark_missing_acquisitions ___
+
+    def _xgboost():
+        try:
+>           import xgboost as xgb
+E           ModuleNotFoundError: No module named 'xgboost'
+
+src/spectralbridge/plant_spectral_quantiles.py:79: ModuleNotFoundError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-2/test_year_site_panels_refit_co0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f6d70dce090>
+
+    def test_year_site_panels_refit_correct_cohorts_and_mark_missing_acquisitions(
+        tmp_path, monkeypatch
+    ):
+        import spectralbridge.plant_spectral_years as module
+        from spectralbridge.plant_spectral_quantiles import QuantileModelConfig
+        import matplotlib.pyplot as plt
+    
+        d = observations()
+        extra = d[d.GlobalID == "B"].copy()
+        extra["GlobalID"] = "C"
+        extra["aop_site"] = "WREF"
+        for col in ["flight_id", "source_image", "source_parquet"]:
+            extra[col] = (
+                extra[col].str.replace("NIWO", "WREF").str.replace("20200815", "20230815")
+            )
+        second = extra.copy()
+        second["GlobalID"] = "D"
+        repeat = d[d.GlobalID == "B"].copy()
+        for col in ["flight_id", "source_image", "source_parquet"]:
+            repeat[col] = repeat[col].str.replace("20200815", "20230815")
+        d = pd.concat([d, extra, second, repeat], ignore_index=True)
+        monkeypatch.setattr(
+            module,
+            "_model_inputs",
+            lambda root: (None, None, {"corr": (d, [])}, None, {"synthetic": "hash"}),
+        )
+        captured = []
+    
+        def save(fig, *args):
+            captured.append(fig)
+    
+        monkeypatch.setattr(module, "_save", save)
+        config = QuantileModelConfig(
+            stages=("corr",), workers=1, boosting_rounds=2, min_plants_per_species=2
+        )
+>       result = module.run_year_site_quantiles(tmp_path, tmp_path / "out", config=config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_plant_spectral_years.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/spectralbridge/plant_spectral_years.py:289: in run_year_site_quantiles
+    records.append(future.result())
+                   ^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/concurrent/futures/thread.py:58: in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/spectralbridge/plant_spectral_quantiles.py:284: in _fit_checkpoint
+    "xgboost": _xgboost().__version__,
+               ^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _xgboost():
+        try:
+            import xgboost as xgb
+        except ImportError as exc:
+>           raise ImportError(
+                "Install earthlab-spectralbridge[quantile-models] for boosted quantile signatures"
+            ) from exc
+E           ImportError: Install earthlab-spectralbridge[quantile-models] for boosted quantile signatures
+
+src/spectralbridge/plant_spectral_quantiles.py:81: ImportError
+=============================== warnings summary ===============================
+src/spectralbridge/polygons.py:30
+tests/test_cross_sensor_cal_shim.py::test_project_script_entry_points_resolve_from_non_repo_cwd
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:30: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+tests/test_bulk_pipeline.py: 136 warnings
+tests/test_drone_pipeline.py: 19 warnings
+tests/test_drone_production.py: 2 warnings
+tests/test_installed_artifact_smoke.py: 12 warnings
+tests/test_landsat_agreement.py: 14 warnings
+tests/test_landsat_flight_validation.py: 14 warnings
+tests/test_landsat_validation.py: 5 warnings
+tests/test_parquet_export.py: 1 warning
+tests/test_polygon_pipeline.py: 4 warnings
+tests/test_validation_campaign.py: 1 warning
+  /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/rasterio/transform.py:178: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(xsize, -ysize)
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:2437: RuntimeWarning: All-NaN slice encountered
+    return np.nanmedian(masked, axis=(1, 2))
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:493: RuntimeWarning: All-NaN slice encountered
+    delta_median = np.nanmedian(diff, axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/numpy/lib/_nanfunctions_impl.py:1593: RuntimeWarning: All-NaN slice encountered
+    return fnb._ureduce(a,
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:498: RuntimeWarning: All-NaN slice encountered
+    delta_abs_median = np.nanmedian(np.abs(diff), axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:2589: RuntimeWarning: All-NaN slice encountered
+    abs_delta = np.nanmedian(full_abs_diff, axis=0)
+
+tests/test_landsat_agreement.py: 4 warnings
+tests/test_landsat_flight_validation.py: 12 warnings
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/landsat_agreement.py:334: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    left, top = a * (0, start)
+
+tests/test_landsat_agreement.py: 4 warnings
+tests/test_landsat_flight_validation.py: 12 warnings
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/landsat_agreement.py:335: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    right, bottom = a * (grid.width, stop)
+
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/landsat_agreement.py:422: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    left, top = a * (col, row)
+
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/landsat_agreement.py:423: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    right, bottom = a * (col + 1, row + 1)
+
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/landsat_agreement.py:437: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    x, y = s * (cc + dc, rr + dr)
+
+tests/test_landsat_flight_validation.py::test_complete_mocked_transport_and_checksum_restart
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/landsat_flight_validation.py:566: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    xx, yy = grid.affine * (cc + 0.5, rr + 0.5)
+
+tests/test_polygon_pipeline.py::test_build_polygon_pixel_index
+tests/test_polygon_pipeline.py::test_extract_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_merge_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_run_polygon_pipeline_for_flightline
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:1860: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+    polygon_ids = polygons["polygon_id"].astype("int64", copy=False)
+
+tests/test_scientific_docs_integration.py::test_both_publication_figures_compose_offline_without_original_archive
+  /home/runner/work/spectralbridge/spectralbridge/examples/publication_figures/figure_panels.py:132: PendingDeprecationWarning: The set_bad function will be deprecated in a future version. Use cmap.with_extremes(bad=...) or Colormap(bad=...) instead.
+    cmap.set_bad('#eeeeee')
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.11.17-final-0 _______________
+
+Name                                                        Stmts   Miss Branch BrPart  Cover   Missing
+-------------------------------------------------------------------------------------------------------
+src/spectralbridge/__init__.py                                  7      0      0      0   100%
+src/spectralbridge/_cli_compat.py                              15      6      6      1    48%   15-21
+src/spectralbridge/_optional.py                                28     10      0      0    64%   31-35, 43, 47-51, 55-62
+src/spectralbridge/_ray_utils.py                               82     61     22      1    21%   17-26, 46, 49-84, 107-140
+src/spectralbridge/brdf_topo.py                               194     98     60      9    45%   69-76, 93-163, 198-226, 288, 294, 313-316, 323-326, 339->342, 370->377, 379, 412-420, 430, 446-494
+src/spectralbridge/brightness.py                              104     56     44     10    41%   11, 15, 21-26, 38-40, 53-81, 157-158, 161, 163-167, 172-180, 192->196, 197
+src/spectralbridge/brightness_config.py                        10      0      0      0   100%
+src/spectralbridge/bulk/__init__.py                             8      0      0      0   100%
+src/spectralbridge/bulk/analyses/__init__.py                    5      0      0      0   100%
+src/spectralbridge/bulk/analyses/common.py                     63      2     12      1    96%   77-81
+src/spectralbridge/bulk/analyses/dataset_census.py             89      0      8      0   100%
+src/spectralbridge/bulk/analyses/leave_one_site_out.py         55      1      4      1    97%   266
+src/spectralbridge/bulk/analyses/sensor_translation.py        112      2     16      1    98%   283-284
+src/spectralbridge/bulk/analyses/spectral_library.py          789     54    218     48    89%   167, 169, 171, 173, 175, 177, 179, 181, 183, 186, 194, 202, 204, 206, 208, 391-393, 417->412, 458, 464, 479, 500, 514, 527, 529, 565, 618, 677, 716, 1322, 1455, 1465, 1569, 1571-1572, 1595, 1598, 1621, 1660->1662, 1789, 1815->1814, 1861, 1916, 1945-1946, 2018, 2023, 2177-2185, 2219, 2298->2303, 2308
+src/spectralbridge/bulk/analyses/streaming_translation.py     212      9     72      9    94%   105, 157-158, 193, 314, 316, 428->427, 457->472, 475->472, 487->440, 547-549, 666->685
+src/spectralbridge/bulk/catalog.py                            292     49    120     30    79%   53, 61, 71, 74-75, 118, 127, 170-174, 184, 187, 246, 248, 259, 262, 266-267, 281-283, 292, 298, 308->313, 352, 368-369, 386-387, 391-392, 407, 409, 411, 413, 418, 420-421, 524, 542-543, 546-547, 566-567, 568->572, 663-668, 729->728, 790
+src/spectralbridge/bulk/dataset.py                            120     10     36      9    88%   44, 47-49, 64, 68, 213, 215, 289, 312, 382->387
+src/spectralbridge/bulk/exclusions.py                          47      7     16      3    84%   61, 85, 102-103, 105, 112-113
+src/spectralbridge/bulk/flightline_outputs.py                 454     49    152     23    88%   47, 70, 76, 81-82, 108-109, 122-126, 133, 146, 163->170, 166-167, 199-200, 205, 218-219, 229->248, 242, 312-314, 533-534, 543-544, 698, 751->764, 846->848, 864, 866, 884, 915, 1070->1069, 1210, 1233, 1245, 1272-1283, 1295, 1300, 1325-1338
+src/spectralbridge/bulk/harmonized.py                           9      1      2      1    82%   56
+src/spectralbridge/bulk/identity.py                            64      7     14      4    86%   63, 66-67, 70, 77-78, 102->104, 131
+src/spectralbridge/bulk/models.py                             205      1      2      0    99%   625
+src/spectralbridge/bulk/provenance.py                          41      7      8      0    82%   59-65
+src/spectralbridge/bulk/registry.py                           126     18     26      8    83%   76, 136, 265-266, 283, 310-311, 360-361, 365-366, 372-373, 379-380, 384, 404-405
+src/spectralbridge/bulk/reporting.py                          165      7     30      5    94%   38-39, 41, 54, 56, 320, 332
+src/spectralbridge/bulk/results.py                            523     33    126     22    91%   109, 115, 136, 138, 667-668, 675-676, 770, 773-774, 810, 838, 947-950, 1099, 1350, 1390, 1408->1420, 1481, 1783->1795, 1795->1799, 1797->1799, 1800, 1804-1805, 1866, 1869, 1875-1876, 1878, 1904-1905, 1923, 1941
+src/spectralbridge/bulk/streaming.py                          253     16     60     12    91%   46, 48, 70, 95, 179-180, 197->199, 215, 224, 240, 325, 380, 419-422, 538
+src/spectralbridge/cli/__init__.py                             21     10      0      0    52%   16-17, 23-33, 39-40, 46-47
+src/spectralbridge/cli/bulk_cli.py                             55      4      0      0    93%   272-321
+src/spectralbridge/cli/drone_production_cli.py                 43     32      4      0    23%   19-38, 42-66, 70, 81-108
+src/spectralbridge/cli/pipeline_cli.py                         34     25      0      0    26%   13-127, 131-157
+src/spectralbridge/cli/qa_cli.py                               59     47     22      0    15%   15-19, 23-65, 69-122
+src/spectralbridge/cli/qa_summary_cli.py                       19     10      0      0    47%   14-33, 37-46
+src/spectralbridge/cli/recover_cli.py                          27      9      6      1    58%   31-41
+src/spectralbridge/cli/stage_qa_cli.py                         18     10      0      0    44%   13-24, 28-36
+src/spectralbridge/corrections.py                             503    104    136     31    76%   110-111, 114-115, 169, 175, 193, 212, 232, 267->272, 269, 271, 484-553, 582, 606, 621, 636-637, 646-648, 650-651, 668, 685-688, 713, 732, 737->773, 768, 831-832, 843-849, 861-868, 871-878, 943->949, 1002, 1036, 1055, 1109, 1113->1115, 1117, 1120-1121
+src/spectralbridge/data/__init__.py                             0      0      0      0   100%
+src/spectralbridge/deprecated/__init__.py                       2      0      0      0   100%
+src/spectralbridge/deprecated/hytools.py                      186    157     58      0    12%   66-95, 104-191, 205-208, 240-263, 276-299, 304-371, 384-484, 491-613
+src/spectralbridge/drone_production.py                        707     70    204     48    87%   56, 404, 419, 503, 505, 510, 512, 820, 832, 843, 904, 907, 912, 937, 948, 970, 973-974, 980->983, 1057, 1074, 1079, 1084, 1115-1116, 1221, 1245->1233, 1273-1274, 1276-1277, 1353, 1358, 1366->1376, 1379, 1382, 1384, 1389, 1439-1440, 1508, 1510, 1623, 1628->1633, 1630->1633, 1677, 1697-1699, 1707, 1728, 1737-1738, 1766, 1771-1772, 1783-1786, 1803, 1820->1819, 1829->1831, 1870, 1960-1977, 2070, 2092, 2126, 2129-2135, 2144
+src/spectralbridge/drone_qa.py                                171      8     40      7    92%   34, 49-50, 75, 161->166, 192->209, 256->258, 323-326
+src/spectralbridge/drone_translation.py                       442     50    138     35    85%   119, 144, 150->209, 153-154, 160-161, 202, 208, 223, 235, 259, 294, 305, 314, 330, 352, 354, 364, 367, 475, 495, 508-509, 522-523, 551, 568-569, 570->579, 583, 585, 616-618, 667, 678, 712-713, 714->723, 726, 730, 748->750, 805, 816-819, 833-834, 848-850, 856->858, 998, 1015-1016, 1017->1020
+src/spectralbridge/drone_translation_registry.py              292     54    140     46    76%   120-122, 125, 134, 151, 175, 187, 195-196, 210, 216, 218, 220, 223, 228, 233, 240, 243, 256, 259, 271, 274, 280, 282, 284, 292, 299, 308, 310, 312, 316, 320, 322, 324, 327, 340, 345, 352, 389, 392-393, 437, 490, 502-503, 511, 518, 552, 556, 584, 610, 615, 628
+src/spectralbridge/envi.py                                    238    109    112     19    50%   13, 16, 27, 30, 37, 43-44, 50->52, 52->54, 60-133, 141-145, 151, 159-168, 174-183, 210, 220, 224-227, 242, 254, 260, 263-264, 269, 277-280, 295, 308-314, 324-326
+src/spectralbridge/envi_download.py                           110     62     42      5    38%   26-30, 37-44, 95, 131, 147, 162-225, 241-257
+src/spectralbridge/envi_writer.py                             103     13     40     10    83%   27, 151, 154-156, 167, 171->174, 176, 267, 273-274, 313, 316, 320
+src/spectralbridge/exports/__init__.py                          0      0      0      0   100%
+src/spectralbridge/exports/geo_utils.py                        98     56     30      3    37%   48-49, 53-66, 70-87, 93-103, 109, 111-112, 113->118, 123-130
+src/spectralbridge/exports/schema_utils.py                    156    156     64      0     0%   1-265
+src/spectralbridge/file_sort.py                                96     61     36      3    35%   67, 78-79, 89-91, 133-136, 157-276, 282-290
+src/spectralbridge/file_sort_adapter.py                        10      0      4      1    93%   12->11
+src/spectralbridge/file_types.py                              895    435    260     37    47%   11-12, 66, 94, 98, 103, 107, 111-114, 119, 128, 133-137, 166-168, 172, 234->239, 236->239, 349-357, 373, 378, 381, 389, 396, 401, 407, 433, 443->445, 462, 468, 484-491, 521-540, 546, 565-580, 595->594, 627-639, 658-664, 668-675, 693-700, 704-708, 715-722, 747-749, 753-757, 763-766, 781-787, 817->827, 821->823, 825, 830, 832, 838, 842-844, 859-867, 878-889, 911-936, 940-942, 952-958, 984->994, 988->990, 992, 998, 1000, 1006-1008, 1024-1032, 1042-1048, 1071-1093, 1097-1099, 1115-1123, 1133-1139, 1167-1202, 1206-1208, 1216-1223, 1234-1242, 1269, 1273, 1275->1278, 1279-1281, 1287-1292, 1305-1313, 1319-1320, 1330-1331, 1359-1380, 1384-1389, 1402-1410, 1416-1417, 1444, 1448, 1450->1453, 1454-1456, 1462-1467, 1480-1488, 1494-1495, 1527-1548, 1552-1557, 1570-1578, 1584-1585, 1602-1603, 1607-1611, 1615-1618, 1632-1638, 1643-1645, 1656-1660, 1665-1667, 1679-1683, 1688-1690, 1702-1706, 1711-1713, 1725-1729, 1734-1736
+src/spectralbridge/half_flight.py                              80     12     20      4    80%   51-53, 57-59, 77, 87, 117, 136, 140-141
+src/spectralbridge/header_utils.py                             37     21     14      3    37%   9-22, 33, 41-44, 46-48
+src/spectralbridge/hytools_compat.py                           55     46     20      0    12%   46-110, 116-121, 134-142
+src/spectralbridge/io/__init__.py                               2      0      0      0   100%
+src/spectralbridge/io/neon.py                                 394     70    186     54    76%   77, 81, 82->85, 88, 92, 101, 129-133, 141-143, 160-162, 185-186, 188, 207, 231-238, 260, 268, 289, 296, 301, 308, 324, 329-333, 344, 363, 369, 376, 384-386, 406, 433, 437, 442, 452->455, 456->459, 503, 513, 532->535, 540->543, 590, 595, 599, 603, 609, 613, 616->621, 617->616, 622, 636->642, 637->636, 638->636, 652->655, 656->659, 725, 729->734, 731->729, 737, 748-762, 783, 826, 865
+src/spectralbridge/io/neon_legacy.py                           27      0      2      0   100%
+src/spectralbridge/io/neon_schema.py                           43      4      2      1    89%   65-76
+src/spectralbridge/landsat_agreement.py                       245     12     62     12    92%   44, 73, 87, 94, 185, 231, 237, 280, 282, 304, 433, 459
+src/spectralbridge/landsat_flight_report.py                   162    151     34      0     6%   21-353
+src/spectralbridge/landsat_flight_validation.py               396    106    134     18    72%   71, 78, 93, 97, 99, 155, 160-242, 247-325, 334, 336, 355, 361, 364, 385->384, 440->445, 448-455, 494, 521-523, 557, 820, 823, 826
+src/spectralbridge/landsat_validation.py                      387    129    130     38    63%   65, 71, 87, 94, 113-119, 130-131, 133, 158-160, 201, 207, 217, 221, 223, 225, 227, 248-383, 400-401, 408, 410, 428, 434, 453-454, 469, 471-478, 487->497, 493->487, 495->487, 498-502, 508, 512, 522, 527, 558, 578, 581-587, 596, 617-620, 645->647, 701->704, 709->711, 723-729, 747->757, 776->788, 801->811
+src/spectralbridge/library_analysis.py                        570     50    244     48    88%   51, 209, 211, 214, 221, 223, 247-250, 253, 300, 303, 405, 412, 417, 422, 444, 520, 522, 526, 582, 585, 688, 693, 697, 704, 797, 799, 809, 832, 895, 1214, 1224, 1346, 1348, 1352, 1510, 1513, 1521, 1539, 1642, 1645, 1647, 1656, 1658, 1711, 1819, 1821, 1823, 1847->1846
+src/spectralbridge/logging_utils.py                             6      0      2      0   100%
+src/spectralbridge/mask_raster.py                             159    159     42      0     0%   1-381
+src/spectralbridge/merge_duckdb.py                            666    300    262     51    51%   53-63, 83, 100, 124->126, 127->130, 130->exit, 158-167, 180, 184-192, 196-218, 233-412, 495-496, 505-506, 557, 565, 571, 574-578, 644->656, 656->661, 658, 666, 668, 680, 682, 713-746, 792, 800, 801->785, 832, 842-856, 860, 862-866, 885-886, 889, 951-954, 958->960, 965, 969, 1038->1091, 1054, 1056-1059, 1130, 1141-1144, 1159->1171, 1163, 1166-1168, 1180-1181, 1206-1212, 1224, 1229, 1243-1246, 1259-1260, 1266-1281, 1285-1292, 1302->1309, 1306-1307, 1312-1342, 1369-1391, 1395-1466, 1470
+src/spectralbridge/mesma_readiness.py                         448     49    208     27    86%   73, 87, 90, 94, 127, 130, 136-152, 265, 293-296, 367->366, 483, 511->516, 580, 607, 617-629, 663, 666, 721->767, 748, 791, 793-796, 929->927, 948-961, 989->1085, 1098, 1142->1150, 1151->1159, 1160->1167
+src/spectralbridge/mixtures.py                                300     13    112     14    93%   14, 60, 82, 212, 288, 296, 303->293, 309-310, 325, 384, 405->407, 449, 451, 457
+src/spectralbridge/neon_cube.py                               214     81     92     20    58%   73, 87, 101, 108, 133-141, 144, 152, 175->173, 178, 193->184, 241->246, 248->257, 252, 259-270, 280-281, 303, 354, 371, 377, 381, 417-489, 495-499
+src/spectralbridge/neon_to_envi.py                             84     34     20      6    56%   47, 54, 69-70, 74-75, 93-117, 137->140, 155->157, 177-191
+src/spectralbridge/parquet_export.py                          363    113    114     30    64%   50-52, 56-82, 94-95, 105-109, 118->124, 121-122, 128, 155-156, 159->162, 173->183, 176-177, 179-182, 184, 186, 191, 193-196, 206-209, 212->216, 219, 224-229, 232, 235, 309, 317->319, 322, 348-349, 401->399, 407, 425-447, 476, 490->493, 494-497, 518-541, 568->571, 612-633, 652-656, 670->680, 687-693, 697-701
+src/spectralbridge/parquet_validation.py                       61      2     22      2    95%   48->52, 62-69
+src/spectralbridge/paths.py                                   190     56     40      4    64%   104, 108, 112, 116, 120, 124, 172, 181-232, 253-254, 278, 315-317
+src/spectralbridge/pft_method_audit.py                        265     21     82     17    89%   45, 81, 119, 121, 126, 135, 211-212, 227->229, 229->231, 231->206, 250, 278-279, 290-292, 302->305, 304, 309, 353-357
+src/spectralbridge/pipelines/__init__.py                       25      1     10      1    94%   41
+src/spectralbridge/pipelines/bulk.py                          316     65    110     27    77%   97, 203-204, 206->225, 239->246, 247, 255, 268, 287->309, 307-308, 330->332, 435-436, 441-442, 451-452, 720, 722, 740, 744, 746, 750, 753, 771, 773, 775, 777, 779, 781, 803, 828, 886-887, 960-965, 987-1020, 1095-1110, 1142, 1295, 1413-1418
+src/spectralbridge/pipelines/download.py                       19     12      0      0    37%   11-35, 39-45
+src/spectralbridge/pipelines/drone.py                        1885    214    636    135    85%   228, 257, 294, 308-314, 356, 389, 393, 410, 478-479, 481, 520-521, 628, 678->630, 720-721, 727-728, 735-736, 742-743, 790, 797-804, 837->845, 839, 847, 886, 891, 896, 915-920, 921->929, 925-927, 935, 943-946, 965, 1001, 1148->1145, 1154, 1170, 1204-1210, 1215, 1219, 1222, 1227, 1231-1232, 1250, 1281, 1295, 1361-1362, 1373->1371, 1402-1404, 1416-1417, 1501, 1504, 1508, 1523->1525, 1564, 1577, 1634->1640, 1647-1651, 1676-1681, 1685-1686, 1698-1713, 1733->1736, 1738, 1767, 1771, 1814, 1819-1833, 1854, 1860, 1865->1872, 1929->1931, 1931->1933, 1933->1942, 1997-1998, 2026, 2063-2064, 2123->2127, 2128, 2139, 2168->2171, 2189, 2207, 2214, 2220, 2275->2277, 2294, 2302, 2356-2357, 2359, 2369->2371, 2377-2401, 2419-2420, 2505, 2510, 2539, 2552->2554, 2601, 2619-2625, 2636-2637, 2648, 2674-2675, 2697, 2704, 2707-2708, 2713, 2717-2719, 2735, 2750-2751, 2759->2763, 2805, 2807->2813, 2809, 2811, 2865, 2871, 2881, 2883, 2887, 2897, 2909, 2926->2928, 2928->2931, 2949, 2951, 2987, 2989, 2995, 3029->3031, 3050, 3052, 3120, 3129-3131, 3137-3141, 3171, 3214, 3217, 3221, 3443, 3445, 3461, 3463, 3613, 3669->3673, 3856->3860, 3880->3884, 3922, 3946->3950, 3998->4002, 4055->4059, 4079-4085, 4229-4234, 4261-4262, 4274, 4285, 4336, 4402->4407, 4410->4413, 4520-4523
+src/spectralbridge/pipelines/pipeline.py                     1425    679    508     81    50%   248->250, 256, 270->273, 276-297, 360-361, 368-377, 393-405, 410, 418-419, 423, 428-444, 449-451, 477-479, 482-499, 502-506, 511-521, 526-528, 535-549, 562, 564, 566, 568-569, 599-600, 609-613, 629-641, 643->660, 658, 661-665, 673, 676, 687, 709, 724->726, 726->729, 744-745, 862, 866, 882-883, 917, 920, 924, 926, 933, 939, 946, 959-962, 968-969, 1001, 1004->1007, 1052->1055, 1078-1094, 1100-1126, 1134-1138, 1143-1145, 1150-1153, 1162-1187, 1197-1257, 1270-1308, 1323-1366, 1381-1383, 1407-1444, 1473-1514, 1577, 1587-1588, 1606-1608, 1637, 1642, 1692-1720, 1801-1826, 1868-1904, 1944->1949, 1946->1945, 1950, 1958-1963, 1976-1982, 2000-2006, 2030-2037, 2048-2056, 2065, 2070-2072, 2083, 2097-2099, 2108-2250, 2270-2394, 2420, 2436-2442, 2630, 2653, 2670, 2689, 2718-2774, 2870, 2875, 2898, 2918, 2929-2936, 2946, 2958-3009, 3143, 3146, 3154, 3167-3174, 3187-3191, 3198->3241, 3214-3215, 3221-3222, 3235-3236, 3239, 3340, 3373, 3384->3406, 3389-3399, 3414-3415, 3422-3430, 3437-3470, 3475-3483, 3518-3556, 3560-3607, 3611-3619, 3635
+src/spectralbridge/plant_pft_statistics.py                    296     73     82      7    73%   41, 86, 88, 102, 180-207, 211-245, 281, 299-300, 377-381
+src/spectralbridge/plant_quantile_overlays.py                 100     40     32      1    54%   134-194
+src/spectralbridge/plant_spectral_atlas.py                    248      9     84     10    94%   104, 123, 137, 142, 201->184, 254, 407, 481, 562, 577
+src/spectralbridge/plant_spectral_comparison.py               195      8     60      9    93%   45, 61, 72, 219, 274, 312, 424, 441->448, 509
+src/spectralbridge/plant_spectral_pfts.py                     298    213    102      3    28%   105, 130, 172, 196-333, 338-415, 422-690
+src/spectralbridge/plant_spectral_quantiles.py                486    430    182      0     8%   46-74, 84, 88-94, 104-187, 196-207, 214-227, 231-267, 271, 296-341, 345-392, 396-498, 519-595, 611-753, 762-818, 822-868, 874-956, 960-1046, 1055-1077
+src/spectralbridge/plant_spectral_regions.py                  183     11     64     13    90%   61, 63, 95, 111, 113, 124, 225->227, 259, 277->283, 293, 297, 403, 407
+src/spectralbridge/plant_spectral_years.py                    161     75     56     10    51%   32, 54, 59, 61, 73, 88-215, 238, 241->235, 255, 265, 290-358
+src/spectralbridge/polygon_extraction.py                      467    427    168      0     6%   37-46, 49, 52-55, 73-76, 87-88, 96-103, 109-114, 140-278, 282-290, 299-315, 334-376, 380-382, 395-407, 423-544, 550-568, 574-575, 590-608, 622-659, 676-882
+src/spectralbridge/polygons.py                               1055    703    430     62    31%   41, 66, 89-90, 104-109, 121, 126, 147-148, 159-164, 217-558, 594-598, 602, 605, 611-612, 617-668, 684-691, 738-1285, 1320-1496, 1516, 1518, 1530-1536, 1556->1560, 1560->1564, 1591-1621, 1668, 1676, 1679-1680, 1689, 1693, 1699, 1709-1710, 1727-1773, 1780-1798, 1803->1817, 1806->1817, 1812-1814, 1817->1830, 1820->1830, 1825-1827, 1837-1840, 1842-1846, 1848-1853, 1862-1865, 1871, 1875, 1882->1923, 1910, 1935-1950, 1969->1974, 1974->1977, 2062, 2097-2110, 2122, 2125->2120, 2164, 2170->2173, 2179, 2192-2203, 2241-2296, 2310, 2314, 2324, 2326-2329, 2334-2340, 2395, 2403, 2406-2409, 2412, 2420, 2468
+src/spectralbridge/progress_utils.py                           25      0      8      1    97%   45->exit
+src/spectralbridge/qa/__init__.py                               9      0      0      0   100%
+src/spectralbridge/qa/brightness.py                            36      8     10      3    72%   40, 45, 69-75
+src/spectralbridge/qa/metrics.py                              112     11     34     13    84%   15, 60, 184, 214, 218, 264, 297->299, 366, 370, 428, 433-435, 439->443
+src/spectralbridge/qa/network.py                               27      2      6      2    88%   41, 84, 133->140
+src/spectralbridge/qa/paths.py                                 54      1      2      1    96%   25
+src/spectralbridge/qa/plots.py                                347     16     52     11    93%   99-100, 145, 149, 172-173, 240->243, 379->376, 421-422, 447-448, 450, 463->465, 470, 502, 686-695
+src/spectralbridge/qa/reporting.py                            245     20     84     21    88%   62, 87-88, 90, 92, 95->101, 98->95, 102, 154, 198, 206, 227, 236, 252->273, 256->273, 287->283, 300, 342->347, 349-357, 371, 375, 407-417, 563
+src/spectralbridge/qa/runner.py                                49      7     12      6    79%   51, 76->88, 90-102, 103->121, 121->149, 150-162
+src/spectralbridge/qa/schema.py                                65      2     10      3    93%   109->107, 148, 153
+src/spectralbridge/qa/stages.py                               460     80    130     29    80%   73-74, 81, 92-95, 122, 125-126, 134, 137-138, 147-148, 151-179, 197-199, 229-230, 310, 326, 448, 471-510, 516-517, 520, 549, 552-553, 592->580, 604, 622-633, 737, 760->766, 780, 915-924, 958, 968->970, 972->974, 1068, 1069->1087, 1161-1162, 1172-1178, 1199, 1201, 1205, 1233->1192, 1253, 1290-1295
+src/spectralbridge/qa/thresholds.py                            33      1      4      1    95%   161
+src/spectralbridge/qa_dashboard.py                             95     64     14      1    29%   25-28, 34-43, 49-61, 65-69, 75-97, 103-124, 128, 166-177
+src/spectralbridge/qa_metrics.py                               62      0      0      0   100%
+src/spectralbridge/qa_plots.py                               1662    605    558    112    57%   18-19, 23-24, 70, 82, 103-105, 112, 115-124, 127, 153, 203, 215-251, 272, 275-278, 290-304, 316-327, 349-350, 363, 367, 420, 430-434, 490, 534, 544-587, 592-603, 625-641, 672->669, 686, 689-702, 712, 735, 741->744, 746-747, 756, 759-760, 771->769, 774, 787, 802, 819, 826-828, 832-840, 857-863, 874-876, 887, 898-903, 919->922, 924-928, 955, 965-992, 1001-1021, 1061-1065, 1097-1100, 1121, 1124-1129, 1159-1161, 1164-1167, 1179->1183, 1184-1218, 1236-1310, 1324, 1335, 1344, 1368-1369, 1397, 1400-1401, 1408, 1421, 1425, 1455, 1471, 1483->1485, 1487, 1494, 1545->1550, 1671->1674, 1785->1821, 1809->1811, 1861-1863, 1874-2251, 2265-2268, 2299->2302, 2332, 2335-2336, 2347, 2419->2421, 2422, 2450, 2470, 2478-2479, 2516->2519, 2519->2510, 2532->2540, 2563->2565, 2639->2641, 2671-2672, 2679, 2681, 2709->2711, 2716-2725, 2749, 2755-2756, 2767-2769, 2791->2803, 2795->2803, 2801, 2821-2822, 2849-2859, 2886, 2897-2898, 3116->3123, 3126-3128, 3139, 3145, 3156, 3188->3190, 3191, 3193, 3195, 3197, 3206, 3208, 3289->3293, 3303, 3342-3345, 3352-3359, 3362-3363
+src/spectralbridge/qa_style.py                                 43      1      6      1    96%   103
+src/spectralbridge/ray_utils.py                                 3      0      0      0   100%
+src/spectralbridge/remote.py                                  145     38     32     10    68%   34-38, 53, 85, 90->92, 101-102, 115, 118, 139, 155, 157->132, 183-201, 212, 217-218, 239-246, 249-266
+src/spectralbridge/resample.py                                 28      5     14      5    76%   31, 37, 48, 59, 66
+src/spectralbridge/researcher_information.py                  174     21     54     17    82%   39, 48-51, 59, 73, 76, 102, 104, 133->128, 202, 208, 220, 229, 237, 239, 276-279, 281, 283
+src/spectralbridge/researcher_pft_statistics.py               120     11     42      8    87%   30, 45, 62->64, 90-91, 97-101, 117, 135->137, 147
+src/spectralbridge/researcher_validation.py                    30      1      8      1    95%   28
+src/spectralbridge/sensor_pairs.py                             55      4     12      4    88%   116, 143, 154, 169
+src/spectralbridge/sensor_panel_plots.py                      333    137    116     22    54%   85-86, 90-92, 100, 113-150, 157->155, 165-168, 193, 201-202, 204, 220, 239-241, 247, 270, 274, 299->323, 306->323, 329, 369-523, 548->536, 594, 598, 606, 636-637, 643-644, 661-662, 698
+src/spectralbridge/sensor_pft_transfer.py                     340     33    110     13    88%   62, 88, 113, 195, 226, 252, 279->285, 366-368, 387-391, 553, 651, 671-692, 710, 719-741
+src/spectralbridge/sort_core.py                                22      1     16      1    95%   29
+src/spectralbridge/spectral_analytics_extensions.py           187    134     62      4    25%   47, 67, 80, 101->103, 118-391, 396-518
+src/spectralbridge/spectral_analytics_mixtures.py             106     80     32      1    22%   34, 43-229
+src/spectralbridge/spectral_analytics_validation.py            85     85     28      0     0%   3-166
+src/spectralbridge/spectral_closure.py                        112      6     28      6    91%   22, 83, 112, 189, 228, 231
+src/spectralbridge/spectral_learning.py                       321     23    102     24    89%   69, 92, 152, 185, 215, 217, 242->238, 268-269, 291->293, 308, 316, 327, 352, 354, 373, 483, 485, 488, 505->504, 540, 544, 546, 551, 589, 611
+src/spectralbridge/spectral_library_analytics.py              297     35     98     14    87%   62, 65, 72, 85, 192->200, 215, 295-299, 336, 416, 418, 485-529, 549, 595, 601->584, 621-623
+src/spectralbridge/standard_resample.py                       102    102     18      0     0%   18-401
+src/spectralbridge/topo_and_brdf_correction.py                 12      2      2      0    86%   25, 29
+src/spectralbridge/types_protocol.py                           20      0     12      0   100%
+src/spectralbridge/utils/__init__.py                            3      0      0      0   100%
+src/spectralbridge/utils/memory.py                             18      3      4      2    77%   28->34, 36-43
+src/spectralbridge/utils/naming.py                             78     14     32      5    79%   15-17, 35, 47->42, 61->110, 68->110, 80-82, 91-108
+src/spectralbridge/utils/paths.py                               9      1      2      1    82%   41
+src/spectralbridge/utils/qa_summary.py                        164      7     34      4    94%   32, 55-56, 87->89, 137, 309, 393-394
+src/spectralbridge/utils_checks.py                             15      0      2      0   100%
+src/spectralbridge/validation.py                              104     11     18      5    85%   29, 34-39, 151, 207, 209, 213
+-------------------------------------------------------------------------------------------------------
+TOTAL                                                       26877   7947   8566   1504    67%
+Coverage XML written to file coverage.xml
+Coverage JSON written to file coverage.json
+Required test coverage of 45.0% reached. Total coverage: 66.75%
+=========================== short test summary info ============================
+FAILED tests/test_plant_spectral_years.py::test_year_site_panels_refit_correct_cohorts_and_mark_missing_acquisitions - ImportError: Install earthlab-spectralbridge[quantile-models] for boosted quantile signatures
+Error: Process completed with exit code 1.
+```
+
+Attached CI failure log (verbatim):
+
+```text
+Run pytest -q -m "not full and not network and not playwright" --cov=spectralbridge --cov-branch \
+........................................................................ [  9%]
+........................................................................ [ 18%]
+........................................................................ [ 28%]
+........................................................................ [ 37%]
+..ssss........................................s......................... [ 47%]
+........................................................................ [ 56%]
+..................................................................F..... [ 66%]
+..........................................................s............. [ 75%]
+........................................................................ [ 85%]
+........................................................................ [ 94%]
+......................................                                   [100%]
+=================================== FAILURES ===================================
+__ test_year_site_panels_refit_correct_cohorts_and_mark_missing_acquisitions ___
+
+    def _xgboost():
+        try:
+>           import xgboost as xgb
+E           ModuleNotFoundError: No module named 'xgboost'
+
+src/spectralbridge/plant_spectral_quantiles.py:79: ModuleNotFoundError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-2/test_year_site_panels_refit_co0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f7b74ad8380>
+
+    def test_year_site_panels_refit_correct_cohorts_and_mark_missing_acquisitions(
+        tmp_path, monkeypatch
+    ):
+        import spectralbridge.plant_spectral_years as module
+        from spectralbridge.plant_spectral_quantiles import QuantileModelConfig
+        import matplotlib.pyplot as plt
+    
+        d = observations()
+        extra = d[d.GlobalID == "B"].copy()
+        extra["GlobalID"] = "C"
+        extra["aop_site"] = "WREF"
+        for col in ["flight_id", "source_image", "source_parquet"]:
+            extra[col] = (
+                extra[col].str.replace("NIWO", "WREF").str.replace("20200815", "20230815")
+            )
+        second = extra.copy()
+        second["GlobalID"] = "D"
+        repeat = d[d.GlobalID == "B"].copy()
+        for col in ["flight_id", "source_image", "source_parquet"]:
+            repeat[col] = repeat[col].str.replace("20200815", "20230815")
+        d = pd.concat([d, extra, second, repeat], ignore_index=True)
+        monkeypatch.setattr(
+            module,
+            "_model_inputs",
+            lambda root: (None, None, {"corr": (d, [])}, None, {"synthetic": "hash"}),
+        )
+        captured = []
+    
+        def save(fig, *args):
+            captured.append(fig)
+    
+        monkeypatch.setattr(module, "_save", save)
+        config = QuantileModelConfig(
+            stages=("corr",), workers=1, boosting_rounds=2, min_plants_per_species=2
+        )
+>       result = module.run_year_site_quantiles(tmp_path, tmp_path / "out", config=config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_plant_spectral_years.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/spectralbridge/plant_spectral_years.py:289: in run_year_site_quantiles
+    records.append(future.result())
+                   ^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/concurrent/futures/thread.py:59: in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/spectralbridge/plant_spectral_quantiles.py:284: in _fit_checkpoint
+    "xgboost": _xgboost().__version__,
+               ^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _xgboost():
+        try:
+            import xgboost as xgb
+        except ImportError as exc:
+>           raise ImportError(
+                "Install earthlab-spectralbridge[quantile-models] for boosted quantile signatures"
+            ) from exc
+E           ImportError: Install earthlab-spectralbridge[quantile-models] for boosted quantile signatures
+
+src/spectralbridge/plant_spectral_quantiles.py:81: ImportError
+=============================== warnings summary ===============================
+src/spectralbridge/polygons.py:30
+tests/test_cross_sensor_cal_shim.py::test_project_script_entry_points_resolve_from_non_repo_cwd
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:30: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+tests/test_drone_pipeline.py: 13 warnings
+tests/test_qa/test_qa_metrics_smoke.py: 3 warnings
+tests/test_validation_campaign.py: 1 warning
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:1377: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    created_utc=_dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:2437: RuntimeWarning: All-NaN slice encountered
+    return np.nanmedian(masked, axis=(1, 2))
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:493: RuntimeWarning: All-NaN slice encountered
+    delta_median = np.nanmedian(diff, axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_nanfunctions_impl.py:1593: RuntimeWarning: All-NaN slice encountered
+    return fnb._ureduce(a,
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:498: RuntimeWarning: All-NaN slice encountered
+    delta_abs_median = np.nanmedian(np.abs(diff), axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_correction_magnitude_returns_richer_spatial_summary
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/qa_plots.py:2589: RuntimeWarning: All-NaN slice encountered
+    abs_delta = np.nanmedian(full_abs_diff, axis=0)
+
+tests/test_landsat_agreement.py: 4 warnings
+tests/test_landsat_flight_validation.py: 12 warnings
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/landsat_agreement.py:334: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    left, top = a * (0, start)
+
+tests/test_landsat_agreement.py: 4 warnings
+tests/test_landsat_flight_validation.py: 12 warnings
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/landsat_agreement.py:335: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    right, bottom = a * (grid.width, stop)
+
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/landsat_agreement.py:422: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    left, top = a * (col, row)
+
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/landsat_agreement.py:423: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    right, bottom = a * (col + 1, row + 1)
+
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/landsat_agreement.py:437: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    x, y = s * (cc + dc, rr + dr)
+
+tests/test_landsat_flight_validation.py::test_complete_mocked_transport_and_checksum_restart
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/landsat_flight_validation.py:566: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    xx, yy = grid.affine * (cc + 0.5, rr + 0.5)
+
+tests/test_polygon_pipeline.py::test_build_polygon_pixel_index
+tests/test_polygon_pipeline.py::test_extract_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_merge_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_run_polygon_pipeline_for_flightline
+  /home/runner/work/spectralbridge/spectralbridge/src/spectralbridge/polygons.py:1860: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+    polygon_ids = polygons["polygon_id"].astype("int64", copy=False)
+
+tests/test_scientific_docs_integration.py::test_both_publication_figures_compose_offline_without_original_archive
+  /home/runner/work/spectralbridge/spectralbridge/examples/publication_figures/figure_panels.py:132: PendingDeprecationWarning: The set_bad function will be deprecated in a future version. Use cmap.with_extremes(bad=...) or Colormap(bad=...) instead.
+    cmap.set_bad('#eeeeee')
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.15-final-0 _______________
+
+Name                                                        Stmts   Miss Branch BrPart  Cover   Missing
+-------------------------------------------------------------------------------------------------------
+src/spectralbridge/__init__.py                                  7      0      0      0   100%
+src/spectralbridge/_cli_compat.py                              15      6      6      1    48%   15-21
+src/spectralbridge/_optional.py                                28     10      0      0    64%   31-35, 43, 47-51, 55-62
+src/spectralbridge/_ray_utils.py                               82     61     22      1    21%   17-26, 46, 49-84, 107-140
+src/spectralbridge/brdf_topo.py                               194     98     60      9    45%   69-76, 93-163, 198-226, 288, 294, 313-316, 323-326, 339->342, 370->377, 379, 412-420, 430, 446-494
+src/spectralbridge/brightness.py                              104     56     44     10    41%   11, 15, 21-26, 38-40, 53-81, 157-158, 161, 163-167, 172-180, 192->196, 197
+src/spectralbridge/brightness_config.py                        10      0      0      0   100%
+src/spectralbridge/bulk/__init__.py                             8      0      0      0   100%
+src/spectralbridge/bulk/analyses/__init__.py                    5      0      0      0   100%
+src/spectralbridge/bulk/analyses/common.py                     63      2     12      1    96%   77-81
+src/spectralbridge/bulk/analyses/dataset_census.py             89      0      8      0   100%
+src/spectralbridge/bulk/analyses/leave_one_site_out.py         55      1      4      1    97%   266
+src/spectralbridge/bulk/analyses/sensor_translation.py        112      2     16      1    98%   283-284
+src/spectralbridge/bulk/analyses/spectral_library.py          789     54    218     48    89%   167, 169, 171, 173, 175, 177, 179, 181, 183, 186, 194, 202, 204, 206, 208, 391-393, 417->412, 458, 464, 479, 500, 514, 527, 529, 565, 618, 677, 716, 1322, 1455, 1465, 1569, 1571-1572, 1595, 1598, 1621, 1660->1662, 1789, 1815->1814, 1861, 1916, 1945-1946, 2018, 2023, 2177-2185, 2219, 2298->2303, 2308
+src/spectralbridge/bulk/analyses/streaming_translation.py     212      9     72      9    94%   105, 157-158, 193, 314, 316, 428->427, 457->472, 475->472, 487->440, 547-549, 666->685
+src/spectralbridge/bulk/catalog.py                            292     49    120     30    79%   53, 61, 71, 74-75, 118, 127, 170-174, 184, 187, 246, 248, 259, 262, 266-267, 281-283, 292, 298, 308->313, 352, 368-369, 386-387, 391-392, 407, 409, 411, 413, 418, 420-421, 524, 542-543, 546-547, 566-567, 568->572, 663-668, 729->728, 790
+src/spectralbridge/bulk/dataset.py                            120     10     36      9    88%   44, 47-49, 64, 68, 213, 215, 289, 312, 382->387
+src/spectralbridge/bulk/exclusions.py                          47      7     16      3    84%   61, 85, 102-103, 105, 112-113
+src/spectralbridge/bulk/flightline_outputs.py                 454     49    152     23    88%   47, 70, 76, 81-82, 108-109, 122-126, 133, 146, 163->170, 166-167, 199-200, 205, 218-219, 229->248, 242, 312-314, 533-534, 543-544, 698, 751->764, 846->848, 864, 866, 884, 915, 1070->1069, 1210, 1233, 1245, 1272-1283, 1295, 1300, 1325-1338
+src/spectralbridge/bulk/harmonized.py                           9      1      2      1    82%   56
+src/spectralbridge/bulk/identity.py                            64      7     14      4    86%   63, 66-67, 70, 77-78, 102->104, 131
+src/spectralbridge/bulk/models.py                             205      1      2      0    99%   625
+src/spectralbridge/bulk/provenance.py                          41      7      8      0    82%   59-65
+src/spectralbridge/bulk/registry.py                           126     18     26      8    83%   76, 136, 265-266, 283, 310-311, 360-361, 365-366, 372-373, 379-380, 384, 404-405
+src/spectralbridge/bulk/reporting.py                          165      7     30      5    94%   38-39, 41, 54, 56, 320, 332
+src/spectralbridge/bulk/results.py                            523     33    126     22    91%   109, 115, 136, 138, 667-668, 675-676, 770, 773-774, 810, 838, 947-950, 1099, 1350, 1390, 1408->1420, 1481, 1783->1795, 1795->1799, 1797->1799, 1800, 1804-1805, 1866, 1869, 1875-1876, 1878, 1904-1905, 1923, 1941
+src/spectralbridge/bulk/streaming.py                          253     16     60     12    91%   46, 48, 70, 95, 179-180, 197->199, 215, 224, 240, 325, 380, 419-422, 538
+src/spectralbridge/cli/__init__.py                             21     10      0      0    52%   16-17, 23-33, 39-40, 46-47
+src/spectralbridge/cli/bulk_cli.py                             55      4      0      0    93%   272-321
+src/spectralbridge/cli/drone_production_cli.py                 43     32      4      0    23%   19-38, 42-66, 70, 81-108
+src/spectralbridge/cli/pipeline_cli.py                         34     25      0      0    26%   13-127, 131-157
+src/spectralbridge/cli/qa_cli.py                               59     47     22      0    15%   15-19, 23-65, 69-122
+src/spectralbridge/cli/qa_summary_cli.py                       19     10      0      0    47%   14-33, 37-46
+src/spectralbridge/cli/recover_cli.py                          27      9      6      1    58%   31-41
+src/spectralbridge/cli/stage_qa_cli.py                         18     10      0      0    44%   13-24, 28-36
+src/spectralbridge/corrections.py                             503    104    136     31    76%   110-111, 114-115, 169, 175, 193, 212, 232, 267->272, 269, 271, 484-553, 582, 606, 621, 636-637, 646-648, 650-651, 668, 685-688, 713, 732, 737->773, 768, 831-832, 843-849, 861-868, 871-878, 943->949, 1002, 1036, 1055, 1109, 1113->1115, 1117, 1120-1121
+src/spectralbridge/data/__init__.py                             0      0      0      0   100%
+src/spectralbridge/deprecated/__init__.py                       2      0      0      0   100%
+src/spectralbridge/deprecated/hytools.py                      186    157     58      0    12%   66-95, 104-191, 205-208, 240-263, 276-299, 304-371, 384-484, 491-613
+src/spectralbridge/drone_production.py                        707     70    204     48    87%   56, 404, 419, 503, 505, 510, 512, 820, 832, 843, 904, 907, 912, 937, 948, 970, 973-974, 980->983, 1057, 1074, 1079, 1084, 1115-1116, 1221, 1245->1233, 1273-1274, 1276-1277, 1353, 1358, 1366->1376, 1379, 1382, 1384, 1389, 1439-1440, 1508, 1510, 1623, 1628->1633, 1630->1633, 1677, 1697-1699, 1707, 1728, 1737-1738, 1766, 1771-1772, 1783-1786, 1803, 1820->1819, 1829->1831, 1870, 1960-1977, 2070, 2092, 2126, 2129-2135, 2144
+src/spectralbridge/drone_qa.py                                171      8     40      7    92%   34, 49-50, 75, 161->166, 192->209, 256->258, 323-326
+src/spectralbridge/drone_translation.py                       442     50    138     35    85%   119, 144, 150->209, 153-154, 160-161, 202, 208, 223, 235, 259, 294, 305, 314, 330, 352, 354, 364, 367, 475, 495, 508-509, 522-523, 551, 568-569, 570->579, 583, 585, 616-618, 667, 678, 712-713, 714->723, 726, 730, 748->750, 805, 816-819, 833-834, 848-850, 856->858, 998, 1015-1016, 1017->1020
+src/spectralbridge/drone_translation_registry.py              292     54    140     46    76%   120-122, 125, 134, 151, 175, 187, 195-196, 210, 216, 218, 220, 223, 228, 233, 240, 243, 256, 259, 271, 274, 280, 282, 284, 292, 299, 308, 310, 312, 316, 320, 322, 324, 327, 340, 345, 352, 389, 392-393, 437, 490, 502-503, 511, 518, 552, 556, 584, 610, 615, 628
+src/spectralbridge/envi.py                                    238    109    112     19    50%   13, 16, 27, 30, 37, 43-44, 50->52, 52->54, 60-133, 141-145, 151, 159-168, 174-183, 210, 220, 224-227, 242, 254, 260, 263-264, 269, 277-280, 295, 308-314, 324-326
+src/spectralbridge/envi_download.py                           110     62     42      5    38%   26-30, 37-44, 95, 131, 147, 162-225, 241-257
+src/spectralbridge/envi_writer.py                             103     13     40     10    83%   27, 151, 154-156, 167, 171->174, 176, 267, 273-274, 313, 316, 320
+src/spectralbridge/exports/__init__.py                          0      0      0      0   100%
+src/spectralbridge/exports/geo_utils.py                        98     56     30      3    37%   48-49, 53-66, 70-87, 93-103, 109, 111-112, 113->118, 123-130
+src/spectralbridge/exports/schema_utils.py                    156    156     64      0     0%   1-265
+src/spectralbridge/file_sort.py                                96     61     36      3    35%   67, 78-79, 89-91, 133-136, 157-276, 282-290
+src/spectralbridge/file_sort_adapter.py                        10      0      4      1    93%   12->11
+src/spectralbridge/file_types.py                              895    435    260     37    47%   11-12, 66, 94, 98, 103, 107, 111-114, 119, 128, 133-137, 166-168, 172, 234->239, 236->239, 349-357, 373, 378, 381, 389, 396, 401, 407, 433, 443->445, 462, 468, 484-491, 521-540, 546, 565-580, 595->594, 627-639, 658-664, 668-675, 693-700, 704-708, 715-722, 747-749, 753-757, 763-766, 781-787, 817->827, 821->823, 825, 830, 832, 838, 842-844, 859-867, 878-889, 911-936, 940-942, 952-958, 984->994, 988->990, 992, 998, 1000, 1006-1008, 1024-1032, 1042-1048, 1071-1093, 1097-1099, 1115-1123, 1133-1139, 1167-1202, 1206-1208, 1216-1223, 1234-1242, 1269, 1273, 1275->1278, 1279-1281, 1287-1292, 1305-1313, 1319-1320, 1330-1331, 1359-1380, 1384-1389, 1402-1410, 1416-1417, 1444, 1448, 1450->1453, 1454-1456, 1462-1467, 1480-1488, 1494-1495, 1527-1548, 1552-1557, 1570-1578, 1584-1585, 1602-1603, 1607-1611, 1615-1618, 1632-1638, 1643-1645, 1656-1660, 1665-1667, 1679-1683, 1688-1690, 1702-1706, 1711-1713, 1725-1729, 1734-1736
+src/spectralbridge/half_flight.py                              80     12     20      4    80%   51-53, 57-59, 77, 87, 117, 136, 140-141
+src/spectralbridge/header_utils.py                             37     21     14      3    37%   9-22, 33, 41-44, 46-48
+src/spectralbridge/hytools_compat.py                           55     46     20      0    12%   46-110, 116-121, 134-142
+src/spectralbridge/io/__init__.py                               2      0      0      0   100%
+src/spectralbridge/io/neon.py                                 394     70    186     54    76%   77, 81, 82->85, 88, 92, 101, 129-133, 141-143, 160-162, 185-186, 188, 207, 231-238, 260, 268, 289, 296, 301, 308, 324, 329-333, 344, 363, 369, 376, 384-386, 406, 433, 437, 442, 452->455, 456->459, 503, 513, 532->535, 540->543, 590, 595, 599, 603, 609, 613, 616->621, 617->616, 622, 636->642, 637->636, 638->636, 652->655, 656->659, 725, 729->734, 731->729, 737, 748-762, 783, 826, 865
+src/spectralbridge/io/neon_legacy.py                           27      0      2      0   100%
+src/spectralbridge/io/neon_schema.py                           43      4      2      1    89%   65-76
+src/spectralbridge/landsat_agreement.py                       245     12     62     12    92%   44, 73, 87, 94, 185, 231, 237, 280, 282, 304, 433, 459
+src/spectralbridge/landsat_flight_report.py                   162    151     34      0     6%   21-353
+src/spectralbridge/landsat_flight_validation.py               396    106    134     18    72%   71, 78, 93, 97, 99, 155, 160-242, 247-325, 334, 336, 355, 361, 364, 385->384, 440->445, 448-455, 494, 521-523, 557, 820, 823, 826
+src/spectralbridge/landsat_validation.py                      387    129    130     38    63%   65, 71, 87, 94, 113-119, 130-131, 133, 158-160, 201, 207, 217, 221, 223, 225, 227, 248-383, 400-401, 408, 410, 428, 434, 453-454, 469, 471-478, 487->497, 493->487, 495->487, 498-502, 508, 512, 522, 527, 558, 578, 581-587, 596, 617-620, 645->647, 701->704, 709->711, 723-729, 747->757, 776->788, 801->811
+src/spectralbridge/library_analysis.py                        570     50    244     48    88%   51, 209, 211, 214, 221, 223, 247-250, 253, 300, 303, 405, 412, 417, 422, 444, 520, 522, 526, 582, 585, 688, 693, 697, 704, 797, 799, 809, 832, 895, 1214, 1224, 1346, 1348, 1352, 1510, 1513, 1521, 1539, 1642, 1645, 1647, 1656, 1658, 1711, 1819, 1821, 1823, 1847->1846
+src/spectralbridge/logging_utils.py                             6      0      2      0   100%
+src/spectralbridge/mask_raster.py                             159    159     42      0     0%   1-381
+src/spectralbridge/merge_duckdb.py                            666    300    262     51    51%   53-63, 83, 100, 124->126, 127->130, 130->exit, 158-167, 180, 184-192, 196-218, 233-412, 495-496, 505-506, 557, 565, 571, 574-578, 644->656, 656->661, 658, 666, 668, 680, 682, 713-746, 792, 800, 801->785, 832, 842-856, 860, 862-866, 885-886, 889, 951-954, 958->960, 965, 969, 1038->1091, 1054, 1056-1059, 1130, 1141-1144, 1159->1171, 1163, 1166-1168, 1180-1181, 1206-1212, 1224, 1229, 1243-1246, 1259-1260, 1266-1281, 1285-1292, 1302->1309, 1306-1307, 1312-1342, 1369-1391, 1395-1466, 1470
+src/spectralbridge/mesma_readiness.py                         448     49    208     27    86%   73, 87, 90, 94, 127, 130, 136-152, 265, 293-296, 367->366, 483, 511->516, 580, 607, 617-629, 663, 666, 721->767, 748, 791, 793-796, 929->927, 948-961, 989->1085, 1098, 1142->1150, 1151->1159, 1160->1167
+src/spectralbridge/mixtures.py                                300     13    112     14    93%   14, 60, 82, 212, 288, 296, 303->293, 309-310, 325, 384, 405->407, 449, 451, 457
+src/spectralbridge/neon_cube.py                               214     81     92     20    58%   73, 87, 101, 108, 133-141, 144, 152, 175->173, 178, 193->184, 241->246, 248->257, 252, 259-270, 280-281, 303, 354, 371, 377, 381, 417-489, 495-499
+src/spectralbridge/neon_to_envi.py                             84     34     20      6    56%   47, 54, 69-70, 74-75, 93-117, 137->140, 155->157, 177-191
+src/spectralbridge/parquet_export.py                          363    113    114     30    64%   50-52, 56-82, 94-95, 105-109, 118->124, 121-122, 128, 155-156, 159->162, 173->183, 176-177, 179-182, 184, 186, 191, 193-196, 206-209, 212->216, 219, 224-229, 232, 235, 309, 317->319, 322, 348-349, 401->399, 407, 425-447, 476, 490->493, 494-497, 518-541, 568->571, 612-633, 652-656, 670->680, 687-693, 697-701
+src/spectralbridge/parquet_validation.py                       61      2     22      2    95%   48->52, 62-69
+src/spectralbridge/paths.py                                   190     56     40      4    64%   104, 108, 112, 116, 120, 124, 172, 181-232, 253-254, 278, 315-317
+src/spectralbridge/pft_method_audit.py                        265     21     82     17    89%   45, 81, 119, 121, 126, 135, 211-212, 227->229, 229->231, 231->206, 250, 278-279, 290-292, 302->305, 304, 309, 353-357
+src/spectralbridge/pipelines/__init__.py                       25      1     10      1    94%   41
+src/spectralbridge/pipelines/bulk.py                          316     65    110     27    77%   97, 203-204, 206->225, 239->246, 247, 255, 268, 287->309, 307-308, 330->332, 435-436, 441-442, 451-452, 720, 722, 740, 744, 746, 750, 753, 771, 773, 775, 777, 779, 781, 803, 828, 886-887, 960-965, 987-1020, 1095-1110, 1142, 1295, 1413-1418
+src/spectralbridge/pipelines/download.py                       19     12      0      0    37%   11-35, 39-45
+src/spectralbridge/pipelines/drone.py                        1885    214    636    135    85%   228, 257, 294, 308-314, 356, 389, 393, 410, 478-479, 481, 520-521, 628, 678->630, 720-721, 727-728, 735-736, 742-743, 790, 797-804, 837->845, 839, 847, 886, 891, 896, 915-920, 921->929, 925-927, 935, 943-946, 965, 1001, 1148->1145, 1154, 1170, 1204-1210, 1215, 1219, 1222, 1227, 1231-1232, 1250, 1281, 1295, 1361-1362, 1373->1371, 1402-1404, 1416-1417, 1501, 1504, 1508, 1523->1525, 1564, 1577, 1634->1640, 1647-1651, 1676-1681, 1685-1686, 1698-1713, 1733->1736, 1738, 1767, 1771, 1814, 1819-1833, 1854, 1860, 1865->1872, 1929->1931, 1931->1933, 1933->1942, 1997-1998, 2026, 2063-2064, 2123->2127, 2128, 2139, 2168->2171, 2189, 2207, 2214, 2220, 2275->2277, 2294, 2302, 2356-2357, 2359, 2369->2371, 2377-2401, 2419-2420, 2505, 2510, 2539, 2552->2554, 2601, 2619-2625, 2636-2637, 2648, 2674-2675, 2697, 2704, 2707-2708, 2713, 2717-2719, 2735, 2750-2751, 2759->2763, 2805, 2807->2813, 2809, 2811, 2865, 2871, 2881, 2883, 2887, 2897, 2909, 2926->2928, 2928->2931, 2949, 2951, 2987, 2989, 2995, 3029->3031, 3050, 3052, 3120, 3129-3131, 3137-3141, 3171, 3214, 3217, 3221, 3443, 3445, 3461, 3463, 3613, 3669->3673, 3856->3860, 3880->3884, 3922, 3946->3950, 3998->4002, 4055->4059, 4079-4085, 4229-4234, 4261-4262, 4274, 4285, 4336, 4402->4407, 4410->4413, 4520-4523
+src/spectralbridge/pipelines/pipeline.py                     1425    679    508     81    50%   248->250, 256, 270->273, 276-297, 360-361, 368-377, 393-405, 410, 418-419, 423, 428-444, 449-451, 477-479, 482-499, 502-506, 511-521, 526-528, 535-549, 562, 564, 566, 568-569, 599-600, 609-613, 629-641, 643->660, 658, 661-665, 673, 676, 687, 709, 724->726, 726->729, 744-745, 862, 866, 882-883, 917, 920, 924, 926, 933, 939, 946, 959-962, 968-969, 1001, 1004->1007, 1052->1055, 1078-1094, 1100-1126, 1134-1138, 1143-1145, 1150-1153, 1162-1187, 1197-1257, 1270-1308, 1323-1366, 1381-1383, 1407-1444, 1473-1514, 1577, 1587-1588, 1606-1608, 1637, 1642, 1692-1720, 1801-1826, 1868-1904, 1944->1949, 1946->1945, 1950, 1958-1963, 1976-1982, 2000-2006, 2030-2037, 2048-2056, 2065, 2070-2072, 2083, 2097-2099, 2108-2250, 2270-2394, 2420, 2436-2442, 2630, 2653, 2670, 2689, 2718-2774, 2870, 2875, 2898, 2918, 2929-2936, 2946, 2958-3009, 3143, 3146, 3154, 3167-3174, 3187-3191, 3198->3241, 3214-3215, 3221-3222, 3235-3236, 3239, 3340, 3373, 3384->3406, 3389-3399, 3414-3415, 3422-3430, 3437-3470, 3475-3483, 3518-3556, 3560-3607, 3611-3619, 3635
+src/spectralbridge/plant_pft_statistics.py                    296     73     82      7    73%   41, 86, 88, 102, 180-207, 211-245, 281, 299-300, 377-381
+src/spectralbridge/plant_quantile_overlays.py                 100     40     32      1    54%   134-194
+src/spectralbridge/plant_spectral_atlas.py                    248      9     84     10    94%   104, 123, 137, 142, 201->184, 254, 407, 481, 562, 577
+src/spectralbridge/plant_spectral_comparison.py               195      8     60      9    93%   45, 61, 72, 219, 274, 312, 424, 441->448, 509
+src/spectralbridge/plant_spectral_pfts.py                     298    213    102      3    28%   105, 130, 172, 196-333, 338-415, 422-690
+src/spectralbridge/plant_spectral_quantiles.py                486    430    182      0     8%   46-74, 84, 88-94, 104-187, 196-207, 214-227, 231-267, 271, 296-341, 345-392, 396-498, 519-595, 611-753, 762-818, 822-868, 874-956, 960-1046, 1055-1077
+src/spectralbridge/plant_spectral_regions.py                  183     11     64     13    90%   61, 63, 95, 111, 113, 124, 225->227, 259, 277->283, 293, 297, 403, 407
+src/spectralbridge/plant_spectral_years.py                    161     75     56     10    51%   32, 54, 59, 61, 73, 88-215, 238, 241->235, 255, 265, 290-358
+src/spectralbridge/polygon_extraction.py                      467    427    168      0     6%   37-46, 49, 52-55, 73-76, 87-88, 96-103, 109-114, 140-278, 282-290, 299-315, 334-376, 380-382, 395-407, 423-544, 550-568, 574-575, 590-608, 622-659, 676-882
+src/spectralbridge/polygons.py                               1055    703    430     62    31%   41, 66, 89-90, 104-109, 121, 126, 147-148, 159-164, 217-558, 594-598, 602, 605, 611-612, 617-668, 684-691, 738-1285, 1320-1496, 1516, 1518, 1530-1536, 1556->1560, 1560->1564, 1591-1621, 1668, 1676, 1679-1680, 1689, 1693, 1699, 1709-1710, 1727-1773, 1780-1798, 1803->1817, 1806->1817, 1812-1814, 1817->1830, 1820->1830, 1825-1827, 1837-1840, 1842-1846, 1848-1853, 1862-1865, 1871, 1875, 1882->1923, 1910, 1935-1950, 1969->1974, 1974->1977, 2062, 2097-2110, 2122, 2125->2120, 2164, 2170->2173, 2179, 2192-2203, 2241-2296, 2310, 2314, 2324, 2326-2329, 2334-2340, 2395, 2403, 2406-2409, 2412, 2420, 2468
+src/spectralbridge/progress_utils.py                           25      0      8      1    97%   45->exit
+src/spectralbridge/qa/__init__.py                               9      0      0      0   100%
+src/spectralbridge/qa/brightness.py                            36      8     10      3    72%   40, 45, 69-75
+src/spectralbridge/qa/metrics.py                              112     11     34     13    84%   15, 60, 184, 214, 218, 264, 297->299, 366, 370, 428, 433-435, 439->443
+src/spectralbridge/qa/network.py                               27      2      6      2    88%   41, 84, 133->140
+src/spectralbridge/qa/paths.py                                 54      1      2      1    96%   25
+src/spectralbridge/qa/plots.py                                347     16     52     11    93%   99-100, 145, 149, 172-173, 240->243, 379->376, 421-422, 447-448, 450, 463->465, 470, 502, 686-695
+src/spectralbridge/qa/reporting.py                            245     20     84     21    88%   62, 87-88, 90, 92, 95->101, 98->95, 102, 154, 198, 206, 227, 236, 252->273, 256->273, 287->283, 300, 342->347, 349-357, 371, 375, 407-417, 563
+src/spectralbridge/qa/runner.py                                49      7     12      6    79%   51, 76->88, 90-102, 103->121, 121->149, 150-162
+src/spectralbridge/qa/schema.py                                65      2     10      3    93%   109->107, 148, 153
+src/spectralbridge/qa/stages.py                               460     80    130     29    80%   73-74, 81, 92-95, 122, 125-126, 134, 137-138, 147-148, 151-179, 197-199, 229-230, 310, 326, 448, 471-510, 516-517, 520, 549, 552-553, 592->580, 604, 622-633, 737, 760->766, 780, 915-924, 958, 968->970, 972->974, 1068, 1069->1087, 1161-1162, 1172-1178, 1199, 1201, 1205, 1233->1192, 1253, 1290-1295
+src/spectralbridge/qa/thresholds.py                            33      1      4      1    95%   161
+src/spectralbridge/qa_dashboard.py                             95     64     14      1    29%   25-28, 34-43, 49-61, 65-69, 75-97, 103-124, 128, 166-177
+src/spectralbridge/qa_metrics.py                               62      0      0      0   100%
+src/spectralbridge/qa_plots.py                               1662    605    558    112    57%   18-19, 23-24, 70, 82, 103-105, 112, 115-124, 127, 153, 203, 215-251, 272, 275-278, 290-304, 316-327, 349-350, 363, 367, 420, 430-434, 490, 534, 544-587, 592-603, 625-641, 672->669, 686, 689-702, 712, 735, 741->744, 746-747, 756, 759-760, 771->769, 774, 787, 802, 819, 826-828, 832-840, 857-863, 874-876, 887, 898-903, 919->922, 924-928, 955, 965-992, 1001-1021, 1061-1065, 1097-1100, 1121, 1124-1129, 1159-1161, 1164-1167, 1179->1183, 1184-1218, 1236-1310, 1324, 1335, 1344, 1368-1369, 1397, 1400-1401, 1408, 1421, 1425, 1455, 1471, 1483->1485, 1487, 1494, 1545->1550, 1671->1674, 1785->1821, 1809->1811, 1861-1863, 1874-2251, 2265-2268, 2299->2302, 2332, 2335-2336, 2347, 2419->2421, 2422, 2450, 2470, 2478-2479, 2516->2519, 2519->2510, 2532->2540, 2563->2565, 2639->2641, 2671-2672, 2679, 2681, 2709->2711, 2716-2725, 2749, 2755-2756, 2767-2769, 2791->2803, 2795->2803, 2801, 2821-2822, 2849-2859, 2886, 2897-2898, 3116->3123, 3126-3128, 3139, 3145, 3156, 3188->3190, 3191, 3193, 3195, 3197, 3206, 3208, 3289->3293, 3303, 3342-3345, 3352-3359, 3362-3363
+src/spectralbridge/qa_style.py                                 43      1      6      1    96%   103
+src/spectralbridge/ray_utils.py                                 3      0      0      0   100%
+src/spectralbridge/remote.py                                  145     38     32     10    68%   34-38, 53, 85, 90->92, 101-102, 115, 118, 139, 155, 157->132, 183-201, 212, 217-218, 239-246, 249-266
+src/spectralbridge/resample.py                                 28      5     14      5    76%   31, 37, 48, 59, 66
+src/spectralbridge/researcher_information.py                  174     21     54     17    82%   39, 48-51, 59, 73, 76, 102, 104, 133->128, 202, 208, 220, 229, 237, 239, 276-279, 281, 283
+src/spectralbridge/researcher_pft_statistics.py               120     11     42      8    87%   30, 45, 62->64, 90-91, 97-101, 117, 135->137, 147
+src/spectralbridge/researcher_validation.py                    30      1      8      1    95%   28
+src/spectralbridge/sensor_pairs.py                             55      4     12      4    88%   116, 143, 154, 169
+src/spectralbridge/sensor_panel_plots.py                      333    137    116     22    54%   85-86, 90-92, 100, 113-150, 157->155, 165-168, 193, 201-202, 204, 220, 239-241, 247, 270, 274, 299->323, 306->323, 329, 369-523, 548->536, 594, 598, 606, 636-637, 643-644, 661-662, 698
+src/spectralbridge/sensor_pft_transfer.py                     340     33    110     13    88%   62, 88, 113, 195, 226, 252, 279->285, 366-368, 387-391, 553, 651, 671-692, 710, 719-741
+src/spectralbridge/sort_core.py                                22      1     16      1    95%   29
+src/spectralbridge/spectral_analytics_extensions.py           187    134     62      4    25%   47, 67, 80, 101->103, 118-391, 396-518
+src/spectralbridge/spectral_analytics_mixtures.py             106     80     32      1    22%   34, 43-229
+src/spectralbridge/spectral_analytics_validation.py            85     85     28      0     0%   3-166
+src/spectralbridge/spectral_closure.py                        112      6     28      6    91%   22, 83, 112, 189, 228, 231
+src/spectralbridge/spectral_learning.py                       321     23    102     24    89%   69, 92, 152, 185, 215, 217, 242->238, 268-269, 291->293, 308, 316, 327, 352, 354, 373, 483, 485, 488, 505->504, 540, 544, 546, 551, 589, 611
+src/spectralbridge/spectral_library_analytics.py              297     35     98     14    87%   62, 65, 72, 85, 192->200, 215, 295-299, 336, 416, 418, 485-529, 549, 595, 601->584, 621-623
+src/spectralbridge/standard_resample.py                       102    102     18      0     0%   18-401
+src/spectralbridge/topo_and_brdf_correction.py                 12      2      2      0    86%   25, 29
+src/spectralbridge/types_protocol.py                           20      0     12      0   100%
+src/spectralbridge/utils/__init__.py                            3      0      0      0   100%
+src/spectralbridge/utils/memory.py                             18      3      4      2    77%   28->34, 36-43
+src/spectralbridge/utils/naming.py                             78     14     32      5    79%   15-17, 35, 47->42, 61->110, 68->110, 80-82, 91-108
+src/spectralbridge/utils/paths.py                               9      1      2      1    82%   41
+src/spectralbridge/utils/qa_summary.py                        164      7     34      4    94%   32, 55-56, 87->89, 137, 309, 393-394
+src/spectralbridge/utils_checks.py                             15      0      2      0   100%
+src/spectralbridge/validation.py                              104     11     18      5    85%   29, 34-39, 151, 207, 209, 213
+-------------------------------------------------------------------------------------------------------
+TOTAL                                                       26877   7947   8566   1504    67%
+Coverage XML written to file coverage.xml
+Coverage JSON written to file coverage.json
+Required test coverage of 45.0% reached. Total coverage: 66.75%
+=========================== short test summary info ============================
+FAILED tests/test_plant_spectral_years.py::test_year_site_panels_refit_correct_cohorts_and_mark_missing_acquisitions - ImportError: Install earthlab-spectralbridge[quantile-models] for boosted quantile signatures
+Error: Process completed with exit code 1.
+```
