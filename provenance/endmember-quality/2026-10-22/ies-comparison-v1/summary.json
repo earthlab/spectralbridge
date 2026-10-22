@@ -1,0 +1,192 @@
+{
+  "config": {
+    "bootstrap_draws": 1999,
+    "bundles_per_site_year": 2,
+    "capacity_control_draws": 5,
+    "chunk_models": 1024,
+    "max_components": 3,
+    "ridge_alphas": [
+      0.01,
+      0.1,
+      1,
+      10,
+      100
+    ],
+    "ridge_training": "Same 71 recipes in 36 training bundles; three polygon-disjoint tuning groups; uniform parent-ID then uniform selected-pixel sampling within each atom/group",
+    "seed": 20261022,
+    "selection_scope": "Internal fixed-library comparison; no selection-blind claim for either library",
+    "targets": "71 recipes per six-parent bundle: six pure, all pairs at .1/.5/.9, all triples at equal thirds; exact same spectra for every cell",
+    "train_bundles_per_group": 12,
+    "train_groups": 3,
+    "units": "Supplied-array units; equality to source stored values /10000 is numerical lineage, not validated physical reflectance",
+    "unknown_background": "Exclude mixed/unspecified backgrounds from the primary common label-eligible comparison; never guess dead/bare fractions",
+    "validation": "Eight parent-disjoint target bundles; all selected parent IDs excluded; site/year breakdowns are diagnostics, not held-site validation"
+  },
+  "input_audit_sha256": "e16a98e03e8a3fceef2a4a9550788ad5dd4a1a32788722852178a77aa64215bb",
+  "metrics": [
+    {
+      "common_fraction_RMSE": 0.2834364278445338,
+      "library": "old",
+      "mean_spectral_RMSE": null,
+      "method": "ridge",
+      "native_fraction_RMSE": 0.26978127248468925,
+      "scheme": "original"
+    },
+    {
+      "common_fraction_RMSE": 0.351342614817124,
+      "library": "old",
+      "mean_spectral_RMSE": 0.0014629643132266093,
+      "method": "mesma",
+      "native_fraction_RMSE": 0.3339911722812679,
+      "scheme": "original"
+    },
+    {
+      "common_fraction_RMSE": 0.31701858379693365,
+      "library": "old",
+      "mean_spectral_RMSE": null,
+      "method": "prior",
+      "native_fraction_RMSE": 0.2942537841980405,
+      "scheme": "original"
+    },
+    {
+      "common_fraction_RMSE": 0.2582847529948706,
+      "library": "new",
+      "mean_spectral_RMSE": null,
+      "method": "ridge",
+      "native_fraction_RMSE": 0.25109210253070113,
+      "scheme": "original"
+    },
+    {
+      "common_fraction_RMSE": 0.3133402670417764,
+      "library": "new",
+      "mean_spectral_RMSE": 0.0006320017488964758,
+      "method": "mesma",
+      "native_fraction_RMSE": 0.3046990877626444,
+      "scheme": "original"
+    },
+    {
+      "common_fraction_RMSE": 0.31701858379693365,
+      "library": "new",
+      "mean_spectral_RMSE": null,
+      "method": "prior",
+      "native_fraction_RMSE": 0.2942537841980405,
+      "scheme": "original"
+    },
+    {
+      "common_fraction_RMSE": 0.2871615952298985,
+      "library": "old",
+      "mean_spectral_RMSE": null,
+      "method": "ridge",
+      "native_fraction_RMSE": 0.27778212281670334,
+      "scheme": "revised"
+    },
+    {
+      "common_fraction_RMSE": 0.32574058365741654,
+      "library": "old",
+      "mean_spectral_RMSE": 0.0014037641738607423,
+      "method": "mesma",
+      "native_fraction_RMSE": 0.30729389728075546,
+      "scheme": "revised"
+    },
+    {
+      "common_fraction_RMSE": 0.31701858379693365,
+      "library": "old",
+      "mean_spectral_RMSE": null,
+      "method": "prior",
+      "native_fraction_RMSE": 0.2942537841980405,
+      "scheme": "revised"
+    },
+    {
+      "common_fraction_RMSE": 0.25964622962641015,
+      "library": "new",
+      "mean_spectral_RMSE": null,
+      "method": "ridge",
+      "native_fraction_RMSE": 0.2530117484603295,
+      "scheme": "revised"
+    },
+    {
+      "common_fraction_RMSE": 0.29541305277692503,
+      "library": "new",
+      "mean_spectral_RMSE": 0.0004975972635741761,
+      "method": "mesma",
+      "native_fraction_RMSE": 0.29022571173948786,
+      "scheme": "revised"
+    },
+    {
+      "common_fraction_RMSE": 0.31701858379693365,
+      "library": "new",
+      "mean_spectral_RMSE": null,
+      "method": "prior",
+      "native_fraction_RMSE": 0.2942537841980405,
+      "scheme": "revised"
+    }
+  ],
+  "paired_comparisons": [
+    {
+      "alternative": "new/original/ridge",
+      "baseline": "old/original/ridge",
+      "common_RMSE_delta": -0.02515167484966324,
+      "comparison": "selection",
+      "conditional_2_5": -0.03447517211791534,
+      "conditional_97_5": -0.014905915926390139
+    },
+    {
+      "alternative": "new/original/mesma",
+      "baseline": "old/original/mesma",
+      "common_RMSE_delta": -0.038002347775347556,
+      "comparison": "selection",
+      "conditional_2_5": -0.053779259436067754,
+      "conditional_97_5": -0.023679821623417252
+    },
+    {
+      "alternative": "new/revised/ridge",
+      "baseline": "old/revised/ridge",
+      "common_RMSE_delta": -0.02751536560348833,
+      "comparison": "selection",
+      "conditional_2_5": -0.037916935789921634,
+      "conditional_97_5": -0.016193196204399338
+    },
+    {
+      "alternative": "new/revised/mesma",
+      "baseline": "old/revised/mesma",
+      "common_RMSE_delta": -0.03032753088049156,
+      "comparison": "selection",
+      "conditional_2_5": -0.04434732154106045,
+      "conditional_97_5": -0.015432525945752562
+    },
+    {
+      "alternative": "old/revised/ridge",
+      "baseline": "old/original/ridge",
+      "common_RMSE_delta": 0.0037251673853646583,
+      "comparison": "category_scheme",
+      "conditional_2_5": 0.0013725543139527785,
+      "conditional_97_5": 0.006083818772720284
+    },
+    {
+      "alternative": "old/revised/mesma",
+      "baseline": "old/original/mesma",
+      "common_RMSE_delta": -0.02560203115970744,
+      "comparison": "category_scheme",
+      "conditional_2_5": -0.04229531443937595,
+      "conditional_97_5": -0.009148055117702943
+    },
+    {
+      "alternative": "new/revised/ridge",
+      "baseline": "new/original/ridge",
+      "common_RMSE_delta": 0.001361476631539571,
+      "comparison": "category_scheme",
+      "conditional_2_5": 0.00028115736171768215,
+      "conditional_97_5": 0.002450401388689771
+    },
+    {
+      "alternative": "new/revised/mesma",
+      "baseline": "new/original/mesma",
+      "common_RMSE_delta": -0.017927214264851443,
+      "comparison": "category_scheme",
+      "conditional_2_5": -0.0308195747116754,
+      "conditional_97_5": -0.005743275140637128
+    }
+  ],
+  "protocol_sha256": "210764b7ae2b4d2b9880d2b63cd7dab6cb0924f8ac36c99eef84b5a187045108",
+  "status": "complete"
+}

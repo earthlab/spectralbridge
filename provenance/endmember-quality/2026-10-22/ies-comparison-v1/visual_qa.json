@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-22",
+  "report_sha256": "58e479b8143dc72182f84a6c6c55423088bbae5bd6a08160683ffbc832658b40",
+  "visual_review": "Eight-figure overview reviewed; coverage/domain plots and native-error heatmap inspected at large size; desktop opening/results and mobile opening inspected in browser.",
+  "desktop": {
+    "viewport": [
+      1200,
+      900
+    ],
+    "document_width": 1200,
+    "broken_images": 0,
+    "loaded_figures": 8
+  },
+  "mobile": {
+    "viewport": [
+      430,
+      900
+    ],
+    "document_width": 430,
+    "broken_images": 0
+  },
+  "screenshots": {
+    "p145-report-mobile.png": "8871cbe2e0fb83537af291dc0bfc6c36cedb3b68afb6bfa3ef21e77b5977b38b",
+    "p145-report-results.png": "0f77116b1aab41357ff3e818c92685f845e1d7e064be7ff055af162d01d7d898",
+    "p145-report-top.png": "99ade8a83efbaf14b6a4a220fb34d984d1c8c148360e24717d3dfd980c8deadf"
+  },
+  "scope": "Static portable HTML; dense scientific figures may require zoom on small screens. No claims of automated scientific validation from layout checks."
+}

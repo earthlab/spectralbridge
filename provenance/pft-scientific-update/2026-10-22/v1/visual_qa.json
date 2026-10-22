@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-22",
+  "pdf_sha256": "18913abd0bdad787b5f7a67af67af979e4814ab311035db32bf7be1211a0f8f5",
+  "pages_individually_inspected": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "render_command": "pdftoppm -scale-to 1500 -png output/pdf/pft_scientific_update/SpectralBridge_PFT_Scientific_Update.pdf tmp/pdfs/pft-scientific-update/page",
+  "render_hashes": {
+    "page-01.png": "eef3781fee15c92e001ad27418b177631ff6404012b34b00f739a478d9827d88",
+    "page-02.png": "36fe3824bfdd7c696648674aff76b50462cd65359cf938971a9bcbb93580d4f0",
+    "page-03.png": "7bfbf20428f03d42a8b99b5cc43d0ee429c88a4157f1044dd9e5dfbf506f89d4",
+    "page-04.png": "ff9e9c5e9add7769b8d3845d6d533046c60638b74c3f8f6991494a4f08635fc6",
+    "page-05.png": "7d1462e1f8441378eaa3c0e5684153313abef956ceb117b0a0794cea6bbb8061",
+    "page-06.png": "f8b63c25962734b50bc88e76b52842eb35952a593a62d6c4ca8191ab242a7262",
+    "page-07.png": "37079973374c5d0331c9d79647659c958e090dfadaa11ef06f3e1511a0fe106a",
+    "page-08.png": "af526403e8c4efc32444d7c5a9ea82506c512e545e641e56b224823b07cc6b1c",
+    "page-09.png": "5e022a09c01334d0427505cf64468cbd72e65e0279aa67fc45af14bc44cda96c",
+    "page-10.png": "8da83445b1b63ca4bd5c45cfadd87442c3daf03654c43049c7c7e29b3686c08e",
+    "page-11.png": "66af036c26a05ccb5c9315060c92b97974ee4a5dc6081f079d9b2c7541feaea0"
+  },
+  "result": "PASS: no clipping, overlaps, distorted images or illegible labels in the inspected final render; consistent category colors and narrative scope.",
+  "temporary_renders": "Removed after inspection; regenerate using the recorded command.",
+  "renderer": "pdftoppm 26.05.0"
+}

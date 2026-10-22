@@ -1,0 +1,183 @@
+{
+  "date": "2026-10-22",
+  "git_commit": "1528ab08a69da039333f1686c18a8b4c6c7db076",
+  "pages": [
+    {
+      "figure": 1,
+      "section": "1 / Separability",
+      "title": "Each PFT contains a wide range of spectra",
+      "subtitle": "Begin with the observations: faint lines are polygon/year spectra; bold lines are category medians.",
+      "caption": "<b>Figure 1.</b> All 4,807 corrected annual curves are shown, with gaps at excluded or unsupported wavelengths. The same vertical scale makes group differences and within-group spread visible. Transparency is a qualitative view of overlap, not a probability density. Repeated annual curves do not add independent plants.",
+      "takeaway": "The category medians differ, but no median represents every observation. The next test asks whether group differences persist within the sampled site/year cohorts.",
+      "source_label": "Corrected compact polygon/year library; category support and foundation, 16 Oct.",
+      "claims": [
+        "polygon_year_spectra",
+        "NEON_coordinates",
+        "polygon_GlobalIDs"
+      ],
+      "figure_top": 582,
+      "max_height": 350
+    },
+    {
+      "figure": 2,
+      "section": "1 / Separability",
+      "title": "Every pair differs, but separation is unequal",
+      "subtitle": "Whole-spectrum tests compare categories within the same site/year setting, rather than mixing regions together.",
+      "caption": "<b>Figure 2.</b> Each symbol is one of four cohorts; connecting lines span those cohort effects, not confidence intervals. All 10 pairs were supported in all four cohorts (40 contrasts) in both NEON and synthetic OLI. The largest Holm-adjusted NEON p-value was 0.004. Blocked permutations restrict label exchanges by acquisition history.",
+      "takeaway": "Background/dead contrasts tend to be large; deciduous versus woody shrub is among the smaller contrasts. Statistical difference alone does not establish that individual spectra can be labelled reliably.",
+      "source_label": "Whole-spectrum separability and pair evidence tables, 16 Oct.",
+      "claims": [
+        "pairs",
+        "supported_contrasts",
+        "largest_adjusted_p"
+      ],
+      "figure_top": 582,
+      "max_height": 350
+    },
+    {
+      "figure": 3,
+      "section": "1 / Separability",
+      "title": "Different PFT pairs emphasize different wavelengths",
+      "subtitle": "The useful signal extends across broad spectral regions, and its strength depends on the categories being compared.",
+      "caption": "<b>Figure 3.</b> Darker cells indicate a larger absolute matched effect, summarized as the median across four existing cohorts at each wavelength. Gray gaps are omitted coordinates. This display removes the direction of the contrast and is not a new hypothesis test or an optimized band selection.",
+      "takeaway": "Background/dead contrasts span broad regions, while deciduous/shrub differences are weaker over much of the spectrum. These patterns motivate testing full spectra against broad sensor bands on unknown observations.",
+      "source_label": "Cohort wavelength inference, 15 Oct.; cohort/pair evidence, 16 Oct.",
+      "claims": [
+        "NEON_coordinates",
+        "site_year_cells"
+      ],
+      "figure_top": 582,
+      "max_height": 350
+    },
+    {
+      "figure": 4,
+      "section": "2 / Identifiability",
+      "title": "Recognition weakens when a site is held out",
+      "subtitle": "Here the target spectrum is withheld from fitting: can the model recover its researcher-assigned category?",
+      "caption": "<b>Figure 4.</b> Balanced accuracy is the mean recall of the five categories: 85.2% for unseen polygons and 73.8% for held-out sites with NEON, versus 66.8% and 57.7% with synthetic OLI. White dots are outer-fold scores, not confidence intervals. Equal-category chance is 20%.",
+      "takeaway": "Hyperspectral information improves recognition, but the held-site result is weaker and based on only three sites. OLI here is convolved from the same NEON reference; it is not an independent Landsat validation.",
+      "source_label": "Complementary feature performance, 15 Oct.; original held-polygon/site fits.",
+      "claims": [
+        "NEON_plant",
+        "NEON_site",
+        "Synthetic OLI_plant",
+        "Synthetic OLI_site",
+        "sites"
+      ],
+      "figure_top": 582,
+      "max_height": 350
+    },
+    {
+      "figure": 5,
+      "section": "2 / Identifiability",
+      "title": "Woody shrub is the main recognition weakness",
+      "subtitle": "Read each row as the fate of a researcher-labelled category when its site is held out.",
+      "caption": "<b>Figure 5.</b> Cells are row percentages averaged across the three held-site folds, rounded to whole percentages. Diagonal cells are recall: 94.2% for evergreen and 91.7% for background/dead, but 46.3% for woody shrub. 24.4% of true shrub observations are assigned deciduous.",
+      "takeaway": "Evergreen and background/dead are recognized strongly in these tests. Deciduous and herbaceous are less secure; shrub is missed more often than recovered. Shrub/deciduous confusion agrees with their weaker group contrast.",
+      "source_label": "Saved NEON held-site confusion and class-specific transfer tables, 15 Oct.",
+      "claims": [
+        "recall_Evergreen",
+        "recall_Non-vegetated & dead",
+        "recall_Woody shrub",
+        "shrub_to_deciduous"
+      ],
+      "figure_top": 582,
+      "max_height": 350
+    },
+    {
+      "figure": 6,
+      "section": "3 / Abundance  /  A. Endmember information",
+      "title": "Representative spectra and useful labels are different goals",
+      "subtitle": "Endmembers are mixture reference spectra. Their distance is measured by root-mean-square error (RMSE).",
+      "caption": "<b>Figure 6.</b> The 603 selected pixels come from 367 polygon IDs. Targets exclude those IDs. Random libraries retain the same per-polygon pixel counts; whiskers show the central 95% of 30 draws, not population uncertainty. Selected references improve mean nearest-reference label agreement (59.4% versus 55.6%) but have larger same-category spectral distances.",
+      "takeaway": "The selected spectra can help distinguish labels while covering typical within-category variation less closely. Selection used the whole library, so this internal diagnostic does not demonstrate selection-blind performance.",
+      "source_label": "Selected/reference coverage, matched random controls and summary, 19 Oct.",
+      "claims": [
+        "selected_members",
+        "selected_polygon_IDs",
+        "selected_single_reference_BA",
+        "matched_random_single_reference_BA_mean"
+      ],
+      "figure_top": 582,
+      "max_height": 350
+    },
+    {
+      "figure": 7,
+      "section": "3 / Abundance  /  A. Endmember information",
+      "title": "Different category mixtures can explain the same spectrum",
+      "subtitle": "A saved numerical example exposes why an excellent spectral match need not imply unique composition.",
+      "caption": "<b>Figure 7.</b> 223 of 603 selected spectra can be reconstructed using only other-category references with nonnegative weights summing to one (RMSE at most 10<super>-8</super> in supplied-array units). The assigned-label bar is not measured field cover. This search allows multiple references per category and up to eight active references, broader than the three-category MESMA test.",
+      "takeaway": "The example is a verified mathematical ambiguity, not an observed alternative plant composition. References without a certificate are not proven unique. Field constraints and endmember purity matter as well as fit quality.",
+      "source_label": "Cross-category hull certificates, saved weights and illustration, 19 Oct.",
+      "claims": [
+        "ambiguous",
+        "selected_members"
+      ],
+      "figure_top": 582,
+      "max_height": 350
+    },
+    {
+      "figure": 8,
+      "section": "3 / Abundance  /  B. Synthetic recovery",
+      "title": "Synthetic recovery depends on library representation",
+      "subtitle": "Known weighted sums of parent spectra let us check estimated fractions against exact synthetic proportions.",
+      "caption": "<b>Figure 8.</b> Smaller fraction RMSE means closer estimated weights (fractions run from 0 to 1). Ridge is a trained, regularized regression; MESMA searches reference combinations. The larger ridge library performs better, but its NEON advantage disappears with the same 15 retained parents as MESMA. Bars summarize existing fold errors; they are not field abundance accuracies.",
+      "takeaway": "Library capacity changes the conclusion; there is no intrinsic algorithm winner here. In the separate year-held-out test, ridge RMSE was 0.311 versus 0.309 for the no-spectrum prior, with site and year confounded.",
+      "source_label": "Abundance domain summary and same-candidate ridge control, 16 Oct.",
+      "claims": [
+        "plant_ridge120",
+        "plant_ridge15",
+        "plant_MESMA15",
+        "site_ridge120",
+        "site_ridge15",
+        "site_MESMA15",
+        "year_Ridge",
+        "year_Training prior"
+      ],
+      "figure_top": 582,
+      "max_height": 340
+    },
+    {
+      "figure": 9,
+      "section": "3 / Abundance  /  B. Synthetic recovery",
+      "title": "A better spectral fit does not ensure better fractions",
+      "subtitle": "The newest fixed-library check searched all 16,918,447 permitted models on the same 360 synthetic targets.",
+      "caption": "<b>Figure 9.</b> Models use one reference per category, up to three categories. Exhaustive MESMA reduces mean spectral error by 78.7%, while pooled fraction RMSE changes from 0.322 to 0.334. Fraction error improves for 156 targets and worsens for 203 (1 unchanged). The paired eight-bundle 95% bootstrap range for the aggregate change is -0.005 to 0.029; it includes no change.",
+      "takeaway": "Known-parent recovery is essentially exact, so the solver can recover the constructed weights. Dense and sparse no-spectrum baselines have RMSE 0.304 and 0.345: information depends on the comparison. None of these tests validates field cover.",
+      "source_label": "Fixed-library exhaustive comparison and original endmember controls, 19 Oct.",
+      "claims": [
+        "exhaustive_model_count",
+        "exhaustive_targets",
+        "spectral_reduction_pct",
+        "screened_fraction_RMSE",
+        "exhaustive_fraction_RMSE",
+        "exhaustive_lower_fraction_error_targets",
+        "exhaustive_higher_fraction_error_targets",
+        "exhaustive_unchanged_fraction_error_targets",
+        "conditional_bundle_bootstrap_2_5",
+        "conditional_bundle_bootstrap_97_5",
+        "oracle",
+        "dense_prior",
+        "sparse_prior"
+      ],
+      "figure_top": 582,
+      "max_height": 330
+    }
+  ],
+  "opening_and_synthesis_source": "build_report.py: opening() and synthesis()",
+  "opening_sources": [
+    "provenance/researcher-evidence/2026-10-16/v1/foundation.json",
+    "provenance/researcher-evidence/2026-10-16/v1/tables/category_support.csv"
+  ],
+  "synthesis_figures": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ]
+}

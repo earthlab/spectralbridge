@@ -1,0 +1,21 @@
+{
+  "blas_threads": 1,
+  "date": "2026-10-22",
+  "dirty_checkout": true,
+  "input_audit_sha256": "e16a98e03e8a3fceef2a4a9550788ad5dd4a1a32788722852178a77aa64215bb",
+  "protocol_sha256": "210764b7ae2b4d2b9880d2b63cd7dab6cb0924f8ac36c99eef84b5a187045108",
+  "python": "3.12.8",
+  "report_html_sha256": "58e479b8143dc72182f84a6c6c55423088bbae5bd6a08160683ffbc832658b40",
+  "scope": "Old/new supplied references crossed with original/revised categories; internal matched-target synthetic readiness, not field validation",
+  "search_controller": "run_parallel_search.py --workers 4",
+  "source_git_commit": "1528ab08a69da039333f1686c18a8b4c6c7db076",
+  "versions": {
+    "markdown": "3.10.3",
+    "matplotlib": "3.11.1",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "pyarrow": "25.0.1",
+    "scipy": "1.18.0",
+    "sklearn": "1.9.1"
+  }
+}

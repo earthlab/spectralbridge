@@ -1,0 +1,103 @@
+{
+  "alignment": "CSV/NPY exact numerical match; new CSV exported row index is one-based, verified by one-to-one flight/GlobalID/pixel/row/column join and exact numerical spectra; previous selection indices remain zero-based",
+  "inputs": {
+    "new_csv": {
+      "bytes": 6354602,
+      "path": "/Users/tuff/Downloads/IES_selected_library.csv",
+      "sha256": "6cf479fecfc5a2ed167c81040ddcb48e407a412cff1c0f915213d441e97b4c4c"
+    },
+    "new_labels": {
+      "bytes": 1363,
+      "path": "/Users/tuff/Downloads/class_list_oli_undarkened_ies_selected.npy",
+      "sha256": "d21e876b5c9ae7e9ee46fd8df38fda440cfade02fb13a52d71a04787ca59e6f3"
+    },
+    "new_spectra": {
+      "bytes": 28184,
+      "path": "/Users/tuff/Downloads/library_oli_undarkened_ies_selected.npy",
+      "sha256": "c475b8e4e35d33a6f784158d9ab79526d8a0ee89d17f7064af3100f6d195d22d"
+    },
+    "old_labels": {
+      "bytes": 171951,
+      "path": "/Users/tuff/Downloads/class_list_oli_undarkened_10_12_26.npy",
+      "sha256": "c41b0a9eeda9e80025076d75343002f46dffe32383e6ada065c04bc5a017e7f5"
+    },
+    "old_selection": {
+      "bytes": 3507,
+      "path": "/Users/tuff/Downloads/selected_constrained_members.csv",
+      "sha256": "62c364c22375547cc4b361820b9bf51f9c6206adf9e67243757f676e4c1ee826"
+    },
+    "old_spectra": {
+      "bytes": 4799664,
+      "path": "/Users/tuff/Downloads/library_oli_undarkened_10_12_26.npy",
+      "sha256": "c9d8a945b99c20a966de1254d3525b6250c1be3ffa0dcf4ed7a226fa9ffc80d5"
+    },
+    "source": {
+      "bytes": 255546633,
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Aug_2026_all_polygons_merged_pixel_extraction.parquet",
+      "sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978"
+    }
+  },
+  "libraries": {
+    "new": {
+      "atom_counts": {
+        "Bare_Rock": 75,
+        "Dead": 27,
+        "Deciduous": 122,
+        "Evergreen": 180,
+        "Herbaceous": 37,
+        "Woody shrub": 60
+      },
+      "excluded_unresolved_references": 0,
+      "primary_eligible_IDs": 324,
+      "primary_eligible_references": 501,
+      "site_counts": {
+        "NIWO": 277,
+        "WREF": 87,
+        "YELL": 137
+      },
+      "supplied_references": 501
+    },
+    "old": {
+      "atom_counts": {
+        "Bare_Rock": 71,
+        "Dead": 59,
+        "Deciduous": 115,
+        "Evergreen": 166,
+        "Herbaceous": 90,
+        "Woody shrub": 91
+      },
+      "excluded_unresolved_references": 11,
+      "primary_eligible_IDs": 359,
+      "primary_eligible_references": 592,
+      "site_counts": {
+        "NIWO": 333,
+        "WREF": 93,
+        "YELL": 166
+      },
+      "supplied_references": 603
+    }
+  },
+  "new_label_counts": {
+    "Bare_Rock": 75,
+    "Dead": 27,
+    "Deciduous": 122,
+    "Evergreen": 180,
+    "Herbaceous_woody_shrub": 97
+  },
+  "new_shape": [
+    501,
+    7
+  ],
+  "parent_mixture_design": 71,
+  "selected_overlap_IDs": 151,
+  "selected_union_IDs": 540,
+  "source_IDs": 3639,
+  "source_rows": 85706,
+  "source_units": "Numerical lineage only; physical reflectance units unresolved",
+  "synthetic_targets": 568,
+  "target_IDs": 3021,
+  "target_bundles": 8,
+  "target_curves": 3904,
+  "unknown_background_IDs": 86,
+  "unknown_background_rows": 930
+}

@@ -1,0 +1,387 @@
+[
+  {
+    "id": "polygon_GlobalIDs",
+    "scope": "Recorded category-labelled polygon library; distinct IDs need not be spatially independent",
+    "selection": "polygon_GlobalIDs",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/foundation.json",
+    "value": 3639
+  },
+  {
+    "id": "polygon_year_spectra",
+    "scope": "Recorded category-labelled polygon library; distinct IDs need not be spatially independent",
+    "selection": "polygon_year_spectra",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/foundation.json",
+    "value": 4807
+  },
+  {
+    "id": "repeated_IDs",
+    "scope": "Recorded category-labelled polygon library; distinct IDs need not be spatially independent",
+    "selection": "repeated_IDs",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/foundation.json",
+    "value": 1168
+  },
+  {
+    "id": "NEON_coordinates",
+    "scope": "Recorded category-labelled polygon library; distinct IDs need not be spatially independent",
+    "selection": "NEON_coordinates",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/foundation.json",
+    "value": 360
+  },
+  {
+    "id": "OLI_channels",
+    "scope": "Recorded category-labelled polygon library; distinct IDs need not be spatially independent",
+    "selection": "OLI_channels",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/foundation.json",
+    "value": 7
+  },
+  {
+    "id": "source_pixel_rows",
+    "scope": "Recorded category-labelled polygon library; distinct IDs need not be spatially independent",
+    "selection": "source_pixel_rows",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/foundation.json",
+    "value": 85706
+  },
+  {
+    "id": "sites",
+    "scope": "Observed sites only",
+    "selection": "distinct site",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/site_year_category_support.csv",
+    "value": 3
+  },
+  {
+    "id": "site_year_cells",
+    "scope": "Observed acquisition cells, incompletely crossed",
+    "selection": "distinct site,year",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/site_year_category_support.csv",
+    "value": 4
+  },
+  {
+    "id": "supported_contrasts",
+    "scope": "Ten pairwise contrasts in each of four acquisition-matched cohorts; not 40 independent studies",
+    "selection": "NEON_supported.sum()",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/whole_spectrum_separability.csv",
+    "value": 40
+  },
+  {
+    "id": "pairs",
+    "scope": "All researcher-category pairs",
+    "selection": "contrast.nunique()",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/whole_spectrum_separability.csv",
+    "value": 10
+  },
+  {
+    "id": "largest_adjusted_p",
+    "scope": "Existing blocked whole-spectrum combined test and Holm family correction; exchangeability assumed",
+    "selection": "NEON_p_holm.max()",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/whole_spectrum_separability.csv",
+    "value": 0.004
+  },
+  {
+    "id": "NEON_plant",
+    "scope": "Equal-weight mean over three observed outer folds; unknown identities excluded from training, not a deployment probability",
+    "selection": "kind=plant, budget=360; mean balanced_accuracy",
+    "source": "provenance/researcher-pft-information/2026-10-15/v1/tables/complementary_feature_performance.csv",
+    "value": 0.851938742169961
+  },
+  {
+    "id": "NEON_site",
+    "scope": "Equal-weight mean over three observed outer folds; unknown identities excluded from training, not a deployment probability",
+    "selection": "kind=site, budget=360; mean balanced_accuracy",
+    "source": "provenance/researcher-pft-information/2026-10-15/v1/tables/complementary_feature_performance.csv",
+    "value": 0.738050180266476
+  },
+  {
+    "id": "Synthetic OLI_plant",
+    "scope": "Equal-weight mean over three observed outer folds; unknown identities excluded from training, not a deployment probability",
+    "selection": "kind=plant, budget=OLI; mean balanced_accuracy",
+    "source": "provenance/researcher-pft-information/2026-10-15/v1/tables/complementary_feature_performance.csv",
+    "value": 0.6684490271861242
+  },
+  {
+    "id": "Synthetic OLI_site",
+    "scope": "Equal-weight mean over three observed outer folds; unknown identities excluded from training, not a deployment probability",
+    "selection": "kind=site, budget=OLI; mean balanced_accuracy",
+    "source": "provenance/researcher-pft-information/2026-10-15/v1/tables/complementary_feature_performance.csv",
+    "value": 0.5769850820586733
+  },
+  {
+    "id": "recall_Deciduous",
+    "scope": "Mean observed held-site recall, not precision and not a universal PFT accuracy",
+    "selection": "kind=site,budget=360,researcher_category=Deciduous; mean recall",
+    "source": "provenance/researcher-pft-information/2026-10-15/v1/tables/class_specific_transfer.csv",
+    "value": 0.6730119375573921
+  },
+  {
+    "id": "recall_Evergreen",
+    "scope": "Mean observed held-site recall, not precision and not a universal PFT accuracy",
+    "selection": "kind=site,budget=360,researcher_category=Evergreen; mean recall",
+    "source": "provenance/researcher-pft-information/2026-10-15/v1/tables/class_specific_transfer.csv",
+    "value": 0.9422740092585974
+  },
+  {
+    "id": "recall_Herbaceous",
+    "scope": "Mean observed held-site recall, not precision and not a universal PFT accuracy",
+    "selection": "kind=site,budget=360,researcher_category=Herbaceous; mean recall",
+    "source": "provenance/researcher-pft-information/2026-10-15/v1/tables/class_specific_transfer.csv",
+    "value": 0.6956147407114894
+  },
+  {
+    "id": "recall_Non-vegetated & dead",
+    "scope": "Mean observed held-site recall, not precision and not a universal PFT accuracy",
+    "selection": "kind=site,budget=360,researcher_category=Non-vegetated & dead; mean recall",
+    "source": "provenance/researcher-pft-information/2026-10-15/v1/tables/class_specific_transfer.csv",
+    "value": 0.9166728975310979
+  },
+  {
+    "id": "recall_Woody shrub",
+    "scope": "Mean observed held-site recall, not precision and not a universal PFT accuracy",
+    "selection": "kind=site,budget=360,researcher_category=Woody shrub; mean recall",
+    "source": "provenance/researcher-pft-information/2026-10-15/v1/tables/class_specific_transfer.csv",
+    "value": 0.46267731627380293
+  },
+  {
+    "id": "shrub_to_deciduous",
+    "scope": "Mean fold row-normalized confusion",
+    "selection": "NEON,site,truth=Woody shrub,predicted=Deciduous",
+    "source": "provenance/researcher-pft-information/2026-10-15/v1/tables/confusion_plot_values.csv",
+    "value": 0.2441918535702643
+  },
+  {
+    "id": "selected_members",
+    "scope": "Internal whole-library selection; 30 random libraries match each selected polygon and its pixel capacity; not selection-blind",
+    "selection": "selected_members",
+    "source": "provenance/endmember-quality/2026-10-19/v1/summary.json",
+    "value": 603
+  },
+  {
+    "id": "selected_polygon_IDs",
+    "scope": "Internal whole-library selection; 30 random libraries match each selected polygon and its pixel capacity; not selection-blind",
+    "selection": "selected_polygon_IDs",
+    "source": "provenance/endmember-quality/2026-10-19/v1/summary.json",
+    "value": 367
+  },
+  {
+    "id": "selected_macro_same_class_RMSE",
+    "scope": "Internal whole-library selection; 30 random libraries match each selected polygon and its pixel capacity; not selection-blind",
+    "selection": "selected_macro_same_class_RMSE",
+    "source": "provenance/endmember-quality/2026-10-19/v1/summary.json",
+    "value": 0.015072088840464437
+  },
+  {
+    "id": "selected_single_reference_BA",
+    "scope": "Internal whole-library selection; 30 random libraries match each selected polygon and its pixel capacity; not selection-blind",
+    "selection": "selected_single_reference_BA",
+    "source": "provenance/endmember-quality/2026-10-19/v1/summary.json",
+    "value": 0.59380541179752
+  },
+  {
+    "id": "matched_random_macro_same_class_RMSE_mean",
+    "scope": "Internal whole-library selection; 30 random libraries match each selected polygon and its pixel capacity; not selection-blind",
+    "selection": "matched_random_macro_same_class_RMSE_mean",
+    "source": "provenance/endmember-quality/2026-10-19/v1/summary.json",
+    "value": 0.011589540223726153
+  },
+  {
+    "id": "matched_random_single_reference_BA_mean",
+    "scope": "Internal whole-library selection; 30 random libraries match each selected polygon and its pixel capacity; not selection-blind",
+    "selection": "matched_random_single_reference_BA_mean",
+    "source": "provenance/endmember-quality/2026-10-19/v1/summary.json",
+    "value": 0.5556193993305757
+  },
+  {
+    "id": "target_polygon_IDs",
+    "scope": "Internal whole-library selection; 30 random libraries match each selected polygon and its pixel capacity; not selection-blind",
+    "selection": "target_polygon_IDs",
+    "source": "provenance/endmember-quality/2026-10-19/v1/summary.json",
+    "value": 3272
+  },
+  {
+    "id": "target_curves",
+    "scope": "Internal whole-library selection; 30 random libraries match each selected polygon and its pixel capacity; not selection-blind",
+    "selection": "target_curves",
+    "source": "provenance/endmember-quality/2026-10-19/v1/summary.json",
+    "value": 4261
+  },
+  {
+    "id": "ambiguous",
+    "scope": "Nonnegative sum-one other-category reconstructions verified at supplied-unit RMSE <= 1e-8; broader model family than one-reference/category MESMA",
+    "selection": "feasible.sum()",
+    "source": "provenance/endmember-quality/2026-10-19/v1/tables/cross_class_hull.csv",
+    "value": 223
+  },
+  {
+    "id": "plant_ridge120",
+    "scope": "Known synthetic fractions; identical targets within each comparison; different aggregate/units than fixed-library 360-target benchmark",
+    "selection": "kind=plant, representation=NEON, method=ridge120; mean over observed folds",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv",
+    "value": 0.2163847094554816
+  },
+  {
+    "id": "plant_ridge15",
+    "scope": "Known synthetic fractions; identical targets within each comparison; different aggregate/units than fixed-library 360-target benchmark",
+    "selection": "kind=plant, representation=NEON, method=ridge15; mean over observed folds",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/same_candidate_ridge.csv",
+    "value": 0.36549949602862425
+  },
+  {
+    "id": "plant_MESMA15",
+    "scope": "Known synthetic fractions; identical targets within each comparison; different aggregate/units than fixed-library 360-target benchmark",
+    "selection": "kind=plant, representation=NEON, method=MESMA15; mean over observed folds",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv",
+    "value": 0.3592664224196771
+  },
+  {
+    "id": "plant_prior",
+    "scope": "Known synthetic fractions; identical targets within each comparison; different aggregate/units than fixed-library 360-target benchmark",
+    "selection": "kind=plant, representation=NEON, method=prior; mean over observed folds",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv",
+    "value": 0.3086127198318045
+  },
+  {
+    "id": "site_ridge120",
+    "scope": "Known synthetic fractions; identical targets within each comparison; different aggregate/units than fixed-library 360-target benchmark",
+    "selection": "kind=site, representation=NEON, method=ridge120; mean over observed folds",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv",
+    "value": 0.2692767370397718
+  },
+  {
+    "id": "site_ridge15",
+    "scope": "Known synthetic fractions; identical targets within each comparison; different aggregate/units than fixed-library 360-target benchmark",
+    "selection": "kind=site, representation=NEON, method=ridge15; mean over observed folds",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/same_candidate_ridge.csv",
+    "value": 0.38676304302603065
+  },
+  {
+    "id": "site_MESMA15",
+    "scope": "Known synthetic fractions; identical targets within each comparison; different aggregate/units than fixed-library 360-target benchmark",
+    "selection": "kind=site, representation=NEON, method=MESMA15; mean over observed folds",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv",
+    "value": 0.3620289422547461
+  },
+  {
+    "id": "site_prior",
+    "scope": "Known synthetic fractions; identical targets within each comparison; different aggregate/units than fixed-library 360-target benchmark",
+    "selection": "kind=site, representation=NEON, method=prior; mean over observed folds",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv",
+    "value": 0.3086127198318045
+  },
+  {
+    "id": "year_Ridge",
+    "scope": "Global-year holds confound site/year and reuse retrospective labels",
+    "selection": "kind=year,method=Ridge,representation=NEON",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv",
+    "value": 0.3109216111744168
+  },
+  {
+    "id": "year_Training prior",
+    "scope": "Global-year holds confound site/year and reuse retrospective labels",
+    "selection": "kind=year,method=Training prior,representation=NEON",
+    "source": "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv",
+    "value": 0.3086127198318045
+  },
+  {
+    "id": "exhaustive_targets",
+    "scope": "360 fixed synthetic targets in eight parent-sharing bundles; one to three categories; whole-library reference selection, not selection-blind",
+    "selection": "targets",
+    "source": "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json",
+    "value": 360
+  },
+  {
+    "id": "exhaustive_model_count",
+    "scope": "360 fixed synthetic targets in eight parent-sharing bundles; one to three categories; whole-library reference selection, not selection-blind",
+    "selection": "model_count",
+    "source": "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json",
+    "value": 16918447
+  },
+  {
+    "id": "exhaustive_fraction_RMSE",
+    "scope": "360 fixed synthetic targets in eight parent-sharing bundles; one to three categories; whole-library reference selection, not selection-blind",
+    "selection": "fraction_RMSE",
+    "source": "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json",
+    "value": 0.3336367986757348
+  },
+  {
+    "id": "exhaustive_mean_screened_spectral_RMSE",
+    "scope": "360 fixed synthetic targets in eight parent-sharing bundles; one to three categories; whole-library reference selection, not selection-blind",
+    "selection": "mean_screened_spectral_RMSE",
+    "source": "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json",
+    "value": 0.003721293999098291
+  },
+  {
+    "id": "exhaustive_mean_exhaustive_spectral_RMSE",
+    "scope": "360 fixed synthetic targets in eight parent-sharing bundles; one to three categories; whole-library reference selection, not selection-blind",
+    "selection": "mean_exhaustive_spectral_RMSE",
+    "source": "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json",
+    "value": 0.0007918783896398094
+  },
+  {
+    "id": "exhaustive_lower_fraction_error_targets",
+    "scope": "360 fixed synthetic targets in eight parent-sharing bundles; one to three categories; whole-library reference selection, not selection-blind",
+    "selection": "lower_fraction_error_targets",
+    "source": "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json",
+    "value": 156
+  },
+  {
+    "id": "exhaustive_higher_fraction_error_targets",
+    "scope": "360 fixed synthetic targets in eight parent-sharing bundles; one to three categories; whole-library reference selection, not selection-blind",
+    "selection": "higher_fraction_error_targets",
+    "source": "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json",
+    "value": 203
+  },
+  {
+    "id": "exhaustive_unchanged_fraction_error_targets",
+    "scope": "360 fixed synthetic targets in eight parent-sharing bundles; one to three categories; whole-library reference selection, not selection-blind",
+    "selection": "unchanged_fraction_error_targets",
+    "source": "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json",
+    "value": 1
+  },
+  {
+    "id": "screened_fraction_RMSE",
+    "scope": "Pooled target-by-category RMSE, not mean-fold RMSE from the earlier abundance benchmark",
+    "selection": "synthetic_RMSE.Selected screened MESMA",
+    "source": "provenance/endmember-quality/2026-10-19/v1/summary.json",
+    "value": 0.3215405145067264
+  },
+  {
+    "id": "spectral_reduction_pct",
+    "scope": "Descriptive change in mean spectral residual, not fraction-error improvement",
+    "selection": "100*(1-mean_exhaustive_spectral_RMSE/mean_screened_spectral_RMSE)",
+    "source": "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json",
+    "value": 78.72034862519087
+  },
+  {
+    "id": "conditional_bundle_bootstrap_2_5",
+    "scope": "Conditional bootstrap over eight parent bundles; not population coverage or proof of equivalence",
+    "selection": "paired_comparisons: Screened selected (3/category); conditional_bundle_bootstrap_2_5",
+    "source": "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json",
+    "value": -0.005482704034652811
+  },
+  {
+    "id": "conditional_bundle_bootstrap_97_5",
+    "scope": "Conditional bootstrap over eight parent bundles; not population coverage or proof of equivalence",
+    "selection": "paired_comparisons: Screened selected (3/category); conditional_bundle_bootstrap_97_5",
+    "source": "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json",
+    "value": 0.028930563838212613
+  },
+  {
+    "id": "oracle",
+    "scope": "Synthetic known-parent positive control; not real observed fractions",
+    "selection": "synthetic_RMSE.Known-parent FCLS oracle",
+    "source": "provenance/endmember-quality/2026-10-19/v1/summary.json",
+    "value": 3.572240529139202e-14
+  },
+  {
+    "id": "sparse_prior",
+    "scope": "Fixed three-category baseline under the synthetic recipe",
+    "selection": "synthetic_RMSE.Sparse design prior",
+    "source": "provenance/endmember-quality/2026-10-19/v1/summary.json",
+    "value": 0.34469524919095534
+  },
+  {
+    "id": "dense_prior",
+    "scope": "Five-category mean-design baseline; output capacity differs from sparse MESMA",
+    "selection": "synthetic_RMSE.Uniform design prior",
+    "source": "provenance/endmember-quality/2026-10-19/v1/summary.json",
+    "value": 0.3035591345160744
+  }
+]

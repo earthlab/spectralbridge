@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-22",
+  "source_git_commit": "1528ab08a69da039333f1686c18a8b4c6c7db076",
+  "figures": [
+    {
+      "id": "01_reference_support",
+      "caption": "Figure 1. Counts in six source groups before relabelling. The primary previous library has 592 eligible references (11 of the original 603 have mixed/unspecified backgrounds); the new library has 501. Revised labels merge herbaceous/shrub and split bare/rock from dead. Counts are references, not independent plants.",
+      "sources": [
+        "tables/old_selected_identity.csv",
+        "tables/new_selected_identity.csv"
+      ],
+      "sha256": {
+        "png": "559811113cf2cd528d01e0fc0097147ff9fc755257bfbda1c40ab0d81cb0dde4",
+        "svg": "b59f8a5698e57195eb251e90e79b8137d4f725d3e07435759e63969ae58445f1"
+      }
+    },
+    {
+      "id": "02_coverage_and_recognition",
+      "caption": "Figure 2. Both libraries predict the same 3,904 observed polygon/year targets from 3,021 IDs, excluding all 540 selected parent IDs. Annual scores are weighted so each ID contributes equally within its category. New references cover typical spectra more closely, but nearest-reference category recognition does not improve uniformly. This is an internal nearest-reference diagnostic, not the earlier trained NEON classifier.",
+      "sources": [
+        "tables/coverage_summary.csv",
+        "tables/observed_target_identity.csv"
+      ],
+      "sha256": {
+        "png": "170018d29abd6090dbac701b457a4698a8393d4f66843d08a6bc3cecf97856e1",
+        "svg": "3d7f4b58294fd69cdbf43b44e844d86caf3bad01553f630c16a0b9cc388fe515"
+      }
+    },
+    {
+      "id": "03_fraction_recovery",
+      "caption": "Figure 3. The exact same 568 synthetic observations are scored after both output schemes are reduced to four common components: deciduous, evergreen, herbaceous+shrub and background. This avoids comparing errors in incompatible category spaces. MESMA searches all one-to-three-category models; ridge is tuned using polygon-disjoint training groups. The dashed prior uses training-design fractions, with no spectral information. These are known algebraic weights, not field cover.",
+      "sources": [
+        "tables/fraction_summary.csv",
+        "tables/target_membership.csv"
+      ],
+      "sha256": {
+        "png": "d03afe5e14344cfd83d44eebafda1aa71dc2722e56ffd6e4b98e1f5d066f0bdb",
+        "svg": "ac7483f3f01b9ee87a39dac6848e52c1443bb6d5546775f553b29da462c20024"
+      }
+    },
+    {
+      "id": "04_paired_effects",
+      "caption": "Figure 4. Each interval resamples the same eight whole parent bundles (1,999 paired bootstrap draws). Left isolates the supplied reference selection within one label scheme. Right compares the label scheme within one fixed selection. These conditional intervals describe sensitivity to eight sampled parent bundles, not independent geographic validation or population confidence guarantees.",
+      "sources": [
+        "tables/paired_comparisons.csv"
+      ],
+      "sha256": {
+        "png": "98505ece75ab96acf050fc50099a22e0cad6e9978b4c2c66767d5fef120895a6",
+        "svg": "c2bfc719396c1a0fc01ca538247a4b51e7e08e5fb8a8309f07d60aed328910f6"
+      }
+    },
+    {
+      "id": "05_category_errors",
+      "caption": "Figure 5. Per-category fraction errors expose the costs of the chosen categories. Compare old versus new references within a panel and method. Errors across the two panels represent different biological targets and are not directly interchangeable. The revised scheme cannot estimate herbaceous and shrub separately; the original scheme cannot estimate bare/rock and dead separately. The last column is the no-spectrum training-design prior.",
+      "sources": [
+        "tables/fraction_by_category.csv"
+      ],
+      "sha256": {
+        "png": "821369305372a6208b89f77bb6be907ee87ea166bd190043a2b3cd5c3534ec0d",
+        "svg": "dbbdf14d650fab00d2d3fec6472d0794256b914a6bf221dad2d15b410cea4d83"
+      }
+    },
+    {
+      "id": "06_domain_patterns",
+      "caption": "Figure 6. These are site/year breakdowns of common targets under global fixed libraries, not held-site experiments. The dotted line is the no-spectrum training-design prior. Each cell has two independent parent bundles; repeated mixture rows are not additional independent plants. Domain differences qualify any pooled improvement.",
+      "sources": [
+        "tables/fraction_by_domain.csv"
+      ],
+      "sha256": {
+        "png": "dd466d1a344ba31174f28d240536d9b54f3264ba16a3bf05274acd49a16904df",
+        "svg": "0b9e5f8fbfabc06524a52a23c8970acbb1e27a18e6e8618dbbd416f99ffca223"
+      }
+    },
+    {
+      "id": "07_capacity_control",
+      "caption": "Figure 7. Five draw pairs match the exact reference count in each of six atomic source groups (476 references per draw). The gain in ridge becomes smaller. Parent and site distributions are not matched, and five draw outcomes are not a population uncertainty interval. Full-library results therefore describe these supplied libraries, not proof that IES is intrinsically superior.",
+      "sources": [
+        "tables/capacity_control_scores.csv",
+        "tables/capacity_controls.csv"
+      ],
+      "sha256": {
+        "png": "2d43a0d17496532b5157f07b5adf2e58583d635086cc1701585ca8a406f41c43",
+        "svg": "445c841e5599a0b3eef4c3001cf76947237b17ede2b39430ccdac8044ac36d4f"
+      }
+    },
+    {
+      "id": "08_internal_ambiguity",
+      "caption": "Figure 8 (supporting diagnostic). Verified nonnegative sum-one cross-category reconstructions at RMSE <=1e-8. Candidate counts and target reference points differ between libraries, so lower certificate frequency alone does not prove a better selector. The certificate family allows multiple references/category and is broader than three-category MESMA. Missing certificates do not prove uniqueness.",
+      "sources": [
+        "tables/convex_ambiguity.csv"
+      ],
+      "sha256": {
+        "png": "664a0db70ee53939764ac132087cfe1b4e35f725d9413dcab6ae491679712d27",
+        "svg": "246b8b48eb8eb5dd04a3b4360a88f38d1539953135ac40aa72280940a60d2603"
+      }
+    }
+  ],
+  "summary_sha256": "2cc412dcf5453f2e1eb1c46a2e45e7286fb897324a1294b8fd437ed2e30724dd",
+  "coverage_means": {
+    "new/original/coverage": {
+      "recall": 0.5599183501719627,
+      "same_category_RMSE": 0.012182637354493962
+    },
+    "new/revised/coverage": {
+      "recall": 0.5692395225131766,
+      "same_category_RMSE": 0.01369040184527758
+    },
+    "old/original/coverage": {
+      "recall": 0.5925926493098987,
+      "same_category_RMSE": 0.015087536566308579
+    },
+    "old/revised/coverage": {
+      "recall": 0.5801524380287539,
+      "same_category_RMSE": 0.017252206114269957
+    }
+  },
+  "report_builder_sha256": "fa67ad4290aacd425474e404843a3e2e4a26d4d450ff81e99d30af576ce84467"
+}

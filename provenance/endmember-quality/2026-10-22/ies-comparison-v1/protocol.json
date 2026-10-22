@@ -1,0 +1,91 @@
+{
+  "analysis_code_sha256": "19324046ab291fec3f69445059dbb98c098c43816c22862a37bba49c51e80d77",
+  "atoms": [
+    "Deciduous",
+    "Evergreen",
+    "Herbaceous",
+    "Woody shrub",
+    "Bare_Rock",
+    "Dead"
+  ],
+  "config": {
+    "bootstrap_draws": 1999,
+    "bundles_per_site_year": 2,
+    "capacity_control_draws": 5,
+    "chunk_models": 1024,
+    "max_components": 3,
+    "ridge_alphas": [
+      0.01,
+      0.1,
+      1,
+      10,
+      100
+    ],
+    "ridge_training": "Same 71 recipes in 36 training bundles; three polygon-disjoint tuning groups; uniform parent-ID then uniform selected-pixel sampling within each atom/group",
+    "seed": 20261022,
+    "selection_scope": "Internal fixed-library comparison; no selection-blind claim for either library",
+    "targets": "71 recipes per six-parent bundle: six pure, all pairs at .1/.5/.9, all triples at equal thirds; exact same spectra for every cell",
+    "train_bundles_per_group": 12,
+    "train_groups": 3,
+    "units": "Supplied-array units; equality to source stored values /10000 is numerical lineage, not validated physical reflectance",
+    "unknown_background": "Exclude mixed/unspecified backgrounds from the primary common label-eligible comparison; never guess dead/bare fractions",
+    "validation": "Eight parent-disjoint target bundles; all selected parent IDs excluded; site/year breakdowns are diagnostics, not held-site validation"
+  },
+  "input_hashes": {
+    "new_csv": "6cf479fecfc5a2ed167c81040ddcb48e407a412cff1c0f915213d441e97b4c4c",
+    "new_labels": "d21e876b5c9ae7e9ee46fd8df38fda440cfade02fb13a52d71a04787ca59e6f3",
+    "new_spectra": "c475b8e4e35d33a6f784158d9ab79526d8a0ee89d17f7064af3100f6d195d22d",
+    "old_labels": "c41b0a9eeda9e80025076d75343002f46dffe32383e6ada065c04bc5a017e7f5",
+    "old_selection": "62c364c22375547cc4b361820b9bf51f9c6206adf9e67243757f676e4c1ee826",
+    "old_spectra": "c9d8a945b99c20a966de1254d3525b6250c1be3ffa0dcf4ed7a226fa9ffc80d5",
+    "source": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978"
+  },
+  "kernel_sha256": "37c15f47a31e690074fcb637bb26c4c8f6c126b8cd0970013cc57e24128dcf58",
+  "legacy_helpers_sha256": "961d38b0e21f33c6bb5be605c3d33b6ec0f2067b6e2edb281aad59a29019adee",
+  "maps": {
+    "common": [
+      0,
+      1,
+      2,
+      2,
+      3,
+      3
+    ],
+    "original": [
+      0,
+      1,
+      2,
+      4,
+      3,
+      3
+    ],
+    "revised": [
+      0,
+      1,
+      2,
+      2,
+      3,
+      4
+    ]
+  },
+  "package_helpers_sha256": {
+    "library_analysis.py": "1de4bbf468d02b400c9b0cf0b2eb88ca3056814c139d808978c798b1326b8261",
+    "mixtures.py": "cda8a0224a9a33461849757babe183f7e35e90905e8c5ac8ea7c9d0a80ec8de6"
+  },
+  "schemes": {
+    "original": [
+      "Deciduous",
+      "Evergreen",
+      "Herbaceous",
+      "Non-vegetated & dead",
+      "Woody shrub"
+    ],
+    "revised": [
+      "Deciduous",
+      "Evergreen",
+      "Herbaceous_woody_shrub",
+      "Bare_Rock",
+      "Dead"
+    ]
+  }
+}

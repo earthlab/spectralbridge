@@ -1,0 +1,2187 @@
+library,scheme,array_index,class_code,category,feasible,RMSE
+old,original,10,3,Non-vegetated & dead,False,
+old,original,35,3,Non-vegetated & dead,False,
+old,original,42,0,Deciduous,True,7.417989609027187e-18
+old,original,139,0,Deciduous,False,
+old,original,143,0,Deciduous,True,3.180476561586598e-17
+old,original,231,0,Deciduous,True,2.1913301916100927e-17
+old,original,394,1,Evergreen,True,1.2089843925234572e-17
+old,original,457,1,Evergreen,False,
+old,original,489,0,Deciduous,False,
+old,original,504,1,Evergreen,True,6.686485474051648e-18
+old,original,624,0,Deciduous,False,
+old,original,729,1,Evergreen,False,
+old,original,741,1,Evergreen,True,5.9009745997287784e-18
+old,original,748,1,Evergreen,False,
+old,original,756,1,Evergreen,True,2.10221820709595e-17
+old,original,883,0,Deciduous,True,6.424167446426539e-18
+old,original,930,0,Deciduous,True,1.0572261819816951e-17
+old,original,987,0,Deciduous,False,
+old,original,1032,3,Non-vegetated & dead,False,
+old,original,1055,1,Evergreen,False,
+old,original,1128,1,Evergreen,False,
+old,original,1132,1,Evergreen,True,5.8644357059969605e-18
+old,original,1327,0,Deciduous,False,
+old,original,1384,1,Evergreen,False,
+old,original,1395,1,Evergreen,False,
+old,original,1618,2,Herbaceous,False,
+old,original,1640,1,Evergreen,True,1.506600811723184e-17
+old,original,1899,4,Woody shrub,False,
+old,original,1957,0,Deciduous,False,
+old,original,2056,1,Evergreen,False,
+old,original,2061,1,Evergreen,False,
+old,original,2509,4,Woody shrub,True,1.2018516789897274e-17
+old,original,2511,4,Woody shrub,True,3.0753360289872905e-17
+old,original,2565,0,Deciduous,False,
+old,original,2625,0,Deciduous,False,
+old,original,2646,2,Herbaceous,True,1.5952989861098555e-17
+old,original,2694,2,Herbaceous,True,1.3113276888286174e-18
+old,original,2863,1,Evergreen,True,2.3749154529293497e-17
+old,original,3003,4,Woody shrub,False,
+old,original,3298,3,Non-vegetated & dead,False,
+old,original,3371,0,Deciduous,True,3.2053848968952863e-17
+old,original,3474,2,Herbaceous,False,
+old,original,3607,1,Evergreen,True,3.469446951953614e-18
+old,original,3626,2,Herbaceous,False,
+old,original,3675,1,Evergreen,True,6.556638444143087e-19
+old,original,3806,2,Herbaceous,True,6.009258394948637e-18
+old,original,4031,1,Evergreen,False,
+old,original,4182,0,Deciduous,True,6.686485474051648e-18
+old,original,4614,2,Herbaceous,True,3.76650202930796e-18
+old,original,4856,2,Herbaceous,True,5.916980231542773e-17
+old,original,4919,0,Deciduous,False,
+old,original,5609,2,Herbaceous,True,1.2301344115949163e-17
+old,original,5714,1,Evergreen,True,7.061715720500897e-18
+old,original,5743,1,Evergreen,False,
+old,original,5810,1,Evergreen,False,
+old,original,5819,4,Woody shrub,False,
+old,original,5863,1,Evergreen,True,3.0046291974743185e-18
+old,original,5977,1,Evergreen,False,
+old,original,6112,1,Evergreen,True,5.4067425708374775e-18
+old,original,6374,1,Evergreen,False,
+old,original,6385,3,Non-vegetated & dead,False,
+old,original,6530,0,Deciduous,False,
+old,original,6727,1,Evergreen,False,
+old,original,6761,4,Woody shrub,False,
+old,original,6861,0,Deciduous,False,
+old,original,6872,0,Deciduous,True,1.8544974022567967e-18
+old,original,6928,0,Deciduous,True,2.5896646885659836e-17
+old,original,6957,1,Evergreen,False,
+old,original,7210,0,Deciduous,False,
+old,original,7442,2,Herbaceous,True,6.727507242144006e-17
+old,original,7583,0,Deciduous,True,1.2160752708776703e-17
+old,original,7596,2,Herbaceous,True,1.2089843925234572e-17
+old,original,7703,4,Woody shrub,True,2.3785329957008175e-17
+old,original,7838,0,Deciduous,False,
+old,original,7922,2,Herbaceous,True,1.3113276888286175e-17
+old,original,7999,0,Deciduous,False,
+old,original,8003,0,Deciduous,False,
+old,original,8488,0,Deciduous,False,
+old,original,8615,2,Herbaceous,True,1.5404612375305887e-17
+old,original,8633,0,Deciduous,False,
+old,original,8732,1,Evergreen,True,7.646288671938335e-18
+old,original,8942,2,Herbaceous,True,3.8231443359691675e-18
+old,original,8943,2,Herbaceous,True,4.19829705377766e-18
+old,original,8956,0,Deciduous,True,1.3372970948103295e-17
+old,original,9058,4,Woody shrub,False,
+old,original,9062,1,Evergreen,False,
+old,original,9162,0,Deciduous,True,4.2769189284939714e-17
+old,original,9257,1,Evergreen,False,
+old,original,9662,2,Herbaceous,True,7.867966132971705e-18
+old,original,9875,0,Deciduous,True,1.137534255038139e-17
+old,original,9993,0,Deciduous,True,1.2160752708776703e-17
+old,original,10095,1,Evergreen,False,
+old,original,10098,0,Deciduous,False,
+old,original,10280,0,Deciduous,True,8.083566767496075e-18
+old,original,10281,0,Deciduous,False,
+old,original,10313,4,Woody shrub,False,
+old,original,10315,4,Woody shrub,False,
+old,original,10472,0,Deciduous,False,
+old,original,10475,0,Deciduous,False,
+old,original,11165,1,Evergreen,False,
+old,original,11172,0,Deciduous,False,
+old,original,11223,0,Deciduous,True,1.2881750644716355e-17
+old,original,11259,2,Herbaceous,True,3.615080958555892e-17
+old,original,11393,2,Herbaceous,True,3.0809224750611775e-17
+old,original,11490,1,Evergreen,False,
+old,original,11568,1,Evergreen,True,2.9322178529984802e-18
+old,original,11754,1,Evergreen,False,
+old,original,12113,0,Deciduous,True,2.2079425200240586e-17
+old,original,12143,0,Deciduous,False,
+old,original,12300,0,Deciduous,False,
+old,original,12522,0,Deciduous,False,
+old,original,12964,1,Evergreen,False,
+old,original,13224,2,Herbaceous,True,4.390500569063537e-17
+old,original,13305,0,Deciduous,False,
+old,original,13534,0,Deciduous,True,9.834957666214631e-19
+old,original,14469,0,Deciduous,True,0.0
+old,original,14579,1,Evergreen,True,7.867966132971705e-18
+old,original,14699,1,Evergreen,False,
+old,original,14889,0,Deciduous,False,
+old,original,15239,3,Non-vegetated & dead,False,
+old,original,15250,0,Deciduous,False,
+old,original,15302,3,Non-vegetated & dead,False,
+old,original,15522,0,Deciduous,True,2.9504872998643892e-18
+old,original,15772,1,Evergreen,False,
+old,original,15843,3,Non-vegetated & dead,False,
+old,original,16104,4,Woody shrub,True,5.296286790375672e-18
+old,original,16115,1,Evergreen,False,
+old,original,16579,4,Woody shrub,True,1.238840354700144e-17
+old,original,16580,1,Evergreen,False,
+old,original,16635,1,Evergreen,True,1.1801949199457557e-17
+old,original,16668,1,Evergreen,False,
+old,original,16701,1,Evergreen,False,
+old,original,16719,3,Non-vegetated & dead,False,
+old,original,16728,3,Non-vegetated & dead,False,
+old,original,16741,1,Evergreen,False,
+old,original,16902,1,Evergreen,True,5.4067425708374775e-18
+old,original,16908,1,Evergreen,False,
+old,original,17132,1,Evergreen,True,1.112698441354078e-17
+old,original,17135,1,Evergreen,True,1.2160752708776703e-17
+old,original,17136,1,Evergreen,True,6.150672057974582e-18
+old,original,17211,1,Evergreen,True,2.9504872998643892e-18
+old,original,17223,1,Evergreen,False,
+old,original,17239,1,Evergreen,True,5.9009745997287784e-18
+old,original,17329,1,Evergreen,False,
+old,original,17499,1,Evergreen,False,
+old,original,17779,1,Evergreen,True,1.4661089264992401e-18
+old,original,18029,1,Evergreen,False,
+old,original,18105,1,Evergreen,False,
+old,original,18249,1,Evergreen,False,
+old,original,18311,1,Evergreen,False,
+old,original,19050,3,Non-vegetated & dead,False,
+old,original,19517,3,Non-vegetated & dead,False,
+old,original,19636,2,Herbaceous,False,
+old,original,19887,0,Deciduous,False,
+old,original,20240,1,Evergreen,False,
+old,original,20431,2,Herbaceous,True,4.2126083099764194e-17
+old,original,20727,0,Deciduous,False,
+old,original,20773,3,Non-vegetated & dead,False,
+old,original,20818,4,Woody shrub,False,
+old,original,21611,0,Deciduous,False,
+old,original,21670,2,Herbaceous,True,1.6430888846185733e-17
+old,original,21714,0,Deciduous,False,
+old,original,21724,2,Herbaceous,False,
+old,original,21984,4,Woody shrub,False,
+old,original,22544,0,Deciduous,True,1.2054233114669178e-17
+old,original,22578,0,Deciduous,False,
+old,original,22924,0,Deciduous,False,
+old,original,23603,0,Deciduous,True,1.1728871411993921e-17
+old,original,23667,0,Deciduous,False,
+old,original,23885,0,Deciduous,True,8.673617379884035e-19
+old,original,23888,0,Deciduous,True,5.286130909908476e-18
+old,original,23911,2,Herbaceous,True,2.2560934621966053e-17
+old,original,24008,2,Herbaceous,True,2.824686288200359e-17
+old,original,24614,0,Deciduous,False,
+old,original,24900,0,Deciduous,False,
+old,original,24901,0,Deciduous,False,
+old,original,24903,0,Deciduous,True,5.9009745997287784e-18
+old,original,24933,2,Herbaceous,False,
+old,original,24952,3,Non-vegetated & dead,True,1.5899003276961254e-17
+old,original,25455,3,Non-vegetated & dead,False,
+old,original,25534,0,Deciduous,False,
+old,original,25758,3,Non-vegetated & dead,False,
+old,original,25813,0,Deciduous,False,
+old,original,25900,0,Deciduous,True,1.0572261819816951e-17
+old,original,25932,2,Herbaceous,False,
+old,original,27160,0,Deciduous,True,1.3908730516925975e-18
+old,original,27161,0,Deciduous,True,6.080376354388351e-18
+old,original,27162,0,Deciduous,True,6.556638444143087e-19
+old,original,27164,0,Deciduous,False,
+old,original,27214,2,Herbaceous,True,6.150672057974582e-18
+old,original,27249,1,Evergreen,False,
+old,original,27459,1,Evergreen,True,1.596645798495037e-17
+old,original,27476,1,Evergreen,True,0.0
+old,original,27986,3,Non-vegetated & dead,False,
+old,original,28320,1,Evergreen,False,
+old,original,28478,0,Deciduous,False,
+old,original,28511,4,Woody shrub,True,2.3603898398915114e-17
+old,original,28533,2,Herbaceous,True,2.8201168277457567e-18
+old,original,28607,1,Evergreen,False,
+old,original,28950,0,Deciduous,False,
+old,original,28970,4,Woody shrub,True,1.6703350109784142e-17
+old,original,29040,0,Deciduous,True,2.2030695444961747e-17
+old,original,29111,3,Non-vegetated & dead,False,
+old,original,29341,0,Deciduous,False,
+old,original,29410,4,Woody shrub,False,
+old,original,29553,2,Herbaceous,True,6.938893903907228e-18
+old,original,29904,4,Woody shrub,False,
+old,original,29949,3,Non-vegetated & dead,False,
+old,original,29956,2,Herbaceous,True,2.3603898398915114e-17
+old,original,30052,2,Herbaceous,False,
+old,original,30055,4,Woody shrub,False,
+old,original,30404,4,Woody shrub,True,1.2089843925234572e-17
+old,original,30472,3,Non-vegetated & dead,False,
+old,original,30476,4,Woody shrub,True,1.2231250416515415e-17
+old,original,30479,3,Non-vegetated & dead,False,
+old,original,30557,3,Non-vegetated & dead,True,5.446352936064501e-18
+old,original,31123,4,Woody shrub,False,
+old,original,31424,3,Non-vegetated & dead,False,
+old,original,32153,3,Non-vegetated & dead,False,
+old,original,32233,3,Non-vegetated & dead,False,
+old,original,32238,1,Evergreen,False,
+old,original,32374,1,Evergreen,False,
+old,original,32635,1,Evergreen,False,
+old,original,32713,1,Evergreen,False,
+old,original,32748,1,Evergreen,False,
+old,original,32868,1,Evergreen,False,
+old,original,33012,0,Deciduous,False,
+old,original,33233,1,Evergreen,False,
+old,original,33343,1,Evergreen,False,
+old,original,33530,1,Evergreen,True,6.220173383314454e-18
+old,original,33591,1,Evergreen,True,2.742838647325548e-18
+old,original,33593,1,Evergreen,False,
+old,original,33637,1,Evergreen,True,1.4661089264992401e-18
+old,original,33823,2,Herbaceous,False,
+old,original,34052,1,Evergreen,True,3.2120837232132695e-18
+old,original,34079,1,Evergreen,False,
+old,original,34091,0,Deciduous,True,1.2089843925234572e-17
+old,original,34094,0,Deciduous,True,2.0733911277714845e-17
+old,original,34371,3,Non-vegetated & dead,False,
+old,original,34446,1,Evergreen,True,5.446352936064501e-18
+old,original,34458,3,Non-vegetated & dead,False,
+old,original,34781,1,Evergreen,True,1.0853167789312452e-17
+old,original,34911,1,Evergreen,True,8.083566767496075e-18
+old,original,35451,4,Woody shrub,True,2.1824842386013768e-17
+old,original,35464,4,Woody shrub,True,3.530857860250449e-18
+old,original,35561,3,Non-vegetated & dead,False,
+old,original,35720,1,Evergreen,False,
+old,original,35855,1,Evergreen,False,
+old,original,36001,2,Herbaceous,True,4.2044364141919e-17
+old,original,36002,2,Herbaceous,True,4.2693736378278246e-17
+old,original,36063,4,Woody shrub,True,2.1063041549882097e-17
+old,original,36151,3,Non-vegetated & dead,False,
+old,original,36332,2,Herbaceous,False,
+old,original,36334,2,Herbaceous,True,1.6060418616066347e-18
+old,original,36422,1,Evergreen,True,1.8252908934630582e-18
+old,original,36709,0,Deciduous,True,1.3372970948103295e-17
+old,original,37162,0,Deciduous,True,2.198185766499951e-17
+old,original,37598,1,Evergreen,True,1.3113276888286174e-18
+old,original,37631,0,Deciduous,True,1.6996749443881478e-17
+old,original,37636,0,Deciduous,True,2.1144523639633903e-17
+old,original,37724,1,Evergreen,False,
+old,original,37874,3,Non-vegetated & dead,True,6.5237728815726664e-18
+old,original,37877,0,Deciduous,True,1.112698441354078e-17
+old,original,37956,3,Non-vegetated & dead,False,
+old,original,38094,3,Non-vegetated & dead,False,
+old,original,38101,1,Evergreen,True,2.6226553776572348e-18
+old,original,38109,1,Evergreen,True,6.150672057974582e-18
+old,original,38121,2,Herbaceous,True,3.469446951953614e-18
+old,original,38209,3,Non-vegetated & dead,False,
+old,original,38568,1,Evergreen,True,1.671621368512912e-18
+old,original,38751,1,Evergreen,True,6.556638444143087e-19
+old,original,38755,1,Evergreen,True,9.272487011283983e-19
+old,original,38834,1,Evergreen,True,5.4067425708374775e-18
+old,original,38929,1,Evergreen,True,6.062675075622055e-18
+old,original,39435,0,Deciduous,False,
+old,original,39941,3,Non-vegetated & dead,False,
+old,original,39953,3,Non-vegetated & dead,False,
+old,original,40015,1,Evergreen,False,
+old,original,40110,1,Evergreen,True,1.5023145987371592e-18
+old,original,40291,1,Evergreen,False,
+old,original,40314,1,Evergreen,False,
+old,original,40326,1,Evergreen,True,5.601994342345145e-18
+old,original,40336,1,Evergreen,True,1.2089843925234572e-17
+old,original,40393,4,Woody shrub,True,6.876660414469846e-18
+old,original,40836,2,Herbaceous,True,1.506600811723184e-17
+old,original,40892,0,Deciduous,False,
+old,original,40901,0,Deciduous,False,
+old,original,40945,1,Evergreen,False,
+old,original,41177,3,Non-vegetated & dead,True,2.1824842386013768e-17
+old,original,41324,2,Herbaceous,True,3.449564570756886e-17
+old,original,41529,2,Herbaceous,True,2.162697028334991e-17
+old,original,41535,2,Herbaceous,True,1.9272502339279617e-17
+old,original,41643,1,Evergreen,True,1.3516856427093694e-18
+old,original,41663,4,Woody shrub,True,1.2160752708776703e-17
+old,original,41686,1,Evergreen,False,
+old,original,42037,4,Woody shrub,True,1.0793589108000771e-17
+old,original,42115,3,Non-vegetated & dead,False,
+old,original,42131,4,Woody shrub,False,
+old,original,42149,3,Non-vegetated & dead,False,
+old,original,42188,1,Evergreen,True,1.237104067435257e-17
+old,original,42207,1,Evergreen,False,
+old,original,42252,0,Deciduous,False,
+old,original,42325,4,Woody shrub,True,3.988247465274639e-18
+old,original,42347,1,Evergreen,False,
+old,original,42403,4,Woody shrub,False,
+old,original,42499,0,Deciduous,True,1.4835979218054374e-17
+old,original,42563,1,Evergreen,False,
+old,original,42576,0,Deciduous,False,
+old,original,42634,4,Woody shrub,False,
+old,original,42638,0,Deciduous,False,
+old,original,42639,0,Deciduous,False,
+old,original,42650,2,Herbaceous,True,5.8644357059969605e-18
+old,original,42682,4,Woody shrub,False,
+old,original,42735,3,Non-vegetated & dead,True,5.937288632323374e-18
+old,original,42742,0,Deciduous,True,4.376771027301182e-17
+old,original,42826,1,Evergreen,False,
+old,original,42840,1,Evergreen,False,
+old,original,42870,3,Non-vegetated & dead,False,
+old,original,42878,1,Evergreen,True,5.2453107553144695e-18
+old,original,43025,4,Woody shrub,False,
+old,original,43088,4,Woody shrub,False,
+old,original,43107,4,Woody shrub,False,
+old,original,43123,1,Evergreen,True,2.7033712854187387e-18
+old,original,43141,1,Evergreen,False,
+old,original,43162,1,Evergreen,True,5.790666282564362e-18
+old,original,43223,1,Evergreen,False,
+old,original,43227,1,Evergreen,True,1.2018516789897274e-17
+old,original,43322,0,Deciduous,False,
+old,original,43439,3,Non-vegetated & dead,False,
+old,original,44165,4,Woody shrub,False,
+old,original,44353,4,Woody shrub,False,
+old,original,44354,4,Woody shrub,False,
+old,original,44368,0,Deciduous,True,1.0653276505106203e-17
+old,original,44613,4,Woody shrub,False,
+old,original,44690,4,Woody shrub,False,
+old,original,44772,4,Woody shrub,True,1.8544974022567967e-18
+old,original,44773,4,Woody shrub,False,
+old,original,44809,2,Herbaceous,False,
+old,original,44818,4,Woody shrub,False,
+old,original,44852,2,Herbaceous,False,
+old,original,44893,2,Herbaceous,False,
+old,original,44910,0,Deciduous,False,
+old,original,44911,2,Herbaceous,False,
+old,original,44951,0,Deciduous,False,
+old,original,44996,0,Deciduous,False,
+old,original,45026,4,Woody shrub,True,2.2176563483590973e-17
+old,original,45114,0,Deciduous,False,
+old,original,45120,0,Deciduous,False,
+old,original,45121,0,Deciduous,False,
+old,original,45126,4,Woody shrub,False,
+old,original,45132,4,Woody shrub,False,
+old,original,45133,4,Woody shrub,True,2.425070030248822e-17
+old,original,45187,4,Woody shrub,True,2.489796579742292e-17
+old,original,45188,4,Woody shrub,False,
+old,original,45223,4,Woody shrub,True,2.4232966698432903e-17
+old,original,45361,4,Woody shrub,False,
+old,original,45539,2,Herbaceous,False,
+old,original,45585,0,Deciduous,False,
+old,original,45740,0,Deciduous,False,
+old,original,45774,4,Woody shrub,False,
+old,original,45775,4,Woody shrub,False,
+old,original,45879,0,Deciduous,True,4.241085947765123e-17
+old,original,45907,4,Woody shrub,True,4.3669377840826415e-17
+old,original,46088,4,Woody shrub,False,
+old,original,46160,4,Woody shrub,False,
+old,original,46187,3,Non-vegetated & dead,False,
+old,original,46203,2,Herbaceous,False,
+old,original,46327,2,Herbaceous,False,
+old,original,46493,0,Deciduous,False,
+old,original,46518,4,Woody shrub,False,
+old,original,46519,3,Non-vegetated & dead,False,
+old,original,46592,4,Woody shrub,False,
+old,original,46593,4,Woody shrub,False,
+old,original,46604,3,Non-vegetated & dead,False,
+old,original,46701,2,Herbaceous,True,3.500287086919629e-18
+old,original,46756,3,Non-vegetated & dead,False,
+old,original,46823,4,Woody shrub,True,2.1686521484510442e-17
+old,original,46866,2,Herbaceous,False,
+old,original,46993,3,Non-vegetated & dead,False,
+old,original,47175,4,Woody shrub,False,
+old,original,47176,4,Woody shrub,False,
+old,original,47217,0,Deciduous,False,
+old,original,47315,3,Non-vegetated & dead,False,
+old,original,47324,3,Non-vegetated & dead,False,
+old,original,47431,3,Non-vegetated & dead,True,1.2981481815797576e-17
+old,original,47643,1,Evergreen,False,
+old,original,47945,0,Deciduous,False,
+old,original,47955,0,Deciduous,False,
+old,original,48060,1,Evergreen,False,
+old,original,48159,4,Woody shrub,False,
+old,original,48177,0,Deciduous,False,
+old,original,48436,0,Deciduous,False,
+old,original,48591,2,Herbaceous,False,
+old,original,48614,4,Woody shrub,False,
+old,original,48627,4,Woody shrub,False,
+old,original,48851,1,Evergreen,False,
+old,original,48862,2,Herbaceous,True,2.386652418882146e-18
+old,original,48884,4,Woody shrub,False,
+old,original,49131,3,Non-vegetated & dead,False,
+old,original,49193,0,Deciduous,False,
+old,original,49979,2,Herbaceous,False,
+old,original,49992,0,Deciduous,False,
+old,original,50054,2,Herbaceous,False,
+old,original,50059,2,Herbaceous,False,
+old,original,50446,0,Deciduous,False,
+old,original,50639,3,Non-vegetated & dead,False,
+old,original,50671,0,Deciduous,True,1.6896070533867119e-18
+old,original,50698,3,Non-vegetated & dead,False,
+old,original,51049,0,Deciduous,False,
+old,original,51275,3,Non-vegetated & dead,True,3.0046291974743185e-18
+old,original,51369,4,Woody shrub,True,4.335817306070351e-17
+old,original,51602,4,Woody shrub,False,
+old,original,51960,2,Herbaceous,True,9.272487011283983e-19
+old,original,51975,3,Non-vegetated & dead,False,
+old,original,52027,3,Non-vegetated & dead,False,
+old,original,52076,3,Non-vegetated & dead,False,
+old,original,52126,0,Deciduous,False,
+old,original,52130,3,Non-vegetated & dead,False,
+old,original,52161,4,Woody shrub,False,
+old,original,52178,2,Herbaceous,False,
+old,original,52181,3,Non-vegetated & dead,False,
+old,original,52214,4,Woody shrub,False,
+old,original,52237,0,Deciduous,False,
+old,original,52329,3,Non-vegetated & dead,False,
+old,original,52470,2,Herbaceous,False,
+old,original,52519,3,Non-vegetated & dead,True,4.041783383748037e-18
+old,original,52802,1,Evergreen,True,1.0971354589302191e-17
+old,original,53154,1,Evergreen,True,1.0733679732586418e-17
+old,original,53214,2,Herbaceous,False,
+old,original,53243,3,Non-vegetated & dead,False,
+old,original,53257,3,Non-vegetated & dead,False,
+old,original,53266,3,Non-vegetated & dead,False,
+old,original,53268,3,Non-vegetated & dead,False,
+old,original,53353,3,Non-vegetated & dead,False,
+old,original,53701,3,Non-vegetated & dead,False,
+old,original,53709,3,Non-vegetated & dead,False,
+old,original,53830,3,Non-vegetated & dead,False,
+old,original,53933,3,Non-vegetated & dead,False,
+old,original,54019,3,Non-vegetated & dead,False,
+old,original,54022,3,Non-vegetated & dead,False,
+old,original,54228,2,Herbaceous,False,
+old,original,54232,3,Non-vegetated & dead,False,
+old,original,54273,3,Non-vegetated & dead,False,
+old,original,54274,3,Non-vegetated & dead,False,
+old,original,54491,3,Non-vegetated & dead,False,
+old,original,54604,3,Non-vegetated & dead,False,
+old,original,55355,4,Woody shrub,False,
+old,original,55428,3,Non-vegetated & dead,False,
+old,original,55653,1,Evergreen,True,6.009258394948637e-18
+old,original,55656,1,Evergreen,True,2.9322178529984802e-18
+old,original,55658,4,Woody shrub,True,1.0813485141674955e-17
+old,original,55960,4,Woody shrub,False,
+old,original,55961,1,Evergreen,True,3.2120837232132695e-18
+old,original,56022,3,Non-vegetated & dead,True,1.0971354589302191e-17
+old,original,56918,3,Non-vegetated & dead,False,
+old,original,56982,3,Non-vegetated & dead,False,
+old,original,56984,3,Non-vegetated & dead,False,
+old,original,57221,4,Woody shrub,True,2.7231764680322506e-18
+old,original,57227,3,Non-vegetated & dead,True,2.1942709178604383e-17
+old,original,57524,1,Evergreen,True,2.781746103385195e-18
+old,original,57779,1,Evergreen,True,5.611578599724417e-18
+old,original,57862,3,Non-vegetated & dead,False,
+old,original,57947,3,Non-vegetated & dead,False,
+old,original,58073,3,Non-vegetated & dead,False,
+old,original,58089,1,Evergreen,True,3.9339830664858525e-18
+old,original,58171,3,Non-vegetated & dead,True,2.3640296105036334e-17
+old,original,58253,4,Woody shrub,True,2.6683585236423904e-18
+old,original,58273,1,Evergreen,False,
+old,original,58274,1,Evergreen,False,
+old,original,61387,3,Non-vegetated & dead,False,
+old,original,61835,2,Herbaceous,False,
+old,original,62332,3,Non-vegetated & dead,False,
+old,original,62822,1,Evergreen,False,
+old,original,62836,3,Non-vegetated & dead,False,
+old,original,63187,2,Herbaceous,True,2.446250083303083e-17
+old,original,63930,1,Evergreen,False,
+old,original,64247,2,Herbaceous,False,
+old,original,64469,1,Evergreen,True,9.59153514567091e-18
+old,original,64942,2,Herbaceous,False,
+old,original,65409,1,Evergreen,False,
+old,original,65627,2,Herbaceous,True,5.152700257886542e-17
+old,original,65667,2,Herbaceous,False,
+old,original,65840,2,Herbaceous,True,1.9093219351057168e-17
+old,original,66442,2,Herbaceous,False,
+old,original,66561,2,Herbaceous,False,
+old,original,66951,2,Herbaceous,True,2.83683553260436e-17
+old,original,66984,2,Herbaceous,False,
+old,original,67198,2,Herbaceous,True,9.456118442014534e-18
+old,original,67201,2,Herbaceous,True,5.649372576400718e-17
+old,original,67303,2,Herbaceous,True,0.0
+old,original,67408,4,Woody shrub,True,1.1728871411993921e-17
+old,original,67715,4,Woody shrub,True,2.474208134870514e-17
+old,original,67924,2,Herbaceous,True,4.962296847553238e-17
+old,original,68154,2,Herbaceous,True,1.2301344115949163e-17
+old,original,68218,3,Non-vegetated & dead,False,
+old,original,68739,1,Evergreen,False,
+old,original,68909,4,Woody shrub,False,
+old,original,69096,3,Non-vegetated & dead,False,
+old,original,69251,1,Evergreen,True,1.0892705872129002e-17
+old,original,69352,4,Woody shrub,True,2.3640296105036334e-17
+old,original,69468,4,Woody shrub,True,1.532066290903218e-17
+old,original,69476,1,Evergreen,True,3.0046291974743185e-18
+old,original,70052,1,Evergreen,False,
+old,original,70299,2,Herbaceous,True,6.009258394948637e-18
+old,original,70773,2,Herbaceous,True,4.223818851489048e-18
+old,original,70817,2,Herbaceous,False,
+old,original,71103,2,Herbaceous,False,
+old,original,71250,3,Non-vegetated & dead,False,
+old,original,71310,3,Non-vegetated & dead,False,
+old,original,71406,3,Non-vegetated & dead,False,
+old,original,71411,3,Non-vegetated & dead,False,
+old,original,71466,3,Non-vegetated & dead,False,
+old,original,71472,3,Non-vegetated & dead,False,
+old,original,71483,3,Non-vegetated & dead,False,
+old,original,71516,3,Non-vegetated & dead,False,
+old,original,71541,3,Non-vegetated & dead,False,
+old,original,71550,3,Non-vegetated & dead,False,
+old,original,71554,3,Non-vegetated & dead,False,
+old,original,71556,3,Non-vegetated & dead,False,
+old,original,71564,3,Non-vegetated & dead,False,
+old,original,71606,3,Non-vegetated & dead,False,
+old,original,71620,3,Non-vegetated & dead,False,
+old,original,71631,3,Non-vegetated & dead,False,
+old,original,71710,3,Non-vegetated & dead,False,
+old,original,71718,3,Non-vegetated & dead,False,
+old,original,71733,3,Non-vegetated & dead,False,
+old,original,71747,3,Non-vegetated & dead,False,
+old,original,71748,3,Non-vegetated & dead,False,
+old,original,71770,3,Non-vegetated & dead,False,
+old,original,71803,3,Non-vegetated & dead,False,
+old,original,72026,3,Non-vegetated & dead,False,
+old,original,72328,3,Non-vegetated & dead,False,
+old,original,72339,3,Non-vegetated & dead,False,
+old,original,72461,3,Non-vegetated & dead,False,
+old,original,72980,3,Non-vegetated & dead,False,
+old,original,72993,3,Non-vegetated & dead,False,
+old,original,73188,3,Non-vegetated & dead,False,
+old,original,73217,3,Non-vegetated & dead,False,
+old,original,73772,3,Non-vegetated & dead,False,
+old,original,74315,2,Herbaceous,True,2.583015987766197e-17
+old,original,74316,2,Herbaceous,True,3.0697394164712984e-17
+old,original,74433,1,Evergreen,False,
+old,original,74439,2,Herbaceous,True,2.240797736938058e-17
+old,original,74647,3,Non-vegetated & dead,False,
+old,original,74850,2,Herbaceous,False,
+old,original,74951,4,Woody shrub,True,6.424167446426539e-18
+old,original,74969,3,Non-vegetated & dead,False,
+old,original,75335,3,Non-vegetated & dead,False,
+old,original,75620,3,Non-vegetated & dead,False,
+old,original,75891,4,Woody shrub,True,1.3178680171259523e-17
+old,original,75896,3,Non-vegetated & dead,False,
+old,original,76147,4,Woody shrub,True,3.2287699847077462e-18
+old,original,76199,3,Non-vegetated & dead,False,
+old,original,76203,4,Woody shrub,False,
+old,original,76532,4,Woody shrub,False,
+old,original,77601,1,Evergreen,False,
+old,original,77816,4,Woody shrub,False,
+old,original,78225,4,Woody shrub,False,
+old,original,78440,4,Woody shrub,False,
+old,original,78501,1,Evergreen,False,
+old,original,78551,2,Herbaceous,True,4.396371532999902e-17
+old,original,78901,2,Herbaceous,True,2.4949710846237767e-17
+old,original,81152,3,Non-vegetated & dead,False,
+old,original,81342,1,Evergreen,True,6.4575399694154924e-18
+old,original,81771,4,Woody shrub,False,
+old,original,81995,1,Evergreen,True,6.009258394948637e-18
+old,original,82286,4,Woody shrub,True,6.424167446426539e-18
+old,original,82870,1,Evergreen,True,6.150672057974582e-18
+old,original,83023,2,Herbaceous,False,
+old,original,83139,1,Evergreen,True,2.7033712854187387e-18
+old,original,83150,1,Evergreen,True,1.3500944877814736e-17
+old,original,83578,1,Evergreen,False,
+old,original,83613,1,Evergreen,True,5.601994342345145e-18
+old,original,83620,1,Evergreen,True,5.4067425708374775e-18
+old,original,83622,1,Evergreen,True,5.366839866293209e-18
+old,original,83758,1,Evergreen,True,5.2453107553144695e-18
+old,original,83769,1,Evergreen,True,6.044921962617286e-18
+old,original,83835,1,Evergreen,True,2.4532694666933986e-17
+old,original,83917,1,Evergreen,True,1.1946763809565923e-17
+old,original,83918,1,Evergreen,True,5.4067425708374775e-18
+old,original,83924,1,Evergreen,False,
+old,original,83965,1,Evergreen,True,1.4661089264992401e-18
+old,original,84022,1,Evergreen,False,
+old,original,84052,1,Evergreen,True,1.4661089264992401e-18
+old,original,84061,1,Evergreen,True,5.715944877470694e-18
+old,original,84063,1,Evergreen,True,6.080376354388351e-18
+old,original,84121,1,Evergreen,False,
+old,original,84455,1,Evergreen,True,5.2453107553144695e-18
+old,original,84463,1,Evergreen,False,
+old,original,84477,1,Evergreen,True,4.357082348851601e-17
+old,original,85197,1,Evergreen,False,
+old,original,85591,2,Herbaceous,False,
+old,revised,10,3,Bare_Rock,False,
+old,revised,35,4,Dead,False,
+old,revised,42,0,Deciduous,True,7.417989609027187e-18
+old,revised,139,0,Deciduous,False,
+old,revised,143,0,Deciduous,True,3.180476561586598e-17
+old,revised,231,0,Deciduous,True,2.1913301916100927e-17
+old,revised,394,1,Evergreen,True,1.2089843925234572e-17
+old,revised,457,1,Evergreen,False,
+old,revised,489,0,Deciduous,False,
+old,revised,504,1,Evergreen,True,6.686485474051648e-18
+old,revised,624,0,Deciduous,False,
+old,revised,729,1,Evergreen,False,
+old,revised,741,1,Evergreen,True,5.9009745997287784e-18
+old,revised,748,1,Evergreen,False,
+old,revised,756,1,Evergreen,True,2.10221820709595e-17
+old,revised,883,0,Deciduous,True,6.424167446426539e-18
+old,revised,930,0,Deciduous,True,1.0572261819816951e-17
+old,revised,987,0,Deciduous,False,
+old,revised,1032,4,Dead,False,
+old,revised,1055,1,Evergreen,False,
+old,revised,1128,1,Evergreen,False,
+old,revised,1132,1,Evergreen,True,5.8644357059969605e-18
+old,revised,1327,0,Deciduous,False,
+old,revised,1384,1,Evergreen,False,
+old,revised,1395,1,Evergreen,False,
+old,revised,1618,2,Herbaceous_woody_shrub,False,
+old,revised,1640,1,Evergreen,True,1.506600811723184e-17
+old,revised,1899,2,Herbaceous_woody_shrub,False,
+old,revised,1957,0,Deciduous,False,
+old,revised,2056,1,Evergreen,False,
+old,revised,2061,1,Evergreen,False,
+old,revised,2509,2,Herbaceous_woody_shrub,True,6.009258394948637e-18
+old,revised,2511,2,Herbaceous_woody_shrub,True,2.5596095349743442e-17
+old,revised,2565,0,Deciduous,False,
+old,revised,2625,0,Deciduous,False,
+old,revised,2646,2,Herbaceous_woody_shrub,True,1.5952989861098555e-17
+old,revised,2694,2,Herbaceous_woody_shrub,True,6.150672057974582e-18
+old,revised,2863,1,Evergreen,True,2.3749154529293497e-17
+old,revised,3003,2,Herbaceous_woody_shrub,False,
+old,revised,3298,3,Bare_Rock,False,
+old,revised,3371,0,Deciduous,True,3.2053848968952863e-17
+old,revised,3474,2,Herbaceous_woody_shrub,False,
+old,revised,3607,1,Evergreen,True,3.469446951953614e-18
+old,revised,3626,2,Herbaceous_woody_shrub,False,
+old,revised,3675,1,Evergreen,True,6.556638444143087e-19
+old,revised,3806,2,Herbaceous_woody_shrub,True,2.6226553776572348e-18
+old,revised,4031,1,Evergreen,False,
+old,revised,4182,0,Deciduous,True,6.686485474051648e-18
+old,revised,4614,2,Herbaceous_woody_shrub,True,6.750472438907368e-18
+old,revised,4856,2,Herbaceous_woody_shrub,True,5.916980231542773e-17
+old,revised,4919,0,Deciduous,False,
+old,revised,5609,2,Herbaceous_woody_shrub,True,1.2301344115949163e-17
+old,revised,5714,1,Evergreen,True,7.061715720500897e-18
+old,revised,5743,1,Evergreen,False,
+old,revised,5810,1,Evergreen,False,
+old,revised,5819,2,Herbaceous_woody_shrub,False,
+old,revised,5863,1,Evergreen,True,3.0046291974743185e-18
+old,revised,5977,1,Evergreen,False,
+old,revised,6112,1,Evergreen,True,5.4067425708374775e-18
+old,revised,6374,1,Evergreen,False,
+old,revised,6385,3,Bare_Rock,False,
+old,revised,6530,0,Deciduous,False,
+old,revised,6727,1,Evergreen,False,
+old,revised,6761,2,Herbaceous_woody_shrub,False,
+old,revised,6861,0,Deciduous,False,
+old,revised,6872,0,Deciduous,True,1.8544974022567967e-18
+old,revised,6928,0,Deciduous,True,2.5896646885659836e-17
+old,revised,6957,1,Evergreen,False,
+old,revised,7210,0,Deciduous,False,
+old,revised,7442,2,Herbaceous_woody_shrub,True,7.473417450352271e-17
+old,revised,7583,0,Deciduous,True,1.2160752708776703e-17
+old,revised,7596,2,Herbaceous_woody_shrub,True,1.2089843925234572e-17
+old,revised,7703,2,Herbaceous_woody_shrub,True,3.007489387743547e-17
+old,revised,7838,0,Deciduous,False,
+old,revised,7922,2,Herbaceous_woody_shrub,True,1.817028945938429e-17
+old,revised,7999,0,Deciduous,False,
+old,revised,8003,0,Deciduous,False,
+old,revised,8488,0,Deciduous,False,
+old,revised,8615,2,Herbaceous_woody_shrub,False,
+old,revised,8633,0,Deciduous,False,
+old,revised,8732,1,Evergreen,True,7.646288671938335e-18
+old,revised,8942,2,Herbaceous_woody_shrub,True,4.041783383748037e-18
+old,revised,8943,2,Herbaceous_woody_shrub,True,5.204170427930421e-18
+old,revised,8956,0,Deciduous,True,1.3372970948103295e-17
+old,revised,9058,2,Herbaceous_woody_shrub,False,
+old,revised,9062,1,Evergreen,False,
+old,revised,9162,0,Deciduous,True,4.2769189284939714e-17
+old,revised,9257,1,Evergreen,False,
+old,revised,9662,2,Herbaceous_woody_shrub,True,7.867966132971705e-18
+old,revised,9875,0,Deciduous,True,1.137534255038139e-17
+old,revised,9993,0,Deciduous,True,1.2160752708776703e-17
+old,revised,10095,1,Evergreen,False,
+old,revised,10098,0,Deciduous,False,
+old,revised,10280,0,Deciduous,True,8.083566767496075e-18
+old,revised,10281,0,Deciduous,False,
+old,revised,10313,2,Herbaceous_woody_shrub,False,
+old,revised,10315,2,Herbaceous_woody_shrub,False,
+old,revised,10472,0,Deciduous,False,
+old,revised,10475,0,Deciduous,False,
+old,revised,11165,1,Evergreen,False,
+old,revised,11172,0,Deciduous,False,
+old,revised,11223,0,Deciduous,True,1.2881750644716355e-17
+old,revised,11259,2,Herbaceous_woody_shrub,True,2.3162665130257447e-17
+old,revised,11393,2,Herbaceous_woody_shrub,True,3.0697394164712984e-17
+old,revised,11490,1,Evergreen,False,
+old,revised,11568,1,Evergreen,True,2.9322178529984802e-18
+old,revised,11754,1,Evergreen,False,
+old,revised,12113,0,Deciduous,True,2.2079425200240586e-17
+old,revised,12143,0,Deciduous,False,
+old,revised,12300,0,Deciduous,False,
+old,revised,12522,0,Deciduous,False,
+old,revised,12964,1,Evergreen,False,
+old,revised,13224,2,Herbaceous_woody_shrub,True,4.390500569063537e-17
+old,revised,13305,0,Deciduous,False,
+old,revised,13534,0,Deciduous,True,9.834957666214631e-19
+old,revised,14469,0,Deciduous,True,0.0
+old,revised,14579,1,Evergreen,True,7.867966132971705e-18
+old,revised,14699,1,Evergreen,False,
+old,revised,14889,0,Deciduous,False,
+old,revised,15239,3,Bare_Rock,False,
+old,revised,15250,0,Deciduous,False,
+old,revised,15302,4,Dead,True,1.2848334892853078e-17
+old,revised,15522,0,Deciduous,True,2.9504872998643892e-18
+old,revised,15772,1,Evergreen,False,
+old,revised,15843,4,Dead,False,
+old,revised,16104,2,Herbaceous_woody_shrub,True,1.3908730516925975e-18
+old,revised,16115,1,Evergreen,False,
+old,revised,16579,2,Herbaceous_woody_shrub,True,2.367663785762845e-17
+old,revised,16580,1,Evergreen,False,
+old,revised,16635,1,Evergreen,True,1.1801949199457557e-17
+old,revised,16668,1,Evergreen,False,
+old,revised,16701,1,Evergreen,False,
+old,revised,16719,4,Dead,False,
+old,revised,16728,4,Dead,True,7.895238194409455e-18
+old,revised,16741,1,Evergreen,False,
+old,revised,16902,1,Evergreen,True,5.4067425708374775e-18
+old,revised,16908,1,Evergreen,False,
+old,revised,17132,1,Evergreen,True,1.112698441354078e-17
+old,revised,17135,1,Evergreen,True,1.2160752708776703e-17
+old,revised,17136,1,Evergreen,True,6.150672057974582e-18
+old,revised,17211,1,Evergreen,True,2.9504872998643892e-18
+old,revised,17223,1,Evergreen,False,
+old,revised,17239,1,Evergreen,True,5.9009745997287784e-18
+old,revised,17329,1,Evergreen,False,
+old,revised,17499,1,Evergreen,False,
+old,revised,17779,1,Evergreen,True,1.4661089264992401e-18
+old,revised,18029,1,Evergreen,False,
+old,revised,18105,1,Evergreen,False,
+old,revised,18249,1,Evergreen,False,
+old,revised,18311,1,Evergreen,False,
+old,revised,19050,4,Dead,True,6.556638444143087e-18
+old,revised,19517,4,Dead,False,
+old,revised,19636,2,Herbaceous_woody_shrub,False,
+old,revised,19887,0,Deciduous,False,
+old,revised,20240,1,Evergreen,False,
+old,revised,20431,2,Herbaceous_woody_shrub,True,4.2126083099764194e-17
+old,revised,20727,0,Deciduous,False,
+old,revised,20773,4,Dead,False,
+old,revised,20818,2,Herbaceous_woody_shrub,False,
+old,revised,21611,0,Deciduous,False,
+old,revised,21670,2,Herbaceous_woody_shrub,False,
+old,revised,21714,0,Deciduous,False,
+old,revised,21724,2,Herbaceous_woody_shrub,False,
+old,revised,21984,2,Herbaceous_woody_shrub,False,
+old,revised,22544,0,Deciduous,True,1.2054233114669178e-17
+old,revised,22578,0,Deciduous,False,
+old,revised,22924,0,Deciduous,False,
+old,revised,23603,0,Deciduous,True,1.1728871411993921e-17
+old,revised,23667,0,Deciduous,False,
+old,revised,23885,0,Deciduous,True,8.673617379884035e-19
+old,revised,23888,0,Deciduous,True,5.286130909908476e-18
+old,revised,23911,2,Herbaceous_woody_shrub,True,2.2560934621966053e-17
+old,revised,24008,2,Herbaceous_woody_shrub,True,2.240797736938058e-17
+old,revised,24614,0,Deciduous,False,
+old,revised,24900,0,Deciduous,False,
+old,revised,24901,0,Deciduous,False,
+old,revised,24903,0,Deciduous,True,5.9009745997287784e-18
+old,revised,24933,2,Herbaceous_woody_shrub,False,
+old,revised,24952,4,Dead,True,1.1946763809565923e-17
+old,revised,25455,3,Bare_Rock,False,
+old,revised,25534,0,Deciduous,False,
+old,revised,25758,4,Dead,False,
+old,revised,25813,0,Deciduous,False,
+old,revised,25900,0,Deciduous,True,1.0572261819816951e-17
+old,revised,25932,2,Herbaceous_woody_shrub,False,
+old,revised,27160,0,Deciduous,True,1.3908730516925975e-18
+old,revised,27161,0,Deciduous,True,6.080376354388351e-18
+old,revised,27162,0,Deciduous,True,6.556638444143087e-19
+old,revised,27164,0,Deciduous,False,
+old,revised,27214,2,Herbaceous_woody_shrub,True,1.8544974022567967e-18
+old,revised,27249,1,Evergreen,False,
+old,revised,27459,1,Evergreen,True,1.596645798495037e-17
+old,revised,27476,1,Evergreen,True,0.0
+old,revised,27986,3,Bare_Rock,False,
+old,revised,28320,1,Evergreen,False,
+old,revised,28478,0,Deciduous,False,
+old,revised,28511,2,Herbaceous_woody_shrub,True,5.0787503002538974e-18
+old,revised,28533,2,Herbaceous_woody_shrub,False,
+old,revised,28607,1,Evergreen,False,
+old,revised,28950,0,Deciduous,False,
+old,revised,28970,2,Herbaceous_woody_shrub,True,6.150672057974582e-18
+old,revised,29040,0,Deciduous,True,2.2030695444961747e-17
+old,revised,29111,4,Dead,False,
+old,revised,29341,0,Deciduous,False,
+old,revised,29410,2,Herbaceous_woody_shrub,False,
+old,revised,29553,2,Herbaceous_woody_shrub,True,1.0813485141674955e-17
+old,revised,29904,2,Herbaceous_woody_shrub,False,
+old,revised,29949,3,Bare_Rock,False,
+old,revised,29956,2,Herbaceous_woody_shrub,True,2.2901353536069085e-17
+old,revised,30052,2,Herbaceous_woody_shrub,False,
+old,revised,30055,2,Herbaceous_woody_shrub,False,
+old,revised,30404,2,Herbaceous_woody_shrub,True,1.1874577264646749e-17
+old,revised,30472,4,Dead,True,7.417989609027187e-18
+old,revised,30476,2,Herbaceous_woody_shrub,True,7.301163573852233e-18
+old,revised,30479,3,Bare_Rock,False,
+old,revised,30557,4,Dead,True,1.4661089264992401e-18
+old,revised,31123,2,Herbaceous_woody_shrub,False,
+old,revised,31424,3,Bare_Rock,False,
+old,revised,32153,4,Dead,False,
+old,revised,32233,4,Dead,False,
+old,revised,32238,1,Evergreen,False,
+old,revised,32374,1,Evergreen,False,
+old,revised,32635,1,Evergreen,False,
+old,revised,32713,1,Evergreen,False,
+old,revised,32748,1,Evergreen,False,
+old,revised,32868,1,Evergreen,False,
+old,revised,33012,0,Deciduous,False,
+old,revised,33233,1,Evergreen,False,
+old,revised,33343,1,Evergreen,False,
+old,revised,33530,1,Evergreen,True,6.220173383314454e-18
+old,revised,33591,1,Evergreen,True,2.742838647325548e-18
+old,revised,33593,1,Evergreen,False,
+old,revised,33637,1,Evergreen,True,1.4661089264992401e-18
+old,revised,33823,2,Herbaceous_woody_shrub,False,
+old,revised,34052,1,Evergreen,True,3.2120837232132695e-18
+old,revised,34079,1,Evergreen,False,
+old,revised,34091,0,Deciduous,True,1.2089843925234572e-17
+old,revised,34094,0,Deciduous,True,2.0733911277714845e-17
+old,revised,34371,4,Dead,False,
+old,revised,34446,1,Evergreen,True,5.446352936064501e-18
+old,revised,34458,4,Dead,True,1.573593226594341e-17
+old,revised,34781,1,Evergreen,True,1.0853167789312452e-17
+old,revised,34911,1,Evergreen,True,8.083566767496075e-18
+old,revised,35451,2,Herbaceous_woody_shrub,True,1.135643091211518e-18
+old,revised,35464,2,Herbaceous_woody_shrub,True,5.485677294651096e-18
+old,revised,35561,4,Dead,False,
+old,revised,35720,1,Evergreen,False,
+old,revised,35855,1,Evergreen,False,
+old,revised,36001,2,Herbaceous_woody_shrub,True,2.4321505417553405e-17
+old,revised,36002,2,Herbaceous_woody_shrub,True,4.2693736378278246e-17
+old,revised,36063,2,Herbaceous_woody_shrub,True,2.3767249125845554e-17
+old,revised,36151,4,Dead,False,
+old,revised,36332,2,Herbaceous_woody_shrub,False,
+old,revised,36334,2,Herbaceous_woody_shrub,True,2.1952502845317686e-17
+old,revised,36422,1,Evergreen,True,1.8252908934630582e-18
+old,revised,36709,0,Deciduous,True,1.3372970948103295e-17
+old,revised,37162,0,Deciduous,True,2.198185766499951e-17
+old,revised,37598,1,Evergreen,True,1.3113276888286174e-18
+old,revised,37631,0,Deciduous,True,1.6996749443881478e-17
+old,revised,37636,0,Deciduous,True,2.1144523639633903e-17
+old,revised,37724,1,Evergreen,False,
+old,revised,37874,4,Dead,True,1.4661089264992401e-18
+old,revised,37877,0,Deciduous,True,1.112698441354078e-17
+old,revised,37956,3,Bare_Rock,False,
+old,revised,38094,3,Bare_Rock,False,
+old,revised,38101,1,Evergreen,True,2.6226553776572348e-18
+old,revised,38109,1,Evergreen,True,6.150672057974582e-18
+old,revised,38121,2,Herbaceous_woody_shrub,True,3.469446951953614e-18
+old,revised,38209,3,Bare_Rock,False,
+old,revised,38568,1,Evergreen,True,1.671621368512912e-18
+old,revised,38751,1,Evergreen,True,6.556638444143087e-19
+old,revised,38755,1,Evergreen,True,9.272487011283983e-19
+old,revised,38834,1,Evergreen,True,5.4067425708374775e-18
+old,revised,38929,1,Evergreen,True,6.062675075622055e-18
+old,revised,39435,0,Deciduous,False,
+old,revised,39941,4,Dead,False,
+old,revised,39953,4,Dead,False,
+old,revised,40015,1,Evergreen,False,
+old,revised,40110,1,Evergreen,True,1.5023145987371592e-18
+old,revised,40291,1,Evergreen,False,
+old,revised,40314,1,Evergreen,False,
+old,revised,40326,1,Evergreen,True,5.601994342345145e-18
+old,revised,40336,1,Evergreen,True,1.2089843925234572e-17
+old,revised,40393,2,Herbaceous_woody_shrub,True,3.234755967776882e-17
+old,revised,40836,2,Herbaceous_woody_shrub,True,1.506600811723184e-17
+old,revised,40892,0,Deciduous,False,
+old,revised,40901,0,Deciduous,False,
+old,revised,40945,1,Evergreen,False,
+old,revised,41177,4,Dead,True,5.2453107553144695e-18
+old,revised,41324,2,Herbaceous_woody_shrub,True,3.449564570756886e-17
+old,revised,41529,2,Herbaceous_woody_shrub,True,3.2440455425024865e-17
+old,revised,41535,2,Herbaceous_woody_shrub,True,1.1728871411993921e-17
+old,revised,41643,1,Evergreen,True,1.3516856427093694e-18
+old,revised,41663,2,Herbaceous_woody_shrub,True,1.4661089264992401e-18
+old,revised,41686,1,Evergreen,False,
+old,revised,42037,2,Herbaceous_woody_shrub,True,5.366839866293209e-18
+old,revised,42115,4,Dead,False,
+old,revised,42131,2,Herbaceous_woody_shrub,False,
+old,revised,42149,4,Dead,False,
+old,revised,42188,1,Evergreen,True,1.237104067435257e-17
+old,revised,42207,1,Evergreen,False,
+old,revised,42252,0,Deciduous,False,
+old,revised,42325,2,Herbaceous_woody_shrub,True,1.9669915332429263e-18
+old,revised,42347,1,Evergreen,False,
+old,revised,42403,2,Herbaceous_woody_shrub,False,
+old,revised,42499,0,Deciduous,True,1.4835979218054374e-17
+old,revised,42563,1,Evergreen,False,
+old,revised,42576,0,Deciduous,False,
+old,revised,42634,2,Herbaceous_woody_shrub,False,
+old,revised,42638,0,Deciduous,False,
+old,revised,42639,0,Deciduous,False,
+old,revised,42650,2,Herbaceous_woody_shrub,True,5.8644357059969605e-18
+old,revised,42682,2,Herbaceous_woody_shrub,False,
+old,revised,42735,4,Dead,True,6.556638444143087e-19
+old,revised,42742,0,Deciduous,True,4.376771027301182e-17
+old,revised,42826,1,Evergreen,False,
+old,revised,42840,1,Evergreen,False,
+old,revised,42870,4,Dead,False,
+old,revised,42878,1,Evergreen,True,5.2453107553144695e-18
+old,revised,43025,2,Herbaceous_woody_shrub,False,
+old,revised,43088,2,Herbaceous_woody_shrub,False,
+old,revised,43107,2,Herbaceous_woody_shrub,False,
+old,revised,43123,1,Evergreen,True,2.7033712854187387e-18
+old,revised,43141,1,Evergreen,False,
+old,revised,43162,1,Evergreen,True,5.790666282564362e-18
+old,revised,43223,1,Evergreen,False,
+old,revised,43227,1,Evergreen,True,1.2018516789897274e-17
+old,revised,43322,0,Deciduous,False,
+old,revised,43439,3,Bare_Rock,False,
+old,revised,44165,2,Herbaceous_woody_shrub,False,
+old,revised,44353,2,Herbaceous_woody_shrub,False,
+old,revised,44354,2,Herbaceous_woody_shrub,False,
+old,revised,44368,0,Deciduous,True,1.0653276505106203e-17
+old,revised,44613,2,Herbaceous_woody_shrub,False,
+old,revised,44690,2,Herbaceous_woody_shrub,False,
+old,revised,44772,2,Herbaceous_woody_shrub,True,2.271286182423036e-18
+old,revised,44773,2,Herbaceous_woody_shrub,False,
+old,revised,44809,2,Herbaceous_woody_shrub,False,
+old,revised,44818,2,Herbaceous_woody_shrub,False,
+old,revised,44852,2,Herbaceous_woody_shrub,False,
+old,revised,44893,2,Herbaceous_woody_shrub,False,
+old,revised,44910,0,Deciduous,False,
+old,revised,44911,2,Herbaceous_woody_shrub,False,
+old,revised,44951,0,Deciduous,False,
+old,revised,44996,0,Deciduous,False,
+old,revised,45026,2,Herbaceous_woody_shrub,True,2.271286182423036e-18
+old,revised,45114,0,Deciduous,False,
+old,revised,45120,0,Deciduous,False,
+old,revised,45121,0,Deciduous,False,
+old,revised,45126,2,Herbaceous_woody_shrub,False,
+old,revised,45132,2,Herbaceous_woody_shrub,False,
+old,revised,45133,2,Herbaceous_woody_shrub,True,1.1280467310983027e-17
+old,revised,45187,2,Herbaceous_woody_shrub,True,2.1154686833510655e-17
+old,revised,45188,2,Herbaceous_woody_shrub,False,
+old,revised,45223,2,Herbaceous_woody_shrub,False,
+old,revised,45361,2,Herbaceous_woody_shrub,False,
+old,revised,45539,2,Herbaceous_woody_shrub,False,
+old,revised,45585,0,Deciduous,False,
+old,revised,45740,0,Deciduous,False,
+old,revised,45774,2,Herbaceous_woody_shrub,False,
+old,revised,45775,2,Herbaceous_woody_shrub,False,
+old,revised,45879,0,Deciduous,True,4.241085947765123e-17
+old,revised,45907,2,Herbaceous_woody_shrub,False,
+old,revised,46088,2,Herbaceous_woody_shrub,False,
+old,revised,46160,2,Herbaceous_woody_shrub,False,
+old,revised,46187,4,Dead,False,
+old,revised,46203,2,Herbaceous_woody_shrub,False,
+old,revised,46327,2,Herbaceous_woody_shrub,False,
+old,revised,46493,0,Deciduous,False,
+old,revised,46518,2,Herbaceous_woody_shrub,False,
+old,revised,46519,3,Bare_Rock,False,
+old,revised,46592,2,Herbaceous_woody_shrub,False,
+old,revised,46593,2,Herbaceous_woody_shrub,False,
+old,revised,46604,4,Dead,False,
+old,revised,46701,2,Herbaceous_woody_shrub,False,
+old,revised,46756,4,Dead,False,
+old,revised,46823,2,Herbaceous_woody_shrub,False,
+old,revised,46866,2,Herbaceous_woody_shrub,False,
+old,revised,46993,4,Dead,False,
+old,revised,47175,2,Herbaceous_woody_shrub,False,
+old,revised,47176,2,Herbaceous_woody_shrub,False,
+old,revised,47217,0,Deciduous,False,
+old,revised,47315,4,Dead,False,
+old,revised,47324,4,Dead,False,
+old,revised,47431,4,Dead,True,6.686485474051648e-18
+old,revised,47643,1,Evergreen,False,
+old,revised,47945,0,Deciduous,False,
+old,revised,47955,0,Deciduous,False,
+old,revised,48060,1,Evergreen,False,
+old,revised,48159,2,Herbaceous_woody_shrub,False,
+old,revised,48177,0,Deciduous,False,
+old,revised,48436,0,Deciduous,False,
+old,revised,48591,2,Herbaceous_woody_shrub,False,
+old,revised,48614,2,Herbaceous_woody_shrub,False,
+old,revised,48627,2,Herbaceous_woody_shrub,False,
+old,revised,48851,1,Evergreen,False,
+old,revised,48862,2,Herbaceous_woody_shrub,True,3.075336028987291e-18
+old,revised,48884,2,Herbaceous_woody_shrub,False,
+old,revised,49131,3,Bare_Rock,True,1.2018516789897274e-17
+old,revised,49193,0,Deciduous,False,
+old,revised,49979,2,Herbaceous_woody_shrub,False,
+old,revised,49992,0,Deciduous,False,
+old,revised,50054,2,Herbaceous_woody_shrub,False,
+old,revised,50059,2,Herbaceous_woody_shrub,False,
+old,revised,50446,0,Deciduous,False,
+old,revised,50639,4,Dead,False,
+old,revised,50671,0,Deciduous,True,1.6896070533867119e-18
+old,revised,50698,4,Dead,False,
+old,revised,51049,0,Deciduous,False,
+old,revised,51275,4,Dead,True,8.215444423092866e-18
+old,revised,51369,2,Herbaceous_woody_shrub,True,3.76650202930796e-18
+old,revised,51602,2,Herbaceous_woody_shrub,False,
+old,revised,51960,2,Herbaceous_woody_shrub,True,5.2453107553144695e-18
+old,revised,51975,4,Dead,True,5.9100740262590836e-18
+old,revised,52027,4,Dead,False,
+old,revised,52076,4,Dead,False,
+old,revised,52126,0,Deciduous,False,
+old,revised,52130,4,Dead,False,
+old,revised,52161,2,Herbaceous_woody_shrub,False,
+old,revised,52178,2,Herbaceous_woody_shrub,False,
+old,revised,52181,4,Dead,False,
+old,revised,52214,2,Herbaceous_woody_shrub,False,
+old,revised,52237,0,Deciduous,False,
+old,revised,52329,4,Dead,False,
+old,revised,52470,2,Herbaceous_woody_shrub,False,
+old,revised,52519,4,Dead,True,2.857972438735347e-18
+old,revised,52802,1,Evergreen,True,1.0971354589302191e-17
+old,revised,53154,1,Evergreen,True,1.0733679732586418e-17
+old,revised,53214,2,Herbaceous_woody_shrub,False,
+old,revised,53243,3,Bare_Rock,False,
+old,revised,53257,3,Bare_Rock,False,
+old,revised,53266,3,Bare_Rock,False,
+old,revised,53268,3,Bare_Rock,False,
+old,revised,53353,3,Bare_Rock,False,
+old,revised,53701,3,Bare_Rock,False,
+old,revised,53709,3,Bare_Rock,False,
+old,revised,53830,3,Bare_Rock,False,
+old,revised,53933,3,Bare_Rock,False,
+old,revised,54019,3,Bare_Rock,False,
+old,revised,54022,3,Bare_Rock,False,
+old,revised,54228,2,Herbaceous_woody_shrub,False,
+old,revised,54232,4,Dead,False,
+old,revised,54273,3,Bare_Rock,False,
+old,revised,54274,3,Bare_Rock,False,
+old,revised,54491,3,Bare_Rock,False,
+old,revised,54604,3,Bare_Rock,False,
+old,revised,55355,2,Herbaceous_woody_shrub,False,
+old,revised,55428,3,Bare_Rock,False,
+old,revised,55653,1,Evergreen,True,6.009258394948637e-18
+old,revised,55656,1,Evergreen,True,2.9322178529984802e-18
+old,revised,55658,2,Herbaceous_woody_shrub,True,6.150672057974582e-18
+old,revised,55960,2,Herbaceous_woody_shrub,False,
+old,revised,55961,1,Evergreen,True,3.2120837232132695e-18
+old,revised,56022,4,Dead,True,1.1801949199457557e-17
+old,revised,56918,4,Dead,True,1.2577813334954193e-17
+old,revised,56982,3,Bare_Rock,False,
+old,revised,56984,3,Bare_Rock,False,
+old,revised,57221,2,Herbaceous_woody_shrub,True,2.781746103385195e-18
+old,revised,57227,4,Dead,True,1.1728871411993921e-17
+old,revised,57524,1,Evergreen,True,2.781746103385195e-18
+old,revised,57779,1,Evergreen,True,5.611578599724417e-18
+old,revised,57862,3,Bare_Rock,False,
+old,revised,57947,4,Dead,True,2.6128019099674883e-17
+old,revised,58073,4,Dead,True,1.7197901409417366e-17
+old,revised,58089,1,Evergreen,True,3.9339830664858525e-18
+old,revised,58171,4,Dead,True,1.0653276505106203e-17
+old,revised,58253,2,Herbaceous_woody_shrub,False,
+old,revised,58273,1,Evergreen,False,
+old,revised,58274,1,Evergreen,False,
+old,revised,61387,4,Dead,False,
+old,revised,61835,2,Herbaceous_woody_shrub,False,
+old,revised,62332,4,Dead,False,
+old,revised,62822,1,Evergreen,False,
+old,revised,62836,4,Dead,False,
+old,revised,63187,2,Herbaceous_woody_shrub,True,9.813077866773595e-18
+old,revised,63930,1,Evergreen,False,
+old,revised,64247,2,Herbaceous_woody_shrub,False,
+old,revised,64469,1,Evergreen,True,9.59153514567091e-18
+old,revised,64942,2,Herbaceous_woody_shrub,False,
+old,revised,65409,1,Evergreen,False,
+old,revised,65627,2,Herbaceous_woody_shrub,True,9.085144729692145e-18
+old,revised,65667,2,Herbaceous_woody_shrub,False,
+old,revised,65840,2,Herbaceous_woody_shrub,True,1.3877787807814457e-17
+old,revised,66442,2,Herbaceous_woody_shrub,False,
+old,revised,66561,2,Herbaceous_woody_shrub,False,
+old,revised,66951,2,Herbaceous_woody_shrub,True,3.449564570756886e-17
+old,revised,66984,2,Herbaceous_woody_shrub,False,
+old,revised,67198,2,Herbaceous_woody_shrub,True,3.3993498887762956e-17
+old,revised,67201,2,Herbaceous_woody_shrub,True,2.3013707539344673e-17
+old,revised,67303,2,Herbaceous_woody_shrub,True,1.0813485141674955e-17
+old,revised,67408,2,Herbaceous_woody_shrub,True,1.3372970948103295e-17
+old,revised,67715,2,Herbaceous_woody_shrub,True,1.3113276888286175e-17
+old,revised,67924,2,Herbaceous_woody_shrub,True,5.482541725778363e-17
+old,revised,68154,2,Herbaceous_woody_shrub,True,2.5291972528566462e-17
+old,revised,68218,3,Bare_Rock,False,
+old,revised,68739,1,Evergreen,False,
+old,revised,68909,2,Herbaceous_woody_shrub,False,
+old,revised,69096,3,Bare_Rock,False,
+old,revised,69251,1,Evergreen,True,1.0892705872129002e-17
+old,revised,69352,2,Herbaceous_woody_shrub,True,6.556638444143087e-18
+old,revised,69468,2,Herbaceous_woody_shrub,True,1.2457613043871866e-17
+old,revised,69476,1,Evergreen,True,3.0046291974743185e-18
+old,revised,70052,1,Evergreen,False,
+old,revised,70299,2,Herbaceous_woody_shrub,False,
+old,revised,70773,2,Herbaceous_woody_shrub,False,
+old,revised,70817,2,Herbaceous_woody_shrub,False,
+old,revised,71103,2,Herbaceous_woody_shrub,False,
+old,revised,71250,3,Bare_Rock,False,
+old,revised,71310,3,Bare_Rock,False,
+old,revised,71406,3,Bare_Rock,False,
+old,revised,71411,3,Bare_Rock,False,
+old,revised,71466,3,Bare_Rock,False,
+old,revised,71472,3,Bare_Rock,False,
+old,revised,71483,3,Bare_Rock,False,
+old,revised,71516,3,Bare_Rock,False,
+old,revised,71541,3,Bare_Rock,False,
+old,revised,71550,3,Bare_Rock,False,
+old,revised,71554,3,Bare_Rock,False,
+old,revised,71556,3,Bare_Rock,False,
+old,revised,71564,3,Bare_Rock,False,
+old,revised,71606,3,Bare_Rock,False,
+old,revised,71620,3,Bare_Rock,False,
+old,revised,71631,3,Bare_Rock,False,
+old,revised,71710,3,Bare_Rock,False,
+old,revised,71718,3,Bare_Rock,False,
+old,revised,71733,3,Bare_Rock,False,
+old,revised,71747,3,Bare_Rock,False,
+old,revised,71748,3,Bare_Rock,False,
+old,revised,71770,3,Bare_Rock,False,
+old,revised,71803,3,Bare_Rock,False,
+old,revised,72026,3,Bare_Rock,False,
+old,revised,72328,3,Bare_Rock,False,
+old,revised,72339,3,Bare_Rock,False,
+old,revised,72461,3,Bare_Rock,False,
+old,revised,72980,3,Bare_Rock,False,
+old,revised,72993,3,Bare_Rock,False,
+old,revised,73188,3,Bare_Rock,False,
+old,revised,73217,4,Dead,True,1.2018516789897274e-17
+old,revised,73772,4,Dead,True,5.8644357059969605e-18
+old,revised,74315,2,Herbaceous_woody_shrub,False,
+old,revised,74316,2,Herbaceous_woody_shrub,True,1.6587129022171875e-17
+old,revised,74433,1,Evergreen,False,
+old,revised,74439,2,Herbaceous_woody_shrub,True,1.7197901409417366e-17
+old,revised,74647,3,Bare_Rock,False,
+old,revised,74850,2,Herbaceous_woody_shrub,False,
+old,revised,74951,2,Herbaceous_woody_shrub,True,1.1728871411993921e-17
+old,revised,74969,3,Bare_Rock,False,
+old,revised,75335,3,Bare_Rock,False,
+old,revised,75620,3,Bare_Rock,False,
+old,revised,75891,2,Herbaceous_woody_shrub,True,1.6895275405956192e-17
+old,revised,75896,4,Dead,True,1.9272502339279617e-17
+old,revised,76147,2,Herbaceous_woody_shrub,True,8.479383916704517e-18
+old,revised,76199,3,Bare_Rock,False,
+old,revised,76203,2,Herbaceous_woody_shrub,False,
+old,revised,76532,2,Herbaceous_woody_shrub,False,
+old,revised,77601,1,Evergreen,False,
+old,revised,77816,2,Herbaceous_woody_shrub,False,
+old,revised,78225,2,Herbaceous_woody_shrub,False,
+old,revised,78440,2,Herbaceous_woody_shrub,False,
+old,revised,78501,1,Evergreen,False,
+old,revised,78551,2,Herbaceous_woody_shrub,True,3.528421945603656e-17
+old,revised,78901,2,Herbaceous_woody_shrub,True,1.2160752708776703e-17
+old,revised,81152,4,Dead,False,
+old,revised,81342,1,Evergreen,True,6.4575399694154924e-18
+old,revised,81771,2,Herbaceous_woody_shrub,False,
+old,revised,81995,1,Evergreen,True,6.009258394948637e-18
+old,revised,82286,2,Herbaceous_woody_shrub,True,2.4880693533257815e-17
+old,revised,82870,1,Evergreen,True,6.150672057974582e-18
+old,revised,83023,2,Herbaceous_woody_shrub,False,
+old,revised,83139,1,Evergreen,True,2.7033712854187387e-18
+old,revised,83150,1,Evergreen,True,1.3500944877814736e-17
+old,revised,83578,1,Evergreen,False,
+old,revised,83613,1,Evergreen,True,5.601994342345145e-18
+old,revised,83620,1,Evergreen,True,5.4067425708374775e-18
+old,revised,83622,1,Evergreen,True,5.366839866293209e-18
+old,revised,83758,1,Evergreen,True,5.2453107553144695e-18
+old,revised,83769,1,Evergreen,True,6.044921962617286e-18
+old,revised,83835,1,Evergreen,True,2.4532694666933986e-17
+old,revised,83917,1,Evergreen,True,1.1946763809565923e-17
+old,revised,83918,1,Evergreen,True,5.4067425708374775e-18
+old,revised,83924,1,Evergreen,False,
+old,revised,83965,1,Evergreen,True,1.4661089264992401e-18
+old,revised,84022,1,Evergreen,False,
+old,revised,84052,1,Evergreen,True,1.4661089264992401e-18
+old,revised,84061,1,Evergreen,True,5.715944877470694e-18
+old,revised,84063,1,Evergreen,True,6.080376354388351e-18
+old,revised,84121,1,Evergreen,False,
+old,revised,84455,1,Evergreen,True,5.2453107553144695e-18
+old,revised,84463,1,Evergreen,False,
+old,revised,84477,1,Evergreen,True,4.357082348851601e-17
+old,revised,85197,1,Evergreen,False,
+old,revised,85591,2,Herbaceous_woody_shrub,False,
+new,original,9,3,Non-vegetated & dead,False,
+new,original,34,0,Deciduous,True,4.864301083510681e-17
+new,original,41,1,Evergreen,False,
+new,original,138,0,Deciduous,False,
+new,original,142,0,Deciduous,False,
+new,original,230,0,Deciduous,False,
+new,original,393,1,Evergreen,False,
+new,original,456,3,Non-vegetated & dead,False,
+new,original,488,1,Evergreen,False,
+new,original,503,1,Evergreen,False,
+new,original,623,0,Deciduous,False,
+new,original,728,1,Evergreen,False,
+new,original,740,2,Herbaceous,True,1.237104067435257e-17
+new,original,747,1,Evergreen,False,
+new,original,755,1,Evergreen,True,2.172613160241882e-17
+new,original,882,0,Deciduous,True,2.6029111416844597e-17
+new,original,929,0,Deciduous,False,
+new,original,986,0,Deciduous,False,
+new,original,1031,1,Evergreen,False,
+new,original,1127,1,Evergreen,False,
+new,original,1131,1,Evergreen,False,
+new,original,1326,0,Deciduous,True,2.3821450448518857e-17
+new,original,1617,3,Non-vegetated & dead,False,
+new,original,1639,1,Evergreen,False,
+new,original,1956,0,Deciduous,True,3.9339830664858525e-18
+new,original,2055,1,Evergreen,False,
+new,original,2060,1,Evergreen,False,
+new,original,2508,3,Non-vegetated & dead,False,
+new,original,2564,0,Deciduous,False,
+new,original,2624,0,Deciduous,True,1.0572261819816951e-17
+new,original,2645,3,Non-vegetated & dead,False,
+new,original,2693,2,Herbaceous,True,3.409451990954405e-17
+new,original,2862,1,Evergreen,False,
+new,original,3002,2,Herbaceous,False,
+new,original,3297,3,Non-vegetated & dead,False,
+new,original,3370,0,Deciduous,False,
+new,original,3473,0,Deciduous,True,1.8405361191110997e-17
+new,original,3625,2,Herbaceous,False,
+new,original,3674,1,Evergreen,False,
+new,original,3805,2,Herbaceous,False,
+new,original,4030,1,Evergreen,False,
+new,original,4181,0,Deciduous,False,
+new,original,4613,0,Deciduous,False,
+new,original,4918,0,Deciduous,False,
+new,original,5713,1,Evergreen,False,
+new,original,5742,0,Deciduous,False,
+new,original,5809,2,Herbaceous,True,3.827639510168493e-17
+new,original,5818,4,Woody shrub,False,
+new,original,5862,4,Woody shrub,True,1.0657311073137644e-16
+new,original,5976,1,Evergreen,False,
+new,original,6111,1,Evergreen,False,
+new,original,6373,1,Evergreen,False,
+new,original,6529,3,Non-vegetated & dead,False,
+new,original,6726,1,Evergreen,False,
+new,original,6860,1,Evergreen,False,
+new,original,6871,0,Deciduous,True,3.469446951953614e-18
+new,original,6927,0,Deciduous,False,
+new,original,6956,1,Evergreen,False,
+new,original,7209,0,Deciduous,False,
+new,original,7441,2,Herbaceous,False,
+new,original,7582,0,Deciduous,False,
+new,original,7595,0,Deciduous,True,2.1225692934790472e-17
+new,original,7702,4,Woody shrub,True,0.0
+new,original,7837,0,Deciduous,False,
+new,original,7998,0,Deciduous,False,
+new,original,8002,0,Deciduous,False,
+new,original,8487,0,Deciduous,False,
+new,original,8614,2,Herbaceous,False,
+new,original,8632,0,Deciduous,False,
+new,original,8731,0,Deciduous,True,2.1144523639633903e-17
+new,original,8941,2,Herbaceous,True,1.8544974022567967e-18
+new,original,8942,2,Herbaceous,True,6.876660414469846e-18
+new,original,8955,0,Deciduous,False,
+new,original,9057,0,Deciduous,True,2.549512416582222e-17
+new,original,9061,1,Evergreen,True,4.3885418357208765e-17
+new,original,9161,0,Deciduous,False,
+new,original,9874,0,Deciduous,True,6.556638444143087e-19
+new,original,9992,0,Deciduous,False,
+new,original,10094,3,Non-vegetated & dead,False,
+new,original,10097,0,Deciduous,False,
+new,original,10279,0,Deciduous,False,
+new,original,10280,0,Deciduous,True,9.272487011283983e-18
+new,original,10312,2,Herbaceous,True,2.2098887015566266e-17
+new,original,10314,4,Woody shrub,False,
+new,original,10471,0,Deciduous,False,
+new,original,10474,0,Deciduous,False,
+new,original,11171,0,Deciduous,False,
+new,original,11222,0,Deciduous,False,
+new,original,11392,2,Herbaceous,True,3.5478624340321564e-17
+new,original,11489,1,Evergreen,False,
+new,original,11562,1,Evergreen,False,
+new,original,11753,1,Evergreen,False,
+new,original,12112,0,Deciduous,True,1.0971354589302191e-17
+new,original,12142,0,Deciduous,False,
+new,original,12299,0,Deciduous,False,
+new,original,12521,1,Evergreen,False,
+new,original,12963,1,Evergreen,False,
+new,original,13223,2,Herbaceous,True,2.10221820709595e-17
+new,original,13304,0,Deciduous,False,
+new,original,13533,1,Evergreen,False,
+new,original,14468,0,Deciduous,True,3.0046291974743185e-18
+new,original,14578,1,Evergreen,False,
+new,original,14888,0,Deciduous,False,
+new,original,15238,0,Deciduous,False,
+new,original,15249,0,Deciduous,False,
+new,original,15301,1,Evergreen,False,
+new,original,15521,0,Deciduous,True,3.022460981308643e-18
+new,original,15842,1,Evergreen,True,1.0773656331788234e-17
+new,original,16114,1,Evergreen,False,
+new,original,16384,1,Evergreen,False,
+new,original,16634,1,Evergreen,False,
+new,original,16667,1,Evergreen,True,1.2160752708776703e-17
+new,original,16700,1,Evergreen,False,
+new,original,16718,1,Evergreen,True,4.2451385869580945e-17
+new,original,16727,1,Evergreen,False,
+new,original,16740,1,Evergreen,False,
+new,original,16901,1,Evergreen,True,1.1146285355043249e-17
+new,original,16907,0,Deciduous,False,
+new,original,17134,0,Deciduous,False,
+new,original,17135,1,Evergreen,True,2.6938130777026655e-17
+new,original,17210,1,Evergreen,False,
+new,original,17222,1,Evergreen,False,
+new,original,17238,1,Evergreen,False,
+new,original,17328,1,Evergreen,False,
+new,original,17498,1,Evergreen,True,4.232461205169225e-17
+new,original,17778,1,Evergreen,False,
+new,original,18028,4,Woody shrub,True,3.6640288449499173e-16
+new,original,18104,1,Evergreen,False,
+new,original,18248,1,Evergreen,True,2.9322178529984802e-18
+new,original,18310,1,Evergreen,False,
+new,original,19049,3,Non-vegetated & dead,False,
+new,original,19516,1,Evergreen,True,8.698363842096889e-17
+new,original,19635,4,Woody shrub,False,
+new,original,19886,1,Evergreen,False,
+new,original,20239,1,Evergreen,False,
+new,original,20430,2,Herbaceous,True,2.3603898398915114e-17
+new,original,20772,1,Evergreen,False,
+new,original,20817,1,Evergreen,False,
+new,original,21610,0,Deciduous,False,
+new,original,21669,2,Herbaceous,False,
+new,original,21713,0,Deciduous,False,
+new,original,21723,4,Woody shrub,True,2.198185766499951e-17
+new,original,21983,4,Woody shrub,True,1.1801949199457557e-17
+new,original,22543,0,Deciduous,False,
+new,original,22577,0,Deciduous,False,
+new,original,22923,0,Deciduous,True,6.2889066674770965e-18
+new,original,23602,0,Deciduous,False,
+new,original,23666,0,Deciduous,False,
+new,original,23884,0,Deciduous,False,
+new,original,23887,0,Deciduous,False,
+new,original,23910,2,Herbaceous,True,2.5155626669908386e-17
+new,original,24007,0,Deciduous,False,
+new,original,24613,0,Deciduous,False,
+new,original,24899,0,Deciduous,False,
+new,original,24900,0,Deciduous,False,
+new,original,24902,0,Deciduous,False,
+new,original,24932,2,Herbaceous,False,
+new,original,24951,3,Non-vegetated & dead,False,
+new,original,25454,1,Evergreen,False,
+new,original,25533,0,Deciduous,False,
+new,original,25812,0,Deciduous,False,
+new,original,25899,0,Deciduous,False,
+new,original,25931,2,Herbaceous,False,
+new,original,27159,1,Evergreen,True,1.1431889754941388e-17
+new,original,27160,0,Deciduous,False,
+new,original,27161,0,Deciduous,True,6.1156252082577076e-18
+new,original,27163,0,Deciduous,False,
+new,original,27248,1,Evergreen,True,8.515556444930326e-17
+new,original,27985,3,Non-vegetated & dead,False,
+new,original,28319,0,Deciduous,False,
+new,original,28477,1,Evergreen,False,
+new,original,28510,2,Herbaceous,True,2.5052880318105945e-17
+new,original,28606,1,Evergreen,False,
+new,original,28949,3,Non-vegetated & dead,False,
+new,original,29039,0,Deciduous,True,6.556638444143087e-18
+new,original,29110,1,Evergreen,False,
+new,original,29340,0,Deciduous,False,
+new,original,29948,3,Non-vegetated & dead,False,
+new,original,29955,3,Non-vegetated & dead,False,
+new,original,30028,0,Deciduous,False,
+new,original,30054,4,Woody shrub,False,
+new,original,30403,0,Deciduous,False,
+new,original,30556,3,Non-vegetated & dead,True,2.3640296105036334e-17
+new,original,31122,1,Evergreen,False,
+new,original,32152,1,Evergreen,False,
+new,original,32232,1,Evergreen,False,
+new,original,32237,1,Evergreen,False,
+new,original,32373,1,Evergreen,False,
+new,original,32470,1,Evergreen,False,
+new,original,32634,1,Evergreen,False,
+new,original,32712,4,Woody shrub,False,
+new,original,32747,1,Evergreen,False,
+new,original,32867,1,Evergreen,True,1.6638883060640372e-17
+new,original,33011,0,Deciduous,False,
+new,original,33232,1,Evergreen,False,
+new,original,33342,1,Evergreen,False,
+new,original,33529,0,Deciduous,False,
+new,original,33590,1,Evergreen,False,
+new,original,33592,1,Evergreen,False,
+new,original,33636,1,Evergreen,True,1.0833344635249872e-17
+new,original,33822,3,Non-vegetated & dead,False,
+new,original,34051,0,Deciduous,True,4.396371532999902e-17
+new,original,34078,1,Evergreen,True,2.4637610447108646e-17
+new,original,34090,0,Deciduous,False,
+new,original,34093,0,Deciduous,False,
+new,original,34370,3,Non-vegetated & dead,False,
+new,original,34457,2,Herbaceous,True,2.4637610447108646e-17
+new,original,34780,1,Evergreen,False,
+new,original,34910,1,Evergreen,False,
+new,original,35560,1,Evergreen,False,
+new,original,35854,1,Evergreen,False,
+new,original,36150,3,Non-vegetated & dead,False,
+new,original,36331,2,Herbaceous,True,5.56349220677039e-18
+new,original,36333,2,Herbaceous,True,4.2289047279267805e-17
+new,original,36421,1,Evergreen,False,
+new,original,36708,0,Deciduous,True,1.3113276888286175e-17
+new,original,37161,1,Evergreen,True,2.412415302692393e-16
+new,original,37597,1,Evergreen,True,2.1467359465172836e-17
+new,original,37630,0,Deciduous,True,7.061715720500897e-18
+new,original,37723,1,Evergreen,True,5.0855174588854375e-17
+new,original,37873,3,Non-vegetated & dead,False,
+new,original,37876,3,Non-vegetated & dead,False,
+new,original,37955,3,Non-vegetated & dead,False,
+new,original,38093,1,Evergreen,True,1.0673434094569561e-17
+new,original,38100,1,Evergreen,True,1.1874577264646749e-17
+new,original,38120,1,Evergreen,True,4.2126083099764194e-17
+new,original,38208,1,Evergreen,False,
+new,original,38567,4,Woody shrub,False,
+new,original,38750,1,Evergreen,True,5.9733819047829615e-18
+new,original,38754,1,Evergreen,False,
+new,original,38833,1,Evergreen,False,
+new,original,38928,1,Evergreen,True,5.296286790375672e-18
+new,original,39434,0,Deciduous,False,
+new,original,39940,1,Evergreen,False,
+new,original,39952,1,Evergreen,True,2.2522792693383698e-17
+new,original,40014,1,Evergreen,False,
+new,original,40109,1,Evergreen,True,5.678215456057591e-18
+new,original,40290,1,Evergreen,False,
+new,original,40313,1,Evergreen,False,
+new,original,40325,3,Non-vegetated & dead,False,
+new,original,40335,1,Evergreen,False,
+new,original,40392,4,Woody shrub,True,2.1225692934790472e-17
+new,original,40835,1,Evergreen,False,
+new,original,40891,0,Deciduous,False,
+new,original,40900,0,Deciduous,False,
+new,original,40944,1,Evergreen,False,
+new,original,41176,0,Deciduous,False,
+new,original,41642,0,Deciduous,False,
+new,original,41662,1,Evergreen,False,
+new,original,41685,1,Evergreen,True,2.2446314398897667e-17
+new,original,42114,3,Non-vegetated & dead,False,
+new,original,42130,3,Non-vegetated & dead,False,
+new,original,42148,0,Deciduous,True,4.2451385869580945e-17
+new,original,42206,1,Evergreen,True,1.490824452250841e-17
+new,original,42251,0,Deciduous,False,
+new,original,42346,1,Evergreen,False,
+new,original,42498,0,Deciduous,False,
+new,original,42562,1,Evergreen,True,2.162697028334991e-17
+new,original,42575,0,Deciduous,False,
+new,original,42637,0,Deciduous,False,
+new,original,42638,0,Deciduous,False,
+new,original,42649,1,Evergreen,False,
+new,original,42734,1,Evergreen,False,
+new,original,42741,1,Evergreen,False,
+new,original,42825,1,Evergreen,False,
+new,original,42839,1,Evergreen,False,
+new,original,42869,3,Non-vegetated & dead,False,
+new,original,42877,1,Evergreen,True,5.4067425708374775e-18
+new,original,43122,1,Evergreen,False,
+new,original,43140,1,Evergreen,False,
+new,original,43161,1,Evergreen,True,1.0833344635249872e-17
+new,original,43222,1,Evergreen,False,
+new,original,43226,1,Evergreen,True,2.118514716150269e-17
+new,original,43321,0,Deciduous,False,
+new,original,43438,1,Evergreen,True,1.6220227712512432e-17
+new,original,44352,1,Evergreen,False,
+new,original,44367,0,Deciduous,False,
+new,original,44612,4,Woody shrub,False,
+new,original,44689,0,Deciduous,False,
+new,original,44771,1,Evergreen,False,
+new,original,44772,4,Woody shrub,True,1.5349817384323778e-16
+new,original,44808,2,Herbaceous,True,3.3277766121280743e-17
+new,original,44817,1,Evergreen,False,
+new,original,44851,2,Herbaceous,False,
+new,original,44892,4,Woody shrub,False,
+new,original,44909,1,Evergreen,False,
+new,original,44910,0,Deciduous,False,
+new,original,44950,0,Deciduous,False,
+new,original,44995,0,Deciduous,True,4.331353270595769e-17
+new,original,45025,0,Deciduous,False,
+new,original,45113,1,Evergreen,False,
+new,original,45119,0,Deciduous,False,
+new,original,45120,0,Deciduous,False,
+new,original,45125,4,Woody shrub,False,
+new,original,45131,0,Deciduous,False,
+new,original,45132,4,Woody shrub,True,1.2738284686934632e-16
+new,original,45186,1,Evergreen,False,
+new,original,45187,4,Woody shrub,True,2.7364364430751673e-16
+new,original,45222,4,Woody shrub,False,
+new,original,45360,4,Woody shrub,False,
+new,original,45538,2,Herbaceous,False,
+new,original,45584,0,Deciduous,False,
+new,original,45739,4,Woody shrub,False,
+new,original,45773,4,Woody shrub,False,
+new,original,45774,4,Woody shrub,False,
+new,original,45878,3,Non-vegetated & dead,False,
+new,original,45906,4,Woody shrub,False,
+new,original,46087,1,Evergreen,False,
+new,original,46159,4,Woody shrub,False,
+new,original,46186,4,Woody shrub,False,
+new,original,46326,2,Herbaceous,False,
+new,original,46492,0,Deciduous,False,
+new,original,46517,4,Woody shrub,False,
+new,original,46518,4,Woody shrub,False,
+new,original,46591,4,Woody shrub,False,
+new,original,46592,4,Woody shrub,False,
+new,original,46603,3,Non-vegetated & dead,False,
+new,original,46700,1,Evergreen,False,
+new,original,46755,2,Herbaceous,False,
+new,original,46822,4,Woody shrub,False,
+new,original,46865,3,Non-vegetated & dead,False,
+new,original,46992,3,Non-vegetated & dead,False,
+new,original,47174,4,Woody shrub,False,
+new,original,47175,4,Woody shrub,False,
+new,original,47216,3,Non-vegetated & dead,False,
+new,original,47314,1,Evergreen,False,
+new,original,47323,3,Non-vegetated & dead,False,
+new,original,47430,3,Non-vegetated & dead,False,
+new,original,47642,1,Evergreen,False,
+new,original,47944,0,Deciduous,False,
+new,original,47954,0,Deciduous,False,
+new,original,48059,1,Evergreen,False,
+new,original,48158,0,Deciduous,False,
+new,original,48176,0,Deciduous,False,
+new,original,48435,0,Deciduous,False,
+new,original,48590,1,Evergreen,False,
+new,original,48613,0,Deciduous,False,
+new,original,48626,4,Woody shrub,False,
+new,original,48850,3,Non-vegetated & dead,False,
+new,original,48861,3,Non-vegetated & dead,False,
+new,original,48883,0,Deciduous,False,
+new,original,49130,4,Woody shrub,False,
+new,original,49192,0,Deciduous,False,
+new,original,49978,0,Deciduous,False,
+new,original,49991,0,Deciduous,False,
+new,original,50058,1,Evergreen,False,
+new,original,50445,0,Deciduous,False,
+new,original,50638,1,Evergreen,False,
+new,original,50670,3,Non-vegetated & dead,False,
+new,original,50697,3,Non-vegetated & dead,False,
+new,original,51048,1,Evergreen,False,
+new,original,51274,4,Woody shrub,True,3.469446951953614e-18
+new,original,51368,1,Evergreen,False,
+new,original,51601,1,Evergreen,True,4.295473978428075e-17
+new,original,51959,2,Herbaceous,True,1.120398868469029e-17
+new,original,51974,3,Non-vegetated & dead,False,
+new,original,52026,3,Non-vegetated & dead,False,
+new,original,52075,3,Non-vegetated & dead,False,
+new,original,52125,0,Deciduous,True,1.0990928832499755e-17
+new,original,52129,1,Evergreen,True,2.240797736938058e-17
+new,original,52160,4,Woody shrub,True,9.959186318969168e-17
+new,original,52213,4,Woody shrub,True,6.412110818759491e-17
+new,original,52469,0,Deciduous,False,
+new,original,52518,0,Deciduous,False,
+new,original,52801,1,Evergreen,True,1.3178680171259523e-17
+new,original,53153,1,Evergreen,True,1.3259980635005079e-17
+new,original,53213,2,Herbaceous,False,
+new,original,53242,3,Non-vegetated & dead,False,
+new,original,53256,3,Non-vegetated & dead,False,
+new,original,53265,3,Non-vegetated & dead,False,
+new,original,53267,3,Non-vegetated & dead,False,
+new,original,53352,3,Non-vegetated & dead,False,
+new,original,53700,3,Non-vegetated & dead,False,
+new,original,53708,3,Non-vegetated & dead,False,
+new,original,53829,3,Non-vegetated & dead,False,
+new,original,53932,3,Non-vegetated & dead,False,
+new,original,54018,3,Non-vegetated & dead,False,
+new,original,54021,3,Non-vegetated & dead,False,
+new,original,54227,2,Herbaceous,True,4.4275518636567183e-17
+new,original,54231,3,Non-vegetated & dead,False,
+new,original,54272,3,Non-vegetated & dead,False,
+new,original,54273,3,Non-vegetated & dead,False,
+new,original,54490,3,Non-vegetated & dead,False,
+new,original,54603,3,Non-vegetated & dead,False,
+new,original,55354,4,Woody shrub,False,
+new,original,55427,3,Non-vegetated & dead,False,
+new,original,55652,4,Woody shrub,False,
+new,original,55655,1,Evergreen,True,6.34335709189017e-17
+new,original,55657,1,Evergreen,False,
+new,original,55959,4,Woody shrub,False,
+new,original,55960,4,Woody shrub,False,
+new,original,56021,3,Non-vegetated & dead,False,
+new,original,56917,3,Non-vegetated & dead,False,
+new,original,56981,3,Non-vegetated & dead,False,
+new,original,56983,3,Non-vegetated & dead,False,
+new,original,57220,1,Evergreen,True,2.259901217584776e-17
+new,original,57226,3,Non-vegetated & dead,False,
+new,original,57523,4,Woody shrub,False,
+new,original,57778,1,Evergreen,True,7.100570020467783e-17
+new,original,57861,3,Non-vegetated & dead,False,
+new,original,57946,3,Non-vegetated & dead,False,
+new,original,58072,4,Woody shrub,True,2.4321505417553405e-17
+new,original,58088,3,Non-vegetated & dead,False,
+new,original,58170,3,Non-vegetated & dead,False,
+new,original,58252,4,Woody shrub,True,2.7033712854187387e-18
+new,original,58272,1,Evergreen,False,
+new,original,58273,1,Evergreen,False,
+new,original,62331,3,Non-vegetated & dead,False,
+new,original,64468,1,Evergreen,False,
+new,original,65408,4,Woody shrub,False,
+new,original,66441,2,Herbaceous,False,
+new,original,66560,2,Herbaceous,True,2.349436695686525e-17
+new,original,66983,2,Herbaceous,False,
+new,original,67407,4,Woody shrub,True,2.1467359465172836e-17
+new,original,67714,2,Herbaceous,True,2.1666689270499745e-17
+new,original,68217,4,Woody shrub,True,5.8644357059969605e-18
+new,original,68738,1,Evergreen,False,
+new,original,68908,0,Deciduous,False,
+new,original,69095,4,Woody shrub,True,1.3372970948103295e-17
+new,original,69250,1,Evergreen,False,
+new,original,69351,4,Woody shrub,True,9.597807930572715e-17
+new,original,69467,4,Woody shrub,True,2.769355190545115e-17
+new,original,69475,4,Woody shrub,False,
+new,original,70051,1,Evergreen,False,
+new,original,71249,1,Evergreen,True,1.2231250416515415e-17
+new,original,71309,3,Non-vegetated & dead,False,
+new,original,71405,3,Non-vegetated & dead,False,
+new,original,71410,3,Non-vegetated & dead,False,
+new,original,71465,3,Non-vegetated & dead,False,
+new,original,71471,3,Non-vegetated & dead,False,
+new,original,71482,3,Non-vegetated & dead,False,
+new,original,71515,3,Non-vegetated & dead,False,
+new,original,71540,3,Non-vegetated & dead,False,
+new,original,71549,3,Non-vegetated & dead,False,
+new,original,71553,3,Non-vegetated & dead,False,
+new,original,71555,3,Non-vegetated & dead,False,
+new,original,71563,3,Non-vegetated & dead,False,
+new,original,71605,3,Non-vegetated & dead,False,
+new,original,71619,3,Non-vegetated & dead,False,
+new,original,71630,3,Non-vegetated & dead,False,
+new,original,71709,3,Non-vegetated & dead,False,
+new,original,71717,3,Non-vegetated & dead,False,
+new,original,71732,3,Non-vegetated & dead,False,
+new,original,71746,3,Non-vegetated & dead,False,
+new,original,71747,3,Non-vegetated & dead,False,
+new,original,71769,3,Non-vegetated & dead,False,
+new,original,71802,3,Non-vegetated & dead,False,
+new,original,72025,3,Non-vegetated & dead,False,
+new,original,72327,3,Non-vegetated & dead,False,
+new,original,72338,3,Non-vegetated & dead,False,
+new,original,72460,3,Non-vegetated & dead,False,
+new,original,72979,3,Non-vegetated & dead,False,
+new,original,72992,3,Non-vegetated & dead,False,
+new,original,73187,3,Non-vegetated & dead,False,
+new,original,73216,3,Non-vegetated & dead,False,
+new,original,74432,1,Evergreen,False,
+new,original,74438,1,Evergreen,False,
+new,original,74950,4,Woody shrub,False,
+new,original,74968,1,Evergreen,False,
+new,original,75334,3,Non-vegetated & dead,False,
+new,original,75619,3,Non-vegetated & dead,False,
+new,original,75890,1,Evergreen,True,4.519802435169552e-17
+new,original,75895,3,Non-vegetated & dead,False,
+new,original,76146,4,Woody shrub,True,5.3971928267254766e-17
+new,original,76198,4,Woody shrub,True,7.343435057440258e-17
+new,original,76202,4,Woody shrub,False,
+new,original,76531,4,Woody shrub,False,
+new,original,77600,1,Evergreen,False,
+new,original,77815,2,Herbaceous,True,1.2018516789897274e-17
+new,original,78439,4,Woody shrub,False,
+new,original,78500,2,Herbaceous,True,1.6006794364138058e-17
+new,original,78550,2,Herbaceous,True,1.2301344115949163e-17
+new,original,81151,3,Non-vegetated & dead,False,
+new,original,81341,1,Evergreen,True,5.9733819047829615e-18
+new,original,81770,4,Woody shrub,False,
+new,original,81994,1,Evergreen,True,1.1049443507783133e-17
+new,original,82285,4,Woody shrub,True,1.6791140140438094e-16
+new,original,82869,1,Evergreen,True,1.506600811723184e-17
+new,original,83022,1,Evergreen,False,
+new,original,83138,1,Evergreen,True,8.110113856256216e-18
+new,original,83149,1,Evergreen,True,2.435683078899158e-17
+new,original,83577,1,Evergreen,True,2.3929484791647834e-17
+new,original,83612,1,Evergreen,True,1.0572261819816951e-17
+new,original,83619,1,Evergreen,True,4.2451385869580945e-17
+new,original,83621,1,Evergreen,True,1.3211260394454924e-17
+new,original,83757,1,Evergreen,True,2.385751625334724e-17
+new,original,83768,1,Evergreen,False,
+new,original,83834,3,Non-vegetated & dead,False,
+new,original,83916,1,Evergreen,False,
+new,original,83917,1,Evergreen,True,3.469446951953614e-18
+new,original,83923,1,Evergreen,True,5.364035560569398e-17
+new,original,83964,1,Evergreen,False,
+new,original,84051,1,Evergreen,False,
+new,original,84060,1,Evergreen,True,1.1801949199457557e-17
+new,original,84062,1,Evergreen,True,1.5179715451992927e-17
+new,original,84120,1,Evergreen,True,1.1356430912115181e-17
+new,original,84454,1,Evergreen,False,
+new,original,84462,3,Non-vegetated & dead,False,
+new,original,84476,1,Evergreen,False,
+new,original,85196,1,Evergreen,True,1.5952989861098555e-17
+new,original,85590,1,Evergreen,True,4.4969172124985776e-17
+new,revised,9,3,Bare_Rock,False,
+new,revised,34,0,Deciduous,True,4.864301083510681e-17
+new,revised,41,1,Evergreen,False,
+new,revised,138,0,Deciduous,False,
+new,revised,142,0,Deciduous,False,
+new,revised,230,0,Deciduous,False,
+new,revised,393,1,Evergreen,False,
+new,revised,456,4,Dead,False,
+new,revised,488,1,Evergreen,False,
+new,revised,503,1,Evergreen,False,
+new,revised,623,0,Deciduous,False,
+new,revised,728,1,Evergreen,False,
+new,revised,740,2,Herbaceous_woody_shrub,True,1.5515838457795457e-17
+new,revised,747,1,Evergreen,False,
+new,revised,755,1,Evergreen,True,2.172613160241882e-17
+new,revised,882,0,Deciduous,True,2.6029111416844597e-17
+new,revised,929,0,Deciduous,False,
+new,revised,986,0,Deciduous,False,
+new,revised,1031,1,Evergreen,False,
+new,revised,1127,1,Evergreen,False,
+new,revised,1131,1,Evergreen,False,
+new,revised,1326,0,Deciduous,True,2.3821450448518857e-17
+new,revised,1617,3,Bare_Rock,False,
+new,revised,1639,1,Evergreen,False,
+new,revised,1956,0,Deciduous,True,3.9339830664858525e-18
+new,revised,2055,1,Evergreen,False,
+new,revised,2060,1,Evergreen,False,
+new,revised,2508,3,Bare_Rock,False,
+new,revised,2564,0,Deciduous,False,
+new,revised,2624,0,Deciduous,True,1.0572261819816951e-17
+new,revised,2645,3,Bare_Rock,False,
+new,revised,2693,2,Herbaceous_woody_shrub,True,4.437250784071654e-17
+new,revised,2862,1,Evergreen,False,
+new,revised,3002,2,Herbaceous_woody_shrub,False,
+new,revised,3297,3,Bare_Rock,False,
+new,revised,3370,0,Deciduous,False,
+new,revised,3473,0,Deciduous,True,1.8405361191110997e-17
+new,revised,3625,2,Herbaceous_woody_shrub,False,
+new,revised,3674,1,Evergreen,False,
+new,revised,3805,2,Herbaceous_woody_shrub,False,
+new,revised,4030,1,Evergreen,False,
+new,revised,4181,0,Deciduous,False,
+new,revised,4613,0,Deciduous,False,
+new,revised,4918,0,Deciduous,False,
+new,revised,5713,1,Evergreen,False,
+new,revised,5742,0,Deciduous,False,
+new,revised,5809,2,Herbaceous_woody_shrub,True,6.768280386589816e-17
+new,revised,5818,2,Herbaceous_woody_shrub,False,
+new,revised,5862,2,Herbaceous_woody_shrub,True,2.2712861824230363e-17
+new,revised,5976,1,Evergreen,False,
+new,revised,6111,1,Evergreen,False,
+new,revised,6373,1,Evergreen,False,
+new,revised,6529,3,Bare_Rock,False,
+new,revised,6726,1,Evergreen,False,
+new,revised,6860,1,Evergreen,False,
+new,revised,6871,0,Deciduous,True,3.469446951953614e-18
+new,revised,6927,0,Deciduous,False,
+new,revised,6956,1,Evergreen,False,
+new,revised,7209,0,Deciduous,False,
+new,revised,7441,2,Herbaceous_woody_shrub,False,
+new,revised,7582,0,Deciduous,False,
+new,revised,7595,0,Deciduous,True,2.1225692934790472e-17
+new,revised,7702,2,Herbaceous_woody_shrub,True,2.3785329957008175e-17
+new,revised,7837,0,Deciduous,False,
+new,revised,7998,0,Deciduous,False,
+new,revised,8002,0,Deciduous,False,
+new,revised,8487,0,Deciduous,False,
+new,revised,8614,2,Herbaceous_woody_shrub,False,
+new,revised,8632,0,Deciduous,False,
+new,revised,8731,0,Deciduous,True,2.1144523639633903e-17
+new,revised,8941,2,Herbaceous_woody_shrub,True,8.083566767496075e-18
+new,revised,8942,2,Herbaceous_woody_shrub,True,4.2491873609703695e-18
+new,revised,8955,0,Deciduous,False,
+new,revised,9057,0,Deciduous,True,2.549512416582222e-17
+new,revised,9061,1,Evergreen,True,4.3885418357208765e-17
+new,revised,9161,0,Deciduous,False,
+new,revised,9874,0,Deciduous,True,6.556638444143087e-19
+new,revised,9992,0,Deciduous,False,
+new,revised,10094,3,Bare_Rock,False,
+new,revised,10097,0,Deciduous,False,
+new,revised,10279,0,Deciduous,False,
+new,revised,10280,0,Deciduous,True,9.272487011283983e-18
+new,revised,10312,2,Herbaceous_woody_shrub,True,2.2098887015566266e-17
+new,revised,10314,2,Herbaceous_woody_shrub,False,
+new,revised,10471,0,Deciduous,False,
+new,revised,10474,0,Deciduous,False,
+new,revised,11171,0,Deciduous,False,
+new,revised,11222,0,Deciduous,False,
+new,revised,11392,2,Herbaceous_woody_shrub,True,3.5478624340321564e-17
+new,revised,11489,1,Evergreen,False,
+new,revised,11562,1,Evergreen,False,
+new,revised,11753,1,Evergreen,False,
+new,revised,12112,0,Deciduous,True,1.0971354589302191e-17
+new,revised,12142,0,Deciduous,False,
+new,revised,12299,0,Deciduous,False,
+new,revised,12521,1,Evergreen,False,
+new,revised,12963,1,Evergreen,False,
+new,revised,13223,2,Herbaceous_woody_shrub,True,2.1666689270499745e-17
+new,revised,13304,0,Deciduous,False,
+new,revised,13533,1,Evergreen,False,
+new,revised,14468,0,Deciduous,True,3.0046291974743185e-18
+new,revised,14578,1,Evergreen,False,
+new,revised,14888,0,Deciduous,False,
+new,revised,15238,0,Deciduous,False,
+new,revised,15249,0,Deciduous,False,
+new,revised,15301,1,Evergreen,False,
+new,revised,15521,0,Deciduous,True,3.022460981308643e-18
+new,revised,15842,1,Evergreen,True,1.0773656331788234e-17
+new,revised,16114,1,Evergreen,False,
+new,revised,16384,1,Evergreen,False,
+new,revised,16634,1,Evergreen,False,
+new,revised,16667,1,Evergreen,True,1.2160752708776703e-17
+new,revised,16700,1,Evergreen,False,
+new,revised,16718,1,Evergreen,True,4.2451385869580945e-17
+new,revised,16727,1,Evergreen,False,
+new,revised,16740,1,Evergreen,False,
+new,revised,16901,1,Evergreen,True,1.1146285355043249e-17
+new,revised,16907,0,Deciduous,False,
+new,revised,17134,0,Deciduous,False,
+new,revised,17135,1,Evergreen,True,2.6938130777026655e-17
+new,revised,17210,1,Evergreen,False,
+new,revised,17222,1,Evergreen,False,
+new,revised,17238,1,Evergreen,False,
+new,revised,17328,1,Evergreen,False,
+new,revised,17498,1,Evergreen,True,4.232461205169225e-17
+new,revised,17778,1,Evergreen,False,
+new,revised,18028,2,Herbaceous_woody_shrub,True,7.086024624475082e-17
+new,revised,18104,1,Evergreen,False,
+new,revised,18248,1,Evergreen,True,2.9322178529984802e-18
+new,revised,18310,1,Evergreen,False,
+new,revised,19049,4,Dead,False,
+new,revised,19516,1,Evergreen,True,8.698363842096889e-17
+new,revised,19635,2,Herbaceous_woody_shrub,False,
+new,revised,19886,1,Evergreen,False,
+new,revised,20239,1,Evergreen,False,
+new,revised,20430,2,Herbaceous_woody_shrub,True,2.162697028334991e-17
+new,revised,20772,1,Evergreen,False,
+new,revised,20817,1,Evergreen,False,
+new,revised,21610,0,Deciduous,False,
+new,revised,21669,2,Herbaceous_woody_shrub,False,
+new,revised,21713,0,Deciduous,False,
+new,revised,21723,2,Herbaceous_woody_shrub,True,4.146782255542969e-18
+new,revised,21983,2,Herbaceous_woody_shrub,True,1.2089843925234572e-17
+new,revised,22543,0,Deciduous,False,
+new,revised,22577,0,Deciduous,False,
+new,revised,22923,0,Deciduous,True,6.2889066674770965e-18
+new,revised,23602,0,Deciduous,False,
+new,revised,23666,0,Deciduous,False,
+new,revised,23884,0,Deciduous,False,
+new,revised,23887,0,Deciduous,False,
+new,revised,23910,2,Herbaceous_woody_shrub,False,
+new,revised,24007,0,Deciduous,False,
+new,revised,24613,0,Deciduous,False,
+new,revised,24899,0,Deciduous,False,
+new,revised,24900,0,Deciduous,False,
+new,revised,24902,0,Deciduous,False,
+new,revised,24932,2,Herbaceous_woody_shrub,False,
+new,revised,24951,4,Dead,True,1.1431889754941388e-17
+new,revised,25454,1,Evergreen,False,
+new,revised,25533,0,Deciduous,False,
+new,revised,25812,0,Deciduous,False,
+new,revised,25899,0,Deciduous,False,
+new,revised,25931,2,Herbaceous_woody_shrub,False,
+new,revised,27159,1,Evergreen,True,1.1431889754941388e-17
+new,revised,27160,0,Deciduous,False,
+new,revised,27161,0,Deciduous,True,6.1156252082577076e-18
+new,revised,27163,0,Deciduous,False,
+new,revised,27248,1,Evergreen,True,8.515556444930326e-17
+new,revised,27985,3,Bare_Rock,False,
+new,revised,28319,0,Deciduous,False,
+new,revised,28477,1,Evergreen,False,
+new,revised,28510,2,Herbaceous_woody_shrub,True,2.2098887015566266e-17
+new,revised,28606,1,Evergreen,False,
+new,revised,28949,3,Bare_Rock,False,
+new,revised,29039,0,Deciduous,True,6.556638444143087e-18
+new,revised,29110,1,Evergreen,False,
+new,revised,29340,0,Deciduous,False,
+new,revised,29948,3,Bare_Rock,False,
+new,revised,29955,3,Bare_Rock,False,
+new,revised,30028,0,Deciduous,False,
+new,revised,30054,2,Herbaceous_woody_shrub,False,
+new,revised,30403,0,Deciduous,False,
+new,revised,30556,4,Dead,True,3.108704123599728e-17
+new,revised,31122,1,Evergreen,False,
+new,revised,32152,1,Evergreen,False,
+new,revised,32232,1,Evergreen,False,
+new,revised,32237,1,Evergreen,False,
+new,revised,32373,1,Evergreen,False,
+new,revised,32470,1,Evergreen,False,
+new,revised,32634,1,Evergreen,False,
+new,revised,32712,2,Herbaceous_woody_shrub,False,
+new,revised,32747,1,Evergreen,False,
+new,revised,32867,1,Evergreen,True,1.6638883060640372e-17
+new,revised,33011,0,Deciduous,False,
+new,revised,33232,1,Evergreen,False,
+new,revised,33342,1,Evergreen,False,
+new,revised,33529,0,Deciduous,False,
+new,revised,33590,1,Evergreen,False,
+new,revised,33592,1,Evergreen,False,
+new,revised,33636,1,Evergreen,True,1.0833344635249872e-17
+new,revised,33822,4,Dead,True,1.4907667790094704e-16
+new,revised,34051,0,Deciduous,True,4.396371532999902e-17
+new,revised,34078,1,Evergreen,True,2.4637610447108646e-17
+new,revised,34090,0,Deciduous,False,
+new,revised,34093,0,Deciduous,False,
+new,revised,34370,4,Dead,False,
+new,revised,34457,2,Herbaceous_woody_shrub,True,1.6378477583958226e-17
+new,revised,34780,1,Evergreen,False,
+new,revised,34910,1,Evergreen,False,
+new,revised,35560,1,Evergreen,False,
+new,revised,35854,1,Evergreen,False,
+new,revised,36150,4,Dead,False,
+new,revised,36331,2,Herbaceous_woody_shrub,True,2.1864201917331257e-17
+new,revised,36333,2,Herbaceous_woody_shrub,True,5.4067425708374775e-18
+new,revised,36421,1,Evergreen,False,
+new,revised,36708,0,Deciduous,True,1.3113276888286175e-17
+new,revised,37161,1,Evergreen,True,2.412415302692393e-16
+new,revised,37597,1,Evergreen,True,2.1467359465172836e-17
+new,revised,37630,0,Deciduous,True,7.061715720500897e-18
+new,revised,37723,1,Evergreen,True,5.0855174588854375e-17
+new,revised,37873,4,Dead,False,
+new,revised,37876,3,Bare_Rock,False,
+new,revised,37955,3,Bare_Rock,True,1.8544974022567967e-18
+new,revised,38093,1,Evergreen,True,1.0673434094569561e-17
+new,revised,38100,1,Evergreen,True,1.1874577264646749e-17
+new,revised,38120,1,Evergreen,True,4.2126083099764194e-17
+new,revised,38208,1,Evergreen,False,
+new,revised,38567,2,Herbaceous_woody_shrub,False,
+new,revised,38750,1,Evergreen,True,5.9733819047829615e-18
+new,revised,38754,1,Evergreen,False,
+new,revised,38833,1,Evergreen,False,
+new,revised,38928,1,Evergreen,True,5.296286790375672e-18
+new,revised,39434,0,Deciduous,False,
+new,revised,39940,1,Evergreen,False,
+new,revised,39952,1,Evergreen,True,2.2522792693383698e-17
+new,revised,40014,1,Evergreen,False,
+new,revised,40109,1,Evergreen,True,5.678215456057591e-18
+new,revised,40290,1,Evergreen,False,
+new,revised,40313,1,Evergreen,False,
+new,revised,40325,4,Dead,False,
+new,revised,40335,1,Evergreen,False,
+new,revised,40392,2,Herbaceous_woody_shrub,True,1.0693553686590446e-17
+new,revised,40835,1,Evergreen,False,
+new,revised,40891,0,Deciduous,False,
+new,revised,40900,0,Deciduous,False,
+new,revised,40944,1,Evergreen,False,
+new,revised,41176,0,Deciduous,False,
+new,revised,41642,0,Deciduous,False,
+new,revised,41662,1,Evergreen,False,
+new,revised,41685,1,Evergreen,True,2.2446314398897667e-17
+new,revised,42114,4,Dead,False,
+new,revised,42130,3,Bare_Rock,False,
+new,revised,42148,0,Deciduous,True,4.2451385869580945e-17
+new,revised,42206,1,Evergreen,True,1.490824452250841e-17
+new,revised,42251,0,Deciduous,False,
+new,revised,42346,1,Evergreen,False,
+new,revised,42498,0,Deciduous,False,
+new,revised,42562,1,Evergreen,True,2.162697028334991e-17
+new,revised,42575,0,Deciduous,False,
+new,revised,42637,0,Deciduous,False,
+new,revised,42638,0,Deciduous,False,
+new,revised,42649,1,Evergreen,False,
+new,revised,42734,1,Evergreen,False,
+new,revised,42741,1,Evergreen,False,
+new,revised,42825,1,Evergreen,False,
+new,revised,42839,1,Evergreen,False,
+new,revised,42869,4,Dead,False,
+new,revised,42877,1,Evergreen,True,5.4067425708374775e-18
+new,revised,43122,1,Evergreen,False,
+new,revised,43140,1,Evergreen,False,
+new,revised,43161,1,Evergreen,True,1.0833344635249872e-17
+new,revised,43222,1,Evergreen,False,
+new,revised,43226,1,Evergreen,True,2.118514716150269e-17
+new,revised,43321,0,Deciduous,False,
+new,revised,43438,1,Evergreen,True,1.6220227712512432e-17
+new,revised,44352,1,Evergreen,False,
+new,revised,44367,0,Deciduous,False,
+new,revised,44612,2,Herbaceous_woody_shrub,False,
+new,revised,44689,0,Deciduous,False,
+new,revised,44771,1,Evergreen,False,
+new,revised,44772,2,Herbaceous_woody_shrub,True,6.651676579004857e-17
+new,revised,44808,2,Herbaceous_woody_shrub,True,4.419777403113253e-17
+new,revised,44817,1,Evergreen,False,
+new,revised,44851,2,Herbaceous_woody_shrub,False,
+new,revised,44892,2,Herbaceous_woody_shrub,False,
+new,revised,44909,1,Evergreen,False,
+new,revised,44910,0,Deciduous,False,
+new,revised,44950,0,Deciduous,False,
+new,revised,44995,0,Deciduous,True,4.331353270595769e-17
+new,revised,45025,0,Deciduous,False,
+new,revised,45113,1,Evergreen,False,
+new,revised,45119,0,Deciduous,False,
+new,revised,45120,0,Deciduous,False,
+new,revised,45125,2,Herbaceous_woody_shrub,False,
+new,revised,45131,0,Deciduous,False,
+new,revised,45132,2,Herbaceous_woody_shrub,True,1.1932361436868076e-16
+new,revised,45186,1,Evergreen,False,
+new,revised,45187,2,Herbaceous_woody_shrub,True,4.371365480827141e-17
+new,revised,45222,2,Herbaceous_woody_shrub,False,
+new,revised,45360,2,Herbaceous_woody_shrub,False,
+new,revised,45538,2,Herbaceous_woody_shrub,False,
+new,revised,45584,0,Deciduous,False,
+new,revised,45739,2,Herbaceous_woody_shrub,False,
+new,revised,45773,2,Herbaceous_woody_shrub,False,
+new,revised,45774,2,Herbaceous_woody_shrub,False,
+new,revised,45878,4,Dead,False,
+new,revised,45906,2,Herbaceous_woody_shrub,False,
+new,revised,46087,1,Evergreen,False,
+new,revised,46159,2,Herbaceous_woody_shrub,False,
+new,revised,46186,2,Herbaceous_woody_shrub,False,
+new,revised,46326,2,Herbaceous_woody_shrub,False,
+new,revised,46492,0,Deciduous,False,
+new,revised,46517,2,Herbaceous_woody_shrub,False,
+new,revised,46518,2,Herbaceous_woody_shrub,False,
+new,revised,46591,2,Herbaceous_woody_shrub,False,
+new,revised,46592,2,Herbaceous_woody_shrub,False,
+new,revised,46603,4,Dead,False,
+new,revised,46700,1,Evergreen,False,
+new,revised,46755,2,Herbaceous_woody_shrub,False,
+new,revised,46822,2,Herbaceous_woody_shrub,False,
+new,revised,46865,4,Dead,False,
+new,revised,46992,4,Dead,True,3.5211040906216945e-17
+new,revised,47174,2,Herbaceous_woody_shrub,False,
+new,revised,47175,2,Herbaceous_woody_shrub,False,
+new,revised,47216,3,Bare_Rock,False,
+new,revised,47314,1,Evergreen,False,
+new,revised,47323,4,Dead,False,
+new,revised,47430,4,Dead,False,
+new,revised,47642,1,Evergreen,False,
+new,revised,47944,0,Deciduous,False,
+new,revised,47954,0,Deciduous,False,
+new,revised,48059,1,Evergreen,False,
+new,revised,48158,0,Deciduous,False,
+new,revised,48176,0,Deciduous,False,
+new,revised,48435,0,Deciduous,False,
+new,revised,48590,1,Evergreen,False,
+new,revised,48613,0,Deciduous,False,
+new,revised,48626,2,Herbaceous_woody_shrub,False,
+new,revised,48850,3,Bare_Rock,False,
+new,revised,48861,3,Bare_Rock,False,
+new,revised,48883,0,Deciduous,False,
+new,revised,49130,2,Herbaceous_woody_shrub,False,
+new,revised,49192,0,Deciduous,False,
+new,revised,49978,0,Deciduous,False,
+new,revised,49991,0,Deciduous,False,
+new,revised,50058,1,Evergreen,False,
+new,revised,50445,0,Deciduous,False,
+new,revised,50638,1,Evergreen,False,
+new,revised,50670,4,Dead,False,
+new,revised,50697,3,Bare_Rock,False,
+new,revised,51048,1,Evergreen,False,
+new,revised,51274,2,Herbaceous_woody_shrub,False,
+new,revised,51368,1,Evergreen,False,
+new,revised,51601,1,Evergreen,True,4.295473978428075e-17
+new,revised,51959,2,Herbaceous_woody_shrub,True,9.212951968703487e-17
+new,revised,51974,4,Dead,False,
+new,revised,52026,4,Dead,False,
+new,revised,52075,4,Dead,False,
+new,revised,52125,0,Deciduous,True,1.0990928832499755e-17
+new,revised,52129,1,Evergreen,True,2.240797736938058e-17
+new,revised,52160,2,Herbaceous_woody_shrub,True,8.852190384998261e-17
+new,revised,52213,2,Herbaceous_woody_shrub,True,2.2331105865399838e-17
+new,revised,52469,0,Deciduous,False,
+new,revised,52518,0,Deciduous,False,
+new,revised,52801,1,Evergreen,True,1.3178680171259523e-17
+new,revised,53153,1,Evergreen,True,1.3259980635005079e-17
+new,revised,53213,2,Herbaceous_woody_shrub,False,
+new,revised,53242,3,Bare_Rock,False,
+new,revised,53256,3,Bare_Rock,False,
+new,revised,53265,3,Bare_Rock,False,
+new,revised,53267,3,Bare_Rock,False,
+new,revised,53352,3,Bare_Rock,False,
+new,revised,53700,3,Bare_Rock,False,
+new,revised,53708,3,Bare_Rock,False,
+new,revised,53829,3,Bare_Rock,False,
+new,revised,53932,3,Bare_Rock,False,
+new,revised,54018,3,Bare_Rock,False,
+new,revised,54021,3,Bare_Rock,False,
+new,revised,54227,2,Herbaceous_woody_shrub,True,7.417989609027187e-18
+new,revised,54231,4,Dead,False,
+new,revised,54272,3,Bare_Rock,False,
+new,revised,54273,3,Bare_Rock,False,
+new,revised,54490,3,Bare_Rock,False,
+new,revised,54603,3,Bare_Rock,False,
+new,revised,55354,2,Herbaceous_woody_shrub,False,
+new,revised,55427,3,Bare_Rock,False,
+new,revised,55652,2,Herbaceous_woody_shrub,False,
+new,revised,55655,1,Evergreen,True,6.34335709189017e-17
+new,revised,55657,1,Evergreen,False,
+new,revised,55959,2,Herbaceous_woody_shrub,False,
+new,revised,55960,2,Herbaceous_woody_shrub,False,
+new,revised,56021,3,Bare_Rock,False,
+new,revised,56917,3,Bare_Rock,False,
+new,revised,56981,3,Bare_Rock,False,
+new,revised,56983,3,Bare_Rock,False,
+new,revised,57220,1,Evergreen,True,2.259901217584776e-17
+new,revised,57226,4,Dead,True,8.243652937378526e-17
+new,revised,57523,2,Herbaceous_woody_shrub,False,
+new,revised,57778,1,Evergreen,True,7.100570020467783e-17
+new,revised,57861,3,Bare_Rock,False,
+new,revised,57946,3,Bare_Rock,False,
+new,revised,58072,2,Herbaceous_woody_shrub,True,6.676190648124468e-17
+new,revised,58088,3,Bare_Rock,False,
+new,revised,58170,3,Bare_Rock,False,
+new,revised,58252,2,Herbaceous_woody_shrub,True,7.702306187652944e-18
+new,revised,58272,1,Evergreen,False,
+new,revised,58273,1,Evergreen,False,
+new,revised,62331,4,Dead,False,
+new,revised,64468,1,Evergreen,False,
+new,revised,65408,2,Herbaceous_woody_shrub,False,
+new,revised,66441,2,Herbaceous_woody_shrub,False,
+new,revised,66560,2,Herbaceous_woody_shrub,False,
+new,revised,66983,2,Herbaceous_woody_shrub,False,
+new,revised,67407,2,Herbaceous_woody_shrub,True,2.3893527619131846e-17
+new,revised,67714,2,Herbaceous_woody_shrub,True,2.1666689270499745e-17
+new,revised,68217,2,Herbaceous_woody_shrub,True,8.429297616375228e-17
+new,revised,68738,1,Evergreen,False,
+new,revised,68908,0,Deciduous,False,
+new,revised,69095,2,Herbaceous_woody_shrub,True,1.070159093213439e-16
+new,revised,69250,1,Evergreen,False,
+new,revised,69351,2,Herbaceous_woody_shrub,True,4.7642900897037713e-17
+new,revised,69467,2,Herbaceous_woody_shrub,True,3.190597972219711e-17
+new,revised,69475,2,Herbaceous_woody_shrub,False,
+new,revised,70051,1,Evergreen,False,
+new,revised,71249,1,Evergreen,True,1.2231250416515415e-17
+new,revised,71309,3,Bare_Rock,False,
+new,revised,71405,3,Bare_Rock,False,
+new,revised,71410,3,Bare_Rock,False,
+new,revised,71465,3,Bare_Rock,False,
+new,revised,71471,3,Bare_Rock,False,
+new,revised,71482,3,Bare_Rock,False,
+new,revised,71515,3,Bare_Rock,False,
+new,revised,71540,4,Dead,False,
+new,revised,71549,3,Bare_Rock,False,
+new,revised,71553,3,Bare_Rock,False,
+new,revised,71555,3,Bare_Rock,False,
+new,revised,71563,3,Bare_Rock,False,
+new,revised,71605,3,Bare_Rock,False,
+new,revised,71619,3,Bare_Rock,False,
+new,revised,71630,3,Bare_Rock,False,
+new,revised,71709,3,Bare_Rock,False,
+new,revised,71717,3,Bare_Rock,False,
+new,revised,71732,3,Bare_Rock,False,
+new,revised,71746,3,Bare_Rock,False,
+new,revised,71747,3,Bare_Rock,False,
+new,revised,71769,3,Bare_Rock,False,
+new,revised,71802,3,Bare_Rock,False,
+new,revised,72025,3,Bare_Rock,False,
+new,revised,72327,3,Bare_Rock,False,
+new,revised,72338,3,Bare_Rock,False,
+new,revised,72460,3,Bare_Rock,False,
+new,revised,72979,3,Bare_Rock,False,
+new,revised,72992,3,Bare_Rock,False,
+new,revised,73187,3,Bare_Rock,False,
+new,revised,73216,4,Dead,True,2.4179687850469145e-17
+new,revised,74432,1,Evergreen,False,
+new,revised,74438,1,Evergreen,False,
+new,revised,74950,2,Herbaceous_woody_shrub,False,
+new,revised,74968,1,Evergreen,False,
+new,revised,75334,3,Bare_Rock,False,
+new,revised,75619,3,Bare_Rock,False,
+new,revised,75890,1,Evergreen,True,4.519802435169552e-17
+new,revised,75895,3,Bare_Rock,False,
+new,revised,76146,2,Herbaceous_woody_shrub,True,5.8644357059969605e-18
+new,revised,76198,2,Herbaceous_woody_shrub,True,1.5952989861098555e-17
+new,revised,76202,2,Herbaceous_woody_shrub,False,
+new,revised,76531,2,Herbaceous_woody_shrub,False,
+new,revised,77600,1,Evergreen,False,
+new,revised,77815,2,Herbaceous_woody_shrub,True,2.3929484791647834e-17
+new,revised,78439,2,Herbaceous_woody_shrub,False,
+new,revised,78500,2,Herbaceous_woody_shrub,True,1.1728871411993921e-17
+new,revised,78550,2,Herbaceous_woody_shrub,True,1.1431889754941388e-17
+new,revised,81151,4,Dead,False,
+new,revised,81341,1,Evergreen,True,5.9733819047829615e-18
+new,revised,81770,2,Herbaceous_woody_shrub,False,
+new,revised,81994,1,Evergreen,True,1.1049443507783133e-17
+new,revised,82285,2,Herbaceous_woody_shrub,True,2.1306553010212405e-17
+new,revised,82869,1,Evergreen,True,1.506600811723184e-17
+new,revised,83022,1,Evergreen,False,
+new,revised,83138,1,Evergreen,True,8.110113856256216e-18
+new,revised,83149,1,Evergreen,True,2.435683078899158e-17
+new,revised,83577,1,Evergreen,True,2.3929484791647834e-17
+new,revised,83612,1,Evergreen,True,1.0572261819816951e-17
+new,revised,83619,1,Evergreen,True,4.2451385869580945e-17
+new,revised,83621,1,Evergreen,True,1.3211260394454924e-17
+new,revised,83757,1,Evergreen,True,2.385751625334724e-17
+new,revised,83768,1,Evergreen,False,
+new,revised,83834,3,Bare_Rock,False,
+new,revised,83916,1,Evergreen,False,
+new,revised,83917,1,Evergreen,True,3.469446951953614e-18
+new,revised,83923,1,Evergreen,True,5.364035560569398e-17
+new,revised,83964,1,Evergreen,False,
+new,revised,84051,1,Evergreen,False,
+new,revised,84060,1,Evergreen,True,1.1801949199457557e-17
+new,revised,84062,1,Evergreen,True,1.5179715451992927e-17
+new,revised,84120,1,Evergreen,True,1.1356430912115181e-17
+new,revised,84454,1,Evergreen,False,
+new,revised,84462,3,Bare_Rock,False,
+new,revised,84476,1,Evergreen,False,
+new,revised,85196,1,Evergreen,True,1.5952989861098555e-17
+new,revised,85590,1,Evergreen,True,4.4969172124985776e-17

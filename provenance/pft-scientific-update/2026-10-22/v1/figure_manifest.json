@@ -1,0 +1,252 @@
+{
+  "environment": {
+    "matplotlib": "3.11.1",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "python": "3.12.8"
+  },
+  "evidence_through": "2026-10-19",
+  "figures": [
+    {
+      "filename": "provenance/pft-scientific-update/2026-10-22/v1/figures/F01_observed_spectra.png",
+      "lesson": "PFT structure coexists with broad within-group variation; curves and repeated years are not independent new plants.",
+      "number": 1,
+      "presentation_transform": "All 4,807 compact polygon-year curves; same supported 360-coordinate grid as existing analysis; divide ordinate by 1,000 for display only; median of displayed annual curves, no inferred physical conversion",
+      "related_package_function": "spectralbridge.mesma_readiness.load_compact_inputs",
+      "sha256": {
+        "png": "d2b2f1d07afeeede688ecd3a58fcfaebfc3925a3073f0a78d3defe1d9498d114",
+        "svg": "56cd0024c3818a2c5ade0da8de3b044df98bc228bcc498b791aeaddcb4aab968"
+      },
+      "sources": [
+        "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/corr_polygon_year.parquet",
+        "provenance/researcher-evidence/2026-10-16/v1/tables/category_support.csv",
+        "provenance/researcher-evidence/2026-10-16/v1/foundation.json"
+      ],
+      "title": "Variation is visible within every assigned PFT"
+    },
+    {
+      "filename": "provenance/pft-scientific-update/2026-10-22/v1/figures/F02_pairwise_differences.png",
+      "lesson": "Background contrasts tend to be large; deciduous/shrub is among the smaller contrasts. Statistical evidence does not assign an unknown polygon correctly.",
+      "number": 2,
+      "presentation_transform": "Plot saved NEON_effect per cohort, connected minimum/maximum; no new hypothesis test; observed cohort range is not a confidence interval",
+      "related_package_function": "spectralbridge.pft_method_audit.method_statistics",
+      "sha256": {
+        "png": "7223f4e6ede7d01c5025ac5d6c23451b97ddb34f2668a8fead4904f4fbf7918d",
+        "svg": "45bc4293a2b74cf8103b935b5c57fb500259f65ec6593f067fe8875a2c563c38"
+      },
+      "sources": [
+        "provenance/researcher-evidence/2026-10-16/v1/tables/whole_spectrum_separability.csv",
+        "provenance/researcher-evidence/2026-10-16/v1/tables/pair_support_and_evidence.csv"
+      ],
+      "title": "All pairs differ, but their separation is unequal"
+    },
+    {
+      "filename": "provenance/pft-scientific-update/2026-10-22/v1/figures/F03_wavelength_structure.png",
+      "lesson": "Broad wavelength regions contribute different contrasts; the map describes group differences, not validated feature selection.",
+      "number": 3,
+      "presentation_transform": "Median of absolute saved matched effects across four cohorts, for display only; original coordinate-level tests unchanged; no band selected and no new test or PCA",
+      "related_package_function": "spectralbridge.pft_method_audit.method_statistics",
+      "sha256": {
+        "png": "896fd5958894bbd37e5e21fe18987fcffbfd9678359886da0e733b6209bb3248",
+        "svg": "4000dca258e644d96c439f29db27db97c529e7cf87a5db2a691f077b9e2a8463"
+      },
+      "sources": [
+        "provenance/researcher-pft-information/2026-10-15/v1/tables/cohort_wavelength_inference.csv",
+        "provenance/researcher-evidence/2026-10-16/v1/tables/pair_support_and_evidence.csv"
+      ],
+      "title": "Different PFT pairs emphasize different wavelengths"
+    },
+    {
+      "filename": "provenance/pft-scientific-update/2026-10-22/v1/figures/F04_recognition.png",
+      "lesson": "Full NEON recognizes the assigned categories better than synthetic OLI; held-site transfer is weaker than new-polygon recognition.",
+      "number": 4,
+      "presentation_transform": "Existing mean outer-fold balanced_accuracy, with individual fold scores as white dots; no refit and no confidence intervals",
+      "related_package_function": "spectralbridge.library_analysis.evaluate_identifiability",
+      "sha256": {
+        "png": "9d448e2d7e5535f25b6b20247cf95a9116dcc19f742e5ac1e9acf47897f3d268",
+        "svg": "e9f9f65a41c647f013666ffa2dcd4928fdb9390a4893ce2130f642ffc08aa216"
+      },
+      "sources": [
+        "provenance/researcher-pft-information/2026-10-15/v1/tables/complementary_feature_performance.csv"
+      ],
+      "title": "Useful recognition becomes harder at a new site"
+    },
+    {
+      "filename": "provenance/pft-scientific-update/2026-10-22/v1/figures/F05_confusion.png",
+      "lesson": "Evergreen and background/dead transfer best; woody shrub is often missed, especially as deciduous. These are class recalls, not precision.",
+      "number": 5,
+      "presentation_transform": "Plot the saved NEON/site mean_fold_row_fraction; rows sum to one; diagonal independently agrees with class_specific_transfer mean recall",
+      "related_package_function": "spectralbridge.spectral_learning.classification_metrics",
+      "sha256": {
+        "png": "fe151ab3f0d9dd7dc276951f5f66c941aa3ed67da462110e8186065492f4bd43",
+        "svg": "fa02172556e3c8b356ab6b74861286e8be9ce4857f82ade03d06ef0907160b49"
+      },
+      "sources": [
+        "provenance/researcher-pft-information/2026-10-15/v1/tables/confusion_plot_values.csv",
+        "provenance/researcher-pft-information/2026-10-15/v1/tables/class_specific_transfer.csv"
+      ],
+      "title": "The average hides a major woody-shrub limitation"
+    },
+    {
+      "filename": "provenance/pft-scientific-update/2026-10-22/v1/figures/F06_endmember_coverage.png",
+      "lesson": "The supplied selection improves average nearest-reference agreement while covering typical within-category spectra less closely. This differs from the earlier nested classifier.",
+      "number": 6,
+      "presentation_transform": "Display saved selected values and per-category mean/2.5th/97.5th percentile over the 30 existing matched random controls; ranges are draw spread, not population confidence intervals",
+      "related_package_function": "spectralbridge.mixtures.select_endmembers",
+      "sha256": {
+        "png": "b4d0db9b6319eedeb0b223dc36457b4bd077fd4fa05097b12857ba81189bea8e",
+        "svg": "cba968dbc0fd2c0cbfb0ace901ceee89a5654f7f3581f5424e76cea0977d951d"
+      },
+      "sources": [
+        "provenance/endmember-quality/2026-10-19/v1/tables/coverage_selected.csv",
+        "provenance/endmember-quality/2026-10-19/v1/tables/coverage_random.csv",
+        "provenance/endmember-quality/2026-10-19/v1/summary.json"
+      ],
+      "title": "Good classification references need not cover all within-PFT variation"
+    },
+    {
+      "filename": "provenance/pft-scientific-update/2026-10-22/v1/figures/F07_category_ambiguity.png",
+      "lesson": "223 of 603 selected references have verified other-category spectral explanations. This is numerical ambiguity, not an independently observed mixed composition.",
+      "number": 7,
+      "presentation_transform": "Reconstruct the already-saved certificate with its saved reference indices/weights; no optimization. Bar one denotes the assigned one-category interpretation, not known physical truth; up to eight active references and multiple references/category allowed",
+      "related_package_function": "spectralbridge.mixtures.fcls",
+      "sha256": {
+        "png": "a65394e529052bdd9b01e52534e24f135c00e69eb6a61b3b93827d9354b77dff",
+        "svg": "4be04e0f20e1758b69d94a8a3ed101f658c48df1f59e3110e22466d90c0f8742"
+      },
+      "sources": [
+        "provenance/endmember-quality/2026-10-19/v1/tables/cross_class_hull.csv",
+        "provenance/endmember-quality/2026-10-19/v1/tables/cross_class_hull_weights.csv",
+        "provenance/endmember-quality/2026-10-19/v1/tables/selected_members.csv",
+        "provenance/endmember-quality/2026-10-19/v1/tables/illustrative_ambiguity.csv",
+        "provenance/endmember-quality/2026-10-19/v1/summary.json"
+      ],
+      "title": "A near-perfect spectral match need not identify the category"
+    },
+    {
+      "filename": "provenance/pft-scientific-update/2026-10-22/v1/figures/F08_synthetic_fairness.png",
+      "lesson": "The larger ridge library improves synthetic fractions in new-parent/held-site tests; the NEON advantage disappears at matched 15-parent capacity. No intrinsic algorithm winner or field-abundance validation follows.",
+      "number": 8,
+      "presentation_transform": "Saved mean fold RMSE; same-15 ridge mean computed across saved target rows; no new fitting or error estimates",
+      "related_package_function": "spectralbridge.library_analysis.fit_ridge_fractions; spectralbridge.mixtures.fit_models",
+      "sha256": {
+        "png": "dc44a7c1f9e441992bdf004ec56600ef325d4d6904feaa6e18a7e2299d13caf1",
+        "svg": "d8f4f9ee71725a27862cc3939bbbab3435c27e0c91dfa1b76c2569fd2e374b14"
+      },
+      "sources": [
+        "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv",
+        "provenance/researcher-evidence/2026-10-16/v1/tables/same_candidate_ridge.csv"
+      ],
+      "title": "Synthetic recovery depends on how the library is represented"
+    },
+    {
+      "filename": "provenance/pft-scientific-update/2026-10-22/v1/figures/F09_exhaustive_search.png",
+      "lesson": "The exhaustive search reduces the spectral residual by 78.7%, but aggregate fraction RMSE does not improve. Eight-bundle uncertainty includes no aggregate difference; this is not proof of universal failure.",
+      "number": 9,
+      "presentation_transform": "Plot saved screened/exhaustive summary metrics for the same 360 targets; left mean spectral RMSE, right pooled target-by-category fraction RMSE; no candidate search rerun",
+      "related_package_function": "spectralbridge.mixtures.fit_models (analysis-only exhaustive extension)",
+      "sha256": {
+        "png": "1cc2b35f1e48b988f7c11f1e3d4e21884ae384a6aef27268a956aba9d10fc15e",
+        "svg": "c4817d32f3f2b54c0c9fabaeaa1f3ff8c9b120bffbcf96a96fc0e9621f391ef9"
+      },
+      "sources": [
+        "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json",
+        "provenance/endmember-quality/2026-10-19/v1/summary.json"
+      ],
+      "title": "A better spectral fit does not ensure better fractions"
+    }
+  ],
+  "generated_date": "2026-10-22",
+  "git_commit": "1528ab08a69da039333f1686c18a8b4c6c7db076",
+  "pft_colors": {
+    "Deciduous": "#D07A2F",
+    "Evergreen": "#007C76",
+    "Herbaceous": "#709636",
+    "Non-vegetated & dead": "#7C6C64",
+    "Woody shrub": "#8A5D9B"
+  },
+  "source_builder_sha256": "10d17f88d54b43453056fdf5bd0e3958690ed357e6405f95698c70cf6910797f",
+  "source_scope": "Recorded cover_category only; no model refits, raw source-library reads or new inferential tests",
+  "sources": {
+    "artifacts/plant_spectral_atlas/sensor_pft_transfer/compact/corr_polygon_year.parquet": {
+      "checked_against_existing_manifest": true,
+      "sha256": "61370e567e8367eddc5ab71d49afc58bfa1bf5a0b8b7314d1ac80af9cc1c338f"
+    },
+    "provenance/endmember-quality/2026-10-19/exhaustive-v1/comparison_summary.json": {
+      "checked_against_existing_manifest": true,
+      "sha256": "31ca10edc73f1cccdcb11a6ec120bba3e7d9b10943fec9bcf6e9bc98d4fa52fe"
+    },
+    "provenance/endmember-quality/2026-10-19/v1/summary.json": {
+      "checked_against_existing_manifest": true,
+      "sha256": "7f4f691938d04c285334125692e0132a5fdc4312ea80eb60d8b8d88e0948babd"
+    },
+    "provenance/endmember-quality/2026-10-19/v1/tables/coverage_random.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "6c8019c06bbb546703d1d6cb663479c5205545eb210cfa2206e29830488f527a"
+    },
+    "provenance/endmember-quality/2026-10-19/v1/tables/coverage_selected.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "452fbe5afcab9242616e9fcfa455d150313e1463dca5e3274ca78c98e253ddd3"
+    },
+    "provenance/endmember-quality/2026-10-19/v1/tables/cross_class_hull.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "056d8655cb16f99b992ae9f4b37ef57ee9a782a963b560f12314f028cf1141a7"
+    },
+    "provenance/endmember-quality/2026-10-19/v1/tables/cross_class_hull_weights.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "c6d9d00370fcc36720bce6a1e37f500a8224c8d6b63a427fe760d40b15cb344c"
+    },
+    "provenance/endmember-quality/2026-10-19/v1/tables/illustrative_ambiguity.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "ef7e8bfadd71807b52c9f5f399f8bdf3fd006a5279f38ec8278efc77f9d810dc"
+    },
+    "provenance/endmember-quality/2026-10-19/v1/tables/selected_members.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "5fbea2a598f39376ea3b9d83091dc9f475b6229944d002c9e54474c89348fdf0"
+    },
+    "provenance/researcher-evidence/2026-10-16/v1/foundation.json": {
+      "checked_against_existing_manifest": true,
+      "sha256": "9ca746057315c8bcf8bce6f357633e28c6fd56e9fce34e492fb3ae5fed0d616c"
+    },
+    "provenance/researcher-evidence/2026-10-16/v1/tables/abundance_domain_summary.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "eb26224c857915d628fd498cb7e7f5e10d8b8644bd302d2aa7076689af6503cc"
+    },
+    "provenance/researcher-evidence/2026-10-16/v1/tables/category_support.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "b999faefd3fd1453d7d97cbf118220139b0eb9f2abc685e7f5e5cf955e35a803"
+    },
+    "provenance/researcher-evidence/2026-10-16/v1/tables/pair_support_and_evidence.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "41b8d3a8737bc353e74a48387fbf320af6c16dc400c8dba4288794de591a6977"
+    },
+    "provenance/researcher-evidence/2026-10-16/v1/tables/same_candidate_ridge.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "c33d6b0d515efa7a7b2eb2e29bc4a5baa82fa3c56ed46f58ae46ef1fd9fc0fd9"
+    },
+    "provenance/researcher-evidence/2026-10-16/v1/tables/site_year_category_support.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "48e31b4e915cfba61ba53dad2cf66ec24048e7f97855cea89ee08358eb72918b"
+    },
+    "provenance/researcher-evidence/2026-10-16/v1/tables/whole_spectrum_separability.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "e24f1fde6510c81e38518ddd71ea7b56df020d5399bdcd7617b99f6d1749bba5"
+    },
+    "provenance/researcher-pft-information/2026-10-15/v1/tables/class_specific_transfer.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "9a9dfca318cd92bbc065a6baf4cdfb40bbeda7aa24b01238e9a149940ea58e47"
+    },
+    "provenance/researcher-pft-information/2026-10-15/v1/tables/cohort_wavelength_inference.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "3c87fb4074735d1c0835e62be9ad973eba1ece005fa3f24f78a1034245a7ec96"
+    },
+    "provenance/researcher-pft-information/2026-10-15/v1/tables/complementary_feature_performance.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "4168db27ba32faaef0f0edd77197359e410ade4aff3c67b071223e3a7454d1d7"
+    },
+    "provenance/researcher-pft-information/2026-10-15/v1/tables/confusion_plot_values.csv": {
+      "checked_against_existing_manifest": true,
+      "sha256": "04066a824a291250172f9d0b0418fc300229a3f3ad1c8c325cef95c4f0d14433"
+    }
+  }
+}

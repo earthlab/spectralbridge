@@ -1,0 +1,9 @@
+comparison,baseline,alternative,common_RMSE_delta,conditional_2_5,conditional_97_5
+selection,old/original/ridge,new/original/ridge,-0.02515167484966324,-0.03447517211791534,-0.014905915926390139
+selection,old/original/mesma,new/original/mesma,-0.038002347775347556,-0.053779259436067754,-0.023679821623417252
+selection,old/revised/ridge,new/revised/ridge,-0.02751536560348833,-0.037916935789921634,-0.016193196204399338
+selection,old/revised/mesma,new/revised/mesma,-0.03032753088049156,-0.04434732154106045,-0.015432525945752562
+category_scheme,old/original/ridge,old/revised/ridge,0.0037251673853646583,0.0013725543139527785,0.006083818772720284
+category_scheme,old/original/mesma,old/revised/mesma,-0.02560203115970744,-0.04229531443937595,-0.009148055117702943
+category_scheme,new/original/ridge,new/revised/ridge,0.001361476631539571,0.00028115736171768215,0.002450401388689771
+category_scheme,new/original/mesma,new/revised/mesma,-0.017927214264851443,-0.0308195747116754,-0.005743275140637128

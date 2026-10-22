@@ -20,6 +20,44 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P146. Coworker PDF of new IES endmember analysis
+
+- Priority: P0, user-directed
+- Status: Complete locally
+- Owner: Codex
+- Started: 2026-10-22
+- Scope: Curate completed P145 results into a human-readable illustrated PDF, explain fraction RMSE and readiness, preserve sealed analytical packets and original inputs.
+- Plan: Reuse verified figures and tables; build a reproducible PDF; render every page and inspect; verify text, source hashes and generated transparency.
+- Completed: Eight-page coworker PDF at output/pdf/ies_endmember_update/SpectralBridge_New_Endmember_Analysis.pdf, with seven existing scientific figures, method explanations, category tradeoffs, RMSE interpretation and independent-field-validation requirements. Reproducible build, source hashes, layout bounds and validation recorded in provenance/ies-coworker-report/2026-10-22/v1/.
+- Verified: All eight pages rendered and individually visually inspected; PDF text/page/figure-lineage checks, eleven source hashes, 27 layout bounds and Ruff pass. AI transparency regenerated. Prior analyses unchanged.
+- Next: Share report and freeze a candidate library/category objective for independent measured-cover validation. No new fitting, blocker, commit or deployment.
+
+
+### P145. Compare IES endmembers and revised category readiness
+
+- Priority: P0, user-directed
+- Status: Complete locally; four exhaustive cells, paired diagnostics, illustrated report and numerical/visual validation complete
+- Owner: Codex
+- Started: 2026-10-22
+- Scope: Read new supplied arrays/selected CSV in place; compare 501 new references with 603 previous references. Separate selection effects from merging herbaceous/shrub and splitting bare/rock from dead. Preserve P144 work, original data and prior sealed packets.
+- Completed: Versioned comparison at provenance/endmember-quality/2026-10-22/ies-comparison-v1/ with portable IES_COMPARISON_REPORT.html/Markdown and eight figures. Verified the new 501-member array/CSV/class alignment and one-based exported CSV source rows; compared against 592 label-eligible previous references (11 of 603 mixed/unspecified-background references excluded explicitly). Excluded the union of 540 selected parent IDs, yielding 3,904 observed curves/3,021 IDs and 568 synthetic targets in eight disjoint six-parent bundles. Crossed old/new references with original/revised labels; all four one-to-three-category model populations exhaustively searched using unchanged checkpointed kernels.
+- Findings: New references improve shared-four-component synthetic fraction RMSE with original labels: ridge 0.2834 to 0.2583; exhaustive MESMA 0.3513 to 0.3133. Revised labels further improve new-library MESMA to 0.2954, but ridge raw common-component predictions are invariant; the 0.2583/0.2596 projected score difference comes from constraint geometry. All four paired selection comparisons favor new references under conditional eight-bundle intervals. Typical spectral coverage improves while original-label nearest-reference recall falls 59.3% to 56.0%. Dead-material MESMA error 0.2915 remains above the 0.2780 no-spectrum baseline. Equal-atomic-count ridge controls shrink the selection gain; no intrinsic IES/method superiority claimed.
+- Verified: Seven input fingerprints, observed identity-weighted coverage, 12 prediction sets, all 25 class sets per exhaustive cell, direct spectral reconstructions, category/domain errors, eight paired comparisons, 699 stored convex-hull witnesses, oracle predictions and two aligned label-array options verified independently. Twenty-seven focused synthetic/kernel/transparency tests, Ruff, docs links, whitespace and nine AI-transparency freshness outputs pass. All eight figures reviewed; desktop/mobile HTML checks show eight loaded images and no page overflow. All 34 files of the prior collaborator briefing remain byte-identical; no scientific package/default or prior packet changes.
+- Limits/next: Internal whole-archive comparison, not selection-blind/held-site/field validation. Scores use a new common target/recipe and must not be directly substituted for older 360-target scores. Proposed labels trade herbaceous/shrub resolution for dead/bare resolution; unknown mixed backgrounds are not guessed. Freeze the chosen library/label goal, then validate on independent measured fractions and matched footprints with verified units/purity. No blocker, commit or deployment.
+
+
+### P144. Concise collaborator scientific briefing on researcher-assigned PFTs
+
+- Priority: P0, user-directed
+- Status: Complete locally; final PDF visually inspected and evidence checks pass
+- Owner: Codex
+- Started: 2026-10-22
+- Scope: New approximately 11-page figure-led PDF around separability, identifiability and abundance, using researcher cover_category only. Render from completed compact results; no new model fits, raw-library copy or scientific reruns; preserve earlier reports/packets.
+- Completed: New 11-page, nine-figure collaborator briefing at output/pdf/pft_scientific_update/SpectralBridge_PFT_Scientific_Update.pdf. Uses researcher cover_category throughout; trace ensembles, matched pair/wavelength effects, held-polygon/site recognition, confusion, selected-reference coverage/ambiguity, equal-candidate synthetic recovery and completed exhaustive MESMA. Preserves old reports, synthetic versus field distinction, sparse/dense priors, whole-library selection and unresolved units. Builders, narrative, PNG/SVG figures, source/function map, 55-claim ledger, SHA/date/environment and visual review are in provenance/pft-scientific-update/2026-10-22/v1/.
+- Verified: Every final page rendered with Poppler and individually inspected; no remaining layout defects. Independent compact-table validation reproduces 55 numeric claims, verifies 20 sealed sources and 9 figure pairs, checks PDF bounds/headings/labels and proves six earlier reports unchanged against the source revision. Nine focused report-claim/transparency tests pass; Ruff, docs links and all nine AI-transparency freshness checks pass. No raw-library copy/scan, model refit, statistical rerun, scientific package change or full-suite rerun.
+- Limits/next: Findings apply to the sampled retrospective categories across three sites/four site-year cells; the summary is not new field validation. Next scientific priority is contemporaneous independent field fractions aligned to sensor footprints, verified physical units and endmember purity, followed by blind regional/year validation. No blocker for sharing this briefing; no commit or deployment performed.
+
+
 ### P143. Repair Python 3.10 TOML and optional quantile CI failures
 
 - Priority: P0, user-directed

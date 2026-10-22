@@ -1,0 +1,1028 @@
+[
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 78,
+    "top": 759,
+    "width": 492,
+    "height": 11.04,
+    "text": "SPECTRALBRIDGE  /  RESEARCHER PFT BRIEFING"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 42,
+    "top": 724,
+    "width": 528,
+    "height": 13.11,
+    "text": "SCIENTIFIC UPDATE"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 42,
+    "top": 688,
+    "width": 528,
+    "height": 72,
+    "text": "What can spectra tell us<br/>about plant functional types?"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 42,
+    "top": 597,
+    "width": 528,
+    "height": 46,
+    "text": "Different groups. Uneven recognition.<br/>Conditional abundance information."
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 42,
+    "top": 528,
+    "width": 528,
+    "height": 51,
+    "text": "This library links corrected NEON spectra to researcher-assigned cover categories. We ask what those labels reveal about spectral differences, recognition of an unknown observation, and the fractions in a mixed observation."
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 54.0,
+    "top": 438,
+    "width": 141.33333333333334,
+    "height": 27.599999999999998,
+    "text": "01"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 54.0,
+    "top": 406,
+    "width": 141.33333333333334,
+    "height": 12.144,
+    "text": "SEPARABILITY"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 54.0,
+    "top": 386,
+    "width": 141.33333333333334,
+    "height": 13,
+    "text": "Are they different?"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 235.33333333333334,
+    "top": 438,
+    "width": 141.33333333333334,
+    "height": 27.599999999999998,
+    "text": "02"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 235.33333333333334,
+    "top": 406,
+    "width": 141.33333333333334,
+    "height": 12.144,
+    "text": "IDENTIFIABILITY"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 235.33333333333334,
+    "top": 386,
+    "width": 141.33333333333334,
+    "height": 13,
+    "text": "Can we tell them apart?"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 416.6666666666667,
+    "top": 438,
+    "width": 141.33333333333334,
+    "height": 27.599999999999998,
+    "text": "03"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 416.6666666666667,
+    "top": 406,
+    "width": 141.33333333333334,
+    "height": 12.144,
+    "text": "ABUNDANCE"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 416.6666666666667,
+    "top": 386,
+    "width": 141.33333333333334,
+    "height": 13,
+    "text": "How much is there?"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 42,
+    "top": 333,
+    "width": 528,
+    "height": 12.419999999999998,
+    "text": "THE OBSERVED LIBRARY"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 42,
+    "top": 313,
+    "width": 528,
+    "height": 42,
+    "text": "<b>3,639</b> polygon IDs  /  <b>4,807</b> annual spectra<br/><b>3</b> sites  /  <b>4</b> site-year cohorts  /  <b>360</b> supported NEON coordinates"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 58,
+    "top": 249,
+    "width": 512,
+    "height": 16,
+    "text": "Deciduous"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 58,
+    "top": 227,
+    "width": 512,
+    "height": 16,
+    "text": "Evergreen"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 58,
+    "top": 205,
+    "width": 512,
+    "height": 16,
+    "text": "Herbaceous"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 58,
+    "top": 183,
+    "width": 512,
+    "height": 16,
+    "text": "Non-vegetated &amp; dead"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 58,
+    "top": 161,
+    "width": 512,
+    "height": 16,
+    "text": "Woody shrub"
+  },
+  {
+    "page": 1,
+    "kind": "text",
+    "x": 42,
+    "top": 130,
+    "width": 528,
+    "height": 39,
+    "text": "These are the recorded researcher categories, assigned in 2023/2024 and reused across imagery years. Non-vegetated &amp; dead is a background comparator, not a biological PFT. Repeated observations are not extra independent plants; physical reflectance scaling remains unresolved."
+  },
+  {
+    "page": 2,
+    "kind": "text",
+    "x": 78,
+    "top": 759,
+    "width": 492,
+    "height": 11.04,
+    "text": "SPECTRALBRIDGE  /  RESEARCHER PFT BRIEFING"
+  },
+  {
+    "page": 2,
+    "kind": "text",
+    "x": 42,
+    "top": 724,
+    "width": 528,
+    "height": 13.11,
+    "text": "1 / SEPARABILITY"
+  },
+  {
+    "page": 2,
+    "kind": "text",
+    "x": 42,
+    "top": 695,
+    "width": 528,
+    "height": 58,
+    "text": "Each PFT contains a wide range of spectra"
+  },
+  {
+    "page": 2,
+    "kind": "text",
+    "x": 42,
+    "top": 625,
+    "width": 528,
+    "height": 32,
+    "text": "Begin with the observations: faint lines are polygon/year spectra; bold lines are category medians."
+  },
+  {
+    "page": 2,
+    "kind": "image",
+    "x": 75.4234404536862,
+    "top": 582,
+    "width": 461.1531190926276,
+    "height": 350.0
+  },
+  {
+    "page": 2,
+    "kind": "text",
+    "x": 42,
+    "top": 218.0,
+    "width": 528,
+    "height": 39.3,
+    "text": "<b>Figure 1.</b> All 4,807 corrected annual curves are shown, with gaps at excluded or unsupported wavelengths. The same vertical scale makes group differences and within-group spread visible. Transparency is a qualitative view of overlap, not a probability density. Repeated annual curves do not add independent plants."
+  },
+  {
+    "page": 2,
+    "kind": "text",
+    "x": 56,
+    "top": 133,
+    "width": 500,
+    "height": 12.005999999999998,
+    "text": "WHAT THIS TELLS US"
+  },
+  {
+    "page": 2,
+    "kind": "text",
+    "x": 56,
+    "top": 114.994,
+    "width": 500,
+    "height": 28,
+    "text": "The category medians differ, but no median represents every observation. The next test asks whether group differences persist within the sampled site/year cohorts."
+  },
+  {
+    "page": 2,
+    "kind": "text",
+    "x": 42,
+    "top": 52,
+    "width": 528,
+    "height": 10,
+    "text": "Source: Corrected compact polygon/year library; category support and foundation, 16 Oct."
+  },
+  {
+    "page": 3,
+    "kind": "text",
+    "x": 78,
+    "top": 759,
+    "width": 492,
+    "height": 11.04,
+    "text": "SPECTRALBRIDGE  /  RESEARCHER PFT BRIEFING"
+  },
+  {
+    "page": 3,
+    "kind": "text",
+    "x": 42,
+    "top": 724,
+    "width": 528,
+    "height": 13.11,
+    "text": "1 / SEPARABILITY"
+  },
+  {
+    "page": 3,
+    "kind": "text",
+    "x": 42,
+    "top": 695,
+    "width": 528,
+    "height": 58,
+    "text": "Every pair differs, but separation is unequal"
+  },
+  {
+    "page": 3,
+    "kind": "text",
+    "x": 42,
+    "top": 625,
+    "width": 528,
+    "height": 32,
+    "text": "Whole-spectrum tests compare categories within the same site/year setting, rather than mixing regions together."
+  },
+  {
+    "page": 3,
+    "kind": "image",
+    "x": 42.0,
+    "top": 582,
+    "width": 528.0,
+    "height": 344.9296987087518
+  },
+  {
+    "page": 3,
+    "kind": "text",
+    "x": 42,
+    "top": 223.0703012912482,
+    "width": 528,
+    "height": 52.4,
+    "text": "<b>Figure 2.</b> Each symbol is one of four cohorts; connecting lines span those cohort effects, not confidence intervals. All 10 pairs were supported in all four cohorts (40 contrasts) in both NEON and synthetic OLI. The largest Holm-adjusted NEON p-value was 0.004. Blocked permutations restrict label exchanges by acquisition history."
+  },
+  {
+    "page": 3,
+    "kind": "text",
+    "x": 56,
+    "top": 133,
+    "width": 500,
+    "height": 12.005999999999998,
+    "text": "WHAT THIS TELLS US"
+  },
+  {
+    "page": 3,
+    "kind": "text",
+    "x": 56,
+    "top": 114.994,
+    "width": 500,
+    "height": 42,
+    "text": "Background/dead contrasts tend to be large; deciduous versus woody shrub is among the smaller contrasts. Statistical difference alone does not establish that individual spectra can be labelled reliably."
+  },
+  {
+    "page": 3,
+    "kind": "text",
+    "x": 42,
+    "top": 52,
+    "width": 528,
+    "height": 10,
+    "text": "Source: Whole-spectrum separability and pair evidence tables, 16 Oct."
+  },
+  {
+    "page": 4,
+    "kind": "text",
+    "x": 78,
+    "top": 759,
+    "width": 492,
+    "height": 11.04,
+    "text": "SPECTRALBRIDGE  /  RESEARCHER PFT BRIEFING"
+  },
+  {
+    "page": 4,
+    "kind": "text",
+    "x": 42,
+    "top": 724,
+    "width": 528,
+    "height": 13.11,
+    "text": "1 / SEPARABILITY"
+  },
+  {
+    "page": 4,
+    "kind": "text",
+    "x": 42,
+    "top": 695,
+    "width": 528,
+    "height": 58,
+    "text": "Different PFT pairs emphasize different wavelengths"
+  },
+  {
+    "page": 4,
+    "kind": "text",
+    "x": 42,
+    "top": 625,
+    "width": 528,
+    "height": 32,
+    "text": "The useful signal extends across broad spectral regions, and its strength depends on the categories being compared."
+  },
+  {
+    "page": 4,
+    "kind": "image",
+    "x": 42.0,
+    "top": 582,
+    "width": 528.0,
+    "height": 322.10526315789474
+  },
+  {
+    "page": 4,
+    "kind": "text",
+    "x": 42,
+    "top": 245.89473684210526,
+    "width": 528,
+    "height": 39.3,
+    "text": "<b>Figure 3.</b> Darker cells indicate a larger absolute matched effect, summarized as the median across four existing cohorts at each wavelength. Gray gaps are omitted coordinates. This display removes the direction of the contrast and is not a new hypothesis test or an optimized band selection."
+  },
+  {
+    "page": 4,
+    "kind": "text",
+    "x": 56,
+    "top": 133,
+    "width": 500,
+    "height": 12.005999999999998,
+    "text": "WHAT THIS TELLS US"
+  },
+  {
+    "page": 4,
+    "kind": "text",
+    "x": 56,
+    "top": 114.994,
+    "width": 500,
+    "height": 42,
+    "text": "Background/dead contrasts span broad regions, while deciduous/shrub differences are weaker over much of the spectrum. These patterns motivate testing full spectra against broad sensor bands on unknown observations."
+  },
+  {
+    "page": 4,
+    "kind": "text",
+    "x": 42,
+    "top": 52,
+    "width": 528,
+    "height": 10,
+    "text": "Source: Cohort wavelength inference, 15 Oct.; cohort/pair evidence, 16 Oct."
+  },
+  {
+    "page": 5,
+    "kind": "text",
+    "x": 78,
+    "top": 759,
+    "width": 492,
+    "height": 11.04,
+    "text": "SPECTRALBRIDGE  /  RESEARCHER PFT BRIEFING"
+  },
+  {
+    "page": 5,
+    "kind": "text",
+    "x": 42,
+    "top": 724,
+    "width": 528,
+    "height": 13.11,
+    "text": "2 / IDENTIFIABILITY"
+  },
+  {
+    "page": 5,
+    "kind": "text",
+    "x": 42,
+    "top": 695,
+    "width": 528,
+    "height": 58,
+    "text": "Recognition weakens when a site is held out"
+  },
+  {
+    "page": 5,
+    "kind": "text",
+    "x": 42,
+    "top": 625,
+    "width": 528,
+    "height": 32,
+    "text": "Here the target spectrum is withheld from fitting: can the model recover its researcher-assigned category?"
+  },
+  {
+    "page": 5,
+    "kind": "image",
+    "x": 42.0,
+    "top": 582,
+    "width": 528.0,
+    "height": 310.0832137733142
+  },
+  {
+    "page": 5,
+    "kind": "text",
+    "x": 42,
+    "top": 257.9167862266858,
+    "width": 528,
+    "height": 39.3,
+    "text": "<b>Figure 4.</b> Balanced accuracy is the mean recall of the five categories: 85.2% for unseen polygons and 73.8% for held-out sites with NEON, versus 66.8% and 57.7% with synthetic OLI. White dots are outer-fold scores, not confidence intervals. Equal-category chance is 20%."
+  },
+  {
+    "page": 5,
+    "kind": "text",
+    "x": 56,
+    "top": 133,
+    "width": 500,
+    "height": 12.005999999999998,
+    "text": "WHAT THIS TELLS US"
+  },
+  {
+    "page": 5,
+    "kind": "text",
+    "x": 56,
+    "top": 114.994,
+    "width": 500,
+    "height": 42,
+    "text": "Hyperspectral information improves recognition, but the held-site result is weaker and based on only three sites. OLI here is convolved from the same NEON reference; it is not an independent Landsat validation."
+  },
+  {
+    "page": 5,
+    "kind": "text",
+    "x": 42,
+    "top": 52,
+    "width": 528,
+    "height": 10,
+    "text": "Source: Complementary feature performance, 15 Oct.; original held-polygon/site fits."
+  },
+  {
+    "page": 6,
+    "kind": "text",
+    "x": 78,
+    "top": 759,
+    "width": 492,
+    "height": 11.04,
+    "text": "SPECTRALBRIDGE  /  RESEARCHER PFT BRIEFING"
+  },
+  {
+    "page": 6,
+    "kind": "text",
+    "x": 42,
+    "top": 724,
+    "width": 528,
+    "height": 13.11,
+    "text": "2 / IDENTIFIABILITY"
+  },
+  {
+    "page": 6,
+    "kind": "text",
+    "x": 42,
+    "top": 695,
+    "width": 528,
+    "height": 58,
+    "text": "Woody shrub is the main recognition weakness"
+  },
+  {
+    "page": 6,
+    "kind": "text",
+    "x": 42,
+    "top": 625,
+    "width": 528,
+    "height": 16,
+    "text": "Read each row as the fate of a researcher-labelled category when its site is held out."
+  },
+  {
+    "page": 6,
+    "kind": "image",
+    "x": 75.37984496124031,
+    "top": 582,
+    "width": 461.2403100775194,
+    "height": 350.0
+  },
+  {
+    "page": 6,
+    "kind": "text",
+    "x": 42,
+    "top": 218.0,
+    "width": 528,
+    "height": 39.3,
+    "text": "<b>Figure 5.</b> Cells are row percentages averaged across the three held-site folds, rounded to whole percentages. Diagonal cells are recall: 94.2% for evergreen and 91.7% for background/dead, but 46.3% for woody shrub. 24.4% of true shrub observations are assigned deciduous."
+  },
+  {
+    "page": 6,
+    "kind": "text",
+    "x": 56,
+    "top": 133,
+    "width": 500,
+    "height": 12.005999999999998,
+    "text": "WHAT THIS TELLS US"
+  },
+  {
+    "page": 6,
+    "kind": "text",
+    "x": 56,
+    "top": 114.994,
+    "width": 500,
+    "height": 42,
+    "text": "Evergreen and background/dead are recognized strongly in these tests. Deciduous and herbaceous are less secure; shrub is missed more often than recovered. Shrub/deciduous confusion agrees with their weaker group contrast."
+  },
+  {
+    "page": 6,
+    "kind": "text",
+    "x": 42,
+    "top": 52,
+    "width": 528,
+    "height": 10,
+    "text": "Source: Saved NEON held-site confusion and class-specific transfer tables, 15 Oct."
+  },
+  {
+    "page": 7,
+    "kind": "text",
+    "x": 78,
+    "top": 759,
+    "width": 492,
+    "height": 11.04,
+    "text": "SPECTRALBRIDGE  /  RESEARCHER PFT BRIEFING"
+  },
+  {
+    "page": 7,
+    "kind": "text",
+    "x": 42,
+    "top": 724,
+    "width": 528,
+    "height": 13.11,
+    "text": "3 / ABUNDANCE  /  A. ENDMEMBER INFORMATION"
+  },
+  {
+    "page": 7,
+    "kind": "text",
+    "x": 42,
+    "top": 695,
+    "width": 528,
+    "height": 58,
+    "text": "Representative spectra and useful labels are different goals"
+  },
+  {
+    "page": 7,
+    "kind": "text",
+    "x": 42,
+    "top": 625,
+    "width": 528,
+    "height": 32,
+    "text": "Endmembers are mixture reference spectra. Their distance is measured by root-mean-square error (RMSE)."
+  },
+  {
+    "page": 7,
+    "kind": "image",
+    "x": 42.0,
+    "top": 582,
+    "width": 528.0,
+    "height": 332.55667144906744
+  },
+  {
+    "page": 7,
+    "kind": "text",
+    "x": 42,
+    "top": 235.44332855093256,
+    "width": 528,
+    "height": 52.4,
+    "text": "<b>Figure 6.</b> The 603 selected pixels come from 367 polygon IDs. Targets exclude those IDs. Random libraries retain the same per-polygon pixel counts; whiskers show the central 95% of 30 draws, not population uncertainty. Selected references improve mean nearest-reference label agreement (59.4% versus 55.6%) but have larger same-category spectral distances."
+  },
+  {
+    "page": 7,
+    "kind": "text",
+    "x": 56,
+    "top": 133,
+    "width": 500,
+    "height": 12.005999999999998,
+    "text": "WHAT THIS TELLS US"
+  },
+  {
+    "page": 7,
+    "kind": "text",
+    "x": 56,
+    "top": 114.994,
+    "width": 500,
+    "height": 42,
+    "text": "The selected spectra can help distinguish labels while covering typical within-category variation less closely. Selection used the whole library, so this internal diagnostic does not demonstrate selection-blind performance."
+  },
+  {
+    "page": 7,
+    "kind": "text",
+    "x": 42,
+    "top": 52,
+    "width": 528,
+    "height": 10,
+    "text": "Source: Selected/reference coverage, matched random controls and summary, 19 Oct."
+  },
+  {
+    "page": 8,
+    "kind": "text",
+    "x": 78,
+    "top": 759,
+    "width": 492,
+    "height": 11.04,
+    "text": "SPECTRALBRIDGE  /  RESEARCHER PFT BRIEFING"
+  },
+  {
+    "page": 8,
+    "kind": "text",
+    "x": 42,
+    "top": 724,
+    "width": 528,
+    "height": 13.11,
+    "text": "3 / ABUNDANCE  /  A. ENDMEMBER INFORMATION"
+  },
+  {
+    "page": 8,
+    "kind": "text",
+    "x": 42,
+    "top": 695,
+    "width": 528,
+    "height": 58,
+    "text": "Different category mixtures can explain the same spectrum"
+  },
+  {
+    "page": 8,
+    "kind": "text",
+    "x": 42,
+    "top": 625,
+    "width": 528,
+    "height": 32,
+    "text": "A saved numerical example exposes why an excellent spectral match need not imply unique composition."
+  },
+  {
+    "page": 8,
+    "kind": "image",
+    "x": 67.4569752281617,
+    "top": 582,
+    "width": 477.0860495436766,
+    "height": 350.0
+  },
+  {
+    "page": 8,
+    "kind": "text",
+    "x": 42,
+    "top": 218.0,
+    "width": 528,
+    "height": 52.4,
+    "text": "<b>Figure 7.</b> 223 of 603 selected spectra can be reconstructed using only other-category references with nonnegative weights summing to one (RMSE at most 10<super>-8</super> in supplied-array units). The assigned-label bar is not measured field cover. This search allows multiple references per category and up to eight active references, broader than the three-category MESMA test."
+  },
+  {
+    "page": 8,
+    "kind": "text",
+    "x": 56,
+    "top": 133,
+    "width": 500,
+    "height": 12.005999999999998,
+    "text": "WHAT THIS TELLS US"
+  },
+  {
+    "page": 8,
+    "kind": "text",
+    "x": 56,
+    "top": 114.994,
+    "width": 500,
+    "height": 42,
+    "text": "The example is a verified mathematical ambiguity, not an observed alternative plant composition. References without a certificate are not proven unique. Field constraints and endmember purity matter as well as fit quality."
+  },
+  {
+    "page": 8,
+    "kind": "text",
+    "x": 42,
+    "top": 52,
+    "width": 528,
+    "height": 10,
+    "text": "Source: Cross-category hull certificates, saved weights and illustration, 19 Oct."
+  },
+  {
+    "page": 9,
+    "kind": "text",
+    "x": 78,
+    "top": 759,
+    "width": 492,
+    "height": 11.04,
+    "text": "SPECTRALBRIDGE  /  RESEARCHER PFT BRIEFING"
+  },
+  {
+    "page": 9,
+    "kind": "text",
+    "x": 42,
+    "top": 724,
+    "width": 528,
+    "height": 13.11,
+    "text": "3 / ABUNDANCE  /  B. SYNTHETIC RECOVERY"
+  },
+  {
+    "page": 9,
+    "kind": "text",
+    "x": 42,
+    "top": 695,
+    "width": 528,
+    "height": 58,
+    "text": "Synthetic recovery depends on library representation"
+  },
+  {
+    "page": 9,
+    "kind": "text",
+    "x": 42,
+    "top": 625,
+    "width": 528,
+    "height": 32,
+    "text": "Known weighted sums of parent spectra let us check estimated fractions against exact synthetic proportions."
+  },
+  {
+    "page": 9,
+    "kind": "image",
+    "x": 42.0,
+    "top": 582,
+    "width": 528.0,
+    "height": 309.5346392737697
+  },
+  {
+    "page": 9,
+    "kind": "text",
+    "x": 42,
+    "top": 258.4653607262303,
+    "width": 528,
+    "height": 52.4,
+    "text": "<b>Figure 8.</b> Smaller fraction RMSE means closer estimated weights (fractions run from 0 to 1). Ridge is a trained, regularized regression; MESMA searches reference combinations. The larger ridge library performs better, but its NEON advantage disappears with the same 15 retained parents as MESMA. Bars summarize existing fold errors; they are not field abundance accuracies."
+  },
+  {
+    "page": 9,
+    "kind": "text",
+    "x": 56,
+    "top": 133,
+    "width": 500,
+    "height": 12.005999999999998,
+    "text": "WHAT THIS TELLS US"
+  },
+  {
+    "page": 9,
+    "kind": "text",
+    "x": 56,
+    "top": 114.994,
+    "width": 500,
+    "height": 42,
+    "text": "Library capacity changes the conclusion; there is no intrinsic algorithm winner here. In the separate year-held-out test, ridge RMSE was 0.311 versus 0.309 for the no-spectrum prior, with site and year confounded."
+  },
+  {
+    "page": 9,
+    "kind": "text",
+    "x": 42,
+    "top": 52,
+    "width": 528,
+    "height": 10,
+    "text": "Source: Abundance domain summary and same-candidate ridge control, 16 Oct."
+  },
+  {
+    "page": 10,
+    "kind": "text",
+    "x": 78,
+    "top": 759,
+    "width": 492,
+    "height": 11.04,
+    "text": "SPECTRALBRIDGE  /  RESEARCHER PFT BRIEFING"
+  },
+  {
+    "page": 10,
+    "kind": "text",
+    "x": 42,
+    "top": 724,
+    "width": 528,
+    "height": 13.11,
+    "text": "3 / ABUNDANCE  /  B. SYNTHETIC RECOVERY"
+  },
+  {
+    "page": 10,
+    "kind": "text",
+    "x": 42,
+    "top": 695,
+    "width": 528,
+    "height": 58,
+    "text": "A better spectral fit does not ensure better fractions"
+  },
+  {
+    "page": 10,
+    "kind": "text",
+    "x": 42,
+    "top": 625,
+    "width": 528,
+    "height": 32,
+    "text": "The newest fixed-library check searched all 16,918,447 permitted models on the same 360 synthetic targets."
+  },
+  {
+    "page": 10,
+    "kind": "image",
+    "x": 42.0,
+    "top": 582,
+    "width": 528.0,
+    "height": 297.85263157894735
+  },
+  {
+    "page": 10,
+    "kind": "text",
+    "x": 42,
+    "top": 270.14736842105265,
+    "width": 528,
+    "height": 52.4,
+    "text": "<b>Figure 9.</b> Models use one reference per category, up to three categories. Exhaustive MESMA reduces mean spectral error by 78.7%, while pooled fraction RMSE changes from 0.322 to 0.334. Fraction error improves for 156 targets and worsens for 203 (1 unchanged). The paired eight-bundle 95% bootstrap range for the aggregate change is -0.005 to 0.029; it includes no change."
+  },
+  {
+    "page": 10,
+    "kind": "text",
+    "x": 56,
+    "top": 133,
+    "width": 500,
+    "height": 12.005999999999998,
+    "text": "WHAT THIS TELLS US"
+  },
+  {
+    "page": 10,
+    "kind": "text",
+    "x": 56,
+    "top": 114.994,
+    "width": 500,
+    "height": 42,
+    "text": "Known-parent recovery is essentially exact, so the solver can recover the constructed weights. Dense and sparse no-spectrum baselines have RMSE 0.304 and 0.345: information depends on the comparison. None of these tests validates field cover."
+  },
+  {
+    "page": 10,
+    "kind": "text",
+    "x": 42,
+    "top": 52,
+    "width": 528,
+    "height": 10,
+    "text": "Source: Fixed-library exhaustive comparison and original endmember controls, 19 Oct."
+  },
+  {
+    "page": 11,
+    "kind": "text",
+    "x": 78,
+    "top": 759,
+    "width": 492,
+    "height": 11.04,
+    "text": "SPECTRALBRIDGE  /  RESEARCHER PFT BRIEFING"
+  },
+  {
+    "page": 11,
+    "kind": "text",
+    "x": 42,
+    "top": 724,
+    "width": 528,
+    "height": 13.11,
+    "text": "WHAT WE CAN CONCLUDE"
+  },
+  {
+    "page": 11,
+    "kind": "text",
+    "x": 42,
+    "top": 695,
+    "width": 528,
+    "height": 58,
+    "text": "Three questions, three levels of evidence"
+  },
+  {
+    "page": 11,
+    "kind": "text",
+    "x": 42,
+    "top": 625,
+    "width": 528,
+    "height": 32,
+    "text": "Use these conclusions for the sampled, researcher-labelled library. Stronger ecological claims require stronger independent observations."
+  },
+  {
+    "page": 11,
+    "kind": "text",
+    "x": 56,
+    "top": 557,
+    "width": 500,
+    "height": 13.799999999999999,
+    "text": "01  ARE THE PFTs SPECTRALLY DIFFERENT?"
+  },
+  {
+    "page": 11,
+    "kind": "text",
+    "x": 56,
+    "top": 533.2,
+    "width": 500,
+    "height": 80,
+    "text": "<b>Evidence:</b> All 10 pairs differ in all four matched site/year cohorts.<br/><b>Conclusion:</b> Yes, as group distributions in this library; contrasts vary by pair and wavelength.<br/><b>What remains:</b> More independent regions and crossed years to establish broader stability."
+  },
+  {
+    "page": 11,
+    "kind": "text",
+    "x": 56,
+    "top": 400,
+    "width": 500,
+    "height": 13.799999999999999,
+    "text": "02  CAN WE IDENTIFY AN UNKNOWN SPECTRUM?"
+  },
+  {
+    "page": 11,
+    "kind": "text",
+    "x": 56,
+    "top": 376.2,
+    "width": 500,
+    "height": 64,
+    "text": "<b>Evidence:</b> NEON mean category recall is 73.8% at held-out sites.<br/><b>Conclusion:</b> Useful, uneven recognition: evergreen and background/dead are strongest; woody-shrub recall is 46.3%.<br/><b>What remains:</b> Blind external observations, with category-specific error checks."
+  },
+  {
+    "page": 11,
+    "kind": "text",
+    "x": 56,
+    "top": 243,
+    "width": 500,
+    "height": 13.799999999999999,
+    "text": "03  CAN WE ESTIMATE HOW MUCH IS PRESENT?"
+  },
+  {
+    "page": 11,
+    "kind": "text",
+    "x": 56,
+    "top": 219.2,
+    "width": 500,
+    "height": 96,
+    "text": "<b>Evidence:</b> Some synthetic recovery is useful, but different mixtures can reproduce the same spectrum; exhaustive search does not improve average fraction error.<br/><b>Conclusion:</b> Conditional mathematical capability; real-world abundance accuracy is not established.<br/><b>What remains:</b> Independent field fractions aligned to sensor footprints, verified units and endmember purity."
+  },
+  {
+    "page": 11,
+    "kind": "text",
+    "x": 42,
+    "top": 95,
+    "width": 528,
+    "height": 12.419999999999998,
+    "text": "NEXT SCIENTIFIC PRIORITY"
+  },
+  {
+    "page": 11,
+    "kind": "text",
+    "x": 42,
+    "top": 76,
+    "width": 528,
+    "height": 32,
+    "text": "Collect contemporaneous field cover fractions with matched spectral footprints. More synthetic mixtures alone cannot supply this missing ecological truth."
+  }
+]

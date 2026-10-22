@@ -1,0 +1,32 @@
+{
+  "convex_witnesses_verified": 699,
+  "disjoint_target_parents": 48,
+  "environment": {
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "python": "3.12.8"
+  },
+  "exhaustive_models_per_target": {
+    "new/original": 8349581,
+    "new/revised": 8260481,
+    "old/original": 16053803,
+    "old/revised": 14619030
+  },
+  "figure_pairs_verified": 8,
+  "label_options_verified": 2,
+  "maximum_direct_reconstruction_check_difference": 0,
+  "observed_target_IDs": 3021,
+  "paired_comparisons_verified": 8,
+  "physical_abundance_validated": false,
+  "prediction_sets": 12,
+  "primary_cells": 4,
+  "prior_briefing_files_preserved": 34,
+  "raw_spectral_library_copied": false,
+  "ridge_shared_raw_invariance_verified": true,
+  "selection_blind": false,
+  "source_inputs_verified": 7,
+  "source_parquet_copied": false,
+  "status": "PASS",
+  "synthetic_targets": 568,
+  "target_bundles": 8
+}

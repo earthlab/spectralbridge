@@ -1,0 +1,26 @@
+{
+  "checks": [
+    "55 numeric claims independently reaggregated from CSV/JSON",
+    "20 input files match historical authoritative ledgers",
+    "9 PNG/SVG pairs and builder/report fingerprints",
+    "PDF headings, dynamic display values and category labels",
+    "All text/image bounds and large figure dimensions",
+    "Six earlier collaborator reports unchanged against recorded Git revision"
+  ],
+  "historic_reports_preserved": {
+    "output/pdf/lab_story/SpectralBridge_The_Visual_Scientific_Story.pdf": "2ce4337b524aea95c758aa71343ba07c642092a084e18ac4d01b9a6703606c03",
+    "output/pdf/researcher_evidence/Separability_Identifiability_and_Abundance.pdf": "847dc6179214ae92c3a1fa84904748d742bc963cc91c473dc3fd29f75026c2bb",
+    "output/pdf/researcher_pft_information/Researcher_Categories_Spectral_Information_and_Abundance.pdf": "2b30328839823e78aac0e9f16c2ec587bdf6545c86dce4fa54ad96ce65c5153f",
+    "output/pdf/scientific_closure/What_Can_We_Reliably_Learn_from_the_SpectralBridge_Spectral_Library.pdf": "0079f02588d565f65e7d8bdbae958224ba6044a6a5323a62fe043d492cc38861",
+    "provenance/endmember-quality/2026-10-19/exhaustive-v1/EXHAUSTIVE_MESMA_REPORT.md": "85642aa4f2fee52e9b128b1a9bd9f060daad052cc5090a356e908d29fa19ac26",
+    "provenance/endmember-quality/2026-10-19/v1/ENDMEMBER_QUALITY_REPORT.md": "5a1f4613c5e81f1c3b31e34e318ece47ff3e2dab06320af9fc8ffe6de9702f93"
+  },
+  "independently_rechecked_numeric_claims": 55,
+  "model_refits": false,
+  "pages": 11,
+  "raw_library_read": false,
+  "scientific_figures": 9,
+  "status": "PASS",
+  "verified_source_files": 20,
+  "visual_QA": "External manual check; see VISUAL_QA.md for the inspected PDF fingerprint and page record."
+}

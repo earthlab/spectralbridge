@@ -1,0 +1,56 @@
+{
+  "chosen_alpha": 10.0,
+  "classes": [
+    "Deciduous",
+    "Evergreen",
+    "Herbaceous",
+    "Non-vegetated & dead",
+    "Woody shrub"
+  ],
+  "tuning": {
+    "MSE": [
+      0.07096948456188737,
+      0.07055152468378084,
+      0.06915580437255107,
+      0.06803355460757932,
+      0.06899000710024163
+    ],
+    "alphas": [
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "memberships": [
+      {
+        "train_ids": [
+          0,
+          1
+        ],
+        "validation_ids": [
+          2
+        ]
+      },
+      {
+        "train_ids": [
+          0,
+          2
+        ],
+        "validation_ids": [
+          1
+        ]
+      },
+      {
+        "train_ids": [
+          1,
+          2
+        ],
+        "validation_ids": [
+          0
+        ]
+      }
+    ],
+    "seed": 20261022
+  }
+}
