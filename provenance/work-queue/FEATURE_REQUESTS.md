@@ -20,6 +20,22 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P147. Aashish campaign notebooks (YELL full + WREF/YELL half)
+
+- Priority: User-directed
+- Status: Completed
+- Owner: Cursor Agent
+- Started: 2026-10-26
+- Goal: Add six CyVerse campaign notebooks modeled on `cibele-04.ipynb`.
+- Outcome:
+  - `archive/notebooks/campaigns/aashish-01.ipynb` … `aashish-06.ipynb`
+  - Notebook 01 is full-flight polygon extraction (`YELL_t02`).
+  - Notebooks 02–06 are half-flight polygon extraction
+    (`split_across_track=True`).
+  - Upload/delete cells use the matching base folder.
+- Blockers: None.
+- Next recommended task: Run on CyVerse after `git pull`.
+
 ### P146. Coworker PDF of new IES endmember analysis
 
 - Priority: P0, user-directed

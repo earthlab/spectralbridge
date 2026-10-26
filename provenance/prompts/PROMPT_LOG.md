@@ -41831,3 +41831,43 @@ Model: Not recorded
 ```text
 okay then I want the rollback version ( the version which was there before made the fix to scale factor) pushed to github. The division in the half pipeline seems right now so I want that in github. 
 ```
+
+## 2026-10-26 - aashish campaign notebooks
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+okay cool. Create some notebooks using that cibele notebook as reference. 
+
+I want these 2 flightlines in one notebook with base folder name as YELL_t02. They must be full extraction with polygon. NEON_D12_YELL_DP1_L001-1_20230715_directional_reflectance
+NEON_D12_YELL_DP1_L001-1_20230718_directional_reflectance
+
+Then, I want NEON_D16_WREF_DP1_L001-1_20230625_directional_reflectance in another notebook and this should be Half Flightline. (also polygon extraction)you can name the base folder WREF_half_01
+
+Then, I want these 2 -NEON_D12_YELL_DP1_L039-1_20230715_directional_reflectance
+NEON_D12_YELL_DP1_L047-1_20230703_directional_reflectance in another- Half flightine. 
+
+NEON_D12_YELL_DP1_L048-1_20230703_directional_reflectance
+NEON_D12_YELL_DP1_L049-1_20230703_directional_reflectance
+These 2 in another (half)
+
+These 2 in another- NEON_D12_YELL_DP1_L050-1_20230703_directional_reflectance
+NEON_D12_YELL_DP1_L051-1_20230703_directional_reflectance
+(half)
+
+These 2 in another- NEON_D12_YELL_DP1_L052-1_20230703_directional_reflectance
+NEON_D12_YELL_DP1_L064-1_20230712_directional_reflectance
+(half)
+
+So create a total of 6 notebooks. Make sure all the 4 cells are correct based on flightline name and base folder etc. Remember all are polygon extractions. Only the first noteook is full pipeline and others are half. You can name the notebooks aashish-01, 02 etc
+```
+
+## 2026-10-26 - push aashish campaign notebooks
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+psuh these files to github
+```
