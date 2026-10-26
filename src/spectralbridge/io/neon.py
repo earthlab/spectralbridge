@@ -223,16 +223,13 @@ def read_neon_reflectance_unitless(
     tuple[np.ndarray, float, float]
         ``(data_unitless, scale_factor, ignore_value)`` where ``data_unitless`` is a
         float32 array scaled into 0–1 reflectance with ignore values set to ``NaN``.
-        ``scale_factor`` is the raw dataset attribute (for example ``10000`` or
-        ``1e-4``); conversion to unitless always goes through
-        :func:`reflectance_to_unitless_multiplier`.
     """
 
     data = np.asarray(reflectance_ds[()], dtype=np.float32)
     ignore_value = _extract_no_data(reflectance_ds)
     scale_factor = _extract_scale_factor(reflectance_ds)
 
-    data_unitless = stored_to_unitless(data, scale_factor)
+    data_unitless = data * np.float32(scale_factor)
     data_unitless = np.where(data == ignore_value, np.nan, data_unitless)
 
     return data_unitless, scale_factor, ignore_value

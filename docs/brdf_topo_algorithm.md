@@ -88,13 +88,10 @@ kernel implementation was adapted from HyTools; citing the scientific methods
 does not replace that software attribution.
 
 * Per-band, per-bin regressions solve `rho = f_iso + f_vol*K_vol + f_geo*K_geo`.
-* Stored reflectance is converted to unitless reflectance before fitting and
-  correction via `reflectance_to_unitless_multiplier()`. Both conventions are
-  accepted:
-  * multiply style (`Scale_Factor=1e-4` → `unitless = DN * 1e-4`)
-  * NEON/ENVI divisor style (`Scale_Factor=10000` → `unitless = DN / 10000`)
-* Treating NEON `10000` as a multiplier incorrectly pushes nearly all pixels
-  outside the BRDF `rho_max` gate and collapses `iso`/`vol`/`geo` to zero.
+* The streamlined BRDF/topo path multiplies stored values by the raw
+  `scale_factor` attribute (and divides by it when writing back). This is the
+  pre-P79 convention; P79's divisor-aware conversion was rolled back after
+  NEON difference maps did not improve.
 * The streamlined BRDF model now persists the kernel settings used during fit
   and apply, including the volume kernel, geometric kernel, geometric
   parameters (`b/r`, `h/b`), and `solar_zn_type`.

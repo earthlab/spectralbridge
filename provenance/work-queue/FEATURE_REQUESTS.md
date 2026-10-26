@@ -1217,25 +1217,24 @@ left incomplete so the next agent can resume immediately.
 ### P79. NEON Scale_Factor Divisor Convention for BRDF/Topo
 
 - Priority: User-directed
-- Status: Completed
+- Status: Rolled back
 - Owner: Cursor Agent
 - Started: 2026-09-17
 - Completed: 2026-09-17
+- Rolled back: 2026-10-26
 - Goal: Treat NEON `Scale_Factor=10000` as a divisor when converting stored DN
   to unitless reflectance for BRDF/topo fit and apply (while still accepting
   multiply-style `1e-4`).
 - Outcome:
-  - Added `reflectance_to_unitless_multiplier`, `stored_to_unitless`, and
-    `unitless_to_stored` in `io/neon.py`.
-  - Wired helpers through BRDF/topo fit+apply and `read_neon_reflectance_unitless`.
-  - Raw `cube.scale_factor` remains on ENVI headers for QA divisor semantics.
-  - Regressions in `tests/test_brdf_scale.py` cover `Scale_Factor=10000`.
-  - Documented in `docs/brdf_topo_algorithm.md`.
-- Verification: `pytest -q tests/test_brdf_scale.py tests/test_brdf_topo_streamlined.py tests/test_split_across_track.py`
+  - Initially shipped divisor-aware conversion in BRDF/topo; user NEON
+    difference maps did not improve, so BRDF/topo was restored to multiply by
+    the raw `scale_factor` attribute.
+  - Heading-aware half-route split (P78) is unchanged.
+  - `reflectance_to_unitless_multiplier` remains for Landsat agreement helpers.
+- Verification: `pytest -q tests/test_brdf_scale.py tests/test_split_across_track.py`
 - Blockers: None.
-- Next recommended task: Pull on CyVerse, delete old YELL
-  `*_brdf_model.json` / corrected ENVI for L040 and L046, re-run full
-  extraction, confirm non-zero `vol`/`geo`.
+- Next recommended task: Keep half-route split; revisit scale convention only
+  with a controlled full-flight experiment against NEON bidirectional.
 
 ### P85. Package Validated Drone Translation Coefficients
 

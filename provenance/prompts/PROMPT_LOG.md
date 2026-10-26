@@ -41822,3 +41822,12 @@ Model: Not recorded
 ```text
 can you make me a pdf report to share with coworkers fro the new n member analysis
 ```
+
+## 2026-10-26 - push Scale_Factor BRDF rollback
+Branch: main
+AI system: Cursor Agent
+Model: Not recorded
+
+```text
+okay then I want the rollback version ( the version which was there before made the fix to scale factor) pushed to github. The division in the half pipeline seems right now so I want that in github. 
+```

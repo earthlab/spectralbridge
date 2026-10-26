@@ -1,11 +1,11 @@
 {
   "ai_systems": {
-    "Cursor Agent": 37,
+    "Cursor Agent": 38,
     "OpenAI Codex": 287
   },
   "branches": {
     "$(git branch --show-current 2>/dev/null || echo unknown)": 1,
-    "main": 312,
+    "main": 313,
     "unknown": 7,
     "work": 4
   },
@@ -17,7 +17,7 @@
     "tool_mentions": {
       "Browser / Playwright": 11,
       "Docker / containers": 4,
-      "Git / GitHub": 40,
+      "Git / GitHub": 41,
       "Lean / Lake": 1,
       "MkDocs": 15,
       "Notebooks / Jupyter": 55,
@@ -38,7 +38,7 @@
     "workflow_mentions": {
       "Audit / investigation": 69,
       "Documentation / reporting": 81,
-      "Implementation / refactoring": 81,
+      "Implementation / refactoring": 82,
       "Reproducibility / provenance": 42,
       "Scientific analysis / figures": 138
     }
@@ -177,12 +177,12 @@
     "GPT-5": 36,
     "GPT-5 family (exact deployment identifier not exposed)": 7,
     "GPT-6": 7,
-    "Not recorded": 274
+    "Not recorded": 275
   },
   "primary_intents": {
     "Audit or investigation": 31,
     "Execution or verification": 57,
-    "Implementation or modification": 150,
+    "Implementation or modification": 151,
     "Other or mixed": 86
   },
   "primary_topics": {
@@ -192,7 +192,7 @@
     "Other": 48,
     "Publication, packaging, release, and governance": 29,
     "QA and visualization": 53,
-    "Scientific pipeline and corrections": 79,
+    "Scientific pipeline and corrections": 80,
     "Testing and CI": 45
   },
   "prompts_by_month": {
@@ -202,24 +202,24 @@
     "2026-07": 36,
     "2026-08": 87,
     "2026-09": 49,
-    "2026-10": 63
+    "2026-10": 64
   },
   "schema_version": 2,
   "source": {
-    "data_through": "2026-10-22",
+    "data_through": "2026-10-26",
     "path": "PROMPT_LOG.md",
-    "sha256": "17afd464e5173863f605bad344cff6622193ad3af616a6c9ececfda028f51a62"
+    "sha256": "b80bede3e3a72c02bb5f8985cf9ea257a3328824fb99327e7be646f07fbc60b1"
   },
   "summary": {
     "entries_with_recorded_model": 50,
     "first_prompt_date": "2026-03-21",
-    "last_prompt_date": "2026-10-22",
+    "last_prompt_date": "2026-10-26",
     "maximum_prompt_words": 9193,
-    "mean_prompt_words": 426.5,
+    "mean_prompt_words": 425.3,
     "median_prompt_words": 34.0,
     "minimum_prompt_words": 1,
     "model_metadata_coverage_pct": 15.4,
-    "prompt_count": 324,
-    "total_prompt_words": 138175
+    "prompt_count": 325,
+    "total_prompt_words": 138212
   }
 }
