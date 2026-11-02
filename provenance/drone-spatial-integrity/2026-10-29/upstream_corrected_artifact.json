@@ -1,0 +1,20 @@
+{
+  "scope": "Separate pre-existing upstream corrected_flipped artifact; not the missing historical SpectralBridge corrected raster. Pattern correlations are descriptive, not lossless value verification.",
+  "source_valid": 2022614,
+  "product_valid": 2028600,
+  "source_mask_disagreements_forward": 5986,
+  "source_mask_disagreements_flip_y": 5986,
+  "product_crs": "EPSG:26913",
+  "product_affine": [
+    0.1,
+    -0.0,
+    455725.0,
+    -0.0,
+    -0.1,
+    4432104.75
+  ],
+  "forward_sample_pairs": 16394,
+  "forward_sample_correlation": 0.9994757169952108,
+  "flip_y_sample_pairs": 16328,
+  "flip_y_sample_correlation": 0.010125222985562348
+}

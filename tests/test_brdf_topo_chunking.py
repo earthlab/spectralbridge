@@ -14,11 +14,13 @@ class _FakeCube:
         self.lines = 220
         self.columns = 180
         self.bands = 4
+        from spectralbridge.radiometry import Radiometry
+        self.radiometry = Radiometry(1., 0., "VALID", "Synthetic chunking double")
         self.scale_factor = 1.0
         self.no_data = -9999.0
 
     def build_envi_header(self):
-        return {"samples": self.columns, "lines": self.lines, "bands": self.bands}
+        return {"samples": self.columns, "lines": self.lines, "bands": self.bands, "data type":4, "byte order":0, "interleave":"bsq", "map info":["UTM",1,1,0,2,1,1,13,"North","WGS-84"], "projection":"EPSG:32613", "wavelength":[450,550,650,850], "wavelength units":"Nanometers"}
 
     def chunk_count(self, *, chunk_y: int, chunk_x: int) -> int:
         return 1
@@ -114,9 +116,12 @@ def test_apply_brdf_topo_core_uses_scene_chunk_by_default(
         lambda img, hdr: True,
     )
 
+    import json
+    model = tmp_path / "validated-double.json"
+    model.write_text(json.dumps({"schema_version":2, "validation":{"status":"VALID"}}))
     params = {
         "h5_path": str(h5_path),
-        "coefficients_path": str(tmp_path / "missing.json"),
+        "coefficients_path": str(model),
     }
 
     apply_brdf_topo_core(
@@ -167,7 +172,10 @@ def test_apply_brdf_topo_core_honors_tile_mode(
         lambda img, hdr: True,
     )
 
-    params = {"h5_path": str(h5_path)}
+    import json
+    model = tmp_path / "validated-double.json"
+    model.write_text(json.dumps({"schema_version":2, "validation":{"status":"VALID"}}))
+    params = {"h5_path": str(h5_path), "coefficients_path": str(model)}
 
     apply_brdf_topo_core(
         raw_img_path=raw_img,

@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "directories": [
+    {
+      "directory": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1/flight_products",
+      "manifest_sha256": "4c0aa40c3331abda3cab130813114d529a0f0e078485cc95a86a2c4207c6caf9",
+      "verified_files": 198,
+      "verified_bytes": 4346657789,
+      "size_mismatches": [],
+      "unexpected_files": []
+    },
+    {
+      "directory": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1/bulk_preflight",
+      "manifest_sha256": "17e66dce0e264c4598e6a66287391e2da6509329097103eb5f52ab8393a9f2cb",
+      "verified_files": 23,
+      "verified_bytes": 4573949,
+      "size_mismatches": [],
+      "unexpected_files": []
+    },
+    {
+      "directory": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1/bulk_analysis",
+      "manifest_sha256": "772b2ed4fcb669433a9da777a074b669e36b798e471dde7628ceb3a63b1522e8",
+      "verified_files": 63,
+      "verified_bytes": 10253674,
+      "size_mismatches": [],
+      "unexpected_files": []
+    },
+    {
+      "directory": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1/campaign_state",
+      "manifest_sha256": "7e7ab384761564d554e0324dbfe6d8a965401da36292521da0a74c36a7dbf564",
+      "verified_files": 53,
+      "verified_bytes": 10812822,
+      "size_mismatches": [],
+      "unexpected_files": []
+    }
+  ],
+  "corrected_raster_roundtrips": [
+    {
+      "flight": "AOP_GORDON_20230814",
+      "remote": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected.img",
+      "bytes": 246216960,
+      "sha256": "634efb6563d918b04c116f0f0582278f4059cb1023d82dd625767154ff2b017c",
+      "matches_local": true
+    },
+    {
+      "flight": "AOP_GOLDHILL_20230814",
+      "remote": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.img",
+      "bytes": 283330800,
+      "sha256": "744e7e3d8a1970c238ef5492f396247be0c53346169730eea2149d4d6a551ccc",
+      "matches_local": true
+    },
+    {
+      "flight": "AOP_Ruby_20230814",
+      "remote": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+      "bytes": 81144000,
+      "sha256": "f7ba10e2a6c1916c9d4ca579f0f01b351ac875aef80fefcc6c56c03c8294163d",
+      "matches_local": true
+    }
+  ],
+  "verification_scope": "Every remote file size and exact manifest; gocmd transfer checksum verification; all three corrected rasters SHA-256 readback"
+}

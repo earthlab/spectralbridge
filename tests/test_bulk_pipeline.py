@@ -176,7 +176,7 @@ def _write_parquet(
         LS8_ERROR: [0] * len(x),
     }
     columns.update(extra or {})
-    pq.write_table(pa.table(columns), path)
+    pq.write_table(pa.table(columns).replace_schema_metadata({b"spectralbridge.reflectance_units":b"physical_reflectance_v1"}), path)
 
 
 def _sha256(path: Path) -> str:
@@ -205,6 +205,8 @@ def _write_envi(path: Path, values: np.ndarray, *, nodata: float = -9999.0) -> P
         nodata=nodata,
     ) as dataset:
         dataset.write(array)
+    with path.with_suffix(".hdr").open("a") as header:
+        header.write("\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic bulk fixture\nbrdf status = NOT_REQUESTED\n")
     return path
 
 
@@ -289,7 +291,7 @@ def _write_realistic_drone_table(
                 np.linspace(0.1 * index, 0.1 * index + 0.3, rows),
                 type=pa.float32(),
             )
-    pq.write_table(pa.table(columns), path)
+    pq.write_table(pa.table(columns).replace_schema_metadata({b"spectralbridge.reflectance_units":b"physical_reflectance_v1"}), path)
     return path
 
 

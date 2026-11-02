@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-02",
+  "python": "3.12.8",
+  "focused_test_modules": [
+    "tests/test_drone_recovery_experiment.py",
+    "tests/test_brdf_scale.py",
+    "tests/test_radiometric_contract.py"
+  ],
+  "tests_passed": 18,
+  "tests_failed": 0,
+  "ruff": "passed: five new scripts and new test module; byte-identical historical module intentionally not reformatted",
+  "docs_links": "passed",
+  "transparency": "9 generated artifacts verified",
+  "whitespace": "git diff --check passed",
+  "pdf_visual_review": "All six pages rendered and inspected; final changed transect/spectral pages re-rendered and inspected",
+  "real_data": "Three-flight inverse validation; full Goldhill stage replays and full-scene angular support; supported synthetic invariance control separately labelled",
+  "production_changed": false
+}

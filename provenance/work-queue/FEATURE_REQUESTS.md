@@ -20,6 +20,192 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P162. Trace photogrammetry metadata into SpectralBridge
+
+- Priority: P0, user-directed read-only provenance investigation
+- Owner: Codex
+- Started: 2026-11-02
+- Status: In progress; tracing original H5 geometry and upstream conversion history.
+- Scope: Bounded upstream project/archive search, source/working H5 and TIFF metadata lineage, photogrammetry reports, independent candidate solar positions, terrain/C-factor mechanism, provenance matrix, recovery plan and figure-heavy report. No production writes, correction changes or library regeneration.
+- Plan: Distinguish executed artifacts from code-only possibilities; identify inherited versus supplied geometry using file and history evidence; run only source-supported isolated diagnostics and record unresolved provenance explicitly.
+- Remaining: Source inspection, limited validation, figures, machine-readable matrix/inventory, report and minimal recovery proposal.
+- Next: Complete P162; retain P159 calibration/geometry dependency where records remain unavailable.
+
+### P161. Audit three-flight BRDF identifiability and correction strategy
+
+- Priority: P0, user-directed scientific investigation
+- Owner: Codex
+- Started: 2026-11-02
+- Status: Complete (2026-11-02). All three full-scene shared Ross–Li designs have rank one, stable rank one and zero supported bands (30 unsupported). Original-image BRDF remains untested pending source-photo/calibration/pose recovery. Topographic DN sensitivity gives mixed polygon effects and large gains, so no blanket correction approval.
+- Scope: Actual Gordon/Goldhill/Ruby angular designs, guarded correction branches, matched-polygon spectral/index/stability diagnostics, drone versus NEON assumptions, figure-heavy report and proposed production plan. No production data, coefficients or libraries changed.
+- Plan: Reuse verified recovery/spatial evidence; assess physical and illumination provenance before accepting corrections. Use isolated explicitly numerical DN diagnostics where physical validation is unavailable. Evaluate polygon-level summaries without pixel leakage; report unsupported branches rather than manufacture fits. Preserve source hashes.
+- Delivered: `docs/dev/drone-brdf-identifiability-investigation.md`, `docs/dev/drone-correction-production-plan.md` and `provenance/drone-brdf-strategy/2026-11-02/`: reproducible scripts, per-flight diagnostics, 301 matched polygons / 198,309 polygon-pixel memberships, compact bandwise/index/angle/stability/separability tables, 34 supported 1,999-permutation conditional tests (10 insufficient), seven figures and a seven-page visually reviewed PDF. Eleven targeted tests pass; Ruff, docs links, transparency and whitespace pass. Source/product hashes match. No production imagery, coefficients, libraries or correction policy changed.
+- Next: P159 original SD1/SD2 images, panel/DLS and Metashape poses/settings, acquisition date/timezone and terrain provenance. Review the proposed narrow stage-eligibility policy before implementation; no blanket topographic promotion or historical library regeneration.
+
+### P160. Experimentally recover drone DN and test the Goldhill red streak
+
+- Priority: P0, user-directed isolated experiment
+- Owner: Codex
+- Started: 2026-11-02
+- Status: Complete (2026-11-02). Real Goldhill 70,832,700-value baseline replay exact; numerical recovery does not remove the streak (combined boundary metric changes 0.00000501%). Same red factors; validated geometry rank 1 of 3 blocks all ten refits. Gordon/Goldhill/Ruby inverse recovery preserves grids/masks; original-resampling border discrepancies retained.
+- Scope: Separate experimental inverse-normalized rasters, historical fixed-coefficient stage replay, hypothetical DN/32768 sensitivity, validated angular-support assessment, real-data figures, quantitative ROI metrics and shareable report. Preserve all production/source artifacts and spatial grids.
+- Plan: Reuse verified per-band maps and original ablation evidence; reproduce historical output before comparing equivalent display units; distinguish historical invalid-model replay from validated fitting. Add inverse/mask/invariance regression checks and provenance hashes.
+- Delivered: `docs/dev/drone-radiometric-recovery-experiment.md`; `provenance/drone-radiometric-recovery/2026-11-02/` contains measured validation/metrics/manifests, reproducible scripts, comparison PNG/PDF, transect, factors/spectra and six-page shareable PDF. Large recovered TIFFs/branch arrays remain in the separate work directory recorded in the manifest. Eighteen focused tests pass; Ruff, docs links, transparency and figure/PDF visual checks pass. Protected source/product hashes unchanged; no production code, coefficients or libraries altered.
+- Next: P159 authoritative calibration and reviewed drone correction policy. Preserve fail-closed BRDF checks and explicitly omit unsupported BRDF; numerical recovery alone is not a production fix. No library regeneration authorized by this experiment.
+
+### P159. Establish authoritative drone calibration and acquisition support before empirical validation
+
+- Priority: P0 scientific dependency, following P158
+- Status: Numeric range-normalization investigation complete for Gordon/Goldhill/Ruby (2026-10-30): 24,387,540 paired values confirm band-specific original-extrema maps into 0–10,000 (max error 0.000781). Exact export code and absolute physical calibration remain unresolved; original Metashape project/settings are needed. Geometry/held-out dependencies remain separate.
+- Owner: Maintainers / data custodians
+- Scope: Recover Goldhill (and separately Gordon/Ruby/2024) panel/DLS/calibration and orthomosaic export scale/offset provenance, resolve August 14 notes versus August 15 image timestamps and timezone, locate original M300 SD1/SD2 images and camera poses/project/footprints, then select a justified explicit BRDF policy. Assess calibrated matched/held-out PFT observations with response, footprint, date and phenology controls before an ecological performance claim or library promotion.
+- New scaling evidence: `provenance/drone-scale-confirmation/2026-10-30/README.md`, `evidence.json` and `verified_numeric_mapping.json`. Gordon minima all zero; Goldhill NIR minimum 174; Ruby band minima 4, 3 and 297. Uniform division by 10,000 would miss band-specific offsets. Vendor default 32,768 physical normalization remains conditional on actual project calibration; no production calibration was guessed or changed.
+- Evidence: `provenance/radiometry-brdf/2026-10-30/README.md`, original-package inventory/metadata hashes, real Goldhill rejection and geometry-only rank-one result. CSV timestamps/filenames and photogrammetry lens calibration do not establish radiometric scale or recover pixel viewing geometry.
+- Next: Obtain the records and review their provenance; use fresh output directories. Until then, retain historical artifacts and describe unnormalized products explicitly. No historical library regeneration is authorized by this follow-up.
+
+### P158. Harmonize AOP and drone radiometry and BRDF validation
+
+- Priority: P0, user-directed comprehensive scientific audit/repair; incorporates P157
+- Owner: Codex
+- Started: 2026-10-30
+- Status: Evidence-supported implementation and audit complete; verified with 295 targeted tests, full local source-checkout AOP/drone smoke, real Goldhill rejection, Ruff, docs links, generated API and transparency checks. Real Goldhill radiometric recovery and empirical PFT/cross-sensor validation remain dependent on authoritative calibration, acquisition/timezone and original multi-angle records (P159).
+- Scope: Audit actual AOP/drone paths and October 26 scale rollback, establish explicit physical reflectance scale/offset/provenance, shared fail-closed BRDF validity and statuses, actual-entry equivalence tests, spatial regressions, Goldhill recovery assessment, bounded real-data/source-geometry inquiry, scientific figures, production impact and docs. Preserve original/historical artifacts; no guessed calibration or unsupported empirical recovery claims.
+- Plan: Establish source conventions and methodology evidence before targeted edits; add failing cross-pipeline/rank/scale regressions, implement shared boundary/validation changes, verify valid AOP parity and drone spatial contracts, independently exercise real metadata/model safety and assess available matched observations; record unavailable calibration/geometry/held-out-data limitations rather than fabricate them.
+- Delivered: `provenance/radiometry-brdf/2026-10-30/README.md`, `scientific_evidence.png`, `validation.json`, `verification.json`, source/acquisition inventory and metadata hashes; shared affine calibration and BRDF validity gates, pinned-kernel parity, actual-entry scale/offset/rank/nodata/interruption regressions. Historical Goldhill corrected pair/model hashes unchanged; no historical library regenerated.
+- Next recommended task: P159 source calibration, timestamp/timezone and camera-record recovery, followed by a controlled empirical study; full-cube AOP memory and large-VM throughput remain unbenchmarked.
+
+
+### P157. Prevent unsupported drone BRDF normalization
+
+- Priority: P0, scientific integrity follow-up from P156
+- Status: Prevention implemented under P158: shared physical-unit contract, rank/conditioning/prediction validation, explicit statuses and downstream gates. Goldhill remains unsupported; no guessed calibration or recovery claim.
+- Owner: Maintainers
+- Scope: Validate source radiometric units/fit-range coverage, effective fitting sample population, matrix rank/conditioning and reference-geometry support. Surface blocked scientific status instead of accepting unidentifiable coefficients and applying extreme per-pixel ratios. Preserve source values and NEON behavior; no guessed source scaling, scientific assumptions or arbitrary caps.
+- Evidence: P156 exact Goldhill ablation, 14-pixel red fit and rank-2 matrix, zero-crossing denominator/guard boundary. Topographic-only is a diagnostic, not approved calibration.
+- Plan: Confirm units/bands under P149, agree supported drone BRDF policy, add fail-closed regression tests and transparent diagnostics, revalidate/reprocess only affected contributions with source-backed provenance. Inspect other drone flights for the same invalid conditions before promotion.
+
+
+### P156. Diagnose Goldhill corrected-image red boundary
+
+- Priority: P0, user-directed
+- Owner: Codex
+- Started: 2026-10-30
+- Status: Complete diagnosis: BRDF stage and exact numerical cause isolated; production repair deferred to P157
+- Scope: Controlled raw/topographic-only/BRDF-only/combined ablations on the same Goldhill data, inspect correction factors, fit identifiability and input geometry; preserve source and existing processed products. Do not silently change scientific defaults, coefficients, scaling or acquisition metadata.
+- Plan: Reproduce production output numerically, identify the stage/condition that creates the boundary, test causal counterfactuals separately, record source hashes and reproducible diagnostics, and report confirmed cause versus remaining scientific choices. Add regression evidence before any production repair.
+- Confirmed: BRDF-only recreates stripe; topographic-only does not. Combined full-scene replay matches all 70,832,700 values/masks. At scale 1, the fitter's 0..2 range accepts only 14 red and 13 green pixels of 7,068,376 finite pixels; the exact fitting matrices have rank 2 for 3 parameters, and their reconstructed coefficients match production bit-for-bit. Red observed prediction crosses zero while reference prediction is ~91,740; the guard switches from identity to sampled gains ~57,563..11,742,750, precisely recreating the red boundary. Green reference prediction is negative (bypass) and blue fit is neutral.
+- Deliverables/verification: provenance/goldhill-correction-diagnosis/2026-10-30 contains controlled comparisons, exact fitting populations/ranks/coefficients, sampled multiplier reconstruction, code hashes and reproduction scripts. All 66 original Goldhill files remain SHA-256-identical. Eleven synthetic-control/BRDF tests pass; Ruff/docs/whitespace/AI checks run. No production correction code, coefficients, scaling, defaults or Data Store products altered.
+- Next: P157 input/fit safety repair, with authoritative source units and scientific policy review under P149. Keep affected radiometry and dependent bulk fits scientifically unapproved; do not guess a rescaling factor or mask the issue with a gain cap.
+
+
+### P155. Reduce drone translated-polygon extraction overhead
+
+- Priority: P1, follow-up identified during P154
+- Status: Not started; does not alter the current three-flight validation contract
+- Owner: Maintainers
+- Scope: ENVI polygon extraction currently visits full source chunks before polygon filtering and repeatedly creates coordinate transformers/joins metadata. Gordon/Goldhill reveal substantial per-flight table-generation cost and insufficient chunk progress.
+- Plan: Profile the existing iterator, reuse per-flight transformers/indexes, skip provably empty windows before expensive row materialization, and expose chunk progress. Preserve exact identities, masks, wavelengths, bounded memory, atomic Parquet writes and source-backed provenance. Verify exact small-fixture parity and large-grid scaling; do not add a normal bulk pixel cache.
+
+
+### P154. Fully reprocess Gordon, Goldhill and Ruby
+
+- Priority: P0, user-directed
+- Owner: Codex
+- Started: 2026-10-29
+- Status: Complete locally and on Data Store; all three reprocessed, independently validated, bulk summarized, uploaded and readback-verified
+- Scope: Reprocess all three original 2023 ExportPackages from source in a fresh output workspace, including correction, translations, polygon extraction, QA, three-flight bulk summaries and separate verified Data Store uploads. Preserve originals and earlier test/historical outputs; carry unresolved P149 scientific provenance cautions.
+- Plan: Reuse the tested notebook cells/helpers with an explicit three-flight population, validate exact band correspondence and spatial/record/value/mask conformance per flight, gate bulk on all three, preserve reproducible code/config/evidence and verify uploaded products.
+- Runtime findings: Gordon/Goldhill sidecars differ from reflectance only by 1–2 coordinate ULPs; numerical-equivalence checks now allow eight ULPs at all outer corners while rejecting actual shifts and preserving source values. Exact bounded median/p90 QA replaces per-pixel NaN percentile dispatch; synthetic parity and existing QA tests pass. One interrupted Goldhill extraction was quarantined and regenerated. Raster products remain immutable across these retries.
+- Completed: 198,309 native records / 1,983,090 values conform; all 12 translated tables retain native identities and 3,569,562 checked values match their rasters. All 274,811,292 whole-grid translation checks pass. Source raster transforms match; five-point diagnostic error is at most 7.51e-9 pixel (rounding). Bulk accepts exactly three flights and creates compact summaries/reports without a normal pixel cache. All 337 manifested remote files, four SHA-256 manifests and three full corrected-raster readbacks verify.
+- Deliverables: New Data Store collection field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1 with full flight products, bulk outputs and provenance; local products under /private/tmp/spectralbridge-three-flight-reprocess. Compact evidence, corrected overview and reproducible scripts/code patch under provenance/drone-three-flight-reprocess/2026-10-29. Original source/historical collections unchanged.
+- Verification: Roundoff/notebook/drone tests (90), spatial/ENVI tests (26), exact QA parity plus drone tests (78) pass; these overlap and must not be summed as distinct cases. Actual independent source/window/table/transfer checks pass, as do Ruff/docs/whitespace/AI freshness. Tested on local macOS, not a fresh Linux container.
+- Limits/next: Scientific QA remains caution. Goldhill corrected RGB shows a strong color boundary; review radiometric units, terrain/angular inputs, band 11 and acquisition provenance under P149 before scientific promotion. P156 subsequently confirmed a BRDF fit-range/identifiability and gain-guard failure causing that boundary; correction safety repair is tracked under P157. Existing formulas/scaling/coefficients unchanged. P155 tracks separate extraction performance work. Historical library contributions were not replaced; trace lineage before selective downstream rebuilds. No commit/push performed.
+
+
+### P148. Diagnose and repair drone spatial integrity
+
+- Priority: P0, user-directed scientific integrity investigation
+- Status: Complete locally: actual-source root cause, spatial repair and Ruby recovery validated; historical campaign replacement deferred to provenance review
+- Owner: Codex
+- Started: 2026-10-29
+- Scope: Trace TIFF/H5/ENVI/extraction; preserve sources, NEON conventions, correction science and previous outputs. Add spatial contracts, diagnostics, restart protection and recovery report.
+- Confirmed: Retrieved authoritative Gordon/Goldhill/Ruby TIFF/H5 pairs through authenticated gocmd. All 152,672,940 retained-band values match, with no array flip. H5 map-info writes signed negative Y size and WGS84 despite north-up NAD83 TIFFs; old export reproduces north-going EPSG:32613 placement. Independent legacy membership replay retains 115/2494 correct pixel/polygon pairs at Goldhill and 0/2399 and 0/9514 at Gordon/Ruby. Historical tables themselves were unavailable; a separate older upstream corrected product has different, spatially correct placement and is not automatically implicated.
+- Repair: Reject unsupported affine/ambiguous H5 geometry; preserve precision and marked TIFF corner semantics, drone ENVI conventions and standard WKT. Refresh affected indexes, spectra, translated selections and merges; gate campaign cache reuse and preserve unchanged enrichment. No correction formulas, coefficients, original files or NEON export defaults changed.
+- Verification: 195 targeted tests pass in the recorded final ordering; Ruff, documentation links, whitespace and AI-transparency freshness checked. Initial 12-case regression module failed 11 cases before production edits. Tests cover geometry, masks, CRS, ancillary alignment, identity/labels, translation, windows, old-cache invalidation and changed/unchanged restart behavior. Installed-smoke drone fixture now uses valid positive ENVI pixel sizes; no distribution build/publication or release matrix run.
+- Production: Full Ruby recovery uses an explicit first-ten-band reference only after exact source/H5 equality proof; original eleventh channel is untouched/unclassified. Existing correction and all four translation plans run; all recovered grids have zero coordinate displacement. All 22,481 retained rows match source membership/labels; 224,810 table values match corrected raster; all 36,514,800 translation checks have zero finite-value/mask mismatches. Unchanged rerun reuses every tracked product. Missing terrain accounts exactly for the existing correction's 30,171 excluded pixels; no source NoData is filled. QA rendering completes with scientific caution, not blanket scientific approval.
+- Deliverables: docs/dev/drone-spatial-integrity-investigation.md, scripts/diagnose_drone_spatial_integrity.py, tests/test_drone_spatial_integrity.py and the compact hashed packet under provenance/drone-spatial-integrity/2026-10-29, including real before/after and three-flight figures, numerical tables, reproduction/recovery scripts and access records.
+- Limits/next: Resolve band 11, manifest/package date mismatch and terrain coverage before promoting recovered products. Trace historical library lineage, then rebuild affected flight contributions and downstream analyses; do not invalidate unrelated NEON or older independently corrected products. Gordon/Goldhill recovery was subsequently completed and independently verified under P154; historical campaign/library replacement remains deferred. Follow P149; separate test-order issue retained as P150. No remaining local spatial-implementation blocker, commit, upload or publication.
+
+### P149. Resolve drone source provenance before promoting spatial recovery
+
+- Priority: P1, follow-up identified by P148
+- Status: Not started; requires authoritative sensor/export and acquisition provenance
+- Owner: Maintainers
+- Scope: Identify the unexplained eleventh TIFF channel; reconcile Ruby package date 2023-08-14 with manifest acquisition 2023-08-16 18:53:18 UTC; review original terrain coverage and actual historical library inputs before scientific promotion.
+- Plan: Obtain original sensor/export/time evidence without guessed band definitions or timestamps. Preserve originals; approve a supported input and per-flight recovery plan; validate then replace only affected library contributions and rerun dependent analyses.
+- Evidence: P148 real-source packet and investigation report. Spatial/arithmetic conformance is established for the explicit ten-band Ruby experiment; physical radiometric/field accuracy is not independently validated.
+- P154 follow-up: Full three-flight reprocessing exposes a strong Goldhill corrected-RGB color boundary. Preserve QA caution and inspect original radiometric scaling, terrain/angular inputs and acquisition metadata before promotion; source H5 reflectance attributes are empty and TIFF units unspecified (scale 1/offset 0). Spatial/full-value conformance does not establish radiometric validity. Source/corrected display comparison and review record are in provenance/drone-three-flight-reprocess/2026-10-29.
+
+### P150. Isolate Parquet-export test dependency shims
+
+- Priority: P2, pre-existing test isolation issue observed during P148 verification
+- Status: Not started; no unrelated test-harness cleanup performed in P148
+- Owner: Maintainers
+- Scope: tests/test_parquet_export.py mutates shared import/module state; placing it before installed-smoke tests can leave pyarrow without lib or interfere with lazy pipeline imports. Isolated runs and the final 195-test ordering pass.
+- Plan: Reproduce both recorded orders, scope/restore dependency stubs and package paths, and verify the same tests independently of collection/execution ordering. Do not change production spectral-library behavior to compensate for test state.
+
+### P153. High-resolution visual results poster (recovered P147 identifier collision)
+
+- Priority: P0, user-directed
+- Status: Complete locally: explicit three-input-stream revision
+- Owner: Codex
+- Started: 2026-10-27
+- Scope: Curate the existing manuscript synthesis into a 36 x 48 inch vector PDF poster; retain scientific caveats and source lineage without new analyses.
+- Plan: Preserve vector plots, add poster typography and a concise reading guide, render and inspect, verify PDF dimensions/text and source fingerprints, regenerate AI transparency.
+- Completed: 36 x 48 inch portrait poster at output/pdf/results_poster/SpectralBridge_Results_Poster.pdf with six unchanged vector manuscript panels, source attribution and synthetic/field-validation caveats. Preview and reproducible builder/source-hash manifest included.
+- Verified: One-page dimensions, extracted caveat text and figure/title bounds pass; complete Poppler render visually inspected without clipping or overlap. AI transparency regenerated. No scientific computations or package changes.
+- Revision scope: Replace dense analytical panels with annotated visible/infrared views of the available real flightline. Preserve original poster; use display-only contrast and explicit same-flight labels, with no new scientific claims.
+- Revision completed: SpectralBridge_Flightline_Poster.pdf uses three native-resolution visible/NIR/SWIR views of the available real R10C flightline, with large plain-language headings, same-location markers, road annotation, flightline definition and explicit false-color explanation. Prior analytical poster preserved.
+- Revision verified: One-page 36 x 48 inch dimensions, caveat extraction, text bounds and complete rendered visual inspection pass; original source/header SHA256, selected wavelengths, display stretches and native dimensions recorded. No scientific rerun or package changes.
+- Current revision: White background, package-first explanation of processing/correction/sensor products/export/QA and separate NEON, drone, bulk and library entry points. Reuse real flight imagery with explicit illustrative labels; preserve prior PDFs.
+- Package revision completed: SpectralBridge_Package_Poster.pdf uses a white background, two real annotated flightline views, four core function cards, separate NEON/drone/bulk/library entry points, restart/provenance benefits and documentation links. Earlier PDFs preserved.
+- Package revision verified: 36 x 48 inch one-page PDF, source/doc-aligned function labels, caveat extraction, page/card text bounds and full-page rendered visual inspection pass. Build, source hashes and QA notes recorded; AI transparency regenerated. No package behavior or scientific results changed.
+- Current visual revision: Retain white background and two real flightline views; replace text cards with saved category spectral curves and a configured sensor-band weighting diagram, with brief novice annotations and a compact core-workflow ribbon. Preserve prior PDFs and analytical results.
+- Visual revision completed: SpectralBridge_Visual_Poster.pdf retains two real annotated flightline views and adds saved category median/IQR spectra, an evergreen spectrum and configured Gaussian sensor-band profiles as vector graphs. Four-step package ribbon replaces verbose cards. White background and earlier posters preserved.
+- Visual revision verified: One-page dimensions, graph/function/caveat extraction, text bounds and full-page Poppler visual inspection pass; source/configuration hashes and reproducible builders recorded. AI transparency regenerated. No scientific fitting, corrections or package behavior changes.
+- Three-stream scope: User confirmed NEON flightlines, local drone imagery and completed flightline products. Add prominent three-route diagram and preserve flightline views/graphs; clearly separate bulk inputs from image processing.
+- Three-stream revision completed: SpectralBridge_Three_Streams_Poster.pdf prominently identifies the three user-confirmed input streams with colored cards, distinct route descriptions and arrows to a workflow-output catalogue. Bulk explicitly skips new download/correction. Flightline views, vector spectral graphs and white background retained; earlier PDFs preserved.
+- Three-stream revision verified: One-page 36 x 48 inch dimensions, three stream labels, bulk bypass/caveat extraction, text bounds, Ruff and full-page Poppler visual inspection pass. Source/configuration hashes and reproducible build recorded; AI transparency regenerated. No package or scientific results changed.
+- Next: Print/share the three-stream visual poster at actual size. No blocker.
+
+
+
+### P152. Validate clean cloud notebook on one real drone flight
+
+- Priority: P0, user-directed
+- Owner: Codex
+- Started: 2026-10-29
+- Status: Complete locally: real Ruby notebook download/producer/bulk/report/upload/readback and restart pass
+- Scope: Restore the missing spatial prerequisite conservatively, then execute the notebook workflow on a separate Ruby test population through download, producer, bulk, summaries, checksummed upload and restart validation. Keep original source collections read-only; test outputs use a dedicated namespace. A single flight is integration evidence, not complete-campaign or field calibration evidence.
+- Plan: Read source/tests, add spatial regression before repairs, run actual flight in fresh storage, record numerical spatial/table checks and transfer evidence, fix discovered notebook defects, run focused tests and regenerate transparency.
+- Completed: GitHub Desktop stash restored/reconciled with backups and exact restored-byte checks, then removed; upstream scale-factor rollback retained. Notebook gains explicit labeled test-population selection, current GoCommands JSON listing, content-preserving source refresh and concise report output. All seven notebook code cells pass on real Ruby; 22,481 rows / 224,810 values conform, zero spatial displacement, and all 36,514,800 translation checks pass. All 155 manifested remote files match inventory, four manifests match SHA-256, and full corrected raster readback matches. Restart preserves 26 scientific products/checkpoints and timestamps; two run audits refresh normally.
+- Verification: Focused drone/producer/notebook suites and NEON/ENVI/installed-artifact checks pass, Ruff/docs/whitespace/transparency checked. Final notebook/helper source checks pass; clean-base code patch reconstructs nine exact hashes. Evidence and reproduction scripts under provenance/drone-cloud-integration/2026-10-29.
+- Limits/next: Tested locally on macOS with real Data Store transfers, not a Linux container or fresh install. QA remains caution; resolve P149 source provenance before scientific promotion. Transfer the tested repaired checkout (or apply the archived patch to its clean recorded base) to the cloud container, then use TEST_PACKAGE=None and a new run ID for the full two-year campaign. No commit/push performed.
+
+
+### P151. Clean 2023/2024 drone cloud notebook
+
+- Priority: P0, user-directed
+- Owner: Codex
+- Started: 2026-10-29
+- Status: Complete locally; spatial prerequisite recovered and full real-flight integration validated under P152
+- Scope/plan: Add new root notebook and tested support helper for known CyVerse roots, explicit TIFF/H5 band verification, individual processing, complete-campaign bulk gate, and checksum uploads. Preserve originals and existing notebooks.
+- Resolved blocker: Spatial prerequisite recovered from the GitHub Desktop stash during P152; startup guard retained. No unresolved implementation blocker.
+- Authoring verification before P152: Seven offline tests pass (exact band/grid preservation and stable restart timestamp, reflectance/view/terrain rejection, JSON inventory and completeness gates, upload checksum flags/symlink rejection, clean executable notebook cells); Ruff and docs links pass. Actual Ruby source preparation passes and bulk discovery resolves the temporary flight link. No campaign or uploads launched.
+- Deliverables: Drone_2023_2024_Cloud_Production.ipynb, scripts/drone_cloud_workflow.py, tests/test_drone_cloud_workflow.py, nearest production documentation.
+- Next: Deploy the tested repaired checkout with this notebook/helper to the cloud container; review configuration and run. P149 scientific source-provenance questions remain unresolved. See the real integration evidence in P152.
+
+
 ### P147. Aashish campaign notebooks (YELL full + WREF/YELL half)
 
 - Priority: User-directed

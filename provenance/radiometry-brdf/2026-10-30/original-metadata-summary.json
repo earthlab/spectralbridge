@@ -1,0 +1,34 @@
+{
+  "Metadata.txt": {
+    "sha256": "d8f87f67865046881872d8588033ec2378988ea0688520f27c45d687cf2ac97a",
+    "size_bytes": 828
+  },
+  "SD1_image_metadata.csv": {
+    "sha256": "3276905b0964b85f7d1aa1890191f9b4cd036cb1a68e8c3651cc121f3920051b",
+    "size_bytes": 307588,
+    "row_count": 3045,
+    "columns": [
+      "TIFFTAG_DATETIME",
+      "TIFFTAG_SOFTWARE",
+      "filename"
+    ],
+    "earliest": "2023:08:15 19:38:14",
+    "latest": "2023:08:15 20:06:53"
+  },
+  "SD2_image_metadata.csv": {
+    "sha256": "3abccee406839f2e36ccaa4a266fea9e944b2a41816fc66a3582b7b91503d86e",
+    "size_bytes": 308703,
+    "row_count": 3050,
+    "columns": [
+      "TIFFTAG_DATETIME",
+      "TIFFTAG_SOFTWARE",
+      "filename"
+    ],
+    "earliest": "2023:08:15 19:38:14",
+    "latest": "2023:08:15 20:06:58"
+  },
+  "Goldhill_original_report.pdf": {
+    "sha256": "419654aa53fddfab2146ff47cb52135ac60f8beb9d5319799bdf9d939485daaf",
+    "size_bytes": 2654212
+  }
+}

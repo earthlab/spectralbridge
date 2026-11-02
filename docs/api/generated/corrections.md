@@ -217,20 +217,6 @@ Audience: **advanced**.
 
 Audience: **advanced**.
 
-::: spectralbridge.corrections.apply_glint_correct
-    options:
-      docstring_style: numpy
-      show_signature_annotations: true
-      separate_signature: true
-      show_root_heading: true
-      show_root_full_path: false
-      show_bases: false
-      show_source: false
-      signature_crossrefs: false
-      members: false
-
-Audience: **advanced**.
-
 ::: spectralbridge.corrections.fit_and_save_brdf_model
     options:
       docstring_style: numpy

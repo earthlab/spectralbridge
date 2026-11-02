@@ -1,0 +1,9 @@
+{
+  "alignment_script": {
+    "remote": "i:/iplant/home/shared/earthlab/macrosystems/field-data/To_Correct/macrosystems/dem_to_slope_aspect_and_raster_aligned.R",
+    "sha256": "f547bee976e4efe5a4c8bc3418032c1a8ca393851ad8a019a1ffdbfec318425d",
+    "operation": "Template with placeholder paths; terra::resample(method=bilinear), custom_resolution=0.25; no radiometric scaling. Not an execution record."
+  },
+  "collection_metadata": "10cm-10k collection has an ipc_UUID only; no reflectance unit, scale, offset, or generating script record was exposed",
+  "source_code_search": "Current tracked notebooks/Python/R; historical 94ef270 full tree and selected scaling-related commits. Exact range-normalization and 10cm export code not located."
+}

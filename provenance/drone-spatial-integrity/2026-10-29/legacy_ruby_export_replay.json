@@ -1,0 +1,23 @@
+{
+  "scope": "Replayed original export behavior, not a downloaded historical pipeline output",
+  "h5_reader_gdal_transform": [
+    455724.95,
+    0.1,
+    0.0,
+    4432104.8,
+    0.0,
+    -0.1
+  ],
+  "export_affine": [
+    0.1,
+    -0.0,
+    455725.0,
+    0.0,
+    0.1,
+    4432104.75
+  ],
+  "export_crs": "EPSG:32613",
+  "source_h5": "/private/tmp/spectralbridge-drone-production/AOP-Ruby-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+  "native_replay": "/private/tmp/spectralbridge-ruby-legacy-replay/legacy__native.img",
+  "working_replay": "/private/tmp/spectralbridge-ruby-legacy-replay/legacy__working.h5"
+}

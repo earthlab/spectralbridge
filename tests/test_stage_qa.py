@@ -58,6 +58,11 @@ def _qa_fixture(tmp_path: Path) -> Path:
             "\n".join(
                 [
                     "ENVI",
+                "radiometry status = VALID",
+                "physical reflectance multiplier = 1",
+                "physical reflectance offset = 0",
+                "radiometry provenance = Synthetic QA fixture",
+                "brdf status = NOT_REQUESTED",
                     f"samples = {data.shape[2]}",
                     f"lines = {data.shape[1]}",
                     f"bands = {data.shape[0]}",
@@ -83,6 +88,11 @@ def _write_scaled_fixture(tmp_path: Path) -> Path:
         "\n".join(
             [
                 "ENVI",
+                "radiometry status = VALID",
+                "physical reflectance multiplier = 1",
+                "physical reflectance offset = 0",
+                "radiometry provenance = Synthetic QA fixture",
+                "brdf status = NOT_REQUESTED",
                 "samples = 2",
                 "lines = 2",
                 "bands = 1",
@@ -90,6 +100,7 @@ def _write_scaled_fixture(tmp_path: Path) -> Path:
                 "interleave = bsq",
                 "byte order = 0",
                 "reflectance scale factor = 10000",
+                "physical reflectance multiplier = 0.0001",
                 "data ignore value = -9999",
                 "wavelength = {660}",
                 "map info = {UTM, 1, 1, 500000, 4420000, 1, 1, 13, North}",
@@ -117,6 +128,11 @@ def _write_retained_bad_band_fixture(tmp_path: Path) -> Path:
         "\n".join(
             [
                 "ENVI",
+                "radiometry status = VALID",
+                "physical reflectance multiplier = 1",
+                "physical reflectance offset = 0",
+                "radiometry provenance = Synthetic QA fixture",
+                "brdf status = NOT_REQUESTED",
                 "samples = 2",
                 "lines = 2",
                 "bands = 3",
@@ -433,6 +449,11 @@ def test_convolution_stage_audits_and_plots_brightness_application(
     header_text = "\n".join(
         [
             "ENVI",
+                "radiometry status = VALID",
+                "physical reflectance multiplier = 1",
+                "physical reflectance offset = 0",
+                "radiometry provenance = Synthetic QA fixture",
+                "brdf status = NOT_REQUESTED",
             "samples = 4",
             "lines = 3",
             "bands = 3",

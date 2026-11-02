@@ -15,6 +15,8 @@ from spectralbridge.corrections import (
 
 class _DummyCube:
     def __init__(self):
+        from spectralbridge.radiometry import Radiometry
+        self.radiometry = Radiometry(1., 0., "VALID", "Synthetic topo fixture")
         self.scale_factor = 1.0
         self.no_data = -9999.0
         self.mask_no_data = np.ones((2, 2), dtype=bool)
@@ -47,46 +49,16 @@ def test_scs_topo_correction_scaling():
 
 def test_brdf_ratio_increases_reflectance_when_reference_brighter():
     cube = _DummyCube()
-    chunk = np.full((2, 2, 2), 0.1, dtype=np.float32)
-    ndvi_config = NDVIBinningConfig(n_bins=1, ndvi_min=-1.0, ndvi_max=1.0)
-    coeffs = {
-        "iso": np.array([[0.8, 0.8]], dtype=np.float32),
-        "vol": np.array([[0.1, 0.1]], dtype=np.float32),
-        "geo": np.array([[0.1, 0.1]], dtype=np.float32),
-        "volume_kernel": "RossThick",
-        "geom_kernel": "LiSparseReciprocal",
-        "ndvi_edges": [-1.0, 1.0],
-    }
-    cube.brdf_coefficients = coeffs
-    corrected = apply_brdf_correct(
-        cube,
-        chunk,
-        0,
-        2,
-        0,
-        2,
-        ndvi_config=ndvi_config,
-        reference_geometry=ReferenceGeometry(solar_zenith_deg=10.0),
-    )
-    assert np.all(np.isfinite(corrected))
-    assert not np.allclose(corrected, chunk)
+    chunk = np.full((2, 2, 2), .2, np.float32)
+    with pytest.raises(ValueError, match="UNSUPPORTED"):
+        apply_brdf_correct(cube, chunk, 0, 2, 0, 2)
 
 
 def test_neutral_coefficients_broadcast_across_bins():
     cube = _DummyCube()
-    # Chunk yields NDVI spread across bins when using defaults
-    chunk = np.array(
-        [
-            [[0.2, 0.8], [0.3, 0.7]],
-            [[0.4, 0.6], [0.5, 0.5]],
-        ],
-        dtype=np.float32,
-    )
-    cube.brdf_coefficients = None
-    corrected = apply_brdf_correct(cube, chunk, 0, 2, 0, 2)
-    assert np.all(np.isfinite(corrected))
-    assert np.all(corrected != cube.no_data)
-    np.testing.assert_allclose(corrected, chunk)
+    chunk = np.full((2, 2, 2), .2, np.float32)
+    with pytest.raises(ValueError, match="UNSUPPORTED"):
+        apply_brdf_correct(cube, chunk, 0, 2, 0, 2)
 
 
 class _NearZeroIncidenceCube(_DummyCube):
@@ -154,49 +126,8 @@ def test_scs_c_ratio_rejects_negative_ratios():
     assert ratio[1] == pytest.approx(1.0)
 
 
-def test_brdf_invalid_kernel_factor_passes_through_input(tmp_path: Path) -> None:
-    """When R_pix/R_ref are non-positive, keep input reflectance (do not write -9999)."""
-    from spectralbridge.corrections import apply_brdf_correct, HYTOOLS_BRDF_KERNEL_CONFIG
-
-    class _Cube:
-        def __init__(self):
-            self.data = np.full((2, 2, 2), 200.0, dtype=np.float32)
-            self.scale_factor = 1e-4
-            self.lines = self.columns = 2
-            self.bands = 2
-            self.wavelengths = np.array([650.0, 850.0], dtype=np.float32)
-            self.mask_no_data = np.ones((2, 2), dtype=bool)
-            self.no_data = -9999.0
-            self.base_key = "fake"
-
-        def get_ancillary(self, name: str, radians: bool = True):
-            return np.zeros((2, 2), dtype=np.float32)
-
-    cube = _Cube()
-    # Pathological coeffs force R_pix <= 0 for Ross/Li kernels near zero angles
-    payload = {
-        "iso": [[0.0, 0.0]],
-        "vol": [[0.0, 0.0]],
-        "geo": [[0.0, 0.0]],
-        "ndvi_edges": [-1.0, 1.0],
-        "volume_kernel": "RossThick",
-        "geom_kernel": "LiDenseR",
-        "b_r": 10.0,
-        "h_b": 2.0,
-        "solar_zn_type": "scene",
-    }
-    coeff_path = tmp_path / "bad_brdf.json"
-    coeff_path.write_text(json.dumps(payload), encoding="utf-8")
-
-    out = apply_brdf_correct(
-        cube,
-        cube.data.copy(),
-        0,
-        2,
-        0,
-        2,
-        coeff_path=coeff_path,
-        brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
-    )
-    assert not np.any(np.isclose(out, -9999.0))
-    np.testing.assert_allclose(out, cube.data, rtol=1e-5)
+def test_brdf_invalid_kernel_factor_passes_through_input(tmp_path: Path):
+    cube = _DummyCube()
+    chunk = np.full((2, 2, 2), .2, np.float32)
+    with pytest.raises(ValueError, match="UNSUPPORTED"):
+        apply_brdf_correct(cube, chunk, 0, 2, 0, 2)

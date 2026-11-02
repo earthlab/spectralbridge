@@ -1,0 +1,32 @@
+{
+  "normal": {
+    "status": "stage_complete",
+    "fixture_shape": [
+      8,
+      8,
+      32
+    ],
+    "sensor_products": 7,
+    "stage_qa_json_count": 7,
+    "restart_reused_core_artifacts": true,
+    "elapsed_seconds": 13.253
+  },
+  "drone": {
+    "status": "stage_complete_full_and_polygon",
+    "fixture_shapes": [
+      [
+        8,
+        8,
+        10
+      ],
+      [
+        8,
+        8,
+        10
+      ]
+    ],
+    "corrections": "topographic_and_brdf",
+    "spectral_branch": "corrected_micasense_with_optional_affine_translation",
+    "elapsed_seconds": 12.142
+  }
+}

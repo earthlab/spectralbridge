@@ -41,6 +41,9 @@ def test_synthetic_h5_fixtures_are_tiny_and_structurally_valid(tmp_path: Path) -
 
     normal_cube = NeonCube(normal)
     drone_cube = NeonCube(drone)
+    from spectralbridge.pipelines.drone import _validate_drone_h5_spatial_metadata
+
+    _validate_drone_h5_spatial_metadata(drone)
     assert normal_cube.data.shape == SMOKE.NORMAL_SHAPE
     assert drone_cube.data.shape == SMOKE.DRONE_SHAPE
     assert normal.stat().st_size < SMOKE.MAX_FIXTURE_BYTES

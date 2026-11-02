@@ -1,0 +1,380 @@
+[
+  [
+    108,
+    3344,
+    596.0,
+    25,
+    "E A R T H  L A B   /   S C I E N T I F I C  P Y T H O N"
+  ],
+  [
+    108,
+    3200,
+    882.0120000000001,
+    124,
+    "SpectralBridge"
+  ],
+  [
+    112,
+    3110,
+    1133.546,
+    62,
+    "From flightlines to analysis-ready data"
+  ],
+  [
+    112,
+    3045,
+    1279.318,
+    34,
+    "Prepare and compare reflected light across airborne, drone and sensor-like products."
+  ],
+  [
+    108,
+    2954,
+    453.62199999999996,
+    26,
+    "REAL FLIGHTLINE  /  VISIBLE LIGHT"
+  ],
+  [
+    1450,
+    2954,
+    604.0840000000001,
+    26,
+    "A flightline is the strip recorded along one flight path."
+  ],
+  [
+    108,
+    2323,
+    570.57,
+    26,
+    "SAME GROUND  /  INFRARED SHOWN IN RED"
+  ],
+  [
+    1450,
+    2323,
+    463.86600000000004,
+    26,
+    "A marks the same patch in both images."
+  ],
+  [
+    108,
+    1726,
+    1087.1390000000001,
+    31,
+    "Infrared reveals contrasts our eyes miss. Red is a display color, not heat or fire."
+  ],
+  [
+    108,
+    1677,
+    999.4319999999999,
+    27,
+    "Illustration: two views of one corrected image, not a before-and-after correction test."
+  ],
+  [
+    108,
+    1578,
+    600.1560000000001,
+    54,
+    "What the package does"
+  ],
+  [
+    108,
+    1523,
+    1044.018,
+    31,
+    "The NEON workflow turns a spectral image into reusable scientific products."
+  ],
+  [
+    140,
+    1390,
+    37.80800000000001,
+    34,
+    "01"
+  ],
+  [
+    220,
+    1390,
+    340.275,
+    39,
+    "Prepare flightlines"
+  ],
+  [
+    140,
+    1316,
+    671.9399999999999,
+    30,
+    "Download NEON data and export spectral images."
+  ],
+  [
+    140,
+    1270,
+    690.3299999999999,
+    30,
+    "Use a separate route for supported local drone files."
+  ],
+  [
+    140,
+    1178,
+    397.3,
+    29,
+    "Readable images + metadata"
+  ],
+  [
+    1376,
+    1390,
+    37.80800000000001,
+    34,
+    "02"
+  ],
+  [
+    1456,
+    1390,
+    429.117,
+    39,
+    "Correct viewing effects"
+  ],
+  [
+    1376,
+    1316,
+    545.22,
+    30,
+    "Account for terrain and viewing geometry"
+  ],
+  [
+    1376,
+    1270,
+    515.19,
+    30,
+    "with BRDF and topographic correction."
+  ],
+  [
+    1376,
+    1178,
+    364.24,
+    29,
+    "Corrected spectral images"
+  ],
+  [
+    140,
+    1005,
+    37.80800000000001,
+    34,
+    "03"
+  ],
+  [
+    220,
+    1005,
+    491.985,
+    39,
+    "Make sensor-like products"
+  ],
+  [
+    140,
+    931,
+    720.3299999999999,
+    30,
+    "Combine wavelengths using configured sensor bands,"
+  ],
+  [
+    140,
+    885,
+    672.0000000000001,
+    30,
+    "including Landsat and MicaSense representations."
+  ],
+  [
+    140,
+    793,
+    430.21500000000003,
+    29,
+    "Configured target-band images"
+  ],
+  [
+    1376,
+    1005,
+    37.80800000000001,
+    34,
+    "04"
+  ],
+  [
+    1456,
+    1005,
+    325.104,
+    39,
+    "Export and check"
+  ],
+  [
+    1376,
+    931,
+    616.95,
+    30,
+    "Extract pixel or polygon tables, merge outputs,"
+  ],
+  [
+    1376,
+    885,
+    601.92,
+    30,
+    "and inspect quality plots, metrics and reports."
+  ],
+  [
+    1376,
+    793,
+    458.54800000000006,
+    29,
+    "Parquet tables + quality evidence"
+  ],
+  [
+    108,
+    649,
+    786.45,
+    42,
+    "Choose the workflow that fits your data"
+  ],
+  [
+    108,
+    580,
+    244.59000000000003,
+    31,
+    "NEON flightlines"
+  ],
+  [
+    108,
+    535,
+    366.825,
+    25,
+    "Process one flight or a collection."
+  ],
+  [
+    108,
+    486,
+    252.0,
+    20,
+    "go_forth_and_multiply"
+  ],
+  [
+    726,
+    580,
+    303.211,
+    31,
+    "Local drone imagery"
+  ],
+  [
+    726,
+    535,
+    347.32500000000005,
+    25,
+    "Process supported TIFF/HDF5."
+  ],
+  [
+    726,
+    486,
+    216.0,
+    20,
+    "run_drone_pipeline"
+  ],
+  [
+    1344,
+    580,
+    301.413,
+    31,
+    "Completed products"
+  ],
+  [
+    1344,
+    535,
+    437.625,
+    25,
+    "Compare flights with compact statistics."
+  ],
+  [
+    1344,
+    486,
+    204.00000000000003,
+    20,
+    "run_bulk_pipeline"
+  ],
+  [
+    1962,
+    580,
+    251.565,
+    31,
+    "Spectral libraries"
+  ],
+  [
+    1962,
+    535,
+    379.375,
+    25,
+    "Inspect inputs and report patterns."
+  ],
+  [
+    1962,
+    486,
+    348.00000000000006,
+    20,
+    "run_spectral_library_analysis"
+  ],
+  [
+    108,
+    381,
+    303.34499999999997,
+    35,
+    "Built for long runs"
+  ],
+  [
+    540,
+    381,
+    997.14,
+    30,
+    "Reuse valid outputs. Work in chunks. Keep files and provenance traceable."
+  ],
+  [
+    108,
+    307,
+    1263.546,
+    27,
+    "Sensor-like products support comparison; agreement with independent observations still needs validation."
+  ],
+  [
+    108,
+    249,
+    373.839,
+    29,
+    "Explore the documentation"
+  ],
+  [
+    108,
+    202,
+    412.641,
+    29,
+    "earthlab.github.io/spectralbridge"
+  ],
+  [
+    1420,
+    249,
+    468.328,
+    28,
+    "github.com/earthlab/spectralbridge"
+  ],
+  [
+    108,
+    136,
+    943.828,
+    23,
+    "Image: NEON R10C, 15 September 2021 | Native 1 m pixels | Original footprint in both views"
+  ],
+  [
+    108,
+    94,
+    1088.252,
+    22,
+    "Display only: per-channel 2-98% contrast stretch, gamma 0.8. White outside the flightline means no image data."
+  ],
+  [
+    108,
+    52,
+    1139.67,
+    21,
+    "Visible RGB near 650/550/470 nm; infrared RGB near 850/650/550 nm | Package source and local docs | 27 October 2026"
+  ]
+]

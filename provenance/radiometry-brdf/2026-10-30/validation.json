@@ -1,0 +1,264 @@
+{
+  "goldhill": {
+    "source": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.h5",
+    "radiometry": {
+      "scale": null,
+      "offset": null,
+      "status": "UNSUPPORTED",
+      "provenance": "Source has no authoritative physical-reflectance calibration",
+      "convention": "physical = scale * stored + offset"
+    },
+    "rejection": "Radiometry UNSUPPORTED: authoritative positive scale, offset and provenance required (Source has no authoritative physical-reflectance calibration).",
+    "new_model_status": "UNSUPPORTED",
+    "sample_geometry_rank": 1,
+    "sample_geometry_singular_values": [
+      90.52781312297942,
+      1.3088203460968969e-13,
+      7.326570686442969e-29
+    ],
+    "scope": "64x64 geometry-only window; no inferred reflectance calibration",
+    "historical_hashes_before": {
+      "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.hdr": "6d30771fa65c0e77b541c43c7b3c8f5e2041ad936bb821f77ffd4552b2bfb4c1",
+      "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.img": "744e7e3d8a1970c238ef5492f396247be0c53346169730eea2149d4d6a551ccc",
+      "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__brdf_model.json": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee"
+    },
+    "historical_hashes_after": {
+      "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.hdr": "6d30771fa65c0e77b541c43c7b3c8f5e2041ad936bb821f77ffd4552b2bfb4c1",
+      "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.img": "744e7e3d8a1970c238ef5492f396247be0c53346169730eea2149d4d6a551ccc",
+      "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__brdf_model.json": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee"
+    }
+  },
+  "synthetic": {
+    "description": "Synthetic calibrated scene, identical angular support, flat terrain; not an independent ecological evaluation",
+    "maximum_physical_difference": 8.940696716308594e-08,
+    "conditions_mean_spectra": {
+      "Uncorrected": [
+        0.3012029230594635,
+        0.5018044710159302
+      ],
+      "Topographic only": [
+        0.3012029230594635,
+        0.5018044710159302
+      ],
+      "BRDF only": [
+        0.28908252716064453,
+        0.4836244583129883
+      ],
+      "Combined": [
+        0.28908252716064453,
+        0.4836244583129883
+      ]
+    },
+    "model": {
+      "source_identity": "a28a5cc121f46470338b5d4ebecf89042040b32ff2d77b5213ded8a903a14b2d",
+      "radiometry": {
+        "scale": 0.001,
+        "offset": -0.05,
+        "status": "VALID",
+        "provenance": "synthetic independently specified calibration",
+        "convention": "physical = scale * stored + offset"
+      },
+      "kernel_config": {
+        "volume_kernel": "RossThick",
+        "geom_kernel": "LiDenseR",
+        "b_r": 10.0,
+        "h_b": 2.0,
+        "solar_zn_type": "scene"
+      },
+      "ndvi_config": {
+        "enabled": false,
+        "ndvi_min": 0.05,
+        "ndvi_max": 1.0,
+        "n_bins": 25,
+        "perc_min": 10.0,
+        "perc_max": 95.0
+      },
+      "rho_min": 0.0,
+      "rho_max": 2.0,
+      "schema_version": 2,
+      "apply_topography": false,
+      "source_path": "/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-affine-evidence-37ro2lt4/drone/drone.h5",
+      "source_shape": [
+        12,
+        14,
+        2
+      ],
+      "reference_geometry": {
+        "solar_zenith_deg": 45.0,
+        "view_zenith_deg": 0.0,
+        "relative_azimuth_deg": 0.0
+      },
+      "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
+      "fitting_population": {
+        "available_spatial": 168,
+        "eligible": null,
+        "status": "EVALUATED_PER_BAND_STRATUM"
+      },
+      "angular_support": {
+        "solar_zn": {
+          "count": 168,
+          "min_rad": 0.7853981852531433,
+          "max_rad": 0.7853981852531433,
+          "std_rad": 0.0
+        },
+        "solar_az": {
+          "count": 168,
+          "min_rad": 2.094395160675049,
+          "max_rad": 2.094395160675049,
+          "std_rad": 0.0
+        },
+        "sensor_zn": {
+          "count": 168,
+          "min_rad": 0.0,
+          "max_rad": 0.4921828508377075,
+          "std_rad": 0.14122794745530112
+        },
+        "sensor_az": {
+          "count": 168,
+          "min_rad": 0.0,
+          "max_rad": 6.614797592163086,
+          "std_rad": 1.6079699063060273
+        }
+      },
+      "rank_conditioning_status": "EVALUATED_PER_BAND_STRATUM",
+      "correction_factor_diagnostics_status": "EVALUATED_PER_SUPPORTED_FIT",
+      "validation": {
+        "status": "VALID",
+        "fits": [
+          {
+            "band": 0,
+            "bin": 0,
+            "available": 168,
+            "eligible": 168,
+            "excluded_nonfinite_or_nodata": 0,
+            "excluded_below_min": 0,
+            "excluded_above_max": 0,
+            "rank": 3,
+            "status": "VALID",
+            "singular_values": [
+              22.102532021258344,
+              12.854331419705922,
+              0.27078054716457356
+            ],
+            "condition_number": 81.62525799102173,
+            "reference_prediction": 0.28908276896898266,
+            "reference_standard_error": 1.8724197321884323e-09,
+            "predicted_standard_error_quantiles": [
+              9.99353819612966e-10,
+              1.6271249495995662e-09,
+              2.879660091910647e-09
+            ],
+            "coefficient_standard_errors": [
+              2.123723100401735e-09,
+              4.6946758718299165e-08,
+              1.8063956151961652e-09
+            ],
+            "reference_leverage": 0.02163162160879184,
+            "reference_outside_kernel_bounds": false,
+            "predicted_quantiles": [
+              0.2789357410165335,
+              0.2792164212770944,
+              0.2955734076253599,
+              0.3483726899639467,
+              0.35015784155189633
+            ],
+            "factor_quantiles": [
+              0.825578452528067,
+              0.8298118762916681,
+              0.978040610107892,
+              1.0353360970747683,
+              1.0363776542778995
+            ]
+          },
+          {
+            "band": 1,
+            "bin": 0,
+            "available": 168,
+            "eligible": 168,
+            "excluded_nonfinite_or_nodata": 0,
+            "excluded_below_min": 0,
+            "excluded_above_max": 0,
+            "rank": 3,
+            "status": "VALID",
+            "singular_values": [
+              22.102532021258344,
+              12.854331419705922,
+              0.27078054716457356
+            ],
+            "condition_number": 81.62525799102173,
+            "reference_prediction": 0.4836241251156702,
+            "reference_standard_error": 3.540057483818037e-09,
+            "predicted_standard_error_quantiles": [
+              1.889410748715072e-09,
+              3.0762952109059036e-09,
+              5.4443787810897295e-09
+            ],
+            "coefficient_standard_errors": [
+              4.0151797836201275e-09,
+              8.875906490660159e-08,
+              3.415230146521299e-09
+            ],
+            "reference_leverage": 0.02163162160879184,
+            "reference_outside_kernel_bounds": false,
+            "predicted_quantiles": [
+              0.46840358305771146,
+              0.46882460343240767,
+              0.4933600886685039,
+              0.5725590325883246,
+              0.5752367619973336
+            ],
+            "factor_quantiles": [
+              0.8407392521931898,
+              0.8446736987282825,
+              0.9802660828155569,
+              1.031567490699448,
+              1.0324945039032365
+            ]
+          }
+        ],
+        "reasons": [],
+        "condition_limit": 2896.309326171875
+      },
+      "fit_input_stage": "uncorrected",
+      "scene_solar_zenith_rad": 0.7853981852531433,
+      "reference_design": [
+        1.0,
+        -0.04586207866668701,
+        -1.0
+      ],
+      "iso": [
+        [
+          0.3000000108996358,
+          0.4999999918282823
+        ]
+      ],
+      "vol": [
+        [
+          0.01999999282950975,
+          0.029999919602548168
+        ]
+      ],
+      "geo": [
+        [
+          0.010000000686172949,
+          0.015000008039805699
+        ]
+      ],
+      "ndvi_edges": [
+        -1.0,
+        1.0
+      ],
+      "ndvi_binning_enabled": false,
+      "volume_kernel": "RossThick",
+      "geom_kernel": "LiDenseR",
+      "b_r": 10.0,
+      "h_b": 2.0,
+      "solar_zn_type": "scene"
+    },
+    "geometry_singular_values": [
+      22.102532021258348,
+      12.854331419705922,
+      0.27078054716457356
+    ]
+  }
+}

@@ -1,0 +1,233 @@
+[
+  [
+    108,
+    3344,
+    596.0,
+    25,
+    "E A R T H  L A B   /   S C I E N T I F I C  P Y T H O N"
+  ],
+  [
+    108,
+    3200,
+    882.0120000000001,
+    124,
+    "SpectralBridge"
+  ],
+  [
+    112,
+    3110,
+    1133.546,
+    62,
+    "From flightlines to analysis-ready data"
+  ],
+  [
+    112,
+    3045,
+    1279.318,
+    34,
+    "Prepare and compare reflected light across airborne, drone and sensor-like products."
+  ],
+  [
+    108,
+    2954,
+    453.62199999999996,
+    26,
+    "REAL FLIGHTLINE  /  VISIBLE LIGHT"
+  ],
+  [
+    1450,
+    2954,
+    604.0840000000001,
+    26,
+    "A flightline is the strip recorded along one flight path."
+  ],
+  [
+    108,
+    2323,
+    570.57,
+    26,
+    "SAME GROUND  /  INFRARED SHOWN IN RED"
+  ],
+  [
+    1450,
+    2323,
+    463.86600000000004,
+    26,
+    "A marks the same patch in both images."
+  ],
+  [
+    108,
+    1726,
+    1092.378,
+    31,
+    "The same ground, shown with different light channels. A marks the same patch."
+  ],
+  [
+    108,
+    1677,
+    1060.911,
+    27,
+    "Red is a display color, not heat or fire. These views do not show correction improvement."
+  ],
+  [
+    108,
+    1582,
+    577.714,
+    46,
+    "Read the spectral patterns"
+  ],
+  [
+    1344,
+    1582,
+    687.6080000000001,
+    46,
+    "Turn spectra into sensor bands"
+  ],
+  [
+    108,
+    1524,
+    678.571,
+    29,
+    "Groups reflect different patterns across wavelengths."
+  ],
+  [
+    1344,
+    1524,
+    776.939,
+    29,
+    "The package weights wavelength ranges for a target sensor."
+  ],
+  [
+    108,
+    570,
+    695.548,
+    28,
+    "Bold curves: category medians. Bands: middle 50%."
+  ],
+  [
+    108,
+    526,
+    526.0060000000001,
+    26,
+    "Gray gaps omit unsupported spectral regions."
+  ],
+  [
+    1344,
+    570,
+    714.252,
+    28,
+    "A detailed spectrum becomes fewer sensor channels."
+  ],
+  [
+    1344,
+    526,
+    666.172,
+    26,
+    "Gaussian weights shown; not measured response curves."
+  ],
+  [
+    108,
+    421,
+    861.6880000000001,
+    38,
+    "One package, from imagery to reusable science"
+  ],
+  [
+    128,
+    326,
+    161.76000000000002,
+    30,
+    "01  Prepare"
+  ],
+  [
+    128,
+    285,
+    334.92600000000004,
+    23,
+    "NEON or supported drone inputs"
+  ],
+  [
+    746,
+    326,
+    156.72,
+    30,
+    "02  Correct"
+  ],
+  [
+    746,
+    285,
+    278.001,
+    23,
+    "Terrain + viewing geometry"
+  ],
+  [
+    1364,
+    326,
+    183.42,
+    30,
+    "03  Translate"
+  ],
+  [
+    1364,
+    285,
+    299.115,
+    23,
+    "Configured sensor-like bands"
+  ],
+  [
+    1982,
+    326,
+    160.08,
+    30,
+    "04  Explore"
+  ],
+  [
+    1982,
+    285,
+    276.736,
+    23,
+    "Tables, QA, bulk + libraries"
+  ],
+  [
+    108,
+    207,
+    782.6560000000001,
+    28,
+    "Restart-safe files. Chunked processing. Traceable outputs."
+  ],
+  [
+    108,
+    159,
+    384.18300000000005,
+    27,
+    "earthlab.github.io/spectralbridge"
+  ],
+  [
+    1390,
+    159,
+    414.18,
+    27,
+    "github.com/earthlab/spectralbridge"
+  ],
+  [
+    108,
+    116,
+    1302.136,
+    22,
+    "Spectral graphs: saved polygon/year library summaries; separate from the illustrated R10C flightline. Physical-unit scaling unresolved."
+  ],
+  [
+    108,
+    78,
+    1233.738,
+    22,
+    "Flightline: NEON R10C, 15 September 2021, native 1 m pixels. Display: 2-98% stretch, gamma 0.8; blank exterior has no data."
+  ],
+  [
+    108,
+    40,
+    1284.404,
+    22,
+    "Configured sensor-like bands do not establish independent sensor agreement or field cover accuracy. | Earth Lab | 27 October 2026"
+  ]
+]

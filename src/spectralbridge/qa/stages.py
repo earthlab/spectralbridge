@@ -209,6 +209,7 @@ def _unit_reflectance(
     *,
     scale_factor: float,
     nodata: float | None,
+    header: dict[str, Any] | None = None,
 ) -> np.ndarray:
     """Return a diagnostic copy in unit reflectance with NoData represented by NaN."""
 
@@ -216,7 +217,13 @@ def _unit_reflectance(
     invalid = ~np.isfinite(result)
     if nodata is not None:
         invalid |= np.isclose(result, nodata, atol=1e-6)
-    result = result / np.float32(scale_factor)
+    if header is not None:
+        from spectralbridge.radiometry import Radiometry
+        calibration = Radiometry.from_header(header)
+        result = calibration.to_physical(result) if calibration.status == "VALID" else np.full_like(result, np.nan)
+    else:
+        # Legacy diagnostic-only call, not scientific library approval.
+        result = result / np.float32(scale_factor)
     result[invalid] = np.nan
     return result
 
@@ -635,11 +642,13 @@ def _brightness_diagnostics(
             _load_spatial_preview(before_path, before_header, max_pixels)[0],
             scale_factor=_scale_factor(before_header) or 1.0,
             nodata=_nodata(before_header),
+            header=before_header,
         )
         after_preview = _unit_reflectance(
             _load_spatial_preview(after_path, after_header, max_pixels)[0],
             scale_factor=_scale_factor(after_header) or 1.0,
             nodata=_nodata(after_header),
+            header=after_header,
         )
         result = brightness_correction_metrics(
             before_preview,
@@ -814,6 +823,13 @@ def emit_stage_qa(
     if primary_img is not None and Path(primary_img).exists():
         primary_img = Path(primary_img)
         primary_header = hdr_to_dict(primary_img.with_suffix(".hdr"))
+        from spectralbridge.radiometry import Radiometry
+        calibration = Radiometry.from_header(primary_header)
+        metrics["radiometry"] = calibration.record()
+        metrics["brdf_status"] = primary_header.get("brdf status", "UNSUPPORTED")
+        checks.append(QACheck(check_id="radiometry_verified", status=QAStatus.PASS if calibration.status == "VALID" else QAStatus.FAIL,
+                              value=calibration.status, provisional=False,
+                              interpretation="Physical-reflectance summaries require authoritative affine calibration."))
         max_pixels = 100_000 if mode == "deep" else 25_000
         sampled, primary_source_shape = _load_spatial_preview(
             primary_img, primary_header, max_pixels
@@ -826,6 +842,7 @@ def emit_stage_qa(
             sampled,
             scale_factor=primary_scale,
             nodata=nodata,
+            header=primary_header,
         )
         del sampled
         primary_preview = preview
@@ -849,6 +866,8 @@ def emit_stage_qa(
             "spatial": spatial_context,
         }
         metrics["reflectance_scaling"] = {
+            "applied_multiplier": calibration.scale,
+            "applied_offset": calibration.offset,
             "stored_value_divisor": primary_scale,
             "nodata_value": nodata,
             "source": (
@@ -978,6 +997,7 @@ def emit_stage_qa(
                 before_sampled,
                 scale_factor=reference_scale,
                 nodata=reference_nodata,
+                header=reference_header,
             )
             del before_sampled
             after_preview = primary_preview

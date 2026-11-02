@@ -1,0 +1,11 @@
+{
+  "flight": "AOP_GOLDHILL_20230814",
+  "status": "scientific_review_required",
+  "observation": "Visible strong color boundary in the corrected RGB overview. Spatial and exact-value conformance pass; this does not validate physical radiometry.",
+  "source_h5_reflectance_dataset_attributes": {},
+  "source_tiff_scale": 1.0,
+  "source_tiff_offset": 0.0,
+  "source_tiff_band_units": null,
+  "action": "Preserve outputs and caution flags; review original radiometric scaling, terrain/angular inputs and acquisition provenance before scientific promotion. No guessed rescaling or coefficient changes applied.",
+  "comparison": "goldhill_source_comparison.png; separate per-image display stretches, not a quantitative radiometric comparison."
+}

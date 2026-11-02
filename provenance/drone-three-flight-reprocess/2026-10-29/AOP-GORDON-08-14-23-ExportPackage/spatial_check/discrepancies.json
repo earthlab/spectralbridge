@@ -1,0 +1,939 @@
+{
+  "stages": {
+    "source_tiff": {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GORDON-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+      "kind": "raster",
+      "size_bytes": 280067936,
+      "mtime_ns": 1793315584586303809,
+      "height": 2088,
+      "width": 2948,
+      "bands": 11,
+      "crs": "PROJCRS[\"NAD83 / UTM zone 13N\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",26913]]",
+      "epsg": 26913,
+      "affine": [
+        0.0999999999999763,
+        0.0,
+        457268.25,
+        0.0,
+        -0.0999999999999108,
+        4429034.8
+      ],
+      "bounds": [
+        457268.25,
+        4428826.0,
+        457563.04999999993,
+        4429034.8
+      ],
+      "resolution": [
+        0.0999999999999763,
+        0.0999999999999108
+      ],
+      "orientation": "north-up",
+      "nodata": "NaN",
+      "invalid_band_pixels": 2088,
+      "mask_sha256": "d3011fb7a2e776d43c0c01df3decbb64848abf93d5c6d49c9ca2c48ad7d3c57f",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 457268.3,
+          "y": 4429034.75,
+          "value": 10000.0
+        },
+        {
+          "row": 0,
+          "col": 2947,
+          "x": 457562.99999999994,
+          "y": 4429034.75,
+          "value": null
+        },
+        {
+          "row": 2087,
+          "col": 0,
+          "x": 457268.3,
+          "y": 4428826.05,
+          "value": 10000.0
+        },
+        {
+          "row": 2087,
+          "col": 2947,
+          "x": 457562.99999999994,
+          "y": 4428826.05,
+          "value": null
+        },
+        {
+          "row": 1044,
+          "col": 1474,
+          "x": 457415.69999999995,
+          "y": 4428930.35,
+          "value": 48.265472412109375
+        }
+      ],
+      "thumbnail_stride": 8
+    },
+    "h5": {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__working.h5",
+      "kind": "h5",
+      "size_bytes": 369344824,
+      "mtime_ns": 1793315838382626987,
+      "map_info": [
+        "Arbitrary",
+        " 1.000",
+        " 1.000",
+        " 457268.25",
+        " 4429034.7999999998",
+        " 0.099999999999976302",
+        " 0.099999999999910799"
+      ],
+      "encoded_envi_transform": [
+        0.0999999999999763,
+        0.0,
+        457268.25,
+        0.0,
+        -0.0999999999999108,
+        4429034.8
+      ],
+      "spatial_reference_convention": "envi_corner_v1",
+      "encoded_orientation_conflict": false,
+      "height": 2088,
+      "width": 2948,
+      "bands": 10,
+      "crs": "PROJCRS[\"NAD83 / UTM zone 13N\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",26913]]",
+      "epsg": 26913,
+      "affine": [
+        0.0999999999999763,
+        0.0,
+        457268.25,
+        0.0,
+        -0.0999999999999108,
+        4429034.8
+      ],
+      "bounds": [
+        457268.25,
+        4428826.0,
+        457563.04999999993,
+        4429034.8
+      ],
+      "resolution": [
+        0.0999999999999763,
+        0.0999999999999108
+      ],
+      "orientation": "north-up",
+      "nodata": "NaN",
+      "invalid_band_pixels": 2088,
+      "mask_sha256": "d3011fb7a2e776d43c0c01df3decbb64848abf93d5c6d49c9ca2c48ad7d3c57f",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 457268.3,
+          "y": 4429034.75,
+          "value": 10000.0
+        },
+        {
+          "row": 0,
+          "col": 2947,
+          "x": 457562.99999999994,
+          "y": 4429034.75,
+          "value": null
+        },
+        {
+          "row": 2087,
+          "col": 0,
+          "x": 457268.3,
+          "y": 4428826.05,
+          "value": 10000.0
+        },
+        {
+          "row": 2087,
+          "col": 2947,
+          "x": 457562.99999999994,
+          "y": 4428826.05,
+          "value": null
+        },
+        {
+          "row": 1044,
+          "col": 1474,
+          "x": 457415.69999999995,
+          "y": 4428930.35,
+          "value": 48.265472412109375
+        }
+      ],
+      "thumbnail_stride": 8
+    },
+    "native": {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__envi.img",
+      "kind": "raster",
+      "size_bytes": 246216960,
+      "mtime_ns": 1793315838701764009,
+      "height": 2088,
+      "width": 2948,
+      "bands": 10,
+      "crs": "PROJCRS[\"NAD83 / UTM zone 13N\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",26913]]",
+      "epsg": 26913,
+      "affine": [
+        0.0999999999999763,
+        -0.0,
+        457268.25,
+        -0.0,
+        -0.0999999999999108,
+        4429034.8
+      ],
+      "bounds": [
+        457268.25,
+        4428826.0,
+        457563.04999999993,
+        4429034.8
+      ],
+      "resolution": [
+        0.0999999999999763,
+        0.0999999999999108
+      ],
+      "orientation": "north-up",
+      "nodata": "NaN",
+      "invalid_band_pixels": 2088,
+      "mask_sha256": "d3011fb7a2e776d43c0c01df3decbb64848abf93d5c6d49c9ca2c48ad7d3c57f",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 457268.3,
+          "y": 4429034.75,
+          "value": 10000.0
+        },
+        {
+          "row": 0,
+          "col": 2947,
+          "x": 457562.99999999994,
+          "y": 4429034.75,
+          "value": null
+        },
+        {
+          "row": 2087,
+          "col": 0,
+          "x": 457268.3,
+          "y": 4428826.05,
+          "value": 10000.0
+        },
+        {
+          "row": 2087,
+          "col": 2947,
+          "x": 457562.99999999994,
+          "y": 4428826.05,
+          "value": null
+        },
+        {
+          "row": 1044,
+          "col": 1474,
+          "x": 457415.69999999995,
+          "y": 4428930.35,
+          "value": 48.265472412109375
+        }
+      ],
+      "thumbnail_stride": 8
+    },
+    "corrected": {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected.img",
+      "kind": "raster",
+      "size_bytes": 246216960,
+      "mtime_ns": 1793315841955036562,
+      "height": 2088,
+      "width": 2948,
+      "bands": 10,
+      "crs": "PROJCRS[\"NAD83 / UTM zone 13N\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",26913]]",
+      "epsg": 26913,
+      "affine": [
+        0.0999999999999763,
+        -0.0,
+        457268.25,
+        -0.0,
+        -0.0999999999999108,
+        4429034.8
+      ],
+      "bounds": [
+        457268.25,
+        4428826.0,
+        457563.04999999993,
+        4429034.8
+      ],
+      "resolution": [
+        0.0999999999999763,
+        0.0999999999999108
+      ],
+      "orientation": "north-up",
+      "nodata": "NaN",
+      "invalid_band_pixels": 252909,
+      "mask_sha256": "f9d23da7770ce5cc43ae4e3c7b4df1c75bf3bb074620e3b3a5e4cc9dfa6b584d",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 457268.3,
+          "y": 4429034.75,
+          "value": null
+        },
+        {
+          "row": 0,
+          "col": 2947,
+          "x": 457562.99999999994,
+          "y": 4429034.75,
+          "value": null
+        },
+        {
+          "row": 2087,
+          "col": 0,
+          "x": 457268.3,
+          "y": 4428826.05,
+          "value": null
+        },
+        {
+          "row": 2087,
+          "col": 2947,
+          "x": 457562.99999999994,
+          "y": 4428826.05,
+          "value": null
+        },
+        {
+          "row": 1044,
+          "col": 1474,
+          "x": 457415.69999999995,
+          "y": 4428930.35,
+          "value": 1183953.125
+        }
+      ],
+      "thumbnail_stride": 8
+    },
+    "final": {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli_translated_envi.img",
+      "kind": "raster",
+      "size_bytes": 123108480,
+      "mtime_ns": 1793315842250204341,
+      "height": 2088,
+      "width": 2948,
+      "bands": 5,
+      "crs": "PROJCRS[\"NAD83 / UTM zone 13N\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",26913]]",
+      "epsg": 26913,
+      "affine": [
+        0.0999999999999763,
+        -0.0,
+        457268.25,
+        -0.0,
+        -0.0999999999999108,
+        4429034.8
+      ],
+      "bounds": [
+        457268.25,
+        4428826.0,
+        457563.04999999993,
+        4429034.8
+      ],
+      "resolution": [
+        0.0999999999999763,
+        0.0999999999999108
+      ],
+      "orientation": "north-up",
+      "nodata": "NaN",
+      "invalid_band_pixels": 252909,
+      "mask_sha256": "f9d23da7770ce5cc43ae4e3c7b4df1c75bf3bb074620e3b3a5e4cc9dfa6b584d",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 457268.3,
+          "y": 4429034.75,
+          "value": null
+        },
+        {
+          "row": 0,
+          "col": 2947,
+          "x": 457562.99999999994,
+          "y": 4429034.75,
+          "value": null
+        },
+        {
+          "row": 2087,
+          "col": 0,
+          "x": 457268.3,
+          "y": 4428826.05,
+          "value": null
+        },
+        {
+          "row": 2087,
+          "col": 2947,
+          "x": 457562.99999999994,
+          "y": 4428826.05,
+          "value": null
+        },
+        {
+          "row": 1044,
+          "col": 1474,
+          "x": 457415.69999999995,
+          "y": 4428930.35,
+          "value": 1138590.875
+        }
+      ],
+      "thumbnail_stride": 8
+    }
+  },
+  "comparisons": {
+    "source_tiff": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": false,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "maximum_pixels": 7.508562643358995e-09,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": 10000.0,
+          "stage_value": 10000.0
+        },
+        {
+          "row": 0,
+          "col": 2947,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 9.313225746154785e-10,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 2087,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.450580596923828e-09,
+          "reference_value": 10000.0,
+          "stage_value": 10000.0
+        },
+        {
+          "row": 2087,
+          "col": 2947,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.508562643358995e-09,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1044,
+          "col": 1474,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.450580596923828e-09,
+          "reference_value": 48.265472412109375,
+          "stage_value": 48.265472412109375
+        }
+      ],
+      "bounds_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "h5": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": false,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "maximum_pixels": 7.508562643358995e-09,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": 10000.0,
+          "stage_value": 10000.0
+        },
+        {
+          "row": 0,
+          "col": 2947,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 9.313225746154785e-10,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 2087,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.450580596923828e-09,
+          "reference_value": 10000.0,
+          "stage_value": 10000.0
+        },
+        {
+          "row": 2087,
+          "col": 2947,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.508562643358995e-09,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1044,
+          "col": 1474,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.450580596923828e-09,
+          "reference_value": 48.265472412109375,
+          "stage_value": 48.265472412109375
+        }
+      ],
+      "bounds_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lossless_values": {
+        "status": "exact_float32_comparison",
+        "values": 61554240,
+        "mismatched_values": 0
+      }
+    },
+    "native": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": false,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "maximum_pixels": 7.508562643358995e-09,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": 10000.0,
+          "stage_value": 10000.0
+        },
+        {
+          "row": 0,
+          "col": 2947,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 9.313225746154785e-10,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 2087,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.450580596923828e-09,
+          "reference_value": 10000.0,
+          "stage_value": 10000.0
+        },
+        {
+          "row": 2087,
+          "col": 2947,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.508562643358995e-09,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1044,
+          "col": 1474,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.450580596923828e-09,
+          "reference_value": 48.265472412109375,
+          "stage_value": 48.265472412109375
+        }
+      ],
+      "bounds_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lossless_values": {
+        "status": "exact_float32_comparison",
+        "values": 61554240,
+        "mismatched_values": 0
+      }
+    },
+    "corrected": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": false,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "maximum_pixels": 7.508562643358995e-09,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": 10000.0,
+          "stage_value": null
+        },
+        {
+          "row": 0,
+          "col": 2947,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 9.313225746154785e-10,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 2087,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.450580596923828e-09,
+          "reference_value": 10000.0,
+          "stage_value": null
+        },
+        {
+          "row": 2087,
+          "col": 2947,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.508562643358995e-09,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1044,
+          "col": 1474,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.450580596923828e-09,
+          "reference_value": 48.265472412109375,
+          "stage_value": 1183953.125
+        }
+      ],
+      "bounds_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "final": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": false,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "maximum_pixels": 7.508562643358995e-09,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": 10000.0,
+          "stage_value": null
+        },
+        {
+          "row": 0,
+          "col": 2947,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 9.313225746154785e-10,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 2087,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.450580596923828e-09,
+          "reference_value": 10000.0,
+          "stage_value": null
+        },
+        {
+          "row": 2087,
+          "col": 2947,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.508562643358995e-09,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1044,
+          "col": 1474,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 7.450580596923828e-09,
+          "reference_value": 48.265472412109375,
+          "stage_value": 1138590.875
+        }
+      ],
+      "bounds_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "authoritative_tiff_available": true,
+  "missing_stages": [],
+  "scope": "read-only; synthetic only when --synthetic is supplied",
+  "synthetic": false,
+  "explicit_source_band_selection": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "parquet": {
+    "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__polygons.parquet",
+    "records": 31413,
+    "coordinate_mismatches": 0,
+    "membership_mismatches": 0,
+    "label_mismatches": 0,
+    "invalid_indices": 0,
+    "raw_value_mismatches": 0,
+    "raw_values_checked": 314130,
+    "value_reference_invalid_rows": 0,
+    "explicit_value_reference": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected.img",
+    "expected_source_index_pixels_by_polygon": {
+      "{4477B44F-6454-43ED-821F-345B5FF233C7}": 193,
+      "{03EF3FDA-6994-4847-8257-2C3063F27B64}": 140,
+      "{29AADBC8-9069-40E0-857C-C89FA39340C6}": 310,
+      "{6F9267EA-01BD-46EC-94E7-2531BB176D83}": 552,
+      "{27FDE1F4-4535-4DD5-80B5-8530489BF58F}": 606,
+      "{B9A57C5F-A0DF-4606-8D2F-A2E20B09AE81}": 407,
+      "{A7EA915E-C6C0-4CC6-BD73-6336B5AC2BDF}": 339,
+      "{70DC12B1-CCBE-4C2C-BA5F-F21CA1B90B4C}": 173,
+      "{07590288-E506-4F31-B6ED-FA035718C927}": 274,
+      "{00AE2D15-F9E2-4701-86AF-B9F46DFFBC11}": 460,
+      "{4779C37C-7059-45F4-AEC8-6FA208AEE8D1}": 265,
+      "{DED1EE46-A992-4A2A-9133-E8A8AB750BC2}": 185,
+      "{4C881420-FD87-49DF-A81A-0769FFAA2F50}": 4706,
+      "{EF04DF51-68D8-4CC1-885B-A3DBEE746F99}": 367,
+      "{6346CB33-A70A-44AE-8992-ACB7B7D3556B}": 474,
+      "{20E9673C-6D7F-40AB-9539-07EF02FD56CC}": 1358,
+      "{37F4B53A-9510-45F7-AD15-9DEF632AFF23}": 118,
+      "{873EA88E-D0A3-4A8A-8D81-34D6741C0FA6}": 207,
+      "{8D286CC9-C5FD-4B88-A7B1-2012BD69102E}": 327,
+      "{D7AF4C26-A9C9-4F44-8F83-BC2FB2FB73C3}": 94,
+      "{09877185-DC09-4DBF-92A7-F8E9173CB358}": 583,
+      "{7DF1CCDE-F28F-44C1-B840-96C8924ACB0D}": 295,
+      "{AF771E93-B652-422C-9372-1588E36C8342}": 173,
+      "{078B17EE-302F-42C2-B70D-2A408B16E1F8}": 544,
+      "{E56C8965-D522-44DB-8E88-D299A343353F}": 1574,
+      "{8C2284E2-9E7D-472D-AB3B-2E795A4E7907}": 188,
+      "{385F4786-A7F3-48E8-BA6B-ACEAD9AEEE11}": 209,
+      "{B7ADEA97-84A9-4E53-A13A-9ED90F055135}": 232,
+      "{35509AC5-EBED-4B1F-AD2D-E7D149B78AD6}": 331,
+      "{23FF5445-8366-408D-8B0E-D077E1B818BD}": 2538,
+      "{B6BB79CC-09D6-4EEB-9C2F-2C054E4C22B8}": 337,
+      "{6A7E3D81-B6DD-4437-9BAF-23A838DD7E5B}": 592,
+      "{E50FFC13-D9E5-4A20-BF4D-D5B72BCF2913}": 463,
+      "{52862F1F-2599-43EC-BC1F-74EABD253CF9}": 262,
+      "{7BE86250-06C0-4DAA-8BB5-8940089A49DB}": 148,
+      "{7323FAFA-2777-4F38-9191-2D3C17F34FFF}": 231,
+      "{EF8DE420-7DB9-4799-A48E-E2434A82C164}": 532,
+      "{37004739-B451-481A-B208-273A25420208}": 114,
+      "{D570633E-BDD4-43CC-9C70-8C04FD063047}": 358,
+      "{7208D83F-DB1F-4F68-99C9-EB10C45F9203}": 129,
+      "{E7B79CFD-2595-4595-92AE-A0D74D307116}": 89,
+      "{A1F5E8C9-2DEB-4379-985E-7382FD9FCAAF}": 68,
+      "{74F086F9-B47A-4BA9-A8C7-DD1FD4EA44CC}": 176,
+      "{65DEC5DA-6CC6-45CB-8342-024CC258D156}": 99,
+      "{7C48ADBF-7A71-4B12-979C-40C98B3E3ECE}": 115,
+      "{6BFBE6C9-0A7E-462E-8E35-54364853110E}": 1228,
+      "{ADCD9C98-1A2C-4729-9046-BFA11D34CE7E}": 961,
+      "{E1336CF6-AE19-4423-90B7-4BD223A5EEF3}": 389,
+      "{E1F725E4-C28B-40A7-9E86-6578163DCEB1}": 115,
+      "{3AAF53AB-6FE5-4F40-AF54-AC5D3B97DB82}": 745,
+      "{9A8FBAB7-2C54-4086-BF44-3EA1AB822988}": 1659,
+      "{D8627F2C-C62C-48D3-9047-8F02E47B7EBA}": 207,
+      "{A7B295EA-49D4-4C54-AB1A-9BD526C27237}": 319,
+      "{F8F78134-FCAE-43C5-B09E-7DC792B44084}": 302,
+      "{E18C9D58-2AB5-40B6-B557-935021D8F7B4}": 231,
+      "{A3585C36-E618-462B-AB2F-E851E233A3FC}": 245,
+      "{D332C093-BA56-4978-9B9F-D4AE6D609FF7}": 165,
+      "{9717614A-1543-434E-9AD1-AFC5755E16AF}": 4429
+    },
+    "observed_pixels_by_polygon": {
+      "{03EF3FDA-6994-4847-8257-2C3063F27B64}": 138,
+      "{4477B44F-6454-43ED-821F-345B5FF233C7}": 193,
+      "{29AADBC8-9069-40E0-857C-C89FA39340C6}": 310,
+      "{27FDE1F4-4535-4DD5-80B5-8530489BF58F}": 606,
+      "{6F9267EA-01BD-46EC-94E7-2531BB176D83}": 552,
+      "{B9A57C5F-A0DF-4606-8D2F-A2E20B09AE81}": 407,
+      "{A7EA915E-C6C0-4CC6-BD73-6336B5AC2BDF}": 339,
+      "{70DC12B1-CCBE-4C2C-BA5F-F21CA1B90B4C}": 173,
+      "{07590288-E506-4F31-B6ED-FA035718C927}": 274,
+      "{4C881420-FD87-49DF-A81A-0769FFAA2F50}": 4706,
+      "{4779C37C-7059-45F4-AEC8-6FA208AEE8D1}": 265,
+      "{00AE2D15-F9E2-4701-86AF-B9F46DFFBC11}": 460,
+      "{DED1EE46-A992-4A2A-9133-E8A8AB750BC2}": 185,
+      "{37F4B53A-9510-45F7-AD15-9DEF632AFF23}": 118,
+      "{873EA88E-D0A3-4A8A-8D81-34D6741C0FA6}": 207,
+      "{09877185-DC09-4DBF-92A7-F8E9173CB358}": 583,
+      "{D7AF4C26-A9C9-4F44-8F83-BC2FB2FB73C3}": 94,
+      "{20E9673C-6D7F-40AB-9539-07EF02FD56CC}": 1358,
+      "{EF04DF51-68D8-4CC1-885B-A3DBEE746F99}": 367,
+      "{8D286CC9-C5FD-4B88-A7B1-2012BD69102E}": 327,
+      "{6346CB33-A70A-44AE-8992-ACB7B7D3556B}": 474,
+      "{8C2284E2-9E7D-472D-AB3B-2E795A4E7907}": 188,
+      "{E56C8965-D522-44DB-8E88-D299A343353F}": 1574,
+      "{078B17EE-302F-42C2-B70D-2A408B16E1F8}": 544,
+      "{385F4786-A7F3-48E8-BA6B-ACEAD9AEEE11}": 209,
+      "{35509AC5-EBED-4B1F-AD2D-E7D149B78AD6}": 331,
+      "{AF771E93-B652-422C-9372-1588E36C8342}": 173,
+      "{7DF1CCDE-F28F-44C1-B840-96C8924ACB0D}": 295,
+      "{B7ADEA97-84A9-4E53-A13A-9ED90F055135}": 232,
+      "{52862F1F-2599-43EC-BC1F-74EABD253CF9}": 262,
+      "{E50FFC13-D9E5-4A20-BF4D-D5B72BCF2913}": 463,
+      "{23FF5445-8366-408D-8B0E-D077E1B818BD}": 2538,
+      "{6A7E3D81-B6DD-4437-9BAF-23A838DD7E5B}": 592,
+      "{7BE86250-06C0-4DAA-8BB5-8940089A49DB}": 148,
+      "{B6BB79CC-09D6-4EEB-9C2F-2C054E4C22B8}": 337,
+      "{7323FAFA-2777-4F38-9191-2D3C17F34FFF}": 231,
+      "{37004739-B451-481A-B208-273A25420208}": 114,
+      "{EF8DE420-7DB9-4799-A48E-E2434A82C164}": 532,
+      "{74F086F9-B47A-4BA9-A8C7-DD1FD4EA44CC}": 176,
+      "{A1F5E8C9-2DEB-4379-985E-7382FD9FCAAF}": 68,
+      "{65DEC5DA-6CC6-45CB-8342-024CC258D156}": 99,
+      "{D570633E-BDD4-43CC-9C70-8C04FD063047}": 358,
+      "{7208D83F-DB1F-4F68-99C9-EB10C45F9203}": 129,
+      "{E7B79CFD-2595-4595-92AE-A0D74D307116}": 89,
+      "{6BFBE6C9-0A7E-462E-8E35-54364853110E}": 1228,
+      "{ADCD9C98-1A2C-4729-9046-BFA11D34CE7E}": 961,
+      "{7C48ADBF-7A71-4B12-979C-40C98B3E3ECE}": 115,
+      "{E1F725E4-C28B-40A7-9E86-6578163DCEB1}": 115,
+      "{E1336CF6-AE19-4423-90B7-4BD223A5EEF3}": 389,
+      "{3AAF53AB-6FE5-4F40-AF54-AC5D3B97DB82}": 745,
+      "{9A8FBAB7-2C54-4086-BF44-3EA1AB822988}": 1659,
+      "{D8627F2C-C62C-48D3-9047-8F02E47B7EBA}": 207,
+      "{A7B295EA-49D4-4C54-AB1A-9BD526C27237}": 319,
+      "{F8F78134-FCAE-43C5-B09E-7DC792B44084}": 302,
+      "{A3585C36-E618-462B-AB2F-E851E233A3FC}": 245,
+      "{E18C9D58-2AB5-40B6-B557-935021D8F7B4}": 231,
+      "{D332C093-BA56-4978-9B9F-D4AE6D609FF7}": 165,
+      "{9717614A-1543-434E-9AD1-AFC5755E16AF}": 2914
+    },
+    "source_index_counts_match": false,
+    "duplicate_pixel_records": 0,
+    "complete_index_membership_match": false,
+    "expected_finite_value_reference_pixels_by_polygon": {
+      "{4477B44F-6454-43ED-821F-345B5FF233C7}": 193,
+      "{03EF3FDA-6994-4847-8257-2C3063F27B64}": 138,
+      "{29AADBC8-9069-40E0-857C-C89FA39340C6}": 310,
+      "{6F9267EA-01BD-46EC-94E7-2531BB176D83}": 552,
+      "{27FDE1F4-4535-4DD5-80B5-8530489BF58F}": 606,
+      "{B9A57C5F-A0DF-4606-8D2F-A2E20B09AE81}": 407,
+      "{A7EA915E-C6C0-4CC6-BD73-6336B5AC2BDF}": 339,
+      "{70DC12B1-CCBE-4C2C-BA5F-F21CA1B90B4C}": 173,
+      "{07590288-E506-4F31-B6ED-FA035718C927}": 274,
+      "{00AE2D15-F9E2-4701-86AF-B9F46DFFBC11}": 460,
+      "{4779C37C-7059-45F4-AEC8-6FA208AEE8D1}": 265,
+      "{DED1EE46-A992-4A2A-9133-E8A8AB750BC2}": 185,
+      "{4C881420-FD87-49DF-A81A-0769FFAA2F50}": 4706,
+      "{EF04DF51-68D8-4CC1-885B-A3DBEE746F99}": 367,
+      "{6346CB33-A70A-44AE-8992-ACB7B7D3556B}": 474,
+      "{20E9673C-6D7F-40AB-9539-07EF02FD56CC}": 1358,
+      "{37F4B53A-9510-45F7-AD15-9DEF632AFF23}": 118,
+      "{873EA88E-D0A3-4A8A-8D81-34D6741C0FA6}": 207,
+      "{8D286CC9-C5FD-4B88-A7B1-2012BD69102E}": 327,
+      "{D7AF4C26-A9C9-4F44-8F83-BC2FB2FB73C3}": 94,
+      "{09877185-DC09-4DBF-92A7-F8E9173CB358}": 583,
+      "{7DF1CCDE-F28F-44C1-B840-96C8924ACB0D}": 295,
+      "{AF771E93-B652-422C-9372-1588E36C8342}": 173,
+      "{078B17EE-302F-42C2-B70D-2A408B16E1F8}": 544,
+      "{E56C8965-D522-44DB-8E88-D299A343353F}": 1574,
+      "{8C2284E2-9E7D-472D-AB3B-2E795A4E7907}": 188,
+      "{385F4786-A7F3-48E8-BA6B-ACEAD9AEEE11}": 209,
+      "{B7ADEA97-84A9-4E53-A13A-9ED90F055135}": 232,
+      "{35509AC5-EBED-4B1F-AD2D-E7D149B78AD6}": 331,
+      "{23FF5445-8366-408D-8B0E-D077E1B818BD}": 2538,
+      "{B6BB79CC-09D6-4EEB-9C2F-2C054E4C22B8}": 337,
+      "{6A7E3D81-B6DD-4437-9BAF-23A838DD7E5B}": 592,
+      "{E50FFC13-D9E5-4A20-BF4D-D5B72BCF2913}": 463,
+      "{52862F1F-2599-43EC-BC1F-74EABD253CF9}": 262,
+      "{7BE86250-06C0-4DAA-8BB5-8940089A49DB}": 148,
+      "{7323FAFA-2777-4F38-9191-2D3C17F34FFF}": 231,
+      "{EF8DE420-7DB9-4799-A48E-E2434A82C164}": 532,
+      "{37004739-B451-481A-B208-273A25420208}": 114,
+      "{D570633E-BDD4-43CC-9C70-8C04FD063047}": 358,
+      "{7208D83F-DB1F-4F68-99C9-EB10C45F9203}": 129,
+      "{E7B79CFD-2595-4595-92AE-A0D74D307116}": 89,
+      "{A1F5E8C9-2DEB-4379-985E-7382FD9FCAAF}": 68,
+      "{74F086F9-B47A-4BA9-A8C7-DD1FD4EA44CC}": 176,
+      "{65DEC5DA-6CC6-45CB-8342-024CC258D156}": 99,
+      "{7C48ADBF-7A71-4B12-979C-40C98B3E3ECE}": 115,
+      "{6BFBE6C9-0A7E-462E-8E35-54364853110E}": 1228,
+      "{ADCD9C98-1A2C-4729-9046-BFA11D34CE7E}": 961,
+      "{E1336CF6-AE19-4423-90B7-4BD223A5EEF3}": 389,
+      "{E1F725E4-C28B-40A7-9E86-6578163DCEB1}": 115,
+      "{3AAF53AB-6FE5-4F40-AF54-AC5D3B97DB82}": 745,
+      "{9A8FBAB7-2C54-4086-BF44-3EA1AB822988}": 1659,
+      "{D8627F2C-C62C-48D3-9047-8F02E47B7EBA}": 207,
+      "{A7B295EA-49D4-4C54-AB1A-9BD526C27237}": 319,
+      "{F8F78134-FCAE-43C5-B09E-7DC792B44084}": 302,
+      "{E18C9D58-2AB5-40B6-B557-935021D8F7B4}": 231,
+      "{A3585C36-E618-462B-AB2F-E851E233A3FC}": 245,
+      "{D332C093-BA56-4978-9B9F-D4AE6D609FF7}": 165,
+      "{9717614A-1543-434E-9AD1-AFC5755E16AF}": 2914
+    },
+    "complete_retained_membership_match": true,
+    "status": "source_index_and_record_comparison",
+    "membership_scope": "center-based source-grid polygon index, including nodata; filtered spectral tables may legitimately contain fewer rows"
+  }
+}

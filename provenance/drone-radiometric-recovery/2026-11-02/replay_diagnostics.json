@@ -1,0 +1,109 @@
+{
+  "historical_exact_replay": {
+    "values": 70832700,
+    "finite_mismatches": 0,
+    "mask_mismatches": 0
+  },
+  "normalized": {
+    "factor_ratio_relative_roundoff": {
+      "n": 7068376,
+      "quantiles_0_1_50_95_99_100": [
+        0.0,
+        0.0,
+        1.2139707572522696e-08,
+        4.3181615172471766e-08,
+        5.162221294874314e-08,
+        5.959051807558069e-08
+      ]
+    },
+    "valid_pixels": 7068376,
+    "coverage": {
+      "raw": 7068376,
+      "topo": 6680329,
+      "brdf": 7068376,
+      "combined": 6680329
+    }
+  },
+  "recovered": {
+    "factor_ratio_relative_roundoff": {
+      "n": 7068376,
+      "quantiles_0_1_50_95_99_100": [
+        0.0,
+        0.0,
+        1.1975990588108942e-08,
+        4.2412546807923945e-08,
+        5.136563258067994e-08,
+        5.956155058051138e-08
+      ]
+    },
+    "valid_pixels": 7068376,
+    "coverage": {
+      "raw": 7068376,
+      "topo": 6680329,
+      "brdf": 7068376,
+      "combined": 6680329
+    }
+  },
+  "hypothetical": {
+    "factor_ratio_relative_roundoff": {
+      "n": 7068376,
+      "quantiles_0_1_50_95_99_100": [
+        0.0,
+        0.0,
+        1.1975990588108942e-08,
+        4.2412546807923945e-08,
+        5.136563258067994e-08,
+        5.956155058051138e-08
+      ]
+    },
+    "valid_pixels": 7068376,
+    "coverage": {
+      "raw": 7068376,
+      "topo": 6680329,
+      "brdf": 7068376,
+      "combined": 6680329
+    }
+  },
+  "validated_refit": {
+    "status": "UNSUPPORTED",
+    "rank": 1,
+    "required_rank": 3,
+    "singular_values": [
+      3760.6409852403876,
+      1.2902044453211504e-09,
+      1.6911784522025252e-21
+    ],
+    "condition_number": 2.223680759616275e+24,
+    "geometry_pixels": 7068376,
+    "scene_solar_zenith_radians": 0.48458962603034883,
+    "refitted_models": 0,
+    "unsupported_band_fits": 10,
+    "reason": "Rank-deficient angular design; no refit forced. DN branches additionally lack physical calibration.",
+    "hypothetical_status": "HYPOTHETICAL_METASHAPE_32768: computational sensitivity only, no absolute validity"
+  },
+  "supported_invariance": {
+    "scope": "Synthetic full-rank control through actual validated fit/application API; a=2 stays within unchanged 0..2 eligibility; not a Goldhill fit",
+    "statuses": [
+      "VALID",
+      "VALID"
+    ],
+    "max_abs_factor_difference": 0.0,
+    "same_eligible_population": true
+  },
+  "historical_red_factor": {
+    "n": 7068376,
+    "quantiles_0_1_50_95_99_100": [
+      1.0,
+      1.0,
+      95469.515625,
+      838767.875,
+      3914250.0,
+      11742750.0
+    ],
+    "nonpositive_or_invalid_predictions": 2048604,
+    "neutral_fallback_pixels": 2048605,
+    "gains_over_10": 5019771,
+    "gains_over_1000": 5019771
+  },
+  "fixed_coefficient_factor_difference": 0.0
+}

@@ -1,0 +1,31 @@
+{
+  "scope": "complete_requested_three_flight_reprocess",
+  "requested_packages": [
+    "AOP-GORDON-08-14-23-ExportPackage",
+    "AOP-GOLDHILL-08-14-23-ExportPackage",
+    "AOP-Ruby-08-14-23-ExportPackage"
+  ],
+  "work": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1",
+  "source": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k",
+  "remote_results": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1",
+  "bands": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "cautions": [
+    "Retain ten TIFF bands only after exact H5 equality; other channels are unclassified.",
+    "Bundled acquisition times are used; package/manifest date disagreements require review.",
+    "Terrain masks are preserved. Review scientific QA before promoting results."
+  ],
+  "manifest": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_field_manifest.csv",
+  "polygons": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+  "software_head": "ecd0df27dc98ebe30e40bfad0e7d7e7c9d28b563"
+}

@@ -21,7 +21,7 @@ from .provenance import canonical_json, signature_sha256, write_json_atomic
 from .registry import TranslationPair
 
 
-STATISTICS_SCHEMA_VERSION = 1
+STATISTICS_SCHEMA_VERSION = 2
 
 
 @dataclass
@@ -227,6 +227,8 @@ def iter_aligned_pair_chunks(
             sensor: stack.enter_context(rasterio.open(products[sensor]["image"]))
             for sensor in sensors
         }
+        from spectralbridge.radiometry import library_radiometry
+        calibrations = {sensor: library_radiometry(products[sensor]["image"]) for sensor in sensors}
         reference_sensor = sensors[0]
         reference = datasets[reference_sensor]
         for sensor, dataset in datasets.items():
@@ -253,6 +255,7 @@ def iter_aligned_pair_chunks(
                     sensor: _valid_sensor_mask(arrays[sensor], datasets[sensor].nodata)
                     for sensor in sensors
                 }
+                arrays = {sensor: calibrations[sensor].to_physical(array) for sensor, array in arrays.items()}
                 rows = np.repeat(np.arange(row_start, row_start + height), width)
                 cols = np.tile(np.arange(col_start, col_start + width), height)
                 pixel_ids = rows.astype(np.int64) * reference.width + cols.astype(np.int64)
@@ -263,6 +266,7 @@ def iter_aligned_pair_chunks(
                     valid = (
                         sensor_valid[spec.source_sensor]
                         & sensor_valid[spec.target_sensor]
+                        & np.isfinite(x) & np.isfinite(y)
                         & (x >= minimum_reflectance)
                         & (y >= minimum_reflectance)
                     )

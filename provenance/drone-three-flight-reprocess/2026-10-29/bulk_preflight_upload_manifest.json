@@ -1,0 +1,101 @@
+{
+  "files": {
+    "analyses/dataset_census/by_exclusion_reason.parquet": {
+      "bytes": 163,
+      "sha256": "da917fe7e66a46385788ef1c574e748921af7473bd565f4f85d97d4c33df7523"
+    },
+    "analyses/dataset_census/by_product.parquet": {
+      "bytes": 3118,
+      "sha256": "e65fc5e51ec54622f9c934745b36ea221862e3cfb6386377bc968d6aa04884f6"
+    },
+    "analyses/dataset_census/by_schema.parquet": {
+      "bytes": 1097,
+      "sha256": "3011288db58db5ca334e48a1edcc5ab44f4c86c0678a605b9fcea42bca4f5833"
+    },
+    "analyses/dataset_census/by_sensor.parquet": {
+      "bytes": 608,
+      "sha256": "3e0a2e3925643c4e5b08c3a85fc8ed6503e82dbaee2ee31cdadb22d87dea486d"
+    },
+    "analyses/dataset_census/by_site.parquet": {
+      "bytes": 917,
+      "sha256": "834550622e4762ec598a08d2a6b916aad95a8ce60dbda3cd0605ea3c1cf0e9b4"
+    },
+    "analyses/dataset_census/by_year.parquet": {
+      "bytes": 524,
+      "sha256": "6e1ce62950983b5ca7e16a9a7e021fbdf8609e79e3134412f5d9c8887f07ba4f"
+    },
+    "analyses/dataset_census/dataset_census.json": {
+      "bytes": 2942,
+      "sha256": "848f71b83e2192557fc7b949d6ccff2fcb938abaf359012d08f31d6ce41cf499"
+    },
+    "analyses/dataset_census/dataset_census.md": {
+      "bytes": 2348,
+      "sha256": "bce362d3e2f3ee69398b9d55860ea47a10b00930fa4c705ffef189ebe1d5048c"
+    },
+    "analyses/dataset_census/dataset_census.parquet": {
+      "bytes": 11885,
+      "sha256": "e7a8cc12f60624612daebacaa81b957d55541fd4ba7140ded52b4306026dec59"
+    },
+    "analyses/dataset_census/inconsistencies.parquet": {
+      "bytes": 188,
+      "sha256": "c59d2818dfd1efc713153196befec06a41483bc0760ad536c8f24b0d9368b6c2"
+    },
+    "analyses/dataset_census/missing_products.parquet": {
+      "bytes": 288,
+      "sha256": "82f6d5a472215dfde847fdb1192e820245db3b015c326db957cc680dfd143f38"
+    },
+    "catalog/bulk_manifest.json": {
+      "bytes": 264163,
+      "sha256": "532aeadd6fa94ebfabc1fb06c672fea6307ac60615ace214ad14ee68e1b51856"
+    },
+    "catalog/duplicates.parquet": {
+      "bytes": 1608,
+      "sha256": "c730852d42127681d0e0d9aa0cdfc83766eadf58a32e7030ebca97d277067d5c"
+    },
+    "catalog/exclusions.csv": {
+      "bytes": 171,
+      "sha256": "6394cb5273868c7007f913429e85f963f8c1416723349b04cc8deb05d5a3f8ae"
+    },
+    "catalog/exclusions.json": {
+      "bytes": 46,
+      "sha256": "afd2b2d2edf6673deadb348e7c230c80937a228b35620a7c714dee69ffbba2c3"
+    },
+    "catalog/exclusions.parquet": {
+      "bytes": 387,
+      "sha256": "66e0fbbe1fcf5884fa402ed8bca6f279ca8c605b268dc66025643b35703cff86"
+    },
+    "catalog/flightlines.parquet": {
+      "bytes": 30276,
+      "sha256": "1d28acddc788fd38a52cf8a967421891fdf78cd67bc55586a881ca2e99e626f5"
+    },
+    "catalog/rejected_sources.parquet": {
+      "bytes": 1608,
+      "sha256": "c730852d42127681d0e0d9aa0cdfc83766eadf58a32e7030ebca97d277067d5c"
+    },
+    "catalog/source_files.parquet": {
+      "bytes": 17144,
+      "sha256": "03ef745bca6190c7a60a37b5c9c4b135390b0172be7808a76f467687bceefcd0"
+    },
+    "catalog/source_products.parquet": {
+      "bytes": 17144,
+      "sha256": "03ef745bca6190c7a60a37b5c9c4b135390b0172be7808a76f467687bceefcd0"
+    },
+    "database/spectralbridge_bulk.duckdb": {
+      "bytes": 4206592,
+      "sha256": "115285e5c9da3b6dfd63ca9f8754ce6129600f81a189fd7775ae2c873d7a6643"
+    },
+    "reports/analysis_decisions.json": {
+      "bytes": 421,
+      "sha256": "389f13fa1cb14eb0e0f6916004ed81fc94163a99477f2603d5d5bc33911b840c"
+    },
+    "reports/campaign_summary.md": {
+      "bytes": 10311,
+      "sha256": "b0ddc496d1cd8e2bb6b6834e5af1b7d706b4777037be59f48efe1817fdd5fc10"
+    }
+  },
+  "cautions": [
+    "Retain ten TIFF bands only after exact H5 equality; other channels are unclassified.",
+    "Bundled acquisition times are used; package/manifest date disagreements require review.",
+    "Terrain masks are preserved. Review scientific QA before promoting results."
+  ]
+}

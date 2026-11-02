@@ -1,0 +1,1706 @@
+{
+  "platform": "drone",
+  "processed": [
+    "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/prepared_sources/2023/AOP-Ruby-08-14-23-ExportPackage/verified_reflectance.tif"
+  ],
+  "blocked": [],
+  "failed": [],
+  "outputs": [
+    "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__polygons.parquet"
+  ],
+  "translation_outputs": [
+    "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi.img",
+    "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi.img",
+    "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi.img",
+    "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi.img"
+  ],
+  "matched_source_outputs": [
+    "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_oli_oli2_envi.img",
+    "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_tm_etm+_envi.img"
+  ],
+  "translated_libraries": [
+    "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__polygons.parquet",
+    "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__polygons.parquet",
+    "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__polygons.parquet",
+    "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__polygons.parquet"
+  ],
+  "merged": null,
+  "merged_csv": null,
+  "translated_merged": null,
+  "qa_summary": {
+    "platform": "drone",
+    "execution_status": "completed",
+    "scientific_qa_status": "caution",
+    "spectral_branch": "affine_cross_sensor_translation",
+    "brightness_offset": 0.0,
+    "brightness_adjustment_requested": false,
+    "brightness_adjustment_applied": false,
+    "cloud_mask_applied": false,
+    "ndvi_brdf_bins_enabled": false,
+    "drone_manifest_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_field_manifest.csv",
+    "drone_manifest_timezone": "UTC",
+    "require_solar_geometry": true,
+    "extraction_mode": "polygon",
+    "parquet_chunk_size": 2048,
+    "merge_extractions": false,
+    "translation_requested": true,
+    "translation_coefficient_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_translation_coefficients_v1.json",
+    "translation_weighting": "site_balanced",
+    "translation_strict": false,
+    "landsat_qa_requested": false,
+    "landsat_product": null,
+    "landsat_search_days": 16,
+    "comparison_neon_product": null,
+    "files": [
+      {
+        "platform": "drone",
+        "flight_stem": "AOP_Ruby_20230814",
+        "flight_dir": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814",
+        "source_package": "AOP-Ruby-08-14-23-ExportPackage",
+        "source_package_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/prepared_sources/2023/AOP-Ruby-08-14-23-ExportPackage",
+        "input_source_type": "tiff",
+        "input_source_filename": "verified_reflectance.tif",
+        "input_source_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/prepared_sources/2023/AOP-Ruby-08-14-23-ExportPackage/verified_reflectance.tif",
+        "drone_manifest_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_field_manifest.csv",
+        "manifest_flight_datetime": "2023-08-16T18:53:18+00:00",
+        "acquisition_timezone": "UTC",
+        "acquisition_datetime_source": "drone_manifest",
+        "input_h5_filename": null,
+        "input_h5_path": null,
+        "base_name": "AOP_Ruby_20230814",
+        "flags": {
+          "topo_requested": true,
+          "brdf_requested": true,
+          "ndvi_brdf_bins_enabled": false,
+          "topo_ready": true,
+          "brdf_ready": true,
+          "correction_failed": false,
+          "brightness_requested": false,
+          "brightness_applied": false,
+          "cloud_applied": false,
+          "translation_requested": true,
+          "translation_applied": true,
+          "topo_applied": true,
+          "brdf_applied": true,
+          "reused_existing_corrected": true,
+          "topo_fallback_due_to_nodata": false,
+          "brdf_fallback_due_to_nodata": false
+        },
+        "working_h5_filename": "AOP_Ruby_20230814__working.h5",
+        "working_h5_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5",
+        "working_raster": "AOP_Ruby_20230814__envi.img",
+        "working_raster_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__envi.img",
+        "corrected_raster": "AOP_Ruby_20230814__corrected.img",
+        "corrected_raster_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+        "polygon_filename": "AOP_Ruby_20230814__polygons.parquet",
+        "polygon_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__polygons.parquet",
+        "polygon_csv_filename": "AOP_Ruby_20230814__polygons.csv",
+        "polygon_csv_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__polygons.csv",
+        "polygon_csv_error": null,
+        "polygon_index_filename": "AOP_Ruby_20230814__polygon_index.parquet",
+        "polygon_index_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__polygon_index.parquet",
+        "overlay_debug_filename": "AOP_Ruby_20230814__overlay_debug.png",
+        "overlay_debug_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__overlay_debug.png",
+        "qa_plot_filename": "AOP_Ruby_20230814__qa.png",
+        "qa_json_filename": "AOP_Ruby_20230814__qa.json",
+        "qa_plot_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__qa.png",
+        "qa_json_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__qa.json",
+        "merged_filename": null,
+        "merged_csv_filename": null,
+        "merged_csv_path": null,
+        "merged_csv_error": null,
+        "correction_failure_reason": null,
+        "correction_status_source": "correction_stage_record",
+        "polygon_extraction_attempted": true,
+        "polygon_extraction_ran": true,
+        "polygon_extraction_skipped_reason": null,
+        "full_extraction_filename": null,
+        "full_extraction_path": null,
+        "full_extraction_csv_filename": null,
+        "full_extraction_csv_path": null,
+        "full_extraction_csv_error": null,
+        "extraction_mode": "polygon",
+        "translation_products": [
+          {
+            "schema_version": 1,
+            "status": "reused",
+            "product_type": "landsat_like_translated",
+            "is_actual_landsat_observation": false,
+            "equation": "target = slope * source + intercept",
+            "created_utc": "2026-10-29T23:14:49.915371+00:00",
+            "spectralbridge_version": "2.3.0rc1",
+            "translation_signature_sha256": "9b51b96834a7494c81b09edd9085f3152a26cb79d14e93db1f1c39312aa736ad",
+            "source_corrected_img": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+            "source_corrected_hdr": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr",
+            "source_fingerprint": {
+              "image": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+              "image_size": 81144000,
+              "image_mtime_ns": 1793315689711869760,
+              "header": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr",
+              "header_sha256": "ab9ac821ddb5d607bb43611f18e050dcf810033708c3fc61afa21a9d12e01489"
+            },
+            "coefficient_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_translation_coefficients_v1.json",
+            "coefficient_sha256": "44d164ae50de17fee98f139a546f28efb06c8966649c98247e0178f5d12e1024",
+            "coefficient_set_version": "v1",
+            "analysis_run_id": "4710c6434c2bef864df516fce0dd024b1f71a345b742fdf573db193e88f9a989",
+            "analysis_level": "site_balanced",
+            "weighting": "each site has equal total weight",
+            "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+            "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+            "target_sensor": "Landsat_8_OLI",
+            "candidate_status": null,
+            "coefficient_statuses": {
+              "1": "validated",
+              "2": "caution",
+              "3": "caution",
+              "4": "caution",
+              "5": "validated"
+            },
+            "caution_target_bands": [
+              2,
+              3,
+              4
+            ],
+            "evidence_boundary": "Both axes are synthetic products convolved from the same corrected NEON source. Coefficients are descriptive diagnostics, not empirical sensor calibration.",
+            "bands": [
+              {
+                "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+                "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+                "target_sensor": "Landsat_8_OLI",
+                "coefficient_band_index": 1,
+                "coefficient_source_band_index": 1,
+                "native_source_band_index": 1,
+                "target_band_index": 1,
+                "source_spectral_identity": "coastal aerosol",
+                "target_spectral_identity": "coastal aerosol",
+                "source_wavelength_nm": 444.0,
+                "native_source_wavelength_nm": 444.0,
+                "target_wavelength_nm": 443.0,
+                "target_fwhm_nm": 16.0,
+                "slope": 0.96168533165476,
+                "intercept": 0.5034403475336262,
+                "x_min": 0.0,
+                "x_max": 9942.673828125,
+                "x_mean": 276.497820624949,
+                "r2": 0.9998476787992223,
+                "rmse": 2.456560873575673,
+                "fitted_correction_percent": -3.6503651632199627,
+                "flightline_slope_iqr": 0.0019342786157424685,
+                "site_slope_range": 0.002670689492890621,
+                "worst_loso_r2": 0.9996273475471125,
+                "worst_loso_rmse": 2.9758341272317876,
+                "worst_loso_site": "NIWO",
+                "attention_flags": [],
+                "coefficient_status": "validated",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+                "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+                "target_sensor": "Landsat_8_OLI",
+                "coefficient_band_index": 2,
+                "coefficient_source_band_index": 2,
+                "native_source_band_index": 2,
+                "target_band_index": 2,
+                "source_spectral_identity": "blue",
+                "target_spectral_identity": "blue",
+                "source_wavelength_nm": 475.0,
+                "native_source_wavelength_nm": 475.0,
+                "target_wavelength_nm": 482.0,
+                "target_fwhm_nm": 60.0,
+                "slope": 0.9988782388546036,
+                "intercept": 10.299481222056954,
+                "x_min": 0.0,
+                "x_max": 10032.5986328125,
+                "x_mean": 273.5410006544257,
+                "r2": 0.9983345840185325,
+                "rmse": 9.055334826167227,
+                "fitted_correction_percent": 3.6543183903817256,
+                "flightline_slope_iqr": 0.04133221338993587,
+                "site_slope_range": 0.05224377362981536,
+                "worst_loso_r2": 0.99250322929343,
+                "worst_loso_rmse": 12.796078495027828,
+                "worst_loso_site": "WREF",
+                "attention_flags": [
+                  "site_dependence"
+                ],
+                "coefficient_status": "caution",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+                "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+                "target_sensor": "Landsat_8_OLI",
+                "coefficient_band_index": 3,
+                "coefficient_source_band_index": 3,
+                "native_source_band_index": 4,
+                "target_band_index": 3,
+                "source_spectral_identity": "green",
+                "target_spectral_identity": "green",
+                "source_wavelength_nm": 560.0,
+                "native_source_wavelength_nm": 560.0,
+                "target_wavelength_nm": 561.4,
+                "target_fwhm_nm": 57.3,
+                "slope": 0.953228728293304,
+                "intercept": -14.579665095240898,
+                "x_min": 0.0,
+                "x_max": 11098.6298828125,
+                "x_mean": 501.5708417769942,
+                "r2": 0.995444227394984,
+                "rmse": 20.509054101769806,
+                "fitted_correction_percent": -7.542133378898497,
+                "flightline_slope_iqr": 0.06499841202376355,
+                "site_slope_range": 0.07461227197340847,
+                "worst_loso_r2": 0.9849013534570165,
+                "worst_loso_rmse": 36.41314960290194,
+                "worst_loso_site": "WREF",
+                "attention_flags": [
+                  "flightline_heterogeneity",
+                  "site_dependence"
+                ],
+                "coefficient_status": "caution",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+                "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+                "target_sensor": "Landsat_8_OLI",
+                "coefficient_band_index": 4,
+                "coefficient_source_band_index": 4,
+                "native_source_band_index": 6,
+                "target_band_index": 4,
+                "source_spectral_identity": "red",
+                "target_spectral_identity": "red",
+                "source_wavelength_nm": 668.0,
+                "native_source_wavelength_nm": 668.0,
+                "target_wavelength_nm": 654.6,
+                "target_fwhm_nm": 37.5,
+                "slope": 0.9899977478697469,
+                "intercept": 33.844683157855,
+                "x_min": 0.0,
+                "x_max": 11526.9287109375,
+                "x_mean": 354.20095428798345,
+                "r2": 0.993753098745277,
+                "rmse": 27.086816479626375,
+                "fitted_correction_percent": 8.664985525562058,
+                "flightline_slope_iqr": 0.0573813300845325,
+                "site_slope_range": 0.076479991536749,
+                "worst_loso_r2": 0.9681090445815189,
+                "worst_loso_rmse": 34.77093067161133,
+                "worst_loso_site": "WREF",
+                "attention_flags": [
+                  "flightline_heterogeneity",
+                  "site_dependence"
+                ],
+                "coefficient_status": "caution",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+                "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+                "target_sensor": "Landsat_8_OLI",
+                "coefficient_band_index": 5,
+                "coefficient_source_band_index": 5,
+                "native_source_band_index": 10,
+                "target_band_index": 5,
+                "source_spectral_identity": "near infrared",
+                "target_spectral_identity": "near infrared",
+                "source_wavelength_nm": 842.0,
+                "native_source_wavelength_nm": 862.0,
+                "target_wavelength_nm": 864.7,
+                "target_fwhm_nm": 28.3,
+                "slope": 0.995723787619903,
+                "intercept": 16.50378225373106,
+                "x_min": 0.0,
+                "x_max": 12641.123046875,
+                "x_mean": 2355.891035782499,
+                "r2": 0.9997983841744664,
+                "rmse": 17.98465719698649,
+                "fitted_correction_percent": 0.24928186391295876,
+                "flightline_slope_iqr": 0.0014468187666821786,
+                "site_slope_range": 0.0041820661854897745,
+                "worst_loso_r2": 0.999457162727246,
+                "worst_loso_rmse": 20.009351613098556,
+                "worst_loso_site": "NIWO",
+                "attention_flags": [],
+                "coefficient_status": "validated",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              }
+            ],
+            "training_range_checks": {
+              "1": {
+                "observed_min": 0.15007540583610535,
+                "observed_max": 82859.5703125,
+                "training_min": 0.0,
+                "training_max": 9942.673828125,
+                "status": "overlap"
+              },
+              "2": {
+                "observed_min": 1.3465805053710938,
+                "observed_max": 77192.0234375,
+                "training_min": 0.0,
+                "training_max": 10032.5986328125,
+                "status": "overlap"
+              },
+              "3": {
+                "observed_min": 0.0,
+                "observed_max": 61842.83203125,
+                "training_min": 0.0,
+                "training_max": 11098.6298828125,
+                "status": "overlap"
+              },
+              "4": {
+                "observed_min": 0.0,
+                "observed_max": 473221.03125,
+                "training_min": 0.0,
+                "training_max": 11526.9287109375,
+                "status": "overlap"
+              },
+              "5": {
+                "observed_min": 7.568737506866455,
+                "observed_max": 13262.1865234375,
+                "training_min": 0.0,
+                "training_max": 12641.123046875,
+                "status": "overlap"
+              }
+            },
+            "value_scale_checks": {
+              "1": {
+                "training_source_mean": 276.497820624949,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.998282510465795,
+                "status": "compatible_numeric_range"
+              },
+              "2": {
+                "training_source_mean": 273.5410006544257,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.9999989962071688,
+                "status": "compatible_numeric_range"
+              },
+              "3": {
+                "training_source_mean": 501.5708417769942,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.9998760315853452,
+                "status": "compatible_numeric_range"
+              },
+              "4": {
+                "training_source_mean": 354.20095428798345,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.9999212022627498,
+                "status": "compatible_numeric_range"
+              },
+              "5": {
+                "training_source_mean": 2355.891035782499,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 1.0,
+                "status": "compatible_numeric_range"
+              }
+            },
+            "translated_value_summaries": [
+              {
+                "target_band_index": 1,
+                "target_wavelength_nm": 443.0,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 0.6477656364440918,
+                "median": 17.772497177124023,
+                "maximum": 79685.3359375
+              },
+              {
+                "target_band_index": 2,
+                "target_wavelength_nm": 482.0,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 11.644551277160645,
+                "median": 131.1925506591797,
+                "maximum": 77115.7265625
+              },
+              {
+                "target_band_index": 3,
+                "target_wavelength_nm": 561.4,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": -14.579665184020996,
+                "median": 26.4547119140625,
+                "maximum": 58935.78515625
+              },
+              {
+                "target_band_index": 4,
+                "target_wavelength_nm": 654.6,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 33.84468460083008,
+                "median": 178.56321716308594,
+                "maximum": 468521.59375
+              },
+              {
+                "target_band_index": 5,
+                "target_wavelength_nm": 864.7,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 24.04015350341797,
+                "median": 919.143798828125,
+                "maximum": 13221.978515625
+              }
+            ],
+            "output_img": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi.img",
+            "output_hdr": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi.hdr",
+            "provenance_json": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__translation.json",
+            "warnings": [
+              "Both axes are synthetic products convolved from the same corrected NEON source. Coefficients are descriptive diagnostics, not empirical sensor calibration.",
+              "One or more production coefficients are marked caution; review band-level validation evidence."
+            ]
+          },
+          {
+            "schema_version": 1,
+            "status": "reused",
+            "product_type": "landsat_like_translated",
+            "is_actual_landsat_observation": false,
+            "equation": "target = slope * source + intercept",
+            "created_utc": "2026-10-29T23:14:50.035438+00:00",
+            "spectralbridge_version": "2.3.0rc1",
+            "translation_signature_sha256": "ac700e4f12aa5a5c0dce3a1a470fa73e958fbc5baed63a25613d1abe58227de3",
+            "source_corrected_img": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+            "source_corrected_hdr": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr",
+            "source_fingerprint": {
+              "image": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+              "image_size": 81144000,
+              "image_mtime_ns": 1793315689711869760,
+              "header": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr",
+              "header_sha256": "ab9ac821ddb5d607bb43611f18e050dcf810033708c3fc61afa21a9d12e01489"
+            },
+            "coefficient_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_translation_coefficients_v1.json",
+            "coefficient_sha256": "44d164ae50de17fee98f139a546f28efb06c8966649c98247e0178f5d12e1024",
+            "coefficient_set_version": "v1",
+            "analysis_run_id": "4710c6434c2bef864df516fce0dd024b1f71a345b742fdf573db193e88f9a989",
+            "analysis_level": "site_balanced",
+            "weighting": "each site has equal total weight",
+            "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_9_OLI-2",
+            "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+            "target_sensor": "Landsat_9_OLI-2",
+            "candidate_status": null,
+            "coefficient_statuses": {
+              "1": "validated",
+              "2": "caution",
+              "3": "caution",
+              "4": "caution",
+              "5": "validated"
+            },
+            "caution_target_bands": [
+              2,
+              3,
+              4
+            ],
+            "evidence_boundary": "Both axes are synthetic products convolved from the same corrected NEON source. Coefficients are descriptive diagnostics, not empirical sensor calibration.",
+            "bands": [
+              {
+                "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_9_OLI-2",
+                "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+                "target_sensor": "Landsat_9_OLI-2",
+                "coefficient_band_index": 1,
+                "coefficient_source_band_index": 1,
+                "native_source_band_index": 1,
+                "target_band_index": 1,
+                "source_spectral_identity": "coastal aerosol",
+                "target_spectral_identity": "coastal aerosol",
+                "source_wavelength_nm": 444.0,
+                "native_source_wavelength_nm": 444.0,
+                "target_wavelength_nm": 442.8,
+                "target_fwhm_nm": 15.5,
+                "slope": 0.9614715073467556,
+                "intercept": 0.6291737689067531,
+                "x_min": 0.0,
+                "x_max": 9942.673828125,
+                "x_mean": 276.497820624949,
+                "r2": 0.9998227682309115,
+                "rmse": 2.649274603616671,
+                "fitted_correction_percent": -3.6265177413457,
+                "flightline_slope_iqr": 0.002225771747188632,
+                "site_slope_range": 0.0028750471031712133,
+                "worst_loso_r2": 0.9995260786446525,
+                "worst_loso_rmse": 3.12309035560877,
+                "worst_loso_site": "NIWO",
+                "attention_flags": [],
+                "coefficient_status": "validated",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_9_OLI-2",
+                "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+                "target_sensor": "Landsat_9_OLI-2",
+                "coefficient_band_index": 2,
+                "coefficient_source_band_index": 2,
+                "native_source_band_index": 2,
+                "target_band_index": 2,
+                "source_spectral_identity": "blue",
+                "target_spectral_identity": "blue",
+                "source_wavelength_nm": 475.0,
+                "native_source_wavelength_nm": 475.0,
+                "target_wavelength_nm": 481.9,
+                "target_fwhm_nm": 59.9,
+                "slope": 0.998583996367055,
+                "intercept": 10.208306491811186,
+                "x_min": 0.0,
+                "x_max": 10032.5986328125,
+                "x_mean": 273.5410006544257,
+                "r2": 0.9983699246978147,
+                "rmse": 8.955943516992926,
+                "fitted_correction_percent": 3.5915517709720306,
+                "flightline_slope_iqr": 0.04087660261040793,
+                "site_slope_range": 0.05164103552157662,
+                "worst_loso_r2": 0.9926495520590262,
+                "worst_loso_rmse": 12.646976765876317,
+                "worst_loso_site": "WREF",
+                "attention_flags": [
+                  "site_dependence"
+                ],
+                "coefficient_status": "caution",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_9_OLI-2",
+                "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+                "target_sensor": "Landsat_9_OLI-2",
+                "coefficient_band_index": 3,
+                "coefficient_source_band_index": 3,
+                "native_source_band_index": 4,
+                "target_band_index": 3,
+                "source_spectral_identity": "green",
+                "target_spectral_identity": "green",
+                "source_wavelength_nm": 560.0,
+                "native_source_wavelength_nm": 560.0,
+                "target_wavelength_nm": 561.0,
+                "target_fwhm_nm": 56.5,
+                "slope": 0.9533214793643161,
+                "intercept": -13.990819160675585,
+                "x_min": 0.0,
+                "x_max": 11098.6298828125,
+                "x_mean": 501.5708417769942,
+                "r2": 0.9957611742410061,
+                "rmse": 19.781559257022526,
+                "fitted_correction_percent": -7.417145925375095,
+                "flightline_slope_iqr": 0.0629214606852666,
+                "site_slope_range": 0.0722389304059391,
+                "worst_loso_r2": 0.9859632334337584,
+                "worst_loso_rmse": 35.21622848628635,
+                "worst_loso_site": "WREF",
+                "attention_flags": [
+                  "flightline_heterogeneity",
+                  "site_dependence"
+                ],
+                "coefficient_status": "caution",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_9_OLI-2",
+                "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+                "target_sensor": "Landsat_9_OLI-2",
+                "coefficient_band_index": 4,
+                "coefficient_source_band_index": 4,
+                "native_source_band_index": 6,
+                "target_band_index": 4,
+                "source_spectral_identity": "red",
+                "target_spectral_identity": "red",
+                "source_wavelength_nm": 668.0,
+                "native_source_wavelength_nm": 668.0,
+                "target_wavelength_nm": 654.3,
+                "target_fwhm_nm": 36.9,
+                "slope": 0.9896218649584034,
+                "intercept": 33.93632592635208,
+                "x_min": 0.0,
+                "x_max": 11526.9287109375,
+                "x_mean": 354.20095428798345,
+                "r2": 0.9936795583061531,
+                "rmse": 27.236450253151613,
+                "fitted_correction_percent": 8.653568159593734,
+                "flightline_slope_iqr": 0.05746785240465391,
+                "site_slope_range": 0.07661730608321682,
+                "worst_loso_r2": 0.9677581292181908,
+                "worst_loso_rmse": 34.961372507473136,
+                "worst_loso_site": "WREF",
+                "attention_flags": [
+                  "flightline_heterogeneity",
+                  "site_dependence"
+                ],
+                "coefficient_status": "caution",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_9_OLI-2",
+                "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+                "target_sensor": "Landsat_9_OLI-2",
+                "coefficient_band_index": 5,
+                "coefficient_source_band_index": 5,
+                "native_source_band_index": 10,
+                "target_band_index": 5,
+                "source_spectral_identity": "near infrared",
+                "target_spectral_identity": "near infrared",
+                "source_wavelength_nm": 842.0,
+                "native_source_wavelength_nm": 862.0,
+                "target_wavelength_nm": 864.6,
+                "target_fwhm_nm": 28.8,
+                "slope": 0.9955877010524563,
+                "intercept": 16.419238227208552,
+                "x_min": 0.0,
+                "x_max": 12641.123046875,
+                "x_mean": 2355.891035782499,
+                "r2": 0.9998022339901472,
+                "rmse": 17.80965411284041,
+                "fitted_correction_percent": 0.23220563149852463,
+                "flightline_slope_iqr": 0.0014370847146429888,
+                "site_slope_range": 0.004147818023238381,
+                "worst_loso_r2": 0.9994727998634911,
+                "worst_loso_rmse": 19.715735397396536,
+                "worst_loso_site": "NIWO",
+                "attention_flags": [],
+                "coefficient_status": "validated",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              }
+            ],
+            "training_range_checks": {
+              "1": {
+                "observed_min": 0.15007540583610535,
+                "observed_max": 82859.5703125,
+                "training_min": 0.0,
+                "training_max": 9942.673828125,
+                "status": "overlap"
+              },
+              "2": {
+                "observed_min": 1.3465805053710938,
+                "observed_max": 77192.0234375,
+                "training_min": 0.0,
+                "training_max": 10032.5986328125,
+                "status": "overlap"
+              },
+              "3": {
+                "observed_min": 0.0,
+                "observed_max": 61842.83203125,
+                "training_min": 0.0,
+                "training_max": 11098.6298828125,
+                "status": "overlap"
+              },
+              "4": {
+                "observed_min": 0.0,
+                "observed_max": 473221.03125,
+                "training_min": 0.0,
+                "training_max": 11526.9287109375,
+                "status": "overlap"
+              },
+              "5": {
+                "observed_min": 7.568737506866455,
+                "observed_max": 13262.1865234375,
+                "training_min": 0.0,
+                "training_max": 12641.123046875,
+                "status": "overlap"
+              }
+            },
+            "value_scale_checks": {
+              "1": {
+                "training_source_mean": 276.497820624949,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.998282510465795,
+                "status": "compatible_numeric_range"
+              },
+              "2": {
+                "training_source_mean": 273.5410006544257,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.9999989962071688,
+                "status": "compatible_numeric_range"
+              },
+              "3": {
+                "training_source_mean": 501.5708417769942,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.9998760315853452,
+                "status": "compatible_numeric_range"
+              },
+              "4": {
+                "training_source_mean": 354.20095428798345,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.9999212022627498,
+                "status": "compatible_numeric_range"
+              },
+              "5": {
+                "training_source_mean": 2355.891035782499,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 1.0,
+                "status": "compatible_numeric_range"
+              }
+            },
+            "translated_value_summaries": [
+              {
+                "target_band_index": 1,
+                "target_wavelength_nm": 442.8,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 0.773466944694519,
+                "median": 17.894390106201172,
+                "maximum": 79667.75
+              },
+              {
+                "target_band_index": 2,
+                "target_wavelength_nm": 481.9,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 11.552980422973633,
+                "median": 131.06576538085938,
+                "maximum": 77092.9296875
+              },
+              {
+                "target_band_index": 3,
+                "target_wavelength_nm": 561.0,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": -13.990818977355957,
+                "median": 27.04755401611328,
+                "maximum": 58942.10546875
+              },
+              {
+                "target_band_index": 4,
+                "target_wavelength_nm": 654.3,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 33.93632507324219,
+                "median": 178.5999298095703,
+                "maximum": 468343.8125
+              },
+              {
+                "target_band_index": 5,
+                "target_wavelength_nm": 864.6,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 23.95458221435547,
+                "median": 918.9359130859375,
+                "maximum": 13220.0888671875
+              }
+            ],
+            "output_img": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi.img",
+            "output_hdr": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi.hdr",
+            "provenance_json": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__translation.json",
+            "warnings": [
+              "Both axes are synthetic products convolved from the same corrected NEON source. Coefficients are descriptive diagnostics, not empirical sensor calibration.",
+              "One or more production coefficients are marked caution; review band-level validation evidence."
+            ]
+          },
+          {
+            "schema_version": 1,
+            "status": "reused",
+            "product_type": "landsat_like_translated",
+            "is_actual_landsat_observation": false,
+            "equation": "target = slope * source + intercept",
+            "created_utc": "2026-10-29T23:14:50.170617+00:00",
+            "spectralbridge_version": "2.3.0rc1",
+            "translation_signature_sha256": "4460a91506bd7337a02472b66cb8594181e703446784420f4995f0432002988b",
+            "source_corrected_img": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+            "source_corrected_hdr": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr",
+            "source_fingerprint": {
+              "image": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+              "image_size": 81144000,
+              "image_mtime_ns": 1793315689711869760,
+              "header": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr",
+              "header_sha256": "ab9ac821ddb5d607bb43611f18e050dcf810033708c3fc61afa21a9d12e01489"
+            },
+            "coefficient_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_translation_coefficients_v1.json",
+            "coefficient_sha256": "44d164ae50de17fee98f139a546f28efb06c8966649c98247e0178f5d12e1024",
+            "coefficient_set_version": "v1",
+            "analysis_run_id": "4710c6434c2bef864df516fce0dd024b1f71a345b742fdf573db193e88f9a989",
+            "analysis_level": "site_balanced",
+            "weighting": "each site has equal total weight",
+            "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+            "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+            "target_sensor": "Landsat_5_TM",
+            "candidate_status": null,
+            "coefficient_statuses": {
+              "1": "caution",
+              "2": "caution",
+              "3": "caution",
+              "4": "validated"
+            },
+            "caution_target_bands": [
+              1,
+              2,
+              3
+            ],
+            "evidence_boundary": "Both axes are synthetic products convolved from the same corrected NEON source. Coefficients are descriptive diagnostics, not empirical sensor calibration.",
+            "bands": [
+              {
+                "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+                "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+                "target_sensor": "Landsat_5_TM",
+                "coefficient_band_index": 1,
+                "coefficient_source_band_index": 1,
+                "native_source_band_index": 2,
+                "target_band_index": 1,
+                "source_spectral_identity": "blue",
+                "target_spectral_identity": "blue",
+                "source_wavelength_nm": 475.0,
+                "native_source_wavelength_nm": 475.0,
+                "target_wavelength_nm": 485.0,
+                "target_fwhm_nm": 132.0,
+                "slope": 1.0007059025745395,
+                "intercept": 44.99927767095238,
+                "x_min": 0.0,
+                "x_max": 10032.5986328125,
+                "x_mean": 273.54348467592774,
+                "r2": 0.9793758667223208,
+                "rmse": 32.232044192983196,
+                "fitted_correction_percent": 16.526517180903326,
+                "flightline_slope_iqr": 0.1612859370754547,
+                "site_slope_range": 0.1970529130454347,
+                "worst_loso_r2": 0.9046616361837319,
+                "worst_loso_rmse": 50.070748511936166,
+                "worst_loso_site": "WREF",
+                "attention_flags": [
+                  "flightline_heterogeneity",
+                  "site_dependence"
+                ],
+                "coefficient_status": "caution",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+                "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+                "target_sensor": "Landsat_5_TM",
+                "coefficient_band_index": 2,
+                "coefficient_source_band_index": 2,
+                "native_source_band_index": 4,
+                "target_band_index": 2,
+                "source_spectral_identity": "green",
+                "target_spectral_identity": "green",
+                "source_wavelength_nm": 560.0,
+                "native_source_wavelength_nm": 560.0,
+                "target_wavelength_nm": 575.0,
+                "target_fwhm_nm": 150.0,
+                "slope": 0.9154238323587098,
+                "intercept": -32.854997868121984,
+                "x_min": 0.0,
+                "x_max": 11098.6298828125,
+                "x_mean": 501.5708417769942,
+                "r2": 0.9678715364821618,
+                "rmse": 53.04375849294527,
+                "fitted_correction_percent": -14.913853738614957,
+                "flightline_slope_iqr": 0.1576630686985958,
+                "site_slope_range": 0.18696713489522954,
+                "worst_loso_r2": 0.8744896245743289,
+                "worst_loso_rmse": 91.61979519792159,
+                "worst_loso_site": "WREF",
+                "attention_flags": [
+                  "flightline_heterogeneity",
+                  "site_dependence"
+                ],
+                "coefficient_status": "caution",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+                "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+                "target_sensor": "Landsat_5_TM",
+                "coefficient_band_index": 3,
+                "coefficient_source_band_index": 3,
+                "native_source_band_index": 6,
+                "target_band_index": 3,
+                "source_spectral_identity": "red",
+                "target_spectral_identity": "red",
+                "source_wavelength_nm": 668.0,
+                "native_source_wavelength_nm": 668.0,
+                "target_wavelength_nm": 660.0,
+                "target_fwhm_nm": 160.0,
+                "slope": 0.9227722340068036,
+                "intercept": 409.57473564474617,
+                "x_min": 0.0,
+                "x_max": 11526.9287109375,
+                "x_mean": 354.20095428798345,
+                "r2": 0.5982557510546739,
+                "rmse": 260.94957714332526,
+                "fitted_correction_percent": 109.24171424091814,
+                "flightline_slope_iqr": 0.47820206801534315,
+                "site_slope_range": 0.6978944834307463,
+                "worst_loso_r2": 0.18804518884781196,
+                "worst_loso_rmse": 347.5367561449956,
+                "worst_loso_site": "WREF",
+                "attention_flags": [
+                  "flightline_heterogeneity",
+                  "large_fitted_correction",
+                  "site_dependence",
+                  "weak_flightline_fit",
+                  "weak_global_fit",
+                  "weak_loso_transferability",
+                  "weak_site_fit"
+                ],
+                "coefficient_status": "caution",
+                "coefficient_warnings": [
+                  "Bulk-derived translation for MicaSense 668 nm -> Landsat 5 TM B3 showed strong site dependence and poor WREF leave-one-site-out transferability. Treat this band as lower-confidence."
+                ],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+                "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+                "target_sensor": "Landsat_5_TM",
+                "coefficient_band_index": 4,
+                "coefficient_source_band_index": 4,
+                "native_source_band_index": 10,
+                "target_band_index": 4,
+                "source_spectral_identity": "near infrared",
+                "target_spectral_identity": "near infrared",
+                "source_wavelength_nm": 842.0,
+                "native_source_wavelength_nm": 862.0,
+                "target_wavelength_nm": 837.5,
+                "target_fwhm_nm": 215.0,
+                "slope": 0.8897201314354678,
+                "intercept": 34.042524516003596,
+                "x_min": 0.0,
+                "x_max": 12641.123046875,
+                "x_mean": 2355.891035782499,
+                "r2": 0.9962632637253104,
+                "rmse": 69.3058303167952,
+                "fitted_correction_percent": -9.63173173820895,
+                "flightline_slope_iqr": 0.007588144092939952,
+                "site_slope_range": 0.011833445384447194,
+                "worst_loso_r2": 0.9861995818774141,
+                "worst_loso_rmse": 115.58094768089133,
+                "worst_loso_site": "YELL",
+                "attention_flags": [],
+                "coefficient_status": "validated",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              }
+            ],
+            "training_range_checks": {
+              "1": {
+                "observed_min": 1.3465805053710938,
+                "observed_max": 77192.0234375,
+                "training_min": 0.0,
+                "training_max": 10032.5986328125,
+                "status": "overlap"
+              },
+              "2": {
+                "observed_min": 0.0,
+                "observed_max": 61842.83203125,
+                "training_min": 0.0,
+                "training_max": 11098.6298828125,
+                "status": "overlap"
+              },
+              "3": {
+                "observed_min": 0.0,
+                "observed_max": 473221.03125,
+                "training_min": 0.0,
+                "training_max": 11526.9287109375,
+                "status": "overlap"
+              },
+              "4": {
+                "observed_min": 7.568737506866455,
+                "observed_max": 13262.1865234375,
+                "training_min": 0.0,
+                "training_max": 12641.123046875,
+                "status": "overlap"
+              }
+            },
+            "value_scale_checks": {
+              "1": {
+                "training_source_mean": 273.54348467592774,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.9999989962071688,
+                "status": "compatible_numeric_range"
+              },
+              "2": {
+                "training_source_mean": 501.5708417769942,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.9998760315853452,
+                "status": "compatible_numeric_range"
+              },
+              "3": {
+                "training_source_mean": 354.20095428798345,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.9999212022627498,
+                "status": "compatible_numeric_range"
+              },
+              "4": {
+                "training_source_mean": 2355.891035782499,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 1.0,
+                "status": "compatible_numeric_range"
+              }
+            },
+            "translated_value_summaries": [
+              {
+                "target_band_index": 1,
+                "target_wavelength_nm": 485.0,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 46.34680938720703,
+                "median": 166.11355590820312,
+                "maximum": 77291.515625
+              },
+              {
+                "target_band_index": 2,
+                "target_wavelength_nm": 575.0,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": -32.85499954223633,
+                "median": 6.551963806152344,
+                "maximum": 56579.546875
+              },
+              {
+                "target_band_index": 3,
+                "target_wavelength_nm": 660.0,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 409.5747375488281,
+                "median": 544.4661865234375,
+                "maximum": 437084.78125
+              },
+              {
+                "target_band_index": 4,
+                "target_wavelength_nm": 837.5,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 40.77658462524414,
+                "median": 840.5885009765625,
+                "maximum": 11833.677734375
+              }
+            ],
+            "output_img": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi.img",
+            "output_hdr": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi.hdr",
+            "provenance_json": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__translation.json",
+            "warnings": [
+              "Both axes are synthetic products convolved from the same corrected NEON source. Coefficients are descriptive diagnostics, not empirical sensor calibration.",
+              "Bulk-derived translation for MicaSense 668 nm -> Landsat 5 TM B3 showed strong site dependence and poor WREF leave-one-site-out transferability. Treat this band as lower-confidence.",
+              "One or more production coefficients are marked caution; review band-level validation evidence."
+            ]
+          },
+          {
+            "schema_version": 1,
+            "status": "reused",
+            "product_type": "landsat_like_translated",
+            "is_actual_landsat_observation": false,
+            "equation": "target = slope * source + intercept",
+            "created_utc": "2026-10-29T23:14:50.266165+00:00",
+            "spectralbridge_version": "2.3.0rc1",
+            "translation_signature_sha256": "a48c6018173d2890b658060b9a1fc126a6f08c476ddfd6612e3c353fb19c2c47",
+            "source_corrected_img": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+            "source_corrected_hdr": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr",
+            "source_fingerprint": {
+              "image": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+              "image_size": 81144000,
+              "image_mtime_ns": 1793315689711869760,
+              "header": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr",
+              "header_sha256": "ab9ac821ddb5d607bb43611f18e050dcf810033708c3fc61afa21a9d12e01489"
+            },
+            "coefficient_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_translation_coefficients_v1.json",
+            "coefficient_sha256": "44d164ae50de17fee98f139a546f28efb06c8966649c98247e0178f5d12e1024",
+            "coefficient_set_version": "v1",
+            "analysis_run_id": "4710c6434c2bef864df516fce0dd024b1f71a345b742fdf573db193e88f9a989",
+            "analysis_level": "site_balanced",
+            "weighting": "each site has equal total weight",
+            "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_7_ETM+",
+            "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+            "target_sensor": "Landsat_7_ETM+",
+            "candidate_status": null,
+            "coefficient_statuses": {
+              "1": "caution",
+              "2": "caution",
+              "3": "caution",
+              "4": "validated"
+            },
+            "caution_target_bands": [
+              1,
+              2,
+              3
+            ],
+            "evidence_boundary": "Both axes are synthetic products convolved from the same corrected NEON source. Coefficients are descriptive diagnostics, not empirical sensor calibration.",
+            "bands": [
+              {
+                "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_7_ETM+",
+                "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+                "target_sensor": "Landsat_7_ETM+",
+                "coefficient_band_index": 1,
+                "coefficient_source_band_index": 1,
+                "native_source_band_index": 2,
+                "target_band_index": 1,
+                "source_spectral_identity": "blue",
+                "target_spectral_identity": "blue",
+                "source_wavelength_nm": 475.0,
+                "native_source_wavelength_nm": 475.0,
+                "target_wavelength_nm": 482.5,
+                "target_fwhm_nm": 65.0,
+                "slope": 0.9801402020197926,
+                "intercept": 13.204965120771021,
+                "x_min": 0.0,
+                "x_max": 10032.5986328125,
+                "x_mean": 273.5410006544257,
+                "r2": 0.9974450641678209,
+                "rmse": 11.010381423114294,
+                "fitted_correction_percent": 2.843042896690198,
+                "flightline_slope_iqr": 0.051389925404008996,
+                "site_slope_range": 0.0643324547504297,
+                "worst_loso_r2": 0.9880916599128113,
+                "worst_loso_rmse": 15.591554500573356,
+                "worst_loso_site": "WREF",
+                "attention_flags": [
+                  "flightline_heterogeneity",
+                  "site_dependence"
+                ],
+                "coefficient_status": "caution",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_7_ETM+",
+                "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+                "target_sensor": "Landsat_7_ETM+",
+                "coefficient_band_index": 2,
+                "coefficient_source_band_index": 2,
+                "native_source_band_index": 4,
+                "target_band_index": 2,
+                "source_spectral_identity": "green",
+                "target_spectral_identity": "green",
+                "source_wavelength_nm": 560.0,
+                "native_source_wavelength_nm": 560.0,
+                "target_wavelength_nm": 565.0,
+                "target_fwhm_nm": 80.0,
+                "slope": 0.9302489616840254,
+                "intercept": -25.126135286299586,
+                "x_min": 0.0,
+                "x_max": 11098.6298828125,
+                "x_mean": 501.5708417769942,
+                "r2": 0.9861950401087752,
+                "rmse": 35.00348750018731,
+                "fitted_correction_percent": -11.912565228261862,
+                "flightline_slope_iqr": 0.10855733299565273,
+                "site_slope_range": 0.1253120057727225,
+                "worst_loso_r2": 0.9510608265459005,
+                "worst_loso_rmse": 61.44235444490417,
+                "worst_loso_site": "WREF",
+                "attention_flags": [
+                  "flightline_heterogeneity",
+                  "site_dependence"
+                ],
+                "coefficient_status": "caution",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_7_ETM+",
+                "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+                "target_sensor": "Landsat_7_ETM+",
+                "coefficient_band_index": 3,
+                "coefficient_source_band_index": 3,
+                "native_source_band_index": 6,
+                "target_band_index": 3,
+                "source_spectral_identity": "red",
+                "target_spectral_identity": "red",
+                "source_wavelength_nm": 668.0,
+                "native_source_wavelength_nm": 668.0,
+                "target_wavelength_nm": 660.0,
+                "target_fwhm_nm": 60.0,
+                "slope": 0.9748834596484174,
+                "intercept": 70.26777749719815,
+                "x_min": 0.0,
+                "x_max": 11526.9287109375,
+                "x_mean": 354.20095428798345,
+                "r2": 0.9788468257897236,
+                "rmse": 49.45540841385329,
+                "fitted_correction_percent": 17.555098384267556,
+                "flightline_slope_iqr": 0.10447805770932772,
+                "site_slope_range": 0.1518474786427657,
+                "worst_loso_r2": 0.9029204938762043,
+                "worst_loso_rmse": 64.48583221489133,
+                "worst_loso_site": "WREF",
+                "attention_flags": [
+                  "flightline_heterogeneity",
+                  "site_dependence"
+                ],
+                "coefficient_status": "caution",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              },
+              {
+                "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_7_ETM+",
+                "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+                "target_sensor": "Landsat_7_ETM+",
+                "coefficient_band_index": 4,
+                "coefficient_source_band_index": 4,
+                "native_source_band_index": 10,
+                "target_band_index": 4,
+                "source_spectral_identity": "near infrared",
+                "target_spectral_identity": "near infrared",
+                "source_wavelength_nm": 842.0,
+                "native_source_wavelength_nm": 862.0,
+                "target_wavelength_nm": 837.5,
+                "target_fwhm_nm": 125.0,
+                "slope": 0.9770122493304109,
+                "intercept": 4.147949531882205,
+                "x_min": 0.0,
+                "x_max": 12641.123046875,
+                "x_mean": 2355.891035782499,
+                "r2": 0.9997510875832027,
+                "rmse": 19.60805582582521,
+                "fitted_correction_percent": -2.1286467980819355,
+                "flightline_slope_iqr": 0.0021106945902507057,
+                "site_slope_range": 0.003922353415219071,
+                "worst_loso_r2": 0.9990644763973123,
+                "worst_loso_rmse": 32.95365382517708,
+                "worst_loso_site": "YELL",
+                "attention_flags": [],
+                "coefficient_status": "validated",
+                "coefficient_warnings": [],
+                "coefficient_set_version": "v1"
+              }
+            ],
+            "training_range_checks": {
+              "1": {
+                "observed_min": 1.3465805053710938,
+                "observed_max": 77192.0234375,
+                "training_min": 0.0,
+                "training_max": 10032.5986328125,
+                "status": "overlap"
+              },
+              "2": {
+                "observed_min": 0.0,
+                "observed_max": 61842.83203125,
+                "training_min": 0.0,
+                "training_max": 11098.6298828125,
+                "status": "overlap"
+              },
+              "3": {
+                "observed_min": 0.0,
+                "observed_max": 473221.03125,
+                "training_min": 0.0,
+                "training_max": 11526.9287109375,
+                "status": "overlap"
+              },
+              "4": {
+                "observed_min": 7.568737506866455,
+                "observed_max": 13262.1865234375,
+                "training_min": 0.0,
+                "training_max": 12641.123046875,
+                "status": "overlap"
+              }
+            },
+            "value_scale_checks": {
+              "1": {
+                "training_source_mean": 273.5410006544257,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.9999989962071688,
+                "status": "compatible_numeric_range"
+              },
+              "2": {
+                "training_source_mean": 501.5708417769942,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.9998760315853452,
+                "status": "compatible_numeric_range"
+              },
+              "3": {
+                "training_source_mean": 354.20095428798345,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 0.9999212022627498,
+                "status": "compatible_numeric_range"
+              },
+              "4": {
+                "training_source_mean": 2355.891035782499,
+                "valid_pixel_count": 1992443,
+                "fraction_above_two": 1.0,
+                "status": "compatible_numeric_range"
+              }
+            },
+            "translated_value_summaries": [
+              {
+                "target_band_index": 1,
+                "target_wavelength_nm": 482.5,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 14.524803161621094,
+                "median": 131.83018493652344,
+                "maximum": 75672.2109375
+              },
+              {
+                "target_band_index": 2,
+                "target_wavelength_nm": 565.0,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": -25.126134872436523,
+                "median": 14.919015884399414,
+                "maximum": 57504.10546875
+              },
+              {
+                "target_band_index": 3,
+                "target_wavelength_nm": 660.0,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 70.26777648925781,
+                "median": 212.7769012451172,
+                "maximum": 461405.625
+              },
+              {
+                "target_band_index": 4,
+                "target_wavelength_nm": 837.5,
+                "valid_fraction": 0.9821763777974958,
+                "minimum": 11.542699813842773,
+                "median": 889.82568359375,
+                "maximum": 12961.4677734375
+              }
+            ],
+            "output_img": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi.img",
+            "output_hdr": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi.hdr",
+            "provenance_json": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__translation.json",
+            "warnings": [
+              "Both axes are synthetic products convolved from the same corrected NEON source. Coefficients are descriptive diagnostics, not empirical sensor calibration.",
+              "One or more production coefficients are marked caution; review band-level validation evidence."
+            ]
+          }
+        ],
+        "matched_source_products": [
+          {
+            "created_utc": "2026-10-29T23:14:49.775428+00:00",
+            "native_source_band_indices": [
+              1,
+              2,
+              4,
+              6,
+              10
+            ],
+            "output_hdr": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_oli_oli2_envi.hdr",
+            "output_img": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_oli_oli2_envi.img",
+            "product_type": "matched_micasense_source",
+            "schema_version": 1,
+            "source": {
+              "header": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr",
+              "header_sha256": "ab9ac821ddb5d607bb43611f18e050dcf810033708c3fc61afa21a9d12e01489",
+              "image": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+              "image_mtime_ns": 1793315689711869760,
+              "image_size": 81144000
+            },
+            "source_product_signature_sha256": "d508dff8a839ea7331dc771ca7c590ca48ce8c590d32a6a603897f596a3215df",
+            "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+            "spectralbridge_version": "2.3.0rc1",
+            "status": "reused",
+            "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+            "provenance_json": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_oli_oli2_envi__source.json"
+          },
+          {
+            "created_utc": "2026-10-29T23:14:50.067290+00:00",
+            "native_source_band_indices": [
+              2,
+              4,
+              6,
+              10
+            ],
+            "output_hdr": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_tm_etm+_envi.hdr",
+            "output_img": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_tm_etm+_envi.img",
+            "product_type": "matched_micasense_source",
+            "schema_version": 1,
+            "source": {
+              "header": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr",
+              "header_sha256": "ab9ac821ddb5d607bb43611f18e050dcf810033708c3fc61afa21a9d12e01489",
+              "image": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+              "image_mtime_ns": 1793315689711869760,
+              "image_size": 81144000
+            },
+            "source_product_signature_sha256": "4cf56d1df6d69c284da0605dd3d4c4a42d13741cdd29d0a74a8a3c3bf570d57b",
+            "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+            "spectralbridge_version": "2.3.0rc1",
+            "status": "reused",
+            "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+            "provenance_json": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_tm_etm+_envi__source.json"
+          }
+        ],
+        "translated_library_paths": [
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__polygons.parquet",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__polygons.parquet",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__polygons.parquet",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__polygons.parquet"
+        ],
+        "translation_qa_paths": [
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__translation_qa.png",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__translation_qa.json",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__translation_qa.png",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__translation_qa.json",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__translation_qa.png",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__translation_qa.json",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__translation_qa.png",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__translation_qa.json"
+        ],
+        "publication_figure_paths": [
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__translation_quality.png",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__translation_quality.pdf",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__translation_quality.png",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__translation_quality.pdf",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__translation_quality.png",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__translation_quality.pdf",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__translation_quality.png",
+          "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__translation_quality.pdf"
+        ],
+        "status": "success_extracted",
+        "prepared_h5_filename": "AOP_Ruby_20230814__working.h5",
+        "prepared_h5_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5",
+        "nodata_patch_applied": false,
+        "solar_geometry_source": "manifest_computed",
+        "acquisition_datetime_used": "2023-08-16T18:53:18",
+        "solar_zenith_mean": 26.302751838966525,
+        "solar_zenith_min": 26.302181243896484,
+        "solar_zenith_max": 26.303321838378906,
+        "solar_azimuth_mean": 172.64912673112264,
+        "solar_azimuth_min": 172.64651489257812,
+        "solar_azimuth_max": 172.65174865722656,
+        "solar_geometry_consistency": {
+          "solar_geometry_source": "manifest_computed",
+          "acquisition_datetime_used": "2023-08-16T18:53:18",
+          "solar_zenith_mean": 26.302751838966525,
+          "solar_zenith_min": 26.302181243896484,
+          "solar_zenith_max": 26.303321838378906,
+          "solar_azimuth_mean": 172.64912673112264,
+          "solar_azimuth_min": 172.64651489257812,
+          "solar_azimuth_max": 172.65174865722656,
+          "h5_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5",
+          "acquisition_datetime": "2023-08-16T18:53:18+00:00",
+          "datetime_timezone_interpretation": "timezone-aware",
+          "scene_center_latitude": 40.03754741952006,
+          "scene_center_longitude": -105.51782239806568,
+          "source_solar_zenith": {
+            "path": "/AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Solar_Zenith_Angle",
+            "dtype": "float32",
+            "shape": [
+              1035,
+              1960
+            ],
+            "attributes": {}
+          },
+          "source_solar_azimuth": {
+            "path": "/AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Solar_Azimuth_Angle",
+            "dtype": "float32",
+            "shape": [
+              1035,
+              1960
+            ],
+            "attributes": {}
+          },
+          "expected_solar_zenith_deg": 26.302751541137695,
+          "expected_solar_azimuth_deg": 172.6491241455078,
+          "solar_zenith_difference_deg": 2.978288300425902e-07,
+          "solar_azimuth_difference_deg": 2.5856148226921505e-06,
+          "supplied_solar_azimuth_circular_mean_deg": 172.64912673112264,
+          "candidate_positions": {
+            "timezone-aware": {
+              "datetime_utc": "2023-08-16T18:53:18+00:00",
+              "zenith_deg": 26.302751541137695,
+              "azimuth_deg": 172.6491241455078,
+              "zenith_difference_deg": 2.978288300425902e-07,
+              "azimuth_difference_deg": 2.5856148226921505e-06
+            }
+          },
+          "solar_geometry_consistency_status": "PASS",
+          "solar_geometry_consistency_reason": "Provisional scene-center comparison: maximum angular residual 0.00 degrees (review bands 5/20 degrees; correction geometry unchanged)"
+        },
+        "resolved_band_map": {
+          "blue": {
+            "index": 0,
+            "wavelength": 444.0
+          },
+          "green": {
+            "index": 3,
+            "wavelength": 560.0
+          },
+          "red": {
+            "index": 4,
+            "wavelength": 650.0
+          },
+          "nir": {
+            "index": 9,
+            "wavelength": 862.0
+          }
+        },
+        "metadata": {
+          "lines": 1035,
+          "samples": 1960,
+          "bands": 10,
+          "wavelength_units": "nanometers",
+          "nodata": NaN
+        },
+        "spatial_dependencies_refreshed": false,
+        "expected_translation_sensors": [
+          "Landsat_8_OLI",
+          "Landsat_9_OLI-2",
+          "Landsat_5_TM",
+          "Landsat_7_ETM+"
+        ],
+        "spatial_diagnostics": {
+          "raster_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+          "raster_crs": "EPSG:26913",
+          "raster_bounds": [
+            455725.0,
+            4432001.25,
+            455921.0,
+            4432104.75
+          ],
+          "raster_transform": [
+            0.1,
+            -0.0,
+            455725.0,
+            -0.0,
+            -0.1,
+            4432104.75
+          ],
+          "raster_width": 1960,
+          "raster_height": 1035,
+          "raster_nodata": NaN,
+          "polygon_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+          "polygon_crs": "EPSG:3857",
+          "polygon_total_bounds": [
+            -11750732.4045,
+            4864107.7951000035,
+            -11743301.3402,
+            4908905.222599998
+          ],
+          "polygon_count": 1675,
+          "reprojected_polygon_crs": "EPSG:26913",
+          "reprojected_polygon_total_bounds": [
+            452362.23621070647,
+            4426492.234041884,
+            458049.267775208,
+            4460634.693231068
+          ],
+          "polygon_reprojected": true,
+          "bounds_overlap_after_reproject": true,
+          "intersecting_polygon_count": 86
+        },
+        "execution_status": "completed",
+        "scientific_qa_status": "caution",
+        "elapsed_seconds": 2.43,
+        "qa_preview": {
+          "nodata": {
+            "nodata_value": NaN,
+            "raw_nodata_pct": 0.29508035098097213,
+            "corrected_nodata_pct": 1.7823622202504192
+          },
+          "polygon": {
+            "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+            "warning": null
+          },
+          "merged_preview": {
+            "path": null,
+            "rows_total": 0,
+            "rows_previewed": 0,
+            "columns_previewed": [],
+            "filter_applied": null
+          }
+        },
+        "required_output_contract": [
+          "flight_identity",
+          "working_h5",
+          "working_stage",
+          "envi",
+          "envi_stage",
+          "corrected_native",
+          "correction_stage",
+          "flight_qa",
+          "flight_qa_json",
+          "polygon_index",
+          "polygon_library",
+          "matched_source_MicaSense_to-match_OLI_and_OLI-2",
+          "translated_Landsat_8_OLI",
+          "translation_provenance_Landsat_8_OLI",
+          "translation_qa_Landsat_8_OLI",
+          "translation_qa_json_Landsat_8_OLI",
+          "translation_publication_Landsat_8_OLI",
+          "translated_library_Landsat_8_OLI",
+          "translated_Landsat_9_OLI-2",
+          "translation_provenance_Landsat_9_OLI-2",
+          "translation_qa_Landsat_9_OLI-2",
+          "translation_qa_json_Landsat_9_OLI-2",
+          "translation_publication_Landsat_9_OLI-2",
+          "translated_library_Landsat_9_OLI-2",
+          "matched_source_MicaSense_to-match_TM_and_ETM+",
+          "translated_Landsat_5_TM",
+          "translation_provenance_Landsat_5_TM",
+          "translation_qa_Landsat_5_TM",
+          "translation_qa_json_Landsat_5_TM",
+          "translation_publication_Landsat_5_TM",
+          "translated_library_Landsat_5_TM",
+          "translated_Landsat_7_ETM+",
+          "translation_provenance_Landsat_7_ETM+",
+          "translation_qa_Landsat_7_ETM+",
+          "translation_qa_json_Landsat_7_ETM+",
+          "translation_publication_Landsat_7_ETM+",
+          "translated_library_Landsat_7_ETM+",
+          "qa_report_pdf",
+          "qa_summary_png",
+          "qa_summary_json",
+          "qa_report_stage"
+        ]
+      }
+    ],
+    "schema_version": 2,
+    "run_id": "d38d62a0b53621362f88fc0ce9274b181b491c0d274784e1e96a6d3d42b09b6c",
+    "created_utc": "2026-10-30T00:27:41.110285+00:00",
+    "spectralbridge_version": "2.3.0rc1",
+    "source_fingerprints": [
+      {
+        "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/prepared_sources/2023/AOP-Ruby-08-14-23-ExportPackage/verified_reflectance.tif",
+        "size_bytes": 92875943,
+        "modified_time_ns": 1793315687522137434
+      },
+      {
+        "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+        "size_bytes": 1257472,
+        "modified_time_ns": 1774129807657191520
+      },
+      {
+        "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_field_manifest.csv",
+        "size_bytes": 6500,
+        "modified_time_ns": 1781132460072991421
+      },
+      {
+        "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_translation_coefficients_v1.json",
+        "size_bytes": 34252,
+        "modified_time_ns": 1789677882329817185
+      }
+    ],
+    "configuration": {
+      "apply_topo": true,
+      "apply_brdf": true,
+      "use_ndvi_brdf_bins": false,
+      "extraction_mode": "polygon",
+      "merge_extractions": false,
+      "translation_requested": true,
+      "translation_weighting": "site_balanced",
+      "translation_strict": false,
+      "landsat_qa": false,
+      "landsat_search_days": 16,
+      "require_solar_geometry": true
+    },
+    "discovered_total": 1,
+    "attempted_total": 1,
+    "run_root": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage",
+    "polygon_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+    "input_source_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/prepared_sources/2023/AOP-Ruby-08-14-23-ExportPackage/verified_reflectance.tif",
+    "input_source_path_resolved": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/prepared_sources/2023/AOP-Ruby-08-14-23-ExportPackage/verified_reflectance.tif",
+    "input_source_path_exists": true,
+    "input_source_path_type": "file",
+    "supported_input_extensions": [
+      ".h5",
+      ".tif",
+      ".tiff"
+    ],
+    "total_wall_time_seconds": 5.205,
+    "average_successful_flight_seconds": 2.43,
+    "merged_path": null,
+    "translated_merged_path": null,
+    "status_counts": {
+      "success_extracted": 1,
+      "success_qa_only_no_polygon_overlap": 0,
+      "success_qa_only_no_polygons": 0,
+      "blocked_scientific": 0,
+      "failed_other": 0
+    },
+    "success_count": 1,
+    "success_extracted_count": 1,
+    "success_qa_only_no_polygon_overlap_count": 0,
+    "success_qa_only_no_polygons_count": 0,
+    "skipped_no_polygon_overlap_count": 0,
+    "failed_other_count": 0,
+    "blocked_scientific_count": 0,
+    "status": "complete",
+    "qa_summary_pdf": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/qa_summary.pdf",
+    "qa_summary_pdf_filename": "qa_summary.pdf",
+    "qa_summary_figure": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/qa/summary/drone_qa_summary.png",
+    "qa_report_stage": "complete"
+  },
+  "status": "complete",
+  "qa_summary_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/drone_qa_summary.json",
+  "qa_summary_pdf": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/qa_summary.pdf"
+}

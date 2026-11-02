@@ -122,6 +122,8 @@ class NeonCube:
             else None
         )
 
+        from .radiometry import Radiometry
+        self.radiometry = Radiometry.from_record(meta["radiometry"])
         self.scale_factor = float(meta.get("scale_factor", 1.0))
 
         self.wavelength_units = str(meta.get("wavelength_units", "Unknown"))
@@ -394,10 +396,13 @@ class NeonCube:
             "wavelength": wavelengths,
             "fwhm": fwhm,
             "wavelength units": wavelength_units,
+            **self.radiometry.header(),
+            "brdf status": "NOT_REQUESTED",
             "reflectance scale factor": float(self.scale_factor),
             "data ignore value": float(self.no_data),
             "map info": list(self.map_info_list),
             "projection": self.projection_wkt,
+            "coordinate system string": self.projection_wkt,
             "transform": tuple(self.transform),
             "ulx": float(self.ulx),
             "uly": float(self.uly),

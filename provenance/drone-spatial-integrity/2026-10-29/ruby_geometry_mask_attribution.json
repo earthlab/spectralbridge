@@ -1,0 +1,13 @@
+{
+  "source_valid_pixels": 2022614,
+  "finite_source_pixels_with_invalid_correction_geometry": 30171,
+  "invalid_geometry_by_field": {
+    "slope": 30171,
+    "aspect": 30171,
+    "solar_zn": 0,
+    "solar_az": 0
+  },
+  "expected_corrected_mask_matches": true,
+  "mask_mismatches": 0,
+  "scope": "Read-only attribution to the existing topographic finite-geometry validity policy; no correction algorithm change."
+}

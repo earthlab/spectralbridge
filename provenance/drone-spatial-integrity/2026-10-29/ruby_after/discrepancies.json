@@ -1,0 +1,1023 @@
+{
+  "stages": {
+    "source_tiff": {
+      "path": "/private/tmp/spectralbridge-drone-production/AOP-Ruby-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+      "kind": "raster",
+      "size_bytes": 95071398,
+      "mtime_ns": 1793294232701322085,
+      "height": 1035,
+      "width": 1960,
+      "bands": 11,
+      "crs": "PROJCRS[\"NAD83 / UTM zone 13N\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",26913]]",
+      "epsg": 26913,
+      "affine": [
+        0.1,
+        0.0,
+        455725.0,
+        0.0,
+        -0.1,
+        4432104.75
+      ],
+      "bounds": [
+        455725.0,
+        4432001.25,
+        455921.0,
+        4432104.75
+      ],
+      "resolution": [
+        0.1,
+        0.1
+      ],
+      "orientation": "north-up",
+      "nodata": "NaN",
+      "invalid_band_pixels": 5986,
+      "mask_sha256": "45ebd7bc1c23f25992769169f7a73109c2443076c0eeee76f0cae7343572d28c",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432104.7,
+          "value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432104.7,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432001.3,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432001.3,
+          "value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "x": 455823.05,
+          "y": 4432053.0,
+          "value": 93.95170593261719
+        }
+      ],
+      "thumbnail_stride": 5
+    },
+    "h5": {
+      "path": "/private/tmp/spectralbridge-ruby-recovery/outputs/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5",
+      "kind": "h5",
+      "size_bytes": 121735384,
+      "mtime_ns": 1793294519733797191,
+      "map_info": [
+        "Arbitrary",
+        " 1.000",
+        " 1.000",
+        " 455725",
+        " 4432104.75",
+        " 0.10000000000000001",
+        " 0.10000000000000001"
+      ],
+      "encoded_envi_transform": [
+        0.1,
+        0.0,
+        455725.0,
+        0.0,
+        -0.1,
+        4432104.75
+      ],
+      "spatial_reference_convention": "envi_corner_v1",
+      "encoded_orientation_conflict": false,
+      "height": 1035,
+      "width": 1960,
+      "bands": 10,
+      "crs": "PROJCRS[\"NAD83 / UTM zone 13N\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",26913]]",
+      "epsg": 26913,
+      "affine": [
+        0.1,
+        0.0,
+        455725.0,
+        0.0,
+        -0.1,
+        4432104.75
+      ],
+      "bounds": [
+        455725.0,
+        4432001.25,
+        455921.0,
+        4432104.75
+      ],
+      "resolution": [
+        0.1,
+        0.1
+      ],
+      "orientation": "north-up",
+      "nodata": "NaN",
+      "invalid_band_pixels": 5986,
+      "mask_sha256": "45ebd7bc1c23f25992769169f7a73109c2443076c0eeee76f0cae7343572d28c",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432104.7,
+          "value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432104.7,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432001.3,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432001.3,
+          "value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "x": 455823.05,
+          "y": 4432053.0,
+          "value": 93.95170593261719
+        }
+      ],
+      "thumbnail_stride": 5
+    },
+    "native": {
+      "path": "/private/tmp/spectralbridge-ruby-recovery/outputs/AOP_Ruby_20230814/AOP_Ruby_20230814__envi.img",
+      "kind": "raster",
+      "size_bytes": 81144000,
+      "mtime_ns": 1793294519841798716,
+      "height": 1035,
+      "width": 1960,
+      "bands": 10,
+      "crs": "PROJCRS[\"NAD83 / UTM zone 13N\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",26913]]",
+      "epsg": 26913,
+      "affine": [
+        0.1,
+        -0.0,
+        455725.0,
+        -0.0,
+        -0.1,
+        4432104.75
+      ],
+      "bounds": [
+        455725.0,
+        4432001.25,
+        455921.0,
+        4432104.75
+      ],
+      "resolution": [
+        0.1,
+        0.1
+      ],
+      "orientation": "north-up",
+      "nodata": "NaN",
+      "invalid_band_pixels": 5986,
+      "mask_sha256": "45ebd7bc1c23f25992769169f7a73109c2443076c0eeee76f0cae7343572d28c",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432104.7,
+          "value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432104.7,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432001.3,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432001.3,
+          "value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "x": 455823.05,
+          "y": 4432053.0,
+          "value": 93.95170593261719
+        }
+      ],
+      "thumbnail_stride": 5
+    },
+    "corrected": {
+      "path": "/private/tmp/spectralbridge-ruby-recovery/outputs/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+      "kind": "raster",
+      "size_bytes": 81144000,
+      "mtime_ns": 1793294520946015369,
+      "height": 1035,
+      "width": 1960,
+      "bands": 10,
+      "crs": "PROJCRS[\"NAD83 / UTM zone 13N\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",26913]]",
+      "epsg": 26913,
+      "affine": [
+        0.1,
+        -0.0,
+        455725.0,
+        -0.0,
+        -0.1,
+        4432104.75
+      ],
+      "bounds": [
+        455725.0,
+        4432001.25,
+        455921.0,
+        4432104.75
+      ],
+      "resolution": [
+        0.1,
+        0.1
+      ],
+      "orientation": "north-up",
+      "nodata": "NaN",
+      "invalid_band_pixels": 36157,
+      "mask_sha256": "36fb992e974a80ba349cc12dcfe20e48de39001871264169229de89ac8310e1c",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432104.7,
+          "value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432104.7,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432001.3,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432001.3,
+          "value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "x": 455823.05,
+          "y": 4432053.0,
+          "value": 14.396561622619629
+        }
+      ],
+      "thumbnail_stride": 5
+    },
+    "final": {
+      "path": "/private/tmp/spectralbridge-ruby-recovery/outputs/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi.img",
+      "kind": "raster",
+      "size_bytes": 40572000,
+      "mtime_ns": 1793294521051377465,
+      "height": 1035,
+      "width": 1960,
+      "bands": 5,
+      "crs": "PROJCRS[\"NAD83 / UTM zone 13N\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",26913]]",
+      "epsg": 26913,
+      "affine": [
+        0.1,
+        -0.0,
+        455725.0,
+        -0.0,
+        -0.1,
+        4432104.75
+      ],
+      "bounds": [
+        455725.0,
+        4432001.25,
+        455921.0,
+        4432104.75
+      ],
+      "resolution": [
+        0.1,
+        0.1
+      ],
+      "orientation": "north-up",
+      "nodata": "NaN",
+      "invalid_band_pixels": 36157,
+      "mask_sha256": "36fb992e974a80ba349cc12dcfe20e48de39001871264169229de89ac8310e1c",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432104.7,
+          "value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432104.7,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432001.3,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432001.3,
+          "value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "x": 455823.05,
+          "y": 4432053.0,
+          "value": 14.34840202331543
+        }
+      ],
+      "thumbnail_stride": 5
+    }
+  },
+  "comparisons": {
+    "source_tiff": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": false,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "maximum_pixels": 0.0,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": 93.95170593261719,
+          "stage_value": 93.95170593261719
+        }
+      ],
+      "bounds_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "h5": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": false,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "maximum_pixels": 0.0,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": 93.95170593261719,
+          "stage_value": 93.95170593261719
+        }
+      ],
+      "bounds_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lossless_values": {
+        "status": "exact_float32_comparison",
+        "values": 20286000,
+        "mismatched_values": 0
+      }
+    },
+    "native": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": false,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "maximum_pixels": 0.0,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": 93.95170593261719,
+          "stage_value": 93.95170593261719
+        }
+      ],
+      "bounds_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lossless_values": {
+        "status": "exact_float32_comparison",
+        "values": 20286000,
+        "mismatched_values": 0
+      }
+    },
+    "corrected": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": false,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "maximum_pixels": 0.0,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": 93.95170593261719,
+          "stage_value": 14.396561622619629
+        }
+      ],
+      "bounds_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "final": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": false,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "maximum_pixels": 0.0,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": 93.95170593261719,
+          "stage_value": 14.34840202331543
+        }
+      ],
+      "bounds_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "authoritative_tiff_available": true,
+  "missing_stages": [],
+  "scope": "read-only; synthetic only when --synthetic is supplied",
+  "synthetic": false,
+  "explicit_source_band_selection": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "parquet": {
+    "path": "/private/tmp/spectralbridge-ruby-recovery/outputs/AOP_Ruby_20230814/AOP_Ruby_20230814__polygons.parquet",
+    "records": 22481,
+    "coordinate_mismatches": 0,
+    "membership_mismatches": 0,
+    "label_mismatches": 0,
+    "invalid_indices": 0,
+    "raw_value_mismatches": 0,
+    "raw_values_checked": 224810,
+    "value_reference_invalid_rows": 0,
+    "explicit_value_reference": "/private/tmp/spectralbridge-ruby-recovery/outputs/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+    "expected_source_index_pixels_by_polygon": {
+      "{281AC7F2-E86B-4401-9F70-46DB473041DB}": 223,
+      "{8D3F2EA7-3D37-46DA-9250-3A6DE7D70D0A}": 228,
+      "{96382EA6-E607-4B04-8FCC-860C7F8A0991}": 93,
+      "{ECAF0829-2434-4D58-8D3E-87FE2D8C9022}": 102,
+      "{AB0E901F-8963-468C-AB13-28E6F05D6D68}": 145,
+      "{380FE908-DA48-45A5-953B-7F3C3080E823}": 293,
+      "{7104A971-272F-4EA5-AA74-E9A402B206F8}": 361,
+      "{F1C5593B-7519-487E-A8F2-8F4BACD039C1}": 995,
+      "{A2776FD3-DA4B-4F2F-A2EE-8357C002D066}": 205,
+      "{93E095EF-348D-4BEE-BE76-F7DC141D44B2}": 646,
+      "{34CA5CB6-4965-47D2-BF96-09150FF3AFC1}": 108,
+      "{B65F5A65-1BE3-412B-A953-72C25DC0D000}": 142,
+      "{49F4A33C-0F80-407B-B213-70F139F2583B}": 89,
+      "{CE4A2ED4-2915-43A2-9968-4C7C11DB887E}": 447,
+      "{02174F74-BED7-4654-B5C6-1B99AA5A4B88}": 390,
+      "{E19BF6AD-0496-407F-A252-BE36126B9F29}": 138,
+      "{FDA9030F-7244-42E7-8F40-FE0944C28CA0}": 318,
+      "{9DDFB715-6463-4C2C-9593-B83C208CF88B}": 167,
+      "{21205E59-F8BE-4DE2-BA05-D3C7BE2F879B}": 261,
+      "{89DE330E-0917-49D7-ADB1-C2537B2765A8}": 136,
+      "{8D6FB5DB-5405-446E-830B-D46040DB83D5}": 378,
+      "{F437AD0A-A829-4442-A302-2F612A828CEE}": 178,
+      "{866900CC-C548-4525-883E-6EE8C4D3D647}": 189,
+      "{852FA382-4DBF-4E45-BFAA-7AAF9CE2D611}": 131,
+      "{46813491-0B59-45DB-8D2B-66957F18A50F}": 171,
+      "{C14E22C6-EBAA-4ADD-AF1F-9E0114D03562}": 336,
+      "{02BB82AF-35B4-4068-88DB-EA6D347B05BD}": 248,
+      "{E557EA8B-D7B9-4849-AE85-D5BF14DECE47}": 498,
+      "{023A5C3B-C42A-4050-B679-328F82D0D264}": 279,
+      "{C3EE515C-2E0C-42A0-BD05-548BBC279823}": 1424,
+      "{DE501F7B-86DC-451F-BF8D-501E0431A548}": 275,
+      "{10A2F126-1CCA-4E99-84F6-CD7C0E9D32BD}": 382,
+      "{A559CFC2-577C-4266-8E28-E5C053E0F3C2}": 167,
+      "{2BD1FBC8-4B88-4FA2-919C-A32BD7021612}": 239,
+      "{9CF4A846-BAEF-4586-AF96-974DFE1A3A3B}": 423,
+      "{8C4BF942-229D-4550-96A1-FD9E3726C752}": 310,
+      "{6C022E27-D567-4000-8B14-570224C39617}": 240,
+      "{E2A4172E-58F4-4917-A4B4-4257A8EFC320}": 167,
+      "{68D1D6F2-0F87-45C0-B38A-4BBE31F47B24}": 98,
+      "{1142D273-698C-4FB0-A790-C3460F2A5FF4}": 355,
+      "{E9011497-C11A-473B-993E-80007490592B}": 156,
+      "{82F02D1E-ECB7-49EE-AAE6-92BB89123484}": 667,
+      "{08896DC4-3FFE-4DE4-B4C7-B0C5F74662BD}": 1116,
+      "{BA771BA8-23D7-45A1-A39B-B58FADF6C4B6}": 485,
+      "{07C70657-1186-4E15-BEB1-ADDD006D84F8}": 547,
+      "{895CE94D-2D3A-484C-B43E-7AAEF2705331}": 80,
+      "{B5556109-5EE3-458D-984D-369491C8A18E}": 332,
+      "{5274285A-8EDF-472B-859C-084A8A7EDF9D}": 219,
+      "{0DE4681A-FA04-4AF5-B0CB-E41BE9287AEF}": 292,
+      "{B265C8CC-0B3B-4160-B370-FA417256E282}": 413,
+      "{12C4122F-C455-4BCD-AECD-0FEF53234821}": 162,
+      "{0D375F33-1096-413E-8E5F-5CEA0A0AD0FD}": 130,
+      "{C1E87D5B-4468-474C-A1CA-FC35D13071C1}": 737,
+      "{D9942B34-1409-49DC-8ADB-74889113389E}": 380,
+      "{1A1FF787-215D-483B-BABF-7A30C74A7EF2}": 173,
+      "{997D22D4-C9F3-40ED-8C6B-97743C90187D}": 183,
+      "{BB9B083C-B1A0-487C-A081-78424F017F2F}": 109,
+      "{F19BE79E-A219-44EF-9522-6F52807FB721}": 142,
+      "{ACF22E57-2128-4238-8875-57E860804347}": 92,
+      "{343F53BA-8790-43B9-A623-8DCBF30F8712}": 110,
+      "{A1AA7D7A-FED3-45CD-A002-652F23B175C4}": 452,
+      "{32486AAB-521E-41D9-8193-E7BB145B1B66}": 234,
+      "{5760AD81-20B6-4572-BCCC-BC8BE986B7EE}": 104,
+      "{514D1176-0E2D-43FE-829D-9893117087C6}": 76,
+      "{F10C8F06-8BB2-4A4A-ADD5-F8268431C09F}": 259,
+      "{E0018DE6-7B46-4B5A-B28F-09EF6D470E3F}": 215,
+      "{381613A4-59F9-47C0-9B15-9632F2F13AD1}": 83,
+      "{ADB07AC5-AC0E-457E-87BA-A9BAD3D68576}": 226,
+      "{C4FF0891-2ED8-4DFB-8D74-30A1C9419DB6}": 133,
+      "{65FF760C-100C-4BE2-B833-2824E12E6C44}": 71,
+      "{30BAD963-2811-4204-B2A7-3DFF8E8F4A3A}": 158,
+      "{E5BA4EF2-ABA8-4432-A677-7469F55678E5}": 62,
+      "{A7D7826C-C033-40AE-B892-E7EA3825EF28}": 145,
+      "{86EBAD40-A4FA-46EA-85EC-A3E68A2B1DE5}": 173,
+      "{8852D356-551A-4E7A-BA0C-360D75588AD3}": 410,
+      "{FB049DC9-2E47-4EA3-99CE-03ADEBAE9D7B}": 218,
+      "{FD712FA3-2BC5-417E-A2C6-B811105B2613}": 87,
+      "{F5A269CB-67DB-4CBB-8ED4-B399441DF23F}": 95,
+      "{B5D952F9-97D9-4010-9910-56A7C046FEC6}": 34,
+      "{36861FEC-BB94-43EB-8BDC-E985453EB4E8}": 107,
+      "{D5C92F51-665F-4EA4-BCB7-68A02A34C050}": 151,
+      "{90101091-D288-4B5D-807A-A6C146CBA2CD}": 57,
+      "{A08D8F05-E3BD-4A8F-ACAE-96CC459F97AE}": 88,
+      "{9CF9ADFE-5FD8-490A-8334-51390CE94F83}": 168,
+      "{FC85368D-173C-4F3F-8E82-0300DEAF76AC}": 276,
+      "{A07578F9-172D-4F5F-B4E7-29B22AD8E079}": 102
+    },
+    "observed_pixels_by_polygon": {
+      "{281AC7F2-E86B-4401-9F70-46DB473041DB}": 223,
+      "{8D3F2EA7-3D37-46DA-9250-3A6DE7D70D0A}": 228,
+      "{380FE908-DA48-45A5-953B-7F3C3080E823}": 293,
+      "{96382EA6-E607-4B04-8FCC-860C7F8A0991}": 93,
+      "{AB0E901F-8963-468C-AB13-28E6F05D6D68}": 145,
+      "{ECAF0829-2434-4D58-8D3E-87FE2D8C9022}": 102,
+      "{49F4A33C-0F80-407B-B213-70F139F2583B}": 89,
+      "{93E095EF-348D-4BEE-BE76-F7DC141D44B2}": 646,
+      "{02174F74-BED7-4654-B5C6-1B99AA5A4B88}": 390,
+      "{F1C5593B-7519-487E-A8F2-8F4BACD039C1}": 995,
+      "{34CA5CB6-4965-47D2-BF96-09150FF3AFC1}": 108,
+      "{B65F5A65-1BE3-412B-A953-72C25DC0D000}": 142,
+      "{CE4A2ED4-2915-43A2-9968-4C7C11DB887E}": 447,
+      "{7104A971-272F-4EA5-AA74-E9A402B206F8}": 361,
+      "{A2776FD3-DA4B-4F2F-A2EE-8357C002D066}": 205,
+      "{89DE330E-0917-49D7-ADB1-C2537B2765A8}": 136,
+      "{E19BF6AD-0496-407F-A252-BE36126B9F29}": 138,
+      "{21205E59-F8BE-4DE2-BA05-D3C7BE2F879B}": 261,
+      "{9DDFB715-6463-4C2C-9593-B83C208CF88B}": 167,
+      "{FDA9030F-7244-42E7-8F40-FE0944C28CA0}": 318,
+      "{F437AD0A-A829-4442-A302-2F612A828CEE}": 178,
+      "{8D6FB5DB-5405-446E-830B-D46040DB83D5}": 378,
+      "{E557EA8B-D7B9-4849-AE85-D5BF14DECE47}": 498,
+      "{02BB82AF-35B4-4068-88DB-EA6D347B05BD}": 248,
+      "{023A5C3B-C42A-4050-B679-328F82D0D264}": 279,
+      "{866900CC-C548-4525-883E-6EE8C4D3D647}": 189,
+      "{852FA382-4DBF-4E45-BFAA-7AAF9CE2D611}": 131,
+      "{46813491-0B59-45DB-8D2B-66957F18A50F}": 171,
+      "{C14E22C6-EBAA-4ADD-AF1F-9E0114D03562}": 336,
+      "{A559CFC2-577C-4266-8E28-E5C053E0F3C2}": 167,
+      "{8C4BF942-229D-4550-96A1-FD9E3726C752}": 310,
+      "{C3EE515C-2E0C-42A0-BD05-548BBC279823}": 1424,
+      "{9CF4A846-BAEF-4586-AF96-974DFE1A3A3B}": 423,
+      "{10A2F126-1CCA-4E99-84F6-CD7C0E9D32BD}": 382,
+      "{2BD1FBC8-4B88-4FA2-919C-A32BD7021612}": 239,
+      "{DE501F7B-86DC-451F-BF8D-501E0431A548}": 275,
+      "{1A1FF787-215D-483B-BABF-7A30C74A7EF2}": 173,
+      "{12C4122F-C455-4BCD-AECD-0FEF53234821}": 162,
+      "{BA771BA8-23D7-45A1-A39B-B58FADF6C4B6}": 485,
+      "{07C70657-1186-4E15-BEB1-ADDD006D84F8}": 547,
+      "{B5556109-5EE3-458D-984D-369491C8A18E}": 332,
+      "{997D22D4-C9F3-40ED-8C6B-97743C90187D}": 183,
+      "{B265C8CC-0B3B-4160-B370-FA417256E282}": 413,
+      "{1142D273-698C-4FB0-A790-C3460F2A5FF4}": 355,
+      "{0D375F33-1096-413E-8E5F-5CEA0A0AD0FD}": 130,
+      "{08896DC4-3FFE-4DE4-B4C7-B0C5F74662BD}": 1116,
+      "{C1E87D5B-4468-474C-A1CA-FC35D13071C1}": 737,
+      "{5274285A-8EDF-472B-859C-084A8A7EDF9D}": 219,
+      "{895CE94D-2D3A-484C-B43E-7AAEF2705331}": 80,
+      "{68D1D6F2-0F87-45C0-B38A-4BBE31F47B24}": 98,
+      "{E9011497-C11A-473B-993E-80007490592B}": 156,
+      "{0DE4681A-FA04-4AF5-B0CB-E41BE9287AEF}": 292,
+      "{6C022E27-D567-4000-8B14-570224C39617}": 240,
+      "{D9942B34-1409-49DC-8ADB-74889113389E}": 380,
+      "{82F02D1E-ECB7-49EE-AAE6-92BB89123484}": 667,
+      "{E2A4172E-58F4-4917-A4B4-4257A8EFC320}": 167,
+      "{86EBAD40-A4FA-46EA-85EC-A3E68A2B1DE5}": 173,
+      "{65FF760C-100C-4BE2-B833-2824E12E6C44}": 71,
+      "{343F53BA-8790-43B9-A623-8DCBF30F8712}": 110,
+      "{BB9B083C-B1A0-487C-A081-78424F017F2F}": 109,
+      "{C4FF0891-2ED8-4DFB-8D74-30A1C9419DB6}": 133,
+      "{A1AA7D7A-FED3-45CD-A002-652F23B175C4}": 452,
+      "{ACF22E57-2128-4238-8875-57E860804347}": 92,
+      "{A7D7826C-C033-40AE-B892-E7EA3825EF28}": 145,
+      "{FB049DC9-2E47-4EA3-99CE-03ADEBAE9D7B}": 218,
+      "{514D1176-0E2D-43FE-829D-9893117087C6}": 76,
+      "{F19BE79E-A219-44EF-9522-6F52807FB721}": 142,
+      "{F10C8F06-8BB2-4A4A-ADD5-F8268431C09F}": 259,
+      "{E0018DE6-7B46-4B5A-B28F-09EF6D470E3F}": 215,
+      "{E5BA4EF2-ABA8-4432-A677-7469F55678E5}": 62,
+      "{5760AD81-20B6-4572-BCCC-BC8BE986B7EE}": 104,
+      "{381613A4-59F9-47C0-9B15-9632F2F13AD1}": 83,
+      "{32486AAB-521E-41D9-8193-E7BB145B1B66}": 234,
+      "{ADB07AC5-AC0E-457E-87BA-A9BAD3D68576}": 226,
+      "{30BAD963-2811-4204-B2A7-3DFF8E8F4A3A}": 158,
+      "{8852D356-551A-4E7A-BA0C-360D75588AD3}": 410,
+      "{FC85368D-173C-4F3F-8E82-0300DEAF76AC}": 276,
+      "{D5C92F51-665F-4EA4-BCB7-68A02A34C050}": 151,
+      "{90101091-D288-4B5D-807A-A6C146CBA2CD}": 57,
+      "{36861FEC-BB94-43EB-8BDC-E985453EB4E8}": 107,
+      "{A08D8F05-E3BD-4A8F-ACAE-96CC459F97AE}": 88,
+      "{FD712FA3-2BC5-417E-A2C6-B811105B2613}": 87,
+      "{B5D952F9-97D9-4010-9910-56A7C046FEC6}": 34,
+      "{F5A269CB-67DB-4CBB-8ED4-B399441DF23F}": 95,
+      "{9CF9ADFE-5FD8-490A-8334-51390CE94F83}": 54,
+      "{A07578F9-172D-4F5F-B4E7-29B22AD8E079}": 13
+    },
+    "source_index_counts_match": false,
+    "duplicate_pixel_records": 0,
+    "complete_index_membership_match": false,
+    "expected_finite_value_reference_pixels_by_polygon": {
+      "{281AC7F2-E86B-4401-9F70-46DB473041DB}": 223,
+      "{8D3F2EA7-3D37-46DA-9250-3A6DE7D70D0A}": 228,
+      "{96382EA6-E607-4B04-8FCC-860C7F8A0991}": 93,
+      "{ECAF0829-2434-4D58-8D3E-87FE2D8C9022}": 102,
+      "{AB0E901F-8963-468C-AB13-28E6F05D6D68}": 145,
+      "{380FE908-DA48-45A5-953B-7F3C3080E823}": 293,
+      "{7104A971-272F-4EA5-AA74-E9A402B206F8}": 361,
+      "{F1C5593B-7519-487E-A8F2-8F4BACD039C1}": 995,
+      "{A2776FD3-DA4B-4F2F-A2EE-8357C002D066}": 205,
+      "{93E095EF-348D-4BEE-BE76-F7DC141D44B2}": 646,
+      "{34CA5CB6-4965-47D2-BF96-09150FF3AFC1}": 108,
+      "{B65F5A65-1BE3-412B-A953-72C25DC0D000}": 142,
+      "{49F4A33C-0F80-407B-B213-70F139F2583B}": 89,
+      "{CE4A2ED4-2915-43A2-9968-4C7C11DB887E}": 447,
+      "{02174F74-BED7-4654-B5C6-1B99AA5A4B88}": 390,
+      "{E19BF6AD-0496-407F-A252-BE36126B9F29}": 138,
+      "{FDA9030F-7244-42E7-8F40-FE0944C28CA0}": 318,
+      "{9DDFB715-6463-4C2C-9593-B83C208CF88B}": 167,
+      "{21205E59-F8BE-4DE2-BA05-D3C7BE2F879B}": 261,
+      "{89DE330E-0917-49D7-ADB1-C2537B2765A8}": 136,
+      "{8D6FB5DB-5405-446E-830B-D46040DB83D5}": 378,
+      "{F437AD0A-A829-4442-A302-2F612A828CEE}": 178,
+      "{866900CC-C548-4525-883E-6EE8C4D3D647}": 189,
+      "{852FA382-4DBF-4E45-BFAA-7AAF9CE2D611}": 131,
+      "{46813491-0B59-45DB-8D2B-66957F18A50F}": 171,
+      "{C14E22C6-EBAA-4ADD-AF1F-9E0114D03562}": 336,
+      "{02BB82AF-35B4-4068-88DB-EA6D347B05BD}": 248,
+      "{E557EA8B-D7B9-4849-AE85-D5BF14DECE47}": 498,
+      "{023A5C3B-C42A-4050-B679-328F82D0D264}": 279,
+      "{C3EE515C-2E0C-42A0-BD05-548BBC279823}": 1424,
+      "{DE501F7B-86DC-451F-BF8D-501E0431A548}": 275,
+      "{10A2F126-1CCA-4E99-84F6-CD7C0E9D32BD}": 382,
+      "{A559CFC2-577C-4266-8E28-E5C053E0F3C2}": 167,
+      "{2BD1FBC8-4B88-4FA2-919C-A32BD7021612}": 239,
+      "{9CF4A846-BAEF-4586-AF96-974DFE1A3A3B}": 423,
+      "{8C4BF942-229D-4550-96A1-FD9E3726C752}": 310,
+      "{6C022E27-D567-4000-8B14-570224C39617}": 240,
+      "{E2A4172E-58F4-4917-A4B4-4257A8EFC320}": 167,
+      "{68D1D6F2-0F87-45C0-B38A-4BBE31F47B24}": 98,
+      "{1142D273-698C-4FB0-A790-C3460F2A5FF4}": 355,
+      "{E9011497-C11A-473B-993E-80007490592B}": 156,
+      "{82F02D1E-ECB7-49EE-AAE6-92BB89123484}": 667,
+      "{08896DC4-3FFE-4DE4-B4C7-B0C5F74662BD}": 1116,
+      "{BA771BA8-23D7-45A1-A39B-B58FADF6C4B6}": 485,
+      "{07C70657-1186-4E15-BEB1-ADDD006D84F8}": 547,
+      "{895CE94D-2D3A-484C-B43E-7AAEF2705331}": 80,
+      "{B5556109-5EE3-458D-984D-369491C8A18E}": 332,
+      "{5274285A-8EDF-472B-859C-084A8A7EDF9D}": 219,
+      "{0DE4681A-FA04-4AF5-B0CB-E41BE9287AEF}": 292,
+      "{B265C8CC-0B3B-4160-B370-FA417256E282}": 413,
+      "{12C4122F-C455-4BCD-AECD-0FEF53234821}": 162,
+      "{0D375F33-1096-413E-8E5F-5CEA0A0AD0FD}": 130,
+      "{C1E87D5B-4468-474C-A1CA-FC35D13071C1}": 737,
+      "{D9942B34-1409-49DC-8ADB-74889113389E}": 380,
+      "{1A1FF787-215D-483B-BABF-7A30C74A7EF2}": 173,
+      "{997D22D4-C9F3-40ED-8C6B-97743C90187D}": 183,
+      "{BB9B083C-B1A0-487C-A081-78424F017F2F}": 109,
+      "{F19BE79E-A219-44EF-9522-6F52807FB721}": 142,
+      "{ACF22E57-2128-4238-8875-57E860804347}": 92,
+      "{343F53BA-8790-43B9-A623-8DCBF30F8712}": 110,
+      "{A1AA7D7A-FED3-45CD-A002-652F23B175C4}": 452,
+      "{32486AAB-521E-41D9-8193-E7BB145B1B66}": 234,
+      "{5760AD81-20B6-4572-BCCC-BC8BE986B7EE}": 104,
+      "{514D1176-0E2D-43FE-829D-9893117087C6}": 76,
+      "{F10C8F06-8BB2-4A4A-ADD5-F8268431C09F}": 259,
+      "{E0018DE6-7B46-4B5A-B28F-09EF6D470E3F}": 215,
+      "{381613A4-59F9-47C0-9B15-9632F2F13AD1}": 83,
+      "{ADB07AC5-AC0E-457E-87BA-A9BAD3D68576}": 226,
+      "{C4FF0891-2ED8-4DFB-8D74-30A1C9419DB6}": 133,
+      "{65FF760C-100C-4BE2-B833-2824E12E6C44}": 71,
+      "{30BAD963-2811-4204-B2A7-3DFF8E8F4A3A}": 158,
+      "{E5BA4EF2-ABA8-4432-A677-7469F55678E5}": 62,
+      "{A7D7826C-C033-40AE-B892-E7EA3825EF28}": 145,
+      "{86EBAD40-A4FA-46EA-85EC-A3E68A2B1DE5}": 173,
+      "{8852D356-551A-4E7A-BA0C-360D75588AD3}": 410,
+      "{FB049DC9-2E47-4EA3-99CE-03ADEBAE9D7B}": 218,
+      "{FD712FA3-2BC5-417E-A2C6-B811105B2613}": 87,
+      "{F5A269CB-67DB-4CBB-8ED4-B399441DF23F}": 95,
+      "{B5D952F9-97D9-4010-9910-56A7C046FEC6}": 34,
+      "{36861FEC-BB94-43EB-8BDC-E985453EB4E8}": 107,
+      "{D5C92F51-665F-4EA4-BCB7-68A02A34C050}": 151,
+      "{90101091-D288-4B5D-807A-A6C146CBA2CD}": 57,
+      "{A08D8F05-E3BD-4A8F-ACAE-96CC459F97AE}": 88,
+      "{9CF9ADFE-5FD8-490A-8334-51390CE94F83}": 54,
+      "{FC85368D-173C-4F3F-8E82-0300DEAF76AC}": 276,
+      "{A07578F9-172D-4F5F-B4E7-29B22AD8E079}": 13
+    },
+    "complete_retained_membership_match": true,
+    "status": "source_index_and_record_comparison",
+    "membership_scope": "center-based source-grid polygon index, including nodata; filtered spectral tables may legitimately contain fewer rows"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "base_commit": "ecd0df27dc98ebe30e40bfad0e7d7e7c9d28b563",
+  "patch": "validated_workflow.patch",
+  "apply_policy": "Apply to a clean checkout of the base commit; do not apply on top of already recovered local edits.",
+  "files": {
+    "Drone_2023_2024_Cloud_Production.ipynb": {
+      "bytes": 16938,
+      "sha256": "f0f751640f1125e23ff60ac1d81c4f66831397c58da0dad2e6bed5cd018210f4"
+    },
+    "scripts/drone_cloud_workflow.py": {
+      "bytes": 11055,
+      "sha256": "d1ccd705ebc321ed61b158bf62c105c95f9bd9eee68b0e1cbb1a63cab4529387"
+    },
+    "src/spectralbridge/pipelines/drone.py": {
+      "bytes": 196171,
+      "sha256": "8bed15e3d369d7bd9326a51378da9e0ea5ace03fee8368f42bc4246778fac88c"
+    },
+    "src/spectralbridge/drone_production.py": {
+      "bytes": 88312,
+      "sha256": "12fd11b1984c48b05303439521459a8109c5f94ade0fa7cab6a63abd1452e315"
+    },
+    "src/spectralbridge/io/neon.py": {
+      "bytes": 31823,
+      "sha256": "70f333e9a75bb666621accb0b545f77b3690b335a0de3021a1fc59877b2b1558"
+    },
+    "src/spectralbridge/envi.py": {
+      "bytes": 12451,
+      "sha256": "a9119add199dcd3c00f3f9423ecda935202428cf8e2a07805d699e11da615d8a"
+    },
+    "src/spectralbridge/envi_writer.py": {
+      "bytes": 12336,
+      "sha256": "a368cacf1e649e6f26ec85203603b55e6220f699e7fb34cb9c57a6c675e7f2ca"
+    },
+    "src/spectralbridge/data/drone_field_manifest.csv": {
+      "bytes": 6500,
+      "sha256": "90d5b9088b713441afc84f68dec0d91d83450e9d767565ee3c2df8c9dba59534"
+    },
+    "Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg": {
+      "bytes": 1257472,
+      "sha256": "d9fe2108538179b7cde107123e965b3d0075dcb65ec488fd03b8480b34dc6ebb"
+    },
+    "src/spectralbridge/qa_plots.py": {
+      "bytes": 135995,
+      "sha256": "53fd4d9b4097e9fbaff7bd6f9419c570a1d052a78c1a57726741fd2d250fbe8d"
+    }
+  },
+  "revision_note": "Coordinate-roundoff validation plus exact bounded QA quantiles; no resampling, correction formula, raster or extraction value changes.",
+  "clean_base_patch_application_verified": true,
+  "verified_reconstruction_files": 10
+}

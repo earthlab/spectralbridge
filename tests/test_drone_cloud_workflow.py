@@ -117,3 +117,72 @@ def test_notebook_clean_and_code_compiles():
     assert 'RUN = False' in source and 'UPLOAD = False' in source
     assert 'materialize_observations=False' in source
     assert source.index('require_complete(inventory, statuses)') < source.index('preflight = run_bulk_pipeline')
+
+
+def test_explicit_test_population_does_not_weaken_production_gate():
+    from dataclasses import dataclass
+
+    @dataclass(frozen=True)
+    class Year:
+        year: int
+        expected_manifest_flights: tuple
+        source_status: str = "resolved"
+
+    @dataclass(frozen=True)
+    class Inventory:
+        packages: tuple
+        year_sources: tuple
+        requested_years: tuple
+
+        @property
+        def eligible_packages(self):
+            return self.packages
+
+    ruby = SimpleNamespace(package_name="Ruby", manifest_matched=True,
+                           manifest_id="AOP_Ruby", year=2023)
+    other = SimpleNamespace(package_name="Other", manifest_matched=True,
+                            manifest_id="AOP_Other", year=2024)
+    original = Inventory((ruby, other), (Year(2023, ("AOP_Ruby", "missing")),
+                                       Year(2024, ("AOP_Other",))), (2023, 2024))
+    assert workflow.select_inventory(original) is original
+    selected = workflow.select_inventory(original, "Ruby")
+    assert selected.packages == (ruby,) and selected.requested_years == (2023,)
+    assert selected.year_sources[0].expected_manifest_flights == ("AOP_Ruby",)
+    assert original.year_sources[0].expected_manifest_flights == ("AOP_Ruby", "missing")
+    with pytest.raises(ValueError):
+        workflow.select_inventory(original, "absent")
+
+
+def test_source_download_reuses_receipt_and_rejects_partial(tmp_path):
+    names = ["source.h5", "aligned_orthomosaic.tif", "aligned_slope.tif", "aligned_aspect.tif"]
+    package = SimpleNamespace(remote_package_path="i:/source/flight", h5_name="source.h5",
+                              package_name="flight")
+
+    class Backend:
+        downloads = 0
+        partial = False
+        modified = None
+
+        def list_directory(self, path):
+            return [workflow.RemoteEntry(path + "/" + n, n, False, 3, modified=self.modified) for n in names]
+
+        def download_file(self, path, local):
+            self.downloads += 1
+            local.write_bytes(b"x" if self.partial else b"abc")
+
+    backend = Backend()
+    workflow.download_sources(package, tmp_path, backend)
+    workflow.download_sources(package, tmp_path, backend)
+    assert backend.downloads == 4
+    (tmp_path / "source.h5").write_bytes(b"bad")
+    workflow.download_sources(package, tmp_path, backend)
+    assert backend.downloads == 5
+    timestamps = {name: (tmp_path / name).stat().st_mtime_ns for name in names}
+    backend.modified = "new listing metadata"
+    workflow.download_sources(package, tmp_path, backend)
+    assert backend.downloads == 9
+    assert timestamps == {name: (tmp_path / name).stat().st_mtime_ns for name in names}
+    backend.partial = True
+    with pytest.raises(ValueError, match="Incomplete transfer"):
+        workflow.download_sources(package, tmp_path / "partial", backend)
+    assert not (tmp_path / "partial/source.h5").exists()

@@ -21,6 +21,7 @@ from spectralbridge.bulk.flightline_outputs import discover_completed_flightline
 from spectralbridge.bulk.results import summarize_bulk_results
 from spectralbridge.pipelines.bulk import run_bulk_pipeline
 from spectralbridge.pipelines.drone import (
+    _validate_drone_h5_spatial_metadata,
     derive_drone_flight_stem,
     load_drone_manifest,
     lookup_flight_datetime,
@@ -1108,6 +1109,27 @@ def validate_bulk_ready_flightline(path: str | Path) -> BulkReadinessValidation:
 
     candidate = Path(path).expanduser().resolve()
     try:
+        # A campaign completion checkpoint must not bypass spatial preflight.
+        for working in candidate.glob("*__working.h5"):
+            _validate_drone_h5_spatial_metadata(working)
+            exports = list(candidate.glob("*__export.stage.json"))
+            if not exports or any(json.loads(p.read_text()).get("configuration", {}).get("algorithm_version", 0) < 2 for p in exports):
+                raise ValueError("Drone ENVI spatial export contract is stale; rerun this flight from its authoritative source.")
+            marker = working.with_suffix(".stage.json")
+            if marker.exists():
+                stage = json.loads(marker.read_text())
+                if (stage.get("stage") == "tiff_to_working_h5" and
+                        stage.get("configuration", {}).get("algorithm_version", 0) < 3):
+                    raise ValueError("Drone TIFF spatial contract is stale; rerun this flight from its original TIFF.")
+        import rasterio
+
+        for image in candidate.glob("*__corrected.img"):
+            from .radiometry import library_radiometry
+            library_radiometry(image)
+            with rasterio.open(image) as raster:
+                t = raster.transform
+                if raster.crs is None or t.a <= 0 or t.e >= 0 or t.b != 0 or t.d != 0:
+                    raise ValueError("Drone corrected raster violates the north-up spatial contract.")
         _sources, records = discover_completed_flightlines(
             candidate,
             analysis_profile="translation",

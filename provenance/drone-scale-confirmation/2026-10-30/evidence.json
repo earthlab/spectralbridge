@@ -1,0 +1,1133 @@
+{
+  "gordon": {
+    "files": {
+      "original": {
+        "path": "/private/tmp/spectralbridge-scale-confirmation/gordon-original.tif",
+        "sha256": "07d91ba618538e54fea287aa6586ed5060be52139d2fd7751be3347ea01b4f53",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_ORTHO.tif"
+      },
+      "base_25cm": {
+        "path": "/private/tmp/spectralbridge-scale-confirmation/base/gordon/aligned_orthomosaic.tif",
+        "sha256": "6136b96c55e798cc7d7f41ca9618789fd3b9fe15193f42c4ed9e02572a5d0252",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-GORDON-08-14-23-ExportPackage/aligned_orthomosaic.tif"
+      },
+      "rescaled_25cm": {
+        "path": "/private/tmp/spectralbridge-scale-confirmation/rescale/gordon/aligned_orthomosaic.tif",
+        "sha256": "4af928c5696316b5d4f62d2f989e21b9b71ba862d264acff0db9e60b083df998",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-rescale/AOP-GORDON-08-14-23-ExportPackage/aligned_orthomosaic.tif"
+      },
+      "target_10cm": {
+        "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GORDON-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+        "sha256": "aaa5a0d8ac0ad19652993a9cafdfbe5c24d386b93fc5657be1345e872e1696e0",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/AOP-GORDON-08-14-23-ExportPackage/aligned_orthomosaic.tif"
+      }
+    },
+    "bands": [
+      {
+        "band": 1,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021896279243,
+          "offset": -6.617369763262104e-09,
+          "max_abs_residual": 0.000776409326135763,
+          "rmse": 1.817546851913365e-05,
+          "valid_pairs": 984465,
+          "max_error_vs_original_extrema_mapping": 0.0007766603739582933
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258921123954458,
+          "offset": -0.007335324861060144,
+          "max_abs_residual": 3036.988794435595,
+          "rmse": 5.503686917958945,
+          "valid_pairs": 6153336,
+          "rmse_vs_original_extrema_mapping": 5.503712855173911,
+          "absolute_error_quantiles": [
+            0.0,
+            2.319028599373496e-06,
+            0.019357147007220066,
+            3037.0166568786667
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 2,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021896304312,
+          "offset": -1.2442797014955431e-08,
+          "max_abs_residual": 0.000777137163822772,
+          "rmse": 1.8143429377864416e-05,
+          "valid_pairs": 984465,
+          "max_error_vs_original_extrema_mapping": 0.0007768838931951905
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258921156564612,
+          "offset": -0.0071572084184481355,
+          "max_abs_residual": 3030.699536703823,
+          "rmse": 5.487925646046442,
+          "valid_pairs": 6153336,
+          "rmse_vs_original_extrema_mapping": 5.487951527261045,
+          "absolute_error_quantiles": [
+            0.0,
+            2.797502872908808e-06,
+            0.021942705855984564,
+            3030.727308611362
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 3,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021896717528,
+          "offset": -1.1080260264861863e-08,
+          "max_abs_residual": 0.0007777763421472628,
+          "rmse": 1.961685489121942e-05,
+          "valid_pairs": 984465,
+          "max_error_vs_original_extrema_mapping": 0.0007777779755997472
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258920946285806,
+          "offset": -0.006623624561939323,
+          "max_abs_residual": 3006.722071077821,
+          "rmse": 5.433866888597281,
+          "valid_pairs": 6153336,
+          "rmse_vs_original_extrema_mapping": 5.433892704108342,
+          "absolute_error_quantiles": [
+            0.0,
+            4.398237990699272e-06,
+            0.029349415724480948,
+            3006.749712404365
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 4,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.1525902189652422,
+          "offset": -1.5302589417842682e-08,
+          "max_abs_residual": 0.0007792954856995493,
+          "rmse": 2.0247998842851977e-05,
+          "valid_pairs": 984465,
+          "max_error_vs_original_extrema_mapping": 0.0007794171306159114
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258920800004602,
+          "offset": -0.006344421772155329,
+          "max_abs_residual": 2990.7345082042048,
+          "rmse": 5.402829549327269,
+          "valid_pairs": 6153336,
+          "rmse_vs_original_extrema_mapping": 5.402855355941834,
+          "absolute_error_quantiles": [
+            0.0,
+            5.2143218454148155e-06,
+            0.03331167422325352,
+            2990.762141156635
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 5,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021897423158,
+          "offset": -1.4570900930266362e-08,
+          "max_abs_residual": 0.0007750350268906914,
+          "rmse": 2.04496494665689e-05,
+          "valid_pairs": 984465,
+          "max_error_vs_original_extrema_mapping": 0.0007745741786493454
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.1525892228740347,
+          "offset": -0.0066515200333014945,
+          "max_abs_residual": 3015.9098978638754,
+          "rmse": 5.455548800013852,
+          "valid_pairs": 6153336,
+          "rmse_vs_original_extrema_mapping": 5.4555742325468435,
+          "absolute_error_quantiles": [
+            0.0,
+            3.9965989628854e-06,
+            0.03283762298441532,
+            3015.9371517685195
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 6,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021896632066,
+          "offset": 9.026734915096313e-09,
+          "max_abs_residual": 0.0007685066339035984,
+          "rmse": 2.0148388708673197e-05,
+          "valid_pairs": 984465,
+          "max_error_vs_original_extrema_mapping": 0.0007685391155973775
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258922715263581,
+          "offset": -0.006769146709302731,
+          "max_abs_residual": 3024.744127655301,
+          "rmse": 5.474172182903039,
+          "valid_pairs": 6153336,
+          "rmse_vs_original_extrema_mapping": 5.474197509358557,
+          "absolute_error_quantiles": [
+            0.0,
+            3.576333199362125e-06,
+            0.03134601523456704,
+            3024.771280391871
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 7,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.1525902189722954,
+          "offset": -1.3172552826290485e-08,
+          "max_abs_residual": 0.0007713377362961182,
+          "rmse": 2.296378890682586e-05,
+          "valid_pairs": 984465,
+          "max_error_vs_original_extrema_mapping": 0.00077166840674181
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.1525892153357706,
+          "offset": -0.005499809813727552,
+          "max_abs_residual": 2961.239283180141,
+          "rmse": 5.334414110623548,
+          "valid_pairs": 6153336,
+          "rmse_vs_original_extrema_mapping": 5.334439501121959,
+          "absolute_error_quantiles": [
+            0.0,
+            7.643946645430333e-06,
+            0.04108872201536259,
+            2961.2663572891597
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 8,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021896432082,
+          "offset": -3.6096707844990306e-08,
+          "max_abs_residual": 0.0007710276440775488,
+          "rmse": 2.6724492803121054e-05,
+          "valid_pairs": 984465,
+          "max_error_vs_original_extrema_mapping": 0.0007708488301432226
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258920690469446,
+          "offset": -0.004433351770558147,
+          "max_abs_residual": 2902.9037344133058,
+          "rmse": 5.208027787807252,
+          "valid_pairs": 6153336,
+          "rmse_vs_original_extrema_mapping": 5.2080532610222505,
+          "absolute_error_quantiles": [
+            0.0,
+            1.1059624341669405e-05,
+            0.053524029324964494,
+            2902.930801304289
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 9,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021896073574,
+          "offset": 4.437129064172041e-08,
+          "max_abs_residual": 0.000775450555011048,
+          "rmse": 3.351660977637856e-05,
+          "valid_pairs": 984465,
+          "max_error_vs_original_extrema_mapping": 0.0007757662897347473
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.1525891984351459,
+          "offset": -0.0023027243985325185,
+          "max_abs_residual": 2766.9467167241646,
+          "rmse": 4.9181082176324065,
+          "valid_pairs": 6153336,
+          "rmse_vs_original_extrema_mapping": 4.918133875275587,
+          "absolute_error_quantiles": [
+            0.0,
+            1.6370572325286048e-05,
+            0.092967524826338,
+            2766.9739058105956
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 10,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.1525902189649043,
+          "offset": 1.342755240330007e-08,
+          "max_abs_residual": 0.0007740097171335947,
+          "rmse": 4.0060168349834574e-05,
+          "valid_pairs": 984465,
+          "max_error_vs_original_extrema_mapping": 0.0007741271365375724
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.1525892025339795,
+          "offset": -0.0008368644014353777,
+          "max_abs_residual": 2690.2255753258623,
+          "rmse": 4.754811512974988,
+          "valid_pairs": 6153336,
+          "rmse_vs_original_extrema_mapping": 4.754836890243719,
+          "absolute_error_quantiles": [
+            0.0,
+            2.1243792161840247e-05,
+            0.09969724848847394,
+            2690.2523583216957
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      }
+    ],
+    "resolutions": {
+      "original": [
+        0.0806312999999956,
+        0.08063129999996525
+      ],
+      "base": [
+        0.25,
+        0.25
+      ],
+      "rescaled": [
+        0.25,
+        0.25
+      ],
+      "target": [
+        0.0999999999999763,
+        0.0999999999999108
+      ]
+    },
+    "original_color_interpretation": [
+      "gray",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "alpha"
+    ]
+  },
+  "goldhill": {
+    "files": {
+      "original": {
+        "path": "/private/tmp/spectralbridge-scale-confirmation/goldhill-original.tif",
+        "sha256": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_ORTHO.tif"
+      },
+      "base_25cm": {
+        "path": "/private/tmp/spectralbridge-scale-confirmation/base/goldhill.tif",
+        "sha256": "f21e19dc8161195091888ade3c7088f7af45bb2eabe09825719e0d3473230299",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif"
+      },
+      "rescaled_25cm": {
+        "path": "/private/tmp/spectralbridge-scale-confirmation/rescale/goldhill.tif",
+        "sha256": "fe5a7070b8042152d1620a887be3fe88c6795204b86f970a653c4039e876b26b",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-rescale/AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif"
+      },
+      "target_10cm": {
+        "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+        "sha256": "db134419d475243a237cb643e28f725de136bfb983a5062cd22393714f79f19f",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif"
+      }
+    },
+    "bands": [
+      {
+        "band": 1,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021896800715,
+          "offset": 2.108436092385091e-09,
+          "max_abs_residual": 0.0007688963960390538,
+          "rmse": 1.7443751451992217e-05,
+          "valid_pairs": 1130910,
+          "max_error_vs_original_extrema_mapping": 0.0007688371442782227
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258965839213703,
+          "offset": 0.0026498513846036076,
+          "max_abs_residual": 15.244685557970513,
+          "rmse": 0.22060565419640787,
+          "valid_pairs": 7068376,
+          "rmse_vs_original_extrema_mapping": 0.22075794319053044,
+          "absolute_error_quantiles": [
+            0.0,
+            0.0037255729919181135,
+            0.0648398230184668,
+            15.24697372297986
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 2,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021896853056,
+          "offset": 1.0775124792417046e-08,
+          "max_abs_residual": 0.0007651521664229222,
+          "rmse": 1.8128174256935335e-05,
+          "valid_pairs": 1130910,
+          "max_error_vs_original_extrema_mapping": 0.0007652608092030277
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258965747528336,
+          "offset": 0.0027424733877978724,
+          "max_abs_residual": 15.240025297753803,
+          "rmse": 0.2202090483587186,
+          "valid_pairs": 7068376,
+          "rmse_vs_original_extrema_mapping": 0.22036141784589627,
+          "absolute_error_quantiles": [
+            0.0,
+            0.004211394930692336,
+            0.07192676829702549,
+            15.242381106873083
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 3,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021897011987,
+          "offset": -1.4438228390645236e-10,
+          "max_abs_residual": 0.0007707981167186517,
+          "rmse": 1.9540163815190833e-05,
+          "valid_pairs": 1130910,
+          "max_error_vs_original_extrema_mapping": 0.0007706253109063255
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258965248419518,
+          "offset": 0.0030828664185946764,
+          "max_abs_residual": 15.212734202589914,
+          "rmse": 0.21905908172542327,
+          "valid_pairs": 7068376,
+          "rmse_vs_original_extrema_mapping": 0.21921236213783435,
+          "absolute_error_quantiles": [
+            0.0,
+            0.006390866784339977,
+            0.09332599175677814,
+            15.215364066907071
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 4,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.1525902189717397,
+          "offset": -6.438995114876889e-09,
+          "max_abs_residual": 0.0007662326970603317,
+          "rmse": 2.04057114786498e-05,
+          "valid_pairs": 1130910,
+          "max_error_vs_original_extrema_mapping": 0.0007659313741896767
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258965074956063,
+          "offset": 0.003205943705097525,
+          "max_abs_residual": 15.207893788787658,
+          "rmse": 0.21861856099607782,
+          "valid_pairs": 7068376,
+          "rmse_vs_original_extrema_mapping": 0.2187721938355488,
+          "absolute_error_quantiles": [
+            0.0,
+            0.007063746988961839,
+            0.10199157180488783,
+            15.210615623021823
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 5,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021895778227,
+          "offset": -3.3105607144534588e-09,
+          "max_abs_residual": 0.0007747295276203658,
+          "rmse": 2.0276934807227154e-05,
+          "valid_pairs": 1130910,
+          "max_error_vs_original_extrema_mapping": 0.000774127134718583
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.1525896522626819,
+          "offset": 0.003077485651488132,
+          "max_abs_residual": 15.227787844377161,
+          "rmse": 0.21929018163980993,
+          "valid_pairs": 7068376,
+          "rmse_vs_original_extrema_mapping": 0.21944414212291338,
+          "absolute_error_quantiles": [
+            0.0,
+            0.0062327054251341,
+            0.10582812725377266,
+            15.230435686379934
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 6,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021896531133,
+          "offset": -1.949729266925715e-09,
+          "max_abs_residual": 0.0007644233919563703,
+          "rmse": 2.0287129794190292e-05,
+          "valid_pairs": 1130910,
+          "max_error_vs_original_extrema_mapping": 0.0007645157420483883
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258965299644547,
+          "offset": 0.0030298800203354403,
+          "max_abs_residual": 15.24017480868163,
+          "rmse": 0.21945640732110328,
+          "valid_pairs": 7068376,
+          "rmse_vs_original_extrema_mapping": 0.2196103597876819,
+          "absolute_error_quantiles": [
+            0.0,
+            0.005741273928457247,
+            0.1031046802104072,
+            15.242789812379769
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 7,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021897275882,
+          "offset": -3.68661403626902e-08,
+          "max_abs_residual": 0.0007704074960201979,
+          "rmse": 2.4221251554932945e-05,
+          "valid_pairs": 1130910,
+          "max_error_vs_original_extrema_mapping": 0.0007701037629885832
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258964271519224,
+          "offset": 0.003793217368411206,
+          "max_abs_residual": 15.167858911601456,
+          "rmse": 0.2165530495118023,
+          "valid_pairs": 7068376,
+          "rmse_vs_original_extrema_mapping": 0.21670841704725846,
+          "absolute_error_quantiles": [
+            0.0,
+            0.0089368400361991,
+            0.12109363474712609,
+            15.17101969405698
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 8,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021896701408,
+          "offset": 1.2370037438813597e-08,
+          "max_abs_residual": 0.0007803704429534264,
+          "rmse": 2.881905246705484e-05,
+          "valid_pairs": 1130910,
+          "max_error_vs_original_extrema_mapping": 0.0007803857188264374
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258962671666199,
+          "offset": 0.004470779703751759,
+          "max_abs_residual": 15.09951334732716,
+          "rmse": 0.2152195197461413,
+          "valid_pairs": 7068376,
+          "rmse_vs_original_extrema_mapping": 0.2153798262243098,
+          "absolute_error_quantiles": [
+            0.0,
+            0.012095543251746221,
+            0.16118309188058788,
+            15.10345415211546
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 9,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.1525902189677868,
+          "offset": 8.865299605531618e-10,
+          "max_abs_residual": 0.0007736284842394525,
+          "rmse": 3.8018955186038596e-05,
+          "valid_pairs": 1130910,
+          "max_error_vs_original_extrema_mapping": 0.0007736800944257993
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.1525895601637291,
+          "offset": 0.006165192862454205,
+          "max_abs_residual": 15.04805015715175,
+          "rmse": 0.2176642121590023,
+          "valid_pairs": 7068376,
+          "rmse_vs_original_extrema_mapping": 0.2178514929924901,
+          "absolute_error_quantiles": [
+            0.0,
+            0.020514506483152672,
+            0.2822286254109656,
+            15.053477950797173
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 10,
+        "source_min": 174,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15299643518306025,
+          "offset": -26.621379721852485
+        },
+        "paired_25cm": {
+          "slope": 0.15299643518233863,
+          "offset": -26.621379751951963,
+          "max_abs_residual": 0.0007726294970780145,
+          "rmse": 4.5969953286878906e-05,
+          "valid_pairs": 1130910,
+          "max_error_vs_original_extrema_mapping": 0.0007727067022642586
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15299574959505896,
+          "offset": -26.613931518679465,
+          "max_abs_residual": 14.968412046658699,
+          "rmse": 0.21596703537012174,
+          "valid_pairs": 7068376,
+          "rmse_vs_original_extrema_mapping": 0.21616374767406762,
+          "absolute_error_quantiles": [
+            0.0,
+            0.02239416497741331,
+            0.30872647702202016,
+            14.97474459227638
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      }
+    ],
+    "resolutions": {
+      "original": [
+        0.08442749999999995,
+        0.0844275000000419
+      ],
+      "base": [
+        0.25,
+        0.25
+      ],
+      "rescaled": [
+        0.25,
+        0.25
+      ],
+      "target": [
+        0.09999999999996322,
+        0.09999999999991677
+      ]
+    },
+    "original_color_interpretation": [
+      "gray",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "alpha"
+    ]
+  },
+  "ruby": {
+    "files": {
+      "original": {
+        "path": "/private/tmp/spectralbridge-scale-confirmation/ruby-original.tif",
+        "sha256": "308031cabe41ce25185d70057bfc328796727c45e00d53eb04dac7c2ba0a401c",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif"
+      },
+      "base_25cm": {
+        "path": "/private/tmp/spectralbridge-scale-confirmation/base/ruby/aligned_orthomosaic.tif",
+        "sha256": "266b4e0f658144f08b7f2e58d08c911c06198668a2debef0ac5e110eaf7fad81",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-Ruby-08-14-23-ExportPackage/aligned_orthomosaic.tif"
+      },
+      "rescaled_25cm": {
+        "path": "/private/tmp/spectralbridge-scale-confirmation/rescale/ruby/aligned_orthomosaic.tif",
+        "sha256": "cf300a004bde9bb667df7fb8d54dd3801381c5e3e9373cc1171f904b532db8fd",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-rescale/AOP-Ruby-08-14-23-ExportPackage/aligned_orthomosaic.tif"
+      },
+      "target_10cm": {
+        "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-Ruby-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+        "sha256": "c8ce548934f6df84089a520e846379ef5d4cf624e06c46201ba103e2ea996d5b",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/AOP-Ruby-08-14-23-ExportPackage/aligned_orthomosaic.tif"
+      }
+    },
+    "bands": [
+      {
+        "band": 1,
+        "source_min": 4,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.1525995330454289,
+          "offset": -0.6103981321817156
+        },
+        "paired_25cm": {
+          "slope": 0.1525995330265634,
+          "offset": -0.6103980987019213,
+          "max_abs_residual": 0.0007744691974949092,
+          "rmse": 2.3070814639403635e-05,
+          "valid_pairs": 323379,
+          "max_error_vs_original_extrema_mapping": 0.0007734739792795153
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15259339543815695,
+          "offset": -0.600124264311944,
+          "max_abs_residual": 21.360700483575442,
+          "rmse": 0.35115336891196935,
+          "valid_pairs": 2022614,
+          "rmse_vs_original_extrema_mapping": 0.35427004995877837,
+          "absolute_error_quantiles": [
+            1.8189894035458565e-12,
+            0.008864982781830122,
+            0.1272789592038329,
+            21.34222024277051
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 2,
+        "source_min": 3,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259720441921504,
+          "offset": -0.4577916132576451
+        },
+        "paired_25cm": {
+          "slope": 0.1525972044567475,
+          "offset": -0.45779167361513373,
+          "max_abs_residual": 0.0007706781707383925,
+          "rmse": 2.4363687225561092e-05,
+          "valid_pairs": 323379,
+          "max_error_vs_original_extrema_mapping": 0.0007726425646978896
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15259106877795026,
+          "offset": -0.4466150668368982,
+          "max_abs_residual": 21.361350679938255,
+          "rmse": 0.35074814612072075,
+          "valid_pairs": 2022614,
+          "rmse_vs_original_extrema_mapping": 0.353860860627423,
+          "absolute_error_quantiles": [
+            1.8189894035458565e-12,
+            0.009790123422188657,
+            0.14141350202752953,
+            21.34365698499994
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 3,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.1525902189970829,
+          "offset": -2.3197571863420308e-08,
+          "max_abs_residual": 0.0007689503927394981,
+          "rmse": 2.430868845559112e-05,
+          "valid_pairs": 323379,
+          "max_error_vs_original_extrema_mapping": 0.0007705508014623774
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258407241780578,
+          "offset": 0.014168375287795243,
+          "max_abs_residual": 21.326518379409436,
+          "rmse": 0.3496432943492595,
+          "valid_pairs": 2022614,
+          "rmse_vs_original_extrema_mapping": 0.3527548049596559,
+          "absolute_error_quantiles": [
+            0.0,
+            0.015341211203860894,
+            0.1790615104663262,
+            21.31079945353622
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 4,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.1525902189328418,
+          "offset": 4.4985995373281185e-08,
+          "max_abs_residual": 0.0007658889571757754,
+          "rmse": 2.541405434586535e-05,
+          "valid_pairs": 323379,
+          "max_error_vs_original_extrema_mapping": 0.0007637706712557701
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258407661112605,
+          "offset": 0.015556596965154768,
+          "max_abs_residual": 21.30216648089595,
+          "rmse": 0.34921980525283036,
+          "valid_pairs": 2022614,
+          "rmse_vs_original_extrema_mapping": 0.35232759308673706,
+          "absolute_error_quantiles": [
+            0.0,
+            0.017315939724767304,
+            0.19669012322184454,
+            21.287380286900884
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 5,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021886122232,
+          "offset": 1.7341886859867373e-07,
+          "max_abs_residual": 0.0007699887919443427,
+          "rmse": 2.5220366275082444e-05,
+          "valid_pairs": 323379,
+          "max_error_vs_original_extrema_mapping": 0.0007661548934265738
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.1525841471261128,
+          "offset": 0.014162549175466665,
+          "max_abs_residual": 21.343900219581883,
+          "rmse": 0.3501385722246031,
+          "valid_pairs": 2022614,
+          "rmse_vs_original_extrema_mapping": 0.3532216889287527,
+          "absolute_error_quantiles": [
+            0.0,
+            0.013893072579854504,
+            0.20026854865714205,
+            21.32897941302383
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 6,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021903167802,
+          "offset": -7.774951882311143e-08,
+          "max_abs_residual": 0.0007664377626497298,
+          "rmse": 2.522342954324548e-05,
+          "valid_pairs": 323379,
+          "max_error_vs_original_extrema_mapping": 0.0007630256022821413
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258416974301497,
+          "offset": 0.01389504919330875,
+          "max_abs_residual": 21.355375047663983,
+          "rmse": 0.3502281605477677,
+          "valid_pairs": 2022614,
+          "rmse_vs_original_extrema_mapping": 0.3533026001248223,
+          "absolute_error_quantiles": [
+            0.0,
+            0.012634354179027696,
+            0.19804400308338238,
+            21.340619572169203
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 7,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021892718527,
+          "offset": 1.198649215439218e-07,
+          "max_abs_residual": 0.0007550570571766002,
+          "rmse": 2.7883548528055616e-05,
+          "valid_pairs": 323379,
+          "max_error_vs_original_extrema_mapping": 0.0007573630755359773
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.1525841169525077,
+          "offset": 0.019934837590881216,
+          "max_abs_residual": 21.198032336233723,
+          "rmse": 0.34698464858791306,
+          "valid_pairs": 2022614,
+          "rmse_vs_original_extrema_mapping": 0.3500659267932965,
+          "absolute_error_quantiles": [
+            0.0,
+            0.020945935152205664,
+            0.2218073671609345,
+            21.18566637482286
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 8,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021901466263,
+          "offset": -1.4072838894207962e-07,
+          "max_abs_residual": 0.0007486726099159569,
+          "rmse": 3.119903898638528e-05,
+          "valid_pairs": 323379,
+          "max_error_vs_original_extrema_mapping": 0.0007461870336555876
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15258404781971402,
+          "offset": 0.025464311256087058,
+          "max_abs_residual": 21.05153921252986,
+          "rmse": 0.34621096366686926,
+          "valid_pairs": 2022614,
+          "rmse_vs_original_extrema_mapping": 0.34934117841694157,
+          "absolute_error_quantiles": [
+            0.0,
+            0.02780541713718776,
+            0.2982251855162255,
+            21.04131562254861
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 9,
+        "source_min": 0,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.15259021896696423,
+          "offset": 0.0
+        },
+        "paired_25cm": {
+          "slope": 0.15259021900148176,
+          "offset": -1.0110863968293415e-07,
+          "max_abs_residual": 0.0007704622876190115,
+          "rmse": 3.7934478529491856e-05,
+          "valid_pairs": 323379,
+          "max_error_vs_original_extrema_mapping": 0.000772264462284511
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.1525837476665805,
+          "offset": 0.03661412245946849,
+          "max_abs_residual": 20.90148296012478,
+          "rmse": 0.3541735536904075,
+          "valid_pairs": 2022614,
+          "rmse_vs_original_extrema_mapping": 0.3575877638106945,
+          "absolute_error_quantiles": [
+            0.0,
+            0.04474072708485721,
+            0.5146012871315913,
+            20.89684083949794
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      },
+      {
+        "band": 10,
+        "source_min": 297,
+        "source_max": 65535,
+        "expected_range_mapping": {
+          "slope": 0.1532848953064165,
+          "offset": -45.5256139060057
+        },
+        "paired_25cm": {
+          "slope": 0.15328489530918368,
+          "offset": -45.52561396857527,
+          "max_abs_residual": 0.000769340143961017,
+          "rmse": 4.406434028685353e-05,
+          "valid_pairs": 323379,
+          "max_error_vs_original_extrema_mapping": 0.000769448261053185
+        },
+        "original_to_10cm_bilinear": {
+          "slope": 0.15327839496116388,
+          "offset": -45.48002603602845,
+          "max_abs_residual": 20.60931825397438,
+          "rmse": 0.3536755763120657,
+          "valid_pairs": 2022614,
+          "rmse_vs_original_extrema_mapping": 0.357135759344644,
+          "absolute_error_quantiles": [
+            0.0,
+            0.04922742635170607,
+            0.5607597045654775,
+            20.60616044434778
+          ]
+        },
+        "note": "GDAL warp is an independent comparison, not an exact replay of the unavailable original 10cm export code"
+      }
+    ],
+    "resolutions": {
+      "original": [
+        0.08315299999999169,
+        0.08315300000021639
+      ],
+      "base": [
+        0.25,
+        0.25
+      ],
+      "rescaled": [
+        0.25,
+        0.25
+      ],
+      "target": [
+        0.1,
+        0.1
+      ]
+    },
+    "original_color_interpretation": [
+      "gray",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "alpha"
+    ]
+  }
+}

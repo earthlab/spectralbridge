@@ -1,0 +1,801 @@
+{
+  "files": {
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__brdf_model.json": {
+      "bytes": 883,
+      "sha256": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.hdr": {
+      "bytes": 1908,
+      "sha256": "6d30771fa65c0e77b541c43c7b3c8f5e2041ad936bb821f77ffd4552b2bfb4c1"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.img": {
+      "bytes": 283330800,
+      "sha256": "744e7e3d8a1970c238ef5492f396247be0c53346169730eea2149d4d6a551ccc"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected__correction.stage.json": {
+      "bytes": 1965,
+      "sha256": "186a287f017a1a7a36f095ee7030bf8c2291e43cfc6e02d6c48e28789ced90a1"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__envi.hdr": {
+      "bytes": 1893,
+      "sha256": "17bd040ef715fc564dc6908982502ff51eb2558a1bd3d94687b4f4fe858205dc"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__envi.img": {
+      "bytes": 283330800,
+      "sha256": "750b8c24871ef1b10757d52af5728bbc1084524d1fbdd615145b54849ed5b2c2"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__envi__export.stage.json": {
+      "bytes": 1109,
+      "sha256": "7f9b06966086a0577549eee4c95cb8a7735f0b6c5f90d658808a1bde51ecd056"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_etm+_translated_envi.hdr": {
+      "bytes": 1832,
+      "sha256": "747a39233d5e41c1e90f7589303da621dc2c2fe3341ea7774b4e06484040acc8"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_etm+_translated_envi.img": {
+      "bytes": 113332320,
+      "sha256": "2160f76e0c5089bf1cb22939d47f6e2252b34d135be9c158e7ae202904b28f11"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_etm+_translated_envi__polygons.parquet": {
+      "bytes": 3109420,
+      "sha256": "ba1d6ae82e7ab5dc50eec8aec5488312be64d4891e68c1b256a67d7219fa28b7"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_etm+_translated_envi__polygons.provenance.json": {
+      "bytes": 8178,
+      "sha256": "4d6f585dd01063634bc4b4cf4e072149ad8290a5440d21d00fa22b6e4f9ff784"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_etm+_translated_envi__translation.json": {
+      "bytes": 11135,
+      "sha256": "779b8c21a652e3422e553d80154d4743ae32f8dba1e440a1713a9c93e00eb0e2"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_etm+_translated_envi__translation_qa.json": {
+      "bytes": 18003,
+      "sha256": "8b703f10a29bcdc13e3dc665929203b8e4620a51327601a493128f9e22d61500"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_etm+_translated_envi__translation_qa.png": {
+      "bytes": 209222,
+      "sha256": "5bafbc405954151852130127c9635bf4da3825422345e154031002bfb5b8b030"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli2_translated_envi.hdr": {
+      "bytes": 1845,
+      "sha256": "b4b0ec3e65bc1f5e87a48f178e0066360bf6b885a6c717dd8bd4155071b4e5af"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli2_translated_envi.img": {
+      "bytes": 141665400,
+      "sha256": "fdaf3c4545c384ccb7e03558f248212f2c2e5704f4b221e66795ba0970b73274"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli2_translated_envi__polygons.parquet": {
+      "bytes": 3615543,
+      "sha256": "9173289839a6cc2c978013aa47106effe2e8985cf7105a2efedf022dbd0ce3bc"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli2_translated_envi__polygons.provenance.json": {
+      "bytes": 9619,
+      "sha256": "cc9a5c5f10a96fb72a1f2dcbb19640d4c101712bc992dfc88bef45c66f0893c0"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli2_translated_envi__translation.json": {
+      "bytes": 13003,
+      "sha256": "5847374b2a2600aa63dca7b0aa9aa0ed8e02d821a79000a8c16c842aaf51eb39"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli2_translated_envi__translation_qa.json": {
+      "bytes": 21215,
+      "sha256": "04d64ea19975fc140c8ef74e1bb552853f0a595cdffd51f43deb74d6ddf9271c"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli2_translated_envi__translation_qa.png": {
+      "bytes": 244404,
+      "sha256": "0a411f16fed4ad3c73d145afb55ad506081dc4864f44df2a942f59de4febdd6e"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli_translated_envi.hdr": {
+      "bytes": 1843,
+      "sha256": "d9c73816e6e2b89439acf2f1ba3c20637c30a246ea80a3c1f9c6dbd6ca040c4a"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli_translated_envi.img": {
+      "bytes": 141665400,
+      "sha256": "d7ce2987f55c71a3ef19e5d3385813b78a242ebbe3df0c336b629e61922ca28e"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli_translated_envi__polygons.parquet": {
+      "bytes": 3616354,
+      "sha256": "7da3baa018378f0c93267ddfce550ad48957b20c3e25f15344d4ed72f1a4032f"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli_translated_envi__polygons.provenance.json": {
+      "bytes": 9587,
+      "sha256": "180646bc5e233bf639daa9283f37a04d46978f06bd3d32180bc3ee73f4543cd6"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli_translated_envi__translation.json": {
+      "bytes": 12967,
+      "sha256": "0282514f5893328b3cdad3a287f3c1b4b4cc07e4b66e892d4a026fc66a7fcd9b"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli_translated_envi__translation_qa.json": {
+      "bytes": 21167,
+      "sha256": "ceff504c5c75279b996692faa25859588c13b7f92d662f46a94ee0876183c2b3"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_oli_translated_envi__translation_qa.png": {
+      "bytes": 242857,
+      "sha256": "112af9cb61360e59336ce5a5d51b11407f15b83b70b6218493a0463f77aa075c"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_tm_translated_envi.hdr": {
+      "bytes": 1833,
+      "sha256": "7c929a3cfe90f2ba3b4c5b7ae297e503568acb629ce4778b1df6afb7252c24b4"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_tm_translated_envi.img": {
+      "bytes": 113332320,
+      "sha256": "cfbd89b9a6b53d378579d36c991e7329b1fb8e8a407b15f837259050d63574ef"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_tm_translated_envi__polygons.parquet": {
+      "bytes": 3099844,
+      "sha256": "b2c6430573b6d3ab7c950f90d5bc465d79ffc2a5418ade86178b2fbdafff042a"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_tm_translated_envi__polygons.provenance.json": {
+      "bytes": 8460,
+      "sha256": "1193d66017eca946170a94f4d508d1af243dacc6bafc6e5a4091c54bc87a45e9"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_tm_translated_envi__translation.json": {
+      "bytes": 11657,
+      "sha256": "f2c4718d59653d2f45c6fa96b0e49222f284afd98abb3a912a93445b44b64e62"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_tm_translated_envi__translation_qa.json": {
+      "bytes": 19086,
+      "sha256": "f812886b0fc73f1b228f7f2e0b117658cd50552f20b855b0abbf2cd31aa901ae"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__landsat_like_landsat_tm_translated_envi__translation_qa.png": {
+      "bytes": 210264,
+      "sha256": "a98893829f24bf29868d776a0a306716f2006cbf8b5a545ad1d516295d4f6ab0"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__micasense_to_match_oli_oli2_envi.hdr": {
+      "bytes": 1778,
+      "sha256": "02f2a61b03abfe1f63d3aa130148da2a564b955c3ec3714d8f894056bb9d9f25"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__micasense_to_match_oli_oli2_envi.img": {
+      "bytes": 141665400,
+      "sha256": "8d7169bdd51f15ed8ad416a0808190f24f6192c46d1032bccf2697a9087485a4"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__micasense_to_match_oli_oli2_envi__source.json": {
+      "bytes": 1595,
+      "sha256": "eee0830b89d92c32ef99b460e9084983c84fbe2dcb04fc9011cb137999311e5f"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__micasense_to_match_tm_etm+_envi.hdr": {
+      "bytes": 1762,
+      "sha256": "c5f9e3eef711b187c91cc9793d23a1b53aef8df3bb033429f15bf177f046a97d"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__micasense_to_match_tm_etm+_envi.img": {
+      "bytes": 113332320,
+      "sha256": "a297379dd31ed5698fedc36259a6ceb74e24b1147321a57f537f59b14270dd81"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__micasense_to_match_tm_etm+_envi__source.json": {
+      "bytes": 1581,
+      "sha256": "b1cc7ce21f6feeb33dae33a7cba96e901d7a238b3e3dbd3603af33e6b68a4967"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__overlay_debug.png": {
+      "bytes": 46695,
+      "sha256": "06096b71a10a972d9eee0d04163db1b94fe42a55f35ca9d5cadb5f99e8fb564c"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__polygon_index.parquet": {
+      "bytes": 1462455,
+      "sha256": "4b484ed6080eb59f83358290e8afa2c5913bfe3225af6b343dd220b3ef561e86"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__polygons.csv": {
+      "bytes": 434728096,
+      "sha256": "7f08f9dcf6467b33ea03b23ddc29fdb69817f60c86049ca25ecf51cca2cc1024"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__polygons.parquet": {
+      "bytes": 6501077,
+      "sha256": "504d3acb0ec187f84a93c2d860870d47271bbb8e3abd183f7a1d990ae74a3127"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__qa.json": {
+      "bytes": 82654,
+      "sha256": "804c987c70c233f879a4f4676aca9a6cd058f148cabddc34ac82d50b4953533d"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__qa.png": {
+      "bytes": 2598147,
+      "sha256": "aaa07c3a49275374274bd839bf323a036b9839d6ce1b74ac924c1001e107adb8"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.h5": {
+      "bytes": 425015584,
+      "sha256": "363dc7da0674c13f67d4c58f8d5c67135c25ddc75cc8986c45f7007bf4893e41"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.stage.json": {
+      "bytes": 1935,
+      "sha256": "cf5b9ccdda9d173a7c067d97986cea9b118e41815012d4e41a6cad216ce51ef8"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/qa_publication/AOP_GOLDHILL_20230814__landsat_like_landsat_etm+_translated_envi__translation_quality.pdf": {
+      "bytes": 33076,
+      "sha256": "1adebb9ec5fce5d28a80880c5fc0580551ba5a9ca6b41a4bf0d3309d510921b5"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/qa_publication/AOP_GOLDHILL_20230814__landsat_like_landsat_etm+_translated_envi__translation_quality.png": {
+      "bytes": 215909,
+      "sha256": "2763114e67c60069e4bbcbbf6fecd0ca3946aa4fcf261f2f60de66186d6127a0"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/qa_publication/AOP_GOLDHILL_20230814__landsat_like_landsat_oli2_translated_envi__translation_quality.pdf": {
+      "bytes": 33676,
+      "sha256": "df4a99b57e936c00b95ee2e5b313d91a9a56da04e5268683cb96a7045ad8fcc8"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/qa_publication/AOP_GOLDHILL_20230814__landsat_like_landsat_oli2_translated_envi__translation_quality.png": {
+      "bytes": 227552,
+      "sha256": "840187aa4857c98f298960522fc205b755241619cd43e78b8c8123e2a2e9678b"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/qa_publication/AOP_GOLDHILL_20230814__landsat_like_landsat_oli_translated_envi__translation_quality.pdf": {
+      "bytes": 33367,
+      "sha256": "662f12128e8ae68d2cbf19fd251a33276e606f9c558edbf560b3b5f2c2e7e6b0"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/qa_publication/AOP_GOLDHILL_20230814__landsat_like_landsat_oli_translated_envi__translation_quality.png": {
+      "bytes": 225373,
+      "sha256": "3543c3f9f2b973167e41f377aebbb043a17d4c067772cf0b002ce2333a507b00"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/qa_publication/AOP_GOLDHILL_20230814__landsat_like_landsat_tm_translated_envi__translation_quality.pdf": {
+      "bytes": 32565,
+      "sha256": "a6a0fb46bd5dcabcc23a7844f7fb3556e941fdb6fde228d5462cac4bf3c0be69"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/qa_publication/AOP_GOLDHILL_20230814__landsat_like_landsat_tm_translated_envi__translation_quality.png": {
+      "bytes": 217741,
+      "sha256": "bfdf504eed65ea0cf8e16148b1409404b4d0f962e2ac3dbc376e29ef8d2cb692"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/spatial_dependencies.stage.json": {
+      "bytes": 1190,
+      "sha256": "5a643acc5bba629a5971f18ffdf3cd1563499e980d12364c2da4f16445cfb475"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/spectralbridge_flightline.json": {
+      "bytes": 394,
+      "sha256": "e9c1755786b08a7a1a884207cd90f373fb109b0b71f2155a734a3b643d283b4b"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/drone_qa_summary.json": {
+      "bytes": 85579,
+      "sha256": "74b4128f5a04d0b274662222cecf6a501fa5677a7c77a4575010a8fbe8daf683"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/pipeline_result.json": {
+      "bytes": 92401,
+      "sha256": "0552cc32d941d05f4f77913c9e9b69fb9688276bb0fcb4dffa7625ad3c0cd5b3"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/qa/report.stage.json": {
+      "bytes": 2328,
+      "sha256": "fea18651926dfb4e63b0d39073dd1c5b0e23666c37ffa4dd213087161e40984e"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/qa/summary/drone_qa_summary.json": {
+      "bytes": 1307,
+      "sha256": "e568b936eb7c901303655e1a364c086445ede12e1afad10f649c7fee9b86d905"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/qa/summary/drone_qa_summary.png": {
+      "bytes": 206434,
+      "sha256": "5ab1698edb8c52862c8fb0badedb1c230eb4e6df80045a76ccb119e19e451a74"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/qa_summary.pdf": {
+      "bytes": 1921119,
+      "sha256": "d2f1c5b04b197c07f05f831bbc6eb584ca3a8793f1908f5df687f77fd356c708"
+    },
+    "2023_AOP-GOLDHILL-08-14-23-ExportPackage/source_recipe.json": {
+      "bytes": 2089,
+      "sha256": "63267a6561b9d2cfb57c927c8e12585db41a2558df778794c1cc5fbedf4fb97e"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__brdf_model.json": {
+      "bytes": 962,
+      "sha256": "d8638523ea5561a46c2570d5bc31d5e169ac7123e1aafcf428100a35a98ff7ab"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected.hdr": {
+      "bytes": 1904,
+      "sha256": "225371ea83b93dc8cc50759e8bdeed05e8048df89212311846639a6a65620d30"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected.img": {
+      "bytes": 246216960,
+      "sha256": "634efb6563d918b04c116f0f0582278f4059cb1023d82dd625767154ff2b017c"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected__correction.stage.json": {
+      "bytes": 1941,
+      "sha256": "4721446a2b88f74fea3e8e2a421312c8916ae26eead8cdbc41b3e44bede9a8a2"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__envi.hdr": {
+      "bytes": 1889,
+      "sha256": "ea33c0d41b47a09d94c020c713dec03d43809149e7d41e434d2567ffda80add7"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__envi.img": {
+      "bytes": 246216960,
+      "sha256": "8d4a59169c1632f383385a0b1ab3d98659481671697ab9163579995ff63015bc"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__envi__export.stage.json": {
+      "bytes": 1091,
+      "sha256": "5fa76d23aef326d0516cd429b22237bdcf5365c6b12634649807ea73abe66793"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_etm+_translated_envi.hdr": {
+      "bytes": 1830,
+      "sha256": "59a3f833fbdcce84975a21e53ad2b1d53fee7b29bb31e8b6309a967264b79913"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_etm+_translated_envi.img": {
+      "bytes": 98486784,
+      "sha256": "af6edf4236d434133736ab1552093f8e5c794c642a9ef43e367051e2158d8811"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_etm+_translated_envi__polygons.parquet": {
+      "bytes": 742686,
+      "sha256": "65c9387f41157e67a4373439d5489fd59610f361d13d7e52d73bae97c1540956"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_etm+_translated_envi__polygons.provenance.json": {
+      "bytes": 8158,
+      "sha256": "b28b1d8f5e0ef7bee865a61980570c301a0082352d2b70b1fe2d2fc381e7ec2d"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_etm+_translated_envi__translation.json": {
+      "bytes": 11067,
+      "sha256": "61388ed9c9aa7e2c0ebd261853c3bf6ed497117d1562212da1900ff59afed3ef"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_etm+_translated_envi__translation_qa.json": {
+      "bytes": 17894,
+      "sha256": "27ffdd7a854fee49b5d80924f30e08be664bc7172a51de0ba44dafa130ac1d96"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_etm+_translated_envi__translation_qa.png": {
+      "bytes": 222702,
+      "sha256": "cf846dc49560030f626655bd125d97e87593a32ec7127ccf5a50ce33e6a862e0"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli2_translated_envi.hdr": {
+      "bytes": 1843,
+      "sha256": "1a44d008bd2827af5da79465c1ee031904545ecab88c90e5f44398ad99f62fac"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli2_translated_envi.img": {
+      "bytes": 123108480,
+      "sha256": "acc1f494a6396d77c8a1ae3e48b15a8791854999e95fe6bdec8ec70e37c53ec9"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli2_translated_envi__polygons.parquet": {
+      "bytes": 855194,
+      "sha256": "39ffe03f5b90a041fb8215b8c531c99a13271361ea021e843c29a12cbdb0e0a8"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli2_translated_envi__polygons.provenance.json": {
+      "bytes": 9599,
+      "sha256": "5dcd6b4b5e499a0fa0a7f045d4a51ebacd025e4347f5c4640070c8e78caa4505"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli2_translated_envi__translation.json": {
+      "bytes": 12912,
+      "sha256": "13f817e319595b7d8ea7ecc9ff9fe1fc53867b72c9f97a2f2e82d554ddb31f0e"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli2_translated_envi__translation_qa.json": {
+      "bytes": 21051,
+      "sha256": "e30efa34d7f0117c788dc812766a56e302277581ae0db128de6a39f2253c6394"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli2_translated_envi__translation_qa.png": {
+      "bytes": 254395,
+      "sha256": "08fd99967bff28b6d55468eed8db15db5e40f21b5f031657df06fc06f040e28a"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli_translated_envi.hdr": {
+      "bytes": 1841,
+      "sha256": "5460f739888e6396f30540c183b0cdc9d6e86bfd4c9266a89c71ebe623246c70"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli_translated_envi.img": {
+      "bytes": 123108480,
+      "sha256": "ae520f30963e143be94dec14fc238e3b001b961268d813308330da8c1c9cfb8d"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli_translated_envi__polygons.parquet": {
+      "bytes": 855118,
+      "sha256": "026912e9f6dcff366cfec9101553f87e1461a25156108772544ec007e09de7af"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli_translated_envi__polygons.provenance.json": {
+      "bytes": 9567,
+      "sha256": "7f0ea62433704fa588365c18c9fb368bad23430da0d1070050b684b011b94488"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli_translated_envi__translation.json": {
+      "bytes": 12880,
+      "sha256": "14835dda386b67f9a246bf6309eb5ba42fce5114a026130b4ef9134e731c3a90"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli_translated_envi__translation_qa.json": {
+      "bytes": 21013,
+      "sha256": "bbd85bf6f07c4719d4fee54df978598663cab16d3ba095e661cc0660403111c7"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_oli_translated_envi__translation_qa.png": {
+      "bytes": 252578,
+      "sha256": "90bfd14c491c2afd27986a78f3d84fb036f434d5d57817bbd7e4e6d99615edbb"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_tm_translated_envi.hdr": {
+      "bytes": 1831,
+      "sha256": "01e3dc7b25b1d99d3afada6d0b88ac4f3ff6c4fae5b4ba00eeeed70a1104296a"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_tm_translated_envi.img": {
+      "bytes": 98486784,
+      "sha256": "dc6261e77d3fb46f9a3eeb11f54effec754a816a61753aa70c5141653feedd1c"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_tm_translated_envi__polygons.parquet": {
+      "bytes": 742999,
+      "sha256": "0359796957116b9ade969efd83f3e4112a985c919a30cea7dcb2efd43439e83f"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_tm_translated_envi__polygons.provenance.json": {
+      "bytes": 8440,
+      "sha256": "cad1b32ec88b85d15aed783d1dfb1cbc5c4b098c7b1158591430149d6e8b9e2b"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_tm_translated_envi__translation.json": {
+      "bytes": 11583,
+      "sha256": "ff21dc1f894347d81cade118ed1d8883bc3101df37c52571a65066e88567c10c"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_tm_translated_envi__translation_qa.json": {
+      "bytes": 18962,
+      "sha256": "e6447a62ed1d5d7a28a5d29080f3c94d46367258489b059f84f10271fc17f4af"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__landsat_like_landsat_tm_translated_envi__translation_qa.png": {
+      "bytes": 224236,
+      "sha256": "084a0d867770fe1daff54c0589af8923a5fa8f08156401286ab1a600678cc344"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__micasense_to_match_oli_oli2_envi.hdr": {
+      "bytes": 1776,
+      "sha256": "ab498c5e124ff92dac6778bec410c17654d18996c6c7620081260335c5410dee"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__micasense_to_match_oli_oli2_envi.img": {
+      "bytes": 123108480,
+      "sha256": "6277898117182135697fa4f1aa6c4b078ffcf75ad6eddca20cee4fae685df02b"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__micasense_to_match_oli_oli2_envi__source.json": {
+      "bytes": 1571,
+      "sha256": "730fef86a09acdc4fe94882428e500ecb9bcdda8dd32a6eb0f39aeec5c3ab878"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__micasense_to_match_tm_etm+_envi.hdr": {
+      "bytes": 1760,
+      "sha256": "13c00d656b6a8743f76df7b2ec2d260c34ecf65af39ac6259dcadcb9fc8f6136"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__micasense_to_match_tm_etm+_envi.img": {
+      "bytes": 98486784,
+      "sha256": "15d0c87297078200519192b4bd90d7ed5c359d4ab697e5394e6a665d31b7c48e"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__micasense_to_match_tm_etm+_envi__source.json": {
+      "bytes": 1557,
+      "sha256": "daf28088f1a779ec59b60943cc262d6bb9a003322fd73f03da61bf5a74230eb2"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__overlay_debug.png": {
+      "bytes": 31259,
+      "sha256": "e3c1ee22a4c1721c0ea210f939c77586cd7ed481e0cf41bb8795cd9a56d33cf3"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__polygon_index.parquet": {
+      "bytes": 370604,
+      "sha256": "dc3bb05bb27dcb736b485963eeb09ca8330de8a619ca6de7881ccc22859d1e08"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__polygons.csv": {
+      "bytes": 36008748,
+      "sha256": "fe187ccdb903474a52e1c97c13d49184348cb1625ab90cafff6baa99cc5f0033"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__polygons.parquet": {
+      "bytes": 1464606,
+      "sha256": "0337840587c13839eb38ce10fa0d2fd514ef8cb982c57d5bdeb6b0be427af3ce"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__qa.json": {
+      "bytes": 82158,
+      "sha256": "b138195c1acc4d93038aa6081226a1fd94b105ca58ecf08545ff989e44d903d7"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__qa.png": {
+      "bytes": 2389258,
+      "sha256": "0b5d944525e0df864f80ff54a42b15ce80e0ef66ab39c99e19f696fe5751b9c1"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__working.h5": {
+      "bytes": 369344824,
+      "sha256": "b441cf04f4178c5d037ef9993666fa796e10d040402fc95de113f883cbc3bf7e"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__working.stage.json": {
+      "bytes": 1923,
+      "sha256": "89ab9fb26bd51e9bb4d04c9c2c4ce8171504d4bd0ac046c5da30bf906d78e5f6"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/qa_publication/AOP_GORDON_20230814__landsat_like_landsat_etm+_translated_envi__translation_quality.pdf": {
+      "bytes": 33269,
+      "sha256": "66e6c03b27089b61f43a9f25664b7e19ec8293ad5e37626aa867ac1ee045165e"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/qa_publication/AOP_GORDON_20230814__landsat_like_landsat_etm+_translated_envi__translation_quality.png": {
+      "bytes": 224594,
+      "sha256": "372d7d02d11d5f0dae7405e2aea7d2212e8bb95afe1c19cfb1c6da05bfd70af9"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/qa_publication/AOP_GORDON_20230814__landsat_like_landsat_oli2_translated_envi__translation_quality.pdf": {
+      "bytes": 33698,
+      "sha256": "08dbf22c661549e68e684c8e92ec3c0e0bae11940b03bf5d2f2698d9c50ca56d"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/qa_publication/AOP_GORDON_20230814__landsat_like_landsat_oli2_translated_envi__translation_quality.png": {
+      "bytes": 232606,
+      "sha256": "f40e4a2fa7989595e9df38fd4b36be46e020bc6d0f4f6f2fc581792d543dca4f"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/qa_publication/AOP_GORDON_20230814__landsat_like_landsat_oli_translated_envi__translation_quality.pdf": {
+      "bytes": 33428,
+      "sha256": "e63191d6a0c4d047d5c429f4a05bd41b33c7bc001d89fc6de929ab6b513465b1"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/qa_publication/AOP_GORDON_20230814__landsat_like_landsat_oli_translated_envi__translation_quality.png": {
+      "bytes": 230411,
+      "sha256": "d0c858850ddad53d1fb9acdfbf72cb9e892d21f70083af94931a85542d126456"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/qa_publication/AOP_GORDON_20230814__landsat_like_landsat_tm_translated_envi__translation_quality.pdf": {
+      "bytes": 32861,
+      "sha256": "37ba2a0615d021906fcddd2f0277f80119728a5cf0fa1e5c98f0f8901f408cb9"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/qa_publication/AOP_GORDON_20230814__landsat_like_landsat_tm_translated_envi__translation_quality.png": {
+      "bytes": 217365,
+      "sha256": "a4f1c73f47fe255e86db014ed2589ca72388b12d822e1ec10c43237fc85619d4"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/spatial_dependencies.stage.json": {
+      "bytes": 1178,
+      "sha256": "108525f0efcb5e59f74ef2c0229c149ef9a6269b2dbf42d1675fb10a54e87505"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/spectralbridge_flightline.json": {
+      "bytes": 388,
+      "sha256": "023b60ad853bcdc8e56ff8a2e7c98ef172b10f6bd5c46887d17dfc22bb6c754d"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/drone_qa_summary.json": {
+      "bytes": 84946,
+      "sha256": "445d3a885044d0b78743927efa80bfecae610c26c7f70ff75d77f45c119ef159"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/pipeline_result.json": {
+      "bytes": 91696,
+      "sha256": "278dec383f15b3f529c208f0a24b7351427e794ec467b827d8e070a412bbb8d9"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/qa/report.stage.json": {
+      "bytes": 2317,
+      "sha256": "a2a40dbb0d3d510c9e86176aa4dd51ddb172afeda5eadeb059c42bf37968fe15"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/qa/summary/drone_qa_summary.json": {
+      "bytes": 1302,
+      "sha256": "d92422e645c23c0d17273b66e8d6c323d469f1b49490f15fc1fe34cfc27cc0cd"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/qa/summary/drone_qa_summary.png": {
+      "bytes": 205452,
+      "sha256": "dffab71d0756663a40240f869d3b4354056d93a134c44e19faf4bc111b03b002"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/qa_summary.pdf": {
+      "bytes": 1853202,
+      "sha256": "17925e3873d11b63ae91f1c039a0659e45e341882a5b33157001a9a6682cbaa3"
+    },
+    "2023_AOP-GORDON-08-14-23-ExportPackage/source_recipe.json": {
+      "bytes": 2113,
+      "sha256": "b93669eeafc3bb86e8b5f108edc2a7e1abd214fc9de5031a512593fef49a2694"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__brdf_model.json": {
+      "bytes": 993,
+      "sha256": "b1d1402234d034b12e0702c4df032de767975171584e4ba165b83e48e7cdd9ca"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr": {
+      "bytes": 1844,
+      "sha256": "ab9ac821ddb5d607bb43611f18e050dcf810033708c3fc61afa21a9d12e01489"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img": {
+      "bytes": 81144000,
+      "sha256": "f7ba10e2a6c1916c9d4ca579f0f01b351ac875aef80fefcc6c56c03c8294163d"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected__correction.stage.json": {
+      "bytes": 1916,
+      "sha256": "2ce45fa540635626294ca63aba769af5eb2cbf696b5d5ac2bb249341851e9f1c"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__envi.hdr": {
+      "bytes": 1829,
+      "sha256": "98ffb77121356bd05661f2f76ea5e92fd8ce9cf3bbaa0f15b1b65af371c9c46a"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__envi.img": {
+      "bytes": 81144000,
+      "sha256": "4f2173ec14ee5ae65fcdd7a7565f912c9af18300ec5e85e3a6351fe310f65ebd"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__envi__export.stage.json": {
+      "bytes": 1073,
+      "sha256": "c497fb5041fff416dc91b6970ae03ddc7f10c99192fad4f05d8c9cf1496aecb4"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi.hdr": {
+      "bytes": 1800,
+      "sha256": "ecc798063971aa6ae8adeb83a6a7e29dd8e7f4c37128f6b03a0c06619340c5f0"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi.img": {
+      "bytes": 32457600,
+      "sha256": "d7dcb159dbb08e2b1444e4c109f5b0db45e12e2a7be8b44de939f229345ba894"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__polygons.parquet": {
+      "bytes": 580826,
+      "sha256": "0a74b2b8b9ca0defa2b7b9657f193249f83617e9c99f8f8ef9159c1354ff3944"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__polygons.provenance.json": {
+      "bytes": 8138,
+      "sha256": "bc75fa3d32a9f79f40ff8ca9954545d5885ee59a1b33d6bfce024f8e97ee4304"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__translation.json": {
+      "bytes": 11035,
+      "sha256": "6cfcc1bd20df123f9c7e2ff71af08f36f26fa2f461dbd27e492145fa61bf1370"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__translation_qa.json": {
+      "bytes": 17892,
+      "sha256": "664d4bcb4313107ea5b4c30cdb68a6da178cda083e464443f3ea9ec812768359"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__translation_qa.png": {
+      "bytes": 222218,
+      "sha256": "13d499cab5ff3b9ecbdcc7ae1c567513348ad79595adb543d79bdb06a2d87d9f"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi.hdr": {
+      "bytes": 1813,
+      "sha256": "7a3e200b09030671a737855dd4d3b7f6f33dcd93b7f8a16bd417bba30d5ea743"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi.img": {
+      "bytes": 40572000,
+      "sha256": "64aa84f04327933d23e843edf28164e634b3808dda96a6bc3637c768454833ea"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__polygons.parquet": {
+      "bytes": 661121,
+      "sha256": "e83ed75555e9c15dd75391044f42d5cc13177484c208aa15ed4365947a7418a5"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__polygons.provenance.json": {
+      "bytes": 9579,
+      "sha256": "607a1f70f692dfc25a60aa63f73b9b2bdf8f7c12f27daeee1601ffacde1d94ff"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__translation.json": {
+      "bytes": 12890,
+      "sha256": "cb635f5c3de5e9c0dc35d0785574bc4375b1ac846074935b7d2e5a86b6872350"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__translation_qa.json": {
+      "bytes": 21089,
+      "sha256": "945f054aa823d445b10c48a5c21bda6c3cb476d2ddb6c3e598e7e0332bfccd4a"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__translation_qa.png": {
+      "bytes": 257289,
+      "sha256": "fb7be78d2cf1b0048ce46e4da7eb782a5161854d0545c40746b7bda8c713ff5e"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi.hdr": {
+      "bytes": 1811,
+      "sha256": "fd5b81054f859e8ee2d83ba8ff8dac4796576ddb93dde386586627c195ca0560"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi.img": {
+      "bytes": 40572000,
+      "sha256": "cecf001d02fae21c4b0c5c49b62e22598192c574be4ae8c323fcab2fd98f25d5"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__polygons.parquet": {
+      "bytes": 661274,
+      "sha256": "f28a32eea6f739b296628f8679ffebcecb2c7424283c0ac36e32845d0b53a1c6"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__polygons.provenance.json": {
+      "bytes": 9547,
+      "sha256": "d33e4b60e6dd51afa4909d2fde0ca98987575a412914fdda1755be576c5ba4ca"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__translation.json": {
+      "bytes": 12860,
+      "sha256": "f1e3bedb97bc00564c4daf7dc9bc756639a5bb27819abf851fe6c1582a7fbf2b"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__translation_qa.json": {
+      "bytes": 21047,
+      "sha256": "b8fa6a7b5f09dd2c0cbeef5bf1928eedd6d1ecacc6d7a1afd170fca894bc7521"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__translation_qa.png": {
+      "bytes": 256096,
+      "sha256": "21952dc1481cda77ca52e54dbc0182aa240f88fd2496d740ea0a5b1de40cb70b"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi.hdr": {
+      "bytes": 1801,
+      "sha256": "fdb034a008b0e212e3504aee34ce8c4c35fed2016eecdc04cc0326dc6fb9d519"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi.img": {
+      "bytes": 32457600,
+      "sha256": "b90547359802e411d4852893e5b342817dee1eb9e3a0089f1c40a022dc8b265c"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__polygons.parquet": {
+      "bytes": 578988,
+      "sha256": "76e339cc452e91eb6322b7ffb1c1ce5676b1d186d6388bd61c08a1932fc8a7fc"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__polygons.provenance.json": {
+      "bytes": 8420,
+      "sha256": "951374d340cd5d7739001f239a508619799b112d94e11bb9feef7ed7fbc8bc83"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__translation.json": {
+      "bytes": 11552,
+      "sha256": "f1e061b10c2aebed3b6c22c133f7f3159d757c6b775dc39bee9eda6db8d2ed27"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__translation_qa.json": {
+      "bytes": 18964,
+      "sha256": "a3f072335f128b0940ac6e21eb1b3ad1eabba3a63b5c3816c913dabeda80dd23"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__translation_qa.png": {
+      "bytes": 222311,
+      "sha256": "7eda435a77f19b2a4c2475f9252e0f8b735cf4a9187221886ca296fa940635a7"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_oli_oli2_envi.hdr": {
+      "bytes": 1746,
+      "sha256": "17c1ff21d81de9785f6e3b5058a6008c38983571ef8badab486173ff072e052d"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_oli_oli2_envi.img": {
+      "bytes": 40572000,
+      "sha256": "19b4995706a4285e108fdf5b6d4f92b1fe31d46ad2c9d591cd585da02194c893"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_oli_oli2_envi__source.json": {
+      "bytes": 1546,
+      "sha256": "3011919821a6a88727c896ca3467429c0dff654235c7c659a6dd347d825e882e"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_tm_etm+_envi.hdr": {
+      "bytes": 1730,
+      "sha256": "503e5a13e9cfafd251959cef9e988baab37304ca8ed5daa841978acf22271031"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_tm_etm+_envi.img": {
+      "bytes": 32457600,
+      "sha256": "bf0f4ffb0397e0477c24766df0abe0938a70acafab621945273fcbe9785afe5c"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_tm_etm+_envi__source.json": {
+      "bytes": 1532,
+      "sha256": "d60533f3cd64cc4d6e43e585a10481c5bfa6fb62493acbcbaabfae69f864316a"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__overlay_debug.png": {
+      "bytes": 35371,
+      "sha256": "59b7b2eaa5d31357f4c2d5d6021f0838dddd29a1c4317f417ab18b6e288786cd"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__polygon_index.parquet": {
+      "bytes": 302130,
+      "sha256": "5e9d5cf10ddb43d0079ecf9b853ac4450e0c7a13fd3eb35a9f7794ccd2b00df9"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__polygons.csv": {
+      "bytes": 37504712,
+      "sha256": "860609b755677c26936cb9ae7bd094d53d399fb458ab1c58266af1cf8bc24331"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__polygons.parquet": {
+      "bytes": 1102855,
+      "sha256": "d2a07296d3fb4d1b37802c4a59f20952c8f4b5937ba20069fc5559fc2d0e4f0f"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__qa.json": {
+      "bytes": 81748,
+      "sha256": "a55013657640b4e849e3091e16f985d3370f8184a1a45a15df1977bada9d6ca0"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__qa.png": {
+      "bytes": 3013445,
+      "sha256": "76ae0c709cd714ae8660b74d361560e3006f82007a8b3c0beed7faa24d8e8d68"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5": {
+      "bytes": 121735384,
+      "sha256": "4883a850c40855fb23a319e2c1eb19cfd54619f6c0f60a5623a3528fb111ab1c"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.stage.json": {
+      "bytes": 1908,
+      "sha256": "6a0bc42a1c2eb95d2db368be0c60e004ce566f723b51e0f972e59c05100f9749"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__translation_quality.pdf": {
+      "bytes": 33113,
+      "sha256": "8d28d903f7bb2c3dedd7baca1363b30a6dd1a1b097ffe237a272363f27e2a7a8"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__translation_quality.png": {
+      "bytes": 218450,
+      "sha256": "6ef07762daafaf4686cb24a1e45d359426b6f8b2ebbadc8d30e9004c6ca1a672"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__translation_quality.pdf": {
+      "bytes": 33677,
+      "sha256": "216511643b563922066a623a478c3d93cfb039471ca8ae8ef1062656168c8fba"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__translation_quality.png": {
+      "bytes": 230914,
+      "sha256": "e6b8299ff5375e3c447d2cf62c38d4e232b83d9cb46098cd48a9187d9402200b"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__translation_quality.pdf": {
+      "bytes": 33401,
+      "sha256": "e34ff277da6fad81a3396a2b1d304810d02c6819f6f8892d1db0a8650dc3d0a3"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__translation_quality.png": {
+      "bytes": 229184,
+      "sha256": "03ef1ed3a307e0ccbb6b866ec7d6cd44541e9c384adcd0ba9721c7b276ccec25"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__translation_quality.pdf": {
+      "bytes": 32897,
+      "sha256": "3c4ca8780a7b95fb03db05e429820ced9ebe9d9b592e6a5b6cd35b15385c7ede"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/qa_publication/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__translation_quality.png": {
+      "bytes": 223782,
+      "sha256": "6e0726b3860862a9976f69dcb8c05746fb0d30304366148dddaea37f74e80aa8"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/spatial_dependencies.stage.json": {
+      "bytes": 1165,
+      "sha256": "7ab7cb2691620aec03b319b6b45a3615524fc4c986cdf4885bef61eb1e4543ae"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/spectralbridge_flightline.json": {
+      "bytes": 382,
+      "sha256": "ae0baad360c64c071156930c2833f682d791780d830c042e214a413d44e4a1c4"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/drone_qa_summary.json": {
+      "bytes": 84500,
+      "sha256": "2141e7310601076e8f5036ba1a6e7b876289a9d66308234bc5b5f5832c4ee6ac"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/pipeline_result.json": {
+      "bytes": 91178,
+      "sha256": "be0ded7d6f309741bbfb4e8562be5195fc42b1360daa6414f755c75b07431a9c"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/qa/report.stage.json": {
+      "bytes": 2307,
+      "sha256": "2a106c51b5ad43e94a7de9e4b3d0356004b828496411f4391f4d449513cdd4f9"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/qa/summary/drone_qa_summary.json": {
+      "bytes": 1298,
+      "sha256": "30cf4eb66470843b440f67763121f13225bf0a54ee16b23e3eef2b4d6764054c"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/qa/summary/drone_qa_summary.png": {
+      "bytes": 205780,
+      "sha256": "08ec5db2172d335d2b7b68950d54072fa117567cbf8f2f2515098af073536247"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/qa_summary.pdf": {
+      "bytes": 1968820,
+      "sha256": "e33eb6b336367ded61a7f2676139baacf0592108d5498d210af1621e9a37467e"
+    },
+    "2023_AOP-Ruby-08-14-23-ExportPackage/source_recipe.json": {
+      "bytes": 1955,
+      "sha256": "61f65c56bc774d5607b403ec620d29601c726597b355b4bc6c3db1e700f5dbba"
+    }
+  },
+  "cautions": [
+    "Retain ten TIFF bands only after exact H5 equality; other channels are unclassified.",
+    "Bundled acquisition times are used; package/manifest date disagreements require review.",
+    "Terrain masks are preserved. Review scientific QA before promoting results."
+  ]
+}

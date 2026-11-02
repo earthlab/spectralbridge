@@ -1,0 +1,239 @@
+{
+  "gordon": {
+    "status": "NUMERIC_MAPPING_VERIFIED_PHYSICAL_UNITS_UNVERIFIED",
+    "equation": "scaled = (original_DN - band_min) * 10000 / (band_max - band_min)",
+    "inverse_equation": "original_DN = band_min + scaled * (band_max - band_min) / 10000",
+    "bands": [
+      {
+        "band": 1,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 2,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 3,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 4,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 5,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 6,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 7,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 8,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 9,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 10,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      }
+    ],
+    "verified_stage": "summer-2023 to summer-2023-rescale on the identical 25 cm grid",
+    "target_10cm_status": "Consistent with original-source bilinear resampling and the same band-specific normalization; independent warp is not an exact export replay"
+  },
+  "goldhill": {
+    "status": "NUMERIC_MAPPING_VERIFIED_PHYSICAL_UNITS_UNVERIFIED",
+    "equation": "scaled = (original_DN - band_min) * 10000 / (band_max - band_min)",
+    "inverse_equation": "original_DN = band_min + scaled * (band_max - band_min) / 10000",
+    "bands": [
+      {
+        "band": 1,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 2,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 3,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 4,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 5,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 6,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 7,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 8,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 9,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 10,
+        "original_min": 174,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15299643518306025,
+        "numeric_offset": -26.621379721852485
+      }
+    ],
+    "verified_stage": "summer-2023 to summer-2023-rescale on the identical 25 cm grid",
+    "target_10cm_status": "Consistent with original-source bilinear resampling and the same band-specific normalization; independent warp is not an exact export replay"
+  },
+  "ruby": {
+    "status": "NUMERIC_MAPPING_VERIFIED_PHYSICAL_UNITS_UNVERIFIED",
+    "equation": "scaled = (original_DN - band_min) * 10000 / (band_max - band_min)",
+    "inverse_equation": "original_DN = band_min + scaled * (band_max - band_min) / 10000",
+    "bands": [
+      {
+        "band": 1,
+        "original_min": 4,
+        "original_max": 65535,
+        "numeric_multiplier": 0.1525995330454289,
+        "numeric_offset": -0.6103981321817156
+      },
+      {
+        "band": 2,
+        "original_min": 3,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259720441921504,
+        "numeric_offset": -0.4577916132576451
+      },
+      {
+        "band": 3,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 4,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 5,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 6,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 7,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 8,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 9,
+        "original_min": 0,
+        "original_max": 65535,
+        "numeric_multiplier": 0.15259021896696423,
+        "numeric_offset": 0.0
+      },
+      {
+        "band": 10,
+        "original_min": 297,
+        "original_max": 65535,
+        "numeric_multiplier": 0.1532848953064165,
+        "numeric_offset": -45.5256139060057
+      }
+    ],
+    "verified_stage": "summer-2023 to summer-2023-rescale on the identical 25 cm grid",
+    "target_10cm_status": "Consistent with original-source bilinear resampling and the same band-specific normalization; independent warp is not an exact export replay"
+  }
+}

@@ -167,6 +167,11 @@ def _raster_metadata(
             raise ProductValidationError(
                 "unreadable_metadata", f"cannot read ENVI header: {hdr.name}"
             ) from exc
+    from spectralbridge.radiometry import library_radiometry
+    try:
+        library_radiometry(img)
+    except (ValueError, OSError, KeyError) as exc:
+        raise ProductValidationError("unvalidated_radiometry_or_brdf", str(exc)) from exc
     wavelengths = parse_envi_wavelengths_nm(header_text) if header_text else None
     signature = {
         "image_path": img.resolve().as_posix(),
@@ -245,6 +250,11 @@ def _tabular_metadata(
                 f"{descriptor.expected_spectral_band_count} spectral columns "
                 f"but found {len(spectral_columns)}",
             )
+    from spectralbridge.radiometry import require_physical_table
+    try:
+        require_physical_table(path)
+    except ValueError as exc:
+        raise ProductValidationError("unvalidated_radiometry_or_brdf", str(exc)) from exc
     schema_sha256 = hashlib.sha256(
         canonical_json(fields).encode("utf-8")
     ).hexdigest()

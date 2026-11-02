@@ -1,0 +1,1081 @@
+diff --git a/src/spectralbridge/drone_production.py b/src/spectralbridge/drone_production.py
+index c7e7a3b..2c3ce27 100644
+--- a/src/spectralbridge/drone_production.py
++++ b/src/spectralbridge/drone_production.py
+@@ -21,6 +21,7 @@ from spectralbridge.bulk.flightline_outputs import discover_completed_flightline
+ from spectralbridge.bulk.results import summarize_bulk_results
+ from spectralbridge.pipelines.bulk import run_bulk_pipeline
+ from spectralbridge.pipelines.drone import (
++    _validate_drone_h5_spatial_metadata,
+     derive_drone_flight_stem,
+     load_drone_manifest,
+     lookup_flight_datetime,
+@@ -1108,6 +1109,25 @@ def validate_bulk_ready_flightline(path: str | Path) -> BulkReadinessValidation:
+ 
+     candidate = Path(path).expanduser().resolve()
+     try:
++        # A campaign completion checkpoint must not bypass spatial preflight.
++        for working in candidate.glob("*__working.h5"):
++            _validate_drone_h5_spatial_metadata(working)
++            exports = list(candidate.glob("*__export.stage.json"))
++            if not exports or any(json.loads(p.read_text()).get("configuration", {}).get("algorithm_version", 0) < 2 for p in exports):
++                raise ValueError("Drone ENVI spatial export contract is stale; rerun this flight from its authoritative source.")
++            marker = working.with_suffix(".stage.json")
++            if marker.exists():
++                stage = json.loads(marker.read_text())
++                if (stage.get("stage") == "tiff_to_working_h5" and
++                        stage.get("configuration", {}).get("algorithm_version", 0) < 3):
++                    raise ValueError("Drone TIFF spatial contract is stale; rerun this flight from its original TIFF.")
++        import rasterio
++
++        for image in candidate.glob("*__corrected.img"):
++            with rasterio.open(image) as raster:
++                t = raster.transform
++                if raster.crs is None or t.a <= 0 or t.e >= 0 or t.b != 0 or t.d != 0:
++                    raise ValueError("Drone corrected raster violates the north-up spatial contract.")
+         _sources, records = discover_completed_flightlines(
+             candidate,
+             analysis_profile="translation",
+diff --git a/src/spectralbridge/envi.py b/src/spectralbridge/envi.py
+index 08149e3..b92c280 100644
+--- a/src/spectralbridge/envi.py
++++ b/src/spectralbridge/envi.py
+@@ -100,6 +100,11 @@ def _parse_envi_header_tolerant(hdr_path: Path) -> dict[str, Any]:
+     processed: dict[str, Any] = {}
+     for key, raw_value in raw_entries.items():
+         if raw_value.startswith("{") and raw_value.endswith("}"):
++            if key == "coordinate system string":
++                # WKT contains commas and nested brackets; it is one scalar,
++                # not an ENVI list. Translation must preserve it byte-for-byte.
++                processed[key] = raw_value[1:-1].strip()
++                continue
+             if key == "wavelength":
+                 processed[key] = _parse_wavelength_list(raw_value)
+                 continue
+@@ -334,6 +339,11 @@ def _parse_envi_header(hdr_path: Path) -> dict[str, Any]:
+     processed: dict[str, Any] = {}
+     for key, raw_value in raw_entries.items():
+         if raw_value.startswith("{") and raw_value.endswith("}"):
++            if key == "coordinate system string":
++                # WKT contains commas and nested brackets; it is one scalar,
++                # not an ENVI list. Translation must preserve it byte-for-byte.
++                processed[key] = raw_value[1:-1].strip()
++                continue
+             if key == "wavelength":
+                 processed[key] = _parse_wavelength_list(raw_value)
+                 continue
+diff --git a/src/spectralbridge/envi_writer.py b/src/spectralbridge/envi_writer.py
+index 988aab5..a1fb001 100644
+--- a/src/spectralbridge/envi_writer.py
++++ b/src/spectralbridge/envi_writer.py
+@@ -161,6 +161,9 @@ def build_envi_header_text(header_dict: Dict) -> str:
+ 
+     projection = _req_str("projection")
+     lines.append(f"projection = {projection}")
++    if header_dict.get("coordinate system string"):
++        wkt = str(header_dict["coordinate system string"]).strip().strip("{}")
++        lines.append(f"coordinate system string = {{{wkt}}}")
+ 
+     wavelength = header_dict.get("wavelength")
+     if wavelength is None:
+diff --git a/src/spectralbridge/io/neon.py b/src/spectralbridge/io/neon.py
+index 525de9c..cc6d058 100644
+--- a/src/spectralbridge/io/neon.py
++++ b/src/spectralbridge/io/neon.py
+@@ -334,6 +334,8 @@ def _shift_map_info_for_window(
+     map_info_list: list[str],
+     sample_start: int = 0,
+     line_start: int = 0,
++    *,
++    corner_reference: bool = False,
+ ) -> tuple[list[str], tuple[float, float, float, float, float, float] | None, float | None, float | None]:
+     """Shift ENVI map info for optional sample/line window origins."""
+ 
+@@ -342,12 +344,13 @@ def _shift_map_info_for_window(
+ 
+     shifted = list(map_info_list)
+     ref_x, ref_y, ref_easting, ref_northing, pixel_x, pixel_y = _map_info_core(shifted)
+-    ulx = ref_easting - pixel_x * (ref_x - 0.5) + sample_start * pixel_x
+-    uly = ref_northing + abs(pixel_y) * (ref_y - 0.5) - line_start * abs(pixel_y)
++    reference_offset = 1.0 if corner_reference else 0.5
++    ulx = ref_easting - pixel_x * (ref_x - reference_offset) + sample_start * pixel_x
++    uly = ref_northing + abs(pixel_y) * (ref_y - reference_offset) - line_start * abs(pixel_y)
+     if sample_start != 0:
+-        shifted[3] = str(ulx + pixel_x * (ref_x - 0.5))
++        shifted[3] = str(ulx + pixel_x * (ref_x - reference_offset))
+     if line_start != 0:
+-        shifted[4] = str(uly - abs(pixel_y) * (ref_y - 0.5))
++        shifted[4] = str(uly - abs(pixel_y) * (ref_y - reference_offset))
+     yres = -abs(pixel_y)
+     transform = (ulx, pixel_x, 0.0, uly, 0.0, yres)
+     return shifted, transform, ulx, uly
+@@ -454,7 +457,9 @@ def _read_new_neon_layout(
+         projection_wkt = _as_str(projection_dataset[()])
+ 
+     map_info_list, transform, ulx, uly = _shift_map_info_for_window(
+-        map_info_list, sample_start=sample_start, line_start=line_start
++        map_info_list, sample_start=sample_start, line_start=line_start,
++        corner_reference=(coordinate_group is not None and
++                          coordinate_group.attrs.get("spatial_reference_convention") == "envi_corner_v1"),
+     )
+ 
+     no_data = _extract_no_data(reflectance_ds)
+diff --git a/src/spectralbridge/pipelines/drone.py b/src/spectralbridge/pipelines/drone.py
+index b59c55a..a4c5c2c 100644
+--- a/src/spectralbridge/pipelines/drone.py
++++ b/src/spectralbridge/pipelines/drone.py
+@@ -866,6 +866,24 @@ def _read_drone_tiff_raster(path: str | Path) -> tuple[np.ndarray, str, Any, flo
+     return np.asarray(data, dtype=np.float32), crs_wkt, transform, nodata
+ 
+ 
++def _drone_grid_transforms_match(reference: Any, candidate: Any, shape: tuple[int, int]) -> bool:
++    """Accept only coordinate-roundoff differences on an otherwise identical grid.
++
++    Four outer corners bound affine displacement everywhere in the raster.
++    Eight float64 coordinate ULPs allow arithmetic/geotransform serialization
++    roundoff, not a pixel-based registration tolerance. Arrays are never warped.
++    Shape and CRS equality are checked separately by the caller.
++    """
++    height, width = shape
++    corners = ((0, 0), (width, 0), (0, height), (width, height))
++    expected = np.asarray([reference * corner for corner in corners], dtype=np.float64)
++    actual = np.asarray([candidate * corner for corner in corners], dtype=np.float64)
++    if not np.isfinite(expected).all() or not np.isfinite(actual).all():
++        return False
++    budget = 8 * np.maximum(np.spacing(np.abs(expected)), np.spacing(np.abs(actual)))
++    return bool(np.all(np.abs(expected - actual) <= budget))
++
++
+ def _validate_drone_tiff_ancillary_alignment(
+     reflectance_path: Path,
+     reflectance_shape: tuple[int, int],
+@@ -887,7 +905,7 @@ def _validate_drone_tiff_ancillary_alignment(
+                 f"Ancillary TIFF {ancillary_path} has shape {array.shape} which does not match "
+                 f"reflectance TIFF {reflectance_path} shape {reflectance_shape}."
+             )
+-        if src.transform != reflectance_transform:
++        if not _drone_grid_transforms_match(reflectance_transform, src.transform, reflectance_shape):
+             raise ValueError(
+                 f"Ancillary TIFF {ancillary_path} transform does not match reflectance TIFF {reflectance_path}."
+             )
+@@ -900,7 +918,19 @@ def _validate_drone_tiff_ancillary_alignment(
+ 
+ 
+ def _build_drone_tiff_map_info(transform: Any, crs_wkt: str) -> str:
+-    xres = abs(float(transform.a))
++    # This contract stores axis-aligned, east-right / north-up grids only.
++    # Reject unsupported geometry rather than detaching arrays from locations.
++    if not np.isfinite(tuple(transform)[:6]).all():
++        raise ValueError("Drone TIFF spatial transform must be finite.")
++    if transform.b != 0 or transform.d != 0:
++        raise ValueError("Drone TIFF rotation/shear is unsupported; provide a validated north-up source.")
++    if transform.a <= 0 or transform.e >= 0:
++        raise ValueError("Drone TIFF must be east-right and north-up (a > 0, e < 0); no automatic flips are applied.")
++    from rasterio.crs import CRS
++
++    if not crs_wkt or not CRS.from_wkt(crs_wkt).is_projected:
++        raise ValueError("Drone TIFF requires a valid projected CRS.")
++    xres = float(transform.a)
+     yres = abs(float(transform.e))
+     ulx = float(transform.c)
+     uly = float(transform.f)
+@@ -928,11 +958,11 @@ def _build_drone_tiff_map_info(transform: Any, crs_wkt: str) -> str:
+ 
+     if zone > 0:
+         return (
+-            f"UTM, 1.000, 1.000, {ulx:.3f}, {uly:.3f}, {xres:.3f}, {yres:.3f}, "
++            f"UTM, 1.000, 1.000, {ulx:.17g}, {uly:.17g}, {xres:.17g}, {yres:.17g}, "
+             f"{zone}, {hemisphere}, WGS-84, units=Meters"
+         )
+ 
+-    return f"Arbitrary, 1.000, 1.000, {ulx:.3f}, {uly:.3f}, {xres:.3f}, {yres:.3f}"
++    return f"Arbitrary, 1.000, 1.000, {ulx:.17g}, {uly:.17g}, {xres:.17g}, {yres:.17g}"
+ 
+ 
+ def _coerce_acquisition_datetime(value: datetime | str | None) -> datetime | None:
+@@ -1764,6 +1794,12 @@ def convert_drone_tiff_to_h5(
+     reflectance_tiff_path = Path(reflectance_tiff_path)
+     output_h5_path = Path(output_h5_path)
+     if output_h5_path.exists() and not overwrite:
++        _validate_drone_h5_spatial_metadata(output_h5_path)
++        with h5py.File(output_h5_path, "r") as existing:
++            ds = _find_drone_reflectance_dataset(existing)
++            convention = ds.parent["Metadata/Coordinate_System"].attrs.get("spatial_reference_convention")
++            if convention != "envi_corner_v1":
++                raise ValueError("Cached TIFF-derived H5 lacks the spatial contract; rebuild from the original TIFF with overwrite=True.")
+         return output_h5_path
+ 
+     reflectance_raw, crs_wkt, transform, nodata = _read_drone_tiff_raster(reflectance_tiff_path)
+@@ -1772,6 +1808,7 @@ def convert_drone_tiff_to_h5(
+             f"Reflectance TIFF must be a multiband raster; received shape {reflectance_raw.shape}."
+         )
+ 
++    map_info = _build_drone_tiff_map_info(transform, crs_wkt)
+     reflectance_cube = np.moveaxis(reflectance_raw, 0, 2).astype(np.float32, copy=False)
+     lines, columns, band_count = reflectance_cube.shape
+     nodata_value = np.float32(_DRONE_FALLBACK_NODATA if nodata is None else nodata)
+@@ -1871,13 +1908,15 @@ def convert_drone_tiff_to_h5(
+ 
+     output_h5_path.parent.mkdir(parents=True, exist_ok=True)
+     site_group_name = clean_name(_drone_package_dir(reflectance_tiff_path).name) or "DRONE"
+-    map_info = _build_drone_tiff_map_info(transform, crs_wkt)
+ 
+     with h5py.File(output_h5_path, "w") as h5_file:
+         site_group = h5_file.create_group(site_group_name)
+         reflectance_group = site_group.create_group("Reflectance")
+         metadata_group = reflectance_group.create_group("Metadata")
+         coordinate_group = metadata_group.create_group("Coordinate_System")
++        # Explicitly scope GDAL/ENVI corner coordinates to this TIFF bridge.
++        # Unmarked NEON H5s retain their established center convention.
++        coordinate_group.attrs["spatial_reference_convention"] = "envi_corner_v1"
+         spectral_group = metadata_group.create_group("Spectral_Data")
+         ancillary_group = metadata_group.create_group("Ancillary_Imagery")
+ 
+@@ -1964,6 +2003,7 @@ def _prepare_drone_source_working_h5(
+     working_path = Path(working_path)
+     stage_record = working_path.with_suffix(".stage.json")
+     if source_type == "h5":
++        _validate_drone_h5_spatial_metadata(source_path)
+         if source_path.resolve() == working_path.resolve():
+             raise ValueError(
+                 "A derived *__working.h5 file cannot be used as authoritative "
+@@ -2035,7 +2075,7 @@ def _prepare_drone_source_working_h5(
+         "tiff_to_working_h5",
+         inputs=inputs,
+         configuration={
+-            "algorithm_version": 2,
++            "algorithm_version": 3,
+             "wavelengths_nm": (
+                 [float(value) for value in tiff_wavelengths_nm]
+                 if tiff_wavelengths_nm is not None
+@@ -2233,6 +2273,64 @@ def validate_drone_h5_metadata(h5_path: str | Path) -> dict[str, Any]:
+     }
+ 
+ 
++def _validate_drone_h5_spatial_metadata(h5_path: str | Path) -> None:
++    """Block ambiguous upstream conversions; never guess a compensating flip."""
++    from rasterio.crs import CRS
++
++    with h5py.File(h5_path, "r") as h5_file:
++        ds = _find_drone_reflectance_dataset(h5_file)
++        coord = ds.parent["Metadata/Coordinate_System"]
++        info = _prepare_map_info(coord["Map_Info"][()])
++        core = _map_info_core(info)
++        if not np.isfinite(core).all() or core[4] <= 0 or core[5] <= 0:
++            raise ValueError(
++                "Drone H5 spatial metadata conflict: Map_Info requires positive ENVI pixel sizes. "
++                "The H5 reader assumes north-up, while a negative Y map size exports south-up. "
++                "Rebuild from the authoritative TIFF; do not flip or relabel this H5 by guessing."
++            )
++        if any("rotation" in token.lower() and float(token.split("=")[-1]) != 0 for token in info[7:]):
++            raise ValueError("Drone H5 Map_Info rotation is unsupported by the spatial contract.")
++        raw = coord["Coordinate_System_String"][()]
++        crs = CRS.from_string(raw.decode() if isinstance(raw, bytes) else str(raw))
++        if not crs.is_projected:
++            raise ValueError("Drone H5 spatial metadata requires a projected CRS.")
++        if info[0].strip().lower() == "utm":
++            # UTM zone/datum metadata must not disagree with the preserved WKT.
++            try:
++                zone = int(info[7])
++                hemisphere = info[8].strip().lower()
++                from pyproj import CRS as ProjectionCRS
++
++                projection = ProjectionCRS.from_wkt(crs.to_wkt())
++                expected_zone = f"{zone}{'N' if hemisphere == 'north' else 'S'}"
++                if zone not in range(1, 61) or hemisphere not in {"north", "south"} or projection.utm_zone != expected_zone:
++                    raise ValueError
++                if len(info) > 9 and info[9].strip().upper() in {"WGS-84", "WGS84"}:
++                    if "1984" not in projection.geodetic_crs.datum.name:
++                        raise ValueError
++            except (ValueError, IndexError) as exc:
++                raise ValueError("Drone H5 spatial CRS conflicts with UTM Map_Info; recover the authoritative TIFF.") from exc
++
++
++def _drone_envi_header(cube: NeonCube) -> dict[str, Any]:
++    """Serialize the cube's established corner transform using ENVI's convention.
++
++    Legacy H5 reference coordinates are interpreted as centers by the reader;
++    copying them verbatim into an ENVI corner reference moves every pixel.
++    This adaptation is drone-only and never changes array order or NEON exports.
++    """
++    from rasterio.crs import CRS
++
++    header = cube.build_envi_header()
++    header["coordinate system string"] = CRS.from_string(cube.projection_wkt).to_wkt()
++    if header.get("map info"):
++        info = _prepare_map_info(header["map info"]) if isinstance(header["map info"], str) else list(header["map info"])
++        t = cube.transform  # GDAL order: corner x, dx, shear, corner y, shear, dy
++        info[1:7] = ["1", "1", repr(t[0]), repr(t[3]), repr(t[1]), repr(-t[5])]
++        header["map info"] = info
++    return header
++
++
+ def export_h5_to_envi(
+     h5_path: str | Path,
+     *,
+@@ -2243,6 +2341,7 @@ def export_h5_to_envi(
+ ) -> tuple[Path, Path]:
+     """Export a local H5 cube to ENVI using a drone-native filename stem."""
+ 
++    _validate_drone_h5_spatial_metadata(h5_path)
+     output_stem = Path(output_stem)
+     output_img = output_stem.with_suffix(".img")
+     output_hdr = output_stem.with_suffix(".hdr")
+@@ -2252,7 +2351,7 @@ def export_h5_to_envi(
+         "h5_to_envi",
+         inputs=[h5_path],
+         configuration={
+-            "algorithm_version": 1,
++            "algorithm_version": 2,
+             "brightness_offset": float(brightness_offset),
+             "output_semantics": "drone_native_reflectance_envi",
+         },
+@@ -2269,7 +2368,7 @@ def export_h5_to_envi(
+         return output_img, output_hdr
+ 
+     cube = cube or NeonCube(h5_path=h5_path)
+-    header = cube.build_envi_header()
++    header = _drone_envi_header(cube)
+     header["description"] = "Drone hyperspectral reflectance exported to ENVI"
+     header.setdefault("reflectance scale factor", float(getattr(cube, "scale_factor", 1.0)))
+     if hasattr(cube, "no_data"):
+@@ -2544,7 +2643,7 @@ def apply_drone_corrections(
+             **fit_kwargs,
+         )
+ 
+-    header = cube.build_envi_header()
++    header = _drone_envi_header(cube)
+     header["description"] = (
+         "Drone reflectance corrected with optional topo/BRDF adjustments"
+     )
+@@ -2998,6 +3097,8 @@ def _enrich_drone_polygon_parquet_with_index(
+     try:
+         index_columns = _describe_parquet_columns(con, polygon_index_path)
+         pixel_columns = _describe_parquet_columns(con, polygon_parquet_path)
++        if not overwrite and set(index_columns).issubset(pixel_columns):
++            return polygon_parquet_path
+         select_terms = [
+             f"idx.{_quote_identifier(col)} AS {_quote_identifier(col)}"
+             for col in index_columns
+@@ -3942,6 +4043,17 @@ def run_drone_pipeline(
+             file_audit["corrected_raster"] = corrected_img.name
+             file_audit["corrected_raster_path"] = str(corrected_img)
+ 
++            # Extraction helpers historically reused a readable file without
++            # tracking its raster geometry. Refresh only this flight's dependent
++            # products when their spatial backing changes; commit after success.
++            spatial_record = path_map["flight_dir"] / "spatial_dependencies.stage.json"
++            spatial_signature, spatial_payload = _drone_stage_signature(
++                "spatial_dependencies", inputs=[corrected_img, corrected_hdr, *([polygon_path] if polygon_path else [])],
++                configuration={"algorithm_version": 1},
++            )
++            dependent_overwrite = overwrite or not _drone_stage_matches(spatial_record, spatial_signature)
++            file_audit["spatial_dependencies_refreshed"] = bool(dependent_overwrite)
++
+             if apply_translation:
+                 if batch_bar is not None:
+                     batch_bar.set_postfix_str(
+@@ -3968,7 +4080,7 @@ def run_drone_pipeline(
+                                 plan.source_sensor,
+                             ),
+                             plan=plan,
+-                            overwrite=overwrite,
++                            overwrite=dependent_overwrite,
+                         )
+                         matched_source_runs[plan.source_sensor] = matched_source
+                         results["matched_source_outputs"].append(
+@@ -3985,7 +4097,7 @@ def run_drone_pipeline(
+                         corrected_hdr,
+                         output_stem=translated_stem,
+                         plan=plan,
+-                        overwrite=overwrite,
++                        overwrite=dependent_overwrite,
+                     )
+                     translation_runs.append((plan, translation_result))
+                     results["translation_outputs"].append(
+@@ -4002,6 +4114,11 @@ def run_drone_pipeline(
+                 from spectralbridge.parquet_export import ensure_parquet_from_envi
+ 
+                 file_audit["full_extraction_attempted"] = True
++                if dependent_overwrite and full_output_path.exists():
++                    from spectralbridge.parquet_export import build_parquet_from_envi
++
++                    build_parquet_from_envi(corrected_img, corrected_hdr, full_output_path,
++                                            chunk_size=parquet_chunk_size)
+                 full_parquet = ensure_parquet_from_envi(
+                     corrected_img,
+                     corrected_hdr,
+@@ -4010,7 +4127,7 @@ def run_drone_pipeline(
+                 )
+                 full_csv, full_csv_error = _try_export_csv_copy_from_parquet(
+                     full_parquet,
+-                    overwrite=overwrite,
++                    overwrite=dependent_overwrite,
+                     context_label=f"{flight_stem} full parquet",
+                 )
+                 results["outputs"].append(str(full_parquet))
+@@ -4044,7 +4161,7 @@ def run_drone_pipeline(
+                         working_h5_path=str(prepared_h5_path),
+                         corrected_micasense_path=str(corrected_img),
+                         acquisition_datetime=acquisition_datetime_used,
+-                        overwrite=overwrite,
++                        overwrite=dependent_overwrite,
+                     )
+                     results["translated_libraries"].append(str(translated_parquet))
+                     file_audit["translated_library_paths"].append(
+@@ -4091,23 +4208,23 @@ def run_drone_pipeline(
+                         polygons_path=polygon_path,
+                         output_path=polygon_index_path,
+                         flight_id=flight_stem,
+-                        overwrite=overwrite,
++                        overwrite=dependent_overwrite,
+                     )
+                     polygon_parquet = extract_polygon_parquet_from_envi(
+                         corrected_img,
+                         corrected_hdr,
+                         index_path,
+                         polygon_output_path,
+-                        overwrite=overwrite,
++                        overwrite=dependent_overwrite,
+                     )
+                     polygon_parquet = _enrich_drone_polygon_parquet_with_index(
+                         polygon_parquet,
+                         index_path,
+-                        overwrite=True,
++                        overwrite=dependent_overwrite,
+                     )
+                     polygon_csv, polygon_csv_error = _try_export_csv_copy_from_parquet(
+                         polygon_parquet,
+-                        overwrite=overwrite,
++                        overwrite=dependent_overwrite,
+                         context_label=f"{flight_stem} polygon parquet",
+                     )
+                     results["outputs"].append(str(polygon_parquet))
+@@ -4136,7 +4253,7 @@ def run_drone_pipeline(
+                             translated_parquet,
+                             chunk_size=parquet_chunk_size,
+                             overwrite=(
+-                                overwrite
++                                dependent_overwrite
+                                 or translation_result["status"] == "created"
+                             ),
+                         )
+@@ -4148,7 +4265,7 @@ def run_drone_pipeline(
+                             working_h5_path=str(prepared_h5_path),
+                             corrected_micasense_path=str(corrected_img),
+                             acquisition_datetime=acquisition_datetime_used,
+-                            overwrite=overwrite,
++                            overwrite=dependent_overwrite,
+                         )
+                         results["translated_libraries"].append(
+                             str(translated_parquet)
+@@ -4331,6 +4448,8 @@ def run_drone_pipeline(
+                             "reason": str(landsat_exc),
+                         }
+ 
++            _write_drone_stage_record(spatial_record, signature=spatial_signature,
++                                      payload=spatial_payload, outputs=[])
+             results["processed"].append(str(source_path))
+             if file_audit["status"] is None:
+                 file_audit["status"] = _DRONE_STATUS_SUCCESS_EXTRACTED
+@@ -4410,15 +4529,16 @@ def run_drone_pipeline(
+     if batch_bar is not None:
+         batch_bar.close()
+ 
++    merge_refresh = overwrite or any(f.get("spatial_dependencies_refreshed", False) for f in results["qa_summary"]["files"])
+     if merge_extractions and results["outputs"]:
+         merged_path = _merge_drone_polygon_outputs(
+             results["outputs"],
+             output_dir / "drone_merged.parquet",
+-            overwrite=overwrite,
++            overwrite=merge_refresh,
+         )
+         merged_csv_path, merged_csv_error = _try_export_csv_copy_from_parquet(
+             merged_path,
+-            overwrite=overwrite,
++            overwrite=merge_refresh,
+             context_label="drone merged parquet",
+         )
+         results["merged"] = str(merged_path)
+@@ -4442,7 +4562,7 @@ def run_drone_pipeline(
+         translated_merged = _merge_drone_polygon_outputs(
+             results["translated_libraries"],
+             output_dir / "drone_landsat_like_merged.parquet",
+-            overwrite=overwrite,
++            overwrite=merge_refresh,
+         )
+         results["translated_merged"] = str(translated_merged)
+         results["qa_summary"]["translated_merged_path"] = str(translated_merged)
+diff --git a/src/spectralbridge/qa_plots.py b/src/spectralbridge/qa_plots.py
+index 5354e6d..f4966ca 100644
+--- a/src/spectralbridge/qa_plots.py
++++ b/src/spectralbridge/qa_plots.py
+@@ -2579,6 +2579,32 @@ def _render_drone_nodata_map(
+     plt.colorbar(image, ax=ax, fraction=0.046, pad=0.04, label="% bands flagged")
+ 
+ 
++def _drone_spatial_delta_quantiles(values: np.ndarray, *, chunk_pixels: int = 65536) -> tuple[np.ndarray, np.ndarray]:
++    """Exact median/p90 across bands, avoiding a Python percentile call per pixel.
++
++    Group sorted columns by their non-NaN count within bounded pixel blocks.
++    Each group can use NumPy's vectorized non-NaN reduction with identical
++    median and default linear-percentile semantics. No sampling is performed.
++    """
++    if values.ndim != 3 or chunk_pixels < 1:
++        raise ValueError("Expected a band/row/column cube and positive chunk_pixels")
++    flat = values.reshape(values.shape[0], -1)
++    medians = np.full(flat.shape[1], np.nan, dtype=values.dtype)
++    p90s = np.full(flat.shape[1], np.nan, dtype=np.float64)
++    for start in range(0, flat.shape[1], chunk_pixels):
++        stop = min(start + chunk_pixels, flat.shape[1])
++        ordered = np.sort(flat[:, start:stop], axis=0)
++        counts = np.sum(~np.isnan(ordered), axis=0)
++        for count in np.unique(counts):
++            if count == 0:
++                continue
++            selected = np.flatnonzero(counts == count)
++            group = ordered[:count, selected]
++            medians[start + selected] = np.median(group, axis=0)
++            p90s[start + selected] = np.percentile(group, 90, axis=0)
++    return medians.reshape(values.shape[1:]), p90s.reshape(values.shape[1:])
++
++
+ def _render_drone_correction_magnitude(
+     ax: Axes,
+     full_diff: np.ndarray,
+@@ -2586,8 +2612,7 @@ def _render_drone_correction_magnitude(
+ ) -> dict[str, float]:
+     scene_debug = scene_debug if isinstance(scene_debug, dict) else {}
+     full_abs_diff = np.abs(full_diff)
+-    abs_delta = np.nanmedian(full_abs_diff, axis=0)
+-    abs_delta_p90_map = np.nanpercentile(full_abs_diff, 90, axis=0)
++    abs_delta, abs_delta_p90_map = _drone_spatial_delta_quantiles(full_abs_diff)
+     changed_frac = np.nanmean(full_abs_diff > _DRONE_CORRECTION_CHANGE_THRESHOLD, axis=0) * 100.0
+     valid_mask = np.isfinite(full_diff)
+     valid_band_count = np.sum(valid_mask, axis=0)
+diff --git a/scripts/drone_cloud_workflow.py b/scripts/drone_cloud_workflow.py
+new file mode 100644
+index 0000000..a56c676
+--- /dev/null
++++ b/scripts/drone_cloud_workflow.py
+@@ -0,0 +1,217 @@
++"""Explicit cloud recovery orchestration; scientific algorithms remain in package APIs."""
++from __future__ import annotations
++
++import hashlib
++import json
++from pathlib import Path
++import subprocess
++
++from spectralbridge.remote import GocmdRemoteBackend, RemoteEntry, remote_join
++
++CAUTIONS = [
++    "Retain ten TIFF bands only after exact H5 equality; other channels are unclassified.",
++    "Bundled acquisition times are used; package/manifest date disagreements require review.",
++    "Terrain masks are preserved. Review scientific QA before promoting results.",
++]
++
++
++def write_json(path, value):
++    path = Path(path)
++    path.parent.mkdir(parents=True, exist_ok=True)
++    temporary = path.with_suffix(path.suffix + ".part")
++    temporary.write_text(json.dumps(value, indent=2, default=str) + "\n")
++    temporary.replace(path)
++
++
++def sha256(path):
++    digest = hashlib.sha256()
++    with Path(path).open("rb") as stream:
++        for block in iter(lambda: stream.read(8 * 1024 * 1024), b""):
++            digest.update(block)
++    return digest.hexdigest()
++
++
++def parse_listing(text, parent):
++    entries = []
++    for section in json.loads(text):
++        for row in section["data"]:
++            if "Name" not in row:
++                continue
++            name, kind = row["Name"], row["Type"]
++            if "/" in name or name in {".", ".."} or kind not in {"collection", "data-object"}:
++                raise ValueError(f"Unexpected remote child: {row}")
++            entries.append(RemoteEntry(remote_join(parent, name), name, kind == "collection",
++                                       int(row["Size"]) if row.get("Size") else None,
++                                       modified=row.get("Modify Time")))
++    return entries
++
++
++class JsonGocmdBackend(GocmdRemoteBackend):
++    """Read GoCommands' explicit JSON, independently of the default table UI."""
++
++    def list_directory(self, remote_path):
++        result = self._run("ls", "--output_json", remote_path, operation="JSON inventory")
++        return parse_listing(result.stdout, remote_path)
++
++
++def download_sources(package, directory, backend):
++    directory = Path(directory)
++    directory.mkdir(parents=True, exist_ok=True)
++    entries = {e.name: e for e in backend.list_directory(package.remote_package_path)
++               if not e.is_collection}
++    for name in [package.h5_name, "aligned_orthomosaic.tif", "aligned_slope.tif", "aligned_aspect.tif"]:
++        entry = entries.get(name)
++        if entry is None or not entry.size_bytes:
++            raise ValueError(f"Missing source/size: {package.package_name}/{name}")
++        target = directory / name
++        receipt = target.with_name(name + ".transfer.json")
++        if target.exists() and receipt.exists():
++            saved = json.loads(receipt.read_text())
++            if saved.get("remote") == entry.to_dict() and saved.get("sha256") == sha256(target):
++                continue
++        temporary = target.with_name(name + ".part")
++        temporary.unlink(missing_ok=True)
++        backend.download_file(entry.path, temporary)
++        if temporary.stat().st_size != entry.size_bytes:
++            raise ValueError(f"Incomplete transfer: {entry.path}")
++        downloaded_hash = sha256(temporary)
++        if target.exists() and sha256(target) == downloaded_hash:
++            temporary.unlink()  # Metadata refresh must not invalidate identical source bytes.
++        else:
++            temporary.replace(target)
++        write_json(receipt, {"remote": entry.to_dict(), "sha256": downloaded_hash})
++    return directory
++
++
++def prepare_reference(source_dir, h5_name, destination, bands=tuple(range(1, 11))):
++    """Explicit ten-band recipe with bounded exact comparisons and strict grids."""
++    import h5py
++    import numpy as np
++    import rasterio
++    from rasterio.windows import Window
++    from spectralbridge.pipelines.drone import _drone_grid_transforms_match
++
++    source_dir, destination = Path(source_dir), Path(destination)
++    destination.mkdir(parents=True, exist_ok=True)
++    output = destination / "verified_reflectance.tif"
++    temporary = destination / "verified_reflectance.part.tif"
++    with rasterio.open(source_dir / "aligned_orthomosaic.tif") as src, h5py.File(source_dir / h5_name) as h:
++        groups = [v["Reflectance"] for v in h.values()
++                  if isinstance(v, h5py.Group) and "Reflectance" in v]
++        if len(groups) != 1:
++            raise ValueError("Expected one source reflectance group")
++        group = groups[0]
++        data = group["Reflectance_Data"]
++        t = src.transform
++        if not src.crs or not src.crs.is_projected or t.a <= 0 or t.e >= 0 or t.b or t.d:
++            raise ValueError("Expected projected north-up unrotated TIFF")
++        if len(bands) != 10 or len(set(bands)) != 10 or min(bands) < 1 or max(bands) > src.count:
++            raise ValueError("Recipe requires ten distinct existing TIFF bands")
++        if data.shape != (src.height, src.width, 10):
++            raise ValueError("TIFF/H5 dimensions disagree")
++        ancillary_grids = {}
++        for name in ["aligned_slope.tif", "aligned_aspect.tif"]:
++            with rasterio.open(source_dir / name) as terrain:
++                if (terrain.crs != src.crs or terrain.shape != src.shape or terrain.count != 1
++                        or not _drone_grid_transforms_match(t, terrain.transform, src.shape)):
++                    raise ValueError(f"Ancillary grid mismatch: {name}")
++                corners = ((0, 0), (src.width, 0), (0, src.height), (src.width, src.height))
++                differences = np.asarray([np.asarray(t * c) - np.asarray(terrain.transform * c)
++                                          for c in corners])
++                ancillary_grids[name] = {
++                    "maximum_corner_displacement_map_units": float(np.abs(differences).max()),
++                    "source_transform_gdal": list(terrain.transform.to_gdal()),
++                    "reference_transform_gdal": list(t.to_gdal()),
++                    "policy": "eight_float64_coordinate_ulps; no resampling or value changes",
++                }
++        view = {}
++        for field in ["Zenith", "Azimuth"]:
++            ds = group[f"Metadata/to-sensor_{field}_Angle"]
++            first = None
++            for row in range(0, ds.shape[0], 128):
++                values = np.asarray(ds[row:row + 128])
++                if first is None:
++                    first = float(values.flat[0])
++                if not np.isfinite(values).all() or not np.all(values == first):
++                    raise ValueError("View geometry is not a validated finite scalar")
++            view[field.lower()] = first
++        waves = group["Metadata/Spectral_Data/Wavelength"][()].tolist()
++        widths = group["Metadata/Spectral_Data/FWHM"][()].tolist()
++        if len(waves) != 10 or len(widths) != 10:
++            raise ValueError("Expected ten wavelengths and FWHMs")
++        profile = src.profile.copy()
++        profile.update(driver="GTiff", count=10)
++        try:
++            with rasterio.open(temporary, "w", **profile) as dst:
++                dst.update_tags(**src.tags())
++                for row in range(0, src.height, 128):
++                    window = Window(0, row, src.width, min(128, src.height - row))
++                    a = src.read(list(bands), window=window)
++                    b = np.moveaxis(data[row:row + int(window.height), :, :], 2, 0)
++                    if not np.array_equal(a, b, equal_nan=True):
++                        raise ValueError("Retained TIFF values differ from source H5")
++                    dst.write(a, window=window)
++                for index, band in enumerate(bands, 1):
++                    if src.descriptions[band - 1]:
++                        dst.set_band_description(index, src.descriptions[band - 1])
++            if output.exists() and sha256(output) == sha256(temporary):
++                temporary.unlink()
++            else:
++                temporary.replace(output)
++        finally:
++            temporary.unlink(missing_ok=True)
++        omitted = sorted(set(range(1, src.count + 1)) - set(bands))
++    for name in ["aligned_slope.tif", "aligned_aspect.tif"]:
++        target = destination / name
++        if target.is_symlink():
++            target.unlink()
++        target.symlink_to((source_dir / name).resolve())
++    write_json(destination / "source_recipe.json", {
++        "recipe": "explicit-ten-band-source-grid-v1", "selected_bands": list(bands),
++        "omitted_bands_unclassified": omitted, "view": view, "cautions": CAUTIONS,
++        "ancillary_grid_validation": ancillary_grids,
++        "sources": {p.name: sha256(p) for p in source_dir.iterdir()
++                    if p.is_file() and p.suffix in {".h5", ".tif"}},
++        "reference_sha256": sha256(output),
++    })
++    return output, dict(tiff_sensor_zenith_deg=view["zenith"], tiff_sensor_azimuth_deg=view["azimuth"],
++                        tiff_wavelengths_nm=waves, tiff_fwhm_nm=widths)
++
++
++def select_inventory(inventory, test_package=None):
++    """Explicitly scope an integration test without weakening production completeness."""
++    if test_package is None:
++        return inventory
++    from dataclasses import replace
++
++    selected = tuple(p for p in inventory.eligible_packages if p.package_name == test_package)
++    if len(selected) != 1 or not selected[0].manifest_matched:
++        raise ValueError("One-flight test requires exactly one eligible manifest-matched package")
++    package = selected[0]
++    years = tuple(replace(y, expected_manifest_flights=(package.manifest_id,))
++                  for y in inventory.year_sources if y.year == package.year)
++    if len(years) != 1 or years[0].source_status != "resolved":
++        raise ValueError("One-flight test year source is unavailable")
++    return replace(inventory, packages=selected, year_sources=years,
++                   requested_years=(package.year,))
++
++
++def require_complete(inventory, statuses):
++    expected = {p.remote_package_path for p in inventory.eligible_packages}
++    completed = {k for k, v in statuses.items() if v.get("bulk_ready")}
++    if not inventory.discovery_complete or not expected or completed != expected:
++        raise RuntimeError(f"Campaign incomplete: {len(completed & expected)}/{len(expected)} ready")
++
++
++def upload_tree(local, remote_parent, executable):
++    """Resume checksum-verified uploads only within this run's own destination."""
++    local = Path(local).resolve()
++    if any(p.is_symlink() for p in local.rglob("*")):
++        raise ValueError("Upload requires durable files, not symlinks")
++    files = {str(p.relative_to(local)): {"bytes": p.stat().st_size, "sha256": sha256(p)}
++             for p in sorted(local.rglob("*")) if p.is_file() and p.name != "upload_manifest.json"}
++    write_json(local / "upload_manifest.json", {"files": files, "cautions": CAUTIONS})
++    subprocess.run([executable, "mkdir", "-p", remote_parent], check=True)
++    subprocess.run([executable, "put", "--diff", "--verify_checksum", "--progress",
++                    "--stop_on_error", str(local), remote_parent], check=True)
++    return remote_join(remote_parent, local.name)
+diff --git a/Drone_2023_2024_Cloud_Production.ipynb b/Drone_2023_2024_Cloud_Production.ipynb
+new file mode 100644
+index 0000000..2e1c5b0
+--- /dev/null
++++ b/Drone_2023_2024_Cloud_Production.ipynb
+@@ -0,0 +1,297 @@
++{
++ "cells": [
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "# Drone 2023 + 2024: Data Store \u2192 flight products \u2192 bulk results \u2192 Data Store\n",
++    "\n",
++    "Run from this repository in your cloud container. Use a persistent disk. The notebook processes one ExportPackage at a time, retains durable outputs, and resumes using the pipeline's own checkpoints. It does not download NEON data.\n",
++    "\n",
++    "**Use the repaired repository checkout**, including `scripts/drone_cloud_workflow.py` and the drone spatial fixes, in your container. These local changes must be transferred or committed/pushed before cloning them there. The missing spatial repair has now been recovered from the GitHub Desktop stash. Install with `python -m pip install -e .` in the notebook kernel environment. Install the Linux GoCommands client and run `gocmd init` in a terminal; credentials never belong in notebook cells.\n",
++    "\n",
++    "This is an explicit research recovery recipe: use the original TIFF grid; retain ten declared TIFF bands only after exact comparison with the H5; preserve terrain masks and measured constant view angles. An unknown eleventh channel and acquisition-date discrepancies remain unresolved (P149). Review scientific QA before treating outputs as approved results. Unsupported packages stop rather than receive guessed metadata.\n",
++    "\n",
++    "## 1. Paths and choices\n",
++    "Keep `RUN_ID` fixed when resuming. Use a new ID for a different source recipe or campaign. The upload directory is dedicated to this run, separate from original sources.\n"
++   ],
++   "id": "cloud-drone-00"
++  },
++  {
++   "cell_type": "code",
++   "metadata": {},
++   "execution_count": null,
++   "outputs": [],
++   "source": [
++    "from pathlib import Path\n",
++    "import sys\n",
++    "\n",
++    "REPO = Path.cwd().resolve()  # Open this notebook from the spectralbridge repo root.\n",
++    "WORK_PARENT = Path(\"/home/jovyan/data-store/spectralbridge_drone\")\n",
++    "RUN_ID = \"drone_2023_2024_spatial_recovery_v1\"\n",
++    "REMOTE_PARENT = \"i:/iplant/home/shared/earthlab/macrosystems/field-data/output\"\n",
++    "SOURCES = {year: f\"{REMOTE_PARENT}/summer-{year}-10cm-10k\" for year in (2023, 2024)}\n",
++    "REMOTE_RESULTS = f\"{REMOTE_PARENT}/spectralbridge_processed/{RUN_ID}\"\n",
++    "GOCMD = \"gocmd\"  # Or the absolute Linux executable path.\n",
++    "POLYGONS = REPO / \"Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg\"\n",
++    "MANIFEST = REPO / \"src/spectralbridge/data/drone_field_manifest.csv\"\n",
++    "REFLECTANCE_BANDS = tuple(range(1, 11))  # Explicit retained-band recipe, not automatic trimming.\n",
++    "TEST_PACKAGE = None  # Or \"AOP-Ruby-08-14-23-ExportPackage\" for an explicitly labeled one-flight test.\n",
++    "INSTALL_PACKAGE = False  # Set True once if this kernel has not installed this checkout.\n",
++    "CLEANUP_STAGED_INPUTS = False  # Only after that flight passes producer/readiness gates.\n",
++    "RUN = False  # Set True after reviewing paths; then run the remaining cells in order.\n",
++    "UPLOAD = False  # Set True to enable the final checksum-verified uploads.\n",
++    "WORK = WORK_PARENT / RUN_ID\n"
++   ],
++   "id": "cloud-drone-01"
++  },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "## 2. Load this checkout and check the spatial repair\n",
++    "Set `INSTALL_PACKAGE=True` once if needed. The install command uses this kernel's Python. It does not pull or reset your checkout. Restart the kernel after installation if it previously imported SpectralBridge.\n"
++   ],
++   "id": "cloud-drone-02"
++  },
++  {
++   "cell_type": "code",
++   "metadata": {},
++   "execution_count": null,
++   "outputs": [],
++   "source": [
++    "import subprocess\n",
++    "assert (REPO / \"scripts/drone_cloud_workflow.py\").is_file(), \"Copy the new notebook AND repaired repository to the container.\"\n",
++    "if RUN and INSTALL_PACKAGE:\n",
++    "    subprocess.run([sys.executable, \"-m\", \"pip\", \"install\", \"-e\", str(REPO)], check=True)\n"
++   ],
++   "id": "cloud-drone-03"
++  },
++  {
++   "cell_type": "code",
++   "metadata": {},
++   "execution_count": null,
++   "outputs": [],
++   "source": [
++    "import inspect\n",
++    "import json\n",
++    "import shutil\n",
++    "import spectralbridge.pipelines.drone as drone\n",
++    "from spectralbridge import inspect_drone_collection, run_bulk_pipeline, summarize_bulk_results\n",
++    "from spectralbridge.drone_production import validate_bulk_ready_flightline\n",
++    "from spectralbridge.bulk.results import BulkResultsConfig\n",
++    "sys.path.insert(0, str(REPO / \"scripts\"))\n",
++    "from drone_cloud_workflow import (\n",
++    "    JsonGocmdBackend, download_sources, prepare_reference,\n",
++    "    require_complete, select_inventory, upload_tree, write_json, CAUTIONS,\n",
++    ")\n",
++    "\n",
++    "assert RUN, \"Review configuration, set RUN=True, then rerun from the configuration cell.\"\n",
++    "assert Path(drone.__file__).resolve().is_relative_to(REPO / \"src\"), \"Kernel is using another package checkout. Restart after editable install.\"\n",
++    "assert hasattr(drone, \"_drone_envi_header\"), \"Drone spatial repair is missing from this checkout.\"\n",
++    "assert hasattr(drone, \"_drone_grid_transforms_match\"), \"Ancillary roundoff validation is missing from this checkout.\"\n",
++    "assert \"envi_corner_v1\" in inspect.getsource(drone.convert_drone_tiff_to_h5), \"TIFF corner-convention repair is missing.\"\n",
++    "assert POLYGONS.is_file() and MANIFEST.is_file()\n",
++    "WORK.mkdir(parents=True, exist_ok=True)\n",
++    "STATE = WORK / \"campaign_state\"\n",
++    "FLIGHTS = WORK / \"flight_products\"\n",
++    "STATE.mkdir(exist_ok=True)\n",
++    "FLIGHTS.mkdir(exist_ok=True)\n",
++    "backend = JsonGocmdBackend(GOCMD)\n",
++    "backend.ensure_available()\n",
++    "print(\"Loaded:\", drone.__file__)\n",
++    "print(\"Free disk GiB:\", round(shutil.disk_usage(WORK).free / 2**30, 1))\n",
++    "print(\"Source/provenance cautions:\", *CAUTIONS, sep=\"\\n- \")\n"
++   ],
++   "id": "cloud-drone-04"
++  },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "## 3. Discover both years before downloading\n",
++    "Review year summaries and exclusions. Completeness follows the acquisition manifest, not a hard-coded number of flights. The JSON adapter handles the current GoCommands listing format. A missing year or expected flight prevents production bulk analysis. `TEST_PACKAGE` explicitly limits an integration test to one manifest-matched package; its saved configuration labels the subset, and its results cannot establish campaign-wide transferability. Set it back to `None` for production and use a different run ID.\n"
++   ],
++   "id": "cloud-drone-05"
++  },
++  {
++   "cell_type": "code",
++   "metadata": {},
++   "execution_count": null,
++   "outputs": [],
++   "source": [
++    "inventory = inspect_drone_collection(\n",
++    "    SOURCES, years=sorted(SOURCES), manifest=MANIFEST,\n",
++    "    backend=backend, inventory_output_dir=STATE / \"inventory\",\n",
++    ")\n",
++    "full_inventory = inventory\n",
++    "inventory = select_inventory(full_inventory, TEST_PACKAGE)\n",
++    "inventory.write(STATE / \"selected_inventory\")\n",
++    "print(\"Scope:\", \"ONE-FLIGHT INTEGRATION TEST\" if TEST_PACKAGE else \"COMPLETE CAMPAIGN\")\n",
++    "print(json.dumps(inventory.year_summaries(), indent=2, default=str))\n",
++    "print(\"Excluded:\", [(p.package_name, p.reason) for p in inventory.excluded_packages])\n",
++    "assert inventory.discovery_complete and inventory.eligible_packages, \"Resolve missing sources/manifest flights before running.\"\n",
++    "write_json(STATE / \"run_configuration.json\", {\n",
++    "    \"sources\": SOURCES, \"run_id\": RUN_ID, \"bands\": REFLECTANCE_BANDS,\n",
++    "    \"scope\": \"one_flight_integration_test\" if TEST_PACKAGE else \"complete_campaign\", \"test_package\": TEST_PACKAGE,\n",
++    "    \"manifest\": str(MANIFEST), \"polygons\": str(POLYGONS), \"cautions\": CAUTIONS,\n",
++    "    \"code_revision\": subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=REPO, text=True).strip(),\n",
++    "    \"working_tree_status\": subprocess.check_output([\"git\", \"status\", \"--short\"], cwd=REPO, text=True),\n",
++    "})\n"
++   ],
++   "id": "cloud-drone-06"
++  },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "## 4. Download \u2192 verify \u2192 process each flight\n",
++    "Uses `aligned_orthomosaic.tif`, `aligned_slope.tif`, `aligned_aspect.tif`, and the inventoried original H5 in each ExportPackage. The TIFF supplies geographic placement; the H5 supplies verified retained-band values, spectral metadata and constant view angles. Original files are never edited.\n",
++    "\n",
++    "Each package gets a separate output folder. Source hashes and the declared band recipe are saved with its durable products. Processing failures are recorded while remaining flights continue. Reexecute this cell to retry; the pipeline revalidates its checkpoints. Staged sources are retained by default to preserve checkpoint fingerprints on restart. Enabling cleanup saves disk after success but requires downloading and preparing those inputs again on a rerun. Working H5s and all processed products remain on disk. Budget persistent storage for the entire output campaign and one staged package.\n"
++   ],
++   "id": "cloud-drone-07"
++  },
++  {
++   "cell_type": "code",
++   "metadata": {},
++   "execution_count": null,
++   "outputs": [],
++   "source": [
++    "statuses = {}  # Rebuild the population from this run, never a stale success list.\n",
++    "for number, package in enumerate(inventory.eligible_packages, 1):\n",
++    "    key = package.remote_package_path\n",
++    "    label = f\"{package.year}_{package.package_name}\"\n",
++    "    staging = WORK / \"staged_sources\" / label\n",
++    "    prepared = WORK / \"prepared_sources\" / str(package.year) / package.package_name\n",
++    "    output = FLIGHTS / label\n",
++    "    print(f\"[{number}/{len(inventory.eligible_packages)}] {label}\", flush=True)\n",
++    "    try:\n",
++    "        download_sources(package, staging, backend)\n",
++    "        reference, tiff_options = prepare_reference(\n",
++    "            staging, package.h5_name, prepared, REFLECTANCE_BANDS,\n",
++    "        )\n",
++    "        output.mkdir(parents=True, exist_ok=True)\n",
++    "        shutil.copy2(prepared / \"source_recipe.json\", output / \"source_recipe.json\")\n",
++    "        result = drone.run_drone_pipeline(\n",
++    "            reference, polygon_path=POLYGONS, output_dir=output,\n",
++    "            drone_manifest_path=MANIFEST, drone_manifest_timezone=\"UTC\",\n",
++    "            apply_topo=True, apply_brdf=True, require_solar_geometry=True,\n",
++    "            apply_translation=True, extraction_mode=\"polygon\",\n",
++    "            merge_extractions=False, overwrite=False, raise_on_incomplete=True,\n",
++    "            **tiff_options,\n",
++    "        )\n",
++    "        write_json(output / \"pipeline_result.json\", result)\n",
++    "        if result.get(\"failed\") or result.get(\"blocked\"):\n",
++    "            raise RuntimeError(\"Pipeline reported failed or blocked products\")\n",
++    "        flight_dirs = [Path(record[\"flight_dir\"]) for record in result[\"qa_summary\"][\"files\"]]\n",
++    "        if len(flight_dirs) != 1:\n",
++    "            raise RuntimeError(\"Expected exactly one produced flight per ExportPackage\")\n",
++    "        readiness = validate_bulk_ready_flightline(flight_dirs[0])\n",
++    "        if not readiness.bulk_ready:\n",
++    "            raise RuntimeError(f\"Producer-to-bulk validation failed: {readiness}\")\n",
++    "        statuses[key] = {\"bulk_ready\": True, \"flight_dir\": str(flight_dirs[0]), \"package\": label}\n",
++    "        if CLEANUP_STAGED_INPUTS:\n",
++    "            shutil.rmtree(prepared)\n",
++    "            shutil.rmtree(staging)\n",
++    "    except Exception as exc:\n",
++    "        statuses[key] = {\"bulk_ready\": False, \"package\": label, \"error\": str(exc)}\n",
++    "        print(\"FAILED:\", label, exc, flush=True)\n",
++    "    write_json(STATE / \"status.json\", statuses)\n",
++    "print(json.dumps(statuses, indent=2))\n"
++   ],
++   "id": "cloud-drone-08"
++  },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "## 5. Gate the whole campaign, then run bulk and summaries\n",
++    "Bulk reads only validated completed flights. The separate bulk-input directory contains links to exactly the current population; it is temporary and is not uploaded. No pixel-scale bulk cache is materialized. Failed or missing individuals must be resolved before proceeding.\n"
++   ],
++   "id": "cloud-drone-09"
++  },
++  {
++   "cell_type": "code",
++   "metadata": {},
++   "execution_count": null,
++   "outputs": [],
++   "source": [
++    "require_complete(inventory, statuses)\n",
++    "paths = [Path(statuses[p.remote_package_path][\"flight_dir\"]) for p in inventory.eligible_packages]\n",
++    "for path in paths:\n",
++    "    assert validate_bulk_ready_flightline(path).bulk_ready, f\"Flight changed: {path}\"\n",
++    "assert len({p.resolve() for p in paths}) == len(paths), \"Duplicate flight paths\"\n",
++    "BULK_INPUT = WORK / \"bulk_inputs\"\n",
++    "BULK_INPUT.mkdir(exist_ok=True)\n",
++    "for child in BULK_INPUT.iterdir():\n",
++    "    if not child.is_symlink():\n",
++    "        raise RuntimeError(f\"Unexpected real file in temporary bulk-input directory: {child}\")\n",
++    "    child.unlink()\n",
++    "for index, path in enumerate(paths):\n",
++    "    (BULK_INPUT / f\"{index:04d}_{path.name}\").symlink_to(path.resolve(), target_is_directory=True)\n",
++    "bulk_options = dict(\n",
++    "    input_mode=\"flightline_outputs\", analysis=\"translation\", on_invalid=\"exclude\",\n",
++    "    materialize_observations=False, extraction_workers=1,\n",
++    "    spectral_library=None, make_summary_plots=False, make_full_spectral_reports=False,\n",
++    ")\n",
++    "preflight = run_bulk_pipeline(BULK_INPUT, WORK / \"bulk_preflight\", preflight_only=True, **bulk_options)\n",
++    "write_json(STATE / \"bulk_preflight_result.json\", preflight)\n",
++    "assert preflight[\"accepted_flightline_count\"] == len(paths), \"Bulk excluded a flight; inspect preflight before continuing.\"\n",
++    "bulk_result = run_bulk_pipeline(BULK_INPUT, WORK / \"bulk_analysis\", **bulk_options)\n",
++    "write_json(STATE / \"bulk_result.json\", bulk_result)\n",
++    "summary = summarize_bulk_results(\n",
++    "    WORK / \"bulk_analysis\", config=BulkResultsConfig(), make_figures=True, make_report=True,\n",
++    ")\n",
++    "write_json(STATE / \"summary_result.json\", summary)\n",
++    "print(\"Bulk summary status:\", summary[\"status\"])\n",
++    "print(\"Report:\", summary[\"report_pdf\"])\n"
++   ],
++   "id": "cloud-drone-10"
++  },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "## 6. Upload flight products, compact bulk outputs and provenance\n",
++    "Set `UPLOAD=True` in configuration and rerun configuration plus this cell after inspecting QA. Uploads use a dedicated run collection, hash-based difference checking, and transfer checksum verification. Rerunning resumes transfers to that same run destination. A changed local file replaces its counterpart within this run; keep the run ID fixed only while resuming the same campaign.\n",
++    "\n",
++    "Uploads include native/corrected/translated products, extraction tables, QA, working metadata, compact bulk checkpoints/results, figures/reports and campaign receipts. Original downloaded sources, prepared TIFFs and temporary bulk-input links are excluded. Each uploaded directory receives a local SHA-256 file manifest. This does not certify scientific accuracy; preserve the recorded cautions with results.\n"
++   ],
++   "id": "cloud-drone-11"
++  },
++  {
++   "cell_type": "code",
++   "metadata": {},
++   "execution_count": null,
++   "outputs": [],
++   "source": [
++    "require_complete(inventory, statuses)\n",
++    "assert \"summary\" in globals() and \"bulk_result\" in globals(), \"Complete the bulk/summaries cell first.\"\n",
++    "if UPLOAD:\n",
++    "    destinations = []\n",
++    "    for folder in [FLIGHTS, WORK / \"bulk_preflight\", WORK / \"bulk_analysis\", STATE]:\n",
++    "        assert folder.is_dir(), folder\n",
++    "        destinations.append(upload_tree(folder, REMOTE_RESULTS, GOCMD))\n",
++    "    write_json(WORK / \"upload_receipt.json\", {\"destinations\": destinations, \"verification\": \"gocmd --verify_checksum; local SHA-256 manifests\", \"cautions\": CAUTIONS})\n",
++    "    print(\"Uploaded:\", *destinations, sep=\"\\n\")\n",
++    "else:\n",
++    "    print(\"Uploads disabled. Review outputs at\", WORK, \"then enable UPLOAD.\")\n"
++   ],
++   "id": "cloud-drone-12"
++  }
++ ],
++ "metadata": {
++  "kernelspec": {
++   "display_name": "Python 3",
++   "language": "python",
++   "name": "python3"
++  },
++  "language_info": {
++   "name": "python",
++   "version": "3.10"
++  }
++ },
++ "nbformat": 4,
++ "nbformat_minor": 5
++}

@@ -25,6 +25,7 @@ SOURCE_WAVELENGTHS = [444.0, 475.0, 531.0, 560.0, 650.0, 668.0, 705.0, 717.0, 74
 def _coefficient_rows() -> list[dict[str, object]]:
     return [
         {
+            "reflectance_units": "physical_reflectance_v1",
             "analysis_run_id": "bulk-run-1",
             "analysis_level": "site_balanced",
             "weighting": "each site has equal total weight",
@@ -86,6 +87,11 @@ def _write_corrected_envi(stem: Path) -> tuple[Path, Path, np.ndarray]:
         "\n".join(
             [
                 "ENVI",
+                "radiometry status = VALID",
+                "physical reflectance multiplier = 1",
+                "physical reflectance offset = 0",
+                "radiometry provenance = Synthetic translation fixture",
+                "brdf status = NOT_REQUESTED",
                 "samples = 3",
                 "lines = 2",
                 "bands = 10",

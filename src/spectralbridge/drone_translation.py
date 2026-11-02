@@ -113,6 +113,7 @@ class DroneTranslationPlan:
     candidate_status: str | None
     bands: tuple[DroneTranslationBand, ...]
     coefficient_set_version: str | None = None
+    reflectance_units: str | None = None
 
     @property
     def output_slug(self) -> str:
@@ -173,6 +174,7 @@ def _load_coefficient_rows(path: Path) -> tuple[pd.DataFrame, dict[str, Any]]:
                     "target_band_index": row["target_band"],
                     "band_index": row["band_index"],
                     "equation": metadata["equation"],
+                    "reflectance_units": row.get("reflectance_units"),
                     "status": row["fit_status"],
                     "slope": row["slope"],
                     "intercept": row["intercept"],
@@ -477,6 +479,7 @@ def load_drone_translation_plans(
             )
         plans.append(
             DroneTranslationPlan(
+                reflectance_units=("physical_reflectance_v1" if "reflectance_units" in group and set(group["reflectance_units"]) == {"physical_reflectance_v1"} else None),
                 analysis_run_id=next(iter(run_ids)),
                 analysis_level=requested_weighting,
                 weighting_description=next(iter(weighting_descriptions)),
@@ -699,6 +702,10 @@ def apply_drone_translation(
 ) -> dict[str, Any]:
     """Apply one validated affine plan to a corrected native MicaSense ENVI."""
 
+    from .radiometry import library_radiometry, Radiometry
+    calibration = library_radiometry(corrected_img)
+    if plan.reflectance_units != "physical_reflectance_v1":
+        raise ValueError("Translation UNSUPPORTED: coefficient training units are unverified; historical count-scale coefficients require independent review")
     corrected_img = Path(corrected_img)
     corrected_hdr = Path(corrected_hdr)
     output_stem = Path(output_stem)
@@ -782,6 +789,8 @@ def apply_drone_translation(
         }
     )
     output_stem.parent.mkdir(parents=True, exist_ok=True)
+    output_header.update(Radiometry(1., 0., "VALID", "Affine translation in verified physical-reflectance units").header())
+    output_header["reflectance scale factor"] = 1.
     writer = EnviWriter(output_stem, output_header)
     range_bounds: dict[str, list[float]] = {}
     value_summaries: list[dict[str, Any]] = []
@@ -805,6 +814,7 @@ def apply_drone_translation(
                     valid &= ~np.isnan(values)
                 else:
                     valid &= ~np.isclose(values, nodata, atol=1e-6)
+                values = calibration.to_physical(values)
                 key = str(band.target_band_index)
                 if np.any(valid):
                     valid_values = values[valid]
@@ -993,6 +1003,8 @@ def enrich_translated_spectral_library(
 ) -> Path:
     """Attach constant translation/provenance fields without loading pixel rows."""
 
+    from .radiometry import require_physical_table
+    require_physical_table(parquet_path)
     parquet_path = Path(parquet_path)
     if not parquet_path.is_file():
         raise FileNotFoundError(parquet_path)
@@ -1077,7 +1089,7 @@ def enrich_translated_spectral_library(
     try:
         con.execute(
             f"COPY (SELECT *, {select_constants} FROM read_parquet({source_literal})) "
-            f"TO {target_literal} (FORMAT PARQUET, COMPRESSION ZSTD)"
+            f"TO {target_literal} (FORMAT PARQUET, COMPRESSION ZSTD, KV_METADATA {{'spectralbridge.reflectance_units': 'physical_reflectance_v1'}})"
         )
     finally:
         con.close()

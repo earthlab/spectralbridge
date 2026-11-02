@@ -1,0 +1,29 @@
+{
+  "sources": {
+    "2023": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/AOP-Ruby-08-14-23-ExportPackage"
+  },
+  "run_id": "ruby_integration_20261029_v1",
+  "bands": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "scope": "one_flight_integration_test",
+  "test_package": "AOP-Ruby-08-14-23-ExportPackage",
+  "manifest": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_field_manifest.csv",
+  "polygons": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+  "cautions": [
+    "Retain ten TIFF bands only after exact H5 equality; other channels are unclassified.",
+    "Bundled acquisition times are used; package/manifest date disagreements require review.",
+    "Terrain masks are preserved. Review scientific QA before promoting results."
+  ],
+  "code_revision": "ecd0df27dc98ebe30e40bfad0e7d7e7c9d28b563",
+  "working_tree_status": " M docs/ai-transparency.json\n M docs/ai-transparency.md\n M docs/images/ai-transparency/prompt-lengths.svg\n M docs/images/ai-transparency/prompts-by-intent.svg\n M docs/images/ai-transparency/prompts-by-month.svg\n M docs/images/ai-transparency/prompts-by-topic.svg\n M docs/images/ai-transparency/tool-mentions.svg\n M docs/images/ai-transparency/validation-mentions.svg\n M docs/images/ai-transparency/workflow-mentions.svg\n M docs/vignettes/drone-processing.md\n M docs/vignettes/drone-production.md\n M provenance/prompts/PROMPT_LOG.md\n M provenance/work-queue/FEATURE_REQUESTS.md\n M scripts/check_installed_artifact.py\n M src/spectralbridge/drone_production.py\n M src/spectralbridge/envi.py\n M src/spectralbridge/envi_writer.py\n M src/spectralbridge/io/neon.py\n M src/spectralbridge/pipelines/drone.py\n M tests/test_drone_pipeline.py\n M tests/test_installed_artifact_smoke.py\n?? Drone_2023_2024_Cloud_Production.ipynb\n?? docs/dev/drone-spatial-integrity-investigation.md\n?? output/pdf/results_poster/\n?? provenance/drone-cloud-integration/\n?? provenance/drone-spatial-integrity/\n?? provenance/results-poster/\n?? scripts/diagnose_drone_spatial_integrity.py\n?? scripts/drone_cloud_workflow.py\n?? tests/test_drone_spatial_integrity.py\n?? tests/test_drone_spatial_roundtrip.py\n"
+}

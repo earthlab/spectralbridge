@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-30",
+  "flights": 3,
+  "spectral_band_comparisons": 30,
+  "finite_paired_25cm_values": 24387540,
+  "maximum_25cm_mapping_residual": 0.0007803857188264374,
+  "checks": [
+    "identical 25cm grids",
+    "independent source-extrema affine normalization",
+    "float32 residual bound",
+    "independent original-to-10cm bilinear comparison with all residuals retained"
+  ],
+  "production_calibration_changed": false,
+  "physical_units_status": "UNVERIFIED; original Metashape calibration/export settings required",
+  "exact_export_code_recovered": false
+}

@@ -1,0 +1,47 @@
+{
+  "source": "/private/tmp/spectralbridge-drone-production/AOP-Ruby-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+  "correction_new_nodata_values": 301710,
+  "finite_source_pixels_missing_terrain_geometry": 30171,
+  "correction_mask_mismatches_against_source_and_terrain_policy": 0,
+  "correction_filled_source_nodata_values": 0,
+  "finite_values_changed_by_requested_correction": 19914253,
+  "corrected_crs_matches_source": true,
+  "corrected_affine_matches_source": true,
+  "translations": [
+    {
+      "sensor": "Landsat_8_OLI",
+      "values_checked": 10143000,
+      "finite_value_mismatches": 0,
+      "mask_mismatches": 0,
+      "crs_matches_source": true,
+      "affine_matches_source": true
+    },
+    {
+      "sensor": "Landsat_9_OLI-2",
+      "values_checked": 10143000,
+      "finite_value_mismatches": 0,
+      "mask_mismatches": 0,
+      "crs_matches_source": true,
+      "affine_matches_source": true
+    },
+    {
+      "sensor": "Landsat_5_TM",
+      "values_checked": 8114400,
+      "finite_value_mismatches": 0,
+      "mask_mismatches": 0,
+      "crs_matches_source": true,
+      "affine_matches_source": true
+    },
+    {
+      "sensor": "Landsat_7_ETM+",
+      "values_checked": 8114400,
+      "finite_value_mismatches": 0,
+      "mask_mismatches": 0,
+      "crs_matches_source": true,
+      "affine_matches_source": true
+    }
+  ],
+  "qa_execution_status": "completed",
+  "qa_scientific_status": "caution",
+  "scope": "Spatial and arithmetic conformance; existing correction enabled, not independently validated physical radiometry. Manifest date differs from package date."
+}

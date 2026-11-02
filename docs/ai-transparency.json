@@ -1,11 +1,11 @@
 {
   "ai_systems": {
     "Cursor Agent": 40,
-    "OpenAI Codex": 287
+    "OpenAI Codex": 309
   },
   "branches": {
     "$(git branch --show-current 2>/dev/null || echo unknown)": 1,
-    "main": 315,
+    "main": 337,
     "unknown": 7,
     "work": 4
   },
@@ -17,11 +17,11 @@
     "tool_mentions": {
       "Browser / Playwright": 11,
       "Docker / containers": 4,
-      "Git / GitHub": 42,
+      "Git / GitHub": 43,
       "Lean / Lake": 1,
       "MkDocs": 15,
-      "Notebooks / Jupyter": 57,
-      "Python": 42,
+      "Notebooks / Jupyter": 60,
+      "Python": 43,
       "Ruff": 18,
       "pytest": 33
     },
@@ -31,16 +31,16 @@
       "Formal verification": 4,
       "Human review / approval": 8,
       "Lint / static checks": 27,
-      "Scientific / numerical checks": 29,
-      "Tests / regression checks": 56,
-      "Visual inspection": 39
+      "Scientific / numerical checks": 33,
+      "Tests / regression checks": 58,
+      "Visual inspection": 42
     },
     "workflow_mentions": {
-      "Audit / investigation": 69,
-      "Documentation / reporting": 81,
-      "Implementation / refactoring": 82,
-      "Reproducibility / provenance": 42,
-      "Scientific analysis / figures": 138
+      "Audit / investigation": 73,
+      "Documentation / reporting": 85,
+      "Implementation / refactoring": 86,
+      "Reproducibility / provenance": 46,
+      "Scientific analysis / figures": 144
     }
   },
   "method": {
@@ -177,23 +177,23 @@
     "GPT-5": 36,
     "GPT-5 family (exact deployment identifier not exposed)": 7,
     "GPT-6": 7,
-    "Not recorded": 277
+    "Not recorded": 299
   },
   "primary_intents": {
-    "Audit or investigation": 31,
-    "Execution or verification": 57,
-    "Implementation or modification": 152,
-    "Other or mixed": 87
+    "Audit or investigation": 33,
+    "Execution or verification": 59,
+    "Implementation or modification": 162,
+    "Other or mixed": 95
   },
   "primary_topics": {
-    "Data and metadata handling": 31,
+    "Data and metadata handling": 34,
     "Documentation and website": 26,
-    "Drone and UAS workflow": 13,
-    "Other": 49,
-    "Publication, packaging, release, and governance": 29,
-    "QA and visualization": 53,
-    "Scientific pipeline and corrections": 81,
-    "Testing and CI": 45
+    "Drone and UAS workflow": 17,
+    "Other": 54,
+    "Publication, packaging, release, and governance": 30,
+    "QA and visualization": 57,
+    "Scientific pipeline and corrections": 85,
+    "Testing and CI": 46
   },
   "prompts_by_month": {
     "2026-03": 9,
@@ -202,24 +202,25 @@
     "2026-07": 36,
     "2026-08": 87,
     "2026-09": 49,
-    "2026-10": 66
+    "2026-10": 86,
+    "2026-11": 2
   },
   "schema_version": 2,
   "source": {
-    "data_through": "2026-10-26",
+    "data_through": "2026-11-02",
     "path": "PROMPT_LOG.md",
-    "sha256": "df876d737ab16d7f06d3c8e57da6fb77ca9a068427c676e3a19058f672522d9c"
+    "sha256": "d746368b0ebb0aa4a3ac1879feca1d7281b00055ca790ef92fb3abde5f422e9d"
   },
   "summary": {
     "entries_with_recorded_model": 50,
     "first_prompt_date": "2026-03-21",
-    "last_prompt_date": "2026-10-26",
+    "last_prompt_date": "2026-11-02",
     "maximum_prompt_words": 9193,
-    "mean_prompt_words": 423.1,
-    "median_prompt_words": 34.0,
+    "mean_prompt_words": 417.6,
+    "median_prompt_words": 32.0,
     "minimum_prompt_words": 1,
-    "model_metadata_coverage_pct": 15.3,
-    "prompt_count": 327,
-    "total_prompt_words": 138353
+    "model_metadata_coverage_pct": 14.3,
+    "prompt_count": 349,
+    "total_prompt_words": 145744
   }
 }

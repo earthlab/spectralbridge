@@ -15,6 +15,8 @@ from spectralbridge.corrections import (
 class _FakeCube:
     def __init__(self, data: np.ndarray, scale_factor: float = 1.0) -> None:
         self.data = np.asarray(data, dtype=np.float32)
+        from spectralbridge.radiometry import Radiometry
+        self.radiometry = Radiometry(scale_factor, 0., "VALID", "Synthetic multiplier calibration")
         self.scale_factor = float(scale_factor)
         self.lines, self.columns, self.bands = self.data.shape
         # Provide plausible wavelengths so NDVI band selection works during tests.
@@ -24,24 +26,18 @@ class _FakeCube:
         self.base_key = "fake"
 
     def get_ancillary(self, name: str, radians: bool = True) -> np.ndarray:
-        shape = (self.lines, self.columns)
-        if name in {"solar_zn", "sensor_zn"}:
-            return np.full(shape, 0.1, dtype=np.float32)
-        if name in {"solar_az", "sensor_az", "slope", "aspect"}:
-            return np.full(shape, 0.0, dtype=np.float32)
-        raise KeyError(name)
+        y, x = np.mgrid[:self.lines, :self.columns]
+        if name == "solar_zn":
+            return np.full(y.shape, .6, np.float32)
+        if name == "sensor_zn":
+            return (.05 + .08*x + .03*y).astype(np.float32)
+        if name == "sensor_az":
+            return (.4*y + .1*x).astype(np.float32)
+        return np.zeros(y.shape, np.float32)
 
 
-def _neutral_coefficients(path: Path, bands: int) -> Path:
-    payload = {
-        "iso": [1.0 for _ in range(bands)],
-        "vol": [0.0 for _ in range(bands)],
-        "geo": [0.0 for _ in range(bands)],
-        "volume_kernel": "RossThick",
-        "geom_kernel": "LiSparseReciprocal",
-    }
-    path.write_text(json.dumps(payload), encoding="utf-8")
-    return path
+def _neutral_coefficients(path: Path, cube) -> Path:
+    return fit_and_save_brdf_model(cube, path.parent / path.stem)
 
 
 def test_brdf_fit_scale_invariant(tmp_path: Path) -> None:
@@ -116,7 +112,7 @@ def test_correction_respects_raw_scale(tmp_path: Path) -> None:
     scaled = unitless / 1e-4
     cube = _FakeCube(scaled, scale_factor=1e-4)
 
-    coeff_path = _neutral_coefficients(tmp_path / "coeff.json", cube.bands)
+    coeff_path = _neutral_coefficients(tmp_path / "coeff.json", cube)
     corrected = apply_brdf_correct(
         cube,
         cube.data,
@@ -134,7 +130,7 @@ def test_correction_preserves_shape_and_dtype(tmp_path: Path) -> None:
     scaled = np.full((2, 3, 4), 0.45 / 1e-4, dtype=np.float32)
     cube = _FakeCube(scaled, scale_factor=1e-4)
 
-    coeff_path = _neutral_coefficients(tmp_path / "coeff_dtype.json", cube.bands)
+    coeff_path = _neutral_coefficients(tmp_path / "coeff_dtype.json", cube)
     corrected = apply_brdf_correct(
         cube,
         cube.data,
@@ -167,18 +163,8 @@ def test_correction_uses_neutral_factor_without_division_warning(
         encoding="utf-8",
     )
 
-    with np.errstate(divide="raise", invalid="raise"):
-        corrected = apply_brdf_correct(
-            cube,
-            cube.data,
-            0,
-            cube.lines,
-            0,
-            cube.columns,
-            coeff_path=coeff_path,
-        )
-
-    np.testing.assert_allclose(corrected, cube.data)
+    with np.errstate(divide="raise", invalid="raise"), pytest.raises(ValueError, match="UNSUPPORTED"):
+        apply_brdf_correct(cube, cube.data, 0, 2, 0, 2, coeff_path=coeff_path)
 
 
 def test_outliers_masked_from_fit(tmp_path: Path) -> None:
@@ -191,6 +177,7 @@ def test_outliers_masked_from_fit(tmp_path: Path) -> None:
     coeff_path = fit_and_save_brdf_model(
         cube,
         tmp_path / "outlier",
+        rho_max=1.0,
         ndvi_config=NDVIBinningConfig(n_bins=1, ndvi_min=-1.0, perc_min=None, perc_max=None),
     )
     model = json.loads(coeff_path.read_text())
@@ -227,24 +214,9 @@ def test_correction_uses_saved_ndvi_edges_from_coeff_file(tmp_path: Path) -> Non
     }
     coeff_path.write_text(json.dumps(payload), encoding="utf-8")
 
-    corrected = apply_brdf_correct(
-        cube,
-        cube.data,
-        0,
-        cube.lines,
-        0,
-        cube.columns,
-        coeff_path=coeff_path,
-        ndvi_config=NDVIBinningConfig(
-            n_bins=2,
-            ndvi_min=0.0,
-            ndvi_max=1.0,
-            perc_min=None,
-            perc_max=None,
-        ),
-    )
-
-    np.testing.assert_allclose(corrected, cube.data, atol=1e-6)
+    # Kernel names and NDVI edges alone do not validate a legacy model.
+    with pytest.raises(ValueError, match="UNSUPPORTED"):
+        apply_brdf_correct(cube, cube.data, 0, cube.lines, 0, cube.columns, coeff_path=coeff_path)
 
 
 def test_correction_accepts_saved_hytools_style_kernel_settings(tmp_path: Path) -> None:
@@ -267,24 +239,6 @@ def test_correction_accepts_saved_hytools_style_kernel_settings(tmp_path: Path) 
     }
     coeff_path.write_text(json.dumps(payload), encoding="utf-8")
 
-    corrected = apply_brdf_correct(
-        cube,
-        cube.data,
-        0,
-        cube.lines,
-        0,
-        cube.columns,
-        coeff_path=coeff_path,
-        brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
-        ndvi_config=NDVIBinningConfig(
-            n_bins=1,
-            ndvi_min=-1.0,
-            ndvi_max=1.0,
-            perc_min=None,
-            perc_max=None,
-        ),
-    )
-
-    assert corrected.shape == cube.data.shape
-    assert corrected.dtype == np.float32
-    assert np.all(np.isfinite(corrected))
+    # Kernel names and NDVI edges alone do not validate a legacy model.
+    with pytest.raises(ValueError, match="UNSUPPORTED"):
+        apply_brdf_correct(cube, cube.data, 0, cube.lines, 0, cube.columns, coeff_path=coeff_path)

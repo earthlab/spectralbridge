@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "directories": [
+    {
+      "directory": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/ruby_integration_20261029_v1/flight_products",
+      "manifest_sha256": "6802f8186658e472cf454de6067212d27fe59366e02ea743ec860c958e76a4fd",
+      "verified_files": 66,
+      "verified_bytes": 552162369,
+      "size_mismatches": [],
+      "unexpected_files": []
+    },
+    {
+      "directory": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/ruby_integration_20261029_v1/bulk_preflight",
+      "manifest_sha256": "ed39dde89d3c012da46dd11a7faa16b88b4b535120cda4aeef2f6bd37202cace",
+      "verified_files": 23,
+      "verified_bytes": 4395868,
+      "size_mismatches": [],
+      "unexpected_files": []
+    },
+    {
+      "directory": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/ruby_integration_20261029_v1/bulk_analysis",
+      "manifest_sha256": "294b9f55eb8f9d0320eeb542f16c1f08b228a008675c1a332d304f6584d5ac9e",
+      "verified_files": 57,
+      "verified_bytes": 9932734,
+      "size_mismatches": [],
+      "unexpected_files": []
+    },
+    {
+      "directory": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/ruby_integration_20261029_v1/campaign_state",
+      "manifest_sha256": "e083bd0f384930ea36e468086da59478d8eecbc205b86479604d8f721a1aea9b",
+      "verified_files": 9,
+      "verified_bytes": 86021,
+      "size_mismatches": [],
+      "unexpected_files": []
+    }
+  ],
+  "corrected_raster_roundtrip": {
+    "remote": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/ruby_integration_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+    "bytes": 81144000,
+    "sha256": "f7ba10e2a6c1916c9d4ca579f0f01b351ac875aef80fefcc6c56c03c8294163d",
+    "matches_local": true
+  },
+  "verification_scope": "Every remote file size and exact manifest; gocmd transfer checksum verification; full corrected raster SHA-256 readback"
+}

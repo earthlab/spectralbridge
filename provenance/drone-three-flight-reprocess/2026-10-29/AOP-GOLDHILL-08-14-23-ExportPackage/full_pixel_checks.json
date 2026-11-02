@@ -1,0 +1,50 @@
+{
+  "source": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+  "correction_new_nodata_values": 3880470,
+  "finite_source_pixels_missing_terrain_geometry": 388047,
+  "correction_mask_mismatches_against_source_and_terrain_policy": 0,
+  "correction_filled_source_nodata_values": 0,
+  "finite_values_changed_by_requested_correction": 66697648,
+  "corrected_crs_matches_source": true,
+  "corrected_affine_matches_source": true,
+  "translations": [
+    {
+      "sensor": "Landsat_8_OLI",
+      "values_checked": 35416350,
+      "finite_value_mismatches": 0,
+      "mask_mismatches": 0,
+      "crs_matches_source": true,
+      "affine_matches_source": true
+    },
+    {
+      "sensor": "Landsat_9_OLI-2",
+      "values_checked": 35416350,
+      "finite_value_mismatches": 0,
+      "mask_mismatches": 0,
+      "crs_matches_source": true,
+      "affine_matches_source": true
+    },
+    {
+      "sensor": "Landsat_5_TM",
+      "values_checked": 28333080,
+      "finite_value_mismatches": 0,
+      "mask_mismatches": 0,
+      "crs_matches_source": true,
+      "affine_matches_source": true
+    },
+    {
+      "sensor": "Landsat_7_ETM+",
+      "values_checked": 28333080,
+      "finite_value_mismatches": 0,
+      "mask_mismatches": 0,
+      "crs_matches_source": true,
+      "affine_matches_source": true
+    }
+  ],
+  "qa_execution_status": "completed",
+  "qa_scientific_status": "caution",
+  "scope": "Spatial/arithmetic conformance with the declared retained bands and existing correction/translation; physical radiometry is not independently validated.",
+  "manifest_acquisition_datetime": "2023-08-15T19:53:07",
+  "package_date": "20230814",
+  "validation_implementation": "provenance/drone-spatial-integrity/2026-10-29/validate_ruby_outputs.py"
+}

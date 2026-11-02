@@ -69,6 +69,8 @@ class _FakeCube:
         self.wavelengths = [440.0, 561.0, 649.0, 861.5]
         self.fwhm = [10.0, 10.0, 10.0, 10.0]
         self.no_data = -9999.0
+        from spectralbridge.radiometry import Radiometry
+        self.radiometry = Radiometry(1., 0., "VALID", "Synthetic orchestration double")
         self.scale_factor = 1.0
         self.lines = 2
         self.columns = 2
@@ -78,7 +80,7 @@ class _FakeCube:
         self.projection_wkt = "EPSG:32613"
 
     def build_envi_header(self):
-        return {"samples": self.columns, "lines": self.lines, "bands": self.bands}
+        return {"samples": self.columns, "lines": self.lines, "bands": self.bands, "data type":4, "byte order":0, "interleave":"bsq", "map info":["UTM",1,1,0,2,1,1,13,"North","WGS-84"], "projection":self.projection_wkt, "wavelength":self.wavelengths, "wavelength units":"Nanometers", **self.radiometry.header(), "brdf status":"NOT_REQUESTED"}
 
     def chunk_count(self, *, chunk_y: int, chunk_x: int) -> int:
         return 1
@@ -183,7 +185,25 @@ def _write_envi_pair(base_path: Path, data: np.ndarray, wavelengths: list[float]
     hdr_path.write_text("\n".join(header_lines), encoding="utf-8")
 
 
+def _validated_model_double(out_dir):
+    # No scientific fit is mocked as evidence: these tests isolate orchestration.
+    p = Path(out_dir)/"coeffs.json"
+    p.parent.mkdir(parents=True,exist_ok=True)
+    p.write_text(json.dumps({"schema_version":2,"validation":{"status":"VALID"}}))
+    return p
+
+
 def _patch_basic_drone_runtime(monkeypatch) -> None:
+    from dataclasses import replace
+    from spectralbridge.drone_translation import load_drone_translation_plans
+    def plans(*args, **kwargs):
+        return [replace(p, reflectance_units="physical_reflectance_v1", coefficient_set_version=None,
+                        bands=tuple(replace(b, slope=1., intercept=0., x_mean=None, coefficient_set_version=None) for b in p.bands))
+                for p in load_drone_translation_plans(*args, **kwargs)]
+    monkeypatch.setattr("spectralbridge.pipelines.drone.load_drone_translation_plans", plans)
+    # These orchestration doubles use literal b"fake-h5" rather than spatial files.
+    # Real metadata validation is covered by test_drone_spatial_integrity.
+    monkeypatch.setattr("spectralbridge.pipelines.drone._validate_drone_h5_spatial_metadata", lambda path: None)
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone._prepare_drone_h5_working_copy",
         lambda path, *, working_path, overwrite=False: (Path(path), False),
@@ -217,7 +237,7 @@ def _patch_basic_drone_runtime(monkeypatch) -> None:
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.fit_and_save_brdf_model",
-        lambda cube, out_dir: Path(out_dir) / "coeffs.json",
+        lambda cube, out_dir: _validated_model_double(out_dir),
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.is_valid_envi_pair",
@@ -685,7 +705,7 @@ def test_apply_drone_corrections_uses_full_scene_chunk(
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.fit_and_save_brdf_model",
-        lambda cube, out_dir: Path(out_dir) / "coeffs.json",
+        lambda cube, out_dir: _validated_model_double(out_dir),
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.is_valid_envi_pair",
@@ -706,7 +726,8 @@ def test_apply_drone_corrections_uses_full_scene_chunk(
     assert audit["topo_applied"] is True
     assert audit["brdf_applied"] is True
     assert cube.chunk_args == [(cube.lines, cube.columns), (cube.lines, cube.columns)]
-    corrected_header = json.loads(corrected_hdr.read_text(encoding="utf-8"))
+    from spectralbridge.envi import hdr_to_dict
+    corrected_header = hdr_to_dict(corrected_hdr)
     assert corrected_header["data ignore value"] == pytest.approx(-9999.0)
     assert corrected_header["reflectance scale factor"] == pytest.approx(1.0)
 
@@ -740,7 +761,7 @@ def test_apply_drone_corrections_reverts_topo_chunk_when_it_becomes_all_nodata(
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.fit_and_save_brdf_model",
-        lambda cube, out_dir: Path(out_dir) / "coeffs.json",
+        lambda cube, out_dir: _validated_model_double(out_dir),
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.is_valid_envi_pair",
@@ -782,10 +803,10 @@ def test_apply_drone_corrections_reuses_matching_stage_record(
     raw_img = flight_dir / "SPR1_20230628__envi.img"
     raw_hdr = flight_dir / "SPR1_20230628__envi.hdr"
     raw_img.write_bytes(b"raw")
-    raw_hdr.write_text("hdr", encoding="utf-8")
+    raw_hdr.write_text("ENVI\nradiometry status = VALID\nbrdf status = VALID\nbrdf model schema = 2\n", encoding="utf-8")
     corrected_stem = flight_dir / "SPR1_20230628__corrected"
     corrected_stem.with_suffix(".img").write_bytes(b"corr")
-    corrected_stem.with_suffix(".hdr").write_text("hdr", encoding="utf-8")
+    corrected_stem.with_suffix(".hdr").write_text("ENVI\nradiometry status = VALID\nbrdf status = VALID\nbrdf model schema = 2\n", encoding="utf-8")
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone._has_required_ancillary",
         lambda cube, names: True,
@@ -798,7 +819,8 @@ def test_apply_drone_corrections_reuses_matching_stage_record(
         "corrected_envi",
         inputs=[raw_img, raw_hdr],
         configuration={
-            "algorithm_version": 1,
+            "algorithm_version": 2,
+            "radiometry": cube.radiometry.record(),
             "apply_topo": True,
             "apply_brdf": True,
             "use_ndvi_brdf_bins": False,
@@ -1449,6 +1471,9 @@ def test_enrich_drone_polygon_parquet_with_index_duplicates_polygon_metadata(
     finally:
         con.close()
 
+    import pyarrow.parquet as pq
+    t = pq.read_table(polygon_parquet)
+    pq.write_table(t.replace_schema_metadata({**(t.schema.metadata or {}), b"spectralbridge.reflectance_units":b"physical_reflectance_v1"}), polygon_parquet)
     enriched = _enrich_drone_polygon_parquet_with_index(
         polygon_parquet,
         polygon_index,
@@ -1842,6 +1867,7 @@ def _write_legacy_solar_drone_h5(
             data=np.full((4, 4, 10), 300.0, dtype=np.float32),
         )
         dataset.attrs["Data_Ignore_Value"] = np.float32(-9999.0)
+        dataset.attrs["spectralbridge_radiometry"] = json.dumps({"scale":1.,"offset":0.,"status":"VALID","provenance":"Synthetic solar fixture"})
         metadata = reflectance.create_group("Metadata")
         spectral = metadata.create_group("Spectral_Data")
         wavelength_ds = spectral.create_dataset("Wavelength", data=wavelengths)
@@ -1851,7 +1877,7 @@ def _write_legacy_solar_drone_h5(
         coords.create_dataset(
             "Map_Info",
             data=np.array(
-                ["UTM", "1", "1", "500000", "4100000", "20", "-20", "13", "North", "WGS-84"],
+                ["UTM", "1", "1", "500000", "4100000", "20", "20", "13", "North", "WGS-84"],
                 dtype="S",
             ),
         )
@@ -2111,7 +2137,7 @@ def test_h5_resume_completes_correction_all_translations_and_full_extraction(
     monkeypatch.setattr(
         drone_module,
         "fit_and_save_brdf_model",
-        lambda cube, output_dir, **kwargs: Path(output_dir) / "fixture_brdf.json",
+        lambda cube, output_dir, **kwargs: _validated_model_double(output_dir),
     )
     monkeypatch.setattr(
         drone_module,
@@ -2124,6 +2150,12 @@ def test_h5_resume_completes_correction_all_translations_and_full_extraction(
         lambda cube, chunk, ys, ye, xs, xe, **kwargs: np.asarray(chunk, dtype=np.float32),
     )
 
+    from dataclasses import replace
+    from spectralbridge.drone_translation import load_drone_translation_plans
+    monkeypatch.setattr(drone_module, "load_drone_translation_plans", lambda *a, **kw: [replace(p,
+        reflectance_units="physical_reflectance_v1", coefficient_set_version=None,
+        bands=tuple(replace(b, slope=1., intercept=0., x_mean=None, coefficient_set_version=None) for b in p.bands))
+        for p in load_drone_translation_plans(*a, **kw)])
     result = run_drone_pipeline(
         source,
         output_dir=output,
@@ -2366,6 +2398,7 @@ def test_production_shaped_tiff_correction_translation_polygon_and_qa(
     pair = f"{source_sensor}__to__{target_sensor}"
     coefficient_rows = [
         {
+            "reflectance_units": "physical_reflectance_v1",
             "analysis_run_id": "smoke-run",
             "analysis_level": "site_balanced",
             "weighting": "each site has equal total weight",
@@ -2413,6 +2446,7 @@ def test_production_shaped_tiff_correction_translation_polygon_and_qa(
 
     result = run_drone_pipeline(
         reflectance,
+        radiometry={"scale":1.,"offset":0.,"status":"VALID","provenance":"Synthetic production-shaped TIFF"},
         polygon_path=polygons,
         output_dir=tmp_path / "out",
         apply_topo=True,
@@ -2483,6 +2517,7 @@ def test_production_shaped_tiff_correction_translation_polygon_and_qa(
 
     comparison_result = run_drone_pipeline(
         reflectance,
+        radiometry={"scale":1.,"offset":0.,"status":"VALID","provenance":"Synthetic production-shaped TIFF"},
         polygon_path=polygons,
         output_dir=tmp_path / "out",
         apply_topo=True,
@@ -2736,6 +2771,7 @@ def test_prepare_drone_source_working_h5_converts_tiff_sources(tmp_path: Path) -
 def test_run_drone_pipeline_prepares_working_copy_before_neoncube(
     tmp_path: Path, monkeypatch
 ) -> None:
+    monkeypatch.setattr("spectralbridge.pipelines.drone._validate_drone_h5_spatial_metadata", lambda path: None)
     h5_path = (
         tmp_path
         / "input"
@@ -2793,7 +2829,7 @@ def test_run_drone_pipeline_prepares_working_copy_before_neoncube(
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.fit_and_save_brdf_model",
-        lambda cube, out_dir: Path(out_dir) / "coeffs.json",
+        lambda cube, out_dir: _validated_model_double(out_dir),
     )
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone.is_valid_envi_pair",

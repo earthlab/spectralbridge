@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-29",
+  "requested_collection": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k",
+  "repo_launcher": "./gocmd",
+  "initial_status": "platform client not installed",
+  "temporary_client": "/private/tmp/spectralbridge-gocmd/gocmd",
+  "official_release": {
+    "tag": "v0.12.5",
+    "asset": "https://github.com/cyverse/gocommands/releases/download/v0.12.5/gocmd-v0.12.5-darwin-arm64.tar.gz"
+  },
+  "listing_status": "Authenticated listing succeeded after user initialized credentials; source packages retrieved read-only",
+  "original_data_downloaded": true,
+  "next_action": "Spatial repair validated; review source band 11, acquisition date and terrain coverage before promoting recovered analytical products.",
+  "source_workspace": "/private/tmp/spectralbridge-drone-production",
+  "recovery_workspace": "/private/tmp/spectralbridge-ruby-recovery",
+  "archived_output_collection": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge-2023-2024/flight_outputs",
+  "archived_named_flight_listing": "Only qa_publication subcollections exposed; historical raster and Parquet data objects not retrieved"
+}

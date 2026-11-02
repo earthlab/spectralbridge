@@ -117,4 +117,4 @@ These values describe package metadata, schemas or configuration; they are not o
 
 | Name | Source expression |
 | --- | --- |
-| `STATISTICS_SCHEMA_VERSION` | `1` |
+| `STATISTICS_SCHEMA_VERSION` | `2` |

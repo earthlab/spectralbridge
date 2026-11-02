@@ -29,6 +29,7 @@ from typing import Tuple, TYPE_CHECKING
 
 import numpy as np
 
+from .radiometry import require_radiometry
 from spectralbridge.paths import normalize_brdf_model_path, scene_prefix_from_dir
 
 __all__ = [
@@ -40,7 +41,6 @@ __all__ = [
     "fit_scs_c_coefficients",
     "apply_topo_correct",
     "apply_brdf_correct",
-    "apply_glint_correct",
 ]
 
 if TYPE_CHECKING:  # pragma: no cover - only for type hints
@@ -395,47 +395,22 @@ def calc_geom_kernel(
         solar_az, solar_zn, sensor_az, sensor_zn
     )
 
-    cos_solar = np.cos(solar_zn)
-    cos_sensor = np.cos(sensor_zn)
-    tan_solar = np.tan(solar_zn)
-    tan_sensor = np.tan(sensor_zn)
-    sec_solar = 1.0 / np.clip(cos_solar, 1e-6, None)
-    sec_sensor = 1.0 / np.clip(cos_sensor, 1e-6, None)
-
-    relative_az = solar_az - sensor_az
-    cos_rel = np.cos(relative_az)
-
-    tan_term = np.maximum(
-        tan_solar**2 + tan_sensor**2 - 2.0 * tan_solar * tan_sensor * cos_rel,
-        0.0,
-    )
-    D = np.sqrt(tan_term)
-
-    cos_t = h_b / np.sqrt(1.0 + D**2)
-    cos_t = np.clip(cos_t, -1.0, 1.0)
-    sin_t = np.sqrt(np.maximum(0.0, 1.0 - cos_t**2))
-
-    t_angle = np.arctan(D)
-    overlap = (
-        (1.0 / np.pi)
-        * (
-            t_angle
-            - sin_t * cos_t
-        )
-        * (sec_solar + sec_sensor)
-    )
-
-    kernel = (
-        overlap
-        - sec_solar
-        - sec_sensor
-        + 0.5 * (1.0 + cos_rel) * sec_solar * sec_sensor
-    )
-
-    kernel *= b_r
+    # HyTools pinned 31286d64: Wanner 1995 / Lucht 2000 / Zhang 2018.
+    # b/r transforms zenith angles; it is not an output multiplier.
+    solar_p = np.arctan(float(b_r) * np.tan(solar_zn.astype(np.float64)))
+    sensor_p = np.arctan(float(b_r) * np.tan(sensor_zn.astype(np.float64)))
+    relative = sensor_az.astype(np.float64) - solar_az
+    ts, tv = np.tan(solar_p), np.tan(sensor_p)
+    ss, sv = 1 / np.cos(solar_p), 1 / np.cos(sensor_p)
+    distance2 = np.maximum(ts**2 + tv**2 - 2 * ts * tv * np.cos(relative), 0.)
+    cos_t = np.clip(float(h_b) * np.sqrt(distance2 + (ts * tv * np.sin(relative))**2) / (ss + sv), -1., 1.)
+    t = np.arccos(cos_t)
+    overlap = (t - np.sin(t) * np.cos(t)) * (ss + sv) / np.pi
+    phase = np.cos(solar_p) * np.cos(sensor_p) + np.sin(solar_p) * np.sin(sensor_p) * np.cos(relative)
     if normalized_kernel == "LiDenseR":
-        kernel = kernel * np.cos(solar_zn) * np.cos(sensor_zn)
-    kernel = np.where(np.isfinite(kernel), kernel, 0.0)
+        kernel = (1 + phase) * ss * sv / (ss + sv - overlap) - 2
+    else:
+        kernel = overlap - ss - sv + .5 * (1 + phase) * ss * sv
     return kernel.astype(np.float32)
 
 
@@ -487,7 +462,6 @@ def fit_scs_c_coefficients(
     if chunk_y <= 0 or chunk_x <= 0:
         raise ValueError("chunk dimensions must be positive")
 
-    scale_factor = float(getattr(cube, "scale_factor", 1.0)) or 1.0
     slope = cube.get_ancillary("slope", radians=True)
     aspect = cube.get_ancillary("aspect", radians=True)
     solar_zn = cube.get_ancillary("solar_zn", radians=True)
@@ -508,7 +482,7 @@ def fit_scs_c_coefficients(
 
     for ys, ye, xs, xe, raw_chunk in cube.iter_chunks(chunk_y=chunk_y, chunk_x=chunk_x):
         chunk = np.asarray(raw_chunk, dtype=np.float32)
-        data_unitless = chunk * np.float32(scale_factor)
+        data_unitless = require_radiometry(cube).to_physical(chunk)
         tile_mask = base_mask[ys:ye, xs:xe] & np.isfinite(data_unitless).all(axis=-1)
         if not np.any(tile_mask):
             continue
@@ -593,8 +567,7 @@ def apply_topo_correct(
 
     # Internally we work in unitless reflectance. ``scale_factor`` converts from
     # the cube's stored values to physical reflectance before the correction math.
-    scale_factor = float(getattr(cube, "scale_factor", 1.0)) or 1.0
-    data_unitless = chunk_array.astype(np.float32, copy=False) * np.float32(scale_factor)
+    data_unitless = require_radiometry(cube).to_physical(chunk_array)
 
     # ``valid_mask`` is spatial, not spectral: a pixel is valid only if the
     # reflectance tile and illumination geometry are finite at that location.
@@ -687,7 +660,7 @@ def apply_topo_correct(
 
     # Convert back to the cube's stored scale and restore the configured no-data value.
     no_data_value = np.float32(getattr(cube, "no_data", np.nan))
-    corrected_scaled = corrected_unitless / np.float32(scale_factor)
+    corrected_scaled = require_radiometry(cube).to_stored(corrected_unitless)
     corrected_scaled = np.where(valid_mask[..., np.newaxis], corrected_scaled, no_data_value)
 
     return corrected_scaled.astype(np.float32, copy=False)
@@ -704,300 +677,123 @@ def apply_brdf_correct(
     ndvi_config: NDVIBinningConfig | None = None,
     reference_geometry: ReferenceGeometry | None = None,
     brdf_kernel_config: BRDFKernelConfig | None = None,
+    input_stage: str = "uncorrected",
 ) -> np.ndarray:
     """Perform BRDF normalization on a hyperspectral chunk using FlexBRDF ratio."""
 
     if chunk_array.dtype != np.float32:
         raise ValueError("Chunks passed to apply_brdf_correct must be float32 arrays.")
-
-    ndvi_config = ndvi_config or NDVIBinningConfig()
-    reference_geometry = reference_geometry or ReferenceGeometry()
-    brdf_kernel_config = brdf_kernel_config or BRDFKernelConfig()
-
-    scale_factor = float(getattr(cube, "scale_factor", 1.0)) or 1.0
-
-    coeffs_dict: dict[str, np.ndarray | str] | None = None
-    coeff_path_resolved: Path | None = None
-    if coeff_path is not None:
-        coeff_path_resolved = Path(coeff_path).resolve()
-        flightline_dir = coeff_path_resolved.parent
-        prefix = scene_prefix_from_dir(flightline_dir)
-        preferred = flightline_dir / f"{prefix}_brdf_model.json"
-        normalized_path = normalize_brdf_model_path(flightline_dir)
-        if normalized_path is not None:
-            coeff_path_resolved = normalized_path.resolve()
-        elif preferred.exists():
-            coeff_path_resolved = preferred.resolve()
-
-        if coeff_path_resolved.exists():
-            try:
-                coeffs_dict = _BRDF_COEFF_CACHE.get(coeff_path_resolved)
-                if coeffs_dict is None:
-                    loaded = load_brdf_model(flightline_dir)
-                    iso_arr = np.asarray(loaded.get("iso"), dtype=np.float32)
-                    vol_arr = np.asarray(loaded.get("vol"), dtype=np.float32)
-                    geo_arr = np.asarray(loaded.get("geo"), dtype=np.float32)
-                    coeffs_dict = {
-                        "iso": iso_arr,
-                        "vol": vol_arr,
-                        "geo": geo_arr,
-                        "volume_kernel": loaded.get(
-                            "volume_kernel", brdf_kernel_config.volume_kernel
-                        ),
-                        "geom_kernel": loaded.get(
-                            "geom_kernel", brdf_kernel_config.geom_kernel
-                        ),
-                        "b_r": loaded.get("b_r"),
-                        "h_b": loaded.get("h_b"),
-                        "solar_zn_type": loaded.get(
-                            "solar_zn_type", brdf_kernel_config.solar_zn_type
-                        ),
-                        "ndvi_edges": loaded.get("ndvi_edges"),
-                    }
-                    _BRDF_COEFF_CACHE[coeff_path_resolved] = coeffs_dict
-            except (FileNotFoundError, json.JSONDecodeError, ValueError, TypeError) as exc:
-                logger.warning(
-                    "⚠️  Failed to load BRDF coefficients from %s (%s); falling back to cube/neutrals.",
-                    coeff_path_resolved,
-                    exc,
-                )
-                coeffs_dict = None
-        else:
-            logger.warning(
-                "⚠️  BRDF coefficient file %s not found; falling back to cube/neutrals.",
-                coeff_path_resolved,
-            )
-
-    if coeffs_dict is None:
-        coeffs_attr = getattr(cube, "brdf_coefficients", None)
-        if coeffs_attr is not None:
-            try:
-                iso_arr = np.asarray(coeffs_attr["iso"], dtype=np.float32)
-                vol_arr = np.asarray(coeffs_attr["vol"], dtype=np.float32)
-                geo_arr = np.asarray(coeffs_attr["geo"], dtype=np.float32)
-            except KeyError as exc:  # pragma: no cover - defensive guard
-                raise ValueError(
-                    "BRDF coefficients dictionary must include 'iso', 'vol', 'geo'."
-                ) from exc
-            coeffs_dict = {
-                "iso": iso_arr,
-                "vol": vol_arr,
-                "geo": geo_arr,
-                "volume_kernel": coeffs_attr.get(
-                    "volume_kernel", brdf_kernel_config.volume_kernel
-                ),
-                "geom_kernel": coeffs_attr.get(
-                    "geom_kernel", brdf_kernel_config.geom_kernel
-                ),
-                "b_r": coeffs_attr.get("b_r"),
-                "h_b": coeffs_attr.get("h_b"),
-                "solar_zn_type": coeffs_attr.get(
-                    "solar_zn_type", brdf_kernel_config.solar_zn_type
-                ),
-                "ndvi_edges": coeffs_attr.get("ndvi_edges"),
-            }
-
-    expected_bands = chunk_array.shape[-1]
-    if coeffs_dict is None:
-        logger.warning(
-            "⚠️  No BRDF coefficients available for %s; using neutral coefficients.",
-            getattr(cube, "base_key", "unknown"),
-        )
-        coeffs_dict = {
-            "iso": np.ones(expected_bands, dtype=np.float32),
-            "vol": np.zeros(expected_bands, dtype=np.float32),
-            "geo": np.zeros(expected_bands, dtype=np.float32),
-            "volume_kernel": brdf_kernel_config.volume_kernel,
-            "geom_kernel": brdf_kernel_config.geom_kernel,
-            "b_r": brdf_kernel_config.b_r,
-            "h_b": brdf_kernel_config.h_b,
-            "solar_zn_type": brdf_kernel_config.solar_zn_type,
-        }
-
-    chunk_unitless = chunk_array * np.float32(scale_factor)
-    # ``ndvi_edges`` records the NDVI boundaries associated with the coefficient
-    # rows in a saved BRDF model. When present, reuse those boundaries so
-    # application follows the same stratification that was used during fitting.
-    ndvi_edges_raw = coeffs_dict.get("ndvi_edges")
-    edges = (
-        np.asarray(ndvi_edges_raw, dtype=np.float32)
-        if ndvi_edges_raw is not None
-        else np.array([], dtype=np.float32)
-    )
-    if edges.size < 2:
-        if ndvi_config.enabled and ndvi_config.n_bins > 1:
-            ndvi = compute_ndvi(cube, chunk_unitless)
-            edges, bin_idx = compute_ndvi_bins(ndvi, ndvi_config)
-        else:
-            edges, bin_idx = _single_brdf_bin(chunk_unitless.shape[:2])
+    radiometry = require_radiometry(cube)
+    if coeff_path is None:
+        raise ValueError("BRDF UNSUPPORTED: a validated saved model is required.")
+    # Read the small record on each call: a path-only cache can conceal edits.
+    model = json.loads(Path(coeff_path).read_text())
+    validation = model.get("validation", {})
+    if model.get("schema_version") != 2 or validation.get("status") != "VALID":
+        raise ValueError(f"BRDF {validation.get('status', 'UNSUPPORTED')}: model is not a validated shared-contract fit.")
+    if model.get("fit_input_stage") != input_stage:
+        raise ValueError("BRDF UNSUPPORTED: fitting and application correction stages differ")
+    if brdf_kernel_config is not None:
+        from dataclasses import asdict
+        if asdict(brdf_kernel_config) != model["kernel_config"]:
+            raise ValueError("BRDF INVALID: application kernels differ from validated model")
+    if model["radiometry"] != radiometry.record():
+        raise ValueError("BRDF INVALID: model radiometry differs from application cube.")
+    if model.get("source_identity") != _brdf_source_identity(cube):
+        raise ValueError("BRDF INVALID: model source/window differs from application cube.")
+    stored_reference = ReferenceGeometry(**model["reference_geometry"])
+    if reference_geometry is not None and reference_geometry != stored_reference:
+        raise ValueError("BRDF INVALID: application reference differs from validated reference.")
+    X, valid, _ = _brdf_design(cube, BRDFKernelConfig(**model["kernel_config"]),
+                               scene_solar=model.get("scene_solar_zenith_rad"), window=(ys, ye, xs, xe))
+    physical = radiometry.to_physical(chunk_array)
+    edges = np.asarray(model["ndvi_edges"], dtype=np.float32)
+    if model["ndvi_binning_enabled"]:
+        ndvi = compute_ndvi(cube, physical)
+        bins = np.digitize(ndvi, edges) - 1
+        bins[ndvi == edges[-1]] = len(edges) - 2
+        outside = ~np.isfinite(ndvi) | (bins < 0) | (bins >= len(edges)-1)
+        if np.any(outside & valid):
+            raise ValueError("BRDF UNSUPPORTED: application pixels outside validated NDVI strata.")
     else:
-        ndvi = compute_ndvi(cube, chunk_unitless)
-        bin_idx = np.digitize(ndvi, edges, right=False) - 1
-        bin_idx[(ndvi < edges[0]) | (ndvi > edges[-1])] = -1
-
-    n_bins = edges.size - 1 if edges.size >= 2 else 1
-    bin_idx_safe = bin_idx.copy()
-    if np.any(bin_idx_safe < 0):
-        logger.debug(
-            "NDVI binning: %d pixels outside [%0.3f,%0.3f]; assigning to bin 0",
-            np.count_nonzero(bin_idx_safe < 0),
-            edges[0] if edges.size else ndvi_config.ndvi_min,
-            edges[-1] if edges.size else ndvi_config.ndvi_max,
-        )
-        bin_idx_safe[bin_idx_safe < 0] = 0
-
-    iso = np.asarray(coeffs_dict["iso"], dtype=np.float32)
-    vol = np.asarray(coeffs_dict["vol"], dtype=np.float32)
-    geo = np.asarray(coeffs_dict["geo"], dtype=np.float32)
-
-    if iso.ndim == 1:
-        iso = iso[np.newaxis, :]
-        vol = vol[np.newaxis, :]
-        geo = geo[np.newaxis, :]
-
-    if iso.shape[1] != expected_bands:
-        logger.warning(
-            "⚠️  BRDF coefficient size mismatch (%d vs %d); falling back to neutral coefficients.",
-            iso.shape[1],
-            expected_bands,
-        )
-        iso = np.ones((1, expected_bands), dtype=np.float32)
-        vol = np.zeros_like(iso)
-        geo = np.zeros_like(iso)
-
-    if iso.shape[0] != n_bins:
-        logger.warning(
-            "⚠️  BRDF coefficient NDVI bin mismatch (%d vs %d); broadcasting neutral coefficients across bins.",
-            iso.shape[0],
-            n_bins,
-        )
-        iso = np.ones((n_bins, expected_bands), dtype=np.float32)
-        vol = np.zeros_like(iso)
-        geo = np.zeros_like(iso)
-
-    kernel_type_vol = _normalize_volume_kernel_name(
-        str(coeffs_dict.get("volume_kernel", brdf_kernel_config.volume_kernel))
-    )
-    kernel_type_geo = _normalize_geom_kernel_name(
-        str(coeffs_dict.get("geom_kernel", brdf_kernel_config.geom_kernel))
-    )
-    default_b_r, default_h_b = _default_geom_params(kernel_type_geo)
-    raw_b_r = coeffs_dict.get("b_r")
-    raw_h_b = coeffs_dict.get("h_b")
-    raw_solar_zn_type = coeffs_dict.get("solar_zn_type")
-    b_r = float(default_b_r if raw_b_r is None else raw_b_r)
-    h_b = float(default_h_b if raw_h_b is None else raw_h_b)
-    solar_zn_type = str(
-        brdf_kernel_config.solar_zn_type if raw_solar_zn_type is None else raw_solar_zn_type
-    ).lower()
-
-    solar_zn = cube.get_ancillary("solar_zn", radians=True)[ys:ye, xs:xe]
-    solar_az = cube.get_ancillary("solar_az", radians=True)[ys:ye, xs:xe]
-    sensor_zn = cube.get_ancillary("sensor_zn", radians=True)[ys:ye, xs:xe]
-    sensor_az = cube.get_ancillary("sensor_az", radians=True)[ys:ye, xs:xe]
-    if solar_zn_type == "scene":
-        solar_zn = _resolve_scene_solar_zenith(solar_zn)
-
-    volume_kernel = calc_volume_kernel(
-        solar_az,
-        solar_zn,
-        sensor_az,
-        sensor_zn,
-        kernel_type=kernel_type_vol,
-    )
-    geom_kernel = calc_geom_kernel(
-        solar_az,
-        solar_zn,
-        sensor_az,
-        sensor_zn,
-        kernel_type=kernel_type_geo,
-        b_r=b_r,
-        h_b=h_b,
-    )
-
-    ref_solar = np.deg2rad(reference_geometry.solar_zenith_deg)
-    ref_view = np.deg2rad(reference_geometry.view_zenith_deg)
-    ref_rel = np.deg2rad(reference_geometry.relative_azimuth_deg)
-    ref_solar_az = np.zeros_like(solar_az) + ref_rel
-    ref_sensor_az = np.zeros_like(solar_az)
-    ref_volume = calc_volume_kernel(
-        ref_solar_az,
-        np.full_like(solar_zn, ref_solar),
-        ref_sensor_az,
-        np.full_like(sensor_zn, ref_view),
-        kernel_type=kernel_type_vol,
-    )
-    ref_geom = calc_geom_kernel(
-        ref_solar_az,
-        np.full_like(solar_zn, ref_solar),
-        ref_sensor_az,
-        np.full_like(sensor_zn, ref_view),
-        kernel_type=kernel_type_geo,
-        b_r=b_r,
-        h_b=h_b,
-    )
-
-    valid_mask = np.isfinite(chunk_unitless)
-    if hasattr(cube, "mask_no_data"):
-        valid_mask &= cube.mask_no_data[ys:ye, xs:xe][..., np.newaxis]
-
-    # Start from the input reflectance and overwrite with BRDF-adjusted values.
-    # Initializing with NaN previously turned any unvisited/invalid-factor path
-    # into hard no-data (-9999) across the tile.
-    corrected_unitless = chunk_unitless.copy()
-    for b in range(expected_bands):
-        iso_band = iso[:, b]
-        vol_band = vol[:, b]
-        geo_band = geo[:, b]
-        for bin_id in range(iso.shape[0]):
-            mask_bin = bin_idx_safe == bin_id
-            if not np.any(mask_bin):
+        bins = np.zeros(physical.shape[:2], dtype=int)
+    reference = np.asarray(model["reference_design"], dtype=np.float64)
+    corrected = physical.copy()
+    for band in range(cube.bands):
+        for bin_id in range(len(edges)-1):
+            selected = valid & (bins == bin_id) & np.isfinite(physical[..., band])
+            selected &= chunk_array[..., band] != getattr(cube, "no_data", np.nan)
+            if not np.any(selected):
                 continue
-            R_pix = (
-                iso_band[bin_id]
-                + vol_band[bin_id] * volume_kernel
-                + geo_band[bin_id] * geom_kernel
-            )
-            R_ref = (
-                iso_band[bin_id]
-                + vol_band[bin_id] * ref_volume
-                + geo_band[bin_id] * ref_geom
-            )
-            # Use a neutral factor (1.0) when kernels are non-positive instead of
-            # NaN. NaN previously propagated to -9999 and wiped otherwise-valid
-            # reflectance after topographic correction.
-            positive_kernel = (R_pix > 0) & (R_ref > 0)
-            cf = np.ones_like(
-                R_pix,
-                dtype=np.result_type(R_pix, R_ref, np.float32),
-            )
-            np.divide(R_ref, R_pix, out=cf, where=positive_kernel)
-            cf = np.where(np.isfinite(cf) & (cf > 0), cf, 1.0)
-            if bin_id == 0 and b == 0:
-                log_stats("cf_bin0_band0", cf, mask_bin)
-            target_mask = mask_bin & valid_mask[..., b]
-            corrected_unitless[..., b] = np.where(
-                target_mask,
-                chunk_unitless[..., b] * cf,
-                corrected_unitless[..., b],
-            )
-
-    no_data_value = np.float32(getattr(cube, "no_data", np.nan))
-    corrected_scaled = corrected_unitless / np.float32(scale_factor)
-    # Restore configured no-data only where the input was invalid / masked.
-    corrected_scaled = np.where(valid_mask, corrected_scaled, no_data_value)
-
-    return corrected_scaled.astype(np.float32, copy=False)
+            values = [model[k][bin_id][band] for k in ("iso", "vol", "geo")]
+            if any(value is None for value in values):
+                raise ValueError("BRDF UNSUPPORTED: no fitted support for this band/stratum")
+            beta = np.asarray(values, dtype=np.float64)
+            pred = X @ beta
+            ref = float(reference @ beta)
+            if np.any(selected & (~np.isfinite(pred) | (pred <= 0))) or not np.isfinite(ref) or ref <= 0:
+                raise ValueError("BRDF INVALID: nonpositive/nonfinite prediction; no identity fallback is allowed.")
+            factor = np.divide(ref, pred, out=np.ones_like(pred), where=selected)
+            if not np.isfinite(factor[selected]).all():
+                raise ValueError("BRDF INVALID: nonfinite correction factor.")
+            corrected[..., band][selected] *= factor[selected]
+    output = radiometry.to_stored(corrected)
+    input_valid = valid[..., None] & np.isfinite(chunk_array)
+    input_valid &= chunk_array != getattr(cube, "no_data", np.nan)
+    return np.where(input_valid, output, getattr(cube, "no_data", np.nan)).astype(np.float32)
 
 
-def apply_glint_correct(*args, **kwargs):
-    """Placeholder for sunglint correction.
+def _brdf_source_identity(cube):
+    """Bound cached fits to source bytes and spatial window without a pixel cache."""
+    import hashlib
+    if hasattr(cube, "_brdf_source_digest"):
+        return cube._brdf_source_digest
+    h = hashlib.sha256()
+    # Loaded cubes already hold the source data. Hash bounded row views, never
+    # create another full-scene byte string or reread the archive.
+    for row in cube.data:
+        h.update(np.ascontiguousarray(row).tobytes())
+    for name in ("solar_zn", "solar_az", "sensor_zn", "sensor_az"):
+        for row in cube.get_ancillary(name, radians=True):
+            h.update(np.ascontiguousarray(row).tobytes())
+    h.update(str((getattr(cube, "sample_start", 0), getattr(cube, "line_start", 0), cube.data.shape, getattr(cube,"no_data",None))).encode())
+    for row in cube.mask_no_data:
+        h.update(np.ascontiguousarray(row).tobytes())
+    cube._brdf_source_digest = h.hexdigest()
+    return cube._brdf_source_digest
 
-    In hytools.glint.apply_glint_correct (GPLv3), sunglint correction is used
-    for aquatic environments. We are not supporting that right now.
-    """
 
-    raise NotImplementedError("Glint correction is not implemented in cross-sensor-cal.")
+def _brdf_design(cube, config, scene_solar=None, window=None):
+    names = ("solar_az", "solar_zn", "sensor_az", "sensor_zn")
+    valid = np.asarray(cube.mask_no_data, dtype=bool).copy()
+    if window is None:
+        angles = [np.asarray(cube.get_ancillary(k, radians=True), dtype=np.float32) for k in names]
+    else:
+        ys, ye, xs, xe = window
+        # Slice in native degree units before conversion, avoiding four full
+        # angular conversions on every application strip.
+        angles = [np.deg2rad(np.asarray(cube.get_ancillary(k, radians=False)[ys:ye, xs:xe], np.float32)) for k in names]
+        valid = valid[ys:ye, xs:xe]
+    for a in angles:
+        valid &= np.isfinite(a)
+    valid &= (angles[1] >= 0) & (angles[1] < np.pi/2) & (np.abs(angles[3]) < np.pi/2)
+    if str(config.solar_zn_type).lower() == "scene":
+        if scene_solar is None:
+            scene_solar = float(np.mean(angles[1][valid], dtype=np.float64)) if valid.any() else None
+        if scene_solar is not None:
+            angles[1] = np.full_like(angles[1], scene_solar)
+    kv = calc_volume_kernel(*angles, kernel_type=config.volume_kernel)
+    kg = calc_geom_kernel(*angles, kernel_type=config.geom_kernel, b_r=config.b_r, h_b=config.h_b)
+    X = np.stack([np.ones_like(kv), kv, kg], axis=-1)
+    valid &= np.isfinite(X).all(axis=-1)
+    return X, valid, scene_solar
+
+
+def _reference_design(reference, config):
+    a = [np.full((1, 1), np.deg2rad(x), dtype=np.float32) for x in
+         (reference.relative_azimuth_deg, reference.solar_zenith_deg, 0., reference.view_zenith_deg)]
+    return np.array([1., calc_volume_kernel(*a, kernel_type=config.volume_kernel).item(),
+                     calc_geom_kernel(*a, kernel_type=config.geom_kernel, b_r=config.b_r, h_b=config.h_b).item()])
 
 
 def fit_and_save_brdf_model(
@@ -1007,6 +803,7 @@ def fit_and_save_brdf_model(
     brdf_kernel_config: BRDFKernelConfig | None = None,
     rho_min: float = 0.0,
     rho_max: float | None = 2.0,
+    apply_topography: bool = False,
 ) -> Path:
     """Estimate and persist BRDF coefficients for a NEON flightline.
 
@@ -1023,119 +820,153 @@ def fit_and_save_brdf_model(
         Path to the JSON file containing the BRDF model coefficients.
     """
 
+    from dataclasses import asdict
+    from .radiometry import Radiometry
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-
     prefix = scene_prefix_from_dir(out_dir)
-    preferred = out_dir / f"{prefix}_brdf_model.json"
-    normalized = normalize_brdf_model_path(out_dir)
-    coeff_path = normalized if normalized is not None else preferred
-    if coeff_path.exists():
-        return coeff_path
-
+    # Discovery must be read-only: the legacy normalizer renames old models.
+    existing = sorted(out_dir.glob("*_brdf_model.json"))
+    if len(existing) > 1:
+        raise ValueError("BRDF UNSUPPORTED: multiple existing models; use a fresh output directory")
+    coeff_path = existing[0] if existing else out_dir / f"{prefix}_brdf_model.json"
+    config = brdf_kernel_config or BRDFKernelConfig()
     ndvi_config = ndvi_config or NDVIBinningConfig()
-    brdf_kernel_config = brdf_kernel_config or BRDFKernelConfig()
-
-    solar_zn = cube.get_ancillary("solar_zn", radians=True)
-    solar_az = cube.get_ancillary("solar_az", radians=True)
-    sensor_zn = cube.get_ancillary("sensor_zn", radians=True)
-    sensor_az = cube.get_ancillary("sensor_az", radians=True)
-    volume_kernel_name = _normalize_volume_kernel_name(brdf_kernel_config.volume_kernel)
-    geom_kernel_name = _normalize_geom_kernel_name(brdf_kernel_config.geom_kernel)
-    b_r = float(brdf_kernel_config.b_r)
-    h_b = float(brdf_kernel_config.h_b)
-    volume_kernel = calc_volume_kernel(
-        solar_az, solar_zn, sensor_az, sensor_zn, kernel_type=volume_kernel_name
-    )
-
-    mask = getattr(cube, "mask_no_data", None)
-    if mask is None:
-        mask = np.ones_like(volume_kernel, dtype=bool)
-    valid = mask.astype(bool)
-    valid &= np.isfinite(volume_kernel) & np.isfinite(solar_zn) & np.isfinite(sensor_zn)
-    if str(brdf_kernel_config.solar_zn_type).lower() == "scene":
-        solar_zn = _resolve_scene_solar_zenith(solar_zn, valid_mask=valid)
-        volume_kernel = calc_volume_kernel(
-            solar_az, solar_zn, sensor_az, sensor_zn, kernel_type=volume_kernel_name
-        )
-    geom_kernel = calc_geom_kernel(
-        solar_az,
-        solar_zn,
-        sensor_az,
-        sensor_zn,
-        kernel_type=geom_kernel_name,
-        b_r=b_r,
-        h_b=h_b,
-    )
-    valid = mask.astype(bool)
-    valid &= np.isfinite(volume_kernel) & np.isfinite(geom_kernel)
-
-    reflectance_unitless = (
-        np.asarray(cube.data, dtype=np.float32) * np.float32(getattr(cube, "scale_factor", 1.0) or 1.0)
-    )
-
+    reference = ReferenceGeometry()
+    radiometry = getattr(cube, "radiometry", Radiometry(None, None, "UNSUPPORTED", "No authoritative calibration"))
+    identity = _brdf_source_identity(cube)
+    signature = {"source_identity": identity, "radiometry": radiometry.record(),
+                 "kernel_config": asdict(config), "ndvi_config": asdict(ndvi_config),
+                 "rho_min": rho_min, "rho_max": rho_max, "schema_version": 2,
+                 "apply_topography": bool(apply_topography)}
+    if coeff_path.exists():
+        old = json.loads(coeff_path.read_text())
+        if all(old.get(k) == v for k, v in signature.items()):
+            return coeff_path
+        raise ValueError("BRDF UNSUPPORTED: cached model is stale or unvalidated; use a fresh output directory. Historical models are not overwritten.")
+    payload = {**signature, "source_path": str(getattr(cube,"h5_path","in-memory fixture")),
+               "source_shape": list(cube.data.shape), "reference_geometry": asdict(reference),
+               "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
+               "fitting_population": {"available_spatial": int(np.count_nonzero(cube.mask_no_data)), "eligible": None, "status": "NOT_EVALUATED"},
+               "angular_support": {"status": "NOT_EVALUATED"},
+               "rank_conditioning_status": "NOT_EVALUATED",
+               "correction_factor_diagnostics_status": "NOT_EVALUATED",
+               "validation": {"status": "UNSUPPORTED", "fits": [], "reasons": []}}
+    validation = payload["validation"]
+    try:
+        radiometry.require_valid()
+    except ValueError as exc:
+        validation["reasons"].append(str(exc))
+        coeff_path.write_text(json.dumps(payload, indent=2, allow_nan=False))
+        return coeff_path
+    physical = radiometry.to_physical(cube.data)
+    if apply_topography:
+        # Fit the BRDF on the same topographically corrected measurements to
+        # which its ratio will be applied. Fit C once; keep raw cube immutable.
+        c = fit_scs_c_coefficients(cube)
+        payload["topographic_c"] = c.astype(float).tolist()
+        for ys, ye, xs, xe, chunk in cube.iter_chunks(chunk_y=500, chunk_x=cube.columns):
+            corrected = apply_topo_correct(cube, np.asarray(chunk, np.float32), ys, ye, xs, xe, scs_c=c)
+            physical[ys:ye, xs:xe] = radiometry.to_physical(corrected)
+    payload["fit_input_stage"] = "topographic_only" if apply_topography else "uncorrected"
+    X, valid, scene_solar = _brdf_design(cube, config)
+    payload["fitting_population"]["status"] = "EVALUATED_PER_BAND_STRATUM"
+    payload["rank_conditioning_status"] = "EVALUATED_PER_BAND_STRATUM"
+    payload["scene_solar_zenith_rad"] = scene_solar
+    payload["angular_support"] = {}
+    for name in ("solar_zn", "solar_az", "sensor_zn", "sensor_az"):
+        a = cube.get_ancillary(name, radians=True)[valid]
+        payload["angular_support"][name] = {"count": int(a.size),
+            "min_rad": float(a.min()) if a.size else None,
+            "max_rad": float(a.max()) if a.size else None,
+            "std_rad": float(a.std(dtype=np.float64)) if a.size else None}
+    ref = _reference_design(reference, config)
+    payload["reference_design"] = ref.tolist()
     if ndvi_config.enabled and ndvi_config.n_bins > 1:
-        ndvi = compute_ndvi(cube, reflectance_unitless)
-        edges, ndvi_bins = compute_ndvi_bins(ndvi, ndvi_config)
+        edges, bins = compute_ndvi_bins(compute_ndvi(cube, physical), ndvi_config)
     else:
-        edges, ndvi_bins = _single_brdf_bin(reflectance_unitless.shape[:2])
-
-    flat_valid = valid.reshape(-1)
-    design_stack = np.stack(
-        [
-            np.ones_like(volume_kernel, dtype=np.float32),
-            volume_kernel,
-            geom_kernel,
-        ],
-        axis=-1,
-    )
-    design_flat = design_stack.reshape(-1, 3)
-    reflectance_flat = reflectance_unitless.reshape(-1, cube.bands)
-    ndvi_flat = ndvi_bins.reshape(-1)
-
-    n_bins = int(edges.size - 1)
-    iso = np.ones((n_bins, cube.bands), dtype=np.float32)
-    vol = np.zeros_like(iso)
-    geo = np.zeros_like(iso)
-
-    for band_idx in range(cube.bands):
-        y_all = reflectance_flat[:, band_idx].astype(np.float64, copy=False)
+        edges, bins = _single_brdf_bin(physical.shape[:2])
+    n_bins = len(edges)-1
+    if np.any(valid & (bins < 0)):
+        validation["reasons"].append("Application pixels outside fitted NDVI strata; partial-scene BRDF is unsupported")
+    coefficients = np.full((n_bins, cube.bands, 3), np.nan, np.float64)
+    unsupported = bool(validation["reasons"])
+    invalid = False
+    # Float32 input kernels cannot support a solution whose conditioning loses
+    # more than half their significant digits. This is a precision requirement,
+    # not an empirical approval threshold or a correction-factor cap.
+    condition_limit = 1 / np.sqrt(np.finfo(np.float32).eps)
+    validation["condition_limit"] = float(condition_limit)
+    for band in range(cube.bands):
+        if band % 10 == 0 or band == cube.bands - 1:
+            logger.info("BRDF validation: band %d/%d; %d strata; physical rho eligibility [%s, %s]", band+1, cube.bands, n_bins, rho_min, rho_max)
         for bin_id in range(n_bins):
-            bin_mask = flat_valid & (ndvi_flat == bin_id)
-            if np.count_nonzero(bin_mask) < 3:
-                continue
-            y = y_all[bin_mask]
-            X = design_flat[bin_mask].astype(np.float64, copy=False)
-            finite_mask = np.isfinite(y)
+            population = valid & (bins == bin_id)
+            y = physical[..., band]
+            finite = population & np.isfinite(y) & (cube.data[..., band] != getattr(cube, "no_data", np.nan))
+            eligible = finite & (y >= rho_min)
             if rho_max is not None:
-                finite_mask &= y <= rho_max
-            finite_mask &= y >= rho_min
-            if np.count_nonzero(finite_mask) < 3:
+                eligible &= y <= rho_max
+            count = int(eligible.sum())
+            record = {"band": band, "bin": bin_id, "available": int(population.sum()),
+                      "eligible": count, "excluded_nonfinite_or_nodata": int((population & ~finite).sum()),
+                      "excluded_below_min": int((finite & (y < rho_min)).sum()),
+                      "excluded_above_max": int((finite & (y > rho_max)).sum()) if rho_max is not None else 0,
+                      "rank": 0, "status": "UNSUPPORTED"}
+            validation["fits"].append(record)
+            if not np.any(finite):
+                record.update(status="NOT_APPLICABLE", reason="No finite source observations in this band/stratum; nodata is preserved, no coefficients estimated")
                 continue
-            try:
-                solution, *_ = np.linalg.lstsq(X[finite_mask], y[finite_mask], rcond=None)
-            except np.linalg.LinAlgError:
+            if count < 4:
+                record["reason"] = "Fewer than four eligible observations for three coefficients and residual assessment"
+                unsupported = True
                 continue
-            iso[bin_id, band_idx] = np.float32(solution[0])
-            vol[bin_id, band_idx] = np.float32(solution[1])
-            geo[bin_id, band_idx] = np.float32(solution[2])
-
-    coeff_payload = {
-        "iso": iso.astype(float).tolist(),
-        "vol": vol.astype(float).tolist(),
-        "geo": geo.astype(float).tolist(),
-        "volume_kernel": volume_kernel_name,
-        "geom_kernel": geom_kernel_name,
-        "b_r": b_r,
-        "h_b": h_b,
-        "solar_zn_type": str(brdf_kernel_config.solar_zn_type),
-        "ndvi_binning_enabled": bool(ndvi_config.enabled and n_bins > 1),
-        # Persist the realized NDVI bin boundaries so downstream inspection can
-        # tell which NDVI stratum each coefficient row belongs to.
-        "ndvi_edges": edges.astype(float).tolist(),
-    }
-
-    with coeff_path.open("w", encoding="utf-8") as coeff_file:
-        json.dump(coeff_payload, coeff_file, indent=2)
-
+            A = X[eligible].astype(np.float64)
+            target = y[eligible].astype(np.float64)
+            beta, _, rank, singular = np.linalg.lstsq(A, target, rcond=None)
+            condition = float(singular[0] / singular[-1]) if singular[-1] > 0 else None
+            if condition is not None and not np.isfinite(condition):
+                condition = None
+            record.update(rank=int(rank), singular_values=singular.tolist(), condition_number=condition)
+            if rank != 3 or condition is None or condition > condition_limit:
+                record["reason"] = "Rank-deficient or insufficiently conditioned angular design"
+                unsupported = True
+                continue
+            # Check the whole application domain, not only the few eligible pixels.
+            domain = X[population].astype(np.float64)
+            prediction = domain @ beta
+            reference_prediction = float(ref @ beta)
+            roundoff = 8 * np.finfo(np.float32).eps * (np.abs(domain) @ np.abs(beta))
+            reference_roundoff = float(8 * np.finfo(np.float32).eps * (np.abs(ref) @ np.abs(beta)))
+            residual = target - A @ beta
+            variance = float(residual @ residual / (count - 3))
+            covariance = variance * np.linalg.inv(A.T @ A)
+            reference_se = float(np.sqrt(max(0., ref @ covariance @ ref)))
+            prediction_se = np.sqrt(np.maximum(np.einsum("ij,jk,ik->i", domain, covariance, domain), 0.))
+            record.update(reference_prediction=reference_prediction, reference_standard_error=reference_se,
+                          predicted_standard_error_quantiles=np.quantile(prediction_se,[0,.5,1]).tolist(),
+                          coefficient_standard_errors=np.sqrt(np.maximum(np.diag(covariance),0)).tolist(),
+                          reference_leverage=float(ref @ np.linalg.solve(A.T @ A, ref)),
+                          reference_outside_kernel_bounds=bool(np.any((ref < A.min(axis=0)) | (ref > A.max(axis=0)))))
+            if (not np.isfinite(beta).all() or not np.isfinite(prediction).all() or
+                    np.any(prediction <= roundoff + 1.96 * prediction_se) or reference_prediction <= reference_roundoff + 1.96 * reference_se):
+                record.update(status="INVALID", reason="Nonpositive or cancellation/uncertainty-dominated model prediction")
+                invalid = True
+                continue
+            factors = reference_prediction / prediction
+            record.update(status="VALID", predicted_quantiles=np.quantile(prediction,[0,.01,.5,.99,1]).tolist(),
+                          factor_quantiles=np.quantile(factors,[0,.01,.5,.99,1]).tolist())
+            coefficients[bin_id, band] = beta
+    validation["status"] = "INVALID" if invalid else "UNSUPPORTED" if unsupported else "VALID"
+    if not valid.any() or all(r["status"] == "NOT_APPLICABLE" for r in validation["fits"]):
+        validation["status"] = "UNSUPPORTED"
+        validation["reasons"].append("No supported angular observations")
+    payload["correction_factor_diagnostics_status"] = "EVALUATED_PER_SUPPORTED_FIT"
+    if validation["status"] == "VALID":
+        for i, key in enumerate(("iso", "vol", "geo")):
+            payload[key] = [[float(v) if np.isfinite(v) else None for v in row] for row in coefficients[...,i]]
+    payload.update(ndvi_edges=edges.astype(float).tolist(), ndvi_binning_enabled=bool(ndvi_config.enabled and n_bins > 1),
+                   volume_kernel=config.volume_kernel, geom_kernel=config.geom_kernel,
+                   b_r=config.b_r, h_b=config.h_b, solar_zn_type=config.solar_zn_type)
+    coeff_path.write_text(json.dumps(payload, indent=2, allow_nan=False))
     return coeff_path

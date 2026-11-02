@@ -1,0 +1,167 @@
+{
+  "gordon": {
+    "metadata_csv": [
+      {
+        "path": "/private/tmp/gordon-sd1-metadata.csv",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+        "sha256": "29417aa3c8f2d246c671982715e12e7a0adeefd4a74e5580a846bf53723a20ea",
+        "card": 1,
+        "rows": 3050,
+        "columns": [
+          "TIFFTAG_DATETIME",
+          "TIFFTAG_SOFTWARE",
+          "filename"
+        ],
+        "timestamp_min": "2023:08:15 20:41:52",
+        "timestamp_max": "2023:08:15 21:12:00",
+        "timezone": "not supplied",
+        "example_filename": "aop/AOP-GORDON-08-14-23/RawData/M300/SD1/SYNC0216SET/003/IMG_0606_2.tif",
+        "camera_positions": false,
+        "camera_orientation": false,
+        "per_target_overlap": false,
+        "panel_or_DLS_values": false
+      },
+      {
+        "path": "/private/tmp/gordon-sd2-metadata.csv",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+        "sha256": "d3e540ac1928e817e2aa7aa99cc5e5b1de9b2d0fe88f761ba4696a1fb529f028",
+        "card": 2,
+        "rows": 3050,
+        "columns": [
+          "TIFFTAG_DATETIME",
+          "TIFFTAG_SOFTWARE",
+          "filename"
+        ],
+        "timestamp_min": "2023:08:15 20:41:52",
+        "timestamp_max": "2023:08:15 21:11:57",
+        "timezone": "not supplied",
+        "example_filename": "aop/AOP-GORDON-08-14-23/RawData/M300/SD2/SYNC0216SET/002/IMG_0549_8.tif",
+        "camera_positions": false,
+        "camera_orientation": false,
+        "per_target_overlap": false,
+        "panel_or_DLS_values": false
+      }
+    ],
+    "note_date": "2023-08-14",
+    "csv_date": "2023-08-15",
+    "note_time": "14:47",
+    "note_timezone": "not specified",
+    "radiometric_calibration": "UNVERIFIED",
+    "original_multispectral_photos": "Referenced by relative aop/.../RawData/M300/SD1|SD2 paths; not located in inspected shared exports and project-level inventories.",
+    "original_image_BRDF": "POTENTIALLY_RECOVERABLE_WITH_ADDITIONAL_DATA, not demonstrated. Recover originals, calibrated radiance/reflectance, poses/intrinsics/DSM, irradiance timestamps, image-target overlap and geometry-aware resampling/blending provenance; test same-target angular coverage before fitting."
+  },
+  "goldhill": {
+    "metadata_csv": [
+      {
+        "path": "/private/tmp/SD1_image_metadata.csv",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+        "sha256": "3276905b0964b85f7d1aa1890191f9b4cd036cb1a68e8c3651cc121f3920051b",
+        "card": 1,
+        "rows": 3045,
+        "columns": [
+          "TIFFTAG_DATETIME",
+          "TIFFTAG_SOFTWARE",
+          "filename"
+        ],
+        "timestamp_min": "2023:08:15 19:38:14",
+        "timestamp_max": "2023:08:15 20:06:53",
+        "timezone": "not supplied",
+        "example_filename": "aop/AOP-GOLDHILL-08-14-23/RawData/M300/SD1/SYNC0213SET/003/IMG_0606_2.tif",
+        "camera_positions": false,
+        "camera_orientation": false,
+        "per_target_overlap": false,
+        "panel_or_DLS_values": false
+      },
+      {
+        "path": "/private/tmp/SD2_image_metadata.csv",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+        "sha256": "3abccee406839f2e36ccaa4a266fea9e944b2a41816fc66a3582b7b91503d86e",
+        "card": 2,
+        "rows": 3050,
+        "columns": [
+          "TIFFTAG_DATETIME",
+          "TIFFTAG_SOFTWARE",
+          "filename"
+        ],
+        "timestamp_min": "2023:08:15 19:38:14",
+        "timestamp_max": "2023:08:15 20:06:58",
+        "timezone": "not supplied",
+        "example_filename": "aop/AOP-GOLDHILL-08-14-23/RawData/M300/SD2/SYNC0213SET/000/IMG_0032_9.tif",
+        "camera_positions": false,
+        "camera_orientation": false,
+        "per_target_overlap": false,
+        "panel_or_DLS_values": false
+      }
+    ],
+    "note_date": "2023-08-14",
+    "csv_date": "2023-08-15",
+    "note_time": "13:41",
+    "note_timezone": "not specified",
+    "radiometric_calibration": "UNVERIFIED",
+    "original_multispectral_photos": "Referenced by relative aop/.../RawData/M300/SD1|SD2 paths; not located in inspected shared exports and project-level inventories.",
+    "original_image_BRDF": "POTENTIALLY_RECOVERABLE_WITH_ADDITIONAL_DATA, not demonstrated. Recover originals, calibrated radiance/reflectance, poses/intrinsics/DSM, irradiance timestamps, image-target overlap and geometry-aware resampling/blending provenance; test same-target angular coverage before fitting."
+  },
+  "ruby": {
+    "metadata_csv": [
+      {
+        "path": "/private/tmp/ruby-sd1-metadata.csv",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+        "sha256": "f98aa39ee98e88be12d162f9889889029a500d1cd67ebe18c791b883590806d4",
+        "card": 1,
+        "rows": 2605,
+        "columns": [
+          "TIFFTAG_DATETIME",
+          "TIFFTAG_SOFTWARE",
+          "filename"
+        ],
+        "timestamp_min": "2023:08:15 18:40:15",
+        "timestamp_max": "2023:08:15 19:05:07",
+        "timezone": "not supplied",
+        "example_filename": "aop/AOP-RUBY-08-14-23/RawData/M300/SD1/SYNC0211SET/001/IMG_0334_2.tif",
+        "camera_positions": false,
+        "camera_orientation": false,
+        "per_target_overlap": false,
+        "panel_or_DLS_values": false
+      },
+      {
+        "path": "/private/tmp/ruby-sd2-metadata.csv",
+        "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+        "sha256": "d9c4c34ca216450ae50a7439f507117dca8684aa41e6ea8b8531ff86d7a12b38",
+        "card": 2,
+        "rows": 2605,
+        "columns": [
+          "TIFFTAG_DATETIME",
+          "TIFFTAG_SOFTWARE",
+          "filename"
+        ],
+        "timestamp_min": "2023:08:15 18:40:15",
+        "timestamp_max": "2023:08:15 19:05:07",
+        "timezone": "not supplied",
+        "example_filename": "aop/AOP-RUBY-08-14-23/RawData/M300/SD2/SYNC0211SET/001/IMG_0260_10.tif",
+        "camera_positions": false,
+        "camera_orientation": false,
+        "per_target_overlap": false,
+        "panel_or_DLS_values": false
+      }
+    ],
+    "note_date": "2023-08-14",
+    "csv_date": "2023-08-15",
+    "note_time": "12:42",
+    "note_timezone": "not specified",
+    "radiometric_calibration": "UNVERIFIED",
+    "original_multispectral_photos": "Referenced by relative aop/.../RawData/M300/SD1|SD2 paths; not located in inspected shared exports and project-level inventories.",
+    "original_image_BRDF": "POTENTIALLY_RECOVERABLE_WITH_ADDITIONAL_DATA, not demonstrated. Recover originals, calibrated radiance/reflectance, poses/intrinsics/DSM, irradiance timestamps, image-target overlap and geometry-aware resampling/blending provenance; test same-target angular coverage before fitting."
+  },
+  "scope": {
+    "collections_inspected": [
+      "field-data/uas-packages/Gordon and Ruby packages and Gordon Metadata (new listings)",
+      "field-data root and macrosystems root (new listings)",
+      "macrosystems/tlm, ruby, lens-aop-continental-scaling and drone_diagnostics roots (new listings)",
+      "shared/earthlab root (no direct aop archive identified)",
+      "Prior P158/P159 Goldhill metadata, calibration_TM and To_Correct inventories"
+    ],
+    "limits": "Bounded search of accessible relevant collections; not an exhaustive search of every CyVerse account, local disk or project. Missing from inspected exports does not mean raw imagery is lost or BRDF impossible.",
+    "available": "Orthomosaics, terrain, GCP/mission-plan files, reports, filename/time/software CSVs and sky photographs. Photogrammetric camera calibration and sky photographs alone do not establish radiometric calibration or irradiance stability.",
+    "unresolved": "Original raw image archive and Metashape .psx/.files or machine-readable pose/intrinsic exports; overlap targets; panel/DLS records; true acquisition date/timezone; original terrain and angle-generation units/provenance."
+  }
+}

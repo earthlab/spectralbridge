@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-02",
+  "python": "3.12.8",
+  "tests_passed": 11,
+  "tests_failed": 0,
+  "test_modules": [
+    "tests/test_drone_strategy_experiment.py",
+    "tests/test_radiometric_contract.py"
+  ],
+  "ruff": "passed for all five analysis/report scripts and new test module",
+  "docs_links": "passed",
+  "transparency": "9 generated artifacts verified",
+  "whitespace": "git diff --check passed",
+  "pdf_review": "All seven pages rendered and visually inspected; corrected spectral titles and pipeline status arrows re-rendered/re-inspected on final pages 5 and 7; final sparse map-axis ticks reviewed on pages 3 and 4 and native ROI figure",
+  "source_preservation": {
+    "files": 19,
+    "all_before_after_hashes_identical": true,
+    "rechecked_at_closeout": true
+  },
+  "real_data_scope": "Full-scene three-flight angular design and DN sensitivity; independent polygon-center membership checks; no forced BRDF, no unverified physical calibration, no original-image or empirical NEON cohort approval",
+  "production_modified": false
+}

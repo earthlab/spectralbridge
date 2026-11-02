@@ -70,9 +70,8 @@ def render_drone_translation_qa(
     corrected = memmap_bsq(corrected_img, corrected_header)
     translated = memmap_bsq(translated_img, translated_header)
     nodata = float(corrected_header.get("data ignore value", -9999.0))
-    scale = float(corrected_header.get("reflectance scale factor", 1.0) or 1.0)
-    if scale <= 0:
-        scale = 1.0
+    from .radiometry import Radiometry
+    target_radiometry = Radiometry.from_header(translated_header)
 
     band_records: list[dict[str, Any]] = []
     samples: list[tuple[np.ndarray, np.ndarray]] = []
@@ -95,13 +94,8 @@ def render_drone_translation_qa(
             if np.any(denominator)
             else np.array([], dtype=np.float32)
         )
-        physical_scale_known = not (
-            plan.coefficient_set_version is not None
-            and band.x_mean is not None
-            and band.x_mean >= 20.0
-            and scale >= 0.1
-        )
-        physical_target = target_sample * np.float32(scale)
+        physical_scale_known = target_radiometry.status == "VALID"
+        physical_target = target_radiometry.to_physical(target_sample) if physical_scale_known else np.full_like(target_sample,np.nan)
         band_records.append(
             {
                 "source_band_index": band.native_source_band_index,

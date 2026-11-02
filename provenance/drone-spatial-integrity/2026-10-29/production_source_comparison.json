@@ -1,0 +1,3144 @@
+[
+  {
+    "flight": "AOP_GOLDHILL_20230814",
+    "source_tiff": "/private/tmp/spectralbridge-drone-production/AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+    "source_h5": "/private/tmp/spectralbridge-drone-production/AOP-GOLDHILL-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+    "source_tiff_sha256": "db134419d475243a237cb643e28f725de136bfb983a5062cd22393714f79f19f",
+    "source_h5_sha256": "9e658ab323f4ed908057b8b24ccbe8c59660c1be4f9644fced895efb164968b3",
+    "dimensions": [
+      2238,
+      3165
+    ],
+    "source_band_count": 11,
+    "h5_band_count": 10,
+    "explicit_verified_source_bands": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "unmapped_source_bands": [
+      11
+    ],
+    "source_crs": "EPSG:26913",
+    "h5_crs": "PROJCS[\"NAD83 / UTM zone 13N\",GEOGCS[\"NAD83\",DATUM[\"North_American_Datum_1983\",SPHEROID[\"GRS 1980\",6378137,298.257222101,AUTHORITY[\"EPSG\",\"7019\"]],AUTHORITY[\"EPSG\",\"6269\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4269\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-105],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"26913\"]]",
+    "source_affine": [
+      0.09999999999996322,
+      0.0,
+      457624.5,
+      0.0,
+      -0.09999999999991677,
+      4432830.55
+    ],
+    "source_bounds": [
+      457624.5,
+      4432606.75,
+      457940.9999999999,
+      4432830.55
+    ],
+    "source_nodata": "NaN",
+    "h5_map_info": "UTM, 1.000, 1.000, 457624.500, 4432830.550, 0.100, -0.100, 13, North, WGS-84, units=Meters, 0",
+    "h5_attribute_names": [],
+    "values_compared": 70832700,
+    "exact_value_mismatches": 0,
+    "legacy_recorded_crs": "EPSG:32613",
+    "legacy_recorded_affine": [
+      0.1,
+      -0.0,
+      457624.5,
+      0.0,
+      0.1,
+      4432830.55
+    ],
+    "control_points": [
+      {
+        "row": 0,
+        "col": 0,
+        "source_x": 457624.55,
+        "source_y": 4432830.5,
+        "legacy_x": 457624.55,
+        "legacy_y": 4432830.6,
+        "legacy_x_in_source_crs": 457624.5499997117,
+        "legacy_y_in_source_crs": 4432830.599886056,
+        "displacement_m": 0.09988605603617312,
+        "numeric_displacement_source_units": 0.09999999962747097,
+        "source_values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "row": 0,
+        "col": 3164,
+        "source_x": 457940.9499999999,
+        "source_y": 4432830.5,
+        "legacy_x": 457940.95,
+        "legacy_y": 4432830.6,
+        "legacy_x_in_source_crs": 457940.94999971363,
+        "legacy_y_in_source_crs": 4432830.599886057,
+        "displacement_m": 0.09988605696748984,
+        "numeric_displacement_source_units": 0.09999999962747097,
+        "source_values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "row": 2237,
+        "col": 0,
+        "source_x": 457624.55,
+        "source_y": 4432606.8,
+        "legacy_x": 457624.55,
+        "legacy_y": 4433054.3,
+        "legacy_x_in_source_crs": 457624.549999712,
+        "legacy_y_in_source_crs": 4433054.299886054,
+        "displacement_m": 447.49988605454564,
+        "numeric_displacement_source_units": 447.5,
+        "source_values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "row": 2237,
+        "col": 3164,
+        "source_x": 457940.9499999999,
+        "source_y": 4432606.8,
+        "legacy_x": 457940.95,
+        "legacy_y": 4433054.3,
+        "legacy_x_in_source_crs": 457940.9499997137,
+        "legacy_y_in_source_crs": 4433054.299886056,
+        "displacement_m": 447.4998860564083,
+        "numeric_displacement_source_units": 447.5,
+        "source_values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "row": 1119,
+        "col": 1582,
+        "source_x": 457782.74999999994,
+        "source_y": 4432718.6,
+        "legacy_x": 457782.75,
+        "legacy_y": 4432942.5,
+        "legacy_x_in_source_crs": 457782.74999971315,
+        "legacy_y_in_source_crs": 4432942.4998860555,
+        "displacement_m": 223.8998860558495,
+        "numeric_displacement_source_units": 223.90000000037253,
+        "source_values": [
+          156.7523956298828,
+          182.5804443359375,
+          287.2328796386719,
+          318.69049072265625,
+          261.4896240234375,
+          236.6126708984375,
+          500.7758483886719,
+          715.1942749023438,
+          1055.846435546875,
+          1303.793701171875
+        ]
+      }
+    ],
+    "maximum_control_displacement_m": 447.4998860564083,
+    "empty_reference_geometries": 1,
+    "source_index_pixels": 144749,
+    "legacy_replayed_index_pixels": 2494,
+    "source_valid_selected_pixels": 144706,
+    "legacy_valid_selected_pixels": 2462,
+    "legacy_selected_wrong_polygon_pixels": 2379,
+    "same_pixel_same_polygon": 115,
+    "scientific_scope": "Source grid versus replay of saved production affine/CRS; not an actual downloaded historical Parquet. All 10 mapped bands compared exactly, with NaN equality. Eleventh band remains unclassified.",
+    "per_polygon": [
+      {
+        "polygon_id": 762,
+        "GlobalID": "{3A6D6E1D-3581-49B8-9321-397DFE5298C5}",
+        "cover_category": "Deciduous",
+        "source_pixels": 6089,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 763,
+        "GlobalID": "{526F935A-6ABC-461F-81D7-07FCB10ACE6C}",
+        "cover_category": "Evergreen",
+        "source_pixels": 476,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 764,
+        "GlobalID": "{3165104B-9972-4DA1-AACB-98464DE3AAC1}",
+        "cover_category": "Evergreen",
+        "source_pixels": 998,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 765,
+        "GlobalID": "{E1837337-D3EC-491F-9C52-62848815748B}",
+        "cover_category": "Evergreen",
+        "source_pixels": 423,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 766,
+        "GlobalID": "{0E1AD0D0-86FD-41AD-A0C3-B875262742C8}",
+        "cover_category": "Evergreen",
+        "source_pixels": 272,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 767,
+        "GlobalID": "{945D44C9-2244-4DDB-ACDD-BA69A6EDE861}",
+        "cover_category": "Evergreen",
+        "source_pixels": 203,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 768,
+        "GlobalID": "{0ECB9C3F-16FE-4A0E-BA08-ACBDA8A0CED9}",
+        "cover_category": "Evergreen",
+        "source_pixels": 331,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 769,
+        "GlobalID": "{5E0C7E66-6571-47C8-9E43-479FAFAE6408}",
+        "cover_category": "Evergreen",
+        "source_pixels": 841,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 770,
+        "GlobalID": "{69643E1E-FD98-4639-8C5E-81C9847C58CA}",
+        "cover_category": "Evergreen",
+        "source_pixels": 310,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 771,
+        "GlobalID": "{D0274699-6E9E-47E2-95EF-5FBE3145A833}",
+        "cover_category": "Evergreen",
+        "source_pixels": 359,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 772,
+        "GlobalID": "{AC2B7D00-93B9-4CB8-8717-9E12A0559E64}",
+        "cover_category": "Evergreen",
+        "source_pixels": 260,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 773,
+        "GlobalID": "{95C25CB1-877F-4432-AB62-080D667616FF}",
+        "cover_category": "Evergreen",
+        "source_pixels": 306,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 774,
+        "GlobalID": "{D4252885-7765-451F-9503-E74ECB0A2047}",
+        "cover_category": "Evergreen",
+        "source_pixels": 382,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 775,
+        "GlobalID": "{F2593A8F-61B1-4FDD-BA9C-0FD1E630D557}",
+        "cover_category": "Evergreen",
+        "source_pixels": 387,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 776,
+        "GlobalID": "{45C62ADC-5128-4BC1-9F14-CD4E1C06DB03}",
+        "cover_category": "Evergreen",
+        "source_pixels": 333,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 777,
+        "GlobalID": "{10FE9AEA-E909-4005-8C65-713F85E61253}",
+        "cover_category": "Evergreen",
+        "source_pixels": 346,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 778,
+        "GlobalID": "{8CBD3FF9-89D3-4F65-BCF8-0EFAF25E1FC6}",
+        "cover_category": "Evergreen",
+        "source_pixels": 339,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 779,
+        "GlobalID": "{DADF9B8C-166B-4CDF-B4A3-1C73EC7D0391}",
+        "cover_category": "Evergreen",
+        "source_pixels": 301,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 780,
+        "GlobalID": "{A9251862-A3BD-4F81-870B-1BBA7F7FDF39}",
+        "cover_category": "Evergreen",
+        "source_pixels": 413,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 781,
+        "GlobalID": "{29C34B2A-8EB6-4D75-BB20-3184C31AAA2C}",
+        "cover_category": "Evergreen",
+        "source_pixels": 276,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 782,
+        "GlobalID": "{65FDF8F1-D44A-4831-8447-9F4B4DB36413}",
+        "cover_category": "Evergreen",
+        "source_pixels": 215,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 783,
+        "GlobalID": "{E58C728C-8940-4A06-99F6-842D49E975BA}",
+        "cover_category": "Evergreen",
+        "source_pixels": 439,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 784,
+        "GlobalID": "{A4579516-8DA5-4C2F-A34A-AAA4FA63A8A5}",
+        "cover_category": "Evergreen",
+        "source_pixels": 278,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 785,
+        "GlobalID": "{A5657AE2-AB8F-4C4E-92BC-68E40B0754AB}",
+        "cover_category": "Evergreen",
+        "source_pixels": 351,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 786,
+        "GlobalID": "{CA1FF9EB-C0AB-49A4-ACC5-12004FB7CB87}",
+        "cover_category": "Deciduous",
+        "source_pixels": 16618,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 787,
+        "GlobalID": "{61A8188A-CDEF-4BE4-9559-63E0D9553532}",
+        "cover_category": "Deciduous",
+        "source_pixels": 7899,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 797,
+        "GlobalID": "{BD775C1F-039A-406D-977E-5F4818C637BB}",
+        "cover_category": "Evergreen",
+        "source_pixels": 909,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 798,
+        "GlobalID": "{973633B9-A43E-4C93-9AF5-FB81647D975E}",
+        "cover_category": "Evergreen",
+        "source_pixels": 292,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 799,
+        "GlobalID": "{CEBC22F1-95CF-4F86-96D3-4BF21D8BC46D}",
+        "cover_category": "Evergreen",
+        "source_pixels": 280,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 800,
+        "GlobalID": "{80C9C765-A510-4453-BE5C-6743BC6F2580}",
+        "cover_category": "Evergreen",
+        "source_pixels": 422,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 801,
+        "GlobalID": "{4358A2D5-AA4A-4EA0-A278-87B8064DABDE}",
+        "cover_category": "Evergreen",
+        "source_pixels": 291,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 802,
+        "GlobalID": "{A7C375FD-8B67-4C58-AFBA-C12B9649016F}",
+        "cover_category": "Evergreen",
+        "source_pixels": 378,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 803,
+        "GlobalID": "{059CEA38-9807-466D-A507-2B4B502E31BA}",
+        "cover_category": "Evergreen",
+        "source_pixels": 352,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 804,
+        "GlobalID": "{CBFA2F40-F2F5-4DDA-A994-6FD70A21C081}",
+        "cover_category": "Evergreen",
+        "source_pixels": 424,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 805,
+        "GlobalID": "{C2579273-AF9C-42F6-8761-6278EA38C5B2}",
+        "cover_category": "Evergreen",
+        "source_pixels": 268,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 806,
+        "GlobalID": "{809081C4-CD1D-4B67-8653-679355766FE5}",
+        "cover_category": "Evergreen",
+        "source_pixels": 210,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 807,
+        "GlobalID": "{EB1E1B47-B58E-432B-AD2F-FDDE13FC3318}",
+        "cover_category": "Evergreen",
+        "source_pixels": 307,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 808,
+        "GlobalID": "{4544E782-4364-47A6-98AD-5105F9B82609}",
+        "cover_category": "Evergreen",
+        "source_pixels": 325,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 809,
+        "GlobalID": "{7670A65D-8410-42D0-9069-123D075A52A1}",
+        "cover_category": "Evergreen",
+        "source_pixels": 484,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 810,
+        "GlobalID": "{B61EBEA7-A984-42FA-B31E-C11B27FA4D83}",
+        "cover_category": "Evergreen",
+        "source_pixels": 326,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 811,
+        "GlobalID": "{079FDF0F-00E4-44FF-93D4-994E55C95C0D}",
+        "cover_category": "Evergreen",
+        "source_pixels": 187,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 812,
+        "GlobalID": "{752CEA15-5686-471E-9EC6-6F18716A8E3C}",
+        "cover_category": "Evergreen",
+        "source_pixels": 275,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 813,
+        "GlobalID": "{16E60812-E92C-41A4-8187-65BBE08282F9}",
+        "cover_category": "Evergreen",
+        "source_pixels": 461,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 814,
+        "GlobalID": "{4E810C93-23F9-4EC5-8790-A81C93009355}",
+        "cover_category": "Evergreen",
+        "source_pixels": 812,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 815,
+        "GlobalID": "{4F4D65C1-B82D-4E75-8A3F-51A23F1E18FA}",
+        "cover_category": "Evergreen",
+        "source_pixels": 234,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 816,
+        "GlobalID": "{C1061ABA-0665-4195-8F33-438A77B60AA2}",
+        "cover_category": "Evergreen",
+        "source_pixels": 456,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 817,
+        "GlobalID": "{5E53C589-12BA-4F16-88A6-393FD61D88F4}",
+        "cover_category": "Evergreen",
+        "source_pixels": 269,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 818,
+        "GlobalID": "{3B285255-0FD7-4685-AA38-8FFD62558208}",
+        "cover_category": "Evergreen",
+        "source_pixels": 269,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 819,
+        "GlobalID": "{8E0D88E5-5367-408A-9A22-C476790BCD96}",
+        "cover_category": "Evergreen",
+        "source_pixels": 450,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 820,
+        "GlobalID": "{23FBFE27-69CF-4072-89EA-97AEB32F700B}",
+        "cover_category": "Evergreen",
+        "source_pixels": 1195,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 821,
+        "GlobalID": "{7D5A653A-16C0-4767-A138-83C60C9E6578}",
+        "cover_category": "Evergreen",
+        "source_pixels": 193,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 822,
+        "GlobalID": "{31403639-E4BE-4109-8C2D-D24FCB354356}",
+        "cover_category": "Evergreen",
+        "source_pixels": 307,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 823,
+        "GlobalID": "{71346832-4FBC-4FAE-8FB0-9CE9B6394AEF}",
+        "cover_category": "Evergreen",
+        "source_pixels": 806,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 824,
+        "GlobalID": "{CC7CA601-2CBD-4BD9-908E-20309BF93CE8}",
+        "cover_category": "Evergreen",
+        "source_pixels": 497,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 825,
+        "GlobalID": "{75E3D940-9176-4885-A3E2-27074ACEE040}",
+        "cover_category": "Evergreen",
+        "source_pixels": 315,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 826,
+        "GlobalID": "{D3D5D19E-5575-4F03-998B-58249508121D}",
+        "cover_category": "Evergreen",
+        "source_pixels": 430,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 827,
+        "GlobalID": "{437E36A7-D732-4927-9AC1-2253AFD5C805}",
+        "cover_category": "Evergreen",
+        "source_pixels": 374,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 828,
+        "GlobalID": "{AD9F3959-9D6F-4CB3-9BB2-7499B2771C53}",
+        "cover_category": "Evergreen",
+        "source_pixels": 381,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 829,
+        "GlobalID": "{F91C8A75-ED99-479B-BA17-80C3036599EA}",
+        "cover_category": "Evergreen",
+        "source_pixels": 176,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 830,
+        "GlobalID": "{30476EBE-65AC-4B93-ABA9-9D2322139AD3}",
+        "cover_category": "Evergreen",
+        "source_pixels": 356,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 831,
+        "GlobalID": "{EEE510C7-D5E8-4E1E-A919-51A1F9B9EB3E}",
+        "cover_category": "Evergreen",
+        "source_pixels": 369,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 832,
+        "GlobalID": "{6B24FDEB-A0F7-40A9-A2A8-CDD30A7C1CB7}",
+        "cover_category": "Evergreen",
+        "source_pixels": 218,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 833,
+        "GlobalID": "{CD22B493-46A0-4028-A0B0-8AA4C05AC279}",
+        "cover_category": "Evergreen",
+        "source_pixels": 209,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 834,
+        "GlobalID": "{C18B1459-054E-42BD-8A8C-89EB1ADADE99}",
+        "cover_category": "Evergreen",
+        "source_pixels": 71,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 835,
+        "GlobalID": "{0D3B04EC-A76B-4AB4-8FA5-E56A3A591E7E}",
+        "cover_category": "Evergreen",
+        "source_pixels": 174,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 836,
+        "GlobalID": "{E83B3E3A-3D6B-417B-A27D-0C9668552F6C}",
+        "cover_category": "Evergreen",
+        "source_pixels": 223,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 837,
+        "GlobalID": "{404A5FC3-F5E5-455A-9F33-F8AB117FF65D}",
+        "cover_category": "Evergreen",
+        "source_pixels": 298,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 838,
+        "GlobalID": "{CB585ED1-5A6B-42ED-AAC6-D24E87827E82}",
+        "cover_category": "Evergreen",
+        "source_pixels": 241,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 839,
+        "GlobalID": "{9237054E-593B-4EC4-8BB3-90AF40BCD806}",
+        "cover_category": "Evergreen",
+        "source_pixels": 190,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 840,
+        "GlobalID": "{F13B8A01-099D-4435-9607-3A4E29E8A71F}",
+        "cover_category": "Evergreen",
+        "source_pixels": 199,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 841,
+        "GlobalID": "{2FFBDBD1-5F29-48AA-8187-437088EDA2E0}",
+        "cover_category": "Evergreen",
+        "source_pixels": 89,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 842,
+        "GlobalID": "{44F43FE3-1E5A-4C19-85F2-095E36FADAAB}",
+        "cover_category": "Evergreen",
+        "source_pixels": 103,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 843,
+        "GlobalID": "{E6B9A42F-2377-4AE0-B196-C32723C39C05}",
+        "cover_category": "Evergreen",
+        "source_pixels": 129,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 844,
+        "GlobalID": "{270B9864-6E03-47E8-A4B5-53C66A87E9C2}",
+        "cover_category": "Evergreen",
+        "source_pixels": 119,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 845,
+        "GlobalID": "{AAE3B64A-56EC-49F9-8B63-3C463A86A3C3}",
+        "cover_category": "Evergreen",
+        "source_pixels": 474,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 846,
+        "GlobalID": "{71DFAF07-7128-4B39-ACE3-FB6CE32682E8}",
+        "cover_category": "Evergreen",
+        "source_pixels": 95,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 847,
+        "GlobalID": "{CB329EE0-804E-4F25-87F5-CB5CE0D7CEED}",
+        "cover_category": "Evergreen",
+        "source_pixels": 202,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 848,
+        "GlobalID": "{2DF35F7C-A7DD-4266-9779-1741E29DC151}",
+        "cover_category": "Evergreen",
+        "source_pixels": 113,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 849,
+        "GlobalID": "{9D46AFBF-852E-46F7-8246-3EA30D62BA07}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 489
+      },
+      {
+        "polygon_id": 850,
+        "GlobalID": "{7CCEE5F2-09BA-4713-8A7C-0C490888E74D}",
+        "cover_category": "Evergreen",
+        "source_pixels": 170,
+        "legacy_pixels": 115
+      },
+      {
+        "polygon_id": 851,
+        "GlobalID": "{A84B4954-5474-4B01-9025-DFAF934F4C5B}",
+        "cover_category": "Evergreen",
+        "source_pixels": 323,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 852,
+        "GlobalID": "{F1F52AC1-C428-4F0A-8434-FA4A02AB11FD}",
+        "cover_category": "Evergreen",
+        "source_pixels": 497,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 853,
+        "GlobalID": "{4CE9EB13-BD1A-4EE4-9CCC-E1B5691DCE92}",
+        "cover_category": "Evergreen",
+        "source_pixels": 989,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 854,
+        "GlobalID": "{E57438F4-3DB2-4075-8370-60CA2FBA01A5}",
+        "cover_category": "Evergreen",
+        "source_pixels": 596,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 855,
+        "GlobalID": "{911217D7-3170-4E49-A585-7EF32A317AF9}",
+        "cover_category": "Evergreen",
+        "source_pixels": 276,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 856,
+        "GlobalID": "{19A67C20-9C7B-463F-9FF9-7F2BD9333544}",
+        "cover_category": "Evergreen",
+        "source_pixels": 257,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 857,
+        "GlobalID": "{EA515C5B-69A2-4FB2-97C6-0D7A1F57CEF2}",
+        "cover_category": "Evergreen",
+        "source_pixels": 269,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 858,
+        "GlobalID": "{0BC06B7D-7FBE-4315-956A-DBC98DE00ABB}",
+        "cover_category": "Evergreen",
+        "source_pixels": 464,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 859,
+        "GlobalID": "{4AB2B297-5552-4798-A238-B06A83A2DACB}",
+        "cover_category": "Evergreen",
+        "source_pixels": 398,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 860,
+        "GlobalID": "{60BC7177-9050-4D4A-BF31-26B8FCEEF360}",
+        "cover_category": "Evergreen",
+        "source_pixels": 197,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 861,
+        "GlobalID": "{D5F53E89-66C5-4C57-8FCE-AB74572BD5B5}",
+        "cover_category": "Evergreen",
+        "source_pixels": 250,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 862,
+        "GlobalID": "{87220AC2-58F7-4489-8F88-C4389B722187}",
+        "cover_category": "Evergreen",
+        "source_pixels": 164,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 863,
+        "GlobalID": "{758AD2DC-5372-49A4-B92C-34876E49A185}",
+        "cover_category": "Evergreen",
+        "source_pixels": 213,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 864,
+        "GlobalID": "{B22BCDFD-5677-4A8A-BA47-72A3C7FAC00A}",
+        "cover_category": "Evergreen",
+        "source_pixels": 211,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 865,
+        "GlobalID": "{5E0FD64C-6762-480F-803A-F94D4C0D5919}",
+        "cover_category": "Deciduous",
+        "source_pixels": 8912,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 866,
+        "GlobalID": "{83213875-5A24-4D1F-94D0-C03BF0E60C01}",
+        "cover_category": "Evergreen",
+        "source_pixels": 855,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 867,
+        "GlobalID": "{29826EA1-80E5-4251-B0B7-84C4A8B58286}",
+        "cover_category": "Evergreen",
+        "source_pixels": 140,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 868,
+        "GlobalID": "{60D1C3C2-21F5-48D5-AB66-200CBFE00AA3}",
+        "cover_category": "Evergreen",
+        "source_pixels": 222,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 869,
+        "GlobalID": "{F3527346-C1A8-4ED9-9705-FF92A015714F}",
+        "cover_category": "Evergreen",
+        "source_pixels": 158,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 870,
+        "GlobalID": "{717AF439-73AB-4F43-804B-D9970F27BF68}",
+        "cover_category": "Deciduous",
+        "source_pixels": 1017,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 871,
+        "GlobalID": "{04CFA488-86CD-4E71-B71D-2F90C5E26888}",
+        "cover_category": "Evergreen",
+        "source_pixels": 759,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 872,
+        "GlobalID": "{C5DBC264-5FF0-42AB-B013-4D6100BF902A}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 134
+      },
+      {
+        "polygon_id": 873,
+        "GlobalID": "{F9A7B2A1-4108-4CB2-A47A-8CA8A0933C2F}",
+        "cover_category": "Deciduous",
+        "source_pixels": 0,
+        "legacy_pixels": 332
+      },
+      {
+        "polygon_id": 938,
+        "GlobalID": "{5A8F5F52-E86E-4354-A521-D7F1ABC78F65}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 15979,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 939,
+        "GlobalID": "{DE923B30-FF41-4E1B-B4E9-960AA2690B6D}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 496,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 940,
+        "GlobalID": "{D09937B5-B8FE-4CDF-BF33-D32F975210EE}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 414,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 941,
+        "GlobalID": "{36755706-C1CD-4525-90D6-A4A02B392FD9}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 5075,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 942,
+        "GlobalID": "{4A80274A-0670-47FC-9A1E-28E5B75F7925}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 6856,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 943,
+        "GlobalID": "{6072702D-C5BC-440E-9A7F-DB46318091A0}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 351,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 944,
+        "GlobalID": "{55721F7E-50EB-480E-AF71-03A6C9FB5405}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 751,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 945,
+        "GlobalID": "{3B7603B5-357F-4EC5-A660-DA26785B34A3}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 4023,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 946,
+        "GlobalID": "{99A52CCA-3139-49A0-9D61-F1F2087E6E10}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 913,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 947,
+        "GlobalID": "{EC99E539-9ABC-4FCF-BC09-A48436328FC9}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 261,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 948,
+        "GlobalID": "{93DC5C2F-2073-44C7-A8E5-5C8247DE6F90}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 2653,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 949,
+        "GlobalID": "{0AE1B7A8-E407-4858-92B1-53D2DE2F6D8A}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 155,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 950,
+        "GlobalID": "{10C97B19-0AB7-496B-97AC-FF92F54F138E}",
+        "cover_category": "Evergreen",
+        "source_pixels": 151,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 951,
+        "GlobalID": "{0892ED27-D109-4CFB-9147-C5EF1E0C5212}",
+        "cover_category": "Evergreen",
+        "source_pixels": 49,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 952,
+        "GlobalID": "{043DFAC7-F795-496C-9DDF-C630B7553C3C}",
+        "cover_category": "Evergreen",
+        "source_pixels": 419,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 953,
+        "GlobalID": "{C9EB7932-7CA5-4C83-8E92-F194B3307394}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 341,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 954,
+        "GlobalID": "{98FBFF6E-A009-4F3D-B117-225D63EB4B02}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 252,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 955,
+        "GlobalID": "{6F6FE13C-9366-471A-A152-797417024073}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 156,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 956,
+        "GlobalID": "{F8964583-83B3-486A-B96E-705562128F9D}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 56,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 957,
+        "GlobalID": "{BA6163F6-1809-4932-B631-93B365DF04D2}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 41,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 958,
+        "GlobalID": "{EF1E006C-6F45-4096-B7E3-76702BB03296}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 28,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 959,
+        "GlobalID": "{B03F24E8-1445-42BF-BE9B-7C06CEAE76EA}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 236,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 960,
+        "GlobalID": "{685A1132-997D-43E2-A410-12CACC3AC741}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 208,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 961,
+        "GlobalID": "{F53C5073-84B4-4286-A8DC-BD7054377E77}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 940,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 962,
+        "GlobalID": "{1D8A05FF-8CE9-4701-A37D-D97ABB54A8C3}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 209,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 969,
+        "GlobalID": "{49A335DD-5558-4A36-9DAF-5094B90F1FD4}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 576,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 970,
+        "GlobalID": "{D29899EE-0D35-4F1D-B98A-5538CDFFC4FE}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 220,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 971,
+        "GlobalID": "{60FBDDED-4EF7-46C2-AC6A-F04084594C45}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 813,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 972,
+        "GlobalID": "{F0F17050-64FE-4420-91F6-794C6F923A36}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 254,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 973,
+        "GlobalID": "{BC6203A4-FDC3-416A-9D4C-F63C775AC3DA}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 107,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 974,
+        "GlobalID": "{28B9BB84-54D5-4753-9683-9D123E41F264}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 436,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 975,
+        "GlobalID": "{6A8D7725-86A2-4599-9F3A-3BD9AC8B748A}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 87,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 976,
+        "GlobalID": "{83617476-60AF-4FEF-A91B-C26CD6F45D38}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 207,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 977,
+        "GlobalID": "{433ACC32-CA56-4415-B795-FAF11B2A1F6B}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 1119,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 978,
+        "GlobalID": "{F7761D7F-B4C2-47C0-BC75-E72F66C10D85}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 2186,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 979,
+        "GlobalID": "{F9398B40-2CA7-4218-A68D-78C130BDFFD7}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 1304,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 980,
+        "GlobalID": "{7A8A292C-5AD7-48A9-92F5-88BD490B25D6}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 289,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 981,
+        "GlobalID": "{51499892-CD28-433E-84AB-340CC378B0B3}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 77,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 982,
+        "GlobalID": "{C4DDFA6B-6350-46CA-811C-57EA28AB409D}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 147,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 983,
+        "GlobalID": "{E848DBC8-D0A5-4511-A176-2E1A3EBAF0A6}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 2300,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 984,
+        "GlobalID": "{7AC524D3-4876-4923-9A56-8882796A3C54}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 118,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 985,
+        "GlobalID": "{B3288E38-7D65-49AB-810E-4ABF8F62E43D}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 2084,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 986,
+        "GlobalID": "{9A0496E4-7DC4-4451-85C5-A126057BD743}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 42,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 987,
+        "GlobalID": "{8A4E241A-6171-4E57-B025-5FC97B6C2D4D}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 1268,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 988,
+        "GlobalID": "{4D4F96F1-D34A-4482-8E45-7A6A36220C7F}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 298,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 989,
+        "GlobalID": "{471FECB3-E848-49B1-8672-9B7CD7A124C8}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 1278,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 990,
+        "GlobalID": "{64F14D11-7873-4A3B-A5B0-4E7D6B51AD08}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 7209,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 991,
+        "GlobalID": "{E4780BBC-9B41-45FF-90DB-AE82DF2CCF0D}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 2269,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 992,
+        "GlobalID": "{B08CD598-B896-471F-A5C0-D36A7E026A18}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 677,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 993,
+        "GlobalID": "{4606D2AB-1615-44F3-8F43-4324CC2008CE}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 383,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 994,
+        "GlobalID": "{A4F1F950-6EA8-45B2-9E07-BE056BE4884B}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 1125,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 996,
+        "GlobalID": "{9BFE07BE-BAA5-454C-A0A7-BEDF9CDD6399}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 648,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 997,
+        "GlobalID": "{6EBA6B9F-3BC9-4F5F-B1A1-3DA6E12FE156}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 941,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 1000,
+        "GlobalID": "{BE02A536-E5B9-4539-933D-954A539FB82D}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 158,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 1001,
+        "GlobalID": "{B454C829-6334-491B-870D-5D4B54FB8C29}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 518,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 1002,
+        "GlobalID": "{457A2A6E-AE8D-485C-9A3D-E7C42D1925CF}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 203,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 1003,
+        "GlobalID": "{0884664A-D5C2-4238-A15B-56F552B1E639}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 234,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 1004,
+        "GlobalID": "{E7B66691-9EC3-42BC-A0FC-89C5C7E0CFA1}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 152,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 1005,
+        "GlobalID": "{AD1CDAC6-419C-4D7C-B4ED-26117FD31E9B}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 0,
+        "legacy_pixels": 170
+      },
+      {
+        "polygon_id": 1006,
+        "GlobalID": "{87424EA6-9AD6-4FA3-9BD0-9FA629448E16}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 0,
+        "legacy_pixels": 193
+      },
+      {
+        "polygon_id": 1007,
+        "GlobalID": "{599A79F8-D13A-4AEC-9448-5F0D5CD6E1D8}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 0,
+        "legacy_pixels": 132
+      },
+      {
+        "polygon_id": 1008,
+        "GlobalID": "{8EE0DB1D-B3A6-48E8-86E7-C063EA078072}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 0,
+        "legacy_pixels": 160
+      },
+      {
+        "polygon_id": 1009,
+        "GlobalID": "{4EF04B4F-8385-4B4F-9F2F-6A84367286F0}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 0,
+        "legacy_pixels": 95
+      },
+      {
+        "polygon_id": 1010,
+        "GlobalID": "{060CD973-06C3-4C2C-9D9A-9AB04BBC97C2}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 0,
+        "legacy_pixels": 314
+      },
+      {
+        "polygon_id": 1011,
+        "GlobalID": "{CBA7E1C3-18E8-4792-9AAB-664E079D817E}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 0,
+        "legacy_pixels": 229
+      },
+      {
+        "polygon_id": 1012,
+        "GlobalID": "{BA53E2D0-F70D-49B5-B56D-37615F6615C5}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 0,
+        "legacy_pixels": 131
+      }
+    ]
+  },
+  {
+    "flight": "AOP_GORDON_20230814",
+    "source_tiff": "/private/tmp/spectralbridge-drone-production/AOP-GORDON-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+    "source_h5": "/private/tmp/spectralbridge-drone-production/AOP-GORDON-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+    "source_tiff_sha256": "aaa5a0d8ac0ad19652993a9cafdfbe5c24d386b93fc5657be1345e872e1696e0",
+    "source_h5_sha256": "e926c0c4a4188d0aed30047ab7d0ba5d2040823d66299b071d001a86ed5076dd",
+    "dimensions": [
+      2088,
+      2948
+    ],
+    "source_band_count": 11,
+    "h5_band_count": 10,
+    "explicit_verified_source_bands": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "unmapped_source_bands": [
+      11
+    ],
+    "source_crs": "EPSG:26913",
+    "h5_crs": "PROJCS[\"NAD83 / UTM zone 13N\",GEOGCS[\"NAD83\",DATUM[\"North_American_Datum_1983\",SPHEROID[\"GRS 1980\",6378137,298.257222101,AUTHORITY[\"EPSG\",\"7019\"]],AUTHORITY[\"EPSG\",\"6269\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4269\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-105],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"26913\"]]",
+    "source_affine": [
+      0.0999999999999763,
+      0.0,
+      457268.25,
+      0.0,
+      -0.0999999999999108,
+      4429034.8
+    ],
+    "source_bounds": [
+      457268.25,
+      4428826.0,
+      457563.04999999993,
+      4429034.8
+    ],
+    "source_nodata": "NaN",
+    "h5_map_info": "UTM, 1.000, 1.000, 457268.250, 4429034.800, 0.100, -0.100, 13, North, WGS-84, units=Meters, 0",
+    "h5_attribute_names": [],
+    "values_compared": 61554240,
+    "exact_value_mismatches": 0,
+    "legacy_recorded_crs": "EPSG:32613",
+    "legacy_recorded_affine": [
+      0.1,
+      -0.0,
+      457268.25,
+      0.0,
+      0.1,
+      4429034.8
+    ],
+    "control_points": [
+      {
+        "row": 0,
+        "col": 0,
+        "source_x": 457268.3,
+        "source_y": 4429034.75,
+        "legacy_x": 457268.3,
+        "legacy_y": 4429034.85,
+        "legacy_x_in_source_crs": 457268.29999971006,
+        "legacy_y_in_source_crs": 4429034.849886105,
+        "displacement_m": 0.0998861053962743,
+        "numeric_displacement_source_units": 0.09999999962747097,
+        "source_values": [
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0
+        ]
+      },
+      {
+        "row": 0,
+        "col": 2947,
+        "source_x": 457562.99999999994,
+        "source_y": 4429034.75,
+        "legacy_x": 457563.0,
+        "legacy_y": 4429034.85,
+        "legacy_x_in_source_crs": 457562.9999997119,
+        "legacy_y_in_source_crs": 4429034.849886105,
+        "displacement_m": 0.09988610539626891,
+        "numeric_displacement_source_units": 0.09999999962747097,
+        "source_values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "row": 2087,
+        "col": 0,
+        "source_x": 457268.3,
+        "source_y": 4428826.05,
+        "legacy_x": 457268.3,
+        "legacy_y": 4429243.55,
+        "legacy_x_in_source_crs": 457268.29999970976,
+        "legacy_y_in_source_crs": 4429243.549886103,
+        "displacement_m": 417.4998861029744,
+        "numeric_displacement_source_units": 417.5,
+        "source_values": [
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0,
+          10000.0
+        ]
+      },
+      {
+        "row": 2087,
+        "col": 2947,
+        "source_x": 457562.99999999994,
+        "source_y": 4428826.05,
+        "legacy_x": 457563.0,
+        "legacy_y": 4429243.55,
+        "legacy_x_in_source_crs": 457562.99999971146,
+        "legacy_y_in_source_crs": 4429243.549886103,
+        "displacement_m": 417.4998861029744,
+        "numeric_displacement_source_units": 417.5,
+        "source_values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "row": 1044,
+        "col": 1474,
+        "source_x": 457415.69999999995,
+        "source_y": 4428930.35,
+        "legacy_x": 457415.7,
+        "legacy_y": 4429139.25,
+        "legacy_x_in_source_crs": 457415.69999971037,
+        "legacy_y_in_source_crs": 4429139.249886104,
+        "displacement_m": 208.89988610427827,
+        "numeric_displacement_source_units": 208.90000000037253,
+        "source_values": [
+          48.265472412109375,
+          62.16984176635742,
+          89.83170318603516,
+          110.75899505615234,
+          87.196044921875,
+          75.9029312133789,
+          178.14547729492188,
+          265.57098388671875,
+          460.1931457519531,
+          706.3056640625
+        ]
+      }
+    ],
+    "maximum_control_displacement_m": 417.4998861029744,
+    "empty_reference_geometries": 1,
+    "source_index_pixels": 32930,
+    "legacy_replayed_index_pixels": 2399,
+    "source_valid_selected_pixels": 32930,
+    "legacy_valid_selected_pixels": 2399,
+    "legacy_selected_wrong_polygon_pixels": 2399,
+    "same_pixel_same_polygon": 0,
+    "scientific_scope": "Source grid versus replay of saved production affine/CRS; not an actual downloaded historical Parquet. All 10 mapped bands compared exactly, with NaN equality. Eleventh band remains unclassified.",
+    "per_polygon": [
+      {
+        "polygon_id": 14,
+        "GlobalID": "{EF04DF51-68D8-4CC1-885B-A3DBEE746F99}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 367,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 15,
+        "GlobalID": "{07590288-E506-4F31-B6ED-FA035718C927}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 274,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 16,
+        "GlobalID": "{7DF1CCDE-F28F-44C1-B840-96C8924ACB0D}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 295,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 17,
+        "GlobalID": "{AF771E93-B652-422C-9372-1588E36C8342}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 173,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 18,
+        "GlobalID": "{078B17EE-302F-42C2-B70D-2A408B16E1F8}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 544,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 19,
+        "GlobalID": "{D570633E-BDD4-43CC-9C70-8C04FD063047}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 358,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 20,
+        "GlobalID": "{7C48ADBF-7A71-4B12-979C-40C98B3E3ECE}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 115,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 21,
+        "GlobalID": "{7208D83F-DB1F-4F68-99C9-EB10C45F9203}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 129,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 22,
+        "GlobalID": "{A7B295EA-49D4-4C54-AB1A-9BD526C27237}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 319,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 23,
+        "GlobalID": "{D332C093-BA56-4978-9B9F-D4AE6D609FF7}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 165,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 35,
+        "GlobalID": "{23FF5445-8366-408D-8B0E-D077E1B818BD}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 2538,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 59,
+        "GlobalID": "{2A294E8D-6093-4C91-A538-A69407216BFB}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 0,
+        "legacy_pixels": 632
+      },
+      {
+        "polygon_id": 60,
+        "GlobalID": "{2592397A-EF7D-4E00-91A0-1B64BFB9CE63}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 0,
+        "legacy_pixels": 349
+      },
+      {
+        "polygon_id": 61,
+        "GlobalID": "{8805D199-F5DE-4593-AEBB-48263D3A24AE}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 0,
+        "legacy_pixels": 668
+      },
+      {
+        "polygon_id": 63,
+        "GlobalID": "{E56C8965-D522-44DB-8E88-D299A343353F}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 1574,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 64,
+        "GlobalID": "{6346CB33-A70A-44AE-8992-ACB7B7D3556B}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 474,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 65,
+        "GlobalID": "{20E9673C-6D7F-40AB-9539-07EF02FD56CC}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 1358,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 66,
+        "GlobalID": "{6BFBE6C9-0A7E-462E-8E35-54364853110E}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 1228,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 67,
+        "GlobalID": "{ADCD9C98-1A2C-4729-9046-BFA11D34CE7E}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 961,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 68,
+        "GlobalID": "{3AAF53AB-6FE5-4F40-AF54-AC5D3B97DB82}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 745,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 69,
+        "GlobalID": "{9A8FBAB7-2C54-4086-BF44-3EA1AB822988}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 1659,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 70,
+        "GlobalID": "{E1336CF6-AE19-4423-90B7-4BD223A5EEF3}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 389,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 71,
+        "GlobalID": "{E7B79CFD-2595-4595-92AE-A0D74D307116}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 89,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 72,
+        "GlobalID": "{A1F5E8C9-2DEB-4379-985E-7382FD9FCAAF}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 68,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 73,
+        "GlobalID": "{B6BB79CC-09D6-4EEB-9C2F-2C054E4C22B8}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 337,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 74,
+        "GlobalID": "{8C2284E2-9E7D-472D-AB3B-2E795A4E7907}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 188,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 75,
+        "GlobalID": "{00AE2D15-F9E2-4701-86AF-B9F46DFFBC11}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 460,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 76,
+        "GlobalID": "{37F4B53A-9510-45F7-AD15-9DEF632AFF23}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 118,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 77,
+        "GlobalID": "{70DC12B1-CCBE-4C2C-BA5F-F21CA1B90B4C}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 173,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 78,
+        "GlobalID": "{873EA88E-D0A3-4A8A-8D81-34D6741C0FA6}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 207,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 79,
+        "GlobalID": "{8D286CC9-C5FD-4B88-A7B1-2012BD69102E}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 327,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 80,
+        "GlobalID": "{7323FAFA-2777-4F38-9191-2D3C17F34FFF}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 231,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 81,
+        "GlobalID": "{74F086F9-B47A-4BA9-A8C7-DD1FD4EA44CC}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 176,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 82,
+        "GlobalID": "{EF8DE420-7DB9-4799-A48E-E2434A82C164}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 532,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 83,
+        "GlobalID": "{6A7E3D81-B6DD-4437-9BAF-23A838DD7E5B}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 592,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 84,
+        "GlobalID": "{E50FFC13-D9E5-4A20-BF4D-D5B72BCF2913}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 463,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 142,
+        "GlobalID": "{D7AF4C26-A9C9-4F44-8F83-BC2FB2FB73C3}",
+        "cover_category": "Evergreen",
+        "source_pixels": 94,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 143,
+        "GlobalID": "{09877185-DC09-4DBF-92A7-F8E9173CB358}",
+        "cover_category": "Evergreen",
+        "source_pixels": 583,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 144,
+        "GlobalID": "{4779C37C-7059-45F4-AEC8-6FA208AEE8D1}",
+        "cover_category": "Evergreen",
+        "source_pixels": 265,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 145,
+        "GlobalID": "{B9A57C5F-A0DF-4606-8D2F-A2E20B09AE81}",
+        "cover_category": "Evergreen",
+        "source_pixels": 407,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 146,
+        "GlobalID": "{4477B44F-6454-43ED-821F-345B5FF233C7}",
+        "cover_category": "Evergreen",
+        "source_pixels": 193,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 147,
+        "GlobalID": "{29AADBC8-9069-40E0-857C-C89FA39340C6}",
+        "cover_category": "Evergreen",
+        "source_pixels": 310,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 148,
+        "GlobalID": "{03EF3FDA-6994-4847-8257-2C3063F27B64}",
+        "cover_category": "Evergreen",
+        "source_pixels": 140,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 149,
+        "GlobalID": "{A7EA915E-C6C0-4CC6-BD73-6336B5AC2BDF}",
+        "cover_category": "Evergreen",
+        "source_pixels": 339,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 150,
+        "GlobalID": "{6F9267EA-01BD-46EC-94E7-2531BB176D83}",
+        "cover_category": "Evergreen",
+        "source_pixels": 552,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 151,
+        "GlobalID": "{27FDE1F4-4535-4DD5-80B5-8530489BF58F}",
+        "cover_category": "Evergreen",
+        "source_pixels": 606,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 152,
+        "GlobalID": "{DED1EE46-A992-4A2A-9133-E8A8AB750BC2}",
+        "cover_category": "Evergreen",
+        "source_pixels": 185,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 153,
+        "GlobalID": "{385F4786-A7F3-48E8-BA6B-ACEAD9AEEE11}",
+        "cover_category": "Evergreen",
+        "source_pixels": 209,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 154,
+        "GlobalID": "{65DEC5DA-6CC6-45CB-8342-024CC258D156}",
+        "cover_category": "Evergreen",
+        "source_pixels": 99,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 155,
+        "GlobalID": "{E1F725E4-C28B-40A7-9E86-6578163DCEB1}",
+        "cover_category": "Evergreen",
+        "source_pixels": 115,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 156,
+        "GlobalID": "{F8F78134-FCAE-43C5-B09E-7DC792B44084}",
+        "cover_category": "Evergreen",
+        "source_pixels": 302,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 157,
+        "GlobalID": "{E18C9D58-2AB5-40B6-B557-935021D8F7B4}",
+        "cover_category": "Evergreen",
+        "source_pixels": 231,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 158,
+        "GlobalID": "{A3585C36-E618-462B-AB2F-E851E233A3FC}",
+        "cover_category": "Evergreen",
+        "source_pixels": 245,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 159,
+        "GlobalID": "{D8627F2C-C62C-48D3-9047-8F02E47B7EBA}",
+        "cover_category": "Evergreen",
+        "source_pixels": 207,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 204,
+        "GlobalID": "{535F5FBE-C626-4181-B8DE-05A7E0B65C1A}",
+        "cover_category": "Deciduous",
+        "source_pixels": 0,
+        "legacy_pixels": 430
+      },
+      {
+        "polygon_id": 205,
+        "GlobalID": "{06797C3D-DE5B-4B40-9945-377BDC1A0685}",
+        "cover_category": "Deciduous",
+        "source_pixels": 0,
+        "legacy_pixels": 106
+      },
+      {
+        "polygon_id": 207,
+        "GlobalID": "{FD902B7A-833F-4BFF-9D18-6723B0159555}",
+        "cover_category": "Deciduous",
+        "source_pixels": 0,
+        "legacy_pixels": 214
+      },
+      {
+        "polygon_id": 208,
+        "GlobalID": "{4C881420-FD87-49DF-A81A-0769FFAA2F50}",
+        "cover_category": "Deciduous",
+        "source_pixels": 4706,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 209,
+        "GlobalID": "{52862F1F-2599-43EC-BC1F-74EABD253CF9}",
+        "cover_category": "Deciduous",
+        "source_pixels": 262,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 210,
+        "GlobalID": "{7BE86250-06C0-4DAA-8BB5-8940089A49DB}",
+        "cover_category": "Deciduous",
+        "source_pixels": 148,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 211,
+        "GlobalID": "{B7ADEA97-84A9-4E53-A13A-9ED90F055135}",
+        "cover_category": "Deciduous",
+        "source_pixels": 232,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 212,
+        "GlobalID": "{35509AC5-EBED-4B1F-AD2D-E7D149B78AD6}",
+        "cover_category": "Deciduous",
+        "source_pixels": 331,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 213,
+        "GlobalID": "{37004739-B451-481A-B208-273A25420208}",
+        "cover_category": "Deciduous",
+        "source_pixels": 114,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 214,
+        "GlobalID": "{9717614A-1543-434E-9AD1-AFC5755E16AF}",
+        "cover_category": "Deciduous",
+        "source_pixels": 4429,
+        "legacy_pixels": 0
+      }
+    ]
+  },
+  {
+    "flight": "AOP_Ruby_20230814",
+    "source_tiff": "/private/tmp/spectralbridge-drone-production/AOP-Ruby-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+    "source_h5": "/private/tmp/spectralbridge-drone-production/AOP-Ruby-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+    "source_tiff_sha256": "c8ce548934f6df84089a520e846379ef5d4cf624e06c46201ba103e2ea996d5b",
+    "source_h5_sha256": "769c6a9599bc242e7ed8f0fae5e69d324fbbc0f02adb18386c19703f5f9d6cb2",
+    "dimensions": [
+      1035,
+      1960
+    ],
+    "source_band_count": 11,
+    "h5_band_count": 10,
+    "explicit_verified_source_bands": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "unmapped_source_bands": [
+      11
+    ],
+    "source_crs": "EPSG:26913",
+    "h5_crs": "PROJCS[\"NAD83 / UTM zone 13N\",GEOGCS[\"NAD83\",DATUM[\"North_American_Datum_1983\",SPHEROID[\"GRS 1980\",6378137,298.257222101,AUTHORITY[\"EPSG\",\"7019\"]],AUTHORITY[\"EPSG\",\"6269\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4269\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-105],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"26913\"]]",
+    "source_affine": [
+      0.1,
+      0.0,
+      455725.0,
+      0.0,
+      -0.1,
+      4432104.75
+    ],
+    "source_bounds": [
+      455725.0,
+      4432001.25,
+      455921.0,
+      4432104.75
+    ],
+    "source_nodata": "NaN",
+    "h5_map_info": "UTM, 1.000, 1.000, 455725.000, 4432104.750, 0.100, -0.100, 13, North, WGS-84, units=Meters, 0",
+    "h5_attribute_names": [],
+    "values_compared": 20286000,
+    "exact_value_mismatches": 0,
+    "legacy_recorded_crs": "EPSG:32613",
+    "legacy_recorded_affine": [
+      0.1,
+      -0.0,
+      455725.0,
+      0.0,
+      0.1,
+      4432104.75
+    ],
+    "control_points": [
+      {
+        "row": 0,
+        "col": 0,
+        "source_x": 455725.05,
+        "source_y": 4432104.7,
+        "legacy_x": 455725.05,
+        "legacy_y": 4432104.8,
+        "legacy_x_in_source_crs": 455725.04999969946,
+        "legacy_y_in_source_crs": 4432104.799886068,
+        "displacement_m": 0.09988606814340263,
+        "numeric_displacement_source_units": 0.09999999962747097,
+        "source_values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "row": 0,
+        "col": 1959,
+        "source_x": 455920.95,
+        "source_y": 4432104.7,
+        "legacy_x": 455920.95,
+        "legacy_y": 4432104.8,
+        "legacy_x_in_source_crs": 455920.9499996999,
+        "legacy_y_in_source_crs": 4432104.7998860665,
+        "displacement_m": 0.09988606628075626,
+        "numeric_displacement_source_units": 0.09999999962747097,
+        "source_values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "row": 1034,
+        "col": 0,
+        "source_x": 455725.05,
+        "source_y": 4432001.3,
+        "legacy_x": 455725.05,
+        "legacy_y": 4432208.2,
+        "legacy_x_in_source_crs": 455725.0499996994,
+        "legacy_y_in_source_crs": 4432208.199886065,
+        "displacement_m": 206.89988606516272,
+        "numeric_displacement_source_units": 206.90000000037253,
+        "source_values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "row": 1034,
+        "col": 1959,
+        "source_x": 455920.95,
+        "source_y": 4432001.3,
+        "legacy_x": 455920.95,
+        "legacy_y": 4432208.2,
+        "legacy_x_in_source_crs": 455920.94999970065,
+        "legacy_y_in_source_crs": 4432208.199886064,
+        "displacement_m": 206.8998860642314,
+        "numeric_displacement_source_units": 206.90000000037253,
+        "source_values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "row": 517,
+        "col": 980,
+        "source_x": 455823.05,
+        "source_y": 4432053.0,
+        "legacy_x": 455823.05,
+        "legacy_y": 4432156.5,
+        "legacy_x_in_source_crs": 455823.04999969946,
+        "legacy_y_in_source_crs": 4432156.499886067,
+        "displacement_m": 103.49988606665283,
+        "numeric_displacement_source_units": 103.5,
+        "source_values": [
+          93.95170593261719,
+          126.11492919921875,
+          245.00807189941406,
+          291.210693359375,
+          209.87664794921875,
+          176.1192626953125,
+          462.5102844238281,
+          722.2732543945312,
+          1179.567626953125,
+          1476.1544189453125
+        ]
+      }
+    ],
+    "maximum_control_displacement_m": 206.89988606516272,
+    "empty_reference_geometries": 1,
+    "source_index_pixels": 22684,
+    "legacy_replayed_index_pixels": 9514,
+    "source_valid_selected_pixels": 22684,
+    "legacy_valid_selected_pixels": 9514,
+    "legacy_selected_wrong_polygon_pixels": 9514,
+    "same_pixel_same_polygon": 0,
+    "scientific_scope": "Source grid versus replay of saved production affine/CRS; not an actual downloaded historical Parquet. All 10 mapped bands compared exactly, with NaN equality. Eleventh band remains unclassified.",
+    "per_polygon": [
+      {
+        "polygon_id": 494,
+        "GlobalID": "{E19BF6AD-0496-407F-A252-BE36126B9F29}",
+        "cover_category": "Evergreen",
+        "source_pixels": 138,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 495,
+        "GlobalID": "{7104A971-272F-4EA5-AA74-E9A402B206F8}",
+        "cover_category": "Evergreen",
+        "source_pixels": 361,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 496,
+        "GlobalID": "{281AC7F2-E86B-4401-9F70-46DB473041DB}",
+        "cover_category": "Evergreen",
+        "source_pixels": 223,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 497,
+        "GlobalID": "{798A36C5-9034-4290-96F3-DDA3204A85F6}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 167
+      },
+      {
+        "polygon_id": 498,
+        "GlobalID": "{AF9EE66E-365A-46A5-8B7D-36427A8F6B59}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 204
+      },
+      {
+        "polygon_id": 499,
+        "GlobalID": "{A8EF2B15-AC65-4526-806A-94E70499E5B0}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 95
+      },
+      {
+        "polygon_id": 500,
+        "GlobalID": "{7833EACC-7655-43D4-8D47-AE15AAB467FA}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 277
+      },
+      {
+        "polygon_id": 501,
+        "GlobalID": "{C966A26A-30EE-44B8-A028-71237085D357}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 91
+      },
+      {
+        "polygon_id": 502,
+        "GlobalID": "{661911E4-75CE-49DF-B242-DB23B0FF9C23}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 304
+      },
+      {
+        "polygon_id": 503,
+        "GlobalID": "{9793E906-6815-4DEA-804C-6131E63026A8}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 158
+      },
+      {
+        "polygon_id": 504,
+        "GlobalID": "{E0B9A566-2824-44FA-96BC-A23ED8F11846}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 638
+      },
+      {
+        "polygon_id": 505,
+        "GlobalID": "{BE50F842-A0D4-4ADC-BF6E-5FB999380E3B}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 106
+      },
+      {
+        "polygon_id": 506,
+        "GlobalID": "{B314C3DB-FD0C-4180-8665-DA2F5088AD47}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 118
+      },
+      {
+        "polygon_id": 507,
+        "GlobalID": "{57593FEE-A239-4183-948C-39C4E831914F}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 141
+      },
+      {
+        "polygon_id": 508,
+        "GlobalID": "{897FCF70-572A-4D9D-A35D-AD2F0FCC8250}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 167
+      },
+      {
+        "polygon_id": 509,
+        "GlobalID": "{C3EE515C-2E0C-42A0-BD05-548BBC279823}",
+        "cover_category": "Evergreen",
+        "source_pixels": 1424,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 510,
+        "GlobalID": "{FD712FA3-2BC5-417E-A2C6-B811105B2613}",
+        "cover_category": "Evergreen",
+        "source_pixels": 87,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 511,
+        "GlobalID": "{F5A269CB-67DB-4CBB-8ED4-B399441DF23F}",
+        "cover_category": "Evergreen",
+        "source_pixels": 95,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 512,
+        "GlobalID": "{B5D952F9-97D9-4010-9910-56A7C046FEC6}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 34,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 513,
+        "GlobalID": "{36861FEC-BB94-43EB-8BDC-E985453EB4E8}",
+        "cover_category": "Evergreen",
+        "source_pixels": 107,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 514,
+        "GlobalID": "{D5C92F51-665F-4EA4-BCB7-68A02A34C050}",
+        "cover_category": "Evergreen",
+        "source_pixels": 151,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 515,
+        "GlobalID": "{BB9B083C-B1A0-487C-A081-78424F017F2F}",
+        "cover_category": "Evergreen",
+        "source_pixels": 109,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 516,
+        "GlobalID": "{F19BE79E-A219-44EF-9522-6F52807FB721}",
+        "cover_category": "Evergreen",
+        "source_pixels": 142,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 517,
+        "GlobalID": "{6C022E27-D567-4000-8B14-570224C39617}",
+        "cover_category": "Evergreen",
+        "source_pixels": 240,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 518,
+        "GlobalID": "{E2A4172E-58F4-4917-A4B4-4257A8EFC320}",
+        "cover_category": "Evergreen",
+        "source_pixels": 167,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 519,
+        "GlobalID": "{68D1D6F2-0F87-45C0-B38A-4BBE31F47B24}",
+        "cover_category": "Evergreen",
+        "source_pixels": 98,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 520,
+        "GlobalID": "{ACF22E57-2128-4238-8875-57E860804347}",
+        "cover_category": "Evergreen",
+        "source_pixels": 92,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 521,
+        "GlobalID": "{343F53BA-8790-43B9-A623-8DCBF30F8712}",
+        "cover_category": "Evergreen",
+        "source_pixels": 110,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 522,
+        "GlobalID": "{1142D273-698C-4FB0-A790-C3460F2A5FF4}",
+        "cover_category": "Evergreen",
+        "source_pixels": 355,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 523,
+        "GlobalID": "{E9011497-C11A-473B-993E-80007490592B}",
+        "cover_category": "Evergreen",
+        "source_pixels": 156,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 524,
+        "GlobalID": "{F1C5593B-7519-487E-A8F2-8F4BACD039C1}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 995,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 525,
+        "GlobalID": "{A1AA7D7A-FED3-45CD-A002-652F23B175C4}",
+        "cover_category": "Evergreen",
+        "source_pixels": 452,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 526,
+        "GlobalID": "{32486AAB-521E-41D9-8193-E7BB145B1B66}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 234,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 527,
+        "GlobalID": "{5760AD81-20B6-4572-BCCC-BC8BE986B7EE}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 104,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 528,
+        "GlobalID": "{82F02D1E-ECB7-49EE-AAE6-92BB89123484}",
+        "cover_category": "Evergreen",
+        "source_pixels": 667,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 529,
+        "GlobalID": "{08896DC4-3FFE-4DE4-B4C7-B0C5F74662BD}",
+        "cover_category": "Evergreen",
+        "source_pixels": 1116,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 530,
+        "GlobalID": "{BA771BA8-23D7-45A1-A39B-B58FADF6C4B6}",
+        "cover_category": "Evergreen",
+        "source_pixels": 485,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 531,
+        "GlobalID": "{DE501F7B-86DC-451F-BF8D-501E0431A548}",
+        "cover_category": "Evergreen",
+        "source_pixels": 275,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 532,
+        "GlobalID": "{10A2F126-1CCA-4E99-84F6-CD7C0E9D32BD}",
+        "cover_category": "Evergreen",
+        "source_pixels": 382,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 533,
+        "GlobalID": "{866900CC-C548-4525-883E-6EE8C4D3D647}",
+        "cover_category": "Evergreen",
+        "source_pixels": 189,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 534,
+        "GlobalID": "{852FA382-4DBF-4E45-BFAA-7AAF9CE2D611}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 131,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 535,
+        "GlobalID": "{46813491-0B59-45DB-8D2B-66957F18A50F}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 171,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 545,
+        "GlobalID": "{07C70657-1186-4E15-BEB1-ADDD006D84F8}",
+        "cover_category": "Evergreen",
+        "source_pixels": 547,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 594,
+        "GlobalID": "{A559CFC2-577C-4266-8E28-E5C053E0F3C2}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 167,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 595,
+        "GlobalID": "{C14E22C6-EBAA-4ADD-AF1F-9E0114D03562}",
+        "cover_category": "Evergreen",
+        "source_pixels": 336,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 596,
+        "GlobalID": "{02BB82AF-35B4-4068-88DB-EA6D347B05BD}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 248,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 597,
+        "GlobalID": "{FDA9030F-7244-42E7-8F40-FE0944C28CA0}",
+        "cover_category": "Evergreen",
+        "source_pixels": 318,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 598,
+        "GlobalID": "{9DDFB715-6463-4C2C-9593-B83C208CF88B}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 167,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 599,
+        "GlobalID": "{21205E59-F8BE-4DE2-BA05-D3C7BE2F879B}",
+        "cover_category": "Evergreen",
+        "source_pixels": 261,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 600,
+        "GlobalID": "{89DE330E-0917-49D7-ADB1-C2537B2765A8}",
+        "cover_category": "Evergreen",
+        "source_pixels": 136,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 601,
+        "GlobalID": "{8D6FB5DB-5405-446E-830B-D46040DB83D5}",
+        "cover_category": "Evergreen",
+        "source_pixels": 378,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 602,
+        "GlobalID": "{A2776FD3-DA4B-4F2F-A2EE-8357C002D066}",
+        "cover_category": "Evergreen",
+        "source_pixels": 205,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 603,
+        "GlobalID": "{93E095EF-348D-4BEE-BE76-F7DC141D44B2}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 646,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 604,
+        "GlobalID": "{8D3F2EA7-3D37-46DA-9250-3A6DE7D70D0A}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 228,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 605,
+        "GlobalID": "{34CA5CB6-4965-47D2-BF96-09150FF3AFC1}",
+        "cover_category": "Evergreen",
+        "source_pixels": 108,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 606,
+        "GlobalID": "{96382EA6-E607-4B04-8FCC-860C7F8A0991}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 93,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 607,
+        "GlobalID": "{ECAF0829-2434-4D58-8D3E-87FE2D8C9022}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 102,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 608,
+        "GlobalID": "{AB0E901F-8963-468C-AB13-28E6F05D6D68}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 145,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 609,
+        "GlobalID": "{0B6A4BC0-0167-4E82-83E7-0B80EEF5BDDA}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 275
+      },
+      {
+        "polygon_id": 610,
+        "GlobalID": "{FABCA688-FFDF-4148-AA3F-36530FFEBE27}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 0,
+        "legacy_pixels": 94
+      },
+      {
+        "polygon_id": 611,
+        "GlobalID": "{3F087D06-C56B-4991-841A-49F53824F338}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 0,
+        "legacy_pixels": 132
+      },
+      {
+        "polygon_id": 612,
+        "GlobalID": "{34103717-F710-435C-83FC-58F15CA03D16}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 0,
+        "legacy_pixels": 114
+      },
+      {
+        "polygon_id": 613,
+        "GlobalID": "{14DA9980-F173-447C-8930-AEAB4C6BAC2D}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 133
+      },
+      {
+        "polygon_id": 614,
+        "GlobalID": "{17D52DCD-AA5B-4579-AB07-0EC051080506}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 0,
+        "legacy_pixels": 131
+      },
+      {
+        "polygon_id": 615,
+        "GlobalID": "{C61E93DC-6D45-40C8-8C47-EC92398633B2}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 0,
+        "legacy_pixels": 266
+      },
+      {
+        "polygon_id": 616,
+        "GlobalID": "{ED6AD46B-94FA-4709-AF09-BF69988A1E25}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 0,
+        "legacy_pixels": 141
+      },
+      {
+        "polygon_id": 617,
+        "GlobalID": "{87DA344E-1D4C-45F7-A101-D388863B3A8C}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 0,
+        "legacy_pixels": 216
+      },
+      {
+        "polygon_id": 618,
+        "GlobalID": "{F44F8E5D-8CD2-430B-84BC-D4F7239BDBC6}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 0,
+        "legacy_pixels": 251
+      },
+      {
+        "polygon_id": 619,
+        "GlobalID": "{007D09B2-6683-443D-9014-094A073C6AEB}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 0,
+        "legacy_pixels": 338
+      },
+      {
+        "polygon_id": 620,
+        "GlobalID": "{514D1176-0E2D-43FE-829D-9893117087C6}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 76,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 621,
+        "GlobalID": "{90101091-D288-4B5D-807A-A6C146CBA2CD}",
+        "cover_category": "Evergreen",
+        "source_pixels": 57,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 622,
+        "GlobalID": "{F10C8F06-8BB2-4A4A-ADD5-F8268431C09F}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 259,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 623,
+        "GlobalID": "{E0018DE6-7B46-4B5A-B28F-09EF6D470E3F}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 215,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 624,
+        "GlobalID": "{381613A4-59F9-47C0-9B15-9632F2F13AD1}",
+        "cover_category": "Evergreen",
+        "source_pixels": 83,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 625,
+        "GlobalID": "{ADB07AC5-AC0E-457E-87BA-A9BAD3D68576}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 226,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 626,
+        "GlobalID": "{A08D8F05-E3BD-4A8F-ACAE-96CC459F97AE}",
+        "cover_category": "Evergreen",
+        "source_pixels": 88,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 627,
+        "GlobalID": "{895CE94D-2D3A-484C-B43E-7AAEF2705331}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 80,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 628,
+        "GlobalID": "{C4FF0891-2ED8-4DFB-8D74-30A1C9419DB6}",
+        "cover_category": "Evergreen",
+        "source_pixels": 133,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 629,
+        "GlobalID": "{65FF760C-100C-4BE2-B833-2824E12E6C44}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 71,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 630,
+        "GlobalID": "{30BAD963-2811-4204-B2A7-3DFF8E8F4A3A}",
+        "cover_category": "Evergreen",
+        "source_pixels": 158,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 631,
+        "GlobalID": "{E5BA4EF2-ABA8-4432-A677-7469F55678E5}",
+        "cover_category": "Evergreen",
+        "source_pixels": 62,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 632,
+        "GlobalID": "{9CF9ADFE-5FD8-490A-8334-51390CE94F83}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 168,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 633,
+        "GlobalID": "{A07578F9-172D-4F5F-B4E7-29B22AD8E079}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 102,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 634,
+        "GlobalID": "{A7D7826C-C033-40AE-B892-E7EA3825EF28}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 145,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 635,
+        "GlobalID": "{E557EA8B-D7B9-4849-AE85-D5BF14DECE47}",
+        "cover_category": "Evergreen",
+        "source_pixels": 498,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 636,
+        "GlobalID": "{F437AD0A-A829-4442-A302-2F612A828CEE}",
+        "cover_category": "Evergreen",
+        "source_pixels": 178,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 637,
+        "GlobalID": "{B65F5A65-1BE3-412B-A953-72C25DC0D000}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 142,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 638,
+        "GlobalID": "{49F4A33C-0F80-407B-B213-70F139F2583B}",
+        "cover_category": "Herbaceous",
+        "source_pixels": 89,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 639,
+        "GlobalID": "{19128413-3BE6-4C96-9354-C9DEEE6A52E7}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 0,
+        "legacy_pixels": 132
+      },
+      {
+        "polygon_id": 641,
+        "GlobalID": "{7C657238-5EA4-40BB-B616-5BBF7ABE186E}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 0,
+        "legacy_pixels": 339
+      },
+      {
+        "polygon_id": 642,
+        "GlobalID": "{9D0B7557-A01A-44B0-9488-E8179F0244CE}",
+        "cover_category": "Non-vegetated & dead",
+        "source_pixels": 0,
+        "legacy_pixels": 96
+      },
+      {
+        "polygon_id": 643,
+        "GlobalID": "{F5887839-7858-41C8-86B6-CCD9E8F2BAF5}",
+        "cover_category": "Woody shrub",
+        "source_pixels": 0,
+        "legacy_pixels": 67
+      },
+      {
+        "polygon_id": 691,
+        "GlobalID": "{CE4A2ED4-2915-43A2-9968-4C7C11DB887E}",
+        "cover_category": "Evergreen",
+        "source_pixels": 447,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 692,
+        "GlobalID": "{02174F74-BED7-4654-B5C6-1B99AA5A4B88}",
+        "cover_category": "Evergreen",
+        "source_pixels": 390,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 693,
+        "GlobalID": "{380FE908-DA48-45A5-953B-7F3C3080E823}",
+        "cover_category": "Evergreen",
+        "source_pixels": 293,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 694,
+        "GlobalID": "{FF51CCD5-F1AC-49D2-BA95-B3CF35583908}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 208
+      },
+      {
+        "polygon_id": 695,
+        "GlobalID": "{C853665D-4C4A-4D8F-B7EF-88FABCC2FAD7}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 173
+      },
+      {
+        "polygon_id": 696,
+        "GlobalID": "{268A501C-45A5-4344-A155-C42F6F75CD47}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 484
+      },
+      {
+        "polygon_id": 697,
+        "GlobalID": "{B552726A-6203-4FD5-9978-E53743B4E23A}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 247
+      },
+      {
+        "polygon_id": 698,
+        "GlobalID": "{9B119611-7620-454A-A231-E0FC299E221C}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 193
+      },
+      {
+        "polygon_id": 699,
+        "GlobalID": "{7E749462-657B-484C-828A-67A78F68A367}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 117
+      },
+      {
+        "polygon_id": 700,
+        "GlobalID": "{C827CD66-84D3-4F8F-A225-7DB79B75CDCF}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 151
+      },
+      {
+        "polygon_id": 701,
+        "GlobalID": "{32B3570E-A296-47A6-9DDA-C0F8FFB2FC43}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 138
+      },
+      {
+        "polygon_id": 702,
+        "GlobalID": "{B4C886D1-75B6-4B24-A31D-E92E6044CBAD}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 157
+      },
+      {
+        "polygon_id": 703,
+        "GlobalID": "{1402787C-072A-4252-A174-B09A13C06885}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 137
+      },
+      {
+        "polygon_id": 704,
+        "GlobalID": "{EA1F8C9C-FD48-4FBB-95C5-D9B855A959AC}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 255
+      },
+      {
+        "polygon_id": 705,
+        "GlobalID": "{9B00C4E9-43C1-4262-BC26-B0D75E9EE687}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 206
+      },
+      {
+        "polygon_id": 706,
+        "GlobalID": "{BA34B499-BA4B-4A66-846B-694DE4AEADA9}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 356
+      },
+      {
+        "polygon_id": 707,
+        "GlobalID": "{ED0905E9-61BE-4A86-8AED-82A7F49CD75B}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 183
+      },
+      {
+        "polygon_id": 708,
+        "GlobalID": "{FC149C25-BC33-4E6C-93D7-BA4F7F9283AE}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 178
+      },
+      {
+        "polygon_id": 709,
+        "GlobalID": "{F2066ED3-4E67-47F4-8F0F-A2B9DF9FDB52}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 233
+      },
+      {
+        "polygon_id": 710,
+        "GlobalID": "{888C61E4-1DE5-4403-9818-E02934833AE2}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 168
+      },
+      {
+        "polygon_id": 711,
+        "GlobalID": "{86EF19DF-9C68-49F1-9F14-6395D2FC4DDC}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 123
+      },
+      {
+        "polygon_id": 712,
+        "GlobalID": "{BA1A5DB2-49B5-4639-A113-5D9AB16DED5E}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 217
+      },
+      {
+        "polygon_id": 713,
+        "GlobalID": "{79ADD9D5-09FE-42B2-84DB-8BD96399C95F}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 165
+      },
+      {
+        "polygon_id": 714,
+        "GlobalID": "{8D4A6AC3-D69F-4AF5-A560-41DFDC63AEEA}",
+        "cover_category": "Evergreen",
+        "source_pixels": 0,
+        "legacy_pixels": 234
+      },
+      {
+        "polygon_id": 715,
+        "GlobalID": "{86EBAD40-A4FA-46EA-85EC-A3E68A2B1DE5}",
+        "cover_category": "Evergreen",
+        "source_pixels": 173,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 716,
+        "GlobalID": "{B5556109-5EE3-458D-984D-369491C8A18E}",
+        "cover_category": "Evergreen",
+        "source_pixels": 332,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 717,
+        "GlobalID": "{5274285A-8EDF-472B-859C-084A8A7EDF9D}",
+        "cover_category": "Evergreen",
+        "source_pixels": 219,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 718,
+        "GlobalID": "{0DE4681A-FA04-4AF5-B0CB-E41BE9287AEF}",
+        "cover_category": "Evergreen",
+        "source_pixels": 292,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 719,
+        "GlobalID": "{2BD1FBC8-4B88-4FA2-919C-A32BD7021612}",
+        "cover_category": "Evergreen",
+        "source_pixels": 239,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 720,
+        "GlobalID": "{B265C8CC-0B3B-4160-B370-FA417256E282}",
+        "cover_category": "Evergreen",
+        "source_pixels": 413,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 721,
+        "GlobalID": "{9CF4A846-BAEF-4586-AF96-974DFE1A3A3B}",
+        "cover_category": "Evergreen",
+        "source_pixels": 423,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 722,
+        "GlobalID": "{12C4122F-C455-4BCD-AECD-0FEF53234821}",
+        "cover_category": "Evergreen",
+        "source_pixels": 162,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 723,
+        "GlobalID": "{0D375F33-1096-413E-8E5F-5CEA0A0AD0FD}",
+        "cover_category": "Evergreen",
+        "source_pixels": 130,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 724,
+        "GlobalID": "{8C4BF942-229D-4550-96A1-FD9E3726C752}",
+        "cover_category": "Evergreen",
+        "source_pixels": 310,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 725,
+        "GlobalID": "{023A5C3B-C42A-4050-B679-328F82D0D264}",
+        "cover_category": "Evergreen",
+        "source_pixels": 279,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 726,
+        "GlobalID": "{FC85368D-173C-4F3F-8E82-0300DEAF76AC}",
+        "cover_category": "Evergreen",
+        "source_pixels": 276,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 727,
+        "GlobalID": "{8852D356-551A-4E7A-BA0C-360D75588AD3}",
+        "cover_category": "Evergreen",
+        "source_pixels": 410,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 728,
+        "GlobalID": "{FB049DC9-2E47-4EA3-99CE-03ADEBAE9D7B}",
+        "cover_category": "Evergreen",
+        "source_pixels": 218,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 729,
+        "GlobalID": "{C1E87D5B-4468-474C-A1CA-FC35D13071C1}",
+        "cover_category": "Evergreen",
+        "source_pixels": 737,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 730,
+        "GlobalID": "{D9942B34-1409-49DC-8ADB-74889113389E}",
+        "cover_category": "Evergreen",
+        "source_pixels": 380,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 731,
+        "GlobalID": "{1A1FF787-215D-483B-BABF-7A30C74A7EF2}",
+        "cover_category": "Evergreen",
+        "source_pixels": 173,
+        "legacy_pixels": 0
+      },
+      {
+        "polygon_id": 732,
+        "GlobalID": "{997D22D4-C9F3-40ED-8C6B-97743C90187D}",
+        "cover_category": "Evergreen",
+        "source_pixels": 183,
+        "legacy_pixels": 0
+      }
+    ]
+  }
+]

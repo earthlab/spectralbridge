@@ -1,0 +1,710 @@
+{
+  "gordon": {
+    "source": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GORDON-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+    "recovered": "/private/tmp/goldhill-radiometric-recovery-20261102/gordon_recovered_source_dn.tif",
+    "status": "RECOVERED_SOURCE_DN \u2014 PHYSICAL_UNITS_UNVERIFIED",
+    "grid_unchanged": true,
+    "masks_unchanged": true,
+    "bands": [
+      {
+        "band": 1,
+        "valid_pixels": 6153336,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029795326463499805,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 6153336,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0,
+              0.02752685546875,
+              0.1268310546875,
+              19903.088653564453
+            ]
+          },
+          "rmse": 36.06858222431026,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 2,
+        "valid_pixels": 6153336,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.000298027771350462,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 6153336,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0,
+              0.03125,
+              0.143798828125,
+              19861.87139892578
+            ]
+          },
+          "rmse": 35.965290284162336,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 3,
+        "valid_pixels": 6153336,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029795326372550335,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 6153336,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0,
+              0.043212890625,
+              0.1923828125,
+              19704.734252929688
+            ]
+          },
+          "rmse": 35.611015806130254,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 4,
+        "valid_pixels": 6153336,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029795326372550335,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 6153336,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0,
+              0.04931640625,
+              0.21826171875,
+              19599.959716796875
+            ]
+          },
+          "rmse": 35.407612690358825,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 5,
+        "valid_pixels": 6153336,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.000298027771350462,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 6153336,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0,
+              0.0472412109375,
+              0.2152099609375,
+              19764.94415283203
+            ]
+          },
+          "rmse": 35.75310581686263,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 6,
+        "valid_pixels": 6153336,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029799051753798267,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 6153336,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0,
+              0.044189453125,
+              0.2054443359375,
+              19822.83856201172
+            ]
+          },
+          "rmse": 35.87515338962349,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 7,
+        "valid_pixels": 6153336,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029799051753798267,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 6153336,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0,
+              0.06298828125,
+              0.269287109375,
+              19406.6591796875
+            ]
+          },
+          "rmse": 34.95924926114583,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 8,
+        "valid_pixels": 6153336,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029799051753798267,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 6153336,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0,
+              0.08154296875,
+              0.350830078125,
+              19024.35693359375
+            ]
+          },
+          "rmse": 34.13097700813976,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 9,
+        "valid_pixels": 6153336,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029795326463499805,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 6153336,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0,
+              0.13330078125,
+              0.609375,
+              18133.36328125
+            ]
+          },
+          "rmse": 32.23099023220873,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 10,
+        "valid_pixels": 6153336,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029799051753798267,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 6153336,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0,
+              0.142578125,
+              0.6533203125,
+              17630.56884765625
+            ]
+          },
+          "rmse": 31.160823605728382,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 11,
+        "valid_pixels": 6153336,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.0,
+        "operation": "unchanged auxiliary/alpha"
+      }
+    ]
+  },
+  "goldhill": {
+    "source": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+    "recovered": "/private/tmp/goldhill-radiometric-recovery-20261102/goldhill_recovered_source_dn.tif",
+    "status": "RECOVERED_SOURCE_DN \u2014 PHYSICAL_UNITS_UNVERIFIED",
+    "grid_unchanged": true,
+    "masks_unchanged": true,
+    "bands": [
+      {
+        "band": 1,
+        "valid_pixels": 7068376,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.000298027771350462,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 7068376,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0244140625,
+              0.20703125,
+              0.4249267578125,
+              99.9210205078125
+            ]
+          },
+          "rmse": 1.4467373915912307,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 2,
+        "valid_pixels": 7068376,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029795326463499805,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 7068376,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.027587890625,
+              0.231689453125,
+              0.471435546875,
+              99.89093017578125
+            ]
+          },
+          "rmse": 1.4441385264090278,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 3,
+        "valid_pixels": 7068376,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029795326463499805,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 7068376,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0418701171875,
+              0.3314208984375,
+              0.611572265625,
+              99.7138671875
+            ]
+          },
+          "rmse": 1.436607940599221,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 4,
+        "valid_pixels": 7068376,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029799051753798267,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 7068376,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.04632568359375,
+              0.365234375,
+              0.66845703125,
+              99.6827392578125
+            ]
+          },
+          "rmse": 1.4337230642403815,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 5,
+        "valid_pixels": 7068376,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029795326463499805,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 7068376,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.040863037109375,
+              0.341064453125,
+              0.693603515625,
+              99.81268310546875
+            ]
+          },
+          "rmse": 1.4381273951665567,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 6,
+        "valid_pixels": 7068376,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.000298027771350462,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 7068376,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.03759765625,
+              0.32373046875,
+              0.67578125,
+              99.89361572265625
+            ]
+          },
+          "rmse": 1.4392160890751102,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 7,
+        "valid_pixels": 7068376,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.000298027771350462,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 7068376,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.05859375,
+              0.4405517578125,
+              0.793487548828125,
+              99.4232177734375
+            ]
+          },
+          "rmse": 1.4201984959680292,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 8,
+        "valid_pixels": 7068376,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029795326372550335,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 7068376,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.0791015625,
+              0.5947265625,
+              1.05615234375,
+              98.98046875
+            ]
+          },
+          "rmse": 1.4114919853264998,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 9,
+        "valid_pixels": 7068376,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.000298027771350462,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 7068376,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.13427734375,
+              1.04296875,
+              1.849609375,
+              98.6529541015625
+            ]
+          },
+          "rmse": 1.4276897124381978,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 10,
+        "valid_pixels": 7068376,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029879128123866394,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 7068376,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.146484375,
+              1.126953125,
+              2.017578125,
+              97.87646484375
+            ]
+          },
+          "rmse": 1.4128680187879998,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 11,
+        "valid_pixels": 7068376,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.0,
+        "operation": "unchanged auxiliary/alpha"
+      }
+    ]
+  },
+  "ruby": {
+    "source": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-Ruby-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+    "recovered": "/private/tmp/goldhill-radiometric-recovery-20261102/ruby_recovered_source_dn.tif",
+    "status": "RECOVERED_SOURCE_DN \u2014 PHYSICAL_UNITS_UNVERIFIED",
+    "grid_unchanged": true,
+    "masks_unchanged": true,
+    "bands": [
+      {
+        "band": 1,
+        "valid_pixels": 2022614,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029804596306348685,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 2022614,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.05810546875,
+              0.40582275390625,
+              0.8340985107421801,
+              139.85791015625
+            ]
+          },
+          "rmse": 2.321566786580453,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 2,
+        "valid_pixels": 2022614,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.0002976241576106986,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 2022614,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.06414794921875,
+              0.445556640625,
+              0.9267498779296801,
+              139.869140625
+            ]
+          },
+          "rmse": 2.3189205090317992,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 3,
+        "valid_pixels": 2022614,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029795326372550335,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 2022614,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.1005859375,
+              0.64306640625,
+              1.1734619140625,
+              139.66015625
+            ]
+          },
+          "rmse": 2.3117792877164685,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 4,
+        "valid_pixels": 2022614,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.0002978787579195341,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 2022614,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.113525390625,
+              0.7197265625,
+              1.2890625,
+              139.5068359375
+            ]
+          },
+          "rmse": 2.3089781620388,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 5,
+        "valid_pixels": 2022614,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.00029795326463499805,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 2022614,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.091064453125,
+              0.63671875,
+              1.3125,
+              139.779296875
+            ]
+          },
+          "rmse": 2.314838674094927,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 6,
+        "valid_pixels": 2022614,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.0002978415041070548,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 2022614,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.082763671875,
+              0.613525390625,
+              1.2978515625,
+              139.85595703125
+            ]
+          },
+          "rmse": 2.3153689560265582,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 7,
+        "valid_pixels": 2022614,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.0002978787579195341,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 2022614,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.13720703125,
+              0.824951171875,
+              1.45361328125,
+              138.84033203125
+            ]
+          },
+          "rmse": 2.2941578556120468,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 8,
+        "valid_pixels": 2022614,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.0002978415041070548,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 2022614,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.18212890625,
+              1.1240234375,
+              1.9544519042968602,
+              137.89404296875
+            ]
+          },
+          "rmse": 2.289406655141546,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 9,
+        "valid_pixels": 2022614,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.000298027771350462,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 2022614,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.2930908203125,
+              1.93115234375,
+              3.37255859375,
+              136.947265625
+            ]
+          },
+          "rmse": 2.343451326500622,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 10,
+        "valid_pixels": 2022614,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.0002993546222569421,
+        "operation": "inverse",
+        "independent_original_bilinear_comparison": {
+          "absolute_error": {
+            "n": 2022614,
+            "quantiles_0_1_50_95_99_100": [
+              0.0,
+              0.0,
+              0.3212890625,
+              2.091796875,
+              3.658203125,
+              134.4306640625
+            ]
+          },
+          "rmse": 2.3298822262165952,
+          "note": "Independent GDAL warp, not exact original exporter. All border discrepancies retained, no trimming."
+        }
+      },
+      {
+        "band": 11,
+        "valid_pixels": 2022614,
+        "newly_nonfinite": 0,
+        "max_normalized_roundtrip_error": 0.0,
+        "operation": "unchanged auxiliary/alpha"
+      }
+    ]
+  }
+}

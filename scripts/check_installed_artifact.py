@@ -234,7 +234,8 @@ def _write_h5(
             "500000.0",
             "4420000.0",
             "1.0",
-            "-1.0",
+            # Drone export requires ENVI pixel sizes, not a signed affine Y step.
+            "1.0" if group_name == "DRONE" else "-1.0",
             "13",
             "North",
             "WGS-84",
@@ -250,6 +251,7 @@ def _write_h5(
         )
         dataset.attrs["Data_Ignore_Value"] = np.float32(-9999.0)
         dataset.attrs["Scale_Factor"] = np.float32(1.0)
+        dataset.attrs["spectralbridge_radiometry"] = json.dumps({"scale":1.,"offset":0.,"status":"VALID","provenance":"Synthetic installed-artifact fixture"})
         metadata = reflectance.create_group("Metadata")
         spectral = metadata.create_group("Spectral_Data")
         wave = spectral.create_dataset("Wavelength", data=wavelengths)
@@ -287,11 +289,11 @@ def _write_intersecting_polygon(path: Path) -> None:
                     "type": "Polygon",
                     "coordinates": [
                         [
-                            [500001.0, 4420001.0],
-                            [500005.0, 4420001.0],
-                            [500005.0, 4420005.0],
-                            [500001.0, 4420005.0],
-                            [500001.0, 4420001.0],
+                            [500001.0, 4419999.0],
+                            [500005.0, 4419999.0],
+                            [500005.0, 4419995.0],
+                            [500001.0, 4419995.0],
+                            [500001.0, 4419999.0],
                         ]
                     ],
                 },
@@ -481,11 +483,28 @@ def _run_drone(root: Path) -> dict[str, object]:
         encoding="utf-8",
     )
 
+    # Explicit physical-unit fixture coefficients; the production registry has
+    # historical numerical units and cannot certify this synthetic scene.
+    from spectralbridge.bulk.registry import DEFAULT_PRODUCT_REGISTRY
+    coefficient_path = root / "smoke_physical_translation.json"
+    coefficient_path.write_text(json.dumps({"candidate_coefficients": [
+        {"analysis_run_id":"installed-smoke", "analysis_level":"site_balanced",
+         "weighting":"synthetic fixture only", "translation_pair":pair.key,
+         "source_sensor":pair.source_sensor, "target_sensor":pair.target_sensor,
+         "source_band_index":source, "target_band_index":target, "band_index":index,
+         "equation":"target = slope * source + intercept", "status":"ok",
+         "reflectance_units":"physical_reflectance_v1", "slope":1., "intercept":0.,
+         "x_min":0., "x_max":1., "x_mean":.3, "r2":1.}
+        for pair in DEFAULT_PRODUCT_REGISTRY.translation_pairs
+        for index,(source,target) in enumerate(pair.band_pairs,start=1)]}))
     full = run_drone_pipeline(
         full_h5.parent,
         output_dir=root / "drone_full_output",
         apply_topo=True,
         apply_brdf=True,
+        apply_translation=True,
+        translation_coefficients=coefficient_path,
+        translation_weighting="site_balanced",
         extraction_mode="full",
         parquet_chunk_size=PARQUET_CHUNK_SIZE,
         drone_manifest_path=manifest_path,
@@ -501,6 +520,9 @@ def _run_drone(root: Path) -> dict[str, object]:
         output_dir=root / "drone_polygon_output",
         apply_topo=True,
         apply_brdf=True,
+        apply_translation=True,
+        translation_coefficients=coefficient_path,
+        translation_weighting="site_balanced",
         extraction_mode="polygon",
         parquet_chunk_size=PARQUET_CHUNK_SIZE,
         drone_manifest_path=manifest_path,
@@ -562,6 +584,8 @@ def _run_bulk(root: Path) -> dict[str, object]:
                 nodata=-9999.0,
             ) as dataset:
                 dataset.write(raster_values)
+            with path.with_suffix(".hdr").open("a") as header:
+                header.write("\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic bulk smoke\nbrdf status = NOT_REQUESTED\n")
         qa = flightline_dir / "qa" / "stages" / "04_spectral_convolution" / "stage_qa.json"
         qa.parent.mkdir(parents=True, exist_ok=True)
         qa.write_text(json.dumps({"status": "PASS"}), encoding="utf-8")

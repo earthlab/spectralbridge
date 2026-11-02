@@ -161,6 +161,9 @@ def build_envi_header_text(header_dict: Dict) -> str:
 
     projection = _req_str("projection")
     lines.append(f"projection = {projection}")
+    if header_dict.get("coordinate system string"):
+        wkt = str(header_dict["coordinate system string"]).strip().strip("{}")
+        lines.append(f"coordinate system string = {{{wkt}}}")
 
     wavelength = header_dict.get("wavelength")
     if wavelength is None:
@@ -179,6 +182,11 @@ def build_envi_header_text(header_dict: Dict) -> str:
     if "reflectance scale factor" in header_dict:
         scale = _to_python_scalar(header_dict["reflectance scale factor"])
         lines.append(f"reflectance scale factor = {scale}")
+
+    for key in ("radiometry status", "radiometry provenance", "physical reflectance multiplier",
+                "physical reflectance offset", "brdf status", "brdf model schema"):
+        if key in header_dict:
+            lines.append(f"{key} = {header_dict[key]}")
 
     if "data ignore value" in header_dict:
         no_data = _to_python_scalar(header_dict["data ignore value"])
@@ -348,3 +356,12 @@ class EnviWriter:
         header_text = build_envi_header_text(self.header_dict)
         hdr_path = self.out_stem.with_suffix(".hdr")
         hdr_path.write_text(header_text, encoding="utf-8")
+
+
+def finalize_scientific_header(path: Path, header: Dict, *, brdf_status: str) -> None:
+    """Publish a correction status only after all raster chunks finish writing."""
+    path = Path(path)
+    completed = {**header, "brdf status": brdf_status}
+    temporary = path.with_name(path.name + ".completion.tmp")
+    temporary.write_text(build_envi_header_text(completed), encoding="utf-8")
+    temporary.replace(path)

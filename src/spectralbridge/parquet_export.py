@@ -44,6 +44,8 @@ class _ParquetChunkContext(NamedTuple):
     transform: tuple[float, float, float, float, float, float]
     src_crs_wkt: str | None
     stage_key: str
+    radiometric_scale: float = 1.0
+    radiometric_offset: float = 0.0
 
 
 def pq_read_table(path: Path):
@@ -155,6 +157,8 @@ def _plan_chunk_jobs(
     except OSError:
         header_text = None
 
+    from spectralbridge.radiometry import library_radiometry
+    calibration = library_radiometry(envi_img)
     wavelengths_nm = None
     if header_text:
         wavelengths_nm = parse_envi_wavelengths_nm(header_text)
@@ -262,6 +266,8 @@ def _plan_chunk_jobs(
         transform=tuple(transform),
         src_crs_wkt=src_crs.to_wkt() if src_crs is not None else None,
         stage_key=stage_key,
+        radiometric_scale=calibration.scale,
+        radiometric_offset=calibration.offset,
     )
 
     shared: dict[str, object] = {
@@ -273,6 +279,8 @@ def _plan_chunk_jobs(
         "header_text": header_text,
         "wavelengths_nm": wavelengths_nm,
         "stage_key": stage_key,
+        "reflectance_units": "physical_reflectance_v1",
+        "radiometry": calibration.record(),
     }
 
     return context, jobs, shared
@@ -317,7 +325,8 @@ def _process_chunk_to_dataframe(
     if context.nodata is not None:
         mask |= np.any(spectra == context.nodata, axis=1)
     mask |= ~np.isfinite(spectra).all(axis=1)
-    valid_mask = ~mask
+    spectra = spectra * np.float32(context.radiometric_scale) + np.float32(context.radiometric_offset)
+    valid_mask = ~mask & np.isfinite(spectra).all(axis=1)
     if not valid_mask.any():
         return pd.DataFrame()
 
@@ -468,6 +477,8 @@ def _write_parquet_chunks(
     with suppress(FileNotFoundError):
         tmp_path.unlink()
 
+    physical_context = context or getattr(chunk_iter, "context", {})
+    units_verified = physical_context.get("reflectance_units") == "physical_reflectance_v1"
     writer = None
     wrote_rows = False
     try:
@@ -482,6 +493,12 @@ def _write_parquet_chunks(
             else:
                 canonical = _to_canonical_table(table)
             table = canonical
+            metadata = dict(table.schema.metadata or {})
+            if units_verified:
+                metadata[b"spectralbridge.reflectance_units"] = b"physical_reflectance_v1"
+                import json
+                metadata[b"spectralbridge.source_radiometry"] = json.dumps(physical_context.get("radiometry", {}), sort_keys=True).encode()
+            table = table.replace_schema_metadata(metadata)
             if writer is None:
                 writer = pq.ParquetWriter(tmp_path, table.schema)
             writer.write_table(table, row_group_size=row_group_size)
@@ -494,6 +511,8 @@ def _write_parquet_chunks(
         ctx = context or getattr(chunk_iter, "context", {})
         band_wavelengths = list(ctx.get("band_wavelengths") or [])
         empty_table = _build_empty_parquet_table(stage_key, band_wavelengths)
+        if units_verified:
+            empty_table = empty_table.replace_schema_metadata({**(empty_table.schema.metadata or {}), b"spectralbridge.reflectance_units": b"physical_reflectance_v1"})
         pq.write_table(empty_table, tmp_path, row_group_size=row_group_size)
 
     tmp_path.replace(parquet_path)
@@ -587,14 +606,18 @@ def ensure_parquet_from_envi(
 
     import pyarrow.parquet as pq
 
+    from spectralbridge.radiometry import library_radiometry, require_physical_table
+    library_radiometry(envi_img)
     parquet_path = Path(parquet_path)
     if parquet_path.exists():
         try:
             pq.read_schema(parquet_path)
-            return parquet_path
         except Exception:
             with suppress(FileNotFoundError):
                 parquet_path.unlink()
+        else:
+            require_physical_table(parquet_path)
+            return parquet_path
 
     build_parquet_from_envi(
         envi_img,
@@ -655,10 +678,13 @@ def ensure_parquet_for_envi(
         )
         return None
 
+    from spectralbridge.radiometry import library_radiometry, require_physical_table
+    library_radiometry(envi_img)
     parquet_path = envi_img.with_suffix(".parquet")
 
     if parquet_path.exists():
         if parquet_exists_and_valid(parquet_path):
+            require_physical_table(parquet_path)
             logger.info(
                 "⏭️ Parquet already present for %s -> %s (skipping)",
                 envi_img.name,

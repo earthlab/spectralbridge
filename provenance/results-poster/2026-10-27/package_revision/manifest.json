@@ -1,0 +1,29 @@
+{
+  "output": "output/pdf/results_poster/SpectralBridge_Package_Poster.pdf",
+  "sha256": "def56a1a995285e4f8f7b1dc4eafd557a076e91d74a15b73b72fcb0a30663c7b",
+  "size_inches": [
+    36,
+    48
+  ],
+  "background": "white",
+  "image_dpi": 162.15151515151516,
+  "source_flights": 1,
+  "views": 2,
+  "source_hashes": {
+    "README.md": "159cc199f68492bf581956c161678ad5dc9620228f76d6a31ffb53f74f0a20d7",
+    "src/spectralbridge/__init__.py": "e2b659adca27ed6e2c04f35cbe910ac924d59e8a0f71ec575d6e8daac8d9bfb6",
+    "docs/pipeline.md": "5333015b155bdc608c5011116ca6b3e7802df3da4bf0de7bdc0ad738ddf09232",
+    "docs/vignettes/bulk-analysis.md": "619f3eac3f247dc3d41de7063303c671edc95bf21d39ea02986c05c512102e54",
+    "docs/vignettes/spectral-library.md": "ce45bbe27b78b1eb2c1ee0718f43e65127dbb2db891411ce36da8995b28858ff",
+    "provenance/results-poster/2026-10-27/flightline_revision/visible.png": "e1df0aeafdb957a795fd8a80e7c140c6d56727722fe1128af20bbe9d75c93110",
+    "provenance/results-poster/2026-10-27/flightline_revision/near_infrared.png": "02487c2c9109a05e2d58cefb106c4fcb9cf88096b918ac620bb3ea9d93aad279",
+    "provenance/results-poster/2026-10-27/flightline_revision/imagery_manifest.json": "2fc8fdde1ea337c635b05fb1d6628b38369e706e37f609756c8256473a8e2f38"
+  },
+  "checks": [
+    "one page",
+    "36 x 48 inches",
+    "required functions and caveats present",
+    "text within page/card widths"
+  ],
+  "scientific_analysis_rerun": false
+}

@@ -1,0 +1,106 @@
+{
+  "source": "artifacts/real_landsat_validation/neon/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_brdfandtopo_corrected_envi.img",
+  "source_size": 10166685960,
+  "source_mtime_ns": 1791995836272371322,
+  "shape": [
+    1115,
+    5351
+  ],
+  "transform": [
+    1.0,
+    -0.0,
+    477588.0,
+    -0.0,
+    -1.0,
+    4442707.0,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "crs": "EPSG:32613",
+  "source_header_sha256": "86000fbdf6f432c9682acca950bb2346b3d77799991ad4243acf08c600fde638",
+  "valid_pixels": 3425496,
+  "images": {
+    "visible": {
+      "channels_RGB": [
+        {
+          "requested_nm": 650,
+          "actual_nm": 652.2012939453125,
+          "one_based_band": 55,
+          "display_p2": 233.9167404174804,
+          "display_p98": 2165.3019042968754
+        },
+        {
+          "requested_nm": 550,
+          "actual_nm": 552.0048217773438,
+          "one_based_band": 35,
+          "display_p2": 350.1603546142578,
+          "display_p98": 1730.2852294921877
+        },
+        {
+          "requested_nm": 470,
+          "actual_nm": 471.8475036621094,
+          "one_based_band": 19,
+          "display_p2": 142.17967681884764,
+          "display_p98": 1149.5156860351572
+        }
+      ],
+      "sha256": "e1df0aeafdb957a795fd8a80e7c140c6d56727722fe1128af20bbe9d75c93110"
+    },
+    "near_infrared": {
+      "channels_RGB": [
+        {
+          "requested_nm": 850,
+          "actual_nm": 847.5845947265625,
+          "one_based_band": 94,
+          "display_p2": 1379.5618408203125,
+          "display_p98": 4371.899121093751
+        },
+        {
+          "requested_nm": 650,
+          "actual_nm": 652.2012939453125,
+          "one_based_band": 55,
+          "display_p2": 233.9167404174804,
+          "display_p98": 2165.3019042968754
+        },
+        {
+          "requested_nm": 550,
+          "actual_nm": 552.0048217773438,
+          "one_based_band": 35,
+          "display_p2": 350.1603546142578,
+          "display_p98": 1730.2852294921877
+        }
+      ],
+      "sha256": "02487c2c9109a05e2d58cefb106c4fcb9cf88096b918ac620bb3ea9d93aad279"
+    },
+    "shortwave_infrared": {
+      "channels_RGB": [
+        {
+          "requested_nm": 1650,
+          "actual_nm": 1649.1571044921875,
+          "one_based_band": 254,
+          "display_p2": 971.7617065429688,
+          "display_p98": 4291.264208984375
+        },
+        {
+          "requested_nm": 850,
+          "actual_nm": 847.5845947265625,
+          "one_based_band": 94,
+          "display_p2": 1379.5618408203125,
+          "display_p98": 4371.899121093751
+        },
+        {
+          "requested_nm": 650,
+          "actual_nm": 652.2012939453125,
+          "one_based_band": 55,
+          "display_p2": 233.9167404174804,
+          "display_p98": 2165.3019042968754
+        }
+      ],
+      "sha256": "948306c37ad42b95b6699c0717d9e757dc50ce940e375afd0c368e89bfcec7d7"
+    }
+  },
+  "display_only": "Per-channel 2nd-98th percentile stretch, gamma 0.8; no scientific data modified; negative finite values retained.",
+  "orientation": "Original raster row/column orientation; no rotation, warp or resampling.",
+  "source_sha256": "a6305722b193d15cac1ce1f6c085c3892b77822b956b12049e96506e4606858c"
+}

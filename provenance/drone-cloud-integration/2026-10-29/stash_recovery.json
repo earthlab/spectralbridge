@@ -1,0 +1,29 @@
+{
+  "stash_commit": "3f1e3fa9b51b6b3eac647d22c7aac917dd557e0f",
+  "parent_commits": [
+    "341c55a89f1d13e09bfd46e17e9ef6341cc05903",
+    "d81310a5505f4067afbd662474169f381ad132d7"
+  ],
+  "third_parent_untracked_snapshot_exists": false,
+  "backup_directory": "/private/tmp/spectralbridge-stash-cleanup-20261029",
+  "restored_files_verified": 103,
+  "resolutions": {
+    "Drone_2023_2024_Cloud_Production.ipynb": "keep newer working version",
+    "docs/ai-transparency.json": "regenerate",
+    "docs/ai-transparency.md": "regenerate",
+    "docs/images/ai-transparency/prompt-lengths.svg": "regenerate",
+    "docs/images/ai-transparency/prompts-by-intent.svg": "regenerate",
+    "docs/images/ai-transparency/prompts-by-month.svg": "regenerate",
+    "docs/images/ai-transparency/prompts-by-topic.svg": "regenerate",
+    "docs/images/ai-transparency/tool-mentions.svg": "regenerate",
+    "docs/images/ai-transparency/validation-mentions.svg": "regenerate",
+    "docs/images/ai-transparency/workflow-mentions.svg": "regenerate",
+    "provenance/prompts/PROMPT_LOG.md": "retained working log plus missing stash entries",
+    "provenance/work-queue/FEATURE_REQUESTS.md": "retained both queues; poster identifier collision assigned P153",
+    "scripts/drone_cloud_workflow.py": "keep newer working version",
+    "src/spectralbridge/io/neon.py": "three-way merged"
+  },
+  "index_conflicts": "",
+  "scope": "Restored spatial repair/evidence and posters, retained newer notebook/helper, merged NEON spatial edits with upstream scale rollback, retained both work queues and prompt entries. No commit or push.",
+  "stash_removed_after_verification": true
+}

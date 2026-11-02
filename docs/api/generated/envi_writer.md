@@ -52,3 +52,17 @@ Audience: **advanced**.
       inherited_members: false
       merge_init_into_class: true
 
+Audience: **advanced**.
+
+::: spectralbridge.envi_writer.finalize_scientific_header
+    options:
+      docstring_style: numpy
+      show_signature_annotations: true
+      separate_signature: true
+      show_root_heading: true
+      show_root_full_path: false
+      show_bases: false
+      show_source: false
+      signature_crossrefs: false
+      members: false
+

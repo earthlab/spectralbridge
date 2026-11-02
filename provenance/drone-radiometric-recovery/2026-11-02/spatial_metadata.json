@@ -1,0 +1,35 @@
+{
+  "crs_wkt": "PROJCS[\"NAD83 / UTM zone 13N\",GEOGCS[\"NAD83\",DATUM[\"North_American_Datum_1983\",SPHEROID[\"GRS 1980\",6378137,298.257222101,AUTHORITY[\"EPSG\",\"7019\"]],AUTHORITY[\"EPSG\",\"6269\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4269\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-105],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"26913\"]]",
+  "transform": [
+    0.09999999999996322,
+    0.0,
+    457624.5,
+    0.0,
+    -0.09999999999991677,
+    4432830.55,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "width": 3165,
+  "height": 2238,
+  "array_axis_order": "row,column,band",
+  "wavelengths_nm": [
+    444,
+    475,
+    531,
+    560,
+    650,
+    668,
+    705,
+    717,
+    740,
+    862
+  ],
+  "nodata": "NaN",
+  "source_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+  "resolution": [
+    0.09999999999996322,
+    0.09999999999991677
+  ]
+}

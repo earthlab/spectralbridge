@@ -1,0 +1,192 @@
+{
+  "date": "2026-10-29",
+  "status": "Spatial implementation and actual-source validation complete; scientific promotion and historical replacement deferred",
+  "branch": "main",
+  "base_commit": "341c55a89f1d13e09bfd46e17e9ef6341cc05903",
+  "python": "3.12.8",
+  "dependencies": {
+    "numpy": "2.5.2",
+    "rasterio": "1.5.1",
+    "pyproj": "3.7.2",
+    "h5py": "3.16.0",
+    "pandas": "3.0.5",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.5",
+    "pytest": "9.0.3"
+  },
+  "source_sha256": {
+    "src/spectralbridge/pipelines/drone.py": "dfe8678abc1b8701e23d71dd4dbffe837dd6388c49b96d36c1f00a89f0c7e0f3",
+    "src/spectralbridge/io/neon.py": "072eded2d0f06f7ff22f288cbc8829d08d3c80f46afaf7376f2dfbe21bc90af0",
+    "src/spectralbridge/envi.py": "a9119add199dcd3c00f3f9423ecda935202428cf8e2a07805d699e11da615d8a",
+    "src/spectralbridge/envi_writer.py": "a368cacf1e649e6f26ec85203603b55e6220f699e7fb34cb9c57a6c675e7f2ca",
+    "src/spectralbridge/drone_production.py": "12fd11b1984c48b05303439521459a8109c5f94ade0fa7cab6a63abd1452e315",
+    "scripts/check_installed_artifact.py": "8fc6b99292f2f3b06fac71f00ddeeea9326ce1aa3f0df59a7282517ee8b82c3d",
+    "scripts/diagnose_drone_spatial_integrity.py": "ebd955908c44c36672c562fcc944266013adc8370ac80e925633911631149d35",
+    "tests/test_drone_pipeline.py": "9508f7e81a3d92b2b5b569b2e8b399941818f6ca95fe668a9983b8625b46821b",
+    "tests/test_drone_spatial_integrity.py": "13983c0948073af25290c7fd6fefcfcb6efaa856d7074a25e528baf421f19185",
+    "tests/test_installed_artifact_smoke.py": "4d85b3533610878b90ddeb8410152b8c8b13fe60f60e3641864b85bb6e477c9c",
+    "docs/dev/drone-spatial-integrity-investigation.md": "036b292c6c679e679adc9e63e1f19277c4e1ed750b25c8fce4b59c537c728d80",
+    "docs/vignettes/drone-processing.md": "17dfab747fcea79ec24281207af548a933e81cdcbcc743534e0b5b18d4b64ba0"
+  },
+  "code_references": [
+    {
+      "file": "src/spectralbridge/pipelines/drone.py",
+      "function": "_build_drone_tiff_map_info",
+      "line": 902
+    },
+    {
+      "file": "src/spectralbridge/pipelines/drone.py",
+      "function": "convert_drone_tiff_to_h5",
+      "line": 1754
+    },
+    {
+      "file": "src/spectralbridge/pipelines/drone.py",
+      "function": "_validate_drone_h5_spatial_metadata",
+      "line": 2258
+    },
+    {
+      "file": "src/spectralbridge/pipelines/drone.py",
+      "function": "_drone_envi_header",
+      "line": 2297
+    },
+    {
+      "file": "src/spectralbridge/pipelines/drone.py",
+      "function": "_enrich_drone_polygon_parquet_with_index",
+      "line": 3050
+    },
+    {
+      "file": "src/spectralbridge/pipelines/drone.py",
+      "function": "run_drone_pipeline",
+      "line": 3381
+    },
+    {
+      "file": "src/spectralbridge/io/neon.py",
+      "function": "_shift_map_info_for_window",
+      "line": 336
+    },
+    {
+      "file": "src/spectralbridge/io/neon.py",
+      "function": "_read_new_neon_layout",
+      "line": 392
+    },
+    {
+      "file": "src/spectralbridge/envi.py",
+      "function": "_parse_envi_header_tolerant",
+      "line": 59
+    },
+    {
+      "file": "src/spectralbridge/envi.py",
+      "function": "_parse_envi_header",
+      "line": 298
+    },
+    {
+      "file": "src/spectralbridge/envi_writer.py",
+      "function": "build_envi_header_text",
+      "line": 43
+    },
+    {
+      "file": "src/spectralbridge/drone_production.py",
+      "function": "validate_bulk_ready_flightline",
+      "line": 1092
+    }
+  ],
+  "tests": {
+    "command": "MPLCONFIGDIR=/private/tmp/spectralbridge-mpl .venv/bin/python -m pytest -o addopts='' -q tests/test_installed_artifact_smoke.py tests/test_drone_spatial_integrity.py tests/test_drone_pipeline.py tests/test_drone_production.py tests/test_drone_translation.py tests/test_drone_translation_registry.py tests/test_neon_cube.py tests/test_neon_legacy.py tests/test_envi_header_parser.py tests/test_drone_solar_qa.py tests/test_drone_qa_summary.py tests/test_polygon_pipeline.py tests/test_parquet_export.py",
+    "passed": 195,
+    "failed": 0,
+    "warnings": 31,
+    "seconds": 81.29,
+    "latest_diagnostic_focused_run": "24 passed, 8 warnings in 21.79s; subsequent edit affects display annotation positioning only",
+    "scope": "Source checkout/framework checks; no new wheel/sdist or Python 3.10/3.11 matrix",
+    "initial_regression_before_production_edits": {
+      "passed": 1,
+      "failed": 11,
+      "cases": 12
+    },
+    "existing_test_order_caveat": "Custom earlier order with Parquet-export shims before installed smoke produced 194 passed/1 failed (pyarrow.lib test state); isolated and final ordered runs pass. Tracked as P150."
+  },
+  "checks": {
+    "three_paired_sources": true,
+    "all_retained_source_values_exact": true,
+    "ruby_all_controls_zero": true,
+    "ruby_all_retained_memberships_match": true,
+    "ruby_no_coordinate_label_or_table_value_errors": true,
+    "ruby_corrected_grid_and_crs_match": true,
+    "ruby_mask_exclusions_explained_by_original_terrain": true,
+    "all_translations_exact_with_preserved_grid": true,
+    "unchanged_run_reuses_all_tracked_products": true
+  },
+  "values_compared_across_three_sources": 152672940,
+  "ruby_retained_rows": 22481,
+  "ruby_table_values_checked": 224810,
+  "translation_values_checked": 36514800,
+  "scientific_qa_status": "caution",
+  "remaining_gates": [
+    "Unclassified eleventh source TIFF band; recovery explicitly retains verified bands 1\u201310",
+    "Package/manifest date discrepancy",
+    "Original terrain coverage gaps; excluded mask explained exactly",
+    "Historical tables/screenshot run not retrieved or overwritten; follow lineage before replacement"
+  ],
+  "artifact_sha256": {
+    "downloaded_parquet_inventory.json": "3b1d106cdb697f7a4eb22d4efe4adbb586fc5587eef3d191948c473ea4ce2ac7",
+    "recover_ruby_validation.py": "039bb16902075b3bed8c97f35b2736098ef9265499bf8bb8075880bd0e4f8ec5",
+    "diagnostic_runs.json": "7222c369db9c0e83ce841aa9e7c18c7401583a9a5e1881e077fc7972ff10a9af",
+    "regenerate_diagnostics.py": "62526bf104ba1d77e431646185be2d8b83383aaa563f3abf74cdc9913d30b5d5",
+    "ruby_geometry_mask_attribution.json": "440d843286b37f31e690dfc396fc65957f08e66c4b483d056a36f5b5c41458f7",
+    "analyze_production_sources.py": "4f57a6701b064a528d02daaed16f1da5967ac636a6a6ab90c1be7e476653c989",
+    "remote_access.json": "3239c082fe03c751aaba5f20ae7c6940cbb487b8e6d4f12b6ffbb2f2258c98bb",
+    "replay_legacy_ruby_export.py": "2c980af9b78c350617e8a68969d59a00c30739349d4149a7570103198ae10e9b",
+    "upstream_corrected_artifact.json": "1b9bafad149f10857741cd2517de58b3fca5e102f77a1c4e000a76229fb6561c",
+    "legacy_ruby_export_replay.json": "afb5253e5aa423ee36d7222096a6657ca6681ae641f92ce8c10ab648376e9eb7",
+    "README.md": "50fcdf92f1d8fe063af83cc813e2961d712f1c2596e394158c6242dd20949703",
+    "ruby_restart.json": "2c4c38c7d3f946278ca36247221a12db7f98386075a7b9fd6234f716b32e8e5a",
+    "production_source_comparison.json": "3fb0d1410240ae0308489616d4f0fd47d15e997e8f82c9d1d464e9d30c81b042",
+    "production_verified_footprints.svg": "45750fcceeaf66c3c0bba29c8f17cc2612b75afbeacc3d3c924723f7e9ca2393",
+    "production_metadata_footprints.svg": "8499b7c2afa77e8cefc691b16f69870bb5080b7fa18f68b347d5cd3a20a46724",
+    "remote_downloads.json": "4cbdf9e6469d17c21acf681d4ccf6cc9c5b17956474bb72a466aaa51da378cf0",
+    "ruby_full_pixel_validation.json": "950fef8900651cdfc6a64193b0eaed1a04ee4f408dbfdbef2d156a84d74afcd2",
+    "ruby_recovery_result.json": "91c2f94a4311a3a744fde70478104042b4637137e89f3a0d29d83b777f5840bd",
+    "production_metadata_evidence.json": "5b632ebb479d73501dfb433b6c03cd49fe7be10c0c5725251e6f276f69c151cc",
+    "build_evidence.py": "f39ed5611004d741e11d370176d55fa06ed04893149707574661bb9292e4bb1d",
+    "production_metadata_footprints.png": "90599ccee0d410a80caa364bdcdbd2e71017be5cdd5531f098a2c9afabc9e6c3",
+    "production_verified_footprints.png": "55cc42068b79435b686714ca68dba0623bcea9de12e285275a7672909d642326",
+    "validate_ruby_outputs.py": "5655fc02a73eafd14c3c20404162ae737af084423f5a5d7671c74c2f0f266e90",
+    "build_synthetic_evidence.py": "2caf308bdd330a4082e24b4919231aaa0218ca8ec6a85918a674bf5ccc570bb8",
+    "ruby_after/spatial_diagnostic.svg": "f71fb5a90350484d564f8bc9265245593092649d654a3ce5d2652544f0be7bbd",
+    "ruby_after/spatial_diagnostic.png": "cb65a8eea21c7234bb1081a4c3bf1b08307cdd904a3e14f5559411125d321a28",
+    "ruby_after/discrepancies.json": "72822f42b91d4b930151ca14d1dead618ba225ffa88bdde33b3e50d90090b38e",
+    "ruby_after/control_displacements.csv": "261996dae1d1c4d7c1d0984641aec52658e20b589503b6ccaae6f68f9a69d097",
+    "ruby_before/spatial_diagnostic.svg": "3006d4bafdc2496fcc75dc8670858128ef20bdc6e49e67eb3f0a384e0829b4b8",
+    "ruby_before/spatial_diagnostic.png": "639b3fd97d06dcc4ed3d9761ac3e702a885ec123fabda21be337755daa75fa6c",
+    "ruby_before/discrepancies.json": "390e44e69ef65d39a5600dab7096b13c40b2c37ffcb3f6de6d30310c2671b548",
+    "ruby_before/control_displacements.csv": "cb0072a2a1e53f570092c4fd1eeb56c9111338ac0dc62f9cd9d1958c627be11b",
+    "unassigned_h5/spatial_diagnostic.svg": "851b7aa3a030f3df51ce21efa638ec9e36e921adbd78dca48d6830c28a2aefd1",
+    "unassigned_h5/spatial_diagnostic.png": "6f0482ac38d18c0dcfd8586d8354fc48a3719b4ba7bd813f57fa12cba1e8bb86",
+    "unassigned_h5/discrepancies.json": "ec1c3d9b4a293569c8cb889d3fda6746e9e0285c4dbfeebe6287fed9af18b8a1",
+    "synthetic/spatial_diagnostic.svg": "b8d0e9674bc45a3a5284a86d8eed15910878b5ea5428d16f57c752e6d2f7ad9f",
+    "synthetic/spatial_diagnostic.png": "f113f2d3cf9702e57b3e12589a4fe2185b31bc4a3c4d838ad1ef6f5d6e766e16",
+    "synthetic/discrepancies.json": "aeafb311c2e768cff5aad01a30660bdb0761d5cd5dc1d048176f2633f0a3d0d9",
+    "synthetic/control_displacements.csv": "7deb9bf573d823a28c376636209e3ffbf8f38966b3be0204f7e20f9da14578ac",
+    "synthetic_inputs/fixture__translated.img": "b682e296583081bcf788bdc4e7c6db44e9dcf69d4ffc94623d5daaaccf6c027b",
+    "synthetic_inputs/polygons.geojson": "2f9e07b03847dc7f71642797521c2acb53059952f2e6289044b9e3e6bbf01c74",
+    "synthetic_inputs/index.parquet": "9eb1b79d366fec3f4eb64b85db495b88a11e9228ca1de9a5e37ef338160d0c68",
+    "synthetic_inputs/fixture__native.hdr": "f1f8ada4bf86a33c217e6e5538140a61a567167f09bae2b929c9744127fdee95",
+    "synthetic_inputs/fixture__corrected.img": "a0df01ab89c774db54b506ecbab150fd23652ce68a17dbb0940c879d999a1a11",
+    "synthetic_inputs/authoritative_synthetic.tif": "b4b383d328bd83aa7c30880521371d4e7e965093fa1dd62e2910afef80bcdf4b",
+    "synthetic_inputs/fixture__translated.hdr": "4ac01f1dd6a5387b1048c0296db61a8cca5345dd6730f025251e4f304351e2a5",
+    "synthetic_inputs/fixture__native.img": "a0df01ab89c774db54b506ecbab150fd23652ce68a17dbb0940c879d999a1a11",
+    "synthetic_inputs/fixture__corrected.hdr": "f1f8ada4bf86a33c217e6e5538140a61a567167f09bae2b929c9744127fdee95",
+    "synthetic_inputs/fixture__translated__translation.json": "537573cac973673aa2f24578fbebc758799422e057f49af195525ace8f445bcc",
+    "synthetic_inputs/fixture__working.h5": "f89482a60226ccf28bc5e6631fd36dacdd39121ae6533a6dcc4dd10fe7a8be4c",
+    "synthetic_inputs/fixture__corrected__correction.stage.json": "ff7fefe197d921e8b74f03698bec3c07a4d45f9b6dfc8f7f2937e5b6be67fd03",
+    "synthetic_inputs/spectra.parquet": "0f0bb4bac3c9213d42aacf94154984045b9310969ab288279482990408f79dea",
+    "synthetic_inputs/fixture__native__export.stage.json": "2590ebca4f864da37e127e903fc6cc3402f339e101b8d778ee5384d8be665835"
+  },
+  "visual_review": "Production three-flight source/footprint and Ruby before/after figures inspected; synthetic control separate",
+  "quality_checks": {
+    "ruff": "pass",
+    "docs_links": "pass",
+    "whitespace": "pass",
+    "ai_transparency": "pass"
+  }
+}

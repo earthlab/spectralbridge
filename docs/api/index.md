@@ -6,7 +6,7 @@ The reference is generated without importing scientific dependencies. Each defin
 
 Workflow guides explain **how to accomplish a task**; these entries explain **how to call a particular object**. See the [scientific API maturity guide](scientific-analysis.md) before interpreting research outputs.
 
-This revision documents **84 public functions/classes** and **409 advanced functions/classes**. Names that merely look public are not a stability guarantee. Private helpers and CLI/compatibility plumbing are listed separately in the inventory.
+This revision documents **84 public functions/classes** and **416 advanced functions/classes**. Names that merely look public are not a stability guarantee. Private helpers and CLI/compatibility plumbing are listed separately in the inventory.
 
 ## Package exports
 
@@ -393,7 +393,6 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`fit_scs_c_coefficients`](generated/corrections.md#spectralbridge.corrections.fit_scs_c_coefficients) | Fit per-band SCS+C C parameters over a full NeonCube footprint. | advanced |
 | [`apply_topo_correct`](generated/corrections.md#spectralbridge.corrections.apply_topo_correct) | Topographic (illumination) correction on a hyperspectral chunk. | advanced |
 | [`apply_brdf_correct`](generated/corrections.md#spectralbridge.corrections.apply_brdf_correct) | Perform BRDF normalization on a hyperspectral chunk using FlexBRDF ratio. | advanced |
-| [`apply_glint_correct`](generated/corrections.md#spectralbridge.corrections.apply_glint_correct) | Placeholder for sunglint correction. | advanced |
 | [`fit_and_save_brdf_model`](generated/corrections.md#spectralbridge.corrections.fit_and_save_brdf_model) | Estimate and persist BRDF coefficients for a NEON flightline. | advanced |
 | [`resample_chunk_to_sensor`](generated/resample.md#spectralbridge.resample.resample_chunk_to_sensor) | Resample a hyperspectral chunk to target sensor bands using SRFs. | advanced |
 | [`apply_resampler`](generated/standard_resample.md#spectralbridge.standard_resample.apply_resampler) | Apply a HyTools resampler configuration to a data slice. | advanced |
@@ -480,6 +479,7 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`to_unitless_reflectance`](generated/envi.md#spectralbridge.envi.to_unitless_reflectance) | Apply the legacy median heuristic: divide by 10000 when the finite median exceeds 1.5. | advanced |
 | [`build_envi_header_text`](generated/envi_writer.md#spectralbridge.envi_writer.build_envi_header_text) | Build the ENVI .hdr file text from a header_dict. | advanced |
 | [`EnviWriter`](generated/envi_writer.md#spectralbridge.envi_writer.EnviWriter) | EnviWriter assembles a corrected hyperspectral cube into a BSQ ENVI file. | advanced |
+| [`finalize_scientific_header`](generated/envi_writer.md#spectralbridge.envi_writer.finalize_scientific_header) | Publish a correction status only after all raster chunks finish writing. | advanced |
 | [`GeoContext`](generated/exports-geo_utils.md#spectralbridge.exports.geo_utils.GeoContext) | Store EPSG and affine pixel geometry needed for export-coordinate columns. | advanced |
 | [`load_geo_from_hdr`](generated/exports-geo_utils.md#spectralbridge.exports.geo_utils.load_geo_from_hdr) | Extract pixel size, origin and an inferred EPSG code from an existing ENVI header; return None without map information. | advanced |
 | [`add_lonlat_inplace`](generated/exports-geo_utils.md#spectralbridge.exports.geo_utils.add_lonlat_inplace) | Fill x,y from row/col + affine if needed; then lon,lat from x,y + CRS. | advanced |
@@ -582,6 +582,13 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`scene_prefix_from_dir`](generated/paths.md#spectralbridge.paths.scene_prefix_from_dir) | Recover a scene prefix from a raw ENVI image, HDF5 filename or, as a last fallback, the directory name. | advanced |
 | [`site_from_prefix`](generated/paths.md#spectralbridge.paths.site_from_prefix) | Extract a NEON site code from a matching canonical scene prefix, otherwise return None. | advanced |
 | [`normalize_brdf_model_path`](generated/paths.md#spectralbridge.paths.normalize_brdf_model_path) | Ensure the BRDF model JSON in  flightline_dir  matches the scene prefix: | advanced |
+| [`Radiometry`](generated/radiometry.md#spectralbridge.radiometry.Radiometry) | Documentation gap: see source and audit before direct use. | advanced |
+| [`dataset_radiometry`](generated/radiometry.md#spectralbridge.radiometry.dataset_radiometry) | Read a declared affine record or documented NEON divisor, never infer units. | advanced |
+| [`require_radiometry`](generated/radiometry.md#spectralbridge.radiometry.require_radiometry) | Documentation gap: see source and audit before direct use. | advanced |
+| [`require_library_header`](generated/radiometry.md#spectralbridge.radiometry.require_library_header) | Fail closed before a historical/unsupported correction enters a library. | advanced |
+| [`library_radiometry`](generated/radiometry.md#spectralbridge.radiometry.library_radiometry) | Documentation gap: see source and audit before direct use. | advanced |
+| [`require_physical_table`](generated/radiometry.md#spectralbridge.radiometry.require_physical_table) | Documentation gap: see source and audit before direct use. | advanced |
+| [`physical_copy_metadata`](generated/radiometry.md#spectralbridge.radiometry.physical_copy_metadata) | Preserve verified units through DuckDB COPY without reading pixel rows. | advanced |
 | [`SensorBandIdentity`](generated/sensor_pairs.md#spectralbridge.sensor_pairs.SensorBandIdentity) | Physical identity for one one-based sensor band. | advanced |
 | [`sensor_band_identity`](generated/sensor_pairs.md#spectralbridge.sensor_pairs.sensor_band_identity) | Return packaged physical metadata, or None for a custom sensor. | advanced |
 | [`wavelength_matched_band_pairs`](generated/sensor_pairs.md#spectralbridge.sensor_pairs.wavelength_matched_band_pairs) | Pair shared spectral identities using packaged wavelength definitions. | advanced |

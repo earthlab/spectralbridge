@@ -90,7 +90,7 @@ from spectralbridge.brightness_config import load_brightness_coefficients
 from spectralbridge.half_flight import half_flight_id, plan_half_flight
 from spectralbridge.io.neon_schema import resolve
 try:
-    from spectralbridge.paths import FlightlinePaths, normalize_brdf_model_path
+    from spectralbridge.paths import FlightlinePaths
 except ImportError:  # pragma: no cover - lightweight fallback for unit tests
     def normalize_brdf_model_path(flightline_dir: Path):  # type: ignore[override]
         return Path(flightline_dir) / "model.json"
@@ -815,6 +815,7 @@ def _build_convolution_header(
     brightness_map: dict[str, dict[int, float]] | None,
 ) -> dict:
     out_header = {
+        **{k: v for k, v in src_header.items() if k.startswith("radiometry ") or k.startswith("physical reflectance ") or k.startswith("brdf ")},
         "samples": samples,
         "lines": lines,
         "bands": out_bands,
@@ -823,6 +824,7 @@ def _build_convolution_header(
         "byte order": 0,
         "map info": src_header.get("map info"),
         "projection": src_header.get("projection"),
+        "coordinate system string": src_header.get("coordinate system string"),
         "wavelength units": src_header.get("wavelength units"),
         "reflectance scale factor": src_header.get("reflectance scale factor"),
         "data ignore value": src_header.get("data ignore value"),
@@ -1857,6 +1859,9 @@ def stage_apply_brdf_topo_correction(
     corrected_img_path.parent.mkdir(parents=True, exist_ok=True)
 
     if is_valid_envi_pair(corrected_img_path, corrected_hdr_path):
+        from spectralbridge.radiometry import require_library_header
+        from spectralbridge.envi import hdr_to_dict
+        require_library_header(hdr_to_dict(corrected_hdr_path))
         logger.info(
             "✅ BRDF+topo correction already complete for %s -> %s / %s (skipping)",
             flight_stem,
@@ -2647,10 +2652,8 @@ def process_one_flightline(
 
     clean_memory("ENVI export")
 
-    flightline_dir = flight_paths.flight_dir.resolve()
-    normalized = normalize_brdf_model_path(flightline_dir)
-    if normalized:
-        logger.info("🔧 Normalized BRDF model name → %s", normalized.name)
+    # Preserve historical model names/bytes. Shared validation below rejects
+    # unsupported models without the legacy normalizer moving them.
 
     correction_json_path = stage_build_and_write_correction_json(
         base_folder=base_folder,

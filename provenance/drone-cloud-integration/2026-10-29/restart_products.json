@@ -1,0 +1,236 @@
+{
+  "tracked_scientific_products": 28,
+  "changed_products": [],
+  "refreshed_run_audits": [
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/qa/report.stage.json",
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/spatial_dependencies.stage.json"
+  ],
+  "before": {
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr": {
+      "sha256": "ab9ac821ddb5d607bb43611f18e050dcf810033708c3fc61afa21a9d12e01489",
+      "mtime_ns": 1793311627910808758
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img": {
+      "sha256": "f7ba10e2a6c1916c9d4ca579f0f01b351ac875aef80fefcc6c56c03c8294163d",
+      "mtime_ns": 1793311627910301255
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected__correction.stage.json": {
+      "sha256": "c8ee0ce20c0b333c803a5104651b79c0564e2d97e0e42de71c20eab017dd42dc",
+      "mtime_ns": 1793311627911208760
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__envi.hdr": {
+      "sha256": "98ffb77121356bd05661f2f76ea5e92fd8ce9cf3bbaa0f15b1b65af371c9c46a",
+      "mtime_ns": 1793311626815991167
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__envi.img": {
+      "sha256": "4f2173ec14ee5ae65fcdd7a7565f912c9af18300ec5e85e3a6351fe310f65ebd",
+      "mtime_ns": 1793311626815655415
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__envi__export.stage.json": {
+      "sha256": "610efdb39eda15780913180635eb2762e79904a474ef3dcd20f819b4d19913f3",
+      "mtime_ns": 1793311626816328336
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi.hdr": {
+      "sha256": "ecc798063971aa6ae8adeb83a6a7e29dd8e7f4c37128f6b03a0c06619340c5f0",
+      "mtime_ns": 1793311628424615985
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi.img": {
+      "sha256": "d7dcb159dbb08e2b1444e4c109f5b0db45e12e2a7be8b44de939f229345ba894",
+      "mtime_ns": 1793311628424218524
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__polygons.parquet": {
+      "sha256": "41b1d1df816ef6aad7939b97cfe0139cecc5658bdee09413e4a678718b3d633f",
+      "mtime_ns": 1793311690921206402
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi.hdr": {
+      "sha256": "7a3e200b09030671a737855dd4d3b7f6f33dcd93b7f8a16bd417bba30d5ea743",
+      "mtime_ns": 1793311628154470067
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi.img": {
+      "sha256": "64aa84f04327933d23e843edf28164e634b3808dda96a6bc3637c768454833ea",
+      "mtime_ns": 1793311628154032148
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__polygons.parquet": {
+      "sha256": "db2efc1030759c5bea9300458e92821f19aac894b16f3282c5983fb530496e5a",
+      "mtime_ns": 1793311665849370199
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi.hdr": {
+      "sha256": "fd5b81054f859e8ee2d83ba8ff8dac4796576ddb93dde386586627c195ca0560",
+      "mtime_ns": 1793311628017312200
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi.img": {
+      "sha256": "cecf001d02fae21c4b0c5c49b62e22598192c574be4ae8c323fcab2fd98f25d5",
+      "mtime_ns": 1793311628016923156
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__polygons.parquet": {
+      "sha256": "957bc43d0dd23d873645c3164d70d49b757f4fcc006e746b7c2ec9e1ba0dcb5c",
+      "mtime_ns": 1793311652673117200
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi.hdr": {
+      "sha256": "fdb034a008b0e212e3504aee34ce8c4c35fed2016eecdc04cc0326dc6fb9d519",
+      "mtime_ns": 1793311628315336778
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi.img": {
+      "sha256": "b90547359802e411d4852893e5b342817dee1eb9e3a0089f1c40a022dc8b265c",
+      "mtime_ns": 1793311628314805524
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__polygons.parquet": {
+      "sha256": "1147e1de66582995ab90ff472959ad3cfbb02aa6efe343a1f80ac53e6c2e08c2",
+      "mtime_ns": 1793311678546836018
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_oli_oli2_envi.hdr": {
+      "sha256": "17c1ff21d81de9785f6e3b5058a6008c38983571ef8badab486173ff072e052d",
+      "mtime_ns": 1793311627963213641
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_oli_oli2_envi.img": {
+      "sha256": "19b4995706a4285e108fdf5b6d4f92b1fe31d46ad2c9d591cd585da02194c893",
+      "mtime_ns": 1793311627962734763
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_tm_etm+_envi.hdr": {
+      "sha256": "503e5a13e9cfafd251959cef9e988baab37304ca8ed5daa841978acf22271031",
+      "mtime_ns": 1793311628264531196
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_tm_etm+_envi.img": {
+      "sha256": "bf0f4ffb0397e0477c24766df0abe0938a70acafab621945273fcbe9785afe5c",
+      "mtime_ns": 1793311628263985776
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__polygon_index.parquet": {
+      "sha256": "5e9d5cf10ddb43d0079ecf9b853ac4450e0c7a13fd3eb35a9f7794ccd2b00df9",
+      "mtime_ns": 1793311628906280861
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__polygons.parquet": {
+      "sha256": "d2a07296d3fb4d1b37802c4a59f20952c8f4b5937ba20069fc5559fc2d0e4f0f",
+      "mtime_ns": 1793311640548625821
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5": {
+      "sha256": "4883a850c40855fb23a319e2c1eb19cfd54619f6c0f60a5623a3528fb111ab1c",
+      "mtime_ns": 1793311626682136652
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.stage.json": {
+      "sha256": "794a266391697e3eb0c6b569780e42cf0cbbc14258231c90b44ac5b63619574b",
+      "mtime_ns": 1793311626684367707
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/spatial_dependencies.stage.json": {
+      "sha256": "87c30c4ce6d355811be9bfa122b93aa6bb0d6c6900da035a14d31c28fe6ef934",
+      "mtime_ns": 1793312086659025516
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/qa/report.stage.json": {
+      "sha256": "8076bbffa86b27004c2aef4c31551fe080559c7b5669d58105f19792366b99a6",
+      "mtime_ns": 1793312119655845053
+    }
+  },
+  "after": {
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr": {
+      "sha256": "ab9ac821ddb5d607bb43611f18e050dcf810033708c3fc61afa21a9d12e01489",
+      "mtime_ns": 1793311627910808758
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img": {
+      "sha256": "f7ba10e2a6c1916c9d4ca579f0f01b351ac875aef80fefcc6c56c03c8294163d",
+      "mtime_ns": 1793311627910301255
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected__correction.stage.json": {
+      "sha256": "c8ee0ce20c0b333c803a5104651b79c0564e2d97e0e42de71c20eab017dd42dc",
+      "mtime_ns": 1793311627911208760
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__envi.hdr": {
+      "sha256": "98ffb77121356bd05661f2f76ea5e92fd8ce9cf3bbaa0f15b1b65af371c9c46a",
+      "mtime_ns": 1793311626815991167
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__envi.img": {
+      "sha256": "4f2173ec14ee5ae65fcdd7a7565f912c9af18300ec5e85e3a6351fe310f65ebd",
+      "mtime_ns": 1793311626815655415
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__envi__export.stage.json": {
+      "sha256": "610efdb39eda15780913180635eb2762e79904a474ef3dcd20f819b4d19913f3",
+      "mtime_ns": 1793311626816328336
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi.hdr": {
+      "sha256": "ecc798063971aa6ae8adeb83a6a7e29dd8e7f4c37128f6b03a0c06619340c5f0",
+      "mtime_ns": 1793311628424615985
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi.img": {
+      "sha256": "d7dcb159dbb08e2b1444e4c109f5b0db45e12e2a7be8b44de939f229345ba894",
+      "mtime_ns": 1793311628424218524
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_etm+_translated_envi__polygons.parquet": {
+      "sha256": "41b1d1df816ef6aad7939b97cfe0139cecc5658bdee09413e4a678718b3d633f",
+      "mtime_ns": 1793311690921206402
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi.hdr": {
+      "sha256": "7a3e200b09030671a737855dd4d3b7f6f33dcd93b7f8a16bd417bba30d5ea743",
+      "mtime_ns": 1793311628154470067
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi.img": {
+      "sha256": "64aa84f04327933d23e843edf28164e634b3808dda96a6bc3637c768454833ea",
+      "mtime_ns": 1793311628154032148
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli2_translated_envi__polygons.parquet": {
+      "sha256": "db2efc1030759c5bea9300458e92821f19aac894b16f3282c5983fb530496e5a",
+      "mtime_ns": 1793311665849370199
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi.hdr": {
+      "sha256": "fd5b81054f859e8ee2d83ba8ff8dac4796576ddb93dde386586627c195ca0560",
+      "mtime_ns": 1793311628017312200
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi.img": {
+      "sha256": "cecf001d02fae21c4b0c5c49b62e22598192c574be4ae8c323fcab2fd98f25d5",
+      "mtime_ns": 1793311628016923156
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_oli_translated_envi__polygons.parquet": {
+      "sha256": "957bc43d0dd23d873645c3164d70d49b757f4fcc006e746b7c2ec9e1ba0dcb5c",
+      "mtime_ns": 1793311652673117200
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi.hdr": {
+      "sha256": "fdb034a008b0e212e3504aee34ce8c4c35fed2016eecdc04cc0326dc6fb9d519",
+      "mtime_ns": 1793311628315336778
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi.img": {
+      "sha256": "b90547359802e411d4852893e5b342817dee1eb9e3a0089f1c40a022dc8b265c",
+      "mtime_ns": 1793311628314805524
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__landsat_like_landsat_tm_translated_envi__polygons.parquet": {
+      "sha256": "1147e1de66582995ab90ff472959ad3cfbb02aa6efe343a1f80ac53e6c2e08c2",
+      "mtime_ns": 1793311678546836018
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_oli_oli2_envi.hdr": {
+      "sha256": "17c1ff21d81de9785f6e3b5058a6008c38983571ef8badab486173ff072e052d",
+      "mtime_ns": 1793311627963213641
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_oli_oli2_envi.img": {
+      "sha256": "19b4995706a4285e108fdf5b6d4f92b1fe31d46ad2c9d591cd585da02194c893",
+      "mtime_ns": 1793311627962734763
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_tm_etm+_envi.hdr": {
+      "sha256": "503e5a13e9cfafd251959cef9e988baab37304ca8ed5daa841978acf22271031",
+      "mtime_ns": 1793311628264531196
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__micasense_to_match_tm_etm+_envi.img": {
+      "sha256": "bf0f4ffb0397e0477c24766df0abe0938a70acafab621945273fcbe9785afe5c",
+      "mtime_ns": 1793311628263985776
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__polygon_index.parquet": {
+      "sha256": "5e9d5cf10ddb43d0079ecf9b853ac4450e0c7a13fd3eb35a9f7794ccd2b00df9",
+      "mtime_ns": 1793311628906280861
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__polygons.parquet": {
+      "sha256": "d2a07296d3fb4d1b37802c4a59f20952c8f4b5937ba20069fc5559fc2d0e4f0f",
+      "mtime_ns": 1793311640548625821
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5": {
+      "sha256": "4883a850c40855fb23a319e2c1eb19cfd54619f6c0f60a5623a3528fb111ab1c",
+      "mtime_ns": 1793311626682136652
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.stage.json": {
+      "sha256": "794a266391697e3eb0c6b569780e42cf0cbbc14258231c90b44ac5b63619574b",
+      "mtime_ns": 1793311626684367707
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/spatial_dependencies.stage.json": {
+      "sha256": "b0a2ea1c7be76b148842bbbfdffe26e898560b92994c9161363fba7ec83a2d79",
+      "mtime_ns": 1793312194696293216
+    },
+    "flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/qa/report.stage.json": {
+      "sha256": "362858ee62e56bfc3e559b286aad810cea29e00fdcf017d7a75c5573604c5f99",
+      "mtime_ns": 1793312229105707090
+    }
+  }
+}

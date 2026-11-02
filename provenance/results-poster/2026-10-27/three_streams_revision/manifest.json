@@ -1,0 +1,35 @@
+{
+  "output": "output/pdf/results_poster/SpectralBridge_Three_Streams_Poster.pdf",
+  "sha256": "a183b49a73867073d4496aa469eff67cafabb8208197f18a2e9b0bc1df988f40",
+  "size_inches": [
+    36,
+    48
+  ],
+  "background": "white",
+  "image_dpi": 191.10714285714286,
+  "source_flights": 1,
+  "views": 2,
+  "source_hashes": {
+    "provenance/results-poster/2026-10-27/visual_revision/category_spectra.pdf": "82059324396e0b3463b57b07f9e18302b58494807a5c219090ac26abc6e796c0",
+    "provenance/results-poster/2026-10-27/visual_revision/sensor_weights.pdf": "8dd79779239f469a682debae7eb6ba9e4b1db663a0daed8b7894df76d3160123",
+    "provenance/manuscript-synthesis/2026-10-16/v1/data/A_category_spectra.csv": "c530e9759e3c1e0c220cfe3534c937a02ae7f38cf8ba9d9d14e9364305f5c9e4",
+    "src/spectralbridge/data/landsat_band_parameters.json": "b5ed747a00ae48a4216164ee73c4e4959b838d96688e2f13df8c82e1becab5e4",
+    "provenance/manuscript-synthesis/2026-10-16/v1/figure_data_manifest.json": "377244b7dda2a7dc95e040421a0e3cff205a0b5d55ba3bd709088185c897a900",
+    "README.md": "159cc199f68492bf581956c161678ad5dc9620228f76d6a31ffb53f74f0a20d7",
+    "src/spectralbridge/__init__.py": "e2b659adca27ed6e2c04f35cbe910ac924d59e8a0f71ec575d6e8daac8d9bfb6",
+    "docs/pipeline.md": "5333015b155bdc608c5011116ca6b3e7802df3da4bf0de7bdc0ad738ddf09232",
+    "docs/vignettes/bulk-analysis.md": "619f3eac3f247dc3d41de7063303c671edc95bf21d39ea02986c05c512102e54",
+    "docs/vignettes/spectral-library.md": "ce45bbe27b78b1eb2c1ee0718f43e65127dbb2db891411ce36da8995b28858ff",
+    "provenance/results-poster/2026-10-27/flightline_revision/visible.png": "e1df0aeafdb957a795fd8a80e7c140c6d56727722fe1128af20bbe9d75c93110",
+    "provenance/results-poster/2026-10-27/flightline_revision/near_infrared.png": "02487c2c9109a05e2d58cefb106c4fcb9cf88096b918ac620bb3ea9d93aad279",
+    "provenance/results-poster/2026-10-27/flightline_revision/imagery_manifest.json": "2fc8fdde1ea337c635b05fb1d6628b38369e706e37f609756c8256473a8e2f38"
+  },
+  "checks": [
+    "one page",
+    "36 x 48 inches",
+    "required functions and caveats present",
+    "text within page/card widths"
+  ],
+  "scientific_analysis_rerun": false,
+  "graphs": "Saved median/IQR curves plus configured Gaussian weighting diagram; no model fitting"
+}

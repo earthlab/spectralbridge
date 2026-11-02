@@ -1,0 +1,109 @@
+{
+  "stages": {
+    "h5": {
+      "path": "/Users/tuff/Downloads/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+      "kind": "h5",
+      "size_bytes": 92482164,
+      "mtime_ns": 1790692052680481218,
+      "map_info": [
+        "UTM",
+        " 1.000",
+        " 1.000",
+        " -1087171.250",
+        " 2524091.050",
+        " 0.100",
+        " -0.100",
+        " None",
+        " North",
+        " WGS-84",
+        " units=Meters",
+        " 0"
+      ],
+      "encoded_envi_transform": [
+        0.1,
+        0.0,
+        -1087171.25,
+        0.0,
+        0.1,
+        2524091.05
+      ],
+      "spatial_reference_convention": "legacy_center",
+      "encoded_orientation_conflict": true,
+      "height": 1103,
+      "width": 1103,
+      "bands": 10,
+      "crs": "PROJCRS[\"NAD83 / Conus Albers\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"unnamed\",METHOD[\"Albers Equal Area\",ID[\"EPSG\",9822]],PARAMETER[\"Latitude of false origin\",23,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8821]],PARAMETER[\"Longitude of false origin\",-96,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8822]],PARAMETER[\"Latitude of 1st standard parallel\",29.5,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Latitude of 2nd standard parallel\",45.5,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8824]],PARAMETER[\"Easting at false origin\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8826]],PARAMETER[\"Northing at false origin\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8827]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",5070]]",
+      "epsg": 5070,
+      "affine": [
+        0.1,
+        0.0,
+        -1087171.3,
+        0.0,
+        -0.1,
+        2524091.0999999996
+      ],
+      "bounds": [
+        -1087171.3,
+        2523980.8,
+        -1087061.0,
+        2524091.0999999996
+      ],
+      "resolution": [
+        0.1,
+        0.1
+      ],
+      "orientation": "north-up",
+      "nodata": null,
+      "invalid_band_pixels": 1103,
+      "mask_sha256": "73886f78393d77d91d4db6e4f90ea105096153c4befd3d5377e921c00a6c270c",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": -1087171.25,
+          "y": 2524091.05,
+          "value": null
+        },
+        {
+          "row": 0,
+          "col": 1102,
+          "x": -1087061.05,
+          "y": 2524091.05,
+          "value": null
+        },
+        {
+          "row": 1102,
+          "col": 0,
+          "x": -1087171.25,
+          "y": 2523980.8499999996,
+          "value": 105.09695434570312
+        },
+        {
+          "row": 1102,
+          "col": 1102,
+          "x": -1087061.05,
+          "y": 2523980.8499999996,
+          "value": 9.830811500549316
+        },
+        {
+          "row": 551,
+          "col": 551,
+          "x": -1087116.1500000001,
+          "y": 2524035.9499999997,
+          "value": 32.91682815551758
+        }
+      ],
+      "thumbnail_stride": 3
+    }
+  },
+  "comparisons": {},
+  "authoritative_tiff_available": false,
+  "missing_stages": [
+    "source_tiff",
+    "native",
+    "corrected",
+    "final"
+  ],
+  "scope": "read-only; synthetic only when --synthetic is supplied",
+  "synthetic": false
+}

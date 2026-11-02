@@ -796,11 +796,6 @@
       "kind": "callable"
     },
     {
-      "canonical": "spectralbridge.corrections.apply_glint_correct",
-      "export": "spectralbridge.corrections.apply_glint_correct",
-      "kind": "callable"
-    },
-    {
       "canonical": "spectralbridge.corrections.apply_topo_correct",
       "export": "spectralbridge.corrections.apply_topo_correct",
       "kind": "callable"
@@ -2705,10 +2700,13 @@
         "annotations": "__future__.annotations",
         "apply_brdf_correct": "spectralbridge.corrections.apply_brdf_correct",
         "apply_topo_correct": "spectralbridge.corrections.apply_topo_correct",
+        "finalize_scientific_header": "spectralbridge.envi_writer.finalize_scientific_header",
         "fit_and_save_brdf_model": "spectralbridge.corrections.fit_and_save_brdf_model",
         "fit_scs_c_coefficients": "spectralbridge.corrections.fit_scs_c_coefficients",
         "is_valid_envi_pair": "spectralbridge.utils_checks.is_valid_envi_pair",
-        "is_valid_json": "spectralbridge.utils_checks.is_valid_json"
+        "is_valid_json": "spectralbridge.utils_checks.is_valid_json",
+        "library_radiometry": "spectralbridge.radiometry.library_radiometry",
+        "require_radiometry": "spectralbridge.radiometry.require_radiometry"
       },
       "module": "spectralbridge.brdf_topo",
       "objects": [
@@ -2879,7 +2877,7 @@
             "spectralbridge.brdf_topo.build_and_write_correction_json"
           ],
           "kind": "function",
-          "line": 189,
+          "line": 190,
           "methods": [],
           "name": "build_and_write_correction_json",
           "parameters": [
@@ -2930,7 +2928,7 @@
             "spectralbridge.brdf_topo.apply_brdf_topo_core"
           ],
           "kind": "function",
-          "line": 255,
+          "line": 256,
           "methods": [],
           "name": "apply_brdf_topo_core",
           "parameters": [
@@ -3005,7 +3003,7 @@
             "spectralbridge.brdf_topo.apply_brdf_topo_correction"
           ],
           "kind": "function",
-          "line": 433,
+          "line": 448,
           "methods": [],
           "name": "apply_brdf_topo_correction",
           "parameters": [
@@ -3065,7 +3063,7 @@
         }
       ],
       "path": "src/spectralbridge/brdf_topo.py",
-      "sha256": "b4d7afc2ae0a02964ce70ce291f8c5233380fe926ef698b01b55b4ce7c156e7e"
+      "sha256": "32c042594bd331cbe7333fa2ae30a02459523cca6c8f1463788caa25040feb78"
     },
     {
       "area": "corrections",
@@ -6731,7 +6729,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 101,
+          "line": 102,
           "methods": [],
           "name": "_write_parquet",
           "parameters": [
@@ -6768,7 +6766,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 111,
+          "line": 112,
           "methods": [],
           "name": "_streaming_stage_signature",
           "parameters": [
@@ -6823,7 +6821,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 135,
+          "line": 136,
           "methods": [],
           "name": "_translation_outputs_valid",
           "parameters": [
@@ -6860,7 +6858,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 162,
+          "line": 163,
           "methods": [],
           "name": "_register_translation_outputs",
           "parameters": [
@@ -6910,7 +6908,7 @@
           ],
           "exports": [],
           "kind": "function",
-          "line": 184,
+          "line": 185,
           "methods": [],
           "name": "_merge",
           "parameters": [
@@ -6935,7 +6933,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 191,
+          "line": 192,
           "methods": [],
           "name": "_normalized",
           "parameters": [
@@ -6963,7 +6961,7 @@
           ],
           "exports": [],
           "kind": "function",
-          "line": 208,
+          "line": 209,
           "methods": [],
           "name": "_fit",
           "parameters": [
@@ -6988,7 +6986,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 225,
+          "line": 226,
           "methods": [],
           "name": "_pair_fields",
           "parameters": [
@@ -7013,7 +7011,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 240,
+          "line": 241,
           "methods": [],
           "name": "_translation_record",
           "parameters": [
@@ -7110,7 +7108,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 294,
+          "line": 296,
           "methods": [],
           "name": "_spec_key",
           "parameters": [
@@ -7135,7 +7133,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 298,
+          "line": 300,
           "methods": [],
           "name": "_loso_record",
           "parameters": [
@@ -7202,7 +7200,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 380,
+          "line": 382,
           "methods": [],
           "name": "_add_mae",
           "parameters": [
@@ -7263,7 +7261,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 399,
+          "line": 401,
           "methods": [],
           "name": "_evaluate_mae",
           "parameters": [
@@ -7326,7 +7324,7 @@
             "spectralbridge.bulk.analyses.streaming_translation.run_streaming_translation_analyses"
           ],
           "kind": "function",
-          "line": 505,
+          "line": 507,
           "methods": [],
           "name": "run_streaming_translation_analyses",
           "parameters": [
@@ -7399,7 +7397,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 854,
+          "line": 857,
           "methods": [],
           "name": "_merge_normalized",
           "parameters": [
@@ -7417,7 +7415,7 @@
         }
       ],
       "path": "src/spectralbridge/bulk/analyses/streaming_translation.py",
-      "sha256": "853adf6cf394fc9bb917e07c92ab191c90839d5b724b32745ac5a508bffdf6e0"
+      "sha256": "fed2893763ead642dad83b942c15e23210c68b676ccb27b5adcdba75bf2f2411"
     },
     {
       "area": "bulk",
@@ -8582,11 +8580,13 @@
         "annotations": "__future__.annotations",
         "canonical_json": "spectralbridge.bulk.provenance.canonical_json",
         "defaultdict": "collections.defaultdict",
+        "library_radiometry": "spectralbridge.radiometry.library_radiometry",
         "parse_envi_wavelengths_nm": "spectralbridge.exports.schema_utils.parse_envi_wavelengths_nm",
         "quote_identifier": "spectralbridge.bulk.dataset.quote_identifier",
         "quote_path": "spectralbridge.bulk.dataset.quote_path",
         "read_envi_in_chunks": "spectralbridge.parquet_export.read_envi_in_chunks",
         "replace": "dataclasses.replace",
+        "require_physical_table": "spectralbridge.radiometry.require_physical_table",
         "resolve_analysis_profile": "spectralbridge.bulk.registry.resolve_analysis_profile",
         "resolve_flightline_identity": "spectralbridge.bulk.identity.resolve_flightline_identity",
         "signature_sha256": "spectralbridge.bulk.provenance.signature_sha256",
@@ -8782,7 +8782,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 189,
+          "line": 194,
           "methods": [],
           "name": "_tabular_metadata",
           "parameters": [
@@ -8819,7 +8819,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 268,
+          "line": 278,
           "methods": [],
           "name": "_pair_regression_eligibility",
           "parameters": [
@@ -8856,7 +8856,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 300,
+          "line": 310,
           "methods": [],
           "name": "_qa_inventory",
           "parameters": [
@@ -8881,7 +8881,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 369,
+          "line": 379,
           "methods": [],
           "name": "_translation_eligibility",
           "parameters": [
@@ -8912,7 +8912,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 404,
+          "line": 414,
           "methods": [],
           "name": "_source_record",
           "parameters": [
@@ -9077,7 +9077,7 @@
             "spectralbridge.bulk.flightline_outputs.discover_completed_flightlines"
           ],
           "kind": "function",
-          "line": 492,
+          "line": 502,
           "methods": [],
           "name": "discover_completed_flightlines",
           "parameters": [
@@ -9138,7 +9138,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1137,
+          "line": 1147,
           "methods": [],
           "name": "_schema_fingerprint",
           "parameters": [
@@ -9163,7 +9163,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1143,
+          "line": 1153,
           "methods": [],
           "name": "_extract_sensor",
           "parameters": [
@@ -9206,7 +9206,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1178,
+          "line": 1188,
           "methods": [],
           "name": "_merge_sensor_caches",
           "parameters": [
@@ -9239,7 +9239,7 @@
             "spectralbridge.bulk.flightline_outputs.extract_flightline_cache"
           ],
           "kind": "function",
-          "line": 1221,
+          "line": 1231,
           "methods": [],
           "name": "extract_flightline_cache",
           "parameters": [
@@ -9294,7 +9294,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1350,
+          "line": 1360,
           "methods": [],
           "name": "_spectralbridge_version",
           "parameters": [],
@@ -9312,7 +9312,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1356,
+          "line": 1366,
           "methods": [],
           "name": "_cache_source_record",
           "parameters": [
@@ -9342,7 +9342,7 @@
         }
       ],
       "path": "src/spectralbridge/bulk/flightline_outputs.py",
-      "sha256": "f4c9d3e67a8859b64ede4737b96e401601b2ce4ba8f015d94ed884ee3222b014"
+      "sha256": "3f6d70fc63f7188e27e74dbf975f8d23d0be7d9b899b7de5bfac7291737fef47"
     },
     {
       "area": "bulk",
@@ -13050,7 +13050,7 @@
         {
           "annotation": null,
           "name": "STATISTICS_SCHEMA_VERSION",
-          "value": "1"
+          "value": "2"
         }
       ],
       "declared_exports": [
@@ -13081,6 +13081,7 @@
         "asdict": "dataclasses.asdict",
         "canonical_json": "spectralbridge.bulk.provenance.canonical_json",
         "dataclass": "dataclasses.dataclass",
+        "library_radiometry": "spectralbridge.radiometry.library_radiometry",
         "replace": "dataclasses.replace",
         "signature_sha256": "spectralbridge.bulk.provenance.signature_sha256",
         "write_json_atomic": "spectralbridge.bulk.provenance.write_json_atomic"
@@ -13453,7 +13454,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 321,
+          "line": 325,
           "methods": [],
           "name": "_write_parquet_atomic",
           "parameters": [
@@ -13492,7 +13493,7 @@
             "spectralbridge.bulk.streaming.write_statistics"
           ],
           "kind": "function",
-          "line": 331,
+          "line": 335,
           "methods": [],
           "name": "write_statistics",
           "parameters": [
@@ -13525,7 +13526,7 @@
             "spectralbridge.bulk.streaming.write_diagnostic_sample"
           ],
           "kind": "function",
-          "line": 337,
+          "line": 341,
           "methods": [],
           "name": "write_diagnostic_sample",
           "parameters": [
@@ -13556,7 +13557,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 343,
+          "line": 347,
           "methods": [],
           "name": "_sample_priorities",
           "parameters": [
@@ -13607,7 +13608,7 @@
             "spectralbridge.bulk.streaming.compute_flightline_statistics"
           ],
           "kind": "function",
-          "line": 365,
+          "line": 369,
           "methods": [],
           "name": "compute_flightline_statistics",
           "parameters": [
@@ -13674,7 +13675,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 570,
+          "line": 574,
           "methods": [],
           "name": "_spectralbridge_version",
           "parameters": [],
@@ -13685,7 +13686,7 @@
         }
       ],
       "path": "src/spectralbridge/bulk/streaming.py",
-      "sha256": "58ee47771798e1f7503d8b646172c7c33d511dd8d0346e8c26080f90ebce4280"
+      "sha256": "98fb08bd5875c72641e3425dbb5a70db1b70f97bab5fb7ba24ec2cdf1e7d790d"
     },
     {
       "area": "utilities",
@@ -14608,7 +14609,6 @@
       "constants": [],
       "declared_exports": [
         "apply_brdf_correct",
-        "apply_glint_correct",
         "apply_topo_correct",
         "calc_cosine_i",
         "calc_geom_kernel",
@@ -14619,19 +14619,20 @@
       ],
       "docstring": "BRDF and topographic correction helpers.\n\nPortions of this module are adapted from HyTools. The incidence-angle, Ross/Li\nkernel, and BRDF fitting/application lineage is detailed in\n``HYTOOLS_PROVENANCE.md``. The SCS+C implementation follows the published method\nof Soenen et al. (2005), DOI 10.1109/TGRS.2005.852480; it is classified\nseparately from the adapted incidence helper.\n\nHyTools: Hyperspectral image processing library\nCopyright (C) 2021 University of Wisconsin\nAuthors named in the relevant source notices: Adam Chlus, Zhiwei Ye, Philip Townsend.\nLicense: GNU General Public License, version 3\nUpstream: https://github.com/EnSpec/hytools\nAudited revision: 31286d64541791a9815d29443a33726fa4d54031\n\nModified and extended for SpectralBridge. See ``LICENSE``, ``NOTICE``, and\n``HYTOOLS_PROVENANCE.md``. The Ross/Li kernel equations are described by Wanner\net al. (1995), DOI 10.1029/95JD02371, and Lucht et al. (2000), DOI\n10.1109/36.841980.",
       "export_expressions": [
-        "__all__ = ['calc_cosine_i', 'calc_volume_kernel', 'calc_geom_kernel', 'load_brdf_model', 'fit_and_save_brdf_model', 'fit_scs_c_coefficients', 'apply_topo_correct', 'apply_brdf_correct', 'apply_glint_correct']"
+        "__all__ = ['calc_cosine_i', 'calc_volume_kernel', 'calc_geom_kernel', 'load_brdf_model', 'fit_and_save_brdf_model', 'fit_scs_c_coefficients', 'apply_topo_correct', 'apply_brdf_correct']"
       ],
       "imports": {
         "NeonCube": "spectralbridge.neon_cube.NeonCube",
         "Path": "pathlib.Path",
+        "Radiometry": "spectralbridge.radiometry.Radiometry",
         "TYPE_CHECKING": "typing.TYPE_CHECKING",
         "Tuple": "typing.Tuple",
         "annotations": "__future__.annotations",
+        "asdict": "dataclasses.asdict",
         "dataclass": "dataclasses.dataclass",
         "normalize_brdf_model_path": "spectralbridge.paths.normalize_brdf_model_path",
-        "scene_prefix_from_dir": "spectralbridge.paths.scene_prefix_from_dir",
-        "stored_to_unitless": "spectralbridge.io.neon.stored_to_unitless",
-        "unitless_to_stored": "spectralbridge.io.neon.unitless_to_stored"
+        "require_radiometry": "spectralbridge.radiometry.require_radiometry",
+        "scene_prefix_from_dir": "spectralbridge.paths.scene_prefix_from_dir"
       },
       "module": "spectralbridge.corrections",
       "objects": [
@@ -14675,7 +14676,7 @@
           "examples": [],
           "exports": [],
           "kind": "class",
-          "line": 58,
+          "line": 57,
           "methods": [],
           "name": "NDVIBinningConfig",
           "parameters": [],
@@ -14709,7 +14710,7 @@
           "examples": [],
           "exports": [],
           "kind": "class",
-          "line": 70,
+          "line": 69,
           "methods": [],
           "name": "ReferenceGeometry",
           "parameters": [],
@@ -14753,7 +14754,7 @@
           "examples": [],
           "exports": [],
           "kind": "class",
-          "line": 79,
+          "line": 78,
           "methods": [],
           "name": "BRDFKernelConfig",
           "parameters": [],
@@ -14771,7 +14772,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 103,
+          "line": 102,
           "methods": [],
           "name": "log_stats",
           "parameters": [
@@ -14808,7 +14809,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 126,
+          "line": 125,
           "methods": [],
           "name": "_scs_c_ratio",
           "parameters": [
@@ -14847,7 +14848,7 @@
             "spectralbridge.corrections.load_brdf_model"
           ],
           "kind": "function",
-          "line": 148,
+          "line": 147,
           "methods": [],
           "name": "load_brdf_model",
           "parameters": [
@@ -14872,7 +14873,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 162,
+          "line": 161,
           "methods": [],
           "name": "_validate_angles",
           "parameters": [
@@ -14897,7 +14898,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 182,
+          "line": 181,
           "methods": [],
           "name": "_select_band_for_wavelength",
           "parameters": [
@@ -14928,7 +14929,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 189,
+          "line": 188,
           "methods": [],
           "name": "_normalize_volume_kernel_name",
           "parameters": [
@@ -14953,7 +14954,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 198,
+          "line": 197,
           "methods": [],
           "name": "_normalize_geom_kernel_name",
           "parameters": [
@@ -14978,7 +14979,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 217,
+          "line": 216,
           "methods": [],
           "name": "_default_geom_params",
           "parameters": [
@@ -15003,7 +15004,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 224,
+          "line": 223,
           "methods": [],
           "name": "_resolve_scene_solar_zenith",
           "parameters": [
@@ -15034,7 +15035,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 237,
+          "line": 236,
           "methods": [],
           "name": "compute_ndvi",
           "parameters": [
@@ -15077,7 +15078,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 254,
+          "line": 253,
           "methods": [],
           "name": "compute_ndvi_bins",
           "parameters": [
@@ -15108,7 +15109,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 279,
+          "line": 278,
           "methods": [],
           "name": "_single_brdf_bin",
           "parameters": [
@@ -15135,7 +15136,7 @@
             "spectralbridge.corrections.calc_cosine_i"
           ],
           "kind": "function",
-          "line": 287,
+          "line": 286,
           "methods": [],
           "name": "calc_cosine_i",
           "parameters": [
@@ -15180,7 +15181,7 @@
             "spectralbridge.corrections.calc_volume_kernel"
           ],
           "kind": "function",
-          "line": 337,
+          "line": 336,
           "methods": [],
           "name": "calc_volume_kernel",
           "parameters": [
@@ -15231,7 +15232,7 @@
             "spectralbridge.corrections.calc_geom_kernel"
           ],
           "kind": "function",
-          "line": 378,
+          "line": 377,
           "methods": [],
           "name": "calc_geom_kernel",
           "parameters": [
@@ -15294,7 +15295,7 @@
             "spectralbridge.corrections.fit_scs_c_coefficients"
           ],
           "kind": "function",
-          "line": 467,
+          "line": 441,
           "methods": [],
           "name": "fit_scs_c_coefficients",
           "parameters": [
@@ -15333,7 +15334,7 @@
             "spectralbridge.corrections.apply_topo_correct"
           ],
           "kind": "function",
-          "line": 556,
+          "line": 529,
           "methods": [],
           "name": "apply_topo_correct",
           "parameters": [
@@ -15402,7 +15403,7 @@
             "spectralbridge.corrections.apply_brdf_correct"
           ],
           "kind": "function",
-          "line": 698,
+          "line": 669,
           "methods": [],
           "name": "apply_brdf_correct",
           "parameters": [
@@ -15465,45 +15466,117 @@
               "default": "None",
               "kind": "positional-or-keyword",
               "name": "brdf_kernel_config"
+            },
+            {
+              "annotation": "str",
+              "default": "'uncorrected'",
+              "kind": "positional-or-keyword",
+              "name": "input_stage"
             }
           ],
           "path": "spectralbridge.corrections.apply_brdf_correct",
-          "signature": "apply_brdf_correct(cube: 'NeonCube', chunk_array: np.ndarray, ys: int, ye: int, xs: int, xe: int, coeff_path: Path | None=None, ndvi_config: NDVIBinningConfig | None=None, reference_geometry: ReferenceGeometry | None=None, brdf_kernel_config: BRDFKernelConfig | None=None) -> np.ndarray",
+          "signature": "apply_brdf_correct(cube: 'NeonCube', chunk_array: np.ndarray, ys: int, ye: int, xs: int, xe: int, coeff_path: Path | None=None, ndvi_config: NDVIBinningConfig | None=None, reference_geometry: ReferenceGeometry | None=None, brdf_kernel_config: BRDFKernelConfig | None=None, input_stage: str='uncorrected') -> np.ndarray",
           "summary": "Perform BRDF normalization on a hyperspectral chunk using FlexBRDF ratio.",
           "summary_basis": "source docstring"
         },
         {
           "attributes": [],
-          "audience": "advanced",
-          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "audience": "internal",
+          "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
-          "docstring": "Placeholder for sunglint correction.\n\nIn hytools.glint.apply_glint_correct (GPLv3), sunglint correction is used\nfor aquatic environments. We are not supporting that right now.",
+          "docstring": "Bound cached fits to source bytes and spatial window without a pixel cache.",
           "examples": [],
-          "exports": [
-            "spectralbridge.corrections.apply_glint_correct"
-          ],
+          "exports": [],
           "kind": "function",
-          "line": 995,
+          "line": 746,
           "methods": [],
-          "name": "apply_glint_correct",
+          "name": "_brdf_source_identity",
           "parameters": [
             {
               "annotation": null,
               "default": null,
-              "kind": "variadic-positional",
-              "name": "args"
+              "kind": "positional-or-keyword",
+              "name": "cube"
+            }
+          ],
+          "path": "spectralbridge.corrections._brdf_source_identity",
+          "signature": "_brdf_source_identity(cube)",
+          "summary": "Bound cached fits to source bytes and spatial window without a pixel cache.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "internal",
+          "classification_reason": "Private/compatibility/CLI module or implementation utility",
+          "docs_references": [],
+          "docstring": "",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 766,
+          "methods": [],
+          "name": "_brdf_design",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "cube"
             },
             {
               "annotation": null,
               "default": null,
-              "kind": "variadic-keyword",
-              "name": "kwargs"
+              "kind": "positional-or-keyword",
+              "name": "config"
+            },
+            {
+              "annotation": null,
+              "default": "None",
+              "kind": "positional-or-keyword",
+              "name": "scene_solar"
+            },
+            {
+              "annotation": null,
+              "default": "None",
+              "kind": "positional-or-keyword",
+              "name": "window"
             }
           ],
-          "path": "spectralbridge.corrections.apply_glint_correct",
-          "signature": "apply_glint_correct(*args, **kwargs)",
-          "summary": "Placeholder for sunglint correction.",
-          "summary_basis": "source docstring"
+          "path": "spectralbridge.corrections._brdf_design",
+          "signature": "_brdf_design(cube, config, scene_solar=None, window=None)",
+          "summary": "",
+          "summary_basis": "not documented"
+        },
+        {
+          "attributes": [],
+          "audience": "internal",
+          "classification_reason": "Private/compatibility/CLI module or implementation utility",
+          "docs_references": [],
+          "docstring": "",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 792,
+          "methods": [],
+          "name": "_reference_design",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "reference"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "config"
+            }
+          ],
+          "path": "spectralbridge.corrections._reference_design",
+          "signature": "_reference_design(reference, config)",
+          "summary": "",
+          "summary_basis": "not documented"
         },
         {
           "attributes": [],
@@ -15516,7 +15589,7 @@
             "spectralbridge.corrections.fit_and_save_brdf_model"
           ],
           "kind": "function",
-          "line": 1005,
+          "line": 799,
           "methods": [],
           "name": "fit_and_save_brdf_model",
           "parameters": [
@@ -15555,16 +15628,22 @@
               "default": "2.0",
               "kind": "positional-or-keyword",
               "name": "rho_max"
+            },
+            {
+              "annotation": "bool",
+              "default": "False",
+              "kind": "positional-or-keyword",
+              "name": "apply_topography"
             }
           ],
           "path": "spectralbridge.corrections.fit_and_save_brdf_model",
-          "signature": "fit_and_save_brdf_model(cube: 'NeonCube', out_dir: Path, ndvi_config: NDVIBinningConfig | None=None, brdf_kernel_config: BRDFKernelConfig | None=None, rho_min: float=0.0, rho_max: float | None=2.0) -> Path",
+          "signature": "fit_and_save_brdf_model(cube: 'NeonCube', out_dir: Path, ndvi_config: NDVIBinningConfig | None=None, brdf_kernel_config: BRDFKernelConfig | None=None, rho_min: float=0.0, rho_max: float | None=2.0, apply_topography: bool=False) -> Path",
           "summary": "Estimate and persist BRDF coefficients for a NEON flightline.",
           "summary_basis": "source docstring"
         }
       ],
       "path": "src/spectralbridge/corrections.py",
-      "sha256": "ece9bca2c17d4d17e70fcefd4d67b51f088ea2103e836b04f9b816e32a68aa7a"
+      "sha256": "4474cc83ba6e6c998b6aac36e577e74439fff996fbf8e1c9d20d76d190f2c5bf"
     },
     {
       "area": "utilities",
@@ -15930,6 +16009,7 @@
         "RemoteEntry": "spectralbridge.remote.RemoteEntry",
         "Sequence": "typing.Sequence",
         "__version__": "spectralbridge.__version__",
+        "_validate_drone_h5_spatial_metadata": "spectralbridge.pipelines.drone._validate_drone_h5_spatial_metadata",
         "annotations": "__future__.annotations",
         "asdict": "dataclasses.asdict",
         "dataclass": "dataclasses.dataclass",
@@ -15937,6 +16017,7 @@
         "derive_drone_flight_stem": "spectralbridge.pipelines.drone.derive_drone_flight_stem",
         "discover_completed_flightlines": "spectralbridge.bulk.flightline_outputs.discover_completed_flightlines",
         "get_package_data_path": "spectralbridge.utils.paths.get_package_data_path",
+        "library_radiometry": "spectralbridge.radiometry.library_radiometry",
         "load_drone_manifest": "spectralbridge.pipelines.drone.load_drone_manifest",
         "lookup_flight_datetime": "spectralbridge.pipelines.drone.lookup_flight_datetime",
         "normalize_remote_path": "spectralbridge.remote.normalize_remote_path",
@@ -15961,7 +16042,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 48,
+          "line": 49,
           "methods": [],
           "name": "_utc_now",
           "parameters": [],
@@ -15979,7 +16060,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 52,
+          "line": 53,
           "methods": [],
           "name": "_jsonable",
           "parameters": [
@@ -16004,7 +16085,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 64,
+          "line": 65,
           "methods": [],
           "name": "_atomic_json",
           "parameters": [
@@ -16035,7 +16116,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 75,
+          "line": 76,
           "methods": [],
           "name": "_write_rows_csv",
           "parameters": [
@@ -16066,7 +16147,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 97,
+          "line": 98,
           "methods": [],
           "name": "_sha256_file",
           "parameters": [
@@ -16185,11 +16266,11 @@
             "spectralbridge.drone_production.RemoteDronePackage"
           ],
           "kind": "class",
-          "line": 106,
+          "line": 107,
           "methods": [
             {
               "docstring": "Serialize this record to its established machine-readable mapping.\n\nReturns\n-------\ndict[str, Any]\n    Mapping of record fields and workflow-derived summary entries in the established serialization schema.",
-              "line": 168,
+              "line": 169,
               "name": "to_dict",
               "parameters": [],
               "private": false,
@@ -16251,11 +16332,11 @@
             "spectralbridge.drone_production.DroneYearSource"
           ],
           "kind": "class",
-          "line": 181,
+          "line": 182,
           "methods": [
             {
               "docstring": "Serialize this record to its established machine-readable mapping.\n\nReturns\n-------\ndict[str, Any]\n    Mapping of record fields and workflow-derived summary entries in the established serialization schema.",
-              "line": 210,
+              "line": 211,
               "name": "to_dict",
               "parameters": [],
               "private": false,
@@ -16327,11 +16408,11 @@
             "spectralbridge.drone_production.DroneCollectionInventory"
           ],
           "kind": "class",
-          "line": 223,
+          "line": 224,
           "methods": [
             {
               "docstring": "Select package records marked eligible for staging.\n\nReturns\n-------\ntuple[RemoteDronePackage, ...]\n    Tuple of package records whose eligibility equals eligible; no transfer is performed.",
-              "line": 259,
+              "line": 260,
               "name": "eligible_packages",
               "parameters": [],
               "private": false,
@@ -16339,7 +16420,7 @@
             },
             {
               "docstring": "Select package records excluded from staging.\n\nReturns\n-------\ntuple[RemoteDronePackage, ...]\n    Tuple of package records whose eligibility is not eligible, retaining their recorded reasons.",
-              "line": 271,
+              "line": 272,
               "name": "excluded_packages",
               "parameters": [],
               "private": false,
@@ -16347,7 +16428,7 @@
             },
             {
               "docstring": "Return deterministic manifest-aware discovery evidence by year.",
-              "line": 282,
+              "line": 283,
               "name": "year_summaries",
               "parameters": [],
               "private": false,
@@ -16355,7 +16436,7 @@
             },
             {
               "docstring": "Report whether all requested-year source discovery is complete.\n\nReturns\n-------\nbool\n    Whether the recorded state satisfies this method's predicate; no source processing is performed.",
-              "line": 323,
+              "line": 324,
               "name": "discovery_complete",
               "parameters": [],
               "private": false,
@@ -16363,7 +16444,7 @@
             },
             {
               "docstring": "Serialize this record to its established machine-readable mapping.\n\nReturns\n-------\ndict[str, Any]\n    Mapping of record fields and workflow-derived summary entries in the established serialization schema.",
-              "line": 339,
+              "line": 340,
               "name": "to_dict",
               "parameters": [],
               "private": false,
@@ -16371,7 +16452,7 @@
             },
             {
               "docstring": "Write inventory JSON and CSV tables.\n\nParameters\n----------\noutput_dir : str | Path\n    Directory for generated products; bulk outputs must be outside the read-only input tree.\n\nReturns\n-------\ntuple[Path, Path]\n    Inventory JSON path and package CSV path, in that order.",
-              "line": 366,
+              "line": 367,
               "name": "write",
               "parameters": [
                 {
@@ -16449,11 +16530,11 @@
             "spectralbridge.drone_production.BulkReadinessValidation"
           ],
           "kind": "class",
-          "line": 390,
+          "line": 391,
           "methods": [
             {
               "docstring": "",
-              "line": 403,
+              "line": 404,
               "name": "to_dict",
               "parameters": [],
               "private": false,
@@ -16509,11 +16590,11 @@
             "spectralbridge.drone_production.StagedDroneInput"
           ],
           "kind": "class",
-          "line": 408,
+          "line": 409,
           "methods": [
             {
               "docstring": "",
-              "line": 418,
+              "line": 419,
               "name": "to_dict",
               "parameters": [],
               "private": false,
@@ -16635,11 +16716,11 @@
             "spectralbridge.drone_production.DroneCampaignConfig"
           ],
           "kind": "class",
-          "line": 423,
+          "line": 424,
           "methods": [
             {
               "docstring": "Validate configuration ranges and supported option combinations.\n\nReturns\n-------\nNone\n    No return value; validation raises on unsupported configuration and directory creation persists the canonical hierarchy.\n\nRaises\n------\nValueError\n    If option values violate the configuration or relationship-selection contract.",
-              "line": 488,
+              "line": 489,
               "name": "validate",
               "parameters": [],
               "private": false,
@@ -16647,7 +16728,7 @@
             },
             {
               "docstring": "Serialize this record to its established machine-readable mapping.\n\nReturns\n-------\ndict[str, Any]\n    Mapping of record fields and workflow-derived summary entries in the established serialization schema.",
-              "line": 514,
+              "line": 515,
               "name": "to_dict",
               "parameters": [],
               "private": false,
@@ -16729,11 +16810,11 @@
             "spectralbridge.drone_production.DroneFlightStatus"
           ],
           "kind": "class",
-          "line": 527,
+          "line": 528,
           "methods": [
             {
               "docstring": "Serialize this record to its established machine-readable mapping.\n\nReturns\n-------\ndict[str, Any]\n    Mapping of record fields and workflow-derived summary entries in the established serialization schema.",
-              "line": 568,
+              "line": 569,
               "name": "to_dict",
               "parameters": [],
               "private": false,
@@ -16805,11 +16886,11 @@
             "spectralbridge.drone_production.DroneCampaignResult"
           ],
           "kind": "class",
-          "line": 581,
+          "line": 582,
           "methods": [
             {
               "docstring": "Select producer flight records currently marked bulk-ready.\n\nReturns\n-------\ntuple[DroneFlightStatus, ...]\n    Tuple of producer flight records marked bulk_ready; this property does not rerun readiness validation.",
-              "line": 617,
+              "line": 618,
               "name": "completed_flights",
               "parameters": [],
               "private": false,
@@ -16817,7 +16898,7 @@
             },
             {
               "docstring": "Select failed or scientifically blocked flight records.\n\nReturns\n-------\ntuple[DroneFlightStatus, ...]\n    Tuple of flight records whose state is failed or blocked.",
-              "line": 629,
+              "line": 630,
               "name": "failed_flights",
               "parameters": [],
               "private": false,
@@ -16825,7 +16906,7 @@
             },
             {
               "docstring": "Combine inventory evidence and durable processing state by year.",
-              "line": 640,
+              "line": 641,
               "name": "year_summaries",
               "parameters": [],
               "private": false,
@@ -16833,7 +16914,7 @@
             },
             {
               "docstring": "Report whether every requested year satisfies its manifest expectation.\n\nReturns\n-------\nbool\n    Whether the recorded state satisfies this method's predicate; no source processing is performed.",
-              "line": 694,
+              "line": 695,
               "name": "requested_years_complete",
               "parameters": [],
               "private": false,
@@ -16841,7 +16922,7 @@
             },
             {
               "docstring": "Summarize recorded flight/campaign states without rerunning processing.\n\nReturns\n-------\ndict[str, Any]\n    Recorded campaign counts, per-year completeness and output locations; this summary does not regenerate source products.",
-              "line": 706,
+              "line": 707,
               "name": "summary",
               "parameters": [],
               "private": false,
@@ -16849,7 +16930,7 @@
             },
             {
               "docstring": "Serialize this record to its established machine-readable mapping.\n\nReturns\n-------\ndict[str, Any]\n    Mapping of record fields and workflow-derived summary entries in the established serialization schema.",
-              "line": 753,
+              "line": 754,
               "name": "to_dict",
               "parameters": [],
               "private": false,
@@ -16916,11 +16997,11 @@
             "spectralbridge.drone_production.BulkProductionResult"
           ],
           "kind": "class",
-          "line": 778,
+          "line": 779,
           "methods": [
             {
               "docstring": "Select producer flight records currently marked bulk-ready.\n\nReturns\n-------\ntuple[DroneFlightStatus, ...]\n    Tuple of producer flight records marked bulk_ready; this property does not rerun readiness validation.",
-              "line": 811,
+              "line": 812,
               "name": "completed_flights",
               "parameters": [],
               "private": false,
@@ -16928,7 +17009,7 @@
             },
             {
               "docstring": "Select failed or scientifically blocked flight records.\n\nReturns\n-------\ntuple[DroneFlightStatus, ...]\n    Tuple of flight records whose state is failed or blocked.",
-              "line": 823,
+              "line": 824,
               "name": "failed_flights",
               "parameters": [],
               "private": false,
@@ -16936,7 +17017,7 @@
             },
             {
               "docstring": "Summarize recorded flight/campaign states without rerunning processing.\n\nReturns\n-------\ndict[str, Any]\n    Recorded campaign counts, per-year completeness and output locations; this summary does not regenerate source products.",
-              "line": 834,
+              "line": 835,
               "name": "summary",
               "parameters": [],
               "private": false,
@@ -16944,7 +17025,7 @@
             },
             {
               "docstring": "Serialize this record to its established machine-readable mapping.\n\nReturns\n-------\ndict[str, Any]\n    Mapping of record fields and workflow-derived summary entries in the established serialization schema.",
-              "line": 854,
+              "line": 855,
               "name": "to_dict",
               "parameters": [],
               "private": false,
@@ -16970,11 +17051,11 @@
             "spectralbridge.drone_production.DroneCampaignIncompleteError"
           ],
           "kind": "class",
-          "line": 875,
+          "line": 876,
           "methods": [
             {
               "docstring": "",
-              "line": 886,
+              "line": 887,
               "name": "__init__",
               "parameters": [
                 {
@@ -17012,7 +17093,7 @@
           ],
           "exports": [],
           "kind": "function",
-          "line": 891,
+          "line": 892,
           "methods": [],
           "name": "_manifest_path",
           "parameters": [
@@ -17037,7 +17118,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 899,
+          "line": 900,
           "methods": [],
           "name": "_remote_common_parent",
           "parameters": [
@@ -17062,7 +17143,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 916,
+          "line": 917,
           "methods": [],
           "name": "_manifest_expectations",
           "parameters": [
@@ -17093,7 +17174,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 932,
+          "line": 933,
           "methods": [],
           "name": "_match_manifest_flight",
           "parameters": [
@@ -17124,7 +17205,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 952,
+          "line": 953,
           "methods": [],
           "name": "_resolve_drone_sources",
           "parameters": [
@@ -17167,7 +17248,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1051,
+          "line": 1052,
           "methods": [],
           "name": "_remote_package_path",
           "parameters": [
@@ -17192,7 +17273,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1061,
+          "line": 1062,
           "methods": [],
           "name": "_inventory_entries",
           "parameters": [
@@ -17238,7 +17319,7 @@
             "spectralbridge.drone_production.validate_bulk_ready_flightline"
           ],
           "kind": "function",
-          "line": 1091,
+          "line": 1092,
           "methods": [],
           "name": "validate_bulk_ready_flightline",
           "parameters": [
@@ -17266,7 +17347,7 @@
             "spectralbridge.drone_production.inspect_drone_collection"
           ],
           "kind": "function",
-          "line": 1161,
+          "line": 1183,
           "methods": [],
           "name": "inspect_drone_collection",
           "parameters": [
@@ -17335,7 +17416,7 @@
             "spectralbridge.drone_production.stage_drone_package"
           ],
           "kind": "function",
-          "line": 1343,
+          "line": 1365,
           "methods": [],
           "name": "stage_drone_package",
           "parameters": [
@@ -17381,7 +17462,7 @@
             "spectralbridge.drone_production.stage_drone_collection"
           ],
           "kind": "function",
-          "line": 1412,
+          "line": 1434,
           "methods": [],
           "name": "stage_drone_collection",
           "parameters": [
@@ -17418,7 +17499,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1451,
+          "line": 1473,
           "methods": [],
           "name": "_write_campaign_state",
           "parameters": [
@@ -17452,7 +17533,7 @@
             "spectralbridge.drone_production.run_drone_campaign"
           ],
           "kind": "function",
-          "line": 1460,
+          "line": 1482,
           "methods": [],
           "name": "run_drone_campaign",
           "parameters": [
@@ -17507,7 +17588,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1695,
+          "line": 1717,
           "methods": [],
           "name": "_copy_result_tree",
           "parameters": [
@@ -17538,7 +17619,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1713,
+          "line": 1735,
           "methods": [],
           "name": "_default_result_name",
           "parameters": [
@@ -17569,7 +17650,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1725,
+          "line": 1747,
           "methods": [],
           "name": "_package_is_valid",
           "parameters": [
@@ -17594,7 +17675,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1741,
+          "line": 1763,
           "methods": [],
           "name": "_campaign_identity_sha256",
           "parameters": [
@@ -17619,7 +17700,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1762,
+          "line": 1784,
           "methods": [],
           "name": "_package_matches_campaign",
           "parameters": [
@@ -17650,7 +17731,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1778,
+          "line": 1800,
           "methods": [],
           "name": "_archive_stale_package",
           "parameters": [
@@ -17677,7 +17758,7 @@
             "spectralbridge.drone_production.package_drone_bulk_results"
           ],
           "kind": "function",
-          "line": 1791,
+          "line": 1813,
           "methods": [],
           "name": "package_drone_bulk_results",
           "parameters": [
@@ -17720,7 +17801,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1874,
+          "line": 1896,
           "methods": [],
           "name": "_recursive_remote_files",
           "parameters": [
@@ -17753,7 +17834,7 @@
             "spectralbridge.drone_production.verify_uploaded_results"
           ],
           "kind": "function",
-          "line": 1890,
+          "line": 1912,
           "methods": [],
           "name": "verify_uploaded_results",
           "parameters": [
@@ -17790,7 +17871,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1931,
+          "line": 1953,
           "methods": [],
           "name": "_incomplete_campaign_message",
           "parameters": [
@@ -17815,7 +17896,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1957,
+          "line": 1979,
           "methods": [],
           "name": "_validate_campaign_bulk_population",
           "parameters": [
@@ -17843,7 +17924,7 @@
             "spectralbridge.drone_production.run_drone_bulk_production"
           ],
           "kind": "function",
-          "line": 1984,
+          "line": 2006,
           "methods": [],
           "name": "run_drone_bulk_production",
           "parameters": [
@@ -17903,7 +17984,7 @@
         }
       ],
       "path": "src/spectralbridge/drone_production.py",
-      "sha256": "3f4a5de9a7e4ef43a95d95a65551693fb24bae6fa59d92d36da68fd0246895a6"
+      "sha256": "f9dfddaa54c63a853de174f9c3630ebde69cfcd66f45028f3bfd5bad6fbf448f"
     },
     {
       "area": "drone",
@@ -17929,6 +18010,7 @@
         "DEFAULT_QA_STYLE": "spectralbridge.qa_style.DEFAULT_QA_STYLE",
         "DroneTranslationPlan": "spectralbridge.drone_translation.DroneTranslationPlan",
         "Path": "pathlib.Path",
+        "Radiometry": "spectralbridge.radiometry.Radiometry",
         "SENSOR_COLORS": "spectralbridge.qa_style.SENSOR_COLORS",
         "STATUS_COLORS": "spectralbridge.qa_style.STATUS_COLORS",
         "annotations": "__future__.annotations",
@@ -18077,7 +18159,7 @@
             "spectralbridge.drone_qa.render_common_support_comparison"
           ],
           "kind": "function",
-          "line": 244,
+          "line": 238,
           "methods": [],
           "name": "render_common_support_comparison",
           "parameters": [
@@ -18110,7 +18192,7 @@
             "spectralbridge.drone_qa.render_drone_translation_publication"
           ],
           "kind": "function",
-          "line": 307,
+          "line": 301,
           "methods": [],
           "name": "render_drone_translation_publication",
           "parameters": [
@@ -18134,7 +18216,7 @@
         }
       ],
       "path": "src/spectralbridge/drone_qa.py",
-      "sha256": "6604a484d9d89c4902425914f7de0176c16ba236b3f2337ffcf26516031b8673"
+      "sha256": "2d059c3a51fc6e68b77c225da82ee3923fd8108f4395b0ed60bfd4b67bc7d43c"
     },
     {
       "area": "drone",
@@ -18174,6 +18256,7 @@
         "Iterable": "typing.Iterable",
         "PRODUCTION_TRANSLATION_WEIGHTING": "spectralbridge.drone_translation_registry.PRODUCTION_TRANSLATION_WEIGHTING",
         "Path": "pathlib.Path",
+        "Radiometry": "spectralbridge.radiometry.Radiometry",
         "Sequence": "typing.Sequence",
         "TranslationPair": "spectralbridge.bulk.registry.TranslationPair",
         "__version__": "spectralbridge.__version__",
@@ -18184,9 +18267,11 @@
         "get_package_data_path": "spectralbridge.utils.paths.get_package_data_path",
         "hdr_to_dict": "spectralbridge.envi.hdr_to_dict",
         "is_valid_envi_pair": "spectralbridge.utils_checks.is_valid_envi_pair",
+        "library_radiometry": "spectralbridge.radiometry.library_radiometry",
         "load_drone_translation_coefficients": "spectralbridge.drone_translation_registry.load_drone_translation_coefficients",
         "memmap_bsq": "spectralbridge.envi.memmap_bsq",
         "packaged_drone_translation_coefficients_path": "spectralbridge.drone_translation_registry.packaged_drone_translation_coefficients_path",
+        "require_physical_table": "spectralbridge.radiometry.require_physical_table",
         "sensor_band_identity": "spectralbridge.sensor_pairs.sensor_band_identity",
         "timezone": "datetime.timezone"
       },
@@ -18424,6 +18509,11 @@
               "annotation": "str | None",
               "default": "None",
               "name": "coefficient_set_version"
+            },
+            {
+              "annotation": "str | None",
+              "default": "None",
+              "name": "reflectance_units"
             }
           ],
           "audience": "advanced",
@@ -18439,7 +18529,7 @@
           "methods": [
             {
               "docstring": "",
-              "line": 118,
+              "line": 119,
               "name": "output_slug",
               "parameters": [],
               "private": false,
@@ -18469,7 +18559,7 @@
           ],
           "exports": [],
           "kind": "function",
-          "line": 122,
+          "line": 123,
           "methods": [],
           "name": "_sha256",
           "parameters": [
@@ -18494,7 +18584,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 130,
+          "line": 131,
           "methods": [],
           "name": "_optional_number",
           "parameters": [
@@ -18519,7 +18609,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 137,
+          "line": 138,
           "methods": [],
           "name": "_load_parameter_definitions",
           "parameters": [],
@@ -18537,7 +18627,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 142,
+          "line": 143,
           "methods": [],
           "name": "_load_coefficient_rows",
           "parameters": [
@@ -18562,7 +18652,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 212,
+          "line": 214,
           "methods": [],
           "name": "_registry_pairs",
           "parameters": [],
@@ -18580,7 +18670,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 216,
+          "line": 218,
           "methods": [],
           "name": "_nearest_native_band",
           "parameters": [
@@ -18617,7 +18707,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 241,
+          "line": 243,
           "methods": [],
           "name": "_validate_required_columns",
           "parameters": [
@@ -18644,7 +18734,7 @@
             "spectralbridge.drone_translation.load_drone_translation_plans"
           ],
           "kind": "function",
-          "line": 265,
+          "line": 267,
           "methods": [],
           "name": "load_drone_translation_plans",
           "parameters": [
@@ -18695,7 +18785,7 @@
             "spectralbridge.drone_translation.translated_output_stem"
           ],
           "kind": "function",
-          "line": 499,
+          "line": 502,
           "methods": [],
           "name": "translated_output_stem",
           "parameters": [
@@ -18734,7 +18824,7 @@
             "spectralbridge.drone_translation.matched_source_output_stem"
           ],
           "kind": "function",
-          "line": 513,
+          "line": 516,
           "methods": [],
           "name": "matched_source_output_stem",
           "parameters": [
@@ -18773,7 +18863,7 @@
             "spectralbridge.drone_translation.ensure_matched_source_product"
           ],
           "kind": "function",
-          "line": 527,
+          "line": 530,
           "methods": [],
           "name": "ensure_matched_source_product",
           "parameters": [
@@ -18828,7 +18918,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 635,
+          "line": 638,
           "methods": [],
           "name": "_source_fingerprint",
           "parameters": [
@@ -18859,7 +18949,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 645,
+          "line": 648,
           "methods": [],
           "name": "_translation_signature",
           "parameters": [
@@ -18896,7 +18986,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 660,
+          "line": 663,
           "methods": [],
           "name": "_range_compatibility",
           "parameters": [
@@ -18935,7 +19025,7 @@
             "spectralbridge.drone_translation.apply_drone_translation"
           ],
           "kind": "function",
-          "line": 691,
+          "line": 694,
           "methods": [],
           "name": "apply_drone_translation",
           "parameters": [
@@ -18992,7 +19082,7 @@
             "spectralbridge.drone_translation.coefficient_rows_for_parquet"
           ],
           "kind": "function",
-          "line": 945,
+          "line": 955,
           "methods": [],
           "name": "coefficient_rows_for_parquet",
           "parameters": [
@@ -19019,7 +19109,7 @@
             "spectralbridge.drone_translation.enrich_translated_spectral_library"
           ],
           "kind": "function",
-          "line": 983,
+          "line": 993,
           "methods": [],
           "name": "enrich_translated_spectral_library",
           "parameters": [
@@ -19079,7 +19169,7 @@
         }
       ],
       "path": "src/spectralbridge/drone_translation.py",
-      "sha256": "ca3b65f6745c033ad9f1ea31cc63a8ef27b38a0c24ee204ecb72f26e7bf2a7c0"
+      "sha256": "a6da1eef75dd914dc6daed16afb18a50ca26546bd21bd8943b43a07a6ec2337d"
     },
     {
       "area": "drone",
@@ -19531,7 +19621,7 @@
         }
       ],
       "path": "src/spectralbridge/drone_translation_registry.py",
-      "sha256": "407bf5d41590e2739305b5cc11d2bd2e09c3a92f91e7e2f4248a04fb8bda381b"
+      "sha256": "18d36cde698056977c48bd8337633cf206ed33822e7f548ae366a59e6ab1e962"
     },
     {
       "area": "io",
@@ -19666,7 +19756,7 @@
             "spectralbridge.envi.hdr_to_dict"
           ],
           "kind": "function",
-          "line": 136,
+          "line": 141,
           "methods": [],
           "name": "hdr_to_dict",
           "parameters": [
@@ -19693,7 +19783,7 @@
             "spectralbridge.envi.band_axis_from_header"
           ],
           "kind": "function",
-          "line": 156,
+          "line": 161,
           "methods": [],
           "name": "band_axis_from_header",
           "parameters": [
@@ -19726,7 +19816,7 @@
             "spectralbridge.envi.wavelength_array"
           ],
           "kind": "function",
-          "line": 171,
+          "line": 176,
           "methods": [],
           "name": "wavelength_array",
           "parameters": [
@@ -19751,7 +19841,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 198,
+          "line": 203,
           "methods": [],
           "name": "_dtype_from_header",
           "parameters": [
@@ -19784,7 +19874,7 @@
             "spectralbridge.envi.memmap_bsq"
           ],
           "kind": "function",
-          "line": 230,
+          "line": 235,
           "methods": [],
           "name": "memmap_bsq",
           "parameters": [
@@ -19817,7 +19907,7 @@
             "spectralbridge.envi.read_envi_cube"
           ],
           "kind": "function",
-          "line": 249,
+          "line": 254,
           "methods": [],
           "name": "read_envi_cube",
           "parameters": [
@@ -19850,7 +19940,7 @@
             "spectralbridge.envi.to_unitless_reflectance"
           ],
           "kind": "function",
-          "line": 274,
+          "line": 279,
           "methods": [],
           "name": "to_unitless_reflectance",
           "parameters": [
@@ -19875,7 +19965,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 293,
+          "line": 298,
           "methods": [],
           "name": "_parse_envi_header",
           "parameters": [
@@ -19893,7 +19983,7 @@
         }
       ],
       "path": "src/spectralbridge/envi.py",
-      "sha256": "09f7c68b629e111a1dd8fc50df71fd1a2da8ea9c4b82708e719415b618144e55"
+      "sha256": "a9119add199dcd3c00f3f9423ecda935202428cf8e2a07805d699e11da615d8a"
     },
     {
       "area": "pipelines",
@@ -20180,11 +20270,11 @@
           "examples": [],
           "exports": [],
           "kind": "class",
-          "line": 198,
+          "line": 206,
           "methods": [
             {
               "docstring": "Parameters\n----------\nout_stem : Path\n    Output path WITHOUT extension.\n    We will create:\n        <out_stem>.img\n        <out_stem>.hdr\n\nheader_dict : dict\n    The header dict produced by NeonCube.build_envi_header(), possibly\n    updated to include a human-readable description like\n    \"BRDF+topographic corrected reflectance\".\n\nBehavior\n--------\n- Extract:\n      samples = header_dict[\"samples\"]\n      lines   = header_dict[\"lines\"]\n      bands   = header_dict[\"bands\"]\n\n- Allocate a memory-mapped array shaped:\n      (bands, lines, samples)\n  dtype float32, order='C'.\n\n  This is a BSQ layout: band-major on disk.\n\n- Store that memmap in self._mm so we can fill it incrementally.\n- Store header_dict and out_stem so we can write the .hdr in close().\n\nImplementation detail:\n    Use numpy.memmap with mode='w+'.\n    The filename MUST be f\"{out_stem}.img\".",
-              "line": 226,
+              "line": 234,
               "name": "__init__",
               "parameters": [
                 {
@@ -20205,7 +20295,7 @@
             },
             {
               "docstring": "Write a corrected reflectance chunk into the BSQ memmap.\n\nParameters\n----------\ncorrected_chunk : np.ndarray\n    Shape (y_size, x_size, bands), float32.\n    This chunk is aligned with cube.data[ys:ys+y_size, xs:xs+x_size, :].\n\nys : int\n    Row offset (top of chunk in full image coordinates).\n\nxs : int\n    Column offset (left of chunk in full image coordinates).\n\nBehavior\n--------\nFor each band index b:\n    self._mm[b,\n             ys:ys+y_size,\n             xs:xs+x_size] = corrected_chunk[:, :, b]\n\nYou MUST do band-major assignment to match BSQ layout.\n\nThis method should NOT flush to disk; flushing happens in close().\n\nAssumptions:\n    - corrected_chunk is already float32\n    - corrected_chunk has no-data values already handled",
-              "line": 280,
+              "line": 288,
               "name": "write_chunk",
               "parameters": [
                 {
@@ -20232,7 +20322,7 @@
             },
             {
               "docstring": "Finalize the ENVI output:\n\nBehavior\n--------\n- Flush/close the memmap.\n- Write the .hdr file next to the .img file using the\n  build_envi_header_text() function.\n\nImplementation detail:\n    - .img path is f\"{self.out_stem}.img\"\n    - .hdr path is f\"{self.out_stem}.hdr\"\n    - build the header string via build_envi_header_text(self.header_dict)\n      and write it as ASCII/UTF-8 text.",
-              "line": 330,
+              "line": 338,
               "name": "close",
               "parameters": [],
               "private": false,
@@ -20245,10 +20335,47 @@
           "signature": null,
           "summary": "EnviWriter assembles a corrected hyperspectral cube into a BSQ ENVI file.",
           "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Publish a correction status only after all raster chunks finish writing.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 361,
+          "methods": [],
+          "name": "finalize_scientific_header",
+          "parameters": [
+            {
+              "annotation": "Path",
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "path"
+            },
+            {
+              "annotation": "Dict",
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "header"
+            },
+            {
+              "annotation": "str",
+              "default": null,
+              "kind": "keyword-only",
+              "name": "brdf_status"
+            }
+          ],
+          "path": "spectralbridge.envi_writer.finalize_scientific_header",
+          "signature": "finalize_scientific_header(path: Path, header: Dict, *, brdf_status: str) -> None",
+          "summary": "Publish a correction status only after all raster chunks finish writing.",
+          "summary_basis": "source docstring"
         }
       ],
       "path": "src/spectralbridge/envi_writer.py",
-      "sha256": "8abf2a40a3e81f40c0f7406bd7620aebbbc82ec29b19e0a1a19f71ff4b1ccd98"
+      "sha256": "ee6f7ce130bfa703858ce50d94022a13d3ff590be4b4f979fa42cd5830cc4216"
     },
     {
       "area": "io",
@@ -24825,6 +24952,7 @@
         "Path": "pathlib.Path",
         "annotations": "__future__.annotations",
         "canonical_vectors": "spectralbridge.io.neon_schema.canonical_vectors",
+        "dataset_radiometry": "spectralbridge.radiometry.dataset_radiometry",
         "resolve": "spectralbridge.io.neon_schema.resolve"
       },
       "module": "spectralbridge.io.neon",
@@ -24841,7 +24969,7 @@
             "spectralbridge.io.neon.is_pre_2021"
           ],
           "kind": "function",
-          "line": 45,
+          "line": 46,
           "methods": [],
           "name": "is_pre_2021",
           "parameters": [
@@ -24866,7 +24994,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 71,
+          "line": 72,
           "methods": [],
           "name": "_prepare_map_info",
           "parameters": [
@@ -24891,7 +25019,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 97,
+          "line": 98,
           "methods": [],
           "name": "_map_info_core",
           "parameters": [
@@ -24916,7 +25044,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 119,
+          "line": 120,
           "methods": [],
           "name": "_as_str",
           "parameters": [
@@ -24941,7 +25069,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 125,
+          "line": 126,
           "methods": [],
           "name": "_extract_units",
           "parameters": [
@@ -24972,7 +25100,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 136,
+          "line": 137,
           "methods": [],
           "name": "_extract_no_data",
           "parameters": [
@@ -24997,7 +25125,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 148,
+          "line": 149,
           "methods": [],
           "name": "_extract_scale_factor",
           "parameters": [
@@ -25022,7 +25150,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 170,
+          "line": 171,
           "methods": [],
           "name": "reflectance_to_unitless_multiplier",
           "parameters": [
@@ -25047,7 +25175,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 195,
+          "line": 196,
           "methods": [],
           "name": "stored_to_unitless",
           "parameters": [
@@ -25078,7 +25206,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 202,
+          "line": 203,
           "methods": [],
           "name": "unitless_to_stored",
           "parameters": [
@@ -25105,13 +25233,13 @@
           "audience": "advanced",
           "classification_reason": "Direct module API; no package-level stability guarantee",
           "docs_references": [],
-          "docstring": "Return unitless reflectance scaled by the NEON factor with ignore masked.\n\nParameters\n----------\nreflectance_ds : h5py.Dataset\n    The NEON reflectance dataset (``/Reflectance/Reflectance_Data`` or similar).\n\nReturns\n-------\ntuple[np.ndarray, float, float]\n    ``(data_unitless, scale_factor, ignore_value)`` where ``data_unitless`` is a\n    float32 array scaled into 0\u20131 reflectance with ignore values set to ``NaN``.\n    ``scale_factor`` is the raw dataset attribute (for example ``10000`` or\n    ``1e-4``); conversion to unitless always goes through\n    :func:`reflectance_to_unitless_multiplier`.",
+          "docstring": "Return unitless reflectance scaled by the NEON factor with ignore masked.\n\nParameters\n----------\nreflectance_ds : h5py.Dataset\n    The NEON reflectance dataset (``/Reflectance/Reflectance_Data`` or similar).\n\nReturns\n-------\ntuple[np.ndarray, float, float]\n    ``(data_unitless, scale_factor, ignore_value)`` where ``data_unitless`` is a\n    float32 array scaled into 0\u20131 reflectance with ignore values set to ``NaN``.",
           "examples": [],
           "exports": [
             "spectralbridge.io.neon.read_neon_reflectance_unitless"
           ],
           "kind": "function",
-          "line": 211,
+          "line": 212,
           "methods": [],
           "name": "read_neon_reflectance_unitless",
           "parameters": [
@@ -25136,7 +25264,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 241,
+          "line": 239,
           "methods": [],
           "name": "_find_dataset_path",
           "parameters": [
@@ -25173,7 +25301,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 263,
+          "line": 261,
           "methods": [],
           "name": "_as_sample_slice",
           "parameters": [
@@ -25198,7 +25326,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 273,
+          "line": 271,
           "methods": [],
           "name": "_resolve_half_open_window",
           "parameters": [
@@ -25229,7 +25357,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 287,
+          "line": 285,
           "methods": [],
           "name": "_samples_axis_count",
           "parameters": [
@@ -25260,7 +25388,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 299,
+          "line": 297,
           "methods": [],
           "name": "_lines_axis_count",
           "parameters": [
@@ -25291,7 +25419,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 311,
+          "line": 309,
           "methods": [],
           "name": "_slice_reflectance_dataset",
           "parameters": [
@@ -25334,7 +25462,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 336,
+          "line": 334,
           "methods": [],
           "name": "_shift_map_info_for_window",
           "parameters": [
@@ -25355,10 +25483,16 @@
               "default": "0",
               "kind": "positional-or-keyword",
               "name": "line_start"
+            },
+            {
+              "annotation": "bool",
+              "default": "False",
+              "kind": "keyword-only",
+              "name": "corner_reference"
             }
           ],
           "path": "spectralbridge.io.neon._shift_map_info_for_window",
-          "signature": "_shift_map_info_for_window(map_info_list: list[str], sample_start: int=0, line_start: int=0) -> tuple[list[str], tuple[float, float, float, float, float, float] | None, float | None, float | None]",
+          "signature": "_shift_map_info_for_window(map_info_list: list[str], sample_start: int=0, line_start: int=0, *, corner_reference: bool=False) -> tuple[list[str], tuple[float, float, float, float, float, float] | None, float | None, float | None]",
           "summary": "Shift ENVI map info for optional sample/line window origins.",
           "summary_basis": "source docstring"
         },
@@ -25371,7 +25505,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 359,
+          "line": 360,
           "methods": [],
           "name": "_shift_map_info_for_sample_start",
           "parameters": [
@@ -25402,7 +25536,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 366,
+          "line": 367,
           "methods": [],
           "name": "_orient_cube",
           "parameters": [
@@ -25433,7 +25567,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 379,
+          "line": 380,
           "methods": [],
           "name": "_metadata_root_from_path",
           "parameters": [
@@ -25458,7 +25592,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 389,
+          "line": 390,
           "methods": [],
           "name": "_read_new_neon_layout",
           "parameters": [
@@ -25495,7 +25629,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 496,
+          "line": 500,
           "methods": [],
           "name": "_read_old_neon_layout",
           "parameters": [
@@ -25532,7 +25666,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 583,
+          "line": 588,
           "methods": [],
           "name": "_read_site_group_legacy_layout",
           "parameters": [
@@ -25572,7 +25706,7 @@
             "spectralbridge.io.neon.peek_neon_raster_shape"
           ],
           "kind": "function",
-          "line": 698,
+          "line": 704,
           "methods": [],
           "name": "peek_neon_raster_shape",
           "parameters": [
@@ -25600,7 +25734,7 @@
             "spectralbridge.io.neon.peek_neon_sample_count"
           ],
           "kind": "function",
-          "line": 765,
+          "line": 771,
           "methods": [],
           "name": "peek_neon_sample_count",
           "parameters": [
@@ -25628,7 +25762,7 @@
             "spectralbridge.io.neon.read_neon_cube"
           ],
           "kind": "function",
-          "line": 786,
+          "line": 792,
           "methods": [],
           "name": "read_neon_cube",
           "parameters": [
@@ -25658,7 +25792,7 @@
         }
       ],
       "path": "src/spectralbridge/io/neon.py",
-      "sha256": "07d009755f144fc9f91f362df5b1cb7dff1e6db7484ba96d02806d8026de36c8"
+      "sha256": "3ffd04192233831e7a1503aab7d3f2e2750885d5ca16083788a56d3c3924a795"
     },
     {
       "area": "io",
@@ -29533,6 +29667,7 @@
         "as_completed": "concurrent.futures.as_completed",
         "contextmanager": "contextlib.contextmanager",
         "datetime": "datetime.datetime",
+        "physical_copy_metadata": "spectralbridge.radiometry.physical_copy_metadata",
         "render_flightline_panel": "cross_sensor_cal.qa_plots.render_flightline_panel",
         "scene_prefix_from_dir": "spectralbridge.paths.scene_prefix_from_dir",
         "tqdm": "tqdm.tqdm"
@@ -29548,7 +29683,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 48,
+          "line": 50,
           "methods": [],
           "name": "_consolidate_parquet_dir_to_file",
           "parameters": [
@@ -29585,7 +29720,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 78,
+          "line": 80,
           "methods": [],
           "name": "_exclude_parquets",
           "parameters": [
@@ -29610,7 +29745,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 88,
+          "line": 90,
           "methods": [],
           "name": "_filter_valid_parquets",
           "parameters": [
@@ -29641,7 +29776,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 121,
+          "line": 123,
           "methods": [],
           "name": "_progress",
           "parameters": [
@@ -29666,7 +29801,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 153,
+          "line": 155,
           "methods": [],
           "name": "_derive_prefix",
           "parameters": [
@@ -29691,7 +29826,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 157,
+          "line": 159,
           "methods": [],
           "name": "_table_columns",
           "parameters": [
@@ -29722,7 +29857,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 170,
+          "line": 172,
           "methods": [],
           "name": "_quote_identifier",
           "parameters": [
@@ -29747,7 +29882,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 176,
+          "line": 178,
           "methods": [],
           "name": "_coerce_memory_limit",
           "parameters": [
@@ -29772,7 +29907,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 195,
+          "line": 197,
           "methods": [],
           "name": "_list_spectral_columns",
           "parameters": [
@@ -29797,7 +29932,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 221,
+          "line": 223,
           "methods": [],
           "name": "_quote_path",
           "parameters": [
@@ -29822,7 +29957,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 225,
+          "line": 227,
           "methods": [],
           "name": "_register_union",
           "parameters": [
@@ -29867,11 +30002,11 @@
           "audience": "internal",
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
-          "docstring": "Filter out rows where most (>90%) spectral columns are invalid/no-data.\n\nStreams through DuckDB ``COPY ... TO`` so full-flightline merges (millions of\nrows) do not need to materialize the table in pandas.\n\nA spectral value counts as invalid when it is non-NULL and either approximately\n``-9999`` or negative. NULL/NaN values are ignored in the fraction (missing\nproducts), except that rows with *all* spectral values NULL are dropped.\nMetadata and ``raw_*`` columns are never used for the invalid fraction.",
+          "docstring": "Filter out rows where most (>90%) spectral columns are invalid/no-data.\n\nStreams through DuckDB ``COPY ... TO`` so full-flightline merges (millions of\nrows) do not need to materialize the table in pandas.\n\nVerified physical tables retain finite negative reflectance. Legacy unmarked\ntables retain their historical negative/approximately -9999 filtering rule.\nNULL values are ignored in the fraction (missing\nproducts), except that rows with *all* spectral values NULL are dropped.\nMetadata and ``raw_*`` columns are never used for the invalid fraction.",
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 419,
+          "line": 421,
           "methods": [],
           "name": "_filter_no_data_rows_from_parquet",
           "parameters": [
@@ -29910,7 +30045,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 581,
+          "line": 589,
           "methods": [],
           "name": "merge_flightline",
           "parameters": [
@@ -30013,7 +30148,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1361,
+          "line": 1369,
           "methods": [],
           "name": "merge_all_flightlines",
           "parameters": [
@@ -30085,7 +30220,7 @@
           ],
           "exports": [],
           "kind": "function",
-          "line": 1394,
+          "line": 1402,
           "methods": [],
           "name": "main",
           "parameters": [
@@ -30103,7 +30238,7 @@
         }
       ],
       "path": "src/spectralbridge/merge_duckdb.py",
-      "sha256": "6b304f22663fd7679d2ff5b9a57c82b8040b90508a0b884fa6458c226743ca3f"
+      "sha256": "2a292e0c8e20908a2c534ed228314aaecd1139699e30b2b301c05c3c53ddd9b6"
     },
     {
       "area": "analysis",
@@ -31299,6 +31434,7 @@
         "Iterator": "typing.Iterator",
         "Optional": "typing.Optional",
         "Path": "pathlib.Path",
+        "Radiometry": "spectralbridge.radiometry.Radiometry",
         "Tuple": "typing.Tuple",
         "_map_info_core": "spectralbridge.io.neon._map_info_core",
         "annotations": "__future__.annotations",
@@ -31382,7 +31518,7 @@
             },
             {
               "docstring": "Recursively index metadata datasets for ancillary lookup.",
-              "line": 180,
+              "line": 182,
               "name": "_index_metadata",
               "parameters": [
                 {
@@ -31397,7 +31533,7 @@
             },
             {
               "docstring": "Return the first dataset path matching ``name`` in the metadata index.",
-              "line": 198,
+              "line": 200,
               "name": "_lookup_metadata_path",
               "parameters": [
                 {
@@ -31412,7 +31548,7 @@
             },
             {
               "docstring": "Return an ancillary raster or angle for correction workflows.\n\nThis method adapts HyTools' ancillary retrieval logic for the NEON-only\nuse case within cross-sensor-cal (HyTools: Hyperspectral image processing\nlibrary; Authors: Adam Chlus, Zhiwei Ye, Philip Townsend. GPLv3).",
-              "line": 206,
+              "line": 208,
               "name": "get_ancillary",
               "parameters": [
                 {
@@ -31433,7 +31569,7 @@
             },
             {
               "docstring": "Yield sequential spatial chunks of the reflectance cube.",
-              "line": 331,
+              "line": 333,
               "name": "iter_chunks",
               "parameters": [
                 {
@@ -31454,7 +31590,7 @@
             },
             {
               "docstring": "Return the number of spatial chunks produced by :meth:`iter_chunks`.",
-              "line": 350,
+              "line": 352,
               "name": "chunk_count",
               "parameters": [
                 {
@@ -31475,7 +31611,7 @@
             },
             {
               "docstring": "Construct an ENVI header compatible with NEON reflectance outputs.\n\nAdapted from HyTools' ENVI export routines for NEON reflectance data\n(HyTools: Hyperspectral image processing library; Authors: Adam Chlus,\nZhiwei Ye, Philip Townsend. GPLv3).",
-              "line": 361,
+              "line": 363,
               "name": "build_envi_header",
               "parameters": [],
               "private": false,
@@ -31498,7 +31634,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 407,
+          "line": 412,
           "methods": [],
           "name": "_read_envi_single_band",
           "parameters": [
@@ -31523,7 +31659,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 492,
+          "line": 497,
           "methods": [],
           "name": "debug_load_neon_cube",
           "parameters": [
@@ -31541,7 +31677,7 @@
         }
       ],
       "path": "src/spectralbridge/neon_cube.py",
-      "sha256": "40e18ca4dd6a8a334623bfed6f9320d896a52063cbeeebc8d45cb62428e972dd"
+      "sha256": "1a32b0716119b8de39c641df8ee89e18b5ea7dab1b2b9123e42fd6535ad14dd3"
     },
     {
       "area": "pipelines",
@@ -31744,7 +31880,9 @@
         "annotations": "__future__.annotations",
         "ensure_coord_columns": "spectralbridge.exports.schema_utils.ensure_coord_columns",
         "infer_stage_from_name": "spectralbridge.exports.schema_utils.infer_stage_from_name",
+        "library_radiometry": "spectralbridge.radiometry.library_radiometry",
         "parse_envi_wavelengths_nm": "spectralbridge.exports.schema_utils.parse_envi_wavelengths_nm",
+        "require_physical_table": "spectralbridge.radiometry.require_physical_table",
         "sort_and_rename_spectral_columns": "spectralbridge.exports.schema_utils.sort_and_rename_spectral_columns",
         "suppress": "contextlib.suppress",
         "xy": "rasterio.transform.xy"
@@ -31836,6 +31974,16 @@
               "annotation": "str",
               "default": null,
               "name": "stage_key"
+            },
+            {
+              "annotation": "float",
+              "default": "1.0",
+              "name": "radiometric_scale"
+            },
+            {
+              "annotation": "float",
+              "default": "0.0",
+              "name": "radiometric_offset"
             }
           ],
           "audience": "internal",
@@ -31865,7 +32013,7 @@
             "spectralbridge.parquet_export.pq_read_table"
           ],
           "kind": "function",
-          "line": 49,
+          "line": 51,
           "methods": [],
           "name": "pq_read_table",
           "parameters": [
@@ -31892,7 +32040,7 @@
             "spectralbridge.parquet_export.pq_write_table"
           ],
           "kind": "function",
-          "line": 55,
+          "line": 57,
           "methods": [],
           "name": "pq_write_table",
           "parameters": [
@@ -31923,7 +32071,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 85,
+          "line": 87,
           "methods": [],
           "name": "_add_lonlat_columns",
           "parameters": [
@@ -31966,7 +32114,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 135,
+          "line": 137,
           "methods": [],
           "name": "_plan_chunk_jobs",
           "parameters": [
@@ -32015,7 +32163,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 281,
+          "line": 289,
           "methods": [],
           "name": "_process_chunk_to_dataframe",
           "parameters": [
@@ -32048,7 +32196,7 @@
             "spectralbridge.parquet_export.read_envi_in_chunks"
           ],
           "kind": "function",
-          "line": 377,
+          "line": 386,
           "methods": [],
           "name": "read_envi_in_chunks",
           "parameters": [
@@ -32091,7 +32239,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 424,
+          "line": 433,
           "methods": [],
           "name": "_build_empty_parquet_table",
           "parameters": [
@@ -32122,7 +32270,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 453,
+          "line": 462,
           "methods": [],
           "name": "_write_parquet_chunks",
           "parameters": [
@@ -32173,7 +32321,7 @@
             "spectralbridge.parquet_export.parquet_exists_and_valid"
           ],
           "kind": "function",
-          "line": 502,
+          "line": 521,
           "methods": [],
           "name": "parquet_exists_and_valid",
           "parameters": [
@@ -32198,7 +32346,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 517,
+          "line": 536,
           "methods": [],
           "name": "_crs_from_header_text",
           "parameters": [
@@ -32225,7 +32373,7 @@
             "spectralbridge.parquet_export.build_parquet_from_envi"
           ],
           "kind": "function",
-          "line": 544,
+          "line": 563,
           "methods": [],
           "name": "build_parquet_from_envi",
           "parameters": [
@@ -32276,7 +32424,7 @@
             "spectralbridge.parquet_export.ensure_parquet_from_envi"
           ],
           "kind": "function",
-          "line": 578,
+          "line": 597,
           "methods": [],
           "name": "ensure_parquet_from_envi",
           "parameters": [
@@ -32327,7 +32475,7 @@
             "spectralbridge.parquet_export.repair_lonlat_in_place"
           ],
           "kind": "function",
-          "line": 609,
+          "line": 632,
           "methods": [],
           "name": "repair_lonlat_in_place",
           "parameters": [
@@ -32354,7 +32502,7 @@
             "spectralbridge.parquet_export.ensure_parquet_for_envi"
           ],
           "kind": "function",
-          "line": 636,
+          "line": 659,
           "methods": [],
           "name": "ensure_parquet_for_envi",
           "parameters": [
@@ -32390,7 +32538,7 @@
         }
       ],
       "path": "src/spectralbridge/parquet_export.py",
-      "sha256": "f71baea5c7e226a8a204eade37e394b84c2201f5b4c721a5739254c66d777ddf"
+      "sha256": "5eab77455714f30d82dec8532cc26842de6759286f89bb39bffcf09cfee80ed3"
     },
     {
       "area": "io",
@@ -34292,6 +34440,8 @@
         "NeonCube": "spectralbridge.neon_cube.NeonCube",
         "PRODUCTION_TRANSLATION_WEIGHTING": "spectralbridge.drone_translation_registry.PRODUCTION_TRANSLATION_WEIGHTING",
         "Path": "pathlib.Path",
+        "ProjectionCRS": "pyproj.CRS",
+        "Radiometry": "spectralbridge.radiometry.Radiometry",
         "Rectangle": "matplotlib.patches.Rectangle",
         "Sequence": "typing.Sequence",
         "TileProgressReporter": "spectralbridge.progress_utils.TileProgressReporter",
@@ -34311,14 +34461,17 @@
         "apply_topo_correct": "spectralbridge.corrections.apply_topo_correct",
         "box": "shapely.geometry.box",
         "build_drone_qa_summary": "spectralbridge.utils.qa_summary.build_drone_qa_summary",
+        "build_parquet_from_envi": "spectralbridge.parquet_export.build_parquet_from_envi",
         "compare_landsat_common_support": "spectralbridge.landsat_validation.compare_landsat_common_support",
         "dataclass": "dataclasses.dataclass",
+        "dataset_radiometry": "spectralbridge.radiometry.dataset_radiometry",
         "datetime": "datetime.datetime",
         "enrich_translated_spectral_library": "spectralbridge.drone_translation.enrich_translated_spectral_library",
         "ensure_coord_columns": "cross_sensor_cal.exports.schema_utils.ensure_coord_columns",
         "ensure_matched_source_product": "spectralbridge.drone_translation.ensure_matched_source_product",
         "ensure_parquet_from_envi": "spectralbridge.parquet_export.ensure_parquet_from_envi",
         "extract_polygon_parquet_from_envi": "spectralbridge.polygons.extract_polygon_parquet_from_envi",
+        "finalize_scientific_header": "spectralbridge.envi_writer.finalize_scientific_header",
         "fit_and_save_brdf_model": "spectralbridge.corrections.fit_and_save_brdf_model",
         "get_package_data_path": "spectralbridge.utils.paths.get_package_data_path",
         "hdr_to_dict": "spectralbridge.envi.hdr_to_dict",
@@ -34337,6 +34490,8 @@
         "render_drone_panel": "spectralbridge.qa_plots.render_drone_panel",
         "render_drone_translation_publication": "spectralbridge.drone_qa.render_drone_translation_publication",
         "render_drone_translation_qa": "spectralbridge.drone_qa.render_drone_translation_qa",
+        "require_physical_table": "spectralbridge.radiometry.require_physical_table",
+        "require_radiometry": "spectralbridge.radiometry.require_radiometry",
         "timezone": "datetime.timezone",
         "tqdm": "tqdm.auto.tqdm",
         "translated_output_stem": "spectralbridge.drone_translation.translated_output_stem",
@@ -34355,11 +34510,11 @@
           "examples": [],
           "exports": [],
           "kind": "class",
-          "line": 166,
+          "line": 167,
           "methods": [
             {
               "docstring": "",
-              "line": 169,
+              "line": 170,
               "name": "__init__",
               "parameters": [
                 {
@@ -34397,11 +34552,11 @@
             "spectralbridge.pipelines.drone.DronePipelineIncompleteError"
           ],
           "kind": "class",
-          "line": 174,
+          "line": 175,
           "methods": [
             {
               "docstring": "",
-              "line": 177,
+              "line": 178,
               "name": "__init__",
               "parameters": [
                 {
@@ -34453,7 +34608,7 @@
           "examples": [],
           "exports": [],
           "kind": "class",
-          "line": 183,
+          "line": 184,
           "methods": [],
           "name": "DroneInputSource",
           "parameters": [],
@@ -34487,7 +34642,7 @@
           "examples": [],
           "exports": [],
           "kind": "class",
-          "line": 192,
+          "line": 193,
           "methods": [],
           "name": "DroneOutputRequirement",
           "parameters": [],
@@ -34505,7 +34660,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 200,
+          "line": 201,
           "methods": [],
           "name": "_normalise_drone_manifest_id",
           "parameters": [
@@ -34530,7 +34685,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 210,
+          "line": 211,
           "methods": [],
           "name": "_compact_drone_manifest_id",
           "parameters": [
@@ -34555,7 +34710,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 216,
+          "line": 217,
           "methods": [],
           "name": "_strip_trailing_manifest_date",
           "parameters": [
@@ -34580,7 +34735,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 222,
+          "line": 223,
           "methods": [],
           "name": "_find_manifest_column",
           "parameters": [
@@ -34613,7 +34768,7 @@
             "spectralbridge.pipelines.drone.load_drone_manifest"
           ],
           "kind": "function",
-          "line": 231,
+          "line": 232,
           "methods": [],
           "name": "load_drone_manifest",
           "parameters": [
@@ -34638,7 +34793,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 320,
+          "line": 321,
           "methods": [],
           "name": "_resolve_drone_manifest_path",
           "parameters": [
@@ -34671,7 +34826,7 @@
             "spectralbridge.pipelines.drone.lookup_flight_datetime"
           ],
           "kind": "function",
-          "line": 369,
+          "line": 370,
           "methods": [],
           "name": "lookup_flight_datetime",
           "parameters": [
@@ -34704,7 +34859,7 @@
             "spectralbridge.pipelines.drone.clean_name"
           ],
           "kind": "function",
-          "line": 414,
+          "line": 415,
           "methods": [],
           "name": "clean_name",
           "parameters": [
@@ -34729,7 +34884,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 425,
+          "line": 426,
           "methods": [],
           "name": "_drone_file_fingerprint",
           "parameters": [
@@ -34754,7 +34909,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 435,
+          "line": 436,
           "methods": [],
           "name": "_drone_stage_signature",
           "parameters": [
@@ -34791,7 +34946,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 451,
+          "line": 452,
           "methods": [],
           "name": "_write_drone_stage_record",
           "parameters": [
@@ -34840,7 +34995,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 473,
+          "line": 474,
           "methods": [],
           "name": "_drone_stage_matches",
           "parameters": [
@@ -34871,7 +35026,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 487,
+          "line": 488,
           "methods": [],
           "name": "_drone_package_dir",
           "parameters": [
@@ -34898,7 +35053,7 @@
             "spectralbridge.pipelines.drone.derive_drone_flight_stem"
           ],
           "kind": "function",
-          "line": 497,
+          "line": 498,
           "methods": [],
           "name": "derive_drone_flight_stem",
           "parameters": [
@@ -34925,7 +35080,7 @@
             "spectralbridge.pipelines.drone.build_drone_output_paths"
           ],
           "kind": "function",
-          "line": 524,
+          "line": 525,
           "methods": [],
           "name": "build_drone_output_paths",
           "parameters": [
@@ -34956,7 +35111,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 547,
+          "line": 548,
           "methods": [],
           "name": "_write_drone_flightline_identity",
           "parameters": [
@@ -35007,7 +35162,7 @@
             "spectralbridge.pipelines.drone.required_drone_outputs"
           ],
           "kind": "function",
-          "line": 574,
+          "line": 575,
           "methods": [],
           "name": "required_drone_outputs",
           "parameters": [
@@ -35050,7 +35205,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 707,
+          "line": 708,
           "methods": [],
           "name": "_invalid_drone_outputs",
           "parameters": [
@@ -35075,7 +35230,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 751,
+          "line": 752,
           "methods": [],
           "name": "_drone_path_matches_keywords",
           "parameters": [
@@ -35106,7 +35261,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 756,
+          "line": 757,
           "methods": [],
           "name": "_is_drone_ancillary_tiff",
           "parameters": [
@@ -35131,7 +35286,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 764,
+          "line": 765,
           "methods": [],
           "name": "_discover_drone_input_sources",
           "parameters": [
@@ -35156,7 +35311,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 822,
+          "line": 823,
           "methods": [],
           "name": "_find_drone_tiff_ancillary",
           "parameters": [
@@ -35187,7 +35342,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 830,
+          "line": 831,
           "methods": [],
           "name": "_normalise_tiff_spectral_vector",
           "parameters": [
@@ -35230,7 +35385,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 853,
+          "line": 854,
           "methods": [],
           "name": "_read_drone_tiff_raster",
           "parameters": [
@@ -35251,11 +35406,48 @@
           "audience": "internal",
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
+          "docstring": "Accept only coordinate-roundoff differences on an otherwise identical grid.\n\nFour outer corners bound affine displacement everywhere in the raster.\nEight float64 coordinate ULPs allow arithmetic/geotransform serialization\nroundoff, not a pixel-based registration tolerance. Arrays are never warped.\nShape and CRS equality are checked separately by the caller.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 870,
+          "methods": [],
+          "name": "_drone_grid_transforms_match",
+          "parameters": [
+            {
+              "annotation": "Any",
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "reference"
+            },
+            {
+              "annotation": "Any",
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "candidate"
+            },
+            {
+              "annotation": "tuple[int, int]",
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "shape"
+            }
+          ],
+          "path": "spectralbridge.pipelines.drone._drone_grid_transforms_match",
+          "signature": "_drone_grid_transforms_match(reference: Any, candidate: Any, shape: tuple[int, int]) -> bool",
+          "summary": "Accept only coordinate-roundoff differences on an otherwise identical grid.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "internal",
+          "classification_reason": "Private/compatibility/CLI module or implementation utility",
+          "docs_references": [],
           "docstring": "",
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 869,
+          "line": 888,
           "methods": [],
           "name": "_validate_drone_tiff_ancillary_alignment",
           "parameters": [
@@ -35304,7 +35496,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 902,
+          "line": 921,
           "methods": [],
           "name": "_build_drone_tiff_map_info",
           "parameters": [
@@ -35335,7 +35527,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 938,
+          "line": 969,
           "methods": [],
           "name": "_coerce_acquisition_datetime",
           "parameters": [
@@ -35360,7 +35552,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 949,
+          "line": 980,
           "methods": [],
           "name": "_resolve_acquisition_datetime_timezone",
           "parameters": [
@@ -35391,7 +35583,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 972,
+          "line": 1003,
           "methods": [],
           "name": "_datetime_to_utc_naive",
           "parameters": [
@@ -35416,7 +35608,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 978,
+          "line": 1009,
           "methods": [],
           "name": "_drone_pixel_lon_lat",
           "parameters": [
@@ -35453,7 +35645,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1012,
+          "line": 1043,
           "methods": [],
           "name": "_compute_solar_geometry_arrays",
           "parameters": [
@@ -35490,7 +35682,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1068,
+          "line": 1099,
           "methods": [],
           "name": "_solar_geometry_stats",
           "parameters": [
@@ -35521,7 +35713,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1084,
+          "line": 1115,
           "methods": [],
           "name": "_write_solar_geometry_attrs",
           "parameters": [
@@ -35570,7 +35762,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1103,
+          "line": 1134,
           "methods": [],
           "name": "_drone_h5_metadata_group",
           "parameters": [
@@ -35595,7 +35787,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1109,
+          "line": 1140,
           "methods": [],
           "name": "_find_drone_solar_dataset",
           "parameters": [
@@ -35626,7 +35818,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1129,
+          "line": 1160,
           "methods": [],
           "name": "_summarize_h5_angle",
           "parameters": [
@@ -35651,7 +35843,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1158,
+          "line": 1189,
           "methods": [],
           "name": "_ensure_drone_working_h5_solar_aliases",
           "parameters": [
@@ -35678,7 +35870,7 @@
             "spectralbridge.pipelines.drone.summarize_drone_h5_solar_geometry"
           ],
           "kind": "function",
-          "line": 1187,
+          "line": 1218,
           "methods": [],
           "name": "summarize_drone_h5_solar_geometry",
           "parameters": [
@@ -35703,7 +35895,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1255,
+          "line": 1286,
           "methods": [],
           "name": "_circular_angle_difference",
           "parameters": [
@@ -35734,7 +35926,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1261,
+          "line": 1292,
           "methods": [],
           "name": "_circular_mean_h5_angle",
           "parameters": [
@@ -35759,7 +35951,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1286,
+          "line": 1317,
           "methods": [],
           "name": "_drone_h5_scene_center",
           "parameters": [
@@ -35784,7 +35976,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1312,
+          "line": 1343,
           "methods": [],
           "name": "_h5_angle_metadata",
           "parameters": [
@@ -35811,7 +36003,7 @@
             "spectralbridge.pipelines.drone.diagnose_drone_h5_solar_geometry"
           ],
           "kind": "function",
-          "line": 1323,
+          "line": 1354,
           "methods": [],
           "name": "diagnose_drone_h5_solar_geometry",
           "parameters": [
@@ -35860,7 +36052,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1467,
+          "line": 1498,
           "methods": [],
           "name": "_expected_h5_scene_center_solar",
           "parameters": [
@@ -35891,7 +36083,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1487,
+          "line": 1518,
           "methods": [],
           "name": "_write_repaired_h5_solar_geometry",
           "parameters": [
@@ -35922,7 +36114,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1586,
+          "line": 1617,
           "methods": [],
           "name": "_validate_and_repair_drone_working_h5_solar_geometry",
           "parameters": [
@@ -35979,7 +36171,7 @@
             "spectralbridge.pipelines.drone.convert_drone_tiff_to_h5"
           ],
           "kind": "function",
-          "line": 1742,
+          "line": 1773,
           "methods": [],
           "name": "convert_drone_tiff_to_h5",
           "parameters": [
@@ -36080,6 +36272,12 @@
               "name": "require_solar_geometry"
             },
             {
+              "annotation": "dict[str, Any] | None",
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "radiometry"
+            },
+            {
               "annotation": "bool",
               "default": "False",
               "kind": "keyword-only",
@@ -36087,7 +36285,7 @@
             }
           ],
           "path": "spectralbridge.pipelines.drone.convert_drone_tiff_to_h5",
-          "signature": "convert_drone_tiff_to_h5(reflectance_tiff_path: str | Path, *, output_h5_path: str | Path, wavelengths_nm: Sequence[float] | np.ndarray | None=None, fwhm_nm: Sequence[float] | np.ndarray | None=None, sensor_zenith_tiff: str | Path | None=None, sensor_azimuth_tiff: str | Path | None=None, slope_tiff: str | Path | None=None, aspect_tiff: str | Path | None=None, solar_zenith_tiff: str | Path | None=None, solar_azimuth_tiff: str | Path | None=None, solar_zenith_deg: float | None=None, solar_azimuth_deg: float | None=None, sensor_zenith_deg: float | None=None, sensor_azimuth_deg: float | None=None, acquisition_datetime: datetime | str | None=None, require_solar_geometry: bool=False, overwrite: bool=False) -> Path",
+          "signature": "convert_drone_tiff_to_h5(reflectance_tiff_path: str | Path, *, output_h5_path: str | Path, wavelengths_nm: Sequence[float] | np.ndarray | None=None, fwhm_nm: Sequence[float] | np.ndarray | None=None, sensor_zenith_tiff: str | Path | None=None, sensor_azimuth_tiff: str | Path | None=None, slope_tiff: str | Path | None=None, aspect_tiff: str | Path | None=None, solar_zenith_tiff: str | Path | None=None, solar_azimuth_tiff: str | Path | None=None, solar_zenith_deg: float | None=None, solar_azimuth_deg: float | None=None, sensor_zenith_deg: float | None=None, sensor_azimuth_deg: float | None=None, acquisition_datetime: datetime | str | None=None, require_solar_geometry: bool=False, radiometry: dict[str, Any] | None=None, overwrite: bool=False) -> Path",
           "summary": "Convert a supported georeferenced multiband reflectance TIFF and aligned ancillary inputs to the drone HDF5 contract.",
           "summary_basis": "source docstring"
         },
@@ -36100,7 +36298,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1945,
+          "line": 1996,
           "methods": [],
           "name": "_prepare_drone_source_working_h5",
           "parameters": [
@@ -36121,6 +36319,12 @@
               "default": null,
               "kind": "keyword-only",
               "name": "working_path"
+            },
+            {
+              "annotation": "dict[str, Any] | None",
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "radiometry"
             },
             {
               "annotation": "bool",
@@ -36196,7 +36400,7 @@
             }
           ],
           "path": "spectralbridge.pipelines.drone._prepare_drone_source_working_h5",
-          "signature": "_prepare_drone_source_working_h5(source_path: str | Path, *, source_type: str, working_path: str | Path, overwrite: bool=False, tiff_wavelengths_nm: Sequence[float] | np.ndarray | None=None, tiff_fwhm_nm: Sequence[float] | np.ndarray | None=None, tiff_solar_zenith_deg: float | None=None, tiff_solar_azimuth_deg: float | None=None, tiff_sensor_zenith_deg: float | None=None, tiff_sensor_azimuth_deg: float | None=None, acquisition_datetime: datetime | str | None=None, acquisition_timezone: str | None=None, acquisition_datetime_source: str | None=None, repair_solar_geometry: bool=False, require_solar_geometry: bool=False) -> tuple[Path, bool]",
+          "signature": "_prepare_drone_source_working_h5(source_path: str | Path, *, source_type: str, working_path: str | Path, radiometry: dict[str, Any] | None=None, overwrite: bool=False, tiff_wavelengths_nm: Sequence[float] | np.ndarray | None=None, tiff_fwhm_nm: Sequence[float] | np.ndarray | None=None, tiff_solar_zenith_deg: float | None=None, tiff_solar_azimuth_deg: float | None=None, tiff_sensor_zenith_deg: float | None=None, tiff_sensor_azimuth_deg: float | None=None, acquisition_datetime: datetime | str | None=None, acquisition_timezone: str | None=None, acquisition_datetime_source: str | None=None, repair_solar_geometry: bool=False, require_solar_geometry: bool=False) -> tuple[Path, bool]",
           "summary": "",
           "summary_basis": "not documented"
         },
@@ -36209,7 +36413,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2097,
+          "line": 2157,
           "methods": [],
           "name": "_find_drone_reflectance_dataset",
           "parameters": [
@@ -36234,7 +36438,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2147,
+          "line": 2207,
           "methods": [],
           "name": "_dataset_has_recognised_nodata",
           "parameters": [
@@ -36259,7 +36463,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2151,
+          "line": 2211,
           "methods": [],
           "name": "_prepare_drone_h5_working_copy",
           "parameters": [
@@ -36298,7 +36502,7 @@
             "spectralbridge.pipelines.drone.resolve_band_map"
           ],
           "kind": "function",
-          "line": 2182,
+          "line": 2242,
           "methods": [],
           "name": "resolve_band_map",
           "parameters": [
@@ -36331,7 +36535,7 @@
             "spectralbridge.pipelines.drone.validate_drone_h5_metadata"
           ],
           "kind": "function",
-          "line": 2201,
+          "line": 2261,
           "methods": [],
           "name": "validate_drone_h5_metadata",
           "parameters": [
@@ -36349,6 +36553,56 @@
         },
         {
           "attributes": [],
+          "audience": "internal",
+          "classification_reason": "Private/compatibility/CLI module or implementation utility",
+          "docs_references": [],
+          "docstring": "Block ambiguous upstream conversions; never guess a compensating flip.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 2296,
+          "methods": [],
+          "name": "_validate_drone_h5_spatial_metadata",
+          "parameters": [
+            {
+              "annotation": "str | Path",
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "h5_path"
+            }
+          ],
+          "path": "spectralbridge.pipelines.drone._validate_drone_h5_spatial_metadata",
+          "signature": "_validate_drone_h5_spatial_metadata(h5_path: str | Path) -> None",
+          "summary": "Block ambiguous upstream conversions; never guess a compensating flip.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "internal",
+          "classification_reason": "Private/compatibility/CLI module or implementation utility",
+          "docs_references": [],
+          "docstring": "Serialize the cube's established corner transform using ENVI's convention.\n\nLegacy H5 reference coordinates are interpreted as centers by the reader;\ncopying them verbatim into an ENVI corner reference moves every pixel.\nThis adaptation is drone-only and never changes array order or NEON exports.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 2335,
+          "methods": [],
+          "name": "_drone_envi_header",
+          "parameters": [
+            {
+              "annotation": "NeonCube",
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "cube"
+            }
+          ],
+          "path": "spectralbridge.pipelines.drone._drone_envi_header",
+          "signature": "_drone_envi_header(cube: NeonCube) -> dict[str, Any]",
+          "summary": "Serialize the cube's established corner transform using ENVI's convention.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
           "audience": "advanced",
           "classification_reason": "Direct module API; no package-level stability guarantee",
           "docs_references": [],
@@ -36358,7 +36612,7 @@
             "spectralbridge.pipelines.drone.export_h5_to_envi"
           ],
           "kind": "function",
-          "line": 2236,
+          "line": 2354,
           "methods": [],
           "name": "export_h5_to_envi",
           "parameters": [
@@ -36409,7 +36663,7 @@
             "spectralbridge.pipelines.drone.build_drone_config"
           ],
           "kind": "function",
-          "line": 2317,
+          "line": 2436,
           "methods": [],
           "name": "build_drone_config",
           "parameters": [
@@ -36494,7 +36748,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2352,
+          "line": 2471,
           "methods": [],
           "name": "_has_required_ancillary",
           "parameters": [
@@ -36525,7 +36779,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2363,
+          "line": 2482,
           "methods": [],
           "name": "_chunk_has_any_valid_reflectance",
           "parameters": [
@@ -36556,7 +36810,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2374,
+          "line": 2493,
           "methods": [],
           "name": "_load_existing_drone_correction_flags",
           "parameters": [
@@ -36581,7 +36835,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2408,
+          "line": 2527,
           "methods": [],
           "name": "_call_with_supported_kwargs",
           "parameters": [
@@ -36618,7 +36872,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2434,
+          "line": 2553,
           "methods": [],
           "name": "apply_drone_corrections",
           "parameters": [
@@ -36685,7 +36939,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2664,
+          "line": 2815,
           "methods": [],
           "name": "_write_json",
           "parameters": [
@@ -36716,7 +36970,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2670,
+          "line": 2821,
           "methods": [],
           "name": "_remove_file_if_exists",
           "parameters": [
@@ -36741,7 +36995,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2678,
+          "line": 2829,
           "methods": [],
           "name": "_cleanup_envi_pair",
           "parameters": [
@@ -36772,7 +37026,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2683,
+          "line": 2834,
           "methods": [],
           "name": "_write_drone_audit_json",
           "parameters": [
@@ -36797,7 +37051,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2695,
+          "line": 2846,
           "methods": [],
           "name": "_normalise_bounds",
           "parameters": [
@@ -36822,7 +37076,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2702,
+          "line": 2853,
           "methods": [],
           "name": "_normalise_transform",
           "parameters": [
@@ -36847,7 +37101,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2711,
+          "line": 2862,
           "methods": [],
           "name": "_crs_to_string",
           "parameters": [
@@ -36874,7 +37128,7 @@
             "spectralbridge.pipelines.drone.collect_drone_spatial_diagnostics"
           ],
           "kind": "function",
-          "line": 2722,
+          "line": 2873,
           "methods": [],
           "name": "collect_drone_spatial_diagnostics",
           "parameters": [
@@ -36907,7 +37161,7 @@
             "spectralbridge.pipelines.drone.save_drone_overlay_debug_plot"
           ],
           "kind": "function",
-          "line": 2787,
+          "line": 2938,
           "methods": [],
           "name": "save_drone_overlay_debug_plot",
           "parameters": [
@@ -36950,7 +37204,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2846,
+          "line": 2997,
           "methods": [],
           "name": "_build_polygon_pixel_index_for_raster",
           "parameters": [
@@ -37005,7 +37259,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2944,
+          "line": 3095,
           "methods": [],
           "name": "_merge_drone_polygon_outputs",
           "parameters": [
@@ -37042,7 +37296,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2969,
+          "line": 3124,
           "methods": [],
           "name": "_enrich_drone_polygon_parquet_with_index",
           "parameters": [
@@ -37079,7 +37333,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3035,
+          "line": 3194,
           "methods": [],
           "name": "_export_csv_copy_from_parquet",
           "parameters": [
@@ -37116,7 +37370,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3070,
+          "line": 3229,
           "methods": [],
           "name": "_try_export_csv_copy_from_parquet",
           "parameters": [
@@ -37159,7 +37413,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3098,
+          "line": 3257,
           "methods": [],
           "name": "_drone_status_color",
           "parameters": [
@@ -37184,7 +37438,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3110,
+          "line": 3269,
           "methods": [],
           "name": "_supports_ansi",
           "parameters": [
@@ -37209,7 +37463,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3114,
+          "line": 3273,
           "methods": [],
           "name": "_colorize_drone_message",
           "parameters": [
@@ -37240,7 +37494,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3123,
+          "line": 3282,
           "methods": [],
           "name": "_drone_emit",
           "parameters": [
@@ -37271,7 +37525,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3134,
+          "line": 3293,
           "methods": [],
           "name": "_format_elapsed",
           "parameters": [
@@ -37296,7 +37550,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3144,
+          "line": 3303,
           "methods": [],
           "name": "_format_eta",
           "parameters": [
@@ -37327,7 +37581,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3151,
+          "line": 3310,
           "methods": [],
           "name": "_classify_drone_exception",
           "parameters": [
@@ -37352,7 +37606,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3158,
+          "line": 3317,
           "methods": [],
           "name": "_scientific_qa_status",
           "parameters": [
@@ -37377,7 +37631,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3175,
+          "line": 3334,
           "methods": [],
           "name": "_has_drone_qa_inputs",
           "parameters": [
@@ -37402,7 +37656,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3181,
+          "line": 3340,
           "methods": [],
           "name": "_reconcile_drone_completion",
           "parameters": [
@@ -37459,7 +37713,7 @@
           "audience": "public",
           "classification_reason": "Explicit package/subpackage export",
           "docs_references": [],
-          "docstring": "Run the drone pipeline from local HDF5 or reflectance TIFF sources.\n\nParameters\n----------\ninput_h5_dir : str | Path\n    Existing local supported HDF5/TIFF file or directory; discovery recurses through source packages.\npolygon_path : str | Path | None, default=None\n    Existing polygon vector dataset for extraction; coordinates are handled by the established polygon workflow.\noutput_dir : str | Path, default='.'\n    Directory for generated products; bulk outputs must be outside the read-only input tree.\napply_topo : bool, default=True\n    Enable the existing topographic correction when required terrain/geometry metadata are available.\napply_brdf : bool, default=True\n    Enable the existing BRDF correction when required angular metadata are available.\nuse_ndvi_brdf_bins : bool, default=False\n    Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.\napply_brightness_adjustment : bool, default=False\n    Opt into the established brightness adjustment; does not change the packaged coefficients.\noverwrite : bool, default=False\n    Replace existing requested products; False preserves reusable products or rejects a conflicting destination.\ntiff_wavelengths_nm : Sequence[float] | np.ndarray | None, default=None\n    Explicit per-band center wavelengths in nanometers for TIFF inputs lacking embedded spectral metadata; must match band order/count.\ntiff_fwhm_nm : Sequence[float] | np.ndarray | None, default=None\n    Per-band full widths at half maximum in nanometers, aligned with TIFF bands; None uses supported metadata.\ntiff_solar_zenith_deg : float | None, default=None\n    Explicit TIFF solar zenith in degrees when valid embedded metadata are unavailable.\ntiff_solar_azimuth_deg : float | None, default=None\n    Explicit TIFF solar azimuth in degrees when valid embedded metadata are unavailable.\ntiff_sensor_zenith_deg : float | None, default=None\n    Explicit TIFF view zenith in degrees when valid embedded metadata are unavailable.\ntiff_sensor_azimuth_deg : float | None, default=None\n    Explicit TIFF view azimuth in degrees when valid embedded metadata are unavailable.\ndrone_manifest_path : str | Path | None, default=None\n    Existing flight manifest providing acquisition identity/time; None uses supported discovery or embedded metadata.\ndrone_manifest_timezone : str | None, default='UTC'\n    Timezone used to interpret manifest acquisition times; the default is UTC.\nrequire_solar_geometry : bool, default=True\n    Require scientifically usable solar geometry before correction rather than silently proceeding without it.\nextraction_mode : str | None, default=None\n    'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.\nparquet_chunk_size : int, default=2048\n    Positive pixel/window processing budget for bounded extraction; the default and interpretation follow the selected producer.\nmerge_extractions : bool, default=False\n    Explicit opt-in to legacy campaign-wide pixel-table merging; normal bulk consumers use separate completed flights.\napply_translation : bool, default=False\n    Create separate Landsat-like application products using the reviewed coefficient registry; does not overwrite corrected native MicaSense.\ntranslation_coefficients : str | Path | None, default=None\n    Optional reviewed registry JSON path; None uses the packaged static coefficient set.\ntranslation_weighting : str | None, default=None\n    Optional reviewed weighting selection; normal production uses the predetermined site-balanced weighting.\ntranslation_strict : bool, default=False\n    Treat unsupported/flagged translation conditions as blocking rather than returning the configured non-strict status.\nlandsat_qa : bool, default=False\n    Enable actual Landsat comparison QA for translated products; requires apply_translation=True and appropriate data/dependencies.\nlandsat_product : str | Path | None, default=None\n    Optional existing actual Landsat product for independent comparison; None permits the documented search path.\nlandsat_search_days : int, default=16\n    Nonnegative acquisition-date search radius in days for actual Landsat comparison.\ncomparison_neon_product : str | Path | None, default=None\n    Optional independent NEON product for common-support comparison QA.\nraise_on_incomplete : bool, default=True\n    Raise DronePipelineIncompleteError when flights fail or are scientifically blocked; its results attribute retains structured status.\nsolar_qa_timezone : str | None, default=None\n    Optional timezone override for solar-geometry QA; None follows the existing metadata/timezone resolution.\n\nReturns\n-------\ndict[str, Any]\n    Per-flight processed/reused/failed/blocked outcomes and QA/output paths; incomplete runs normally raise with this payload attached.\n\nRaises\n------\nDroneCorrectionUnavailableError\n    If scientifically required correction inputs cannot be validated.\nDronePipelineIncompleteError\n    If any requested flight is incomplete and raise_on_incomplete is True; inspect the attached results.\nValueError\n    If the supplied options, dimensions, support or provenance violate the input contract.\n\nNotes\n-----\n``extraction_mode=\"full\"`` writes a full-pixel Parquet table from the\ncorrected drone ENVI product. ``\"polygon\"`` uses ``polygon_path`` and the\nexisting polygon extraction path. The default preserves historical\nbehavior: polygon mode when polygons are supplied, otherwise QA-only.\nPer-flight extraction products remain separate by default;\n``merge_extractions=True`` opts into legacy campaign-wide pixel-table\nmaterialization. Bulk analysis does not require that merge.\nTranslation is opt-in and consumes a versioned packaged registry by default,\nor an explicitly supplied reviewed bulk artifact. The predetermined\nproduction weighting is site-balanced. It creates separate Landsat-like\nproducts; corrected native MicaSense is never overwritten.\nBy default an incomplete run raises :class:`DronePipelineIncompleteError`\nwith the structured result available as ``exc.results``.\n\nSee Also\n--------\nspectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.\n\nExamples\n--------\nRequires an existing supported source tree with usable spectral/spatial/solar metadata. Choose a separate output directory.\n\n>>> from spectralbridge import run_drone_pipeline\n>>> result = run_drone_pipeline(input_h5_dir=source_dir, output_dir=output_dir)  # doctest: +SKIP",
+          "docstring": "Run the drone pipeline from local HDF5 or reflectance TIFF sources.\n\nParameters\n----------\ninput_h5_dir : str | Path\n    Existing local supported HDF5/TIFF file or directory; discovery recurses through source packages.\npolygon_path : str | Path | None, default=None\n    Existing polygon vector dataset for extraction; coordinates are handled by the established polygon workflow.\noutput_dir : str | Path, default='.'\n    Directory for generated products; bulk outputs must be outside the read-only input tree.\napply_topo : bool, default=True\n    Enable the existing topographic correction when required terrain/geometry metadata are available.\napply_brdf : bool, default=True\n    Enable the existing BRDF correction when required angular metadata are available.\nuse_ndvi_brdf_bins : bool, default=False\n    Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.\napply_brightness_adjustment : bool, default=False\n    Opt into the established brightness adjustment; does not change the packaged coefficients.\nradiometry : dict[str, Any] | None, default=None\n    Authoritative affine record with scale, offset, status='VALID' and calibration provenance. No calibration is inferred from TIFF identity tags or value ranges. A source H5 may already carry this record; provide different flight calibrations in separate calls.\noverwrite : bool, default=False\n    Replace existing requested products; False preserves reusable products or rejects a conflicting destination.\ntiff_wavelengths_nm : Sequence[float] | np.ndarray | None, default=None\n    Explicit per-band center wavelengths in nanometers for TIFF inputs lacking embedded spectral metadata; must match band order/count.\ntiff_fwhm_nm : Sequence[float] | np.ndarray | None, default=None\n    Per-band full widths at half maximum in nanometers, aligned with TIFF bands; None uses supported metadata.\ntiff_solar_zenith_deg : float | None, default=None\n    Explicit TIFF solar zenith in degrees when valid embedded metadata are unavailable.\ntiff_solar_azimuth_deg : float | None, default=None\n    Explicit TIFF solar azimuth in degrees when valid embedded metadata are unavailable.\ntiff_sensor_zenith_deg : float | None, default=None\n    Explicit TIFF view zenith in degrees when valid embedded metadata are unavailable.\ntiff_sensor_azimuth_deg : float | None, default=None\n    Explicit TIFF view azimuth in degrees when valid embedded metadata are unavailable.\ndrone_manifest_path : str | Path | None, default=None\n    Existing flight manifest providing acquisition identity/time; None uses supported discovery or embedded metadata.\ndrone_manifest_timezone : str | None, default='UTC'\n    Timezone used to interpret manifest acquisition times; the default is UTC.\nrequire_solar_geometry : bool, default=True\n    Require scientifically usable solar geometry before correction rather than silently proceeding without it.\nextraction_mode : str | None, default=None\n    'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.\nparquet_chunk_size : int, default=2048\n    Positive pixel/window processing budget for bounded extraction; the default and interpretation follow the selected producer.\nmerge_extractions : bool, default=False\n    Explicit opt-in to legacy campaign-wide pixel-table merging; normal bulk consumers use separate completed flights.\napply_translation : bool, default=False\n    Create separate Landsat-like application products using the reviewed coefficient registry; does not overwrite corrected native MicaSense.\ntranslation_coefficients : str | Path | None, default=None\n    Optional reviewed registry JSON path; None uses the packaged static coefficient set.\ntranslation_weighting : str | None, default=None\n    Optional reviewed weighting selection; normal production uses the predetermined site-balanced weighting.\ntranslation_strict : bool, default=False\n    Treat unsupported/flagged translation conditions as blocking rather than returning the configured non-strict status.\nlandsat_qa : bool, default=False\n    Enable actual Landsat comparison QA for translated products; requires apply_translation=True and appropriate data/dependencies.\nlandsat_product : str | Path | None, default=None\n    Optional existing actual Landsat product for independent comparison; None permits the documented search path.\nlandsat_search_days : int, default=16\n    Nonnegative acquisition-date search radius in days for actual Landsat comparison.\ncomparison_neon_product : str | Path | None, default=None\n    Optional independent NEON product for common-support comparison QA.\nraise_on_incomplete : bool, default=True\n    Raise DronePipelineIncompleteError when flights fail or are scientifically blocked; its results attribute retains structured status.\nsolar_qa_timezone : str | None, default=None\n    Optional timezone override for solar-geometry QA; None follows the existing metadata/timezone resolution.\n\nReturns\n-------\ndict[str, Any]\n    Per-flight processed/reused/failed/blocked outcomes and QA/output paths; incomplete runs normally raise with this payload attached.\n\nRaises\n------\nDroneCorrectionUnavailableError\n    If scientifically required correction inputs cannot be validated.\nDronePipelineIncompleteError\n    If any requested flight is incomplete and raise_on_incomplete is True; inspect the attached results.\nValueError\n    If the supplied options, dimensions, support or provenance violate the input contract.\n\nNotes\n-----\n``extraction_mode=\"full\"`` writes a full-pixel Parquet table from the\ncorrected drone ENVI product. ``\"polygon\"`` uses ``polygon_path`` and the\nexisting polygon extraction path. The default preserves historical\nbehavior: polygon mode when polygons are supplied, otherwise QA-only.\nPer-flight extraction products remain separate by default;\n``merge_extractions=True`` opts into legacy campaign-wide pixel-table\nmaterialization. Bulk analysis does not require that merge.\nTranslation is opt-in and consumes a versioned packaged registry by default,\nor an explicitly supplied reviewed bulk artifact. The predetermined\nproduction weighting is site-balanced. It creates separate Landsat-like\nproducts; corrected native MicaSense is never overwritten.\nBy default an incomplete run raises :class:`DronePipelineIncompleteError`\nwith the structured result available as ``exc.results``.\n\nSee Also\n--------\nspectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.\n\nExamples\n--------\nRequires an existing supported source tree with usable spectral/spatial/solar metadata. Choose a separate output directory.\n\n>>> from spectralbridge import run_drone_pipeline\n>>> result = run_drone_pipeline(input_h5_dir=source_dir, output_dir=output_dir)  # doctest: +SKIP",
           "examples": [
             "examples/release_candidate_smoke.py",
             "examples/run_drone_pipeline.py"
@@ -37470,7 +37724,7 @@
             "spectralbridge.pipelines.drone.run_drone_pipeline"
           ],
           "kind": "function",
-          "line": 3298,
+          "line": 3457,
           "methods": [],
           "name": "run_drone_pipeline",
           "parameters": [
@@ -37653,16 +37907,22 @@
               "default": "None",
               "kind": "positional-or-keyword",
               "name": "solar_qa_timezone"
+            },
+            {
+              "annotation": "dict[str, Any] | None",
+              "default": "None",
+              "kind": "positional-or-keyword",
+              "name": "radiometry"
             }
           ],
           "path": "spectralbridge.pipelines.drone.run_drone_pipeline",
-          "signature": "run_drone_pipeline(input_h5_dir: str | Path, polygon_path: str | Path | None=None, output_dir: str | Path='.', apply_topo: bool=True, apply_brdf: bool=True, use_ndvi_brdf_bins: bool=False, apply_brightness_adjustment: bool=False, overwrite: bool=False, tiff_wavelengths_nm: Sequence[float] | np.ndarray | None=None, tiff_fwhm_nm: Sequence[float] | np.ndarray | None=None, tiff_solar_zenith_deg: float | None=None, tiff_solar_azimuth_deg: float | None=None, tiff_sensor_zenith_deg: float | None=None, tiff_sensor_azimuth_deg: float | None=None, drone_manifest_path: str | Path | None=None, drone_manifest_timezone: str | None='UTC', require_solar_geometry: bool=True, extraction_mode: str | None=None, parquet_chunk_size: int=2048, merge_extractions: bool=False, apply_translation: bool=False, translation_coefficients: str | Path | None=None, translation_weighting: str | None=None, translation_strict: bool=False, landsat_qa: bool=False, landsat_product: str | Path | None=None, landsat_search_days: int=16, comparison_neon_product: str | Path | None=None, raise_on_incomplete: bool=True, solar_qa_timezone: str | None=None) -> dict[str, Any]",
+          "signature": "run_drone_pipeline(input_h5_dir: str | Path, polygon_path: str | Path | None=None, output_dir: str | Path='.', apply_topo: bool=True, apply_brdf: bool=True, use_ndvi_brdf_bins: bool=False, apply_brightness_adjustment: bool=False, overwrite: bool=False, tiff_wavelengths_nm: Sequence[float] | np.ndarray | None=None, tiff_fwhm_nm: Sequence[float] | np.ndarray | None=None, tiff_solar_zenith_deg: float | None=None, tiff_solar_azimuth_deg: float | None=None, tiff_sensor_zenith_deg: float | None=None, tiff_sensor_azimuth_deg: float | None=None, drone_manifest_path: str | Path | None=None, drone_manifest_timezone: str | None='UTC', require_solar_geometry: bool=True, extraction_mode: str | None=None, parquet_chunk_size: int=2048, merge_extractions: bool=False, apply_translation: bool=False, translation_coefficients: str | Path | None=None, translation_weighting: str | None=None, translation_strict: bool=False, landsat_qa: bool=False, landsat_product: str | Path | None=None, landsat_search_days: int=16, comparison_neon_product: str | Path | None=None, raise_on_incomplete: bool=True, solar_qa_timezone: str | None=None, radiometry: dict[str, Any] | None=None) -> dict[str, Any]",
           "summary": "Run the drone pipeline from local HDF5 or reflectance TIFF sources.",
           "summary_basis": "source docstring"
         }
       ],
       "path": "src/spectralbridge/pipelines/drone.py",
-      "sha256": "a0c60926f80e279071856dab5153b6bfebec3ac54eb208023e72998fdbb4c743"
+      "sha256": "6137637c29b42ba46abdd6c68d21d65eadd0b6cc1d83e14fff7781cc4a24d0a6"
     },
     {
       "area": "pipelines",
@@ -37708,6 +37968,7 @@
         "get_flightline_products": "spectralbridge.utils.naming.get_flightline_products",
         "get_package_data_path": "spectralbridge.utils.get_package_data_path",
         "half_flight_id": "spectralbridge.half_flight.half_flight_id",
+        "hdr_to_dict": "spectralbridge.envi.hdr_to_dict",
         "is_valid_json": "spectralbridge.utils_checks.is_valid_json",
         "load_brightness_coefficients": "spectralbridge.brightness_config.load_brightness_coefficients",
         "make_micasense_vs_landsat_panels": "spectralbridge.sensor_panel_plots.make_micasense_vs_landsat_panels",
@@ -37716,9 +37977,9 @@
         "merge_flightline": "spectralbridge.merge_duckdb.merge_flightline",
         "merge_polygon_parquets_for_flightline": "spectralbridge.polygons.merge_polygon_parquets_for_flightline",
         "neon_to_envi_no_hytools": "spectralbridge.neon_to_envi.neon_to_envi_no_hytools",
-        "normalize_brdf_model_path": "spectralbridge.paths.normalize_brdf_model_path",
         "plan_half_flight": "spectralbridge.half_flight.plan_half_flight",
         "render_flightline_panel": "spectralbridge.qa_plots.render_flightline_panel",
+        "require_library_header": "spectralbridge.radiometry.require_library_header",
         "resample_chunk_to_sensor": "spectralbridge.resample.resample_chunk_to_sensor",
         "resolve": "spectralbridge.io.neon_schema.resolve",
         "run_completed_flightline_qa": "spectralbridge.qa.run_completed_flightline_qa",
@@ -38518,7 +38779,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 845,
+          "line": 847,
           "methods": [],
           "name": "_sensor_requires_landsat_adjustment",
           "parameters": [
@@ -38543,7 +38804,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 852,
+          "line": 854,
           "methods": [],
           "name": "_apply_landsat_brightness_adjustment",
           "parameters": [
@@ -38580,7 +38841,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 892,
+          "line": 894,
           "methods": [],
           "name": "convolve_resample_product",
           "parameters": [
@@ -38659,7 +38920,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1075,
+          "line": 1077,
           "methods": [],
           "name": "_normalize_product_code",
           "parameters": [
@@ -38684,7 +38945,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1097,
+          "line": 1099,
           "methods": [],
           "name": "_find_h5_for_flightline",
           "parameters": [
@@ -38715,7 +38976,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1129,
+          "line": 1131,
           "methods": [],
           "name": "_load_sensor_library",
           "parameters": [],
@@ -38733,7 +38994,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1156,
+          "line": 1158,
           "methods": [],
           "name": "_build_sensor_srfs",
           "parameters": [
@@ -38776,7 +39037,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1190,
+          "line": 1192,
           "methods": [],
           "name": "_prepare_sensor_targets",
           "parameters": [
@@ -38821,7 +39082,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1260,
+          "line": 1262,
           "methods": [],
           "name": "_safe_resolve_sensor_entry",
           "parameters": [
@@ -38852,7 +39113,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1311,
+          "line": 1313,
           "methods": [],
           "name": "resample_to_sensor_bands",
           "parameters": [
@@ -38913,7 +39174,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1369,
+          "line": 1371,
           "methods": [],
           "name": "write_resampled_product",
           "parameters": [
@@ -38974,7 +39235,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1394,
+          "line": 1396,
           "methods": [],
           "name": "write_resampled_envi_cube",
           "parameters": [
@@ -39041,7 +39302,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1447,
+          "line": 1449,
           "methods": [],
           "name": "stage_download_h5",
           "parameters": [
@@ -39090,7 +39351,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1517,
+          "line": 1519,
           "methods": [],
           "name": "stage_export_envi_from_h5",
           "parameters": [
@@ -39175,7 +39436,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1751,
+          "line": 1753,
           "methods": [],
           "name": "stage_build_and_write_correction_json",
           "parameters": [
@@ -39266,7 +39527,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1829,
+          "line": 1831,
           "methods": [],
           "name": "stage_apply_brdf_topo_correction",
           "parameters": [
@@ -39339,7 +39600,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1907,
+          "line": 1912,
           "methods": [],
           "name": "stage_convolve_all_sensors",
           "parameters": [
@@ -39466,7 +39727,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2433,
+          "line": 2438,
           "methods": [],
           "name": "_emit_stage_qa_safe",
           "parameters": [
@@ -39497,7 +39758,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2456,
+          "line": 2461,
           "methods": [],
           "name": "_run_end_of_pipeline_qa",
           "parameters": [
@@ -39536,7 +39797,7 @@
             "spectralbridge.process_one_flightline"
           ],
           "kind": "function",
-          "line": 2493,
+          "line": 2498,
           "methods": [],
           "name": "process_one_flightline",
           "parameters": [
@@ -39842,7 +40103,7 @@
           "examples": [],
           "exports": [],
           "kind": "class",
-          "line": 2783,
+          "line": 2786,
           "methods": [],
           "name": "_FlightlineTask",
           "parameters": [],
@@ -39860,7 +40121,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2814,
+          "line": 2817,
           "methods": [],
           "name": "_execute_flightline",
           "parameters": [
@@ -39885,7 +40146,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2849,
+          "line": 2852,
           "methods": [],
           "name": "_iter_executor_results",
           "parameters": [
@@ -39922,7 +40183,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2864,
+          "line": 2867,
           "methods": [],
           "name": "_run_flightlines_with_ray",
           "parameters": [
@@ -39953,7 +40214,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2911,
+          "line": 2914,
           "methods": [],
           "name": "_iter_engine_results",
           "parameters": [
@@ -39990,7 +40251,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2949,
+          "line": 2952,
           "methods": [],
           "name": "sort_and_sync_files",
           "parameters": [
@@ -40032,7 +40293,7 @@
             "spectralbridge.go_forth_and_multiply"
           ],
           "kind": "function",
-          "line": 3012,
+          "line": 3015,
           "methods": [],
           "name": "go_forth_and_multiply",
           "parameters": [
@@ -40195,7 +40456,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3419,
+          "line": 3422,
           "methods": [],
           "name": "resample_translation_to_other_sensors",
           "parameters": [
@@ -40220,7 +40481,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3433,
+          "line": 3436,
           "methods": [],
           "name": "process_base_folder",
           "parameters": [
@@ -40257,7 +40518,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3473,
+          "line": 3476,
           "methods": [],
           "name": "process_all_subdirectories",
           "parameters": [
@@ -40288,7 +40549,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3486,
+          "line": 3489,
           "methods": [],
           "name": "jefe",
           "parameters": [
@@ -40420,7 +40681,7 @@
           ],
           "exports": [],
           "kind": "function",
-          "line": 3559,
+          "line": 3562,
           "methods": [],
           "name": "parse_args",
           "parameters": [
@@ -40447,7 +40708,7 @@
             "spectralbridge.pipelines.run_pipeline"
           ],
           "kind": "function",
-          "line": 3610,
+          "line": 3613,
           "methods": [],
           "name": "run_pipeline",
           "parameters": [
@@ -40465,7 +40726,7 @@
         }
       ],
       "path": "src/spectralbridge/pipelines/pipeline.py",
-      "sha256": "83a48521192cba5bae35b9bc003a62efcbfd11838d6156f2cb07ece6ae57bbc3"
+      "sha256": "2b078bfd4ee6f49815e052bbb3bc28da89cebdb74d77350f21c4f0c676c731b3"
     },
     {
       "area": "analysis",
@@ -44392,9 +44653,11 @@
         "is_numeric_dtype": "pandas.api.types.is_numeric_dtype",
         "is_object_dtype": "pandas.api.types.is_object_dtype",
         "is_string_dtype": "pandas.api.types.is_string_dtype",
+        "library_radiometry": "spectralbridge.radiometry.library_radiometry",
         "rasterize": "rasterio.features.rasterize",
         "read_envi_in_chunks": "cross_sensor_cal.parquet_export.read_envi_in_chunks",
         "require_geopandas": "spectralbridge._optional.require_geopandas",
+        "require_physical_table": "spectralbridge.radiometry.require_physical_table",
         "require_rasterio": "spectralbridge._optional.require_rasterio",
         "wavelengths_from_hdr": "cross_sensor_cal.header_utils.wavelengths_from_hdr",
         "xy": "rasterio.transform.xy"
@@ -45018,7 +45281,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2213,
+          "line": 2216,
           "methods": [],
           "name": "extract_all_polygon_parquets_from_envi",
           "parameters": [
@@ -45063,7 +45326,7 @@
             "spectralbridge.polygons.extract_polygon_parquets_for_flightline"
           ],
           "kind": "function",
-          "line": 2299,
+          "line": 2302,
           "methods": [],
           "name": "extract_polygon_parquets_for_flightline",
           "parameters": [
@@ -45108,7 +45371,7 @@
             "spectralbridge.polygons.merge_polygon_parquets_for_flightline"
           ],
           "kind": "function",
-          "line": 2382,
+          "line": 2385,
           "methods": [],
           "name": "merge_polygon_parquets_for_flightline",
           "parameters": [
@@ -45165,7 +45428,7 @@
             "spectralbridge.polygons.run_polygon_pipeline_for_flightline"
           ],
           "kind": "function",
-          "line": 2488,
+          "line": 2491,
           "methods": [],
           "name": "run_polygon_pipeline_for_flightline",
           "parameters": [
@@ -45207,7 +45470,7 @@
         }
       ],
       "path": "src/spectralbridge/polygons.py",
-      "sha256": "484afaa6a87e6cc240ffd914a6ac709eb21cbf586c6722838d88303a789a9dd8"
+      "sha256": "978919bd1fd1b628e7bcfe3414e04e691166fb3ef93594b9947c103959df95a6"
     },
     {
       "area": "utilities",
@@ -47464,6 +47727,7 @@
         "QACheck": "spectralbridge.qa.schema.QACheck",
         "QAStatus": "spectralbridge.qa.schema.QAStatus",
         "QAThresholds": "spectralbridge.qa.thresholds.QAThresholds",
+        "Radiometry": "spectralbridge.radiometry.Radiometry",
         "SCHEMA_VERSION": "spectralbridge.qa.schema.SCHEMA_VERSION",
         "StageQAPaths": "spectralbridge.qa.paths.StageQAPaths",
         "StageQAReport": "spectralbridge.qa.schema.StageQAReport",
@@ -47711,10 +47975,16 @@
               "default": null,
               "kind": "keyword-only",
               "name": "nodata"
+            },
+            {
+              "annotation": "dict[str, Any] | None",
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "header"
             }
           ],
           "path": "spectralbridge.qa.stages._unit_reflectance",
-          "signature": "_unit_reflectance(values: np.ndarray, *, scale_factor: float, nodata: float | None) -> np.ndarray",
+          "signature": "_unit_reflectance(values: np.ndarray, *, scale_factor: float, nodata: float | None, header: dict[str, Any] | None=None) -> np.ndarray",
           "summary": "Return a diagnostic copy in unit reflectance with NoData represented by NaN.",
           "summary_basis": "source docstring"
         },
@@ -47729,7 +47999,7 @@
           ],
           "exports": [],
           "kind": "function",
-          "line": 224,
+          "line": 231,
           "methods": [],
           "name": "_wavelengths",
           "parameters": [
@@ -47760,7 +48030,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 234,
+          "line": 241,
           "methods": [],
           "name": "_header_shape",
           "parameters": [
@@ -47787,7 +48057,7 @@
           ],
           "exports": [],
           "kind": "function",
-          "line": 240,
+          "line": 247,
           "methods": [],
           "name": "_preview",
           "parameters": [
@@ -47818,7 +48088,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 258,
+          "line": 265,
           "methods": [],
           "name": "_load_spatial_preview",
           "parameters": [
@@ -47855,7 +48125,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 279,
+          "line": 286,
           "methods": [],
           "name": "_representative_seams_from_path",
           "parameters": [
@@ -47904,7 +48174,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 305,
+          "line": 312,
           "methods": [],
           "name": "_known_bad_band_mask",
           "parameters": [
@@ -47935,7 +48205,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 318,
+          "line": 325,
           "methods": [],
           "name": "_known_bad_band_reason",
           "parameters": [
@@ -47960,7 +48230,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 329,
+          "line": 336,
           "methods": [],
           "name": "_footprint_summary",
           "parameters": [
@@ -47985,7 +48255,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 358,
+          "line": 365,
           "methods": [],
           "name": "_spectral_quality_summary",
           "parameters": [
@@ -48028,7 +48298,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 397,
+          "line": 404,
           "methods": [],
           "name": "_bandwise",
           "parameters": [
@@ -48065,7 +48335,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 437,
+          "line": 444,
           "methods": [],
           "name": "_representative_seams",
           "parameters": [
@@ -48108,7 +48378,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 468,
+          "line": 475,
           "methods": [],
           "name": "_parquet_metrics",
           "parameters": [
@@ -48133,7 +48403,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 513,
+          "line": 520,
           "methods": [],
           "name": "_array_summary",
           "parameters": [
@@ -48158,7 +48428,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 530,
+          "line": 537,
           "methods": [],
           "name": "_geometry_range_review",
           "parameters": [
@@ -48183,7 +48453,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 576,
+          "line": 583,
           "methods": [],
           "name": "_brightness_pairs",
           "parameters": [
@@ -48208,7 +48478,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 597,
+          "line": 604,
           "methods": [],
           "name": "_brightness_product_label",
           "parameters": [
@@ -48233,7 +48503,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 607,
+          "line": 614,
           "methods": [],
           "name": "_brightness_diagnostics",
           "parameters": [
@@ -48264,7 +48534,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 666,
+          "line": 675,
           "methods": [],
           "name": "_context_fingerprint",
           "parameters": [
@@ -48292,7 +48562,7 @@
             "spectralbridge.qa.stages.emit_stage_qa"
           ],
           "kind": "function",
-          "line": 671,
+          "line": 680,
           "methods": [],
           "name": "emit_stage_qa",
           "parameters": [
@@ -48370,7 +48640,7 @@
         }
       ],
       "path": "src/spectralbridge/qa/stages.py",
-      "sha256": "2723d97f1cd442fc56fc42ec6c0f8e3d19194aefb578f8341ae3a919363ede71"
+      "sha256": "fd85273816368bfbe80dc52e5e14700e26b4a6669e88ec2eab428b90bd55939d"
     },
     {
       "area": "qa",
@@ -49325,6 +49595,7 @@
         "PdfReader": "PyPDF2.PdfReader",
         "Provenance": "spectralbridge.qa_metrics.Provenance",
         "QAMetrics": "spectralbridge.qa_metrics.QAMetrics",
+        "Radiometry": "spectralbridge.radiometry.Radiometry",
         "Rectangle": "matplotlib.patches.Rectangle",
         "Sequence": "typing.Sequence",
         "annotations": "__future__.annotations",
@@ -51177,7 +51448,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2354,
+          "line": 2357,
           "methods": [],
           "name": "_drone_correction_status",
           "parameters": [
@@ -51220,7 +51491,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2398,
+          "line": 2403,
           "methods": [],
           "name": "_render_drone_correction_status_box",
           "parameters": [
@@ -51251,7 +51522,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2435,
+          "line": 2440,
           "methods": [],
           "name": "_median_spectrum",
           "parameters": [
@@ -51282,7 +51553,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2440,
+          "line": 2445,
           "methods": [],
           "name": "_despike_spectrum_for_display",
           "parameters": [
@@ -51313,7 +51584,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2483,
+          "line": 2488,
           "methods": [],
           "name": "_render_drone_band_fidelity",
           "parameters": [
@@ -51386,7 +51657,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2570,
+          "line": 2575,
           "methods": [],
           "name": "_render_drone_nodata_map",
           "parameters": [
@@ -51419,11 +51690,42 @@
           "audience": "internal",
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
+          "docstring": "Exact median/p90 across bands, avoiding a Python percentile call per pixel.\n\nGroup sorted columns by their non-NaN count within bounded pixel blocks.\nEach group can use NumPy's vectorized non-NaN reduction with identical\nmedian and default linear-percentile semantics. No sampling is performed.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 2587,
+          "methods": [],
+          "name": "_drone_spatial_delta_quantiles",
+          "parameters": [
+            {
+              "annotation": "np.ndarray",
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "values"
+            },
+            {
+              "annotation": "int",
+              "default": "65536",
+              "kind": "keyword-only",
+              "name": "chunk_pixels"
+            }
+          ],
+          "path": "spectralbridge.qa_plots._drone_spatial_delta_quantiles",
+          "signature": "_drone_spatial_delta_quantiles(values: np.ndarray, *, chunk_pixels: int=65536) -> tuple[np.ndarray, np.ndarray]",
+          "summary": "Exact median/p90 across bands, avoiding a Python percentile call per pixel.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "internal",
+          "classification_reason": "Private/compatibility/CLI module or implementation utility",
+          "docs_references": [],
           "docstring": "",
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2582,
+          "line": 2613,
           "methods": [],
           "name": "_render_drone_correction_magnitude",
           "parameters": [
@@ -51460,7 +51762,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2654,
+          "line": 2684,
           "methods": [],
           "name": "_render_drone_polygon_overlay",
           "parameters": [
@@ -51497,7 +51799,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2728,
+          "line": 2758,
           "methods": [],
           "name": "_render_drone_merged_preview",
           "parameters": [
@@ -51542,7 +51844,7 @@
             "spectralbridge.qa_plots.render_drone_panel"
           ],
           "kind": "function",
-          "line": 2862,
+          "line": 2892,
           "methods": [],
           "name": "render_drone_panel",
           "parameters": [
@@ -51625,7 +51927,7 @@
             "spectralbridge.qa_plots.render_flightline_panel"
           ],
           "kind": "function",
-          "line": 3098,
+          "line": 3128,
           "methods": [],
           "name": "render_flightline_panel",
           "parameters": [
@@ -51667,7 +51969,7 @@
         }
       ],
       "path": "src/spectralbridge/qa_plots.py",
-      "sha256": "6d78b87140a0c77421d2f631b47a5dc005f6e0c72e7a94105d4078e1237a29f8"
+      "sha256": "ccbad2de30ef4bf5e39077ef4e133b37da5001bc4e2832dd07b16d0aa6cbbe9f"
     },
     {
       "area": "qa",
@@ -51862,6 +52164,309 @@
       ],
       "path": "src/spectralbridge/qa_style.py",
       "sha256": "f4b3cfd4c31c2ff3fad6a799872c3fc27838509be89a987ee4c657351789ae88"
+    },
+    {
+      "area": "utilities",
+      "constants": [],
+      "declared_exports": [],
+      "docstring": "Authoritative affine reflectance calibration shared by both sensor paths.\n\nRaw rasters remain in storage units. Calibration is applied once on entering a\nscientific calculation and inverted once on writing a storage-scale raster.\nA value distribution, an identity TIFF scale, or a filename alone is not a\ncalibration certificate.",
+      "export_expressions": [],
+      "imports": {
+        "Path": "pathlib.Path",
+        "asdict": "dataclasses.asdict",
+        "dataclass": "dataclasses.dataclass",
+        "hdr_to_dict": "spectralbridge.envi.hdr_to_dict"
+      },
+      "module": "spectralbridge.radiometry",
+      "objects": [
+        {
+          "attributes": [
+            {
+              "annotation": "float | None",
+              "default": null,
+              "name": "scale"
+            },
+            {
+              "annotation": "float | None",
+              "default": null,
+              "name": "offset"
+            },
+            {
+              "annotation": "str",
+              "default": null,
+              "name": "status"
+            },
+            {
+              "annotation": "str",
+              "default": null,
+              "name": "provenance"
+            },
+            {
+              "annotation": "str",
+              "default": "'physical = scale * stored + offset'",
+              "name": "convention"
+            }
+          ],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "",
+          "examples": [],
+          "exports": [],
+          "kind": "class",
+          "line": 15,
+          "methods": [
+            {
+              "docstring": "",
+              "line": 22,
+              "name": "require_valid",
+              "parameters": [],
+              "private": false,
+              "signature": "require_valid(self)"
+            },
+            {
+              "docstring": "",
+              "line": 37,
+              "name": "to_physical",
+              "parameters": [
+                {
+                  "annotation": null,
+                  "default": null,
+                  "kind": "positional-or-keyword",
+                  "name": "values"
+                }
+              ],
+              "private": false,
+              "signature": "to_physical(self, values)"
+            },
+            {
+              "docstring": "",
+              "line": 43,
+              "name": "to_stored",
+              "parameters": [
+                {
+                  "annotation": null,
+                  "default": null,
+                  "kind": "positional-or-keyword",
+                  "name": "values"
+                }
+              ],
+              "private": false,
+              "signature": "to_stored(self, values)"
+            },
+            {
+              "docstring": "",
+              "line": 49,
+              "name": "header",
+              "parameters": [],
+              "private": false,
+              "signature": "header(self)"
+            },
+            {
+              "docstring": "",
+              "line": 59,
+              "name": "record",
+              "parameters": [],
+              "private": false,
+              "signature": "record(self)"
+            },
+            {
+              "docstring": "",
+              "line": 63,
+              "name": "from_record",
+              "parameters": [
+                {
+                  "annotation": null,
+                  "default": null,
+                  "kind": "positional-or-keyword",
+                  "name": "record"
+                }
+              ],
+              "private": false,
+              "signature": "from_record(cls, record)"
+            },
+            {
+              "docstring": "",
+              "line": 67,
+              "name": "from_header",
+              "parameters": [
+                {
+                  "annotation": null,
+                  "default": null,
+                  "kind": "positional-or-keyword",
+                  "name": "header"
+                }
+              ],
+              "private": false,
+              "signature": "from_header(cls, header)"
+            }
+          ],
+          "name": "Radiometry",
+          "parameters": [],
+          "path": "spectralbridge.radiometry.Radiometry",
+          "signature": null,
+          "summary": "",
+          "summary_basis": "not documented"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Read a declared affine record or documented NEON divisor, never infer units.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 83,
+          "methods": [],
+          "name": "dataset_radiometry",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "dataset"
+            },
+            {
+              "annotation": null,
+              "default": "False",
+              "kind": "keyword-only",
+              "name": "neon"
+            }
+          ],
+          "path": "spectralbridge.radiometry.dataset_radiometry",
+          "signature": "dataset_radiometry(dataset, *, neon=False)",
+          "summary": "Read a declared affine record or documented NEON divisor, never infer units.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 120,
+          "methods": [],
+          "name": "require_radiometry",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "cube"
+            }
+          ],
+          "path": "spectralbridge.radiometry.require_radiometry",
+          "signature": "require_radiometry(cube)",
+          "summary": "",
+          "summary_basis": "not documented"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Fail closed before a historical/unsupported correction enters a library.\n\nExplicit raw/topographic-only data with verified calibration are allowed;\nBRDF requested but unsupported/invalid is not an approved alternative.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 129,
+          "methods": [],
+          "name": "require_library_header",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "header"
+            }
+          ],
+          "path": "spectralbridge.radiometry.require_library_header",
+          "signature": "require_library_header(header)",
+          "summary": "Fail closed before a historical/unsupported correction enters a library.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 148,
+          "methods": [],
+          "name": "library_radiometry",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "image"
+            }
+          ],
+          "path": "spectralbridge.radiometry.library_radiometry",
+          "signature": "library_radiometry(image)",
+          "summary": "",
+          "summary_basis": "not documented"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 155,
+          "methods": [],
+          "name": "require_physical_table",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "path"
+            }
+          ],
+          "path": "spectralbridge.radiometry.require_physical_table",
+          "signature": "require_physical_table(path)",
+          "summary": "",
+          "summary_basis": "not documented"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Preserve verified units through DuckDB COPY without reading pixel rows.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 165,
+          "methods": [],
+          "name": "physical_copy_metadata",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "paths"
+            }
+          ],
+          "path": "spectralbridge.radiometry.physical_copy_metadata",
+          "signature": "physical_copy_metadata(paths)",
+          "summary": "Preserve verified units through DuckDB COPY without reading pixel rows.",
+          "summary_basis": "source docstring"
+        }
+      ],
+      "path": "src/spectralbridge/radiometry.py",
+      "sha256": "a94c54e41580d9caa736929cb2bf1a9f4bb925e385549f3c7416908a47b3279d"
     },
     {
       "area": "utilities",

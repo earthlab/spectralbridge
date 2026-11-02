@@ -342,3 +342,16 @@ and provenance document. It intentionally does not fetch upstream source.
   any future move away from GPLv3-family distribution. This document makes no
   conclusion about legal compliance.
 
+
+### 2026-10-30 kernel verification
+
+The shared LiSparseReciprocal/LiDenseR equations were reconciled with the already
+pinned upstream `src/hytools/brdf/kernels.py` at
+`31286d64541791a9815d29443a33726fa4d54031`. The previous b/r, overlap and phase
+expressions diverged from that source. Existing attribution and GPL notices
+remain. Frozen upstream numerical vectors, source SHA256 and nadir-azimuth
+invariance tests are in `tests/data/brdf/hytools_pinned_kernels.json` and
+`tests/test_radiometric_contract.py`. This verifies kernel equations, not complete
+FlexBRDF workflow equivalence or empirical sensor calibration. The shared
+radiometric and fitting-validation changes are described in
+`provenance/radiometry-brdf/2026-10-30/README.md`.

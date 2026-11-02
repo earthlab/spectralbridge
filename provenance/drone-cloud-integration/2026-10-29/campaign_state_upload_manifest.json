@@ -1,0 +1,45 @@
+{
+  "files": {
+    "bulk_preflight_result.json": {
+      "bytes": 9628,
+      "sha256": "1a49164ddab7306b5beca4709535fc5b6171660f644159dafcda626fc2ac0812"
+    },
+    "bulk_result.json": {
+      "bytes": 10519,
+      "sha256": "30cec420304dd5acc9dc892877e062440a9c94392af6e2ed4d77cd1d9e322834"
+    },
+    "inventory/drone_collection_inventory.csv": {
+      "bytes": 812,
+      "sha256": "14f8db9316f5a78cf4fa0cccacd5c83b564e268cf0805c102e1390e8b65eb6e7"
+    },
+    "inventory/drone_collection_inventory.json": {
+      "bytes": 3930,
+      "sha256": "8a851678168c23ebc80d953a36328e834d53527917a745fc7fabfa952a70e3a4"
+    },
+    "run_configuration.json": {
+      "bytes": 2382,
+      "sha256": "2e1f9b6941627d57a0ed6395bfa7d75a25c2a32bac4b8862ebf5f647c0ac623c"
+    },
+    "selected_inventory/drone_collection_inventory.csv": {
+      "bytes": 812,
+      "sha256": "14f8db9316f5a78cf4fa0cccacd5c83b564e268cf0805c102e1390e8b65eb6e7"
+    },
+    "selected_inventory/drone_collection_inventory.json": {
+      "bytes": 3057,
+      "sha256": "756841e2e66a28b7d1adb7c0c5a3c8ac04c3b65e985cb0b189425ab6c4ad4265"
+    },
+    "status.json": {
+      "bytes": 372,
+      "sha256": "017c3cc54cb34755ac6d614d30d543159d50217eb97f980ff92b38dcf7d15154"
+    },
+    "summary_result.json": {
+      "bytes": 54509,
+      "sha256": "fa971c6237ea99920e7969038cf29459ca378b9e2335989010df11f041ba6c63"
+    }
+  },
+  "cautions": [
+    "Retain ten TIFF bands only after exact H5 equality; other channels are unclassified.",
+    "Bundled acquisition times are used; package/manifest date disagreements require review.",
+    "Terrain masks are preserved. Review scientific QA before promoting results."
+  ]
+}

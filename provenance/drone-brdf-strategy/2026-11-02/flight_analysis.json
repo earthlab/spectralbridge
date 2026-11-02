@@ -1,0 +1,1139 @@
+{
+  "gordon": {
+    "flight_dir": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814",
+    "target": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GORDON-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+    "recovered_dn": "/private/tmp/goldhill-radiometric-recovery-20261102/gordon_recovered_source_dn.tif",
+    "grid": {
+      "transform": [
+        0.0999999999999763,
+        0.0,
+        457268.25,
+        0.0,
+        -0.0999999999999108,
+        4429034.8,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "crs": "EPSG:26913",
+      "width": 2948,
+      "height": 2088
+    },
+    "branches": {
+      "raw": "RECOVERED_SOURCE_DN \u2014 PHYSICAL_UNITS_UNVERIFIED",
+      "topographic_only": "UNSUPPORTED for approved correction: physical calibration and illumination/terrain provenance unverified",
+      "topographic_numerical_sensitivity": "EXECUTED as isolated DN diagnostic only",
+      "BRDF_only": "UNSUPPORTED: rank deficient and physical calibration unverified",
+      "topographic_BRDF": "UNSUPPORTED: independent topographic/BRDF gates fail",
+      "recommended_alternative": "No additional fitted normalization executed: no invariant targets, verified calibration or overlapping independent observations support one. Preserve raw DN as baseline.",
+      "view_geometry": "ASSIGNED_NADIR, not actual contributing camera geometry"
+    },
+    "angular": {
+      "n": 6153336,
+      "rank": 1,
+      "singular_values": [
+        3509.386588538966,
+        2.5738833640836582e-09,
+        1.695142028172663e-21
+      ],
+      "condition_number": 2.0702610932973155e+24,
+      "condition_limit": 2896.309326171875,
+      "stable_rank": 1.0,
+      "supported": false,
+      "independent_angular_observations": null,
+      "independent_angular_observations_status": "Not recoverable without source-image identity and overlap provenance. Stable rank is an effective dimension, not a count of independent photographs.",
+      "source_valid_pixels": 6153336,
+      "angle_valid_pixels": 6153336,
+      "distinct_stored_angular_tuples": 165365,
+      "distinct_tuples_at_0_01_degrees": 2,
+      "genuine_observation_configurations": null,
+      "percentage_pixels_meeting_complete_BRDF_requirements": 0.0,
+      "physical_eligible_percentage": null,
+      "supported_bands": 0,
+      "unsupported_bands": 10,
+      "radiometry": {
+        "scale": null,
+        "offset": null,
+        "status": "UNSUPPORTED",
+        "provenance": "Source has no authoritative physical-reflectance calibration",
+        "convention": "physical = scale * stored + offset"
+      },
+      "solar_metadata": {
+        "solar_geometry_source": "manifest_computed",
+        "acquisition_datetime_used": "2023-08-15T20:58:39",
+        "solar_zenith_mean": 35.567367505891994,
+        "solar_zenith_min": 35.56574630737305,
+        "solar_zenith_max": 35.56898880004883,
+        "solar_azimuth_mean": 231.40433171669295,
+        "solar_azimuth_min": 231.4010467529297,
+        "solar_azimuth_max": 231.40762329101562
+      },
+      "geometry_origin": "View zenith and azimuth are scalar zero datasets, broadcast by reader; source solar grids have no observation IDs or provenance attributes. Small solar variation is not recovered camera viewing diversity.",
+      "angles": {
+        "solar_zenith": {
+          "n": 6153336,
+          "quantiles_0_1_25_50_75_99_100": [
+            35.56574630737305,
+            35.56596755981445,
+            35.56684494018555,
+            35.56736755371094,
+            35.56788635253906,
+            35.56876754760742,
+            35.56898880004883
+          ]
+        },
+        "solar_azimuth": {
+          "n": 6153336,
+          "quantiles_0_1_25_50_75_99_100": [
+            231.4010467529297,
+            231.40147399902344,
+            231.4031982421875,
+            231.40432739257812,
+            231.40545654296875,
+            231.40719604492188,
+            231.40762329101562
+          ]
+        },
+        "view_zenith": {
+          "n": 6153336,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "view_azimuth": {
+          "n": 6153336,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "relative_azimuth": {
+        "n": 6153336,
+        "quantiles_0_1_25_50_75_99_100": [
+          -128.59893798828125,
+          -128.5985107421875,
+          -128.5968017578125,
+          -128.59567260742188,
+          -128.59454345703125,
+          -128.59280395507812,
+          -128.59237670898438
+        ]
+      },
+      "kernels": {
+        "RossThick": {
+          "n": 6153336,
+          "quantiles_0_1_25_50_75_99_100": [
+            -0.038503050804138184,
+            -0.038503050804138184,
+            -0.038503050804138184,
+            -0.038503050804138184,
+            -0.038503050804138184,
+            -0.038503050804138184,
+            -0.038503050804138184
+          ]
+        },
+        "LiDenseR": {
+          "n": 6153336,
+          "quantiles_0_1_25_50_75_99_100": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0
+          ]
+        }
+      },
+      "scene_solar_zenith_degrees": 35.5673672351141,
+      "provenance_qualified_solar_geometry": "UNVERIFIED: embedded grids plausible in degree range, but acquisition date/timezone and source-pixel observation provenance unresolved"
+    },
+    "topographic_diagnostic_per_band": [
+      {
+        "band": 1,
+        "wavelength_nm": 444,
+        "topo_factor": {
+          "n": 5902515,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.4256768822669983,
+            0.7015747511386872,
+            0.9015803933143616,
+            0.9564293026924133,
+            1.0238339304924011,
+            1.5487085247039816,
+            463.156005859375
+          ]
+        },
+        "gains_over_10": 1439,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 2,
+        "wavelength_nm": 475,
+        "topo_factor": {
+          "n": 5902515,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.38699132204055786,
+            0.6858011639118194,
+            0.896278440952301,
+            0.9539774060249329,
+            1.0251559019088745,
+            1.6051115965843237,
+            519.1548461914062
+          ]
+        },
+        "gains_over_10": 1460,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 3,
+        "wavelength_nm": 531,
+        "topo_factor": {
+          "n": 5902513,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.4496742784976959,
+            0.7116016817092895,
+            0.9049298763275146,
+            0.9579755663871765,
+            1.0230149030685425,
+            1.5174652099609374,
+            528.409423828125
+          ]
+        },
+        "gains_over_10": 1693,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 2
+      },
+      {
+        "band": 4,
+        "wavelength_nm": 560,
+        "topo_factor": {
+          "n": 5902510,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.4545203149318695,
+            0.7136572480201722,
+            0.9056119471788406,
+            0.958290696144104,
+            1.0228437185287476,
+            1.51093672990799,
+            508.8878173828125
+          ]
+        },
+        "gains_over_10": 1684,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 5
+      },
+      {
+        "band": 5,
+        "wavelength_nm": 650,
+        "topo_factor": {
+          "n": 5902477,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.18556612730026245,
+            0.6099058270454407,
+            0.8709352016448975,
+            0.9420899152755737,
+            1.0312979221343994,
+            1.9281698179245015,
+            476.1817626953125
+          ]
+        },
+        "gains_over_10": 3509,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 38
+      },
+      {
+        "band": 6,
+        "wavelength_nm": 668,
+        "topo_factor": {
+          "n": 5902457,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.11780928075313568,
+            0.5867483687400817,
+            0.8632727265357971,
+            0.9384447932243347,
+            1.0330344438552856,
+            2.047245979309092,
+            462.9366455078125
+          ]
+        },
+        "gains_over_10": 4480,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 58
+      },
+      {
+        "band": 7,
+        "wavelength_nm": 705,
+        "topo_factor": {
+          "n": 5902506,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.44647571444511414,
+            0.7102534919977188,
+            0.9044794589281082,
+            0.957768052816391,
+            1.0231293141841888,
+            1.5218120694160475,
+            526.7999877929688
+          ]
+        },
+        "gains_over_10": 1719,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 9
+      },
+      {
+        "band": 8,
+        "wavelength_nm": 717,
+        "topo_factor": {
+          "n": 5902515,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.5898613929748535,
+            0.7737968039512634,
+            0.9256558120250702,
+            0.967427670955658,
+            1.017586350440979,
+            1.3347903704643254,
+            3.441167116165161
+          ]
+        },
+        "gains_over_10": 0,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 9,
+        "wavelength_nm": 740,
+        "topo_factor": {
+          "n": 5902513,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.7835944294929504,
+            0.8707979393005371,
+            0.9579150676727295,
+            0.9818049669265747,
+            1.009577989578247,
+            1.1479563903808594,
+            1.386042594909668
+          ]
+        },
+        "gains_over_10": 0,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 2
+      },
+      {
+        "band": 10,
+        "wavelength_nm": 862,
+        "topo_factor": {
+          "n": 5902515,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.8382368087768555,
+            0.9010754120349884,
+            0.9678807556629181,
+            0.9861713647842407,
+            1.0072267055511475,
+            1.1059861183166504,
+            1.2409708499908447
+          ]
+        },
+        "gains_over_10": 0,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      }
+    ],
+    "polygons_intersecting": 58,
+    "polygon_components_retained": 58,
+    "source_geometry_masks": 6153336,
+    "common_mask": 5902515,
+    "support_models": "/private/tmp/drone-brdf-strategy-20261102/gordon_blocked_model/gordon_blocked_model_brdf_model.json"
+  },
+  "goldhill": {
+    "flight_dir": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814",
+    "target": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+    "recovered_dn": "/private/tmp/goldhill-radiometric-recovery-20261102/goldhill_recovered_source_dn.tif",
+    "grid": {
+      "transform": [
+        0.09999999999996322,
+        0.0,
+        457624.5,
+        0.0,
+        -0.09999999999991677,
+        4432830.55,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "crs": "EPSG:26913",
+      "width": 3165,
+      "height": 2238
+    },
+    "branches": {
+      "raw": "RECOVERED_SOURCE_DN \u2014 PHYSICAL_UNITS_UNVERIFIED",
+      "topographic_only": "UNSUPPORTED for approved correction: physical calibration and illumination/terrain provenance unverified",
+      "topographic_numerical_sensitivity": "EXECUTED as isolated DN diagnostic only",
+      "BRDF_only": "UNSUPPORTED: rank deficient and physical calibration unverified",
+      "topographic_BRDF": "UNSUPPORTED: independent topographic/BRDF gates fail",
+      "recommended_alternative": "No additional fitted normalization executed: no invariant targets, verified calibration or overlapping independent observations support one. Preserve raw DN as baseline.",
+      "view_geometry": "ASSIGNED_NADIR, not actual contributing camera geometry"
+    },
+    "angular": {
+      "n": 7068376,
+      "rank": 1,
+      "singular_values": [
+        3760.6409852403876,
+        1.2902044453211504e-09,
+        1.6911784522025252e-21
+      ],
+      "condition_number": 2.223680759616275e+24,
+      "condition_limit": 2896.309326171875,
+      "stable_rank": 1.0,
+      "supported": false,
+      "independent_angular_observations": null,
+      "independent_angular_observations_status": "Not recoverable without source-image identity and overlap provenance. Stable rank is an effective dimension, not a count of independent photographs.",
+      "source_valid_pixels": 7068376,
+      "angle_valid_pixels": 7068376,
+      "distinct_stored_angular_tuples": 524548,
+      "distinct_tuples_at_0_01_degrees": 4,
+      "genuine_observation_configurations": null,
+      "percentage_pixels_meeting_complete_BRDF_requirements": 0.0,
+      "physical_eligible_percentage": null,
+      "supported_bands": 0,
+      "unsupported_bands": 10,
+      "radiometry": {
+        "scale": null,
+        "offset": null,
+        "status": "UNSUPPORTED",
+        "provenance": "Source has no authoritative physical-reflectance calibration",
+        "convention": "physical = scale * stored + offset"
+      },
+      "solar_metadata": {
+        "solar_geometry_source": "manifest_computed",
+        "acquisition_datetime_used": "2023-08-15T19:53:07",
+        "solar_zenith_mean": 27.764940582066874,
+        "solar_zenith_min": 27.763427734375,
+        "solar_zenith_max": 27.766454696655273,
+        "solar_azimuth_mean": 204.69581010677427,
+        "solar_azimuth_min": 204.6913604736328,
+        "solar_azimuth_max": 204.70025634765625
+      },
+      "geometry_origin": "View zenith and azimuth are scalar zero datasets, broadcast by reader; source solar grids have no observation IDs or provenance attributes. Small solar variation is not recovered camera viewing diversity.",
+      "angles": {
+        "solar_zenith": {
+          "n": 7068376,
+          "quantiles_0_1_25_50_75_99_100": [
+            27.763429641723633,
+            27.76363754272461,
+            27.764474868774414,
+            27.76494026184082,
+            27.76540756225586,
+            27.76624298095703,
+            27.76645278930664
+          ]
+        },
+        "solar_azimuth": {
+          "n": 7068376,
+          "quantiles_0_1_25_50_75_99_100": [
+            204.6913604736328,
+            204.6918487548828,
+            204.69400024414062,
+            204.69581604003906,
+            204.6976318359375,
+            204.69976806640625,
+            204.70025634765625
+          ]
+        },
+        "view_zenith": {
+          "n": 7068376,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "view_azimuth": {
+          "n": 7068376,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "relative_azimuth": {
+        "n": 7068376,
+        "quantiles_0_1_25_50_75_99_100": [
+          -155.30865478515625,
+          -155.30816650390625,
+          -155.30599975585938,
+          -155.30419921875,
+          -155.3023681640625,
+          -155.30023193359375,
+          -155.29974365234375
+        ]
+      },
+      "kernels": {
+        "RossThick": {
+          "n": 7068376,
+          "quantiles_0_1_25_50_75_99_100": [
+            -0.028319060802459717,
+            -0.028319060802459717,
+            -0.028319060802459717,
+            -0.028319060802459717,
+            -0.028319060802459717,
+            -0.028319060802459717,
+            -0.028319060802459717
+          ]
+        },
+        "LiDenseR": {
+          "n": 7068376,
+          "quantiles_0_1_25_50_75_99_100": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0
+          ]
+        }
+      },
+      "scene_solar_zenith_degrees": 27.764940367361884,
+      "provenance_qualified_solar_geometry": "UNVERIFIED: embedded grids plausible in degree range, but acquisition date/timezone and source-pixel observation provenance unresolved"
+    },
+    "topographic_diagnostic_per_band": [
+      {
+        "band": 1,
+        "wavelength_nm": 444,
+        "topo_factor": {
+          "n": 6680329,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.0008736613672226667,
+            0.5909517478942871,
+            0.8755105137825012,
+            0.9527169466018677,
+            1.0553083419799805,
+            2.259628906249999,
+            338.32769775390625
+          ]
+        },
+        "gains_over_10": 5048,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 2,
+        "wavelength_nm": 475,
+        "topo_factor": {
+          "n": 6680329,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.002223714953288436,
+            0.5885510277748108,
+            0.8748059868812561,
+            0.9524332284927368,
+            1.055644154548645,
+            2.2783928680419905,
+            328.791748046875
+          ]
+        },
+        "gains_over_10": 5185,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 3,
+        "wavelength_nm": 531,
+        "topo_factor": {
+          "n": 6680329,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.0008601016015745699,
+            0.621131649017334,
+            0.8844771385192871,
+            0.9563061594963074,
+            1.0510897636413574,
+            2.044786205291744,
+            356.5527038574219
+          ]
+        },
+        "gains_over_10": 3577,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 4,
+        "wavelength_nm": 560,
+        "topo_factor": {
+          "n": 6680329,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.00015794963110238314,
+            0.6263052272796631,
+            0.8860213160514832,
+            0.9569214582443237,
+            1.0503754615783691,
+            2.01085660934448,
+            350.037841796875
+          ]
+        },
+        "gains_over_10": 3403,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 5,
+        "wavelength_nm": 650,
+        "topo_factor": {
+          "n": 6680329,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.0001254163944395259,
+            0.541423716545105,
+            0.8608389496803284,
+            0.9467998147010803,
+            1.0617226362228394,
+            2.717771606445312,
+            314.9898376464844
+          ]
+        },
+        "gains_over_10": 9504,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 6,
+        "wavelength_nm": 668,
+        "topo_factor": {
+          "n": 6680329,
+          "quantiles_0_1_25_50_75_99_100": [
+            5.7048902817768976e-05,
+            0.5214713597297669,
+            0.8548241257667542,
+            0.9443525075912476,
+            1.0639362335205078,
+            2.874547109603877,
+            301.6260986328125
+          ]
+        },
+        "gains_over_10": 11075,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 7,
+        "wavelength_nm": 705,
+        "topo_factor": {
+          "n": 6680329,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.0001849798863986507,
+            0.6234724712371826,
+            0.8851784467697144,
+            0.9565848112106323,
+            1.0507627725601196,
+            2.028879985809326,
+            348.31591796875
+          ]
+        },
+        "gains_over_10": 3491,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 8,
+        "wavelength_nm": 717,
+        "topo_factor": {
+          "n": 6680329,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.1293673813343048,
+            0.674044623374939,
+            0.9003041386604309,
+            0.9625780582427979,
+            1.0436427593231201,
+            1.7401366806030256,
+            321.3787841796875
+          ]
+        },
+        "gains_over_10": 1835,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 9,
+        "wavelength_nm": 740,
+        "topo_factor": {
+          "n": 6680329,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.42070573568344116,
+            0.7521203303337097,
+            0.9239493608474731,
+            0.9717698693275452,
+            1.0324090719223022,
+            1.429715204238891,
+            199.02378845214844
+          ]
+        },
+        "gains_over_10": 61,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 10,
+        "wavelength_nm": 862,
+        "topo_factor": {
+          "n": 6680329,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.5207805037498474,
+            0.784208824634552,
+            0.9337528944015503,
+            0.9755244851112366,
+            1.0278414487838745,
+            1.338226475715637,
+            7.887668132781982
+          ]
+        },
+        "gains_over_10": 0,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      }
+    ],
+    "polygons_intersecting": 158,
+    "polygon_components_retained": 158,
+    "source_geometry_masks": 7068376,
+    "common_mask": 6680329,
+    "support_models": "/private/tmp/drone-brdf-strategy-20261102/goldhill_blocked_model/goldhill_blocked_model_brdf_model.json"
+  },
+  "ruby": {
+    "flight_dir": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814",
+    "target": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-Ruby-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+    "recovered_dn": "/private/tmp/goldhill-radiometric-recovery-20261102/ruby_recovered_source_dn.tif",
+    "grid": {
+      "transform": [
+        0.1,
+        0.0,
+        455725.0,
+        0.0,
+        -0.1,
+        4432104.75,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "crs": "EPSG:26913",
+      "width": 1960,
+      "height": 1035
+    },
+    "branches": {
+      "raw": "RECOVERED_SOURCE_DN \u2014 PHYSICAL_UNITS_UNVERIFIED",
+      "topographic_only": "UNSUPPORTED for approved correction: physical calibration and illumination/terrain provenance unverified",
+      "topographic_numerical_sensitivity": "EXECUTED as isolated DN diagnostic only",
+      "BRDF_only": "UNSUPPORTED: rank deficient and physical calibration unverified",
+      "topographic_BRDF": "UNSUPPORTED: independent topographic/BRDF gates fail",
+      "recommended_alternative": "No additional fitted normalization executed: no invariant targets, verified calibration or overlapping independent observations support one. Preserve raw DN as baseline.",
+      "view_geometry": "ASSIGNED_NADIR, not actual contributing camera geometry"
+    },
+    "angular": {
+      "n": 2022614,
+      "rank": 1,
+      "singular_values": [
+        2011.6210982725624,
+        3.5192341863855195e-10,
+        5.651649462973116e-23
+      ],
+      "condition_number": 3.559352205850229e+25,
+      "condition_limit": 2896.309326171875,
+      "stable_rank": 1.0,
+      "supported": false,
+      "independent_angular_observations": null,
+      "independent_angular_observations_status": "Not recoverable without source-image identity and overlap provenance. Stable rank is an effective dimension, not a count of independent photographs.",
+      "source_valid_pixels": 2022614,
+      "angle_valid_pixels": 2022614,
+      "distinct_stored_angular_tuples": 161188,
+      "distinct_tuples_at_0_01_degrees": 1,
+      "genuine_observation_configurations": null,
+      "percentage_pixels_meeting_complete_BRDF_requirements": 0.0,
+      "physical_eligible_percentage": null,
+      "supported_bands": 0,
+      "unsupported_bands": 10,
+      "radiometry": {
+        "scale": null,
+        "offset": null,
+        "status": "UNSUPPORTED",
+        "provenance": "Source has no authoritative physical-reflectance calibration",
+        "convention": "physical = scale * stored + offset"
+      },
+      "solar_metadata": {
+        "solar_geometry_source": "manifest_computed",
+        "acquisition_datetime_used": "2023-08-16T18:53:18",
+        "solar_zenith_mean": 26.302751838966525,
+        "solar_zenith_min": 26.302181243896484,
+        "solar_zenith_max": 26.303321838378906,
+        "solar_azimuth_mean": 172.64912673112264,
+        "solar_azimuth_min": 172.64651489257812,
+        "solar_azimuth_max": 172.65174865722656
+      },
+      "geometry_origin": "View zenith and azimuth are scalar zero datasets, broadcast by reader; source solar grids have no observation IDs or provenance attributes. Small solar variation is not recovered camera viewing diversity.",
+      "angles": {
+        "solar_zenith": {
+          "n": 2022614,
+          "quantiles_0_1_25_50_75_99_100": [
+            26.302183151245117,
+            26.30224609375,
+            26.302520751953125,
+            26.302751541137695,
+            26.302982330322266,
+            26.303258895874023,
+            26.303319931030273
+          ]
+        },
+        "solar_azimuth": {
+          "n": 2022614,
+          "quantiles_0_1_25_50_75_99_100": [
+            172.64651489257812,
+            172.6466522216797,
+            172.6478729248047,
+            172.6491241455078,
+            172.65037536621094,
+            172.65159606933594,
+            172.6517333984375
+          ]
+        },
+        "view_zenith": {
+          "n": 2022614,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "view_azimuth": {
+          "n": 2022614,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "relative_azimuth": {
+        "n": 2022614,
+        "quantiles_0_1_25_50_75_99_100": [
+          172.64651489257812,
+          172.64666748046875,
+          172.64788818359375,
+          172.64910888671875,
+          172.650390625,
+          172.651611328125,
+          172.6517333984375
+        ]
+      },
+      "kernels": {
+        "RossThick": {
+          "n": 2022614,
+          "quantiles_0_1_25_50_75_99_100": [
+            -0.026228666305541992,
+            -0.026228666305541992,
+            -0.026228666305541992,
+            -0.026228666305541992,
+            -0.026228666305541992,
+            -0.026228666305541992,
+            -0.026228666305541992
+          ]
+        },
+        "LiDenseR": {
+          "n": 2022614,
+          "quantiles_0_1_25_50_75_99_100": [
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0
+          ]
+        }
+      },
+      "scene_solar_zenith_degrees": 26.302751636358874,
+      "provenance_qualified_solar_geometry": "UNVERIFIED: embedded grids plausible in degree range, but acquisition date/timezone and source-pixel observation provenance unresolved"
+    },
+    "topographic_diagnostic_per_band": [
+      {
+        "band": 1,
+        "wavelength_nm": 444,
+        "topo_factor": {
+          "n": 1992443,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.38031715154647827,
+            0.7036034834384919,
+            0.8673136234283447,
+            0.9252835512161255,
+            1.0304437279701233,
+            1.4622420954704285,
+            113.58403778076172
+          ]
+        },
+        "gains_over_10": 23,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 2,
+        "wavelength_nm": 475,
+        "topo_factor": {
+          "n": 1992443,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.3086901307106018,
+            0.6808110213279724,
+            0.8576679527759552,
+            0.9196752309799194,
+            1.0329669713974,
+            1.533949661254884,
+            174.4861602783203
+          ]
+        },
+        "gains_over_10": 29,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 3,
+        "wavelength_nm": 531,
+        "topo_factor": {
+          "n": 1992438,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.3805635869503021,
+            0.7036835652589798,
+            0.8673486709594727,
+            0.9253039360046387,
+            1.0304353535175323,
+            1.4620007812976836,
+            105.6176528930664
+          ]
+        },
+        "gains_over_10": 23,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 5
+      },
+      {
+        "band": 4,
+        "wavelength_nm": 560,
+        "topo_factor": {
+          "n": 1992442,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.36536359786987305,
+            0.6987145113945007,
+            0.8652383834123611,
+            0.924072653055191,
+            1.0309846997261047,
+            1.4767151474952713,
+            372.711181640625
+          ]
+        },
+        "gains_over_10": 27,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 1
+      },
+      {
+        "band": 5,
+        "wavelength_nm": 650,
+        "topo_factor": {
+          "n": 1992422,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.004000724293291569,
+            0.573323820233345,
+            0.8136411607265472,
+            0.8937174081802368,
+            1.0439301133155823,
+            1.990904256105423,
+            336.7689208984375
+          ]
+        },
+        "gains_over_10": 1036,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 21
+      },
+      {
+        "band": 6,
+        "wavelength_nm": 668,
+        "topo_factor": {
+          "n": 1992419,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.000295459438348189,
+            0.5423715603351593,
+            0.8013969957828522,
+            0.8864344358444214,
+            1.0468004941940308,
+            2.1649188709259075,
+            313.7878112792969
+          ]
+        },
+        "gains_over_10": 1500,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 24
+      },
+      {
+        "band": 7,
+        "wavelength_nm": 705,
+        "topo_factor": {
+          "n": 1992441,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.3256295621395111,
+            0.6860417246818542,
+            0.8598832488059998,
+            0.9209640026092529,
+            1.0323864221572876,
+            1.51639668941498,
+            137.00926208496094
+          ]
+        },
+        "gains_over_10": 27,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 2
+      },
+      {
+        "band": 8,
+        "wavelength_nm": 717,
+        "topo_factor": {
+          "n": 1992443,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.5120087265968323,
+            0.7499732589721679,
+            0.8872292339801788,
+            0.9367833137512207,
+            1.025356113910675,
+            1.3426720046997072,
+            6.9736151695251465
+          ]
+        },
+        "gains_over_10": 0,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 9,
+        "wavelength_nm": 740,
+        "topo_factor": {
+          "n": 1992443,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.7125310897827148,
+            0.8342889070510864,
+            0.9244197607040405,
+            0.9579984545707703,
+            1.0163686871528625,
+            1.184610185623169,
+            1.6141202449798584
+          ]
+        },
+        "gains_over_10": 0,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      },
+      {
+        "band": 10,
+        "wavelength_nm": 862,
+        "topo_factor": {
+          "n": 1992443,
+          "quantiles_0_1_25_50_75_99_100": [
+            0.7672988176345825,
+            0.8610475087165832,
+            0.9364241361618042,
+            0.9647767543792725,
+            1.0136058926582336,
+            1.1461570644378662,
+            1.4058122634887695
+          ]
+        },
+        "gains_over_10": 0,
+        "gains_over_1000": 0,
+        "negative_raw": 0,
+        "negative_topo": 0,
+        "zero_raw_factor_undefined": 0
+      }
+    ],
+    "polygons_intersecting": 86,
+    "polygon_components_retained": 86,
+    "source_geometry_masks": 2022614,
+    "common_mask": 1992443,
+    "support_models": "/private/tmp/drone-brdf-strategy-20261102/ruby_blocked_model/ruby_blocked_model_brdf_model.json"
+  }
+}

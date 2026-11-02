@@ -1,0 +1,132 @@
+{
+  "n": 7068376,
+  "rank": 1,
+  "singular_values": [
+    3760.6409852403876,
+    1.2902044453211504e-09,
+    1.6911784522025252e-21
+  ],
+  "condition_number": 2.223680759616275e+24,
+  "condition_limit": 2896.309326171875,
+  "stable_rank": 1.0,
+  "supported": false,
+  "independent_angular_observations": null,
+  "independent_angular_observations_status": "Not recoverable without source-image identity and overlap provenance. Stable rank is an effective dimension, not a count of independent photographs.",
+  "source_valid_pixels": 7068376,
+  "angle_valid_pixels": 7068376,
+  "distinct_stored_angular_tuples": 524548,
+  "distinct_tuples_at_0_01_degrees": 4,
+  "genuine_observation_configurations": null,
+  "percentage_pixels_meeting_complete_BRDF_requirements": 0.0,
+  "physical_eligible_percentage": null,
+  "supported_bands": 0,
+  "unsupported_bands": 10,
+  "radiometry": {
+    "scale": null,
+    "offset": null,
+    "status": "UNSUPPORTED",
+    "provenance": "Source has no authoritative physical-reflectance calibration",
+    "convention": "physical = scale * stored + offset"
+  },
+  "solar_metadata": {
+    "solar_geometry_source": "manifest_computed",
+    "acquisition_datetime_used": "2023-08-15T19:53:07",
+    "solar_zenith_mean": 27.764940582066874,
+    "solar_zenith_min": 27.763427734375,
+    "solar_zenith_max": 27.766454696655273,
+    "solar_azimuth_mean": 204.69581010677427,
+    "solar_azimuth_min": 204.6913604736328,
+    "solar_azimuth_max": 204.70025634765625
+  },
+  "geometry_origin": "View zenith and azimuth are scalar zero datasets, broadcast by reader; source solar grids have no observation IDs or provenance attributes. Small solar variation is not recovered camera viewing diversity.",
+  "angles": {
+    "solar_zenith": {
+      "n": 7068376,
+      "quantiles_0_1_25_50_75_99_100": [
+        27.763429641723633,
+        27.76363754272461,
+        27.764474868774414,
+        27.76494026184082,
+        27.76540756225586,
+        27.76624298095703,
+        27.76645278930664
+      ]
+    },
+    "solar_azimuth": {
+      "n": 7068376,
+      "quantiles_0_1_25_50_75_99_100": [
+        204.6913604736328,
+        204.6918487548828,
+        204.69400024414062,
+        204.69581604003906,
+        204.6976318359375,
+        204.69976806640625,
+        204.70025634765625
+      ]
+    },
+    "view_zenith": {
+      "n": 7068376,
+      "quantiles_0_1_25_50_75_99_100": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "view_azimuth": {
+      "n": 7068376,
+      "quantiles_0_1_25_50_75_99_100": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "relative_azimuth": {
+    "n": 7068376,
+    "quantiles_0_1_25_50_75_99_100": [
+      -155.30865478515625,
+      -155.30816650390625,
+      -155.30599975585938,
+      -155.30419921875,
+      -155.3023681640625,
+      -155.30023193359375,
+      -155.29974365234375
+    ]
+  },
+  "kernels": {
+    "RossThick": {
+      "n": 7068376,
+      "quantiles_0_1_25_50_75_99_100": [
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717
+      ]
+    },
+    "LiDenseR": {
+      "n": 7068376,
+      "quantiles_0_1_25_50_75_99_100": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    }
+  },
+  "scene_solar_zenith_degrees": 27.764940367361884,
+  "provenance_qualified_solar_geometry": "UNVERIFIED: embedded grids plausible in degree range, but acquisition date/timezone and source-pixel observation provenance unresolved"
+}

@@ -268,17 +268,17 @@ def test_export_parquet_stage_creates_sidecars_for_all_envi(tmp_path: Path, monk
     corrected_img = work_dir / "NEON_D13_SITE_20230815_brdfandtopo_corrected_envi.img"
     corrected_hdr = work_dir / "NEON_D13_SITE_20230815_brdfandtopo_corrected_envi.hdr"
     corrected_img.write_bytes(b"xx")
-    corrected_hdr.write_bytes(b"hdr")
+    corrected_hdr.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic export fixture\nbrdf status = NOT_REQUESTED\n")
 
     oli_img = work_dir / "NEON_D13_SITE_20230815_directional_reflectance_landsat_oli_envi.img"
     oli_hdr = work_dir / "NEON_D13_SITE_20230815_directional_reflectance_landsat_oli_envi.hdr"
     oli_img.write_bytes(b"yy")
-    oli_hdr.write_bytes(b"hdr")
+    oli_hdr.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic export fixture\nbrdf status = NOT_REQUESTED\n")
 
     mask_img = work_dir / "NEON_D13_SITE_20230815_directional_reflectance_cloud_mask_envi.img"
     mask_hdr = work_dir / "NEON_D13_SITE_20230815_directional_reflectance_cloud_mask_envi.hdr"
     mask_img.write_bytes(b"zz")
-    mask_hdr.write_bytes(b"hdr")
+    mask_hdr.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic export fixture\nbrdf status = NOT_REQUESTED\n")
 
     calls: list[str] = []
 
@@ -323,7 +323,7 @@ def test_ensure_parquet_for_envi_creates_and_skips_valid(tmp_path: Path, monkeyp
     img = tmp_path / "f1_envi.img"
     hdr = tmp_path / "f1_envi.hdr"
     img.write_bytes(b"xx")
-    hdr.write_bytes(b"hdr")
+    hdr.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic export fixture\nbrdf status = NOT_REQUESTED\n")
 
     # The function under test is bound to the explicitly loaded module above.
     # Patch that same module even when the package was imported by other tests.
@@ -364,7 +364,7 @@ def test_ensure_parquet_for_envi_regenerates_invalid(tmp_path: Path, monkeypatch
     hdr = tmp_path / "f_invalid_envi.hdr"
     parquet_path = tmp_path / "f_invalid_envi.parquet"
     img.write_bytes(b"xx")
-    hdr.write_bytes(b"hdr")
+    hdr.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic export fixture\nbrdf status = NOT_REQUESTED\n")
     parquet_path.write_text("not a parquet", encoding="utf-8")
 
     px = parquet_export_module
@@ -392,7 +392,7 @@ def test_ensure_parquet_from_envi_handles_corrupt(tmp_path: Path, monkeypatch) -
     parquet_path = tmp_path / "corrupt_envi.parquet"
 
     img.write_bytes(b"xx")
-    hdr.write_bytes(b"hdr")
+    hdr.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic export fixture\nbrdf status = NOT_REQUESTED\n")
     parquet_path.write_bytes(b"corrupt")
 
     import spectralbridge.parquet_export as px
@@ -423,7 +423,7 @@ def test_ensure_parquet_for_envi_skips_after_rebuilding_corrupt_output(
     parquet_path = tmp_path / "recoverable_envi.parquet"
 
     img.write_bytes(b"xx")
-    hdr.write_bytes(b"hdr")
+    hdr.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic export fixture\nbrdf status = NOT_REQUESTED\n")
     parquet_path.write_text("not a parquet", encoding="utf-8")
 
     px = parquet_export_module
@@ -468,7 +468,7 @@ def _write_minimal_parquet(path: Path) -> None:
             "lat": [0.0],
         }
     )
-    pq.write_table(table, path)
+    pq.write_table(table.replace_schema_metadata({b"spectralbridge.reflectance_units":b"physical_reflectance_v1"}), path)
 
 
 def test_build_parquet_from_envi_serial_when_disabled(monkeypatch, tmp_path: Path) -> None:
@@ -577,6 +577,8 @@ def test_ensure_parquet_for_undarkened_envi(tmp_path: Path, monkeypatch) -> None
         header_text = header_text.strip() + "\nwavelength = {485, 560}\n"
         hdr_path.write_text(header_text, encoding="utf-8")
 
+    with hdr_path.open("a") as header:
+        header.write("\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic undarkened export fixture\nbrdf status = NOT_REQUESTED\n")
     logger = DummyLogger()
     parquet_module = importlib.import_module("spectralbridge.parquet_export")
 

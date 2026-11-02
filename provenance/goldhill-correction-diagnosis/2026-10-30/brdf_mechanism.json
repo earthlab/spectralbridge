@@ -1,0 +1,73 @@
+{
+  "sample_stride": 5,
+  "design_singular_values": [
+    8262.801633462428,
+    0.002694930902729914,
+    2.561928605057975e-12
+  ],
+  "design_condition_number": 3225227126606616.0,
+  "sample_band_diagnostics": [
+    {
+      "band_one_based": 2,
+      "iso": 1.0,
+      "vol": 0.0,
+      "geo": 0.0,
+      "R_pixel_range": [
+        1.0,
+        1.0
+      ],
+      "R_reference_range": [
+        1.0,
+        1.0
+      ],
+      "neutral_fraction": 0.0,
+      "positive_factor_percentiles_0_50_100": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "reconstructed_output_mismatches": 0,
+      "neutral_guard_output_mismatches": 0
+    },
+    {
+      "band_one_based": 4,
+      "iso": -35706.1484375,
+      "vol": 1011.16455078125,
+      "geo": -2307.925537109375,
+      "R_pixel_range": [
+        0.65625,
+        1.40234375
+      ],
+      "R_reference_range": [
+        -29282.71484375,
+        -29282.71484375
+      ],
+      "neutral_fraction": 1.0,
+      "positive_factor_percentiles_0_50_100": [],
+      "reconstructed_output_mismatches": 0,
+      "neutral_guard_output_mismatches": 0
+    },
+    {
+      "band_one_based": 5,
+      "iso": 111863.5078125,
+      "vol": -3167.869384765625,
+      "geo": 7230.24609375,
+      "R_pixel_range": [
+        -0.7578125,
+        1.59375
+      ],
+      "R_reference_range": [
+        91740.234375,
+        91740.234375
+      ],
+      "neutral_fraction": 0.2894118313369014,
+      "positive_factor_percentiles_0_50_100": [
+        57562.5,
+        131941.015625,
+        11742750.0
+      ],
+      "reconstructed_output_mismatches": 0,
+      "neutral_guard_output_mismatches": 0
+    }
+  ]
+}

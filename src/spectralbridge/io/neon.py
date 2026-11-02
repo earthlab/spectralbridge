@@ -25,6 +25,7 @@ from typing import Any, Dict, Iterable, Optional
 import h5py
 import numpy as np
 
+from ..radiometry import dataset_radiometry
 from .neon_schema import canonical_vectors, resolve
 
 __all__ = [
@@ -229,7 +230,7 @@ def read_neon_reflectance_unitless(
     ignore_value = _extract_no_data(reflectance_ds)
     scale_factor = _extract_scale_factor(reflectance_ds)
 
-    data_unitless = data * np.float32(scale_factor)
+    data_unitless = dataset_radiometry(reflectance_ds, neon=True).to_physical(data)
     data_unitless = np.where(data == ignore_value, np.nan, data_unitless)
 
     return data_unitless, scale_factor, ignore_value
@@ -334,6 +335,8 @@ def _shift_map_info_for_window(
     map_info_list: list[str],
     sample_start: int = 0,
     line_start: int = 0,
+    *,
+    corner_reference: bool = False,
 ) -> tuple[list[str], tuple[float, float, float, float, float, float] | None, float | None, float | None]:
     """Shift ENVI map info for optional sample/line window origins."""
 
@@ -342,12 +345,13 @@ def _shift_map_info_for_window(
 
     shifted = list(map_info_list)
     ref_x, ref_y, ref_easting, ref_northing, pixel_x, pixel_y = _map_info_core(shifted)
-    ulx = ref_easting - pixel_x * (ref_x - 0.5) + sample_start * pixel_x
-    uly = ref_northing + abs(pixel_y) * (ref_y - 0.5) - line_start * abs(pixel_y)
+    reference_offset = 1.0 if corner_reference else 0.5
+    ulx = ref_easting - pixel_x * (ref_x - reference_offset) + sample_start * pixel_x
+    uly = ref_northing + abs(pixel_y) * (ref_y - reference_offset) - line_start * abs(pixel_y)
     if sample_start != 0:
-        shifted[3] = str(ulx + pixel_x * (ref_x - 0.5))
+        shifted[3] = str(ulx + pixel_x * (ref_x - reference_offset))
     if line_start != 0:
-        shifted[4] = str(uly - abs(pixel_y) * (ref_y - 0.5))
+        shifted[4] = str(uly - abs(pixel_y) * (ref_y - reference_offset))
     yres = -abs(pixel_y)
     transform = (ulx, pixel_x, 0.0, uly, 0.0, yres)
     return shifted, transform, ulx, uly
@@ -454,7 +458,9 @@ def _read_new_neon_layout(
         projection_wkt = _as_str(projection_dataset[()])
 
     map_info_list, transform, ulx, uly = _shift_map_info_for_window(
-        map_info_list, sample_start=sample_start, line_start=line_start
+        map_info_list, sample_start=sample_start, line_start=line_start,
+        corner_reference=(coordinate_group is not None and
+                          coordinate_group.attrs.get("spatial_reference_convention") == "envi_corner_v1"),
     )
 
     no_data = _extract_no_data(reflectance_ds)
@@ -474,6 +480,7 @@ def _read_new_neon_layout(
         "to_sensor_zenith": to_sensor_zenith,
         "no_data": no_data,
         "scale_factor": scale_factor,
+        "radiometry": dataset_radiometry(reflectance_ds, neon=bool(re.match(r"NEON_D\d{2}_[A-Z0-9]+_DP[13]_", Path(h5_file.filename).name))).record(),
         "samples": int(cube.shape[1]),
         "lines": int(cube.shape[0]),
         "bands": int(cube.shape[2]),
@@ -561,6 +568,7 @@ def _read_old_neon_layout(
         "to_sensor_zenith": None,
         "no_data": no_data,
         "scale_factor": scale_factor,
+        "radiometry": dataset_radiometry(data_ds, neon=bool(re.match(r"NEON_D\d{2}_[A-Z0-9]+_DP[13]_", Path(h5_file.filename).name))).record(),
         "samples": int(cube.shape[1]),
         "lines": int(cube.shape[0]),
         "bands": int(cube.shape[2]),
@@ -674,6 +682,7 @@ def _read_site_group_legacy_layout(
         "to_sensor_zenith": None,
         "no_data": no_data,
         "scale_factor": scale_factor,
+        "radiometry": dataset_radiometry(data_ds, neon=bool(re.match(r"NEON_D\d{2}_[A-Z0-9]+_DP[13]_", Path(h5_file.filename).name))).record(),
         "samples": int(cube.shape[1]),
         "lines": int(cube.shape[0]),
         "bands": int(cube.shape[2]),

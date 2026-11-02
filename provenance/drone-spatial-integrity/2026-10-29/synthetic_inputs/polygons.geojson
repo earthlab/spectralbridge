@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "polygons",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32613" } },
+"features": [
+{ "type": "Feature", "properties": { "polygon_id": 19, "cover_category": "Evergreen" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 457624.430864104593638, 4432830.403580252081156 ], [ 457624.430864104593638, 4432830.86802467610687 ], [ 457624.186419662379194, 4432830.86802467610687 ], [ 457624.186419662379194, 4432830.403580252081156 ], [ 457624.430864104593638, 4432830.403580252081156 ] ] ] } }
+]
+}

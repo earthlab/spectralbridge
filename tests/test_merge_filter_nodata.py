@@ -101,3 +101,14 @@ def test_filter_implementation_avoids_pandas_full_table_load() -> None:
     assert "Streaming filter" in source or "DuckDB streaming" in source
     # Full-table materialization must not return; only DESCRIBE may use .df().
     assert source.count(".df()") <= 1
+
+
+def test_physical_negative_reflectance_and_units_survive_filter(tmp_path):
+    path=tmp_path/'physical.parquet'
+    table=pa.table({'pixel_id':[1,2], 'corr_b001_wl0660nm':[-.2,.1], 'corr_b002_wl0860nm':[-.3,.2]})
+    table=table.replace_schema_metadata({b'spectralbridge.reflectance_units':b'physical_reflectance_v1'})
+    pq.write_table(table,path)
+    with duckdb.connect() as con:
+        _filter_no_data_rows_from_parquet(con,path)
+    assert pq.read_table(path).to_pydict()==table.to_pydict()
+    assert pq.read_schema(path).metadata[b'spectralbridge.reflectance_units']==b'physical_reflectance_v1'

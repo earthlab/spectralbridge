@@ -2034,9 +2034,12 @@ def extract_polygon_parquet_from_envi(
     from cross_sensor_cal.exports.schema_utils import infer_stage_from_name
     import inspect
     
+    from spectralbridge.radiometry import library_radiometry, require_physical_table
+    library_radiometry(envi_img)
     output_parquet_path = Path(output_parquet_path)
     
     if output_parquet_path.exists() and not overwrite:
+        require_physical_table(output_parquet_path)
         LOGGER.info(
             "[polygons-extract-envi] Reusing existing polygon parquet → %s",
             output_parquet_path,

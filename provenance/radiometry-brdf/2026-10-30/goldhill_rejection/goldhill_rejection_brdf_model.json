@@ -1,0 +1,58 @@
+{
+  "source_identity": "e43825bc24c0b801c4c0e78b24ede0916a72626f2b9c5f46a7f01cd61884f73a",
+  "radiometry": {
+    "scale": null,
+    "offset": null,
+    "status": "UNSUPPORTED",
+    "provenance": "Source has no authoritative physical-reflectance calibration",
+    "convention": "physical = scale * stored + offset"
+  },
+  "kernel_config": {
+    "volume_kernel": "RossThick",
+    "geom_kernel": "LiDenseR",
+    "b_r": 10.0,
+    "h_b": 2.0,
+    "solar_zn_type": "scene"
+  },
+  "ndvi_config": {
+    "enabled": false,
+    "ndvi_min": 0.05,
+    "ndvi_max": 1.0,
+    "n_bins": 25,
+    "perc_min": 10.0,
+    "perc_max": 95.0
+  },
+  "rho_min": 0.0,
+  "rho_max": 2.0,
+  "schema_version": 2,
+  "apply_topography": false,
+  "source_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.h5",
+  "source_shape": [
+    2238,
+    3165,
+    10
+  ],
+  "reference_geometry": {
+    "solar_zenith_deg": 45.0,
+    "view_zenith_deg": 0.0,
+    "relative_azimuth_deg": 0.0
+  },
+  "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
+  "fitting_population": {
+    "available_spatial": 7083270,
+    "eligible": null,
+    "status": "NOT_EVALUATED"
+  },
+  "angular_support": {
+    "status": "NOT_EVALUATED"
+  },
+  "rank_conditioning_status": "NOT_EVALUATED",
+  "correction_factor_diagnostics_status": "NOT_EVALUATED",
+  "validation": {
+    "status": "UNSUPPORTED",
+    "fits": [],
+    "reasons": [
+      "Radiometry UNSUPPORTED: authoritative positive scale, offset and provenance required (Source has no authoritative physical-reflectance calibration)."
+    ]
+  }
+}

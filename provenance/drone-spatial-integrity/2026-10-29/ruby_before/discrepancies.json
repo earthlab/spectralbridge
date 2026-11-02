@@ -1,0 +1,468 @@
+{
+  "stages": {
+    "source_tiff": {
+      "path": "/private/tmp/spectralbridge-drone-production/AOP-Ruby-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+      "kind": "raster",
+      "size_bytes": 95071398,
+      "mtime_ns": 1793294232701322085,
+      "height": 1035,
+      "width": 1960,
+      "bands": 11,
+      "crs": "PROJCRS[\"NAD83 / UTM zone 13N\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",26913]]",
+      "epsg": 26913,
+      "affine": [
+        0.1,
+        0.0,
+        455725.0,
+        0.0,
+        -0.1,
+        4432104.75
+      ],
+      "bounds": [
+        455725.0,
+        4432001.25,
+        455921.0,
+        4432104.75
+      ],
+      "resolution": [
+        0.1,
+        0.1
+      ],
+      "orientation": "north-up",
+      "nodata": "NaN",
+      "invalid_band_pixels": 5986,
+      "mask_sha256": "45ebd7bc1c23f25992769169f7a73109c2443076c0eeee76f0cae7343572d28c",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432104.7,
+          "value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432104.7,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432001.3,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432001.3,
+          "value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "x": 455823.05,
+          "y": 4432053.0,
+          "value": 93.95170593261719
+        }
+      ],
+      "thumbnail_stride": 5
+    },
+    "h5": {
+      "path": "/private/tmp/spectralbridge-drone-production/AOP-Ruby-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+      "kind": "h5",
+      "size_bytes": 154193480,
+      "mtime_ns": 1793294238800494928,
+      "map_info": [
+        "UTM",
+        " 1.000",
+        " 1.000",
+        " 455725.000",
+        " 4432104.750",
+        " 0.100",
+        " -0.100",
+        " 13",
+        " North",
+        " WGS-84",
+        " units=Meters",
+        " 0"
+      ],
+      "encoded_envi_transform": [
+        0.1,
+        0.0,
+        455725.0,
+        0.0,
+        0.1,
+        4432104.75
+      ],
+      "spatial_reference_convention": "legacy_center",
+      "encoded_orientation_conflict": true,
+      "height": 1035,
+      "width": 1960,
+      "bands": 10,
+      "crs": "PROJCRS[\"NAD83 / UTM zone 13N\",BASEGEOGCRS[\"NAD83\",DATUM[\"North American Datum 1983\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4269]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",26913]]",
+      "epsg": 26913,
+      "affine": [
+        0.1,
+        0.0,
+        455724.95,
+        0.0,
+        -0.1,
+        4432104.8
+      ],
+      "bounds": [
+        455724.95,
+        4432001.3,
+        455920.95,
+        4432104.8
+      ],
+      "resolution": [
+        0.1,
+        0.1
+      ],
+      "orientation": "north-up",
+      "nodata": null,
+      "invalid_band_pixels": 5986,
+      "mask_sha256": "45ebd7bc1c23f25992769169f7a73109c2443076c0eeee76f0cae7343572d28c",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 455725.0,
+          "y": 4432104.75,
+          "value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "x": 455920.9,
+          "y": 4432104.75,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "x": 455725.0,
+          "y": 4432001.35,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "x": 455920.9,
+          "y": 4432001.35,
+          "value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "x": 455823.0,
+          "y": 4432053.05,
+          "value": 93.95170593261719
+        }
+      ],
+      "thumbnail_stride": 5
+    },
+    "native": {
+      "path": "/private/tmp/spectralbridge-ruby-legacy-replay/legacy__native.img",
+      "kind": "raster",
+      "size_bytes": 81144000,
+      "mtime_ns": 1793294615305287967,
+      "height": 1035,
+      "width": 1960,
+      "bands": 10,
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"WGS 84\",DATUM[\"World Geodetic System 1984\",ELLIPSOID[\"WGS 84\",6378137,298.257223563,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4326]],CONVERSION[\"UTM zone 13N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-105,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"Meter\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"Meter\",1],ID[\"EPSG\",8807]],ID[\"EPSG\",16013]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"Meter\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"Meter\",1]]]",
+      "epsg": 32613,
+      "affine": [
+        0.1,
+        -0.0,
+        455725.0,
+        0.0,
+        0.1,
+        4432104.75
+      ],
+      "bounds": [
+        455725.0,
+        4432104.75,
+        455921.0,
+        4432208.25
+      ],
+      "resolution": [
+        0.1,
+        0.1
+      ],
+      "orientation": "south-up",
+      "nodata": -9999.0,
+      "invalid_band_pixels": 5986,
+      "mask_sha256": "45ebd7bc1c23f25992769169f7a73109c2443076c0eeee76f0cae7343572d28c",
+      "control_points": [
+        {
+          "row": 0,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432104.8,
+          "value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432104.8,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "x": 455725.05,
+          "y": 4432208.2,
+          "value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "x": 455920.95,
+          "y": 4432208.2,
+          "value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "x": 455823.05,
+          "y": 4432156.5,
+          "value": 93.95170593261719
+        }
+      ],
+      "thumbnail_stride": 5
+    }
+  },
+  "comparisons": {
+    "source_tiff": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": false,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "maximum_pixels": 0.0,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "dx": 0.0,
+          "dy": 0.0,
+          "displacement": 0.0,
+          "displacement_pixels": 0.0,
+          "reference_value": 93.95170593261719,
+          "stage_value": 93.95170593261719
+        }
+      ],
+      "bounds_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "h5": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": false,
+      "maximum": 0.07071067797871404,
+      "mean": 0.07071067797871404,
+      "median": 0.07071067797871404,
+      "maximum_pixels": 0.7071067811865476,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": -0.04999999998835847,
+          "dy": 0.049999999813735485,
+          "displacement": 0.07071067797871404,
+          "displacement_pixels": 0.7071067811865476,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "dx": -0.04999999998835847,
+          "dy": 0.049999999813735485,
+          "displacement": 0.07071067797871404,
+          "displacement_pixels": 0.7071067811865476,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "dx": -0.04999999998835847,
+          "dy": 0.049999999813735485,
+          "displacement": 0.07071067797871404,
+          "displacement_pixels": 0.7071067811865476,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "dx": -0.04999999998835847,
+          "dy": 0.049999999813735485,
+          "displacement": 0.07071067797871404,
+          "displacement_pixels": 0.7071067811865476,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "dx": -0.04999999998835847,
+          "dy": 0.049999999813735485,
+          "displacement": 0.07071067797871404,
+          "displacement_pixels": 0.7071067811865476,
+          "reference_value": 93.95170593261719,
+          "stage_value": 93.95170593261719
+        }
+      ],
+      "bounds_delta": [
+        -0.04999999998835847,
+        0.049999999813735485,
+        -0.04999999998835847,
+        0.049999999813735485
+      ],
+      "lossless_values": {
+        "status": "exact_float32_comparison",
+        "values": 20286000,
+        "mismatched_values": 0
+      }
+    },
+    "native": {
+      "status": "five_control_points_only",
+      "coordinate_units": "metre",
+      "explicit_coordinate_conversion": true,
+      "maximum": 206.89988606516272,
+      "mean": 103.49988606609422,
+      "median": 103.49988606665283,
+      "maximum_pixels": 2068.9988606497645,
+      "controls": [
+        {
+          "row": 0,
+          "col": 0,
+          "dx": -3.005261532962322e-07,
+          "dy": 0.09988606814295053,
+          "displacement": 0.09988606814340263,
+          "displacement_pixels": 0.9988606870219621,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "dx": -3.0011869966983795e-07,
+          "dy": 0.09988606628030539,
+          "displacement": 0.09988606628075626,
+          "displacement_pixels": 0.9988606646702063,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "dx": -3.005843609571457e-07,
+          "dy": 206.89988606516272,
+          "displacement": 206.89988606516272,
+          "displacement_pixels": 2068.9988606497645,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "dx": -2.993620000779629e-07,
+          "dy": 206.8998860642314,
+          "displacement": 206.8998860642314,
+          "displacement_pixels": 2068.998860642314,
+          "reference_value": null,
+          "stage_value": null
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "dx": -3.005261532962322e-07,
+          "dy": 103.49988606665283,
+          "displacement": 103.49988606665283,
+          "displacement_pixels": 1034.9988606646657,
+          "reference_value": 93.95170593261719,
+          "stage_value": 93.95170593261719
+        }
+      ],
+      "bounds_delta": null,
+      "lossless_values": {
+        "status": "exact_float32_comparison",
+        "values": 20286000,
+        "mismatched_values": 0
+      }
+    }
+  },
+  "authoritative_tiff_available": true,
+  "missing_stages": [
+    "corrected",
+    "final"
+  ],
+  "scope": "read-only; synthetic only when --synthetic is supplied",
+  "synthetic": false,
+  "explicit_source_band_selection": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ]
+}

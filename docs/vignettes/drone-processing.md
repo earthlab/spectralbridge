@@ -42,6 +42,22 @@ matched to the bundled field manifest unless `drone_manifest_path` overrides
 it. See the [detailed tutorial](../tutorials/micasense-to-landsat.md) for the
 complete TIFF contract.
 
+The TIFF bridge preserves axis-aligned, east-right, north-up grids in a valid
+projected CRS, including non-square pixels. South-up, west-going, rotated and
+sheared inputs fail explicitly; the pipeline does not guess a flip or resample
+them. Conflicting HDF5 map information also blocks processing. Updated spatial
+stage signatures refresh affected per-flight extraction products on restart.
+Terrain/view sidecars require the same shape and CRS. Affine alignment is checked
+at all four outer corners with a budget of eight float64 coordinate ULPs, allowing
+only arithmetic/serialization roundoff. Real grid shifts still fail; ancillary
+arrays are never resampled or numerically changed by this validation.
+Spatial correction QA computes exact per-pixel medians and linear 90th
+percentiles in bounded pixel blocks, grouping columns by non-NaN band count.
+This avoids a Python percentile call per pixel without sampling or changing
+the reported statistics.
+See the [spatial integrity investigation](../dev/drone-spatial-integrity-investigation.md)
+for source-comparison diagnostics, historical-output limitations and recovery.
+
 Production translation consumes a static, versioned registry generated from
 the completed compact bulk output. It does not fit coefficients. The production
 weighting is fixed to `site_balanced`, reflecting intended transfer to new
@@ -235,3 +251,45 @@ review every QA JSON before treating a coefficient application as trustworthy.
 - [Package architecture](../dev/architecture.md)
 
 See the [API Reference for drone call signatures](../api/generated/pipelines-drone.md) for current signatures, defaults, inputs and outputs.
+
+## Required calibration and mosaic BRDF limitations
+
+Drone correction now requires an authoritative affine calibration record. Supply
+it to `run_drone_pipeline(..., radiometry=record)` or
+`convert_drone_tiff_to_h5(..., radiometry=record)`. An existing H5 can carry the
+same JSON record in the reflectance dataset's `spectralbridge_radiometry`
+attribute; the pipeline writes supplied calibration only to its derived working
+copy. The record has `scale`, `offset`, `status="VALID"`, and a nonempty
+`provenance` describing the calibration document or source metadata. Its equation
+is `physical = scale * stored + offset`. Do not copy a calibration from a
+different flight or infer one from the pixel histogram.
+
+```python
+import json
+from pathlib import Path
+from spectralbridge import run_drone_pipeline
+
+# Prepared from authoritative calibration records, not a guessed divisor.
+record = json.loads(Path("reviewed_flight_calibration.json").read_text())
+result = run_drone_pipeline(
+    "source-flight/",
+    output_dir="fresh-reviewed-output/",
+    radiometry=record,
+    apply_topo=True,
+    apply_brdf=False,  # Explicitly unnormalized mosaic; status NOT_REQUESTED.
+    apply_translation=False,
+)
+```
+
+The example explicitly omits BRDF because constant-nadir mosaic angles cannot
+identify a three-coefficient Ross–Li fit. It does not establish that all source
+mosaics have valid calibration or terrain/solar geometry. A missing calibration
+still blocks physical correction. `apply_brdf=True` requires independent angular
+support and a validated shared model; it cannot fabricate viewing variation.
+
+New corrected headers record physical scale/offset/provenance and BRDF status.
+Unsupported requested BRDF is scientifically blocked, with native/topographic-only
+products retained where appropriate. Existing spatial repairs remain necessary
+but do not establish radiometric validity. Legacy translation registries and
+unmarked historical tables require review before joining approved spectral
+libraries. See [the common contract](../pipeline.md#physical-reflectance-and-correction-validity).

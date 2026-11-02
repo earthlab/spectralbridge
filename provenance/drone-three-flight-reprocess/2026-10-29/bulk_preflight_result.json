@@ -1,0 +1,215 @@
+{
+  "status": "created",
+  "accepted_flightline_count": 3,
+  "source_count": 3,
+  "duplicate_count": 0,
+  "rejected_source_count": 0,
+  "row_count": 198309,
+  "translation_pair_count": 0,
+  "regression_count": 0,
+  "preflight_only": true,
+  "input_mode": "flightline_outputs",
+  "analysis": "translation",
+  "spectralbridge_version": "2.3.0rc1",
+  "selected_translation_pairs": [
+    "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+    "MicaSense_to-match_TM_and_ETM+__to__Landsat_7_ETM+",
+    "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+    "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_9_OLI-2"
+  ],
+  "materialized_observations": null,
+  "observations": null,
+  "flightlines": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/catalog/flightlines.parquet",
+  "source_files": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/catalog/source_files.parquet",
+  "source_products": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/catalog/source_products.parquet",
+  "exclusions": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/catalog/exclusions.parquet",
+  "exclusions_json": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/catalog/exclusions.json",
+  "exclusions_csv": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/catalog/exclusions.csv",
+  "cache": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/cache",
+  "sufficient_statistics": null,
+  "diagnostic_sample": null,
+  "source_catalog": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/catalog/source_files.parquet",
+  "duplicates": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/catalog/duplicates.parquet",
+  "rejected_sources": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/catalog/rejected_sources.parquet",
+  "coefficients_parquet": null,
+  "coefficients_json": null,
+  "database": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/database/spectralbridge_bulk.duckdb",
+  "manifest": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/catalog/bulk_manifest.json",
+  "campaign_summary": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/reports/campaign_summary.md",
+  "analysis_decisions": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/reports/analysis_decisions.json",
+  "missing_products": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/analyses/dataset_census/missing_products.parquet",
+  "analyses_run": [
+    "dataset_census"
+  ],
+  "analyses_intentionally_not_run": [],
+  "spectral_library": null,
+  "preflight": {
+    "source_root": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_inputs",
+    "output_root": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight",
+    "analysis_profile": "translation",
+    "required_product_roles": [
+      "target_sensor"
+    ],
+    "optional_product_roles": [
+      "raw_hyperspectral",
+      "corrected_hyperspectral",
+      "qa",
+      "metadata"
+    ],
+    "translation_pairs": [
+      "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+      "MicaSense_to-match_TM_and_ETM+__to__Landsat_7_ETM+",
+      "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+      "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_9_OLI-2"
+    ],
+    "discovered_flightlines": 3,
+    "accepted_flightlines": 3,
+    "duplicate_candidates": 0,
+    "excluded_flightlines": 0,
+    "selected_observation_rows": 198309,
+    "selected_source_bytes": 1667987119,
+    "estimated_analysis_output_bytes": 27648,
+    "estimated_diagnostic_sample_bytes": 0,
+    "estimated_temporary_disk_bytes": 0,
+    "materialized_pixel_dataset": false,
+    "estimated_materialized_pixel_bytes": 0,
+    "available_sensors": [
+      "Landsat_5_TM",
+      "Landsat_7_ETM+",
+      "Landsat_8_OLI",
+      "Landsat_9_OLI-2",
+      "MicaSense_to-match_OLI_and_OLI-2",
+      "MicaSense_to-match_TM_and_ETM+"
+    ],
+    "available_translation_pairs": [
+      "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+      "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_9_OLI-2",
+      "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+      "MicaSense_to-match_TM_and_ETM+__to__Landsat_7_ETM+"
+    ],
+    "regression_eligible_translation_pairs": [
+      "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+      "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_9_OLI-2",
+      "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+      "MicaSense_to-match_TM_and_ETM+__to__Landsat_7_ETM+"
+    ],
+    "translation_available_flightlines": 3,
+    "regression_eligible_flightlines": 3,
+    "scientifically_blocked_flightlines": 0,
+    "application_verification_flightlines": 3,
+    "tabular_products": 18,
+    "tabular_product_rows": 1191908,
+    "tabular_product_bytes": 30323094,
+    "missing_tabular_product_instances": 0,
+    "tabular_schemas_consistent_by_product": true,
+    "qa_status_counts": {
+      "warn": 3
+    },
+    "analysis_decision": {
+      "analyses_intentionally_not_run": [],
+      "analyses_run": [
+        "dataset_census"
+      ],
+      "application_verification_flightlines": 3,
+      "reason": "Preflight requested; no population regression was run.",
+      "regression_eligible_flightlines": 3,
+      "requested_analysis": "translation",
+      "schema_version": 1,
+      "scientifically_blocked_flightlines": 0,
+      "status": "preflight_only",
+      "translation_available_flightlines": 3
+    },
+    "exclusion_counts_by_reason": {},
+    "spectralbridge_version": "2.3.0rc1",
+    "source_products": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/catalog/source_products.parquet",
+    "exclusions": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/catalog/exclusions.parquet",
+    "database": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/bulk_preflight/database/spectralbridge_bulk.duckdb",
+    "census": {
+      "accepted_canonical_flightlines": 3,
+      "accepted_merged_parquet_bytes": 1679190846,
+      "accepted_observation_rows": 198309,
+      "acquisition_dates": [
+        "2023-08-15",
+        "2023-08-16"
+      ],
+      "acquisition_years": [
+        2023
+      ],
+      "analysis": "dataset_census",
+      "analysis_profiles": [
+        "translation"
+      ],
+      "analysis_run_id": "1b5f37a39a1243a9f28474c70442932735fd3ae09e935c3caa08bbbd3017d6c5",
+      "application_verification_flightlines": 3,
+      "available_translation_pairs": [
+        "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+        "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_9_OLI-2",
+        "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+        "MicaSense_to-match_TM_and_ETM+__to__Landsat_7_ETM+"
+      ],
+      "candidate_flightline_records": 3,
+      "candidate_merged_parquet_bytes": 1679190846,
+      "candidate_outer_batch_folders": 1,
+      "candidate_source_directories": 3,
+      "corrected_products_found": 0,
+      "duplicate_candidates": 0,
+      "duplicate_canonical_ids": 0,
+      "duplicate_product_candidates": 0,
+      "estimated_analysis_cache_bytes": 27648,
+      "estimated_analysis_output_bytes": 27648,
+      "estimated_materialized_pixel_bytes": 2015282808,
+      "exclusion_counts_by_reason": {},
+      "missing_tabular_product_instances": 0,
+      "observation_scan_performed": false,
+      "qa_available_flightlines": 3,
+      "qa_status_counts": {
+        "warn": 3
+      },
+      "raw_products_found": 0,
+      "regression_eligible_translation_pairs": [
+        "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+        "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_9_OLI-2",
+        "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+        "MicaSense_to-match_TM_and_ETM+__to__Landsat_7_ETM+"
+      ],
+      "rejected_flightline_records": 0,
+      "schema_fingerprints": [
+        "06538061a4372fddb3816dc25951ae6a166560111a42a765b3a60bdcb193de99",
+        "10b4617d7ac517f5a4b15350e17d2b70f676f6afe6a8dbdeca0f1c2e0f86ed65",
+        "45cd642ddb17f93f155b7335336ec7ef8550cc06ee80cbde6b44942905343ece",
+        "89b46582274667031ec00e7b7c9a6e36c1186ff6d75022b25bb2d4beb0918af7",
+        "c282f5b849c80aedba9d07900e48e52726e4de6fe1fc191ddcfaa7d276eceea9",
+        "d533acdaf69970ea6983a0be616fb4706d1c2870125672645e84846fc70ca183"
+      ],
+      "schema_inconsistent_product_keys": [],
+      "schema_version": 1,
+      "scientifically_blocked_flightlines": 0,
+      "selected_source_bytes": 1667987119,
+      "sensors": [
+        "Landsat_5_TM",
+        "Landsat_7_ETM+",
+        "Landsat_8_OLI",
+        "Landsat_9_OLI-2",
+        "MicaSense_to-match_OLI_and_OLI-2",
+        "MicaSense_to-match_TM_and_ETM+"
+      ],
+      "sites": [
+        "AOP_GOLDHILL",
+        "AOP_GORDON",
+        "AOP_RUBY"
+      ],
+      "tabular_product_bytes": 30323094,
+      "tabular_product_rows": 1191908,
+      "tabular_products_found": 18,
+      "tabular_schemas_consistent_by_product": true,
+      "target_sensor_products_found": 18,
+      "total_source_tree_bytes": 4339749666,
+      "translation_available_flightlines": 3,
+      "translation_eligible_flightlines": 3,
+      "unique_canonical_flightlines": 3,
+      "unregistered_tabular_products": 0
+    },
+    "spectral_library_schema": null,
+    "spectral_library": null
+  }
+}

@@ -1,0 +1,317 @@
+[
+  [
+    108,
+    3344,
+    596.0,
+    25,
+    "E A R T H  L A B   /   S C I E N T I F I C  P Y T H O N"
+  ],
+  [
+    108,
+    3200,
+    882.0120000000001,
+    124,
+    "SpectralBridge"
+  ],
+  [
+    112,
+    3110,
+    1133.546,
+    62,
+    "From flightlines to analysis-ready data"
+  ],
+  [
+    108,
+    3026,
+    733.708,
+    31,
+    "THREE INPUT STREAMS  /  THREE WORKFLOWS"
+  ],
+  [
+    132,
+    2925,
+    270.06,
+    30,
+    "1  NEON flightlines"
+  ],
+  [
+    132,
+    2875,
+    349.596,
+    27,
+    "Airborne hyperspectral HDF5"
+  ],
+  [
+    132,
+    2828,
+    457.65,
+    27,
+    "Download > correct > sensor bands"
+  ],
+  [
+    132,
+    2785,
+    284.8,
+    25,
+    "Flight-by-flight processing"
+  ],
+  [
+    960,
+    2925,
+    326.79,
+    30,
+    "2  Local drone imagery"
+  ],
+  [
+    960,
+    2875,
+    282.096,
+    27,
+    "Supported TIFF / HDF5"
+  ],
+  [
+    960,
+    2828,
+    361.66499999999996,
+    27,
+    "Discover > process > export"
+  ],
+  [
+    960,
+    2785,
+    340.375,
+    25,
+    "Separate local-image workflow"
+  ],
+  [
+    1788,
+    2925,
+    458.40000000000003,
+    30,
+    "3  Completed flightline products"
+  ],
+  [
+    1788,
+    2875,
+    316.629,
+    27,
+    "Existing rasters and tables"
+  ],
+  [
+    1788,
+    2828,
+    406.67400000000004,
+    27,
+    "Stream > compare > summarize"
+  ],
+  [
+    1788,
+    2785,
+    344.575,
+    25,
+    "No new download or correction"
+  ],
+  [
+    390,
+    2674,
+    994.2940000000001,
+    29,
+    "Workflow outputs: traceable rasters, tables, QA and comparison reports"
+  ],
+  [
+    108,
+    2605,
+    453.62199999999996,
+    26,
+    "REAL FLIGHTLINE  /  VISIBLE LIGHT"
+  ],
+  [
+    1450,
+    2605,
+    604.0840000000001,
+    26,
+    "A flightline is the strip recorded along one flight path."
+  ],
+  [
+    108,
+    2110,
+    570.57,
+    26,
+    "SAME GROUND  /  INFRARED SHOWN IN RED"
+  ],
+  [
+    1450,
+    2110,
+    463.86600000000004,
+    26,
+    "A marks the same patch in both images."
+  ],
+  [
+    108,
+    1607,
+    1092.378,
+    31,
+    "The same ground, shown with different light channels. A marks the same patch."
+  ],
+  [
+    108,
+    1565,
+    1060.911,
+    27,
+    "Red is a display color, not heat or fire. These views do not show correction improvement."
+  ],
+  [
+    108,
+    1490,
+    577.714,
+    46,
+    "Read the spectral patterns"
+  ],
+  [
+    1344,
+    1490,
+    687.6080000000001,
+    46,
+    "Turn spectra into sensor bands"
+  ],
+  [
+    108,
+    1435,
+    678.571,
+    29,
+    "Groups reflect different patterns across wavelengths."
+  ],
+  [
+    1344,
+    1435,
+    776.939,
+    29,
+    "The package weights wavelength ranges for a target sensor."
+  ],
+  [
+    108,
+    474,
+    695.548,
+    28,
+    "Bold curves: category medians. Bands: middle 50%."
+  ],
+  [
+    108,
+    432,
+    526.0060000000001,
+    26,
+    "Gray gaps omit unsupported spectral regions."
+  ],
+  [
+    1344,
+    474,
+    714.252,
+    28,
+    "A detailed spectrum becomes fewer sensor channels."
+  ],
+  [
+    1344,
+    432,
+    666.172,
+    26,
+    "Gaussian weights shown; not measured response curves."
+  ],
+  [
+    128,
+    326,
+    161.76000000000002,
+    30,
+    "01  Prepare"
+  ],
+  [
+    128,
+    285,
+    334.92600000000004,
+    23,
+    "NEON or supported drone inputs"
+  ],
+  [
+    746,
+    326,
+    156.72,
+    30,
+    "02  Correct"
+  ],
+  [
+    746,
+    285,
+    278.001,
+    23,
+    "Terrain + viewing geometry"
+  ],
+  [
+    1364,
+    326,
+    183.42,
+    30,
+    "03  Translate"
+  ],
+  [
+    1364,
+    285,
+    299.115,
+    23,
+    "Configured sensor-like bands"
+  ],
+  [
+    1982,
+    326,
+    160.08,
+    30,
+    "04  Explore"
+  ],
+  [
+    1982,
+    285,
+    276.736,
+    23,
+    "Tables, QA, bulk + libraries"
+  ],
+  [
+    108,
+    207,
+    782.6560000000001,
+    28,
+    "Restart-safe files. Chunked processing. Traceable outputs."
+  ],
+  [
+    108,
+    159,
+    384.18300000000005,
+    27,
+    "earthlab.github.io/spectralbridge"
+  ],
+  [
+    1390,
+    159,
+    414.18,
+    27,
+    "github.com/earthlab/spectralbridge"
+  ],
+  [
+    108,
+    116,
+    1302.136,
+    22,
+    "Spectral graphs: saved polygon/year library summaries; separate from the illustrated R10C flightline. Physical-unit scaling unresolved."
+  ],
+  [
+    108,
+    78,
+    1233.738,
+    22,
+    "Flightline: NEON R10C, 15 September 2021, native 1 m pixels. Display: 2-98% stretch, gamma 0.8; blank exterior has no data."
+  ],
+  [
+    108,
+    40,
+    1284.404,
+    22,
+    "Configured sensor-like bands do not establish independent sensor agreement or field cover accuracy. | Earth Lab | 27 October 2026"
+  ]
+]

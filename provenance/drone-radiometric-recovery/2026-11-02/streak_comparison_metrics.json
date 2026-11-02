@@ -1,0 +1,159 @@
+{
+  "roi": {
+    "row_start": 821,
+    "row_stop": 1022,
+    "column_start": 840,
+    "column_stop": 1121,
+    "extent_utm_m": [
+      457708.49999999994,
+      457736.6,
+      4432728.35,
+      4432748.45
+    ],
+    "boundary_pixel": [
+      921,
+      980
+    ],
+    "selection": "Nearest scene-center historical factor identity-to-gain crossing with NDVI > .3 on both adjacent pixels; fixed before comparing branches",
+    "transect_row": 921,
+    "rgb_wavelengths_nm": [
+      650,
+      560,
+      475
+    ]
+  },
+  "boundary_metric": "Across each ROI row, nearest historical gain-switch boundary within 75 columns of marked crossing; paired pixels 3..10 cells from either side. Absolute = median |R_right-R_left|; relative = absolute / median pooled |R|. Same locations all branches; no trimming.",
+  "paired_locations": 1608,
+  "branches": {
+    "normalized": {
+      "raw": {
+        "absolute_discontinuity_dn_equivalent": 287.29381617736806,
+        "relative_discontinuity": 0.16384877889121754,
+        "median_left_dn_equivalent": 1685.7505770950315,
+        "median_right_dn_equivalent": 1806.681831802368,
+        "valid_paired_pixels": 1608
+      },
+      "topo": {
+        "absolute_discontinuity_dn_equivalent": 262.74969069671624,
+        "relative_discontinuity": 0.15773039275995573,
+        "median_left_dn_equivalent": 1558.4006203308104,
+        "median_right_dn_equivalent": 1748.5319191131591,
+        "valid_paired_pixels": 1608
+      },
+      "brdf": {
+        "absolute_discontinuity_dn_equivalent": 8298835066.185507,
+        "relative_discontinuity": 9.25690877088857,
+        "median_left_dn_equivalent": 1685.7505770950315,
+        "median_right_dn_equivalent": 8298836927.903999,
+        "valid_paired_pixels": 1608
+      },
+      "combined": {
+        "absolute_discontinuity_dn_equivalent": 8018261341.825212,
+        "relative_discontinuity": 11.063214213614007,
+        "median_left_dn_equivalent": 1558.4006203308104,
+        "median_right_dn_equivalent": 8018263662.528,
+        "valid_paired_pixels": 1608
+      }
+    },
+    "recovered": {
+      "raw": {
+        "absolute_discontinuity_dn_equivalent": 287.29388427734375,
+        "relative_discontinuity": 0.16384881384933772,
+        "median_left_dn_equivalent": 1685.7505493164062,
+        "median_right_dn_equivalent": 1806.6818237304688,
+        "valid_paired_pixels": 1608
+      },
+      "topo": {
+        "absolute_discontinuity_dn_equivalent": 262.749755859375,
+        "relative_discontinuity": 0.15773043620869392,
+        "median_left_dn_equivalent": 1558.4006958007812,
+        "median_right_dn_equivalent": 1748.5319213867188,
+        "valid_paired_pixels": 1608
+      },
+      "brdf": {
+        "absolute_discontinuity_dn_equivalent": 8298835642.281494,
+        "relative_discontinuity": 9.256908922903662,
+        "median_left_dn_equivalent": 1685.7505493164062,
+        "median_right_dn_equivalent": 8298837504.0,
+        "valid_paired_pixels": 1608
+      },
+      "combined": {
+        "absolute_discontinuity_dn_equivalent": 8018261743.297119,
+        "relative_discontinuity": 11.063214259238585,
+        "median_left_dn_equivalent": 1558.4006958007812,
+        "median_right_dn_equivalent": 8018264064.0,
+        "valid_paired_pixels": 1608
+      }
+    },
+    "hypothetical": {
+      "raw": {
+        "absolute_discontinuity_dn_equivalent": 287.29388427734375,
+        "relative_discontinuity": 0.16384881384933772,
+        "median_left_dn_equivalent": 1685.7505493164062,
+        "median_right_dn_equivalent": 1806.6818237304688,
+        "valid_paired_pixels": 1608
+      },
+      "topo": {
+        "absolute_discontinuity_dn_equivalent": 262.749755859375,
+        "relative_discontinuity": 0.15773043620869392,
+        "median_left_dn_equivalent": 1558.4006958007812,
+        "median_right_dn_equivalent": 1748.5319213867188,
+        "valid_paired_pixels": 1608
+      },
+      "brdf": {
+        "absolute_discontinuity_dn_equivalent": 8298835642.281494,
+        "relative_discontinuity": 9.256908922903662,
+        "median_left_dn_equivalent": 1685.7505493164062,
+        "median_right_dn_equivalent": 8298837504.0,
+        "valid_paired_pixels": 1608
+      },
+      "combined": {
+        "absolute_discontinuity_dn_equivalent": 8018261743.297119,
+        "relative_discontinuity": 11.063214259238585,
+        "median_left_dn_equivalent": 1558.4006958007812,
+        "median_right_dn_equivalent": 8018264064.0,
+        "valid_paired_pixels": 1608
+      }
+    }
+  },
+  "common_valid_pixels": 6680329,
+  "source_valid_pixels": 7068376,
+  "display": {
+    "units": "recovered DN-equivalent",
+    "formula_normalized": "S_corrected * (band_max-band_min)/10000 + band_min",
+    "formula_hypothetical": "rho_corrected * 32768",
+    "limits_2_98_per_rgb": [
+      [
+        458.6711011276245,
+        707.6992412017822,
+        390.7054582168579
+      ],
+      [
+        3047.0566248962405,
+        2945.5154543151857,
+        1841.9530535980227
+      ]
+    ],
+    "clipping": "Display only, shared across all panels; analytical arrays unclipped"
+  },
+  "historical_fixed_model_factor_difference": 0.0,
+  "no_brdf_control": "recovered / topo",
+  "full_scene_red_invariance": {
+    "recovered": {
+      "max_abs_dn_equivalent": 124813.31201171875,
+      "relative_error_quantiles_50_99_100": [
+        3.637695316790446e-08,
+        1.3599338499637164e-07,
+        2.41032665443955e-07
+      ]
+    },
+    "hypothetical": {
+      "max_abs_dn_equivalent": 124813.31201171875,
+      "relative_error_quantiles_50_99_100": [
+        3.637695316790446e-08,
+        1.3599338499637164e-07,
+        2.41032665443955e-07
+      ]
+    }
+  }
+}

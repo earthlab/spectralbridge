@@ -10,6 +10,41 @@ The default CyVerse adapter uses the existing `gocmd` configuration. Install and
 authenticate `gocmd` before starting; SpectralBridge does not collect passwords
 or run interactive credential setup inside scientific functions.
 
+## Clean 2023/2024 cloud notebook
+
+Use the root `Drone_2023_2024_Cloud_Production.ipynb` with
+`scripts/drone_cloud_workflow.py` for the known `summer-2023-10cm-10k` and
+`summer-2024-10cm-10k` collections. It inventories both years, downloads each
+package's original TIFF/H5/terrain, verifies ten retained TIFF bands against
+all H5 values in bounded windows, runs the individual producer, gates bulk on
+complete readiness, summarizes compact results, and optionally uploads both
+flight products and compact bulk outputs with transfer checksum verification.
+
+Copy the repaired repository checkout with the notebook to your container and
+install it into the notebook kernel. The notebook checks for the drone spatial
+repair before processing. A checkout without that repair is intentionally
+blocked. The earlier spatial repair has been recovered from the GitHub Desktop stash;
+transfer or commit/push these local changes before using a fresh cloud clone.
+
+Review the configuration cell before setting `RUN=True`; uploads default off.
+For a one-flight integration check, set `TEST_PACKAGE` to the exact package
+name (for example `AOP-Ruby-08-14-23-ExportPackage`) and use a separate run ID.
+This explicit subset is recorded as a test; return `TEST_PACKAGE=None` for the
+complete two-year campaign.
+
+Keep the run ID and persistent work directory fixed on restart. Inputs remain
+local by default to preserve checkpoint fingerprints; optional cleanup trades
+storage for renewed downloads/preparation. Source files are never edited.
+Uploads resume only within the run's dedicated result collection and may
+replace changed files there. Source collections are separate.
+
+This explicit ten-band recipe does not identify an omitted eleventh channel or
+resolve package/manifest acquisition-date differences. It records those
+limitations with source hashes and preserves existing terrain masks. Variable
+view angles, unmatched retained values or ancillary grid mismatches stop the
+flight rather than receive guessed repairs. Review scientific QA before
+promoting recovered results.
+
 ## Production call
 
 ```python
@@ -163,3 +198,19 @@ spectralbridge-drone-production bulk \
 Use `campaign` instead of `bulk` to stop after canonical per-flight production.
 `--keep-inputs` retains staged H5s and `--allow-partial` explicitly opts into a
 partial population.
+
+### Radiometric readiness before campaign processing
+
+The October 30 shared correction contract supersedes treating a readable raster
+or a spatially correct completed folder as scientific readiness. Campaign resume
+and bulk discovery now reject missing radiometric provenance or unsupported BRDF
+status. Provide authoritative calibration through the individual-flight API;
+review per-flight source provenance before campaign promotion. Constant-nadir
+mosaics ordinarily cannot support independent three-term BRDF estimation.
+
+Historical 2023/2024 outputs and count-scale translation coefficients must be
+reviewed before a fresh processing campaign. No automatic divisor is assigned
+from `10k`/`rescale` collection names. An explicit choice to omit BRDF is recorded
+as `NOT_REQUESTED`; a failed requested correction is not silently converted into
+that alternative. See [the shared contract](../pipeline.md#physical-reflectance-and-correction-validity)
+and [drone calibration requirements](drone-processing.md#required-calibration-and-mosaic-brdf-limitations).

@@ -1,0 +1,98 @@
+{
+  "cube_scale_factor": 1.0,
+  "rho_min": 0.0,
+  "rho_max": 2.0,
+  "bands": [
+    {
+      "band": 1,
+      "wavelength_nm": 444.0,
+      "finite_pixels": 7068376,
+      "in_default_brdf_0_to_2_range": 3,
+      "fraction_in_fit_range": 4.2442563893035685e-07,
+      "minimum": 0.40463370084762573,
+      "maximum": 10000.0
+    },
+    {
+      "band": 2,
+      "wavelength_nm": 475.0,
+      "finite_pixels": 7068376,
+      "in_default_brdf_0_to_2_range": 1,
+      "fraction_in_fit_range": 1.4147521297678563e-07,
+      "minimum": 1.4329798221588135,
+      "maximum": 10000.0
+    },
+    {
+      "band": 3,
+      "wavelength_nm": 531.0,
+      "finite_pixels": 7068376,
+      "in_default_brdf_0_to_2_range": 9,
+      "fraction_in_fit_range": 1.2732769167910706e-06,
+      "minimum": 0.28372520208358765,
+      "maximum": 10000.0
+    },
+    {
+      "band": 4,
+      "wavelength_nm": 560.0,
+      "finite_pixels": 7068376,
+      "in_default_brdf_0_to_2_range": 13,
+      "fraction_in_fit_range": 1.839177768698213e-06,
+      "minimum": 2.437332469185094e-08,
+      "maximum": 10000.0
+    },
+    {
+      "band": 5,
+      "wavelength_nm": 650.0,
+      "finite_pixels": 7068376,
+      "in_default_brdf_0_to_2_range": 14,
+      "fraction_in_fit_range": 1.980652981674999e-06,
+      "minimum": 0.007171948906034231,
+      "maximum": 10000.0
+    },
+    {
+      "band": 6,
+      "wavelength_nm": 668.0,
+      "finite_pixels": 7068376,
+      "in_default_brdf_0_to_2_range": 30,
+      "fraction_in_fit_range": 4.244256389303568e-06,
+      "minimum": 1.796074844406803e-09,
+      "maximum": 10000.0
+    },
+    {
+      "band": 7,
+      "wavelength_nm": 705.0,
+      "finite_pixels": 7068376,
+      "in_default_brdf_0_to_2_range": 8,
+      "fraction_in_fit_range": 1.131801703814285e-06,
+      "minimum": 0.006773710250854492,
+      "maximum": 10000.0
+    },
+    {
+      "band": 8,
+      "wavelength_nm": 717.0,
+      "finite_pixels": 7068376,
+      "in_default_brdf_0_to_2_range": 4,
+      "fraction_in_fit_range": 5.659008519071425e-07,
+      "minimum": 0.22637268900871277,
+      "maximum": 10000.0
+    },
+    {
+      "band": 9,
+      "wavelength_nm": 740.0,
+      "finite_pixels": 7068376,
+      "in_default_brdf_0_to_2_range": 1,
+      "fraction_in_fit_range": 1.4147521297678563e-07,
+      "minimum": 1.9015312194824219,
+      "maximum": 10000.0
+    },
+    {
+      "band": 10,
+      "wavelength_nm": 862.0,
+      "finite_pixels": 7068376,
+      "in_default_brdf_0_to_2_range": 0,
+      "fraction_in_fit_range": 0.0,
+      "minimum": 20.81085968017578,
+      "maximum": 10000.0
+    }
+  ],
+  "scope": "Exact numeric eligibility counts for the existing default fitter; no physical unit or band-identity interpretation inferred."
+}

@@ -1,0 +1,43 @@
+{
+  "status": "processed_and_uploaded",
+  "work": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1",
+  "remote_results": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1",
+  "packages": [
+    "AOP-GORDON-08-14-23-ExportPackage",
+    "AOP-GOLDHILL-08-14-23-ExportPackage",
+    "AOP-Ruby-08-14-23-ExportPackage"
+  ],
+  "cells": [
+    {
+      "cell": 1,
+      "seconds": 0.003,
+      "status": "passed"
+    },
+    {
+      "cell": 3,
+      "seconds": 0.0,
+      "status": "passed"
+    },
+    {
+      "cell": 4,
+      "seconds": 0.899,
+      "status": "passed"
+    },
+    {
+      "cell": 8,
+      "seconds": 360.317,
+      "status": "passed"
+    },
+    {
+      "cell": 10,
+      "seconds": 8.777,
+      "status": "passed"
+    },
+    {
+      "cell": 12,
+      "seconds": 803.19,
+      "status": "passed"
+    }
+  ],
+  "scientific_status": "review_required; existing source provenance cautions preserved"
+}

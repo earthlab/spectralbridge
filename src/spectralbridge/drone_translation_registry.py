@@ -649,6 +649,7 @@ def build_drone_translation_coefficient_registry(
         records.append(
             {
                 "coefficient_set_version": coefficient_set_version,
+                "reflectance_units": candidate.get("reflectance_units"),
                 "source_sensor": source_sensor,
                 "source_band": source_band,
                 "source_spectral_identity": source_identity.spectral_identity,

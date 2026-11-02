@@ -1,0 +1,288 @@
+{
+  "evidence_status": "saved production metadata only; original named TIFF/H5/raster pairs unavailable",
+  "summary_path": "/Users/tuff/Downloads/drone_qa_summary.json",
+  "summary_sha256": "7aa3bea8dcd54320960585216b16d68ba13146591ed7d87d61b429a5b660ded6",
+  "polygons_path": "Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+  "polygons_sha256": "d9fe2108538179b7cde107123e965b3d0075dcb65ec488fd03b8480b34dc6ebb",
+  "flights": [
+    {
+      "flight": "AOP_GOLDHILL_20230814",
+      "input_source_path": "summer-2023-10cm-10k/AOP-GOLDHILL-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+      "corrected_raster_path": "drone_outputs/drone_pipeline4/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.img",
+      "recorded": {
+        "raster_path": "drone_outputs/drone_pipeline4/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.img",
+        "raster_crs": "EPSG:32613",
+        "raster_bounds": [
+          457624.5,
+          4433054.35,
+          457941.0,
+          4432830.55
+        ],
+        "raster_transform": [
+          0.1,
+          -0.0,
+          457624.5,
+          0.0,
+          0.1,
+          4432830.55
+        ],
+        "raster_width": 3165,
+        "raster_height": 2238,
+        "raster_nodata": null,
+        "polygon_path": "Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+        "polygon_crs": "EPSG:3857",
+        "polygon_total_bounds": [
+          -11750732.4045,
+          4864107.7951000035,
+          -11743301.3402,
+          4908905.222599998
+        ],
+        "polygon_count": 1675,
+        "reprojected_polygon_crs": "PROJCS[\"unnamed\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-105],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "reprojected_polygon_total_bounds": [
+          452362.2362110307,
+          4426492.234155745,
+          458049.2677754934,
+          4460634.693345355
+        ],
+        "polygon_reprojected": true,
+        "bounds_overlap_after_reproject": true,
+        "intersecting_polygon_count": 12
+      },
+      "control_comparison": [
+        {
+          "row": 0,
+          "col": 0,
+          "recorded_x": 457624.55,
+          "recorded_y": 4432830.6,
+          "reader_hypothesis_x": 457624.5,
+          "reader_hypothesis_y": 4432830.55,
+          "displacement_m": 0.07071067797871404
+        },
+        {
+          "row": 0,
+          "col": 3164,
+          "recorded_x": 457940.95,
+          "recorded_y": 4432830.6,
+          "reader_hypothesis_x": 457940.9,
+          "reader_hypothesis_y": 4432830.55,
+          "displacement_m": 0.07071067797871404
+        },
+        {
+          "row": 2237,
+          "col": 0,
+          "recorded_x": 457624.55,
+          "recorded_y": 4433054.3,
+          "reader_hypothesis_x": 457624.5,
+          "reader_hypothesis_y": 4432606.85,
+          "displacement_m": 447.45000279379445
+        },
+        {
+          "row": 2237,
+          "col": 3164,
+          "recorded_x": 457940.95,
+          "recorded_y": 4433054.3,
+          "reader_hypothesis_x": 457940.9,
+          "reader_hypothesis_y": 4432606.85,
+          "displacement_m": 447.45000279379445
+        },
+        {
+          "row": 1119,
+          "col": 1582,
+          "recorded_x": 457782.75,
+          "recorded_y": 4432942.5,
+          "reader_hypothesis_x": 457782.7,
+          "reader_hypothesis_y": 4432718.649999999,
+          "displacement_m": 223.8500055846552
+        }
+      ],
+      "maximum_hypothetical_displacement_m": 447.45000279379445
+    },
+    {
+      "flight": "AOP_GORDON_20230814",
+      "input_source_path": "summer-2023-10cm-10k/AOP-GORDON-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+      "corrected_raster_path": "drone_outputs/drone_pipeline4/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected.img",
+      "recorded": {
+        "raster_path": "drone_outputs/drone_pipeline4/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected.img",
+        "raster_crs": "EPSG:32613",
+        "raster_bounds": [
+          457268.25,
+          4429243.6,
+          457563.05,
+          4429034.8
+        ],
+        "raster_transform": [
+          0.1,
+          -0.0,
+          457268.25,
+          0.0,
+          0.1,
+          4429034.8
+        ],
+        "raster_width": 2948,
+        "raster_height": 2088,
+        "raster_nodata": null,
+        "polygon_path": "Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+        "polygon_crs": "EPSG:3857",
+        "polygon_total_bounds": [
+          -11750732.4045,
+          4864107.7951000035,
+          -11743301.3402,
+          4908905.222599998
+        ],
+        "polygon_count": 1675,
+        "reprojected_polygon_crs": "PROJCS[\"unnamed\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-105],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "reprojected_polygon_total_bounds": [
+          452362.2362110307,
+          4426492.234155745,
+          458049.2677754934,
+          4460634.693345355
+        ],
+        "polygon_reprojected": true,
+        "bounds_overlap_after_reproject": true,
+        "intersecting_polygon_count": 6
+      },
+      "control_comparison": [
+        {
+          "row": 0,
+          "col": 0,
+          "recorded_x": 457268.3,
+          "recorded_y": 4429034.85,
+          "reader_hypothesis_x": 457268.25,
+          "reader_hypothesis_y": 4429034.8,
+          "displacement_m": 0.07071067797871404
+        },
+        {
+          "row": 0,
+          "col": 2947,
+          "recorded_x": 457563.0,
+          "recorded_y": 4429034.85,
+          "reader_hypothesis_x": 457562.95,
+          "reader_hypothesis_y": 4429034.8,
+          "displacement_m": 0.07071067797871404
+        },
+        {
+          "row": 2087,
+          "col": 0,
+          "recorded_x": 457268.3,
+          "recorded_y": 4429243.55,
+          "reader_hypothesis_x": 457268.25,
+          "reader_hypothesis_y": 4428826.1,
+          "displacement_m": 417.4500029945568
+        },
+        {
+          "row": 2087,
+          "col": 2947,
+          "recorded_x": 457563.0,
+          "recorded_y": 4429243.55,
+          "reader_hypothesis_x": 457562.95,
+          "reader_hypothesis_y": 4428826.1,
+          "displacement_m": 417.4500029945568
+        },
+        {
+          "row": 1044,
+          "col": 1474,
+          "recorded_x": 457415.7,
+          "recorded_y": 4429139.25,
+          "reader_hypothesis_x": 457415.65,
+          "reader_hypothesis_y": 4428930.399999999,
+          "displacement_m": 208.8500059857155
+        }
+      ],
+      "maximum_hypothetical_displacement_m": 417.4500029945568
+    },
+    {
+      "flight": "AOP_Ruby_20230814",
+      "input_source_path": "summer-2023-10cm-10k/AOP-Ruby-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+      "corrected_raster_path": "drone_outputs/drone_pipeline4/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+      "recorded": {
+        "raster_path": "drone_outputs/drone_pipeline4/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+        "raster_crs": "EPSG:32613",
+        "raster_bounds": [
+          455725.0,
+          4432208.25,
+          455921.0,
+          4432104.75
+        ],
+        "raster_transform": [
+          0.1,
+          -0.0,
+          455725.0,
+          0.0,
+          0.1,
+          4432104.75
+        ],
+        "raster_width": 1960,
+        "raster_height": 1035,
+        "raster_nodata": null,
+        "polygon_path": "Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+        "polygon_crs": "EPSG:3857",
+        "polygon_total_bounds": [
+          -11750732.4045,
+          4864107.7951000035,
+          -11743301.3402,
+          4908905.222599998
+        ],
+        "polygon_count": 1675,
+        "reprojected_polygon_crs": "PROJCS[\"unnamed\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-105],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "reprojected_polygon_total_bounds": [
+          452362.2362110307,
+          4426492.234155745,
+          458049.2677754934,
+          4460634.693345355
+        ],
+        "polygon_reprojected": true,
+        "bounds_overlap_after_reproject": true,
+        "intersecting_polygon_count": 48
+      },
+      "control_comparison": [
+        {
+          "row": 0,
+          "col": 0,
+          "recorded_x": 455725.05,
+          "recorded_y": 4432104.8,
+          "reader_hypothesis_x": 455725.0,
+          "reader_hypothesis_y": 4432104.75,
+          "displacement_m": 0.07071067797871404
+        },
+        {
+          "row": 0,
+          "col": 1959,
+          "recorded_x": 455920.95,
+          "recorded_y": 4432104.8,
+          "reader_hypothesis_x": 455920.9,
+          "reader_hypothesis_y": 4432104.75,
+          "displacement_m": 0.07071067797871404
+        },
+        {
+          "row": 1034,
+          "col": 0,
+          "recorded_x": 455725.05,
+          "recorded_y": 4432208.2,
+          "reader_hypothesis_x": 455725.0,
+          "reader_hypothesis_y": 4432001.35,
+          "displacement_m": 206.85000604358507
+        },
+        {
+          "row": 1034,
+          "col": 1959,
+          "recorded_x": 455920.95,
+          "recorded_y": 4432208.2,
+          "reader_hypothesis_x": 455920.9,
+          "reader_hypothesis_y": 4432001.35,
+          "displacement_m": 206.85000604358507
+        },
+        {
+          "row": 517,
+          "col": 980,
+          "recorded_x": 455823.05,
+          "recorded_y": 4432156.5,
+          "reader_hypothesis_x": 455823.0,
+          "reader_hypothesis_y": 4432053.05,
+          "displacement_m": 103.45001208331749
+        }
+      ],
+      "maximum_hypothetical_displacement_m": 206.85000604358507
+    }
+  ]
+}

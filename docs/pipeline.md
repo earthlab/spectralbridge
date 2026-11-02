@@ -244,3 +244,54 @@ stage gates pass, and records exactly what it substituted in
 Substitution only affects provenance of the *raw* side. The corrected cube,
 resampled sensor products, parquet exports, and merges are all derived from the
 real corrected ENVI.
+
+## Physical reflectance and correction validity
+
+AOP and drone calculations share the explicit affine convention
+`rho_physical = scale * rho_stored + offset`. NEON's documented H5
+`Scale_Factor` is a **divisor**, so its physical multiplier is its reciprocal.
+Drone inputs require a verified affine record with calibration provenance;
+identity TIFF scale tags or values that look plausible are insufficient.
+Original source arrays remain unchanged. Scientific fits use physical units;
+corrected ENVI retains the source storage representation and carries explicit
+physical multiplier/offset/provenance fields. Raster-derived Parquet tables and
+new compact bulk statistics contain physical reflectance, converted once.
+
+Both production routes use shared RossThick/LiDenseR kernels (`b/r=10`, `h/b=2`),
+scene solar zenith, and the existing 45-degree-solar/nadir reference. Combined
+BRDF models are fitted on the same scene-topographic observations to which they
+are applied, with the fitted SCS+C parameters persisted and reused. Scene-trained
+combined models cannot be applied with tile-local topographic fits. The fixed
+reference and single-bin default are SpectralBridge choices; they do not imply
+complete equivalence to HyTools grouped FlexBRDF or independent empirical
+calibration.
+
+A BRDF model must have verified radiometry, sufficient eligible observations,
+rank three, supported numerical conditioning, and stable positive observed and
+reference predictions. Model JSON records populations/exclusions, angular
+support, conditioning, uncertainty, reference extrapolation and factor summaries.
+`VALID` denotes these computational checks; it does not certify ecological
+accuracy. `UNSUPPORTED` and `INVALID` models cannot authorize BRDF products.
+External coefficients require independent validation; no implicit external bypass
+is provided. Populated unsupported strata are not replaced with neutral coefficients.
+Bands/strata with no finite source observations are explicitly `NOT_APPLICABLE`,
+retain nodata, and have null coefficients; they do not invalidate supported bands.
+
+A correction header remains `INCOMPLETE` until all chunks finish. A verified raw
+or explicitly topographic-only alternative has BRDF `NOT_REQUESTED`. A requested
+but unsupported BRDF produces a scientific block; any retained topo-only raster
+is labelled accordingly and excluded from approved library/bulk processing.
+Missing calibration prevents both physical topographic and BRDF correction.
+
+Historical corrected rasters/models and tables lacking the explicit contract
+require review and a fresh output directory. They are not overwritten or
+silently relabelled. Old count-scale affine translation coefficients are also
+blocked until their training units and calibration provenance are established.
+New compact translation coefficients declare `physical_reflectance_v1`; their
+statistical fit quality still does not establish sensor interchangeability.
+
+The October 30 investigation, historical scaling rollback, real Goldhill
+rejection, synthetic equivalence figures and production-impact assessment are
+recorded in `provenance/radiometry-brdf/2026-10-30/README.md` in the source
+repository. Real Goldhill reflectance calibration and original multi-angle
+observations remain unresolved; removing an artifact is not evidence of recovery.

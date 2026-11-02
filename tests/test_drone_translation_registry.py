@@ -23,12 +23,10 @@ from spectralbridge.drone_translation_registry import (
     load_drone_translation_coefficients,
     validate_drone_translation_coefficients,
 )
-from spectralbridge.drone_qa import render_drone_translation_qa
 from spectralbridge.sensor_pairs import (
     SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY,
     sensor_band_identity,
 )
-from spectralbridge.envi import hdr_to_dict, memmap_bsq
 
 
 SOURCE_WAVELENGTHS = [
@@ -430,29 +428,13 @@ def test_production_registry_affine_translation_preserves_native_and_provenance(
     )[0]
     output_stem = translated_output_stem(tmp_path, "flight", "Landsat_5_TM")
 
-    result = apply_drone_translation(
-        corrected_img,
-        corrected_hdr,
-        output_stem=output_stem,
-        plan=plan,
-    )
-
+    # A reviewed regression mapping is not a verified radiometric convention.
+    with corrected_hdr.open("a") as header:
+        header.write("\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic fixture\nbrdf status = NOT_REQUESTED\n")
+    with pytest.raises(ValueError, match="training units are unverified"):
+        apply_drone_translation(corrected_img, corrected_hdr, output_stem=output_stem, plan=plan)
     assert corrected_img.read_bytes() == native_before
-    header = hdr_to_dict(output_stem.with_suffix(".hdr"))
-    translated = memmap_bsq(output_stem.with_suffix(".img"), header)
-    assert translated[0, 0, 0] == -9999.0
-    valid = source[1] != -9999.0
-    expected = plan.bands[0].slope * source[1] + plan.bands[0].intercept
-    assert translated[0][valid] == pytest.approx(expected[valid])
-    description = " ".join(header["description"])
-    assert "target=Landsat_5_TM" in description
-    assert "coefficient_set=v1" in description
-    assert header["map info"] == hdr_to_dict(corrected_hdr)["map info"]
-    assert header["projection"] == hdr_to_dict(corrected_hdr)["projection"]
-    assert result["coefficient_set_version"] == "v1"
-    assert result["caution_target_bands"] == [3]
-    assert L5_TM_B3_CAUTION in result["warnings"]
-    assert result["evidence_boundary"] == SYNTHETIC_REGRESSION_EVIDENCE_BOUNDARY
+    assert not output_stem.with_suffix(".img").exists()
 
 
 def test_packaged_registry_refuses_fractional_drone_values_before_writing(
@@ -481,7 +463,9 @@ def test_packaged_registry_refuses_fractional_drone_values_before_writing(
     )[0]
     output_stem = translated_output_stem(tmp_path, "fractional", "Landsat_8_OLI")
 
-    with pytest.raises(ValueError, match="appear fractional"):
+    with corrected_stem.with_suffix(".hdr").open("a") as header:
+        header.write("\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic fixture\nbrdf status = NOT_REQUESTED\n")
+    with pytest.raises(ValueError, match="training units are unverified"):
         apply_drone_translation(
             corrected_stem.with_suffix(".img"),
             corrected_stem.with_suffix(".hdr"),
@@ -493,28 +477,9 @@ def test_packaged_registry_refuses_fractional_drone_values_before_writing(
 
     count_scale_cube = np.full((10, 2, 2), 300.0, dtype=np.float32)
     count_scale_cube.tofile(corrected_stem.with_suffix(".img"))
-    result = apply_drone_translation(
-        corrected_stem.with_suffix(".img"),
-        corrected_stem.with_suffix(".hdr"),
-        output_stem=output_stem,
-        plan=plan,
-    )
-    translated = memmap_bsq(output_stem.with_suffix(".img"), hdr_to_dict(output_stem.with_suffix(".hdr")))
-    assert translated[0, 0, 0] == pytest.approx(
-        plan.bands[0].slope * 300.0 + plan.bands[0].intercept, abs=1e-4
-    )
-    assert result["value_scale_checks"]["1"]["status"] == "compatible_numeric_range"
-    _, _, qa = render_drone_translation_qa(
-        corrected_img=corrected_stem.with_suffix(".img"),
-        translated_img=output_stem.with_suffix(".img"),
-        plan=plan,
-        translation_result=result,
-        output_png=tmp_path / "translation_qa.png",
-    )
-    assert qa["bands"][0]["physical_reflectance_scale_status"] == "unverified_count_scale"
-    assert qa["bands"][0]["translated_above_one_fraction"] is None
-    assert any("Physical reflectance scale is unverified" in warning for warning in qa["warnings"])
-    np.testing.assert_array_equal(
-        np.fromfile(corrected_stem.with_suffix(".img"), dtype=np.float32),
-        count_scale_cube.ravel(),
-    )
+    # Plausible-looking counts are not independent evidence of calibration.
+    with pytest.raises(ValueError, match="training units are unverified"):
+        apply_drone_translation(corrected_stem.with_suffix(".img"), corrected_stem.with_suffix(".hdr"),
+                                output_stem=output_stem, plan=plan)
+    assert not output_stem.with_suffix(".img").exists()
+    np.testing.assert_array_equal(np.fromfile(corrected_stem.with_suffix(".img"), dtype=np.float32),count_scale_cube.ravel())

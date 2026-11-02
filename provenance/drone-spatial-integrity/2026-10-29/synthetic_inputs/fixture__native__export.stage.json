@@ -1,0 +1,23 @@
+{
+  "configuration": {
+    "algorithm_version": 2,
+    "brightness_offset": 0.0,
+    "output_semantics": "drone_native_reflectance_envi"
+  },
+  "created_utc": "2026-10-29T17:12:46.439460+00:00",
+  "inputs": [
+    {
+      "modified_time_ns": 1793293966426140062,
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-spatial-integrity/2026-10-29/synthetic_inputs/fixture__working.h5",
+      "size_bytes": 15584
+    }
+  ],
+  "outputs": [
+    "provenance/drone-spatial-integrity/2026-10-29/synthetic_inputs/fixture__native.img",
+    "provenance/drone-spatial-integrity/2026-10-29/synthetic_inputs/fixture__native.hdr"
+  ],
+  "schema_version": 1,
+  "stage": "h5_to_envi",
+  "stage_signature_sha256": "42e7c1589b7d6071bf3047c2745bcee74a0b2012f288324bceb998cf793b2a3e",
+  "status": "complete"
+}

@@ -27,7 +27,8 @@ from spectralbridge.corrections import (
     apply_topo_correct,
     fit_and_save_brdf_model,
 )
-from spectralbridge.envi_writer import EnviWriter
+from spectralbridge.envi_writer import EnviWriter, finalize_scientific_header
+from spectralbridge.radiometry import Radiometry, require_radiometry
 from spectralbridge.envi import hdr_to_dict, memmap_bsq
 from spectralbridge.neon_cube import NeonCube
 from spectralbridge.io.neon import _map_info_core, _prepare_map_info
@@ -866,6 +867,24 @@ def _read_drone_tiff_raster(path: str | Path) -> tuple[np.ndarray, str, Any, flo
     return np.asarray(data, dtype=np.float32), crs_wkt, transform, nodata
 
 
+def _drone_grid_transforms_match(reference: Any, candidate: Any, shape: tuple[int, int]) -> bool:
+    """Accept only coordinate-roundoff differences on an otherwise identical grid.
+
+    Four outer corners bound affine displacement everywhere in the raster.
+    Eight float64 coordinate ULPs allow arithmetic/geotransform serialization
+    roundoff, not a pixel-based registration tolerance. Arrays are never warped.
+    Shape and CRS equality are checked separately by the caller.
+    """
+    height, width = shape
+    corners = ((0, 0), (width, 0), (0, height), (width, height))
+    expected = np.asarray([reference * corner for corner in corners], dtype=np.float64)
+    actual = np.asarray([candidate * corner for corner in corners], dtype=np.float64)
+    if not np.isfinite(expected).all() or not np.isfinite(actual).all():
+        return False
+    budget = 8 * np.maximum(np.spacing(np.abs(expected)), np.spacing(np.abs(actual)))
+    return bool(np.all(np.abs(expected - actual) <= budget))
+
+
 def _validate_drone_tiff_ancillary_alignment(
     reflectance_path: Path,
     reflectance_shape: tuple[int, int],
@@ -887,7 +906,7 @@ def _validate_drone_tiff_ancillary_alignment(
                 f"Ancillary TIFF {ancillary_path} has shape {array.shape} which does not match "
                 f"reflectance TIFF {reflectance_path} shape {reflectance_shape}."
             )
-        if src.transform != reflectance_transform:
+        if not _drone_grid_transforms_match(reflectance_transform, src.transform, reflectance_shape):
             raise ValueError(
                 f"Ancillary TIFF {ancillary_path} transform does not match reflectance TIFF {reflectance_path}."
             )
@@ -900,7 +919,19 @@ def _validate_drone_tiff_ancillary_alignment(
 
 
 def _build_drone_tiff_map_info(transform: Any, crs_wkt: str) -> str:
-    xres = abs(float(transform.a))
+    # This contract stores axis-aligned, east-right / north-up grids only.
+    # Reject unsupported geometry rather than detaching arrays from locations.
+    if not np.isfinite(tuple(transform)[:6]).all():
+        raise ValueError("Drone TIFF spatial transform must be finite.")
+    if transform.b != 0 or transform.d != 0:
+        raise ValueError("Drone TIFF rotation/shear is unsupported; provide a validated north-up source.")
+    if transform.a <= 0 or transform.e >= 0:
+        raise ValueError("Drone TIFF must be east-right and north-up (a > 0, e < 0); no automatic flips are applied.")
+    from rasterio.crs import CRS
+
+    if not crs_wkt or not CRS.from_wkt(crs_wkt).is_projected:
+        raise ValueError("Drone TIFF requires a valid projected CRS.")
+    xres = float(transform.a)
     yres = abs(float(transform.e))
     ulx = float(transform.c)
     uly = float(transform.f)
@@ -928,11 +959,11 @@ def _build_drone_tiff_map_info(transform: Any, crs_wkt: str) -> str:
 
     if zone > 0:
         return (
-            f"UTM, 1.000, 1.000, {ulx:.3f}, {uly:.3f}, {xres:.3f}, {yres:.3f}, "
+            f"UTM, 1.000, 1.000, {ulx:.17g}, {uly:.17g}, {xres:.17g}, {yres:.17g}, "
             f"{zone}, {hemisphere}, WGS-84, units=Meters"
         )
 
-    return f"Arbitrary, 1.000, 1.000, {ulx:.3f}, {uly:.3f}, {xres:.3f}, {yres:.3f}"
+    return f"Arbitrary, 1.000, 1.000, {ulx:.17g}, {uly:.17g}, {xres:.17g}, {yres:.17g}"
 
 
 def _coerce_acquisition_datetime(value: datetime | str | None) -> datetime | None:
@@ -1757,6 +1788,7 @@ def convert_drone_tiff_to_h5(
     sensor_azimuth_deg: float | None = None,
     acquisition_datetime: datetime | str | None = None,
     require_solar_geometry: bool = False,
+    radiometry: dict[str, Any] | None = None,
     overwrite: bool = False,
 ) -> Path:
     """Convert a supported georeferenced multiband reflectance TIFF and aligned ancillary inputs to the drone HDF5 contract."""
@@ -1764,6 +1796,19 @@ def convert_drone_tiff_to_h5(
     reflectance_tiff_path = Path(reflectance_tiff_path)
     output_h5_path = Path(output_h5_path)
     if output_h5_path.exists() and not overwrite:
+        _validate_drone_h5_spatial_metadata(output_h5_path)
+        with h5py.File(output_h5_path, "r") as existing:
+            ds = _find_drone_reflectance_dataset(existing)
+            convention = ds.parent["Metadata/Coordinate_System"].attrs.get("spatial_reference_convention")
+            if convention != "envi_corner_v1":
+                raise ValueError("Cached TIFF-derived H5 lacks the spatial contract; rebuild from the original TIFF with overwrite=True.")
+        if radiometry is not None:
+            from spectralbridge.radiometry import dataset_radiometry
+            expected = Radiometry.from_record(radiometry).require_valid()
+            with h5py.File(output_h5_path, "r") as h:
+                actual = dataset_radiometry(_find_drone_reflectance_dataset(h))
+            if actual != expected:
+                raise ValueError("Cached TIFF H5 radiometry differs; rebuild a derived copy from the source TIFF.")
         return output_h5_path
 
     reflectance_raw, crs_wkt, transform, nodata = _read_drone_tiff_raster(reflectance_tiff_path)
@@ -1772,6 +1817,7 @@ def convert_drone_tiff_to_h5(
             f"Reflectance TIFF must be a multiband raster; received shape {reflectance_raw.shape}."
         )
 
+    map_info = _build_drone_tiff_map_info(transform, crs_wkt)
     reflectance_cube = np.moveaxis(reflectance_raw, 0, 2).astype(np.float32, copy=False)
     lines, columns, band_count = reflectance_cube.shape
     nodata_value = np.float32(_DRONE_FALLBACK_NODATA if nodata is None else nodata)
@@ -1871,13 +1917,15 @@ def convert_drone_tiff_to_h5(
 
     output_h5_path.parent.mkdir(parents=True, exist_ok=True)
     site_group_name = clean_name(_drone_package_dir(reflectance_tiff_path).name) or "DRONE"
-    map_info = _build_drone_tiff_map_info(transform, crs_wkt)
 
     with h5py.File(output_h5_path, "w") as h5_file:
         site_group = h5_file.create_group(site_group_name)
         reflectance_group = site_group.create_group("Reflectance")
         metadata_group = reflectance_group.create_group("Metadata")
         coordinate_group = metadata_group.create_group("Coordinate_System")
+        # Explicitly scope GDAL/ENVI corner coordinates to this TIFF bridge.
+        # Unmarked NEON H5s retain their established center convention.
+        coordinate_group.attrs["spatial_reference_convention"] = "envi_corner_v1"
         spectral_group = metadata_group.create_group("Spectral_Data")
         ancillary_group = metadata_group.create_group("Ancillary_Imagery")
 
@@ -1891,6 +1939,9 @@ def convert_drone_tiff_to_h5(
         reflectance_ds.attrs["NoData"] = nodata_value
         reflectance_ds.attrs["no_data"] = nodata_value
         reflectance_ds.attrs["Scale_Factor"] = np.float32(1.0)
+        calibration = (Radiometry.from_record(radiometry).require_valid() if radiometry is not None else
+                       Radiometry(None, None, "UNSUPPORTED", "TIFF scales/offsets do not establish physical units"))
+        reflectance_ds.attrs["spectralbridge_radiometry"] = json.dumps(calibration.record())
 
         wavelength_ds = spectral_group.create_dataset(
             "Wavelength",
@@ -1947,6 +1998,7 @@ def _prepare_drone_source_working_h5(
     *,
     source_type: str,
     working_path: str | Path,
+    radiometry: dict[str, Any] | None = None,
     overwrite: bool = False,
     tiff_wavelengths_nm: Sequence[float] | np.ndarray | None = None,
     tiff_fwhm_nm: Sequence[float] | np.ndarray | None = None,
@@ -1964,6 +2016,7 @@ def _prepare_drone_source_working_h5(
     working_path = Path(working_path)
     stage_record = working_path.with_suffix(".stage.json")
     if source_type == "h5":
+        _validate_drone_h5_spatial_metadata(source_path)
         if source_path.resolve() == working_path.resolve():
             raise ValueError(
                 "A derived *__working.h5 file cannot be used as authoritative "
@@ -1975,6 +2028,7 @@ def _prepare_drone_source_working_h5(
             configuration={
                 "algorithm_version": 2,
                 "source_type": "h5",
+                "radiometry": radiometry,
                 "fallback_nodata": float(_DRONE_FALLBACK_NODATA),
                 "acquisition_datetime": (
                     str(acquisition_datetime)
@@ -2005,6 +2059,10 @@ def _prepare_drone_source_working_h5(
             working_path=working_path,
             overwrite=overwrite or working_path.exists(),
         )
+        if radiometry is not None:
+            calibration = Radiometry.from_record(radiometry).require_valid()
+            with h5py.File(prepared, "r+") as h:
+                _find_drone_reflectance_dataset(h).attrs["spectralbridge_radiometry"] = json.dumps(calibration.record())
         _ensure_drone_working_h5_solar_aliases(prepared)
         solar_validation = _validate_and_repair_drone_working_h5_solar_geometry(
             prepared,
@@ -2035,7 +2093,7 @@ def _prepare_drone_source_working_h5(
         "tiff_to_working_h5",
         inputs=inputs,
         configuration={
-            "algorithm_version": 2,
+            "algorithm_version": 3,
             "wavelengths_nm": (
                 [float(value) for value in tiff_wavelengths_nm]
                 if tiff_wavelengths_nm is not None
@@ -2046,6 +2104,7 @@ def _prepare_drone_source_working_h5(
                 if tiff_fwhm_nm is not None
                 else None
             ),
+            "radiometry": radiometry,
             "solar_zenith_deg": tiff_solar_zenith_deg,
             "solar_azimuth_deg": tiff_solar_azimuth_deg,
             "sensor_zenith_deg": tiff_sensor_zenith_deg,
@@ -2068,6 +2127,7 @@ def _prepare_drone_source_working_h5(
     prepared_path = convert_drone_tiff_to_h5(
         source_path,
         output_h5_path=working_path,
+        radiometry=radiometry,
         wavelengths_nm=tiff_wavelengths_nm,
         fwhm_nm=tiff_fwhm_nm,
         slope_tiff=ancillary["slope"],
@@ -2233,6 +2293,64 @@ def validate_drone_h5_metadata(h5_path: str | Path) -> dict[str, Any]:
     }
 
 
+def _validate_drone_h5_spatial_metadata(h5_path: str | Path) -> None:
+    """Block ambiguous upstream conversions; never guess a compensating flip."""
+    from rasterio.crs import CRS
+
+    with h5py.File(h5_path, "r") as h5_file:
+        ds = _find_drone_reflectance_dataset(h5_file)
+        coord = ds.parent["Metadata/Coordinate_System"]
+        info = _prepare_map_info(coord["Map_Info"][()])
+        core = _map_info_core(info)
+        if not np.isfinite(core).all() or core[4] <= 0 or core[5] <= 0:
+            raise ValueError(
+                "Drone H5 spatial metadata conflict: Map_Info requires positive ENVI pixel sizes. "
+                "The H5 reader assumes north-up, while a negative Y map size exports south-up. "
+                "Rebuild from the authoritative TIFF; do not flip or relabel this H5 by guessing."
+            )
+        if any("rotation" in token.lower() and float(token.split("=")[-1]) != 0 for token in info[7:]):
+            raise ValueError("Drone H5 Map_Info rotation is unsupported by the spatial contract.")
+        raw = coord["Coordinate_System_String"][()]
+        crs = CRS.from_string(raw.decode() if isinstance(raw, bytes) else str(raw))
+        if not crs.is_projected:
+            raise ValueError("Drone H5 spatial metadata requires a projected CRS.")
+        if info[0].strip().lower() == "utm":
+            # UTM zone/datum metadata must not disagree with the preserved WKT.
+            try:
+                zone = int(info[7])
+                hemisphere = info[8].strip().lower()
+                from pyproj import CRS as ProjectionCRS
+
+                projection = ProjectionCRS.from_wkt(crs.to_wkt())
+                expected_zone = f"{zone}{'N' if hemisphere == 'north' else 'S'}"
+                if zone not in range(1, 61) or hemisphere not in {"north", "south"} or projection.utm_zone != expected_zone:
+                    raise ValueError
+                if len(info) > 9 and info[9].strip().upper() in {"WGS-84", "WGS84"}:
+                    if "1984" not in projection.geodetic_crs.datum.name:
+                        raise ValueError
+            except (ValueError, IndexError) as exc:
+                raise ValueError("Drone H5 spatial CRS conflicts with UTM Map_Info; recover the authoritative TIFF.") from exc
+
+
+def _drone_envi_header(cube: NeonCube) -> dict[str, Any]:
+    """Serialize the cube's established corner transform using ENVI's convention.
+
+    Legacy H5 reference coordinates are interpreted as centers by the reader;
+    copying them verbatim into an ENVI corner reference moves every pixel.
+    This adaptation is drone-only and never changes array order or NEON exports.
+    """
+    from rasterio.crs import CRS
+
+    header = cube.build_envi_header()
+    header["coordinate system string"] = CRS.from_string(cube.projection_wkt).to_wkt()
+    if header.get("map info"):
+        info = _prepare_map_info(header["map info"]) if isinstance(header["map info"], str) else list(header["map info"])
+        t = cube.transform  # GDAL order: corner x, dx, shear, corner y, shear, dy
+        info[1:7] = ["1", "1", repr(t[0]), repr(t[3]), repr(t[1]), repr(-t[5])]
+        header["map info"] = info
+    return header
+
+
 def export_h5_to_envi(
     h5_path: str | Path,
     *,
@@ -2243,6 +2361,7 @@ def export_h5_to_envi(
 ) -> tuple[Path, Path]:
     """Export a local H5 cube to ENVI using a drone-native filename stem."""
 
+    _validate_drone_h5_spatial_metadata(h5_path)
     output_stem = Path(output_stem)
     output_img = output_stem.with_suffix(".img")
     output_hdr = output_stem.with_suffix(".hdr")
@@ -2252,7 +2371,7 @@ def export_h5_to_envi(
         "h5_to_envi",
         inputs=[h5_path],
         configuration={
-            "algorithm_version": 1,
+            "algorithm_version": 2,
             "brightness_offset": float(brightness_offset),
             "output_semantics": "drone_native_reflectance_envi",
         },
@@ -2269,7 +2388,7 @@ def export_h5_to_envi(
         return output_img, output_hdr
 
     cube = cube or NeonCube(h5_path=h5_path)
-    header = cube.build_envi_header()
+    header = _drone_envi_header(cube)
     header["description"] = "Drone hyperspectral reflectance exported to ENVI"
     header.setdefault("reflectance scale factor", float(getattr(cube, "scale_factor", 1.0)))
     if hasattr(cube, "no_data"):
@@ -2465,6 +2584,17 @@ def apply_drone_corrections(
         "ndvi_brdf_bins_enabled": bool(use_ndvi_brdf_bins),
     }
     correction_requested = bool(apply_topo or apply_brdf)
+    audit["radiometry"] = getattr(cube, "radiometry", Radiometry(None, None, "UNSUPPORTED", "Missing calibration")).record()
+    audit["brdf_status"] = "UNSUPPORTED" if apply_brdf else "NOT_REQUESTED"
+    if correction_requested:
+        try:
+            require_radiometry(cube)
+        except ValueError as exc:
+            raise DroneCorrectionUnavailableError(str(exc), audit) from exc
+    if corrected_hdr.exists() and not overwrite:
+        old_header = hdr_to_dict(corrected_hdr)
+        if old_header.get("radiometry status") != "VALID" or (apply_brdf and old_header.get("brdf status") != "VALID"):
+            raise DroneCorrectionUnavailableError("Existing corrected product lacks validated scientific provenance; use a fresh output directory.", audit)
 
     topo_ready = apply_topo and _has_required_ancillary(
         cube, ("slope", "aspect", "solar_zn", "solar_az")
@@ -2483,7 +2613,8 @@ def apply_drone_corrections(
         "corrected_envi",
         inputs=[envi_img, envi_hdr],
         configuration={
-            "algorithm_version": 1,
+            "algorithm_version": 2,
+            "radiometry": audit["radiometry"],
             "apply_topo": bool(apply_topo),
             "apply_brdf": bool(apply_brdf),
             "use_ndvi_brdf_bins": bool(use_ndvi_brdf_bins),
@@ -2508,6 +2639,7 @@ def apply_drone_corrections(
             audit["correction_status_source"] = "correction_stage_record"
         else:
             audit["correction_status_source"] = "stage_signature"
+        audit["brdf_status"] = old_header.get("brdf status", "UNSUPPORTED")
         audit["reused_existing_corrected"] = True
         LOGGER.info("[drone] corrected ENVI: reused (%s)", corrected_img.name)
         return corrected_img, corrected_hdr, audit
@@ -2531,9 +2663,11 @@ def apply_drone_corrections(
         return corrected_img, corrected_hdr, audit
 
     coeff_path: Path | None = None
+    topographic_c = None
     if brdf_ready:
         fit_kwargs: dict[str, Any] = {
             "brdf_kernel_config": HYTOOLS_BRDF_KERNEL_CONFIG,
+            "apply_topography": bool(topo_ready),
         }
         if use_ndvi_brdf_bins:
             fit_kwargs["ndvi_config"] = NDVIBinningConfig(enabled=True)
@@ -2544,10 +2678,16 @@ def apply_drone_corrections(
             **fit_kwargs,
         )
 
-    header = cube.build_envi_header()
-    header["description"] = (
-        "Drone reflectance corrected with optional topo/BRDF adjustments"
-    )
+    if coeff_path is not None:
+        model = json.loads(Path(coeff_path).read_text())
+        audit["brdf_status"] = model.get("validation", {}).get("status", "UNSUPPORTED")
+        if "topographic_c" in model:
+            topographic_c = np.asarray(model["topographic_c"], np.float32)
+        brdf_ready = brdf_ready and audit["brdf_status"] == "VALID"
+    header = _drone_envi_header(cube)
+    header["brdf status"] = "INCOMPLETE" if brdf_ready else audit["brdf_status"]
+    header["brdf model schema"] = 2
+    header["description"] = f"Drone reflectance; topo requested={apply_topo}; BRDF status={audit['brdf_status']}"
     header.setdefault("reflectance scale factor", float(getattr(cube, "scale_factor", 1.0)))
     if hasattr(cube, "no_data"):
         header.setdefault("data ignore value", float(getattr(cube, "no_data")))
@@ -2573,7 +2713,7 @@ def apply_drone_corrections(
             chunk = np.asarray(raw_chunk, dtype=np.float32)
             if topo_ready:
                 topo_input = chunk
-                topo_candidate = apply_topo_correct(cube, chunk, ys, ye, xs, xe)
+                topo_candidate = _call_with_supported_kwargs(apply_topo_correct, cube, chunk, ys, ye, xs, xe, scs_c=topographic_c)
                 if _chunk_has_any_valid_reflectance(
                     topo_input,
                     no_data_value=no_data_value,
@@ -2595,6 +2735,7 @@ def apply_drone_corrections(
                 brdf_input = chunk
                 brdf_kwargs: dict[str, Any] = {
                     "coeff_path": coeff_path,
+                    "input_stage": "topographic_only" if audit["topo_applied"] else "uncorrected",
                     "brdf_kernel_config": HYTOOLS_BRDF_KERNEL_CONFIG,
                 }
                 if use_ndvi_brdf_bins:
@@ -2649,6 +2790,16 @@ def apply_drone_corrections(
             "Requested drone correction did not produce a corrected output.",
             audit,
         )
+
+    if audit["brdf_applied"]:
+        finalize_scientific_header(corrected_hdr, header, brdf_status="VALID")
+
+    if apply_brdf and not audit["brdf_applied"] and audit["brdf_status"] == "VALID":
+        audit["brdf_status"] = "INVALID"
+        finalize_scientific_header(corrected_hdr, header, brdf_status="INVALID")
+    if apply_brdf and audit["brdf_status"] != "VALID":
+        raise DroneCorrectionUnavailableError(
+            "BRDF " + audit["brdf_status"] + ": retained native/topographic-only products; approved downstream processing is blocked.", audit)
 
     _write_drone_stage_record(
         stage_record,
@@ -2944,8 +3095,12 @@ def _build_polygon_pixel_index_for_raster(
 def _merge_drone_polygon_outputs(
     outputs: list[str], output_path: Path, overwrite: bool = False
 ) -> Path:
+    from spectralbridge.radiometry import require_physical_table
+    for source in outputs:
+        require_physical_table(source)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     if output_path.exists() and not overwrite:
+        require_physical_table(output_path)
         return output_path
     if not outputs:
         raise ValueError("No polygon parquet outputs were provided for drone merge")
@@ -2958,7 +3113,7 @@ def _merge_drone_polygon_outputs(
         con.execute(
             "COPY (SELECT * FROM read_parquet(["
             + files
-            + "], union_by_name=true)) TO ? (FORMAT PARQUET, COMPRESSION ZSTD)",
+            + "], union_by_name=true)) TO ? (FORMAT PARQUET, COMPRESSION ZSTD, KV_METADATA {'spectralbridge.reflectance_units': 'physical_reflectance_v1'})",
             [str(output_path)],
         )
     finally:
@@ -2981,6 +3136,8 @@ def _enrich_drone_polygon_parquet_with_index(
     enriched schema propagates to both the per-flight CSV and the merged output.
     """
 
+    from spectralbridge.radiometry import require_physical_table
+    require_physical_table(polygon_parquet_path)
     polygon_parquet_path = Path(polygon_parquet_path)
     polygon_index_path = Path(polygon_index_path)
     if not polygon_parquet_path.exists():
@@ -2998,6 +3155,8 @@ def _enrich_drone_polygon_parquet_with_index(
     try:
         index_columns = _describe_parquet_columns(con, polygon_index_path)
         pixel_columns = _describe_parquet_columns(con, polygon_parquet_path)
+        if not overwrite and set(index_columns).issubset(pixel_columns):
+            return polygon_parquet_path
         select_terms = [
             f"idx.{_quote_identifier(col)} AS {_quote_identifier(col)}"
             for col in index_columns
@@ -3020,7 +3179,7 @@ def _enrich_drone_polygon_parquet_with_index(
             + _quote_path(polygon_parquet_path)
             + "') px USING (pixel_id)) TO '"
             + _quote_path(temp_path)
-            + "' (FORMAT PARQUET, COMPRESSION ZSTD)"
+            + "' (FORMAT PARQUET, COMPRESSION ZSTD, KV_METADATA {'spectralbridge.reflectance_units': 'physical_reflectance_v1'})"
         )
         con.execute(copy_sql)
     finally:
@@ -3150,7 +3309,7 @@ def _format_eta(elapsed_samples: list[float], remaining: int) -> str | None:
 
 def _classify_drone_exception(exc: Exception) -> tuple[str, str]:
     reason = str(exc).strip() or exc.__class__.__name__
-    if isinstance(exc, DroneCorrectionUnavailableError):
+    if isinstance(exc, DroneCorrectionUnavailableError) or (isinstance(exc, ValueError) and str(exc).startswith(("BRDF ", "Radiometry ", "Translation UNSUPPORTED"))):
         return _DRONE_STATUS_BLOCKED_SCIENTIFIC, reason
     return _DRONE_STATUS_FAILED_OTHER, reason
 
@@ -3326,6 +3485,7 @@ def run_drone_pipeline(
     comparison_neon_product: str | Path | None = None,
     raise_on_incomplete: bool = True,
     solar_qa_timezone: str | None = None,
+    radiometry: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Run the drone pipeline from local HDF5 or reflectance TIFF sources.
 
@@ -3345,6 +3505,8 @@ def run_drone_pipeline(
         Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.
     apply_brightness_adjustment : bool, default=False
         Opt into the established brightness adjustment; does not change the packaged coefficients.
+    radiometry : dict[str, Any] | None, default=None
+        Authoritative affine record with scale, offset, status='VALID' and calibration provenance. No calibration is inferred from TIFF identity tags or value ranges. A source H5 may already carry this record; provide different flight calibrations in separate calls.
     overwrite : bool, default=False
         Replace existing requested products; False preserves reusable products or rejects a conflicting destination.
     tiff_wavelengths_nm : Sequence[float] | np.ndarray | None, default=None
@@ -3770,6 +3932,7 @@ def run_drone_pipeline(
                 source_type=source.source_type,
                 working_path=prepared_h5_path,
                 overwrite=overwrite,
+                radiometry=radiometry,
                 tiff_wavelengths_nm=tiff_wavelengths_nm,
                 tiff_fwhm_nm=tiff_fwhm_nm,
                 tiff_solar_zenith_deg=tiff_solar_zenith_deg,
@@ -3843,6 +4006,7 @@ def run_drone_pipeline(
 
             cube = NeonCube(h5_path=prepared_h5_path)
             meta = validate_drone_h5_metadata(prepared_h5_path)
+            file_audit["radiometry"] = cube.radiometry.record()
             band_map = resolve_band_map(meta["wavelengths"], DRONE_TARGET_BANDS)
             file_audit["resolved_band_map"] = band_map
             file_audit["metadata"] = {
@@ -3910,6 +4074,7 @@ def run_drone_pipeline(
                     "cloud_applied": False,
                 }
             )
+            file_audit["brdf_status"] = correction_audit.get("brdf_status", "UNSUPPORTED")
             file_audit["correction_status_source"] = str(
                 correction_audit.get("correction_status_source", "live_run")
             )
@@ -3942,6 +4107,17 @@ def run_drone_pipeline(
             file_audit["corrected_raster"] = corrected_img.name
             file_audit["corrected_raster_path"] = str(corrected_img)
 
+            # Extraction helpers historically reused a readable file without
+            # tracking its raster geometry. Refresh only this flight's dependent
+            # products when their spatial backing changes; commit after success.
+            spatial_record = path_map["flight_dir"] / "spatial_dependencies.stage.json"
+            spatial_signature, spatial_payload = _drone_stage_signature(
+                "spatial_dependencies", inputs=[corrected_img, corrected_hdr, *([polygon_path] if polygon_path else [])],
+                configuration={"algorithm_version": 1},
+            )
+            dependent_overwrite = overwrite or not _drone_stage_matches(spatial_record, spatial_signature)
+            file_audit["spatial_dependencies_refreshed"] = bool(dependent_overwrite)
+
             if apply_translation:
                 if batch_bar is not None:
                     batch_bar.set_postfix_str(
@@ -3968,7 +4144,7 @@ def run_drone_pipeline(
                                 plan.source_sensor,
                             ),
                             plan=plan,
-                            overwrite=overwrite,
+                            overwrite=dependent_overwrite,
                         )
                         matched_source_runs[plan.source_sensor] = matched_source
                         results["matched_source_outputs"].append(
@@ -3985,7 +4161,7 @@ def run_drone_pipeline(
                         corrected_hdr,
                         output_stem=translated_stem,
                         plan=plan,
-                        overwrite=overwrite,
+                        overwrite=dependent_overwrite,
                     )
                     translation_runs.append((plan, translation_result))
                     results["translation_outputs"].append(
@@ -4002,6 +4178,11 @@ def run_drone_pipeline(
                 from spectralbridge.parquet_export import ensure_parquet_from_envi
 
                 file_audit["full_extraction_attempted"] = True
+                if dependent_overwrite and full_output_path.exists():
+                    from spectralbridge.parquet_export import build_parquet_from_envi
+
+                    build_parquet_from_envi(corrected_img, corrected_hdr, full_output_path,
+                                            chunk_size=parquet_chunk_size)
                 full_parquet = ensure_parquet_from_envi(
                     corrected_img,
                     corrected_hdr,
@@ -4010,7 +4191,7 @@ def run_drone_pipeline(
                 )
                 full_csv, full_csv_error = _try_export_csv_copy_from_parquet(
                     full_parquet,
-                    overwrite=overwrite,
+                    overwrite=dependent_overwrite,
                     context_label=f"{flight_stem} full parquet",
                 )
                 results["outputs"].append(str(full_parquet))
@@ -4044,7 +4225,7 @@ def run_drone_pipeline(
                         working_h5_path=str(prepared_h5_path),
                         corrected_micasense_path=str(corrected_img),
                         acquisition_datetime=acquisition_datetime_used,
-                        overwrite=overwrite,
+                        overwrite=dependent_overwrite,
                     )
                     results["translated_libraries"].append(str(translated_parquet))
                     file_audit["translated_library_paths"].append(
@@ -4091,23 +4272,23 @@ def run_drone_pipeline(
                         polygons_path=polygon_path,
                         output_path=polygon_index_path,
                         flight_id=flight_stem,
-                        overwrite=overwrite,
+                        overwrite=dependent_overwrite,
                     )
                     polygon_parquet = extract_polygon_parquet_from_envi(
                         corrected_img,
                         corrected_hdr,
                         index_path,
                         polygon_output_path,
-                        overwrite=overwrite,
+                        overwrite=dependent_overwrite,
                     )
                     polygon_parquet = _enrich_drone_polygon_parquet_with_index(
                         polygon_parquet,
                         index_path,
-                        overwrite=True,
+                        overwrite=dependent_overwrite,
                     )
                     polygon_csv, polygon_csv_error = _try_export_csv_copy_from_parquet(
                         polygon_parquet,
-                        overwrite=overwrite,
+                        overwrite=dependent_overwrite,
                         context_label=f"{flight_stem} polygon parquet",
                     )
                     results["outputs"].append(str(polygon_parquet))
@@ -4136,7 +4317,7 @@ def run_drone_pipeline(
                             translated_parquet,
                             chunk_size=parquet_chunk_size,
                             overwrite=(
-                                overwrite
+                                dependent_overwrite
                                 or translation_result["status"] == "created"
                             ),
                         )
@@ -4148,7 +4329,7 @@ def run_drone_pipeline(
                             working_h5_path=str(prepared_h5_path),
                             corrected_micasense_path=str(corrected_img),
                             acquisition_datetime=acquisition_datetime_used,
-                            overwrite=overwrite,
+                            overwrite=dependent_overwrite,
                         )
                         results["translated_libraries"].append(
                             str(translated_parquet)
@@ -4331,6 +4512,8 @@ def run_drone_pipeline(
                             "reason": str(landsat_exc),
                         }
 
+            _write_drone_stage_record(spatial_record, signature=spatial_signature,
+                                      payload=spatial_payload, outputs=[])
             results["processed"].append(str(source_path))
             if file_audit["status"] is None:
                 file_audit["status"] = _DRONE_STATUS_SUCCESS_EXTRACTED
@@ -4352,6 +4535,8 @@ def run_drone_pipeline(
             elapsed = time.monotonic() - flight_started
             if isinstance(exc, DroneCorrectionUnavailableError):
                 correction_audit = exc.audit
+                file_audit["radiometry"] = correction_audit.get("radiometry", {})
+                file_audit["brdf_status"] = correction_audit.get("brdf_status", "UNSUPPORTED")
                 file_audit["flags"].update(
                     {
                         "topo_ready": bool(correction_audit.get("topo_ready", False)),
@@ -4410,15 +4595,16 @@ def run_drone_pipeline(
     if batch_bar is not None:
         batch_bar.close()
 
+    merge_refresh = overwrite or any(f.get("spatial_dependencies_refreshed", False) for f in results["qa_summary"]["files"])
     if merge_extractions and results["outputs"]:
         merged_path = _merge_drone_polygon_outputs(
             results["outputs"],
             output_dir / "drone_merged.parquet",
-            overwrite=overwrite,
+            overwrite=merge_refresh,
         )
         merged_csv_path, merged_csv_error = _try_export_csv_copy_from_parquet(
             merged_path,
-            overwrite=overwrite,
+            overwrite=merge_refresh,
             context_label="drone merged parquet",
         )
         results["merged"] = str(merged_path)
@@ -4442,7 +4628,7 @@ def run_drone_pipeline(
         translated_merged = _merge_drone_polygon_outputs(
             results["translated_libraries"],
             output_dir / "drone_landsat_like_merged.parquet",
-            overwrite=overwrite,
+            overwrite=merge_refresh,
         )
         results["translated_merged"] = str(translated_merged)
         results["qa_summary"]["translated_merged_path"] = str(translated_merged)

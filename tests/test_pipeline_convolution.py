@@ -140,6 +140,9 @@ def test_pipeline_idempotence_skip_behavior(
         *sensor_pairs,
     ]
 
+    corrected_hdr.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic restart fixture\nbrdf status = VALID\nbrdf model schema = 2\n")
+    for header in [raw_hdr, *[p for p in sensor_pairs if p.suffix == ".hdr"]]:
+        header.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic restart fixture\nbrdf status = NOT_REQUESTED\n")
     before_stats = _snapshot_stats(preexisting_paths)
 
     def _fail(*_: object, **__: object) -> None:  # pragma: no cover - guard against regressions

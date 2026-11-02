@@ -1,0 +1,221 @@
+{
+  "files": {
+    "bulk_preflight_result.json": {
+      "bytes": 9955,
+      "sha256": "f6be013e0624fca7da7e0cca22fffdb48b3c57bb8930467de6201838d7b53052"
+    },
+    "bulk_result.json": {
+      "bytes": 10882,
+      "sha256": "71288580cca76a231c5a582a7dfcb7e2c386b88207e32e0e7b6bd4f78a01327b"
+    },
+    "independent_validation.json": {
+      "bytes": 1225,
+      "sha256": "0f3b8abb845b410227e77545d427908629ea954e8f30d3166505f9113afe2d37"
+    },
+    "inventory/AOP-GOLDHILL-08-14-23-ExportPackage/drone_collection_inventory.csv": {
+      "bytes": 836,
+      "sha256": "87d8c3f2ef62869237176954ab586b40a951be272154a2c5bb083e45e21d8028"
+    },
+    "inventory/AOP-GOLDHILL-08-14-23-ExportPackage/drone_collection_inventory.json": {
+      "bytes": 3974,
+      "sha256": "c5a9aad2865cde803f6c9e23c2dd79327dcae9226efe0dfe8821d5a3bb8d44a4"
+    },
+    "inventory/AOP-GORDON-08-14-23-ExportPackage/drone_collection_inventory.csv": {
+      "bytes": 824,
+      "sha256": "f4ae18fc530a60997274ee630d8e5b21f2ee744d1f0f92847a60f796727d93ae"
+    },
+    "inventory/AOP-GORDON-08-14-23-ExportPackage/drone_collection_inventory.json": {
+      "bytes": 3952,
+      "sha256": "79e232b88f51d520a198a821ec4c8ef2ff719832b3987d4c526a5069382f6325"
+    },
+    "inventory/AOP-Ruby-08-14-23-ExportPackage/drone_collection_inventory.csv": {
+      "bytes": 812,
+      "sha256": "14f8db9316f5a78cf4fa0cccacd5c83b564e268cf0805c102e1390e8b65eb6e7"
+    },
+    "inventory/AOP-Ruby-08-14-23-ExportPackage/drone_collection_inventory.json": {
+      "bytes": 3930,
+      "sha256": "24887bb823bedc20c1692ce552f8bbe1c1fd1177a3caad4abf9adf485a074a4d"
+    },
+    "requested_three_flight_inventory/drone_collection_inventory.csv": {
+      "bytes": 1964,
+      "sha256": "43593fa54a6decddbaec696b4b88108f833b78b3212282c011763edb9363349b"
+    },
+    "requested_three_flight_inventory/drone_collection_inventory.json": {
+      "bytes": 5669,
+      "sha256": "7d62f8216d4ea6ae88e257b136e107aabae1e3f361fb3b2a0fc08f60877509ff"
+    },
+    "run_configuration.json": {
+      "bytes": 1311,
+      "sha256": "554a826da5fffd76ab6af585ab6bca1e7ccb169526d7c5c37e48c07edeaeacc1"
+    },
+    "status.json": {
+      "bytes": 1170,
+      "sha256": "fda66706c9fd28190d29b6fb72628e420e8246895585c6f659fb16c68e832c3e"
+    },
+    "summary_result.json": {
+      "bytes": 41778,
+      "sha256": "e895a2066f8d63a04cfdd3675cfd8c5a5b2f0b9378ad277871499b22e4735c4b"
+    },
+    "validated_code_snapshot.json": {
+      "bytes": 2089,
+      "sha256": "20f346da79548b8168973825db7a987591b781dcda7219d3bcfbc1cc1cdc66b9"
+    },
+    "validated_workflow.patch": {
+      "bytes": 57489,
+      "sha256": "3029ac12e25200469f1fc690f5f765f7ad465a69f2dcff8fd9434903d39a0ff5"
+    },
+    "validation_evidence/AOP-GOLDHILL-08-14-23-ExportPackage/full_pixel_checks.json": {
+      "bytes": 1861,
+      "sha256": "475574adbc54d714e155a32c5f79a1d8d9a4150db641ddf71a22a6788bc3a95b"
+    },
+    "validation_evidence/AOP-GOLDHILL-08-14-23-ExportPackage/pipeline_result.json": {
+      "bytes": 92401,
+      "sha256": "0552cc32d941d05f4f77913c9e9b69fb9688276bb0fcb4dffa7625ad3c0cd5b3"
+    },
+    "validation_evidence/AOP-GOLDHILL-08-14-23-ExportPackage/spatial_check/control_displacements.csv": {
+      "bytes": 1108,
+      "sha256": "a8ccc40e8187cc44847223fbeb7f7947f954fe512700d4e3d027bdbbf4c13679"
+    },
+    "validation_evidence/AOP-GOLDHILL-08-14-23-ExportPackage/spatial_check/discrepancies.json": {
+      "bytes": 48739,
+      "sha256": "ae85eb1331b4b3691ea2d265d57438582d98d5dd558d92682ca04f8192365861"
+    },
+    "validation_evidence/AOP-GOLDHILL-08-14-23-ExportPackage/spatial_check/spatial_diagnostic.png": {
+      "bytes": 610917,
+      "sha256": "53f4b0c0facd3895bed95d43412083083028116d5a10e5d7ba71a8d86190f29d"
+    },
+    "validation_evidence/AOP-GOLDHILL-08-14-23-ExportPackage/spatial_check/spatial_diagnostic.svg": {
+      "bytes": 721135,
+      "sha256": "028464a6d8381543cf1fa4a2c3305ceedbaafa8da41c6848d3d7c904dae4fb37"
+    },
+    "validation_evidence/AOP-GORDON-08-14-23-ExportPackage/full_pixel_checks.json": {
+      "bytes": 1859,
+      "sha256": "4a31e1cf4836516c02c4052dfbdb58e5e2230a709b2e2c2750e0a4f5b2ffbef6"
+    },
+    "validation_evidence/AOP-GORDON-08-14-23-ExportPackage/pipeline_result.json": {
+      "bytes": 91696,
+      "sha256": "278dec383f15b3f529c208f0a24b7351427e794ec467b827d8e070a412bbb8d9"
+    },
+    "validation_evidence/AOP-GORDON-08-14-23-ExportPackage/spatial_check/control_displacements.csv": {
+      "bytes": 1575,
+      "sha256": "2b2967b0dfd989a0fb157d4f85f914af116088e0eab88af3073e041fc6bf63e4"
+    },
+    "validation_evidence/AOP-GORDON-08-14-23-ExportPackage/spatial_check/discrepancies.json": {
+      "bytes": 33379,
+      "sha256": "ef39edd3340d3d3b785b3c33608c61e18e1e25e7f92e2ae14adf19f8af3ef6a7"
+    },
+    "validation_evidence/AOP-GORDON-08-14-23-ExportPackage/spatial_check/spatial_diagnostic.png": {
+      "bytes": 535218,
+      "sha256": "9d4f83f71ac319d9f760de658daf74adba77f4bcf665dbcaf780fbbd03c085a5"
+    },
+    "validation_evidence/AOP-GORDON-08-14-23-ExportPackage/spatial_check/spatial_diagnostic.svg": {
+      "bytes": 638561,
+      "sha256": "6e15f3396fa053007edd2d46bb6137550d52d4e79a07dd06c7640b3a07117e5d"
+    },
+    "validation_evidence/AOP-Ruby-08-14-23-ExportPackage/full_pixel_checks.json": {
+      "bytes": 1853,
+      "sha256": "ba7ac01d3dfe79a902efc8566a5e178ec0b025555607845988eca9822806dc73"
+    },
+    "validation_evidence/AOP-Ruby-08-14-23-ExportPackage/pipeline_result.json": {
+      "bytes": 91178,
+      "sha256": "be0ded7d6f309741bbfb4e8562be5195fc42b1360daa6414f755c75b07431a9c"
+    },
+    "validation_evidence/AOP-Ruby-08-14-23-ExportPackage/spatial_check/control_displacements.csv": {
+      "bytes": 1098,
+      "sha256": "261996dae1d1c4d7c1d0984641aec52658e20b589503b6ccaae6f68f9a69d097"
+    },
+    "validation_evidence/AOP-Ruby-08-14-23-ExportPackage/spatial_check/discrepancies.json": {
+      "bytes": 36679,
+      "sha256": "9fdd2d63fed8d0b93c9d70ef6dd42e06ab46473d9159316720072a312fe97d71"
+    },
+    "validation_evidence/AOP-Ruby-08-14-23-ExportPackage/spatial_check/spatial_diagnostic.png": {
+      "bytes": 819558,
+      "sha256": "11faad4eda37b51fe1657d730605593da6b13c1c415937566fca627afd287e2b"
+    },
+    "validation_evidence/AOP-Ruby-08-14-23-ExportPackage/spatial_check/spatial_diagnostic.svg": {
+      "bytes": 1418894,
+      "sha256": "17966db259b131c76654292a49b9786059568d069f42f1b8dc89aeccb36c74e9"
+    },
+    "validation_evidence/README.md": {
+      "bytes": 1896,
+      "sha256": "25272fdd60baf56f3e6c28720b36dc3de9504a0d584d5dd940fd9280e9c3d237"
+    },
+    "validation_evidence/ancillary_roundoff_evidence.json": {
+      "bytes": 3924,
+      "sha256": "811dfc93c0b6d75e29dd16e11aac85312a9df2c333ca0867ca3cd4bf121d8dfd"
+    },
+    "validation_evidence/cell_execution.json": {
+      "bytes": 279,
+      "sha256": "2faddc7173f4e53c0feb071f1d5da9a1a48ed28fc2d466d7ca18b9aa6ec0ebcd"
+    },
+    "validation_evidence/check_translated_tables.py": {
+      "bytes": 4360,
+      "sha256": "a75e75d7af75a888e2a80a15c623465c7c14c71ab16df3f63b15610b98554c59"
+    },
+    "validation_evidence/goldhill_radiometric_review.json": {
+      "bytes": 742,
+      "sha256": "b2a0368a44188f9c7e015eb83081a28bdec3c227be8767afe23e471b02049a28"
+    },
+    "validation_evidence/goldhill_source_comparison.png": {
+      "bytes": 1647507,
+      "sha256": "2a0a7d25eebf9031c404c6009aa7f29ec650d793d66997b7be9bb25d52cd6482"
+    },
+    "validation_evidence/initial_roundoff_blocked_status.json": {
+      "bytes": 926,
+      "sha256": "c9703e445384e2f979b658277a5dd76fc4ff8344bc40a45cf22aae76a9a1ed42"
+    },
+    "validation_evidence/interrupted_product_quarantine.json": {
+      "bytes": 618,
+      "sha256": "afa7cfadd5a8d435ed03f1576d464dc2712c9a98e01d9df5ec9d75e9cb5a4b46"
+    },
+    "validation_evidence/plot_overview.py": {
+      "bytes": 3306,
+      "sha256": "07693580edc907d58068ccb8adb1f7c7c9e472dd0c32b792b97682b5086cd04e"
+    },
+    "validation_evidence/qa_quantile_parity_timing.json": {
+      "bytes": 269,
+      "sha256": "f0365699caf472f0849b58e1c0e0a4f21d7361bf06def5ba6e7c6f8c1f922cd0"
+    },
+    "validation_evidence/reprocess.py": {
+      "bytes": 10051,
+      "sha256": "3ed04161231816ad8f829854df4b1b620677709eba07b5396fb739e70ee8d33d"
+    },
+    "validation_evidence/run_configuration.json": {
+      "bytes": 1311,
+      "sha256": "554a826da5fffd76ab6af585ab6bca1e7ccb169526d7c5c37e48c07edeaeacc1"
+    },
+    "validation_evidence/three_flight_overview.pdf": {
+      "bytes": 835971,
+      "sha256": "0dfea86251fdf14b84ce7c1f93e06cbf09edda63a90bef56438e0acd100282fa"
+    },
+    "validation_evidence/three_flight_overview.png": {
+      "bytes": 2938737,
+      "sha256": "1ee4b5cf68c8b71df4aba973e3ba0c5f2c17df48aea89936d5978b96114fba5f"
+    },
+    "validation_evidence/translated_table_checks.json": {
+      "bytes": 2675,
+      "sha256": "5f7f539c3b5c7a1ad70f0f549bbab902ad2b16f38633d8ecd21e40f881af5ce6"
+    },
+    "validation_evidence/validated_code_snapshot.json": {
+      "bytes": 2089,
+      "sha256": "20f346da79548b8168973825db7a987591b781dcda7219d3bcfbc1cc1cdc66b9"
+    },
+    "validation_evidence/validated_workflow.patch": {
+      "bytes": 57489,
+      "sha256": "3029ac12e25200469f1fc690f5f765f7ad465a69f2dcff8fd9434903d39a0ff5"
+    },
+    "validation_evidence/validation_summary.json": {
+      "bytes": 1225,
+      "sha256": "0f3b8abb845b410227e77545d427908629ea954e8f30d3166505f9113afe2d37"
+    },
+    "validation_evidence/verify_remote_outputs.py": {
+      "bytes": 3878,
+      "sha256": "08632fe4a91bac1159b6a5944211b45758e1247528cb592dac10cb4cbab7f090"
+    }
+  },
+  "cautions": [
+    "Retain ten TIFF bands only after exact H5 equality; other channels are unclassified.",
+    "Bundled acquisition times are used; package/manifest date disagreements require review.",
+    "Terrain masks are preserved. Review scientific QA before promoting results."
+  ]
+}

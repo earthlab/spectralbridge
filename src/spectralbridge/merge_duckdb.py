@@ -39,6 +39,8 @@ import sys
 from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
+
+from spectralbridge.radiometry import physical_copy_metadata
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
 import duckdb
@@ -56,7 +58,7 @@ def _consolidate_parquet_dir_to_file(
             con.execute(
                 f"""
                 COPY (SELECT * FROM read_parquet('{dir_path}/*.parquet'))
-                TO '{str(tmp)}' (FORMAT PARQUET, COMPRESSION ZSTD)
+                TO '{str(tmp)}' (FORMAT PARQUET, COMPRESSION ZSTD{physical_copy_metadata(parts)})
                 """
             )
             tmp.replace(out_file)
@@ -427,8 +429,9 @@ def _filter_no_data_rows_from_parquet(
     Streams through DuckDB ``COPY ... TO`` so full-flightline merges (millions of
     rows) do not need to materialize the table in pandas.
 
-    A spectral value counts as invalid when it is non-NULL and either approximately
-    ``-9999`` or negative. NULL/NaN values are ignored in the fraction (missing
+    Verified physical tables retain finite negative reflectance. Legacy unmarked
+    tables retain their historical negative/approximately -9999 filtering rule.
+    NULL values are ignored in the fraction (missing
     products), except that rows with *all* spectral values NULL are dropped.
     Metadata and ``raw_*`` columns are never used for the invalid fraction.
     """
@@ -516,9 +519,13 @@ def _filter_no_data_rows_from_parquet(
     # invalid = non-null and (approx -9999 or negative); null ignored in fraction.
     non_null_terms: list[str] = []
     invalid_terms: list[str] = []
+    physical_units = bool(physical_copy_metadata([parquet_path]))
     for col in spectral_columns:
         q = _quote_identifier(col)
         non_null_terms.append(f"CASE WHEN {q} IS NOT NULL THEN 1 ELSE 0 END")
+        if physical_units:
+            invalid_terms.append(f"CASE WHEN {q} IS NOT NULL AND NOT isfinite({q}) THEN 1 ELSE 0 END")
+            continue
         invalid_terms.append(
             "CASE WHEN "
             f"{q} IS NOT NULL AND ({q} < 0 OR abs({q} + 9999.0) < 0.01) "
@@ -561,6 +568,7 @@ def _filter_no_data_rows_from_parquet(
         f"TO '{_quote_path(str(temp_path))}' "
         f"(FORMAT PARQUET, COMPRESSION zstd"
     )
+    copy_sql += physical_copy_metadata([parquet_path])
     if row_group_size:
         copy_sql += f", ROW_GROUP_SIZE {row_group_size}"
     copy_sql += ")"
@@ -1187,7 +1195,7 @@ def merge_flightline(
                 "COPY ("
                 + select_sql
                 + f") TO '{_quote_path(str(out_parquet))}' (FORMAT PARQUET,"
-                f" COMPRESSION ZSTD{row_group_option})"
+                f" COMPRESSION ZSTD{row_group_option}{physical_copy_metadata(p for group in inputs.values() for p in group)})"
             )
             print("[merge]    Executing streaming COPY (this may take 5-15 minutes for large datasets)...")
             print(f"[merge]    You can check progress by monitoring file size: ls -lh {out_parquet.name}")

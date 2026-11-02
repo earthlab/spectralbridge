@@ -100,6 +100,11 @@ def _parse_envi_header_tolerant(hdr_path: Path) -> dict[str, Any]:
     processed: dict[str, Any] = {}
     for key, raw_value in raw_entries.items():
         if raw_value.startswith("{") and raw_value.endswith("}"):
+            if key == "coordinate system string":
+                # WKT contains commas and nested brackets; it is one scalar,
+                # not an ENVI list. Translation must preserve it byte-for-byte.
+                processed[key] = raw_value[1:-1].strip()
+                continue
             if key == "wavelength":
                 processed[key] = _parse_wavelength_list(raw_value)
                 continue
@@ -334,6 +339,11 @@ def _parse_envi_header(hdr_path: Path) -> dict[str, Any]:
     processed: dict[str, Any] = {}
     for key, raw_value in raw_entries.items():
         if raw_value.startswith("{") and raw_value.endswith("}"):
+            if key == "coordinate system string":
+                # WKT contains commas and nested brackets; it is one scalar,
+                # not an ENVI list. Translation must preserve it byte-for-byte.
+                processed[key] = raw_value[1:-1].strip()
+                continue
             if key == "wavelength":
                 processed[key] = _parse_wavelength_list(raw_value)
                 continue

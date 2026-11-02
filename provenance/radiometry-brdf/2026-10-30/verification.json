@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-30",
+  "python": "3.14.3",
+  "platform": "macOS-26.7.2-arm64-arm-64bit-Mach-O",
+  "targeted_regression": {
+    "tests": 288,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "modules": [
+    "tests/test_aop_drone_equivalence.py",
+    "tests/test_radiometric_contract.py",
+    "tests/test_brdf_scale.py",
+    "tests/test_brdf_diagnostic_controls.py",
+    "tests/test_brdf_topo_streamlined.py",
+    "tests/test_brdf_topo_chunking.py",
+    "tests/test_neon_cube.py",
+    "tests/test_pipeline_convolution.py",
+    "tests/test_drone_pipeline.py",
+    "tests/test_drone_translation.py",
+    "tests/test_drone_translation_registry.py",
+    "tests/test_drone_spatial_integrity.py",
+    "tests/test_drone_spatial_roundtrip.py",
+    "tests/test_drone_qa_quantiles.py",
+    "tests/test_bulk_pipeline.py",
+    "tests/test_bulk_streaming_restart.py",
+    "tests/test_stage_qa.py",
+    "tests/test_merge_filter_nodata.py",
+    "tests/test_installed_artifact_smoke.py",
+    "tests/test_drone_cloud_workflow.py"
+  ],
+  "isolated_parquet_tests": {
+    "tests": 7,
+    "failures": 0,
+    "errors": 0,
+    "reason": "Legacy module installs global import stubs; run separately"
+  },
+  "total_targeted_passes": 295,
+  "source_workflow_smoke": "source-smoke.json",
+  "real_and_synthetic_evidence": "validation.json",
+  "checks": {
+    "ruff": "passed on affected production modules, new tests and audit script",
+    "docs_links": "passed",
+    "api_reference_generation": "passed",
+    "ai_transparency_generation": "passed",
+    "git_diff_whitespace": "passed"
+  },
+  "limitations": [
+    "No authoritative Goldhill radiometric calibration obtained",
+    "Original multi-angle images/camera poses not located in inspected exports",
+    "No matched held-out empirical PFT/cross-year/AOP calibration experiment",
+    "No wheel/sdist release matrix, Linux-container or large-VM production benchmark performed"
+  ]
+}

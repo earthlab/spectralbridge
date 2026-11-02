@@ -2346,7 +2346,10 @@ def _unit_reflectance_cube(
     if scale_factor is None or scale_factor <= 0:
         scale_factor = 1.0
     valid = _cube_valid_mask(cube, nodata_value)
-    unit_cube = np.asarray(cube, dtype=np.float32) / np.float32(scale_factor)
+    from .radiometry import Radiometry
+    calibration = Radiometry.from_header(header)
+    # Unknown native numbers are not labelled physical reflectance in QA.
+    unit_cube = calibration.to_physical(cube)
     unit_cube = np.where(valid, unit_cube, np.nan)
     return unit_cube.astype(np.float32, copy=False), valid
 
@@ -2371,6 +2374,8 @@ def _drone_correction_status(
         else {}
     )
     return {
+        "brdf_validation_status": audit.get("brdf_status", "UNSUPPORTED"),
+        "radiometric_status": audit.get("radiometry", {}).get("status", "UNSUPPORTED"),
         "topo_requested": bool(flags.get("topo_requested", False)),
         "brdf_requested": bool(flags.get("brdf_requested", False)),
         "topo_applied": bool(flags.get("topo_applied", False)),
@@ -2579,6 +2584,32 @@ def _render_drone_nodata_map(
     plt.colorbar(image, ax=ax, fraction=0.046, pad=0.04, label="% bands flagged")
 
 
+def _drone_spatial_delta_quantiles(values: np.ndarray, *, chunk_pixels: int = 65536) -> tuple[np.ndarray, np.ndarray]:
+    """Exact median/p90 across bands, avoiding a Python percentile call per pixel.
+
+    Group sorted columns by their non-NaN count within bounded pixel blocks.
+    Each group can use NumPy's vectorized non-NaN reduction with identical
+    median and default linear-percentile semantics. No sampling is performed.
+    """
+    if values.ndim != 3 or chunk_pixels < 1:
+        raise ValueError("Expected a band/row/column cube and positive chunk_pixels")
+    flat = values.reshape(values.shape[0], -1)
+    medians = np.full(flat.shape[1], np.nan, dtype=values.dtype)
+    p90s = np.full(flat.shape[1], np.nan, dtype=np.float64)
+    for start in range(0, flat.shape[1], chunk_pixels):
+        stop = min(start + chunk_pixels, flat.shape[1])
+        ordered = np.sort(flat[:, start:stop], axis=0)
+        counts = np.sum(~np.isnan(ordered), axis=0)
+        for count in np.unique(counts):
+            if count == 0:
+                continue
+            selected = np.flatnonzero(counts == count)
+            group = ordered[:count, selected]
+            medians[start + selected] = np.median(group, axis=0)
+            p90s[start + selected] = np.percentile(group, 90, axis=0)
+    return medians.reshape(values.shape[1:]), p90s.reshape(values.shape[1:])
+
+
 def _render_drone_correction_magnitude(
     ax: Axes,
     full_diff: np.ndarray,
@@ -2586,8 +2617,7 @@ def _render_drone_correction_magnitude(
 ) -> dict[str, float]:
     scene_debug = scene_debug if isinstance(scene_debug, dict) else {}
     full_abs_diff = np.abs(full_diff)
-    abs_delta = np.nanmedian(full_abs_diff, axis=0)
-    abs_delta_p90_map = np.nanpercentile(full_abs_diff, 90, axis=0)
+    abs_delta, abs_delta_p90_map = _drone_spatial_delta_quantiles(full_abs_diff)
     changed_frac = np.nanmean(full_abs_diff > _DRONE_CORRECTION_CHANGE_THRESHOLD, axis=0) * 100.0
     valid_mask = np.isfinite(full_diff)
     valid_band_count = np.sum(valid_mask, axis=0)
