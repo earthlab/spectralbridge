@@ -36,19 +36,19 @@ A single valid-pixel intersection across all branches and stages is used for com
 
 ## Main visual comparison
 
-![Fixed historical-model stage comparison](../../provenance/drone-radiometric-recovery/2026-11-02/goldhill_radiometric_recovery_comparison.png)
+![Fixed historical-model stage comparison](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-radiometric-recovery/2026-11-02/goldhill_radiometric_recovery_comparison.png)
 
 Rows share RGB 650/560/475 nm, geographic extent, north-up orientation and the common mask. The plus sign marks the original gain boundary. The 5 m scale bar and NAD83 / UTM 13N coordinates refer to the unchanged source grid. Insets show the same native 0.1 m cells without interpolation. All panels use the same raw-reference 2nd-98th percentile limits **after explicit conversion to recovered-DN display units**; display saturation never alters analysis.
 
 For normalized stage outputs the equivalent display is `DN_equiv = S_stage * band_range/10000 + band_min`; for the hypothetical branch it is `DN_equiv = rho_stage * 32768`. The NIR offset is included. This is a representation comparison, not an assertion that offset recovery commutes with multiplicative correction. No raw DN is displayed against physical-scale numerical limits.
 
-![Explicit common display normalization](../../provenance/drone-radiometric-recovery/2026-11-02/goldhill_common_display_normalization.png)
+![Explicit common display normalization](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-radiometric-recovery/2026-11-02/goldhill_common_display_normalization.png)
 
 This second figure shows the combined results after the documented equivalent-unit conversion with one shared set of limits. Independent panel stretches are never used.
 
 ## Red-band transect and boundary discontinuity
 
-![Red-band transect](../../provenance/drone-radiometric-recovery/2026-11-02/goldhill_red_band_transect.png)
+![Red-band transect](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-radiometric-recovery/2026-11-02/goldhill_red_band_transect.png)
 
 The transect follows row **921** through marked pixel **[921, 980]** at native resolution. The red axis is linear within +/-1000 and logarithmic outside. Curves overlap after unit conversion. The historical gain jumps from one to millions at the same location in all branches.
 
@@ -73,7 +73,7 @@ Recovered combined versus baseline differs by **0.00000501%**. The largest full-
 
 ## BRDF correction factors and stability
 
-![Historical red correction factors](../../provenance/drone-radiometric-recovery/2026-11-02/goldhill_brdf_correction_factors.png)
+![Historical red correction factors](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-radiometric-recovery/2026-11-02/goldhill_brdf_correction_factors.png)
 
 The cyan contour marks zero historical observed-geometry prediction. Fixed coefficients and geometry give the same red factor independently of input magnitude; all three computed output/input ratios confirm this within float32 division rounding. The saved historical NDVI upper-edge behavior leaves one pixel unvisited (factor one) identically across these branches; this is included rather than hidden. It is not the streak mechanism.
 
@@ -83,9 +83,9 @@ Validated refitting is unsupported for **10 bands** because all share rank-one a
 
 ## Spectral comparison and mechanism
 
-![Ten-band spectra at matched pixels](../../provenance/drone-radiometric-recovery/2026-11-02/goldhill_spectral_comparison.png)
+![Ten-band spectra at matched pixels](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-radiometric-recovery/2026-11-02/goldhill_spectral_comparison.png)
 
-![Raw spectral offsets](../../provenance/drone-radiometric-recovery/2026-11-02/goldhill_raw_spectral_offsets.png)
+![Raw spectral offsets](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-radiometric-recovery/2026-11-02/goldhill_raw_spectral_offsets.png)
 
 The red-band inverse is purely multiplicative (minimum zero). With fixed BRDF coefficients, `C = predicted_reference / predicted_observed` depends on geometry and coefficients, not red intensity. Multiplying input by a constant therefore multiplies output by that constant and **does not move or remove the factor discontinuity**. Refitted OLS has the same invariance only if masks, eligibility and acceptance remain identical; an absolute 0..2 eligibility range applied directly to DN violates that premise. We did not disguise such a unit change as an improved fit.
 
@@ -115,4 +115,4 @@ Downloaded source locations and Data Store origins are in the October 30 scale e
 
 This is a local full-scene diagnostic using full-memory historical functions; it is not a streaming production implementation or large-VM benchmark. It creates roughly 3.4 GB of branch arrays plus recovered TIFFs. No datastore uploads, original-file modifications, production coefficients, spectral libraries or production code changes occur. Synthetic data are used only for the explicitly separate supported-invariance control; all image and boundary results use real Goldhill imagery. Absolute radiometric calibration and independent empirical validation remain unresolved under P159.
 
-Prior evidence: [scale investigation](../../provenance/drone-scale-confirmation/2026-10-30/README.md), [stage isolation](../../provenance/goldhill-correction-diagnosis/2026-10-30/README.md), [radiometry/BRDF audit](../../provenance/radiometry-brdf/2026-10-30/README.md), [spatial investigation](drone-spatial-integrity-investigation.md). All numerical tables above are derived from this experiment's JSON artifacts.
+Prior evidence: [scale investigation](https://github.com/earthlab/spectralbridge/blob/main/provenance/drone-scale-confirmation/2026-10-30/README.md), [stage isolation](https://github.com/earthlab/spectralbridge/blob/main/provenance/goldhill-correction-diagnosis/2026-10-30/README.md), [radiometry/BRDF audit](https://github.com/earthlab/spectralbridge/blob/main/provenance/radiometry-brdf/2026-10-30/README.md), [spatial investigation](drone-spatial-integrity-investigation.md). All numerical tables above are derived from this experiment's JSON artifacts.

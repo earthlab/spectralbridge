@@ -1,0 +1,380 @@
+[
+  {
+    "flight": "goldhill",
+    "field": "solar_zn",
+    "n": 6692436,
+    "min": 27.763607025146484,
+    "max": 27.76626968383789,
+    "median": 27.76494026184082,
+    "range": 0.00266265869140625,
+    "quantiles": [
+      27.763607025146484,
+      27.76372528076172,
+      27.76447296142578,
+      27.76494026184082,
+      27.76540756225586,
+      27.76594352722168,
+      27.76615333557129,
+      27.76626968383789
+    ],
+    "east_gradient_degrees_per_m": 3.7948118695403204e-06,
+    "north_gradient_degrees_per_m": 8.164551186717e-06,
+    "gradient_bearing_clockwise_north_degrees": 24.928592283204058,
+    "status": "DERIVED - ACQUISITION TIME UNVERIFIED"
+  },
+  {
+    "flight": "goldhill",
+    "field": "solar_az",
+    "n": 6692436,
+    "min": 204.69180297851562,
+    "max": 204.69985961914062,
+    "median": 204.69581604003906,
+    "range": 0.008056640625,
+    "quantiles": [
+      204.69180297851562,
+      204.6920928955078,
+      204.694091796875,
+      204.69581604003906,
+      204.69754028320312,
+      204.69906616210938,
+      204.69955444335938,
+      204.69985961914062
+    ],
+    "east_gradient_degrees_per_m": 2.2988776822945187e-05,
+    "north_gradient_degrees_per_m": -7.277914146368214e-06,
+    "gradient_bearing_clockwise_north_degrees": 107.56703369258621,
+    "status": "DERIVED - ACQUISITION TIME UNVERIFIED"
+  },
+  {
+    "flight": "goldhill",
+    "field": "sensor_zn",
+    "n": 6692436,
+    "min": 0.0,
+    "max": 0.0,
+    "median": 0.0,
+    "range": 0.0,
+    "quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "status": "PLACEHOLDER - NOT MEASURED VIEWING GEOMETRY"
+  },
+  {
+    "flight": "goldhill",
+    "field": "sensor_az",
+    "n": 6692436,
+    "min": 0.0,
+    "max": 0.0,
+    "median": 0.0,
+    "range": 0.0,
+    "quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "status": "PLACEHOLDER - NOT MEASURED VIEWING GEOMETRY"
+  },
+  {
+    "flight": "goldhill",
+    "field": "slope",
+    "n": 6679853,
+    "min": 0.0,
+    "max": 82.22257232666016,
+    "median": 14.232911109924316,
+    "range": 82.22257232666016,
+    "quantiles": [
+      0.0,
+      2.5652144527435303,
+      9.021824836730957,
+      14.232911109924316,
+      21.335857391357422,
+      36.596134185790994,
+      49.39139190673815,
+      82.22257232666016
+    ],
+    "status": "Stored terrain, original surface/generation provenance partly unverified"
+  },
+  {
+    "flight": "goldhill",
+    "field": "aspect",
+    "n": 6679853,
+    "min": 0.0,
+    "max": 359.7574462890625,
+    "median": 150.8691864013672,
+    "range": 359.7574462890625,
+    "quantiles": [
+      0.0,
+      8.438132286071777,
+      105.95903015136719,
+      150.8691864013672,
+      190.71612548828125,
+      321.5490417480469,
+      349.692138671875,
+      359.7574462890625
+    ],
+    "status": "Stored terrain, original surface/generation provenance partly unverified"
+  },
+  {
+    "flight": "gordon",
+    "field": "solar_zn",
+    "n": 5909349,
+    "min": 35.5659065246582,
+    "max": 35.56893539428711,
+    "median": 35.5673713684082,
+    "range": 0.00302886962890625,
+    "quantiles": [
+      35.5659065246582,
+      35.56603240966797,
+      35.56685256958008,
+      35.5673713684082,
+      35.567893981933594,
+      35.568485260009766,
+      35.568748474121094,
+      35.56893539428711
+    ],
+    "east_gradient_degrees_per_m": 7.045224569958806e-06,
+    "north_gradient_degrees_per_m": 5.581001514603938e-06,
+    "gradient_bearing_clockwise_north_degrees": 51.61486101799838,
+    "status": "DERIVED - ACQUISITION TIME UNVERIFIED"
+  },
+  {
+    "flight": "gordon",
+    "field": "solar_az",
+    "n": 5909349,
+    "min": 231.4013214111328,
+    "max": 231.40745544433594,
+    "median": 231.4043426513672,
+    "range": 0.006134033203125,
+    "quantiles": [
+      231.4013214111328,
+      231.40158081054688,
+      231.4032440185547,
+      231.4043426513672,
+      231.4054412841797,
+      231.4066162109375,
+      231.40713500976562,
+      231.40745544433594
+    ],
+    "east_gradient_degrees_per_m": 1.530629208224128e-05,
+    "north_gradient_degrees_per_m": -9.93330882044461e-06,
+    "gradient_bearing_clockwise_north_degrees": 122.98232048943059,
+    "status": "DERIVED - ACQUISITION TIME UNVERIFIED"
+  },
+  {
+    "flight": "gordon",
+    "field": "sensor_zn",
+    "n": 5909349,
+    "min": 0.0,
+    "max": 0.0,
+    "median": 0.0,
+    "range": 0.0,
+    "quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "status": "PLACEHOLDER - NOT MEASURED VIEWING GEOMETRY"
+  },
+  {
+    "flight": "gordon",
+    "field": "sensor_az",
+    "n": 5909349,
+    "min": 0.0,
+    "max": 0.0,
+    "median": 0.0,
+    "range": 0.0,
+    "quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "status": "PLACEHOLDER - NOT MEASURED VIEWING GEOMETRY"
+  },
+  {
+    "flight": "gordon",
+    "field": "slope",
+    "n": 5898562,
+    "min": 0.0,
+    "max": 85.59776306152344,
+    "median": 13.698325634002686,
+    "range": 85.59776306152344,
+    "quantiles": [
+      0.0,
+      2.1142444801330567,
+      8.47943925857544,
+      13.698325634002686,
+      22.32503843307495,
+      41.01653118133545,
+      59.74197841644285,
+      85.59776306152344
+    ],
+    "status": "Stored terrain, original surface/generation provenance partly unverified"
+  },
+  {
+    "flight": "gordon",
+    "field": "aspect",
+    "n": 5898562,
+    "min": 0.0,
+    "max": 359.9617614746094,
+    "median": 198.08834075927734,
+    "range": 359.9617614746094,
+    "quantiles": [
+      0.0,
+      18.915068836212157,
+      132.0036735534668,
+      198.08834075927734,
+      245.98204803466797,
+      312.4541320800781,
+      341.22991271972654,
+      359.9617614746094
+    ],
+    "status": "Stored terrain, original surface/generation provenance partly unverified"
+  },
+  {
+    "flight": "ruby",
+    "field": "solar_zn",
+    "n": 1996223,
+    "min": 26.30219078063965,
+    "max": 26.303316116333008,
+    "median": 26.302751541137695,
+    "range": 0.001125335693359375,
+    "quantiles": [
+      26.30219078063965,
+      26.3022518157959,
+      26.302522659301758,
+      26.302751541137695,
+      26.302982330322266,
+      26.303176879882812,
+      26.303253173828125,
+      26.303316116333008
+    ],
+    "east_gradient_degrees_per_m": -1.0962116580801693e-06,
+    "north_gradient_degrees_per_m": 8.942002521334043e-06,
+    "gradient_bearing_clockwise_north_degrees": 353.0109091818143,
+    "status": "DERIVED - ACQUISITION TIME UNVERIFIED"
+  },
+  {
+    "flight": "ruby",
+    "field": "solar_az",
+    "n": 1996223,
+    "min": 172.64651489257812,
+    "max": 172.6517333984375,
+    "median": 172.6491241455078,
+    "range": 0.005218505859375,
+    "quantiles": [
+      172.64651489257812,
+      172.6466827392578,
+      172.64788818359375,
+      172.6491241455078,
+      172.65037536621094,
+      172.6513671875,
+      172.65158081054688,
+      172.6517333984375
+    ],
+    "east_gradient_degrees_per_m": 2.5559393074179428e-05,
+    "north_gradient_degrees_per_m": 2.18369214671735e-06,
+    "gradient_bearing_clockwise_north_degrees": 85.11673658393873,
+    "status": "DERIVED - ACQUISITION TIME UNVERIFIED"
+  },
+  {
+    "flight": "ruby",
+    "field": "sensor_zn",
+    "n": 1996223,
+    "min": 0.0,
+    "max": 0.0,
+    "median": 0.0,
+    "range": 0.0,
+    "quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "status": "PLACEHOLDER - NOT MEASURED VIEWING GEOMETRY"
+  },
+  {
+    "flight": "ruby",
+    "field": "sensor_az",
+    "n": 1996223,
+    "min": 0.0,
+    "max": 0.0,
+    "median": 0.0,
+    "range": 0.0,
+    "quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "status": "PLACEHOLDER - NOT MEASURED VIEWING GEOMETRY"
+  },
+  {
+    "flight": "ruby",
+    "field": "slope",
+    "n": 1991643,
+    "min": 0.0,
+    "max": 83.81104278564453,
+    "median": 25.05970573425293,
+    "range": 83.81104278564453,
+    "quantiles": [
+      0.0,
+      4.077176065444947,
+      18.768513679504395,
+      25.05970573425293,
+      32.365623474121094,
+      46.15055694580077,
+      55.07772705078126,
+      83.81104278564453
+    ],
+    "status": "Stored terrain, original surface/generation provenance partly unverified"
+  },
+  {
+    "flight": "ruby",
+    "field": "aspect",
+    "n": 1991643,
+    "min": 0.0,
+    "max": 359.6327819824219,
+    "median": 199.28982543945312,
+    "range": 359.6327819824219,
+    "quantiles": [
+      0.0,
+      15.43220802307129,
+      96.43251037597656,
+      199.28982543945312,
+      225.80852508544922,
+      283.1343658447266,
+      332.6578656005864,
+      359.6327819824219
+    ],
+    "status": "Stored terrain, original surface/generation provenance partly unverified"
+  }
+]

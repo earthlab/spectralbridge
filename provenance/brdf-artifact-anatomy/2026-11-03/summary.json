@@ -1,0 +1,39 @@
+{
+  "flights": [
+    "gordon",
+    "goldhill",
+    "ruby"
+  ],
+  "historical_revision": "1cb2cf3a6c34e6665f0c5b1661724428f46f80ea",
+  "current_revision": "577e619e28c797839cad88144699c65584b04dfb",
+  "all_source_hashes_unchanged": true,
+  "goldhill_band_rows": 10,
+  "all_band_rows": 30,
+  "fixed_diagnostic_RGB_nm": [
+    650,
+    560,
+    475
+  ],
+  "generic_production_QA_RGB_targets_nm": [
+    660,
+    560,
+    490
+  ],
+  "resolved_generic_QA_RGB_nm": [
+    668,
+    560,
+    475
+  ],
+  "QA_semantic_named_RGB_nm": [
+    650,
+    560,
+    444
+  ],
+  "reference_geometry": {
+    "solar_zenith": 45,
+    "view_zenith": 0,
+    "relative_azimuth": 0
+  },
+  "units": "Stored normalized S and explicitly inverse-encoded DN equivalents, never physical reflectance",
+  "full_scene_prediction_pixel_resolution_m": 0.1
+}

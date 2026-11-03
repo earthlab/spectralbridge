@@ -1,0 +1,185 @@
+{
+  "gordon": {
+    "shape": [
+      2088,
+      2948,
+      10
+    ],
+    "source_valid_pixels": 6153336,
+    "alpha_positive_raw_pixels": 5909349,
+    "spectral_population": "Finite H5 source values intersect positive retained TIFF alpha; transparent background excluded without altering files",
+    "solar_scene_zenith_degrees": 35.56736688284905,
+    "solar_azimuth_min_max": [
+      231.4010467529297,
+      231.40762329101562
+    ],
+    "solar_metadata": {
+      "acquisition_datetime_used": "2023-08-15T20:58:39",
+      "solar_azimuth_max": "231.40762329101562",
+      "solar_azimuth_mean": "231.40431213378906",
+      "solar_azimuth_min": "231.4010467529297",
+      "solar_geometry_source": "manifest_computed",
+      "solar_zenith_max": "35.56898880004883",
+      "solar_zenith_mean": "35.56736755371094",
+      "solar_zenith_min": "35.56574630737305"
+    },
+    "grid_transform": [
+      0.0999999999999763,
+      0.0,
+      457268.25,
+      0.0,
+      -0.0999999999999108,
+      4429034.8,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "crs": "EPSG:26913",
+    "bounds": [
+      457268.25,
+      4428826.0,
+      457563.04999999993,
+      4429034.8
+    ],
+    "source_dn_array_equals_recovered_tiff": true,
+    "polygons_overlapping": 58,
+    "flying_altitude_report_m": 117,
+    "nominal_focal_length_mm": 5.5,
+    "pixel_pitch_mm": 0.00375,
+    "sensor_resolution": [
+      1280,
+      960
+    ],
+    "horizontal_half_fov_deg": 23.574706201912615,
+    "vertical_half_fov_deg": 18.121860247901353,
+    "diagonal_half_fov_deg": 28.610459665965216,
+    "reference": "45 degree solar, nadir view, relative azimuth 0; unchanged package reference",
+    "units": "RECOVERED_SOURCE_DN - PHYSICAL_UNITS_UNVERIFIED",
+    "factor_distribution": null,
+    "invalid_model_predictions": null,
+    "corrected_PFT_changes": null,
+    "correction_status": "NOT_EVALUATED: no suitable independent coefficients; no assumed-angle refits"
+  },
+  "goldhill": {
+    "shape": [
+      2238,
+      3165,
+      10
+    ],
+    "source_valid_pixels": 7068376,
+    "alpha_positive_raw_pixels": 6692436,
+    "spectral_population": "Finite H5 source values intersect positive retained TIFF alpha; transparent background excluded without altering files",
+    "solar_scene_zenith_degrees": 27.76494055708879,
+    "solar_azimuth_min_max": [
+      204.6913604736328,
+      204.70025634765625
+    ],
+    "solar_metadata": {
+      "acquisition_datetime_used": "2023-08-15T19:53:07",
+      "solar_azimuth_max": "204.70025634765625",
+      "solar_azimuth_mean": "204.69580078125",
+      "solar_azimuth_min": "204.6913604736328",
+      "solar_geometry_source": "manifest_computed",
+      "solar_zenith_max": "27.766454696655273",
+      "solar_zenith_mean": "27.764942169189453",
+      "solar_zenith_min": "27.763427734375"
+    },
+    "grid_transform": [
+      0.09999999999996322,
+      0.0,
+      457624.5,
+      0.0,
+      -0.09999999999991677,
+      4432830.55,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "crs": "EPSG:26913",
+    "bounds": [
+      457624.5,
+      4432606.75,
+      457940.9999999999,
+      4432830.55
+    ],
+    "source_dn_array_equals_recovered_tiff": true,
+    "polygons_overlapping": 158,
+    "flying_altitude_report_m": 123,
+    "nominal_focal_length_mm": 5.5,
+    "pixel_pitch_mm": 0.00375,
+    "sensor_resolution": [
+      1280,
+      960
+    ],
+    "horizontal_half_fov_deg": 23.574706201912615,
+    "vertical_half_fov_deg": 18.121860247901353,
+    "diagonal_half_fov_deg": 28.610459665965216,
+    "reference": "45 degree solar, nadir view, relative azimuth 0; unchanged package reference",
+    "units": "RECOVERED_SOURCE_DN - PHYSICAL_UNITS_UNVERIFIED",
+    "factor_distribution": null,
+    "invalid_model_predictions": null,
+    "corrected_PFT_changes": null,
+    "correction_status": "NOT_EVALUATED: no suitable independent coefficients; no assumed-angle refits"
+  },
+  "ruby": {
+    "shape": [
+      1035,
+      1960,
+      10
+    ],
+    "source_valid_pixels": 2022614,
+    "alpha_positive_raw_pixels": 1996223,
+    "spectral_population": "Finite H5 source values intersect positive retained TIFF alpha; transparent background excluded without altering files",
+    "solar_scene_zenith_degrees": 26.30275174598512,
+    "solar_azimuth_min_max": [
+      172.64651489257812,
+      172.6517333984375
+    ],
+    "solar_metadata": {
+      "acquisition_datetime_used": "2023-08-16T18:53:18",
+      "solar_azimuth_max": "172.65174865722656",
+      "solar_azimuth_mean": "172.64913940429688",
+      "solar_azimuth_min": "172.64651489257812",
+      "solar_geometry_source": "manifest_computed",
+      "solar_zenith_max": "26.303321838378906",
+      "solar_zenith_mean": "26.302753448486328",
+      "solar_zenith_min": "26.302181243896484"
+    },
+    "grid_transform": [
+      0.1,
+      0.0,
+      455725.0,
+      0.0,
+      -0.1,
+      4432104.75,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "crs": "EPSG:26913",
+    "bounds": [
+      455725.0,
+      4432001.25,
+      455921.0,
+      4432104.75
+    ],
+    "source_dn_array_equals_recovered_tiff": true,
+    "polygons_overlapping": 86,
+    "flying_altitude_report_m": 114,
+    "nominal_focal_length_mm": 5.5,
+    "pixel_pitch_mm": 0.00375,
+    "sensor_resolution": [
+      1280,
+      960
+    ],
+    "horizontal_half_fov_deg": 23.574706201912615,
+    "vertical_half_fov_deg": 18.121860247901353,
+    "diagonal_half_fov_deg": 28.610459665965216,
+    "reference": "45 degree solar, nadir view, relative azimuth 0; unchanged package reference",
+    "units": "RECOVERED_SOURCE_DN - PHYSICAL_UNITS_UNVERIFIED",
+    "factor_distribution": null,
+    "invalid_model_predictions": null,
+    "corrected_PFT_changes": null,
+    "correction_status": "NOT_EVALUATED: no suitable independent coefficients; no assumed-angle refits"
+  }
+}

@@ -20,16 +20,52 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P165. Reconstruct the anatomy of the Goldhill BRDF artifact
+
+- Priority: P0, user-directed read-only scientific reconstruction
+- Owner: Codex
+- Started: 2026-11-03
+- Status: In progress; inventorying exact historical replay arrays, model/code provenance and restored sources.
+- Scope: Aligned six-stage map/spectra narrative, actual angular atlas, old/new design rank, historical predictions/zero contours/guards, contiguous transects, all-band behavior, separate SCS+C mechanism, researcher-polygon distortion and Gordon/Ruby comparison. Approximately 12–20-page PDF plus Markdown, high-resolution figures/tables and preservation record. No production edits or gate changes.
+- Plan: Reuse P156/P160 exact saved arrays; use only pinned historical code and unchanged saved coefficients for isolated reconstruction. Retain repaired source grid, distinguish numerical encodings, retain true masks and audit alpha background. Verify mechanism by array equality and measured boundary correspondence, not appearance.
+- Remaining: Source/model recovery and hashes, derived diagnostics/polygon metrics, figures/report, focused regression and final visual/reproducibility checks.
+- Next: Complete P165; preserve P159 calibration/geometry dependencies and unapproved correction states.
+
+
+### P164. Experimentally evaluate assumed drone viewing angles
+
+- Priority: P0, user-directed read-only scientific experiment
+- Owner: Codex
+- Started: 2026-11-03
+- Status: Complete (2026-11-03). No constant case passes angular conditioning (0/93); 12/15 synthetic maps pass numerical design gates without physical support. No eligible independent coefficient set found, so correction/PFT changes explicitly NOT_EVALUATED.
+- Scope: Current zero-view baseline, 31 constant geometries per flight, illustrative spatial scenarios, actual kernel/design validation, independent coefficient suitability audit, polygon-level evidence and figure-heavy Markdown/PDF. No invented calibration, synthetic-angle refits, production writes or gate changes.
+- Plan: Separate numerical rank from physical information; apply fixed coefficients only if their independent validation and applicability are demonstrated. If unavailable, mark correction/PFT-change comparisons NOT_EVALUATED rather than manufacture coefficients. Preserve raw uncorrected baseline and source identities.
+- Delivered: `provenance/assumed-viewing-angles/2026-11-03/`: reproducible scripts, 93 constant and 24 fixed-absolute checks, 15 full-scene synthetic maps, repeated positive-alpha angular audit, coefficient inventory (13 model candidates plus historical real-NEON QA), raw source-DN polygon spectra/dispersion/overlap/separability, nine figures and visually reviewed eight-page PDF/Markdown. Primary baseline is 301 polygons / 198,562 memberships; audit preserves 302 / 200,320 finite-H5 memberships including 1,758 transparent background memberships. Three restored archived H5s match prior hashes; 31 source/input/model/report hashes unchanged. Seventeen focused tests, Ruff, docs links, transparency and whitespace pass. No production metadata, algorithms, coefficients or library changed.
+- Next: P159 source calibration, true geometry/timestamps and independent domain validation; alternatively supply an empirically validated wavelength/response/kernel/reference-compatible external model before transfer sensitivity. Review source-alpha versus finite-H5 mask eligibility explicitly before production promotion; this experiment changes no production mask policy.
+
+
+### P163. Integrate drone investigation findings into documentation and website
+
+- Priority: P0, user-directed documentation integration
+- Owner: Codex
+- Started: 2026-11-02
+- Status: Complete (2026-11-02). Scientific methods, user guides, notebooks and website navigation integrate the verified three-flight findings with explicit evidence boundaries.
+- Scope: Consolidate P154/P158–P162 evidence into existing scientific methods, drone examples, correction eligibility, spectral-library QA and troubleshooting; add concise findings page, evidence map and optimized figures. Preserve site framework and original reports. No algorithm, production data, release or deployment changes.
+- Plan: Verify evidence and actual API gates; update canonical pages and misleading examples; build locally, check links/API/examples and inspect desktop/mobile rendering.
+- Delivered: Two accessible findings/eligibility pages; existing drone/methods/library/QA/troubleshooting/tutorial/API pages updated; six optimized investigation figures plus two SVG workflows; four notebook examples reviewed; evidence map, figure manifest and verification record in `provenance/drone-docs-integration/2026-11-02/`. Strict site build, 2,398 rendered local references, 385 API signatures, 50 targeted tests, notebook dry run, generated docs/API/transparency freshness, Ruff and whitespace pass. Package executable AST unchanged; source edits are docstrings only. One obsolete JOSS fallback statement corrected; release metadata unchanged. Website not deployed.
+- Next: P159 calibration/project/time/terrain recovery and independent target/angle validation. Handset-specific rendering and data-dependent calibrated examples remain untested; existing 893px preview and static responsive behavior checked. No production reprocessing or website deployment authorized.
+
+
 ### P162. Trace photogrammetry metadata into SpectralBridge
 
 - Priority: P0, user-directed read-only provenance investigation
 - Owner: Codex
 - Started: 2026-11-02
-- Status: In progress; tracing original H5 geometry and upstream conversion history.
+- Status: Complete (2026-11-02). Traced explicit zero-view placeholders, exactly reproduced old solar unit-error and working manifest-solar fingerprints at 75 locations, and integrated four full-text UAV literature methods. Physical calibration and original camera/contributor recovery remain unresolved.
 - Scope: Bounded upstream project/archive search, source/working H5 and TIFF metadata lineage, photogrammetry reports, independent candidate solar positions, terrain/C-factor mechanism, provenance matrix, recovery plan and figure-heavy report. No production writes, correction changes or library regeneration.
 - Plan: Distinguish executed artifacts from code-only possibilities; identify inherited versus supplied geometry using file and history evidence; run only source-supported isolated diagnostics and record unresolved provenance explicitly.
-- Remaining: Source inspection, limited validation, figures, machine-readable matrix/inventory, report and minimal recovery proposal.
-- Next: Complete P162; retain P159 calibration/geometry dependency where records remain unavailable.
+- Delivered: Unified Markdown investigation and visually reviewed eight-page PDF; eight figures, field/operation provenance matrices, bounded source inventory with local hashes, candidate solar table, terrain and exact 30-band SCS+C replay, missing-record priorities and reproducible analysis scripts. Four focused tests plus Ruff, docs links, transparency and whitespace checks. All 27 tracked source hashes unchanged; no production algorithms, data, coefficients or libraries changed.
+- Next: P159: recover matching Metashape .psx/.psz plus complete .files, actual task/export/radiometric settings, camera transforms/intrinsics and contributor records, panel/DLS/exposure records and authoritative acquisition timestamps. Inspect a bounded overlapping calibrated-photo subset before deciding on reprocessing; retain rejection of unsupported post-mosaic BRDF.
 
 ### P161. Audit three-flight BRDF identifiability and correction strategy
 

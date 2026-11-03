@@ -170,3 +170,54 @@ validation. The current library supports controlled diagnostics, with operationa
 material fractions blocked by source/purity/background/reference-data gaps.
 
 For the observation model, label systems, empirical atlas and current ecological evidence, start with the [spectral-library overview](../spectral-library/index.md). This page retains the stable preflight/report workflow.
+
+## Drone library quality and researcher polygons
+
+Spatially valid membership is the first requirement: a reflected affine can
+assign a correct spectrum to the wrong researcher polygon. Compare the original
+TIFF, derived raster and polygon pixel index before interpreting labels. Keep
+GlobalID, cover category, source flight/date, band wavelengths, grid and masks
+traceable. A file called `corrected` or `corr_*` is not proof of calibration.
+
+For Gordon, Goldhill and Ruby, band-specific 0–10,000 normalization is numerically
+verified, while physical reflectance remains unverified. Band-specific offsets
+change spectral shape and ratios. Inverse recovery produces source DN, not
+physical reflectance. Unsupported historical BRDF adds artificial spatial and
+spectral variation; topographic correction still needs terrain, illumination,
+stability and independent signal-preservation evidence.
+
+The isolated November study matched **301 researcher polygons and 198,309
+polygon-pixel memberships** on common raw/topographic support. Effects were
+mixed: within-category variance decreased in 8/12 sufficiently sampled groups,
+CV in 6/12, and between-category contrast decreased in 11/17 matched pairs.
+Lower within-PFT variance alone could reflect suppression of real biological
+variation. These descriptive DN results do not demonstrate improved calibration,
+classification accuracy or cross-flight reflectance harmonization. There were
+no common GlobalIDs across flights for a matched-target transfer test.
+
+Validate within-PFT consistency together with between-PFT separability, band
+relationships, spectral angles, indices, coverage and independent references.
+Group pixels and repeated photos by polygon/target and spatial blocks for
+validation; do not use random pixel splits as independent tests. Cross-flight
+and drone–NEON comparison also require calibrated units, compatible spectral
+responses, common footprint, dates/phenology, accepted correction states and
+independent empirical transfer evidence. A synthetic sensor translation is not
+that validation.
+
+The three-flight historical corrected/translated libraries and dependent
+contributions remain **unapproved**; preserve them as historical or explicitly
+exploratory numerical evidence. The repaired spatial products do not promote
+those libraries to physical research products. Regenerate affected contributions
+only after calibration and correction policy review. This finding does not
+invalidate unrelated NEON libraries. See the [current status](../validation/drone-findings.md)
+and [complete polygon evaluation](../dev/drone-brdf-identifiability-investigation.md).
+
+New raster-derived extraction requires valid radiometry and BRDF `VALID` or
+explicit `NOT_REQUESTED`; a retained raster from a failed requested BRDF does
+not qualify. Tables record `spectralbridge.reflectance_units=physical_reflectance_v1`.
+The visualization/preflight adapter described above checks schema and plotting
+support, **not** the truth of physical calibration in an arbitrary supplied table.
+Historical tables without provenance must remain distinguishable from approved
+physical libraries, even if they can be plotted.
+
+Last updated: 2026-11-02

@@ -67,3 +67,12 @@ After it finishes, inspect [required outputs](pipeline/outputs.md) and
 [QA evidence](validation/evidence-hierarchy.md) before drawing scientific conclusions.
 
 Continue with `python examples/scientific_workflows_offline.py` for invented-data library aggregation, gap-preserving harmonization, synthetic OLI projection and agreement metrics. The [API maturity map](api/scientific-analysis.md) separates these numerical examples from full research analyses.
+
+## Before running real drone imagery
+
+Read [correction eligibility](concepts/correction-eligibility.md) and the
+[Gordon/Goldhill/Ruby findings](validation/drone-findings.md). Supply verified
+physical calibration, validate source alignment and explicitly choose corrections.
+The installation example above remains a synthetic software demonstration.
+
+Last updated: 2026-11-02

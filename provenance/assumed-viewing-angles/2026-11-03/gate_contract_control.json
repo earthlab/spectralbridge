@@ -1,0 +1,11 @@
+{
+  "scope": "Small synthetic contract control, not imagery or fitted flight",
+  "validation": {
+    "status": "UNSUPPORTED",
+    "fits": [],
+    "reasons": [
+      "Radiometry UNSUPPORTED: authoritative positive scale, offset and provenance required (Actual flight physical calibration remains unverified)."
+    ]
+  },
+  "no_usable_coefficients": true
+}

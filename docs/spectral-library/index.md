@@ -3,6 +3,12 @@ description: Empirical polygon spectra, ecological labels and sensor representat
 ---
 # What is the SpectralBridge spectral library?
 
+For the investigated Gordon/Goldhill/Ruby drone products, see
+[validation findings and current limitations](../validation/drone-findings.md). Spatial repair does not
+establish physical calibration or supported BRDF; unrelated NEON libraries are
+not automatically affected.
+
+
 Start with [From spectra to ecological inference](scientific-synthesis.md): the current evidence and reusable numerical methods, from difference to field validation.
 
 A spectral library links wavelength-dependent reflectance to observations and
@@ -102,3 +108,5 @@ Keep valid repeat observations with identity/site/year/acquisition/annotation
 metadata. Hold complete histories together in validation. Conditional spectral
 recognition, synthetic mixing-weight recovery and independent field abundance
 remain distinct levels of evidence.
+
+Last updated: 2026-11-02

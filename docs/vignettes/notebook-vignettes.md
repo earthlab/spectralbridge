@@ -66,3 +66,15 @@ code.
 [notebook-08]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/08_custom_correction_hook.ipynb
 [notebook-09]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/09_bulk_analysis.ipynb
 [notebook-10]: https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb
+
+## Drone notebooks and scientific readiness
+
+The drone templates now point to [correction eligibility](../concepts/correction-eligibility.md).
+The root 2023/2024 cloud notebook preserves a guarded historical recipe; its
+staging/completion/upload checks do not establish physical calibration or valid
+BRDF. The local notebook uses explicit no-topo/no-BRDF choices and requires a
+reviewed calibration file before execution. Neither notebook calibrates these
+three flights. Native and translated research libraries remain subject to the
+[current findings](../validation/drone-findings.md).
+
+Last updated: 2026-11-02

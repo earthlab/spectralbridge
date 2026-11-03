@@ -51,6 +51,11 @@ before drawing conclusions. Reusable numerical methods require the `analytics`
 extra; [their API guide](https://earthlab.github.io/spectralbridge/api/scientific-analysis/)
 separates supported numerical contracts from conditional scientific inference.
 
+For drone work, read [Choosing corrections](https://earthlab.github.io/spectralbridge/concepts/correction-eligibility/)
+and [validation findings and current limitations](https://earthlab.github.io/spectralbridge/validation/drone-findings/).
+Spatial repair and numerical recovery do not establish physical reflectance or
+BRDF eligibility.
+
 ## Cite, contribute and find the evidence
 
 Cite the software release actually used and relevant scientific methods.

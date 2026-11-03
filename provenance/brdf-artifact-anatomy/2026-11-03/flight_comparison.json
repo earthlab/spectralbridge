@@ -1,0 +1,554 @@
+{
+  "goldhill": {
+    "shape": [
+      2238,
+      3165,
+      10
+    ],
+    "transform": [
+      0.09999999999996322,
+      0.0,
+      457624.5,
+      0.0,
+      -0.09999999999991677,
+      4432830.55,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "crs": "EPSG:26913",
+    "bounds": [
+      457624.5,
+      4432606.75,
+      457940.9999999999,
+      4432830.55
+    ],
+    "display_stride": 6,
+    "finite_H5_pixels": 7068376,
+    "observed_alpha_pixels": 6692436,
+    "common_four_stage_pixels": 6679853,
+    "modern_angular_design": {
+      "n": 7068376,
+      "rank": 1,
+      "singular_values": [
+        3760.6409852403876,
+        1.2902044453211504e-09,
+        1.6911784522025252e-21
+      ],
+      "condition_number": 2.223680759616275e+24,
+      "condition_limit": 2896.309326171875,
+      "stable_rank": 1.0,
+      "supported": false,
+      "independent_angular_observations": null,
+      "independent_angular_observations_status": "Not recoverable without source-image identity and overlap provenance. Stable rank is an effective dimension, not a count of independent photographs."
+    },
+    "historical_defective_design": {
+      "n": 7068376,
+      "rank": 2,
+      "singular_values": [
+        41252.12071078333,
+        0.013448736160542037,
+        1.4704111396021003e-10
+      ],
+      "condition_number": 280548205870817.44,
+      "condition_limit": 2896.309326171875,
+      "stable_rank": 1.0000000000001064,
+      "supported": false,
+      "independent_angular_observations": null,
+      "independent_angular_observations_status": "Not recoverable without source-image identity and overlap provenance. Stable rank is an effective dimension, not a count of independent photographs."
+    },
+    "old_kernel_volume": {
+      "n": 7068376,
+      "min": -0.028319060802459717,
+      "max": -0.028319060802459717,
+      "median": -0.028319060802459717,
+      "range": 0.0,
+      "quantiles": [
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717
+      ]
+    },
+    "old_kernel_geometry": {
+      "n": 7068376,
+      "min": -15.484116554260254,
+      "max": -15.483792304992676,
+      "median": -15.483954429626465,
+      "range": 0.000324249267578125,
+      "quantiles": [
+        -15.484116554260254,
+        -15.484098434448242,
+        -15.484020233154297,
+        -15.483954429626465,
+        -15.483888626098633,
+        -15.483831405639648,
+        -15.483811378479004,
+        -15.483792304992676
+      ]
+    },
+    "current_kernel_volume": {
+      "n": 7068376,
+      "min": -0.028319060802459717,
+      "max": -0.028319060802459717,
+      "median": -0.028319060802459717,
+      "range": 0.0,
+      "quantiles": [
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717,
+        -0.028319060802459717
+      ]
+    },
+    "current_kernel_geometry": {
+      "n": 7068376,
+      "min": -1.0,
+      "max": -1.0,
+      "median": -1.0,
+      "range": 0.0,
+      "quantiles": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    "model": {
+      "iso": [
+        [
+          0.004829633515328169,
+          1.0,
+          -8245.5908203125,
+          -35706.1484375,
+          111863.5078125,
+          -9508.1826171875,
+          -48316.515625,
+          53938.56640625,
+          1.0,
+          1.0
+        ]
+      ],
+      "vol": [
+        [
+          -0.00013677068636752665,
+          0.0,
+          233.50738525390625,
+          1011.16455078125,
+          -3167.869384765625,
+          269.2627868652344,
+          1368.2783203125,
+          -1527.489501953125,
+          0.0,
+          0.0
+        ]
+      ],
+      "geo": [
+        [
+          -0.07478131353855133,
+          0.0,
+          -533.03125,
+          -2307.925537109375,
+          7230.24609375,
+          -614.6154174804688,
+          -3122.98779296875,
+          3486.24609375,
+          0.0,
+          0.0
+        ]
+      ],
+      "volume_kernel": "RossThick",
+      "geom_kernel": "LiDenseR",
+      "b_r": 10.0,
+      "h_b": 2.0,
+      "solar_zn_type": "scene",
+      "ndvi_binning_enabled": false,
+      "ndvi_edges": [
+        -1.0,
+        1.0
+      ]
+    },
+    "solar_scene_zenith_degrees": 27.76494026184082,
+    "same_grid": "All stages use identical repaired row/column order; Goldhill saved source arrays equal restored H5 exactly",
+    "alpha_observation_filter": "Only analytical/display selection, not a source-file mask rewrite"
+  },
+  "gordon": {
+    "shape": [
+      2088,
+      2948,
+      10
+    ],
+    "transform": [
+      0.0999999999999763,
+      0.0,
+      457268.25,
+      0.0,
+      -0.0999999999999108,
+      4429034.8,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "crs": "EPSG:26913",
+    "bounds": [
+      457268.25,
+      4428826.0,
+      457563.04999999993,
+      4429034.8
+    ],
+    "display_stride": 8,
+    "finite_H5_pixels": 6153336,
+    "observed_alpha_pixels": 5909349,
+    "common_four_stage_pixels": 5898562,
+    "modern_angular_design": {
+      "n": 6153336,
+      "rank": 1,
+      "singular_values": [
+        3509.386588538966,
+        2.5738833640836582e-09,
+        1.695142028172663e-21
+      ],
+      "condition_number": 2.0702610932973155e+24,
+      "condition_limit": 2896.309326171875,
+      "stable_rank": 1.0,
+      "supported": false,
+      "independent_angular_observations": null,
+      "independent_angular_observations_status": "Not recoverable without source-image identity and overlap provenance. Stable rank is an effective dimension, not a count of independent photographs."
+    },
+    "historical_defective_design": {
+      "n": 6153336,
+      "rank": 2,
+      "singular_values": [
+        31527.346797613,
+        0.019094795306646206,
+        4.887298971252084e-11
+      ],
+      "condition_number": 645087337260563.9,
+      "condition_limit": 2896.309326171875,
+      "stable_rank": 1.0000000000003668,
+      "supported": false,
+      "independent_angular_observations": null,
+      "independent_angular_observations_status": "Not recoverable without source-image identity and overlap provenance. Stable rank is an effective dimension, not a count of independent photographs."
+    },
+    "old_kernel_volume": {
+      "n": 6153336,
+      "min": -0.038503050804138184,
+      "max": -0.038503050804138184,
+      "median": -0.038503050804138184,
+      "range": 0.0,
+      "quantiles": [
+        -0.038503050804138184,
+        -0.038503050804138184,
+        -0.038503050804138184,
+        -0.038503050804138184,
+        -0.038503050804138184,
+        -0.038503050804138184,
+        -0.038503050804138184,
+        -0.038503050804138184
+      ]
+    },
+    "old_kernel_geometry": {
+      "n": 6153336,
+      "min": -12.670370101928711,
+      "max": -12.669921875,
+      "median": -12.670147895812988,
+      "range": 0.0004482269287109375,
+      "quantiles": [
+        -12.670370101928711,
+        -12.670341491699219,
+        -12.670222282409668,
+        -12.670147895812988,
+        -12.67007064819336,
+        -12.669986724853516,
+        -12.669951438903809,
+        -12.669921875
+      ]
+    },
+    "current_kernel_volume": {
+      "n": 6153336,
+      "min": -0.038503050804138184,
+      "max": -0.038503050804138184,
+      "median": -0.038503050804138184,
+      "range": 0.0,
+      "quantiles": [
+        -0.038503050804138184,
+        -0.038503050804138184,
+        -0.038503050804138184,
+        -0.038503050804138184,
+        -0.038503050804138184,
+        -0.038503050804138184,
+        -0.038503050804138184,
+        -0.038503050804138184
+      ]
+    },
+    "current_kernel_geometry": {
+      "n": 6153336,
+      "min": -1.0,
+      "max": -1.0,
+      "median": -1.0,
+      "range": 0.0,
+      "quantiles": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    "model": {
+      "iso": [
+        [
+          39060.55078125,
+          41072.3671875,
+          -20802.681640625,
+          -34912.5859375,
+          -14406.43359375,
+          4816.6435546875,
+          -30780.69140625,
+          20688.3046875,
+          15398.8310546875,
+          1.0
+        ]
+      ],
+      "vol": [
+        [
+          -1503.950439453125,
+          -1581.4114990234375,
+          800.9667358398438,
+          1344.2410888671875,
+          554.691650390625,
+          -185.45545959472656,
+          1185.1505126953125,
+          -796.5628662109375,
+          -592.9019775390625,
+          0.0
+        ]
+      ],
+      "geo": [
+        [
+          3087.35546875,
+          3246.374755859375,
+          -1644.3515625,
+          -2759.619873046875,
+          -1138.7623291015625,
+          380.6686096191406,
+          -2433.0224609375,
+          1635.197021484375,
+          1217.08251953125,
+          0.0
+        ]
+      ],
+      "volume_kernel": "RossThick",
+      "geom_kernel": "LiDenseR",
+      "b_r": 10.0,
+      "h_b": 2.0,
+      "solar_zn_type": "scene",
+      "ndvi_binning_enabled": false,
+      "ndvi_edges": [
+        -1.0,
+        1.0
+      ]
+    },
+    "solar_scene_zenith_degrees": 35.56736373901367,
+    "same_grid": "All stages use identical repaired row/column order; Goldhill saved source arrays equal restored H5 exactly",
+    "alpha_observation_filter": "Only analytical/display selection, not a source-file mask rewrite"
+  },
+  "ruby": {
+    "shape": [
+      1035,
+      1960,
+      10
+    ],
+    "transform": [
+      0.1,
+      0.0,
+      455725.0,
+      0.0,
+      -0.1,
+      4432104.75,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "crs": "EPSG:26913",
+    "bounds": [
+      455725.0,
+      4432001.25,
+      455921.0,
+      4432104.75
+    ],
+    "display_stride": 8,
+    "finite_H5_pixels": 2022614,
+    "observed_alpha_pixels": 1996223,
+    "common_four_stage_pixels": 1991643,
+    "modern_angular_design": {
+      "n": 2022614,
+      "rank": 1,
+      "singular_values": [
+        2011.6210982725624,
+        3.5192341863855195e-10,
+        5.651649462973116e-23
+      ],
+      "condition_number": 3.559352205850229e+25,
+      "condition_limit": 2896.309326171875,
+      "stable_rank": 1.0,
+      "supported": false,
+      "independent_angular_observations": null,
+      "independent_angular_observations_status": "Not recoverable without source-image identity and overlap provenance. Stable rank is an effective dimension, not a count of independent photographs."
+    },
+    "historical_defective_design": {
+      "n": 2022614,
+      "rank": 2,
+      "singular_values": [
+        23015.62475245367,
+        0.0014173543046705783,
+        6.2701853992819815e-12
+      ],
+      "condition_number": 3670645010766230.5,
+      "condition_limit": 2896.309326171875,
+      "stable_rank": 1.0000000000000038,
+      "supported": false,
+      "independent_angular_observations": null,
+      "independent_angular_observations_status": "Not recoverable without source-image identity and overlap provenance. Stable rank is an effective dimension, not a count of independent photographs."
+    },
+    "old_kernel_volume": {
+      "n": 2022614,
+      "min": -0.026228666305541992,
+      "max": -0.026228666305541992,
+      "median": -0.026228666305541992,
+      "range": 0.0,
+      "quantiles": [
+        -0.026228666305541992,
+        -0.026228666305541992,
+        -0.026228666305541992,
+        -0.026228666305541992,
+        -0.026228666305541992,
+        -0.026228666305541992,
+        -0.026228666305541992,
+        -0.026228666305541992
+      ]
+    },
+    "old_kernel_geometry": {
+      "n": 2022614,
+      "min": -16.15235137939453,
+      "max": -16.152292251586914,
+      "median": -16.15232276916504,
+      "range": 5.91278076171875e-05,
+      "quantiles": [
+        -16.15235137939453,
+        -16.1523494720459,
+        -16.15233612060547,
+        -16.15232276916504,
+        -16.15230941772461,
+        -16.152297973632812,
+        -16.15229606628418,
+        -16.152292251586914
+      ]
+    },
+    "current_kernel_volume": {
+      "n": 2022614,
+      "min": -0.026228666305541992,
+      "max": -0.026228666305541992,
+      "median": -0.026228666305541992,
+      "range": 0.0,
+      "quantiles": [
+        -0.026228666305541992,
+        -0.026228666305541992,
+        -0.026228666305541992,
+        -0.026228666305541992,
+        -0.026228666305541992,
+        -0.026228666305541992,
+        -0.026228666305541992,
+        -0.026228666305541992
+      ]
+    },
+    "current_kernel_geometry": {
+      "n": 2022614,
+      "min": -1.0,
+      "max": -1.0,
+      "median": -1.0,
+      "range": 0.0,
+      "quantiles": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    "model": {
+      "iso": [
+        [
+          0.005901526194065809,
+          1.0,
+          0.003405514871701598,
+          0.0031717964448034763,
+          -1025500.375,
+          -269376.3125,
+          0.0028422968462109566,
+          0.003531611291691661,
+          0.003311442444100976,
+          1.0
+        ]
+      ],
+      "vol": [
+        [
+          -0.00015478917339351028,
+          0.0,
+          -8.932210766943172e-05,
+          -8.319198968820274e-05,
+          26897.505859375,
+          7065.38134765625,
+          -7.454965088982135e-05,
+          -9.26294524106197e-05,
+          -8.68547213030979e-05,
+          0.0
+        ]
+      ],
+      "geo": [
+        [
+          -0.09532322734594345,
+          0.0,
+          -0.05500689521431923,
+          -0.051231805235147476,
+          -63533.14453125,
+          -16688.78515625,
+          -0.04590962827205658,
+          -0.057043641805648804,
+          -0.05348741263151169,
+          0.0
+        ]
+      ],
+      "volume_kernel": "RossThick",
+      "geom_kernel": "LiDenseR",
+      "b_r": 10.0,
+      "h_b": 2.0,
+      "solar_zn_type": "scene",
+      "ndvi_binning_enabled": false,
+      "ndvi_edges": [
+        -1.0,
+        1.0
+      ]
+    },
+    "solar_scene_zenith_degrees": 26.302749633789062,
+    "same_grid": "All stages use identical repaired row/column order; Goldhill saved source arrays equal restored H5 exactly",
+    "alpha_observation_filter": "Only analytical/display selection, not a source-file mask rewrite"
+  }
+}

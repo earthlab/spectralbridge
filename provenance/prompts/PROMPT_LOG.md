@@ -44129,3 +44129,1870 @@ Show the provenance diagram and the most important diagnostic figures.
 
 Prioritize identifying the actual source of the missing information over proposing new correction methods.
 ```
+
+## 2026-11-02 - Integrate UAV BRDF literature into metadata investigation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Additional investigation: Apply findings from the UAV BRDF literature
+
+Continue the photogrammetry metadata and provenance investigation already underway. Do not restart the investigation, duplicate completed work, or change its primary objectives.
+
+I want to incorporate several important findings from the UAV radiometric calibration and BRDF literature into the existing analysis.
+
+The literature suggests that our problem may arise from where we apply radiometric and directional corrections in the processing chain, rather than simply from an error in the BRDF equations.
+
+1. Investigate whether BRDF correction belongs before orthomosaic generation
+
+Relevant literature includes:
+
+* Honkavaara et al. (2018), Radiometric Correction of Close-Range Spectral Image Blocks Captured Using an Unmanned Aerial Vehicle.
+* A Semi-Empirical Anisotropy Correction Model for UAS-Based Multispectral Images of Bare Soil (2022).
+* Minimizing Seam Lines in UAV Multispectral Image Mosaics Utilizing Irradiance, Vignette, and BRDF (2025).
+* Cao et al. (2023), The Method of Multi-Angle Remote Sensing Observation Based on Unmanned Aerial Vehicles and the Validation of BRDF.
+
+Read and verify the relevant methods rather than relying on these summaries.
+
+These studies suggest that directional reflectance correction can be estimated using overlapping original photographs, reconstructed camera geometry, and repeated observations of the same ground targets.
+
+Determine whether our original photogrammetry workflow preserved enough information to support this approach.
+
+Specifically:
+
+* Did Metashape retain camera positions and orientations?
+* Can individual ground targets be traced back to multiple photographs?
+* Were different viewing angles available before mosaicking?
+* Did mosaicking collapse those observations into a single pixel?
+* Could the original observations support radiometric block adjustment or a semi-empirical angular correction?
+* Would correction before mosaicking be more appropriate than our existing post-mosaic Ross–Li workflow?
+
+Distinguish actual evidence from methodological possibilities.
+
+Do not assume that multiple overlapping photographs automatically provide sufficient angular coverage for a stable BRDF fit.
+
+2. Investigate whether Metashape already performed radiometric corrections
+
+This is a particularly important addition.
+
+Determine whether the original photogrammetry processing applied any of the following:
+
+* Reflectance-panel calibration.
+* Downwelling irradiance correction.
+* Exposure/gain normalization.
+* Lens vignetting correction.
+* Camera-specific radiometric calibration.
+* Image brightness or color balancing.
+* Radiometric block adjustment.
+* BRDF or angular normalization.
+
+For each operation, determine whether it was enabled, disabled, unavailable, or unknown.
+
+Do not assume Metashape performed a correction merely because the software supports it.
+
+Trace the actual project settings, processing logs, image metadata, and exported values.
+
+Identify whether SpectralBridge subsequently applied a correction that had already been performed upstream.
+
+Pay particular attention to whether radiometric balancing during mosaicking could alter the spectral relationships we are trying to preserve for researcher-assigned PFTs.
+
+We need to distinguish physically calibrated reflectance from visually balanced imagery.
+
+3. Reconsider the original UInt16 radiometry
+
+The previous investigations established that the original drone TIFF values were transformed using band-specific min/max normalization to 0–10,000.
+
+We can numerically reverse that transformation.
+
+However, we still do not know what the original UInt16 values physically represented.
+
+Use the recovered photogrammetry metadata to determine:
+
+1. Whether the original values were calibrated reflectance.
+2. Whether Metashape used a documented reflectance encoding.
+3. Whether radiometric balancing changed those values.
+4. Whether the values can be converted back to physical reflectance.
+5. Whether the conversion differs by band or flight.
+
+Do not infer a physical scale from the numeric range alone.
+
+If the evidence is insufficient, specify exactly which missing calibration records would resolve the question.
+
+4. Distinguish our Goldhill artifact from photogrammetric seamlines
+
+The literature documents radiometric seamlines and directional artifacts in UAV orthomosaics.
+
+However, our controlled experiments established that Goldhill’s extreme red streak was introduced by SpectralBridge’s historical BRDF correction.
+
+Do not reinterpret that established result as an upstream Metashape artifact.
+
+Instead, investigate two separate questions:
+
+A. Existing upstream variation: Does the original orthomosaic contain smaller radiometric discontinuities caused by viewing geometry, illumination, or mosaicking?
+
+B. Downstream correction failure: Why did SpectralBridge’s unsupported BRDF model amplify the data into an extreme red artifact?
+
+The existing evidence establishes the second mechanism.
+
+The first remains a hypothesis requiring independent testing.
+
+This distinction should be explicit in the final report.
+
+5. Evaluate whether a drone-specific correction workflow is warranted
+
+Compare three conceptual approaches:
+
+A. Existing post-orthomosaic Ross–Li correction
+
+Already demonstrated to be unsupported for these three H5 files because their angular design is rank one.
+
+B. Original-image radiometric block adjustment
+
+Use overlapping photographs and camera geometry to estimate radiometric differences before mosaicking.
+
+Determine whether the necessary original observations and calibration information exist.
+
+C. Original-image angular correction
+
+Estimate directional effects from repeated ground-target observations, potentially using Ross–Li, RPV, ANIF, or another supported model.
+
+Do not assume any particular model will be identifiable or superior.
+
+For each approach, identify:
+
+* Required inputs.
+* Available inputs.
+* Missing inputs.
+* Scientific assumptions.
+* Feasibility with our actual flights.
+* Expected benefits for spectral-library development.
+* Validation requirements.
+
+Do not implement a new correction method during this investigation.
+
+6. Connect the literature to our actual PFT research
+
+Our goal is not simply to eliminate visible seams.
+
+We want reliable spectral signatures that distinguish researcher-assigned vegetation PFTs and potentially support comparison between drone and NEON AOP observations.
+
+Evaluate whether the literature provides guidance on preserving:
+
+* Within-PFT spectral consistency.
+* Between-PFT separability.
+* Physically meaningful band relationships.
+* Spectral indices.
+* Cross-flight comparability.
+* Cross-sensor transferability.
+
+Pay particular attention to methods that could artificially reduce spectral variance while suppressing genuine biological differences.
+
+Recommend validation using our existing researcher-assigned polygons, but do not treat lower within-class variance alone as proof of better calibration.
+
+7. Integrate these findings into the existing report
+
+Add a concise section titled:
+
+What the UAV BRDF Literature Tells Us About Our Pipeline
+
+Include:
+
+1. A short literature comparison table.
+2. A diagram showing where radiometric and BRDF corrections can occur relative to photogrammetry.
+3. A comparison of our current workflow against literature-supported alternatives.
+4. A clear explanation of which problems are confirmed and which remain hypothetical.
+5. Specific implications for recovering Metashape metadata.
+6. A prioritized recommendation for SpectralBridge.
+
+Update the existing PDF report and Markdown investigation rather than producing a disconnected second report.
+
+Include verified citations and DOIs where available.
+
+Important constraints
+
+* Continue the existing investigation.
+* Preserve all completed analyses.
+* Do not modify production data.
+* Do not regenerate orthomosaics or spectral libraries.
+* Do not introduce arbitrary correction factors.
+* Do not implement a new BRDF algorithm.
+* Do not assume the original imagery was physically calibrated.
+* Do not confuse an orthomosaic seamline with our confirmed downstream BRDF artifact.
+* Clearly distinguish published findings, verified project evidence, and hypotheses.
+
+Final scientific question
+
+I want the investigation to answer:
+
+Did we lose the information needed for scientifically valid BRDF correction when we converted the original photogrammetry products into orthomosaics and H5 files, and did the photogrammetry software already perform radiometric corrections that SpectralBridge subsequently duplicated or contradicted?
+
+If the evidence does not resolve those questions, identify the exact missing files or processing settings required.
+
+The final recommendation should explain whether we should:
+
+1. Recover and use existing photogrammetry metadata.
+2. Reprocess original photographs with an appropriate radiometric workflow.
+3. Preserve calibrated orthomosaics without additional BRDF correction.
+4. Adopt a different correction approach for drone imagery than for NEON AOP.
+
+The priority is to understand what happened to our actual data, not to develop another correction algorithm.
+```
+
+## 2026-11-02 - Integrate drone findings into documentation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+SpectralBridge: Integrate Drone Investigation Findings into Documentation and Website
+
+Objective
+
+Update the SpectralBridge documentation and public website to incorporate the scientific findings, technical corrections, and processing recommendations from our October–November 2026 drone investigations.
+
+We have substantially improved our understanding of the drone pipeline, including:
+
+* Spatial metadata errors and their repair.
+* Original drone radiometric normalization.
+* Differences between numerical scaling and physical reflectance calibration.
+* BRDF model identifiability.
+* The Goldhill red-streak artifact.
+* Topographic correction limitations.
+* Photogrammetry metadata provenance.
+* Differences between drone and NEON AOP correction workflows.
+* Implications for spectral library quality and research applications.
+
+These findings need to become part of the package’s permanent documentation rather than remaining isolated in investigation reports.
+
+The goal is to make the documentation scientifically accurate, accessible, well organized, and useful to researchers running SpectralBridge.
+
+This is a documentation and website update, not a software refactor.
+
+⸻
+
+1. Review the existing documentation structure
+
+First inspect the current repository, documentation system, and website.
+
+Determine:
+
+1. How the documentation is organized.
+2. Which pages describe the drone pipeline.
+3. Which pages describe NEON AOP processing.
+4. Where radiometric calibration and correction methods are explained.
+5. Where spectral library creation and validation are documented.
+6. Whether existing tutorials or examples use affected drone products.
+7. Whether API documentation accurately reflects the current correction gates.
+8. Whether there are existing troubleshooting, limitations, or known-issues pages.
+
+Preserve the current documentation framework and navigation conventions.
+
+Do not migrate documentation platforms or redesign the website.
+
+Avoid creating duplicate pages when an existing page can be updated.
+
+2. Read and consolidate the investigations
+
+Locate and read the relevant reports and supporting evidence.
+
+At minimum:
+
+* October 29 drone spatial integrity investigation.
+* October 30 AOP/drone radiometry and BRDF audit.
+* October 30 drone scaling confirmation.
+* November 2 radiometric recovery experiment.
+* November 2 drone BRDF strategy investigation.
+* Drone correction production plan.
+* Photogrammetry metadata provenance investigation, including any completed literature follow-up.
+
+Use the most recent verified findings where earlier conclusions have been superseded.
+
+If the photogrammetry investigation is still running or incomplete, document its status rather than anticipating its results.
+
+Do not present hypotheses as confirmed findings.
+
+Preserve links to the original technical reports for reproducibility.
+
+Create a concise internal evidence map identifying:
+
+* Finding.
+* Supporting report.
+* Relevant source-code location.
+* Documentation page requiring an update.
+* Confidence or validation status.
+
+Use this map to guide the documentation changes.
+
+⸻
+
+Part I — Update the scientific methods documentation
+
+3. Explain the complete drone processing workflow
+
+Update the drone pipeline documentation to explain the actual processing sequence:
+
+Original drone photographs → Photogrammetry → Orthomosaic → Radiometric encoding → Spatial validation → H5 conversion → Eligible corrections → Spectral translation → Polygon extraction → Spectral library
+
+Explain what each stage does and why it matters.
+
+Include a clear distinction between:
+
+* Original camera observations.
+* Orthomosaic pixels.
+* Radiometrically calibrated reflectance.
+* Numerically normalized values.
+* Recovered source DN.
+* Topographically corrected measurements.
+* BRDF-normalized reflectance.
+* Spectrally translated products.
+
+Avoid suggesting that these are interchangeable.
+
+Provide a visual workflow diagram.
+
+Use existing documentation diagram conventions where possible.
+
+4. Document the spatial metadata investigation
+
+Explain the spatial metadata problems discovered in the Gordon, Goldhill, and Ruby workflows.
+
+Include:
+
+* Incorrect interpretation of H5 map information.
+* Geographic reflection caused by inconsistent row-direction metadata.
+* Center-versus-corner pixel reference differences.
+* CRS/datum inconsistencies.
+* Consequences for polygon extraction.
+* How the corrected pipeline validates source TIFF alignment.
+* How users can verify spatial correspondence.
+
+Emphasize that a raster can look plausible while its geographic coordinates are incorrect.
+
+Document the current spatial validation requirements.
+
+Include a concise example of how to check alignment before extracting spectra.
+
+Distinguish the validated spatial repairs from remaining radiometric uncertainties.
+
+5. Explain drone radiometric scaling and calibration
+
+This deserves a prominent methods section.
+
+The investigation established that the original drone TIFFs underwent band-specific min/max normalization:
+
+[
+S_b=10000\frac{DN_b-\min_b}{\max_b-\min_b}
+]
+
+The numerical inverse is:
+
+[
+DN_b=\min_b+S_b\frac{\max_b-\min_b}{10000}
+]
+
+Explain:
+
+* Why this transformation was used or where it originated, if verified.
+* How it differs from reflectance multiplied by 10,000.
+* Why each band requires its own recorded minimum and maximum.
+* Why numerical recovery does not establish physical calibration.
+* How the package represents unknown physical units.
+* What metadata are needed to establish reflectance.
+
+Use the actual Gordon, Goldhill, and Ruby findings as examples.
+
+Document the known band-specific offsets, including Goldhill and Ruby.
+
+Do not suggest that dividing recovered DN by 32,768 or 10,000 automatically produces reflectance.
+
+Explain the shared radiometric contract:
+
+physical = scale * stored + offset
+
+Include its required provenance and validity conditions.
+
+If the latest photogrammetry investigation establishes the original physical calibration, incorporate that verified result. Otherwise, retain the explicit unverified status.
+
+6. Explain BRDF correction and its limitations
+
+Update the BRDF methods documentation to explain what BRDF correction accomplishes and what information is required.
+
+Introduce the RossThick/LiDenseR model in accessible language.
+
+Explain why BRDF fitting requires sufficiently varied observation geometry.
+
+Use the actual investigation results:
+
+Flight	Angular design rank	Supported bands
+Gordon	1/3	0/10
+Goldhill	1/3	0/10
+Ruby	1/3	0/10
+
+Explain that the current orthomosaics contain zero-valued viewing angles and therefore cannot support the existing three-parameter fit.
+
+Make the distinction between:
+
+The current orthomosaics cannot support this BRDF fit.
+
+and
+
+Original overlapping drone photographs may contain recoverable angular information.
+
+Do not claim that drone imagery generally cannot support BRDF correction.
+
+Explain that the shared implementation can be appropriate for NEON observations when the relevant geometry, radiometry, and model-identifiability requirements are satisfied.
+
+Do not imply that every NEON product automatically passes these requirements.
+
+Goldhill artifact
+
+Include a short case study explaining the historical red streak.
+
+Describe:
+
+* Why the artifact appeared.
+* How stage-isolation experiments identified BRDF as its source.
+* Why reversing normalization did not remove it.
+* Why unsupported model predictions produced extreme correction gains.
+* How the current validity gates prevent unsupported fits from being accepted.
+
+Use an existing diagnostic figure from the investigation, with appropriate captions.
+
+Do not present the historical corrected image as a scientifically valid output.
+
+7. Update topographic correction documentation
+
+Explain the SCS+C method and the assumptions required for its use.
+
+Document the observed correction behavior:
+
+Flight	Maximum diagnostic gain	Coverage loss
+Gordon	528×	4.08%
+Goldhill	357×	5.49%
+Ruby	373×	1.49%
+
+Explain why extreme correction factors warrant investigation.
+
+Summarize the mixed effects on spectral consistency and PFT separability.
+
+Clearly distinguish:
+
+* A correction being mathematically executable.
+* A correction passing numerical stability checks.
+* A correction being physically justified.
+* A correction being independently validated for scientific use.
+
+State that topographic correction has not yet been approved for these three flights based on the available evidence.
+
+Do not recommend arbitrary gain caps as a substitute for physical validation.
+
+8. Document photogrammetry and angular information
+
+Add or update a section explaining the relationship between photogrammetry and directional reflectance.
+
+Explain:
+
+* How overlapping photographs capture the same targets from different directions.
+* How photogrammetry estimates camera positions and orientations.
+* How orthomosaicking selects or blends observations.
+* Why the final orthomosaic may not retain complete viewing geometry.
+* Why assigning nadir viewing angles is not equivalent to reconstructing the original observations.
+* How camera geometry could potentially support image-level radiometric correction.
+
+Incorporate verified findings from the latest provenance investigation.
+
+If the source of the zero-valued angles has been identified, document it accurately.
+
+If not, explain that their origin remains under investigation.
+
+Do not claim that Metashape discarded the information unless the provenance investigation confirms it.
+
+Literature context
+
+Include a concise, properly cited discussion of relevant UAV correction methods:
+
+* Radiometric block adjustment.
+* Original-image anisotropy correction.
+* Irradiance and vignetting correction.
+* BRDF-aware orthomosaic generation.
+* Empirical post-mosaic correction.
+
+Verify references, titles, publication details, and DOIs.
+
+Explain why these approaches may differ from NEON AOP processing.
+
+Do not imply that the published methods have already been validated on our flights.
+
+⸻
+
+Part II — Update user-facing documentation
+
+9. Create a clear correction eligibility guide
+
+Users need to understand which operations they can safely perform.
+
+Add a concise guide titled:
+
+Choosing Radiometric, Topographic, and BRDF Corrections
+
+Explain what each correction requires.
+
+Include a decision table covering:
+
+* Verified physical units.
+* Solar geometry.
+* Viewing geometry.
+* Terrain information.
+* BRDF model rank and conditioning.
+* Correction stability.
+* Validation evidence.
+
+Show what happens when a correction is unsupported.
+
+The documentation should explain that skipping an unsupported correction is preferable to generating an apparently successful but scientifically invalid output.
+
+Describe the actual current software behavior, not proposed functionality.
+
+If the production plan includes features not yet implemented, label them as planned.
+
+10. Update drone tutorials and examples
+
+Review all existing drone examples.
+
+Identify examples that:
+
+* Assume BRDF correction is always appropriate.
+* Treat normalized UInt16 values as physical reflectance.
+* Use historical Goldhill corrected imagery.
+* Apply unverified topographic corrections.
+* Generate translated spectra without checking source units.
+* Extract spectral libraries without validating spatial correspondence.
+
+Update misleading examples.
+
+Where possible, use the existing validated source data and correction-status diagnostics.
+
+Ensure examples clearly distinguish:
+
+* Exploratory numerical spectra.
+* Physically calibrated reflectance.
+* Validated corrected products.
+
+Do not silently substitute experimental results for production outputs.
+
+Do not create examples that claim successful physical calibration without supporting evidence.
+
+11. Update spectral library documentation
+
+Explain how spatial, radiometric, and angular errors affect extracted spectral signatures.
+
+Include:
+
+* Why polygon alignment matters.
+* Why band-specific normalization affects spectral interpretation.
+* Why unsupported BRDF can introduce artificial spectral variation.
+* Why topographic correction requires validation.
+* Why within-PFT variance reduction alone does not establish improvement.
+* Why between-PFT separability must also be preserved.
+* Why cross-flight and cross-sensor comparisons require additional evidence.
+
+Summarize the recent researcher-polygon evaluation:
+
+* 301 researcher polygons.
+* 198,309 matched polygon-pixel memberships.
+* Mixed effects of diagnostic topographic correction.
+* No established cross-flight reflectance harmonization.
+
+Explain the present status of the Gordon, Goldhill, and Ruby libraries.
+
+Distinguish historical outputs from approved research products.
+
+Do not imply that all unrelated NEON spectral libraries are affected.
+
+12. Add a troubleshooting section
+
+Create or update troubleshooting guidance for common problems.
+
+Include:
+
+Raster appears flipped or misaligned
+
+Explain CRS, affine, row-direction, and pixel-reference checks.
+
+Unexpected spectral values
+
+Explain numerical normalization versus physical reflectance.
+
+BRDF correction produces extreme values
+
+Explain unsupported angular geometry, rank deficiency, and invalid model predictions.
+
+Correction removes large areas of imagery
+
+Explain ancillary validity masks and illumination geometry.
+
+Drone and NEON spectra disagree
+
+Explain differences in calibration, angular geometry, correction eligibility, spectral response, and translation validation.
+
+Orthomosaic contains flightline seams
+
+Explain potential upstream photogrammetry effects and how these differ from downstream BRDF artifacts.
+
+Link each problem to the appropriate methods or validation documentation.
+
+⸻
+
+Part III — Improve website presentation
+
+13. Integrate the findings into the existing navigation
+
+Organize the information so researchers can find it without reading lengthy investigation reports.
+
+Prefer updating existing pages over creating an entirely new documentation hierarchy.
+
+Suggested destinations:
+
+* Drone processing.
+* Radiometric calibration.
+* Topographic correction.
+* BRDF correction.
+* Spectral library development.
+* Validation and QA.
+* Known limitations.
+* Troubleshooting.
+
+Use the site’s existing navigation, typography, and callout conventions.
+
+Avoid overwhelming the homepage with technical investigation details.
+
+The homepage should communicate the package’s capabilities accurately and direct users to the relevant documentation.
+
+14. Add scientifically informative visuals
+
+Reuse the strongest existing figures where appropriate.
+
+Prioritize:
+
+1. Drone processing and metadata provenance diagram.
+2. Goldhill raw/topographic/invalid-BRDF comparison.
+3. Angular identifiability across the three flights.
+4. Radiometric normalization and recovery explanation.
+5. Topographic correction stability.
+6. Recommended correction eligibility workflow.
+
+Figures should have:
+
+* Clear titles.
+* Readable labels.
+* Descriptive captions.
+* Correct units.
+* Explicit experimental or production status.
+* Alt text.
+* Links to supporting investigations.
+
+Optimize images for website loading.
+
+Avoid duplicating large experimental datasets in the documentation build.
+
+15. Add a concise research findings page
+
+Create a short, accessible page titled:
+
+Drone Processing: Validation Findings and Current Limitations
+
+This should summarize the major discoveries without reproducing the entire investigation history.
+
+Organize it around:
+
+1. Spatial integrity.
+2. Radiometric calibration.
+3. BRDF identifiability.
+4. Topographic correction.
+5. Spectral library implications.
+6. Current recommendations.
+
+Use a clear status table:
+
+Component	Current scientific status
+Spatial alignment	Validated for repaired source products
+Numerical DN recovery	Verified with documented limitations
+Physical reflectance calibration	Unverified unless newer evidence resolves it
+BRDF for current orthomosaics	Unsupported
+Topographic correction	Diagnostic; not approved
+Spectral libraries	Exploratory use only pending validation
+
+Update this table if the latest investigation provides stronger verified evidence.
+
+Link to the full reports and reproducibility materials.
+
+This page should be useful to collaborators who want to understand what is currently reliable.
+
+⸻
+
+Part IV — Technical documentation and publication quality
+
+16. Verify API documentation
+
+Check that documentation matches the actual current package.
+
+Pay particular attention to:
+
+* Radiometric scale and offset parameters.
+* Unit validation.
+* Geometry requirements.
+* Correction eligibility.
+* Model fitting diagnostics.
+* Unsupported correction states.
+* Drone processing entry points.
+* Spectral extraction and library metadata.
+
+Update docstrings where needed.
+
+Do not invent public functions or document proposed interfaces as implemented.
+
+Keep existing API documentation generation working.
+
+17. Preserve JOSS and PyPI readiness
+
+Ensure the updates remain consistent with the package’s publication materials.
+
+Check:
+
+* README.
+* Installation documentation.
+* Quickstart.
+* Scientific methods.
+* Limitations.
+* Citation information.
+* References.
+* JOSS paper.
+* Package metadata.
+
+Do not rewrite the JOSS paper unless a specific factual inconsistency requires correction.
+
+Do not change authorship, licensing, version numbers, or release metadata without authorization.
+
+Do not claim that ongoing investigations establish new validated scientific capabilities.
+
+18. Validate the documentation build
+
+After editing:
+
+1. Build the website locally.
+2. Check navigation.
+3. Check internal links.
+4. Check image references.
+5. Check mathematical formatting.
+6. Check citations.
+7. Check code examples.
+8. Check API documentation.
+9. Check responsive layouts where practical.
+10. Check for contradictory statements across pages.
+
+Run relevant documentation and lightweight package tests.
+
+Do not change package behavior to make documentation examples pass.
+
+Fix documentation errors directly.
+
+⸻
+
+Deliverables
+
+Complete the documentation and website changes in the existing repository.
+
+Provide:
+
+1. A summary of pages created or updated.
+2. A list of scientific findings incorporated.
+3. A list of outdated or misleading statements corrected.
+4. A list of figures incorporated.
+5. Documentation build and link-check results.
+6. Any unresolved documentation gaps.
+7. A concise summary of remaining scientific limitations.
+
+Where practical, include a short before-and-after comparison of the documentation organization.
+
+Scope constraints
+
+* Do not refactor the processing pipeline.
+* Do not change scientific algorithms.
+* Do not modify production imagery.
+* Do not regenerate spectral libraries.
+* Do not change correction coefficients.
+* Do not migrate documentation frameworks.
+* Do not undertake an unrelated repository cleanup.
+* Do not publish a new package release.
+* Do not deploy the website unless explicitly authorized.
+
+Preserve the existing documentation style and structure.
+
+Writing style
+
+Write for environmental scientists, remote-sensing researchers, and technically capable Python users.
+
+Use clear, direct scientific language.
+
+Explain technical concepts before introducing equations.
+
+Avoid unnecessary jargon.
+
+Prefer informative figures and concise examples over lengthy blocks of technical prose.
+
+Distinguish clearly between:
+
+* Validated: Demonstrated by reproducible evidence.
+* Unsupported: Required conditions are not satisfied.
+* Unverified: Evidence is insufficient to establish validity.
+* Experimental: Investigated but not approved for production.
+* Planned: Proposed functionality not yet implemented.
+
+Final goal
+
+A researcher visiting the SpectralBridge website should understand:
+
+What the package does, how the drone and NEON workflows differ, which corrections are scientifically supported, what limitations remain, and how to produce trustworthy spectral libraries.
+
+The website should reflect what we have actually learned from the investigations without overstating the package’s current validation status.
+```
+
+## 2026-11-03 - Experimental assumed drone viewing angles
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+SpectralBridge: Experimental Evaluation of Assumed Drone Viewing Angles
+
+Objective
+
+Investigate whether scientifically plausible assumed viewing angles can improve BRDF correction of our existing Gordon, Goldhill, and Ruby drone orthomosaics without recovering the original Metashape camera geometry.
+
+Our previous investigations established that the historical TIFF-to-H5 converter explicitly populated sensor zenith and azimuth with zeros. These were placeholders, not measured viewing angles.
+
+Consequently, the current orthomosaics have rank-one angular designs, and the historical RossThick/LiDenseR correction produced severe numerical artifacts, particularly the Goldhill red streak.
+
+I want to determine whether alternative viewing-angle assumptions could provide a practical interim solution.
+
+This is an experiment, not authorization to replace the current viewing-angle metadata or change production corrections.
+
+The investigation must distinguish:
+
+1. Whether an assumed angle changes BRDF correction results.
+2. Whether it improves numerical stability.
+3. Whether it improves spectral-library quality.
+4. Whether the resulting correction is physically identifiable or scientifically defensible.
+
+These are different questions.
+
+1. Establish the baseline
+
+Use the existing validated Gordon, Goldhill, and Ruby source imagery, spatial metadata, and researcher-assigned polygons.
+
+Review the October–November 2026 investigations, especially:
+
+* The Goldhill BRDF artifact diagnosis.
+* The radiometric scaling investigation.
+* The BRDF identifiability audit.
+* The PFT separability and topographic correction comparisons.
+* P162: Where Did the Drone Geometry Go? Tracing Photogrammetry Metadata into SpectralBridge.
+
+Preserve all existing source files, corrected products, coefficients, and spectral libraries.
+
+Record the exact repository revision and input hashes.
+
+Reproduce the relevant baseline diagnostics without modifying production files.
+
+Include the existing zero-view geometry as the reference case.
+
+2. Test constant assumed viewing angles
+
+Construct experimental viewing geometries with constant zenith angles:
+
+[
+\theta_v \in {0^\circ, 5^\circ, 10^\circ, 15^\circ, 20^\circ, 25^\circ, 30^\circ}
+]
+
+For nonzero zenith angles, evaluate representative relative azimuths:
+
+[
+\Delta\phi \in {0^\circ, 45^\circ, 90^\circ, 135^\circ, 180^\circ}
+]
+
+Use the actual solar geometry from the current working H5 files, while retaining its documented timestamp uncertainty.
+
+Do not confuse relative azimuth with absolute sensor azimuth. Convert conventions correctly for the existing RossThick/LiDenseR implementation.
+
+At nadir, azimuth is geometrically undefined; do not manufacture distinct nadir observations by varying azimuth.
+
+For every geometry, calculate:
+
+* RossThick kernel values.
+* LiDenseR kernel values.
+* Design-matrix rank.
+* Condition number.
+* Number of independently identifiable coefficients.
+* Model eligibility under the current validation rules.
+
+Do not bypass the rank or conditioning gates to obtain a successful fit.
+
+Explicitly demonstrate whether changing the constant assumed angle resolves the rank-one problem.
+
+3. Test plausible spatially varying angle assumptions
+
+Evaluate whether reasonable approximations to drone viewing geometry could produce different outcomes.
+
+Consider simplified scenarios such as:
+
+* Symmetric off-nadir variation across a camera footprint.
+* Alternating flightline viewing directions.
+* Different nominal viewing angles near mosaic edges.
+* Smoothly varying viewing geometry across a hypothetical orthomosaic.
+
+Use available flight altitude, camera field of view, and processing-report geometry to constrain scenarios where possible.
+
+If these parameters are unavailable, label scenarios as synthetic and use clearly stated illustrative ranges.
+
+Do not present synthetic geometry as recovered Metashape observations.
+
+Do not overwrite the existing H5 angle datasets.
+
+For each scenario, evaluate angular kernel variation and numerical identifiability.
+
+Critically, distinguish algebraic full rank from physical identifiability.
+
+A synthetic angle map may produce a full-rank design matrix without providing genuine information about the relationship between viewing geometry and measured reflectance.
+
+Do not interpret a numerically successful fit to invented angles as evidence of valid BRDF correction.
+
+4. Evaluate the correction using fixed, independently estimated coefficients
+
+This is an important additional experiment.
+
+Investigate whether SpectralBridge already contains independently validated BRDF coefficients from NEON AOP observations.
+
+If suitable coefficients exist, evaluate whether they can be applied experimentally to the drone imagery using assumed viewing geometries.
+
+Before applying them, verify:
+
+* Coefficient provenance.
+* Sensor and wavelength compatibility.
+* RossThick/LiDenseR kernel conventions.
+* Solar and viewing-angle conventions.
+* Reference viewing geometry.
+* Radiometric units.
+* Vegetation and canopy applicability.
+* Model validity and numerical stability.
+
+Do not treat coefficients fitted to unrelated vegetation, wavelengths, or observation conditions as automatically transferable.
+
+If no suitable independently validated coefficients exist, report that limitation rather than manufacturing them.
+
+Where coefficients are available, calculate:
+
+[
+R_{\mathrm{normalized}}
+
+R_{\mathrm{observed}}
+\frac{
+f(\theta_s,\theta_v^{ref},\phi^{ref})
+}{
+f(\theta_s,\theta_v^{assumed},\phi^{assumed})
+}
+]
+
+Use the existing correction implementation where appropriate.
+
+Maintain all denominator, positivity, finite-value, and applicability checks.
+
+Do not refit coefficients to the drone orthomosaic using assumed geometry.
+
+Because the physical radiometric units remain unverified, treat these results as numerical sensitivity tests, not validated reflectance corrections.
+
+5. Compare spectral results
+
+Evaluate the experimental outputs against the original uncorrected orthomosaics.
+
+Use existing researcher-assigned polygons and preserve the validated spatial correspondence.
+
+Evaluate:
+
+Numerical stability
+
+* Correction-factor distributions.
+* Extreme gains and losses.
+* Invalid predictions.
+* Nonfinite values.
+* Spectral discontinuities.
+* Valid-pixel coverage.
+
+Spectral consistency
+
+* Within-polygon spectral variation.
+* Within-PFT variation.
+* Spectral angles.
+* Band relationships.
+* Spectral indices where appropriate.
+
+PFT discrimination
+
+* Between-PFT separability.
+* Within-PFT dispersion.
+* Class overlap.
+* Existing identifiability metrics.
+
+Use polygons, rather than randomly split pixels, as the primary independent analysis units.
+
+Preserve the original researcher-assigned PFT categories, including non-vegetated/dead cover classes.
+
+Do not select the best assumed angle solely because it reduces within-PFT variance or produces visually smoother imagery.
+
+An assumed-angle correction must not be allowed to artificially erase real biological differences.
+
+6. Isolate BRDF from topographic correction
+
+Do not combine the experimental viewing-angle correction with the historical SCS+C outputs.
+
+P162 demonstrated that the extreme topographic correction gains arise from denominator cancellation and that the correction remains scientifically unapproved.
+
+Use the uncorrected, spatially validated drone data as the primary baseline.
+
+If a secondary topographic comparison is scientifically useful, label it separately as diagnostic and preserve the existing eligibility restrictions.
+
+Do not allow topographic artifacts to be mistaken for BRDF improvements.
+
+7. Investigate whether a constant angle can meaningfully change the result
+
+I particularly want a direct answer to this question:
+
+If we replace the current zero-degree placeholder with a plausible constant viewing angle, such as 10° or 15°, does the BRDF correction become stable and useful?
+
+Evaluate two distinct cases:
+
+Case A: Fit new BRDF coefficients using the assumed angle.
+
+Determine whether the model becomes identifiable.
+
+Case B: Apply independently estimated coefficients using the assumed angle.
+
+Determine whether the correction becomes numerically stable and whether it improves independent spectral-quality metrics.
+
+Do not conflate these cases.
+
+A constant nonzero viewing angle is not expected to resolve the missing angular diversity, but the experiment should demonstrate that using the actual package equations and data.
+
+Also test whether the correction is sensitive enough to assumed angle and azimuth that different plausible assumptions lead to materially different spectral results.
+
+If results depend strongly on arbitrary assumptions, explain why that limits scientific defensibility.
+
+8. Produce a visual scientific report
+
+Create a concise, figure-heavy PDF and Markdown report titled:
+
+Can Assumed Viewing Angles Rescue Drone BRDF Correction?
+
+Include:
+
+1. A diagram explaining actual versus assumed viewing geometry.
+2. Kernel-response plots across assumed angles.
+3. Rank and conditioning comparisons.
+4. Correction-factor distributions.
+5. Goldhill red-band comparisons.
+6. Representative RGB or band images.
+7. Within-PFT and between-PFT spectral comparisons.
+8. A sensitivity plot showing how results change with the assumed angle.
+9. A clear comparison of constant-angle, synthetic-angle, and independent-coefficient approaches.
+
+For each figure, distinguish measured data from synthetic assumptions.
+
+Use consistent visualization scales when comparing imagery.
+
+Avoid misleading per-panel stretches that make radiometrically different images appear equivalent.
+
+9. Make a scientifically explicit recommendation
+
+At the end, classify each approach as:
+
+* Supported: Backed by sufficient independent observation and validation.
+* Numerically feasible but unvalidated: Can be computed but lacks physical verification.
+* Unsupported: Cannot satisfy model requirements.
+* Not evaluated: Required inputs were unavailable.
+
+Answer:
+
+1. Can any constant assumed angle make the existing three-parameter Ross–Li fit identifiable?
+2. Can synthetic spatial angle variation produce numerical rank without genuine physical information?
+3. Can independently estimated coefficients produce stable corrections under plausible viewing-angle assumptions?
+4. Are those corrections robust across the assumed-angle range?
+5. Do they preserve or improve researcher-assigned PFT spectral structure?
+6. Is any approach defensible for production spectral libraries?
+7. Is skipping BRDF still the best interim strategy?
+
+If the experiments fail, report that clearly. A rigorous negative result is valuable.
+
+Implementation constraints
+
+* Read-only investigation.
+* No modifications to source TIFFs or H5 files.
+* No replacement of viewing-angle metadata.
+* No production coefficient changes.
+* No regenerated production orthomosaics.
+* No changes to correction eligibility gates.
+* No spectral-library replacement.
+* No new production BRDF algorithm.
+* No arbitrary gain clipping.
+* No broad repository refactor.
+
+Store experimental scripts, figures, tables, provenance, and reports in a new dated investigation directory following the repository’s existing conventions.
+
+Run appropriate reproducibility checks and record input hashes.
+
+Final objective
+
+Determine whether assumed viewing geometry can provide a useful interim BRDF normalization for our existing drone orthomosaics, or whether any apparent improvement is simply an artifact of imposing arbitrary angles.
+
+I want a quantitative answer grounded in our actual imagery and researcher-assigned PFT polygons—not merely a theoretical explanation.
+
+The outcome should tell us whether to pursue an assumed-angle correction, transfer independently validated coefficients, or preserve the existing orthomosaics without BRDF correction until actual observation geometry can be recovered.
+```
+
+## 2026-11-03 - Anatomy of the Goldhill BRDF artifact
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+SpectralBridge: Anatomy of a BRDF Artifact
+
+Objective
+
+Create a rigorous, visually compelling scientific report explaining exactly how the historical BRDF correction generated the red artifact in the Goldhill drone orthomosaic.
+
+The report should reconstruct the processing pipeline using actual imagery, actual spectral measurements, actual ancillary geometry, and the historical correction equations.
+
+I want to see the artifact form, step by step, in both geographic space and spectral space.
+
+The report should be accessible to remote-sensing scientists who understand spectral imagery but may not be familiar with the mathematical details of BRDF fitting.
+
+Use Goldhill as the primary case study, with Gordon and Ruby as comparisons.
+
+This is a read-only scientific investigation. Do not modify production imagery, correction algorithms, coefficients, H5 files, or spectral libraries.
+
+Scientific questions
+
+The report must answer:
+
+1. What does the original Goldhill imagery look like before correction?
+2. What do the viewing-angle, solar-angle, and terrain-angle maps actually look like?
+3. How much do those angles vary across the orthomosaic?
+4. How do those angles enter the RossThick/LiDenseR BRDF model?
+5. Why is the model unidentifiable with the current viewing geometry?
+6. What coefficients did the historical fitting process produce?
+7. How do those coefficients translate into spatially varying BRDF predictions?
+8. Where do the predictions approach or cross zero?
+9. How does that create enormous correction factors?
+10. Why does the numerical instability appear as a spatially coherent red streak?
+11. How does the artifact alter individual pixel spectra and researcher-assigned PFT signatures?
+12. How do we know the artifact originates in BRDF rather than topographic correction or original image acquisition?
+
+The goal is to demonstrate the causal chain with reproducible numerical evidence and clear visualizations.
+
+⸻
+
+Part I — Reconstruct the actual processing sequence
+
+1. Review existing investigations
+
+Read the relevant reports and scripts before running new analyses.
+
+Prioritize:
+
+* Goldhill red-boundary stage-isolation investigation.
+* AOP/drone radiometry and BRDF audit.
+* Drone radiometric scaling investigation.
+* Drone BRDF identifiability investigation.
+* P161 correction evaluation.
+* P162: Where Did the Drone Geometry Go? Tracing Photogrammetry Metadata into SpectralBridge.
+
+Reuse existing validated computations wherever possible.
+
+Do not repeat expensive analyses merely to reproduce results already supported by saved arrays and exact-replay tests.
+
+Identify the exact historical code revision, BRDF coefficients, correction functions, input products, and output products responsible for the artifact.
+
+Record all source paths, hashes, code versions, and parameter values.
+
+Important: The historical BRDF application must be reconstructed exactly. Do not silently substitute the newer fail-closed implementation, which correctly rejects unsupported fits.
+
+Use the historical algorithm only in an isolated diagnostic replay.
+
+2. Establish a common spatial reference
+
+Select a representative Goldhill region that includes:
+
+* The red artifact boundary.
+* Pixels on both sides of the boundary.
+* Relatively homogeneous vegetation.
+* Researcher-assigned PFT polygons where available.
+* Enough surrounding area to understand the spatial pattern.
+
+Also retain at least one full-scene overview.
+
+All spatial panels must use the same:
+
+* CRS.
+* Extent.
+* Orientation.
+* Pixel alignment.
+* Sampling resolution.
+
+Use the spatially repaired and source-validated imagery.
+
+Do not use the historical geographically reflected raster as the geographic reference.
+
+When displaying historical correction results, verify that their arrays correspond to the repaired source pixel order before overlaying polygons or geographic coordinates.
+
+If necessary, reconstruct historical correction arrays on the validated grid.
+
+⸻
+
+Part II — Show the artifact forming
+
+3. Create the central processing-stage figure
+
+This should be the most important figure in the report.
+
+Create a large, publication-quality multipanel figure showing the same geographic region through the processing stages.
+
+At minimum, include:
+
+Processing stage	Map	Spectral comparison
+Original source imagery	RGB orthomosaic	Original spectra
+Spatially repaired imagery	RGB image	Spectra after spatial repair
+Radiometric normalization	RGB or representative bands	Spectra after normalization
+Topographic correction only	RGB image	Topographic-only spectra
+BRDF correction only	RGB image	BRDF-only spectra
+Historical combined correction	RGB image	Combined-correction spectra
+
+The figure should have maps on the left and spectra on the right, with each processing stage represented by one row.
+
+Use the same representative pixels or polygons across every stage.
+
+For each spectral panel:
+
+* Plot the original spectrum as a reference.
+* Plot the spectrum after the indicated stage.
+* Use consistent wavelength coordinates.
+* Label the units or numerical encoding accurately.
+* Preserve missing values and masks.
+* Identify bands exhibiting extreme amplification.
+
+Do not label numerically normalized values as physical reflectance.
+
+Where stages use different numerical encodings, show the actual transformation and use a separate clearly labeled scale or an explicitly justified common numerical representation.
+
+Do not create a misleading comparison by plotting DN and normalized values on the same axis without explaining the conversion.
+
+Important visual requirement
+
+For RGB imagery, provide both:
+
+1. Fixed display scaling shared across comparable stages.
+2. Individually stretched diagnostic views where necessary to reveal spatial structure.
+
+Clearly distinguish these.
+
+A per-image percentile stretch can hide enormous radiometric differences, so it must not be the only comparison.
+
+4. Track representative pixels through every stage
+
+Select a small number of diagnostic pixels:
+
+* A pixel inside the red artifact.
+* A pixel immediately outside the artifact.
+* A pixel near the transition boundary.
+* A relatively unaffected reference pixel.
+* A pixel where the historical model prediction is nonpositive, if distinct.
+
+Use actual source coordinates and pixel indices.
+
+For each pixel, show:
+
+* Original spectral values.
+* Topographic-only values.
+* BRDF-only values.
+* Combined-correction values.
+* BRDF correction factors by wavelength.
+* Historical model predictions by wavelength.
+* Validity and fallback status.
+
+Create a figure showing the complete spectral trajectory for these pixels.
+
+Where useful, use a logarithmic scale for correction factors, but do not apply a log transform to negative or zero spectral values without explicitly handling them.
+
+The reader should be able to follow one real pixel from the original image to the corrupted output.
+
+⸻
+
+Part III — Map the actual observation geometry
+
+5. Create a complete angular-geometry atlas
+
+Produce a coordinated set of spatial maps for Goldhill.
+
+At minimum:
+
+Viewing geometry
+
+* Sensor zenith angle.
+* Sensor azimuth angle.
+
+Solar geometry
+
+* Solar zenith angle.
+* Solar azimuth angle.
+
+Terrain geometry
+
+* Slope.
+* Aspect.
+* Solar incidence cosine, cos(i).
+* Solar incidence angle where physically defined.
+
+BRDF geometry
+
+* Relative solar–sensor azimuth.
+* RossThick volumetric kernel.
+* LiDenseR geometric kernel.
+
+All maps must use actual values from the working H5 or values derived directly from those arrays using the package’s documented conventions.
+
+Do not invent camera angles or interpolate nonexistent observations.
+
+Viewing-angle maps
+
+The Goldhill viewing-angle maps are expected to be constant zero because the historical converter inserted placeholders.
+
+Show these maps anyway.
+
+Do not omit them because they appear visually uninteresting.
+
+A completely uniform viewing-angle map is one of the most important findings.
+
+Label them prominently:
+
+PLACEHOLDER — NOT MEASURED VIEWING GEOMETRY
+
+Include a histogram or numerical range alongside each map.
+
+If the viewing-angle values are constant, use a suitable single-value legend rather than a misleading continuous color scale.
+
+Explain that zero azimuth at zero zenith is not an independently meaningful viewing direction.
+
+Solar-angle maps
+
+Show the actual spatial variation in solar zenith and azimuth.
+
+Include:
+
+* Minimum.
+* Maximum.
+* Median.
+* Spatial range.
+* Gradient direction.
+* Distribution of values.
+
+The current solar grids were computed from a single manifest timestamp using the NOAA approximation.
+
+Label them:
+
+DERIVED — ACQUISITION TIME UNVERIFIED
+
+Do not describe them as directly measured solar geometry.
+
+Where useful, include the independent SPA comparison from P162.
+
+Terrain maps
+
+Show the actual slope and aspect arrays.
+
+Use a cyclic color representation for aspect.
+
+Distinguish:
+
+* Terrain slope.
+* Terrain aspect.
+* Solar incidence.
+* Viewing geometry.
+
+These are not interchangeable.
+
+Include a simple explanatory diagram showing the angles relative to the terrain surface.
+
+Full-scene and zoomed maps
+
+For the key angular fields, provide both:
+
+1. Full-scene maps.
+2. Zoomed maps around the Goldhill red boundary.
+
+Use identical geographic extents for all zoomed panels.
+
+⸻
+
+Part IV — Explain the BRDF mathematics spatially
+
+6. Visualize the Ross–Li design matrix
+
+The historical model is:
+
+[
+R=f_{\mathrm{iso}}+
+f_{\mathrm{vol}}K_{\mathrm{Ross}}+
+f_{\mathrm{geo}}K_{\mathrm{Li}}
+]
+
+Create figures showing:
+
+* RossThick kernel values across the image.
+* LiDenseR kernel values across the image.
+* Kernel distributions.
+* Correlation between the kernel columns.
+* Singular values of the angular design matrix.
+* Matrix rank and condition number.
+
+Explain visually why millions of pixels do not provide independent angular information.
+
+For the three drone flights, previous investigations found rank 1/3 and zero supported band fits.
+
+Reproduce or verify those results.
+
+A useful figure would compare:
+
+Many pixels with nearly identical angular geometry
+
+against
+
+Multiple independent angular observations
+
+Use the second case only as a clearly labeled conceptual illustration unless actual independent observations are available.
+
+Do not suggest that synthetic angular diversity constitutes measured information.
+
+7. Map the historical BRDF predictions
+
+This is a critical part of the report.
+
+For the Goldhill red band, reconstruct the historical BRDF predictions at every valid pixel.
+
+Create spatial maps of:
+
+1. Predicted BRDF response at the observed geometry.
+2. Predicted BRDF response at the reference geometry.
+3. The signed observed-geometry denominator.
+4. The correction-factor numerator.
+5. The correction factor.
+6. The historical nonpositive-prediction fallback mask.
+7. The final corrected red-band values.
+
+These maps should share the same geographic extent.
+
+Use a diverging color scale centered at zero for signed predictions.
+
+Use a logarithmic representation for positive correction factors spanning several orders of magnitude.
+
+Do not hide invalid or nonpositive predictions by clipping them to positive values.
+
+Use distinct colors or hatching for invalid, masked, and fallback pixels.
+
+Critical diagnostic
+
+Overlay the red artifact boundary on:
+
+* The observed-geometry prediction map.
+* The near-zero prediction map.
+* The fallback mask.
+* The correction-factor map.
+* The corrected red-band image.
+
+Determine whether the boundary coincides with a prediction crossing zero, a fallback-state transition, or another specific branch of the historical implementation.
+
+Do not assume the precise boundary mechanism from the earlier narrative. Demonstrate it using the actual historical arrays and code.
+
+Quantify spatial overlap and boundary displacement.
+
+If the mechanism differs between bands or regions, report those differences.
+
+8. Show the denominator instability
+
+Create a figure explaining the correction:
+
+[
+R_{\mathrm{corrected}}
+
+R_{\mathrm{original}}
+\frac{R_{\mathrm{reference,predicted}}}
+{R_{\mathrm{observed,predicted}}}
+]
+
+Plot:
+
+* Predicted observed response versus position across the artifact boundary.
+* Predicted reference response along the same transect.
+* Correction factor along the transect.
+* Original red-band signal.
+* Corrected red-band signal.
+
+Use one or more transects crossing the actual red boundary.
+
+Mark the locations where:
+
+* The denominator approaches zero.
+* The denominator becomes nonpositive.
+* The historical fallback activates.
+* The corrected values change abruptly.
+
+A transect should use actual contiguous pixel coordinates rather than a sorted distribution.
+
+Create an additional scatterplot showing correction factor versus predicted denominator.
+
+This should make the numerical mechanism understandable without requiring the reader to inspect source code.
+
+⸻
+
+Part V — Why does the artifact appear red?
+
+9. Compare the spectral bands
+
+Investigate why the artifact is especially visible in the red channel.
+
+For each band, calculate:
+
+* Fitted historical coefficients.
+* Predicted response range.
+* Fraction of nonpositive predictions.
+* Correction-factor quantiles.
+* Maximum correction factor.
+* Fraction of extreme gains.
+* Spatial extent of fallback regions.
+* Changes in spectral values.
+
+Create a wavelength-by-position heatmap across the artifact boundary.
+
+Show how the correction factor varies with wavelength.
+
+Compare the red band against green, blue, red-edge, and NIR bands.
+
+Determine whether the visible red artifact results from:
+
+* A uniquely unstable red-band model.
+* Different fallback boundaries among bands.
+* Large differences in correction-factor magnitude.
+* RGB display scaling.
+* A combination of these mechanisms.
+
+Do not assume the answer before calculating it.
+
+Use the actual RGB band mapping employed by the production visualization.
+
+Explain how the corrected spectra produce the visible color change.
+
+⸻
+
+Part VI — Separate BRDF from topographic correction
+
+10. Reproduce the controlled stage-isolation experiment
+
+Use the same source imagery and geometry for:
+
+1. No correction.
+2. Topographic correction only.
+3. BRDF correction only.
+4. Historical combined correction.
+
+Reuse the existing exact replay where possible.
+
+Previous investigations established that BRDF-only reproduces the Goldhill red artifact and that the combined replay matched all 70,832,700 production values and masks exactly.
+
+Verify that the current report reproduces those findings or clearly references the validated saved outputs.
+
+Do not reinterpret the Goldhill artifact as an upstream Metashape seamline.
+
+Additional topographic diagnostic
+
+P162 established that extreme SCS+C gains arise from denominator cancellation:
+
+[
+F_{\mathrm{topo}}=
+\frac{\cos(\theta_s)\cos(\alpha)+C}
+{\cos(i)+C}
+]
+
+Include a separate figure showing:
+
+* Solar incidence cosine.
+* Fitted C.
+* The denominator cos(i)+C.
+* Topographic correction factor.
+* Pixels with extreme gains.
+
+Use this to explain why the topographic correction has its own instability, distinct from the BRDF artifact.
+
+Do not conflate the SCS+C denominator with the BRDF predicted-response denominator.
+
+These are different mathematical mechanisms.
+
+⸻
+
+Part VII — Show the impact on vegetation spectra
+
+11. Evaluate researcher-assigned PFT polygons
+
+Use the existing validated polygon identities and spatial memberships.
+
+Select representative polygons crossing or adjacent to the artifact.
+
+For each polygon, compare:
+
+* Original median spectrum.
+* Topographic-only median spectrum.
+* BRDF-only median spectrum.
+* Combined-correction median spectrum.
+
+Show within-polygon spectral distributions where useful.
+
+Use actual PFT names and researcher labels.
+
+Preserve non-vegetated and dead-cover categories.
+
+Include a map showing the selected polygons over the artifact.
+
+Quantitative evaluation
+
+Measure:
+
+* Within-polygon spectral variability.
+* Between-PFT spectral separation.
+* Spectral angle changes.
+* Spectral index changes.
+* Fraction of invalid or extreme values.
+* Spatial consistency within individual polygons.
+
+Do not treat individual pixels from the same polygon as independent research replicates.
+
+Do not claim that lower within-PFT variance establishes improved reflectance calibration.
+
+The purpose is to demonstrate how the historical correction distorted spectral information.
+
+12. Show how one vegetation signature becomes corrupted
+
+Create one particularly clear figure featuring a representative researcher-assigned vegetation polygon.
+
+Include:
+
+Left: Original RGB image with the polygon outlined.
+
+Middle: Historical BRDF-corrected image with the same polygon.
+
+Right: Original and corrected median spectra, with uncertainty or within-polygon spread.
+
+Annotate the red band and any other strongly affected wavelengths.
+
+This figure should communicate the scientific consequence immediately:
+
+The algorithm changes the apparent vegetation spectrum even though the underlying vegetation has not changed.
+
+⸻
+
+Part VIII — Compare all three drone flights
+
+13. Gordon, Goldhill, and Ruby comparison
+
+Create a compact comparative figure showing:
+
+* Original RGB imagery.
+* Viewing zenith.
+* Solar zenith.
+* BRDF correction factor.
+* Invalid-prediction mask.
+* Historical corrected RGB imagery.
+
+Use representative regions from all three flights.
+
+Compare:
+
+* Angular design rank.
+* Kernel variation.
+* Historical coefficient behavior.
+* Correction-factor distributions.
+* Invalid-prediction fractions.
+* Spectral distortion.
+
+Determine whether Goldhill is uniquely affected or whether the other flights exhibit related numerical failures that are less visually obvious.
+
+Do not assume that absence of a red streak means a valid correction.
+
+⸻
+
+Part IX — Scientific communication and report design
+
+14. Create a compelling visual narrative
+
+The report should read like a scientific explanation of a discovered failure mechanism, not a software debugging log.
+
+Use the following narrative progression:
+
+Act 1 — The observation
+
+Show the Goldhill red artifact and establish that it is absent from the source imagery.
+
+Act 2 — The missing information
+
+Show the zero viewing-angle maps and explain what was lost between photogrammetry and H5 conversion.
+
+Act 3 — The unsupported model
+
+Show the angular kernels and rank-deficient design matrix.
+
+Act 4 — The numerical failure
+
+Show the predicted BRDF denominator approaching zero, correction factors exploding, and fallback boundaries forming.
+
+Act 5 — The spectral consequence
+
+Show the same vegetation spectra before and after correction.
+
+Act 6 — The resolution
+
+Explain why rejecting unsupported BRDF corrections prevents the artifact and what information would be required for a scientifically valid correction.
+
+Use clear section headings, short explanatory paragraphs, and figures that carry the scientific argument.
+
+Figure design
+
+Prioritize large, readable multipanel figures.
+
+Use:
+
+* Consistent map extents.
+* Shared color scales for directly comparable quantities.
+* Colorblind-accessible palettes.
+* Clear units.
+* North arrows or coordinate references.
+* Scale bars where appropriate.
+* Explicit masking legends.
+* Descriptive figure captions.
+
+Avoid crowded panels.
+
+Use vector graphics for equations and line plots where practical.
+
+Rasterize large imagery efficiently.
+
+Every figure should explain a scientific point.
+
+⸻
+
+15. Produce a PDF and Markdown report
+
+Title:
+
+Anatomy of a Red Artifact
+
+How Missing Viewing Geometry and an Unsupported BRDF Model Corrupted the Goldhill Drone Orthomosaic
+
+Deliver:
+
+1. A polished, figure-heavy PDF report.
+2. An equivalent Markdown report.
+3. High-resolution figures.
+4. Reproducible analysis scripts.
+5. Machine-readable summary tables.
+6. Source provenance and preservation records.
+7. A concise executive summary for collaborators.
+
+The PDF should be suitable for sharing with remote-sensing scientists and the SpectralBridge research team.
+
+Aim for approximately 12–20 pages, adjusting as necessary to keep the figures legible.
+
+Include a short methods and reproducibility appendix.
+
+16. Validation and reproducibility
+
+Record:
+
+* Repository commit.
+* Historical implementation revision.
+* Source file hashes.
+* Input array shapes.
+* Spectral band definitions.
+* Correction coefficients.
+* Geometry conventions.
+* Validity masks.
+* Numerical comparison tolerances.
+
+Reuse the existing exact-replay evidence.
+
+Where computations are repeated, compare them against previously saved diagnostic arrays.
+
+Report discrepancies rather than silently accepting them.
+
+Do not modify original or production outputs.
+
+Store the report and its supporting artifacts in a new dated provenance directory following the repository’s existing conventions.
+
+17. Final conclusions
+
+End the report with direct answers to these questions:
+
+Why did the red artifact appear?
+
+Identify the exact mathematical and implementation mechanism.
+
+Why did it appear in that geographic location?
+
+Relate the boundary to the actual spatial variation in BRDF predictions and historical fallback behavior.
+
+Why did it appear red?
+
+Explain the band-specific correction and RGB consequences.
+
+Why didn’t millions of pixels solve the problem?
+
+Explain the lack of independent angular information.
+
+Was the problem caused by drone wobble or serpentine flight patterns?
+
+Distinguish possible original directional reflectance variation from the confirmed downstream numerical artifact.
+
+Could Metashape have prevented the problem?
+
+Explain what camera geometry was estimated, what was lost in the TIFF/H5 workflow, and what remains unrecovered.
+
+Would assuming a different viewing angle fix it?
+
+Explain what constant-angle assumptions can and cannot establish.
+
+What is the scientifically justified current solution?
+
+Explain why unsupported BRDF correction must be rejected and why future correction requires actual observation geometry or independently validated alternatives.
+
+Constraints
+
+* Do not modify production code.
+* Do not change correction algorithms.
+* Do not change historical coefficients.
+* Do not modify TIFF or H5 source data.
+* Do not regenerate production libraries.
+* Do not invent camera geometry.
+* Do not replace missing values with assumed measurements.
+* Do not use arbitrary gain caps.
+* Do not perform an unrelated repository cleanup.
+* Do not publish or deploy anything.
+
+The report must demonstrate the mechanism using actual data, not merely illustrate a plausible explanation.
+
+The most important deliverable is a sequence of spatially aligned maps and corresponding spectral plots that lets a reader watch the Goldhill artifact emerge, understand the geometry and mathematics responsible, and see exactly how the correction changes vegetation spectra.
+```

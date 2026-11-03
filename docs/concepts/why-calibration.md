@@ -39,7 +39,7 @@
   <article class="sb-doc-card">
     <h3>Physical corrections</h3>
     <p>SpectralBridge applies topographic and BRDF correction to reduce variation caused by terrain, illumination, and viewing geometry.</p>
-    <p>The result is a reflectance product that is more comparable across acquisition conditions.</p>
+    <p>Whether comparability improves requires valid calibration, suitable geometry, a supported model and independent validation. A completed correction is not evidence of improvement.</p>
   </article>
   <article class="sb-doc-card">
     <h3>Sensor harmonization</h3>
@@ -77,7 +77,8 @@
 <section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">Caveats</p>
 <h2>What still requires scientific judgment</h2>
-<p>SpectralBridge improves comparability, but it does not remove every source of uncertainty. Even after correction and harmonization, you still need to think carefully about:</p>
+<p>Start with <a href="../correction-eligibility/">Choosing Radiometric, Topographic, and BRDF Corrections</a>. The <a href="../../validation/drone-findings/">three-flight drone findings</a> distinguish validated spatial repairs from unverified calibration and unsupported BRDF.</p>
+<p>SpectralBridge makes processing and its assumptions inspectable; improved comparability must be demonstrated. Even after eligible correction and harmonization, review:</p>
 <ul class="sb-doc-list">
   <li>residual BRDF effects and unstable coefficients in low-signal regions</li>
   <li>atmospheric differences between sensors and acquisitions</li>
@@ -107,3 +108,5 @@
 </div>
 </section>
 </div>
+
+Last updated: 2026-11-02

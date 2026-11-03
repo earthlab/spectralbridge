@@ -92,17 +92,22 @@ values.
 ## Run the drone pipeline
 
 ```python
+import json
+from pathlib import Path
 from spectralbridge import run_drone_pipeline
 
+# Template for independently calibrated, source-aligned inputs.
+calibration = json.loads(Path("reviewed_flight_calibration.json").read_text())
 results = run_drone_pipeline(
     input_h5_dir="drone_inputs",
     polygon_path="Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
     output_dir="drone_outputs",
-    apply_topo=True,
-    apply_brdf=True,
+    radiometry=calibration,
+    apply_topo=False,  # Requires independent terrain/illumination review.
+    apply_brdf=False,  # Unsupported for the three investigated mosaics.
     use_ndvi_brdf_bins=False,
     apply_brightness_adjustment=False,
-    apply_translation=True,
+    apply_translation=False,  # Enable only with compatible reviewed coefficients.
     translation_strict=False,
     drone_manifest_timezone="UTC",
 )
@@ -188,9 +193,9 @@ corrected native bands in bounded windows and refuses a likely fractional
 input against count-scale coefficients. If that guard fires, inspect the
 drone input's physical scale and metadata; do not bypass it by changing a
 coefficient or relabeling the header.
-When a count-scale translation has no verified physical reflectance scale,
-the translation QA leaves its above-one-reflectance fraction unavailable and
-records that limitation, rather than treating count values as unit reflectance.
+Historical count-scale QA could leave physical fractions unavailable. Current
+approved translation/library paths require explicit physical-unit provenance;
+that historical behavior does not authorize new unknown-unit translation.
 
 Production uses the site-balanced candidate from each physical pair-band. This
 gives each site equal aggregate influence and is the predetermined deployment
@@ -414,3 +419,5 @@ three-way comparison. All comparison inputs are aggregated to the actual
 Landsat grid with valid-data-aware averaging; the high-resolution source
 products are unchanged. Missing scenes, excessive cloud, or insufficient
 overlap limit only the optional comparison, not the completed drone workflow.
+
+Last updated: 2026-11-02

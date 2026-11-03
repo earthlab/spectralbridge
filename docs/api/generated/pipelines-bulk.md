@@ -8,7 +8,7 @@ Orchestration for the independent production bulk-analysis pipeline.
 Discovery, the virtual DuckDB dataset, provenance, and scientific analyses
 live under the dedicated spectralbridge.bulk package.
 
-[API glossary](../index.md) · [Workflow / scientific context](../../vignettes/full-pipeline.md)
+[API glossary](../index.md) · [Workflow / scientific context](../../vignettes/bulk-analysis.md)
 
 Signatures and documentation below are collected from the current source. Advanced objects are not newly declared stable by inclusion here.
 

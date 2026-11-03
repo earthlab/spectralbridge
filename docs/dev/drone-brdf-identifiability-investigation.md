@@ -1,5 +1,10 @@
 # Drone Radiometric and BRDF Correction: What the Data Actually Support
 
+## Provenance correction added by P162 (2026-11-02)
+
+The follow-up [photogrammetry metadata investigation](photogrammetry-metadata-investigation.md) recovered execution evidence omitted from this report's first account. The October 29 producer used a prepared ten-band TIFF, copied constant view values from the upstream H5 through `prepare_reference`, and **computed new solar grids from the manifest**. Working-H5 Metadata-group attributes record `manifest_computed` and the actual timestamps. The upstream H5's zero views are matrices; the new working H5 stores scalar zeros that the reader broadcasts. The old upstream solar grids are different and replay the archived PyEphem coordinate/altitude unit bugs. This corrects the earlier incomplete solar-origin/metadata account; it does not change the measured rank-one result, spectra, masks, variance metrics or correction decision. The earlier PDF is preserved as the historical first report; P162 is the corrected provenance account.
+
+
 2026-11-02. Isolated scientific investigation of actual Gordon, Goldhill and Ruby 2023 data. **No production imagery, correction coefficients or spectral libraries modified.**
 
 ## Answers and scope
@@ -23,7 +28,7 @@ The source TIFFs store a band-specific min/max normalization. Recovery uses the 
 
 ## 2. Can the angular information support BRDF?
 
-![Angular distributions and kernel support](../../provenance/drone-brdf-strategy/2026-11-02/figure1_angular_information.png)
+![Angular distributions and kernel support](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-brdf-strategy/2026-11-02/figure1_angular_information.png)
 
 | Flight | Valid spectral pixels | Distinct stored angle tuples / at 0.01° | Numerical rank | Condition number | Stable rank | Supported / unsupported bands | Pixels passing complete BRDF gates |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -55,9 +60,9 @@ Original-image correction remains plausible if the custodian supplies the raw te
 
 ## 3. Which corrections improve spectral consistency?
 
-![Full-flight correction comparison](../../provenance/drone-brdf-strategy/2026-11-02/figure2_correction_comparison.png)
+![Full-flight correction comparison](https://github.com/earthlab/spectralbridge/blob/main/provenance/drone-brdf-strategy/2026-11-02/figure2_correction_comparison.png)
 
-![Native-resolution matched regions](../../provenance/drone-brdf-strategy/2026-11-02/figure2b_native_regions.png)
+![Native-resolution matched regions](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-brdf-strategy/2026-11-02/figure2b_native_regions.png)
 
 The raw branch is recovered DN with validated spatial alignment. Approved topographic-only is UNSUPPORTED because physical calibration and illumination/terrain provenance remain unresolved. For a controlled diagnostic we separately replay the **unchanged existing SCS+C equations** on recovered DN with embedded geometry; this is clearly labelled `topo_diagnostic`, never physical reflectance or a valid production correction. It uses the full-scene historical topographic fit, not pathological historical BRDF coefficients. BRDF-only and combined branches are UNSUPPORTED and have no substituted image.
 
@@ -65,13 +70,13 @@ An additional fitted alternative was **not executed**: no verified panel calibra
 
 Full-flight RGB is display-sampled every sixth cell; native 0.1 m ROIs are rendered without interpolation. RGB is always 650/560/475 nm and each flight uses a single raw-reference 2–98% stretch across raw/topographic panels. Geographic orientation, extent and common masks are identical. Stretches may differ across flights, so image brightness between flights is not a calibration comparison. The illumination/terrain differences and bright outliers are visible. Actual source-photo/flightline seam polygons are unavailable and are not fabricated.
 
-![Goldhill historical artifact and current numerical options](../../provenance/drone-brdf-strategy/2026-11-02/figure3_goldhill_red_streak.png)
+![Goldhill historical artifact and current numerical options](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-brdf-strategy/2026-11-02/figure3_goldhill_red_streak.png)
 
 The historical Goldhill BRDF result is displayed **only as an invalid diagnostic** beside raw DN and topographic sensitivity on the same region and equivalent numerical display scale. P160 reproduced all 70,832,700 original values and showed that inverse normalization changes the red boundary metric by just 0.00000501%. The model's factor switches from one to millions where its prediction crosses zero. The current rank gate rejects that model. Avoiding this artifact is not the same as proving raw or topo radiometric accuracy.
 
 ### Matched researcher polygons and spectral evaluation
 
-![Spectral signatures and within-class shape](../../provenance/drone-brdf-strategy/2026-11-02/figure4_spectral_consequences.png)
+![Spectral signatures and within-class shape](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-brdf-strategy/2026-11-02/figure4_spectral_consequences.png)
 
 The study independently reprojects the supplied half-diameter GPKG to each source CRS, rasterizes by pixel center, and verifies every selected center against polygon geometry. **301 polygons and 198,309 matched polygon-pixel memberships** are used (Gordon 58 / 31,413; Goldhill 157 / 144,415; Ruby 86 / 22,481). Those pixel membership totals reproduce the prior spatial validation. Raw and topographic spectra use exactly the same valid locations. A single polygon median spectrum is the analysis unit; individual neighbouring pixels are not independent replicates.
 
@@ -102,7 +107,7 @@ No random pixel split or pixel-derived accuracy score is reported. Polygon group
 
 ### Stability, coverage and indices
 
-![Consistency, separability and numerical stability](../../provenance/drone-brdf-strategy/2026-11-02/figure5_correction_performance.png)
+![Consistency, separability and numerical stability](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-brdf-strategy/2026-11-02/figure5_correction_performance.png)
 
 | Flight | Common source/topographic pixels | Pixels lost to topo geometry | Maximum topographic factor | Band-pixel gains >10 |
 | --- | ---: | ---: | ---: | ---: |
@@ -126,7 +131,7 @@ Shared code includes `io/neon.py` and `NeonCube` storage/ancillary reading, the 
 
 ## 5. What should change in SpectralBridge?
 
-![Proposed correction gates and sensor-specific evidence](../../provenance/drone-brdf-strategy/2026-11-02/figure6_recommended_pipeline.png)
+![Proposed correction gates and sensor-specific evidence](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-brdf-strategy/2026-11-02/figure6_recommended_pipeline.png)
 
 For all three current flights: preserve the spatial repair; offer explicit band-specific numerical recovery with provenance; require physical calibration evidence; skip unsupported BRDF; hold topographic promotion pending verified illumination/terrain and stable, held-out performance; keep native spectra as the primary representation. Per-photo BRDF is worth a bounded feasibility effort if raw images/calibration/poses can be recovered, not an immediate correction promise.
 
@@ -142,7 +147,7 @@ Scripts and complete tables: `provenance/drone-brdf-strategy/2026-11-02/`. Run `
 
 Source/product SHA-256 before/after checks cover all three working H5s, input/recovered TIFFs, corrected raster/header/model pairs and the polygon file; all match. This local diagnostic loads one flight at a time and writes roughly 1.2 GB of experimental raw/topographic arrays plus compact polygon tables and display samples. Normal bulk analysis is not changed and no ordinary bulk pixel cache is introduced. Large-VM streaming performance, original-photo overlap, calibration accuracy, empirical field error and independent target-sensor transfer were not established.
 
-Earlier investigations: [spatial integrity](drone-spatial-integrity-investigation.md), [radiometry/BRDF audit](../../provenance/radiometry-brdf/2026-10-30/README.md), [numeric scaling](../../provenance/drone-scale-confirmation/2026-10-30/README.md), [Goldhill recovery](drone-radiometric-recovery-experiment.md).
+Earlier investigations: [spatial integrity](drone-spatial-integrity-investigation.md), [radiometry/BRDF audit](https://github.com/earthlab/spectralbridge/blob/main/provenance/radiometry-brdf/2026-10-30/README.md), [numeric scaling](https://github.com/earthlab/spectralbridge/blob/main/provenance/drone-scale-confirmation/2026-10-30/README.md), [Goldhill recovery](drone-radiometric-recovery-experiment.md).
 
 Primary external sources checked 2026-11-02:
 

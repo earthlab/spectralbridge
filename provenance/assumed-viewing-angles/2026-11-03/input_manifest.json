@@ -1,0 +1,100 @@
+{
+  "revision": "577e619e28c797839cad88144699c65584b04dfb",
+  "dirty_worktree": true,
+  "status_at_start": " M Drone_2023_2024_Cloud_Production.ipynb\n M Drone_processing.ipynb\n M README.md\n M docs/ai-transparency.json\n M docs/ai-transparency.md\n M docs/api/examples.md\n M docs/api/generated/pipelines-bulk.md\n M docs/api/generated/pipelines-drone.md\n M docs/api/index.md\n M docs/api/inventory.json\n M docs/brdf_topo_algorithm.md\n M docs/concepts/why-calibration.md\n M docs/dev/drone-brdf-identifiability-investigation.md\n M docs/dev/drone-radiometric-recovery-experiment.md\n M docs/dev/drone-spatial-integrity-investigation.md\n M docs/getting-started.md\n M docs/images/ai-transparency/prompt-lengths.svg\n M docs/images/ai-transparency/prompts-by-intent.svg\n M docs/images/ai-transparency/prompts-by-month.svg\n M docs/images/ai-transparency/prompts-by-topic.svg\n M docs/images/ai-transparency/tool-mentions.svg\n M docs/images/ai-transparency/validation-mentions.svg\n M docs/images/ai-transparency/workflow-mentions.svg\n M docs/index.md\n M docs/pipeline/qa.md\n M docs/reference/literature.md\n M docs/spectral-library/index.md\n M docs/troubleshooting.md\n M docs/tutorials/micasense-to-landsat.md\n M docs/tutorials/neon-to-envi.md\n M docs/validation/index.md\n M docs/vignettes/drone-processing.md\n M docs/vignettes/drone-production.md\n M docs/vignettes/neon-correction.md\n M docs/vignettes/notebook-vignettes.md\n M docs/vignettes/notebooks/06_drone_pipeline.ipynb\n M docs/vignettes/notebooks/10_bulk_production_cyverse.ipynb\n M docs/vignettes/polygon-extraction.md\n M docs/vignettes/spectral-library.md\n M mkdocs.yml\n M paper/paper.md\n M provenance/prompts/PROMPT_LOG.md\n M provenance/work-queue/FEATURE_REQUESTS.md\n M scripts/generate_api_reference.py\n M scripts/generate_validation_docs.py\n M src/spectralbridge/corrections.py\n M src/spectralbridge/pipelines/drone.py\n?? docs/concepts/correction-eligibility.md\n?? docs/dev/photogrammetry-metadata-investigation.md\n?? docs/images/drone-validation/\n?? docs/validation/drone-findings.md\n?? provenance/assumed-viewing-angles/\n?? provenance/drone-docs-integration/\n?? provenance/photogrammetry-metadata/\n?? tests/test_assumed_viewing_angles.py\n?? tests/test_photogrammetry_provenance.py\n",
+  "inputs_before": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg": "d9fe2108538179b7cde107123e965b3d0075dcb65ec488fd03b8480b34dc6ebb",
+    "/private/tmp/assumed-viewing-angles-20261103/gordon_working.h5": "b441cf04f4178c5d037ef9993666fa796e10d040402fc95de113f883cbc3bf7e",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/gordon_recovered_source_dn.tif": "acc12546679f2b89d4ba238b4a551cbc0a906c0659409423ccdabcd8d2465ff2",
+    "/private/tmp/assumed-viewing-angles-20261103/goldhill_working.h5": "363dc7da0674c13f67d4c58f8d5c67135c25ddc75cc8986c45f7007bf4893e41",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/goldhill_recovered_source_dn.tif": "90ea248ae8430a20c95e99cb77249d397ace246844e1b36c7707dd2fd57be0ec",
+    "/private/tmp/assumed-viewing-angles-20261103/ruby_working.h5": "4883a850c40855fb23a319e2c1eb19cfd54619f6c0f60a5623a3528fb111ab1c",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/ruby_recovered_source_dn.tif": "9f7f7b295d7ab0770ee8771f665072ea736ece842ef76cbc63779ba7e7a77808",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/corrections.py": "1fd21166faca9c58b3e66f95de3da2f9871db210ae49d13075ec0e80b8c40319",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/radiometry.py": "a94c54e41580d9caa736929cb2bf1a9f4bb925e385549f3c7416908a47b3279d",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/io/neon.py": "3ffd04192233831e7a1503aab7d3f2e2750885d5ca16083788a56d3c3924a795",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-scale-confirmation/2026-10-30/verified_numeric_mapping.json": "cd91f58e20b00d394bd108067c9e8533fa53b619387b7c6d688c520cd192cb84"
+  },
+  "restored": [
+    {
+      "previous_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__working.h5",
+      "restored_path": "/private/tmp/assumed-viewing-angles-20261103/gordon_working.h5",
+      "sha256": "b441cf04f4178c5d037ef9993666fa796e10d040402fc95de113f883cbc3bf7e",
+      "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__working.h5"
+    },
+    {
+      "previous_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.h5",
+      "restored_path": "/private/tmp/assumed-viewing-angles-20261103/goldhill_working.h5",
+      "sha256": "363dc7da0674c13f67d4c58f8d5c67135c25ddc75cc8986c45f7007bf4893e41",
+      "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.h5"
+    },
+    {
+      "previous_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5",
+      "restored_path": "/private/tmp/assumed-viewing-angles-20261103/ruby_working.h5",
+      "sha256": "4883a850c40855fb23a319e2c1eb19cfd54619f6c0f60a5623a3528fb111ab1c",
+      "remote_origin": "i:/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5"
+    }
+  ],
+  "prior_inputs_not_present": [
+    {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GORDON-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+      "previous_sha256": "aaa5a0d8ac0ad19652993a9cafdfbe5c24d386b93fc5657be1345e872e1696e0",
+      "status": "Not present locally; not overwritten or reconstructed"
+    },
+    {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected.img",
+      "previous_sha256": "634efb6563d918b04c116f0f0582278f4059cb1023d82dd625767154ff2b017c",
+      "status": "Not present locally; not overwritten or reconstructed"
+    },
+    {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected.hdr",
+      "previous_sha256": "225371ea83b93dc8cc50759e8bdeed05e8048df89212311846639a6a65620d30",
+      "status": "Not present locally; not overwritten or reconstructed"
+    },
+    {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__brdf_model.json",
+      "previous_sha256": "d8638523ea5561a46c2570d5bc31d5e169ac7123e1aafcf428100a35a98ff7ab",
+      "status": "Not present locally; not overwritten or reconstructed"
+    },
+    {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+      "previous_sha256": "db134419d475243a237cb643e28f725de136bfb983a5062cd22393714f79f19f",
+      "status": "Not present locally; not overwritten or reconstructed"
+    },
+    {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.img",
+      "previous_sha256": "744e7e3d8a1970c238ef5492f396247be0c53346169730eea2149d4d6a551ccc",
+      "status": "Not present locally; not overwritten or reconstructed"
+    },
+    {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.hdr",
+      "previous_sha256": "6d30771fa65c0e77b541c43c7b3c8f5e2041ad936bb821f77ffd4552b2bfb4c1",
+      "status": "Not present locally; not overwritten or reconstructed"
+    },
+    {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__brdf_model.json",
+      "previous_sha256": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee",
+      "status": "Not present locally; not overwritten or reconstructed"
+    },
+    {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-Ruby-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+      "previous_sha256": "c8ce548934f6df84089a520e846379ef5d4cf624e06c46201ba103e2ea996d5b",
+      "status": "Not present locally; not overwritten or reconstructed"
+    },
+    {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+      "previous_sha256": "f7ba10e2a6c1916c9d4ca579f0f01b351ac875aef80fefcc6c56c03c8294163d",
+      "status": "Not present locally; not overwritten or reconstructed"
+    },
+    {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr",
+      "previous_sha256": "ab9ac821ddb5d607bb43611f18e050dcf810033708c3fc61afa21a9d12e01489",
+      "status": "Not present locally; not overwritten or reconstructed"
+    },
+    {
+      "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__brdf_model.json",
+      "previous_sha256": "b1d1402234d034b12e0702c4df032de767975171584e4ba165b83e48e7cdd9ca",
+      "status": "Not present locally; not overwritten or reconstructed"
+    }
+  ]
+}

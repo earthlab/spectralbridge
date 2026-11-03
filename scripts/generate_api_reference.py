@@ -547,7 +547,12 @@ def build_outputs(root: Path) -> dict[Path, str]:
                 m["docstring"]
                 or "Direct-module reference; consult the linked workflow for processing context.",
                 "",
-                f"[API glossary](../index.md) · [Workflow / scientific context](../../{workflow})",
+                "[API glossary](../index.md) · [Workflow / scientific context](../../"
+                + {
+                    "spectralbridge.pipelines.drone": "vignettes/drone-processing.md",
+                    "spectralbridge.pipelines.bulk": "vignettes/bulk-analysis.md",
+                }.get(m["module"], workflow)
+                + ")",
                 "",
                 "Signatures and documentation below are collected from the current source. Advanced objects are not newly declared stable by inclusion here.",
                 "",

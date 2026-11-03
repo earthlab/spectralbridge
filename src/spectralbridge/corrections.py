@@ -805,19 +805,24 @@ def fit_and_save_brdf_model(
     rho_max: float | None = 2.0,
     apply_topography: bool = False,
 ) -> Path:
-    """Estimate and persist BRDF coefficients for a NEON flightline.
+    """Fit and persist a shared NEON/drone BRDF model and validation diagnostics.
 
     Parameters
     ----------
     cube : NeonCube
-        Loaded NEON hyperspectral cube providing reflectance and ancillary angles.
+        Loaded cube with authoritative affine radiometry and solar/view angles.
+        Supplied zero-view placeholders do not provide independent angular support.
     out_dir : Path
         Directory where the fitted BRDF coefficient JSON should be stored.
 
     Returns
     -------
     Path
-        Path to the JSON file containing the BRDF model coefficients.
+        Model JSON including validation status, populations, rank/conditioning,
+        uncertainty and prediction diagnostics. UNSUPPORTED or INVALID records
+        do not provide usable coefficients. VALID is computational support, not
+        independent scientific validation. Historical/stale models are rejected
+        rather than overwritten.
     """
 
     from dataclasses import asdict

@@ -48,7 +48,7 @@ hide:
       <a class="sb-route-card sb-route-card--teal" href="vignettes/drone-processing/">
         <span class="sb-route-card__number">02</span>
         <h3>Drone imagery</h3>
-        <p>Prepare supported local imagery while retaining the drone observation’s identity and its own correction path.</p>
+        <p>Prepare supported local imagery with explicit calibration, geometry and correction eligibility requirements.</p>
         <strong>Run the drone vignette →</strong>
       </a>
       <a class="sb-route-card sb-route-card--paper" href="vignettes/bulk-analysis/">
@@ -84,6 +84,7 @@ hide:
     <div class="sb-evidence-flow" role="group" aria-label="Optional paths from processing to ecological research">
       <span>Correction and QA</span><b aria-hidden="true">→</b><span>Spectral library</span><b aria-hidden="true">→</b><span>Biological variation</span><b aria-hidden="true">→</b><span>Sensor translation</span><b aria-hidden="true">→</b><span>Independent comparison</span><b aria-hidden="true">→</b><span>Experimental mixture readiness</span>
     </div>
+    <p>Drone users: review <a href="validation/drone-findings/">validation findings and current limitations</a> and <a href="concepts/correction-eligibility/">choose supported corrections</a> before processing.</p>
     <p>Follow optional downstream analyses without changing the core NEON, drone and bulk processing routes. <a href="spectral-library/sensor-transfer/">Sensor information retention</a> and <a href="validation/landsat-pilot/">one real-Landsat pilot</a> supply different evidence; <a href="spectral-library/mesma-readiness/">operational abundance validation remains incomplete</a>.</p>
   </section>
 
@@ -224,3 +225,5 @@ disappears under the matched15 NEON library control: retained diversity matters.
 **Better prediction does not imply unique composition.**
 [Read the scientific synthesis](spectral-library/scientific-synthesis.md) for the
 evidence, reusable methods, mathematical explanation and remaining field-validation gap.
+
+Last updated: 2026-11-02

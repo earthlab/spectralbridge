@@ -1,0 +1,28 @@
+{
+  "repository_revision": "577e619e28c797839cad88144699c65584b04dfb",
+  "historical_implementation_revision": "1cb2cf3a6c34e6665f0c5b1661724428f46f80ea",
+  "historical_sha256": "839cdf2b7264c5af53902c08994144c776f94f5a59f31dc42bd1574002998a42",
+  "original_run_QA_revision": "ecd0df27dc98ebe30e40bfad0e7d7e7c9d28b563",
+  "source_hashes_before": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-radiometric-recovery/2026-11-02/historical_corrections.py": "839cdf2b7264c5af53902c08994144c776f94f5a59f31dc42bd1574002998a42",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg": "d9fe2108538179b7cde107123e965b3d0075dcb65ec488fd03b8480b34dc6ebb",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/corrections.py": "1fd21166faca9c58b3e66f95de3da2f9871db210ae49d13075ec0e80b8c40319",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/io/neon.py": "3ffd04192233831e7a1503aab7d3f2e2750885d5ca16083788a56d3c3924a795",
+    "/private/tmp/assumed-viewing-angles-20261103/gordon_working.h5": "b441cf04f4178c5d037ef9993666fa796e10d040402fc95de113f883cbc3bf7e",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/gordon_recovered_source_dn.tif": "acc12546679f2b89d4ba238b4a551cbc0a906c0659409423ccdabcd8d2465ff2",
+    "/private/tmp/brdf-artifact-anatomy-20261103/models/AOP_GORDON_20230814__brdf_model.json": "d8638523ea5561a46c2570d5bc31d5e169ac7123e1aafcf428100a35a98ff7ab",
+    "/private/tmp/assumed-viewing-angles-20261103/goldhill_working.h5": "363dc7da0674c13f67d4c58f8d5c67135c25ddc75cc8986c45f7007bf4893e41",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/goldhill_recovered_source_dn.tif": "90ea248ae8430a20c95e99cb77249d397ace246844e1b36c7707dd2fd57be0ec",
+    "/private/tmp/brdf-artifact-anatomy-20261103/models/AOP_GOLDHILL_20230814__brdf_model.json": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee",
+    "/private/tmp/assumed-viewing-angles-20261103/ruby_working.h5": "4883a850c40855fb23a319e2c1eb19cfd54619f6c0f60a5623a3528fb111ab1c",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/ruby_recovered_source_dn.tif": "9f7f7b295d7ab0770ee8771f665072ea736ece842ef76cbc63779ba7e7a77808",
+    "/private/tmp/brdf-artifact-anatomy-20261103/models/AOP_Ruby_20230814__brdf_model.json": "b1d1402234d034b12e0702c4df032de767975171584e4ba165b83e48e7cdd9ca",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/normalized_raw.npy": "15c90dfa79cfe71f0caa25b107ce779f013a31fa48b593ac8faf68af820dedc2",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/normalized_topo.npy": "3955a5755686ee991b67ca5f46cbba003443f355bdd139ca380c695342a06412",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/normalized_brdf.npy": "d85f94a53942cd18a61b7bf4eb0194e647570db0357eba9ef3e103505b111c45",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/normalized_combined.npy": "c40b30b231dd391548c13b6330fbeffb5fd316e2bbca37045d2f355b9f51f3fb",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/red_factor.npy": "cf947a623612bdd80732d897f3d298676e4bc6440f756a11571e70473e223e1a",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/red_denominator.npy": "61c73ec73a88c499241b5e4571fb5a2b252011cbfbc5efba25353251d8f76dfe"
+  },
+  "scope": "Isolated diagnostic replay. No production writes. Restored H5s have prior-verified identities; Goldhill saved arrays reused."
+}

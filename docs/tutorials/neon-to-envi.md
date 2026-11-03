@@ -76,7 +76,7 @@ A corrected flight line directory contains files such as:
 - `*_qa.pdf`
 - `*_qa.json`
 
-The key output is `*_brdfandtopo_corrected_envi.img`, which contains physically corrected reflectance values suitable for sensor harmonization or modeling.
+The key output is `*_brdfandtopo_corrected_envi.img`, which contains the configured correction result. Its suitability for harmonization or modeling requires valid source calibration, supported geometry/model diagnostics and independent scientific review.
 
 ---
 
@@ -130,3 +130,5 @@ Proceed to:
 - [Working with Parquet](../usage/parquet.md) to extract and analyze pixel spectra
 
 ---
+
+Last updated: 2026-11-02

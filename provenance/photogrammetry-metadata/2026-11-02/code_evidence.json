@@ -1,0 +1,39 @@
+{
+  "historical_ref": "94ef270",
+  "historical_path": "drone_cor_sup/utils.py",
+  "historical_blob_sha256": "cb2fd9e6ea9c56084b380ced0437b5a3cf4c47dd5de27135f0ed6ccc3c74fc5a",
+  "legacy_tiff_to_h5_zero_excerpt": "    # Set sensor angles to zero matrices matching image shape\n    sensor_zenith_data = np.zeros(img_shape)\n    sensor_azimuth_data = np.zeros(img_shape)\n\n",
+  "legacy_solar_function": "def get_computed_azimuth_zenith(file_path: str, date_time_str: str, \n                                latitudes: Union[float, np.ndarray, list[float]], longitudes: Union[float, np.ndarray, list[float]]):\n    with rasterio.open(file_path) as src:\n        # Get the affine transform for the raster\n        transform = src.transform\n        \n        # Create arrays to hold the azimuth and zenith values\n        azimuth = np.zeros((src.height, src.width), dtype=np.float32)\n        zenith = np.zeros((src.height, src.width), dtype=np.float32)\n        \n        # Assume a date and time for the Sun position calculation\n        observer = ephem.Observer()\n        observer.date = ephem.date(date_time_str)\n        \n        # Iterate over each pixel in the raster\n        for row in range(latitudes.shape[0]):\n            for col in range(latitudes.shape[1]):\n                #lon, lat = pixel_to_coord(transform, row, col)\n                observer.lat, observer.lon = latitudes[row,col], longitudes[row,col]\n                \n                sun = ephem.Sun(observer)\n                \n                # Convert azimuth and altitude (zenith angle is 90 - altitude) to degrees\n                az = np.degrees(sun.az)\n                #az = sun.az\n                alt = np.degrees(sun.alt)\n                zen = 90 - sun.alt\n                \n                azimuth[row, col] = az\n                zenith[row, col] = zen\n        return azimuth, zenith\n    \n",
+  "snapshot_history": "94ef270 (2025-04-23), author ttuff, imports legacy code; not evidence of original author or execution of a named flight. Removed in 44a26ea (2025-06-18).",
+  "parallel_notebooks": [
+    "Drone_correction_and_pixel_extraction.ipynb cells 6/7, executed counters 247/248; example paths are data_set2, not exact execution records for all mosaics",
+    "drone_cor_sup/tiff_to_envi_drone.ipynb cell 1 has same zero assignment; cell 0 comment explicitly calls nadir zero"
+  ],
+  "current_copy": "scripts/drone_cloud_workflow.py:prepare_reference reads and tests source matrices, records source_recipe.json view constants, returns tiff_sensor_zenith_deg/azimuth_deg",
+  "current_write": "src/spectralbridge/pipelines/drone.py:convert_drone_tiff_to_h5 writes explicitly supplied scalar angles; defaults are None, not zero",
+  "current_reader": "src/spectralbridge/neon_cube.py:NeonCube.get_ancillary broadcasts supplied scalar metadata; missing view metadata raises, rather than inventing zeros",
+  "current_solar": "src/spectralbridge/pipelines/drone.py:_compute_solar_geometry_arrays; NOAA fractional-year approximation from each pixel center and one manifest UTC time, no terrain altitude/refraction",
+  "code_history": [
+    {
+      "commit": "5e88b8c",
+      "date": "2026-06-03",
+      "event": "Adds optional TIFF bridge scalar/raster geometry"
+    },
+    {
+      "commit": "fc60390",
+      "date": "2026-06-09",
+      "event": "Adds manifest timestamps and approximate computed solar geometry"
+    },
+    {
+      "commit": "5ed728c",
+      "date": "2026-09-18",
+      "event": "Adds read-only solar consistency QA"
+    },
+    {
+      "commit": "ecd0df2 plus preserved Oct29 working-tree patch",
+      "date": "2026-10-29",
+      "event": "Recorded three-flight run uses prepare_reference TIFF recipe, copied zero views and manifest-computed solar; actual source hashes/patch/execution logs retained"
+    }
+  ],
+  "attribution_limit": "No claim that a Git snapshot author ran the original converter. Numerical solar fingerprints plus matching H5 schema support algorithmic lineage, not identity of the human executor."
+}

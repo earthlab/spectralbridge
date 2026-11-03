@@ -1,0 +1,170 @@
+[
+  {
+    "band": 1,
+    "wavelength_nm": 444,
+    "eligible_pixels": 3,
+    "actual_coefficients": [
+      0.004829633515328169,
+      -0.00013677068636752665,
+      -0.07478131353855133
+    ],
+    "rank": 1,
+    "condition_number": 3.018106975634277e+36,
+    "reconstructed": [
+      0.004829633515328169,
+      -0.00013677068636752665,
+      -0.07478131353855133
+    ],
+    "coefficient_exact_match": true
+  },
+  {
+    "band": 2,
+    "wavelength_nm": 475,
+    "eligible_pixels": 1,
+    "actual_coefficients": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "rank": null,
+    "condition_number": null,
+    "reconstructed": null,
+    "coefficient_exact_match": null
+  },
+  {
+    "band": 3,
+    "wavelength_nm": 531,
+    "eligible_pixels": 9,
+    "actual_coefficients": [
+      -8245.5908203125,
+      233.50738525390625,
+      -533.03125
+    ],
+    "rank": 2,
+    "condition_number": 1.1005336943302644e+19,
+    "reconstructed": [
+      -8245.5908203125,
+      233.50738525390625,
+      -533.03125
+    ],
+    "coefficient_exact_match": true
+  },
+  {
+    "band": 4,
+    "wavelength_nm": 560,
+    "eligible_pixels": 13,
+    "actual_coefficients": [
+      -35706.1484375,
+      1011.16455078125,
+      -2307.925537109375
+    ],
+    "rank": 2,
+    "condition_number": 1.161634342356744e+18,
+    "reconstructed": [
+      -35706.1484375,
+      1011.16455078125,
+      -2307.925537109375
+    ],
+    "coefficient_exact_match": true
+  },
+  {
+    "band": 5,
+    "wavelength_nm": 650,
+    "eligible_pixels": 14,
+    "actual_coefficients": [
+      111863.5078125,
+      -3167.869384765625,
+      7230.24609375
+    ],
+    "rank": 2,
+    "condition_number": 1.59930959388357e+19,
+    "reconstructed": [
+      111863.5078125,
+      -3167.869384765625,
+      7230.24609375
+    ],
+    "coefficient_exact_match": true
+  },
+  {
+    "band": 6,
+    "wavelength_nm": 668,
+    "eligible_pixels": 30,
+    "actual_coefficients": [
+      -9508.1826171875,
+      269.2627868652344,
+      -614.6154174804688
+    ],
+    "rank": 2,
+    "condition_number": 6.36531607692164e+18,
+    "reconstructed": [
+      -9508.1826171875,
+      269.2627868652344,
+      -614.6154174804688
+    ],
+    "coefficient_exact_match": true
+  },
+  {
+    "band": 7,
+    "wavelength_nm": 705,
+    "eligible_pixels": 8,
+    "actual_coefficients": [
+      -48316.515625,
+      1368.2783203125,
+      -3122.98779296875
+    ],
+    "rank": 2,
+    "condition_number": 3.804140632258564e+19,
+    "reconstructed": [
+      -48316.515625,
+      1368.2783203125,
+      -3122.98779296875
+    ],
+    "coefficient_exact_match": true
+  },
+  {
+    "band": 8,
+    "wavelength_nm": 717,
+    "eligible_pixels": 4,
+    "actual_coefficients": [
+      53938.56640625,
+      -1527.489501953125,
+      3486.24609375
+    ],
+    "rank": 2,
+    "condition_number": 1.2355845788227722e+22,
+    "reconstructed": [
+      53938.56640625,
+      -1527.489501953125,
+      3486.24609375
+    ],
+    "coefficient_exact_match": true
+  },
+  {
+    "band": 9,
+    "wavelength_nm": 740,
+    "eligible_pixels": 1,
+    "actual_coefficients": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "rank": null,
+    "condition_number": null,
+    "reconstructed": null,
+    "coefficient_exact_match": null
+  },
+  {
+    "band": 10,
+    "wavelength_nm": 862,
+    "eligible_pixels": 0,
+    "actual_coefficients": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "rank": null,
+    "condition_number": null,
+    "reconstructed": null,
+    "coefficient_exact_match": null
+  }
+]

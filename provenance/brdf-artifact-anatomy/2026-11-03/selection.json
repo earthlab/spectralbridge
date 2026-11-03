@@ -1,0 +1,55 @@
+{
+  "roi_native_indices": [
+    1171,
+    1572,
+    578,
+    1079
+  ],
+  "roi_extent_NAD83_UTM13N": [
+    457682.3,
+    457732.39999999997,
+    4432673.35,
+    4432713.45
+  ],
+  "roi_resolution_m": 0.1,
+  "exemplar_GlobalID": "{93DC5C2F-2073-44C7-A8E5-5C8247DE6F90}",
+  "exemplar_cover_category": "Herbaceous",
+  "exemplar_species": "nan",
+  "exemplar_status": "Crosses actual amplification boundary; chosen for relatively homogeneous raw spectral angles before comparing stage medians",
+  "selected_polygons": [
+    "{93DC5C2F-2073-44C7-A8E5-5C8247DE6F90}",
+    "{5E0C7E66-6571-47C8-9E43-479FAFAE6408}",
+    "{0ECB9C3F-16FE-4A0E-BA08-ACBDA8A0CED9}",
+    "{95C25CB1-877F-4432-AB62-080D667616FF}"
+  ],
+  "pixels": [
+    {
+      "label": "nonpositive_outside",
+      "row": 921,
+      "column": 980
+    },
+    {
+      "label": "near_zero_inside",
+      "row": 921,
+      "column": 981
+    },
+    {
+      "label": "inside_artifact",
+      "row": 921,
+      "column": 1000
+    },
+    {
+      "label": "unaffected_reference",
+      "row": 921,
+      "column": 830
+    }
+  ],
+  "main_transect_row": 921,
+  "main_transition_left_column": 980,
+  "main_transect_columns": [
+    840,
+    1120
+  ],
+  "array_order": "row,column,band",
+  "source_alpha_policy": "Display and polygon membership require alpha>0; H5 arrays unchanged; exact replay diagnostics also retain original full finite-H5 support"
+}

@@ -36,3 +36,16 @@ pytest -q tests/test_api_reference.py
 ```
 
 See the [function glossary](index.md) to select the entry point for your task.
+
+## Drone correction examples require source evidence
+
+The [calibrated no-BRDF template](../concepts/correction-eligibility.md#example-for-an-independently-calibrated-mosaic)
+uses only current parameters. Both correction flags default to true, so set
+choices explicitly. Missing calibration blocks physical corrections; unsupported
+requested BRDF is not silently skipped. The shared `Radiometry` record is scalar,
+not a bandwise normalization adapter. No new per-stage preflight or inverse-DN
+ingest API has been implemented. See the
+[actual drone signature](generated/pipelines-drone.md) and
+[model diagnostics](generated/corrections.md).
+
+Last updated: 2026-11-02

@@ -273,6 +273,12 @@ def _index_page(
         "This section records how SpectralBridge functions behave across explicit input variations. "
         "Each row comes from a machine-readable campaign result rather than a hand-written success claim.",
         "",
+        "For the investigated Gordon/Goldhill/Ruby drone products, see "
+        "[validation findings and current limitations](drone-findings.md). Spatial repair "
+        "does not establish physical calibration or supported BRDF; unrelated NEON "
+        "libraries are not automatically affected. Drone status links updated 2026-11-02; "
+        "the recorded campaign dates below remain unchanged.",
+        "",
         "## How to use this section",
         "",
         "Validation is presented in three connected layers:",

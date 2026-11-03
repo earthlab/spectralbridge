@@ -1,0 +1,178 @@
+[
+  {
+    "finding": "Arrays preserved but map-info sign, center/corner and datum defects corrupted geographic placement; repaired source alignment validated.",
+    "supporting_reports": [
+      "docs/dev/drone-spatial-integrity-investigation.md"
+    ],
+    "source_code": [
+      "src/spectralbridge/pipelines/drone.py:_build_drone_tiff_map_info",
+      "src/spectralbridge/pipelines/drone.py:export_h5_to_envi",
+      "src/spectralbridge/io/neon.py:NeonCube",
+      "scripts/diagnose_drone_spatial_integrity.py"
+    ],
+    "documentation_pages": [
+      "docs/vignettes/drone-processing.md",
+      "docs/vignettes/polygon-extraction.md",
+      "docs/validation/drone-findings.md"
+    ],
+    "validation_status": "Validated source correspondence, not independent absolute field accuracy"
+  },
+  {
+    "finding": "Band-specific min/max normalization and inverse verified; physical units unverified, exact normalizing exporter not recovered.",
+    "supporting_reports": [
+      "provenance/drone-scale-confirmation/2026-10-30/README.md",
+      "docs/dev/drone-radiometric-recovery-experiment.md"
+    ],
+    "source_code": [
+      "src/spectralbridge/radiometry.py:Radiometry",
+      "src/spectralbridge/pipelines/drone.py:convert_drone_tiff_to_h5"
+    ],
+    "documentation_pages": [
+      "docs/vignettes/drone-processing.md",
+      "docs/tutorials/micasense-to-landsat.md",
+      "docs/pipeline.md"
+    ],
+    "validation_status": "Validated numerical map, unverified physical calibration; unresolved 10cm border residuals"
+  },
+  {
+    "finding": "Shared affine physical boundary supersedes raw scale-attribute multiplication; unknown calibration blocks physical calculations.",
+    "supporting_reports": [
+      "provenance/radiometry-brdf/2026-10-30/README.md"
+    ],
+    "source_code": [
+      "src/spectralbridge/radiometry.py:dataset_radiometry",
+      "src/spectralbridge/radiometry.py:require_library_header"
+    ],
+    "documentation_pages": [
+      "docs/brdf_topo_algorithm.md",
+      "docs/concepts/correction-eligibility.md",
+      "docs/api/examples.md",
+      "docs/concepts/why-calibration.md"
+    ],
+    "validation_status": "Implemented computational contract; user-supplied calibration truth requires review"
+  },
+  {
+    "finding": "All three scene-solar current RossThick/LiDenseR designs rank 1/3, 0/10 supported bands each.",
+    "supporting_reports": [
+      "docs/dev/drone-brdf-identifiability-investigation.md",
+      "docs/dev/photogrammetry-metadata-investigation.md"
+    ],
+    "source_code": [
+      "src/spectralbridge/corrections.py:_brdf_design",
+      "src/spectralbridge/corrections.py:fit_and_save_brdf_model",
+      "src/spectralbridge/corrections.py:apply_brdf_correct"
+    ],
+    "documentation_pages": [
+      "docs/brdf_topo_algorithm.md",
+      "docs/validation/drone-findings.md",
+      "docs/concepts/correction-eligibility.md",
+      "docs/vignettes/neon-correction.md"
+    ],
+    "validation_status": "Unsupported BRDF for inspected mosaics, not all drone imagery or automatic NEON approval"
+  },
+  {
+    "finding": "Goldhill red streak introduced by historical downstream BRDF; inverse scaling does not remove it; upstream seam cause remains hypothetical.",
+    "supporting_reports": [
+      "docs/dev/drone-radiometric-recovery-experiment.md",
+      "provenance/goldhill-correction-diagnosis/2026-10-30/README.md"
+    ],
+    "source_code": [
+      "src/spectralbridge/corrections.py:fit_and_save_brdf_model",
+      "src/spectralbridge/corrections.py:apply_brdf_correct"
+    ],
+    "documentation_pages": [
+      "docs/validation/drone-findings.md",
+      "docs/brdf_topo_algorithm.md",
+      "docs/troubleshooting.md"
+    ],
+    "validation_status": "Confirmed stage-isolation/exact historical replay; independent upstream seam attribution untested"
+  },
+  {
+    "finding": "SCS+C 528/357/373x gains arise near denominator guard; 4.08/5.49/1.49% source-valid coverage loss; no blanket physical approval.",
+    "supporting_reports": [
+      "docs/dev/drone-brdf-identifiability-investigation.md",
+      "docs/dev/photogrammetry-metadata-investigation.md"
+    ],
+    "source_code": [
+      "src/spectralbridge/corrections.py:_scs_c_ratio",
+      "src/spectralbridge/corrections.py:fit_scs_c_coefficients",
+      "src/spectralbridge/corrections.py:apply_topo_correct"
+    ],
+    "documentation_pages": [
+      "docs/brdf_topo_algorithm.md",
+      "docs/validation/drone-findings.md",
+      "docs/pipeline/qa.md"
+    ],
+    "validation_status": "Experimental source-DN numerical replay; terrain/solar provenance and independent validation unresolved"
+  },
+  {
+    "finding": "Metashape geometry existed; legacy converter deliberately wrote zeros; new working H5 copied constants and computed manifest solar.",
+    "supporting_reports": [
+      "docs/dev/photogrammetry-metadata-investigation.md"
+    ],
+    "source_code": [
+      "git 94ef270:drone_cor_sup/utils.py:tiff_to_h5",
+      "scripts/drone_cloud_workflow.py:prepare_reference",
+      "src/spectralbridge/pipelines/drone.py:_compute_solar_geometry_arrays",
+      "src/spectralbridge/io/neon.py:NeonCube.get_ancillary"
+    ],
+    "documentation_pages": [
+      "docs/vignettes/drone-processing.md",
+      "docs/reference/literature.md",
+      "docs/validation/drone-findings.md"
+    ],
+    "validation_status": "Documented reports/code/executed recipe; original project and calibration flags not recovered"
+  },
+  {
+    "finding": "301 polygons/198309 memberships show mixed numerical consistency/separability; no cross-flight reflectance validation.",
+    "supporting_reports": [
+      "docs/dev/drone-brdf-identifiability-investigation.md"
+    ],
+    "source_code": [
+      "provenance/drone-brdf-strategy/2026-11-02/analyze.py",
+      "src/spectralbridge/radiometry.py:require_physical_table",
+      "src/spectralbridge/polygons.py"
+    ],
+    "documentation_pages": [
+      "docs/vignettes/spectral-library.md",
+      "docs/vignettes/polygon-extraction.md",
+      "docs/validation/drone-findings.md",
+      "docs/spectral-library/index.md",
+      "docs/validation/index.md"
+    ],
+    "validation_status": "Descriptive diagnostic, not calibration accuracy, classification accuracy or empirical transfer"
+  },
+  {
+    "finding": "Literature alternatives require calibrated repeated observations, camera/visibility geometry and independent tests before model selection.",
+    "supporting_reports": [
+      "docs/dev/photogrammetry-metadata-investigation.md",
+      "provenance/photogrammetry-metadata/2026-11-02/literature.json"
+    ],
+    "source_code": [
+      "src/spectralbridge/corrections.py:fit_and_save_brdf_model"
+    ],
+    "documentation_pages": [
+      "docs/reference/literature.md",
+      "docs/vignettes/drone-processing.md"
+    ],
+    "validation_status": "Four full-text methods and DOI/publication headers verified; not validated on actual flights"
+  },
+  {
+    "finding": "Current defaults request both corrections; examples must explicitly choose supported stages; richer preflight and inverse-DN ingest remain planned.",
+    "supporting_reports": [
+      "docs/dev/drone-correction-production-plan.md"
+    ],
+    "source_code": [
+      "src/spectralbridge/pipelines/drone.py:run_drone_pipeline",
+      "src/spectralbridge/pipelines/drone.py:apply_drone_corrections"
+    ],
+    "documentation_pages": [
+      "docs/vignettes/drone-production.md",
+      "docs/vignettes/notebook-vignettes.md",
+      "docs/api/examples.md",
+      "docs/getting-started.md",
+      "docs/index.md"
+    ],
+    "validation_status": "Implemented flags/status distinguished from future policy; historical recipes labelled and guarded"
+  }
+]

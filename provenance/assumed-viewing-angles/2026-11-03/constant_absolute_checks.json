@@ -1,0 +1,1034 @@
+[
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      3802.4276079301876,
+      0.04318156636071531,
+      8.009925809653627e-05
+    ],
+    "condition_number": 47471446.03196538,
+    "stable_rank": 1.0000000001289664,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 10,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 0,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.06943677064317731,
+    "LiDenseR": -1.1596863272220186,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.0694388747215271,
+        -0.06943857669830322,
+        -0.06943678855895996,
+        -0.06943494081497192,
+        -0.06943470239639282
+      ],
+      "LiDenseR": [
+        -1.1597473621368408,
+        -1.1597392559051514,
+        -1.1596864461898804,
+        -1.1596330404281616,
+        -1.1596249341964722
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "gordon",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      4221.29149582867,
+      0.031046734519897597,
+      8.304918305863422e-05
+    ],
+    "condition_number": 50828814.20818266,
+    "stable_rank": 1.0000000000540934,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 10,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 90,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.07668891840034552,
+    "LiDenseR": -1.3747710482997062,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.07669049501419067,
+        -0.07669037580490112,
+        -0.07668888568878174,
+        -0.0766875147819519,
+        -0.07668733596801758
+      ],
+      "LiDenseR": [
+        -1.3748199939727783,
+        -1.3748135566711426,
+        -1.374770998954773,
+        -1.374728798866272,
+        -1.3747222423553467
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "gordon",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      2820.8820976626375,
+      0.058223640259212874,
+      0.00010120501143823963
+    ],
+    "condition_number": 27872948.755942598,
+    "stable_rank": 1.00000000042602,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 10,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 180,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.004151423290143931,
+    "LiDenseR": 0.5414457859825622,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.004154026508331299,
+        -0.004153728485107422,
+        -0.004151463508605957,
+        -0.004149198532104492,
+        -0.0041487812995910645
+      ],
+      "LiDenseR": [
+        0.5413843989372253,
+        0.5413925647735596,
+        0.5414459109306335,
+        0.5414987206459045,
+        0.5415068864822388
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "gordon",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      3110.513556908177,
+      0.042147721627622266,
+      9.126719164090565e-05
+    ],
+    "condition_number": 34081398.81356945,
+    "stable_rank": 1.0000000001836056,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 10,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 270,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": 0.0052357361095969205,
+    "LiDenseR": 0.7565304399186301,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        0.0052335262298583984,
+        0.005233883857727051,
+        0.005235731601715088,
+        0.0052376389503479,
+        0.005237936973571777
+      ],
+      "LiDenseR": [
+        0.7564816474914551,
+        0.7564881443977356,
+        0.7565303444862366,
+        0.756572961807251,
+        0.7565793991088867
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "gordon",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      3581.1668553742293,
+      0.06395998965793465,
+      8.204943753141633e-05
+    ],
+    "condition_number": 43646452.22586709,
+    "stable_rank": 1.0000000003189835,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 15,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 0,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.08255391963288776,
+    "LiDenseR": -1.0379694055866466,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.0825568437576294,
+        -0.08255642652511597,
+        -0.0825539231300354,
+        -0.08255136013031006,
+        -0.08255094289779663
+      ],
+      "LiDenseR": [
+        -1.0380545854568481,
+        -1.0380432605743408,
+        -1.0379695892333984,
+        -1.0378952026367188,
+        -1.0378838777542114
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "gordon",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      4149.559820905374,
+      0.044059590506547675,
+      7.068527501538352e-05
+    ],
+    "condition_number": 58704727.68200009,
+    "stable_rank": 1.0000000001127398,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 15,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 90,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.09253306144180086,
+    "LiDenseR": -1.3378087309202602,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.09253531694412231,
+        -0.09253495931625366,
+        -0.09253305196762085,
+        -0.09253114461898804,
+        -0.09253084659576416
+      ],
+      "LiDenseR": [
+        -1.3378770351409912,
+        -1.3378679752349854,
+        -1.337808609008789,
+        -1.3377498388290405,
+        -1.3377407789230347
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "gordon",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      4134.779063174356,
+      0.0554353663237818,
+      9.077883121771188e-05
+    ],
+    "condition_number": 45547833.20858199,
+    "stable_rank": 1.0000000001797507,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 15,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 180,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": 0.013391260109389761,
+    "LiDenseR": 1.33349752949456,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        0.013387143611907959,
+        0.013387680053710938,
+        0.013391256332397461,
+        0.013394773006439209,
+        0.013395309448242188
+      ],
+      "LiDenseR": [
+        1.3334119319915771,
+        1.3334232568740845,
+        1.3334976434707642,
+        1.3335713148117065,
+        1.3335826396942139
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "gordon",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      4751.209442375393,
+      0.03851756516942809,
+      9.091489505926193e-05
+    ],
+    "condition_number": 52259967.29445012,
+    "stable_rank": 1.0000000000657223,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 15,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 270,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": 0.02808395337007023,
+    "LiDenseR": 1.633336762696765,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        0.028080463409423828,
+        0.02808094024658203,
+        0.0280839204788208,
+        0.02808690071105957,
+        0.028087317943572998
+      ],
+      "LiDenseR": [
+        1.6332688331604004,
+        1.6332777738571167,
+        1.6333366632461548,
+        1.633396029472351,
+        1.633405089378357
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "gordon",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      4875.7552427917335,
+      0.028606741526513345,
+      8.573902349133697e-05
+    ],
+    "condition_number": 56867398.81384791,
+    "stable_rank": 1.0000000000344236,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 10,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 0,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.06873908619364437,
+    "LiDenseR": -1.535761585067131,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.0687403678894043,
+        -0.06874024868011475,
+        -0.06873911619186401,
+        -0.0687379240989685,
+        -0.06873780488967896
+      ],
+      "LiDenseR": [
+        -1.5358023643493652,
+        -1.5357978343963623,
+        -1.5357615947723389,
+        -1.5357252359390259,
+        -1.5357208251953125
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "goldhill",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      3613.0730079887444,
+      0.08394977357000578,
+      8.522217095543373e-05
+    ],
+    "condition_number": 42395927.81411509,
+    "stable_rank": 1.0000000005398662,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 10,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 90,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.04840240710786314,
+    "LiDenseR": -0.9189758388445085,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.048405468463897705,
+        -0.04840505123138428,
+        -0.048402369022369385,
+        -0.04839968681335449,
+        -0.048399388790130615
+      ],
+      "LiDenseR": [
+        -0.9190643429756165,
+        -0.9190548062324524,
+        -0.9189758896827698,
+        -0.9188969135284424,
+        -0.9188870787620544
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "goldhill",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      3320.414536592253,
+      0.04202193656380678,
+      9.39014215372679e-05
+    ],
+    "condition_number": 35360641.85433483,
+    "stable_rank": 1.0000000001601659,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 10,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 180,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": 0.01500627595429591,
+    "LiDenseR": 0.7480378580944423,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        0.015004515647888184,
+        0.015004754066467285,
+        0.01500624418258667,
+        0.015007853507995605,
+        0.015008032321929932
+      ],
+      "LiDenseR": [
+        0.7479971647262573,
+        0.7480015158653259,
+        0.7480378746986389,
+        0.7480741739273071,
+        0.7480786442756653
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "goldhill",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      2681.5787152676544,
+      0.1131272279849933,
+      0.00010751576712986248
+    ],
+    "condition_number": 24941260.122608066,
+    "stable_rank": 1.0000000017797277,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 10,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 270,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.010097482815760166,
+    "LiDenseR": 0.1312521015483057,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.010100960731506348,
+        -0.010100603103637695,
+        -0.010097503662109375,
+        -0.010094404220581055,
+        -0.010094046592712402
+      ],
+      "LiDenseR": [
+        0.13116337358951569,
+        0.13117316365242004,
+        0.13125212490558624,
+        0.13133107125759125,
+        0.1313406080007553
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "goldhill",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      4960.82483297903,
+      0.038414061868438286,
+      8.217500637892718e-05
+    ],
+    "condition_number": 60369022.79147466,
+    "stable_rank": 1.0000000000599618,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 15,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 0,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.08655770281232154,
+    "LiDenseR": -1.572953291782394,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.0865594744682312,
+        -0.08655929565429688,
+        -0.08655768632888794,
+        -0.08655613660812378,
+        -0.08655589818954468
+      ],
+      "LiDenseR": [
+        -1.5730090141296387,
+        -1.573002815246582,
+        -1.572953224182129,
+        -1.5729037523269653,
+        -1.5728976726531982
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "goldhill",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      3296.348130469314,
+      0.12571078708482178,
+      8.840655615578681e-05
+    ],
+    "condition_number": 37286240.67948773,
+    "stable_rank": 1.0000000014543842,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 15,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 90,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.05820817658523603,
+    "LiDenseR": -0.7306633147377486,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.05821239948272705,
+        -0.0582120418548584,
+        -0.058208167552948,
+        -0.05820435285568237,
+        -0.058203935623168945
+      ],
+      "LiDenseR": [
+        -0.7307841777801514,
+        -0.7307711839675903,
+        -0.7306633591651917,
+        -0.730555534362793,
+        -0.7305421233177185
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "goldhill",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      4895.742139204124,
+      0.03895663877800573,
+      0.00010419269304764947
+    ],
+    "condition_number": 46987384.58526262,
+    "stable_rank": 1.0000000000633182,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 15,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 180,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": 0.036430701337672414,
+    "LiDenseR": 1.545830485739472,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        0.03642791509628296,
+        0.036428213119506836,
+        0.03643077611923218,
+        0.03643316030502319,
+        0.036433517932891846
+      ],
+      "LiDenseR": [
+        1.5457749366760254,
+        1.545780897140503,
+        1.545830488204956,
+        1.5458800792694092,
+        1.5458861589431763
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "goldhill",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      3250.6985369442673,
+      0.127512989864095,
+      0.00010357191719801113
+    ],
+    "condition_number": 31385906.767850094,
+    "stable_rank": 1.0000000015387065,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 15,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 270,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.002267932369501352,
+    "LiDenseR": 0.7035404951086419,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.0022731423377990723,
+        -0.0022725462913513184,
+        -0.0022679567337036133,
+        -0.002263307571411133,
+        -0.0022627711296081543
+      ],
+      "LiDenseR": [
+        0.7034193277359009,
+        0.7034326791763306,
+        0.7035405039787292,
+        0.7036483287811279,
+        0.7036613821983337
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "goldhill",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      2727.801241471866,
+      0.0029554031166988876,
+      5.657570603771501e-05
+    ],
+    "condition_number": 48215063.18725275,
+    "stable_rank": 1.0000000000011742,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 10,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 0,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.06889966743844886,
+    "LiDenseR": -1.63526935128664,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.06889992952346802,
+        -0.06889992952346802,
+        -0.06889969110488892,
+        -0.06889939308166504,
+        -0.06889939308166504
+      ],
+      "LiDenseR": [
+        -1.6352765560150146,
+        -1.635276198387146,
+        -1.6352694034576416,
+        -1.6352624893188477,
+        -1.635262131690979
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "ruby",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      1468.0167431085208,
+      0.042549716976694456,
+      4.836897085572734e-05
+    ],
+    "condition_number": 30350382.014272146,
+    "stable_rank": 1.0000000008401018,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 10,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 90,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.02231997744119295,
+    "LiDenseR": -0.2549331527832277,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.022321999073028564,
+        -0.02232193946838379,
+        -0.0223199725151062,
+        -0.022317945957183838,
+        -0.022317945957183838
+      ],
+      "LiDenseR": [
+        -0.2549888491630554,
+        -0.2549859285354614,
+        -0.2549331486225128,
+        -0.2548803985118866,
+        -0.2548774778842926
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "ruby",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      1842.8843700046648,
+      0.017094463729531936,
+      4.757702324654949e-05
+    ],
+    "condition_number": 38734755.649899125,
+    "stable_rank": 1.0000000000860436,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 10,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 180,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": 0.019610788769242826,
+    "LiDenseR": 0.82385735726612,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        0.019610464572906494,
+        0.019610464572906494,
+        0.01961076259613037,
+        0.019611060619354248,
+        0.019611060619354248
+      ],
+      "LiDenseR": [
+        0.8238292932510376,
+        0.8238307237625122,
+        0.8238573670387268,
+        0.8238840103149414,
+        0.823885440826416
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "ruby",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      1637.9650086933477,
+      0.03813450806471623,
+      5.38723889042966e-05
+    ],
+    "condition_number": 30404536.386963744,
+    "stable_rank": 1.0000000005420357,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 10,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 270,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.03364466151460592,
+    "LiDenseR": -0.5703808960466227,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.033646583557128906,
+        -0.03364652395248413,
+        -0.033644676208496094,
+        -0.03364276885986328,
+        -0.03364264965057373
+      ],
+      "LiDenseR": [
+        -0.5704365372657776,
+        -0.5704336762428284,
+        -0.5703808665275574,
+        -0.5703281164169312,
+        -0.5703251957893372
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "ruby",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      2820.690763786365,
+      0.003882898367494011,
+      3.797400255185478e-05
+    ],
+    "condition_number": 74279522.1529418,
+    "stable_rank": 1.0000000000018952,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 15,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 0,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.08772911724240173,
+    "LiDenseR": -1.7105478027970857,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.08772939443588257,
+        -0.08772933483123779,
+        -0.08772909641265869,
+        -0.08772885799407959,
+        -0.08772885799407959
+      ],
+      "LiDenseR": [
+        -1.7105575799942017,
+        -1.7105571031570435,
+        -1.7105478048324585,
+        -1.7105385065078735,
+        -1.7105380296707153
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "ruby",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      1441.9691016860622,
+      0.05891487315733347,
+      4.656037606287347e-05
+    ],
+    "condition_number": 30969876.612226643,
+    "stable_rank": 1.000000001669315,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 15,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 90,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.021664765473900567,
+    "LiDenseR": 0.16596485217618076,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.0216677188873291,
+        -0.02166759967803955,
+        -0.021664798259735107,
+        -0.021661996841430664,
+        -0.021661758422851562
+      ],
+      "LiDenseR": [
+        0.16588915884494781,
+        0.16589312255382538,
+        0.16596484184265137,
+        0.16603656113147736,
+        0.16604052484035492
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "ruby",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      3104.4187754297964,
+      0.06939017498750084,
+      5.0771975824991055e-05
+    ],
+    "condition_number": 61144336.516085215,
+    "stable_rank": 1.000000000499615,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 15,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 180,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": 0.04234840587172159,
+    "LiDenseR": 1.939855307656914,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        0.04234790802001953,
+        0.04234790802001953,
+        0.04234844446182251,
+        0.04234886169433594,
+        0.04234892129898071
+      ],
+      "LiDenseR": [
+        1.939663290977478,
+        1.9396734237670898,
+        1.9398553371429443,
+        1.9400372505187988,
+        1.9400473833084106
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "ruby",
+    "case": "constant_absolute"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      1471.505503725268,
+      0.057727616556897635,
+      5.657594367487729e-05
+    ],
+    "condition_number": 26009385.05209051,
+    "stable_rank": 1.0000000015390187,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "view_zenith_degrees": 15,
+    "relative_azimuth_degrees": null,
+    "absolute_sensor_azimuth_degrees": 270,
+    "canonical_distinct_kernel_rows": null,
+    "canonical_constant_relative_rank": null,
+    "RossThick": -0.03816686326025675,
+    "LiDenseR": -0.2628739221543908,
+    "kernel_quantiles_0_1_50_99_100": {
+      "RossThick": [
+        -0.038169682025909424,
+        -0.03816956281661987,
+        -0.03816688060760498,
+        -0.03816419839859009,
+        -0.03816407918930054
+      ],
+      "LiDenseR": [
+        -0.2629495859146118,
+        -0.26294565200805664,
+        -0.26287391781806946,
+        -0.2628021836280823,
+        -0.2627982199192047
+      ]
+    },
+    "independent_coefficients_from_constant_relative_geometry": null,
+    "flight": "ruby",
+    "case": "constant_absolute"
+  }
+]

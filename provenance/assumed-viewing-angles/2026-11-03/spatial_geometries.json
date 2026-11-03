@@ -1,0 +1,857 @@
+[
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      3685.864400922127,
+      2472.2403011524057,
+      44.099008842402895
+    ],
+    "condition_number": 83.58157014581303,
+    "stable_rank": 1.4500293293955269,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": true,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "gordon",
+    "scenario": "symmetric_footprints",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.11279881000518799,
+        0.06720435619354248
+      ],
+      [
+        -1.3762091398239136,
+        2.9294474124908447
+      ]
+    ],
+    "kernel_mean": [
+      -0.03338736834421859,
+      -0.09471112085077642
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.11279875040054321,
+        -1.376207709312439
+      ],
+      [
+        -0.11209405422210693,
+        -1.3760800623893739
+      ],
+      [
+        -0.04240971803665161,
+        -1.1018434762954712
+      ],
+      [
+        0.06547602653503418,
+        2.8764618325233458
+      ],
+      [
+        0.06720435619354248,
+        2.9294474124908447
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      2974.468711169223,
+      2454.965098088312,
+      0.0006271045464720641
+    ],
+    "condition_number": 4743178.355033227,
+    "stable_rank": 1.6811956008369613,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "gordon",
+    "scenario": "alternating_strips",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.0825568437576294,
+        0.013394355773925781
+      ],
+      [
+        -1.0380545854568481,
+        1.3335621356964111
+      ]
+    ],
+    "kernel_mean": [
+      -0.036518798626056274,
+      0.0998759544382901
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.0825568437576294,
+        -1.0380545854568481
+      ],
+      [
+        -0.08255642652511597,
+        -1.0380432605743408
+      ],
+      [
+        -0.08255207538604736,
+        -1.0379149913787842
+      ],
+      [
+        0.013393819332122803,
+        1.3335515260696411
+      ],
+      [
+        0.013394355773925781,
+        1.3335621356964111
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      4102.279792244792,
+      2421.3659567700497,
+      43.92482725798072
+    ],
+    "condition_number": 93.3931912390036,
+    "stable_rank": 1.3485083615162559,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": true,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "gordon",
+    "scenario": "mosaic_edges",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.1321362853050232,
+        0.11365973949432373
+      ],
+      [
+        -1.8255631923675537,
+        5.580409526824951
+      ]
+    ],
+    "kernel_mean": [
+      -0.031151462674307073,
+      0.2924095463419368
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.13212138414382935,
+        -1.8253250122070312
+      ],
+      [
+        -0.12906758964061738,
+        -1.8052904891967774
+      ],
+      [
+        -0.038397908210754395,
+        0.07447519153356552
+      ],
+      [
+        0.1039546412229538,
+        4.016740589141846
+      ],
+      [
+        0.11365455389022827,
+        5.5686936378479
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      3721.8152200487257,
+      2463.8376154675184,
+      42.013222540870636
+    ],
+    "condition_number": 88.58675900017259,
+    "stable_rank": 1.438369982890907,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": true,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "gordon",
+    "scenario": "smooth_map",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.1321629285812378,
+        0.11364883184432983
+      ],
+      [
+        -1.8256340026855469,
+        5.57966423034668
+      ]
+    ],
+    "kernel_mean": [
+      -0.03248786961674869,
+      0.13754061895613426
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.13216257095336914,
+        -1.8256208896636963
+      ],
+      [
+        -0.12720971882343293,
+        -1.7929663002490996
+      ],
+      [
+        -0.03845113515853882,
+        -0.07312874495983124
+      ],
+      [
+        0.09865193903446198,
+        3.5945966482162484
+      ],
+      [
+        0.11345142126083374,
+        5.531616687774658
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 6153336,
+    "rank": 3,
+    "singular_values": [
+      3723.1274913460284,
+      2463.6996556209697,
+      42.01296324926761
+    ],
+    "condition_number": 88.61854064556924,
+    "stable_rank": 1.4380119739773511,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": true,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "gordon",
+    "scenario": "smooth_map_reflected",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.13217467069625854,
+        0.11369246244430542
+      ],
+      [
+        -1.8256646394729614,
+        5.582582950592041
+      ]
+    ],
+    "kernel_mean": [
+      -0.03248296850023965,
+      0.13813881608063183
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.13213974237442017,
+        -1.8252718448638916
+      ],
+      [
+        -0.12722288727760314,
+        -1.7928044259548188
+      ],
+      [
+        -0.038472920656204224,
+        -0.07263670489192009
+      ],
+      [
+        0.09868706941604614,
+        3.597293848991394
+      ],
+      [
+        0.11369204521179199,
+        5.581567287445068
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      2819.7872168112317,
+      2021.6129954469989,
+      43.3253877492014
+    ],
+    "condition_number": 65.08394646423466,
+    "stable_rank": 1.5142363692620953,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": true,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "goldhill",
+    "scenario": "symmetric_footprints",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.07293641567230225,
+        0.009158849716186523
+      ],
+      [
+        -1.0914759635925293,
+        1.5156079530715942
+      ]
+    ],
+    "kernel_mean": [
+      -0.029912756920402347,
+      -0.228410024637935
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.07293641567230225,
+        -1.0914759635925293
+      ],
+      [
+        -0.07231125295162201,
+        -1.0910058045387268
+      ],
+      [
+        -0.02914559841156006,
+        -0.5519053936004639
+      ],
+      [
+        0.008654863238334656,
+        1.4806383156776428
+      ],
+      [
+        0.009158849716186523,
+        1.515607476234436
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      4151.005126786545,
+      2657.7945399774467,
+      0.0006153713524202462
+    ],
+    "condition_number": 6745528.71280196,
+    "stable_rank": 1.40995507800113,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "goldhill",
+    "scenario": "alternating_strips",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.0865594744682312,
+        0.03643268346786499
+      ],
+      [
+        -1.5730090141296387,
+        1.5458706617355347
+      ]
+    ],
+    "kernel_mean": [
+      -0.02615218064718864,
+      -0.04116829681344702
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.0865594744682312,
+        -1.5730090141296387
+      ],
+      [
+        -0.08655929565429688,
+        -1.573002815246582
+      ],
+      [
+        -0.08655649423599243,
+        -1.5729173421859741
+      ],
+      [
+        0.03643238544464111,
+        1.5458647012710571
+      ],
+      [
+        0.03643268346786499,
+        1.5458706617355347
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      3931.4132745042953,
+      2645.1659086913924,
+      47.119165883273055
+    ],
+    "condition_number": 83.43554476841699,
+    "stable_rank": 1.45284149975434,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": true,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "goldhill",
+    "scenario": "mosaic_edges",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.12124085426330566,
+        0.09032493829727173
+      ],
+      [
+        -1.8015681505203247,
+        6.7338385581970215
+      ]
+    ],
+    "kernel_mean": [
+      -0.027203918771659102,
+      0.11563098196541612
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.12123668193817139,
+        -1.801425576210022
+      ],
+      [
+        -0.11699039757251739,
+        -1.7773483645915986
+      ],
+      [
+        -0.03113114833831787,
+        -0.11972147226333618
+      ],
+      [
+        0.08209504544734954,
+        3.929133214950561
+      ],
+      [
+        0.09030485153198242,
+        6.688580513000488
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      3640.7251173483482,
+      2659.5403139418167,
+      45.040110428776366
+    ],
+    "condition_number": 80.83295273233321,
+    "stable_rank": 1.5337795305520558,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": true,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "goldhill",
+    "scenario": "smooth_map",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.12136268615722656,
+        0.09055286645889282
+      ],
+      [
+        -1.8018101453781128,
+        6.766788482666016
+      ]
+    ],
+    "kernel_mean": [
+      -0.027317235069598097,
+      -0.0061808036915309734
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.12129014730453491,
+        -1.8015694618225098
+      ],
+      [
+        -0.11563229560852051,
+        -1.7706464791297913
+      ],
+      [
+        -0.030747026205062866,
+        -0.1887996941804886
+      ],
+      [
+        0.07957842409610748,
+        3.5782148218154894
+      ],
+      [
+        0.09042733907699585,
+        6.7268266677856445
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 7068376,
+    "rank": 3,
+    "singular_values": [
+      3639.728347149495,
+      2659.5284671674494,
+      45.0352931108532
+    ],
+    "condition_number": 80.81946615047889,
+    "stable_rank": 1.5340671412388376,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": true,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "goldhill",
+    "scenario": "smooth_map_reflected",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.12134808301925659,
+        0.09052544832229614
+      ],
+      [
+        -1.8017802238464355,
+        6.7620320320129395
+      ]
+    ],
+    "kernel_mean": [
+      -0.027318118924362977,
+      -0.006656526646828852
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.12134760618209839,
+        -1.8017637729644775
+      ],
+      [
+        -0.1156539648771286,
+        -1.7704169642925263
+      ],
+      [
+        -0.030796468257904053,
+        -0.18872351944446564
+      ],
+      [
+        0.07963406860828398,
+        3.5752620291709807
+      ],
+      [
+        0.090518057346344,
+        6.6792311668396
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      1482.0348185760063,
+      683.5745902246272,
+      11.203943923094839
+    ],
+    "condition_number": 132.27795754324228,
+    "stable_rank": 1.2128000181483087,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": true,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "ruby",
+    "scenario": "symmetric_footprints",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.0458071231842041,
+        -0.021564900875091553
+      ],
+      [
+        -1.0082151889801025,
+        0.7641412615776062
+      ]
+    ],
+    "kernel_mean": [
+      -0.02926361623738094,
+      -0.2558023361768347
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.0458071231842041,
+        -1.0082151889801025
+      ],
+      [
+        -0.04548880279064178,
+        -1.0058991277217866
+      ],
+      [
+        -0.026011288166046143,
+        -0.26146960258483887
+      ],
+      [
+        -0.021566390991210938,
+        0.7401233452558518
+      ],
+      [
+        -0.021564960479736328,
+        0.7641407251358032
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      2601.2379179220366,
+      1420.4595642673362,
+      0.003161077791941752
+    ],
+    "condition_number": 822895.8884065225,
+    "stable_rank": 1.298193105931502,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": false,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "ruby",
+    "scenario": "alternating_strips",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.08772933483123779,
+        0.04234892129898071
+      ],
+      [
+        -1.7105531692504883,
+        1.9400473833084106
+      ]
+    ],
+    "kernel_mean": [
+      -0.023686772781079272,
+      0.08671183842935692
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.08772933483123779,
+        -1.7105531692504883
+      ],
+      [
+        -0.08772921562194824,
+        -1.7105525732040405
+      ],
+      [
+        -0.08772885799407959,
+        -1.7105385065078735
+      ],
+      [
+        0.04234886169433594,
+        1.9400372505187988
+      ],
+      [
+        0.04234892129898071,
+        1.9400473833084106
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      2038.967300451914,
+      1419.261248778567,
+      24.884102254398474
+    ],
+    "condition_number": 81.93855175512749,
+    "stable_rank": 1.4846605318868664,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": true,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "ruby",
+    "scenario": "mosaic_edges",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.11807548999786377,
+        0.08541786670684814
+      ],
+      [
+        -1.7956721782684326,
+        7.090627670288086
+      ]
+    ],
+    "kernel_mean": [
+      -0.02623182882173286,
+      0.07307149438295123
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.1180618405342102,
+        -1.795447587966919
+      ],
+      [
+        -0.11321250438690185,
+        -1.7686765837669371
+      ],
+      [
+        -0.029549598693847656,
+        -0.18301233649253845
+      ],
+      [
+        0.07671695470809942,
+        3.7230906367302063
+      ],
+      [
+        0.08541440963745117,
+        7.008011817932129
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      1916.1587073854216,
+      1421.3623973390943,
+      24.071881276031135
+    ],
+    "condition_number": 79.60153531055256,
+    "stable_rank": 1.5503908893688976,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": true,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "ruby",
+    "scenario": "smooth_map",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.11818718910217285,
+        0.0856013298034668
+      ],
+      [
+        -1.7958838939666748,
+        7.120458126068115
+      ]
+    ],
+    "kernel_mean": [
+      -0.026141981604938774,
+      -0.03718774444148712
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.11808687448501587,
+        -1.7954649925231934
+      ],
+      [
+        -0.11245493769645691,
+        -1.7650576043128967
+      ],
+      [
+        -0.02914249897003174,
+        -0.21585655957460403
+      ],
+      [
+        0.07557031154632571,
+        3.591551253795631
+      ],
+      [
+        0.08533716201782227,
+        6.985542297363281
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  },
+  {
+    "n": 2022614,
+    "rank": 3,
+    "singular_values": [
+      1917.739613058361,
+      1421.4646142009608,
+      24.081953039265876
+    ],
+    "condition_number": 79.63389057073014,
+    "stable_rank": 1.5495629681566911,
+    "condition_limit": 2896.309326171875,
+    "angular_numerical_gate": true,
+    "physical_information": "NOT_ESTABLISHED: imposed angles are not source observations",
+    "model_status": "UNSUPPORTED: authoritative radiometry and measured angular provenance unavailable",
+    "response_fit": "NOT_PERFORMED; no reflectance fit to assumed angles",
+    "supported_bands": 0,
+    "flight": "ruby",
+    "scenario": "smooth_map_reflected",
+    "angle_type": "SYNTHETIC / illustrative, not recovered",
+    "kernel_min_max": [
+      [
+        -0.1182357668876648,
+        0.08568060398101807
+      ],
+      [
+        -1.795981526374817,
+        7.121372699737549
+      ]
+    ],
+    "kernel_mean": [
+      -0.0261413652517069,
+      -0.0357109343178681
+    ],
+    "kernel_sample_quantiles": [
+      [
+        -0.11819887161254883,
+        -1.795588731765747
+      ],
+      [
+        -0.1125029194355011,
+        -1.7651933526992798
+      ],
+      [
+        -0.029135078191757202,
+        -0.21467964351177216
+      ],
+      [
+        0.07561653375625611,
+        3.611921558380131
+      ],
+      [
+        0.08562463521957397,
+        6.81870698928833
+      ]
+    ],
+    "quantile_scope": "Deterministic every-97th supported cell within each 128-row strip; rank/extrema/means use all source-valid pixels"
+  }
+]

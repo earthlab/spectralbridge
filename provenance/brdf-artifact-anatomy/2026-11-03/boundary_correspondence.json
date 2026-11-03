@@ -1,0 +1,37 @@
+{
+  "actual_edges": 2937,
+  "predicted_edges": 2937,
+  "intersection_edges": 2937,
+  "xor_edges": 0,
+  "dice": 1.0,
+  "max_directed_edge_displacement_m": 0.0,
+  "median_directed_edge_displacement_m": 0.0,
+  "population": "Adjacent native pixels with valid measured source support at both ends; no morphological smoothing",
+  "linear_zero_vs_branch_midpoint_offset_m": {
+    "n": 2228,
+    "min": 0.05000000074505806,
+    "max": 0.05000000074505806,
+    "median": 0.05000000074505806,
+    "range": 0.0,
+    "quantiles": [
+      0.05000000074505806,
+      0.05000000074505806,
+      0.05000000074505806,
+      0.05000000074505806,
+      0.05000000074505806,
+      0.05000000074505806,
+      0.05000000074505806,
+      0.05000000074505806
+    ]
+  },
+  "denominator_only_comparison": {
+    "actual_edges": 2937,
+    "predicted_edges": 2933,
+    "intersection_edges": 2933,
+    "xor_edges": 4,
+    "dice": 0.9993185689948892,
+    "max_directed_edge_displacement_m": 184.0063585857837,
+    "median_directed_edge_displacement_m": 0.0,
+    "population": "Adjacent native pixels with valid measured source support at both ends; no morphological smoothing"
+  }
+}

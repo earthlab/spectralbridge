@@ -1,0 +1,23 @@
+{
+  "RGB_wavelengths_nm": [
+    650,
+    560,
+    475
+  ],
+  "pooled_lower_2_percent_DN": [
+    116.66652221679688,
+    176.67490112304688,
+    137.66397491455078
+  ],
+  "pooled_upper_98_percent_DN": [
+    6710.810175781229,
+    5410.503906249991,
+    3753.135512695309
+  ],
+  "Goldhill_650_map_limits_DN": [
+    0,
+    20000
+  ],
+  "display_sampling": "Every eighth source pixel; no interpolation; source masks retained",
+  "no_analytical_clipping": true
+}

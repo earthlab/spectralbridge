@@ -1,0 +1,64 @@
+{
+  "reports": [
+    {
+      "flight": "gordon",
+      "processing_report": "/private/tmp/photogrammetry-metadata-20261102/gordon_report.pdf",
+      "sha256": "6f99d479e8c343672e15f9610d52a5c9d53edc272c45b93c7e31b8f2b9f726bc",
+      "reported_flying_altitude_m": 117,
+      "focal_length_mm": 5.5,
+      "pixel_pitch_um": 3.75,
+      "sensor_pixels": [
+        1280,
+        960
+      ],
+      "nominal_horizontal_half_field_deg": 23.574706201912615,
+      "nominal_vertical_half_field_deg": 18.121860247901353,
+      "nominal_corner_off_nadir_deg": 28.610459665965216,
+      "nominal_ground_footprint_width_m": 102.10909090909091,
+      "scope": "Nominal pinhole bounds, not calibrated rays. Distortion, attitude, canopy distance, actual tracks, source selection/blending and exact project-to-export link unavailable."
+    },
+    {
+      "flight": "goldhill",
+      "processing_report": "/private/tmp/photogrammetry-metadata-20261102/goldhill_report.pdf",
+      "sha256": "419654aa53fddfab2146ff47cb52135ac60f8beb9d5319799bdf9d939485daaf",
+      "reported_flying_altitude_m": 123,
+      "focal_length_mm": 5.5,
+      "pixel_pitch_um": 3.75,
+      "sensor_pixels": [
+        1280,
+        960
+      ],
+      "nominal_horizontal_half_field_deg": 23.574706201912615,
+      "nominal_vertical_half_field_deg": 18.121860247901353,
+      "nominal_corner_off_nadir_deg": 28.610459665965216,
+      "nominal_ground_footprint_width_m": 107.34545454545454,
+      "scope": "Nominal pinhole bounds, not calibrated rays. Distortion, attitude, canopy distance, actual tracks, source selection/blending and exact project-to-export link unavailable."
+    },
+    {
+      "flight": "ruby",
+      "processing_report": "/private/tmp/photogrammetry-metadata-20261102/ruby_report.pdf",
+      "sha256": "6272ef972f802288bf12e0948efba3247c3b614912b0a852c34b5d9ae02661de",
+      "reported_flying_altitude_m": 114,
+      "focal_length_mm": 5.5,
+      "pixel_pitch_um": 3.75,
+      "sensor_pixels": [
+        1280,
+        960
+      ],
+      "nominal_horizontal_half_field_deg": 23.574706201912615,
+      "nominal_vertical_half_field_deg": 18.121860247901353,
+      "nominal_corner_off_nadir_deg": 28.610459665965216,
+      "nominal_ground_footprint_width_m": 99.49090909090908,
+      "scope": "Nominal pinhole bounds, not calibrated rays. Distortion, attitude, canopy distance, actual tracks, source selection/blending and exact project-to-export link unavailable."
+    }
+  ],
+  "scenario_definitions": {
+    "symmetric_footprints": "Repeated across-grid pinhole footprints; signed cross-track arctan offset/H, arbitrary 90/270 degree absolute directions. Spacing/origin synthetic.",
+    "alternating_strips": "Constant 15 degree zenith and alternating 0/180 absolute azimuth at half-footprint strip width. Tracks/directions synthetic.",
+    "mosaic_edges": "0 to25 degree zenith from normalized distance to mosaic center; radial assumed azimuth.",
+    "smooth_map": "5 to25 degree zenith across columns; hypothetical smooth absolute azimuth from row and column coordinates.",
+    "smooth_map_reflected": "Same illustrative formula with cross-grid coordinate reflected; equally unsupported alternative."
+  },
+  "azimuth_convention": "Clockwise absolute sensor azimuth; relative = circular(sensor minus solar). Constant cases convert absolute=(solar+relative) modulo360. Grid patterns do not reconstruct true-North camera directions; no actual track/north-convergence inference is made.",
+  "all_maps": "SYNTHETIC: none replaces H5 metadata"
+}

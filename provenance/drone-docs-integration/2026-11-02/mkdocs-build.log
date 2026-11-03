@@ -1,0 +1,166 @@
+
+[31m │  ⚠  Warning from the Material for MkDocs team[0m
+[31m │[0m
+[31m │[0m  MkDocs 2.0, the underlying framework of Material for MkDocs,
+[31m │[0m  will introduce backward-incompatible changes, including:
+[31m │[0m
+[31m │  × [0mAll plugins will stop working – the plugin system has been removed
+[31m │  × [0mAll theme overrides will break – the theming system has been rewritten
+[31m │  × [0mNo migration path exists – existing projects cannot be upgraded
+[31m │  × [0mClosed contribution model – community members can't report bugs
+[31m │  × [0mCurrently unlicensed – unsuitable for production use
+[31m │[0m
+[31m │[0m  Our full analysis:
+[31m │[0m
+[31m │[0m  [4mhttps://squidfunk.github.io/mkdocs-material/blog/2026/02/18/mkdocs-2.0/[0m
+[0m
+INFO    -  [macros] - No default module `main` found
+INFO    -  [macros] - Config variables: ['extra', 'config', 'environment', 'plugin', 'git', 'social', 'footer', 'macros', 'filters', 'filters_builtin']
+INFO    -  [macros] - Config macros: ['context', 'macros_info', 'now', 'fix_url']
+INFO    -  [macros] - Config filters: ['pretty', 'relative_url']
+INFO    -  Cleaning site directory
+INFO    -  Building documentation to directory: /private/tmp/spectralbridge-drone-docs-site
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+  - dev-notes.md
+  - documentation-overview.md
+  - documentation_style_guide.md
+  - pipeline.md
+  - qa.md
+  - quickstart.md
+  - refactor_notes.md
+  - api/merge_duckdb.md
+  - api/qa_plots.md
+  - api/generated/brdf_topo.md
+  - api/generated/brightness.md
+  - api/generated/brightness_config.md
+  - api/generated/bulk-analyses-common.md
+  - api/generated/bulk-analyses-dataset_census.md
+  - api/generated/bulk-analyses-leave_one_site_out.md
+  - api/generated/bulk-analyses-sensor_translation.md
+  - api/generated/bulk-analyses-spectral_library.md
+  - api/generated/bulk-analyses-streaming_translation.md
+  - api/generated/bulk-catalog.md
+  - api/generated/bulk-dataset.md
+  - api/generated/bulk-exclusions.md
+  - api/generated/bulk-flightline_outputs.md
+  - api/generated/bulk-harmonized.md
+  - api/generated/bulk-identity.md
+  - api/generated/bulk-models.md
+  - api/generated/bulk-registry.md
+  - api/generated/bulk-reporting.md
+  - api/generated/bulk-results.md
+  - api/generated/bulk-streaming.md
+  - api/generated/corrections.md
+  - api/generated/deprecated-hytools.md
+  - api/generated/drone_production.md
+  - api/generated/drone_qa.md
+  - api/generated/drone_translation.md
+  - api/generated/drone_translation_registry.md
+  - api/generated/envi.md
+  - api/generated/envi_download.md
+  - api/generated/envi_writer.md
+  - api/generated/exports-geo_utils.md
+  - api/generated/exports-schema_utils.md
+  - api/generated/file_sort.md
+  - api/generated/file_types.md
+  - api/generated/half_flight.md
+  - api/generated/header_utils.md
+  - api/generated/io-neon.md
+  - api/generated/io-neon_legacy.md
+  - api/generated/io-neon_schema.md
+  - api/generated/landsat_agreement.md
+  - api/generated/landsat_flight_report.md
+  - api/generated/landsat_flight_validation.md
+  - api/generated/landsat_validation.md
+  - api/generated/library_analysis.md
+  - api/generated/mask_raster.md
+  - api/generated/merge_duckdb.md
+  - api/generated/mesma_readiness.md
+  - api/generated/mixtures.md
+  - api/generated/neon_cube.md
+  - api/generated/neon_to_envi.md
+  - api/generated/package.md
+  - api/generated/parquet_export.md
+  - api/generated/parquet_validation.md
+  - api/generated/paths.md
+  - api/generated/pft_method_audit.md
+  - api/generated/pipelines-bulk.md
+  - api/generated/pipelines-drone.md
+  - api/generated/pipelines-pipeline.md
+  - api/generated/plant_pft_statistics.md
+  - api/generated/plant_quantile_overlays.md
+  - api/generated/plant_spectral_atlas.md
+  - api/generated/plant_spectral_comparison.md
+  - api/generated/plant_spectral_pfts.md
+  - api/generated/plant_spectral_quantiles.md
+  - api/generated/plant_spectral_regions.md
+  - api/generated/plant_spectral_years.md
+  - api/generated/polygon_extraction.md
+  - api/generated/polygons.md
+  - api/generated/qa-brightness.md
+  - api/generated/qa-metrics.md
+  - api/generated/qa-network.md
+  - api/generated/qa-paths.md
+  - api/generated/qa-plots.md
+  - api/generated/qa-reporting.md
+  - api/generated/qa-runner.md
+  - api/generated/qa-schema.md
+  - api/generated/qa-stages.md
+  - api/generated/qa-thresholds.md
+  - api/generated/qa_dashboard.md
+  - api/generated/qa_metrics.md
+  - api/generated/qa_plots.md
+  - api/generated/qa_style.md
+  - api/generated/radiometry.md
+  - api/generated/remote.md
+  - api/generated/resample.md
+  - api/generated/researcher_information.md
+  - api/generated/researcher_pft_statistics.md
+  - api/generated/researcher_validation.md
+  - api/generated/sensor_pairs.md
+  - api/generated/sensor_panel_plots.md
+  - api/generated/sensor_pft_transfer.md
+  - api/generated/spectral_analytics_extensions.md
+  - api/generated/spectral_analytics_mixtures.md
+  - api/generated/spectral_analytics_validation.md
+  - api/generated/spectral_closure.md
+  - api/generated/spectral_learning.md
+  - api/generated/spectral_library_analytics.md
+  - api/generated/standard_resample.md
+  - api/generated/utils-memory.md
+  - api/generated/utils-naming.md
+  - api/generated/utils-paths.md
+  - api/generated/utils-qa_summary.md
+  - api/generated/utils_checks.md
+  - api/generated/validation.md
+  - dev/architecture-audit.md
+  - dev/codex-guidelines.md
+  - dev/dependency-review.md
+  - dev/doc_drift.md
+  - dev/drone-brdf-identifiability-investigation.md
+  - dev/drone-bulk-contract-diagnostic-2026-09-29.md
+  - dev/drone-correction-production-plan.md
+  - dev/drone-radiometric-recovery-experiment.md
+  - dev/drone-spatial-integrity-investigation.md
+  - dev/logging-review.md
+  - dev/photogrammetry-metadata-investigation.md
+  - dev/publication-cleanup-log.md
+  - dev/publication-hardening-audit-2026-09-04.md
+  - dev/publication-readiness-audit-2026-08-14.md
+  - dev/release-hygiene.md
+  - dev/versioning-review.md
+  - pipeline/polygons.md
+  - pipeline/qa_panel.md
+  - spectral-library/_closure.md
+  - spectral-library/_researcher_information.md
+  - spectral-library/_snapshot.md
+  - spectral-library/_transfer.md
+  - tutorials/micasense-to-landsat.md
+  - tutorials/neon-to-envi.md
+  - tutorials/neon-to-landsat.md
+  - usage/notebook-example.md
+  - usage/parquet_preview.md
+  - usage/recipes.md
+  - vignettes/plant-spectral-atlas.md
+  - vignettes/notebooks/README.md
+INFO    -  Documentation built in 15.41 seconds

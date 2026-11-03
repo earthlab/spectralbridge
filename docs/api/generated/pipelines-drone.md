@@ -5,7 +5,7 @@ Module: `spectralbridge.pipelines.drone`.
 
 Direct-module reference; consult the linked workflow for processing context.
 
-[API glossary](../index.md) · [Workflow / scientific context](../../vignettes/full-pipeline.md)
+[API glossary](../index.md) · [Workflow / scientific context](../../vignettes/drone-processing.md)
 
 Signatures and documentation below are collected from the current source. Advanced objects are not newly declared stable by inclusion here.
 

@@ -1,0 +1,32 @@
+[
+  {
+    "priority": 1,
+    "item": "Matched Metashape .psx/.psz and complete .files plus original image references",
+    "resolves": "Camera intrinsics/extrinsics, processing tasks, per-band sensitivity, reflectance-calibration flags, actual orthomosaic surface/blending and export settings",
+    "minimum": "Project/task/metadata XML plus machine-readable cameras/sensors and explicit project-to-export identity; do not need all raw images to inspect settings"
+  },
+  {
+    "priority": 2,
+    "item": "Panel images/certificate, DLS/exposure/gain records and normalization/export equations",
+    "resolves": "Absolute physical calibration and whether vignette/irradiance/BRDF operations occurred upstream; prevents double corrections",
+    "minimum": "Representative original ten-band capture plus calibration images/records and project radiometric parameters"
+  },
+  {
+    "priority": 3,
+    "item": "Authoritative acquisition dates/times/timezones, especially Ruby",
+    "resolves": "Aug14 notes vs Aug15 CSVs vs Aug16 Ruby manifest; pixel-time assumptions and illumination",
+    "minimum": "Raw EXIF/XMP + flight log + verified timezone; UTC/Denver conversion alone does not fix date conflict"
+  },
+  {
+    "priority": 4,
+    "item": "Exact terrain generating inputs and executed R/GDAL commands/versions",
+    "resolves": "Classified LAS/DTM version, grid/north conventions, derivative-before/after-resampling and circular aspect handling",
+    "minimum": "Match aligned_dem/slope/aspect SHA-256 to processing log, source surface and classifications"
+  },
+  {
+    "priority": 5,
+    "item": "Original images, per-image target visibility and seam/contributor/blend records",
+    "resolves": "Same-target repeated angular observations, pre-mosaic block/angular feasibility and whether current mosaic geometry can be reconstructed",
+    "minimum": "Small calibrated overlapping subset with poses, DSM/occlusion and independent held-out targets/views first"
+  }
+]

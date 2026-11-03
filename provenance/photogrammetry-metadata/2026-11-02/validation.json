@@ -1,0 +1,2342 @@
+{
+  "gordon": {
+    "source_h5": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GORDON-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+    "working_h5": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__working.h5",
+    "recipe": {
+      "recipe": "explicit-ten-band-source-grid-v1",
+      "selected_bands": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "omitted_bands_unclassified": [
+        11
+      ],
+      "view": {
+        "zenith": 0.0,
+        "azimuth": 0.0
+      },
+      "cautions": [
+        "Retain ten TIFF bands only after exact H5 equality; other channels are unclassified.",
+        "Bundled acquisition times are used; package/manifest date disagreements require review.",
+        "Terrain masks are preserved. Review scientific QA before promoting results."
+      ],
+      "ancillary_grid_validation": {
+        "aligned_slope.tif": {
+          "maximum_corner_displacement_map_units": 5.820766091346741e-11,
+          "source_transform_gdal": [
+            457268.25,
+            0.09999999999999605,
+            0.0,
+            4429034.8,
+            0.0,
+            -0.0999999999999108
+          ],
+          "reference_transform_gdal": [
+            457268.25,
+            0.0999999999999763,
+            0.0,
+            4429034.8,
+            0.0,
+            -0.0999999999999108
+          ],
+          "policy": "eight_float64_coordinate_ulps; no resampling or value changes"
+        },
+        "aligned_aspect.tif": {
+          "maximum_corner_displacement_map_units": 5.820766091346741e-11,
+          "source_transform_gdal": [
+            457268.25,
+            0.09999999999999605,
+            0.0,
+            4429034.8,
+            0.0,
+            -0.0999999999999108
+          ],
+          "reference_transform_gdal": [
+            457268.25,
+            0.0999999999999763,
+            0.0,
+            4429034.8,
+            0.0,
+            -0.0999999999999108
+          ],
+          "policy": "eight_float64_coordinate_ulps; no resampling or value changes"
+        }
+      },
+      "sources": {
+        "NEON_D13_NIWO_test_aligned_orthomosaic.h5": "e926c0c4a4188d0aed30047ab7d0ba5d2040823d66299b071d001a86ed5076dd",
+        "aligned_orthomosaic.tif": "aaa5a0d8ac0ad19652993a9cafdfbe5c24d386b93fc5657be1345e872e1696e0",
+        "aligned_slope.tif": "6766088f1da963d8e38694713fbb4d0937c3045b72584bcfda3a4dbaefc7cfd3",
+        "aligned_aspect.tif": "48e56cc64bb71c80c16aeb3b41cc007263229bd91cedb380fc7aeec2c10a9605"
+      },
+      "reference_sha256": "4e08772fc0970557d166ffdadf99bc9c899a48e040e25144cd7eed9462666e0e"
+    },
+    "execution": {
+      "input_source_type": "tiff",
+      "input_source_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/prepared_sources/2023/AOP-GORDON-08-14-23-ExportPackage/verified_reflectance.tif",
+      "manifest_flight_datetime": "2023-08-15T20:58:39+00:00",
+      "solar_geometry_source": "manifest_computed",
+      "acquisition_datetime_used": "2023-08-15T20:58:39"
+    },
+    "angles": {
+      "Zenith": {
+        "source_shape": [
+          2088,
+          2948
+        ],
+        "working_shape": [],
+        "source_all_zero": true,
+        "working_all_zero": true,
+        "lineage": "prepare_reference reads/validates source constant then supplies explicit tiff_sensor_*_deg to convert_drone_tiff_to_h5; reader broadcasts scalar. Not camera measurement."
+      },
+      "Azimuth": {
+        "source_shape": [
+          2088,
+          2948
+        ],
+        "working_shape": [],
+        "source_all_zero": true,
+        "working_all_zero": true,
+        "lineage": "prepare_reference reads/validates source constant then supplies explicit tiff_sensor_*_deg to convert_drone_tiff_to_h5; reader broadcasts scalar. Not camera measurement."
+      }
+    },
+    "terrain": {
+      "slope": {
+        "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GORDON-08-14-23-ExportPackage/aligned_slope.tif",
+        "grid_matches": true,
+        "maximum_affine_corner_difference": 5.820766091346741e-11,
+        "tiff_h5_values_exact": true,
+        "units": null,
+        "tags": {
+          "AREA_OR_POINT": "Area"
+        },
+        "range": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.0,
+            2.1139613723754884,
+            13.699698448181152,
+            59.76564651489261,
+            85.59776306152344
+          ]
+        },
+        "h5_dataset_attributes": {}
+      },
+      "aspect": {
+        "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GORDON-08-14-23-ExportPackage/aligned_aspect.tif",
+        "grid_matches": true,
+        "maximum_affine_corner_difference": 5.820766091346741e-11,
+        "tiff_h5_values_exact": true,
+        "units": null,
+        "tags": {
+          "AREA_OR_POINT": "Area"
+        },
+        "range": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.0,
+            18.891101303100587,
+            198.07354736328125,
+            341.2613525390625,
+            359.9617614746094
+          ]
+        },
+        "h5_dataset_attributes": {}
+      },
+      "dem_native_derivative_comparison": {
+        "path": "/private/tmp/photogrammetry-metadata-20261102/gordon_dem.tif",
+        "crs": "EPSG:26913",
+        "shape": [
+          602,
+          854
+        ],
+        "resolution": [
+          0.3698780000000152,
+          0.36987799999963156
+        ],
+        "tags": {
+          "AREA_OR_POINT": "Area"
+        },
+        "slope_absolute_error": {
+          "n": 5851989,
+          "q0_1_50_99_100": [
+            3.814697265625e-06,
+            0.1976470947265625,
+            21.716293334960938,
+            73.62987121582032,
+            84.35887908935547
+          ]
+        },
+        "aspect_circular_absolute_error": {
+          "n": 5851989,
+          "q0_1_50_99_100": [
+            0.0,
+            0.7471295166015626,
+            48.164398193359375,
+            176.5203698730469,
+            180.0
+          ]
+        },
+        "note": "Independent Horn/native-before-bilinear candidate, not proof of executed terra settings or DEM/DTM classification. Scalar aspect interpolation can cross North incorrectly."
+      },
+      "dtm_native_derivative_comparison": {
+        "path": "/private/tmp/photogrammetry-metadata-20261102/gordon_dtm.tif",
+        "crs": "EPSG:26913",
+        "shape": [
+          423,
+          600
+        ],
+        "resolution": [
+          0.526244000000006,
+          0.5262439999989197
+        ],
+        "tags": {
+          "AREA_OR_POINT": "Area"
+        },
+        "slope_absolute_error": {
+          "n": 5831155,
+          "q0_1_50_99_100": [
+            0.0,
+            0.0903840446472168,
+            5.632720947265625,
+            48.780580673217756,
+            80.45728302001953
+          ]
+        },
+        "aspect_circular_absolute_error": {
+          "n": 5831155,
+          "q0_1_50_99_100": [
+            0.0,
+            0.43251861572265626,
+            29.935150146484375,
+            174.80239624023437,
+            179.99978637695312
+          ]
+        },
+        "note": "Independent Horn/native-before-bilinear candidate, not proof of executed terra settings or DEM/DTM classification. Scalar aspect interpolation can cross North incorrectly."
+      },
+      "aligned_dem_derivative_comparison": {
+        "path": "/private/tmp/photogrammetry-metadata-20261102/gordon_aligned_dem.tif",
+        "shape": [
+          2088,
+          2948
+        ],
+        "resolution": [
+          0.09999999999999605,
+          0.0999999999999108
+        ],
+        "crs": "EPSG:26913",
+        "source_grid_exact": true,
+        "slope_absolute_error": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.0,
+            0.013362884521484375,
+            1.2567863464355469,
+            12.808892517089859,
+            71.24011993408203
+          ]
+        },
+        "aspect_circular_absolute_error": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.0,
+            0.0465850830078125,
+            5.7277984619140625,
+            155.92682800292974,
+            180.0
+          ]
+        },
+        "algorithm": "Independent Horn 3x3 on already-aligned elevation, no circular-aspect interpolation. Comparison does not establish executed source terrain tool/version or ground classification.",
+        "slope_convention": "degrees",
+        "aspect_convention": "downslope clockwise from grid north",
+        "solar_convention": "true north; grid convergence must be handled explicitly if reference conventions differ"
+      }
+    },
+    "working_metadata_attributes": {
+      "acquisition_datetime_used": "2023-08-15T20:58:39",
+      "solar_azimuth_max": 231.40762329101562,
+      "solar_azimuth_mean": 231.40431213378906,
+      "solar_azimuth_min": 231.4010467529297,
+      "solar_geometry_source": "manifest_computed",
+      "solar_zenith_max": 35.56898880004883,
+      "solar_zenith_mean": 35.56736755371094,
+      "solar_zenith_min": 35.56574630737305
+    },
+    "solar_replay": {
+      "points": 25,
+      "working_exact_zenith_mismatches": 0,
+      "working_exact_azimuth_mismatches": 0,
+      "center_lat": 40.00949561783579,
+      "center_lon": -105.49894863454301,
+      "altitude_assumption": "Current NOAA implementation uses lat/lon/time, no DEM elevation or refraction. Independent SPA uses pressure=0, altitude=0 for geometric angles.",
+      "old_grid_zenith": {
+        "n": 25,
+        "q0_1_50_99_100": [
+          89.14952850341797,
+          89.14960906982422,
+          89.15101623535156,
+          89.15241760253906,
+          89.15249633789062
+        ]
+      },
+      "working_grid_zenith": {
+        "n": 25,
+        "q0_1_50_99_100": [
+          35.56574630737305,
+          35.56581588745117,
+          35.56736755371094,
+          35.56891830444336,
+          35.56898880004883
+        ]
+      }
+    },
+    "historical_solar_bug_fingerprint": {
+      "points": 25,
+      "max_abs_zenith_error_degrees": 0.0,
+      "max_abs_azimuth_error_degrees": 0.0,
+      "exact_zenith_matches": 25,
+      "exact_azimuth_matches": 25,
+      "mechanism": "Archived ephem code assigns degree-valued numeric latitude/longitude to radian-valued Observer properties, then computes 90 - sun.alt (radians) as if degrees. Both errors replayed, never used as corrected geometry.",
+      "provenance_limit": "Strong numerical/code fingerprint, not a per-file signed execution record or identification of a human executor."
+    },
+    "camera_time_range": {
+      "start": "2023-08-15 20:41:52",
+      "stop": "2023-08-15 21:12:00",
+      "span_minutes": 30.133333333333333,
+      "timezone_unknown": true,
+      "warning": "Band-file timestamp span, not independently verified flight exposure timing."
+    },
+    "tiff_metadata": {
+      "crs": "EPSG:26913",
+      "transform": [
+        0.0999999999999763,
+        0.0,
+        457268.25,
+        0.0,
+        -0.0999999999999108,
+        4429034.8,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape": [
+        2088,
+        2948
+      ],
+      "tags": {
+        "AREA_OR_POINT": "Area"
+      },
+      "scales": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "descriptions": [
+        "AOP-GORDON-8-14-23-M300_ORTHO_1",
+        "AOP-GORDON-8-14-23-M300_ORTHO_2",
+        "AOP-GORDON-8-14-23-M300_ORTHO_3",
+        "AOP-GORDON-8-14-23-M300_ORTHO_4",
+        "AOP-GORDON-8-14-23-M300_ORTHO_5",
+        "AOP-GORDON-8-14-23-M300_ORTHO_6",
+        "AOP-GORDON-8-14-23-M300_ORTHO_7",
+        "AOP-GORDON-8-14-23-M300_ORTHO_8",
+        "AOP-GORDON-8-14-23-M300_ORTHO_9",
+        "AOP-GORDON-8-14-23-M300_ORTHO_10",
+        "AOP-GORDON-8-14-23-M300_ORTHO_11"
+      ]
+    },
+    "topography_fit_design": {
+      "rank": 2,
+      "condition_number": 11.027056124576486,
+      "singular_values": [
+        3130.5928407104816,
+        283.9010525876613
+      ],
+      "units": "Recovered numerical DN; no physical fit approval"
+    },
+    "topography_bands": [
+      {
+        "band": 1,
+        "wavelength_nm": 444.0,
+        "slope_coefficient": 773.6718971334143,
+        "intercept": 266.8573901631789,
+        "C": 0.34492320472273946,
+        "C_standard_error": 0.009607468220693083,
+        "r_squared": 0.0024713974874588374,
+        "factor": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.4256768524646759,
+            0.7015747511386872,
+            0.9564293026924133,
+            1.5487085247039816,
+            463.156005859375
+          ]
+        },
+        "denominator": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            -0.16578298807144165,
+            0.5740087008476258,
+            1.1901257038116455,
+            1.3365952968597412,
+            1.3449231386184692
+          ]
+        },
+        "guard_neutral_den_le_0_001": 2449,
+        "max_gain_location": {
+          "factor": 463.156005859375,
+          "cosine_incidence": -0.3437757194042206,
+          "C": 0.34492320472273946,
+          "denominator": 0.0011474788188934326,
+          "numerator": 0.5314617156982422
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 2,
+        "wavelength_nm": 475.0,
+        "slope_coefficient": 958.956246703018,
+        "intercept": 269.89989971131416,
+        "C": 0.28145173529997375,
+        "C_standard_error": 0.007414762280869145,
+        "r_squared": 0.003707468596080621,
+        "factor": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.38699132204055786,
+            0.6858012151718139,
+            0.9539774060249329,
+            1.6051115965843237,
+            519.1548461914062
+          ]
+        },
+        "denominator": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            -0.22925445437431335,
+            0.5105372047424317,
+            1.1266542673110962,
+            1.2731237411499023,
+            1.28145170211792
+          ]
+        },
+        "guard_neutral_den_le_0_001": 4105,
+        "max_gain_location": {
+          "factor": 519.1548461914062,
+          "cosine_incidence": -0.2804047167301178,
+          "C": 0.28145173529997375,
+          "denominator": 0.0010470151901245117,
+          "numerator": 0.5435630083084106
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 3,
+        "wavelength_nm": 531.0,
+        "slope_coefficient": 1235.1461977080037,
+        "intercept": 480.20081468047886,
+        "C": 0.38878054725146094,
+        "C_standard_error": 0.006447886544348368,
+        "r_squared": 0.005885247597672505,
+        "factor": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.4496743083000183,
+            0.7116016829013825,
+            0.9579756259918213,
+            1.51746518611908,
+            528.409423828125
+          ]
+        },
+        "denominator": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            -0.12192565202713013,
+            0.6178660368919373,
+            1.233983039855957,
+            1.3804526329040527,
+            1.3887804746627808
+          ]
+        },
+        "guard_neutral_den_le_0_001": 1073,
+        "max_gain_location": {
+          "factor": 528.409423828125,
+          "cosine_incidence": -0.38776129484176636,
+          "C": 0.38878054725146094,
+          "denominator": 0.0010192394256591797,
+          "numerator": 0.5385757088661194
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 4,
+        "wavelength_nm": 560.0,
+        "slope_coefficient": 1407.0222870941277,
+        "intercept": 560.1429675498093,
+        "C": 0.39810525582125095,
+        "C_standard_error": 0.005806803484697367,
+        "r_squared": 0.007357387783940572,
+        "factor": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.4545203149318695,
+            0.7136573076248169,
+            0.958290696144104,
+            1.5109365272521986,
+            508.8878479003906
+          ]
+        },
+        "denominator": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            -0.11260092258453369,
+            0.6271907663345337,
+            1.2433078289031982,
+            1.3897773027420044,
+            1.3981051445007324
+          ]
+        },
+        "guard_neutral_den_le_0_001": 881,
+        "max_gain_location": {
+          "factor": 508.8878479003906,
+          "cosine_incidence": -0.39698588848114014,
+          "C": 0.39810525582125095,
+          "denominator": 0.001119375228881836,
+          "numerator": 0.5696364641189575
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 5,
+        "wavelength_nm": 650.0,
+        "slope_coefficient": 1802.5093393760792,
+        "intercept": 89.99896089790523,
+        "C": 0.04992981669046857,
+        "C_standard_error": 0.0034082785828813034,
+        "r_squared": 0.010922174601327272,
+        "factor": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.18556612730026245,
+            0.6099062728881836,
+            0.9420906901359558,
+            1.9281673312187202,
+            476.1817626953125
+          ]
+        },
+        "denominator": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            -0.46077635884284973,
+            0.27901530027389526,
+            0.8951323628425598,
+            1.0416018962860107,
+            1.0499297380447388
+          ]
+        },
+        "guard_neutral_den_le_0_001": 15110,
+        "max_gain_location": {
+          "factor": 476.1817626953125,
+          "cosine_incidence": -0.048902809619903564,
+          "C": 0.04992981669046857,
+          "denominator": 0.0010270066559314728,
+          "numerator": 0.48904183506965637
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 6,
+        "wavelength_nm": 668.0,
+        "slope_coefficient": 1835.5492494126568,
+        "intercept": -5.805450430751945,
+        "C": -0.0031627865243112306,
+        "C_standard_error": 0.00317146016146382,
+        "r_squared": 0.011142600780413292,
+        "factor": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.11780928075313568,
+            0.5867486464977264,
+            0.9384454488754272,
+            2.047233152389532,
+            462.9366760253906
+          ]
+        },
+        "denominator": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            -0.5138689875602722,
+            0.22592270135879516,
+            0.8420397639274597,
+            0.9885092377662659,
+            0.9968371391296387
+          ]
+        },
+        "guard_neutral_den_le_0_001": 19574,
+        "max_gain_location": {
+          "factor": 462.9366760253906,
+          "cosine_incidence": 0.00418323278427124,
+          "C": -0.0031627865243112306,
+          "denominator": 0.0010204461868852377,
+          "numerator": 0.4724019765853882
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 7,
+        "wavelength_nm": 705.0,
+        "slope_coefficient": 2075.912592484224,
+        "intercept": 794.4830283964407,
+        "C": 0.3827150677118301,
+        "C_standard_error": 0.004178543943767201,
+        "r_squared": 0.013764056288737225,
+        "factor": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.44647568464279175,
+            0.7102535188198089,
+            0.9577682018280029,
+            1.521811506748202,
+            526.7999877929688
+          ]
+        },
+        "denominator": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            -0.12799111008644104,
+            0.611800549030304,
+            1.2279176712036133,
+            1.3743871450424194,
+            1.3827149868011475
+          ]
+        },
+        "guard_neutral_den_le_0_001": 1196,
+        "max_gain_location": {
+          "factor": 526.7999877929688,
+          "cosine_incidence": -0.38166511058807373,
+          "C": 0.3827150677118301,
+          "denominator": 0.0010499656200408936,
+          "numerator": 0.5531218647956848
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 8,
+        "wavelength_nm": 717.0,
+        "slope_coefficient": 2107.2722065575895,
+        "intercept": 1575.2826641442423,
+        "C": 0.7475458838407982,
+        "C_standard_error": 0.005631803886022018,
+        "r_squared": 0.012863464733340768,
+        "factor": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.5898613929748535,
+            0.7737968039512634,
+            0.9674276113510132,
+            1.3347903704643254,
+            3.441167116165161
+          ]
+        },
+        "denominator": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.23683971166610718,
+            0.9766314005851746,
+            1.5927484035491943,
+            1.73921799659729,
+            1.747545838356018
+          ]
+        },
+        "guard_neutral_den_le_0_001": 0,
+        "max_gain_location": {
+          "factor": 3.441167116165161,
+          "cosine_incidence": -0.5107061862945557,
+          "C": 0.7475458838407982,
+          "denominator": 0.23683971166610718,
+          "numerator": 0.8150050044059753
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 9,
+        "wavelength_nm": 740.0,
+        "slope_coefficient": 1716.6316719803715,
+        "intercept": 3447.6466897268515,
+        "C": 2.0083788188234437,
+        "C_standard_error": 0.01480985726412456,
+        "r_squared": 0.0061030180183333504,
+        "factor": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.7835944294929504,
+            0.8707979917526245,
+            0.9818049669265747,
+            1.1479563736915592,
+            1.3860424757003784
+          ]
+        },
+        "denominator": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            1.4976725578308105,
+            2.237464246749878,
+            2.853581428527832,
+            3.0000507831573486,
+            3.008378744125366
+          ]
+        },
+        "guard_neutral_den_le_0_001": 0,
+        "max_gain_location": {
+          "factor": 1.3860424757003784,
+          "cosine_incidence": -0.5107061862945557,
+          "C": 2.0083788188234437,
+          "denominator": 1.4976725578308105,
+          "numerator": 2.0758378505706787
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 10,
+        "wavelength_nm": 862.0,
+        "slope_coefficient": 1627.2948750119906,
+        "intercept": 4735.464259000314,
+        "C": 2.9100222287404556,
+        "C_standard_error": 0.02238048080683445,
+        "r_squared": 0.00465928732397225,
+        "factor": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            0.8382368087768555,
+            0.9010754120349884,
+            0.9861713647842407,
+            1.1059861183166504,
+            1.2409708499908447
+          ]
+        },
+        "denominator": {
+          "n": 5902515,
+          "q0_1_50_99_100": [
+            2.3993160724639893,
+            3.1391077613830567,
+            3.7552247047424316,
+            3.9016942977905273,
+            3.910022258758545
+          ]
+        },
+        "guard_neutral_den_le_0_001": 0,
+        "max_gain_location": {
+          "factor": 1.2409708499908447,
+          "cosine_incidence": -0.5107061862945557,
+          "C": 2.9100222287404556,
+          "denominator": 2.3993160724639893,
+          "numerator": 2.9774813652038574
+        },
+        "exact_output_mismatches": 0
+      }
+    ]
+  },
+  "goldhill": {
+    "source_h5": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GOLDHILL-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+    "working_h5": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.h5",
+    "recipe": {
+      "recipe": "explicit-ten-band-source-grid-v1",
+      "selected_bands": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "omitted_bands_unclassified": [
+        11
+      ],
+      "view": {
+        "zenith": 0.0,
+        "azimuth": 0.0
+      },
+      "cautions": [
+        "Retain ten TIFF bands only after exact H5 equality; other channels are unclassified.",
+        "Bundled acquisition times are used; package/manifest date disagreements require review.",
+        "Terrain masks are preserved. Review scientific QA before promoting results."
+      ],
+      "ancillary_grid_validation": {
+        "aligned_slope.tif": {
+          "maximum_corner_displacement_map_units": 1.1641532182693481e-10,
+          "source_transform_gdal": [
+            457624.5,
+            0.1,
+            0.0,
+            4432830.55,
+            0.0,
+            -0.09999999999991677
+          ],
+          "reference_transform_gdal": [
+            457624.5,
+            0.09999999999996322,
+            0.0,
+            4432830.55,
+            0.0,
+            -0.09999999999991677
+          ],
+          "policy": "eight_float64_coordinate_ulps; no resampling or value changes"
+        },
+        "aligned_aspect.tif": {
+          "maximum_corner_displacement_map_units": 1.1641532182693481e-10,
+          "source_transform_gdal": [
+            457624.5,
+            0.1,
+            0.0,
+            4432830.55,
+            0.0,
+            -0.09999999999991677
+          ],
+          "reference_transform_gdal": [
+            457624.5,
+            0.09999999999996322,
+            0.0,
+            4432830.55,
+            0.0,
+            -0.09999999999991677
+          ],
+          "policy": "eight_float64_coordinate_ulps; no resampling or value changes"
+        }
+      },
+      "sources": {
+        "NEON_D13_NIWO_test_aligned_orthomosaic.h5": "9e658ab323f4ed908057b8b24ccbe8c59660c1be4f9644fced895efb164968b3",
+        "aligned_orthomosaic.tif": "db134419d475243a237cb643e28f725de136bfb983a5062cd22393714f79f19f",
+        "aligned_slope.tif": "a92a59b90e96d330f881007a009fe3715e4c5b33458f7498bc952929d7c469ce",
+        "aligned_aspect.tif": "c75c793018b19c50e2591c01ab1e679bb20d2adb20a1f130a17e9b4659ca3a15"
+      },
+      "reference_sha256": "714130a6115db0862b9ee0dda90286bb1fff387381d997a1782ebab3853a80e7"
+    },
+    "execution": {
+      "input_source_type": "tiff",
+      "input_source_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/prepared_sources/2023/AOP-GOLDHILL-08-14-23-ExportPackage/verified_reflectance.tif",
+      "manifest_flight_datetime": "2023-08-15T19:53:07+00:00",
+      "solar_geometry_source": "manifest_computed",
+      "acquisition_datetime_used": "2023-08-15T19:53:07"
+    },
+    "angles": {
+      "Zenith": {
+        "source_shape": [
+          2238,
+          3165
+        ],
+        "working_shape": [],
+        "source_all_zero": true,
+        "working_all_zero": true,
+        "lineage": "prepare_reference reads/validates source constant then supplies explicit tiff_sensor_*_deg to convert_drone_tiff_to_h5; reader broadcasts scalar. Not camera measurement."
+      },
+      "Azimuth": {
+        "source_shape": [
+          2238,
+          3165
+        ],
+        "working_shape": [],
+        "source_all_zero": true,
+        "working_all_zero": true,
+        "lineage": "prepare_reference reads/validates source constant then supplies explicit tiff_sensor_*_deg to convert_drone_tiff_to_h5; reader broadcasts scalar. Not camera measurement."
+      }
+    },
+    "terrain": {
+      "slope": {
+        "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GOLDHILL-08-14-23-ExportPackage/aligned_slope.tif",
+        "grid_matches": true,
+        "maximum_affine_corner_difference": 1.1641532182693481e-10,
+        "tiff_h5_values_exact": true,
+        "units": null,
+        "tags": {
+          "AREA_OR_POINT": "Area"
+        },
+        "range": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.0,
+            2.564636678695679,
+            14.232510566711426,
+            49.391855010986326,
+            82.22257232666016
+          ]
+        },
+        "h5_dataset_attributes": {}
+      },
+      "aspect": {
+        "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-GOLDHILL-08-14-23-ExportPackage/aligned_aspect.tif",
+        "grid_matches": true,
+        "maximum_affine_corner_difference": 1.1641532182693481e-10,
+        "tiff_h5_values_exact": true,
+        "units": null,
+        "tags": {
+          "AREA_OR_POINT": "Area"
+        },
+        "range": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.0,
+            8.438132286071777,
+            150.86875915527344,
+            349.6921081542969,
+            359.7574462890625
+          ]
+        },
+        "h5_dataset_attributes": {}
+      },
+      "dem_native_derivative_comparison": {
+        "path": "/private/tmp/photogrammetry-metadata-20261102/goldhill_dem.tif",
+        "crs": "EPSG:26913",
+        "shape": [
+          661,
+          936
+        ],
+        "resolution": [
+          0.3377099999999747,
+          0.3377099999997331
+        ],
+        "tags": {
+          "AREA_OR_POINT": "Area"
+        },
+        "slope_absolute_error": {
+          "n": 6647500,
+          "q0_1_50_99_100": [
+            0.0,
+            0.04828643798828125,
+            3.5774075984954834,
+            67.86975120544433,
+            84.50524139404297
+          ]
+        },
+        "aspect_circular_absolute_error": {
+          "n": 6647500,
+          "q0_1_50_99_100": [
+            0.0,
+            0.234222412109375,
+            17.292724609375,
+            174.4938693237304,
+            179.9998779296875
+          ]
+        },
+        "note": "Independent Horn/native-before-bilinear candidate, not proof of executed terra settings or DEM/DTM classification. Scalar aspect interpolation can cross North incorrectly."
+      },
+      "dtm_native_derivative_comparison": {
+        "path": "/private/tmp/photogrammetry-metadata-20261102/goldhill_dtm.tif",
+        "crs": "EPSG:26913",
+        "shape": [
+          403,
+          571
+        ],
+        "resolution": [
+          0.5532310000000377,
+          0.5532309999989886
+        ],
+        "tags": {
+          "AREA_OR_POINT": "Area"
+        },
+        "slope_absolute_error": {
+          "n": 6619984,
+          "q0_1_50_99_100": [
+            0.0,
+            0.07746279001235962,
+            4.684923887252808,
+            41.9447329711914,
+            80.25585174560547
+          ]
+        },
+        "aspect_circular_absolute_error": {
+          "n": 6619984,
+          "q0_1_50_99_100": [
+            0.0,
+            0.3476383972167969,
+            23.48017120361328,
+            172.98093170166015,
+            179.9999542236328
+          ]
+        },
+        "note": "Independent Horn/native-before-bilinear candidate, not proof of executed terra settings or DEM/DTM classification. Scalar aspect interpolation can cross North incorrectly."
+      },
+      "aligned_dem_derivative_comparison": {
+        "path": "/private/tmp/photogrammetry-metadata-20261102/goldhill_aligned_dem.tif",
+        "shape": [
+          2238,
+          3165
+        ],
+        "resolution": [
+          0.1,
+          0.09999999999991677
+        ],
+        "crs": "EPSG:26913",
+        "source_grid_exact": true,
+        "slope_absolute_error": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.0,
+            0.011531829833984375,
+            1.1403183937072754,
+            11.107419700622547,
+            78.03910827636719
+          ]
+        },
+        "aspect_circular_absolute_error": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.0,
+            0.038909912109375,
+            5.1420745849609375,
+            155.565217285156,
+            180.0
+          ]
+        },
+        "algorithm": "Independent Horn 3x3 on already-aligned elevation, no circular-aspect interpolation. Comparison does not establish executed source terrain tool/version or ground classification.",
+        "slope_convention": "degrees",
+        "aspect_convention": "downslope clockwise from grid north",
+        "solar_convention": "true north; grid convergence must be handled explicitly if reference conventions differ"
+      }
+    },
+    "working_metadata_attributes": {
+      "acquisition_datetime_used": "2023-08-15T19:53:07",
+      "solar_azimuth_max": 204.70025634765625,
+      "solar_azimuth_mean": 204.69580078125,
+      "solar_azimuth_min": 204.6913604736328,
+      "solar_geometry_source": "manifest_computed",
+      "solar_zenith_max": 27.766454696655273,
+      "solar_zenith_mean": 27.764942169189453,
+      "solar_zenith_min": 27.763427734375
+    },
+    "solar_replay": {
+      "points": 25,
+      "working_exact_zenith_mismatches": 0,
+      "working_exact_azimuth_mismatches": 0,
+      "center_lat": 40.043644006403134,
+      "center_lon": -105.49489473059475,
+      "altitude_assumption": "Current NOAA implementation uses lat/lon/time, no DEM elevation or refraction. Independent SPA uses pressure=0, altitude=0 for geometric angles.",
+      "old_grid_zenith": {
+        "n": 25,
+        "q0_1_50_99_100": [
+          89.01244354248047,
+          89.01250396728516,
+          89.01387023925781,
+          89.01523834228516,
+          89.01529693603516
+        ]
+      },
+      "working_grid_zenith": {
+        "n": 25,
+        "q0_1_50_99_100": [
+          27.763427734375,
+          27.763499603271484,
+          27.76494026184082,
+          27.766382369995117,
+          27.766454696655273
+        ]
+      }
+    },
+    "historical_solar_bug_fingerprint": {
+      "points": 25,
+      "max_abs_zenith_error_degrees": 0.0,
+      "max_abs_azimuth_error_degrees": 0.0,
+      "exact_zenith_matches": 25,
+      "exact_azimuth_matches": 25,
+      "mechanism": "Archived ephem code assigns degree-valued numeric latitude/longitude to radian-valued Observer properties, then computes 90 - sun.alt (radians) as if degrees. Both errors replayed, never used as corrected geometry.",
+      "provenance_limit": "Strong numerical/code fingerprint, not a per-file signed execution record or identification of a human executor."
+    },
+    "camera_time_range": {
+      "start": "2023-08-15 19:38:14",
+      "stop": "2023-08-15 20:06:53",
+      "span_minutes": 28.65,
+      "timezone_unknown": true,
+      "warning": "Band-file timestamp span, not independently verified flight exposure timing."
+    },
+    "tiff_metadata": {
+      "crs": "EPSG:26913",
+      "transform": [
+        0.09999999999996322,
+        0.0,
+        457624.5,
+        0.0,
+        -0.09999999999991677,
+        4432830.55,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape": [
+        2238,
+        3165
+      ],
+      "tags": {
+        "AREA_OR_POINT": "Area"
+      },
+      "scales": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "descriptions": [
+        "AOP-GOLDHILL-08-14-23_ORTHO_1",
+        "AOP-GOLDHILL-08-14-23_ORTHO_2",
+        "AOP-GOLDHILL-08-14-23_ORTHO_3",
+        "AOP-GOLDHILL-08-14-23_ORTHO_4",
+        "AOP-GOLDHILL-08-14-23_ORTHO_5",
+        "AOP-GOLDHILL-08-14-23_ORTHO_6",
+        "AOP-GOLDHILL-08-14-23_ORTHO_7",
+        "AOP-GOLDHILL-08-14-23_ORTHO_8",
+        "AOP-GOLDHILL-08-14-23_ORTHO_9",
+        "AOP-GOLDHILL-08-14-23_ORTHO_10",
+        "AOP-GOLDHILL-08-14-23_ORTHO_11"
+      ]
+    },
+    "topography_fit_design": {
+      "rank": 2,
+      "condition_number": 14.748191763229531,
+      "singular_values": [
+        3409.248943169437,
+        231.16386048555734
+      ],
+      "units": "Recovered numerical DN; no physical fit approval"
+    },
+    "topography_bands": [
+      {
+        "band": 1,
+        "wavelength_nm": 444.0,
+        "slope_coefficient": 1637.2104268142045,
+        "intercept": -430.754676990274,
+        "C": -0.26310281802227814,
+        "C_standard_error": 0.0014120158087947852,
+        "r_squared": 0.0267652358591135,
+        "factor": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.0008736613672226667,
+            0.5909517478942871,
+            0.9527169466018677,
+            2.259628906249999,
+            338.32769775390625
+          ]
+        },
+        "denominator": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            -0.5236572027206421,
+            0.1618189787864685,
+            0.6281901597976685,
+            0.7300432324409485,
+            0.7368969917297363
+          ]
+        },
+        "guard_neutral_den_le_0_001": 17144,
+        "max_gain_location": {
+          "factor": 338.32769775390625,
+          "cosine_incidence": 0.2641085386276245,
+          "C": -0.26310281802227814,
+          "denominator": 0.001005709171295166,
+          "numerator": 0.34025925397872925
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 2,
+        "wavelength_nm": 475.0,
+        "slope_coefficient": 1932.0639383346463,
+        "intercept": -515.6110546095375,
+        "C": -0.26687059593585266,
+        "C_standard_error": 0.0012441907983130759,
+        "r_squared": 0.03380674606913803,
+        "factor": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.002223714953288436,
+            0.5885510277748108,
+            0.9524332284927368,
+            2.2783928680419905,
+            328.791748046875
+          ]
+        },
+        "denominator": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            -0.5274249315261841,
+            0.15805122017860412,
+            0.6244224309921265,
+            0.7262754440307617,
+            0.7331292629241943
+          ]
+        },
+        "guard_neutral_den_le_0_001": 17802,
+        "max_gain_location": {
+          "factor": 328.791748046875,
+          "cosine_incidence": 0.26787060499191284,
+          "C": -0.26687059593585266,
+          "denominator": 0.0010000169277191162,
+          "numerator": 0.328797310590744
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 3,
+        "wavelength_nm": 531.0,
+        "slope_coefficient": 2695.6171506799888,
+        "intercept": -569.1114343470317,
+        "C": -0.2111247267452165,
+        "C_standard_error": 0.0010722728872770931,
+        "r_squared": 0.05309792442100236,
+        "factor": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.0008601016015745699,
+            0.621131649017334,
+            0.9563061594963074,
+            2.044786205291744,
+            356.5527038574219
+          ]
+        },
+        "denominator": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            -0.47167909145355225,
+            0.21379707515239715,
+            0.6801682710647583,
+            0.7820213437080383,
+            0.7888751029968262
+          ]
+        },
+        "guard_neutral_den_le_0_001": 10997,
+        "max_gain_location": {
+          "factor": 356.5527038574219,
+          "cosine_incidence": 0.2121278941631317,
+          "C": -0.2111247267452165,
+          "denominator": 0.001003161072731018,
+          "numerator": 0.3576797842979431
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 4,
+        "wavelength_nm": 560.0,
+        "slope_coefficient": 2998.2037590121977,
+        "intercept": -603.6732938076375,
+        "C": -0.20134498597471126,
+        "C_standard_error": 0.0010407848166952124,
+        "r_squared": 0.057739806548678274,
+        "factor": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.00015794963110238314,
+            0.6263052272796631,
+            0.9569214582443237,
+            2.01085660934448,
+            350.037841796875
+          ]
+        },
+        "denominator": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            -0.4618993401527405,
+            0.22357682645320892,
+            0.6899480223655701,
+            0.7918010950088501,
+            0.7986548542976379
+          ]
+        },
+        "guard_neutral_den_le_0_001": 10077,
+        "max_gain_location": {
+          "factor": 350.037841796875,
+          "cosine_incidence": 0.20237448811531067,
+          "C": -0.20134498597471126,
+          "denominator": 0.0010295063257217407,
+          "numerator": 0.36036616563796997
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 5,
+        "wavelength_nm": 650.0,
+        "slope_coefficient": 3318.201166942873,
+        "intercept": -1107.6637392962975,
+        "C": -0.33381452285992985,
+        "C_standard_error": 0.0008807133943752397,
+        "r_squared": 0.05254064339162945,
+        "factor": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.0001254163944395259,
+            0.541423716545105,
+            0.9467998147010803,
+            2.717771606445312,
+            314.9898376464844
+          ]
+        },
+        "denominator": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            -0.5943689346313477,
+            0.09110727667808532,
+            0.5574784278869629,
+            0.6593315601348877,
+            0.6661852598190308
+          ]
+        },
+        "guard_neutral_den_le_0_001": 31739,
+        "max_gain_location": {
+          "factor": 314.9898376464844,
+          "cosine_incidence": 0.3348195254802704,
+          "C": -0.33381452285992985,
+          "denominator": 0.0010049939155578613,
+          "numerator": 0.31656286120414734
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 6,
+        "wavelength_nm": 668.0,
+        "slope_coefficient": 3313.080199105149,
+        "intercept": -1188.5944681775704,
+        "C": -0.35875813344289265,
+        "C_standard_error": 0.0008640452989097521,
+        "r_squared": 0.04988908722404317,
+        "factor": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            5.7048902817768976e-05,
+            0.5214713597297669,
+            0.9443525075912476,
+            2.874547109603877,
+            301.6260986328125
+          ]
+        },
+        "denominator": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            -0.6193125247955322,
+            0.06616368651390075,
+            0.5325348377227783,
+            0.6343879699707031,
+            0.6412416696548462
+          ]
+        },
+        "guard_neutral_den_le_0_001": 40337,
+        "max_gain_location": {
+          "factor": 301.6260986328125,
+          "cosine_incidence": 0.3597754240036011,
+          "C": -0.35875813344289265,
+          "denominator": 0.0010173022747039795,
+          "numerator": 0.30684491991996765
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 7,
+        "wavelength_nm": 705.0,
+        "slope_coefficient": 4576.632722915602,
+        "intercept": -946.1025847661687,
+        "C": -0.2067246034467546,
+        "C_standard_error": 0.0008238566877777106,
+        "r_squared": 0.08779739044473023,
+        "factor": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.0001849798863986507,
+            0.6234724712371826,
+            0.9565848112106323,
+            2.028879985809326,
+            348.31591796875
+          ]
+        },
+        "denominator": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            -0.46727895736694336,
+            0.21819720923900604,
+            0.6845684051513672,
+            0.7864214777946472,
+            0.7932752370834351
+          ]
+        },
+        "guard_neutral_den_le_0_001": 10614,
+        "max_gain_location": {
+          "factor": 348.31591796875,
+          "cosine_incidence": 0.2077328860759735,
+          "C": -0.2067246034467546,
+          "denominator": 0.0010082870721817017,
+          "numerator": 0.35120242834091187
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 8,
+        "wavelength_nm": 717.0,
+        "slope_coefficient": 5292.81656545666,
+        "intercept": -511.50040008163023,
+        "C": -0.0966404925913956,
+        "C_standard_error": 0.0009156397164597649,
+        "r_squared": 0.0955418521717496,
+        "factor": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.1293673813343048,
+            0.674044623374939,
+            0.9625780582427979,
+            1.7401366806030256,
+            321.3787841796875
+          ]
+        },
+        "denominator": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            -0.3571948707103729,
+            0.32828131079673767,
+            0.79465252161026,
+            0.89650559425354,
+            0.9033593535423279
+          ]
+        },
+        "guard_neutral_den_le_0_001": 3912,
+        "max_gain_location": {
+          "factor": 321.3787841796875,
+          "cosine_incidence": 0.09766662120819092,
+          "C": -0.0966404925913956,
+          "denominator": 0.0010261312127113342,
+          "numerator": 0.329776793718338
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 9,
+        "wavelength_nm": 740.0,
+        "slope_coefficient": 5834.48308148577,
+        "intercept": 952.187898044119,
+        "C": 0.1632000444162127,
+        "C_standard_error": 0.0015066961837057761,
+        "r_squared": 0.06499303612275942,
+        "factor": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.42070573568344116,
+            0.7521203303337097,
+            0.9717698693275452,
+            1.429715204238891,
+            199.02378845214844
+          ]
+        },
+        "denominator": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            -0.09735432267189026,
+            0.5881218290328979,
+            1.0544930696487427,
+            1.156346082687378,
+            1.1631999015808105
+          ]
+        },
+        "guard_neutral_den_le_0_001": 46,
+        "max_gain_location": {
+          "factor": 199.02378845214844,
+          "cosine_incidence": -0.16175678372383118,
+          "C": 0.1632000444162127,
+          "denominator": 0.0014432668685913086,
+          "numerator": 0.28724443912506104
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 10,
+        "wavelength_nm": 862.0,
+        "slope_coefficient": 6382.758385878984,
+        "intercept": 2076.6716388228424,
+        "C": 0.3253564545725569,
+        "C_standard_error": 0.0018659710795626227,
+        "r_squared": 0.05720107974687105,
+        "factor": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.5207805037498474,
+            0.784208824634552,
+            0.9755244851112366,
+            1.338226475715637,
+            7.887668132781982
+          ]
+        },
+        "denominator": {
+          "n": 6680329,
+          "q0_1_50_99_100": [
+            0.06480208039283752,
+            0.7502782917022705,
+            1.2166494131088257,
+            1.3185025453567505,
+            1.3253562450408936
+          ]
+        },
+        "guard_neutral_den_le_0_001": 0,
+        "max_gain_location": {
+          "factor": 7.887668132781982,
+          "cosine_incidence": -0.26055437326431274,
+          "C": 0.3253564545725569,
+          "denominator": 0.06480208039283752,
+          "numerator": 0.5111373066902161
+        },
+        "exact_output_mismatches": 0
+      }
+    ]
+  },
+  "ruby": {
+    "source_h5": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-Ruby-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+    "working_h5": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5",
+    "recipe": {
+      "recipe": "explicit-ten-band-source-grid-v1",
+      "selected_bands": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "omitted_bands_unclassified": [
+        11
+      ],
+      "view": {
+        "zenith": 0.0,
+        "azimuth": 0.0
+      },
+      "cautions": [
+        "Retain ten TIFF bands only after exact H5 equality; other channels are unclassified.",
+        "Bundled acquisition times are used; package/manifest date disagreements require review.",
+        "Terrain masks are preserved. Review scientific QA before promoting results."
+      ],
+      "ancillary_grid_validation": {
+        "aligned_slope.tif": {
+          "maximum_corner_displacement_map_units": 0.0,
+          "source_transform_gdal": [
+            455725.0,
+            0.1,
+            0.0,
+            4432104.75,
+            0.0,
+            -0.1
+          ],
+          "reference_transform_gdal": [
+            455725.0,
+            0.1,
+            0.0,
+            4432104.75,
+            0.0,
+            -0.1
+          ],
+          "policy": "eight_float64_coordinate_ulps; no resampling or value changes"
+        },
+        "aligned_aspect.tif": {
+          "maximum_corner_displacement_map_units": 0.0,
+          "source_transform_gdal": [
+            455725.0,
+            0.1,
+            0.0,
+            4432104.75,
+            0.0,
+            -0.1
+          ],
+          "reference_transform_gdal": [
+            455725.0,
+            0.1,
+            0.0,
+            4432104.75,
+            0.0,
+            -0.1
+          ],
+          "policy": "eight_float64_coordinate_ulps; no resampling or value changes"
+        }
+      },
+      "sources": {
+        "NEON_D13_NIWO_test_aligned_orthomosaic.h5": "769c6a9599bc242e7ed8f0fae5e69d324fbbc0f02adb18386c19703f5f9d6cb2",
+        "aligned_orthomosaic.tif": "c8ce548934f6df84089a520e846379ef5d4cf624e06c46201ba103e2ea996d5b",
+        "aligned_slope.tif": "b6b9273a49625b53370598596fff980b15c3d47968abcd206660685a6603b82f",
+        "aligned_aspect.tif": "83c1e7696adbbcc24afd9024d1a382807f97b066f37f238f74637e24c694fbed"
+      },
+      "reference_sha256": "1e12d494d959ad782bab0c0a9c40ef11570f5b2e98bafe77cb6af0c4f195da85"
+    },
+    "execution": {
+      "input_source_type": "tiff",
+      "input_source_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/prepared_sources/2023/AOP-Ruby-08-14-23-ExportPackage/verified_reflectance.tif",
+      "manifest_flight_datetime": "2023-08-16T18:53:18+00:00",
+      "solar_geometry_source": "manifest_computed",
+      "acquisition_datetime_used": "2023-08-16T18:53:18"
+    },
+    "angles": {
+      "Zenith": {
+        "source_shape": [
+          1035,
+          1960
+        ],
+        "working_shape": [],
+        "source_all_zero": true,
+        "working_all_zero": true,
+        "lineage": "prepare_reference reads/validates source constant then supplies explicit tiff_sensor_*_deg to convert_drone_tiff_to_h5; reader broadcasts scalar. Not camera measurement."
+      },
+      "Azimuth": {
+        "source_shape": [
+          1035,
+          1960
+        ],
+        "working_shape": [],
+        "source_all_zero": true,
+        "working_all_zero": true,
+        "lineage": "prepare_reference reads/validates source constant then supplies explicit tiff_sensor_*_deg to convert_drone_tiff_to_h5; reader broadcasts scalar. Not camera measurement."
+      }
+    },
+    "terrain": {
+      "slope": {
+        "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-Ruby-08-14-23-ExportPackage/aligned_slope.tif",
+        "grid_matches": true,
+        "maximum_affine_corner_difference": 0.0,
+        "tiff_h5_values_exact": true,
+        "units": null,
+        "tags": {
+          "AREA_OR_POINT": "Area"
+        },
+        "range": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.0,
+            4.074225435256959,
+            25.058868408203125,
+            55.100289916992196,
+            83.81104278564453
+          ]
+        },
+        "h5_dataset_attributes": {}
+      },
+      "aspect": {
+        "path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/staged_sources/2023_AOP-Ruby-08-14-23-ExportPackage/aligned_aspect.tif",
+        "grid_matches": true,
+        "maximum_affine_corner_difference": 0.0,
+        "tiff_h5_values_exact": true,
+        "units": null,
+        "tags": {
+          "AREA_OR_POINT": "Area"
+        },
+        "range": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.0,
+            15.43123561859131,
+            199.2906951904297,
+            332.70879699707035,
+            359.6327819824219
+          ]
+        },
+        "h5_dataset_attributes": {}
+      },
+      "dem_native_derivative_comparison": {
+        "path": "/private/tmp/photogrammetry-metadata-20261102/ruby_dem.tif",
+        "crs": "EPSG:26913",
+        "shape": [
+          310,
+          588
+        ],
+        "resolution": [
+          0.33261200000001767,
+          0.33261200000021246
+        ],
+        "tags": {
+          "AREA_OR_POINT": "Area"
+        },
+        "slope_absolute_error": {
+          "n": 1973722,
+          "q0_1_50_99_100": [
+            9.5367431640625e-07,
+            0.14339687347412108,
+            25.593935012817383,
+            68.45831031799318,
+            84.6195068359375
+          ]
+        },
+        "aspect_circular_absolute_error": {
+          "n": 1973722,
+          "q0_1_50_99_100": [
+            9.1552734375e-05,
+            0.361297607421875,
+            40.13506317138672,
+            176.82751953125,
+            179.99984741210938
+          ]
+        },
+        "note": "Independent Horn/native-before-bilinear candidate, not proof of executed terra settings or DEM/DTM classification. Scalar aspect interpolation can cross North incorrectly."
+      },
+      "dtm_native_derivative_comparison": {
+        "path": "/private/tmp/photogrammetry-metadata-20261102/ruby_dtm.tif",
+        "crs": "EPSG:26913",
+        "shape": [
+          310,
+          588
+        ],
+        "resolution": [
+          0.33261200000001767,
+          0.33261200000021246
+        ],
+        "tags": {
+          "AREA_OR_POINT": "Area"
+        },
+        "slope_absolute_error": {
+          "n": 1973722,
+          "q0_1_50_99_100": [
+            3.814697265625e-06,
+            0.09046945571899413,
+            5.85099983215332,
+            35.219757156372076,
+            65.3445816040039
+          ]
+        },
+        "aspect_circular_absolute_error": {
+          "n": 1973722,
+          "q0_1_50_99_100": [
+            1.52587890625e-05,
+            0.27930648803710934,
+            18.450416564941406,
+            167.72824584960938,
+            179.99945068359375
+          ]
+        },
+        "note": "Independent Horn/native-before-bilinear candidate, not proof of executed terra settings or DEM/DTM classification. Scalar aspect interpolation can cross North incorrectly."
+      },
+      "aligned_dem_derivative_comparison": {
+        "path": "/private/tmp/photogrammetry-metadata-20261102/ruby_aligned_dem.tif",
+        "shape": [
+          1035,
+          1960
+        ],
+        "resolution": [
+          0.1,
+          0.1
+        ],
+        "crs": "EPSG:26913",
+        "source_grid_exact": true,
+        "slope_absolute_error": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.0,
+            0.00807952880859375,
+            1.1634597778320312,
+            14.094525947570812,
+            82.19295501708984
+          ]
+        },
+        "aspect_circular_absolute_error": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.0,
+            0.015380859375,
+            3.326324462890625,
+            129.96389831542973,
+            180.0
+          ]
+        },
+        "algorithm": "Independent Horn 3x3 on already-aligned elevation, no circular-aspect interpolation. Comparison does not establish executed source terrain tool/version or ground classification.",
+        "slope_convention": "degrees",
+        "aspect_convention": "downslope clockwise from grid north",
+        "solar_convention": "true north; grid convergence must be handled explicitly if reference conventions differ"
+      }
+    },
+    "working_metadata_attributes": {
+      "acquisition_datetime_used": "2023-08-16T18:53:18",
+      "solar_azimuth_max": 172.65174865722656,
+      "solar_azimuth_mean": 172.64913940429688,
+      "solar_azimuth_min": 172.64651489257812,
+      "solar_geometry_source": "manifest_computed",
+      "solar_zenith_max": 26.303321838378906,
+      "solar_zenith_mean": 26.302753448486328,
+      "solar_zenith_min": 26.302181243896484
+    },
+    "solar_replay": {
+      "points": 25,
+      "working_exact_zenith_mismatches": 0,
+      "working_exact_azimuth_mismatches": 0,
+      "center_lat": 40.037546974289334,
+      "center_lon": -105.51782122255105,
+      "altitude_assumption": "Current NOAA implementation uses lat/lon/time, no DEM elevation or refraction. Independent SPA uses pressure=0, altitude=0 for geometric angles.",
+      "old_grid_zenith": {
+        "n": 25,
+        "q0_1_50_99_100": [
+          88.99600982666016,
+          88.99602081298828,
+          88.9965591430664,
+          88.99710510253907,
+          88.99711608886719
+        ]
+      },
+      "working_grid_zenith": {
+        "n": 25,
+        "q0_1_50_99_100": [
+          26.302181243896484,
+          26.30219451904297,
+          26.302751541137695,
+          26.303309020996092,
+          26.303321838378906
+        ]
+      }
+    },
+    "historical_solar_bug_fingerprint": {
+      "points": 25,
+      "max_abs_zenith_error_degrees": 0.0,
+      "max_abs_azimuth_error_degrees": 0.0,
+      "exact_zenith_matches": 25,
+      "exact_azimuth_matches": 25,
+      "mechanism": "Archived ephem code assigns degree-valued numeric latitude/longitude to radian-valued Observer properties, then computes 90 - sun.alt (radians) as if degrees. Both errors replayed, never used as corrected geometry.",
+      "provenance_limit": "Strong numerical/code fingerprint, not a per-file signed execution record or identification of a human executor."
+    },
+    "camera_time_range": {
+      "start": "2023-08-15 18:40:15",
+      "stop": "2023-08-15 19:05:07",
+      "span_minutes": 24.866666666666667,
+      "timezone_unknown": true,
+      "warning": "Band-file timestamp span, not independently verified flight exposure timing."
+    },
+    "tiff_metadata": {
+      "crs": "EPSG:26913",
+      "transform": [
+        0.1,
+        0.0,
+        455725.0,
+        0.0,
+        -0.1,
+        4432104.75,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape": [
+        1035,
+        1960
+      ],
+      "tags": {
+        "AREA_OR_POINT": "Area"
+      },
+      "scales": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "descriptions": [
+        "AOP-RUBY-08-14-23-ORTHO_CLIPPED_1",
+        "AOP-RUBY-08-14-23-ORTHO_CLIPPED_2",
+        "AOP-RUBY-08-14-23-ORTHO_CLIPPED_3",
+        "AOP-RUBY-08-14-23-ORTHO_CLIPPED_4",
+        "AOP-RUBY-08-14-23-ORTHO_CLIPPED_5",
+        "AOP-RUBY-08-14-23-ORTHO_CLIPPED_6",
+        "AOP-RUBY-08-14-23-ORTHO_CLIPPED_7",
+        "AOP-RUBY-08-14-23-ORTHO_CLIPPED_8",
+        "AOP-RUBY-08-14-23-ORTHO_CLIPPED_9",
+        "AOP-RUBY-08-14-23-ORTHO_CLIPPED_10",
+        "AOP-RUBY-08-14-23-ORTHO_CLIPPED_11"
+      ]
+    },
+    "topography_fit_design": {
+      "rank": 2,
+      "condition_number": 12.13188793403934,
+      "singular_values": [
+        1855.8872187172794,
+        152.97596126898588
+      ],
+      "units": "Recovered numerical DN; no physical fit approval"
+    },
+    "topography_bands": [
+      {
+        "band": 1,
+        "wavelength_nm": 444.0,
+        "slope_coefficient": 974.4951155109761,
+        "intercept": 135.89525949090518,
+        "C": 0.13945196576962682,
+        "C_standard_error": 0.009492144725854142,
+        "r_squared": 0.005520596306224035,
+        "factor": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.38031715154647827,
+            0.7036034834384919,
+            0.9252835512161255,
+            1.4622421646118164,
+            113.58403778076172
+          ]
+        },
+        "denominator": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            -0.1187836080789566,
+            0.5165025854110717,
+            1.0444958209991455,
+            1.1364147853851319,
+            1.1394517421722412
+          ]
+        },
+        "guard_neutral_den_le_0_001": 81,
+        "max_gain_location": {
+          "factor": 113.58403778076172,
+          "cosine_incidence": -0.13576540350914001,
+          "C": 0.13945196576962682,
+          "denominator": 0.003686562180519104,
+          "numerator": 0.418734610080719
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 2,
+        "wavelength_nm": 475.0,
+        "slope_coefficient": 1214.9605091790913,
+        "intercept": 80.61737019694594,
+        "C": 0.06635390170123014,
+        "C_standard_error": 0.00720299526693821,
+        "r_squared": 0.008226445702759433,
+        "factor": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.3086901307106018,
+            0.6808110213279724,
+            0.9196752905845642,
+            1.533949661254884,
+            174.4861602783203
+          ]
+        },
+        "denominator": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            -0.1918816715478897,
+            0.4434045219421387,
+            0.9713977575302124,
+            1.0633167219161987,
+            1.066353678703308
+          ]
+        },
+        "guard_neutral_den_le_0_001": 131,
+        "max_gain_location": {
+          "factor": 174.4861602783203,
+          "cosine_incidence": -0.06401687860488892,
+          "C": 0.06635390170123014,
+          "denominator": 0.002337023615837097,
+          "numerator": 0.407778263092041
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 3,
+        "wavelength_nm": 531.0,
+        "slope_coefficient": 1612.670121402895,
+        "intercept": 225.34272419999823,
+        "C": 0.13973268383243062,
+        "C_standard_error": 0.006159341409688016,
+        "r_squared": 0.013019687182814876,
+        "factor": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.3805635869503021,
+            0.7036836874485016,
+            0.9253033995628357,
+            1.4620006918907167,
+            105.6176528930664
+          ]
+        },
+        "denominator": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            -0.11850288510322571,
+            0.5167832636833191,
+            1.0447765588760376,
+            1.136695523262024,
+            1.1397324800491333
+          ]
+        },
+        "guard_neutral_den_le_0_001": 81,
+        "max_gain_location": {
+          "factor": 105.6176528930664,
+          "cosine_incidence": -0.13576540350914001,
+          "C": 0.13973268383243062,
+          "denominator": 0.00396728515625,
+          "numerator": 0.4190153479576111
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 4,
+        "wavelength_nm": 560.0,
+        "slope_coefficient": 1876.8386959844659,
+        "intercept": 230.5292710735567,
+        "C": 0.12282849430096403,
+        "C_standard_error": 0.005402509154366295,
+        "r_squared": 0.016306294171446134,
+        "factor": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.36536359786987305,
+            0.6987145161628723,
+            0.9240725636482239,
+            1.4767149686813368,
+            372.711181640625
+          ]
+        },
+        "denominator": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            -0.13540709018707275,
+            0.49987908840179446,
+            1.0278723239898682,
+            1.119791407585144,
+            1.1228283643722534
+          ]
+        },
+        "guard_neutral_den_le_0_001": 91,
+        "max_gain_location": {
+          "factor": 372.711181640625,
+          "cosine_incidence": -0.12175321578979492,
+          "C": 0.12282849430096403,
+          "denominator": 0.0010752752423286438,
+          "numerator": 0.40076711773872375
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 5,
+        "wavelength_nm": 650.0,
+        "slope_coefficient": 2402.944746421833,
+        "intercept": -410.9901606952,
+        "C": -0.1710360428832979,
+        "C_standard_error": 0.003197329529815853,
+        "r_squared": 0.022995278523309626,
+        "factor": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.004000724293291569,
+            0.5733240330219269,
+            0.8937159776687622,
+            1.990904130935669,
+            336.7689208984375
+          ]
+        },
+        "denominator": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            -0.4292716383934021,
+            0.20601455509662628,
+            0.7340077757835388,
+            0.8259267997741699,
+            0.8289637565612793
+          ]
+        },
+        "guard_neutral_den_le_0_001": 3763,
+        "max_gain_location": {
+          "factor": 336.7689208984375,
+          "cosine_incidence": 0.17206817865371704,
+          "C": -0.1710360428832979,
+          "denominator": 0.001032128930091858,
+          "numerator": 0.3475889563560486
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 6,
+        "wavelength_nm": 668.0,
+        "slope_coefficient": 2526.962346851694,
+        "intercept": -551.9638427807009,
+        "C": -0.2184297852591214,
+        "C_standard_error": 0.002898741447046869,
+        "r_squared": 0.024326481027646785,
+        "factor": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.000295459438348189,
+            0.5423722612857819,
+            0.8864314556121826,
+            2.164902620315557,
+            313.7878112792969
+          ]
+        },
+        "denominator": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            -0.4766653776168823,
+            0.15862081587314605,
+            0.6866140365600586,
+            0.7785330605506897,
+            0.7815700173377991
+          ]
+        },
+        "guard_neutral_den_le_0_001": 5447,
+        "max_gain_location": {
+          "factor": 313.7878112792969,
+          "cosine_incidence": 0.2195240557193756,
+          "C": -0.2184297852591214,
+          "denominator": 0.0010942667722702026,
+          "numerator": 0.3433675765991211
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 7,
+        "wavelength_nm": 705.0,
+        "slope_coefficient": 2757.3282969197626,
+        "intercept": 226.76082364840883,
+        "C": 0.08223932706951344,
+        "C_standard_error": 0.003939894023947047,
+        "r_squared": 0.027872935459102854,
+        "factor": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.3256295621395111,
+            0.6860417580604553,
+            0.920963704586029,
+            1.5163962388038652,
+            137.00926208496094
+          ]
+        },
+        "denominator": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            -0.17599624395370483,
+            0.4592899346351624,
+            0.9872831702232361,
+            1.0792021942138672,
+            1.0822391510009766
+          ]
+        },
+        "guard_neutral_den_le_0_001": 122,
+        "max_gain_location": {
+          "factor": 137.00926208496094,
+          "cosine_incidence": -0.07938525080680847,
+          "C": 0.08223932706951344,
+          "denominator": 0.002854079008102417,
+          "numerator": 0.391035258769989
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 8,
+        "wavelength_nm": 717.0,
+        "slope_coefficient": 2910.0833801477756,
+        "intercept": 959.8720052958105,
+        "C": 0.32984347178638834,
+        "C_standard_error": 0.005086168791447437,
+        "r_squared": 0.026610022478604556,
+        "factor": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.5120087265968323,
+            0.7499732589721679,
+            0.9367833137512207,
+            1.3426720046997072,
+            6.9736151695251465
+          ]
+        },
+        "denominator": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.07160788774490356,
+            0.7068940663337707,
+            1.2348873615264893,
+            1.3268063259124756,
+            1.329843282699585
+          ]
+        },
+        "guard_neutral_den_le_0_001": 0,
+        "max_gain_location": {
+          "factor": 6.9736151695251465,
+          "cosine_incidence": -0.2582355737686157,
+          "C": 0.32984347178638834,
+          "denominator": 0.07160788774490356,
+          "numerator": 0.4993658661842346
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 9,
+        "wavelength_nm": 740.0,
+        "slope_coefficient": 2754.303927906069,
+        "intercept": 2629.7363884271986,
+        "C": 0.9547734953224383,
+        "C_standard_error": 0.010170467927036955,
+        "r_squared": 0.01563032523879271,
+        "factor": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.7125311493873596,
+            0.8342889070510864,
+            0.9579984545707703,
+            1.184610185623169,
+            1.6141202449798584
+          ]
+        },
+        "denominator": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.6965379118919373,
+            1.3318240904808045,
+            1.8598172664642334,
+            1.9517363500595093,
+            1.9547733068466187
+          ]
+        },
+        "guard_neutral_den_le_0_001": 0,
+        "max_gain_location": {
+          "factor": 1.6141202449798584,
+          "cosine_incidence": -0.2582355737686157,
+          "C": 0.9547734953224383,
+          "denominator": 0.6965379118919373,
+          "numerator": 1.124295949935913
+        },
+        "exact_output_mismatches": 0
+      },
+      {
+        "band": 10,
+        "wavelength_nm": 862.0,
+        "slope_coefficient": 2932.4475534417315,
+        "intercept": 3849.453883010583,
+        "C": 1.312710223407947,
+        "C_standard_error": 0.012750872031501794,
+        "r_squared": 0.01427611985385202,
+        "factor": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            0.7672988176345825,
+            0.8610475087165832,
+            0.9647767543792725,
+            1.1461570644378662,
+            1.4058122634887695
+          ]
+        },
+        "denominator": {
+          "n": 1992443,
+          "q0_1_50_99_100": [
+            1.0544745922088623,
+            1.6897607803344727,
+            2.2177538871765137,
+            2.3096729707717896,
+            2.3127100467681885
+          ]
+        },
+        "guard_neutral_den_le_0_001": 0,
+        "max_gain_location": {
+          "factor": 1.4058122634887695,
+          "cosine_incidence": -0.25601062178611755,
+          "C": 1.312710223407947,
+          "denominator": 1.056699514389038,
+          "numerator": 1.4855210781097412
+        },
+        "exact_output_mismatches": 0
+      }
+    ]
+  }
+}

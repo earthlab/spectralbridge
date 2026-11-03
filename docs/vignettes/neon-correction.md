@@ -46,3 +46,15 @@ corrected reflectance cube. Keep both members of every ENVI pair together.
 - [Carry on from a partial run](carry-on-wayward-son.md)
 - Technical details: [BRDF and topographic
   correction](../brdf_topo_algorithm.md)
+
+## Check source and model eligibility
+
+Confirm the NEON product/revision and upstream correction state before applying
+another topographic/BRDF normalization. Directional products can provide physical
+calibration and instrument geometry, unlike assigned nadir drone mosaics, but
+every flight still needs valid units, geometry, angular rank/conditioning and
+stable predictions. A passing numerical model is not independent scientific
+validation. See [Choosing corrections](../concepts/correction-eligibility.md)
+and the [shared methods](../brdf_topo_algorithm.md).
+
+Last updated: 2026-11-02

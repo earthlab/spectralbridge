@@ -393,7 +393,7 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`fit_scs_c_coefficients`](generated/corrections.md#spectralbridge.corrections.fit_scs_c_coefficients) | Fit per-band SCS+C C parameters over a full NeonCube footprint. | advanced |
 | [`apply_topo_correct`](generated/corrections.md#spectralbridge.corrections.apply_topo_correct) | Topographic (illumination) correction on a hyperspectral chunk. | advanced |
 | [`apply_brdf_correct`](generated/corrections.md#spectralbridge.corrections.apply_brdf_correct) | Perform BRDF normalization on a hyperspectral chunk using FlexBRDF ratio. | advanced |
-| [`fit_and_save_brdf_model`](generated/corrections.md#spectralbridge.corrections.fit_and_save_brdf_model) | Estimate and persist BRDF coefficients for a NEON flightline. | advanced |
+| [`fit_and_save_brdf_model`](generated/corrections.md#spectralbridge.corrections.fit_and_save_brdf_model) | Fit and persist a shared NEON/drone BRDF model and validation diagnostics. | advanced |
 | [`resample_chunk_to_sensor`](generated/resample.md#spectralbridge.resample.resample_chunk_to_sensor) | Resample a hyperspectral chunk to target sensor bands using SRFs. | advanced |
 | [`apply_resampler`](generated/standard_resample.md#spectralbridge.standard_resample.apply_resampler) | Apply a HyTools resampler configuration to a data slice. | advanced |
 | [`resampler_hy_obj`](generated/standard_resample.md#spectralbridge.standard_resample.resampler_hy_obj) | Configure the retained legacy sensor-response resampler and ENVI writer. | advanced |

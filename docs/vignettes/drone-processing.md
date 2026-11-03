@@ -3,15 +3,17 @@
 **Notebook:** [View the drone notebook in the repository](https://github.com/earthlab/spectralbridge/blob/main/docs/vignettes/notebooks/06_drone_pipeline.ipynb). GitHub displays the cells; clone or download the file to run them.
 
 Use this module for local drone TIFF packages or HDF5 inputs. Discovery is
-recursive, the original package remains traceable, and TIFF inputs enter the
-same established HDF5, ENVI, topographic, and BRDF correction machinery.
+recursive, the original package remains traceable, and TIFF inputs enter shared HDF5/ENVI machinery. Corrections run only when their
+physical-unit and geometry requirements are satisfied. Start with
+[correction eligibility](../concepts/correction-eligibility.md) and the
+[three-flight findings](../validation/drone-findings.md).
 
 ## Scientific branches
 
 ```text
 DRONE
 TIFF + ancillary + manifest
-  -> working H5 -> ENVI -> topo/BRDF -> corrected MicaSense
+  -> working H5 -> ENVI -> eligible or explicitly omitted corrections -> native MicaSense
   -> affine cross-sensor translation -> Landsat-like raster
   -> full or polygon spectral library -> QA
 
@@ -69,16 +71,21 @@ bulk-run provenance before writing a translated product.
 ## Run it
 
 ```python
+import json
+from pathlib import Path
 from spectralbridge import run_drone_pipeline
 
+# Configuration template: requires independently verified calibration and inputs.
+calibration = json.loads(Path("reviewed_flight_calibration.json").read_text())
 results = run_drone_pipeline(
     input_h5_dir="drone_inputs",
     output_dir="drone_outputs",
     polygon_path="plots.geojson",
     extraction_mode="polygon",
-    apply_topo=True,
-    apply_brdf=True,
-    apply_translation=True,
+    radiometry=calibration,
+    apply_topo=False,  # Enable only after terrain/illumination validation.
+    apply_brdf=False,  # Current three investigated mosaics are unsupported.
+    apply_translation=False,  # Requires compatible, reviewed coefficients.
     translation_strict=False,
     drone_manifest_timezone="UTC",
 )
@@ -275,7 +282,7 @@ result = run_drone_pipeline(
     "source-flight/",
     output_dir="fresh-reviewed-output/",
     radiometry=record,
-    apply_topo=True,
+    apply_topo=False,  # Topographic scientific approval is separate.
     apply_brdf=False,  # Explicitly unnormalized mosaic; status NOT_REQUESTED.
     apply_translation=False,
 )
@@ -293,3 +300,166 @@ products retained where appropriate. Existing spatial repairs remain necessary
 but do not establish radiometric validity. Legacy translation registries and
 unmarked historical tables require review before joining approved spectral
 libraries. See [the common contract](../pipeline.md#physical-reflectance-and-correction-validity).
+
+## Complete drone measurement workflow
+
+![Drone photographs through photogrammetry, encoding, spatial checks and eligible processing to a reviewed library](../images/drone-validation/workflow.svg)
+
+*Actual stage order and evidence boundaries. Spectral translation is optional;
+a library can retain native bands. Upstream photogrammetry is outside
+SpectralBridge. The [provenance investigation](../dev/photogrammetry-metadata-investigation.md)
+traces what the inspected files actually preserve.*
+
+| Measurement state | Meaning |
+| --- | --- |
+| Original camera observation | One exposure with its own time, direction, calibration and footprint |
+| Orthomosaic pixel | A selected or blended ground-grid value; not all contributing exposures |
+| Calibrated reflectance | Physical reflectance established by source calibration and encoding records |
+| Numerically normalized value | A number transformed to a chosen range; physical units may remain unknown |
+| Recovered source DN | Inverse-normalized numerical representation; not original native-resolution samples |
+| Topographically corrected measurement | Terrain/illumination-adjusted value, conditional on input and model validity |
+| BRDF-normalized reflectance | Supported directional model evaluated at a recorded reference geometry |
+| Spectrally translated product | Configured sensor-like values; not an independent target-sensor observation |
+
+Photogrammetry reconstructs camera/ground geometry and mosaics observations.
+Radiometric encoding establishes how stored numbers relate to source values;
+only calibration evidence establishes physical units. Spatial validation protects
+which ground location each value represents. H5 conversion carries spectral and
+ancillary metadata into the shared correction machinery. Eligible corrections
+precede optional wavelength-matched affine translation. Polygon extraction then
+attaches researcher identities to validated pixels; library review evaluates
+spectra, labels, masks and the intended scientific domain together.
+
+## Check spatial correspondence before extraction
+
+The Gordon/Goldhill/Ruby upstream H5s stored a signed negative Y map size where
+ENVI expects a pixel-size magnitude, placed TIFF corner coordinates in a legacy
+center-reference field, and mixed NAD83 WKT with a WGS84 map-info datum. The old
+native ENVI export reflected their geographic row direction; the center/corner
+error also introduced a half-pixel shift in the reader. Arrays themselves were
+unchanged. A plausible image or bounding-box overlap cannot certify polygon
+membership.
+
+Current TIFF ingestion accepts valid projected, axis-aligned east-right/north-up
+grids; it rejects conflicting H5 conventions and unsupported orientation instead
+of guessing a flip. It marks TIFF corner references, writes standard WKT,
+preserves precision, checks ancillary shape/CRS/outer-corner alignment and
+invalidates dependent extraction when spatial backing changes. NEON's legacy
+center convention is unchanged. See the [spatial report](../dev/drone-spatial-integrity-investigation.md)
+for the eight-coordinate-ULP roundoff allowance and regression evidence.
+
+Before extracting, compare an independently sourced TIFF against the actual
+stages and polygons. From a source checkout, adapt these paths to one flight:
+
+```bash
+python scripts/diagnose_drone_spatial_integrity.py \
+  --source-tiff source/aligned_orthomosaic.tif \
+  --source-bands 1,2,3,4,5,6,7,8,9,10 \
+  --h5 flight/AOP_Ruby_20230814__working.h5 \
+  --native flight/AOP_Ruby_20230814__envi.img \
+  --polygons Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg \
+  --id-column GlobalID --output artifacts/spatial_check
+```
+
+Declare bands only after verifying their identity. Original packages have ten
+spectral bands plus an alpha band; the package does not silently trim an unknown
+extra band. Check the diagnostic's CRS, affine, corner/center control points,
+orientation, spectral correspondence and polygon memberships. Supply corrected,
+final and Parquet paths as shown in the full report to test downstream stages.
+Exit 0 covers only supplied comparisons; exit 2 means missing required evidence,
+and exit 1 reports discrepancies. Source agreement is not surveyed field accuracy.
+Spatial repair does not resolve radiometric or acquisition-time uncertainty.
+
+## Numerical scaling is not physical calibration
+
+The inspected exports independently mapped each band's observed range to
+0–10,000. For band `b`, with recorded original extrema, the verified equation is:
+
+```text
+S_b  = 10000 * (DN_b - min_b) / (max_b - min_b)
+DN_b = min_b + S_b * (max_b - min_b) / 10000
+```
+
+Here `S_b` is stored normalized data and `DN_b` is the source numerical
+representation. These are code-form equations so they remain readable without
+a browser mathematics plugin. The paired 25 cm comparison checked 24,387,540
+finite values with maximum discrepancy below 0.000781 normalized units. Evidence
+supports the same mapping for current 10 cm inputs, but exact exporter/interpolation
+history and rare large border residuals remain unresolved. Neither the reason
+for choosing this normalization nor its exact implementing script was recovered.
+
+| Flight | Original minima in spectral order | Original maxima |
+| --- | --- | --- |
+| Gordon | All zero | All 65,535 |
+| Goldhill | Band 10 / NIR = 174; others zero | All 65,535 |
+| Ruby | Bands 1, 2, 10 / NIR = 4, 3, 297; others zero | All 65,535 |
+
+Keep each band's source identity, minimum, maximum, mask and band order. Do not
+recompute extrema on a crop: that defines a different mapping. Offsets alter
+band relationships and spectral indices. Recovered DN preserves the documented
+numeric representation of resampled pixels; it does not establish physical
+reflectance or exactly reconstruct native camera pixels.
+
+The shared contract is `physical = scale * stored + offset`. A valid record
+requires finite scalar values, positive scale, `status="VALID"`, the exact
+convention and nonempty authoritative provenance. A source H5 may carry JSON in
+`spectralbridge_radiometry`; TIFF identity scale tags alone remain unsupported.
+Unknown inputs carry `UNSUPPORTED` radiometry with absent scale/offset, rather
+than an invented divisor. `Radiometry` currently accepts a **scalar** mapping;
+the three-flight band-specific inverse is not an automatic production ingest
+feature. Do not pass a vector of minima as its offset.
+
+Physical interpretation needs panel images/certificates or justified irradiance
+calibration, exposure/gain and sensor records, band sensitivity and actual
+photogrammetry/export settings. A vendor's 32,768 encoding applies only when
+those project conventions are established. **Neither recovered DN / 32,768 nor
+normalized data / 10,000 is verified reflectance for these flights.**
+See [paired evidence](https://github.com/earthlab/spectralbridge/blob/main/provenance/drone-scale-confirmation/2026-10-30/README.md)
+and [inverse-recovery limits](../dev/drone-radiometric-recovery-experiment.md).
+
+## Photogrammetry and directional information
+
+![Documented camera geometry, omitted contributors, placeholder views and recomputed solar](../images/drone-validation/metadata-provenance.webp)
+
+*Verified file/code lineage and unresolved project-to-export links.
+[Full provenance investigation](../dev/photogrammetry-metadata-investigation.md).*
+
+Overlapping photographs can see the same target from different directions.
+Photogrammetry estimates camera positions, orientations and lens parameters;
+terrain and visibility connect image rays to ground targets. Orthomosaicking
+selects or blends observations into a ground-grid pixel. That output generally
+cannot recover its separate source measurements or one uniquely physical view.
+Assigned nadir angles do not reconstruct the original rays.
+
+The three Metashape 1.8.3 reports document geometric estimates. The matching
+machine-readable projects, poses and contributor exports were not found in the
+bounded search; this does not prove they were discarded or are lost. Archived
+`tiff_to_h5` code explicitly writes zero sensor-angle matrices. The October 29
+recipe copied their constant values into scalar inputs; the current writer did
+not invent a zero default. The reader broadcasts supplied scalars and raises
+when angles are absent. All three current designs have rank 1 of 3 and 0/10
+supported bands under scene-solar RossThick/LiDenseR. Original overlapping
+photographs might support a different fit, but overlap counts alone do not
+establish sufficient angular coverage.
+
+Upstream panel, irradiance, exposure, vignette, camera radiometric, color/brightness,
+block-adjustment and BRDF operation states remain **unknown**. Mosaic blending
+and geometric lens calibration do not prove physical calibration or balancing.
+No duplicated upstream correction has been established. Recover actual settings
+before adding another correction. The old solar grids reproduce mixed-unit
+PyEphem errors; the rebuilt grids are manifest-derived NOAA calculations.
+Conflicting acquisition dates, especially Ruby, remain unverified despite the
+new calculations' numerical plausibility.
+
+The [UAV literature comparison](../reference/literature.md#uav-radiometry-and-directional-correction)
+describes image-level block adjustment, anisotropy, irradiance/vignette and
+planned multi-angle methods. These generally need calibrated repeated
+same-target observations before final mosaicking. Empirical post-mosaic fitting
+still requires valid units and supported geometry; our current mosaics fail that
+gate. Published methods have not been validated on these flights. Recover the
+matching project/settings and a small calibrated overlap subset before deciding
+between retaining calibrated no-extra-BRDF mosaics, image-level block adjustment
+or a supported angular model. NEON instrument geometry is different evidence;
+every NEON flight must still satisfy the shared computational and scientific gates.
+
+Last updated: 2026-11-02

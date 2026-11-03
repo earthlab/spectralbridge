@@ -1,5 +1,14 @@
 # Run a remote drone campaign through bulk production
 
+!!! warning "Scientific readiness precedes campaign execution"
+    The Gordon/Goldhill/Ruby calibration remains unverified and current mosaic
+    BRDF is unsupported. The historical cloud notebook's completion and upload
+    steps do not approve these products. Review [correction eligibility](../concepts/correction-eligibility.md)
+    and [current findings](../validation/drone-findings.md) before any campaign.
+    Rich per-stage preflight and automatic bandwise inverse recovery remain
+    [planned](../dev/drone-correction-production-plan.md).
+
+
 Use this workflow when the authoritative drone ExportPackages live in a remote
 collection and the goal is one complete, restartable campaign plus compact bulk
 results. SpectralBridge owns remote inventory, H5 staging, per-flight producer
@@ -214,3 +223,5 @@ from `10k`/`rescale` collection names. An explicit choice to omit BRDF is record
 as `NOT_REQUESTED`; a failed requested correction is not silently converted into
 that alternative. See [the shared contract](../pipeline.md#physical-reflectance-and-correction-validity)
 and [drone calibration requirements](drone-processing.md#required-calibration-and-mosaic-brdf-limitations).
+
+Last updated: 2026-11-02

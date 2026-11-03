@@ -1,0 +1,65 @@
+[
+  {
+    "operation": "Reflectance panel calibration",
+    "metashape_state": "UNKNOWN",
+    "evidence": "No matching project flags, raw metadata or calibration log recovered; software capability and lens-calibration report are insufficient.",
+    "spectralbridge": "No separate verified equivalent operation demonstrated in the audited run",
+    "duplication": "NOT_ESTABLISHED; cannot exclude upstream execution"
+  },
+  {
+    "operation": "Downwelling irradiance correction",
+    "metashape_state": "UNKNOWN",
+    "evidence": "No matching project flags, raw metadata or calibration log recovered; software capability and lens-calibration report are insufficient.",
+    "spectralbridge": "No separate verified equivalent operation demonstrated in the audited run",
+    "duplication": "NOT_ESTABLISHED; cannot exclude upstream execution"
+  },
+  {
+    "operation": "Exposure/gain normalization",
+    "metashape_state": "UNKNOWN",
+    "evidence": "No matching project flags, raw metadata or calibration log recovered; software capability and lens-calibration report are insufficient.",
+    "spectralbridge": "No separate verified equivalent operation demonstrated in the audited run",
+    "duplication": "NOT_ESTABLISHED; cannot exclude upstream execution"
+  },
+  {
+    "operation": "Lens vignetting correction",
+    "metashape_state": "UNKNOWN",
+    "evidence": "No matching project flags, raw metadata or calibration log recovered; software capability and lens-calibration report are insufficient.",
+    "spectralbridge": "No separate verified equivalent operation demonstrated in the audited run",
+    "duplication": "NOT_ESTABLISHED; cannot exclude upstream execution"
+  },
+  {
+    "operation": "Camera-specific radiometric calibration",
+    "metashape_state": "UNKNOWN",
+    "evidence": "No matching project flags, raw metadata or calibration log recovered; software capability and lens-calibration report are insufficient.",
+    "spectralbridge": "No separate verified equivalent operation demonstrated in the audited run",
+    "duplication": "NOT_ESTABLISHED; cannot exclude upstream execution"
+  },
+  {
+    "operation": "Brightness/color balancing",
+    "metashape_state": "UNKNOWN",
+    "evidence": "No matching project flags, raw metadata or calibration log recovered; software capability and lens-calibration report are insufficient.",
+    "spectralbridge": "No separate verified equivalent operation demonstrated in the audited run",
+    "duplication": "NOT_ESTABLISHED; cannot exclude upstream execution"
+  },
+  {
+    "operation": "Radiometric block adjustment",
+    "metashape_state": "UNKNOWN",
+    "evidence": "No matching project flags, raw metadata or calibration log recovered; software capability and lens-calibration report are insufficient.",
+    "spectralbridge": "No separate verified equivalent operation demonstrated in the audited run",
+    "duplication": "NOT_ESTABLISHED; cannot exclude upstream execution"
+  },
+  {
+    "operation": "BRDF/angular normalization",
+    "metashape_state": "UNKNOWN",
+    "evidence": "No matching project flags, raw metadata or calibration log recovered; software capability and lens-calibration report are insufficient.",
+    "spectralbridge": "Historical BRDF applied; invalid model diagnosed",
+    "duplication": "NOT_ESTABLISHED; cannot exclude upstream execution"
+  },
+  {
+    "operation": "Orthomosaic Mosaic blending",
+    "metashape_state": "ENABLED in Gordon/Ruby report snapshots; Goldhill ortho setting UNKNOWN",
+    "evidence": "Report page 19 for Gordon/Ruby; source/project dimensions differ from final exported files, so exact export equivalence remains unresolved",
+    "spectralbridge": "No orthomosaic reconstruction in the three-flight run",
+    "duplication": "Not a proof of brightness/color balancing or physical reflectance"
+  }
+]

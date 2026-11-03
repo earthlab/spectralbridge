@@ -59,3 +59,19 @@ for modeling.
 - [Review QA outputs](qa-and-analysis.md)
 - Technical details: [polygon pipeline contract](../pipeline/polygons.md) and
   [Parquet outputs](../usage/parquet.md)
+
+## Validate the scientific backing before attaching labels
+
+Reprojection cannot repair an incorrect raster CRS or affine. Before extraction,
+check the original TIFF against derived stages, including row direction,
+center/corner convention and pixel membership using the
+[drone spatial diagnostic](drone-processing.md#check-spatial-correspondence-before-extraction).
+Confirm the intended polygon geometry (for example, half-diameter versus
+full-diameter crowns) and preserve researcher IDs and labels.
+
+New approved raster-derived libraries require verified physical units and
+accepted correction metadata. Preserve historical/unverified DN tables as such;
+a readable Parquet or matching label is not calibration evidence. See
+[library quality and polygon validation](spectral-library.md#drone-library-quality-and-researcher-polygons).
+
+Last updated: 2026-11-02

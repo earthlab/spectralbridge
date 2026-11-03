@@ -77,7 +77,7 @@ The workflow addresses geometry normalization and target-band weighting, while p
 
 ## Geometry and terrain
 
-For NEON, the workflow estimates bandwise SCS+C topographic terms, then applies RossThick and LiDenseR BRDF terms using available solar and view geometry [@paper_queally2022; @paper_earthlab2026r; @paper_earthlab2026ab]. These are established methods, with code lineage to HyTools acknowledged in the implementation [@paper_ross1981; @paper_roujean1992; @paper_li1992; @paper_soenen2005; @paper_wanner1995; @paper_schaaf2002; @paper_chlus2025]. Invalid geometry ratios receive neutral factors, which QA should report. Both corrections share one output cube, so their separate effects cannot be isolated from that artifact.
+For NEON, the workflow estimates bandwise SCS+C topographic terms, then applies RossThick and LiDenseR BRDF terms using available solar and view geometry [@paper_queally2022; @paper_earthlab2026r; @paper_earthlab2026ab]. These are established methods, with code lineage to HyTools acknowledged in the implementation [@paper_ross1981; @paper_roujean1992; @paper_li1992; @paper_soenen2005; @paper_wanner1995; @paper_schaaf2002; @paper_chlus2025]. The current shared correction contract requires explicit physical radiometry and a supported BRDF design. Unsupported fits and invalid BRDF predictions are rejected; the established topographic guards and masks remain separate. A computationally valid fit does not establish independent scientific accuracy. Both corrections share one output cube, so their separate effects cannot be isolated from that artifact.
 
 ## Spectral response
 

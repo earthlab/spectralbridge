@@ -1,0 +1,194 @@
+{
+  "fields": [
+    {
+      "metadata": "Camera position",
+      "original_source": "Raw GNSS not recovered",
+      "photogrammetry": "ESTIMATED: report camera-location figures and alignment",
+      "TIFF": "MISSING",
+      "H5": "MISSING",
+      "status": "MISSING_FOR_RECOVERY",
+      "evidence": "Reports camera-location page 13; no machine-readable poses found"
+    },
+    {
+      "metadata": "Camera orientation",
+      "original_source": "Raw attitude not recovered",
+      "photogrammetry": "ESTIMATED: aligned cameras; Yaw/Pitch/Roll convention documented",
+      "TIFF": "MISSING",
+      "H5": "MISSING",
+      "status": "MISSING_FOR_RECOVERY",
+      "evidence": "Report alignment/calibration; exact matrices unavailable"
+    },
+    {
+      "metadata": "Camera intrinsics / lens",
+      "original_source": "Original sensor records unavailable",
+      "photogrammetry": "DERIVED/GEOMETRIC: numerical calibration tables in reports",
+      "TIFF": "MISSING",
+      "H5": "MISSING",
+      "status": "PARTLY_RECOVERABLE",
+      "evidence": "PDF coefficients exist, but distortion model/version/band assignments need project export"
+    },
+    {
+      "metadata": "Camera timestamps",
+      "original_source": "RECORDED in six SD CSV snapshots; timezone unverified",
+      "photogrammetry": "UNKNOWN per exposure/project",
+      "TIFF": "Not preserved in inspected ortho tags",
+      "H5": "Single manifest datetime; not per-observation",
+      "status": "UNVERIFIED",
+      "evidence": "CSV date Aug15, notes Aug14, Ruby manifest Aug16"
+    },
+    {
+      "metadata": "View zenith",
+      "original_source": "Can derive only from rays/ground, not recovered",
+      "photogrammetry": "Camera geometry implies possible ray reconstruction",
+      "TIFF": "MISSING",
+      "H5": "PLACEHOLDER: old matrix 0; working scalar 0",
+      "status": "PLACEHOLDER",
+      "evidence": "utils.tiff_to_h5 zeros; prepare_reference explicit copy; converter writes; reader broadcasts"
+    },
+    {
+      "metadata": "View azimuth",
+      "original_source": "Can derive only from rays/ground, not recovered",
+      "photogrammetry": "No per-pixel contributor export found",
+      "TIFF": "MISSING",
+      "H5": "PLACEHOLDER: old matrix 0; working scalar 0",
+      "status": "PLACEHOLDER",
+      "evidence": "Same explicit code chain; at nadir azimuth is not an independent direction"
+    },
+    {
+      "metadata": "Solar zenith",
+      "original_source": "Date/time/position records conflict",
+      "photogrammetry": "UNKNOWN: not established as Metashape output",
+      "TIFF": "MISSING in inspected input ortho metadata",
+      "H5": "DERIVED: old mixed-unit PyEphem bug; working NOAA manifest calculation",
+      "status": "DERIVED_UNVERIFIED_TIME",
+      "evidence": "25-point exact replays per flight, independent SPA check"
+    },
+    {
+      "metadata": "Solar azimuth",
+      "original_source": "Date/time/position records conflict",
+      "photogrammetry": "UNKNOWN",
+      "TIFF": "MISSING",
+      "H5": "DERIVED: old coordinate-unit bug; working NOAA calculation",
+      "status": "DERIVED_UNVERIFIED_TIME",
+      "evidence": "Historical values and corrected algorithm kept separate"
+    },
+    {
+      "metadata": "Source-image contributors / blend weights",
+      "original_source": "Original overlapping images referenced, not found",
+      "photogrammetry": "Gordon/Ruby report Mosaic blending; Goldhill ortho settings absent",
+      "TIFF": "MISSING",
+      "H5": "MISSING",
+      "status": "MISSING_FOR_RECOVERY",
+      "evidence": "Mosaic mode is not proof of exact per-pixel weighting or color balancing"
+    },
+    {
+      "metadata": "DEM / elevation",
+      "original_source": "LAS and native DEM/DTM exports present",
+      "photogrammetry": "DERIVED: Gordon tie points; Goldhill mesh; Ruby DEM source unlisted",
+      "TIFF": "PRESENT: exact target aligned_dem now retrieved",
+      "H5": "Elevation absent as named field; Path_Length is not elevation",
+      "status": "DERIVED_SOURCE_UNVERIFIED",
+      "evidence": "Reported dimensions differ from some exported rasters; source/version link unresolved"
+    },
+    {
+      "metadata": "Slope",
+      "original_source": "Derived terrain, exact source surface not established",
+      "photogrammetry": "Not a required photogrammetry export in inspected reports",
+      "TIFF": "PRESENT aligned_slope; degree-unit R scripts",
+      "H5": "PRESENT; exact TIFF equality",
+      "status": "DERIVED_PARTLY_VERIFIED",
+      "evidence": "R files show intended ground classification/0.25m TIN then degree slope; no execution log"
+    },
+    {
+      "metadata": "Aspect",
+      "original_source": "Derived terrain, exact source surface unverified",
+      "photogrammetry": "UNKNOWN",
+      "TIFF": "PRESENT; scripts specify clockwise North degrees and scalar bilinear resampling",
+      "H5": "PRESENT; exact TIFF equality",
+      "status": "DERIVED_PARTLY_VERIFIED",
+      "evidence": "Independent Horn aligned DEM comparison; circular errors retained"
+    },
+    {
+      "metadata": "Illumination / cosine incidence",
+      "original_source": "Requires credible terrain and acquisition geometry",
+      "photogrammetry": "UNKNOWN",
+      "TIFF": "No authoritative solar/illumination raster metadata",
+      "H5": "DERIVED by calc_cosine_i, degree-to-radian boundary",
+      "status": "DERIVED_UNVERIFIED_INPUTS",
+      "evidence": "Shared SCS+C denominator replay exact; high gains are cancellation, not proof of wrong units"
+    },
+    {
+      "metadata": "Path length",
+      "original_source": "No actual camera-ground distances recovered",
+      "photogrammetry": "Potentially derivable from rays/project",
+      "TIFF": "Not a measured spectral band",
+      "H5": "Working bridge writes array of ones",
+      "status": "PLACEHOLDER",
+      "evidence": "convert_drone_tiff_to_h5 Path_Length; never call it measured altitude"
+    },
+    {
+      "metadata": "Reflectance-panel calibration",
+      "original_source": "Panel images/certificate not located",
+      "photogrammetry": "UNKNOWN enabled/disabled",
+      "TIFF": "No physical unit/certificate",
+      "H5": "UNVERIFIED",
+      "status": "UNVERIFIED",
+      "evidence": "Photogrammetric precalibrated cameras means lens geometry, not reflectance"
+    },
+    {
+      "metadata": "DLS / irradiance",
+      "original_source": "Original raw EXIF/XMP not located",
+      "photogrammetry": "UNKNOWN enabled/disabled",
+      "TIFF": "Not retained in inspected tags",
+      "H5": "MISSING",
+      "status": "UNVERIFIED",
+      "evidence": "Filename/time/software CSVs contain no irradiance"
+    },
+    {
+      "metadata": "Exposure / gain / vignette",
+      "original_source": "Raw camera radiometric metadata not recovered",
+      "photogrammetry": "UNKNOWN applied/settings",
+      "TIFF": "Not retained as original-image parameters",
+      "H5": "MISSING",
+      "status": "UNVERIFIED",
+      "evidence": "No duplication can be established from software capability"
+    },
+    {
+      "metadata": "UInt16 physical encoding",
+      "original_source": "Original files UInt16, minima/maxima recorded",
+      "photogrammetry": "10-band UInt16 in reports; physical semantics UNKNOWN",
+      "TIFF": "Identity TIFF scales/offsets; no physical units",
+      "H5": "Scale_Factor=1 on working bridge is not calibration",
+      "status": "UNVERIFIED",
+      "evidence": "Vendor 32768 convention remains conditional on actual calibration/export settings"
+    },
+    {
+      "metadata": "Numeric min/max normalization",
+      "original_source": "Verified original-extrema mapping",
+      "photogrammetry": "Not established as Metashape operation",
+      "TIFF": "DERIVED: per-band S to 0..10000",
+      "H5": "Same spectral numbers, later inverse recoverable",
+      "status": "NUMERIC_MAPPING_VERIFIED",
+      "evidence": "P159 real same-grid evidence; exact exporter script still absent"
+    },
+    {
+      "metadata": "Spatial reference / orientation",
+      "original_source": "NAD83 UTM13 exports",
+      "photogrammetry": "EPSG26913 in reports",
+      "TIFF": "North-up source transform",
+      "H5": "Old signed size/datum/corner defects; working TIFF-corner repair",
+      "status": "SPATIAL_VERIFIED",
+      "evidence": "Oct29 full value/membership tests; no new resampling here"
+    },
+    {
+      "metadata": "Researcher labels / library provenance",
+      "original_source": "Researcher polygons with IDs/categories",
+      "photogrammetry": "Not a photogrammetric radiometric validation",
+      "TIFF": "External polygon dataset",
+      "H5": "Extracted by fixed spatial memberships",
+      "status": "PRESERVED_NOT_RADIOMETRIC_TRUTH",
+      "evidence": "P161 matched 301 polygons; lower variance is not physical accuracy"
+    }
+  ],
+  "status_key": "MEASURED / DERIVED / PLACEHOLDER / MISSING / UNVERIFIED are distinguished; measured source-camera data are not claimed where only reports/CSV snapshots exist."
+}

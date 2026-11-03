@@ -114,3 +114,15 @@
 </div>
 </section>
 </div>
+
+## Review correction eligibility separately from completion
+
+Inspect physical multiplier/offset/provenance in ENVI headers, BRDF model
+`validation.status`, rank/conditioning and prediction diagnostics, correction
+stage audits, lost coverage and `drone_qa_summary.json` blocked/failed records.
+A successful export, bounded index or cleaner RGB does not establish physical
+accuracy. Topographic scientific approval is not an automatic status inferred
+from applied flags. See the [eligibility guide](../concepts/correction-eligibility.md)
+and [three-flight findings](../validation/drone-findings.md).
+
+Last updated: 2026-11-02

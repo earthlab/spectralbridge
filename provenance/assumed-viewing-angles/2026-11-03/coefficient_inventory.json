@@ -1,0 +1,476 @@
+{
+  "search_roots": [
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge",
+    "/private/tmp/drone-brdf-strategy-20261102",
+    "/private/tmp/goldhill-correction-diagnosis-20261030",
+    "/private/tmp/goldhill-radiometric-recovery-20261102",
+    "/private/tmp/spectralbridge-drone-docs-site",
+    "/private/tmp/spectralbridge-drone-production",
+    "/private/tmp/spectralbridge-gocmd",
+    "/private/tmp/spectralbridge-mpl",
+    "/private/tmp/spectralbridge-notebook-check",
+    "/private/tmp/spectralbridge-one-flight-e2e",
+    "/private/tmp/spectralbridge-p158-source-smoke-v1",
+    "/private/tmp/spectralbridge-p158-source-smoke-v2",
+    "/private/tmp/spectralbridge-ruby-legacy-replay",
+    "/private/tmp/spectralbridge-ruby-recovery",
+    "/private/tmp/spectralbridge-scale-confirmation",
+    "/private/tmp/spectralbridge-stash-cleanup-20261029",
+    "/private/tmp/spectralbridge-three-flight-code-check",
+    "/private/tmp/spectralbridge-three-flight-code-check-qa",
+    "/private/tmp/spectralbridge-three-flight-reprocess",
+    "/private/tmp/spectralbridge-validated-patch-check"
+  ],
+  "max_depth": 9,
+  "filename_contract": "*.json containing brdf_model or brdf_coeff; <20MiB",
+  "scope": "Repository including archived evidence plus named local investigation caches; not a global archive search or claim no validated NEON coefficients exist anywhere.",
+  "candidates": [
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/artifacts/real_landsat_validation/neon/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance_brdf_model.json",
+      "size_bytes": 35464,
+      "sha256": "d2cbbfa33a4b4ea19cbcd65b1c7e6a8aeac182119347255fa5b3133afbbd3d09",
+      "classification": "HISTORICAL_UNVALIDATED_MODEL",
+      "computational_status": "NOT_RECORDED",
+      "radiometry": {},
+      "kernel_config": null,
+      "reference_geometry": null,
+      "coefficient_provenance": null,
+      "source_path": null,
+      "source_identity": null,
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-correction-diagnosis/2026-10-30/saved_production_brdf_model.json",
+      "size_bytes": 883,
+      "sha256": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee",
+      "classification": "HISTORICAL_UNVALIDATED_MODEL",
+      "computational_status": "NOT_RECORDED",
+      "radiometry": {},
+      "kernel_config": null,
+      "reference_geometry": null,
+      "coefficient_provenance": null,
+      "source_path": null,
+      "source_identity": null,
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/radiometry-brdf/2026-10-30/goldhill_rejection/goldhill_rejection_brdf_model.json",
+      "size_bytes": 1742,
+      "sha256": "256c881b9097a2a99b0babdf3347f3b3bbfa49fd1acd4f9cbc1e92a001219eec",
+      "classification": "UNSUPPORTED_OR_INVALID",
+      "computational_status": "UNSUPPORTED",
+      "radiometry": {
+        "scale": null,
+        "offset": null,
+        "status": "UNSUPPORTED",
+        "provenance": "Source has no authoritative physical-reflectance calibration",
+        "convention": "physical = scale * stored + offset"
+      },
+      "kernel_config": {
+        "volume_kernel": "RossThick",
+        "geom_kernel": "LiDenseR",
+        "b_r": 10.0,
+        "h_b": 2.0,
+        "solar_zn_type": "scene"
+      },
+      "reference_geometry": {
+        "solar_zenith_deg": 45.0,
+        "view_zenith_deg": 0.0,
+        "relative_azimuth_deg": 0.0
+      },
+      "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
+      "source_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.h5",
+      "source_identity": "e43825bc24c0b801c4c0e78b24ede0916a72626f2b9c5f46a7f01cd61884f73a",
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    },
+    {
+      "path": "/private/tmp/drone-brdf-strategy-20261102/goldhill_blocked_model/goldhill_blocked_model_brdf_model.json",
+      "size_bytes": 1742,
+      "sha256": "256c881b9097a2a99b0babdf3347f3b3bbfa49fd1acd4f9cbc1e92a001219eec",
+      "classification": "UNSUPPORTED_OR_INVALID",
+      "computational_status": "UNSUPPORTED",
+      "radiometry": {
+        "scale": null,
+        "offset": null,
+        "status": "UNSUPPORTED",
+        "provenance": "Source has no authoritative physical-reflectance calibration",
+        "convention": "physical = scale * stored + offset"
+      },
+      "kernel_config": {
+        "volume_kernel": "RossThick",
+        "geom_kernel": "LiDenseR",
+        "b_r": 10.0,
+        "h_b": 2.0,
+        "solar_zn_type": "scene"
+      },
+      "reference_geometry": {
+        "solar_zenith_deg": 45.0,
+        "view_zenith_deg": 0.0,
+        "relative_azimuth_deg": 0.0
+      },
+      "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
+      "source_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GOLDHILL-08-14-23-ExportPackage/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.h5",
+      "source_identity": "e43825bc24c0b801c4c0e78b24ede0916a72626f2b9c5f46a7f01cd61884f73a",
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    },
+    {
+      "path": "/private/tmp/drone-brdf-strategy-20261102/gordon_blocked_model/gordon_blocked_model_brdf_model.json",
+      "size_bytes": 1736,
+      "sha256": "73828f4e42a45430d5efefcf79a103e35374640829d68910e2dc153a68dd78af",
+      "classification": "UNSUPPORTED_OR_INVALID",
+      "computational_status": "UNSUPPORTED",
+      "radiometry": {
+        "scale": null,
+        "offset": null,
+        "status": "UNSUPPORTED",
+        "provenance": "Source has no authoritative physical-reflectance calibration",
+        "convention": "physical = scale * stored + offset"
+      },
+      "kernel_config": {
+        "volume_kernel": "RossThick",
+        "geom_kernel": "LiDenseR",
+        "b_r": 10.0,
+        "h_b": 2.0,
+        "solar_zn_type": "scene"
+      },
+      "reference_geometry": {
+        "solar_zenith_deg": 45.0,
+        "view_zenith_deg": 0.0,
+        "relative_azimuth_deg": 0.0
+      },
+      "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
+      "source_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-GORDON-08-14-23-ExportPackage/AOP_GORDON_20230814/AOP_GORDON_20230814__working.h5",
+      "source_identity": "c9f1eba46557fe4f35210c9307c8d4cf823a014987db66bf56219be8de38afc0",
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    },
+    {
+      "path": "/private/tmp/drone-brdf-strategy-20261102/ruby_blocked_model/ruby_blocked_model_brdf_model.json",
+      "size_bytes": 1730,
+      "sha256": "5eb9a407ba741a5d7a25b240f0eff49bc54b734245bf6a1a3877ea2198ddd5e9",
+      "classification": "UNSUPPORTED_OR_INVALID",
+      "computational_status": "UNSUPPORTED",
+      "radiometry": {
+        "scale": null,
+        "offset": null,
+        "status": "UNSUPPORTED",
+        "provenance": "Source has no authoritative physical-reflectance calibration",
+        "convention": "physical = scale * stored + offset"
+      },
+      "kernel_config": {
+        "volume_kernel": "RossThick",
+        "geom_kernel": "LiDenseR",
+        "b_r": 10.0,
+        "h_b": 2.0,
+        "solar_zn_type": "scene"
+      },
+      "reference_geometry": {
+        "solar_zenith_deg": 45.0,
+        "view_zenith_deg": 0.0,
+        "relative_azimuth_deg": 0.0
+      },
+      "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
+      "source_path": "/private/tmp/spectralbridge-three-flight-reprocess/gordon_goldhill_ruby_20261029_v1/flight_products/2023_AOP-Ruby-08-14-23-ExportPackage/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5",
+      "source_identity": "8add35b5d14d3e941b10d0ee42088f7a645eb4c888db862d3476adf552157368",
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    },
+    {
+      "path": "/private/tmp/goldhill-correction-diagnosis-20261030/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814_brdf_model.json",
+      "size_bytes": 883,
+      "sha256": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee",
+      "classification": "HISTORICAL_UNVALIDATED_MODEL",
+      "computational_status": "NOT_RECORDED",
+      "radiometry": {},
+      "kernel_config": null,
+      "reference_geometry": null,
+      "coefficient_provenance": null,
+      "source_path": null,
+      "source_identity": null,
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    },
+    {
+      "path": "/private/tmp/spectralbridge-p158-source-smoke-v1/drone_full_output/AOP_FULL_20260904/AOP_FULL_20260904__brdf_model.json",
+      "size_bytes": 16691,
+      "sha256": "309eb06380f58cf5c720134467143e6af8a9d3ba993667025b3d376546b7e813",
+      "classification": "SYNTHETIC_CONTRACT_FIXTURE",
+      "computational_status": "VALID",
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "VALID",
+        "provenance": "Synthetic installed-artifact fixture",
+        "convention": "physical = scale * stored + offset"
+      },
+      "kernel_config": {
+        "volume_kernel": "RossThick",
+        "geom_kernel": "LiDenseR",
+        "b_r": 10.0,
+        "h_b": 2.0,
+        "solar_zn_type": "scene"
+      },
+      "reference_geometry": {
+        "solar_zenith_deg": 45.0,
+        "view_zenith_deg": 0.0,
+        "relative_azimuth_deg": 0.0
+      },
+      "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2",
+      "source_path": "/private/tmp/spectralbridge-p158-source-smoke-v1/drone_full_output/AOP_FULL_20260904/AOP_FULL_20260904__working.h5",
+      "source_identity": "596528e17a8b86c4541d6ec7e5e107db5aac64a3d903440c43960e2fe9f02b99",
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    },
+    {
+      "path": "/private/tmp/spectralbridge-p158-source-smoke-v1/drone_polygon_output/AOP_POLYGON_20260904/AOP_POLYGON_20260904__brdf_model.json",
+      "size_bytes": 16700,
+      "sha256": "de8f0231efebb930f7c53bbc4094256bfdf61cb36be1cfc95fcfae2d04cfe307",
+      "classification": "SYNTHETIC_CONTRACT_FIXTURE",
+      "computational_status": "VALID",
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "VALID",
+        "provenance": "Synthetic installed-artifact fixture",
+        "convention": "physical = scale * stored + offset"
+      },
+      "kernel_config": {
+        "volume_kernel": "RossThick",
+        "geom_kernel": "LiDenseR",
+        "b_r": 10.0,
+        "h_b": 2.0,
+        "solar_zn_type": "scene"
+      },
+      "reference_geometry": {
+        "solar_zenith_deg": 45.0,
+        "view_zenith_deg": 0.0,
+        "relative_azimuth_deg": 0.0
+      },
+      "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2",
+      "source_path": "/private/tmp/spectralbridge-p158-source-smoke-v1/drone_polygon_output/AOP_POLYGON_20260904/AOP_POLYGON_20260904__working.h5",
+      "source_identity": "596528e17a8b86c4541d6ec7e5e107db5aac64a3d903440c43960e2fe9f02b99",
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    },
+    {
+      "path": "/private/tmp/spectralbridge-p158-source-smoke-v1/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_brdf_model.json",
+      "size_bytes": 48345,
+      "sha256": "212ef431a341e56f12195d96b45ad18d1e7ad60a7077c058b9eb5e8a867327a3",
+      "classification": "SYNTHETIC_CONTRACT_FIXTURE",
+      "computational_status": "VALID",
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "VALID",
+        "provenance": "Synthetic installed-artifact fixture",
+        "convention": "physical = scale * stored + offset"
+      },
+      "kernel_config": {
+        "volume_kernel": "RossThick",
+        "geom_kernel": "LiDenseR",
+        "b_r": 10.0,
+        "h_b": 2.0,
+        "solar_zn_type": "scene"
+      },
+      "reference_geometry": {
+        "solar_zenith_deg": 45.0,
+        "view_zenith_deg": 0.0,
+        "relative_azimuth_deg": 0.0
+      },
+      "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2",
+      "source_path": "/private/tmp/spectralbridge-p158-source-smoke-v1/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance.h5",
+      "source_identity": "5aa055cea9555c9abb9f16583b72b9910931cd50f073abd1504a2a8bee65703b",
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    },
+    {
+      "path": "/private/tmp/spectralbridge-p158-source-smoke-v2/drone_full_output/AOP_FULL_20260904/AOP_FULL_20260904__brdf_model.json",
+      "size_bytes": 16691,
+      "sha256": "3735a390a4162750b677df9dc6c932820f9e94b3aeb3d46d36300bfe659cf358",
+      "classification": "SYNTHETIC_CONTRACT_FIXTURE",
+      "computational_status": "VALID",
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "VALID",
+        "provenance": "Synthetic installed-artifact fixture",
+        "convention": "physical = scale * stored + offset"
+      },
+      "kernel_config": {
+        "volume_kernel": "RossThick",
+        "geom_kernel": "LiDenseR",
+        "b_r": 10.0,
+        "h_b": 2.0,
+        "solar_zn_type": "scene"
+      },
+      "reference_geometry": {
+        "solar_zenith_deg": 45.0,
+        "view_zenith_deg": 0.0,
+        "relative_azimuth_deg": 0.0
+      },
+      "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2",
+      "source_path": "/private/tmp/spectralbridge-p158-source-smoke-v2/drone_full_output/AOP_FULL_20260904/AOP_FULL_20260904__working.h5",
+      "source_identity": "596528e17a8b86c4541d6ec7e5e107db5aac64a3d903440c43960e2fe9f02b99",
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    },
+    {
+      "path": "/private/tmp/spectralbridge-p158-source-smoke-v2/drone_polygon_output/AOP_POLYGON_20260904/AOP_POLYGON_20260904__brdf_model.json",
+      "size_bytes": 16700,
+      "sha256": "19addb7dff29388f2860b66925a2cd70f491f6cff295043bc1edff2d92a54dd7",
+      "classification": "SYNTHETIC_CONTRACT_FIXTURE",
+      "computational_status": "VALID",
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "VALID",
+        "provenance": "Synthetic installed-artifact fixture",
+        "convention": "physical = scale * stored + offset"
+      },
+      "kernel_config": {
+        "volume_kernel": "RossThick",
+        "geom_kernel": "LiDenseR",
+        "b_r": 10.0,
+        "h_b": 2.0,
+        "solar_zn_type": "scene"
+      },
+      "reference_geometry": {
+        "solar_zenith_deg": 45.0,
+        "view_zenith_deg": 0.0,
+        "relative_azimuth_deg": 0.0
+      },
+      "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2",
+      "source_path": "/private/tmp/spectralbridge-p158-source-smoke-v2/drone_polygon_output/AOP_POLYGON_20260904/AOP_POLYGON_20260904__working.h5",
+      "source_identity": "596528e17a8b86c4541d6ec7e5e107db5aac64a3d903440c43960e2fe9f02b99",
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    },
+    {
+      "path": "/private/tmp/spectralbridge-p158-source-smoke-v2/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance_brdf_model.json",
+      "size_bytes": 48345,
+      "sha256": "b3fcbf3f6f2ea81464b06393a2d1d2d8b24116d1732937d9577d269e093f6a68",
+      "classification": "SYNTHETIC_CONTRACT_FIXTURE",
+      "computational_status": "VALID",
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "VALID",
+        "provenance": "Synthetic installed-artifact fixture",
+        "convention": "physical = scale * stored + offset"
+      },
+      "kernel_config": {
+        "volume_kernel": "RossThick",
+        "geom_kernel": "LiDenseR",
+        "b_r": 10.0,
+        "h_b": 2.0,
+        "solar_zn_type": "scene"
+      },
+      "reference_geometry": {
+        "solar_zenith_deg": 45.0,
+        "view_zenith_deg": 0.0,
+        "relative_azimuth_deg": 0.0
+      },
+      "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2",
+      "source_path": "/private/tmp/spectralbridge-p158-source-smoke-v2/normal/NEON_D13_NIWO_DP1_L001-1_20230815_directional_reflectance.h5",
+      "source_identity": "5aa055cea9555c9abb9f16583b72b9910931cd50f073abd1504a2a8bee65703b",
+      "independently_validated_empirical_NEON_transfer": false,
+      "independent_validation_record": "NOT_FOUND in model or prior validation evidence",
+      "drone_wavelength_response_compatibility": "NOT_ESTABLISHED",
+      "canopy_PFT_illumination_domain_transfer": "NOT_ESTABLISHED",
+      "application_eligibility": "NOT_ELIGIBLE",
+      "rejection": "Synthetic fixture, missing shared validation, unsupported model, or absent independent empirical transfer evidence; computational VALID alone is insufficient."
+    }
+  ],
+  "auxiliary_real_NEON_QA": {
+    "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/docs/validation/artifacts/r10c-l002-20210915/qa/stages/02_correction_parameters/stage_qa.json",
+    "sha256": "eb451c6f6e21cb1e55294218b367ab0ad66a40a6361c2d061bb2cf9209ef1045",
+    "summary": {
+      "geo": {
+        "finite_count": 426,
+        "maximum": 0.0,
+        "median": 0.0,
+        "minimum": 0.0,
+        "shape": [
+          1,
+          426
+        ]
+      },
+      "iso": {
+        "finite_count": 426,
+        "maximum": 1.0,
+        "median": 0.0,
+        "minimum": 0.0,
+        "shape": [
+          1,
+          426
+        ]
+      },
+      "vol": {
+        "finite_count": 426,
+        "maximum": 0.0,
+        "median": 0.0,
+        "minimum": 0.0,
+        "shape": [
+          1,
+          426
+        ]
+      }
+    },
+    "status": "Historical real-NEON QA summary, not an applicable coefficient set",
+    "reason": "426 vol and geo terms are all zero in the pre-repair artifact; no independently validated current transfer model is supplied by this summary."
+  },
+  "suitable_sets": 0,
+  "conclusion": "No independently validated, radiometrically and spectrally applicable NEON coefficient set found. Fixed-coefficient correction and resulting factor/PFT changes are NOT_EVALUATED. No coefficients manufactured or transferred."
+}

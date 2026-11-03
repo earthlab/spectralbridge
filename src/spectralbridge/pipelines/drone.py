@@ -2564,8 +2564,10 @@ def apply_drone_corrections(
     """Apply optional topo/BRDF corrections to a drone ENVI export.
 
     ``run_drone_pipeline`` now requests both topo and BRDF correction by
-    default. Each correction still remains conditional on the required
-    ancillary geometry being available for the current cube.
+    default. Physical corrections require authoritative radiometry. Requested
+    BRDF additionally requires a validated shared model; unsupported fitting or
+    invalid predictions cannot be silently accepted as an identity correction.
+    Retained topographic diagnostics do not approve a failed BRDF request.
     """
 
     corrected_img = corrected_stem.with_suffix(".img")
@@ -3498,9 +3500,9 @@ def run_drone_pipeline(
     output_dir : str | Path, default='.'
         Directory for generated products; bulk outputs must be outside the read-only input tree.
     apply_topo : bool, default=True
-        Enable the existing topographic correction when required terrain/geometry metadata are available.
+        Request topographic correction with verified physical radiometry and required terrain/solar geometry. Applied status is not independent physical validation.
     apply_brdf : bool, default=True
-        Enable the existing BRDF correction when required angular metadata are available.
+        Request BRDF correction with verified radiometry and supported angular rank, conditioning and predictions. Unsupported requests are scientifically blocked; False explicitly records NOT_REQUESTED.
     use_ndvi_brdf_bins : bool, default=False
         Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.
     apply_brightness_adjustment : bool, default=False

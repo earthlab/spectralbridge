@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "errors": [],
+  "rendered_local_references": 2398,
+  "code_blocks_or_cells": 27,
+  "source_executable_ast": "unchanged from HEAD",
+  "pages": [
+    "docs/api/examples.md",
+    "docs/brdf_topo_algorithm.md",
+    "docs/concepts/correction-eligibility.md",
+    "docs/concepts/why-calibration.md",
+    "docs/getting-started.md",
+    "docs/index.md",
+    "docs/pipeline.md",
+    "docs/pipeline/qa.md",
+    "docs/reference/literature.md",
+    "docs/spectral-library/index.md",
+    "docs/troubleshooting.md",
+    "docs/tutorials/micasense-to-landsat.md",
+    "docs/validation/drone-findings.md",
+    "docs/validation/index.md",
+    "docs/vignettes/drone-processing.md",
+    "docs/vignettes/drone-production.md",
+    "docs/vignettes/neon-correction.md",
+    "docs/vignettes/notebook-vignettes.md",
+    "docs/vignettes/polygon-extraction.md",
+    "docs/vignettes/spectral-library.md"
+  ],
+  "limitation": "Data-dependent examples are syntax checked; no physical-calibration or production run is claimed."
+}

@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-02",
+  "status": "passed",
+  "strict_mkdocs_build": "passed; local site /private/tmp/spectralbridge-drone-docs-site",
+  "rendered_reference_checks": 2398,
+  "rendered_API_signatures": 385,
+  "focused_tests": {
+    "passed": 50,
+    "modules": [
+      "test_radiometric_contract",
+      "test_api_reference",
+      "test_joss_submission",
+      "test_ai_transparency",
+      "test_validation_docs",
+      "test_supplement_docs",
+      "test_scientific_docs_integration"
+    ]
+  },
+  "code_blocks_and_notebook_cells_syntax_checked": 27,
+  "local_drone_notebook_RUN_false": "passed; source inputs absent and no imagery processed",
+  "source_executable_AST": "unchanged from HEAD; package edits only docstrings",
+  "generated_API_validation_transparency": "passed",
+  "source_docs_links": "passed",
+  "ruff": "passed",
+  "whitespace": "passed",
+  "browser_review": {
+    "viewport_width": 893,
+    "document_width": 893,
+    "pages": [
+      "validation/drone-findings",
+      "concepts/correction-eligibility",
+      "vignettes/drone-processing"
+    ],
+    "workflow_provenance_images_loaded": true,
+    "handset_emulation": "not tested"
+  },
+  "release_identity_files": "unchanged",
+  "production_data_algorithms_coefficients_libraries": "unchanged",
+  "deployment": "not performed",
+  "limitations": [
+    "Real calibrated pipeline examples require missing authoritative calibration/input records; syntax checks and dry run only.",
+    "Full handset/device testing not performed.",
+    "External links to newly added repository evidence require merge/publication to become live."
+  ],
+  "resolved_validation_failures": [
+    "Initial strict build found investigation links outside docs; converted to explicit source-repository destinations.",
+    "Generated validation-index check initially found direct edit; moved change into its generator and regenerated."
+  ],
+  "remaining_scientific_dependencies": [
+    "Metashape matching project/.files/task/export/radiometric settings",
+    "Original calibrated imagery/panel/DLS/exposure records",
+    "Camera poses/intrinsics/contributors and angular support",
+    "Authoritative acquisition timestamps and terrain generation history",
+    "Independent target/angle/cross-flight/cross-sensor validation"
+  ]
+}

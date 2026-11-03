@@ -15583,7 +15583,7 @@
           "audience": "advanced",
           "classification_reason": "Direct module API; no package-level stability guarantee",
           "docs_references": [],
-          "docstring": "Estimate and persist BRDF coefficients for a NEON flightline.\n\nParameters\n----------\ncube : NeonCube\n    Loaded NEON hyperspectral cube providing reflectance and ancillary angles.\nout_dir : Path\n    Directory where the fitted BRDF coefficient JSON should be stored.\n\nReturns\n-------\nPath\n    Path to the JSON file containing the BRDF model coefficients.",
+          "docstring": "Fit and persist a shared NEON/drone BRDF model and validation diagnostics.\n\nParameters\n----------\ncube : NeonCube\n    Loaded cube with authoritative affine radiometry and solar/view angles.\n    Supplied zero-view placeholders do not provide independent angular support.\nout_dir : Path\n    Directory where the fitted BRDF coefficient JSON should be stored.\n\nReturns\n-------\nPath\n    Model JSON including validation status, populations, rank/conditioning,\n    uncertainty and prediction diagnostics. UNSUPPORTED or INVALID records\n    do not provide usable coefficients. VALID is computational support, not\n    independent scientific validation. Historical/stale models are rejected\n    rather than overwritten.",
           "examples": [],
           "exports": [
             "spectralbridge.corrections.fit_and_save_brdf_model"
@@ -15638,12 +15638,12 @@
           ],
           "path": "spectralbridge.corrections.fit_and_save_brdf_model",
           "signature": "fit_and_save_brdf_model(cube: 'NeonCube', out_dir: Path, ndvi_config: NDVIBinningConfig | None=None, brdf_kernel_config: BRDFKernelConfig | None=None, rho_min: float=0.0, rho_max: float | None=2.0, apply_topography: bool=False) -> Path",
-          "summary": "Estimate and persist BRDF coefficients for a NEON flightline.",
+          "summary": "Fit and persist a shared NEON/drone BRDF model and validation diagnostics.",
           "summary_basis": "source docstring"
         }
       ],
       "path": "src/spectralbridge/corrections.py",
-      "sha256": "4474cc83ba6e6c998b6aac36e577e74439fff996fbf8e1c9d20d76d190f2c5bf"
+      "sha256": "1fd21166faca9c58b3e66f95de3da2f9871db210ae49d13075ec0e80b8c40319"
     },
     {
       "area": "utilities",
@@ -36868,7 +36868,7 @@
           "audience": "advanced",
           "classification_reason": "Direct module API; no package-level stability guarantee",
           "docs_references": [],
-          "docstring": "Apply optional topo/BRDF corrections to a drone ENVI export.\n\n``run_drone_pipeline`` now requests both topo and BRDF correction by\ndefault. Each correction still remains conditional on the required\nancillary geometry being available for the current cube.",
+          "docstring": "Apply optional topo/BRDF corrections to a drone ENVI export.\n\n``run_drone_pipeline`` now requests both topo and BRDF correction by\ndefault. Physical corrections require authoritative radiometry. Requested\nBRDF additionally requires a validated shared model; unsupported fitting or\ninvalid predictions cannot be silently accepted as an identity correction.\nRetained topographic diagnostics do not approve a failed BRDF request.",
           "examples": [],
           "exports": [],
           "kind": "function",
@@ -36939,7 +36939,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2815,
+          "line": 2817,
           "methods": [],
           "name": "_write_json",
           "parameters": [
@@ -36970,7 +36970,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2821,
+          "line": 2823,
           "methods": [],
           "name": "_remove_file_if_exists",
           "parameters": [
@@ -36995,7 +36995,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2829,
+          "line": 2831,
           "methods": [],
           "name": "_cleanup_envi_pair",
           "parameters": [
@@ -37026,7 +37026,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2834,
+          "line": 2836,
           "methods": [],
           "name": "_write_drone_audit_json",
           "parameters": [
@@ -37051,7 +37051,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2846,
+          "line": 2848,
           "methods": [],
           "name": "_normalise_bounds",
           "parameters": [
@@ -37076,7 +37076,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2853,
+          "line": 2855,
           "methods": [],
           "name": "_normalise_transform",
           "parameters": [
@@ -37101,7 +37101,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2862,
+          "line": 2864,
           "methods": [],
           "name": "_crs_to_string",
           "parameters": [
@@ -37128,7 +37128,7 @@
             "spectralbridge.pipelines.drone.collect_drone_spatial_diagnostics"
           ],
           "kind": "function",
-          "line": 2873,
+          "line": 2875,
           "methods": [],
           "name": "collect_drone_spatial_diagnostics",
           "parameters": [
@@ -37161,7 +37161,7 @@
             "spectralbridge.pipelines.drone.save_drone_overlay_debug_plot"
           ],
           "kind": "function",
-          "line": 2938,
+          "line": 2940,
           "methods": [],
           "name": "save_drone_overlay_debug_plot",
           "parameters": [
@@ -37204,7 +37204,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2997,
+          "line": 2999,
           "methods": [],
           "name": "_build_polygon_pixel_index_for_raster",
           "parameters": [
@@ -37259,7 +37259,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3095,
+          "line": 3097,
           "methods": [],
           "name": "_merge_drone_polygon_outputs",
           "parameters": [
@@ -37296,7 +37296,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3124,
+          "line": 3126,
           "methods": [],
           "name": "_enrich_drone_polygon_parquet_with_index",
           "parameters": [
@@ -37333,7 +37333,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3194,
+          "line": 3196,
           "methods": [],
           "name": "_export_csv_copy_from_parquet",
           "parameters": [
@@ -37370,7 +37370,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3229,
+          "line": 3231,
           "methods": [],
           "name": "_try_export_csv_copy_from_parquet",
           "parameters": [
@@ -37413,7 +37413,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3257,
+          "line": 3259,
           "methods": [],
           "name": "_drone_status_color",
           "parameters": [
@@ -37438,7 +37438,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3269,
+          "line": 3271,
           "methods": [],
           "name": "_supports_ansi",
           "parameters": [
@@ -37463,7 +37463,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3273,
+          "line": 3275,
           "methods": [],
           "name": "_colorize_drone_message",
           "parameters": [
@@ -37494,7 +37494,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3282,
+          "line": 3284,
           "methods": [],
           "name": "_drone_emit",
           "parameters": [
@@ -37525,7 +37525,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3293,
+          "line": 3295,
           "methods": [],
           "name": "_format_elapsed",
           "parameters": [
@@ -37550,7 +37550,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3303,
+          "line": 3305,
           "methods": [],
           "name": "_format_eta",
           "parameters": [
@@ -37581,7 +37581,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3310,
+          "line": 3312,
           "methods": [],
           "name": "_classify_drone_exception",
           "parameters": [
@@ -37606,7 +37606,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3317,
+          "line": 3319,
           "methods": [],
           "name": "_scientific_qa_status",
           "parameters": [
@@ -37631,7 +37631,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3334,
+          "line": 3336,
           "methods": [],
           "name": "_has_drone_qa_inputs",
           "parameters": [
@@ -37656,7 +37656,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3340,
+          "line": 3342,
           "methods": [],
           "name": "_reconcile_drone_completion",
           "parameters": [
@@ -37713,7 +37713,7 @@
           "audience": "public",
           "classification_reason": "Explicit package/subpackage export",
           "docs_references": [],
-          "docstring": "Run the drone pipeline from local HDF5 or reflectance TIFF sources.\n\nParameters\n----------\ninput_h5_dir : str | Path\n    Existing local supported HDF5/TIFF file or directory; discovery recurses through source packages.\npolygon_path : str | Path | None, default=None\n    Existing polygon vector dataset for extraction; coordinates are handled by the established polygon workflow.\noutput_dir : str | Path, default='.'\n    Directory for generated products; bulk outputs must be outside the read-only input tree.\napply_topo : bool, default=True\n    Enable the existing topographic correction when required terrain/geometry metadata are available.\napply_brdf : bool, default=True\n    Enable the existing BRDF correction when required angular metadata are available.\nuse_ndvi_brdf_bins : bool, default=False\n    Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.\napply_brightness_adjustment : bool, default=False\n    Opt into the established brightness adjustment; does not change the packaged coefficients.\nradiometry : dict[str, Any] | None, default=None\n    Authoritative affine record with scale, offset, status='VALID' and calibration provenance. No calibration is inferred from TIFF identity tags or value ranges. A source H5 may already carry this record; provide different flight calibrations in separate calls.\noverwrite : bool, default=False\n    Replace existing requested products; False preserves reusable products or rejects a conflicting destination.\ntiff_wavelengths_nm : Sequence[float] | np.ndarray | None, default=None\n    Explicit per-band center wavelengths in nanometers for TIFF inputs lacking embedded spectral metadata; must match band order/count.\ntiff_fwhm_nm : Sequence[float] | np.ndarray | None, default=None\n    Per-band full widths at half maximum in nanometers, aligned with TIFF bands; None uses supported metadata.\ntiff_solar_zenith_deg : float | None, default=None\n    Explicit TIFF solar zenith in degrees when valid embedded metadata are unavailable.\ntiff_solar_azimuth_deg : float | None, default=None\n    Explicit TIFF solar azimuth in degrees when valid embedded metadata are unavailable.\ntiff_sensor_zenith_deg : float | None, default=None\n    Explicit TIFF view zenith in degrees when valid embedded metadata are unavailable.\ntiff_sensor_azimuth_deg : float | None, default=None\n    Explicit TIFF view azimuth in degrees when valid embedded metadata are unavailable.\ndrone_manifest_path : str | Path | None, default=None\n    Existing flight manifest providing acquisition identity/time; None uses supported discovery or embedded metadata.\ndrone_manifest_timezone : str | None, default='UTC'\n    Timezone used to interpret manifest acquisition times; the default is UTC.\nrequire_solar_geometry : bool, default=True\n    Require scientifically usable solar geometry before correction rather than silently proceeding without it.\nextraction_mode : str | None, default=None\n    'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.\nparquet_chunk_size : int, default=2048\n    Positive pixel/window processing budget for bounded extraction; the default and interpretation follow the selected producer.\nmerge_extractions : bool, default=False\n    Explicit opt-in to legacy campaign-wide pixel-table merging; normal bulk consumers use separate completed flights.\napply_translation : bool, default=False\n    Create separate Landsat-like application products using the reviewed coefficient registry; does not overwrite corrected native MicaSense.\ntranslation_coefficients : str | Path | None, default=None\n    Optional reviewed registry JSON path; None uses the packaged static coefficient set.\ntranslation_weighting : str | None, default=None\n    Optional reviewed weighting selection; normal production uses the predetermined site-balanced weighting.\ntranslation_strict : bool, default=False\n    Treat unsupported/flagged translation conditions as blocking rather than returning the configured non-strict status.\nlandsat_qa : bool, default=False\n    Enable actual Landsat comparison QA for translated products; requires apply_translation=True and appropriate data/dependencies.\nlandsat_product : str | Path | None, default=None\n    Optional existing actual Landsat product for independent comparison; None permits the documented search path.\nlandsat_search_days : int, default=16\n    Nonnegative acquisition-date search radius in days for actual Landsat comparison.\ncomparison_neon_product : str | Path | None, default=None\n    Optional independent NEON product for common-support comparison QA.\nraise_on_incomplete : bool, default=True\n    Raise DronePipelineIncompleteError when flights fail or are scientifically blocked; its results attribute retains structured status.\nsolar_qa_timezone : str | None, default=None\n    Optional timezone override for solar-geometry QA; None follows the existing metadata/timezone resolution.\n\nReturns\n-------\ndict[str, Any]\n    Per-flight processed/reused/failed/blocked outcomes and QA/output paths; incomplete runs normally raise with this payload attached.\n\nRaises\n------\nDroneCorrectionUnavailableError\n    If scientifically required correction inputs cannot be validated.\nDronePipelineIncompleteError\n    If any requested flight is incomplete and raise_on_incomplete is True; inspect the attached results.\nValueError\n    If the supplied options, dimensions, support or provenance violate the input contract.\n\nNotes\n-----\n``extraction_mode=\"full\"`` writes a full-pixel Parquet table from the\ncorrected drone ENVI product. ``\"polygon\"`` uses ``polygon_path`` and the\nexisting polygon extraction path. The default preserves historical\nbehavior: polygon mode when polygons are supplied, otherwise QA-only.\nPer-flight extraction products remain separate by default;\n``merge_extractions=True`` opts into legacy campaign-wide pixel-table\nmaterialization. Bulk analysis does not require that merge.\nTranslation is opt-in and consumes a versioned packaged registry by default,\nor an explicitly supplied reviewed bulk artifact. The predetermined\nproduction weighting is site-balanced. It creates separate Landsat-like\nproducts; corrected native MicaSense is never overwritten.\nBy default an incomplete run raises :class:`DronePipelineIncompleteError`\nwith the structured result available as ``exc.results``.\n\nSee Also\n--------\nspectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.\n\nExamples\n--------\nRequires an existing supported source tree with usable spectral/spatial/solar metadata. Choose a separate output directory.\n\n>>> from spectralbridge import run_drone_pipeline\n>>> result = run_drone_pipeline(input_h5_dir=source_dir, output_dir=output_dir)  # doctest: +SKIP",
+          "docstring": "Run the drone pipeline from local HDF5 or reflectance TIFF sources.\n\nParameters\n----------\ninput_h5_dir : str | Path\n    Existing local supported HDF5/TIFF file or directory; discovery recurses through source packages.\npolygon_path : str | Path | None, default=None\n    Existing polygon vector dataset for extraction; coordinates are handled by the established polygon workflow.\noutput_dir : str | Path, default='.'\n    Directory for generated products; bulk outputs must be outside the read-only input tree.\napply_topo : bool, default=True\n    Request topographic correction with verified physical radiometry and required terrain/solar geometry. Applied status is not independent physical validation.\napply_brdf : bool, default=True\n    Request BRDF correction with verified radiometry and supported angular rank, conditioning and predictions. Unsupported requests are scientifically blocked; False explicitly records NOT_REQUESTED.\nuse_ndvi_brdf_bins : bool, default=False\n    Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.\napply_brightness_adjustment : bool, default=False\n    Opt into the established brightness adjustment; does not change the packaged coefficients.\nradiometry : dict[str, Any] | None, default=None\n    Authoritative affine record with scale, offset, status='VALID' and calibration provenance. No calibration is inferred from TIFF identity tags or value ranges. A source H5 may already carry this record; provide different flight calibrations in separate calls.\noverwrite : bool, default=False\n    Replace existing requested products; False preserves reusable products or rejects a conflicting destination.\ntiff_wavelengths_nm : Sequence[float] | np.ndarray | None, default=None\n    Explicit per-band center wavelengths in nanometers for TIFF inputs lacking embedded spectral metadata; must match band order/count.\ntiff_fwhm_nm : Sequence[float] | np.ndarray | None, default=None\n    Per-band full widths at half maximum in nanometers, aligned with TIFF bands; None uses supported metadata.\ntiff_solar_zenith_deg : float | None, default=None\n    Explicit TIFF solar zenith in degrees when valid embedded metadata are unavailable.\ntiff_solar_azimuth_deg : float | None, default=None\n    Explicit TIFF solar azimuth in degrees when valid embedded metadata are unavailable.\ntiff_sensor_zenith_deg : float | None, default=None\n    Explicit TIFF view zenith in degrees when valid embedded metadata are unavailable.\ntiff_sensor_azimuth_deg : float | None, default=None\n    Explicit TIFF view azimuth in degrees when valid embedded metadata are unavailable.\ndrone_manifest_path : str | Path | None, default=None\n    Existing flight manifest providing acquisition identity/time; None uses supported discovery or embedded metadata.\ndrone_manifest_timezone : str | None, default='UTC'\n    Timezone used to interpret manifest acquisition times; the default is UTC.\nrequire_solar_geometry : bool, default=True\n    Require scientifically usable solar geometry before correction rather than silently proceeding without it.\nextraction_mode : str | None, default=None\n    'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.\nparquet_chunk_size : int, default=2048\n    Positive pixel/window processing budget for bounded extraction; the default and interpretation follow the selected producer.\nmerge_extractions : bool, default=False\n    Explicit opt-in to legacy campaign-wide pixel-table merging; normal bulk consumers use separate completed flights.\napply_translation : bool, default=False\n    Create separate Landsat-like application products using the reviewed coefficient registry; does not overwrite corrected native MicaSense.\ntranslation_coefficients : str | Path | None, default=None\n    Optional reviewed registry JSON path; None uses the packaged static coefficient set.\ntranslation_weighting : str | None, default=None\n    Optional reviewed weighting selection; normal production uses the predetermined site-balanced weighting.\ntranslation_strict : bool, default=False\n    Treat unsupported/flagged translation conditions as blocking rather than returning the configured non-strict status.\nlandsat_qa : bool, default=False\n    Enable actual Landsat comparison QA for translated products; requires apply_translation=True and appropriate data/dependencies.\nlandsat_product : str | Path | None, default=None\n    Optional existing actual Landsat product for independent comparison; None permits the documented search path.\nlandsat_search_days : int, default=16\n    Nonnegative acquisition-date search radius in days for actual Landsat comparison.\ncomparison_neon_product : str | Path | None, default=None\n    Optional independent NEON product for common-support comparison QA.\nraise_on_incomplete : bool, default=True\n    Raise DronePipelineIncompleteError when flights fail or are scientifically blocked; its results attribute retains structured status.\nsolar_qa_timezone : str | None, default=None\n    Optional timezone override for solar-geometry QA; None follows the existing metadata/timezone resolution.\n\nReturns\n-------\ndict[str, Any]\n    Per-flight processed/reused/failed/blocked outcomes and QA/output paths; incomplete runs normally raise with this payload attached.\n\nRaises\n------\nDroneCorrectionUnavailableError\n    If scientifically required correction inputs cannot be validated.\nDronePipelineIncompleteError\n    If any requested flight is incomplete and raise_on_incomplete is True; inspect the attached results.\nValueError\n    If the supplied options, dimensions, support or provenance violate the input contract.\n\nNotes\n-----\n``extraction_mode=\"full\"`` writes a full-pixel Parquet table from the\ncorrected drone ENVI product. ``\"polygon\"`` uses ``polygon_path`` and the\nexisting polygon extraction path. The default preserves historical\nbehavior: polygon mode when polygons are supplied, otherwise QA-only.\nPer-flight extraction products remain separate by default;\n``merge_extractions=True`` opts into legacy campaign-wide pixel-table\nmaterialization. Bulk analysis does not require that merge.\nTranslation is opt-in and consumes a versioned packaged registry by default,\nor an explicitly supplied reviewed bulk artifact. The predetermined\nproduction weighting is site-balanced. It creates separate Landsat-like\nproducts; corrected native MicaSense is never overwritten.\nBy default an incomplete run raises :class:`DronePipelineIncompleteError`\nwith the structured result available as ``exc.results``.\n\nSee Also\n--------\nspectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.\n\nExamples\n--------\nRequires an existing supported source tree with usable spectral/spatial/solar metadata. Choose a separate output directory.\n\n>>> from spectralbridge import run_drone_pipeline\n>>> result = run_drone_pipeline(input_h5_dir=source_dir, output_dir=output_dir)  # doctest: +SKIP",
           "examples": [
             "examples/release_candidate_smoke.py",
             "examples/run_drone_pipeline.py"
@@ -37724,7 +37724,7 @@
             "spectralbridge.pipelines.drone.run_drone_pipeline"
           ],
           "kind": "function",
-          "line": 3457,
+          "line": 3459,
           "methods": [],
           "name": "run_drone_pipeline",
           "parameters": [
@@ -37922,7 +37922,7 @@
         }
       ],
       "path": "src/spectralbridge/pipelines/drone.py",
-      "sha256": "6137637c29b42ba46abdd6c68d21d65eadd0b6cc1d83e14fff7781cc4a24d0a6"
+      "sha256": "147b5e37e416699052ec6bf439aab3b1f3d85ab15bea100d95063081abdb076e"
     },
     {
       "area": "pipelines",

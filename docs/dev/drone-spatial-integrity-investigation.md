@@ -1,5 +1,14 @@
 # Drone spatial integrity investigation — 29 October 2026
 
+!!! info "Historical scope; later provenance findings"
+    This report records the October 29 spatial investigation. Later work identified
+    band 11 as alpha, completed three-flight diagnostics and traced zero-view and
+    solar provenance. Use the [current findings](../validation/drone-findings.md)
+    and [latest provenance account](photogrammetry-metadata-investigation.md)
+    for scientific status. Historical correction/translation completion here is
+    not physical calibration or correction approval.
+
+
 **Confirmed: the Gordon, Goldhill and Ruby H5 arrays retain the source TIFF pixel
 order, but their spatial metadata does not.** The old drone exporter propagates
 that metadata into geographically reflected ENVI rasters and incorrect polygon
@@ -95,7 +104,7 @@ rewriting of already enriched polygon tables.
 
 ## C. Evidence
 
-The [three-flight source comparison](../../provenance/drone-spatial-integrity/2026-10-29/production_source_comparison.json)
+The [three-flight source comparison](https://github.com/earthlab/spectralbridge/blob/main/provenance/drone-spatial-integrity/2026-10-29/production_source_comparison.json)
 records hashes, dimensions, full affines, CRSs, five control coordinates and band
 values, exact array comparisons, and per-polygon membership counts. Wrong-product
 coordinates are explicitly transformed into the source CRS for displacement.
@@ -115,21 +124,21 @@ unavailable historical polygon Parquets**. Researcher polygons are explicitly
 reprojected into each raster CRS before membership is evaluated. One empty
 reference geometry is ignored without renumbering or changing the original file.
 
-![Three authoritative source footprints versus recorded placement](../../provenance/drone-spatial-integrity/2026-10-29/production_verified_footprints.png)
+![Three authoritative source footprints versus recorded placement](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-spatial-integrity/2026-10-29/production_verified_footprints.png)
 
 Source band 1 is displayed with a per-flight percentile stretch only for viewing.
 Red outlines use the saved erroneous geometry, with corner coordinates explicitly
 mapped to NAD83 for comparison; no image is resampled or flipped.
 
-![Ruby original H5 and replayed old native export](../../provenance/drone-spatial-integrity/2026-10-29/ruby_before/spatial_diagnostic.png)
+![Ruby original H5 and replayed old native export](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-spatial-integrity/2026-10-29/ruby_before/spatial_diagnostic.png)
 
 The original H5 reader has **0.07071 m / 0.7071 pixel** diagonal offset. The old
 native export has maximum displacement **206.8999 m / 2068.9989 pixels**. Its
 mean/median and signed coordinate differences are retained in the
-[before comparison](../../provenance/drone-spatial-integrity/2026-10-29/ruby_before/discrepancies.json)
+[before comparison](https://github.com/earthlab/spectralbridge/blob/main/provenance/drone-spatial-integrity/2026-10-29/ruby_before/discrepancies.json)
 and control CSV. Missing historical corrected/final stages are explicitly blank.
 
-![Ruby recovered stages and researcher polygons](../../provenance/drone-spatial-integrity/2026-10-29/ruby_after/spatial_diagnostic.png)
+![Ruby recovered stages and researcher polygons](https://raw.githubusercontent.com/earthlab/spectralbridge/main/provenance/drone-spatial-integrity/2026-10-29/ruby_after/spatial_diagnostic.png)
 
 The repaired Ruby working H5, native ENVI, corrected ENVI and final translated
 raster have **zero maximum, mean and median control displacement**, zero
@@ -137,7 +146,7 @@ pixel-unit displacement, and the same affine and CRS as the authoritative TIFF.
 Source → H5 and source → native ENVI each preserve all **20,286,000 retained-band
 values exactly**. No display alignment operation contributes to those metrics.
 
-The [after comparison](../../provenance/drone-spatial-integrity/2026-10-29/ruby_after/discrepancies.json)
+The [after comparison](https://github.com/earthlab/spectralbridge/blob/main/provenance/drone-spatial-integrity/2026-10-29/ruby_after/discrepancies.json)
 contains coordinate/label/value checks for **22,481 extracted rows**:
 zero coordinate mismatches, zero wrong polygon memberships, zero changed
 `GlobalID`/cover-category associations, zero duplicate pixels, and zero spectral
@@ -145,7 +154,7 @@ mismatches across **224,810 values** compared with the corrected raster.
 Expected finite corrected-pixel membership matches exactly. Corrected values are
 not incorrectly compared with uncorrected TIFF radiometry.
 
-The explicitly [synthetic diagnostic](../../provenance/drone-spatial-integrity/2026-10-29/synthetic/spatial_diagnostic.png)
+The explicitly [synthetic diagnostic](https://github.com/earthlab/spectralbridge/blob/main/provenance/drone-spatial-integrity/2026-10-29/synthetic/spatial_diagnostic.png)
 remains as a regression control, separate from this real-source evidence.
 The earlier saved-metadata-only figure and unassigned downloaded H5 inspection
 are retained as preliminary evidence, not substitutes for the paired sources.
@@ -265,7 +274,7 @@ affine loss, wrong boundary membership, conflicting H5 acceptance and stale TIFF
 cache version. Later-added tests were not all run against the original code.
 
 The final compatibility command and exact count are recorded in
-[validation.json](../../provenance/drone-spatial-integrity/2026-10-29/validation.json).
+[validation.json](https://github.com/earthlab/spectralbridge/blob/main/provenance/drone-spatial-integrity/2026-10-29/validation.json).
 It includes existing drone pipeline/production, translation/registry, NEON
 cube/legacy and ENVI parser tests, plus the new spatial tests. Ruff, documentation
 links, whitespace and generated AI-transparency freshness are checked separately.
@@ -280,10 +289,10 @@ were not run in this Python 3.12 workspace.
 
 Actual Ruby products are reused on a second unchanged run, including H5, native
 and corrected images, all translated images and polygon tables. The
-[restart record](../../provenance/drone-spatial-integrity/2026-10-29/ruby_restart.json)
+[restart record](https://github.com/earthlab/spectralbridge/blob/main/provenance/drone-spatial-integrity/2026-10-29/ruby_restart.json)
 records identical modification times. Full-pixel radiometric/mask conformance is
 recorded in
-[ruby_full_pixel_validation.json](../../provenance/drone-spatial-integrity/2026-10-29/ruby_full_pixel_validation.json).
+[ruby_full_pixel_validation.json](https://github.com/earthlab/spectralbridge/blob/main/provenance/drone-spatial-integrity/2026-10-29/ruby_full_pixel_validation.json).
 
 ## G. Production recovery
 

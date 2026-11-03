@@ -152,4 +152,63 @@ spectralbridge-qa --base-folder output_demo
   </a>
 </div>
 </section>
+<section class="sb-doc-section" markdown="1">
+<p class="sb-kicker">Drone scientific diagnostics</p>
+
+## Raster appears flipped or misaligned
+
+Check authoritative source CRS/datum, affine signs, north-up row direction and
+pixel center versus corner references. Compare actual control coordinates and
+polygon memberships, not just bounds or RGB appearance. Do not flip arrays to
+compensate for metadata. Follow the [source-aware check](vignettes/drone-processing.md#check-spatial-correspondence-before-extraction).
+A changed scientific source needs a fresh reviewed output root; an ordinary rerun
+cannot supply missing provenance.
+
+## Unexpected spectral values
+
+Check whether values are physical reflectance, bandwise normalized numbers or
+recovered DN. A 0–10,000 range and UInt16 type establish neither scale nor units.
+Inspect the authoritative affine calibration and original extrema; do not invent
+a divisor from the histogram. See [radiometric interpretation](vignettes/drone-processing.md#numerical-scaling-is-not-physical-calibration).
+
+## BRDF correction produces extreme values
+
+Inspect model `validation.status`, eligible populations, rank, condition number,
+reference support and predictions. Constant assigned views can make a fit
+unsupported despite millions of pixels. Historical Goldhill's extreme red streak
+is a confirmed downstream BRDF failure; inverse scaling does not fix it. Current
+gates reject unsupported models and invalid predictions. Preserve artifacts;
+do not force coefficients or cap gains to manufacture acceptance. See
+[BRDF methods](brdf_topo_algorithm.md#what-the-models-estimate-and-what-makes-a-fit-eligible).
+
+## Correction removes large areas of imagery
+
+Compare original spectral nodata with slope/aspect coverage and illumination
+masks on the same grid. Check units, surface identity, timestamps, shadows and
+`cos(i) + C`; report lost coverage separately from common-mask statistics.
+Do not fill missing terrain solely to increase retention. Review
+[topographic limits](brdf_topo_algorithm.md#scsc-stability-and-scientific-limits).
+
+## Drone and NEON spectra disagree
+
+Check calibration and encoding first, then actual viewing/solar geometry,
+correction eligibility, band response/translation provenance, footprint,
+acquisition date and phenology. A Landsat-like product is not independent Landsat.
+Synthetic common-reference fits cannot establish empirical sensor calibration.
+Use the [eligibility guide](concepts/correction-eligibility.md) and
+[library validation](vignettes/spectral-library.md#drone-library-quality-and-researcher-polygons).
+
+## Orthomosaic contains flightline seams
+
+Compare native/raw, topo-only and combined stages before assigning a cause.
+Upstream illumination, vignette, image balancing, occlusion and blending are
+possible causes requiring original-photo/calibration/contributor evidence.
+Raw neighbouring differences can also be genuine vegetation or terrain.
+Do not reassign Goldhill's proven downstream streak to Metashape. Recover
+[photogrammetry settings and observations](vignettes/drone-processing.md#photogrammetry-and-directional-information)
+before choosing an image-level correction.
+
+</section>
 </div>
+
+Last updated: 2026-11-02

@@ -34,6 +34,7 @@ nav:
 - Understand:
   - Measurement basics: concepts/measurements.md
   - Correction and comparison: concepts/why-calibration.md
+  - Choosing corrections: concepts/correction-eligibility.md
 - Use:
   - First example and installation: getting-started.md
   - Choose a workflow: vignettes/index.md
@@ -61,6 +62,7 @@ nav:
   - Abundance and ambiguity: spectral-library/mesma-readiness.md
   - What the mathematics guarantees: spectral-library/mathematical-guarantees.md
 - Validate:
+  - Drone findings and limitations: validation/drone-findings.md
   - Scientific validation levels: validation/scientific-validation.md
   - Whole-spectrum method audit: validation/pft-methods.md
   - Independent Landsat pilot: validation/landsat-pilot.md
