@@ -1,0 +1,42 @@
+{
+  "fixed_zoom_RGB_DN_equivalent_limits": [
+    [
+      292.22666590690613,
+      453.4954801025391,
+      278.05653212928775
+    ],
+    [
+      3318.274966369629,
+      3080.4235957489013,
+      1982.4211501922607
+    ]
+  ],
+  "generic_QA_RGB_nm": [
+    668,
+    560,
+    475
+  ],
+  "generic_QA_RGB_BRDF_only_changed_values": 0,
+  "named_band_map_RGB_nm": [
+    650,
+    560,
+    444
+  ],
+  "diagnostic_RGB_nm": [
+    650,
+    560,
+    475
+  ],
+  "fixed_vs_individual": "Fixed scaling shares source limits across stages. Individual diagnostics estimate 2-98% per stage/channel and cannot compare numerical magnitude.",
+  "map_native_zoom_extent": [
+    457705.69999999995,
+    457755.79999999993,
+    4432733.149999999,
+    4432773.25
+  ],
+  "zoom_resolution_m": 0.1,
+  "full_overview_point_sampling": "Stride6 Goldhill, stride8 Gordon/Ruby; coarse image cell centers are aligned to actual native centers; exact metrics remain native",
+  "polygons_primary": "Positive source alpha and finite four-stage intersection; no source masks rewritten",
+  "spectral_display": "DN equivalent = per-band min + stored S*(max-min)/10000; not calibrated reflectance",
+  "spectral_symlog_linear_threshold": 10000
+}

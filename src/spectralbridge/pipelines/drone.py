@@ -21,6 +21,7 @@ import pandas as pd
 
 from spectralbridge import __version__
 from spectralbridge.corrections import (
+    BRDF_KERNEL_MATH_VERSION,
     HYTOOLS_BRDF_KERNEL_CONFIG,
     NDVIBinningConfig,
     apply_brdf_correct,
@@ -1770,6 +1771,38 @@ def _validate_and_repair_drone_working_h5_solar_geometry(
     return persist_audit()
 
 
+def _declared_drone_radiometry(record):
+    """Allow explicitly unverified encodings at ingestion, never at correction."""
+    calibration = Radiometry.from_record(record)
+    if calibration.status == "VALID":
+        calibration.require_valid()
+    return calibration
+
+
+def _read_drone_reflectance_tiff(path):
+    """Read declared spectral bands/alpha without guessing unnamed extra bands."""
+    import rasterio
+    from rasterio.enums import ColorInterp
+    with rasterio.open(path) as src:
+        alpha = [i for i, role in enumerate(src.colorinterp, 1) if role == ColorInterp.alpha]
+        spectral = [i for i in range(1, src.count + 1) if i not in alpha]
+        if not spectral:
+            raise ValueError("Drone TIFF has no declared spectral bands")
+        data = src.read(spectral).astype(np.float32)
+        nodata = src.nodata
+        fill = _DRONE_FALLBACK_NODATA if nodata is None else nodata
+        # Keep validity temporaries at one spatial plane, not another full cube.
+        footprint = np.zeros(data.shape[1:], dtype=bool)
+        for index, band in enumerate(spectral):
+            valid = (src.read_masks(band) > 0) & np.isfinite(data[index])
+            data[index][~valid] = fill
+            footprint |= valid
+        for band in alpha:
+            footprint &= src.read(band) > 0
+        data[:, ~footprint] = fill
+        return data, src.crs.to_wkt() if src.crs else "", src.transform, nodata, footprint, spectral, alpha
+
+
 def convert_drone_tiff_to_h5(
     reflectance_tiff_path: str | Path,
     *,
@@ -1800,18 +1833,20 @@ def convert_drone_tiff_to_h5(
         with h5py.File(output_h5_path, "r") as existing:
             ds = _find_drone_reflectance_dataset(existing)
             convention = ds.parent["Metadata/Coordinate_System"].attrs.get("spatial_reference_convention")
+            if ds.attrs.get("spectralbridge_source_validity_version") != 1:
+                raise ValueError("Cached TIFF H5 lacks source-validity provenance; preserve it and use a fresh output directory")
             if convention != "envi_corner_v1":
                 raise ValueError("Cached TIFF-derived H5 lacks the spatial contract; rebuild from the original TIFF with overwrite=True.")
         if radiometry is not None:
             from spectralbridge.radiometry import dataset_radiometry
-            expected = Radiometry.from_record(radiometry).require_valid()
+            expected = _declared_drone_radiometry(radiometry)
             with h5py.File(output_h5_path, "r") as h:
                 actual = dataset_radiometry(_find_drone_reflectance_dataset(h))
-            if actual != expected:
+            if not actual.matches_declaration(expected):
                 raise ValueError("Cached TIFF H5 radiometry differs; rebuild a derived copy from the source TIFF.")
         return output_h5_path
 
-    reflectance_raw, crs_wkt, transform, nodata = _read_drone_tiff_raster(reflectance_tiff_path)
+    reflectance_raw, crs_wkt, transform, nodata, source_valid, source_bands, alpha_bands = _read_drone_reflectance_tiff(reflectance_tiff_path)
     if reflectance_raw.ndim != 3:
         raise ValueError(
             f"Reflectance TIFF must be a multiband raster; received shape {reflectance_raw.shape}."
@@ -1939,8 +1974,17 @@ def convert_drone_tiff_to_h5(
         reflectance_ds.attrs["NoData"] = nodata_value
         reflectance_ds.attrs["no_data"] = nodata_value
         reflectance_ds.attrs["Scale_Factor"] = np.float32(1.0)
-        calibration = (Radiometry.from_record(radiometry).require_valid() if radiometry is not None else
+        calibration = (_declared_drone_radiometry(radiometry) if radiometry is not None else
                        Radiometry(None, None, "UNSUPPORTED", "TIFF scales/offsets do not establish physical units"))
+        source_mask = metadata_group.create_dataset("Source_Valid_Mask", data=source_valid, dtype=np.bool_)
+        reflectance_ds.attrs["spectralbridge_valid_mask_path"] = source_mask.name
+        reflectance_ds.attrs["spectralbridge_source_validity_version"] = 1
+        from dataclasses import replace
+        encoding = dict(calibration.encoding or {"kind": "scaled_physical_reflectance" if calibration.status == "VALID" else "unknown"})
+        encoding.update(source_spectral_band_indices=source_bands, source_alpha_band_indices=alpha_bands,
+                        source_valid_mask_path=source_mask.name,
+                        quality_mask={"status": "DOCUMENTED", "provenance": "TIFF per-band GDAL masks and declared alpha; finite source samples", "convention": "true means valid"})
+        calibration = replace(calibration, encoding=encoding)
         reflectance_ds.attrs["spectralbridge_radiometry"] = json.dumps(calibration.record())
 
         wavelength_ds = spectral_group.create_dataset(
@@ -2060,7 +2104,7 @@ def _prepare_drone_source_working_h5(
             overwrite=overwrite or working_path.exists(),
         )
         if radiometry is not None:
-            calibration = Radiometry.from_record(radiometry).require_valid()
+            calibration = _declared_drone_radiometry(radiometry)
             with h5py.File(prepared, "r+") as h:
                 _find_drone_reflectance_dataset(h).attrs["spectralbridge_radiometry"] = json.dumps(calibration.record())
         _ensure_drone_working_h5_solar_aliases(prepared)
@@ -2093,7 +2137,7 @@ def _prepare_drone_source_working_h5(
         "tiff_to_working_h5",
         inputs=inputs,
         configuration={
-            "algorithm_version": 3,
+            "algorithm_version": 4,
             "wavelengths_nm": (
                 [float(value) for value in tiff_wavelengths_nm]
                 if tiff_wavelengths_nm is not None
@@ -2595,7 +2639,10 @@ def apply_drone_corrections(
             raise DroneCorrectionUnavailableError(str(exc), audit) from exc
     if corrected_hdr.exists() and not overwrite:
         old_header = hdr_to_dict(corrected_hdr)
-        if old_header.get("radiometry status") != "VALID" or (apply_brdf and old_header.get("brdf status") != "VALID"):
+        if old_header.get("radiometry status") != "VALID" or (apply_brdf and (
+            old_header.get("brdf status") != "VALID"
+            or old_header.get("brdf kernel math version") != BRDF_KERNEL_MATH_VERSION
+        )):
             raise DroneCorrectionUnavailableError("Existing corrected product lacks validated scientific provenance; use a fresh output directory.", audit)
 
     topo_ready = apply_topo and _has_required_ancillary(
@@ -2616,6 +2663,7 @@ def apply_drone_corrections(
         inputs=[envi_img, envi_hdr],
         configuration={
             "algorithm_version": 2,
+            **({"brdf_kernel_math_version": BRDF_KERNEL_MATH_VERSION} if apply_brdf else {}),
             "radiometry": audit["radiometry"],
             "apply_topo": bool(apply_topo),
             "apply_brdf": bool(apply_brdf),
@@ -2683,12 +2731,16 @@ def apply_drone_corrections(
     if coeff_path is not None:
         model = json.loads(Path(coeff_path).read_text())
         audit["brdf_status"] = model.get("validation", {}).get("status", "UNSUPPORTED")
+        if audit["brdf_status"] == "VALID" and model.get("kernel_math_version") != BRDF_KERNEL_MATH_VERSION:
+            raise DroneCorrectionUnavailableError("BRDF UNSUPPORTED: incompatible kernel mathematics; use a fresh output directory.", audit)
         if "topographic_c" in model:
             topographic_c = np.asarray(model["topographic_c"], np.float32)
         brdf_ready = brdf_ready and audit["brdf_status"] == "VALID"
     header = _drone_envi_header(cube)
     header["brdf status"] = "INCOMPLETE" if brdf_ready else audit["brdf_status"]
     header["brdf model schema"] = 2
+    if brdf_ready:
+        header["brdf kernel math version"] = BRDF_KERNEL_MATH_VERSION
     header["description"] = f"Drone reflectance; topo requested={apply_topo}; BRDF status={audit['brdf_status']}"
     header.setdefault("reflectance scale factor", float(getattr(cube, "scale_factor", 1.0)))
     if hasattr(cube, "no_data"):

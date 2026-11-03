@@ -242,3 +242,35 @@ def test_correction_accepts_saved_hytools_style_kernel_settings(tmp_path: Path) 
     # Kernel names and NDVI edges alone do not validate a legacy model.
     with pytest.raises(ValueError, match="UNSUPPORTED"):
         apply_brdf_correct(cube, cube.data, 0, cube.lines, 0, cube.columns, coeff_path=coeff_path)
+
+
+def test_response_scaling_preserves_ratios_but_additive_offsets_do_not(tmp_path):
+    from spectralbridge.corrections import _brdf_design, BRDFKernelConfig
+    from spectralbridge.radiometry import Radiometry
+
+    probe = _FakeCube(np.full((5, 5, 3), 0.3, np.float32))
+    design, valid, _ = _brdf_design(probe, BRDFKernelConfig())
+    response = (design @ np.array([0.4, 0.05, 0.01])).astype(np.float32)
+    models = []
+    ratios = []
+    for label, multiplier, shift in [("base", 1, 0), ("scaled", 1.7, 0), ("offset", 1, .2)]:
+        values = np.repeat((response * multiplier + shift)[..., None], 3, axis=-1)
+        cube = _FakeCube(values)
+        model = json.loads(fit_and_save_brdf_model(cube, tmp_path / label, rho_max=None).read_text())
+        assert model["validation"]["status"] == "VALID"
+        beta = np.array([model[k][0][0] for k in ("iso", "vol", "geo")])
+        models.append(beta)
+        ratios.append(np.asarray(model["reference_design"]) @ beta / (design @ beta)[valid])
+    np.testing.assert_allclose(models[1], models[0] * 1.7, rtol=2e-5, atol=2e-7)
+    np.testing.assert_allclose(ratios[1], ratios[0], rtol=2e-6)
+    assert np.max(abs(ratios[2] - ratios[0])) > 1e-3
+    # An encoding offset is decoded before fitting and re-encoded after applying.
+    encoded = _FakeCube(np.repeat(((response - .05) / .0001)[..., None], 3, axis=-1))
+    encoded.radiometry = Radiometry(.0001, .05, "VALID", "Synthetic affine source")
+    path = fit_and_save_brdf_model(encoded, tmp_path / "affine")
+    corrected = apply_brdf_correct(encoded, encoded.data, 0, 5, 0, 5, coeff_path=path)
+    physical = encoded.radiometry.to_physical(corrected)
+    base = _FakeCube(np.repeat(response[..., None], 3, axis=-1))
+    base_path = fit_and_save_brdf_model(base, tmp_path / "base_application")
+    expected = apply_brdf_correct(base, base.data, 0, 5, 0, 5, coeff_path=base_path)
+    np.testing.assert_allclose(physical, expected, rtol=3e-6, atol=1e-7)

@@ -2,6 +2,19 @@
 
 ### Added
 
+- Typed shared radiometric encodings and scalar/per-band affine calibration,
+  diagnostic-only range normalization, declared alpha/NoData/quality preservation,
+  and full ENVI calibration provenance. Physical BRDF fitting and spectral exports
+  reject unverified units; stored-space convolution rejects incompatible affine
+  encodings. Real Goldhill historical eligibility and NEON decoding are validated
+  without regenerating production products.
+
+- Independently verified shared RossThick/LiDenseR/LiSparseReciprocal mathematics,
+  float64 scalar/array broadcasting and explicit invalid-angle handling. Saved
+  BRDF models and correction headers now identify the kernel mathematics version;
+  incompatible coefficients are rejected without overwriting historical products.
+  Ambiguous nonreciprocal short names require an explicit reciprocal variant.
+
 - A fixed-revision HyTools source-provenance audit, third-party notice,
   manuscript guidance, machine-readable component manifest, and offline
   attribution guardrail. Documentation now distinguishes removal of the

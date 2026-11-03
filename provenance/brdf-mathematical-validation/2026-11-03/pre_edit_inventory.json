@@ -1,0 +1,43 @@
+{
+  "repository_revision": "bc369500382949a855cfa8b787d5219f7385f620",
+  "implementations": [
+    {
+      "path": "build/lib/spectralbridge/corrections.py",
+      "sha256": "ece9bca2c17d4d17e70fcefd4d67b51f088ea2103e836b04f9b816e32a68aa7a",
+      "role": "Stale generated build output; not authoritative or imported by supported src package"
+    },
+    {
+      "path": "src/spectralbridge/corrections.py",
+      "sha256": "1fd21166faca9c58b3e66f95de3da2f9871db210ae49d13075ec0e80b8c40319",
+      "role": "canonical"
+    },
+    {
+      "path": "provenance/drone-radiometric-recovery/2026-11-02/historical_corrections.py",
+      "sha256": "839cdf2b7264c5af53902c08994144c776f94f5a59f31dc42bd1574002998a42",
+      "role": "historical diagnostic snapshot or independent evidence; not production dispatch"
+    },
+    {
+      "path": "provenance/brdf-mathematical-validation/2026-11-03/pre_audit_corrections.py",
+      "sha256": "1fd21166faca9c58b3e66f95de3da2f9871db210ae49d13075ec0e80b8c40319",
+      "role": "historical diagnostic snapshot or independent evidence; not production dispatch"
+    }
+  ],
+  "production_call_chain": [
+    "NEON pipeline.process_one_flightline -> brdf_topo.generate_brdf_config -> corrections.fit_and_save_brdf_model",
+    "NEON brdf_topo.apply_brdf_topo_core -> corrections.apply_brdf_correct",
+    "drone.apply_drone_corrections -> corrections.fit_and_save_brdf_model/apply_brdf_correct",
+    "fit/apply -> corrections._brdf_design and _reference_design -> same calc_volume_kernel/calc_geom_kernel"
+  ],
+  "pre_edit_behavior": [
+    "Correct reciprocal dense equation already present, distinct sparse reciprocal branch",
+    "Float32 matching 2-D input-only validation before all kernels",
+    "Ross nonfinite values replaced by zero; no BRDF-specific zenith-domain validation",
+    "Geometric output float32, internal float64 after input rounding",
+    "Schema 2 saved-model gate has no mathematical implementation version",
+    "Both production routes use HYTOOLS_BRDF_KERNEL_CONFIG RossThick/LiDenseR, b/r=10 h/b=2 scene solar; public direct default is sparse reciprocal b/r=1 pixel solar"
+  ],
+  "additional_routes": {
+    "deprecated_adapter": "src/spectralbridge/deprecated/hytools.py delegates to external HyTools; not canonical NEON or drone processing",
+    "legacy_ambiguous_aliases": "li_dense and li_sparse previously selected reciprocal variants despite nonreciprocal upstream meanings; now rejected explicitly"
+  }
+}

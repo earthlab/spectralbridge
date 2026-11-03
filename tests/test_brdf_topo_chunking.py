@@ -5,6 +5,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
+from spectralbridge.corrections import BRDF_KERNEL_MATH_VERSION
 from spectralbridge.brdf_topo import _resolve_topo_chunk_dims, apply_brdf_topo_core
 
 
@@ -118,7 +119,7 @@ def test_apply_brdf_topo_core_uses_scene_chunk_by_default(
 
     import json
     model = tmp_path / "validated-double.json"
-    model.write_text(json.dumps({"schema_version":2, "validation":{"status":"VALID"}}))
+    model.write_text(json.dumps({"schema_version":2, "kernel_math_version":BRDF_KERNEL_MATH_VERSION, "validation":{"status":"VALID"}}))
     params = {
         "h5_path": str(h5_path),
         "coefficients_path": str(model),
@@ -174,7 +175,7 @@ def test_apply_brdf_topo_core_honors_tile_mode(
 
     import json
     model = tmp_path / "validated-double.json"
-    model.write_text(json.dumps({"schema_version":2, "validation":{"status":"VALID"}}))
+    model.write_text(json.dumps({"schema_version":2, "kernel_math_version":BRDF_KERNEL_MATH_VERSION, "validation":{"status":"VALID"}}))
     params = {"h5_path": str(h5_path), "coefficients_path": str(model)}
 
     apply_brdf_topo_core(
@@ -189,3 +190,24 @@ def test_apply_brdf_topo_core_honors_tile_mode(
 
     assert cube.chunk_args == (100, 100)
     assert captured["scs_c"] is None
+
+
+@pytest.mark.parametrize("version", [None, "obsolete-kernel"])
+def test_neon_rejects_incompatible_model_before_writer_creation(tmp_path, monkeypatch, version):
+    import json
+    raw_img = tmp_path / "raw.img"
+    raw_hdr = tmp_path / "raw.hdr"
+    source = tmp_path / "source.h5"
+    raw_img.write_bytes(b"raw")
+    raw_hdr.write_text("ENVI\n")
+    source.write_bytes(b"h5")
+    model = tmp_path / "model.json"
+    model.write_text(json.dumps({"schema_version": 2, "validation": {"status": "VALID"},
+                                 **({"kernel_math_version": version} if version else {})}))
+    monkeypatch.setattr("spectralbridge.brdf_topo.NeonCube", lambda **kw: _FakeCube(source))
+    monkeypatch.setattr("spectralbridge.brdf_topo.EnviWriter", lambda *a, **kw: pytest.fail("must reject before raster creation"))
+    with pytest.raises(ValueError, match="incompatible kernel mathematics"):
+        apply_brdf_topo_core(raw_img_path=raw_img,raw_hdr_path=raw_hdr,
+                            params={"h5_path":str(source),"coefficients_path":str(model)},
+                            out_img_path=tmp_path/"corrected.img",out_hdr_path=tmp_path/"corrected.hdr")
+    assert not (tmp_path/"corrected.img").exists()

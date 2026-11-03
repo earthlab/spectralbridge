@@ -1,0 +1,51 @@
+[
+  {
+    "name": "figure01_transformations",
+    "caption": "Encoding chains; Goldhill physical calibration is unresolved.",
+    "source": "results.json and display_arrays.npz; native actual Goldhill/NEON observations",
+    "png": "figure01_transformations.png",
+    "svg": "figure01_transformations.svg"
+  },
+  {
+    "name": "figure02_band_distributions",
+    "caption": "All ten actual band distributions; footprint counts are native, not stride estimates.",
+    "source": "results.json and display_arrays.npz; native actual Goldhill/NEON observations",
+    "png": "figure02_band_distributions.png",
+    "svg": "figure02_band_distributions.svg"
+  },
+  {
+    "name": "figure03_eligibility_distributions",
+    "caption": "The 650 nm unit mismatch; B is diagnostic and cannot replace physical case C.",
+    "source": "results.json and display_arrays.npz; native actual Goldhill/NEON observations",
+    "png": "figure03_eligibility_distributions.png",
+    "svg": "figure03_eligibility_distributions.svg"
+  },
+  {
+    "name": "figure04_historical_map",
+    "caption": "Native accepted coordinates, enlarged symbols; contextual image decimated 8\u00d7 without altering counts.",
+    "source": "results.json and display_arrays.npz; native actual Goldhill/NEON observations",
+    "png": "figure04_historical_map.png",
+    "svg": "figure04_historical_map.svg"
+  },
+  {
+    "name": "figure05_diagnostic_map",
+    "caption": "Actual red normalized fraction; no physical calibration, corrected image or invented geometry.",
+    "source": "results.json and display_arrays.npz; native actual Goldhill/NEON observations",
+    "png": "figure05_diagnostic_map.png",
+    "svg": "figure05_diagnostic_map.svg"
+  },
+  {
+    "name": "figure06_counts",
+    "caption": "Zero at 862 nm is explicitly labeled; a half-count-height placeholder only locates that label on a log axis.",
+    "source": "results.json and display_arrays.npz; native actual Goldhill/NEON observations",
+    "png": "figure06_counts.png",
+    "svg": "figure06_counts.svg"
+  },
+  {
+    "name": "figure07_numeric_ranges",
+    "caption": "Whole native selected-band ranges; NEON is 10 nearest source wavelengths, not an empirical sensor calibration comparison.",
+    "source": "results.json and display_arrays.npz; native actual Goldhill/NEON observations",
+    "png": "figure07_numeric_ranges.png",
+    "svg": "figure07_numeric_ranges.svg"
+  }
+]

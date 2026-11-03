@@ -184,9 +184,10 @@ def build_envi_header_text(header_dict: Dict) -> str:
         lines.append(f"reflectance scale factor = {scale}")
 
     for key in ("radiometry status", "radiometry provenance", "physical reflectance multiplier",
-                "physical reflectance offset", "brdf status", "brdf model schema"):
+                "physical reflectance offset", "brdf status", "brdf model schema", "brdf kernel math version", "radiometry contract", "radiometry encoding"):
         if key in header_dict:
-            lines.append(f"{key} = {header_dict[key]}")
+            value = _format_envi_list(header_dict[key]) if isinstance(header_dict[key], (list, tuple)) else header_dict[key]
+            lines.append(f"{key} = {value}")
 
     if "data ignore value" in header_dict:
         no_data = _to_python_scalar(header_dict["data ignore value"])

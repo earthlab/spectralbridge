@@ -852,7 +852,7 @@ def read_neon_cube(
 
         for reader in readers:
             try:
-                return reader(
+                cube, wavelengths, meta = reader(
                     h5_file,
                     sample_slice=column_slice,
                     line_slice=row_slice,
@@ -861,6 +861,21 @@ def read_neon_cube(
                 if layout_error is None:
                     layout_error = exc
                 continue
+            # Declared masks are validated outside the schema fallback: a bad
+            # mask must not be silently bypassed through a different reader.
+            encoding = meta["radiometry"].get("encoding", {})
+            mask_path = encoding.get("source_valid_mask_path")
+            if mask_path:
+                if mask_path not in h5_file:
+                    raise ValueError("Declared source-validity mask is missing")
+                mask_ds = h5_file[mask_path]
+                if mask_ds.shape != (meta["full_lines"], meta["full_samples"]):
+                    raise ValueError("Source-validity mask does not align with source grid")
+                mask = np.asarray(mask_ds[meta["line_start"]:meta["line_stop"], meta["sample_start"]:meta["sample_stop"]])
+                if not np.isfinite(mask).all() or not np.isin(mask, [0, 1]).all():
+                    raise ValueError("Source-validity mask must contain only true/false valid states")
+                meta["source_valid_mask"] = mask.astype(bool)
+            return cube, wavelengths, meta
 
     root_summary = ", ".join(root_keys) if root_keys else "<no root groups>"
     if layout_error is not None:

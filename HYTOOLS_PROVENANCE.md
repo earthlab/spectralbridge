@@ -355,3 +355,15 @@ invariance tests are in `tests/data/brdf/hytools_pinned_kernels.json` and
 FlexBRDF workflow equivalence or empirical sensor calibration. The shared
 radiometric and fitting-validation changes are described in
 `provenance/radiometry-brdf/2026-10-30/README.md`.
+
+### 2026-11-03 independent mathematical validation
+
+The reciprocal dense equation was independently checked against Zhang et al.
+(2018), Eq. 5, DOI `10.3390/rs10030437`, and the common geometry against the MODIS
+ATBD. The original Wanner LiDense and the MODIS LiSparse-R are distinct variants.
+The repaired dense formula was already present; this follow-up adds float64
+broadcast evaluation, explicit invalid geometry, stable coincident/opposite-ray
+arithmetic and mathematical-version compatibility. It preserves the HyTools
+implementation lineage and all historical snapshots. Independent 60-digit
+equation fixtures and a pinned external C++ comparison supplement the existing
+HyTools numerical vectors. See `docs/reports/BRDF_MATHEMATICAL_VALIDATION.md`.

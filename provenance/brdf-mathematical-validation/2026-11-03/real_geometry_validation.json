@@ -1,0 +1,286 @@
+{
+  "kernel_math_version": "ross-li-reciprocal-f64-v1",
+  "flights": {
+    "neon": {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/validation-input/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5",
+      "source_shape": [
+        1115,
+        5351
+      ],
+      "positive_polar_geometry_pixels": 3425496,
+      "scene_solar_zenith_degrees": 37.412113189697266,
+      "display_stride": 4,
+      "statistics": {
+        "solar_zenith": {
+          "n": 3425496,
+          "min": 37.412113189697266,
+          "max": 37.412113189697266,
+          "mean": 37.412113189697266,
+          "std": 0.0,
+          "range": 0.0
+        },
+        "sensor_zenith": {
+          "n": 3425496,
+          "min": 0.004754732828587294,
+          "max": 31.007184982299805,
+          "mean": 9.568392458060702,
+          "std": 5.314713074882738,
+          "range": 31.002430249471217
+        },
+        "sensor_azimuth": {
+          "n": 3425496,
+          "min": 5.585525286733173e-06,
+          "max": 360.0,
+          "mean": 183.35948819120543,
+          "std": 120.59377293540119,
+          "range": 359.9999944144747
+        },
+        "solar_azimuth": {
+          "n": 3425496,
+          "min": 188.0057830810547,
+          "max": 188.0057830810547,
+          "mean": 188.0057830810547,
+          "std": 0.0,
+          "range": 0.0
+        },
+        "ross": {
+          "n": 3425496,
+          "min": -0.13795240441473455,
+          "max": 0.084778979591968,
+          "mean": -0.041977735924432255,
+          "std": 0.05327603661825222,
+          "range": 0.22273138400670256
+        },
+        "dense": {
+          "n": 3425496,
+          "min": -1.845497884935062,
+          "max": 3.3707464242620215,
+          "mean": -0.494497872073932,
+          "std": 1.327359703268047,
+          "range": 5.216244309197084
+        },
+        "old_ross": {
+          "n": 3425496,
+          "min": -0.13795238733291626,
+          "max": 0.08477896451950073,
+          "mean": -0.041977737484305326,
+          "std": 0.05327603707028267,
+          "range": 0.222731351852417
+        },
+        "old_dense": {
+          "n": 3425496,
+          "min": -14.210923194885254,
+          "max": -4.2158894538879395,
+          "mean": -9.39393031842189,
+          "std": 3.9228422110205448,
+          "range": 9.995033740997314
+        },
+        "difference": {
+          "n": 3425496,
+          "min": 3.2203769098814528,
+          "max": 13.205363984462632,
+          "mean": 8.899432446347962,
+          "std": 2.855032657288244,
+          "range": 9.98498707458118
+        }
+      },
+      "designs": {
+        "current": {
+          "n": 3425496,
+          "rank": 3,
+          "singular_values": [
+            2753.3461113394465,
+            1653.0633983743874,
+            26.028884377394792
+          ],
+          "rank_tolerance": 2.0942305869484266e-06,
+          "condition_number": 105.7804119230955,
+          "condition_limit": 2896.309326171875,
+          "method": "Streaming tall-skinny QR followed by SVD; no normal-equation rank estimate",
+          "raw_singular_value_ratio": 105.7804119230955,
+          "condition_status": "finite full-rank design"
+        },
+        "historical": {
+          "n": 3425496,
+          "rank": 3,
+          "singular_values": [
+            18919.08936195645,
+            712.0505980483549,
+            47.596346197480855
+          ],
+          "rank_tolerance": 1.4390103538325231e-05,
+          "condition_number": 397.49037212771987,
+          "condition_limit": 2896.309326171875,
+          "method": "Streaming tall-skinny QR followed by SVD; no normal-equation rank estimate",
+          "raw_singular_value_ratio": 397.49037212771987,
+          "condition_status": "finite full-rank design"
+        }
+      },
+      "maximum_absolute_dense_difference": {
+        "value": 13.205363984462632,
+        "native_row_column": [
+          420,
+          4292
+        ]
+      },
+      "source_geometry_status": "Genuine archived NEON AOP sensor angles; scene solar log",
+      "mask": "Finite valid polar geometry; Goldhill additionally finite native source band; no source masks rewritten"
+    },
+    "goldhill": {
+      "path": "/private/tmp/assumed-viewing-angles-20261103/goldhill_working.h5",
+      "source_shape": [
+        2238,
+        3165
+      ],
+      "positive_polar_geometry_pixels": 7068376,
+      "scene_solar_zenith_degrees": 27.764940771796564,
+      "display_stride": 6,
+      "statistics": {
+        "solar_zenith": {
+          "n": 7068376,
+          "min": 27.764940771796564,
+          "max": 27.764940771796564,
+          "mean": 27.76494077179656,
+          "std": 3.922025033253398e-15,
+          "range": 0.0
+        },
+        "sensor_zenith": {
+          "n": 7068376,
+          "min": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "std": 0.0,
+          "range": 0.0
+        },
+        "sensor_azimuth": {
+          "n": 7068376,
+          "min": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "std": 0.0,
+          "range": 0.0
+        },
+        "solar_azimuth": {
+          "n": 7068376,
+          "min": 204.6913604736328,
+          "max": 204.70025634765625,
+          "mean": 204.69581125619257,
+          "std": 0.002151546863648685,
+          "range": 0.0088958740234375
+        },
+        "ross": {
+          "n": 7068376,
+          "min": -0.028319032039587633,
+          "max": -0.028319032039587633,
+          "mean": -0.028319032039587633,
+          "std": 0.0,
+          "range": 0.0
+        },
+        "dense": {
+          "n": 7068376,
+          "min": -1.0,
+          "max": -1.0,
+          "mean": -1.0,
+          "std": 0.0,
+          "range": 0.0
+        },
+        "old_ross": {
+          "n": 7068376,
+          "min": -0.028319060802459717,
+          "max": -0.028319060802459717,
+          "mean": -0.028319060802459717,
+          "std": 0.0,
+          "range": 0.0
+        },
+        "old_dense": {
+          "n": 7068376,
+          "min": -15.484116554260254,
+          "max": -15.483792304992676,
+          "mean": -15.483955120356212,
+          "std": 7.847041402142031e-05,
+          "range": 0.000324249267578125
+        },
+        "difference": {
+          "n": 7068376,
+          "min": 14.483792304992676,
+          "max": 14.484116554260254,
+          "mean": 14.483955120356212,
+          "std": 7.847041402142031e-05,
+          "range": 0.000324249267578125
+        }
+      },
+      "designs": {
+        "current": {
+          "n": 7068376,
+          "rank": 1,
+          "singular_values": [
+            3760.6409837108895,
+            2.391330082399354e-10,
+            7.764431320435705e-12
+          ],
+          "rank_tolerance": 5.902306304567882e-06,
+          "condition_number": null,
+          "condition_limit": 2896.309326171875,
+          "method": "Streaming tall-skinny QR followed by SVD; no normal-equation rank estimate",
+          "raw_singular_value_ratio": 484342101631193.1,
+          "condition_status": "infinite for the rank-deficient model; tiny trailing SVD values are roundoff"
+        },
+        "historical": {
+          "n": 7068376,
+          "rank": 2,
+          "singular_values": [
+            41252.120549431755,
+            0.013450963216263379,
+            7.359572776512001e-12
+          ],
+          "rank_tolerance": 6.474498689195367e-05,
+          "condition_number": null,
+          "condition_limit": 2896.309326171875,
+          "method": "Streaming tall-skinny QR followed by SVD; no normal-equation rank estimate",
+          "raw_singular_value_ratio": 5605233048457305.0,
+          "condition_status": "infinite for the rank-deficient model; tiny trailing SVD values are roundoff"
+        }
+      },
+      "maximum_absolute_dense_difference": {
+        "value": 14.484116554260254,
+        "native_row_column": [
+          2,
+          1
+        ]
+      },
+      "source_geometry_status": "Zero sensor placeholders; derived solar, acquisition time unverified",
+      "mask": "Finite valid polar geometry; Goldhill additionally finite native source band; no source masks rewritten"
+    }
+  },
+  "goldhill_arbitrary_nadir_azimuth_range": 0.0,
+  "goldhill_support": {
+    "angular_rank": 1,
+    "three_parameter_fit": "UNSUPPORTED",
+    "radiometry": "Unverified; no calibration assigned or real reflectance coefficients fitted",
+    "historical_model": "Unchanged; incompatible version cannot be applied by current code"
+  },
+  "preservation": {
+    "before": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/validation-input/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5": "7ad8032cbfca6879b38bf854640031b6fb2547f792e93bc9e915b3633345a8ff",
+      "/private/tmp/assumed-viewing-angles-20261103/goldhill_working.h5": "363dc7da0674c13f67d4c58f8d5c67135c25ddc75cc8986c45f7007bf4893e41",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-radiometric-recovery/2026-11-02/historical_corrections.py": "839cdf2b7264c5af53902c08994144c776f94f5a59f31dc42bd1574002998a42",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-correction-diagnosis/2026-10-30/saved_production_brdf_model.json": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee"
+    },
+    "after": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/validation-input/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5": "7ad8032cbfca6879b38bf854640031b6fb2547f792e93bc9e915b3633345a8ff",
+      "/private/tmp/assumed-viewing-angles-20261103/goldhill_working.h5": "363dc7da0674c13f67d4c58f8d5c67135c25ddc75cc8986c45f7007bf4893e41",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-radiometric-recovery/2026-11-02/historical_corrections.py": "839cdf2b7264c5af53902c08994144c776f94f5a59f31dc42bd1574002998a42",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-correction-diagnosis/2026-10-30/saved_production_brdf_model.json": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee"
+    },
+    "unchanged": true,
+    "production_writes": false
+  },
+  "real_geometry_synthetic_signal_gate_control": {
+    "signal": "Synthetic constant .3 in ten bands; never a Goldhill reflectance fit",
+    "geometry": "Actual sampled Goldhill solar azimuth, actual scene solar zenith, stored zero sensor placeholders",
+    "supported_band_fits": 0,
+    "unsupported_band_fits": 10,
+    "rejection_status": "UNSUPPORTED",
+    "model_path": "synthetic_signal_real_geometry_control/synthetic_signal_real_geometry_control_brdf_model.json"
+  }
+}

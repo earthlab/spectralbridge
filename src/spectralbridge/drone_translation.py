@@ -814,7 +814,7 @@ def apply_drone_translation(
                     valid &= ~np.isnan(values)
                 else:
                     valid &= ~np.isclose(values, nodata, atol=1e-6)
-                values = calibration.to_physical(values)
+                values = calibration.to_physical(values, band_index=band.native_source_band_index - 1)
                 key = str(band.target_band_index)
                 if np.any(valid):
                     valid_values = values[valid]

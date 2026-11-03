@@ -1,0 +1,279 @@
+{
+  "source_identity": "0395d5da59ec19dd7d299857b64fde3d751350a55c9c5f85e1890ae7053eb16a",
+  "radiometry": {
+    "scale": 1.0,
+    "offset": 0.0,
+    "status": "VALID",
+    "provenance": "Synthetic constant signal mathematical control ONLY; not Goldhill calibration",
+    "convention": "physical = scale * stored + offset"
+  },
+  "kernel_config": {
+    "volume_kernel": "RossThick",
+    "geom_kernel": "LiDenseR",
+    "b_r": 10.0,
+    "h_b": 2.0,
+    "solar_zn_type": "scene"
+  },
+  "ndvi_config": {
+    "enabled": false,
+    "ndvi_min": 0.05,
+    "ndvi_max": 1.0,
+    "n_bins": 25,
+    "perc_min": 10.0,
+    "perc_max": 95.0
+  },
+  "rho_min": 0.0,
+  "rho_max": 2.0,
+  "schema_version": 2,
+  "kernel_math_version": "ross-li-reciprocal-f64-v1",
+  "apply_topography": false,
+  "source_path": "in-memory fixture",
+  "source_shape": [
+    16,
+    16,
+    10
+  ],
+  "reference_geometry": {
+    "solar_zenith_deg": 45.0,
+    "view_zenith_deg": 0.0,
+    "relative_azimuth_deg": 0.0
+  },
+  "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
+  "fitting_population": {
+    "available_spatial": 256,
+    "eligible": null,
+    "status": "EVALUATED_PER_BAND_STRATUM"
+  },
+  "angular_support": {
+    "solar_zn": {
+      "count": 256,
+      "min_rad": 0.4845896363258362,
+      "max_rad": 0.4845896363258362,
+      "std_rad": 0.0
+    },
+    "solar_az": {
+      "count": 256,
+      "min_rad": 3.572538375854492,
+      "max_rad": 3.5725998878479004,
+      "std_rad": 1.779026062697937e-05
+    },
+    "sensor_zn": {
+      "count": 256,
+      "min_rad": 0.0,
+      "max_rad": 0.0,
+      "std_rad": 0.0
+    },
+    "sensor_az": {
+      "count": 256,
+      "min_rad": 0.0,
+      "max_rad": 0.0,
+      "std_rad": 0.0
+    }
+  },
+  "rank_conditioning_status": "EVALUATED_PER_BAND_STRATUM",
+  "correction_factor_diagnostics_status": "EVALUATED_PER_SUPPORTED_FIT",
+  "validation": {
+    "status": "UNSUPPORTED",
+    "fits": [
+      {
+        "band": 0,
+        "bin": 0,
+        "available": 256,
+        "eligible": 256,
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          22.63195315705617,
+          3.0086839931436516e-14,
+          5.083179134693679e-32
+        ],
+        "condition_number": 4.452322563765011e+32,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 1,
+        "bin": 0,
+        "available": 256,
+        "eligible": 256,
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          22.63195315705617,
+          3.0086839931436516e-14,
+          5.083179134693679e-32
+        ],
+        "condition_number": 4.452322563765011e+32,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 2,
+        "bin": 0,
+        "available": 256,
+        "eligible": 256,
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          22.63195315705617,
+          3.0086839931436516e-14,
+          5.083179134693679e-32
+        ],
+        "condition_number": 4.452322563765011e+32,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 3,
+        "bin": 0,
+        "available": 256,
+        "eligible": 256,
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          22.63195315705617,
+          3.0086839931436516e-14,
+          5.083179134693679e-32
+        ],
+        "condition_number": 4.452322563765011e+32,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 4,
+        "bin": 0,
+        "available": 256,
+        "eligible": 256,
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          22.63195315705617,
+          3.0086839931436516e-14,
+          5.083179134693679e-32
+        ],
+        "condition_number": 4.452322563765011e+32,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 5,
+        "bin": 0,
+        "available": 256,
+        "eligible": 256,
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          22.63195315705617,
+          3.0086839931436516e-14,
+          5.083179134693679e-32
+        ],
+        "condition_number": 4.452322563765011e+32,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 6,
+        "bin": 0,
+        "available": 256,
+        "eligible": 256,
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          22.63195315705617,
+          3.0086839931436516e-14,
+          5.083179134693679e-32
+        ],
+        "condition_number": 4.452322563765011e+32,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 7,
+        "bin": 0,
+        "available": 256,
+        "eligible": 256,
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          22.63195315705617,
+          3.0086839931436516e-14,
+          5.083179134693679e-32
+        ],
+        "condition_number": 4.452322563765011e+32,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 8,
+        "bin": 0,
+        "available": 256,
+        "eligible": 256,
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          22.63195315705617,
+          3.0086839931436516e-14,
+          5.083179134693679e-32
+        ],
+        "condition_number": 4.452322563765011e+32,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 9,
+        "bin": 0,
+        "available": 256,
+        "eligible": 256,
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          22.63195315705617,
+          3.0086839931436516e-14,
+          5.083179134693679e-32
+        ],
+        "condition_number": 4.452322563765011e+32,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      }
+    ],
+    "reasons": [],
+    "condition_limit": 2896.309326171875
+  },
+  "fit_input_stage": "uncorrected",
+  "scene_solar_zenith_rad": 0.4845896363258362,
+  "reference_design": [
+    1.0,
+    -0.04586202988221,
+    -1.0
+  ],
+  "ndvi_edges": [
+    -1.0,
+    1.0
+  ],
+  "ndvi_binning_enabled": false,
+  "volume_kernel": "RossThick",
+  "geom_kernel": "LiDenseR",
+  "b_r": 10.0,
+  "h_b": 2.0,
+  "solar_zn_type": "scene"
+}

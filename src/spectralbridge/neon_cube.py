@@ -154,8 +154,16 @@ class NeonCube:
             raise RuntimeError("Reflectance dataset missing a recognised no-data attribute.")
         self.no_data = float(no_data_value)
 
-        band0 = self.data[:, :, 0]
-        self.mask_no_data = band0 != self.no_data
+        self.source_valid_mask = meta.get("source_valid_mask")
+        self.mask_no_data = np.zeros((self.lines, self.columns), dtype=bool)
+        # Any observed band establishes the data footprint. Per-band NoData is
+        # retained for eligibility; a missing first band cannot erase other bands.
+        rows = max(1, 1_000_000 // max(1, self.columns * self.bands))
+        for y in range(0, self.lines, rows):
+            chunk = self.data[y:y+rows]
+            self.mask_no_data[y:y+rows] = np.any(self.radiometry.valid_stored(chunk, nodata=self.no_data), axis=-1)
+        if self.source_valid_mask is not None:
+            self.mask_no_data &= self.source_valid_mask
 
         mem_gb = self.data.nbytes / (1024 ** 3)
         logger.info(
@@ -345,6 +353,8 @@ class NeonCube:
                 # NumPy slicing gives us either a view or lightweight slice of the
                 # in-memory cube for the current spatial footprint.
                 chunk = self.data[ys:ye, xs:xe, :]
+                if self.source_valid_mask is not None:
+                    chunk = np.where(self.source_valid_mask[ys:ye, xs:xe, None], chunk, self.no_data).astype(np.float32)
                 yield ys, ye, xs, xe, chunk
 
     # Companion helper for progress reporting. This uses the same tiling rules as

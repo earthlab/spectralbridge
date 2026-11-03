@@ -26,7 +26,7 @@ Audience: **advanced**.
       show_bases: false
       show_source: false
       signature_crossrefs: false
-      members: ["require_valid", "to_physical", "to_stored", "header", "record", "from_record", "from_header"]
+      members: ["require_valid", "valid_stored", "to_physical", "to_stored", "to_normalized_fraction", "header", "record", "matches_declaration", "from_record", "from_header"]
       inherited_members: false
       merge_init_into_class: true
 

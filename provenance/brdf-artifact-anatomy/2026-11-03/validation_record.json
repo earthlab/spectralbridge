@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-03",
+  "pytest": {
+    "command": ".venv/bin/python -m pytest -q tests/test_brdf_artifact_anatomy.py tests/test_brdf_diagnostic_controls.py tests/test_radiometric_contract.py",
+    "passed": 15,
+    "warnings": "One existing cross_sensor_cal deprecation warning"
+  },
+  "ruff": "PASS",
+  "docs_links": "PASS",
+  "ai_transparency": "PASS: 9 artifacts",
+  "git_diff_check": "PASS",
+  "scientific_evidence": "PASS: verification.json",
+  "pdf": {
+    "pages": 19,
+    "visual_review": "All pages rendered and reviewed; revised angular scales, categorical masks, shared factor scale and exponent text re-rendered and reviewed",
+    "text_glyph_checks": "PASS",
+    "python": "3.12.14",
+    "reportlab": "4.4.9",
+    "pillow": "12.3.0"
+  },
+  "production_changes": false
+}

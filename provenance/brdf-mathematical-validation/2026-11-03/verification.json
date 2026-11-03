@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "date": "2026-11-03",
+  "repository_revision": "bc369500382949a855cfa8b787d5219f7385f620",
+  "kernel_math_version": "ross-li-reciprocal-f64-v1",
+  "focused_unique_tests": 201,
+  "reference_geometries_per_kernel": 1220,
+  "preserved_source_hashes": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/validation-input/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5": "7ad8032cbfca6879b38bf854640031b6fb2547f792e93bc9e915b3633345a8ff",
+    "/private/tmp/assumed-viewing-angles-20261103/goldhill_working.h5": "363dc7da0674c13f67d4c58f8d5c67135c25ddc75cc8986c45f7007bf4893e41",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-radiometric-recovery/2026-11-02/historical_corrections.py": "839cdf2b7264c5af53902c08994144c776f94f5a59f31dc42bd1574002998a42",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-correction-diagnosis/2026-10-30/saved_production_brdf_model.json": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee"
+  },
+  "production_rasters_regenerated": 0,
+  "figure_pairs": 8,
+  "kernel_AST_hashes_frozen_for_P167": {
+    "_normalize_geom_kernel_name": "0476df74d2fe43cfed871d6f40e2b92130d90faaa8b91f0ce789da3f5dad8f9c",
+    "_brdf_angles": "be120331a4c2088fc64f55b2bf7a66b1ed55cdbd7e2574b972107ef5f6cf7f93",
+    "calc_volume_kernel": "e62fa1cfce9ab77226097428106a4ea01a005428500c9ab1f6bd2a7324edbcf9",
+    "calc_geom_kernel": "43f4f0dee7c6ded4331be1d8dc50532484fa345092c413415bd8f04417ffa893",
+    "_reference_design": "c57acf477438343d32d4106075dd09ede8af73b1c24f65ea4c1af82d829453d7"
+  },
+  "reference_geometry_degrees": {
+    "solar": 45,
+    "view": 0,
+    "relative_azimuth": 0
+  },
+  "versions": {
+    "numpy": "2.5.2",
+    "scipy": "1.18.0",
+    "h5py": "3.16.0",
+    "matplotlib": "3.11.1"
+  },
+  "warnings": "Existing QA/deprecation warnings in focused pipeline tests; no mathematical test failures",
+  "scope": "Mathematics/compatibility only. No radiometry, fitting thresholds or physical calibration changed."
+}

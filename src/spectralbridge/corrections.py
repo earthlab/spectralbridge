@@ -48,6 +48,7 @@ if TYPE_CHECKING:  # pragma: no cover - only for type hints
 
 
 _BRDF_COEFF_CACHE: dict[Path, dict[str, np.ndarray | str]] = {}
+BRDF_KERNEL_MATH_VERSION = "ross-li-reciprocal-f64-v1"
 MAX_UNITLESS_REFLECTANCE = 1.2
 MIN_SCS_C_DENOM = 1e-3
 logger = logging.getLogger(__name__)
@@ -78,9 +79,10 @@ class ReferenceGeometry:
 class BRDFKernelConfig:
     """Kernel and geometry settings for BRDF fitting/application.
 
-    Defaults preserve the streamlined implementation's historical behaviour.
-    Pipelines that want closer HyTools-style kernel parity should pass an
-    explicit config.
+    Direct API defaults use RossThick / LiSparseReciprocal. Both production
+    pipelines explicitly request HYTOOLS_BRDF_KERNEL_CONFIG (LiDenseR).
+    Parameters select a scientific model; mathematical validity does not
+    establish their empirical suitability.
     """
 
     volume_kernel: str = "RossThick"
@@ -145,7 +147,7 @@ def _scs_c_ratio(
 
 
 def load_brdf_model(flightline_dir: Path) -> dict:
-    """Load the BRDF model JSON for ``flightline_dir`` after normalizing its name."""
+    """Read model JSON for inspection; fit/apply separately enforce math compatibility."""
 
     flightline_dir = Path(flightline_dir)
     prefix = scene_prefix_from_dir(flightline_dir)
@@ -196,16 +198,18 @@ def _normalize_volume_kernel_name(kernel_type: str) -> str:
 
 def _normalize_geom_kernel_name(kernel_type: str) -> str:
     kernel_lower = str(kernel_type).lower().replace("-", "_")
+    if kernel_lower in {"li_sparse", "li_dense"}:
+        raise ValueError("Ambiguous nonreciprocal kernel name; use LiSparseReciprocal or LiDenseR explicitly")
     if kernel_lower in {
         "lisparsereciprocal",
         "li_sparse_reciprocal",
-        "li_sparse",
+        "lisparser",
+        "li_sparse_r",
     }:
         return "LiSparseReciprocal"
     if kernel_lower in {
         "lidenser",
         "li_dense_r",
-        "li_dense",
     }:
         return "LiDenseR"
     raise NotImplementedError(
@@ -333,6 +337,26 @@ def calc_cosine_i(
     return cos_i.astype(np.float32, copy=False)
 
 
+def _brdf_angles(solar_az, solar_zn, sensor_az, sensor_zn):
+    """Broadcast radians in float64; invalid upper-hemisphere geometry is NaN.
+
+    Zenith is a polar angle in [0, pi/2), not a signed scan angle. Azimuths
+    describe directions from the surface toward sun/sensor, in the same frame;
+    any finite wrap is accepted. Zero relative azimuth is backscatter.
+    """
+    angles = np.broadcast_arrays(*[
+        np.asarray(a, dtype=np.float64)
+        for a in (solar_az, solar_zn, sensor_az, sensor_zn)
+    ])
+    valid = np.logical_and.reduce([np.isfinite(a) for a in angles])
+    valid &= (angles[1] >= 0) & (angles[1] < np.pi / 2)
+    valid &= (angles[3] >= 0) & (angles[3] < np.pi / 2)
+    sa, sz, va, vz = [np.where(valid, a, np.nan) for a in angles]
+    # Wrap separately before subtraction, including very large finite azimuths.
+    relative = np.remainder(va, 2 * np.pi) - np.remainder(sa, 2 * np.pi)
+    return sz, vz, relative
+
+
 def calc_volume_kernel(
     solar_az: np.ndarray,
     solar_zn: np.ndarray,
@@ -340,38 +364,26 @@ def calc_volume_kernel(
     sensor_zn: np.ndarray,
     kernel_type: str,
 ) -> np.ndarray:
-    """Adapted from hytools.brdf.kernels.calc_volume_kernel (GPLv3; HyTools Authors:
-    Adam Chlus, Zhiwei Ye, Philip Townsend). Simplified for NEON use.
+    """Evaluate normalized RossThick in float64, broadcasting scalar/array inputs.
 
-    Compute the BRDF volume scattering kernel for each pixel.
+    All angles are radians, with zenith in [0, pi/2) and surface-to-sun and
+    surface-to-sensor azimuths in the same frame. Invalid geometry returns NaN.
+    Zero relative azimuth denotes backscatter; its sign does not affect this
+    reciprocal kernel. The kernel is zero at simultaneous solar/view nadir.
+    See Wanner (1995) Eq. 7 and MODIS ATBD v5 Eq. 38. No hotspot or pi scaling
+    is added. HyTools adaptation attribution is retained in this module.
     """
-
     _normalize_volume_kernel_name(kernel_type)
-
-    solar_az, solar_zn, sensor_az, sensor_zn = _validate_angles(
-        solar_az, solar_zn, sensor_az, sensor_zn
+    sz, vz, relative = _brdf_angles(solar_az, solar_zn, sensor_az, sensor_zn)
+    phase_cos = np.cos(sz) * np.cos(vz) + np.sin(sz) * np.sin(vz) * np.cos(relative)
+    # Only roundoff outside the analytic cosine range is bounded.
+    phase_cos = np.clip(phase_cos, -1.0, 1.0)
+    phase = np.arccos(phase_cos)
+    return np.asarray(
+        ((np.pi / 2 - phase) * phase_cos + np.sin(phase))
+        / (np.cos(sz) + np.cos(vz)) - np.pi / 4,
+        dtype=np.float64,
     )
-
-    cos_solar = np.cos(solar_zn)
-    sin_solar = np.sin(solar_zn)
-    cos_sensor = np.cos(sensor_zn)
-    sin_sensor = np.sin(sensor_zn)
-    cos_rel_az = np.cos(solar_az - sensor_az)
-
-    cos_phase = cos_solar * cos_sensor + sin_solar * sin_sensor * cos_rel_az
-    cos_phase = np.clip(cos_phase, -1.0, 1.0)
-    phase_angle = np.arccos(cos_phase)
-
-    denom = cos_solar + cos_sensor
-    denom = np.where(np.abs(denom) < 1e-6, np.nan, denom)
-
-    kernel = (
-        ((np.pi / 2.0 - phase_angle) * cos_phase + np.sin(phase_angle)) / denom
-        - np.pi / 4.0
-    )
-
-    kernel = np.where(np.isfinite(kernel), kernel, 0.0)
-    return kernel.astype(np.float32)
 
 
 def calc_geom_kernel(
@@ -383,35 +395,47 @@ def calc_geom_kernel(
     b_r: float = 1.0,
     h_b: float = 2.0,
 ) -> np.ndarray:
-    """Adapted from hytools.brdf.kernels.calc_geom_kernel (GPLv3; HyTools Authors:
-    Adam Chlus, Zhiwei Ye, Philip Townsend). Simplified for NEON use.
+    """Evaluate LiDenseR or LiSparseReciprocal, never interchanging variants.
 
-    Compute the BRDF geometric scattering kernel for each pixel.
+    Units/domain/broadcasting match :func:`calc_volume_kernel`; invalid angles
+    return NaN. Crown shape ``b_r`` and relative crown height ``h_b`` must be
+    finite positive scalars. Shape transforms tan(zenith), not output amplitude.
+    Float64 output is unscaled, with zero at simultaneous solar/view nadir.
+
+    LiDenseR is Zhang et al. (2018) Eq. 5 (reciprocal dense), not Wanner's
+    nonreciprocal LiDense Eq. 47 or MODIS LiSparseR. Shared overlap follows
+    MODIS ATBD Eqs. 40-44; its cosine saturation represents no shadow overlap.
+    The existing HyTools-derived equations and attribution are preserved.
     """
-
-    normalized_kernel = _normalize_geom_kernel_name(kernel_type)
-
-    solar_az, solar_zn, sensor_az, sensor_zn = _validate_angles(
-        solar_az, solar_zn, sensor_az, sensor_zn
-    )
-
-    # HyTools pinned 31286d64: Wanner 1995 / Lucht 2000 / Zhang 2018.
-    # b/r transforms zenith angles; it is not an output multiplier.
-    solar_p = np.arctan(float(b_r) * np.tan(solar_zn.astype(np.float64)))
-    sensor_p = np.arctan(float(b_r) * np.tan(sensor_zn.astype(np.float64)))
-    relative = sensor_az.astype(np.float64) - solar_az
-    ts, tv = np.tan(solar_p), np.tan(sensor_p)
-    ss, sv = 1 / np.cos(solar_p), 1 / np.cos(sensor_p)
-    distance2 = np.maximum(ts**2 + tv**2 - 2 * ts * tv * np.cos(relative), 0.)
-    cos_t = np.clip(float(h_b) * np.sqrt(distance2 + (ts * tv * np.sin(relative))**2) / (ss + sv), -1., 1.)
-    t = np.arccos(cos_t)
-    overlap = (t - np.sin(t) * np.cos(t)) * (ss + sv) / np.pi
-    phase = np.cos(solar_p) * np.cos(sensor_p) + np.sin(solar_p) * np.sin(sensor_p) * np.cos(relative)
-    if normalized_kernel == "LiDenseR":
-        kernel = (1 + phase) * ss * sv / (ss + sv - overlap) - 2
-    else:
-        kernel = overlap - ss - sv + .5 * (1 + phase) * ss * sv
-    return kernel.astype(np.float32)
+    normalized = _normalize_geom_kernel_name(kernel_type)
+    if not all(np.ndim(p) == 0 and np.isfinite(p) and p > 0 for p in (b_r, h_b)):
+        raise ValueError("BRDF crown parameters b_r and h_b must be finite positive scalars")
+    sz, vz, relative = _brdf_angles(solar_az, solar_zn, sensor_az, sensor_zn)
+    with np.errstate(invalid="ignore", over="ignore", divide="ignore"):
+        ts, tv = float(b_r) * np.tan(sz), float(b_r) * np.tan(vz)
+        ss, sv = np.hypot(1, ts), np.hypot(1, tv)
+        # Equivalent to D^2=ts^2+tv^2-2*ts*tv*cos(phi), without cancellation
+        # near coincident rays. Crown-transformed secants avoid atan rounding.
+        distance = np.hypot(ts - tv, 2 * np.sqrt(ts) * np.sqrt(tv) * np.sin(relative / 2))
+        overlap_cos = np.clip(float(h_b) * np.hypot(distance, ts * tv * np.sin(relative)) / (ss + sv), 0, 1)
+        t = np.arccos(overlap_cos)
+        # t - sin(t)cos(t), stable at the no-overlap boundary t -> 0.
+        small_t = t**3 * (2 / 3 + t**2 * (-2 / 15 + t**2 * (4 / 315)))
+        overlap_shape = np.where(t < 1e-3, small_t, t - np.sin(t) * np.cos(t))
+        overlap = overlap_shape * (ss + sv) / np.pi
+        # 1+cos(phase) = half the squared norm of the sum of the two unit
+        # directions. Avoid subtracting nearly equal numbers at grazing,
+        # opposite-azimuth geometry, where cos(phase) approaches -1.
+        phase_plus_one = np.clip(0.5 * (
+            (1 / ss + 1 / sv)**2
+            + (ts / ss + tv / sv * np.cos(relative))**2
+            + (tv / sv * np.sin(relative))**2
+        ), 0, 2)
+        if normalized == "LiDenseR":
+            kernel = phase_plus_one * ss * sv / (ss + sv - overlap) - 2
+        else:
+            kernel = overlap - ss - sv + 0.5 * phase_plus_one * ss * sv
+    return np.asarray(np.where(np.isfinite(kernel), kernel, np.nan), dtype=np.float64)
 
 
 # Per-tile topographic correction used by the streamlined NEON and drone workflows.
@@ -688,6 +712,8 @@ def apply_brdf_correct(
         raise ValueError("BRDF UNSUPPORTED: a validated saved model is required.")
     # Read the small record on each call: a path-only cache can conceal edits.
     model = json.loads(Path(coeff_path).read_text())
+    if model.get("kernel_math_version") != BRDF_KERNEL_MATH_VERSION:
+        raise ValueError("BRDF UNSUPPORTED: incompatible or unversioned kernel mathematics; refit in a fresh output directory")
     validation = model.get("validation", {})
     if model.get("schema_version") != 2 or validation.get("status") != "VALID":
         raise ValueError(f"BRDF {validation.get('status', 'UNSUPPORTED')}: model is not a validated shared-contract fit.")
@@ -776,7 +802,7 @@ def _brdf_design(cube, config, scene_solar=None, window=None):
         valid = valid[ys:ye, xs:xe]
     for a in angles:
         valid &= np.isfinite(a)
-    valid &= (angles[1] >= 0) & (angles[1] < np.pi/2) & (np.abs(angles[3]) < np.pi/2)
+    valid &= (angles[1] >= 0) & (angles[1] < np.pi/2) & ((angles[3] >= 0) & (angles[3] < np.pi/2))
     if str(config.solar_zn_type).lower() == "scene":
         if scene_solar is None:
             scene_solar = float(np.mean(angles[1][valid], dtype=np.float64)) if valid.any() else None
@@ -790,10 +816,13 @@ def _brdf_design(cube, config, scene_solar=None, window=None):
 
 
 def _reference_design(reference, config):
-    a = [np.full((1, 1), np.deg2rad(x), dtype=np.float32) for x in
+    a = [np.full((1, 1), np.deg2rad(x), dtype=np.float64) for x in
          (reference.relative_azimuth_deg, reference.solar_zenith_deg, 0., reference.view_zenith_deg)]
-    return np.array([1., calc_volume_kernel(*a, kernel_type=config.volume_kernel).item(),
-                     calc_geom_kernel(*a, kernel_type=config.geom_kernel, b_r=config.b_r, h_b=config.h_b).item()])
+    design = np.array([1., calc_volume_kernel(*a, kernel_type=config.volume_kernel).item(),
+                       calc_geom_kernel(*a, kernel_type=config.geom_kernel, b_r=config.b_r, h_b=config.h_b).item()])
+    if not np.isfinite(design).all():
+        raise ValueError("BRDF INVALID: reference geometry outside supported angular domain")
+    return design
 
 
 def fit_and_save_brdf_model(
@@ -843,6 +872,7 @@ def fit_and_save_brdf_model(
     signature = {"source_identity": identity, "radiometry": radiometry.record(),
                  "kernel_config": asdict(config), "ndvi_config": asdict(ndvi_config),
                  "rho_min": rho_min, "rho_max": rho_max, "schema_version": 2,
+                 "kernel_math_version": BRDF_KERNEL_MATH_VERSION,
                  "apply_topography": bool(apply_topography)}
     if coeff_path.exists():
         old = json.loads(coeff_path.read_text())
@@ -852,7 +882,11 @@ def fit_and_save_brdf_model(
     payload = {**signature, "source_path": str(getattr(cube,"h5_path","in-memory fixture")),
                "source_shape": list(cube.data.shape), "reference_geometry": asdict(reference),
                "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
-               "fitting_population": {"available_spatial": int(np.count_nonzero(cube.mask_no_data)), "eligible": None, "status": "NOT_EVALUATED"},
+               "fitting_population": {"total_image_pixels": int(np.prod(cube.data.shape[:2])),
+                   "available_spatial": int(np.count_nonzero(cube.mask_no_data)),
+                   "explicit_source_footprint_pixels": int(np.count_nonzero(cube.source_valid_mask)) if getattr(cube, "source_valid_mask", None) is not None else None,
+                   "source_footprint_status": "DOCUMENTED_MASK" if getattr(cube, "source_valid_mask", None) is not None else "NoData-derived; independent footprint mask unavailable",
+                   "eligibility_units": "verified fractional physical reflectance only", "eligible": None, "status": "NOT_EVALUATED"},
                "angular_support": {"status": "NOT_EVALUATED"},
                "rank_conditioning_status": "NOT_EVALUATED",
                "correction_factor_diagnostics_status": "NOT_EVALUATED",
@@ -908,13 +942,21 @@ def fit_and_save_brdf_model(
         for bin_id in range(n_bins):
             population = valid & (bins == bin_id)
             y = physical[..., band]
-            finite = population & np.isfinite(y) & (cube.data[..., band] != getattr(cube, "no_data", np.nan))
+            source_finite = (np.asarray(cube.mask_no_data, bool) & (bins == bin_id) & np.isfinite(y)
+                             & radiometry.valid_stored(cube.data[..., band], band_index=band, nodata=getattr(cube, "no_data", None)))
+            radiometric_eligible = source_finite & (y >= rho_min)
+            if rho_max is not None:
+                radiometric_eligible &= y <= rho_max
+            finite = population & source_finite
             eligible = finite & (y >= rho_min)
             if rho_max is not None:
                 eligible &= y <= rho_max
             count = int(eligible.sum())
             record = {"band": band, "bin": bin_id, "available": int(population.sum()),
-                      "eligible": count, "excluded_nonfinite_or_nodata": int((population & ~finite).sum()),
+                      "source_nodata_quality_valid": int(source_finite.sum()),
+                      "radiometrically_eligible_before_geometry": int(radiometric_eligible.sum()),
+                      "eligible": count, "eligibility_units": "fractional physical reflectance",
+                      "excluded_nonfinite_or_nodata": int((population & ~finite).sum()),
                       "excluded_below_min": int((finite & (y < rho_min)).sum()),
                       "excluded_above_max": int((finite & (y > rho_max)).sum()) if rho_max is not None else 0,
                       "rank": 0, "status": "UNSUPPORTED"}

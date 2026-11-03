@@ -1,0 +1,67 @@
+{
+  "reference_method": "60-digit scalar published equations, independent of package; pinned DIRSIG C++ cross-check of Ross and transformed nonreciprocal dense",
+  "current_kernel_version": "ross-li-reciprocal-f64-v1",
+  "errors": {
+    "RossThick": {
+      "cases": 1220,
+      "max_absolute_error": 4.057073965668678e-08,
+      "median_absolute_error": 8.326672684688674e-17,
+      "maximum_error_scaled_by_one_plus_absolute_expected": 9.016681168461808e-13,
+      "max_absolute_error_through_80_degrees": 2.6645352591003757e-15,
+      "worst_absolute_case": {
+        "solar_deg": 89.999,
+        "view_deg": 89.999,
+        "relative_deg": 0,
+        "b_r": 1,
+        "h_b": 2,
+        "RossThick": 44999.21460412123,
+        "LiDenseR": 114589.55903198241,
+        "LiSparseReciprocal": 3282749054.5655613
+      }
+    },
+    "LiDenseR": {
+      "cases": 1220,
+      "max_absolute_error": 1.0335352271795273e-06,
+      "median_absolute_error": 1.6653345369377348e-16,
+      "maximum_error_scaled_by_one_plus_absolute_expected": 9.020136976401448e-13,
+      "max_absolute_error_through_80_degrees": 5.684341886080802e-14,
+      "worst_absolute_case": {
+        "solar_deg": 89.999,
+        "view_deg": 89.999,
+        "relative_deg": 0,
+        "b_r": 10,
+        "h_b": 2,
+        "RossThick": 44999.21460412123,
+        "LiDenseR": 1145913.5901470364,
+        "LiSparseReciprocal": 328280061977.71265
+      }
+    },
+    "LiSparseReciprocal": {
+      "cases": 1220,
+      "max_absolute_error": 0.5921630859375,
+      "median_absolute_error": 3.552713678800501e-15,
+      "maximum_error_scaled_by_one_plus_absolute_expected": 2.9103830456733705e-12,
+      "max_absolute_error_through_80_degrees": 2.2737367544323206e-12,
+      "worst_absolute_case": {
+        "solar_deg": 89.999,
+        "view_deg": 89.999,
+        "relative_deg": 0,
+        "b_r": 10,
+        "h_b": 2,
+        "RossThick": 44999.21460412123,
+        "LiDenseR": 1145913.5901470364,
+        "LiSparseReciprocal": 328280061977.71265
+      }
+    }
+  },
+  "external_cpp": {
+    "url": "https://dirsig-gitlab.cis.rit.edu/dirsig_public/dirsig-sdk/-/blob/1.2.5/lib/brdf/RossLi.cpp",
+    "sha256": "a7d5c4bd3e7641c81c20fbf3ff64c6c8a00baab0284b2dedbf82b282d1abe4ae",
+    "rows": 740,
+    "max_absolute_errors": {
+      "RossThick": 2.6645352591003757e-15,
+      "LiDenseR": 1.4814816040598089e-09
+    },
+    "dense_conversion": "(nonreciprocal_dense + 2) * sec(transformed_solar_zenith) - 2"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "source_identity": "d1ccd6ae2bcafdc1cdf59c566bfe569e82cabec37b88824954ea4f399a68b71b",
+  "radiometry": {
+    "scale": null,
+    "offset": null,
+    "status": "UNSUPPORTED",
+    "provenance": "Independent 25 cm pairs verify normalization; physical calibration unavailable",
+    "convention": "physical = scale * stored + offset",
+    "encoding": {
+      "kind": "range_normalized_dn",
+      "physical_calibration_status": "UNVERIFIED",
+      "stored_units": "range-normalized DN",
+      "source_units": "Metashape UInt16 numerical output; physical calibration unverified",
+      "nodata": -9999,
+      "normalization": {
+        "stored_min": 0,
+        "stored_max": 10000,
+        "source_min": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          174.0
+        ],
+        "source_max": [
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0
+        ]
+      }
+    }
+  },
+  "kernel_config": {
+    "volume_kernel": "RossThick",
+    "geom_kernel": "LiSparseReciprocal",
+    "b_r": 1.0,
+    "h_b": 2.0,
+    "solar_zn_type": "pixel"
+  },
+  "ndvi_config": {
+    "enabled": false,
+    "ndvi_min": 0.05,
+    "ndvi_max": 1.0,
+    "n_bins": 25,
+    "perc_min": 10.0,
+    "perc_max": 95.0
+  },
+  "rho_min": 0.0,
+  "rho_max": 2.0,
+  "schema_version": 2,
+  "kernel_math_version": "ross-li-reciprocal-f64-v1",
+  "apply_topography": false,
+  "source_path": "/private/tmp/assumed-viewing-angles-20261103/goldhill_working.h5",
+  "source_shape": [
+    2238,
+    3165,
+    10
+  ],
+  "reference_geometry": {
+    "solar_zenith_deg": 45.0,
+    "view_zenith_deg": 0.0,
+    "relative_azimuth_deg": 0.0
+  },
+  "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
+  "fitting_population": {
+    "total_image_pixels": 7083270,
+    "available_spatial": 7068376,
+    "explicit_source_footprint_pixels": null,
+    "source_footprint_status": "NoData-derived; independent footprint mask unavailable",
+    "eligibility_units": "verified fractional physical reflectance only",
+    "eligible": null,
+    "status": "NOT_EVALUATED"
+  },
+  "angular_support": {
+    "status": "NOT_EVALUATED"
+  },
+  "rank_conditioning_status": "NOT_EVALUATED",
+  "correction_factor_diagnostics_status": "NOT_EVALUATED",
+  "validation": {
+    "status": "UNSUPPORTED",
+    "fits": [],
+    "reasons": [
+      "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Independent 25 cm pairs verify normalization; physical calibration unavailable)."
+    ]
+  }
+}

@@ -83,6 +83,16 @@ footprint and is the recommended setting for new NEON runs.
 
 ## BRDF fitting and application
 
+The [BRDF mathematical validation report](reports/BRDF_MATHEMATICAL_VALIDATION.md)
+independently verifies the reciprocal dense and sparse equations, angular domain
+and numerical behavior. Kernel helpers now broadcast scalar/vector/raster inputs
+and return float64; invalid polar geometry returns NaN. Ambiguous nonreciprocal
+names `li_dense` and `li_sparse` are rejected; use `LiDenseR` or
+`LiSparseReciprocal` explicitly. BRDF model JSON and completed correction headers
+record `ross-li-reciprocal-f64-v1`. Unversioned or incompatible coefficients must
+be refitted in a fresh output directory; existing products are not regenerated.
+This does not change radiometry, fitting thresholds or crown-parameter defaults.
+
 The Ross/Li kernel family is described by Wanner, Li, and Strahler (1995),
 DOI [`10.1029/95JD02371`](https://doi.org/10.1029/95JD02371), and Lucht, Schaaf,
 and Strahler (2000), DOI
@@ -97,6 +107,18 @@ does not replace that software attribution.
   multiplier is the reciprocal. Drone calibration needs explicit provenance.
   The October 26 raw-attribute multiplication rollback is historical behavior
   superseded by the verified October 30 shared radiometry contract.
+* Storage encodings distinguish raw DN, range-normalized DN, scaled physical
+  reflectance, fractional physical reflectance and unknown units. Scalar or
+  per-band affine coefficients carry calibration provenance, NoData and declared
+  source-quality semantics. A normalized fraction is diagnostic only until
+  physical calibration is verified. Conversion preserves finite zeros/negative
+  observations; the configurable fitting interval is a separate selection step.
+  Declared TIFF alpha and H5 footprint masks survive ingestion and windowing.
+  See the [real-data radiometric validation](reports/RADIOMETRIC_SCALING_VALIDATION.md).
+* Native-band translation and physical Parquet extraction use this same affine
+  contract. Stored-space cross-band convolution requires a common zero-offset
+  calibration; convert a validated input to fractional physical units first when
+  band-specific scales or offsets would not commute with spectral weighting.
 * The streamlined BRDF model now persists the kernel settings used during fit
   and apply, including the volume kernel, geometric kernel, geometric
   parameters (`b/r`, `h/b`), and `solar_zn_type`.

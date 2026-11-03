@@ -1,0 +1,70 @@
+[
+  {
+    "name": "figure01_observation",
+    "caption": "Full scene on the repaired grid. Top: one source-DN-equivalent display scale. Bottom: independent per-stage 2-98% channel stretches reveal structure but cannot compare radiometric magnitude. Cyan box is the common native zoom. Gray is missing stage data; white is outside positive source alpha."
+  },
+  {
+    "name": "figure02_stage_story",
+    "caption": "Six requested views on one native 0.1 m grid and one extent. First three rows are encoding/spatial views of the same source, not new observations: spatial repair changes coordinates, not spectra. The actual historical order normalized before H5 spatial repair. Common display uses DN-equivalent = min + S*(65535-min)/10000 after each stage; this is not physical reflectance or native-camera recovery. Source-DN reference is black. Shading is within-polygon pixel IQR, not independent-replicate uncertainty. The 650 and 717 nm spikes are real historical numerical output."
+  },
+  {
+    "name": "figure03_rgb_mapping",
+    "caption": "The default QA targets 660/560/490 nm and resolves to 668/560/475 nm. The named band_map red=650, green=560, blue=444 belongs to band-fidelity metrics, not the RGB selector. The default RGB omits both catastrophically altered Goldhill wavelengths (650 and 717 nm). Diagnostic native-red RGB exposes the artifact; a normal-looking default RGB does not validate the cube."
+  },
+  {
+    "name": "figure04_pixel_trajectories",
+    "caption": "Actual native row/column and projected coordinates are in pixel_trajectories.csv. Positive factors use a logarithmic axis; signed predictions and spectra use symlog, preserving zeros and negative values. No gains are capped in the calculations. The zero-denominator outside pixel and first positive-denominator neighbor are adjacent 0.1 m cells."
+  },
+  {
+    "name": "figure05_geometry_atlas",
+    "caption": "Uniform zero view maps are shown with a single-value legend, not a misleading continuous scale. Numeric relative azimuth is stored solar azimuth minus placeholder zero. Solar fields are per-pixel NOAA calculations at one manifest timestamp, not camera observations; time remains unverified. Full-population ranges and projected gradient bearings are in geometry_statistics.csv. Images are native point samples, stride 6; all exact metrics use native arrays."
+  },
+  {
+    "name": "figure06_terrain_atlas",
+    "caption": "Source slope/aspect grids and their degree interpretation are preserved. Physical source-surface/derivative and timestamp provenance remain unresolved. Incidence angle is arccos(cos(i)) only where finite and within [-1,1]; negative cosine is explicitly back-facing. The explanatory terrain diagram is conceptual, not recovered camera geometry."
+  },
+  {
+    "name": "figure07_geometry_zoom",
+    "caption": "All six panels use identical NAD83/UTM13N extent and native pixel centers. Black contours are based on the actual quantized historical 650 nm prediction, not a smoothed image edge. Sensor angles remain the same zero placeholders in this zoom. The incidence field is not substituted for sensor zenith."
+  },
+  {
+    "name": "figure07b_kernel_distributions",
+    "caption": "Full-scene kernel fields use the same repaired grid as the overview. Histograms show the explicitly stride-6 positive-alpha display sample, not independent camera observations; exact full-population solar statistics and SVDs are tabulated separately. RossThick is uniform at scene zenith and zero view, so a single-value map legend replaces a continuous color bar. LiDenseR variation belongs to the defective historical implementation."
+  },
+  {
+    "name": "figure08_design_rank",
+    "caption": "Full native design SVD, not a sampled rank estimate. The old kernel manufactured a second numerical direction through erroneous nadir azimuth dependence; the repaired kernel is rank one. RossThick is constant, so its correlation with LiDenseR is undefined rather than zero. Tiny positive trailing singular values are numerical roundoff, not independent observations."
+  },
+  {
+    "name": "figure09_coefficients",
+    "caption": "Actual unchanged coefficient vectors. Historical fitting treated stored range-normalized numbers as scale-one unitless values and selected 0..2, leaving only 14 red and 13 green pixels. This is a numerical population mismatch, not verified physical reflectance calibration. Red/green least-squares reconstruction uses those exact source coordinates and matches saved float32 coefficients. The 650 nm reference prediction is 91,740.234375, not a measured signal."
+  },
+  {
+    "name": "figure10_predictions",
+    "caption": "Seven spatial fields on exactly the same native zoom. Observed response and denominator are the same quantity; reference response and numerator are the same quantity, shown explicitly rather than implying independent measurements. Signed fields use a zero-centered diverging scale. Positive factors use log color; nonpositive predictions remain visible and the fallback state is separate. Quantitative boundary comparison uses native neighbor edges, not raster color or interpolated contours."
+  },
+  {
+    "name": "figure11_denominator_transect",
+    "caption": "Rows 881, 921 and 961 are available in the CSV; the main plot is actual contiguous row 921. The two neighboring cells 980/981 go from denominator 0 to 0.0078125 and factor 1 to 11,742,750. The reference prediction stays 91,740.234375. Signed predictions use linear or symlog axes, positive factors use log. The scatter is a deterministic display sample only; all metrics are full native arrays."
+  },
+  {
+    "name": "figure12_spectral_heatmap",
+    "caption": "All ten actual bands. 650 nm reaches 11.74 million gain; 717 nm reaches about 115,554. Green 560 and red 668 have negative reference predictions and fall back everywhere. 475 is initialized neutral. The default 668/560/475 RGB therefore hides the 650/717 corruption. Named blue 444 follows a separate loss response. Full per-band ranges, quantiles, masks, coefficients and fractions are in band_diagnostics.json."
+  },
+  {
+    "name": "figure13_topographic_mechanism",
+    "caption": "Actual historical normalized-source 531 nm C=-0.21112473. Full-scene ratio reproduces cached topographic values bit-for-bit and reaches 356.55. The SCS+C near-zero denominator is cos(i)+C with guard 0.001; the BRDF denominator is the fitted directional response. They are different mechanisms. Threshold >10 is descriptive, never clipping or a scientific acceptance criterion. Topographic outputs remain unapproved."
+  },
+  {
+    "name": "figure14_polygon_consequence",
+    "caption": "Source and BRDF-only show the same Deciduous polygon, source grid and acquisition. No biological change occurred between panels. The curve uses common retained source-alpha-positive pixels; shading is their within-polygon IQR, not a confidence interval from independent plants. The 650 and 717 nm bands acquire artificial dominance. PFT label and GlobalID are preserved exactly."
+  },
+  {
+    "name": "figure15_pft_distortion",
+    "caption": "One polygon median per identity, with exactly the same pixels compared across all stages. All 157 Goldhill polygons and 144,411 common memberships are retained. Goldhill has no non-vegetated/dead polygons on this footprint; that category remains present in the source and Gordon/Ruby comparisons, not invented for Goldhill. Descriptive within-polygon variability, spectral angles, index changes and between-PFT overlap are separate tables, not classification accuracy or correction efficacy."
+  },
+  {
+    "name": "figure16_three_flights",
+    "caption": "Columns are matched across flights; RGB uses a fixed source scale within each flight, explicitly not a claim of calibrated cross-flight equivalence. 650 nm factors share a log scale from 1 to 20 million. In the observed-nonpositive mask, purple is false and yellow is true. Gordon has large gains in other bands (notably 444/475), while Ruby mainly loses signal or takes neutral guards. Negative reference predictions can force identity even when observed predictions are positive, so the full guard fractions must be read alongside the observed-negative mask. Every fit remains unsupported under the current corrected kernels."
+  }
+]

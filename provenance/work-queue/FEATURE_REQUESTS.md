@@ -20,16 +20,39 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P167. Validate shared radiometry and unit-aware BRDF eligibility
+
+- Priority: P0, user-directed scientific software repair following P166 mathematics
+- Owner: Codex
+- Started: 2026-11-03
+- Status: Complete (2026-11-03). Historical Goldhill counts and coefficients reproduced exactly; real-source normalization and NEON divisor verified; shared typed affine/mask/export interfaces repaired; 233 distinct focused tests pass. Physical drone calibration remains explicitly unresolved.
+- Scope: Trace actual NEON/drone encodings; reproduce ten historical Goldhill eligibility counts; distinguish normalized diagnostic fractions from unresolved physical calibration; minimally extend shared radiometric metadata/masks and fitting eligibility; real-data figures and `docs/reports/RADIOMETRIC_SCALING_VALIDATION.md`. No invented calibration/angles, changed reference/rank gates, gain caps or production regeneration.
+- Plan: Reuse source-verified P159/P160/P165 evidence and actual cached inputs; independently audit units/conversions/quality eligibility; implement smallest explicit affine contract extension; verify source and coefficient preservation, NEON compatibility and synthetic scaling/offset/mask invariants.
+- Delivered: `docs/reports/RADIOMETRIC_SCALING_VALIDATION.md` and `provenance/radiometric-scaling-validation/2026-11-03/`: seven visually reviewed PNG/SVG figure pairs, paired 25 cm normalization audit (maximum error 0.000780386 stored units), unchanged historical fitter replay with exact coefficient arrays, ten counts [3,1,9,13,14,30,8,4,1,0], diagnostic B = 6,692,436 positive-alpha observations per band, unresolved C and explicit real-data physical-fit rejection. All 34,254,960 selected NEON observations decode bit-identically to the previous documented path; round-trip error <0.001 DN. Eight protected sources/models unchanged; P166 kernel/reference ASTs unchanged; no production regeneration. Added typed encodings, per-band affine metadata, declared alpha/NoData/quality masks, full ENVI contract replacement, shared Parquet decoding and fail-closed incompatible stored-space convolution.
+- Blockers for production promotion: authoritative drone physical calibration and actual normalization/export code/settings, independent quality semantics and genuine camera/contributor geometry remain unavailable. Observed maxima equal 65535, so fixed-type versus observed-maximum normalization cannot be distinguished from source pairs alone.
+- Next: P159 source calibration/geometry recovery and independent scientific validation. Preserve unsupported historical products; regenerate only in fresh versioned outputs once dependencies are resolved. No release identity, citation, navigation or production-data changes were needed.
+
+### P166. Independently verify and correct shared BRDF mathematics
+
+- Priority: P0, user-directed scientific software correction
+- Owner: Codex
+- Started: 2026-11-03
+- Status: Complete (2026-11-03). Existing repaired equations independently verified; float64/domain/broadcast/numerical stability and version compatibility repaired. Real NEON rank 3, Goldhill rank 1; 201 focused tests pass.
+- Scope: Published RossThick/LiDenseR equations, domain/array/invalid-geometry handling, independent reference tests, shared NEON/drone call path, coefficient compatibility, real NEON and Goldhill geometry diagnostics, figure-rich scientific report. No scaling, fit-selection policy, source metadata, camera invention or production regeneration.
+- Plan: Record pre-edit implementation inventory; independently establish the exact dense reciprocal variant and normalization; implement only justified shared mathematical/compatibility corrections; retain historical replay code; validate synthetic reference values, real geometry, rank rejection and pipeline regressions.
+- Delivered: `docs/reports/BRDF_MATHEMATICAL_VALIDATION.md` and `provenance/brdf-mathematical-validation/2026-11-03/`: pre-edit inventory/snapshot; 1,220 independent 60-digit cases per kernel plus 740 pinned external C++ comparisons; eight PNG/SVG figures; native bounded-window NEON/Goldhill QR/SVD and all-field statistics; synthetic-signal/real-Goldhill-geometry 10/10 rejection control; four unchanged source/model/historical hashes; AST hashes freezing mathematical functions for P167. Shared model/header/cache version `ross-li-reciprocal-f64-v1` blocks incompatible coefficients and correction-stage reuse without overwriting old products. Existing attribution retained; scalar output now float64 and ambiguous nonreciprocal short names explicitly rejected.
+- Next: P167 shared radiometric metadata/quality eligibility audit and repair, retaining frozen kernel/reference equations and angular gates; P159 physical calibration/camera/timing dependencies remain unresolved.
+
 ### P165. Reconstruct the anatomy of the Goldhill BRDF artifact
 
 - Priority: P0, user-directed read-only scientific reconstruction
 - Owner: Codex
 - Started: 2026-11-03
-- Status: In progress; inventorying exact historical replay arrays, model/code provenance and restored sources.
+- Status: Complete (2026-11-03). Exact historical replay, native boundary proof and spectral consequences documented in a visually reviewed 19-page PDF and equivalent Markdown. No production changes.
 - Scope: Aligned six-stage map/spectra narrative, actual angular atlas, old/new design rank, historical predictions/zero contours/guards, contiguous transects, all-band behavior, separate SCS+C mechanism, researcher-polygon distortion and Gordon/Ruby comparison. Approximately 12–20-page PDF plus Markdown, high-resolution figures/tables and preservation record. No production edits or gate changes.
 - Plan: Reuse P156/P160 exact saved arrays; use only pinned historical code and unchanged saved coefficients for isolated reconstruction. Retain repaired source grid, distinguish numerical encodings, retain true masks and audit alpha background. Verify mechanism by array equality and measured boundary correspondence, not appearance.
-- Remaining: Source/model recovery and hashes, derived diagnostics/polygon metrics, figures/report, focused regression and final visual/reproducibility checks.
-- Next: Complete P165; preserve P159 calibration/geometry dependencies and unapproved correction states.
+- Delivered: `provenance/brdf-artifact-anatomy/2026-11-03/`: 17 PNG/SVG figure pairs, six-stage aligned narrative, actual angular atlas/distributions and historical equations, 30-band model/gain audit, four tracked pixels, three native transects, 157 paired Goldhill polygons / 144,411 common memberships, separate SCS+C proof, three-flight comparison, scripts/tables and executive summary. Historical corrections match both pinned and production-QA revisions; seven fitted coefficient vectors reconstruct exactly; all 70,832,700 Goldhill cached-stage values/masks replay exactly, explicitly reusing the prior direct-production comparison. Main denominator transition matches 2,933 native edges exactly; one NDVI upper-edge exception adds four separate edges. Generic QA RGB 668/560/475 omits the corrupted 650/717 bands and has zero changed BRDF-only zoom channel values. All 19 protected inputs unchanged. Fifteen focused tests, Ruff, docs links, transparency, report evidence verification and whitespace pass.
+- Next: P159 verified source calibration, true per-observation camera geometry/contributors, acquisition timestamps, alpha eligibility and independent domain validation. Unsupported BRDF and topographic outputs remain unapproved. Gordon/Ruby diagnostic stages were not newly compared to unavailable production raster bytes; no missing-source calibration or camera geometry was invented.
 
 
 ### P164. Experimentally evaluate assumed drone viewing angles

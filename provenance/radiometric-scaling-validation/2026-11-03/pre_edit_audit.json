@@ -1,0 +1,13 @@
+{
+  "repository_revision": "bc369500382949a855cfa8b787d5219f7385f620",
+  "shared_boundary": "Radiometry; both fitting and application already convert before physical eligibility",
+  "remaining_gaps": [
+    "Only scalar affine coefficients and no typed encoding metadata",
+    "NoData masking left to callers; per-band numeric quality not represented",
+    "TIFF bridge reads all bands and ignores declared alpha/validity mask",
+    "Cube footprint based only on first band != nodata (NaN comparison can admit missing source)",
+    "No explicit diagnostic-only normalized-fraction interface",
+    "Legacy scale-only/median helpers are not authoritative calibration; production fitting does not call them"
+  ],
+  "kernel_scope": "P166 functions frozen; P167 does not alter kernel equations, reference geometry, rank or conditioning gates"
+}

@@ -907,6 +907,16 @@ def convolve_resample_product(
     """Stream a corrected BSQ cube through supplied spectral-response weights into canonical target-sensor products."""
 
     src_header = _parse_envi_header(corrected_hdr_path)
+    # Stored-space cross-band weighting preserves only a common, zero-offset
+    # calibration. Reject richer encodings before creating any output bytes.
+    if "radiometry status" in src_header:
+        from spectralbridge.radiometry import Radiometry
+        calibration = Radiometry.from_header(src_header).require_valid()
+        if np.ndim(calibration.scale) or np.any(np.asarray(calibration.offset) != 0):
+            raise ValueError(
+                "Stored-space convolution requires a common zero-offset calibration; "
+                "provide a validated fractional-physical input before cross-band weighting."
+            )
     try:
         samples = int(src_header["samples"])  # type: ignore[index]
         lines = int(src_header["lines"])  # type: ignore[index]
@@ -1861,7 +1871,11 @@ def stage_apply_brdf_topo_correction(
     if is_valid_envi_pair(corrected_img_path, corrected_hdr_path):
         from spectralbridge.radiometry import require_library_header
         from spectralbridge.envi import hdr_to_dict
-        require_library_header(hdr_to_dict(corrected_hdr_path))
+        from spectralbridge.corrections import BRDF_KERNEL_MATH_VERSION
+        completed_header = hdr_to_dict(corrected_hdr_path)
+        require_library_header(completed_header)
+        if completed_header.get("brdf kernel math version") != BRDF_KERNEL_MATH_VERSION:
+            raise ValueError("BRDF UNSUPPORTED: existing corrected product has incompatible kernel mathematics; preserve it and use a fresh output directory")
         logger.info(
             "✅ BRDF+topo correction already complete for %s -> %s / %s (skipping)",
             flight_stem,

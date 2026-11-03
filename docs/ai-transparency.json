@@ -1,11 +1,11 @@
 {
   "ai_systems": {
     "Cursor Agent": 40,
-    "OpenAI Codex": 313
+    "OpenAI Codex": 317
   },
   "branches": {
     "$(git branch --show-current 2>/dev/null || echo unknown)": 1,
-    "main": 341,
+    "main": 345,
     "unknown": 7,
     "work": 4
   },
@@ -31,16 +31,16 @@
       "Formal verification": 4,
       "Human review / approval": 8,
       "Lint / static checks": 27,
-      "Scientific / numerical checks": 37,
-      "Tests / regression checks": 58,
-      "Visual inspection": 44
+      "Scientific / numerical checks": 40,
+      "Tests / regression checks": 60,
+      "Visual inspection": 45
     },
     "workflow_mentions": {
-      "Audit / investigation": 77,
-      "Documentation / reporting": 89,
-      "Implementation / refactoring": 90,
-      "Reproducibility / provenance": 50,
-      "Scientific analysis / figures": 148
+      "Audit / investigation": 80,
+      "Documentation / reporting": 92,
+      "Implementation / refactoring": 93,
+      "Reproducibility / provenance": 53,
+      "Scientific analysis / figures": 151
     }
   },
   "method": {
@@ -177,22 +177,22 @@
     "GPT-5": 36,
     "GPT-5 family (exact deployment identifier not exposed)": 7,
     "GPT-6": 7,
-    "Not recorded": 303
+    "Not recorded": 307
   },
   "primary_intents": {
     "Audit or investigation": 33,
     "Execution or verification": 59,
-    "Implementation or modification": 166,
-    "Other or mixed": 95
+    "Implementation or modification": 169,
+    "Other or mixed": 96
   },
   "primary_topics": {
     "Data and metadata handling": 34,
     "Documentation and website": 26,
     "Drone and UAS workflow": 17,
-    "Other": 54,
+    "Other": 55,
     "Publication, packaging, release, and governance": 30,
     "QA and visualization": 58,
-    "Scientific pipeline and corrections": 88,
+    "Scientific pipeline and corrections": 91,
     "Testing and CI": 46
   },
   "prompts_by_month": {
@@ -203,24 +203,24 @@
     "2026-08": 87,
     "2026-09": 49,
     "2026-10": 86,
-    "2026-11": 6
+    "2026-11": 10
   },
   "schema_version": 2,
   "source": {
     "data_through": "2026-11-03",
     "path": "PROMPT_LOG.md",
-    "sha256": "d27d377ad2844b34f1867f8a44901b2da652ae32cb44d295335548cf7e8fc819"
+    "sha256": "89db5f7e1f3d207fa13ee345d7e0b3a286eeea892e5bcd58e59651291813861b"
   },
   "summary": {
     "entries_with_recorded_model": 50,
     "first_prompt_date": "2026-03-21",
     "last_prompt_date": "2026-11-03",
     "maximum_prompt_words": 9193,
-    "mean_prompt_words": 433.0,
+    "mean_prompt_words": 445.8,
     "median_prompt_words": 33.0,
     "minimum_prompt_words": 1,
-    "model_metadata_coverage_pct": 14.2,
-    "prompt_count": 353,
-    "total_prompt_words": 152839
+    "model_metadata_coverage_pct": 14.0,
+    "prompt_count": 357,
+    "total_prompt_words": 159143
   }
 }

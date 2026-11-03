@@ -44,8 +44,9 @@ class _ParquetChunkContext(NamedTuple):
     transform: tuple[float, float, float, float, float, float]
     src_crs_wkt: str | None
     stage_key: str
-    radiometric_scale: float = 1.0
-    radiometric_offset: float = 0.0
+    radiometric_scale: float | tuple[float, ...] = 1.0
+    radiometric_offset: float | tuple[float, ...] = 0.0
+    radiometry_record: dict | None = None
 
 
 def pq_read_table(path: Path):
@@ -268,6 +269,7 @@ def _plan_chunk_jobs(
         stage_key=stage_key,
         radiometric_scale=calibration.scale,
         radiometric_offset=calibration.offset,
+        radiometry_record=calibration.record(),
     )
 
     shared: dict[str, object] = {
@@ -325,7 +327,12 @@ def _process_chunk_to_dataframe(
     if context.nodata is not None:
         mask |= np.any(spectra == context.nodata, axis=1)
     mask |= ~np.isfinite(spectra).all(axis=1)
-    spectra = spectra * np.float32(context.radiometric_scale) + np.float32(context.radiometric_offset)
+    from spectralbridge.radiometry import Radiometry
+    calibration = (Radiometry.from_record(context.radiometry_record)
+                   if context.radiometry_record is not None else
+                   Radiometry(context.radiometric_scale, context.radiometric_offset,
+                              "VALID", "Explicit chunk-context physical affine declaration"))
+    spectra = calibration.to_physical(spectra)
     valid_mask = ~mask & np.isfinite(spectra).all(axis=1)
     if not valid_mask.any():
         return pd.DataFrame()

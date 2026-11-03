@@ -12,6 +12,8 @@ import numpy as np
 import pandas as pd
 import spectralbridge.qa_plots as qa_plots
 
+from spectralbridge.envi import hdr_to_dict
+from spectralbridge.corrections import BRDF_KERNEL_MATH_VERSION
 from spectralbridge.pipelines import run_drone_pipeline
 from spectralbridge.drone_production import validate_bulk_ready_flightline
 from spectralbridge.pipelines.drone import (
@@ -189,7 +191,7 @@ def _validated_model_double(out_dir):
     # No scientific fit is mocked as evidence: these tests isolate orchestration.
     p = Path(out_dir)/"coeffs.json"
     p.parent.mkdir(parents=True,exist_ok=True)
-    p.write_text(json.dumps({"schema_version":2,"validation":{"status":"VALID"}}))
+    p.write_text(json.dumps({"schema_version":2,"kernel_math_version":BRDF_KERNEL_MATH_VERSION,"validation":{"status":"VALID"}}))
     return p
 
 
@@ -803,10 +805,10 @@ def test_apply_drone_corrections_reuses_matching_stage_record(
     raw_img = flight_dir / "SPR1_20230628__envi.img"
     raw_hdr = flight_dir / "SPR1_20230628__envi.hdr"
     raw_img.write_bytes(b"raw")
-    raw_hdr.write_text("ENVI\nradiometry status = VALID\nbrdf status = VALID\nbrdf model schema = 2\n", encoding="utf-8")
+    raw_hdr.write_text(f"ENVI\nradiometry status = VALID\nbrdf status = VALID\nbrdf model schema = 2\nbrdf kernel math version = {BRDF_KERNEL_MATH_VERSION}\n", encoding="utf-8")
     corrected_stem = flight_dir / "SPR1_20230628__corrected"
     corrected_stem.with_suffix(".img").write_bytes(b"corr")
-    corrected_stem.with_suffix(".hdr").write_text("ENVI\nradiometry status = VALID\nbrdf status = VALID\nbrdf model schema = 2\n", encoding="utf-8")
+    corrected_stem.with_suffix(".hdr").write_text(f"ENVI\nradiometry status = VALID\nbrdf status = VALID\nbrdf model schema = 2\nbrdf kernel math version = {BRDF_KERNEL_MATH_VERSION}\n", encoding="utf-8")
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone._has_required_ancillary",
         lambda cube, names: True,
@@ -820,6 +822,7 @@ def test_apply_drone_corrections_reuses_matching_stage_record(
         inputs=[raw_img, raw_hdr],
         configuration={
             "algorithm_version": 2,
+            "brdf_kernel_math_version": BRDF_KERNEL_MATH_VERSION,
             "radiometry": cube.radiometry.record(),
             "apply_topo": True,
             "apply_brdf": True,
@@ -2171,6 +2174,7 @@ def test_h5_resume_completes_correction_all_translations_and_full_extraction(
     assert paths["working_h5"].stat().st_mtime_ns == working_mtime
     assert paths["envi_stem"].with_suffix(".img").is_file()
     assert paths["corrected_stem"].with_suffix(".img").is_file()
+    assert hdr_to_dict(paths["corrected_stem"].with_suffix(".hdr"))["brdf kernel math version"] == BRDF_KERNEL_MATH_VERSION
     assert paths["full_parquet"].is_file()
     assert len(result["translation_outputs"]) == 4
     assert len(result["matched_source_outputs"]) == 2
@@ -3245,3 +3249,24 @@ def test_run_drone_pipeline_classifies_no_overlap_and_other_errors_and_continues
         "SPR1_20230628__polygons.csv"
     )
     assert file_entries["SPR1_20230628"]["merged_csv_filename"] == "drone_merged.csv"
+
+
+@pytest.mark.parametrize("version", [None, "obsolete-kernel"])
+def test_drone_rejects_incompatible_completed_brdf_without_overwriting(tmp_path, monkeypatch, version):
+    cube = _RecordingCube(tmp_path / "source.h5")
+    raw = tmp_path / "raw.img"
+    raw.write_bytes(b"raw")
+    raw_hdr = tmp_path / "raw.hdr"
+    raw_hdr.write_text("ENVI\n")
+    stem = tmp_path / "corrected"
+    img = stem.with_suffix(".img")
+    hdr = stem.with_suffix(".hdr")
+    img.write_bytes(b"preserved historical pixels")
+    hdr.write_text("ENVI\nradiometry status = VALID\nbrdf status = VALID\n" +
+                   (f"brdf kernel math version = {version}\n" if version else ""))
+    before = (img.read_bytes(), hdr.read_bytes())
+    monkeypatch.setattr("spectralbridge.pipelines.drone.EnviWriter", lambda *a,**kw: pytest.fail("must reject before writer creation"))
+    with pytest.raises(DroneCorrectionUnavailableError,match="provenance"):
+        apply_drone_corrections(cube=cube,envi_img=raw,envi_hdr=raw_hdr,corrected_stem=stem,
+                                apply_topo=False,apply_brdf=True,overwrite=False)
+    assert (img.read_bytes(),hdr.read_bytes()) == before

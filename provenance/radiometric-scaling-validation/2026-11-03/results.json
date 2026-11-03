@@ -1,0 +1,1214 @@
+{
+  "original": {
+    "shape": [
+      2646,
+      3747,
+      11
+    ],
+    "dtype": "uint16",
+    "nodata": null,
+    "colorinterp": [
+      "gray",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "undefined",
+      "alpha"
+    ],
+    "scales": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "offsets": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "numeric_mapping": [
+    {
+      "wavelength_nm": 444,
+      "source_min": 0.0,
+      "source_max": 65535.0,
+      "numeric_multiplier": 0.15259021896696423,
+      "numeric_offset": -0.0,
+      "paired_values": 1130910,
+      "max_abs_error": 0.0007688371424592333,
+      "rmse": 1.7443759332686625e-05,
+      "scaled_25cm_range": [
+        7.8934831619262695,
+        10000.0
+      ]
+    },
+    {
+      "wavelength_nm": 475,
+      "source_min": 0.0,
+      "source_max": 65535.0,
+      "numeric_multiplier": 0.15259021896696423,
+      "numeric_offset": -0.0,
+      "paired_values": 1130910,
+      "max_abs_error": 0.0007652608092030277,
+      "rmse": 1.812819753252207e-05,
+      "scaled_25cm_range": [
+        8.684477806091309,
+        10000.0
+      ]
+    },
+    {
+      "wavelength_nm": 531,
+      "source_min": 0.0,
+      "source_max": 65535.0,
+      "numeric_multiplier": 0.15259021896696423,
+      "numeric_offset": -0.0,
+      "paired_values": 1130910,
+      "max_abs_error": 0.0007706253090873361,
+      "rmse": 1.9540223450125993e-05,
+      "scaled_25cm_range": [
+        7.791903972625732,
+        10000.0
+      ]
+    },
+    {
+      "wavelength_nm": 560,
+      "source_min": 0.0,
+      "source_max": 65535.0,
+      "numeric_multiplier": 0.15259021896696423,
+      "numeric_offset": -0.0,
+      "paired_values": 1130910,
+      "max_abs_error": 0.0007659313723706873,
+      "rmse": 2.0405835714755037e-05,
+      "scaled_25cm_range": [
+        7.563690662384033,
+        10000.0
+      ]
+    },
+    {
+      "wavelength_nm": 650,
+      "source_min": 0.0,
+      "source_max": 65535.0,
+      "numeric_multiplier": 0.15259021896696423,
+      "numeric_offset": -0.0,
+      "paired_values": 1130910,
+      "max_abs_error": 0.0007741271365375724,
+      "rmse": 2.0277430925336846e-05,
+      "scaled_25cm_range": [
+        5.236297130584717,
+        10000.0
+      ]
+    },
+    {
+      "wavelength_nm": 668,
+      "source_min": 0.0,
+      "source_max": 65535.0,
+      "numeric_multiplier": 0.15259021896696423,
+      "numeric_offset": -0.0,
+      "paired_values": 1130910,
+      "max_abs_error": 0.0007645157402293989,
+      "rmse": 2.028714650635744e-05,
+      "scaled_25cm_range": [
+        3.303353786468506,
+        10000.0
+      ]
+    },
+    {
+      "wavelength_nm": 705,
+      "source_min": 0.0,
+      "source_max": 65535.0,
+      "numeric_multiplier": 0.15259021896696423,
+      "numeric_offset": -0.0,
+      "paired_values": 1130910,
+      "max_abs_error": 0.0007701037611695938,
+      "rmse": 2.4221390325051405e-05,
+      "scaled_25cm_range": [
+        11.915069580078125,
+        10000.0
+      ]
+    },
+    {
+      "wavelength_nm": 717,
+      "source_min": 0.0,
+      "source_max": 65535.0,
+      "numeric_multiplier": 0.15259021896696423,
+      "numeric_offset": -0.0,
+      "paired_values": 1130910,
+      "max_abs_error": 0.0007803857188264374,
+      "rmse": 2.8819055288999415e-05,
+      "scaled_25cm_range": [
+        19.288593292236328,
+        10000.0
+      ]
+    },
+    {
+      "wavelength_nm": 740,
+      "source_min": 0.0,
+      "source_max": 65535.0,
+      "numeric_multiplier": 0.15259021896696423,
+      "numeric_offset": -0.0,
+      "paired_values": 1130910,
+      "max_abs_error": 0.0007736800944257993,
+      "rmse": 3.801895778322473e-05,
+      "scaled_25cm_range": [
+        21.400890350341797,
+        10000.0
+      ]
+    },
+    {
+      "wavelength_nm": 862,
+      "source_min": 174.0,
+      "source_max": 65535.0,
+      "numeric_multiplier": 0.15299643518306025,
+      "numeric_offset": -26.62137972185248,
+      "paired_values": 1130910,
+      "max_abs_error": 0.0007727067022642586,
+      "rmse": 4.5969969844650586e-05,
+      "scaled_25cm_range": [
+        44.74706268310547,
+        10000.0
+      ]
+    }
+  ],
+  "normalization_code_status": "No authoritative original export/normalization code recovered; observed max equals UInt16 max so those conventions cannot be distinguished",
+  "goldhill": [
+    {
+      "wavelength_nm": 444,
+      "total_image_pixels": 7083270,
+      "legacy_finite_footprint": 7068376,
+      "source_alpha_footprint": 6692436,
+      "nodata_quality_valid": 6692436,
+      "historical_A": 3,
+      "historical_A_common_alpha": 3,
+      "diagnostic_B": 6692436,
+      "B_excluded_negative": 0,
+      "B_excluded_above_one": 0,
+      "physical_C": null,
+      "physical_C_status": "UNRESOLVED",
+      "production_brdf_eligible": null,
+      "independent_angular_design_rank": 1,
+      "supported_brdf_fits": 0,
+      "stored_range": [
+        0.40463370084762573,
+        10000.0
+      ],
+      "common_alpha_quantiles": [
+        0.40463370084762573,
+        17.192911052703856,
+        129.9737548828125,
+        640.823364257813,
+        10000.0
+      ],
+      "A_values": [
+        1.246642827987671,
+        1.8369317054748535,
+        0.40463370084762573
+      ],
+      "B_fraction_quantiles": [
+        4.046336835017428e-05,
+        0.0017192910658195616,
+        0.01299737486988306,
+        0.06408233493566518,
+        1.0
+      ]
+    },
+    {
+      "wavelength_nm": 475,
+      "total_image_pixels": 7083270,
+      "legacy_finite_footprint": 7068376,
+      "source_alpha_footprint": 6692436,
+      "nodata_quality_valid": 6692436,
+      "historical_A": 1,
+      "historical_A_common_alpha": 1,
+      "diagnostic_B": 6692436,
+      "B_excluded_negative": 0,
+      "B_excluded_above_one": 0,
+      "physical_C": null,
+      "physical_C_status": "UNRESOLVED",
+      "production_brdf_eligible": null,
+      "independent_angular_design_rank": 1,
+      "supported_brdf_fits": 0,
+      "stored_range": [
+        1.4329798221588135,
+        10000.0
+      ],
+      "common_alpha_quantiles": [
+        1.4329798221588135,
+        19.714548778533935,
+        154.17784118652344,
+        740.726101684572,
+        10000.0
+      ],
+      "A_values": [
+        1.4329798221588135
+      ],
+      "B_fraction_quantiles": [
+        0.00014329797704704106,
+        0.0019714549067430197,
+        0.01541778352111578,
+        0.0740726068615915,
+        1.0
+      ]
+    },
+    {
+      "wavelength_nm": 531,
+      "total_image_pixels": 7083270,
+      "legacy_finite_footprint": 7068376,
+      "source_alpha_footprint": 6692436,
+      "nodata_quality_valid": 6692436,
+      "historical_A": 9,
+      "historical_A_common_alpha": 9,
+      "diagnostic_B": 6692436,
+      "B_excluded_negative": 0,
+      "B_excluded_above_one": 0,
+      "physical_C": null,
+      "physical_C_status": "UNRESOLVED",
+      "production_brdf_eligible": null,
+      "independent_angular_design_rank": 1,
+      "supported_brdf_fits": 0,
+      "stored_range": [
+        0.28372520208358765,
+        10000.0
+      ],
+      "common_alpha_quantiles": [
+        0.28372520208358765,
+        22.76292324066162,
+        266.2215118408203,
+        969.8190673828126,
+        10000.0
+      ],
+      "A_values": [
+        1.684228539466858,
+        0.6586096882820129,
+        0.9453005194664001,
+        0.7596288323402405,
+        1.9614639282226562,
+        1.5039234161376953,
+        0.28372520208358765,
+        1.5697095394134521,
+        1.4084550142288208
+      ],
+      "B_fraction_quantiles": [
+        2.837252031895332e-05,
+        0.0022762923035770655,
+        0.026622150093317032,
+        0.096981905028224,
+        1.0
+      ]
+    },
+    {
+      "wavelength_nm": 560,
+      "total_image_pixels": 7083270,
+      "legacy_finite_footprint": 7068376,
+      "source_alpha_footprint": 6692436,
+      "nodata_quality_valid": 6692436,
+      "historical_A": 13,
+      "historical_A_common_alpha": 13,
+      "diagnostic_B": 6692436,
+      "B_excluded_negative": 0,
+      "B_excluded_above_one": 0,
+      "physical_C": null,
+      "physical_C_status": "UNRESOLVED",
+      "production_brdf_eligible": null,
+      "independent_angular_design_rank": 1,
+      "supported_brdf_fits": 0,
+      "stored_range": [
+        2.437332469185094e-08,
+        10000.0
+      ],
+      "common_alpha_quantiles": [
+        2.437332469185094e-08,
+        24.862724399566652,
+        304.2812957763672,
+        1108.9487670898438,
+        10000.0
+      ],
+      "A_values": [
+        1.2587292194366455,
+        0.4162442982196808,
+        0.938106119632721,
+        1.0103651285171509,
+        0.170930877327919,
+        1.466698408126831,
+        1.130873441696167,
+        0.365866094827652,
+        0.30790331959724426,
+        2.437332469185094e-08,
+        0.7276994585990906,
+        1.7459399700164795,
+        1.9275280237197876
+      ],
+      "B_fraction_quantiles": [
+        2.4373324539195274e-12,
+        0.0024862724123522638,
+        0.030428129248321056,
+        0.11089487336575986,
+        1.0
+      ]
+    },
+    {
+      "wavelength_nm": 650,
+      "total_image_pixels": 7083270,
+      "legacy_finite_footprint": 7068376,
+      "source_alpha_footprint": 6692436,
+      "nodata_quality_valid": 6692436,
+      "historical_A": 14,
+      "historical_A_common_alpha": 14,
+      "diagnostic_B": 6692436,
+      "B_excluded_negative": 0,
+      "B_excluded_above_one": 0,
+      "physical_C": null,
+      "physical_C_status": "UNRESOLVED",
+      "production_brdf_eligible": null,
+      "independent_angular_design_rank": 1,
+      "supported_brdf_fits": 0,
+      "stored_range": [
+        0.007171948906034231,
+        10000.0
+      ],
+      "common_alpha_quantiles": [
+        0.007171948906034231,
+        16.787419319152832,
+        227.55005645751953,
+        1402.3375610351582,
+        10000.0
+      ],
+      "A_values": [
+        0.699349582195282,
+        0.22373156249523163,
+        0.42994093894958496,
+        0.818763792514801,
+        0.2089805006980896,
+        0.30838701128959656,
+        1.2207571268081665,
+        1.5252704620361328,
+        1.181925892829895,
+        1.37205970287323,
+        1.2162706851959229,
+        0.007171948906034231,
+        1.1630162000656128,
+        1.895938754081726
+      ],
+      "B_fraction_quantiles": [
+        7.171948936957051e-07,
+        0.0016787418629974128,
+        0.02275500539690256,
+        0.14023375138640423,
+        1.0
+      ]
+    },
+    {
+      "wavelength_nm": 668,
+      "total_image_pixels": 7083270,
+      "legacy_finite_footprint": 7068376,
+      "source_alpha_footprint": 6692436,
+      "nodata_quality_valid": 6692436,
+      "historical_A": 30,
+      "historical_A_common_alpha": 30,
+      "diagnostic_B": 6692436,
+      "B_excluded_negative": 0,
+      "B_excluded_above_one": 0,
+      "physical_C": null,
+      "physical_C_status": "UNRESOLVED",
+      "production_brdf_eligible": null,
+      "independent_angular_design_rank": 1,
+      "supported_brdf_fits": 0,
+      "stored_range": [
+        1.796074844406803e-09,
+        10000.0
+      ],
+      "common_alpha_quantiles": [
+        1.796074844406803e-09,
+        13.963966226577758,
+        203.70507049560547,
+        1437.06575317383,
+        10000.0
+      ],
+      "A_values": [
+        0.7981790900230408,
+        0.22535380721092224,
+        0.09824655205011368,
+        0.43960681557655334,
+        0.40944480895996094,
+        0.08961000293493271,
+        1.2382732629776,
+        0.006773690693080425,
+        0.3515407145023346,
+        0.35680124163627625,
+        0.4444591701030731,
+        0.8852287530899048,
+        1.5604475736618042,
+        1.6910934448242188,
+        0.04205695167183876,
+        1.928520679473877,
+        1.796074844406803e-09,
+        0.15459464490413666,
+        0.6161493062973022,
+        0.0331411212682724,
+        1.822495460510254,
+        1.5530060529708862,
+        1.0644001960754395,
+        1.2419416904449463,
+        1.398930311203003,
+        1.7572660446166992,
+        1.918684482574463,
+        1.779782772064209,
+        0.4422609806060791,
+        1.0903091430664062
+      ],
+      "B_fraction_quantiles": [
+        1.7960748177354297e-13,
+        0.0013963965815491975,
+        0.02037050575017929,
+        0.1437065765261652,
+        1.0
+      ]
+    },
+    {
+      "wavelength_nm": 705,
+      "total_image_pixels": 7083270,
+      "legacy_finite_footprint": 7068376,
+      "source_alpha_footprint": 6692436,
+      "nodata_quality_valid": 6692436,
+      "historical_A": 8,
+      "historical_A_common_alpha": 8,
+      "diagnostic_B": 6692436,
+      "B_excluded_negative": 0,
+      "B_excluded_above_one": 0,
+      "physical_C": null,
+      "physical_C_status": "UNRESOLVED",
+      "production_brdf_eligible": null,
+      "independent_angular_design_rank": 1,
+      "supported_brdf_fits": 0,
+      "stored_range": [
+        0.006773710250854492,
+        10000.0
+      ],
+      "common_alpha_quantiles": [
+        0.006773710250854492,
+        38.681088829040526,
+        473.9990997314453,
+        1483.3336303710971,
+        10000.0
+      ],
+      "A_values": [
+        1.2638622522354126,
+        0.612576425075531,
+        1.5380762815475464,
+        0.4119214713573456,
+        0.006773710250854492,
+        1.603884220123291,
+        0.5866647362709045,
+        0.6073803901672363
+      ],
+      "B_fraction_quantiles": [
+        6.773710197194305e-07,
+        0.0038681087200529876,
+        0.04739990830421448,
+        0.14833335578441653,
+        1.0
+      ]
+    },
+    {
+      "wavelength_nm": 717,
+      "total_image_pixels": 7083270,
+      "legacy_finite_footprint": 7068376,
+      "source_alpha_footprint": 6692436,
+      "nodata_quality_valid": 6692436,
+      "historical_A": 4,
+      "historical_A_common_alpha": 4,
+      "diagnostic_B": 6692436,
+      "B_excluded_negative": 0,
+      "B_excluded_above_one": 0,
+      "physical_C": null,
+      "physical_C_status": "UNRESOLVED",
+      "production_brdf_eligible": null,
+      "independent_angular_design_rank": 1,
+      "supported_brdf_fits": 0,
+      "stored_range": [
+        0.22637268900871277,
+        10000.0
+      ],
+      "common_alpha_quantiles": [
+        0.22637268900871277,
+        58.987159156799315,
+        656.9234619140625,
+        1526.1159912109379,
+        10000.0
+      ],
+      "A_values": [
+        1.9901214838027954,
+        0.8817510604858398,
+        0.22637268900871277,
+        1.3153516054153442
+      ],
+      "B_fraction_quantiles": [
+        2.2637268557446077e-05,
+        0.005898715811781585,
+        0.06569234281778336,
+        0.15261159688234333,
+        1.0
+      ]
+    },
+    {
+      "wavelength_nm": 740,
+      "total_image_pixels": 7083270,
+      "legacy_finite_footprint": 7068376,
+      "source_alpha_footprint": 6692436,
+      "nodata_quality_valid": 6692436,
+      "historical_A": 1,
+      "historical_A_common_alpha": 1,
+      "diagnostic_B": 6692436,
+      "B_excluded_negative": 0,
+      "B_excluded_above_one": 0,
+      "physical_C": null,
+      "physical_C_status": "UNRESOLVED",
+      "production_brdf_eligible": null,
+      "independent_angular_design_rank": 1,
+      "supported_brdf_fits": 0,
+      "stored_range": [
+        1.9015312194824219,
+        10000.0
+      ],
+      "common_alpha_quantiles": [
+        1.9015312194824219,
+        93.50399703979492,
+        933.6376342773438,
+        1769.4948059082037,
+        10000.0
+      ],
+      "A_values": [
+        1.9015312194824219
+      ],
+      "B_fraction_quantiles": [
+        0.00019015312136616558,
+        0.009350399253889918,
+        0.09336376190185547,
+        0.1769494734704495,
+        1.0
+      ]
+    },
+    {
+      "wavelength_nm": 862,
+      "total_image_pixels": 7083270,
+      "legacy_finite_footprint": 7068376,
+      "source_alpha_footprint": 6692436,
+      "nodata_quality_valid": 6692436,
+      "historical_A": 0,
+      "historical_A_common_alpha": 0,
+      "diagnostic_B": 6692436,
+      "B_excluded_negative": 0,
+      "B_excluded_above_one": 0,
+      "physical_C": null,
+      "physical_C_status": "UNRESOLVED",
+      "production_brdf_eligible": null,
+      "independent_angular_design_rank": 1,
+      "supported_brdf_fits": 0,
+      "stored_range": [
+        20.81085968017578,
+        10000.0
+      ],
+      "common_alpha_quantiles": [
+        20.81085968017578,
+        162.3569564819336,
+        1142.8967895507812,
+        2238.27880859375,
+        10000.0
+      ],
+      "A_values": [],
+      "B_fraction_quantiles": [
+        0.002081085927784443,
+        0.016235695593059065,
+        0.11428967490792274,
+        0.22382786870002747,
+        1.0
+      ]
+    }
+  ],
+  "diagnostic_radiometry": {
+    "scale": null,
+    "offset": null,
+    "status": "UNSUPPORTED",
+    "provenance": "Independent 25 cm pairs verify normalization; physical calibration unavailable",
+    "convention": "physical = scale * stored + offset",
+    "encoding": {
+      "kind": "range_normalized_dn",
+      "physical_calibration_status": "UNVERIFIED",
+      "stored_units": "range-normalized DN",
+      "source_units": "Metashape UInt16 numerical output; physical calibration unverified",
+      "nodata": -9999,
+      "normalization": {
+        "stored_min": 0,
+        "stored_max": 10000,
+        "source_min": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          174.0
+        ],
+        "source_max": [
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0,
+          65535.0
+        ]
+      }
+    }
+  },
+  "historical_accepted_positions": [
+    [
+      [
+        599,
+        3012
+      ],
+      [
+        600,
+        3012
+      ],
+      [
+        601,
+        3011
+      ]
+    ],
+    [
+      [
+        601,
+        3011
+      ]
+    ],
+    [
+      [
+        219,
+        2167
+      ],
+      [
+        220,
+        2167
+      ],
+      [
+        221,
+        2167
+      ],
+      [
+        222,
+        2168
+      ],
+      [
+        223,
+        2168
+      ],
+      [
+        599,
+        3012
+      ],
+      [
+        601,
+        3011
+      ],
+      [
+        602,
+        3011
+      ],
+      [
+        2160,
+        2247
+      ]
+    ],
+    [
+      [
+        219,
+        2167
+      ],
+      [
+        220,
+        2167
+      ],
+      [
+        221,
+        2167
+      ],
+      [
+        221,
+        2168
+      ],
+      [
+        222,
+        2168
+      ],
+      [
+        223,
+        2169
+      ],
+      [
+        598,
+        3012
+      ],
+      [
+        599,
+        3012
+      ],
+      [
+        600,
+        3011
+      ],
+      [
+        601,
+        3011
+      ],
+      [
+        602,
+        3011
+      ],
+      [
+        2160,
+        2247
+      ],
+      [
+        2161,
+        2246
+      ]
+    ],
+    [
+      [
+        219,
+        2167
+      ],
+      [
+        220,
+        2167
+      ],
+      [
+        221,
+        2167
+      ],
+      [
+        221,
+        2168
+      ],
+      [
+        222,
+        2168
+      ],
+      [
+        223,
+        2168
+      ],
+      [
+        223,
+        2169
+      ],
+      [
+        598,
+        3012
+      ],
+      [
+        599,
+        3012
+      ],
+      [
+        600,
+        3011
+      ],
+      [
+        600,
+        3012
+      ],
+      [
+        601,
+        3011
+      ],
+      [
+        602,
+        3012
+      ],
+      [
+        2160,
+        2247
+      ]
+    ],
+    [
+      [
+        218,
+        2167
+      ],
+      [
+        219,
+        2167
+      ],
+      [
+        220,
+        2167
+      ],
+      [
+        220,
+        2168
+      ],
+      [
+        221,
+        2167
+      ],
+      [
+        221,
+        2168
+      ],
+      [
+        221,
+        2169
+      ],
+      [
+        222,
+        2168
+      ],
+      [
+        222,
+        2169
+      ],
+      [
+        223,
+        2168
+      ],
+      [
+        223,
+        2169
+      ],
+      [
+        430,
+        60
+      ],
+      [
+        431,
+        60
+      ],
+      [
+        433,
+        59
+      ],
+      [
+        598,
+        3012
+      ],
+      [
+        599,
+        3011
+      ],
+      [
+        599,
+        3012
+      ],
+      [
+        600,
+        3011
+      ],
+      [
+        600,
+        3012
+      ],
+      [
+        601,
+        3011
+      ],
+      [
+        601,
+        3012
+      ],
+      [
+        602,
+        3011
+      ],
+      [
+        602,
+        3012
+      ],
+      [
+        2026,
+        1910
+      ],
+      [
+        2027,
+        1910
+      ],
+      [
+        2160,
+        2246
+      ],
+      [
+        2160,
+        2247
+      ],
+      [
+        2161,
+        2246
+      ],
+      [
+        2173,
+        638
+      ],
+      [
+        2173,
+        639
+      ]
+    ],
+    [
+      [
+        219,
+        2167
+      ],
+      [
+        220,
+        2167
+      ],
+      [
+        221,
+        2167
+      ],
+      [
+        221,
+        2168
+      ],
+      [
+        222,
+        2168
+      ],
+      [
+        222,
+        2169
+      ],
+      [
+        223,
+        2169
+      ],
+      [
+        601,
+        3011
+      ]
+    ],
+    [
+      [
+        219,
+        2167
+      ],
+      [
+        220,
+        2167
+      ],
+      [
+        222,
+        2168
+      ],
+      [
+        601,
+        3011
+      ]
+    ],
+    [
+      [
+        222,
+        2168
+      ]
+    ],
+    []
+  ],
+  "historical_replay": {
+    "module_sha256": "839cdf2b7264c5af53902c08994144c776f94f5a59f31dc42bd1574002998a42",
+    "coefficient_arrays_bit_exact": {
+      "iso": true,
+      "vol": true,
+      "geo": true
+    },
+    "lstsq_population_sizes": [
+      3,
+      9,
+      13,
+      14,
+      30,
+      8,
+      4
+    ],
+    "output": "provenance/radiometric-scaling-validation/2026-11-03/historical_replay/historical_replay_brdf_model.json"
+  },
+  "neon": {
+    "shape": [
+      1115,
+      5351,
+      426
+    ],
+    "radiometry": {
+      "scale": 0.0001,
+      "offset": 0.0,
+      "status": "VALID",
+      "provenance": "NEON DP1.30006: stored / Scale_Factor; physical offset zero",
+      "convention": "physical = scale * stored + offset",
+      "encoding": {
+        "kind": "scaled_physical_reflectance",
+        "source_units": "fractional physical reflectance",
+        "stored_units": "scaled physical reflectance",
+        "scale_direction": "multiplier",
+        "physical_calibration_status": "VERIFIED",
+        "valid_numerical_range": [
+          0,
+          10000
+        ],
+        "source_units_attribute": "Unitless.",
+        "source_dtype": "int16",
+        "nodata": -9999.0,
+        "saturation": {
+          "status": "NOT_PROVIDED"
+        },
+        "quality_mask": {
+          "status": "NOT_PROVIDED; NoData only"
+        },
+        "source_scale_direction": "divisor",
+        "source_scale_factor": 10000.0
+      }
+    },
+    "selected_bands": [
+      {
+        "wavelength_nm": 441.788513,
+        "stored_min": 0,
+        "stored_max": 15356,
+        "physical_min": 0.0,
+        "physical_max": 1.535599946975708,
+        "valid": 3425496,
+        "eligible_0_2": 3425496,
+        "negative": 0
+      },
+      {
+        "wavelength_nm": 476.8573,
+        "stored_min": 0,
+        "stored_max": 15294,
+        "physical_min": 0.0,
+        "physical_max": 1.5293999910354614,
+        "valid": 3425496,
+        "eligible_0_2": 3425496,
+        "negative": 0
+      },
+      {
+        "wavelength_nm": 531.965393,
+        "stored_min": 0,
+        "stored_max": 15179,
+        "physical_min": 0.0,
+        "physical_max": 1.517899990081787,
+        "valid": 3425496,
+        "eligible_0_2": 3425496,
+        "negative": 0
+      },
+      {
+        "wavelength_nm": 562.024414,
+        "stored_min": 0,
+        "stored_max": 15125,
+        "physical_min": 0.0,
+        "physical_max": 1.5124999284744263,
+        "valid": 3425496,
+        "eligible_0_2": 3425496,
+        "negative": 0
+      },
+      {
+        "wavelength_nm": 652.201294,
+        "stored_min": 0,
+        "stored_max": 15048,
+        "physical_min": 0.0,
+        "physical_max": 1.5047999620437622,
+        "valid": 3425496,
+        "eligible_0_2": 3425496,
+        "negative": 0
+      },
+      {
+        "wavelength_nm": 667.230774,
+        "stored_min": 0,
+        "stored_max": 15130,
+        "physical_min": 0.0,
+        "physical_max": 1.5130000114440918,
+        "valid": 3425496,
+        "eligible_0_2": 3425496,
+        "negative": 0
+      },
+      {
+        "wavelength_nm": 707.309387,
+        "stored_min": 0,
+        "stored_max": 15046,
+        "physical_min": 0.0,
+        "physical_max": 1.504599928855896,
+        "valid": 3425496,
+        "eligible_0_2": 3425496,
+        "negative": 0
+      },
+      {
+        "wavelength_nm": 717.329102,
+        "stored_min": 0,
+        "stored_max": 15013,
+        "physical_min": 0.0,
+        "physical_max": 1.5012999773025513,
+        "valid": 3425496,
+        "eligible_0_2": 3425496,
+        "negative": 0
+      },
+      {
+        "wavelength_nm": 742.378174,
+        "stored_min": 0,
+        "stored_max": 14915,
+        "physical_min": 0.0,
+        "physical_max": 1.4915000200271606,
+        "valid": 3425496,
+        "eligible_0_2": 3425496,
+        "negative": 0
+      },
+      {
+        "wavelength_nm": 862.614075,
+        "stored_min": 0,
+        "stored_max": 14850,
+        "physical_min": 0.0,
+        "physical_max": 1.4850000143051147,
+        "valid": 3425496,
+        "eligible_0_2": 3425496,
+        "negative": 0
+      }
+    ],
+    "max_roundtrip_dn_error": 0.0009765625,
+    "finite_values_bit_identical_to_previous_decoder": true,
+    "max_float64_reference_error": 9.670257572480523e-08
+  },
+  "protected_hashes": {
+    "/private/tmp/spectralbridge-scale-confirmation/goldhill-original.tif": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+    "/private/tmp/spectralbridge-scale-confirmation/base/goldhill.tif": "f21e19dc8161195091888ade3c7088f7af45bb2eabe09825719e0d3473230299",
+    "/private/tmp/spectralbridge-scale-confirmation/rescale/goldhill.tif": "fe5a7070b8042152d1620a887be3fe88c6795204b86f970a653c4039e876b26b",
+    "/private/tmp/assumed-viewing-angles-20261103/goldhill_working.h5": "363dc7da0674c13f67d4c58f8d5c67135c25ddc75cc8986c45f7007bf4893e41",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/goldhill_recovered_source_dn.tif": "90ea248ae8430a20c95e99cb77249d397ace246844e1b36c7707dd2fd57be0ec",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-radiometric-recovery/2026-11-02/historical_corrections.py": "839cdf2b7264c5af53902c08994144c776f94f5a59f31dc42bd1574002998a42",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-correction-diagnosis/2026-10-30/saved_production_brdf_model.json": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/validation-input/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5": "7ad8032cbfca6879b38bf854640031b6fb2547f792e93bc9e915b3633345a8ff"
+  },
+  "protected_files_unchanged": true,
+  "quality_limitations": "Alpha is documented only in original TIFF/recovered lineage; no independent saturation or sensor-quality flags supplied; 65535 is not assumed to be a documented saturation flag",
+  "display_stride": 8
+}

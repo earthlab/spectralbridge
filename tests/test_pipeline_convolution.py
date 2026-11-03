@@ -11,6 +11,7 @@ import types
 import numpy as np
 
 import pytest
+from spectralbridge.corrections import BRDF_KERNEL_MATH_VERSION
 
 if "h5py" not in sys.modules:  # pragma: no cover - dependency shim for unit tests
     fake_h5py = types.ModuleType("h5py")
@@ -140,7 +141,7 @@ def test_pipeline_idempotence_skip_behavior(
         *sensor_pairs,
     ]
 
-    corrected_hdr.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic restart fixture\nbrdf status = VALID\nbrdf model schema = 2\n")
+    corrected_hdr.write_text(f"ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic restart fixture\nbrdf status = VALID\nbrdf model schema = 2\nbrdf kernel math version = {BRDF_KERNEL_MATH_VERSION}\n")
     for header in [raw_hdr, *[p for p in sensor_pairs if p.suffix == ".hdr"]]:
         header.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic restart fixture\nbrdf status = NOT_REQUESTED\n")
     before_stats = _snapshot_stats(preexisting_paths)
@@ -363,3 +364,20 @@ def test_convolution_writes_undarkened_envi(tmp_path: Path, monkeypatch: pytest.
     assert parsed_header["reflectance scale factor"] == 10000.0
     assert parsed_header["data ignore value"] == -9999.0
     assert brightness_map
+
+
+@pytest.mark.parametrize("version", [None, "obsolete-kernel"])
+def test_neon_correction_stage_does_not_reuse_incompatible_completed_product(tmp_path, monkeypatch, version):
+    image = tmp_path / "corrected.img"
+    header = tmp_path / "corrected.hdr"
+    image.write_bytes(b"preserved historical product")
+    header.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic restart fixture\nbrdf status = VALID\nbrdf model schema = 2\n" +
+                      (f"brdf kernel math version = {version}\n" if version else ""))
+    before = (image.read_bytes(),header.read_bytes())
+    monkeypatch.setattr(pipeline,"get_flightline_products",lambda *a,**kw: {"corrected_img":image,"corrected_hdr":header,"work_dir":tmp_path})
+    monkeypatch.setattr(pipeline,"is_valid_envi_pair",lambda *a:True)
+    monkeypatch.setattr(pipeline,"apply_brdf_topo_core",lambda **kw:pytest.fail("must reject instead of overwriting"))
+    with pytest.raises(ValueError,match="incompatible kernel mathematics"):
+        pipeline.stage_apply_brdf_topo_correction(base_folder=tmp_path,product_code="synthetic",flight_stem="synthetic",
+            raw_img_path=tmp_path/"raw.img",raw_hdr_path=tmp_path/"raw.hdr",correction_json_path=tmp_path/"params.json")
+    assert (image.read_bytes(),header.read_bytes()) == before

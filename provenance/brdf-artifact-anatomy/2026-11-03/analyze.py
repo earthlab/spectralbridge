@@ -29,7 +29,6 @@ H5ROOT = Path("/private/tmp/assumed-viewing-angles-20261103")
 sys.path.insert(0, str(ROOT / "src"))
 from spectralbridge.neon_cube import NeonCube  # noqa: E402
 from spectralbridge import corrections as modern  # noqa: E402
-from spectralbridge.radiometry import dataset_radiometry  # noqa: E402
 
 spec = importlib.util.spec_from_file_location(
     "anatomy_polygon_helpers",
@@ -309,16 +308,9 @@ def main():
     allfits = []
     flights = {}
     geostats = []
-    comparison = {}
     pixelrows = []
     transects = []
     classrows = []
-    oldminmax = json.loads(
-        (
-            ROOT
-            / "provenance/drone-scale-confirmation/2026-10-30/verified_numeric_mapping.json"
-        ).read_text()
-    )
     for name, tag in [("goldhill", "GOLDHILL"), ("gordon", "GORDON"), ("ruby", "Ruby")]:
         print("Historical geometry and factors", name, flush=True)
         cube = NeonCube(H5ROOT / f"{name}_working.h5")
@@ -556,7 +548,6 @@ def main():
             actual_amp = np.isfinite(values["brdf"][..., 4]) & (
                 values["brdf"][..., 4] != raw[..., 4]
             )
-            declared_amp = red_factor != 1
             branch = (red_den > 0) & (red_num > 0) & vis
             valid_edge = (
                 observed & (raw[..., 4] != 0) & np.isfinite(values["brdf"][..., 4])
@@ -569,21 +560,18 @@ def main():
             if crossings[0].any():
                 d0 = red_den[:, :-1][crossings[0]]
                 d1 = red_den[:, 1:][crossings[0]]
-                t = -d0 / (d1 - d0)
+                valid_cross = (d1 != d0) & ((d0 > 0) != (d1 > 0))
+                t = -d0[valid_cross] / (d1[valid_cross] - d0[valid_cross])
                 dy = np.abs(t - 0.5) * abs(tr.a)
             edgecmp["linear_zero_vs_branch_midpoint_offset_m"] = dist(dy)
             edgecmp["denominator_only_comparison"] = signcmp
             write("boundary_correspondence.json", edgecmp)
-            df, geometry = polygon_metrics(
-                src
-                if False
-                else rasterio.open(PRIOR / "goldhill_recovered_source_dn.tif"),
-                pol,
-                values,
-                common,
-                red_factor,
-                red_den,
-            )
+            with rasterio.open(
+                PRIOR / "goldhill_recovered_source_dn.tif"
+            ) as polygon_src:
+                df, geometry = polygon_metrics(
+                    polygon_src, pol, values, common, red_factor, red_den
+                )
             df.to_csv(HERE / "polygon_stage_spectra.csv", index=False)
             geometry.to_csv(HERE / "polygon_geometry.csv", index=False)
             candidates = geometry[
@@ -600,7 +588,7 @@ def main():
                     ["raw_within_angle", "distance_to_prior"]
                 ).iloc[0]
                 cy, cx = int(exemplar.row_center), int(exemplar.col_center)
-                exemplar_status = "Crosses actual amplification boundary; chosen for relatively homogeneous raw spectral angles before comparing stage medians"
+                exemplar_status = "Nearest qualifying boundary-crossing polygon to the prior transect; raw spectral-angle consistency recorded before comparing corrected medians"
             else:
                 geometry["distance_to_prior"] = (geometry.row_center - 921) ** 2 + (
                     geometry.col_center - 980
@@ -700,9 +688,7 @@ def main():
                     rec = dict(
                         row=int(r),
                         column=int(c0),
-                        easting=float(tr * (int(c0) + 0.5, int(r) + 0.5))[0]
-                        if False
-                        else float(tr.c + (c0 + 0.5) * tr.a),
+                        easting=float(tr.c + (c0 + 0.5) * tr.a),
                         northing=float(tr.f + (r + 0.5) * tr.e),
                         den=float(red_den[r, c0]),
                         num=float(red_num[r, c0]),
@@ -796,7 +782,9 @@ def main():
                 exemplar_species=str(exemplar.species),
                 exemplar_status=exemplar_status,
                 selected_polygons=chosen,
-                pixels=[dict(label=l, row=r, column=c0) for l, r, c0 in choices],
+                pixels=[
+                    dict(label=label, row=r, column=c0) for label, r, c0 in choices
+                ],
                 main_transect_row=cy0,
                 main_transition_left_column=cross,
                 main_transect_columns=[int(trcols[0]), int(trcols[-1])],

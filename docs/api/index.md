@@ -384,12 +384,12 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`ReferenceGeometry`](generated/corrections.md#spectralbridge.corrections.ReferenceGeometry) | Reference geometry (degrees) for BRDF normalization. | advanced |
 | [`BRDFKernelConfig`](generated/corrections.md#spectralbridge.corrections.BRDFKernelConfig) | Kernel and geometry settings for BRDF fitting/application. | advanced |
 | [`log_stats`](generated/corrections.md#spectralbridge.corrections.log_stats) | Log min/max and validity fractions for quick debugging. | advanced |
-| [`load_brdf_model`](generated/corrections.md#spectralbridge.corrections.load_brdf_model) | Load the BRDF model JSON for flightline_dir after normalizing its name. | advanced |
+| [`load_brdf_model`](generated/corrections.md#spectralbridge.corrections.load_brdf_model) | Read model JSON for inspection; fit/apply separately enforce math compatibility. | advanced |
 | [`compute_ndvi`](generated/corrections.md#spectralbridge.corrections.compute_ndvi) | Compute NDVI from unitless reflectance data. | advanced |
 | [`compute_ndvi_bins`](generated/corrections.md#spectralbridge.corrections.compute_ndvi_bins) | Return NDVI bin edges and bin indices. | advanced |
 | [`calc_cosine_i`](generated/corrections.md#spectralbridge.corrections.calc_cosine_i) | Adapted from hytools.topo.calc_cosine_i (GPLv3; HyTools Authors: | advanced |
-| [`calc_volume_kernel`](generated/corrections.md#spectralbridge.corrections.calc_volume_kernel) | Adapted from hytools.brdf.kernels.calc_volume_kernel (GPLv3; HyTools Authors: | advanced |
-| [`calc_geom_kernel`](generated/corrections.md#spectralbridge.corrections.calc_geom_kernel) | Adapted from hytools.brdf.kernels.calc_geom_kernel (GPLv3; HyTools Authors: | advanced |
+| [`calc_volume_kernel`](generated/corrections.md#spectralbridge.corrections.calc_volume_kernel) | Evaluate normalized RossThick in float64, broadcasting scalar/array inputs. | advanced |
+| [`calc_geom_kernel`](generated/corrections.md#spectralbridge.corrections.calc_geom_kernel) | Evaluate LiDenseR or LiSparseReciprocal, never interchanging variants. | advanced |
 | [`fit_scs_c_coefficients`](generated/corrections.md#spectralbridge.corrections.fit_scs_c_coefficients) | Fit per-band SCS+C C parameters over a full NeonCube footprint. | advanced |
 | [`apply_topo_correct`](generated/corrections.md#spectralbridge.corrections.apply_topo_correct) | Topographic (illumination) correction on a hyperspectral chunk. | advanced |
 | [`apply_brdf_correct`](generated/corrections.md#spectralbridge.corrections.apply_brdf_correct) | Perform BRDF normalization on a hyperspectral chunk using FlexBRDF ratio. | advanced |
@@ -582,8 +582,8 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`scene_prefix_from_dir`](generated/paths.md#spectralbridge.paths.scene_prefix_from_dir) | Recover a scene prefix from a raw ENVI image, HDF5 filename or, as a last fallback, the directory name. | advanced |
 | [`site_from_prefix`](generated/paths.md#spectralbridge.paths.site_from_prefix) | Extract a NEON site code from a matching canonical scene prefix, otherwise return None. | advanced |
 | [`normalize_brdf_model_path`](generated/paths.md#spectralbridge.paths.normalize_brdf_model_path) | Ensure the BRDF model JSON in  flightline_dir  matches the scene prefix: | advanced |
-| [`Radiometry`](generated/radiometry.md#spectralbridge.radiometry.Radiometry) | Documentation gap: see source and audit before direct use. | advanced |
-| [`dataset_radiometry`](generated/radiometry.md#spectralbridge.radiometry.dataset_radiometry) | Read a declared affine record or documented NEON divisor, never infer units. | advanced |
+| [`Radiometry`](generated/radiometry.md#spectralbridge.radiometry.Radiometry) | Explicit physical affine calibration plus optional typed storage encoding. | advanced |
+| [`dataset_radiometry`](generated/radiometry.md#spectralbridge.radiometry.dataset_radiometry) | Read explicit calibration or documented NEON divisors, never infer by range. | advanced |
 | [`require_radiometry`](generated/radiometry.md#spectralbridge.radiometry.require_radiometry) | Documentation gap: see source and audit before direct use. | advanced |
 | [`require_library_header`](generated/radiometry.md#spectralbridge.radiometry.require_library_header) | Fail closed before a historical/unsupported correction enters a library. | advanced |
 | [`library_radiometry`](generated/radiometry.md#spectralbridge.radiometry.library_radiometry) | Documentation gap: see source and audit before direct use. | advanced |

@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "date": "2026-11-03",
+  "focused_unique_tests": 233,
+  "test_runs": [
+    {
+      "record": "p167_final_tests.xml",
+      "passed": 173,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "record": "p167_additional_tests.xml",
+      "passed": 155,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "protected_source_files": 8,
+  "protected_files_unchanged": true,
+  "kernel_reference_ASTs_unchanged": true,
+  "kernel_AST_hashes": {
+    "_normalize_geom_kernel_name": "0476df74d2fe43cfed871d6f40e2b92130d90faaa8b91f0ce789da3f5dad8f9c",
+    "_brdf_angles": "be120331a4c2088fc64f55b2bf7a66b1ed55cdbd7e2574b972107ef5f6cf7f93",
+    "calc_volume_kernel": "e62fa1cfce9ab77226097428106a4ea01a005428500c9ab1f6bd2a7324edbcf9",
+    "calc_geom_kernel": "43f4f0dee7c6ded4331be1d8dc50532484fa345092c413415bd8f04417ffa893",
+    "_reference_design": "c57acf477438343d32d4106075dd09ede8af73b1c24f65ea4c1af82d829453d7"
+  },
+  "figure_pairs": 7,
+  "visually_reviewed_figure_pairs": 7,
+  "historical_counts": [
+    3,
+    1,
+    9,
+    13,
+    14,
+    30,
+    8,
+    4,
+    1,
+    0
+  ],
+  "normalized_diagnostic_count_per_band": 6692436,
+  "physical_calibration": "UNRESOLVED; diagnostic normalization not promoted",
+  "production_products_regenerated": 0,
+  "physical_fit_gate": "UNSUPPORTED with no coefficients",
+  "checks": [
+    "targeted pytest",
+    "Ruff modified source/tests/evidence",
+    "local docs links",
+    "API generator freshness",
+    "AI transparency freshness",
+    "git diff --check"
+  ],
+  "warnings": "Existing QA/deprecation warnings and GDAL NoData/alpha shadow warning; alpha is also explicitly enforced"
+}

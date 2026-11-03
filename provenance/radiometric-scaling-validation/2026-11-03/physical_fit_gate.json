@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "model_path": "normalized_units_rejection/normalized_units_rejection_brdf_model.json",
+  "validation": {
+    "status": "UNSUPPORTED",
+    "fits": [],
+    "reasons": [
+      "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Independent 25 cm pairs verify normalization; physical calibration unavailable)."
+    ]
+  },
+  "fitting_population": {
+    "total_image_pixels": 7083270,
+    "available_spatial": 7068376,
+    "explicit_source_footprint_pixels": null,
+    "source_footprint_status": "NoData-derived; independent footprint mask unavailable",
+    "eligibility_units": "verified fractional physical reflectance only",
+    "eligible": null,
+    "status": "NOT_EVALUATED"
+  },
+  "meaning": "No physical calibration was inferred from the diagnostic normalized fraction."
+}

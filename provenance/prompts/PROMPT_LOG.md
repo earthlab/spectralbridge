@@ -45996,3 +45996,777 @@ The report must demonstrate the mechanism using actual data, not merely illustra
 
 The most important deliverable is a sequence of spatially aligned maps and corresponding spectral plots that lets a reader watch the Goldhill artifact emerge, understand the geometry and mathematics responsible, and see exactly how the correction changes vegetation spectra.
 ```
+
+## 2026-11-03 - P166 BRDF mathematical validation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Task: Correct and scientifically validate the SpectralBridge BRDF functions
+
+We have identified mathematical errors in the historical RossThick–LiDenseR BRDF implementation used by SpectralBridge. Before addressing missing drone viewing geometry, radiometric scaling, or fitting strategies, I want to establish that our underlying BRDF mathematics is scientifically correct.
+
+This is a focused scientific software correction. Do not initiate a broad refactor of the package or redesign the processing pipeline.
+
+Scientific context
+
+SpectralBridge processes both NEON AOP hyperspectral imagery and drone orthomosaics. Both should use the same scientifically correct BRDF mathematics.
+
+Our BRDF model is:
+
+[
+R(\theta_s,\theta_v,\phi)=f_{\mathrm{iso}}+
+f_{\mathrm{vol}}K_{\mathrm{RossThick}}+
+f_{\mathrm{geo}}K_{\mathrm{LiDenseR}}
+]
+
+where:
+
+* (\theta_s): solar zenith angle
+* (\theta_v): sensor/view zenith angle
+* (\phi): relative azimuth angle
+* (K_{\mathrm{RossThick}}): volumetric scattering kernel
+* (K_{\mathrm{LiDenseR}}): geometric scattering kernel
+
+The November 3, 2026 Goldhill investigation demonstrated that:
+
+1. The historical LiDenseR implementation incorrectly retained relative-azimuth dependence at nadir.
+2. The geometric overlap and parameter formulation contained mathematical errors.
+3. The historical implementation produced artificial angular variation.
+4. The corrected formulation reduced the drone angular design matrix to rank 1, revealing the absence of usable directional observations.
+5. The historical fitting procedure accepted rank-deficient models and produced unstable coefficients.
+
+The objective of this task is to resolve the mathematical implementation first, independently of the data-quality problems.
+
+Phase 1 — Audit the existing implementation
+
+Search the entire repository for all implementations and uses of:
+
+* RossThick
+* LiDenseR
+* LiSparseR, if present
+* BRDF kernels
+* Relative azimuth calculations
+* Geometric overlap functions
+* Kernel normalization
+* BRDF reference geometry
+* BRDF prediction and correction-factor calculations
+
+Identify:
+
+1. The current canonical implementation.
+2. Any historical or duplicated implementations.
+3. Differences between NEON AOP and drone processing.
+4. Whether both pipelines actually call the same kernel functions.
+5. Whether the recently repaired mathematical implementation is already present.
+6. Any places where kernel equations are reimplemented independently.
+
+Document the existing behavior before modifying anything.
+
+Preserve historical implementations needed for reproducibility, but ensure they cannot be confused with the scientifically supported production implementation.
+
+Phase 2 — Verify the mathematics against published literature
+
+Independently verify the implemented RossThick and LiDenseR equations against authoritative published references.
+
+Start with the foundational literature:
+
+* Roujean et al. (1992)
+* Wanner et al. (1995)
+* Lucht et al. (2000)
+* Schaaf et al. (2002)
+
+Also consult the MODIS BRDF/Albedo Algorithm Theoretical Basis Document and established implementations of the Ross–Li kernel models.
+
+Do not assume our existing implementation is correct simply because it resembles a published equation.
+
+Pay particular attention to the distinction between LiSparseR and LiDenseR. These are not interchangeable.
+
+Explicitly verify:
+
+RossThick
+
+* Phase-angle calculation.
+* Angular units.
+* Relative azimuth convention.
+* Volumetric scattering equation.
+* Denominator formulation.
+* Behavior at nadir.
+* Behavior at coincident illumination and viewing directions.
+
+LiDenseR
+
+* Transformed zenith angles.
+* Geometric distance calculation.
+* Overlap function.
+* Crown geometry parameters.
+* Reciprocal formulation.
+* Dense versus sparse geometric assumptions.
+* Relative azimuth convention.
+* Normalization conventions.
+* Behavior when sensor zenith approaches zero.
+
+Verify that the chosen implementation corresponds to the specific published kernel variant we intend to use.
+
+Do not silently substitute LiSparseR for LiDenseR.
+
+If the literature supports multiple formulations, explain their differences and select the appropriate formulation with a documented scientific justification.
+
+Phase 3 — Correct the canonical functions
+
+Implement the scientifically verified equations in one shared location.
+
+Requirements:
+
+1. NEON AOP and drone workflows must use the same mathematical kernel implementation.
+2. Inputs must have clearly documented units and angular conventions.
+3. The implementation must handle scalar, vector, and raster-array inputs.
+4. Broadcasting behavior must be predictable.
+5. Numerical calculations must be stable.
+6. Invalid geometry must be explicitly identified.
+7. Nonfinite values must not silently become apparently valid corrections.
+8. Avoid arbitrary clipping that changes the scientific model.
+
+Use float64 internally where appropriate for angular and kernel calculations.
+
+Do not change radiometric scaling, fit-selection thresholds, or source metadata as part of this task.
+
+Keep the scope focused on BRDF mathematical correctness.
+
+Phase 4 — Establish independent mathematical tests
+
+Create tests that verify the implementation against independently calculated reference values.
+
+Do not generate all expected values using the same functions being tested.
+
+Where possible, compare against published numerical examples or a trustworthy independent implementation.
+
+Include tests for:
+
+A. Nadir viewing
+
+Set sensor zenith to zero.
+
+Vary sensor azimuth while holding solar geometry constant.
+
+The calculated kernels should be invariant to the arbitrary sensor azimuth at exact nadir.
+
+This is particularly important because the historical LiDenseR implementation failed this requirement.
+
+B. Solar-view symmetry
+
+Test reciprocal behavior where required by the selected kernel formulation.
+
+Verify the expected behavior when solar and viewing directions are exchanged.
+
+C. Relative azimuth
+
+Test:
+
+* 0°
+* 45°
+* 90°
+* 135°
+* 180°
+* Equivalent wrapped angles
+
+Verify consistency between equivalent angular representations.
+
+D. Zenith-angle boundaries
+
+Test:
+
+* 0°
+* 5°
+* 10°
+* 30°
+* 45°
+* 60°
+* Near-grazing angles
+
+Explicitly document the supported angular domain.
+
+E. Numerical stability
+
+Test geometries near:
+
+* Zero geometric distance.
+* Overlap-function boundaries.
+* Trigonometric domain limits.
+* Very small angular differences.
+* Singular or undefined configurations.
+
+Use mathematically justified tolerances.
+
+F. Array behavior
+
+Verify that scalar and vectorized evaluations agree.
+
+Check that raster-array broadcasting produces the same results as independent per-pixel evaluation.
+
+Phase 5 — Validate against real NEON AOP geometry
+
+Use an existing NEON AOP test dataset with genuine per-pixel viewing geometry.
+
+Calculate:
+
+* RossThick kernel maps.
+* LiDenseR kernel maps.
+* Kernel distributions.
+* Angular design-matrix rank.
+* Singular values.
+* Condition numbers.
+
+Confirm that the resulting kernel variation is physically interpretable and consistent with the observed angular geometry.
+
+Compare the corrected implementation with the historical implementation.
+
+Quantify differences in kernel values and identify where they are largest.
+
+Do not assume that successful execution establishes scientific correctness.
+
+Do not overwrite existing corrected imagery.
+
+Phase 6 — Validate against the Goldhill failure
+
+Use the Goldhill drone investigation as a regression test.
+
+With the original zero-placeholder viewing angles:
+
+1. Calculate corrected RossThick and LiDenseR kernels.
+2. Verify that arbitrary sensor azimuth does not create artificial variation at nadir.
+3. Recalculate the angular design matrix.
+4. Confirm the expected rank deficiency.
+5. Verify that unsupported three-parameter fits are rejected.
+6. Demonstrate that the historical spurious solar-azimuth gradient is absent from the corrected kernels.
+
+Preserve the historical model and replay results as evidence.
+
+Do not modify the historical coefficients to make them appear valid.
+
+Do not interpret the disappearance of the red artifact as proof of successful BRDF calibration.
+
+The scientifically correct outcome may be to reject BRDF fitting entirely for these drone products.
+
+Phase 7 — Ensure both processing routes use the corrected implementation
+
+Trace the BRDF calculations through:
+
+* NEON AOP processing.
+* Drone processing.
+* Fitting.
+* Prediction.
+* Reference normalization.
+* Correction application.
+
+Confirm that both processing routes call the same canonical kernel implementation.
+
+Any remaining differences must be explicitly documented and justified.
+
+Avoid introducing sensor-specific mathematical equations unless supported by the scientific literature.
+
+The two pipelines may differ in their available observations, but they should not differ in the fundamental BRDF mathematics.
+
+Phase 8 — Regression testing and compatibility
+
+Run the existing BRDF and related pipeline tests.
+
+Identify tests that encode historically incorrect mathematical behavior.
+
+Replace incorrect scientific expectations with independently validated expectations, but preserve historical replay tests separately.
+
+Check for changes to:
+
+* Public APIs.
+* Function signatures.
+* Output shapes.
+* NaN and mask handling.
+* Numerical precision.
+* Existing coefficient files.
+* Saved correction products.
+
+Previously fitted coefficients must not silently be reused with a changed kernel implementation.
+
+If the corrected equations invalidate existing coefficients, introduce an explicit model-version compatibility check.
+
+Do not regenerate production imagery or spectral libraries during this task.
+
+Phase 9 — Produce a scientific validation report
+
+Create a concise, figure-rich report:
+
+docs/reports/BRDF_MATHEMATICAL_VALIDATION.md
+
+Include:
+
+1. The original mathematical errors.
+2. The corrected equations.
+3. References supporting each equation.
+4. Historical versus corrected kernel comparisons.
+5. Independent numerical validation results.
+6. Nadir-invariance tests.
+7. NEON AOP geometry validation.
+8. Goldhill regression results.
+9. Implications for existing correction coefficients.
+10. Remaining limitations.
+
+Include figures showing:
+
+* RossThick kernel response across solar and view angles.
+* LiDenseR kernel response across solar and view angles.
+* Historical versus corrected LiDenseR behavior at nadir.
+* Real NEON AOP kernel maps.
+* Goldhill historical versus corrected kernel maps.
+* Singular-value comparisons for the angular design matrices.
+
+The figures should make the mathematical problem understandable to remote-sensing scientists without requiring them to read the source code.
+
+Acceptance criteria
+
+The task is complete when:
+
+* The canonical RossThick and LiDenseR equations have been independently verified against authoritative references.
+* The historical mathematical errors have been identified and corrected.
+* Nadir viewing produces no spurious dependence on arbitrary sensor azimuth.
+* Both NEON AOP and drone workflows use the same verified kernel implementation.
+* Independent numerical tests pass.
+* Rank-deficient BRDF fits cannot be accepted as valid.
+* Existing incompatible coefficients cannot be silently reused.
+* Historical reproduction remains possible.
+* A scientific validation report documents the results.
+
+Important constraints
+
+Do not attempt to fix missing drone viewing geometry.
+
+Do not invent or interpolate camera viewing angles.
+
+Do not change radiometric scaling.
+
+Do not perform a broad pipeline refactor.
+
+Do not regenerate production products or spectral libraries.
+
+Do not introduce empirical corrections simply to make imagery look better.
+
+The objective is mathematical correctness, not visual improvement.
+
+Start by auditing the existing functions and published equations. Then implement only the corrections that are scientifically justified, validate them independently, and document the results.
+```
+
+## 2026-11-03 - P167 radiometric scaling and fitting eligibility
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Task: Fix radiometric scaling and BRDF fitting eligibility in SpectralBridge
+
+Objective
+
+Investigate and correct the radiometric scaling mismatch between drone imagery, NEON AOP imagery, and the shared BRDF fitting functions.
+
+The November 3, 2026 Goldhill investigation demonstrated that the historical BRDF fitting procedure interpreted range-normalized drone values as though they were fractional reflectance. Consequently, the fitting eligibility filter accepted only 14 pixels at 650 nm, despite millions of available image pixels.
+
+I want to fix this problem at its source, establish a consistent radiometric interface for both drone and NEON AOP processing, and ensure that all scientifically valid pixels can participate in BRDF fitting.
+
+Do not simply divide everything by 10,000 and assume the result is physical reflectance.
+
+The objective is to establish the correct radiometric interpretation, implement it consistently, and verify the results using real data.
+
+This is a focused scientific software repair, not a general pipeline refactor.
+
+⸻
+
+Phase 1 — Trace the radiometric transformations
+
+Audit the complete radiometric processing chain for both data sources.
+
+Drone pipeline
+
+Trace:
+
+Original drone imagery → Metashape → orthomosaic TIFF → 10 cm resampling/normalization → H5 → BRDF fitting → BRDF correction → spectral extraction.
+
+Determine:
+
+1. What numerical units are present in the original drone imagery?
+2. Were the original measurements radiometrically calibrated?
+3. Does Metashape apply radiometric calibration or normalization?
+4. What transformations occur during orthomosaic generation?
+5. Where does the 0–10,000 normalization occur?
+6. Is the normalization based on the original 16-bit range, observed image minimum/maximum, or another convention?
+7. Are different bands normalized independently?
+8. Are offsets introduced?
+9. Is the normalization reversible?
+10. What metadata document the original radiometric units?
+
+The Goldhill report documents:
+
+[
+S=10000\frac{DN-DN_{\min}}{65535-DN_{\min}}
+]
+
+Verify this transformation directly against the actual source files and code.
+
+Do not assume that normalized values are physical reflectance.
+
+If original calibration metadata are unavailable, identify precisely what is missing.
+
+NEON AOP pipeline
+
+Trace:
+
+NEON source H5 → reflectance decoding → topographic correction → BRDF fitting → BRDF correction → translated products → spectral extraction.
+
+Determine:
+
+1. The documented source scale and offset.
+2. Whether scale factors are multipliers or divisors.
+3. Where conversion to physical reflectance occurs.
+4. Whether any stage applies the conversion twice.
+5. Whether BRDF fitting receives physical or stored values.
+6. Whether correction application uses the same units as fitting.
+7. Whether exported products preserve the correct units.
+8. Whether any October 2026 scaling repairs remain incomplete.
+
+Compare the actual numerical behavior of both pipelines.
+
+Produce a table showing the units and numerical ranges at every stage.
+
+⸻
+
+Phase 2 — Diagnose the BRDF eligibility filter
+
+Find the exact code responsible for selecting pixels used in BRDF fitting.
+
+The historical Goldhill investigation found that the fitting procedure selected values between 0 and 2.
+
+Determine:
+
+* Why this interval was selected.
+* Whether it is intended to represent fractional reflectance.
+* Whether the threshold is applied before or after radiometric conversion.
+* Whether different bands use different selection criteria.
+* Whether NoData and alpha masks are handled correctly.
+* Whether negative values are rejected appropriately.
+* Whether saturation and sensor-quality flags are considered.
+* Whether the same filtering logic is used for NEON and drone imagery.
+
+Reproduce the historical Goldhill eligibility counts:
+
+Wavelength (nm)	Historical eligible pixels
+444	3
+475	1
+531	9
+560	13
+650	14
+668	30
+705	8
+717	4
+740	1
+862	0
+
+Confirm these counts against the unchanged historical implementation.
+
+Then calculate the eligible population after applying the correct numerical interpretation.
+
+Report separately:
+
+1. Total image pixels.
+2. Pixels within the valid source footprint.
+3. Pixels passing NoData and quality masks.
+4. Pixels passing radiometric eligibility.
+5. Pixels eligible for BRDF fitting.
+6. Pixels with sufficient independent viewing geometry.
+
+Do not equate radiometrically eligible pixels with a scientifically identifiable BRDF model.
+
+Goldhill may have millions of valid measurements while still lacking sufficient viewing-angle information.
+
+⸻
+
+Phase 3 — Establish a shared radiometric data contract
+
+Implement a consistent radiometric interface for both NEON AOP and drone imagery.
+
+Use the explicit relationship:
+
+[
+R_{\mathrm{physical}}=aS+b
+]
+
+where:
+
+* (S) is the stored numerical value.
+* (a) is the documented scale multiplier.
+* (b) is the documented offset.
+
+The contract must distinguish:
+
+* Raw digital numbers.
+* Range-normalized digital numbers.
+* Scaled physical reflectance.
+* Fractional physical reflectance.
+* Unknown or unverified radiometric units.
+
+Required metadata should include:
+
+* Source radiometric units.
+* Stored units.
+* Scale and offset.
+* Scale direction.
+* Calibration provenance.
+* Calibration status.
+* Valid numerical range.
+* NoData representation.
+* Saturation or quality-mask information where available.
+
+For NEON AOP, use the documented source calibration.
+
+For drone imagery, use verified transformations from the original data and Metashape products.
+
+If the drone source is only range-normalized, preserve that distinction.
+
+Do not label range-normalized digital numbers as calibrated reflectance.
+
+Do not invent missing calibration coefficients.
+
+If physical calibration cannot be established, the system should explicitly report that limitation rather than silently assuming a scale.
+
+⸻
+
+Phase 4 — Correct the BRDF fitting interface
+
+Modify the shared BRDF fitting interface so that radiometric values are interpreted according to their documented units.
+
+Requirements:
+
+1. Apply radiometric conversion before reflectance-specific eligibility tests.
+2. Never apply fractional-reflectance thresholds directly to 0–10,000 encoded values.
+3. Use source-validity and quality masks consistently.
+4. Preserve legitimate numerical zeros where scientifically appropriate.
+5. Distinguish missing data from low reflectance.
+6. Avoid arbitrary clipping or rescaling.
+7. Ensure fitting and correction application use compatible units.
+8. Reject unknown or incompatible radiometric units rather than silently proceeding.
+9. Preserve existing valid NEON behavior.
+10. Keep the interface shared between NEON and drone workflows.
+
+If the input is range-normalized but not physically calibrated, it may be converted to a dimensionless normalized fraction for diagnostic purposes.
+
+However, that fraction must not be mislabeled as physical reflectance or automatically approved for production BRDF correction.
+
+Do not use a larger eligible pixel population as justification for fitting an otherwise unidentifiable model.
+
+⸻
+
+Phase 5 — Test the scaling independently of BRDF geometry
+
+Create tests that isolate radiometric scaling from the missing viewing-angle problem.
+
+Use real Goldhill data.
+
+Compare three cases:
+
+Case A — Historical behavior
+
+Use the original stored values and historical eligibility logic.
+
+Reproduce the 14 eligible red-band pixels.
+
+Case B — Numerically consistent normalized values
+
+Convert the range-normalized values to their documented dimensionless normalized scale.
+
+Apply eligibility rules appropriate to that representation.
+
+Quantify how many additional pixels become eligible.
+
+This is a diagnostic experiment, not a physical calibration.
+
+Case C — Verified physical reflectance
+
+If original calibration information is available, reconstruct physical reflectance and apply physically justified eligibility rules.
+
+If calibration information is unavailable, explicitly mark this case as unresolved.
+
+Do not substitute Case B for Case C.
+
+For each case, report:
+
+* Input numerical range.
+* Input units.
+* Scale and offset.
+* Eligible pixel count by wavelength.
+* Exclusion reasons.
+* Distribution of eligible values.
+* Spatial distribution of eligible pixels.
+
+Produce maps and histograms showing why the historical filtering discarded nearly all the data.
+
+⸻
+
+Phase 6 — Verify numerical consistency
+
+Test the shared radiometric conversion functions using known synthetic values and actual source metadata.
+
+Include:
+
+Round-trip tests
+
+Where the encoding is reversible:
+
+Stored → decoded → encoded.
+
+Verify agreement within the documented storage precision.
+
+Scale-direction tests
+
+Confirm that a documented divisor of 10,000 is implemented as multiplication by 0.0001.
+
+Prevent accidental multiplication by 10,000.
+
+Offset tests
+
+Verify nonzero offsets.
+
+Ensure offset-bearing encodings are not incorrectly treated as purely multiplicative.
+
+Band-specific transformations
+
+Verify that bands with different normalization minima or calibration coefficients are handled independently.
+
+NoData tests
+
+Ensure NoData values do not become valid measurements after conversion.
+
+Numerical consistency
+
+Verify that fitting and application use the same radiometric interpretation.
+
+Test that multiplying all responses by a common positive constant changes fitted linear coefficients proportionally but does not change BRDF correction ratios when eligibility and geometry remain fixed.
+
+Also test that affine offsets do not generally preserve those ratios.
+
+Pipeline compatibility
+
+Verify that NEON AOP and drone imagery can use the same radiometric interface without requiring identical source encodings.
+
+⸻
+
+Phase 7 — Evaluate consequences for existing products
+
+Identify existing products potentially affected by the historical scaling mismatch.
+
+Include:
+
+* Saved BRDF coefficients.
+* Corrected drone imagery.
+* Corrected NEON imagery.
+* Spectral libraries.
+* Researcher-assigned PFT signatures.
+* Downstream spectral analyses.
+
+Determine whether the scaling mismatch affected:
+
+1. Fitting eligibility.
+2. Estimated coefficients.
+3. Correction factors.
+4. Corrected spectral values.
+5. Exported radiometric metadata.
+
+Distinguish confirmed impacts from possible impacts.
+
+Do not overwrite or regenerate existing products during this task.
+
+Flag scientifically unsupported products and document the requirements for regeneration.
+
+⸻
+
+Phase 8 — Produce a scientific validation report
+
+Create:
+
+docs/reports/RADIOMETRIC_SCALING_VALIDATION.md
+
+The report should be understandable to the remote-sensing science team.
+
+Include:
+
+1. The original scaling problem.
+2. Why the 0–2 filter rejected almost all Goldhill pixels.
+3. The actual units at each processing stage.
+4. Differences between NEON and drone radiometry.
+5. The corrected shared radiometric contract.
+6. Historical versus corrected eligibility counts.
+7. Evidence for or against physical drone reflectance calibration.
+8. Numerical validation results.
+9. Implications for existing BRDF coefficients and spectral libraries.
+10. Remaining scientific limitations.
+
+Include figures showing:
+
+* Radiometric transformations through both pipelines.
+* Goldhill stored-value distributions by wavelength.
+* Historical versus corrected eligibility histograms.
+* Maps of pixels accepted and rejected by the historical filter.
+* Maps of pixels accepted under the corrected unit-aware filter.
+* Before/after eligible pixel counts for all ten bands.
+* NEON versus drone numerical ranges, clearly distinguishing units.
+
+Use actual data whenever available.
+
+Do not use synthetic results to imply empirical validation.
+
+⸻
+
+Acceptance criteria
+
+The task is complete when:
+
+* Every radiometric transformation in the drone and NEON pipelines has been traced.
+* The historical Goldhill eligibility counts are reproduced.
+* The source of the scaling mismatch is identified.
+* Both pipelines use one explicit radiometric conversion contract.
+* Reflectance-specific filters are applied only to appropriately calibrated data.
+* Range-normalized drone values are not mislabeled as physical reflectance.
+* Valid pixels are no longer excluded because of incompatible numerical units.
+* Fitting and application use consistent units.
+* Existing NEON scaling behavior is validated against source metadata.
+* Tests cover scaling, offsets, masks, numerical precision, and compatibility.
+* A figure-rich scientific report documents the findings.
+* No production imagery or spectral libraries have been overwritten.
+
+Scope restrictions
+
+Do not modify RossThick or LiDenseR equations.
+
+Do not invent or reconstruct viewing angles.
+
+Do not change BRDF reference geometry.
+
+Do not weaken angular-rank or conditioning requirements.
+
+Do not introduce arbitrary gain caps.
+
+Do not perform a broad package refactor.
+
+Do not regenerate production imagery.
+
+Preserve historical implementations and coefficients needed for reproducibility.
+
+The goal is to fix how SpectralBridge interprets and selects radiometric measurements, not to force the drone imagery through BRDF correction before the viewing-geometry problem is resolved.
+
+Begin with the repository audit and historical Goldhill reproduction. Implement the smallest scientifically justified changes, run the relevant regression tests, and produce the validation report.
+```
+
+## 2026-11-03 - Continue P166 and P167
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```
