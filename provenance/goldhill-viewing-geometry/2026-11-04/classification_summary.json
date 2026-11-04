@@ -1,0 +1,90 @@
+[
+  {
+    "branch": "clean_raw",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6682934553131599,
+    "mean_fold_balanced_accuracy": 0.6766729797979797,
+    "polygons": 157,
+    "memberships": 144406
+  },
+  {
+    "branch": "historical_BRDF",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.5996059113300493,
+    "mean_fold_balanced_accuracy": 0.5801294191919192,
+    "polygons": 157,
+    "memberships": 144406
+  },
+  {
+    "branch": "topographic_only",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.717121745249824,
+    "mean_fold_balanced_accuracy": 0.7178188131313131,
+    "polygons": 157,
+    "memberships": 144406
+  },
+  {
+    "branch": "A_brdf",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6980858550316679,
+    "mean_fold_balanced_accuracy": 0.7064393939393939,
+    "polygons": 157,
+    "memberships": 144406
+  },
+  {
+    "branch": "A_combined",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6729838142153414,
+    "mean_fold_balanced_accuracy": 0.6814762205387206,
+    "polygons": 157,
+    "memberships": 144406
+  },
+  {
+    "branch": "B_brdf",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.694567206192822,
+    "mean_fold_balanced_accuracy": 0.7019991582491582,
+    "polygons": 157,
+    "memberships": 144406
+  },
+  {
+    "branch": "B_combined",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6829838142153414,
+    "mean_fold_balanced_accuracy": 0.6918928872053872,
+    "polygons": 157,
+    "memberships": 144406
+  },
+  {
+    "branch": "C_uniform_brdf",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6713969035890218,
+    "mean_fold_balanced_accuracy": 0.6813026094276093,
+    "polygons": 157,
+    "memberships": 144406
+  },
+  {
+    "branch": "C_uniform_combined",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6145707248416608,
+    "mean_fold_balanced_accuracy": 0.6253261784511784,
+    "polygons": 157,
+    "memberships": 144406
+  },
+  {
+    "branch": "C_center_brdf",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6964989444053483,
+    "mean_fold_balanced_accuracy": 0.7061079545454545,
+    "polygons": 157,
+    "memberships": 144406
+  },
+  {
+    "branch": "C_center_combined",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6171217452498241,
+    "mean_fold_balanced_accuracy": 0.627851430976431,
+    "polygons": 157,
+    "memberships": 144406
+  }
+]

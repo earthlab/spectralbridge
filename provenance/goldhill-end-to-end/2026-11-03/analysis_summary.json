@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "scene_common_all": 6678404,
+  "scene_common_raw": 6683944,
+  "polygon_index_rows": 144749,
+  "polygon_index_identities": 158,
+  "common_polygon_identities": 157,
+  "common_polygon_memberships": 144406,
+  "independent_representatives": 157,
+  "independent_class_counts": {
+    "Evergreen": 98,
+    "Woody shrub": 29,
+    "Herbaceous": 25,
+    "Deciduous": 5
+  },
+  "classes_absent": "Non-vegetated & dead is not represented in this Goldhill subset; not invented or relabeled",
+  "comparison_units": "Stored numerical 0\u201310000 encodings; old_reencoded_fixed controls verified affine normalization change",
+  "raw_pixel_improvement_requires_comparison": "new_raw versus old_reencoded_fixed, on common pixels; CV/angle differences versus old_raw may follow encoding alone",
+  "library_status": "No approved physical library generated; numerical tables explicitly flagged UNVERIFIED",
+  "production_corrections": "UNSUPPORTED; legacy replays only",
+  "abundance": {
+    "status": "NOT_EVALUATED",
+    "reason": "No verified physical library, independent fractional-cover ground truth or defensible abundance validation design; category recognition cannot validate abundance accuracy"
+  },
+  "classification_uncertainty": "Only polygon-disjoint single-flight inference; no independent site/year/domain validation. Four recorded classes, no fifth invented class.",
+  "PCA": "Each raw representation fitted separately for descriptive structure; component axes may rotate/flip, not direct physical-change measurements",
+  "boundary_definition": "Edges where the historical red factor crosses 1.01, fixed from old outputs before new-branch evaluation; common support only",
+  "display_roi": {
+    "roi_native_indices": [
+      573,
+      974,
+      812,
+      1313
+    ],
+    "roi_extent_NAD83_UTM13N": [
+      457705.69999999995,
+      457755.79999999993,
+      4432733.149999999,
+      4432773.25
+    ],
+    "roi_resolution_m": 0.1,
+    "exemplar_GlobalID": "{3A6D6E1D-3581-49B8-9321-397DFE5298C5}",
+    "exemplar_cover_category": "Deciduous",
+    "exemplar_species": "Populus tremuloides",
+    "exemplar_status": "Nearest eligible boundary-crossing polygon to the pre-existing transect; raw within-polygon spectral angle recorded, not selected on corrected quality",
+    "selected_polygons": [
+      "{3A6D6E1D-3581-49B8-9321-397DFE5298C5}",
+      "{5A8F5F52-E86E-4354-A521-D7F1ABC78F65}",
+      "{B3288E38-7D65-49AB-810E-4ABF8F62E43D}"
+    ],
+    "pixels": [
+      {
+        "label": "nonpositive_outside",
+        "row": 921,
+        "column": 980
+      },
+      {
+        "label": "near_zero_inside",
+        "row": 921,
+        "column": 981
+      },
+      {
+        "label": "inside_artifact",
+        "row": 921,
+        "column": 1000
+      },
+      {
+        "label": "unaffected_reference",
+        "row": 921,
+        "column": 830
+      }
+    ],
+    "main_transect_row": 921,
+    "main_transition_left_column": 980,
+    "main_transect_columns": [
+      840,
+      1120
+    ],
+    "array_order": "row,column,band",
+    "source_alpha_policy": "Display and polygon membership require alpha>0; H5 arrays unchanged; exact replay diagnostics also retain original full finite-H5 support"
+  }
+}

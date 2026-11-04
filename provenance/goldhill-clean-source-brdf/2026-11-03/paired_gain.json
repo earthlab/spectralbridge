@@ -1,0 +1,42 @@
+[
+  {
+    "branch": "raw_historical",
+    "difference": 0.0,
+    "low": 0.0,
+    "high": 0.0,
+    "changed_predictions": 0,
+    "uncertainty": "Paired class-stratified identity bootstrap of fixed OOF predictions; no model/site/year uncertainty or independent physical truth."
+  },
+  {
+    "branch": "raw_clean",
+    "difference": 0.0,
+    "low": 0.0,
+    "high": 0.0,
+    "changed_predictions": 0,
+    "uncertainty": "Paired class-stratified identity bootstrap of fixed OOF predictions; no model/site/year uncertainty or independent physical truth."
+  },
+  {
+    "branch": "A_historical_BRDF",
+    "difference": -0.06868754398311047,
+    "low": -0.1899005981703026,
+    "high": 0.05134007741027442,
+    "changed_predictions": 33,
+    "uncertainty": "Paired class-stratified identity bootstrap of fixed OOF predictions; no model/site/year uncertainty or independent physical truth."
+  },
+  {
+    "branch": "B_clean_historical_BRDF",
+    "difference": -0.06868754398311047,
+    "low": -0.1899005981703026,
+    "high": 0.05134007741027442,
+    "changed_predictions": 33,
+    "uncertainty": "Paired class-stratified identity bootstrap of fixed OOF predictions; no model/site/year uncertainty or independent physical truth."
+  },
+  {
+    "branch": "topographic_only",
+    "difference": 0.048828289936664326,
+    "low": -0.029605383532723434,
+    "high": 0.15474208304011255,
+    "changed_predictions": 26,
+    "uncertainty": "Paired class-stratified identity bootstrap of fixed OOF predictions; no model/site/year uncertainty or independent physical truth."
+  }
+]

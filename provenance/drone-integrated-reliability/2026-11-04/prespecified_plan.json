@@ -1,0 +1,17 @@
+{
+  "policy": "SCS+C OLS; slope>=5deg; positive local incidence; physical0-2; spatial20mclusters; Fieller95%interval; entire numerator/denominator interval positive; no gain cap",
+  "BRDF": "C center simulated kernels; evaluation polygons plus2m buffer excluded from fitting; unchanged shared reference/kernels/precision/prediction checks",
+  "cases": [
+    "raw",
+    "P173_BRDF_and_combined_baseline",
+    "conditioned_topography",
+    "controlled_OLS_BRDF",
+    "controlled_cluster_BRDF",
+    "conditioned_combined_OLS",
+    "conditioned_combined_cluster"
+  ],
+  "PFT_parameter_tuning": false,
+  "calibration": "HYPOTHETICAL_UNVERIFIED",
+  "actual_contributors": "NOT_RECOVERED",
+  "topographic_stage_required": true
+}

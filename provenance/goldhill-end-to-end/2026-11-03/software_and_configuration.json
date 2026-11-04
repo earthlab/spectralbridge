@@ -1,0 +1,32 @@
+{
+  "python": "3.12.8",
+  "package_versions": {
+    "earthlab-spectralbridge": "2.3.0rc1",
+    "numpy": "2.5.2",
+    "scipy": "1.18.0",
+    "pandas": "3.0.5",
+    "rasterio": "1.5.1",
+    "geopandas": "1.1.4",
+    "h5py": "3.16.0",
+    "scikit-learn": "1.9.1",
+    "pyarrow": "25.0.1"
+  },
+  "repository_revision": "2444902440a48453ed14855473d3250020ba8bb3",
+  "scientific_environment": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/.venv/bin/python",
+  "renderer": "Bundled Codex Python with ReportLab 4.4.9",
+  "random_seed": 20261103,
+  "classifier": {
+    "api": "evaluate_identifiability",
+    "folds": 3,
+    "C": 1,
+    "scaling": "training-fold only",
+    "sampling_unit": "one non-overlapping polygon identity"
+  },
+  "permutation_test": {
+    "api": "spectral_separability",
+    "permutations": 499,
+    "integration_weights": "equal discrete band weights; no interpolation across spectral gaps",
+    "scope": "Holm within each branch; across-branch comparisons exploratory, not a confirmatory family"
+  },
+  "new_source_units": "UNVERIFIED fixed numerical encoding; not fractional physical reflectance"
+}

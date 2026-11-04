@@ -1,0 +1,1593 @@
+PAGE 1
+AOP-GOLDHILL-08-14-23_report
+Processing	Report
+07	November	2023
+
+
+PAGE 2
+Survey	Data
+1
+2
+3
+4
+5
+6
+7
+8
+9
+>	9
+100	m
+Fig.	1.	Camera	locations	and	image	overlap.
+Number	of	images:
+6,090
+Flying	altitude:
+123	m
+Ground	resolution:
+8.45	cm/pix
+Coverage	area:
+0.0669	km²
+Camera	stations:
+5,650
+Tie	points:
+942,214
+Projections:
+5,548,717
+Reprojection	error:
+0.496	pix
+Camera	Model
+Resolution
+Focal	Length
+Pixel	Size
+Precalibrated
+RedEdge-M,	Blue-444	(5.5…
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Yes
+RedEdge-M,	Blue	(5.5mm)
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Yes
+RedEdge-M,	Green-531	(5.…
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Yes
+RedEdge-M,	Green	(5.5mm)
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Yes
+RedEdge-M,	Red-650	(5.5…
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Yes
+Page	2
+
+PAGE 3
+Camera	Model
+Resolution
+Focal	Length
+Pixel	Size
+Precalibrated
+RedEdge-M,	Red	(5.5mm)
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Yes
+RedEdge-M,	Red	edge-705	…
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Yes
+RedEdge-M,	Red	edge	(5.5…
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Yes
+RedEdge-M,	Red	edge-740	…
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Yes
+RedEdge-M,	NIR	(5.5mm)
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Yes
+Table	1.	Cameras.
+Page	3
+
+PAGE 4
+Camera	Calibration
+1	pix
+Fig.	2.	Image	residuals	for	RedEdge-M,	Blue-444	(5.5mm).
+RedEdge-M,	Blue-444	(5.5mm)
+609	images,	precalibrated
+Type
+Resolution
+Focal	Length
+Pixel	Size
+Frame
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Value
+Error
+F
+Cx
+Cy
+B1
+B2
+K1
+K2
+K3
+P1
+P2
+F
+1452.63
+0.095
+1.00
+0.07
+-0.61
+-0.03
+-0.10
+-0.03
+0.12
+-0.08
+0.05
+-0.36
+Cx
+-10.8348
+0.027
+1.00
+-0.06
+0.00
+-0.01
+0.01
+-0.00
+0.00
+0.91
+-0.03
+Cy
+19.4754
+0.026
+1.00
+0.01
+0.08
+-0.06
+0.00
+-0.02
+-0.04
+0.76
+B1
+0.279942
+0.0048
+1.00
+0.00
+-0.01
+-0.04
+0.05
+-0.01
+0.04
+B2
+-0.167892
+0.0045
+1.00
+-0.01
+0.00
+-0.00
+0.00
+0.03
+K1
+-0.0897642
+0.00021
+1.00
+-0.97
+0.92
+0.01
+-0.06
+K2
+0.119549
+0.0015
+1.00
+-0.99
+0.00
+-0.01
+K3
+0.0252074
+0.0032
+1.00
+-0.00
+0.00
+P1
+0.000834361
+5.9e-06
+1.00
+-0.04
+P2
+-0.000638735
+5.5e-06
+1.00
+Table	2.	Calibration	coeﬃcients	and	correlation	matrix.
+Page	4
+
+PAGE 5
+Camera	Calibration
+1	pix
+Fig.	3.	Image	residuals	for	RedEdge-M,	Blue	(5.5mm).
+RedEdge-M,	Blue	(5.5mm)
+609	images,	precalibrated
+Type
+Resolution
+Focal	Length
+Pixel	Size
+Frame
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Value
+Error
+F
+Cx
+Cy
+B1
+B2
+K1
+K2
+K3
+P1
+P2
+F
+1445.91
+0.095
+1.00
+0.08
+-0.53
+-0.02
+-0.08
+-0.04
+0.12
+-0.09
+0.04
+-0.30
+Cx
+-12.9406
+0.027
+1.00
+-0.05
+-0.02
+0.01
+0.01
+0.00
+0.00
+0.91
+-0.02
+Cy
+6.33677
+0.024
+1.00
+-0.01
+0.05
+-0.05
+-0.00
+-0.01
+-0.03
+0.77
+B1
+0.210528
+0.0047
+1.00
+0.00
+0.00
+-0.04
+0.05
+-0.03
+0.01
+B2
+-0.0328146
+0.0045
+1.00
+-0.00
+-0.00
+0.00
+0.02
+0.00
+K1
+-0.0945018
+0.00021
+1.00
+-0.97
+0.92
+0.00
+-0.05
+K2
+0.143849
+0.0015
+1.00
+-0.99
+0.00
+-0.02
+K3
+-0.0207335
+0.0032
+1.00
+-0.00
+0.01
+P1
+0.000153503
+6e-06
+1.00
+-0.03
+P2
+0.000410331
+5.3e-06
+1.00
+Table	3.	Calibration	coeﬃcients	and	correlation	matrix.
+Page	5
+
+PAGE 6
+Camera	Calibration
+1	pix
+Fig.	4.	Image	residuals	for	RedEdge-M,	Green-531	(5.5mm).
+RedEdge-M,	Green-531	(5.5mm)
+609	images,	precalibrated
+Type
+Resolution
+Focal	Length
+Pixel	Size
+Frame
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Value
+Error
+F
+Cx
+Cy
+B1
+B2
+K1
+K2
+K3
+P1
+P2
+F
+1447.6
+0.095
+1.00
+0.05
+-0.57
+-0.03
+-0.07
+-0.06
+0.13
+-0.10
+0.02
+-0.31
+Cx
+5.76144
+0.029
+1.00
+-0.02
+-0.02
+-0.00
+-0.00
+0.01
+-0.01
+0.91
+0.00
+Cy
+1.82956
+0.026
+1.00
+-0.00
+0.04
+-0.04
+-0.01
+-0.00
+0.00
+0.77
+B1
+0.0434525
+0.0048
+1.00
+0.00
+0.00
+-0.05
+0.06
+-0.03
+0.03
+B2
+0.0154138
+0.0046
+1.00
+-0.01
+0.00
+-0.00
+0.01
+0.00
+K1
+-0.0976892
+0.00022
+1.00
+-0.97
+0.93
+-0.00
+-0.05
+K2
+0.143876
+0.0016
+1.00
+-0.99
+0.00
+-0.02
+K3
+-0.0181542
+0.0034
+1.00
+-0.00
+0.01
+P1
+-0.000685503
+6.3e-06
+1.00
+0.00
+P2
+0.000237696
+5.7e-06
+1.00
+Table	4.	Calibration	coeﬃcients	and	correlation	matrix.
+Page	6
+
+PAGE 7
+Camera	Calibration
+1	pix
+Fig.	5.	Image	residuals	for	RedEdge-M,	Green	(5.5mm).
+RedEdge-M,	Green	(5.5mm)
+609	images,	precalibrated
+Type
+Resolution
+Focal	Length
+Pixel	Size
+Frame
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Value
+Error
+F
+Cx
+Cy
+B1
+B2
+K1
+K2
+K3
+P1
+P2
+F
+1449.62
+0.095
+1.00
+0.04
+-0.51
+-0.04
+-0.08
+-0.06
+0.13
+-0.10
+0.01
+-0.29
+Cx
+-6.78959
+0.029
+1.00
+-0.02
+-0.02
+-0.01
+0.00
+0.00
+0.00
+0.92
+-0.00
+Cy
+6.96657
+0.025
+1.00
+0.00
+0.03
+-0.04
+-0.01
+-0.01
+-0.01
+0.78
+B1
+0.173873
+0.0049
+1.00
+0.00
+0.00
+-0.05
+0.06
+-0.03
+0.01
+B2
+-0.0555336
+0.0046
+1.00
+-0.00
+-0.00
+0.00
+0.00
+-0.01
+K1
+-0.100546
+0.00022
+1.00
+-0.97
+0.92
+-0.00
+-0.04
+K2
+0.155257
+0.0016
+1.00
+-0.99
+0.00
+-0.02
+K3
+-0.0372533
+0.0034
+1.00
+-0.00
+0.01
+P1
+-0.000396903
+6.2e-06
+1.00
+-0.00
+P2
+-0.000427323
+5.5e-06
+1.00
+Table	5.	Calibration	coeﬃcients	and	correlation	matrix.
+Page	7
+
+PAGE 8
+Camera	Calibration
+1	pix
+Fig.	6.	Image	residuals	for	RedEdge-M,	Red-650	(5.5mm).
+RedEdge-M,	Red-650	(5.5mm)
+609	images,	precalibrated
+Type
+Resolution
+Focal	Length
+Pixel	Size
+Frame
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Value
+Error
+F
+Cx
+Cy
+B1
+B2
+K1
+K2
+K3
+P1
+P2
+F
+1450.96
+0.095
+1.00
+0.02
+-0.59
+-0.02
+-0.08
+-0.03
+0.12
+-0.09
+0.01
+-0.33
+Cx
+-13.825
+0.027
+1.00
+-0.02
+-0.02
+0.02
+0.00
+-0.00
+0.00
+0.91
+-0.00
+Cy
+16.7648
+0.025
+1.00
+-0.02
+0.05
+-0.06
+-0.00
+-0.01
+-0.01
+0.75
+B1
+0.239663
+0.0047
+1.00
+-0.00
+-0.01
+-0.04
+0.05
+-0.03
+0.01
+B2
+0.0817701
+0.0044
+1.00
+-0.00
+-0.00
+0.00
+0.04
+-0.01
+K1
+-0.100781
+0.0002
+1.00
+-0.96
+0.92
+-0.00
+-0.06
+K2
+0.144329
+0.0014
+1.00
+-0.99
+0.01
+-0.01
+K3
+-0.020611
+0.003
+1.00
+-0.01
+0.01
+P1
+6.56513e-05
+5.7e-06
+1.00
+-0.01
+P2
+0.00037326
+5.2e-06
+1.00
+Table	6.	Calibration	coeﬃcients	and	correlation	matrix.
+Page	8
+
+PAGE 9
+Camera	Calibration
+1	pix
+Fig.	7.	Image	residuals	for	RedEdge-M,	Red	(5.5mm).
+RedEdge-M,	Red	(5.5mm)
+609	images,	precalibrated
+Type
+Resolution
+Focal	Length
+Pixel	Size
+Frame
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Value
+Error
+F
+Cx
+Cy
+B1
+B2
+K1
+K2
+K3
+P1
+P2
+F
+1449.63
+0.095
+1.00
+0.04
+-0.53
+-0.03
+-0.09
+-0.03
+0.12
+-0.09
+0.03
+-0.30
+Cx
+5.8538
+0.026
+1.00
+-0.03
+0.02
+-0.00
+-0.00
+0.01
+-0.00
+0.91
+-0.01
+Cy
+8.97457
+0.023
+1.00
+0.00
+0.08
+-0.05
+-0.00
+-0.01
+-0.02
+0.76
+B1
+0.117349
+0.0047
+1.00
+-0.00
+-0.00
+-0.04
+0.05
+0.01
+0.01
+B2
+0.017355
+0.0044
+1.00
+-0.01
+0.01
+-0.01
+0.02
+0.03
+K1
+-0.102712
+0.00019
+1.00
+-0.96
+0.92
+0.00
+-0.06
+K2
+0.153847
+0.0014
+1.00
+-0.99
+0.00
+-0.02
+K3
+-0.04161
+0.003
+1.00
+0.00
+0.01
+P1
+0.000885076
+5.5e-06
+1.00
+-0.01
+P2
+-0.000161043
+4.9e-06
+1.00
+Table	7.	Calibration	coeﬃcients	and	correlation	matrix.
+Page	9
+
+PAGE 10
+Camera	Calibration
+1	pix
+Fig.	8.	Image	residuals	for	RedEdge-M,	Red	edge-705	(5.5mm).
+RedEdge-M,	Red	edge-705	(5.5mm)
+609	images,	precalibrated
+Type
+Resolution
+Focal	Length
+Pixel	Size
+Frame
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Value
+Error
+F
+Cx
+Cy
+B1
+B2
+K1
+K2
+K3
+P1
+P2
+F
+1449.48
+0.095
+1.00
+0.07
+-0.60
+-0.03
+-0.09
+-0.04
+0.13
+-0.10
+0.04
+-0.34
+Cx
+26.9502
+0.028
+1.00
+-0.04
+0.07
+-0.02
+-0.00
+0.01
+-0.01
+0.91
+-0.01
+Cy
+15.2107
+0.026
+1.00
+0.01
+0.09
+-0.05
+-0.01
+-0.00
+-0.02
+0.76
+B1
+0.306207
+0.0048
+1.00
+-0.00
+-0.01
+-0.04
+0.05
+0.07
+0.04
+B2
+-0.13676
+0.0045
+1.00
+-0.01
+0.01
+-0.01
+-0.00
+0.08
+K1
+-0.104403
+0.0002
+1.00
+-0.97
+0.92
+0.01
+-0.06
+K2
+0.15632
+0.0014
+1.00
+-0.99
+-0.00
+-0.01
+K3
+-0.0435886
+0.003
+1.00
+0.01
+0.01
+P1
+0.000518496
+6e-06
+1.00
+-0.02
+P2
+-0.000741271
+5.5e-06
+1.00
+Table	8.	Calibration	coeﬃcients	and	correlation	matrix.
+Page	10
+
+PAGE 11
+Camera	Calibration
+1	pix
+Fig.	9.	Image	residuals	for	RedEdge-M,	Red	edge	(5.5mm).
+RedEdge-M,	Red	edge	(5.5mm)
+609	images,	precalibrated
+Type
+Resolution
+Focal	Length
+Pixel	Size
+Frame
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Value
+Error
+F
+Cx
+Cy
+B1
+B2
+K1
+K2
+K3
+P1
+P2
+F
+1452.05
+0.095
+1.00
+0.05
+-0.54
+-0.05
+-0.08
+-0.03
+0.12
+-0.09
+0.02
+-0.32
+Cx
+22.1156
+0.027
+1.00
+-0.02
+0.04
+-0.02
+-0.01
+0.01
+-0.01
+0.91
+-0.00
+Cy
+20.8176
+0.024
+1.00
+0.02
+0.07
+-0.06
+-0.00
+-0.01
+-0.01
+0.76
+B1
+0.0149828
+0.0047
+1.00
+-0.00
+-0.01
+-0.03
+0.05
+0.04
+0.01
+B2
+-0.0238186
+0.0045
+1.00
+-0.02
+0.02
+-0.02
+0.01
+0.05
+K1
+-0.102526
+0.00019
+1.00
+-0.96
+0.92
+-0.00
+-0.06
+K2
+0.157297
+0.0013
+1.00
+-0.99
+0.00
+-0.02
+K3
+-0.0398515
+0.0029
+1.00
+0.00
+0.01
+P1
+-5.26042e-06
+5.7e-06
+1.00
+-0.00
+P2
+-0.00116177
+5.1e-06
+1.00
+Table	9.	Calibration	coeﬃcients	and	correlation	matrix.
+Page	11
+
+PAGE 12
+Camera	Calibration
+1	pix
+Fig.	10.	Image	residuals	for	RedEdge-M,	Red	edge-740	(5.5mm).
+RedEdge-M,	Red	edge-740	(5.5mm)
+609	images,	precalibrated
+Type
+Resolution
+Focal	Length
+Pixel	Size
+Frame
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Value
+Error
+F
+Cx
+Cy
+B1
+B2
+K1
+K2
+K3
+P1
+P2
+F
+1448.8
+0.095
+1.00
+0.06
+-0.64
+-0.04
+-0.08
+-0.01
+0.10
+-0.07
+0.03
+-0.37
+Cx
+0.442853
+0.025
+1.00
+-0.06
+-0.01
+0.00
+-0.00
+0.01
+-0.00
+0.90
+-0.03
+Cy
+27.0745
+0.024
+1.00
+0.01
+0.05
+-0.07
+-0.00
+-0.02
+-0.03
+0.73
+B1
+-0.0565957
+0.0046
+1.00
+0.00
+-0.01
+-0.04
+0.05
+-0.02
+0.04
+B2
+0.060922
+0.0043
+1.00
+-0.01
+0.01
+-0.01
+0.02
+0.01
+K1
+-0.104138
+0.00018
+1.00
+-0.96
+0.92
+0.00
+-0.08
+K2
+0.146219
+0.0013
+1.00
+-0.99
+0.00
+-0.01
+K3
+-0.0246081
+0.0028
+1.00
+-0.00
+0.01
+P1
+-0.00047914
+5.2e-06
+1.00
+-0.03
+P2
+-0.000483575
+4.9e-06
+1.00
+Table	10.	Calibration	coeﬃcients	and	correlation	matrix.
+Page	12
+
+PAGE 13
+Camera	Calibration
+1	pix
+Fig.	11.	Image	residuals	for	RedEdge-M,	NIR	(5.5mm).
+RedEdge-M,	NIR	(5.5mm)
+609	images,	precalibrated
+Type
+Resolution
+Focal	Length
+Pixel	Size
+Frame
+1280	x	960
+5.5	mm
+3.75	x	3.75	
+μ
+m
+Value
+Error
+F
+Cx
+Cy
+B1
+B2
+K1
+K2
+K3
+P1
+P2
+F
+1453.93
+0.095
+1.00
+0.08
+-0.56
+-0.03
+-0.08
+-0.01
+0.10
+-0.07
+0.04
+-0.30
+Cx
+-6.74374
+0.025
+1.00
+-0.07
+-0.01
+0.01
+0.00
+0.00
+0.00
+0.89
+-0.04
+Cy
+10.2714
+0.022
+1.00
+-0.00
+0.05
+-0.06
+-0.00
+-0.01
+-0.05
+0.74
+B1
+0.160763
+0.0046
+1.00
+-0.00
+-0.00
+-0.04
+0.05
+-0.02
+0.01
+B2
+-0.0208666
+0.0043
+1.00
+-0.01
+0.00
+-0.00
+0.03
+0.01
+K1
+-0.105501
+0.00018
+1.00
+-0.96
+0.92
+0.00
+-0.06
+K2
+0.148529
+0.0013
+1.00
+-0.99
+0.01
+-0.02
+K3
+-0.0305338
+0.0028
+1.00
+-0.00
+0.01
+P1
+-0.000182139
+5e-06
+1.00
+-0.05
+P2
+0.000480972
+4.5e-06
+1.00
+Table	11.	Calibration	coeﬃcients	and	correlation	matrix.
+Page	13
+
+PAGE 14
+Camera	Locations
+100	m
+-25	m
+-20	m
+-15	m
+-10	m
+-5	m
+0	m
+5	m
+10	m
+15	m
+20	m
+25	m
+x	3
+Fig.	12.	Camera	locations	and	error	estimates.
+Z	error	is	represented	by	ellipse	color.	X,Y	errors	are	represented	by	ellipse	shape.
+Estimated	camera	locations	are	marked	with	a	black	dot.
+X	error	(m)
+Y	error	(m)
+Z	error	(m)
+XY	error	(m)
+Total	error	(m)
+1.61225
+1.86181
+19.2452
+2.46286
+19.4022
+Table	12.	Average	camera	location	error.
+X	-	Easting,	Y	-	Northing,	Z	-	Altitude.
+Page	14
+
+PAGE 15
+Ground	Control	Points
+52
+53
+54
+55
+56
+-2.5	mm
+-2	mm
+-1.5	mm
+-1	mm
+-0.5	mm
+0	mm
+0.5	mm
+1	mm
+1.5	mm
+2	mm
+2.5	mm
+x	1500
+Control	points
+Check	points
+100	m
+Fig.	13.	GCP	locations	and	error	estimates.
+Z	error	is	represented	by	ellipse	color.	X,Y	errors	are	represented	by	ellipse	shape.
+Estimated	GCP	locations	are	marked	with	a	dot	or	crossing.
+Count
+X	error	(mm)
+Y	error	(mm)
+Z	error	(mm)
+XY	error	(mm)
+Total	(mm)
+5
+4.1679
+3.74317
+1.47715
+5.60202
+5.7935
+Table	13.	Control	points	RMSE.
+X	-	Easting,	Y	-	Northing,	Z	-	Altitude.
+Page	15
+
+PAGE 16
+Label
+X	error	(mm)
+Y	error	(mm)
+Z	error	(mm)
+Total	(mm)
+Image	(pix)
+52
+-6.32519
+6.05542
+-1.33458
+8.85761
+3.654	(2)
+53
+5.6724
+-3.31974
+2.27724
+6.95576
+3.045	(2)
+54
+-2.28334
+-2.39057
+1.04392
+3.46673
+2.020	(2)
+55
+-0.343997
+2.83639
+-0.772127
+2.95967
+1.492	(2)
+56
+3.05626
+-2.93389
+1.50234
+4.49505
+2.442	(2)
+Total
+4.1679
+3.74317
+1.47715
+5.7935
+2.642
+Table	14.	Control	points.
+X	-	Easting,	Y	-	Northing,	Z	-	Altitude.
+Page	16
+
+PAGE 17
+Digital	Elevation	Model
+2.68	km
+2.72	km
+100	m
+Fig.	14.	Reconstructed	digital	elevation	model.
+Resolution:
+55.3	cm/pix
+Point	density:
+3.26	points/m²
+Page	17
+
+PAGE 18
+Processing	Parameters
+General
+Cameras
+6090
+Aligned	cameras
+5650
+Markers
+6
+Shapes
+Polygon
+1
+Coordinate	system
+NAD83	/	UTM	zone	13N	(EPSG::26913)
+Rotation	angles
+Yaw,	Pitch,	Roll
+Point	Cloud
+Points
+942,214	of	1,372,013
+RMS	reprojection	error
+0.159086	(0.496384	pix)
+Max	reprojection	error
+0.58	(16.861	pix)
+Mean	key	point	size
+2.82368	pix
+Point	colors
+1	bands,	uint16
+Key	points
+No
+Average	tie	point	multiplicity
+15.0017
+Alignment	parameters
+Accuracy
+High
+Generic	preselection
+Yes
+Reference	preselection
+Source
+Key	point	limit
+10,000
+Key	point	limit	per	Mpx
+1,000
+Tie	point	limit
+4,000
+Filter	points	by	mask
+No
+Mask	tie	points
+No
+Exclude	stationary	tie	points
+Yes
+Guided	image	matching
+No
+Adaptive	camera	model	ﬁtting
+Yes
+Matching	time
+4	minutes	49	seconds
+Matching	memory	usage
+12.20	GB
+Alignment	time
+51	minutes	10	seconds
+Alignment	memory	usage
+5.10	GB
+Optimization	parameters
+Parameters
+f,	b1,	b2,	cx,	cy,	k1-k3,	p1,	p2
+Adaptive	camera	model	ﬁtting
+No
+Optimization	time
+50	seconds
+Date	created
+2023:09:02	23:21:22
+Software	version
+1.8.3.14331
+File	size
+338.99	MB
+Dense	Point	Cloud
+Points
+1,351,273
+Point	colors
+10	bands,	uint16
+Depth	maps	generation	parameters
+Quality
+Medium
+Filtering	mode
+Aggressive
+Max	neighbors
+16
+Processing	time
+1	minutes	58	seconds
+Memory	usage
+1.50	GB
+Dense	cloud	generation	parameters
+Processing	time
+4	minutes	47	seconds
+Memory	usage
+2.24	GB
+Page	18
+
+PAGE 19
+Ground	points	classiﬁcation	parameters
+Max	angle	(°)
+15
+Max	distance	(m)
+1
+Cell	size	(m)
+50
+Classiﬁcation	time
+2	seconds
+Classiﬁcation	memory	usage
+58.43	MB
+Date	created
+2023:11:08	01:50:04
+Software	version
+1.8.3.14331
+File	size
+47.44	MB
+Model
+Faces
+196,435
+Vertices
+98,344
+Vertex	colors
+10	bands,	uint16
+Reconstruction	parameters
+Surface	type
+Arbitrary
+Source	data
+Dense	cloud
+Interpolation
+Enabled
+Strict	volumetric	masks
+No
+Processing	time
+26	seconds
+Memory	usage
+734.06	MB
+Date	created
+2023:11:08	01:54:18
+Software	version
+1.8.3.14331
+File	size
+4.50	MB
+DEM
+Size
+797	x	650
+Coordinate	system
+NAD83	/	UTM	zone	13N	(EPSG::26913)
+Reconstruction	parameters
+Source	data
+Mesh
+Interpolation
+Enabled
+Processing	time
+1	minutes	0	seconds
+Memory	usage
+21.46	MB
+Date	created
+2023:11:08	01:55:25
+Software	version
+1.8.3.14331
+File	size
+1.38	MB
+System
+Software	name
+Agisoft	Metashape	Professional
+Software	version
+1.8.3	build	14331
+OS
+Linux	64	bit
+RAM
+125.55	GB
+CPU
+Intel(R)	Xeon(R)	CPU	E5-2680	v3	@	2.50GHz
+GPU(s)
+Tesla	K80
+Tesla	K80
+Tesla	K80
+Tesla	K80
+Page	19

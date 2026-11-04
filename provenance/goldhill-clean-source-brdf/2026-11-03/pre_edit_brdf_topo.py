@@ -1,0 +1,524 @@
+"""BRDF and topographic correction helpers for the streamlined pipeline."""
+
+from __future__ import annotations
+
+import json
+import logging
+from pathlib import Path
+from typing import Literal, Tuple
+
+import numpy as np
+
+from .corrections import (
+    BRDF_KERNEL_MATH_VERSION,
+    HYTOOLS_BRDF_KERNEL_CONFIG,
+    NDVIBinningConfig,
+    apply_brdf_correct,
+    apply_topo_correct,
+    fit_and_save_brdf_model,
+    fit_scs_c_coefficients,
+)
+from .envi_writer import EnviWriter, finalize_scientific_header
+from .neon_cube import NeonCube
+from .progress_utils import TileProgressReporter
+from .utils_checks import is_valid_envi_pair, is_valid_json
+
+
+logger = logging.getLogger(__name__)
+
+TopoFitMode = Literal["scene", "tile"]
+_TOPO_FIT_MODES = frozenset({"scene", "tile"})
+_DEFAULT_TOPO_FIT_MODE: TopoFitMode = "scene"
+_TILE_CHUNK_SIZE = 100
+# Scene mode fits C once, then applies in row strips (full width) to avoid OOM.
+# Set large enough that min(_SCENE_APPLY_CHUNK_Y, cube.lines) == cube.lines
+# (unchunked apply). Cap is still cube.lines, so this does not allocate extra rows.
+_SCENE_APPLY_CHUNK_Y = 100000
+
+_REQUIRED_SUFFIX = "_reflectance_envi"
+_CORRECTED_SUFFIX = "_reflectance_brdfandtopo_corrected_envi"
+
+
+def _normalize_topo_fit_mode(topo_fit_mode: str | TopoFitMode) -> TopoFitMode:
+    mode = (topo_fit_mode or _DEFAULT_TOPO_FIT_MODE).strip().lower()
+    if mode not in _TOPO_FIT_MODES:
+        raise ValueError(
+            "topo_fit_mode must be one of "
+            f"{sorted(_TOPO_FIT_MODES)!r}; received {topo_fit_mode!r}"
+        )
+    return mode  # type: ignore[return-value]
+
+
+def _resolve_topo_chunk_dims(
+    cube: NeonCube,
+    topo_fit_mode: str | TopoFitMode,
+) -> tuple[int, int]:
+    """Return spatial chunk sizes used while applying topographic correction.
+
+    For ``scene`` mode the SCS+C coefficients are fit once over the full footprint
+    (streamed), then applied in full-width row strips. For ``tile`` mode both fit
+    and apply remain local to each ``100 x 100`` tile.
+    """
+
+    mode = _normalize_topo_fit_mode(topo_fit_mode)
+    if mode == "scene":
+        return min(_SCENE_APPLY_CHUNK_Y, cube.lines), cube.columns
+    return _TILE_CHUNK_SIZE, _TILE_CHUNK_SIZE
+
+
+def _derive_corrected_stem(raw_img_path: Path) -> str:
+    stem = raw_img_path.stem
+    if stem.endswith(_REQUIRED_SUFFIX):
+        return stem[: -len(_REQUIRED_SUFFIX)] + _CORRECTED_SUFFIX
+    if stem.endswith(_REQUIRED_SUFFIX.replace("_reflectance", "")):
+        return stem + "_brdfandtopo_corrected_envi"
+    if _CORRECTED_SUFFIX in stem:
+        return stem
+    return f"{stem}_brdfandtopo_corrected_envi"
+
+
+def build_correction_parameters_dict(
+    *,
+    h5_path: Path,
+    raw_img_path: Path,
+    raw_hdr_path: Path,
+    base_folder: Path,
+    use_ndvi_brdf_bins: bool = False,
+    flight_stem: str | None = None,
+    product_code: str | None = None,
+    sample_slice: slice | tuple[int, int] | None = None,
+    line_slice: slice | tuple[int, int] | None = None,
+) -> dict:
+    """Compute the correction parameter payload without writing it to disk."""
+
+    del flight_stem, product_code  # maintained for future extensibility
+
+    h5_path = Path(h5_path)
+    raw_img_path = Path(raw_img_path)
+    raw_hdr_path = Path(raw_hdr_path)
+    base_folder = Path(base_folder)
+    base_folder.mkdir(parents=True, exist_ok=True)
+
+    corrected_stem = _derive_corrected_stem(raw_img_path)
+
+    cube = NeonCube(
+        h5_path=h5_path, sample_slice=sample_slice, line_slice=line_slice
+    )
+    coeff_path = fit_and_save_brdf_model(
+        cube,
+        base_folder,
+        ndvi_config=NDVIBinningConfig(enabled=use_ndvi_brdf_bins),
+        brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
+        apply_topography=True,
+    )
+
+    geometry_stats: dict[str, dict[str, float]] = {}
+    ancillary_keys = (
+        "solar_zn",
+        "solar_az",
+        "sensor_zn",
+        "sensor_az",
+        "slope",
+        "aspect",
+    )
+    for key in ancillary_keys:
+        try:
+            array = cube.get_ancillary(key, radians=True)
+        except Exception as exc:  # pragma: no cover - optional ancillary failures
+            logger.warning("⚠️  Failed to extract ancillary '%s': %s", key, exc)
+            continue
+        try:
+            min_val = float(np.nanmin(array))
+        except ValueError:  # pragma: no cover - all values NaN
+            min_val = float("nan")
+        try:
+            max_val = float(np.nanmax(array))
+        except ValueError:  # pragma: no cover - all values NaN
+            max_val = float("nan")
+
+        geometry_stats[key] = {
+            "mean": float(np.nanmean(array, dtype=np.float64)),
+            "std": float(np.nanstd(array, dtype=np.float64)),
+            "min": min_val,
+            "max": max_val,
+        }
+
+    wavelength_nm = np.asarray(cube.wavelengths, dtype=np.float32).reshape(-1)
+    fwhm_nm = (
+        np.asarray(cube.fwhm, dtype=np.float32).reshape(-1)
+        if cube.fwhm is not None
+        else None
+    )
+
+    def _mean_angle(array: np.ndarray | None) -> float | None:
+        if array is None:
+            return None
+        arr = np.asarray(array, dtype=np.float32).reshape(-1)
+        if arr.size == 0:
+            return None
+        mean_val = float(np.nanmean(arr.astype(np.float64)))
+        return None if np.isnan(mean_val) else mean_val
+
+    sun_mean = _mean_angle(getattr(cube, "to_sun_zenith", None))
+    sensor_mean = _mean_angle(getattr(cube, "to_sensor_zenith", None))
+
+    return {
+        "base_key": cube.base_key,
+        "stem": corrected_stem,
+        "lines": cube.lines,
+        "samples": cube.columns,
+        "bands": cube.bands,
+        "h5_path": str(h5_path.resolve()),
+        "raw_img_path": str(raw_img_path.resolve()),
+        "raw_hdr_path": str(raw_hdr_path.resolve()),
+        "coefficients_path": str(coeff_path.resolve()),
+        "use_ndvi_brdf_bins": bool(use_ndvi_brdf_bins),
+        "geometry": geometry_stats,
+        "notes": "generated before BRDF/topo correction",
+        "wavelength_nm": wavelength_nm.tolist(),
+        "fwhm_nm": fwhm_nm.tolist() if fwhm_nm is not None else None,
+        "to_sun_zenith": sun_mean,
+        "to_sensor_zenith": sensor_mean,
+        "sample_start": int(cube.sample_start),
+        "sample_stop": int(cube.sample_stop),
+        "full_samples": int(cube.full_samples),
+        "line_start": int(cube.line_start),
+        "line_stop": int(cube.line_stop),
+        "full_lines": int(cube.full_lines),
+    }
+
+
+def build_and_write_correction_json(
+    h5_path: Path,
+    raw_img_path: Path,
+    raw_hdr_path: Path,
+    out_dir: Path,
+    use_ndvi_brdf_bins: bool = False,
+) -> Path:
+    """Persist BRDF/topographic correction parameters for a flightline."""
+
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    params = build_correction_parameters_dict(
+        h5_path=h5_path,
+        raw_img_path=raw_img_path,
+        raw_hdr_path=raw_hdr_path,
+        base_folder=out_dir,
+        use_ndvi_brdf_bins=use_ndvi_brdf_bins,
+    )
+
+    corrected_stem = params.get("stem")
+    if not corrected_stem:
+        corrected_stem = _derive_corrected_stem(Path(raw_img_path))
+
+    json_path = out_dir / f"{corrected_stem}.json"
+
+    if is_valid_json(json_path):
+        logger.info("✅ Correction JSON already complete for %s, skipping", corrected_stem)
+        return json_path
+
+    with json_path.open("w", encoding="utf-8") as f:
+        json.dump(params, f, indent=2)
+
+    if not is_valid_json(json_path):
+        raise RuntimeError(f"Failed to write correction JSON: {json_path}")
+
+    logger.info("📝 Correction parameters saved: %s", json_path)
+    return json_path
+
+
+# Correction driver for the streamlined NEON workflow.
+#
+# Big picture:
+# - ``raw_img_path`` / ``raw_hdr_path`` identify the uncorrected ENVI cube on disk.
+# - ``params`` is the precomputed JSON payload that points back to the source H5 and
+#   to the scene-level BRDF coefficient file.
+# - The function reopens the source H5 via ``NeonCube`` so it has the reflectance
+#   cube plus all ancillary rasters needed for correction.
+# - Output is written incrementally with ``EnviWriter`` in BSQ layout, so we never
+#   have to assemble a second full corrected cube in RAM before writing.
+#
+# Spatial indexing convention:
+# - ``ys`` / ``ye`` are the inclusive start and exclusive end row indices.
+# - ``xs`` / ``xe`` are the inclusive start and exclusive end column indices.
+# - Slices are therefore half-open, following normal NumPy ``array[ys:ye, xs:xe]`` rules.
+#
+# Chunking / topo behaviour:
+# - ``topo_fit_mode="scene"`` (default): fit SCS+C once over the flightline via
+#   streamed sufficient statistics, then apply in full-width row strips
+#   (``_SCENE_APPLY_CHUNK_Y`` rows). This matches HyTools scene-wide C without
+#   loading the whole cube as one correction tile (which OOMs on long NEON lines).
+# - ``topo_fit_mode="tile"``: fit and apply independently inside each 100x100 tile.
+# - ``apply_brdf_correct`` always uses scene-level BRDF coefficients over the same
+#   application tile footprint.
+# - Because apply tiles have no halo/feathering, seams aligned with the apply grid
+#   can still appear when ``topo_fit_mode="tile"``.
+def apply_brdf_topo_core(
+    *,
+    raw_img_path: Path,
+    raw_hdr_path: Path,
+    params: dict,
+    out_img_path: Path,
+    out_hdr_path: Path,
+    use_ndvi_brdf_bins: bool = False,
+    topo_fit_mode: str | TopoFitMode = _DEFAULT_TOPO_FIT_MODE,
+    interactive_mode: bool = True,
+    log_every: int = 25,
+) -> None:
+    """Run the BRDF+topographic correction using ``params`` into ``out_*`` paths.
+
+    Parameters
+    ----------
+    topo_fit_mode : {"scene", "tile"}, default "scene"
+        Controls how topographic correction is fit before application.
+
+        * ``"scene"`` fits the SCS+C regression once over the full flightline
+          footprint (HyTools-style), then applies in memory-safe row strips.
+        * ``"tile"`` fits independently inside each 100x100 spatial tile.
+    """
+
+    # Normalize paths and make sure the destination directory exists before we do any work.
+    raw_img_path = Path(raw_img_path)
+    raw_hdr_path = Path(raw_hdr_path)
+    out_img_path = Path(out_img_path)
+    out_hdr_path = Path(out_hdr_path)
+    out_img_path.parent.mkdir(parents=True, exist_ok=True)
+
+    raw_name_lower = raw_img_path.name.lower()
+    if "brdfandtopo_corrected_envi" in raw_name_lower:
+        raise RuntimeError(
+            f"Refusing to correct an already corrected cube: {raw_img_path.name}"
+        )
+
+    source_h5 = Path(params.get("h5_path", "")) if isinstance(params, dict) else None
+    if source_h5 is None or not source_h5.exists():
+        raise RuntimeError(
+            "Correction parameters missing valid 'h5_path'; cannot apply BRDF/topo correction."
+        )
+
+    coeff_path = Path(params.get("coefficients_path", "")) if isinstance(params, dict) else None
+    if coeff_path and not coeff_path.exists():
+        logger.warning(
+            "⚠️  BRDF coefficient file referenced by JSON is missing: %s", coeff_path
+        )
+        coeff_path = None
+
+    # ``NeonCube`` loads the reflectance cube and ancillary rasters into a common
+    # coordinate system, which lets the per-tile correction functions slice both
+    # data and geometry using the same ``ys:ye, xs:xe`` bounds.
+    sample_slice = None
+    sample_start = params.get("sample_start") if isinstance(params, dict) else None
+    sample_stop = params.get("sample_stop") if isinstance(params, dict) else None
+    full_samples = params.get("full_samples") if isinstance(params, dict) else None
+    if sample_start is not None and sample_stop is not None:
+        start = int(sample_start)
+        stop = int(sample_stop)
+        if full_samples is None or not (start == 0 and stop == int(full_samples)):
+            sample_slice = slice(start, stop)
+
+    line_slice = None
+    line_start = params.get("line_start") if isinstance(params, dict) else None
+    line_stop = params.get("line_stop") if isinstance(params, dict) else None
+    full_lines = params.get("full_lines") if isinstance(params, dict) else None
+    if line_start is not None and line_stop is not None:
+        start = int(line_start)
+        stop = int(line_stop)
+        if full_lines is None or not (start == 0 and stop == int(full_lines)):
+            line_slice = slice(start, stop)
+
+    cube = NeonCube(
+        h5_path=source_h5, sample_slice=sample_slice, line_slice=line_slice
+    )
+
+    from .radiometry import require_radiometry
+    require_radiometry(cube)
+    if coeff_path is None:
+        raise ValueError("BRDF UNSUPPORTED: missing validated model")
+    model = json.loads(coeff_path.read_text())
+    if model.get("kernel_math_version") != BRDF_KERNEL_MATH_VERSION:
+        raise ValueError("BRDF UNSUPPORTED: incompatible kernel mathematics; correction blocked before raster creation")
+    if model.get("schema_version") != 2 or model.get("validation", {}).get("status") != "VALID":
+        raise ValueError("BRDF " + model.get("validation", {}).get("status", "UNSUPPORTED") + ": correction blocked before raster creation")
+    if model.get("apply_topography") and _normalize_topo_fit_mode(topo_fit_mode) != "scene":
+        raise ValueError("BRDF UNSUPPORTED: scene-topographic model cannot be applied with tile-local topographic fits")
+    header = cube.build_envi_header()
+    header["brdf status"] = "INCOMPLETE"
+    header["brdf model schema"] = 2
+    header["brdf kernel math version"] = BRDF_KERNEL_MATH_VERSION
+    header["description"] = (
+        "BRDF + topographic corrected reflectance (float32); generated by cross-sensor-cal pipeline"
+    )
+    header.setdefault("data type", 4)
+    header.setdefault("byte order", 0)
+    header.setdefault("reflectance scale factor", float(getattr(cube, "scale_factor", 1.0)))
+    if hasattr(cube, "no_data"):
+        header.setdefault("data ignore value", float(getattr(cube, "no_data")))
+
+    writer = EnviWriter(out_img_path.with_suffix(""), header)
+
+    topo_mode = _normalize_topo_fit_mode(topo_fit_mode)
+    chunk_y, chunk_x = _resolve_topo_chunk_dims(cube, topo_mode)
+    scs_c: np.ndarray | None = None
+    if topo_mode == "scene":
+        logger.info(
+            "[brdf-topo] Fitting scene-wide SCS+C coefficients, then applying in "
+            "%d x %d strips",
+            chunk_y,
+            chunk_x,
+        )
+        scs_c = (np.asarray(model["topographic_c"], np.float32) if "topographic_c" in model else
+                 fit_scs_c_coefficients(cube, chunk_y=chunk_y, chunk_x=chunk_x))
+    else:
+        logger.info(
+            "[brdf-topo] Using tile-local topographic fit (%d x %d pixels)",
+            chunk_y,
+            chunk_x,
+        )
+    total_chunks = cube.chunk_count(chunk_y=chunk_y, chunk_x=chunk_x)
+    reporter = TileProgressReporter(
+        stage_name="BRDF+topo correction",
+        total_tiles=total_chunks,
+        interactive_mode=interactive_mode,
+        log_every=log_every,
+    )
+
+    brightness_offset: float | None = None
+    if isinstance(params, dict):
+        offset_val = params.get("brightness_offset")
+        try:
+            brightness_offset = float(offset_val) if offset_val is not None else None
+        except (TypeError, ValueError):  # pragma: no cover - defensive against malformed JSON
+            brightness_offset = None
+
+    brightness_offset_np: np.float32 | None = None
+    if brightness_offset is not None:
+        brightness_offset_np = np.float32(brightness_offset)
+
+    brightness_offset_logged = False
+
+    try:
+        for ys, ye, xs, xe, raw_chunk in cube.iter_chunks(
+            chunk_y=chunk_y, chunk_x=chunk_x
+        ):
+            # ``raw_chunk`` is the reflectance data for this tile only, shaped
+            # ``(tile_rows, tile_cols, bands)``.
+            chunk = np.asarray(raw_chunk, dtype=np.float32)
+
+            # Topographic correction: scene mode reuses precomputed C; tile mode
+            # fits inside apply_topo_correct on this footprint only.
+            corrected_chunk = apply_topo_correct(
+                cube, chunk, ys, ye, xs, xe, scs_c=scs_c
+            )
+
+            # BRDF uses scene-level coefficients, but the kernels are evaluated
+            # over this same tile footprint.
+            corrected_chunk = apply_brdf_correct(
+                cube,
+                corrected_chunk,
+                ys,
+                ye,
+                xs,
+                xe,
+                coeff_path=coeff_path,
+                input_stage="topographic_only",
+                ndvi_config=NDVIBinningConfig(enabled=use_ndvi_brdf_bins),
+                brdf_kernel_config=HYTOOLS_BRDF_KERNEL_CONFIG,
+            )
+            corrected_chunk = corrected_chunk.astype(np.float32, copy=False)
+            if brightness_offset_np is not None:
+                if not brightness_offset_logged:
+                    logger.debug(
+                        "Applying brightness_offset=%.3f once during correction",
+                        brightness_offset,
+                    )
+                    brightness_offset_logged = True
+                # Additive brightness adjustment is applied after the multiplicative
+                # topo/BRDF steps so it shifts the final corrected output directly.
+                corrected_chunk = corrected_chunk + brightness_offset_np
+
+            # Write the corrected tile back to its original full-scene position.
+            writer.write_chunk(corrected_chunk, ys, xs)
+            reporter.update(1)
+    finally:
+        writer.close()
+        reporter.close()
+
+    if not is_valid_envi_pair(out_img_path, out_hdr_path):
+        raise RuntimeError(f"BRDF/topo correction failed for {out_img_path}")
+    finalize_scientific_header(out_hdr_path, header, brdf_status="VALID")
+
+
+def apply_brdf_topo_correction(
+    *,
+    raw_img_path: Path,
+    raw_hdr_path: Path,
+    correction_json_path: Path,
+    out_dir: Path,
+    use_ndvi_brdf_bins: bool = False,
+    topo_fit_mode: str | TopoFitMode = _DEFAULT_TOPO_FIT_MODE,
+    interactive_mode: bool = True,
+    log_every: int = 25,
+) -> Tuple[Path, Path]:
+    """Apply BRDF + topographic correction using precomputed parameters."""
+
+    raw_img_path = Path(raw_img_path)
+    raw_hdr_path = Path(raw_hdr_path)
+    correction_json_path = Path(correction_json_path)
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    corrected_stem = _derive_corrected_stem(raw_img_path)
+    corrected_img_path = out_dir / f"{corrected_stem}.img"
+    corrected_hdr_path = out_dir / f"{corrected_stem}.hdr"
+
+    if is_valid_envi_pair(corrected_img_path, corrected_hdr_path):
+        from .radiometry import library_radiometry
+        library_radiometry(corrected_img_path)
+        logger.info("✅ BRDF+topo correction already complete for %s, skipping", corrected_stem)
+        return corrected_img_path, corrected_hdr_path
+
+    if not is_valid_json(correction_json_path):
+        raise RuntimeError(
+            "Missing or invalid correction JSON before correction for "
+            f"{corrected_stem}: {correction_json_path}"
+        )
+
+    with correction_json_path.open("r", encoding="utf-8") as f:
+        params = json.load(f)
+
+    json_stem = params.get("stem") if isinstance(params, dict) else None
+    if json_stem:
+        corrected_stem = json_stem
+        corrected_img_path = out_dir / f"{corrected_stem}.img"
+        corrected_hdr_path = out_dir / f"{corrected_stem}.hdr"
+
+    if is_valid_envi_pair(corrected_img_path, corrected_hdr_path):
+        logger.info("✅ BRDF+topo correction already complete for %s, skipping", corrected_stem)
+        return corrected_img_path, corrected_hdr_path
+
+    apply_brdf_topo_core(
+        raw_img_path=raw_img_path,
+        raw_hdr_path=raw_hdr_path,
+        params=params,
+        out_img_path=corrected_img_path,
+        out_hdr_path=corrected_hdr_path,
+        use_ndvi_brdf_bins=bool(
+            params.get("use_ndvi_brdf_bins", use_ndvi_brdf_bins)
+        ),
+        topo_fit_mode=topo_fit_mode,
+        interactive_mode=interactive_mode,
+        log_every=log_every,
+    )
+
+    logger.info("✅ Corrected ENVI saved: %s", corrected_img_path)
+    return corrected_img_path, corrected_hdr_path
+
+
+__all__ = [
+    "TopoFitMode",
+    "build_correction_parameters_dict",
+    "build_and_write_correction_json",
+    "apply_brdf_topo_core",
+    "apply_brdf_topo_correction",
+]

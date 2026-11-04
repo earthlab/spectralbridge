@@ -1,0 +1,66 @@
+{
+  "branches": {
+    "new_raw": {
+      "path": "/private/tmp/p168-goldhill-sources/derived_10cm_10k/goldhill_10cm_fixed_10k.tif",
+      "format": "tif",
+      "status": "UNCALIBRATED_NUMERICAL_BASELINE"
+    },
+    "old_raw": {
+      "path": "/private/tmp/goldhill-radiometric-recovery-20261102/normalized_raw.npy",
+      "format": "npy",
+      "status": "HISTORICAL_NUMERICAL_BASELINE"
+    },
+    "old_topo": {
+      "path": "/private/tmp/goldhill-radiometric-recovery-20261102/normalized_topo.npy",
+      "format": "npy",
+      "status": "HISTORICAL_UNSUPPORTED"
+    },
+    "old_brdf": {
+      "path": "/private/tmp/goldhill-radiometric-recovery-20261102/normalized_brdf.npy",
+      "format": "npy",
+      "status": "HISTORICAL_UNSUPPORTED"
+    },
+    "old_combined": {
+      "path": "/private/tmp/goldhill-radiometric-recovery-20261102/normalized_combined.npy",
+      "format": "npy",
+      "status": "HISTORICAL_UNSUPPORTED"
+    },
+    "new_historical_topo": {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/historical_diagnostic/new_historical_topo.npy",
+      "tif": "/private/tmp/goldhill-end-to-end-20261103/historical_diagnostic/new_historical_topo.tif",
+      "format": "npy",
+      "status": "DIAGNOSTIC_ONLY_UNSUPPORTED"
+    },
+    "new_historical_brdf": {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/historical_diagnostic/new_historical_brdf.npy",
+      "tif": "/private/tmp/goldhill-end-to-end-20261103/historical_diagnostic/new_historical_brdf.tif",
+      "format": "npy",
+      "status": "DIAGNOSTIC_ONLY_UNSUPPORTED"
+    },
+    "new_historical_combined": {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/historical_diagnostic/new_historical_combined.npy",
+      "tif": "/private/tmp/goldhill-end-to-end-20261103/historical_diagnostic/new_historical_combined.tif",
+      "format": "npy",
+      "status": "DIAGNOSTIC_ONLY_UNSUPPORTED"
+    }
+  },
+  "work": "/private/tmp/goldhill-end-to-end-20261103",
+  "polygon_index": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_polygon_pixel_index.parquet",
+  "profile": {
+    "crs": "EPSG:26913",
+    "transform": [
+      0.09999999999996322,
+      0.0,
+      457624.5,
+      0.0,
+      -0.09999999999991677,
+      4432830.55,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "height": 2238,
+    "width": 3165
+  },
+  "illumination": "/private/tmp/goldhill-end-to-end-20261103/illumination_cosine.npy"
+}

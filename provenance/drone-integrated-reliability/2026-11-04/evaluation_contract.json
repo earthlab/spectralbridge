@@ -1,0 +1,68 @@
+{
+  "source_index": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_polygon_pixel_index.parquet",
+  "same_memberships": 142637,
+  "same_independent_identities": 157,
+  "same_folds": true,
+  "seed": 20261103,
+  "classifier_C": 1,
+  "train_only_preprocessing": true,
+  "parameter_selection_using_PFT": false,
+  "fixed_regions": {
+    "roi_native_indices": [
+      573,
+      974,
+      812,
+      1313
+    ],
+    "roi_extent_NAD83_UTM13N": [
+      457705.69999999995,
+      457755.79999999993,
+      4432733.149999999,
+      4432773.25
+    ],
+    "roi_resolution_m": 0.1,
+    "exemplar_GlobalID": "{3A6D6E1D-3581-49B8-9321-397DFE5298C5}",
+    "exemplar_cover_category": "Deciduous",
+    "exemplar_species": "Populus tremuloides",
+    "exemplar_status": "Nearest eligible boundary-crossing polygon to the pre-existing transect; raw within-polygon spectral angle recorded, not selected on corrected quality",
+    "selected_polygons": [
+      "{3A6D6E1D-3581-49B8-9321-397DFE5298C5}",
+      "{5A8F5F52-E86E-4354-A521-D7F1ABC78F65}",
+      "{B3288E38-7D65-49AB-810E-4ABF8F62E43D}"
+    ],
+    "pixels": [
+      {
+        "label": "nonpositive_outside",
+        "row": 921,
+        "column": 980
+      },
+      {
+        "label": "near_zero_inside",
+        "row": 921,
+        "column": 981
+      },
+      {
+        "label": "inside_artifact",
+        "row": 921,
+        "column": 1000
+      },
+      {
+        "label": "unaffected_reference",
+        "row": 921,
+        "column": 830
+      }
+    ],
+    "main_transect_row": 921,
+    "main_transition_left_column": 980,
+    "main_transect_columns": [
+      840,
+      1120
+    ],
+    "array_order": "row,column,band",
+    "source_alpha_policy": "Display and polygon membership require alpha>0; H5 arrays unchanged; exact replay diagnostics also retain original full finite-H5 support"
+  },
+  "uncertainty": "Class-stratified paired identity bootstrap of fixed OOF predictions; no training/site-year or nearby-polygon dependence uncertainty",
+  "supported_experimental_images": 7,
+  "membership_definition": "Original source index unchanged; same joint valid subset used for all paired branches",
+  "source_memberships_before_unsupported_illumination": 144406
+}

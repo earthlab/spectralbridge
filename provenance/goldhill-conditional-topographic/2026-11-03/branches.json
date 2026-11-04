@@ -1,0 +1,56 @@
+{
+  "branches": {
+    "raw": {
+      "path": "/private/tmp/goldhill-conditional-topographic-20261103/raw.npy",
+      "format": "npy"
+    },
+    "historical": {
+      "path": "/private/tmp/goldhill-conditional-topographic-20261103/historical.npy",
+      "format": "npy"
+    },
+    "current": {
+      "path": "/private/tmp/goldhill-conditional-topographic-20261103/current.npy",
+      "format": "npy"
+    },
+    "eligible_OLS": {
+      "path": "/private/tmp/goldhill-conditional-topographic-20261103/eligible_OLS.npy",
+      "format": "npy"
+    },
+    "robust_Huber": {
+      "path": "/private/tmp/goldhill-conditional-topographic-20261103/robust_Huber.npy",
+      "format": "npy"
+    },
+    "stabilized": {
+      "path": "/private/tmp/goldhill-conditional-topographic-20261103/stabilized.npy",
+      "format": "npy"
+    },
+    "cosine": {
+      "path": "/private/tmp/goldhill-conditional-topographic-20261103/cosine.npy",
+      "format": "npy"
+    }
+  },
+  "profile": {
+    "crs": "EPSG:26913",
+    "transform": [
+      0.09999999999996322,
+      0.0,
+      457624.5,
+      0.0,
+      -0.09999999999991677,
+      4432830.55,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "height": 2238,
+    "width": 3165
+  },
+  "polygon_index": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_polygon_pixel_index.parquet",
+  "work": "/private/tmp/goldhill-conditional-topographic-20261103",
+  "common_pixels": 6614170,
+  "raw_pixels": 6683944,
+  "geometry_valid_pixels": 6678404,
+  "self_shadow_pixels": 1087,
+  "missing_geometry_pixels": 5540,
+  "stabilized_pixels": 6614170
+}

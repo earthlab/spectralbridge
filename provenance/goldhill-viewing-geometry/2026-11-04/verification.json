@@ -1,0 +1,140 @@
+{
+  "status": "PASS",
+  "protected_source_and_prior_artifact_count": 136,
+  "protected_hashes_unchanged": true,
+  "prior_available_hashes_unchanged": 261,
+  "prior_temporary_paths_unavailable": [
+    {
+      "path": "/private/tmp/spectralbridge-scale-confirmation/goldhill-original.tif",
+      "expected_sha256": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+      "status": "HISTORICAL_TEMPORARY_PATH_UNAVAILABLE_NOT_USED_OR_RECREATED"
+    }
+  ],
+  "core_P172_scientific_modules_unchanged": true,
+  "main_outputs": [
+    {
+      "branch": "A_brdf",
+      "ten_band_native_GeoTIFF_exact": true,
+      "numerical_fit": "VALID",
+      "scientific_status": "EXPERIMENTAL_NOT_VALIDATED"
+    },
+    {
+      "branch": "A_combined",
+      "ten_band_native_GeoTIFF_exact": true,
+      "numerical_fit": "VALID",
+      "scientific_status": "EXPERIMENTAL_NOT_VALIDATED"
+    },
+    {
+      "branch": "B_brdf",
+      "ten_band_native_GeoTIFF_exact": true,
+      "numerical_fit": "VALID",
+      "scientific_status": "EXPERIMENTAL_NOT_VALIDATED"
+    },
+    {
+      "branch": "B_combined",
+      "ten_band_native_GeoTIFF_exact": true,
+      "numerical_fit": "VALID",
+      "scientific_status": "EXPERIMENTAL_NOT_VALIDATED"
+    },
+    {
+      "branch": "C_uniform_brdf",
+      "ten_band_native_GeoTIFF_exact": true,
+      "numerical_fit": "VALID",
+      "scientific_status": "EXPERIMENTAL_NOT_VALIDATED"
+    },
+    {
+      "branch": "C_uniform_combined",
+      "ten_band_native_GeoTIFF_exact": true,
+      "numerical_fit": "VALID",
+      "scientific_status": "EXPERIMENTAL_NOT_VALIDATED"
+    },
+    {
+      "branch": "C_center_brdf",
+      "ten_band_native_GeoTIFF_exact": true,
+      "numerical_fit": "VALID",
+      "scientific_status": "EXPERIMENTAL_NOT_VALIDATED"
+    },
+    {
+      "branch": "C_center_combined",
+      "ten_band_native_GeoTIFF_exact": true,
+      "numerical_fit": "VALID",
+      "scientific_status": "EXPERIMENTAL_NOT_VALIDATED"
+    }
+  ],
+  "NEON_regression": [
+    {
+      "mode": "brdf",
+      "exact_values_and_masks": true,
+      "max_absolute_difference": 0
+    },
+    {
+      "mode": "combined",
+      "exact_values_and_masks": true,
+      "max_absolute_difference": 0
+    }
+  ],
+  "test_results": {
+    "tests": 163,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "native_grid": [
+    2238,
+    3165
+  ],
+  "ground_support": 6683905,
+  "original_source_footprint": 6683944,
+  "terrain_missing": 39,
+  "unchanged_polygon_memberships": 144406,
+  "unchanged_independent_ids": 157,
+  "unchanged_identity_folds": true,
+  "source_to_experiment_decode": [
+    {
+      "band": 0,
+      "exact_conditional_decode": true
+    },
+    {
+      "band": 1,
+      "exact_conditional_decode": true
+    },
+    {
+      "band": 2,
+      "exact_conditional_decode": true
+    },
+    {
+      "band": 3,
+      "exact_conditional_decode": true
+    },
+    {
+      "band": 4,
+      "exact_conditional_decode": true
+    },
+    {
+      "band": 5,
+      "exact_conditional_decode": true
+    },
+    {
+      "band": 6,
+      "exact_conditional_decode": true
+    },
+    {
+      "band": 7,
+      "exact_conditional_decode": true
+    },
+    {
+      "band": 8,
+      "exact_conditional_decode": true
+    },
+    {
+      "band": 9,
+      "exact_conditional_decode": true
+    }
+  ],
+  "geometry": "INFERRED_NADIR_NOT_VERIFIED_CONTRIBUTORS",
+  "calibration": "HYPOTHETICAL_UNVERIFIED",
+  "official_library_created": false,
+  "BRDF_disabled": false,
+  "PDF_sha256": "694f45889f9c5490d47f5f9b68a795ebc303dbd2be9c508f5fa93eb72fb2a30a",
+  "implementation_sha256": "c24c45dc679ed926d0c5c2d01b656d1f9ef9455a3c0a7f265052882cee3ca073"
+}

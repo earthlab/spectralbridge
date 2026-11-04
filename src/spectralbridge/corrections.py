@@ -30,6 +30,7 @@ from typing import Tuple, TYPE_CHECKING
 import numpy as np
 
 from .radiometry import require_radiometry
+from .topographic import apply_conditioned_scs_c, cluster_covariance
 from spectralbridge.paths import normalize_brdf_model_path, scene_prefix_from_dir
 
 __all__ = [
@@ -49,6 +50,7 @@ if TYPE_CHECKING:  # pragma: no cover - only for type hints
 
 _BRDF_COEFF_CACHE: dict[Path, dict[str, np.ndarray | str]] = {}
 BRDF_KERNEL_MATH_VERSION = "ross-li-reciprocal-f64-v1"
+BRDF_VALIDATION_POLICY = "source-footprint-resolved-predictions-v1"
 MAX_UNITLESS_REFLECTANCE = 1.2
 MIN_SCS_C_DENOM = 1e-3
 logger = logging.getLogger(__name__)
@@ -559,6 +561,7 @@ def apply_topo_correct(
     xe: int,
     use_scs_c: bool = True,
     scs_c: np.ndarray | None = None,
+    conditioned_model: dict | None = None,
 ) -> np.ndarray:
     """Topographic (illumination) correction on a hyperspectral chunk.
 
@@ -577,6 +580,12 @@ def apply_topo_correct(
 
     if chunk_array.dtype != np.float32:
         raise ValueError("Chunks passed to apply_topo_correct must be float32 arrays.")
+    if conditioned_model is not None:
+        if not use_scs_c or scs_c is not None:
+            raise ValueError("A conditioned SCS+C model cannot be combined with legacy coefficients or cosine correction")
+        return apply_conditioned_scs_c(
+            cube, chunk_array, ys, ye, xs, xe, model=conditioned_model
+        ).values
 
     # Pull the ancillary rasters for exactly the same spatial footprint as the
     # reflectance tile we are correcting.
@@ -717,6 +726,8 @@ def apply_brdf_correct(
     validation = model.get("validation", {})
     if model.get("schema_version") != 2 or validation.get("status") != "VALID":
         raise ValueError(f"BRDF {validation.get('status', 'UNSUPPORTED')}: model is not a validated shared-contract fit.")
+    if model.get("validation_policy") != BRDF_VALIDATION_POLICY:
+        raise ValueError("BRDF UNSUPPORTED: incompatible validation policy; refit in a fresh output directory")
     if model.get("fit_input_stage") != input_stage:
         raise ValueError("BRDF UNSUPPORTED: fitting and application correction stages differ")
     if brdf_kernel_config is not None:
@@ -725,6 +736,8 @@ def apply_brdf_correct(
             raise ValueError("BRDF INVALID: application kernels differ from validated model")
     if model["radiometry"] != radiometry.record():
         raise ValueError("BRDF INVALID: model radiometry differs from application cube.")
+    if model.get("wavelengths_nm") != np.asarray(cube.wavelengths, dtype=float).tolist():
+        raise ValueError("BRDF INVALID: model band identities differ from application cube.")
     if model.get("source_identity") != _brdf_source_identity(cube):
         raise ValueError("BRDF INVALID: model source/window differs from application cube.")
     stored_reference = ReferenceGeometry(**model["reference_geometry"])
@@ -745,28 +758,76 @@ def apply_brdf_correct(
         bins = np.zeros(physical.shape[:2], dtype=int)
     reference = np.asarray(model["reference_design"], dtype=np.float64)
     corrected = physical.copy()
+    fit_records = {(r["band"], r["bin"]): r for r in validation.get("fits", [])}
+    quality = radiometry.valid_stored(chunk_array, nodata=getattr(cube, "no_data", None))
     for band in range(cube.bands):
         for bin_id in range(len(edges)-1):
             selected = valid & (bins == bin_id) & np.isfinite(physical[..., band])
-            selected &= chunk_array[..., band] != getattr(cube, "no_data", np.nan)
+            selected &= quality[..., band]
             if not np.any(selected):
                 continue
             values = [model[k][bin_id][band] for k in ("iso", "vol", "geo")]
             if any(value is None for value in values):
                 raise ValueError("BRDF UNSUPPORTED: no fitted support for this band/stratum")
             beta = np.asarray(values, dtype=np.float64)
-            pred = X @ beta
-            ref = float(reference @ beta)
-            if np.any(selected & (~np.isfinite(pred) | (pred <= 0))) or not np.isfinite(ref) or ref <= 0:
-                raise ValueError("BRDF INVALID: nonpositive/nonfinite prediction; no identity fallback is allowed.")
+            covariance = fit_records.get((band, bin_id), {}).get("coefficient_covariance")
+            if covariance is None:
+                raise ValueError("BRDF UNSUPPORTED: missing fitted prediction uncertainty")
+            pred, ref, _, _, resolved = _brdf_predictions(X, reference, beta, covariance)
+            if np.any(selected & ~resolved):
+                raise ValueError("BRDF INVALID: nonpositive or unresolved model prediction; no identity fallback is allowed.")
             factor = np.divide(ref, pred, out=np.ones_like(pred), where=selected)
             if not np.isfinite(factor[selected]).all():
                 raise ValueError("BRDF INVALID: nonfinite correction factor.")
             corrected[..., band][selected] *= factor[selected]
     output = radiometry.to_stored(corrected)
-    input_valid = valid[..., None] & np.isfinite(chunk_array)
-    input_valid &= chunk_array != getattr(cube, "no_data", np.nan)
+    input_valid = valid[..., None] & quality & np.isfinite(physical)
     return np.where(input_valid, output, getattr(cube, "no_data", np.nan)).astype(np.float32)
+
+
+def _brdf_spatial_mask(cube, window=None):
+    """Intersect the combined mask with an explicit source footprint, if supplied.
+
+    Normal NeonCube inputs already perform this intersection. Reassert it at the
+    shared scientific boundary so alternate readers cannot admit transparent
+    background through a stale or overly broad combined mask.
+    """
+    combined = np.asarray(cube.mask_no_data, dtype=bool)
+    footprint = getattr(cube, "source_valid_mask", None)
+    if footprint is not None:
+        footprint = np.asarray(footprint)
+        if footprint.shape != combined.shape:
+            raise ValueError("BRDF UNSUPPORTED: source footprint and data mask shapes differ")
+    if window is not None:
+        ys, ye, xs, xe = window
+        combined = combined[ys:ye, xs:xe]
+        if footprint is not None:
+            footprint = footprint[ys:ye, xs:xe]
+    valid = combined.copy()
+    if footprint is not None:
+        valid &= np.isfinite(footprint) & (footprint > 0)
+    return valid
+
+
+def _brdf_predictions(design, reference, beta, covariance):
+    """Shared fit/application positivity, roundoff and OLS-uncertainty checks.
+
+    The 1.96 standard-error rule is the existing computational prediction check,
+    not spatially independent uncertainty or a bound on correction magnitudes.
+    No observation is replaced by an identity or clipped gain on failure.
+    """
+    covariance = np.asarray(covariance, dtype=np.float64)
+    if covariance.shape != (3, 3) or not np.isfinite(covariance).all():
+        raise ValueError("BRDF INVALID: invalid fitted prediction covariance")
+    prediction = design @ beta
+    ref = float(reference @ beta)
+    roundoff = 8 * np.finfo(np.float32).eps * (np.abs(design) @ np.abs(beta))
+    ref_roundoff = float(8 * np.finfo(np.float32).eps * (np.abs(reference) @ np.abs(beta)))
+    prediction_se = np.sqrt(np.maximum(np.einsum("...i,ij,...j->...", design, covariance, design), 0.))
+    reference_se = float(np.sqrt(max(0., reference @ covariance @ reference)))
+    resolved = np.isfinite(prediction) & (prediction > roundoff + 1.96 * prediction_se)
+    resolved &= np.isfinite(ref) & (ref > ref_roundoff + 1.96 * reference_se)
+    return prediction, ref, prediction_se, reference_se, resolved
 
 
 def _brdf_source_identity(cube):
@@ -783,7 +844,7 @@ def _brdf_source_identity(cube):
         for row in cube.get_ancillary(name, radians=True):
             h.update(np.ascontiguousarray(row).tobytes())
     h.update(str((getattr(cube, "sample_start", 0), getattr(cube, "line_start", 0), cube.data.shape, getattr(cube,"no_data",None))).encode())
-    for row in cube.mask_no_data:
+    for row in _brdf_spatial_mask(cube):
         h.update(np.ascontiguousarray(row).tobytes())
     cube._brdf_source_digest = h.hexdigest()
     return cube._brdf_source_digest
@@ -791,7 +852,7 @@ def _brdf_source_identity(cube):
 
 def _brdf_design(cube, config, scene_solar=None, window=None):
     names = ("solar_az", "solar_zn", "sensor_az", "sensor_zn")
-    valid = np.asarray(cube.mask_no_data, dtype=bool).copy()
+    valid = _brdf_spatial_mask(cube, window=window)
     if window is None:
         angles = [np.asarray(cube.get_ancillary(k, radians=True), dtype=np.float32) for k in names]
     else:
@@ -799,7 +860,6 @@ def _brdf_design(cube, config, scene_solar=None, window=None):
         # Slice in native degree units before conversion, avoiding four full
         # angular conversions on every application strip.
         angles = [np.deg2rad(np.asarray(cube.get_ancillary(k, radians=False)[ys:ye, xs:xe], np.float32)) for k in names]
-        valid = valid[ys:ye, xs:xe]
     for a in angles:
         valid &= np.isfinite(a)
     valid &= (angles[1] >= 0) & (angles[1] < np.pi/2) & ((angles[3] >= 0) & (angles[3] < np.pi/2))
@@ -833,6 +893,10 @@ def fit_and_save_brdf_model(
     rho_min: float = 0.0,
     rho_max: float | None = 2.0,
     apply_topography: bool = False,
+    fitting_mask: np.ndarray | None = None,
+    fitting_provenance: dict | None = None,
+    uncertainty_groups: np.ndarray | None = None,
+    topographic_model: dict | None = None,
 ) -> Path:
     """Fit and persist a shared NEON/drone BRDF model and validation diagnostics.
 
@@ -868,12 +932,40 @@ def fit_and_save_brdf_model(
     ndvi_config = ndvi_config or NDVIBinningConfig()
     reference = ReferenceGeometry()
     radiometry = getattr(cube, "radiometry", Radiometry(None, None, "UNSUPPORTED", "No authoritative calibration"))
-    identity = _brdf_source_identity(cube)
+    input_error = None
+    try:
+        identity = _brdf_source_identity(cube)
+    except (KeyError, ValueError, RuntimeError) as exc:
+        identity = None
+        input_error = f"Missing or invalid BRDF input geometry/footprint: {exc}"
     signature = {"source_identity": identity, "radiometry": radiometry.record(),
                  "kernel_config": asdict(config), "ndvi_config": asdict(ndvi_config),
                  "rho_min": rho_min, "rho_max": rho_max, "schema_version": 2,
                  "kernel_math_version": BRDF_KERNEL_MATH_VERSION,
+                 "validation_policy": BRDF_VALIDATION_POLICY,
+                 "wavelengths_nm": np.asarray(cube.wavelengths, dtype=float).tolist(),
                  "apply_topography": bool(apply_topography)}
+    # Omit new keys for default calls to preserve existing cache identities.
+    import hashlib
+    for name, values in (("fitting_mask", fitting_mask), ("uncertainty_groups", uncertainty_groups)):
+        if values is None:
+            continue
+        values = np.asarray(values)
+        if values.shape != cube.data.shape[:2] or (name == "fitting_mask" and values.dtype != bool):
+            raise ValueError(f"{name} must match the source grid; fitting masks must be boolean")
+        if name == "uncertainty_groups" and not np.issubdtype(values.dtype, np.integer):
+            raise ValueError("uncertainty_groups must contain integer cluster identities")
+        signature[name + "_sha256"] = hashlib.sha256(np.ascontiguousarray(values).tobytes()).hexdigest()
+    if fitting_provenance is not None:
+        signature["fitting_provenance"] = json.loads(json.dumps(fitting_provenance, allow_nan=False))
+    if fitting_mask is not None:
+        fitting_mask = np.asarray(fitting_mask)
+    if uncertainty_groups is not None:
+        uncertainty_groups = np.asarray(uncertainty_groups)
+    if topographic_model is not None:
+        if not apply_topography:
+            raise ValueError("A topographic model requires apply_topography=True")
+        signature["topographic_model_sha256"] = hashlib.sha256(json.dumps(topographic_model, sort_keys=True, allow_nan=False).encode()).hexdigest()
     if coeff_path.exists():
         old = json.loads(coeff_path.read_text())
         if all(old.get(k) == v for k, v in signature.items()):
@@ -892,23 +984,36 @@ def fit_and_save_brdf_model(
                "correction_factor_diagnostics_status": "NOT_EVALUATED",
                "validation": {"status": "UNSUPPORTED", "fits": [], "reasons": []}}
     validation = payload["validation"]
+    if fitting_provenance is not None or uncertainty_groups is not None:
+        payload["scientific_validation_status"] = "EXPERIMENTAL"
     try:
         radiometry.require_valid()
     except ValueError as exc:
         validation["reasons"].append(str(exc))
+    if input_error is not None:
+        validation["reasons"].append(input_error)
+    if validation["reasons"]:
         coeff_path.write_text(json.dumps(payload, indent=2, allow_nan=False))
         return coeff_path
     physical = radiometry.to_physical(cube.data)
     if apply_topography:
         # Fit the BRDF on the same topographically corrected measurements to
         # which its ratio will be applied. Fit C once; keep raw cube immutable.
-        c = fit_scs_c_coefficients(cube)
-        payload["topographic_c"] = c.astype(float).tolist()
+        c = fit_scs_c_coefficients(cube) if topographic_model is None else None
+        if topographic_model is None:
+            payload["topographic_c"] = c.astype(float).tolist()
+        else:
+            payload["topographic_model"] = topographic_model
+            payload["scientific_validation_status"] = "EXPERIMENTAL"
         for ys, ye, xs, xe, chunk in cube.iter_chunks(chunk_y=500, chunk_x=cube.columns):
-            corrected = apply_topo_correct(cube, np.asarray(chunk, np.float32), ys, ye, xs, xe, scs_c=c)
+            kwargs = {"scs_c": c} if topographic_model is None else {"conditioned_model": topographic_model}
+            corrected = apply_topo_correct(cube, np.asarray(chunk, np.float32), ys, ye, xs, xe, **kwargs)
             physical[ys:ye, xs:xe] = radiometry.to_physical(corrected)
     payload["fit_input_stage"] = "topographic_only" if apply_topography else "uncorrected"
     X, valid, scene_solar = _brdf_design(cube, config)
+    source_spatial = _brdf_spatial_mask(cube)
+    payload["fitting_population"]["source_footprint_valid"] = int(source_spatial.sum())
+    payload["fitting_population"]["numerical_angular_valid"] = int(valid.sum())
     payload["fitting_population"]["status"] = "EVALUATED_PER_BAND_STRATUM"
     payload["rank_conditioning_status"] = "EVALUATED_PER_BAND_STRATUM"
     payload["scene_solar_zenith_rad"] = scene_solar
@@ -922,7 +1027,14 @@ def fit_and_save_brdf_model(
     ref = _reference_design(reference, config)
     payload["reference_design"] = ref.tolist()
     if ndvi_config.enabled and ndvi_config.n_bins > 1:
-        edges, bins = compute_ndvi_bins(compute_ndvi(cube, physical), ndvi_config)
+        ndvi = compute_ndvi(cube, physical)
+        ndvi_valid = valid.copy()
+        for wavelength in (665.0, 865.0):
+            band_index = _select_band_for_wavelength(cube, wavelength)
+            ndvi_valid &= radiometry.valid_stored(cube.data[..., band_index], band_index=band_index,
+                                                 nodata=getattr(cube, "no_data", None))
+        ndvi[~ndvi_valid] = np.nan
+        edges, bins = compute_ndvi_bins(ndvi, ndvi_config)
     else:
         edges, bins = _single_brdf_bin(physical.shape[:2])
     n_bins = len(edges)-1
@@ -942,7 +1054,7 @@ def fit_and_save_brdf_model(
         for bin_id in range(n_bins):
             population = valid & (bins == bin_id)
             y = physical[..., band]
-            source_finite = (np.asarray(cube.mask_no_data, bool) & (bins == bin_id) & np.isfinite(y)
+            source_finite = (source_spatial & (bins == bin_id) & np.isfinite(y)
                              & radiometry.valid_stored(cube.data[..., band], band_index=band, nodata=getattr(cube, "no_data", None)))
             radiometric_eligible = source_finite & (y >= rho_min)
             if rho_max is not None:
@@ -951,6 +1063,10 @@ def fit_and_save_brdf_model(
             eligible = finite & (y >= rho_min)
             if rho_max is not None:
                 eligible &= y <= rho_max
+            if fitting_mask is not None:
+                eligible &= fitting_mask
+            if uncertainty_groups is not None:
+                eligible &= uncertainty_groups >= 0
             count = int(eligible.sum())
             record = {"band": band, "bin": bin_id, "available": int(population.sum()),
                       "source_nodata_quality_valid": int(source_finite.sum()),
@@ -959,8 +1075,13 @@ def fit_and_save_brdf_model(
                       "excluded_nonfinite_or_nodata": int((population & ~finite).sum()),
                       "excluded_below_min": int((finite & (y < rho_min)).sum()),
                       "excluded_above_max": int((finite & (y > rho_max)).sum()) if rho_max is not None else 0,
-                      "rank": 0, "status": "UNSUPPORTED"}
+                      "excluded_source_footprint": int((np.asarray(cube.mask_no_data, bool) & ~source_spatial & (bins == bin_id)).sum()),
+                      "rank": 0, "stable_rank": 0, "status": "UNSUPPORTED",
+                      "effective_independent_sample_size": None,
+                      "effective_sample_size_status": "NOT_ESTIMATED; pixel counts are not independent angular or ecological observations"}
             validation["fits"].append(record)
+            if fitting_mask is not None:
+                record["excluded_by_fitting_subset"] = int((finite & ~fitting_mask).sum())
             if not np.any(finite):
                 record.update(status="NOT_APPLICABLE", reason="No finite source observations in this band/stratum; nodata is preserved, no coefficients estimated")
                 continue
@@ -971,32 +1092,42 @@ def fit_and_save_brdf_model(
             A = X[eligible].astype(np.float64)
             target = y[eligible].astype(np.float64)
             beta, _, rank, singular = np.linalg.lstsq(A, target, rcond=None)
+            if fitting_provenance is not None:
+                record["diagnostic_coefficient_estimate"] = beta.tolist()
             condition = float(singular[0] / singular[-1]) if singular[-1] > 0 else None
             if condition is not None and not np.isfinite(condition):
                 condition = None
-            record.update(rank=int(rank), singular_values=singular.tolist(), condition_number=condition)
+            record.update(rank=int(rank), singular_values=singular.tolist(), condition_number=condition,
+                          stable_rank=int(np.count_nonzero(singular > singular[0] / condition_limit)),
+                          stable_rank_tolerance=float(singular[0] / condition_limit))
             if rank != 3 or condition is None or condition > condition_limit:
                 record["reason"] = "Rank-deficient or insufficiently conditioned angular design"
                 unsupported = True
                 continue
             # Check the whole application domain, not only the few eligible pixels.
-            domain = X[population].astype(np.float64)
-            prediction = domain @ beta
-            reference_prediction = float(ref @ beta)
-            roundoff = 8 * np.finfo(np.float32).eps * (np.abs(domain) @ np.abs(beta))
-            reference_roundoff = float(8 * np.finfo(np.float32).eps * (np.abs(ref) @ np.abs(beta)))
+            application_domain = population if topographic_model is None else population & source_finite
+            domain = X[application_domain].astype(np.float64)
             residual = target - A @ beta
             variance = float(residual @ residual / (count - 3))
             covariance = variance * np.linalg.inv(A.T @ A)
-            reference_se = float(np.sqrt(max(0., ref @ covariance @ ref)))
-            prediction_se = np.sqrt(np.maximum(np.einsum("ij,jk,ik->i", domain, covariance, domain), 0.))
+            if uncertainty_groups is not None:
+                try:
+                    covariance, n_groups = cluster_covariance(A, residual, uncertainty_groups[eligible])
+                except (ValueError, np.linalg.LinAlgError) as exc:
+                    record["reason"] = str(exc)
+                    unsupported = True
+                    continue
+                record.update(uncertainty_method="spatial_cluster_sandwich_v1", uncertainty_groups=n_groups)
+            prediction, reference_prediction, prediction_se, reference_se, resolved = _brdf_predictions(domain, ref, beta, covariance)
             record.update(reference_prediction=reference_prediction, reference_standard_error=reference_se,
+                          coefficient_covariance=covariance.tolist(),
+                          residual_rmse=float(np.sqrt(np.mean(residual**2))),
+                          unsupported_application_predictions=int(np.count_nonzero(~resolved)),
                           predicted_standard_error_quantiles=np.quantile(prediction_se,[0,.5,1]).tolist(),
                           coefficient_standard_errors=np.sqrt(np.maximum(np.diag(covariance),0)).tolist(),
                           reference_leverage=float(ref @ np.linalg.solve(A.T @ A, ref)),
                           reference_outside_kernel_bounds=bool(np.any((ref < A.min(axis=0)) | (ref > A.max(axis=0)))))
-            if (not np.isfinite(beta).all() or not np.isfinite(prediction).all() or
-                    np.any(prediction <= roundoff + 1.96 * prediction_se) or reference_prediction <= reference_roundoff + 1.96 * reference_se):
+            if not np.isfinite(beta).all() or not resolved.all():
                 record.update(status="INVALID", reason="Nonpositive or cancellation/uncertainty-dominated model prediction")
                 invalid = True
                 continue

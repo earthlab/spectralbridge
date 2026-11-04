@@ -1,0 +1,313 @@
+{
+  "source_identity": "74b7996ebbffc3ae840d740d2e12bbb128a55fadbf7ed7d86adbbd00f3847b7b",
+  "radiometry": {
+    "scale": 0.0001999969482421875,
+    "offset": 0.0,
+    "status": "HYPOTHETICAL_UNVERIFIED",
+    "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+    "convention": "physical = scale * stored + offset"
+  },
+  "kernel_config": {
+    "volume_kernel": "RossThick",
+    "geom_kernel": "LiDenseR",
+    "b_r": 10.0,
+    "h_b": 2.0,
+    "solar_zn_type": "scene"
+  },
+  "ndvi_config": {
+    "enabled": false,
+    "ndvi_min": 0.05,
+    "ndvi_max": 1.0,
+    "n_bins": 25,
+    "perc_min": 10.0,
+    "perc_max": 95.0
+  },
+  "rho_min": 0,
+  "rho_max": null,
+  "schema_version": 2,
+  "kernel_math_version": "ross-li-reciprocal-f64-v1",
+  "apply_topography": false,
+  "source_path": "in-memory fixture",
+  "source_shape": [
+    2238,
+    3165,
+    10
+  ],
+  "reference_geometry": {
+    "solar_zenith_deg": 45.0,
+    "view_zenith_deg": 0.0,
+    "relative_azimuth_deg": 0.0
+  },
+  "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
+  "fitting_population": {
+    "total_image_pixels": 7083270,
+    "available_spatial": 6683944,
+    "explicit_source_footprint_pixels": null,
+    "source_footprint_status": "NoData-derived; independent footprint mask unavailable",
+    "eligibility_units": "verified fractional physical reflectance only",
+    "eligible": null,
+    "status": "EVALUATED_PER_BAND_STRATUM"
+  },
+  "angular_support": {
+    "solar_zn": {
+      "count": 6683944,
+      "min_rad": 0.4845663905143738,
+      "max_rad": 0.4846128225326538,
+      "std_rad": 1.0630001853751336e-05
+    },
+    "solar_az": {
+      "count": 6683944,
+      "min_rad": 3.5725460052490234,
+      "max_rad": 3.572686195373535,
+      "std_rad": 3.58742011149212e-05
+    },
+    "sensor_zn": {
+      "count": 6683944,
+      "min_rad": 0.0,
+      "max_rad": 0.0,
+      "std_rad": 0.0
+    },
+    "sensor_az": {
+      "count": 6683944,
+      "min_rad": 0.0,
+      "max_rad": 0.0,
+      "std_rad": 0.0
+    }
+  },
+  "rank_conditioning_status": "EVALUATED_PER_BAND_STRATUM",
+  "correction_factor_diagnostics_status": "EVALUATED_PER_SUPPORTED_FIT",
+  "validation": {
+    "status": "UNSUPPORTED",
+    "fits": [
+      {
+        "band": 0,
+        "bin": 0,
+        "available": 6683944,
+        "source_nodata_quality_valid": 6683944,
+        "radiometrically_eligible_before_geometry": 6683944,
+        "eligible": 6683944,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          3656.945214997715,
+          7.213857051400352e-09,
+          9.63757116529e-22
+        ],
+        "condition_number": 3.79446766439278e+24,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 1,
+        "bin": 0,
+        "available": 6683944,
+        "source_nodata_quality_valid": 6683944,
+        "radiometrically_eligible_before_geometry": 6683944,
+        "eligible": 6683944,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          3656.945214997715,
+          7.213857051400352e-09,
+          9.63757116529e-22
+        ],
+        "condition_number": 3.79446766439278e+24,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 2,
+        "bin": 0,
+        "available": 6683944,
+        "source_nodata_quality_valid": 6683944,
+        "radiometrically_eligible_before_geometry": 6683944,
+        "eligible": 6683944,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          3656.945214997715,
+          7.213857051400352e-09,
+          9.63757116529e-22
+        ],
+        "condition_number": 3.79446766439278e+24,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 3,
+        "bin": 0,
+        "available": 6683944,
+        "source_nodata_quality_valid": 6683944,
+        "radiometrically_eligible_before_geometry": 6683944,
+        "eligible": 6683944,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          3656.945214997715,
+          7.213857051400352e-09,
+          9.63757116529e-22
+        ],
+        "condition_number": 3.79446766439278e+24,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 4,
+        "bin": 0,
+        "available": 6683944,
+        "source_nodata_quality_valid": 6683944,
+        "radiometrically_eligible_before_geometry": 6683944,
+        "eligible": 6683944,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          3656.945214997715,
+          7.213857051400352e-09,
+          9.63757116529e-22
+        ],
+        "condition_number": 3.79446766439278e+24,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 5,
+        "bin": 0,
+        "available": 6683944,
+        "source_nodata_quality_valid": 6683944,
+        "radiometrically_eligible_before_geometry": 6683944,
+        "eligible": 6683944,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          3656.945214997715,
+          7.213857051400352e-09,
+          9.63757116529e-22
+        ],
+        "condition_number": 3.79446766439278e+24,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 6,
+        "bin": 0,
+        "available": 6683944,
+        "source_nodata_quality_valid": 6683944,
+        "radiometrically_eligible_before_geometry": 6683944,
+        "eligible": 6683944,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          3656.945214997715,
+          7.213857051400352e-09,
+          9.63757116529e-22
+        ],
+        "condition_number": 3.79446766439278e+24,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 7,
+        "bin": 0,
+        "available": 6683944,
+        "source_nodata_quality_valid": 6683944,
+        "radiometrically_eligible_before_geometry": 6683944,
+        "eligible": 6683944,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          3656.945214997715,
+          7.213857051400352e-09,
+          9.63757116529e-22
+        ],
+        "condition_number": 3.79446766439278e+24,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 8,
+        "bin": 0,
+        "available": 6683944,
+        "source_nodata_quality_valid": 6683944,
+        "radiometrically_eligible_before_geometry": 6683944,
+        "eligible": 6683944,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          3656.945214997715,
+          7.213857051400352e-09,
+          9.63757116529e-22
+        ],
+        "condition_number": 3.79446766439278e+24,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      },
+      {
+        "band": 9,
+        "bin": 0,
+        "available": 6683944,
+        "source_nodata_quality_valid": 6683944,
+        "radiometrically_eligible_before_geometry": 6683944,
+        "eligible": 6683944,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 1,
+        "status": "UNSUPPORTED",
+        "singular_values": [
+          3656.945214997715,
+          7.213857051400352e-09,
+          9.63757116529e-22
+        ],
+        "condition_number": 3.79446766439278e+24,
+        "reason": "Rank-deficient or insufficiently conditioned angular design"
+      }
+    ],
+    "reasons": [],
+    "condition_limit": 2896.309326171875
+  },
+  "fit_input_stage": "uncorrected",
+  "scene_solar_zenith_rad": 0.4845896210057268,
+  "reference_design": [
+    1.0,
+    -0.04586202988221,
+    -1.0
+  ],
+  "ndvi_edges": [
+    -1.0,
+    1.0
+  ],
+  "ndvi_binning_enabled": false,
+  "volume_kernel": "RossThick",
+  "geom_kernel": "LiDenseR",
+  "b_r": 10.0,
+  "h_b": 2.0,
+  "solar_zn_type": "scene"
+}

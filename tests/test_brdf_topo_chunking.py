@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from spectralbridge.corrections import BRDF_KERNEL_MATH_VERSION
+from spectralbridge.corrections import BRDF_KERNEL_MATH_VERSION, BRDF_VALIDATION_POLICY
 from spectralbridge.brdf_topo import _resolve_topo_chunk_dims, apply_brdf_topo_core
 
 
@@ -119,7 +119,7 @@ def test_apply_brdf_topo_core_uses_scene_chunk_by_default(
 
     import json
     model = tmp_path / "validated-double.json"
-    model.write_text(json.dumps({"schema_version":2, "kernel_math_version":BRDF_KERNEL_MATH_VERSION, "validation":{"status":"VALID"}}))
+    model.write_text(json.dumps({"schema_version":2, "kernel_math_version":BRDF_KERNEL_MATH_VERSION, "validation_policy":BRDF_VALIDATION_POLICY, "validation":{"status":"VALID"}}))
     params = {
         "h5_path": str(h5_path),
         "coefficients_path": str(model),
@@ -175,7 +175,7 @@ def test_apply_brdf_topo_core_honors_tile_mode(
 
     import json
     model = tmp_path / "validated-double.json"
-    model.write_text(json.dumps({"schema_version":2, "kernel_math_version":BRDF_KERNEL_MATH_VERSION, "validation":{"status":"VALID"}}))
+    model.write_text(json.dumps({"schema_version":2, "kernel_math_version":BRDF_KERNEL_MATH_VERSION, "validation_policy":BRDF_VALIDATION_POLICY, "validation":{"status":"VALID"}}))
     params = {"h5_path": str(h5_path), "coefficients_path": str(model)}
 
     apply_brdf_topo_core(

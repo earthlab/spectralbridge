@@ -1,0 +1,128 @@
+ TYPE        PATH                                                                                                  
+ collection  /iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage 
+
+ TYPE         NAME                              OWNER          REPLICA NO.  RESOURCE HIERARCHY            SIZE       MODIFY TIME       STATUS 
+ data-object  AOP-GOLDHILL-08-14-23-DTM.tif     tylermcintosh  0            CyVerseRes;ds04Broker;ds04    882519     2023-12-13.13:22  Good   
+ data-object  AOP-GOLDHILL-08-14-23-DTM.tif     tylermcintosh  1            taccRes;corral4               882519     2023-12-13.13:22  Good   
+ data-object  AOP-GOLDHILL-08-14-23-dtm.tif     nilangakoon    0            CyVerseRes;pennyBroker;penny  6051       2025-01-15.14:18  Good   
+ data-object  AOP-GOLDHILL-08-14-23-dtm.tif     nilangakoon    1            taccRes;corral4               6051       2025-01-15.14:33  Good   
+ data-object  AOP-GOLDHILL-08-14-23_DEM.tif     tylermcintosh  0            CyVerseRes;romeoBroker;romeo  2335971    2023-12-13.13:22  Good   
+ data-object  AOP-GOLDHILL-08-14-23_DEM.tif     tylermcintosh  1            taccRes;corral4               2335971    2023-12-13.13:22  Good   
+ data-object  AOP-GOLDHILL-08-14-23_ORTHO.tif   tylermcintosh  0            CyVerseRes;ds18Broker;ds18    307376470  2023-12-13.13:22  Good   
+ data-object  AOP-GOLDHILL-08-14-23_ORTHO.tif   tylermcintosh  1            taccRes;corral4               307376470  2023-12-13.13:22  Good   
+ data-object  AOP-GOLDHILL-08-14-23_report.pdf  tylermcintosh  0            CyVerseRes;ds13Broker;ds13    2654212    2023-12-13.13:22  Good   
+ data-object  AOP-GOLDHILL-08-14-23_report.pdf  tylermcintosh  1            taccRes;corral4               2654212    2023-12-13.13:22  Good   
+ data-object  Goldhill-08-14-23.las             nilangakoon    0            CyVerseRes;ds26Broker;ds26    55398544   2025-01-13.09:52  Good   
+ data-object  Goldhill-08-14-23.las             nilangakoon    1            taccRes;corral4               55398544   2025-01-13.09:52  Good   
+ collection   Metadata                          tylermcintosh                                                        2026-02-09.10:58         
+
+ TYPE        PATH                                                                                            
+ collection  /iplant/home/shared/earthlab/macrosystems/field-data/output/AOP-GOLDHILL-08-14-23-ExportPackage 
+
+ TYPE         NAME                      OWNER       REPLICA NO.  RESOURCE HIERARCHY              SIZE      MODIFY TIME       STATUS 
+ data-object  aligned_aspect.tif        pavancub24            0  CyVerseRes;dustyBroker;dusty    4483405   2025-01-15.18:41  Good   
+ data-object  aligned_aspect.tif        pavancub24            1  taccRes;corral4                 4483405   2025-01-15.18:44  Good   
+ data-object  aligned_dem.tif           pavancub24            0  CyVerseRes;ds16Broker;ds16      2691151   2025-01-15.18:41  Good   
+ data-object  aligned_dem.tif           pavancub24            1  taccRes;corral4                 2691151   2025-01-15.18:44  Good   
+ data-object  aligned_orthomosaic.tif   pavancub24            0  CyVerseRes;juniorBroker;junior  50809794  2025-01-15.18:41  Good   
+ data-object  aligned_orthomosaic.tif   pavancub24            1  taccRes;corral4                 50809794  2025-01-15.18:43  Good   
+ data-object  aligned_slope.tif         pavancub24            0  CyVerseRes;dustyBroker;dusty    4548093   2025-01-15.18:41  Good   
+ data-object  aligned_slope.tif         pavancub24            1  taccRes;corral4                 4548093   2025-01-15.18:44  Good   
+ data-object  classifiedPointCloud.las  pavancub24            0  CyVerseRes;ds17Broker;ds17      44066554  2025-01-15.18:41  Good   
+ data-object  classifiedPointCloud.las  pavancub24            1  taccRes;corral4                 44066554  2025-01-15.18:43  Good   
+ data-object  main_dtm.tif              pavancub24            0  CyVerseRes;ds13Broker;ds13      2691752   2025-01-15.18:41  Good   
+ data-object  main_dtm.tif              pavancub24            1  taccRes;corral4                 2691752   2025-01-15.18:43  Good   
+
+ TYPE        PATH                                                                                                        
+ collection  /iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-GOLDHILL-08-14-23-ExportPackage 
+
+ TYPE         NAME                                                                       OWNER       REPLICA NO.  RESOURCE HIERARCHY          SIZE      MODIFY TIME       STATUS 
+ data-object  NEON_D13_NIWO_reflectance_per_pixel.csv                                    pavancub24  0            CyVerseRes;ds14Broker;ds14  10085770  2025-02-04.20:17  Good   
+ data-object  NEON_D13_NIWO_reflectance_per_pixel.csv                                    pavancub24  1            taccRes;corral4             10085770  2025-02-04.20:19  Good   
+ data-object  NEON_D13_NIWO_reflectance_per_pixel_half.csv                               pavancub24  0            CyVerseRes;ds13Broker;ds13  2970524   2025-02-04.20:17  Good   
+ data-object  NEON_D13_NIWO_reflectance_per_pixel_half.csv                               pavancub24  1            taccRes;corral4             2970524   2025-02-04.20:19  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic.h5                                  pavancub24  0            CyVerseRes;ds06Broker;ds06  86133200  2025-02-04.20:17  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic.h5                                  pavancub24  1            taccRes;corral4             86133200  2025-02-04.20:19  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic__reflectance_corrected_flipped      pavancub24  0            CyVerseRes;ds05Broker;ds05  45322800  2025-02-04.20:17  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic__reflectance_corrected_flipped      pavancub24  1            taccRes;corral4             45322800  2025-02-04.20:20  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic__reflectance_corrected_flipped.hdr  pavancub24  0            CyVerseRes;ds04Broker;ds04  1137      2025-02-04.20:17  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic__reflectance_corrected_flipped.hdr  pavancub24  1            taccRes;corral4             1137      2025-02-04.20:19  Good   
+ data-object  aligned_aspect.tif                                                         pavancub24  0            CyVerseRes;ds16Broker;ds16  4483405   2025-02-04.20:17  Good   
+ data-object  aligned_aspect.tif                                                         pavancub24  1            taccRes;corral4             4483405   2025-02-04.20:19  Good   
+ data-object  aligned_dem.tif                                                            pavancub24  0            CyVerseRes;ds03Broker;ds03  2691151   2025-02-04.20:17  Good   
+ data-object  aligned_dem.tif                                                            pavancub24  1            taccRes;corral4             2691151   2025-02-04.20:19  Good   
+ data-object  aligned_orthomosaic.tif                                                    pavancub24  0            CyVerseRes;ds06Broker;ds06  50809794  2025-02-04.20:17  Good   
+ data-object  aligned_orthomosaic.tif                                                    pavancub24  1            taccRes;corral4             50809794  2025-02-04.20:20  Good   
+ data-object  aligned_slope.tif                                                          pavancub24  0            CyVerseRes;ds17Broker;ds17  4548093   2025-02-04.20:17  Good   
+ data-object  aligned_slope.tif                                                          pavancub24  1            taccRes;corral4             4548093   2025-02-04.20:19  Good   
+ collection   reflectance_bands_csv                                                      pavancub24                                                     2026-02-09.10:58         
+
+ TYPE        PATH                                                                                                                
+ collection  /iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-rescale/AOP-GOLDHILL-08-14-23-ExportPackage 
+
+ TYPE         NAME                                                                       OWNER       REPLICA NO.  RESOURCE HIERARCHY              SIZE      MODIFY TIME       STATUS 
+ data-object  NEON_D13_NIWO_reflectance_per_pixel.csv                                    pavancub24  0            CyVerseRes;ds26Broker;ds26      10154807  2025-03-11.17:32  Good   
+ data-object  NEON_D13_NIWO_reflectance_per_pixel.csv                                    pavancub24  1            taccRes;corral4                 10154807  2025-03-11.17:34  Good   
+ data-object  NEON_D13_NIWO_reflectance_per_pixel_half.csv                               pavancub24  0            CyVerseRes;kelcieBroker;kelcie  2994046   2025-03-11.17:31  Good   
+ data-object  NEON_D13_NIWO_reflectance_per_pixel_half.csv                               pavancub24  1            taccRes;corral4                 2994046   2025-03-11.17:34  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic.h5                                  pavancub24  0            CyVerseRes;shelbyBroker;shelby  86133200  2025-03-11.17:31  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic.h5                                  pavancub24  1            taccRes;corral4                 86133200  2025-03-11.17:34  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic__reflectance_corrected_flipped      pavancub24  0            CyVerseRes;dustyBroker;dusty    45322800  2025-03-11.17:31  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic__reflectance_corrected_flipped      pavancub24  1            taccRes;corral4                 45322800  2025-03-11.17:33  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic__reflectance_corrected_flipped.hdr  pavancub24  0            CyVerseRes;ds19Broker;ds19      1137      2025-03-11.17:31  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic__reflectance_corrected_flipped.hdr  pavancub24  1            taccRes;corral4                 1137      2025-03-11.17:33  Good   
+ data-object  aligned_aspect.tif                                                         pavancub24  0            CyVerseRes;ds20Broker;ds20      4483405   2025-03-11.17:32  Good   
+ data-object  aligned_aspect.tif                                                         pavancub24  1            taccRes;corral4                 4483405   2025-03-11.17:34  Good   
+ data-object  aligned_dem.tif                                                            pavancub24  0            CyVerseRes;ds14Broker;ds14      2691151   2025-03-11.17:31  Good   
+ data-object  aligned_dem.tif                                                            pavancub24  1            taccRes;corral4                 2691151   2025-03-11.17:33  Good   
+ data-object  aligned_orthomosaic.tif                                                    pavancub24  0            CyVerseRes;ds19Broker;ds19      50790552  2025-03-11.17:32  Good   
+ data-object  aligned_orthomosaic.tif                                                    pavancub24  1            taccRes;corral4                 50790552  2025-03-11.17:34  Good   
+ data-object  aligned_slope.tif                                                          pavancub24  0            CyVerseRes;ds04Broker;ds04      4548093   2025-03-11.17:32  Good   
+ data-object  aligned_slope.tif                                                          pavancub24  1            taccRes;corral4                 4548093   2025-03-11.17:34  Good   
+ collection   reflectance_bands_csv                                                      pavancub24                                                         2026-02-09.10:58         
+
+ TYPE        PATH                                                                                                                 
+ collection  /iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/AOP-GOLDHILL-08-14-23-ExportPackage 
+
+ TYPE         NAME                                                                       OWNER       REPLICA NO.  RESOURCE HIERARCHY                SIZE       MODIFY TIME       STATUS 
+ data-object  NEON_D13_NIWO_reflectance_per_pixel.csv                                    pavancub24  0            CyVerseRes;shelbyBroker;shelby    68264201   2025-04-04.03:10  Good   
+ data-object  NEON_D13_NIWO_reflectance_per_pixel.csv                                    pavancub24  1            taccRes;corral4                   68264201   2025-04-04.03:12  Good   
+ data-object  NEON_D13_NIWO_reflectance_per_pixel_half.csv                               pavancub24  0            CyVerseRes;ds03Broker;ds03        20280470   2025-04-04.03:10  Good   
+ data-object  NEON_D13_NIWO_reflectance_per_pixel_half.csv                               pavancub24  1            taccRes;corral4                   20280470   2025-04-04.03:12  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic.h5                                  pavancub24  0            CyVerseRes;dustyBroker;dusty      538348400  2025-04-04.03:10  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic.h5                                  pavancub24  1            taccRes;corral4                   538348400  2025-04-04.03:13  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic__reflectance_corrected_flipped      pavancub24  0            CyVerseRes;pumpkinBroker;pumpkin  283330800  2025-04-04.03:10  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic__reflectance_corrected_flipped      pavancub24  1            taccRes;corral4                   283330800  2025-04-04.03:12  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic__reflectance_corrected_flipped.hdr  pavancub24  0            CyVerseRes;ds23Broker;ds23        1167       2025-04-04.03:10  Good   
+ data-object  NEON_D13_NIWO_test_aligned_orthomosaic__reflectance_corrected_flipped.hdr  pavancub24  1            taccRes;corral4                   1167       2025-04-04.03:12  Good   
+ data-object  aligned_aspect.tif                                                         pavancub24  0            CyVerseRes;ds06Broker;ds06        29746693   2025-04-04.03:10  Good   
+ data-object  aligned_aspect.tif                                                         pavancub24  1            taccRes;corral4                   29746693   2025-04-04.03:13  Good   
+ data-object  aligned_dem.tif                                                            pavancub24  0            CyVerseRes;ds08Broker;ds08        19837981   2025-04-04.03:10  Good   
+ data-object  aligned_dem.tif                                                            pavancub24  1            taccRes;corral4                   19837981   2025-04-04.03:13  Good   
+ data-object  aligned_orthomosaic.tif                                                    pavancub24  0            CyVerseRes;ds13Broker;ds13        315281983  2025-04-04.03:10  Good   
+ data-object  aligned_orthomosaic.tif                                                    pavancub24  1            taccRes;corral4                   315281983  2025-04-04.03:12  Good   
+ data-object  aligned_slope.tif                                                          pavancub24  0            CyVerseRes;ds09Broker;ds09        30092435   2025-04-04.03:10  Good   
+ data-object  aligned_slope.tif                                                          pavancub24  1            taccRes;corral4                   30092435   2025-04-04.03:13  Good   
+ collection   reflectance_bands_csv                                                      pavancub24                                                            2026-02-09.10:58         
+
+ TYPE        PATH                                                                                                  
+ collection  /iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023_aop_underflight_georef_to_rgb 
+
+ TYPE         NAME                                        OWNER           REPLICA NO.  RESOURCE HIERARCHY              SIZE       MODIFY TIME       STATUS 
+ data-object  georeferencing_residuals_MEB.xlsx           matthewbitters  0            CyVerseRes;ds26Broker;ds26      10480      2025-06-17.10:32  Good   
+ data-object  georeferencing_residuals_MEB.xlsx           matthewbitters  1            taccRes;corral4                 10480      2025-06-17.10:37  Good   
+ data-object  goldhill_aop_underflight_georef_to_rgb.tif  matthewbitters  0            CyVerseRes;shelbyBroker;shelby  284504806  2025-06-17.10:28  Good   
+ data-object  goldhill_aop_underflight_georef_to_rgb.tif  matthewbitters  1            taccRes;corral4                 284504806  2025-06-17.10:33  Good   
+ data-object  gordon_aop_underflight_georef_to_rgb.tif    matthewbitters  0            CyVerseRes;holmesBroker;holmes  246450102  2025-06-17.10:29  Good   
+ data-object  gordon_aop_underflight_georef_to_rgb.tif    matthewbitters  1            taccRes;corral4                 246450102  2025-06-17.10:35  Good   
+ data-object  mrs2_aop_underflight_georef_to_rgb.tif      matthewbitters  0            CyVerseRes;ds07Broker;ds07      172096958  2025-06-17.10:30  Good   
+ data-object  mrs2_aop_underflight_georef_to_rgb.tif      matthewbitters  1            taccRes;corral4                 172096958  2025-06-17.10:35  Good   
+ data-object  ruby_aop_underflight_georef_to_rgb.tif      matthewbitters  0            CyVerseRes;ds01Broker;ds01      82140734   2025-06-17.10:30  Good   
+ data-object  ruby_aop_underflight_georef_to_rgb.tif      matthewbitters  1            taccRes;corral4                 82140734   2025-06-17.10:36  Good   
+ collection   .ipynb_checkpoints                          nilangakoon                                                             2026-02-09.10:58         
+
+ TYPE        PATH                                                                       
+ collection  /iplant/home/shared/earthlab/macrosystems/field-data/output/other-10cm-10k 
+
+ TYPE        NAME                          OWNER       MODIFY TIME      
+ collection  Table_mountain-ExportPackage  pavancub24  2026-02-09.10:58 

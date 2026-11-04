@@ -1,0 +1,79 @@
+[
+  {
+    "branch": "clean_raw",
+    "difference": 0.0,
+    "low": 0.0,
+    "high": 0.0,
+    "changed_predictions": 0
+  },
+  {
+    "branch": "historical_BRDF",
+    "difference": -0.06868754398311047,
+    "low": -0.1899005981703026,
+    "high": 0.05134007741027442,
+    "changed_predictions": 33
+  },
+  {
+    "branch": "topographic_only",
+    "difference": 0.048828289936664326,
+    "low": -0.029605383532723434,
+    "high": 0.15474208304011255,
+    "changed_predictions": 26
+  },
+  {
+    "branch": "A_brdf",
+    "difference": 0.02979239971850809,
+    "low": -0.002551020408163265,
+    "high": 0.06664250527797325,
+    "changed_predictions": 24
+  },
+  {
+    "branch": "A_combined",
+    "difference": 0.0046903589021815625,
+    "low": -0.14668895144264602,
+    "high": 0.15172413793103448,
+    "changed_predictions": 43
+  },
+  {
+    "branch": "B_brdf",
+    "difference": 0.02627375087966221,
+    "low": -0.002551020408163265,
+    "high": 0.06138599577762138,
+    "changed_predictions": 23
+  },
+  {
+    "branch": "B_combined",
+    "difference": 0.014690358902181563,
+    "low": -0.030017065446868402,
+    "high": 0.06586875439831104,
+    "changed_predictions": 31
+  },
+  {
+    "branch": "C_uniform_brdf",
+    "difference": 0.003103448275862071,
+    "low": -0.06434201266713582,
+    "high": 0.06994334975369458,
+    "changed_predictions": 38
+  },
+  {
+    "branch": "C_uniform_combined",
+    "difference": -0.05372273047149895,
+    "low": -0.21930190007037298,
+    "high": 0.0974797677691766,
+    "changed_predictions": 48
+  },
+  {
+    "branch": "C_center_brdf",
+    "difference": 0.0282054890921886,
+    "low": -0.04119581280788177,
+    "high": 0.09585855031667839,
+    "changed_predictions": 35
+  },
+  {
+    "branch": "C_center_combined",
+    "difference": -0.05117171006333568,
+    "low": -0.2192213230119634,
+    "high": 0.10022800844475718,
+    "changed_predictions": 49
+  }
+]

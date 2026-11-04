@@ -22,6 +22,7 @@ import pandas as pd
 from spectralbridge import __version__
 from spectralbridge.corrections import (
     BRDF_KERNEL_MATH_VERSION,
+    BRDF_VALIDATION_POLICY,
     HYTOOLS_BRDF_KERNEL_CONFIG,
     NDVIBinningConfig,
     apply_brdf_correct,
@@ -2604,6 +2605,10 @@ def apply_drone_corrections(
     apply_brdf: bool,
     use_ndvi_brdf_bins: bool = False,
     overwrite: bool = False,
+    topographic_model: dict | None = None,
+    brdf_fitting_mask: np.ndarray | None = None,
+    brdf_fitting_provenance: dict | None = None,
+    brdf_uncertainty_groups: np.ndarray | None = None,
 ) -> tuple[Path, Path, dict[str, Any]]:
     """Apply optional topo/BRDF corrections to a drone ENVI export.
 
@@ -2630,6 +2635,20 @@ def apply_drone_corrections(
         "ndvi_brdf_bins_enabled": bool(use_ndvi_brdf_bins),
     }
     correction_requested = bool(apply_topo or apply_brdf)
+    if topographic_model is not None and not apply_topo:
+        raise ValueError("A topographic model requires the topographic stage")
+    import hashlib
+    experimental_configuration = {}
+    if topographic_model is not None:
+        experimental_configuration["topographic_model_sha256"] = hashlib.sha256(json.dumps(topographic_model, sort_keys=True, allow_nan=False).encode()).hexdigest()
+    for name, values in (("fitting_mask", brdf_fitting_mask), ("uncertainty_groups", brdf_uncertainty_groups)):
+        if values is not None:
+            experimental_configuration[name + "_sha256"] = hashlib.sha256(np.ascontiguousarray(values).tobytes()).hexdigest()
+    if brdf_fitting_provenance is not None:
+        experimental_configuration["fitting_provenance"] = brdf_fitting_provenance
+    if experimental_configuration:
+        audit["scientific_validation_status"] = "EXPERIMENTAL"
+        audit["experimental_configuration"] = experimental_configuration
     audit["radiometry"] = getattr(cube, "radiometry", Radiometry(None, None, "UNSUPPORTED", "Missing calibration")).record()
     audit["brdf_status"] = "UNSUPPORTED" if apply_brdf else "NOT_REQUESTED"
     if correction_requested:
@@ -2642,6 +2661,7 @@ def apply_drone_corrections(
         if old_header.get("radiometry status") != "VALID" or (apply_brdf and (
             old_header.get("brdf status") != "VALID"
             or old_header.get("brdf kernel math version") != BRDF_KERNEL_MATH_VERSION
+            or old_header.get("brdf validation policy") != BRDF_VALIDATION_POLICY
         )):
             raise DroneCorrectionUnavailableError("Existing corrected product lacks validated scientific provenance; use a fresh output directory.", audit)
 
@@ -2664,6 +2684,7 @@ def apply_drone_corrections(
         configuration={
             "algorithm_version": 2,
             **({"brdf_kernel_math_version": BRDF_KERNEL_MATH_VERSION} if apply_brdf else {}),
+            **({"brdf_validation_policy": BRDF_VALIDATION_POLICY} if apply_brdf else {}),
             "radiometry": audit["radiometry"],
             "apply_topo": bool(apply_topo),
             "apply_brdf": bool(apply_brdf),
@@ -2672,6 +2693,7 @@ def apply_drone_corrections(
             "brdf_ready": bool(brdf_ready),
             "brightness_adjustment": False,
             "cloud_mask": False,
+            **experimental_configuration,
         },
     )
 
@@ -2721,6 +2743,9 @@ def apply_drone_corrections(
         }
         if use_ndvi_brdf_bins:
             fit_kwargs["ndvi_config"] = NDVIBinningConfig(enabled=True)
+        for name, value in (("topographic_model", topographic_model), ("fitting_mask", brdf_fitting_mask), ("fitting_provenance", brdf_fitting_provenance), ("uncertainty_groups", brdf_uncertainty_groups)):
+            if value is not None:
+                fit_kwargs[name] = value
         coeff_path = _call_with_supported_kwargs(
             fit_and_save_brdf_model,
             cube,
@@ -2733,14 +2758,22 @@ def apply_drone_corrections(
         audit["brdf_status"] = model.get("validation", {}).get("status", "UNSUPPORTED")
         if audit["brdf_status"] == "VALID" and model.get("kernel_math_version") != BRDF_KERNEL_MATH_VERSION:
             raise DroneCorrectionUnavailableError("BRDF UNSUPPORTED: incompatible kernel mathematics; use a fresh output directory.", audit)
+        if audit["brdf_status"] == "VALID" and model.get("validation_policy") != BRDF_VALIDATION_POLICY:
+            raise DroneCorrectionUnavailableError("BRDF UNSUPPORTED: incompatible validation policy; use a fresh output directory.", audit)
         if "topographic_c" in model:
             topographic_c = np.asarray(model["topographic_c"], np.float32)
         brdf_ready = brdf_ready and audit["brdf_status"] == "VALID"
     header = _drone_envi_header(cube)
+    if experimental_configuration:
+        header["scientific validation status"] = "EXPERIMENTAL"
+    if topographic_model is not None:
+        header["topographic validation policy"] = topographic_model["policy_version"]
+        header["topographic model digest"] = experimental_configuration["topographic_model_sha256"]
     header["brdf status"] = "INCOMPLETE" if brdf_ready else audit["brdf_status"]
     header["brdf model schema"] = 2
     if brdf_ready:
         header["brdf kernel math version"] = BRDF_KERNEL_MATH_VERSION
+        header["brdf validation policy"] = BRDF_VALIDATION_POLICY
     header["description"] = f"Drone reflectance; topo requested={apply_topo}; BRDF status={audit['brdf_status']}"
     header.setdefault("reflectance scale factor", float(getattr(cube, "scale_factor", 1.0)))
     if hasattr(cube, "no_data"):
@@ -2749,7 +2782,7 @@ def apply_drone_corrections(
     # Drone scenes are already fully loaded into memory via ``NeonCube``.
     # Use a single full-scene chunk here so the correction is fit/applied
     # consistently across the footprint instead of tile-by-tile.
-    chunk_y = cube.lines
+    chunk_y = min(128, cube.lines) if topographic_model is not None else cube.lines
     chunk_x = cube.columns
     reporter = TileProgressReporter(
         stage_name="Drone correction",
@@ -2767,7 +2800,8 @@ def apply_drone_corrections(
             chunk = np.asarray(raw_chunk, dtype=np.float32)
             if topo_ready:
                 topo_input = chunk
-                topo_candidate = _call_with_supported_kwargs(apply_topo_correct, cube, chunk, ys, ye, xs, xe, scs_c=topographic_c)
+                topo_kwargs = {"scs_c": topographic_c} if topographic_model is None else {"conditioned_model": topographic_model}
+                topo_candidate = _call_with_supported_kwargs(apply_topo_correct, cube, chunk, ys, ye, xs, xe, **topo_kwargs)
                 if _chunk_has_any_valid_reflectance(
                     topo_input,
                     no_data_value=no_data_value,
@@ -2775,13 +2809,17 @@ def apply_drone_corrections(
                     topo_candidate,
                     no_data_value=no_data_value,
                 ):
-                    LOGGER.warning(
-                        "[drone] Topographic correction collapsed valid reflectance to no-data for %s; "
-                        "reverting to the pre-topo chunk.",
-                        corrected_stem.name,
-                    )
-                    audit["topo_fallback_due_to_nodata"] = True
-                    chunk = topo_input
+                    if topographic_model is not None:
+                        chunk = topo_candidate
+                        audit["topo_unsupported_chunks"] = audit.get("topo_unsupported_chunks", 0) + 1
+                    else:
+                        LOGGER.warning(
+                            "[drone] Topographic correction collapsed valid reflectance to no-data for %s; "
+                            "reverting to the pre-topo chunk.",
+                            corrected_stem.name,
+                        )
+                        audit["topo_fallback_due_to_nodata"] = True
+                        chunk = topo_input
                 else:
                     chunk = topo_candidate
                     audit["topo_applied"] = True
@@ -2789,7 +2827,7 @@ def apply_drone_corrections(
                 brdf_input = chunk
                 brdf_kwargs: dict[str, Any] = {
                     "coeff_path": coeff_path,
-                    "input_stage": "topographic_only" if audit["topo_applied"] else "uncorrected",
+                    "input_stage": "topographic_only" if (audit["topo_applied"] or (topographic_model is not None and topo_ready)) else "uncorrected",
                     "brdf_kernel_config": HYTOOLS_BRDF_KERNEL_CONFIG,
                 }
                 if use_ndvi_brdf_bins:
@@ -3759,6 +3797,7 @@ def run_drone_pipeline(
         configuration={
             "apply_topo": bool(apply_topo),
             "apply_brdf": bool(apply_brdf),
+            **({"brdf_validation_policy": BRDF_VALIDATION_POLICY} if apply_brdf else {}),
             "use_ndvi_brdf_bins": bool(use_ndvi_brdf_bins),
             "extraction_mode": actual_extraction_mode,
             "merge_extractions": bool(merge_extractions),

@@ -1,0 +1,328 @@
+{
+  "ancillary_inventory": [
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/ancillary/legacy_slope.tif",
+      "sha256": "ad2259fa95b425083855fae71eff0dc3e4fc4720de264e8fa7c813deef27bd8c",
+      "pixel_size": [
+        0.09999999999996322,
+        0.09999999999991677
+      ],
+      "shape": [
+        2238,
+        3165
+      ],
+      "units": "degrees in stored ancillary; converted once to radians",
+      "valid_statistics": {
+        "n": 6678404,
+        "quantiles": [
+          0.0,
+          1.233224868774414,
+          2.566649463176727,
+          9.022579669952393,
+          14.233237266540527,
+          21.335337162017822,
+          49.3807751083373,
+          63.893985290527354,
+          82.22257232666016
+        ],
+        "mean": 16.400531768798828,
+        "negative": 0,
+        "above_one": 6675287
+      }
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/ancillary/legacy_aspect.tif",
+      "sha256": "570ce258e8188b36eb4aa935a73a9511081efd70abc0e1a02a4f1c8712d867ed",
+      "pixel_size": [
+        0.09999999999996322,
+        0.09999999999991677
+      ],
+      "shape": [
+        2238,
+        3165
+      ],
+      "units": "degrees in stored ancillary; converted once to radians",
+      "valid_statistics": {
+        "n": 6678404,
+        "quantiles": [
+          0.0,
+          0.0,
+          8.439673690795898,
+          105.96329689025879,
+          150.86831665039062,
+          190.7145233154297,
+          349.68956512451166,
+          357.97071997070316,
+          359.7574462890625
+        ],
+        "mean": 155.91049194335938,
+        "negative": 0,
+        "above_one": 6665404
+      }
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/ancillary/legacy_solar_zn.tif",
+      "sha256": "4f68aebaf4f961e0e4894746c48f4cab2a2c6964bb0dbb61f4030c135a070a51",
+      "pixel_size": [
+        0.09999999999996322,
+        0.09999999999991677
+      ],
+      "shape": [
+        2238,
+        3165
+      ],
+      "units": "degrees in stored ancillary; converted once to radians",
+      "valid_statistics": {
+        "n": 6683944,
+        "quantiles": [
+          27.763608932495117,
+          27.763633728027344,
+          27.76372718811035,
+          27.764474868774414,
+          27.76494026184082,
+          27.76540756225586,
+          27.76615333557129,
+          27.766244888305664,
+          27.76626968383789
+        ],
+        "mean": 27.764938354492188,
+        "negative": 0,
+        "above_one": 6683944
+      }
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/ancillary/legacy_solar_az.tif",
+      "sha256": "82abcea2800d4d341b367a807130d2ab1be45f3bf0d8a80a35041f01c283165d",
+      "pixel_size": [
+        0.09999999999996322,
+        0.09999999999991677
+      ],
+      "shape": [
+        2238,
+        3165
+      ],
+      "units": "degrees in stored ancillary; converted once to radians",
+      "valid_statistics": {
+        "n": 6683944,
+        "quantiles": [
+          204.69180297851562,
+          204.69186401367188,
+          204.6920928955078,
+          204.694091796875,
+          204.69581604003906,
+          204.69754028320312,
+          204.69955444335938,
+          204.6997833251953,
+          204.69984436035156
+        ],
+        "mean": 204.69581604003906,
+        "negative": 0,
+        "above_one": 6683944
+      }
+    }
+  ],
+  "original_terrain": [
+    {
+      "name": "goldhill_dtm",
+      "path": "/private/tmp/photogrammetry-metadata-20261102/goldhill_dtm.tif",
+      "sha256": "1c4fd7b0fd0b5261bfb3082180fe593872c0651af3ce159ae1e7c514d15b12f6",
+      "resolution_m": [
+        0.5532310000000377,
+        0.5532309999989886
+      ],
+      "shape": [
+        403,
+        571
+      ],
+      "crs": "EPSG:26913",
+      "elevation_units": [
+        "metre"
+      ],
+      "gradient_assumption": "vertical values metres, north-up grid; diagnostic, not independently certified terrain",
+      "slope_degrees": {
+        "n": 6643609,
+        "quantiles": [
+          0.05658714473247528,
+          0.42371840381622317,
+          1.3829814577102661,
+          7.8184661865234375,
+          13.551825523376465,
+          22.197500228881836,
+          59.25972198486327,
+          77.21285748291015,
+          87.60136413574219
+        ],
+        "mean": 16.700605392456055,
+        "negative": 0,
+        "above_one": 6611344
+      },
+      "legacy_slope_difference_degrees": {
+        "n": 6643609,
+        "quantiles": [
+          -72.63849639892578,
+          -42.25066928100586,
+          -28.4616845703125,
+          -5.158742427825928,
+          -0.8082008361816406,
+          4.044693946838379,
+          41.162772979736324,
+          60.28358877563477,
+          84.0468978881836
+        ],
+        "mean": 0.3153343200683594,
+        "negative": 3677240,
+        "above_one": 2564511
+      }
+    },
+    {
+      "name": "goldhill_dem",
+      "path": "/private/tmp/photogrammetry-metadata-20261102/goldhill_dem.tif",
+      "sha256": "cf2ec77e959301ca55a2a5a310cc05ffd065304c6c5ac4403bc6853a2584eaf7",
+      "resolution_m": [
+        0.3377099999999747,
+        0.3377099999997331
+      ],
+      "shape": [
+        661,
+        936
+      ],
+      "crs": "EPSG:26913",
+      "elevation_units": [
+        "metre"
+      ],
+      "gradient_assumption": "vertical values metres, north-up grid; diagnostic, not independently certified terrain",
+      "slope_degrees": {
+        "n": 6658214,
+        "quantiles": [
+          0.08430267870426178,
+          1.1100095212459564,
+          2.050331792831421,
+          9.50938630104065,
+          18.607111930847168,
+          49.0032262802124,
+          82.05794792175294,
+          85.51106275939937,
+          87.61841583251953
+        ],
+        "mean": 29.121458053588867,
+        "negative": 0,
+        "above_one": 6654023
+      },
+      "legacy_slope_difference_degrees": {
+        "n": 6658214,
+        "quantiles": [
+          -59.43243408203125,
+          -22.38918786430359,
+          -10.195102252960204,
+          -1.3915149569511414,
+          1.095794677734375,
+          26.345324516296387,
+          67.91636993408204,
+          75.87751720428466,
+          84.80652618408203
+        ],
+        "mean": 12.727686882019043,
+        "negative": 2683812,
+        "above_one": 3373661
+      }
+    },
+    {
+      "name": "goldhill_aligned_dem",
+      "path": "/private/tmp/photogrammetry-metadata-20261102/goldhill_aligned_dem.tif",
+      "sha256": "64d338e32265273fbbcfd030b04ed3e2020f7e2cd785be0da6279255629bfff1",
+      "resolution_m": [
+        0.1,
+        0.09999999999991677
+      ],
+      "shape": [
+        2238,
+        3165
+      ],
+      "crs": "EPSG:26913",
+      "elevation_units": [
+        null
+      ],
+      "gradient_assumption": "vertical values metres, north-up grid; diagnostic, not independently certified terrain",
+      "slope_degrees": {
+        "n": 6678404,
+        "quantiles": [
+          0.0,
+          0.3497013747692108,
+          1.753567099571228,
+          9.199392318725586,
+          14.548723220825195,
+          22.06737518310547,
+          53.328077850341785,
+          66.65344828796394,
+          86.31578063964844
+        ],
+        "mean": 16.975549697875977,
+        "negative": 0,
+        "above_one": 6653614
+      },
+      "legacy_slope_difference_degrees": {
+        "n": 6678404,
+        "quantiles": [
+          -66.4634780883789,
+          -14.702938959121704,
+          -7.431784410476685,
+          -0.8085502982139587,
+          0.26280665397644043,
+          1.764270305633545,
+          10.749937248229966,
+          19.375077219009462,
+          63.6824836730957
+        ],
+        "mean": 0.575018584728241,
+        "negative": 2840583,
+        "above_one": 2337430
+      }
+    }
+  ],
+  "meridian_convergence_degrees": -0.31840558565890403,
+  "grid_north_sensitivity": [
+    {
+      "case": "aspect_plus_grid_convergence",
+      "absolute_ci_difference": {
+        "n": 6678404,
+        "quantiles": [
+          0.0,
+          8.344650268554688e-07,
+          8.64267349243164e-06,
+          0.00019681453704833984,
+          0.0003902912139892578,
+          0.0006446242332458496,
+          0.0016456246376037598,
+          0.0021347999572753906,
+          0.002556249499320984
+        ],
+        "mean": 0.00046815749374218285,
+        "negative": 0,
+        "above_one": 0
+      }
+    },
+    {
+      "case": "aspect_minus_grid_convergence",
+      "absolute_ci_difference": {
+        "n": 6678404,
+        "quantiles": [
+          0.0,
+          8.344650268554688e-07,
+          8.702278137207031e-06,
+          0.00019627809524536133,
+          0.0003891587257385254,
+          0.0006433725357055664,
+          0.001644909381866455,
+          0.002134978771209717,
+          0.0025559812784194946
+        ],
+        "mean": 0.00046734846546314657,
+        "negative": 0,
+        "above_one": 0
+      }
+    }
+  ],
+  "terrain_provenance": "Available R scripts intend 0.25m ground-classified TIN then degree slope/aspect and scalar bilinear alignment; exact execution/source linkage unresolved. 10cm sampling does not imply independent 10cm terrain information. Scalar aspect interpolation near 0/360 is a possible artifact, not established cause here.",
+  "shadows": "cos(i)<=0 is local terrain self-shadow only; cast/canopy shadows cannot be certified without horizon/visibility and contributor information.",
+  "terrain_diagnostic_hashes_preserved": true
+}

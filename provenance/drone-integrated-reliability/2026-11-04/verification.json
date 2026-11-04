@@ -1,0 +1,202 @@
+{
+  "protected_artifacts": 467,
+  "incidental_finder_metadata": [
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-viewing-geometry/.DS_Store",
+      "unchanged": false
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-clean-source-brdf/.DS_Store",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-conditional-topographic/.DS_Store",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/brdf-artifact-anatomy/.DS_Store",
+      "unchanged": true
+    }
+  ],
+  "protected_hashes_unchanged": true,
+  "neon": [
+    {
+      "mode": "brdf",
+      "elements": 3600000,
+      "exact_equal": true
+    },
+    {
+      "mode": "combined",
+      "elements": 3600000,
+      "exact_equal": true
+    }
+  ],
+  "products": [
+    {
+      "branch": "conditioned_topography",
+      "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_topography_EXPERIMENTAL.tif",
+      "sha256": "93ffba713b8c042abb28b0ea5d31923ec700ee77f25bb65594256edbf5ef7f0a",
+      "size_bytes": 204674732,
+      "native_roundtrip_exact": true,
+      "experimental_header": true,
+      "tiff_tags": {
+        "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+        "GEOMETRY": "P173 center-weighted simulated kernels; contributors unverified",
+        "PRODUCTION_APPROVED": "false",
+        "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+        "TOPOGRAPHY": "scsc-fieller-spatial-v1",
+        "AREA_OR_POINT": "Area"
+      }
+    },
+    {
+      "branch": "controlled_OLS_BRDF",
+      "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/controlled_OLS_BRDF_EXPERIMENTAL.tif",
+      "sha256": "21162b15e3dd0b924a5e3df62a844c80c814ccdc4f739cc39f89193e1056ef98",
+      "size_bytes": 204246235,
+      "native_roundtrip_exact": true,
+      "experimental_header": true,
+      "tiff_tags": {
+        "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+        "GEOMETRY": "P173 center-weighted simulated kernels; contributors unverified",
+        "PRODUCTION_APPROVED": "false",
+        "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+        "TOPOGRAPHY": "NOT_REQUESTED",
+        "AREA_OR_POINT": "Area"
+      }
+    },
+    {
+      "branch": "controlled_cluster_BRDF",
+      "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/controlled_cluster_BRDF_EXPERIMENTAL.tif",
+      "sha256": "21162b15e3dd0b924a5e3df62a844c80c814ccdc4f739cc39f89193e1056ef98",
+      "size_bytes": 204246235,
+      "native_roundtrip_exact": true,
+      "experimental_header": true,
+      "tiff_tags": {
+        "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+        "GEOMETRY": "P173 center-weighted simulated kernels; contributors unverified",
+        "PRODUCTION_APPROVED": "false",
+        "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+        "TOPOGRAPHY": "NOT_REQUESTED",
+        "AREA_OR_POINT": "Area"
+      }
+    },
+    {
+      "branch": "conditioned_combined_OLS",
+      "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_combined_OLS_EXPERIMENTAL.tif",
+      "sha256": "89102f58bf22b8b79ee4d40c92d4f304978a1f15b9cda22e455264c27beee99c",
+      "size_bytes": 204641415,
+      "native_roundtrip_exact": true,
+      "experimental_header": true,
+      "tiff_tags": {
+        "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+        "GEOMETRY": "P173 center-weighted simulated kernels; contributors unverified",
+        "PRODUCTION_APPROVED": "false",
+        "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+        "TOPOGRAPHY": "scsc-fieller-spatial-v1",
+        "AREA_OR_POINT": "Area"
+      }
+    },
+    {
+      "branch": "conditioned_combined_cluster",
+      "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_combined_cluster_EXPERIMENTAL.tif",
+      "sha256": "89102f58bf22b8b79ee4d40c92d4f304978a1f15b9cda22e455264c27beee99c",
+      "size_bytes": 204641415,
+      "native_roundtrip_exact": true,
+      "experimental_header": true,
+      "tiff_tags": {
+        "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+        "GEOMETRY": "P173 center-weighted simulated kernels; contributors unverified",
+        "PRODUCTION_APPROVED": "false",
+        "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+        "TOPOGRAPHY": "scsc-fieller-spatial-v1",
+        "AREA_OR_POINT": "Area"
+      }
+    },
+    {
+      "branch": "homogeneous_BRDF",
+      "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/homogeneous_BRDF_EXPERIMENTAL.tif",
+      "sha256": "4586632b57278fc50f204dc599f3fda79305ee5c17b68693a6459b21e8e5eea9",
+      "size_bytes": 204465959,
+      "native_roundtrip_exact": true,
+      "experimental_header": true,
+      "tiff_tags": {
+        "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+        "GEOMETRY": "inferred center-weighted kernels; contributors unverified",
+        "PRODUCTION_APPROVED": "false",
+        "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+        "TOPOGRAPHY": "NOT_REQUESTED",
+        "AREA_OR_POINT": "Area"
+      }
+    },
+    {
+      "branch": "homogeneous_conditioned_combined",
+      "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/homogeneous_conditioned_combined_EXPERIMENTAL.tif",
+      "sha256": "747aeefd73764e034b6650bd094022f2b3bf0145ea6af459711d2204735bd48e",
+      "size_bytes": 204677076,
+      "native_roundtrip_exact": true,
+      "experimental_header": true,
+      "tiff_tags": {
+        "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+        "GEOMETRY": "inferred center-weighted kernels; contributors unverified",
+        "PRODUCTION_APPROVED": "false",
+        "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+        "TOPOGRAPHY": "scsc-fieller-spatial-v1",
+        "AREA_OR_POINT": "Area"
+      }
+    }
+  ],
+  "unchanged_correction_functions": [
+    "log_stats",
+    "_scs_c_ratio",
+    "load_brdf_model",
+    "_validate_angles",
+    "_select_band_for_wavelength",
+    "_normalize_volume_kernel_name",
+    "_normalize_geom_kernel_name",
+    "_default_geom_params",
+    "_resolve_scene_solar_zenith",
+    "compute_ndvi",
+    "compute_ndvi_bins",
+    "_single_brdf_bin",
+    "calc_cosine_i",
+    "_brdf_angles",
+    "calc_volume_kernel",
+    "calc_geom_kernel",
+    "fit_scs_c_coefficients",
+    "apply_brdf_correct",
+    "_brdf_spatial_mask",
+    "_brdf_predictions",
+    "_brdf_source_identity",
+    "_brdf_design",
+    "_reference_design"
+  ],
+  "intentionally_changed_functions": [
+    "apply_topo_correct",
+    "fit_and_save_brdf_model"
+  ],
+  "tests": [
+    {
+      "path": "/private/tmp/p175_final_tests.xml",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "175",
+      "time": "47.167",
+      "timestamp": "2026-11-04T11:44:23.293444-07:00",
+      "hostname": "UCB-H4K9PV34KC"
+    },
+    {
+      "path": "/private/tmp/p175_contract_tests.xml",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "17",
+      "time": "1.045",
+      "timestamp": "2026-11-04T11:51:30.279765-07:00",
+      "hostname": "UCB-H4K9PV34KC"
+    }
+  ],
+  "scientific_status": "EXPERIMENTAL; physical calibration and actual contributors remain unverified"
+}

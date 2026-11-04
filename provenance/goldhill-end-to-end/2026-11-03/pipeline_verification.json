@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "protected_files_unchanged": true,
+  "protected_count": 18,
+  "production_functions_attempted": [
+    "A_raw",
+    "B_topographic",
+    "C_brdf",
+    "D_combined",
+    "B_direct_scs_c_fit",
+    "C_direct_brdf_fit",
+    "F_polygon_index",
+    "F_physical_polygon_library",
+    "E_Landsat_8_OLI",
+    "E_numerical_MicaSense_to-match_OLI_and_OLI-2",
+    "E_Landsat_9_OLI-2",
+    "E_Landsat_5_TM",
+    "E_numerical_MicaSense_to-match_TM_and_ETM+",
+    "E_Landsat_7_ETM+"
+  ],
+  "production_radiometric_correction_completed": false,
+  "production_data_written": false,
+  "experiment_only": true
+}

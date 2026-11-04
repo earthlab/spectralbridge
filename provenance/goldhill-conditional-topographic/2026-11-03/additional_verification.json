@@ -1,0 +1,100 @@
+{
+  "all_ten_band_conversion": [
+    {
+      "band": 1,
+      "wavelength_nm": 444,
+      "max_abs_decode_difference": 0.0,
+      "mask_exact": true
+    },
+    {
+      "band": 2,
+      "wavelength_nm": 475,
+      "max_abs_decode_difference": 0.0,
+      "mask_exact": true
+    },
+    {
+      "band": 3,
+      "wavelength_nm": 531,
+      "max_abs_decode_difference": 0.0,
+      "mask_exact": true
+    },
+    {
+      "band": 4,
+      "wavelength_nm": 560,
+      "max_abs_decode_difference": 0.0,
+      "mask_exact": true
+    },
+    {
+      "band": 5,
+      "wavelength_nm": 650,
+      "max_abs_decode_difference": 0.0,
+      "mask_exact": true
+    },
+    {
+      "band": 6,
+      "wavelength_nm": 668,
+      "max_abs_decode_difference": 0.0,
+      "mask_exact": true
+    },
+    {
+      "band": 7,
+      "wavelength_nm": 705,
+      "max_abs_decode_difference": 0.0,
+      "mask_exact": true
+    },
+    {
+      "band": 8,
+      "wavelength_nm": 717,
+      "max_abs_decode_difference": 0.0,
+      "mask_exact": true
+    },
+    {
+      "band": 9,
+      "wavelength_nm": 740,
+      "max_abs_decode_difference": 0.0,
+      "mask_exact": true
+    },
+    {
+      "band": 10,
+      "wavelength_nm": 862,
+      "max_abs_decode_difference": 0.0,
+      "mask_exact": true
+    }
+  ],
+  "apply_decode_once_checks": [
+    {
+      "start_row": 0,
+      "max_abs_once_decode_difference": 2.384185791015625e-07
+    },
+    {
+      "start_row": 700,
+      "max_abs_once_decode_difference": 2.9802322387695312e-08
+    },
+    {
+      "start_row": 1178,
+      "max_abs_once_decode_difference": 9.5367431640625e-07
+    },
+    {
+      "start_row": 2100,
+      "max_abs_once_decode_difference": 4.76837158203125e-07
+    }
+  ],
+  "raw_classifier_scaling_predictions_identical": true,
+  "balanced_accuracy_candidate": 0.6829838142153414,
+  "balanced_accuracy_fixed_fraction": 0.6829838142153414,
+  "scale_invariant": [
+    "C=b/a with nonzero slope",
+    "SCS+C factors with same masks",
+    "Pearson correlations",
+    "NDVI and spectral angle",
+    "CV",
+    "standardized classifier with fixed C"
+  ],
+  "scale_dependent": [
+    "Absolute reflectance and values>1",
+    "absolute residuals, variance and distances",
+    "near-zero slope absolute-tolerance fallback may change at extreme scales",
+    "thresholds expressed in absolute units"
+  ],
+  "no_factor_clipping": true
+}

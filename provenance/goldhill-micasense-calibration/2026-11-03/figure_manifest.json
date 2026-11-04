@@ -1,0 +1,23 @@
+[
+  {
+    "name": "figure01_candidate_distributions",
+    "png": "figure01_candidate_distributions.png",
+    "svg": "figure01_candidate_distributions.svg",
+    "caption": "All 9,377,010 valid original pixels per band. Transparent 65535 values are excluded. No candidate values exceed 1; this is a plausibility observation, not proof that calibration was applied.",
+    "status": "HYPOTHETICAL_SCALE_ONLY_UNVERIFIED_CALIBRATION"
+  },
+  {
+    "name": "figure02_candidate_spectra",
+    "png": "figure02_candidate_spectra.png",
+    "svg": "figure02_candidate_spectra.svg",
+    "caption": "Three fixed native source pixels, positive alpha. Candidate A is 1.99996948 times the DN/65535 numerical fraction. Shape, spectral angle, correlations and ratio indices cannot establish the absolute physical scale.",
+    "status": "HYPOTHETICAL_SCALE_ONLY_UNVERIFIED_CALIBRATION"
+  },
+  {
+    "name": "figure03_candidate_maps",
+    "png": "figure03_candidate_maps.png",
+    "svg": "figure03_candidate_maps.svg",
+    "caption": "Maps are decimated only for display; native statistics use all valid source pixels. Correlations use a deterministic approximately 50,000-pixel sample and are unchanged by a common positive divisor. No calibrated reference/panel observation is supplied.",
+    "status": "HYPOTHETICAL_SCALE_ONLY_UNVERIFIED_CALIBRATION"
+  }
+]

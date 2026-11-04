@@ -1,0 +1,70 @@
+2026-11-03 13:17:18,178 INFO NeonCube: loaded 2238x3165x10 ~0.26 GB into memory (float32) from goldhill_working.h5
+2026-11-03 13:17:21,798 INFO NeonCube: loaded 2238x3165x10 ~0.26 GB into memory (float32) from new_source.h5
+2026-11-03 13:17:21,812 INFO Drone ENVI export progress: 25/736 tiles (3.4%)
+2026-11-03 13:17:21,818 INFO Drone ENVI export progress: 50/736 tiles (6.8%)
+2026-11-03 13:17:21,824 INFO Drone ENVI export progress: 75/736 tiles (10.2%)
+2026-11-03 13:17:21,830 INFO Drone ENVI export progress: 100/736 tiles (13.6%)
+2026-11-03 13:17:21,835 INFO Drone ENVI export progress: 125/736 tiles (17.0%)
+2026-11-03 13:17:21,841 INFO Drone ENVI export progress: 150/736 tiles (20.4%)
+2026-11-03 13:17:21,846 INFO Drone ENVI export progress: 175/736 tiles (23.8%)
+2026-11-03 13:17:21,852 INFO Drone ENVI export progress: 200/736 tiles (27.2%)
+2026-11-03 13:17:21,858 INFO Drone ENVI export progress: 225/736 tiles (30.6%)
+2026-11-03 13:17:21,863 INFO Drone ENVI export progress: 250/736 tiles (34.0%)
+2026-11-03 13:17:21,869 INFO Drone ENVI export progress: 275/736 tiles (37.4%)
+2026-11-03 13:17:21,874 INFO Drone ENVI export progress: 300/736 tiles (40.8%)
+2026-11-03 13:17:21,880 INFO Drone ENVI export progress: 325/736 tiles (44.2%)
+2026-11-03 13:17:21,885 INFO Drone ENVI export progress: 350/736 tiles (47.6%)
+2026-11-03 13:17:21,891 INFO Drone ENVI export progress: 375/736 tiles (51.0%)
+2026-11-03 13:17:21,897 INFO Drone ENVI export progress: 400/736 tiles (54.3%)
+2026-11-03 13:17:21,903 INFO Drone ENVI export progress: 425/736 tiles (57.7%)
+2026-11-03 13:17:21,909 INFO Drone ENVI export progress: 450/736 tiles (61.1%)
+2026-11-03 13:17:21,914 INFO Drone ENVI export progress: 475/736 tiles (64.5%)
+2026-11-03 13:17:21,919 INFO Drone ENVI export progress: 500/736 tiles (67.9%)
+2026-11-03 13:17:21,926 INFO Drone ENVI export progress: 525/736 tiles (71.3%)
+2026-11-03 13:17:21,932 INFO Drone ENVI export progress: 550/736 tiles (74.7%)
+2026-11-03 13:17:21,937 INFO Drone ENVI export progress: 575/736 tiles (78.1%)
+2026-11-03 13:17:21,943 INFO Drone ENVI export progress: 600/736 tiles (81.5%)
+2026-11-03 13:17:21,948 INFO Drone ENVI export progress: 625/736 tiles (84.9%)
+2026-11-03 13:17:21,954 INFO Drone ENVI export progress: 650/736 tiles (88.3%)
+2026-11-03 13:17:21,960 INFO Drone ENVI export progress: 675/736 tiles (91.7%)
+2026-11-03 13:17:21,965 INFO Drone ENVI export progress: 700/736 tiles (95.1%)
+2026-11-03 13:17:21,968 INFO Drone ENVI export progress: 725/736 tiles (98.5%)
+2026-11-03 13:17:21,969 INFO Drone ENVI export progress: 736/736 tiles (100.0%)
+2026-11-03 13:17:22,092 INFO [drone] H5 → ENVI: complete (AOP_GOLDHILL_FIXED10K_20230814_envi.img)
+PRODUCTION A_raw
+PRODUCTION B_topographic
+PRODUCTION C_brdf
+PRODUCTION D_combined
+PRODUCTION B_direct_scs_c_fit
+PRODUCTION C_direct_brdf_fit
+PRODUCTION polygon index
+2026-11-03 13:17:24,150 INFO [polygons-index] Loaded 1675 polygons from niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg (CRS: EPSG:3857)
+2026-11-03 13:17:24,183 INFO [coordinate-validation] CRS: Raster=EPSG:26913, Polygons=EPSG:3857 (transformed)
+2026-11-03 13:17:24,183 INFO [coordinate-validation] Polygon bounds: (452362.2, 4426492.2, 458049.3, 4460634.7)
+2026-11-03 13:17:24,184 INFO [coordinate-validation] Raster bounds: (457624.5, 4432606.8, 457941.0, 4432830.5)
+2026-11-03 13:17:24,184 INFO [coordinate-validation] Distance between centers: 11146.8m (tolerance: 50000.0m)
+2026-11-03 13:17:24,184 INFO [polygons-index] ✅ Coordinate validation passed: CRS transformed from EPSG:3857 to EPSG:26913. Bounds overlap (distance: 11146.8m).
+2026-11-03 13:17:24,185 INFO [polygons-index] Normalizing dataset CRS to EPSG:26913
+2026-11-03 13:17:24,186 INFO [polygons-index] Normalizing polygon CRS to EPSG:3857
+2026-11-03 13:17:24,189 INFO [polygons-index] Dataset CRS: EPSG:26913, Polygon CRS: PROJCS["WGS 84 / Pseudo-Mercator",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Mercator_1SP"],PARAMETER["central_meridian",0],PARAMETER["scale_factor",1],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],EXTENSION["PROJ4","+proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs"],AUTHORITY["EPSG","3857"]]
+2026-11-03 13:17:24,189 INFO [polygons-index] Transforming polygons from PROJCS["WGS 84 / Pseudo-Mercator",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Mercator_1SP"],PARAMETER["central_meridian",0],PARAMETER["scale_factor",1],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],EXTENSION["PROJ4","+proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs"],AUTHORITY["EPSG","3857"]] to EPSG:26913
+2026-11-03 13:17:24,199 INFO [polygons-index] Rasterising 1674 polygons against /private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_envi.img
+2026-11-03 13:17:24,199 INFO [polygons-index] Polygon bounds: (452362.24, 4426492.23, 458049.27, 4460634.69) [minx, miny, maxx, maxy]
+2026-11-03 13:17:24,199 INFO [polygons-index] Polygon CRS: PROJCS["NAD83 / UTM zone 13N",GEOGCS["NAD83",DATUM["North_American_Datum_1983",SPHEROID["GRS 1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],AUTHORITY["EPSG","6269"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4269"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-105],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","26913"]]
+2026-11-03 13:17:24,200 INFO [polygons-index] Raster bounds: (457624.50, 4432606.65, 457941.10, 4432830.55) [minx, miny, maxx, maxy]
+2026-11-03 13:17:24,200 INFO [polygons-index] Raster CRS: EPSG:26913
+2026-11-03 13:17:24,200 INFO [polygons-index] ✅ Polygon bounds overlap with raster bounds
+2026-11-03 13:17:24,652 INFO [polygons-index] ✅ Wrote polygon pixel index → /private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_polygon_pixel_index.parquet (144749 rows)
+PRODUCTION F_physical_polygon_library
+PRODUCTION E_Landsat_8_OLI
+PRODUCTION E_numerical_MicaSense_to-match_OLI_and_OLI-2
+PRODUCTION E_Landsat_9_OLI-2
+PRODUCTION E_Landsat_5_TM
+PRODUCTION E_numerical_MicaSense_to-match_TM_and_ETM+
+PRODUCTION E_Landsat_7_ETM+
+DIAGNOSTIC historical SCS+C fit
+2026-11-03 13:17:25,048 INFO Scene SCS+C fit complete: C finite bands=10/10 (min=-0.3719 max=0.3142)
+DIAGNOSTIC historical topo
+DIAGNOSTIC historical brdf
+DIAGNOSTIC historical combined
+Pipeline exercise and isolated historical replays complete

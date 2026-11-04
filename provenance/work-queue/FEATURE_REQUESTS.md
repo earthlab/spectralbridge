@@ -20,6 +20,114 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P175. Repair and validate integrated drone correction reliability
+
+- Priority: P0, user-directed engineering and controlled scientific validation
+- Owner: Codex
+- Started: 2026-11-04
+- Status: Completed conditional investigation and supported engineering repairs; scientific production approval explicitly not established.
+- Scope: Opt-in spatial BRDF fitting subsets/cluster covariance and uncertainty-resolved SCS+C with corrected/unsupported/missing states; retain shared kernels, reference and default NEON behavior.
+- Results: Seven full-native experimental Goldhill GeoTIFFs and a status raster preserved under `archive/local/drone-integrated-reliability/2026-11-04/`; exact native round trips. 27 sampled spatial controls expose confounding and three rejected subsets. Joint support 6,613,717; native 717 nm peak 63.51085 -> 1.78036, but shared all-ten-band peak 0.65503 -> 0.68932. No decisive paired ecological gain on 157 identities/142,637 memberships.
+- Verification: 175 focused tests plus five additional contract cases passed (180 unique); Ruff, docs links, transparency and diff checks pass. Real NEON BRDF and combined arrays each exactly match 3.6 million baseline values; 467 protected scientific artifacts unchanged. Incidental Finder metadata changed, separately recorded.
+- Deliverables: 16-page illustrated PDF, editable sources, PNG/SVG figures, compact numerical tables, native product catalog and reproducibility instructions in `provenance/drone-integrated-reliability/2026-11-04/`; every report page rendered and visually inspected.
+- Remaining scientific dependencies: Applied physical calibration, true contributors/pose binding/datum and repeated-target directional observations remain unverified. Gordon/Ruby extension lacks comparable clean source and viewing evidence. No production promotion or uploaded products.
+- Next recommended task: Retrieve the already specified 40-band-photo/four-position subset with applied calibration/export settings, pose/sensor bindings and contributor metadata, then test actual repeated targets. No invented geometry or calibration substitutes.
+
+### P174. Anatomy of a Red Artifact Part II companion publication
+
+- Priority: P0, user-directed scientific synthesis and illustrated publication
+- Owner: Codex
+- Started: 2026-11-04
+- Status: Completed, preserving all prior publications and experimental status.
+- Deliverables: `Anatomy_of_a_Red_Artifact_Part_II.pdf` (20 pages), editable Markdown/page manifest, 25 standalone PNG/SVG figures, 157-row numerical evidence CSV, hashed input manifest and reproducibility instructions in `provenance/brdf-artifact-anatomy-part-ii/2026-11-04/`.
+- Verification: Newly calculated encoding residuals, exact eligibility counts, native matched factors/boundaries, fixed-polygon median/IQR and PFT comparisons; all 20 pages rendered and visually inspected. Distinguishes controlled, clean source and reconstructed native populations and the separate later P175 support intersection.
+- Scientific limits: DN/32768 remains hypothetical; assignments/weights inferred; rank three does not establish physical identifiability; paired ecological intervals do not establish gains.
+- Next recommended task: Use the exact source retrieval and repeated-target validation described under P175; retain both completed reports as the evidence baseline.
+
+
+### P173. Reconstruct Goldhill viewing geometry and test experimental BRDF
+
+- Priority: P0, user-directed implementation and conditional scientific experiment
+- Owner: Codex
+- Started: 2026-11-04
+- Status: Complete implementation and conditional experiment (2026-11-04); eight native corrected GeoTIFFs produced. Scientifically approved production correction remains unestablished.
+- Scope: Reusable nadir rays, rectangular footprints, nearest/central assignment and simulated kernel mixtures; recovered timestamped path and independently supported CRS; native/shared BRDF-only and combined applications, uncertainty/seam/PFT diagnostics, unchanged real NEON control and visual report.
+- Outcome:565 positions/5,650 band records resolve 27 north/south flight legs; project/DEM report and spatial evidence support EPSG:26913 rather than the CSV EPSG:5070 header. Explicit same-datum/nadir/footprint scenarios cover 6,683,905 native ground observations (39 source cells lack terrain), with 4-221 potential cameras per cell. All four designs reach stable rank 3, conditions 98-182. All eight main ten-band fits pass unchanged numerical guards and produce experimental images;24 prespecified sampled sensitivity fits also execute. Calibration and actual contributors remain unverified.
+- Diagnostics: Historical red fixed-edge jump 630,821 becomes0.0026-0.0035 in BRDF-only experiments. A/B hard assignments add new seams; red factor-jump 99 th percentiles 0.498/0.589 versus0.0567 uniform/0.0265 center-weighted simulated kernels. Same157 identities/144,406 memberships/folds give raw 66.83%, A 69.81%, B 69.46%, C uniform 67.14%, C center 69.65%; all paired BRDF-only gain intervals include zero. Combined717 nmmaxima50-70 remain scientifically problematic; no clipping or classifier-driven tuning.
+- Verification:163 focused tests pass (nine new geometric/isolated-adapter tests), Ruff/docs links/transparency checks pass, actual NEON BRDF-only and combined arrays/masks match P172 exactly and serialize through library acceptance. All 136 direct-source/completed-P172 artifact hashes and261 available prior expected hashes unchanged; one older temporary original-TIFF path is unavailable and explicitly recorded, not used/recreated or claimed verified. No current shared scientific module or production default changed by P173.
+- Delivered: `src/spectralbridge/drone_view_geometry.py`, tests, `docs/dev/goldhill-viewing-geometry-experiment.md`,18-page visually reviewed PDF/14 PNG-SVG figure pairs and compact evidence in `provenance/goldhill-viewing-geometry/2026-11-04/`. Native geometry, kernel maps, eight experimental GeoTIFFs and large intermediates remain outside the repo at `/private/tmp/goldhill-viewing-geometry-20261104`.
+- Remaining scientific prerequisites: Verified physical calibration, camera/world/vertical/time and sensor-binding conventions, actual per-band contributors/blend weights or real same-target overlapping observations, seam/independent physical validation and separate topographic stabilization. Live accessible package metadata checked; original photo path not found. A concrete 40 band-photo/four-position subset request is saved. No repeated measurements fabricated, datastore uploads, official-library writes or calibration promotion.
+- Next: Retain A as an interpretable baseline and C center as the smoother simulated-blending sensitivity result, neither production-approved or selected by PFT score. Request the small source subset/source-operator evidence (P159), then validate real repeated-target geometry and address the separate P171 topographic limitation before production.
+
+
+### P172. Repair and validate clean-source Goldhill drone BRDF reliability
+
+- Priority: P0, user-directed scientific/code investigation
+- Owner: Codex
+- Started: 2026-11-03
+- Status: Complete investigation and shared reliability hardening (2026-11-03); Goldhill BRDF remains scientifically unsupported, not a completed corrected-image product.
+- Scope: Controlled A–F source/filter/model investigation, genuine-geometry/external-model feasibility, matched PFT diagnostics, actual supported NEON control, producer/stage attempts, surgical production hardening, regression tests and visual report.
+- Outcome: Exact historical A/B replay on clean source still reproduces the boundary (median jump reduction only 0.00870% with fixed model). Correct candidate units raise red eligibility from14 to6,678,404, but revised Goldhill angular stable rank stays1/3. C/D historical refits and E current fits are explicitly unsupported; F lacks prerequisites. No revised corrected image or quality score was fabricated. Calibration remains HYPOTHETICAL_UNVERIFIED.
+- Implemented: Source-footprint/quality/NDVI eligibility, persisted missing-input reasons, band identity, stable-rank/effective-sample diagnostics, shared fit/application roundoff and prediction-uncertainty checks, versioned model/header/library acceptance and restart signatures. Header serialization preserves the policy. Existing kernel equations, mathematical version, reference, defaults and NEON supported numerical behavior remain unchanged.
+- Verification:178 targeted tests passed with zero failures/errors/skips; Ruff and docs-link checks recorded with provenance. Both actual ten-band NEON controls (BRDF-only/combined) match before/after arrays and masks exactly, and serialize through the library contract. All262 protected input/historical hashes unchanged. Twenty-one-page PDF with14 PNG/SVG figure pairs and twelve required decisions; see `provenance/goldhill-clean-source-brdf/2026-11-03/` and `docs/dev/goldhill-clean-source-brdf-investigation.md`.
+- Remaining scientific prerequisites: Authoritative Goldhill calibration plus independently supported contributor geometry/weights or a calibrated repeated-target image subset with verified poses, intrinsics, CRS, vertical/time/surface conventions; then independent directional and ecological validation. Existing separate topographic instability also remains visible (P171). No datastore writes, official-library regeneration, calibration promotion or BRDF disablement.
+- Next: Obtain the minimum resolving Goldhill metadata/image subset before another production correction attempt; otherwise resume the highest-priority unfinished queue item (including P159 as applicable). Preserve this unsupported result and use fresh output directories for scientifically changed models.
+
+
+### P171. Goldhill conditional reflectance and topographic experiment
+
+- Priority: P0, user-directed isolated scientific experiment
+- Owner: Codex
+- Started: 2026-11-03
+- Status: Complete (2026-11-03). Seven conditional branches, all ten bands and157matched polygons evaluated;20-page visually reviewed PDF and14PNG/SVG figure pairs. Calibration remains HYPOTHETICAL_UNVERIFIED; production unchanged.
+- Scope: Actual shared/historical correction functions through an isolated hypothesis adapter; geometry/time audit, instability and eligibility/fit diagnostics, matched polygon PFT methods, figures, Markdown/PDF and dated reproducibility record. No BRDF, library regeneration or production writes.
+- Plan: Prespecify bounded correction variants without PFT-driven tuning; retain native and common support; test scale invariance and guards; render and visually review PDF.
+- Delivered: `docs/dev/goldhill-conditional-reflectance-topographic-experiment.md` and `provenance/goldhill-conditional-topographic/2026-11-03/` contain scripts, source hashes, masks, coefficients/residuals,399spatial-block C draws, timing/terrain sensitivity, native/common distributions, polygon/class statistics, paired folds/predictions and scientific decisions. Exact shared affine kernel through isolated hypothesis adapter; production gate still rejects it.28targeted tests, Ruff/docs-link checks,151protected hashes unchanged.
+- Outcome: Candidate scale leaves all ten C values unchanged. Historical/current red gain309.9168 reproduces; OLS eligibility/Huber alone retain poles. Experimental resolved-domain/uncertainty exclusions reduce maximum red gain to6.9901 while retaining98.96%of raw support. On6,614,170common pixels/142,656polygon memberships, mean-spectrum balanced accuracy is68.30%raw versus65.20%stabilized (paired change-3.10points,95%interval[-14.16,+5.53]); CV/spectral angles worsen despite lower variance and illumination correlation. Earlier native-support66.83%/71.71%benchmarks reproduce; aggregation and support sensitivities remain explicit.
+- Remaining scientific dependencies: verified calibration and timing/terrain/North/shadow/contributor provenance; independent physical targets and spatial/site-held-out scientific validation. Experimental uncertainty rule is not a universal physical criterion or approved production algorithm.
+- Next: Keep raw candidate reflectance primary. Review separate production changes for explicit coefficient/domain uncertainty and unsupported denominator reporting; do not deploy correction by classifier-score selection. No BRDF, source/historical overwrite, official library regeneration, calibration promotion, release/navigation or datastore changes.
+
+
+### P170. Determine original Goldhill MicaSense physical calibration
+
+- Priority: P0, user-directed bounded calibration investigation
+- Owner: Codex
+- Started: 2026-11-03
+- Status: Complete (2026-11-03). Bounded investigation concludes SUPPORTED BUT UNVERIFIED for DN/32768; production physical units remain UNSUPPORTED. Proceeded without the unavailable project/raw archive as requested. No production scaling changes.
+- Scope: Current primary MicaSense/Agisoft documentation, complete Goldhill export inventory, representative raw-image metadata where available, three-hypothesis evidence matrix, valid-alpha ten-band candidate statistics/algebra, decisive `docs/dev/goldhill-micasense-calibration-investigation.md`.
+- Plan: Reuse checked source hashes and prior inventories; retrieve only representative photographs/metadata/projects if accessible; distinguish camera radiance coefficients from applied panel/DLS reflectance calibration; finish with VERIFIED, SUPPORTED BUT UNVERIFIED or UNSUPPORTED and the smallest resolving evidence.
+- Delivered: `docs/dev/goldhill-micasense-calibration-investigation.md` and dated evidence folder with primary references, complete bounded package inventories, ten-band valid-alpha statistics (9,377,010 native pixels), three reviewed PNG/SVG figure pairs, exhaustive UInt16 arithmetic, actual ten-band resampling consistency (maximum error 2.98e-8), 19 passing targeted tests, Ruff/docs-link checks and nine unchanged protected hashes. Candidate fixed-10K decoder is a=0.0001999969482421875, b=0, conditional only. The accessible 2021 raw-image control was explicitly rejected as Goldhill calibration evidence.
+- Remaining: Applied all-ten-band calibration and untransformed UInt16 export are not documented for this source; plausibility and ratio indices cannot determine the absolute multiplier. No physical raster or VALID calibration record created.
+- Next: P159 source-linked operator processing/export audit can resolve encoding without the entire raw archive; recover genuine viewing/contributor geometry separately. Retain existing numerical scaling and eligibility safeguards until evidence suffices.
+
+
+### P169. Validate Goldhill end to end using the fixed-10K source
+
+- Priority: P0, user-directed experimental scientific validation
+- Owner: Codex
+- Started: 2026-11-03
+- Status: Complete (2026-11-03). Actual entry points exercised; physical stages explicitly unsupported, raw/numerical stages verified; 17-page visually checked PDF, 13 figure pairs, matched 157-polygon/PFT analyses and 134 passing targeted tests. No production promotion.
+- Scope: Separate dated experimental outputs, raw baseline, real production-stage attempts/blocked outcomes, isolated historical replays, numerical polygon/PFT diagnostics where APIs permit, figure-heavy PDF plus machine-readable provenance. No production overwrites/uploads, invented calibration/angles, safeguard disabling or default changes.
+- Plan: Validate source/masks/bands/alignment; run actual production functions with honest unit records; preserve blocked stage status; reuse unchanged historical implementations only in explicit replay namespaces; compare matched pixels/polygons with grouped validation; render and inspect the scientific report.
+- Delivered: `provenance/goldhill-end-to-end/2026-11-03/` contains the PDF/Markdown report, current stage outcomes, legacy replays, input/output manifests, 13 PNG/SVG figure pairs, 157 matched polygon summaries / 144,406 memberships, nine numeric-only pixel tables (kept in the dated temporary experiment), grouped classification/separability/PCA diagnostics, scripts/logs/tests and machine summary. Actual TIFF→H5→ENVI values/masks/grid preserved; baseline, package polygon index and two native MicaSense subsets executed. Current SCS+C/BRDF/combined, four Landsat translations and approved physical-library extraction remain blocked; no guard bypass. Historical red-stripe replay persists with ~3.15e9 median edge jump; historical red SCS+C factor reaches 309.9 near a 0.001005 denominator. Raw identification unchanged at 66.829% balanced accuracy with identical OOF predictions. Twenty protected input/code files unchanged; no production code/default, original imagery, library or datastore writes.
+- Additional recovery: all 5,650 supplied pose IDs join uniquely to original photo metadata; all 6,095 photo tags are August 15, with the aligned-camera midpoint 5.5 seconds from inherited solar time. This supports that scene timestamp despite the nominal August 14 package note/name; explicit clock/time-zone and pixel-contributor assignment remain unresolved. Source CSV locations/hashes and augmented pose/time table are retained.
+- Remaining scientific dependencies: verified physical radiometry, camera CRS/angular/vertical conventions, genuine pixel/contributor viewing geometry and independent correction/abundance validation. Abundance NOT_EVALUATED; numeric preprocessing is ready for experimental/raw QA only.
+- Next: P159 recover/verify calibration and pixel/contributor geometry, then fresh versioned scientific regeneration only after eligibility and stability validation. No release, citation or navigation changes were needed.
+
+
+### P168. Find and verify original Goldhill imagery
+
+- Priority: P0, user-directed read-only source investigation
+- Owner: Codex
+- Started: 2026-11-03
+- Status: Complete (2026-11-03). Live CyVerse originals/derivatives located; eight TIFF candidates and two archived 25 cm H5s compared; requested separate 10 cm fixed-10K derivative created and verified. Fifteen protected source/code files unchanged; two contract tests pass.
+- Scope: Source/version inventory, full metadata, quantitative same-grid and documented cross-grid comparisons, RGB/spectral figures, pipeline lineage and `docs/dev/goldhill-original-source-investigation.md`. Preserve all source bytes; no production pipeline changes or regeneration.
+- Plan: Reuse verified local originals, freshly list nearby datastore collections and retrieve missing 10 cm candidates; analyze actual paired pixels, masks, ranges/linear transforms and upstream metadata without assuming physical calibration.
+- Delivered: `docs/dev/goldhill-original-source-investigation.md` and `provenance/goldhill-original-source/2026-11-03/`: live listings/full metadata/native band statistics, same-grid affine/ratio/NoData comparisons, independent cross-grid interpolation tests, two H5-versus-TIFF exact finite-value checks, four visually reviewed PNG/SVG figures, fixed derivative recipe/sidecar and preservation record. New local TIFF `/private/tmp/p168-goldhill-sources/derived_10cm_10k/goldhill_10cm_fixed_10k.tif`: 3165 × 2238 × 10, Float32, EPSG:26913, 10 cm, fixed multiplier 10000/65535 and zero offset, no clipping/minimum subtraction, source-alpha-aware interpolation/internal mask, 6,683,944 valid pixels. All 537,552 source occurrences of 65535 per band are transparent background, with zero such observed pixels; existing interpolation contaminates some boundary measurements.
+- Remaining scientific dependencies: original physical calibration and exact historical exporter still unresolved; upstream UInt16 25 cm and georeferenced-to-RGB branches have distinct processing that cannot be certified from filenames/ranges. Newly supplied camera poses require CRS resolution and pixel/contributor mapping. The new file is a numerical preprocessing derivative, not a calibrated/BRDF-approved product.
+- Next: P159 calibration/geometry recovery and fresh versioned production/library regeneration only after those dependencies are resolved. No production code, source imagery, datastore objects, navigation, release or citation metadata changed.
+
+
 ### P167. Validate shared radiometry and unit-aware BRDF eligibility
 
 - Priority: P0, user-directed scientific software repair following P166 mathematics

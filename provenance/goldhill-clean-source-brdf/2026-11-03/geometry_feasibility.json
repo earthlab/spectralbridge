@@ -1,0 +1,491 @@
+{
+  "camera_records": 5650,
+  "positions": 565,
+  "pose_file": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-end-to-end/2026-11-03/camera_poses_with_photo_times.csv",
+  "pose_sha256": "3abcbbf3bf741a4ac8a9cafedf6a6a496d13e283be09e59dcc86bfa37241b49b",
+  "terrain_file": "/private/tmp/photogrammetry-metadata-20261102/goldhill_aligned_dem.tif",
+  "terrain_sha256": "64d338e32265273fbbcfd030b04ed3e2020f7e2cd785be0da6279255629bfff1",
+  "rotation_orthogonality_error": {
+    "n": 5650,
+    "minimum": 2.6661189293916133e-10,
+    "maximum": 2.456462868102523e-09,
+    "mean": 1.3798735635240486e-09,
+    "quantiles": [
+      2.6661189293916133e-10,
+      4.4748592702466033e-10,
+      6.339541358169349e-10,
+      1.1797327303721148e-09,
+      1.3883446439158447e-09,
+      1.5915461144053007e-09,
+      2.0647111495331247e-09,
+      2.2939812300548812e-09,
+      2.456462868102523e-09
+    ]
+  },
+  "rotation_determinant": {
+    "n": 5650,
+    "minimum": 0.9999999985797828,
+    "maximum": 1.0000000014344355,
+    "mean": 0.9999999999955226,
+    "quantiles": [
+      0.9999999985797828,
+      0.9999999987253946,
+      0.9999999989077253,
+      0.9999999996285553,
+      0.9999999999945219,
+      1.000000000356756,
+      1.0000000011229448,
+      1.0000000012804837,
+      1.0000000014344355
+    ]
+  },
+  "records": [
+    {
+      "point": {
+        "label": "nonpositive_outside",
+        "row": 921,
+        "column": 980
+      },
+      "label": "nonpositive_outside",
+      "x": 457722.55,
+      "y": 4432738.399999999,
+      "assumed_ground_z": 2699.23486328125,
+      "all_positive_height_rays": 565,
+      "conditional_nadir_cone_candidates": 254,
+      "candidate_zenith_degrees": {
+        "n": 254,
+        "minimum": 1.130950630847592,
+        "maximum": 28.42062616294013,
+        "mean": 18.408427445683348,
+        "quantiles": [
+          1.130950630847592,
+          1.4553862711914785,
+          3.1117406177663973,
+          14.033589242196545,
+          19.465676595566507,
+          23.496603572004997,
+          28.06752646343606,
+          28.351298926870456,
+          28.42062616294013
+        ]
+      },
+      "candidate_azimuth_degrees": {
+        "n": 254,
+        "minimum": 2.0170861165918654,
+        "maximum": 357.1922058112954,
+        "mean": 176.98097941213157,
+        "quantiles": [
+          2.0170861165918654,
+          3.411321488618941,
+          9.513481406613762,
+          96.41736911603041,
+          173.91228305708609,
+          251.3949298271469,
+          355.77764814497846,
+          357.16354045719146,
+          357.1922058112954
+        ]
+      },
+      "candidate_height_m": {
+        "n": 254,
+        "minimum": 138.4435997187502,
+        "maximum": 143.63375371875009,
+        "mean": 141.15046243134844,
+        "quantiles": [
+          138.4435997187502,
+          138.45454272775015,
+          138.59667300875014,
+          139.96393696874986,
+          141.11846371875004,
+          142.38100646875012,
+          143.52097210874987,
+          143.61328880175,
+          143.63375371875009
+        ]
+      },
+      "candidate_RossThick": {
+        "n": 254,
+        "minimum": -0.11991957550011556,
+        "maximum": 0.10092635765544833,
+        "mean": -0.020353634982019843,
+        "quantiles": [
+          -0.11991957550011556,
+          -0.1198859996048643,
+          -0.1189634445148842,
+          -0.07122002516262815,
+          -0.025933786405292092,
+          0.02765077450911929,
+          0.09766634880713701,
+          0.10056516129140894,
+          0.10092635765544833
+        ]
+      },
+      "candidate_LiDenseR": {
+        "n": 254,
+        "minimum": -1.7850225509726967,
+        "maximum": 7.023394334965694,
+        "mean": 0.40817279795991734,
+        "quantiles": [
+          -1.7850225509726967,
+          -1.7836200265076978,
+          -1.7625975545133021,
+          -1.0229435356030057,
+          0.1711472656606421,
+          1.6077293714157357,
+          4.511903145708152,
+          6.942430359979307,
+          7.023394334965694
+        ]
+      },
+      "warning": "Scenario envelope, not a confidence interval, actual footprint or contributor selection; assumes reported XY are26913 and Z matches delivered elevation datum."
+    },
+    {
+      "point": {
+        "label": "near_zero_inside",
+        "row": 921,
+        "column": 981
+      },
+      "label": "near_zero_inside",
+      "x": 457722.64999999997,
+      "y": 4432738.399999999,
+      "assumed_ground_z": 2699.236083984375,
+      "all_positive_height_rays": 565,
+      "conditional_nadir_cone_candidates": 254,
+      "candidate_zenith_degrees": {
+        "n": 254,
+        "minimum": 1.1648184192724096,
+        "maximum": 28.39577526922206,
+        "mean": 18.406767969576162,
+        "quantiles": [
+          1.1648184192724096,
+          1.484785485737617,
+          3.0771230336299027,
+          14.036332008837249,
+          19.470667138245467,
+          23.47635482824804,
+          28.079286790965643,
+          28.326318491220093,
+          28.39577526922206
+        ]
+      },
+      "candidate_azimuth_degrees": {
+        "n": 254,
+        "minimum": 1.9094752861632984,
+        "maximum": 357.07375029841467,
+        "mean": 176.99095735401684,
+        "quantiles": [
+          1.9094752861632984,
+          3.3027175840308467,
+          9.37193130639309,
+          96.43118662164912,
+          174.01102103775463,
+          251.46623236104386,
+          355.58380888795296,
+          357.0396219474012,
+          357.07375029841467
+        ]
+      },
+      "candidate_height_m": {
+        "n": 254,
+        "minimum": 138.4423790156252,
+        "maximum": 143.63253301562509,
+        "mean": 141.14924172822344,
+        "quantiles": [
+          138.4423790156252,
+          138.45332202462515,
+          138.59545230562514,
+          139.96271626562486,
+          141.11724301562504,
+          142.37978576562512,
+          143.51975140562487,
+          143.612068098625,
+          143.63253301562509
+        ]
+      },
+      "candidate_RossThick": {
+        "n": 254,
+        "minimum": -0.1198917627579279,
+        "maximum": 0.10098451005201692,
+        "mean": -0.02028698619909242,
+        "quantiles": [
+          -0.1198917627579279,
+          -0.11985880797869998,
+          -0.11894667310155672,
+          -0.07115591293054291,
+          -0.025860806305578743,
+          0.027737062629383108,
+          0.09771967173701374,
+          0.10061975037293731,
+          0.10098451005201692
+        ]
+      },
+      "candidate_LiDenseR": {
+        "n": 254,
+        "minimum": -1.784988862118098,
+        "maximum": 7.088761376685682,
+        "mean": 0.4097670270356651,
+        "quantiles": [
+          -1.784988862118098,
+          -1.7835075600935835,
+          -1.7629002305403667,
+          -1.0245318991892407,
+          0.170624231137946,
+          1.6094744347873433,
+          4.486963625840648,
+          6.9835809366946435,
+          7.088761376685682
+        ]
+      },
+      "warning": "Scenario envelope, not a confidence interval, actual footprint or contributor selection; assumes reported XY are26913 and Z matches delivered elevation datum."
+    },
+    {
+      "point": {
+        "label": "inside_artifact",
+        "row": 921,
+        "column": 1000
+      },
+      "label": "inside_artifact",
+      "x": 457724.55,
+      "y": 4432738.399999999,
+      "assumed_ground_z": 2699.051025390625,
+      "all_positive_height_rays": 565,
+      "conditional_nadir_cone_candidates": 261,
+      "candidate_zenith_degrees": {
+        "n": 261,
+        "minimum": 1.8568892375455375,
+        "maximum": 28.546396232596145,
+        "mean": 18.62639108777441,
+        "quantiles": [
+          1.8568892375455375,
+          1.8788312990854485,
+          2.86543622400765,
+          14.237095364830346,
+          19.5674227644404,
+          23.688333496804916,
+          28.431466743292614,
+          28.521702748147334,
+          28.546396232596145
+        ]
+      },
+      "candidate_azimuth_degrees": {
+        "n": 261,
+        "minimum": 5.28736059423331,
+        "maximum": 359.8631738747972,
+        "mean": 176.2087108745142,
+        "quantiles": [
+          5.28736059423331,
+          5.464978914557201,
+          8.077814490729475,
+          94.224174495618,
+          173.7942713129204,
+          250.17310891128858,
+          353.5927958616224,
+          358.55428570889444,
+          359.8631738747972
+        ]
+      },
+      "candidate_height_m": {
+        "n": 261,
+        "minimum": 138.5129006093748,
+        "maximum": 143.81759160937509,
+        "mean": 141.26819318025622,
+        "quantiles": [
+          138.5129006093748,
+          138.51466080937493,
+          138.56926200937488,
+          139.93697460937483,
+          141.28717960937502,
+          142.56428060937515,
+          143.70260940937487,
+          143.796560469375,
+          143.81759160937509
+        ]
+      },
+      "candidate_RossThick": {
+        "n": 261,
+        "minimum": -0.12324978850144308,
+        "maximum": 0.10191672977004684,
+        "mean": -0.020396737508240694,
+        "quantiles": [
+          -0.12324978850144308,
+          -0.12221536540321977,
+          -0.11887078954388508,
+          -0.07222022354540958,
+          -0.026279794447473637,
+          0.02862171454769802,
+          0.09847999492217271,
+          0.10147397249323425,
+          0.10191672977004684
+        ]
+      },
+      "candidate_LiDenseR": {
+        "n": 261,
+        "minimum": -1.7831045282618214,
+        "maximum": 8.521756441105355,
+        "mean": 0.42469458877191657,
+        "quantiles": [
+          -1.7831045282618214,
+          -1.7800216134061613,
+          -1.767818129092933,
+          -1.0439994682045026,
+          0.15350669333214206,
+          1.6332394135185924,
+          4.590263134851158,
+          7.84310584556879,
+          8.521756441105355
+        ]
+      },
+      "warning": "Scenario envelope, not a confidence interval, actual footprint or contributor selection; assumes reported XY are26913 and Z matches delivered elevation datum."
+    },
+    {
+      "point": {
+        "label": "unaffected_reference",
+        "row": 921,
+        "column": 830
+      },
+      "label": "unaffected_reference",
+      "x": 457707.55,
+      "y": 4432738.399999999,
+      "assumed_ground_z": 2700.9794921875,
+      "all_positive_height_rays": 565,
+      "conditional_nadir_cone_candidates": 227,
+      "candidate_zenith_degrees": {
+        "n": 227,
+        "minimum": 1.6946990529200623,
+        "maximum": 28.546764058563163,
+        "mean": 18.02919571150749,
+        "quantiles": [
+          1.6946990529200623,
+          1.7705390585353573,
+          3.193492438776008,
+          13.220951871755094,
+          18.857301054169614,
+          23.230582283738624,
+          28.39703444802641,
+          28.51980053804904,
+          28.546764058563163
+        ]
+      },
+      "candidate_azimuth_degrees": {
+        "n": 227,
+        "minimum": 0.21462505589422778,
+        "maximum": 354.3177667705885,
+        "mean": 162.02319316747682,
+        "quantiles": [
+          0.21462505589422778,
+          1.2252465732102724,
+          5.671971865168869,
+          84.39677900505674,
+          152.43444910366026,
+          221.82479254353797,
+          352.27549596413866,
+          354.16636431556907,
+          354.3177667705885
+        ]
+      },
+      "candidate_height_m": {
+        "n": 227,
+        "minimum": 137.28448881250006,
+        "maximum": 142.00367481249987,
+        "mean": 139.72307130589206,
+        "quantiles": [
+          137.28448881250006,
+          137.29541320050006,
+          137.33836839249992,
+          138.65834431249982,
+          139.93328681249977,
+          140.66731681249985,
+          141.8680936725,
+          142.00046742049986,
+          142.00367481249987
+        ]
+      },
+      "candidate_RossThick": {
+        "n": 227,
+        "minimum": -0.12369466773099735,
+        "maximum": 0.10224493074572738,
+        "mean": -0.023831496297065033,
+        "quantiles": [
+          -0.12369466773099735,
+          -0.12282315433060326,
+          -0.11928390682636321,
+          -0.07517428236504298,
+          -0.03288240298428835,
+          0.024678272007767732,
+          0.09968618239753682,
+          0.10195461372001358,
+          0.10224493074572738
+        ]
+      },
+      "candidate_LiDenseR": {
+        "n": 227,
+        "minimum": -1.7828588731527404,
+        "maximum": 8.092476563946505,
+        "mean": 0.30606073043191917,
+        "quantiles": [
+          -1.7828588731527404,
+          -1.7804874193826554,
+          -1.7694570977478157,
+          -1.1606757569394834,
+          -0.06653604052061945,
+          1.470185228136851,
+          4.940825511138779,
+          7.539355761519318,
+          8.092476563946505
+        ]
+      },
+      "warning": "Scenario envelope, not a confidence interval, actual footprint or contributor selection; assumes reported XY are26913 and Z matches delivered elevation datum."
+    }
+  ],
+  "source_CRS_label": "CSV says5070; numbers spatially match26913. Neither silently relabelled as authoritative.",
+  "contributors": "NOT_RECOVERED; no image IDs, seamline decisions, pixel blending weights or visibility per output pixel. Pose matrices do not identify used rays.",
+  "data_route": "Small source-linked Metashape export: contributor IDs/blend weights, camera/reference CRS and vertical/angular conventions, sensor intrinsics and surface/visibility inputs; or independently calibrated repeated same-target multi-angle subset. Full archive not required just to export these records.",
+  "external_models": "Existing independently applicable model not found. New real NEON fits in this experiment are computational controls on2021R10C native bands, not independently validated Goldhill2023MicaSense transfers.",
+  "constrained_model": "One observed design row identifies only its dot product with beta. Two directional degrees of freedom must be supplied externally and independently validated. Isotropic-only shape is identity, not an estimated directional correction.",
+  "identifiability_examples": {
+    "kind": "SYNTHETIC_ALGEBRA_ON_ACTUAL_GEOMETRY_NOT_GOLDHILL_FITS",
+    "observed_design": [
+      1.0,
+      -0.028319030943852463,
+      -1.0
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "null_projection_norm": 0.017539482766958006,
+    "examples": [
+      {
+        "synthetic_beta": [
+          0.42106979703122405,
+          8.55041948796427,
+          -0.12106979703122403
+        ],
+        "observed_prediction": 0.2999999999998688,
+        "reference_prediction": 0.15000000000000005,
+        "factor": 0.5000000000002188
+      },
+      {
+        "synthetic_beta": [
+          0.3,
+          0.0,
+          0.0
+        ],
+        "observed_prediction": 0.3,
+        "reference_prediction": 0.3,
+        "factor": 1.0
+      },
+      {
+        "synthetic_beta": [
+          0.05786040593755193,
+          -17.10083897592854,
+          0.24213959406244806
+        ],
+        "observed_prediction": 0.30000000000026245,
+        "reference_prediction": 0.5999999999999999,
+        "factor": 1.9999999999982498
+      }
+    ]
+  }
+}

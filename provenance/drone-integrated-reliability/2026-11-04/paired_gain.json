@@ -1,0 +1,86 @@
+[
+  {
+    "branch": "clean_raw",
+    "difference": 0.0,
+    "low": 0.0,
+    "high": 0.0,
+    "changed_predictions": 0
+  },
+  {
+    "branch": "historical_BRDF",
+    "difference": -0.08337790288529207,
+    "low": -0.20787086558761436,
+    "high": 0.03722607318789581,
+    "changed_predictions": 30
+  },
+  {
+    "branch": "topographic_only",
+    "difference": -0.04096762843068262,
+    "low": -0.14841660802251933,
+    "high": 0.04472097114707949,
+    "changed_predictions": 23
+  },
+  {
+    "branch": "baseline_BRDF",
+    "difference": 0.01096410978184377,
+    "low": -0.05393050668543279,
+    "high": 0.07473486980999292,
+    "changed_predictions": 31
+  },
+  {
+    "branch": "baseline_combined",
+    "difference": -0.04255102040816327,
+    "low": -0.2039475721323012,
+    "high": 0.10673698099929624,
+    "changed_predictions": 42
+  },
+  {
+    "branch": "conditioned_topography",
+    "difference": -0.03096762843068262,
+    "low": -0.14161118930330754,
+    "high": 0.055302779732582685,
+    "changed_predictions": 26
+  },
+  {
+    "branch": "controlled_OLS_BRDF",
+    "difference": 0.01096410978184377,
+    "low": -0.05393050668543279,
+    "high": 0.07473486980999292,
+    "changed_predictions": 30
+  },
+  {
+    "branch": "controlled_cluster_BRDF",
+    "difference": 0.01096410978184377,
+    "low": -0.05393050668543279,
+    "high": 0.07473486980999292,
+    "changed_predictions": 30
+  },
+  {
+    "branch": "conditioned_combined_OLS",
+    "difference": -0.01882828993666432,
+    "low": -0.18140358902181564,
+    "high": 0.12709236453201966,
+    "changed_predictions": 42
+  },
+  {
+    "branch": "conditioned_combined_cluster",
+    "difference": -0.01882828993666432,
+    "low": -0.18140358902181564,
+    "high": 0.12709236453201966,
+    "changed_predictions": 42
+  },
+  {
+    "branch": "homogeneous_BRDF",
+    "difference": -0.05530964109781845,
+    "low": -0.1616039760731879,
+    "high": 0.022371217452498215,
+    "changed_predictions": 18
+  },
+  {
+    "branch": "homogeneous_conditioned_combined",
+    "difference": -0.041379310344827586,
+    "low": -0.15656421534130893,
+    "high": 0.05366256157635467,
+    "changed_predictions": 34
+  }
+]

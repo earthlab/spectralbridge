@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "pages": 21,
+  "figure_pairs": 14,
+  "PDF_sha256": "7027bd577bf0518904473d2a615a3ae58a0c501280962c414cf64befa3a3958a",
+  "render_command": "pdftoppm -scale-to 1500 -png",
+  "rendered_pages": 21,
+  "visual_review": "All pages reviewed in four contact sheets; all 14 figures reviewed in report context. No clipping, collisions or unreadable glyphs observed. Final spacing adjustments retain layout-bound assertions.",
+  "preview_directory": "/private/tmp/goldhill-clean-source-brdf-20261103",
+  "replacement_glyphs": false,
+  "figure_display_limits_do_not_change_analysis": true
+}

@@ -1,0 +1,19 @@
+{
+  "sampled_native_shape": [
+    224,
+    317,
+    10
+  ],
+  "stride": 10,
+  "PFT_labels_unchanged": [
+    "Deciduous",
+    "Evergreen",
+    "Herbaceous",
+    "Woody shrub"
+  ],
+  "homogeneity": "rawNDVI>.5 and3x3sample red/NIR CV<.15, complete neighbourhood; independent of corrected appearance",
+  "class_models_used_for_PFT": false,
+  "uncertainty_groups": "20m spatial blocks",
+  "holdouts": "50m spatial blocks and nearest-camera flight-leg modulo3",
+  "permutation": "prespecified whole-image horizontal translations; sensitivity diagnostic, not a physical BRDF significance test"
+}

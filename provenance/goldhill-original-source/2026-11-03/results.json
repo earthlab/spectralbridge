@@ -1,0 +1,6635 @@
+{
+  "candidate_inventory": {
+    "original": {
+      "path": "/private/tmp/spectralbridge-scale-confirmation/goldhill-original.tif",
+      "remote_origin": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_ORTHO.tif",
+      "bytes": 307376470,
+      "sha256": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+      "format": "GTiff",
+      "shape": [
+        2646,
+        3747
+      ],
+      "total_bands": 11,
+      "spectral_bands": 10,
+      "extra_band_status": "Declared alpha",
+      "dtype": "uint16",
+      "crs": "EPSG:26913",
+      "transform": [
+        0.08442749999999995,
+        0.0,
+        457624.63781315734,
+        0.0,
+        -0.0844275000000419,
+        4432830.378333771,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "resolution": [
+        0.08442749999999995,
+        0.0844275000000419
+      ],
+      "bounds": [
+        457624.63781315734,
+        4432606.983168771,
+        457940.98765565734,
+        4432830.378333771
+      ],
+      "nodata": null,
+      "scales": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": [
+        "metre",
+        "metre",
+        "metre",
+        "metre",
+        "metre",
+        "metre",
+        "metre",
+        "metre",
+        "metre",
+        "metre",
+        "metre"
+      ],
+      "descriptions": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "colorinterp": [
+        "gray",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "alpha"
+      ],
+      "tags": {
+        "default": {
+          "AREA_OR_POINT": "Area"
+        },
+        "IMAGE_STRUCTURE": {
+          "COMPRESSION": "LZW",
+          "INTERLEAVE": "PIXEL"
+        },
+        "DERIVED_SUBDATASETS": {
+          "DERIVED_SUBDATASET_1_NAME": "DERIVED_SUBDATASET:LOGAMPLITUDE:/private/tmp/spectralbridge-scale-confirmation/goldhill-original.tif",
+          "DERIVED_SUBDATASET_1_DESC": "log10 of amplitude of input bands from /private/tmp/spectralbridge-scale-confirmation/goldhill-original.tif"
+        }
+      },
+      "band_tags": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ],
+      "mask_flags": [
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ]
+      ],
+      "declared_positive_alpha_pixels": 9377010,
+      "physical_calibration": "UNVERIFIED; identity TIFF scales are not a calibration certificate",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "finite_non_nodata": 9914562,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 65535.0,
+          "mean": 4452.010918081908,
+          "quantiles": [
+            0.0,
+            112.0,
+            586.0,
+            880.0,
+            1256.0,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 9377010,
+          "observed_quantiles": [
+            0.0,
+            111.0,
+            849.0,
+            4074.0,
+            6197.0
+          ],
+          "exact_zero_count": 2,
+          "exact_10000_count": 0,
+          "exact_65535_count": 537552,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "finite_non_nodata": 9914562,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 65535.0,
+          "mean": 4610.695234040596,
+          "quantiles": [
+            0.0,
+            128.0,
+            705.0,
+            1044.0,
+            1471.0,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 9377010,
+          "observed_quantiles": [
+            0.0,
+            127.0,
+            1008.0,
+            4716.0,
+            7197.0
+          ],
+          "exact_zero_count": 1,
+          "exact_10000_count": 0,
+          "exact_65535_count": 537552,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "finite_non_nodata": 9914562,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 65535.0,
+          "mean": 5178.88986946675,
+          "quantiles": [
+            0.0,
+            148.0,
+            1248.0,
+            1784.0,
+            2207.0,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 9377010,
+          "observed_quantiles": [
+            0.0,
+            146.0,
+            1742.0,
+            6175.0,
+            8688.0
+          ],
+          "exact_zero_count": 17,
+          "exact_10000_count": 0,
+          "exact_65535_count": 537552,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "finite_non_nodata": 9914562,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 65535.0,
+          "mean": 5391.429637638052,
+          "quantiles": [
+            0.0,
+            162.0,
+            1431.0,
+            2035.0,
+            2478.0,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 9377010,
+          "observed_quantiles": [
+            0.0,
+            160.0,
+            1991.0,
+            7059.0,
+            10420.0
+          ],
+          "exact_zero_count": 24,
+          "exact_10000_count": 0,
+          "exact_65535_count": 537552,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "finite_non_nodata": 9914562,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 65535.0,
+          "mean": 5173.964591779243,
+          "quantiles": [
+            0.0,
+            109.0,
+            974.0,
+            1551.0,
+            2276.0,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 9377010,
+          "observed_quantiles": [
+            0.0,
+            108.0,
+            1488.0,
+            8933.0,
+            13214.0
+          ],
+          "exact_zero_count": 25,
+          "exact_10000_count": 46,
+          "exact_65535_count": 537552,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "finite_non_nodata": 9914562,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 65535.0,
+          "mean": 5093.242314385648,
+          "quantiles": [
+            0.0,
+            91.0,
+            842.0,
+            1398.0,
+            2204.0,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 9377010,
+          "observed_quantiles": [
+            0.0,
+            90.0,
+            1330.0,
+            9161.910000000149,
+            12941.0
+          ],
+          "exact_zero_count": 33,
+          "exact_10000_count": 62,
+          "exact_65535_count": 537552,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "finite_non_nodata": 9914562,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 65535.0,
+          "mean": 6346.692458022856,
+          "quantiles": [
+            0.0,
+            253.0,
+            2195.0,
+            3167.0,
+            3801.0,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 9377010,
+          "observed_quantiles": [
+            0.0,
+            250.0,
+            3101.0,
+            9457.0,
+            13301.0
+          ],
+          "exact_zero_count": 17,
+          "exact_10000_count": 83,
+          "exact_65535_count": 537552,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "finite_non_nodata": 9914562,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 65535.0,
+          "mean": 7338.301598497241,
+          "quantiles": [
+            0.0,
+            386.0,
+            3198.0,
+            4375.0,
+            5164.0,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 9377010,
+          "observed_quantiles": [
+            0.0,
+            381.0,
+            4297.0,
+            9729.0,
+            13818.0
+          ],
+          "exact_zero_count": 14,
+          "exact_10000_count": 57,
+          "exact_65535_count": 537552,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "finite_non_nodata": 9914562,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 65535.0,
+          "mean": 9161.998233608303,
+          "quantiles": [
+            0.0,
+            609.0,
+            4682.0,
+            6258.0,
+            7972.0,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 9377010,
+          "observed_quantiles": [
+            0.0,
+            601.0,
+            6107.0,
+            11511.0,
+            16940.0
+          ],
+          "exact_zero_count": 7,
+          "exact_10000_count": 388,
+          "exact_65535_count": 537552,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "finite_non_nodata": 9914562,
+          "nodata_pixels": 0,
+          "minimum": 174.0,
+          "maximum": 65535.0,
+          "mean": 10670.137984310351,
+          "quantiles": [
+            174.0,
+            1232.0,
+            6021.0,
+            7814.0,
+            9938.0,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 9377010,
+          "observed_quantiles": [
+            174.0,
+            1220.0,
+            7632.0,
+            14641.0,
+            20805.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 869,
+          "exact_65535_count": 537552,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        }
+      ]
+    },
+    "upstream_uint16_25cm": {
+      "path": "/private/tmp/p168-goldhill-sources/upstream_aligned/aligned_orthomosaic.tif",
+      "remote_origin": "/iplant/home/shared/earthlab/macrosystems/field-data/To_Correct/macrosystems/AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+      "bytes": 24933344,
+      "sha256": "a15d8b0a8b23675e70079d27830f2e42e4a6af00ed5b2cc7e387f34c76de2eed",
+      "format": "GTiff",
+      "shape": [
+        895,
+        1266
+      ],
+      "total_bands": 11,
+      "spectral_bands": 10,
+      "extra_band_status": "Band 11 follows original auxiliary lineage, but alpha interpretation lost",
+      "dtype": "uint16",
+      "crs": "EPSG:26913",
+      "transform": [
+        0.25,
+        0.0,
+        457624.5,
+        0.0,
+        -0.25,
+        4432830.5,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "resolution": [
+        0.25,
+        0.25
+      ],
+      "bounds": [
+        457624.5,
+        4432606.75,
+        457941.0,
+        4432830.5
+      ],
+      "nodata": null,
+      "scales": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "descriptions": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "colorinterp": [
+        "gray",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined"
+      ],
+      "tags": {
+        "default": {
+          "AREA_OR_POINT": "Area"
+        },
+        "IMAGE_STRUCTURE": {
+          "INTERLEAVE": "PIXEL"
+        },
+        "DERIVED_SUBDATASETS": {
+          "DERIVED_SUBDATASET_1_NAME": "DERIVED_SUBDATASET:LOGAMPLITUDE:/private/tmp/p168-goldhill-sources/upstream_aligned/aligned_orthomosaic.tif",
+          "DERIVED_SUBDATASET_1_DESC": "log10 of amplitude of input bands from /private/tmp/p168-goldhill-sources/upstream_aligned/aligned_orthomosaic.tif"
+        }
+      },
+      "band_tags": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ],
+      "mask_flags": [
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ],
+        [
+          "all_valid"
+        ]
+      ],
+      "declared_positive_alpha_pixels": null,
+      "physical_calibration": "UNVERIFIED; identity TIFF scales are not a calibration certificate",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "finite_non_nodata": 1133070,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 5759.0,
+          "mean": 895.7990547803754,
+          "quantiles": [
+            0.0,
+            0.0,
+            492.0,
+            819.0,
+            1148.0,
+            4026.0,
+            5759.0
+          ],
+          "valid_mask_pixels": 1133070,
+          "observed_quantiles": [
+            0.0,
+            0.0,
+            819.0,
+            4026.0,
+            5759.0
+          ],
+          "exact_zero_count": 64721,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "finite_non_nodata": 1133070,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 6867.0,
+          "mean": 1054.0097213764375,
+          "quantiles": [
+            0.0,
+            0.0,
+            592.0,
+            972.0,
+            1350.0,
+            4662.310000000056,
+            6867.0
+          ],
+          "valid_mask_pixels": 1133070,
+          "observed_quantiles": [
+            0.0,
+            0.0,
+            972.0,
+            4662.310000000056,
+            6867.0
+          ],
+          "exact_zero_count": 64721,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "finite_non_nodata": 1133070,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 8657.0,
+          "mean": 1620.4103082775116,
+          "quantiles": [
+            0.0,
+            0.0,
+            994.0,
+            1698.0,
+            2088.0,
+            6105.0,
+            8657.0
+          ],
+          "valid_mask_pixels": 1133070,
+          "observed_quantiles": [
+            0.0,
+            0.0,
+            1698.0,
+            6105.0,
+            8657.0
+          ],
+          "exact_zero_count": 64722,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "finite_non_nodata": 1133070,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 10375.0,
+          "mean": 1832.1601454455595,
+          "quantiles": [
+            0.0,
+            0.0,
+            1128.0,
+            1946.0,
+            2352.0,
+            6985.0,
+            10375.0
+          ],
+          "valid_mask_pixels": 1133070,
+          "observed_quantiles": [
+            0.0,
+            0.0,
+            1946.0,
+            6985.0,
+            10375.0
+          ],
+          "exact_zero_count": 64722,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "finite_non_nodata": 1133070,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 11808.0,
+          "mean": 1615.595249190253,
+          "quantiles": [
+            0.0,
+            0.0,
+            796.0,
+            1423.0,
+            2081.0,
+            8846.0,
+            11808.0
+          ],
+          "valid_mask_pixels": 1133070,
+          "observed_quantiles": [
+            0.0,
+            0.0,
+            1423.0,
+            8846.0,
+            11808.0
+          ],
+          "exact_zero_count": 64722,
+          "exact_10000_count": 3,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "finite_non_nodata": 1133070,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 11880.0,
+          "mean": 1535.0542367197083,
+          "quantiles": [
+            0.0,
+            0.0,
+            696.0,
+            1264.0,
+            1986.0,
+            9078.0,
+            11880.0
+          ],
+          "valid_mask_pixels": 1133070,
+          "observed_quantiles": [
+            0.0,
+            0.0,
+            1264.0,
+            9078.0,
+            11880.0
+          ],
+          "exact_zero_count": 64722,
+          "exact_10000_count": 5,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "finite_non_nodata": 1133070,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 13250.0,
+          "mean": 2784.4940012532325,
+          "quantiles": [
+            0.0,
+            0.0,
+            1717.0,
+            3032.0,
+            3628.0,
+            9370.0,
+            13250.0
+          ],
+          "valid_mask_pixels": 1133070,
+          "observed_quantiles": [
+            0.0,
+            0.0,
+            3032.0,
+            9370.0,
+            13250.0
+          ],
+          "exact_zero_count": 64722,
+          "exact_10000_count": 11,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "finite_non_nodata": 1133070,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 13671.0,
+          "mean": 3772.823328655776,
+          "quantiles": [
+            0.0,
+            0.0,
+            2527.0,
+            4220.0,
+            4938.0,
+            9640.0,
+            13671.0
+          ],
+          "valid_mask_pixels": 1133070,
+          "observed_quantiles": [
+            0.0,
+            0.0,
+            4220.0,
+            9640.0,
+            13671.0
+          ],
+          "exact_zero_count": 64721,
+          "exact_10000_count": 6,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "finite_non_nodata": 1133070,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 16583.0,
+          "mean": 5590.554015197649,
+          "quantiles": [
+            0.0,
+            0.0,
+            3938.0,
+            5960.0,
+            7484.0,
+            11362.0,
+            16583.0
+          ],
+          "valid_mask_pixels": 1133070,
+          "observed_quantiles": [
+            0.0,
+            0.0,
+            5960.0,
+            11362.0,
+            16583.0
+          ],
+          "exact_zero_count": 64721,
+          "exact_10000_count": 51,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "finite_non_nodata": 1133070,
+          "nodata_pixels": 0,
+          "minimum": 0.0,
+          "maximum": 20595.0,
+          "mean": 7093.99344877192,
+          "quantiles": [
+            0.0,
+            0.0,
+            5204.0,
+            7455.0,
+            9349.0,
+            14455.310000000056,
+            20595.0
+          ],
+          "valid_mask_pixels": 1133070,
+          "observed_quantiles": [
+            0.0,
+            0.0,
+            7455.0,
+            14455.310000000056,
+            20595.0
+          ],
+          "exact_zero_count": 64721,
+          "exact_10000_count": 114,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        }
+      ]
+    },
+    "root_float_25cm": {
+      "path": "/private/tmp/p168-goldhill-sources/root_aligned/aligned_orthomosaic.tif",
+      "remote_origin": "/iplant/home/shared/earthlab/macrosystems/field-data/output/AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+      "bytes": 50809794,
+      "sha256": "f21e19dc8161195091888ade3c7088f7af45bb2eabe09825719e0d3473230299",
+      "format": "GTiff",
+      "shape": [
+        895,
+        1266
+      ],
+      "total_bands": 11,
+      "spectral_bands": 10,
+      "extra_band_status": "Band 11 follows original auxiliary lineage, but alpha interpretation lost",
+      "dtype": "float32",
+      "crs": "EPSG:26913",
+      "transform": [
+        0.25,
+        0.0,
+        457624.5,
+        0.0,
+        -0.25,
+        4432830.5,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "resolution": [
+        0.25,
+        0.25
+      ],
+      "bounds": [
+        457624.5,
+        4432606.75,
+        457941.0,
+        4432830.5
+      ],
+      "nodata": "NaN",
+      "scales": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "descriptions": [
+        "AOP-GOLDHILL-08-14-23_ORTHO_1",
+        "AOP-GOLDHILL-08-14-23_ORTHO_2",
+        "AOP-GOLDHILL-08-14-23_ORTHO_3",
+        "AOP-GOLDHILL-08-14-23_ORTHO_4",
+        "AOP-GOLDHILL-08-14-23_ORTHO_5",
+        "AOP-GOLDHILL-08-14-23_ORTHO_6",
+        "AOP-GOLDHILL-08-14-23_ORTHO_7",
+        "AOP-GOLDHILL-08-14-23_ORTHO_8",
+        "AOP-GOLDHILL-08-14-23_ORTHO_9",
+        "AOP-GOLDHILL-08-14-23_ORTHO_10",
+        "AOP-GOLDHILL-08-14-23_ORTHO_11"
+      ],
+      "colorinterp": [
+        "gray",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined"
+      ],
+      "tags": {
+        "default": {
+          "AREA_OR_POINT": "Area"
+        },
+        "IMAGE_STRUCTURE": {
+          "COMPRESSION": "LZW",
+          "INTERLEAVE": "PIXEL"
+        },
+        "DERIVED_SUBDATASETS": {
+          "DERIVED_SUBDATASET_1_NAME": "DERIVED_SUBDATASET:LOGAMPLITUDE:/private/tmp/p168-goldhill-sources/root_aligned/aligned_orthomosaic.tif",
+          "DERIVED_SUBDATASET_1_DESC": "log10 of amplitude of input bands from /private/tmp/p168-goldhill-sources/root_aligned/aligned_orthomosaic.tif"
+        }
+      },
+      "band_tags": [
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "51.729942321777",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "56.913726806641",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "51.06424331665",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "49.568645477295",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "34.316074371338",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "21.648529052734",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "78.085403442383",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "126.4077911377",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "140.25073242188",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "466.47125244141",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "0",
+          "STATISTICS_STDDEV": "-9999"
+        }
+      ],
+      "mask_flags": [
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ]
+      ],
+      "declared_positive_alpha_pixels": null,
+      "physical_calibration": "UNVERIFIED; identity TIFF scales are not a calibration certificate",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 51.729942321777344,
+          "maximum": 65535.0,
+          "mean": 4458.737045167045,
+          "quantiles": [
+            51.729942321777344,
+            120.83839088439942,
+            602.9330749511719,
+            885.9752197265625,
+            1252.8175659179688,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            51.729942321777344,
+            120.83839088439942,
+            885.9752197265625,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 56.913726806640625,
+          "maximum": 65535.0,
+          "mean": 4617.4064078740785,
+          "quantiles": [
+            56.913726806640625,
+            138.37305450439453,
+            721.8355255126953,
+            1048.8377075195312,
+            1468.8184509277344,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            56.913726806640625,
+            138.37305450439453,
+            1048.8377075195312,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 51.06424331665039,
+          "maximum": 65535.0,
+          "mean": 5185.544530240536,
+          "quantiles": [
+            51.06424331665039,
+            161.5047982788086,
+            1270.8247680664062,
+            1782.7322998046875,
+            2191.1669921875,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            51.06424331665039,
+            161.5047982788086,
+            1782.7322998046875,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 49.56864547729492,
+          "maximum": 65535.0,
+          "mean": 5398.0666850652415,
+          "quantiles": [
+            49.56864547729492,
+            175.55810134887696,
+            1455.2582397460938,
+            2034.7581787109375,
+            2457.7664184570312,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            49.56864547729492,
+            175.55810134887696,
+            2034.7581787109375,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 34.31607437133789,
+          "maximum": 65535.0,
+          "mean": 5180.619882617168,
+          "quantiles": [
+            34.31607437133789,
+            119.22785194396972,
+            994.3465270996094,
+            1557.7659912109375,
+            2275.08154296875,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            34.31607437133789,
+            119.22785194396972,
+            1557.7659912109375,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 21.648529052734375,
+          "maximum": 65535.0,
+          "mean": 5099.903711996588,
+          "quantiles": [
+            21.648529052734375,
+            100.05763191223144,
+            860.4224548339844,
+            1410.620849609375,
+            2206.28662109375,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            21.648529052734375,
+            100.05763191223144,
+            1410.620849609375,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 78.08540344238281,
+          "maximum": 65535.0,
+          "mean": 6353.2286016972885,
+          "quantiles": [
+            78.08540344238281,
+            269.9865783691406,
+            2215.8103637695312,
+            3169.671142578125,
+            3775.926025390625,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            78.08540344238281,
+            269.9865783691406,
+            3169.671142578125,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 126.40779113769531,
+          "maximum": 65535.0,
+          "mean": 7344.735901391337,
+          "quantiles": [
+            126.40779113769531,
+            410.913779296875,
+            3235.9175415039062,
+            4385.236328125,
+            5100.938232421875,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            126.40779113769531,
+            410.913779296875,
+            4385.236328125,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 140.250732421875,
+          "maximum": 65535.0,
+          "mean": 9168.228407054354,
+          "quantiles": [
+            140.250732421875,
+            657.4804034423828,
+            4818.568603515625,
+            6270.781982421875,
+            7841.5367431640625,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            140.250732421875,
+            657.4804034423828,
+            6270.781982421875,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 466.47125244140625,
+          "maximum": 65535.0,
+          "mean": 10676.197580000498,
+          "quantiles": [
+            466.47125244140625,
+            1297.5014599609376,
+            6161.6346435546875,
+            7826.331298828125,
+            9809.038330078125,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            466.47125244140625,
+            1297.5014599609376,
+            7826.331298828125,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        }
+      ]
+    },
+    "summer_float_25cm": {
+      "path": "/private/tmp/spectralbridge-scale-confirmation/base/goldhill.tif",
+      "remote_origin": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+      "bytes": 50809794,
+      "sha256": "f21e19dc8161195091888ade3c7088f7af45bb2eabe09825719e0d3473230299",
+      "format": "GTiff",
+      "shape": [
+        895,
+        1266
+      ],
+      "total_bands": 11,
+      "spectral_bands": 10,
+      "extra_band_status": "Band 11 follows original auxiliary lineage, but alpha interpretation lost",
+      "dtype": "float32",
+      "crs": "EPSG:26913",
+      "transform": [
+        0.25,
+        0.0,
+        457624.5,
+        0.0,
+        -0.25,
+        4432830.5,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "resolution": [
+        0.25,
+        0.25
+      ],
+      "bounds": [
+        457624.5,
+        4432606.75,
+        457941.0,
+        4432830.5
+      ],
+      "nodata": "NaN",
+      "scales": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "descriptions": [
+        "AOP-GOLDHILL-08-14-23_ORTHO_1",
+        "AOP-GOLDHILL-08-14-23_ORTHO_2",
+        "AOP-GOLDHILL-08-14-23_ORTHO_3",
+        "AOP-GOLDHILL-08-14-23_ORTHO_4",
+        "AOP-GOLDHILL-08-14-23_ORTHO_5",
+        "AOP-GOLDHILL-08-14-23_ORTHO_6",
+        "AOP-GOLDHILL-08-14-23_ORTHO_7",
+        "AOP-GOLDHILL-08-14-23_ORTHO_8",
+        "AOP-GOLDHILL-08-14-23_ORTHO_9",
+        "AOP-GOLDHILL-08-14-23_ORTHO_10",
+        "AOP-GOLDHILL-08-14-23_ORTHO_11"
+      ],
+      "colorinterp": [
+        "gray",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined"
+      ],
+      "tags": {
+        "default": {
+          "AREA_OR_POINT": "Area"
+        },
+        "IMAGE_STRUCTURE": {
+          "COMPRESSION": "LZW",
+          "INTERLEAVE": "PIXEL"
+        },
+        "DERIVED_SUBDATASETS": {
+          "DERIVED_SUBDATASET_1_NAME": "DERIVED_SUBDATASET:LOGAMPLITUDE:/private/tmp/spectralbridge-scale-confirmation/base/goldhill.tif",
+          "DERIVED_SUBDATASET_1_DESC": "log10 of amplitude of input bands from /private/tmp/spectralbridge-scale-confirmation/base/goldhill.tif"
+        }
+      },
+      "band_tags": [
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "51.729942321777",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "56.913726806641",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "51.06424331665",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "49.568645477295",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "34.316074371338",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "21.648529052734",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "78.085403442383",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "126.4077911377",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "140.25073242188",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "466.47125244141",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "65535",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "0",
+          "STATISTICS_STDDEV": "-9999"
+        }
+      ],
+      "mask_flags": [
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ]
+      ],
+      "declared_positive_alpha_pixels": null,
+      "physical_calibration": "UNVERIFIED; identity TIFF scales are not a calibration certificate",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 51.729942321777344,
+          "maximum": 65535.0,
+          "mean": 4458.737045167045,
+          "quantiles": [
+            51.729942321777344,
+            120.83839088439942,
+            602.9330749511719,
+            885.9752197265625,
+            1252.8175659179688,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            51.729942321777344,
+            120.83839088439942,
+            885.9752197265625,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 56.913726806640625,
+          "maximum": 65535.0,
+          "mean": 4617.4064078740785,
+          "quantiles": [
+            56.913726806640625,
+            138.37305450439453,
+            721.8355255126953,
+            1048.8377075195312,
+            1468.8184509277344,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            56.913726806640625,
+            138.37305450439453,
+            1048.8377075195312,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 51.06424331665039,
+          "maximum": 65535.0,
+          "mean": 5185.544530240536,
+          "quantiles": [
+            51.06424331665039,
+            161.5047982788086,
+            1270.8247680664062,
+            1782.7322998046875,
+            2191.1669921875,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            51.06424331665039,
+            161.5047982788086,
+            1782.7322998046875,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 49.56864547729492,
+          "maximum": 65535.0,
+          "mean": 5398.0666850652415,
+          "quantiles": [
+            49.56864547729492,
+            175.55810134887696,
+            1455.2582397460938,
+            2034.7581787109375,
+            2457.7664184570312,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            49.56864547729492,
+            175.55810134887696,
+            2034.7581787109375,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 34.31607437133789,
+          "maximum": 65535.0,
+          "mean": 5180.619882617168,
+          "quantiles": [
+            34.31607437133789,
+            119.22785194396972,
+            994.3465270996094,
+            1557.7659912109375,
+            2275.08154296875,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            34.31607437133789,
+            119.22785194396972,
+            1557.7659912109375,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 21.648529052734375,
+          "maximum": 65535.0,
+          "mean": 5099.903711996588,
+          "quantiles": [
+            21.648529052734375,
+            100.05763191223144,
+            860.4224548339844,
+            1410.620849609375,
+            2206.28662109375,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            21.648529052734375,
+            100.05763191223144,
+            1410.620849609375,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 78.08540344238281,
+          "maximum": 65535.0,
+          "mean": 6353.2286016972885,
+          "quantiles": [
+            78.08540344238281,
+            269.9865783691406,
+            2215.8103637695312,
+            3169.671142578125,
+            3775.926025390625,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            78.08540344238281,
+            269.9865783691406,
+            3169.671142578125,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 126.40779113769531,
+          "maximum": 65535.0,
+          "mean": 7344.735901391337,
+          "quantiles": [
+            126.40779113769531,
+            410.913779296875,
+            3235.9175415039062,
+            4385.236328125,
+            5100.938232421875,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            126.40779113769531,
+            410.913779296875,
+            4385.236328125,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 140.250732421875,
+          "maximum": 65535.0,
+          "mean": 9168.228407054354,
+          "quantiles": [
+            140.250732421875,
+            657.4804034423828,
+            4818.568603515625,
+            6270.781982421875,
+            7841.5367431640625,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            140.250732421875,
+            657.4804034423828,
+            6270.781982421875,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 466.47125244140625,
+          "maximum": 65535.0,
+          "mean": 10676.197580000498,
+          "quantiles": [
+            466.47125244140625,
+            1297.5014599609376,
+            6161.6346435546875,
+            7826.331298828125,
+            9809.038330078125,
+            65535.0,
+            65535.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            466.47125244140625,
+            1297.5014599609376,
+            7826.331298828125,
+            65535.0,
+            65535.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 58141,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        }
+      ]
+    },
+    "normalized_25cm": {
+      "path": "/private/tmp/spectralbridge-scale-confirmation/rescale/goldhill.tif",
+      "remote_origin": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-rescale/AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+      "bytes": 50790552,
+      "sha256": "fe5a7070b8042152d1620a887be3fe88c6795204b86f970a653c4039e876b26b",
+      "format": "GTiff",
+      "shape": [
+        895,
+        1266
+      ],
+      "total_bands": 11,
+      "spectral_bands": 10,
+      "extra_band_status": "Band 11 follows original auxiliary lineage, but alpha interpretation lost",
+      "dtype": "float32",
+      "crs": "EPSG:26913",
+      "transform": [
+        0.25,
+        0.0,
+        457624.5,
+        0.0,
+        -0.25,
+        4432830.5,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "resolution": [
+        0.25,
+        0.25
+      ],
+      "bounds": [
+        457624.5,
+        4432606.75,
+        457941.0,
+        4432830.5
+      ],
+      "nodata": "NaN",
+      "scales": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "descriptions": [
+        "AOP-GOLDHILL-08-14-23_ORTHO_1",
+        "AOP-GOLDHILL-08-14-23_ORTHO_2",
+        "AOP-GOLDHILL-08-14-23_ORTHO_3",
+        "AOP-GOLDHILL-08-14-23_ORTHO_4",
+        "AOP-GOLDHILL-08-14-23_ORTHO_5",
+        "AOP-GOLDHILL-08-14-23_ORTHO_6",
+        "AOP-GOLDHILL-08-14-23_ORTHO_7",
+        "AOP-GOLDHILL-08-14-23_ORTHO_8",
+        "AOP-GOLDHILL-08-14-23_ORTHO_9",
+        "AOP-GOLDHILL-08-14-23_ORTHO_10",
+        "AOP-GOLDHILL-08-14-23_ORTHO_11"
+      ],
+      "colorinterp": [
+        "gray",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined"
+      ],
+      "tags": {
+        "default": {
+          "AREA_OR_POINT": "Area"
+        },
+        "IMAGE_STRUCTURE": {
+          "COMPRESSION": "LZW",
+          "INTERLEAVE": "PIXEL"
+        },
+        "DERIVED_SUBDATASETS": {
+          "DERIVED_SUBDATASET_1_NAME": "DERIVED_SUBDATASET:LOGAMPLITUDE:/private/tmp/spectralbridge-scale-confirmation/rescale/goldhill.tif",
+          "DERIVED_SUBDATASET_1_DESC": "log10 of amplitude of input bands from /private/tmp/spectralbridge-scale-confirmation/rescale/goldhill.tif"
+        }
+      },
+      "band_tags": [
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "7.8934831619263",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "8.6844778060913",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "7.7919039726257",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "7.563690662384",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "5.2362971305847",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "3.3033537864685",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "11.915069580078",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "19.288593292236",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "21.400890350342",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "44.747062683105",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "0",
+          "STATISTICS_STDDEV": "-9999"
+        }
+      ],
+      "mask_flags": [
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ]
+      ],
+      "declared_positive_alpha_pixels": null,
+      "physical_calibration": "UNVERIFIED; identity TIFF scales are not a calibration certificate",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 7.8934831619262695,
+          "maximum": 10000.0,
+          "mean": 680.359662044913,
+          "quantiles": [
+            7.8934831619262695,
+            18.438756828308104,
+            92.00169372558594,
+            135.19115447998047,
+            191.16769790649414,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            7.8934831619262695,
+            18.438756828308104,
+            135.19115447998047,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 58141,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 8.684477806091309,
+          "maximum": 10000.0,
+          "mean": 704.5710548549769,
+          "quantiles": [
+            8.684477806091309,
+            21.114375019073485,
+            110.14504051208496,
+            160.04237365722656,
+            224.12732696533203,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            8.684477806091309,
+            21.114375019073485,
+            160.04237365722656,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 58141,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 7.791903972625732,
+          "maximum": 10000.0,
+          "mean": 791.2633753485665,
+          "quantiles": [
+            7.791903972625732,
+            24.644053173065185,
+            193.91542434692383,
+            272.0275115966797,
+            334.35064697265625,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            7.791903972625732,
+            24.644053173065185,
+            272.0275115966797,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 58141,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 7.563690662384033,
+          "maximum": 10000.0,
+          "mean": 823.6921774917192,
+          "quantiles": [
+            7.563690662384033,
+            26.78844783782959,
+            222.05816650390625,
+            310.4842071533203,
+            375.03112030029297,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            7.563690662384033,
+            26.78844783782959,
+            310.4842071533203,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 58141,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 5.236297130584717,
+          "maximum": 10000.0,
+          "mean": 790.5119222222834,
+          "quantiles": [
+            5.236297130584717,
+            18.193004302978515,
+            151.72755432128906,
+            237.6998519897461,
+            347.1551818847656,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            5.236297130584717,
+            18.193004302978515,
+            237.6998519897461,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 58141,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 3.303353786468506,
+          "maximum": 10000.0,
+          "mean": 778.1954241136136,
+          "quantiles": [
+            3.303353786468506,
+            15.267815914154053,
+            131.29204940795898,
+            215.2469482421875,
+            336.6577606201172,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            3.303353786468506,
+            15.267815914154053,
+            215.2469482421875,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 58141,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 11.915069580078125,
+          "maximum": 10000.0,
+          "mean": 969.4405434801174,
+          "quantiles": [
+            11.915069580078125,
+            41.19731048583984,
+            338.11097717285156,
+            483.66082763671875,
+            576.1694030761719,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            11.915069580078125,
+            41.19731048583984,
+            483.66082763671875,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 58141,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 19.288593292236328,
+          "maximum": 10000.0,
+          "mean": 1120.7348594605637,
+          "quantiles": [
+            19.288593292236328,
+            62.701423225402834,
+            493.7693634033203,
+            669.1441650390625,
+            778.3532409667969,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            19.288593292236328,
+            62.701423225402834,
+            669.1441650390625,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 58141,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 21.400890350341797,
+          "maximum": 10000.0,
+          "mean": 1398.9819801799936,
+          "quantiles": [
+            21.400890350341797,
+            100.32508438110352,
+            735.2663879394531,
+            956.8600463867188,
+            1196.5418090820312,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            21.400890350341797,
+            100.32508438110352,
+            956.8600463867188,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 58141,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "finite_non_nodata": 1130910,
+          "nodata_pixels": 2160,
+          "minimum": 44.74706268310547,
+          "maximum": 10000.0,
+          "mean": 1606.7987912904348,
+          "quantiles": [
+            44.74706268310547,
+            171.89172256469726,
+            916.0867004394531,
+            1170.7794189453125,
+            1474.1264953613281,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 1130910,
+          "observed_quantiles": [
+            44.74706268310547,
+            171.89172256469726,
+            1170.7794189453125,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 58141,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        }
+      ]
+    },
+    "normalized_10cm": {
+      "path": "/private/tmp/p168-goldhill-sources/ten_cm/aligned_orthomosaic.tif",
+      "remote_origin": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/AOP-GOLDHILL-08-14-23-ExportPackage/aligned_orthomosaic.tif",
+      "bytes": 315281983,
+      "sha256": "db134419d475243a237cb643e28f725de136bfb983a5062cd22393714f79f19f",
+      "format": "GTiff",
+      "shape": [
+        2238,
+        3165
+      ],
+      "total_bands": 11,
+      "spectral_bands": 10,
+      "extra_band_status": "Band 11 follows original auxiliary lineage, but alpha interpretation lost",
+      "dtype": "float32",
+      "crs": "EPSG:26913",
+      "transform": [
+        0.09999999999996322,
+        0.0,
+        457624.5,
+        0.0,
+        -0.09999999999991677,
+        4432830.55,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "resolution": [
+        0.09999999999996322,
+        0.09999999999991677
+      ],
+      "bounds": [
+        457624.5,
+        4432606.75,
+        457940.9999999999,
+        4432830.55
+      ],
+      "nodata": "NaN",
+      "scales": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "descriptions": [
+        "AOP-GOLDHILL-08-14-23_ORTHO_1",
+        "AOP-GOLDHILL-08-14-23_ORTHO_2",
+        "AOP-GOLDHILL-08-14-23_ORTHO_3",
+        "AOP-GOLDHILL-08-14-23_ORTHO_4",
+        "AOP-GOLDHILL-08-14-23_ORTHO_5",
+        "AOP-GOLDHILL-08-14-23_ORTHO_6",
+        "AOP-GOLDHILL-08-14-23_ORTHO_7",
+        "AOP-GOLDHILL-08-14-23_ORTHO_8",
+        "AOP-GOLDHILL-08-14-23_ORTHO_9",
+        "AOP-GOLDHILL-08-14-23_ORTHO_10",
+        "AOP-GOLDHILL-08-14-23_ORTHO_11"
+      ],
+      "colorinterp": [
+        "gray",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined"
+      ],
+      "tags": {
+        "default": {
+          "AREA_OR_POINT": "Area"
+        },
+        "IMAGE_STRUCTURE": {
+          "COMPRESSION": "LZW",
+          "INTERLEAVE": "PIXEL"
+        },
+        "DERIVED_SUBDATASETS": {
+          "DERIVED_SUBDATASET_1_NAME": "DERIVED_SUBDATASET:LOGAMPLITUDE:/private/tmp/p168-goldhill-sources/ten_cm/aligned_orthomosaic.tif",
+          "DERIVED_SUBDATASET_1_DESC": "log10 of amplitude of input bands from /private/tmp/p168-goldhill-sources/ten_cm/aligned_orthomosaic.tif"
+        }
+      },
+      "band_tags": [
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "0.40463370084763",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "1.4329798221588",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "0.28372520208359",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "2.4373324691851e-08",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "0.0071719489060342",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "1.7960748444068e-09",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "0.0067737102508545",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "0.22637268900871",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "1.9015312194824",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "20.810859680176",
+          "STATISTICS_STDDEV": "-9999"
+        },
+        {
+          "STATISTICS_MAXIMUM": "10000",
+          "STATISTICS_MEAN": "-9999",
+          "STATISTICS_MINIMUM": "0",
+          "STATISTICS_STDDEV": "-9999"
+        }
+      ],
+      "mask_flags": [
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ]
+      ],
+      "declared_positive_alpha_pixels": null,
+      "physical_calibration": "UNVERIFIED; identity TIFF scales are not a calibration certificate",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "finite_non_nodata": 7068376,
+          "nodata_pixels": 14894,
+          "minimum": 0.40463370084762573,
+          "maximum": 10000.0,
+          "mean": 680.847780457208,
+          "quantiles": [
+            0.40463370084762573,
+            17.384780406951904,
+            90.32255172729492,
+            134.59982299804688,
+            191.41332626342773,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7068376,
+          "observed_quantiles": [
+            0.40463370084762573,
+            17.384780406951904,
+            134.59982299804688,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 378413,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "finite_non_nodata": 7068376,
+          "nodata_pixels": 14894,
+          "minimum": 1.4329798221588135,
+          "maximum": 10000.0,
+          "mean": 705.0574120618169,
+          "quantiles": [
+            1.4329798221588135,
+            19.935081005096436,
+            108.42192840576172,
+            159.58560943603516,
+            224.34757614135742,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7068376,
+          "observed_quantiles": [
+            1.4329798221588135,
+            19.935081005096436,
+            159.58560943603516,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 378413,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "finite_non_nodata": 7068376,
+          "nodata_pixels": 14894,
+          "minimum": 0.28372520208358765,
+          "maximum": 10000.0,
+          "mean": 791.7434678830659,
+          "quantiles": [
+            0.28372520208358765,
+            23.057767391204834,
+            191.88946533203125,
+            272.3036346435547,
+            335.86255645751953,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7068376,
+          "observed_quantiles": [
+            0.28372520208358765,
+            23.057767391204834,
+            272.3036346435547,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 378413,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "finite_non_nodata": 7068376,
+          "nodata_pixels": 14894,
+          "minimum": 2.437332469185094e-08,
+          "maximum": 10000.0,
+          "mean": 824.1692026375249,
+          "quantiles": [
+            2.437332469185094e-08,
+            25.167635917663574,
+            219.99633026123047,
+            310.7083282470703,
+            377.0336380004883,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7068376,
+          "observed_quantiles": [
+            2.437332469185094e-08,
+            25.167635917663574,
+            310.7083282470703,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 378413,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "finite_non_nodata": 7068376,
+          "nodata_pixels": 14894,
+          "minimum": 0.007171948906034231,
+          "maximum": 10000.0,
+          "mean": 790.991784446639,
+          "quantiles": [
+            0.007171948906034231,
+            17.036668300628662,
+            149.71650314331055,
+            237.04767608642578,
+            347.2435531616211,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7068376,
+          "observed_quantiles": [
+            0.007171948906034231,
+            17.036668300628662,
+            237.04767608642578,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 378413,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "finite_non_nodata": 7068376,
+          "nodata_pixels": 14894,
+          "minimum": 1.796074844406803e-09,
+          "maximum": 10000.0,
+          "mean": 778.6764544198053,
+          "quantiles": [
+            1.796074844406803e-09,
+            14.197534561157227,
+            129.35465621948242,
+            213.87584686279297,
+            336.49767303466797,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7068376,
+          "observed_quantiles": [
+            1.796074844406803e-09,
+            14.197534561157227,
+            213.87584686279297,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 378413,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "finite_non_nodata": 7068376,
+          "nodata_pixels": 14894,
+          "minimum": 0.006773710250854492,
+          "maximum": 10000.0,
+          "mean": 969.9081137928019,
+          "quantiles": [
+            0.006773710250854492,
+            39.149091720581055,
+            336.32405853271484,
+            483.6499328613281,
+            578.7494506835938,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7068376,
+          "observed_quantiles": [
+            0.006773710250854492,
+            39.149091720581055,
+            483.6499328613281,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 378413,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "finite_non_nodata": 7068376,
+          "nodata_pixels": 14894,
+          "minimum": 0.22637268900871277,
+          "maximum": 10000.0,
+          "mean": 1121.1925549805367,
+          "quantiles": [
+            0.22637268900871277,
+            59.68333625793457,
+            490.3551940917969,
+            668.2796325683594,
+            785.1775512695312,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7068376,
+          "observed_quantiles": [
+            0.22637268900871277,
+            59.68333625793457,
+            668.2796325683594,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 378413,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "finite_non_nodata": 7068376,
+          "nodata_pixels": 14894,
+          "minimum": 1.9015312194824219,
+          "maximum": 10000.0,
+          "mean": 1399.4250201399898,
+          "quantiles": [
+            1.9015312194824219,
+            94.67622566223145,
+            721.350341796875,
+            955.6548461914062,
+            1210.8889770507812,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7068376,
+          "observed_quantiles": [
+            1.9015312194824219,
+            94.67622566223145,
+            955.6548461914062,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 378413,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "finite_non_nodata": 7068376,
+          "nodata_pixels": 14894,
+          "minimum": 20.81085968017578,
+          "maximum": 10000.0,
+          "mean": 1607.2305971366854,
+          "quantiles": [
+            20.81085968017578,
+            164.22797775268555,
+            901.5852203369141,
+            1169.6261596679688,
+            1488.6031494140625,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7068376,
+          "observed_quantiles": [
+            20.81085968017578,
+            164.22797775268555,
+            1169.6261596679688,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 378413,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        }
+      ]
+    },
+    "georef_rgb_10cm": {
+      "path": "/private/tmp/p168-goldhill-sources/georef_rgb/goldhill_aop_underflight_georef_to_rgb.tif",
+      "remote_origin": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023_aop_underflight_georef_to_rgb/goldhill_aop_underflight_georef_to_rgb.tif",
+      "bytes": 284504806,
+      "sha256": "6310293c11e56f0e74353eb61fbd0ae8b8d7c3f8ee4115e4dd1c552e97263c64",
+      "format": "GTiff",
+      "shape": [
+        2245,
+        3168
+      ],
+      "total_bands": 10,
+      "spectral_bands": 10,
+      "extra_band_status": "None",
+      "dtype": "float32",
+      "crs": "EPSG:26913",
+      "transform": [
+        0.10008915907158097,
+        0.0,
+        457622.6736302923,
+        0.0,
+        -0.10008915907158097,
+        4432831.864778296,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "resolution": [
+        0.10008915907158097,
+        0.10008915907158097
+      ],
+      "bounds": [
+        457622.6736302923,
+        4432607.164616181,
+        457939.75608623103,
+        4432831.864778296
+      ],
+      "nodata": -9999.0,
+      "scales": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "descriptions": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "colorinterp": [
+        "gray",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined"
+      ],
+      "tags": {
+        "default": {
+          "AREA_OR_POINT": "Area"
+        },
+        "IMAGE_STRUCTURE": {
+          "INTERLEAVE": "PIXEL"
+        },
+        "DERIVED_SUBDATASETS": {
+          "DERIVED_SUBDATASET_1_NAME": "DERIVED_SUBDATASET:LOGAMPLITUDE:/private/tmp/p168-goldhill-sources/georef_rgb/goldhill_aop_underflight_georef_to_rgb.tif",
+          "DERIVED_SUBDATASET_1_DESC": "log10 of amplitude of input bands from /private/tmp/p168-goldhill-sources/georef_rgb/goldhill_aop_underflight_georef_to_rgb.tif"
+        }
+      },
+      "band_tags": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ],
+      "mask_flags": [
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ],
+        [
+          "nodata"
+        ]
+      ],
+      "declared_positive_alpha_pixels": null,
+      "physical_calibration": "UNVERIFIED; identity TIFF scales are not a calibration certificate",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "finite_non_nodata": 7084337,
+          "nodata_pixels": 27823,
+          "minimum": 0.0,
+          "maximum": 10000.0,
+          "mean": 677.9057808164043,
+          "quantiles": [
+            0.0,
+            19.61802474975586,
+            91.40345001220703,
+            133.91461181640625,
+            186.66294860839844,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7084337,
+          "observed_quantiles": [
+            0.0,
+            19.61802474975586,
+            133.91461181640625,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 14903,
+          "exact_10000_count": 378626,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "finite_non_nodata": 7084337,
+          "nodata_pixels": 27823,
+          "minimum": 0.0,
+          "maximum": 10000.0,
+          "mean": 701.7685286077178,
+          "quantiles": [
+            0.0,
+            22.94002494812012,
+            110.32060241699219,
+            158.59446716308594,
+            218.49591064453125,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7084337,
+          "observed_quantiles": [
+            0.0,
+            22.94002494812012,
+            158.59446716308594,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 14902,
+          "exact_10000_count": 378626,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "finite_non_nodata": 7084337,
+          "nodata_pixels": 27823,
+          "minimum": -3522.923095703125,
+          "maximum": 10000.0,
+          "mean": 788.2375518994603,
+          "quantiles": [
+            -3522.923095703125,
+            25.742744216918947,
+            194.45018005371094,
+            270.55029296875,
+            330.0853576660156,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7084337,
+          "observed_quantiles": [
+            -3522.923095703125,
+            25.742744216918947,
+            270.55029296875,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 14906,
+          "exact_10000_count": 378626,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "finite_non_nodata": 7084337,
+          "nodata_pixels": 27823,
+          "minimum": -1039.452392578125,
+          "maximum": 10000.0,
+          "mean": 820.2499951541149,
+          "quantiles": [
+            -1039.452392578125,
+            28.403321533203126,
+            224.26499938964844,
+            307.8408203125,
+            370.3614196777344,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7084337,
+          "observed_quantiles": [
+            -1039.452392578125,
+            28.403321533203126,
+            307.8408203125,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 14909,
+          "exact_10000_count": 378626,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "finite_non_nodata": 7084337,
+          "nodata_pixels": 27823,
+          "minimum": -127.90800476074219,
+          "maximum": 10000.0,
+          "mean": 785.8414510412291,
+          "quantiles": [
+            -127.90800476074219,
+            19.812278747558594,
+            154.56272888183594,
+            234.73348999023438,
+            338.1729736328125,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7084337,
+          "observed_quantiles": [
+            -127.90800476074219,
+            19.812278747558594,
+            234.73348999023438,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 14909,
+          "exact_10000_count": 378626,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "finite_non_nodata": 7084337,
+          "nodata_pixels": 27823,
+          "minimum": -33.18543243408203,
+          "maximum": 10000.0,
+          "mean": 773.3969570428475,
+          "quantiles": [
+            -33.18543243408203,
+            16.83748695373535,
+            134.33883666992188,
+            210.85789489746094,
+            327.7557067871094,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7084337,
+          "observed_quantiles": [
+            -33.18543243408203,
+            16.83748695373535,
+            210.85789489746094,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 14919,
+          "exact_10000_count": 378626,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "finite_non_nodata": 7084337,
+          "nodata_pixels": 27823,
+          "minimum": -1248.5888671875,
+          "maximum": 10000.0,
+          "mean": 965.8320697297255,
+          "quantiles": [
+            -1248.5888671875,
+            45.07951263427734,
+            344.9638366699219,
+            479.17327880859375,
+            569.4144287109375,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7084337,
+          "observed_quantiles": [
+            -1248.5888671875,
+            45.07951263427734,
+            479.17327880859375,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 14907,
+          "exact_10000_count": 378626,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "finite_non_nodata": 7084337,
+          "nodata_pixels": 27823,
+          "minimum": 0.0,
+          "maximum": 183170.953125,
+          "mean": 1118.8139111448147,
+          "quantiles": [
+            0.0,
+            64.19211181640625,
+            497.43109130859375,
+            657.8031005859375,
+            780.7567749023438,
+            10000.0,
+            183170.953125
+          ],
+          "valid_mask_pixels": 7084337,
+          "observed_quantiles": [
+            0.0,
+            64.19211181640625,
+            657.8031005859375,
+            10000.0,
+            183170.953125
+          ],
+          "exact_zero_count": 14904,
+          "exact_10000_count": 378626,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "finite_non_nodata": 7084337,
+          "nodata_pixels": 27823,
+          "minimum": 0.0,
+          "maximum": 10000.0,
+          "mean": 1402.3758601219597,
+          "quantiles": [
+            0.0,
+            94.93716369628906,
+            710.4657592773438,
+            941.0355224609375,
+            1210.85595703125,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7084337,
+          "observed_quantiles": [
+            0.0,
+            94.93716369628906,
+            941.0355224609375,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 14902,
+          "exact_10000_count": 378626,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "finite_non_nodata": 7084337,
+          "nodata_pixels": 27823,
+          "minimum": 0.0,
+          "maximum": 10000.0,
+          "mean": 1614.2041623783484,
+          "quantiles": [
+            0.0,
+            166.15162048339843,
+            887.5729370117188,
+            1152.8721923828125,
+            1490.80224609375,
+            10000.0,
+            10000.0
+          ],
+          "valid_mask_pixels": 7084337,
+          "observed_quantiles": [
+            0.0,
+            166.15162048339843,
+            1152.8721923828125,
+            10000.0,
+            10000.0
+          ],
+          "exact_zero_count": 14902,
+          "exact_10000_count": 378626,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        }
+      ]
+    },
+    "new_fixed_10cm": {
+      "path": "/private/tmp/p168-goldhill-sources/derived_10cm_10k/goldhill_10cm_fixed_10k.tif",
+      "remote_origin": null,
+      "bytes": 203818167,
+      "sha256": "c5d1f3c10bd7c1a17877c67c819b98bd796db11b17d5c8b165c0956f653233e4",
+      "format": "GTiff",
+      "shape": [
+        2238,
+        3165
+      ],
+      "total_bands": 10,
+      "spectral_bands": 10,
+      "extra_band_status": "None",
+      "dtype": "float32",
+      "crs": "EPSG:26913",
+      "transform": [
+        0.09999999999996322,
+        0.0,
+        457624.5,
+        0.0,
+        -0.09999999999991677,
+        4432830.55,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "resolution": [
+        0.09999999999996322,
+        0.09999999999991677
+      ],
+      "bounds": [
+        457624.5,
+        4432606.75,
+        457940.9999999999,
+        4432830.55
+      ],
+      "nodata": "NaN",
+      "scales": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "units": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "descriptions": [
+        "Source spectral band 1; fixed 10000/65535 numerical encoding",
+        "Source spectral band 2; fixed 10000/65535 numerical encoding",
+        "Source spectral band 3; fixed 10000/65535 numerical encoding",
+        "Source spectral band 4; fixed 10000/65535 numerical encoding",
+        "Source spectral band 5; fixed 10000/65535 numerical encoding",
+        "Source spectral band 6; fixed 10000/65535 numerical encoding",
+        "Source spectral band 7; fixed 10000/65535 numerical encoding",
+        "Source spectral band 8; fixed 10000/65535 numerical encoding",
+        "Source spectral band 9; fixed 10000/65535 numerical encoding",
+        "Source spectral band 10; fixed 10000/65535 numerical encoding"
+      ],
+      "colorinterp": [
+        "gray",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined"
+      ],
+      "tags": {
+        "default": {
+          "NUMERIC_MULTIPLIER": "0.15259021896696423",
+          "NUMERIC_OFFSET": "0",
+          "PHYSICAL_CALIBRATION_STATUS": "UNVERIFIED",
+          "SOURCE_SHA256": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+          "SPATIAL_RESAMPLING": "bilinear; exclude source alpha=0; nearest source alpha footprint",
+          "SPECTRALBRIDGE_ENCODING": "fixed_uint16_range_dn",
+          "SPECTRALBRIDGE_NOTE": "Numerical 0\u201310000 encoding, not a physical reflectance calibration",
+          "AREA_OR_POINT": "Area"
+        },
+        "IMAGE_STRUCTURE": {
+          "COMPRESSION": "DEFLATE",
+          "INTERLEAVE": "PIXEL",
+          "PREDICTOR": "3"
+        },
+        "DERIVED_SUBDATASETS": {
+          "DERIVED_SUBDATASET_1_NAME": "DERIVED_SUBDATASET:LOGAMPLITUDE:/private/tmp/p168-goldhill-sources/derived_10cm_10k/goldhill_10cm_fixed_10k.tif",
+          "DERIVED_SUBDATASET_1_DESC": "log10 of amplitude of input bands from /private/tmp/p168-goldhill-sources/derived_10cm_10k/goldhill_10cm_fixed_10k.tif"
+        }
+      },
+      "band_tags": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ],
+      "mask_flags": [
+        [
+          "per_dataset"
+        ],
+        [
+          "per_dataset"
+        ],
+        [
+          "per_dataset"
+        ],
+        [
+          "per_dataset"
+        ],
+        [
+          "per_dataset"
+        ],
+        [
+          "per_dataset"
+        ],
+        [
+          "per_dataset"
+        ],
+        [
+          "per_dataset"
+        ],
+        [
+          "per_dataset"
+        ],
+        [
+          "per_dataset"
+        ]
+      ],
+      "declared_positive_alpha_pixels": null,
+      "physical_calibration": "UNVERIFIED; identity TIFF scales are not a calibration certificate",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "finite_non_nodata": 6683944,
+          "nodata_pixels": 399326,
+          "minimum": 0.40175607800483704,
+          "maximum": 923.9423828125,
+          "mean": 145.01398327376577,
+          "quantiles": [
+            0.40175607800483704,
+            17.185254859924317,
+            87.0329647064209,
+            129.7903594970703,
+            178.99808883666992,
+            620.5283892822267,
+            923.9423828125
+          ],
+          "valid_mask_pixels": 6683944,
+          "observed_quantiles": [
+            0.40175607800483704,
+            17.185254859924317,
+            129.7903594970703,
+            620.5283892822267,
+            923.9423828125
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "finite_non_nodata": 6683944,
+          "nodata_pixels": 399326,
+          "minimum": 1.4291599988937378,
+          "maximum": 1064.1827392578125,
+          "mean": 170.61633501040495,
+          "quantiles": [
+            1.4291599988937378,
+            19.7042885017395,
+            104.61735534667969,
+            153.9631805419922,
+            210.42232131958008,
+            718.3256671142613,
+            1064.1827392578125
+          ],
+          "valid_mask_pixels": 6683944,
+          "observed_quantiles": [
+            1.4291599988937378,
+            19.7042885017395,
+            153.9631805419922,
+            718.3256671142613,
+            1064.1827392578125
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "finite_non_nodata": 6683944,
+          "nodata_pixels": 399326,
+          "minimum": 0.2830751836299896,
+          "maximum": 1323.599853515625,
+          "mean": 262.28830156491256,
+          "quantiles": [
+            0.2830751836299896,
+            22.747549629211427,
+            183.3635597229004,
+            265.9703674316406,
+            322.8522720336914,
+            941.2552429199231,
+            1323.599853515625
+          ],
+          "valid_mask_pixels": 6683944,
+          "observed_quantiles": [
+            0.2830751836299896,
+            22.747549629211427,
+            265.9703674316406,
+            941.2552429199231,
+            1323.599853515625
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "finite_non_nodata": 6683944,
+          "nodata_pixels": 399326,
+          "minimum": 0.0,
+          "maximum": 1586.2022705078125,
+          "mean": 296.57911136091104,
+          "quantiles": [
+            0.0,
+            24.846985988616947,
+            209.77097702026367,
+            304.02354431152344,
+            363.4188690185547,
+            1076.1509790039072,
+            1586.2022705078125
+          ],
+          "valid_mask_pixels": 6683944,
+          "observed_quantiles": [
+            0.0,
+            24.846985988616947,
+            304.02354431152344,
+            1076.1509790039072,
+            1586.2022705078125
+          ],
+          "exact_zero_count": 1,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "finite_non_nodata": 6683944,
+          "nodata_pixels": 399326,
+          "minimum": 0.007147318217903376,
+          "maximum": 1890.0892333984375,
+          "mean": 261.49466180119623,
+          "quantiles": [
+            0.007147318217903376,
+            16.77550693511963,
+            143.6480712890625,
+            227.18506622314453,
+            324.6161422729492,
+            1362.536251220704,
+            1890.0892333984375
+          ],
+          "valid_mask_pixels": 6683944,
+          "observed_quantiles": [
+            0.007147318217903376,
+            16.77550693511963,
+            227.18506622314453,
+            1362.536251220704,
+            1890.0892333984375
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "finite_non_nodata": 6683944,
+          "nodata_pixels": 399326,
+          "minimum": 0.0,
+          "maximum": 1905.718017578125,
+          "mean": 248.47124869090743,
+          "quantiles": [
+            0.0,
+            13.955307302474976,
+            124.2484130859375,
+            203.31048583984375,
+            310.98492431640625,
+            1397.498800048831,
+            1905.718017578125
+          ],
+          "valid_mask_pixels": 6683944,
+          "observed_quantiles": [
+            0.0,
+            13.955307302474976,
+            203.31048583984375,
+            1397.498800048831,
+            1905.718017578125
+          ],
+          "exact_zero_count": 1,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "finite_non_nodata": 6683944,
+          "nodata_pixels": 399326,
+          "minimum": 0.006720083765685558,
+          "maximum": 2024.23779296875,
+          "mean": 450.700577342925,
+          "quantiles": [
+            0.006720083765685558,
+            38.65386642456055,
+            319.7796401977539,
+            473.6035919189453,
+            559.8220977783203,
+            1442.2622058105471,
+            2024.23779296875
+          ],
+          "valid_mask_pixels": 6683944,
+          "observed_quantiles": [
+            0.006720083765685558,
+            38.65386642456055,
+            473.6035919189453,
+            1442.2622058105471,
+            2024.23779296875
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "finite_non_nodata": 6683944,
+          "nodata_pixels": 399326,
+          "minimum": 0.22550104558467865,
+          "maximum": 2087.282470703125,
+          "mean": 610.6856830676805,
+          "quantiles": [
+            0.22550104558467865,
+            58.939190063476566,
+            467.4001922607422,
+            656.4840698242188,
+            761.4176788330078,
+            1483.8026928710951,
+            2087.282470703125
+          ],
+          "valid_mask_pixels": 6683944,
+          "observed_quantiles": [
+            0.22550104558467865,
+            58.939190063476566,
+            656.4840698242188,
+            1483.8026928710951,
+            2087.282470703125
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "finite_non_nodata": 6683944,
+          "nodata_pixels": 399326,
+          "minimum": 1.8979921340942383,
+          "maximum": 2543.564453125,
+          "mean": 904.9216835556198,
+          "quantiles": [
+            1.8979921340942383,
+            93.44098197937012,
+            698.1126403808594,
+            932.8430786132812,
+            1159.25830078125,
+            1743.726837158204,
+            2543.564453125
+          ],
+          "valid_mask_pixels": 6683944,
+          "observed_quantiles": [
+            1.8979921340942383,
+            93.44098197937012,
+            932.8430786132812,
+            1743.726837158204,
+            2543.564453125
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "finite_non_nodata": 6683944,
+          "nodata_pixels": 399326,
+          "minimum": 47.30014419555664,
+          "maximum": 3139.8310546875,
+          "mean": 1148.244740096375,
+          "quantiles": [
+            47.30014419555664,
+            188.3489846801758,
+            900.4482269287109,
+            1165.4617309570312,
+            1447.89208984375,
+            2221.141286621094,
+            3139.8310546875
+          ],
+          "valid_mask_pixels": 6683944,
+          "observed_quantiles": [
+            47.30014419555664,
+            188.3489846801758,
+            1165.4617309570312,
+            2221.141286621094,
+            3139.8310546875
+          ],
+          "exact_zero_count": 0,
+          "exact_10000_count": 0,
+          "exact_65535_count": 0,
+          "saturation_status": "No independent flag; endpoint counts are not proof of saturation/clipping"
+        }
+      ]
+    }
+  },
+  "comparisons": {
+    "root_vs_summer": {
+      "left": "root_float_25cm",
+      "right": "summer_float_25cm",
+      "grid": "IDENTICAL",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "valid_pairs": 1130910,
+          "slope": 1.0,
+          "offset": 0.0,
+          "r_squared": 1.0,
+          "rmse": 0.0,
+          "max_abs_residual": 0.0,
+          "difference_mean": 0.0,
+          "difference_quantiles": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ratio_quantiles_nonzero_source": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152108972.9196292,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "valid_pairs": 1130910,
+          "slope": 1.0,
+          "offset": 0.0,
+          "r_squared": 1.0,
+          "rmse": 0.0,
+          "max_abs_residual": 0.0,
+          "difference_mean": 0.0,
+          "difference_quantiles": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ratio_quantiles_nonzero_source": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152266392.51923165,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "valid_pairs": 1130910,
+          "slope": 1.0,
+          "offset": 0.0,
+          "r_squared": 1.0,
+          "rmse": 0.0,
+          "max_abs_residual": 0.0,
+          "difference_mean": 0.0,
+          "difference_quantiles": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ratio_quantiles_nonzero_source": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152926203.96092874,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "valid_pairs": 1130910,
+          "slope": 1.0,
+          "offset": 0.0,
+          "r_squared": 1.0,
+          "rmse": 0.0,
+          "max_abs_residual": 0.0,
+          "difference_mean": 0.0,
+          "difference_quantiles": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ratio_quantiles_nonzero_source": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153267937.41107264,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "valid_pairs": 1130910,
+          "slope": 1.0,
+          "offset": 0.0,
+          "r_squared": 1.0,
+          "rmse": 0.0,
+          "max_abs_residual": 0.0,
+          "difference_mean": 0.0,
+          "difference_quantiles": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ratio_quantiles_nonzero_source": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153227268.4972026,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "valid_pairs": 1130910,
+          "slope": 1.0,
+          "offset": 0.0,
+          "r_squared": 1.0,
+          "rmse": 0.0,
+          "max_abs_residual": 0.0,
+          "difference_mean": 0.0,
+          "difference_quantiles": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ratio_quantiles_nonzero_source": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153180298.11219677,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "valid_pairs": 1130910,
+          "slope": 1.0,
+          "offset": 0.0,
+          "r_squared": 1.0,
+          "rmse": 0.0,
+          "max_abs_residual": 0.0,
+          "difference_mean": 0.0,
+          "difference_quantiles": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ratio_quantiles_nonzero_source": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 155163392.5612293,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "valid_pairs": 1130910,
+          "slope": 1.0,
+          "offset": 0.0,
+          "r_squared": 1.0,
+          "rmse": 0.0,
+          "max_abs_residual": 0.0,
+          "difference_mean": 0.0,
+          "difference_quantiles": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ratio_quantiles_nonzero_source": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 157616801.7947013,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "valid_pairs": 1130910,
+          "slope": 1.0,
+          "offset": 0.0,
+          "r_squared": 1.0,
+          "rmse": 0.0,
+          "max_abs_residual": 0.0,
+          "difference_mean": 0.0,
+          "difference_quantiles": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ratio_quantiles_nonzero_source": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 164169459.14644808,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "valid_pairs": 1130910,
+          "slope": 1.0,
+          "offset": 0.0,
+          "r_squared": 1.0,
+          "rmse": 0.0,
+          "max_abs_residual": 0.0,
+          "difference_mean": 0.0,
+          "difference_quantiles": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ratio_quantiles_nonzero_source": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 170980383.77622807,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0
+        }
+      ]
+    },
+    "uint16_vs_float_25cm": {
+      "left": "root_float_25cm",
+      "right": "upstream_uint16_25cm",
+      "grid": "IDENTICAL",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "valid_pairs": 1130910,
+          "slope": -0.012918395435600727,
+          "offset": 955.1097290886491,
+          "r_squared": 0.075949962821793,
+          "rmse": 655.3692449570736,
+          "max_abs_residual": 4877.414277744378,
+          "difference_mean": -3561.2270443712255,
+          "difference_quantiles": [
+            -65535.0,
+            -65535.0,
+            -7.66790771484375,
+            309.9744799804684,
+            1956.777099609375
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.0,
+            0.9888980022616773,
+            1.3515757252774132,
+            2.7954789960014454
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152124101.92112517,
+          "nodata_agreement_pixels": 1130910,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 2160,
+          "fraction_matching_float_rounded_to_nearest_integer": 0.007444447391923318
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "valid_pairs": 1130910,
+          "slope": -0.01491607108426786,
+          "offset": 1124.8964066398162,
+          "r_squared": 0.07528937838130678,
+          "rmse": 758.5696111618106,
+          "max_abs_residual": 5844.47979961697,
+          "difference_mean": -3561.383563439066,
+          "difference_quantiles": [
+            -65535.0,
+            -65535.0,
+            -8.3670654296875,
+            343.1688940429653,
+            2413.142333984375
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.0,
+            0.9897940060808486,
+            1.3446593645207625,
+            2.7207262167497492
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152281506.7459015,
+          "nodata_agreement_pixels": 1130910,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 2160,
+          "fraction_matching_float_rounded_to_nearest_integer": 0.006690187548080749
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "valid_pairs": 1130910,
+          "slope": -0.022780661068916467,
+          "offset": 1741.6353697763946,
+          "r_squared": 0.09996508218385669,
+          "rmse": 983.5109349400834,
+          "max_abs_residual": 7109.043875165212,
+          "difference_mean": -3562.039292865325,
+          "difference_quantiles": [
+            -65535.0,
+            -65535.0,
+            -10.673095703125,
+            436.25787170409865,
+            2962.637451171875
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.0,
+            0.9921492110758673,
+            1.373381686533935,
+            3.1432829425594937
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152941256.02487138,
+          "nodata_agreement_pixels": 1130910,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 2160,
+          "fraction_matching_float_rounded_to_nearest_integer": 0.00440972314330937
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "valid_pairs": 1130910,
+          "slope": -0.02516603600261428,
+          "offset": 1971.5074501393294,
+          "r_squared": 0.09512178728931786,
+          "rmse": 1113.5559757791725,
+          "max_abs_residual": 8663.59611496569,
+          "difference_mean": -3562.407175466777,
+          "difference_quantiles": [
+            -65535.0,
+            -65535.0,
+            -11.76776123046875,
+            477.62825317382794,
+            3187.63427734375
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.0,
+            0.9922936261155544,
+            1.3720194048459617,
+            3.2366248715847554
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153282957.2143961,
+          "nodata_agreement_pixels": 1130910,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 2160,
+          "fraction_matching_float_rounded_to_nearest_integer": 0.004157713699587058
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "valid_pairs": 1130910,
+          "slope": -0.01806746500572288,
+          "offset": 1712.2816501244515,
+          "r_squared": 0.03348391701382203,
+          "rmse": 1399.9391025602686,
+          "max_abs_residual": 10308.884671500242,
+          "difference_mean": -3561.9389009298534,
+          "difference_quantiles": [
+            -65535.0,
+            -65535.0,
+            -12.249473571777344,
+            538.0142602539031,
+            3650.24462890625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.0,
+            0.9893030118475465,
+            1.3870691656919214,
+            3.191490275135653
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153242290.77666712,
+          "nodata_agreement_pixels": 1130910,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 2160,
+          "fraction_matching_float_rounded_to_nearest_integer": 0.0046688065363291505
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "valid_pairs": 1130910,
+          "slope": -0.01606045515677683,
+          "offset": 1619.8929134667524,
+          "r_squared": 0.025062378102864047,
+          "rmse": 1447.0231934245467,
+          "max_abs_residual": 10450.831484711804,
+          "difference_mean": -3561.917573400236,
+          "difference_quantiles": [
+            -65535.0,
+            -65535.0,
+            -12.055694580078125,
+            545.7494726562495,
+            3381.720703125
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.0,
+            0.9883111907790145,
+            1.3859317937044167,
+            3.2161189983677634
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153195324.4629134,
+          "nodata_agreement_pixels": 1130910,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 2160,
+          "fraction_matching_float_rounded_to_nearest_integer": 0.004649353175761112
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "valid_pairs": 1130910,
+          "slope": -0.03602737864010432,
+          "offset": 3018.702463407393,
+          "r_squared": 0.09477437282172874,
+          "rmse": 1576.3743859524027,
+          "max_abs_residual": 10706.127515526214,
+          "difference_mean": -3563.416310710384,
+          "difference_quantiles": [
+            -65535.0,
+            -65535.0,
+            -14.531494140625,
+            621.6998266601554,
+            3549.97412109375
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.0,
+            0.9939783018087534,
+            1.3364667864047257,
+            2.9773657535910143
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 155178233.65718347,
+          "nodata_agreement_pixels": 1130910,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 2160,
+          "fraction_matching_float_rounded_to_nearest_integer": 0.0030426824415736
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "valid_pairs": 1130910,
+          "slope": -0.04968517684848959,
+          "offset": 4144.953796274363,
+          "r_squared": 0.12407079647087349,
+          "rmse": 1841.304249791957,
+          "max_abs_residual": 10201.658494136806,
+          "difference_mean": -3564.706607283053,
+          "difference_quantiles": [
+            -65535.0,
+            -65535.0,
+            -19.196212768554688,
+            826.5249719238268,
+            3900.703125
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.0,
+            0.9942602656513042,
+            1.3250922669077176,
+            2.8504696812536796
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 157631417.00394577,
+          "nodata_agreement_pixels": 1130910,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 2160,
+          "fraction_matching_float_rounded_to_nearest_integer": 0.0020965417230372
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "valid_pairs": 1130910,
+          "slope": -0.06622081834176798,
+          "offset": 6208.359372882064,
+          "r_squared": 0.10240060782565297,
+          "rmse": 2670.3761596151685,
+          "max_abs_residual": 11435.061299425814,
+          "difference_mean": -3566.9966220316724,
+          "difference_quantiles": [
+            -65535.0,
+            -65535.0,
+            -34.64501953125,
+            1407.1045117187482,
+            4814.873046875
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.0,
+            0.9929172325786138,
+            1.3262856441016588,
+            3.0893704697404134
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 164183498.30750987,
+          "nodata_agreement_pixels": 1130910,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 2160,
+          "fraction_matching_float_rounded_to_nearest_integer": 0.0012759636045308646
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "valid_pairs": 1130910,
+          "slope": -0.07903008582512558,
+          "offset": 7951.283548298118,
+          "r_squared": 0.0962174736311514,
+          "rmse": 3235.336510227542,
+          "max_abs_residual": 14205.042390689245,
+          "difference_mean": -3568.6548427358184,
+          "difference_quantiles": [
+            -65535.0,
+            -65535.0,
+            -38.31640625,
+            1586.1556054687358,
+            5633.17041015625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.0,
+            0.9939902610664757,
+            1.266835064466612,
+            2.4858743742806966
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 170993870.6927807,
+          "nodata_agreement_pixels": 1130910,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 2160,
+          "fraction_matching_float_rounded_to_nearest_integer": 0.0011336003749193128
+        }
+      ]
+    },
+    "25cm_normalization": {
+      "left": "summer_float_25cm",
+      "right": "normalized_25cm",
+      "grid": "IDENTICAL",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "valid_pairs": 1130910,
+          "slope": 0.15259021896800715,
+          "offset": 2.108436092385091e-09,
+          "r_squared": 0.9999999999999999,
+          "rmse": 1.7443751451992383e-05,
+          "max_abs_residual": 0.0007688963960390538,
+          "difference_mean": -3778.377383122132,
+          "difference_quantiles": [
+            -55535.0,
+            -55535.0,
+            -750.784065246582,
+            -102.39963405609146,
+            -43.836459159851074
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.1525902027075519,
+            0.15259020732594142,
+            0.15259021896696423,
+            0.15259023064724933,
+            0.15259023527235893
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152121864.07188785,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0,
+          "expected_multiplier": 0.15259021896696423,
+          "expected_offset": -0.0,
+          "max_abs_error_vs_expected": 0.0007688371424592333
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "valid_pairs": 1130910,
+          "slope": 0.15259021896853056,
+          "offset": 1.0775124792417046e-08,
+          "r_squared": 0.9999999999999999,
+          "rmse": 1.812817425693543e-05,
+          "max_abs_residual": 0.0007651521664229222,
+          "difference_mean": -3912.8353530191016,
+          "difference_quantiles": [
+            -55535.0,
+            -55535.0,
+            -888.7953338623047,
+            -117.25867948532131,
+            -48.229249000549316
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15259020260778836,
+            0.1525902073009447,
+            0.15259021896696423,
+            0.15259023062975227,
+            0.15259023529268764
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152279297.01271528,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0,
+          "expected_multiplier": 0.15259021896696423,
+          "expected_offset": -0.0,
+          "max_abs_error_vs_expected": 0.0007652608092030277
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "valid_pairs": 1130910,
+          "slope": 0.15259021897011987,
+          "offset": -1.4438228390645236e-10,
+          "r_squared": 0.9999999999999999,
+          "rmse": 1.9540163815191012e-05,
+          "max_abs_residual": 0.0007707981167186517,
+          "difference_mean": -4394.28115489197,
+          "difference_quantiles": [
+            -55535.0,
+            -55535.0,
+            -1510.7047882080078,
+            -136.86074510574352,
+            -43.27233934402466
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15259020271036142,
+            0.1525902072158949,
+            0.15259021896696423,
+            0.15259023073155,
+            0.15259023530323243
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152939164.3730712,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0,
+          "expected_multiplier": 0.15259021896696423,
+          "expected_offset": -0.0,
+          "max_abs_error_vs_expected": 0.0007706253090873361
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "valid_pairs": 1130910,
+          "slope": 0.1525902189717397,
+          "offset": -6.438995114876889e-09,
+          "r_squared": 0.9999999999999999,
+          "rmse": 2.040571147864981e-05,
+          "max_abs_residual": 0.0007662326970603317,
+          "difference_mean": -4574.374507573522,
+          "difference_quantiles": [
+            -55535.0,
+            -55535.0,
+            -1724.2739715576172,
+            -148.7696535110478,
+            -42.00495481491089
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15259020268684684,
+            0.152590207052879,
+            0.15259021896696423,
+            0.15259023086565016,
+            0.15259023530467053
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153280926.78493804,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0,
+          "expected_multiplier": 0.15259021896696423,
+          "expected_offset": -0.0,
+          "max_abs_error_vs_expected": 0.0007659313723706873
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "valid_pairs": 1130910,
+          "slope": 0.15259021895778227,
+          "offset": -3.3105607144534588e-09,
+          "r_squared": 0.9999999999999999,
+          "rmse": 2.0276934807227026e-05,
+          "max_abs_residual": 0.0007747295276203658,
+          "difference_mean": -4390.107960394884,
+          "difference_quantiles": [
+            -55535.0,
+            -55535.0,
+            -1320.0661392211914,
+            -101.03484764099137,
+            -29.079777240753174
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15259020262028736,
+            0.15259020725556222,
+            0.15259021896696423,
+            0.15259023069286004,
+            0.15259023534352303
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153240254.42440003,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0,
+          "expected_multiplier": 0.15259021896696423,
+          "expected_offset": -0.0,
+          "max_abs_error_vs_expected": 0.0007741271365375724
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "valid_pairs": 1130910,
+          "slope": 0.15259021896531133,
+          "offset": -1.949729266925715e-09,
+          "r_squared": 0.9999999999999999,
+          "rmse": 2.028712979419016e-05,
+          "max_abs_residual": 0.0007644233919563703,
+          "difference_mean": -4321.708287882974,
+          "difference_quantiles": [
+            -55535.0,
+            -55535.0,
+            -1195.3739013671875,
+            -84.78981599807776,
+            -18.34517526626587
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15259020265121753,
+            0.152590207253307,
+            0.15259021896696423,
+            0.15259023070140887,
+            0.1525902352939363
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153193280.05867964,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0,
+          "expected_multiplier": 0.15259021896696423,
+          "expected_offset": -0.0,
+          "max_abs_error_vs_expected": 0.0007645157402293989
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "valid_pairs": 1130910,
+          "slope": 0.15259021897275882,
+          "offset": -3.68661403626902e-08,
+          "r_squared": 0.9999999999999999,
+          "rmse": 2.422125155493267e-05,
+          "max_abs_residual": 0.0007704074960201979,
+          "difference_mean": -5383.788058217171,
+          "difference_quantiles": [
+            -55535.0,
+            -55535.0,
+            -2686.0103302001953,
+            -228.7892678833016,
+            -66.17033386230469
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.1525902025533531,
+            0.15259020740897256,
+            0.15259021896696423,
+            0.15259023051982756,
+            0.15259023520458034
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 155176542.57388198,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0,
+          "expected_multiplier": 0.15259021896696423,
+          "expected_offset": -0.0,
+          "max_abs_error_vs_expected": 0.0007701037611695938
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "valid_pairs": 1130910,
+          "slope": 0.15259021896701408,
+          "offset": 1.2370037438813597e-08,
+          "r_squared": 0.9999999999999998,
+          "rmse": 2.8819052467054992e-05,
+          "max_abs_residual": 0.0007803704429534264,
+          "difference_mean": -6224.001041930774,
+          "difference_quantiles": [
+            -55535.0,
+            -55535.0,
+            -3716.0921630859375,
+            -348.21235607147327,
+            -107.11919784545898
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.152590202555022,
+            0.1525902070077806,
+            0.15259021896696423,
+            0.15259023091114352,
+            0.1525902354173418
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 157630159.73244467,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0,
+          "expected_multiplier": 0.15259021896696423,
+          "expected_offset": -0.0,
+          "max_abs_error_vs_expected": 0.0007803857188264374
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "valid_pairs": 1130910,
+          "slope": 0.1525902189677868,
+          "offset": 8.865299605531618e-10,
+          "r_squared": 0.9999999999999997,
+          "rmse": 3.801895518603852e-05,
+          "max_abs_residual": 0.0007736284842394525,
+          "difference_mean": -7769.24642687436,
+          "difference_quantiles": [
+            -55535.0,
+            -55535.0,
+            -5313.921936035156,
+            -557.1553190612797,
+            -118.8498420715332
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15259020266284876,
+            0.15259020742055485,
+            0.15259021896696423,
+            0.15259023053459578,
+            0.1525902351801577
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 164183372.418318,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0,
+          "expected_multiplier": 0.15259021896696423,
+          "expected_offset": -0.0,
+          "max_abs_error_vs_expected": 0.0007736800944257993
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "valid_pairs": 1130910,
+          "slope": 0.15299643518233863,
+          "offset": -26.621379751951963,
+          "r_squared": 0.9999999999999994,
+          "rmse": 4.596995328687856e-05,
+          "max_abs_residual": 0.0007726294970780145,
+          "difference_mean": -9069.398788710065,
+          "difference_quantiles": [
+            -55535.0,
+            -55535.0,
+            -6655.5518798828125,
+            -1125.6097373962414,
+            -421.7241897583008
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.09592673170942335,
+            0.13247902053956795,
+            0.1495949230589635,
+            0.15259021896696423,
+            0.15259021896696423
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 170994883.9450526,
+          "nodata_agreement_pixels": 1133070,
+          "total_pixels": 1133070,
+          "only_left_valid": 0,
+          "only_right_valid": 0,
+          "expected_multiplier": 0.15299643518306025,
+          "expected_offset": -26.62137972185248,
+          "max_abs_error_vs_expected": 0.0007727067022642586
+        }
+      ]
+    },
+    "old_vs_new_10cm": {
+      "left": "normalized_10cm",
+      "right": "new_fixed_10cm",
+      "grid": "IDENTICAL",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "valid_pairs": 6683944,
+          "slope": 0.617760013458989,
+          "offset": 54.240787459128796,
+          "r_squared": 0.6178479619292966,
+          "rmse": 62.7919540739976,
+          "max_abs_residual": 4517.739924675413,
+          "difference_mean": -1.9252711891051646,
+          "difference_quantiles": [
+            -7305.738250732422,
+            -0.048095703125,
+            -3.0517578125e-05,
+            0.04921722412109375,
+            0.565887451171875
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.001817401026780407,
+            0.9995685407210703,
+            0.9999996744045687,
+            1.0003022137302364,
+            1.0015083640848224
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 1956746.3873258338,
+          "nodata_agreement_pixels": 6698838,
+          "total_pixels": 7083270,
+          "only_left_valid": 384432,
+          "only_right_valid": 0
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "valid_pairs": 6683944,
+          "slope": 0.6842168535770767,
+          "offset": 52.56405439520918,
+          "r_squared": 0.684355771788803,
+          "rmse": 65.89859080590652,
+          "max_abs_residual": 4981.864156133765,
+          "difference_mean": -1.9200180449458668,
+          "difference_quantiles": [
+            -7280.212341308594,
+            -0.05365753173828125,
+            -3.24249267578125e-05,
+            0.054745254516603836,
+            0.6173095703125
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0023876011651315825,
+            0.9995825516735272,
+            0.999999702041818,
+            1.000293345084208,
+            1.0014522837614652
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 2233200.7261158633,
+          "nodata_agreement_pixels": 6698838,
+          "total_pixels": 7083270,
+          "only_left_valid": 384432,
+          "only_right_valid": 0
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "valid_pairs": 6683944,
+          "slope": 0.7849520393456703,
+          "offset": 54.91152444148781,
+          "r_squared": 0.7849630247496406,
+          "rmse": 69.92634964113311,
+          "max_abs_residual": 5708.316023637328,
+          "difference_mean": -1.9020778833557554,
+          "difference_quantiles": [
+            -7251.975921630859,
+            -0.073516845703125,
+            -3.62396240234375e-05,
+            0.0740966796875,
+            0.635650634765625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0020497265351381517,
+            0.9995421701931663,
+            0.9999997921315846,
+            1.0003009400853788,
+            1.0015734633228397
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 3142403.8422325407,
+          "nodata_agreement_pixels": 6698838,
+          "total_pixels": 7083270,
+          "only_left_valid": 384432,
+          "only_right_valid": 0
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "valid_pairs": 6683944,
+          "slope": 0.824122236537549,
+          "offset": 50.60047189199915,
+          "r_squared": 0.8243447278576663,
+          "rmse": 71.3528158878208,
+          "max_abs_residual": 5986.738730420411,
+          "difference_mean": -1.8943778418093842,
+          "difference_quantiles": [
+            -7235.824462890625,
+            -0.080657958984375,
+            -4.57763671875e-05,
+            0.081268310546875,
+            0.8004150390625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.9995492682963707,
+            0.999999793745008,
+            1.0002966179054154,
+            1.0015596258802464
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 3524800.38911624,
+          "nodata_agreement_pixels": 6698838,
+          "total_pixels": 7083270,
+          "only_left_valid": 384432,
+          "only_right_valid": 0
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "valid_pairs": 6683944,
+          "slope": 0.881379508756915,
+          "offset": 29.342792159487544,
+          "r_squared": 0.8814118384585761,
+          "rmse": 74.07916854712235,
+          "max_abs_residual": 6381.016247178675,
+          "difference_mean": -1.9013751331459092,
+          "difference_quantiles": [
+            -7216.510345458984,
+            -0.078948974609375,
+            -6.008148193359375e-05,
+            0.08062744140625,
+            0.9715576171875
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.001690665125212133,
+            0.9995405928748498,
+            0.9999996764167469,
+            1.0003038002623836,
+            1.0015711788038415
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 3490842.6935193194,
+          "nodata_agreement_pixels": 6698838,
+          "total_pixels": 7083270,
+          "only_left_valid": 384432,
+          "only_right_valid": 0
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "valid_pairs": 6683944,
+          "slope": 0.8882059260961352,
+          "offset": 26.086317961109813,
+          "r_squared": 0.8881791144946141,
+          "rmse": 74.47834042305021,
+          "max_abs_residual": 6428.542154254675,
+          "difference_mean": -1.904170112285416,
+          "difference_quantiles": [
+            -7213.460723876953,
+            -0.0761566162109375,
+            -6.103515625e-05,
+            0.077880859375,
+            0.92138671875
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.9995514124806226,
+            0.9999996429337632,
+            1.000298101004141,
+            1.0015635930706557
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 3442583.760196465,
+          "nodata_agreement_pixels": 6698838,
+          "total_pixels": 7083270,
+          "only_left_valid": 384432,
+          "only_right_valid": 0
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "valid_pairs": 6683944,
+          "slope": 0.9043517833243588,
+          "offset": 41.42195456007704,
+          "r_squared": 0.9042101575360579,
+          "rmse": 73.59919697087325,
+          "max_abs_residual": 6547.544971797396,
+          "difference_mean": -1.8651502087552305,
+          "difference_quantiles": [
+            -7197.144113540649,
+            -0.09674072265625,
+            -6.103515625e-05,
+            0.09698486328125,
+            0.9737548828125
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0038017604666956656,
+            0.99963409711369,
+            0.9999998584419949,
+            1.0002479335445713,
+            1.0015020032008635
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 5169951.353063127,
+          "nodata_agreement_pixels": 6698838,
+          "total_pixels": 7083270,
+          "only_left_valid": 384432,
+          "only_right_valid": 0
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "valid_pairs": 6683944,
+          "slope": 0.9284497216787696,
+          "offset": 41.993097355007876,
+          "r_squared": 0.928399250076517,
+          "rmse": 73.2714724121609,
+          "max_abs_residual": 6713.840377789453,
+          "difference_mean": -1.8327683185672081,
+          "difference_quantiles": [
+            -7188.995014190674,
+            -0.1302490234375,
+            -6.103515625e-05,
+            0.1298828125,
+            1.0194091796875
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0053623741533320385,
+            0.9996509953939116,
+            0.9999998721992789,
+            1.0002380858830469,
+            1.0014702566313338
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 6751623.570144,
+          "nodata_agreement_pixels": 6698838,
+          "total_pixels": 7083270,
+          "only_left_valid": 384432,
+          "only_right_valid": 0
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "valid_pairs": 6683944,
+          "slope": 0.9654214867476001,
+          "offset": 29.578677031701204,
+          "r_squared": 0.9653552954014972,
+          "rmse": 72.33521451184617,
+          "max_abs_residual": 6952.467479746329,
+          "difference_mean": -1.7734941877861812,
+          "difference_quantiles": [
+            -7173.026660919189,
+            -0.22869873046875,
+            -0.0001220703125,
+            0.2293701171875,
+            1.33203125
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.008416401920365024,
+            0.9996315102826469,
+            0.9999998204166272,
+            1.000252935905317,
+            1.0014760233015148
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 9891058.474357989,
+          "nodata_agreement_pixels": 6698838,
+          "total_pixels": 7083270,
+          "only_left_valid": 384432,
+          "only_right_valid": 0
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "valid_pairs": 6683944,
+          "slope": 0.9740051458960457,
+          "offset": 51.1155340607404,
+          "r_squared": 0.9764804710127232,
+          "rmse": 70.80755696114491,
+          "max_abs_residual": 6968.922150594874,
+          "difference_mean": 21.834668590726192,
+          "difference_quantiles": [
+            -7106.257339477539,
+            20.677490234375,
+            23.51611328125,
+            26.11768447875977,
+            26.48928451538086
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.01976431886467466,
+            1.0093283540776332,
+            1.0205849507210463,
+            1.1608945938806412,
+            2.2728587344526803
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 12198016.001308773,
+          "nodata_agreement_pixels": 6698838,
+          "total_pixels": 7083270,
+          "only_left_valid": 384432,
+          "only_right_valid": 0
+        }
+      ]
+    },
+    "original_to_summer_float_25cm": {
+      "grid": "DIFFERENT: bilinear GDAL reprojection to exact destination grid",
+      "method_limit": "Independent interpolation hypothesis, not exact replay of unavailable historical exporter. Original alpha not applied in this historical-lineage comparison; validity handled separately for new derivative.",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "valid_pairs": 1130910,
+          "slope": 1.0000000000208586,
+          "offset": 4.8715264711063355e-08,
+          "r_squared": 1.0,
+          "rmse": 2.70439913542754e-05,
+          "max_abs_residual": 0.003907439626345877,
+          "difference_mean": 1.4171834267799272e-07,
+          "difference_quantiles": [
+            -0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.00390625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.9999998808077468,
+            1.0,
+            1.0,
+            1.0,
+            1.0000001191723102
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152108972.91631225
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "valid_pairs": 1130910,
+          "slope": 1.0000000000127673,
+          "offset": 4.09800122724846e-08,
+          "r_squared": 1.0,
+          "rmse": 2.7145307306969214e-05,
+          "max_abs_residual": 0.003907109363353811,
+          "difference_mean": 9.993210882511097e-08,
+          "difference_quantiles": [
+            -0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.00390625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.9999998808549657,
+            1.0,
+            1.0,
+            1.0,
+            1.0000001191968564
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152266392.51716647
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "valid_pairs": 1130910,
+          "slope": 1.000000000013219,
+          "offset": 4.590947355609387e-08,
+          "r_squared": 1.0,
+          "rmse": 2.339622902065684e-05,
+          "max_abs_residual": 0.003907112244633026,
+          "difference_mean": 1.1445677164158731e-07,
+          "difference_quantiles": [
+            -0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.00390625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.9999998808406548,
+            1.0,
+            1.0,
+            1.0,
+            1.0000001190735175
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152926203.95875335
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "valid_pairs": 1130910,
+          "slope": 1.0000000000130527,
+          "offset": 1.818261807784438e-08,
+          "r_squared": 1.0,
+          "rmse": 2.6528230006495167e-05,
+          "max_abs_residual": 0.00390710485226009,
+          "difference_mean": 8.864226989182108e-08,
+          "difference_quantiles": [
+            -0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.00390625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.9999998808290248,
+            1.0,
+            1.0,
+            1.0,
+            1.0000001191887442
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153267937.4090073
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "valid_pairs": 1130910,
+          "slope": 1.0000000000233238,
+          "offset": 3.5863195080310106e-08,
+          "r_squared": 1.0,
+          "rmse": 2.9598345113767788e-05,
+          "max_abs_residual": 0.003907717029505875,
+          "difference_mean": 1.5669500382642628e-07,
+          "difference_quantiles": [
+            -0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.00390625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.9999998808638089,
+            1.0,
+            1.0,
+            1.0,
+            1.0000001191626393
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153227268.4935026
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "valid_pairs": 1130910,
+          "slope": 1.0000000000154468,
+          "offset": 4.1717612475622445e-08,
+          "r_squared": 1.0,
+          "rmse": 2.601821941124316e-05,
+          "max_abs_residual": 0.003907281905412674,
+          "difference_mean": 1.2049465980728463e-07,
+          "difference_quantiles": [
+            -0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.00390625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.9999998807967497,
+            1.0,
+            1.0,
+            1.0,
+            1.0000001189217036
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153180298.1096903
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "valid_pairs": 1130910,
+          "slope": 1.000000000015717,
+          "offset": 1.2539203453343362e-08,
+          "r_squared": 1.0,
+          "rmse": 2.4842617989540974e-05,
+          "max_abs_residual": 0.003907270125637297,
+          "difference_mean": 1.1239242105085727e-07,
+          "difference_quantiles": [
+            -0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.00390625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.9999998808198924,
+            1.0,
+            1.0,
+            1.0,
+            1.0000001190342986
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 155163392.5587374
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "valid_pairs": 1130910,
+          "slope": 1.0000000000140015,
+          "offset": -2.9122020350769162e-09,
+          "r_squared": 1.0,
+          "rmse": 2.948935186391108e-05,
+          "max_abs_residual": 0.003907145182893146,
+          "difference_mean": 9.992536258135042e-08,
+          "difference_quantiles": [
+            -0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.00390625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.9999998808958348,
+            1.0,
+            1.0,
+            1.0,
+            1.0000001191681633
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 157616801.79250672
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "valid_pairs": 1130910,
+          "slope": 1.0000000000154108,
+          "offset": 2.5855115382000804e-08,
+          "r_squared": 1.0,
+          "rmse": 3.579666883996978e-05,
+          "max_abs_residual": 0.0039072645449778065,
+          "difference_mean": 1.67144935411527e-07,
+          "difference_quantiles": [
+            -0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.00390625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.9999998810220397,
+            1.0,
+            1.0,
+            1.0,
+            1.0000001191634063
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 164169459.1437758
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "valid_pairs": 1130910,
+          "slope": 1.0000000000177218,
+          "offset": -9.356881491839886e-08,
+          "r_squared": 1.0,
+          "rmse": 3.801230823581429e-05,
+          "max_abs_residual": 0.0039072927756933495,
+          "difference_mean": 9.563475154963701e-08,
+          "difference_quantiles": [
+            -0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.00390625
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.9999998809441605,
+            1.0,
+            1.0,
+            1.0,
+            1.000000119198121
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 170980383.77378425
+        }
+      ]
+    },
+    "original_to_normalized_10cm": {
+      "grid": "DIFFERENT: bilinear GDAL reprojection to exact destination grid",
+      "method_limit": "Independent interpolation hypothesis, not exact replay of unavailable historical exporter. Original alpha not applied in this historical-lineage comparison; validity handled separately for new derivative.",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "valid_pairs": 7068376,
+          "slope": 0.15258965839213703,
+          "offset": 0.0026498513846036076,
+          "r_squared": 0.9999999902247483,
+          "rmse": 0.2206056541964184,
+          "max_abs_residual": 15.244685557970513,
+          "difference_mean": -3781.0871748995532,
+          "difference_quantiles": [
+            -55535.455078125,
+            -55535.0,
+            -747.4978332519531,
+            -96.54384708404541,
+            -2.228274881839752
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15117139663938442,
+            0.15254420412379296,
+            0.15259021896696423,
+            0.15265355209940734,
+            0.2577201252760214
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 152880697.42085335,
+          "rmse_vs_original_minmax_mapping": 0.22075794319052383,
+          "max_abs_error_vs_original_minmax_mapping": 15.246973722979874
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "valid_pairs": 7068376,
+          "slope": 0.15258965747528336,
+          "offset": 0.0027424733877978724,
+          "r_squared": 0.9999999902155771,
+          "rmse": 0.22020904835870903,
+          "max_abs_residual": 15.240025297753803,
+          "difference_mean": -3915.5353676462996,
+          "difference_quantiles": [
+            -55535.455078125,
+            -55535.0,
+            -886.2532043457031,
+            -110.70656681060791,
+            -7.933020353317261
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15123766394180652,
+            0.15254554909287085,
+            0.15259021896696423,
+            0.15265147164817486,
+            0.23589508074113535
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153035369.35888898,
+          "rmse_vs_original_minmax_mapping": 0.2203614178458894,
+          "max_abs_error_vs_original_minmax_mapping": 15.242381106873097
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "valid_pairs": 7068376,
+          "slope": 0.15258965248419518,
+          "offset": 0.0030828664185946764,
+          "r_squared": 0.9999999901519732,
+          "rmse": 0.2190590817254356,
+          "max_abs_residual": 15.212734202589914,
+          "difference_mean": -4396.946408048421,
+          "difference_quantiles": [
+            -55535.455078125,
+            -55535.0,
+            -1512.2391510009766,
+            -128.05044603347778,
+            -1.571407973766327
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.1512046593020066,
+            0.15254440732739272,
+            0.15259021896696423,
+            0.1526570795434451,
+            0.24274822407492605
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153685743.86032528,
+          "rmse_vs_original_minmax_mapping": 0.21921236213782702,
+          "max_abs_error_vs_original_minmax_mapping": 15.215364066907085
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "valid_pairs": 7068376,
+          "slope": 0.15258965074956063,
+          "offset": 0.003205943705097525,
+          "r_squared": 0.9999999901344704,
+          "rmse": 0.21861856099608162,
+          "max_abs_residual": 15.207893788787658,
+          "difference_mean": -4577.02276972298,
+          "difference_quantiles": [
+            -55535.455078125,
+            -55535.0,
+            -1725.5248565673828,
+            -139.7635326385498,
+            2.437332469185094e-08
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15122217226376217,
+            0.15254506558952288,
+            0.15259021896696423,
+            0.152656050310986,
+            0.25144322505896743
+          ],
+          "ratio_excluded_zero_source": 1,
+          "rmse_if_y_equals_x_times_10000": 154023625.78100237,
+          "rmse_vs_original_minmax_mapping": 0.21877219383554164,
+          "max_abs_error_vs_original_minmax_mapping": 15.210615623021852
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "valid_pairs": 7068376,
+          "slope": 0.1525896522626819,
+          "offset": 0.003077485651488132,
+          "r_squared": 0.9999999901776357,
+          "rmse": 0.21929018163982011,
+          "max_abs_residual": 15.227787844377161,
+          "difference_mean": -4392.771958584287,
+          "difference_quantiles": [
+            -55535.455078125,
+            -55535.0,
+            -1316.4330596923828,
+            -94.60977363586426,
+            -0.03966800356283784
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15136633407100866,
+            0.1525439694650349,
+            0.15259021896696423,
+            0.15265746566675367,
+            0.2562129905881282
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 153990803.96936738,
+          "rmse_vs_original_minmax_mapping": 0.21944414212290625,
+          "max_abs_error_vs_original_minmax_mapping": 15.230435686379934
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "valid_pairs": 7068376,
+          "slope": 0.15258965299644547,
+          "offset": 0.0030298800203354403,
+          "r_squared": 0.9999999901950407,
+          "rmse": 0.2194564073211172,
+          "max_abs_residual": 15.24017480868163,
+          "difference_mean": -4324.378760981489,
+          "difference_quantiles": [
+            -55535.455078125,
+            -55535.0,
+            -1187.760612487793,
+            -78.8421323299408,
+            1.796074844406803e-09
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15126874059915615,
+            0.15254483438524297,
+            0.15259021896696423,
+            0.15265597428129535,
+            0.2777692980840214
+          ],
+          "ratio_excluded_zero_source": 1,
+          "rmse_if_y_equals_x_times_10000": 153946144.656707,
+          "rmse_vs_original_minmax_mapping": 0.2196103597876748,
+          "max_abs_error_vs_original_minmax_mapping": 15.242789812379783
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "valid_pairs": 7068376,
+          "slope": 0.15258964271519224,
+          "offset": 0.003793217368411206,
+          "r_squared": 0.999999990061921,
+          "rmse": 0.21655304951181517,
+          "max_abs_residual": 15.167858911601456,
+          "difference_mean": -5386.383855418731,
+          "difference_quantiles": [
+            -55535.4541015625,
+            -55535.0,
+            -2685.9436645507812,
+            -217.4135274887085,
+            -0.037266358733177185
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15165036121299894,
+            0.15255238603377427,
+            0.15259021896696423,
+            0.15264366164952217,
+            0.2089533306109325
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 155903421.0759986,
+          "rmse_vs_original_minmax_mapping": 0.21670841704725138,
+          "max_abs_error_vs_original_minmax_mapping": 15.17101969405698
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "valid_pairs": 7068376,
+          "slope": 0.15258962671666199,
+          "offset": 0.004470779703751759,
+          "r_squared": 0.9999999898891269,
+          "rmse": 0.2152195197461495,
+          "max_abs_residual": 15.09951334732716,
+          "difference_mean": -6226.542073682821,
+          "difference_quantiles": [
+            -55535.453125,
+            -55535.0,
+            -3711.290771484375,
+            -331.43664932250977,
+            -1.2514484226703644
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15172043724410433,
+            0.1525538831664703,
+            0.15259021896696423,
+            0.15264118184042325,
+            0.193027040263069
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 158346465.65432313,
+          "rmse_vs_original_minmax_mapping": 0.21537982622430277,
+          "max_abs_error_vs_original_minmax_mapping": 15.10345415211546
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "valid_pairs": 7068376,
+          "slope": 0.1525895601637291,
+          "offset": 0.006165192862454205,
+          "r_squared": 0.9999999891702219,
+          "rmse": 0.21766421215901066,
+          "max_abs_residual": 15.04805015715175,
+          "difference_mean": -7771.706041811736,
+          "difference_quantiles": [
+            -55535.451171875,
+            -55535.0,
+            -5307.205841064453,
+            -525.7770957946777,
+            -10.53696060180664
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.15186579182843338,
+            0.15255170105971633,
+            0.15259021896696423,
+            0.15264415711925738,
+            0.18074053302081747
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 164921756.63380498,
+          "rmse_vs_original_minmax_mapping": 0.21785149299248263,
+          "max_abs_error_vs_original_minmax_mapping": 15.053477950797173
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "valid_pairs": 7068376,
+          "slope": 0.15299574959505896,
+          "offset": -26.613931518679465,
+          "r_squared": 0.9999999889800912,
+          "rmse": 0.21596703537012654,
+          "max_abs_residual": 14.968412046658699,
+          "difference_mean": -9071.78848005819,
+          "difference_quantiles": [
+            -55535.44921875,
+            -55535.0,
+            -6649.157165527344,
+            -1083.1690711975098,
+            -289.17064666748047
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.06713581053714733,
+            0.13165675680940342,
+            0.14959181924148512,
+            0.15259021896696423,
+            0.1525997953222927
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 171711688.78608808,
+          "rmse_vs_original_minmax_mapping": 0.21616374767406746,
+          "max_abs_error_vs_original_minmax_mapping": 14.97474459227638
+        }
+      ]
+    },
+    "original_to_georef_rgb_10cm": {
+      "grid": "DIFFERENT: bilinear GDAL reprojection to exact destination grid",
+      "method_limit": "Independent interpolation hypothesis, not exact replay of unavailable historical exporter. Original alpha not applied in this historical-lineage comparison; validity handled separately for new derivative.",
+      "bands": [
+        {
+          "band": 1,
+          "wavelength_nm": 444,
+          "valid_pairs": 7008179,
+          "slope": 0.13443954259816787,
+          "offset": 57.142476156488556,
+          "r_squared": 0.8014089503529884,
+          "rmse": 938.3182415267933,
+          "max_abs_residual": 9933.208340863775,
+          "difference_mean": -3543.3276179060103,
+          "difference_quantiles": [
+            -65535.0,
+            -55535.0,
+            -745.7064208984375,
+            9.18165069580077,
+            9928.226600646973
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.020124058146849984,
+            0.15259021896696423,
+            1.0612115963499251,
+            139.32738438113574
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 146245665.43274698,
+          "rmse_vs_original_minmax_mapping": 972.3893706851958,
+          "max_abs_error_vs_original_minmax_mapping": 10000.0
+        },
+        {
+          "band": 2,
+          "wavelength_nm": 475,
+          "valid_pairs": 7008179,
+          "slope": 0.1344087781046259,
+          "offset": 59.875656512901514,
+          "r_squared": 0.8010206989130818,
+          "rmse": 937.1492126481774,
+          "max_abs_residual": 9929.28162554544,
+          "difference_mean": -3678.7659034435546,
+          "difference_quantiles": [
+            -65535.0,
+            -55535.0,
+            -884.9103240966797,
+            8.723081665038848,
+            9919.330284118652
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.02075898071431635,
+            0.15259021896696423,
+            1.0508295252168274,
+            123.96225635290959
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 146407901.06270507,
+          "rmse_vs_original_minmax_mapping": 971.2307636316408,
+          "max_abs_error_vs_original_minmax_mapping": 10000.0
+        },
+        {
+          "band": 3,
+          "wavelength_nm": 531,
+          "valid_pairs": 7008179,
+          "slope": 0.1342866313659932,
+          "offset": 70.84465635600009,
+          "r_squared": 0.7995812984705183,
+          "rmse": 932.6642936317909,
+          "max_abs_residual": 9917.231611417486,
+          "difference_mean": -4162.646050494329,
+          "difference_quantiles": [
+            -65535.0,
+            -55535.0,
+            -1517.2153015136719,
+            81.25105133056623,
+            9911.206855773926
+          ],
+          "ratio_quantiles_nonzero_source": [
+            -3.06349658586378,
+            0.01603632200594101,
+            0.15259021896696423,
+            1.417916420986483,
+            112.62130750251647
+          ],
+          "ratio_excluded_zero_source": 1,
+          "rmse_if_y_equals_x_times_10000": 147089844.33388168,
+          "rmse_vs_original_minmax_mapping": 966.790878897358,
+          "max_abs_error_vs_original_minmax_mapping": 10000.0
+        },
+        {
+          "band": 4,
+          "wavelength_nm": 560,
+          "valid_pairs": 7008179,
+          "slope": 0.1342392185052316,
+          "offset": 74.63017962597564,
+          "r_squared": 0.7990103538964919,
+          "rmse": 931.3446529368163,
+          "max_abs_residual": 9913.009860470349,
+          "difference_mean": -4344.025425123409,
+          "difference_quantiles": [
+            -65535.0,
+            -55535.0,
+            -1730.8225402832031,
+            97.38841766357363,
+            9907.92586517334
+          ],
+          "ratio_quantiles_nonzero_source": [
+            -0.813027351755741,
+            0.015640497444113832,
+            0.15259021896696423,
+            1.4586532263635057,
+            276.5737678110237
+          ],
+          "ratio_excluded_zero_source": 2,
+          "rmse_if_y_equals_x_times_10000": 147444261.3249131,
+          "rmse_vs_original_minmax_mapping": 965.5079889229439,
+          "max_abs_error_vs_original_minmax_mapping": 10000.0
+        },
+        {
+          "band": 5,
+          "wavelength_nm": 650,
+          "valid_pairs": 7008179,
+          "slope": 0.13422940894379343,
+          "offset": 69.34853077200046,
+          "r_squared": 0.798791426565127,
+          "rmse": 936.9725921078688,
+          "max_abs_residual": 9923.92697543949,
+          "difference_mean": -4160.161923274938,
+          "difference_quantiles": [
+            -65535.0,
+            -55535.0,
+            -1310.7332763671875,
+            115.91424179077143,
+            9949.902976989746
+          ],
+          "ratio_quantiles_nonzero_source": [
+            -0.15945458125766926,
+            0.012625666443353431,
+            0.15259021896696423,
+            1.7069741319331404,
+            393.30950403706987
+          ],
+          "ratio_excluded_zero_source": 2,
+          "rmse_if_y_equals_x_times_10000": 147410784.87807384,
+          "rmse_vs_original_minmax_mapping": 971.3618953463937,
+          "max_abs_error_vs_original_minmax_mapping": 10000.0
+        },
+        {
+          "band": 6,
+          "wavelength_nm": 668,
+          "valid_pairs": 7008179,
+          "slope": 0.13422277125614573,
+          "offset": 67.72821890157411,
+          "r_squared": 0.798693116848004,
+          "rmse": 938.7821840167998,
+          "max_abs_residual": 9927.725757871174,
+          "difference_mean": -4091.6185700812894,
+          "difference_quantiles": [
+            -65535.0,
+            -55535.0,
+            -1177.5900421142578,
+            127.19523498535142,
+            9966.130760192871
+          ],
+          "ratio_quantiles_nonzero_source": [
+            -0.05002601313441317,
+            0.01152870068504189,
+            0.15259021896696423,
+            1.8578235867026127,
+            1392.7493511631894
+          ],
+          "ratio_excluded_zero_source": 3,
+          "rmse_if_y_equals_x_times_10000": 147364235.04180792,
+          "rmse_vs_original_minmax_mapping": 973.2475859444753,
+          "max_abs_error_vs_original_minmax_mapping": 10000.0
+        },
+        {
+          "band": 7,
+          "wavelength_nm": 705,
+          "valid_pairs": 7008179,
+          "slope": 0.13391647101291768,
+          "offset": 94.42273156366605,
+          "r_squared": 0.7953935490091026,
+          "rmse": 927.5232449775664,
+          "max_abs_residual": 9886.660398079139,
+          "difference_mean": -5157.316114441483,
+          "difference_quantiles": [
+            -65535.0,
+            -55535.0,
+            -2693.8160705566406,
+            128.24480102539053,
+            9858.741271972656
+          ],
+          "ratio_quantiles_nonzero_source": [
+            -0.6527189411552092,
+            0.016590177587694897,
+            0.15259021896696423,
+            1.383865843576416,
+            70.79208583886073
+          ],
+          "ratio_excluded_zero_source": 2,
+          "rmse_if_y_equals_x_times_10000": 149415029.7199603,
+          "rmse_vs_original_minmax_mapping": 962.1238244633469,
+          "max_abs_error_vs_original_minmax_mapping": 10000.0
+        },
+        {
+          "band": 8,
+          "wavelength_nm": 717,
+          "valid_pairs": 7008179,
+          "slope": 0.13352438958590682,
+          "offset": 117.8897046295616,
+          "r_squared": 0.7898332102444487,
+          "rmse": 926.944300194968,
+          "max_abs_residual": 182649.9720976766,
+          "difference_mean": -5999.561777996138,
+          "difference_quantiles": [
+            -65535.0,
+            -55535.0,
+            -3720.5614624023438,
+            149.44975708007763,
+            180152.09399414062
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.0175939271139514,
+            0.15259021896696423,
+            1.3033917817308263,
+            1505.8602261436931
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 151972259.3248402,
+          "rmse_vs_original_minmax_mapping": 961.9470030907481,
+          "max_abs_error_vs_original_minmax_mapping": 182710.30474919174
+        },
+        {
+          "band": 9,
+          "wavelength_nm": 740,
+          "valid_pairs": 7008179,
+          "slope": 0.1323093828045303,
+          "offset": 169.72731771116628,
+          "r_squared": 0.7746973649866448,
+          "rmse": 939.112489816196,
+          "max_abs_residual": 9786.869588202107,
+          "difference_mean": -7546.340686689933,
+          "difference_quantiles": [
+            -65535.0,
+            -55535.0,
+            -5312.721862792969,
+            178.8338195800779,
+            9671.957550048828
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.018756625449533958,
+            0.15259021896696423,
+            1.1990348017731522,
+            79.47972142309516
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 158839821.53315055,
+          "rmse_vs_original_minmax_mapping": 976.3688851949627,
+          "max_abs_error_vs_original_minmax_mapping": 10000.0
+        },
+        {
+          "band": 10,
+          "wavelength_nm": 862,
+          "valid_pairs": 7008179,
+          "slope": 0.13196673060357056,
+          "offset": 186.22998855057608,
+          "r_squared": 0.7649045405551893,
+          "rmse": 945.2786201339098,
+          "max_abs_residual": 9715.067491226846,
+          "difference_mean": -8848.381325278675,
+          "difference_quantiles": [
+            -65535.0,
+            -55535.0,
+            -6652.3050537109375,
+            -331.61499511718966,
+            9252.065124511719
+          ],
+          "ratio_quantiles_nonzero_source": [
+            0.0,
+            0.024805280741337234,
+            0.1513444765768943,
+            0.7973285604233279,
+            13.370148027221765
+          ],
+          "ratio_excluded_zero_source": 0,
+          "rmse_if_y_equals_x_times_10000": 165909359.45074168,
+          "rmse_vs_original_minmax_mapping": 983.5729988998637,
+          "max_abs_error_vs_original_minmax_mapping": 10000.0
+        }
+      ]
+    }
+  },
+  "representative_spectra": {
+    "original": [
+      {
+        "easting": 457750.0,
+        "northing": 4432750.0,
+        "row": 952,
+        "column": 1484,
+        "values": [
+          800.0,
+          990.0,
+          1500.0,
+          1762.0,
+          1272.0,
+          1225.0,
+          2964.0,
+          4416.0,
+          7082.0,
+          9314.0
+        ]
+      },
+      {
+        "easting": 457800.0,
+        "northing": 4432700.0,
+        "row": 1544,
+        "column": 2077,
+        "values": [
+          413.0,
+          446.0,
+          905.0,
+          1088.0,
+          599.0,
+          461.0,
+          1637.0,
+          2585.0,
+          4164.0,
+          5587.0
+        ]
+      },
+      {
+        "easting": 457850.0,
+        "northing": 4432780.0,
+        "row": 596,
+        "column": 2669,
+        "values": [
+          318.0,
+          400.0,
+          587.0,
+          660.0,
+          509.0,
+          484.0,
+          990.0,
+          1456.0,
+          2241.0,
+          3353.0
+        ]
+      }
+    ],
+    "upstream_uint16_25cm": [
+      {
+        "easting": 457750.0,
+        "northing": 4432750.0,
+        "row": 322,
+        "column": 502,
+        "values": [
+          744.0,
+          860.0,
+          1523.0,
+          1701.0,
+          1196.0,
+          1062.0,
+          2818.0,
+          4285.0,
+          7363.0,
+          9823.0
+        ]
+      },
+      {
+        "easting": 457800.0,
+        "northing": 4432700.0,
+        "row": 522,
+        "column": 702,
+        "values": [
+          573.0,
+          680.0,
+          1470.0,
+          1657.0,
+          858.0,
+          707.0,
+          2373.0,
+          3818.0,
+          6480.0,
+          8477.0
+        ]
+      },
+      {
+        "easting": 457850.0,
+        "northing": 4432780.0,
+        "row": 202,
+        "column": 902,
+        "values": [
+          420.0,
+          518.0,
+          607.0,
+          672.0,
+          577.0,
+          554.0,
+          1002.0,
+          1264.0,
+          1761.0,
+          2741.0
+        ]
+      }
+    ],
+    "root_float_25cm": [
+      {
+        "easting": 457750.0,
+        "northing": 4432750.0,
+        "row": 322,
+        "column": 502,
+        "values": [
+          775.468017578125,
+          908.0545043945312,
+          1528.589111328125,
+          1734.635498046875,
+          1260.245849609375,
+          1152.77490234375,
+          2820.083251953125,
+          4267.11328125,
+          7170.609375,
+          9499.728515625
+        ]
+      },
+      {
+        "easting": 457800.0,
+        "northing": 4432700.0,
+        "row": 522,
+        "column": 702,
+        "values": [
+          546.3911743164062,
+          625.4347534179688,
+          1294.266357421875,
+          1464.3077392578125,
+          809.1163940429688,
+          671.7957763671875,
+          2127.153564453125,
+          3318.38916015625,
+          5559.322265625,
+          7264.6640625
+        ]
+      },
+      {
+        "easting": 457850.0,
+        "northing": 4432780.0,
+        "row": 202,
+        "column": 902,
+        "values": [
+          414.1485290527344,
+          503.1731262207031,
+          666.8488159179688,
+          737.0511474609375,
+          606.6500244140625,
+          557.8756713867188,
+          1131.064697265625,
+          1517.1309814453125,
+          2190.917724609375,
+          3244.963623046875
+        ]
+      }
+    ],
+    "summer_float_25cm": [
+      {
+        "easting": 457750.0,
+        "northing": 4432750.0,
+        "row": 322,
+        "column": 502,
+        "values": [
+          775.468017578125,
+          908.0545043945312,
+          1528.589111328125,
+          1734.635498046875,
+          1260.245849609375,
+          1152.77490234375,
+          2820.083251953125,
+          4267.11328125,
+          7170.609375,
+          9499.728515625
+        ]
+      },
+      {
+        "easting": 457800.0,
+        "northing": 4432700.0,
+        "row": 522,
+        "column": 702,
+        "values": [
+          546.3911743164062,
+          625.4347534179688,
+          1294.266357421875,
+          1464.3077392578125,
+          809.1163940429688,
+          671.7957763671875,
+          2127.153564453125,
+          3318.38916015625,
+          5559.322265625,
+          7264.6640625
+        ]
+      },
+      {
+        "easting": 457850.0,
+        "northing": 4432780.0,
+        "row": 202,
+        "column": 902,
+        "values": [
+          414.1485290527344,
+          503.1731262207031,
+          666.8488159179688,
+          737.0511474609375,
+          606.6500244140625,
+          557.8756713867188,
+          1131.064697265625,
+          1517.1309814453125,
+          2190.917724609375,
+          3244.963623046875
+        ]
+      }
+    ],
+    "normalized_25cm": [
+      {
+        "easting": 457750.0,
+        "northing": 4432750.0,
+        "row": 322,
+        "column": 502,
+        "values": [
+          118.3288345336914,
+          138.5602264404297,
+          233.24774169921875,
+          264.68841552734375,
+          192.3011932373047,
+          175.9021759033203,
+          430.317138671875,
+          651.1197509765625,
+          1094.1649169921875,
+          1426.80322265625
+        ]
+      },
+      {
+        "easting": 457800.0,
+        "northing": 4432700.0,
+        "row": 522,
+        "column": 702,
+        "values": [
+          83.37394714355469,
+          95.43522644042969,
+          197.49240112304688,
+          223.43902587890625,
+          123.46324157714844,
+          102.50946044921875,
+          324.58282470703125,
+          506.3537292480469,
+          848.2982177734375,
+          1084.8463134765625
+        ]
+      },
+      {
+        "easting": 457850.0,
+        "northing": 4432780.0,
+        "row": 202,
+        "column": 902,
+        "values": [
+          63.195011138916016,
+          76.779296875,
+          101.75460052490234,
+          112.466796875,
+          92.56885528564453,
+          85.1263656616211,
+          172.58941650390625,
+          231.4993438720703,
+          334.3126220703125,
+          469.8464660644531
+        ]
+      }
+    ],
+    "normalized_10cm": [
+      {
+        "easting": 457750.0,
+        "northing": 4432750.0,
+        "row": 805,
+        "column": 1255,
+        "values": [
+          115.33650207519531,
+          136.4796600341797,
+          229.8395233154297,
+          258.43896484375,
+          192.03009033203125,
+          172.73831176757812,
+          430.12481689453125,
+          645.4539184570312,
+          1061.506103515625,
+          1408.6767578125
+        ]
+      },
+      {
+        "easting": 457800.0,
+        "northing": 4432700.0,
+        "row": 1305,
+        "column": 1755,
+        "values": [
+          67.43025207519531,
+          73.6817398071289,
+          152.59951782226562,
+          180.96580505371094,
+          99.53167724609375,
+          76.54180908203125,
+          273.8502502441406,
+          435.0444030761719,
+          719.8180541992188,
+          937.0159301757812
+        ]
+      },
+      {
+        "easting": 457850.0,
+        "northing": 4432780.0,
+        "row": 505,
+        "column": 2255,
+        "values": [
+          52.64067459106445,
+          63.670310974121094,
+          94.34099578857422,
+          103.30103302001953,
+          82.38324737548828,
+          75.13520050048828,
+          157.75445556640625,
+          225.82135009765625,
+          338.8934326171875,
+          489.9710998535156
+        ]
+      }
+    ],
+    "georef_rgb_10cm": [
+      {
+        "easting": 457750.0,
+        "northing": 4432750.0,
+        "row": 817,
+        "column": 1272,
+        "values": [
+          142.99435424804688,
+          162.6834716796875,
+          242.91464233398438,
+          268.91485595703125,
+          249.32632446289062,
+          237.38002014160156,
+          435.484130859375,
+          570.3432006835938,
+          776.0299072265625,
+          981.1055908203125
+        ]
+      },
+      {
+        "easting": 457800.0,
+        "northing": 4432700.0,
+        "row": 1317,
+        "column": 1771,
+        "values": [
+          93.4582748413086,
+          106.26304626464844,
+          222.14585876464844,
+          257.8944091796875,
+          146.7241668701172,
+          117.7294921875,
+          430.79315185546875,
+          734.58544921875,
+          1286.4029541015625,
+          1609.9437255859375
+        ]
+      },
+      {
+        "easting": 457850.0,
+        "northing": 4432780.0,
+        "row": 518,
+        "column": 2271,
+        "values": [
+          60.783660888671875,
+          71.04634094238281,
+          94.92398834228516,
+          102.87504577636719,
+          92.65963745117188,
+          81.22607421875,
+          163.93020629882812,
+          225.80909729003906,
+          308.1499328613281,
+          428.1194152832031
+        ]
+      }
+    ],
+    "new_fixed_10cm": [
+      {
+        "easting": 457750.0,
+        "northing": 4432750.0,
+        "row": 805,
+        "column": 1255,
+        "values": [
+          115.33724975585938,
+          136.4797821044922,
+          229.84005737304688,
+          258.43963623046875,
+          192.02931213378906,
+          172.73793029785156,
+          430.1236267089844,
+          645.4528198242188,
+          1061.5126953125,
+          1431.4927978515625
+        ]
+      },
+      {
+        "easting": 457800.0,
+        "northing": 4432700.0,
+        "row": 1305,
+        "column": 1755,
+        "values": [
+          67.42610931396484,
+          73.6775894165039,
+          152.58680725097656,
+          180.9535675048828,
+          99.52135467529297,
+          76.53715515136719,
+          273.8297424316406,
+          435.0146484375,
+          719.742919921875,
+          960.9847412109375
+        ]
+      },
+      {
+        "easting": 457850.0,
+        "northing": 4432780.0,
+        "row": 505,
+        "column": 2255,
+        "values": [
+          52.6386604309082,
+          63.669532775878906,
+          94.33971405029297,
+          103.30020141601562,
+          82.38362121582031,
+          75.14159393310547,
+          157.75973510742188,
+          225.83018493652344,
+          338.894287109375,
+          515.2339477539062
+        ]
+      }
+    ]
+  },
+  "wavelengths_nm": [
+    444,
+    475,
+    531,
+    560,
+    650,
+    668,
+    705,
+    717,
+    740,
+    862
+  ],
+  "working_h5": {
+    "path": "/private/tmp/assumed-viewing-angles-20261103/goldhill_working.h5",
+    "bytes": 425015584,
+    "sha256": "363dc7da0674c13f67d4c58f8d5c67135c25ddc75cc8986c45f7007bf4893e41",
+    "shape": [
+      2238,
+      3165,
+      10
+    ],
+    "dtype": "float32",
+    "attrs": {
+      "Data_Ignore_Value": null,
+      "NoData": null,
+      "Scale_Factor": 1.0,
+      "_FillValue": null,
+      "no_data": null
+    },
+    "ten_cm_tiff_to_working_h5_exact_finite_values_and_missingness": true
+  },
+  "protected_hashes": {
+    "/private/tmp/spectralbridge-scale-confirmation/goldhill-original.tif": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+    "/private/tmp/p168-goldhill-sources/upstream_aligned/aligned_orthomosaic.tif": "a15d8b0a8b23675e70079d27830f2e42e4a6af00ed5b2cc7e387f34c76de2eed",
+    "/private/tmp/p168-goldhill-sources/root_aligned/aligned_orthomosaic.tif": "f21e19dc8161195091888ade3c7088f7af45bb2eabe09825719e0d3473230299",
+    "/private/tmp/spectralbridge-scale-confirmation/base/goldhill.tif": "f21e19dc8161195091888ade3c7088f7af45bb2eabe09825719e0d3473230299",
+    "/private/tmp/spectralbridge-scale-confirmation/rescale/goldhill.tif": "fe5a7070b8042152d1620a887be3fe88c6795204b86f970a653c4039e876b26b",
+    "/private/tmp/p168-goldhill-sources/ten_cm/aligned_orthomosaic.tif": "db134419d475243a237cb643e28f725de136bfb983a5062cd22393714f79f19f",
+    "/private/tmp/p168-goldhill-sources/georef_rgb/goldhill_aop_underflight_georef_to_rgb.tif": "6310293c11e56f0e74353eb61fbd0ae8b8d7c3f8ee4115e4dd1c552e97263c64",
+    "/private/tmp/p168-goldhill-sources/derived_10cm_10k/goldhill_10cm_fixed_10k.tif": "c5d1f3c10bd7c1a17877c67c819b98bd796db11b17d5c8b165c0956f653233e4",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py": "dd4fa94336879cddd6b2d7edc5eb3444f27739ebb8d9aa459b2da15f4217f398",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/corrections.py": "77082e9ee894766e8d70195e69fe54b1addd4b90d107140675455e58af7c3cf6",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/radiometry.py": "713c2e37876a5a673b33aeb123521918742aae6e3a30ca06dc4e7693f9268676",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/neon_cube.py": "0b39c1bc33f23d28f59a0091b0c9c692d6edc7f92db215c2e79f4d69bfd79fc4"
+  },
+  "protected_files_unchanged": true,
+  "source_read_only": true,
+  "production_pipeline_changed": false,
+  "quantile_method": "Exact NumPy quantiles of all finite non-NoData values; explicit alpha/mask subset separately recorded",
+  "normalization_status": "Numeric mapping verified; physical calibration and exact historical export code unresolved",
+  "json_nonfinite_policy": "Nonfinite metadata/sample values stored as null; original source metadata retained unchanged"
+}

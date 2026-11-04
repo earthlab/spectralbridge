@@ -1,0 +1,7 @@
+............................                                             [100%]
+=============================== warnings summary ===============================
+src/spectralbridge/polygons.py:30
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/polygons.py:30: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html

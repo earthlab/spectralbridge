@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="684pt" height="202.896pt" viewBox="0 0 684 202.896" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-04T11:53:48.841582</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.1, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 202.896 
+L 684 202.896 
+L 684 -0 
+L 0 -0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="text_1">
+    <g id="patch_2">
+     <path d="M 49.077812 89.974147 
+L 188.522187 89.974147 
+Q 198.322187 89.974147 198.322187 80.174147 
+L 198.322187 66.173053 
+Q 198.322187 56.373053 188.522187 56.373053 
+L 49.077812 56.373053 
+Q 39.277812 56.373053 39.277812 66.173053 
+L 39.277812 80.174147 
+Q 39.277812 89.974147 49.077812 89.974147 
+z
+" style="fill: #163b4b"/>
+    </g>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="118.8" y="76.810866" transform="rotate(-0 118.8 76.810866)">Raw target criterion</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(88.310234 138.226414)">NDVI &gt; 0.5</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(47.997812 151.429422)">31 x 31 window complete</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(68.670937 164.63243)">red/NIR CV &lt; 0.15</text>
+   </g>
+   <g id="patch_3">
+    <path d="M 214.544953 105.21792 
+Q 230.398445 105.21792 244.01587 105.21792 
+" style="fill: none; stroke: #86949a; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 239.61587 103.01792 
+L 244.01587 105.21792 
+L 239.61587 107.41792 
+" style="fill: none; stroke: #86949a; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <g id="patch_4">
+     <path d="M 253.253125 89.974147 
+L 430.746875 89.974147 
+Q 440.546875 89.974147 440.546875 80.174147 
+L 440.546875 66.173053 
+Q 440.546875 56.373053 430.746875 56.373053 
+L 253.253125 56.373053 
+Q 243.453125 56.373053 243.453125 66.173053 
+L 243.453125 80.174147 
+Q 243.453125 89.974147 253.253125 89.974147 
+z
+" style="fill: #bc403d"/>
+    </g>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="342" y="76.810866" transform="rotate(-0 342 76.810866)">Excluded evaluation area</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(258.135312 144.828348)">Original polygons plus 20-step</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(254.465781 158.031355)">Manhattan dilation (~2 m axes)</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 437.744953 105.21792 
+Q 453.598445 105.21792 467.21587 105.21792 
+" style="fill: none; stroke: #86949a; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 462.81587 103.01792 
+L 467.21587 105.21792 
+L 462.81587 107.41792 
+" style="fill: none; stroke: #86949a; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <g id="patch_6">
+     <path d="M 516.183594 89.974147 
+L 614.216406 89.974147 
+Q 624.016406 89.974147 624.016406 80.174147 
+L 624.016406 66.173053 
+Q 624.016406 56.373053 614.216406 56.373053 
+L 516.183594 56.373053 
+Q 506.383594 56.373053 506.383594 66.173053 
+L 506.383594 80.174147 
+Q 506.383594 89.974147 516.183594 89.974147 
+z
+" style="fill: #318988"/>
+    </g>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="565.2" y="76.810866" transform="rotate(-0 565.2 76.810866)">Conditional fit</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(507.720703 138.226844)">20 m spatial clusters</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(496.093359 151.429852)">same shared kernels and</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(538.9375 164.632859)">reference</text>
+   </g>
+  </g>
+ </g>
+</svg>

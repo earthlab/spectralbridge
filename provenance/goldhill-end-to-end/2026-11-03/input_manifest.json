@@ -1,0 +1,147 @@
+{
+  "protected_hashes": {
+    "/private/tmp/p168-goldhill-sources/derived_10cm_10k/goldhill_10cm_fixed_10k.tif": "c5d1f3c10bd7c1a17877c67c819b98bd796db11b17d5c8b165c0956f653233e4",
+    "/private/tmp/p168-goldhill-sources/ten_cm/aligned_orthomosaic.tif": "db134419d475243a237cb643e28f725de136bfb983a5062cd22393714f79f19f",
+    "/private/tmp/spectralbridge-scale-confirmation/goldhill-original.tif": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+    "/private/tmp/assumed-viewing-angles-20261103/goldhill_working.h5": "363dc7da0674c13f67d4c58f8d5c67135c25ddc75cc8986c45f7007bf4893e41",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg": "d9fe2108538179b7cde107123e965b3d0075dcb65ec488fd03b8480b34dc6ebb",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-radiometric-recovery/2026-11-02/historical_corrections.py": "839cdf2b7264c5af53902c08994144c776f94f5a59f31dc42bd1574002998a42",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-correction-diagnosis/2026-10-30/saved_production_brdf_model.json": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee",
+    "/Users/tuff/Downloads/AOP-GOLDHILL-camera_locations.csv": "3cc4505e80353b50bb04b530e369e168d258724047f2903a7262c5ca9d4ce53d",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/normalized_raw.npy": "15c90dfa79cfe71f0caa25b107ce779f013a31fa48b593ac8faf68af820dedc2",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/normalized_topo.npy": "3955a5755686ee991b67ca5f46cbba003443f355bdd139ca380c695342a06412",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/normalized_brdf.npy": "d85f94a53942cd18a61b7bf4eb0194e647570db0357eba9ef3e103505b111c45",
+    "/private/tmp/goldhill-radiometric-recovery-20261102/normalized_combined.npy": "c40b30b231dd391548c13b6330fbeffb5fd316e2bbca37045d2f355b9f51f3fb",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/corrections.py": "77082e9ee894766e8d70195e69fe54b1addd4b90d107140675455e58af7c3cf6",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py": "dd4fa94336879cddd6b2d7edc5eb3444f27739ebb8d9aa459b2da15f4217f398",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/radiometry.py": "713c2e37876a5a673b33aeb123521918742aae6e3a30ca06dc4e7693f9268676",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/library_analysis.py": "1de4bbf468d02b400c9b0cf0b2eb88ca3056814c139d808978c798b1326b8261",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/polygons.py": "978919bd1fd1b628e7bcfe3414e04e691166fb3ef93594b9947c103959df95a6",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/drone_translation.py": "2de9aa2393c25fd1c200bc10f682ce1a70afbeaad33b58ab52333015a5d9ca5d"
+  },
+  "repository_revision": "2444902440a48453ed14855473d3250020ba8bb3",
+  "source_derivative_record": {
+    "source": "/private/tmp/spectralbridge-scale-confirmation/goldhill-original.tif",
+    "source_sha256": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+    "target_grid_template": "/private/tmp/p168-goldhill-sources/ten_cm/aligned_orthomosaic.tif",
+    "output": "/private/tmp/p168-goldhill-sources/derived_10cm_10k/goldhill_10cm_fixed_10k.tif",
+    "numeric_equation": "S = DN * 10000 / 65535",
+    "numeric_multiplier": 0.15259021896696423,
+    "numeric_offset": 0,
+    "physical_calibration": "UNVERIFIED; numerical encoding is not a physical calibration",
+    "radiometry": {
+      "scale": null,
+      "offset": null,
+      "status": "UNSUPPORTED",
+      "provenance": "Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable",
+      "convention": "physical = scale * stored + offset",
+      "encoding": {
+        "kind": "range_normalized_dn",
+        "stored_units": "fixed UInt16-range DN encoded 0\u201310000; no minimum subtraction",
+        "physical_calibration_status": "UNVERIFIED",
+        "nodata": "NaN",
+        "normalization": {
+          "stored_min": 0,
+          "stored_max": 10000,
+          "source_min": 0,
+          "source_max": 65535
+        },
+        "quality_mask": {
+          "status": "DOCUMENTED",
+          "provenance": "Source declared alpha, nearest target footprint and finite bilinear interpolation",
+          "convention": "GDAL mask true/255 means valid"
+        }
+      }
+    },
+    "shape": [
+      2238,
+      3165,
+      10
+    ],
+    "crs": "EPSG:26913",
+    "transform": [
+      0.09999999999996322,
+      0.0,
+      457624.5,
+      0.0,
+      -0.09999999999991677,
+      4432830.55,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "resolution": [
+      0.09999999999996322,
+      0.09999999999991677
+    ],
+    "valid_pixels": 6683944,
+    "bands": [
+      {
+        "band": 1,
+        "minimum": 0.40175607800483704,
+        "maximum": 923.9423828125,
+        "finite_pixels": 6683944
+      },
+      {
+        "band": 2,
+        "minimum": 1.4291599988937378,
+        "maximum": 1064.1827392578125,
+        "finite_pixels": 6683944
+      },
+      {
+        "band": 3,
+        "minimum": 0.2830751836299896,
+        "maximum": 1323.599853515625,
+        "finite_pixels": 6683944
+      },
+      {
+        "band": 4,
+        "minimum": 0.0,
+        "maximum": 1586.2022705078125,
+        "finite_pixels": 6683944
+      },
+      {
+        "band": 5,
+        "minimum": 0.007147318217903376,
+        "maximum": 1890.0892333984375,
+        "finite_pixels": 6683944
+      },
+      {
+        "band": 6,
+        "minimum": 0.0,
+        "maximum": 1905.718017578125,
+        "finite_pixels": 6683944
+      },
+      {
+        "band": 7,
+        "minimum": 0.006720083765685558,
+        "maximum": 2024.23779296875,
+        "finite_pixels": 6683944
+      },
+      {
+        "band": 8,
+        "minimum": 0.22550104558467865,
+        "maximum": 2087.282470703125,
+        "finite_pixels": 6683944
+      },
+      {
+        "band": 9,
+        "minimum": 1.8979921340942383,
+        "maximum": 2543.564453125,
+        "finite_pixels": 6683944
+      },
+      {
+        "band": 10,
+        "minimum": 47.30014419555664,
+        "maximum": 3139.8310546875,
+        "finite_pixels": 6683944
+      }
+    ],
+    "clipping": "NONE",
+    "rounding": "Float32 arithmetic only; no integer quantization",
+    "storage": "Float32 GeoTIFF, NaN NoData, internal GDAL validity mask",
+    "production_pipeline_changed": false,
+    "output_sha256": "c5d1f3c10bd7c1a17877c67c819b98bd796db11b17d5c8b165c0956f653233e4"
+  },
+  "production_code_changes": false
+}

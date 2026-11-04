@@ -1,0 +1,77 @@
+{
+  "status": "EXECUTED_NUMERICAL_AND_HYPOTHETICAL_DIAGNOSTICS_ONLY",
+  "calibration_status": "HYPOTHETICAL_UNVERIFIED",
+  "checks": [
+    {
+      "wavelength_nm": 444,
+      "max_decode_error": 0.0,
+      "max_roundtrip_stored_error": 6.103515625e-05,
+      "mask_exact": true
+    },
+    {
+      "wavelength_nm": 475,
+      "max_decode_error": 0.0,
+      "max_roundtrip_stored_error": 6.103515625e-05,
+      "mask_exact": true
+    },
+    {
+      "wavelength_nm": 531,
+      "max_decode_error": 0.0,
+      "max_roundtrip_stored_error": 0.0001220703125,
+      "mask_exact": true
+    },
+    {
+      "wavelength_nm": 560,
+      "max_decode_error": 0.0,
+      "max_roundtrip_stored_error": 0.0001220703125,
+      "mask_exact": true
+    },
+    {
+      "wavelength_nm": 650,
+      "max_decode_error": 0.0,
+      "max_roundtrip_stored_error": 0.0001220703125,
+      "mask_exact": true
+    },
+    {
+      "wavelength_nm": 668,
+      "max_decode_error": 0.0,
+      "max_roundtrip_stored_error": 0.0001220703125,
+      "mask_exact": true
+    },
+    {
+      "wavelength_nm": 705,
+      "max_decode_error": 0.0,
+      "max_roundtrip_stored_error": 0.0001220703125,
+      "mask_exact": true
+    },
+    {
+      "wavelength_nm": 717,
+      "max_decode_error": 0.0,
+      "max_roundtrip_stored_error": 0.0001220703125,
+      "mask_exact": true
+    },
+    {
+      "wavelength_nm": 740,
+      "max_decode_error": 0.0,
+      "max_roundtrip_stored_error": 0.0001220703125,
+      "mask_exact": true
+    },
+    {
+      "wavelength_nm": 862,
+      "max_decode_error": 0.0,
+      "max_roundtrip_stored_error": 0.000244140625,
+      "mask_exact": true
+    }
+  ],
+  "physical_conversion_exactly_once": true,
+  "source_valid_pixels": 6683944,
+  "orientation_preserved": true,
+  "production_sensor_views_created": false,
+  "source_h5": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/goldhill_clean_hypothesis.h5",
+  "raw_envi": [
+    "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/GOLDHILL_CLEAN_CONDITIONAL/GOLDHILL_CLEAN_CONDITIONAL_envi.img",
+    "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/GOLDHILL_CLEAN_CONDITIONAL/GOLDHILL_CLEAN_CONDITIONAL_envi.hdr"
+  ],
+  "producer_status": "incomplete",
+  "no_official_library_created": true
+}

@@ -1,0 +1,22 @@
+2026-11-03 13:19:26,870 INFO NeonCube: loaded 2238x3165x10 ~0.26 GB into memory (float32) from goldhill_working.h5
+2026-11-03 13:19:27,014 INFO NeonCube: loaded 2238x3165x10 ~0.26 GB into memory (float32) from new_source.h5
+2026-11-03 13:19:27,019 INFO [drone] H5 → ENVI: reused (AOP_GOLDHILL_FIXED10K_20230814_envi.img / AOP_GOLDHILL_FIXED10K_20230814_envi.hdr)
+PRODUCTION A_raw
+2026-11-03 13:19:28,601 INFO [drone] corrected ENVI: complete (uncorrected copy)
+PRODUCTION B_topographic
+PRODUCTION C_brdf
+PRODUCTION D_combined
+PRODUCTION B_direct_scs_c_fit
+PRODUCTION C_direct_brdf_fit
+PRODUCTION polygon index
+2026-11-03 13:19:28,888 INFO [polygons-index] Reusing existing index → /private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_polygon_pixel_index.parquet
+PRODUCTION F_physical_polygon_library
+PRODUCTION E_Landsat_8_OLI
+PRODUCTION E_numerical_MicaSense_to-match_OLI_and_OLI-2
+PRODUCTION E_Landsat_9_OLI-2
+PRODUCTION E_Landsat_5_TM
+PRODUCTION E_numerical_MicaSense_to-match_TM_and_ETM+
+PRODUCTION E_Landsat_7_ETM+
+DIAGNOSTIC historical SCS+C fit
+2026-11-03 13:19:29,508 INFO Scene SCS+C fit complete: C finite bands=10/10 (min=-0.3719 max=0.3142)
+Pipeline exercise and isolated historical replays complete

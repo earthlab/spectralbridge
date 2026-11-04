@@ -1,0 +1,7 @@
+transformation,status,evidence,limitation
+inverse historical min-adjusted encoding,NUMERICALLY_VERIFIED,paired archived H5 equation residual <=0.000781 stored units,does not verify physical calibration
+clean source zero-offset 10K conversion,NUMERICALLY_VERIFIED,DN *10000/65535; candidate scale .0001999969482421875,candidate DN/32768 remains conditional
+alpha-aware interpolation,NUMERICALLY_VERIFIED,source mask excluded background before resampling,not a calibration procedure
+band-specific affine decode,REGRESSION_TESTED,"per-band scale/offset, NoData and chunk tests",synthetic fixtures establish code contract
+DN/32768 physical interpretation,HYPOTHETICAL_UNVERIFIED,plausibility and source encoding recovery,no applied Goldhill panel/DLS/export chain
+2021 calibration sample to2023 Goldhill,UNSUPPORTED,sample has MicaSense tags but different acquisition,cannot certify Goldhill calibration

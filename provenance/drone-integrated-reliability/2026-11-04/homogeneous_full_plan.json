@@ -1,0 +1,7 @@
+{
+  "criterion": "RawNDVI>.5; complete31x31nativepixel window (~3.1m); red andNIRCV<.15; exclude evaluation-index pixels and20Manhattan-pixel dilation",
+  "fit_pixels": 730022,
+  "source": "uncorrected candidate signal only",
+  "classifier_tuning": false,
+  "scientific_status": "EXPERIMENTAL"
+}

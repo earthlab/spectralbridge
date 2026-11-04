@@ -1,0 +1,400 @@
+{
+  "platform": "drone",
+  "processed": [],
+  "blocked": [
+    {
+      "input": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/goldhill_clean_hypothesis_timed.h5",
+      "error": "Radiometry HYPOTHETICAL_UNVERIFIED: authoritative physical scale, offset, units and provenance required (P172 isolated MicaSense_Metashape_DN_32768 hypothesis)."
+    }
+  ],
+  "failed": [],
+  "outputs": [],
+  "translation_outputs": [],
+  "matched_source_outputs": [],
+  "translated_libraries": [],
+  "merged": null,
+  "merged_csv": null,
+  "translated_merged": null,
+  "qa_summary": {
+    "platform": "drone",
+    "execution_status": "completed",
+    "scientific_qa_status": "blocked",
+    "spectral_branch": "affine_cross_sensor_translation",
+    "brightness_offset": 0.0,
+    "brightness_adjustment_requested": false,
+    "brightness_adjustment_applied": false,
+    "cloud_mask_applied": false,
+    "ndvi_brdf_bins_enabled": false,
+    "drone_manifest_path": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/conditional_UTC_timestamp_scenario.csv",
+    "drone_manifest_timezone": "UTC",
+    "require_solar_geometry": true,
+    "extraction_mode": "polygon",
+    "parquet_chunk_size": 2048,
+    "merge_extractions": false,
+    "translation_requested": true,
+    "translation_coefficient_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_translation_coefficients_v1.json",
+    "translation_weighting": "site_balanced",
+    "translation_strict": false,
+    "landsat_qa_requested": false,
+    "landsat_product": null,
+    "landsat_search_days": 16,
+    "comparison_neon_product": null,
+    "files": [
+      {
+        "platform": "drone",
+        "flight_stem": "production_attempt",
+        "flight_dir": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/production_attempt",
+        "source_package": "production_attempt",
+        "source_package_path": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt",
+        "input_source_type": "h5",
+        "input_source_filename": "goldhill_clean_hypothesis_timed.h5",
+        "input_source_path": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/goldhill_clean_hypothesis_timed.h5",
+        "drone_manifest_path": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/conditional_UTC_timestamp_scenario.csv",
+        "manifest_flight_datetime": "2023-08-15T19:53:07+00:00",
+        "acquisition_timezone": "UTC",
+        "acquisition_datetime_source": "drone_manifest",
+        "input_h5_filename": "goldhill_clean_hypothesis_timed.h5",
+        "input_h5_path": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/goldhill_clean_hypothesis_timed.h5",
+        "base_name": "production_attempt",
+        "flags": {
+          "topo_requested": true,
+          "brdf_requested": true,
+          "ndvi_brdf_bins_enabled": false,
+          "topo_ready": false,
+          "brdf_ready": false,
+          "correction_failed": true,
+          "brightness_requested": false,
+          "brightness_applied": false,
+          "cloud_applied": false,
+          "translation_requested": true,
+          "translation_applied": false,
+          "topo_applied": false,
+          "brdf_applied": false,
+          "reused_existing_corrected": false,
+          "topo_fallback_due_to_nodata": false,
+          "brdf_fallback_due_to_nodata": false
+        },
+        "working_h5_filename": "production_attempt__working.h5",
+        "working_h5_path": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/production_attempt/production_attempt__working.h5",
+        "working_raster": "production_attempt__envi.img",
+        "working_raster_path": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/production_attempt/production_attempt__envi.img",
+        "corrected_raster": "production_attempt__corrected.img",
+        "corrected_raster_path": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/production_attempt/production_attempt__corrected.img",
+        "polygon_filename": "production_attempt__polygons.parquet",
+        "polygon_path": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/production_attempt/production_attempt__polygons.parquet",
+        "polygon_csv_filename": null,
+        "polygon_csv_path": null,
+        "polygon_csv_error": null,
+        "polygon_index_filename": "production_attempt__polygon_index.parquet",
+        "polygon_index_path": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/production_attempt/production_attempt__polygon_index.parquet",
+        "overlay_debug_filename": "production_attempt__overlay_debug.png",
+        "overlay_debug_path": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/production_attempt/production_attempt__overlay_debug.png",
+        "qa_plot_filename": "production_attempt__qa.png",
+        "qa_json_filename": "production_attempt__qa.json",
+        "qa_plot_path": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/production_attempt/production_attempt__qa.png",
+        "qa_json_path": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/production_attempt/production_attempt__qa.json",
+        "merged_filename": null,
+        "merged_csv_filename": null,
+        "merged_csv_path": null,
+        "merged_csv_error": null,
+        "correction_failure_reason": "Radiometry HYPOTHETICAL_UNVERIFIED: authoritative physical scale, offset, units and provenance required (P172 isolated MicaSense_Metashape_DN_32768 hypothesis).",
+        "correction_status_source": "live_run",
+        "polygon_extraction_attempted": false,
+        "polygon_extraction_ran": false,
+        "polygon_extraction_skipped_reason": null,
+        "full_extraction_filename": null,
+        "full_extraction_path": null,
+        "full_extraction_csv_filename": null,
+        "full_extraction_csv_path": null,
+        "full_extraction_csv_error": null,
+        "extraction_mode": "polygon",
+        "translation_products": [],
+        "matched_source_products": [],
+        "translated_library_paths": [],
+        "translation_qa_paths": [],
+        "publication_figure_paths": [],
+        "status": "blocked_scientific",
+        "prepared_h5_filename": "production_attempt__working.h5",
+        "prepared_h5_path": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/production_attempt/production_attempt__working.h5",
+        "nodata_patch_applied": false,
+        "solar_geometry_source": "embedded_validated",
+        "acquisition_datetime_used": "2023-08-15T19:53:07+00:00",
+        "solar_zenith_mean": 27.764940582066874,
+        "solar_zenith_min": 27.763427734375,
+        "solar_zenith_max": 27.766454696655273,
+        "solar_azimuth_mean": 204.69581010677427,
+        "solar_azimuth_min": 204.6913604736328,
+        "solar_azimuth_max": 204.70025634765625,
+        "solar_geometry_validation": {
+          "acquisition_datetime_source": "drone_manifest",
+          "acquisition_datetime_used": "2023-08-15T19:53:07+00:00",
+          "acquisition_timezone": "UTC",
+          "blocking_reason_code": null,
+          "circular_azimuth_difference": -5.933264787927328e-06,
+          "coordinate_source": "h5_coordinate_system",
+          "correction_eligible": true,
+          "embedded_solar_azimuth_summary": {
+            "max": 204.70025634765625,
+            "mean": 204.69581010677427,
+            "min": 204.6913604736328
+          },
+          "embedded_solar_zenith_summary": {
+            "max": 27.766454696655273,
+            "mean": 27.764940582066874,
+            "min": 27.763427734375
+          },
+          "expected_solar_azimuth": 204.69581604003906,
+          "expected_solar_zenith": 27.76494026184082,
+          "geometry_actually_used": "embedded_validated",
+          "repair_allowed": false,
+          "scene_center_latitude": 40.043644904839546,
+          "scene_center_longitude": -105.49489532321702,
+          "solar_geometry_repair_reason": null,
+          "solar_geometry_repaired": false,
+          "solar_geometry_source": "embedded_validated",
+          "solar_geometry_validation_status": "VALIDATED",
+          "source_h5": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/goldhill_clean_hypothesis_timed.h5",
+          "source_h5_fingerprint": {
+            "modified_time_ns": 1793756435117972278,
+            "path": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/goldhill_clean_hypothesis_timed.h5",
+            "size_bytes": 432098854
+          },
+          "zenith_difference": 3.202260536738777e-07
+        },
+        "solar_geometry_consistency": {
+          "solar_geometry_source": "embedded_validated",
+          "acquisition_datetime_used": "2023-08-15T19:53:07+00:00",
+          "solar_zenith_mean": 27.764940582066874,
+          "solar_zenith_min": 27.763427734375,
+          "solar_zenith_max": 27.766454696655273,
+          "solar_azimuth_mean": 204.69581010677427,
+          "solar_azimuth_min": 204.6913604736328,
+          "solar_azimuth_max": 204.70025634765625,
+          "solar_geometry_validation": {
+            "acquisition_datetime_source": "drone_manifest",
+            "acquisition_datetime_used": "2023-08-15T19:53:07+00:00",
+            "acquisition_timezone": "UTC",
+            "blocking_reason_code": null,
+            "circular_azimuth_difference": -5.933264787927328e-06,
+            "coordinate_source": "h5_coordinate_system",
+            "correction_eligible": true,
+            "embedded_solar_azimuth_summary": {
+              "max": 204.70025634765625,
+              "mean": 204.69581010677427,
+              "min": 204.6913604736328
+            },
+            "embedded_solar_zenith_summary": {
+              "max": 27.766454696655273,
+              "mean": 27.764940582066874,
+              "min": 27.763427734375
+            },
+            "expected_solar_azimuth": 204.69581604003906,
+            "expected_solar_zenith": 27.76494026184082,
+            "geometry_actually_used": "embedded_validated",
+            "repair_allowed": false,
+            "scene_center_latitude": 40.043644904839546,
+            "scene_center_longitude": -105.49489532321702,
+            "solar_geometry_repair_reason": null,
+            "solar_geometry_repaired": false,
+            "solar_geometry_source": "embedded_validated",
+            "solar_geometry_validation_status": "VALIDATED",
+            "source_h5": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/goldhill_clean_hypothesis_timed.h5",
+            "source_h5_fingerprint": {
+              "modified_time_ns": 1793756435117972278,
+              "path": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/goldhill_clean_hypothesis_timed.h5",
+              "size_bytes": 432098854
+            },
+            "zenith_difference": 3.202260536738777e-07
+          },
+          "h5_path": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/production_attempt/production_attempt__working.h5",
+          "acquisition_datetime": "2023-08-15T19:53:07+00:00",
+          "datetime_timezone_interpretation": "timezone-aware",
+          "scene_center_latitude": 40.043644904839546,
+          "scene_center_longitude": -105.49489532321702,
+          "source_solar_zenith": {
+            "path": "/derived_10cm_10k/Reflectance/Metadata/Solar_Zenith_Angle",
+            "dtype": "float32",
+            "shape": [
+              2238,
+              3165
+            ],
+            "attributes": {}
+          },
+          "source_solar_azimuth": {
+            "path": "/derived_10cm_10k/Reflectance/Metadata/Solar_Azimuth_Angle",
+            "dtype": "float32",
+            "shape": [
+              2238,
+              3165
+            ],
+            "attributes": {}
+          },
+          "expected_solar_zenith_deg": 27.76494026184082,
+          "expected_solar_azimuth_deg": 204.69581604003906,
+          "solar_zenith_difference_deg": 3.202260536738777e-07,
+          "solar_azimuth_difference_deg": -5.933264787927328e-06,
+          "supplied_solar_azimuth_circular_mean_deg": 204.69581010677427,
+          "candidate_positions": {
+            "timezone-aware": {
+              "datetime_utc": "2023-08-15T19:53:07+00:00",
+              "zenith_deg": 27.76494026184082,
+              "azimuth_deg": 204.69581604003906,
+              "zenith_difference_deg": 3.202260536738777e-07,
+              "azimuth_difference_deg": -5.933264787927328e-06
+            }
+          },
+          "solar_geometry_consistency_status": "PASS",
+          "solar_geometry_consistency_reason": "Provisional scene-center comparison: maximum angular residual 0.00 degrees (review bands 5/20 degrees; correction geometry unchanged)"
+        },
+        "radiometry": {
+          "scale": 0.0001999969482421875,
+          "offset": 0.0,
+          "status": "HYPOTHETICAL_UNVERIFIED",
+          "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+          "convention": "physical = scale * stored + offset",
+          "encoding": {
+            "kind": "unknown",
+            "source_units": "unverified source units",
+            "stored_units": "unknown numerical encoding",
+            "scale_direction": "multiplier",
+            "physical_calibration_status": "UNVERIFIED",
+            "valid_numerical_range": null,
+            "source_units_attribute": "not supplied",
+            "source_dtype": "float32",
+            "nodata": "NaN",
+            "saturation": {
+              "status": "NOT_PROVIDED"
+            },
+            "quality_mask": {
+              "status": "DOCUMENTED",
+              "provenance": "TIFF per-band GDAL masks and declared alpha; finite source samples",
+              "convention": "true means valid"
+            },
+            "source_valid_mask_path": "/derived_10cm_10k/Reflectance/Metadata/Source_Valid_Mask",
+            "source_spectral_band_indices": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "source_alpha_band_indices": []
+          }
+        },
+        "resolved_band_map": {
+          "blue": {
+            "index": 0,
+            "wavelength": 444.0
+          },
+          "green": {
+            "index": 3,
+            "wavelength": 560.0
+          },
+          "red": {
+            "index": 4,
+            "wavelength": 650.0
+          },
+          "nir": {
+            "index": 9,
+            "wavelength": 862.0
+          }
+        },
+        "metadata": {
+          "lines": 2238,
+          "samples": 3165,
+          "bands": 10,
+          "wavelength_units": "nanometers",
+          "nodata": null
+        },
+        "brdf_status": "UNSUPPORTED",
+        "error": "Radiometry HYPOTHETICAL_UNVERIFIED: authoritative physical scale, offset, units and provenance required (P172 isolated MicaSense_Metashape_DN_32768 hypothesis).",
+        "execution_status": "completed",
+        "scientific_qa_status": "blocked",
+        "elapsed_seconds": 0.7
+      }
+    ],
+    "schema_version": 2,
+    "run_id": "7556ef4c780fa68af436e368fb6554261b4ad1441e74183881415405601e9b6c",
+    "created_utc": "2026-11-04T01:43:55.975402+00:00",
+    "spectralbridge_version": "2.3.0rc1",
+    "source_fingerprints": [
+      {
+        "path": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/goldhill_clean_hypothesis_timed.h5",
+        "size_bytes": 432098854,
+        "modified_time_ns": 1793756435117972278
+      },
+      {
+        "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+        "size_bytes": 1257472,
+        "modified_time_ns": 1774129807657191520
+      },
+      {
+        "path": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/conditional_UTC_timestamp_scenario.csv",
+        "size_bytes": 110,
+        "modified_time_ns": 1793756635969821206
+      },
+      {
+        "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_translation_coefficients_v1.json",
+        "size_bytes": 34252,
+        "modified_time_ns": 1789677882329817185
+      }
+    ],
+    "configuration": {
+      "apply_topo": true,
+      "apply_brdf": true,
+      "use_ndvi_brdf_bins": false,
+      "extraction_mode": "polygon",
+      "merge_extractions": false,
+      "translation_requested": true,
+      "translation_weighting": "site_balanced",
+      "translation_strict": false,
+      "landsat_qa": false,
+      "landsat_search_days": 16,
+      "require_solar_geometry": true
+    },
+    "discovered_total": 1,
+    "attempted_total": 1,
+    "run_root": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario",
+    "polygon_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+    "input_source_path": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/goldhill_clean_hypothesis_timed.h5",
+    "input_source_path_resolved": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/goldhill_clean_hypothesis_timed.h5",
+    "input_source_path_exists": true,
+    "input_source_path_type": "file",
+    "supported_input_extensions": [
+      ".h5",
+      ".tif",
+      ".tiff"
+    ],
+    "total_wall_time_seconds": 0.708,
+    "average_successful_flight_seconds": null,
+    "merged_path": null,
+    "translated_merged_path": null,
+    "status_counts": {
+      "success_extracted": 0,
+      "success_qa_only_no_polygon_overlap": 0,
+      "success_qa_only_no_polygons": 0,
+      "blocked_scientific": 1,
+      "failed_other": 0
+    },
+    "success_count": 0,
+    "success_extracted_count": 0,
+    "success_qa_only_no_polygon_overlap_count": 0,
+    "success_qa_only_no_polygons_count": 0,
+    "skipped_no_polygon_overlap_count": 0,
+    "failed_other_count": 0,
+    "blocked_scientific_count": 1,
+    "status": "incomplete",
+    "qa_summary_pdf": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/qa_summary.pdf",
+    "qa_summary_pdf_filename": "qa_summary.pdf",
+    "qa_summary_figure": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/qa/summary/drone_qa_summary.png",
+    "qa_report_stage": "complete"
+  },
+  "status": "incomplete",
+  "qa_summary_path": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/drone_qa_summary.json",
+  "qa_summary_pdf": "/private/tmp/goldhill-clean-source-brdf-20261103/producer_run_utc_scenario/qa_summary.pdf"
+}

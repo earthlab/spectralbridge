@@ -1,0 +1,98 @@
+[
+  {
+    "branch": "clean_raw",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6829838142153414,
+    "mean_fold_balanced_accuracy": 0.6907354797979798,
+    "polygons": 157,
+    "memberships": 142637
+  },
+  {
+    "branch": "historical_BRDF",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.5996059113300493,
+    "mean_fold_balanced_accuracy": 0.5801294191919192,
+    "polygons": 157,
+    "memberships": 142637
+  },
+  {
+    "branch": "topographic_only",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6420161857846587,
+    "mean_fold_balanced_accuracy": 0.657801978114478,
+    "polygons": 157,
+    "memberships": 142637
+  },
+  {
+    "branch": "baseline_BRDF",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6939479239971851,
+    "mean_fold_balanced_accuracy": 0.7035037878787879,
+    "polygons": 157,
+    "memberships": 142637
+  },
+  {
+    "branch": "baseline_combined",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.640432793807178,
+    "mean_fold_balanced_accuracy": 0.6502472643097644,
+    "polygons": 157,
+    "memberships": 142637
+  },
+  {
+    "branch": "conditioned_topography",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6520161857846587,
+    "mean_fold_balanced_accuracy": 0.6682186447811448,
+    "polygons": 157,
+    "memberships": 142637
+  },
+  {
+    "branch": "controlled_OLS_BRDF",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6939479239971851,
+    "mean_fold_balanced_accuracy": 0.7035037878787879,
+    "polygons": 157,
+    "memberships": 142637
+  },
+  {
+    "branch": "controlled_cluster_BRDF",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6939479239971851,
+    "mean_fold_balanced_accuracy": 0.7035037878787879,
+    "polygons": 157,
+    "memberships": 142637
+  },
+  {
+    "branch": "conditioned_combined_OLS",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.664155524278677,
+    "mean_fold_balanced_accuracy": 0.6741266835016836,
+    "polygons": 157,
+    "memberships": 142637
+  },
+  {
+    "branch": "conditioned_combined_cluster",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.664155524278677,
+    "mean_fold_balanced_accuracy": 0.6741266835016836,
+    "polygons": 157,
+    "memberships": 142637
+  },
+  {
+    "branch": "homogeneous_BRDF",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6276741731175229,
+    "mean_fold_balanced_accuracy": 0.642376893939394,
+    "polygons": 157,
+    "memberships": 142637
+  },
+  {
+    "branch": "homogeneous_conditioned_combined",
+    "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+    "balanced_accuracy": 0.6416045038705138,
+    "mean_fold_balanced_accuracy": 0.6576336279461279,
+    "polygons": 157,
+    "memberships": 142637
+  }
+]

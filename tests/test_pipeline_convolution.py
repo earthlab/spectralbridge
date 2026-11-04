@@ -11,7 +11,7 @@ import types
 import numpy as np
 
 import pytest
-from spectralbridge.corrections import BRDF_KERNEL_MATH_VERSION
+from spectralbridge.corrections import BRDF_KERNEL_MATH_VERSION, BRDF_VALIDATION_POLICY
 
 if "h5py" not in sys.modules:  # pragma: no cover - dependency shim for unit tests
     fake_h5py = types.ModuleType("h5py")
@@ -141,7 +141,7 @@ def test_pipeline_idempotence_skip_behavior(
         *sensor_pairs,
     ]
 
-    corrected_hdr.write_text(f"ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic restart fixture\nbrdf status = VALID\nbrdf model schema = 2\nbrdf kernel math version = {BRDF_KERNEL_MATH_VERSION}\n")
+    corrected_hdr.write_text(f"ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic restart fixture\nbrdf status = VALID\nbrdf model schema = 2\nbrdf kernel math version = {BRDF_KERNEL_MATH_VERSION}\nbrdf validation policy = {BRDF_VALIDATION_POLICY}\n")
     for header in [raw_hdr, *[p for p in sensor_pairs if p.suffix == ".hdr"]]:
         header.write_text("ENVI\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic restart fixture\nbrdf status = NOT_REQUESTED\n")
     before_stats = _snapshot_stats(preexisting_paths)

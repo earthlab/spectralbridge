@@ -1,0 +1,213 @@
+{
+  "status": "IMPLEMENTED_EXPERIMENTAL_NATIVE_CORRECTIONS_PRODUCTION_UNVERIFIED",
+  "calibration": "HYPOTHETICAL_UNVERIFIED",
+  "geometry": "INFERRED_NADIR_NOT_VERIFIED_CONTRIBUTORS",
+  "native_corrected_images": 8,
+  "main_fits_all_numerical_guards_pass": true,
+  "source_pixels": 6683905,
+  "stable_rank": 3,
+  "production_approved": false,
+  "old_red_line_pole_absent_in_experimental_BRDF_only": true,
+  "new_hard_assignment_seams_detected": true,
+  "combined_topographic_instability_remains": true,
+  "BRDF_disabled": false,
+  "kernel_math_changed": false,
+  "PFT_tuned_parameters": false,
+  "classes_and_memberships_unchanged": true,
+  "pages": 18,
+  "figures": 14,
+  "classification": {
+    "clean_raw": {
+      "branch": "clean_raw",
+      "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+      "balanced_accuracy": 0.6682934553131599,
+      "mean_fold_balanced_accuracy": 0.6766729797979797,
+      "polygons": 157,
+      "memberships": 144406
+    },
+    "historical_BRDF": {
+      "branch": "historical_BRDF",
+      "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+      "balanced_accuracy": 0.5996059113300493,
+      "mean_fold_balanced_accuracy": 0.5801294191919192,
+      "polygons": 157,
+      "memberships": 144406
+    },
+    "topographic_only": {
+      "branch": "topographic_only",
+      "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+      "balanced_accuracy": 0.717121745249824,
+      "mean_fold_balanced_accuracy": 0.7178188131313131,
+      "polygons": 157,
+      "memberships": 144406
+    },
+    "A_brdf": {
+      "branch": "A_brdf",
+      "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+      "balanced_accuracy": 0.6980858550316679,
+      "mean_fold_balanced_accuracy": 0.7064393939393939,
+      "polygons": 157,
+      "memberships": 144406
+    },
+    "A_combined": {
+      "branch": "A_combined",
+      "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+      "balanced_accuracy": 0.6729838142153414,
+      "mean_fold_balanced_accuracy": 0.6814762205387206,
+      "polygons": 157,
+      "memberships": 144406
+    },
+    "B_brdf": {
+      "branch": "B_brdf",
+      "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+      "balanced_accuracy": 0.694567206192822,
+      "mean_fold_balanced_accuracy": 0.7019991582491582,
+      "polygons": 157,
+      "memberships": 144406
+    },
+    "B_combined": {
+      "branch": "B_combined",
+      "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+      "balanced_accuracy": 0.6829838142153414,
+      "mean_fold_balanced_accuracy": 0.6918928872053872,
+      "polygons": 157,
+      "memberships": 144406
+    },
+    "C_uniform_brdf": {
+      "branch": "C_uniform_brdf",
+      "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+      "balanced_accuracy": 0.6713969035890218,
+      "mean_fold_balanced_accuracy": 0.6813026094276093,
+      "polygons": 157,
+      "memberships": 144406
+    },
+    "C_uniform_combined": {
+      "branch": "C_uniform_combined",
+      "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+      "balanced_accuracy": 0.6145707248416608,
+      "mean_fold_balanced_accuracy": 0.6253261784511784,
+      "polygons": 157,
+      "memberships": 144406
+    },
+    "C_center_brdf": {
+      "branch": "C_center_brdf",
+      "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+      "balanced_accuracy": 0.6964989444053483,
+      "mean_fold_balanced_accuracy": 0.7061079545454545,
+      "polygons": 157,
+      "memberships": 144406
+    },
+    "C_center_combined": {
+      "branch": "C_center_combined",
+      "status": "CONDITIONAL_EXPERIMENTAL_DIAGNOSTIC",
+      "balanced_accuracy": 0.6171217452498241,
+      "mean_fold_balanced_accuracy": 0.627851430976431,
+      "polygons": 157,
+      "memberships": 144406
+    }
+  },
+  "paired_gain": {
+    "clean_raw": {
+      "branch": "clean_raw",
+      "difference": 0.0,
+      "low": 0.0,
+      "high": 0.0,
+      "changed_predictions": 0
+    },
+    "historical_BRDF": {
+      "branch": "historical_BRDF",
+      "difference": -0.06868754398311047,
+      "low": -0.1899005981703026,
+      "high": 0.05134007741027442,
+      "changed_predictions": 33
+    },
+    "topographic_only": {
+      "branch": "topographic_only",
+      "difference": 0.048828289936664326,
+      "low": -0.029605383532723434,
+      "high": 0.15474208304011255,
+      "changed_predictions": 26
+    },
+    "A_brdf": {
+      "branch": "A_brdf",
+      "difference": 0.02979239971850809,
+      "low": -0.002551020408163265,
+      "high": 0.06664250527797325,
+      "changed_predictions": 24
+    },
+    "A_combined": {
+      "branch": "A_combined",
+      "difference": 0.0046903589021815625,
+      "low": -0.14668895144264602,
+      "high": 0.15172413793103448,
+      "changed_predictions": 43
+    },
+    "B_brdf": {
+      "branch": "B_brdf",
+      "difference": 0.02627375087966221,
+      "low": -0.002551020408163265,
+      "high": 0.06138599577762138,
+      "changed_predictions": 23
+    },
+    "B_combined": {
+      "branch": "B_combined",
+      "difference": 0.014690358902181563,
+      "low": -0.030017065446868402,
+      "high": 0.06586875439831104,
+      "changed_predictions": 31
+    },
+    "C_uniform_brdf": {
+      "branch": "C_uniform_brdf",
+      "difference": 0.003103448275862071,
+      "low": -0.06434201266713582,
+      "high": 0.06994334975369458,
+      "changed_predictions": 38
+    },
+    "C_uniform_combined": {
+      "branch": "C_uniform_combined",
+      "difference": -0.05372273047149895,
+      "low": -0.21930190007037298,
+      "high": 0.0974797677691766,
+      "changed_predictions": 48
+    },
+    "C_center_brdf": {
+      "branch": "C_center_brdf",
+      "difference": 0.0282054890921886,
+      "low": -0.04119581280788177,
+      "high": 0.09585855031667839,
+      "changed_predictions": 35
+    },
+    "C_center_combined": {
+      "branch": "C_center_combined",
+      "difference": -0.05117171006333568,
+      "low": -0.2192213230119634,
+      "high": 0.10022800844475718,
+      "changed_predictions": 49
+    }
+  },
+  "minimum_source_subset": {
+    "status": "CANDIDATE_REQUEST_NOT_RECOVERED_OBSERVATIONS",
+    "candidate_positions": [
+      451,
+      453,
+      502,
+      542
+    ],
+    "band_images": 40,
+    "fixed_points": [
+      "nonpositive_outside",
+      "near_zero_inside",
+      "inside_artifact",
+      "unaffected_reference"
+    ],
+    "geometry_only_condition_by_point": [
+      40.319697083271414,
+      40.26848448775173,
+      39.49166997996119,
+      52.21009743880681
+    ],
+    "criterion": "Minimum worst four-ray design condition among3000seeded candidate subsets; no reflectance or PFT score used",
+    "minimum_empirical_requirement": "At least four matched, calibrated directional observations per fixed ground target for the existing three-parameter fit, plus independent validation targets;40 band images or corresponding source-linked patches, camera CRS/vertical/pose/intrinsics/time conventions and calibration metadata.",
+    "source_access": "Live package metadata/subcollections inspected; relative RawData/M300/SD1 path not found. No original overlapping Goldhill photos currently accessible in checked locations. No repeated measurements invented."
+  }
+}

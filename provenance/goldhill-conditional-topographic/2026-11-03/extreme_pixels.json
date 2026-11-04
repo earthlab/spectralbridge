@@ -1,0 +1,62 @@
+[
+  {
+    "branch": "historical",
+    "row": 1178,
+    "col": 1533,
+    "red_factor": 309.9168395996094,
+    "illumination": 0.3482566177845001,
+    "C_red": -0.34725165367126465,
+    "denominator": 0.0010049641132354736,
+    "slope_deg": 41.891231536865234
+  },
+  {
+    "branch": "current",
+    "row": 1178,
+    "col": 1533,
+    "red_factor": 309.9168395996094,
+    "illumination": 0.3482566177845001,
+    "C_red": -0.34725165367126465,
+    "denominator": 0.0010049641132354736,
+    "slope_deg": 41.891231536865234
+  },
+  {
+    "branch": "eligible_OLS",
+    "row": 1344,
+    "col": 2220,
+    "red_factor": 303.9451599121094,
+    "illumination": 0.3638484477996826,
+    "C_red": -0.3628450632095337,
+    "denominator": 0.0010033845901489258,
+    "slope_deg": 40.9997673034668
+  },
+  {
+    "branch": "robust_Huber",
+    "row": 2088,
+    "col": 701,
+    "red_factor": 295.7513122558594,
+    "illumination": 0.37256374955177307,
+    "C_red": -0.3715624213218689,
+    "denominator": 0.0010013282299041748,
+    "slope_deg": 41.0115852355957
+  },
+  {
+    "branch": "stabilized",
+    "row": 2169,
+    "col": 516,
+    "red_factor": 6.990054130554199,
+    "illumination": 0.4107075035572052,
+    "C_red": -0.3628450632095337,
+    "denominator": 0.04786244034767151,
+    "slope_deg": 37.98801040649414
+  },
+  {
+    "branch": "cosine",
+    "row": 1657,
+    "col": 3138,
+    "red_factor": 38964.75390625,
+    "illumination": 2.2709369659423828e-05,
+    "C_red": 0.0,
+    "denominator": 2.2709369659423828e-05,
+    "slope_deg": 63.41121292114258
+  }
+]

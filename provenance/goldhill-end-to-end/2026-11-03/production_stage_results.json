@@ -1,0 +1,385 @@
+[
+  {
+    "stage": "A_raw",
+    "status": "EXECUTED",
+    "result": [
+      "/private/tmp/goldhill-end-to-end-20261103/production_attempt/A_raw/A_raw.img",
+      "/private/tmp/goldhill-end-to-end-20261103/production_attempt/A_raw/A_raw.hdr",
+      {
+        "requested_topo": false,
+        "requested_brdf": false,
+        "topo_applied": false,
+        "brdf_applied": false,
+        "topo_fallback_due_to_nodata": false,
+        "brdf_fallback_due_to_nodata": false,
+        "brightness_applied": false,
+        "cloud_mask_applied": false,
+        "reused_existing_corrected": false,
+        "correction_status_source": "live_run",
+        "ndvi_brdf_bins_enabled": false,
+        "radiometry": {
+          "scale": null,
+          "offset": null,
+          "status": "UNSUPPORTED",
+          "provenance": "Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable",
+          "convention": "physical = scale * stored + offset",
+          "encoding": {
+            "kind": "range_normalized_dn",
+            "source_units": "unverified source units",
+            "stored_units": "fixed UInt16-range DN encoded 0\u201310000; no minimum subtraction",
+            "scale_direction": "multiplier",
+            "physical_calibration_status": "UNVERIFIED",
+            "valid_numerical_range": null,
+            "source_units_attribute": "not supplied",
+            "source_dtype": "float32",
+            "nodata": "NaN",
+            "saturation": {
+              "status": "NOT_PROVIDED"
+            },
+            "quality_mask": {
+              "status": "DOCUMENTED",
+              "provenance": "TIFF per-band GDAL masks and declared alpha; finite source samples",
+              "convention": "true means valid"
+            },
+            "source_valid_mask_path": "/derived_10cm_10k/Reflectance/Metadata/Source_Valid_Mask",
+            "normalization": {
+              "stored_min": 0,
+              "stored_max": 10000,
+              "source_min": 0,
+              "source_max": 65535
+            },
+            "source_spectral_band_indices": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "source_alpha_band_indices": []
+          }
+        },
+        "brdf_status": "NOT_REQUESTED",
+        "topo_ready": false,
+        "brdf_ready": false
+      }
+    ]
+  },
+  {
+    "stage": "B_topographic",
+    "status": "UNSUPPORTED",
+    "error_type": "DroneCorrectionUnavailableError",
+    "reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable).",
+    "audit": {
+      "requested_topo": true,
+      "requested_brdf": false,
+      "topo_applied": false,
+      "brdf_applied": false,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "radiometry": {
+        "scale": null,
+        "offset": null,
+        "status": "UNSUPPORTED",
+        "provenance": "Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable",
+        "convention": "physical = scale * stored + offset",
+        "encoding": {
+          "kind": "range_normalized_dn",
+          "source_units": "unverified source units",
+          "stored_units": "fixed UInt16-range DN encoded 0\u201310000; no minimum subtraction",
+          "scale_direction": "multiplier",
+          "physical_calibration_status": "UNVERIFIED",
+          "valid_numerical_range": null,
+          "source_units_attribute": "not supplied",
+          "source_dtype": "float32",
+          "nodata": "NaN",
+          "saturation": {
+            "status": "NOT_PROVIDED"
+          },
+          "quality_mask": {
+            "status": "DOCUMENTED",
+            "provenance": "TIFF per-band GDAL masks and declared alpha; finite source samples",
+            "convention": "true means valid"
+          },
+          "source_valid_mask_path": "/derived_10cm_10k/Reflectance/Metadata/Source_Valid_Mask",
+          "normalization": {
+            "stored_min": 0,
+            "stored_max": 10000,
+            "source_min": 0,
+            "source_max": 65535
+          },
+          "source_spectral_band_indices": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "source_alpha_band_indices": []
+        }
+      },
+      "brdf_status": "NOT_REQUESTED"
+    }
+  },
+  {
+    "stage": "C_brdf",
+    "status": "UNSUPPORTED",
+    "error_type": "DroneCorrectionUnavailableError",
+    "reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable).",
+    "audit": {
+      "requested_topo": false,
+      "requested_brdf": true,
+      "topo_applied": false,
+      "brdf_applied": false,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "radiometry": {
+        "scale": null,
+        "offset": null,
+        "status": "UNSUPPORTED",
+        "provenance": "Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable",
+        "convention": "physical = scale * stored + offset",
+        "encoding": {
+          "kind": "range_normalized_dn",
+          "source_units": "unverified source units",
+          "stored_units": "fixed UInt16-range DN encoded 0\u201310000; no minimum subtraction",
+          "scale_direction": "multiplier",
+          "physical_calibration_status": "UNVERIFIED",
+          "valid_numerical_range": null,
+          "source_units_attribute": "not supplied",
+          "source_dtype": "float32",
+          "nodata": "NaN",
+          "saturation": {
+            "status": "NOT_PROVIDED"
+          },
+          "quality_mask": {
+            "status": "DOCUMENTED",
+            "provenance": "TIFF per-band GDAL masks and declared alpha; finite source samples",
+            "convention": "true means valid"
+          },
+          "source_valid_mask_path": "/derived_10cm_10k/Reflectance/Metadata/Source_Valid_Mask",
+          "normalization": {
+            "stored_min": 0,
+            "stored_max": 10000,
+            "source_min": 0,
+            "source_max": 65535
+          },
+          "source_spectral_band_indices": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "source_alpha_band_indices": []
+        }
+      },
+      "brdf_status": "UNSUPPORTED"
+    }
+  },
+  {
+    "stage": "D_combined",
+    "status": "UNSUPPORTED",
+    "error_type": "DroneCorrectionUnavailableError",
+    "reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable).",
+    "audit": {
+      "requested_topo": true,
+      "requested_brdf": true,
+      "topo_applied": false,
+      "brdf_applied": false,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "radiometry": {
+        "scale": null,
+        "offset": null,
+        "status": "UNSUPPORTED",
+        "provenance": "Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable",
+        "convention": "physical = scale * stored + offset",
+        "encoding": {
+          "kind": "range_normalized_dn",
+          "source_units": "unverified source units",
+          "stored_units": "fixed UInt16-range DN encoded 0\u201310000; no minimum subtraction",
+          "scale_direction": "multiplier",
+          "physical_calibration_status": "UNVERIFIED",
+          "valid_numerical_range": null,
+          "source_units_attribute": "not supplied",
+          "source_dtype": "float32",
+          "nodata": "NaN",
+          "saturation": {
+            "status": "NOT_PROVIDED"
+          },
+          "quality_mask": {
+            "status": "DOCUMENTED",
+            "provenance": "TIFF per-band GDAL masks and declared alpha; finite source samples",
+            "convention": "true means valid"
+          },
+          "source_valid_mask_path": "/derived_10cm_10k/Reflectance/Metadata/Source_Valid_Mask",
+          "normalization": {
+            "stored_min": 0,
+            "stored_max": 10000,
+            "source_min": 0,
+            "source_max": 65535
+          },
+          "source_spectral_band_indices": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "source_alpha_band_indices": []
+        }
+      },
+      "brdf_status": "UNSUPPORTED"
+    }
+  },
+  {
+    "stage": "B_direct_scs_c_fit",
+    "status": "UNSUPPORTED",
+    "error_type": "ValueError",
+    "reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable).",
+    "audit": null
+  },
+  {
+    "stage": "C_direct_brdf_fit",
+    "status": "UNSUPPORTED",
+    "error_type": "ValueError",
+    "reason": "Ancillary 'sensor_zn' not available in NEON metadata.",
+    "audit": null
+  },
+  {
+    "stage": "F_polygon_index",
+    "status": "EXECUTED",
+    "output": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_polygon_pixel_index.parquet"
+  },
+  {
+    "stage": "F_physical_polygon_library",
+    "status": "UNSUPPORTED",
+    "error_type": "ValueError",
+    "reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable).",
+    "audit": null
+  },
+  {
+    "stage": "E_Landsat_8_OLI",
+    "status": "UNSUPPORTED",
+    "error_type": "ValueError",
+    "reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable).",
+    "audit": null
+  },
+  {
+    "stage": "E_numerical_MicaSense_to-match_OLI_and_OLI-2",
+    "status": "EXECUTED",
+    "result": {
+      "schema_version": 1,
+      "product_type": "matched_micasense_source",
+      "source_sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "translation_pair": "MicaSense_to-match_OLI_and_OLI-2__to__Landsat_8_OLI",
+      "native_source_band_indices": [
+        1,
+        2,
+        4,
+        6,
+        10
+      ],
+      "source": {
+        "image": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_envi.img",
+        "image_size": 283330800,
+        "image_mtime_ns": 1793737042091480201,
+        "header": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_envi.hdr",
+        "header_sha256": "a9da85a5fe10f24815c1d4e778408f25bfbefd80246668d89bbd7cb4a549645b"
+      },
+      "status": "created",
+      "created_utc": "2026-11-03T20:19:29.056856+00:00",
+      "spectralbridge_version": "2.3.0rc1",
+      "source_product_signature_sha256": "6c79622c838ccfd020418681f6cd7d2ddc097145851147ab375558f5eecd9904",
+      "output_img": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_OLI_and_OLI-2.img",
+      "output_hdr": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_OLI_and_OLI-2.hdr",
+      "provenance_json": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_OLI_and_OLI-2__source.json"
+    }
+  },
+  {
+    "stage": "E_Landsat_9_OLI-2",
+    "status": "UNSUPPORTED",
+    "error_type": "ValueError",
+    "reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable).",
+    "audit": null
+  },
+  {
+    "stage": "E_Landsat_5_TM",
+    "status": "UNSUPPORTED",
+    "error_type": "ValueError",
+    "reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable).",
+    "audit": null
+  },
+  {
+    "stage": "E_numerical_MicaSense_to-match_TM_and_ETM+",
+    "status": "EXECUTED",
+    "result": {
+      "schema_version": 1,
+      "product_type": "matched_micasense_source",
+      "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+      "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+      "native_source_band_indices": [
+        2,
+        4,
+        6,
+        10
+      ],
+      "source": {
+        "image": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_envi.img",
+        "image_size": 283330800,
+        "image_mtime_ns": 1793737042091480201,
+        "header": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_envi.hdr",
+        "header_sha256": "a9da85a5fe10f24815c1d4e778408f25bfbefd80246668d89bbd7cb4a549645b"
+      },
+      "status": "created",
+      "created_utc": "2026-11-03T20:19:29.162783+00:00",
+      "spectralbridge_version": "2.3.0rc1",
+      "source_product_signature_sha256": "e558a6cb1634b09551c0184e1f7c1fd937f5d3d9dd8c05b476a4c9dfbbe3c5b9",
+      "output_img": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_TM_and_ETM+.img",
+      "output_hdr": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_TM_and_ETM+.hdr",
+      "provenance_json": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_TM_and_ETM+__source.json"
+    }
+  },
+  {
+    "stage": "E_Landsat_7_ETM+",
+    "status": "UNSUPPORTED",
+    "error_type": "ValueError",
+    "reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable).",
+    "audit": null
+  }
+]

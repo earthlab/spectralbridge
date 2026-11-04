@@ -1,0 +1,20 @@
+{
+  "status": "HYPOTHETICAL_UNVERIFIED",
+  "calibration_hypothesis": "MicaSense_Metashape_DN_32768",
+  "scale": 0.0001999969482421875,
+  "offset": 0,
+  "units": "candidate fractional reflectance",
+  "protected_files_unchanged": true,
+  "protected_count": 143,
+  "production_guard_still_rejects": true,
+  "production_changes": 0,
+  "BRDF_applied": false,
+  "factor_clipping": false,
+  "affine_kernel": "Radiometry._affine; isolated HypothesisRadiometry",
+  "cloned_bytecode_functions": [
+    "fit_scs_c_coefficients",
+    "apply_topo_correct"
+  ],
+  "eligibility": "Positive illumination; slope>5 degrees for fitting; no evaluated polygon or 2m buffer in eligible/robust fit; application within fit illumination span and positive numerator/denominator over 95% spatial-block C interval. No brightness threshold or factor cap.",
+  "prespecified": "Huber epsilon=1.35, no regularization; OLS C uncertainty399 block draws, 20m blocks; all choices before PFT evaluation; no selection by classification."
+}

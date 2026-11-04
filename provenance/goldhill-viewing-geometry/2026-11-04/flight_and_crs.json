@@ -1,0 +1,164 @@
+{
+  "records": 5650,
+  "positions": 565,
+  "bands_per_position": {
+    "10": 565
+  },
+  "timestamp_start": "2023-08-15 19:42:38",
+  "timestamp_end": "2023-08-15 20:03:47",
+  "duration_seconds": 1269.0,
+  "timestamp_status": "Recovered camera tags; UTC interpretation conditional; no independent clock certification",
+  "report_project_and_DEM_CRS": "NAD83 / UTM zone 13N (EPSG::26913), processing report page18/19",
+  "CSV_declared_CRS": 5070,
+  "adopted_horizontal_CRS": 26913,
+  "decision": "Explicit evidence-backed interpretation of reported XY; source CSV unchanged",
+  "camera_center_lonlat_26913": [
+    -105.49491030132786,
+    40.04366718010893
+  ],
+  "camera_center_lonlat_5070": [
+    -88.10288457252251,
+    63.67524140780264
+  ],
+  "minimum_wrong_CRS_distance_to_scene_m": 2873728.6282137926,
+  "positions_in_source_alpha": 565,
+  "researcher_polygons_in_scene": 158,
+  "north_rotation_deg": -0.3184058833629672,
+  "north_rotation_corner_range_deg": [
+    -0.31958797141901596,
+    -0.3172237267725317
+  ],
+  "height_above_aligned_surface": {
+    "n": 565,
+    "minimum": 126.47747628124989,
+    "maximum": 151.054290890625,
+    "mean": 142.3699666463219,
+    "quantiles": [
+      126.47747628124989,
+      126.48235834456247,
+      127.97819718750009,
+      138.60332879687485,
+      143.25254659375014,
+      146.46833375000006,
+      150.95210767687485,
+      151.02947226450007,
+      151.054290890625
+    ]
+  },
+  "report_flying_altitude_m": 123,
+  "vertical_status": "Shared metre-height datum unverified; same-datum baseline and explicit camera-height offsets +/-30m",
+  "camera_Z": {
+    "n": 565,
+    "minimum": 2834.023433,
+    "maximum": 2843.090334,
+    "mean": 2838.3148008035396,
+    "quantiles": [
+      2834.023433,
+      2834.0266156519997,
+      2834.09833932,
+      2836.154929,
+      2838.280559,
+      2840.463198,
+      2842.90474588,
+      2843.088502128,
+      2843.090334
+    ]
+  },
+  "terrain_Z": {
+    "n": 6683905,
+    "minimum": 2680.374267578125,
+    "maximum": 2723.99609375,
+    "mean": 2698.53173828125,
+    "quantiles": [
+      2680.374267578125,
+      2680.78857421875,
+      2681.428466796875,
+      2692.51513671875,
+      2698.047119140625,
+      2704.038818359375,
+      2720.182861328125,
+      2722.53078515625,
+      2723.99609375
+    ]
+  },
+  "spacing": {
+    "n": 564,
+    "minimum": 1.9064289262301406,
+    "maximum": 8.04502779698067,
+    "mean": 6.867549352254205,
+    "quantiles": [
+      1.9064289262301406,
+      2.116725588438111,
+      4.6513774267076915,
+      6.755980690315574,
+      6.9670719137024095,
+      7.132343040690317,
+      7.587991974455595,
+      7.953434508990346,
+      8.04502779698067
+    ]
+  },
+  "speed_m_s": {
+    "n": 564,
+    "minimum": 1.1399788167633564,
+    "maximum": 4.022513898490335,
+    "mean": 3.1509182934019893,
+    "quantiles": [
+      1.1399788167633564,
+      1.3767880971511792,
+      1.7292242085674938,
+      2.4920121486553897,
+      3.4239132666246155,
+      3.5225244932546076,
+      3.7628179489174625,
+      3.9358427348909637,
+      4.022513898490335
+    ]
+  },
+  "legs": 27,
+  "turn_candidates": 32,
+  "rotation_determinant": {
+    "n": 5650,
+    "minimum": 0.9999999985797828,
+    "maximum": 1.0000000014344355,
+    "mean": 0.9999999999955226,
+    "quantiles": [
+      0.9999999985797828,
+      0.9999999987253946,
+      0.9999999989077253,
+      0.9999999996285553,
+      0.9999999999945219,
+      1.000000000356756,
+      1.0000000011229448,
+      1.0000000012804837,
+      1.0000000014344355
+    ]
+  },
+  "rotation_orthogonality_error": {
+    "n": 5650,
+    "minimum": 2.6661189293916133e-10,
+    "maximum": 2.456462868102523e-09,
+    "mean": 1.3798735635240486e-09,
+    "quantiles": [
+      2.6661189293916133e-10,
+      4.4748592702466033e-10,
+      6.339541358169349e-10,
+      1.1797327303721148e-09,
+      1.3883446439158447e-09,
+      1.5915461144053007e-09,
+      2.0647111495331247e-09,
+      2.2939812300548812e-09,
+      2.456462868102523e-09
+    ]
+  },
+  "orientation_status": "Matrices orthogonal but camera/world conventions unresolved; optical axes forced nadir by experimental assumption",
+  "intrinsics": {
+    "width_px": 1280,
+    "height_px": 960,
+    "focal_mm": 5.5,
+    "pixel_um": 3.75,
+    "source": "Goldhill report pages2-3; ideal pinhole footprint, not full calibrated distortion or recovered yaw"
+  },
+  "footprint_heading": "Image height follows smoothed flight direction; width across track. Rotation90 and size multipliers tested separately.",
+  "solar_policy": "Retain inherited spatial solar azimuth and scene-mean solar zenith; no assignment-time solar overwrite"
+}

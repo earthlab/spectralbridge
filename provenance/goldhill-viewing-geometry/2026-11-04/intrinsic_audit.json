@@ -1,0 +1,19 @@
+{
+  "sensors": 10,
+  "focal_pixels_range": [
+    1445.91,
+    1453.93
+  ],
+  "nominal_focal_pixels": 1466.6666666666667,
+  "principal_Cx_pixels_range": [
+    -13.825,
+    26.9502
+  ],
+  "principal_Cy_pixels_range": [
+    1.82956,
+    27.0745
+  ],
+  "interpretation": "Report calibration coefficient rows are available and preserved. Full report includes distortion parameters and correlations. Nominal ideal rectangles were intentionally used as approximate scenarios because sensor-to-PhotoID rig binding, camera/world conventions, distortion/export applicability and per-band contributor maps are not verified. Do not claim the report lacks intrinsics.",
+  "photoID_association": "Each position has suffix1-10; their exact association to report sensor names/wavelengths requires original BandName/Wavelength/rig metadata. Existing mosaic wavelengths remain the source-reader contract; no unverified filename-based wavelength remapping.",
+  "main_scenario": "1280x960, nominal1466.67pixel focal length; +/-20% size and yaw90 sensitivity are wider than reported focal-length spread, but do not model exact distorted camera footprints"
+}

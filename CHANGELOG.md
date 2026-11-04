@@ -2,6 +2,20 @@
 
 ### Added
 
+- Opt-in experimental nadir-camera viewing geometry with explicit true-north
+  conventions, footprint-constrained assignment and simulated kernel mixtures.
+  Native Goldhill sensitivity products retain unverified calibration/contributor
+  status, expose assignment seams and topographic extremes, and leave the shared
+  BRDF mathematics and real NEON regression outputs unchanged.
+
+- Shared BRDF source-footprint and NDVI-population enforcement, wavelength-bound
+  model provenance, stable-rank diagnostics, and identical fit/application
+  prediction-uncertainty guards. Missing angular inputs persist explicit
+  unsupported records; incompatible model/header validation policies block reuse
+  and approved spectral-library ingestion without overwriting historical outputs.
+  Clean-source Goldhill diagnostics retain the calibration hypothesis and missing
+  contributor geometry; actual supported NEON control values remain unchanged.
+
 - Typed shared radiometric encodings and scalar/per-band affine calibration,
   diagnostic-only range normalization, declared alpha/NoData/quality preservation,
   and full ENVI calibration provenance. Physical BRDF fitting and spectral exports
@@ -138,3 +152,14 @@
 - Pipeline no longer hard-stops if one sensor fails; it finishes the flight line as long as at
   least one sensor succeeded (or had a valid preexisting output).
 - Added final site-level completion log: `✅ All requested flightlines processed.`
+
+### Unreleased investigation additions (2026-11-04)
+
+- Add opt-in spatial BRDF fitting masks and cluster uncertainty, with restart
+  identity and explicit experimental provenance.
+- Add conditioned SCS+C estimation and application with per-band uncertainty,
+  corrected/unsupported/missing states, and no identity substitution or gain cap.
+- Preserve experimental acceptance through ENVI and prevent approved-library
+  extraction; retain default NEON behavior.
+- Document Goldhill controlled native products, confounding limits and two
+  illustrated scientific investigations without claiming physical calibration.

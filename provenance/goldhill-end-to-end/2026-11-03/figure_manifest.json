@@ -1,0 +1,93 @@
+[
+  {
+    "name": "figure01_sources",
+    "png": "figure01_sources.png",
+    "svg": "figure01_sources.svg",
+    "caption": "Actual raw sources, RGB=650/560/475 nm. A common new-raw 2-98% RGB stretch is applied to all three after the explicit original-to-fixed numerical encoding. White is missing/transparent; no corrected image or physical calibration is implied.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  },
+  {
+    "name": "figure02_background",
+    "png": "figure02_background.png",
+    "svg": "figure02_background.svg",
+    "caption": "All maps use the same grid/extent. Left codes: 0 missing both, 1 old-only, 2 new-only, 3 both. Middle uses the recovered fixed encoding, separating minimum normalization from interpolation/masks. The >2 display flag is a diagnostic threshold, not a scientific approval rule.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  },
+  {
+    "name": "figure03_ancillary",
+    "png": "figure03_ancillary.png",
+    "svg": "figure03_ancillary.svg",
+    "caption": "Terrain/solar grids align with the new TIFF. Original photo tags now support the inherited August 15 scene timestamp despite the nominal August 14 package note/name. Explicit time-zone/clock validation and per-pixel camera assignments remain unresolved.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  },
+  {
+    "name": "figure04_scs_factors",
+    "png": "figure04_scs_factors.png",
+    "svg": "figure04_scs_factors.svg",
+    "caption": "Only the unchanged historical implementation is replayed here; current production SCS+C is blocked by calibration. Color under/over triangles expose values beyond 0.1-10; analytical maxima are retained. The red maximum is 309.9 near a 0.001 denominator.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  },
+  {
+    "name": "figure05_camera_support",
+    "png": "figure05_camera_support.png",
+    "svg": "figure05_camera_support.svg",
+    "caption": "Points are shown in the reported coordinate numbers without silently relabeling the CRS or assigning footprints. Current source H5 deliberately has no sensor-view datasets. Historical zero-view controls are not treated as measured observations.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  },
+  {
+    "name": "figure06_red_stripe",
+    "png": "figure06_red_stripe.png",
+    "svg": "figure06_red_stripe.svg",
+    "caption": "Same previously selected 50.1 x 40.1 m ROI, same RGB=650/560/475 nm and display limits. Historical corrections are unsupported diagnostics. Extremely large red values saturate this display; uncapped values and jumps are reported numerically.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  },
+  {
+    "name": "figure07_boundary",
+    "png": "figure07_boundary.png",
+    "svg": "figure07_boundary.svg",
+    "caption": "The raw fixed edge jump is 5.586 encoded units; the new historical-BRDF replay jumps 3.372 billion. Boundary edges were fixed from the old factor before new-branch evaluation. This is a mechanism replay, not a valid new BRDF fit.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  },
+  {
+    "name": "figure08_consistency",
+    "png": "figure08_consistency.png",
+    "svg": "figure08_consistency.svg",
+    "caption": "All 157 polygons use identical valid pixels. Recovering the old encoding accounts for most raw spectral-angle change; the remaining median pixel angle is about 0.00077 degrees. Variance and CV are descriptive numerical metrics, not physical validation.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  },
+  {
+    "name": "figure09_pft_spectra",
+    "png": "figure09_pft_spectra.png",
+    "svg": "figure09_pft_spectra.svg",
+    "caption": "Class medians and new-raw polygon IQR on matched support. The gray inverse-encoding control nearly overlays the new source; NIR differences versus old raw mainly reflect the removed band-specific offset. Non-vegetated & dead is absent, not reassigned.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  },
+  {
+    "name": "figure10_separability",
+    "png": "figure10_separability.png",
+    "svg": "figure10_separability.svg",
+    "caption": "New-source polygon diagnostics: Evergreen/Herbaceous centroid shapes are only 1.07 degrees apart; Evergreen/Woody shrub has substantial IQR overlap. Distinct centroids or significant permutation tests do not establish reliable individual identification.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  },
+  {
+    "name": "figure11_identifiability",
+    "png": "figure11_identifiability.png",
+    "svg": "figure11_identifiability.svg",
+    "caption": "157 non-overlapping polygon identities, three identical grouped folds, training-only standardization and fixed C=1. Old and new raw produce identical predictions and 66.8% balanced accuracy. Corrected bars are unsupported historical experiments; a higher score does not approve a correction.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  },
+  {
+    "name": "figure12_pca",
+    "png": "figure12_pca.png",
+    "svg": "figure12_pca.svg",
+    "caption": "One descriptive pooled standardized PCA basis on paired polygon means; this visualization is not part of classifier training. Both representations retain nearly the same structure. No independent physical accuracy, species purity or abundance claim follows.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  },
+  {
+    "name": "figure13_photo_times",
+    "png": "figure13_photo_times.png",
+    "svg": "figure13_photo_times.svg",
+    "caption": "Matched camera records span 19:42:38-20:03:47 on August 15. The midpoint is 19:53:12.5, only 5.5 seconds from the inherited solar timestamp. Numerical agreement supports that timestamp; explicit clock/time-zone accuracy and mosaic pixel contributors are not established.",
+    "analytical_status": "Uncalibrated numerical observations; historical corrected branches are diagnostic only"
+  }
+]

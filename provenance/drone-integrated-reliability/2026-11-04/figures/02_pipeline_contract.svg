@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="684pt" height="202.896pt" viewBox="0 0 684 202.896" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-04T11:53:47.691440</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.1, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 202.896 
+L 684 202.896 
+L 684 -0 
+L 0 -0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="text_1">
+    <g id="patch_2">
+     <path d="M 73.119531 89.974147 
+L 164.480469 89.974147 
+Q 174.280469 89.974147 174.280469 80.174147 
+L 174.280469 66.173053 
+Q 174.280469 56.373053 164.480469 56.373053 
+L 73.119531 56.373053 
+Q 63.319531 56.373053 63.319531 66.173053 
+L 63.319531 80.174147 
+Q 63.319531 89.974147 73.119531 89.974147 
+z
+" style="fill: #163b4b"/>
+    </g>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="118.8" y="76.810866" transform="rotate(-0 118.8 76.810866)">Decode once</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(54.977656 144.828348)">Per-band scale + offset</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(50.852656 158.031355)">calibration gate retained</text>
+   </g>
+   <g id="patch_3">
+    <path d="M 214.544953 105.21792 
+Q 230.398445 105.21792 244.01587 105.21792 
+" style="fill: none; stroke: #86949a; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 239.61587 103.01792 
+L 244.01587 105.21792 
+L 239.61587 107.41792 
+" style="fill: none; stroke: #86949a; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <g id="patch_4">
+     <path d="M 273.276406 89.974147 
+L 410.723594 89.974147 
+Q 420.523594 89.974147 420.523594 80.174147 
+L 420.523594 66.173053 
+Q 420.523594 56.373053 410.723594 56.373053 
+L 273.276406 56.373053 
+Q 263.476406 56.373053 263.476406 66.173053 
+L 263.476406 80.174147 
+Q 263.476406 89.974147 273.276406 89.974147 
+z
+" style="fill: #bc403d"/>
+    </g>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="342" y="76.810866" transform="rotate(-0 342 76.810866)">Fit with provenance</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(244.879453 138.226844)">Source mask + geometry + groups</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(280.115547 151.429852)">training separate from</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(311.660625 164.632859)">application</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 437.744953 105.21792 
+Q 453.598445 105.21792 467.21587 105.21792 
+" style="fill: none; stroke: #86949a; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 462.81587 103.01792 
+L 467.21587 105.21792 
+L 462.81587 107.41792 
+" style="fill: none; stroke: #86949a; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <g id="patch_6">
+     <path d="M 504.629219 89.974147 
+L 625.770781 89.974147 
+Q 635.570781 89.974147 635.570781 80.174147 
+L 635.570781 66.173053 
+Q 635.570781 56.373053 625.770781 56.373053 
+L 504.629219 56.373053 
+Q 494.829219 56.373053 494.829219 66.173053 
+L 494.829219 80.174147 
+Q 494.829219 89.974147 504.629219 89.974147 
+z
+" style="fill: #318988"/>
+    </g>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="565.2" y="76.810866" transform="rotate(-0 565.2 76.810866)">Apply with status</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(500.777813 138.226844)">Missing / unsupported /</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(539.065547 151.429852)">corrected</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(475.333438 164.632859)">EXPERIMENTAL output metadata</text>
+   </g>
+  </g>
+ </g>
+</svg>

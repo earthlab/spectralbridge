@@ -1,0 +1,14 @@
+...................                                                      [100%]
+=============================== warnings summary ===============================
+src/spectralbridge/polygons.py:30
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/polygons.py:30: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+tests/test_drone_pipeline.py::test_h5_resume_completes_correction_all_translations_and_full_extraction
+tests/test_drone_pipeline.py::test_h5_resume_completes_correction_all_translations_and_full_extraction
+tests/test_drone_pipeline.py::test_h5_resume_completes_correction_all_translations_and_full_extraction
+tests/test_drone_pipeline.py::test_h5_resume_completes_correction_all_translations_and_full_extraction
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:1377: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    created_utc=_dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html

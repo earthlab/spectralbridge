@@ -1,0 +1,226 @@
+# Reconstructing Drone Viewing Geometry for Goldhill BRDF Correction
+
+4 November 2026. **EXPERIMENTAL: calibration and mosaic contributors unverified.**
+
+## 1. Reconstructing Drone Viewing Geometry for Goldhill BRDF Correction
+
+4 November 2026. Actual experimental corrected images are produced. The historical red-line pole is absent in the new BRDF-only images, but inferred camera assignments create their own uncertainty and seams. Nothing is promoted to an approved physical product.
+
+| Question | Measured outcome |
+| --- | --- |
+| What was implemented | Reusable nadir ray, rectangular footprint, eligible assignment and kernel aggregation functions; source-only choices with unit/convention tests. |
+| What was reconstructed | 565 timestamped positions, 27 sign-defined N/S path legs, 32 turn candidates and 5,650 band records. EPSG:26913 is explicitly supported by project/DEM report and independent spatial tests. |
+| Numerical result | Four main geometry scenarios, each BRDF-only and combined: all eight fits pass the existing ten-band rank, conditioning, positivity, roundoff and uncertainty rules; eight native 10 cm experimental GeoTIFFs written. |
+| Scientific limitation | Calibration remains HYPOTHETICAL_UNVERIFIED. Nadir attitude, image-axis heading, common height datum and actual mosaic contributor weights are assumptions. Identifiability does not prove directional calibration. |
+| Red line and seams | Old red jump ~630,821 candidate units becomes ~0.0026-0.0035 with BRDF alone. Hard A/B camera assignments introduce large factor jumps elsewhere; simulated blended kernels are smoother. |
+| Readiness | BRDF-only candidates are useful experimental outputs. Combined products still inherit separate topographic extremes. Production readiness and verified sensor interchangeability are not established. |
+
+- Source imagery, previous investigations, official libraries and NEON numerical behavior are preserved. No coefficient, kernel, rank limit, prediction guard or correction factor was manually adjusted to obtain these images.
+
+## 2. The actual acquisition sequence is recovered
+
+The matched photo tags span 19:42:38-20:03:47 on 15 August 2023. Acquisition order reveals a near north-south lawnmower trajectory rather than a set of unrelated cameras.
+
+![All 5,650 band-camera records join to 565 unique timestamped positions. Yellow outlines are existing researcher polygons; the red rectangle is the unchanged P165 ROI. The path uses acquisition timestamps, not CSV row order or an invented traversal. All camera positions fall inside the source footprint.](figure01_path.png)
+
+All 5,650 band-camera records join to 565 unique timestamped positions. Yellow outlines are existing researcher polygons; the red rectangle is the unchanged P165 ROI. The path uses acquisition timestamps, not CSV row order or an invented traversal. All camera positions fall inside the source footprint.
+
+- Median image spacing is 6.97 m and median inter-position speed 3.42 m/s. Each of the 565 positions has ten band-camera records. Timestamp order is unique at position level.
+- Legs are separated by sign changes of smoothed northing travel; turn candidates exceed 30 degrees from the north-south axis. These are reproducible geometric labels, not recovered autopilot flight-line IDs. Camera rotations are orthogonal with determinant near one, but their world/camera axis conventions remain unresolved.
+
+## 3. Horizontal CRS is resolved; vertical datum is still conditional
+
+The original camera CSV header says EPSG:5070. The associated processing report explicitly says NAD83 / UTM zone 13N (EPSG:26913) for both the project and DEM. Its original bytes are retained.
+
+![The project and DEM report explicitly specify EPSG:26913; interpreting the CSV numbers as EPSG:5070 misses Goldhill by 2,874 km. Ideal pinhole rectangles use 1280 x 960 pixels, 5.5 mm focal length and 3.75 micrometre pixels. Each native target uses its local DEM height; these illustration rectangles use mean height only. Report distortion coefficients are preserved separately, but their PhotoID binding and exact footprint applicability are unverified. Occlusion, actual yaw and shared vertical datum remain unresolved.](figure02_footprints.png)
+
+The project and DEM report explicitly specify EPSG:26913; interpreting the CSV numbers as EPSG:5070 misses Goldhill by 2,874 km. Ideal pinhole rectangles use 1280 x 960 pixels, 5.5 mm focal length and 3.75 micrometre pixels. Each native target uses its local DEM height; these illustration rectangles use mean height only. Report distortion coefficients are preserved separately, but their PhotoID binding and exact footprint applicability are unverified. Occlusion, actual yaw and shared vertical datum remain unresolved.
+
+- Literal EPSG:26913 interpretation places the mean at 40.04367 N, 105.49491 W, inside Goldhill and its field polygons. Literal EPSG:5070 gives 63.68 N, 88.10 W and misses the scene by at least 2,874 km.
+- Both rasters and the candidate camera XY use metres. Z is 2,834-2,843 m and local camera-to-surface height is 126-151 m; the report quotes 123 m flying altitude. A common vertical datum is plausible but not certified. Explicit +/-30 m height cases test, rather than conceal, this unresolved assumption. All ten report calibration rows are recovered: fitted focal lengths 1,445.91-1,453.93 pixels, principal-point offsets and distortion coefficients. Their binding to each PhotoID and exact distorted footprint remains unverified, so the main rectangles are explicitly nominal approximations.
+
+## 4. Nadir rays are physically computed and explicitly labeled
+
+For each ground point, H is camera Z minus local surface Z and zenith is atan2(horizontal distance,H). Cameras at or below that ground height are excluded.
+
+![A chooses the closest eligible camera. B chooses the most central normalized position within a rectangular footprint. The two assignments differ on 25.83% of covered native cells. Median zenith is about 2 degrees, but edge pixels reach 19-22 degrees. Azimuth is clockwise from true north toward the sensor, with the grid-to-true rotation explicitly applied.](figure03_angles.png)
+
+A chooses the closest eligible camera. B chooses the most central normalized position within a rectangular footprint. The two assignments differ on 25.83% of covered native cells. Median zenith is about 2 degrees, but edge pixels reach 19-22 degrees. Azimuth is clockwise from true north toward the sensor, with the grid-to-true rotation explicitly applied.
+
+- The camera-to-ground vector is reversed to obtain the package to-sensor azimuth. Bearings are clockwise from grid north and rotated by -0.318406 degrees to true north; an independent geodesic test checks the sign. Corner variation is only about +/-0.0012 degrees. At nadir azimuth is defined as zero, where the validated kernel is azimuth-invariant.
+- A and B both use rectangular footprint eligibility. A minimizes horizontal distance; B minimizes the maximum normalized across/along image coordinate. Neither uses brightness, PFT labels, the red-line image or corrected-output appearance to choose a camera.
+
+## 5. The kernel equations and solar calculation remain shared
+
+RossThick and reciprocal LiDenseR are evaluated by the existing package functions with b/r=10, h/b=2 and scene solar zenith. No separate drone BRDF implementation is introduced.
+
+![Native 10 cm ROI, identical row/column extent for every panel. Kernels are evaluated by the unchanged shared functions. The relative-angle map is a display diagnostic; no new solar field is fitted or substituted. The abrupt camera-label pattern is inferred assignment, not an observed Metashape seamline.](figure04_roi_kernels.png)
+
+Native 10 cm ROI, identical row/column extent for every panel. Kernels are evaluated by the unchanged shared functions. The relative-angle map is a display diagnostic; no new solar field is fitted or substituted. The abrupt camera-label pattern is inferred assignment, not an observed Metashape seamline.
+
+- Inherited spatial solar azimuth and scene-mean solar zenith are retained. Camera acquisition times reconstruct the path but do not replace mosaic solar fields with unverified contributor times. The reference is unchanged: solar zenith 45 degrees, nadir view and relative azimuth zero.
+- The kernel maps and inferred camera IDs reveal artificial tessellation. A valid geometric ray to a potential camera is still not proof that its image supplied that mosaic reflectance.
+
+## 6. Overlap is reduced in kernel space, never by copying observations
+
+All physically eligible ideal-rectangle cameras are enumerated per native ground pixel. Native maps retain count, min/max/median zenith, circular azimuth diagnostics, kernel means and spreads.
+
+![The rectangular-footprint scenario has 4-221 potential cameras per covered native pixel, median 84. Bottom panels retain every eligible ray at the four unchanged diagnostic points. C uniform/central-weighted models use one aggregate kernel row per mosaic value. They never fit the same reflectance repeatedly at every possible angle.](figure05_overlap.png)
+
+The rectangular-footprint scenario has 4-221 potential cameras per covered native pixel, median 84. Bottom panels retain every eligible ray at the four unchanged diagnostic points. C uniform/central-weighted models use one aggregate kernel row per mosaic value. They never fit the same reflectance repeatedly at every possible angle.
+
+- The repaired source has 6,683,944 alpha-valid cells; 39 lack finite terrain, leaving 6,683,905 covered ground observations. No terrain gap is filled with an invented height. Median candidate count is 84, with range 4-221. All established polygon memberships remain available.
+- C uniform uses equal candidate weights; C center uses exp(-2 centrality squared). Both average individual evaluated kernels, not view angles. Each mosaic value enters fitting only once. Weights are sensitivity assumptions, not recovered Metashape blending. A common position assignment is used across the ten bands; per-band mosaic contributors are not recovered. Circular means are descriptive and paired with resultant length; they are never fitted as a single mean ray.
+
+## 7. Footprint and height choices affect the correction
+
+Six prespecified geometry cases and 24 conditional sampled fits retain an every-tenth native-pixel lattice. They do not create averaged source imagery or tune against classification scores.
+
+![Six prespecified cases use an every-tenth native-pixel lattice, not newly averaged reflectance. All 24 sampled BRDF fits pass the existing numerical guards. Footprint yaw rotation changes 42.7% of B assignments; camera-height minus 30 m leaves a small uncovered fraction. C normalization changes with assumed footprint width and weights. These are scenario sensitivities, not statistical confidence intervals or validation of any contributor rule.](figure06_uncertainty.png)
+
+Six prespecified cases use an every-tenth native-pixel lattice, not newly averaged reflectance. All 24 sampled BRDF fits pass the existing numerical guards. Footprint yaw rotation changes 42.7% of B assignments; camera-height minus 30 m leaves a small uncovered fraction. C normalization changes with assumed footprint width and weights. These are scenario sensitivities, not statistical confidence intervals or validation of any contributor rule.
+
+- A +/-20% common footprint-size multiplier changes candidate populations substantially, even when the most central camera is unchanged. Rotating the image axes by 90 degrees changes 42.7% of B assignments. A -30 m camera-height offset leaves about 0.02% of sampled points outside all footprints.
+- All 24 sampled models pass current numerical guards, yet C uniform reference red predictions range about 0.051-0.062 across footprint cases. Numerical acceptance therefore cannot resolve the mosaic-contributor uncertainty. Native main experiments are not substituted with these sampled fits.
+
+## 8. The assumed directional model is identifiable
+
+Main global designs reach stable numerical rank 3, compared with rank 1 for the zero-view placeholder design. The estimator and acceptance thresholds are unchanged.
+
+![Full native designs use 6,683,905 ground observations, each at most once. Global condition numbers are 98-182, below the unchanged precision limit of about 2,896. Spatial strips are less well conditioned in places; no strip was independently labeled a successful local BRDF fit. Rank identifies the assumed spatial model, not empirical same-target directional behavior.](figure07_rank.png)
+
+Full native designs use 6,683,905 ground observations, each at most once. Global condition numbers are 98-182, below the unchanged precision limit of about 2,896. Spatial strips are less well conditioned in places; no strip was independently labeled a successful local BRDF fit. Rank identifies the assumed spatial model, not empirical same-target directional behavior.
+
+- Global condition numbers are approximately A 105, B 98, C uniform 182 and C center 135. Algebraic rank, stable rank, singular values, kernel covariance and 128-row spatial diagnostics are retained separately. All eight main fits support ten bands under the isolated hypothesis.
+- These are spatial regressions of heterogeneous mosaic reflectance against inferred geometry. Repeated nearby pixels are not independent angular observations of a common target. Land-cover/topographic spatial structure can be confounded with the geometric pattern; effective independent sample size remains explicitly unestimated.
+
+## 9. 650 nm: the historical boundary no longer explodes
+
+The exact historical P165 ROI and red boundary are retained. Raw, topographic-only, historical and experimental imagery use identical map extents and display bounds.
+
+![All panels use the original 401 x 501 pixel ROI and identical 0-0.3 display limits. Numerical extrema and factors are retained in tables; saturated display colors do not clip analytical values. Experimental BRDF-only images lack the enormous historical boundary. Combined products still inherit the separate topographic instability, especially at 717 nm.](figure08_red.png)
+
+All panels use the original 401 x 501 pixel ROI and identical 0-0.3 display limits. Numerical extrema and factors are retained in tables; saturated display colors do not clip analytical values. Experimental BRDF-only images lack the enormous historical boundary. Combined products still inherit the separate topographic instability, especially at 717 nm.
+
+- The median fixed-edge red jump is raw 0.003079, historical 630,821.34, A 0.002609, B 0.002657, C uniform 0.003485, C center 0.003116.
+- All 2,936 fixed native edges remain evaluable in every new output. The old pole is removed in these explicit experimental products; that observation does not establish general seam-free or physically calibrated correction.
+
+## 10. 717 nm: another historical failure returns to the raw-scale range
+
+The severe historical red-edge amplification is absent in the reconstructed BRDF-only products. This is an actual calculation result, not a model rejection presented as a corrected image.
+
+![All panels use the original 401 x 501 pixel ROI and identical 0-0.3 display limits. Numerical extrema and factors are retained in tables; saturated display colors do not clip analytical values. Experimental BRDF-only images lack the enormous historical boundary. Combined products still inherit the separate topographic instability, especially at 717 nm.](figure09_rededge.png)
+
+All panels use the original 401 x 501 pixel ROI and identical 0-0.3 display limits. Numerical extrema and factors are retained in tables; saturated display colors do not clip analytical values. Experimental BRDF-only images lack the enormous historical boundary. Combined products still inherit the separate topographic instability, especially at 717 nm.
+
+- Full native 717 nm maxima are raw 0.417, historical 29,381, A BRDF 0.409, B BRDF 0.420, C uniform 0.495 and C center 0.460 candidate fractional units. BRDF-only values are not clipped to a reflectance range.
+- Only A combined is shown in the matched map panel for compactness; all four combined GeoTIFFs, per-band model diagnostics and native summaries are retained. Their remaining topographic extremes require separate treatment.
+
+## 11. Resolved predictions replace the historical zero crossing
+
+Observed-geometry predictions remain positive and above the unchanged roundoff/OLS-uncertainty limits, with no identity fallback or factor cap.
+
+![The historical 650 nm adjacent jump was 674,321 candidate units; reconstructed BRDF-only jumps are about 0.0009-0.0013. Historical values are omitted from these linear axes because their enormous scale would hide all other signals; their unchanged values remain in the ROI panels and numerical tables. Solid prediction curves and dashed reference levels come from the accepted experimental models, not visual inversion.](figure10_transects.png)
+
+The historical 650 nm adjacent jump was 674,321 candidate units; reconstructed BRDF-only jumps are about 0.0009-0.0013. Historical values are omitted from these linear axes because their enormous scale would hide all other signals; their unchanged values remain in the ROI panels and numerical tables. Solid prediction curves and dashed reference levels come from the accepted experimental models, not visual inversion.
+
+- At the original row 921, columns 980/981 pair, raw red difference is 0.001117; experimental BRDF-only differences range about 0.00089-0.00126. The historical 674,321-unit jump is absent. Predicted reference/observed ratios, rather than arbitrary coefficients, generate the corrections.
+- The full native red factor range is approximately A 0.50-3.15, B 0.53-2.78; complete band/branch quantiles are in the model records. The OLS uncertainty rule is a computational safeguard, not a field confidence interval that accounts for spatial confounding.
+
+## 12. Hard camera assignment introduces new discontinuities
+
+The old red line is not simply relocated to one new line; camera assignment creates many tessellation boundaries. These must be evaluated separately from the historical pole.
+
+![Red overlays mark inferred A/B assignment changes or C candidate-count changes. Kernel inputs can jump when assignments change. Bottom diagnostics use native horizontal edges, with raw and corrected jumps and a factor-induced signal component separately retained. These are algorithmic sensitivity diagnostics, not independently verified physical seams. Fixed factor display limits never cap numerical gains.](figure11_assignment_seams.png)
+
+Red overlays mark inferred A/B assignment changes or C candidate-count changes. Kernel inputs can jump when assignments change. Bottom diagnostics use native horizontal edges, with raw and corrected jumps and a factor-induced signal component separately retained. These are algorithmic sensitivity diagnostics, not independently verified physical seams. Fixed factor display limits never cap numerical gains.
+
+- At native horizontal assignment edges, the 99th percentile red factor jump is A 0.498, B 0.589, C uniform 0.0567 and C center 0.0265. The corresponding factor-induced signal component is about 0.0199, 0.0275, 0.00293 and 0.00114. C uses candidate-count edges, not an invented single-camera seamline.
+- C center is the smoother geometric sensitivity candidate under this declared seam diagnostic. It is not a verified Metashape contributor model. Smoothness and PFT accuracy cannot certify its weights. A remains the transparent nearest-camera baseline; neither hard assignment is recommended as artifact-free production geometry.
+
+## 13. The fixed vegetation exemplar is spectrally coherent again
+
+The boundary-crossing aspen polygon is the same preselected GlobalID as in the earlier artifact investigation. Labels and sampled memberships are unchanged.
+
+![The exemplar GlobalID and memberships are unchanged from P165/P172. The historical spectrum is dominated by corrupted red and red-edge bands. Experimental BRDF-only spectra remain on the raw-scale range; shape and class information are evaluated separately from numerical fitting success. Unit-sum shape is a display diagnostic, not a new radiometric calibration.](figure12_spectra.png)
+
+The exemplar GlobalID and memberships are unchanged from P165/P172. The historical spectrum is dominated by corrupted red and red-edge bands. Experimental BRDF-only spectra remain on the raw-scale range; shape and class information are evaluated separately from numerical fitting success. Unit-sum shape is a display diagnostic, not a new radiometric calibration.
+
+- Raw and new BRDF-only spectra retain the vegetation red-edge rise and NIR/red structure; historical BRDF greatly corrupts the red and 717 nm components. Median within-polygon spectral angle is raw 2.495 degrees, A 2.427, B 2.441, C uniform 2.426 and C center 2.402.
+- Median within-polygon variance is raw 0.000625, A 0.000445, B 0.000460, C uniform 0.000730 and C center 0.000611. Smaller variance or angle alone does not establish physical improvement; a band-dominated historical spectrum misleadingly has an even smaller angle. Complete CV, red-edge reversal, NIR/red and class-separation records are retained.
+
+## 14. Ecological information is retained, with uncertain modest gains
+
+The package identifiability and separability functions are run on exactly the established 157 identities and 144,406 polygon-pixel memberships. No memberships are changed to favor a branch.
+
+![All comparisons preserve 157 independent polygon identities, 144,406 memberships, seed 20261103, three folds, fixed classifier C=1 and training-only scaling. Raw 66.83%, historical 59.96%; A 69.81%, B 69.46%, C uniform 67.14%, C center 69.65%. Every BRDF-only paired gain interval includes zero. No held-out score was used to choose footprints, weights, thresholds or BRDF parameters.](figure13_ecology.png)
+
+All comparisons preserve 157 independent polygon identities, 144,406 memberships, seed 20261103, three folds, fixed classifier C=1 and training-only scaling. Raw 66.83%, historical 59.96%; A 69.81%, B 69.46%, C uniform 67.14%, C center 69.65%. Every BRDF-only paired gain interval includes zero. No held-out score was used to choose footprints, weights, thresholds or BRDF parameters.
+
+- A balanced-accuracy gain over raw is +2.98 points, paired 95% interval [-0.26,+6.66]; B +2.63 [-0.26,+6.14]; C uniform +0.31 [-6.43,+6.99]; C center +2.82 [-4.12,+9.59]. All include zero. Intervals bootstrap fixed out-of-fold predictions by class and identity; training/site-year and nearby-polygon dependence are not covered.
+- Class counts remain 98 Evergreen, 29 Woody shrub, 25 Herbaceous and 5 Deciduous. Within-branch permutation/Holm separation tables are descriptive evidence, not tests that a correction beats raw. Footprints, weights and models were defined before using held-out scores.
+
+## 15. Combined correction remains scientifically problematic
+
+The existing topographic calculation is executed through the same shared functions before BRDF fitting and application. Passing BRDF guards does not repair the separate topographic instability.
+
+![Combined runs pass the current BRDF numerical checks but reach 717 nm candidate reflectance maxima of about 50-70, versus 0.41-0.50 for BRDF-only. These extreme values are not clipped or approved. Combined ecological outcomes depend strongly on the assumed geometry; numerical acceptance is insufficient for scientific production readiness.](figure14_topographic_risk.png)
+
+Combined runs pass the current BRDF numerical checks but reach 717 nm candidate reflectance maxima of about 50-70, versus 0.41-0.50 for BRDF-only. These extreme values are not clipped or approved. Combined ecological outcomes depend strongly on the assumed geometry; numerical acceptance is insufficient for scientific production readiness.
+
+- Maximum 717 nm candidate reflectance remains about 50-70 in the combined products, compared with less than 0.50 for the BRDF-only candidates. These outcomes are preserved as experimental failure evidence, without clipping, masking the extremes or disabling requested branches.
+- Combined balanced accuracy is A 67.30%, B 68.30%, C uniform 61.46% and C center 61.71%. These mixed outcomes and implausible extremes rule out a claim of validated combined production correction.
+
+## 16. NEON and the production scientific contracts are unchanged
+
+Only an opt-in geometry module and isolated experiment scripts are added. The existing shared kernel, radiometry, fit/application and library gate implementations are untouched in this task.
+
+| Question | Measured outcome |
+| --- | --- |
+| NEON control | The real 120 x 3,000 window and ten selected native channels are rerun in BRDF-only and combined modes. Both support ten bands; corrected arrays and masks exactly match the saved P172 controls (maximum difference zero). Actual ENVI serialization and library-header acceptance pass. |
+| Regression checks | 163 focused tests pass, with zero failures, errors or skips. Nine new tests cover independent ray directions, north conversion, invalid heights, rotated footprint/assignment, weighted kernels, chunk invariance and an isolated shared-fitter control that retains production calibration rejection. |
+| Production boundary | Goldhill model radiometry and experimental GeoTIFF tags remain HYPOTHETICAL_UNVERIFIED / EXPERIMENTAL_NOT_VALIDATED. No approved spectral library is generated. Production require_valid still rejects the conditional decoder. |
+| Kernel input adapter | A/B use the normal shared angular design builder. C supplies precomputed individual-kernel mixtures through an isolated design-input adapter to the exact same estimator and application functions. The full design is fingerprinted in model identity. Placeholder angles in C bookkeeping are explicitly not the kernel inputs. |
+| Core scientific identity | P172 corrections.py source hash is unchanged, as are all protected earlier investigation files and source inputs. Existing parameters, model math/policy versions, reference geometry and numerical gates are unchanged. |
+
+
+## 17. A concrete small source-data request can resolve the next step
+
+The checked live package metadata contain reports, camera metadata, GCP/area records and an empty SkyPhotos collection. The recorded relative RawData/M300/SD1 location is not found. No original overlapping Goldhill photograph bytes were accessible in these checked locations.
+
+| Question | Measured outcome |
+| --- | --- |
+| Candidate subset | Four camera positions are selected from the intersection of the four fixed diagnostic-point footprints using only geometric conditioning, not reflectance or PFT scores. Their 40 band-photo identities, timestamps and relative original paths are listed in minimum_source_subset.csv. |
+| Why four views | The existing three-parameter fit requires at least four observations for residual uncertainty. The selected conditional four-ray designs have worst point condition about52, but are only a search seed until real pose/intrinsic/visibility conventions are verified. |
+| What to retrieve | Original calibrated band images or source-linked patches around the same fixed ground targets, full pose/intrinsic/distortion metadata with source-sensor binding, horizontal/vertical/time conventions, and radiometric processing/export evidence. Calibration panel/reference QA and independent validation targets are still needed. |
+| What to do with them | Register the same targets across the real overlapping observations, extract distinct measured reflectance values, verify actual view rays, then fit/validate the shared model while accounting for target-specific reflectance. The finished mosaic cannot supply those repeated measurements. |
+| Preferred current experiment | Retain A as a transparent baseline and C center as the smoother simulated-blending sensitivity result. Neither is selected by classification score or approved for production. Obtain actual contributor/blend evidence or repeated observations before scientific promotion. |
+
+
+## 18. Reproducibility and deliverables
+
+Native geometry, eight corrected images and large arrays are outside the repository in the dated scratch directory. Compact scripts, models, tables, figures and hashes are retained with this report.
+
+| Question | Measured outcome |
+| --- | --- |
+| Run order | reconstruct.py -> fit_experiments.py -> sensitivity.py -> sensitivity_fits.py -> evaluate.py -> assignment_boundaries.py -> diagnostic_maps.py -> source_subset.py -> figures.py -> write_report.py -> make_pdf.py -> verify.py. The separate neon_control.py reruns the supported real input. |
+| Geometry scaling | 3 workers, each at most1,024 ground points x565cameras; full native geometry completed in about143seconds. Input geometry arrays are bounded per chunk; no pixel-scale bulk Parquet cache is created. The existing shared fitter remains scene-in-memory. |
+| Outputs | Full geometry/candidate maps, A/B angle/relative/kernel/prediction/factor GeoTIFFs, four BRDF-only and four combined experimental ten-band GeoTIFFs. Every product is tagged experimental; all original/official sources remain unchanged. |
+| Experimental assumptions | Ideal nadir optical axis; height-axis follows local flight heading; reported pinhole intrinsics without distortion; conditional common vertical datum; approximate constant grid-to-true rotation; unknown actual blend/occlusion. Sensitivity experiments keep these choices visible. |
+| Acceptance and remaining work | Numerical reconstruction and correction succeeded. Verified physical calibration, genuine contributors or repeated observations, assignment-seam validation and separate topographic stabilization remain necessary before production approval. |
+
+- Source identities, exact numerical control comparisons, test logs, artifact inventories and final rendered PDF QA are in verification.json, artifact_checksums.json and pdf_visual_qa.json. No release, datastore upload, library regeneration or calibration promotion occurred.
+
+## Detailed records
+
+- [Flight/CRS and vertical evidence](flight_and_crs.json)
+- [Geometry and source coverage](geometry_summary.json)
+- [All eight main fit/application outcomes](experiment_status.json)
+- [Rank and spatial conditioning](design_support.json)
+- [Native seam diagnostics](assignment_boundary_metrics.json)
+- [Exact evaluation contract](evaluation_contract.json)
+- [Per-polygon spectra and variability](polygon_summaries.csv)
+- [Within-branch class separability](separability_pairs.csv)
+- [Paired ecological uncertainty](paired_gain.json)
+- [Minimal source subset](minimum_source_subset.csv)
+- [Verification](verification.json)

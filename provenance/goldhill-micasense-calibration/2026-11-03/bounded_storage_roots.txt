@@ -1,0 +1,70 @@
+ TYPE        PATH                         
+ collection  /iplant/home/shared/earthlab 
+
+ TYPE         NAME                                     OWNER          REPLICA NO.  RESOURCE HIERARCHY          SIZE  MODIFY TIME       STATUS 
+ data-object  .ipynb_checkpoints.packedfs.tar          tswetnam       0            CyVerseRes;ds10Broker;ds10  2048  2026-10-26.08:22  Good   
+ data-object  .ipynb_checkpoints.packedfs.tar          tswetnam       1            taccRes;corral4             2048  2026-10-26.08:28  Good   
+ data-object  Untitled.ipynb                           erickver       0            CyVerseRes;ds07Broker;ds07  72    2023-02-13.11:17  Good   
+ data-object  Untitled.ipynb                           erickver       1            taccRes;corral4             72    2023-02-13.11:17  Good   
+ collection   CO-WY                                    cibeleha                                                      2026-02-09.10:58         
+ collection   ForestResilience_DataSynthesis_workshop  ttuff                                                         2026-02-09.10:58         
+ collection   NC_eco_transformations                   nilangakoon                                                   2026-10-31.17:54         
+ collection   SCE                                      aashishmukund                                                 2026-09-17.11:02         
+ collection   SCE_EarthLab                             aashishmukund                                                 2026-09-17.11:02         
+ collection   aws-grandchallenge-backup                aashishmukund                                                 2026-10-20.15:08         
+ collection   bioextremes                              erickver                                                      2026-02-09.10:58         
+ collection   casc-atni-epa3-map                       nquarderer                                                    2026-02-09.10:58         
+ collection   data_archive                             tylermcintosh                                                 2026-02-09.10:58         
+ collection   firedpy_north_america                    nquarderer                                                    2026-02-09.10:58         
+ collection   forest_carbon_codefest                   tylermcintosh                                                 2026-02-09.10:58         
+ collection   forest_resiliency_backup                 erickver                                                      2026-02-09.10:58         
+ collection   geopark                                  nquarderer                                                    2026-02-09.10:58         
+ collection   haskell                                  tswetnam                                                      2026-10-26.08:53         
+ collection   linked_disturbance                       tylermcintosh                                                 2026-02-09.10:58         
+ collection   macrosystems                             tylermcintosh                                                 2026-10-14.14:27         
+ collection   mcd64                                    erickver                                                      2026-02-09.10:58         
+ collection   mosAIc                                   tylermcintosh                                                 2026-02-09.10:58         
+ collection   nfs_career                               erickver                                                      2026-10-26.08:52         
+ collection   oahu                                     nquarderer                                                    2026-02-09.10:58         
+ collection   olc_bridge                               nquarderer                                                    2026-02-09.10:58         
+ collection   sce                                      aashishmukund                                                 2026-09-17.11:01         
+ collection   sentinel2_data                           aashishmukund                                                 2026-02-09.10:58         
+ collection   tmp                                      nilangakoon                                                   2026-03-23.19:51         
+ collection   twensday3_transitionwarningsigns         tylermcintosh                                                 2026-02-09.10:58         
+
+ TYPE        PATH                                                 
+ collection  /iplant/home/shared/earthlab/macrosystems/field-data 
+
+ TYPE         NAME                        OWNER          REPLICA NO.  RESOURCE HIERARCHY            SIZE  MODIFY TIME       STATUS 
+ data-object  a.out                       pavancub24     0            CyVerseRes;ds08Broker;ds08    0     2025-01-15.18:40  Good   
+ data-object  a.out                       pavancub24     1            taccRes;corral4               0     2025-01-17.11:15  Good   
+ data-object  dsm_to_slope_aspect.R       nilangakoon    0            CyVerseRes;dustyBroker;dusty  5509  2025-01-15.18:06  Good   
+ data-object  dsm_to_slope_aspect.R       nilangakoon    1            taccRes;corral4               5509  2025-01-15.18:09  Good   
+ data-object  field-data.Rproj            nilangakoon    0            CyVerseRes;dustyBroker;dusty  205   2025-01-15.13:48  Good   
+ data-object  field-data.Rproj            nilangakoon    1            taccRes;corral4               205   2025-01-15.14:13  Good   
+ collection   .Rproj.user                 nilangakoon                                                     2026-02-09.10:58         
+ collection   DEPRECATED_mapped-polygons  tylermcintosh                                                   2026-02-09.10:58         
+ collection   NEON_flightline_boundaries  nilangakoon                                                     2026-02-09.10:58         
+ collection   To_Correct                  nilangakoon                                                     2026-02-09.10:58         
+ collection   analysis_ready_polygons     tylermcintosh                                                   2026-02-09.10:58         
+ collection   calibration_TM              nilangakoon                                                     2026-02-09.10:58         
+ collection   half_diam_uncorrected_data  nilangakoon                                                     2026-07-13.16:01         
+ collection   output                      pavancub24                                                      2026-10-29.16:08         
+ collection   uas-packages                tylermcintosh                                                   2026-02-09.10:58         
+
+ TYPE        PATH                                                  
+ collection  /iplant/home/shared/earthlab/macrosystems/calibration 
+
+ TYPE        NAME                        OWNER        MODIFY TIME      
+ collection  blue                        nilangakoon  2026-02-09.10:58 
+ collection  niwot_07.files              nilangakoon  2026-02-09.10:58 
+ collection  niwot_07_without_GCP.files  nilangakoon  2026-02-09.10:58 
+ collection  red                         nilangakoon  2026-02-09.10:58 
+
+ TYPE        PATH                                                      
+ collection  /iplant/home/shared/earthlab/macrosystems/Drone_topo_corr 
+
+ TYPE        NAME                OWNER        MODIFY TIME      
+ collection  .ipynb_checkpoints  nilangakoon  2026-02-09.10:58 
+ collection  clipped             nilangakoon  2026-02-09.10:58 
+ collection  corrected_new       nilangakoon  2026-02-09.10:58 

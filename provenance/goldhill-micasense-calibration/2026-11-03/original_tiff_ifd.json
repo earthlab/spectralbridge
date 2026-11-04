@@ -1,0 +1,111 @@
+[
+  {
+    "tag": 256,
+    "name": "ImageWidth",
+    "type": 3,
+    "count": 1
+  },
+  {
+    "tag": 257,
+    "name": "ImageLength",
+    "type": 3,
+    "count": 1
+  },
+  {
+    "tag": 258,
+    "name": "BitsPerSample",
+    "type": 3,
+    "count": 11
+  },
+  {
+    "tag": 259,
+    "name": "Compression",
+    "type": 3,
+    "count": 1
+  },
+  {
+    "tag": 262,
+    "name": "PhotometricInterpretation",
+    "type": 3,
+    "count": 1
+  },
+  {
+    "tag": 277,
+    "name": "SamplesPerPixel",
+    "type": 3,
+    "count": 1
+  },
+  {
+    "tag": 284,
+    "name": "PlanarConfiguration",
+    "type": 3,
+    "count": 1
+  },
+  {
+    "tag": 322,
+    "name": "TileWidth",
+    "type": 3,
+    "count": 1
+  },
+  {
+    "tag": 323,
+    "name": "TileLength",
+    "type": 3,
+    "count": 1
+  },
+  {
+    "tag": 324,
+    "name": "TileOffsets",
+    "type": 4,
+    "count": 165
+  },
+  {
+    "tag": 325,
+    "name": "TileByteCounts",
+    "type": 4,
+    "count": 165
+  },
+  {
+    "tag": 338,
+    "name": "ExtraSamples",
+    "type": 3,
+    "count": 10
+  },
+  {
+    "tag": 339,
+    "name": "SampleFormat",
+    "type": 3,
+    "count": 11
+  },
+  {
+    "tag": 33550,
+    "name": "ModelPixelScaleTag",
+    "type": 12,
+    "count": 3
+  },
+  {
+    "tag": 33922,
+    "name": "ModelTiepointTag",
+    "type": 12,
+    "count": 6
+  },
+  {
+    "tag": 34735,
+    "name": "GeoKeyDirectoryTag",
+    "type": 3,
+    "count": 104
+  },
+  {
+    "tag": 34736,
+    "name": "GeoDoubleParamsTag",
+    "type": 12,
+    "count": 17
+  },
+  {
+    "tag": 34737,
+    "name": "GeoAsciiParamsTag",
+    "type": 2,
+    "count": 28,
+    "value": "NAD83|NAD83 / UTM zone 13N|"
+  }
+]

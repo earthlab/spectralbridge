@@ -1,0 +1,149 @@
+{
+  "cases": [
+    {
+      "target": "upstream_uint16_25cm",
+      "band": 5,
+      "wavelength_nm": 650,
+      "method": "nearest",
+      "exclude_original_transparent_pixels": false,
+      "pairs": 1068349,
+      "rmse": 224.42079028923783,
+      "max_abs_error": 65380.0,
+      "median_abs_error": 81.0,
+      "fraction_equal_after_rounding_to_integer": 0.004850474891631855
+    },
+    {
+      "target": "upstream_uint16_25cm",
+      "band": 5,
+      "wavelength_nm": 650,
+      "method": "nearest",
+      "exclude_original_transparent_pixels": true,
+      "pairs": 1068347,
+      "rmse": 206.19629517455837,
+      "max_abs_error": 4796.0,
+      "median_abs_error": 81.0,
+      "fraction_equal_after_rounding_to_integer": 0.004850483971967909
+    },
+    {
+      "target": "upstream_uint16_25cm",
+      "band": 5,
+      "wavelength_nm": 650,
+      "method": "bilinear",
+      "exclude_original_transparent_pixels": false,
+      "pairs": 1068349,
+      "rmse": 500.25757501162644,
+      "max_abs_error": 35308.9453125,
+      "median_abs_error": 75.93359375,
+      "fraction_equal_after_rounding_to_integer": 0.004942205215711345
+    },
+    {
+      "target": "upstream_uint16_25cm",
+      "band": 5,
+      "wavelength_nm": 650,
+      "method": "bilinear",
+      "exclude_original_transparent_pixels": true,
+      "pairs": 1068347,
+      "rmse": 179.65167732433093,
+      "max_abs_error": 4046.12158203125,
+      "median_abs_error": 75.70999145507812,
+      "fraction_equal_after_rounding_to_integer": 0.0049562548497819525
+    },
+    {
+      "target": "upstream_uint16_25cm",
+      "band": 5,
+      "wavelength_nm": 650,
+      "method": "average",
+      "exclude_original_transparent_pixels": false,
+      "pairs": 1068349,
+      "rmse": 418.1563839986158,
+      "max_abs_error": 35688.546875,
+      "median_abs_error": 66.12237548828125,
+      "fraction_equal_after_rounding_to_integer": 0.005897885428825225
+    },
+    {
+      "target": "upstream_uint16_25cm",
+      "band": 5,
+      "wavelength_nm": 650,
+      "method": "average",
+      "exclude_original_transparent_pixels": true,
+      "pairs": 1068349,
+      "rmse": 169.7454048620749,
+      "max_abs_error": 4227.412109375,
+      "median_abs_error": 66.0321044921875,
+      "fraction_equal_after_rounding_to_integer": 0.005905373618545999
+    },
+    {
+      "target": "normalized_10cm",
+      "band": 5,
+      "wavelength_nm": 650,
+      "method": "nearest",
+      "exclude_original_transparent_pixels": false,
+      "pairs": 7068376,
+      "rmse": 112.62846173468995,
+      "max_abs_error": 7296.273193359375,
+      "median_abs_error": 6.325389371071452,
+      "fraction_equal_after_rounding_to_integer": null
+    },
+    {
+      "target": "normalized_10cm",
+      "band": 5,
+      "wavelength_nm": 650,
+      "method": "nearest",
+      "exclude_original_transparent_pixels": true,
+      "pairs": 6683944,
+      "rmse": 80.65031890393654,
+      "max_abs_error": 7216.510337018744,
+      "median_abs_error": 6.869844237281214,
+      "fraction_equal_after_rounding_to_integer": null
+    },
+    {
+      "target": "normalized_10cm",
+      "band": 5,
+      "wavelength_nm": 650,
+      "method": "bilinear",
+      "exclude_original_transparent_pixels": false,
+      "pairs": 7068376,
+      "rmse": 0.21944414212291338,
+      "max_abs_error": 15.230435686379934,
+      "median_abs_error": 0.0062327054251341,
+      "fraction_equal_after_rounding_to_integer": null
+    },
+    {
+      "target": "normalized_10cm",
+      "band": 5,
+      "wavelength_nm": 650,
+      "method": "bilinear",
+      "exclude_original_transparent_pixels": true,
+      "pairs": 6683944,
+      "rmse": 78.9311869829259,
+      "max_abs_error": 7216.510337018744,
+      "median_abs_error": 0.006974497130279644,
+      "fraction_equal_after_rounding_to_integer": null
+    },
+    {
+      "target": "normalized_10cm",
+      "band": 5,
+      "wavelength_nm": 650,
+      "method": "average",
+      "exclude_original_transparent_pixels": false,
+      "pairs": 7068376,
+      "rmse": 13.005084376738624,
+      "max_abs_error": 1053.8980554842772,
+      "median_abs_error": 0.5330532892095334,
+      "fraction_equal_after_rounding_to_integer": null
+    },
+    {
+      "target": "normalized_10cm",
+      "band": 5,
+      "wavelength_nm": 650,
+      "method": "average",
+      "exclude_original_transparent_pixels": true,
+      "pairs": 6689065,
+      "rmse": 216.26308677264976,
+      "max_abs_error": 9923.130012529087,
+      "median_abs_error": 0.5844336588504007,
+      "fraction_equal_after_rounding_to_integer": null
+    }
+  ],
+  "interpretation": "Independent GDAL interpolation tests; a closest numerical match does not recover the original exporter command or establish physical calibration."
+}

@@ -13,7 +13,7 @@ import pandas as pd
 import spectralbridge.qa_plots as qa_plots
 
 from spectralbridge.envi import hdr_to_dict
-from spectralbridge.corrections import BRDF_KERNEL_MATH_VERSION
+from spectralbridge.corrections import BRDF_KERNEL_MATH_VERSION, BRDF_VALIDATION_POLICY
 from spectralbridge.pipelines import run_drone_pipeline
 from spectralbridge.drone_production import validate_bulk_ready_flightline
 from spectralbridge.pipelines.drone import (
@@ -191,7 +191,7 @@ def _validated_model_double(out_dir):
     # No scientific fit is mocked as evidence: these tests isolate orchestration.
     p = Path(out_dir)/"coeffs.json"
     p.parent.mkdir(parents=True,exist_ok=True)
-    p.write_text(json.dumps({"schema_version":2,"kernel_math_version":BRDF_KERNEL_MATH_VERSION,"validation":{"status":"VALID"}}))
+    p.write_text(json.dumps({"schema_version":2,"kernel_math_version":BRDF_KERNEL_MATH_VERSION,"validation_policy":BRDF_VALIDATION_POLICY,"validation":{"status":"VALID"}}))
     return p
 
 
@@ -805,10 +805,10 @@ def test_apply_drone_corrections_reuses_matching_stage_record(
     raw_img = flight_dir / "SPR1_20230628__envi.img"
     raw_hdr = flight_dir / "SPR1_20230628__envi.hdr"
     raw_img.write_bytes(b"raw")
-    raw_hdr.write_text(f"ENVI\nradiometry status = VALID\nbrdf status = VALID\nbrdf model schema = 2\nbrdf kernel math version = {BRDF_KERNEL_MATH_VERSION}\n", encoding="utf-8")
+    raw_hdr.write_text(f"ENVI\nradiometry status = VALID\nbrdf status = VALID\nbrdf model schema = 2\nbrdf kernel math version = {BRDF_KERNEL_MATH_VERSION}\nbrdf validation policy = {BRDF_VALIDATION_POLICY}\n", encoding="utf-8")
     corrected_stem = flight_dir / "SPR1_20230628__corrected"
     corrected_stem.with_suffix(".img").write_bytes(b"corr")
-    corrected_stem.with_suffix(".hdr").write_text(f"ENVI\nradiometry status = VALID\nbrdf status = VALID\nbrdf model schema = 2\nbrdf kernel math version = {BRDF_KERNEL_MATH_VERSION}\n", encoding="utf-8")
+    corrected_stem.with_suffix(".hdr").write_text(f"ENVI\nradiometry status = VALID\nbrdf status = VALID\nbrdf model schema = 2\nbrdf kernel math version = {BRDF_KERNEL_MATH_VERSION}\nbrdf validation policy = {BRDF_VALIDATION_POLICY}\n", encoding="utf-8")
     monkeypatch.setattr(
         "spectralbridge.pipelines.drone._has_required_ancillary",
         lambda cube, names: True,
@@ -823,6 +823,7 @@ def test_apply_drone_corrections_reuses_matching_stage_record(
         configuration={
             "algorithm_version": 2,
             "brdf_kernel_math_version": BRDF_KERNEL_MATH_VERSION,
+            "brdf_validation_policy": BRDF_VALIDATION_POLICY,
             "radiometry": cube.radiometry.record(),
             "apply_topo": True,
             "apply_brdf": True,

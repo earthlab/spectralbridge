@@ -1,0 +1,58 @@
+[
+  {
+    "branch": "raw",
+    "difference": 0.0,
+    "low": 0.0,
+    "high": 0.0,
+    "changed_predictions": 0,
+    "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+  },
+  {
+    "branch": "historical",
+    "difference": -0.04096762843068262,
+    "low": -0.14841660802251933,
+    "high": 0.04472097114707949,
+    "changed_predictions": 23,
+    "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+  },
+  {
+    "branch": "current",
+    "difference": -0.04096762843068262,
+    "low": -0.14841660802251933,
+    "high": 0.04472097114707949,
+    "changed_predictions": 23,
+    "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+  },
+  {
+    "branch": "eligible_OLS",
+    "difference": -0.03096762843068262,
+    "low": -0.14161118930330754,
+    "high": 0.055302779732582685,
+    "changed_predictions": 26,
+    "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+  },
+  {
+    "branch": "robust_Huber",
+    "difference": -0.03096762843068262,
+    "low": -0.14159042927515836,
+    "high": 0.05848891625615757,
+    "changed_predictions": 28,
+    "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+  },
+  {
+    "branch": "stabilized",
+    "difference": -0.03096762843068262,
+    "low": -0.14161118930330754,
+    "high": 0.055302779732582685,
+    "changed_predictions": 26,
+    "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+  },
+  {
+    "branch": "cosine",
+    "difference": 0.019792399718508092,
+    "low": -0.016273750879662208,
+    "high": 0.05840957072484167,
+    "changed_predictions": 18,
+    "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+  }
+]

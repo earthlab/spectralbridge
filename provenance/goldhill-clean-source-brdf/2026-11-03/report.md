@@ -1,0 +1,290 @@
+# Goldhill BRDF Correction: Resolving the Red-Line Artifact
+
+November 3, 2026. **Goldhill calibration remains HYPOTHETICAL_UNVERIFIED.**
+
+## 1. Goldhill BRDF Correction: Resolving the Red-Line Artifact
+
+November 3, 2026. Underlying causes are quantitatively identified and the shared pathway is hardened. Goldhill still lacks the evidence needed for a scientifically supported BRDF product.
+
+| Question | Measured outcome |
+| --- | --- |
+| Source repair | Correct 10 cm, ten-band, alpha-aware numerical derivative used throughout. Calibration remains HYPOTHETICAL_UNVERIFIED. |
+| Artifact attribution | The raw boundary is ordinary; the historical BRDF model produces the enormous jump on both old and clean sources. |
+| Filtering | Red eligibility rises 14 ->6,678,404 under correct candidate units; stable angular rank remains 1/3. |
+| Implemented reliability | Footprint/quality/NDVI filtering, missing-geometry records, band identity, stable-rank diagnostics, common fit/application prediction checks and versioned model/header acceptance. |
+| Supported control | Real NEON window:10/10 bands supported in BRDF-only and combined branches; corrected values/masks identical before/after. |
+| Goldhill outcome | No C/D/E/F corrected image is fabricated. Calibration and genuine contributor/view information remain prerequisites. |
+
+- BRDF remains requested in the drone workflow. No original source, historical result, official spectral library or production calibration registry was overwritten.
+
+## 2. What the repaired source changes
+
+The source repair excludes transparent 65535 background before interpolation and removes per-band minimum subtraction. It does not supply angular information.
+
+![Identical 0-0.3 display limits; native background remains visible in historical support. Median raw boundary jumps are about 0.003 candidate units in both sources. No corrected output was used to choose the boundary.](figure01_sources.png)
+
+Identical 0-0.3 display limits; native background remains visible in historical support. Median raw boundary jumps are about 0.003 candidate units in both sources. No corrected output was used to choose the boundary.
+
+- Historical finite support=7,068,376 pixels; clean support=6,683,944. Revised historical prefit support=6,675,401; revised clean prefit support=6,678,404.
+- The estimated legacy bilinear mixing footprint intersects 5,833 clean-footprint cells. This is a source-validity reconstruction, not a brightness cutoff or recovered exporter certificate.
+- Both uncorrected sources lack this particular BRDF boundary artifact. Raw imagery is a baseline, not a secretly substituted successful correction.
+
+## 3. One affine physical interface, two different source encodings
+
+Clean S=DN x 10000/65535. Under the unverified MicaSense hypothesis, R=DN/32768=S x 0.0001999969482421875, offset 0. NEON decodes its documented source divisor 10000 to fractional reflectance.
+
+| Question | Measured outcome |
+| --- | --- |
+| Calibration status | Goldhill HYPOTHETICAL_UNVERIFIED, hypothesis MicaSense_Metashape_DN_32768; never VALID or VERIFIED. |
+| Historical comparison encoding | The historical NIR minimum 174 requires inverse slope 0.0001994659423828125and offset 0.00531005859375. Other historical channels use the common candidate multiplier. Reexpression does not approve historical corrections. |
+| Ten-band checks | All ten decoded source comparisons are exact at Float32 arithmetic. Largest stored-space round-trip error=0.000244140625; masks, wavelengths, CRS and north-up orientation preserved. |
+| Scaling invariance | With the same design/population and common multiplier k, beta*=k beta and both predictions scale by k, so their ratio cancels. A supported synthetic RossThick/LiDenseR control verifies this property. |
+| What breaks that comparison | Incorrect unit-based fitting thresholds, band-specific offsets, changing masks/NDVI strata and cancellation/roundoff can change an actual historical fit or its unstable numerical behavior. |
+
+- Physical decoding occurs once on entry to each calculation, with inverse encoding on native storage output. A subsequent stage decodes that stored result once again; it is not multiplied twice without inversion.
+- The isolated adapter delegates to Radiometry._affine and changes only the experimental calibration precondition. Its inherited production require_valid still rejects the hypothesis. Scientific kernels, fitting/rank/prediction gates remain the actual implementations.
+
+## 4. What the filters actually remove
+
+Source, radiometric, terrain, numerical angular, fitting and application support are distinct. Finite zero-angle placeholders are not measured contributor geometry.
+
+![Every sixth cell, same grid/north-up. Legacy mixing is estimated by bilinear source-alpha weights, not a brightness cutoff. Numerical geometry eligibility does not establish genuine views: actual Goldhill directional support remains absent.](figure02_masks.png)
+
+Every sixth cell, same grid/north-up. Legacy mixing is estimated by bilinear source-alpha weights, not a brightness cutoff. Numerical geometry eligibility does not establish genuine views: actual Goldhill directional support remains absent.
+
+- Explicit source footprint is intersected independently with the combined mask. Nonfinite values and declared NoData/saturation are separate from observed zeros and finite negative measurements.
+- Fitting uses the existing configurable physical interval 0-2 by default; the isolated angular investigation uses rho_max=None. No new reflectance threshold or ROI mask was introduced to erase the line.
+- When optional NDVI strata are enabled, percentile edges now exclude source-invalid/angular-invalid observations and invalid 665/865 nmmeasurements. They cannot be set by transparent background or a different red channel.
+- Finite topographic outputs are not automatically scientifically supported: P171 found separate SCS+C instability. The main artifact factorial is BRDF-only; topographic-only is an explicitly unapproved diagnostic comparator.
+
+## 5. The factorial comparison has honest unsupported branches
+
+Pinned historical functions are executed for A/B and actual revised-population historical refits for C/D. Current shared functions are used for E. No geometry or independent coefficient set was manufactured for F.
+
+![A/B are pinned historical replays. C/D use revised prefit populations and historical equations; stable rank 1 prevents application. E uses current shared mathematics and gates. F has no applicable independent directional information; no coefficients or image are invented.](figure03_factorial.png)
+
+A/B are pinned historical replays. C/D use revised prefit populations and historical equations; stable rank 1 prevents application. E uses current shared mathematics and gates. F has no applicable independent directional information; no coefficients or image are invented.
+
+- A/B use the identical preserved saved production model. This isolates changing source/encoding without attributing a new model to cleaner pixels. Both stored-array replays match their preserved prior outputs exactly.
+- C/D historical refits estimate diagnostic coefficient vectors, but stable rank 1 makes them non-identifiable. They are recorded as unsupported and never applied. E has no usable coefficients for the same underlying support reason.
+- C/D/E report application support 0 because no model is supported. This does not mean their correction successfully removed the artifact; there is no corrected image or PFT score.
+
+## 6. When does the known red boundary appear?
+
+The P165 evaluation ROI, transect, inside/outside locations, unaffected reference and boundary-crossing Deciduous polygon are fixed before this experiment.
+
+![P165 ROI rows 573:974, columns 812:1313,0.1 m, north-up. Identical display bounds saturate enormous diagnostic values; native ranges are reported separately. Gray panels indicate absent/unsupported products, not zero reflectance or successful artifact removal.](figure04_fixed_roi.png)
+
+P165 ROI rows 573:974, columns 812:1313,0.1 m, north-up. Identical display bounds saturate enormous diagnostic values; native ranges are reported separately. Gray panels indicate absent/unsupported products, not zero reflectance or successful artifact removal.
+
+- On 6,683,944 common source pixels, the A/B extreme-boundary pattern agrees 100%. The current common-mask evaluation contains 2,936 native boundary edges; these counts depend on the declared support, not a newly chosen line.
+- Median red cross-boundary jump: clean raw 0.00307914; A 630,876.20; B 630,821.35 candidate-equivalent units.
+- Full-scene/ROI images share display limits. Analytical ranges and extreme gains are retained; saturation in a displayed color scale is not data clipping.
+
+## 7. The source repair barely changes the historical boundary jump
+
+This is the decisive source-versus-model contrast, with the model held fixed.
+
+![At columns 980/981 the clean raw jump is 0.001117; the clean-source historical BRDF jump is 674,321 candidate-equivalent units. The same fixed transect and reference pixels are used for every branch; no smoothing or factor clipping.](figure05_transect.png)
+
+At columns 980/981 the clean raw jump is 0.001117; the clean-source historical BRDF jump is 674,321 candidate-equivalent units. The same fixed transect and reference pixels are used for every branch; no smoothing or factor clipping.
+
+- Changing old to clean source reduces the median historical boundary jump by only 0.00870%on the fixed common edges. It does not eliminate the stripe. This measured contrast is not a universal percentage causal attribution.
+- At row 921, columns 980/981, the clean raw difference is 0.00111727, while B has 674,320.79 candidate-equivalent units. Topography alone has 0.00194372 at that pair.
+- Reconstructed A/B factors can differ by a few Float32ULPs at gains near 1 e 7 because they are recovered from output/input ratios. The saved-model prediction mechanism and affected-pattern location are unchanged.
+
+## 8. Why the historical prediction fails
+
+Historical red fitting included only 14 observations under an erroneous stored-unit 0-2 filter. The old geometric kernel also had a spurious nadir-azimuth response; deficient angular support was not rejected.
+
+![The predicted red denominator is 0 outside and 0.0078125 inside at the fixed adjacent pair; reference prediction 91,740.234375 produces factor 11,742,750. Plotted denominator limits and sampled factor histograms do not alter the full-scene analytical summaries.](figure06_predictions.png)
+
+The predicted red denominator is 0 outside and 0.0078125 inside at the fixed adjacent pair; reference prediction 91,740.234375 produces factor 11,742,750. Plotted denominator limits and sampled factor histograms do not alter the full-scene analytical summaries.
+
+- At the fixed pair, the predicted denominator changes from 0 to 0.0078125 while the reference prediction is 91,740.234375. The old policy switches from identity to factor 11,742,750.
+- The old guard can hide nonpositive predictions behind an unchanged signal and apply enormous positive ratios next door. This is not a physical edge or proof of a calibrated surface response.
+- Current application shares fitting positivity, Float32 roundoff and 1.96 OLS standard-error checks. Unresolved predictions raise explicit errors instead of returning identity or capped factors. These uncertainty checks are computational, not spatially independent field confidence.
+
+## 9. The shared Ross-Li mathematics was already repaired
+
+The existing mathematical audit distinguishes reciprocal LiDenseR from nonreciprocal dense and LiSparseR. This task keeps the validated kernel equations and math-version identifier unchanged.
+
+![Current RossThick/LiDenseR equations are unchanged in this task. The earlier repair removed spurious nadir azimuth response; it cannot recover real observation directions. The fresh targeted suite reruns the independent reference fixtures, reciprocity and wrapping tests.](figure07_kernels.png)
+
+Current RossThick/LiDenseR equations are unchanged in this task. The earlier repair removed spurious nadir azimuth response; it cannot recover real observation directions. The fresh targeted suite reruns the independent reference fixtures, reciprocity and wrapping tests.
+
+- The independent published-equation fixtures, nadir invariance, reciprocity, wrapping, shape parameters, units and invalid-angle tests are rerun. Crown b/rtransforms tangent zenith; it is not an output-amplitude multiplier.
+- Both production paths explicitly use RossThick/LiDenseR, b/r 10, h/b 2, scene solar; direct helper defaults remain RossThick/LiSparseR eciprocal, b/r 1, h/b 2, pixel solar.
+- Correction is observed reflectance times predicted reference/observed reflectance. The reference remains solar 45 degrees, nadir view, relative azimuth 0. A correct kernel cannot manufacture missing observation directions.
+
+## 10. A larger population is not an identifiable directional model
+
+Under repaired units, all ten revised Goldhill bands have millions of eligible numerical values. The current scene-solar/nadir design still has one independent row combination.
+
+![Stable rank is tied to the existing precision condition limit 1/sqrt(float32epsilon). Algebraic rank and singular values are also retained. Pixel counts are not an estimated independent sample size; spatial/effective sampling uncertainty remains explicit.](figure08_support.png)
+
+Stable rank is tied to the existing precision condition limit 1/sqrt(float32epsilon). Algebraic rank and singular values are also retained. Pixel counts are not an estimated independent sample size; spatial/effective sampling uncertainty remains explicit.
+
+- Stable angular rank is 1 for every revised Goldhill band. Algebraic rank, singular values, condition number and precision tolerance are recorded separately; tiny singular values do not establish directional observations.
+- The current fitter requires at least 4 eligible observations, rank 3 and condition<=about 2896. No arbitrary neutral coefficient vector is labeled a successful fit. Unsupported models expose no usable current coefficients.
+- Effective independent sample size is explicitly not estimated. Repeated nearby pixels and one constant view do not become millions of independent angular observations. Supported NEON control bands have stable rank 3.
+
+## 11. What can the recovered camera records resolve?
+
+There are 5650 band-camera records and 565 distinct positions. Rotation matrices are numerically orthogonal, but their world/camera conventions, vertical datum and stated CRS still require confirmation.
+
+![Positions are real records; the right-hand envelope assumes their numbers are 26913 and altitude shares the delivered surface datum, with an illustrative nadir diagonal-FOV cone. It is not recovered viewing geometry, true image coverage, a probability distribution or a per-pixel assignment.](figure09_camera_uncertainty.png)
+
+Positions are real records; the right-hand envelope assumes their numbers are 26913 and altitude shares the delivered surface datum, with an illustrative nadir diagonal-FOV cone. It is not recovered viewing geometry, true image coverage, a probability distribution or a per-pixel assignment.
+
+- At the four fixed ROI points, an explicitly conditional nadir-FOV cone leaves 227-261 possible cameras per point, with view-zenith envelopes roughly 1-29 degrees. These are proxy scenario envelopes, not actual contributors or statistical confidence intervals.
+- The CSV says CRS 5070 while its numbers align with the 26913 mosaic. The delivered elevation and pose heights were used only under a stated common-datum scenario. No ray is assigned to an orthomosaic pixel.
+- Most practical route: obtain a small source-linked export of calibrated overlapping image patches/tie points with camera poses, intrinsics, CRS/time/surface conventions; or contributor IDs and per-band blend weights if retrievable. A whole archive is not required merely to export those records.
+
+## 12. External or constrained coefficients need independent evidence
+
+Goldhill cannot estimate three free directional coefficients from this encoded geometry. Reduced parameterization does not remove the need for defensible external directional information.
+
+![Synthetic algebra only, evaluated at the actual Goldhill nadir design. Each coefficient family predicts 0.3 at observed geometry but allows reference 0.15,0.3 or 0.6. No example is a Goldhill fit or applied model; isotropic-only assumptions give identity, not an estimated BRDF correction.](figure10_nonidentifiability.png)
+
+Synthetic algebra only, evaluated at the actual Goldhill nadir design. Each coefficient family predicts 0.3 at observed geometry but allows reference 0.15,0.3 or 0.6. No example is a Goldhill fit or applied model; isotropic-only assumptions give identity, not an estimated BRDF correction.
+
+- The three bars are synthetic algebra on the actual nadir design: the same observed prediction can yield reference 0.15,0.3 or 0.6. They are not fitted Goldhill models and are never applied.
+- The new actual NEON models are computationally supported controls, not independently validated 2023 Goldhill MicaSense transfers. Spectral response, vegetation, site/year, geometry and normalization domain must be tested before transfer. Nearest native channels do not supply sensor-band calibration.
+- For a blended mosaic, average view angles are not equivalent to weighted kernel predictions. Source-linked contributor weights could support kernel aggregation under validated assumptions; otherwise normalize calibrated observations before mosaicking. This source-bound API is not silently converted into an external-model consumer.
+
+## 13. What happens to a known polygon spectrum?
+
+All PFT comparisons use 157 unchanged researcher identities and 144,406 common polygon-pixel memberships. Sampling uses the package pixel-center index on the repaired grid.
+
+![The pre-existing Deciduous exemplar is selected by P165identity, not by new branch quality. Histories are reexpressed through the documented per-band inverse encoding; calibration remains hypothetical. Unsupported revised BRDF spectra are absent, not replaced with raw values.](figure11_spectra.png)
+
+The pre-existing Deciduous exemplar is selected by P165identity, not by new branch quality. Histories are reexpressed through the documented per-band inverse encoding; calibration remains hypothetical. Unsupported revised BRDF spectra are absent, not replaced with raw values.
+
+- The Deciduous exemplar was selected by the earlier artifact study. Red 650 and 717 nmcan dominate the historical normalized spectrum; a generic RGB omitting those bands can conceal that corruption.
+- Spectral angle, red-edge reversals, NIR/redrelationships, within-polygon CV/variance and class distances/overlap are retained. Smaller within-polygon angular spread can reflect domination by a corrupted band, not improved physical spectra.
+- C/D/E/F have no corrected spectra. No raw spectrum or neutral normalization is substituted and labeled a revised BRDF product.
+
+## 14. Does the historical correction improve PFT information?
+
+Package spectral_separability and evaluate_identifiability use independent polygon identities, identical 3 fold memberships, training-only scaling and fixed classifier C 1. No BRDF parameter was selected using held-out PFT scores.
+
+![157 polygon identities, four recorded classes, identical 3 fold splits, training-only scaling, C=1;499 permutations for separate spectral-separability tables. Intervals bootstrap fixed OOF predictions by class/identity. C/D/E/F have no supported image and no quality score; topographic score is unapproved diagnostic evidence.](figure12_pft.png)
+
+157 polygon identities, four recorded classes, identical 3 fold splits, training-only scaling, C=1;499 permutations for separate spectral-separability tables. Intervals bootstrap fixed OOF predictions by class/identity. C/D/E/F have no supported image and no quality score; topographic score is unapproved diagnostic evidence.
+
+- Raw clean balanced accuracy=66.83%; clean-source historical BRDF=59.96%. Paired difference=-6.87 points,95%interval[-18.99,+5.13];33 predictions change.
+- Median within-polygon variance grows from 0.0006247 to 431,806.12. Median angular spread falls from 2.495 to 1.956 degrees; this is not physical improvement.
+- The interval uses 1999 class-stratified whole-polygon draws of fixed OOF predictions; it excludes training/model/site/year uncertainty and nearby-polygon dependence. Classes:98 Evergreen,29 Woody shrub,25 Herbaceous,5 Deciduous. Pairwise permutation evidence is exploratory; no new class or abundance truth is invented.
+
+## 15. The actual supported NEON control is unchanged
+
+A fixed 120 x 3000 native window from the archived 2021R10C directional H5 provides real solar/view geometry and authoritative documented physical decoding. Ten nearest native channels are a bounded shared-function test.
+
+![Actual 2021R10C directional data, fixed 120 x 3000 native window, ten nearest native channels; both BRDF-only and combined models support 10/10 bands. Values and masks are identical before/after. This bounded regression control is not a MicaSense calibration transfer or full-flightline accuracy claim.](figure13_neon.png)
+
+Actual 2021R10C directional data, fixed 120 x 3000 native window, ten nearest native channels; both BRDF-only and combined models support 10/10 bands. Values and masks are identical before/after. This bounded regression control is not a MicaSense calibration transfer or full-flightline accuracy claim.
+
+- Both actual corrected controls serialize through EnviWriter and pass library header acceptance. Before and after hardening, BRDF-only and combined models support 10/10 bands; their corrected arrays and masks are identical, maximum absolute difference 0. Both paths use actual measured reflectance, not a synthetic replacement signal.
+- Observed/reference predictions pass the common roundoff/uncertainty checks. Reference predictions lie within the component kernel bounds in this control; bounds alone are not independent transfer validation.
+- This is a representative bounded regression control, not a full native-band flightline reprocessing claim or proof of empirical BRDF accuracy. The separate known-coefficient synthetic controls verify ratio direction and scaling analytically.
+
+## 16. The two platforms share mathematics, not missing inputs
+
+NEON and drone use the same affine converter,SCS+C, Ross-Li kernels, scene fits, reference/observed ratio and current model/library validity contracts.
+
+![Both pipelines retain BRDF requests and the same kernels, reference, physical decoder and ratio direction. Source acquisition/calibration/geometry remain platform-specific. A missing prerequisite is an explicit scientific block, not a successful uncorrected substitute.](figure14_shared_path.png)
+
+Both pipelines retain BRDF requests and the same kernels, reference, physical decoder and ratio direction. Source acquisition/calibration/geometry remain platform-specific. A missing prerequisite is an explicit scientific block, not a successful uncorrected substitute.
+
+- NEON inputs have source-defined calibration and observation geometry; MicaSense orthomosaics need source-specific calibration and contributor geometry. Do not force identical coefficients, masks or angular arrays.
+- AOP production builds a scene-topographic BRDF fit then applies the same stage and convolves supported hyperspectral output. Drone uses native wavelength identities and optional translation after supported correction. NDVI strata are optional and default off in both.
+- Shared kernels do not establish complete equivalence to grouped/stratified/interpolated FlexBRDF. Radiometric accuracy, land-cover confounding, shadow/terrain support and empirical normalization quality remain separate scientific evaluations.
+
+## 17. End-to-end execution is not end-to-end approval
+
+Actual run_drone_pipeline and component calls retain stage-specific outcomes. Partial numerical success is not counted as a scientifically valid corrected flight.
+
+| Question | Measured outcome |
+| --- | --- |
+| Source ingestion and raw ENVI | EXECUTED: ten-band values, masks, CRS/orientation preserved; no sensor-view placeholders written. |
+| Radiometric decoding | NUMERICALLY VERIFIED UNDER HYPOTHESIS: never approved physical calibration. |
+| Raw polygon index | EXECUTED using actual package index; labels unchanged. |
+| Production topo/BRDF preflight | UNSUPPORTED: calibration hypothesis rejected; missing sensor_zn reported by direct BRDF model preflight. |
+| Isolated conditional BRDF/combined | UNSUPPORTED: actual shared functions reach stable-rank 1 gate; no corrected image. |
+| Target-band physical translation | UNSUPPORTED: all four actual plan calls refuse the unapproved physical source. |
+| Approved polygon library | UNSUPPORTED: actual extraction guard rejects; no official library created. |
+| Actual producer | All topo/BRDF/translation requests stay enabled. UTC scenario reaches radiometry guard; absent/embedded-only timestamps are separately blocked by timing preflight. |
+
+- The explicit UTC manifest is a conditional timing scenario supported by recovered camera tags, not independent clock verification. No timing validation flag is presented as a calibration certificate.
+- Raw and diagnostic files remain in a fresh temporary namespace. Unsupported stages are neither silently omitted nor substituted with a successful uncorrected product.
+
+## 18. Direct decisions: source, filter and artifact attribution
+
+Measured contrasts and unsupported states answer different questions. Do not assign a causal fraction to an unidentified model.
+
+| Question | Measured outcome |
+| --- | --- |
+| 1. Contribution of source contamination? | It is a confirmed preprocessing defect, but A/B boundary locations agree 100%; fixed-model median jump changes only 0.00870%. It does not explain away the downstream line. |
+| 2. Contribution of fitting eligibility? | The wrong units select only 14 red observations; revised units admit 6.68 million. Historical accepted coefficients are unreliable, but a separate causal percentage is not identifiable from rank 1 data. |
+| 3. Contribution of missing geometry? | Fundamental non-identifiability: only one coefficient combination is determined. Two directional degrees of freedom and the reference response remain unsupported. |
+| 4. Does corrected scaling change coefficients/factors? | Unit-based filtering and band offsets can change fitting populations/NDVI. A common positive multiplier cancels in a supported fixed-population ratio; unstable historical Float32 cancellation can still be numerically sensitive. |
+| 5. Does clean source eliminate the artifact before BRDF? | The particular line is absent in both raw sources; clean preprocessing is necessary independently. Historical BRDF reintroduces it on the clean source. |
+| 6. Does revised filtering prevent it during BRDF? | Invalid fits cannot produce a valid output under current gates. C/D/E are rejected; no corrected Goldhill image exists to declare artifact-free success. |
+
+
+## 19. Direct decisions: mathematics, data and production readiness
+
+The reliable supported-input pathway is implemented. Goldhill remains scientifically blocked until its missing evidence is supplied.
+
+| Question | Measured outcome |
+| --- | --- |
+| 7. Are current RossThick/LiDenseR correct? | Yes against the established independent equations/property tests. Current equations are preserved; historical wrong nadir response is not reused as valid mathematics. |
+| 8. Can available Goldhill geometry support the fit? | No. Zero placeholders with scene solar give stable rank 1, not three independent parameters. |
+| 9. Most practical route to angular information? | A small calibrated repeated-target subset with verified poses/intrinsics/terrain/CRS/timing, or source-linked contributors/blend weights. External coefficient transfer needs independent spectral/ecological/domain validation. |
+| 10. Does revised BRDF preserve spectral consistency? | No supported Goldhill output yet; cannot claim improvement. Historical diagnostic spectra are corrupted and PFT scores do not establish a benefit. |
+| 11. Is library reliability improved? | Yes at the software boundary: unsupported/stale BRDF products cannot enter approved extraction under current guards. No Goldhill physical library was regenerated or validated. |
+| 12. What remains for production? | Keep the shared validated mathematics and hardened guards. Supply verified drone calibration and genuine directional observations, then validate normalization on independent directions/targets and spatial/site-held-out ecological data. |
+
+
+## 20. Scientific basis and reference boundaries
+
+Primary references support the kernels, directional sampling and data requirements. They do not certify this Goldhill calibration or a transferred coefficient model.
+
+| Question | Measured outcome |
+| --- | --- |
+| MODIS BRDF/albedo ATBD v 5 | https://lpdaac.usgs.gov/documents/97/MCD43_ATBD.pdf |
+| Zhang etal 2018 reciprocal LiDenseR, Eq 5 | https://doi.org/10.3390/rs10030437 |
+| FlexBRDF2022 | https://doi.org/10.1029/2021JG006622 |
+| NEON directional/bidirectional reflectance tutorial | https://www.neonscience.org/resources/learning-hub/tutorials/neon-brdf-refl-h5-py |
+| Honkavaara and Khoramshahi 2018 | https://www.mdpi.com/2072-4292/10/2/256 |
+
+- MODIS ATBD provides RossThick/reciprocal overlap and linear inversion; LiDenseR uses the separate reciprocal dense formulation checked in the existing 1220 case audit. These variants are not interchangeable.
+- FlexBRDF uses actual airborne directional observations and grouped/stratified processing. UAV radiometric block adjustment uses calibrated repeated observations, geometry and reference constraints. We do not import their conclusions as a universal Goldhill correction.
+
+## 21. Reproducibility, preservation and computational scope
+
+Revision2444902440a48453ed14855473d3250020ba8bb3with the explicitly recorded working-tree changes. Python 3.12 repository environment; report uses bundled ReportLab.
+
+| Question | Measured outcome |
+| --- | --- |
+| Inputs and code | input_manifest.json records protected source/historical paths+hashes and pre-edit snapshots. Modified code is separately hashed; original datasets and earlier investigations remain unchanged. |
+| Scripts | experiment.py ->legacy_refits.py ->geometry_feasibility.py ->analyze.py ->neon_control.py(before/after) ->pipeline_validation.py ->figures.py ->write_report.py ->make_pdf.py ->verify.py. |
+| Acceptance order | Before snapshots/control precede production changes; rerun current supported NEON control and targeted tests after changes. C/D legacy coefficients remain diagnostic-only. |
+| Memory/disk | Correction application uses bounded window masks. Added per-fit covariance has 9 numbers, not a pixel-scale state file. Fitter remains scene-in-memory with existing physical/design buffers; no new large-VM streaming claim. Scratch image arrays are dated temporary diagnostics, not an ordinary bulk pixel Parquet cache. |
+| Verification | 178 targeted tests pass (zero failures or skips). Source preservation, exact historical replay, ten-band scaling/masks/grid, independent kernels, rank/prediction guards, header policy propagation, raw/physical library boundaries and supported NEON regression are checked. See verification.json and test logs. |
+
+- All figures have short interpretations and fixed or declared display limits. Compact tables retain native/common support, coefficients, counts, predictions, spectra, PFT recall/confusion/paired uncertainty and exact source identity. No source upload, official library regeneration, release or calibration promotion occurs.
+
+## Detailed measured records
+
+- [Fitting populations,coefficients and rank](fitting_population_and_rank.json)
+- [Current conditional model](E_after_brdf_model.json)
+- [Native/common distributions](native_common_statistics.json)
+- [Fixed-edge artifact metrics](artifact_metrics.json)
+- [Per-polygon spectra and variability](polygon_summaries.csv)
+- [Class separation and corrected within-branch evidence](separability_pairs.csv)
+- [Paired prediction uncertainty](paired_gain.json)
+- [Actual pipeline stage results](pipeline_stage_results.json)
+- [Scientific summary](scientific_summary.json)
+- [Verification](verification.json)

@@ -1,0 +1,55 @@
+{
+  "status": "EXPERIMENT_COMPLETE_PRODUCTION_NOT_READY",
+  "date": "2026-11-03",
+  "production_ready": false,
+  "preprocessing": "READY_FOR_NUMERICAL_USE",
+  "physical_calibration": "UNVERIFIED",
+  "topographic": "UNSUPPORTED current production; historical stress replay unstable",
+  "brdf": "UNSUPPORTED; measured per-pixel viewing geometry absent",
+  "combined": "UNSUPPORTED; no approved result",
+  "landsat_translation": "UNSUPPORTED physical-input guard",
+  "micasense": "Two native wavelength subsets executed as numerical diagnostics only",
+  "approved_library": "UNSUPPORTED; nine numeric-only experimental tables are rejected by the physical-table guard",
+  "raw_classification_balanced_accuracy": 0.6682934553131599,
+  "identification_gain_detected": false,
+  "raw_out_of_fold_predictions_identical": true,
+  "PFT_sample": {
+    "polygons": 157,
+    "common_memberships": 144406,
+    "classes": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    }
+  },
+  "source_new_valid_pixels": 6683944,
+  "all_branch_common_pixels": 6678404,
+  "raw_common_pixels": 6683944,
+  "red_stripe": "Persists in historical replay; absent as a comparable algorithmic discontinuity in raw baseline",
+  "abundance": "NOT_EVALUATED: no independent abundance/reference validation",
+  "photo_time_recovery": {
+    "camera_records_matched": 5650,
+    "tag_date": [
+      "2023-08-15"
+    ],
+    "inherited_minus_photo_midpoint_seconds": -5.5,
+    "timezone_status": "NOT_EXPLICIT_IN_TIFFTAG_DATETIME CSV; do not silently assign a timezone"
+  },
+  "constraints": {
+    "source_files_modified": 0,
+    "official_products_overwritten": 0,
+    "datastore_writes": 0,
+    "production_defaults_changed": 0,
+    "calibration_or_viewing_geometry_invented": 0
+  },
+  "reproduction_scripts": [
+    "run_pipeline.py",
+    "audit_photo_times.py",
+    "analyze.py",
+    "figures.py",
+    "write_report.py",
+    "make_pdf.py",
+    "verify.py"
+  ]
+}

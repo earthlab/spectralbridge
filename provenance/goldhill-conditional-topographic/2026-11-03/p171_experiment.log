@@ -1,0 +1,11 @@
+FIT historical
+FIT current
+FIT eligible
+REGRESSION diagnostics and spatial block bootstrap
+APPLY historical
+APPLY current
+APPLY eligible_OLS
+APPLY robust_Huber
+APPLY stabilized
+APPLY cosine
+EXPERIMENT COMPLETE

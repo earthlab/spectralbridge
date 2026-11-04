@@ -1,0 +1,211 @@
+[
+  {
+    "stage": "source_ingestion",
+    "status": "EXECUTED",
+    "h5": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/goldhill_clean_hypothesis.h5"
+  },
+  {
+    "stage": "raw_ENVI_export",
+    "status": "EXECUTED",
+    "img": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/GOLDHILL_CLEAN_CONDITIONAL/GOLDHILL_CLEAN_CONDITIONAL_envi.img",
+    "hdr": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/GOLDHILL_CLEAN_CONDITIONAL/GOLDHILL_CLEAN_CONDITIONAL_envi.hdr"
+  },
+  {
+    "stage": "current_topography",
+    "status": "UNSUPPORTED",
+    "reason": "Radiometry HYPOTHETICAL_UNVERIFIED: authoritative physical scale, offset, units and provenance required (P172 isolated MicaSense_Metashape_DN_32768 hypothesis).",
+    "exception_type": "ValueError",
+    "audit": null
+  },
+  {
+    "stage": "current_BRDF_preflight",
+    "status": "UNSUPPORTED",
+    "model": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/production_brdf_preflight_final/production_brdf_preflight_final_brdf_model.json",
+    "reasons": [
+      "Radiometry HYPOTHETICAL_UNVERIFIED: authoritative physical scale, offset, units and provenance required (P172 isolated MicaSense_Metashape_DN_32768 hypothesis).",
+      "Missing or invalid BRDF input geometry/footprint: Ancillary 'sensor_zn' not available in NEON metadata."
+    ]
+  },
+  {
+    "stage": "current_topo_BRDF_driver",
+    "status": "UNSUPPORTED",
+    "reason": "Radiometry HYPOTHETICAL_UNVERIFIED: authoritative physical scale, offset, units and provenance required (P172 isolated MicaSense_Metashape_DN_32768 hypothesis).",
+    "exception_type": "DroneCorrectionUnavailableError",
+    "audit": {
+      "requested_topo": true,
+      "requested_brdf": true,
+      "topo_applied": false,
+      "brdf_applied": false,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "radiometry": {
+        "scale": 0.0001999969482421875,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset",
+        "encoding": {
+          "kind": "unknown",
+          "source_units": "unverified source units",
+          "stored_units": "unknown numerical encoding",
+          "scale_direction": "multiplier",
+          "physical_calibration_status": "UNVERIFIED",
+          "valid_numerical_range": null,
+          "source_units_attribute": "not supplied",
+          "source_dtype": "float32",
+          "nodata": "NaN",
+          "saturation": {
+            "status": "NOT_PROVIDED"
+          },
+          "quality_mask": {
+            "status": "DOCUMENTED",
+            "provenance": "TIFF per-band GDAL masks and declared alpha; finite source samples",
+            "convention": "true means valid"
+          },
+          "source_valid_mask_path": "/derived_10cm_10k/Reflectance/Metadata/Source_Valid_Mask",
+          "source_spectral_band_indices": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "source_alpha_band_indices": []
+        }
+      },
+      "brdf_status": "UNSUPPORTED"
+    }
+  },
+  {
+    "stage": "polygon_pixel_index",
+    "status": "EXECUTED",
+    "path": "/private/tmp/goldhill-clean-source-brdf-20261103/production_attempt/GOLDHILL_CLEAN_CONDITIONAL/GOLDHILL_CLEAN_CONDITIONAL_polygon_pixel_index.parquet"
+  },
+  {
+    "stage": "physical_polygon_library",
+    "status": "UNSUPPORTED",
+    "reason": "Radiometry HYPOTHETICAL_UNVERIFIED: authoritative physical scale, offset, units and provenance required (P172 isolated MicaSense_Metashape_DN_32768 hypothesis).",
+    "exception_type": "ValueError",
+    "audit": null
+  },
+  {
+    "stage": "translation_Landsat_8_OLI",
+    "status": "UNSUPPORTED",
+    "reason": "Radiometry HYPOTHETICAL_UNVERIFIED: authoritative physical scale, offset, units and provenance required (P172 isolated MicaSense_Metashape_DN_32768 hypothesis).",
+    "exception_type": "ValueError",
+    "audit": null
+  },
+  {
+    "stage": "translation_Landsat_9_OLI-2",
+    "status": "UNSUPPORTED",
+    "reason": "Radiometry HYPOTHETICAL_UNVERIFIED: authoritative physical scale, offset, units and provenance required (P172 isolated MicaSense_Metashape_DN_32768 hypothesis).",
+    "exception_type": "ValueError",
+    "audit": null
+  },
+  {
+    "stage": "translation_Landsat_5_TM",
+    "status": "UNSUPPORTED",
+    "reason": "Radiometry HYPOTHETICAL_UNVERIFIED: authoritative physical scale, offset, units and provenance required (P172 isolated MicaSense_Metashape_DN_32768 hypothesis).",
+    "exception_type": "ValueError",
+    "audit": null
+  },
+  {
+    "stage": "translation_Landsat_7_ETM+",
+    "status": "UNSUPPORTED",
+    "reason": "Radiometry HYPOTHETICAL_UNVERIFIED: authoritative physical scale, offset, units and provenance required (P172 isolated MicaSense_Metashape_DN_32768 hypothesis).",
+    "exception_type": "ValueError",
+    "audit": null
+  },
+  {
+    "stage": "isolated_hypothesis_BRDF",
+    "status": "UNSUPPORTED",
+    "rank": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "stable_rank": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "reasons": [
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design"
+    ],
+    "image_created": false
+  },
+  {
+    "stage": "isolated_hypothesis_combined",
+    "status": "UNSUPPORTED",
+    "rank": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "stable_rank": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "reasons": [
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design",
+      "Rank-deficient or insufficiently conditioned angular design"
+    ],
+    "image_created": false
+  }
+]

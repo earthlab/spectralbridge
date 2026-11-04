@@ -1,0 +1,146 @@
+[
+  {
+    "branch": "new_historical_brdf",
+    "status": "EXECUTED_EXPLORATORY_POLYGON_CV",
+    "balanced_accuracy": 0.5996059113300493,
+    "mean_fold_balanced_accuracy": 0.5801294191919192,
+    "independent_polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "folds": 3,
+    "regularization_C": 1,
+    "meaning": "Identity-disjoint folds with no intersecting polygon components across identities; single-flight exploratory score, not transfer or physical validation"
+  },
+  {
+    "branch": "new_historical_combined",
+    "status": "EXECUTED_EXPLORATORY_POLYGON_CV",
+    "balanced_accuracy": 0.6125686136523576,
+    "mean_fold_balanced_accuracy": 0.5946285774410774,
+    "independent_polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "folds": 3,
+    "regularization_C": 1,
+    "meaning": "Identity-disjoint folds with no intersecting polygon components across identities; single-flight exploratory score, not transfer or physical validation"
+  },
+  {
+    "branch": "new_historical_topo",
+    "status": "EXECUTED_EXPLORATORY_POLYGON_CV",
+    "balanced_accuracy": 0.717121745249824,
+    "mean_fold_balanced_accuracy": 0.7178188131313131,
+    "independent_polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "folds": 3,
+    "regularization_C": 1,
+    "meaning": "Identity-disjoint folds with no intersecting polygon components across identities; single-flight exploratory score, not transfer or physical validation"
+  },
+  {
+    "branch": "new_raw",
+    "status": "EXECUTED_EXPLORATORY_POLYGON_CV",
+    "balanced_accuracy": 0.6682934553131599,
+    "mean_fold_balanced_accuracy": 0.6766729797979797,
+    "independent_polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "folds": 3,
+    "regularization_C": 1,
+    "meaning": "Identity-disjoint folds with no intersecting polygon components across identities; single-flight exploratory score, not transfer or physical validation"
+  },
+  {
+    "branch": "old_brdf",
+    "status": "EXECUTED_EXPLORATORY_POLYGON_CV",
+    "balanced_accuracy": 0.5996059113300493,
+    "mean_fold_balanced_accuracy": 0.5801294191919192,
+    "independent_polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "folds": 3,
+    "regularization_C": 1,
+    "meaning": "Identity-disjoint folds with no intersecting polygon components across identities; single-flight exploratory score, not transfer or physical validation"
+  },
+  {
+    "branch": "old_combined",
+    "status": "EXECUTED_EXPLORATORY_POLYGON_CV",
+    "balanced_accuracy": 0.6349120337790288,
+    "mean_fold_balanced_accuracy": 0.6163457491582491,
+    "independent_polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "folds": 3,
+    "regularization_C": 1,
+    "meaning": "Identity-disjoint folds with no intersecting polygon components across identities; single-flight exploratory score, not transfer or physical validation"
+  },
+  {
+    "branch": "old_raw",
+    "status": "EXECUTED_EXPLORATORY_POLYGON_CV",
+    "balanced_accuracy": 0.6682934553131599,
+    "mean_fold_balanced_accuracy": 0.6766729797979797,
+    "independent_polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "folds": 3,
+    "regularization_C": 1,
+    "meaning": "Identity-disjoint folds with no intersecting polygon components across identities; single-flight exploratory score, not transfer or physical validation"
+  },
+  {
+    "branch": "old_reencoded_fixed",
+    "status": "EXECUTED_EXPLORATORY_POLYGON_CV",
+    "balanced_accuracy": 0.6682934553131599,
+    "mean_fold_balanced_accuracy": 0.6766729797979797,
+    "independent_polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "folds": 3,
+    "regularization_C": 1,
+    "meaning": "Identity-disjoint folds with no intersecting polygon components across identities; single-flight exploratory score, not transfer or physical validation"
+  },
+  {
+    "branch": "old_topo",
+    "status": "EXECUTED_EXPLORATORY_POLYGON_CV",
+    "balanced_accuracy": 0.684363124560169,
+    "mean_fold_balanced_accuracy": 0.6918928872053872,
+    "independent_polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "folds": 3,
+    "regularization_C": 1,
+    "meaning": "Identity-disjoint folds with no intersecting polygon components across identities; single-flight exploratory score, not transfer or physical validation"
+  }
+]

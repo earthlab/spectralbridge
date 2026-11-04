@@ -80,6 +80,10 @@ footprint and is the recommended setting for new NEON runs.
   application cannot be rescued with neutral coefficients or bin-zero remapping.
   Bands/strata without finite source observations are `NOT_APPLICABLE`, retain
   nodata and have null coefficients.
+* Fitting percentile edges use only source-footprint and angular-valid pixels
+  with valid red/NIR observations, using the same 665/865 nm selections as NDVI.
+  Transparent background and declared NoData/quality exclusions cannot set the
+  stratum boundaries.
 
 ## BRDF fitting and application
 
@@ -159,6 +163,29 @@ independent targets, angles and application-domain evidence. `UNSUPPORTED` or
 scene solar mean in application, so strip size does not change that geometry.
 Combined models fit the same scene-topographic observations they later correct.
 
+New fits also record validation policy
+`source-footprint-resolved-predictions-v1`, wavelength identities and the compact
+3-by-3 coefficient covariance for each supported band/stratum. Application
+rechecks the same positivity, rounding and OLS uncertainty conditions used by
+fitting; a small positive but unresolved denominator raises an explicit error,
+without identity substitution or factor clipping. Declared source footprints
+are enforced independently of the combined cube mask. Declared saturation and
+NoData remain distinct from observed zeros. Stable rank and pixel counts are
+reported separately; an effective independent sample size is not invented.
+
+Missing angular inputs produce an `UNSUPPORTED` model record with the missing
+prerequisite, rather than an uncaught lookup error. Models from an older
+validation policy are not reused by fitting/application: use a fresh output
+directory and preserve historical artifacts. Approved BRDF library inputs and
+completed-product reuse also require the current kernel and validation-policy
+header fields; raw products explicitly marked `NOT_REQUESTED` retain their
+separate physical-calibration contract. These checks do not change the
+Ross/Li equations, physical fitting interval, reference geometry or production
+calibration declarations. The
+[clean-source Goldhill investigation](dev/goldhill-clean-source-brdf-investigation.md)
+records the factorial experiment, actual NEON regression control and remaining
+drone prerequisites; it does not certify Goldhill calibration or supplied views.
+
 | Investigated drone mosaic | Angular design rank | Supported bands |
 | --- | --- | --- |
 | Gordon | 1 / 3 | 0 / 10 |
@@ -214,4 +241,31 @@ denominators, gains, masks and held-out biological/invariant targets; an arbitra
 gain cap is not a substitute. See the [latest mechanism audit](dev/photogrammetry-metadata-investigation.md)
 and [polygon study](dev/drone-brdf-identifiability-investigation.md).
 
-Last updated: 2026-11-02
+## Opt-in experimental drone viewing geometry
+
+`drone_view_geometry` provides pure nadir-ray, ideal rectangular-footprint,
+assignment and kernel-mixture helpers. It is an explicit experiment input utility;
+it does not alter drone or NEON defaults, approve radiometry, infer real mosaic
+contributors, or replace shared BRDF equations and safeguards. Callers must supply
+common projected-metre coordinates and an explicit grid-to-true-north conversion.
+Simulated kernel weights are not measured mosaic weights, and one mosaic value
+must never be duplicated into multiple directional observations.
+
+The [Goldhill reconstruction experiment](dev/goldhill-viewing-geometry-experiment.md)
+contains native experimental products, missing-datum/contributor provenance,
+assignment-seam and ecological diagnostics, and an unchanged real NEON control.
+Its combined topographic products retain unresolved extremes; numerical model
+acceptance does not establish production readiness.
+
+Last updated: 2026-11-04
+
+## Opt-in conditioned drone experiments
+
+The integrated drone reliability investigation adds explicit fitting subsets,
+spatial uncertainty groups and a conditioned SCS+C model. The shared equations
+and default NEON path remain unchanged. See
+[the investigation](dev/drone-integrated-reliability.md) for the source identity,
+chunking, uncertainty policy, unsupported-state contract and calibration limits.
+Experimental products retain their status through ENVI serialization and cannot
+enter the approved spectral library. These are conditional research options,
+not new automatic production defaults.

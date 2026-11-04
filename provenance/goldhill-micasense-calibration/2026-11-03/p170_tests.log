@@ -1,0 +1,11 @@
+...................                                                      [100%]
+=============================== warnings summary ===============================
+tests/test_radiometric_encoding.py::test_declared_tiff_alpha_and_partial_band_nodata_survive_ingestion
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/polygons.py:30: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+tests/test_radiometric_encoding.py::test_declared_tiff_alpha_and_partial_band_nodata_survive_ingestion
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py:1797: NodataShadowWarning: The dataset's nodata attribute is shadowing the alpha band. All masks will be determined by the nodata attribute
+    valid = (src.read_masks(band) > 0) & np.isfinite(data[index])
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html

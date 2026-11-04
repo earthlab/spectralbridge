@@ -1,0 +1,30 @@
+{
+  "stage": "E_numerical_MicaSense_to-match_TM_and_ETM+",
+  "status": "EXECUTED",
+  "result": {
+    "schema_version": 1,
+    "product_type": "matched_micasense_source",
+    "source_sensor": "MicaSense_to-match_TM_and_ETM+",
+    "translation_pair": "MicaSense_to-match_TM_and_ETM+__to__Landsat_5_TM",
+    "native_source_band_indices": [
+      2,
+      4,
+      6,
+      10
+    ],
+    "source": {
+      "image": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_envi.img",
+      "image_size": 283330800,
+      "image_mtime_ns": 1793737042091480201,
+      "header": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_envi.hdr",
+      "header_sha256": "a9da85a5fe10f24815c1d4e778408f25bfbefd80246668d89bbd7cb4a549645b"
+    },
+    "status": "created",
+    "created_utc": "2026-11-03T20:19:29.162783+00:00",
+    "spectralbridge_version": "2.3.0rc1",
+    "source_product_signature_sha256": "e558a6cb1634b09551c0184e1f7c1fd937f5d3d9dd8c05b476a4c9dfbbe3c5b9",
+    "output_img": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_TM_and_ETM+.img",
+    "output_hdr": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_TM_and_ETM+.hdr",
+    "provenance_json": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_TM_and_ETM+__source.json"
+  }
+}

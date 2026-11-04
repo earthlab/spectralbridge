@@ -1,0 +1,86 @@
+[
+  {
+    "branch": "cosine",
+    "balanced_accuracy": 0.7027762139338495,
+    "mean_fold_balanced_accuracy": 0.7098484848484848,
+    "identities": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    }
+  },
+  {
+    "branch": "current",
+    "balanced_accuracy": 0.6420161857846587,
+    "mean_fold_balanced_accuracy": 0.657801978114478,
+    "identities": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    }
+  },
+  {
+    "branch": "eligible_OLS",
+    "balanced_accuracy": 0.6520161857846587,
+    "mean_fold_balanced_accuracy": 0.6682186447811448,
+    "identities": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    }
+  },
+  {
+    "branch": "historical",
+    "balanced_accuracy": 0.6420161857846587,
+    "mean_fold_balanced_accuracy": 0.657801978114478,
+    "identities": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    }
+  },
+  {
+    "branch": "raw",
+    "balanced_accuracy": 0.6829838142153414,
+    "mean_fold_balanced_accuracy": 0.6907354797979798,
+    "identities": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    }
+  },
+  {
+    "branch": "robust_Huber",
+    "balanced_accuracy": 0.6520161857846587,
+    "mean_fold_balanced_accuracy": 0.6682186447811448,
+    "identities": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    }
+  },
+  {
+    "branch": "stabilized",
+    "balanced_accuracy": 0.6520161857846587,
+    "mean_fold_balanced_accuracy": 0.6682186447811448,
+    "identities": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    }
+  }
+]

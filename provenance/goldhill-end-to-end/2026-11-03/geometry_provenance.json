@@ -1,0 +1,48 @@
+{
+  "source": "/private/tmp/assumed-viewing-angles-20261103/goldhill_working.h5",
+  "solar": {
+    "acquisition_datetime_used": "2023-08-15T19:53:07",
+    "solar_azimuth_max": 204.70025634765625,
+    "solar_azimuth_mean": 204.69580078125,
+    "solar_azimuth_min": 204.6913604736328,
+    "solar_geometry_source": "manifest_computed",
+    "solar_zenith_max": 27.766454696655273,
+    "solar_zenith_mean": 27.764942169189453,
+    "solar_zenith_min": 27.763427734375
+  },
+  "source_metadata_nominal_acquisition": "2023-08-14 13:41 local; original Metadata.txt",
+  "datetime_conflict": true,
+  "terrain_paths": {
+    "slope": "/private/tmp/goldhill-end-to-end-20261103/ancillary/legacy_slope.tif",
+    "aspect": "/private/tmp/goldhill-end-to-end-20261103/ancillary/legacy_aspect.tif",
+    "solar_zn": "/private/tmp/goldhill-end-to-end-20261103/ancillary/legacy_solar_zn.tif",
+    "solar_az": "/private/tmp/goldhill-end-to-end-20261103/ancillary/legacy_solar_az.tif"
+  },
+  "sensor_views": "NOT_AVAILABLE per orthomosaic pixel; CSV poses not assigned to contributing pixels",
+  "camera_csv": "/Users/tuff/Downloads/AOP-GOLDHILL-camera_locations.csv",
+  "camera_crs_conflict": "CSV says 5070; coordinates align with TIFF 26913; convention unresolved",
+  "wavelengths_nm": [
+    444.0,
+    475.0,
+    531.0,
+    560.0,
+    650.0,
+    668.0,
+    705.0,
+    717.0,
+    740.0,
+    862.0
+  ],
+  "fwhm_nm": [
+    28.0,
+    32.0,
+    14.0,
+    27.0,
+    16.0,
+    14.0,
+    10.0,
+    12.0,
+    18.0,
+    57.0
+  ]
+}

@@ -1,0 +1,100 @@
+[
+  {
+    "id": "figure01_scaling",
+    "png": "figure01_scaling.png",
+    "svg": "figure01_scaling.svg",
+    "title": "Scaling changes magnitude, not the SCS+C factors",
+    "caption": "Exact multiplier 0.0001999969482421875; no offset. All ten fitted C values are identical at the tested scales. Spectral shape alone cannot verify calibration."
+  },
+  {
+    "id": "figure02_geometry",
+    "png": "figure02_geometry.png",
+    "svg": "figure02_geometry.svg",
+    "title": "Aligned geometry, with unresolved terrain provenance",
+    "caption": "North is up on the common 10cm grid; images sampled every sixth cell. Self-shadow means cos(i)<=0, not a complete cast/canopy-shadow mask. Terrain resampling does not create new independent detail."
+  },
+  {
+    "id": "figure03_time",
+    "png": "figure03_time.png",
+    "svg": "figure03_time.svg",
+    "title": "Timestamp interpretation changes the model, not its provenance",
+    "caption": "Solar geometry uses the existing approximate UTC package function at scene center for sensitivity. Local-time interpretation puts the sun near the horizon and can trigger neutral fallbacks; that is not evidence of successful correction. No case was selected for looking better."
+  },
+  {
+    "id": "figure04_instability",
+    "png": "figure04_instability.png",
+    "svg": "figure04_instability.svg",
+    "title": "The red instability is denominator cancellation",
+    "caption": "At row1178,col1533, cos(i)=0.3482566 and C=-0.3472517 leave denominator0.00100496 and factor309.9168. Positive illumination does not prevent cancellation. Huber moves the pole; it does not remove it."
+  },
+  {
+    "id": "figure05_support",
+    "png": "figure05_support.png",
+    "svg": "figure05_support.svg",
+    "title": "Resolved support reduces extremes; robust fitting alone does not",
+    "caption": "Native supports are shown separately. Stabilized coverage is98.96% of raw, including existing geometry losses; no gain was capped. The cosine alternative is numerically extreme near local self-shadow and is not recommended."
+  },
+  {
+    "id": "figure06_red_maps",
+    "png": "figure06_red_maps.png",
+    "svg": "figure06_red_maps.svg",
+    "title": "Red reflectance on each native support",
+    "caption": "Identical grid, north up, every sixth cell. Common raw99th percentile controls display only; analytical extremes are retained. White is unsupported/missing. Candidate calibration remains unverified."
+  },
+  {
+    "id": "figure07_factor_maps",
+    "png": "figure07_factor_maps.png",
+    "svg": "figure07_factor_maps.svg",
+    "title": "Where factors and exclusions occur",
+    "caption": "Display factor limits0.5-350 do not clip analysis. Pole-adjacent regions become unsupported; the rule does not make new measurements. Unsupported boundaries can create selection bias and are tested using identical common pixels."
+  },
+  {
+    "id": "figure08_spectra",
+    "png": "figure08_spectra.png",
+    "svg": "figure08_spectra.svg",
+    "title": "Matched spectra: first identity in each recorded class",
+    "caption": "One outcome-blind lexicographic polygon per class, on identical common pixels. Curves are ten discrete optical bands, not a continuous hyperspectral measurement. Representative curves cannot establish physical accuracy."
+  },
+  {
+    "id": "figure09_consistency",
+    "png": "figure09_consistency.png",
+    "svg": "figure09_consistency.svg",
+    "title": "Smaller absolute variance is not uniformly better consistency",
+    "caption": "All157 polygons use the same142,656 common memberships. Compare CV and spectral angles alongside absolute variance: multiplicative dimming can lower variance without improving relative spectral consistency."
+  },
+  {
+    "id": "figure10_dependence",
+    "png": "figure10_dependence.png",
+    "svg": "figure10_dependence.svg",
+    "title": "Illumination dependence and class variation can move differently",
+    "caption": "Partial associations control recorded class and a linear spatial plane across independent polygon means. Spatial autocorrelation/nonlinear vegetation structure remain. Reducing correlation alone does not establish more accurate reflectance."
+  },
+  {
+    "id": "figure11_identifiability",
+    "png": "figure11_identifiability.png",
+    "svg": "figure11_identifiability.svg",
+    "title": "No established identification benefit from stabilized SCS+C",
+    "caption": "Package classifier uses polygon-disjoint3fold validation, training-only scaling and fixed C=1. Intervals bootstrap fixed out-of-fold predictions by class/identity; they exclude model/coefficient/site uncertainty. Only5 deciduous polygons: one changed prediction shifts balanced accuracy by5 points."
+  },
+  {
+    "id": "figure12_separability",
+    "png": "figure12_separability.png",
+    "svg": "figure12_separability.svg",
+    "title": "Class separation is mixed, not universal",
+    "caption": "Distances, overlap and permutation evidence are descriptive of one labeled flight. Package spectral_separability uses499 permutations, independent polygon units and equal discrete-band weights; significance within a branch does not test a correction gain."
+  },
+  {
+    "id": "figure13_summary_sensitivity",
+    "png": "figure13_summary_sensitivity.png",
+    "svg": "figure13_summary_sensitivity.svg",
+    "title": "Aggregation and support are part of the scientific comparison",
+    "caption": "Means reproduce the earlier P169 aggregation; medians are a sensitivity analysis, not selected for a better score. Native-support contrasts and the old71.7% historical score use different masks and cannot be attributed solely to correction."
+  },
+  {
+    "id": "figure14_differences",
+    "png": "figure14_differences.png",
+    "svg": "figure14_differences.svg",
+    "title": "Changes and extreme-factor locations",
+    "caption": "Signed differences are candidate reflectance on stabilized support;99th-percentile display bounds do not alter measurements. Right: sampled positions with historical red gain>10;star marks actual native maximum at row1178,column1533. The threshold10 is descriptive only, not the eligibility rule."
+  }
+]

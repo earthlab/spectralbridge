@@ -1,0 +1,112 @@
+{
+  "profile": {
+    "crs": "EPSG:26913",
+    "transform": [
+      0.09999999999996322,
+      0.0,
+      457624.5,
+      0.0,
+      -0.09999999999991677,
+      4432830.55,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "width": 3165,
+    "height": 2238,
+    "bounds": [
+      457624.5,
+      4432606.75,
+      457940.9999999999,
+      4432830.55
+    ]
+  },
+  "selection": {
+    "roi_native_indices": [
+      573,
+      974,
+      812,
+      1313
+    ],
+    "roi_extent_NAD83_UTM13N": [
+      457705.69999999995,
+      457755.79999999993,
+      4432733.149999999,
+      4432773.25
+    ],
+    "roi_resolution_m": 0.1,
+    "exemplar_GlobalID": "{3A6D6E1D-3581-49B8-9321-397DFE5298C5}",
+    "exemplar_cover_category": "Deciduous",
+    "exemplar_species": "Populus tremuloides",
+    "exemplar_status": "Nearest eligible boundary-crossing polygon to the pre-existing transect; raw within-polygon spectral angle recorded, not selected on corrected quality",
+    "selected_polygons": [
+      "{3A6D6E1D-3581-49B8-9321-397DFE5298C5}",
+      "{5A8F5F52-E86E-4354-A521-D7F1ABC78F65}",
+      "{B3288E38-7D65-49AB-810E-4ABF8F62E43D}"
+    ],
+    "pixels": [
+      {
+        "label": "nonpositive_outside",
+        "row": 921,
+        "column": 980
+      },
+      {
+        "label": "near_zero_inside",
+        "row": 921,
+        "column": 981
+      },
+      {
+        "label": "inside_artifact",
+        "row": 921,
+        "column": 1000
+      },
+      {
+        "label": "unaffected_reference",
+        "row": 921,
+        "column": 830
+      }
+    ],
+    "main_transect_row": 921,
+    "main_transition_left_column": 980,
+    "main_transect_columns": [
+      840,
+      1120
+    ],
+    "array_order": "row,column,band",
+    "source_alpha_policy": "Display and polygon membership require alpha>0; H5 arrays unchanged; exact replay diagnostics also retain original full finite-H5 support"
+  },
+  "wavelengths_nm": [
+    444,
+    475,
+    531,
+    560,
+    650,
+    668,
+    705,
+    717,
+    740,
+    862
+  ],
+  "diagnostic_RGB_nm": [
+    650,
+    560,
+    475
+  ],
+  "RGB_display": {
+    "black": 0,
+    "white": 0.25,
+    "gamma": 0.5,
+    "same_limits_all_branches": true
+  },
+  "full_scene_stride": 4,
+  "native_metric_pixels": 6683905,
+  "source_alpha_pixels": 6683944,
+  "controlled_filter_pixels": 6678404,
+  "common_polygon_memberships": 144406,
+  "polygon_units": 157,
+  "calibration": "HYPOTHETICAL_UNVERIFIED",
+  "geometry": "INFERRED_NOT_VERIFIED_CONTRIBUTORS",
+  "classification_aggregation": "mean; new median spectra are descriptive only",
+  "historical_branch": "Frozen historical model/kernel replay on the common clean source; existing B array read only, no kernel recomputation/refit",
+  "units": "candidate fractional reflectance via common clean multiplier; no encoded/physical comparison without explicit conversion"
+}

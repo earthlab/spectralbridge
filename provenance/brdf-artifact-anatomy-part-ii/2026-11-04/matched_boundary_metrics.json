@@ -1,0 +1,98 @@
+[
+  {
+    "branch": "raw",
+    "wavelength_nm": 650,
+    "edges": 2936,
+    "median_boundary_jump": 0.003079138696193695,
+    "fixed_pair_jump": 0.001117270439863205,
+    "native_maximum": 0.378012090921402
+  },
+  {
+    "branch": "raw",
+    "wavelength_nm": 717,
+    "edges": 2936,
+    "median_boundary_jump": 0.00542285293340683,
+    "fixed_pair_jump": 0.004032328724861145,
+    "native_maximum": 0.4174501299858093
+  },
+  {
+    "branch": "historical",
+    "wavelength_nm": 650,
+    "edges": 2936,
+    "median_boundary_jump": 630821.3478896132,
+    "fixed_pair_jump": 674320.7879817282,
+    "native_maximum": 3000001.01971875
+  },
+  {
+    "branch": "historical",
+    "wavelength_nm": 717,
+    "edges": 2936,
+    "median_boundary_jump": 326.163823059082,
+    "fixed_pair_jump": 315.2159901123041,
+    "native_maximum": 29380.975675048827
+  },
+  {
+    "branch": "nearest",
+    "wavelength_nm": 650,
+    "edges": 2936,
+    "median_boundary_jump": 0.002608988434076309,
+    "fixed_pair_jump": 0.0008922889828681946,
+    "native_maximum": 0.38123828172683716
+  },
+  {
+    "branch": "nearest",
+    "wavelength_nm": 717,
+    "edges": 2936,
+    "median_boundary_jump": 0.004621019586920738,
+    "fixed_pair_jump": 0.0032946914434432983,
+    "native_maximum": 0.409050852060318
+  },
+  {
+    "branch": "central",
+    "wavelength_nm": 650,
+    "edges": 2936,
+    "median_boundary_jump": 0.002657206729054451,
+    "fixed_pair_jump": 0.0009125135838985443,
+    "native_maximum": 0.42060890793800354
+  },
+  {
+    "branch": "central",
+    "wavelength_nm": 717,
+    "edges": 2936,
+    "median_boundary_jump": 0.004709064960479736,
+    "fixed_pair_jump": 0.0033776387572288513,
+    "native_maximum": 0.42039749026298523
+  },
+  {
+    "branch": "uniform",
+    "wavelength_nm": 650,
+    "edges": 2936,
+    "median_boundary_jump": 0.0034847091883420944,
+    "fixed_pair_jump": 0.0012618228793144226,
+    "native_maximum": 0.48460572957992554
+  },
+  {
+    "branch": "uniform",
+    "wavelength_nm": 717,
+    "edges": 2936,
+    "median_boundary_jump": 0.006263624876737595,
+    "fixed_pair_jump": 0.004668965935707092,
+    "native_maximum": 0.49543026089668274
+  },
+  {
+    "branch": "weighted",
+    "wavelength_nm": 650,
+    "edges": 2936,
+    "median_boundary_jump": 0.0031157732009887695,
+    "fixed_pair_jump": 0.0010848455131053925,
+    "native_maximum": 0.43795526027679443
+  },
+  {
+    "branch": "weighted",
+    "wavelength_nm": 717,
+    "edges": 2936,
+    "median_boundary_jump": 0.00563841313123703,
+    "fixed_pair_jump": 0.004102155566215515,
+    "native_maximum": 0.46021348237991333
+  }
+]

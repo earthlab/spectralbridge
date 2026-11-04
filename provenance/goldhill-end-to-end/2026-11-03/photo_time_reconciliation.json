@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "sources": [
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/source_metadata/SD1_image_metadata.csv",
+      "sha256": "3276905b0964b85f7d1aa1890191f9b4cd036cb1a68e8c3651cc121f3920051b",
+      "bytes": 307588,
+      "remote_origin": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/source_metadata/SD2_image_metadata.csv",
+      "sha256": "3abccee406839f2e36ccaa4a266fea9e944b2a41816fc66a3582b7b91503d86e",
+      "bytes": 308703,
+      "remote_origin": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv"
+    }
+  ],
+  "original_photos": 6095,
+  "unique_photo_ids": 6095,
+  "all_photo_tag_dates": [
+    "2023-08-15"
+  ],
+  "all_photo_start": "2023-08-15 19:38:14",
+  "all_photo_end": "2023-08-15 20:06:58",
+  "camera_records": 5650,
+  "camera_records_uniquely_matched": 5650,
+  "unmatched": 0,
+  "ambiguous_ids": 0,
+  "matched_start": "2023-08-15 19:42:38",
+  "matched_end": "2023-08-15 20:03:47",
+  "matched_midpoint": "2023-08-15 19:53:12.500000",
+  "inherited_solar_datetime": "2023-08-15 19:53:07",
+  "inherited_minus_midpoint_seconds": -5.5,
+  "timezone_status": "NOT_EXPLICIT_IN_TIFFTAG_DATETIME CSV; do not silently assign a timezone",
+  "interpretation": "All linked photo tags support August 15, not the August 14 nominal package name/note. The inherited solar time lies 5.5 seconds from their midpoint in the same clock-number convention. This supports the inherited scene timestamp but does not establish camera-clock/timezone accuracy or per-pixel solar/view contributor assignments."
+}

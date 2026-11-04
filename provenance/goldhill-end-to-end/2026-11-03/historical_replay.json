@@ -1,0 +1,23 @@
+{
+  "status": "DIAGNOSTIC_ONLY",
+  "module": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-radiometric-recovery/2026-11-02/historical_corrections.py",
+  "module_sha256": "839cdf2b7264c5af53902c08994144c776f94f5a59f31dc42bd1574002998a42",
+  "model": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-correction-diagnosis/2026-10-30/saved_production_brdf_model.json",
+  "model_sha256": "f421ecc0f3cf6d32d219329fe627e9c83abcb7186967b6c8db58c1965255a1ee",
+  "new_source_C": [
+    -0.2918103337287903,
+    -0.2912110984325409,
+    -0.2295711189508438,
+    -0.21809333562850952,
+    -0.34725165367126465,
+    -0.37189075350761414,
+    -0.2176961451768875,
+    -0.10700368881225586,
+    0.15201961994171143,
+    0.314187228679657
+  ],
+  "geometry": "Legacy zero-view placeholders replayed only as historical controls; not assigned to current cube",
+  "physical_units": "Unverified stored numerical units; scale=1 is only the unchanged old implementation assumption",
+  "current_scs_c": "BLOCKED; no new production SCS+C applied",
+  "legacy_fallback_policy": "Unchanged historical denominator/ratio identity guards remain visible; no new clipping or caps added"
+}

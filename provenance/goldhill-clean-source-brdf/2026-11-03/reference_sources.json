@@ -1,0 +1,27 @@
+[
+  {
+    "title": "MODIS BRDF/albedo ATBDv5",
+    "url": "https://lpdaac.usgs.gov/documents/97/MCD43_ATBD.pdf",
+    "use": "RossThick and reciprocal overlap/normalization equations, linear kernel inversion; independent reference fixtures already checked."
+  },
+  {
+    "title": "Zhang etal2018 reciprocal LiDenseR,Eq5",
+    "url": "https://doi.org/10.3390/rs10030437",
+    "use": "Reciprocal dense variant distinguished from nonreciprocal dense and sparse; prior1220case high-precision reference audit retained."
+  },
+  {
+    "title": "FlexBRDF2022",
+    "url": "https://doi.org/10.1029/2021JG006622",
+    "use": "Grouped/stratified airborne directional sampling and reference/observed ratio; shared kernels alone do not implement the full workflow."
+  },
+  {
+    "title": "NEON directional/bidirectional reflectance tutorial",
+    "url": "https://www.neonscience.org/resources/learning-hub/tutorials/neon-brdf-refl-h5-py",
+    "use": "Product correction state and actual metadata/geometry; avoid correcting already normalized products."
+  },
+  {
+    "title": "Honkavaara and Khoramshahi2018",
+    "url": "https://www.mdpi.com/2072-4292/10/2/256",
+    "use": "Calibrated repeated radiometric tie points, camera/surface geometry and reference constraints; suggests pre-mosaic route rather than assumed rays."
+  }
+]

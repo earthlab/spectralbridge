@@ -458,6 +458,8 @@ def require_library_header(header):
     Explicit raw/topographic-only data with verified calibration are allowed;
     BRDF requested but unsupported/invalid is not an approved alternative.
     """
+    if str(header.get("scientific validation status", "")).upper() == "EXPERIMENTAL":
+        raise ValueError("Experimental correction is not eligible for an approved spectral library")
     r = Radiometry.from_header(header).require_valid()
     status = str(header.get("brdf status", "UNSUPPORTED"))
     if status not in {"VALID", "NOT_REQUESTED"}:
@@ -468,6 +470,12 @@ def require_library_header(header):
         raise ValueError(
             "BRDF UNSUPPORTED: historical model requires scientific review"
         )
+    if status == "VALID":
+        from .corrections import BRDF_KERNEL_MATH_VERSION, BRDF_VALIDATION_POLICY
+        if header.get("brdf kernel math version") != BRDF_KERNEL_MATH_VERSION:
+            raise ValueError("BRDF UNSUPPORTED: incompatible kernel mathematics; preserve historical products and use a fresh output directory")
+        if header.get("brdf validation policy") != BRDF_VALIDATION_POLICY:
+            raise ValueError("BRDF UNSUPPORTED: incompatible validation policy; preserve historical products and use a fresh output directory")
     return r
 
 

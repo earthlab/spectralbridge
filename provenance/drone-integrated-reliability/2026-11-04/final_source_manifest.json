@@ -1,0 +1,29 @@
+{
+  "base_revision": "2444902440a48453ed14855473d3250020ba8bb3",
+  "working_tree_changes": true,
+  "sha256": {
+    "src/spectralbridge/topographic.py": "96f06189c47d500f8c05444846c1b3e730ded5900f2bdd84786640a4f6c67186",
+    "src/spectralbridge/corrections.py": "31aefffc96db20fc3b6081bc3cc69f80fe4973c1588b27651328e7ac796c02fc",
+    "src/spectralbridge/pipelines/drone.py": "51e9555256397cd88346b41f1e211361d9e2fa1e1b6ae0250d22f4a1582b6a82",
+    "src/spectralbridge/radiometry.py": "c02f261941388261023965789e65ace7ae4b3c1cbc5fd31b4b3bc64634b139a3",
+    "src/spectralbridge/envi_writer.py": "cba0c690951f833f05b4b66bcb63089efbbe838b7c4497fc3670cde2f93f71ca",
+    "src/spectralbridge/brdf_topo.py": "dd30e8d0fe0b0fbd18170917f4fbc6605c1cc917db7561f292efe7cd5db02123",
+    "src/spectralbridge/drone_view_geometry.py": "c24c45dc679ed926d0c5c2d01b656d1f9ef9455a3c0a7f265052882cee3ca073",
+    "provenance/drone-integrated-reliability/2026-11-04/pre_edit_drone.py": "d8fcc3afc79fb4530a01f36f1ff08547eaf30e68cca17af6baf3788d28951b10",
+    "provenance/drone-integrated-reliability/2026-11-04/neon_control.py": "d96b41bb80ab2aa75c6bc935caab7d3c4f20c4d0802f750a06090cf784775a31",
+    "provenance/drone-integrated-reliability/2026-11-04/render_pdf.py": "d95a360ef888aa74a59b8a4d03aa9836c677e51c0dfae139501bd6a919e8be28",
+    "provenance/drone-integrated-reliability/2026-11-04/experiment_support.py": "af16b9043b1d553a19055acd7c9b566ee15e1e2436961a907cbe45d1dac6a6c7",
+    "provenance/drone-integrated-reliability/2026-11-04/package_products.py": "c5ca67f07bcc9ee7d422c7b403eca54ab5ce9db372a56b26df4f2f583ccc266e",
+    "provenance/drone-integrated-reliability/2026-11-04/pre_edit_radiometry.py": "fe6518e846ce6917b150a2a2b0e9881390489af35f3a26309cba356a5597bbd2",
+    "provenance/drone-integrated-reliability/2026-11-04/spatial_controls.py": "f10dc04539caecc7f9fd7c20ed72d43c87dff0543b4e184bdc493be5ffd39c52",
+    "provenance/drone-integrated-reliability/2026-11-04/evaluate.py": "e8efdd1f5fb642a70085e046649fca83a2b337eb6e63fa44c461cbcd1d998118",
+    "provenance/drone-integrated-reliability/2026-11-04/run_homogeneous.py": "8080e3f3a0ad866f0fb4cebb9fed07621a587e42c17031e3ee27533d163acd62",
+    "provenance/drone-integrated-reliability/2026-11-04/verify.py": "6ce96ac85503c7ede09a97486d4ddbfe6791f5d7db3403454579ec1cb6836ae3",
+    "provenance/drone-integrated-reliability/2026-11-04/topographic_diagnostics.py": "90ff6a599e8231b43882dfde6f5a99944620d9dea21ff3e91f23b87a928b7dda",
+    "provenance/drone-integrated-reliability/2026-11-04/run_experiment.py": "43964e76e88a8f79a4f75ea10e016249f9b6647f04386d45cf8ce598c5c7bec9",
+    "provenance/drone-integrated-reliability/2026-11-04/pre_edit_corrections.py": "d9459640018d33069a42817fa61b1733b453664e990c1bff5bfb19fbb3ab8a42",
+    "provenance/drone-integrated-reliability/2026-11-04/build_publications.py": "b91354d0a6090e725b9962f68e4edf449589971d5ae7c75a40cee6d5980bd088",
+    "provenance/drone-integrated-reliability/2026-11-04/pre_edit_envi_writer.py": "79137d29718947d2e345fb57ce2151c5bd33ff21898baa1d56801d58e5849ff7",
+    "tests/test_conditioned_topography.py": "0ab94655ecba69c4790c775a29b038629f38a44661baeb6b7894a7ad55c24820"
+  }
+}

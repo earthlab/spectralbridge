@@ -1,0 +1,106 @@
+FF..FFF                                                                  [100%]
+=================================== FAILURES ===================================
+_ test_explicit_source_alpha_cannot_contaminate_a_fit_with_a_stale_combined_mask _
+
+tmp_path = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-102/test_explicit_source_alpha_can0')
+
+    def test_explicit_source_alpha_cannot_contaminate_a_fit_with_a_stale_combined_mask(tmp_path):
+        obj,_=cube(.0001)
+        obj.source_valid_mask=np.ones((12,15),bool);obj.source_valid_mask[:3,:4]=False
+        obj.data[:3,:4]=65535
+        path=c.fit_and_save_brdf_model(obj,tmp_path,rho_max=None)
+        model=json.loads(path.read_text())
+>       assert all(r['eligible']==168 for r in model['validation']['fits'])
+E       assert False
+E        +  where False = all(<generator object test_explicit_source_alpha_cannot_contaminate_a_fit_with_a_stale_combined_mask.<locals>.<genexpr> at 0x11f86df20>)
+
+tests/test_brdf_reliability.py:29: AssertionError
+_________ test_missing_view_geometry_is_a_persisted_unsupported_result _________
+
+tmp_path = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-102/test_missing_view_geometry_is_0')
+
+    def test_missing_view_geometry_is_a_persisted_unsupported_result(tmp_path):
+        obj,angles=cube();angles.pop('sensor_zn')
+>       path=c.fit_and_save_brdf_model(obj,tmp_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_brdf_reliability.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/spectralbridge/corrections.py:871: in fit_and_save_brdf_model
+    identity = _brdf_source_identity(cube)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/spectralbridge/corrections.py:783: in _brdf_source_identity
+    for row in cube.get_ancillary(name, radians=True):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'sensor_zn', radians = True
+
+>   obj.get_ancillary=lambda name,radians=True: angles[name] if radians else np.rad2deg(angles[name])
+                                                ^^^^^^^^^^^^
+E   KeyError: 'sensor_zn'
+
+tests/test_brdf_reliability.py:19: KeyError
+_ test_runtime_rejects_positive_but_unresolved_denominator_without_gain_clipping _
+
+tmp_path = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-102/test_runtime_rejects_positive_0')
+
+    def test_runtime_rejects_positive_but_unresolved_denominator_without_gain_clipping(tmp_path):
+        obj,angles=cube()
+        path=c.fit_and_save_brdf_model(obj,tmp_path)
+        model=json.loads(path.read_text());X,valid,_=c._brdf_design(obj,c.BRDFKernelConfig())
+        reference=np.array(model['reference_design'])
+        component=next(j for j in [1,2] if reference[j]>X[...,j][valid].min()+1e-3)
+        beta=np.zeros(3);beta[component]=1e8;beta[0]=-X[...,component][valid].min()*1e8+.01
+        assert (X[valid]@beta>0).all() and reference@beta>0
+        model['iso'][0][0],model['vol'][0][0],model['geo'][0][0]=beta
+        path.write_text(json.dumps(model))
+>       with pytest.raises(ValueError,match='prediction'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_brdf_reliability.py:75: Failed
+______ test_documented_saturation_is_nodata_but_an_observed_zero_survives ______
+
+tmp_path = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-102/test_documented_saturation_is_0')
+
+    def test_documented_saturation_is_nodata_but_an_observed_zero_survives(tmp_path):
+        obj,_=cube()
+        obj.radiometry=Radiometry(1.,0.,'VALID','Synthetic quality fixture',encoding={'kind':'fractional_physical_reflectance','nodata':-9999,'saturation':{'status':'DOCUMENTED','value':65535,'provenance':'synthetic sensor flag'}})
+        obj.data[0,0,0]=65535;obj.data[0,1,0]=0
+        path=c.fit_and_save_brdf_model(obj,tmp_path)
+        m=json.loads(path.read_text());assert m['validation']['status']=='VALID'
+        result=c.apply_brdf_correct(obj,obj.data,0,12,0,15,coeff_path=path)
+>       assert result[0,0,0]==obj.no_data
+E       AssertionError: assert np.float32(nan) == -9999.0
+E        +  where -9999.0 = namespace(data=array([[[6.5535000e+04, 4.9051189e-01],\n        [0.0000000e+00, 4.9088934e-01],\n        [2.8286037e-01,...cals>.<lambda> at 0x11f950cc0>, _brdf_source_digest='0226d8066a5e5fa492b9e0085a87f0071781def412fb5c28150fb32cc7576a69').no_data
+
+tests/test_brdf_reliability.py:86: AssertionError
+_______________ test_rank_one_has_no_neutral_fitted_coefficients _______________
+
+tmp_path = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-102/test_rank_one_has_no_neutral_f0')
+
+    def test_rank_one_has_no_neutral_fitted_coefficients(tmp_path):
+        obj,angles=cube()
+        angles['sensor_zn'][:]=0;angles['sensor_az'][:]=0
+        path=c.fit_and_save_brdf_model(obj,tmp_path,brdf_kernel_config=c.HYTOOLS_BRDF_KERNEL_CONFIG)
+        m=json.loads(path.read_text());assert m['validation']['status']=='UNSUPPORTED'
+>       assert all(r['stable_rank']==1 for r in m['validation']['fits'])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_brdf_reliability.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+.0 = <list_iterator object at 0x11f9aece0>
+
+>   assert all(r['stable_rank']==1 for r in m['validation']['fits'])
+               ^^^^^^^^^^^^^^^^
+E   KeyError: 'stable_rank'
+
+tests/test_brdf_reliability.py:96: KeyError
+=========================== short test summary info ============================
+FAILED tests/test_brdf_reliability.py::test_explicit_source_alpha_cannot_contaminate_a_fit_with_a_stale_combined_mask
+FAILED tests/test_brdf_reliability.py::test_missing_view_geometry_is_a_persisted_unsupported_result
+FAILED tests/test_brdf_reliability.py::test_runtime_rejects_positive_but_unresolved_denominator_without_gain_clipping
+FAILED tests/test_brdf_reliability.py::test_documented_saturation_is_nodata_but_an_observed_zero_survives
+FAILED tests/test_brdf_reliability.py::test_rank_one_has_no_neutral_fitted_coefficients

@@ -1,0 +1,47 @@
+[
+  {
+    "branch": "A",
+    "status": "HISTORICAL_DIAGNOSTIC_ONLY_UNSUPPORTED",
+    "prefit_pixels": 7068376,
+    "image_created": true
+  },
+  {
+    "branch": "B",
+    "status": "HISTORICAL_DIAGNOSTIC_ONLY_UNSUPPORTED",
+    "prefit_pixels": 6683944,
+    "image_created": true
+  },
+  {
+    "branch": "C",
+    "status": "UNSUPPORTED",
+    "prefit_pixels": 6675401,
+    "application_pixels": 0,
+    "image_created": false,
+    "reason": "Numerically stable angular rank1; zero placeholder views are not measured contributors",
+    "description": "historical contaminated source with revised prefit validity and historical kernel equations"
+  },
+  {
+    "branch": "D",
+    "status": "UNSUPPORTED",
+    "prefit_pixels": 6678404,
+    "application_pixels": 0,
+    "image_created": false,
+    "reason": "Numerically stable angular rank1; zero placeholder views are not measured contributors",
+    "description": "clean source with revised prefit validity and historical kernel equations"
+  },
+  {
+    "branch": "E",
+    "status": "UNSUPPORTED",
+    "prefit_pixels": 6678404,
+    "application_pixels": 0,
+    "image_created": false,
+    "reason": "Correct shared kernels give angular rank1, candidate calibration still unverified"
+  },
+  {
+    "branch": "F",
+    "status": "NOT_EVALUATED_MISSING_PREREQUISITES",
+    "application_pixels": 0,
+    "image_created": false,
+    "reason": "No recovered contributor map or independently validated transferable BRDF model. No angle proxy was used as measured geometry."
+  }
+]

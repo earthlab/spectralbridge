@@ -1,0 +1,19 @@
+{
+  "common_pixels": 6614170,
+  "polygon_identities": 157,
+  "original_polygon_identities": 158,
+  "original_class_support": {
+    "Evergreen": 98,
+    "Woody shrub": 30,
+    "Herbaceous": 25,
+    "Deciduous": 5
+  },
+  "common_class_support": {
+    "Evergreen": 98,
+    "Woody shrub": 29,
+    "Herbaceous": 25,
+    "Deciduous": 5
+  },
+  "common_polygon_memberships": 142656,
+  "source": "Researcher labels unchanged; pixel-center package index reused; no pixel-level classifier; fixed training-only scaling; correction coefficients for eligible/robust/stabilized exclude all evaluation polygons+2m. Historical/current scene fits are transductive diagnostic baselines."
+}

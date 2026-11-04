@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-03",
+  "status": "PASS_BOUNDED_INVESTIGATION_NOT_PHYSICAL_CALIBRATION",
+  "outcome": "SUPPORTED_BUT_UNVERIFIED",
+  "production_physical_units": "UNSUPPORTED_UNTIL_DIRECT_APPLIED_CALIBRATION_EVIDENCE",
+  "protected_hashes_rechecked": {
+    "/private/tmp/spectralbridge-scale-confirmation/goldhill-original.tif": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+    "/private/tmp/p168-goldhill-sources/derived_10cm_10k/goldhill_10cm_fixed_10k.tif": "c5d1f3c10bd7c1a17877c67c819b98bd796db11b17d5c8b165c0956f653233e4",
+    "/private/tmp/photogrammetry-metadata-20261102/goldhill_report.pdf": "419654aa53fddfab2146ff47cb52135ac60f8beb9d5319799bdf9d939485daaf",
+    "/private/tmp/goldhill-micasense-calibration-20261103/representative_camera/IMG_0000_6.tif": "0eab3ca4bb45ab2780c03adb7e0eb26c8268555b30b7123c199f88b4464fc1d8",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/radiometry.py": "713c2e37876a5a673b33aeb123521918742aae6e3a30ca06dc4e7693f9268676",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py": "dd4fa94336879cddd6b2d7edc5eb3444f27739ebb8d9aa459b2da15f4217f398",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/corrections.py": "77082e9ee894766e8d70195e69fe54b1addd4b90d107140675455e58af7c3cf6",
+    "/private/tmp/goldhill-end-to-end-20261103/source_metadata/SD1_image_metadata.csv": "3276905b0964b85f7d1aa1890191f9b4cd036cb1a68e8c3651cc121f3920051b",
+    "/private/tmp/goldhill-end-to-end-20261103/source_metadata/SD2_image_metadata.csv": "3abccee406839f2e36ccaa4a266fea9e944b2a41816fc66a3582b7b91503d86e"
+  },
+  "targeted_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "19",
+    "time": "2.745",
+    "timestamp": "2026-11-03T16:41:53.611417-07:00",
+    "hostname": "UCB-H4K9PV34KC"
+  },
+  "actual_ten_band_resampling_max_absolute_error": 2.9802322387695312e-08,
+  "figures_visually_reviewed": 3,
+  "production_changes": 0,
+  "source_or_datastore_writes": 0
+}

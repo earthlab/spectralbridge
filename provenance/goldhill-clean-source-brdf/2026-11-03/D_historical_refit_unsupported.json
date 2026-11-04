@@ -1,0 +1,64 @@
+{
+  "status": "UNSUPPORTED",
+  "actual_function": "pinned historical fit_and_save_brdf_model",
+  "module_sha256": "839cdf2b7264c5af53902c08994144c776f94f5a59f31dc42bd1574002998a42",
+  "calibration_status": "HYPOTHETICAL_UNVERIFIED",
+  "coefficient_status": "NON_IDENTIFIABLE_DIAGNOSTIC_ONLY; no image or usable current model",
+  "diagnostic_legacy_fit": {
+    "iso": [
+      [
+        -633.1571655273438,
+        -763.5564575195312,
+        -882.3250122070312,
+        -1198.5999755859375,
+        -1580.4730224609375,
+        -1665.46533203125,
+        -1588.09375,
+        -1423.6273193359375,
+        -880.3880004882812,
+        -548.260009765625
+      ]
+    ],
+    "vol": [
+      [
+        17.930416107177734,
+        21.623201370239258,
+        24.986616134643555,
+        33.9432258605957,
+        44.757511138916016,
+        47.16441345214844,
+        44.973323822021484,
+        40.315792083740234,
+        24.931760787963867,
+        15.526208877563477
+      ]
+    ],
+    "geo": [
+      [
+        -40.925846099853516,
+        -49.3545036315918,
+        -57.03226852416992,
+        -77.47506713867188,
+        -102.15689849853516,
+        -107.65018463134766,
+        -102.65190887451172,
+        -92.02372741699219,
+        -56.91537094116211,
+        -35.45149612426758
+      ]
+    ],
+    "volume_kernel": "RossThick",
+    "geom_kernel": "LiDenseR",
+    "b_r": 10.0,
+    "h_b": 2.0,
+    "solar_zn_type": "scene",
+    "ndvi_binning_enabled": false,
+    "ndvi_edges": [
+      -1.0,
+      1.0
+    ]
+  },
+  "stable_rank": 1,
+  "source_population": "D_revised_prefit",
+  "model_applied": false
+}

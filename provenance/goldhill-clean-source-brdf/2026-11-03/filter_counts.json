@@ -1,0 +1,40 @@
+{
+  "total_pixels": 7083270,
+  "historical_native": 7068376,
+  "clean_source_valid": 6683944,
+  "historical_on_clean_footprint": 6683944,
+  "estimated_legacy_mixed_background_on_clean_footprint": 5833,
+  "C_revised_prefit": 6675401,
+  "D_revised_prefit": 6678404,
+  "actual_viewing_geometry_available": 0,
+  "BRDF_application_supported": 0,
+  "calibration_status": "HYPOTHETICAL_UNVERIFIED",
+  "hypothesis": "MicaSense_Metashape_DN_32768",
+  "clean_scale": 0.0001999969482421875,
+  "clean_offset": 0,
+  "historical_inverse_scale": [
+    0.0001999969482421875,
+    0.0001999969482421875,
+    0.0001999969482421875,
+    0.0001999969482421875,
+    0.0001999969482421875,
+    0.0001999969482421875,
+    0.0001999969482421875,
+    0.0001999969482421875,
+    0.0001999969482421875,
+    0.0001994659423828125
+  ],
+  "historical_inverse_offset": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.00531005859375
+  ],
+  "mixing_evidence": "Bilinear source-validity weight on existing target grid; estimated under the independently supported historical bilinear reconstruction, not an exact recovered exporter. No reflectance cutoff."
+}

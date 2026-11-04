@@ -1,0 +1,100 @@
+[
+  {
+    "id": "figure01_sources",
+    "png": "figure01_sources.png",
+    "svg": "figure01_sources.svg",
+    "title": "The source repair fixes preprocessing, not the BRDF model",
+    "caption": "Identical 0-0.3 display limits; native background remains visible in historical support. Median raw boundary jumps are about 0.003 candidate units in both sources. No corrected output was used to choose the boundary."
+  },
+  {
+    "id": "figure02_masks",
+    "png": "figure02_masks.png",
+    "svg": "figure02_masks.svg",
+    "title": "Filtering is a sequence of explicit eligibility decisions",
+    "caption": "Every sixth cell, same grid/north-up. Legacy mixing is estimated by bilinear source-alpha weights, not a brightness cutoff. Numerical geometry eligibility does not establish genuine views: actual Goldhill directional support remains absent."
+  },
+  {
+    "id": "figure03_factorial",
+    "png": "figure03_factorial.png",
+    "svg": "figure03_factorial.svg",
+    "title": "Rejection is not an artifact-free corrected image",
+    "caption": "A/B are pinned historical replays. C/D use revised prefit populations and historical equations; stable rank 1 prevents application. E uses current shared mathematics and gates. F has no applicable independent directional information; no coefficients or image are invented."
+  },
+  {
+    "id": "figure04_fixed_roi",
+    "png": "figure04_fixed_roi.png",
+    "svg": "figure04_fixed_roi.svg",
+    "title": "Fixed native red-boundary ROI",
+    "caption": "P165ROI rows573:974,columns812:1313,0.1m,north-up. Identical display bounds saturate enormous diagnostic values; native ranges are reported separately. Gray panels indicate absent/unsupported products, not zero reflectance or successful artifact removal."
+  },
+  {
+    "id": "figure05_transect",
+    "png": "figure05_transect.png",
+    "svg": "figure05_transect.svg",
+    "title": "A 0.1 m boundary acquires an enormous algorithmic jump",
+    "caption": "At columns 980/981 the clean raw jump is 0.001117; the clean-source historical BRDF jump is 674,321 candidate-equivalent units. The same fixed transect and reference pixels are used for every branch; no smoothing or factor clipping."
+  },
+  {
+    "id": "figure06_predictions",
+    "png": "figure06_predictions.png",
+    "svg": "figure06_predictions.svg",
+    "title": "The historical prediction crosses zero; the old guard switches regimes",
+    "caption": "The predicted red denominator is 0 outside and 0.0078125 inside at the fixed adjacent pair; reference prediction 91,740.234375 produces factor 11,742,750. Plotted denominator limits and sampled factor histograms do not alter the full-scene analytical summaries."
+  },
+  {
+    "id": "figure07_kernels",
+    "png": "figure07_kernels.png",
+    "svg": "figure07_kernels.svg",
+    "title": "Current kernels already satisfy the mathematical reference tests",
+    "caption": "Current RossThick/LiDenseR equations are unchanged in this task. The earlier repair removed spurious nadir azimuth response; it cannot recover real observation directions. The fresh targeted suite reruns the independent reference fixtures, reciprocity and wrapping tests."
+  },
+  {
+    "id": "figure08_support",
+    "png": "figure08_support.png",
+    "svg": "figure08_support.svg",
+    "title": "Millions of pixels cannot replace missing angular dimensions",
+    "caption": "Stable rank is tied to the existing precision condition limit 1/sqrt(float32epsilon). Algebraic rank and singular values are also retained. Pixel counts are not an estimated independent sample size; spatial/effective sampling uncertainty remains explicit."
+  },
+  {
+    "id": "figure09_camera_uncertainty",
+    "png": "figure09_camera_uncertainty.png",
+    "svg": "figure09_camera_uncertainty.svg",
+    "title": "Camera records leave hundreds of possible contributors per point",
+    "caption": "Positions are real records; the right-hand envelope assumes their numbers are 26913 and altitude shares the delivered surface datum, with an illustrative nadir diagonal-FOV cone. It is not recovered viewing geometry, true image coverage, a probability distribution or a per-pixel assignment."
+  },
+  {
+    "id": "figure10_nonidentifiability",
+    "png": "figure10_nonidentifiability.png",
+    "svg": "figure10_nonidentifiability.svg",
+    "title": "A reduced model needs external directional assumptions",
+    "caption": "Synthetic algebra only, evaluated at the actual Goldhill nadir design. Each coefficient family predicts 0.3 at observed geometry but allows reference 0.15,0.3 or 0.6. No example is a Goldhill fit or applied model; isotropic-only assumptions give identity, not an estimated BRDF correction."
+  },
+  {
+    "id": "figure11_spectra",
+    "png": "figure11_spectra.png",
+    "svg": "figure11_spectra.svg",
+    "title": "A known boundary-crossing polygon acquires a distorted spectrum",
+    "caption": "The pre-existing Deciduous exemplar is selected by P165identity, not by new branch quality. Histories are reexpressed through the documented per-band inverse encoding; calibration remains hypothetical. Unsupported revised BRDF spectra are absent, not replaced with raw values."
+  },
+  {
+    "id": "figure12_pft",
+    "png": "figure12_pft.png",
+    "svg": "figure12_pft.svg",
+    "title": "Historical BRDF does not improve this matched identification test",
+    "caption": "157 polygon identities, four recorded classes, identical 3 fold splits, training-only scaling, C=1;499 permutations for separate spectral-separability tables. Intervals bootstrap fixed OOF predictions by class/identity. C/D/E/F have no supported image and no quality score; topographic score is unapproved diagnostic evidence."
+  },
+  {
+    "id": "figure13_neon",
+    "png": "figure13_neon.png",
+    "svg": "figure13_neon.svg",
+    "title": "Supported NEON correction is preserved by the reliability changes",
+    "caption": "Actual 2021R10C directional data, fixed 120 x 3000 native window, ten nearest native channels; both BRDF-only and combined models support 10/10 bands. Values and masks are identical before/after. This bounded regression control is not a MicaSense calibration transfer or full-flightline accuracy claim."
+  },
+  {
+    "id": "figure14_shared_path",
+    "png": "figure14_shared_path.png",
+    "svg": "figure14_shared_path.svg",
+    "title": "One mathematical core, different evidence prerequisites",
+    "caption": "Both pipelines retain BRDF requests and the same kernels, reference, physical decoder and ratio direction. Source acquisition/calibration/geometry remain platform-specific. A missing prerequisite is an explicit scientific block, not a successful uncorrected substitute."
+  }
+]

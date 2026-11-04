@@ -1,0 +1,63 @@
+{
+  "path": "/private/tmp/goldhill-micasense-calibration-20261103/representative_camera/IMG_0000_6.tif",
+  "remote_origin": "/iplant/home/shared/earthlab/macrosystems/calibration/blue/SYNC0034SET/000/IMG_0000_6.tif",
+  "sha256": "0eab3ca4bb45ab2780c03adb7e0eb26c8268555b30b7123c199f88b4464fc1d8",
+  "tiff": {
+    "Make": "MicaSense",
+    "Model": "RedEdge-M",
+    "BlackLevel": [
+      4800,
+      4800,
+      4800,
+      4800
+    ],
+    "Software": "v7.3.2",
+    "DateTime": "2021:09:15 18:15:25"
+  },
+  "exif": {
+    "ExifVersion": "0230",
+    "ExposureProgram": 2,
+    "DateTimeOriginal": "2021:09:15 18:15:25",
+    "DateTimeDigitized": "2021:09:15 18:15:25",
+    "MeteringMode": 4,
+    "FocalLength": 5.5,
+    "FocalPlaneXResolution": 266.666667,
+    "FocalPlaneYResolution": 266.666667,
+    "SubsecTime": "825024191",
+    "FocalPlaneResolutionUnit": 4,
+    "BodySerialNumber": "RB02-2117054-SC",
+    "ISOSpeed": 100,
+    "ExposureTime": 0.0002475,
+    "FNumber": 2.8
+  },
+  "xmp_fields": {
+    "BandName": "Blue-444",
+    "CentralWavelength": "444",
+    "VignettingCenter": [
+      "601.82690000000002",
+      "468.30770000000001"
+    ],
+    "VignettingPolynomial": [
+      "1.0033490000000001e-06",
+      "7.4847239999999995e-07",
+      "-6.1108539999999999e-09",
+      "1.701316e-11",
+      "-2.164792e-14",
+      "9.8455769999999999e-18"
+    ],
+    "BandSensitivity": "0.31815325816606921",
+    "Irradiance": "94.787422180175781",
+    "RadiometricCalibration": [
+      "0.0001196878",
+      "6.9058470000000006e-08",
+      "-1.6242910000000001e-05"
+    ],
+    "Serial": "DA04-2020948-MS",
+    "SpectralIrradiance": "94.787422180175781",
+    "HorizontalIrradiance": "38.244533538818359",
+    "DirectIrradiance": "36.571258544921875",
+    "ScatteredIrradiance": "9.6238927841186523"
+  },
+  "identity_status": "NOT_GOLDHILL: capture 2021-09-15; Goldhill source tags are 2023-08-15",
+  "meaning": "Shows the accessible 2021 camera has factory radiance/DLS metadata; none of its coefficients/panel information is transferred to Goldhill"
+}

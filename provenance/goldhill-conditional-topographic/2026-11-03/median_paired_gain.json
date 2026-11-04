@@ -1,0 +1,51 @@
+[
+  {
+    "branch": "raw",
+    "difference": 0.0,
+    "low": 0.0,
+    "high": 0.0,
+    "changed_predictions": 0
+  },
+  {
+    "branch": "historical",
+    "difference": -0.009588318085855032,
+    "low": -0.15703729767769176,
+    "high": 0.1302076002814919,
+    "changed_predictions": 21
+  },
+  {
+    "branch": "current",
+    "difference": -0.009588318085855032,
+    "low": -0.15703729767769176,
+    "high": 0.1302076002814919,
+    "changed_predictions": 21
+  },
+  {
+    "branch": "eligible_OLS",
+    "difference": -0.00565798733286418,
+    "low": -0.15801513019000704,
+    "high": 0.13648486980999294,
+    "changed_predictions": 24
+  },
+  {
+    "branch": "robust_Huber",
+    "difference": 0.0029627023223082333,
+    "low": -0.1519454609429979,
+    "high": 0.14710749472202675,
+    "changed_predictions": 25
+  },
+  {
+    "branch": "stabilized",
+    "difference": -0.00565798733286418,
+    "low": -0.15801513019000704,
+    "high": 0.13648486980999294,
+    "changed_predictions": 24
+  },
+  {
+    "branch": "cosine",
+    "difference": 0.02586206896551724,
+    "low": -0.011171710063335678,
+    "high": 0.06544686840253343,
+    "changed_predictions": 13
+  }
+]

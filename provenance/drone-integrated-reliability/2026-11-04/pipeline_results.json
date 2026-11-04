@@ -1,0 +1,308 @@
+[
+  {
+    "branch": "conditioned_topography",
+    "status": "EXECUTED_EXPERIMENTAL",
+    "reason": null,
+    "audit": {
+      "requested_topo": true,
+      "requested_brdf": false,
+      "topo_applied": true,
+      "brdf_applied": false,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "topographic_model_sha256": "e3c67e7a4b5169e54201805a61ce8a559826e7309845010cfc4b9d01c873e5d0"
+      },
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "NOT_REQUESTED",
+      "topo_ready": true,
+      "brdf_ready": false
+    },
+    "source_calibration": "HYPOTHETICAL_UNVERIFIED",
+    "actual_contributors": "NOT_VERIFIED",
+    "image_created": true,
+    "envi": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_topography/conditioned_topography.img",
+    "header": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_topography/conditioned_topography.hdr",
+    "image": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_topography_EXPERIMENTAL.tif",
+    "array": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_topography.npy"
+  },
+  {
+    "branch": "controlled_OLS_BRDF",
+    "status": "EXECUTED_EXPERIMENTAL",
+    "reason": null,
+    "audit": {
+      "requested_topo": false,
+      "requested_brdf": true,
+      "topo_applied": false,
+      "brdf_applied": true,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "fitting_mask_sha256": "87d1503330e1a388b78e96450a4e0f3f19b0991b3b92bcfeb75971aaffd81e35",
+        "fitting_provenance": {
+          "strategy": "exclude evaluation polygons plus2m buffer",
+          "geometry_source": "P173 center-weighted simulated kernels; contributors unverified",
+          "uncertainty": "conditional OLS computational uncertainty"
+        }
+      },
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "VALID",
+      "topo_ready": false,
+      "brdf_ready": true
+    },
+    "source_calibration": "HYPOTHETICAL_UNVERIFIED",
+    "actual_contributors": "NOT_VERIFIED",
+    "image_created": true,
+    "envi": "/private/tmp/drone-integrated-reliability-20261104/final_v2/controlled_OLS_BRDF/controlled_OLS_BRDF.img",
+    "header": "/private/tmp/drone-integrated-reliability-20261104/final_v2/controlled_OLS_BRDF/controlled_OLS_BRDF.hdr",
+    "image": "/private/tmp/drone-integrated-reliability-20261104/final_v2/controlled_OLS_BRDF_EXPERIMENTAL.tif",
+    "array": "/private/tmp/drone-integrated-reliability-20261104/final_v2/controlled_OLS_BRDF.npy"
+  },
+  {
+    "branch": "controlled_cluster_BRDF",
+    "status": "EXECUTED_EXPERIMENTAL",
+    "reason": null,
+    "audit": {
+      "requested_topo": false,
+      "requested_brdf": true,
+      "topo_applied": false,
+      "brdf_applied": true,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "fitting_mask_sha256": "87d1503330e1a388b78e96450a4e0f3f19b0991b3b92bcfeb75971aaffd81e35",
+        "uncertainty_groups_sha256": "1cb1135bcc7780deabafc7c74bc3849026c764320aac4869244f512e8d325a0b",
+        "fitting_provenance": {
+          "strategy": "exclude evaluation polygons plus2m buffer",
+          "geometry_source": "P173 center-weighted simulated kernels; contributors unverified",
+          "uncertainty": "20m spatial clusters"
+        }
+      },
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "VALID",
+      "topo_ready": false,
+      "brdf_ready": true
+    },
+    "source_calibration": "HYPOTHETICAL_UNVERIFIED",
+    "actual_contributors": "NOT_VERIFIED",
+    "image_created": true,
+    "envi": "/private/tmp/drone-integrated-reliability-20261104/final_v2/controlled_cluster_BRDF/controlled_cluster_BRDF.img",
+    "header": "/private/tmp/drone-integrated-reliability-20261104/final_v2/controlled_cluster_BRDF/controlled_cluster_BRDF.hdr",
+    "image": "/private/tmp/drone-integrated-reliability-20261104/final_v2/controlled_cluster_BRDF_EXPERIMENTAL.tif",
+    "array": "/private/tmp/drone-integrated-reliability-20261104/final_v2/controlled_cluster_BRDF.npy"
+  },
+  {
+    "branch": "conditioned_combined_OLS",
+    "status": "EXECUTED_EXPERIMENTAL",
+    "reason": null,
+    "audit": {
+      "requested_topo": true,
+      "requested_brdf": true,
+      "topo_applied": true,
+      "brdf_applied": true,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "topographic_model_sha256": "e3c67e7a4b5169e54201805a61ce8a559826e7309845010cfc4b9d01c873e5d0",
+        "fitting_mask_sha256": "87d1503330e1a388b78e96450a4e0f3f19b0991b3b92bcfeb75971aaffd81e35",
+        "fitting_provenance": {
+          "strategy": "exclude evaluation polygons plus2m buffer",
+          "geometry_source": "P173 center-weighted simulated kernels; contributors unverified",
+          "uncertainty": "conditional OLS computational uncertainty"
+        }
+      },
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "VALID",
+      "topo_ready": true,
+      "brdf_ready": true
+    },
+    "source_calibration": "HYPOTHETICAL_UNVERIFIED",
+    "actual_contributors": "NOT_VERIFIED",
+    "image_created": true,
+    "envi": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_combined_OLS/conditioned_combined_OLS.img",
+    "header": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_combined_OLS/conditioned_combined_OLS.hdr",
+    "image": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_combined_OLS_EXPERIMENTAL.tif",
+    "array": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_combined_OLS.npy"
+  },
+  {
+    "branch": "conditioned_combined_cluster",
+    "status": "EXECUTED_EXPERIMENTAL",
+    "reason": null,
+    "audit": {
+      "requested_topo": true,
+      "requested_brdf": true,
+      "topo_applied": true,
+      "brdf_applied": true,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "topographic_model_sha256": "e3c67e7a4b5169e54201805a61ce8a559826e7309845010cfc4b9d01c873e5d0",
+        "fitting_mask_sha256": "87d1503330e1a388b78e96450a4e0f3f19b0991b3b92bcfeb75971aaffd81e35",
+        "uncertainty_groups_sha256": "1cb1135bcc7780deabafc7c74bc3849026c764320aac4869244f512e8d325a0b",
+        "fitting_provenance": {
+          "strategy": "exclude evaluation polygons plus2m buffer",
+          "geometry_source": "P173 center-weighted simulated kernels; contributors unverified",
+          "uncertainty": "20m spatial clusters"
+        }
+      },
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "VALID",
+      "topo_ready": true,
+      "brdf_ready": true
+    },
+    "source_calibration": "HYPOTHETICAL_UNVERIFIED",
+    "actual_contributors": "NOT_VERIFIED",
+    "image_created": true,
+    "envi": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_combined_cluster/conditioned_combined_cluster.img",
+    "header": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_combined_cluster/conditioned_combined_cluster.hdr",
+    "image": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_combined_cluster_EXPERIMENTAL.tif",
+    "array": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_combined_cluster.npy"
+  },
+  {
+    "branch": "homogeneous_BRDF",
+    "status": "EXECUTED_EXPERIMENTAL",
+    "reason": null,
+    "audit": {
+      "requested_topo": false,
+      "requested_brdf": true,
+      "topo_applied": false,
+      "brdf_applied": true,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "fitting_mask_sha256": "271978a12a412b3c9a37e77b83ba8c276d2f38cdb0c422201a71899c73e7fdc5",
+        "uncertainty_groups_sha256": "17d5e073e70f8bd4e0837e46559f58d081a9f11c7fdb39ee6644c12daf91b7b4",
+        "fitting_provenance": {
+          "strategy": "raw-defined NDVI and neighbourhood homogeneity; no class labels or corrected images used",
+          "calibration": "conditionalDN/32768",
+          "geometry": "center-weighted inferred kernels; contributors unknown"
+        }
+      },
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "VALID",
+      "topo_ready": false,
+      "brdf_ready": true
+    },
+    "image_created": true,
+    "envi": "/private/tmp/drone-integrated-reliability-20261104/final_v2/homogeneous_BRDF/homogeneous_BRDF.img",
+    "header": "/private/tmp/drone-integrated-reliability-20261104/final_v2/homogeneous_BRDF/homogeneous_BRDF.hdr",
+    "image": "/private/tmp/drone-integrated-reliability-20261104/final_v2/homogeneous_BRDF_EXPERIMENTAL.tif",
+    "array": "/private/tmp/drone-integrated-reliability-20261104/final_v2/homogeneous_BRDF.npy"
+  },
+  {
+    "branch": "homogeneous_conditioned_combined",
+    "status": "EXECUTED_EXPERIMENTAL",
+    "reason": null,
+    "audit": {
+      "requested_topo": true,
+      "requested_brdf": true,
+      "topo_applied": true,
+      "brdf_applied": true,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "topographic_model_sha256": "e3c67e7a4b5169e54201805a61ce8a559826e7309845010cfc4b9d01c873e5d0",
+        "fitting_mask_sha256": "271978a12a412b3c9a37e77b83ba8c276d2f38cdb0c422201a71899c73e7fdc5",
+        "uncertainty_groups_sha256": "17d5e073e70f8bd4e0837e46559f58d081a9f11c7fdb39ee6644c12daf91b7b4",
+        "fitting_provenance": {
+          "strategy": "raw-defined NDVI and neighbourhood homogeneity; no class labels or corrected images used",
+          "calibration": "conditionalDN/32768",
+          "geometry": "center-weighted inferred kernels; contributors unknown"
+        }
+      },
+      "radiometry": {
+        "scale": 1.0,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "VALID",
+      "topo_ready": true,
+      "brdf_ready": true
+    },
+    "image_created": true,
+    "envi": "/private/tmp/drone-integrated-reliability-20261104/final_v2/homogeneous_conditioned_combined/homogeneous_conditioned_combined.img",
+    "header": "/private/tmp/drone-integrated-reliability-20261104/final_v2/homogeneous_conditioned_combined/homogeneous_conditioned_combined.hdr",
+    "image": "/private/tmp/drone-integrated-reliability-20261104/final_v2/homogeneous_conditioned_combined_EXPERIMENTAL.tif",
+    "array": "/private/tmp/drone-integrated-reliability-20261104/final_v2/homogeneous_conditioned_combined.npy"
+  }
+]

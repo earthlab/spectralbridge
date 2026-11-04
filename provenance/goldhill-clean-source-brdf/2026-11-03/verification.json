@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "protected_inputs_and_historical_artifacts": 262,
+  "all_protected_hashes_unchanged": true,
+  "software": [
+    {
+      "path": "src/spectralbridge/corrections.py",
+      "before_sha256": "77082e9ee894766e8d70195e69fe54b1addd4b90d107140675455e58af7c3cf6",
+      "current_sha256": "d9459640018d33069a42817fa61b1733b453664e990c1bff5bfb19fbb3ab8a42"
+    },
+    {
+      "path": "src/spectralbridge/brdf_topo.py",
+      "before_sha256": "926c21d70c1041dbc52923b8b8c66ab04b8935045319b105c4fc2e497e1373a3",
+      "current_sha256": "dd30e8d0fe0b0fbd18170917f4fbc6605c1cc917db7561f292efe7cd5db02123"
+    },
+    {
+      "path": "src/spectralbridge/pipelines/drone.py",
+      "before_sha256": "dd4fa94336879cddd6b2d7edc5eb3444f27739ebb8d9aa459b2da15f4217f398",
+      "current_sha256": "d8fcc3afc79fb4530a01f36f1ff08547eaf30e68cca17af6baf3788d28951b10"
+    },
+    {
+      "path": "src/spectralbridge/radiometry.py",
+      "before_sha256": "713c2e37876a5a673b33aeb123521918742aae6e3a30ca06dc4e7693f9268676",
+      "current_sha256": "fe6518e846ce6917b150a2a2b0e9881390489af35f3a26309cba356a5597bbd2"
+    },
+    {
+      "path": "src/spectralbridge/envi_writer.py",
+      "before_sha256": "459cb2c16e8d4722b1f96c848ba72f766fd7016b207cdc239ccbc4c122be9bad",
+      "current_sha256": "79137d29718947d2e345fb57ce2151c5bd33ff21898baa1d56801d58e5849ff7"
+    }
+  ],
+  "targeted_test_results": {
+    "tests": 178,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "real_NEON_controls": [
+    {
+      "mode": "brdf",
+      "exact_values_and_masks": true,
+      "max_abs_difference": 0
+    },
+    {
+      "mode": "combined",
+      "exact_values_and_masks": true,
+      "max_abs_difference": 0
+    }
+  ],
+  "original_NEON_source_sha256": "7ad8032cbfca6879b38bf854640031b6fb2547f792e93bc9e915b3633345a8ff",
+  "Goldhill_production_sensor_views_absent": true,
+  "calibration": "HYPOTHETICAL_UNVERIFIED",
+  "Goldhill_supported_BRDF_output": false,
+  "actual_historical_replays_exact": true,
+  "geometry_rank": 1,
+  "supported_library_serialization_verified": true,
+  "polygon_identities": 157,
+  "matched_memberships": 144406,
+  "current_revision": "2444902440a48453ed14855473d3250020ba8bb3",
+  "scientific_summary_sha256": "578f3abe88206e7fcd0b830830a62881c7a2b5de43c688bec495116073a8754b",
+  "PDF_sha256": "7027bd577bf0518904473d2a615a3ae58a0c501280962c414cf64befa3a3958a"
+}

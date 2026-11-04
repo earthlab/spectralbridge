@@ -1,0 +1,66 @@
+{
+  "stage": "B_topographic",
+  "status": "UNSUPPORTED",
+  "error_type": "DroneCorrectionUnavailableError",
+  "reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable).",
+  "audit": {
+    "requested_topo": true,
+    "requested_brdf": false,
+    "topo_applied": false,
+    "brdf_applied": false,
+    "topo_fallback_due_to_nodata": false,
+    "brdf_fallback_due_to_nodata": false,
+    "brightness_applied": false,
+    "cloud_mask_applied": false,
+    "reused_existing_corrected": false,
+    "correction_status_source": "live_run",
+    "ndvi_brdf_bins_enabled": false,
+    "radiometry": {
+      "scale": null,
+      "offset": null,
+      "status": "UNSUPPORTED",
+      "provenance": "Original UInt16 orthomosaic; fixed type-range conversion; physical calibration unavailable",
+      "convention": "physical = scale * stored + offset",
+      "encoding": {
+        "kind": "range_normalized_dn",
+        "source_units": "unverified source units",
+        "stored_units": "fixed UInt16-range DN encoded 0\u201310000; no minimum subtraction",
+        "scale_direction": "multiplier",
+        "physical_calibration_status": "UNVERIFIED",
+        "valid_numerical_range": null,
+        "source_units_attribute": "not supplied",
+        "source_dtype": "float32",
+        "nodata": "NaN",
+        "saturation": {
+          "status": "NOT_PROVIDED"
+        },
+        "quality_mask": {
+          "status": "DOCUMENTED",
+          "provenance": "TIFF per-band GDAL masks and declared alpha; finite source samples",
+          "convention": "true means valid"
+        },
+        "source_valid_mask_path": "/derived_10cm_10k/Reflectance/Metadata/Source_Valid_Mask",
+        "normalization": {
+          "stored_min": 0,
+          "stored_max": 10000,
+          "source_min": 0,
+          "source_max": 65535
+        },
+        "source_spectral_band_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "source_alpha_band_indices": []
+      }
+    },
+    "brdf_status": "NOT_REQUESTED"
+  }
+}

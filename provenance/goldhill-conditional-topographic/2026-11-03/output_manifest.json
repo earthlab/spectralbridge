@@ -1,0 +1,38 @@
+{
+  "status": "HYPOTHETICAL_UNVERIFIED",
+  "scratch_output_hashes": {
+    "/private/tmp/goldhill-conditional-topographic-20261103/common.npy": "34ff21f454dc62f4333c0a56873b3fa9d3670c0cd6725da79a057daea105a20c",
+    "/private/tmp/goldhill-conditional-topographic-20261103/cosine.npy": "b86510dc978d52374087ad7b5593854365642cdf7abdea1fbe90d875b19fdb68",
+    "/private/tmp/goldhill-conditional-topographic-20261103/cosine_support.npy": "c3dace43625b11893994401a2869f959bb1393e33d58d6e685a41fb0f0e196db",
+    "/private/tmp/goldhill-conditional-topographic-20261103/current.npy": "bfa0604d30671a7ff3e86b2ca572687c964c7ef7adaa8b4b8d2a518200bcc8b9",
+    "/private/tmp/goldhill-conditional-topographic-20261103/current_support.npy": "c18aa259e5125c62a76642477d3fce0778cba2db570de44241323a884fb076e6",
+    "/private/tmp/goldhill-conditional-topographic-20261103/eligible_OLS.npy": "bae781498817c4c432eb7de146ded2bbb2ed765e2ab559391c555703fdbab20f",
+    "/private/tmp/goldhill-conditional-topographic-20261103/eligible_OLS_support.npy": "c18aa259e5125c62a76642477d3fce0778cba2db570de44241323a884fb076e6",
+    "/private/tmp/goldhill-conditional-topographic-20261103/fit_eligible.npy": "f2ff7ecf4b5577e17bcd564b76ef990a753135bb91c63ab65a73e4adfd6b9fd6",
+    "/private/tmp/goldhill-conditional-topographic-20261103/historical.npy": "bfa0604d30671a7ff3e86b2ca572687c964c7ef7adaa8b4b8d2a518200bcc8b9",
+    "/private/tmp/goldhill-conditional-topographic-20261103/historical_support.npy": "c18aa259e5125c62a76642477d3fce0778cba2db570de44241323a884fb076e6",
+    "/private/tmp/goldhill-conditional-topographic-20261103/raw.npy": "3e1f811ddf7a39af9dd9615cd0fd7577d06bffde5bbfa645d355f0360cebbfdc",
+    "/private/tmp/goldhill-conditional-topographic-20261103/robust_Huber.npy": "4244264af3628650838aedb34c3efa98e63f974b97ea9bb8ef33451e75146bd8",
+    "/private/tmp/goldhill-conditional-topographic-20261103/robust_Huber_support.npy": "c18aa259e5125c62a76642477d3fce0778cba2db570de44241323a884fb076e6",
+    "/private/tmp/goldhill-conditional-topographic-20261103/stabilized.npy": "83f31d0fdf88c47d02dd8828d7bd7651f273d160de78ad4a224e6050dc3443f2",
+    "/private/tmp/goldhill-conditional-topographic-20261103/stabilized_support.npy": "34ff21f454dc62f4333c0a56873b3fa9d3670c0cd6725da79a057daea105a20c",
+    "/private/tmp/goldhill-conditional-topographic-20261103/stable_support.npy": "34ff21f454dc62f4333c0a56873b3fa9d3670c0cd6725da79a057daea105a20c"
+  },
+  "grid_source": {
+    "crs": "EPSG:26913",
+    "transform": [
+      0.09999999999996322,
+      0.0,
+      457624.5,
+      0.0,
+      -0.09999999999991677,
+      4432830.55,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "height": 2238,
+    "width": 3165
+  },
+  "units": "candidate fractional reflectance for image arrays; explicit Boolean masks for support arrays"
+}

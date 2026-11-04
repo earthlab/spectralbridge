@@ -1,0 +1,67 @@
+[
+  {
+    "branch": "raw_historical",
+    "balanced_accuracy": 0.6682934553131599,
+    "mean_fold_balanced_accuracy": 0.6766729797979797,
+    "polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "status": "DIAGNOSTIC_ONLY; no physical correction approval"
+  },
+  {
+    "branch": "raw_clean",
+    "balanced_accuracy": 0.6682934553131599,
+    "mean_fold_balanced_accuracy": 0.6766729797979797,
+    "polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "status": "DIAGNOSTIC_ONLY; no physical correction approval"
+  },
+  {
+    "branch": "A_historical_BRDF",
+    "balanced_accuracy": 0.5996059113300493,
+    "mean_fold_balanced_accuracy": 0.5801294191919192,
+    "polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "status": "DIAGNOSTIC_ONLY; no physical correction approval"
+  },
+  {
+    "branch": "B_clean_historical_BRDF",
+    "balanced_accuracy": 0.5996059113300493,
+    "mean_fold_balanced_accuracy": 0.5801294191919192,
+    "polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "status": "DIAGNOSTIC_ONLY; no physical correction approval"
+  },
+  {
+    "branch": "topographic_only",
+    "balanced_accuracy": 0.717121745249824,
+    "mean_fold_balanced_accuracy": 0.7178188131313131,
+    "polygons": 157,
+    "class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "status": "DIAGNOSTIC_ONLY; no physical correction approval"
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "status": "CANDIDATE_REQUEST_NOT_RECOVERED_OBSERVATIONS",
+  "candidate_positions": [
+    451,
+    453,
+    502,
+    542
+  ],
+  "band_images": 40,
+  "fixed_points": [
+    "nonpositive_outside",
+    "near_zero_inside",
+    "inside_artifact",
+    "unaffected_reference"
+  ],
+  "geometry_only_condition_by_point": [
+    40.319697083271414,
+    40.26848448775173,
+    39.49166997996119,
+    52.21009743880681
+  ],
+  "criterion": "Minimum worst four-ray design condition among3000seeded candidate subsets; no reflectance or PFT score used",
+  "minimum_empirical_requirement": "At least four matched, calibrated directional observations per fixed ground target for the existing three-parameter fit, plus independent validation targets;40 band images or corresponding source-linked patches, camera CRS/vertical/pose/intrinsics/time conventions and calibration metadata.",
+  "source_access": "Live package metadata/subcollections inspected; relative RawData/M300/SD1 path not found. No original overlapping Goldhill photos currently accessible in checked locations. No repeated measurements invented."
+}

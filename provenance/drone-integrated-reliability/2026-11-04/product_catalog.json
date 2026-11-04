@@ -1,0 +1,121 @@
+[
+  {
+    "branch": "conditioned_topography",
+    "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_topography_EXPERIMENTAL.tif",
+    "sha256": "93ffba713b8c042abb28b0ea5d31923ec700ee77f25bb65594256edbf5ef7f0a",
+    "size_bytes": 204674732,
+    "native_roundtrip_exact": true,
+    "experimental_header": true,
+    "tiff_tags": {
+      "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+      "GEOMETRY": "P173 center-weighted simulated kernels; contributors unverified",
+      "PRODUCTION_APPROVED": "false",
+      "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+      "TOPOGRAPHY": "scsc-fieller-spatial-v1",
+      "AREA_OR_POINT": "Area"
+    },
+    "persistent_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-integrated-reliability/2026-11-04/conditioned_topography_EXPERIMENTAL.tif"
+  },
+  {
+    "branch": "controlled_OLS_BRDF",
+    "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/controlled_OLS_BRDF_EXPERIMENTAL.tif",
+    "sha256": "21162b15e3dd0b924a5e3df62a844c80c814ccdc4f739cc39f89193e1056ef98",
+    "size_bytes": 204246235,
+    "native_roundtrip_exact": true,
+    "experimental_header": true,
+    "tiff_tags": {
+      "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+      "GEOMETRY": "P173 center-weighted simulated kernels; contributors unverified",
+      "PRODUCTION_APPROVED": "false",
+      "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+      "TOPOGRAPHY": "NOT_REQUESTED",
+      "AREA_OR_POINT": "Area"
+    },
+    "persistent_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-integrated-reliability/2026-11-04/controlled_OLS_BRDF_EXPERIMENTAL.tif"
+  },
+  {
+    "branch": "controlled_cluster_BRDF",
+    "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/controlled_cluster_BRDF_EXPERIMENTAL.tif",
+    "sha256": "21162b15e3dd0b924a5e3df62a844c80c814ccdc4f739cc39f89193e1056ef98",
+    "size_bytes": 204246235,
+    "native_roundtrip_exact": true,
+    "experimental_header": true,
+    "tiff_tags": {
+      "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+      "GEOMETRY": "P173 center-weighted simulated kernels; contributors unverified",
+      "PRODUCTION_APPROVED": "false",
+      "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+      "TOPOGRAPHY": "NOT_REQUESTED",
+      "AREA_OR_POINT": "Area"
+    },
+    "persistent_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-integrated-reliability/2026-11-04/controlled_cluster_BRDF_EXPERIMENTAL.tif"
+  },
+  {
+    "branch": "conditioned_combined_OLS",
+    "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_combined_OLS_EXPERIMENTAL.tif",
+    "sha256": "89102f58bf22b8b79ee4d40c92d4f304978a1f15b9cda22e455264c27beee99c",
+    "size_bytes": 204641415,
+    "native_roundtrip_exact": true,
+    "experimental_header": true,
+    "tiff_tags": {
+      "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+      "GEOMETRY": "P173 center-weighted simulated kernels; contributors unverified",
+      "PRODUCTION_APPROVED": "false",
+      "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+      "TOPOGRAPHY": "scsc-fieller-spatial-v1",
+      "AREA_OR_POINT": "Area"
+    },
+    "persistent_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-integrated-reliability/2026-11-04/conditioned_combined_OLS_EXPERIMENTAL.tif"
+  },
+  {
+    "branch": "conditioned_combined_cluster",
+    "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/conditioned_combined_cluster_EXPERIMENTAL.tif",
+    "sha256": "89102f58bf22b8b79ee4d40c92d4f304978a1f15b9cda22e455264c27beee99c",
+    "size_bytes": 204641415,
+    "native_roundtrip_exact": true,
+    "experimental_header": true,
+    "tiff_tags": {
+      "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+      "GEOMETRY": "P173 center-weighted simulated kernels; contributors unverified",
+      "PRODUCTION_APPROVED": "false",
+      "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+      "TOPOGRAPHY": "scsc-fieller-spatial-v1",
+      "AREA_OR_POINT": "Area"
+    },
+    "persistent_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-integrated-reliability/2026-11-04/conditioned_combined_cluster_EXPERIMENTAL.tif"
+  },
+  {
+    "branch": "homogeneous_BRDF",
+    "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/homogeneous_BRDF_EXPERIMENTAL.tif",
+    "sha256": "4586632b57278fc50f204dc599f3fda79305ee5c17b68693a6459b21e8e5eea9",
+    "size_bytes": 204465959,
+    "native_roundtrip_exact": true,
+    "experimental_header": true,
+    "tiff_tags": {
+      "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+      "GEOMETRY": "inferred center-weighted kernels; contributors unverified",
+      "PRODUCTION_APPROVED": "false",
+      "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+      "TOPOGRAPHY": "NOT_REQUESTED",
+      "AREA_OR_POINT": "Area"
+    },
+    "persistent_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-integrated-reliability/2026-11-04/homogeneous_BRDF_EXPERIMENTAL.tif"
+  },
+  {
+    "branch": "homogeneous_conditioned_combined",
+    "path": "/private/tmp/drone-integrated-reliability-20261104/final_v2/homogeneous_conditioned_combined_EXPERIMENTAL.tif",
+    "sha256": "747aeefd73764e034b6650bd094022f2b3bf0145ea6af459711d2204735bd48e",
+    "size_bytes": 204677076,
+    "native_roundtrip_exact": true,
+    "experimental_header": true,
+    "tiff_tags": {
+      "CALIBRATION": "HYPOTHETICAL_UNVERIFIED",
+      "GEOMETRY": "inferred center-weighted kernels; contributors unverified",
+      "PRODUCTION_APPROVED": "false",
+      "STATUS": "EXPERIMENTAL_NOT_VALIDATED",
+      "TOPOGRAPHY": "scsc-fieller-spatial-v1",
+      "AREA_OR_POINT": "Area"
+    },
+    "persistent_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-integrated-reliability/2026-11-04/homogeneous_conditioned_combined_EXPERIMENTAL.tif"
+  }
+]

@@ -1,0 +1,247 @@
+{
+  "bands": [
+    {
+      "band": 1,
+      "source_observed_min": 0,
+      "source_observed_max": 6197,
+      "source_transparent_pixels": 537552,
+      "source_65535_in_observed": 0,
+      "source_65535_in_transparent": 537552,
+      "common_old_new_pixels": 6683944,
+      "old_above_original_observed_max_on_common_support": 4294,
+      "old_max_on_common_support": 7435.7451171875,
+      "new_max_on_common_support": 923.9423828125,
+      "expected_no_minimum_adjustment_from_old": {
+        "multiplier": 1.0,
+        "offset": 0.0
+      },
+      "old_new_expected_mapping_residual_quantiles": [
+        -7305.738250732422,
+        -0.048095703125,
+        -3.0517578125e-05,
+        0.04921722412109375,
+        0.565887451171875
+      ],
+      "old_new_expected_mapping_rmse": 79.91919055626178
+    },
+    {
+      "band": 2,
+      "source_observed_min": 0,
+      "source_observed_max": 7197,
+      "source_transparent_pixels": 537552,
+      "source_65535_in_observed": 0,
+      "source_65535_in_transparent": 537552,
+      "common_old_new_pixels": 6683944,
+      "old_above_original_observed_max_on_common_support": 4099,
+      "old_max_on_common_support": 7444.70458984375,
+      "new_max_on_common_support": 1064.1827392578125,
+      "expected_no_minimum_adjustment_from_old": {
+        "multiplier": 1.0,
+        "offset": 0.0
+      },
+      "old_new_expected_mapping_residual_quantiles": [
+        -7280.212341308594,
+        -0.05365753173828125,
+        -3.24249267578125e-05,
+        0.054745254516603836,
+        0.6173095703125
+      ],
+      "old_new_expected_mapping_rmse": 79.69836482466894
+    },
+    {
+      "band": 3,
+      "source_observed_min": 0,
+      "source_observed_max": 8688,
+      "source_transparent_pixels": 537552,
+      "source_65535_in_observed": 0,
+      "source_65535_in_transparent": 537552,
+      "common_old_new_pixels": 6683944,
+      "old_above_original_observed_max_on_common_support": 3943,
+      "old_max_on_common_support": 7454.61572265625,
+      "new_max_on_common_support": 1323.599853515625,
+      "expected_no_minimum_adjustment_from_old": {
+        "multiplier": 1.0,
+        "offset": 0.0
+      },
+      "old_new_expected_mapping_residual_quantiles": [
+        -7251.975921630859,
+        -0.073516845703125,
+        -3.62396240234375e-05,
+        0.0740966796875,
+        0.635650634765625
+      ],
+      "old_new_expected_mapping_rmse": 78.94932362896343
+    },
+    {
+      "band": 4,
+      "source_observed_min": 0,
+      "source_observed_max": 10420,
+      "source_transparent_pixels": 537552,
+      "source_65535_in_observed": 0,
+      "source_65535_in_transparent": 537552,
+      "common_old_new_pixels": 6683944,
+      "old_above_original_observed_max_on_common_support": 3733,
+      "old_max_on_common_support": 7460.28466796875,
+      "new_max_on_common_support": 1586.2022705078125,
+      "expected_no_minimum_adjustment_from_old": {
+        "multiplier": 1.0,
+        "offset": 0.0
+      },
+      "old_new_expected_mapping_residual_quantiles": [
+        -7235.824462890625,
+        -0.080657958984375,
+        -4.57763671875e-05,
+        0.081268310546875,
+        0.8004150390625
+      ],
+      "old_new_expected_mapping_rmse": 78.63213388765986
+    },
+    {
+      "band": 5,
+      "source_observed_min": 0,
+      "source_observed_max": 13214,
+      "source_transparent_pixels": 537552,
+      "source_65535_in_observed": 0,
+      "source_65535_in_transparent": 537552,
+      "common_old_new_pixels": 6683944,
+      "old_above_original_observed_max_on_common_support": 3244,
+      "old_max_on_common_support": 7467.0634765625,
+      "new_max_on_common_support": 1890.0892333984375,
+      "expected_no_minimum_adjustment_from_old": {
+        "multiplier": 1.0,
+        "offset": 0.0
+      },
+      "old_new_expected_mapping_residual_quantiles": [
+        -7216.510345458984,
+        -0.078948974609375,
+        -6.008148193359375e-05,
+        0.08062744140625,
+        0.9715576171875
+      ],
+      "old_new_expected_mapping_rmse": 78.93118713936548
+    },
+    {
+      "band": 6,
+      "source_observed_min": 0,
+      "source_observed_max": 12941,
+      "source_transparent_pixels": 537552,
+      "source_65535_in_observed": 0,
+      "source_65535_in_transparent": 537552,
+      "common_old_new_pixels": 6683944,
+      "old_above_original_observed_max_on_common_support": 3268,
+      "old_max_on_common_support": 7468.1337890625,
+      "new_max_on_common_support": 1905.718017578125,
+      "expected_no_minimum_adjustment_from_old": {
+        "multiplier": 1.0,
+        "offset": 0.0
+      },
+      "old_new_expected_mapping_residual_quantiles": [
+        -7213.460723876953,
+        -0.0761566162109375,
+        -6.103515625e-05,
+        0.077880859375,
+        0.92138671875
+      ],
+      "old_new_expected_mapping_rmse": 79.04831987356044
+    },
+    {
+      "band": 7,
+      "source_observed_min": 0,
+      "source_observed_max": 13301,
+      "source_transparent_pixels": 537552,
+      "source_65535_in_observed": 0,
+      "source_65535_in_transparent": 537552,
+      "common_old_new_pixels": 6683944,
+      "old_above_original_observed_max_on_common_support": 3332,
+      "old_max_on_common_support": 7484.5859375,
+      "new_max_on_common_support": 2024.23779296875,
+      "expected_no_minimum_adjustment_from_old": {
+        "multiplier": 1.0,
+        "offset": 0.0
+      },
+      "old_new_expected_mapping_residual_quantiles": [
+        -7197.144113540649,
+        -0.09674072265625,
+        -6.103515625e-05,
+        0.09698486328125,
+        0.9737548828125
+      ],
+      "old_new_expected_mapping_rmse": 77.40990197265961
+    },
+    {
+      "band": 8,
+      "source_observed_min": 0,
+      "source_observed_max": 13818,
+      "source_transparent_pixels": 537552,
+      "source_65535_in_observed": 0,
+      "source_65535_in_transparent": 537552,
+      "common_old_new_pixels": 6683944,
+      "old_above_original_observed_max_on_common_support": 3439,
+      "old_max_on_common_support": 7511.82080078125,
+      "new_max_on_common_support": 2087.282470703125,
+      "expected_no_minimum_adjustment_from_old": {
+        "multiplier": 1.0,
+        "offset": 0.0
+      },
+      "old_new_expected_mapping_residual_quantiles": [
+        -7188.995014190674,
+        -0.1302490234375,
+        -6.103515625e-05,
+        0.1298828125,
+        1.0194091796875
+      ],
+      "old_new_expected_mapping_rmse": 76.06240253423708
+    },
+    {
+      "band": 9,
+      "source_observed_min": 0,
+      "source_observed_max": 16940,
+      "source_transparent_pixels": 537552,
+      "source_65535_in_observed": 0,
+      "source_65535_in_transparent": 537552,
+      "common_old_new_pixels": 6683944,
+      "old_above_original_observed_max_on_common_support": 3001,
+      "old_max_on_common_support": 7588.67724609375,
+      "new_max_on_common_support": 2543.564453125,
+      "expected_no_minimum_adjustment_from_old": {
+        "multiplier": 1.0,
+        "offset": 0.0
+      },
+      "old_new_expected_mapping_residual_quantiles": [
+        -7173.026660919189,
+        -0.22869873046875,
+        -0.0001220703125,
+        0.2293701171875,
+        1.33203125
+      ],
+      "old_new_expected_mapping_rmse": 73.63807434409232
+    },
+    {
+      "band": 10,
+      "source_observed_min": 174,
+      "source_observed_max": 20805,
+      "source_transparent_pixels": 537552,
+      "source_65535_in_observed": 0,
+      "source_65535_in_transparent": 537552,
+      "common_old_new_pixels": 6683944,
+      "old_above_original_observed_max_on_common_support": 2552,
+      "old_max_on_common_support": 7645.77783203125,
+      "new_max_on_common_support": 3139.8310546875,
+      "expected_no_minimum_adjustment_from_old": {
+        "multiplier": 0.9973449301899748,
+        "offset": 26.550698100251775
+      },
+      "old_new_expected_mapping_residual_quantiles": [
+        -7113.560003979928,
+        -0.248485636970712,
+        -0.0001334754628032897,
+        0.24886184065821293,
+        1.4334729369920751
+      ],
+      "old_new_expected_mapping_rmse": 71.66738243944482
+    }
+  ],
+  "derivative_valid_pixels": 6683944,
+  "source_valid_pixels": 9377010,
+  "meaning": "Endpoint counts distinguish transparent background from observed signal. Existing-product discrepancies also include spatial interpolation and missing alpha semantics; linear change alone does not reproduce a mask-aware derivative."
+}

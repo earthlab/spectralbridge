@@ -1,0 +1,647 @@
+{
+  "source_identity": "519576c30efd0b666bb12543d8f67b77ea383a8fc07adf0c4d5efb4cd35e8103",
+  "radiometry": {
+    "scale": 0.0001,
+    "offset": 0.0,
+    "status": "VALID",
+    "provenance": "NEON DP1.30006: stored / Scale_Factor; physical offset zero",
+    "convention": "physical = scale * stored + offset",
+    "encoding": {
+      "kind": "scaled_physical_reflectance",
+      "source_units": "fractional physical reflectance",
+      "stored_units": "scaled physical reflectance",
+      "scale_direction": "multiplier",
+      "physical_calibration_status": "VERIFIED",
+      "valid_numerical_range": [
+        0,
+        10000
+      ],
+      "source_units_attribute": "Unitless.",
+      "source_dtype": "int16",
+      "nodata": -9999.0,
+      "saturation": {
+        "status": "NOT_PROVIDED"
+      },
+      "quality_mask": {
+        "status": "NOT_PROVIDED; NoData only"
+      },
+      "source_scale_direction": "divisor",
+      "source_scale_factor": 10000.0
+    }
+  },
+  "kernel_config": {
+    "volume_kernel": "RossThick",
+    "geom_kernel": "LiDenseR",
+    "b_r": 10.0,
+    "h_b": 2.0,
+    "solar_zn_type": "scene"
+  },
+  "ndvi_config": {
+    "enabled": false,
+    "ndvi_min": 0.05,
+    "ndvi_max": 1.0,
+    "n_bins": 25,
+    "perc_min": 10.0,
+    "perc_max": 95.0
+  },
+  "rho_min": 0.0,
+  "rho_max": 2.0,
+  "schema_version": 2,
+  "kernel_math_version": "ross-li-reciprocal-f64-v1",
+  "apply_topography": false,
+  "source_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/validation-input/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5",
+  "source_shape": [
+    120,
+    3000,
+    10
+  ],
+  "reference_geometry": {
+    "solar_zenith_deg": 45.0,
+    "view_zenith_deg": 0.0,
+    "relative_azimuth_deg": 0.0
+  },
+  "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
+  "fitting_population": {
+    "total_image_pixels": 360000,
+    "available_spatial": 360000,
+    "explicit_source_footprint_pixels": null,
+    "source_footprint_status": "NoData-derived; independent footprint mask unavailable",
+    "eligibility_units": "verified fractional physical reflectance only",
+    "eligible": null,
+    "status": "EVALUATED_PER_BAND_STRATUM"
+  },
+  "angular_support": {
+    "solar_zn": {
+      "count": 360000,
+      "min_rad": 0.6529645323753357,
+      "max_rad": 0.6529645323753357,
+      "std_rad": 0.0
+    },
+    "solar_az": {
+      "count": 360000,
+      "min_rad": 3.2813198566436768,
+      "max_rad": 3.2813198566436768,
+      "std_rad": 0.0
+    },
+    "sensor_zn": {
+      "count": 360000,
+      "min_rad": 0.0002136652183253318,
+      "max_rad": 0.12620706856250763,
+      "std_rad": 0.022458600763292376
+    },
+    "sensor_az": {
+      "count": 360000,
+      "min_rad": 8.076889207586646e-05,
+      "max_rad": 6.2830729484558105,
+      "std_rad": 1.773919804873156
+    }
+  },
+  "rank_conditioning_status": "EVALUATED_PER_BAND_STRATUM",
+  "correction_factor_diagnostics_status": "EVALUATED_PER_SUPPORTED_FIT",
+  "validation": {
+    "status": "VALID",
+    "fits": [
+      {
+        "band": 0,
+        "bin": 0,
+        "available": 360000,
+        "source_nodata_quality_valid": 360000,
+        "radiometrically_eligible_before_geometry": 360000,
+        "eligible": 360000,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 3,
+        "status": "VALID",
+        "singular_values": [
+          811.7237458188421,
+          142.9731177482557,
+          1.6500610195531054
+        ],
+        "condition_number": 491.9355928053409,
+        "reference_prediction": 0.05624853085578844,
+        "reference_standard_error": 6.728863801460105e-05,
+        "predicted_standard_error_quantiles": [
+          5.697559071551607e-05,
+          9.073895867689466e-05,
+          0.0002269127994014074
+        ],
+        "coefficient_standard_errors": [
+          0.000291118492111554,
+          0.02070503963828811,
+          0.0007039313021296339
+        ],
+        "reference_leverage": 3.8743916883446755e-06,
+        "reference_outside_kernel_bounds": false,
+        "predicted_quantiles": [
+          0.034061975789818635,
+          0.039234451168698586,
+          0.0582601504863933,
+          0.0648105939560431,
+          0.06506703771894044
+        ],
+        "factor_quantiles": [
+          0.8644704419887089,
+          0.867890994702786,
+          0.9654717742097987,
+          1.4336515276830062,
+          1.6513584297890764
+        ]
+      },
+      {
+        "band": 1,
+        "bin": 0,
+        "available": 360000,
+        "source_nodata_quality_valid": 360000,
+        "radiometrically_eligible_before_geometry": 360000,
+        "eligible": 360000,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 3,
+        "status": "VALID",
+        "singular_values": [
+          811.7237458188421,
+          142.9731177482557,
+          1.6500610195531054
+        ],
+        "condition_number": 491.9355928053409,
+        "reference_prediction": 0.06205144462768926,
+        "reference_standard_error": 6.95626793195285e-05,
+        "predicted_standard_error_quantiles": [
+          5.890109924834907e-05,
+          9.380551116013314e-05,
+          0.0002345813909152356
+        ],
+        "coefficient_standard_errors": [
+          0.00030095693579571095,
+          0.02140477315566796,
+          0.0007277208883674736
+        ],
+        "reference_leverage": 3.8743916883446755e-06,
+        "reference_outside_kernel_bounds": false,
+        "predicted_quantiles": [
+          0.034871216184884715,
+          0.04120347002125426,
+          0.06452803634549992,
+          0.07256269974014097,
+          0.07287792447785188
+        ],
+        "factor_quantiles": [
+          0.8514436308699644,
+          0.8551424471513265,
+          0.9616199119318272,
+          1.5059761858820095,
+          1.779445956191975
+        ]
+      },
+      {
+        "band": 2,
+        "bin": 0,
+        "available": 360000,
+        "source_nodata_quality_valid": 360000,
+        "radiometrically_eligible_before_geometry": 360000,
+        "eligible": 360000,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 3,
+        "status": "VALID",
+        "singular_values": [
+          811.7237458188421,
+          142.9731177482557,
+          1.6500610195531054
+        ],
+        "condition_number": 491.9355928053409,
+        "reference_prediction": 0.0843323723842011,
+        "reference_standard_error": 7.702832103927071e-05,
+        "predicted_standard_error_quantiles": [
+          6.522251337713951e-05,
+          0.00010387295457245314,
+          0.0002597572558448671
+        ],
+        "coefficient_standard_errors": [
+          0.0003332563911602945,
+          0.02370198725144088,
+          0.0008058217245869633
+        ],
+        "reference_leverage": 3.8743916883446755e-06,
+        "reference_outside_kernel_bounds": false,
+        "predicted_quantiles": [
+          0.05707657027997166,
+          0.06343826746122282,
+          0.08705058567122517,
+          0.09533260559790707,
+          0.09566046688552662
+        ],
+        "factor_quantiles": [
+          0.8815801880323098,
+          0.8846120574937133,
+          0.9687743251115652,
+          1.3293612161764514,
+          1.4775304817814814
+        ]
+      },
+      {
+        "band": 3,
+        "bin": 0,
+        "available": 360000,
+        "source_nodata_quality_valid": 360000,
+        "radiometrically_eligible_before_geometry": 360000,
+        "eligible": 360000,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 3,
+        "status": "VALID",
+        "singular_values": [
+          811.7237458188421,
+          142.9731177482557,
+          1.6500610195531054
+        ],
+        "condition_number": 491.9355928053409,
+        "reference_prediction": 0.09747835845361048,
+        "reference_standard_error": 8.520723865076165e-05,
+        "predicted_standard_error_quantiles": [
+          7.214788259366558e-05,
+          0.00011490225296618666,
+          0.0002873384515126186
+        ],
+        "coefficient_standard_errors": [
+          0.00036864177318639,
+          0.026218679791829305,
+          0.0008913844034305975
+        ],
+        "reference_leverage": 3.8743916883446755e-06,
+        "reference_outside_kernel_bounds": false,
+        "predicted_quantiles": [
+          0.06583934249097205,
+          0.07321981058024865,
+          0.10067296349195291,
+          0.11033722179913623,
+          0.11071900276491399
+        ],
+        "factor_quantiles": [
+          0.8804121787529379,
+          0.8834585180245486,
+          0.9682674977716733,
+          1.3313112623900958,
+          1.4805487838366065
+        ]
+      },
+      {
+        "band": 4,
+        "bin": 0,
+        "available": 360000,
+        "source_nodata_quality_valid": 360000,
+        "radiometrically_eligible_before_geometry": 360000,
+        "eligible": 360000,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 3,
+        "status": "VALID",
+        "singular_values": [
+          811.7237458188421,
+          142.9731177482557,
+          1.6500610195531054
+        ],
+        "condition_number": 491.9355928053409,
+        "reference_prediction": 0.11655850401971882,
+        "reference_standard_error": 0.0001051570025925489,
+        "predicted_standard_error_quantiles": [
+          8.904002989752102e-05,
+          0.0001418045779253373,
+          0.0003546136545334509
+        ],
+        "coefficient_standard_errors": [
+          0.0004549527072173853,
+          0.032357318726674564,
+          0.0011000862544871149
+        ],
+        "reference_leverage": 3.8743916883446755e-06,
+        "reference_outside_kernel_bounds": false,
+        "predicted_quantiles": [
+          0.058804678757088266,
+          0.07226434138703597,
+          0.12184396334854286,
+          0.13892985621044984,
+          0.13960037831680353
+        ],
+        "factor_quantiles": [
+          0.8349440411630232,
+          0.838973761285385,
+          0.956621081721517,
+          1.6129463270929716,
+          1.9821297638781668
+        ]
+      },
+      {
+        "band": 5,
+        "bin": 0,
+        "available": 360000,
+        "source_nodata_quality_valid": 360000,
+        "radiometrically_eligible_before_geometry": 360000,
+        "eligible": 360000,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 3,
+        "status": "VALID",
+        "singular_values": [
+          811.7237458188421,
+          142.9731177482557,
+          1.6500610195531054
+        ],
+        "condition_number": 491.9355928053409,
+        "reference_prediction": 0.11921302122256996,
+        "reference_standard_error": 0.00011003433658392092,
+        "predicted_standard_error_quantiles": [
+          9.316983536653806e-05,
+          0.0001483816795067466,
+          0.0003710611491217407
+        ],
+        "coefficient_standard_errors": [
+          0.00047605407230647223,
+          0.03385809800532003,
+          0.0011511098473071199
+        ],
+        "reference_leverage": 3.8743916883446755e-06,
+        "reference_outside_kernel_bounds": false,
+        "predicted_quantiles": [
+          0.05789349335844289,
+          0.07218943330571756,
+          0.12477338855601192,
+          0.14287762741572815,
+          0.14358662545448428
+        ],
+        "factor_quantiles": [
+          0.8302515700555931,
+          0.8343715064340397,
+          0.9554362721267345,
+          1.6513915647147315,
+          2.059178230694634
+        ]
+      },
+      {
+        "band": 6,
+        "bin": 0,
+        "available": 360000,
+        "source_nodata_quality_valid": 360000,
+        "radiometrically_eligible_before_geometry": 360000,
+        "eligible": 360000,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 3,
+        "status": "VALID",
+        "singular_values": [
+          811.7237458188421,
+          142.9731177482557,
+          1.6500610195531054
+        ],
+        "condition_number": 491.9355928053409,
+        "reference_prediction": 0.15367734453166865,
+        "reference_standard_error": 9.640224186760119e-05,
+        "predicted_standard_error_quantiles": [
+          8.162707462610146e-05,
+          0.0001299987531221264,
+          0.00032509058313830586
+        ],
+        "coefficient_standard_errors": [
+          0.0004170759895984184,
+          0.02966343647281746,
+          0.0010084994680877853
+        ],
+        "reference_leverage": 3.8743916883446755e-06,
+        "reference_outside_kernel_bounds": false,
+        "predicted_quantiles": [
+          0.11632554284804997,
+          0.12496211837694575,
+          0.1576413333600086,
+          0.1693002712423479,
+          0.16976022629778295
+        ],
+        "factor_quantiles": [
+          0.9052611903455954,
+          0.9077206043674011,
+          0.9748543815010813,
+          1.229791448222207,
+          1.3210971620601797
+        ]
+      },
+      {
+        "band": 7,
+        "bin": 0,
+        "available": 360000,
+        "source_nodata_quality_valid": 360000,
+        "radiometrically_eligible_before_geometry": 360000,
+        "eligible": 360000,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 3,
+        "status": "VALID",
+        "singular_values": [
+          811.7237458188421,
+          142.9731177482557,
+          1.6500610195531054
+        ],
+        "condition_number": 491.9355928053409,
+        "reference_prediction": 0.1667549199430794,
+        "reference_standard_error": 9.23161495343779e-05,
+        "predicted_standard_error_quantiles": [
+          7.816724052523967e-05,
+          0.00012448864362497975,
+          0.0003113113378258512
+        ],
+        "coefficient_standard_errors": [
+          0.0003993978633385557,
+          0.02840612608251473,
+          0.0009657533465787857
+        ],
+        "reference_leverage": 3.8743916883446755e-06,
+        "reference_outside_kernel_bounds": false,
+        "predicted_quantiles": [
+          0.1449777318059311,
+          0.14996217150063776,
+          0.16914005771010207,
+          0.17604307421034335,
+          0.17631586121031517
+        ],
+        "factor_quantiles": [
+          0.9457737880097402,
+          0.9472393088513892,
+          0.9858984453516617,
+          1.1119798964926315,
+          1.1502105727954104
+        ]
+      },
+      {
+        "band": 8,
+        "bin": 0,
+        "available": 360000,
+        "source_nodata_quality_valid": 360000,
+        "radiometrically_eligible_before_geometry": 360000,
+        "eligible": 360000,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 3,
+        "status": "VALID",
+        "singular_values": [
+          811.7237458188421,
+          142.9731177482557,
+          1.6500610195531054
+        ],
+        "condition_number": 491.9355928053409,
+        "reference_prediction": 0.20912013794553913,
+        "reference_standard_error": 0.00011861142514724517,
+        "predicted_standard_error_quantiles": [
+          0.00010043234954327844,
+          0.00015994791279187696,
+          0.00039998506902921876
+        ],
+        "coefficient_standard_errors": [
+          0.0005131621066334604,
+          0.03649730967499586,
+          0.0012408379395825442
+        ],
+        "reference_leverage": 3.8743916883446755e-06,
+        "reference_outside_kernel_bounds": false,
+        "predicted_quantiles": [
+          0.1977896357862127,
+          0.1980969028391913,
+          0.2059565978496776,
+          0.22656702215419752,
+          0.23045858802666058
+        ],
+        "factor_quantiles": [
+          0.9074087441746674,
+          0.9229945998196963,
+          1.015360227003658,
+          1.0556456711253892,
+          1.0572856212323145
+        ]
+      },
+      {
+        "band": 9,
+        "bin": 0,
+        "available": 360000,
+        "source_nodata_quality_valid": 360000,
+        "radiometrically_eligible_before_geometry": 360000,
+        "eligible": 360000,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "rank": 3,
+        "status": "VALID",
+        "singular_values": [
+          811.7237458188421,
+          142.9731177482557,
+          1.6500610195531054
+        ],
+        "condition_number": 491.9355928053409,
+        "reference_prediction": 0.26364681686299263,
+        "reference_standard_error": 0.00013836306623947527,
+        "predicted_standard_error_quantiles": [
+          0.00011715673945568352,
+          0.00018658306841026938,
+          0.00046659215612818725
+        ],
+        "coefficient_standard_errors": [
+          0.0005986158792339774,
+          0.042574985249988116,
+          0.001447467154313161
+        ],
+        "reference_leverage": 3.8743916883446755e-06,
+        "reference_outside_kernel_bounds": false,
+        "predicted_quantiles": [
+          0.24319003642314435,
+          0.24374943936329466,
+          0.2580625349882204,
+          0.29587323576623037,
+          0.30356982864645726
+        ],
+        "factor_quantiles": [
+          0.8684882092483582,
+          0.8910803174887513,
+          1.0216392583877187,
+          1.081630454419393,
+          1.0841184973723759
+        ]
+      }
+    ],
+    "reasons": [],
+    "condition_limit": 2896.309326171875
+  },
+  "fit_input_stage": "uncorrected",
+  "scene_solar_zenith_rad": 0.6529645323753357,
+  "reference_design": [
+    1.0,
+    -0.04586202988221,
+    -1.0
+  ],
+  "iso": [
+    [
+      0.062340380767046136,
+      0.06962322658669085,
+      0.09407302303548522,
+      0.10918674857781042,
+      0.13282157522051896,
+      0.13605394050645964,
+      0.16945817586623554,
+      0.17673494224793723,
+      0.19170736605391242,
+      0.23381492343780055
+    ]
+  ],
+  "vol": [
+    [
+      1.4937869092917986,
+      1.8361190986811746,
+      1.9619562523143155,
+      2.3000294682570424,
+      3.911263722335726,
+      4.128784941713218,
+      2.8254082366544218,
+      1.6911030276123145,
+      -2.0861408741531764,
+      -3.748670262917624
+    ]
+  ],
+  "geo": [
+    [
+      -0.06241624996033688,
+      -0.07663636701201093,
+      -0.08023864561994376,
+      -0.09377563007896811,
+      -0.1631154225101648,
+      -0.1725135390901806,
+      -0.11379812564432044,
+      -0.06757739528139392,
+      0.07826188321728593,
+      0.142089734191288
+    ]
+  ],
+  "ndvi_edges": [
+    -1.0,
+    1.0
+  ],
+  "ndvi_binning_enabled": false,
+  "volume_kernel": "RossThick",
+  "geom_kernel": "LiDenseR",
+  "b_r": 10.0,
+  "h_b": 2.0,
+  "solar_zn_type": "scene"
+}

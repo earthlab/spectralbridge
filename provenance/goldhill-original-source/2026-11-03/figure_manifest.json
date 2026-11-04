@@ -1,0 +1,26 @@
+[
+  {
+    "name": "figure01_rgb",
+    "png": "figure01_rgb.png",
+    "svg": "figure01_rgb.svg",
+    "caption": "Uncorrected source versions; identical original-derived 2\u201398% display limits after inverse numerical encoding. Display clipping does not change analyses. Existing finite background is deliberately visible; the new copy honors source alpha."
+  },
+  {
+    "name": "figure02_band_relationships",
+    "png": "figure02_band_relationships.png",
+    "svg": "figure02_band_relationships.svg",
+    "caption": "Scatter displays use deterministic subsets; fits and residuals use every finite pair. The 862 nm intercept is approximately \u221226.62 stored units."
+  },
+  {
+    "name": "figure03_spectra",
+    "png": "figure03_spectra.png",
+    "svg": "figure03_spectra.svg",
+    "caption": "Point coordinates in EPSG:26913. Different native footprints/interpolation prevent exact pixel equivalence; none of the plotted fractions is certified physical reflectance."
+  },
+  {
+    "name": "figure04_footprint",
+    "png": "figure04_footprint.png",
+    "svg": "figure04_footprint.svg",
+    "caption": "Shared numerical limits show the difference between finite stored background and the original valid observation mask. No BRDF/topographic correction applied."
+  }
+]

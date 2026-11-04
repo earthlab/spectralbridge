@@ -1,0 +1,812 @@
+{
+  "historical_old_stored": [
+    {
+      "band": 0,
+      "wavelength_nm": 444,
+      "n": 3,
+      "algebraic_rank": 1,
+      "stable_rank": 1,
+      "singular_values": [
+        26.874729871922586,
+        6.204754236619442e-18,
+        8.904498776513602e-36
+      ],
+      "condition": 3.018106975634277e+36,
+      "coefficients_diagnostic_only": [
+        0.004829633636882367,
+        -0.00013677068861647862,
+        -0.07478131589064886
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 1,
+      "wavelength_nm": 475,
+      "n": 1,
+      "algebraic_rank": 1,
+      "stable_rank": 1,
+      "singular_values": [
+        15.51613252595298
+      ],
+      "condition": 1.0,
+      "coefficients_diagnostic_only": [
+        0.0059521396819137646,
+        -0.0001685590055568489,
+        -0.09216202951281958
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 2,
+      "wavelength_nm": 531,
+      "n": 9,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        46.54854033150369,
+        7.340012208780075e-06,
+        4.229633365276567e-18
+      ],
+      "condition": 1.1005336943302644e+19,
+      "coefficients_diagnostic_only": [
+        -8245.590637593414,
+        233.50738261972486,
+        -533.0312499102571
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 3,
+      "wavelength_nm": 560,
+      "n": 13,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        55.94435923212635,
+        8.798768350364506e-06,
+        4.816004244384293e-17
+      ],
+      "condition": 1.161634342356744e+18,
+      "coefficients_diagnostic_only": [
+        -35706.146528873185,
+        1011.1645345100276,
+        -2307.925503693266
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 4,
+      "wavelength_nm": 650,
+      "n": 14,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        58.05620957699502,
+        9.474493279241572e-06,
+        3.6300794917398294e-18
+      ],
+      "condition": 1.59930959388357e+19,
+      "coefficients_diagnostic_only": [
+        111863.50562590019,
+        -3167.869417408674,
+        7230.246039283939
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 5,
+      "wavelength_nm": 668,
+      "n": 30,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        84.98574919210924,
+        2.6395791978750695e-05,
+        1.3351379281892564e-17
+      ],
+      "condition": 6.36531607692164e+18,
+      "coefficients_diagnostic_only": [
+        -9508.182461674256,
+        269.2627972531385,
+        -614.6153936202272
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 6,
+      "wavelength_nm": 705,
+      "n": 8,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        43.8864503092061,
+        4.888905616942407e-06,
+        1.153649524338173e-18
+      ],
+      "condition": 3.804140632258564e+19,
+      "coefficients_diagnostic_only": [
+        -48316.513863560525,
+        1368.2782938634061,
+        -3122.9877621180276
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 7,
+      "wavelength_nm": 717,
+      "n": 4,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        31.032386392465447,
+        4.5262500357653725e-06,
+        2.5115550100206147e-21
+      ],
+      "condition": 1.2355845788227722e+22,
+      "coefficients_diagnostic_only": [
+        53938.56654984923,
+        -1527.489545722695,
+        3486.2462014744424
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 8,
+      "wavelength_nm": 740,
+      "n": 1,
+      "algebraic_rank": 1,
+      "stable_rank": 1,
+      "singular_values": [
+        15.516213419606812
+      ],
+      "condition": 1.0,
+      "coefficients_diagnostic_only": [
+        0.007898269911896716,
+        -0.00022367158586924067,
+        -0.12229625554689212
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 9,
+      "wavelength_nm": 862,
+      "n": 0,
+      "status": "UNSUPPORTED"
+    }
+  ],
+  "historical_clean_stored": [
+    {
+      "band": 0,
+      "wavelength_nm": 444,
+      "n": 3,
+      "algebraic_rank": 1,
+      "stable_rank": 1,
+      "singular_values": [
+        26.87473316867357,
+        1.2908171557735515e-16,
+        2.129948565973846e-34
+      ],
+      "condition": 1.2617550300509731e+35,
+      "coefficients_diagnostic_only": [
+        0.004827598305238283,
+        -0.00013671304993589987,
+        -0.07474981033159156
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 1,
+      "wavelength_nm": 475,
+      "n": 1,
+      "algebraic_rank": 1,
+      "stable_rank": 1,
+      "singular_values": [
+        15.51613442933305
+      ],
+      "condition": 1.0,
+      "coefficients_diagnostic_only": [
+        0.00593627190185222,
+        -0.00016810964492848627,
+        -0.09191634653171661
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 2,
+      "wavelength_nm": 531,
+      "n": 9,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        46.548542552107556,
+        7.172645840121969e-06,
+        4.224295712118372e-18
+      ],
+      "condition": 1.1019243377913215e+19,
+      "coefficients_diagnostic_only": [
+        -7862.210122750846,
+        222.65040650945338,
+        -508.25124385232476
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 3,
+      "wavelength_nm": 560,
+      "n": 13,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        55.94436239953482,
+        8.598195495929713e-06,
+        4.8160023557825186e-17
+      ],
+      "condition": 1.161634863661623e+18,
+      "coefficients_diagnostic_only": [
+        -35286.25754431854,
+        999.2736728254052,
+        -2280.7857337737755
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 4,
+      "wavelength_nm": 650,
+      "n": 14,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        58.05621288353477,
+        9.254764009676892e-06,
+        3.644947986169161e-18
+      ],
+      "condition": 1.5927857709857702e+19,
+      "coefficients_diagnostic_only": [
+        114867.47614776413,
+        -3252.9390412669063,
+        7424.407418474845
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 5,
+      "wavelength_nm": 668,
+      "n": 30,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        84.9857537096996,
+        2.6199115317273266e-05,
+        1.3351942459825356e-17
+      ],
+      "condition": 6.365047929573777e+18,
+      "coefficients_diagnostic_only": [
+        -9937.69926149384,
+        281.4263096229077,
+        -642.3770972272246
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 6,
+      "wavelength_nm": 705,
+      "n": 8,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        43.88645098214956,
+        4.773872470382298e-06,
+        1.153379111050031e-18
+      ],
+      "condition": 3.805032583102319e+19,
+      "coefficients_diagnostic_only": [
+        -49433.35590890261,
+        1399.9062116520254,
+        -3195.174407354908
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 7,
+      "wavelength_nm": 717,
+      "n": 4,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        31.03238734415182,
+        4.41974989933594e-06,
+        9.398844380854199e-22
+      ],
+      "condition": 3.301723710562329e+22,
+      "coefficients_diagnostic_only": [
+        54271.162837860145,
+        -1536.9083602258534,
+        3507.7435376820804
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 8,
+      "wavelength_nm": 740,
+      "n": 1,
+      "algebraic_rank": 1,
+      "stable_rank": 1,
+      "singular_values": [
+        15.516213419606812
+      ],
+      "condition": 1.0,
+      "coefficients_diagnostic_only": [
+        0.007883569836846288,
+        -0.00022325529355008686,
+        -0.1220686406191954
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "historical stored units"
+    },
+    {
+      "band": 9,
+      "wavelength_nm": 862,
+      "n": 0,
+      "status": "UNSUPPORTED"
+    }
+  ],
+  "C_revised_historical_math": [
+    {
+      "band": 0,
+      "wavelength_nm": 444,
+      "n": 6675401,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40088.991519962685,
+        0.012478799190967003,
+        7.716699466132605e-11
+      ],
+      "condition": 519509560996991.5,
+      "coefficients_diagnostic_only": [
+        -633.2420883275464,
+        17.932821199750517,
+        -40.93133421823863
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 1,
+      "wavelength_nm": 475,
+      "n": 6675401,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40088.991519962685,
+        0.012478799190967003,
+        7.716699466132605e-11
+      ],
+      "condition": 519509560996991.5,
+      "coefficients_diagnostic_only": [
+        -763.6515891603516,
+        21.625895782584873,
+        -49.360653900799015
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 2,
+      "wavelength_nm": 531,
+      "n": 6675401,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40088.991519962685,
+        0.012478799190967003,
+        7.716699466132605e-11
+      ],
+      "condition": 519509560996991.5,
+      "coefficients_diagnostic_only": [
+        -882.5095168559975,
+        24.99184066342544,
+        -57.04419373384336
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 3,
+      "wavelength_nm": 560,
+      "n": 6675401,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40088.991519962685,
+        0.012478799190967003,
+        7.716699466132605e-11
+      ],
+      "condition": 519509560996991.5,
+      "coefficients_diagnostic_only": [
+        -1198.8204508406518,
+        33.94946923428388,
+        -77.489323217455
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 4,
+      "wavelength_nm": 650,
+      "n": 6675401,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40088.991519962685,
+        0.012478799190967003,
+        7.716699466132605e-11
+      ],
+      "condition": 519509560996991.5,
+      "coefficients_diagnostic_only": [
+        -1580.671770338526,
+        44.763139967272494,
+        -102.16974481854035
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 5,
+      "wavelength_nm": 668,
+      "n": 6675401,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40088.991519962685,
+        0.012478799190967003,
+        7.716699466132605e-11
+      ],
+      "condition": 519509560996991.5,
+      "coefficients_diagnostic_only": [
+        -1665.6514732367925,
+        47.16968534031834,
+        -107.66222073164779
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 6,
+      "wavelength_nm": 705,
+      "n": 6675401,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40088.991519962685,
+        0.012478799190967003,
+        7.716699466132605e-11
+      ],
+      "condition": 519509560996991.5,
+      "coefficients_diagnostic_only": [
+        -1588.460752287267,
+        44.983716620640195,
+        -102.67562808654709
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 7,
+      "wavelength_nm": 717,
+      "n": 6675401,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40088.991519962685,
+        0.012478799190967003,
+        7.716699466132605e-11
+      ],
+      "condition": 519509560996991.5,
+      "coefficients_diagnostic_only": [
+        -1424.1249842196708,
+        40.32988201330512,
+        -92.05588895039742
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 8,
+      "wavelength_nm": 740,
+      "n": 6675401,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40088.991519962685,
+        0.012478799190967003,
+        7.716699466132605e-11
+      ],
+      "condition": 519509560996991.5,
+      "coefficients_diagnostic_only": [
+        -881.0500168897596,
+        24.9505089951456,
+        -56.95816039447664
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 9,
+      "wavelength_nm": 862,
+      "n": 6675401,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40088.991519962685,
+        0.012478799190967003,
+        7.716699466132605e-11
+      ],
+      "condition": 519509560996991.5,
+      "coefficients_diagnostic_only": [
+        -549.0150221232973,
+        15.547589791002023,
+        -35.50029574312928
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    }
+  ],
+  "D_revised_historical_math": [
+    {
+      "band": 0,
+      "wavelength_nm": 444,
+      "n": 6678404,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40098.01052823272,
+        0.01248300344531031,
+        1.292747036515113e-10
+      ],
+      "condition": 310176773921105.44,
+      "coefficients_diagnostic_only": [
+        -633.2029210099831,
+        17.931712024211407,
+        -40.92879980777846
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 1,
+      "wavelength_nm": 475,
+      "n": 6678404,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40098.01052823272,
+        0.01248300344531031,
+        1.292747036515113e-10
+      ],
+      "condition": 310176773921105.44,
+      "coefficients_diagnostic_only": [
+        -763.6114967940471,
+        21.62476041179223,
+        -49.35805912271709
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 2,
+      "wavelength_nm": 531,
+      "n": 6678404,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40098.01052823272,
+        0.01248300344531031,
+        1.292747036515113e-10
+      ],
+      "condition": 310176773921105.44,
+      "coefficients_diagnostic_only": [
+        -882.5929067664678,
+        24.994202195884125,
+        -57.04957967921924
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 3,
+      "wavelength_nm": 560,
+      "n": 6678404,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40098.01052823272,
+        0.01248300344531031,
+        1.292747036515113e-10
+      ],
+      "condition": 310176773921105.44,
+      "coefficients_diagnostic_only": [
+        -1199.000499134906,
+        33.95456804444194,
+        -77.50095526833155
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 4,
+      "wavelength_nm": 650,
+      "n": 6678404,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40098.01052823272,
+        0.01248300344531031,
+        1.292747036515113e-10
+      ],
+      "condition": 310176773921105.44,
+      "coefficients_diagnostic_only": [
+        -1580.72476917105,
+        44.76464085968173,
+        -102.17316332190151
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 5,
+      "wavelength_nm": 668,
+      "n": 6678404,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40098.01052823272,
+        0.01248300344531031,
+        1.292747036515113e-10
+      ],
+      "condition": 310176773921105.44,
+      "coefficients_diagnostic_only": [
+        -1665.68427656658,
+        47.17061431587727,
+        -107.66433350806624
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 6,
+      "wavelength_nm": 705,
+      "n": 6678404,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40098.01052823272,
+        0.01248300344531031,
+        1.292747036515113e-10
+      ],
+      "condition": 310176773921105.44,
+      "coefficients_diagnostic_only": [
+        -1588.6878055525137,
+        44.99014657118882,
+        -102.69029650024888
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 7,
+      "wavelength_nm": 717,
+      "n": 6678404,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40098.01052823272,
+        0.01248300344531031,
+        1.292747036515113e-10
+      ],
+      "condition": 310176773921105.44,
+      "coefficients_diagnostic_only": [
+        -1424.5677073739016,
+        40.34241953096917,
+        -92.08449791477803
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 8,
+      "wavelength_nm": 740,
+      "n": 6678404,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40098.01052823272,
+        0.01248300344531031,
+        1.292747036515113e-10
+      ],
+      "condition": 310176773921105.44,
+      "coefficients_diagnostic_only": [
+        -881.9611125009543,
+        24.97631037566059,
+        -57.01704502933363
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    },
+    {
+      "band": 9,
+      "wavelength_nm": 862,
+      "n": 6678404,
+      "algebraic_rank": 2,
+      "stable_rank": 1,
+      "singular_values": [
+        40098.01052823272,
+        0.01248300344531031,
+        1.292747036515113e-10
+      ],
+      "condition": 310176773921105.44,
+      "coefficients_diagnostic_only": [
+        -550.1338088527764,
+        15.579272785722075,
+        -35.5726059788104
+      ],
+      "status": "UNSUPPORTED",
+      "effective_independent_samples": "NOT_ESTIMATED; pixels are spatially correlated",
+      "radiometry_threshold_units": "candidate fractional reflectance"
+    }
+  ]
+}

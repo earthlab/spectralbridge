@@ -1,0 +1,450 @@
+[
+  {
+    "path": "/private/tmp/p168-goldhill-sources/h5_original/source.h5",
+    "remote_origin": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-GOLDHILL-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+    "bytes": 86133200,
+    "sha256": "055019f9fda5ce78cfc9483df587c0f049904cfcbe83624f3c1cc4f00435fc25",
+    "shape": [
+      895,
+      1266,
+      10
+    ],
+    "dtype": "float32",
+    "reflectance_dataset_attributes": {},
+    "metadata": [
+      {
+        "path": "NIWO/Reflectance/Metadata/Ancillary_Imagery/Aspect",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float32",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Ancillary_Imagery/Path_Length",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float32",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Ancillary_Imagery/Slope",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float32",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Coordinate_System/Coordinate_System_String",
+        "shape": [],
+        "dtype": "object",
+        "attrs": {},
+        "value": "PROJCS[\"NAD83 / UTM zone 13N\",GEOGCS[\"NAD83\",DATUM[\"North_American_Datum_1983\",SPHEROID[\"GRS 1980\",6378137,298.257222101,AUTHORITY[\"EPSG\",\"7019\"]],AUTHORITY[\"EPSG\",\"6269\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4269\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-105],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"26913\"]]"
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Coordinate_System/EPSG Code",
+        "shape": [],
+        "dtype": "object",
+        "attrs": {},
+        "value": "26913"
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Coordinate_System/Map_Info",
+        "shape": [],
+        "dtype": "object",
+        "attrs": {},
+        "value": "UTM, 1.000, 1.000, 457624.500, 4432830.500, 0.250, -0.250, 13, North, WGS-84, units=Meters, 0"
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Coordinate_System/Proj4",
+        "shape": [],
+        "dtype": "object",
+        "attrs": {},
+        "value": "+proj=utm +zone=13 +datum=NAD83 +units=m +no_defs"
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Logs/Solar_Azimuth_Angle",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float32",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Logs/Solar_Zenith_Angle",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float32",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Spectral_Data/FWHM",
+        "shape": [
+          10
+        ],
+        "dtype": "int64",
+        "attrs": {
+          "Units": "nanometers"
+        },
+        "value": [
+          28,
+          32,
+          14,
+          27,
+          16,
+          14,
+          10,
+          12,
+          18,
+          57
+        ]
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Spectral_Data/Wavelength",
+        "shape": [
+          10
+        ],
+        "dtype": "int64",
+        "attrs": {
+          "Units": "nanometers"
+        },
+        "value": [
+          444,
+          475,
+          531,
+          560,
+          650,
+          668,
+          705,
+          717,
+          740,
+          862
+        ]
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/to-sensor_Azimuth_Angle",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float64",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/to-sensor_Zenith_Angle",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float64",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Reflectance_Data",
+        "shape": [
+          895,
+          1266,
+          10
+        ],
+        "dtype": "float32",
+        "attrs": {}
+      }
+    ],
+    "paired_tiff": "/private/tmp/spectralbridge-scale-confirmation/base/goldhill.tif",
+    "bands": [
+      {
+        "band": 1,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 2,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 3,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 4,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 5,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 6,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 7,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 8,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 9,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 10,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      }
+    ],
+    "physical_calibration": "No explicit physical affine record established by dataset attributes"
+  },
+  {
+    "path": "/private/tmp/p168-goldhill-sources/h5_rescaled/source.h5",
+    "remote_origin": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-rescale/AOP-GOLDHILL-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+    "bytes": 86133200,
+    "sha256": "ea8f79ec046604ef2fb155bfe27041b8ca6f5591bf54cbea5558d91f9fb0127a",
+    "shape": [
+      895,
+      1266,
+      10
+    ],
+    "dtype": "float32",
+    "reflectance_dataset_attributes": {},
+    "metadata": [
+      {
+        "path": "NIWO/Reflectance/Metadata/Ancillary_Imagery/Aspect",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float32",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Ancillary_Imagery/Path_Length",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float32",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Ancillary_Imagery/Slope",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float32",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Coordinate_System/Coordinate_System_String",
+        "shape": [],
+        "dtype": "object",
+        "attrs": {},
+        "value": "PROJCS[\"NAD83 / UTM zone 13N\",GEOGCS[\"NAD83\",DATUM[\"North_American_Datum_1983\",SPHEROID[\"GRS 1980\",6378137,298.257222101,AUTHORITY[\"EPSG\",\"7019\"]],AUTHORITY[\"EPSG\",\"6269\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4269\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-105],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"26913\"]]"
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Coordinate_System/EPSG Code",
+        "shape": [],
+        "dtype": "object",
+        "attrs": {},
+        "value": "26913"
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Coordinate_System/Map_Info",
+        "shape": [],
+        "dtype": "object",
+        "attrs": {},
+        "value": "UTM, 1.000, 1.000, 457624.500, 4432830.500, 0.250, -0.250, 13, North, WGS-84, units=Meters, 0"
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Coordinate_System/Proj4",
+        "shape": [],
+        "dtype": "object",
+        "attrs": {},
+        "value": "+proj=utm +zone=13 +datum=NAD83 +units=m +no_defs"
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Logs/Solar_Azimuth_Angle",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float32",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Logs/Solar_Zenith_Angle",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float32",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Spectral_Data/FWHM",
+        "shape": [
+          10
+        ],
+        "dtype": "int64",
+        "attrs": {
+          "Units": "nanometers"
+        },
+        "value": [
+          28,
+          32,
+          14,
+          27,
+          16,
+          14,
+          10,
+          12,
+          18,
+          57
+        ]
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/Spectral_Data/Wavelength",
+        "shape": [
+          10
+        ],
+        "dtype": "int64",
+        "attrs": {
+          "Units": "nanometers"
+        },
+        "value": [
+          444,
+          475,
+          531,
+          560,
+          650,
+          668,
+          705,
+          717,
+          740,
+          862
+        ]
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/to-sensor_Azimuth_Angle",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float64",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Metadata/to-sensor_Zenith_Angle",
+        "shape": [
+          895,
+          1266
+        ],
+        "dtype": "float64",
+        "attrs": {}
+      },
+      {
+        "path": "NIWO/Reflectance/Reflectance_Data",
+        "shape": [
+          895,
+          1266,
+          10
+        ],
+        "dtype": "float32",
+        "attrs": {}
+      }
+    ],
+    "paired_tiff": "/private/tmp/spectralbridge-scale-confirmation/rescale/goldhill.tif",
+    "bands": [
+      {
+        "band": 1,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 2,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 3,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 4,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 5,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 6,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 7,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 8,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 9,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      },
+      {
+        "band": 10,
+        "finite_values_exact": true,
+        "missingness_exact": true,
+        "max_abs_difference": 0.0
+      }
+    ],
+    "physical_calibration": "No explicit physical affine record established by dataset attributes"
+  }
+]

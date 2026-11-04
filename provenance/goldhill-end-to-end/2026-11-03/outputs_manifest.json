@@ -1,0 +1,280 @@
+{
+  "root": "/private/tmp/goldhill-end-to-end-20261103",
+  "files": [
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/ancillary/legacy_aspect.tif",
+      "bytes": 19466493,
+      "sha256": "570ce258e8188b36eb4aa935a73a9511081efd70abc0e1a02a4f1c8712d867ed",
+      "namespace": "ancillary",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/ancillary/legacy_slope.tif",
+      "bytes": 19971947,
+      "sha256": "ad2259fa95b425083855fae71eff0dc3e4fc4720de264e8fa7c813deef27bd8c",
+      "namespace": "ancillary",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/ancillary/legacy_solar_az.tif",
+      "bytes": 280055,
+      "sha256": "82abcea2800d4d341b367a807130d2ab1be45f3bf0d8a80a35041f01c283165d",
+      "namespace": "ancillary",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/ancillary/legacy_solar_zn.tif",
+      "bytes": 346511,
+      "sha256": "4f68aebaf4f961e0e4894746c48f4cab2a2c6964bb0dbb61f4030c135a070a51",
+      "namespace": "ancillary",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/common_all.npy",
+      "bytes": 7083398,
+      "sha256": "c18aa259e5125c62a76642477d3fce0778cba2db570de44241323a884fb076e6",
+      "namespace": "common_all.npy",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/common_raw.npy",
+      "bytes": 7083398,
+      "sha256": "68cb672c95cc6b71c05f7bae38ac04ff86b455c1a1892ff7cd78ede7ec56f586",
+      "namespace": "common_raw.npy",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/historical_diagnostic/new_historical_brdf.npy",
+      "bytes": 283330928,
+      "sha256": "eaa88a459db610c5bf5999819c76ae69453ee3a61903bfbc3821e88d20bca6e3",
+      "namespace": "historical_diagnostic",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/historical_diagnostic/new_historical_brdf.tif",
+      "bytes": 204186104,
+      "sha256": "6ec1d368842b0361dd276a46c1523552f4e1464b3dde7b6e2b6562adf109fb1a",
+      "namespace": "historical_diagnostic",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/historical_diagnostic/new_historical_combined.npy",
+      "bytes": 283330928,
+      "sha256": "0c7130462344d423e06e40f5db51ae31c5156292df3f2835dd6e915c4edb1b9b",
+      "namespace": "historical_diagnostic",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/historical_diagnostic/new_historical_combined.tif",
+      "bytes": 204783389,
+      "sha256": "e4f090e416f4a4edd45a414ab00a022d5fbd822332c8fbc239b07357a1ade872",
+      "namespace": "historical_diagnostic",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/historical_diagnostic/new_historical_topo.npy",
+      "bytes": 283330928,
+      "sha256": "e22f4eeec4c2dbdb000491ed4e3102c601879783db701a1f392aa7768c544d40",
+      "namespace": "historical_diagnostic",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/historical_diagnostic/new_historical_topo.tif",
+      "bytes": 204471253,
+      "sha256": "b8ea8f296e59647dcd430b8a15f5630fa8072bef714dfd91857cb180dbba7fbf",
+      "namespace": "historical_diagnostic",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/illumination_cosine.npy",
+      "bytes": 28333208,
+      "sha256": "f3336f62f87504a733e649cdc578bd28d21147b33fdb6445729fe2a8e9f4168f",
+      "namespace": "illumination_cosine.npy",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_OLI_and_OLI-2.hdr",
+      "bytes": 3027,
+      "sha256": "83c3884523fb5f8bec9999cbc601fef3be2f92f662adc8a925d99dd8d62e6e57",
+      "namespace": "numerical_native_subsets",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_OLI_and_OLI-2.img",
+      "bytes": 141665400,
+      "sha256": "a70f9173ead246a37a8114c1fc02285dbe14e58643281e2d051df12221e91df1",
+      "namespace": "numerical_native_subsets",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_OLI_and_OLI-2__source.json",
+      "bytes": 1221,
+      "sha256": "eb2d94173676c27f2497232dfb44ded0d82f71c667fbdb8a5d469f10661a43ab",
+      "namespace": "numerical_native_subsets",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_TM_and_ETM+.hdr",
+      "bytes": 3011,
+      "sha256": "d5d0b9e47518ca1cc37670e84aec267d595b4eb567ce7d1f177cd4c4a9d27812",
+      "namespace": "numerical_native_subsets",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_TM_and_ETM+.img",
+      "bytes": 113332320,
+      "sha256": "d14b9acb23908ed184e15a4813428d9f68340177f5425989c427bee0aa64ad74",
+      "namespace": "numerical_native_subsets",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_native_subsets/MicaSense_to-match_TM_and_ETM+__source.json",
+      "bytes": 1205,
+      "sha256": "09c0ecb9231ae9f6f70338e7e2499cb745dc5dbd685f60809ea436dd46815327",
+      "namespace": "numerical_native_subsets",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_polygon_tables/new_historical_brdf_diagnostic_numeric.parquet",
+      "bytes": 8478071,
+      "sha256": "9425ca1017cf6ccb5b80b26909f898eb86a2e5a2e4247b4534aa6652acbac0e0",
+      "namespace": "numerical_polygon_tables",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_polygon_tables/new_historical_combined_diagnostic_numeric.parquet",
+      "bytes": 8485829,
+      "sha256": "d4e0860d61c48800ca0a4ce2f0f001bcdbee26dd5a39d8794486d02dd3a0d5c2",
+      "namespace": "numerical_polygon_tables",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_polygon_tables/new_historical_topo_diagnostic_numeric.parquet",
+      "bytes": 8468143,
+      "sha256": "d944bf5e4b14b383324363b3b033b878d2756e16cb89804702e7411a4640d933",
+      "namespace": "numerical_polygon_tables",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_polygon_tables/new_raw_diagnostic_numeric.parquet",
+      "bytes": 8455024,
+      "sha256": "2ea259b091bcff5e882f436a33c58a25da4d67ab239b8cdaedd9e07b4329f631",
+      "namespace": "numerical_polygon_tables",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_polygon_tables/old_brdf_diagnostic_numeric.parquet",
+      "bytes": 8479759,
+      "sha256": "1722c70ba09c1af73ff52e79833f7c10f445c451b25a86bca67f58a415a4d0b0",
+      "namespace": "numerical_polygon_tables",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_polygon_tables/old_combined_diagnostic_numeric.parquet",
+      "bytes": 8485315,
+      "sha256": "4ef3d37f872b43a745b4b9fdd22329f611bfb01c4c25ad2019a853956053ff93",
+      "namespace": "numerical_polygon_tables",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_polygon_tables/old_raw_diagnostic_numeric.parquet",
+      "bytes": 8457461,
+      "sha256": "d1b9aa7a9a48ca619fe045931699396e9323ab7ce3019e63959a29fb2a475b1d",
+      "namespace": "numerical_polygon_tables",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_polygon_tables/old_reencoded_fixed_diagnostic_numeric.parquet",
+      "bytes": 8457753,
+      "sha256": "d6195269d60687f3fc73230dbc327fed4ffd1a26c354bd9255ad1856c7764edc",
+      "namespace": "numerical_polygon_tables",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/numerical_polygon_tables/old_topo_diagnostic_numeric.parquet",
+      "bytes": 8467463,
+      "sha256": "002ce51614fbac2955db2119b8f95de233d2d1ba141f9d993feb22cd3199ca80",
+      "namespace": "numerical_polygon_tables",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/old_reencoded_fixed.npy",
+      "bytes": 283330928,
+      "sha256": "f6a53490cf2e0a4602fd9444481a343d567cf87b8b22d679e96b4d2445eff7cc",
+      "namespace": "old_reencoded_fixed.npy",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_envi.hdr",
+      "bytes": 3142,
+      "sha256": "a9da85a5fe10f24815c1d4e778408f25bfbefd80246668d89bbd7cb4a549645b",
+      "namespace": "production_attempt",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_envi.img",
+      "bytes": 283330800,
+      "sha256": "06b54ce17fe9cd409240d44273e32e400d8b1e7dcbd80ea63682c061778f7f66",
+      "namespace": "production_attempt",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_envi__export.stage.json",
+      "bytes": 861,
+      "sha256": "1be4b56c1e370fc3e263e693982c747ec9ed1fe00a5c997f4f873246ca9847d2",
+      "namespace": "production_attempt",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/AOP_GOLDHILL_FIXED10K_20230814/AOP_GOLDHILL_FIXED10K_20230814_polygon_pixel_index.parquet",
+      "bytes": 1462263,
+      "sha256": "c8ff03c7af2a5a714177cd3662ac3f62c216ae643f01d7bd36496cff09e6a22c",
+      "namespace": "production_attempt",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/A_raw/A_raw.hdr",
+      "bytes": 3142,
+      "sha256": "a9da85a5fe10f24815c1d4e778408f25bfbefd80246668d89bbd7cb4a549645b",
+      "namespace": "production_attempt",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/A_raw/A_raw.img",
+      "bytes": 283330800,
+      "sha256": "06b54ce17fe9cd409240d44273e32e400d8b1e7dcbd80ea63682c061778f7f66",
+      "namespace": "production_attempt",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/A_raw/A_raw__correction.stage.json",
+      "bytes": 4591,
+      "sha256": "99eb3e8b6773546ec661b67cf2b58e3299c34ce73c2897398097a9409da557e8",
+      "namespace": "production_attempt",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/production_attempt/new_source.h5",
+      "bytes": 432098854,
+      "sha256": "9fd3a86145898934ba19f866407922169d988243283cbc7385aa7a004d49786a",
+      "namespace": "production_attempt",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/source_metadata/SD1_image_metadata.csv",
+      "bytes": 307588,
+      "sha256": "3276905b0964b85f7d1aa1890191f9b4cd036cb1a68e8c3651cc121f3920051b",
+      "namespace": "source_metadata",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    },
+    {
+      "path": "/private/tmp/goldhill-end-to-end-20261103/source_metadata/SD2_image_metadata.csv",
+      "bytes": 308703,
+      "sha256": "3abccee406839f2e36ccaa4a266fea9e944b2a41816fc66a3582b7b91503d86e",
+      "namespace": "source_metadata",
+      "scientific_status": "EXPERIMENTAL_NUMERICAL_ONLY; no physical correction/library approval"
+    }
+  ],
+  "total_bytes": 3161421214,
+  "production_store_writes": 0
+}

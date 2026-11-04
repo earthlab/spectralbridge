@@ -1,0 +1,14 @@
+[
+  {
+    "branch": "raw",
+    "balanced_accuracy": 0.6682934553131599,
+    "mean_fold_balanced_accuracy": 0.6766729797979797,
+    "warning": "Native support differs; contrast with common-support results, not causal correction gain"
+  },
+  {
+    "branch": "historical",
+    "balanced_accuracy": 0.717121745249824,
+    "mean_fold_balanced_accuracy": 0.7178188131313131,
+    "warning": "Native support differs; contrast with common-support results, not causal correction gain"
+  }
+]

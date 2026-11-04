@@ -1,0 +1,188 @@
+{
+  "status": "COMPLETED_CONDITIONAL_DIAGNOSTIC_EXPERIMENT",
+  "calibration_status": "HYPOTHETICAL_UNVERIFIED",
+  "hypothesis": "MicaSense_Metashape_DN_32768",
+  "scale": 0.0001999969482421875,
+  "offset": 0,
+  "classification": {
+    "cosine": {
+      "branch": "cosine",
+      "balanced_accuracy": 0.7027762139338495,
+      "mean_fold_balanced_accuracy": 0.7098484848484848,
+      "identities": 157,
+      "class_support": {
+        "Evergreen": 98,
+        "Woody shrub": 29,
+        "Herbaceous": 25,
+        "Deciduous": 5
+      }
+    },
+    "current": {
+      "branch": "current",
+      "balanced_accuracy": 0.6420161857846587,
+      "mean_fold_balanced_accuracy": 0.657801978114478,
+      "identities": 157,
+      "class_support": {
+        "Evergreen": 98,
+        "Woody shrub": 29,
+        "Herbaceous": 25,
+        "Deciduous": 5
+      }
+    },
+    "eligible_OLS": {
+      "branch": "eligible_OLS",
+      "balanced_accuracy": 0.6520161857846587,
+      "mean_fold_balanced_accuracy": 0.6682186447811448,
+      "identities": 157,
+      "class_support": {
+        "Evergreen": 98,
+        "Woody shrub": 29,
+        "Herbaceous": 25,
+        "Deciduous": 5
+      }
+    },
+    "historical": {
+      "branch": "historical",
+      "balanced_accuracy": 0.6420161857846587,
+      "mean_fold_balanced_accuracy": 0.657801978114478,
+      "identities": 157,
+      "class_support": {
+        "Evergreen": 98,
+        "Woody shrub": 29,
+        "Herbaceous": 25,
+        "Deciduous": 5
+      }
+    },
+    "raw": {
+      "branch": "raw",
+      "balanced_accuracy": 0.6829838142153414,
+      "mean_fold_balanced_accuracy": 0.6907354797979798,
+      "identities": 157,
+      "class_support": {
+        "Evergreen": 98,
+        "Woody shrub": 29,
+        "Herbaceous": 25,
+        "Deciduous": 5
+      }
+    },
+    "robust_Huber": {
+      "branch": "robust_Huber",
+      "balanced_accuracy": 0.6520161857846587,
+      "mean_fold_balanced_accuracy": 0.6682186447811448,
+      "identities": 157,
+      "class_support": {
+        "Evergreen": 98,
+        "Woody shrub": 29,
+        "Herbaceous": 25,
+        "Deciduous": 5
+      }
+    },
+    "stabilized": {
+      "branch": "stabilized",
+      "balanced_accuracy": 0.6520161857846587,
+      "mean_fold_balanced_accuracy": 0.6682186447811448,
+      "identities": 157,
+      "class_support": {
+        "Evergreen": 98,
+        "Woody shrub": 29,
+        "Herbaceous": 25,
+        "Deciduous": 5
+      }
+    }
+  },
+  "paired_gains": {
+    "raw": {
+      "branch": "raw",
+      "difference": 0.0,
+      "low": 0.0,
+      "high": 0.0,
+      "changed_predictions": 0,
+      "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+    },
+    "historical": {
+      "branch": "historical",
+      "difference": -0.04096762843068262,
+      "low": -0.14841660802251933,
+      "high": 0.04472097114707949,
+      "changed_predictions": 23,
+      "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+    },
+    "current": {
+      "branch": "current",
+      "difference": -0.04096762843068262,
+      "low": -0.14841660802251933,
+      "high": 0.04472097114707949,
+      "changed_predictions": 23,
+      "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+    },
+    "eligible_OLS": {
+      "branch": "eligible_OLS",
+      "difference": -0.03096762843068262,
+      "low": -0.14161118930330754,
+      "high": 0.055302779732582685,
+      "changed_predictions": 26,
+      "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+    },
+    "robust_Huber": {
+      "branch": "robust_Huber",
+      "difference": -0.03096762843068262,
+      "low": -0.14159042927515836,
+      "high": 0.05848891625615757,
+      "changed_predictions": 28,
+      "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+    },
+    "stabilized": {
+      "branch": "stabilized",
+      "difference": -0.03096762843068262,
+      "low": -0.14161118930330754,
+      "high": 0.055302779732582685,
+      "changed_predictions": 26,
+      "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+    },
+    "cosine": {
+      "branch": "cosine",
+      "difference": 0.019792399718508092,
+      "low": -0.016273750879662208,
+      "high": 0.05840957072484167,
+      "changed_predictions": 18,
+      "interpretation": "Class-stratified paired polygon bootstrap of fixed out-of-fold predictions; not training-set, site or coefficient uncertainty. Exploratory multiple branches."
+    }
+  },
+  "common_support": {
+    "common_pixels": 6614170,
+    "polygon_identities": 157,
+    "original_polygon_identities": 158,
+    "original_class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 30,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "common_class_support": {
+      "Evergreen": 98,
+      "Woody shrub": 29,
+      "Herbaceous": 25,
+      "Deciduous": 5
+    },
+    "common_polygon_memberships": 142656,
+    "source": "Researcher labels unchanged; pixel-center package index reused; no pixel-level classifier; fixed training-only scaling; correction coefficients for eligible/robust/stabilized exclude all evaluation polygons+2m. Historical/current scene fits are transductive diagnostic baselines."
+  },
+  "final_decisions": {
+    "1. Numerically consistent candidate reflectance?": "Yes, conditional on DN/32768. Ten-band affine conversion/masks and precision verified; calibration not verified.",
+    "2. Scale-invariant SCS+C?": "Yes at the tested scales and masks; C and factors unchanged. An absolute near-zero-slope tolerance can break invariance in other regimes.",
+    "3. Cause of historical extremes?": "Negative fitted C cancels positive illumination near the .001 guard. Uncertain/confounded regression, not the common radiometric multiplier.",
+    "4. Preventable instability?": "Resolved-domain/uncertainty exclusions prevent these near-pole outputs without clipping; better fitting/Huber alone does not.",
+    "5. Less illumination dependence?": "Yes descriptively, with weak negative residual red correlation; not independent physical validation.",
+    "6. Spectral relationships preserved?": "Not uniformly: band-dependent factors alter shape; no absolute reference certifies improvement.",
+    "7. Better within-polygon consistency?": "Not overall: lower absolute variance, but higher CV and spectral angle.",
+    "8. Better PFT separability?": "Mixed class-pair effects; no general or independently validated gain.",
+    "9. Better PFT identification?": "No established gain on matched support; stabilized65.2%versus raw68.3%, paired interval spans zero.",
+    "10. Experimental use?": "Yes for explicitly conditional diagnostic sensitivity analysis; raw remains primary for ecological interpretation.",
+    "11. Production readiness?": "No. Verify calibration, timing/terrain/shadows and North/contributor provenance; independent targets and spatial/site-held-out evaluation are needed."
+  },
+  "production_ready": false,
+  "recommendation": "Keep raw candidate reflectance primary. Stabilized branch is a resolved-support sensitivity diagnostic, without established PFT/physical accuracy gain. No production change.",
+  "figures": 14,
+  "PDF_pages": 20,
+  "production_changes": 0
+}
