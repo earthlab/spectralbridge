@@ -1,3 +1,45 @@
+## [2.3.0rc2] - 2026-11-04
+
+### Fixed
+
+- Verify original drone-package transfers using the remote checksum algorithm;
+  preserve case-distinct terrain paths on case-insensitive filesystems. Source-only
+  QA with unsupported radiometry remains scientifically unevaluated.
+
+- Drone TIFF/HDF5 spatial metadata preserves corner/center conventions, north-up
+  orientation and ancillary alignment without mutating original sources.
+- Decode declared scalar/per-band affine radiometry before BRDF eligibility;
+  retain minimum offsets, alpha/NoData handling and calibration provenance.
+- Correct shared RossThick/LiDenseR mathematical conventions and bind model reuse
+  to kernel version, wavelengths, source footprint and numerical acceptance.
+- Reject unsupported angular rank and unresolved model predictions explicitly;
+  retain experimental status through ENVI serialization and library acceptance.
+
+### Added
+
+- Advanced original-package discovery, explicit camera-table validation and
+  restart-safe 10 cm fixed-range DN preparation, without certifying calibration.
+
+- Experimental camera-position rays, true-north geometry, footprint assignments
+  and kernel blending with explicit unverified contributor assumptions.
+- Opt-in spatial fitting masks and cluster covariance for the shared BRDF model.
+- Conditioned SCS+C with source/policy-bound uncertainty intervals and explicit
+  missing/unsupported/corrected states; combined topographic and BRDF processing
+  remains available without identity substitution or correction-factor caps.
+- Matched polygon diagnostics, expanded regression tests and reproducible
+  Goldhill reports. Existing NEON real-data correction outputs are preserved.
+- Expanded spectral-library diagnostics, PFT/sensor-transfer and MESMA readiness
+  documentation and tests; these diagnostics are not independent calibration.
+
+### Release scope
+
+- Stabilize completed experimental drone engineering, practical documentation,
+  public API reference and wheel/sdist checks for Python 3.10-3.12.
+- Physical drone calibration, actual orthomosaic contributors and independent
+  directional/ecological validation remain documented scientific limitations.
+- Citation authorship remains provisional pending maintainer approval. No PyPI
+  publication, GitHub release, merge or release tag is performed by preparation.
+
 ## [2.3.0rc1] – 2026-09-08
 
 ### Added

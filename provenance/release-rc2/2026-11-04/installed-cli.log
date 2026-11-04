@@ -1,0 +1,73 @@
+{
+  "python": "3.12.8",
+  "cli": [
+    {
+      "command": "spectralbridge-bulk",
+      "returncode": 0,
+      "help_contains_usage": true,
+      "stderr": ""
+    },
+    {
+      "command": "spectralbridge-download",
+      "returncode": 0,
+      "help_contains_usage": true,
+      "stderr": ""
+    },
+    {
+      "command": "spectralbridge-drone-production",
+      "returncode": 0,
+      "help_contains_usage": true,
+      "stderr": ""
+    },
+    {
+      "command": "spectralbridge-merge-duckdb",
+      "returncode": 0,
+      "help_contains_usage": true,
+      "stderr": ""
+    },
+    {
+      "command": "spectralbridge-pipeline",
+      "returncode": 0,
+      "help_contains_usage": true,
+      "stderr": ""
+    },
+    {
+      "command": "spectralbridge-qa",
+      "returncode": 0,
+      "help_contains_usage": true,
+      "stderr": ""
+    },
+    {
+      "command": "spectralbridge-qa-dashboard",
+      "returncode": 0,
+      "help_contains_usage": true,
+      "stderr": ""
+    },
+    {
+      "command": "spectralbridge-qa-summary",
+      "returncode": 0,
+      "help_contains_usage": true,
+      "stderr": ""
+    },
+    {
+      "command": "spectralbridge-recover-raw",
+      "returncode": 0,
+      "help_contains_usage": true,
+      "stderr": ""
+    },
+    {
+      "command": "spectralbridge-stage-qa",
+      "returncode": 0,
+      "help_contains_usage": true,
+      "stderr": ""
+    },
+    {
+      "command": "spectralbridge-validate-parquets",
+      "returncode": 0,
+      "help_contains_usage": true,
+      "stderr": ""
+    }
+  ],
+  "analytics_present": false,
+  "quantile_models_present": false
+}

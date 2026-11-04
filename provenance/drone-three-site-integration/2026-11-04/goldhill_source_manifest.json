@@ -1,0 +1,570 @@
+{
+  "site": "Goldhill",
+  "flight_stem": "AOP_GOLDHILL_20230814",
+  "source_directory": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage",
+  "orthomosaic": {
+    "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_ORTHO.tif",
+    "name": "AOP-GOLDHILL-08-14-23_ORTHO.tif",
+    "is_collection": false,
+    "size_bytes": 307376470,
+    "checksum": "d9cc26eef1d98d1779d6ad500c3d5cc0",
+    "modified": "2023-12-13.13:22"
+  },
+  "original_local": {
+    "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_ORTHO.tif",
+    "size_bytes": 307376470,
+    "sha256": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+    "crs": "EPSG:26913",
+    "shape": [
+      2646,
+      3747
+    ],
+    "resolution": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "transform": [
+      0.08442749999999995,
+      0.0,
+      457624.63781315734,
+      0.0,
+      -0.0844275000000419,
+      4432830.378333771,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "bounds": [
+      457624.63781315734,
+      4432606.983168771,
+      457940.98765565734,
+      4432830.378333771
+    ],
+    "band_count": 11,
+    "dtypes": [
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16"
+    ],
+    "alpha_bands": [
+      11
+    ],
+    "nodata": null,
+    "scales": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "offsets": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tags": {
+      "AREA_OR_POINT": "Area"
+    }
+  },
+  "transfers": [
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23-DTM.tif",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/__case_distinct__/257af54d3ab3b656/AOP-GOLDHILL-08-14-23-DTM.tif",
+      "size_bytes": 882519,
+      "remote_checksum": "a347bfab4de85436eb0237c8b33adc76",
+      "sha256": "1c4fd7b0fd0b5261bfb3082180fe593872c0651af3ce159ae1e7c514d15b12f6",
+      "md5": "a347bfab4de85436eb0237c8b33adc76",
+      "remote_checksum_verified": true,
+      "status": "downloaded"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23-dtm.tif",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/__case_distinct__/abe3009196e5e1f3/AOP-GOLDHILL-08-14-23-dtm.tif",
+      "size_bytes": 6051,
+      "remote_checksum": "68b0cb54bca5d6cb3907215cabfd5709",
+      "sha256": "1033126c87ab448777ed1b88b31cccf4651743548e37c57aa441d3d925640ed4",
+      "md5": "68b0cb54bca5d6cb3907215cabfd5709",
+      "remote_checksum_verified": true,
+      "status": "downloaded"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_DEM.tif",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_DEM.tif",
+      "size_bytes": 2335971,
+      "remote_checksum": "72024bfcbbd327618469d8146bcfb6cf",
+      "sha256": "cf2ec77e959301ca55a2a5a310cc05ffd065304c6c5ac4403bc6853a2584eaf7",
+      "md5": "72024bfcbbd327618469d8146bcfb6cf",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_ORTHO.tif",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_ORTHO.tif",
+      "size_bytes": 307376470,
+      "remote_checksum": "d9cc26eef1d98d1779d6ad500c3d5cc0",
+      "sha256": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+      "md5": "d9cc26eef1d98d1779d6ad500c3d5cc0",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_report.pdf",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_report.pdf",
+      "size_bytes": 2654212,
+      "remote_checksum": "f282afe6122f483c6ce32413a812480e",
+      "sha256": "419654aa53fddfab2146ff47cb52135ac60f8beb9d5319799bdf9d939485daaf",
+      "md5": "f282afe6122f483c6ce32413a812480e",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "size_bytes": 307588,
+      "remote_checksum": "3e8026a1fcbc9d93faf4afc4194e9d72",
+      "sha256": "3276905b0964b85f7d1aa1890191f9b4cd036cb1a68e8c3651cc121f3920051b",
+      "md5": "3e8026a1fcbc9d93faf4afc4194e9d72",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "size_bytes": 308703,
+      "remote_checksum": "006f95beef40ada1e3e424715790aae2",
+      "sha256": "3abccee406839f2e36ccaa4a266fea9e944b2a41816fc66a3582b7b91503d86e",
+      "md5": "006f95beef40ada1e3e424715790aae2",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GOLDHILL.dbf",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GOLDHILL.dbf",
+      "size_bytes": 2549,
+      "remote_checksum": "1998522dbc2f7c2dac7fea3aa412c312",
+      "sha256": "be05faf1918060fa2eae66a1b7a19635cd139f2c00cc19b6be9d416a623f1dce",
+      "md5": "1998522dbc2f7c2dac7fea3aa412c312",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GOLDHILL.shp",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GOLDHILL.shp",
+      "size_bytes": 2172,
+      "remote_checksum": "0853f33532cb340012815c822c4b9508",
+      "sha256": "039be303372b1767ade7cdabaae484ec1681e1b8b4556658475d0d107fa2a20c",
+      "md5": "0853f33532cb340012815c822c4b9508",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GOLDHILL.shx",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GOLDHILL.shx",
+      "size_bytes": 108,
+      "remote_checksum": "45387c47793b35a4c2da32b05e8ea022",
+      "sha256": "13b8b8d8680f2ebb7b9586738fe4514f1d2250e9e45a50a4075b8af31cda53b6",
+      "md5": "45387c47793b35a4c2da32b05e8ea022",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.cpg",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.cpg",
+      "size_bytes": 5,
+      "remote_checksum": "ae3b3df9970b49b6523e608759bc957d",
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824",
+      "md5": "ae3b3df9970b49b6523e608759bc957d",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.dbf",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.dbf",
+      "size_bytes": 570,
+      "remote_checksum": "233edfaacb86c9ef3ef504ef97bcb3d4",
+      "sha256": "84b00fc2ca5be407026dc1906aebffa318d10631f7f33769d20c4ca34d3b3f11",
+      "md5": "233edfaacb86c9ef3ef504ef97bcb3d4",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.prj",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.prj",
+      "size_bytes": 425,
+      "remote_checksum": "4ed694f9d90ad5ffd45dcb5f4c90ff24",
+      "sha256": "a5c36df1e7e680f4616e1dd3658d310813d31048d5fa08dcbaadcc9f129b0ff7",
+      "md5": "4ed694f9d90ad5ffd45dcb5f4c90ff24",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shp",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shp",
+      "size_bytes": 644,
+      "remote_checksum": "84a8b164f48256b694b6f5a5a84efff0",
+      "sha256": "15769eb8d2d4a4b961362c82770ce45d80200eee88fdab64199bdfbc6b9f5b6c",
+      "md5": "84a8b164f48256b694b6f5a5a84efff0",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shx",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shx",
+      "size_bytes": 132,
+      "remote_checksum": "4f5fc0ffaa8a7ef087c8c311c3cb4ab7",
+      "sha256": "4341fc054da960c7804c3c397361642f429d088e408c8479298160c00b5b5dd3",
+      "md5": "4f5fc0ffaa8a7ef087c8c311c3cb4ab7",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    }
+  ],
+  "coordinate_table": null,
+  "coordinate_status": "DEFERRED_BY_USER",
+  "available_metadata": [
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/__case_distinct__/257af54d3ab3b656/AOP-GOLDHILL-08-14-23-DTM.tif",
+      "size_bytes": 882519,
+      "sha256": "1c4fd7b0fd0b5261bfb3082180fe593872c0651af3ce159ae1e7c514d15b12f6",
+      "crs": "EPSG:26913",
+      "shape": [
+        403,
+        571
+      ],
+      "resolution": [
+        0.5532310000000377,
+        0.5532309999989886
+      ],
+      "transform": [
+        0.5532310000000377,
+        0.0,
+        457624.63781315734,
+        0.0,
+        -0.5532309999989886,
+        4432830.378333771,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds": [
+        457624.63781315734,
+        4432607.426240771,
+        457940.53271415737,
+        4432830.378333771
+      ],
+      "band_count": 1,
+      "dtypes": [
+        "float32"
+      ],
+      "alpha_bands": [],
+      "nodata": -32767.0,
+      "scales": [
+        1.0
+      ],
+      "offsets": [
+        0.0
+      ],
+      "tags": {
+        "AREA_OR_POINT": "Area"
+      }
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/__case_distinct__/abe3009196e5e1f3/AOP-GOLDHILL-08-14-23-dtm.tif",
+      "status": "INVALID_RASTER",
+      "error": "'/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/__case_distinct__/abe3009196e5e1f3/AOP-GOLDHILL-08-14-23-dtm.tif' not recognized as being in a supported file format.",
+      "sha256": "1033126c87ab448777ed1b88b31cccf4651743548e37c57aa441d3d925640ed4"
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_DEM.tif",
+      "size_bytes": 2335971,
+      "sha256": "cf2ec77e959301ca55a2a5a310cc05ffd065304c6c5ac4403bc6853a2584eaf7",
+      "crs": "EPSG:26913",
+      "shape": [
+        661,
+        936
+      ],
+      "resolution": [
+        0.3377099999999747,
+        0.3377099999997331
+      ],
+      "transform": [
+        0.3377099999999747,
+        0.0,
+        457624.63781315734,
+        0.0,
+        -0.3377099999997331,
+        4432830.378333771,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds": [
+        457624.63781315734,
+        4432607.152023771,
+        457940.7343731573,
+        4432830.378333771
+      ],
+      "band_count": 1,
+      "dtypes": [
+        "float32"
+      ],
+      "alpha_bands": [],
+      "nodata": -32767.0,
+      "scales": [
+        1.0
+      ],
+      "offsets": [
+        0.0
+      ],
+      "tags": {
+        "AREA_OR_POINT": "Area"
+      }
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "rows": 3045,
+      "columns": [
+        "TIFFTAG_DATETIME",
+        "TIFFTAG_SOFTWARE",
+        "filename"
+      ],
+      "status": "SOURCE_METADATA_ONLY; new flight-location table deferred by user"
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GOLDHILL-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "rows": 3050,
+      "columns": [
+        "TIFFTAG_DATETIME",
+        "TIFFTAG_SOFTWARE",
+        "filename"
+      ],
+      "status": "SOURCE_METADATA_ONLY; new flight-location table deferred by user"
+    }
+  ],
+  "selection_rationale": "Unique ORTHO export in the supplied original-package collection; excluded normalized/corrected/translated/resampled/aligned sources. Validate dtype/grid/bands after transfer.",
+  "clipped_export": false,
+  "wavelengths_nm": [
+    444.0,
+    475.0,
+    531.0,
+    560.0,
+    650.0,
+    668.0,
+    705.0,
+    717.0,
+    740.0,
+    862.0
+  ],
+  "wavelength_provenance": "Established ten-band MicaSense Dual package convention; TIFF has no independent wavelength declarations",
+  "acquisition_metadata_source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_field_manifest.csv",
+  "radiometric_encoding": "Original UInt16 DN; physical calibration unverified",
+  "prepared": {
+    "source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_ORTHO.tif",
+    "source_sha256": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+    "output": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/prepared/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_ORTHO__processing_10cm_10k.tif",
+    "signature": "862f751c41e90e155414d309cb24403b3e02a89bb5da6facd71e25889e25d5c7",
+    "configuration": {
+      "resolution": 0.1,
+      "grid": {
+        "width": 3165,
+        "height": 2238,
+        "transform": [
+          0.09999999999996322,
+          0.0,
+          457624.5,
+          0.0,
+          -0.09999999999991677,
+          4432830.55
+        ],
+        "crs": "EPSG:26913"
+      },
+      "encoding": "DN*10000/65535",
+      "policy": "alpha-bilinear-fixed10k-v1"
+    },
+    "status": "reused",
+    "source_spectral_bands": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "source_alpha_bands": [
+      11
+    ],
+    "shape": [
+      2238,
+      3165,
+      10
+    ],
+    "transform": [
+      0.09999999999996322,
+      0.0,
+      457624.5,
+      0.0,
+      -0.09999999999991677,
+      4432830.55,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "crs": "EPSG:26913",
+    "resolution": [
+      0.1,
+      0.1
+    ],
+    "bands": [
+      {
+        "band": 1,
+        "valid_pixels": 6683944,
+        "minimum": 0.40175607800483704,
+        "maximum": 923.9423828125
+      },
+      {
+        "band": 2,
+        "valid_pixels": 6683944,
+        "minimum": 1.4291599988937378,
+        "maximum": 1064.1827392578125
+      },
+      {
+        "band": 3,
+        "valid_pixels": 6683944,
+        "minimum": 0.2830751836299896,
+        "maximum": 1323.599853515625
+      },
+      {
+        "band": 4,
+        "valid_pixels": 6683944,
+        "minimum": 0.0,
+        "maximum": 1586.2022705078125
+      },
+      {
+        "band": 5,
+        "valid_pixels": 6683944,
+        "minimum": 0.007147318217903376,
+        "maximum": 1890.0892333984375
+      },
+      {
+        "band": 6,
+        "valid_pixels": 6683944,
+        "minimum": 0.0,
+        "maximum": 1905.718017578125
+      },
+      {
+        "band": 7,
+        "valid_pixels": 6683944,
+        "minimum": 0.006720083765685558,
+        "maximum": 2024.23779296875
+      },
+      {
+        "band": 8,
+        "valid_pixels": 6683944,
+        "minimum": 0.22550104558467865,
+        "maximum": 2087.282470703125
+      },
+      {
+        "band": 9,
+        "valid_pixels": 6683944,
+        "minimum": 1.8979921340942383,
+        "maximum": 2543.564453125
+      },
+      {
+        "band": 10,
+        "valid_pixels": 6683944,
+        "minimum": 47.30014419555664,
+        "maximum": 3139.8310546875
+      }
+    ],
+    "radiometry": {
+      "scale": null,
+      "offset": null,
+      "status": "UNSUPPORTED",
+      "provenance": "Original UInt16 DN; fixed numerical encoding; physical calibration unavailable",
+      "convention": "physical = scale * stored + offset",
+      "encoding": {
+        "kind": "range_normalized_dn",
+        "physical_calibration_status": "UNVERIFIED",
+        "nodata": "NaN",
+        "normalization": {
+          "stored_min": 0,
+          "stored_max": 10000,
+          "source_min": 0,
+          "source_max": 65535
+        },
+        "quality_mask": {
+          "status": "DOCUMENTED",
+          "convention": "GDAL mask true means valid"
+        }
+      }
+    },
+    "output_sha256": "ba951e7cd5ae700bfc2882082af770f88eb24497cc82e38b791adbdb8e4e5538",
+    "clipping": "NONE",
+    "valid_pixels": 6683944
+  },
+  "processing_grid_reference": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-spatial-integrity/2026-10-29/production_source_comparison.json",
+  "processing_grid_reference_sha256": "3fb0d1410240ae0308489616d4f0fd47d15e997e8f82c9d1d464e9d30c81b042",
+  "processing_grid_usage": "Spatial comparison support only; original orthomosaic supplies all spectral values",
+  "polygon_source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+  "polygon_sha256": "d9fe2108538179b7cde107123e965b3d0075dcb65ec488fd03b8480b34dc6ebb",
+  "polygon_definition": "Established HALF-DIAMETER researcher polygons; no relabeling",
+  "intersecting_polygon_features": 158,
+  "software_version": "2.3.0rc2",
+  "git_commit": "bb3da46bea0a4295ca3152a9f607ed17140575f1",
+  "working_tree_changes": true,
+  "source_code_sha256": {
+    "src/spectralbridge/remote.py": "51ac7d1a35be924608458b2a7398b923c7adbe62ffcdc049c63f380935fea6f2",
+    "src/spectralbridge/drone_production.py": "61b6b3505fbc75b9b7d05155d611b61c0a6f017ce826594e813197e6b1efc489",
+    "src/spectralbridge/pipelines/drone.py": "031a1ca9951850e89718109e4efe31f145b891722e6477196d775ff2c03feb43"
+  },
+  "polygon_index": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__polygon_index.parquet",
+  "preparation_pipeline_result": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_GOLDHILL_20230814/preparation_pipeline_result.json",
+  "requested_pipeline_result": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_GOLDHILL_20230814/requested_pipeline_result.json",
+  "overall_status": "INCOMPLETE_LOCATION_TABLES_DEFERRED_AND_CALIBRATION_UNVERIFIED",
+  "acquisition_metadata_rows": [
+    {
+      "Plot": "AOP-GOLDHILL",
+      "Field Team": "Tyler",
+      "Region": "S. Rockies",
+      "Field Season": 2023.0,
+      "Metashape done": "x",
+      "Exported pointcloud": "y",
+      "Moved to CyVerse (ExportPackage)": "y",
+      "Discrepancies": null,
+      "Nayani_notesOn how to proceed with discrepancies ": null,
+      "Day of data collection": "2023-08-15",
+      "Mean Time of data collection (24 hr clock)": "19:53:07",
+      "Processed and ready for spectra extraction": null,
+      "Spectra extraction done": null
+    }
+  ],
+  "acquisition_time_zone": "UTC configuration for existing manifest interpretation; not independently verified clock zone",
+  "filename_date_warning": "Flight stem preserves package provenance; package filename date is not an independently verified acquisition date"
+}

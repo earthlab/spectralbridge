@@ -21,7 +21,8 @@ The 19 October 2026 publication audit found no project at the PyPI
 `earthlab-spectralbridge` endpoint; use the source checkout above until a release
 is verified. The distribution is `earthlab-spectralbridge`; the Python import is
 `spectralbridge`. Repository examples describe the checked-out source version;
-verify that your installed release includes the API you intend to use.
+verify that your installed release includes the API you intend to use. This
+checkout targets `2.3.0rc2`; it is not evidence that RC2 has been published.
 
 ## Read the result
 
@@ -75,4 +76,4 @@ Read [correction eligibility](concepts/correction-eligibility.md) and the
 physical calibration, validate source alignment and explicitly choose corrections.
 The installation example above remains a synthetic software demonstration.
 
-Last updated: 2026-11-02
+Last updated: 2026-11-04

@@ -61,7 +61,7 @@ def test_aop_qa_uses_header_scale_and_excludes_nodata(
         values.tofile(image)
         with image.with_suffix(".hdr").open("a", encoding="utf-8") as header:
             header.write(
-                "\nreflectance scale factor = 10000"
+                "\nphysical reflectance multiplier = 0.0001\nreflectance scale factor = 10000"
                 "\ndata ignore value = -9999\n"
             )
 

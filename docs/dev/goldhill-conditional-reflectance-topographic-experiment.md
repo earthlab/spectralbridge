@@ -21,7 +21,7 @@ November 3, 2026. A controlled, isolated test of SCS+C under the supported-but-u
 
 S=DN x 10000/65535 is the fixed numerical derivative. Under the candidate convention, R=S x 0.0001999969482421875, offset 0. Values are candidate fractional reflectance.
 
-![Exact multiplier 0.0001999969482421875; no offset. All ten fitted C values are identical at the tested scales. Spectral shape alone cannot verify calibration.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure01_scaling.png)
+![Exact multiplier 0.0001999969482421875; no offset. All ten fitted C values are identical at the tested scales. Spectral shape alone cannot verify calibration.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure01_scaling.png)
 
 Exact multiplier 0.0001999969482421875; no offset. All ten fitted C values are identical at the tested scales. Spectral shape alone cannot verify calibration.
 
@@ -33,7 +33,7 @@ Exact multiplier 0.0001999969482421875; no offset. All ten fitted C values are i
 
 The recovered original photo tags support August 15,2023;5650 camera IDs join uniquely. Matched times span 19:42:38-20:03:47, midpoint 19:53:12.5. The inherited time 19:53:07 differs by 5.5 seconds.
 
-![North is up on the common 10 cm grid; images sampled every sixth cell. Self-shadow means cos(i)<=0, not a complete cast/canopy-shadow mask. Terrain resampling does not create new independent detail.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure02_geometry.png)
+![North is up on the common 10 cm grid; images sampled every sixth cell. Self-shadow means cos(i)<=0, not a complete cast/canopy-shadow mask. Terrain resampling does not create new independent detail.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure02_geometry.png)
 
 North is up on the common 10 cm grid; images sampled every sixth cell. Self-shadow means cos(i)<=0, not a complete cast/canopy-shadow mask. Terrain resampling does not create new independent detail.
 
@@ -45,7 +45,7 @@ North is up on the common 10 cm grid; images sampled every sixth cell. Self-shad
 
 The existing package solar function was used at scene center for six explicit timing cases; the main branches retain the inherited spatial solar grids. UTC start/end bracket available camera times.
 
-![Solar geometry uses the existing approximate UTC package function at scene center for sensitivity. Local-time interpretation puts the sun near the horizon and can trigger neutral fallbacks; that is not evidence of successful correction. No case was selected for looking better.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure03_time.png)
+![Solar geometry uses the existing approximate UTC package function at scene center for sensitivity. Local-time interpretation puts the sun near the horizon and can trigger neutral fallbacks; that is not evidence of successful correction. No case was selected for looking better.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure03_time.png)
 
 Solar geometry uses the existing approximate UTC package function at scene center for sensitivity. Local-time interpretation puts the sun near the horizon and can trigger neutral fallbacks; that is not evidence of successful correction. No case was selected for looking better.
 
@@ -72,7 +72,7 @@ Delivered terrain rasters allow a bounded cross-check, not identification of the
 
 SCS+C multiplies each band by [cos(solar zenith)cos(slope)+C]/[cos(i)+C], with C=intercept/slope of the reflectance-illumination regression.
 
-![At row 1178,col 1533, cos(i)=0.3482566 and C=-0.3472517 leave denominator 0.00100496 and factor 309.9168. Positive illumination does not prevent cancellation. Huber moves the pole; it does not remove it.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure04_instability.png)
+![At row 1178,col 1533, cos(i)=0.3482566 and C=-0.3472517 leave denominator 0.00100496 and factor 309.9168. Positive illumination does not prevent cancellation. Huber moves the pole; it does not remove it.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure04_instability.png)
 
 At row 1178,col 1533, cos(i)=0.3482566 and C=-0.3472517 leave denominator 0.00100496 and factor 309.9168. Positive illumination does not prevent cancellation. Huber moves the pole; it does not remove it.
 
@@ -84,7 +84,7 @@ At row 1178,col 1533, cos(i)=0.3482566 and C=-0.3472517 leave denominator 0.0010
 
 The predeclared experimental rule treats uncertain or extrapolated observations as unsupported; it does not force factors into a desired numerical range.
 
-![Native supports are shown separately. Stabilized coverage is 98.96% of raw, including existing geometry losses; no gain was capped. The cosine alternative is numerically extreme near local self-shadow and is not recommended.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure05_support.png)
+![Native supports are shown separately. Stabilized coverage is 98.96% of raw, including existing geometry losses; no gain was capped. The cosine alternative is numerically extreme near local self-shadow and is not recommended.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure05_support.png)
 
 Native supports are shown separately. Stabilized coverage is 98.96% of raw, including existing geometry losses; no gain was capped. The cosine alternative is numerically extreme near local self-shadow and is not recommended.
 
@@ -97,7 +97,7 @@ Native supports are shown separately. Stabilized coverage is 98.96% of raw, incl
 
 Raw, historical, current, robust, stabilized and cosine branches all use the same source/grid/bands, and no branch includes BRDF.
 
-![Identical grid, north up, every sixth cell. Common raw 99 th percentile controls display only; analytical extremes are retained. White is unsupported/missing. Candidate calibration remains unverified.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure06_red_maps.png)
+![Identical grid, north up, every sixth cell. Common raw 99 th percentile controls display only; analytical extremes are retained. White is unsupported/missing. Candidate calibration remains unverified.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure06_red_maps.png)
 
 Identical grid, north up, every sixth cell. Common raw 99 th percentile controls display only; analytical extremes are retained. White is unsupported/missing. Candidate calibration remains unverified.
 
@@ -108,7 +108,7 @@ Identical grid, north up, every sixth cell. Common raw 99 th percentile controls
 
 Correction differences are evaluated on the same grid, without fabricating missing observations.
 
-![Signed differences are candidate reflectance on stabilized support;99 th-percentile display bounds do not alter measurements. Right: sampled positions with historical red gain>10;star marks actual native maximum at row 1178,column 1533. The threshold 10 is descriptive only, not the eligibility rule.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure14_differences.png)
+![Signed differences are candidate reflectance on stabilized support;99 th-percentile display bounds do not alter measurements. Right: sampled positions with historical red gain>10;star marks actual native maximum at row 1178,column 1533. The threshold 10 is descriptive only, not the eligibility rule.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure14_differences.png)
 
 Signed differences are candidate reflectance on stabilized support;99 th-percentile display bounds do not alter measurements. Right: sampled positions with historical red gain>10;star marks actual native maximum at row 1178,column 1533. The threshold 10 is descriptive only, not the eligibility rule.
 
@@ -119,7 +119,7 @@ Signed differences are candidate reflectance on stabilized support;99 th-percent
 
 Pole-adjacent observations cannot be rescued merely by making the output finite.
 
-![Display factor limits 0.5-350 do not clip analysis. Pole-adjacent regions become unsupported; the rule does not make new measurements. Unsupported boundaries can create selection bias and are tested using identical common pixels.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure07_factor_maps.png)
+![Display factor limits 0.5-350 do not clip analysis. Pole-adjacent regions become unsupported; the rule does not make new measurements. Unsupported boundaries can create selection bias and are tested using identical common pixels.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure07_factor_maps.png)
 
 Display factor limits 0.5-350 do not clip analysis. Pole-adjacent regions become unsupported; the rule does not make new measurements. Unsupported boundaries can create selection bias and are tested using identical common pixels.
 
@@ -131,7 +131,7 @@ Display factor limits 0.5-350 do not clip analysis. Pole-adjacent regions become
 
 All branches are evaluated using exactly matched polygon pixels and the same ten native MicaSense bands.
 
-![One outcome-blind lexicographic polygon per class, on identical common pixels. Curves are ten discrete optical bands, not a continuous hyperspectral measurement. Representative curves cannot establish physical accuracy.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure08_spectra.png)
+![One outcome-blind lexicographic polygon per class, on identical common pixels. Curves are ten discrete optical bands, not a continuous hyperspectral measurement. Representative curves cannot establish physical accuracy.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure08_spectra.png)
 
 One outcome-blind lexicographic polygon per class, on identical common pixels. Curves are ten discrete optical bands, not a continuous hyperspectral measurement. Representative curves cannot establish physical accuracy.
 
@@ -143,7 +143,7 @@ One outcome-blind lexicographic polygon per class, on identical common pixels. C
 
 Absolute variance, relative variability and spectral angle must be interpreted together.
 
-![All 157 polygons use the same 142,656 common memberships. Compare CV and spectral angles alongside absolute variance: multiplicative dimming can lower variance without improving relative spectral consistency.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure09_consistency.png)
+![All 157 polygons use the same 142,656 common memberships. Compare CV and spectral angles alongside absolute variance: multiplicative dimming can lower variance without improving relative spectral consistency.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure09_consistency.png)
 
 All 157 polygons use the same 142,656 common memberships. Compare CV and spectral angles alongside absolute variance: multiplicative dimming can lower variance without improving relative spectral consistency.
 
@@ -155,7 +155,7 @@ All 157 polygons use the same 142,656 common memberships. Compare CV and spectra
 
 Across 157 polygon means, partial associations control recorded class and a linear spatial plane. This is a descriptive control, not causal separation of topography from vegetation.
 
-![Partial associations control recorded class and a linear spatial plane across independent polygon means. Spatial autocorrelation/nonlinear vegetation structure remain. Reducing correlation alone does not establish more accurate reflectance.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure10_dependence.png)
+![Partial associations control recorded class and a linear spatial plane across independent polygon means. Spatial autocorrelation/nonlinear vegetation structure remain. Reducing correlation alone does not establish more accurate reflectance.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure10_dependence.png)
 
 Partial associations control recorded class and a linear spatial plane across independent polygon means. Spatial autocorrelation/nonlinear vegetation structure remain. Reducing correlation alone does not establish more accurate reflectance.
 
@@ -167,7 +167,7 @@ Partial associations control recorded class and a linear spatial plane across in
 
 Package evaluate_identifiability: fixed 3 polygon-disjoint folds, training-only feature scaling, fixed C=1, no PFT-based correction tuning and no pixel-level leakage.
 
-![Package classifier uses polygon-disjoint 3 fold validation, training-only scaling and fixed C=1. Intervals bootstrap fixed out-of-fold predictions by class/identity; they exclude model/coefficient/site uncertainty. Only 5 deciduous polygons: one changed prediction shifts balanced accuracy by 5 points.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure11_identifiability.png)
+![Package classifier uses polygon-disjoint 3 fold validation, training-only scaling and fixed C=1. Intervals bootstrap fixed out-of-fold predictions by class/identity; they exclude model/coefficient/site uncertainty. Only 5 deciduous polygons: one changed prediction shifts balanced accuracy by 5 points.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure11_identifiability.png)
 
 Package classifier uses polygon-disjoint 3 fold validation, training-only scaling and fixed C=1. Intervals bootstrap fixed out-of-fold predictions by class/identity; they exclude model/coefficient/site uncertainty. Only 5 deciduous polygons: one changed prediction shifts balanced accuracy by 5 points.
 
@@ -179,7 +179,7 @@ Package classifier uses polygon-disjoint 3 fold validation, training-only scalin
 
 Package spectral_separability uses 499 permutations, polygon identities and equal discrete-band integration weights. Pairwise distances, overlap, angles and Holm-adjusted evidence are retained.
 
-![Distances, overlap and permutation evidence are descriptive of one labeled flight. Package spectral_separability uses 499 permutations, independent polygon units and equal discrete-band weights; significance within a branch does not test a correction gain.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure12_separability.png)
+![Distances, overlap and permutation evidence are descriptive of one labeled flight. Package spectral_separability uses 499 permutations, independent polygon units and equal discrete-band weights; significance within a branch does not test a correction gain.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure12_separability.png)
 
 Distances, overlap and permutation evidence are descriptive of one labeled flight. Package spectral_separability uses 499 permutations, independent polygon units and equal discrete-band weights; significance within a branch does not test a correction gain.
 
@@ -190,7 +190,7 @@ Distances, overlap and permutation evidence are descriptive of one labeled fligh
 
 The earlier P 169 analysis used polygon means and its original support. That historical score is reproduced exactly; the raw native benchmark remains 66.83%.
 
-![Means reproduce the earlier P 169 aggregation; medians are a sensitivity analysis, not selected for a better score. Native-support contrasts and the old 71.7% historical score use different masks and cannot be attributed solely to correction.](../../provenance/goldhill-conditional-topographic/2026-11-03/figure13_summary_sensitivity.png)
+![Means reproduce the earlier P 169 aggregation; medians are a sensitivity analysis, not selected for a better score. Native-support contrasts and the old 71.7% historical score use different masks and cannot be attributed solely to correction.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/figure13_summary_sensitivity.png)
 
 Means reproduce the earlier P 169 aggregation; medians are a sensitivity analysis, not selected for a better score. Native-support contrasts and the old 71.7% historical score use different masks and cannot be attributed solely to correction.
 
@@ -271,4 +271,4 @@ Revision2444902440a48453ed14855473d3250020ba8bb3. Scientific environment: existi
 | 740 | 0.152019620 | 0.103608616 | 0.009656286 |
 | 862 | 0.314187229 | 0.255021363 | 0.137237340 |
 
-All coefficients, sample counts, residuals and fit diagnostics: [regression_diagnostics.json](../../provenance/goldhill-conditional-topographic/2026-11-03/regression_diagnostics.json). Native/common per-band distribution counts: [scene_statistics.json](../../provenance/goldhill-conditional-topographic/2026-11-03/scene_statistics.json). Pairwise statistical evidence: [separability_pairs.csv](../../provenance/goldhill-conditional-topographic/2026-11-03/separability_pairs.csv). Machine summary: [scientific_summary.json](../../provenance/goldhill-conditional-topographic/2026-11-03/scientific_summary.json).
+All coefficients, sample counts, residuals and fit diagnostics: [regression_diagnostics.json](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/regression_diagnostics.json). Native/common per-band distribution counts: [scene_statistics.json](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/scene_statistics.json). Pairwise statistical evidence: [separability_pairs.csv](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/separability_pairs.csv). Machine summary: [scientific_summary.json](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-conditional-topographic/2026-11-03/scientific_summary.json).

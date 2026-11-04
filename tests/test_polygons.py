@@ -67,6 +67,8 @@ def test_extract_polygon_parquet_from_envi_stabilizes_null_only_metadata_chunks(
     )
     _write_parquet(polygon_index_df, polygon_index_path)
 
+    (tmp_path / "dummy.hdr").write_text("ENVI\nbrdf status = NOT_REQUESTED\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic polygon metadata fixture\n")
+
     chunk_iter = _ChunkIter(
         [
             pd.DataFrame(
@@ -100,11 +102,11 @@ def test_extract_polygon_parquet_from_envi_stabilizes_null_only_metadata_chunks(
         captured_chunks.extend(filtered_iter)
 
     monkeypatch.setattr(
-        "cross_sensor_cal.parquet_export.read_envi_in_chunks",
+        "spectralbridge.parquet_export.read_envi_in_chunks",
         lambda *args, **kwargs: chunk_iter,
     )
     monkeypatch.setattr(
-        "cross_sensor_cal.parquet_export._write_parquet_chunks",
+        "spectralbridge.parquet_export._write_parquet_chunks",
         _capture_chunks,
     )
 

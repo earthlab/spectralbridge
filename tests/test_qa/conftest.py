@@ -13,6 +13,10 @@ def _write_envi_pair(base_path: Path, data: np.ndarray, wavelengths: list[float]
     data.tofile(img_path)
     header_lines = [
         "ENVI",
+        "radiometry status = VALID",
+        "physical reflectance multiplier = 1.0",
+        "physical reflectance offset = 0.0",
+        "radiometry provenance = Synthetic fractional reflectance QA fixture",
         f"samples = {data.shape[2]}",
         f"lines = {data.shape[1]}",
         f"bands = {data.shape[0]}",

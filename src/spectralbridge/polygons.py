@@ -2027,11 +2027,11 @@ def extract_polygon_parquet_from_envi(
     Path
         Path to the created polygon parquet file
     """
-    from cross_sensor_cal.parquet_export import (
+    from spectralbridge.parquet_export import (
         read_envi_in_chunks,
         _write_parquet_chunks,
     )
-    from cross_sensor_cal.exports.schema_utils import infer_stage_from_name
+    from spectralbridge.exports.schema_utils import infer_stage_from_name
     import inspect
     
     from spectralbridge.radiometry import library_radiometry, require_physical_table

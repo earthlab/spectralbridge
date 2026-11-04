@@ -15,4 +15,4 @@ These values describe package metadata, schemas or configuration; they are not o
 
 | Name | Source expression |
 | --- | --- |
-| `__version__` | `'2.3.0rc1'` |
+| `__version__` | `'2.3.0rc2'` |

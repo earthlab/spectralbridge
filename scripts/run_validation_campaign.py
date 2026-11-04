@@ -25,7 +25,9 @@ from spectralbridge.corrections import (
     apply_brdf_correct,
     apply_topo_correct,
     calc_cosine_i,
+    fit_and_save_brdf_model,
 )
+from spectralbridge.radiometry import Radiometry
 from spectralbridge.envi_writer import EnviWriter
 from spectralbridge.neon_to_envi import neon_to_envi_no_hytools
 from spectralbridge.parquet_export import build_parquet_from_envi
@@ -101,6 +103,9 @@ def _write_synthetic_neon_h5(
         reflectance = root.create_group("Reflectance")
         dataset = reflectance.create_dataset("Reflectance_Data", data=data)
         dataset.attrs["Data_Ignore_Value"] = np.float32(-9999.0)
+        dataset.attrs["spectralbridge_radiometry"] = json.dumps(
+            Radiometry(1.0, 0.0, "VALID", "Synthetic fractional-reflectance campaign fixture").record()
+        )
         metadata = reflectance.create_group("Metadata")
         spectral = metadata.create_group("Spectral_Data")
         wavelength_dataset = spectral.create_dataset("Wavelength", data=wavelengths)
@@ -126,6 +131,7 @@ class _SyntheticCorrectionCube:
     ) -> None:
         self.data = np.asarray(data, dtype=np.float32)
         self.scale_factor = float(scale_factor)
+        self.radiometry = Radiometry(scale_factor, 0.0, "VALID", "Synthetic correction campaign fixture")
         self.lines, self.columns, self.bands = self.data.shape
         self.wavelengths = np.linspace(620.0, 880.0, self.bands, dtype=np.float32)
         self.mask_no_data = np.ones((self.lines, self.columns), dtype=bool)
@@ -354,12 +360,19 @@ def _brdf_cases(root: Path, count: int) -> list[ValidationCase]:
             cube = _SyntheticCorrectionCube(
                 stored, scale_factor=scale_factor, slope_max_deg=10.0, view_zenith_deg=view_zenith
             )
-            cube.brdf_coefficients = {
-                "iso": np.ones((1, cube.bands), dtype=np.float32),
-                "vol": np.zeros((1, cube.bands), dtype=np.float32),
-                "geo": np.zeros((1, cube.bands), dtype=np.float32),
-            }
-            corrected = apply_brdf_correct(cube, stored, 0, cube.lines, 0, cube.columns)
+            # Fit a genuinely supported isotropic synthetic scene rather than
+            # injecting unvalidated legacy coefficients into the application API.
+            y, x = np.indices(stored.shape[:2], dtype=np.float32)
+            cube._ancillary["sensor_zn"] = np.deg2rad(view_zenith + x * 2 + y * .2)
+            cube._ancillary["sensor_az"] = np.deg2rad(y * 25 + x * 8)
+            stored = np.broadcast_to(
+                (0.15 + np.arange(cube.bands, dtype=np.float32) * .05) / scale_factor,
+                stored.shape,
+            ).copy()
+            cube.data = stored
+            with tempfile.TemporaryDirectory(prefix="spectralbridge-brdf-campaign-") as tmp:
+                model = fit_and_save_brdf_model(cube, Path(tmp))
+                corrected = apply_brdf_correct(cube, stored, 0, cube.lines, 0, cube.columns, coeff_path=model)
             max_error = float(np.max(np.abs(corrected - stored)))
             return ValidationObservation(
                 diagnostics={
@@ -459,6 +472,7 @@ def _write_rasterio_envi(path: Path, data: np.ndarray, wavelengths: list[float])
         destination.write(data)
     hdr = path.with_suffix(".hdr")
     with hdr.open("a", encoding="utf-8") as stream:
+        stream.write("\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic extraction campaign fixture\nbrdf status = NOT_REQUESTED\n")
         stream.write("\nwavelength units = Nanometers\n")
         stream.write("wavelength = {" + ", ".join(str(value) for value in wavelengths) + "}\n")
     return path, hdr
@@ -609,6 +623,11 @@ def _write_qa_pair(base: Path, data: np.ndarray, wavelengths: list[float]) -> No
         "interleave = bsq",
         "byte order = 0",
         "data ignore value = -9999",
+        "radiometry status = VALID",
+        "physical reflectance multiplier = 1",
+        "physical reflectance offset = 0",
+        "radiometry provenance = Synthetic QA campaign fixture",
+        "brdf status = NOT_REQUESTED",
         "wavelength units = Nanometers",
         "fwhm = {" + ", ".join("10" for _ in wavelengths) + "}",
         "wavelength = {" + ", ".join(str(value) for value in wavelengths) + "}",

@@ -21,7 +21,7 @@ November 3, 2026. Underlying causes are quantitatively identified and the shared
 
 The source repair excludes transparent 65535 background before interpolation and removes per-band minimum subtraction. It does not supply angular information.
 
-![Identical 0-0.3 display limits; native background remains visible in historical support. Median raw boundary jumps are about 0.003 candidate units in both sources. No corrected output was used to choose the boundary.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure01_sources.png)
+![Identical 0-0.3 display limits; native background remains visible in historical support. Median raw boundary jumps are about 0.003 candidate units in both sources. No corrected output was used to choose the boundary.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure01_sources.png)
 
 Identical 0-0.3 display limits; native background remains visible in historical support. Median raw boundary jumps are about 0.003 candidate units in both sources. No corrected output was used to choose the boundary.
 
@@ -48,7 +48,7 @@ Clean S=DN x 10000/65535. Under the unverified MicaSense hypothesis, R=DN/32768=
 
 Source, radiometric, terrain, numerical angular, fitting and application support are distinct. Finite zero-angle placeholders are not measured contributor geometry.
 
-![Every sixth cell, same grid/north-up. Legacy mixing is estimated by bilinear source-alpha weights, not a brightness cutoff. Numerical geometry eligibility does not establish genuine views: actual Goldhill directional support remains absent.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure02_masks.png)
+![Every sixth cell, same grid/north-up. Legacy mixing is estimated by bilinear source-alpha weights, not a brightness cutoff. Numerical geometry eligibility does not establish genuine views: actual Goldhill directional support remains absent.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure02_masks.png)
 
 Every sixth cell, same grid/north-up. Legacy mixing is estimated by bilinear source-alpha weights, not a brightness cutoff. Numerical geometry eligibility does not establish genuine views: actual Goldhill directional support remains absent.
 
@@ -61,7 +61,7 @@ Every sixth cell, same grid/north-up. Legacy mixing is estimated by bilinear sou
 
 Pinned historical functions are executed for A/B and actual revised-population historical refits for C/D. Current shared functions are used for E. No geometry or independent coefficient set was manufactured for F.
 
-![A/B are pinned historical replays. C/D use revised prefit populations and historical equations; stable rank 1 prevents application. E uses current shared mathematics and gates. F has no applicable independent directional information; no coefficients or image are invented.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure03_factorial.png)
+![A/B are pinned historical replays. C/D use revised prefit populations and historical equations; stable rank 1 prevents application. E uses current shared mathematics and gates. F has no applicable independent directional information; no coefficients or image are invented.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure03_factorial.png)
 
 A/B are pinned historical replays. C/D use revised prefit populations and historical equations; stable rank 1 prevents application. E uses current shared mathematics and gates. F has no applicable independent directional information; no coefficients or image are invented.
 
@@ -73,7 +73,7 @@ A/B are pinned historical replays. C/D use revised prefit populations and histor
 
 The P165 evaluation ROI, transect, inside/outside locations, unaffected reference and boundary-crossing Deciduous polygon are fixed before this experiment.
 
-![P165 ROI rows 573:974, columns 812:1313,0.1 m, north-up. Identical display bounds saturate enormous diagnostic values; native ranges are reported separately. Gray panels indicate absent/unsupported products, not zero reflectance or successful artifact removal.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure04_fixed_roi.png)
+![P165 ROI rows 573:974, columns 812:1313,0.1 m, north-up. Identical display bounds saturate enormous diagnostic values; native ranges are reported separately. Gray panels indicate absent/unsupported products, not zero reflectance or successful artifact removal.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure04_fixed_roi.png)
 
 P165 ROI rows 573:974, columns 812:1313,0.1 m, north-up. Identical display bounds saturate enormous diagnostic values; native ranges are reported separately. Gray panels indicate absent/unsupported products, not zero reflectance or successful artifact removal.
 
@@ -85,7 +85,7 @@ P165 ROI rows 573:974, columns 812:1313,0.1 m, north-up. Identical display bound
 
 This is the decisive source-versus-model contrast, with the model held fixed.
 
-![At columns 980/981 the clean raw jump is 0.001117; the clean-source historical BRDF jump is 674,321 candidate-equivalent units. The same fixed transect and reference pixels are used for every branch; no smoothing or factor clipping.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure05_transect.png)
+![At columns 980/981 the clean raw jump is 0.001117; the clean-source historical BRDF jump is 674,321 candidate-equivalent units. The same fixed transect and reference pixels are used for every branch; no smoothing or factor clipping.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure05_transect.png)
 
 At columns 980/981 the clean raw jump is 0.001117; the clean-source historical BRDF jump is 674,321 candidate-equivalent units. The same fixed transect and reference pixels are used for every branch; no smoothing or factor clipping.
 
@@ -97,7 +97,7 @@ At columns 980/981 the clean raw jump is 0.001117; the clean-source historical B
 
 Historical red fitting included only 14 observations under an erroneous stored-unit 0-2 filter. The old geometric kernel also had a spurious nadir-azimuth response; deficient angular support was not rejected.
 
-![The predicted red denominator is 0 outside and 0.0078125 inside at the fixed adjacent pair; reference prediction 91,740.234375 produces factor 11,742,750. Plotted denominator limits and sampled factor histograms do not alter the full-scene analytical summaries.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure06_predictions.png)
+![The predicted red denominator is 0 outside and 0.0078125 inside at the fixed adjacent pair; reference prediction 91,740.234375 produces factor 11,742,750. Plotted denominator limits and sampled factor histograms do not alter the full-scene analytical summaries.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure06_predictions.png)
 
 The predicted red denominator is 0 outside and 0.0078125 inside at the fixed adjacent pair; reference prediction 91,740.234375 produces factor 11,742,750. Plotted denominator limits and sampled factor histograms do not alter the full-scene analytical summaries.
 
@@ -109,7 +109,7 @@ The predicted red denominator is 0 outside and 0.0078125 inside at the fixed adj
 
 The existing mathematical audit distinguishes reciprocal LiDenseR from nonreciprocal dense and LiSparseR. This task keeps the validated kernel equations and math-version identifier unchanged.
 
-![Current RossThick/LiDenseR equations are unchanged in this task. The earlier repair removed spurious nadir azimuth response; it cannot recover real observation directions. The fresh targeted suite reruns the independent reference fixtures, reciprocity and wrapping tests.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure07_kernels.png)
+![Current RossThick/LiDenseR equations are unchanged in this task. The earlier repair removed spurious nadir azimuth response; it cannot recover real observation directions. The fresh targeted suite reruns the independent reference fixtures, reciprocity and wrapping tests.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure07_kernels.png)
 
 Current RossThick/LiDenseR equations are unchanged in this task. The earlier repair removed spurious nadir azimuth response; it cannot recover real observation directions. The fresh targeted suite reruns the independent reference fixtures, reciprocity and wrapping tests.
 
@@ -121,7 +121,7 @@ Current RossThick/LiDenseR equations are unchanged in this task. The earlier rep
 
 Under repaired units, all ten revised Goldhill bands have millions of eligible numerical values. The current scene-solar/nadir design still has one independent row combination.
 
-![Stable rank is tied to the existing precision condition limit 1/sqrt(float32epsilon). Algebraic rank and singular values are also retained. Pixel counts are not an estimated independent sample size; spatial/effective sampling uncertainty remains explicit.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure08_support.png)
+![Stable rank is tied to the existing precision condition limit 1/sqrt(float32epsilon). Algebraic rank and singular values are also retained. Pixel counts are not an estimated independent sample size; spatial/effective sampling uncertainty remains explicit.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure08_support.png)
 
 Stable rank is tied to the existing precision condition limit 1/sqrt(float32epsilon). Algebraic rank and singular values are also retained. Pixel counts are not an estimated independent sample size; spatial/effective sampling uncertainty remains explicit.
 
@@ -133,7 +133,7 @@ Stable rank is tied to the existing precision condition limit 1/sqrt(float32epsi
 
 There are 5650 band-camera records and 565 distinct positions. Rotation matrices are numerically orthogonal, but their world/camera conventions, vertical datum and stated CRS still require confirmation.
 
-![Positions are real records; the right-hand envelope assumes their numbers are 26913 and altitude shares the delivered surface datum, with an illustrative nadir diagonal-FOV cone. It is not recovered viewing geometry, true image coverage, a probability distribution or a per-pixel assignment.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure09_camera_uncertainty.png)
+![Positions are real records; the right-hand envelope assumes their numbers are 26913 and altitude shares the delivered surface datum, with an illustrative nadir diagonal-FOV cone. It is not recovered viewing geometry, true image coverage, a probability distribution or a per-pixel assignment.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure09_camera_uncertainty.png)
 
 Positions are real records; the right-hand envelope assumes their numbers are 26913 and altitude shares the delivered surface datum, with an illustrative nadir diagonal-FOV cone. It is not recovered viewing geometry, true image coverage, a probability distribution or a per-pixel assignment.
 
@@ -145,7 +145,7 @@ Positions are real records; the right-hand envelope assumes their numbers are 26
 
 Goldhill cannot estimate three free directional coefficients from this encoded geometry. Reduced parameterization does not remove the need for defensible external directional information.
 
-![Synthetic algebra only, evaluated at the actual Goldhill nadir design. Each coefficient family predicts 0.3 at observed geometry but allows reference 0.15,0.3 or 0.6. No example is a Goldhill fit or applied model; isotropic-only assumptions give identity, not an estimated BRDF correction.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure10_nonidentifiability.png)
+![Synthetic algebra only, evaluated at the actual Goldhill nadir design. Each coefficient family predicts 0.3 at observed geometry but allows reference 0.15,0.3 or 0.6. No example is a Goldhill fit or applied model; isotropic-only assumptions give identity, not an estimated BRDF correction.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure10_nonidentifiability.png)
 
 Synthetic algebra only, evaluated at the actual Goldhill nadir design. Each coefficient family predicts 0.3 at observed geometry but allows reference 0.15,0.3 or 0.6. No example is a Goldhill fit or applied model; isotropic-only assumptions give identity, not an estimated BRDF correction.
 
@@ -157,7 +157,7 @@ Synthetic algebra only, evaluated at the actual Goldhill nadir design. Each coef
 
 All PFT comparisons use 157 unchanged researcher identities and 144,406 common polygon-pixel memberships. Sampling uses the package pixel-center index on the repaired grid.
 
-![The pre-existing Deciduous exemplar is selected by P165identity, not by new branch quality. Histories are reexpressed through the documented per-band inverse encoding; calibration remains hypothetical. Unsupported revised BRDF spectra are absent, not replaced with raw values.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure11_spectra.png)
+![The pre-existing Deciduous exemplar is selected by P165identity, not by new branch quality. Histories are reexpressed through the documented per-band inverse encoding; calibration remains hypothetical. Unsupported revised BRDF spectra are absent, not replaced with raw values.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure11_spectra.png)
 
 The pre-existing Deciduous exemplar is selected by P165identity, not by new branch quality. Histories are reexpressed through the documented per-band inverse encoding; calibration remains hypothetical. Unsupported revised BRDF spectra are absent, not replaced with raw values.
 
@@ -169,7 +169,7 @@ The pre-existing Deciduous exemplar is selected by P165identity, not by new bran
 
 Package spectral_separability and evaluate_identifiability use independent polygon identities, identical 3 fold memberships, training-only scaling and fixed classifier C 1. No BRDF parameter was selected using held-out PFT scores.
 
-![157 polygon identities, four recorded classes, identical 3 fold splits, training-only scaling, C=1;499 permutations for separate spectral-separability tables. Intervals bootstrap fixed OOF predictions by class/identity. C/D/E/F have no supported image and no quality score; topographic score is unapproved diagnostic evidence.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure12_pft.png)
+![157 polygon identities, four recorded classes, identical 3 fold splits, training-only scaling, C=1;499 permutations for separate spectral-separability tables. Intervals bootstrap fixed OOF predictions by class/identity. C/D/E/F have no supported image and no quality score; topographic score is unapproved diagnostic evidence.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure12_pft.png)
 
 157 polygon identities, four recorded classes, identical 3 fold splits, training-only scaling, C=1;499 permutations for separate spectral-separability tables. Intervals bootstrap fixed OOF predictions by class/identity. C/D/E/F have no supported image and no quality score; topographic score is unapproved diagnostic evidence.
 
@@ -181,7 +181,7 @@ Package spectral_separability and evaluate_identifiability use independent polyg
 
 A fixed 120 x 3000 native window from the archived 2021R10C directional H5 provides real solar/view geometry and authoritative documented physical decoding. Ten nearest native channels are a bounded shared-function test.
 
-![Actual 2021R10C directional data, fixed 120 x 3000 native window, ten nearest native channels; both BRDF-only and combined models support 10/10 bands. Values and masks are identical before/after. This bounded regression control is not a MicaSense calibration transfer or full-flightline accuracy claim.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure13_neon.png)
+![Actual 2021R10C directional data, fixed 120 x 3000 native window, ten nearest native channels; both BRDF-only and combined models support 10/10 bands. Values and masks are identical before/after. This bounded regression control is not a MicaSense calibration transfer or full-flightline accuracy claim.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure13_neon.png)
 
 Actual 2021R10C directional data, fixed 120 x 3000 native window, ten nearest native channels; both BRDF-only and combined models support 10/10 bands. Values and masks are identical before/after. This bounded regression control is not a MicaSense calibration transfer or full-flightline accuracy claim.
 
@@ -193,7 +193,7 @@ Actual 2021R10C directional data, fixed 120 x 3000 native window, ten nearest na
 
 NEON and drone use the same affine converter,SCS+C, Ross-Li kernels, scene fits, reference/observed ratio and current model/library validity contracts.
 
-![Both pipelines retain BRDF requests and the same kernels, reference, physical decoder and ratio direction. Source acquisition/calibration/geometry remain platform-specific. A missing prerequisite is an explicit scientific block, not a successful uncorrected substitute.](../../provenance/goldhill-clean-source-brdf/2026-11-03/figure14_shared_path.png)
+![Both pipelines retain BRDF requests and the same kernels, reference, physical decoder and ratio direction. Source acquisition/calibration/geometry remain platform-specific. A missing prerequisite is an explicit scientific block, not a successful uncorrected substitute.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/figure14_shared_path.png)
 
 Both pipelines retain BRDF requests and the same kernels, reference, physical decoder and ratio direction. Source acquisition/calibration/geometry remain platform-specific. A missing prerequisite is an explicit scientific block, not a successful uncorrected substitute.
 
@@ -278,13 +278,13 @@ Revision2444902440a48453ed14855473d3250020ba8bb3with the explicitly recorded wor
 
 ## Detailed measured records
 
-- [Fitting populations,coefficients and rank](../../provenance/goldhill-clean-source-brdf/2026-11-03/fitting_population_and_rank.json)
-- [Current conditional model](../../provenance/goldhill-clean-source-brdf/2026-11-03/E_after_brdf_model.json)
-- [Native/common distributions](../../provenance/goldhill-clean-source-brdf/2026-11-03/native_common_statistics.json)
-- [Fixed-edge artifact metrics](../../provenance/goldhill-clean-source-brdf/2026-11-03/artifact_metrics.json)
-- [Per-polygon spectra and variability](../../provenance/goldhill-clean-source-brdf/2026-11-03/polygon_summaries.csv)
-- [Class separation and corrected within-branch evidence](../../provenance/goldhill-clean-source-brdf/2026-11-03/separability_pairs.csv)
-- [Paired prediction uncertainty](../../provenance/goldhill-clean-source-brdf/2026-11-03/paired_gain.json)
-- [Actual pipeline stage results](../../provenance/goldhill-clean-source-brdf/2026-11-03/pipeline_stage_results.json)
-- [Scientific summary](../../provenance/goldhill-clean-source-brdf/2026-11-03/scientific_summary.json)
-- [Verification](../../provenance/goldhill-clean-source-brdf/2026-11-03/verification.json)
+- [Fitting populations,coefficients and rank](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/fitting_population_and_rank.json)
+- [Current conditional model](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/E_after_brdf_model.json)
+- [Native/common distributions](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/native_common_statistics.json)
+- [Fixed-edge artifact metrics](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/artifact_metrics.json)
+- [Per-polygon spectra and variability](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/polygon_summaries.csv)
+- [Class separation and corrected within-branch evidence](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/separability_pairs.csv)
+- [Paired prediction uncertainty](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/paired_gain.json)
+- [Actual pipeline stage results](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/pipeline_stage_results.json)
+- [Scientific summary](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/scientific_summary.json)
+- [Verification](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-clean-source-brdf/2026-11-03/verification.json)

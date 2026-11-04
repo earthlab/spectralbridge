@@ -1,0 +1,38 @@
+[
+  {
+    "site": "gordon",
+    "verified_inputs": 14,
+    "all_transfers_reused": true,
+    "original_unchanged": true,
+    "raw_envi_exact": true,
+    "finite_values_compared": 58984010,
+    "preparation_execution_status": "complete",
+    "scientific_qa_status": "not_evaluated",
+    "production_status": "incomplete",
+    "blocking_reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 DN; fixed numerical encoding; physical calibration unavailable)."
+  },
+  {
+    "site": "goldhill",
+    "verified_inputs": 15,
+    "all_transfers_reused": true,
+    "original_unchanged": true,
+    "raw_envi_exact": true,
+    "finite_values_compared": 66839440,
+    "preparation_execution_status": "complete",
+    "scientific_qa_status": "not_evaluated",
+    "production_status": "incomplete",
+    "blocking_reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 DN; fixed numerical encoding; physical calibration unavailable)."
+  },
+  {
+    "site": "ruby",
+    "verified_inputs": 19,
+    "all_transfers_reused": true,
+    "original_unchanged": true,
+    "raw_envi_exact": true,
+    "finite_values_compared": 19934720,
+    "preparation_execution_status": "complete",
+    "scientific_qa_status": "not_evaluated",
+    "production_status": "incomplete",
+    "blocking_reason": "Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Original UInt16 DN; fixed numerical encoding; physical calibration unavailable)."
+  }
+]

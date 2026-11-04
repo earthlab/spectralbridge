@@ -1,0 +1,31 @@
+{
+  "version": "2.3.0rc2",
+  "branch": "codex/prepare-2.3.0rc2",
+  "source_tests": {
+    "passed": 946,
+    "skipped": 9,
+    "failed": 0
+  },
+  "additional_full_mode_polygon_tests": 4,
+  "browser_tests": 2,
+  "offline_campaign_cases": 40,
+  "installed_optional_tests": 40,
+  "installed_artifact_environments": [
+    "wheel Python3.10.16",
+    "wheel Python3.11.11",
+    "wheel Python3.12.8",
+    "final sdist Python3.10.16"
+  ],
+  "wheel_sdist_runtime_equal_files": 143,
+  "rendered_api_signatures": 393,
+  "prior_research_provenance_preserved_files": 3220,
+  "published": false,
+  "tagged": false,
+  "merged": false,
+  "committed": false,
+  "maintainer_publication_blockers": [
+    "software citation authorship approval",
+    "explicit publication authorization",
+    "trusted publisher / protected environment confirmation"
+  ]
+}

@@ -51,8 +51,10 @@ A verified calibrated product with explicitly omitted BRDF can enter the library
 contract. It still has a directional domain and requires scientific review.
 With neither correction requested, the pipeline can preserve storage values;
 that does not allow unknown-unit DN into approved physical libraries or translation.
-The current `Radiometry` mapping is scalar. Band-specific inverse normalization
-is an isolated investigated workflow, **not an implemented ingest option**.
+`Radiometry` supports scalar or per-band affine multipliers and offsets. An
+encoding record describes storage separately from physical calibration. Numerical
+min/max inversion is supported arithmetic; it does not establish physical units.
+Use a source-documented physical calibration and retain each band's offset.
 
 ## Example for an independently calibrated mosaic
 
@@ -95,4 +97,21 @@ Continue with [correction methods](../brdf_topo_algorithm.md),
 [drone input preparation](../vignettes/drone-processing.md), and
 [library QA](../vignettes/spectral-library.md#drone-library-quality-and-researcher-polygons).
 
-Last updated: 2026-11-02
+## RC2 experimental capabilities
+
+RC2 completes the current experimental drone engineering scope. Advanced APIs
+support inferred viewing rays/kernel mixtures, explicit BRDF training subsets
+and spatial uncertainty groups, and conditioned SCS+C with per-band statuses:
+missing/invalid, unsupported, corrected. Both correction stages remain available;
+unsupported illumination is not silently replaced with identity reflectance or
+capped gains. These opt-in choices do not replace default NEON processing.
+
+Read the [integrated guide](../dev/drone-integrated-reliability.md) and
+[advanced API reference](../api/generated/topographic.md) before using these
+research options. Models and images marked EXPERIMENTAL remain excluded from
+approved spectral libraries even when a numerical fit is VALID. Goldhill's
+physical calibration and true image contributors remain unverified scientific
+limitations, not an invitation to invent a calibration or continue debugging
+indefinitely.
+
+Last updated: 2026-11-04

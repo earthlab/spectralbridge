@@ -1,0 +1,554 @@
+{
+  "site": "Gordon",
+  "flight_stem": "AOP_GORDON_20230814",
+  "source_directory": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage",
+  "orthomosaic": {
+    "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_ORTHO.tif",
+    "name": "AOP-GORDON-8-14-23-M300_ORTHO.tif",
+    "is_collection": false,
+    "size_bytes": 293933052,
+    "checksum": "6eab4c1569f3acc70a19a5ee181edace",
+    "modified": "2023-12-13.13:23"
+  },
+  "original_local": {
+    "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_ORTHO.tif",
+    "size_bytes": 293933052,
+    "sha256": "07d91ba618538e54fea287aa6586ed5060be52139d2fd7751be3347ea01b4f53",
+    "crs": "EPSG:26913",
+    "shape": [
+      2765,
+      3918
+    ],
+    "resolution": [
+      0.0806312999999956,
+      0.08063129999996525
+    ],
+    "transform": [
+      0.0806312999999956,
+      0.0,
+      457263.50457654306,
+      0.0,
+      -0.08063129999996525,
+      4429045.021960055,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "bounds": [
+      457263.50457654306,
+      4428822.076415556,
+      457579.41800994304,
+      4429045.021960055
+    ],
+    "band_count": 11,
+    "dtypes": [
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16"
+    ],
+    "alpha_bands": [
+      11
+    ],
+    "nodata": null,
+    "scales": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "offsets": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tags": {
+      "AREA_OR_POINT": "Area"
+    }
+  },
+  "transfers": [
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_DEM.tif",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_DEM.tif",
+      "size_bytes": 1759573,
+      "remote_checksum": "9a77e7794843577217d06dab86b1ba82",
+      "sha256": "297faa13e605363ba4e22fa5d2a528c1ce4e424b674a94e47041a820bc967633",
+      "md5": "9a77e7794843577217d06dab86b1ba82",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_DTM.tif",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_DTM.tif",
+      "size_bytes": 855677,
+      "remote_checksum": "fc5be185693c50297e9333fbebd9e3c7",
+      "sha256": "0ec523d0bb01e0f3b51c71a8f472ba5c3dd5db946d8b30c1866d8e78d5fd2b13",
+      "md5": "fc5be185693c50297e9333fbebd9e3c7",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_ORTHO.tif",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_ORTHO.tif",
+      "size_bytes": 293933052,
+      "remote_checksum": "6eab4c1569f3acc70a19a5ee181edace",
+      "sha256": "07d91ba618538e54fea287aa6586ed5060be52139d2fd7751be3347ea01b4f53",
+      "md5": "6eab4c1569f3acc70a19a5ee181edace",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_REPORT.pdf",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_REPORT.pdf",
+      "size_bytes": 5445073,
+      "remote_checksum": "10b9b7d4886a68f3124987645468afff",
+      "sha256": "6f99d479e8c343672e15f9610d52a5c9d53edc272c45b93c7e31b8f2b9f726bc",
+      "md5": "10b9b7d4886a68f3124987645468afff",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "size_bytes": 301993,
+      "remote_checksum": "8c880baff7e0ee32d6565ca5c11cd85e",
+      "sha256": "29417aa3c8f2d246c671982715e12e7a0adeefd4a74e5580a846bf53723a20ea",
+      "md5": "8c880baff7e0ee32d6565ca5c11cd85e",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "size_bytes": 302603,
+      "remote_checksum": "f8abcd7b15ada6baf3bdb37178b12586",
+      "sha256": "d3e540ac1928e817e2aa7aa99cc5e5b1de9b2d0fe88f761ba4696a1fb529f028",
+      "md5": "f8abcd7b15ada6baf3bdb37178b12586",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GORDON.dbf",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GORDON.dbf",
+      "size_bytes": 2549,
+      "remote_checksum": "eed029e6030d0f5b3836ab3e34c00126",
+      "sha256": "ac572b2f4a714575cce22ee1019df010053fedec38ef8db6696ac69d851bacc7",
+      "md5": "eed029e6030d0f5b3836ab3e34c00126",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GORDON.shp",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GORDON.shp",
+      "size_bytes": 2172,
+      "remote_checksum": "033da024734c4416b47948fae45cf5bc",
+      "sha256": "f13b9cf4cfad5e52af768826bd4961ab6d62d7e300ac60a0bab3e90c6a0f4484",
+      "md5": "033da024734c4416b47948fae45cf5bc",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GORDON.shx",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GORDON.shx",
+      "size_bytes": 108,
+      "remote_checksum": "b1a4b646ce6f8c8a4584cd6926bf0e9f",
+      "sha256": "562b7c3f92fdbe05fd33e1b8b0ab9ff2d59ef0359788cbad5f918d46e539efba",
+      "md5": "b1a4b646ce6f8c8a4584cd6926bf0e9f",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.cpg",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.cpg",
+      "size_bytes": 5,
+      "remote_checksum": "ae3b3df9970b49b6523e608759bc957d",
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824",
+      "md5": "ae3b3df9970b49b6523e608759bc957d",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.dbf",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.dbf",
+      "size_bytes": 570,
+      "remote_checksum": "233edfaacb86c9ef3ef504ef97bcb3d4",
+      "sha256": "84b00fc2ca5be407026dc1906aebffa318d10631f7f33769d20c4ca34d3b3f11",
+      "md5": "233edfaacb86c9ef3ef504ef97bcb3d4",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.prj",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.prj",
+      "size_bytes": 425,
+      "remote_checksum": "4ed694f9d90ad5ffd45dcb5f4c90ff24",
+      "sha256": "a5c36df1e7e680f4616e1dd3658d310813d31048d5fa08dcbaadcc9f129b0ff7",
+      "md5": "4ed694f9d90ad5ffd45dcb5f4c90ff24",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shp",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shp",
+      "size_bytes": 644,
+      "remote_checksum": "84a8b164f48256b694b6f5a5a84efff0",
+      "sha256": "15769eb8d2d4a4b961362c82770ce45d80200eee88fdab64199bdfbc6b9f5b6c",
+      "md5": "84a8b164f48256b694b6f5a5a84efff0",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shx",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shx",
+      "size_bytes": 132,
+      "remote_checksum": "4f5fc0ffaa8a7ef087c8c311c3cb4ab7",
+      "sha256": "4341fc054da960c7804c3c397361642f429d088e408c8479298160c00b5b5dd3",
+      "md5": "4f5fc0ffaa8a7ef087c8c311c3cb4ab7",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    }
+  ],
+  "coordinate_table": null,
+  "coordinate_status": "DEFERRED_BY_USER",
+  "available_metadata": [
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_DEM.tif",
+      "size_bytes": 1759573,
+      "sha256": "297faa13e605363ba4e22fa5d2a528c1ce4e424b674a94e47041a820bc967633",
+      "crs": "EPSG:26913",
+      "shape": [
+        602,
+        854
+      ],
+      "resolution": [
+        0.3698780000000152,
+        0.36987799999963156
+      ],
+      "transform": [
+        0.3698780000000152,
+        0.0,
+        457263.50457654306,
+        0.0,
+        -0.36987799999963156,
+        4429045.021960055,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds": [
+        457263.50457654306,
+        4428822.355404056,
+        457579.38038854307,
+        4429045.021960055
+      ],
+      "band_count": 1,
+      "dtypes": [
+        "float32"
+      ],
+      "alpha_bands": [],
+      "nodata": -32767.0,
+      "scales": [
+        1.0
+      ],
+      "offsets": [
+        0.0
+      ],
+      "tags": {
+        "AREA_OR_POINT": "Area"
+      }
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_DTM.tif",
+      "size_bytes": 855677,
+      "sha256": "0ec523d0bb01e0f3b51c71a8f472ba5c3dd5db946d8b30c1866d8e78d5fd2b13",
+      "crs": "EPSG:26913",
+      "shape": [
+        423,
+        600
+      ],
+      "resolution": [
+        0.526244000000006,
+        0.5262439999989197
+      ],
+      "transform": [
+        0.526244000000006,
+        0.0,
+        457263.50457654306,
+        0.0,
+        -0.5262439999989197,
+        4429045.021960055,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds": [
+        457263.50457654306,
+        4428822.420748056,
+        457579.25097654306,
+        4429045.021960055
+      ],
+      "band_count": 1,
+      "dtypes": [
+        "float32"
+      ],
+      "alpha_bands": [],
+      "nodata": -32767.0,
+      "scales": [
+        1.0
+      ],
+      "offsets": [
+        0.0
+      ],
+      "tags": {
+        "AREA_OR_POINT": "Area"
+      }
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "rows": 3050,
+      "columns": [
+        "TIFFTAG_DATETIME",
+        "TIFFTAG_SOFTWARE",
+        "filename"
+      ],
+      "status": "SOURCE_METADATA_ONLY; new flight-location table deferred by user"
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "rows": 3050,
+      "columns": [
+        "TIFFTAG_DATETIME",
+        "TIFFTAG_SOFTWARE",
+        "filename"
+      ],
+      "status": "SOURCE_METADATA_ONLY; new flight-location table deferred by user"
+    }
+  ],
+  "selection_rationale": "Unique ORTHO export in the supplied original-package collection; excluded normalized/corrected/translated/resampled/aligned sources. Validate dtype/grid/bands after transfer.",
+  "clipped_export": false,
+  "wavelengths_nm": [
+    444.0,
+    475.0,
+    531.0,
+    560.0,
+    650.0,
+    668.0,
+    705.0,
+    717.0,
+    740.0,
+    862.0
+  ],
+  "wavelength_provenance": "Established ten-band MicaSense Dual package convention; TIFF has no independent wavelength declarations",
+  "acquisition_metadata_source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_field_manifest.csv",
+  "radiometric_encoding": "Original UInt16 DN; physical calibration unverified",
+  "prepared": {
+    "source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_ORTHO.tif",
+    "source_sha256": "07d91ba618538e54fea287aa6586ed5060be52139d2fd7751be3347ea01b4f53",
+    "output": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/prepared/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_ORTHO__processing_10cm_10k.tif",
+    "signature": "de7e72fc4eb8c39cdf7a23aa76bbbc8a2240ec34b8bb007c85fc971427e339f5",
+    "configuration": {
+      "resolution": 0.1,
+      "grid": {
+        "width": 2948,
+        "height": 2088,
+        "transform": [
+          0.0999999999999763,
+          0.0,
+          457268.25,
+          0.0,
+          -0.0999999999999108,
+          4429034.8
+        ],
+        "crs": "EPSG:26913"
+      },
+      "encoding": "DN*10000/65535",
+      "policy": "alpha-bilinear-fixed10k-v1"
+    },
+    "status": "reused",
+    "source_spectral_bands": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "source_alpha_bands": [
+      11
+    ],
+    "shape": [
+      2088,
+      2948,
+      10
+    ],
+    "transform": [
+      0.0999999999999763,
+      0.0,
+      457268.25,
+      0.0,
+      -0.0999999999999108,
+      4429034.8,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "crs": "EPSG:26913",
+    "resolution": [
+      0.1,
+      0.1
+    ],
+    "bands": [
+      {
+        "band": 1,
+        "valid_pixels": 5898401,
+        "minimum": 0.09188736975193024,
+        "maximum": 833.4112548828125
+      },
+      {
+        "band": 2,
+        "valid_pixels": 5898401,
+        "minimum": 0.0,
+        "maximum": 970.1685791015625
+      },
+      {
+        "band": 3,
+        "valid_pixels": 5898401,
+        "minimum": 0.0,
+        "maximum": 1215.04443359375
+      },
+      {
+        "band": 4,
+        "valid_pixels": 5898401,
+        "minimum": 0.0,
+        "maximum": 1345.9117431640625
+      },
+      {
+        "band": 5,
+        "valid_pixels": 5898401,
+        "minimum": 0.0,
+        "maximum": 1630.772705078125
+      },
+      {
+        "band": 6,
+        "valid_pixels": 5898401,
+        "minimum": 0.0,
+        "maximum": 1608.572021484375
+      },
+      {
+        "band": 7,
+        "valid_pixels": 5898401,
+        "minimum": 0.0,
+        "maximum": 1722.6162109375
+      },
+      {
+        "band": 8,
+        "valid_pixels": 5898401,
+        "minimum": 0.0,
+        "maximum": 1778.1282958984375
+      },
+      {
+        "band": 9,
+        "valid_pixels": 5898401,
+        "minimum": 0.0,
+        "maximum": 2253.840087890625
+      },
+      {
+        "band": 10,
+        "valid_pixels": 5898401,
+        "minimum": 7.384820461273193,
+        "maximum": 2814.647216796875
+      }
+    ],
+    "radiometry": {
+      "scale": null,
+      "offset": null,
+      "status": "UNSUPPORTED",
+      "provenance": "Original UInt16 DN; fixed numerical encoding; physical calibration unavailable",
+      "convention": "physical = scale * stored + offset",
+      "encoding": {
+        "kind": "range_normalized_dn",
+        "physical_calibration_status": "UNVERIFIED",
+        "nodata": "NaN",
+        "normalization": {
+          "stored_min": 0,
+          "stored_max": 10000,
+          "source_min": 0,
+          "source_max": 65535
+        },
+        "quality_mask": {
+          "status": "DOCUMENTED",
+          "convention": "GDAL mask true means valid"
+        }
+      }
+    },
+    "output_sha256": "7dff867095bf6d8597337af02c7b137476fea6b032b2740a6b1c48a6d457842e",
+    "clipping": "NONE",
+    "valid_pixels": 5898401
+  },
+  "processing_grid_reference": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-spatial-integrity/2026-10-29/production_source_comparison.json",
+  "processing_grid_reference_sha256": "3fb0d1410240ae0308489616d4f0fd47d15e997e8f82c9d1d464e9d30c81b042",
+  "processing_grid_usage": "Spatial comparison support only; original orthomosaic supplies all spectral values",
+  "polygon_source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+  "polygon_sha256": "d9fe2108538179b7cde107123e965b3d0075dcb65ec488fd03b8480b34dc6ebb",
+  "polygon_definition": "Established HALF-DIAMETER researcher polygons; no relabeling",
+  "intersecting_polygon_features": 58,
+  "software_version": "2.3.0rc2",
+  "git_commit": "bb3da46bea0a4295ca3152a9f607ed17140575f1",
+  "working_tree_changes": true,
+  "source_code_sha256": {
+    "src/spectralbridge/remote.py": "51ac7d1a35be924608458b2a7398b923c7adbe62ffcdc049c63f380935fea6f2",
+    "src/spectralbridge/drone_production.py": "61b6b3505fbc75b9b7d05155d611b61c0a6f017ce826594e813197e6b1efc489",
+    "src/spectralbridge/pipelines/drone.py": "031a1ca9951850e89718109e4efe31f145b891722e6477196d775ff2c03feb43"
+  },
+  "polygon_index": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__polygon_index.parquet",
+  "preparation_pipeline_result": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_GORDON_20230814/preparation_pipeline_result.json",
+  "requested_pipeline_result": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_GORDON_20230814/requested_pipeline_result.json",
+  "overall_status": "INCOMPLETE_LOCATION_TABLES_DEFERRED_AND_CALIBRATION_UNVERIFIED",
+  "acquisition_metadata_rows": [
+    {
+      "Plot": "AOP-GORDON",
+      "Field Team": "Tyler",
+      "Region": "S. Rockies",
+      "Field Season": 2023.0,
+      "Metashape done": "x",
+      "Exported pointcloud": "y",
+      "Moved to CyVerse (ExportPackage)": "y",
+      "Discrepancies": null,
+      "Nayani_notesOn how to proceed with discrepancies ": null,
+      "Day of data collection": "2023-08-15",
+      "Mean Time of data collection (24 hr clock)": "20:58:39",
+      "Processed and ready for spectra extraction": null,
+      "Spectra extraction done": null
+    }
+  ],
+  "acquisition_time_zone": "UTC configuration for existing manifest interpretation; not independently verified clock zone",
+  "filename_date_warning": "Flight stem preserves package provenance; package filename date is not an independently verified acquisition date"
+}

@@ -1,0 +1,604 @@
+{
+  "site": "Ruby",
+  "flight_stem": "AOP_Ruby_20230814",
+  "source_directory": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage",
+  "orthomosaic": {
+    "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif",
+    "name": "AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif",
+    "is_collection": false,
+    "size_bytes": 94638732,
+    "checksum": "f29f5c4fc239527e224f1366f0a4d6fa",
+    "modified": "2023-12-13.13:24"
+  },
+  "original_local": {
+    "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif",
+    "size_bytes": 94638732,
+    "sha256": "308031cabe41ce25185d70057bfc328796727c45e00d53eb04dac7c2ba0a401c",
+    "crs": "EPSG:26913",
+    "shape": [
+      1242,
+      2354
+    ],
+    "resolution": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "transform": [
+      0.08315299999999169,
+      0.0,
+      455725.03242922697,
+      0.0,
+      -0.08315300000021639,
+      4432104.667987132,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "bounds": [
+      455725.03242922697,
+      4432001.391961132,
+      455920.77459122695,
+      4432104.667987132
+    ],
+    "band_count": 11,
+    "dtypes": [
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16",
+      "uint16"
+    ],
+    "alpha_bands": [
+      11
+    ],
+    "nodata": null,
+    "scales": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "offsets": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tags": {
+      "AREA_OR_POINT": "Area"
+    }
+  },
+  "transfers": [
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-DEM.tif",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-DEM.tif",
+      "size_bytes": 596765,
+      "remote_checksum": "57c7999cf63d83014e7fb5379820774a",
+      "sha256": "e92bf699c8d74eda4d7693148c1ed44d5c30d39046c61361564e4b48d5eccd33",
+      "md5": "57c7999cf63d83014e7fb5379820774a",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-DTM.tif",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-DTM.tif",
+      "size_bytes": 585017,
+      "remote_checksum": "bed9a3a886bde828e274484f69332f5d",
+      "sha256": "d9c697d55dcdbfdad8f434b5a0edd18c6e0e7d6cdb02bbc2f1ae4bdc971bb077",
+      "md5": "bed9a3a886bde828e274484f69332f5d",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif",
+      "size_bytes": 94638732,
+      "remote_checksum": "f29f5c4fc239527e224f1366f0a4d6fa",
+      "sha256": "308031cabe41ce25185d70057bfc328796727c45e00d53eb04dac7c2ba0a401c",
+      "md5": "f29f5c4fc239527e224f1366f0a4d6fa",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23_report.pdf",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23_report.pdf",
+      "size_bytes": 4079371,
+      "remote_checksum": "93e676f39d173b65056f2be863498de1",
+      "sha256": "6272ef972f802288bf12e0948efba3247c3b614912b0a852c34b5d9ae02661de",
+      "md5": "93e676f39d173b65056f2be863498de1",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.cpg",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.cpg",
+      "size_bytes": 5,
+      "remote_checksum": "ae3b3df9970b49b6523e608759bc957d",
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824",
+      "md5": "ae3b3df9970b49b6523e608759bc957d",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.dbf",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.dbf",
+      "size_bytes": 189,
+      "remote_checksum": "f9cb3db258106eb843492207c52f8201",
+      "sha256": "7a11ada9cd9d16eab9703c3daee1fad371da6031969a21bea67672642b3218ae",
+      "md5": "f9cb3db258106eb843492207c52f8201",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.prj",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.prj",
+      "size_bytes": 425,
+      "remote_checksum": "4ed694f9d90ad5ffd45dcb5f4c90ff24",
+      "sha256": "a5c36df1e7e680f4616e1dd3658d310813d31048d5fa08dcbaadcc9f129b0ff7",
+      "md5": "4ed694f9d90ad5ffd45dcb5f4c90ff24",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.shp",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.shp",
+      "size_bytes": 236,
+      "remote_checksum": "1ab49b43b64aa8e0125dfa3a48581035",
+      "sha256": "7757a1e940cadd80108f4e2932ae1b1b325cf0e7c2eece49f0aed0132e8c0a3d",
+      "md5": "1ab49b43b64aa8e0125dfa3a48581035",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.shx",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.shx",
+      "size_bytes": 108,
+      "remote_checksum": "55af814798177e9c7b8956797c0e170f",
+      "sha256": "c1b43dd714eba0e79d1a183284423f67e7e58fb2c75847a9f8124b86379286b0",
+      "md5": "55af814798177e9c7b8956797c0e170f",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "size_bytes": 252728,
+      "remote_checksum": "07a736e7d3af278ff1eaf17f15a683c3",
+      "sha256": "f98aa39ee98e88be12d162f9889889029a500d1cd67ebe18c791b883590806d4",
+      "md5": "07a736e7d3af278ff1eaf17f15a683c3",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "size_bytes": 253249,
+      "remote_checksum": "3c803e6552b1514ae5c424cde69af53c",
+      "sha256": "d9c4c34ca216450ae50a7439f507117dca8684aa41e6ea8b8531ff86d7a12b38",
+      "md5": "3c803e6552b1514ae5c424cde69af53c",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-RUBY.dbf",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-RUBY.dbf",
+      "size_bytes": 2549,
+      "remote_checksum": "b4beac32783f6dcdd3c194f5531e2d84",
+      "sha256": "077ada58daf20d96c9cbc314111954461bb5df5d4e5a65aa3c91425a47f4f739",
+      "md5": "b4beac32783f6dcdd3c194f5531e2d84",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-RUBY.shp",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-RUBY.shp",
+      "size_bytes": 2172,
+      "remote_checksum": "58a4aa59b676376f7e5975e8ed2de37f",
+      "sha256": "30a7e1a635f44f054dd3f384e11c14842e3ce25c0ce504bcf634ba9a58bcc9da",
+      "md5": "58a4aa59b676376f7e5975e8ed2de37f",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-RUBY.shx",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-RUBY.shx",
+      "size_bytes": 108,
+      "remote_checksum": "9ce65d026d52bf399b105313163b44b4",
+      "sha256": "87c7cde523943bf92c5782383521db1b2851ca127e3cf692e91f926a56fb3727",
+      "md5": "9ce65d026d52bf399b105313163b44b4",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.cpg",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.cpg",
+      "size_bytes": 5,
+      "remote_checksum": "ae3b3df9970b49b6523e608759bc957d",
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824",
+      "md5": "ae3b3df9970b49b6523e608759bc957d",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.dbf",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.dbf",
+      "size_bytes": 570,
+      "remote_checksum": "233edfaacb86c9ef3ef504ef97bcb3d4",
+      "sha256": "84b00fc2ca5be407026dc1906aebffa318d10631f7f33769d20c4ca34d3b3f11",
+      "md5": "233edfaacb86c9ef3ef504ef97bcb3d4",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.prj",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.prj",
+      "size_bytes": 425,
+      "remote_checksum": "4ed694f9d90ad5ffd45dcb5f4c90ff24",
+      "sha256": "a5c36df1e7e680f4616e1dd3658d310813d31048d5fa08dcbaadcc9f129b0ff7",
+      "md5": "4ed694f9d90ad5ffd45dcb5f4c90ff24",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shp",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shp",
+      "size_bytes": 644,
+      "remote_checksum": "84a8b164f48256b694b6f5a5a84efff0",
+      "sha256": "15769eb8d2d4a4b961362c82770ce45d80200eee88fdab64199bdfbc6b9f5b6c",
+      "md5": "84a8b164f48256b694b6f5a5a84efff0",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    },
+    {
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shx",
+      "local_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shx",
+      "size_bytes": 132,
+      "remote_checksum": "4f5fc0ffaa8a7ef087c8c311c3cb4ab7",
+      "sha256": "4341fc054da960c7804c3c397361642f429d088e408c8479298160c00b5b5dd3",
+      "md5": "4f5fc0ffaa8a7ef087c8c311c3cb4ab7",
+      "remote_checksum_verified": true,
+      "status": "reused"
+    }
+  ],
+  "coordinate_table": null,
+  "coordinate_status": "DEFERRED_BY_USER",
+  "available_metadata": [
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-DEM.tif",
+      "size_bytes": 596765,
+      "sha256": "e92bf699c8d74eda4d7693148c1ed44d5c30d39046c61361564e4b48d5eccd33",
+      "crs": "EPSG:26913",
+      "shape": [
+        310,
+        588
+      ],
+      "resolution": [
+        0.33261200000001767,
+        0.33261200000021246
+      ],
+      "transform": [
+        0.33261200000001767,
+        0.0,
+        455725.03242922697,
+        0.0,
+        -0.33261200000021246,
+        4432104.667987132,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds": [
+        455725.03242922697,
+        4432001.558267132,
+        455920.608285227,
+        4432104.667987132
+      ],
+      "band_count": 1,
+      "dtypes": [
+        "float32"
+      ],
+      "alpha_bands": [],
+      "nodata": -32767.0,
+      "scales": [
+        1.0
+      ],
+      "offsets": [
+        0.0
+      ],
+      "tags": {
+        "AREA_OR_POINT": "Area"
+      }
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-DTM.tif",
+      "size_bytes": 585017,
+      "sha256": "d9c697d55dcdbfdad8f434b5a0edd18c6e0e7d6cdb02bbc2f1ae4bdc971bb077",
+      "crs": "EPSG:26913",
+      "shape": [
+        310,
+        588
+      ],
+      "resolution": [
+        0.33261200000001767,
+        0.33261200000021246
+      ],
+      "transform": [
+        0.33261200000001767,
+        0.0,
+        455725.03242982674,
+        0.0,
+        -0.33261200000021246,
+        4432104.668090282,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds": [
+        455725.03242982674,
+        4432001.558370282,
+        455920.60828582675,
+        4432104.668090282
+      ],
+      "band_count": 1,
+      "dtypes": [
+        "float32"
+      ],
+      "alpha_bands": [],
+      "nodata": -32767.0,
+      "scales": [
+        1.0
+      ],
+      "offsets": [
+        0.0
+      ],
+      "tags": {
+        "AREA_OR_POINT": "Area"
+      }
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "rows": 2605,
+      "columns": [
+        "TIFFTAG_DATETIME",
+        "TIFFTAG_SOFTWARE",
+        "filename"
+      ],
+      "status": "SOURCE_METADATA_ONLY; new flight-location table deferred by user"
+    },
+    {
+      "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "rows": 2605,
+      "columns": [
+        "TIFFTAG_DATETIME",
+        "TIFFTAG_SOFTWARE",
+        "filename"
+      ],
+      "status": "SOURCE_METADATA_ONLY; new flight-location table deferred by user"
+    }
+  ],
+  "selection_rationale": "Unique ORTHO export in the supplied original-package collection; excluded normalized/corrected/translated/resampled/aligned sources. Validate dtype/grid/bands after transfer.",
+  "clipped_export": true,
+  "wavelengths_nm": [
+    444.0,
+    475.0,
+    531.0,
+    560.0,
+    650.0,
+    668.0,
+    705.0,
+    717.0,
+    740.0,
+    862.0
+  ],
+  "wavelength_provenance": "Established ten-band MicaSense Dual package convention; TIFF has no independent wavelength declarations",
+  "acquisition_metadata_source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_field_manifest.csv",
+  "radiometric_encoding": "Original UInt16 DN; physical calibration unverified",
+  "prepared": {
+    "source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif",
+    "source_sha256": "308031cabe41ce25185d70057bfc328796727c45e00d53eb04dac7c2ba0a401c",
+    "output": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/prepared/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED__processing_10cm_10k.tif",
+    "signature": "b7344d86e16bd0cd944e414a4d71b7a2592712d1972ae64f7fd53a6739998868",
+    "configuration": {
+      "resolution": 0.1,
+      "grid": {
+        "width": 1960,
+        "height": 1035,
+        "transform": [
+          0.1,
+          0.0,
+          455725.0,
+          0.0,
+          -0.1,
+          4432104.75
+        ],
+        "crs": "EPSG:26913"
+      },
+      "encoding": "DN*10000/65535",
+      "policy": "alpha-bilinear-fixed10k-v1"
+    },
+    "status": "reused",
+    "source_spectral_bands": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "source_alpha_bands": [
+      11
+    ],
+    "shape": [
+      1035,
+      1960,
+      10
+    ],
+    "transform": [
+      0.1,
+      0.0,
+      455725.0,
+      0.0,
+      -0.1,
+      4432104.75,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "crs": "EPSG:26913",
+    "resolution": [
+      0.1,
+      0.1
+    ],
+    "bands": [
+      {
+        "band": 1,
+        "valid_pixels": 1993472,
+        "minimum": 1.5651512145996094,
+        "maximum": 823.226318359375
+      },
+      {
+        "band": 2,
+        "valid_pixels": 1993472,
+        "minimum": 1.81251060962677,
+        "maximum": 937.5315551757812
+      },
+      {
+        "band": 3,
+        "valid_pixels": 1993472,
+        "minimum": 0.0,
+        "maximum": 1053.8275146484375
+      },
+      {
+        "band": 4,
+        "valid_pixels": 1993472,
+        "minimum": 0.0,
+        "maximum": 1269.8917236328125
+      },
+      {
+        "band": 5,
+        "valid_pixels": 1993472,
+        "minimum": 0.0,
+        "maximum": 1414.173583984375
+      },
+      {
+        "band": 6,
+        "valid_pixels": 1993472,
+        "minimum": 0.0,
+        "maximum": 1549.3232421875
+      },
+      {
+        "band": 7,
+        "valid_pixels": 1993472,
+        "minimum": 0.0,
+        "maximum": 1526.9031982421875
+      },
+      {
+        "band": 8,
+        "valid_pixels": 1993472,
+        "minimum": 0.2535300552845001,
+        "maximum": 1585.916259765625
+      },
+      {
+        "band": 9,
+        "valid_pixels": 1993472,
+        "minimum": 0.029872354120016098,
+        "maximum": 2535.629150390625
+      },
+      {
+        "band": 10,
+        "valid_pixels": 1993472,
+        "minimum": 53.296722412109375,
+        "maximum": 3391.528564453125
+      }
+    ],
+    "radiometry": {
+      "scale": null,
+      "offset": null,
+      "status": "UNSUPPORTED",
+      "provenance": "Original UInt16 DN; fixed numerical encoding; physical calibration unavailable",
+      "convention": "physical = scale * stored + offset",
+      "encoding": {
+        "kind": "range_normalized_dn",
+        "physical_calibration_status": "UNVERIFIED",
+        "nodata": "NaN",
+        "normalization": {
+          "stored_min": 0,
+          "stored_max": 10000,
+          "source_min": 0,
+          "source_max": 65535
+        },
+        "quality_mask": {
+          "status": "DOCUMENTED",
+          "convention": "GDAL mask true means valid"
+        }
+      }
+    },
+    "output_sha256": "9b677b34e28294eef824487c7e01eb0d91adce5c3cdf59a487a51d6c7d64ed73",
+    "clipping": "NONE",
+    "valid_pixels": 1993472
+  },
+  "processing_grid_reference": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-spatial-integrity/2026-10-29/production_source_comparison.json",
+  "processing_grid_reference_sha256": "3fb0d1410240ae0308489616d4f0fd47d15e997e8f82c9d1d464e9d30c81b042",
+  "processing_grid_usage": "Spatial comparison support only; original orthomosaic supplies all spectral values",
+  "polygon_source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+  "polygon_sha256": "d9fe2108538179b7cde107123e965b3d0075dcb65ec488fd03b8480b34dc6ebb",
+  "polygon_definition": "Established HALF-DIAMETER researcher polygons; no relabeling",
+  "intersecting_polygon_features": 86,
+  "software_version": "2.3.0rc2",
+  "git_commit": "bb3da46bea0a4295ca3152a9f607ed17140575f1",
+  "working_tree_changes": true,
+  "source_code_sha256": {
+    "src/spectralbridge/remote.py": "51ac7d1a35be924608458b2a7398b923c7adbe62ffcdc049c63f380935fea6f2",
+    "src/spectralbridge/drone_production.py": "61b6b3505fbc75b9b7d05155d611b61c0a6f017ce826594e813197e6b1efc489",
+    "src/spectralbridge/pipelines/drone.py": "031a1ca9951850e89718109e4efe31f145b891722e6477196d775ff2c03feb43"
+  },
+  "polygon_index": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__polygon_index.parquet",
+  "preparation_pipeline_result": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_Ruby_20230814/preparation_pipeline_result.json",
+  "requested_pipeline_result": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_Ruby_20230814/requested_pipeline_result.json",
+  "overall_status": "INCOMPLETE_LOCATION_TABLES_DEFERRED_AND_CALIBRATION_UNVERIFIED",
+  "acquisition_metadata_rows": [
+    {
+      "Plot": "AOP-RUBY",
+      "Field Team": "Tyler",
+      "Region": "S. Rockies",
+      "Field Season": 2023.0,
+      "Metashape done": "x",
+      "Exported pointcloud": "y",
+      "Moved to CyVerse (ExportPackage)": "y",
+      "Discrepancies": null,
+      "Nayani_notesOn how to proceed with discrepancies ": null,
+      "Day of data collection": "2023-08-16",
+      "Mean Time of data collection (24 hr clock)": "18:53:18",
+      "Processed and ready for spectra extraction": null,
+      "Spectra extraction done": null
+    }
+  ],
+  "acquisition_time_zone": "UTC configuration for existing manifest interpretation; not independently verified clock zone",
+  "filename_date_warning": "Flight stem preserves package provenance; package filename date is not an independently verified acquisition date"
+}

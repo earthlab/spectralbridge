@@ -1,0 +1,278 @@
+{
+  "status": "SELECTED_PENDING_RASTER_VALIDATION",
+  "site": "Ruby",
+  "source_directory": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage",
+  "flight_stem": "AOP_Ruby_20230814",
+  "orthomosaic": {
+    "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif",
+    "name": "AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif",
+    "is_collection": false,
+    "size_bytes": 94638732,
+    "checksum": "f29f5c4fc239527e224f1366f0a4d6fa",
+    "modified": "2023-12-13.13:24"
+  },
+  "coordinate_candidates": [
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "name": "SD1_image_metadata.csv",
+      "is_collection": false,
+      "size_bytes": 252728,
+      "checksum": "07a736e7d3af278ff1eaf17f15a683c3",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "name": "SD2_image_metadata.csv",
+      "is_collection": false,
+      "size_bytes": 253249,
+      "checksum": "3c803e6552b1514ae5c424cde69af53c",
+      "modified": "2023-12-13.13:24"
+    }
+  ],
+  "terrain_candidates": [
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-DEM.tif",
+      "name": "AOP-RUBY-08-14-23-DEM.tif",
+      "is_collection": false,
+      "size_bytes": 596765,
+      "checksum": "57c7999cf63d83014e7fb5379820774a",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-DTM.tif",
+      "name": "AOP-RUBY-08-14-23-DTM.tif",
+      "is_collection": false,
+      "size_bytes": 585017,
+      "checksum": "bed9a3a886bde828e274484f69332f5d",
+      "modified": "2023-12-13.13:24"
+    }
+  ],
+  "files": [
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-DEM.tif",
+      "name": "AOP-RUBY-08-14-23-DEM.tif",
+      "is_collection": false,
+      "size_bytes": 596765,
+      "checksum": "57c7999cf63d83014e7fb5379820774a",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-DTM.tif",
+      "name": "AOP-RUBY-08-14-23-DTM.tif",
+      "is_collection": false,
+      "size_bytes": 585017,
+      "checksum": "bed9a3a886bde828e274484f69332f5d",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif",
+      "name": "AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif",
+      "is_collection": false,
+      "size_bytes": 94638732,
+      "checksum": "f29f5c4fc239527e224f1366f0a4d6fa",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23_report.pdf",
+      "name": "AOP-RUBY-08-14-23_report.pdf",
+      "is_collection": false,
+      "size_bytes": 4079371,
+      "checksum": "93e676f39d173b65056f2be863498de1",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Ruby_08-14-23.las",
+      "name": "Ruby_08-14-23.las",
+      "is_collection": false,
+      "size_bytes": 26111096,
+      "checksum": "bc555a26fb52aa9b9e29a00362bcf30b",
+      "modified": "2025-01-13.09:56"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-GCPs.txt",
+      "name": "AOP-RUBY-GCPs.txt",
+      "is_collection": false,
+      "size_bytes": 735,
+      "checksum": "af695b95f2ff4f408a6ac041080847d7",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.cpg",
+      "name": "AOP-RUBY-boundary.cpg",
+      "is_collection": false,
+      "size_bytes": 5,
+      "checksum": "ae3b3df9970b49b6523e608759bc957d",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.dbf",
+      "name": "AOP-RUBY-boundary.dbf",
+      "is_collection": false,
+      "size_bytes": 189,
+      "checksum": "f9cb3db258106eb843492207c52f8201",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.prj",
+      "name": "AOP-RUBY-boundary.prj",
+      "is_collection": false,
+      "size_bytes": 425,
+      "checksum": "4ed694f9d90ad5ffd45dcb5f4c90ff24",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.qmd",
+      "name": "AOP-RUBY-boundary.qmd",
+      "is_collection": false,
+      "size_bytes": 1043,
+      "checksum": "a8684b4f8138c4aac8d686cd8a9a55c1",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.shp",
+      "name": "AOP-RUBY-boundary.shp",
+      "is_collection": false,
+      "size_bytes": 236,
+      "checksum": "1ab49b43b64aa8e0125dfa3a48581035",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-RUBY-boundary.shx",
+      "name": "AOP-RUBY-boundary.shx",
+      "is_collection": false,
+      "size_bytes": 108,
+      "checksum": "55af814798177e9c7b8956797c0e170f",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/Metadata.txt",
+      "name": "Metadata.txt",
+      "is_collection": false,
+      "size_bytes": 818,
+      "checksum": "be4598f33d744b1b0122385270e43ca9",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/RUBY.kml",
+      "name": "RUBY.kml",
+      "is_collection": false,
+      "size_bytes": 938,
+      "checksum": "f2cccc4bafd0dd23856fbd66781581b9",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/RUBY_for_dji.kml",
+      "name": "RUBY_for_dji.kml",
+      "is_collection": false,
+      "size_bytes": 1466,
+      "checksum": "0d7500f6a8fb6d75d792446e7972a587",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "name": "SD1_image_metadata.csv",
+      "is_collection": false,
+      "size_bytes": 252728,
+      "checksum": "07a736e7d3af278ff1eaf17f15a683c3",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "name": "SD2_image_metadata.csv",
+      "is_collection": false,
+      "size_bytes": 253249,
+      "checksum": "3c803e6552b1514ae5c424cde69af53c",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-RUBY.dbf",
+      "name": "UsableArea2023_AOP-RUBY.dbf",
+      "is_collection": false,
+      "size_bytes": 2549,
+      "checksum": "b4beac32783f6dcdd3c194f5531e2d84",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-RUBY.shp",
+      "name": "UsableArea2023_AOP-RUBY.shp",
+      "is_collection": false,
+      "size_bytes": 2172,
+      "checksum": "58a4aa59b676376f7e5975e8ed2de37f",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-RUBY.shx",
+      "name": "UsableArea2023_AOP-RUBY.shx",
+      "is_collection": false,
+      "size_bytes": 108,
+      "checksum": "9ce65d026d52bf399b105313163b44b4",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/AOP-NIWO-UNDER-GCPS-23-FULL.txt",
+      "name": "AOP-NIWO-UNDER-GCPS-23-FULL.txt",
+      "is_collection": false,
+      "size_bytes": 3383,
+      "checksum": "1711216056c1072f799c73506a8a665c",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/AOP-NIWO-UNDER-GCPS-23-GCPs-ONLY.txt",
+      "name": "AOP-NIWO-UNDER-GCPS-23-GCPs-ONLY.txt",
+      "is_collection": false,
+      "size_bytes": 2355,
+      "checksum": "a23449672bc8ec0635f021a112bd304d",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.cpg",
+      "name": "aop_underflight_areas_2023.cpg",
+      "is_collection": false,
+      "size_bytes": 5,
+      "checksum": "ae3b3df9970b49b6523e608759bc957d",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.dbf",
+      "name": "aop_underflight_areas_2023.dbf",
+      "is_collection": false,
+      "size_bytes": 570,
+      "checksum": "233edfaacb86c9ef3ef504ef97bcb3d4",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.prj",
+      "name": "aop_underflight_areas_2023.prj",
+      "is_collection": false,
+      "size_bytes": 425,
+      "checksum": "4ed694f9d90ad5ffd45dcb5f4c90ff24",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.qmd",
+      "name": "aop_underflight_areas_2023.qmd",
+      "is_collection": false,
+      "size_bytes": 1043,
+      "checksum": "3ab693a386c6e20a84cc3d2de796c860",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shp",
+      "name": "aop_underflight_areas_2023.shp",
+      "is_collection": false,
+      "size_bytes": 644,
+      "checksum": "84a8b164f48256b694b6f5a5a84efff0",
+      "modified": "2023-12-13.13:24"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-Ruby-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shx",
+      "name": "aop_underflight_areas_2023.shx",
+      "is_collection": false,
+      "size_bytes": 132,
+      "checksum": "4f5fc0ffaa8a7ef087c8c311c3cb4ab7",
+      "modified": "2023-12-13.13:24"
+    }
+  ],
+  "selection_rationale": "Unique ORTHO export in the supplied original-package collection; excluded normalized/corrected/translated/resampled/aligned sources. Validate dtype/grid/bands after transfer.",
+  "clipped_export": true
+}

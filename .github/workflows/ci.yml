@@ -28,6 +28,10 @@ on:
       - "docs/validation/**"
       - "validation/**"
       - "pyproject.toml"
+      - "uv.lock"
+      - "CITATION.cff"
+      - "CHANGELOG.md"
+      - "MANIFEST.in"
       - ".github/workflows/**"
   push:
     branches: [ main ]
@@ -56,6 +60,10 @@ on:
       - "docs/validation/**"
       - "validation/**"
       - "pyproject.toml"
+      - "uv.lock"
+      - "CITATION.cff"
+      - "CHANGELOG.md"
+      - "MANIFEST.in"
       - ".github/workflows/**"
 
 jobs:

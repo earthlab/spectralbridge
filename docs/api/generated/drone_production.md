@@ -281,6 +281,48 @@ Audience: **public**. Also exported as `spectralbridge.run_drone_bulk_production
       signature_crossrefs: false
       members: false
 
+Audience: **advanced**.
+
+::: spectralbridge.drone_production.inspect_original_drone_packages
+    options:
+      docstring_style: numpy
+      show_signature_annotations: true
+      separate_signature: true
+      show_root_heading: true
+      show_root_full_path: false
+      show_bases: false
+      show_source: false
+      signature_crossrefs: false
+      members: false
+
+Audience: **advanced**.
+
+::: spectralbridge.drone_production.stage_original_drone_package
+    options:
+      docstring_style: numpy
+      show_signature_annotations: true
+      separate_signature: true
+      show_root_heading: true
+      show_root_full_path: false
+      show_bases: false
+      show_source: false
+      signature_crossrefs: false
+      members: false
+
+Audience: **advanced**.
+
+::: spectralbridge.drone_production.validate_drone_coordinate_table
+    options:
+      docstring_style: numpy
+      show_signature_annotations: true
+      separate_signature: true
+      show_root_heading: true
+      show_root_full_path: false
+      show_bases: false
+      show_source: false
+      signature_crossrefs: false
+      members: false
+
 ## Explicitly exported constants and type aliases
 
 These values describe package metadata, schemas or configuration; they are not observations from a production dataset.

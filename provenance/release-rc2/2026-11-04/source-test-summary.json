@@ -1,0 +1,50 @@
+{
+  "suite": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "9",
+    "tests": "955",
+    "time": "144.768",
+    "timestamp": "2026-11-04T15:15:58.466751-07:00",
+    "hostname": "UCB-H4K9PV34KC"
+  },
+  "skips": [
+    {
+      "test": "::tests.test_polygon_extraction",
+      "reason": "collection skipped"
+    },
+    {
+      "test": "tests.test_docs_playwright::test_docs_site_core_pages_render_in_browser",
+      "reason": "Set SPECTRALBRIDGE_DOCS_SITE to run docs browser smoke tests."
+    },
+    {
+      "test": "tests.test_docs_playwright::test_spectral_library_science_pages_and_figures_render",
+      "reason": "Set SPECTRALBRIDGE_DOCS_SITE to run docs browser smoke tests."
+    },
+    {
+      "test": "tests.test_hytools_compat::test_get_hytools_class_discovers_nested_module",
+      "reason": "CSCAL_TEST_MODE!='full'"
+    },
+    {
+      "test": "tests.test_hytools_compat::test_get_write_envi_discovers_nested_module",
+      "reason": "CSCAL_TEST_MODE!='full'"
+    },
+    {
+      "test": "tests.test_hytools_compat::test_missing_hytools_error_includes_install_hint",
+      "reason": "CSCAL_TEST_MODE!='full'"
+    },
+    {
+      "test": "tests.test_hytools_preflight::test_hytools_present_and_pinned",
+      "reason": "CSCAL_TEST_MODE!='full'"
+    },
+    {
+      "test": "tests.test_landsat_flight_validation::test_optional_real_landsat_window",
+      "reason": "optional cached real Landsat window"
+    },
+    {
+      "test": "tests.test_qa.test_qa_png_phash::test_panel_phash_matches_baseline",
+      "reason": "imagehash not installed"
+    }
+  ]
+}

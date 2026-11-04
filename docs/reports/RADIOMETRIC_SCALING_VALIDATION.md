@@ -8,13 +8,13 @@ Goldhill and NEON share a stored range near 0–10,000, but the available eviden
 
 The unchanged historical fitter reproduces all ten requested Goldhill counts and every saved coefficient array exactly. At 650 nm, it accepted **14 of 6,692,436 positive-alpha observations**—0.0002092%—because it applied the physical-looking interval 0–2 directly to normalized stored values. The diagnostic interval 0–1 after numerical division accepts all **6,692,436** observations in each band. These are **not production-eligible physical BRDF measurements**. Physical case C is unresolved, and the genuine zero-view scene still has angular design rank **1 of 3**, supporting **zero** three-parameter scene fits.
 
-![Encoding chains; Goldhill physical calibration is unresolved.](../../provenance/radiometric-scaling-validation/2026-11-03/figure01_transformations.png)
+![Encoding chains; Goldhill physical calibration is unresolved.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/figure01_transformations.png)
 
 *Figure 1. Encoding chains; Goldhill physical calibration is unresolved.*
 
 ## Source evidence and processing chain
 
-The audit used the original Goldhill UInt16 TIFF, a paired unnormalized/normalized 25 cm TIFF grid, the restored repaired-grid working H5, a recovered source-DN raster with documented alpha lineage, unchanged October 26 correction code, saved production coefficients, and a genuine archived NEON R10C L002 flightline from September 15, 2021. Paths and SHA-256 identities are in [results.json](../../provenance/radiometric-scaling-validation/2026-11-03/results.json). All **eight protected inputs** match their pre-analysis hashes afterward.
+The audit used the original Goldhill UInt16 TIFF, a paired unnormalized/normalized 25 cm TIFF grid, the restored repaired-grid working H5, a recovered source-DN raster with documented alpha lineage, unchanged October 26 correction code, saved production coefficients, and a genuine archived NEON R10C L002 flightline from September 15, 2021. Paths and SHA-256 identities are in [results.json](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/results.json). All **eight protected inputs** match their pre-analysis hashes afterward.
 
 | Stage | Goldhill numerical meaning / range | NEON numerical meaning / range |
 | --- | --- | --- |
@@ -51,11 +51,11 @@ For each band the paired 25 cm files satisfy
 
 The largest fresh paired discrepancy is **0.000780386 stored units**, consistent with float32 export precision. The 862 nm normalization introduces a real negative numerical intercept; all other observed minima are zero. The inverse is `DN = minimum_band + S × (65535 − minimum_band)/10000`. It reconstructs floating-point source numerical values within encoding precision; it cannot undo spatial resampling or restore raw camera calibration.
 
-The authoritative normalization/export code was **not recovered**. A search of current tracked Python and notebook source cells returned no authoritative implementation ([search record](../../provenance/radiometric-scaling-validation/2026-11-03/normalization_code_search.json)); earlier provenance searches likewise did not recover the conversion project. Because all observed maxima equal 65,535, these files **cannot distinguish observed-maximum normalization from a fixed UInt16-maximum convention**. The equation is source-verified; its exact originating command is unresolved.
+The authoritative normalization/export code was **not recovered**. A search of current tracked Python and notebook source cells returned no authoritative implementation ([search record](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/normalization_code_search.json)); earlier provenance searches likewise did not recover the conversion project. Because all observed maxima equal 65,535, these files **cannot distinguish observed-maximum normalization from a fixed UInt16-maximum convention**. The equation is source-verified; its exact originating command is unresolved.
 
 Agisoft documents reflectance calibration using panel/sun metadata and configurable band-sensitivity normalization. That capability does not establish which options were applied to this specific project. Missing evidence includes the actual Metashape processing/export settings and calibration state, camera/exposure/radiometric metadata and applied coefficients, reflectance-panel observations/values, DLS/irradiance use, and the normalization script/parameters. A 32,768 divider or a 10,000 physical divider cannot be invented from the range. See the [project metadata investigation](../dev/photogrammetry-metadata-investigation.md) for recovered versus missing records.
 
-![All ten actual band distributions; footprint counts are native, not stride estimates.](../../provenance/radiometric-scaling-validation/2026-11-03/figure02_band_distributions.png)
+![All ten actual band distributions; footprint counts are native, not stride estimates.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/figure02_band_distributions.png)
 
 *Figure 2. All ten actual band distributions; footprint counts are native, not stride estimates.*
 
@@ -63,7 +63,7 @@ Agisoft documents reflectance calibration using panel/sun metadata and configura
 
 The unchanged `fit_and_save_brdf_model` in the preserved October 26 module first multiplies by the cube's scale_factor (Goldhill: 1), then, per band and optional NDVI bin, selects finite values with `rho_min=0` and `rho_max=2`. The names and NEON context establish a fractional-reflectance intent; the original choice of the upper limit 2 has no recovered universal scientific justification. It remains a configurable screening policy, not a calibration or saturation detector. No policy bound was changed here.
 
-The historical implementation uses one interval for every band. It does not independently recognize source alpha, saturation or sensor-quality flags. Fewer than three samples retain neutral coefficients; the other seven fits reproduce the saved coefficients exactly despite insufficient independent geometry. [The actual unchanged-fitter replay](../../provenance/radiometric-scaling-validation/2026-11-03/results.json) records least-squares populations **3, 9, 13, 14, 30, 8, 4**, preserving all source code and saved coefficients.
+The historical implementation uses one interval for every band. It does not independently recognize source alpha, saturation or sensor-quality flags. Fewer than three samples retain neutral coefficients; the other seven fits reproduce the saved coefficients exactly despite insufficient independent geometry. [The actual unchanged-fitter replay](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/results.json) records least-squares populations **3, 9, 13, 14, 30, 8, 4**, preserving all source code and saved coefficients.
 
 | Wavelength nm | A: historical finite-H5 count | A: same positive-alpha support | B: diagnostic normalized fraction 0–1 | C: verified physical reflectance |
 | --- | --- | --- | --- | --- |
@@ -82,9 +82,9 @@ The historical implementation uses one interval for every band. It does not inde
 
 **B:** input F=S/10,000 has diagnostic scale 0.0001 and offset 0. Its physical-calibration status remains UNVERIFIED. On the positive-alpha footprint, every band is finite, non-NoData and within 0–1; no above-one/negative exclusions occur. Red diagnostic quantiles (minimum, 1%, median, 99%, maximum) are 7.1719489e-07, 0.0016787419, 0.022755005, 0.14023375, 1. Compared on the same source support, B adds **6,692,422** red observations. It supplies no missing geometry or physical calibration.
 
-**C:** physical scale and offset are unknown. Input physical range, physical eligibility, eligible-value distributions and physical accepted-pixel map are **NOT_EVALUATED / UNRESOLVED**, not zero. B is not substituted for C. The real-data [current shared fitter control](../../provenance/radiometric-scaling-validation/2026-11-03/physical_fit_gate.json) rejects typed normalized-DN radiometry explicitly and emits **no coefficient arrays**.
+**C:** physical scale and offset are unknown. Input physical range, physical eligibility, eligible-value distributions and physical accepted-pixel map are **NOT_EVALUATED / UNRESOLVED**, not zero. B is not substituted for C. The real-data [current shared fitter control](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/physical_fit_gate.json) rejects typed normalized-DN radiometry explicitly and emits **no coefficient arrays**.
 
-![The 650 nm unit mismatch; B is diagnostic and cannot replace physical case C.](../../provenance/radiometric-scaling-validation/2026-11-03/figure03_eligibility_distributions.png)
+![The 650 nm unit mismatch; B is diagnostic and cannot replace physical case C.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/figure03_eligibility_distributions.png)
 
 *Figure 3. The 650 nm unit mismatch; B is diagnostic and cannot replace physical case C.*
 
@@ -105,17 +105,17 @@ The historical implementation uses one interval for every band. It does not inde
 
 Independent angular support is a property of the design, not a count of millions of independent observations. The [P166 native-grid geometry audit](BRDF_MATHEMATICAL_VALIDATION.md) supplies that rank evidence. No geometry, reference angle, rank threshold or conditioning requirement changed during this task.
 
-![Native accepted coordinates, enlarged symbols; contextual image decimated 8× without altering counts.](../../provenance/radiometric-scaling-validation/2026-11-03/figure04_historical_map.png)
+![Native accepted coordinates, enlarged symbols; contextual image decimated 8× without altering counts.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/figure04_historical_map.png)
 
 *Figure 4. Native accepted coordinates, enlarged symbols; contextual image decimated 8× without altering counts.*
 
-![Actual red normalized fraction; no physical calibration, corrected image or invented geometry.](../../provenance/radiometric-scaling-validation/2026-11-03/figure05_diagnostic_map.png)
+![Actual red normalized fraction; no physical calibration, corrected image or invented geometry.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/figure05_diagnostic_map.png)
 
 *Figure 5. Actual red normalized fraction; no physical calibration, corrected image or invented geometry.*
 
 Markers in Figure 4 are enlarged; several of the 14 adjacent native pixels overlap as symbols. The stored distributions/counts use all native observations. Contextual maps alone are decimated eightfold for display; the accepted coordinates are native and are not strided away.
 
-![Zero at 862 nm is explicitly labeled; a half-count-height placeholder only locates that label on a log axis.](../../provenance/radiometric-scaling-validation/2026-11-03/figure06_counts.png)
+![Zero at 862 nm is explicitly labeled; a half-count-height placeholder only locates that label on a log axis.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/figure06_counts.png)
 
 *Figure 6. Zero at 862 nm is explicitly labeled; a half-count-height placeholder only locates that label on a log axis.*
 
@@ -150,7 +150,7 @@ NEON documents Data_Ignore_Value=−9,999 and a Scale_Factor storage **divisor**
 
 All **34,254,960** selected NEON observations (10 bands × 3,425,496 valid pixels) were compared in 128-row windows. New finite decoded values are **bit-identical** to the previous documented float32 multiplier path. Maximum error against independent float64 `stored/10000` is **9.67025757e-08 physical units**. Stored→physical→stored maximum error is **0.0009765625 DN**, far below the half-DN precision needed to recover an integer sample. This native selected-band source contains no finite negative values; preservation of legitimate negatives is established by explicit synthetic tests, not claimed as an observed NEON event.
 
-![Whole native selected-band ranges; NEON is 10 nearest source wavelengths, not an empirical sensor calibration comparison.](../../provenance/radiometric-scaling-validation/2026-11-03/figure07_numeric_ranges.png)
+![Whole native selected-band ranges; NEON is 10 nearest source wavelengths, not an empirical sensor calibration comparison.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/figure07_numeric_ranges.png)
 
 *Figure 7. Whole native selected-band ranges; NEON is 10 nearest source wavelengths, not an empirical sensor calibration comparison.*
 
@@ -171,13 +171,13 @@ Regeneration requires authoritative physical drone calibration and original norm
 
 ## Reproducibility and verification
 
-The evidence folder contains [analysis](../../provenance/radiometric-scaling-validation/2026-11-03/analyze.py), [actual results](../../provenance/radiometric-scaling-validation/2026-11-03/results.json), [unit-gate control](../../provenance/radiometric-scaling-validation/2026-11-03/validate_unit_gate.py), [figure generator](../../provenance/radiometric-scaling-validation/2026-11-03/figures.py), [manifest](../../provenance/radiometric-scaling-validation/2026-11-03/figure_manifest.json), unchanged historical replay coefficients and pre-edit radiometry snapshot. The first historical replay intentionally refuses an occupied diagnostic directory; reuse its recorded evidence or select a fresh diagnostic directory instead of overwriting. Temporary source paths must be restored from their recorded datastore provenance to rerun on another machine.
+The evidence folder contains [analysis](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/analyze.py), [actual results](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/results.json), [unit-gate control](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/validate_unit_gate.py), [figure generator](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/figures.py), [manifest](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/figure_manifest.json), unchanged historical replay coefficients and pre-edit radiometry snapshot. The first historical replay intentionally refuses an occupied diagnostic directory; reuse its recorded evidence or select a fresh diagnostic directory instead of overwriting. Temporary source paths must be restored from their recorded datastore provenance to rerun on another machine.
 
-The focused P167 regression evidence contains **233 distinct tests**; final pass/failure counts and kernel-AST preservation are recorded in [verification.json](../../provenance/radiometric-scaling-validation/2026-11-03/verification.json). P166 separately records its 201-test mathematical/compatibility validation. All seven figure pairs were visually checked; no production imagery/library was regenerated. Bounded source reads and small sufficient summaries avoid persistent pixel-scale caches. Conversion uses bounded temporary masks; the existing scene fitter still requires loaded scene arrays, and this task does not claim a streaming-fitter redesign.
+The focused P167 regression evidence contains **233 distinct tests**; final pass/failure counts and kernel-AST preservation are recorded in [verification.json](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/radiometric-scaling-validation/2026-11-03/verification.json). P166 separately records its 201-test mathematical/compatibility validation. All seven figure pairs were visually checked; no production imagery/library was regenerated. Bounded source reads and small sufficient summaries avoid persistent pixel-scale caches. Conversion uses bounded temporary masks; the existing scene fitter still requires loaded scene arrays, and this task does not claim a streaming-fitter redesign.
 
 ## References
 
 - [NEON reflectance H5 tutorial](https://www.neonscience.org/resources/learning-hub/tutorials/neon-refl-h5-py): documented divisor and NoData semantics.
 - [Agisoft MicaSense/Altum processing workflow](https://agisoft.freshdesk.com/support/solutions/articles/31000148381-micasense-altum-processing-workflow-including-reflectance-calibration-in-agisoft-metashape-professi): calibration options; not proof of this project's settings.
 - [Agisoft Metashape Professional manual](https://www.agisoft.com/pdf/metashape-pro_2_1_en.pdf): software capability reference; the recovered project used an earlier version, so this manual does not reconstruct its actual configuration.
-- Source-specific [numeric mapping](../../provenance/drone-scale-confirmation/2026-10-30/verified_numeric_mapping.json), [historical artifact report](../../provenance/brdf-artifact-anatomy/2026-11-03/report.md), and [BRDF mathematics report](BRDF_MATHEMATICAL_VALIDATION.md).
+- Source-specific [numeric mapping](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/drone-scale-confirmation/2026-10-30/verified_numeric_mapping.json), [historical artifact report](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/brdf-artifact-anatomy/2026-11-03/report.md), and [BRDF mathematics report](BRDF_MATHEMATICAL_VALIDATION.md).

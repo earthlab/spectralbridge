@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "validation_scope": "installation_and_public_api_only",
+  "distribution_name": "earthlab-spectralbridge",
+  "import_package": "spectralbridge",
+  "version": "2.3.0rc2",
+  "module": "/private/tmp/rc2-sdist310/lib/python3.10/site-packages/spectralbridge/__init__.py",
+  "public_apis": [
+    "build_harmonized_dataset",
+    "go_forth_and_multiply",
+    "inspect_spectral_library_preflight",
+    "run_bulk_pipeline",
+    "run_drone_pipeline",
+    "run_spectral_library_analysis",
+    "summarize_bulk_results"
+  ],
+  "console_scripts": [
+    "spectralbridge-pipeline",
+    "spectralbridge-bulk",
+    "spectralbridge-qa",
+    "spectralbridge-stage-qa"
+  ]
+}

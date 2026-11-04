@@ -1,0 +1,19 @@
+/private/tmp/rc2-wheel312/lib/python3.12/site-packages/spectralbridge/bulk/analyses/spectral_library.py:665: UserWarning: Arrow output on a DB-API result makes an extra copy of the rows, use con.sql(query).to_arrow_table() instead.
+  rows = con.execute(query, [schema.source.as_posix()]).to_arrow_table().to_pylist()
+{
+  "data_kind": "invented teaching data; no scientific validation",
+  "wavelengths_nm": [
+    450,
+    550,
+    700
+  ],
+  "counts": {
+    "source_rows": 6,
+    "valid_spectra": 6,
+    "species": 2,
+    "polygons": 2,
+    "flightlines": 1,
+    "sites": 1
+  },
+  "pdfs_generated": false
+}

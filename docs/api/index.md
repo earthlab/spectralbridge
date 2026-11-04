@@ -6,7 +6,7 @@ The reference is generated without importing scientific dependencies. Each defin
 
 Workflow guides explain **how to accomplish a task**; these entries explain **how to call a particular object**. See the [scientific API maturity guide](scientific-analysis.md) before interpreting research outputs.
 
-This revision documents **84 public functions/classes** and **416 advanced functions/classes**. Names that merely look public are not a stability guarantee. Private helpers and CLI/compatibility plumbing are listed separately in the inventory.
+This revision documents **84 public functions/classes** and **435 advanced functions/classes**. Names that merely look public are not a stability guarantee. Private helpers and CLI/compatibility plumbing are listed separately in the inventory.
 
 ## Package exports
 
@@ -77,6 +77,7 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`collect_drone_spatial_diagnostics`](generated/pipelines-drone.md#spectralbridge.pipelines.drone.collect_drone_spatial_diagnostics) | Collect drone-only raster/polygon overlay diagnostics before extraction. | advanced |
 | [`save_drone_overlay_debug_plot`](generated/pipelines-drone.md#spectralbridge.pipelines.drone.save_drone_overlay_debug_plot) | Write a lightweight overlay PNG for drone polygon/raster diagnostics. | advanced |
 | [`run_drone_pipeline`](generated/pipelines-drone.md#spectralbridge.pipelines.drone.run_drone_pipeline) | Run the drone pipeline from local HDF5 or reflectance TIFF sources. | public |
+| [`prepare_drone_orthomosaic`](generated/pipelines-drone.md#spectralbridge.pipelines.drone.prepare_drone_orthomosaic) | Create a mask-aware numerical 10K derivative from an original UInt16 mosaic. | advanced |
 | [`is_valid_envi_pair`](generated/pipelines-pipeline.md#spectralbridge.pipelines.pipeline.is_valid_envi_pair) | Return True when both ENVI files exist and are non-empty. | advanced |
 | [`convolve_resample_product`](generated/pipelines-pipeline.md#spectralbridge.pipelines.pipeline.convolve_resample_product) | Stream a corrected BSQ cube through supplied spectral-response weights into canonical target-sensor products. | advanced |
 | [`resample_to_sensor_bands`](generated/pipelines-pipeline.md#spectralbridge.pipelines.pipeline.resample_to_sensor_bands) | Construct target-band response weights from source wavelength metadata and a registered sensor specification. | advanced |
@@ -119,6 +120,9 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`package_drone_bulk_results`](generated/drone_production.md#spectralbridge.drone_production.package_drone_bulk_results) | Build a compact, checksummed closeout package without raw or cache data. | advanced |
 | [`verify_uploaded_results`](generated/drone_production.md#spectralbridge.drone_production.verify_uploaded_results) | Verify every packaged file remotely by presence and size/checksum metadata. | advanced |
 | [`run_drone_bulk_production`](generated/drone_production.md#spectralbridge.drone_production.run_drone_bulk_production) | Run remote inventory through producer, bulk, reporting, and optional upload. | public |
+| [`inspect_original_drone_packages`](generated/drone_production.md#spectralbridge.drone_production.inspect_original_drone_packages) | Discover original-package orthomosaics and associated inputs, without downloading. | advanced |
+| [`stage_original_drone_package`](generated/drone_production.md#spectralbridge.drone_production.stage_original_drone_package) | Stage a selected orthomosaic plus its small metadata and terrain, checksummed. | advanced |
+| [`validate_drone_coordinate_table`](generated/drone_production.md#spectralbridge.drone_production.validate_drone_coordinate_table) | Validate a supplied camera table without silently reinterpreting its CRS. | advanced |
 | [`render_drone_translation_qa`](generated/drone_qa.md#spectralbridge.drone_qa.render_drone_translation_qa) | Render native-corrected versus Landsat-like translated band QA. | advanced |
 | [`render_common_support_comparison`](generated/drone_qa.md#spectralbridge.drone_qa.render_common_support_comparison) | Render compact actual-Landsat and optional three-way metric summaries. | advanced |
 | [`render_drone_translation_publication`](generated/drone_qa.md#spectralbridge.drone_qa.render_drone_translation_publication) | Render a compact three-panel translation figure from QA JSON values. | advanced |
@@ -136,6 +140,11 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`load_drone_translation_coefficients`](generated/drone_translation_registry.md#spectralbridge.drone_translation_registry.load_drone_translation_coefficients) | Load the packaged or explicitly supplied static production registry. | public |
 | [`get_drone_translation_coefficient`](generated/drone_translation_registry.md#spectralbridge.drone_translation_registry.get_drone_translation_coefficient) | Return one unambiguous production target-band coefficient. | public |
 | [`build_drone_translation_coefficient_registry`](generated/drone_translation_registry.md#spectralbridge.drone_translation_registry.build_drone_translation_coefficient_registry) | Build a static registry from exact compact bulk result artifacts. | public |
+| [`NadirFootprint`](generated/drone_view_geometry.md#spectralbridge.drone_view_geometry.NadirFootprint) | Undistorted rectangular pinhole scenario, not a recovered visibility mask. | advanced |
+| [`camera_rays`](generated/drone_view_geometry.md#spectralbridge.drone_view_geometry.camera_rays) | Return ground-to-sensor zenith and clockwise true-north azimuth radians. | advanced |
+| [`footprint_candidates`](generated/drone_view_geometry.md#spectralbridge.drone_view_geometry.footprint_candidates) | Return rectangular target visibility and normalized centrality scenario. | advanced |
+| [`assign_camera`](generated/drone_view_geometry.md#spectralbridge.drone_view_geometry.assign_camera) | A nearest eligible or B most-central eligible; stable input-order ties. | advanced |
+| [`aggregate_kernels`](generated/drone_view_geometry.md#spectralbridge.drone_view_geometry.aggregate_kernels) | One simulated blended design per ground observation, never duplicated rho. | advanced |
 | [`RemoteError`](generated/remote.md#spectralbridge.remote.RemoteError) | Base class for remote collection failures. | advanced |
 | [`RemoteAuthenticationError`](generated/remote.md#spectralbridge.remote.RemoteAuthenticationError) | The remote client is installed but not configured for access. | advanced |
 | [`RemoteCommandError`](generated/remote.md#spectralbridge.remote.RemoteCommandError) | A remote client command returned a non-zero status. | advanced |
@@ -147,6 +156,10 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`parse_gocmd_listing`](generated/remote.md#spectralbridge.remote.parse_gocmd_listing) | Parse the stable collection/data-object lines emitted by gocmd ls. | advanced |
 | [`GocmdRemoteBackend`](generated/remote.md#spectralbridge.remote.GocmdRemoteBackend) | CyVerse backend using an existing non-interactive gocmd configuration. | advanced |
 | [`remote_parent`](generated/remote.md#spectralbridge.remote.remote_parent) | Return the parent of a normalized remote path. | advanced |
+| [`parse_gocmd_json_listing`](generated/remote.md#spectralbridge.remote.parse_gocmd_json_listing) | Read GoCommands very-long JSON, checking consistency across good replicas. | advanced |
+| [`file_checksums`](generated/remote.md#spectralbridge.remote.file_checksums) | Return SHA-256 and MD5 hex digests in one bounded file pass. | advanced |
+| [`checksum_matches`](generated/remote.md#spectralbridge.remote.checksum_matches) | Compare iRODS MD5 hex or SHA-256 hex/sha2-base64 without assuming SHA-256. | advanced |
+| [`stage_remote_file`](generated/remote.md#spectralbridge.remote.stage_remote_file) | Atomically stage any source file, verify integrity and reuse a valid copy. | advanced |
 
 ## Bulk processing and compact results
 
@@ -592,6 +605,12 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`SensorBandIdentity`](generated/sensor_pairs.md#spectralbridge.sensor_pairs.SensorBandIdentity) | Physical identity for one one-based sensor band. | advanced |
 | [`sensor_band_identity`](generated/sensor_pairs.md#spectralbridge.sensor_pairs.sensor_band_identity) | Return packaged physical metadata, or None for a custom sensor. | advanced |
 | [`wavelength_matched_band_pairs`](generated/sensor_pairs.md#spectralbridge.sensor_pairs.wavelength_matched_band_pairs) | Pair shared spectral identities using packaged wavelength definitions. | advanced |
+| [`SCSCPolicy`](generated/topographic.md#spectralbridge.topographic.SCSCPolicy) | Explicit experimental choices; the confidence rule is not field approval. | advanced |
+| [`cluster_covariance`](generated/topographic.md#spectralbridge.topographic.cluster_covariance) | Finite-cluster sandwich covariance, conditional on supplied cluster units. | advanced |
+| [`fieller_interval`](generated/topographic.md#spectralbridge.topographic.fieller_interval) | Bounded Fieller interval for C=intercept/slope; no delta-method pole fix. | advanced |
+| [`fit_conditioned_scs_c`](generated/topographic.md#spectralbridge.topographic.fit_conditioned_scs_c) | Fit physical per-band SCS+C with explicit source and spatial uncertainty. | advanced |
+| [`SCSCResult`](generated/topographic.md#spectralbridge.topographic.SCSCResult) | Chunk result with source-grid-aligned correction evidence. | advanced |
+| [`apply_conditioned_scs_c`](generated/topographic.md#spectralbridge.topographic.apply_conditioned_scs_c) | Apply the unchanged shared SCS+C ratio on its resolved positive domain. | advanced |
 | [`clean_memory`](generated/utils-memory.md#spectralbridge.utils.memory.clean_memory) | Force garbage collection and log memory usage. | advanced |
 | [`get_flight_paths`](generated/utils-naming.md#spectralbridge.utils.naming.get_flight_paths) | Return canonical high-level paths for a flight line. | advanced |
 | [`get_flightline_products`](generated/utils-naming.md#spectralbridge.utils.naming.get_flightline_products) | Return canonical paths for artefacts tied to flight_stem. | advanced |

@@ -33,7 +33,14 @@ def _write_release_files(root: Path, *, version: str) -> None:
     (root / "src" / "spectralbridge" / "__init__.py").write_text(
         f'__version__ = "{version}"\n', encoding="utf-8"
     )
-    (root / "CITATION.cff").write_text(f'version: "{version}"\n', encoding="utf-8")
+    (root / "CITATION.cff").write_text(
+        f'version: "{version}"\npreferred-citation:\n  version: "{version}"\n',
+        encoding="utf-8",
+    )
+    (root / "uv.lock").write_text(
+        f'[[package]]\nname = "earthlab-spectralbridge"\nversion = "{version}"\n',
+        encoding="utf-8",
+    )
     (root / "CHANGELOG.md").write_text(f"## [{version}] - release\n", encoding="utf-8")
 
 
@@ -45,6 +52,8 @@ def test_release_metadata_gate_accepts_synchronized_version(tmp_path: Path) -> N
         "pyproject": "2.4.0",
         "package": "2.4.0",
         "citation": "2.4.0",
+        "preferred_citation": "2.4.0",
+        "lock": "2.4.0",
         "changelog": "2.4.0",
     }
 
@@ -62,6 +71,20 @@ def test_release_metadata_gate_rejects_mismatch(tmp_path: Path) -> None:
     _write_release_files(tmp_path, version="2.4.0")
     with pytest.raises(RuntimeError, match="does not match"):
         CHECK.validate_release_tag("v2.5.0", tmp_path)
+
+
+@pytest.mark.parametrize("field", ["preferred_citation", "lock"])
+def test_release_metadata_gate_rejects_secondary_version_drift(tmp_path, field):
+    _write_release_files(tmp_path, version="2.3.0rc2")
+    path = tmp_path / ("CITATION.cff" if field == "preferred_citation" else "uv.lock")
+    text = path.read_text()
+    if field == "preferred_citation":
+        text = text.replace('  version: "2.3.0rc2"', '  version: "2.3.0rc1"')
+    else:
+        text = text.replace('version = "2.3.0rc2"', 'version = "2.3.0rc1"')
+    path.write_text(text)
+    with pytest.raises(RuntimeError, match=field):
+        CHECK.validate_release_tag("v2.3.0rc2", tmp_path)
 
 
 def test_release_metadata_gate_rejects_wrong_distribution_name(

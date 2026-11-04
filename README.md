@@ -21,7 +21,7 @@ The distribution is **`earthlab-spectralbridge`**; the Python import is
 **`spectralbridge`**. Python 3.10–3.12 is the tested release range.
 
 At the 19 October 2026 audit, PyPI did not expose this distribution name.
-Use the source installation below. Repository HEAD identifies `2.3.0rc1`,
+Use the source installation below. Repository HEAD identifies `2.3.0rc2`,
 which is a candidate identity rather than a published release. Create a virtual
 environment, then run:
 

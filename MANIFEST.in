@@ -40,3 +40,8 @@ exclude ty_tuff_contributions_last_year.md
 prune archive
 prune paper
 prune drafts
+
+# Historical machine-specific investigation narratives remain in the repository,
+# not in installation artifacts. Their underlying provenance is already pruned.
+exclude docs/dev/drone-spatial-integrity-investigation.md
+exclude docs/dev/publication-hardening-audit-2026-09-04.md

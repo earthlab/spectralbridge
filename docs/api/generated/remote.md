@@ -175,3 +175,59 @@ Audience: **advanced**.
       signature_crossrefs: false
       members: false
 
+Audience: **advanced**.
+
+::: spectralbridge.remote.parse_gocmd_json_listing
+    options:
+      docstring_style: numpy
+      show_signature_annotations: true
+      separate_signature: true
+      show_root_heading: true
+      show_root_full_path: false
+      show_bases: false
+      show_source: false
+      signature_crossrefs: false
+      members: false
+
+Audience: **advanced**.
+
+::: spectralbridge.remote.file_checksums
+    options:
+      docstring_style: numpy
+      show_signature_annotations: true
+      separate_signature: true
+      show_root_heading: true
+      show_root_full_path: false
+      show_bases: false
+      show_source: false
+      signature_crossrefs: false
+      members: false
+
+Audience: **advanced**.
+
+::: spectralbridge.remote.checksum_matches
+    options:
+      docstring_style: numpy
+      show_signature_annotations: true
+      separate_signature: true
+      show_root_heading: true
+      show_root_full_path: false
+      show_bases: false
+      show_source: false
+      signature_crossrefs: false
+      members: false
+
+Audience: **advanced**.
+
+::: spectralbridge.remote.stage_remote_file
+    options:
+      docstring_style: numpy
+      show_signature_annotations: true
+      separate_signature: true
+      show_root_heading: true
+      show_root_full_path: false
+      show_bases: false
+      show_source: false
+      signature_crossrefs: false
+      members: false
+

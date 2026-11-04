@@ -1,12 +1,9 @@
-import json
 from pathlib import Path
 
 import numpy as np
 import pytest
 
 from spectralbridge.corrections import (
-    NDVIBinningConfig,
-    ReferenceGeometry,
     apply_brdf_correct,
     apply_topo_correct,
     _scs_c_ratio,

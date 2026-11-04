@@ -571,11 +571,30 @@ def apply_topo_correct(
 
     Parameters
     ----------
+    cube : NeonCube
+        Loaded source with explicit affine radiometry and aligned ancillaries.
+    chunk_array : ndarray
+        Float32 stored values, shape (ye-ys, xe-xs, bands). Missing bands remain
+        missing without discarding valid wavelengths at the same ground cell.
+    ys, ye, xs, xe : int
+        Half-open native source window in row/column order.
+    use_scs_c : bool
+        Use SCS+C (default); False selects the existing cosine-ratio branch.
     scs_c :
         Optional per-band SCS+C ``C`` values (length ``bands``). When provided,
         the tile uses these coefficients instead of fitting locally. Pass scene
         fits from :func:`fit_scs_c_coefficients` for HyTools-style behaviour
         without loading the full flightline as one correction chunk.
+    conditioned_model : dict, optional
+        Source-bound experimental model from fit_conditioned_scs_c. Requires
+        use_scs_c=True and scs_c=None; unresolved cells become explicit NoData.
+
+    Returns
+    -------
+    ndarray
+        Float32 corrected chunk in original storage units. For explicit quality
+        states and factors, call apply_conditioned_scs_c directly. The omitted
+        conditioned-model argument preserves the default NEON policy.
     """
 
     if chunk_array.dtype != np.float32:
@@ -600,16 +619,21 @@ def apply_topo_correct(
 
     # Internally we work in unitless reflectance. ``scale_factor`` converts from
     # the cube's stored values to physical reflectance before the correction math.
-    data_unitless = require_radiometry(cube).to_physical(chunk_array)
+    calibration = require_radiometry(cube)
+    band_quality = calibration.valid_stored(
+        chunk_array, nodata=getattr(cube, "no_data", None)
+    )
+    data_unitless = calibration.to_physical(chunk_array)
+    data_unitless = np.where(band_quality, data_unitless, np.nan)
 
-    # ``valid_mask`` is spatial, not spectral: a pixel is valid only if the
-    # reflectance tile and illumination geometry are finite at that location.
+    # Any observed band establishes spatial support. Preserve each band's own
+    # missing values without erasing other wavelengths at the same ground cell.
     if hasattr(cube, "mask_no_data"):
         valid_mask = cube.mask_no_data[ys:ye, xs:xe].astype(bool)
     else:
         valid_mask = np.ones_like(cos_i, dtype=bool)
 
-    valid_mask &= np.isfinite(data_unitless).all(axis=-1)
+    valid_mask &= np.isfinite(data_unitless).any(axis=-1)
     valid_mask &= np.isfinite(cos_i)
 
     corrected_unitless = data_unitless.copy()
@@ -694,7 +718,11 @@ def apply_topo_correct(
     # Convert back to the cube's stored scale and restore the configured no-data value.
     no_data_value = np.float32(getattr(cube, "no_data", np.nan))
     corrected_scaled = require_radiometry(cube).to_stored(corrected_unitless)
-    corrected_scaled = np.where(valid_mask[..., np.newaxis], corrected_scaled, no_data_value)
+    corrected_scaled = np.where(
+        valid_mask[..., np.newaxis] & band_quality & np.isfinite(data_unitless),
+        corrected_scaled,
+        no_data_value,
+    )
 
     return corrected_scaled.astype(np.float32, copy=False)
 
@@ -907,6 +935,27 @@ def fit_and_save_brdf_model(
         Supplied zero-view placeholders do not provide independent angular support.
     out_dir : Path
         Directory where the fitted BRDF coefficient JSON should be stored.
+    ndvi_config : NDVIBinningConfig, optional
+        Explicit NDVI strata; the default fits one scene-wide population.
+    brdf_kernel_config : BRDFKernelConfig, optional
+        Shared kernel variants and parameters; omitted uses the package default.
+    rho_min, rho_max : float or None
+        Inclusive fitting interval in decoded physical reflectance. A None upper
+        limit removes only that bound, not quality or geometry checks.
+    apply_topography : bool
+        Fit on topographically corrected input rather than uncorrected input.
+    fitting_mask : ndarray of bool, optional
+        Source-grid training subset. Does not restrict the application footprint.
+    fitting_provenance : dict, optional
+        JSON-serializable sampling/geometry explanation, retained in the restart
+        identity. Explicit research sampling marks the model experimental.
+    uncertainty_groups : ndarray of int, optional
+        Source-grid cluster labels for conditional sandwich covariance. Negative
+        labels exclude training cells. Groups do not certify independence or
+        change OLS point estimates; they enter the restart identity.
+    topographic_model : dict, optional
+        Source-bound conditioned SCS+C model. Requires apply_topography=True;
+        omitted preserves the existing default topographic fitting path.
 
     Returns
     -------

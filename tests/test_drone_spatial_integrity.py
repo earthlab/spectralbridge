@@ -332,7 +332,7 @@ def test_old_tiff_checkpoint_rebuilt_and_new_checkpoint_reused(tmp_path):
     np.testing.assert_allclose(
         NeonCube(out).transform, transform.to_gdal(), rtol=0, atol=1e-9
     )
-    assert json.loads(marker.read_text())["configuration"]["algorithm_version"] == 3
+    assert json.loads(marker.read_text())["configuration"]["algorithm_version"] == 4
     mtime = out.stat().st_mtime_ns
     _prepare_drone_source_working_h5(path, **kwargs)
     assert out.stat().st_mtime_ns == mtime

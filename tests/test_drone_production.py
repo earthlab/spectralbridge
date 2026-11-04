@@ -156,6 +156,8 @@ def _write_envi(path: Path, values: np.ndarray) -> None:
         nodata=-9999.0,
     ) as dataset:
         dataset.write(values.astype("float32"))
+    with path.with_suffix(".hdr").open("a") as header:
+        header.write("\nbrdf status = NOT_REQUESTED\nradiometry status = VALID\nphysical reflectance multiplier = 1\nphysical reflectance offset = 0\nradiometry provenance = Synthetic bulk readiness fixture\n")
 
 
 def test_gocmd_listing_and_commands_are_structured_without_shell(

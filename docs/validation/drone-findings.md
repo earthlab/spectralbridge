@@ -2,17 +2,20 @@
 
 The October–November 2026 investigations examined **Gordon, Goldhill and Ruby
 2023** products. Spatial repairs are validated against their source TIFFs;
-physical reflectance and correction efficacy remain unresolved. These findings
+physical calibration remains unverified. RC2 engineering now includes conditional
+rank-three viewing reconstructions and numerically supported SCS+C domains;
+independent physical correction efficacy is not established. These findings
 are scoped to the inspected products and their descendants, not every drone
 flight or unrelated NEON library.
 
 | Component | Current scientific status |
 | --- | --- |
 | Spatial alignment | **Validated** for repaired source products; not independent field geolocation accuracy |
-| Numerical DN recovery | **Validated** numeric mapping, with unresolved 10 cm resampling border differences |
+| Numerical DN recovery | **Validated** inverse encoding; clean Goldhill source uses alpha-aware 10 cm resampling and zero-offset 10K encoding |
 | Physical reflectance calibration | **Unverified**; original calibration/export records missing |
-| BRDF for current orthomosaics | **Unsupported**: rank 1 of 3, zero supported bands in each flight |
-| Topographic correction | **Experimental** numerical diagnostic; not approved for these flights |
+| Historical zero-view BRDF | **Unsupported**: rank 1 of 3; corrected filtering alone cannot repair angular support |
+| Reconstructed Goldhill BRDF | **Experimental**: four assumed designs achieve numerical rank 3; true contributors remain unverified |
+| Conditioned topographic + BRDF | **Experimental** native products with explicit unsupported illumination; no independent physical approval |
 | Spectral libraries | Historical/unapproved; qualified exploratory use only pending validation |
 
 Here, **validated** means demonstrated within the stated evidence boundary;
@@ -20,6 +23,20 @@ Here, **validated** means demonstrated within the stated evidence boundary;
 insufficient; **experimental** means investigated without production approval;
 **planned** describes functionality not yet implemented. A software `VALID`
 status is narrower than independent scientific validation.
+
+## RC2 completed engineering
+
+The [integrated reliability investigation](../dev/drone-integrated-reliability.md)
+produced seven native experimental Goldhill products, retained both correction
+stages, and added spatial fitting/uncertainty controls and conditioned SCS+C.
+The native 717 nm combined maximum changes from 63.51 to 1.78, but the shared
+all-band support maxima are 0.655 and 0.689: support rejection explains much of
+the native decrease. Paired ecological comparisons do not demonstrate a gain.
+
+These are completed conditional experiments. Remaining physical calibration,
+contributor geometry and independent validation are scientific scope limitations,
+not release-blocking software defects. Gordon and Ruby retain their documented
+source/geometry limitations; no views were fabricated for them.
 
 ## 1. Spatial integrity
 
@@ -153,4 +170,4 @@ Read the most recent provenance account when earlier reports differ:
 - [Latest photogrammetry provenance and literature investigation](../dev/photogrammetry-metadata-investigation.md).
 - [Evidence map and documentation verification](https://github.com/earthlab/spectralbridge/tree/main/provenance/drone-docs-integration/2026-11-02).
 
-Last updated: 2026-11-02
+Last updated: 2026-11-04

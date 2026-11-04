@@ -95,7 +95,19 @@ def test_simulated_kernel_design_preserves_shared_fit_guards(tmp_path):
     script = root / "provenance/goldhill-viewing-geometry/2026-11-04/fit_experiments.py"
     spec = importlib.util.spec_from_file_location("p173_fixture_adapter", script)
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    # Frozen research adapters use generic imports. Contain their import state
+    # so this test cannot replace another investigation's `common` module.
+    import sys
+    original_path = sys.path[:]
+    original_common = sys.modules.pop("common", None)
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.path[:] = original_path
+        if original_common is None:
+            sys.modules.pop("common", None)
+        else:
+            sys.modules["common"] = original_common
     yy, xx = np.mgrid[:20, :20]
     zen = 0.03 + xx * 0.025 + yy * 0.005
     az = xx * 0.24 + yy * 0.09

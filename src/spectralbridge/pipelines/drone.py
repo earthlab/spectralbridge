@@ -2617,6 +2617,39 @@ def apply_drone_corrections(
     BRDF additionally requires a validated shared model; unsupported fitting or
     invalid predictions cannot be silently accepted as an identity correction.
     Retained topographic diagnostics do not approve a failed BRDF request.
+
+    Parameters
+    ----------
+    cube : NeonCube
+        Loaded immutable source with authoritative physical calibration.
+    envi_img, envi_hdr : Path
+        Raw native ENVI image/header pair corresponding to the cube.
+    corrected_stem : Path
+        Destination stem without extension; filename contracts are preserved.
+    apply_topo, apply_brdf : bool
+        Explicit stage requests. Unsupported requested BRDF raises an audited
+        DroneCorrectionUnavailableError rather than approving an identity image.
+    overwrite : bool
+        Permit replacement in the explicitly selected output location.
+    use_ndvi_brdf_bins : bool
+        Enable the existing NDVI-stratified shared model instead of one stratum.
+    topographic_model : dict, optional
+        Source-bound conditioned SCS+C model; requires apply_topo=True. Supplying
+        it marks outputs experimental and uses bounded application chunks.
+    brdf_fitting_mask : ndarray of bool, optional
+        Source-grid training subset, separate from the application footprint.
+    brdf_fitting_provenance : dict, optional
+        JSON-compatible sampling/geometry evidence retained in stage identity.
+    brdf_uncertainty_groups : ndarray of int, optional
+        Source-grid cluster labels for conditional coefficient covariance.
+
+    Returns
+    -------
+    tuple
+        Corrected image path, header path and stage audit. Explicit research
+        options retain EXPERIMENTAL status through serialization and are not
+        approved for spectral-library extraction. Missing calibration is never
+        promoted by this entry point.
     """
 
     corrected_img = corrected_stem.with_suffix(".img")
@@ -2656,13 +2689,14 @@ def apply_drone_corrections(
             require_radiometry(cube)
         except ValueError as exc:
             raise DroneCorrectionUnavailableError(str(exc), audit) from exc
+    old_header = {}
     if corrected_hdr.exists() and not overwrite:
         old_header = hdr_to_dict(corrected_hdr)
-        if old_header.get("radiometry status") != "VALID" or (apply_brdf and (
+        if correction_requested and (old_header.get("radiometry status") != "VALID" or (apply_brdf and (
             old_header.get("brdf status") != "VALID"
             or old_header.get("brdf kernel math version") != BRDF_KERNEL_MATH_VERSION
             or old_header.get("brdf validation policy") != BRDF_VALIDATION_POLICY
-        )):
+        ))):
             raise DroneCorrectionUnavailableError("Existing corrected product lacks validated scientific provenance; use a fresh output directory.", audit)
 
     topo_ready = apply_topo and _has_required_ancillary(
@@ -3409,6 +3443,9 @@ def _classify_drone_exception(exc: Exception) -> tuple[str, str]:
 def _scientific_qa_status(file_audit: Mapping[str, Any]) -> str:
     """Separate scientific caution from successful pipeline execution."""
 
+    radiometry = file_audit.get("radiometry")
+    if isinstance(radiometry, Mapping) and radiometry.get("status") != "VALID":
+        return "not_evaluated"
     solar = file_audit.get("solar_geometry_validation")
     if isinstance(solar, Mapping) and solar.get("solar_geometry_repaired"):
         return "caution"
@@ -3534,7 +3571,7 @@ def _reconcile_drone_completion(
         else "caution"
         if "caution" in file_scientific_statuses
         else "not_evaluated"
-        if status_counts[_DRONE_STATUS_FAILED_OTHER]
+        if status_counts[_DRONE_STATUS_FAILED_OTHER] or "not_evaluated" in file_scientific_statuses
         else "eligible"
     )
     results["status"] = (
@@ -4850,6 +4887,7 @@ __all__ = [
     "clean_name",
     "collect_drone_spatial_diagnostics",
     "convert_drone_tiff_to_h5",
+    "prepare_drone_orthomosaic",
     "derive_drone_flight_stem",
     "export_h5_to_envi",
     "load_drone_manifest",
@@ -4861,3 +4899,253 @@ __all__ = [
     "diagnose_drone_h5_solar_geometry",
     "validate_drone_h5_metadata",
 ]
+
+
+def prepare_drone_orthomosaic(
+    source: str | Path,
+    destination: str | Path,
+    *,
+    resolution: float = 0.1,
+    grid: dict | None = None,
+) -> dict:
+    """Create a mask-aware numerical 10K derivative from an original UInt16 mosaic.
+
+    Parameters
+    ----------
+    source : str or Path
+        Read-only north-up projected-metre TIFF with ten spectral bands and an
+        optional explicitly declared alpha band. UInt16 values are source DN,
+        not independently verified physical reflectance.
+    destination : str or Path
+        New Float32 GeoTIFF, never the source. Valid matching derivatives are
+        reused by source/config/output checksums; stale outputs raise an error.
+    resolution : float
+        Positive output pixel size in metres, default 0.1. No band-minimum offset
+        is removed: stored = source DN * 10000/65535.
+    grid : dict, optional
+        Explicit width, height, affine transform and CRS, at the stated resolution.
+        Otherwise a north-up grid anchored at the original upper-left covers its
+        bounds. A comparison template supplies spatial support only, never values.
+
+    Returns
+    -------
+    dict
+        Source/config/output checksums, grid, encoding, band summaries and restart
+        status. Physical calibration stays UNSUPPORTED. Bilinear interpolation
+        excludes alpha/NoData; target alpha uses nearest-neighbour resampling.
+        Processing is bounded to one source/target spectral band at a time.
+    """
+    import hashlib
+    import math
+    import rasterio
+    from rasterio.warp import reproject, Resampling
+    from rasterio.transform import Affine
+    from spectralbridge.remote import file_checksums
+
+    source, destination = Path(source).resolve(), Path(destination).resolve()
+    if source == destination:
+        raise ValueError("Original orthomosaic is immutable; select a new destination")
+    if not np.isfinite(resolution) or resolution <= 0:
+        raise ValueError("Positive processing resolution required")
+    source_stat = (source.stat().st_size, source.stat().st_mtime_ns)
+    original_hash = file_checksums(source)["sha256"]
+    config = dict(
+        resolution=resolution,
+        grid=grid,
+        encoding="DN*10000/65535",
+        policy="alpha-bilinear-fixed10k-v1",
+    )
+    signature = hashlib.sha256(
+        json.dumps(dict(source=original_hash, config=config), sort_keys=True).encode()
+    ).hexdigest()
+    marker = destination.with_suffix(".radiometry.json")
+    if destination.exists():
+        if marker.exists():
+            record = json.loads(marker.read_text())
+            if (
+                record.get("signature") == signature
+                and record.get("output_sha256") == file_checksums(destination)["sha256"]
+            ):
+                return {**record, "status": "reused"}
+        raise ValueError(
+            "Stale or unverified derivative exists; preserve it and select a fresh destination"
+        )
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    with rasterio.open(source) as src:
+        if (
+            src.crs is None
+            or not src.crs.is_projected
+            or src.crs.linear_units.lower() not in {"metre", "meter"}
+        ):
+            raise ValueError("Original orthomosaic requires a projected metre CRS")
+        if (
+            src.transform.a <= 0
+            or src.transform.e >= 0
+            or src.transform.b != 0
+            or src.transform.d != 0
+        ):
+            raise ValueError("Original must be east-right, north-up and unrotated")
+        alpha = [i for i, c in enumerate(src.colorinterp, 1) if c.name == "alpha"]
+        spectral = [i for i in range(1, src.count + 1) if i not in alpha]
+        if (
+            len(spectral) != 10
+            or len(alpha) > 1
+            or any(src.dtypes[i - 1] != "uint16" for i in spectral)
+        ):
+            raise ValueError(
+                "Expected ten UInt16 spectral bands and at most one declared alpha band"
+            )
+        if grid is None:
+            transform = Affine(
+                resolution, 0, src.bounds.left, 0, -resolution, src.bounds.top
+            )
+            width = math.ceil((src.bounds.right - src.bounds.left) / resolution)
+            height = math.ceil((src.bounds.top - src.bounds.bottom) / resolution)
+        else:
+            transform = Affine(*grid["transform"][:6])
+            width = int(grid["width"])
+            height = int(grid["height"])
+            if rasterio.crs.CRS.from_user_input(grid["crs"]) != src.crs:
+                raise ValueError("Comparison grid CRS differs from the original")
+            if (
+                width <= 0
+                or height <= 0
+                or transform.b != 0
+                or transform.d != 0
+                or not np.allclose(
+                    [transform.a, -transform.e],
+                    [resolution, resolution],
+                    rtol=0,
+                    atol=1e-9,
+                )
+            ):
+                raise ValueError("Invalid processing grid or resolution")
+        shape = (height, width)
+        source_mask = src.read(alpha[0]) > 0 if alpha else src.dataset_mask() > 0
+        target_mask = np.zeros(shape, np.uint8)
+        reproject(
+            source_mask.astype(np.uint8),
+            target_mask,
+            src_transform=src.transform,
+            src_crs=src.crs,
+            dst_transform=transform,
+            dst_crs=src.crs,
+            resampling=Resampling.nearest,
+        )
+        any_valid = np.zeros(shape, bool)
+        band_stats = []
+        partial = destination.with_name(destination.stem + ".part.tif")
+        profile = dict(
+            driver="GTiff",
+            width=width,
+            height=height,
+            count=10,
+            dtype="float32",
+            crs=src.crs,
+            transform=transform,
+            nodata=np.nan,
+            tiled=True,
+            compress="deflate",
+            predictor=3,
+            blockxsize=256,
+            blockysize=256,
+            BIGTIFF="IF_SAFER",
+        )
+        with (
+            rasterio.Env(GDAL_TIFF_INTERNAL_MASK=True),
+            rasterio.open(partial, "w", **profile) as out,
+        ):
+            for index, band in enumerate(spectral, 1):
+                values = src.read(band, out_dtype="float32")
+                valid = source_mask & np.isfinite(values)
+                if src.nodata is not None:
+                    valid &= values != src.nodata
+                values[~valid] = np.nan
+                target = np.full(shape, np.nan, np.float32)
+                reproject(
+                    values,
+                    target,
+                    src_transform=src.transform,
+                    src_crs=src.crs,
+                    src_nodata=np.nan,
+                    dst_transform=transform,
+                    dst_crs=src.crs,
+                    dst_nodata=np.nan,
+                    resampling=Resampling.bilinear,
+                    num_threads=1,
+                )
+                target *= np.float32(10000 / 65535)
+                target[target_mask == 0] = np.nan
+                any_valid |= np.isfinite(target)
+                out.write(target, index)
+                out.set_band_description(
+                    index, src.descriptions[band - 1] or f"Source spectral band {band}"
+                )
+                sample = target[np.isfinite(target)]
+                band_stats.append(
+                    dict(
+                        band=index,
+                        valid_pixels=int(sample.size),
+                        minimum=float(sample.min()) if sample.size else None,
+                        maximum=float(sample.max()) if sample.size else None,
+                    )
+                )
+                LOGGER.info(
+                    "Original orthomosaic preparation %s: band %d/10",
+                    source.name,
+                    index,
+                )
+            out.write_mask(((target_mask > 0) & any_valid).astype(np.uint8) * 255)
+            out.update_tags(
+                SOURCE_SHA256=original_hash,
+                PHYSICAL_CALIBRATION_STATUS="UNVERIFIED",
+                SPECTRALBRIDGE_ENCODING="fixed_uint16_range_dn",
+                NUMERIC_MULTIPLIER=str(10000 / 65535),
+                NUMERIC_OFFSET="0",
+                SPATIAL_RESAMPLING="bilinear excluding source alpha/NoData; nearest alpha footprint",
+            )
+        if source_stat != (source.stat().st_size, source.stat().st_mtime_ns):
+            raise RuntimeError(
+                "Original changed during preprocessing; result is not reusable"
+            )
+        partial.replace(destination)
+        record = dict(
+            source=str(source),
+            source_sha256=original_hash,
+            output=str(destination),
+            signature=signature,
+            configuration=config,
+            status="created",
+            source_spectral_bands=spectral,
+            source_alpha_bands=alpha,
+            shape=[height, width, 10],
+            transform=list(transform),
+            crs=str(src.crs),
+            resolution=[resolution, resolution],
+            bands=band_stats,
+            radiometry=dict(
+                scale=None,
+                offset=None,
+                status="UNSUPPORTED",
+                provenance="Original UInt16 DN; fixed numerical encoding; physical calibration unavailable",
+                convention="physical = scale * stored + offset",
+                encoding=dict(
+                    kind="range_normalized_dn",
+                    physical_calibration_status="UNVERIFIED",
+                    nodata="NaN",
+                    normalization=dict(
+                        stored_min=0, stored_max=10000, source_min=0, source_max=65535
+                    ),
+                    quality_mask=dict(
+                        status="DOCUMENTED", convention="GDAL mask true means valid"
+                    ),
+                ),
+            ),
+            output_sha256=file_checksums(destination)["sha256"],
+            clipping="NONE",
+            valid_pixels=int(((target_mask > 0) & any_valid).sum()),
+        )
+    temporary = marker.with_suffix(".json.tmp")
+    temporary.write_text(json.dumps(record, indent=2) + "\n")
+    temporary.replace(marker)
+    return record

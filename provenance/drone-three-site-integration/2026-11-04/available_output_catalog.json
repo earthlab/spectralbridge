@@ -1,0 +1,650 @@
+[
+  {
+    "path": "prepared/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_ORTHO__processing_10cm_10k.radiometry.json",
+    "size_bytes": 3529,
+    "sha256": "40da25c627b4f9878f35a32ff75898a9d398d49360847826f40d16a9c8c92a2d",
+    "md5": "981b7cc3f54af4caae09a99f2e7ba2ce"
+  },
+  {
+    "path": "prepared/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-08-14-23_ORTHO__processing_10cm_10k.tif",
+    "size_bytes": 203817295,
+    "sha256": "ba951e7cd5ae700bfc2882082af770f88eb24497cc82e38b791adbdb8e4e5538",
+    "md5": "a738b42076539d6af68a6fffa405d8cf"
+  },
+  {
+    "path": "prepared/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_ORTHO__processing_10cm_10k.radiometry.json",
+    "size_bytes": 3435,
+    "sha256": "36d3d15de7bd797a28a8f6e2e4eed3bb4194ad10a22b64f1a13663ca5368ad15",
+    "md5": "f6dc8d6dd64aac0a757e2b29171dac06"
+  },
+  {
+    "path": "prepared/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_ORTHO__processing_10cm_10k.tif",
+    "size_bytes": 182410009,
+    "sha256": "7dff867095bf6d8597337af02c7b137476fea6b032b2740a6b1c48a6d457842e",
+    "md5": "bac92dd72306d8ba3437a1f31abdfc71"
+  },
+  {
+    "path": "prepared/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED__processing_10cm_10k.radiometry.json",
+    "size_bytes": 3421,
+    "sha256": "14a78b137da2dd55248791231178b4a1213d1975cee8f5317fc7e6752d36f6cf",
+    "md5": "7ff9b4ad8849f381b2ecb4a36c1267a9"
+  },
+  {
+    "path": "prepared/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED__processing_10cm_10k.tif",
+    "size_bytes": 62176916,
+    "sha256": "9b677b34e28294eef824487c7e01eb0d91adce5c3cdf59a487a51d6c7d64ed73",
+    "md5": "e840c9cee72db73616ae2a9bc786305b"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.hdr",
+    "size_bytes": 3097,
+    "sha256": "ce7dd9201dba8d7086f9bee6d2a1cbc1eb4781f2370a7ac8b002d484ba25792a",
+    "md5": "1de01b71a42bf1ccb1df34006521d0b7"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected.img",
+    "size_bytes": 283330800,
+    "sha256": "06b54ce17fe9cd409240d44273e32e400d8b1e7dcbd80ea63682c061778f7f66",
+    "md5": "58728da6130ceb77c1048c39e025127c"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__corrected__correction.stage.json",
+    "size_bytes": 5085,
+    "sha256": "2b91b1a795f1a61ebce95b245efc628913ff6759260f20b55d2964c89602284c",
+    "md5": "c40273687c8685e43ff5336bcdb155d5"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__envi.hdr",
+    "size_bytes": 3097,
+    "sha256": "ce7dd9201dba8d7086f9bee6d2a1cbc1eb4781f2370a7ac8b002d484ba25792a",
+    "md5": "1de01b71a42bf1ccb1df34006521d0b7"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__envi.img",
+    "size_bytes": 283330800,
+    "sha256": "06b54ce17fe9cd409240d44273e32e400d8b1e7dcbd80ea63682c061778f7f66",
+    "md5": "58728da6130ceb77c1048c39e025127c"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__envi__export.stage.json",
+    "size_bytes": 1250,
+    "sha256": "f6479165e58ecae5f80f46f5527faca64cf7afeae97fe2bf9e29cb2899e5522d",
+    "md5": "013eb051228974a729d9c3cf3e69539a"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__polygon_index.parquet",
+    "size_bytes": 1462405,
+    "sha256": "a6db7612702d0ba5c6eecc951e12739117415d35174403149da0b47ffd0193bd",
+    "md5": "f144260192353a2498e065f53e8b56cf"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__qa.json",
+    "size_bytes": 15507,
+    "sha256": "68f035a49994f38b1977a0079a7c60842f649407c00039cad521d33693718cef",
+    "md5": "94d02ee47bef0a8de431b9a0833d942d"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__qa.png",
+    "size_bytes": 1837766,
+    "sha256": "e32a7a33363367bfdc3d0f45b548798cd12d336ea3a6a9dd09a3120e0a11d7a8",
+    "md5": "40d7cf03f03c1d259f608ab9d9e4990f"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.h5",
+    "size_bytes": 375430910,
+    "sha256": "76a2a17e9f40d1103f534ab319848255cbb6cbfbe3385c63a341c78a009f8cd5",
+    "md5": "9c90f142eed534543d06355f0a2d4cac"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.stage.json",
+    "size_bytes": 2084,
+    "sha256": "7bb1d01ecb21e131320ce5e997147640146ec8e063a19bf35a0bdfc3b4fbed8d",
+    "md5": "8a4f94c1bd4a91369f94782d10876b43"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/spatial_dependencies.stage.json",
+    "size_bytes": 1025,
+    "sha256": "b1c3c88d821c17985b203f618aa38319e7a468dcfeda90793edca3ee947c2eff",
+    "md5": "b5fb654e25f6a021e42aa8ba7bd3a48e"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/spectralbridge_flightline.json",
+    "size_bytes": 462,
+    "sha256": "fa808bb5acfe3324d5eb5cf21bfb38b392305f2aea4ad8507b1491fdfe3b433f",
+    "md5": "09b7f40e1761bc1016d43f0a6b81a56f"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/drone_qa_summary.json",
+    "size_bytes": 15191,
+    "sha256": "31771b47187efe2d222f8305fcc6c9ac8a310fa3dea022dab4bf773609e12e43",
+    "md5": "b112a9c4bd0e73162ef2fc4fbfce2fbe"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/qa/report.stage.json",
+    "size_bytes": 2467,
+    "sha256": "4c8485abbf6f35dd57e70645cd345ff79fa37ab5a042d9f85a82a065ff3498ff",
+    "md5": "e075bddbc7406dc93be2938bf56077c1"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/qa/summary/drone_qa_summary.json",
+    "size_bytes": 1305,
+    "sha256": "4969530dda040c2608b7037bfc0fa4fb666cf709f8756da4a7b991ae24ce55b9",
+    "md5": "132873412a3ca1917c488d13086d61f0"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/qa/summary/drone_qa_summary.png",
+    "size_bytes": 209430,
+    "sha256": "3dbd5677cea24bfce9ae5e94e1955da1dc1e2223203b55c2ea508c80c086e565",
+    "md5": "76186ebb5dcacc565f0992d618b0d3c7"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline/qa_summary.pdf",
+    "size_bytes": 514151,
+    "sha256": "d9412832f90b0a529653a15a87c4e4b2c26e389edae72303b9dc131a01ff0dbd",
+    "md5": "3d5a81b31612022c5570c7692cc8631d"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/preparation_pipeline_result.json",
+    "size_bytes": 16862,
+    "sha256": "41a19717708d87da4fed9eee5db6c4186fa180eb966f8da1218dffff95025a00",
+    "md5": "99b0b4b4854889ab8c8aeee45ae1d805"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_attempt/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__envi.hdr",
+    "size_bytes": 3097,
+    "sha256": "ce7dd9201dba8d7086f9bee6d2a1cbc1eb4781f2370a7ac8b002d484ba25792a",
+    "md5": "1de01b71a42bf1ccb1df34006521d0b7"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_attempt/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__envi.img",
+    "size_bytes": 283330800,
+    "sha256": "06b54ce17fe9cd409240d44273e32e400d8b1e7dcbd80ea63682c061778f7f66",
+    "md5": "58728da6130ceb77c1048c39e025127c"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_attempt/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__envi__export.stage.json",
+    "size_bytes": 1268,
+    "sha256": "176c161e2c1643b556a59b2748671b13b5eff481681f77f92280aaf5dc6389b1",
+    "md5": "d4626a6ba67a8d0bc8e861c6caef4615"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_attempt/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__qa.json",
+    "size_bytes": 11298,
+    "sha256": "c2f39dedbd84066a357ef2515a6b1a59fd760809127052922568c1f78be4a5ba",
+    "md5": "2235712728ce137a31637eb8a2cf7458"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_attempt/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.h5",
+    "size_bytes": 375430910,
+    "sha256": "76a2a17e9f40d1103f534ab319848255cbb6cbfbe3385c63a341c78a009f8cd5",
+    "md5": "9c90f142eed534543d06355f0a2d4cac"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_attempt/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.stage.json",
+    "size_bytes": 2089,
+    "sha256": "450cdda1ff3c546526aec72f34dce5d7bec24f950a8c6fb7191fb579fe4915fe",
+    "md5": "574c7e21ea1c86a53970bcfcfe0a7cda"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_attempt/AOP_GOLDHILL_20230814/spectralbridge_flightline.json",
+    "size_bytes": 462,
+    "sha256": "fa808bb5acfe3324d5eb5cf21bfb38b392305f2aea4ad8507b1491fdfe3b433f",
+    "md5": "09b7f40e1761bc1016d43f0a6b81a56f"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_attempt/drone_qa_summary.json",
+    "size_bytes": 16464,
+    "sha256": "77d99f54b1e9902b2ca38b8eb2a672474e4d2654986bc3de80ba1c98b9b488f7",
+    "md5": "a8ab67626f2735207659472c48e9322c"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_attempt/qa/report.stage.json",
+    "size_bytes": 2485,
+    "sha256": "f9fb4b905cbe9bf239636134388a6e58e864641968f92e7beb9436b72fe7f0af",
+    "md5": "1e3e6cd9825f1e9ebd23a381452b632a"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_attempt/qa/summary/drone_qa_summary.json",
+    "size_bytes": 1305,
+    "sha256": "4f432ade9225dc417a55ea255bfcb79ae07ae8b182de4d8e7465f565cb3709d1",
+    "md5": "830824f7cf1809f5ea152b7ae17a384b"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_attempt/qa/summary/drone_qa_summary.png",
+    "size_bytes": 208422,
+    "sha256": "6a296bfb4aeb55f0f0589f9958517baec2edd48d3da27fa1c3a24b5cc43917d9",
+    "md5": "315c1f8b550f8cc65403e751e4c38ea8"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_attempt/qa_summary.pdf",
+    "size_bytes": 116903,
+    "sha256": "0b7ed9397e6ad1e55ac597f2f663dff8e1e1ebf760e5bcd6eba0a8b584e62bd5",
+    "md5": "2d537b276d94786acc36ad298acf5708"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/requested_pipeline_result.json",
+    "size_bytes": 18320,
+    "sha256": "e694dad29e49e3b259c048eed4fd1aa8e016d4d51418a316fc305e85410c375d",
+    "md5": "9beec5dbdfd70a87311014db821f928c"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/source_manifest.json",
+    "size_bytes": 24643,
+    "sha256": "698dbafd55d3d086e1a7712066c3f423a5482813ae960c30b71b25c54f964b5c",
+    "md5": "c884e5e49c837b4b1a4d2d2f3e936227"
+  },
+  {
+    "path": "outputs/AOP_GOLDHILL_20230814/source_validation.json",
+    "size_bytes": 366,
+    "sha256": "6fde9664e042631ee24ec074cd93ed7db7753efb67d8daf59184321b9ab755ed",
+    "md5": "93dcdee36b79507a68780f3c067adf8e"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected.hdr",
+    "size_bytes": 3091,
+    "sha256": "d4e6d377c116839a76b54cccdf47a17b16cfcecb2d094de2b013d02970c23d47",
+    "md5": "75b781eb08187cc1cdcb8eeb1d895d66"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected.img",
+    "size_bytes": 246216960,
+    "sha256": "b1c0bcc3b67bdc59e4073dda622c538d642bb038b3f15238e6589b9c0de13bca",
+    "md5": "bb79110054c971d7b640059261ee38ca"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__corrected__correction.stage.json",
+    "size_bytes": 5057,
+    "sha256": "6b9ddefe75bc0165f6b883eed4d966669ad8111a9785bd780cc318deea800387",
+    "md5": "bf5fa1cb4a428df615a76a94221714c2"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__envi.hdr",
+    "size_bytes": 3091,
+    "sha256": "d4e6d377c116839a76b54cccdf47a17b16cfcecb2d094de2b013d02970c23d47",
+    "md5": "75b781eb08187cc1cdcb8eeb1d895d66"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__envi.img",
+    "size_bytes": 246216960,
+    "sha256": "b1c0bcc3b67bdc59e4073dda622c538d642bb038b3f15238e6589b9c0de13bca",
+    "md5": "bb79110054c971d7b640059261ee38ca"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__envi__export.stage.json",
+    "size_bytes": 1232,
+    "sha256": "d5e2883a94ccf842aeb1bf8b68778d40e329db5f10a15b50a0e30fd21d37a51c",
+    "md5": "9a1777596384f615400b585dabee1d36"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__polygon_index.parquet",
+    "size_bytes": 370579,
+    "sha256": "b3a5ddbfa522858707de1a37ca7069e1ea33b8f4cc27c2c8ae2f3c9a0ffaf640",
+    "md5": "cd27dd559a4b4099012a4a191cce53d1"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__qa.json",
+    "size_bytes": 15430,
+    "sha256": "d56d9c0c24075c0a50d6247181a49f962f8ae965b59976bf14956b8b2f6412a1",
+    "md5": "e4a3ea93005c17e7a7d69135ed6192cf"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__qa.png",
+    "size_bytes": 1932007,
+    "sha256": "7ebafb54a3fa22c859ea36b434ad778fe55e29aaedc3eed5fb8d7c80fe0c04f4",
+    "md5": "e0eeeb935952e0999bb720da6e26ff1b"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__working.h5",
+    "size_bytes": 326255072,
+    "sha256": "312802a511f8115a37c2131cb5353a82165bf17d009e0fd5dc8ecf61ae357bbf",
+    "md5": "64d94653666f6279cff9f42b9d03d078"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__working.stage.json",
+    "size_bytes": 2078,
+    "sha256": "f9ff07ca530e6d323739951ed06860599dcfad438b00bfa3134b7b820d5b02f6",
+    "md5": "88212bc06a423dc532c6a21b5bf9df7a"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/spatial_dependencies.stage.json",
+    "size_bytes": 1013,
+    "sha256": "5e6a31f2f0476d953db2824b693f8be7d95f724561bab57bc48bdce8375f3011",
+    "md5": "b9174e7f71ddf8ac8380fcca8c750e75"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/spectralbridge_flightline.json",
+    "size_bytes": 458,
+    "sha256": "245cf71d5bad673552f98397e2cec6765a098923dae25a46f032449c6a1988dd",
+    "md5": "5a99d594824ac2ad683939d7cb822aca"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/drone_qa_summary.json",
+    "size_bytes": 15112,
+    "sha256": "bd9a6bfe3015b9a77ba6f416f0688b9f6b7372b7150db1668fbad6ca1fe52d98",
+    "md5": "0edef37e531206267cfaacb82c0fde24"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/qa/report.stage.json",
+    "size_bytes": 2459,
+    "sha256": "ec3e169c52ac52bb0d60c9953244ae03a504196b9fdddc1ccb77de999c6aefff",
+    "md5": "0f7d27ad47d902e804de44e244b55c55"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/qa/summary/drone_qa_summary.json",
+    "size_bytes": 1303,
+    "sha256": "b0528f27d5709342406e2c238a71c732fac3a03898492a4e5780d4497b040f94",
+    "md5": "f798ca16ea14df4b71c0191291c1e092"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/qa/summary/drone_qa_summary.png",
+    "size_bytes": 209084,
+    "sha256": "6485ed7e4b03ccaef7f2c18124296cb65afe9e704164d9d71fdaf79349568ac9",
+    "md5": "5a1bd3cbd9464619aaf814d0cf628d39"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline/qa_summary.pdf",
+    "size_bytes": 528388,
+    "sha256": "431c7d46d521c81c7a16caaf59323080b64b157c18154ec7e5323ee92d8e04a2",
+    "md5": "7d8d4c26d869c19212e8638411e18aeb"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/preparation_pipeline_result.json",
+    "size_bytes": 16779,
+    "sha256": "b4afb228b008405c6188939f7958ac23812074cc84e77743bf942f3e524e241a",
+    "md5": "7ac7021866a0a2d88d67da517dd3d379"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_attempt/AOP_GORDON_20230814/AOP_GORDON_20230814__envi.hdr",
+    "size_bytes": 3091,
+    "sha256": "d4e6d377c116839a76b54cccdf47a17b16cfcecb2d094de2b013d02970c23d47",
+    "md5": "75b781eb08187cc1cdcb8eeb1d895d66"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_attempt/AOP_GORDON_20230814/AOP_GORDON_20230814__envi.img",
+    "size_bytes": 246216960,
+    "sha256": "b1c0bcc3b67bdc59e4073dda622c538d642bb038b3f15238e6589b9c0de13bca",
+    "md5": "bb79110054c971d7b640059261ee38ca"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_attempt/AOP_GORDON_20230814/AOP_GORDON_20230814__envi__export.stage.json",
+    "size_bytes": 1250,
+    "sha256": "efcad7d21fdcf784e315f543f291fd2478e68a013c8898c41addee39a2475de8",
+    "md5": "80de73f68c2d7240c5fe2d7a8d930afd"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_attempt/AOP_GORDON_20230814/AOP_GORDON_20230814__qa.json",
+    "size_bytes": 11205,
+    "sha256": "b91a6af811bef4ce03c2417462b3c6a052e9c38ff67ccfc8bb74c49f44ea6303",
+    "md5": "1b374bb002c76d7b10bc245696507163"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_attempt/AOP_GORDON_20230814/AOP_GORDON_20230814__working.h5",
+    "size_bytes": 326255072,
+    "sha256": "312802a511f8115a37c2131cb5353a82165bf17d009e0fd5dc8ecf61ae357bbf",
+    "md5": "64d94653666f6279cff9f42b9d03d078"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_attempt/AOP_GORDON_20230814/AOP_GORDON_20230814__working.stage.json",
+    "size_bytes": 2083,
+    "sha256": "522a0f98f7ff50ed064cf53be417845b291d43d18869bb9680b33e24c0fe3662",
+    "md5": "037c049a46fca4ec14cf4a8f1a238fbf"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_attempt/AOP_GORDON_20230814/spectralbridge_flightline.json",
+    "size_bytes": 458,
+    "sha256": "245cf71d5bad673552f98397e2cec6765a098923dae25a46f032449c6a1988dd",
+    "md5": "5a99d594824ac2ad683939d7cb822aca"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_attempt/drone_qa_summary.json",
+    "size_bytes": 16362,
+    "sha256": "44799da6dc075bfbe22b54f8726aece96162eda125f98c7c86c62c65400ce944",
+    "md5": "bde094f8a08fa4592d47b0aa1892b62a"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_attempt/qa/report.stage.json",
+    "size_bytes": 2477,
+    "sha256": "3ec22be5463d8a5a773360c17b8ae851618564c88f099b83ba73257dcc99bcf6",
+    "md5": "1827aa0a4709026b276feca696c208bb"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_attempt/qa/summary/drone_qa_summary.json",
+    "size_bytes": 1303,
+    "sha256": "76f5942da3630015d45954e8345c0458d97a6e79ac6f3d58c110261e0371cc9a",
+    "md5": "197a7ae312c9832525bcacb1636ec5a9"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_attempt/qa/summary/drone_qa_summary.png",
+    "size_bytes": 208386,
+    "sha256": "02dd691dacb2b4ccbfc43aa94e2a7d7f92d0658c67b720fa225cbba06e5d2afb",
+    "md5": "ef6571096c72f691cb513eb0e0a92227"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_attempt/qa_summary.pdf",
+    "size_bytes": 117599,
+    "sha256": "01eb462a458c6f99c0163727da9dddffc05b7c32de93a07aa4043d3964d31399",
+    "md5": "e0e3060aef2d1c8059bb2e70446c7f2f"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/requested_pipeline_result.json",
+    "size_bytes": 18214,
+    "sha256": "747a4eb785caa01682fd6535f58f843626b6ed9866d94db46e62061a42000abe",
+    "md5": "df95cbdc29c9b4bf0348afdd333f56e5"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/source_manifest.json",
+    "size_bytes": 22964,
+    "sha256": "0c8798cc475f840b461d33c0b6694fbdd1a1b53b043b7a500f8219f45095adf1",
+    "md5": "6f095ba8bbd384d95a96711cedd815bc"
+  },
+  {
+    "path": "outputs/AOP_GORDON_20230814/source_validation.json",
+    "size_bytes": 366,
+    "sha256": "6fde9664e042631ee24ec074cd93ed7db7753efb67d8daf59184321b9ab755ed",
+    "md5": "93dcdee36b79507a68780f3c067adf8e"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.hdr",
+    "size_bytes": 3029,
+    "sha256": "d59c13be3d90a5a353a3aa364a4fbeae6b9ea6697e4141e6a074c4867a1c97bc",
+    "md5": "a9b04faca9357ee3771a35299039c708"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected.img",
+    "size_bytes": 81144000,
+    "sha256": "237feb103e085476ad33982caf035f13f1f2fc1071f7487458942d5ecbba4071",
+    "md5": "ee67f67732f79b8665c63a1074592c93"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__corrected__correction.stage.json",
+    "size_bytes": 5028,
+    "sha256": "7b0d33c53b6ec102052bb9243719cbefd6ede4db4c0b859f253c2f81ecdb8e34",
+    "md5": "89b2bf8c689f6006f6c0ecf5055e3d05"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__envi.hdr",
+    "size_bytes": 3029,
+    "sha256": "d59c13be3d90a5a353a3aa364a4fbeae6b9ea6697e4141e6a074c4867a1c97bc",
+    "md5": "a9b04faca9357ee3771a35299039c708"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__envi.img",
+    "size_bytes": 81144000,
+    "sha256": "237feb103e085476ad33982caf035f13f1f2fc1071f7487458942d5ecbba4071",
+    "md5": "ee67f67732f79b8665c63a1074592c93"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__envi__export.stage.json",
+    "size_bytes": 1214,
+    "sha256": "585658a47199f30daad79d08983f3777de60cac19cb61658fc7dfd24ff6da71a",
+    "md5": "f9192f7c801c6e800b43b7fa504c1da8"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__polygon_index.parquet",
+    "size_bytes": 302105,
+    "sha256": "507f12069e7698b6d5cec69a3fdb4da66b91ead5326e6345539f020be800573a",
+    "md5": "b5b638bb71c5f913d69f0c187e0ebd38"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__qa.json",
+    "size_bytes": 15361,
+    "sha256": "344a8ea9d210df9f824650590f737715e4a8baa54b1d535fd3878e8914837bb6",
+    "md5": "8d1045048af8a607932c1b798db59627"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__qa.png",
+    "size_bytes": 1869898,
+    "sha256": "9535d24e69b472be8bbfcebe0637db9818bbf14662ba7692f4e1f55079811e7f",
+    "md5": "a1f8bba1d8e2a02fbe2449344c859ad4"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5",
+    "size_bytes": 107533400,
+    "sha256": "31f8f827735a98590f4d074c451f5ee638651c44d36b4510148e8b5e4833285f",
+    "md5": "c28022cea228068c429e7d4f708a6b6b"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__working.stage.json",
+    "size_bytes": 2071,
+    "sha256": "15fdff202f7392f520b1e75965d28c33a6cd80cd16af18afb1ecfb59950bced6",
+    "md5": "5f3dc2428e3c164fdd9cd9d997988b7a"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/spatial_dependencies.stage.json",
+    "size_bytes": 1000,
+    "sha256": "36896f898f423fec4a18cdef27c683d29715ec480a7bfb5405acd43737916e12",
+    "md5": "c2c46b0528650f5a40854bd7f3acec51"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/spectralbridge_flightline.json",
+    "size_bytes": 454,
+    "sha256": "8e6462d1f21d1b4590bc1b1bc3500d6ee4e37b88fc829ab61f0ab52704a8c618",
+    "md5": "98191e460ae014a27b949d79d819cd01"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/drone_qa_summary.json",
+    "size_bytes": 15038,
+    "sha256": "18efb2c7ba21bc4a6098ae02c937b6b423e990331a73cd9baa6aa7c88e06de31",
+    "md5": "7f747c3b77cd835b74c4775871f4395d"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/qa/report.stage.json",
+    "size_bytes": 2451,
+    "sha256": "f36abd8a6cf6d3ed78c50ae08cda1d4ae7df2c8baedd06e2072eee78554fb0a2",
+    "md5": "e570ef44b1bfe1e72851544dc777d4f2"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/qa/summary/drone_qa_summary.json",
+    "size_bytes": 1301,
+    "sha256": "1cb967a09d62bcf4d5184a19810a547b8cd05656d5a0adbcda2d32092c720cb0",
+    "md5": "c89eca7c2958ef836cac1e47d672c3e9"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/qa/summary/drone_qa_summary.png",
+    "size_bytes": 209802,
+    "sha256": "5d197d92cdb1ebb6820ba3fbf8972129f04f934093301956138646179de7b40b",
+    "md5": "b6c12c471414cd16e641680b05bcaecb"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline/qa_summary.pdf",
+    "size_bytes": 524314,
+    "sha256": "82f55a0129e374f86548f7056528be5ddbf604587bab5d42ff939231aef2b17d",
+    "md5": "c2298780321de0695b0482ce77206ca9"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/preparation_pipeline_result.json",
+    "size_bytes": 16701,
+    "sha256": "d1354be91472b835991b46e29a37485ec0796157a98882403537a9fa10e1dfe7",
+    "md5": "a5f19dab3d4bd4a154e938579020bfd3"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_attempt/AOP_Ruby_20230814/AOP_Ruby_20230814__envi.hdr",
+    "size_bytes": 3029,
+    "sha256": "d59c13be3d90a5a353a3aa364a4fbeae6b9ea6697e4141e6a074c4867a1c97bc",
+    "md5": "a9b04faca9357ee3771a35299039c708"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_attempt/AOP_Ruby_20230814/AOP_Ruby_20230814__envi.img",
+    "size_bytes": 81144000,
+    "sha256": "237feb103e085476ad33982caf035f13f1f2fc1071f7487458942d5ecbba4071",
+    "md5": "ee67f67732f79b8665c63a1074592c93"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_attempt/AOP_Ruby_20230814/AOP_Ruby_20230814__envi__export.stage.json",
+    "size_bytes": 1232,
+    "sha256": "8e985c911b5a0794d93cb7dcfb9ff9942918a59493fc22d01b08211055b2dfa0",
+    "md5": "d6c4c2831a50110ffaa43236c9532208"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_attempt/AOP_Ruby_20230814/AOP_Ruby_20230814__qa.json",
+    "size_bytes": 11117,
+    "sha256": "f10ed5a8af9e2faabca2fa67cc64e74e2c2b37b2886700a72eb0eae1a36a72db",
+    "md5": "12861a815715815c6e0634d4f7ef91f7"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_attempt/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5",
+    "size_bytes": 107533400,
+    "sha256": "31f8f827735a98590f4d074c451f5ee638651c44d36b4510148e8b5e4833285f",
+    "md5": "c28022cea228068c429e7d4f708a6b6b"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_attempt/AOP_Ruby_20230814/AOP_Ruby_20230814__working.stage.json",
+    "size_bytes": 2076,
+    "sha256": "bfb4936ed6c81a7109d95b0856cd82d15706b270671cedf19e934cf8ca86fa44",
+    "md5": "82e9bb0fcdd0d4d3beab05ba1b124c2f"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_attempt/AOP_Ruby_20230814/spectralbridge_flightline.json",
+    "size_bytes": 454,
+    "sha256": "8e6462d1f21d1b4590bc1b1bc3500d6ee4e37b88fc829ab61f0ab52704a8c618",
+    "md5": "98191e460ae014a27b949d79d819cd01"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_attempt/drone_qa_summary.json",
+    "size_bytes": 16263,
+    "sha256": "f7a005b2e82c4e6dc680a0ca76d371c41f82603c5da233edb70e429190353e63",
+    "md5": "bd448a14ebae6c70eec61f66bfd340a1"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_attempt/qa/report.stage.json",
+    "size_bytes": 2469,
+    "sha256": "cad289c8fb91c5ba5af77f7f89182d17a8a32c01641767cf9e254b7ed928c811",
+    "md5": "1ebd9a6b64d9933cad6327672f0b0c0e"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_attempt/qa/summary/drone_qa_summary.json",
+    "size_bytes": 1301,
+    "sha256": "4b04073a2efa3297126ed9b8bb53c87be1007e71dd217525e327f65859d06b05",
+    "md5": "eac773fe99e3d8c956eb2161a47ebc9b"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_attempt/qa/summary/drone_qa_summary.png",
+    "size_bytes": 208947,
+    "sha256": "9df5c5e376cd980a3f762d5285b7859516f92ebdd76f7bcc3a76616feb978d99",
+    "md5": "f5d1187b4338072c31785c24dec4bb23"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_attempt/qa_summary.pdf",
+    "size_bytes": 116214,
+    "sha256": "4ddf7bb2845f660e0251a7c35ded4f4c96196eeef181ce84d714abc3c0377e7c",
+    "md5": "6cd68a68da3e8320d726555c3ec57522"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/requested_pipeline_result.json",
+    "size_bytes": 18111,
+    "sha256": "954fc68fc467801a8d1b2913046c34ad897dbe0d145f915bff750d4b4bdd1023",
+    "md5": "6abea9ebfa76f7a688fb22553ef41cc7"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/source_manifest.json",
+    "size_bytes": 26210,
+    "sha256": "4ec1fd95169c975b880150a8b54e4be819b29494d131f4de4eba5a11bcef1a75",
+    "md5": "3207f636f49a0e256d46c59bd0534a90"
+  },
+  {
+    "path": "outputs/AOP_Ruby_20230814/source_validation.json",
+    "size_bytes": 366,
+    "sha256": "6fde9664e042631ee24ec074cd93ed7db7753efb67d8daf59184321b9ab755ed",
+    "md5": "93dcdee36b79507a68780f3c067adf8e"
+  }
+]

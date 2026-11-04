@@ -311,6 +311,20 @@ Audience: **public**. Also exported as `spectralbridge.pipelines.run_drone_pipel
       signature_crossrefs: false
       members: false
 
+Audience: **advanced**.
+
+::: spectralbridge.pipelines.drone.prepare_drone_orthomosaic
+    options:
+      docstring_style: numpy
+      show_signature_annotations: true
+      separate_signature: true
+      show_root_heading: true
+      show_root_full_path: false
+      show_bases: false
+      show_source: false
+      signature_crossrefs: false
+      members: false
+
 ## Explicitly exported constants and type aliases
 
 These values describe package metadata, schemas or configuration; they are not observations from a production dataset.

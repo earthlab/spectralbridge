@@ -19,7 +19,22 @@ MISSING, UNSUPPORTED, CORRECTED = 0, 1, 2
 
 @dataclass(frozen=True)
 class SCSCPolicy:
-    """Explicit experimental choices; the confidence rule is not field approval."""
+    """Explicit experimental choices; the confidence rule is not field approval.
+
+    Attributes
+    ----------
+    minimum_slope_degrees : float
+        Lower terrain-slope bound for estimation, default 5 degrees.
+    rho_min, rho_max : float or None
+        Inclusive physical fitting interval. None disables the upper bound.
+    confidence_z : float
+        Conditional normal critical value, default 1.96; not a field confidence
+        certificate or an inferred effective independent sample size.
+    min_denominator : float
+        Positive numerical resolution floor across the complete C interval.
+    minimum_clusters : int
+        Minimum caller-supplied uncertainty groups for estimation.
+    """
 
     minimum_slope_degrees: float = 5.0
     rho_min: float = 0.0
@@ -51,7 +66,23 @@ class SCSCPolicy:
 
 
 def cluster_covariance(design, residual, groups):
-    """Finite-cluster sandwich covariance, conditional on supplied cluster units."""
+    """Finite-cluster sandwich covariance, conditional on supplied cluster units.
+
+    Parameters
+    ----------
+    design : ndarray
+        Full-rank finite observation-by-parameter regression design.
+    residual : ndarray
+        One fitted residual per design row, in the response's physical units.
+    groups : ndarray
+        One cluster identity per row; callers define meaningful grouping.
+
+    Returns
+    -------
+    tuple
+        Symmetric coefficient covariance and the number of distinct clusters.
+        Raises ValueError when the number of groups cannot support the design.
+    """
     X = np.asarray(design, float)
     e = np.asarray(residual, float)
     labels = np.asarray(groups)
@@ -72,7 +103,23 @@ def cluster_covariance(design, residual, groups):
 
 
 def fieller_interval(slope, intercept, covariance, z):
-    """Bounded Fieller interval for C=intercept/slope; no delta-method pole fix."""
+    """Bounded Fieller interval for C=intercept/slope; no delta-method pole fix.
+
+    Parameters
+    ----------
+    slope, intercept : float
+        Illumination-regression coefficients in slope/intercept order.
+    covariance : ndarray
+        Finite 2-by-2 covariance matrix in the same coefficient order.
+    z : float
+        Positive conditional critical value supplied by the explicit policy.
+
+    Returns
+    -------
+    list or None
+        Ordered lower and upper C limits, or None when no bounded interval is
+        supported. This does not silently substitute C=0.
+    """
     v = np.asarray(covariance, float)
     if v.shape != (2, 2) or not np.isfinite(v).all():
         return None
@@ -143,6 +190,27 @@ def fit_conditioned_scs_c(
     Uncertainty groups are caller-defined spatial/observational units, not inferred
     independent pixels. The spatial covariance/Fieller interval is a diagnostic
     acceptance rule, not independent calibration or a universal physical criterion.
+
+    Parameters
+    ----------
+    cube : NeonCube
+        Immutable loaded source, verified Radiometry contract and aligned slope,
+        aspect and solar ancillary fields. Identity caching assumes immutability.
+    policy : SCSCPolicy
+        Required explicit fitting and uncertainty acceptance choices.
+    uncertainty_groups : ndarray of int
+        Source-grid spatial or observation groups; negative labels are excluded.
+    fitting_mask : ndarray of bool, optional
+        Source-grid estimation subset; omitted includes all eligible cells.
+    provenance : dict, optional
+        JSON-compatible description of sampling, geometry and calibration.
+
+    Returns
+    -------
+    dict
+        Experimental source-bound model with per-band C intervals, covariance,
+        fitting support and VALID/PARTIAL/UNSUPPORTED numerical status. Does not
+        grant independent physical validation or authorize library extraction.
     """
     from .corrections import _brdf_spatial_mask
 
@@ -259,6 +327,17 @@ def fit_conditioned_scs_c(
 
 @dataclass
 class SCSCResult:
+    """Chunk result with source-grid-aligned correction evidence.
+
+    Attributes
+    ----------
+    values : ndarray
+        Corrected chunk in source storage units, with NoData when unsupported.
+    status : ndarray
+        Per-band uint8 states: 0 missing/invalid, 1 unsupported, 2 corrected.
+    factors : ndarray
+        Dimensionless applied factors; NaN where no correction is supported.
+    """
     values: np.ndarray
     status: np.ndarray
     factors: np.ndarray
@@ -271,6 +350,24 @@ def apply_conditioned_scs_c(cube, chunk, ys, ye, xs, xe, *, model):
     unsupported illumination/model. Status2: successfully corrected. No identity
     substitute is returned for unsupported observations. A large but resolved
     positive ratio is retained; there is no gain cap.
+
+    Parameters
+    ----------
+    cube : NeonCube
+        Same immutable source and physical calibration used for estimation.
+    chunk : ndarray
+        Stored values with shape (ye-ys, xe-xs, cube.bands).
+    ys, ye, xs, xe : int
+        Half-open native source window in row/column order.
+    model : dict
+        Matching model returned by fit_conditioned_scs_c. Stale source, policy,
+        units, wavelength order or malformed uncertainty records raise an error.
+
+    Returns
+    -------
+    SCSCResult
+        Corrected stored values, per-band status and uncapped factors. Existing
+        default NEON correction is not replaced by this opt-in function.
     """
     from .corrections import _scs_c_ratio
 

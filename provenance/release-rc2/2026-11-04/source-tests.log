@@ -1,0 +1,67 @@
+........................................................................ [  7%]
+........................................................................ [ 15%]
+.....................................................ss................. [ 22%]
+........................................................................ [ 30%]
+........................................................................ [ 37%]
+........................................................................ [ 45%]
+...ssss..............................................s.................. [ 52%]
+........................................................................ [ 60%]
+........................................................................ [ 67%]
+........................................................................ [ 75%]
+...................s.................................................... [ 83%]
+........................................................................ [ 90%]
+........................................................................ [ 98%]
+..................                                                       [100%]
+=============================== warnings summary ===============================
+src/spectralbridge/polygons.py:30
+tests/test_cross_sensor_cal_shim.py::test_project_script_entry_points_resolve_from_non_repo_cwd
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/polygons.py:30: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+tests/test_drone_pipeline.py: 13 warnings
+tests/test_drone_spatial_integrity.py: 3 warnings
+tests/test_qa/test_qa_metrics_smoke.py: 3 warnings
+tests/test_validation_campaign.py: 1 warning
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:1377: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    created_utc=_dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:2442: RuntimeWarning: All-NaN slice encountered
+    return np.nanmedian(masked, axis=(1, 2))
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:493: RuntimeWarning: All-NaN slice encountered
+    delta_median = np.nanmedian(diff, axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/.venv/lib/python3.12/site-packages/numpy/lib/_nanfunctions_impl.py:1593: RuntimeWarning: All-NaN slice encountered
+    return fnb._ureduce(a,
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:498: RuntimeWarning: All-NaN slice encountered
+    delta_abs_median = np.nanmedian(np.abs(diff), axis=1)
+
+tests/test_drone_spatial_integrity.py::test_boundary_polygon_extraction_matches_source_centers
+tests/test_drone_spatial_integrity.py::test_pipeline_refreshes_polygon_and_merged_cache_after_grid_change
+tests/test_drone_spatial_integrity.py::test_pipeline_refreshes_polygon_and_merged_cache_after_grid_change
+tests/test_drone_spatial_integrity.py::test_diagnostic_validates_exact_index_and_detects_duplicates
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py:3163: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+    polygons["polygon_id"] = polygons["polygon_id"].astype("int64", copy=False)
+
+tests/test_polygon_pipeline.py::test_build_polygon_pixel_index
+tests/test_polygon_pipeline.py::test_extract_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_merge_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_run_polygon_pipeline_for_flightline
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/polygons.py:1860: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+    polygon_ids = polygons["polygon_id"].astype("int64", copy=False)
+
+tests/test_radiometric_encoding.py::test_declared_tiff_alpha_and_partial_band_nodata_survive_ingestion
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py:1798: NodataShadowWarning: The dataset's nodata attribute is shadowing the alpha band. All masks will be determined by the nodata attribute
+    valid = (src.read_masks(band) > 0) & np.isfinite(data[index])
+
+tests/test_scientific_docs_integration.py::test_both_publication_figures_compose_offline_without_original_archive
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/examples/publication_figures/figure_panels.py:132: PendingDeprecationWarning: The set_bad function will be deprecated in a future version. Use cmap.with_extremes(bad=...) or Colormap(bad=...) instead.
+    cmap.set_bad('#eeeeee')
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+946 passed, 9 skipped, 36 warnings in 144.80s (0:02:24)

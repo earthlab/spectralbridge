@@ -1,0 +1,56 @@
+{
+  "sites": [
+    {
+      "site": "Gordon",
+      "flight_stem": "AOP_GORDON_20230814",
+      "native_shape": [
+        2765,
+        3918
+      ],
+      "prepared_shape": [
+        2088,
+        2948,
+        10
+      ],
+      "polygon_pixels": 32930,
+      "polygon_count": 58,
+      "clipped_export": false
+    },
+    {
+      "site": "Goldhill",
+      "flight_stem": "AOP_GOLDHILL_20230814",
+      "native_shape": [
+        2646,
+        3747
+      ],
+      "prepared_shape": [
+        2238,
+        3165,
+        10
+      ],
+      "polygon_pixels": 144749,
+      "polygon_count": 158,
+      "clipped_export": false
+    },
+    {
+      "site": "Ruby",
+      "flight_stem": "AOP_Ruby_20230814",
+      "native_shape": [
+        1242,
+        2354
+      ],
+      "prepared_shape": [
+        1035,
+        1960,
+        10
+      ],
+      "polygon_pixels": 22684,
+      "polygon_count": 86,
+      "clipped_export": true
+    }
+  ],
+  "physical_calibration": "UNVERIFIED",
+  "correction_artifact_assessment": "NOT_EVALUABLE: no eligible corrected products",
+  "display": "Fixed DN 0-16384; RGB square-root stretch shared within/across sites; maps downsampled nearest for display only",
+  "statistics": "All native/prepared pixels per band; polygon medians use indexed pixel centers; no analytical display clipping"
+}

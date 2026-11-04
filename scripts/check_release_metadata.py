@@ -39,6 +39,16 @@ def collect_versions(root: Path = ROOT) -> dict[str, str]:
         r'^version:\s*["\']?([^"\'\s]+)',
         label="citation version",
     )
+    preferred_citation = _match(
+        root / "CITATION.cff",
+        r'(?s)^preferred-citation:\s*\n.*?^  version:\s*["\']?([^"\'\s]+)',
+        label="preferred citation version",
+    )
+    lock = _match(
+        root / "uv.lock",
+        r'^name = "earthlab-spectralbridge"\nversion = "([^"\n]+)"',
+        label="locked project version",
+    )
     changelog = _match(
         root / "CHANGELOG.md",
         rf'^##\s+\[({VERSION_PATTERN})\]',
@@ -48,6 +58,8 @@ def collect_versions(root: Path = ROOT) -> dict[str, str]:
         "pyproject": pyproject,
         "package": package,
         "citation": citation,
+        "preferred_citation": preferred_citation,
+        "lock": lock,
         "changelog": changelog,
     }
 

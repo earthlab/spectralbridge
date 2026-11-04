@@ -50733,3 +50733,752 @@ Final deliverables
 
 The goal is not merely to remove visible artifacts. It is to recover physically meaningful, numerically stable spectral information that can support reliable ecological research.
 ```
+
+## 2026-11-04 - RC2 release preparation
+Branch: codex/prepare-2.3.0rc2
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+SpectralBridge — RC2 Release Preparation
+
+Mission
+
+Prepare earthlab/spectralbridge for its next release candidate, 2.3.0rc2.
+
+We have completed substantial improvements to the drone pipeline, including spatial integrity, radiometric scaling, BRDF filtering, viewing-angle reconstruction, and numerically stable topographic correction.
+
+We consider the drone pipeline engineering-complete for its current experimental research scope. The remaining uncertainties concerning physical calibration and reconstructed viewing geometry are documented scientific limitations, not reasons to continue indefinitely modifying the pipeline.
+
+Our objective is now to stabilize, test, document, and package the software for release.
+
+Work toward a release-ready repository. Make necessary fixes rather than merely producing an audit.
+
+Do not initiate another major scientific investigation or architectural refactor.
+
+Do not publish to PyPI, create a GitHub release, or push a release tag without explicit approval.
+
+Phase 1 — Establish the release baseline
+
+Start by inspecting the repository and identifying its actual current state.
+
+1. Confirm the current branch, HEAD, tags, and working-tree status.
+2. Identify the most recent release candidate and its corresponding commit.
+3. Review all commits since that candidate.
+4. Inspect uncommitted changes and relevant development branches.
+5. Identify which changes are intended for RC2.
+6. Preserve existing experimental data, reports, and provenance.
+
+Pay particular attention to the November 2026 drone repairs.
+
+Verify that the current implementation includes:
+
+* Corrected TIFF/H5 spatial metadata.
+* Consistent radiometric scaling and band-specific offsets.
+* Correct BRDF observation filtering.
+* Validated RossThick/LiDenseR kernel mathematics.
+* Reconstructed viewing geometry.
+* Spatially controlled BRDF fitting.
+* Conditioned SCS+C topographic correction.
+* Combined topographic and BRDF processing.
+* Explicit correction provenance and acceptance status.
+
+Important: Recent reports may describe improvements that have not yet been committed. Compare the reports with the actual code and identify any missing implementation.
+
+Integrate completed, validated work where appropriate. Do not invent missing functionality to match a report.
+
+Create a dedicated RC2 preparation branch without overwriting existing work.
+
+Phase 2 — Stabilize the package
+
+Review the code added or modified since RC1.
+
+Focus on:
+
+* Correctness.
+* Backward compatibility.
+* Consistent input/output contracts.
+* Reliable error handling.
+* Scientific provenance.
+* Reproducibility.
+* Appropriate public API exposure.
+
+Fix clear bugs, inconsistencies, and incomplete integrations.
+
+Do not broadly refactor working code.
+
+Do not change established scientific methods simply to improve test results.
+
+Preserve the distinction between operational correction functionality and independently validated physical reflectance.
+
+Ensure that unsupported calibration or viewing geometry is never silently represented as verified.
+
+Phase 3 — Complete regression testing
+
+Run the full test suite.
+
+Include targeted tests for:
+
+1. Drone ingestion and spatial alignment.
+2. Radiometric scaling and offsets.
+3. BRDF observation filtering.
+4. Viewing-angle calculations.
+5. RossThick/LiDenseR kernels.
+6. SCS+C correction and numerical safeguards.
+7. Combined topographic and BRDF correction.
+8. NEON AOP processing.
+9. Spectral convolution and sensor translation.
+10. Spectral-library extraction and analysis.
+11. ENVI, HDF5, GeoTIFF, and Parquet outputs.
+12. Command-line interfaces.
+13. Restart and provenance behavior.
+
+Run the available real-data regression tests, particularly those demonstrating that the drone repairs do not alter validated NEON behavior.
+
+Fix failures attributable to software defects.
+
+For tests requiring unavailable external datasets, report the limitation explicitly.
+
+Do not silently skip failures or weaken assertions.
+
+Produce a concise testing summary with pass/fail counts and remaining issues.
+
+Phase 4 — Audit documentation and website
+
+Review the documentation against the current implementation.
+
+Update the following where necessary:
+
+* README and installation instructions.
+* Getting-started guide.
+* Drone-processing documentation.
+* NEON AOP workflow.
+* Topographic correction documentation.
+* BRDF correction documentation.
+* Radiometric scaling and calibration.
+* Viewing-geometry reconstruction.
+* Correction eligibility and scientific limitations.
+* Spectral-library workflows.
+* Cross-sensor translation.
+* API reference and function documentation.
+* QA outputs and interpretation.
+* Release and contribution instructions.
+
+Ensure that every intended public function has accurate documentation describing its inputs, outputs, assumptions, and usage.
+
+Remove outdated statements about functionality that has since been repaired.
+
+Make the website understandable to environmental scientists who are not software developers.
+
+Preserve appropriate scientific caveats without allowing them to overwhelm the practical documentation.
+
+Build the documentation and check internal links.
+
+Phase 5 — Prepare release metadata
+
+Update the package version to:
+
+2.3.0rc2
+
+Ensure consistency across:
+
+* pyproject.toml
+* Package version declarations.
+* CITATION.cff
+* CHANGELOG.md
+* Documentation.
+* README.
+* Release notes.
+* Software-paper metadata where applicable.
+
+Prepare a clear changelog describing the changes since RC1.
+
+Emphasize the major drone improvements, numerical safeguards, QA, and preserved NEON compatibility.
+
+Review the citation metadata carefully.
+
+The current citation file contains placeholder authorship and TODO comments.
+
+Do not invent author names, affiliations, or ORCIDs.
+
+Identify unresolved metadata requiring maintainer approval and keep it visible in the release-readiness report.
+
+Phase 6 — Build and validate distributions
+
+Build both:
+
+* Source distribution (sdist).
+* Python wheel.
+
+Run package metadata validation.
+
+Install the built wheel in a clean environment.
+
+Verify:
+
+* Successful installation.
+* Package imports.
+* Public API imports.
+* CLI entry points.
+* Bundled configuration and data files.
+* Required dependencies.
+* Optional dependencies.
+* License and attribution files.
+* Version consistency.
+
+Run the documented introductory example from the installed wheel.
+
+Test supported Python versions 3.10–3.12 where practical.
+
+Check that the distributions do not accidentally contain large experimental outputs, credentials, temporary files, or machine-specific paths.
+
+Phase 7 — Review CI and publishing readiness
+
+Inspect GitHub Actions and existing release automation.
+
+Verify that:
+
+* Automated tests run correctly.
+* Documentation builds.
+* Distribution builds are reproducible.
+* Release workflows use the correct package name.
+* Version and tag conventions are consistent.
+* Publishing configuration is appropriate for PyPI.
+
+Do not modify credentials or secrets.
+
+Do not publish anything.
+
+If release automation is incomplete, implement minimal safe improvements or document what requires maintainer action.
+
+Phase 8 — Produce the RC2 release-readiness report
+
+Create:
+
+RC2_RELEASE_READINESS.md
+
+The report should include:
+
+A. Release summary
+
+What has changed since RC1 and why RC2 is warranted.
+
+B. Repository integration
+
+Which November drone improvements are committed, integrated, or still outstanding.
+
+C. Test results
+
+Exact commands, environments, results, and failures.
+
+D. Documentation status
+
+What was updated and whether the website builds successfully.
+
+E. Packaging validation
+
+Build results, installation checks, and distribution contents.
+
+F. Scientific limitations
+
+Document remaining calibration and viewing-geometry uncertainties without treating them as unresolved software defects.
+
+G. Release blockers
+
+Classify each remaining issue as:
+
+* BLOCKER: Must be resolved before release.
+* IMPORTANT: Should be resolved, but does not necessarily prevent an RC.
+* DEFER: Appropriate for a later release.
+
+H. Final release checklist
+
+Provide the exact remaining steps required to publish RC2.
+
+Completion criteria
+
+Do not stop after identifying issues.
+
+Implement the release-preparation changes, run the relevant tests, and resolve release-blocking problems wherever possible.
+
+The final result should include:
+
+1. A release-preparation branch.
+2. Integrated and stabilized code.
+3. Passing automated tests, with any exceptions documented.
+4. Updated documentation and API reference.
+5. Consistent 2.3.0rc2 metadata.
+6. Updated changelog and release notes.
+7. Successfully built and validated distributions.
+8. A completed RC2_RELEASE_READINESS.md.
+9. A concise summary of anything requiring maintainer approval.
+
+Do not publish, tag, or merge without approval.
+
+Guiding principle
+
+We are finished with the major drone debugging effort for this release.
+
+Our priority is now to make SpectralBridge a reliable, reproducible, well-documented scientific software package that collaborators can install and use.
+
+Finish the release preparation. Avoid unnecessary new development.
+```
+
+## 2026-11-04 - Continue RC2 release preparation
+Branch: codex/prepare-2.3.0rc2
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```
+
+## 2026-11-04 - Three-site drone integration; defer missing location tables
+Branch: codex/prepare-2.3.0rc2
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+SpectralBridge: End-to-End Drone Pipeline Integration Test
+
+Objective
+
+Conduct a complete, real-data integration test of the improved SpectralBridge drone pipeline using the three 2023 calibration sites:
+
+* Gordon
+* Goldhill
+* Ruby
+
+This is not simply a test of the BRDF and topographic corrections. It is a test of the entire production workflow, beginning with automatic discovery of source files in the CyVerse Data Store and ending with validated outputs uploaded back to the Data Store.
+
+The pipeline should perform:
+
+Data Store discovery → download → source validation → preprocessing → spatial alignment → radiometric handling → topographic correction → BRDF correction → spectral translation → spectral-library extraction → QA → output validation → Data Store upload.
+
+Use the existing SpectralBridge infrastructure wherever possible.
+
+The objective is to identify and repair any remaining integration problems before releasing 2.3.0rc2.
+
+Do not build a separate experimental processing pipeline when the existing production workflow can be extended.
+
+1. Discover the original source data
+
+Use the repository’s existing gocmds configuration and authenticated CyVerse Data Store connection.
+
+Search the established 2023 calibration-site directories for Gordon, Goldhill, and Ruby.
+
+Locate the original orthomosaics and associated flight-coordinate tables.
+
+The orthomosaic and coordinate table for each site should be discovered together from the same source directory or associated flight package.
+
+Do not require the user to manually specify individual source files when the pipeline can discover them.
+
+The user will provide the new Gordon and Ruby coordinate tables. These should be placed in the appropriate Data Store flight directories before processing.
+
+The pipeline should then discover them automatically.
+
+Source-selection requirements
+
+Prefer original, unmodified orthomosaics over previously processed 10 cm products.
+
+For Goldhill, use the established original orthomosaic as the reference for source selection:
+
+AOP-GOLDHILL-08-14-23_ORTHO.tif
+
+Search for corresponding original orthomosaics for Gordon and Ruby.
+
+Do not select previously normalized, corrected, translated, or resampled imagery as the raw radiometric source.
+
+Identify associated:
+
+* Flight-coordinate tables.
+* Camera-position metadata.
+* Sensor metadata.
+* DEMs or terrain inputs.
+* Calibration information.
+* Existing polygon datasets.
+* Other required processing inputs.
+
+Inspect the actual directory contents rather than assuming filenames.
+
+If multiple candidate files exist, use metadata and source characteristics to select the appropriate inputs.
+
+If selection remains ambiguous, stop that site’s processing and report the alternatives.
+
+Required output
+
+Produce a machine-readable source manifest containing:
+
+* Site.
+* Data Store source directory.
+* Orthomosaic path.
+* Coordinate-table path.
+* Other required input paths.
+* File sizes.
+* Checksums.
+* CRS.
+* Raster resolution.
+* Band count.
+* Wavelengths.
+* Radiometric encoding.
+* Acquisition metadata.
+* Selection rationale.
+
+This manifest must be saved with the processing outputs.
+
+2. Download and validate inputs
+
+Use gocmds to download the selected files into a structured local working directory.
+
+Use restart-safe transfers.
+
+Verify successful downloads using checksums or equivalent integrity checks.
+
+Do not overwrite valid existing files unnecessarily.
+
+Validate the orthomosaic:
+
+* Correct number of bands.
+* Expected dimensions.
+* Valid CRS.
+* Correct orientation.
+* Appropriate affine transform.
+* Consistent wavelengths.
+* Valid NoData and alpha handling.
+* Radiometric encoding and scaling metadata.
+
+Validate the flight-coordinate table:
+
+* Required columns.
+* Coordinate units.
+* CRS.
+* Camera positions.
+* Camera identifiers.
+* Timestamps.
+* Duplicated observations.
+* Missing values.
+* Spatial consistency with the orthomosaic.
+
+Do not assume the coordinate table’s declared CRS is correct without checking it against the actual flight footprint.
+
+The Goldhill investigation identified a coordinate-system labeling problem that must not recur.
+
+Produce a source-validation report before processing begins.
+
+3. Run the complete drone pipeline
+
+Execute the existing SpectralBridge drone workflow for all three sites.
+
+Use the same implementation, processing conventions, and acceptance criteria.
+
+The pipeline should automatically execute all required stages.
+
+Stage A — Source preparation
+
+* Read the original orthomosaic.
+* Preserve the original radiometric information.
+* Apply the established spatial preprocessing.
+* Resample to the configured processing resolution where required.
+* Preserve source metadata and provenance.
+* Create the working HDF5 representation.
+* Generate intermediate ENVI products.
+
+Stage B — Topographic correction
+
+Apply the updated SCS+C implementation.
+
+Use the established numerical safeguards and correction eligibility rules.
+
+Preserve correction masks and diagnostics.
+
+Do not silently substitute identity corrections where the model is unsupported.
+
+Stage C — BRDF correction
+
+Apply the updated shared RossThick/LiDenseR implementation.
+
+Use the flight-coordinate tables to reconstruct the viewing geometry according to the current experimental method.
+
+Preserve the same geometry conventions, kernel implementation, fitting controls, and provenance used for Goldhill.
+
+Do not treat inferred camera contributors as independently verified observations.
+
+Stage D — Combined correction
+
+Produce the combined topographic and BRDF corrected imagery.
+
+Both corrections must remain active.
+
+Do not disable either correction to improve numerical behavior or visual appearance.
+
+Record which observations are supported and which are excluded.
+
+Stage E — Spectral translation
+
+Run the established sensor-translation workflow using the package’s validated coefficient registry and configured target bands.
+
+Produce the appropriate translated raster products.
+
+Do not silently substitute unvalidated translation coefficients.
+
+Stage F — Spectral-library extraction
+
+Use the existing researcher polygon datasets and established extraction methods.
+
+Generate the standard spectral-library products.
+
+Preserve:
+
+* Polygon identities.
+* Site identifiers.
+* PFT assignments.
+* Wavelength metadata.
+* Correction provenance.
+* Source file references.
+* Validity and QA information.
+
+Stage G — Standard QA
+
+Generate the existing pipeline QA outputs, including figures, summaries, metrics, and reports.
+
+Do not replace the normal QA system with a special-purpose report.
+
+Additional diagnostic figures may be generated alongside standard QA.
+
+4. Verify every pipeline stage
+
+This is a complete integration test.
+
+Record whether every stage:
+
+1. Started successfully.
+2. Read the expected inputs.
+3. Produced the expected outputs.
+4. Preserved spatial and spectral metadata.
+5. Passed its validation checks.
+6. Completed without unexpected warnings or errors.
+
+Check all expected intermediate and final files.
+
+Verify that the output structure follows the package’s documented conventions.
+
+Test restart behavior by confirming that completed stages can be reused without unnecessary recomputation.
+
+Test that missing or invalid inputs produce useful errors rather than silent failures.
+
+5. Perform a three-site artifact assessment
+
+After all three sites have been processed, conduct a consistent evaluation of the imagery.
+
+Compare:
+
+* Raw imagery.
+* Topographic-only imagery.
+* BRDF-only imagery.
+* Combined corrected imagery.
+
+Perform the evaluation for every spectral band.
+
+Pay particular attention to the red and red-edge bands that previously exhibited severe Goldhill artifacts.
+
+Spatial diagnostics
+
+Identify:
+
+* Abrupt boundaries.
+* Striping.
+* Seams.
+* Unexpected gradients.
+* Extreme correction factors.
+* Discontinuities associated with flight geometry.
+* Unusual missing-data patterns.
+* Changes in spatial coverage.
+
+Spectral diagnostics
+
+Evaluate:
+
+* Reflectance distributions.
+* Spectral continuity.
+* Extreme values.
+* Correction magnitude.
+* Band-to-band consistency.
+* Polygon-level spectral changes.
+* Vegetation spectral signatures.
+
+Correction diagnostics
+
+Evaluate:
+
+* Topographic correction factors.
+* BRDF correction factors.
+* Viewing-angle distributions.
+* Solar geometry.
+* Model conditioning.
+* Validity masks.
+* Correction support.
+* Unsupported observations.
+
+Compare the corrected results against the original imagery.
+
+The central question is whether the pipeline introduces harmful artifacts that were absent from the raw imagery.
+
+Do not judge success only by whether the corrected imagery looks visually smooth.
+
+Distinguish genuine processing artifacts from legitimate landscape structure and appropriately masked unsupported observations.
+
+6. Generate a three-site scientific QA report
+
+Create a figure-rich PDF report titled:
+
+SpectralBridge Drone Pipeline: Three-Site End-to-End Validation
+
+The report should be understandable to collaborators who are not software developers.
+
+Include:
+
+1. Overview of the complete workflow.
+2. Data Store source discovery.
+3. Source-file validation.
+4. Processing configuration.
+5. Stage-by-stage completion summary.
+6. Maps of raw and corrected imagery.
+7. All-band artifact diagnostics.
+8. BRDF and topographic correction diagnostics.
+9. Viewing-geometry maps.
+10. Spectral comparisons.
+11. Polygon-level results.
+12. Cross-site comparisons.
+13. Identified problems and their severity.
+14. Final assessment of pipeline readiness.
+
+Use consistent color scales and map extents when comparing correction stages within each site.
+
+Explicitly show the red and red-edge bands rather than relying on conventional RGB imagery.
+
+Include quantitative results alongside the figures.
+
+Provide a concise executive summary explaining whether the pipeline worked and whether harmful artifacts were detected.
+
+7. Upload completed outputs to the Data Store
+
+Once a site’s processing and validation have completed successfully, upload its outputs using gocmds.
+
+Use a new, clearly identified output directory.
+
+Do not overwrite historical processing products.
+
+The uploaded directory should contain:
+
+* Source manifest.
+* Processing configuration.
+* Working HDF5 products.
+* Intermediate ENVI products.
+* Corrected imagery.
+* Translated imagery.
+* Spectral-library outputs.
+* QA figures.
+* QA reports.
+* Validation metrics.
+* Processing logs.
+* Software version and Git commit.
+* Checksums and provenance records.
+
+Preserve the normal SpectralBridge output hierarchy.
+
+Do not upload temporary caches, redundant downloads, or unrelated files.
+
+Verify that all expected files exist in the Data Store after transfer.
+
+Compare local and remote manifests to confirm successful upload.
+
+Do not mark the pipeline complete until upload verification succeeds.
+
+8. Make the workflow reusable
+
+The long-term objective is to process additional drone sites without manually assembling input files.
+
+Where necessary, improve the existing pipeline so that a user can specify a Data Store flight directory and have SpectralBridge:
+
+1. Discover the required inputs.
+2. Validate them.
+3. Download them.
+4. Process the flight.
+5. Generate standard products.
+6. Run QA.
+7. Upload the outputs.
+8. Verify completion.
+
+Prefer configuration-driven discovery over hardcoded site-specific paths.
+
+Avoid implementing a separate workflow that duplicates existing SpectralBridge functionality.
+
+Preserve backward compatibility.
+
+Add automated tests for source discovery, transfer handling, validation, restart behavior, and upload verification.
+
+9. Produce an integration-test summary
+
+Create:
+
+DRONE_THREE_SITE_INTEGRATION_REPORT.md
+
+Include:
+
+* Source files discovered.
+* Processing configuration.
+* Git revision.
+* Pipeline stages completed.
+* Files produced.
+* QA results.
+* Artifact assessment.
+* Transfer results.
+* Data Store output locations.
+* Errors and warnings.
+* Changes made to the package.
+* Remaining release blockers.
+
+Classify any problems as:
+
+BLOCKER: Prevents reliable pipeline execution or produces materially incorrect results.
+
+IMPORTANT: Requires attention but does not necessarily prevent RC2.
+
+DEFER: Scientific validation or enhancement appropriate for future work.
+
+Document unresolved physical calibration and inferred viewing geometry as scientific limitations, not automatically as software defects.
+
+10. Completion criteria
+
+The task is complete when:
+
+* Gordon, Goldhill, and Ruby have been processed through the same updated pipeline.
+* The orthomosaics and coordinate tables were discovered automatically from the Data Store.
+* All required inputs were downloaded and validated.
+* All standard pipeline products were generated.
+* The topographic and BRDF corrections were executed.
+* The translated imagery and spectral libraries were produced.
+* Standard QA completed.
+* A three-site artifact assessment was generated.
+* The completed outputs were uploaded to the Data Store.
+* Remote output integrity was verified.
+* The workflow is reproducible and restart-safe.
+
+If a site cannot complete, identify the exact failing stage and cause. Do not report partial processing as a successful end-to-end run.
+
+Guiding principle
+
+This is a production-workflow integration test using real scientific data.
+
+We are testing whether SpectralBridge can take a flight package from the CyVerse Data Store, process it reliably, produce its complete set of scientific outputs, and return those outputs to the Data Store without manual intervention.
+
+Fix integration problems when possible, but avoid unnecessary scientific redevelopment.
+
+The final deliverable is a tested, reusable, end-to-end drone-processing workflow that supports the upcoming 2.3.0rc2 release.
+```
+
+User clarification (verbatim):
+
+```text
+the location tables are not ready yet but we can do all the other things. 
+```

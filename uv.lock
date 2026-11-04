@@ -1225,7 +1225,7 @@ wheels = [
 
 [[package]]
 name = "earthlab-spectralbridge"
-version = "2.3.0rc1"
+version = "2.3.0rc2"
 source = { editable = "." }
 dependencies = [
     { name = "duckdb" },

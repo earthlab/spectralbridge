@@ -1,0 +1,18 @@
+........................................                                 [100%]
+=============================== warnings summary ===============================
+tests/test_optional_quantile_dependency.py:10
+  /private/tmp/rc2-installed-regressions/tests/test_optional_quantile_dependency.py:10: PytestUnknownMarkWarning: Unknown pytest.mark.lite - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.lite
+
+tests/test_spectral_learning.py:23
+  /private/tmp/rc2-installed-regressions/tests/test_spectral_learning.py:23: PytestUnknownMarkWarning: Unknown pytest.mark.scientific - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytestmark = pytest.mark.scientific
+
+tests/test_spectral_learning.py::test_prototypes_have_training_identity_provenance[cluster_medoid-2]
+  /private/tmp/rc2-wheel312/lib/python3.12/site-packages/joblib/externals/loky/backend/context.py:134: UserWarning: Could not find the number of physical cores for the following reason:
+  invalid literal for int() with base 10: ''
+  Returning the number of logical cores instead. You can silence this warning by setting LOKY_MAX_CPU_COUNT to the number of cores you want to use.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+40 passed, 3 warnings in 9.62s

@@ -1,0 +1,230 @@
+{
+  "status": "SELECTED_PENDING_RASTER_VALIDATION",
+  "site": "Gordon",
+  "source_directory": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage",
+  "flight_stem": "AOP_GORDON_20230814",
+  "orthomosaic": {
+    "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_ORTHO.tif",
+    "name": "AOP-GORDON-8-14-23-M300_ORTHO.tif",
+    "is_collection": false,
+    "size_bytes": 293933052,
+    "checksum": "6eab4c1569f3acc70a19a5ee181edace",
+    "modified": "2023-12-13.13:23"
+  },
+  "coordinate_candidates": [
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "name": "SD1_image_metadata.csv",
+      "is_collection": false,
+      "size_bytes": 301993,
+      "checksum": "8c880baff7e0ee32d6565ca5c11cd85e",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "name": "SD2_image_metadata.csv",
+      "is_collection": false,
+      "size_bytes": 302603,
+      "checksum": "f8abcd7b15ada6baf3bdb37178b12586",
+      "modified": "2023-12-13.13:23"
+    }
+  ],
+  "terrain_candidates": [
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_DEM.tif",
+      "name": "AOP-GORDON-8-14-23-M300_DEM.tif",
+      "is_collection": false,
+      "size_bytes": 1759573,
+      "checksum": "9a77e7794843577217d06dab86b1ba82",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_DTM.tif",
+      "name": "AOP-GORDON-8-14-23-M300_DTM.tif",
+      "is_collection": false,
+      "size_bytes": 855677,
+      "checksum": "fc5be185693c50297e9333fbebd9e3c7",
+      "modified": "2023-12-13.13:23"
+    }
+  ],
+  "files": [
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_DEM.tif",
+      "name": "AOP-GORDON-8-14-23-M300_DEM.tif",
+      "is_collection": false,
+      "size_bytes": 1759573,
+      "checksum": "9a77e7794843577217d06dab86b1ba82",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_DTM.tif",
+      "name": "AOP-GORDON-8-14-23-M300_DTM.tif",
+      "is_collection": false,
+      "size_bytes": 855677,
+      "checksum": "fc5be185693c50297e9333fbebd9e3c7",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_ORTHO.tif",
+      "name": "AOP-GORDON-8-14-23-M300_ORTHO.tif",
+      "is_collection": false,
+      "size_bytes": 293933052,
+      "checksum": "6eab4c1569f3acc70a19a5ee181edace",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-23-M300_REPORT.pdf",
+      "name": "AOP-GORDON-8-14-23-M300_REPORT.pdf",
+      "is_collection": false,
+      "size_bytes": 5445073,
+      "checksum": "10b9b7d4886a68f3124987645468afff",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Gordon-08-14-23.las",
+      "name": "Gordon-08-14-23.las",
+      "is_collection": false,
+      "size_bytes": 52418049,
+      "checksum": "5d780e8dde5589d29b60dc40e6d5d2af",
+      "modified": "2025-01-13.09:47"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-GORDON-GCPs.txt",
+      "name": "AOP-GORDON-GCPs.txt",
+      "is_collection": false,
+      "size_bytes": 745,
+      "checksum": "9055d907a6e450cc0dd38c3f4bb63a69",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/GORDON.kml",
+      "name": "GORDON.kml",
+      "is_collection": false,
+      "size_bytes": 948,
+      "checksum": "faed0dbff7b8576711d4fbf0bc211bfc",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/GORDON_for_dji.kml",
+      "name": "GORDON_for_dji.kml",
+      "is_collection": false,
+      "size_bytes": 1469,
+      "checksum": "b6e9a8d03f452276ad1f1a6d441a356f",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/Metadata.txt",
+      "name": "Metadata.txt",
+      "is_collection": false,
+      "size_bytes": 822,
+      "checksum": "148cc0d0cba79d621c11fe3092267251",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv",
+      "name": "SD1_image_metadata.csv",
+      "is_collection": false,
+      "size_bytes": 301993,
+      "checksum": "8c880baff7e0ee32d6565ca5c11cd85e",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv",
+      "name": "SD2_image_metadata.csv",
+      "is_collection": false,
+      "size_bytes": 302603,
+      "checksum": "f8abcd7b15ada6baf3bdb37178b12586",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GORDON.dbf",
+      "name": "UsableArea2023_AOP-GORDON.dbf",
+      "is_collection": false,
+      "size_bytes": 2549,
+      "checksum": "eed029e6030d0f5b3836ab3e34c00126",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GORDON.shp",
+      "name": "UsableArea2023_AOP-GORDON.shp",
+      "is_collection": false,
+      "size_bytes": 2172,
+      "checksum": "033da024734c4416b47948fae45cf5bc",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/UsableArea2023_AOP-GORDON.shx",
+      "name": "UsableArea2023_AOP-GORDON.shx",
+      "is_collection": false,
+      "size_bytes": 108,
+      "checksum": "b1a4b646ce6f8c8a4584cd6926bf0e9f",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/AOP-NIWO-UNDER-GCPS-23-FULL.txt",
+      "name": "AOP-NIWO-UNDER-GCPS-23-FULL.txt",
+      "is_collection": false,
+      "size_bytes": 3383,
+      "checksum": "1711216056c1072f799c73506a8a665c",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/AOP-NIWO-UNDER-GCPS-23-GCPs-ONLY.txt",
+      "name": "AOP-NIWO-UNDER-GCPS-23-GCPs-ONLY.txt",
+      "is_collection": false,
+      "size_bytes": 2355,
+      "checksum": "a23449672bc8ec0635f021a112bd304d",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.cpg",
+      "name": "aop_underflight_areas_2023.cpg",
+      "is_collection": false,
+      "size_bytes": 5,
+      "checksum": "ae3b3df9970b49b6523e608759bc957d",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.dbf",
+      "name": "aop_underflight_areas_2023.dbf",
+      "is_collection": false,
+      "size_bytes": 570,
+      "checksum": "233edfaacb86c9ef3ef504ef97bcb3d4",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.prj",
+      "name": "aop_underflight_areas_2023.prj",
+      "is_collection": false,
+      "size_bytes": 425,
+      "checksum": "4ed694f9d90ad5ffd45dcb5f4c90ff24",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.qmd",
+      "name": "aop_underflight_areas_2023.qmd",
+      "is_collection": false,
+      "size_bytes": 1043,
+      "checksum": "3ab693a386c6e20a84cc3d2de796c860",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shp",
+      "name": "aop_underflight_areas_2023.shp",
+      "is_collection": false,
+      "size_bytes": 644,
+      "checksum": "84a8b164f48256b694b6f5a5a84efff0",
+      "modified": "2023-12-13.13:23"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/uas-packages/AOP-GORDON-08-14-23-ExportPackage/Metadata/AOP-underflight-meta/aop_underflight_areas_2023.shx",
+      "name": "aop_underflight_areas_2023.shx",
+      "is_collection": false,
+      "size_bytes": 132,
+      "checksum": "4f5fc0ffaa8a7ef087c8c311c3cb4ab7",
+      "modified": "2023-12-13.13:23"
+    }
+  ],
+  "selection_rationale": "Unique ORTHO export in the supplied original-package collection; excluded normalized/corrected/translated/resampled/aligned sources. Validate dtype/grid/bands after transfer.",
+  "clipped_export": false
+}

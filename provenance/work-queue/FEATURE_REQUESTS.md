@@ -20,6 +20,36 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P177. Three-site Data Store drone integration with location tables deferred
+
+- Priority: P0, user-directed end-to-end integration; new location tables explicitly not ready.
+- Owner: Codex
+- Started: 2026-11-04
+- Status: Available-scope validation completed. Full E2E objective explicitly incomplete pending scientific inputs; no production upload or remote completion claimed. All P176 edits and exact artifact bytes preserved.
+- Completed: Live original-package discovery for Gordon/Goldhill/Ruby; 48 MD5-verified inputs and offline checksum-aware reuse; separate immutable-source 10 cm fixed-range DN derivatives; existing working HDF5/raw ENVI/standard source-only QA; 302 half-diameter polygon indexes and descriptive DN summaries; all-band/source/red/red-edge figures; ten-page PDF and root DRONE_THREE_SITE_INTEGRATION_REPORT.md; machine-readable manifests, stage ledger and derived-output hash catalog.
+- Repairs: GoCommands JSON and MD5/SHA handling; atomic verified generic staging; ambiguity/clipped-source reporting; stable local directories for Goldhill case-distinct terrain files; explicit camera-table CRS validation; strict optional upload checksum requirement; unsupported source-only QA no longer scientifically eligible; identity-copy restart retains unsupported calibration while requested corrections remain blocked.
+- Verification: 957 passed/9 documented skips in full source suite; 88 focused intake/drone/restart tests passed. All 145,758,170 finite prepared-to-ENVI values and missing positions exactly match across three sites. Real HDF5/ENVI reuse and all 48 input reuses verified. Ruff, API generation/freshness, docs links, strict MkDocs and PDF visual inspection passed; final evidence under provenance/drone-three-site-integration/2026-11-04/.
+- Limitations: Ruby original-package export is spatially clipped. Goldhill lowercase dtm.tif is unreadable despite matching remote checksum; distinct uppercase DTM opens. New camera tables deferred by user; physical calibration unknown, so all requested topo+BRDF+translation/polygon runs stop at radiometry gate. No corrected-stage artifact assessment or approved library; upload requires completed/validated sites and was not attempted.
+- Release: New runtime edits postdate frozen P176 artifacts. Rebuild and validate replacement exact artifacts before publication; do not apply old artifact certificates to this working tree.
+- Next: Supply/approve physical radiometric scale/offset with provenance and new location tables, validate terrain/geometry, rerun dependent corrections/translation/libraries/QA through existing production code, upload completed sites to a new hierarchy and verify remote checksums. Do not invent missing inputs or reopen unrelated scientific redevelopment.
+
+
+### P176. Stabilize and prepare 2.3.0rc2 for release
+
+- Priority: P0, user-directed release preparation
+- Owner: Codex
+- Started: 2026-11-04
+- Status: Completed local preparation on `codex/prepare-2.3.0rc2`. Publication remains unauthorized and blocked on maintainer citation/publishing decisions; preparation edits are uncommitted for review.
+- Baseline: Initially clean main bb3da46bea0a4295ca3152a9f607ed17140575f1 includes all November P168-P175 work. RC1 preparation is eb202c230478c62de17c111e68bdc73de4bcfcb4; 23 later commits reviewed/inventoried. No published RC1 tag/release found; only v1.0.0 and 0.1 in local tags and connected release listing.
+- Repairs: Preserve observed bands beside per-band NoData in topographic correction; serialize affine JSON as one scalar through convolution; canonical polygon chunk imports; contain research-import/fake-module leakage; update explicit-unit synthetic fixtures/campaigns and checkpoint/notebook contracts. No new scientific methods or broad refactor.
+- Metadata/docs: Synchronized 2.3.0rc2 project/package/CFF preferred+canonical/lock/changelog/readme/release notes; strengthened version gates; refreshed advanced API/docstrings and practical drone status; repaired 128 out-of-site links without altering evidence. No navigation restructure or invented authors.
+- Verification: 946 passed/9 explicitly documented skips in full source run; 4 additional full-mode polygon and 2 browser cases pass; 40 offline campaign cases and 40 installed optional regressions pass. Strict docs, 393 rendered API signatures, internal links, Ruff/generated/transparency checks pass. Two real NEON modes exactly preserve 3.6 million values each. 3,220 prior tracked research-provenance files unchanged.
+- Packaging: Wheel and final corrected sdist Twine/payload-audited; the initial sdist is explicitly retired and the tested wheel reused unchanged; exact wheel passes bounded offline stage smoke on clean Python 3.10/3.11/3.12; exact sdist passes separate Python 3.10 smoke. All environments pass dependency checks, eleven CLI helps and installed introductory example pass. Bytes/hashes retained under `archive/local/release-rc2/2026-11-04/dist/`; evidence in `provenance/release-rc2/2026-11-04/`.
+- CI: Keep three-version tests and exact-candidate gates; include metadata change paths, API freshness/render checks, deterministic build timestamp and downloaded-artifact checksum verification. No dispatch, remote write, publication, tag creation/push or merge.
+- Delivered: Root `RC2_RELEASE_READINESS.md` with exact results, commands, scientific scope, human blockers and publication checklist; `docs/dev/release-notes-2.3.0rc2.md`.
+- Remaining maintainer actions: Approve/resolve software citation authorship and supplied affiliations/ORCIDs; confirm protected PyPI trusted-publisher/environment configuration; review/commit preparation and run hosted CI; explicitly approve publication/tag/merge actions. Full 3.10/3.11 source matrices remain a hosted gate; documented optional legacy/external fixtures were unavailable locally.
+- Next recommended task: Maintainer release review and citation/publication decisions. Drone engineering is complete for the current experimental RC2 scope; do not start another scientific investigation to finish release preparation.
+
 ### P175. Repair and validate integrated drone correction reliability
 
 - Priority: P0, user-directed engineering and controlled scientific validation

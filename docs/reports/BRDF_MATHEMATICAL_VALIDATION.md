@@ -20,9 +20,9 @@ conditioning requirement, crown-parameter default or production source file.
 
 ## Audit before modification
 
-The [pre-edit inventory](../../provenance/brdf-mathematical-validation/2026-11-03/pre_edit_inventory.json)
+The [pre-edit inventory](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/brdf-mathematical-validation/2026-11-03/pre_edit_inventory.json)
 records repository revision and implementation hashes. A
-[pre-audit source snapshot](../../provenance/brdf-mathematical-validation/2026-11-03/pre_audit_corrections.py)
+[pre-audit source snapshot](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/brdf-mathematical-validation/2026-11-03/pre_audit_corrections.py)
 preserves the immediately preceding implementation. The canonical module is
 `src/spectralbridge/corrections.py`; `src/cross_sensor_cal` compatibility imports
 forward to the supported package. Generated `build/lib` code is stale build
@@ -47,7 +47,7 @@ suitability for every canopy. Neither pipeline is declared equivalent to the
 complete FlexBRDF workflow.
 
 The historical October 26 implementation is isolated in
-[historical_corrections.py](../../provenance/drone-radiometric-recovery/2026-11-02/historical_corrections.py).
+[historical_corrections.py](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/drone-radiometric-recovery/2026-11-02/historical_corrections.py).
 It is never substituted into production. Its saved coefficients and Goldhill
 replay remain unchanged.
 
@@ -83,7 +83,7 @@ implementation. [Roujean et al. (1992)](https://doi.org/10.1029/92JD01411),
 [Wanner et al. (1995)](https://doi.org/10.1029/95JD02371),
 [MODIS ATBD, Section V-A](https://lpdaac.usgs.gov/documents/97/MCD43_ATBD.pdf).
 
-![RossThick angular response](../../provenance/brdf-mathematical-validation/2026-11-03/figure01_ross_response.png)
+![RossThick angular response](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/brdf-mathematical-validation/2026-11-03/figure01_ross_response.png)
 
 *Controlled angular response, not measured imagery. All three panels share a
 scale. At double nadir the kernel is zero; coincident nonzero directions need
@@ -125,7 +125,7 @@ MODIS does not by itself identify or validate a dense-kernel implementation.
 [Lucht et al. (2000)](https://doi.org/10.1109/36.841980),
 [Schaaf et al. (2002)](https://doi.org/10.1016/S0034-4257(02)00091-3).
 
-![Reciprocal dense angular response](../../provenance/brdf-mathematical-validation/2026-11-03/figure02_dense_response.png)
+![Reciprocal dense angular response](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/brdf-mathematical-validation/2026-11-03/figure02_dense_response.png)
 
 *LiDenseR with the retained production parameters b/r=10 and h/b=2. This verifies
 the response of that configured model, not the physical appropriateness of those
@@ -156,7 +156,7 @@ Two algebraically equivalent stabilizations preserve the published model:
   small value for opposite grazing rays. Cosine bounds address analytic domains
   and rounding; no correction factor is capped.
 
-![Nadir invariance](../../provenance/brdf-mathematical-validation/2026-11-03/figure03_nadir_invariance.png)
+![Nadir invariance](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/brdf-mathematical-validation/2026-11-03/figure03_nadir_invariance.png)
 
 *Controlled nadir geometry exposes the old false azimuth response. The verified
 kernel remains constant for each crown-shape setting. A constant curve does not
@@ -164,7 +164,7 @@ provide three independent angular predictors.*
 
 ## Independent numerical evidence
 
-The frozen [reference fixture](../../tests/data/brdf/published_equation_references.json)
+The frozen [reference fixture](https://github.com/earthlab/spectralbridge/blob/bb3da46/tests/data/brdf/published_equation_references.json)
 contains **1,220 cases per kernel**, calculated from scalar published equations
 with **60-digit mpmath arithmetic**, without importing SpectralBridge. Cases
 include zeniths 0°, 5°, 10°, 30°, 45°, 60°, 80°, 89° and 89.999°; relative azimuths
@@ -199,7 +199,7 @@ reciprocity, wrapping, scalar/vector/raster and NaN-mask tests are separate from
 these reference vectors. Near-grazing mathematical support does not establish
 physical model accuracy; the ATBD cautions about very large zenith angles.
 
-![Independent reference errors](../../provenance/brdf-mathematical-validation/2026-11-03/figure07_reference_errors.png)
+![Independent reference errors](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/brdf-mathematical-validation/2026-11-03/figure07_reference_errors.png)
 
 *The epsilon plot floor is display-only. Full unmodified errors and worst-case
 geometries are in the machine-readable independent reference results.*
@@ -213,7 +213,7 @@ retain **3,425,496** valid native pixels. Actual sensor zenith spans
 0.004755°–31.007185°. Full-population min/max/mean/standard deviation are recorded
 for every angular and kernel field.
 
-![Real NEON kernel maps](../../provenance/brdf-mathematical-validation/2026-11-03/figure04_neon_geometry.png)
+![Real NEON kernel maps](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/brdf-mathematical-validation/2026-11-03/figure04_neon_geometry.png)
 
 *Kernel variation follows the actual cross-track viewing geometry. Scene solar
 is constant, and view azimuth switches sides of the flightline. Independent,
@@ -241,7 +241,7 @@ for this configured scene/shape/nadir geometry. Sweeping arbitrary nadir azimuth
 adds **zero** dense-kernel variation. The historical dense field spans
 −15.48411655 to −15.48379230 and contributes a false second design direction.
 
-![Goldhill old and verified kernels](../../provenance/brdf-mathematical-validation/2026-11-03/figure05_goldhill_geometry.png)
+![Goldhill old and verified kernels](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/brdf-mathematical-validation/2026-11-03/figure05_goldhill_geometry.png)
 
 *Solar azimuth is derived at an unverified time, not measured camera geometry.
 Narrow historical color scales expose a small artificial gradient; they do not
@@ -262,9 +262,9 @@ is independently blocked by the pre-existing radiometry gate. Historical
 coefficients are neither changed nor made valid by the new kernels. Removing
 an artificial gradient is not a successful BRDF calibration.
 
-![Angular singular values](../../provenance/brdf-mathematical-validation/2026-11-03/figure06_design_singular_values.png)
+![Angular singular values](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/brdf-mathematical-validation/2026-11-03/figure06_design_singular_values.png)
 
-![Actual kernel distributions](../../provenance/brdf-mathematical-validation/2026-11-03/figure08_kernel_distributions.png)
+![Actual kernel distributions](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/brdf-mathematical-validation/2026-11-03/figure08_kernel_distributions.png)
 
 *Histograms use explicitly sampled native pixels; complete native distributions
 are summarized by min/max/mean/standard deviation in the evidence JSON. Constant
@@ -295,7 +295,7 @@ because their external meanings can be nonreciprocal. No nonreciprocal kernel
 is silently substituted. Historical scripts import the pinned historical module
 and remain reproducible independently of these production APIs.
 
-The [evidence directory](../../provenance/brdf-mathematical-validation/2026-11-03/)
+The [evidence directory](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/brdf-mathematical-validation/2026-11-03)
 contains scripts, source/model preservation hashes, compact geometry displays,
 reference results, figure pairs and validation records. Geometry is evaluated in
 128-row windows; designs are reduced with tall-skinny QR then SVD, avoiding

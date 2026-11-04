@@ -1,0 +1,6 @@
+{
+  "reason": "Final version audit found an RC1 default in examples/release_candidate_smoke.py and RC1 command examples in current releasing guide; retire first sdist and retest replacement. Runtime wheel unchanged and reused exactly.",
+  "retired_sdist": "archive/local/release-rc2/2026-11-04/retired-candidate-1/earthlab_spectralbridge-2.3.0rc2.tar.gz",
+  "wheel_rebuilt": false,
+  "first_candidate_sdist_sha256": "c1148751228de91fd44659b8e2d16d432ab385f0addd35b013a2e6d2193aa431"
+}

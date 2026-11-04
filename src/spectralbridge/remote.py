@@ -5,6 +5,10 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from posixpath import basename, dirname
+import base64
+import hashlib
+import json
+import os
 import re
 import shutil
 import subprocess
@@ -165,8 +169,16 @@ class GocmdRemoteBackend:
 
     name = "gocmd"
 
-    def __init__(self, executable: str = "gocmd") -> None:
+    def __init__(
+        self,
+        executable: str = "gocmd",
+        *,
+        detailed_listing: bool = False,
+        verify_checksums: bool = False,
+    ) -> None:
         self.executable = str(executable)
+        self.detailed_listing = detailed_listing
+        self.verify_checksums = verify_checksums
 
     def _command(self, *arguments: str) -> list[str]:
         return [self.executable, *map(str, arguments)]
@@ -220,6 +232,15 @@ class GocmdRemoteBackend:
     def list_directory(self, remote_path: str) -> list[RemoteEntry]:
         self.ensure_available()
         remote_path = normalize_remote_path(remote_path)
+        if self.detailed_listing:
+            completed = self._run(
+                "ls",
+                "-L",
+                "--output_json",
+                remote_path,
+                operation=f"listing {remote_path}",
+            )
+            return parse_gocmd_json_listing(completed.stdout or "", parent=remote_path)
         completed = self._run("ls", remote_path, operation=f"listing {remote_path}")
         return parse_gocmd_listing(completed.stdout or "", parent=remote_path)
 
@@ -230,6 +251,7 @@ class GocmdRemoteBackend:
         self._run(
             "get",
             "--progress",
+            *(("--verify_checksum",) if self.verify_checksums else ()),
             normalize_remote_path(remote_path),
             str(local_path),
             operation=f"download of {remote_path}",
@@ -259,6 +281,7 @@ class GocmdRemoteBackend:
         self._run(
             "put",
             "--progress",
+            *(("--verify_checksum",) if self.verify_checksums else ()),
             str(local_path),
             remote_parent,
             operation=f"upload to {remote_parent}",
@@ -284,7 +307,154 @@ __all__ = [
     "RemoteError",
     "normalize_remote_path",
     "parse_gocmd_listing",
+    "parse_gocmd_json_listing",
+    "file_checksums",
+    "checksum_matches",
+    "stage_remote_file",
     "remote_join",
     "remote_parent",
     "remote_relative_path",
 ]
+
+
+def parse_gocmd_json_listing(text: str, *, parent: str) -> list[RemoteEntry]:
+    """Read GoCommands very-long JSON, checking consistency across good replicas.
+
+    Parameters
+    ----------
+    text : str
+        Output of ``gocmd ls -L --output_json`` for one collection.
+    parent : str
+        Logical collection path; physical replica storage paths are never inputs.
+
+    Returns
+    -------
+    list of RemoteEntry
+        Logical children with byte sizes and original algorithm-tagged checksums.
+        Conflicting good replicas raise RemoteError rather than choosing silently.
+    """
+    entries = {}
+    for group in json.loads(text):
+        for row in group.get("data", []):
+            kind = row.get("Type")
+            if kind not in {"collection", "data-object"}:
+                continue
+            name = row.get("Name") or row.get("Path")
+            if not name:
+                raise RemoteError("Remote listing has no logical name")
+            path = remote_join(parent, name)
+            if normalize_remote_path(path) == normalize_remote_path(parent):
+                continue
+            collection = kind == "collection"
+            if not collection and row.get("Status", "Good").lower() != "good":
+                continue
+            entry = RemoteEntry(
+                path=path,
+                name=basename(path),
+                is_collection=collection,
+                size_bytes=None if collection else int(row["Size"]),
+                checksum=row.get("Checksum") or None,
+                modified=row.get("Modify Time"),
+            )
+            prior = entries.get(path)
+            if prior and (prior.size_bytes, prior.checksum, prior.is_collection) != (
+                entry.size_bytes,
+                entry.checksum,
+                entry.is_collection,
+            ):
+                raise RemoteError(f"Good replicas disagree for {path}")
+            entries[path] = entry
+    return sorted(
+        entries.values(), key=lambda item: (not item.is_collection, item.path)
+    )
+
+
+def file_checksums(path: str | Path) -> dict[str, str]:
+    """Return SHA-256 and MD5 hex digests in one bounded file pass."""
+    hashes = {name: hashlib.new(name) for name in ("sha256", "md5")}
+    with Path(path).open("rb") as stream:
+        for block in iter(lambda: stream.read(4 * 1024**2), b""):
+            for digest in hashes.values():
+                digest.update(block)
+    return {name: digest.hexdigest() for name, digest in hashes.items()}
+
+
+def checksum_matches(path: str | Path, expected: str, *, digests=None) -> bool:
+    """Compare iRODS MD5 hex or SHA-256 hex/sha2-base64 without assuming SHA-256."""
+    digests = digests or file_checksums(path)
+    if expected.startswith("sha2:"):
+        return (
+            base64.b64encode(bytes.fromhex(digests["sha256"])).decode() == expected[5:]
+        )
+    algorithm, separator, value = expected.partition(":")
+    if not separator:
+        value = expected
+        algorithm = "md5" if len(value) == 32 else "sha256" if len(value) == 64 else ""
+    if algorithm not in digests or not re.fullmatch(r"[0-9a-fA-F]+", value):
+        raise RemoteError("Unsupported remote checksum encoding")
+    return digests[algorithm] == value.lower()
+
+
+def stage_remote_file(entry: RemoteEntry, destination: str | Path, *, backend) -> dict:
+    """Atomically stage any source file, verify integrity and reuse a valid copy.
+
+    Completed objects are rechecked against a remote checksum, or their prior
+    transfer SHA-256 when remote checksums are unavailable. A same-size local
+    object without either identity is never silently considered verified.
+    """
+    if entry.is_collection:
+        raise ValueError("stage_remote_file requires a data object")
+    path = Path(destination)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    marker = path.with_name(path.name + ".transfer.json")
+    prior = {}
+    if marker.exists():
+        try:
+            prior = json.loads(marker.read_text())
+        except (ValueError, OSError):
+            pass
+    status = "downloaded"
+    digests = file_checksums(path) if path.is_file() else None
+    size_ok = (
+        path.is_file()
+        and path.stat().st_size > 0
+        and (entry.size_bytes is None or path.stat().st_size == entry.size_bytes)
+    )
+    if size_ok and (
+        (entry.checksum and checksum_matches(path, entry.checksum, digests=digests))
+        or (
+            not entry.checksum
+            and prior.get("remote_path") == entry.path
+            and prior.get("sha256") == digests["sha256"]
+        )
+    ):
+        status = "reused"
+    else:
+        partial = path.with_name(path.name + ".part")
+        if partial.exists():
+            partial.unlink()
+        backend.download_file(entry.path, partial)
+        if not partial.is_file() or partial.stat().st_size == 0:
+            raise RemoteError("Source transfer produced no data")
+        if entry.size_bytes is not None and partial.stat().st_size != entry.size_bytes:
+            raise RemoteError(f"Source transfer size mismatch: {entry.path}")
+        digests = file_checksums(partial)
+        if entry.checksum and not checksum_matches(
+            partial, entry.checksum, digests=digests
+        ):
+            raise RemoteError(f"Source transfer checksum mismatch: {entry.path}")
+        os.replace(partial, path)
+    record = dict(
+        remote_path=entry.path,
+        local_path=str(path),
+        size_bytes=path.stat().st_size,
+        remote_checksum=entry.checksum,
+        sha256=digests["sha256"],
+        md5=digests["md5"],
+        remote_checksum_verified=bool(entry.checksum),
+        status=status,
+    )
+    temp = marker.with_suffix(marker.suffix + ".tmp")
+    temp.write_text(json.dumps(record, indent=2) + "\n")
+    os.replace(temp, marker)
+    return record

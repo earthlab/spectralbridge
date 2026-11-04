@@ -8,6 +8,65 @@ physical-unit and geometry requirements are satisfied. Start with
 [correction eligibility](../concepts/correction-eligibility.md) and the
 [three-flight findings](../validation/drone-findings.md).
 
+## RC2 scope in practice
+
+For independently calibrated local inputs, the orchestration below remains the
+entry point. Preserve your original files, select correction stages explicitly,
+and inspect completion plus scientific status before using outputs. Source-only
+DN or an arbitrary 0-10,000 range is not physical calibration.
+
+RC2 also includes advanced experimental [viewing reconstruction](../api/generated/drone_view_geometry.md),
+[spatial fitting](../api/generated/corrections.md) and
+[conditioned SCS+C](../api/generated/topographic.md). These require explicit
+source geometry, training masks and model provenance; they are not automatic
+choices made by `run_drone_pipeline`. The [integrated investigation](../dev/drone-integrated-reliability.md)
+shows actual combined products and their limits. Unsupported illumination has a
+separate state, and experimental products cannot enter approved libraries.
+
+## Original Data Store packages and uncalibrated source preparation
+
+Advanced intake helpers in `spectralbridge.drone_production` can inspect an
+original-package collection or one flight package without assuming an exact
+orthomosaic basename. `inspect_original_drone_packages()` reports ambiguous
+candidates instead of choosing one. Ruby-style `ORTHO_CLIPPED` exports remain
+explicitly marked as clipped. The TIFF band contract still needs validation
+after transfer; a filename does not certify physical calibration.
+
+Use `GocmdRemoteBackend(..., detailed_listing=True, verify_checksums=True)` for
+GoCommands JSON listings and transfer verification. `stage_original_drone_package()`
+preserves logical source paths and checks remote MD5 or SHA-256 correctly.
+Case-distinct remote names receive stable separate local directories so that
+case-insensitive filesystems cannot overwrite one terrain export with another.
+Valid completed transfers are reused only after integrity checks. For uploads,
+`verify_uploaded_results(..., require_checksums=True)` rejects size-only evidence.
+The existing default command-line behavior remains compatible.
+
+`prepare_drone_orthomosaic()` creates a separate ten-band Float32, projected,
+north-up TIFF at 10 cm by default, excluding a declared alpha band. It applies
+bilinear spatial resampling and the fixed numeric encoding
+`stored = DN * 10000 / 65535`, with zero offset and no scene min/max adjustment.
+A requested comparison grid controls only spatial support. The original is never
+modified. Checksummed source/configuration/output records permit reuse; a stale
+existing destination requires an explicit new output path. Preparation operates
+one full spectral band at a time, with full-size source/target masks; memory
+therefore scales with source plus target area, not all ten bands. Downstream H5
+and ENVI conversion retain their existing chunked implementation. Very large
+orthomosaics require sufficient RAM for these preparation arrays.
+
+This numerical encoding is **not physical reflectance calibration**. Its
+radiometry stays `UNSUPPORTED`, with unknown physical scale and offset, so it
+cannot pass correction, translation or approved-library gates. A preparation-only
+run must be labeled separately from the requested corrected production run.
+Existing no-correction ENVI copies and their QA describe an identity comparison;
+they do not demonstrate that BRDF or topographic correction succeeded.
+
+When new camera tables arrive, `validate_drone_coordinate_table()` checks required
+columns, finite positions, unique identifiers, timestamp syntax, explicit projected
+metre CRS and overlap with the raster bounds. It never relabels coordinates to
+force overlap. Passing this check does not validate vertical datum, clock zone,
+orientation or actual camera contributors. Keep those scientific requirements
+visible before experimental geometry reconstruction.
+
 ## Scientific branches
 
 ```text
@@ -84,7 +143,7 @@ results = run_drone_pipeline(
     extraction_mode="polygon",
     radiometry=calibration,
     apply_topo=False,  # Enable only after terrain/illumination validation.
-    apply_brdf=False,  # Current three investigated mosaics are unsupported.
+    apply_brdf=False,  # Zero-view mosaics lack independent angular support.
     apply_translation=False,  # Requires compatible, reviewed coefficients.
     translation_strict=False,
     drone_manifest_timezone="UTC",

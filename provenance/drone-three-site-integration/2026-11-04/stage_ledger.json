@@ -1,0 +1,257 @@
+[
+  {
+    "site": "Gordon",
+    "stage": "discovery",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Gordon",
+    "stage": "verified_download",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Gordon",
+    "stage": "orthomosaic_validation",
+    "status": "COMPLETE_WITH_SCIENTIFIC_LIMITATIONS"
+  },
+  {
+    "site": "Gordon",
+    "stage": "numeric_10cm_preparation",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Gordon",
+    "stage": "working_hdf5",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Gordon",
+    "stage": "raw_envi",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Gordon",
+    "stage": "half_diameter_polygon_index",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Gordon",
+    "stage": "source_only_standard_qa",
+    "status": "COMPLETE_SCIENTIFICALLY_NOT_EVALUATED"
+  },
+  {
+    "site": "Gordon",
+    "stage": "camera_table_validation",
+    "status": "DEFERRED_BY_USER"
+  },
+  {
+    "site": "Gordon",
+    "stage": "topographic_correction",
+    "status": "BLOCKED_RADIOMETRY"
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_correction",
+    "status": "BLOCKED_RADIOMETRY_AND_DEFERRED_GEOMETRY"
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined_correction",
+    "status": "DEPENDENCY_BLOCKED"
+  },
+  {
+    "site": "Gordon",
+    "stage": "translation",
+    "status": "DEPENDENCY_BLOCKED"
+  },
+  {
+    "site": "Gordon",
+    "stage": "approved_spectral_library",
+    "status": "DEPENDENCY_BLOCKED"
+  },
+  {
+    "site": "Gordon",
+    "stage": "corrected_artifact_assessment",
+    "status": "NOT_EVALUABLE"
+  },
+  {
+    "site": "Gordon",
+    "stage": "production_upload",
+    "status": "NOT_ATTEMPTED_INCOMPLETE_SITE"
+  },
+  {
+    "site": "Gordon",
+    "stage": "remote_output_integrity",
+    "status": "NOT_ATTEMPTED"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "discovery",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "verified_download",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "orthomosaic_validation",
+    "status": "COMPLETE_WITH_SCIENTIFIC_LIMITATIONS"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "numeric_10cm_preparation",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "working_hdf5",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "raw_envi",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "half_diameter_polygon_index",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "source_only_standard_qa",
+    "status": "COMPLETE_SCIENTIFICALLY_NOT_EVALUATED"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "camera_table_validation",
+    "status": "DEFERRED_BY_USER"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "topographic_correction",
+    "status": "BLOCKED_RADIOMETRY"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_correction",
+    "status": "BLOCKED_RADIOMETRY_AND_DEFERRED_GEOMETRY"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined_correction",
+    "status": "DEPENDENCY_BLOCKED"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "translation",
+    "status": "DEPENDENCY_BLOCKED"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "approved_spectral_library",
+    "status": "DEPENDENCY_BLOCKED"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "corrected_artifact_assessment",
+    "status": "NOT_EVALUABLE"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "production_upload",
+    "status": "NOT_ATTEMPTED_INCOMPLETE_SITE"
+  },
+  {
+    "site": "Goldhill",
+    "stage": "remote_output_integrity",
+    "status": "NOT_ATTEMPTED"
+  },
+  {
+    "site": "Ruby",
+    "stage": "discovery",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Ruby",
+    "stage": "verified_download",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Ruby",
+    "stage": "orthomosaic_validation",
+    "status": "COMPLETE_WITH_SCIENTIFIC_LIMITATIONS"
+  },
+  {
+    "site": "Ruby",
+    "stage": "numeric_10cm_preparation",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Ruby",
+    "stage": "working_hdf5",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Ruby",
+    "stage": "raw_envi",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Ruby",
+    "stage": "half_diameter_polygon_index",
+    "status": "COMPLETE"
+  },
+  {
+    "site": "Ruby",
+    "stage": "source_only_standard_qa",
+    "status": "COMPLETE_SCIENTIFICALLY_NOT_EVALUATED"
+  },
+  {
+    "site": "Ruby",
+    "stage": "camera_table_validation",
+    "status": "DEFERRED_BY_USER"
+  },
+  {
+    "site": "Ruby",
+    "stage": "topographic_correction",
+    "status": "BLOCKED_RADIOMETRY"
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_correction",
+    "status": "BLOCKED_RADIOMETRY_AND_DEFERRED_GEOMETRY"
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined_correction",
+    "status": "DEPENDENCY_BLOCKED"
+  },
+  {
+    "site": "Ruby",
+    "stage": "translation",
+    "status": "DEPENDENCY_BLOCKED"
+  },
+  {
+    "site": "Ruby",
+    "stage": "approved_spectral_library",
+    "status": "DEPENDENCY_BLOCKED"
+  },
+  {
+    "site": "Ruby",
+    "stage": "corrected_artifact_assessment",
+    "status": "NOT_EVALUABLE"
+  },
+  {
+    "site": "Ruby",
+    "stage": "production_upload",
+    "status": "NOT_ATTEMPTED_INCOMPLETE_SITE"
+  },
+  {
+    "site": "Ruby",
+    "stage": "remote_output_integrity",
+    "status": "NOT_ATTEMPTED"
+  }
+]

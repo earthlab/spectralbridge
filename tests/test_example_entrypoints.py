@@ -6,6 +6,7 @@ import json
 import re
 import subprocess
 import sys
+import pytest
 from pathlib import Path
 
 
@@ -43,13 +44,13 @@ def test_example_scripts_support_no_work_check_mode() -> None:
         assert "Configuration is valid" in result.stdout
 
 
-def test_release_candidate_smoke_checks_current_installation() -> None:
+@pytest.mark.parametrize("version_args", [[], ["--expected-version", "2.3.0rc2"]])
+def test_release_candidate_smoke_checks_current_installation(version_args) -> None:
     result = subprocess.run(
         [
             sys.executable,
             str(REPO_ROOT / "examples" / "release_candidate_smoke.py"),
-            "--expected-version",
-            "2.3.0rc1",
+            *version_args,
         ],
         cwd=REPO_ROOT,
         check=False,

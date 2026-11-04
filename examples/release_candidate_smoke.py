@@ -4,8 +4,8 @@
 Install the exact candidate first, then run this downloaded script from outside
 the source checkout. For example::
 
-    python -m pip install --pre "earthlab-spectralbridge==2.3.0rc1"
-    python release_candidate_smoke.py --expected-version 2.3.0rc1
+    python -m pip install --pre "earthlab-spectralbridge==2.3.0rc2"
+    python release_candidate_smoke.py --expected-version 2.3.0rc2
 
 This checks release identity, public API imports, and installed console scripts.
 It does not validate scientific results or production-scale behavior.
@@ -99,7 +99,7 @@ def validate_installation(expected_version: str) -> dict[str, object]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--expected-version", default="2.3.0rc1")
+    parser.add_argument("--expected-version", default="2.3.0rc2")
     args = parser.parse_args()
     print(json.dumps(validate_installation(args.expected_version), indent=2))
     return 0

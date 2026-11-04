@@ -21,7 +21,7 @@
 
 The matched photo tags span 19:42:38-20:03:47 on 15 August 2023. Acquisition order reveals a near north-south lawnmower trajectory rather than a set of unrelated cameras.
 
-![All 5,650 band-camera records join to 565 unique timestamped positions. Yellow outlines are existing researcher polygons; the red rectangle is the unchanged P165 ROI. The path uses acquisition timestamps, not CSV row order or an invented traversal. All camera positions fall inside the source footprint.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure01_path.png)
+![All 5,650 band-camera records join to 565 unique timestamped positions. Yellow outlines are existing researcher polygons; the red rectangle is the unchanged P165 ROI. The path uses acquisition timestamps, not CSV row order or an invented traversal. All camera positions fall inside the source footprint.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure01_path.png)
 
 All 5,650 band-camera records join to 565 unique timestamped positions. Yellow outlines are existing researcher polygons; the red rectangle is the unchanged P165 ROI. The path uses acquisition timestamps, not CSV row order or an invented traversal. All camera positions fall inside the source footprint.
 
@@ -32,7 +32,7 @@ All 5,650 band-camera records join to 565 unique timestamped positions. Yellow o
 
 The original camera CSV header says EPSG:5070. The associated processing report explicitly says NAD83 / UTM zone 13N (EPSG:26913) for both the project and DEM. Its original bytes are retained.
 
-![The project and DEM report explicitly specify EPSG:26913; interpreting the CSV numbers as EPSG:5070 misses Goldhill by 2,874 km. Ideal pinhole rectangles use 1280 x 960 pixels, 5.5 mm focal length and 3.75 micrometre pixels. Each native target uses its local DEM height; these illustration rectangles use mean height only. Report distortion coefficients are preserved separately, but their PhotoID binding and exact footprint applicability are unverified. Occlusion, actual yaw and shared vertical datum remain unresolved.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure02_footprints.png)
+![The project and DEM report explicitly specify EPSG:26913; interpreting the CSV numbers as EPSG:5070 misses Goldhill by 2,874 km. Ideal pinhole rectangles use 1280 x 960 pixels, 5.5 mm focal length and 3.75 micrometre pixels. Each native target uses its local DEM height; these illustration rectangles use mean height only. Report distortion coefficients are preserved separately, but their PhotoID binding and exact footprint applicability are unverified. Occlusion, actual yaw and shared vertical datum remain unresolved.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure02_footprints.png)
 
 The project and DEM report explicitly specify EPSG:26913; interpreting the CSV numbers as EPSG:5070 misses Goldhill by 2,874 km. Ideal pinhole rectangles use 1280 x 960 pixels, 5.5 mm focal length and 3.75 micrometre pixels. Each native target uses its local DEM height; these illustration rectangles use mean height only. Report distortion coefficients are preserved separately, but their PhotoID binding and exact footprint applicability are unverified. Occlusion, actual yaw and shared vertical datum remain unresolved.
 
@@ -43,7 +43,7 @@ The project and DEM report explicitly specify EPSG:26913; interpreting the CSV n
 
 For each ground point, H is camera Z minus local surface Z and zenith is atan2(horizontal distance,H). Cameras at or below that ground height are excluded.
 
-![A chooses the closest eligible camera. B chooses the most central normalized position within a rectangular footprint. The two assignments differ on 25.83% of covered native cells. Median zenith is about 2 degrees, but edge pixels reach 19-22 degrees. Azimuth is clockwise from true north toward the sensor, with the grid-to-true rotation explicitly applied.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure03_angles.png)
+![A chooses the closest eligible camera. B chooses the most central normalized position within a rectangular footprint. The two assignments differ on 25.83% of covered native cells. Median zenith is about 2 degrees, but edge pixels reach 19-22 degrees. Azimuth is clockwise from true north toward the sensor, with the grid-to-true rotation explicitly applied.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure03_angles.png)
 
 A chooses the closest eligible camera. B chooses the most central normalized position within a rectangular footprint. The two assignments differ on 25.83% of covered native cells. Median zenith is about 2 degrees, but edge pixels reach 19-22 degrees. Azimuth is clockwise from true north toward the sensor, with the grid-to-true rotation explicitly applied.
 
@@ -54,7 +54,7 @@ A chooses the closest eligible camera. B chooses the most central normalized pos
 
 RossThick and reciprocal LiDenseR are evaluated by the existing package functions with b/r=10, h/b=2 and scene solar zenith. No separate drone BRDF implementation is introduced.
 
-![Native 10 cm ROI, identical row/column extent for every panel. Kernels are evaluated by the unchanged shared functions. The relative-angle map is a display diagnostic; no new solar field is fitted or substituted. The abrupt camera-label pattern is inferred assignment, not an observed Metashape seamline.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure04_roi_kernels.png)
+![Native 10 cm ROI, identical row/column extent for every panel. Kernels are evaluated by the unchanged shared functions. The relative-angle map is a display diagnostic; no new solar field is fitted or substituted. The abrupt camera-label pattern is inferred assignment, not an observed Metashape seamline.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure04_roi_kernels.png)
 
 Native 10 cm ROI, identical row/column extent for every panel. Kernels are evaluated by the unchanged shared functions. The relative-angle map is a display diagnostic; no new solar field is fitted or substituted. The abrupt camera-label pattern is inferred assignment, not an observed Metashape seamline.
 
@@ -65,7 +65,7 @@ Native 10 cm ROI, identical row/column extent for every panel. Kernels are evalu
 
 All physically eligible ideal-rectangle cameras are enumerated per native ground pixel. Native maps retain count, min/max/median zenith, circular azimuth diagnostics, kernel means and spreads.
 
-![The rectangular-footprint scenario has 4-221 potential cameras per covered native pixel, median 84. Bottom panels retain every eligible ray at the four unchanged diagnostic points. C uniform/central-weighted models use one aggregate kernel row per mosaic value. They never fit the same reflectance repeatedly at every possible angle.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure05_overlap.png)
+![The rectangular-footprint scenario has 4-221 potential cameras per covered native pixel, median 84. Bottom panels retain every eligible ray at the four unchanged diagnostic points. C uniform/central-weighted models use one aggregate kernel row per mosaic value. They never fit the same reflectance repeatedly at every possible angle.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure05_overlap.png)
 
 The rectangular-footprint scenario has 4-221 potential cameras per covered native pixel, median 84. Bottom panels retain every eligible ray at the four unchanged diagnostic points. C uniform/central-weighted models use one aggregate kernel row per mosaic value. They never fit the same reflectance repeatedly at every possible angle.
 
@@ -76,7 +76,7 @@ The rectangular-footprint scenario has 4-221 potential cameras per covered nativ
 
 Six prespecified geometry cases and 24 conditional sampled fits retain an every-tenth native-pixel lattice. They do not create averaged source imagery or tune against classification scores.
 
-![Six prespecified cases use an every-tenth native-pixel lattice, not newly averaged reflectance. All 24 sampled BRDF fits pass the existing numerical guards. Footprint yaw rotation changes 42.7% of B assignments; camera-height minus 30 m leaves a small uncovered fraction. C normalization changes with assumed footprint width and weights. These are scenario sensitivities, not statistical confidence intervals or validation of any contributor rule.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure06_uncertainty.png)
+![Six prespecified cases use an every-tenth native-pixel lattice, not newly averaged reflectance. All 24 sampled BRDF fits pass the existing numerical guards. Footprint yaw rotation changes 42.7% of B assignments; camera-height minus 30 m leaves a small uncovered fraction. C normalization changes with assumed footprint width and weights. These are scenario sensitivities, not statistical confidence intervals or validation of any contributor rule.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure06_uncertainty.png)
 
 Six prespecified cases use an every-tenth native-pixel lattice, not newly averaged reflectance. All 24 sampled BRDF fits pass the existing numerical guards. Footprint yaw rotation changes 42.7% of B assignments; camera-height minus 30 m leaves a small uncovered fraction. C normalization changes with assumed footprint width and weights. These are scenario sensitivities, not statistical confidence intervals or validation of any contributor rule.
 
@@ -87,7 +87,7 @@ Six prespecified cases use an every-tenth native-pixel lattice, not newly averag
 
 Main global designs reach stable numerical rank 3, compared with rank 1 for the zero-view placeholder design. The estimator and acceptance thresholds are unchanged.
 
-![Full native designs use 6,683,905 ground observations, each at most once. Global condition numbers are 98-182, below the unchanged precision limit of about 2,896. Spatial strips are less well conditioned in places; no strip was independently labeled a successful local BRDF fit. Rank identifies the assumed spatial model, not empirical same-target directional behavior.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure07_rank.png)
+![Full native designs use 6,683,905 ground observations, each at most once. Global condition numbers are 98-182, below the unchanged precision limit of about 2,896. Spatial strips are less well conditioned in places; no strip was independently labeled a successful local BRDF fit. Rank identifies the assumed spatial model, not empirical same-target directional behavior.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure07_rank.png)
 
 Full native designs use 6,683,905 ground observations, each at most once. Global condition numbers are 98-182, below the unchanged precision limit of about 2,896. Spatial strips are less well conditioned in places; no strip was independently labeled a successful local BRDF fit. Rank identifies the assumed spatial model, not empirical same-target directional behavior.
 
@@ -98,7 +98,7 @@ Full native designs use 6,683,905 ground observations, each at most once. Global
 
 The exact historical P165 ROI and red boundary are retained. Raw, topographic-only, historical and experimental imagery use identical map extents and display bounds.
 
-![All panels use the original 401 x 501 pixel ROI and identical 0-0.3 display limits. Numerical extrema and factors are retained in tables; saturated display colors do not clip analytical values. Experimental BRDF-only images lack the enormous historical boundary. Combined products still inherit the separate topographic instability, especially at 717 nm.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure08_red.png)
+![All panels use the original 401 x 501 pixel ROI and identical 0-0.3 display limits. Numerical extrema and factors are retained in tables; saturated display colors do not clip analytical values. Experimental BRDF-only images lack the enormous historical boundary. Combined products still inherit the separate topographic instability, especially at 717 nm.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure08_red.png)
 
 All panels use the original 401 x 501 pixel ROI and identical 0-0.3 display limits. Numerical extrema and factors are retained in tables; saturated display colors do not clip analytical values. Experimental BRDF-only images lack the enormous historical boundary. Combined products still inherit the separate topographic instability, especially at 717 nm.
 
@@ -109,7 +109,7 @@ All panels use the original 401 x 501 pixel ROI and identical 0-0.3 display limi
 
 The severe historical red-edge amplification is absent in the reconstructed BRDF-only products. This is an actual calculation result, not a model rejection presented as a corrected image.
 
-![All panels use the original 401 x 501 pixel ROI and identical 0-0.3 display limits. Numerical extrema and factors are retained in tables; saturated display colors do not clip analytical values. Experimental BRDF-only images lack the enormous historical boundary. Combined products still inherit the separate topographic instability, especially at 717 nm.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure09_rededge.png)
+![All panels use the original 401 x 501 pixel ROI and identical 0-0.3 display limits. Numerical extrema and factors are retained in tables; saturated display colors do not clip analytical values. Experimental BRDF-only images lack the enormous historical boundary. Combined products still inherit the separate topographic instability, especially at 717 nm.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure09_rededge.png)
 
 All panels use the original 401 x 501 pixel ROI and identical 0-0.3 display limits. Numerical extrema and factors are retained in tables; saturated display colors do not clip analytical values. Experimental BRDF-only images lack the enormous historical boundary. Combined products still inherit the separate topographic instability, especially at 717 nm.
 
@@ -120,7 +120,7 @@ All panels use the original 401 x 501 pixel ROI and identical 0-0.3 display limi
 
 Observed-geometry predictions remain positive and above the unchanged roundoff/OLS-uncertainty limits, with no identity fallback or factor cap.
 
-![The historical 650 nm adjacent jump was 674,321 candidate units; reconstructed BRDF-only jumps are about 0.0009-0.0013. Historical values are omitted from these linear axes because their enormous scale would hide all other signals; their unchanged values remain in the ROI panels and numerical tables. Solid prediction curves and dashed reference levels come from the accepted experimental models, not visual inversion.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure10_transects.png)
+![The historical 650 nm adjacent jump was 674,321 candidate units; reconstructed BRDF-only jumps are about 0.0009-0.0013. Historical values are omitted from these linear axes because their enormous scale would hide all other signals; their unchanged values remain in the ROI panels and numerical tables. Solid prediction curves and dashed reference levels come from the accepted experimental models, not visual inversion.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure10_transects.png)
 
 The historical 650 nm adjacent jump was 674,321 candidate units; reconstructed BRDF-only jumps are about 0.0009-0.0013. Historical values are omitted from these linear axes because their enormous scale would hide all other signals; their unchanged values remain in the ROI panels and numerical tables. Solid prediction curves and dashed reference levels come from the accepted experimental models, not visual inversion.
 
@@ -131,7 +131,7 @@ The historical 650 nm adjacent jump was 674,321 candidate units; reconstructed B
 
 The old red line is not simply relocated to one new line; camera assignment creates many tessellation boundaries. These must be evaluated separately from the historical pole.
 
-![Red overlays mark inferred A/B assignment changes or C candidate-count changes. Kernel inputs can jump when assignments change. Bottom diagnostics use native horizontal edges, with raw and corrected jumps and a factor-induced signal component separately retained. These are algorithmic sensitivity diagnostics, not independently verified physical seams. Fixed factor display limits never cap numerical gains.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure11_assignment_seams.png)
+![Red overlays mark inferred A/B assignment changes or C candidate-count changes. Kernel inputs can jump when assignments change. Bottom diagnostics use native horizontal edges, with raw and corrected jumps and a factor-induced signal component separately retained. These are algorithmic sensitivity diagnostics, not independently verified physical seams. Fixed factor display limits never cap numerical gains.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure11_assignment_seams.png)
 
 Red overlays mark inferred A/B assignment changes or C candidate-count changes. Kernel inputs can jump when assignments change. Bottom diagnostics use native horizontal edges, with raw and corrected jumps and a factor-induced signal component separately retained. These are algorithmic sensitivity diagnostics, not independently verified physical seams. Fixed factor display limits never cap numerical gains.
 
@@ -142,7 +142,7 @@ Red overlays mark inferred A/B assignment changes or C candidate-count changes. 
 
 The boundary-crossing aspen polygon is the same preselected GlobalID as in the earlier artifact investigation. Labels and sampled memberships are unchanged.
 
-![The exemplar GlobalID and memberships are unchanged from P165/P172. The historical spectrum is dominated by corrupted red and red-edge bands. Experimental BRDF-only spectra remain on the raw-scale range; shape and class information are evaluated separately from numerical fitting success. Unit-sum shape is a display diagnostic, not a new radiometric calibration.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure12_spectra.png)
+![The exemplar GlobalID and memberships are unchanged from P165/P172. The historical spectrum is dominated by corrupted red and red-edge bands. Experimental BRDF-only spectra remain on the raw-scale range; shape and class information are evaluated separately from numerical fitting success. Unit-sum shape is a display diagnostic, not a new radiometric calibration.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure12_spectra.png)
 
 The exemplar GlobalID and memberships are unchanged from P165/P172. The historical spectrum is dominated by corrupted red and red-edge bands. Experimental BRDF-only spectra remain on the raw-scale range; shape and class information are evaluated separately from numerical fitting success. Unit-sum shape is a display diagnostic, not a new radiometric calibration.
 
@@ -153,7 +153,7 @@ The exemplar GlobalID and memberships are unchanged from P165/P172. The historic
 
 The package identifiability and separability functions are run on exactly the established 157 identities and 144,406 polygon-pixel memberships. No memberships are changed to favor a branch.
 
-![All comparisons preserve 157 independent polygon identities, 144,406 memberships, seed 20261103, three folds, fixed classifier C=1 and training-only scaling. Raw 66.83%, historical 59.96%; A 69.81%, B 69.46%, C uniform 67.14%, C center 69.65%. Every BRDF-only paired gain interval includes zero. No held-out score was used to choose footprints, weights, thresholds or BRDF parameters.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure13_ecology.png)
+![All comparisons preserve 157 independent polygon identities, 144,406 memberships, seed 20261103, three folds, fixed classifier C=1 and training-only scaling. Raw 66.83%, historical 59.96%; A 69.81%, B 69.46%, C uniform 67.14%, C center 69.65%. Every BRDF-only paired gain interval includes zero. No held-out score was used to choose footprints, weights, thresholds or BRDF parameters.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure13_ecology.png)
 
 All comparisons preserve 157 independent polygon identities, 144,406 memberships, seed 20261103, three folds, fixed classifier C=1 and training-only scaling. Raw 66.83%, historical 59.96%; A 69.81%, B 69.46%, C uniform 67.14%, C center 69.65%. Every BRDF-only paired gain interval includes zero. No held-out score was used to choose footprints, weights, thresholds or BRDF parameters.
 
@@ -164,7 +164,7 @@ All comparisons preserve 157 independent polygon identities, 144,406 memberships
 
 The existing topographic calculation is executed through the same shared functions before BRDF fitting and application. Passing BRDF guards does not repair the separate topographic instability.
 
-![Combined runs pass the current BRDF numerical checks but reach 717 nm candidate reflectance maxima of about 50-70, versus 0.41-0.50 for BRDF-only. These extreme values are not clipped or approved. Combined ecological outcomes depend strongly on the assumed geometry; numerical acceptance is insufficient for scientific production readiness.](../../provenance/goldhill-viewing-geometry/2026-11-04/figure14_topographic_risk.png)
+![Combined runs pass the current BRDF numerical checks but reach 717 nm candidate reflectance maxima of about 50-70, versus 0.41-0.50 for BRDF-only. These extreme values are not clipped or approved. Combined ecological outcomes depend strongly on the assumed geometry; numerical acceptance is insufficient for scientific production readiness.](https://raw.githubusercontent.com/earthlab/spectralbridge/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/figure14_topographic_risk.png)
 
 Combined runs pass the current BRDF numerical checks but reach 717 nm candidate reflectance maxima of about 50-70, versus 0.41-0.50 for BRDF-only. These extreme values are not clipped or approved. Combined ecological outcomes depend strongly on the assumed geometry; numerical acceptance is insufficient for scientific production readiness.
 
@@ -213,14 +213,14 @@ Native geometry, eight corrected images and large arrays are outside the reposit
 
 ## Detailed records
 
-- [Flight/CRS and vertical evidence](../../provenance/goldhill-viewing-geometry/2026-11-04/flight_and_crs.json)
-- [Geometry and source coverage](../../provenance/goldhill-viewing-geometry/2026-11-04/geometry_summary.json)
-- [All eight main fit/application outcomes](../../provenance/goldhill-viewing-geometry/2026-11-04/experiment_status.json)
-- [Rank and spatial conditioning](../../provenance/goldhill-viewing-geometry/2026-11-04/design_support.json)
-- [Native seam diagnostics](../../provenance/goldhill-viewing-geometry/2026-11-04/assignment_boundary_metrics.json)
-- [Exact evaluation contract](../../provenance/goldhill-viewing-geometry/2026-11-04/evaluation_contract.json)
-- [Per-polygon spectra and variability](../../provenance/goldhill-viewing-geometry/2026-11-04/polygon_summaries.csv)
-- [Within-branch class separability](../../provenance/goldhill-viewing-geometry/2026-11-04/separability_pairs.csv)
-- [Paired ecological uncertainty](../../provenance/goldhill-viewing-geometry/2026-11-04/paired_gain.json)
-- [Minimal source subset](../../provenance/goldhill-viewing-geometry/2026-11-04/minimum_source_subset.csv)
-- [Verification](../../provenance/goldhill-viewing-geometry/2026-11-04/verification.json)
+- [Flight/CRS and vertical evidence](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/flight_and_crs.json)
+- [Geometry and source coverage](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/geometry_summary.json)
+- [All eight main fit/application outcomes](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/experiment_status.json)
+- [Rank and spatial conditioning](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/design_support.json)
+- [Native seam diagnostics](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/assignment_boundary_metrics.json)
+- [Exact evaluation contract](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/evaluation_contract.json)
+- [Per-polygon spectra and variability](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/polygon_summaries.csv)
+- [Within-branch class separability](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/separability_pairs.csv)
+- [Paired ecological uncertainty](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/paired_gain.json)
+- [Minimal source subset](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/minimum_source_subset.csv)
+- [Verification](https://github.com/earthlab/spectralbridge/blob/bb3da46/provenance/goldhill-viewing-geometry/2026-11-04/verification.json)

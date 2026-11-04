@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 import logging
 import io
 from pathlib import Path
@@ -13,7 +14,7 @@ import numpy as np
 import pytest
 from spectralbridge.corrections import BRDF_KERNEL_MATH_VERSION, BRDF_VALIDATION_POLICY
 
-if "h5py" not in sys.modules:  # pragma: no cover - dependency shim for unit tests
+if "h5py" not in sys.modules and importlib.util.find_spec("h5py") is None:  # pragma: no cover - dependency shim for unit tests
     fake_h5py = types.ModuleType("h5py")
 
     class _FakeFile:
@@ -30,7 +31,7 @@ if "h5py" not in sys.modules:  # pragma: no cover - dependency shim for unit tes
     fake_h5py.Group = type("Group", (), {})
     sys.modules["h5py"] = fake_h5py
 
-if "matplotlib" not in sys.modules:  # pragma: no cover - dependency shim for unit tests
+if "matplotlib" not in sys.modules and importlib.util.find_spec("matplotlib") is None:  # pragma: no cover - dependency shim for unit tests
     fake_matplotlib = types.ModuleType("matplotlib")
     fake_pyplot = types.ModuleType("matplotlib.pyplot")
 
@@ -381,3 +382,28 @@ def test_neon_correction_stage_does_not_reuse_incompatible_completed_product(tmp
         pipeline.stage_apply_brdf_topo_correction(base_folder=tmp_path,product_code="synthetic",flight_stem="synthetic",
             raw_img_path=tmp_path/"raw.img",raw_hdr_path=tmp_path/"raw.hdr",correction_json_path=tmp_path/"params.json")
     assert (image.read_bytes(),header.read_bytes()) == before
+
+
+def test_convolution_header_preserves_affine_json_as_one_scalar(tmp_path):
+    from spectralbridge.envi import hdr_to_dict
+    from spectralbridge.radiometry import Radiometry, require_library_header
+
+    calibration = Radiometry(
+        0.0001, 0.0, "VALID", "Synthetic NEON fixture, with commas and spaces"
+    )
+    header = {
+        **calibration.header(),
+        "brdf status": "NOT_REQUESTED",
+        "samples": 2,
+        "lines": 2,
+        "bands": 1,
+        "data type": 4,
+        "interleave": "bsq",
+        "byte order": 0,
+        "wavelength": [650.0],
+    }
+    path = tmp_path / "convolved.hdr"
+    path.write_text(pipeline._build_resample_header_text(header))
+    recovered = require_library_header(hdr_to_dict(path))
+    assert recovered.record() == calibration.record()
+    np.testing.assert_allclose(recovered.to_physical(np.array([1000.0])), [0.1])

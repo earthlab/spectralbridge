@@ -4,9 +4,14 @@ SpectralBridge releases use one immutable candidate: build the wheel and sdist
 once, test those exact bytes, attach those bytes to GitHub, and publish the same
 bytes to PyPI. Never rebuild between validation and publication.
 
-Review date: 2026-10-13
+Review date: 2026-11-04
 
-The repository currently targets **2.3.0rc1**. The
+The repository currently targets **2.3.0rc2**. The current preparation is recorded
+in [RC2 release readiness](https://github.com/earthlab/spectralbridge/blob/codex/prepare-2.3.0rc2/RC2_RELEASE_READINESS.md).
+
+Read [RC2 release notes](release-notes-2.3.0rc2.md) for scope and compatibility.
+
+The earlier RC1 preparation is preserved: The
 [recorded RC audit](https://github.com/earthlab/spectralbridge/blob/main/provenance/release/2026-10-13/RC_READINESS.md)
 contains dated source and exact-artifact checks. It records no publication or
 deployment. Its results apply to the audited candidate, not subsequent edits;
@@ -31,13 +36,13 @@ The release identities are deliberately distinct and must remain so:
 - GitHub repository: `earthlab/spectralbridge`
 
 Final tags use `vMAJOR.MINOR.PATCH`. Prereleases use strict PEP 440 suffixes,
-for example `v2.3.0rc1`, `v2.3.0b1`, or `v2.3.0a1`. Do not use
+for example `v2.3.0rc2`, `v2.3.0b1`, or `v2.3.0a1`. Do not use
 `v2.3.0-rc1` or `v2.3.0.rc1`.
 
 Validate the candidate identity locally:
 
 ```bash
-python scripts/check_release_metadata.py --tag v2.3.0rc1
+python scripts/check_release_metadata.py --tag v2.3.0rc2
 ```
 
 ## One-time PyPI and GitHub configuration
@@ -54,7 +59,7 @@ Before pushing a release tag, a project owner must:
    - workflow: `release.yml`
    - environment: `pypi`;
 3. in the GitHub repository, create the `pypi` deployment environment;
-4. optionally add required reviewers to that environment so publication needs
+4. require maintainer reviewers on that environment so publication needs
    an explicit maintainer approval;
 5. confirm GitHub Actions can create releases and request an OIDC identity token.
 
@@ -77,6 +82,10 @@ runs these gates in order:
 8. create a GitHub release using those artifacts, marking PEP 440 prereleases
    as GitHub prereleases;
 9. publish the same wheel and sdist to PyPI through trusted publishing.
+
+Every downstream job verifies SHA-256 checksums before installing or publishing
+its downloaded candidate. Generated API freshness and rendered signatures are
+release gates alongside the website build.
 
 The build is never repeated in a downstream job. PyPI publication is last
 because it is irreversible. If trusted publishing fails after the GitHub release,
@@ -117,14 +126,14 @@ Build into a clean directory and inspect both distributions:
 ```bash
 python -m build
 python -m twine check dist/*
-python -m zipfile -l dist/earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl
-python -m tarfile -l dist/earthlab_spectralbridge-2.3.0rc1.tar.gz
+python -m zipfile -l dist/earthlab_spectralbridge-2.3.0rc2-py3-none-any.whl
+python -m tarfile -l dist/earthlab_spectralbridge-2.3.0rc2.tar.gz
 ```
 
 For each required Python, create a fresh environment, install one exact local
 artifact without editable/source-checkout leakage, run `pip check`, change to a
 temporary directory, and execute `scripts/check_installed_artifact.py` with
-`--expected-version 2.3.0rc1`.
+`--expected-version 2.3.0rc2`.
 
 ## Recommended RC sequence
 
@@ -132,10 +141,10 @@ temporary directory, and execute `scripts/check_installed_artifact.py` with
 2. configure or verify the PyPI trusted publisher and protected GitHub `pypi`
    environment;
 3. push the preparation commit and wait for branch CI;
-4. create and push `v2.3.0rc1` from that exact commit;
+4. create and push `v2.3.0rc2` from that exact commit;
 5. approve the protected PyPI environment only after the artifact jobs pass;
 6. verify the GitHub release is a prerelease with wheel, sdist, and checksums;
-7. verify `https://pypi.org/project/earthlab-spectralbridge/2.3.0rc1/` and install it in
+7. verify `https://pypi.org/project/earthlab-spectralbridge/2.3.0rc2/` and install it in
    a fresh external environment;
 8. ask external testers to run `examples/release_candidate_smoke.py` and one
    representative workflow appropriate to their data;

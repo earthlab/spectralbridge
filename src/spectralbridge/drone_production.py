@@ -35,6 +35,8 @@ from spectralbridge.remote import (
     remote_join,
     remote_parent,
     remote_relative_path,
+    checksum_matches,
+    stage_remote_file,
 )
 from spectralbridge.utils.paths import get_package_data_path
 
@@ -1372,7 +1374,9 @@ def stage_drone_package(
     """Download or reuse one complete H5 while preserving ExportPackage layout."""
 
     if not package.remote_h5_path or not package.h5_name:
-        raise ValueError(f"package has no unambiguous H5: {package.remote_package_path}")
+        raise ValueError(
+            f"package has no unambiguous H5: {package.remote_package_path}"
+        )
     relative = remote_relative_path(package.remote_h5_path, source)
     staging_root = Path(staging_dir).expanduser().resolve()
     local_path = (staging_root / relative).resolve()
@@ -1381,11 +1385,13 @@ def stage_drone_package(
     expected_size = package.size_bytes
     status = "downloaded"
     if local_path.is_file() and local_path.stat().st_size > 0:
-        size_matches = expected_size is None or local_path.stat().st_size == expected_size
-        checksum_matches = (
-            package.checksum is None or _sha256_file(local_path) == package.checksum
+        size_matches = (
+            expected_size is None or local_path.stat().st_size == expected_size
         )
-        if size_matches and checksum_matches:
+        checksum_valid = package.checksum is None or checksum_matches(
+            local_path, package.checksum
+        )
+        if size_matches and checksum_valid:
             status = "reused"
             return StagedDroneInput(
                 package_path=str(local_path.parent),
@@ -1407,7 +1413,7 @@ def stage_drone_package(
             f"downloaded H5 size mismatch for {package.remote_h5_path}: "
             f"expected {expected_size}, found {partial.stat().st_size}"
         )
-    if package.checksum and _sha256_file(partial) != package.checksum:
+    if package.checksum and not checksum_matches(partial, package.checksum):
         raise RuntimeError(f"downloaded H5 checksum mismatch: {package.remote_h5_path}")
     os.replace(partial, local_path)
     transfer = {
@@ -1914,16 +1920,21 @@ def verify_uploaded_results(
     remote_path: str,
     *,
     backend: RemoteCollectionBackend,
+    require_checksums: bool = False,
 ) -> dict[str, Any]:
     """Verify every packaged file remotely by presence and size/checksum metadata."""
 
     local = Path(local_package).expanduser().resolve()
+    if not local.is_dir():
+        raise FileNotFoundError(local)
     expected = {
         path.relative_to(local).as_posix(): path
         for path in local.rglob("*")
         if path.is_file()
     }
     remote_files = _recursive_remote_files(backend, remote_path)
+    if not expected:
+        raise ValueError("Cannot verify an empty upload package")
     missing = sorted(set(expected) - set(remote_files))
     size_mismatches = sorted(
         relative
@@ -1937,10 +1948,22 @@ def verify_uploaded_results(
         for relative, path in expected.items()
         if relative in remote_files
         and remote_files[relative].checksum is not None
-        and remote_files[relative].checksum != _sha256_file(path)
+        and not checksum_matches(path, remote_files[relative].checksum)
+    )
+    checksums_unavailable = sorted(
+        relative
+        for relative in expected
+        if relative in remote_files and remote_files[relative].checksum is None
     )
     return {
-        "verified": not missing and not size_mismatches and not checksum_mismatches,
+        "verified": not missing
+        and not size_mismatches
+        and not checksum_mismatches
+        and not (require_checksums and checksums_unavailable),
+        "integrity_level": "CHECKSUMS"
+        if not checksums_unavailable and not missing
+        else "METADATA_ONLY",
+        "checksums_unavailable": checksums_unavailable,
         "remote_path": remote_path,
         "expected_files": len(expected),
         "remote_files": len(remote_files),
@@ -2197,6 +2220,9 @@ __all__ = [
     "RemoteDronePackage",
     "StagedDroneInput",
     "inspect_drone_collection",
+    "inspect_original_drone_packages",
+    "stage_original_drone_package",
+    "validate_drone_coordinate_table",
     "package_drone_bulk_results",
     "run_drone_bulk_production",
     "run_drone_campaign",
@@ -2205,3 +2231,247 @@ __all__ = [
     "validate_bulk_ready_flightline",
     "verify_uploaded_results",
 ]
+
+
+def inspect_original_drone_packages(
+    source: str,
+    *,
+    sites: Sequence[str],
+    backend: RemoteCollectionBackend,
+    max_depth: int = 4,
+    max_entries: int = 10000,
+) -> dict:
+    """Discover original-package orthomosaics and associated inputs, without downloading.
+
+    Selection is case-insensitive and filename-driven only within the supplied
+    original-export collection. Raster metadata is validated after staging. An
+    ambiguous site is reported with every alternative and is never auto-selected.
+    Location tables are candidates, not certified geometry or calibration.
+    """
+    backend.verify_access(source)
+    roots = backend.list_directory(source)
+    result = {}
+    for site in sites:
+        candidates = roots
+        source_name = Path(source).name
+        if "exportpackage" in source_name.lower():
+            candidates = [RemoteEntry(source, source_name, True)]
+        packages = [
+            r
+            for r in candidates
+            if r.is_collection
+            and site.upper() in re.split(r"[^A-Z0-9]+", r.name.upper())
+            and "EXPORTPACKAGE" in r.name.upper()
+        ]
+        if len(packages) != 1:
+            result[site] = dict(
+                status="AMBIGUOUS_OR_MISSING_PACKAGE",
+                alternatives=[r.path for r in packages],
+            )
+            continue
+        package = packages[0]
+        entries = _inventory_entries(
+            package.path, backend, max_depth=max_depth, max_entries=max_entries
+        )
+        files = [r for r in entries if not r.is_collection]
+        originals = [
+            r
+            for r in files
+            if r.name.lower().endswith((".tif", ".tiff"))
+            and re.search(r"(?:^|[_-])ortho(?:mosaic)?(?:[_-]|\.)", r.name.lower())
+            and not re.search(
+                r"normaliz|rescal|resampl|corrected|translated|aligned|10cm|10k",
+                r.name.lower(),
+            )
+        ]
+        if len(originals) != 1:
+            result[site] = dict(
+                status="AMBIGUOUS_OR_MISSING_ORTHOMOSAIC",
+                package=package.path,
+                alternatives=[r.to_dict() for r in originals],
+                files=[r.to_dict() for r in files],
+            )
+            continue
+        ortho = originals[0]
+        result[site] = dict(
+            status="SELECTED_PENDING_RASTER_VALIDATION",
+            site=site,
+            source_directory=package.path,
+            flight_stem=derive_drone_flight_stem(Path(package.path) / ortho.name),
+            orthomosaic=ortho.to_dict(),
+            coordinate_candidates=[
+                r.to_dict() for r in files if r.name.lower().endswith(".csv")
+            ],
+            terrain_candidates=[
+                r.to_dict()
+                for r in files
+                if re.search(r"(?:dem|dtm).*\.tif$", r.name.lower())
+            ],
+            files=[r.to_dict() for r in files],
+            selection_rationale="Unique ORTHO export in the supplied original-package collection; excluded normalized/corrected/translated/resampled/aligned sources. Validate dtype/grid/bands after transfer.",
+            clipped_export="clipped" in ortho.name.lower(),
+        )
+    return result
+
+
+def stage_original_drone_package(
+    selection: Mapping[str, Any],
+    *,
+    staging_dir: str | Path,
+    backend: RemoteCollectionBackend,
+) -> dict:
+    """Stage a selected orthomosaic plus its small metadata and terrain, checksummed.
+
+    Original filenames/package-relative paths remain intact. Case-colliding paths
+    are separated by stable remote-path hash directories on every platform.
+    Point-cloud archives
+    and unrelated rasters are not downloaded. No calibration or geometry is inferred.
+    """
+    if selection.get("status") != "SELECTED_PENDING_RASTER_VALIDATION":
+        raise ValueError("An unambiguous source selection is required before download")
+    root = selection["source_directory"]
+    records = []
+    # CyVerse paths are case-sensitive; common local filesystems are not.
+    relatives = [remote_relative_path(v["path"], root) for v in selection["files"]]
+    folded_counts = {}
+    for relative in relatives:
+        key = str(relative).casefold()
+        folded_counts[key] = folded_counts.get(key, 0) + 1
+    for value in selection["files"]:
+        entry = RemoteEntry(**value)
+        small_metadata = entry.name.lower().endswith(
+            (".csv", ".json", ".xml", ".pdf", ".prj", ".shp", ".shx", ".dbf", ".cpg")
+        )
+        selected = (
+            entry.path == selection["orthomosaic"]["path"]
+            or entry.path in {r["path"] for r in selection["terrain_candidates"]}
+            or small_metadata
+            and (entry.size_bytes is None or entry.size_bytes <= 20 * 1024**2)
+        )
+        if not selected:
+            continue
+        relative = remote_relative_path(entry.path, root)
+        package = Path(staging_dir) / Path(root).name
+        if folded_counts[str(relative).casefold()] > 1:
+            import hashlib
+
+            identity = hashlib.sha256(entry.path.encode()).hexdigest()[:16]
+            package = package / "__case_distinct__" / identity
+        path = package / relative
+        records.append(stage_remote_file(entry, path, backend=backend))
+    return dict(
+        site=selection["site"],
+        source_directory=root,
+        transfers=records,
+        orthomosaic_local=next(
+            r["local_path"]
+            for r in records
+            if r["remote_path"] == selection["orthomosaic"]["path"]
+        ),
+    )
+
+
+def validate_drone_coordinate_table(
+    path: str | Path, *, raster_path: str | Path, declared_crs: str | None = None
+) -> dict:
+    """Validate a supplied camera table without silently reinterpreting its CRS.
+
+    Requires PhotoID/CameraID, X/Y/Z and timestamps. A table may contain repeated
+    per-band rows at one position, but identifiers must be unique. Horizontal
+    validity does not certify contributor weights, orientation or vertical datum.
+    """
+    import numpy as np
+    import pandas as pd
+    import rasterio
+    from pyproj import Transformer
+
+    frame = pd.read_csv(path)
+    columns = {c.lower().replace("_", "").replace(" ", ""): c for c in frame.columns}
+    aliases = dict(
+        id=["photoid", "cameraid", "label"],
+        x=["x", "easting"],
+        y=["y", "northing"],
+        z=["z", "altitude"],
+        time=["timestamp", "tifftagdatetime", "datetime"],
+    )
+    selected = {
+        key: next((columns[c] for c in names if c in columns), None)
+        for key, names in aliases.items()
+    }
+    missing = [key for key, value in selected.items() if value is None]
+    result = dict(
+        path=str(path),
+        columns=selected,
+        rows=len(frame),
+        errors=[],
+        warnings=[],
+        scientific_geometry_status="INFERRED_CONTRIBUTORS_UNVERIFIED",
+    )
+    if missing:
+        return {
+            **result,
+            "status": "INVALID",
+            "errors": ["Missing required columns: " + ", ".join(missing)],
+        }
+    xyz = (
+        frame[[selected[k] for k in ["x", "y", "z"]]]
+        .apply(pd.to_numeric, errors="coerce")
+        .to_numpy()
+    )
+    if not np.isfinite(xyz).all():
+        result["errors"].append("Missing or nonnumeric camera positions")
+    if frame[selected["id"]].isna().any() or frame[selected["id"]].duplicated().any():
+        result["errors"].append("Missing or duplicate camera identifiers")
+    stamp = (
+        frame[selected["time"]]
+        .astype(str)
+        .str.replace(r"^(\d{4}):(\d\d):(\d\d)", r"\1-\2-\3", regex=True)
+    )
+    times = pd.to_datetime(stamp, errors="coerce", utc=True)
+    if times.isna().any():
+        result["errors"].append("Missing or invalid camera timestamps")
+    if declared_crs is None:
+        for label in ["crs", "epsg"]:
+            if label in columns:
+                values = frame[columns[label]].dropna().astype(str).unique()
+                if len(values) == 1:
+                    declared_crs = values[0]
+    if declared_crs is None:
+        result["errors"].append("Coordinate CRS is not explicitly declared")
+    else:
+        try:
+            crs = rasterio.crs.CRS.from_user_input(declared_crs)
+            if not crs.is_projected or crs.linear_units.lower() not in {
+                "metre",
+                "meter",
+            }:
+                result["errors"].append(
+                    "Camera coordinates require a projected metre CRS"
+                )
+            with rasterio.open(raster_path) as src:
+                x, y = Transformer.from_crs(crs, src.crs, always_xy=True).transform(
+                    xyz[:, 0], xyz[:, 1]
+                )
+                inside = (
+                    (np.asarray(x) >= src.bounds.left)
+                    & (np.asarray(x) <= src.bounds.right)
+                    & (np.asarray(y) >= src.bounds.bottom)
+                    & (np.asarray(y) <= src.bounds.top)
+                )
+                result["positions_in_raster_bounds"] = int(inside.sum())
+                if not inside.any():
+                    result["errors"].append(
+                        "Declared CRS places every camera outside the orthomosaic; do not auto-relabel coordinates"
+                    )
+                elif not inside.all():
+                    result["warnings"].append(
+                        "Some cameras outside raster bounds; footprint eligibility requires separate validation"
+                    )
+            result["declared_crs"] = str(crs)
+        except (ValueError, rasterio.errors.CRSError) as exc:
+            result["errors"].append(str(exc))
+    result["warnings"].append(
+        "Vertical datum, clock zone and actual image contributors remain separate provenance requirements"
+    )
+    result["status"] = "INVALID" if result["errors"] else "VALID_HORIZONTAL_TABLE"
+    return result
